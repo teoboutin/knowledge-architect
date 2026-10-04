@@ -8,6 +8,11 @@ subsection is omitted.
 
 ## Next release
 
+### New features
+
+- `library`, patch: each published crate ships CHANGELOG.md, so the changelog of a version is in
+  the source cargo downloads for it.
+
 ### Workflow
 
 - `agent-skills`, patch: the setup skill's section for a Rust project ties every build to its
