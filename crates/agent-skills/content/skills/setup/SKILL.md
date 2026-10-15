@@ -189,11 +189,6 @@ filtered through a pipe. In a Rust project, the shape is the maintenance crate o
 `skill@knowledge-architect-setup@rust-project` below, run through the cargo alias `cargo x gates`, whose gates command hands the project's gate
 list to the published library knowledge-architect-gates.
 
-Recommend too, in the root `CLAUDE.md`, that a session run `{{command}} check --staged` after
-staging and before each commit. It judges the tree the commit will record, HEAD's with the staged
-changes, so a file left unstaged or a change staged in part is caught before the commit exists,
-where the gates catch it only before the merge.
-
 %% The two goals and their wordings are the owner's proposal: "I would also recommend setting
 %% these two goals (with those wordings) in the project setting-up skill".
 A maintenance tool of that kind is a Component of its own, which serves the project rather than its

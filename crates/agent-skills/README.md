@@ -64,8 +64,10 @@ about an existing architecture — the assistant:
   is recorded in its design home when the work implementing it lands,
   or when it is made if no work implements it, and a losing alternative
   where the recording tests keep it;
-- writes in plain technical English: explicit quantities and invariants
-  over qualitative wording, no idioms, no aphorisms.
+- writes in plain technical English, as the primer's working-prose rules
+  say for every text: explicit quantities and invariants over qualitative
+  wording, no idioms, no aphorisms; a qualitative claim may open a
+  thread, never close one.
 
 For a bounded problem (clear requirement, main risk is over-building)
 it grounds the request first, since only the grounding shows whether the
@@ -327,7 +329,7 @@ and real use decides whether it becomes a reason to change anything.
 - **Vague words diverge across readers.** Verbal likelihood terms are
   interpreted with large between-person variance (Wallsten, Budescu et
   al., 1980s work on the vague meanings of probability terms); the
-  skill's Language rule extends the same caution to qualitative
+  primer's working-prose rule extends the same caution to qualitative
   quality wording, preferring explicit quantities, bounds, and
   invariants.
 - **An LLM as arguing counterpart is starting to be tested.** An
