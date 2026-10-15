@@ -6,13 +6,9 @@ A documentation checker and an agent workflow, shipped as Rust crates. The check
 project's documents stay consistent with its code and with each other, through declared registers
 and checked references. The workflow is a set of agent skills that the checker embeds and writes
 into a project on request.
-The goals are `register@knowledge-architect@goal`.
+The main goals are declared `register@knowledge-architect@goal` and Components refine or add to them.
 
-Recorded decisions were often argued before the code existed, so implementation is expected to
-prove some of them wrong.
-
-The repository is a virtual workspace with Components, none in a directory named after the
-project, per `design@knowledge-architect@no-component-directory-named-after-the-project`:
+The repository is a virtual workspace with Components:
 
 | Component | directory | what it is |
 | --- | --- | --- |
@@ -201,9 +197,10 @@ An issue entry keeps its magnitudes, per the cold-reader standard of
 
 ### Plan documents
 
-`path@knowledge-architect@docs/plans/` is the plans directory, whose path the checker fixes, per
-`design@core@plans-dir-fixed`. It holds a README and two homes: specs/, one file per spec for the work of one PR, and milestones/, one directory per
-milestone for work across several PRs. How a plan document lands, is corrected and leaves is the
+`path@knowledge-architect@docs/plans/` is the plans directory. It holds a README and two homes: 
+- specs/, one file per spec for the work of one PR
+- milestones/, one directory per milestone for work across several PRs. 
+How a plan document lands, is corrected and leaves is the
 installed `skill@knowledge-architect-planning`, read whole; its homes are
 `design@agent-skills@document-vocabulary`, `design@agent-skills@plan-document-leaves-at-landing`
 and `design@agent-skills@plan-landing-is-not-tied-to-its-work`.
