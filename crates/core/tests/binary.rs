@@ -930,6 +930,74 @@ fn anchors_lists_every_anchor_kind_with_its_homes() {
         "{out}"
     );
     assert!(!out.contains("missing"), "{out}");
+    // The root Component's path is `.`; `plans` lists its two homes; a milestone and a spec
+    // list no register, since their items live in the plan's own documents.
+    assert!(out.lines().any(|l| l == "planted  component  ."), "{out}");
+    let after = |head: &str| {
+        out.split('\n')
+            .skip_while(|l| !l.starts_with(head))
+            .skip(1)
+            .take_while(|l| l.starts_with("  "))
+            .map(str::trim)
+            .collect::<Vec<_>>()
+    };
+    assert_eq!(
+        after("plans "),
+        [
+            "spec  docs/plans/specs/",
+            "milestone  docs/plans/milestones/"
+        ],
+        "{out}"
+    );
+    assert!(after("m-one ").is_empty(), "{out}");
+    assert!(after("a-spec ").is_empty(), "{out}");
+}
+
+/// A heading register's home in its directory shape is printed as the directory, and a
+/// conformant project exits 0. `dirhome` keeps its design and goals homes as directories.
+#[test]
+fn anchors_prints_a_heading_register_s_directory_home() {
+    let (out, stderr, code) = run("dirhome", &["anchors"]);
+    assert_eq!(code, 0, "{out}{stderr}");
+    for (register, home) in [("design", "docs/design/"), ("goal", "docs/goals/")] {
+        assert!(
+            out.lines()
+                .any(|l| l.split_whitespace().eq([register, home])),
+            "{out}"
+        );
+    }
+}
+
+/// A heading register's directory with no README is still its home, as `check` judges it: the
+/// absent README is a finding of its own, not a missing home.
+#[test]
+fn anchors_prints_a_directory_home_without_its_readme() {
+    let sandbox = Sandbox::new("anchors-no-readme", "dirhome");
+    std::fs::remove_file(sandbox.path("docs/design/README.md")).expect("the README is there");
+    sandbox.stage();
+    let (out, stderr, code) = sandbox.run(&["anchors"]);
+    assert_eq!(code, 0, "{out}{stderr}");
+    assert!(
+        out.lines()
+            .any(|l| l.split_whitespace().eq(["design", "docs/design/"])),
+        "{out}"
+    );
+}
+
+/// A heading register held in both shapes prints both, as `check` reports the pair.
+#[test]
+fn anchors_prints_both_shapes_of_a_heading_home() {
+    let sandbox = Sandbox::new("anchors-both", "dirhome");
+    sandbox.write("docs/design.md", "# Design\n");
+    sandbox.stage();
+    let (out, stderr, code) = sandbox.run(&["anchors"]);
+    assert_eq!(code, 0, "{out}{stderr}");
+    assert!(
+        out.lines().any(|l| l
+            .split_whitespace()
+            .eq(["design", "docs/design.md", "docs/design/"])),
+        "{out}"
+    );
 }
 
 /// A home the tree does not hold is printed `missing`, and the run is a negative answer, exit
@@ -947,6 +1015,12 @@ fn anchors_marks_a_missing_home_and_exits_one() {
     assert_eq!(
         location.split_whitespace().collect::<Vec<_>>(),
         ["issue", "missing"],
+        "{out}"
+    );
+    // A heading register's missing home: the widget's tripwire home is not there.
+    assert!(
+        out.lines()
+            .any(|l| l.split_whitespace().eq(["tripwire", "missing"])),
         "{out}"
     );
 }
