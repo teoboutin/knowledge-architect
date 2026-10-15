@@ -75,11 +75,10 @@ On a branch of its own, `release-<version>`, under the Git rules of the root `CL
    installed as `knowledge-architect-<name>`, or one of the three crates. Every document the shipped text relies on in a project, such as the knowledge
    table, is written by an installed skill.
 6. **crates.io.** For each crate, the API answers 404 for a first release, or shows the crate owned
-   by the owner's account; in both cases the version itself must be absent. The release workflow
-   does not publish a crate's first version, per `design@knowledge-architect@publish-credential`:
-   the owner publishes that version with an API token, then configures the crate's trusted
-   publisher and turns on "Require trusted publishing for all new versions", before step 11 tags
-   the release:
+   by the owner's account; in both cases the version itself must be absent. A 404 means a crate's
+   first version, which the release workflow cannot publish, per
+   `design@knowledge-architect@publish-credential`: stop the release there, and put to the owner
+   how that version is published:
 
    ```sh
    curl -s -A 'knowledge-architect release check' https://crates.io/api/v1/crates/<crate>/<version>
