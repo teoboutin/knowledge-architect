@@ -900,6 +900,57 @@ fn issues_lists_one_row_per_entry_and_each_filter_keeps_what_it_names() {
     );
 }
 
+/// `anchors` prints every anchor a project has, of every kind, each register a declared anchor
+/// carries with its home, and exits 0 when every home it prints exists. `planted` is clean
+/// through phase 2 and holds every kind: two Components, a location, the plans directory, a
+/// milestone and a spec.
+#[test]
+fn anchors_lists_every_anchor_kind_with_its_homes() {
+    let (out, stderr, code) = run("planted", &["anchors"]);
+    assert_eq!(code, 0, "{out}{stderr}");
+    for (name, kind) in [
+        ("planted", "component"),
+        ("widget", "component"),
+        ("agent-config", "location"),
+        ("plans", "plans"),
+        ("m-one", "milestone"),
+        ("a-spec", "spec"),
+    ] {
+        assert!(
+            out.lines()
+                .any(|l| l.split_whitespace().take(2).eq([name, kind])),
+            "no line for the {kind} `{name}`:\n{out}"
+        );
+    }
+    // A register line names its home as the tree holds it.
+    assert!(
+        out.lines().any(|l| l
+            .split_whitespace()
+            .eq(["issue", "agent-config/open-issues/"])),
+        "{out}"
+    );
+    assert!(!out.contains("missing"), "{out}");
+}
+
+/// A home the tree does not hold is printed `missing`, and the run is a negative answer, exit
+/// 1, per `design@core@exit-code-ladder`. `unsound` plants a location whose issue directory is
+/// not there.
+#[test]
+fn anchors_marks_a_missing_home_and_exits_one() {
+    let (out, stderr, code) = run("unsound", &["anchors"]);
+    assert_eq!(code, 1, "{out}{stderr}");
+    let location = out
+        .split("\n")
+        .skip_while(|l| !l.starts_with("agent-config "))
+        .nth(1)
+        .unwrap_or_default();
+    assert_eq!(
+        location.split_whitespace().collect::<Vec<_>>(),
+        ["issue", "missing"],
+        "{out}"
+    );
+}
+
 /// The claim: `--group` keeps the rows whose entry sits in the group it names, and drops the
 /// ungrouped ones.
 ///
