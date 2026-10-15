@@ -648,7 +648,8 @@ home is built intent the code is checked against.
 
 ### A reason recorded at the code binds as intent at its scale, below the design home `##local-intent-binds`
 
-The primer's intent-and-claims rule has three classes. A design home is authority. A reason recorded
+The primer's intent-and-claims rule has two classes, and its verify-before-relying rule a third. A
+design home is authority. A reason recorded
 at the code, an inline comment saying why the code is shaped so or the message of the commit that
 argued it, is intent at the scale of that code: it binds as a presumption, a change that defeats it
 argues against that reason in its own message, and where it conflicts with a design home, the design
@@ -1059,7 +1060,11 @@ the audits of a plan's steps, the main moments design is discussed, and should m
 
 ### A reference is written where the text would have to be revisited if the entry it names changed `##a-reference-claims-a-revisit`
 
-Every citeable thing has one reference form, `<kind>@<anchor>@<id>`, and two mechanisms of the
+The rule is the premise the workflow relies on to be useful: an entry is referenced wherever it is
+load-bearing, so the checker lists what a reversal, a closure or a firing touches, and the scope of
+reversing a decision is assessed from that list, per
+`goal@knowledge-architect@structure-and-workflow-work-together`. Every citeable thing has one
+reference form, `<kind>@<anchor>@<id>`, and two mechanisms of the
 checker give a reference its value. `cargo klarch show <ref>` prints every reference to an entry,
 so what depends on an entry is computed from the tree and never written by hand. An entry that is
 deleted or renamed dangles every reference to it, and `cargo klarch check` reports each one, per
@@ -2474,7 +2479,10 @@ included. The owner set how it can be read: as an extension of every adopting pr
 what every session needs and no installed skill delivers at the moment it is needed. A statement
 that the setup skill would have every root `CLAUDE.md` write alike belongs in the primer, the
 import line aside, which the primer cannot carry. What one project's root alone would say does not
-go in it, and neither does a procedure a skill delivers when it loads. The workflow targets
+go in it, and neither does a procedure a skill delivers when it loads. On the owner's word, the
+agent-configuration skill states the framing where a root `CLAUDE.md` is written, in
+`skill@knowledge-architect-agent-configuration@where-text-goes`: the root never restates an
+instruction of the primer. The workflow targets
 frontier-tier models, which the design skill's work requires, per
 `design@agent-skills@frontier-tier-only`, so a size limit would protect a reader the workflow does
 not serve.
@@ -2483,10 +2491,12 @@ Its members today, beside the knowledge table and the list of installed skills, 
 that argues it where one does: the rule on when to write a reference,
 `design@agent-skills@a-reference-claims-a-revisit`; the goals binding and decisions binding as a
 presumption, `design@agent-skills@goals-bind`; the routing of a question by its authority,
-`design@agent-skills@questions-go-to-their-authority`; the owner's word bound by its premise,
+`design@agent-skills@questions-go-to-their-authority`, since every session meets questions and a
+skill that routes them reaches only the sessions that load it; the owner's word bound by its premise,
 `design@agent-skills@owner-word-holds-as-far-as-its-premise`; the labels and an answer's authority,
 `design@agent-skills@ruled-items-labelled` and `design@agent-skills@answer-keeps-its-authority`; the
-room to judge, which states `goal@agent-skills@installed-text-leaves-room-to-judge`; built intent
+room to judge, which states `goal@agent-skills@installed-text-leaves-room-to-judge`, since every
+session meets a situation no instruction covers; built intent
 and a reason at the code, `design@agent-skills@design-home-is-built-intent` and
 `design@agent-skills@local-intent-binds`; the verification rules,
 `design@agent-skills@verification-in-primer`; the working-prose rules, whose reasons stand beside
@@ -2505,8 +2515,7 @@ the registers and how an entry is defined, every reference kind and what it name
 read, and how the checker is run and its verdict read. Every session reads references before it
 writes any, and a finding arrives only after something is written, so the model is needed from a
 session's first read, which no skill delivers: the setup skill, which states the layout, loads only
-when a project adopts the workflow or moves its pin. Two projects had each restated the model in
-their root `CLAUDE.md` by hand.
+when a project adopts the workflow or moves its pin.
 
 The nearest rival, the binary printing the model and the primer pointing to the command, loses on
 delivery: the harness puts the primer in every session's context, and a command reaches a session
@@ -2517,8 +2526,10 @@ a built-in register or a reserved anchor word is missing from the section.
 
 The section states no rarer rule: the candidate rule, the retired forms, ignored targets, the path
 to anchor, a register's home cited by its path, a plan item's scope, a slug outside a definition
-site. Each reaches a session through its finding, which names its repair, on the owner's rulings on
-the first agentic-workflow audit, recorded in
+site. Each reaches a session through its finding, which names its repair, on the owner's rulings in
+three passes of the first agentic-workflow audit: the rarer checker rules are delivered by their
+finding messages rather than by the installed text, and an unstated checker rule is a finding only
+where its finding message does not name its repair. The rulings are recorded in
 `issue@core@a-reference-with-a-line-or-fragment-suffix-names-a-wrong-repair`. A rule a writer of
 every `path` reference needs stays in `primer@where-knowledge-goes`.
 
@@ -2536,9 +2547,9 @@ such as a reviewer's "establish the state of the tree yourself", stays where its
 
 The evidence of real use that `design@agent-skills@behaviour-additions-need-real-use` asks is the
 owner's: the owner reports that these rules, built over work with agents in several projects,
-prevented many difficulties there, and names the mechanism: an agent assumes that the project and
-its tools behave as their names, their documents and its own expectations suggest, and acts on that
-assumption without checking it. Every session meets claims, so the rules pass
+prevented many difficulties there, and names the mechanism: agents tend to believe that things will
+work out easily, and that the project and its tools have intuitive, known behaviour, which is often
+not the case. Every session meets claims, so the rules pass
 `design@agent-skills@primer-limit`. The nearest rival, the primer pointing to each skill's narrower
 rule, loses on the five directives no installed text stated in any form: following the whole path,
 a transfer's property, a commit message's claims checked by its writer, precedent, and confidence

@@ -44,9 +44,7 @@ text it ships cites no entry, as content/ does, per
 `design@agent-skills@shipped-text-cites-no-entry`. The release's hand check reads the installed copies, which hold the snippet inlined.
 
 **The primer is the part of every installing project's root `CLAUDE.md` that is the same in every
-project**, so it holds only what every session needs and no installed skill delivers, per
-`design@agent-skills@primer-limit`. A line that restates a skill, or a convention of one project,
-does not go in it.
+project**, per `design@agent-skills@primer-limit`.
 
 ## Editing an installed skill or agent
 

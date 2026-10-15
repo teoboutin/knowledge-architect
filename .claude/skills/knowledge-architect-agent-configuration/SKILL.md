@@ -167,6 +167,10 @@ reaches a session**.
 | a skill | its description is listed every session; its body loads only when invoked | a procedure, and the knowledge shaped by a task. Length is nearly free, so a skill can be thorough |
 | a subagent definition | only when a subagent of that type is spawned, and then from its first token | a task only ever done by a subagent, such as a reviewer following a fixed standard |
 
+**The primer is an extension of the root `CLAUDE.md`**, which imports it: the part every adopting
+project's root would say alike. The root `CLAUDE.md` never restates an instruction of the primer; it holds what is the project's own, and a statement it shares with the
+primer is a duplicate inside one text, which the need test deletes.
+
 #### Dispatching between them
 
 **The unit is an activity**: the scope over which a complete set of procedures makes sense.

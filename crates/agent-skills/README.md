@@ -65,9 +65,10 @@ about an existing architecture — the assistant:
   or when it is made if no work implements it, and a losing alternative
   where the recording tests keep it;
 - writes in plain technical English, as the primer's working-prose rules
-  say for every text: explicit quantities and invariants over qualitative
-  wording, no idioms, no aphorisms; a qualitative claim may open a
-  thread, never close one.
+  say for every text a project's contributors read: explicit quantities
+  and invariants over qualitative wording, no idioms, no aphorisms; and,
+  as the design skill adds, a qualitative claim may open a thread, never
+  close one.
 
 For a bounded problem (clear requirement, main risk is over-building)
 it grounds the request first, since only the grounding shows whether the

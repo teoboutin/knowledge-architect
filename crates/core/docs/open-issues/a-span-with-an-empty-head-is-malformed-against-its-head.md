@@ -39,8 +39,8 @@ into this workspace, so the case came from the project the checker was imported 
 
 ### Why it matters
 
-`design@agent-skills@design-home-is-built-intent` makes the head authority over the code, and the
-root CLAUDE.md restates the rule as "Any other span holding an `@` … is silent". A writer who follows
+`design@agent-skills@design-home-is-built-intent` makes the head authority over the code. A writer
+who follows
 the head meets a finding the head says cannot occur, and repairs it by moving the pointer out of the
 checker's reach. The agent-skills build carries a delivery substitution for the import line only
 because of this behaviour.
