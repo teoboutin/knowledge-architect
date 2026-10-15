@@ -244,8 +244,8 @@ skipping the regime in silence.
 
 ### The core's commands are a library module, so a binary that registers extensions offers them unchanged `##the-core-cli-is-a-library-module`
 
-The commands of the core, `check`, `show`, `issues`, `tripwires`, `index`, `model`, `commits` and
-`install-agent-skills`, and the code that runs them, are a module of the core library rather than
+The commands of the core, `check`, `show`, `issues`, `tripwires`, `index`, `model`, `anchors`,
+`commits` and `install-agent-skills`, and the code that runs them, are a module of the core library rather than
 of its binary. A binary that registers extensions flattens the core's command enum into its own and
 adds the commands of its extensions beside them, so the core's commands keep one spelling, one set
 of arguments and one exit-code contract in every binary. The core's binary is that module with no extension registered.
@@ -1117,14 +1117,15 @@ and it names the first line at which the committed file and the regenerated one 
 command answering the same question in its own format is what drifts, and there would be nothing to
 say which of the two was right.
 
-### `anchors` lists every anchor of a project, computed as `check` computes them, with the home of each register it carries `##anchors-listing-command`
+### `anchors` lists every anchor of a project, computed as `check` computes them, with the home of each register a declared anchor or `plans` carries `##anchors-listing-command`
 
 `klarch anchors` prints every anchor, the constructed ones included, built by `Anchors::of` over the
 manifest and the tree's listing as every check builds them: its name, its kind and its path, and,
 under a Component, a location and `plans`, each register it carries with the home the tree holds,
-the file, the directory, both, or `missing`. A milestone and a spec list no register, since their
-items live in the plan's own documents. A home is judged held as `check` judges it, so the two
-never disagree on what a project carries. It exits 1 when a home is missing, a negative answer
+the file, the directory, both, or `missing`. A milestone and a spec list no register: a plan
+anchor's registers keep their homes inside the plan itself, its sections, or a milestone's own
+directory for its slice specs. A home is judged held by the rule `check` judges it by, over the
+same listing, so the two agree on what a project carries. It exits 1 when a home is missing, a negative answer
 about the project, per `design@core@exit-code-ladder`. Its output is for a reader and is not a
 contract, per `issue@knowledge-architect@command-output-is-not-declared-a-contract`.
 

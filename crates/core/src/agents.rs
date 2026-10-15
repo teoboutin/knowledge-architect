@@ -496,7 +496,8 @@ mod tests {
 
     /// The claim: the shipped primer's section `checker-model` names every reference kind the
     /// checker accepts, every built-in register, and every reserved anchor word, so a session
-    /// reading any reference meets its kind there. A kind or a word added to the checker fails
+    /// reading any reference meets its kind there, per
+    /// `design@agent-skills@checker-model-in-primer`. A kind or a word added to the checker fails
     /// this test until the section names it. Mutation: dropping `planned` from the section, or
     /// adding a kind to `HARNESS_KINDS`, fails it.
     #[test]

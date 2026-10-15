@@ -18,8 +18,8 @@ is a prediction: no real session has shown it.
 
 Texts read, at the commit the third pass of the first agentic-workflow audit ran on:
 
-- `instructions@verify-before-relying`, its section "Check whether it is already known": the
-  `ls docs/retrospective-reports/` line, under "Before diagnosing anything as a problem".
+- `instructions@verify-before-relying`: the `ls docs/retrospective-reports/` line, under "Before
+  diagnosing anything as a problem".
 - `skill@klarch-retrospective-intake@after-the-ruling`: "Until it leaves, an analysis is
   outstanding work that no register lists."
 - `skill@knowledge-architect-design`, the grounding, and

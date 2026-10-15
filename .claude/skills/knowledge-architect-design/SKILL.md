@@ -504,8 +504,8 @@ choices whose option space genuinely is closed and consequence-free.
    each side and why) is a legitimate move.
 5. **Build discriminating evidence when stalled**: when positions
    rest on intuitions, a further round restates them and adds nothing
-   either party could check; evidence is textual and cheap, per
-   `primer@verify-before-relying`. Build the
+   either party could check; build evidence rather than trade
+   intuitions, per `primer@verify-before-relying`. Build the
    discriminating artifact the project affords — a failing test, a
    throwaway prototype, a benchmark, a mockup. Evidence that the
    project's goals or design heads rule out is not built, whatever the

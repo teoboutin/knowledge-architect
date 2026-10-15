@@ -75,8 +75,7 @@ An issue entry keeps its magnitudes, per the cold-reader standard of
 - A figure in the core's documents measured in another project, thaum, names thaum as its source.
 - **Before touching the code of a Component, ground first, per
   `skill@klarch-development@ground-before-editing`.**
-- Before diagnosing anything as a problem, the listings of
-  `skill@knowledge-architect-issue-tracking@outstanding-across-registers` are run, and two more:
+- Before diagnosing anything as a problem, run also:
 
 ```sh
 ls docs/retrospective-reports/    # the retrospective analyses whose outcomes are not all carried out
