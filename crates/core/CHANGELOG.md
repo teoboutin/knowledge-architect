@@ -40,8 +40,7 @@ subsection is omitted.
 
 - `agent-skills`, patch: every statement of a project's own agent-facing text, its `CLAUDE.md`
   files, skills and agents included, meets the need test of
-  `skill@knowledge-architect-agent-configuration@admission-standard`, and an instruction about how
-  an agent behaves is added to it only on evidence from real use. The primer and the root
+  `skill@knowledge-architect-agent-configuration@admission-standard`. The primer and the root
   `CLAUDE.md` that imports it are one text, so a root sentence that the primer states too fails as
   a duplicate, and the primer's copy stays. The agentic-workflow axis of the project audit,
   `skill@knowledge-architect-project-audit@agentic-workflow-axis`, brings a project's text to it.
@@ -93,7 +92,10 @@ subsection is omitted.
   retrospective's proposal or a skill moving text included, applies one standard: it names, for
   each statement, the act an agent would do differently without it, and a statement for which none exists leaves as the standard's outcome table gives: deleted
   when it carries no instruction, such as a narration of where an instruction came from, and put to
-  the owner when it is an instruction.
+  the owner when it is an instruction. It shapes each repair as that standard's repair section
+  says: at the cause, with the instructions it adds and removes counted and its nearest rival
+  named; where the repairs applied together add more instructions than they remove, the owner is
+  told the net figure and rules on it before any is applied.
 - `agent-skills`, patch: the retrospective opens the workflow's issue on the repository's new
   address, <https://github.com/teoboutin/knowledge-architect>.
 - `agent-skills`, patch: an instruction about how an agent behaves is added to a project's own
