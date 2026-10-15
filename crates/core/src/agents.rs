@@ -494,6 +494,44 @@ mod tests {
         );
     }
 
+    /// The claim: the shipped primer's section `checker-model` names every reference kind the
+    /// checker accepts, every built-in register, and every reserved anchor word, so a session
+    /// reading any reference meets its kind there. A kind or a word added to the checker fails
+    /// this test until the section names it. Mutation: dropping `planned` from the section, or
+    /// adding a kind to `HARNESS_KINDS`, fails it.
+    #[test]
+    fn the_primer_s_model_section_names_every_kind_and_reserved_word() {
+        use crate::entity::{
+            ESCAPE_ANCHOR, EVERY_ANCHOR, HARNESS_KINDS, PATH_KIND, PLANNED_KIND, PLANS_ANCHOR,
+            REGISTER_KIND,
+        };
+        let m = manifest("");
+        let primer = shipped(&m)
+            .into_iter()
+            .find(|(path, _)| path == Path::new(PRIMER))
+            .expect("the primer ships")
+            .1;
+        let start = primer
+            .find("`##checker-model`")
+            .expect("the primer has a section `checker-model`");
+        let rest = &primer[start..];
+        let section = &rest[..rest.find("\n## ").unwrap_or(rest.len())];
+        let registers = m.registers().all().iter().map(|r| r.name.as_str());
+        let kinds = [PATH_KIND, PLANNED_KIND, REGISTER_KIND]
+            .into_iter()
+            .chain(HARNESS_KINDS)
+            .chain(registers);
+        for word in kinds
+            .map(|k| format!("`{k}"))
+            .chain([EVERY_ANCHOR, ESCAPE_ANCHOR, PLANS_ANCHOR].map(|w| format!("`{w}`")))
+        {
+            assert!(
+                section.contains(&word),
+                "the section `checker-model` does not name {word}"
+            );
+        }
+    }
+
     /// The claim: the placeholder takes the declared command, and the default command when
     /// none is declared. Mutation: rendering with a fixed command fails the declared case.
     #[test]

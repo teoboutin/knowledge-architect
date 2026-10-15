@@ -102,12 +102,100 @@ to judge is never room to act against an instruction.
   **Before removing or reshaping code as unneeded, read its comment and the message of the commit
   that introduced it** (`git log -L`, `git blame`): absence from the design home is not evidence
   that code is superfluous.
-- **A claim about the code as it stands** (a scoped `CLAUDE.md` invariant, a doc comment, a name, an
-  issue's diagnosis) goes stale. Verify it against the code, or against a run you observe, before
-  relying on it.
-- **Before diagnosing anything as a problem, check whether it is already recorded:**
-  `cargo klarch issues`, `cargo klarch tripwires`, and `cargo klarch show <kind>@<anchor>@<id>` for one
-  entry and every reference to it.
+
+## Verify before relying `##verify-before-relying`
+
+A document can describe the code as it was committed rather than as it is. Confidence is not
+correlated with correctness: the more obvious a behaviour looks, the less likely anyone has
+checked it. An agent tends to assume that the project and its tools behave as their names, their
+documents and its own expectations suggest, and to act on that assumption without checking it.
+
+Before relying on a claim about how anything behaves (an API, a tool, a script, a file format, a
+test mechanism, an issue's diagnosis; the list is illustrative, not a boundary):
+
+- **Establish it from the implementation, or from a run you observe.** Names, doc comments and
+  prose are leads to check, never evidence. A scoped `CLAUDE.md` invariant, a doc comment and an
+  issue's diagnosis go stale.
+- **Follow the whole path, not the entry point**: what calls it, what it returns on success _and_
+  on failure, and what the caller does with that.
+- **One confirming case does not establish a convention.** Widen the check whenever the answer
+  generalises.
+- **Report the evidence with the conclusion**, and label anything unverified as an assumption. A
+  plausible mechanism is not a finding.
+- **Re-verify a conclusion before acting on it**, and correct it in place the moment evidence
+  contradicts it.
+- **A transfer from another project names the property it depends on, and checks that the property
+  holds here.** Naming the pattern is not enough.
+
+**Evidence is textual and cheap**: a verbatim reading of a file, a measurement over a tree, a
+failing test. Build it rather than trading intuitions.
+
+### Verify a claim before writing it
+
+**A checkable claim is checked before it is written down**, against the tree at the moment the
+sentence is written:
+
+- a number comes from a measurement you can point to, with the machine named; a figure whose
+  instrument the same change altered is taken again;
+- a count is re-counted: files, lines, entries, references, occurrences;
+- "a search returns nothing" and "the only hit in the tree" are run, against the revision the
+  sentence describes, so that they match across a line break, since wrapped prose splits a phrase
+  over two lines;
+- "X already says this" and "the skill requires that": open X and read it;
+- a slug, a path, a section or a run identifier is resolved;
+- "this is fixed" and "that entry is closed" are diffed.
+
+**A commit message is a document for this purpose.** `cargo klarch commits` reads only its
+pointers: a measurement, a count or a claim about the tree in a message is checked by nobody but
+its writer. Before each commit, list every factual claim its message makes, and beside each the
+command or the file that checks it; run or open each against the tree the commit holds, and check
+a quotation or an attribution of the owner against the conversation. A claim no check supports is
+removed, or labelled as an assumption.
+
+**The same checks apply to an answer given to the owner in the conversation.**
+
+### Check whether it is already known
+
+Before diagnosing anything as a problem, or reporting one met while doing something else, find
+out whether it is already recorded: `cargo klarch issues`, `cargo klarch tripwires`, and
+`cargo klarch show <kind>@<anchor>@<id>` for one entry and every reference to it. A recorded entry
+usually says more than a fresh diagnosis: the measurement already taken, what was ruled out, and
+often why the work was left undone on purpose.
+
+### Precedent is not authority
+
+The instructions that apply are the installed ones, the project's root `CLAUDE.md`, its skills,
+and the scoped `CLAUDE.md` next to what is edited. What already exists in the project is evidence
+of what was done, not of what should be done.
+
+- **"The existing ones do it this way" is not an argument, and neither is how many of them do.**
+  Where an instruction and the surrounding practice disagree, the instruction wins. An instruction
+  you think is wrong is argued against; changing an instruction is a normal move, and silently
+  following the older practice is not.
+- **Match local idiom only where the instructions are silent.** Naming and the shape of the
+  surrounding prose are worth matching, so a diff stays readable.
+- **Do not spread non-conformance while working around it.** Starting from an existing document or
+  entry copies its defects with it: read what you copied against the instructions before extending
+  it.
+
+## Working prose `##working-prose`
+
+These rules govern working prose: every text the project's contributors read, such as a
+discussion with the owner, a document of the project, a commit message and a code comment. Text
+the product's end users read follows the product's own style contract. The test is who reads the
+text, not where it is stored.
+
+- Write plain, direct technical English, in short sentences. Readers might be non-native
+  speakers: where a simpler word or a shorter sentence says the same thing, use it.
+- Use precise technical terms. No idioms, colloquialisms or aphorisms: they read differently to
+  different readers, and they carry a qualitative judgement past argument.
+- No undefined metaphor. A metaphor that names a defined concept is vocabulary once defined.
+- Use em dashes and semicolons sparingly. They usually join two sentences that read better apart.
+- Prefer explicit quantities, units and invariants over qualitative wording. A qualitative claim
+  may state a goal or an observation. Offered as an argument, it is replaced by its checkable form:
+  a count, a bound, an invariant, a named failure it prevents, or a test either party could run.
+  The test: delete the sentence; if the argument falls, the sentence was the argument. An owner's
+  ruling needs no such form.
 
 ## Something met outside the task `##met-outside-the-task`
 
@@ -137,6 +225,64 @@ record answered, a source applied over an answer of the owner, and a rewording o
 clauses are such decisions; an implementation choice that a commit message records is not. A
 subagent reports its decisions at the end of its report, under the same title, and the session that
 dispatched it carries them into its own section.
+
+## The project's documents and how they are checked `##checker-model`
+
+**The manifest**, knowledge-architect.toml at the project's root, declares the Components, the
+locations and the registers. `cargo klarch anchors` lists what it resolves to: every anchor, its
+path, and the home of each register it carries.
+
+**An anchor** is a named place that carries registers. A **Component** is a directory the manifest
+declares, named by its basename, the project's root included; it carries the required documents
+and every component register. A **location** carries only the registers it declares, their homes
+directly under its path. The checker constructs the anchor `plans` at docs/plans/, one anchor per
+milestone directory and one per spec file. The anchor words `*` (every Component), `elsewhere` (a
+path the tree does not hold) and `plans` are reserved.
+
+**Every Component carries** `path@*@README.md`, `path@*@CLAUDE.md`,
+`path@*@docs/rejected-alternatives.md`, and the home of each component register:
+`register@*@goal`, `register@*@design`, `register@*@tripwire` and `register@*@issue`.
+
+**A register's entries**:
+
+- a **heading register**, such as `design`, `goal` and `tripwire`, keeps its home in one file, or
+  in a directory behind a `README.md` that links every subdocument. An entry is a heading at the
+  register's level, its statement first and its slug last: level 3 for `design`, level 2 for
+  `goal` and `tripwire`. A slug anywhere else defines nothing;
+- a **file register**, such as `issue`, keeps its home in a directory: one file per entry, whose
+  basename is the entry's id, beside a hand-written `README.md` and a generated `index.md`;
+- a **plan document** is an entry of `spec` or of `milestone`, and a plan's items, of `thread`,
+  `argument`, `criterion` and `acceptance`, are level-three headings under the section of their
+  kind.
+
+An id matches `[a-z0-9]+(-[a-z0-9]+)*`.
+
+**A reference** is one backticked span, `<kind>@<anchor>@<id>`. The kind is a register's name, and
+the reference names one entry of it; or `register`, which names a register's home; or `path`, which
+names a file or a directory under the anchor; or `planned`, which names, in a plan document, a
+path its work will create. The harness kinds take no anchor: `skill@<name>` and `agent@<name>`,
+each with an optional section slug after a second `@`, `primer@<slug>`, and `instructions@<slug>`
+for a section of the root `CLAUDE.md`. When a reference is written, and how a `path` reference is
+shaped, are in `primer@where-knowledge-goes`.
+
+**Reading**: `cargo klarch show <reference>` prints the entry whole and every reference to it;
+`cargo klarch issues` and `cargo klarch tripwires` list the standing entries.
+
+**Running the checker**:
+
+- `cargo klarch check` reads every document in four phases and stops at the first phase that finds
+  anything. Its exit code is the verdict: 0 for no finding, 1 for findings, 2 when it could not
+  run. Its last line states it, `PASSED: no findings` or `FAILED: n findings above`. A finding names
+  its repair.
+- `cargo klarch check --staged` judges the tree a commit will record, HEAD's with the staged
+  changes. Run it after staging and before each commit, and repair a failing one before the
+  commit: it catches a file left unstaged, or a change staged in part, before the commit exists,
+  where the gates catch it only before the merge.
+- `cargo klarch commits <range>` judges each commit of a range, its message and its tree: a commit
+  message is a document, and every reference in it must resolve.
+- Never chain a command on a verdict that went through a pipe: in `check | tail && git commit`,
+  the shell takes the exit status of `tail`, so the commit runs whatever the check found. Run the
+  checker bare, or redirect its output to a file and read the last line.
 
 ## Where knowledge goes `##where-knowledge-goes`
 

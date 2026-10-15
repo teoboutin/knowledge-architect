@@ -205,7 +205,8 @@ with every slice the milestone has.
   ever written for a less capable implementer, covers a bounded amount of work and opens by saying
   that its content rests on assumptions and may be wrong.
 - **A statement about existing code is a claim, not a hypothesis.** It is checked against the tree
-  before it is written, exactly as in a design head. Only the unbuilt half of a plan document is a
+  before it is written, as `primer@verify-before-relying` asks, in its subsection "Verify a claim
+  before writing it". Only the unbuilt half of a plan document is a
   bet.
 - **A correction is applied in place**, with no correction log and no issue: the document leaves
   when its work lands, so a log would be history in a file that keeps none. The commit says what
