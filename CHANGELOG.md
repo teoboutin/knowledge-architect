@@ -6,6 +6,13 @@ class is `design@knowledge-architect@changelog-entries`. Inside a subsection, en
 surface, in the order `checks`, `cli`, `manifest`, `library`, `agent-skills`, `gates`; an empty
 subsection is omitted.
 
+## Next release
+
+### New features
+
+- `cli`, minor: `anchors` lists every anchor of the project, the constructed ones included, with
+  its kind, its path and the home of each register it carries; it exits 1 when a home is missing.
+
 ## 0.7.0
 
 ### Migration

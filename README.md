@@ -32,6 +32,7 @@ klarch commits <range>           # every commit message of a range, judged as a 
 klarch issues                    # every open issue, one row each
 klarch show <ref>                # one entry in full, and every reference to it
 klarch index                     # regenerate the generated listings
+klarch anchors                   # every anchor, and where each register's home is
 ```
 
 In this repository, the checker built from the checkout runs as `cargo klarch <subcommand>`, and

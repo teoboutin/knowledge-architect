@@ -58,6 +58,8 @@ pub enum Command {
     Index(IndexArgs),
     /// Every observation the walk produced: file, line, kind, value.
     Model,
+    /// Every anchor of the project, with its kind, its path, and each register's home.
+    Anchors,
     /// Judge every commit of a range, its message and its tree, each message against its own
     /// commit's tree.
     Commits(CommitsArgs),
@@ -154,6 +156,7 @@ pub fn run(
         Command::Index(args) if args.staged => history::index_staged(manifest, checker, extensions),
         Command::Index(_) => index(manifest, checker, extensions),
         Command::Model => model(manifest, checker, extensions),
+        Command::Anchors => list_anchors(manifest, checker),
         Command::Commits(args) => history::commits(manifest, &args.range, checker, extensions),
         Command::InstallAgentSkills => install_agent_skills(manifest),
     }
@@ -397,6 +400,76 @@ fn model(
     );
     out!("{dump}");
     Ok(ExitCode::SUCCESS)
+}
+
+/// Every anchor of the project, as `check` builds them, with its kind, its path, and for a
+/// declared anchor or `plans` the home of each register it carries, as the tree holds it.
+///
+/// The output is for a reader, not a contract, per
+/// `issue@knowledge-architect@command-output-is-not-declared-a-contract`. Exit 1 when a printed
+/// home is missing, a negative answer about the project, per `design@core@exit-code-ladder`;
+/// `check` names the repair.
+fn list_anchors(manifest: &Manifest, checker: &[&Path]) -> Result<ExitCode, String> {
+    use crate::entity::Constructed;
+    use crate::manifest::Shape;
+    let model = crate::Model::build(manifest, checker).map_err(|e| e.to_string())?;
+    let anchors = Anchors::of(manifest, model.listing());
+    // The listing names files, so a directory is held where a listed file sits under it, as
+    // `show` reads a register's home.
+    let listed = |p: &Path| model.listing().iter().any(|l| l == p);
+    let holds_dir = |p: &Path| model.listing().iter().any(|l| l.starts_with(p) && l != p);
+    let mut missing = false;
+    for anchor in anchors.all() {
+        let kind = match anchor.constructed {
+            Some(Constructed::Plans) => "plans",
+            Some(Constructed::Milestone) => "milestone",
+            Some(Constructed::Spec) => "spec",
+            None if anchor.is_component => "component",
+            None => "location",
+        };
+        let path = if anchor.path.as_os_str().is_empty() {
+            ".".to_string()
+        } else {
+            anchor.path.display().to_string()
+        };
+        outln!("{}  {kind}  {path}", anchor.name);
+        // A plan's items have their homes in the plan's own documents: nothing to locate.
+        if matches!(
+            anchor.constructed,
+            Some(Constructed::Milestone | Constructed::Spec)
+        ) {
+            continue;
+        }
+        for name in &anchor.registers {
+            let Some(register) = anchors.registers().by_name(name) else {
+                continue;
+            };
+            let home = anchor.home_of(register);
+            let mut held = Vec::new();
+            if register.shape == Shape::Heading && listed(&home.file) {
+                held.push(home.file.display().to_string());
+            }
+            // A heading register's directory shape is its README, which links the subdocuments.
+            let dir_held = match register.shape {
+                Shape::Heading => listed(&home.readme),
+                Shape::File | Shape::Directory => holds_dir(&home.dir),
+                Shape::Section => continue,
+            };
+            if dir_held {
+                held.push(format!("{}/", home.dir.display()));
+            }
+            if held.is_empty() {
+                missing = true;
+                held.push("missing".to_string());
+            }
+            outln!("  {}  {}", register.name, held.join("  "));
+        }
+    }
+    Ok(if missing {
+        ExitCode::FAILURE
+    } else {
+        ExitCode::SUCCESS
+    })
 }
 
 /// Every check, over one walk: the core's, then each extension's.
