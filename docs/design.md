@@ -268,13 +268,15 @@ review and CI have judged exactly what it publishes. The cost: main states the n
 merge until the publish, and a declined approval or a failed publish leaves that statement false
 until a repair lands. The procedure is `skill@klarch-release`.
 
-### The owner's word to publish is the approval of the release workflow's deployment `##owner-word-mechanism`
+### The owner's word to publish through the release workflow is the approval of its deployment `##owner-word-mechanism`
 
 The publish job of the release workflow runs in the GitHub environment `release`, whose required
 reviewer is the owner, and waits for the owner's approval of its deployment. That approval is the
 owner's word to publish, per `goal@knowledge-architect@the-owner-decides`. The trusted publisher of
 each crate names that environment, per `design@knowledge-architect@publish-credential`, so a run
-outside it gets no token, and the environment admits only runs of a tag `v*`. The nearest rival,
+outside it gets no token, and the environment admits only runs of a tag `v*`;
+`gh api repos/teoboutin/knowledge-architect/environments/release` and its
+`deployment-branch-policies` re-read both settings. The nearest rival,
 the word given in the conversation and the publish then run by the agent with a token in its
 shell, leaves no record of the word outside the transcript, and leaves the agent holding a
 credential that publishes; the approval is recorded by GitHub against the run of one tag.
@@ -290,13 +292,14 @@ file release.yml and the environment `release`. The publish job exchanges the ru
 token for a crates.io token through `rust-lang/crates-io-auth-action`. crates.io's documentation of
 Trusted Publishing states that the token expires after 30 minutes, and the action revokes it when
 the job ends. Each crate also has "Require trusted publishing for all new versions" turned on, under
-which crates.io rejects a publish with an API token. So no stored credential can publish a version
-of these crates. The nearest rival, an API token held in a repository secret, runs the same job with
+which crates.io rejects a publish with an API token; the crate's `trustpub_only` field in
+`https://crates.io/api/v1/crates/<crate>` re-reads it. So no stored credential can publish a
+version of these crates. The nearest rival, an API token held in a repository secret, runs the same job with
 a credential that lives until it is revoked or expires, readable by any workflow of the repository
 that names the secret. Trusted Publishing covers every publish such a token covers, except the
 first version of a crate: crates.io's documentation states that the initial publish requires an
-API token. A new crate's first version is therefore published by its owner with an API token, and
-the crate then gets the same configuration.
+API token. A new crate's first version is therefore outside what the release workflow can publish,
+and the release skill stops a release that would need it.
 
 ### A publish that stopped part-way is completed by re-running the job, which skips a version crates.io already holds `##partial-publish-rerun`
 
