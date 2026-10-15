@@ -449,10 +449,11 @@ fn list_anchors(manifest: &Manifest, checker: &[&Path]) -> Result<ExitCode, Stri
             if register.shape == Shape::Heading && listed(&home.file) {
                 held.push(home.file.display().to_string());
             }
-            // A heading register's directory shape is its README, which links the subdocuments.
+            // A home is held where `check` finds it, `check::tree::heading_home` and its kin: a
+            // heading register's directory is its home with or without its README, whose absence
+            // `check` reports apart.
             let dir_held = match register.shape {
-                Shape::Heading => listed(&home.readme),
-                Shape::File | Shape::Directory => holds_dir(&home.dir),
+                Shape::Heading | Shape::File | Shape::Directory => holds_dir(&home.dir),
                 Shape::Section => continue,
             };
             if dir_held {
