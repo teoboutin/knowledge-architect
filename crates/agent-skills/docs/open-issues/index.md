@@ -1,10 +1,11 @@
 **Generated — do not edit.** `cargo klarch index`
 
-38 entries
+39 entries
 
 | kind | title |
 | --- | --- |
 | defect | [A criterion derived from a decision binds until the owner says otherwise](a-criterion-derived-from-a-decision-binds-until-the-owner-says-otherwise.md) |
+| defect | [An acceptance criterion from the premortem, listed among the defaults awaiting the owner, is both judged and not judged before the ruling](a-premortem-criterion-listed-as-a-default-reads-two-ways.md) |
 | defect | [A saved workflow's `//` comments ship to every installing project, though the standard sends maintainer-only text to a comment the build removes](a-saved-workflow-s-comments-ship-to-every-project.md) |
 | defect | [In an adopting project, a finding sent upstream is counted again as a violation left on old text at every later pass](an-upstream-finding-stays-in-every-later-old-text-count.md) |
 | deferred | [A plan document deleted in the commit that completes its harvest is absent from the tree of the acts that still need it](a-plan-document-deleted-at-its-harvest-is-unseen-by-the-acts-that-need-it.md) |
