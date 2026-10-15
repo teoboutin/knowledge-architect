@@ -20,21 +20,7 @@ The repository is a virtual workspace with Components:
 
 ## Language, tone and style `##language-and-style`
 
-### Always
-
-For working prose, this list restates `skill@knowledge-architect-design@discussion-language`. Here
-it holds for every text a session writes. The em-dash bullet is this file's own, and the metaphor
-rule restates `skill@knowledge-architect-design@discussion-overview`, not that section.
-
-- Use plain, direct technical English.
-- Write **short** sentences.
-- Use em dashes and semicolons sparingly in prose. They usually make a sentence longer than it
-  should be.
-- Use precise technical terms instead of idioms and colloquialisms.
-- No undefined metaphors, no aphorisms. The meaning is always carried explicitly: a metaphor that
-  names a defined concept, such as a tripwire, is vocabulary once defined.
-- Prefer explicit quantities, units and invariants over qualitative wording.
-- Readers are non-native speakers.
+Here `primer@working-prose` binds every text a session writes, text end users read included.
 
 ### When presenting content to the user
 
@@ -52,121 +38,8 @@ State the consequences of a request explicitly. Never assume the user has consid
 
 ## Mechanical validation of documents `##mechanical-validation`
 
-This section is a restatement. The decisions live in the core's design home,
-`register@core@design`, under the heads named below, and where the two disagree those heads win.
-
-- **The manifest is `path@knowledge-architect@knowledge-architect.toml`.** It declares the
-  Components, the locations and the registers. Nothing about this repository is compiled into the
-  checker, per `design@core@nothing-of-a-project-is-compiled-in`. Its pin, `checker-version`, is
-  `"self"`, which the checker accepts only in the tree it is built from, per
-`design@core@checked-sentinel-values`, so no version is pinned here.
-
-- Every Component carries four built-in registers: `design`, `goal` and `tripwire` are **heading
-  registers**: their entries are headings carrying a slug. `issue` is a **file register**: its
-  entries are one file each. Two more, `spec` and `milestone`, hold plan documents and are
-  carried by the anchor `plans`, per `design@core@plan-register`. The last four, `thread`,
-  `argument`, `criterion` and `acceptance`, hold a plan's items and are carried by each plan
-  document, per `design@core@plan-items-by-section`. A project may declare more, per
-  `design@core@registers-are-declared`. This one declares none.
-
-- An **anchor** is a named directory, or a spec file, that carries registers. A **Component** is
-  an anchor that carries the required documents and every built-in component register. Its name
-  is the basename of its directory, and the project root is the Component named
-  `knowledge-architect`. A **location** is an anchor that carries only the registers it declares,
-  with their homes directly under its path. One location is declared: `agent-config`, at
-  .claude, carrying `issue`. The tool constructs three more kinds: `plans`, at docs/plans/, one
-  anchor per milestone directory, and one anchor per spec file. The decision is
-  `design@core@anchors-are-components-and-locations`.
-
-- **Each Component carries the same required documents**, per
-  `design@core@components-carry-the-same-documents`: `path@*@README.md`, `path@*@CLAUDE.md`,
-  `path@*@docs/rejected-alternatives.md`, and the home of each built-in component register.
-  - A heading register's home is one file, `docs/<dir>.md`, or a directory, `docs/<dir>/`, once
-    it outgrows one file. The directory's `README.md` is the head: an introduction, and markdown
-    links naming every subdocument, each target relative to the README. The entries sit in the
-    subdocuments. Exactly one of the two shapes, never both, per
-    `design@core@heading-register-two-shapes`. Each heading register's home takes either shape,
-    and may hold no entry.
-  - The issue register's home is the directory `register@*@issue`, with a hand-written
-    `README.md` and a generated `index.md`, per
-    `design@core@a-file-register-is-a-directory-of-entries`.
-
-- **An entry of a heading register is a heading at the register's level, ending with its slug**,
-  per `design@core@an-entry-is-a-heading-at-the-register-level`.
-  - An entry of every heading register is shaped as `primer@design-heads` shapes a design head,
-    the statement first and the slug last, per `design@core@statement-precedes-the-slug`.
-  - Goal and tripwire entries sit at level two. A plan's item sits at level three, and the
-    level-two section above it gives its kind, per `design@core@plan-items-by-section`.
-  - The `README.md` of a directory-shaped home defines no slug.
-  - Every heading at the register's level in its home carries a slug. One without is a finding. A
-    heading at another level is section text.
-  - A slug anywhere else defines nothing, and outside a fenced block it is reported as a misplaced
-    definition: at a heading of another level, in a table cell, at the head of a plain line, in the
-    middle of a line, in a file that is no register home and no section home of the harness, per
-    `design@core@a-slug-elsewhere-defines-nothing` and `design@core@section-homes-carry-slugs`.
-  - An id is defined once per register instance. Two definitions are a finding at each site.
-  - An id matches `[a-z0-9]+(-[a-z0-9]+)*`. A file register's entry id is the file's basename.
-
-- The kinds of reference and their resolution are `design@core@an-entity-belongs-to-its-anchor`
-  and `design@core@one-entity-table`, read whole. Examples: `design@core@reserved-anchors`,
-  `design@gates@gates-run-all`, `path@core@docs/rejected-alternatives.md`.
-- A plan's item is cited from inside that plan only, per `design@core@plan-item-scope`.
-- A reference that resolves to nothing is reported with the repair its failing segment needs, per
-  `design@core@an-unresolved-reference-is-reported`.
-- **A skill, an agent, the primer and the root CLAUDE.md are cited with no anchor**, per
-  `design@core@harness-kinds-cited-without-anchor`: `skill@<name>`, `skill@<name>@<slug>`,
-  `agent@<name>`, `agent@<name>@<slug>`, `primer@<slug>`, `instructions@<slug>`. Every level-two
-  heading of a skill, an agent, the primer and this file owes a slug, per
-  `design@core@section-homes-carry-slugs`, and a skill's or an agent's frontmatter `name`, where
-  one is set, equals its directory's or file's name, per `design@core@harness-entity-names`.
-- **A register's home is cited `register@<anchor>@<register>`, never by its path**, in whichever
-  shape it has, per `design@core@register-home-reference` and
-  `design@core@path-to-a-home-is-reported`: `register@core@design`, `register@*@tripwire`.
-
-- **Under the `path` kind, the id is a path under the anchor's directory**, and its target is
-  checked to exist, per `design@core@every-path-names-its-anchor`.
-  - The checker asserts that a target is a directory exactly when its trailing `/` claims so, per
-    `design@core@trailing-slash-claims-directory`.
-  - Under the deepest-anchor rule, relocating an anchor edits the manifest and no document. A file
-    under crates/core is `path@core@<file>`, and one under .claude is `path@agent-config@<file>`.
-  - The anchor words `*` and `elsewhere`, and the anchor `plans` the tool constructs, are
-    reserved, per `design@core@reserved-anchors` and `design@core@plans-is-a-reserved-anchor`,
-    read whole. A plan document is cited by its kind, never by its path, per
-    `design@core@plan-document-kinds`.
-  - A target the ignore rules cover is accepted without existence or kind assertions, per
-    `design@core@ignored-targets-are-not-asserted`. The ignore rules are what `git check-ignore`
-    answers, nested `.gitignore` files included.
-  - A relative markdown link, `[title](<path>)`, is a navigation row. It is resolved against the
-    linking file's own directory, and the deepest-anchor rule does not apply to it, per
-    `design@core@links-are-navigation-rows`.
-
-- **Which backticked spans are read as references**, per
-  `design@core@candidate-rule-and-retired-forms`:
-  - A span with no space whose head before the first `@` is a kind or an anchor is a candidate.
-    Any other span holding an `@`, such as an email address or a git remote, is silent. A typo
-    inside the kind is silent too.
-  - A placeholder in angle brackets is not a candidate. In the checker's own source every literal
-    is data, bound or not, per `design@core@checker-source-literals-are-data`.
-  - Two retired forms are reported, not ignored: `<anchor>@<path>` with no kind, and a backticked
-    `<word>#<id>` or `#<id>` whose id is an entry here, or whose word is an anchor or a kind. Any
-    other `#` shape, such as an issue number, is silent, per
-    `design@core@candidate-rule-and-retired-forms`.
-  - A backticked span of path characters with two or more segments and no `@` is reported as a
-    path to anchor when its first segment names a file or a directory that the tree's listing
-    holds, per `design@core@every-path-names-its-anchor`. Write it in a form the primer's repair
-    rule in `primer@where-knowledge-goes` lists, or, in a plan document, as
-    `planned@<anchor>@<path>` for a path its work will create. A span naming
-    nothing here, such as `origin/main` or `application/json`, is silent, and so is a one-segment
-    span, which is a name rather than a path.
-  - The one-segment span that is exactly the name of a skill or an agent is reported, per
-    `design@core@bare-skill-name-reported`, released sections of CHANGELOG.md included. Once the
-    skill or the agent is deleted, a reference to it in a released section goes back to the bare
-    name, per `design@knowledge-architect@changelog-section-fixed-at-release`.
-
-- **A commit message is a document.** It is parsed as one markdown document, and every reference
-  in it must resolve, against its own commit's tree or its first parent's, per
-  `design@core@a-commit-message-is-a-document`. A message is history, read years later, so a
-  pointer in it that resolves to nothing tells its reader nothing.
+The manifest's pin, `checker-version`, is `"self"`, which the checker accepts only in the tree it
+is built from, per `design@core@checked-sentinel-values`, so no version is pinned here.
 
 ## Where knowledge goes `##where-knowledge-goes`
 
@@ -195,107 +68,20 @@ count over a frozen corpus and a zero keep their digits, because in those the va
 An issue entry keeps its magnitudes, per the cold-reader standard of
 `skill@knowledge-architect-issue-tracking`.
 
-### Plan documents
-
-`path@knowledge-architect@docs/plans/` is the plans directory. It holds a README and two homes: 
-- specs/, one file per spec for the work of one PR
-- milestones/, one directory per milestone for work across several PRs. 
-How a plan document lands, is corrected and leaves is the
-installed `skill@knowledge-architect-planning`, read whole; its homes are
-`design@agent-skills@document-vocabulary`, `design@agent-skills@plan-document-leaves-at-landing`
-and `design@agent-skills@plan-landing-is-not-tied-to-its-work`.
-
 ## Verify before relying on anything `##verify-before-relying`
 
-A document can describe the shape the code was committed at rather than the shape it has. A figure in
-the core's documents measured in another project, thaum, names thaum as its source.
-Confidence is not correlated with correctness: the more obvious a behaviour looks, the less likely
-anyone has checked it.
+`primer@verify-before-relying` holds the rules. This repository adds three:
 
-Before relying on a claim about how anything behaves, per `primer@intent-and-claims` (an API, a
-script, a file format, a test mechanism, an open issue's diagnosis; the list is illustrative, not a
-boundary):
-
-- Names, doc comments and prose are leads to check, never evidence.
-- **Follow the whole path, not the entry point**: what calls it, what it returns on success _and_
-  on failure, and what the caller does with that.
-- **One confirming case does not establish a convention.** Widen the check whenever the answer
-  generalises.
-- **Report the evidence with the conclusion**, and label anything unverified as an assumption. A
-  plausible mechanism is not a finding.
-- **Re-verify a conclusion before acting on it**, and correct it in place the moment evidence
-  contradicts it.
-- **A transfer from another project names the property it depends on, and checks that the property
-  holds here.** Naming the pattern is not enough. A claim taken from another project's record, such
-  as a count of occurrences, is checked against that project's registers as well as its history:
-  its rejected alternatives and its issues often hold what its commit log does not.
-
-**Evidence here is textual and cheap**: a verbatim reading of a file, a measurement over a tree, a
-failing test. Build it rather than trading intuitions.
-
-**Before touching the code of a Component, ground first, per
-`skill@klarch-development@ground-before-editing`.**
-
-### Verify a claim before writing it
-
-**A checkable claim is checked before it is written down.** Check each of these against the tree at
-the moment you write the sentence.
-
-- **Every number comes from a measurement you can point to, with the machine named.** Re-take a
-  figure whose instrument you changed in the same commit.
-- **A count is re-counted**: files, lines, entries, references, occurrences.
-- **"A grep returns nothing", "the only hit in the tree"**: run it, against the revision the
-  sentence describes.
-- **"X already says this", "the skill requires that"**: open X and read it.
-- **A slug, a path, a section, a run identifier**: resolve it.
-- **"This is fixed", "that entry is closed"**: diff it.
-
-**A commit message is a document for this purpose.** It is durable, and `cargo klarch commits`
-reads only its pointers: its references, its paths, its skill names and its SHAs. A measurement, a count or a claim about the tree in a message is checked
-by nobody but you.
-
-**Before each commit, list every factual claim its message makes, and check each one.** A claim is
-a count, a search and its result, a section or line number, the name of a file, a slug or a commit,
-a quotation or an attribution of the owner, or a statement that something exists, was searched,
-was found or changed. Beside each, write the command or the file that checks it, then run it or open
-it against the tree the commit holds, and a quotation or an attribution against the transcript. A claim that no check supports
-is removed, or labelled as an assumption. A search for a phrase is run so that it matches across a
-line break, since wrapped prose splits a phrase over two lines. Writing the message from memory of
-the work is where the false claims come from.
-
-**The checks of this section also apply to answers given to the owner in the conversation.**
-
-### Check whether it is already known
-
-Before diagnosing anything as a problem, or reporting one you met while doing something else, find
-out whether it is already recorded, per `primer@intent-and-claims`. The listings, every option they
-take, and why they and not a grep are the check, are
-`skill@knowledge-architect-issue-tracking@outstanding-across-registers`. This repository adds two:
+- A figure in the core's documents measured in another project, thaum, names thaum as its source.
+- **Before touching the code of a Component, ground first, per
+  `skill@klarch-development@ground-before-editing`.**
+- Before diagnosing anything as a problem, the listings of
+  `skill@knowledge-architect-issue-tracking@outstanding-across-registers` are run, and two more:
 
 ```sh
 ls docs/retrospective-reports/    # the retrospective analyses whose outcomes are not all carried out
 ls docs/audit-reports/            # the audit report files whose outcomes are not all carried out
 ```
-
-A recorded entry usually says more than a fresh diagnosis will: the measurement already taken, what
-was ruled out, and often why the work was left undone on purpose. The
-`skill@knowledge-architect-issue-tracking` skill says what to do with what you find, either way.
-
-### Precedent is not authority
-
-The instructions that apply are the ones in this file, in the skills, and in the scoped `CLAUDE.md`
-next to what you are editing. What already exists in the repository is evidence of what was done,
-not of what should be done.
-
-- **"The existing ones do it this way" is not an argument, and neither is how many of them do.**
-  Where an instruction here and the surrounding practice disagree, the instruction wins. If you
-  think the instruction is wrong, say so and argue it. Changing an instruction is a normal move.
-  Silently following the older practice is not.
-- **Match local idiom only where the instructions are silent.** Naming and the shape of the
-  surrounding prose are worth matching, so a diff stays readable.
-- **Do not spread non-conformance while working around it.** Starting from an existing document or
-  entry copies its defects with it. Read what you copied against the instructions before extending
-  it.
 
 ## Verify mechanically `##verify-mechanically`
 
@@ -334,43 +120,15 @@ cargo clippy --workspace --all-targets -- -D warnings
 cargo test --workspace
 ```
 
-**Each fails by its exit code.** `cargo klarch check` also states its verdict on its last line:
-`PASSED: no findings` or `FAILED: n findings above`. Its summary block prints whether or not it
-found anything, so the middle of its output does not tell you whether it passed.
-
-**Never chain a command on a verdict that went through a pipe.** In
-`cargo klarch check | tail -n 10 && git commit`, the shell takes the exit status of `tail`, so the
-commit runs whatever the check found. Run `cargo klarch check` and `cargo klarch commits` bare. To
-bound a long report, redirect it to a file, read its last line, and chain nothing on the
-redirection's command.
-
-`cargo klarch check` is one walk over every live document, in four phases, per
-`design@core@phases-gate-the-report`: the manifest resolved, the tree read against it, the entity
-table built, then every check. It stops at the first phase that finds anything, prints that phase
-alone, and says which phases were not judged, because a finding computed over an incomplete model
-is unreliable in both directions. The last phase runs three checks, and nothing selects a subset
-of them:
-
-| check | judges |
-| --- | --- |
-| `generated` | every generated index against its regeneration |
-| `references` | every reference against the entity table, the two retired forms, the path to anchor, the bare name of a skill or an agent |
-| `registers` | the shape of what each anchor carries: a file register's entries, groups, README and index, and a directory home's links |
-
-What this project declares conformant, and what it exempts, is the manifest at the root.
-
 **Which gates you owe depends on what you touched.** Anything that writes a reference or touches a
 register entry owes `cargo klarch check`. Any change to the Rust source owes fmt, clippy and the
 test suite. Every commit owes `commits`: its message and its tree. **Run
-`cargo klarch check --staged` after staging and before each commit, which judges the tree the commit
-will record, and `cargo klarch commits origin/main..HEAD` after it, which judges the message's
-pointers.** The staged check is a restatement; its home is
-`design@agent-skills@staged-check-before-each-commit`. The range is the whole branch because this
-repository refuses citations of its branch's own commits by SHA, and `commits` sees a citation only
-of a commit in the range it judges, per `design@core@branch-shas-are-refused`; the checker-side fix
-is `issue@core@branch-sha-citations-are-judged-within-the-range-only`. A failing staged check is
-repaired before the commit is made. A commit whose message fails `commits` is repaired by a reword,
-per `## Git` point 2. A branch about to merge owes all of them: one
+`cargo klarch commits origin/main..HEAD` after each commit, which judges the message's pointers.**
+The range is the whole branch because this repository refuses citations of its branch's own
+commits by SHA, and `commits` sees a citation only of a commit in the range it judges, per
+`design@core@branch-shas-are-refused`; the checker-side fix is
+`issue@core@branch-sha-citations-are-judged-within-the-range-only`. A commit whose message fails
+`commits` is repaired by a reword, per `## Git` point 2. A branch about to merge owes all of them: one
 `cargo x gates --require-rebased`.
 
 ## Skills `##repository-skills`
