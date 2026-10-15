@@ -75,7 +75,11 @@ On a branch of its own, `release-<version>`, under the Git rules of the root `CL
    installed as `knowledge-architect-<name>`, or one of the three crates. Every document the shipped text relies on in a project, such as the knowledge
    table, is written by an installed skill.
 6. **crates.io.** For each crate, the API answers 404 for a first release, or shows the crate owned
-   by the owner's account; in both cases the version itself must be absent:
+   by the owner's account; in both cases the version itself must be absent. The release workflow
+   does not publish a crate's first version, per `design@knowledge-architect@publish-credential`:
+   the owner publishes that version with an API token, then configures the crate's trusted
+   publisher and turns on "Require trusted publishing for all new versions", before step 11 tags
+   the release:
 
    ```sh
    curl -s -A 'knowledge-architect release check' https://crates.io/api/v1/crates/<crate>/<version>
@@ -114,7 +118,7 @@ On a branch of its own, `release-<version>`, under the Git rules of the root `CL
 12. **The owner's approval.** The workflow's `verify` job checks that the tag names a commit on
     main and the version every crate carries. Its `publish` job then waits for the approval of the
     environment `release`, which is the owner's word to publish, per
-    `design@knowledge-architect@publish-after-merge`. Give the owner the run's address,
+    `design@knowledge-architect@owner-word-mechanism`. Give the owner the run's address,
     `gh run list --workflow release.yml --branch v<version> --limit 1 --json url,databaseId`. Only
     the owner approves: never approve a deployment, though the agent's `gh` can. Then follow the
     run with `gh run watch <run id> --exit-status`, and once it passes, check step 6's address for
@@ -132,7 +136,8 @@ crate whose version crates.io already holds. A crate it uploaded stays published
   again on its head the steps that step 9 names for a repair, and release the same version again
   from step 9.
 - **Some crates were uploaded**: re-run the failed job, `gh run rerun <run id> --failed`, from the
-  same tag; the owner approves it as at step 12. If that cannot succeed without a change to the
+  same tag, per `design@knowledge-architect@partial-publish-rerun`; where the re-run waits for an
+  approval, the owner gives it as at step 12. If that cannot succeed without a change to the
   code, the uploaded crates keep the version, and the next release is the next patch version for
   all three, per `design@knowledge-architect@version-lockstep`; the uploaded version is yanked only
   if it is broken.
