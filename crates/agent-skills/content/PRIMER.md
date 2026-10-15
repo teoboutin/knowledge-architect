@@ -128,7 +128,9 @@ test mechanism, an issue's diagnosis; the list is illustrative, not a boundary):
 - **Re-verify a conclusion before acting on it**, and correct it in place the moment evidence
   contradicts it.
 - **A transfer from another project names the property it depends on, and checks that the property
-  holds here.** Naming the pattern is not enough.
+  holds here.** Naming the pattern is not enough. A claim taken from another project's record,
+  such as a count of occurrences, is checked against that project's registers as well as its
+  history: its rejected alternatives and its issues often hold what its commit log does not.
 
 **Evidence is textual and cheap**: a verbatim reading of a file, a measurement over a tree, a
 failing test. Build it rather than trading intuitions.
@@ -150,10 +152,13 @@ sentence is written:
 
 **A commit message is a document for this purpose.** `{{command}} commits` reads only its
 pointers: a measurement, a count or a claim about the tree in a message is checked by nobody but
-its writer. Before each commit, list every factual claim its message makes, and beside each the
-command or the file that checks it; run or open each against the tree the commit holds, and check
-a quotation or an attribution of the owner against the conversation. A claim no check supports is
-removed, or labelled as an assumption.
+its writer. Before each commit, list every factual claim its message makes: a count, a search and
+its result, a section or line number, the name of a file, a slug or a commit, a quotation or an
+attribution of the owner, or a statement that something exists, was searched, was found or
+changed. Beside each, write the command or the file that checks it; run or open each against the
+tree the commit holds, and check a quotation or an attribution against the conversation. A claim no
+check supports is removed, or labelled as an assumption. Writing the message from memory of the
+work is where the false claims come from.
 
 **The same checks apply to an answer given to the owner in the conversation.**
 
@@ -275,8 +280,9 @@ shaped, are in `primer@where-knowledge-goes`.
 
 - `{{command}} check` reads every document in four phases and stops at the first phase that finds
   anything. Its exit code is the verdict: 0 for no finding, 1 for findings, 2 when it could not
-  run. Its last line states it, `PASSED: no findings` or `FAILED: n findings above`. A finding names
-  its repair.
+  run. Its last line states it, `PASSED: no findings` or `FAILED: n findings above`; its summary
+  block prints whether or not it found anything, so the middle of its output does not tell whether
+  it passed. A finding names its repair.
 - `{{command}} check --staged` judges the tree a commit will record, HEAD's with the staged
   changes. Run it after staging and before each commit, and repair a failing one before the
   commit: it catches a file left unstaged, or a change staged in part, before the commit exists,
