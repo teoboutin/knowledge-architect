@@ -38,11 +38,11 @@ Then read the root's design home, `register@knowledge-architect@design`: it hold
 every Component, so its heads bind a change inside one Component too.
 
 A behaviour that looks like a new defect is often recorded: check it as
-`instructions@verify-before-relying` says, in its subsection "Check whether it is already known",
-read that subsection whole.
+`primer@verify-before-relying` says, in its subsection "Check whether it is already known", with the
+two listings this repository adds in `instructions@verify-before-relying`.
 
-`primer@intent-and-claims` governs how to read all of them, read whole: intent is authority, and a
-divergence between a design document and the code is a defect in one of them, never licence to
+`primer@intent-and-claims` and `primer@verify-before-relying` govern how to read all of them, read
+whole: intent is authority, and a divergence between a design document and the code is a defect in one of them, never licence to
 follow the code.
 
 ## The loop `##development-loop`
