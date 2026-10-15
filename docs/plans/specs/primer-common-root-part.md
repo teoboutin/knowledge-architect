@@ -345,7 +345,8 @@ section in its reply to round 1, `argument@primer-common-root-part@a16` and
 the draft and the scope default in its reply to round 2, `argument@primer-common-root-part@a36` and
 `argument@primer-common-root-part@a37`. State: `approved`. Shape: "Decided design", "The section
 `working-prose`". Harvest: no head by test 2, since the primer alone will state the rules and their
-reasons sit beside them; a head by test 4 only on the owner's answer to Q1. The owner, round 2:
+reasons sit beside them; no head, the owner having answered Q1 that the words were a hedged proposal. The owner,
+round 2:
 "working-prose-in-primer: Both version from design skill and CLAUDE.md should be merged. The
 em-dash/semicolon can be removed I guess. Though I believe LLM tend to use those in excess, so I
 lean toward keeping it. \"Readers are non-native speakers\" can become \"Readers might be non-native
@@ -676,7 +677,6 @@ Anchors::of, Anchor::home_of       path@core@src/entity.rs, existing
                                    the primer source, a new level-two section
 checker-model-in-primer            a head of register@agent-skills@design
 verification-in-primer             a head of register@agent-skills@design
-working-prose-in-primer            a head of register@agent-skills@design, on Q1 only
 anchors-listing-command            a head of register@core@design
 rarer-rule-in-the-model            T2, a tripwire of register@agent-skills@tripwire
 ```
@@ -1066,22 +1066,24 @@ the agentic-workflow axis on each adopting project.
   the text. The owner: "D1 agreed."
 - **D2**, ruled: the premortem's verdicts, proposed as T1 and T2 recorded as tripwires, AC1 and
   AC2 applied. The owner: "D2: Keep only T2, AC1 and AC2". T1 is not recorded.
-- **D3**, awaiting: `design@agent-skills@primer-content` leaves the design home, its member list
+- **D3**, ruled: `design@agent-skills@primer-content` leaves the design home, its member list
   moving into `primer-limit`'s body and each directive it argues recorded as the table of "The
   rewrite of `primer-limit`, and the end of `primer-content`" says. Bears on
   `thread@primer-common-root-part@primer-heads-per-directive`, whose owner's words name the new
   sections only: the bundled directives are a widening, raised by the review. The ground: the
-  bundle issue's own closing condition.
-- **D4**, awaiting: the rarer rules are deleted from the root CLAUDE.md, not only left unshipped.
+  bundle issue's own closing condition. The owner: "D3 agreed."
+- **D4**, ruled: the rarer rules are deleted from the root CLAUDE.md, not only left unshipped.
   Bears on `thread@primer-common-root-part@checker-model-in-primer`. The agent's default in its
   reply to round 1 read "The rarer rules leave the root CLAUDE.md and are not shipped"; the owner's
-  answer, "the detailed findings do not need to be shipped in the primer", names the primer only.
-- **Q1**, awaiting, entry test 4 of `primer@design-heads` for
+  answer, "the detailed findings do not need to be shipped in the primer", names the primer only. The owner: "D4 they can be deleted from root I guess. Not sure why they
+  ended up here."
+- **Q1**, answered, entry test 4 of `primer@design-heads` for
   `thread@primer-common-root-part@working-prose-in-primer`: do the owner's words "I lean toward
   keeping it" (the em-dash bullet) and "\"Readers might be non-native speakers\". This applies
   generally I believe." record the owner's intent, or were they an answer to the agent's proposal,
   or a hedged statement? Default: no head, the reasons staying beside the instructions in the
-  primer.
+  primer. The owner: "Q1: more of an hedged proposal than an intent." Test 4 does
+  not hold, and the decision earns no head.
 
 ## Harvest
 
@@ -1089,7 +1091,7 @@ the agentic-workflow axis on each adopting project.
 | --- | --- | --- |
 | `thread@primer-common-root-part@checker-model-in-primer`, a head | `register@agent-skills@design`, under "The configuration a project holds" | step 4 |
 | `thread@primer-common-root-part@verification-in-primer`, a head by test 2, its evidence attributed to the owner | `register@agent-skills@design` | step 4 |
-| `thread@primer-common-root-part@working-prose-in-primer`, a head by test 4 only on Q1 | `register@agent-skills@design` | step 4 |
+| `thread@primer-common-root-part@working-prose-in-primer` | no head, per Q1: the reasons stay beside the rules in the primer | — |
 | #primer-extends-every-root → `primer-limit`, rewritten | `register@agent-skills@design` | step 4 |
 | `primer-content` leaves; its member list moves to `primer-limit`; its bundled directives as the table of "Decided design" says, per D3 | `register@agent-skills@design` | step 4 |
 | `thread@primer-common-root-part@checker-cli-in-primer`: `staged-check-before-each-commit` rewritten | `register@agent-skills@design` | step 4 |
