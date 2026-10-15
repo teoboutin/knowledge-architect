@@ -984,18 +984,90 @@ fn anchors_prints_a_directory_home_without_its_readme() {
     );
 }
 
-/// A file register's directory with no README is still its home, as for a heading register's:
-/// the directory holds the entries, and the absent README is a finding of its own.
+/// A file register's directory is its home when it holds an entry and nothing else, the entry in
+/// a group: the directory is what `check` judges, not its README, its index, its register.toml or
+/// a top-level file, and the absent README is a finding of its own.
 #[test]
-fn anchors_prints_a_file_register_s_home_without_its_readme() {
-    let sandbox = Sandbox::new("anchors-file-no-readme", "dirhome");
-    std::fs::remove_file(sandbox.path("docs/open-issues/README.md")).expect("the README is there");
+fn anchors_prints_a_file_register_s_home_holding_only_a_grouped_entry() {
+    let sandbox = Sandbox::new("anchors-file-grouped-only", "dirhome");
+    for file in [
+        "README.md",
+        "index.md",
+        "register.toml",
+        "an-ungrouped-entry.md",
+    ] {
+        std::fs::remove_file(sandbox.path(&format!("docs/open-issues/{file}")))
+            .expect("the file is there");
+    }
     sandbox.stage();
     let (out, stderr, code) = sandbox.run(&["anchors"]);
     assert_eq!(code, 0, "{out}{stderr}");
     assert!(
         out.lines()
             .any(|l| l.split_whitespace().eq(["issue", "docs/open-issues/"])),
+        "{out}"
+    );
+}
+
+/// A Directory register's directory with no README and no index is still its home, as for a
+/// file register's.
+#[test]
+fn anchors_prints_a_directory_register_s_home_without_its_readme() {
+    let sandbox = Sandbox::new("anchors-milestones-no-readme", "dirhome");
+    for file in ["README.md", "index.md"] {
+        std::fs::remove_file(sandbox.path(&format!("docs/plans/milestones/{file}")))
+            .expect("the file is there");
+    }
+    sandbox.stage();
+    let (out, stderr, code) = sandbox.run(&["anchors"]);
+    assert_eq!(code, 0, "{out}{stderr}");
+    assert!(
+        out.lines().any(|l| l
+            .split_whitespace()
+            .eq(["milestone", "docs/plans/milestones/"])),
+        "{out}"
+    );
+}
+
+/// A home directory that holds its README alone is held: the README is a file under it.
+#[test]
+fn anchors_prints_a_home_holding_only_its_readme() {
+    let sandbox = Sandbox::new("anchors-readme-only", "dirhome");
+    for file in [
+        "index.md",
+        "register.toml",
+        "an-ungrouped-entry.md",
+        "housekeeping/a-grouped-entry.md",
+    ] {
+        std::fs::remove_file(sandbox.path(&format!("docs/open-issues/{file}")))
+            .expect("the file is there");
+    }
+    sandbox.stage();
+    let (out, stderr, code) = sandbox.run(&["anchors"]);
+    assert_eq!(code, 0, "{out}{stderr}");
+    assert!(
+        out.lines()
+            .any(|l| l.split_whitespace().eq(["issue", "docs/open-issues/"])),
+        "{out}"
+    );
+}
+
+/// A sibling directory whose name only begins with the home's name is not the home: the issue
+/// directory renamed with a suffix leaves the home missing.
+#[test]
+fn anchors_does_not_take_a_sibling_with_the_home_s_prefix_for_the_home() {
+    let sandbox = Sandbox::new("anchors-prefix-sibling", "dirhome");
+    std::fs::rename(
+        sandbox.path("docs/open-issues"),
+        sandbox.path("docs/open-issues-old"),
+    )
+    .expect("the directory is there");
+    sandbox.stage();
+    let (out, stderr, code) = sandbox.run(&["anchors"]);
+    assert_eq!(code, 1, "{out}{stderr}");
+    assert!(
+        out.lines()
+            .any(|l| l.split_whitespace().eq(["issue", "missing"])),
         "{out}"
     );
 }
