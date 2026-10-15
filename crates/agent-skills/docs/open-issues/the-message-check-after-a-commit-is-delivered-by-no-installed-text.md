@@ -6,8 +6,8 @@ kind: question
 ## Summary
 
 The checker judges a commit message only through `commits`, which runs after the commit exists.
-The setup skill recommends `check --staged` before each commit for a project's root CLAUDE.md, and
-lists `commits` among the gates before a merge only. A session of an adopting project may then meet
+The primer asks for `check --staged` before each commit, and the setup skill lists `commits`
+among the gates before a merge only. A session of an adopting project may then meet
 a dangling reference in a message first at the gates, when the cheap repair is gone. This is a
 prediction: no real session has shown it.
 
@@ -15,10 +15,9 @@ prediction: no real session has shown it.
 
 ### What
 
-- `primer@where-knowledge-goes` states that the checker reads each commit's message and tree
-  through `commits`.
-- `skill@knowledge-architect-setup` recommends the staged check before each commit and lists
-  `commits` among the gates.
+- `primer@checker-model` states that `commits` judges each commit of a range, its message and its
+  tree, and asks for the staged check before each commit.
+- `skill@knowledge-architect-setup` lists `commits` among the gates.
 - `path@core@README.md`, on `commits`: "the range is run after each commit, and a finding in the
   newest commit is repaired by an amend."
 
@@ -35,6 +34,6 @@ for one.
 ### What would close it
 
 A retrospective that reports a message finding first met at the gates, in a project that follows
-the installed text: then the setup's recommendation gains "and `{command} commits <main>..HEAD`
-after it", the command as the project declares it. Or retrospectives over several releases that
+the installed text: then `primer@checker-model`'s staged-check line gains "and
+`{command} commits <main>..HEAD` after it", the command as the project declares it. Or retrospectives over several releases that
 show no such case, and the entry closes.

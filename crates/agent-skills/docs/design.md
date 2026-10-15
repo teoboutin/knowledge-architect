@@ -2465,62 +2465,106 @@ whole would leave a project no place for its own rows, against
 the project's own, such as a README that is also its package's page; it never contradicts one, and a row
 that only repeats one is removed.
 
-### The primer holds only what every session needs and no installed skill delivers `##primer-limit`
+### The primer is the part of every adopting project's root CLAUDE.md that is the same in every project: what every session needs and no installed skill delivers `##primer-limit`
 
-The primer reaches every session of every installing project, so its content test is the bound,
-not a count of lines: it holds what every session needs and no installed skill delivers at the
-moment it is needed. A convention of one project does not go in it, and neither does a procedure a
-skill delivers when it loads. The rules on what a design head records and how pass that test, since
-every reading of a head needs them and no skill loads at that moment, per
-`design@agent-skills@one-home-for-head-rules`; the procedures of writing one stay in the
-decision-recording skill. The workflow targets frontier-tier models, which the
-design skill's work requires, per `design@agent-skills@frontier-tier-only`, so a size limit
-would protect a reader the workflow does not serve.
+The root `CLAUDE.md` imports the primer, which the checker requires of every project serving the
+`claude` harness, so the primer reaches every session of every installing project, every subagent
+included. The owner set how it can be read: as an extension of every adopting project's root
+`CLAUDE.md`. Its content test follows from that, and is the bound, not a count of lines: it holds
+what every session needs and no installed skill delivers at the moment it is needed. A statement
+that the setup skill would have every root `CLAUDE.md` write alike belongs in the primer, the
+import line aside, which the primer cannot carry. What one project's root alone would say does not
+go in it, and neither does a procedure a skill delivers when it loads. The workflow targets
+frontier-tier models, which the design skill's work requires, per
+`design@agent-skills@frontier-tier-only`, so a size limit would protect a reader the workflow does
+not serve.
 
-### The primer carries the directives that every session applies and that no skill delivers at the moment they apply `##primer-content`
+Its members today, beside the knowledge table and the list of installed skills, each with the head
+that argues it where one does: the rule on when to write a reference,
+`design@agent-skills@a-reference-claims-a-revisit`; the goals binding and decisions binding as a
+presumption, `design@agent-skills@goals-bind`; the routing of a question by its authority,
+`design@agent-skills@questions-go-to-their-authority`; the owner's word bound by its premise,
+`design@agent-skills@owner-word-holds-as-far-as-its-premise`; the labels and an answer's authority,
+`design@agent-skills@ruled-items-labelled` and `design@agent-skills@answer-keeps-its-authority`; the
+room to judge, which states `goal@agent-skills@installed-text-leaves-room-to-judge`; built intent
+and a reason at the code, `design@agent-skills@design-home-is-built-intent` and
+`design@agent-skills@local-intent-binds`; the verification rules,
+`design@agent-skills@verification-in-primer`; the working-prose rules, whose reasons stand beside
+them in the primer; the outcomes of something met outside the task,
+`design@agent-skills@met-outside-the-task-outcomes`; the "Decided" section,
+`design@agent-skills@decisions-reported-to-the-owner`; the checker's model and its CLI facts,
+`design@agent-skills@checker-model-in-primer`, the staged check before each commit among them,
+`design@agent-skills@staged-check-before-each-commit`; every commit judged at the branch's tip,
+`design@agent-skills@branch-commits-judged-at-tip`; and the rules on design heads,
+`design@agent-skills@one-home-for-head-rules`.
 
-Besides the knowledge table and the list of installed skills, the primer carries the rule on when
-to write a reference, the section on design heads, per
-`design@agent-skills@one-home-for-head-rules`, and the directives the skills rely on and no skill
-delivers at the moment they apply. The directives it carries today follow. **A reference is written wherever the text would have to be revisited if the entry it
-names changed.** That rule is the premise the workflow relies on to be useful: an entry of a
-register is referenced wherever it is load-bearing, so the checker can list what a reversal, a
-closure or a firing touches, and the scope of reversing a decision can be assessed from that list,
-per `goal@knowledge-architect@structure-and-workflow-work-together`.
+### The primer states the checker's model a reader needs, and the rarer checker rules reach a session through their findings `##checker-model-in-primer`
 
-- **The goals are the only statements assumed to come from the owner.** A recorded decision was
-  reviewed, but its review can miss a detail or an implication, more often as the volume of agentic
-  work grows. When a decision conflicts with a goal, the likely cause is that the owner missed the
-  conflict: the goal prevails, and the conflict goes to the owner, per
-  `goal@knowledge-architect@the-owner-decides`.
-- **A question goes to the authority that answers it**, per
-  `design@agent-skills@questions-go-to-their-authority`: every session meets questions, and a skill
-  that routes them reaches only the sessions that load it.
-- **A word of the owner holds only as far as its premise, and an answer on a reading gives way to
-  its source**, per `design@agent-skills@owner-word-holds-as-far-as-its-premise`.
-- **Where the installed text is silent, a session judges**, since the installed text leaves that
-  room on purpose, per `goal@agent-skills@installed-text-leaves-room-to-judge`; room to judge is
-  never room to act against an instruction. Every session meets a situation no instruction covers,
-  and no skill reaches every session.
-- **A design home is built intent, per `design@agent-skills@design-home-is-built-intent`, a reason
-  recorded at the code binds below it, per `design@agent-skills@local-intent-binds`, and a claim
-  about the code goes stale**: the code is checked against the first, the second is read before the
-  code it explains is removed, and the third is verified before it is relied on.
-- **Before diagnosing anything as a problem, a session checks whether it is already recorded**,
-  with the listing commands of the checker.
-- **Something met outside the task takes the first of four outcomes that applies**, per
-  `design@agent-skills@met-outside-the-task-outcomes`.
-- **A turn that decided something the owner could have decided ends with a "Decided" section**, per
-  `design@agent-skills@decisions-reported-to-the-owner`.
-- **An item put to the owner under a label takes the next number of its prefix in the record the
-  label reaches**, per `design@agent-skills@ruled-items-labelled`, and an answer keeps the
-  authority that answered it, per `design@agent-skills@answer-keeps-its-authority`. Labels are given
-  and answers recorded in sessions of every activity, and no one skill is loaded in all of them.
-- **Every commit of a branch is judged by the checker at the branch's tip**, where the project's
-  gates run the commits check over the branch, so a change that sets what that checker requires
-  goes in the branch's first commit, and a repair that would leave an earlier commit failing is
-  folded into it. Every session commits, and a skill meets only one case of it: planning a plan
-  document merged before its work, and review a fold.
+`primer@checker-model` states the manifest, the anchors, the documents every Component carries,
+the registers and how an entry is defined, every reference kind and what it names, how an entry is
+read, and how the checker is run and its verdict read. Every session reads references before it
+writes any, and a finding arrives only after something is written, so the model is needed from a
+session's first read, which no skill delivers: the setup skill, which states the layout, loads only
+when a project adopts the workflow or moves its pin. Two projects had each restated the model in
+their root `CLAUDE.md` by hand.
+
+The nearest rival, the binary printing the model and the primer pointing to the command, loses on
+delivery: the harness puts the primer in every session's context, and a command reaches a session
+only if it thinks of running it. Drift between the primer and the checker is bounded by
+`design@knowledge-architect@version-lockstep`, and by the core's test
+`the_primer_s_model_section_names_every_kind_and_reserved_word`, which fails when a reference kind,
+a built-in register or a reserved anchor word is missing from the section.
+
+The section states no rarer rule: the candidate rule, the retired forms, ignored targets, the path
+to anchor, a register's home cited by its path, a plan item's scope, a slug outside a definition
+site. Each reaches a session through its finding, which names its repair, on the owner's rulings on
+the first agentic-workflow audit, recorded in
+`issue@core@a-reference-with-a-line-or-fragment-suffix-names-a-wrong-repair`. A rule a writer of
+every `path` reference needs stays in `primer@where-knowledge-goes`.
+
+### The primer states the rules for verifying a claim before relying on it or writing it, and a skill keeps only the narrower rule its own moment needs `##verification-in-primer`
+
+`primer@verify-before-relying` holds them: a claim about how anything behaves is established from
+the implementation or a run, the whole path is followed, one case is no convention, the evidence
+is reported with the conclusion, a conclusion is re-verified before acting, a transfer names its
+property; a checkable claim is checked before it is written, a commit message's claims are listed
+and checked before the commit, and the same holds for an answer to the owner; what is already
+recorded is checked before diagnosing; precedent is not authority. The design skill's grounding
+reads the section again, as `design@agent-skills@primer-reread-before-recording` does for the
+heads, and its steps and the planning skill point to it. Each skill's and agent's narrower rule,
+such as a reviewer's "establish the state of the tree yourself", stays where its moment needs it.
+
+The evidence of real use that `design@agent-skills@behaviour-additions-need-real-use` asks is the
+owner's: the owner reports that these rules, built over work with agents in several projects,
+prevented many difficulties there, and names the mechanism: an agent assumes that the project and
+its tools behave as their names, their documents and its own expectations suggest, and acts on that
+assumption without checking it. Every session meets claims, so the rules pass
+`design@agent-skills@primer-limit`. The nearest rival, the primer pointing to each skill's narrower
+rule, loses on the five directives no installed text stated in any form: following the whole path,
+a transfer's property, a commit message's claims checked by its writer, precedent, and confidence
+uncorrelated with correctness.
+
+### The goals are the only statements assumed to come from the owner, and a recorded decision binds as a presumption `##goals-bind`
+
+`primer@goals-bind` states it, and the design skill derives its criteria from it: a criterion from
+a goal binds outright, one from a decision binds as a presumption. A recorded decision was reviewed,
+but its review can miss a detail or an implication, more often as the volume of agentic work grows.
+When a decision conflicts with a goal, the likely cause is that the owner missed the conflict: the
+goal prevails, and the conflict goes to the owner, per `goal@knowledge-architect@the-owner-decides`.
+The rival, every recorded decision binding as the owner's word, would let an unreviewed implication
+of an approval overrule a goal.
+
+### Every commit of a branch is judged by the checker at the branch's tip, so a change that sets what that checker requires goes in the branch's first commit `##branch-commits-judged-at-tip`
+
+`primer@branch-commits` states it, where a project's gates run the commits check over a branch: a
+change that sets what the tip's checker requires of every tree goes in the branch's first commit,
+and a repair that would leave an earlier commit failing is folded into it. The planning skill meets
+one case, a plan document merged before work that changes what the per-commit gate checks, per
+`design@agent-skills@plan-landing-is-not-tied-to-its-work`, and the review skill another, a fold,
+per `design@agent-skills@review-repair-appended-or-folded`. Every session commits, and each skill
+meets only one case, so the rule is the primer's. The rival, judging each commit by the checker of
+its own tree, would let a branch that adds the manifest in its last commit pass with every earlier
+commit unjudged.
 
 ### A question is answered by its authority, and the owner answers only what no authority settles `##questions-go-to-their-authority`
 
@@ -2792,20 +2836,22 @@ the published gates library, per `design@gates@gates-crate`, so every adopting p
 the gates refined in this repository and in thaum. The gates a project owes are its own list, per
 `design@gates@a-project-holds-its-gate-list`.
 
-### The setup skill recommends `check --staged` after staging and before each commit `##staged-check-before-each-commit`
+### The primer asks for `check --staged` after staging and before each commit `##staged-check-before-each-commit`
 
-The setup skill recommends that a project's root `CLAUDE.md` tell a session to run
-`check --staged` after staging and before each commit, beside the gates command, which
-judges the branch before a merge. The command is the core's, `design@core@staged-tree-source`. The
-reason: the staged tree is the one the commit records, and a file left unstaged, or a change staged
-in part, passes a check of the working tree and fails the commit's own, which the gates meet only
-before the merge.
+`primer@checker-model` tells a session to run `check --staged` after staging and before each
+commit, and to repair a failing one before the commit, beside the gates command, which judges the
+branch before a merge. The command is the core's, `design@core@staged-tree-source`. The reason: the
+staged tree is the one the commit records, and a file left unstaged, or a change staged in part,
+passes a check of the working tree and fails the commit's own, which the gates meet only before the
+merge. The primer states it because every adopting project's root `CLAUDE.md` would state it alike,
+per `design@agent-skills@primer-limit`; the setup skill asking each root to state it lost on that
+test.
 
 `design@agent-skills@behaviour-additions-need-real-use` asks of an addition a behaviour seen in real use, or
-asked for by the owner with the lack named. The setup recommendation has no named lack of its own,
+asked for by the owner with the lack named. The instruction has no named lack of its own,
 so it is an exception to that rule, argued on delivery: without it, no shipped text tells a session to check
 before a commit, so a command that judges the commit's tree is used only where a project's own
-instructions already ask for it. Its rival, dropping the recommendation until a real session shows
+instructions already ask for it. Its rival, dropping the instruction until a real session shows
 the lack, keeps the rule and leaves the command undelivered. Its cost is an instruction no observed
 session asked for.
 
