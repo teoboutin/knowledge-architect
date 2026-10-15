@@ -16,6 +16,6 @@ The checker then reports any installed file that differs from the text of its ve
 
 - The library API, the list of files it carries:
   [docs.rs](https://docs.rs/knowledge-architect-agent-skills).
-- The [repository README of this crate](https://github.com/tellurium-monoxide/knowledge-architect/blob/main/crates/agent-skills/README.md).
+- The [repository README of this crate](https://github.com/teoboutin/knowledge-architect/blob/main/crates/agent-skills/README.md).
 - The checker: [knowledge-architect on crates.io](https://crates.io/crates/knowledge-architect).
-- The project: [the repository](https://github.com/tellurium-monoxide/knowledge-architect).
+- The project: [the repository](https://github.com/teoboutin/knowledge-architect).

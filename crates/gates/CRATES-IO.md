@@ -11,5 +11,5 @@ of a Rust project that uses knowledge-architect, and hands it to the library.
 ## Documentation
 
 - The library API: [docs.rs](https://docs.rs/knowledge-architect-gates).
-- The [repository README of this crate](https://github.com/tellurium-monoxide/knowledge-architect/blob/main/crates/gates/README.md).
-- The project: [the repository](https://github.com/tellurium-monoxide/knowledge-architect).
+- The [repository README of this crate](https://github.com/teoboutin/knowledge-architect/blob/main/crates/gates/README.md).
+- The project: [the repository](https://github.com/teoboutin/knowledge-architect).
