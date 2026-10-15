@@ -181,7 +181,8 @@ Several adversarial reviewers may be dispatched, with different angles of attack
 
 **`cargo x gates` runs every gate in one command**, and the gate list's home is
 `design@xtask@gates-list-primary-home`. How the gates are run, the checks owed before and after
-each commit, and the repair of a failing one are `instructions@verify-mechanically`, read whole.
+each commit, and the repair of a failing one are `instructions@verify-mechanically` and
+`primer@checker-model`, read whole.
 **A change to the core under which a tree that passed before can fail**, such as a stricter check
 of a commit's tree, a change of the manifest format or a change of what a generated file holds,
 **is placed on the branch as `primer@branch-commits` says**, read whole.

@@ -150,8 +150,8 @@ sentence is written:
 - a slug, a path, a section or a run identifier is resolved;
 - "this is fixed" and "that entry is closed" are diffed.
 
-**A commit message is a document for this purpose.** `{{command}} commits` reads only its
-pointers: a measurement, a count or a claim about the tree in a message is checked by nobody but
+**A commit message is a document for this purpose.** It is durable, and `{{command}} commits`
+reads only its pointers, its references, its paths, its skill names and its SHAs: a measurement, a count or a claim about the tree in a message is checked by nobody but
 its writer. Before each commit, list every factual claim its message makes: a count, a search and
 its result, a section or line number, the name of a file, a slug or a commit, a quotation or an
 attribution of the owner, or a statement that something exists, was searched, was found or
@@ -177,9 +177,9 @@ and the scoped `CLAUDE.md` next to what is edited. What already exists in the pr
 of what was done, not of what should be done.
 
 - **"The existing ones do it this way" is not an argument, and neither is how many of them do.**
-  Where an instruction and the surrounding practice disagree, the instruction wins. An instruction
-  you think is wrong is argued against; changing an instruction is a normal move, and silently
-  following the older practice is not.
+  Where an instruction and the surrounding practice disagree, the instruction wins. Where you
+  think an instruction is wrong, say so and argue it; changing an instruction is a normal move, and
+  silently following the older practice is not.
 - **Match local idiom only where the instructions are silent.** Naming and the shape of the
   surrounding prose are worth matching, so a diff stays readable.
 - **Do not spread non-conformance while working around it.** Starting from an existing document or
@@ -190,20 +190,23 @@ of what was done, not of what should be done.
 
 These rules govern working prose: every text the project's contributors read, such as a
 discussion with the owner, a document of the project, a commit message and a code comment. Text
-the product's end users read follows the product's own style contract. The test is who reads the
+the product's end users read follows the product's own style contract, where literary value can be
+a deliberate goal. The test is who reads the
 text, not where it is stored.
 
 - Write plain, direct technical English, in short sentences. Readers might be non-native
   speakers: where a simpler word or a shorter sentence says the same thing, use it.
 - Use precise technical terms. No idioms, colloquialisms or aphorisms: they read differently to
   different readers, and they carry a qualitative judgement past argument.
-- No undefined metaphor. A metaphor that names a defined concept is vocabulary once defined.
+- No undefined metaphor: the meaning is carried explicitly. A metaphor that names a defined
+  concept is vocabulary once defined.
 - Use em dashes and semicolons sparingly. They usually join two sentences that read better apart.
 - Prefer explicit quantities, units and invariants over qualitative wording. A qualitative claim
   may state a goal or an observation. Offered as an argument, it is replaced by its checkable form:
   a count, a bound, an invariant, a named failure it prevents, or a test either party could run.
-  The test: delete the sentence; if the argument falls, the sentence was the argument. An owner's
-  ruling needs no such form.
+  The test: delete the sentence; if the argument falls, the sentence was the argument, and it is
+  replaced by its checkable form, not reworded in other qualitative terms. An owner's ruling needs
+  no such form.
 
 ## Something met outside the task {{slug:met-outside-the-task}}
 
@@ -237,18 +240,20 @@ dispatched it carries them into its own section.
 ## The project's documents and how they are checked {{slug:checker-model}}
 
 **The manifest**, knowledge-architect.toml at the project's root, declares the Components, the
-locations and the registers. `{{command}} anchors` lists what it resolves to: every anchor, its
-path, and the home of each register it carries.
+locations, the registers, and what is exempt from the checks. `{{command}} anchors` lists what it
+resolves to: every anchor with its kind and its path, and, under a Component, a location and
+`plans`, the home of each register it carries.
 
 **An anchor** is a named place that carries registers. A **Component** is a directory the manifest
-declares, named by its basename, the project's root included; it carries the required documents
+declares, named by its basename, or the project's root, named by the manifest's project name; it
+carries the required documents
 and every component register. A **location** carries only the registers it declares, their homes
 directly under its path. The checker constructs the anchor `plans` at docs/plans/, one anchor per
 milestone directory and one per spec file. The anchor words `*` (every Component), `elsewhere` (a
 path the tree does not hold) and `plans` are reserved.
 
-**Every Component carries** `path@*@README.md`, `path@*@CLAUDE.md`,
-`path@*@docs/rejected-alternatives.md`, and the home of each component register:
+**Every Component carries** `path@*@README.md`, `path@*@CLAUDE.md` while the project serves the
+`claude` harness, `path@*@docs/rejected-alternatives.md`, and the home of each component register:
 `register@*@goal`, `register@*@design`, `register@*@tripwire` and `register@*@issue`.
 
 **A register's entries**:
@@ -256,7 +261,7 @@ path the tree does not hold) and `plans` are reserved.
 - a **heading register**, such as `design`, `goal` and `tripwire`, keeps its home in one file, or
   in a directory behind a `README.md` that links every subdocument. An entry is a heading at the
   register's level, its statement first and its slug last: level 3 for `design`, level 2 for
-  `goal` and `tripwire`. A slug anywhere else defines nothing;
+  `goal` and `tripwire`;
 - a **file register**, such as `issue`, keeps its home in a directory: one file per entry, whose
   basename is the entry's id, beside a hand-written `README.md` and a generated `index.md`;
 - a **plan document** is an entry of `spec` or of `milestone`, and a plan's items, of `thread`,
@@ -265,8 +270,8 @@ path the tree does not hold) and `plans` are reserved.
 
 An id matches `[a-z0-9]+(-[a-z0-9]+)*`.
 
-**A reference** is one backticked span, `<kind>@<anchor>@<id>`. The kind is a register's name, and
-the reference names one entry of it; or `register`, which names a register's home; or `path`, which
+**A reference** is one backticked span, `<kind>@<anchor>@<id>`. The kind is a register's name, a built-in
+one or one the manifest declares, and the reference names one entry of it; or `register`, which names a register's home; or `path`, which
 names a file or a directory under the anchor; or `planned`, which names, in a plan document, a
 path its work will create. The harness kinds take no anchor: `skill@<name>` and `agent@<name>`,
 each with an optional section slug after a second `@`, `primer@<slug>`, and `instructions@<slug>`
@@ -278,8 +283,10 @@ shaped, are in `primer@where-knowledge-goes`.
 
 **Running the checker**:
 
-- `{{command}} check` reads every document in four phases and stops at the first phase that finds
-  anything. Its exit code is the verdict: 0 for no finding, 1 for findings, 2 when it could not
+- `{{command}} check` reads every document in four phases (the manifest resolved, the tree read
+  against it, the entity table built, then every check) and stops at the first phase that finds
+  anything, saying which phases it did not judge: a finding computed over an incomplete model is
+  unreliable in both directions. Its exit code is the verdict: 0 for no finding, 1 for findings, 2 when it could not
   run. Its last line states it, `PASSED: no findings` or `FAILED: n findings above`; its summary
   block prints whether or not it found anything, so the middle of its output does not tell whether
   it passed. A finding names its repair.
@@ -288,10 +295,12 @@ shaped, are in `primer@where-knowledge-goes`.
   commit: it catches a file left unstaged, or a change staged in part, before the commit exists,
   where the gates catch it only before the merge.
 - `{{command}} commits <range>` judges each commit of a range, its message and its tree: a commit
-  message is a document, and every reference in it must resolve.
+  message is a document, read long after it is written, and every reference in it must resolve,
+  against its own commit's tree or its first parent's.
 - Never chain a command on a verdict that went through a pipe: in `check | tail && git commit`,
   the shell takes the exit status of `tail`, so the commit runs whatever the check found. Run the
-  checker bare, or redirect its output to a file and read the last line.
+  checker bare, or redirect its output to a file, read its last line, and chain nothing on the
+  redirection's command.
 
 ## Where knowledge goes {{slug:where-knowledge-goes}}
 
@@ -338,8 +347,8 @@ directly; a guard, a
 workaround, a stub or a test that exists because of an issue names it in the comment at the site; a
 tripwire names its decision; a rejected alternative names the decision it lost to; a commit message
 names every entry it opens, closes, reverses or argues from. A reference whose entry's change would
-leave the text unaffected is not written. A reference is one backticked span,
-`<kind>@<anchor>@<id>`, naming the anchor that defines the entry, and it is live wherever it is
+leave the text unaffected is not written. A reference, whose kinds
+`primer@checker-model` lists, names the anchor that defines the entry, and it is live wherever it is
 prose, a fenced block included; an illustration that must not resolve writes a placeholder in angle
 brackets. A span never crosses a line break: a line breaks before the span, not inside it. A skill
 or an agent is named by its reference, `skill@<name>` or `agent@<name>`, never by its bare name in

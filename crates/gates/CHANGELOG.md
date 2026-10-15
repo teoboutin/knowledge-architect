@@ -21,7 +21,8 @@ subsection is omitted.
 ### New features
 
 - `cli`, minor: `anchors` lists every anchor of the project, the constructed ones included, with
-  its kind, its path and the home of each register it carries; it exits 1 when a home is missing.
+  its kind and its path, and, under a Component, a location and `plans`, the home of each register
+  it carries; it exits 1 when a home is missing.
 
 ### Workflow
 
