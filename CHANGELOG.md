@@ -16,7 +16,8 @@ subsection is omitted.
   root CLAUDE.md that restates any of these deletes its copy: the primer and the root CLAUDE.md are
   one text, and a duplicate inside one text fails the need test of
   `skill@knowledge-architect-agent-configuration@admission-standard`. The setup skill no longer
-  recommends that the root CLAUDE.md state the staged check.
+  recommends that the root CLAUDE.md state the staged check. A hand-written list of the project's
+  anchors in the root CLAUDE.md can be deleted too: `anchors` prints it from the manifest.
 
 ### New features
 

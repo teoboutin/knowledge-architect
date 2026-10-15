@@ -2479,8 +2479,8 @@ included. The owner set how it can be read: as an extension of every adopting pr
 what every session needs and no installed skill delivers at the moment it is needed. A statement
 that the setup skill would have every root `CLAUDE.md` write alike belongs in the primer, the
 import line aside, which the primer cannot carry. What one project's root alone would say does not
-go in it, and neither does a procedure a skill delivers when it loads. On the owner's word, the
-agent-configuration skill states the framing where a root `CLAUDE.md` is written, in
+go in it, and neither does a procedure a skill delivers when it loads. On the owner's proposal,
+the agent-configuration skill states the framing where a root `CLAUDE.md` is written, in
 `skill@knowledge-architect-agent-configuration@where-text-goes`: the root never restates an
 instruction of the primer. The workflow targets
 frontier-tier models, which the design skill's work requires, per
