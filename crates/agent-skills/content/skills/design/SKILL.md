@@ -31,8 +31,8 @@ closed `approved` or `argued`.
 Distinct from every one of these is the project's **decision record**:
 the design homes of its Components and their rejected alternatives,
 which the discussion grounds against and the harvest records into.
-A metaphor that names a defined concept is legitimate vocabulary after its
-definition; undefined metaphors are not.
+A metaphor that names a defined concept, such as a tripwire, is vocabulary
+once defined, per `primer@working-prose`.
 
 **This skill ends at convergence**, and, where the premortem runs, the premortem and the owner's
 rulings on its tripwires and acceptance criteria.
@@ -199,41 +199,18 @@ to be user-communication design).
 
 ## Language {{slug:discussion-language}}
 
-Write plain, direct technical English, in short sentences. Precise
-scientific and technical terms are welcome. Idioms, colloquialisms and
-aphorisms are not: they read differently to different readers, many of
-whom do not have English as a first language, and they carry
-qualitative judgments past argument unexamined.
+The discussion, and every text it produces, is working prose: it follows `primer@working-prose`,
+read whole. Two rules are the discussion's own.
 
-%% The language rule also governs this skill's own text.
-Jurisdiction: this rule governs working prose — anything consumed by
-project contributors: the discussion itself, design entries, plan
-documents, commit messages and code comments. Text
-consumed by the product's end users is outside it; that text follows the
-product's own style contract, where literary value can be a
-deliberate goal. The deciding test is who consumes the text, not
-where it is stored.
+A qualitative claim may open a thread, never close one. As a stated goal or observation ("the app
+should feel responsive") it is legitimate input, and the thread stays open until the claim is
+converted into its checkable form. This governs arguments and never rulings: the owner's word
+closes a thread whatever their reasons, and "it reads better to me" is a decision they are
+entitled to make, not a claim for you to convert.
 
-Rigor: prefer explicit quantities, units, and invariants over
-qualitative wording. A qualitative claim may open a thread, never
-close one. As a stated goal or observation ("the app should
-feel responsive") it is legitimate input, and it stays open until
-converted into a discriminating observable: a count, a bound, an
-invariant, a named failure it prevents, or a test either party could
-run. The observable need not be numeric; it must be checkable. As the
-justification offered to persuade, an unconverted qualitative claim is
-not an argument. This governs arguments and never rulings: the owner's
-word closes a thread whatever their reasons, and "it reads better to
-me" is a decision they are entitled to make, not a claim for you to
-convert. The test: delete the qualitative sentence — if the
-argument no longer stands without it, that sentence WAS the argument,
-and it must be replaced by its checkable form, not reworded into
-different qualitative terms.
-
-A one-sentence compression (see keep-or-change) names a mechanism in
-plain words. It lives as a titled summary line next to a plain-prose
-restatement — never as the body prose of a document, a commit
-message, or the discussion itself.
+A one-sentence compression (see keep-or-change) names a mechanism in plain words. It lives as a
+titled summary line next to a plain-prose restatement, never as the body prose of a document, a
+commit message, or the discussion itself.
 
 ## Threads and states {{slug:threads-and-states}}
 
@@ -439,7 +416,8 @@ choices whose option space genuinely is closed and consequence-free.
 
 ## The loop {{slug:discussion-loop}}
 
-1. **Ground first**: read the project's record before proposing. The
+1. **Ground first**: read `primer@verify-before-relying` again, whole,
+   then the project's record, before proposing. The
    goals homes of the project's root and of every Component the question
    touches; their design homes; their rejected alternatives; their
    `README.md` files, which state their contracts. The open issues and
@@ -527,7 +505,8 @@ choices whose option space genuinely is closed and consequence-free.
    proposal you have no argument against damages the discussion the
    same way agreeing with one you have not tested does. A factual claim
    doing closing work carries its provenance — measured (with the
-   command that re-takes it), read in a named source, or assumed — and a thread may close over assumed
+   command that re-takes it), read in a named source, or assumed, as
+   `primer@verify-before-relying` asks of every claim — and a thread may close over assumed
    claims only if each assumption is named as a tripwire on that
    closure, or, where only the built code can check it, as an acceptance
    criterion, as step 7 splits and rules them. In the other direction, reverse when the opposing
@@ -538,7 +517,8 @@ choices whose option space genuinely is closed and consequence-free.
    each side and why) is a legitimate move.
 5. **Build discriminating evidence when stalled**: when positions
    rest on intuitions, a further round restates them and adds nothing
-   either party could check. Build the
+   either party could check; evidence is textual and cheap, per
+   `primer@verify-before-relying`. Build the
    discriminating artifact the project affords — a failing test, a
 %% Evidence the record rules out: `design@agent-skills@synthetic-evidence-not-built`.
    throwaway prototype, a benchmark, a mockup. Evidence that the

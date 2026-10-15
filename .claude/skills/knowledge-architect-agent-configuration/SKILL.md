@@ -58,7 +58,7 @@ unit is a sentence, or a clause when only part of a sentence fails.
   a tool's version, a person's plan) is suspect: it is written only when an act needs it. "This
   issue was reported upstream" fails, since no act differs.
 
-Wording, style and placement across files are judged by other rules.
+Wording and style follow `primer@working-prose`; placement across files is judged by other rules.
 
 Current reality only: no history, no dates, no commit hashes, no session records. Examples are kept
 minimal.
