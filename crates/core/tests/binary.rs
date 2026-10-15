@@ -984,6 +984,22 @@ fn anchors_prints_a_directory_home_without_its_readme() {
     );
 }
 
+/// A file register's directory with no README is still its home, as for a heading register's:
+/// the directory holds the entries, and the absent README is a finding of its own.
+#[test]
+fn anchors_prints_a_file_register_s_home_without_its_readme() {
+    let sandbox = Sandbox::new("anchors-file-no-readme", "dirhome");
+    std::fs::remove_file(sandbox.path("docs/open-issues/README.md")).expect("the README is there");
+    sandbox.stage();
+    let (out, stderr, code) = sandbox.run(&["anchors"]);
+    assert_eq!(code, 0, "{out}{stderr}");
+    assert!(
+        out.lines()
+            .any(|l| l.split_whitespace().eq(["issue", "docs/open-issues/"])),
+        "{out}"
+    );
+}
+
 /// A heading register held in both shapes prints both, as `check` reports the pair.
 #[test]
 fn anchors_prints_both_shapes_of_a_heading_home() {
