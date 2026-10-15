@@ -318,21 +318,21 @@ branch is what a later fetch or review reads. The push runs in a command of its 
 
 GitHub's rebase merge gives the branch's commits new SHAs, even when the branch is already up
 to date with main. Its documentation says it "always updates the committer information and
-creates new commit SHAs". A probe repository, teoboutin/rebase-merge-probe, archived,
-with a ruleset identical to this repository's, measured it: an up-to-date pull request of two
-commits reached main with the same trees, the same author, a new committer and new SHAs.
-`gh api repos/teoboutin/rebase-merge-probe/pulls/1/commits` and
-`gh api repos/teoboutin/rebase-merge-probe/commits` re-read both sides. So neither a commit message nor a document cites the SHA
-of a commit of its own branch: it names that commit by its subject. `commits` refuses such a
-citation, per `design@core@branch-shas-are-refused`, which this repository's manifest turns on.
+creates new commit SHAs". A probe repository with a ruleset identical to this repository's
+measured it: an up-to-date pull request of two commits reached main with the same trees, the same
+author, a new committer and new SHAs. A new probe re-takes it: merge such a pull request, then
+compare `gh api repos/<owner>/<probe>/pulls/1/commits` with `gh api repos/<owner>/<probe>/commits`.
+So neither a commit message nor a document cites the SHA of a commit of its own branch: it names
+that commit by its subject. `commits` refuses such a citation, per
+`design@core@branch-shas-are-refused`, which this repository's manifest turns on.
 
 ### A record carried by a commit message rides on a commit that changes a file `##a-record-rides-on-a-commit-that-changes-a-file`
 
-**A commit that changes no file does not reach main.** GitHub's rebase merge drops it: pull request
-#42 of this repository held eight commits, two of them made with `--allow-empty` to record the
-owner's rulings, and main received the other six. `gh api
-repos/teoboutin/knowledge-architect/pulls/42/commits --jq length` against the commits
-main received re-takes it. So a record carried by a message alone rides on a commit that changes
+**A commit that changes no file does not reach main.** GitHub's rebase merge drops it: a pull request
+of eight commits, two of them made with `--allow-empty` to record the owner's rulings, gave main
+the other six. A pull request holding an empty commit re-takes it:
+`gh api repos/teoboutin/knowledge-architect/pulls/<n>/commits --jq length` against the commits
+main received. So a record carried by a message alone rides on a commit that changes
 a file.
 
 ### Every component builds under one pinned toolchain `##toolchain-is-pinned`
