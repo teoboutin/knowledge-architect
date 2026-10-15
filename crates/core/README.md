@@ -46,6 +46,7 @@ cargo klarch tripwires [anchor] [--guarding <ref>] [text …]
 cargo klarch index                     regenerate every generated index in place
 cargo klarch index --staged            stage the generated files the tree git's index would commit needs
 cargo klarch model                     every observation the walk produced
+cargo klarch anchors                   every anchor, its kind, its path and each register's home
 cargo klarch commits <range>           judge every commit in the range, message and tree, against its own tree
 cargo klarch install-agent-skills      write the agent files this version ships, remove the ones it does not
 cargo klarch --version                 the version of the checker that runs
@@ -57,8 +58,8 @@ Three, per `design@core@exit-code-ladder`, and the third is what makes the other
 
 | code | meaning | where it comes from |
 | ---- | ------- | ------------------- |
-| `0` | the command ran and its subject is in order | `--version`, from any directory; `check` with no findings; `show` on a reference that resolves; `issues` and `tripwires` with at least one row; `index` having written every destination, or found each already current; `index --staged` having staged every generated file whose staged bytes differed, or found each already current; every `model` run; `commits` with no finding, an empty range included; `install-agent-skills` having written and removed what it had to, or found nothing to do |
-| `1` | the command ran and reports a negative answer | `check` with findings, `--fix` included; `check --fix` when a write failed, a destination was refused, a partial commit's mismatch was refused, or the final check could not run, after another file was already written; `show` on a reference that resolves to nothing; `issues` or `tripwires` with no row; `index` when a write failed after another destination was already rewritten; `commits` with a finding against a judged message or a failing tree |
+| `0` | the command ran and its subject is in order | `--version`, from any directory; `check` with no findings; `show` on a reference that resolves; `issues` and `tripwires` with at least one row; `index` having written every destination, or found each already current; `index --staged` having staged every generated file whose staged bytes differed, or found each already current; every `model` run; `anchors` with every home it prints present; `commits` with no finding, an empty range included; `install-agent-skills` having written and removed what it had to, or found nothing to do |
+| `1` | the command ran and reports a negative answer | `check` with findings, `--fix` included; `check --fix` when a write failed, a destination was refused, a partial commit's mismatch was refused, or the final check could not run, after another file was already written; `show` on a reference that resolves to nothing; `issues` or `tripwires` with no row; `anchors` with a home missing; `index` when a write failed after another destination was already rewritten; `commits` with a finding against a judged message or a failing tree |
 | `2` | the command could not run | an unknown or invalid argument, `--fix` with `--staged` among them, a `show` argument that is not reference-shaped, a binary built from another checkout of the tool, which names the `cargo clean` that rebuilds it, a binary of another version than `[project] checker-version` pins, or a pin it does not confirm, or a manifest with no pin, `index` or `check --fix` refusing a destination — a symlink, or a directory that is not there — having written nothing, `check --fix` refusing a partial commit's mismatch having installed nothing, `check --staged` or `index --staged` over an index that holds an unmerged path or a staged tree that cannot be read, `index --staged` refused by its gate, a destination or git's index lock, having staged nothing, `commits` on a range that does not resolve, no project above the working directory, no `git` on the path or a project outside a worktree, `install-agent-skills` over a manifest holding a refused declaration, over a symbolic link on an owned path, or when a write or a removal failed, naming the path, a stdout closed before the output was written — as `\| head` does — which ends the run silently, an input that cannot be read, an input an extension prepares that it cannot resolve |
 
 **A caller scripting against a run reads the exit code; a person reads the last line.** Arguments
@@ -308,6 +309,15 @@ project still owes, each with its repair.
 Every observation the walk and the scanner produced, one per line, as `file`, `line`, `kind`,
 `value`, tab-separated on stdout; the document and observation counts go to stderr, so redirecting
 stdout gives a file that is only observations.
+
+## `anchors`
+
+Every anchor of the project, as `check` builds them: the Components and the locations the
+manifest declares, then `plans`, each milestone and each spec. One line per anchor gives its name,
+its kind and its path. Under a Component, a location and `plans`, one line per register it carries
+gives the home the tree holds: the file, the directory, both where both exist, or `missing`, which
+`check` reports with its repair. A plan's items live in the plan's own documents, so a milestone
+and a spec list no register. The output is for a reader, not for a script.
 
 ## Registers
 
