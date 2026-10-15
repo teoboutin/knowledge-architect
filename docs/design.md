@@ -255,37 +255,58 @@ migration is a present cost, named in the changelog's migration entries.
 
 A merge to main publishes nothing, and any number of merges land between two releases. A release
 is a branch like any other: reviewed, and merged once CI passes on its head. Then the version's tag
-is pushed on main's head, after a comparison of main's tree with the reviewed head's, and the tag
-starts the release workflow, `path@knowledge-architect@.github/workflows/release.yml`. Its first
-job checks that the tag names a commit on main and the version every crate carries. Its publish
-job runs in the GitHub environment `release`, whose required reviewer is the owner, and waits for
-the owner's approval. That approval is the owner's word to publish, per
-`goal@knowledge-architect@the-owner-decides`: it is given after the review and the merge, on the
-run of one tag. The order follows what can be undone. A mistake on main is repaired by a later
-commit, and a tag that no version follows is deleted, while a version published on crates.io can
-be yanked and never deleted, so the irreversible step comes last, after review and CI have judged
-exactly what it publishes. The cost: main states the new version from the merge until the publish,
-and a declined approval or a failed publish leaves that statement false until a repair lands. The
-procedure is `skill@klarch-release`.
+is pushed on main's head, and the tag starts the release workflow,
+`path@knowledge-architect@.github/workflows/release.yml`, whose first job checks that the tag
+names a commit on main and the version every crate carries. Before the tag is pushed, main's tree
+is compared with the reviewed head's: the owner's word is given on a run of a tag, per
+`design@knowledge-architect@owner-word-mechanism`, so that comparison is what ties the tag to the
+tree the review judged. The word is given after the review and the merge, per
+`goal@knowledge-architect@the-owner-decides`. The order follows what can be undone. A mistake on
+main is repaired by a later commit, and a tag that no version follows is deleted, while a version
+published on crates.io can be yanked and never deleted, so the irreversible step comes last, after
+review and CI have judged exactly what it publishes. The cost: main states the new version from the
+merge until the publish, and a declined approval or a failed publish leaves that statement false
+until a repair lands. The procedure is `skill@klarch-release`.
+
+### The owner's word to publish is the approval of the release workflow's deployment `##owner-word-mechanism`
+
+The publish job of the release workflow runs in the GitHub environment `release`, whose required
+reviewer is the owner, and waits for the owner's approval of its deployment. That approval is the
+owner's word to publish, per `goal@knowledge-architect@the-owner-decides`. The trusted publisher of
+each crate names that environment, per `design@knowledge-architect@publish-credential`, so a run
+outside it gets no token, and the environment admits only runs of a tag `v*`. The nearest rival,
+the word given in the conversation and the publish then run by the agent with a token in its
+shell, leaves no record of the word outside the transcript, and leaves the agent holding a
+credential that publishes; the approval is recorded by GitHub against the run of one tag.
 
 The approval is a separate act with its own record, not a barrier against an agent: an agent whose
 `gh` holds the owner's token with the `repo` scope can approve a pending deployment through the API.
 That the approval is the owner's alone is an instruction of `skill@klarch-release`.
 
-### A version is published only by the release workflow, with a token crates.io issues to its run `##publish-credential`
+### Every version after a crate's first is published by the release workflow, with a token crates.io issues to its run `##publish-credential`
 
 Each of the three crates names, on crates.io, a trusted publisher: this repository, the workflow
 file release.yml and the environment `release`. The publish job exchanges the run's OpenID Connect
 token for a crates.io token through `rust-lang/crates-io-auth-action`. crates.io's documentation of
 Trusted Publishing states that the token expires after 30 minutes, and the action revokes it when
 the job ends. Each crate also has "Require trusted publishing for all new versions" turned on, under
-which crates.io rejects a publish with an API token. So no stored credential can publish a version,
-and a run outside the environment gets no token. The nearest rival, an API token held in a
-repository secret, runs the same job with a credential that lives until it is revoked or expires,
-readable by any workflow of the repository that names the secret; Trusted Publishing covers every
-publish it covers, since its one prerequisite, a crate already published, holds for each crate. A
-new crate is the exception: its first version is published with an API token, and the crate then
-gets the same configuration.
+which crates.io rejects a publish with an API token. So no stored credential can publish a version
+of these crates. The nearest rival, an API token held in a repository secret, runs the same job with
+a credential that lives until it is revoked or expires, readable by any workflow of the repository
+that names the secret. Trusted Publishing covers every publish such a token covers, except the
+first version of a crate: crates.io's documentation states that the initial publish requires an
+API token. A new crate's first version is therefore published by its owner with an API token, and
+the crate then gets the same configuration.
+
+### A publish that stopped part-way is completed by re-running the job, which skips a version crates.io already holds `##partial-publish-rerun`
+
+The publish job publishes the crates one at a time, agent-skills before the core, which depends on
+it, and skips a crate when crates.io's API already returns the version. A re-run of the failed job
+runs on the same commit and tag, so it publishes only what is missing, and a release that stopped
+part-way completes with no change to the code and no new tag. The nearest rival, one
+`cargo publish --workspace`, cannot be re-run that way: its `--help` under the pinned toolchain
+lists no option that skips a version crates.io already holds, and `--exclude` names crates, which
+a re-run cannot change.
 
 ## 3. How work reaches main
 
