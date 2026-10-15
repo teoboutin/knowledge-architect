@@ -2,12 +2,17 @@
 #
 # A version tag pushed to a commit on main starts it, and the owner's approval of the `release`
 # environment is the owner's word to publish. The decisions are
-# `design@knowledge-architect@publish-after-merge` and
-# `design@knowledge-architect@publish-credential`; the procedure around it is `skill@klarch-release`.
+# `design@knowledge-architect@publish-after-merge`, `design@knowledge-architect@owner-word-mechanism`,
+# `design@knowledge-architect@publish-credential` and
+# `design@knowledge-architect@partial-publish-rerun`; the procedure around it is
+# `skill@klarch-release`.
 #
 name: release
 
 on:
+  # A tag push, not a manual dispatch that would create the tag after the publish: that would need
+  # `contents: write` in the job holding the publish token, and nothing requires the tag to wait for
+  # the publish, since a tag that no version follows is deleted.
   push:
     tags: ['v*']
 
@@ -55,10 +60,9 @@ jobs:
         id: auth
 
       - name: publish
-        # One crate at a time, agent-skills before the core, which depends on it, each
-        # skipped when crates.io already holds the version: a re-run of this job after a publish
-        # that stopped part-way then completes the release. `cargo publish --workspace` has no
-        # option to skip a crate already published, per its `--help` under the pinned toolchain.
+        # One crate at a time, agent-skills before the core, which depends on it, each skipped
+        # when crates.io already holds the version, per
+        # `design@knowledge-architect@partial-publish-rerun`.
         env:
           CARGO_REGISTRY_TOKEN: ${{ steps.auth.outputs.token }}
         run: |
