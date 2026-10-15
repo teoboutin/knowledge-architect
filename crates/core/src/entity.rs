@@ -380,7 +380,7 @@ pub(crate) struct Anchors {
 
 impl Anchors {
     /// The anchors of one tree: the components and locations its manifest declares, then the
-    /// anchor `plans` and one anchor per milestone directory the tree holds.
+    /// anchor `plans`, one anchor per milestone directory and one per spec file the tree holds.
     ///
     /// **`paths` is the tree's listing**, files and directories or files alone: the milestone
     /// anchors are read off it, so every caller that builds the anchors of a tree hands in that
