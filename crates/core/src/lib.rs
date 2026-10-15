@@ -5,7 +5,7 @@
 //! check is then a pure function over that model: it touches no file and spawns no process.
 //! The project's `knowledge-architect.toml` declares what is checked, and nothing about a
 //! project is compiled in. The decisions behind the design, with their arguments, are in the
-//! repository, <https://github.com/tellurium-monoxide/knowledge-architect>, at
+//! repository, <https://github.com/teoboutin/knowledge-architect>, at
 //! `register@core@design`.
 //!
 //! # Who uses this library

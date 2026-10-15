@@ -17,5 +17,5 @@ members = [
 version = "0.6.0"
 edition = "2021"
 license = "MIT OR Apache-2.0"
-repository = "https://github.com/tellurium-monoxide/knowledge-architect"
+repository = "https://github.com/teoboutin/knowledge-architect"
 keywords = ["agentic", "software-design", "documentation", "design-decisions", "ai-agents"]

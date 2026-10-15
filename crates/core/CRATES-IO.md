@@ -29,7 +29,7 @@ The installed setup skill then leads the setup of the project.
 ## Documentation
 
 - The commands, the manifest and the exit codes: the
-  [repository README of this crate](https://github.com/tellurium-monoxide/knowledge-architect/blob/main/crates/core/README.md).
+  [repository README of this crate](https://github.com/teoboutin/knowledge-architect/blob/main/crates/core/README.md).
 - The library API, for a binary that registers extensions:
   [docs.rs](https://docs.rs/knowledge-architect).
-- The project, its goals and its design: [the repository](https://github.com/tellurium-monoxide/knowledge-architect).
+- The project, its goals and its design: [the repository](https://github.com/teoboutin/knowledge-architect).

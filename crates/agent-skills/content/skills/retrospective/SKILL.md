@@ -140,8 +140,8 @@ only, and where the owner directs**:
 - **The project's file**: each finding the owner keeps becomes an issue entry in the project's own
   register, under `skill@knowledge-architect-issue-tracking`.
 - **The workflow's file**: it becomes an issue on the repository of knowledge-architect,
-  <https://github.com/tellurium-monoxide/knowledge-architect>, opened with
-  `gh issue create --repo tellurium-monoxide/knowledge-architect --title "<title>" --body-file <file>`.
+  <https://github.com/teoboutin/knowledge-architect>, opened with
+  `gh issue create --repo teoboutin/knowledge-architect --title "<title>" --body-file <file>`.
   If `gh` is absent or fails, give the owner the path of the workflow's file, whose text is the
   issue's body, and the address of the repository's new-issue page.
 
