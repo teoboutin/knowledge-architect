@@ -94,6 +94,8 @@ subsection is omitted.
   each statement, the act an agent would do differently without it, and a statement for which none exists leaves as the standard's outcome table gives: deleted
   when it carries no instruction, such as a narration of where an instruction came from, and put to
   the owner when it is an instruction.
+- `agent-skills`, patch: the retrospective opens the workflow's issue on the repository's new
+  address, <https://github.com/teoboutin/knowledge-architect>.
 - `agent-skills`, patch: an instruction about how an agent behaves is added to a project's own
   agent-facing text only on evidence from real use, as for the installed text; a predicted gap
   becomes an issue entry instead.
