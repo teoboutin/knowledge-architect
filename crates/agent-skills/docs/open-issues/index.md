@@ -1,6 +1,6 @@
 **Generated — do not edit.** `cargo klarch index`
 
-39 entries
+38 entries
 
 | kind | title |
 | --- | --- |
@@ -10,7 +10,6 @@
 | deferred | [A plan document deleted in the commit that completes its harvest is absent from the tree of the acts that still need it](a-plan-document-deleted-at-its-harvest-is-unseen-by-the-acts-that-need-it.md) |
 | design | [A tripwire on a procedure of the workflow states no bound on how much the failure must matter](a-procedure-tripwire-states-no-severity-bound.md) |
 | design | [A tripwire on agent behaviour under the workflow fires in sessions this project does not see](a-tripwire-on-agent-behaviour-fires-where-this-project-cannot-see.md) |
-| design | [The head on the primer's content restates the primer's limit and bundles the decision behind each directive](primer-content-bundles-each-directive-s-decision.md) |
 | design | [The workflow assumes one owner, unnamed, which a project with several contributors does not have](the-workflow-assumes-one-unnamed-owner.md) |
 | observation | [A reviewer subagent refused a write to the scratch file its brief named, and returned its findings as text](a-reviewer-cannot-write-the-file-its-brief-names.md) |
 | question | [A head in the wrong Component goes to the owner, though the record settles the Component](a-head-in-the-wrong-component-goes-to-the-owner-though-the-record-settles-the-component.md) |

@@ -536,3 +536,15 @@ project's own agent-facing text.
 **Response:** reopen the rule's scope over a project's own text, in
 `design@agent-skills@behaviour-additions-need-real-use`.
 **Re-entry:** the retrospective of that session.
+
+## Guarding `design@agent-skills@checker-model-in-primer`: a rarer checker rule enters the model section `##rarer-rule-in-the-model`
+
+T2 of the premortem of the discussion that moved the checker's model into the primer. The decision
+rests on the premise that the model section holds what a reader needs, and that a rule a writer
+needs only for an uncommon shape reaches a session through its finding.
+
+**Fires when:** a review or an audit finds a rule in `primer@checker-model` that a finding message
+already delivers with its repair.
+**Response:** remove the rule from the section, and reopen with the owner the scope of the ruling
+that the rarer checker rules are delivered by their findings.
+**Re-entry:** that review or audit.

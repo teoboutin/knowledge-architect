@@ -392,3 +392,10 @@ work, and the agent-configuration skill's trigger delivers the standard when it 
 had loaded that skill. It is kept here because a doubt remains: a session that edits agent-facing
 text inside another task may not load the skill, which
 `tripwire@agent-skills@agent-text-written-without-the-standard` watches.
+
+**The checker's model printed by the binary, the primer pointing to the command** — lost to
+`design@agent-skills@checker-model-in-primer`. `live`. A command reaches a session only if it
+thinks of running it, while the harness puts the primer in every session's context. It is kept
+here because a doubt remains: the core's test that the primer's model section names every kind
+and reserved word fails at every new kind, and a model that the test cannot enumerate any more
+would reopen the delivery for this alternative.
