@@ -254,18 +254,38 @@ migration is a present cost, named in the changelog's migration entries.
 ### A version is published from main, after its merge, on the owner's word `##publish-after-merge`
 
 A merge to main publishes nothing, and any number of merges land between two releases. A release
-is a branch like any other: reviewed, merged once CI passes on its head, and only then tagged and
-published from main's head, on the owner's word, per `goal@knowledge-architect@the-owner-decides`.
-The word names the publish and is given after the review; given before the merge, it holds for the
-tree the review judged, so the release compares main's tree with the reviewed head's before it
-publishes. Asking again after the merge would add a message and protect nothing that comparison
-does not. The order follows what can
-be undone. A mistake on main is repaired by a later commit, while a version published on crates.io
-can be yanked and never deleted, so the irreversible step comes last, after review and CI have
-judged exactly what it publishes, and the tag names a commit on main. The cost: main states the
-new version for the minutes between the merge and the publish, and a failed publish leaves that
-statement false until a repair lands. The procedure is
-`skill@klarch-release`.
+is a branch like any other: reviewed, and merged once CI passes on its head. Then the version's tag
+is pushed on main's head, after a comparison of main's tree with the reviewed head's, and the tag
+starts the release workflow, `path@knowledge-architect@.github/workflows/release.yml`. Its first
+job checks that the tag names a commit on main and the version every crate carries. Its publish
+job runs in the GitHub environment `release`, whose required reviewer is the owner, and waits for
+the owner's approval. That approval is the owner's word to publish, per
+`goal@knowledge-architect@the-owner-decides`: it is given after the review and the merge, on the
+run of one tag. The order follows what can be undone. A mistake on main is repaired by a later
+commit, and a tag that no version follows is deleted, while a version published on crates.io can
+be yanked and never deleted, so the irreversible step comes last, after review and CI have judged
+exactly what it publishes. The cost: main states the new version from the merge until the publish,
+and a declined approval or a failed publish leaves that statement false until a repair lands. The
+procedure is `skill@klarch-release`.
+
+The approval is a separate act with its own record, not a barrier against an agent: an agent whose
+`gh` holds the owner's token with the `repo` scope can approve a pending deployment through the API.
+That the approval is the owner's alone is an instruction of `skill@klarch-release`.
+
+### A version is published only by the release workflow, with a token crates.io issues to its run `##publish-credential`
+
+Each of the three crates names, on crates.io, a trusted publisher: this repository, the workflow
+file release.yml and the environment `release`. The publish job exchanges the run's OpenID Connect
+token for a crates.io token through `rust-lang/crates-io-auth-action`. crates.io's documentation of
+Trusted Publishing states that the token expires after 30 minutes, and the action revokes it when
+the job ends. Each crate also has "Require trusted publishing for all new versions" turned on, under
+which crates.io rejects a publish with an API token. So no stored credential can publish a version,
+and a run outside the environment gets no token. The nearest rival, an API token held in a
+repository secret, runs the same job with a credential that lives until it is revoked or expires,
+readable by any workflow of the repository that names the secret; Trusted Publishing covers every
+publish it covers, since its one prerequisite, a crate already published, holds for each crate. A
+new crate is the exception: its first version is published with an API token, and the crate then
+gets the same configuration.
 
 ## 3. How work reaches main
 

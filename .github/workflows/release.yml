@@ -1,0 +1,72 @@
+# The publish of one version of the three crates to crates.io.
+#
+# A version tag pushed to a commit on main starts it, and the owner's approval of the `release`
+# environment is the owner's word to publish. The decisions are
+# `design@knowledge-architect@publish-after-merge` and
+# `design@knowledge-architect@publish-credential`; the procedure around it is `skill@klarch-release`.
+#
+name: release
+
+on:
+  push:
+    tags: ['v*']
+
+permissions:
+  contents: read
+
+jobs:
+  verify:
+    # Runs before the approval and holds no publish token, so the owner is asked to approve only a
+    # tag that names a commit on main and the version every crate carries.
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v5
+        with:
+          # FULL DEPTH: the ancestry check needs main's history.
+          fetch-depth: 0
+
+      - name: the tag names a commit on main
+        run: git merge-base --is-ancestor "$GITHUB_SHA" origin/main
+
+      - name: the tag is the version of every published crate
+        run: |
+          for c in knowledge-architect-agent-skills knowledge-architect-gates knowledge-architect; do
+            v=$(cargo metadata --no-deps --format-version 1 --locked \
+              | jq -r --arg c "$c" '.packages[] | select(.name == $c) | .version')
+            test "v$v" = "$GITHUB_REF_NAME" || { echo "::error::$c is $v, the tag is $GITHUB_REF_NAME"; exit 1; }
+          done
+
+  publish:
+    needs: verify
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    # Waits for the owner's approval. crates.io's trusted publisher names this environment, so a run
+    # outside it gets no token.
+    environment: release
+    permissions:
+      contents: read
+      id-token: write
+    steps:
+      - uses: actions/checkout@v5
+
+      - uses: rust-lang/crates-io-auth-action@c6f97d42243bad5fab37ca0427f495c86d5b1a18 # v1.0.5
+        # Pinned by commit: a third-party action in a job holding a token.
+        id: auth
+
+      - name: publish
+        # One crate at a time, agent-skills before the core, which depends on it, each
+        # skipped when crates.io already holds the version: a re-run of this job after a publish
+        # that stopped part-way then completes the release. `cargo publish --workspace` has no
+        # option to skip a crate already published, per its `--help` under the pinned toolchain.
+        env:
+          CARGO_REGISTRY_TOKEN: ${{ steps.auth.outputs.token }}
+        run: |
+          v=${GITHUB_REF_NAME#v}
+          for c in knowledge-architect-agent-skills knowledge-architect-gates knowledge-architect; do
+            if curl -sf -A 'knowledge-architect release workflow' "https://crates.io/api/v1/crates/$c/$v" >/dev/null; then
+              echo "$c $v is already on crates.io"
+              continue
+            fi
+            cargo publish --locked -p "$c"
+          done

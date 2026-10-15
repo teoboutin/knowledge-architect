@@ -99,37 +99,42 @@ On a branch of its own, `release-<version>`, under the Git rules of the root `CL
 
 10. **Merge** under the root `CLAUDE.md`'s merge predicate. Before the merge, record the reviewed
     head, `git rev-parse HEAD` on the branch, in the conversation, since a shell variable may not
-    outlive the command that set it: the merge deletes every ref that names it, and step 12
-    compares with it. From the merge until step 12, main's
+    outlive the command that set it: the merge deletes every ref that names it, and step 11
+    compares with it. From the merge until the publish, main's
     README status line names a version that is not yet on crates.io.
-11. **The owner's word.** Without it, nothing is published. The word names the publish and is
-    given after the review, after the merge or before it, holding then for the tree reviewed, which
-    step 12's comparison shows, per `design@knowledge-architect@publish-after-merge`. The owner is
-    logged in to crates.io in the shell the agent runs in, with `cargo login`, and the token never
-    passes through the agent. The token needs the scopes publish-new and publish-update, and the
-    account a verified email.
-12. **Tag and publish**, with a clean tree on main:
+11. **Tag**, with a clean tree on main. The tag push starts
+    `path@knowledge-architect@.github/workflows/release.yml`:
 
     ```sh
     git checkout main && git pull --ff-only
     test "$(git rev-parse HEAD^{tree})" = "$(git rev-parse <the head recorded at step 10>^{tree})"
     git tag -a v<version> -m "Release <version>"
-    cargo publish --workspace
-    git push origin v<version>      # once crates.io carries the version
+    git push origin v<version>
     ```
+12. **The owner's approval.** The workflow's `verify` job checks that the tag names a commit on
+    main and the version every crate carries. Its `publish` job then waits for the approval of the
+    environment `release`, which is the owner's word to publish, per
+    `design@knowledge-architect@publish-after-merge`. Give the owner the run's address,
+    `gh run list --workflow release.yml --branch v<version> --limit 1 --json url,databaseId`. Only
+    the owner approves: never approve a deployment, though the agent's `gh` can. Then follow the
+    run with `gh run watch <run id> --exit-status`, and once it passes, check step 6's address for
+    each crate: the version must now be present. The publish credential is a token crates.io issues
+    to the run, per `design@knowledge-architect@publish-credential`, so nobody logs in to crates.io
+    for a release.
 
 ## When the publish fails `##failed-publish`
 
-`cargo publish --workspace` uploads the crates one by one: agent-skills, gates, then the core. A
-crate it uploaded stays published.
+The `publish` job uploads the crates one by one: agent-skills, gates, then the core, and skips a
+crate whose version crates.io already holds. A crate it uploaded stays published.
 
-- **Nothing was uploaded**: delete the local tag with `git tag -d v<version>`, repair on a branch,
-  run again on its head the steps that step 9 names for a repair, and release the same version
-  again from step 9.
-- **Some crates were uploaded**: run `cargo publish -p <crate>` for each crate still missing, from
-  the same tagged commit. If that cannot succeed without a change to the code, the uploaded crates
-  keep the version, and the next release is the next patch version for all three, per
-  `design@knowledge-architect@version-lockstep`; the uploaded version is yanked only if it is
-  broken.
+- **The `verify` job failed, the owner declined, or nothing was uploaded**: delete the tag, with
+  `git push origin :refs/tags/v<version>` and `git tag -d v<version>`, repair on a branch, run
+  again on its head the steps that step 9 names for a repair, and release the same version again
+  from step 9.
+- **Some crates were uploaded**: re-run the failed job, `gh run rerun <run id> --failed`, from the
+  same tag; the owner approves it as at step 12. If that cannot succeed without a change to the
+  code, the uploaded crates keep the version, and the next release is the next patch version for
+  all three, per `design@knowledge-architect@version-lockstep`; the uploaded version is yanked only
+  if it is broken.
 - **In either case**, main's README status line is wrong until a repair lands, through a branch and a
   pull request like any other change.
