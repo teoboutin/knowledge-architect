@@ -1117,6 +1117,23 @@ and it names the first line at which the committed file and the regenerated one 
 command answering the same question in its own format is what drifts, and there would be nothing to
 say which of the two was right.
 
+### `anchors` lists every anchor of a project, computed as `check` computes them, with the home of each register it carries `##anchors-listing-command`
+
+`klarch anchors` prints every anchor, the constructed ones included, built by `Anchors::of` over the
+manifest and the tree's listing as every check builds them: its name, its kind and its path, and,
+under a Component, a location and `plans`, each register it carries with the home the tree holds,
+the file, the directory, both, or `missing`. A milestone and a spec list no register, since their
+items live in the plan's own documents. A home is judged held as `check` judges it, so the two
+never disagree on what a project carries. It exits 1 when a home is missing, a negative answer
+about the project, per `design@core@exit-code-ladder`. Its output is for a reader and is not a
+contract, per `issue@knowledge-architect@command-output-is-not-declared-a-contract`.
+
+It answers a question no other command answers: `model` prints observations, and `show` one
+register's homes. The rival, each project's root `CLAUDE.md` listing its anchors by hand, goes stale
+when the manifest changes, and no check reports the stale list; the command is computed from what
+it describes. The primer names it, so every installing project's sessions learn its anchors from
+it.
+
 ### `index --staged` writes the staged tree's generated files into git's index, and no working-tree file `##index-staged-write`
 
 `cargo klarch index --staged` generates each file from the tree git's index would commit, per
