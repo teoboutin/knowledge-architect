@@ -25,8 +25,8 @@ agentic-workflow audit ran:
   owner's ruling on each of its items": its home is one file per pass in docs/audit-reports/, as
   `skill@knowledge-architect-project-audit@record-of-an-audit` says, and it leaves when "the commit
   that carries out its last outcome, or a later commit of the same branch, deletes it".
-- `primer@intent-and-claims`, its last bullet: before diagnosing, `cargo klarch issues`,
-  `cargo klarch tripwires` and `cargo klarch show`.
+- `primer@verify-before-relying`, its subsection "Check whether it is already known": before
+  diagnosing, `cargo klarch issues`, `cargo klarch tripwires` and `cargo klarch show`.
 - `skill@knowledge-architect-issue-tracking@outstanding-across-registers` and
   `skill@knowledge-architect-issue-tracking@read-before-diagnosing`: the listings.
 - `agent@knowledge-architect-standing-entry-searcher@take-your-group`, the search that

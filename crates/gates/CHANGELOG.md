@@ -8,10 +8,26 @@ subsection is omitted.
 
 ## Next release
 
+### Migration
+
+- `agent-skills`, patch: the primer states the checker's model, the verification rules, the
+  working-prose rules and the checker's CLI facts, the staged check before each commit among them,
+  in `primer@checker-model`, `primer@verify-before-relying` and `primer@working-prose`. A project's
+  root CLAUDE.md that restates any of these deletes its copy: the primer and the root CLAUDE.md are
+  one text, and a duplicate inside one text fails the need test of
+  `skill@knowledge-architect-agent-configuration@admission-standard`. The setup skill no longer
+  recommends that the root CLAUDE.md state the staged check.
+
 ### New features
 
 - `cli`, minor: `anchors` lists every anchor of the project, the constructed ones included, with
   its kind, its path and the home of each register it carries; it exits 1 when a home is missing.
+
+### Workflow
+
+- `agent-skills`, patch: before each commit, a session lists the factual claims of the commit's
+  message and checks each against the tree; a design discussion's grounding opens by reading
+  `primer@verify-before-relying` again.
 
 ## 0.7.0
 
