@@ -24,12 +24,24 @@ subsection is omitted.
 - `cli`, minor: `anchors` lists every anchor of the project, the constructed ones included, with
   its kind and its path, and, under a Component, a location and `plans`, the home of each register
   it carries; it exits 1 when a home is missing.
+- `agent-skills`, patch: `skill@knowledge-architect-retrospective-intake` analyses a project's own
+  retrospective files, several at once, finding by finding, and the owner rules one outcome per
+  finding: handle now, open an issue, sent upstream, or no change with the reason.
 
 ### Workflow
 
 - `agent-skills`, patch: before each commit, a session lists the factual claims of the commit's
   message and checks each against the tree; a design discussion's grounding opens by reading
   `primer@verify-before-relying` again.
+- `agent-skills`, patch: a retrospective's project file no longer becomes issue entries directly.
+  It waits where the files went until the owner hands it to an intake, which writes an analysis
+  into docs/retrospective-reports/, commits it with the owner's rulings, and deletes it in the
+  commit that carries out its last outcome. A finding whose fix lies in the installed text is added
+  to the retrospective's workflow file, or to the issue that carries it upstream.
+- `agent-skills`, patch: a retrospective's project file names the project's main commit, the
+  branch and whether the tree held uncommitted changes, so that an intake reads the blamed text as
+  the session read it; the workflow file names them only where the project builds the checker from
+  source.
 
 ## 0.7.0
 
