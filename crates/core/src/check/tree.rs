@@ -147,10 +147,17 @@ pub(crate) fn check(model: &Model, manifest: &Manifest, inputs: &Inputs) -> Vec<
         }
     }
     plans_layout(&mut out, manifest, &anchors, inputs);
+    // What every other Directory home holds, after the plans layout's, by the same rule.
+    let entries = entity::placed_entries(manifest, &inputs.present.iter().collect::<Vec<_>>());
+    for (_, register, home) in anchors.instances() {
+        if register.shape == Shape::Directory && register.name != MILESTONE_REGISTER {
+            directory_layout(&mut out, register, &home, &entries, inputs);
+        }
+    }
     out
 }
 
-/// A Directory register has its directory. What it holds is `plans_layout`'s question.
+/// A Directory register has its directory. What it holds is `directory_layout`'s question.
 fn directory_home(
     out: &mut Vec<Finding>,
     anchor: &Anchor,
@@ -175,10 +182,10 @@ fn directory_home(
 ///
 /// - **The plans directory holds its README.md, specs/ and milestones/, and nothing else**, so
 ///   every plan document sits in a home.
-/// - **milestones/ holds its README.md, its index.md and one directory per milestone**, each
-///   holding a README.md, and no milestone directory holds a register.toml or a subdirectory.
+/// - **milestones/ holds its README.md, its index.md and one directory per milestone**, by
+///   `directory_layout`, which judges every Directory home alike.
 /// - **A plan's name is no other anchor's and no reserved word**, per
-///   `design@core@a-plan-name-reads-as-nothing-else`: a milestone
+///   `design@core@a-placed-name-reads-as-nothing-else`: a milestone
 ///   directory's name and a spec's id, compared with the components, the locations and each
 ///   other. A milestone the comparison refuses is no anchor, per `entity::milestone_refusal`.
 ///
@@ -238,80 +245,10 @@ fn plans_layout(out: &mut Vec<Finding>, manifest: &Manifest, anchors: &Anchors, 
     }
 
     let placed = entity::milestone_dirs(inputs.present.iter());
-    if inputs.directories.contains(&milestones.dir) {
-        for path in children(&milestones.dir) {
-            let name = path
-                .file_name()
-                .unwrap_or_default()
-                .to_string_lossy()
-                .into_owned();
-            if inputs.directories.contains(path) {
-                if !placed.contains_key(&name) {
-                    out.push(Finding::in_file(
-                        path,
-                        format!(
-                            "`{}` holds no README.md, so it is no milestone",
-                            path.display()
-                        ),
-                        "create its README.md, the milestone document, or move the directory \
-                         out of milestones/",
-                    ));
-                } else if let Some(why) = entity::milestone_refusal(&name, manifest) {
-                    out.push(Finding::in_file(
-                        path,
-                        format!("the milestone `{name}` is no anchor: its name {why}"),
-                        "rename the directory; a milestone is cited `milestone@plans@<id>` and \
-                         its slices `spec@<id>@<slice>`, so its name must not read as anything \
-                         else",
-                    ));
-                } else {
-                    // A milestone's slice specs sit beside its README, so a subdirectory is no
-                    // group there: the File shape would ask for a register.toml, which is
-                    // refused below.
-                    for inner in children(path) {
-                        if inputs.directories.contains(inner) {
-                            out.push(Finding::in_file(
-                                inner,
-                                format!("`{}` is a subdirectory of a milestone", inner.display()),
-                                "move its slice specs up beside the milestone's README; a milestone \
-                                 holds its README, its index and one file per slice",
-                            ));
-                        }
-                    }
-                }
-                let config = path.join("register.toml");
-                if inputs.present.contains(&config) {
-                    out.push(Finding::in_file(
-                        &config,
-                        "a milestone directory holds no register.toml".to_string(),
-                        "delete it; a milestone's slice specs sit beside its README, ungrouped",
-                    ));
-                }
-                continue;
-            }
-            // The `<id>.md` beside a milestone anchor is its home's retired single file, which
-            // `file_home` names; beside a directory that is no anchor, nothing else names it.
-            let beside = path.file_stem().is_some_and(|s| {
-                let name = s.to_string_lossy();
-                placed.contains_key(&*name) && entity::milestone_refusal(&name, manifest).is_none()
-            }) && path.extension().is_some_and(|e| e == "md");
-            if name == "README.md" || name == "index.md" || beside {
-                continue;
-            }
-            out.push(Finding::in_file(
-                path,
-                format!(
-                    "`{}` sits in milestones/, which holds its README.md, its index.md and one \
-                     directory per milestone",
-                    path.display()
-                ),
-                "a milestone is a directory holding its README.md; move a single-file plan \
-                 into specs/, and anything else out",
-            ));
-        }
-    }
+    let entries = entity::placed_entries(manifest, &inputs.present.iter().collect::<Vec<_>>());
+    directory_layout(out, milestone, &milestones, &entries, inputs);
 
-    // The same rule over the specs, per `design@core@a-plan-name-reads-as-nothing-else`: a spec's id is a name
+    // The same rule over the specs, per `design@core@a-placed-name-reads-as-nothing-else`: a spec's id is a name
     // the next step of the plans layout makes an anchor, so it may be
     // no kind's, component's, location's or reserved word, and no milestone's.
     let mut ids: Vec<(String, &PathBuf)> = inputs
@@ -343,6 +280,158 @@ fn plans_layout(out: &mut Vec<Finding>, manifest: &Manifest, anchors: &Anchors, 
                  read as another anchor or another plan",
             ));
         }
+    }
+}
+
+/// What one Directory home holds, per `design@core@declarable-directory-register`: its
+/// README.md, its index.md and one directory per entry, each holding a README.md, and no entry
+/// holding a register.toml or a subdirectory; an entry's name is no other anchor's, per
+/// `design@core@a-placed-name-reads-as-nothing-else`, and an entry it refuses is no anchor.
+///
+/// Phase 2, because the entries are anchors read off the tree: a later phase over a tree that
+/// breaks one would judge documents no anchor owns. The `milestone` register keeps the wording
+/// of the plans layout, whose words its findings and the planning skill share.
+fn directory_layout(
+    out: &mut Vec<Finding>,
+    register: &Register,
+    home: &Home,
+    entries: &[entity::PlacedEntry],
+    inputs: &Inputs,
+) {
+    if !inputs.directories.contains(&home.dir) {
+        return;
+    }
+    let milestone = register.name == MILESTONE_REGISTER;
+    let listing = home
+        .dir
+        .file_name()
+        .unwrap_or_default()
+        .to_string_lossy()
+        .into_owned();
+    let noun = if milestone {
+        "milestone".to_string()
+    } else {
+        format!("{} entry", register.name)
+    };
+    let mut children: Vec<&PathBuf> = inputs
+        .present
+        .iter()
+        .filter(|p| p.parent() == Some(home.dir.as_path()))
+        .collect();
+    children.sort();
+    let placed = |name: &str| {
+        entries
+            .iter()
+            .find(|e| e.register == register.name && e.path == home.dir.join(name))
+    };
+    for path in children {
+        let name = path
+            .file_name()
+            .unwrap_or_default()
+            .to_string_lossy()
+            .into_owned();
+        if inputs.directories.contains(path) {
+            match placed(&name) {
+                None => out.push(Finding::in_file(
+                    path,
+                    format!(
+                        "`{}` holds no README.md, so it is no {noun}",
+                        path.display()
+                    ),
+                    if milestone {
+                        "create its README.md, the milestone document, or move the directory \
+                         out of milestones/"
+                            .to_string()
+                    } else {
+                        format!(
+                            "create its README.md, the entry's document, or move the directory \
+                             out of {listing}/"
+                        )
+                    },
+                )),
+                Some(entry) => {
+                    if let Some(why) = &entry.refusal {
+                        out.push(Finding::in_file(
+                            path,
+                            format!("the {noun} `{name}` is no anchor: its name {why}"),
+                            if milestone {
+                                "rename the directory; a milestone is cited \
+                                 `milestone@plans@<id>` and its slices `spec@<id>@<slice>`, so \
+                                 its name must not read as anything else"
+                                    .to_string()
+                            } else {
+                                format!(
+                                    "rename the directory; the entry is cited `{}@{}@<id>` and \
+                                     what it carries `<kind>@<id>@<entry>`, so its name must not \
+                                     read as anything else",
+                                    register.name, entry.parent
+                                )
+                            },
+                        ));
+                    } else {
+                        // What an entry carries sits beside its README, so a subdirectory is no
+                        // group there: the File shape would ask for a register.toml, which is
+                        // refused below, and the entry is an anchor read off the tree.
+                        let mut inner: Vec<&PathBuf> = inputs
+                            .present
+                            .iter()
+                            .filter(|p| p.parent() == Some(path.as_path()))
+                            .filter(|p| inputs.directories.contains(*p))
+                            .collect();
+                        inner.sort();
+                        for inner in inner {
+                            out.push(Finding::in_file(
+                                inner,
+                                format!("`{}` is a subdirectory of a {noun}", inner.display()),
+                                if milestone {
+                                    "move its slice specs up beside the milestone's README; a \
+                                     milestone holds its README, its index and one file per slice"
+                                } else {
+                                    "move its files up beside the entry's README; an entry holds \
+                                     its README and the files of what it carries, ungrouped"
+                                },
+                            ));
+                        }
+                    }
+                }
+            }
+            let config = path.join("register.toml");
+            if inputs.present.contains(&config) {
+                out.push(Finding::in_file(
+                    &config,
+                    format!("a {noun} directory holds no register.toml"),
+                    if milestone {
+                        "delete it; a milestone's slice specs sit beside its README, ungrouped"
+                    } else {
+                        "delete it; what an entry carries sits beside its README, ungrouped"
+                    },
+                ));
+            }
+            continue;
+        }
+        // The `<id>.md` beside an entry anchor is the single-file shape of what it carries, which
+        // its home's own check names; beside a directory that is no anchor, nothing else names it.
+        let beside = path.extension().is_some_and(|e| e == "md")
+            && path.file_stem().is_some_and(|stem| {
+                placed(&stem.to_string_lossy()).is_some_and(|e| e.refusal.is_none())
+            });
+        if name == "README.md" || name == "index.md" || beside {
+            continue;
+        }
+        out.push(Finding::in_file(
+            path,
+            format!(
+                "`{}` sits in {listing}/, which holds its README.md, its index.md and one \
+                 directory per {noun}",
+                path.display()
+            ),
+            if milestone {
+                "a milestone is a directory holding its README.md; move a single-file plan into \
+                 specs/, and anything else out"
+            } else {
+                "an entry is a directory holding its README.md; move anything else out"
+            },
+        ));
     }
 }
 

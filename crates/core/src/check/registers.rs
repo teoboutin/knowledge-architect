@@ -233,7 +233,7 @@ fn directory_home(
     navigation(out, register, home, inputs);
     let mut judged = 0;
     for entry in anchors.all() {
-        if !entry.is_milestone() || entry.path.parent() != Some(home.dir.as_path()) {
+        if !entry.is_entry_in(&register.name, &home.dir) {
             continue;
         }
         let readme = entry.path.join("README.md");
@@ -1463,7 +1463,7 @@ mod tests {
     }
 
     /// The claim: a spec named after a kind is reported by its name, as a milestone is, per
-    /// `design@core@a-plan-name-reads-as-nothing-else`. Mutation checked:
+    /// `design@core@a-placed-name-reads-as-nothing-else`. Mutation checked:
     /// the kind test removed from the spec-name check reports nothing.
     #[test]
     fn a_spec_named_after_a_kind_is_reported_by_its_name() {

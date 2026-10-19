@@ -421,12 +421,15 @@ fn list_anchors(manifest: &Manifest, checker: &[&Path]) -> Result<ExitCode, Stri
     let holds_dir = |p: &Path| model.listing().iter().any(|l| l.starts_with(p) && l != p);
     let mut missing = false;
     for anchor in anchors.all() {
-        let kind = match anchor.constructed {
-            Some(Constructed::Plans) => "plans",
-            Some(Constructed::Milestone) => "milestone",
-            Some(Constructed::Spec) => "spec",
-            None if anchor.is_component => "component",
-            None => "location",
+        // An entry is named by the Directory register it is an entry of: `milestone`, or the
+        // register a project declares.
+        let kind = match (&anchor.constructed, &anchor.entry_of) {
+            (Some(Constructed::Plans), _) => "plans",
+            (Some(Constructed::Entry), Some(of)) => of.register.as_str(),
+            (Some(Constructed::Entry), None) => "entry",
+            (Some(Constructed::Spec), _) => "spec",
+            (None, _) if anchor.is_component => "component",
+            (None, _) => "location",
         };
         let path = if anchor.path.as_os_str().is_empty() {
             ".".to_string()
@@ -434,11 +437,9 @@ fn list_anchors(manifest: &Manifest, checker: &[&Path]) -> Result<ExitCode, Stri
             anchor.path.display().to_string()
         };
         outln!("{}  {kind}  {path}", anchor.name);
-        // A plan's items have their homes in the plan's own documents: nothing to locate.
-        if matches!(
-            anchor.constructed,
-            Some(Constructed::Milestone | Constructed::Spec)
-        ) {
+        // A plan's items have their homes in the plan's own documents: nothing to locate. Any
+        // other entry lists what it carries, each home at the entry's own directory.
+        if anchor.is_plan() {
             continue;
         }
         for name in &anchor.registers {

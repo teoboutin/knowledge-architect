@@ -601,3 +601,19 @@ candidate if heads of absence prove to be written only to satisfy the check.
 `live`. It would leave the citations to review. An entry that no head cites is the case the
 register exists to end: a design session reads the heads, and an uncited entry reaches it only
 through `show`.
+
+### Every subdirectory of a location an anchor, with no Directory register `##subdirectory-anchors-location`
+
+`live`. A flag on a location would have made each of its subdirectories an anchor. It loses on two
+facts: `milestone` needs entries that are directories, to be cited `milestone@plans@<id>`, so it
+keeps the Directory shape, and the tool would hold two mechanisms placing anchors off the tree for
+one shape; and it gives a subject no reference of its own and no generated listing of the subjects.
+
+### A component opting in to an `opt-in` register `##component-opt-in-register`
+
+`live`. It places a register's home at `<component>/docs/<dir>/` for one component, with no new
+path rule and no anchor name to invent, which a location cannot reach, since a location at a
+component's `docs/` is refused. The owner chose the location carrying the register at its own path
+instead, for the reference it gives what the register holds: an entry cited under the location's
+name rather than the component's. It also reaches only `<component>/docs/<dir>/`, where the location
+reaches any directory.

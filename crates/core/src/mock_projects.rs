@@ -841,7 +841,7 @@ mod unsound {
         // The plans layout, each phase 2 because its anchors and entries are read off the
         // tree: one file outside both homes, per `design@core@plans-split-dirs`; a directory
         // with no README, a stray file and two options files in milestones/; and four names
-        // `design@core@a-plan-name-reads-as-nothing-else` refuses.
+        // `design@core@a-placed-name-reads-as-nothing-else` refuses.
         assert!(one_of(&found, "sits in the plans directory").starts_with("docs/plans/stray.md"));
         assert!(one_of(&found, "holds no README.md, so it is no milestone")
             .starts_with("docs/plans/milestones/no-readme"));

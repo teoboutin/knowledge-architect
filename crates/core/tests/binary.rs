@@ -4149,3 +4149,256 @@ fn fix_refuses_nothing_where_it_would_write_nothing() {
     assert_eq!(code, 0, "{out}{stderr}");
     assert!(!out.contains("fixed:"), "{out}");
 }
+
+/// The manifest of a project that declares a Directory register at a location's own path, each
+/// entry carrying one heading register, per `design@core@declarable-directory-register` and
+/// `design@core@home-at-the-carrier-path`: the layout a game project keeps its game design in, one
+/// subject per directory.
+const GAME_MANIFEST: &str = "[project]\nchecker-version = \"fixture\"\nname = \"core-mock\"\n\
+    components = []\n\n\
+    [locations.gdd]\npath = \"game-design\"\nregisters = [\"subject\"]\n\n\
+    [registers.subject]\nscope = \"opt-in\"\nshape = \"directory\"\ndir = \".\"\n\
+    carries = [\"game-design\"]\n\n\
+    [registers.game-design]\nscope = \"opt-in\"\nshape = \"heading\"\nlevel = 3\n\n\
+    [walk]\nskip-dirs = []\nskip-files = []\n\n\
+    [agents]\nharness = []\n";
+
+/// The documents of that project's game design: two subjects, each a README linking its files,
+/// whose entries cite each other across subjects.
+const GAME_FILES: [(&str, &str); 7] = [
+    ("knowledge-architect.toml", GAME_MANIFEST),
+    (
+        "game-design/README.md",
+        "# Game design\n\nOne directory per subject; the listing beside this file is generated.\n",
+    ),
+    (
+        "game-design/combat/README.md",
+        "# Combat\n\n- [Melee](melee.md)\n- [Ranged](ranged.md)\n",
+    ),
+    (
+        "game-design/combat/melee.md",
+        "# Melee\n\n### A sword swing takes 400 ms `##sword-swing`\n\n\
+         It costs stamina, per `game-design@economy@stamina-is-a-currency`.\n",
+    ),
+    (
+        "game-design/combat/ranged.md",
+        "# Ranged\n\n### Arrows drop with gravity `##arrow-drop`\n\n\
+         Slower than `game-design@combat@sword-swing`, in the subject `subject@gdd@combat`, \
+         beside `path@combat@melee.md`.\n",
+    ),
+    (
+        "game-design/economy/README.md",
+        "# Economy\n\n- [Resources](resources.md)\n",
+    ),
+    (
+        "game-design/economy/resources.md",
+        "# Resources\n\n### Stamina is spent like a currency `##stamina-is-a-currency`\n\n\
+         See `game-design@combat@arrow-drop`, and every subject in `register@gdd@subject`.\n",
+    ),
+];
+
+/// A copy of the `core` mock holding that game design, its indexes generated, staged.
+fn game_sandbox(tag: &str) -> Sandbox {
+    let sandbox = Sandbox::seeded(tag, "core", &GAME_FILES);
+    let (stdout, stderr, code) = sandbox.run(&["index"]);
+    assert_eq!(code, 0, "{stdout}{stderr}");
+    sandbox.stage();
+    sandbox
+}
+
+/// The claim: a declared Directory register places one anchor per entry directory, named by its
+/// basename and carrying what the register's `carries` names at its own directory, so an entry of
+/// another subject, the subject as a whole, the home and a file beside the README all resolve,
+/// and the home's index lists one row per subject.
+#[test]
+fn a_declared_directory_register_places_one_anchor_per_entry_carrying_its_registers() {
+    let sandbox = game_sandbox("directory-register");
+    let (stdout, stderr, code) = sandbox.run(&["check"]);
+    assert_eq!(code, 0, "{stdout}{stderr}");
+    assert!(stdout.ends_with("PASSED: no findings\n"), "{stdout}");
+
+    let (out, stderr, code) = sandbox.run(&["anchors"]);
+    assert_eq!(code, 0, "{out}{stderr}");
+    for line in [
+        "gdd  location  game-design",
+        "  subject  game-design/",
+        "combat  subject  game-design/combat",
+        "  game-design  game-design/combat/",
+        "economy  subject  game-design/economy",
+    ] {
+        assert!(out.lines().any(|l| l == line), "no line `{line}`:\n{out}");
+    }
+
+    let (out, stderr, code) = sandbox.run(&["show", "game-design@economy@stamina-is-a-currency"]);
+    assert_eq!(code, 0, "{out}{stderr}");
+    assert!(out.contains("game-design/combat/melee.md:5"), "{out}");
+    let (out, stderr, code) = sandbox.run(&["show", "subject@gdd@combat"]);
+    assert_eq!(code, 0, "{out}{stderr}");
+    assert!(out.contains("game-design/combat/ranged.md:5"), "{out}");
+
+    let index =
+        std::fs::read_to_string(sandbox.path("game-design/index.md")).expect("the subjects' index");
+    assert!(index.contains("\n2 entries\n"), "{index}");
+    assert!(
+        index.contains("| combat | [Combat](combat/README.md) |")
+            && index.contains("| economy | [Economy](economy/README.md) |"),
+        "{index}"
+    );
+}
+
+/// The claim: a declared Directory home holds its README, its index and one directory per entry,
+/// each holding a README and no subdirectory or register.toml, as the milestones home does, and
+/// each departure is a phase-2 finding naming the register's entry.
+#[test]
+fn a_declared_directory_home_holds_its_entries_and_nothing_else() {
+    let sandbox = game_sandbox("directory-layout");
+    sandbox.write("game-design/lore/notes.md", "# Notes\n");
+    sandbox.write("game-design/stray.md", "# Stray\n");
+    sandbox.write("game-design/combat/extra/deep.md", "# Deep\n");
+    sandbox.write("game-design/economy/register.toml", "groups = []\n");
+    sandbox.stage();
+    let (stdout, stderr, code) = sandbox.run(&["check"]);
+    assert_eq!(code, 1, "{stdout}{stderr}");
+    assert!(stdout.contains("phase 2: "), "{stdout}");
+    for what in [
+        "`game-design/lore` holds no README.md, so it is no subject entry",
+        "`game-design/stray.md` sits in game-design/, which holds its README.md, its index.md and \
+         one directory per subject entry",
+        "`game-design/combat/extra` is a subdirectory of a subject entry",
+        "a subject entry directory holds no register.toml",
+    ] {
+        assert!(stdout.contains(what), "no finding `{what}`:\n{stdout}");
+    }
+}
+
+/// The claim: an entry's name is refused when it reads as another anchor, and of two entries of
+/// one name the anchor is decided by the order `design@core@a-placed-name-reads-as-nothing-else`
+/// states, a milestone first, then the Directory registers by name, whatever the order of the
+/// declarations: AC3 of the discussion that made the shape declarable.
+#[test]
+fn an_entry_named_like_another_anchor_is_refused_in_a_fixed_order() {
+    let sandbox = game_sandbox("directory-names");
+    // A second Directory register, declared after `subject` and named before it.
+    let manifest = GAME_MANIFEST.replace(
+        "[walk]",
+        "[locations.world]\npath = \"world\"\nregisters = [\"area\"]\n\n\
+         [registers.area]\nscope = \"opt-in\"\nshape = \"directory\"\ncarries = [\"game-design\"]\n\n\
+         [walk]",
+    );
+    sandbox.write("knowledge-architect.toml", &manifest);
+    sandbox.write("world/README.md", "# World\n");
+    sandbox.write("world/area/README.md", "# Areas\n");
+    sandbox.write("world/area/combat/README.md", "# Combat areas\n");
+    sandbox.write("world/area/economy/README.md", "# Market\n");
+    sandbox.write(
+        "docs/plans/milestones/economy/README.md",
+        "# An economy milestone\n",
+    );
+    sandbox.write(
+        "game-design/design/README.md",
+        "# A subject named like a kind\n",
+    );
+    sandbox.stage();
+    let (stdout, stderr, code) = sandbox.run(&["check"]);
+    assert_eq!(code, 1, "{stdout}{stderr}");
+    for what in [
+        // `area` sorts before `subject`, so its `combat` is the anchor.
+        "the subject entry `combat` is no anchor: its name is also the name of an entry of `area`",
+        // A milestone comes first of all.
+        "the area entry `economy` is no anchor: its name is also the name of a milestone",
+        "the subject entry `design` is no anchor: its name is the name of a kind",
+    ] {
+        assert!(stdout.contains(what), "no finding `{what}`:\n{stdout}");
+    }
+    assert!(
+        !stdout.contains("the area entry `combat`") && !stdout.contains("the milestone `economy`"),
+        "{stdout}"
+    );
+}
+
+/// The claim: an entry's README is the head of what it carries, so a slug there defines nothing
+/// and is reported, and the slug moved into a file beside it defines the entry: AC4 of the
+/// discussion that made the shape declarable.
+#[test]
+fn a_slug_in_an_entry_s_readme_defines_nothing() {
+    let sandbox = game_sandbox("directory-readme-slug");
+    sandbox.write(
+        "game-design/combat/README.md",
+        "# Combat\n\n- [Melee](melee.md)\n- [Ranged](ranged.md)\n\n### Parry `##parry`\n",
+    );
+    sandbox.stage();
+    let (stdout, stderr, code) = sandbox.run(&["check"]);
+    assert_eq!(code, 1, "{stdout}{stderr}");
+    assert!(
+        stdout.contains("game-design/combat/README.md:6") && stdout.contains("`##parry`"),
+        "{stdout}"
+    );
+}
+
+/// The claim: what an entry carries is named by the entry's own reference, so a `register` or a
+/// `path` reference to an entry's directory or README is refused with that reference as the
+/// repair, and a path to a file beside the README resolves.
+#[test]
+fn an_entry_s_directory_is_cited_by_the_entry_and_by_nothing_else() {
+    let sandbox = game_sandbox("directory-forms");
+    sandbox.write(
+        "README.md",
+        "# core-mock\n\nSee `register@combat@game-design`, `path@gdd@combat/` and \
+         `path@combat@README.md`.\n",
+    );
+    sandbox.stage();
+    let (stdout, stderr, code) = sandbox.run(&["check"]);
+    assert_eq!(code, 1, "{stdout}{stderr}");
+    assert!(
+        stdout.contains("`register@combat@game-design` names the entry `combat`")
+            && stdout.contains("`path@gdd@combat/` cites an entry by its path")
+            && stdout.contains("`path@combat@README.md` cites an entry by its path"),
+        "{stdout}"
+    );
+    assert_eq!(
+        stdout
+            .matches("cite the entry as `subject@gdd@combat`")
+            .count()
+            + stdout.matches("cite it as `subject@gdd@combat`").count(),
+        3,
+        "{stdout}"
+    );
+}
+
+/// The claim: `commits` judges a message against the entry anchors of its own commit's tree, or
+/// of its first parent's: a message naming an entry the commit adds resolves, one naming it from
+/// the commit that deletes it resolves against the parent, and one naming it after resolves to
+/// nothing: AC5 of the discussion that made the shape declarable.
+#[test]
+fn commits_reads_the_entry_anchors_of_each_commit_s_own_tree() {
+    let history = History::new("directory-commits");
+    tiny_project(&history, false);
+    let manifest = GAME_MANIFEST.replace("name = \"core-mock\"", "name = \"tiny\"");
+    history.write("knowledge-architect.toml", &manifest);
+    for (rel, text) in &GAME_FILES[1..] {
+        history.write(rel, text);
+    }
+    let base = history.commit("The project is created\n");
+    history.write(
+        "game-design/magic/README.md",
+        "# Magic\n\n- [Spells](spells.md)\n",
+    );
+    history.write(
+        "game-design/magic/spells.md",
+        "# Spells\n\n### A fireball costs mana `##fireball`\n",
+    );
+    history.commit("The subject `subject@gdd@magic` holds `game-design@magic@fireball`\n");
+    for rel in ["game-design/magic/README.md", "game-design/magic/spells.md"] {
+        history.remove(rel);
+    }
+    history.commit("The subject `subject@gdd@magic` leaves, with `game-design@magic@fireball`\n");
+    let (stdout, stderr, code) = history.run(&["commits", &format!("{base}..HEAD")]);
+    assert_eq!(code, 0, "{stdout}{stderr}");
+    let late = history.commit("Nothing names `game-design@magic@fireball` any more\n");
+    let (stdout, stderr, code) = history.run(&["commits", &format!("{base}..HEAD")]);
+    assert_eq!(code, 1, "{stdout}{stderr}");
+    assert!(
+        stdout.contains(&late) && stdout.contains("`game-design@magic@fireball`"),
+        "{stdout}"
+    );
+}

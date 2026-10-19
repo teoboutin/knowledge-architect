@@ -554,7 +554,7 @@ pub(crate) fn register(
         anchors
             .all()
             .iter()
-            .filter(|a| !a.is_plan() && a.registers.iter().any(|n| n == id))
+            .filter(|a| !a.is_entry() && !a.is_plan() && a.registers.iter().any(|n| n == id))
             .map(|a| a.name.as_str())
             .collect::<Vec<_>>()
             .join(", ")
@@ -599,6 +599,22 @@ pub(crate) fn register(
                          citation of it"
                     ),
                 ));
+                }
+                // An entry keeps what it carries at its own directory, which the entry's own
+                // reference names, per `design@core@register-home-reference`.
+                Some(a) if a.is_entry() => {
+                    let form = a.entry_form().unwrap_or_default();
+                    out.push(Finding::at(
+                        rel,
+                        line,
+                        format!(
+                            "`{span}` names the entry `{name}`, whose homes are its own directory"
+                        ),
+                        format!(
+                            "cite the entry as `{form}`; one directory has one name, so `show` \
+                             finds every citation of it"
+                        ),
+                    ));
                 }
                 Some(a) if !a.registers.iter().any(|n| n == id) => out.push(Finding::at(
                     rel,
@@ -944,6 +960,28 @@ fn anchored_target(
             ),
         ));
         return None;
+    }
+    // An entry's directory, and its README, which is both the entry's document and the head of
+    // what it carries, are named by the entry's own reference, per
+    // `design@core@path-to-a-home-is-reported`; a file beside the README is a path target.
+    if !planned {
+        let (bare, _) = without_suffix(trimmed);
+        let bare = a.path.join(bare.trim_end_matches('/'));
+        let entry = anchors.all().iter().find(|e| {
+            e.is_entry() && !e.is_plan() && (bare == e.path || bare == e.path.join("README.md"))
+        });
+        if let Some(form) = entry.and_then(|e| e.entry_form()) {
+            out.push(Finding::at(
+                rel,
+                line,
+                format!("`{span}` cites an entry by its path"),
+                format!(
+                    "cite it as `{form}`; one directory has one name, so `show` finds every \
+                     citation of it"
+                ),
+            ));
+            return None;
+        }
     }
     // A register's home is named by its own kind, whichever anchor the path was written from:
     // the finding names the anchor that keeps the home, so it replaces the deeper-anchor finding

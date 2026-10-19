@@ -166,7 +166,8 @@ entity table, so what they print is what `check` resolves against.
 
 **`show <kind>@<anchor>@<id>`** prints one entry and then every reference to it, as `file:line`:
 
-- a file register's entry is printed **whole**, frontmatter included;
+- a file register's entry is printed **whole**, frontmatter included, and a directory register's
+  entry as its `README.md`, whole;
 - a heading register's entry is printed as **its section** — the heading through to the next
   heading at the same level or shallower;
 - `path@<anchor>@<path>` prints the walked document's text, or says the path is outside the walk;
@@ -313,8 +314,9 @@ stdout gives a file that is only observations.
 ## `anchors`
 
 Every anchor of the project, as `check` builds them: the Components and the locations the
-manifest declares, then `plans`, each milestone and each spec. One line per anchor gives its name,
-its kind and its path. Under a Component, a location and `plans`, one line per register it carries
+manifest declares, then `plans`, each entry of a Directory register, a milestone included, and
+each spec. One line per anchor gives its name, its kind and its path; an entry's kind is the
+register it is an entry of. Under every anchor but a plan's, one line per register it carries
 gives the home the tree holds: the file, the directory, both where both exist, or `missing`, which
 `check` reports with its repair. A plan's items live in the plan's own documents, so a milestone
 and a spec list no register. The output is for a reader, not for a script.
@@ -336,7 +338,7 @@ registers = ["issue", "tripwire", "interpretation"]
 
 [registers.interpretation]
 scope = "opt-in"               # `component` (every component carries it) or `opt-in`
-shape = "file"                 # `file` (one file per entry) or `heading` (slugs in a home)
+shape = "file"                 # `file` (one file per entry), `heading` (slugs in a home) or `directory`
 dir = "interpretations"        # the basename of the home; defaults to the register's name
 sections = ["Rules", "Reading", "Consequences"]
 
@@ -348,6 +350,26 @@ scope = "opt-in"
 shape = "heading"
 dir = "decisions"
 level = 2                      # a heading register only: the heading level its entries sit at
+```
+
+The next tables are a game project's: its design split by subject, one directory per subject under
+game-design/, each entry cited `game-design@<subject>@<id>`:
+
+```toml
+[locations.gdd]
+path = "game-design"
+registers = ["subject"]
+
+[registers.subject]
+scope = "opt-in"
+shape = "directory"            # one directory per entry, each an anchor of its own
+dir = "."                      # the home is the carrier's own directory: game-design/<subject>/
+carries = ["game-design"]      # what each entry carries, at the entry's own directory
+
+[registers.game-design]
+scope = "opt-in"
+shape = "heading"
+level = 3
 ```
 
 A **heading register** keeps its entries as slugged headings, in `<dir>.md` or in `<dir>/` behind
@@ -365,9 +387,26 @@ hand-written `README.md`, a generated `index.md` and an optional `register.toml`
 group subdirectories. An entry opens with frontmatter carrying each declared metadata key, then a
 level-one title, then the declared sections.
 
+A **directory register** keeps one directory per entry under `<dir>/`, beside a hand-written
+`README.md` and a generated `index.md`. Each entry directory holds a `README.md`, the entry's
+document, which owes a level-one title, and nothing but the files of what it carries: no
+subdirectory and no `register.toml`. Each entry is an anchor named by its basename, cited as a
+whole `<register>@<parent>@<id>`, the parent being the anchor that carries the home, and it carries
+the registers `carries` names, each an `opt-in` heading or file register, with its home at the
+entry's own directory: a carried heading register's README is the entry's README, which links
+every file and defines no slug. A `register` or a `path` reference to an entry's directory or to
+its README is a finding naming the entry's reference. An entry's name is refused when it is a
+kind's, a Component's, a location's or a reserved word, or when a milestone, a spec or an earlier
+entry holds it: the milestones first, then the specs, then the declared registers by name, each
+register's entries by path. The argument is `design@core@declarable-directory-register`.
+
+**`dir = "."` puts a register's home at its carrier's own directory**, for an `opt-in` register
+only: the location carrying it carries no other register, since every other home would sit inside
+that one, per `design@core@home-at-the-carrier-path`.
+
 `[registers.issue]` accepts `kinds` and nothing else; the design, goal, tripwire and rejected
-registers accept nothing, `level` included, and a table for a plan register or an item register is refused
-whole. The
+registers accept nothing, `level` and `carries` included, and a table for a plan register or an
+item register is refused whole. The
 arguments are `design@core@registers-are-declared` and
 `design@core@a-file-register-is-a-directory-of-entries`.
 
@@ -383,7 +422,8 @@ refused. It holds three things and nothing else:
 | docs/plans/specs/ | the `spec` register: one file `<id>.md` per spec, beside a hand-written `README.md` and a generated `index.md`, as any file register |
 | docs/plans/milestones/ | the `milestone` register: one directory `<id>/` per milestone, beside a hand-written `README.md` and a generated `index.md` |
 
-**Each milestone directory is an anchor of its own**, named by its basename. Its `README.md` is the
+**Each milestone directory is an anchor of its own**, named by its basename: `milestone` is the
+built-in directory register, whose entries carry `spec` and the four item registers. Its `README.md` is the
 milestone document, its `index.md` is generated and lists its slices, and every other `.md` file in
 it is the spec of one slice. A directory under milestones/ with no `README.md` is a finding. **Each
 spec file is an anchor too**, named by its id, and stays an entry of the `spec` register of
@@ -426,19 +466,20 @@ refused like one named `path`.
 `register@*@issue`, and names the home in whichever shape the tree holds, so a home that outgrows
 one file breaks no reference. The anchor is a component, a declared location or `plans`, or `*`
 for a component-scoped register. A `path` reference to a home, a heading register's file, its
-directory or that directory's `README.md`, a file register's directory, or the `milestone`
-register's directory, is a finding whose
-repair names this form. A register named `register` is refused like one named `path`.
+directory or that directory's `README.md`, a file register's directory, or a directory register's
+directory, is a finding whose repair names this form; a `path` reference to an entry's directory or
+its `README.md` names the entry's own reference. A register named `register` is refused like one named `path`.
 
 **A plan's name reads as nothing else.** A milestone's name or a spec's id that is the name of a
 component, of a location or of `plans`, `elsewhere` or `*`, and one name used under both homes,
-are findings. So is a milestone name outside the id grammar, `[a-z0-9]+(-[a-z0-9]+)*`.
+are findings. So is a milestone name outside the id grammar, `[a-z0-9]+(-[a-z0-9]+)*`. An entry of
+a declared directory register gives way to every plan of the same name.
 
 A tree that breaks this layout stops the run at phase 2, except a home's missing `README.md` or
 `index.md`, which is a finding of the last phase as in every file register. A misplaced or
 duplicated item stops it at phase 3, and a missing section is a finding of the last phase. The arguments are
 `design@core@plan-register`, `design@core@plans-split-dirs`, `design@core@plan-document-kinds`,
-`design@core@a-plan-name-reads-as-nothing-else`, `design@core@spec-file-is-an-anchor`,
+`design@core@a-placed-name-reads-as-nothing-else`, `design@core@spec-file-is-an-anchor`,
 `design@core@plan-document-sections-by-kind`, `design@core@plan-items-by-section` and
 `design@core@plan-item-scope`.
 
