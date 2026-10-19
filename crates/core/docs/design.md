@@ -1998,7 +1998,8 @@ content; and a rule quoted inside a block comment lost because the `*` continuat
 front of it.
 
 **Three readings of "data" were too broad, and the measurement over thaum's tree, in the message
-of 063e637, caught each.** A fenced block is not data — a sketch in a design document comments
+of the commit "rework how the knowledge tool parses documents and enforces rule citations", caught
+each.** A fenced block is not data — a sketch in a design document comments
 its rules on purpose, and reading fences as data lost 34 citations. A string literal is data only when BOUND to a name — an assertion's
 message cites rules for a human to read on failure, and reading every literal as data lost 32
 of them. A macro body is not an argument list, so a binding still applies inside one. **Reading

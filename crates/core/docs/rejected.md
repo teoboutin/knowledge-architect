@@ -177,7 +177,8 @@ checked whatever its suffix, so no set is left to widen and no suffix can be mis
 
 ### `syn` as the Rust parser `##syn-rust-parser`
 
-`live`. Prototyped: it parses all 68 files without error, but doc comments survive only as
+`live`. Prototyped in thaum, where the tool was first built: it parses all 68 of its Rust files
+without error, but doc comments survive only as
 attributes and ordinary comments are discarded during lexing, so a rule cited in a `//` comment
 inside a function body needs a second raw-text pass. One parser that answers every question beats
 two that each answer half.
