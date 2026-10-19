@@ -1,6 +1,6 @@
 **Generated — do not edit.** `cargo klarch index`
 
-40 entries
+39 entries
 
 | kind | title |
 | --- | --- |
@@ -34,7 +34,6 @@
 | question | [The planning skill forbids "plan" alone as a document's name and uses it alone](the-word-plan-is-banned-alone-and-used-alone.md) |
 | question | [Whether a census of a project's own text under a planned instruction is real use, or a run the workflow refuses](whether-a-census-of-real-text-under-a-planned-instruction-is-real-use.md) |
 | question | [Whether a session in Claude Code's default permission mode is asked for permission, or needs an allow rule, to run an installed saved workflow](whether-a-saved-workflow-run-needs-a-permission-rule.md) |
-| todo | [A design discussion's proposals are read against the heads they may contradict only after the plan document is written](a-proposal-is-read-against-the-heads-only-after-the-plan-is-written.md) |
 | todo | [No installed skill says how a new Component is created](a-skill-for-creating-a-component.md) |
 | todo | [The project audit has two axes, and the other axes the owner named have none](audit-axes-beyond-the-design-record.md) |
 | todo | [Only the design and setup skills state what they expect of the owner](expectation-sets-for-the-installed-skills.md) |
