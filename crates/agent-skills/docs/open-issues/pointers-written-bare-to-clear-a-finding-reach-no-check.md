@@ -7,9 +7,10 @@ kind: design
 
 `design@agent-skills@plain-text-is-no-repair` refuses plain text as the repair of a finding. Its
 tripwire fired at its second instance, so the decision is reopened, with a mechanical check for
-plain-text pointers among the candidates. Three instances are known; none of the three was shaped
-like a reference, so the class A finding that `spec@plans@defined-ids-outside-references` plans
-would have reported none of them.
+plain-text pointers among the candidates. Three instances are known. The class A finding that
+`spec@plans@defined-ids-outside-references` plans, a reference-shaped token outside backticks,
+would have reported the first, references in the checker's syntax with their backticks removed,
+and neither of the other two, a bare path and a bare skill name.
 
 ## Details
 

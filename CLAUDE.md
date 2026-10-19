@@ -157,12 +157,18 @@ head. The
 audit's checker-rules auditors, L7, also read the checker's design home, `register@core@design`,
 beside its README: the installed lens names the README alone, since an adopting project holds no
 design home of the checker, and here the checker's rules are decided in that home.
+Once its analyses leave, a received file of this repository's own sessions is deleted rather than
+marked as the installed intake marks one, on the owner's word, per
+`skill@klarch-retrospective-intake@received-files-after`.
 
 ## Git `##git-workflow`
 
 Linear history, no merge commits, and no direct push to main. This section is a restatement. Its home is
 `design@knowledge-architect@git-flow`, except where a point or one of its bullets names another; the
-commands and procedures that carry those rules out are this file's own.
+commands and procedures that carry those rules out are this file's own. **A scratch worktree made
+only for temporary testing is outside every rule of this section**, such as the one
+`skill@klarch-development@discriminating-tests` runs mutations in, per
+`design@knowledge-architect@scratch-worktree-outside-git-rules`.
 
 1. **All work happens on a branch.**
 
@@ -196,9 +202,6 @@ commands and procedures that carry those rules out are this file's own.
   whose conflicts the tree now resolves, as point 3 does.
 - **Before applying a mutation that will need reverting, stage the file**, so the revert does not
   depend on a restore.
-- **A scratch worktree made only for temporary testing is outside these rules**, such as the one
-  `skill@klarch-development@discriminating-tests` runs a mutation in: it holds a copy of the work,
-  and no operation in it can lose content.
 - **With a clean tree, editing the branch's own history is an ordinary move**: rewording or
   amending a commit message, squashing, rebasing. It is bounded by two verifications before the
   old head is dropped: that the tree was clean, and that no content was lost. For a rewrite that

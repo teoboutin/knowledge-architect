@@ -24,8 +24,8 @@ one you ran.
 
 ## Your brief {{slug:your-brief}}
 
-- **The work**: a question under discussion, or a plan document to implement. Read the plan
-  document if the brief names one.
+- **The work**: a question under discussion, a plan document to implement, or the files a
+  retrospective intake received. Read the plan document or the files if the brief names them.
 - **The seeds**: the decisions and goals the work names, as references, or none. A seed is never
   an issue or a tripwire.
 - **Your group**: a first and a last position, counted from 1, in the order below.

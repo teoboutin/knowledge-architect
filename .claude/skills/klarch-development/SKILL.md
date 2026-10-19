@@ -111,15 +111,15 @@ under the session's scratchpad directory. Cargo merges the configuration of ever
 field by field, so in a nested worktree the main tree's `path@knowledge-architect@.cargo/config.toml` restores a field the
 mutation removed, and the mutant survives a test that would catch it.
 
+Several mutations run in one worktree, one after another: each is reverted with
+`git checkout -- <path>` before the next is applied. The worktree is outside the Git rules of
+`instructions@git-workflow`, which say so.
+
 Finally, from the main tree's root, `git worktree remove --force .claude/worktrees/<name>`. The
 force is needed because the worktree holds the mutation, and it removes that worktree alone.
 
 Each of the three test runs carries a claim, so leaving one out weakens the check rather than
 shortening it.
-
-Several mutations run in one worktree, one after another: each is reverted with
-`git checkout -- <path>` before the next is applied. The
-worktree is outside the Git rules of `instructions@git-workflow`, which say so.
 - **The baseline:** over a red base, every mutation reads as caught. It must run with the work
   under check, or it passes over a tree that lacks the new test.
 - **The compile:** a mutant that does not compile also reads as caught, and the sites this check

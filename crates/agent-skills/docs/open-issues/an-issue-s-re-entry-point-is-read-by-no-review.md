@@ -31,9 +31,9 @@ the discussion at which it is raised again", with no fixed subsection name. In t
 above, and `issue@agent-skills@a-tripwire-on-agent-behaviour-fires-where-this-project-cannot-see`,
 whose re-entry is a discussion raised on the owner's word.
 
-The search agent, at the grounding of a discussion and at the audit of a slice or of a spec, reads every issue whole,
+The search agent, at the grounding of a discussion and of a retrospective intake and at the audit of a slice or of a spec, reads every issue whole,
 so a design issue's re-entry point is read before designed or planned work, and before bounded work
-the design skill grounds, per `design@agent-skills@bounded-path-in-design`. Work that does not go
+the design skill grounds, per `design@agent-skills@bounded-path-in-design`. Other work that does not go
 through the design skill meets it at no step.
 
 A real instance, in a slice of thaum on knowledge-architect 0.6.0: an issue of kind `question`

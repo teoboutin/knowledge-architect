@@ -5,7 +5,7 @@ kind: todo
 
 ## Summary
 
-The searchers a design discussion dispatches return a report that must list every entry of their
+The searchers a design discussion and a retrospective intake dispatch return a report that must list every entry of their
 group exactly once, and each agent writes that list by hand from its own reading. No tool gives the
 agent a skeleton holding the group's entries to fill, and no tool checks a filled report against
 the group. The owner wants such tooling, for every searcher: the standing-entry searcher, and the
@@ -22,7 +22,7 @@ design-entry searcher, `agent@knowledge-architect-design-entry-searcher`.
   its group itself, by the sort its section
   `agent@knowledge-architect-standing-entry-searcher@take-your-group` states, and writes both lists
   by hand.
-- The design-entry searcher, per `design@agent-skills@design-entry-search`, reads a group of a Component's design
+- The design-entry searcher, per `design@agent-skills@design-entry-search`, reads a Component's goals and a group of its design
   entries and `rejected` entries, and returns three lists, `Bears on the work`, `May bear` and `Read
   and judged unrelated`, under the same rule: every entry of the group in exactly one list. The
   owner ruled, in that discussion, that every unrelated entry is listed rather than counted.
@@ -55,7 +55,7 @@ decides. The leads, from the owner's direction:
   moves into one list and gives a reason, so the agent no longer derives the group or its order;
 - a command that reads a filled report and reports an entry of the group that appears in no list
   or in two, and a reference that is no entry of the group, with an exit code a session can act on;
-- for the design-entry searcher, the listing of a Component's design entries and `rejected`
+- for the design-entry searcher, the listing of a Component's goals, design entries and `rejected`
   entries, which no command prints today: `cargo klarch model` prints every heading and slug
   definition, not entries.
 

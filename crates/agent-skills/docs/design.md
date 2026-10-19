@@ -903,7 +903,7 @@ loser wrong, and an entry that names no winner drops it. The designs this decisi
 `rejected@agent-skills@both-directions-written-by-hand` and
 `rejected@agent-skills@both-directions-checked-for-symmetry`.
 
-### A search of the goals, the design entries and the `rejected` entries runs before a proposal reaches the owner, at a design discussion's grounding and at a retrospective intake, and again for a subject it was not given `##design-entry-search`
+### A search of the design entries and the `rejected` entries runs before a proposal reaches the owner wherever a session's own reading of the design homes is recorded to have missed one, and again for a subject it was not given `##design-entry-search`
 
 The installed design skill's step 1 sends `agent@knowledge-architect-design-entry-searcher` beside
 the standing-entry searcher, and the session reads every entry it grades `bears` or `may-bear`
@@ -926,19 +926,25 @@ decision did not keep: `rejected@agent-skills@conformance-reader-at-the-checkpoi
 An intake meets the same need: it puts a proposal to the owner for every finding, and the owner
 rules before any review reads it. The instance: an intake of thirteen received files analysed a
 finding about naming a skill not yet created, and missed the third exception of
-`design@agent-skills@plain-text-is-no-repair`, which decides that case; its check read only the
-`rejected` home of the owning Component and the standing entries, and the owner recalled the head
-while ruling. The nearest rival, the session's own reading, which the intake's reversal check and
+`design@agent-skills@plain-text-is-no-repair`, which decides that case, and the owner recalled the
+head while ruling. The nearest rival, the session's own reading, which the intake's reversal check and
 record check already ask for, is the reading this decision exists because sessions miss in large
 design homes, and the searcher is the capability form of that reading, per
 `design@agent-skills@capabilities-not-structure`. The design audit of a slice or a spec sends no
 design-entry search: no instance of a miss there is recorded, per
 `design@agent-skills@behaviour-additions-need-real-use`.
 
-The searcher also reads its Component's goals home whole and grades each goal, in every group of a
-cut Component, and the session still reads every goals home itself. On the owner's word, both layers
-stay: the owner saw design sessions miss a goal twice, although the goals homes are small enough to
-be read whole.
+### The design-entry searcher grades every goal of its Component beside the session's own reading of the goals `##searcher-grades-goals`
+
+`agent@knowledge-architect-design-entry-searcher` reads its Component's goals home whole, in every
+group of a cut Component, and grades each goal as it grades a design entry; the session still reads
+every goals home itself, at the design skill's grounding and at the intake's. The decision is the
+owner's: the owner saw design sessions miss a goal twice, although the goals homes are small enough
+to be read whole, and ruled that both readings stay. How a session misses a goal it is told to read
+is not established; the owner did not know. The nearest rival, the session's reading alone, is the
+reading those sessions had. The cost is small while a goals home is a small fraction of the design
+home its agent already reads; re-take both with `wc -c` on the goals and design homes, and a goals
+home that approaches its design home's size reopens the cost.
 
 ### The design-entry search sends one agent per Component, and cuts a Component too large for one along whole level-two subjects, with no numeric bound `##design-entry-search-groups`
 
@@ -963,7 +969,8 @@ decision did not keep: `rejected@agent-skills@design-listing-cut-in-groups-of-si
 
 ### The design-entry searcher grades each entry it reads, and lists every one `##search-relevance-grade`
 
-The searcher grades each entry and each goal it reads `bears`, with the relation `constrains`,
+The searcher grades each entry and each goal it reads, per
+`design@agent-skills@searcher-grades-goals`, `bears`, with the relation `constrains`,
 `may change` or `may bring back`, or `may-bear`, and lists every unrelated one it read, so every
 goal and every entry of its group appears in exactly one of three lists. The design skill routes
 each grade to an act: the session reads every `bears` and `may-bear` entry whole, states for each
@@ -3278,7 +3285,8 @@ the issue that carries it, is the owner's.
 The analysis is one file per analysed file in docs/retrospective-reports/ at the project's root,
 named by the analysed file's stem, a row of the primer's knowledge table, per
 `design@agent-skills@knowledge-table-home`. Each finding's section ends with a default and the
-owner's ruling. The file is committed once every ruling is in it, before any outcome is carried
+owner's ruling, except a section that points to a cluster analysed in another file, which takes the
+ruling given there, so that one ruling is given once and cannot differ. The file is committed once every ruling is in it, before any outcome is carried
 out; the issues it rules are opened and the findings handled now are handled, in the commits their
 routes need; the commit that carries out its last outcome, or a later commit of the same branch,
 deletes it. The skill fixes no order of those commits, per
@@ -3288,6 +3296,15 @@ It takes the shape of the audit's report file, `design@agent-skills@committed-au
 argument holds here: the commit messages alone keep the outcomes and lose the evidence each ruling
 was given on. A home each project chooses loses too: the skill could name no path, and the primer's
 last row, to ask the owner, would fire at the first intake of every project.
+
+### An intake marks the received project file it analysed once the analysis leaves `##received-file-marked`
+
+Once every outcome of an analysis is carried out and the analysis leaves, the installed intake
+writes a line at the head of the received project file: that it was analysed, that every outcome
+was carried out, and the `git log` command that finds the analysis. The file stays where the owner
+keeps it. The rule is the owner's. A directory of received files can hold files an earlier intake
+analysed, which only the history of docs/retrospective-reports/ at the project's root tells apart; a marked file is not
+handed to an intake again.
 
 ### A retrospective's project file names the project's main commit, which its workflow file names only where the project builds the checker from source `##version-line-names-the-main-commit`
 

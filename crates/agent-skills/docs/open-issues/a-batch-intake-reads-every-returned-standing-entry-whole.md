@@ -16,8 +16,9 @@ reading grows with the batch. The owner judged it a problem to handle one day, n
 
 - The instance: this repository's intake of thirteen received retrospective files. Three
   standing-entry searchers over the 84 issues and 60 tripwires returned 64 entries, about 167 KB of
-  text, which the session read whole, as step 3 asks: "Read every entry returned whole with
-  `cargo klarch show <ref>`, never from its reason line."
+  text, which the session read whole, as step 3 asked at that intake: "Read every entry returned
+  whole with `cargo klarch show <ref>`, never from its reason line." Step 3 now asks the same of
+  every entry the design-entry search grades `bears` or `may-bear`.
 - The reading paid for itself in part: it found the tripwire judgements two of the owner's rulings
   rest on, and three issues whose closing conditions the files met. Not established: how many of
   the 64 entries bore on no outcome.
