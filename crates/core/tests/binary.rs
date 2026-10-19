@@ -4402,3 +4402,78 @@ fn commits_reads_the_entry_anchors_of_each_commit_s_own_tree() {
         "{stdout}"
     );
 }
+
+/// The claim: an `opt-in` register the project attaches to a Component is carried by that
+/// Component at its `docs/<dir>/`, so the same game design sits under the root's docs/ with no
+/// location, its subjects cited as entries of the root, and a Component that names it and lacks
+/// its home is reported, per `design@core@a-component-carries-what-a-project-attaches`.
+#[test]
+fn a_component_carries_the_register_a_project_attaches_to_it() {
+    let manifest = GAME_MANIFEST
+        .replace(
+            "[locations.gdd]\npath = \"game-design\"\nregisters = [\"subject\"]\n\n",
+            "",
+        )
+        .replace(
+            "dir = \".\"\ncarries = [\"game-design\"]\n",
+            "dir = \"game-design\"\ncarries = [\"game-design\"]\ncomponents = [\"core-mock\"]\n",
+        );
+    assert!(
+        manifest.contains("components = [\"core-mock\"]"),
+        "{manifest}"
+    );
+    let files: Vec<(String, String)> = GAME_FILES[1..]
+        .iter()
+        .map(|(rel, text)| {
+            (
+                format!("docs/{rel}"),
+                text.replace("subject@gdd@", "subject@core-mock@")
+                    .replace("register@gdd@", "register@core-mock@"),
+            )
+        })
+        .chain(std::iter::once((
+            "knowledge-architect.toml".to_string(),
+            manifest,
+        )))
+        .collect();
+    let seeded: Vec<(&str, &str)> = files
+        .iter()
+        .map(|(rel, text)| (rel.as_str(), text.as_str()))
+        .collect();
+    let sandbox = Sandbox::seeded("component-attached", "core", &seeded);
+    let (stdout, stderr, code) = sandbox.run(&["index"]);
+    assert_eq!(code, 0, "{stdout}{stderr}");
+    sandbox.stage();
+    let (stdout, stderr, code) = sandbox.run(&["check"]);
+    assert_eq!(code, 0, "{stdout}{stderr}");
+    let (out, stderr, code) = sandbox.run(&["anchors"]);
+    assert_eq!(code, 0, "{out}{stderr}");
+    for line in [
+        "  subject  docs/game-design/",
+        "combat  subject  docs/game-design/combat",
+    ] {
+        assert!(out.lines().any(|l| l == line), "no line `{line}`:\n{out}");
+    }
+    let (out, stderr, code) = sandbox.run(&["show", "subject@core-mock@combat"]);
+    assert_eq!(code, 0, "{out}{stderr}");
+    assert!(out.contains("docs/game-design/combat/ranged.md:5"), "{out}");
+
+    for rel in [
+        "README.md",
+        "index.md",
+        "combat/README.md",
+        "combat/melee.md",
+        "combat/ranged.md",
+        "economy/README.md",
+        "economy/resources.md",
+    ] {
+        std::fs::remove_file(sandbox.path(&format!("docs/game-design/{rel}"))).expect("a file");
+    }
+    sandbox.stage();
+    let (stdout, stderr, code) = sandbox.run(&["check"]);
+    assert_eq!(code, 1, "{stdout}{stderr}");
+    assert!(
+        stdout.contains("the anchor `core-mock` carries no subject directory"),
+        "{stdout}"
+    );
+}

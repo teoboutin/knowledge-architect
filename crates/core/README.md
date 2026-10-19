@@ -337,7 +337,7 @@ path = "docs/rules"
 registers = ["issue", "tripwire", "interpretation"]
 
 [registers.interpretation]
-scope = "opt-in"               # `component` (every component carries it) or `opt-in`
+scope = "opt-in"               # `component` (every component carries it) or `opt-in` (those naming it)
 shape = "file"                 # `file` (one file per entry), `heading` (slugs in a home) or `directory`
 dir = "interpretations"        # the basename of the home; defaults to the register's name
 sections = ["Rules", "Reading", "Consequences"]
@@ -404,8 +404,17 @@ register's entries by path. The argument is `design@core@declarable-directory-re
 only: the location carrying it carries no other register, since every other home would sit inside
 that one, per `design@core@home-at-the-carrier-path`.
 
+**`components = [...]` attaches an `opt-in` register to the Components it names**, the root's name
+included, each keeping its home at `<component>/docs/<dir>/`, per
+`design@core@a-component-carries-what-a-project-attaches`. The game design above could sit at
+`<root>/docs/game-design/` with no location: `dir = "game-design"` and
+`components = ["<root>"]`, the root being named by `[project] name`, in place of the location and
+`dir = "."`, each subject then cited `subject@<root>@<subject>`. A name that is no Component is a finding, and so is a home at the
+Component's `docs/` itself, at the root's plans directory, or at the directory of another register
+the Component carries.
+
 `[registers.issue]` accepts `kinds` and nothing else; the design, goal, tripwire and rejected
-registers accept nothing, `level` and `carries` included, and a table for a plan register or an
+registers accept nothing, `level`, `carries` and `components` included, and a table for a plan register or an
 item register is refused whole. The
 arguments are `design@core@registers-are-declared` and
 `design@core@a-file-register-is-a-directory-of-entries`.

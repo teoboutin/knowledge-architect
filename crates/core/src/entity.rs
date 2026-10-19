@@ -257,14 +257,15 @@ fn item_registers() -> impl Iterator<Item = String> {
 }
 
 impl Anchor {
-    /// A component: every component-scoped register, homes under `docs/`.
+    /// A component: every component-scoped register, and each `opt-in` one the project attaches
+    /// to it, homes under `docs/`.
     pub(crate) fn component(name: &str, path: &Path, registers: &Registers) -> Self {
         Self {
             name: name.to_string(),
             path: path.to_path_buf(),
             home_base: path.join("docs"),
             registers: registers
-                .component_scoped()
+                .carried_by_component(name)
                 .map(|r| r.name.clone())
                 .collect(),
             is_component: true,
@@ -746,7 +747,9 @@ pub(crate) fn placed_entries(manifest: &Manifest, paths: &[&PathBuf]) -> Vec<Pla
     for register in declared {
         let mut homes: Vec<(String, PathBuf)> = Vec::new();
         for component in manifest.components().all() {
-            if register.scope == crate::manifest::Scope::Component {
+            if register.scope == crate::manifest::Scope::Component
+                || register.components.contains(&component.name)
+            {
                 let base = component.path.join("docs");
                 homes.push((component.name.clone(), register.home_in(&base)));
             }

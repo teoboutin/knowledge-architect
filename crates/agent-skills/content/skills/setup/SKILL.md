@@ -117,9 +117,10 @@ registers = ["issue"]
 
 **A kind of record the built-in registers do not hold is a register the project declares**, under
 `[registers.<name>]`, its name the kind its references spell. `scope = "component"` makes every
-Component carry it under its `docs/`, and `scope = "opt-in"` only the locations that name it. Its
-home is `<dir>/` under its carrier, `dir` defaulting to the register's name, or the carrier's own
-directory for an `opt-in` register declared with `dir = "."`, which its location then carries
+Component carry it under its `docs/`, and `scope = "opt-in"` only the Components its
+`components = [...]` names and the locations that name it. Its home is `<dir>/` under its carrier,
+under `docs/` for a Component, `dir` defaulting to the register's name, or the location's own
+directory for an `opt-in` register declared with `dir = "."`, which that location then carries
 alone. Pick the shape from how the project's existing records are cut:
 
 - **`shape = "heading"`**, with `level`: one record per heading at that level, its slug last, in
@@ -151,16 +152,15 @@ alone. Pick the shape from how the project's existing records are cut:
   subject as a whole `<register>@<anchor>@<subject>`.
 
   ```toml
-  [locations.<name>]
-  path = "<path of the directory holding the subjects>"
-  registers = ["subject"]
-
   [registers.subject]
   scope = "opt-in"
   shape = "directory"
-  dir = "."
   carries = ["note"]
+  components = ["<component>"]   # the subjects sit in <component>/docs/subject/
   ```
+
+  A location carrying it with `dir = "."` puts the subjects directly under the location's path
+  instead, and the subject as a whole is then cited under the location's name.
 
 What the walk must not read is declared under `[walk]`, each row with its reason in a comment
 beside it: `skip-dirs` and `skip-files` for paths, `exclude` for another project kept inside this

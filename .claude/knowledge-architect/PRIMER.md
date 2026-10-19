@@ -243,8 +243,8 @@ resolves to: every anchor with its kind and its path, and, under a Component, a 
 
 **An anchor** is a named place that carries registers. A **Component** is a directory the manifest
 declares, named by its basename, or the project's root, named by the manifest's project name; it
-carries the required documents
-and every component register. A **location** carries only the registers it declares, their homes
+carries the required documents,
+every component register, and each `opt-in` register whose `components` names it. A **location** carries only the registers it declares, their homes
 directly under its path, or at its path for a register declared with `dir = "."`. The checker
 constructs the anchor `plans` at docs/plans/, one anchor per spec file, and one per entry directory
 of a directory register, each milestone's included. The anchor words `*` (every Component), `elsewhere` (a

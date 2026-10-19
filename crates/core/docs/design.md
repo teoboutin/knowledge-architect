@@ -664,10 +664,12 @@ holds the plans directory, which is not a component's document but the anchor `p
 `design@core@plan-register`. A component that does not carry one it owes is a finding, raised by
 `path@core@src/check/tree.rs`.
 
-**Which components exist is declared, and what a component carries is compiled in.** That is
-not an exception to `design@core@nothing-of-a-project-is-compiled-in`: the document list and
+**Which components exist is declared, and what every component carries at least is compiled in.**
+That is not an exception to `design@core@nothing-of-a-project-is-compiled-in`: the document list and
 the five built-in component registers in `manifest.rs` belong to no project, they are what the word
-_component_ means here. A project free to declare its own set would be conformant with whatever
+_component_ means here. A project adds to that set, per
+`design@core@a-component-carries-what-a-project-attaches`, and removes nothing from it: a project
+free to declare its own set would be conformant with whatever
 it declared, which is the same as being checked against nothing, against
 `goal@core@declared-instructions-are-checked`: a tree that passes the check conforms to all of it,
 and no project can hold part of it back. The one declaration that changes
@@ -737,8 +739,8 @@ The designs this decision did not keep: `rejected@core@goal-citing-a-rejected-en
 Both carry registers. Every anchor is a named directory and a path anchor under
 `design@core@every-path-names-its-anchor`, except the plan anchors the tool constructs, below: a
 spec anchor is a file, and no plan anchor carries the `path` kind. What separates them is what they owe. A **component**
-owes the compiled documents and every `component`-scoped register, with its homes under
-`<component>/docs/`. A **location** owes the homes of the registers its `[locations.<name>]`
+owes the compiled documents, every `component`-scoped register and every `opt-in` register the
+project attaches to it, with its homes under `<component>/docs/`. A **location** owes the homes of the registers its `[locations.<name>]`
 row declares and nothing else, with its homes directly under its own path, or at it for a register
 declared there, per `design@core@home-at-the-carrier-path` — a location's directory is already
 documentation, where a component's is source code.
@@ -819,17 +821,28 @@ for the last two. The owner, on the question:
 name (components, custom locations...). I'd rather make this decision early to avoid painful
 migrations."
 
-### A component cannot opt in to an `opt-in` register `##no-component-opt-in`
+### A Component carries every register the workflow needs, and any register the project attaches to it `##a-component-carries-what-a-project-attaches`
 
-No syntax exists for it, and a component that wants one declares a location under its own directory. One mechanism, and the register list
-of a component stays a fact about the word _component_ rather than a per-component declaration.
+Every Component carries the component registers, the built-in ones and those declared with
+`scope = "component"`, which the workflow needs in every Component, per
+`design@core@components-carry-the-same-documents`. An `opt-in` register names the Components that
+carry it besides, in its own table, `components = [<component>, …]`, the root's name included, and
+each keeps its home under its own `docs/`, as `<component>/docs/<dir>/`. A name that is no
+Component, and a home that would give a directory of the Component two meanings, its `docs/` itself
+with `dir = "."`, the root's plans directory, or the directory of another register it carries, is a
+phase-1 finding, and that Component does not carry it.
 
-**What it costs: such a location cannot sit at the component's `docs/`**, which holds the
-component's own homes, per `design@core@anchor-collisions-refused`, so the register's home is never
-`<component>/docs/<dir>/`. A location at the directory the home should have, carrying the register
-at its own path, per `design@core@home-at-the-carrier-path`, places it at `<component>/docs/<dir>/`
-under a name of the location's own. The owner chose that over a component opting in, for the
-reference it gives an entry: `rejected@core@component-opt-in-register`.
+**The ground is the owner's intent**: a Component is always required to carry the registers the
+workflow needs to function, and a project may attach any register it declares to any Component.
+What a Component must carry is the floor this keeps, and a register attached adds obligations and
+removes none, per `design@core@the-regime-has-no-opt-out`. A location cannot place such a home, since
+a location at a Component's `docs/` holds its other homes and is refused, per
+`design@core@anchor-collisions-refused`. The rival, a Component's register list fixed by the word
+_component_, is `rejected@core@component-register-list-fixed`.
+
+**The list is the register's**, beside its `scope`, because a Component is declared by its path in
+`[project] components` and has no table of its own: a table per Component would declare the
+Components twice.
 
 ### Plan documents are a structure the checker reads: the anchor `plans` carries a `spec` and a `milestone` register `##plan-register`
 
@@ -966,9 +979,10 @@ The two lists are the planning skill's, which owns the shape of a plan document,
 ### Which registers exist beyond the built-in ones is the manifest's `##registers-are-declared`
 
 `[registers.<name>]` declares a register's `scope`, `shape`, `dir`, `level`, `sections`,
-`metadata.<key>.values` and, for a Directory register, `carries`, per
-`design@core@declarable-directory-register`; `[locations.<name>]` declares a directory and the
-registers it carries.
+`metadata.<key>.values`, for a Directory register `carries`, per
+`design@core@declarable-directory-register`, and for an `opt-in` register the `components` that
+carry it, per `design@core@a-component-carries-what-a-project-attaches`; `[locations.<name>]`
+declares a directory and the registers it carries.
 Eleven registers are compiled in — `design`, `goal`, `tripwire`, `rejected`, `issue`, carried
 by every component; `spec` and `milestone`, carried by the anchor `plans`, `spec` also by each milestone
 anchor, per `design@core@plan-register`; and the four item registers, carried by the plan
@@ -980,7 +994,8 @@ component register whose home at the root would be the plans directory: the plan
 tool's, and a declaration that changes it changes nothing a project can rely on. A declared
 register named `path`, `planned`, `register` or a harness kind is refused too: a reference whose
 kind segment is that word never reaches the register. Setting `scope`, `shape`, `dir`, `level`,
-`sections`, `metadata` or `carries` on a built-in is a finding, and the compiled value stands.
+`sections`, `metadata`, `carries` or `components` on a built-in is a finding, and the compiled
+value stands.
 
 **Declarations go in the manifest because its header promises that what is checked is said in one
 place.** Its bulk is comments, which is what a declaration owes a reader.
@@ -996,11 +1011,11 @@ first such register it names and the others leave its row, each a phase-1 findin
 keep the home at its own `docs/`, among its other homes. A heading register at `.` keeps the
 directory shape alone, since its file shape would be `<path>.md`, outside the location.
 
-**It exists because a register's home is otherwise always one segment under its carrier**, and a
-location cannot sit at a component's `docs/`, per `design@core@no-component-opt-in`, so no
-declaration placed a home at `docs/<dir>/` of a component that is not the only one, nor directly
-under a location. A component opting in to the register reached the first and not the second; the
-owner chose the location, for the name it gives what it holds: `rejected@core@component-opt-in-register`.
+**It exists because a register's home is otherwise always one segment under its carrier**, so no
+declaration placed a home directly at a location's path. A Component carrying the register places
+its home at `<component>/docs/<dir>/`, per `design@core@a-component-carries-what-a-project-attaches`;
+a location carrying it at its own path places the home anywhere a location sits, under a name of
+the location's own, which is how a project places a register outside every Component's `docs/`.
 
 ### A register instance's own options sit beside it, in `register.toml` `##instance-options-beside-the-instance`
 
