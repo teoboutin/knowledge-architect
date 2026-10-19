@@ -34,8 +34,8 @@ The findings of this repository's two files are handled here, never as an issue 
 
 ## The commit an analysis is checked against `##analysed-commit`
 
-The main commit you analyse against is named with `git describe --tags origin/main`, which names
-the release tag it follows. A W or C finding is read against the installed text's source under
+The main commit you analyse against is written as `git describe --tags origin/main` gives it,
+which adds to the commit the release tag it follows. A W or C finding is read against the installed text's source under
 `path@agent-skills@content/` and the checker's source: first at the version the file's version
 line names, as a tag of this repository, then at the analysed commit. The commit a workflow file
 of another project names is that project's, and is not read here.

@@ -39,8 +39,9 @@ Then **the version the session used**, in one line:
   the branch the session worked on, and whether the tree held uncommitted changes;
 - in the project's file, also the project's main commit the session's tree contains,
   `git rev-parse --short $(git merge-base HEAD <main branch>)`, the branch the session worked on,
-  and whether the tree held uncommitted changes. The workflow's file names them only where the
-  project builds the checker from source, since that file may become public.
+  and whether the tree held uncommitted changes. The workflow's file does not name them, since it
+  may become public; where the project builds the checker from source, the first bullet names
+  that commit there.
 
 A commit of the branch itself is not named: a merge that rewrites the branch's commits leaves it
 pointing at nothing.
@@ -146,7 +147,7 @@ Give the owner the full path of each file, and never print either file into the 
 owner reads both files at those paths, verbatim, and may edit them. Then, **on the owner's word
 only, and where the owner directs**:
 
-%% The project's file waits for an intake per design@agent-skills@retrospective-destination.
+%% The project's file waits for an intake per design@agent-skills@project-file-goes-to-an-intake.
 - **The project's file**: it stays where the files went until the owner hands it to an intake,
   usually in a later session and with other files, under
   `skill@knowledge-architect-retrospective-intake`, which puts each finding to the owner with its

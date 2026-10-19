@@ -73,7 +73,7 @@ The questions a design discussion would answer:
   need a delivery other than a pointer;
 - the first candidate sites: the pointers of the installed retrospective intake to the report's
   format in `skill@knowledge-architect-retrospective`, since the intake runs in a fresh session
-  that never read the retrospective skill, once that intake ships.
+  that never read the retrospective skill.
 
 ### Why it matters
 

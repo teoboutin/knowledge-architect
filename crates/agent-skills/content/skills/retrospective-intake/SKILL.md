@@ -1,6 +1,6 @@
 ---
 name: knowledge-architect-retrospective-intake
-description: MUST use when the owner hands this session one or more of the project's own retrospective files to act on — a `<date>-<project>-<subject>.md` file, the findings of a retrospective on the project's own instructions — or asks what to do with the findings of such a file; and while an outcome of an analysis in docs/retrospective-reports/ is carried out, for what the analysis owes until it leaves. It runs on the owner's word. Covers checking each finding against the text as it stands, against the registers and the history, against the goals and the design, looking for a better fix than the one proposed, writing the analysis to a file, offering the owner an outcome per finding, and the life of the analysis after the ruling. Not for running a retrospective, nor for the retrospective's workflow file, which goes to the workflow's repository, nor for the work an outcome rules, which its route's skill covers.
+description: MUST use when the owner hands this session one or more of the project's own retrospective files to act on — a `<YYYY-MM-DD>-<project>-<subject>.md` file, the findings of a retrospective on the project's own instructions — or asks what to do with the findings of such a file; and while an outcome of an analysis in docs/retrospective-reports/ is carried out, for what the analysis owes until it leaves. It runs on the owner's word. Covers checking each finding against the text as it stands, against the registers and the history, against the goals and the design, looking for a better fix than the one proposed, writing the analysis to a file, offering the owner an outcome per finding, and the life of the analysis after the ruling. Not for running a retrospective, nor for the retrospective's workflow file, which goes to the workflow's repository, nor for the work an outcome rules, which its route's skill covers.
 ---
 
 # Retrospective intake
@@ -17,6 +17,8 @@ Not covered here:
   item g of `skill@knowledge-architect-retrospective-intake@what-to-establish` names for it. What
   the analysis file owes meanwhile is `skill@knowledge-architect-retrospective-intake@after-the-ruling`.
 
+%% The sentence carries no ground on the owner's ruling: the goal the local intake cited for it
+%% would be, in an installing project, a false and unrelated ground.
 **This skill decides nothing.** It establishes the facts about each finding, proposes an action
 with its argument, and the owner rules.
 
@@ -78,9 +80,10 @@ The order is a suggestion; the content is not.
   searched in a commit message or in wrapped prose is matched across a line break.
 - **c. Whether it is already recorded.** An issue or a tripwire, from the search of
   `skill@knowledge-architect-retrospective-intake@ground-before-judging`. A rejected alternative:
-  read `path@*@docs/rejected-alternatives.md` of the Component that owns the blamed text. A
-  proposed fix that already lost, by the record test of
-  `skill@knowledge-architect-design@threads-and-states`, is not proposed again.
+  read `path@*@docs/rejected-alternatives.md` of the Component that owns the blamed text, where a
+  Component owns it. A proposed fix that already lost is not proposed again: an alternative counts
+  as argued and lost only when a recorded reason covers it, per the record test of
+  `skill@knowledge-architect-design@threads-and-states`.
 - **d. Its kind.**
   - **a defect of the text**: unclear, missing or wrong, as
     `skill@knowledge-architect-retrospective@what-it-examines` defines the three, read whole;
@@ -188,8 +191,8 @@ whose `Outcome` line is still pending, and ask the owner for those. **Four outco
     retrospective opens one.
 
   Nothing leaves the machine before the owner has read it. Where `gh` is absent or fails, give the
-  owner the text and the address. The outcome is carried out once the owner has sent it, and its
-  `Outcome` line says so;
+  owner the text and the address. The outcome is carried out once the owner has sent it, which the
+  message of the commit that carries out the analysis's last outcome says;
 - **no change, with the reason**: a lapse, already repaired, out of scope, or an observation.
 
 A question tool is not the way to collect the ruling: it shows a label, not the evidence and the

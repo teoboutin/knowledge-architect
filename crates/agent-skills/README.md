@@ -12,8 +12,9 @@ the design skill grounds it, and then sends one proposal, which it builds on its
 owner answers otherwise.
 
 The next section says how a project extends an installed skill. The sections after it describe
-one skill of the set, the design skill, `skill@knowledge-architect-design`: it runs design
-discussions as open, argued exchanges instead of narrowing questionnaires.
+the design skill, `skill@knowledge-architect-design`, which runs design discussions as open,
+argued exchanges instead of narrowing questionnaires, except one, on what the setup skill expects
+of you.
 
 ## Extending an installed skill
 
@@ -111,7 +112,7 @@ tripwires, losing arguments absorbed rather than deleted.
 
 This section restates, for you, the expectation set that the retrospective skill carries in
 `skill@knowledge-architect-retrospective@expectation-sets`, `path@agent-skills@content/skills/retrospective/SKILL.md`,
-which the retrospective and the intake of its findings apply, per
+which the retrospective applies and the intake and the admission standard read, per
 `design@agent-skills@expectation-set-bounds-scope`.
 
 The skill is scoped on purpose. It does not try to behave well under
