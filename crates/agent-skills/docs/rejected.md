@@ -440,8 +440,8 @@ primer in every session's context. It would have added a command line, an interf
 
 ### A `rejected` entry naming the decision it lost to `##entry-names-the-decision-it-lost-to`
 
-`live`. It was the rule before the `rejected` register: each entry named its winner, so `show` on a
-head listed its losers as a file and a line. The head is what a design session reads, so the link
+`live`. Each entry would name its winner, and `show` on a head would list its losers as a file and a
+line. The head is what a design session reads, so the link
 belongs there; written in both directions it is an inbound list kept by hand, which goes stale at
 the next citation; and the owner judged the framing of a winner and a loser wrong.
 
@@ -467,16 +467,15 @@ that a search at grounding misses a thread opened later, which
 
 ### A listing command of design entries, cut into groups of 60 rows `##design-listing-cut-in-groups-of-sixty`
 
-`live`. It would give even groups, as the standing-entry search has. Grouping by count makes an
-agent read unrelated entries and cut a subject, while a subject's kept and rejected entries have to
-be read together, on the owner's argument; and it needs a command the grouping by Component does
-not.
+`live`. It would give even groups, as the standing-entry search has. It loses on the owner's
+argument that `design@agent-skills@design-entry-search` records, and it needs a command that
+grouping by Component does not.
 
 ### Groups of whole subjects bounded at 60 design entries, a larger subject cut into consecutive heads `##subject-groups-bounded-at-sixty`
 
 `live`. It applied to design entries the bound of 60 that
 `design@agent-skills@standing-entry-search-groups` argues for standing entries, measured on their
-size in thaum. The owner judged a numeric limit not sensible here and ruled that a cut keeps
-making sense at any cost, a subject too large being a sign of a design home not divided enough. A
+size in thaum. The owner ruled otherwise for design entries, as
+`design@agent-skills@design-entry-search` records. A
 doubt remains whether one agent reads a large subject reliably; this is the candidate if reports of
 large subjects come with missed entries.
