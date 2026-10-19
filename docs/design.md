@@ -2,8 +2,8 @@
 
 Recorded intent for the project as a whole: how the repository is laid out, how its parts are
 versioned and released, and how work reaches main. Present tense, each decision carrying a slug,
-cited as `design@knowledge-architect@<slug>`. What lost to a decision here is
-`path@knowledge-architect@docs/rejected-alternatives.md`. The goals these decisions serve are
+cited as `design@knowledge-architect@<slug>`. The designs the project did not keep are
+`register@knowledge-architect@rejected`, each cited by the heads whose argument covers it. The goals these decisions serve are
 `register@knowledge-architect@goal`.
 
 **What belongs here:** a decision that survives deleting any one component. How the checker works
@@ -23,6 +23,9 @@ crate may sit in a directory named by what it does rather than by its package, c
 package knowledge-architect, and a future split of the core follows the same rule, as crates/core
 and crates/cli. The cost: a reference says `core` where cargo says `-p knowledge-architect`.
 
+The design this decision did not keep:
+`rejected@knowledge-architect@crate-directory-named-after-project`.
+
 ### The installed text lives in its own crate, which the checker depends on `##two-crates`
 
 The skills, subagent definitions and primer that the checker installs are a separate package,
@@ -33,6 +36,8 @@ of its own, with its own design home, rather than a part of the core.
 
 A user names only `knowledge-architect`, and cargo fetches the other. The two are published
 together, at one version.
+
+The design this decision did not keep: `rejected@knowledge-architect@single-published-package`.
 
 ### Each published crate ships a whitelist of files `##package-include-whitelist`
 
@@ -68,6 +73,9 @@ working directory contain changes that were not yet committed into git"; with th
 crate is packaged without it, and with no error. Re-taken by listing a crate after writing a
 git-ignored copy into it, then after deleting the copy.
 
+The design this decision did not keep:
+`rejected@knowledge-architect@changelog-copies-written-at-packaging`.
+
 ### A published crate's crates.io page is a short CRATES-IO.md, and its README stays repository-facing `##crates-io-page-file`
 
 Each crate under crates/ names a CRATES-IO.md beside its README as its crates.io page, with
@@ -92,6 +100,9 @@ the installed files match is checked like any other part of the tree, per
 `design@core@owned-namespace-check`, rather than warned about. A project installs one thing, with
 one command, and a later provider's layout is a target the same command writes, which serves
 `goal@knowledge-architect@any-project-can-adopt-it`.
+
+The design this decision did not keep:
+`rejected@knowledge-architect@workflow-as-marketplace-plugin`.
 
 ## 2. Versions and releases
 
@@ -442,6 +453,9 @@ holds whatever target directory the session sets. The separate directory stays a
 for the rebuilds it saves and for the build lock two checkouts would otherwise wait on. `design@core@a-foreign-build-is-refused` stays the detector. The cost is
 a rebuild at each switch between checkouts that share a target directory. A single checkout pays
 nothing.
+
+The design this decision did not keep:
+`rejected@knowledge-architect@build-tied-to-cargo-manifest-dir`.
 
 ## 4. This repository's agent configuration
 

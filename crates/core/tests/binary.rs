@@ -630,8 +630,8 @@ fn tiny_project(history: &History, unloadable: bool) {
          **Fires when:** the project stops being committed.\n**Response:** reopen it.\n",
     );
     history.write(
-        "docs/rejected-alternatives.md",
-        "# tiny — rejected alternatives\n\nNothing has lost yet.\n",
+        "docs/rejected.md",
+        "# tiny — rejected designs\n\nNothing has lost yet.\n",
     );
     history.write(
         "docs/open-issues/README.md",
@@ -1232,7 +1232,7 @@ fn show_prints_the_entry_and_what_points_at_it() {
 fn show_of_a_register_reference_prints_the_home_the_tree_holds() {
     let sandbox = Sandbox::new("show-register", "dirhome");
     sandbox.write(
-        "docs/rejected-alternatives.md",
+        "docs/rejected.md",
         "# Rejected alternatives\n\nNone yet; the tripwires sit in `register@dirhome@tripwire`.\n\n\
          Every component's sit in `register@*@tripwire`.\n",
     );
@@ -1241,9 +1241,9 @@ fn show_of_a_register_reference_prints_the_home_the_tree_holds() {
     assert_eq!(code, 0, "{stderr}");
     assert!(file.contains("dirhome: docs/tripwires.md"), "{file}");
     assert!(file.contains("Heading"), "{file}");
-    assert!(file.contains("docs/rejected-alternatives.md:3"), "{file}");
+    assert!(file.contains("docs/rejected.md:3"), "{file}");
     // A citation through `*` names this component's home too.
-    assert!(file.contains("docs/rejected-alternatives.md:5"), "{file}");
+    assert!(file.contains("docs/rejected.md:5"), "{file}");
     // One line per home of the anchor named, and under `*` one per component: never a
     // location's or a plan anchor's.
     assert!(!file.contains("plans:"), "{file}");
@@ -2107,10 +2107,7 @@ fn a_message_naming_a_path_of_a_component_its_commit_removes_is_a_finding() {
             "part/docs/tripwires.md",
             "# Tripwires — part\n\nNo entry.\n",
         ),
-        (
-            "part/docs/rejected-alternatives.md",
-            "# part — rejected\n\nNothing.\n",
-        ),
+        ("part/docs/rejected.md", "# part — rejected\n\nNothing.\n"),
         (
             "part/docs/open-issues/README.md",
             "# Open issues — part\n\nOne file per entry.\n",
@@ -2322,8 +2319,8 @@ fn a_reference_no_tree_defines_is_reported_though_the_two_refuse_it_differently(
             "# Tripwires — other\n\nNothing yet.\n",
         ),
         (
-            "other/docs/rejected-alternatives.md",
-            "# other — rejected alternatives\n\nNothing has lost yet.\n",
+            "other/docs/rejected.md",
+            "# other — rejected designs\n\nNo design rejected yet.\n",
         ),
         (
             "other/docs/open-issues/README.md",
@@ -3028,8 +3025,7 @@ fn the_stale_index_action_names_the_declared_command() {
 #[test]
 fn check_fix_writes_no_generated_file_over_an_incomplete_model() {
     let sandbox = stale_index("fix-incomplete");
-    std::fs::remove_file(sandbox.path("docs/rejected-alternatives.md"))
-        .expect("a required document is removed");
+    std::fs::remove_file(sandbox.path("docs/rejected.md")).expect("a register home is removed");
     sandbox.stage();
     let before = std::fs::read(sandbox.path(FIX_INDEX)).expect("the index");
     let (out, err, code) = sandbox.run(&["check", "--fix"]);
@@ -3467,8 +3463,8 @@ fn a_branch_that_renames_an_installed_section_passes_commits_on_every_commit() {
     tiny_project_serving_claude(&history);
     let base = history.commit("The project is created\n");
     history.write(
-        "docs/rejected-alternatives.md",
-        "# tiny — rejected alternatives\n\n\
+        "docs/rejected.md",
+        "# tiny — rejected designs\n\n\
          Nothing has lost yet; see `skill@knowledge-architect-review@review-axes`.\n",
     );
     history.commit("Cite a section of an installed skill\n");
@@ -3477,8 +3473,8 @@ fn a_branch_that_renames_an_installed_section_passes_commits_on_every_commit() {
     assert_eq!(text.matches("`##review-axes`").count(), 1, "{text}");
     history.write(skill, &text.replace("`##review-axes`", "`##the-axes`"));
     history.write(
-        "docs/rejected-alternatives.md",
-        "# tiny — rejected alternatives\n\n\
+        "docs/rejected.md",
+        "# tiny — rejected designs\n\n\
          Nothing has lost yet; see `skill@knowledge-architect-review@the-axes`.\n",
     );
     history.commit("Rename the section and repair its citation\n");
@@ -3541,8 +3537,8 @@ fn a_skipped_installed_namespace_defines_alike_under_check_and_commits() {
     );
     let base = history.commit("The project is created\n");
     history.write(
-        "docs/rejected-alternatives.md",
-        "# tiny — rejected alternatives\n\nNothing has lost yet; see `primer@room-to-judge`.\n",
+        "docs/rejected.md",
+        "# tiny — rejected designs\n\nNothing has lost yet; see `primer@room-to-judge`.\n",
     );
     history.commit("Cite a section of the primer\n");
     let (out, err, code) = history.run(&["check"]);

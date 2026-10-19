@@ -118,8 +118,8 @@ stops partitioning anything, and the finding stops carrying information.
 after the list was closed — one outside the six compiled defaults — ends up with a single member
 across the whole project.
 
-**Response:** reopen the open-set argument this decision reversed, in
-`path@core@docs/rejected-alternatives.md`.
+**Response:** reopen the open-set argument this decision reversed,
+`rejected@core@open-issue-kind-set`.
 
 **Re-entry:** every manifest diff that touches `[registers.issue] kinds`, and
 the standing-state review on every dispatched review.
@@ -127,8 +127,8 @@ the standing-state review on every dispatched review.
 ## Guarding `design@core@phases-gate-the-report` — the whole-report stop, and the one producer chain `##phases-gate-the-report-two`
 
 Two clauses, one decision. The report stops at the first phase that finds anything, and the whole
-report stops: the per-document form lost on cost, and is in
-`path@core@docs/rejected-alternatives.md`. The classification of a finding by the phase that
+report stops: the per-document form lost on cost, and is
+`rejected@core@per-document-phase-gate`. The classification of a finding by the phase that
 produces it rests on one chain: the manifest feeds the walk, the walk the model, the model the
 entity table, and every check consumes the table and produces nothing another check reads.
 
@@ -197,7 +197,7 @@ split before it builds one.
 **Fires when:** a project's owner, in a design discussion, an issue or a review, asks for a plans
 directory per component, or for more than one plans directory in a project.
 **Response:** reopen `design@core@plans-at-root` with the alternative it lost, a plans directory
-in every component, in `path@core@docs/rejected-alternatives.md`. Every citation already names its
+in every component, `rejected@core@plans-directory-per-component`. Every citation already names its
 anchor, so a split adds anchors and rewrites none.
 **Re-entry:** the standing-state review on every dispatched review, and each design discussion
 about plan documents.
@@ -210,7 +210,7 @@ states: a whole-document citation carries every dependency between plans that ma
 **Fires when:** a plan document's prose names an item of another plan document, by its id or by
 its statement, because no citation of it can be written.
 **Response:** reopen `design@core@plan-item-scope` with the alternative it set aside, citations of
-items across plans, in `path@core@docs/rejected-alternatives.md`.
+items across plans, `rejected@core@cross-plan-item-citation`.
 **Re-entry:** the standing-state review on every dispatched review, and each design discussion
 about plan documents.
 

@@ -23,8 +23,8 @@ to, and that head names no parser.
   rule citations", in its paragraph "THE PARSERS": "`tree-sitter-rust` says which byte ranges of a
   Rust file are prose; `pulldown-cmark` reads those".
 
-**The instances**, two entries of `path@core@docs/rejected-alternatives.md`, each naming
-`design@core@grammars-not-prefixes`:
+**The instances**, two entries of `register@core@rejected`, `rejected@core@syn-rust-parser` and
+`rejected@core@rust-analyzer-syntax-crate`, each cited by `design@core@grammars-not-prefixes`:
 
 - "`syn` as the Rust parser" lost because `syn` discards ordinary comments during lexing, so a
   citation in a `//` comment needs a second raw-text pass.
@@ -42,9 +42,9 @@ written.
 
 ### Why it matters
 
-- A rejected alternative must name the decision it lost to, per
-  `skill@knowledge-architect-decision-recording@losing-alternatives`. These two name a head that
-  does not decide what they lost on, so a session that reopens the parser question finds no head
+- A `rejected` entry is cited by the head whose argument covers it, per
+  `skill@knowledge-architect-decision-recording@losing-alternatives`. These two are cited by a head
+  that does not decide what they lost on, so a session that reopens the parser question finds no head
   stating the choice, its standing argument or its nearest rival.
 - The parser choice turns on external tools' behaviour (which comments a parser keeps, how a crate
   is released), which is test 3 of `primer@design-heads`. Its argument cannot be derived again for
@@ -55,8 +55,9 @@ written.
 1. A head that records the choice of `tree-sitter-rust` as the Rust parser, with its standing
    argument and its nearest rival, written through `skill@knowledge-architect-design` on its
    in-change path. Its deliberation is the message of 063e637.
-2. Then the two rejected alternatives, "`syn` as the Rust parser" and "Rust-analyzer's syntax
-   crate", re-pointed to that head.
+2. Then the two `rejected` entries, `rejected@core@syn-rust-parser` and
+   `rejected@core@rust-analyzer-syntax-crate`, cited by that head in place of the one that cites
+   them now.
 
 **Re-entry point**: the next change that touches the Rust parser or its dependencies, or a design
 discussion of the core's reading of Rust source.

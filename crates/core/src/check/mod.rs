@@ -323,10 +323,10 @@ mod phase_tests {
             "docs/open-issues",
             "README.md",
             "CLAUDE.md",
-            "docs/rejected-alternatives.md",
             "docs/design.md",
             "docs/goals.md",
             "docs/tripwires.md",
+            "docs/rejected.md",
             "docs/open-issues/README.md",
             "docs/open-issues/index.md",
         ]
@@ -400,7 +400,7 @@ mod phase_tests {
         assert!(
             stop.findings[0]
                 .what
-                .contains("holds the design, goal, tripwire and issue homes"),
+                .contains("holds the design, goal, tripwire, rejected and issue homes"),
             "{:#?}",
             stop.findings
         );

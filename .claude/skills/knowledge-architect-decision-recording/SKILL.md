@@ -156,7 +156,7 @@ so **renaming one means rewriting every reference in the same change.** Grep bef
 
 ## Losing alternatives `##losing-alternatives`
 
-In the Component's `path@*@docs/rejected-alternatives.md`.
+In the Component's `register@*@rejected`.
 
 **Most alternatives that lose earn no entry.** An entry is read by someone reasoning from first
 principles who was not there, and it is reached by grep from anywhere in the tree, so it is a

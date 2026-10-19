@@ -44,7 +44,7 @@ exclude = []
 with a root CLAUDE.md importing the primer, the installed set from `klarch install-agent-skills`,
 a one-line heading file at each of `path@elsewhere@demo/docs/design.md`,
 `path@elsewhere@demo/docs/goals.md`, `path@elsewhere@demo/docs/tripwires.md`,
-`path@elsewhere@demo/docs/rejected-alternatives.md`, `path@elsewhere@demo/docs/open-issues/README.md`
+`path@elsewhere@demo/docs/rejected.md`, `path@elsewhere@demo/docs/open-issues/README.md`
 and `path@elsewhere@demo/docs/plans/README.md`, the prefix `demo/` naming the scratch project's
 root, and no root README.md. `klarch check` printed, among its 3 findings:
 
@@ -54,8 +54,8 @@ README.md  the component `demo` carries no README.md
 ```
 
 The other two findings were the missing specs and milestones directories of its plans directory,
-unrelated. The same text is built for every required document, so a root missing its CLAUDE.md or
-its rejected alternatives gets it too: read from the code, not run.
+unrelated. The same text is built for every required document, so a root missing its CLAUDE.md gets it
+too, the set holding only the README and the CLAUDE.md: read from the code, not run.
 
 ### Why it matters
 

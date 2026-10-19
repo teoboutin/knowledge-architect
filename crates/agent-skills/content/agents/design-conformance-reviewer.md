@@ -36,7 +36,7 @@ For each Component on the list, read whole:
 
 - its goals home, `register@*@goal`, every subdocument included where it is a directory;
 - its design home, `register@*@design`, every subdocument included where it is a directory;
-- its `path@*@docs/rejected-alternatives.md`.
+- its `register@*@rejected`.
 
 Run `{{command}} show <kind>@<anchor>@<id>` on every goal and every design entry the document cites,
 to read the entry and every text that references it.

@@ -14,8 +14,9 @@ document, after the plan document's own reviews, where the misstatement is criti
 `design@agent-skills@misstated-ruling-rated-by-what-it-changes`: reversed, or changing what is
 built or a load-bearing decision.
 **Response:** open a `defect` naming the ruling and the document, and reopen
-`design@agent-skills@ledger-from-transcript`, with the rejected alternative "Writing the
-discussion's ledger to a file during the discussion" among the candidates.
+`design@agent-skills@ledger-from-transcript`, with the rejected design "Writing the
+discussion's ledger to a file during the discussion", `rejected@agent-skills@ledger-written-during-discussion`,
+among the candidates.
 **Re-entry:** the retrospective of the session that assembled the plan document: it reads that
 session's own record against the committed document.
 **Evidence when written:** in the commit that added the structured-plans milestone document, its
@@ -480,8 +481,8 @@ words did.
 **Fires when:** the transcript reviewer reports a misstated ruling that traces to an attribution in
 a durable record, where the owner's words would have shown the scope.
 **Response:** reopen `design@agent-skills@attribution-replaces-quotation` on where verbatim words
-are owed, with the rejected alternative that quotes the owner in a head whose ground is the owner's
-among the candidates.
+are owed, with the rejected design that quotes the owner in a head whose ground is the owner's,
+`rejected@agent-skills@owner-words-quoted-in-head`, among the candidates.
 **Re-entry:** the transcript review of each change, which reads the owner's words in the transcript
 against the record.
 

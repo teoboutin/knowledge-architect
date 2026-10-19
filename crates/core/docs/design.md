@@ -1,8 +1,9 @@
 # The core checker: design
 
 Recorded intent for this tool: how it is built internally, and why. Present tense, each decision
-carrying a slug anchor, cited from elsewhere with `core` as its component. What lost to a decision
-here is `path@core@docs/rejected-alternatives.md`, and `primer@design-heads` owns the shape.
+carrying a slug anchor, cited from elsewhere with `core` as its component. The designs this
+Component did not keep are `register@core@rejected`, each cited by the heads whose argument covers
+it, and `primer@design-heads` owns the shape.
 
 **What belongs here:** a decision that does **not** survive deleting this tool. How it works and
 how the pieces inside divide the work belongs here.
@@ -119,12 +120,14 @@ range by SHA needs no entity table, so it still reads that message, per
 **Nothing selects a subset of the checks.** The checks cross the phases — what `registers`
 asserts sits in phases 2 and 4, what `references` asserts in 3 and 4 — so a selection could be
 honoured only with a second bookkeeping saying which part of a check a stop withheld. The
-selection, and what it bought, is `path@core@docs/rejected-alternatives.md`.
+selection, and what it bought, is `rejected@core@only-flag-check-subset`.
 
 **One producer chain, and a rule for a second.** The manifest feeds the walk, the walk the
 model, the model the table, and every check consumes the table. A future check whose findings
 another check reads would be a second chain, and nothing prevents one: such a check is a phase,
 not a check of the last one, and it goes before its consumers. A tripwire names the event.
+
+The design this decision did not keep: `rejected@core@per-document-phase-gate`.
 
 ### A finding names a cause only where the repair depends on which cause holds `##finding-names-the-repair`
 
@@ -200,6 +203,8 @@ the root, because a subject such as a vendored corpus is filesystem state, per
 batch reader the core assembles that tree with, which also names each blob so that an extension can
 cache what it parsed from one blob across commits.
 
+The design this decision did not keep: `rejected@core@third-tree-variant-for-index`.
+
 ### An extension scans the core's parse on its own, and the core's model carries nothing for it `##an-extension-builds-its-own-model`
 
 The core's model holds what the walk read and the parse produced, and the observations the core's
@@ -211,8 +216,8 @@ in the model it was given.
 This is what keeps the core free of any one project's subject, which
 `goal@knowledge-architect@any-project-can-adopt-it` requires. A model generic over an extension's
 observation type would carry a type parameter into every check signature for the same data, and
-a type-erased slot per document would hold it inside the core with no type checking; both are in
-`path@core@docs/rejected-alternatives.md`.
+a type-erased slot per document would hold it inside the core with no type checking; both are
+`rejected@core@model-generic-over-extension` and `rejected@core@type-erased-document-slot`.
 
 **The cost is the extension's own scans.** Each document is still read once and parsed once, per
 `design@core@model-then-checks`, and an extension scans the parse as often as its checks
@@ -239,8 +244,8 @@ which extensions run over a tree, and the manifest cannot remove one: the core b
 manifest that declares thaum's `[rules]` table reports the table as unclaimed, rather than
 skipping the regime in silence.
 
-**A table keeps the extension's own name at the top level.** A namespace for extension tables is in
-`path@core@docs/rejected-alternatives.md`.
+**A table keeps the extension's own name at the top level.** A namespace for extension tables is
+`rejected@core@extension-table-namespace`.
 
 ### The core's commands are a library module, so a binary that registers extensions offers them unchanged `##the-core-cli-is-a-library-module`
 
@@ -267,6 +272,8 @@ over an incomplete model), and an extension's tests all build on it. `check --st
 `Inputs`, which `design@core@ne-minimal` makes impossible for a literal. A new input is then a
 change inside the core alone. The core's own mock-project tests still assemble `Inputs` by hand:
 some of them hand a check an input that differs from the tree's, such as no committed file.
+
+The design this decision did not keep: `rejected@core@inputs-struct-literal`.
 
 ### The public API is a facade of role modules, one per kind of use, and every other module is private `##api-facade`
 
@@ -306,6 +313,9 @@ re-export:
   finding that names a repair command owes the project's declared command, per
   `design@core@declared-command`.
 
+The designs this decision did not keep: `rejected@core@module-tree-as-public-api`,
+`rejected@core@doc-hidden-test-items` and `rejected@core@testing-feature-for-test-items`.
+
 ### A public type is non-exhaustive only where no consumer can usefully match or build it `##ne-minimal`
 
 `#[non_exhaustive]` sits on `cli::Command`, `extension::Inputs`, `extension::ExtensionReport`
@@ -341,6 +351,8 @@ After 1.0 the attribute decides minor against major for every added variant, so 
 re-examined before the project leaves 0.x. When it leaves is
 `design@knowledge-architect@stays-at-zero-x`.
 
+The design this decision did not keep: `rejected@core@non-exhaustive-on-growing-enums`.
+
 ### A hook added to `Extension` or `Prepared` has a default body only when doing nothing is a correct answer `##trait-defaults`
 
 The two traits have no default method. A hook added later gets a default body only when an
@@ -352,6 +364,8 @@ compiles unchanged, its checks silently do not run in the new mode, and the run 
 `check --staged` adds no hook: it hands an extension a snapshot, as `commits` does, and what an
 extension runs over one is its own, per `design@core@an-extension-reads-a-snapshot`, which records
 where that falls short of this argument.
+
+The design this decision did not keep: `rejected@core@no-op-hook-defaults`.
 
 ### The library and the binary are one crate, `knowledge-architect` `##single-crate`
 
@@ -367,6 +381,8 @@ installed text it links.
 The crate is `knowledge-architect`; the binary it installs is `klarch`, as the crate ripgrep
 installs `rg`. The binary's name is typed at every run, so it is short; the crate's name is typed
 once, in a dependency or an install, so it is descriptive.
+
+The design this decision did not keep: `rejected@core@binary-named-after-package`.
 
 ### Every command's exit code says whether it ran before it says what it found `##exit-code-ladder`
 
@@ -464,7 +480,7 @@ declaration, as the generated indexes and the installed agent files are, per
 `design@core@owned-namespace-check`. That is what a
 hand-rolled matcher cannot promise, and it is the property the whole walk is
 chosen for; the matcher and the three things it could not do are
-`path@core@docs/rejected-alternatives.md`.
+`rejected@core@hand-rolled-gitignore-matcher`.
 
 A tracked path the working tree does not hold — a deletion nobody has staged — stays
 in the walk and is reported, because dropping it would take a live document out of every check on
@@ -589,6 +605,8 @@ where the working tree passes and what is committed does not.
   Plain `check` prints no `tree:` line, so a `walk:` count CI compares with a local one is of the
   working tree on both sides.
 
+The design this decision did not keep: `rejected@core@ls-files-staged-tree`.
+
 ### `check --staged` applies `check`'s rules, as on a clean checkout of the staged tree `##staged-check-semantics`
 
 The staged installed files are compared with the running binary's shipped set, per
@@ -638,16 +656,17 @@ The components are the manifest's `[project]` list, per
 `design@core@nothing-of-a-project-is-compiled-in`: the project root, named by `project.name`, and
 every other project-relative directory, named by the basename of its path. Nothing is discovered by filename, so a document in a
 directory that is not a component is not that kind of document: nothing counts it and nothing
-reports it. A component carries `README.md`, `path@*@docs/rejected-alternatives.md`, `CLAUDE.md` while the
-project serves the `claude` agent harness (per `design@core@agents-table`), and the home of every
-`component`-scoped register — `design`, `goal`, `tripwire` and `issue`, and any the manifest
-declares at that scope. The root also holds the plans directory, which is not a component's
-document but the anchor `plans`, per `design@core@plan-register`. A component that does not carry one it owes is a finding, and
-`path@core@src/check/registers.rs` is where both directions are asserted.
+reports it. A component carries `README.md`, `CLAUDE.md` while the project serves the `claude`
+agent harness (per `design@core@agents-table`), and the home of every `component`-scoped register
+— `design`, `goal`, `tripwire`, `rejected` and `issue`, and any the manifest declares at that
+scope. No document of the compiled list lies under `docs/`, where those homes are. The root also
+holds the plans directory, which is not a component's document but the anchor `plans`, per
+`design@core@plan-register`. A component that does not carry one it owes is a finding, raised by
+`path@core@src/check/tree.rs`.
 
 **Which components exist is declared, and what a component carries is compiled in.** That is
 not an exception to `design@core@nothing-of-a-project-is-compiled-in`: the document list and
-the four built-in component registers in `manifest.rs` belong to no project, they are what the word
+the five built-in component registers in `manifest.rs` belong to no project, they are what the word
 _component_ means here. A project free to declare its own set would be conformant with whatever
 it declared, which is the same as being checked against nothing, against
 `goal@core@declared-instructions-are-checked`: a tree that passes the check conforms to all of it,
@@ -658,6 +677,47 @@ developer's contracts lose their required home in a project without agents, is
 
 **A directory that carries outstanding state without being a component is a location**, per
 `design@core@anchors-are-components-and-locations`.
+
+### The designs a project did not keep are entries of a built-in heading register, `rejected`, at level three `##rejected-register`
+
+Every component carries the register `rejected`, its home `register@*@rejected` a file
+`rejected.md` or a directory `rejected/` with a README under the component's docs/, per
+`design@core@heading-register-two-shapes`. An entry is a level-three
+heading that names the design not kept, its slug last, and its body opens with a marker, `live` or
+`void`, then the reason it was not kept. It is cited `rejected@<anchor>@<id>`, so `show` prints it
+whole with every text that cites it, and a plan item, a review finding, a commit message or a head
+can name one design. A tripwire's `guarding` column leaves it out: a tripwire guards a decision,
+and a `rejected` entry is none.
+
+It serves `goal@knowledge-architect@design-is-recorded-with-its-arguments`, which asks for the
+alternatives that lost and why, and `goal@core@records-reach-their-reader`, which asks that a
+recorded entry reach whoever needs it through checked references: an entry with no slug can be
+cited by nothing, and `show` on a head listed it as a file and a line. The home stays apart from
+the design home, on the owner's argument: an agent reading a decision file partly, by grep, could
+take a rejected design for what is built, and separating the two at the level of the files keeps a
+grep hit on one from reading as the other. The nearest rival, the paragraphs of a compiled
+document with `show` printing each one that cites a head, delivers only to a session that runs
+`show` on the right head, and leaves nothing for an item, a finding or a message to cite. The name
+is `rejected`, which the owner proposed, judging "alternatives" a poor fit for a design rejected
+without being an alternative to one built; the home is named after it, since every pointer to the former document changed with
+it anyway. Which designs earn an entry is installed text, the decision-recording skill's.
+
+### A `rejected` entry that no design entry cites is a finding `##orphan-rejected-entry`
+
+The last phase reports, at its definition site, every `rejected` entry that no entry of a `design`
+register cites inside its own section, in any anchor. A citation from any other text, a goal, an
+issue, a tripwire, another `rejected` entry, or a design home outside its entries, does not count.
+The finding names the repair: cite it from the design head whose argument covers it, or from a head
+of absence that records the decision not to build it. It is raised over a tree in
+`path@core@src/check/references.rs`, not over a commit message, which holds no design entry.
+
+It serves `goal@core@declared-instructions-are-checked`: the installed text tells a head to cite
+the designs its argument covers, and this check is what makes every `rejected` entry reachable from
+the text a design session reads, the head, rather than only from `show`. A citation from a goal
+fails the revisit test of the installed reference rule, since a goal does not change when a design
+it did not keep goes `void`. The owner judged that only a design entry should count, a design rejected with
+nothing built in its place being cited by a head of absence, over counting an entry that cites a
+goal itself.
 
 ### An anchor is a component or a location, and a location carries the registers it declares or the tool gives it `##anchors-are-components-and-locations`
 
@@ -673,7 +733,7 @@ directory is already documentation, where a component's is source code.
 directory gives every entry in it a reference and makes relocating it one manifest edit, which
 `goal@core@relocation-is-one-manifest-edit` asks and `design@core@every-path-names-its-anchor`
 buys everywhere else. What a location is instead of
-is `path@core@docs/rejected-alternatives.md`.
+is `rejected@core@additional-trackers-file-list`.
 
 **A location's own registers are the only ones it carries**, and a skill or an agent of the
 project's own under one, such as this repository's under `agent-config`, is a section home of a
@@ -726,10 +786,9 @@ order is the one refused:
 - **two anchors at one path.** Neither is deeper, so nothing decides which owns the documents
   under it.
 
-The principle behind the four is that no two declarations give one path two meanings. The same
-principle refuses a component register whose directory spells a compiled document's name, which
-would make `path@*@docs/rejected-alternatives.md` both the document and a register's home. Outside
-those shapes two anchors' homes cannot overlap: a home sits under its anchor's directory, so two
+The principle behind the four is that no two declarations give one path two meanings. No
+compiled document lies under `docs/`, where the component registers keep their homes, so no
+register's home can be a compiled document. Outside those shapes two anchors' homes cannot overlap: a home sits under its anchor's directory, so two
 overlapping homes put one anchor's directory on the path to the other's home, which is one of the
 shapes above.
 
@@ -780,6 +839,8 @@ each other, when they are designed before the other is implemented", which one d
 one view. The reference grammar names the anchor, so a later split adds
 anchors and rewrites no citation. `tripwire@core@plans-directory-split-asked`
 watches the premise.
+
+The design this decision did not keep: `rejected@core@plans-directory-per-component`.
 
 ### The plans directory holds its README and two homes, specs/ and milestones/, and nothing else `##plans-split-dirs`
 
@@ -833,6 +894,8 @@ and retiring a plan asks no other plan to be redesigned item by item. The premis
 whole-document citation carries every dependency between plans that matters while few plans are
 open at once. `tripwire@core@item-of-another-plan-named` watches it.
 
+The design this decision did not keep: `rejected@core@cross-plan-item-citation`.
+
 ### Item registers are the plan's own register shape, `Section`, whose home is the plan's documents `##items-as-section-registers`
 
 The four item registers have the shape `Section`: each names its level-two section, its entries
@@ -876,10 +939,10 @@ The two lists are the planning skill's, which owns the shape of a plan document,
 
 `[registers.<name>]` declares a register's `scope`, `shape`, `dir`, `level`, `sections` and
 `metadata.<key>.values`; `[locations.<name>]` declares a directory and the registers it carries.
-Ten registers are compiled in — `design`, `goal`, `tripwire`, `issue`, carried by every
-component; `spec` and `milestone`, carried by the anchor `plans`, `spec` also by each milestone
+Eleven registers are compiled in — `design`, `goal`, `tripwire`, `rejected`, `issue`, carried
+by every component; `spec` and `milestone`, carried by the anchor `plans`, `spec` also by each milestone
 anchor, per `design@core@plan-register`; and the four item registers, carried by the plan
-anchors, per `design@core@item-registers-built-in`. A declaration for one of the first four accepts `kinds` on `issue`
+anchors, per `design@core@item-registers-built-in`. A declaration for one of the first five accepts `kinds` on `issue`
 and nothing else, because their storage is what the word component means. A table for a plan
 register or an item register is refused whole, and so is any of their names in a location's
 `registers` list, and a
@@ -900,6 +963,8 @@ at the root — would put one component's groups in another's directory. Today t
 is `groups`. A key other than `groups` is a finding, a file with no `groups` is a finding, and a
 `register.toml` beside a heading register is one too.
 
+The design this decision did not keep: `rejected@core@instance-options-at-root`.
+
 ### A declaration that is wrong is a phase-1 finding, and absent from the configuration `##a-wrong-declaration-is-a-finding`
 
 A declaration that is wrong is a finding rather than a load failure, and it is absent from the
@@ -914,6 +979,8 @@ reported as defects of the tree. An extension's tables follow the same rule, per
 `design@core@an-extension-claims-its-manifest-tables`: its complaints are phase-1 findings, and a
 run that holds one stops before the extension reads anything.
 
+The design this decision did not keep: `rejected@core@refusing-a-wrong-declaration`.
+
 ### A heading register's home is `<dir>.md` or a `<dir>/` directory, never both `##heading-register-two-shapes`
 
 The single file serves an anchor whose register fits one document. The directory serves one whose
@@ -921,7 +988,7 @@ register has outgrown it. In the directory shape, `README.md` is the head: an in
 bullet list of markdown links, one per subdocument, each target written relative to the README.
 The entries and their slug anchors live in the subdocuments.
 
-**Both shapes serve every heading register**, so `design`, `goal` and `tripwire` accept the same
+**Both shapes serve every heading register**, so `design`, `goal`, `tripwire` and `rejected` accept the same
 two, and so does any heading register a project declares.
 
 Five assertions carry the shape, split over three places. `check::tree` asserts exactly one
@@ -974,12 +1041,17 @@ left, and a listing nobody generates is one that silently stops listing. This he
 index exists; what it holds is `design@core@a-file-register-index-is-rows`, and that it is generated
 rather than written by hand is `design@core@generated-files-are-pure`.
 
+The designs this decision did not keep: `rejected@core@index-introduction-in-manifest` and
+`rejected@core@optional-index`.
+
 ### A file register's groups are subdirectories, declared beside the instance `##groups-are-subdirectories`
 
 A subdirectory is visible to `ls` and to a listing without parsing anything, and the group is not
 part of an entry's id, so regrouping is a `git mv` that breaks no reference. The declared list is what keeps the naming from
 drifting, and it is checked in both directions. An entry may sit ungrouped at the top level, so a
 two-entry instance owes no directory.
+
+The design this decision did not keep: `rejected@core@theme-metadata-key`.
 
 ### An entry's frontmatter is a small subset, refused loudly outside it `##frontmatter-subset`
 
@@ -1011,7 +1083,7 @@ every offset the analysis returns is an offset into the file as written.
 
 An unknown kind is a finding naming the list, and adding one is a reviewed manifest diff. The kind
 decides which subsections the entry owes, so an unknown one would owe the wrong three in silence, which is what makes refusing it load-bearing
-rather than tidy. The open set is in `path@core@docs/rejected-alternatives.md`, and
+rather than tidy. The open set is `rejected@core@open-issue-kind-set`, and
 `register@core@tripwire` guards the closing.
 
 ### A milestone entry is a directory, the register shape `Directory` `##milestone-entries-are-directories`
@@ -1055,7 +1127,8 @@ listing cannot drift by a character without being named.
 **Rows only: no summary and no date.** A row changes on create, delete, retitle, regroup and a
 metadata change, and on nothing else, so an index is regenerated rarely. A summary column would
 restale it on every wording edit, and a date would break
-`design@core@generated-files-are-pure` outright. Both are in `path@core@docs/rejected-alternatives.md`.
+`design@core@generated-files-are-pure` outright. Both are `rejected@core@index-summary-column` and
+`rejected@core@index-last-change-date`.
 
 **A Directory register's index has the same bytes with one column before the title, `id`**: one
 row per entry, its id, then its README's level-one title linking `<id>/README.md`, sorted by id. Its rows come from the
@@ -1067,6 +1140,8 @@ holding none prints no heading; an entry whose id, title or metadata the shape c
 still listed, under its basename and an empty cell. A listing that hid what the directory holds
 because a declaration disagreed would be a listing that stops listing, and the declaration is
 `check::registers`' to report.
+
+The design this decision did not keep: `rejected@core@lines-flag-on-interpretation-index`.
 
 ### A generated file's content is a function of the walked tree `##generated-files-are-pure`
 
@@ -1117,6 +1192,8 @@ and it names the first line at which the committed file and the regenerated one 
 command answering the same question in its own format is what drifts, and there would be nothing to
 say which of the two was right.
 
+The design this decision did not keep: `rejected@core@index-diff-with-write-flag`.
+
 ### `anchors` lists every anchor of a project, computed as `check` computes them, with the home of each register a declared anchor or `plans` carries `##anchors-listing-command`
 
 `klarch anchors` prints every anchor, the constructed ones included, built by `Anchors::of` over the
@@ -1160,6 +1237,8 @@ test is the one `--fix` applies before a fix, and `--fix` never applies this one
 whose bytes the staged tree determines, so no bytes a writer meant are lost. The rival, writing
 the staged rows into the working-tree file, lost: after it, plain `check` fails, since that file no
 longer matches the working tree, and `check --staged` fails until the file is staged.
+
+The design this decision did not keep: `rejected@core@index-staged-writes-working-file`.
 
 ### `check --fix` applies the safe fixes `design@core@fix-scope` admits, then runs the full check `##check-fix-flag`
 
@@ -1295,8 +1374,8 @@ printed or rewritten.
 
 ### Each heading register declares the one heading level its entries sit at, and every heading at that level in its home carries a slug `##an-entry-is-a-heading-at-the-register-level`
 
-**The level is part of the register.** `design` sits at level three, `goal` and `tripwire` at
-level two, compiled in; a declared heading register states its level with the `level` key of its
+**The level is part of the register.** `design` and `rejected` sit at level three, `goal` and
+`tripwire` at level two, compiled in; a declared heading register states its level with the `level` key of its
 `[registers.<name>]` table, from 2 to 6, and a file register takes none. Level one is the
 document's title. With a declared level, "every heading at level N is an entry, and only those"
 is a checked invariant, so the tool can tell a heading that is no entry from an entry whose slug
@@ -1306,7 +1385,7 @@ and reported by nothing.
 A heading at another level is section text and owes nothing: a design home groups its
 level-three decisions under level-two subjects.
 
-**The homes are the design, goals and tripwires homes of the owning anchor**, and the home of
+**The homes are the design, rejected, goals and tripwires homes of the owning anchor**, and the home of
 any heading register the project declares, each in either shape of
 `design@core@heading-register-two-shapes`: the single file, or a subdocument of the directory.
 The directory's `README.md` is the head: it defines nothing and owes no slug, for every register
@@ -1329,6 +1408,8 @@ other.
 table defines from every home shape of every heading register the anchor carries, and reports a
 definition that sits where none may; whether the home is there at all, and in which shape, is
 `check::tree`'s.
+
+The design this decision did not keep: `rejected@core@slug-at-any-heading-or-cell`.
 
 ### An entry's heading puts its statement before its slug `##statement-precedes-the-slug`
 
@@ -1363,6 +1444,8 @@ included — or in a directory home's README.
 definition site is a heading, and the scanner already reads no heading inside a fence; the one
 stance covers both. This is the one place a fence still suppresses anything in the grammar —
 references are live in a fence for every kind, per `design@core@candidate-rule-and-retired-forms`.
+
+The design this decision did not keep: `rejected@core@table-cell-definition-site`.
 
 ### A heading is a line that opens with `#` marks, and a heading markdown reads in any other shape is reported `##headings-open-with-hash-marks`
 
@@ -1403,6 +1486,11 @@ reference buys. The id of a heading-register entity is called a slug.
 **A harness kind names no anchor**, per `design@core@harness-kinds-cited-without-anchor`: its entities live
 where the harness puts them, one namespace per kind, so an anchor would carry no information. The
 refusal of a reference that names no anchor holds for every other kind.
+
+The designs this decision did not keep: `rejected@core@project-wide-unique-slug`,
+`rejected@core@implicit-own-component-reference`, `rejected@core@hash-reference-separator`,
+`rejected@core@configurable-reference-separator` and
+`rejected@core@register-reference-without-anchor`.
 
 ### A reference that resolves to nothing is reported, with the repair its failing segment needs `##an-unresolved-reference-is-reported`
 
@@ -1483,16 +1571,19 @@ otherwise have to rewrite its own notation to pass. What the silence costs is a 
 entry has since left the tree and whose word is no anchor: it names nothing here, so it is not
 reported. Re-take it as the path lint's census is re-taken, counting this lint's findings; a
 census in which the silence hides a pointer the migration missed reopens it. Reporting every such
-shape is in `path@core@docs/rejected-alternatives.md`. This serves `goal@knowledge-architect@any-project-can-adopt-it`.
+shape is `rejected@core@retired-slug-reference-always-reported`. This serves `goal@knowledge-architect@any-project-can-adopt-it`.
 
 **The interpretation register's old entry numbers are not read.** They were thaum's own, and a
-lint naming them would belong to thaum's extension rather than to the core. Keeping that lint permanently is in `path@core@docs/rejected-alternatives.md`.
+lint naming them would belong to thaum's extension rather than to the core. Keeping that lint permanently is
+`rejected@core@permanent-interpretation-number-form`.
 
 **A reference is live wherever it is prose, fenced blocks included, for every kind.** A sketch
 names what it names on purpose, and an illustration writes a placeholder in angle brackets,
-which the tokenizer does not record. Reading a fenced slug reference as an illustration is in
-`path@core@docs/rejected-alternatives.md`. A string literal bound to a name in Rust yields no
+which the tokenizer does not record. Reading a fenced slug reference as an illustration is
+`rejected@core@fenced-reference-as-illustration`. A string literal bound to a name in Rust yields no
 reference, per `design@core@grammars-not-prefixes`.
+
+The design this decision did not keep: `rejected@core@placeholder-literal-part-check`.
 
 ### A harness kind is cited with no anchor `##harness-kinds-cited-without-anchor`
 
@@ -1510,8 +1601,8 @@ section belongs to a skill or to an agent.
   `design@core@plans-is-a-reserved-anchor` makes for `plans`. A reference to a harness kind still serves
   `goal@core@relocation-is-one-manifest-edit`, which binds a reference to what the manifest
   places: nothing a harness kind names moves with a manifest edit.
-- **The rejected alternative "A register reference with no anchor"**, in
-  `path@core@docs/rejected-alternatives.md`, lost on two reasons. Its first, that the tool cannot
+- **The rejected design "A register reference with no anchor"**,
+  `rejected@core@register-reference-without-anchor`, lost on two reasons. Its first, that the tool cannot
   know which register is single-instance in a project, does not hold here: the tool fixes the four
   kinds and their layout, and no project declares one. Its second, one grammar with no special case
   in the resolver, is the cost of this form.
@@ -1522,9 +1613,11 @@ section belongs to a skill or to an agent.
   `issue@core@configuration-for-several-agent-providers`.
 
 The nearest rival, an anchor the tool constructs for the agent configuration with three segments
-everywhere, lost: every name for it stutters or names a provider, and it carries nothing. It is in
-`path@core@docs/rejected-alternatives.md`. Serves `goal@knowledge-architect@any-project-can-adopt-it`:
+everywhere, lost: every name for it stutters or names a provider, and it carries nothing. It is
+`rejected@core@agent-configuration-anchor`. Serves `goal@knowledge-architect@any-project-can-adopt-it`:
 one grammar, the same in every project, with a global namespace naming no anchor.
+
+The design this decision did not keep: `rejected@core@section-kind`.
 
 ### Every level-two heading of a section home of the harness is a section, and owes a slug `##section-homes-carry-slugs`
 
@@ -1593,7 +1686,7 @@ over a foreign project carrying the required structure, counting the findings un
 census in which the silence hides a real pointer of this tree reopens it. The census that decided
 it is in the commit that rewrote this head, found with
 `git log --grep='only where it names something of this project'`. Reporting every path-shaped span
-is in `path@core@docs/rejected-alternatives.md`. This serves `goal@knowledge-architect@any-project-can-adopt-it`
+is `rejected@core@every-path-shaped-span-reported`. This serves `goal@knowledge-architect@any-project-can-adopt-it`
 and `goal@knowledge-architect@adoption-is-easy`.
 
 **A line suffix or a fragment keeps a span path-shaped, after a file with an extension.** A
@@ -1644,6 +1737,10 @@ of each of its two homes, are not plan documents, and are cited `path@plans@<fil
 **A fenced path reference is live**, as every reference is, per
 `design@core@candidate-rule-and-retired-forms`: a sketch names its paths on purpose, and an
 illustration that needs a fake path writes the escape anchor or an angle-bracket placeholder.
+
+The designs this decision did not keep: `rejected@core@bare-root-relative-path`,
+`rejected@core@path-without-kind-prefix`, `rejected@core@at-prefix-root-relative-path`,
+`rejected@core@retired-form-rs-suffix` and `rejected@core@ignored-first-segment-reported`.
 
 ### A backticked span that is exactly the name of a skill or an agent the entity table defines is reported, with its reference as the repair, and a project skill named by an ordinary word is renamed with the project's prefix `##bare-skill-name-reported`
 
@@ -1701,7 +1798,7 @@ what removing the backticks costs, and that move is refused as a repair by
 `design@agent-skills@plain-text-is-no-repair`.
 
 **The generic anchor `*`**, `path@*@<path>`, marks each component's own copy of a path, as in
-`path@*@docs/rejected-alternatives.md`. It is accepted when the path is a required document name
+`path@*@README.md`. It is accepted when the path is a required document name
 — a compiled document, or a file register's README or generated index — and otherwise when at
 least one component carries the path with the claimed kind. The file-register set is derived from
 the component-scoped registers rather than written out, so a project that declares one gets its
@@ -1718,6 +1815,9 @@ serves. The `planned` kind refuses them
 with a finding of its own, per `design@core@planned-path-form`. The manifest's resolution
 refuses a declared anchor wearing either word, and it is no anchor: every pointer at it
 would read as the reserved meaning.
+
+The designs this decision did not keep: `rejected@core@at-prefix-escape` and
+`rejected@core@component-placeholder-anchor`.
 
 ### A register's home is cited by its own kind, `register@<anchor>@<register>`, which names the home in whichever shape it has `##register-home-reference`
 
@@ -1754,6 +1854,9 @@ an anchor name. A kind's name is refused for every anchor, per
 see the file a reference names, which `issue@core@the-documents-do-not-render-as-a-site` would turn
 into a link.
 
+The designs this decision did not keep: `rejected@core@home-kind-word` and
+`rejected@core@path-to-either-home-shape`.
+
 ### A `path` reference whose target is a register's home is a finding, whose repair names the `register` form `##path-to-a-home-is-reported`
 
 A home target is a heading register's file, its directory, or that directory's `README.md`, which
@@ -1775,6 +1878,8 @@ subdocument and an entry are files inside a home, and stay `path` targets.
 changes shape then dangles every one of them, which `design@core@register-home-reference` exists to
 prevent, against `goal@core@relocation-is-one-manifest-edit`. The finding repairs nothing by itself:
 no fix of `check --fix` respells it.
+
+The design this decision did not keep: `rejected@core@path-to-home-beside-register-form`.
 
 ### The word `plans` names the anchor the tool constructs at the plans directory, and no project may declare it `##plans-is-a-reserved-anchor`
 
@@ -1805,6 +1910,8 @@ would otherwise send to plain text: the escape anchor is refused once the work c
 The escape anchor as the planned form lost on the anchor: it names none, so the deepest-anchor rule goes unchecked until the file
 exists and the conversion cannot be done by the kind word alone. `planned` is a reserved kind, and
 the manifest refuses a register of that name, as it refuses `path`.
+
+The design this decision did not keep: `rejected@core@planned-path-in-every-document`.
 
 ### A trailing slash claims a directory, and its absence claims a file `##trailing-slash-claims-directory`
 
@@ -1855,6 +1962,8 @@ intra-doc link.
 included. Generated text cannot go stale, which is what the upward ban on hand-written links
 exists against.
 
+The design this decision did not keep: `rejected@core@single-link-shape`.
+
 ## 4. What is prose
 
 ### The grammar for a file's kind decides which of its bytes are prose `##grammars-not-prefixes`
@@ -1878,10 +1987,13 @@ of 063e637, caught each.** A fenced block is not data — a sketch in a design d
 its rules on purpose, and reading fences as data lost 34 citations. A string literal is data only when BOUND to a name — an assertion's
 message cites rules for a human to read on failure, and reading every literal as data lost 32
 of them. A macro body is not an argument list, so a binding still applies inside one. **Reading
-every literal as prose is a recorded losing alternative**, in
-`path@core@docs/rejected-alternatives.md`, with the bound literals outside the checker that carry
+every literal as prose is a recorded rejected design**,
+`rejected@core@every-literal-read-as-prose`, with the bound literals outside the checker that carry
 a rule-shaped number by accident. The binding rule does not serve the checker's own
 fixtures, which `design@core@checker-source-literals-are-data` answers.
+
+The designs this decision did not keep: `rejected@core@syn-rust-parser`,
+`rejected@core@rust-analyzer-syntax-crate` and `rejected@core@hand-rolled-indentation-scanner`.
 
 ### A Rust name is collected where it is declared, never where it is used `##names-collected-where-declared`
 
@@ -1918,8 +2030,8 @@ of the tree. The root and the compiled path are canonicalised before
 the prefix test, so a symlinked checkout does not defeat it; a symlink inside the tree is not
 followed. A manifest row is not an option, because a row can be pointed at any directory, which
 is the shape `design@core@the-regime-has-no-opt-out` exists to refuse: only the checker's own source
-can ever be exempt, and it is exempt by construction. The row's entry is in
-`path@core@docs/rejected-alternatives.md`.
+can ever be exempt, and it is exempt by construction. The row's entry is
+`rejected@core@exempt-directory-manifest-row`.
 
 **The failure that remains is loud.** The summary block names each of the checker's directories, relative to the root when it sits under it and
 absolute otherwise, even when the compiled directory no longer exists, and prints the count of
@@ -1930,6 +2042,10 @@ it sits inside the tree being checked: a tree that sits inside it instead, such 
 **Whole source rather than test modules only.** The non-test source holds no literal that cites
 a rule, a finding message interpolates the number it names, and a narrower rule would cost an
 attribute lookup to protect a class with zero members.
+
+The designs this decision did not keep: `rejected@core@fixture-marker-macro`,
+`rejected@core@unit-tests-moved-under-tests`, `rejected@core@literals-as-data-in-every-crate` and
+`rejected@core@no-string-literal-read`.
 
 ### A binary built from another checkout of the tool is refused before any command `##a-foreign-build-is-refused`
 
@@ -1977,6 +2093,8 @@ counts the walked Rust files under them. And a tree holding one of the binary's 
 another relative path is refused. The core's binary does this in
 `path@core@tests/binary.rs`; an extension binary does it in its own suite, because only it
 links its extension's library.
+
+The design this decision did not keep: `rejected@core@run-time-checker-directory-discovery`.
 
 ### The manifest pins the checker's version, every binary that dispatches a command of the checker refuses to run over a project it does not satisfy, and a binary that dispatches none makes no call `##installed-binary-version-check`
 
@@ -2034,8 +2152,8 @@ from where the running binary was built, which names no project, per
 `design@core@nothing-of-a-project-is-compiled-in`. Anywhere else each is refused, so no value of
 the key switches a real project's pin off, the stance `design@core@the-regime-has-no-opt-out`
 takes for rules over documents. A copy of a mock project outside its library carries the version.
-The same values accepted wherever they are written lost to this, in
-`path@core@docs/rejected-alternatives.md`.
+The same values accepted wherever they are written are
+`rejected@core@sentinels-accepted-everywhere`, which this decision did not keep.
 
 ## 5. Commit messages
 
@@ -2142,6 +2260,9 @@ asserted where that commit's own rules exempted it — a finding rather than a s
 failing tree fails the range, a branch that changes its ignore rules orders its commits for it
 as a branch that makes the checker stricter does: the change first, or a squash.
 
+The designs this decision did not keep: `rejected@core@check-refusing-a-pipe`,
+`rejected@core@commit-subcommand` and `rejected@core@commit-msg-hook`.
+
 ### `commits` refuses a citation of a commit of its range by SHA, where the manifest turns it on `##branch-shas-are-refused`
 
 Under `[commits] refuse-branch-shas = true`, `commits` reports every run of 7 to 64 lowercase hex
@@ -2192,6 +2313,8 @@ documents, like any others. A harness for another provider is a value added to t
 its own file and its own layout, which `issue@core@configuration-for-several-agent-providers`
 records. This is what serves `goal@knowledge-architect@any-project-can-adopt-it` for a project
 without agents.
+
+The design this decision did not keep: `rejected@core@claude-md-in-every-component`.
 
 ### A project declares the command it runs the checker by `##declared-command`
 
@@ -2245,6 +2368,9 @@ The install edits nothing outside the namespace. In particular it does not edit 
 CLAUDE.md, which belongs to the project: it says the import line is missing, and the check reports
 it with the line as its repair. A change a project needs to an installed skill belongs in a skill
 of its own, routed from the project's CLAUDE.md.
+
+The designs this decision did not keep: `rejected@core@session-start-hook-primer` and
+`rejected@core@install-record-file`.
 
 ### Under the `claude` harness, skills, agents, the primer and the root CLAUDE.md are entities of kinds that are no register `##harness-kinds`
 

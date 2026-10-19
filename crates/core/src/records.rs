@@ -14,11 +14,11 @@
 //! prints comes from `git::last_changed`, which the binary calls beside these; every function
 //! here is a pure function of the model, so a test states its project as text.
 
-use std::collections::BTreeMap;
+use std::collections::{BTreeMap, BTreeSet};
 use std::path::Path;
 
 use crate::entity::{candidate, Anchors, Candidate, Entities, Kind, Site};
-use crate::manifest::{Registers, Shape, ISSUE_REGISTER, TRIPWIRE_REGISTER};
+use crate::manifest::{Registers, Shape, ISSUE_REGISTER, REJECTED_REGISTER, TRIPWIRE_REGISTER};
 use crate::model::{Document, Model};
 use crate::scan::Observation;
 
@@ -51,10 +51,14 @@ pub(crate) struct Record {
 ///
 /// A tripwire guards what is recorded as settled: a decision, a goal, or the entry of a
 /// register a project declares, such as a reading of a specification. Every register kind but
-/// two, then. An `issue` reference in a tripwire names what its response opens, and a
-/// `tripwire` reference names another guard; neither is guarded. `path` is no register.
+/// three, then. An `issue` reference in a tripwire names what its response opens, a `tripwire`
+/// reference names another guard, and a `rejected` reference names a design the project did not
+/// keep, which is no decision; none is guarded. `path` is no register.
 pub(crate) fn guarded(registers: &Registers, kind: &str) -> bool {
-    kind != ISSUE_REGISTER && kind != TRIPWIRE_REGISTER && registers.by_name(kind).is_some()
+    kind != ISSUE_REGISTER
+        && kind != TRIPWIRE_REGISTER
+        && kind != REJECTED_REGISTER
+        && registers.by_name(kind).is_some()
 }
 
 /// Every entry of one register kind, in `(anchor, id)` order.
@@ -232,6 +236,50 @@ pub(crate) fn inbound(
         }
     }
     out.sort_by(|a, b| (&a.file, a.line).cmp(&(&b.file, b.line)));
+    out
+}
+
+/// The `(anchor, id)` of every entry of kind `cited` that some entry of kind `within` cites
+/// inside its own section, its heading and the body under it.
+///
+/// A reference counts only where it is written: in a design entry's section, for the orphan
+/// check of `design@core@orphan-rejected-entry`, and not in the citing register's
+/// home outside any entry, nor in any other document. The anchor is the one the span writes,
+/// which is the entry's own, since an entity belongs to its anchor.
+pub(crate) fn cited_within(
+    model: &Model,
+    anchors: &Anchors,
+    entities: &Entities,
+    within: &Kind,
+    cited: &Kind,
+) -> BTreeSet<(String, String)> {
+    let by_path: BTreeMap<&Path, &Document> = model
+        .documents()
+        .iter()
+        .map(|d| (d.rel.as_path(), d))
+        .collect();
+    let mut out = BTreeSet::new();
+    for (_, _, sites) in entities.of_kind(within) {
+        for site in sites {
+            let Some(doc) = by_path.get(site.file.as_path()) else {
+                continue;
+            };
+            let (from, to) = section(doc, site.line);
+            for l in &doc.observations {
+                if l.line < from || l.line > to {
+                    continue;
+                }
+                let Observation::Span(span) = &l.what else {
+                    continue;
+                };
+                if let Candidate::Reference { kind, anchor, id } = candidate(span, anchors) {
+                    if &kind == cited {
+                        out.insert((anchor.to_string(), id.to_string()));
+                    }
+                }
+            }
+        }
+    }
     out
 }
 

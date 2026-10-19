@@ -6,7 +6,7 @@ kind: question
 ## Summary
 
 The required document set is the same for every project: each Component owes its design, goals and
-tripwires homes, its rejected alternatives and its issue directory, and the root owes the plans
+tripwires homes, its `rejected` home and its issue directory, and the root owes the plans
 directory. A project that adopts the checker alone, with no agent harness, carries all of them,
 empty where it has nothing to put there. Whether that set should shrink for such a project is open.
 
