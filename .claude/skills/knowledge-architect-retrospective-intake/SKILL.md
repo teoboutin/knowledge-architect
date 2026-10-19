@@ -169,8 +169,9 @@ whose `Outcome` line is still pending, and ask the owner for those. **Four outco
     becomes an interaction finding, the P id and the W id each naming the other;
   - sent as an issue on the workflow's repository, which
     `skill@knowledge-architect-retrospective@what-becomes-of-files` names: edit the issue's body
-    with `gh issue edit <n> --body-file <file>`, and post a one-line comment naming the added
-    finding with `gh issue comment <n>`, so that those who follow the issue see it;
+    with `gh issue edit <n> --repo <that repository> --body-file <file>`, and post a one-line
+    comment naming the added finding with `gh issue comment <n> --repo <that repository>`, so that
+    those who follow the issue see it;
   - sent with no issue, or an issue that cannot be edited: open a new issue for the finding, as the
     retrospective opens one.
 
