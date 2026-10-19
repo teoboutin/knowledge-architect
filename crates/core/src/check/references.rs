@@ -785,6 +785,10 @@ fn path(
                 // A home is named by its own kind, so the repair names that form rather than
                 // a `path` the next run would report.
                 let (bare, suffix) = without_suffix(trimmed);
+                if let Some(form) = entry_at(anchors, Path::new(bare.trim_end_matches('/'))) {
+                    out.push(entry_finding(rel, line, span, &form));
+                    return;
+                }
                 if let Some((keeper, r)) = anchors.home_target(Path::new(bare)) {
                     out.push(home_finding(rel, line, span, &keeper.name, &r.name, suffix));
                     return;
@@ -1025,25 +1029,13 @@ fn anchored_target(
     }
     // An entry's directory, and its README, which is both the entry's document and the head of
     // what it carries, are named by the entry's own reference, per
-    // `design@core@path-to-a-home-is-reported`; a file beside the README is a path target.
-    if !planned {
-        let (bare, _) = without_suffix(trimmed);
-        let bare = a.path.join(bare.trim_end_matches('/'));
-        let entry = anchors.all().iter().find(|e| {
-            e.is_entry() && !e.is_plan() && (bare == e.path || bare == e.path.join("README.md"))
-        });
-        if let Some(form) = entry.and_then(|e| e.entry_form()) {
-            out.push(Finding::at(
-                rel,
-                line,
-                format!("`{span}` cites an entry by its path"),
-                format!(
-                    "cite it as `{form}`; one directory has one name, so `show` finds every \
-                     citation of it"
-                ),
-            ));
-            return None;
-        }
+    // `design@core@path-to-a-home-is-reported`; a file beside the README is a path target. A
+    // `planned` path to an entry that now exists takes the same repair, which is the one form
+    // that resolves.
+    let (bare, _) = without_suffix(trimmed);
+    if let Some(form) = entry_at(anchors, &a.path.join(bare.trim_end_matches('/'))) {
+        out.push(entry_finding(rel, line, span, &form));
+        return None;
     }
     // A register's home is named by its own kind, whichever anchor the path was written from:
     // the finding names the anchor that keeps the home, so it replaces the deeper-anchor finding
@@ -1203,6 +1195,30 @@ fn in_plans_directory(rel: &Path, anchors: &Anchors) -> bool {
         .all()
         .iter()
         .any(|a| a.constructed == Some(Constructed::Plans) && rel.starts_with(&a.path))
+}
+
+/// The reference naming the entry of a declared Directory register whose directory, or whose
+/// README, `target` is, or `None` where it is neither. A milestone's are `plan_document`'s.
+fn entry_at(anchors: &Anchors, target: &Path) -> Option<String> {
+    anchors
+        .all()
+        .iter()
+        .find(|e| {
+            e.is_entry() && !e.is_plan() && (target == e.path || target == e.path.join("README.md"))
+        })
+        .and_then(|e| e.entry_form())
+}
+
+/// The finding on a `path` reference, of either path kind, to an entry's directory or README.
+fn entry_finding(rel: &Path, line: u32, span: &str, form: &str) -> Finding {
+    Finding::at(
+        rel,
+        line,
+        format!("`{span}` cites an entry by its path"),
+        format!(
+            "cite it as `{form}`; one directory has one name, so `show` finds every citation of it"
+        ),
+    )
 }
 
 /// The kind form of a plan document at `target`, or `None` when no plan document is there.
