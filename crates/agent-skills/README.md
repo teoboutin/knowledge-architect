@@ -28,10 +28,14 @@ gives it writes a skill of its own beside it:
   installed text. Where it would have to, the installed text is wrong for that project: report it
   to the workflow's maintainers, as the retrospective does.
 
-This repository's own `skill@klarch-retrospective-intake` adds to the installed intake what the
-workflow's upstream does with the files it receives. thaum, a project that uses the workflow,
-extends the installed review and planning skills with its own review skill. The rule the agents
-follow is `skill@knowledge-architect-agent-configuration@installed-files-never-edited`.
+thaum, a project that uses the workflow, extends the installed review and planning skills with
+its own review skill. This repository's own `skill@klarch-retrospective-intake` adds to the
+installed intake what the workflow's upstream does with the files it receives; it also sets two of
+the installed intake's instructions aside, since this repository is the upstream, which is a
+supersession rather than an addition: the need for one, and its lack of a sanctioned means, is
+`issue@agent-skills@patching-an-installed-skill`. The rule the agents follow is
+`skill@knowledge-architect-agent-configuration@installed-files-never-edited`, and the decision is
+`design@agent-skills@overlay-by-separate-skills`.
 
 ## The design skill: what it changes
 

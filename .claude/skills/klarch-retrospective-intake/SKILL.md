@@ -7,14 +7,13 @@ description: MUST use, together with knowledge-architect-retrospective-intake, w
 
 Scope: what this repository adds to `skill@knowledge-architect-retrospective-intake`, as the
 repository that receives the workflow files of every project and edits the installed text at its
-source. Read the installed intake whole and follow it, with the additions below. Where an addition
-differs from it, the addition is this repository's departure,
-`design@knowledge-architect@workflow-findings-stay-here`, which the root `CLAUDE.md` states in
-`instructions@repository-skills`.
+source. Read the installed intake whole and follow it, with the additions below. Two of them set
+an instruction of the installed intake aside: a workflow file's findings are resolved here, and a
+fix in the installed text or in the checker is handled here rather than sent upstream. Both are
+this repository's departure, `design@knowledge-architect@workflow-findings-stay-here`, which the
+root `CLAUDE.md` states in `instructions@repository-skills`.
 
 ## What it takes `##what-it-takes`
-
-Beside the project file of the installed intake:
 
 - **A workflow file**, the second file of `skill@knowledge-architect-retrospective@two-files`,
   whatever project wrote it, and whether a retrospective or the agentic-workflow axis of a project
@@ -35,26 +34,30 @@ The findings of this repository's two files are handled here, never as an issue 
 
 ## The commit an analysis is checked against `##analysed-commit`
 
-The main commit you analyse against is `git describe --tags origin/main`, named in the analysis's
-head. The version a received file used is its own version line's. A W or C finding is read against
-the installed text's source under `path@agent-skills@content/` and the checker's source at that
-commit; a finding against an older version of the checker may already be repaired.
+The main commit you analyse against is named with `git describe --tags origin/main`, which names
+the release tag it follows. A W or C finding is read against the installed text's source under
+`path@agent-skills@content/` and the checker's source: first at the version the file's version
+line names, as a tag of this repository, then at the analysed commit. The commit a workflow file
+of another project names is that project's, and is not read here.
 
 ## Routes and outcomes `##routes-and-outcomes`
 
-Route g of the installed intake gains two routes:
+Here, two routes of the installed intake's route g read:
 
 - a fix in the installed text: edited at its source under `path@agent-skills@content/`, as
   `path@agent-skills@CLAUDE.md`, section "Editing an installed skill or agent", says, read whole;
-- a change to the Rust source: `skill@klarch-development`.
+- a fix in the checker, or any change to the Rust source: `skill@klarch-development`.
 
 For a workflow file and for this repository's own project file, the outcomes are three: handle now,
 open an issue, and no change with the reason. "Sent upstream" does not apply: this repository is
-the upstream, and a fix in the installed text is handled now at its source or opened as an issue.
+the upstream.
 
 The committed analysis of these files is `design@knowledge-architect@committed-findings-analysis`.
 
 ## The analysis of a received file `##received-analysis`
+
+**A standing answer of a workflow file gets a section of its own**, ending with its `Default` and
+`Outcome` lines, as a finding's does.
 
 **Name nothing of the other project in detail**: none of its paths, none of its design heads, none
 of its internals, which tell a reader of this repository nothing. Say it in words where the finding

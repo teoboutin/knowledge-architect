@@ -26,12 +26,13 @@ agentic-workflow audit ran:
 - `primer@where-knowledge-goes`, the row "the evidence of one pass of a project audit, and the
   owner's ruling on each of its items": its home is one file per pass in docs/audit-reports/, as
   `skill@knowledge-architect-project-audit@record-of-an-audit` says, and it leaves when "the commit
-  that carries out its last outcome, or a later commit of the same branch, deletes it". The row
-  "the analysis of a retrospective's project file, and the owner's ruling on each of its findings"
-  gives docs/retrospective-reports/ the same life, as
-  `skill@knowledge-architect-retrospective-intake@after-the-ruling` says: the analysis is committed
-  before any outcome is carried out, and its findings handled now are handled "on the same branch
-  or on the branches that follow it".
+  that carries out its last outcome, or a later commit of the same branch, deletes it". Read on the
+  branch that shipped the intake, after that commit: the row "the analysis of a retrospective's
+  project file, and the owner's ruling on each of its findings" gives docs/retrospective-reports/
+  the same life. The analysis is committed before any outcome is carried out, as
+  `skill@knowledge-architect-retrospective-intake@after-the-ruling` says, and its findings handled
+  now are handled "on the same branch or on the branches that follow it", as
+  `skill@knowledge-architect-retrospective-intake@analysis-and-ruling` says.
 - `primer@verify-before-relying`, its subsection "Check whether it is already known": before
   diagnosing, `cargo klarch issues`, `cargo klarch tripwires` and `cargo klarch show`.
 - `skill@knowledge-architect-issue-tracking@outstanding-across-registers` and
@@ -68,7 +69,8 @@ or a spec, as well as before diagnosing; and opening an issue entry for every ou
 now", which the intake rules out, since such a finding "needs no issue entry", so as not to keep one
 piece of work in two homes.
 
-Reported by the L2 and L4 lenses of the sixth pass, as a predicted gap. Not repaired by an edit,
+Reported by the L2 and L4 lenses of the sixth pass, as a predicted gap; the same gap for this
+repository's analyses was reported by the L6 lens of the third pass. Not repaired by an edit,
 since an instruction about how an agent behaves is added on evidence from real use, per
 `design@agent-skills@behaviour-additions-need-real-use`.
 
@@ -77,7 +79,10 @@ since an instruction about how an agent behaves is added on evidence from real u
 `design@agent-skills@standing-entries-searched-before-the-work` searches every issue kind and every
 tripwire before the work is designed, so that a standing entry the work bears on is ruled before
 the code is written. A pending file's ruled outcome is outstanding work of the same weight that
-the search does not reach. A design that duplicates or contradicts it costs the work twice.
+the search does not reach. A design that duplicates or contradicts it costs the work twice. In this
+repository, `design@knowledge-architect@committed-findings-analysis` keeps an analysis of a
+received file until its last outcome is carried out, on the premise that the work it records is
+found while it waits.
 
 ### What would close it
 

@@ -9,9 +9,7 @@ decision is `design@knowledge-architect@committed-findings-analysis`, and the pr
 `skill@knowledge-architect-retrospective-intake`, with what `skill@klarch-retrospective-intake`
 adds.
 
-An analysis is committed once the owner has ruled on every finding, before any outcome is carried
-out. The issues it rules are opened and the findings ruled to be handled now are handled, in the
-commits their routes need. The commit that carries out its last outcome, or a later commit of the
-same branch, deletes it. So on the main branch this directory holds only the analyses whose
+An analysis leaves the directory once its outcomes are carried out, as
+`skill@knowledge-architect-retrospective-intake@after-the-ruling` says. So on the main branch this directory holds only the analyses whose
 outcomes are not all carried out, and `git log -- docs/retrospective-reports/` lists every analysis
 there has been.

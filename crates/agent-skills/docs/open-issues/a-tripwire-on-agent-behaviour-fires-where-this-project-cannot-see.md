@@ -71,9 +71,10 @@ nothing, and the decision it watches is treated as safe without having been watc
 ### Re-entry
 
 A design discussion about how the tripwires of the shipped skills are watched, raised on the owner's
-word. An incoming retrospective file is analysed under this repository's
-`skill@klarch-retrospective-intake`, whose search of the standing entries reads every tripwire
-against the file. That search reads only what the file carries. The shape the owner is considering,
+word. An incoming retrospective file is analysed under
+`skill@knowledge-architect-retrospective-intake`, with what this repository's
+`skill@klarch-retrospective-intake` adds, and the installed intake's search of the standing
+entries reads every tripwire against the file. That search reads only what the file carries. The shape the owner is considering,
 in their words: "add re-entry points 'when receiving retrospectives' to tripwires that look at agent
 behaviors under the workflow, and to record the watched behaviors in the shipped retrospective skill
 itself (or bundled in the agent skill crate under a command, to avoid polluting what gets committed
