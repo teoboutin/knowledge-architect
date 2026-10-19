@@ -1533,12 +1533,13 @@ impl Entities {
                     "the agent's file"
                 };
                 if !is_entry_id(name) {
+                    let a = if kind.name() == AGENT_KIND { "an" } else { "a" };
                     findings.push(Finding::in_file(
                         &doc.rel,
-                        format!("`{name}` cannot be the name of a {kind}"),
+                        format!("`{name}` cannot be the name of {a} {kind}"),
                         format!(
                             "rename {what} in two or more lower-case words and digits joined by \
-                             hyphens; a {kind} no reference can spell is one every pointer misses"
+                             hyphens; {a} {kind} no reference can spell is one every pointer misses"
                         ),
                     ));
                     if report {
@@ -3229,7 +3230,7 @@ mod tests {
         assert!(
             found
                 .iter()
-                .any(|w| w.contains("`dup.md` cannot be the name of a agent")),
+                .any(|w| w.contains("`dup.md` cannot be the name of an agent")),
             "{found:#?}"
         );
         assert!(!e.defines(&Kind::new(AGENT_KIND), "", "dup"));
