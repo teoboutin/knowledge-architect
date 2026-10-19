@@ -29,7 +29,7 @@ closed `approved` or `argued`.
 - a **bucket** is the group of threads sharing one state in a table.
 
 Distinct from every one of these is the project's **decision record**:
-the design homes of its Components and their rejected alternatives,
+the design homes of its Components and their `rejected` homes,
 which the discussion grounds against and the harvest records into.
 A metaphor that names a defined concept, such as a tripwire, is vocabulary
 once defined, per `primer@working-prose`.
@@ -227,7 +227,8 @@ would record if decided, not by the change it proposes: #retention-window,
 not #shorten-retention. A slug is never changed during the discussion, since
 every earlier delta carries it. Before using a slug, check that no entry of
 the Component that will own the decision already holds it, with
-`{{command}} show design@<anchor>@<slug>`. In prose, write it plain with a
+`{{command}} show design@<anchor>@<slug>` and `{{command}} show rejected@<anchor>@<slug>`: a
+thread that loses may become a `rejected` entry under its own name. In prose, write it plain with a
 `#` before it, as in #retention-window, never in backticks: a backticked
 span may be read by the checker as a reference. In the plan document the
 thread becomes an item, which the plan document cites by its checked form,
@@ -390,8 +391,8 @@ The record arbitrates novelty: an alternative counts as
 argued-and-lost only when a recorded reason covers it: a `ruled-out`
 thread, or a `withdrawn` thread recorded with a defeating reason, of
 this discussion's ledger or of a deliberation kept where
-`skill@knowledge-architect-decision-recording@three-homes` says, or an
-entry of a rejected alternatives home. To
+`skill@knowledge-architect-decision-recording@three-homes` says, or a
+`rejected` entry. To
 decline surfacing a finding, cite that record; if no recorded reason
 covers the discriminating fact, the finding is new. A reworded
 proposal that defeats or evades the recorded reason is new by
@@ -419,18 +420,29 @@ choices whose option space genuinely is closed and consequence-free.
 1. **Ground first**: read `primer@verify-before-relying` again, whole,
    then the project's record, before proposing. The
    goals homes of the project's root and of every Component the question
-   touches; their design homes; their rejected alternatives; their
-   `README.md` files, which state their contracts. The open issues and
-   the tripwires are searched by subagents: dispatch the search as the
-   description of `agent@knowledge-architect-standing-entry-searcher` says,
-   with the question as the work and, as seeds, the decisions and goals
-   read so far that bear on it. Then run
+   touches; their design homes; their `rejected` homes; their
+   `README.md` files, which state their contracts. Two searches by
+   subagents run beside that reading, both with the question as the work
+   and, as seeds, the decisions and goals read so far that bear on it:
+   the open issues and the tripwires, dispatched as the description of
+   `agent@knowledge-architect-standing-entry-searcher` says; and the
+   design entries and the `rejected` entries, dispatched as the
+   description of `agent@knowledge-architect-design-entry-searcher` says,
+   which grades each entry it reads. Then run
    `{{command}} show <kind>@<anchor>@<id>`, which prints the entry and
-   every reference to it, on every entry the search returns and on each
-   entry the question bears on, and read each whole: never act on an
+   every reference to it, on every entry either search returns, every
+   design or `rejected` entry graded `bears` or `may-bear` included, and on
+   each entry the question bears on, and read each whole: never act on an
    entry from the reason the search gave. The first round states which
-   of these were read and run, which entries the search returned, and
-   which of them the question bears on. Where the record is silent, read the code and its history; where it is empty, state that the record starts with this
+   of these were read and run, which entries each search returned, which
+   of them the question bears on, and, for each entry graded `may-bear`,
+   whether it bears. An entry graded `may change` goes to
+   `skill@knowledge-architect-decision-recording@reversal-check` before a
+   proposal that would change it; one graded `may bring back` is
+   proposed again only with a new argument, by the Reopening rule. When a
+   thread opens on a subject the work given to the design-entry search
+   did not cover, dispatch that search again for the Components the
+   thread touches. Where the record is silent, read the code and its history; where it is empty, state that the record starts with this
    discussion. A record that
    carries a verdict but no decision — a review, an audit, an
    automated report, a prescribed change nobody ruled on — grounds
@@ -628,7 +640,7 @@ The decision record is the durable harvest of that account, written when
 the work that implements each decision lands, under
 `skill@knowledge-architect-decision-recording`: a decided thread becomes a
 design entry when it earns one, and a shape that lost
-to an argument earns a rejected-alternative entry only when that skill's
+to an argument earns a `rejected` entry only when that skill's
 tests say so. Open state goes to the issue register and the tripwires
 homes, under `skill@knowledge-architect-issue-tracking`. A decision that no
 work implements and that is not part of any spec is recorded when it is made, per

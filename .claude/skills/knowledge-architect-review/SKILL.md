@@ -40,7 +40,7 @@ rather than a diff (`skill@knowledge-architect-project-audit`).
 | standing state | `agent@knowledge-architect-standing-state-reviewer` | at the review before a merge, since it is the standing re-entry point of every tripwire and every deferred trigger |
 | cold implementer | `agent@knowledge-architect-cold-implementer-reviewer`: can a session that did not see the discussion act on the plan document | a spec or a milestone was written under `skill@knowledge-architect-planning`, or a decided shape in one revised; that skill names the moment |
 | code claims | `agent@knowledge-architect-code-claims-reviewer`: is every statement the plan document makes about existing code true of the tree | the same moment |
-| design conformance | `agent@knowledge-architect-design-conformance-reviewer`: does the plan document fit the project's goals, design heads and rejected alternatives | the same moment |
+| design conformance | `agent@knowledge-architect-design-conformance-reviewer`: does the plan document fit the project's goals, design heads and rejected designs | the same moment |
 | transcript | `agent@knowledge-architect-transcript-reviewer`: has everything the work's sessions established that must outlive them a durable outcome, and is no ruling of the owner misstated | the transcripts of the sessions that produced the work are available; at the review before a merge, alone and last (below), not also with the other axes; at an earlier review of the branch, only where the work is a plan document assembled from a transcript, in the batch |
 
 **A review owes every axis of this table whose condition holds, and every axis that the skill of an

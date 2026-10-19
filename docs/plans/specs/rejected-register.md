@@ -71,8 +71,8 @@ says.
 - **an orphan entry**: a `rejected` entry that no citing head cites.
 - **a head of absence**: a design entry that records a decision not to build something ("we do not
   do X"), which entry test 2 of `primer@design-heads` admits as a decision about an absence.
-- **the design-entry searcher**: the installed agent this work adds, `knowledge-architect-design-entry-searcher`,
-  whose source is `planned@agent-skills@content/agents/design-entry-searcher.md`.
+- **the design-entry searcher**: the installed agent this work adds, `agent@knowledge-architect-design-entry-searcher`,
+  whose source is `path@agent-skills@content/agents/design-entry-searcher.md`.
 - **the standing-entry searcher**: `agent@knowledge-architect-standing-entry-searcher`, which
   exists.
 - **a grade**: what the design-entry searcher returns for one entry it read: `bears`, with one of
@@ -769,7 +769,7 @@ rejected                                   the register's name, in Registers::bu
 planned@<anchor>@docs/rejected.md          the register's file home, from Anchor::home_of
 planned@<anchor>@docs/rejected/            the register's directory home, from Anchor::home_of
 an orphan finding                          the new check, in check_under of path@core@src/check/references.rs
-knowledge-architect-design-entry-searcher  the agent, from planned@agent-skills@content/agents/design-entry-searcher.md
+knowledge-architect-design-entry-searcher  the agent, from path@agent-skills@content/agents/design-entry-searcher.md
 bears, may-bear                            the searcher's grades
 constrains, may change, may bring back     the relations a `bears` grade states
 ```
@@ -1228,7 +1228,7 @@ says of the installed source. The texts, by file:
   and reads its grades, as "The design-entry search" says; the re-dispatch for a later thread; the
   slug collision check on both registers; the decision record and the reopening rule naming
   `rejected` entries.
-- `planned@agent-skills@content/agents/design-entry-searcher.md`: the agent of "The design-entry
+- `path@agent-skills@content/agents/design-entry-searcher.md`: the agent of "The design-entry
   search", its dispatch rule written as D5 rules.
 - `path@agent-skills@content/agents/standing-entry-searcher.md`: one sentence of its description
   telling it apart from the new searcher.

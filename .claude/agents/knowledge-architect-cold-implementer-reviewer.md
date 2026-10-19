@@ -27,7 +27,7 @@ Read, in this order: the root `CLAUDE.md`; the `CLAUDE.md` of the Component the 
 which the brief names or the document's head does; the document in full, and for a milestone its
 `README.md` and the spec of the slice to implement; the skill that owns plan documents,
 `skill@knowledge-architect-planning`, and every other skill the document names; the design home, the
-rejected alternatives, the open issues and the tripwires of that Component. Then read the code the
+rejected designs, the open issues and the tripwires of that Component. Then read the code the
 document points at, enough to know what exists.
 
 ## The five questions `##five-questions`

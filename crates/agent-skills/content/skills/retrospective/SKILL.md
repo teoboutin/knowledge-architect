@@ -209,7 +209,7 @@ defect of the skill (`skill@knowledge-architect-retrospective@what-it-examines`)
   wrong result.
 - **The owner accepts a methodology, not a script for every exchange.**
 - **The project's design intent is discoverable, or the project is new.** The skill grounds itself in
-  the goals, the design homes, the rejected alternatives, the README files, the open issues and the
+  the goals, the design homes, the rejected designs, the README files, the open issues and the
   tripwires, or failing
   those in the code and its history. Intent that exists only in someone's memory is not reachable,
   and proposals will contradict decisions already made without either party noticing.

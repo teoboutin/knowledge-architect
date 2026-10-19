@@ -1,6 +1,6 @@
 ---
 name: knowledge-architect-decision-recording
-description: MUST use before writing into a design home, whatever the activity, and when a design decision has been made or reversed — a choice about how the project or one of its Components is built, including anything a consumer of it may depend on — in order to decide whether it earns durable text at all (most implementation choices do not) and where that text lands. Covers when recording happens, the reversal check that comes before everything else, which Component owns it, the split between the design home, the rejected alternatives and history, where a head is written and how a slug is renamed, and when a tripwire the owner ruled on is written; what earns a head and how a head is shaped are the primer's section on design heads.
+description: MUST use before writing into a design home, whatever the activity, and when a design decision has been made or reversed — a choice about how the project or one of its Components is built, including anything a consumer of it may depend on — in order to decide whether it earns durable text at all (most implementation choices do not) and where that text lands. Covers when recording happens, the reversal check that comes before everything else, which Component owns it, the split between the design home, the rejected designs and history, where a head is written and how a slug is renamed, and when a tripwire the owner ruled on is written; what earns a head and how a head is shaped are the primer's section on design heads.
 ---
 
 # Recording a decision
@@ -47,7 +47,7 @@ tree ends with two homes for one question, the old one still asserting what the 
 **Search for the statement you are about to replace, not for a slug.** The slug you would look for
 is the one you have not written yet, and the incumbent's own name is rarely the words you are
 thinking in. Grep the subject's terms across every document that carries decisions (the design homes, the
-rejected alternatives, the scoped `CLAUDE.md` files) and the comments of the code the subject
+`rejected` homes, the scoped `CLAUDE.md` files) and the comments of the code the subject
 touches, then `git log -G'<term>'` for the argument behind them. Say in the commit message what you
 searched and what it returned. A search that returned nothing is a finding worth one line there.
 
@@ -64,8 +64,8 @@ change:
   title stay aligned with the full scope of the decision, per `primer@design-heads`. A rename is
   cheap, and the checker lists every reference it leaves dangling in the files it reads, per
   `primer@where-knowledge-goes`.
-- **Move the incumbent into the Component's rejected alternatives** (`skill@knowledge-architect-decision-recording@losing-alternatives`) with its reason and a
-  validity marker, stated as strongly as it was originally made, if it meets one of the tests of `skill@knowledge-architect-decision-recording@losing-alternatives`.
+- **Move the incumbent into the Component's `register@*@rejected`** (`skill@knowledge-architect-decision-recording@losing-alternatives`) with its reason and a
+  validity marker, stated as strongly as it was originally made, if it meets one of the tests of `skill@knowledge-architect-decision-recording@losing-alternatives`, and cite it from the new head.
 - **Argue it under `skill@knowledge-architect-design` first**, if it was not: a reversal contradicts
   a statement of the incumbent, the second case of the backstop of `primer@design-heads`.
 - **Delete the tripwires guarding the reversed decision.** `skill@knowledge-architect-issue-tracking` owns that movement.
@@ -112,7 +112,7 @@ owner, per `primer@design-heads`.
 | what | where | why there |
 | --- | --- | --- |
 | the current design, and its **standing argument** | the Component's design home | it is rewritten in place, so it cannot go stale |
-| that an alternative lost, and why | the Component's rejected alternatives | a reader about to propose it must meet it without knowing to look |
+| a design not kept, and why | the Component's `register@*@rejected`, each entry cited by the heads whose argument covers it | a reader about to propose it must meet it without knowing to look, and a reader of the head meets its citation |
 | the **deliberation**: what was weighed, in which order, what evidence was built, who ruled what | the spec or milestone document while it exists, then history; the commit message when there was no spec | failing to find it costs a re-derivation, not a wrong decision |
 
 **The standing argument**, and what stays out of the head, are `primer@design-heads`.
@@ -154,13 +154,14 @@ a head. The template:
 The slug is an identifier. Code comments, tripwires, other documents and `git log -G` all cite it,
 so **renaming one means rewriting every reference in the same change.** Grep before you rename.
 
-## Losing alternatives {{slug:losing-alternatives}}
+## Rejected designs {{slug:losing-alternatives}}
 
-In the Component's `register@*@rejected`.
+In the Component's `register@*@rejected`: a heading register, one level-three heading per entry,
+cited `rejected@<anchor>@<id>`.
 
-**Most alternatives that lose earn no entry.** An entry is read by someone reasoning from first
+**Most designs not kept earn no entry.** An entry is read by someone reasoning from first
 principles who was not there, and it is reached by grep from anywhere in the tree, so it is a
-description of a rejected design sitting in the same prose as the current one.
+description of a rejected design that must never be read as the current one.
 
 **Which threads of a discussion are candidates.** A thread's final state does not decide it. The
 question is whether **a shape lost to an argument**.
@@ -172,48 +173,52 @@ question is whether **a shape lost to an argument**.
 | withdrawn with no defeating reason | the deliberation only. It carries no argument a later reader could test. |
 | superseded, when the absorbing thread carries its shape whole | the deliberation only |
 | superseded, when a distinct shape lost | judged by the tests below, as a ruled-out thread |
-| a shape that lost, when the question produced no decision | the deliberation only. An entry names the decision it lost to, and there is none. If the question stays open, it is an issue under `skill@knowledge-architect-issue-tracking`. |
+| a shape rejected with nothing built in its place | judged by the tests below; the decision not to build it is a head of absence, "we do not do X", which entry test 2 of `primer@design-heads` admits, and which cites the entry |
+| a shape that lost while the question stays open | the deliberation only, and the question is an issue under `skill@knowledge-architect-issue-tracking` |
 
-**An alternative earns an entry only if at least one of these holds:**
+**A design earns an entry only if at least one of these holds:**
 
 1. it would change an interface others consume, as entry test 1 of `primer@design-heads` defines
    it;
 2. its reason rests on a reading of an external specification the project implements;
 3. it was refuted by **evidence that cost work to obtain**: a measurement, a prototype, a survey of
    other projects;
-4. there is still some doubt that the winning alternative will achieve every goal of the project or
-   of its Component.
+4. there is still some doubt that the design kept will achieve every goal of the project or of its
+   Component.
 
 Test 3 is the load-bearing one. Proposing something again costs one discussion round, and that is
 healthy. What decides an entry is whether the refutation can be derived again inside that round.
-Reasoning derives again for free, so an alternative that lost to an argument any competent reader
-reconstructs needs no entry. Evidence does not, so an alternative refuted by measurement does.
+Reasoning derives again for free, so a design refuted by an argument any competent reader
+reconstructs needs no entry. Evidence does not, so a design refuted by measurement does.
 
-Test 4 gives future design sessions the alternatives that were not chosen, so they can start from
-somewhere when the chosen one proves insufficient.
+Test 4 gives future design sessions the designs that were not kept, so they can start from
+somewhere when the one kept proves insufficient.
 
-An alternative meeting none of those stays in the deliberation, where
+A design meeting none of those stays in the deliberation, where
 `skill@knowledge-architect-decision-recording@three-homes` keeps it, and nowhere else.
 
-**Write the entry so that it cannot be read as the current design.** Name the alternative and the
-reason it lost. Do not describe how it would work: an entry detailed enough to build from is the one
-a grep turns into a specification.
+**Write the entry so that it cannot be read as the current design.** Name the design and the reason
+it was not kept. Do not describe how it would work: an entry detailed enough to build from is the
+one a grep turns into a specification.
 
-One entry per alternative, keyed by **the alternative**, not by date. Flat, unordered, and **edited
-in place**.
+One entry per design, keyed by **the design**, not by date. Flat, unordered, and **edited in
+place**. Where it was a thread of a design discussion, its slug is the thread's name.
 
 ```markdown
-**<The alternative, named in a few words>** — lost to `design@<component>@<slug>`. `live`.
-<The reason it lost, checkable without leaving the entry.>
+### <The design not kept, named in a few words> `##<slug>`
+
+`live`. <The reason it was not kept, checkable without leaving the entry.>
 ```
 
-Each entry carries: what the alternative was, the slug it lost to, a **validity marker**, and the
-reason.
+Each entry carries: what the design was, a **validity marker** opening its body, and the reason.
+It names no winner: **each design head whose argument covers the design cites the entry**, where
+its argument meets that design, or in a closing sentence of its body. Writing the entry and its
+citation is one act: `{{command}} check` reports an entry that no design entry cites.
 
 - `live`: the reason still holds.
-- `void`: the reason no longer holds. **Mark it; never delete it.** The alternative may still be
-  wrong, but _this_ argument no longer supports that, and the marker prevents reopening a settled
-  question on a dead argument.
+- `void`: the reason no longer holds. **Mark it; never delete it.** The design may still be wrong,
+  but _this_ argument no longer supports that, and the marker prevents reopening a settled question
+  on a dead argument.
 
 **`live` records that the reason held against the arguments seen, not that the question is shut.**
 A new argument or new evidence reopens any entry here at any time, and that is an ordinary move
@@ -224,13 +229,14 @@ What counts as new is the record test of `skill@knowledge-architect-design@threa
 reason is.** _"Refuted by measurement"_ satisfies neither: it asserts that a checkable reason exists
 somewhere and does not say where.
 
-**A rejected alternative that is reopened, chosen and implemented moves out of the file.** The file
+**A rejected design that is reopened, chosen and implemented moves out of the home.** The home
 must not describe as rejected a design the project now has.
 
 **An entry also leaves when the owner rules that it fails every recording test**, as an audit may
-propose, **or when the decision it lost to leaves the design home** for a line beside the
-instruction it states: that line then names the alternative and the reason it lost, so a session
-that reopens the instruction still meets it.
+propose, **or when no design head cites it any longer and no head of absence is written for it**,
+as when the heads that cited it leave the design home for a line beside the instruction they state:
+that line then names the design and the reason it was not kept, so a session that reopens the
+instruction still meets it.
 
 ## Writing a tripwire the owner ruled on {{slug:ruled-tripwires}}
 
@@ -273,5 +279,5 @@ the plan document or the transcript, and check that it keeps their scope and eve
 `primer@design-heads` asks.
 
 Then re-read what you wrote against the head you replaced: **rewriting argued text is where
-fidelity gets lost.** If you cannot restate a losing alternative as strongly as it was written, you
+fidelity gets lost.** If you cannot restate a rejected design as strongly as it was written, you
 have not understood it well enough to move it.
