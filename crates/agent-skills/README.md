@@ -11,9 +11,27 @@ A bounded problem, a clear requirement whose main risk is over-building, has no 
 the design skill grounds it, and then sends one proposal, which it builds on its default unless the
 owner answers otherwise.
 
-The sections below describe one skill of the set, the design skill,
-`skill@knowledge-architect-design`: it runs design discussions as open, argued
-exchanges instead of narrowing questionnaires.
+The next section says how a project extends an installed skill. The sections after it describe
+one skill of the set, the design skill, `skill@knowledge-architect-design`: it runs design
+discussions as open, argued exchanges instead of narrowing questionnaires.
+
+## Extending an installed skill
+
+An installed file is overwritten by every install and compared byte for byte with the version the
+project pins, so a project never edits one. A project that needs more than an installed skill
+gives it writes a skill of its own beside it:
+
+- named with the project's prefix and the activity of the installed skill it extends, as a
+  `<project>-review` skill extends `skill@knowledge-architect-review`;
+- whose description says which installed skill it adds to, so that both load for the same task;
+- which adds steps, a review axis or a convention of the project, and never contradicts the
+  installed text. Where it would have to, the installed text is wrong for that project: report it
+  to the workflow's maintainers, as the retrospective does.
+
+This repository's own `skill@klarch-retrospective-intake` adds to the installed intake what the
+workflow's upstream does with the files it receives. thaum, a project that uses the workflow,
+extends the installed review and planning skills with its own review skill. The rule the agents
+follow is `skill@knowledge-architect-agent-configuration@installed-files-never-edited`.
 
 ## The design skill: what it changes
 
