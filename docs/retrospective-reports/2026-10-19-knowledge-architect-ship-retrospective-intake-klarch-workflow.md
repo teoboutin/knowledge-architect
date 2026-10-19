@@ -8,7 +8,7 @@
 - **Standing entries that bear on it**:
   - W1 is analysed with W3 of 2026-10-19-knowledge-architect-rejected-register-klarch-workflow, in
     that file; W2 with W4 of 2026-10-18-thaum-chance-slice-merge-klarch-workflow, in that file;
-  - for W3: `issue@agent-skills@a-reviewer-cannot-write-the-file-its-brief-names`;
+  - for W3: `a-reviewer-cannot-write-the-file-its-brief-names`, now `issue@agent-skills@a-general-purpose-subagent-is-refused-a-file-access`,;
   - for C1: `tripwire@core@planned-path-outside-plans`, not met, since it watches a path;
   - for C2 and P1 of 2026-10-19-knowledge-architect-ship-retrospective-intake:
     `spec@plans@defined-ids-outside-references`, `tripwire@core@candidate-rule-silence`,
@@ -45,7 +45,7 @@ observations that `issue@agent-skills@the-retrospective-counts-no-review-cost` a
   of the session's transcript refused by the harness's permission classifier; the named transcript
   reviewer read the same file. An observation.
 - **b.** Not a claim about the text.
-- **c.** `issue@agent-skills@a-reviewer-cannot-write-the-file-its-brief-names` records three
+- **c.** `a-reviewer-cannot-write-the-file-its-brief-names`, now `issue@agent-skills@a-general-purpose-subagent-is-refused-a-file-access`, records three
   observations of the same pairing, a general-purpose subagent refused and an installed agent not,
   for a write. This is the same pairing for a read.
 - **d. Its kind.** An observation of the harness.

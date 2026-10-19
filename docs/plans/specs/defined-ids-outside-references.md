@@ -149,7 +149,7 @@ it states, and else at the harvest.
 | `issue@agent-skills@shipped-text-citing-an-entry-is-unchecked` | class A covers its path and kind spans written without backticks; the entry stays open for those written with them |
 | `tripwire@core@checker-source-literals-are-data-self-location` and its two siblings | the literals of the tool's own source stay data; the lints read its comments, where the census found `primer@checker-model` written bare in a doc comment of `path@core@src/agents.rs`, repaired at step 1 |
 | `issue@core@four-heads-bundle-decisions-with-many-citing-sites` | its re-entry is this change to `design@core@candidate-rule-and-retired-forms`; read at the harvest |
-| `issue@core@the-retired-slug-finding-names-a-design-repair-for-every-register` | the same repair-naming question for every register; #ambiguous-id-candidates answers it for these lints |
+| `issue@core@a-slug-finding-names-a-repair-blind-to-what-the-slug-resolves-to` | the same repair-naming question for every register; #ambiguous-id-candidates answers it for these lints |
 | `issue@core@a-message-lint-is-deduplicated-in-one-tree-only` | the lints inherit the message union; read at step 1's tests |
 | `issue@agent-skills@a-premortem-criterion-listed-as-a-default-reads-two-ways` | not its case: the owner applied AC2; only its threshold is a default, D4 |
 | `issue@core@tooling-for-project-skills`, `issue@core@references-are-read-in-markdown-and-rust-only`, `design@core@rust-parser-keeps-every-comment`, `issue@core@a-heading-line-markdown-renders-as-no-heading-defines-an-entry` | bear on the regions the lints read; nothing changes in them |

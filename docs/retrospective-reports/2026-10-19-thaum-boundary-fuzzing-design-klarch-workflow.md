@@ -14,7 +14,7 @@
   - for C1: `tripwire@agent-skills@plain-text-pointer-found`, judged in
     `path@knowledge-architect@docs/retrospective-reports/2026-10-19-knowledge-architect-ship-retrospective-intake-klarch-workflow.md`;
   - for C2: `spec@plans@path-quickfixes`;
-  - for C3: `issue@core@the-retired-slug-finding-names-a-design-repair-for-every-register`, a
+  - for C3: `the-retired-slug-finding-names-a-design-repair-for-every-register`, now `issue@core@a-slug-finding-names-a-repair-blind-to-what-the-slug-resolves-to`, a
     neighbour;
   - for C4: `rejected@core@check-refusing-a-pipe`;
   - for the standing answers: `tripwire@agent-skills@attribution-loses-the-scope`, judged in
@@ -140,7 +140,7 @@
   "an item of a plan is defined at the end of a level-3 heading under one of its sections …; move
   it there, or delete it", with no lookup against the other kinds' slugs.
 - **c. Whether it is already recorded.** A neighbour:
-  `issue@core@the-retired-slug-finding-names-a-design-repair-for-every-register` asks the same of the
+  `the-retired-slug-finding-names-a-design-repair-for-every-register`, now `issue@core@a-slug-finding-names-a-repair-blind-to-what-the-slug-resolves-to`, asks the same of the
   retired single-hash form, a repair naming the kind the id resolves to. This finding, on a
   misplaced definition, is not in it.
 - **d. Its kind.** A finding whose repair does not name the one the writer needs, against
@@ -148,7 +148,7 @@
 - **f. A better fix.** Rivals: widen the neighbour issue to the misplaced-definition findings, which
   share the question; a new issue; no change. Widening keeps one design for one question.
 - **h. The proposal.** Handle now: widen
-  `issue@core@the-retired-slug-finding-names-a-design-repair-for-every-register` to a misplaced
+  `the-retired-slug-finding-names-a-design-repair-for-every-register`, now `issue@core@a-slug-finding-names-a-repair-blind-to-what-the-slug-resolves-to`, to a misplaced
   definition whose slug another kind defines.
 - **Default**: handle now, as h says.
 - **Outcome**: accepted.
