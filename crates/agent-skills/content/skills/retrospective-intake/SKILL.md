@@ -17,8 +17,7 @@ Not covered here:
   item g of `skill@knowledge-architect-retrospective-intake@what-to-establish` names for it. What
   the analysis file owes meanwhile is `skill@knowledge-architect-retrospective-intake@after-the-ruling`.
 
-%% The sentence carries no ground on the owner's ruling: the goal the local intake cited for it
-%% would be, in an installing project, a false and unrelated ground.
+%% The sentence carries no ground on the owner's ruling that it needs none.
 **This skill decides nothing.** It establishes the facts about each finding, proposes an action
 with its argument, and the owner rules.
 
