@@ -296,6 +296,6 @@ git checkout main && git pull --ff-only
 - **The project stays at 0.x, and breaking changes stay allowed**, until the owner's word, per
   `design@knowledge-architect@stays-at-zero-x`. How each kind of change is versioned is
   `design@knowledge-architect@versioning-policy`.
-- **Do not argue a decision on the grounds that changing it later would be breaking.** An argument
-  that a change is expensive names the cost it has today, a consumer's migration included. This is
-  a restatement; its home is `design@knowledge-architect@no-future-breaking-cost-argument`.
+- **A change's cost is first what a consumer could no longer do, and a migration is the lowest
+  cost**; no decision is argued on a break that changing it later would cause. This is a
+  restatement; its home is `design@knowledge-architect@capability-cost-before-migration`.
