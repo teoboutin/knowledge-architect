@@ -240,10 +240,11 @@ Open entries that bear on the work, read again at the audit:
 - `tripwire@core@candidate-rule-silence`: a span the candidate rule leaves silent gets no
   respelling, and a widened rule widens what `--fix` rewrites. Judged: a widening is a change to
   `design@core@candidate-rule-and-retired-forms`, which reopens this work's mapping table.
-- `tripwire@agent-skills@plain-text-pointer-found`: its response names a mechanical check for
-  plain-text pointers among the candidates. Judged: the respellings and the question form are a
-  checked way out of the findings that sessions have cleared by writing plain text; the tripwire
-  is unchanged.
+- `issue@agent-skills@pointers-written-bare-to-clear-a-finding-reach-no-check`: it reopens
+  `design@agent-skills@plain-text-is-no-repair`, with a mechanical check for plain-text pointers
+  among the candidates. Judged: the respellings and the question form are a
+  checked way out of the findings that sessions have cleared by writing plain text, which the
+  reopening reads.
 - `tripwire@core@staged-pass-fails-the-checkout`: a respelling rewrites the working-tree file only.
   Judged: `--fix --staged` stays refused, so no respelling is computed over the staged tree; the
   staged copy keeps the old span and `check --staged` reports it, as "The order of a run" says.

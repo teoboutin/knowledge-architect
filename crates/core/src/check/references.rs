@@ -225,8 +225,8 @@ pub(crate) fn judge_part(
                         format!("`{span}` is shaped like a path and names no anchor"),
                         format!(
                             "write `path@<anchor>@<path>`, `register@<anchor>@<register>` for a \
-                             register's home, `path@elsewhere@<path>` for a path outside this \
-                             tree, or `path@*@<path>` for every component's own copy{planned}{}",
+                             register's home, `path@elsewhere@<path>` for a path this tree does \
+                             not hold, or `path@*@<path>` for every component's own copy{planned}{}",
                             if located {
                                 ". A reference names a file: drop the line number or the \
                                  fragment, and name the function or the heading in prose"
@@ -880,8 +880,8 @@ fn anchored_target(
             format!("anchor at the one of {names} that will hold the target")
         } else {
             format!(
-                "anchor at one of {names}, at `{ESCAPE_ANCHOR}` for a path outside this \
-                 tree, or at `*` for every component's own copy"
+                "anchor at one of {names}, at `{ESCAPE_ANCHOR}` for a path this tree does not \
+                 hold, or at `*` for every component's own copy"
             )
         };
         out.push(Finding::at(
@@ -2515,8 +2515,8 @@ mod tests {
         // The whole repair line is pinned, so an unchecked form offered in any words fails,
         // on the plain span and on both located ones.
         let forms = "write `path@<anchor>@<path>`, `register@<anchor>@<register>` for a \
-                     register's home, `path@elsewhere@<path>` for a path outside this tree, or \
-                     `path@*@<path>` for every component's own copy";
+                     register's home, `path@elsewhere@<path>` for a path this tree does not hold, \
+                     or `path@*@<path>` for every component's own copy";
         let located = ". A reference names a file: drop the line number or the fragment, and \
                        name the function or the heading in prose";
         let m = manifest();
@@ -2691,8 +2691,8 @@ mod tests {
         assert_eq!(
             action,
             Some(
-                "anchor at one of a-project, a-part, plans, at `elsewhere` for a path outside \
-                 this tree, or at `*` for every component's own copy"
+                "anchor at one of a-project, a-part, plans, at `elsewhere` for a path this tree \
+                 does not hold, or at `*` for every component's own copy"
             )
         );
     }
@@ -2730,8 +2730,8 @@ mod tests {
             action,
             Some(
                 "write `path@<anchor>@<path>`, `register@<anchor>@<register>` for a register's \
-                 home, `path@elsewhere@<path>` for a path outside this tree, or `path@*@<path>` \
-                 for every component's own copy, or \
+                 home, `path@elsewhere@<path>` for a path this tree does not hold, or \
+                 `path@*@<path>` for every component's own copy, or \
                  `planned@<anchor>@<path>` for a path the plan's work will create"
             )
         );
