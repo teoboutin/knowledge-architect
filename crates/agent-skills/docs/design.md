@@ -552,7 +552,8 @@ than one sentence of it, per `design@agent-skills@restatement-size-test`.
 
 The centralization is the owner's proposal, made so that the audit, the reviewers, an intake of
 received findings and the installed skills cannot produce an addition that another of them would
-refuse or reshape. The home in the agent-configuration skill is the owner's proposal too, and it
+refuse or reshape, the agreement `goal@agent-skills@no-contradiction-in-workflow` asks of the
+reviews and the audits. The home in the agent-configuration skill is the owner's proposal too, and it
 stands on the argument below. Maintaining the configuration is the activity whose skill governs what
 enters it, per `goal@agent-skills@one-skill-per-activity` and the knowledge table's row "how to
 perform an activity → the owning skill"; the audit, the reviews and an intake judge that text and
