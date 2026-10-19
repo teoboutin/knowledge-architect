@@ -126,8 +126,8 @@ output, a commit. A verdict without evidence is labelled an assumption.
 The checks a to c read text, and fresh subagents may run them, one per file or per cluster. Brief
 each with the findings, the files to read, the entries the search of
 `skill@knowledge-architect-retrospective-intake@ground-before-judging` returned, and a scratch
-directory of its own, never shared. The agent checks c against those entries and the rejected
-alternatives, and does not search the registers again. Each returns, per finding: the quotation,
+directory of its own, never shared. The agent checks c against those entries and the `rejected`
+entries, and does not search the registers again. Each returns, per finding: the quotation,
 its file and line, and its verdict. The session itself establishes d to h, and re-checks every
 verdict a proposal rests on. No subagent replays the reported session or builds a scenario of agent
 behaviour.

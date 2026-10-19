@@ -323,7 +323,7 @@ and a spec list no register. The output is for a reader, not for a script.
 
 **Eleven registers are compiled in.** `design`, `goal`, `tripwire`, `rejected` and `issue` are
 what the word component means to this tool. `rejected` holds the designs a Component did not keep,
-each cited by the design entries whose argument covers it, and an entry no design entry cites is a
+per `design@core@rejected-register`, each cited by the design entries whose argument covers it, and an entry no design entry cites is a
 finding, per `design@core@orphan-rejected-entry`. `spec` and `milestone` are the plan documents, and `thread`,
 `argument`, `criterion` and `acceptance` their items, described under "Plan documents" below. A project declares further ones in its
 `knowledge-architect.toml`. The first two tables are from thaum, whose `rules` location carries

@@ -719,7 +719,7 @@ without a clone of the repository cannot reach a deliberation.
 ### A head stands on its argument, and cites the owner only for what came from the owner `##head-ground-is-the-argument`
 
 A head records a decision that was proposed, argued over its costs and rivals and approved, on that
-argument, with its costs and rivals in its body or in the rejected alternatives. An approval is no
+argument, with its costs and rivals in its body or in the `rejected` entries it cites. An approval is no
 ground, whatever its words: it stays in the deliberation. The owner's words are a ground,
 attributed to the owner per `design@agent-skills@attribution-replaces-quotation`, only where the decision came from the owner: the owner proposed it, chose where the argued rivals
 did not settle it, or stated a premise only the owner can state. A head holding a part of each
@@ -729,7 +729,7 @@ argument, which the owner approves where the reversal is a fork, per
 or by a defeated premise of those words.
 
 The rule is the owner's proposal: a head is recorded on the arguments discussed, with its costs and
-rivals in its body or in the rejected alternatives, not on the ground that the owner ruled, in
+rivals in its body or in the `rejected` entries it cites, not on the ground that the owner ruled, in
 particular where the decision was the agent's position or default and the owner only approved it.
 The owner judged this provenance to matter a lot for agents that weigh any change or addition to
 the design. It serves `goal@knowledge-architect@the-owner-decides`,
@@ -857,15 +857,15 @@ The design this decision did not keep: `rejected@agent-skills@entry-test-for-unb
 
 ### An alternative earns an entry by the recording tests, not by having lost `##losing-alternatives-filter`
 
-A losing alternative earns an entry in the rejected alternatives only if it passes the tests of the
+A design not kept earns an entry in the `rejected` home only if it passes the tests of the
 installed decision-recording skill: it would change an interface others consume, as entry test 1
 of `primer@design-heads` defines it, its reason rests on a reading of an external
 specification the project implements, it was refuted by evidence that cost work, or a doubt
-remains that the winner meets every goal. The rest stay in the spec and the commit message.
+remains that the design kept meets every goal. The rest stay in the spec and the commit message.
 `goal@knowledge-architect@design-is-recorded-with-its-arguments` asks that a later session need not
 derive an argument again: an alternative refuted by reasoning is derived again in the one round its
 proposal costs, and one refuted by evidence is not. Recording every losing thread of
-every discussion would grow the rejected alternatives by proposals nobody would raise again, and a
+every discussion would grow the `rejected` homes by proposals nobody would raise again, and a
 reader proposing an alternative would have to search through them to find the few whose refutation
 cannot be derived again in one round.
 
@@ -876,10 +876,74 @@ The design this decision did not keep: `rejected@agent-skills@every-losing-threa
 A ruled-out thread, a thread withdrawn with a defeating reason, and a superseded thread whose
 distinct shape lost are each judged by `design@agent-skills@losing-alternatives-filter`. A thread
 withdrawn with no defeating reason, and a superseded thread whose shape the absorbing thread
-carries whole, stay in the spec only. So do the shapes of a question that produced no decision,
-since an entry names the decision its alternative lost to. The state of a thread records how it
+carries whole, stay in the spec only. So does a shape that lost while its question stays open,
+since the question is an issue. A shape rejected with nothing built in its place is judged by the
+filter like any other, and the decision not to build it is a head of absence, "we do not do X",
+which entry test 2 of `primer@design-heads` admits and which cites the entry: the owner judged such
+a head the right home where nothing is built, over leaving the shape to the deliberation. The state of a thread records how it
 closed, not whether an argument defeated a shape, and a rule keyed on the state would drop a
 superseded thread that lost on its merits.
+
+### A design head cites the `rejected` entries its argument covers, and an entry names no design it lost to `##rejected-citation-direction`
+
+A design head names each `rejected` entry its argument covers: where its argument meets that
+design, or in a closing sentence of its body. A `rejected` entry names no winner; `show` on it
+computes the heads that cite it. A design rejected with nothing built in its place is cited by a
+head of absence, per `design@agent-skills@losing-shape-test`, and the checker reports an entry that
+no design entry cites, per `design@core@orphan-rejected-entry`.
+
+It serves `goal@knowledge-architect@design-is-recorded-with-its-arguments` and
+`goal@core@records-reach-their-reader`: the owner observed that rejected alternatives are missed in
+design sessions and come back at the review of a plan document or after the work, and a design
+session reads heads. The hand-written direction sits in the head, the text that session reads, and
+the link back is `show`'s to compute, since an entry never lists what references it, per
+`design@agent-skills@a-reference-claims-a-revisit`. The owner judged the framing of a winner and a
+loser wrong, and an entry that names no winner drops it. The designs this decision did not keep:
+`rejected@agent-skills@entry-names-the-decision-it-lost-to`,
+`rejected@agent-skills@both-directions-written-by-hand` and
+`rejected@agent-skills@both-directions-checked-for-symmetry`.
+
+### A design discussion's grounding sends a design-entry searcher, one per Component, cut along whole subjects where a Component is too large `##design-entry-search`
+
+The installed design skill's step 1 sends `agent@knowledge-architect-design-entry-searcher` beside
+the standing-entry searcher: one agent per Component the question touches, the project's root
+always among them, each reading the design entries and the `rejected` entries of its group whole.
+A Component the session judges too large for one agent is cut into groups of whole level-two
+subjects of its design home, and no number bounds a group; an agent reports a subject too large to
+read whole. The skill sends the search again for a thread on a subject the first search was not
+given, and the plan-document review of `design@agent-skills@plan-read-against-the-record` stays
+the backstop.
+
+It serves `goal@knowledge-architect@agents-work-without-drift`: the owner reported design entries
+missed in part many times, and a case is recorded where the owner approved a proposal contradicting
+a head the session had not read, caught only at the plan-document review. A search at grounding
+puts the record in view before the first proposal, so before any ruling, where a reading at the
+checkpoint comes after the owner has ruled most threads. The searcher is an agent of its own, since
+a design entry is no standing entry, per `design@agent-skills@standing-entry-search-agent`. The
+grouping is the owner's: grouping by count would make an agent read unrelated entries and cut a
+subject, while a subject's kept and rejected entries have to be read together; and the owner put no
+numeric bound on a group, judging the bound of 60 that
+`design@agent-skills@standing-entry-search-groups` argues for standing entries not sensible here,
+and that a subject too large to read whole is a sign of a design home not divided enough, which an
+agent reports. The designs this decision did not keep:
+`rejected@agent-skills@conformance-reader-at-the-checkpoint`,
+`rejected@agent-skills@design-listing-cut-in-groups-of-sixty` and
+`rejected@agent-skills@subject-groups-bounded-at-sixty`.
+
+### The design-entry searcher grades each entry it reads, and lists every one `##search-relevance-grade`
+
+The searcher grades each entry `bears`, with the relation `constrains`, `may change` or `may bring
+back`, or `may-bear`, and lists every unrelated entry it read, so every entry of its group appears
+in exactly one of three lists. The design skill routes each grade to an act: the session reads
+every `bears` and `may-bear` entry whole, states for each `may-bear` whether it bears, sends a
+`may change` entry to the reversal check and proposes a `may bring back` entry again only with a
+new argument.
+
+A grade is kept only where it changes what the session does: the standing-entry searchers of the
+discussion that decided this graded a doubt anyway, unasked, in 12 of the 41 entries they returned,
+each wording it differently, and a numeric scale would route no act. The owner proposed the grades
+and asked that every entry read be listed, which is also what a later check of a report's coverage
+would read, per `issue@core@searcher-reports-are-written-and-checked-by-hand`.
 
 ### A premortem's cause becomes a tripwire only on the owner's word `##premortem-tripwires-on-the-owners-word`
 
@@ -980,7 +1044,8 @@ leaves, which for a milestone is its last slice.
 ### A design thread's slug becomes its entry's slug `##thread-slug-is-entry-id`
 
 A thread of a design discussion is named by a slug minted in the entry-id grammar and checked for
-a collision with the entries of the Component before it is used. In discussion prose it is written
+a collision with the design entries and the `rejected` entries of the Component before it is used,
+since a thread that loses may become a `rejected` entry under its own name. In discussion prose it is written
 plain, with a hash sign before it, never as a backticked span, which the checker reports as the
 retired slug form once an entry carries that slug, per
 `design@core@candidate-rule-and-retired-forms`. When
@@ -1092,6 +1157,9 @@ decision taken in the change under way too. The search at convergence is parked,
 The occasions are the owner's: the search runs at least at a design discussion's grounding and at
 the audits of a plan's steps, the main moments design is discussed, and should miss nothing.
 
+At the design skill's step 1 this search runs beside the design-entry search, per
+`design@agent-skills@design-entry-search`; the audits of a slice or a spec send this one alone.
+
 ## How documents point at each other
 
 ### A reference is written where the text would have to be revisited if the entry it names changed `##a-reference-claims-a-revisit`
@@ -1120,7 +1188,7 @@ reference is owed, or the change reaches nobody. What follows from the test, by 
 | an issue entry | the decision it strains, and the goal it threatens when it does directly | `show` on a decision lists what is outstanding against it before it is reopened, and on a goal what stands between the project and it |
 | a guard, a workaround, a stub or a test that pins behaviour an open entry describes | the issue it exists because of, in the comment at the site | closing the entry dangles the comment, so the site is revisited and the workaround removed |
 | a tripwire | the decision it guards | a reversal dangles its tripwires |
-| a rejected alternative | the decision it lost to | a reversal finds what the old winner displaced |
+| a design head | the `rejected` entries its argument covers | a session reading the head meets the designs it did not keep, and an entry that goes `void`, is reopened or is renamed reaches the head |
 | a commit message | every entry it opens, closes, reverses or argues from | the commits gate judges it against the tree it was written against |
 | a restatement of a directive sentence, per `design@agent-skills@restatement-size-test` | its home | a drift between the two is found from either end |
 
@@ -2121,8 +2189,8 @@ and compared as `design@agent-skills@calibration-in-the-run` says.
 The listing is the script's because a script reads no file and needs the counts to dispatch, and
 because auditors that each derive their group from an order stated in prose can leave an entry
 unjudged or judged twice with nothing to notice it; the listed entries make coverage a check of the
-script. A group never splits a small Component, since a rejected alternative is judged against the
-head it lost to; packing whole Components keeps that, where one group per Component spends an agent
+script. A group never splits a small Component, since a `rejected` entry is judged against the heads
+that cite it; packing whole Components keeps that, where one group per Component spends an agent
 on a handful of entries, and a group that mixes Components is no harder to judge by any record. The
 bound of 60 is the one `design@agent-skills@standing-entry-search-groups` argues for a standing
 entry; an auditor reads more per head, its tripwires, its issues and its history, and no

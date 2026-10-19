@@ -9,7 +9,7 @@ The searchers a design discussion dispatches return a report that must list ever
 group exactly once, and each agent writes that list by hand from its own reading. No tool gives the
 agent a skeleton holding the group's entries to fill, and no tool checks a filled report against
 the group. The owner wants such tooling, for every searcher: the standing-entry searcher, and the
-design-entry searcher that `spec@plans@rejected-register` plans.
+design-entry searcher, `agent@knowledge-architect-design-entry-searcher`.
 
 ## Details
 
@@ -22,13 +22,13 @@ design-entry searcher that `spec@plans@rejected-register` plans.
   its group itself, by the sort its section
   `agent@knowledge-architect-standing-entry-searcher@take-your-group` states, and writes both lists
   by hand.
-- The design-entry searcher of `spec@plans@rejected-register` reads a group of a Component's design
+- The design-entry searcher, per `design@agent-skills@design-entry-search`, reads a group of a Component's design
   entries and `rejected` entries, and returns three lists, `Bears on the work`, `May bear` and `Read
   and judged unrelated`, under the same rule: every entry of the group in exactly one list. The
   owner ruled, in that discussion, that every unrelated entry is listed rather than counted.
 - Nothing mechanical produces the group's entries for the agent, and nothing reads a report back.
   The session that dispatched the searchers checks coverage by reading, or not at all.
-- An instance, in the session that wrote `spec@plans@rejected-register`: of three standing-entry
+- An instance, in the design discussion that produced the `rejected` register: of three standing-entry
   searchers over 141 entries, the one on positions 1 to 47 listed
   `issue@core@a-heading-line-markdown-renders-as-no-heading-defines-an-entry` under "Bears on the
   work" and again at the end of "Read and judged unrelated", then appended a correction to its own
@@ -43,7 +43,7 @@ of what it was given, and possibly a report skeleton the agent only fills.
 `design@agent-skills@standing-entry-search-agent` rests on the return listing every entry read, so
 that the dispatching session can see what was judged unrelated. A report that drops an entry, or
 lists one twice, reads the same as a complete one, and the entry dropped is the one a design session
-then misses: the failure `spec@plans@rejected-register` exists to reduce. The rule "exactly one
+then misses: the failure `design@agent-skills@design-entry-search` exists to reduce. The rule "exactly one
 list" is an instruction no check enforces, against `goal@core@declared-instructions-are-checked`.
 
 ### What would close it

@@ -53,7 +53,7 @@ pub(crate) struct Record {
 /// register a project declares, such as a reading of a specification. Every register kind but
 /// three, then. An `issue` reference in a tripwire names what its response opens, a `tripwire`
 /// reference names another guard, and a `rejected` reference names a design the project did not
-/// keep, which is no decision; none is guarded. `path` is no register.
+/// keep, which is no decision, per `design@core@rejected-register`; none is guarded. `path` is no register.
 pub(crate) fn guarded(registers: &Registers, kind: &str) -> bool {
     kind != ISSUE_REGISTER
         && kind != TRIPWIRE_REGISTER
@@ -487,7 +487,8 @@ mod tests {
                     `path@a-project@docs/design.md` and `issue@notes@a-thing`.\n\n\
                     **Response:** reopen `design@a-project@a-decision`, and read \
                     `design@a-project@another-one`, `reading@notes@a-reading`, \
-                    `goal@a-project@a-goal` and `tripwire@a-project@second`.\n\n\
+                    `goal@a-project@a-goal`, `tripwire@a-project@second` and \
+                    `rejected@a-project@not-kept`.\n\n\
                     ## The second one `##second`\n\n\
                     **Fires when:** something else.\n";
         let found = rows(vec![("docs/tripwires.md", home)], "tripwire");
@@ -500,8 +501,10 @@ mod tests {
         assert!(first.body.contains("it fires"), "{}", first.body);
         assert!(!first.body.contains("something else"), "{}", first.body);
         assert!(!first.body.contains("# Tripwires"), "{}", first.body);
-        // Every guarded kind, a declared register's included: a path, an issue and a tripwire
-        // reference sit beside them and are not what this tripwire guards. The first is written
+        // Every guarded kind, a declared register's included: a path, an issue, a tripwire and a
+        // `rejected` reference sit beside them and are not what this tripwire guards, a `rejected`
+        // entry being no decision, per `design@core@rejected-register`. Mutation checked: the
+        // `rejected` exclusion removed from `guarded` lists the `rejected` reference. The first is written
         // twice in the section and appears once, in the order the entry names them.
         assert_eq!(
             first.guards,

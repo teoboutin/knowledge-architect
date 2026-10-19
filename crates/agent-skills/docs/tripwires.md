@@ -550,3 +550,30 @@ it finds, and that the branch removes before its merge, does not fire it.
 **Response:** remove the rule from the section, and reopen with the owner the scope of the ruling
 that the rarer checker rules are delivered by their findings.
 **Re-entry:** that review or audit.
+
+## Guarding `design@agent-skills@rejected-citation-direction`: an entry cited only by heads that do not decide its question `##rejected-entry-cited-by-the-wrong-head`
+
+The decision rests on the premise that the head citing a `rejected` entry is the one whose argument
+covers it, so that a session reading that head meets the design. The owner ruled on it as T1 at the
+premortem of its discussion.
+
+**Fires when:** a review or an audit finds a `rejected` entry whose only citing heads decide a
+question other than the one the design it records answered.
+**Response:** reopen `design@agent-skills@rejected-citation-direction` on how the citing head is
+chosen.
+**Re-entry:** the decision-record review of every branch that adds a `rejected` entry, and the
+design-record axis of `skill@knowledge-architect-project-audit`.
+
+## Guarding `design@agent-skills@design-entry-search`: a design entry missed though the search ran `##design-entry-search-misses`
+
+The decision rests on the premise that a search at grounding, sent again for a later thread, puts
+before the session every design entry and `rejected` entry its proposals bear on. The owner ruled on
+it as T2 at the premortem of its discussion.
+
+**Fires when:** the design-conformance review of a plan document reports a contradicted head, or a
+`rejected` entry brought back without a recorded reopening, in a discussion where the design-entry
+search ran.
+**Response:** open a `design` issue naming the review and the discussion, and reopen
+`design@agent-skills@design-entry-search`, asking whether the miss came from a thread that opened
+after the search.
+**Re-entry:** the reviews of every plan document, and each retrospective.

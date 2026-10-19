@@ -1450,7 +1450,7 @@ mod tests {
         )
     }
 
-    /// The claim, AC2 of `spec@plans@rejected-register`: a `rejected` reference resolves to an
+    /// The claim, per `design@core@rejected-register`: a `rejected` reference resolves to an
     /// entry of the `rejected` home, a dangling one is reported like any table reference, and an
     /// entry a design entry cites is no orphan. Mutation checked: `REJECTED_REGISTER` left out of
     /// `Registers::built_in`, which leaves the kind unknown and the span silent, so the dangling
@@ -1477,7 +1477,7 @@ mod tests {
         assert_eq!(counts.entities, 2);
     }
 
-    /// The claim, AC2 of `spec@plans@rejected-register` and `design@core@orphan-rejected-entry`:
+    /// The claim, per `design@core@orphan-rejected-entry`:
     /// an entry no design entry cites is reported at its definition site, whatever else cites
     /// it: a goal, an issue, another `rejected` entry, or the design home's own introduction,
     /// which is no entry. Mutation checked: `cited_within` reading every span of the design
@@ -1523,7 +1523,48 @@ mod tests {
         assert!(orphans[0].contains("head of absence"), "{found:#?}");
     }
 
-    /// The claim, AC2 of `spec@plans@rejected-register`: a citation from a design entry of a
+    /// The claim, per `design@core@orphan-rejected-entry`: a citation counts only inside the design
+    /// entry's own section, its heading line included, and only of the `rejected` kind. Mutations
+    /// checked: the section's upper bound dropped, which counts the text under a later level-two
+    /// heading; the kind test dropped, which counts a goal reference sharing the id; the heading
+    /// line excluded from the range.
+    #[test]
+    fn a_citation_counts_inside_its_entry_s_section_and_of_its_own_kind_only() {
+        let orphans = |design: &str| {
+            let (found, _) = checked_docs(
+                &manifest(),
+                vec![
+                    not_kept(),
+                    ("docs/goals.md", "## A goal `##not-kept`\n"),
+                    ("docs/design.md", design),
+                ],
+                &[],
+            );
+            found
+                .iter()
+                .filter(|f| f.contains("is cited by no design entry"))
+                .count()
+        };
+        // A citation in a design home's text after the entry's section: no citation.
+        assert_eq!(
+            orphans(
+                "### D `##d`\n\nBody.\n\n## Next subject\n\nCites `rejected@a-project@not-kept`.\n"
+            ),
+            1
+        );
+        // A reference of another kind with the same id: no citation.
+        assert_eq!(
+            orphans("### D `##d`\n\nServes `goal@a-project@not-kept`.\n"),
+            1
+        );
+        // A citation in the entry's own heading line: a citation.
+        assert_eq!(
+            orphans("### Not `rejected@a-project@not-kept` `##d`\n\nBody.\n"),
+            0
+        );
+    }
+
+    /// The claim, per `design@core@orphan-rejected-entry`: a citation from a design entry of a
     /// directory-shaped design home, in a subdocument and in another anchor, counts. Mutation
     /// checked: `cited_within` keeping only citations whose anchor is the citing entry's own,
     /// which reports the entry the other anchor's head cites.

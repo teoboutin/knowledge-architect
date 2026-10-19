@@ -211,7 +211,8 @@ place**. Where it was a thread of a design discussion, its slug is the thread's 
 ```
 
 Each entry carries: what the design was, a **validity marker** opening its body, and the reason.
-It names no winner: **each design head whose argument covers the design cites the entry**, where
+It names no winner as such, and its reason may name a head where the reason needs one: **each
+design head whose argument covers the design cites the entry**, where
 its argument meets that design, or in a closing sentence of its body. Writing the entry and its
 citation is one act: `cargo klarch check` reports an entry that no design entry cites.
 

@@ -1,14 +1,14 @@
 ---
 kind: design
 ---
-# The choice of tree-sitter-rust as the Rust parser has no head, and two rejected alternatives lost to it
+# The choice of tree-sitter-rust as the Rust parser has no head, and two rejected designs it did not keep are cited by another
 
 ## Summary
 
 The core parses Rust source with `tree-sitter-rust`. No head of `register@core@design` records
-that choice. Two rejected alternatives that lost to it, "`syn` as the Rust parser" and
-"Rust-analyzer's syntax crate", name `design@core@grammars-not-prefixes` as the decision they lost
-to, and that head names no parser.
+that choice. Two rejected designs it did not keep, `rejected@core@syn-rust-parser` and
+`rejected@core@rust-analyzer-syntax-crate`, are cited by `design@core@grammars-not-prefixes`, and
+that head names no parser.
 
 ## Details
 

@@ -24,8 +24,8 @@ start, and only a reviewer reading by hand found them.
   the design skill, citing the steps of `skill@knowledge-architect-design@discussion-loop`.
 - The case, this repository's agent-configuration-entities milestone: three citations in words
   went stale or were wrong from the start; a fidelity reviewer reading by hand found them.
-- The core's rejected alternative on register entries at level three concerns defining entries,
-  not citing sections.
+- The core's rejected design on register entries at level three,
+  `rejected@core@slug-at-any-heading-or-cell`, concerns defining entries, not citing sections.
 
 The suspected mechanism, in one sentence: the citable unit is the level-two section, and the
 installed text argues and cross-refers at the level of a point inside one.

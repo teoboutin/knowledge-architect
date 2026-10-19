@@ -66,8 +66,7 @@ again.
 `live`. A word that hands judgement over is an approval like any other, as is approving every
 default on a quick read. A session decides what the record and its sources settle by the rule of
 `primer@question-authority`, which every session applies, per
-`design@agent-skills@questions-go-to-their-authority`, never by a grant, and the goal keeps an
-action that cannot be undone with the owner. The state was decided and reversed in one revision of
+`design@agent-skills@questions-go-to-their-authority`, never by a grant, and `goal@knowledge-architect@the-owner-decides` keeps an action that cannot be undone with the owner. The state was decided and reversed in one revision of
 designing-together, after five of that revision's eight blocking review findings fell on it: inside
 a grant, a correction whose own action could not be undone ran with no word from the owner.
 
@@ -300,7 +299,8 @@ did not fall, the repairs move to a method by cause".
 
 `live`. Passes 1 and 2 of the first agentic-workflow audit of this repository turned most of their
 findings into added rules, which the auditors of pass 3 then found interacting, about 25 findings by
-their returns, per the pass-3 commit named in the entry on one repair per finding.
+their returns, per the pass-3 commit named in the entry on one repair per finding,
+`rejected@agent-skills@one-repair-per-finding`.
 
 ### Three runs of the audit's saved workflow per pass, the session reading the drafts, the groupings and the proposals between them `##three-runs-per-pass`
 
@@ -359,7 +359,8 @@ session rejecting one, while 9 of the 15 sat on text the audit's own branch had 
 ### Defects in the text a repair writes, left for the next pass to find `##repair-defects-left-to-next-pass`
 
 `live`. By the classification of pass 5 of the first agentic-workflow audit of this repository,
-given in the entry on the plain count of confirmed findings, 16 of its 38 findings sat on text the
+given in the entry on the plain count of confirmed findings,
+`rejected@agent-skills@plain-confirmed-findings-count`, 16 of its 38 findings sat on text the
 repairs of the earlier passes and the method's commits had written, and each such finding cost a
 whole pass to surface.
 
@@ -436,3 +437,46 @@ remains: a session that edits agent-facing text inside another task may not load
 
 `live`. A command reaches a session only if it thinks of running it, while the harness puts the
 primer in every session's context. It would have added a command line, an interface others consume.
+
+### A `rejected` entry naming the decision it lost to `##entry-names-the-decision-it-lost-to`
+
+`live`. It was the rule before the `rejected` register: each entry named its winner, so `show` on a
+head listed its losers as a file and a line. The head is what a design session reads, so the link
+belongs there; written in both directions it is an inbound list kept by hand, which goes stale at
+the next citation; and the owner judged the framing of a winner and a loser wrong.
+
+### Both directions of the link between a head and its `rejected` entries written by hand `##both-directions-written-by-hand`
+
+`live`. Each side would name the other. An entry never lists what references it, since a list kept
+by hand is stale at the next reference written elsewhere, per
+`design@agent-skills@a-reference-claims-a-revisit`; the entry's side is `show`'s to compute.
+
+### Both directions written, with a check that they agree `##both-directions-checked-for-symmetry`
+
+`live`. It would keep both directions and catch their drift. The check needs to tell a citation of
+a winner from any other reference in an entry's body, and a heading register has no field for it,
+so it needs a syntax of its own that the head-only direction does not.
+
+### The design-conformance reviewer dispatched on a discussion's checkpoint `##conformance-reader-at-the-checkpoint`
+
+`live`. It would read the proposals as they stand at convergence, with an existing agent. In the
+discussion that decided the design-entry search, the owner ruled 7 of 8 threads one by one before
+any checkpoint table was shown, so a reader there reads rulings already given. A doubt remains
+that a search at grounding misses a thread opened later, which
+`tripwire@agent-skills@design-entry-search-misses` watches; this is the candidate if it fires.
+
+### A listing command of design entries, cut into groups of 60 rows `##design-listing-cut-in-groups-of-sixty`
+
+`live`. It would give even groups, as the standing-entry search has. Grouping by count makes an
+agent read unrelated entries and cut a subject, while a subject's kept and rejected entries have to
+be read together, on the owner's argument; and it needs a command the grouping by Component does
+not.
+
+### Groups of whole subjects bounded at 60 design entries, a larger subject cut into consecutive heads `##subject-groups-bounded-at-sixty`
+
+`live`. It applied to design entries the bound of 60 that
+`design@agent-skills@standing-entry-search-groups` argues for standing entries, measured on their
+size in thaum. The owner judged a numeric limit not sensible here and ruled that a cut keeps
+making sense at any cost, a subject too large being a sign of a design home not divided enough. A
+doubt remains whether one agent reads a large subject reliably; this is the candidate if reports of
+large subjects come with missed entries.

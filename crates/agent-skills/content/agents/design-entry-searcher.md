@@ -40,13 +40,15 @@ its `rejected` register, each a file or a directory whose `README.md` links its 
   headings it names. Its reference is `design@<component>@<slug>`.
 - **Your `rejected` entries**: every level-three heading ending with a slug in the `rejected` home.
   Where the brief names subjects, only those a design entry of your group cites, by a
-  `rejected@<component>@<slug>` reference in its section.
+  `rejected@<component>@<slug>` reference in its section, and, in the group whose subjects come
+  first, those no design entry of your Component cites.
 
 ## Read every entry of your group {{slug:read-every-entry}}
 
-Read the design home and the `rejected` home whole, every subdocument of a directory home included,
-so that a design entry and the `rejected` entries it cites are read together. Where the brief names
-subjects, read those subjects whole. Do not decide from a title which entries are worth reading: a
+Read every entry of your group whole, so that a design entry and the `rejected` entries it cites
+are read together: with no subjects named, the design home and the `rejected` home whole, every
+subdocument of a directory home included; with subjects named, those subjects whole and each
+`rejected` entry of your group. Do not decide from a title which entries are worth reading: a
 title states a decision, not every member its argument covers.
 
 ## Follow the seeds {{slug:follow-the-seeds}}
@@ -64,9 +66,9 @@ your group whose section cites a seed is graded `bears` or `may-bear`, never unr
 | `may-bear` | an entry that shares the work's subject, with none of the three relations established |
 | unrelated | an entry that shares no subject with the work |
 
-A level-two subject of your group too large for you to read whole is still read whole: report it
-under "Met outside the task", with its heading text and its count of design entries, as a sign that
-the Component's design home is not divided enough.
+Read every subject of your group whole, however large. A subject whose size strained your reading
+is reported under "Met outside the task", with its heading text and its count of design entries, as
+a sign that the Component's design home is not divided enough.
 
 ## Return {{slug:what-to-return}}
 

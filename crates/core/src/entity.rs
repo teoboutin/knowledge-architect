@@ -2040,7 +2040,7 @@ mod tests {
         assert_eq!(e.len(), 4);
         assert!(e.definition_findings().is_empty(), "{:#?}", e.findings);
         // A level-three heading of the rejected home is an entry, so one with no slug is
-        // reported, AC2 of `spec@plans@rejected-register`.
+        // reported, per `design@core@rejected-register`.
         let unslugged = table(vec![("docs/rejected.md", "### A design not kept\n")]);
         assert_eq!(
             unslugged.definition_findings().len(),

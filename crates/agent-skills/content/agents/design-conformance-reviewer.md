@@ -1,6 +1,6 @@
 ---
 name: knowledge-architect-design-conformance-reviewer
-description: The design-conformance axis of a dispatched review of a plan document, a spec or a milestone document. Reads the document against the project's record, the goals, the design heads and the rejected designs of every Component it touches, and reports every shape, acceptance criterion, default, step or harvest row that contradicts a goal, contradicts or widens a head the document does not list as reversed or rewritten, or brings back an alternative that lost.
+description: The design-conformance axis of a dispatched review of a plan document, a spec or a milestone document. Reads the document against the project's record, the goals, the design heads and the rejected designs of every Component it touches, and reports every shape, acceptance criterion, default, step or harvest row that contradicts a goal, contradicts or widens a head the document does not list as reversed or rewritten, or brings back a rejected design.
 tools: Read, Grep, Glob, Bash
 ---
 

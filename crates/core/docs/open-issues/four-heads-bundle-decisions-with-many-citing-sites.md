@@ -35,8 +35,8 @@ the first run of the design-record axis counted 20, 23, 26 and 31.
 - `design@core@every-path-names-its-anchor`, 25 citing sites, 8 of them in
   `spec@plans@path-quickfixes`. Its title is joined by "and" over two decisions, and its body holds
   a third:
-  - the path grammar, `path@<anchor>@<path>`, against the rejected alternatives "A bare
-    root-relative path form, with a targeted check on the collision cases" and "Paths without the kind prefix";
+  - the path grammar, `path@<anchor>@<path>`, against the rejected designs "A bare
+    root-relative path form, with a targeted check on the collision cases", `rejected@core@bare-root-relative-path`, and "Paths without the kind prefix", `rejected@core@path-without-kind-prefix`;
   - the unanchored path lint and its scope, the paragraphs from "A span whose first segment names
     nothing here is another tool's notation, and is silent" through "Four shapes are outside the
     lint on purpose", against reporting every path-shaped span, with a census of its own;

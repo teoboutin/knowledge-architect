@@ -64,7 +64,7 @@ pub(crate) const ISSUE_REGISTER: &str = "issue";
 pub(crate) const TRIPWIRE_REGISTER: &str = "tripwire";
 
 /// The built-in heading register of designs a project did not keep, each cited by the design
-/// entries whose argument covers it.
+/// entries whose argument covers it, per `design@core@rejected-register`.
 pub(crate) const REJECTED_REGISTER: &str = "rejected";
 
 /// The built-in register of plan documents: a spec file, or a slice spec inside a milestone.
