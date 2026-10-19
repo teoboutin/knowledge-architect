@@ -129,8 +129,8 @@ analysis of the workflow files other projects send.
 
 | decision | change | referencing texts, from `cargo klarch show` | judged or updated by |
 | --- | --- | --- | --- |
-| `design@agent-skills@retrospective-destination` | rewritten in place: the project's findings go to the intake | crates/agent-skills/docs/design.md:85 and :2001; `issue@agent-skills@a-received-retrospective-file-has-no-installed-analysis`; docs/design.md:436 (in `design@knowledge-architect@workflow-findings-stay-here`) | the harvest reads each; the issue closes in step 6 |
-| `design@knowledge-architect@committed-findings-analysis` | narrowed to what this repository adds: the analysis of received workflow files, of audit files, and of this repository's own project file with its three outcomes | the agent-config issue `a-pending-retrospective-analysis-is-reached-by-no-standing-search`, closed in step 4; the local intake, rewritten in step 4; `path@knowledge-architect@CLAUDE.md`:58; `issue@agent-skills@a-received-retrospective-file-has-no-installed-analysis`, closed in step 6; `path@knowledge-architect@docs/retrospective-reports/README.md`, step 4 | the harvest |
+| `design@agent-skills@retrospective-destination` | rewritten in place: the project's findings go to the intake | crates/agent-skills/docs/design.md:85 and :2001; the issue `a-received-retrospective-file-has-no-installed-analysis`; docs/design.md:436 (in `design@knowledge-architect@workflow-findings-stay-here`) | the harvest reads each; the issue closes in step 6 |
+| `design@knowledge-architect@committed-findings-analysis` | narrowed to what this repository adds: the analysis of received workflow files, of audit files, and of this repository's own project file with its three outcomes | the agent-config issue `a-pending-retrospective-analysis-is-reached-by-no-standing-search`, closed in step 4; the local intake, rewritten in step 4; `path@knowledge-architect@CLAUDE.md`:58; the issue `a-received-retrospective-file-has-no-installed-analysis`, closed in step 6; `path@knowledge-architect@docs/retrospective-reports/README.md`, step 4 | the harvest |
 | `design@knowledge-architect@intake-shares-the-admission-standard` | moved to agent-skills, same slug, since it decides what the installed intake does; its body's subject becomes the installed intake, with the local intake applying it to received files | the local intake, line 119, which step 4 drops with item f; the `%%` line of the installed intake that step 1 writes under the root anchor, which the harvest re-points | the harvest |
 | `design@agent-skills@expectation-set-bounds-scope` | rewritten in place: its premise "the one installed activity that judges whether something is a defect of an installed skill" becomes two activities, the retrospective, which carries the sets, and the installed intake, which reads them by a pointer at check d. The rejected alternative "A separate installed file holding the expectation sets", whose reopening condition the intake meets, is judged again, per "The expectation sets" below | the local intake, line 99, and the `%%` line of the installed intake; `tripwire@agent-skills@expectation-set-closes-a-contradiction`; `issue@agent-skills@expectation-sets-for-the-installed-skills`; the agent-skills README, which restates the sets; `path@agent-skills@docs/rejected-alternatives.md` | the harvest reads each |
 
@@ -138,7 +138,7 @@ analysis of the workflow files other projects send.
 
 | entry | outcome |
 | --- | --- |
-| `issue@agent-skills@a-received-retrospective-file-has-no-installed-analysis` | closed by this work, step 6 |
+| the issue `a-received-retrospective-file-has-no-installed-analysis` | closed by this work, step 6 |
 | the agent-config issue `a-pending-retrospective-analysis-is-reached-by-no-standing-search` | closed into `a-pending-audit-report-is-reached-by-no-installed-search`, now `issue@agent-skills@a-pending-ruled-file-is-reached-by-no-installed-search`, widened to both directories, step 4, since it cites a section step 4 removes (#pending-analysis-search) |
 | `issue@agent-skills@a-pending-ruled-file-is-reached-by-no-installed-search`, named `a-pending-audit-report-is-reached-by-no-installed-search` before step 4 | widened and renamed in step 4, per "Pending analyses" |
 | `issue@agent-skills@an-upgrade-re-reads-no-root-restatement`, case 2 | the overlap of the installed and the local intake is made on purpose, and the local intake's description names it (AC3); the issue stays open |
@@ -425,7 +425,7 @@ already has a \"sent upstream\" outcome for the same case."
 Round 2, the session; #retrospective-hands-project-file-to-intake. "of 40 findings, 14 were already
 repaired, already recorded, rested on a false premise, credited a repair the history places
 earlier, or proposed a fix that would reverse a recorded head." The figure is the local intake's
-first use, recorded in `issue@agent-skills@a-received-retrospective-file-has-no-installed-analysis`.
+first use, recorded in the issue `a-received-retrospective-file-has-no-installed-analysis`.
 
 ### That measurement was not taken on a consumer's project file `##a23`
 
@@ -1025,7 +1025,7 @@ the install; a check failure that the overlap causes reopens the thread.
 5. **The READMEs**: the extension section of `path@agent-skills@README.md`, its framing sentence,
    and the activity of `path@knowledge-architect@README.md`. Fails alone on: the check of their
    links and references.
-6. **The issues**: close `issue@agent-skills@a-received-retrospective-file-has-no-installed-analysis`,
+6. **The issues**: close the issue `a-received-retrospective-file-has-no-installed-analysis`,
    and re-point the sentence of `issue@core@a-reference-with-a-line-or-fragment-suffix-names-a-wrong-repair`
    to the installed intake. Fails alone on: a dangling reference to a closed entry.
 7. **The changelog**: its entries in `Next release` of `path@knowledge-architect@CHANGELOG.md`,

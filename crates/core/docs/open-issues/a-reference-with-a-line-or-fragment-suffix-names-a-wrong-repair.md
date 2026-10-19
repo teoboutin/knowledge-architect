@@ -70,8 +70,9 @@ sixth pass, F121.
 the repair it needs, and `design@core@finding-names-the-repair` names each cause with its repair
 where the repair depends on the cause: an undefined id and an id carrying a suffix need different
 repairs. A session that writes evidence with a location, as an analysis under
-`skill@klarch-retrospective-intake` asks, follows the message to the wrong segment, and no installed
-text supplies the rule instead, by the owner's ruling. Against `goal@knowledge-architect@adoption-is-easy`:
+`skill@knowledge-architect-retrospective-intake` asks in every project that installs the workflow,
+follows the message to the wrong segment, and no installed text supplies the rule instead, by the
+owner's ruling. Against `goal@knowledge-architect@adoption-is-easy`:
 the finding is what a consumer reads first.
 
 ### What would close it
