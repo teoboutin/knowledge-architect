@@ -25,10 +25,9 @@ leaves the repository in the commit that completes its harvest.
   reversed or rewritten, the design home wins, and the disagreement is a defect of this spec.
 - Every name it uses is defined in it, under Names or New names, or exists in the tree.
 - Where the owner's word is awaited, `skill@knowledge-architect-planning@working-a-slice` says what
-  waits: the defaults D1 to D5 are built as written, except the part of D5 marked held, and the
-  branch that carries them merges once the owner has ruled on each. **This spec merges only once
-  D1 to D5 are ruled**, so a session implementing it reads each of them marked ruled, with the
-  ruling, under "Defaults awaiting the owner".
+  waits. The owner has ruled on D1 to D5, each marked ruled, with the ruling, under "Defaults
+  awaiting the owner"; a default a later review raises is built as written, and the branch that
+  carries it merges once the owner has ruled on it.
 - **The spec lands before its work, in a pull request of its own**, per D2. The work's first commit
   changes what `cargo klarch commits` requires of every tree, so on one branch the spec's own
   commit would fail that gate, per `primer@branch-commits` and
@@ -99,7 +98,7 @@ says.
   entry's own citation of a goal; c, no orphan check. They are no arguments: an argument is
   `argument@rejected-register@a<n>`.
 - **the shapes p1 and p2** of `thread@rejected-register@design-entry-search`: p1, one searcher per
-  Component; p2, a listing command and groups of 60 rows. D5 amends p1.
+  Component; p2, a listing command and groups of 60 rows. D5, as the owner ruled it, amends p1.
 - **the shapes r1 and r2** of `thread@rejected-register@checkpoint-reader`: r1, the session's own
   reversal search over the checkpoint's rows; r2, the design-conformance reviewer dispatched on them.
 
@@ -196,8 +195,9 @@ for the files and the same with `-i -E -c` summed for the lines, are listed at s
   `goal@core@declared-instructions-are-checked`.
 - `design@agent-skills@losing-alternatives-filter`: which alternatives earn an entry stays as it
   is. Its wording of a winner and a loser is rewritten; see "Decisions the work rewrites".
-- `design@agent-skills@standing-entry-search-groups` and `design@agent-skills@design-record-axis-dispatch`:
-  an agent reads at most 60 entries, which D5 applies to the design-entry searcher.
+- `design@agent-skills@standing-entry-search-groups` and `design@agent-skills@design-record-axis-dispatch`
+  bound a standing-entry searcher and a design-record auditor at 60 entries. The design-entry
+  searcher takes no numeric bound, on the owner's ruling of D5; those two heads are unchanged.
 - `design@core@heading-register-two-shapes`: every heading register accepts the file and the
   directory shape, which gives `rejected` its `planned@<anchor>@docs/rejected/` directory.
 - `design@core@an-entry-is-a-heading-at-the-register-level`, `design@core@statement-precedes-the-slug`,
@@ -897,12 +897,16 @@ criteria", per `argument@rejected-register@a34`.
 The design-entry searcher is an installed agent of its own, sibling of the standing-entry searcher.
 Its description carries its dispatch rule: one agent per Component the question touches, the
 project's root always among them, all in parallel, each given the work, the seeds, its group and a
-scratch directory of its own. **D5, held until the owner rules**: a Component whose design entries
-number more than 60 is cut into groups of whole level-two subjects of its design home, packed in
-order up to 60 heads each, and a subject of more than 60 heads alone is cut into consecutive heads;
-each group takes the `rejected` entries its heads cite, an entry cited from two groups going to
-both, and a Component's `rejected` entries no head cites go to its first group. A Component of 60
-or fewer is one group.
+scratch directory of its own. A Component is one group, unless the dispatching session judges that
+it holds too many entries for one agent to read whole; it is then cut into groups of whole
+level-two subjects of its design home, in order. **The cut never splits a level-two subject**,
+whatever its size, and no number bounds a group. Each group takes the `rejected` entries its heads
+cite, an entry cited from two groups going to both, and a Component's `rejected` entries no head
+cites go to its first group. An agent whose group holds a level-two subject too large to read
+whole reports it under "Met outside the task", naming the subject and its count of heads, as a sign
+that the Component's design home is not divided enough; the owner's example of such a subject, a
+hedged one, is one of more than 60 entries; the session routes it by
+`primer@met-outside-the-task`.
 
 Each agent reads its group's design entries and `rejected` entries whole. A seed is a decision or a
 goal the work names: a seed that is an entry of its group is graded `bears`, and an entry of its
@@ -953,15 +957,16 @@ the first search did not cover. The thread-naming rule checks a new slug against
 
 The argument: the survey reads the record before the first proposal is shaped, so before any
 ruling, per `argument@rejected-register@a36`; a group of whole subjects reads a subject's kept and
-rejected entries together and cuts no section, per `argument@rejected-register@a40`, and a group of
-60 or fewer keeps each agent's reading whole, per `design@agent-skills@standing-entry-search-groups`;
-a new agent, since a design head is no standing entry, per `argument@rejected-register@a39`. The
+rejected entries together and cuts no section, per `argument@rejected-register@a40`; a Component
+too large for one agent is cut along its subjects, and never by a number, on the owner's ruling of
+D5, which judged a numeric limit not sensible for design entries and keeps the cut meaningful at
+any cost; a new agent, since a design head is no standing entry, per `argument@rejected-register@a39`. The
 session keeps reading the design homes, since the premises of
 `design@agent-skills@a-head-is-owed-by-an-entry-test` rest on every grounding reading them whole; the
 search adds a second reader that grades each entry. The grades are the ones that route an act, per
 `argument@rejected-register@a43`; the rival scale routes none, per `argument@rejected-register@a44`.
 The survey's blind spot, a later thread, is covered by the re-dispatch and by the plan-document
-review, per `argument@rejected-register@a37`. The bound of 60 and the cut along subjects are D5's.
+review, per `argument@rejected-register@a37`.
 
 ### The grades
 
@@ -1076,6 +1081,10 @@ Each with the head that will cite it, if the recording tests admit it, per
 - **A listing command, `cargo klarch decisions`, cut in groups of 60 rows (p2)**: lost to
   `thread@rejected-register@design-entry-search`, on `argument@rejected-register@a40`. Cited by that
   thread's head.
+- **Groups of whole subjects bounded at 60 heads, a larger subject cut into consecutive heads**,
+  the default of D5: lost to `thread@rejected-register@design-entry-search` on the owner's ruling of
+  D5, which keeps the cut meaningful at any cost and puts no number on it. Cited by that thread's
+  head.
 - **Widening the standing-entry searcher to design entries**: lost to
   `thread@rejected-register@design-entry-search`, on `argument@rejected-register@a39`. Cited by that
   thread's head.
@@ -1289,18 +1298,20 @@ the commit that completes the harvest.
   of designing-together, after five of that revision's eight blocking review findings fell on it",
   which recording test 3 of `skill@knowledge-architect-decision-recording@losing-alternatives`
   admits, and `design@agent-skills@questions-go-to-their-authority` decides what it rejects.
-  Default: the entry is kept, converted like the others, and cited by that head.
+  Default: the entry is kept, converted like the others, and cited by that head. **Ruled**: the
+  owner, after the reviews: "Then you can proceed with the defaults D1 to D4."
 - **D2**, bears on the owner's direction of round 2, "I want this work to be done as a spec with a
   single PR to the end, in this session." Default: the spec merges first in a pull request of its
-  own, then the work in one pull request, for the reason "Status and audience" gives.
+  own, then the work in one pull request, for the reason "Status and audience" gives. **Ruled**, by
+  the same words.
 - **D3**, bears on `thread@rejected-register@design-entry-search`. Default: the planning skill's
   section "What is already decided" also lists each entry the design-entry search graded `bears`,
   with its outcome, as it lists each standing entry today, so a plan document's reader sees the
-  record its discussion read.
+  record its discussion read. **Ruled**, by the same words.
 - **D4**, bears on no thread: the standing-entry searcher's return has no list of its own for an
   entry kept on a doubt; in this discussion 12 of 41 returned entries carried one in their reason.
   Default: left out of this work; an issue entry, kind `todo`, in `register@agent-skills@issue`, at
-  the harvest.
+  the harvest. **Ruled**, by the same words.
 - **D5**, a material finding against `thread@rejected-register@design-entry-search`, which the
   owner closed on shape p1, round 4: "p1 approved. I believe grouping by quantity only would most
   likely be a bad decision, because then the subagent might need to read completely unrelated
@@ -1322,8 +1333,15 @@ the commit that completes the harvest.
   in full, as the owner's last sentence asks; each reads whole subjects, up to 60 heads, with the
   `rejected` entries those heads cite. It keeps the rest of the owner's words: no section is cut,
   kept and rejected entries of one subject are read together, and grouping is not by quantity
-  alone. **Held**: the dispatch rule of the new agent is written once the
-  owner rules; the rest of the work proceeds.
+  alone. **Ruled**, otherwise: the owner, after the reviews: "For D5 though, I'm not really
+  convinced the 60 entries limit is truly sensible. I would not put a numerical limit on that. But I
+  agree with the split when a component holds too many entries. Just that the cut has to keep
+  making sense at all costs. A component that has a level two subject with more than 60 entries to
+  itself is probably not compartimenting the project sufficiently, and that is probably something an
+  agent should report." "The design-entry search" states the shape: a split along whole subjects,
+  no numeric bound, and an agent reporting a subject too large to read whole. The rejected entry
+  "One search agent per anchor" and the bound of 60 stand for standing entries; the owner chose
+  otherwise for design entries.
 
 ## Harvest
 
@@ -1347,7 +1365,7 @@ commit, with the test it fails.
 | T1, T2 | `register@agent-skills@tripwire`, as the Premortem section words them |
 | AC1, AC2 | reported on at the landing; each spent, or proposed to the owner as a tripwire if it recurs |
 | D4 | an issue entry, kind `todo`, in `register@agent-skills@issue` |
-| the owner's later coverage tool, `argument@rejected-register@a46` | an issue entry, kind `todo`, in `register@core@issue` |
+| the owner's later coverage tool, `argument@rejected-register@a46` | opened on the owner's word before the work: `issue@core@searcher-reports-are-written-and-checked-by-hand` |
 | this spec | deleted in the harvest's commit, cited as `spec@plans@rejected-register` |
 
 ## Later consequences
@@ -1356,8 +1374,8 @@ commit, with the test it fails.
   `skill@knowledge-architect-planning@working-a-slice`, and the retrospective intake dispatch the
   standing-entry searcher and not the design-entry searcher. A later change that sends the new
   searcher there argues it under `skill@knowledge-architect-design`.
-- The owner's coverage tool, `argument@rejected-register@a46`, would read a searcher's three lists
-  against the listing of a group's entries; its issue entry carries that lead.
-- The bound of 60 rests on the measurement `design@agent-skills@standing-entry-search-groups`
-  names, taken on standing entries; real sessions of the design-entry search measure it for design
-  entries.
+- The owner's coverage tool, `argument@rejected-register@a46`, is
+  `issue@core@searcher-reports-are-written-and-checked-by-hand`, for both searchers.
+- A design-entry searcher's report of a subject too large to read whole is the signal the owner
+  named that a Component's design home is not divided enough; a later change that acts on such
+  reports argues it under `skill@knowledge-architect-design`.
