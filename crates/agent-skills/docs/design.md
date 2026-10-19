@@ -2604,7 +2604,8 @@ heads. The nearest rival, a sentence that gives an external specification alone 
 the owner's word, loses on that second instance: the mechanism runs in a project that implements
 no specification. A second rival, sending to the owner every choice that weighs a cost, sends every
 choice, since nearly every choice has a cost or can be made to have one. The rank sentence holds because an edit of a skill can bring
-back a routing to the owner, and with it no session meets two instructions it cannot both obey. The
+back a routing to the owner, and with it no session meets two instructions it cannot both obey,
+as `goal@agent-skills@no-contradiction-in-workflow` asks. The
 owner thought that a list keeping only goals, contradictions and irreversible actions with the
 owner left too large a scope to agents. The fork is the fusion of that list with one that kept scope and weighing with the
 owner too, and keeps with the owner only the weighing no argument settles. A merge is no action that
