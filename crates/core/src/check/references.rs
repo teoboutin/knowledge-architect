@@ -133,9 +133,9 @@ pub(crate) enum Part {
     All,
     /// The references, the links and the wrapped spans.
     References,
-    /// The unanchored path, the retired slug reference, and the three lints on a defined id
-    /// written outside its reference form: a reference-shaped token outside backticks, an id in
-    /// backticks alone, and an id as a plain word.
+    /// The unanchored path and the retired slug reference. The three lints on a defined id
+    /// written outside its reference form are not this part's: a judgement against two trees
+    /// runs them once over both, through [`judge_ids`].
     Lints,
 }
 
@@ -147,9 +147,14 @@ pub(crate) fn judge_part(
     inputs: &Inputs,
     part: Part,
 ) -> (Vec<Finding>, Counts) {
-    let references = part != Part::Lints;
+    let references = matches!(part, Part::All | Part::References);
     let lints = part != Part::References;
-    let ids = entities.by_id();
+    let id_lints = part == Part::All;
+    let tables = if id_lints {
+        vec![IdTable::new(entities, anchors)]
+    } else {
+        Vec::new()
+    };
     let mut out: Vec<Finding> = Vec::new();
     let mut counts = Counts {
         entities: entities.len(),
@@ -244,35 +249,13 @@ pub(crate) fn judge_part(
                         ),
                     ))
                 }
-                // The three lints on ids are exact against the table, so a name that no longer
-                // exists, or that another project defines, is silent: each reports a pointer
-                // written without its reference form, and a word that names nothing here is no
-                // pointer. An id several entries define lists every one and chooses none, so the
-                // checker supplies no meaning the writer did not write.
-                Observation::BareName(id) if lints => {
-                    let forms = defined_forms(id, &ids, entities, anchors, &doc.rel);
-                    if let Some(finding) = id_finding(&doc.rel, l.line, id, &forms, IdForm::Bare) {
-                        out.push(finding);
-                    }
+                Observation::BareName(_)
+                | Observation::PlainWord(_)
+                | Observation::UnquotedReference { .. }
+                    if id_lints =>
+                {
+                    out.extend(id_lint(&doc.rel, l.line, &l.what, &tables));
                 }
-                Observation::PlainWord(id) if lints => {
-                    let forms = defined_forms(id, &ids, entities, anchors, &doc.rel);
-                    if let Some(finding) = id_finding(&doc.rel, l.line, id, &forms, IdForm::Plain) {
-                        out.push(finding);
-                    }
-                }
-                // Beside a backticked reference to an issue entry, a token is the pointer no
-                // checked form expresses, which `design@agent-skills@plain-text-is-no-repair`
-                // lets a writer put in plain text beside the issue that records the gap.
-                Observation::UnquotedReference {
-                    token,
-                    beside_issue: false,
-                } if lints && written_reference(token, anchors) => out.push(Finding::at(
-                    &doc.rel,
-                    l.line,
-                    format!("`{token}` is a reference written without backticks"),
-                    format!("write it in backticks, as `{token}`, so the check reads it"),
-                )),
                 Observation::WrappedSpan(span) if references => out.push(Finding::at(
                     &doc.rel,
                     l.line,
@@ -315,25 +298,91 @@ enum IdForm {
     Plain,
 }
 
-/// The reference of every entity the table defines with this id that `rel` may cite: an item of
+/// One tree's entity table and anchors, with its ids indexed, as the lints on ids read them.
+pub(crate) struct IdTable<'a> {
+    entities: &'a Entities,
+    anchors: &'a Anchors,
+    ids: std::collections::HashMap<&'a str, Vec<(&'a Kind, &'a str)>>,
+}
+
+impl<'a> IdTable<'a> {
+    pub(crate) fn new(entities: &'a Entities, anchors: &'a Anchors) -> Self {
+        Self {
+            entities,
+            anchors,
+            ids: entities.by_id(),
+        }
+    }
+}
+
+/// The lints on ids over documents judged against several trees at once: a commit message
+/// against its commit's tree and its first parent's, per
+/// `design@core@a-commit-message-is-a-document`. An id the two trees define under different
+/// kinds or anchors gets one finding listing every candidate, as in one tree.
+pub(crate) fn judge_ids(docs: &[crate::model::Document], tables: &[IdTable]) -> Vec<Finding> {
+    let mut out = Vec::new();
+    for doc in docs {
+        for l in &doc.observations {
+            out.extend(id_lint(&doc.rel, l.line, &l.what, tables));
+        }
+    }
+    out
+}
+
+/// The finding of a lint on ids on one observation, or `None`.
+///
+/// The three lints are exact against the tables, so a name that no longer exists, or that
+/// another project defines, is silent: each reports a pointer written without its reference form,
+/// and a word that names nothing here is no pointer. An id several entries define lists every one
+/// and chooses none, so the checker supplies no meaning the writer did not write.
+fn id_lint(rel: &Path, line: u32, what: &Observation, tables: &[IdTable]) -> Option<Finding> {
+    match what {
+        Observation::BareName(id) => {
+            id_finding(rel, line, id, &defined_forms(id, tables, rel), IdForm::Bare)
+        }
+        Observation::PlainWord(id) => id_finding(
+            rel,
+            line,
+            id,
+            &defined_forms(id, tables, rel),
+            IdForm::Plain,
+        ),
+        // Beside a backticked reference to an issue entry, a token is the pointer no checked form
+        // expresses, which `design@agent-skills@plain-text-is-no-repair` lets a writer put in
+        // plain text beside the issue that records the gap.
+        Observation::UnquotedReference {
+            token,
+            beside_issue: false,
+        } if tables.iter().any(|t| written_reference(token, t.anchors)) => Some(Finding::at(
+            rel,
+            line,
+            format!("`{token}` is a reference written without backticks"),
+            format!(
+                "write it in backticks, as `{token}`, so the check reads it; where it names \
+                 nothing of this project, rewrite the sentence"
+            ),
+        )),
+        _ => None,
+    }
+}
+
+/// The reference of every entity the tables define with this id that `rel` may cite: an item of
 /// a plan only from inside that plan, as its reference resolves, per
 /// `design@core@plan-item-scope`.
-fn defined_forms(
-    id: &str,
-    ids: &std::collections::HashMap<&str, Vec<(&Kind, &str)>>,
-    entities: &Entities,
-    anchors: &Anchors,
-    rel: &Path,
-) -> Vec<String> {
-    let Some(defined) = ids.get(id) else {
-        return Vec::new();
-    };
-    let mut forms: Vec<String> = defined
+fn defined_forms(id: &str, tables: &[IdTable], rel: &Path) -> Vec<String> {
+    let mut forms: Vec<String> = tables
         .iter()
-        .filter(|(kind, anchor)| {
-            kind.is_harness()
-                || entities.resolve_from(anchors, kind, anchor, id, Some(rel))
-                    == Resolution::Resolved
+        .flat_map(|t| {
+            t.ids
+                .get(id)
+                .into_iter()
+                .flatten()
+                .filter(move |(kind, anchor)| {
+                    kind.is_harness()
+                        || t.entities
+                            .resolve_from(t.anchors, kind, anchor, id, Some(rel))
+                            == Resolution::Resolved
+                })
         })
         .map(|(kind, anchor)| {
             if anchor.is_empty() {
@@ -344,6 +393,7 @@ fn defined_forms(
         })
         .collect();
     forms.sort();
+    forms.dedup();
     forms
 }
 
@@ -391,10 +441,16 @@ fn written_reference(token: &str, anchors: &Anchors) -> bool {
     let anchor_ok = |a: &str| a == "*" || entity::is_anchor_name(a);
     match entity::candidate(token, anchors) {
         Candidate::Reference { kind, anchor, id } => {
-            anchor_ok(anchor) && (kind.takes_a_path() || entity::is_entity_id(id))
+            anchor_ok(anchor)
+                && (kind.takes_a_path()
+                    || if kind.is_register() {
+                        entity::is_entity_id(id)
+                    } else {
+                        entity::is_entry_id(id)
+                    })
         }
         Candidate::Harness { owner, id, .. } => {
-            (owner.is_empty() || entity::is_entity_id(owner)) && entity::is_entity_id(id)
+            (owner.is_empty() || entity::is_entry_id(owner)) && entity::is_entry_id(id)
         }
         _ => false,
     }
@@ -2126,7 +2182,8 @@ mod tests {
     /// The claim: a reference-shaped token outside backticks is reported where its kind and its
     /// segments make a reference, and is silent beside a backticked reference to an issue entry
     /// in its paragraph, per `design@agent-skills@plain-text-is-no-repair`; a token of the wrong
-    /// arity, one whose id is no id, as an address is not, and a placeholder are silent.
+    /// arity, one whose id is no id, as an address is not, one whose id has one segment, and a
+    /// placeholder are silent.
     /// Mutations checked: ignoring `beside_issue` reports line 3; dropping the id grammar from
     /// `written_reference` reports an address, under a harness kind and under a register kind.
     #[test]
@@ -2142,7 +2199,7 @@ mod tests {
                 "notes/prose.md",
                 "See design@a-part@a-decision here.\n\nSee design@a-part@a-decision, beside \
                  `issue@a-part@a-gap`.\n\nNot design@a-part, skill@example.test, design@a-part@Not.an-id, \
-                 nor design@<anchor>@<id>.\n",
+                 design@a-part@one, skill@v2, nor design@<anchor>@<id>.\n",
             ),
         ];
         let present: Vec<String> = docs.iter().map(|(p, _)| p.to_string()).collect();
