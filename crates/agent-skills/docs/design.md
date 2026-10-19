@@ -3090,8 +3090,8 @@ the branch's commits leaves it pointing at nothing. The intake reads the blamed 
 before reading it on the main branch, so the reason is respected at the retrospective's version
 line and at the intake's check of whether a finding still applies.
 
-Naming the commit stands on the owner's weighing, given with the owner's hedge, that the time and
-effort it saves everyone is worth it, at no cost. It is absent from the workflow file because that
+Naming the commit stands on the owner's weighing, hedged, that the small saving of time and effort
+it gives everyone is worth it, at no cost. It is absent from the workflow file because that
 file may become public and holds nothing of the project beyond what a finding needs, per the
 retrospective's rule on its two files, the upstream has no use for a consuming project's commit,
 and the intake that reads the commit reads the project's file.
