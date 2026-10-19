@@ -321,8 +321,8 @@ members the owner named to the rule, the change goes to the owner as one proposa
 **Re-pointing a reference in a head does not touch it.** The edit states nothing new in the head,
 and a change that re-points references across the record, as a renamed entry or a migrated
 reference form does, would otherwise owe the repair of every head it passes through, which is a
-project audit's scope, not that change's. Adding a reference, or rewording a sentence, is more than
-re-pointing.
+project audit's scope, not that change's. Adding a reference, or rewording a sentence, is more
+than re-pointing, and so is removing one, on the owner's word.
 
 The rules apply at the moment a session already reads the head and changes what it says, so a head is repaired at
 the cost of one read. The whole record is repaired at once only by a project audit, on the
@@ -745,8 +745,8 @@ The design this decision did not keep: `rejected@agent-skills@head-cites-every-o
 
 ### A durable record attributes a decision to the owner, and the owner's words verbatim stay in a plan document or a file that leaves `##attribution-replaces-quotation`
 
-`primer@design-heads` states it: a design head, a commit message, a tripwire and an issue entry
-state what the owner decided and how far the decision reaches, never the owner's words verbatim.
+`primer@design-heads` states it: a design head, a commit message, a tripwire, a `rejected` entry
+and an issue entry state what the owner decided and how far the decision reaches, never the owner's words verbatim.
 The verbatim words stay where the deliberation is kept: a plan document's items, per
 `design@agent-skills@plan-records-the-exchange`, and a committed file that leaves once its outcomes
 are carried out, per `design@agent-skills@committed-audit-report`. An attribution is checked against
@@ -1213,7 +1213,7 @@ included; a string literal bound to a name yields none, per
 as live as a sentence in a document, and closing the issue reaches the code. This serves
 `goal@knowledge-architect@design-is-recorded-with-its-arguments`.
 
-### A sentence about the past whose reference dangles is rewritten to the present or removed, except a deleted skill's or agent's reference in a released changelog section and an absent entry in a record of a deliberation, and a quotation of the owner is kept with a reference beside it `##a-past-sentence-is-rewritten`
+### A sentence about the past whose reference dangles is rewritten to the present or removed, except a deleted skill's or agent's reference in a released changelog section and an absent entry, skill or agent in a record of a deliberation, and a quotation of the owner is kept with a reference beside it `##a-past-sentence-is-rewritten`
 
 When an entry is deleted or renamed, a sentence that recorded its past, such as what an earlier
 step wrote, is rewritten to state the present, or removed, and its history stays in the commit
@@ -1225,9 +1225,10 @@ the risk `design@agent-skills@attribution-replaces-quotation` names, against
 `goal@knowledge-architect@the-owner-decides`.
 In a released section of CHANGELOG.md, a reference to a deleted skill or agent goes back to the
 bare name instead, per `design@agent-skills@plain-text-is-no-repair`. In a record of a deliberation,
-an entry its tree does not hold is named by its bare slug instead, per the same head.
+an entry its tree does not hold is named by its bare slug instead, and a skill or an agent by its
+bare name, per the same head.
 
-### Plain text is never the repair of a finding, except text in the checker's syntax beside the issue that records its missing form, a deleted skill's or agent's name in a released changelog section, and an absent entry's bare slug in a record of a deliberation, and no instruction offers an unchecked form as the way to clear one `##plain-text-is-no-repair`
+### Plain text is never the repair of a finding, except text in the checker's syntax beside the issue that records its missing form, a deleted skill's or agent's name in a released changelog section, and an absent entry's, skill's or agent's bare name in a record of a deliberation, and no instruction offers an unchecked form as the way to clear one `##plain-text-is-no-repair`
 
 A form a writer can use is either one the checker judges, and the workflow recommends it, or one
 the checker does not read, and the workflow never directs a pointer into it to clear a finding. So
@@ -1286,7 +1287,10 @@ section's content.
 
 The third exception is an entry that the tree of a record of a deliberation does not hold, nor, for
 a commit message, its first parent's, removed or renamed by the work the record carries, or still to
-be created by it, named there by its bare slug in backticks. A record of a deliberation is where the deliberation is kept: a plan document
+be created by it, named there by its bare slug in backticks. A skill or an agent the work removes
+or is still to create is in the same case, on the owner's word, named by its bare name in
+backticks, which `design@core@bare-skill-name-reported` leaves silent while the tree does not hold
+it. A record of a deliberation is where the deliberation is kept: a plan document
 or a commit message, per `skill@knowledge-architect-decision-recording@three-homes`, and a committed
 file that leaves once its outcomes are carried out, per `primer@design-heads`. The exception
 for an entry the work removes or is still to create is the owner's proposal: for such an entry the

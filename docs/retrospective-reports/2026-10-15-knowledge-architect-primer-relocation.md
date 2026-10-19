@@ -6,7 +6,7 @@
 - **Version used**: built from source, main at `v0.7.0-1-g7af8ca20`, read at `001de95`, as that
   analysis says.
 - **Analysed against**: main at `v0.7.0-62-g6e2b300`.
-- **Standing entries that bear on it**: `issue@agent-skills@a-spec-owes-no-claims-the-landing-commits-must-name`,
+- **Standing entries that bear on it**: `a-spec-owes-no-claims-the-landing-commits-must-name`,
   through P1.
 
 ## P1. The development skill sends a spec's claims to the session, with no source for them

@@ -9,7 +9,7 @@
 - **Analysed against**: main at `v0.7.0-62-g6e2b300`.
 - **Standing entries that bear on it**, from one search over the 84 issues and 60 tripwires, run for
   the 13 files received together:
-  - `issue@agent-skills@a-spec-owes-no-claims-the-landing-commits-must-name`, W1;
+  - `a-spec-owes-no-claims-the-landing-commits-must-name`, W1;
   - `issue@agent-skills@a-premortem-criterion-listed-as-a-default-reads-two-ways`, W4;
   - `issue@agent-skills@a-procedure-tripwire-states-no-severity-bound` and
     `tripwire@agent-skills@rarer-rule-in-the-model`, W3;
@@ -41,7 +41,7 @@
   main, was pinned after the report by `cd09fad`, "[core] A test pins that `anchors` judges a file
   register's home by its directory, not by its README".
 - **c. Whether it is already recorded.** Yes:
-  `issue@agent-skills@a-spec-owes-no-claims-the-landing-commits-must-name` is the same defect, and
+  `a-spec-owes-no-claims-the-landing-commits-must-name` is the same defect, and
   names this fix as one of its two closings; the other is the owner's ruling that the decided design
   is enough. It gates the fix on a reading of past specs, which was not done. No `rejected` entry
   covers the fix: `rejected@agent-skills@spec-plus-detailed-plan` is about steps written out with
@@ -68,7 +68,7 @@
   defined as a slice entry's are; `skill@klarch-development@discriminating-tests` points to them for
   a spec as for a slice; the issue closes in that commit.
 - **Default**: handle now, as h says, closing
-  `issue@agent-skills@a-spec-owes-no-claims-the-landing-commits-must-name`.
+  `a-spec-owes-no-claims-the-landing-commits-must-name`.
 - **Outcome**: accepted.
 
 ## W2. The searcher's dispatch description does not state the order of its positions
