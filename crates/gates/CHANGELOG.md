@@ -56,6 +56,9 @@ subsection is omitted.
 
 ### Workflow
 
+- `agent-skills`, patch: the setup skill shows how a project declares a register of each shape,
+  heading, file and directory, and `dir = "."`, so an adoption can propose one for records the
+  built-in registers do not hold.
 - `agent-skills`, patch: a design discussion's grounding sends the design-entry searcher beside the
   standing-entry searcher, one per Component the question touches, and again for a thread whose
   subject the first search was not given; its first round names the entries graded `bears`, and a
