@@ -2996,12 +2996,10 @@ by the file and the address, and the project's file goes to an intake, per
 `design@agent-skills@project-file-goes-to-an-intake`. The repository is the workflow's own
 upstream, the one name of a project the shipped text holds.
 
-### A retrospective's project file goes to an intake the owner starts, and a kept finding is analysed before it becomes an issue `##project-file-goes-to-an-intake`
+### A kept finding of a retrospective's project file is analysed by an intake before it becomes an issue `##project-file-goes-to-an-intake`
 
-The project's file waits where the retrospective's files went until the owner hands it to an
-intake, `design@agent-skills@intake-skill-home`. The retrospective offers no intake at its own end:
-the owner starts one, usually in a later session and with other files, as the owner chose. The
-intake analyses each finding before anything changes in the project, since the analysis finds what
+The project's file goes to an intake, `design@agent-skills@intake-skill-home`, which analyses each
+finding before anything changes in the project, since the analysis finds what
 a direct entry would record wrongly: a finding already repaired, already recorded, resting on a
 false premise, or proposing a fix that would reverse a recorded head. The direct path is in
 `path@agent-skills@docs/rejected-alternatives.md`, with the measurement that defeated it.
@@ -3019,7 +3017,9 @@ which makes them two activities by the dispatch rule of
 moments. The owner's account of the practice: an intake runs on the owner's word, nearly never
 right after the retrospective unless a finding is critical, usually in a fresh session with no
 memory of the work, on several files at once and on a later branch. The intake applies again while
-its outcomes are carried out, on branches the retrospective's trigger does not name. The nearest
+its outcomes are carried out, on branches the retrospective's trigger does not name. So the
+retrospective offers no intake at its own end: the project's file waits where its files went until
+the owner hands it to an intake. The nearest
 rival, a section of the retrospective that avoids describing twice how the report is read, loses
 on that practice: a session with no session to examine would load the procedure for examining one,
 and every retrospective offer would load the intake. The intake reads the report's format by
@@ -3040,23 +3040,25 @@ A consuming project does not do the workflow's own job. The checks that judge a 
 whether it still applies, whether it is already recorded, whether its fix reverses a recorded head,
 read the workflow's history, design homes and rejected alternatives, which a consuming project does
 not hold. The nearest rival, a triage of the workflow file in the project before it is sent, would
-filter lapses and could check none of that history. The session proposed the scope and the owner
-accepted it, as the owner did the reading of the workflow file for an interaction finding's other
-side.
+filter lapses and could check none of that history. The workflow file is read for an interaction
+finding's other side because that finding has one id in each file, each naming the other.
 
-### A finding whose fix lies in text or code the project does not own is sent upstream, added to the workflow file or to the issue that carries it `##installed-fix-goes-upstream`
+### A finding whose fix lies in the installed text or in the checker is sent upstream, added to the workflow file or to the issue that carries it `##installed-fix-goes-upstream`
 
-A finding of the project's file whose fix lies in text or code the project does not own takes the
+A finding of the project's file whose fix lies in the installed text or in the checker takes the
 outcome "sent upstream". Where the retrospective's workflow file is not sent yet, the finding is
 added to it, with the next number of its letter, its id and the project file's each naming the
 other. Where the issue that carries the workflow file exists and can be edited, its body is edited
 and a comment names the added finding, so that those who follow the issue see it. Where neither
 applies, a new issue carries it. Two premises are assumptions, not measured: that the author of an
-issue can edit its body, and that a body edit notifies nobody where a comment does. Nothing leaves before the owner has read it, per
-`design@agent-skills@retrospective-destination`.
+issue can edit its body, and that a body edit notifies nobody where a comment does. Nothing leaves
+before the owner has read it, per `design@agent-skills@retrospective-destination`.
 
-The text and code the project does not own are, today, the installed text, which the project
-never edits, per `design@agent-skills@overlay-by-separate-skills`, and the checker it pins. The three other outcomes each lose such a finding: handled now, it has
+The set is closed to the two: the installed text, which the project never edits, per
+`design@agent-skills@overlay-by-separate-skills`, and the checker it pins are the text and code a
+project takes from the workflow without owning them, and the workflow's repository, which the
+outcome reaches, maintains both and nothing else. The three other outcomes each lose such a
+finding: handled now, it has
 nothing the project can edit; as an issue, it sits in the project's register, where it cannot
 close and which the upstream cannot cite, per `design@agent-skills@premortem-as-watch-points`; as
 no change, it is dropped. The audit sends its findings on the installed text upstream for the same
@@ -3088,20 +3090,20 @@ the branch's commits leaves it pointing at nothing. The intake reads the blamed 
 before reading it on the main branch, so the reason is respected at the retrospective's version
 line and at the intake's check of whether a finding still applies.
 
-Naming the commit is the owner's weighing: the owner thought it worth it, since it would save a
-bit of time and effort for everyone, and carries no downside. Its absence from the workflow file is the session's proposal, which the
-owner accepted: that file may become public and holds nothing of the project beyond what a finding
-needs, per the retrospective's rule on its two files, the upstream has no use for a consuming
-project's commit, and the intake that reads the commit reads the project's file.
+Naming the commit stands on the owner's weighing, given with the owner's hedge, that the time and
+effort it saves everyone is worth it, at no cost. It is absent from the workflow file because that
+file may become public and holds nothing of the project beyond what a finding needs, per the
+retrospective's rule on its two files, the upstream has no use for a consuming project's commit,
+and the intake that reads the commit reads the project's file.
 
 ### The intake judges a fix of agent-facing text by the standard every writer and judge of that text applies `##intake-shares-the-admission-standard`
 
 `skill@knowledge-architect-retrospective-intake` judges a finding's fix by
-`skill@knowledge-architect-agent-configuration@admission-standard`, and so does this repository's
-intake of received files, which reads the installed one whole, read whole where it shapes a
+`skill@knowledge-architect-agent-configuration@admission-standard`, read whole where it shapes a
 fix, and by its lapse rule where it judges a finding's kind: the need test, the evidence an
 addition needs and the kind of a gap, the lapse rule, the repair by cause with its instruction
-count and net growth, and the record check. What admits a finding is the intake's own: a real
+count and net growth, and the record check. This repository's intake of received files, which
+follows the installed one, judges by the same standard. What admits a finding is the intake's own: a real
 session behind each finding, and the owner's ruling on every finding.
 
 The direction is the owner's: the owner judged it important, as the owner's view, that the intake

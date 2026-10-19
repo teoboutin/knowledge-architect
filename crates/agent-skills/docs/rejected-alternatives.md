@@ -91,9 +91,10 @@ lost to `design@agent-skills@expectation-set-bounds-scope`. `live`. It would kee
 every skill's text and out of the retrospective, at the cost of a change to the install layout. The
 texts that read the sets, the retrospective, the intake and the admission standard of the
 agent-configuration skill, would all reach them by a pointer to the file, where today the two others
-point to the retrospective's section: the file adds one pointer and removes none. It wins if the
-sets grow beyond what one section of the retrospective can hold, which
-`issue@agent-skills@expectation-sets-for-the-installed-skills` may bring about.
+point to the retrospective's section: the file adds one pointer and removes none. A pointer to the
+section loads the section alone, so no reader of the sets loads the rest of the retrospective
+through it, the admission standard included. It wins if a reader is shown to need the sets where
+the retrospective's section cannot be reached, as a text read outside the installed set would.
 
 **A project's kept retrospective finding turned straight into an issue entry, with no analysis** —
 lost to `design@agent-skills@project-file-goes-to-an-intake`. `live`. The first use of this repository's
