@@ -249,10 +249,11 @@ per-round delta is the draft it reads. Its brief names
 `agent@knowledge-architect-transcript-reviewer@extract-transcripts`, read whole, for which lines
 it keeps and which it labels as the owner's: the transcript reviewer then checks the document
 against the same lines. Where one argument ends and the next begins is decided at
-assembly, and the transcript reviewer of `skill@knowledge-architect-planning@plan-reviews` checks that no argument was lost. The status section names the
-transcript files read, so that a reviewer reads the same ones. Each file is found by the
-discussion's opening message, never by a session identifier, as `skill@knowledge-architect-review`
-says. Where the harness keeps no
+assembly, and the transcript reviewer of `skill@knowledge-architect-planning@plan-reviews` checks that no argument was lost. The status section quotes, for
+each session the discussion spans, the message where the discussion begins in it, so that a
+reviewer reads the same transcripts: each file is found by that message, never by a session
+identifier, as `skill@knowledge-architect-review` says, and the document names no file of the
+transcript directory, whose path holds the session identifier and the machine's home directory. Where the harness keeps no
 transcript, assemble from the conversation, and say so, and why, in the commit that adds the
 document.
 
