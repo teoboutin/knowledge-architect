@@ -36,7 +36,7 @@ Instances seen:
   `tripwire@agent-skills@rule-title-wider-than-its-argument`;
   `tripwire@agent-skills@pointer-not-followed`; and
   `tripwire@agent-skills@attribution-loses-the-scope`, which watches a misstated ruling as
-  `ruling-lost-in-change` does.
+  `tripwire@agent-skills@ruling-lost-in-change` does.
 - Two of the five have since been met by their letter, on slips repaired before their merge, and
   ruled not fired on that ground. `tripwire@agent-skills@attribution-loses-the-scope`: in the
   branch that set what enters agent-facing text, the transcript review found two attributions wider

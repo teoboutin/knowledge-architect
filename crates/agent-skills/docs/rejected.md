@@ -41,8 +41,8 @@ owner prove to be what keeps the owner answering what the record could settle.
 
 `live`. Two sessions bent such a quotation to get it past the checker, one by turning spans of
 reference kinds still to come into placeholders, in the agent-configuration-entities milestone, one
-by writing a reference form bare beside no issue entry, in the session that wrote the
-path-quickfixes spec; an intake of three retrospective files found both. A doubt remains that an
+by writing a reference form bare beside no issue entry, in the session that wrote
+`spec@plans@path-quickfixes`; an intake of three retrospective files found both. A doubt remains that an
 attribution keeps the scope a quotation showed, which
 `tripwire@agent-skills@attribution-loses-the-scope` watches, and this is the candidate if it fires.
 

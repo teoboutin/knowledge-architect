@@ -427,7 +427,7 @@ mod tests {
     #[test]
     fn a_milestone_entry_is_its_readme_whole() {
         let text = "# A milestone\n\nIts plan.\n\n# A second top heading\n\nMore of it.\n";
-        let docs = [("docs/plans/milestones/m/README.md", text)];
+        let docs = [("docs/plans/milestones/m-one/README.md", text)];
         let tree: Vec<PathBuf> = docs.iter().map(|(p, _)| PathBuf::from(p)).collect();
         let manifest = Manifest::parse(
             Path::new("/nowhere"),
@@ -446,7 +446,7 @@ mod tests {
         assert_eq!(found.len(), 1, "{found:#?}");
         assert_eq!(
             (found[0].anchor.as_str(), found[0].id.as_str()),
-            ("plans", "m")
+            ("plans", "m-one")
         );
         assert_eq!(found[0].title, "A milestone");
         assert_eq!(found[0].group, None);

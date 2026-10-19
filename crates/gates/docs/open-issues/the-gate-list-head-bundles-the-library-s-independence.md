@@ -35,7 +35,7 @@ the checker", citing the gate-list head.
 **What was searched.** The commit that created the head, "The gates runner is a published
 library, and xtask keeps only this repository's list", states "The library depends on nothing of
 the checker." in its message, with no reason. The deleted plan document of the extraction,
-`path@elsewhere@docs/plans/v0-1-extraction.md`, section 3.10, records the thread gates-crate and
+`path@elsewhere@docs/plans/v0-1-extraction.md`, section 3.10, records the thread #gates-crate and
 the facts it rested on. Among them, "the root finder's use of the manifest's name" is listed as
 one of four points that were this repository's own. That explains why the root finder takes the
 marker's name from the caller. It states no reason why the crate as a whole depends on nothing of

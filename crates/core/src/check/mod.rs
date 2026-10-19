@@ -392,7 +392,7 @@ mod phase_tests {
         let m = manifest("[locations.papers]\npath = \"docs\"\nregisters = [\"issue\"]\n");
         let model = Model::from_documents(vec![(
             PathBuf::from("docs/design.md"),
-            "# Design\n\n### A decision `##one`\n".to_string(),
+            "# Design\n\n### A decision `##decision-one`\n".to_string(),
         )]);
         let stop = foundation_over(&m, complete_tree(), &model).expect_err("the run stops");
         assert_eq!(stop.phase, Phase::Resolution, "{:#?}", stop.findings);
@@ -422,7 +422,7 @@ mod phase_tests {
         );
         let clean = Model::from_documents(vec![(
             PathBuf::from("docs/design.md"),
-            "# Design\n\n### A decision `##one`\n".to_string(),
+            "# Design\n\n### A decision `##decision-one`\n".to_string(),
         )]);
         assert!(foundation_over(&m, complete_tree(), &clean).is_ok());
     }

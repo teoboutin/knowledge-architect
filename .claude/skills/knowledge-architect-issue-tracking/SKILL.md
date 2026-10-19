@@ -62,7 +62,7 @@ measurement to a change.
 ## An issue entry `##issue-entry`
 
 One file, `<id>.md`, in the anchor's `open-issues/` directory or in one of its declared group
-subdirectories. The id is the file's basename, matches `[a-z0-9]+(-[a-z0-9]+)*`, says what the
+subdirectories. The id is the file's basename, matches `[a-z0-9]+(-[a-z0-9]+)+`, says what the
 entry is about, and is unique in the directory. It is what every `issue@<anchor>@<id>` reference
 names. The file's shape, which `cargo klarch check` asserts:
 

@@ -37,7 +37,7 @@ locations, register instances and file entries. Report those counts as well as t
 defined count that grows while the reference count does not is an anchor nobody cites, and the
 reverse is a family of pointers about to dangle.
 
-%% The table below restates `design@core@an-unresolved-reference-is-reported`, `design@core@candidate-rule-and-retired-forms`, `design@core@every-path-names-its-anchor`, `design@core@trailing-slash-claims-directory`, `design@core@a-slug-elsewhere-defines-nothing`, `design@core@an-entry-is-a-heading-at-the-register-level`, `design@core@an-entity-belongs-to-its-anchor`, `design@core@links-are-navigation-rows` and `design@core@orphan-rejected-entry`.
+%% The table below restates `design@core@an-unresolved-reference-is-reported`, `design@core@candidate-rule-and-retired-forms`, `design@core@every-path-names-its-anchor`, `design@core@trailing-slash-claims-directory`, `design@core@a-slug-elsewhere-defines-nothing`, `design@core@an-entry-is-a-heading-at-the-register-level`, `design@core@an-entity-belongs-to-its-anchor`, `design@core@links-are-navigation-rows`, `design@core@orphan-rejected-entry` and `design@core@bare-skill-name-reported`.
 | failure | what it actually means |
 | --- | --- |
 | `is referenced and` … `defines no` | a pointer into nothing: the anchor carries the register and no entry there has that id. Define it where the decision is made, or point at the entry that exists. |
@@ -51,6 +51,8 @@ reverse is a family of pointers about to dangle.
 | `heading` … `home carries no slug` | a heading at its register's entry level with no slug: an entry nothing lists and no reference can name. Either it is an entry and takes a slug, or it is section text and moves to another level. |
 | `is also defined at` | one id defined twice in one register instance; usually a rename that left one behind. A reference must resolve to exactly one entity. |
 | `is linked from a file that is not a navigation home` | a relative markdown link in prose. A pointer in prose is a reference. |
+| `is a reference written without backticks`; `is written in backticks without its kind`; `is written as a plain word` | a pointer to a live entry written outside its reference form, which no check resolves: when the entry moves or leaves, it goes stale unseen. A plain word meant as an ordinary term shows a slug that names a subject rather than its decision: the entry is renamed. |
+| `is an id of one segment` | a slug of one word. Every id has two segments or more, so that no ordinary word is a defined id. |
 
 %% The paragraph below restates `design@core@candidate-rule-and-retired-forms`, `design@core@every-path-names-its-anchor` and `design@core@ignored-targets-are-not-asserted`.
 **What the checks cannot see.** Some backticked spans are silent: a bare filename named in

@@ -274,7 +274,7 @@ path the tree does not hold) and `plans` are reserved.
   `argument`, `criterion` and `acceptance`, are level-three headings under the section of their
   kind.
 
-An id matches `[a-z0-9]+(-[a-z0-9]+)*`.
+An id matches `[a-z0-9]+(-[a-z0-9]+)+`: two segments or more.
 
 **A reference** is one backticked span, `<kind>@<anchor>@<id>`. The kind is a register's name, a built-in
 one or one the manifest declares, and the reference names one entry of it; or `register`, which names a register's home; or `path`, which
@@ -540,7 +540,7 @@ at level two or four. Nowhere else: a slug at another heading level, in a table 
 of a plain line, in the middle of a line or in a file that is not the design home defines nothing.
 Outside a fenced block, `{{command}} check` reports it as a misplaced definition; a reference to it
 resolves to nothing.
-The slug is an id in the grammar `[a-z0-9]+(-[a-z0-9]+)*`, unique in the design home.
+The slug is an id in the grammar `[a-z0-9]+(-[a-z0-9]+)+`, unique in the design home.
 
 **When the decision was a thread of a design discussion, its slug is the thread's name**, unless
 that name misdescribes the decision as approved, as a name for the change it proposed does. The
@@ -608,7 +608,7 @@ the owner named to the rule, the change goes to the owner as one proposal, as a 
   tripwire fires; work closes an entry.
 - `skill@knowledge-architect-design`: a design question has an open solution space; a requested
   change whose design is not settled, to ground it and find out whether it is bounded work;
-  keep-or-change about an existing design; a bug trend suggests the design is the problem; a
+  whether to keep or change an existing design; a bug trend suggests the design is the problem; a
   discussion is reverting to multiple-choice menus, minimal-solution defaults, or approval-seeking
   closers.
 - `skill@knowledge-architect-planning`: a design discussion converged on its full path; a slice of a

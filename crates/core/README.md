@@ -104,7 +104,11 @@ entries its home defines, the `path` kind against the tree, the `planned` kind a
 from the tree, the `register` kind against the anchors that carry the register, and, under the `claude` harness, a skill, an agent, the primer and the root
 CLAUDE.md, cited with no anchor as `skill@<name>@<slug>` — and reports the retired slug
 reference form and the unanchored path shape where either names something of this project, and
-a backticked bare name of a skill or an agent, per `design@core@bare-skill-name-reported`.
+a defined id written outside its reference form: a reference-shaped token outside backticks, per
+`design@core@candidate-rule-and-retired-forms`, and an id written in backticks alone or as a plain
+word, per `design@core@bare-skill-name-reported`. An id several entries define gets one finding
+listing each reference, and a quotation, between double quotes or on a blockquote line, is read by
+none of the three.
 The directory of an anchor other than the root has no spelling under its own name, so a reference
 names it from the anchor above it, as `path@<parent-anchor>@<dir>/`, per
 `design@core@every-path-names-its-anchor`. An illustration of a form writes its id as a placeholder
@@ -285,7 +289,7 @@ With `harness = []` no component owes a CLAUDE.md, and nothing is installed or c
 `design@core@agents-table`.
 
 **Adopting the workflow starts with the install.** The skill that sets a project up,
-knowledge-architect-setup, is one of the files it writes, so a project first holds the
+`skill@knowledge-architect-setup`, is one of the files it writes, so a project first holds the
 smallest manifest the install accepts, at its root, `<version>` being the version of the checker
 the project runs:
 
@@ -481,7 +485,7 @@ its `README.md` names the entry's own reference. A register named `register` is 
 
 **A plan's name reads as nothing else.** A milestone's name or a spec's id that is the name of a
 component, of a location or of `plans`, `elsewhere` or `*`, and one name used under both homes,
-are findings. So is a milestone name outside the id grammar, `[a-z0-9]+(-[a-z0-9]+)*`. An entry of
+are findings. So is a milestone name outside the id grammar, `[a-z0-9]+(-[a-z0-9]+)+`. An entry of
 a declared directory register gives way to every plan of the same name.
 
 A tree that breaks this layout stops the run at phase 2, except a home's missing `README.md` or

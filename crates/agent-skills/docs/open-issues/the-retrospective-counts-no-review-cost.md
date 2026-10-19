@@ -18,7 +18,7 @@ re-derivation of past arguments, and fewer decisions reversed by accident". No i
 any of them. The retrospective, `path@agent-skills@content/skills/retrospective/SKILL.md`, asks
 standing questions and writes two files, and none of its sections asks for a count.
 
-The three numbers, as the owner approved them in a keep-or-change evaluation of the project's
+The three numbers, as the owner approved them in an evaluation, keep or change, of the project's
 direction:
 
 - **review rounds**: the review dispatches the branch went through before its merge;

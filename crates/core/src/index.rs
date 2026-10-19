@@ -582,10 +582,13 @@ mod tests {
             "[project]\nchecker-version = \"fixture\"\nname = \"a-project\"\ncomponents = []\n\n\
              [walk]\nskip-dirs = []\nskip-files = []\n\n";
         let manifest = Manifest::parse(std::path::Path::new("/nowhere"), text).expect("declared");
-        let tree: Vec<PathBuf> = ["docs/plans/specs/s.md", "docs/plans/milestones/m/README.md"]
-            .iter()
-            .map(PathBuf::from)
-            .collect();
+        let tree: Vec<PathBuf> = [
+            "docs/plans/specs/a-spec.md",
+            "docs/plans/milestones/m-one/README.md",
+        ]
+        .iter()
+        .map(PathBuf::from)
+        .collect();
         let mut paths: Vec<String> = generated_index_paths(&manifest, &tree)
             .into_iter()
             .filter(|p| p.starts_with("docs/plans"))
@@ -596,7 +599,7 @@ mod tests {
             paths,
             vec![
                 "docs/plans/milestones/index.md",
-                "docs/plans/milestones/m/index.md",
+                "docs/plans/milestones/m-one/index.md",
                 "docs/plans/specs/index.md",
             ]
         );

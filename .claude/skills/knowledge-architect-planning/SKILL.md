@@ -163,7 +163,7 @@ so in one line rather than being omitted, so a reader can tell an empty section 
 | What is already decided | the recorded decisions the design rests on and does not argue again, as references; and each recorded decision the work reverses or rewrites, with every text that `cargo klarch show` lists as referencing it (a tripwire, an issue, a restatement in a `CLAUDE.md` or a skill, a README, a comment), and the step, slice or harvest that judges or updates each; and each standing entry the discussion's search returned, and each design or `rejected` entry its design-entry search graded `bears`, with its outcome: how it bears on the work, or that it bears on nothing |
 | Criteria | one item per criterion, ``### <criterion> `##<id>` ``: its kind, its source and its satisfaction |
 | Threads | one item per thread, ``### <resolution> `##<id>` ``: who proposed it and in which round, its final state, the arguments that moved it, the section that carries its shape, the durable home that will harvest it, and the owner's words that closed it, verbatim, with their round, or, for a thread closed `argued`, the argument that closed it |
-| Arguments | one item per argument of the discussion, ``### <argument> `##a<n>` ``: its round, who gave it, the threads it bears on, and its key words verbatim |
+| Arguments | one item per argument of the discussion, ``### <argument> `##arg-<n>` ``: its round, who gave it, the threads it bears on, and its key words verbatim |
 | New names, in one place | every new name the design uses (a type, a function, a field, an event, a bound, a counter) in one fenced block with the file it goes in; a name that exists in the code is listed as existing |
 | Decided design | one subsection per thread closed `approved` or `argued`: the shape, the argument, the nearest rival and the fact that defeated it |
 | Mapping tables | one table per total function the code will need, over its whole domain: which existing thing becomes which new thing. Empty when the work needs none |
@@ -218,8 +218,8 @@ level-three heading under the section of its kind, the statement first and the s
 Criteria `criterion`, Acceptance criteria `acceptance`. Every level-three heading of those four
 sections is an item, and a slug anywhere else in a plan document defines nothing.
 
-- An id is in the grammar `[a-z0-9]+(-[a-z0-9]+)*`. A thread keeps the slug the discussion minted.
-  An argument is numbered `a1`, `a2`, …, in order of appearance and never reused, in one sequence
+- An id is in the grammar `[a-z0-9]+(-[a-z0-9]+)+`. A thread keeps the slug the discussion minted.
+  An argument is numbered `arg-1`, `arg-2`, …, in order of appearance and never reused, in one sequence
   across a milestone's README and its slice specs, which share one namespace.
 - An item is cited `<kind>@<plan>@<id>`, where the plan is a spec's id, or the milestone's name for
   an item of the milestone document or of any of its slice specs, and only from inside its own plan: the spec file, or the milestone's directory. From anywhere

@@ -136,7 +136,7 @@ It is never named as an artifact the activity writes, because the text names bot
 design skill calls the decision record, and one called "open-issues" with the issue directory. One
 exception holds: agent-configuration is named like the configuration it edits. Its nearest rival,
 agent-setup, reads like the setup skill, and the installer's prefix makes the full name,
-knowledge-architect-agent-configuration, read as a skill; the cost is that the name is also the
+`skill@knowledge-architect-agent-configuration`, read as a skill; the cost is that the name is also the
 artifact's. A name built on a verb form, such as discussing-design-decisions, reads as a sentence
 and grows long. That argument is the owner's: "naming an "action" makes the skill names into full
 sentences, which is weird and often too long". The rule binds a project's own skills too, through
@@ -400,7 +400,7 @@ produced the need. An unprompted behaviour shows the gap, not the wording that f
 of a review or of an audit originates an edit only where its defect is provable by reading: a
 contradiction, a broken trigger, a factual error, an instruction whose words allow two acts, a
 provable gap, divergent verdicts that a review standard and an audit standard give over one text
-of the project, or a statement that fails the need test of `design@agent-skills@need-test`. A
+of the project, or a statement that fails the need test of `design@agent-skills@statement-names-an-act`. A
 provable gap predicts no behaviour: it is an input that an act needs, that no text
 supplies and that judgement cannot derive, since it is a fact fixed elsewhere, such as a format the
 checker enforces, a name or a path. So a reading admits its fill, and the fill, which adds an
@@ -523,7 +523,7 @@ same reasoning. Only the design skill and the setup skill state a set so far:
 
 The design this decision did not keep: `rejected@agent-skills@separate-expectation-sets-file`.
 
-### Every statement of agent-facing text names an act an agent does differently because of it, or it is not written `##need-test`
+### Every statement of agent-facing text names an act an agent does differently because of it, or it is not written `##statement-names-an-act`
 
 Every statement of agent-facing text, installed or a project's own, passes the need test of
 `skill@knowledge-architect-agent-configuration@admission-standard`: name the act of an agent
@@ -561,7 +561,7 @@ otherwise delete both.
 ### Every rule on what enters agent-facing text and how a change to it is shaped lives in one section of the agent-configuration skill `##admission-rules-home`
 
 `skill@knowledge-architect-agent-configuration@admission-standard` holds the need test of
-`design@agent-skills@need-test`, the evidence an addition needs, the lapse rule, the kind of a gap,
+`design@agent-skills@statement-names-an-act`, the evidence an addition needs, the lapse rule, the kind of a gap,
 the shape of a repair with its instruction count and net growth, the record check, and the outcomes
 of a need-test failure. Every actor that writes or judges agent-facing text reads it whole at the moment it judges: a
 session writing such text, a skill that moves text into it, the review axis on agent-facing text,
@@ -671,7 +671,7 @@ home is built intent the code is checked against.
 
 ### A reason recorded at the code binds as intent at its scale, below the design home `##local-intent-binds`
 
-The primer's intent-and-claims rule has two classes, and its verify-before-relying rule a third. A
+`primer@intent-and-claims` has two classes, and `primer@verify-before-relying` a third. A
 design home is authority. A reason recorded
 at the code, an inline comment saying why the code is shaped so or the message of the commit that
 argued it, is intent at the scale of that code: it binds as a presumption, a change that defeats it
@@ -687,7 +687,7 @@ The owner's argument: "Since the workflow is instructing that "code follow desig
 not argumented in design records could end up judged "superfluous" and deleted autonomously." Fewer
 heads, per `design@agent-skills@a-head-is-owed-by-an-entry-test`, leaves more intent in comments.
 Without a class of its own, an inline comment reads as a claim about the code, to verify and
-discard; and keep-or-change's rule on an implementation coincidence applies only while an incumbent
+discard; and the design skill's rule, on evaluating an incumbent, on an implementation coincidence applies only while an incumbent
 design is evaluated. A comment is part of the code, so the head prevails over it. The order serves
 `goal@knowledge-architect@agents-work-without-drift`. In a project whose comments the checker does
 not read, a reference in a comment is not checked, which weakens this record there:
@@ -765,7 +765,7 @@ The owner judged verbatim quotations of little value most of the time, as long a
 correct, and, as a hedged view, out of place in design heads. A verbatim quotation also costs the checker's syntax: two sessions bent one to get it past
 the checker, one by writing spans of reference kinds still to come as placeholders, in the
 agent-configuration-entities milestone, and one by writing the owner's words naming a skill's
-reference form bare, in the session that wrote the path-quickfixes spec, which
+reference form bare, in the session that wrote `spec@plans@path-quickfixes`, which
 `design@agent-skills@plain-text-is-no-repair` does not admit. The nearest rival, keeping the
 quotation in a head whose ground is the owner's words, keeps that cost where the ground is most
 read. The risk is that an attribution loses a scope or a hedge the words showed: in this
@@ -1051,7 +1051,7 @@ the record, a measurement or a source is the session's decision in the same way:
 review's findings, written into the plan document with its ground and no label, per
 `skill@knowledge-architect-planning@plan-reviews`; in a review's items, per
 `skill@knowledge-architect-review@what-review-leaves`; and in an audit's rule read two ways that a
-record states, per `skill@knowledge-architect-project-audit@outcomes`.
+record states, per `skill@knowledge-architect-project-audit@finding-outcomes`.
 
 It serves `goal@knowledge-architect@the-owner-decides`, under which the record settles what such a
 default decides, since it holds no fork, while the owner, told of it in the bounded path's one
@@ -2147,7 +2147,7 @@ The design this decision did not keep: `rejected@agent-skills@commit-messages-as
 ### Every finding of an audit takes exactly one outcome of its axis's table, and none is left to judgement `##audit-outcomes`
 
 Every finding takes exactly one outcome, from the generic table of
-`skill@knowledge-architect-project-audit@outcomes` as its axis's section fills it: applied in the
+`skill@knowledge-architect-project-audit@finding-outcomes` as its axis's section fills it: applied in the
 branch, put to the owner, sent upstream, an issue entry, or nothing. An edit that changes no
 ruling of the owner is applied in the audit's branch: a rewording, a tense, a reference, a split
 that moves no word of the owner, a rejected alternative repaired in place, a factual error, a
@@ -2162,7 +2162,7 @@ provable gap, a head in the wrong Component and a conflict with a goal go to the
 `goal@knowledge-architect@the-owner-decides` and `design@agent-skills@questions-go-to-their-authority`; any finding no case names goes there too. In the
 agentic-workflow axis, an instruction read two ways goes to the owner where nothing recorded states
 the reading meant, and is applied where a design head or another instruction states it. A predicted gap, per `design@agent-skills@behaviour-additions-need-real-use`, becomes an issue on the project's own text and is sent upstream on the installed text. An unneeded statement, per
-`design@agent-skills@need-test`, takes the outcome of the table of
+`design@agent-skills@statement-names-an-act`, takes the outcome of the table of
 `skill@knowledge-architect-agent-configuration@admission-standard`: deleted in the branch where it
 carries no instruction, moved to a `%%` comment of the installed source where only its maintainer
 reads it, and put to the owner where it is an instruction no agent performs; a review applies the
@@ -2327,7 +2327,7 @@ corpus claims about the checker or the harness.
 The corpus is the owner's: the root `CLAUDE.md` and the content of the agent configuration
 directory. So is the exclusion of the scoped `CLAUDE.md` files next to the code, which the owner judged more like developer documentation than instructions to follow. `issue@core@a-home-for-developer-contracts-outside-agent-configuration`
 points the same way. The cost is that no audit reads a scoped `CLAUDE.md`: the need test of
-`design@agent-skills@need-test` reaches one through its writer and the review axis on agent-facing
+`design@agent-skills@statement-names-an-act` reaches one through its writer and the review axis on agent-facing
 text only. Every auditor
 reads the whole corpus, per `design@agent-skills@workflow-axis-lenses`, which rests on one agent
 being able to read it whole: `git ls-files CLAUDE.md .claude | grep -v open-issues | xargs wc -w`
@@ -2387,7 +2387,7 @@ prose. The restatements are in this axis on the owner's word, given when they we
 design-record axis: the owner judged that they read another thing than that axis does, and placed
 them, as the owner's opinion, in the agentic-workflow axis.
 
-L9 reads each statement of the corpus against the need test of `design@agent-skills@need-test`, so
+L9 reads each statement of the corpus against the need test of `design@agent-skills@statement-names-an-act`, so
 that the audit and the review axis on agent-facing text judge one statement by one standard, per
 `design@agent-skills@admission-rules-home`. A lens of its own, rather than a widened L5, is the owner's choice; L5 judges a restatement
 against its home, and L9 whether a statement is needed at all.
@@ -2407,7 +2407,7 @@ instruction and the two acts its words allow; a provable gap, a requirement and 
 no text supplies and judgement cannot derive, since it is a fact fixed elsewhere, such as a format
 the checker enforces, a name or a path, not a choice an agent could make; divergent verdicts, one text of the project and the sentence of each standard that judges it; a
 restatement or a pointer its home does not allow; and an unneeded statement, the statement and the
-act tried, per `design@agent-skills@need-test`. A predicted gap, "an agent might misjudge X", leads to no edit:
+act tried, per `design@agent-skills@statement-names-an-act`. A predicted gap, "an agent might misjudge X", leads to no edit:
 on the project's own text it is an issue that states what a real session would have to show, and
 on the installed text it is sent upstream, per `design@agent-skills@audit-outcomes`. A case no instruction covers, where judgement can
 decide, is no finding, per `primer@room-to-judge`. A finding about how the owner works is outside
@@ -2430,7 +2430,7 @@ A confirmed finding of two readings is repaired even where both acts it allows a
 `design@agent-skills@audit-outcomes` says. The rival that left it to judgement where no text rules
 either act out would have left 6 of the 14 findings of two readings the session kept at the fifth
 pass, by a reading of each against the corpus, the design homes and the goals at the commit that
-pass audited. The plan document of that work, the deleted spec agentic-workflow-axis, holds the
+pass audited. The spec of that work, deleted at its landing, holds the
 measurement, and `git log --diff-filter=D --name-only -- docs/plans/` finds it. The findings of a
 reading are worth their repairs: of the first pass, the owner observed that several findings were likely the
 source of a misbehaviour the owner had seen.
@@ -2703,7 +2703,7 @@ room to judge, which states `goal@agent-skills@installed-text-leaves-room-to-jud
 session meets a situation no instruction covers; built intent
 and a reason at the code, `design@agent-skills@design-home-is-built-intent` and
 `design@agent-skills@local-intent-binds`; the verification rules,
-`design@agent-skills@verification-in-primer`; the working-prose rules, whose reasons stand beside
+`design@agent-skills@verification-in-primer`; `primer@working-prose`, whose reasons stand beside
 them in the primer; the outcomes of something met outside the task,
 `design@agent-skills@met-outside-the-task-outcomes`; the "Decided" section,
 `design@agent-skills@decisions-reported-to-the-owner`; the checker's model and its CLI facts,

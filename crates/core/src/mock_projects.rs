@@ -426,8 +426,9 @@ mod planted {
         // a slice spec cited by path, a milestone named as a path's anchor, and a pointer from
         // the root reaching inside `plans`.
         // And an item of a plan cited from outside it, which the scoped resolution refuses, and
-        // a `rejected` entry no design entry cites, which the orphan check reports.
-        ("references", 24, "is referenced"),
+        // a `rejected` entry no design entry cites, which the orphan check reports. Then, in
+        // notes/ids.md, a defined id written outside its reference form, once per lint.
+        ("references", 27, "is referenced"),
         // One defect per shape assertion over what is there: a missing index, an undeclared
         // kind, a missing owed subsection, an undeclared group, a file of another suffix, and
         // frontmatter that does not parse.
@@ -673,6 +674,20 @@ mod planted {
         );
     }
 
+    /// The claim: each lint on a defined id reports its planted defect, a reference-shaped
+    /// token outside backticks, an id in backticks alone and an id as a plain word, each naming
+    /// the reference it is written for.
+    #[test]
+    fn each_lint_on_a_defined_id_reports_its_planted_defect() {
+        let token = one("`goal@planted@planted-goal` is a reference written without backticks");
+        assert!(token.starts_with("notes/ids.md:5"), "{token}");
+        let bare = one("`planted-goal` is written in backticks without its kind");
+        assert!(bare.starts_with("notes/ids.md:7"), "{bare}");
+        assert!(bare.contains("names `goal@planted@planted-goal`"), "{bare}");
+        let plain = one("`planted-goal` is written as a plain word");
+        assert!(plain.starts_with("notes/ids.md:9"), "{plain}");
+    }
+
     #[test]
     fn a_reference_across_a_component_boundary_resolves() {
         // Line 23 of that document points at the decision the component below the root
@@ -825,8 +840,11 @@ mod unsound {
         .contains("notes/gone.md"));
         assert!(one_of(&found, "retired file shape").starts_with("docs/open-issues.md"));
         let home = one_of(&found, "carries no tripwire home");
-        assert!(home.starts_with("parts/widget/docs/tripwires.md"), "{home}");
-        assert!(home.contains("`widget`"), "{home}");
+        assert!(
+            home.starts_with("parts/the-widget/docs/tripwires.md"),
+            "{home}"
+        );
+        assert!(home.contains("`the-widget`"), "{home}");
         // A location carries the registers it declares and nothing else, so a missing home
         // is a finding against the location.
         assert!(one_of(
@@ -857,25 +875,25 @@ mod unsound {
         .starts_with("docs/plans/milestones/register.toml"));
         assert!(
             one_of(&found, "a milestone directory holds no register.toml")
-                .starts_with("docs/plans/milestones/twice/register.toml")
+                .starts_with("docs/plans/milestones/held-twice/register.toml")
                 && one_of(&found, "a milestone directory holds no register.toml")
                     .contains("a milestone's slice specs sit beside its README, ungrouped")
         );
-        assert!(one_of(&found, "the milestone `widget` is no anchor")
+        assert!(one_of(&found, "the milestone `the-widget` is no anchor")
             .contains("is the name of a component"));
         assert!(one_of(&found, "the milestone `Not_An_Id` is no anchor")
             .contains("its slices `spec@<id>@<slice>`"));
         assert!(one_of(&found, "the milestone `Not_An_Id` is no anchor")
-            .contains("is not lower-case words"));
+            .contains("is not two or more lower-case words"));
         assert!(one_of(&found, "the spec `agent-config`").contains("is the name of a location"));
-        assert!(one_of(&found, "the spec `twice`").contains("is also the name of a milestone"));
+        assert!(one_of(&found, "the spec `held-twice`").contains("is also the name of a milestone"));
         // A file beside a directory that is no milestone is no retired single file of any home,
         // so the layout check names it.
         assert!(one_of(
             &found,
-            "`docs/plans/milestones/widget.md` sits in milestones/"
+            "`docs/plans/milestones/the-widget.md` sits in milestones/"
         )
-        .starts_with("docs/plans/milestones/widget.md"));
+        .starts_with("docs/plans/milestones/the-widget.md"));
         // A setext heading, which markdown reads and the scanner does not, per
         // `design@core@headings-open-with-hash-marks`.
         assert!(one_of(&found, "markdown reads a heading here").starts_with("notes/structure.md:7"));
@@ -929,14 +947,18 @@ mod unsound {
         // README and in its slice spec, which share one namespace.
         assert!(
             one_of(&all, "`##not-an-item` is written outside the item sections")
-                .starts_with("docs/plans/milestones/defective/README.md")
+                .starts_with("docs/plans/milestones/a-defective-plan/README.md")
         );
         let twice: Vec<&String> = all
             .iter()
-            .filter(|f| f.contains("`thread@defective@defined-twice` is also defined at"))
+            .filter(|f| f.contains("`thread@a-defective-plan@defined-twice` is also defined at"))
             .collect();
         assert_eq!(twice.len(), 2, "{all:#?}");
-        assert_eq!(all.len(), 12, "{all:#?}");
+        // An id of one segment, reported where it is defined, per
+        // `spec@plans@defined-ids-outside-references`.
+        let lonely = one_of(&all, "`##lonely` is an id of one segment");
+        assert!(lonely.starts_with("docs/design/planted.md:"), "{lonely}");
+        assert_eq!(all.len(), 13, "{all:#?}");
     }
 
     #[test]

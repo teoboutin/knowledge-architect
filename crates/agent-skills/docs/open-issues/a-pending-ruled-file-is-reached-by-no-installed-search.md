@@ -49,7 +49,7 @@ workflow's preflight, and no search of what is already known. In this repository
 places to look before diagnosing; an adopting project has no such line unless it writes one.
 
 **How a pending file reaches a session other than its writer.** Every outcome of
-`skill@knowledge-architect-project-audit@outcomes`, and of the agentic-workflow axis's own outcome
+`skill@knowledge-architect-project-audit@finding-outcomes`, and of the agentic-workflow axis's own outcome
 table, is carried out in the audit's branch; an item the owner defers, or does not rule on when
 the audit stops, becomes an issue entry. So a report file is normally deleted before the audit's branch merges,
 and no installed text names a route by which a pending report file reaches the main branch. The

@@ -26,8 +26,8 @@ The milestone that wrote the authority routing kept this outcome with the owner,
 not why the outcome goes to the owner. A slice 4 review of that milestone found the gap; it was
 not argued there, since the slice's spec named the outcome as staying.
 
-A move can still bear on the owner: a head whose Component is uncertain under the owning-component
-rule, or whose move changes what another Component's goals constrain. Those cases may justify the
+A move can still bear on the owner: a head whose Component is uncertain under
+`skill@knowledge-architect-decision-recording@owning-component`, or whose move changes what another Component's goals constrain. Those cases may justify the
 owner list for some moves and not others.
 
 ### Why it matters
@@ -40,6 +40,6 @@ the move, and its list of owner outcomes holds it.
 ### What would close it
 
 A design discussion, under `skill@knowledge-architect-design`, that either keeps the outcome with
-the owner, on an argument the head then states, or applies the move in the branch where the
-owning-component rule settles it. The outcome table of
-`skill@knowledge-architect-project-audit@outcomes` and the head are then rewritten to match.
+the owner, on an argument the head then states, or applies the move in the branch where
+`skill@knowledge-architect-decision-recording@owning-component` settles it. The outcome table of
+`skill@knowledge-architect-project-audit@finding-outcomes` and the head are then rewritten to match.

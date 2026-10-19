@@ -492,7 +492,7 @@ that a session writing agent-facing text loads the agent-configuration skill, wh
 delivers the standard at that moment, so that a home outside the primer reaches every writer.
 
 **Fires when:** a review or a retrospective finds an addition to agent-facing text that fails the
-need test of `design@agent-skills@need-test` or the real-use rule of
+need test of `design@agent-skills@statement-names-an-act` or the real-use rule of
 `design@agent-skills@behaviour-additions-need-real-use`, made in a session that did not load the
 agent-configuration skill.
 **Response:** reopen `design@agent-skills@admission-rules-home` on its rival the primer, a
@@ -509,7 +509,7 @@ session spends its verification on findings that hold.
 the session or the owner judges more than half of them to need nothing.
 **Response:** reopen the need test's readings in
 `skill@knowledge-architect-agent-configuration@admission-standard`, which the agent and the
-need-test lens both apply, and `design@agent-skills@need-test` with them.
+need-test lens both apply, and `design@agent-skills@statement-names-an-act` with them.
 **Re-entry:** the outcome step of each review, `skill@knowledge-architect-review@what-review-leaves`.
 
 ## Guarding `design@agent-skills@behaviour-additions-need-real-use`: a refusal of an addition to a project's own text is overruled `##real-use-refusal-overruled`

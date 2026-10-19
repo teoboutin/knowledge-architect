@@ -121,7 +121,7 @@ pub(crate) fn render_slugs(text: &str, file: &Path) -> String {
             });
         assert!(
             is_id(id),
-            "{site}: `{id}` is no slug: lower-case words and digits joined by hyphens"
+            "{site}: `{id}` is no slug: two or more lower-case words and digits joined by hyphens"
         );
         assert!(
             bare[..at].ends_with(' ')
@@ -271,11 +271,11 @@ fn string_at(chars: &[char], at: usize) -> Result<(String, usize), String> {
     Err("holds a string that is not closed".to_string())
 }
 
-/// The id grammar of the checker's entity table, `[a-z0-9]+(-[a-z0-9]+)*`, written out: this
-/// crate depends on no regex engine, and the checker's own pattern is in the core, which depends
-/// on this crate.
+/// The grammar of an entry's id in the checker's entity table, `[a-z0-9]+(-[a-z0-9]+)+`, two
+/// segments or more, written out: this crate depends on no regex engine, and the checker's own
+/// pattern is in the core, which depends on this crate.
 fn is_id(id: &str) -> bool {
-    !id.is_empty()
+    id.contains('-')
         && id.split('-').all(|w| {
             !w.is_empty()
                 && w.bytes()
@@ -305,8 +305,8 @@ mod tests {
             slugs("# T\n\n## The axes {{slug:review-axes}}\nbody\n"),
             rendered
         );
-        let crlf = "## A `##a1`\r\nx";
-        assert_eq!(slugs("## A {{slug:a1}}\r\nx"), crlf);
+        let crlf = "## A `##a-1`\r\nx";
+        assert_eq!(slugs("## A {{slug:a-1}}\r\nx"), crlf);
     }
 
     #[test]
@@ -320,25 +320,25 @@ mod tests {
         expected = "t.md:2: a section slug placeholder inside a fenced block would ship"
     )]
     fn a_placeholder_inside_a_fence_fails() {
-        slugs("```\n## A {{slug:a}}\n```\n");
+        slugs("```\n## A {{slug:a-b}}\n```\n");
     }
 
     #[test]
     #[should_panic(expected = "t.md:1: a section slug placeholder ends a level-two heading")]
     fn a_placeholder_on_a_level_three_heading_fails() {
-        slugs("### A {{slug:a}}\n");
+        slugs("### A {{slug:a-b}}\n");
     }
 
     #[test]
     #[should_panic(expected = "ends a level-two heading")]
     fn a_placeholder_in_prose_fails() {
-        slugs("see {{slug:a}} here\n");
+        slugs("see {{slug:a-b}} here\n");
     }
 
     #[test]
     #[should_panic(expected = "closed by")]
     fn a_placeholder_before_more_text_fails() {
-        slugs("## A {{slug:a}} more\n");
+        slugs("## A {{slug:a-b}} more\n");
     }
 
     #[test]
@@ -347,10 +347,18 @@ mod tests {
         slugs("## A {{slug:Not_An_Id}}\n");
     }
 
+    /// The claim: a slug of one segment is no slug, since every id the checker defines has two or
+    /// more. Mutation checked: `is_id` reverted to one segment or more passes this placeholder.
+    #[test]
+    #[should_panic(expected = "is no slug")]
+    fn a_placeholder_of_one_segment_fails() {
+        slugs("## A {{slug:outcomes}}\n");
+    }
+
     #[test]
     #[should_panic(expected = "follows the heading's text and a space")]
     fn a_placeholder_with_no_heading_text_fails() {
-        slugs("## {{slug:a}}\n");
+        slugs("## {{slug:a-b}}\n");
     }
 
     #[test]
@@ -413,7 +421,7 @@ mod tests {
     #[test]
     #[should_panic(expected = "follows the heading's text and a space")]
     fn a_placeholder_glued_to_the_heading_text_fails() {
-        slugs("## Text{{slug:a}}\n");
+        slugs("## Text{{slug:a-b}}\n");
     }
 
     fn named(text: &str) {

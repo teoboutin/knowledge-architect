@@ -15,3 +15,5 @@ And again, which is a rename that left one behind:
 | statement | slug |
 | --- | --- |
 | A decision written as a table row | `##in-a-cell` |
+
+### A decision whose slug has one segment `##lonely`

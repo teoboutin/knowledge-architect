@@ -301,7 +301,7 @@ Binding, as the owner stated it in round 2: "I want to avoid catering to this pr
 when designing the checker." Listed as binding by the agent in the reply to round 2, until the
 owner says otherwise; not contested. Met: the reply to round 2 re-argued
 `thread@path-quickfixes@fix-admission` without this repository's cases,
-`argument@path-quickfixes@a19` and `argument@path-quickfixes@a20`.
+`argument@path-quickfixes@arg-19` and `argument@path-quickfixes@arg-20`.
 
 ## Threads
 
@@ -309,9 +309,9 @@ owner says otherwise; not contested. Met: the reply to round 2 re-argued
 
 Proposed by the agent in the reply to round 1, against the owner's claim of round 1 that the three
 methods are "safe under the recorded condition for admitting quickfixes". Approved. Arguments:
-`argument@path-quickfixes@a2`, `argument@path-quickfixes@a3`, `argument@path-quickfixes@a5`,
-`argument@path-quickfixes@a17`, `argument@path-quickfixes@a18`, `argument@path-quickfixes@a19`,
-`argument@path-quickfixes@a20`, `argument@path-quickfixes@a21`. Shape: Decided design, "What a fix
+`argument@path-quickfixes@arg-2`, `argument@path-quickfixes@arg-3`, `argument@path-quickfixes@arg-5`,
+`argument@path-quickfixes@arg-17`, `argument@path-quickfixes@arg-18`, `argument@path-quickfixes@arg-19`,
+`argument@path-quickfixes@arg-20`, `argument@path-quickfixes@arg-21`. Shape: Decided design, "What a fix
 may write". Harvest: `design@core@safe-fix-definition` rewritten in place, and
 `tripwire@core@fix-makes-a-choice` deleted, per D4. The owner's words, round 2: "fix-admission: agreed."
 After the agent's correction of the census, reply to round 2, the owner's words, round 3: "We'll go
@@ -320,15 +320,15 @@ with the current design."
 ### Respellings of a target the span already names, and the shapes left to the writer `##respelling-fixes`
 
 Proposed by the agent in the reply to round 1. It absorbs the owner's proposal (b) of round 1, the
-normalization of `path@<component>@../<path>`. Approved. Arguments: `argument@path-quickfixes@a4`,
-`argument@path-quickfixes@a7`, `argument@path-quickfixes@a8`, `argument@path-quickfixes@a9`,
-`argument@path-quickfixes@a10`, `argument@path-quickfixes@a22`, `argument@path-quickfixes@a23`.
+normalization of `path@<component>@../<path>`. Approved. Arguments: `argument@path-quickfixes@arg-4`,
+`argument@path-quickfixes@arg-7`, `argument@path-quickfixes@arg-8`, `argument@path-quickfixes@arg-9`,
+`argument@path-quickfixes@arg-10`, `argument@path-quickfixes@arg-22`, `argument@path-quickfixes@arg-23`.
 Shape: Decided design, "The respellings". Harvest: `design@core@fix-scope` rewritten. The owner's
 words, round 2: "respelling-fixes: this is less than I was hoping for. But I have to agree that my
 bare backticked path fix proposal probably cannot be made safely..."; round 3: "We'll go with the
 current design."; round 4, on the checkpoint table: "Keep all tripwires and AC, proceed." Two
 changes after the reviews: the trailing-slash row is dropped, per D3, a material finding; and a
-name both a skill and an agent hold is not respelled, `argument@path-quickfixes@a28`, which
+name both a skill and an agent hold is not respelled, `argument@path-quickfixes@arg-28`, which
 narrows the row to the case the principle admits.
 
 ### An unanchored path's repair asks which candidate was meant, and `--fix` writes nothing for it `##raw-path-inference`
@@ -337,10 +337,10 @@ Proposed by the owner in round 1 as proposal (a), "look at the path, under each 
 (including root), and at paths relative to the containing file", applied when a single candidate
 exists. The agent's reply to round 1 put three options: A, the owner's; B, the agent's default,
 naming the one candidate in the repair; C, a separate flag. The owner proposed the question form
-in round 2, which supersedes B. Approved. Arguments: `argument@path-quickfixes@a1`,
-`argument@path-quickfixes@a6`, `argument@path-quickfixes@a11`, `argument@path-quickfixes@a12`,
-`argument@path-quickfixes@a13`, `argument@path-quickfixes@a14`, `argument@path-quickfixes@a24`,
-`argument@path-quickfixes@a25`. Shape: Decided design, "The question form". Harvest:
+in round 2, which supersedes B. Approved. Arguments: `argument@path-quickfixes@arg-1`,
+`argument@path-quickfixes@arg-6`, `argument@path-quickfixes@arg-11`, `argument@path-quickfixes@arg-12`,
+`argument@path-quickfixes@arg-13`, `argument@path-quickfixes@arg-14`, `argument@path-quickfixes@arg-24`,
+`argument@path-quickfixes@arg-25`. Shape: Decided design, "The question form". Harvest:
 `design@core@every-path-names-its-anchor` gains it. The owner's words, round 2: "maybe the
 canditates could be shown in the proposed repair: "Did you mean to write one of <path1>, <path2>...
 ?" (not as an affirmation "write <path1>", because as you said it could mean something else."; round
@@ -351,7 +351,7 @@ canditates could be shown in the proposed repair: "Did you mean to write one of 
 Proposed by the owner in round 1 as proposal (c): a path to a subagent or a skill is written in
 the reference form of a skill or an agent; shaped by the agent in the reply to round 1 as a new
 check, since such a citation is not a finding today. Approved. Arguments:
-`argument@path-quickfixes@a15`. Shape: Decided design, "The skill and agent citation". Harvest:
+`argument@path-quickfixes@arg-15`. Shape: Decided design, "The skill and agent citation". Harvest:
 `design@core@harness-kinds-cited-without-anchor` and `design@core@every-path-names-its-anchor`. The
 owner's words, round 2: "skill-cited-by-path: approved."
 
@@ -360,7 +360,7 @@ owner's words, round 2: "skill-cited-by-path: approved."
 Proposed by the agent in the reply to round 1. Approved, as the checkpoint table of the reply to
 round 3 showed it: installed files, gate, refusal of a partial commit's mismatch, respellings,
 model rebuilt, generated files, check. D1 replaced that order, approved by the owner in round 5. Arguments:
-`argument@path-quickfixes@a16`, `argument@path-quickfixes@a29`. Shape: Decided design, "The order of a
+`argument@path-quickfixes@arg-16`, `argument@path-quickfixes@arg-29`. Shape: Decided design, "The order of a
 run". Harvest: `design@core@fix-before-the-checks` rewritten, and the sentence of
 `design@core@fix-refusal-mixed-state` named in "What is already decided". The owner's words, round
 3: "We'll go with the current design."; round 4, on the checkpoint table: "Keep all tripwires and
@@ -369,7 +369,7 @@ AC, proceed."
 ### A head that states the instance built rather than the principle is recorded as a design issue `##head-states-the-principle`
 
 Proposed by the owner in round 2 as a remark; the agent proposed the issue entry in the reply to
-round 2. Approved. Arguments: `argument@path-quickfixes@a17`, `argument@path-quickfixes@a21`.
+round 2. Approved. Arguments: `argument@path-quickfixes@arg-17`, `argument@path-quickfixes@arg-21`.
 Harvest: none left; the question it recorded is decided by
 `design@agent-skills@title-states-the-rule`. The owner's words, round 3: "head-states-the-principle: agreed on
 the issue."
@@ -378,8 +378,8 @@ the issue."
 
 Measured by the agent in the reply to round 2, which did not propose it. Parked on the owner's word,
 round 3: "The narrower variant you identified could be interesting to rediscuss, when I restart
-working on this and the spec goes through a design audit." Arguments: `argument@path-quickfixes@a22`,
-`argument@path-quickfixes@a26`.
+working on this and the spec goes through a design audit." Arguments: `argument@path-quickfixes@arg-22`,
+`argument@path-quickfixes@arg-26`.
 
 - **Tripwire**: a census over a consumer project, other than thaum, in which the variant keeps at
   least half of the correct inferences in files (it kept 23 of 53 in the census) and makes no
@@ -392,14 +392,14 @@ is D2. Adopting the variant applies an inference, so it reopens
 
 ## Arguments
 
-### The request, its frequency and its safety claim `##a1`
+### The request, its frequency and its safety claim `##arg-1`
 
 Round 1, the owner. Bears on `thread@path-quickfixes@raw-path-inference`, `thread@path-quickfixes@respelling-fixes`, `thread@path-quickfixes@skill-cited-by-path`,
 `thread@path-quickfixes@fix-admission`. "It is by far the most common finding, because agents always perfer the raw
 backticked form by habit." / "the idea is to search for candidates, and apply only if a single one
 exists." / "I think those methods are safe under the recorded condition for admitting quickfixes."
 
-### The recorded condition excludes every method proposed, and its tripwire fires `##a2`
+### The recorded condition excludes every method proposed, and its tripwire fires `##arg-2`
 
 The reply to round 1. Bears on `thread@path-quickfixes@fix-admission`. `design@core@safe-fix-definition` admits only
 "files of the installer's namespace or of the generated list", on the argument "A fix that makes a
@@ -409,7 +409,7 @@ installer's namespace and the generated list", with the response "reopen
 `design@core@safe-fix-definition` before the fix is added". "All three of your methods edit
 hand-written documents, so the second clause excludes every one of them."
 
-### A respelling keeps the writer's meaning; an inference chooses one `##a3`
+### A respelling keeps the writer's meaning; an inference chooses one `##arg-3`
 
 The reply to round 1. Bears on `thread@path-quickfixes@fix-admission`. "the writer's meaning is already in the span, so the
 fix changes only its spelling. #no-silent-misbinding holds by construction." The test, three
@@ -417,7 +417,7 @@ conditions: the span already names exactly one entity, under the checker's own r
 a recorded head that declares what the span means; the rewrite names that same entity in the form
 the check requires; no byte outside the span changes.
 
-### A reference fix needs the entity table, and shipped text must stay portable `##a4`
+### A reference fix needs the entity table, and shipped text must stay portable `##arg-4`
 
 The reply to round 1. Bears on `thread@path-quickfixes@fix-run-order`, `thread@path-quickfixes@respelling-fixes`. "a reference fix needs the entity
 table, so it must run after the phase gate, never over an incomplete model", from
@@ -425,7 +425,7 @@ table, so it must run after the phase gate, never over an incomplete model", fro
 shipped text produces a reference that passes here and dangles in every installing project", from
 `issue@agent-skills@shipped-text-citing-an-entry-is-unchecked`.
 
-### The census of the unique-candidate rule: 7 apparent misbindings in 104 resolved cases `##a5`
+### The census of the unique-candidate rule: 7 apparent misbindings in 104 resolved cases `##arg-5`
 
 The reply to round 1. Bears on `thread@path-quickfixes@fix-admission`, `thread@path-quickfixes@raw-path-inference`. Of 179 raw-path findings, "54
 have 0 candidates, 110 have exactly 1, and 15 have 2 or more". Of the 110: 81 repaired exactly as
@@ -435,16 +435,16 @@ single candidate is this tree's copy … Nothing reports it afterwards." Why the
 count against the rule: "The other 16 disagreements are prose rewrites, backticks removed …, and
 five references to a file that the same branch deleted. In those 16 cases the rule's rewrite would
 have done no silent harm: the deleted target dangles and is reported." The figure was corrected in
-the reply to round 2, `argument@path-quickfixes@a18`.
+the reply to round 2, `argument@path-quickfixes@arg-18`.
 
-### Two or more candidates support no precedence rule `##a6`
+### Two or more candidates support no precedence rule `##arg-6`
 
 The reply to round 1. Bears on `thread@path-quickfixes@raw-path-inference`. Of the 15 findings with two or more
 candidates, the session chose the candidate of the file's own anchor 2 times and another
 candidate 2 times, wrote no path reference 7 times, and chose the root in 4 commit messages. "This
 does not support a precedence rule."
 
-### The finding kinds a respelling would serve are rare `##a7`
+### The finding kinds a respelling would serve are rare `##arg-7`
 
 The reply to round 1. Bears on `thread@path-quickfixes@respelling-fixes`. In the census: 9 findings of a target inside a
 deeper anchor, 12 bare skill or agent names, 1 plan document cited by path, 2 `planned` targets
@@ -453,7 +453,7 @@ anchor-in-kind-position and trailing-slash kinds. The owner's (b) "is correct: p
 symlinks, so lexical normalization equals the filesystem's. But it has never occurred in real
 work." It is kept "only because it costs one normalization function".
 
-### Five shapes are not respelled `##a8`
+### Five shapes are not respelled `##arg-8`
 
 The reply to round 1. Bears on `thread@path-quickfixes@respelling-fixes`. A leading `/`: "its intended base is ambiguous".
 A retired `<anchor>@<path>` whose target does not exist: "the span may have been a slug reference".
@@ -463,13 +463,13 @@ since "whether the plan still holds is that session's report to make", and "An a
 removes that prompt." A retired `#<id>`: "the census shows those spans were not meant as
 references". A line suffix or a fragment: "dropping `:12` loses bytes the writer wrote."
 
-### The bare-name respelling inherits the open prefix question `##a9`
+### The bare-name respelling inherits the open prefix question `##arg-9`
 
 The reply to round 1. Bears on `thread@path-quickfixes@respelling-fixes`. "It inherits the risk of
 `issue@core@tooling-for-project-skills`: a skill named by an ordinary word would turn every
 backticked use of that word into a rewrite." This became T1.
 
-### Nine bare-skill findings of the census came from the lint under construction `##a10`
+### Nine bare-skill findings of the census came from the lint under construction `##arg-10`
 
 The reply to round 2. Bears on `thread@path-quickfixes@respelling-fixes`. The reply to round 1 had held the bare-name
 respelling until 9 unexplained findings were explained. They came from the session that built the
@@ -479,24 +479,24 @@ agent's inference, not traced to a commit: the lint matched slugs while it was b
 real data on the shipped lint is 3 bare agent names, all 3 repaired exactly as the fix would
 rewrite them."
 
-### Naming the one candidate keeps the judgement with the agent `##a11`
+### Naming the one candidate keeps the judgement with the agent `##arg-11`
 
 The reply to round 1. Bears on `thread@path-quickfixes@raw-path-inference`, option B. "The agent then makes a one-token
 edit with the judgement still in front of it. Most of the 81 agreements become copy-paste edits."
 
-### A separate flag teaches agents to pass it `##a12`
+### A separate flag teaches agents to pass it `##arg-12`
 
 The reply to round 1. Bears on `thread@path-quickfixes@raw-path-inference`, option C. "It removes the misbinding risk only
 for sessions that do not pass the flag, and agents would learn to pass it."
 
-### The repair text changes a command's output `##a13`
+### The repair text changes a command's output `##arg-13`
 
 The reply to round 1 and the reply to round 2. Bears on `thread@path-quickfixes@raw-path-inference`. "the finding text
 changes, which touches `issue@core@finding-texts-are-not-audited-for-a-needless-cause` and
 `issue@knowledge-architect@command-output-is-not-declared-a-contract`." / "I would class it as a
 patch with a changelog entry, as the `commits` summary change was classed."
 
-### A question asserts no meaning `##a14`
+### A question asserts no meaning `##arg-14`
 
 Round 2, the owner, and the reply to round 2. Bears on `thread@path-quickfixes@raw-path-inference`. The owner: "maybe the
 canditates could be shown in the proposed repair: "Did you mean to write one of <path1>, <path2>...
@@ -505,7 +505,7 @@ agent: "A question does not assert a meaning, and listing every candidate also s
 with 2 or more candidates" / the line after it keeps the two non-tree forms, "so a writer who meant
 neither candidate is not pushed toward one".
 
-### A skill cited by path escapes `show` `##a15`
+### A skill cited by path escapes `show` `##arg-15`
 
 The reply to round 1. Bears on `thread@path-quickfixes@skill-cited-by-path`. "Today `path@agent-config@skills/<name>/SKILL.md`
 is **not a finding**", the skill's name written here as a placeholder, since the span is the
@@ -515,7 +515,7 @@ no `path` citation of it: of the 3 citations then in the tree, 2 cited `skill@kl
 1 `skill@klarch-retrospective-intake`. A path to another file inside a skill's directory, and the
 skills directory itself, have no harness-kind form and stay as they are.
 
-### Where the respellings run, and what they print `##a16`
+### Where the respellings run, and what they print `##arg-16`
 
 The reply to round 1. Bears on `thread@path-quickfixes@fix-run-order`. After the gate, since they read the entity table;
 before the generated files, since "a respelling inside an issue title changes `index.md`"; "a
@@ -524,7 +524,7 @@ old spelling, so `check --staged` fails until the file is staged again"; "each r
 printed as `file:line  old → new`"; commit messages are never touched; "rustfmt does not reflow
 comments by default, so a longer comment line fails no gate."
 
-### The current heads state the built instance as the rule `##a17`
+### The current heads state the built instance as the rule `##arg-17`
 
 Round 2, the owner, and the reply to round 2. Bears on `thread@path-quickfixes@fix-admission`, `thread@path-quickfixes@head-states-the-principle`.
 The owner: "I think the current design heads are overstated on the admissible shape, I suspect they
@@ -534,7 +534,7 @@ heads is not forbidden by the workflow, but it's often bothering me." The agent:
 is in its argument: a fix must not "rewrite what a writer meant"" / "The clause states the shape
 that was built as if it were the rule."
 
-### Were the different repairs truly wrong, and only here? `##a18`
+### Were the different repairs truly wrong, and only here? `##arg-18`
 
 Round 2, the owner; the reply to round 2. Bears on `thread@path-quickfixes@fix-admission`, `thread@path-quickfixes@raw-path-inference`. The owner:
 "would the inference have been truly wrong ? Or were the "different repairs" simply a consciously
@@ -548,7 +548,7 @@ avoidance", and the plans directory in the agent-skills design home, "a path a p
 "thaum: 0 silent misbindings in its 42 one-candidate findings in files." Its backtick removals
 "look like checker avoidance, but they predate `design@agent-skills@plain-text-is-no-repair`".
 
-### This repository's own needs weigh less `##a19`
+### This repository's own needs weigh less `##arg-19`
 
 Round 2, the owner; the reply to round 2. Bears on `thread@path-quickfixes@fix-admission`, `criterion@path-quickfixes@no-self-catering`. The owner:
 "Also, if they happen only here, maybe the argument is less strong. This project imposes more
@@ -558,7 +558,7 @@ want to avoid catering to this project's own needs when designing the checker." 
 your suspicion holds: the observed failures come from this repository's need to describe other
 projects' trees."
 
-### The tree cannot tell two meanings of one span apart `##a20`
+### The tree cannot tell two meanings of one span apart `##arg-20`
 
 The reply to round 2. Bears on `thread@path-quickfixes@fix-admission`, `thread@path-quickfixes@raw-path-inference`. The identical raw span naming
 the skills directory of the agent configuration, with the identical single candidate,
@@ -569,7 +569,7 @@ a raw span naming the library root of a crate, meaning knowledge-architect's fil
 only because it had 2 candidates." The raw spans are described here in words, since written in
 backticks each would be the finding it illustrates.
 
-### The default kept the ruling on a narrower premise `##a21`
+### The default kept the ruling on a narrower premise `##arg-21`
 
 The reply to round 2. Bears on `thread@path-quickfixes@fix-admission`. "a wrong inference is silent for good, since nothing
 reports a reference that resolves; the consumer sample is one project; your question-form repair
@@ -577,31 +577,31 @@ reports a reference that resolves; the consumer sample is one project; your ques
 candidate, and print each rewrite marked `inferred` so the session can revert it." The owner, round
 3: "We'll go with the current design."
 
-### The same-anchor variant would exclude the misbindings and most correct inferences `##a22`
+### The same-anchor variant would exclude the misbindings and most correct inferences `##arg-22`
 
 The reply to round 2. Bears on `thread@path-quickfixes@same-anchor-inference`, `thread@path-quickfixes@raw-path-inference`. "It would have
 excluded all 4 misbindings. It would also have dropped 30 of the 53 correct inferences in files, so
 I do not propose it."
 
-### The respellings are cheap and serve few findings `##a23`
+### The respellings are cheap and serve few findings `##arg-23`
 
 The reply to round 2. Bears on `thread@path-quickfixes@respelling-fixes`, `criterion@path-quickfixes@covers-the-common-finding`. "Measured value of the
 respelling fixes in the census: about 13 findings, against 179 raw paths. They are cheap to build
 because the code already computes each target form. The value of the work is mainly in the
 question-form repair and in #skill-cited-by-path."
 
-### Most one-candidate repairs agree with the rule `##a24`
+### Most one-candidate repairs agree with the rule `##arg-24`
 
 The reply to round 1. Bears on `thread@path-quickfixes@raw-path-inference`, `criterion@path-quickfixes@covers-the-common-finding`. 81 of the 110
 one-candidate findings were repaired exactly as the rule would rewrite them; the question form
 puts that rewrite in front of the session.
 
-### Commit messages hold a large share of raw paths `##a25`
+### Commit messages hold a large share of raw paths `##arg-25`
 
 The reply to round 1. Bears on `thread@path-quickfixes@raw-path-inference`, `thread@path-quickfixes@fix-run-order`. "**179** (70 of them in commit
 messages)". No `--fix` reaches a commit message, whatever the rule.
 
-### The work is much for its share `##a26`
+### The work is much for its share `##arg-26`
 
 Round 3, the owner. Bears on `criterion@path-quickfixes@covers-the-common-finding`, `thread@path-quickfixes@same-anchor-inference`. "I'm not fully
 satisfied, because this design is quite a lot of work (especially the rewriting part), and yet it
@@ -610,7 +610,7 @@ could be interesting to rediscuss, when I restart working on this and the spec g
 design audit."
 
 
-### A respelling of the kind claim is the fix the guarding tripwire was written against `##a27`
+### A respelling of the kind claim is the fix the guarding tripwire was written against `##arg-27`
 
 The decision-record and design-conformance reviews of this spec. Bears on `thread@path-quickfixes@respelling-fixes`. The
 trailing-slash row rewrites a span's kind claim to match the tree. `design@core@trailing-slash-claims-directory`
@@ -622,7 +622,7 @@ option invites growth, and it rewrites what a writer meant". A span whose claim 
 target also fails the respelling test, since under the checker's own resolution it names nothing.
 The owner approved the row without this premise; it is D3.
 
-### A name both kinds hold names two entities `##a28`
+### A name both kinds hold names two entities `##arg-28`
 
 The design-conformance review of this spec. Bears on `thread@path-quickfixes@respelling-fixes`. The lint's repair for a
 name both a skill and an agent hold picks the skill, and the code's own comment gives the reason:
@@ -631,7 +631,7 @@ span names equally, which the respelling test excludes. The round-1 table of the
 named the row "bare skill or agent name → `skill@<name>` or `agent@<name>`", with no precedence; the
 precedence was added at assembly and is removed.
 
-### Under D1, a refusal can follow a written respelling, and a stop stays a report `##a29`
+### Under D1, a refusal can follow a written respelling, and a stop stays a report `##arg-29`
 
 The design-conformance reviews of this spec. Bears on `thread@path-quickfixes@fix-run-order`. With
 the respellings before the second gate and the refusal, a refusal may come after hand-written files
@@ -644,7 +644,7 @@ ran, and reports a negative answer about its subject", and per the same sentence
 revision of this spec made a stop exit 2 when nothing was written, which contradicted both heads;
 D7 restores exit 1.
 
-### A bare-name respelling rests on the head's presumption, not on a guarantee `##a30`
+### A bare-name respelling rests on the head's presumption, not on a guarantee `##arg-30`
 
 The design-conformance re-review of this spec. Bears on `thread@path-quickfixes@respelling-fixes`.
 `design@core@bare-skill-name-reported` states "A bare name is a pointer written with no kind", and
@@ -731,8 +731,8 @@ after the installed files' lines and before the generated files'; and one line p
 
 Nearest rival: the owner's unique-candidate rule as the admission test. The fact that defeated it:
 the census found 4 misbindings among the one-candidate findings in files, and the tree cannot tell
-apart two meanings of one span, `argument@path-quickfixes@a20`. The owner weighed the corrected
-premise, `argument@path-quickfixes@a18`, and kept the ruling.
+apart two meanings of one span, `argument@path-quickfixes@arg-20`. The owner weighed the corrected
+premise, `argument@path-quickfixes@arg-18`, and kept the ruling.
 
 ### The respellings
 
@@ -755,7 +755,7 @@ target the ignore rules cover is accepted by the check without existing, and is 
 
 **Not respelled**, each a finding as today:
 
-- a trailing slash that disagrees with the target's kind, per D3, `argument@path-quickfixes@a27`;
+- a trailing slash that disagrees with the target's kind, per D3, `argument@path-quickfixes@arg-27`;
 - a leading `/`: its intended base is ambiguous;
 - a path that climbs above the root;
 - the retired `<anchor>@<path>` whose target does not exist, or whose anchor is a reserved word;
@@ -763,11 +763,11 @@ target the ignore rules cover is accepted by the check without existing, and is 
 - a retired `#<id>`;
 - a span with a line suffix or a fragment;
 - a span wrapped onto two lines, a bare name wrapped at a hyphen included;
-- a name both a skill and an agent hold, `argument@path-quickfixes@a28`.
+- a name both a skill and an agent hold, `argument@path-quickfixes@arg-28`.
 
-The reasons not given here are `argument@path-quickfixes@a8`.
+The reasons not given here are `argument@path-quickfixes@arg-8`.
 
-Nearest rival: no respelling, the head as it stands. It lost on `argument@path-quickfixes@a3`: each
+Nearest rival: no respelling, the head as it stands. It lost on `argument@path-quickfixes@arg-3`: each
 row's output is already computed or named by the check, and applying it changes no meaning.
 
 ### The respelling of a register's home, added by the register-references work
@@ -828,7 +828,7 @@ constraints, and the pinned tests pin them.
   not.
 
 Nearest rival: B, a repair that names the one candidate as an instruction, "write
-`path@core@<path>`". It lost to the owner's question in round 2, `argument@path-quickfixes@a14`.
+`path@core@<path>`". It lost to the owner's question in round 2, `argument@path-quickfixes@arg-14`.
 
 ### The skill and agent citation
 
@@ -841,7 +841,7 @@ target sits, as a plan document citation is.
 - The skills directory and the agents directory themselves stay `path` references.
 - Under `harness = []`, the table defines no skill and no agent, so nothing is reported.
 
-Nearest rival: no check, the citation accepted as a path. It lost on `argument@path-quickfixes@a15`.
+Nearest rival: no check, the citation accepted as a path. It lost on `argument@path-quickfixes@arg-15`.
 
 ### The order of a run
 
@@ -867,7 +867,7 @@ file whose staged copy differs keeps the old span in git's index, and `check --s
 until the file is staged again.
 
 Nearest rival: the approved order of the checkpoint table, the refusal before the respellings.
-D1 replaced it, `argument@path-quickfixes@a29`, on the owner's word of round 5.
+D1 replaced it, `argument@path-quickfixes@arg-29`, on the owner's word of round 5.
 
 ## Mapping tables
 
@@ -905,25 +905,25 @@ the table against the findings the code raises, and adds the rows it misses.
 
 - **The unique candidate applied by `--fix`**, the owner's proposal (a) of round 1 and option A of
   the reply to round 1. Lost to `thread@path-quickfixes@fix-admission` on
-  `argument@path-quickfixes@a5`, `argument@path-quickfixes@a18` and `argument@path-quickfixes@a20`.
+  `argument@path-quickfixes@arg-5`, `argument@path-quickfixes@arg-18` and `argument@path-quickfixes@arg-20`.
 - **The unique candidate applied and printed as `inferred`**, the alternative of the reply to round
-  2. Lost to `thread@path-quickfixes@fix-admission` on `argument@path-quickfixes@a21`.
+  2. Lost to `thread@path-quickfixes@fix-admission` on `argument@path-quickfixes@arg-21`.
 - **A separate opt-in flag that applies inferences**, option C. Lost to
-  `thread@path-quickfixes@raw-path-inference` on `argument@path-quickfixes@a12`.
+  `thread@path-quickfixes@raw-path-inference` on `argument@path-quickfixes@arg-12`.
 - **A repair that names the one candidate as an instruction**, option B, the agent's default of
   round 1. Superseded by the owner's question form, `thread@path-quickfixes@raw-path-inference`, on
-  `argument@path-quickfixes@a14`.
+  `argument@path-quickfixes@arg-14`.
 - **A precedence rule among two or more candidates**, the file's own anchor first. Lost to
-  `thread@path-quickfixes@raw-path-inference` on `argument@path-quickfixes@a6`.
+  `thread@path-quickfixes@raw-path-inference` on `argument@path-quickfixes@arg-6`.
 - **A respelling of a `planned` reference whose target exists, of a retired `#<id>`, of a span with
   a line suffix or a fragment, and of a leading `/`.** Lost to
-  `thread@path-quickfixes@respelling-fixes` on `argument@path-quickfixes@a8`.
+  `thread@path-quickfixes@respelling-fixes` on `argument@path-quickfixes@arg-8`.
 - **A respelling of the trailing slash**, per D3. Lost to `thread@path-quickfixes@respelling-fixes`
-  on `argument@path-quickfixes@a27`.
+  on `argument@path-quickfixes@arg-27`.
 - **A name both a skill and an agent hold respelled as the skill.** Lost to
-  `thread@path-quickfixes@respelling-fixes` on `argument@path-quickfixes@a28`.
+  `thread@path-quickfixes@respelling-fixes` on `argument@path-quickfixes@arg-28`.
 - **The incumbent: `--fix` writes only installed and generated files, never a hand-written one.**
-  Lost to `thread@path-quickfixes@fix-admission` on `argument@path-quickfixes@a3`.
+  Lost to `thread@path-quickfixes@fix-admission` on `argument@path-quickfixes@arg-3`.
 - **The same-anchor inference** is not lost: it is parked,
   `thread@path-quickfixes@same-anchor-inference`.
 
@@ -1062,7 +1062,7 @@ harness, as `Sandbox::serve_claude` does; `check --fix` is never run inside `pla
    - Migration: `checks`, minor: a `path` citation of a skill or an agent is a finding; rewrite it
      as `skill@<name>` or `agent@<name>`, or run `check --fix`.
    - New features: `checks`, patch: the finding on a backticked path that names no anchor lists
-     the candidates the tree holds, per `argument@path-quickfixes@a13`.
+     the candidates the tree holds, per `argument@path-quickfixes@arg-13`.
    Claims: `cargo klarch check` passes with the installed copies committed;
    `cargo test -p knowledge-architect-agent-skills` passes; the shipped edits cite no entry and
    write `{{command}}`, by a reading. Fails alone on: a changelog copy that differs.
@@ -1092,7 +1092,7 @@ commit that records the ruling. The second reading of this spec raised D7 and D8
 approved in a sixth message, called round 6: "Agreed, those are small details."
 
 - **D7**, on `thread@path-quickfixes@fix-run-order`, from the design-conformance and code-claims
-  reviews, `argument@path-quickfixes@a29`. D1, as the owner approved it in round 5, made a stop at
+  reviews, `argument@path-quickfixes@arg-29`. D1, as the owner approved it in round 5, made a stop at
   either gate exit 2 when nothing was written. That contradicts `design@core@exit-code-ladder` and
   the sentence of `design@core@phases-gate-the-report` that says the stop "exits 1", and the
   existing test `check_fix_writes_no_generated_file_over_an_incomplete_model` of
@@ -1111,7 +1111,7 @@ approved in a sixth message, called round 6: "Agreed, those are small details."
   files of the working tree with the staged tree's; a respelling inside an issue title changes the
   working tree's `index.md` after that comparison, so the comparison would be made on bytes the run
   then changes. The default: the order of "The order of a run", with its exit codes,
-  `argument@path-quickfixes@a29`, and the sentence of `design@core@phases-gate-the-report` and the
+  `argument@path-quickfixes@arg-29`, and the sentence of `design@core@phases-gate-the-report` and the
   exit clause of `design@core@fix-refusal-mixed-state` rewritten at the harvest. The alternative:
   the approved order, with the refusal made before the respellings.
 - **D2**, on `thread@path-quickfixes@same-anchor-inference`, from the transcript's coverage at assembly. The owner's word of
@@ -1121,7 +1121,7 @@ approved in a sixth message, called round 6: "Agreed, those are small details."
   guarding `design@core@safe-fix-definition`, as rewritten. The
   alternative: it leaves with this spec.
 - **D3**, on `thread@path-quickfixes@respelling-fixes`, a material finding of the decision-record and design-conformance
-  reviews, `argument@path-quickfixes@a27`. The owner approved the trailing-slash row without the
+  reviews, `argument@path-quickfixes@arg-27`. The owner approved the trailing-slash row without the
   premise that the tripwire it fires was recorded from a premortem cause naming that very fix, and
   that `design@core@trailing-slash-claims-directory` places the kind claim in the span. The default:
   the row is dropped, and the head is kept. The alternative: the row stays, and the harvest
@@ -1145,7 +1145,7 @@ approved in a sixth message, called round 6: "Agreed, those are small details."
 - **D6**, from the decision-record, transcript and cold-implementer reviews. The census scripts
   were in the session's scratch directory, which no table of the knowledge homes covers. The
   default: the scripts are not kept; the census method is described under Names; the head
-  `design@core@safe-fix-definition` rests on `argument@path-quickfixes@a20`, a mechanism, and the
+  `design@core@safe-fix-definition` rests on `argument@path-quickfixes@arg-20`, a mechanism, and the
   census figures go in the harvest's commit message, where a measurement that serves no head is
   routed. The alternative: the owner names a home for the scripts.
 
@@ -1158,10 +1158,10 @@ commit, with the test it fails.
 
 | item | home |
 | --- | --- |
-| `thread@path-quickfixes@fix-admission` | `design@core@safe-fix-definition` rewritten in place: the principle in its title, its tests, the respelling and the inference; `argument@path-quickfixes@a20` as its argument, and the census figures in the harvest's commit message, per D6 |
-| `thread@path-quickfixes@respelling-fixes` | `design@core@fix-scope` rewritten: the three kinds of fix, the respellings listed as the table of "The respellings", the shapes not respelled; `design@core@bare-skill-name-reported` rewritten, its title and its sentence that name renaming the skill as the repair of an ordinary-word match, and its census clause, per `argument@path-quickfixes@a30` |
+| `thread@path-quickfixes@fix-admission` | `design@core@safe-fix-definition` rewritten in place: the principle in its title, its tests, the respelling and the inference; `argument@path-quickfixes@arg-20` as its argument, and the census figures in the harvest's commit message, per D6 |
+| `thread@path-quickfixes@respelling-fixes` | `design@core@fix-scope` rewritten: the three kinds of fix, the respellings listed as the table of "The respellings", the shapes not respelled; `design@core@bare-skill-name-reported` rewritten, its title and its sentence that name renaming the skill as the repair of an ordinary-word match, and its census clause, per `argument@path-quickfixes@arg-30` |
 | `thread@path-quickfixes@fix-run-order` | `design@core@fix-before-the-checks` rewritten with the order of "The order of a run"; the sentence and the exit clause of `design@core@fix-refusal-mixed-state` named in "What is already decided" rewritten; the sentence of `design@core@phases-gate-the-report` named there rewritten; `issue@core@installed-file-findings-belong-in-phase-four` read again for its sentence on the order |
-| `thread@path-quickfixes@skill-cited-by-path` | a head whose title states that a skill or an agent has no `path` spelling: a new head, or `design@core@harness-kinds-cited-without-anchor` with its title rewritten to state it, as `primer@design-heads` decides; with `argument@path-quickfixes@a15` |
+| `thread@path-quickfixes@skill-cited-by-path` | a head whose title states that a skill or an agent has no `path` spelling: a new head, or `design@core@harness-kinds-cited-without-anchor` with its title rewritten to state it, as `primer@design-heads` decides; with `argument@path-quickfixes@arg-15` |
 | `thread@path-quickfixes@raw-path-inference` | a head whose title states the question form: a new head, or `design@core@every-path-names-its-anchor` with its title rewritten to state it, as `primer@design-heads` decides |
 | `thread@path-quickfixes@head-states-the-principle` | nothing: its question is decided by `design@agent-skills@title-states-the-rule` |
 | `thread@path-quickfixes@same-anchor-inference` | per D2 |

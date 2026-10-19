@@ -810,21 +810,21 @@ mod tests {
         present.retain(|p| p != "docs/goals.md");
         present.push("docs/goals".to_string());
         present.push("docs/goals/README.md".to_string());
-        present.push("docs/goals/one.md".to_string());
+        present.push("docs/goals/goal-one.md".to_string());
         let model = Model::from_documents(vec![
             (
                 PathBuf::from("docs/goals/README.md"),
                 "# Goals\n\n- [Another](other.md)\n".to_string(),
             ),
             (
-                PathBuf::from("docs/goals/one.md"),
-                "## A goal `##one`\n".to_string(),
+                PathBuf::from("docs/goals/goal-one.md"),
+                "## A goal `##goal-one`\n".to_string(),
             ),
         ]);
         let found = findings_over(&manifest, &present, model, &[]);
         assert_eq!(found.len(), 1, "{found:#?}");
         assert!(
-            found[0].contains("docs/goals/one.md") && found[0].contains("goal README"),
+            found[0].contains("docs/goals/goal-one.md") && found[0].contains("goal README"),
             "{found:#?}"
         );
     }
@@ -839,16 +839,16 @@ mod tests {
         present.retain(|p| p != "docs/goals.md");
         present.push("docs/goals".to_string());
         present.push("docs/goals/README.md".to_string());
-        present.push("docs/goals/one.md".to_string());
+        present.push("docs/goals/goal-one.md".to_string());
         present.push("docs/goals/gen.rs".to_string());
         let model = Model::from_documents(vec![
             (
                 PathBuf::from("docs/goals/README.md"),
-                "# Goals\n\n- [One](one.md)\n".to_string(),
+                "# Goals\n\n- [One](goal-one.md)\n".to_string(),
             ),
             (
-                PathBuf::from("docs/goals/one.md"),
-                "## A goal `##one`\n".to_string(),
+                PathBuf::from("docs/goals/goal-one.md"),
+                "## A goal `##goal-one`\n".to_string(),
             ),
             (
                 PathBuf::from("docs/goals/gen.rs"),
@@ -1356,7 +1356,7 @@ mod tests {
     fn each_odd_shape_of_the_plans_layout_is_one_phase_two_finding() {
         let manifest = declaring_full(
             "",
-            "[locations.notes]\npath = \"notes\"\nregisters = [\"issue\"]\n\n",
+            "[locations.side-notes]\npath = \"notes\"\nregisters = [\"issue\"]\n\n",
             "[]",
             "[]",
             "[]",
@@ -1379,9 +1379,9 @@ mod tests {
                 "the plans directory has no README.md",
             ),
             (
-                vec!["docs/plans/milestones/m/README.md/inner.md"],
+                vec!["docs/plans/milestones/m-one/README.md/inner.md"],
                 vec![],
-                "docs/plans/milestones/m",
+                "docs/plans/milestones/m-one",
                 "holds no README.md, so it is no milestone",
             ),
             (
@@ -1392,38 +1392,38 @@ mod tests {
             ),
             (
                 vec![
-                    "docs/plans/milestones/m/README.md",
-                    "docs/plans/milestones/m.md",
+                    "docs/plans/milestones/m-one/README.md",
+                    "docs/plans/milestones/m-one.md",
                 ],
                 vec![],
-                "docs/plans/milestones/m.md",
+                "docs/plans/milestones/m-one.md",
                 "retired file shape of the spec register",
             ),
             (
-                vec!["docs/plans/milestones/notes/README.md"],
+                vec!["docs/plans/milestones/side-notes/README.md"],
                 vec![],
-                "docs/plans/milestones/notes",
+                "docs/plans/milestones/side-notes",
                 "is the name of a location",
             ),
             (
                 vec!["docs/plans/milestones/plans/README.md"],
                 vec![],
                 "docs/plans/milestones/plans",
-                "is a word the tool reserves",
+                "is not two or more lower-case words",
             ),
             (
                 vec!["docs/plans/milestones/index/README.md"],
                 vec![],
                 "docs/plans/milestones/index",
-                "names the listing of milestones/",
+                "is not two or more lower-case words",
             ),
             (
                 vec![
-                    "docs/plans/milestones/m/README.md",
-                    "docs/plans/milestones/m/sub/a-slice.md",
+                    "docs/plans/milestones/m-one/README.md",
+                    "docs/plans/milestones/m-one/sub/a-slice.md",
                 ],
                 vec![],
-                "docs/plans/milestones/m/sub",
+                "docs/plans/milestones/m-one/sub",
                 "one file per slice",
             ),
         ] {
@@ -1446,11 +1446,11 @@ mod tests {
             );
         }
         // A milestone whose README is a directory is no anchor, so nothing defines it.
-        let present: Vec<PathBuf> = ["docs/plans/milestones/m/README.md/inner.md"]
+        let present: Vec<PathBuf> = ["docs/plans/milestones/m-one/README.md/inner.md"]
             .iter()
             .map(PathBuf::from)
             .collect();
-        assert!(Anchors::of(&manifest, &present).by_name("m").is_none());
+        assert!(Anchors::of(&manifest, &present).by_name("m-one").is_none());
     }
 
     /// A plan document with the given level-two sections, each holding one line.
@@ -1491,15 +1491,15 @@ mod tests {
         let docs = |spec_sections: &[&str], slice_sections: &[&str]| {
             vec![
                 (
-                    "docs/plans/specs/s.md".to_string(),
+                    "docs/plans/specs/a-spec.md".to_string(),
                     with_sections("A spec", spec_sections),
                 ),
                 (
-                    "docs/plans/milestones/m/README.md".to_string(),
+                    "docs/plans/milestones/m-one/README.md".to_string(),
                     with_sections("A milestone", &PLAN_SECTIONS),
                 ),
                 (
-                    "docs/plans/milestones/m/a-slice.md".to_string(),
+                    "docs/plans/milestones/m-one/a-slice.md".to_string(),
                     with_sections("A slice", slice_sections),
                 ),
             ]
@@ -1510,8 +1510,8 @@ mod tests {
                 present.push(p.clone());
             }
             for p in [
-                "docs/plans/milestones/m",
-                "docs/plans/milestones/m/index.md",
+                "docs/plans/milestones/m-one",
+                "docs/plans/milestones/m-one/index.md",
             ] {
                 present.push(p.to_string());
             }
@@ -1534,7 +1534,7 @@ mod tests {
         let found = run(docs(&without_names, &SLICE_SECTIONS));
         assert_eq!(found.len(), 1, "{found:#?}");
         assert!(
-            found[0].starts_with("docs/plans/specs/s.md")
+            found[0].starts_with("docs/plans/specs/a-spec.md")
                 && found[0].contains("level-two section `Names`"),
             "{found:#?}"
         );
@@ -1555,7 +1555,7 @@ mod tests {
             let found = run(docs(&renamed, &SLICE_SECTIONS));
             assert_eq!(found.len(), 1, "{written}: {found:#?}");
             assert!(
-                found[0].starts_with("docs/plans/specs/s.md")
+                found[0].starts_with("docs/plans/specs/a-spec.md")
                     && found[0].contains("level-two section `How the work is done`"),
                 "{written}: {found:#?}"
             );
@@ -1565,7 +1565,7 @@ mod tests {
         assert_eq!(found.len(), SLICE_SECTIONS.len(), "{found:#?}");
         assert!(found
             .iter()
-            .all(|f| f.starts_with("docs/plans/milestones/m/a-slice.md")));
+            .all(|f| f.starts_with("docs/plans/milestones/m-one/a-slice.md")));
     }
 
     /// The claim: a walk row that takes a milestone out of the walk is one finding, against its
@@ -1573,11 +1573,18 @@ mod tests {
     /// Mutation checked: the guard of `outside_the_walk` on the Section shape removed.
     #[test]
     fn a_milestone_outside_the_walk_is_one_finding() {
-        let manifest = declaring_full("", "", "[\"docs/plans/milestones/m\"]", "[]", "[]", "[]");
+        let manifest = declaring_full(
+            "",
+            "",
+            "[\"docs/plans/milestones/m-one\"]",
+            "[]",
+            "[]",
+            "[]",
+        );
         let mut present = all_of("");
         for p in [
-            "docs/plans/milestones/m",
-            "docs/plans/milestones/m/README.md",
+            "docs/plans/milestones/m-one",
+            "docs/plans/milestones/m-one/README.md",
         ] {
             present.push(p.to_string());
         }
@@ -1586,7 +1593,10 @@ mod tests {
             .filter(|f| f.contains("out of the walk"))
             .collect();
         assert_eq!(found.len(), 1, "{found:#?}");
-        assert!(found[0].contains("the spec register of `m`"), "{found:#?}");
+        assert!(
+            found[0].contains("the spec register of `m-one`"),
+            "{found:#?}"
+        );
     }
 
     /// The claim: the item registers are the tool's, so a declaration of one, or a location

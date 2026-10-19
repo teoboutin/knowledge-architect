@@ -472,10 +472,23 @@ fn describe(what: &Observation) -> (&'static str, String) {
             ("retired-slug-ref", span.clone())
         }
         Observation::Link(target) => ("link", target.clone()),
-        // Left out: every one-word code span is one, so the dump would list most of the prose's
-        // code spans, and the observation matters only where the entity table names a skill or
-        // an agent by it, which the bare-name lint judges.
-        Observation::BareName(_) => ("", String::new()),
+        // As written, and `beside-issue` after it where its paragraph holds a reference to an
+        // issue entry, so a dumped row tells why the lint left it silent.
+        Observation::UnquotedReference {
+            token,
+            beside_issue,
+        } => (
+            "unquoted-reference",
+            if *beside_issue {
+                format!("{token} beside-issue")
+            } else {
+                token.clone()
+            },
+        ),
+        // Left out: every one-word code span is a bare name and every hyphenated word a plain
+        // word, so the dump would list most of the prose, and either observation matters only
+        // where the entity table defines its id, which the lints on ids judge.
+        Observation::BareName(_) | Observation::PlainWord(_) => ("", String::new()),
     }
 }
 

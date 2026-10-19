@@ -41,7 +41,7 @@ under `skill@klarch-development`.
 | the three lints | classes A, B and C, each a lint of the last phase |
 | the class heads | the heads the harvest writes for the three lints: `design@core@candidate-rule-and-retired-forms` rewritten for class A, `design@core@bare-skill-name-reported` rewritten for class B, and a new head for class C |
 | a subject slug | a slug that names what a decision is about, such as a domain term, rather than the decision; `primer@design-heads` asks that a slug stay aligned with its decision's full scope |
-| a quotation | text between `"` and `"`, or `“` and `”`, within one paragraph, or a blockquote line beginning with `>`; one left open ends at its paragraph. In a Rust comment, a paragraph is a run of consecutive comment lines; a string literal's own delimiters open no quotation |
+| a quotation | text between `"` and `"`, or `“` and `”`, within one paragraph, or a blockquote line beginning with `>`; one left open ends at its paragraph. A paragraph ends at a blank line and at a heading, in a document and in a Rust comment alike, since a doc comment's content is markdown, per `design@core@grammars-not-prefixes`; a string literal's own delimiters open no quotation, and neither does a mark inside a code span |
 | the census | the measurement taken in rounds 1, 3 and 4 by the session's scripts, which are not in the tree; its figures are the arguments', and the built lints supersede it as the instrument |
 | `ENTITY_ID` | the regex of `path@core@src/entity.rs` behind `is_entity_id`, `^[a-z0-9]+(?:-[a-z0-9]+)*$` |
 | `is_id` | the copy of the grammar in `path@agent-skills@src/render.rs` that validates a `{{slug:…}}` placeholder of the shipped text |
@@ -83,7 +83,7 @@ under `skill@klarch-development`.
   reported whatever it names", `rejected@core@retired-slug-reference-always-reported`, covers this check.
 - One-word ids in this tree:
   - the 30 argument items of `spec@plans@path-quickfixes`;
-  - the installed section `skill@knowledge-architect-project-audit@outcomes`, cited by two agents,
+  - the installed section `outcomes`, now `skill@knowledge-architect-project-audit@finding-outcomes`, cited by two agents,
     the skill itself and two heads of agent-skills;
   - in the mock projects under `path@core@tests/projects/`: dirhome's `a1` twice and `checked`
     once; the `unsound` mock's spec and milestone `twice` and milestones `defective` and `widget`,
@@ -430,7 +430,7 @@ so a repair is allowed and no exemption is needed."
 ### Section slugs behave like register ids `##arg-32`
 
 Round 4, the session, measured. Here 34 plain hits on 10 section slugs, most of them pointers in
-words; thaum 5, all `skill@knowledge-architect-design@keep-or-change`; one-word section slugs `skill@knowledge-architect-project-audit@outcomes` here and `terms`, `skills`,
+words; thaum 5, all `keep-or-change`, now `skill@knowledge-architect-design@incumbent-evaluation`; one-word section slugs `outcomes`, now `skill@knowledge-architect-project-audit@finding-outcomes`, here and `terms`, `skills`,
 `git` in thaum.
 
 ### An id defined at several places cannot choose its repair `##arg-33`
@@ -470,16 +470,18 @@ Round 5, the session, read from the tree: the `ID` regex of `path@core@src/entit
 
 ```
 crates/core/src/entity.rs            existing: ENTITY_ID, kept for a register's name and directory;
-                                     new: ENTRY_ID, the two-segment grammar, behind is_entry_id
+                                     new: ENTRY_ID, the two-segment grammar, behind is_entry_id;
+                                     one_segment, the definition finding, raised where a SlugDef
+                                     defines; Entities::by_id, every id with its kinds and anchors
 crates/core/src/scan.rs              existing: Observation::BareName, SLUG_SITE, SLUG_ANY, BARE_NAME,
-                                     NAME_WHOLE; new: Observation::UnquotedReference(String), a class A
-                                     token; Observation::PlainWord(String), a class C word;
-                                     Observation::OneSegmentSlug(String), a one-segment slug at a
-                                     definition site
+                                     NAME_WHOLE; new: Observation::UnquotedReference { token,
+                                     beside_issue }, a class A token and whether its paragraph holds a
+                                     backticked reference to an issue entry (D2);
+                                     Observation::PlainWord(String), a class C word
 crates/core/src/check/references.rs  existing: the match arm Observation::BareName(name) if lints in
                                      judge_part, widened to every defined id
 crates/agent-skills/src/render.rs    existing: is_id, two segments for a slug placeholder
-arg-<n>                              new: the numbering of plan argument items, arg-1, arg-2, …
+arg-<n>                              new: the numbering of plan argument items, from 1
 ```
 
 ## Decided design
@@ -495,7 +497,9 @@ defined, so it is silent, except in a commit message whose first parent still de
 An id is `[a-z0-9]+(-[a-z0-9]+)+`: two or more segments, at every site of the mapping table that
 judges an id. A one-segment id is a finding at its definition site, "an id has two or more
 segments", its repair "rename it with a second segment": the scanner keeps recording a one-segment
-slug at a heading, so it is reported rather than read as no slug. The planning skill numbers argument
+slug at a heading as `Observation::SlugDef`, so the entity table reports it where it defines it,
+rather than reading the heading as one with no slug. A one-segment slug is a phase-3 definition
+finding, so its planted defect sits in the `unsound` mock, per `path@core@CLAUDE.md`. The planning skill numbers argument
 items `arg-<n>`, and every restatement of the grammar, installed or not, changes with it. Nearest
 rival: one-word ids exempt from the lints (`argument@defined-ids-outside-references@arg-20`); second
 rival: plan items exempt (`argument@defined-ids-outside-references@arg-21`).
@@ -508,8 +512,11 @@ three for a register kind, an anchor and the rest for `path` and `planned`, and 
 `design@core@harness-kinds-cited-without-anchor` for a harness kind. The token is bounded as a word
 is: it starts after a character that is no letter, digit, `@`, `/`, `.` or backtick, and it ends
 before whitespace or a punctuation mark that ends a sentence or a clause, `.`, `,`, `;`, `:`, `)`,
-`!` or `?`, followed by whitespace or the end of the line. A token holding `<` or `>` is a
-placeholder and is silent. The finding is "a reference written without backticks", its repair
+`!` or `?`, followed by whitespace or the end of the line, and the markdown that closes an emphasis,
+a link's text or a quotation around it, `*`, `_`, `]`, `"` and `'`. A token holding `<` or `>` is a
+placeholder and is silent. Each segment of a register or harness kind is in its grammar, an anchor
+name or `*`, and an id, so an address whose head is a kind, such as `<kind>@example.test`, is no
+reference (`argument@defined-ids-outside-references@arg-6`). The finding is "a reference written without backticks", its repair
 "write `` `<the token>` ``".
 
 Under D2, a token in a paragraph that also holds a backticked reference to an issue entry is
@@ -530,8 +537,10 @@ skill's or an agent's name is a member, as today. Nearest rival: no finding
 A plain word outside any backtick span that is exactly a defined id is a finding, its repair "write
 `` `<kind>@<anchor>@<id>` ``; where the word is meant as an ordinary term, the entry's slug names a
 subject: rename the entry to state its decision". A word is bounded as an id is: no letter, digit,
-hyphen, `/`, `@` or `#` on either side, and no `.` followed by a letter or a digit, so a file name
-or a path holding an id is not a word, and an id that ends a sentence is. A released changelog
+hyphen, `/`, `@`, `#` or brace on either side, and no `.` followed by a letter or a digit, so a file
+name, a path or a template's placeholder holding an id is not a word, and an id that ends a sentence
+is. The value of a frontmatter `name` line is the name a skill or an agent is defined by, not a
+mention, and is not read. A released changelog
 section is linted: a finding there is ruled by the owner case by case, and its repair, the
 reference, is a structural change the section allows. Nearest rival: a listing in `show`
 (`argument@defined-ids-outside-references@arg-12`), ruled out by the owner.
@@ -550,9 +559,8 @@ may not respell it.
 - Each finding is a lint of the last phase, a member of `Part::Lints`, whose doc comment, the
   model dump's exhaustive match in `path@core@src/model.rs`, and the candidate rule's "read by three
   lints" sentence name the new observations.
-- **A generated file writes ids as references.** The milestones index and every other generated
-  listing that writes an entry's id in a cell writes `` `<kind>@<anchor>@<id>` ``, so a generated file
-  holds no finding and needs no exemption.
+- **A generated file needs nothing.** Every generated file is outside the walk, by
+  `generated_paths` in `path@core@src/index.rs`, so no lint reads one, and no generator changes.
 
 ### The tree's own findings
 
@@ -564,8 +572,8 @@ besides the one-word ids listed in "What the work is":
   section slugs written bare in issue entries, among them the primer's and the root's shared slug
   for where knowledge goes; the section slug `primer@checker-model`, written bare in a doc comment of
   `path@core@src/agents.rs`; and the planning skill's `a<n>` examples, rewritten with the numbering;
-- class C: the subject slug `design@agent-skills@need-test`, cited 9 times, and the section slug
-  `skill@knowledge-architect-design@keep-or-change`, cited 2 times, each renamed to state its
+- class C: the subject slug `need-test`, now `design@agent-skills@statement-names-an-act`, cited 9 times,
+  and the section slug `keep-or-change`, now `skill@knowledge-architect-design@incumbent-evaluation`, cited 2 times, each renamed to state its
   decision, or its subject reworded where used as a word; "the path-quickfixes spec" written in
   words; an issue naming itself; section slugs named in words, such as "the primer's
   intent-and-claims rule";
@@ -660,13 +668,13 @@ the scan is reworked before landing, or the owner rules on the cost.
    checker stricter and `cargo klarch commits` judges every tree of the branch with the tip's
    checker, per `primer@branch-commits`:
    - the sites of the mapping table take their grammar; the one-segment definition finding;
-   - classes A, B and C, the quotation exemption, the candidate list, and the generated files'
-     reference form;
-   - planted defects in the `planted` mock, one per class and one one-segment definition, per
-     `path@core@CLAUDE.md`; the mock and unit-test fixtures renamed to two segments;
+   - classes A, B and C, the quotation exemption and the candidate list;
+   - planted defects in the `planted` mock, one per class, and a one-segment definition in the
+     `unsound` mock, per `path@core@CLAUDE.md`; the mock and unit-test fixtures renamed to two
+     segments;
    - every installed restatement of the grammar and the numbering, installed;
    - every finding on this repository repaired, per "The tree's own findings", the renames of
-     `skill@knowledge-architect-project-audit@outcomes` and of the subject slugs with their
+     `outcomes`, now `skill@knowledge-architect-project-audit@finding-outcomes`, and of the subject slugs with their
      references, and the items of `spec@plans@path-quickfixes` renumbered.
 
    Claims, each with its test: a one-segment id is reported at its definition; each class reports its
@@ -676,8 +684,9 @@ the scan is reworked before landing, or the owner rules on the cost.
 2. **The changelog**, after reading `design@knowledge-architect@changelog-entries` and
    `design@knowledge-architect@versioning-policy` whole: a Migration entry, that a project renames
    its one-word ids, repairs the findings the lints give, and repairs its references to the
-   installed sections renamed, such as `skill@knowledge-architect-project-audit@outcomes`; the lints
-   as a stricter check, a minor; then `cargo x changelog`.
+   installed sections renamed, such as `outcomes`, now `skill@knowledge-architect-project-audit@finding-outcomes`; the lints
+   as a stricter check, a minor; the two variants `document::Observation` gains, a break of the
+   library's API, a major; then `cargo x changelog`.
 3. **The review of the work, the report, the harvest and the deletion**, as
    `skill@knowledge-architect-planning@working-a-slice` points 4 to 7 say. The design audit of point
    2 is owed when the work does not start in the session that converged.

@@ -1,4 +1,4 @@
-# widget — design
+# the-widget — design
 
 ### A decision this component records, under its own name `##widget-decision`
 

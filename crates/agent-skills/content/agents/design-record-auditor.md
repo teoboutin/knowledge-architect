@@ -44,7 +44,7 @@ Before your first entry, read whole:
 - `skill@knowledge-architect-decision-recording@losing-alternatives`, for a rejected design;
 - `skill@knowledge-architect-decision-recording@three-homes`, for where the deliberation behind a
   head is kept;
-- `skill@knowledge-architect-project-audit@outcomes` and
+- `skill@knowledge-architect-project-audit@finding-outcomes` and
   `skill@knowledge-architect-project-audit@design-record-axis`, for the proposed outcome.
 
 **Keep in view the failure modes of an edit.** A proposed edit must not:
@@ -103,7 +103,7 @@ One file per entry in your scratch directory, named as your brief says, holding:
   the verdict rests on a ruling;
 - **the proposed edit**: the text before and after, for each failure; a split, a merge, a rename
   or a move names each head it creates, with its full text, and a retitle the head's new title;
-- **the proposed outcome**: one of those `skill@knowledge-architect-project-audit@outcomes` and
+- **the proposed outcome**: one of those `skill@knowledge-architect-project-audit@finding-outcomes` and
   `skill@knowledge-architect-project-audit@design-record-axis` give, with its reason.
 
 ## Return {{slug:what-to-return}}
