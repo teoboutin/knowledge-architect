@@ -1,6 +1,6 @@
 **Generated — do not edit.** `cargo klarch index`
 
-36 entries
+35 entries
 
 | kind | title |
 | --- | --- |
@@ -30,7 +30,6 @@
 | question | [The refusal of a kind's name as an anchor quotes a reason the root forbids](a-kind-name-refusal-quotes-a-future-migration-reason.md) |
 | question | [A project's own saved workflow can declare the name of an installed one, and nothing reports it](a-project-workflow-can-declare-an-installed-workflow-s-name.md) |
 | question | [An extension reads its manifest table as a `toml::Value`, so the core's toml version is part of the public API](manifest-table-exposes-the-toml-crate.md) |
-| todo | [A bare slug that names a deleted entry is never reported](a-bare-mention-of-a-deleted-entry-is-never-reported.md) |
 | todo | [A change to a generated file's contract fails every earlier commit with no word on the repair](a-contract-change-fails-every-earlier-commit-unexplained.md) |
 | todo | [An extension cannot see which register, anchor or entry a document belongs to](an-extension-cannot-see-which-register-a-document-belongs-to.md) |
 | todo | [`commits` sees a citation of a branch commit by SHA only when the cited commit is in the range it judges](branch-sha-citations-are-judged-within-the-range-only.md) |

@@ -1656,8 +1656,8 @@ reported. A commit message is judged as every lint is, per
 `design@core@a-commit-message-is-a-document`.
 
 **A bare name is a pointer written with no kind.** Silent, it dangles unseen when the skill or the
-agent is renamed or deleted, the class `issue@core@a-bare-mention-of-a-deleted-entry-is-never-reported`
-records for a register's slugs. The reference costs the kind and one `@`, and `show` then lists the
+agent is renamed or deleted, the class `spec@plans@defined-ids-outside-references` plans to report
+for every defined id. The reference costs the kind and one `@`, and `show` then lists the
 text among what cites the skill, per `goal@core@records-reach-their-reader`.
 
 **The match is exact against the table.** A crate's name, a name that no longer exists, and a

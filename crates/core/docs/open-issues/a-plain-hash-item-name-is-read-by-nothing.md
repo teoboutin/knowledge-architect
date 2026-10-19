@@ -67,8 +67,8 @@ A wrong or stale item name in a commit message or a design head is a pointer nob
 against `goal@knowledge-architect@design-is-recorded-with-its-arguments`, and
 `tripwire@core@candidate-rule-silence` watches the same family of silence for backticked spans. A
 new finding on plain text changes `design@core@candidate-rule-and-retired-forms`.
-`issue@core@a-bare-mention-of-a-deleted-entry-is-never-reported` covers the moment after the item is
-gone; this entry covers the time it exists.
+`spec@plans@defined-ids-outside-references` plans the report of a defined id written outside a
+reference, and leaves the `#<id>` form to this entry.
 
 ### What would close it
 
