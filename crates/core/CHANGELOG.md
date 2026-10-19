@@ -52,7 +52,7 @@ subsection is omitted.
   standing-entry searcher, one per Component the question touches, and again for a thread whose
   subject the first search was not given; its first round names the entries graded `bears`, and a
   plan document lists them under "What is already decided". A design head cites the `rejected`
-  entries its argument covers, and a `rejected` entry names no winner.
+  entries its argument covers, and a `rejected` entry names no winner as such.
 - `agent-skills`, patch: a plan document's status section names each transcript it was assembled
   from by the message where the discussion begins in it, and no longer by the transcript file's
   path, which holds the session identifier and the machine's home directory.

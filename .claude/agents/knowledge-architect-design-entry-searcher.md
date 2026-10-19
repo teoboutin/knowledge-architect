@@ -68,7 +68,8 @@ your group whose section cites a seed is graded `bears` or `may-bear`, never unr
 
 Read every subject of your group whole, however large. A subject whose size strained your reading
 is reported under "Met outside the task", with its heading text and its count of design entries, as
-a sign that the Component's design home is not divided enough.
+a sign that the Component's design home is not divided enough; the owner's example of such a
+subject, a hedged one, is one of more than 60 design entries.
 
 ## Return `##what-to-return`
 
