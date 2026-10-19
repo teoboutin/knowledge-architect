@@ -183,8 +183,8 @@ with the grammar named, and a reference the grammar accepts that names nothing i
 anchor, id, title, last change — sorted by kind then id. **`tripwires [anchor] [--guarding <ref>]
 [text …]`** prints one row per tripwire entry — anchor, id, title, and every reference the
 entry carries to what it guards — sorted by anchor then id. What a tripwire guards is an entry of
-any register but `issue` and `tripwire`: a decision, a goal, or an entry of a register the
-manifest declares. For both, the
+any register but `issue`, `tripwire` and `rejected`: a decision, a goal, or an entry of a register
+the manifest declares. For both, the
 text keeps the rows whose id or title contains it, case-insensitively, and **no row is exit 1**.
 
 **The first positional argument is an anchor when something declares that name**, and text
@@ -321,8 +321,10 @@ and a spec list no register. The output is for a reader, not for a script.
 
 ## Registers
 
-**Ten registers are compiled in.** `design`, `goal`, `tripwire` and `issue` are what the word
-component means to this tool. `spec` and `milestone` are the plan documents, and `thread`,
+**Eleven registers are compiled in.** `design`, `goal`, `tripwire`, `rejected` and `issue` are
+what the word component means to this tool. `rejected` holds the designs a Component did not keep,
+each cited by the design entries whose argument covers it, and an entry no design entry cites is a
+finding, per `design@core@orphan-rejected-entry`. `spec` and `milestone` are the plan documents, and `thread`,
 `argument`, `criterion` and `acceptance` their items, described under "Plan documents" below. A project declares further ones in its
 `knowledge-architect.toml`. The first two tables are from thaum, whose `rules` location carries
 an `interpretation` register:
@@ -353,7 +355,7 @@ a `README.md` that links every subdocument. It declares `level`, from 2 to 6: ev
 level in its home is an entry and carries a slug, per
 `design@core@an-entry-is-a-heading-at-the-register-level`, and a slug at any other level defines
 nothing, per `design@core@a-slug-elsewhere-defines-nothing`. The built-in levels are 3 for
-`design` and 2 for `goal` and `tripwire`. A heading is a line that opens with `#` marks, at most
+`design` and `rejected`, and 2 for `goal` and `tripwire`. A heading is a line that opens with `#` marks, at most
 three spaces in, followed by a space or a tab and text. A setext heading, a heading after a list or
 block-quote marker on its line, and a heading with no text are reported in any markdown document,
 per `design@core@headings-open-with-hash-marks`.
@@ -363,8 +365,8 @@ hand-written `README.md`, a generated `index.md` and an optional `register.toml`
 group subdirectories. An entry opens with frontmatter carrying each declared metadata key, then a
 level-one title, then the declared sections.
 
-`[registers.issue]` accepts `kinds` and nothing else; the design, goal and tripwire registers
-accept nothing, `level` included, and a table for a plan register or an item register is refused
+`[registers.issue]` accepts `kinds` and nothing else; the design, goal, tripwire and rejected
+registers accept nothing, `level` included, and a table for a plan register or an item register is refused
 whole. The
 arguments are `design@core@registers-are-declared` and
 `design@core@a-file-register-is-a-directory-of-entries`.
