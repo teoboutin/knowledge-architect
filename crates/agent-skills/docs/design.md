@@ -359,7 +359,7 @@ whose record is docs/decisions.md on its branch next. A figure is taken again fr
 
 A decision about the installed text is recorded only where it keeps the owner's intent on record, as
 `goal@knowledge-architect@design-is-recorded-with-its-arguments` asks, or keeps two parts of the
-workflow consistent, as `goal@agent-skills@one-skill-per-activity` asks; or where another entry test
+workflow consistent, as `goal@agent-skills@no-contradiction-in-workflow` asks; or where another entry test
 admits it, such as a reason several installed texts must respect. A rewording, and the rationale for how one instruction
 is phrased, is not recorded. Such proposals can be made without bound, unlike a technical decision,
 which costs implementation work. The commit message carries a rewording's argument.
@@ -488,7 +488,7 @@ behaviour and the project's shape that the skill is built on, each naming what d
 does not hold. The set is the scope test for every proposed edit of the skill: a finding that
 describes an owner's behaviour outside the set is not a gap, and no instruction is written for it.
 The set scopes the owner's behaviour only. A finding that two installed instructions leave no move
-satisfying both is always in scope, because `goal@agent-skills@one-skill-per-activity` is met only
+satisfying both is always in scope, because `goal@agent-skills@no-contradiction-in-workflow` is met only
 while no two installed instructions contradict.
 
 The sets live in the retrospective skill, the one installed activity that judges whether something
@@ -963,7 +963,7 @@ entry takes a slug that names the decision, and the plan document's harvest row,
 message on the in-change path, states the pair. A slug that misdescribes its decision misinforms
 every reader of every citation, and the alignment rule of `primer@design-heads` orders a rename
 in that case; without the exception, the two rules would give opposite orders, against
-`goal@agent-skills@one-skill-per-activity`. The rival, renaming the thread during the discussion
+`goal@agent-skills@no-contradiction-in-workflow`. The rival, renaming the thread during the discussion
 once it drifts, lost: every earlier delta carries the old slug, and the assembly that reads them
 from the transcript, per `design@agent-skills@ledger-from-transcript`, would read one thread as
 two.
