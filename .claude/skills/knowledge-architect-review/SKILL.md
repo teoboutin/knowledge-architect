@@ -136,7 +136,10 @@ lost unless a later review finds it.
 **Every item of a report gets an outcome, not only its numbered findings**: a note outside the
 reviewer's axis, an observation it declined to call a finding, a remark that a defect predates the
 change. Each is a claim about the work like any finding. So is a repair the dispatcher promised the
-owner while answering a review. The record of the review lists each item with its outcome.
+owner while answering a review. The record of the review lists each item with its outcome. The
+dispatcher saves each report in a file outside the project, such as a scratch directory, as it
+arrives, and builds the record from those files: a compaction of the conversation keeps neither
+the reports nor their items.
 
 **A repair that adds, removes or reverses a design head is reviewed by the decision-record axis**,
 and by any other axis whose condition it meets, whichever axis's finding it answers. A repair made before the last

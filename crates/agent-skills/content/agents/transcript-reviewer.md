@@ -46,8 +46,9 @@ by fields below. Drop every other tool call and tool result, and every other lin
 the order it gives, from the message where the work begins to the end.
 
 **Not every `user` line is the owner's.** The harness also writes, as `user` lines, text it injects:
-a line whose `isMeta` is true (a loaded skill, a message from another agent), and a line whose
-`origin.kind` is not `human` (a background task's notification, a message from a peer agent). A
+a line whose `isMeta` is true (a loaded skill, a message from another agent), a line whose
+`isCompactSummary` is true (the summary the harness writes when it compacts a session), and a line
+whose `origin.kind` is not `human` (a background task's notification, a message from a peer agent). A
 `queued_command` line carries the same two fields inside `attachment`, as `attachment.isMeta` and
 `attachment.origin.kind`. An owner's message typed mid-turn arrives that way, with
 `attachment.origin.kind` `human` and its text in `attachment.prompt`. Label each `user` line and

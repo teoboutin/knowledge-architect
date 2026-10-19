@@ -372,8 +372,8 @@ message and tree through `{{command}} commits`. A reference anywhere else is fou
 text**: the right anchor, `path@elsewhere@<path>` for a path the tree does not hold, a placeholder,
 or a rewritten sentence. A record of a deliberation (a plan document, a committed file that leaves
 once its outcomes are carried out, or a commit message) names by its bare slug in backticks an
-entry that the work it records removes, renames or is still to create, where its tree does not hold
-it, nor, for a commit message, its first parent's: a name, not a reference, since there is nothing
+entry, and by its bare name in backticks a skill or an agent, that the work it records removes,
+renames or is still to create, where its tree does not hold it, nor, for a commit message, its first parent's: a name, not a reference, since there is nothing
 for the checker to judge. A renamed entry's old slug carries beside it the reference to the entry
 under its new slug, so a reader reaches the live entry by a checked pointer. A reference or a path that no checked form expresses is
 written without backticks only beside a reference to an issue entry of this project that records
@@ -492,7 +492,7 @@ made. Test 4 is such a case. In a head that holds a part of each, the part that 
 the rest stands on its argument.
 
 **A durable record attributes a decision to the owner; it does not quote the owner.** A head, a
-commit message, a tripwire and an issue entry state what the owner decided and how far the
+commit message, a tripwire, a `rejected` entry and an issue entry state what the owner decided and how far the
 decision reaches, as "the owner chose X over Y" or "on the owner's word", never the owner's words
 verbatim. The verbatim words stay where the deliberation is kept: a plan document's items, and a
 committed file that leaves once its outcomes are carried out. An attribution keeps the scope and the
@@ -589,7 +589,8 @@ decision it names, so rename it even when that means rewriting every reference i
 
 **A head that a change touches is brought to these rules in that change**: its title to the rule it
 argues, each decision it bundles to a head of its own, its ground to its argument. Re-pointing a
-reference in a head does not touch it. Where bringing it
+reference in a head, to a renamed entry or a migrated form, does not touch it; adding or removing
+one does. Where bringing it
 to the rule would widen what the owner's words in it approved, as a title moved from the members
 the owner named to the rule, the change goes to the owner as one proposal, as a new member does.
 

@@ -69,6 +69,17 @@ subsection is omitted.
   branch and whether the tree held uncommitted changes, so that an intake reads the blamed text as
   the session read it; the workflow file names them only where the project builds the checker from
   source.
+- `agent-skills`, patch: each step of a spec's implementation sequence states its Claims, as a
+  slice's entry does, so the commits that land the step name claims the spec holds.
+- `agent-skills`, patch: a plan document is read again by its reviewers after its decided design
+  changes by a ruling of the owner, as after a design session that converges.
+- `agent-skills`, patch: the dispatcher of a review saves each reviewer's report in a file outside
+  the project as it arrives, and builds the record of the review from those files.
+- `agent-skills`, patch: a head is touched, and brought to the rules on heads, when a change adds or
+  removes a reference in it; only re-pointing a reference to a renamed entry or a migrated form
+  leaves it untouched.
+- `agent-skills`, patch: a record of a deliberation names a skill or an agent that its work removes
+  or is still to create by its bare name in backticks, as it names such an entry by its bare slug.
 
 ## 0.7.0
 

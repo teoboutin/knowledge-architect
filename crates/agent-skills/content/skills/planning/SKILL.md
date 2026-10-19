@@ -173,7 +173,7 @@ so in one line rather than being omitted, so a reader can tell an empty section 
 | Readings | where the work reads an external specification the project implements: each reading it makes, and where it is recorded. Empty for work that reads none |
 | Premortem | each cause, the thread it stresses, and its verdict: survives into a named claim, criterion or guard; converted into a named clause of the design; becomes a tripwire or an acceptance criterion, on the owner's word; or fired and the thread reopened. Each tripwire and acceptance criterion carries the label it was put to the owner under, `T<n>` or `AC<n>` |
 | Acceptance criteria | one item per criterion, ``### <criterion> `##<id>` ``, as `skill@knowledge-architect-planning@acceptance-criteria` says |
-| Implementation sequence | in a spec, its steps; in a milestone document, its slices, each linked to its spec, whose own steps it holds (`skill@knowledge-architect-planning@cutting-steps-and-slices`). Concise: what each builds and what it fails alone on |
+| Implementation sequence | in a spec, its steps; in a milestone document, its slices, each linked to its spec, whose own steps it holds (`skill@knowledge-architect-planning@cutting-steps-and-slices`). Concise: what each builds and what it fails alone on, and, in a spec, each step's Claims, as a slice's entry states them |
 | Order rationale | one sentence per pair of adjacent steps or slices |
 | Defaults awaiting the owner | each default a reviewer's finding or the author's judgement produced that `primer@question-authority` gives the owner, labelled `D<n>`, with the thread it bears on, marked as ruled once the owner rules; and the label of each acceptance criterion awaiting the owner's word |
 | Harvest | what lands where and when. In a spec, its rows; in a milestone, each slice's row in that slice's spec, and the row of the milestone document itself in it |
@@ -441,8 +441,8 @@ design the gap defeats.
    issues under `skill@knowledge-architect-issue-tracking`. Read `primer@design-heads` again, whole,
    before writing a head: it holds what earns one and how it is shaped, the thread's slug and its
    pair included. The row names what is judged; the entry tests and the tests for a losing
-   alternative decide whether each decision and each alternative earns an entry, and they govern
-   where the two disagree: an item of the row the tests exclude is named in the harvest's commit,
+   alternative decide whether each decision and each alternative earns an entry, the rules on a head's shape
+   decide how the decisions are cut into heads, and they govern where the two disagree: an item of the row the tests exclude is named in the harvest's commit,
    with the test it fails. Where a design home is a directory, a new subdocument is
    linked from its README. **The harvest's review is the review before the merge**, as
    `skill@knowledge-architect-review@review-axes` defines it and says what it owes: the harvest
@@ -484,8 +484,8 @@ from drifting from it.
 before that work**, a spec as well as a milestone document: on one branch,
 `primer@branch-commits` would put that commit before the document that plans it, or squash the
 two into one. A change that only a check of the working tree sees does not count. It is read
-again after a design session converges on a change to its decided design, as at a load-bearing gap
-of a design audit. A change made in answer to its review, a default written in included, is a
+again after its decided design changes, by a design session that converges or by a ruling of the
+owner, as at a load-bearing gap of a design audit. A change made in answer to its review, a default written in included, is a
 repair, reviewed again only as `skill@knowledge-architect-review@what-review-leaves` says, and an
 audit applied in place is no revision. Its reviewers are **fresh, never a fork**: a fork inherits the discussion and reads the document as its
 author. Dispatch them through `skill@knowledge-architect-review`, with the invariants that
@@ -587,7 +587,8 @@ document or its sibling specs, they re-point or remove the citation with no
 `question` issue, since the next slice's audit already reads the milestone against what landed.
 
 Any other citation of the leaving document, from an issue, a design head or a `CLAUDE.md`, dangles
-too, and `{{command}} check` reports it: the deleting commit repairs each, and an issue whose
+too, and `{{command}} check` reports it: the deleting commit repairs each, as
+`skill@knowledge-architect-issue-tracking` says of a sentence whose reference dangles, and an issue whose
 subject was the leaving document closes with it.
 
 A reader who needs the deliberation later finds it in history:

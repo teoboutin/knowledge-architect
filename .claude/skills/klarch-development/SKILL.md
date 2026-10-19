@@ -61,9 +61,9 @@ follow the code.
 ## Claims, and tests that discriminate `##discriminating-tests`
 
 **A unit of work is a list of claims, each with the test that could refute it.** A part with no
-claim is cost with no information. Where the work is a slice of a milestone, its entry's Claims
-section presents them, under `skill@knowledge-architect-planning`; otherwise, a spec included, the
-session writes them, and this procedure does not depend on a plan document existing.
+claim is cost with no information. Where the work is a slice of a milestone or a step of a spec, the
+Claims its plan document gives it present them, under `skill@knowledge-architect-planning`;
+otherwise the session writes them, and this procedure does not depend on a plan document existing.
 
 **Every claim's test must be shown to fail against a plausible wrong implementation.** A test
 written first can still be written to the implementation its author already has in mind. It then
