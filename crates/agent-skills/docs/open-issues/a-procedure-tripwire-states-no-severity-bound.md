@@ -48,6 +48,19 @@ Instances seen:
   "[review] Repairs from the transcript review of slice 3: the last "approved" site, the bounded
   head's title and hedge, the reviewer's rivals, and the changelog's fork" says. Both were judged
   by the intake of the session's retrospective files.
+- Two more cases met by their letter, read at the intake of thirteen retrospective files:
+  - `tripwire@agent-skills@rarer-rule-in-the-model` was met by a rule that the branch writing the
+    primer's model section wrote, and that its own review found and removed before the merge. The
+    owner ruled it not fired and wrote that exception into the tripwire's own clause, in the commit
+    "[review] The owner's ruling on Q2: a rarer rule caught and removed on its own branch does not
+    fire T2". That session's retrospective proposed one sentence in the tripwire shape instead: a
+    tripwire watches the record once its decision is on the main branch, and what the branch's own
+    reviews find before the merge is a repair. W3 of its workflow file.
+  - `tripwire@agent-skills@attribution-loses-the-scope` was met by its letter again in two sessions,
+    one of this repository and one of thaum: the transcript reviewer caught, before the merge, an
+    attribution that dropped the owner's hedges or a hedged proposal recorded as the owner's word,
+    none load-bearing. Two other sessions reported the same slips caught by other reviewers. The owner
+    ruled it not fired, on the ground the earlier instance above was ruled on.
 - The shape is the issue-tracking skill's section on a tripwire entry, "**the firing evidence**,
   meeting the falsifiability bar: an event, or a count crossing a bound, specific enough that both
   parties would agree it fired", restated by the design skill's premortem. The standing-state

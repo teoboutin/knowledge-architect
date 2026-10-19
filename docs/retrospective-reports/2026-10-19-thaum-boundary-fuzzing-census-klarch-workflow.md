@@ -6,7 +6,7 @@
 - **Version used**: the published checker, 0.7.0, read at the tag `v0.7.0`.
 - **Analysed against**: main at `v0.7.0-62-g6e2b300`.
 - **Standing entries that bear on it**:
-  - for W2: `issue@agent-skills@a-reviewer-cannot-write-the-file-its-brief-names`;
+  - for W2: `a-reviewer-cannot-write-the-file-its-brief-names`, now `issue@agent-skills@a-general-purpose-subagent-is-refused-a-file-access`,;
   - for W3: `issue@agent-skills@the-retrospective-counts-no-review-cost`, for its cost;
   - for W4: `tripwire@agent-skills@split-rule-from-exception`, not met, since the split separated
     three decisions with different rivals, not a rule from its exception;
@@ -52,7 +52,7 @@
   with its outcome", unchanged; no text says where the reports are kept until the record. The
   scratch directory of lines 109-111 is for a subagent's own files.
 - **c. Whether it is already recorded.** In part:
-  `issue@agent-skills@a-reviewer-cannot-write-the-file-its-brief-names` names the same loss, "A
+  `a-reviewer-cannot-write-the-file-its-brief-names`, now `issue@agent-skills@a-general-purpose-subagent-is-refused-a-file-access`, names the same loss, "A
   reviewer whose report comes back only as a message leaves the session no file to read again", for
   the case where the reviewer is refused its own write. The proposal does not depend on that write:
   the dispatcher writes. `rejected@agent-skills@ledger-written-during-discussion` lost a file updated

@@ -1,7 +1,7 @@
 ---
 kind: observation
 ---
-# A reviewer subagent refused a write to the scratch file its brief named, and returned its findings as text
+# A general-purpose subagent is refused a file access its work needs, the write of its report or the read of a transcript, where an installed agent is not
 
 ## Summary
 
@@ -10,7 +10,8 @@ reviewers dispatched as general-purpose subagents reported that the harness refu
 the findings file their brief named in their scratch directory, with the message "Subagents should
 return findings as text", and returned their findings in their final message instead. The review
 skill tells a dispatcher to name a scratch directory for each reviewer, and the reviewers' briefs
-asked for a file there.
+asked for a file there. A later session met the same split for a read: a general-purpose reviewer
+was refused the session's transcript, which the installed transcript reviewer read.
 
 ## Details
 
@@ -40,6 +41,14 @@ none with an installed agent. In the session that took that report in, three gen
 subagents wrote working files in their scratch directories without refusal; none was briefed to
 write a report file, so the closing test below was not run.
 
+A fourth occurrence, a read, in this repository's session that shipped the retrospective intake as
+an installed skill: the fidelity-of-relocation reviewer of the spec, dispatched as a general-purpose
+subagent, had its read of the session's transcript refused by the harness's permission classifier,
+as handling personal data, while `agent@knowledge-architect-transcript-reviewer` read the same file.
+The fidelity axis then judged its quotations against the text they were moved into only, and said
+so. Reported as W3 of that session's retrospective workflow file. Four observations now pair a
+refused file access with a general-purpose subagent, and none with an installed agent.
+
 ### Why it matters
 
 `skill@knowledge-architect-review@review-invariants` has the dispatcher name a scratch directory for
@@ -47,10 +56,15 @@ each subagent, and the project-audit skill's drafts and reports live in files th
 per `design@agent-skills@one-run-pass`, each agent writing in a scratch directory of its own, per
 `design@agent-skills@audit-method`. A reviewer whose report comes back only as a message leaves the
 session no file to read again, and a long report can be cut short in the message.
+The dispatcher now saves each report in a file as it arrives, per
+`skill@knowledge-architect-review@what-review-leaves`, so a refused write loses no report. A refused
+read still leaves an axis judging without its source, as the fidelity axis above did.
 
 ### What would close it
 
 One dispatch of a general-purpose subagent briefed to write one file in a named scratch directory,
 in the harness version then current, observing whether the write is refused. If it is, the review
 skill states that a brief asks for the report as text, or names the agent types that write files;
-if it is not, this entry closes as not reproduced.
+if it is not, this entry closes as not reproduced. The same, for a general-purpose subagent briefed
+to read a transcript file: refused, the review skill names the agent types an axis that reads a
+transcript is dispatched as; read, that half closes as not reproduced.
