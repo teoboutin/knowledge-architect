@@ -5,7 +5,7 @@ description: MUST use when the owner hands this session one or more of the proje
 
 # Retrospective intake
 
-%% The intake is an activity of its own, per design@agent-skills@intake-skill-home.
+%% The intake is an activity of its own, per `design@agent-skills@intake-skill-home`.
 Scope: the analysis of the findings of the project's own retrospective files, the owner's ruling
 on each, and the life of the analysis file until it leaves.
 
@@ -23,7 +23,7 @@ with its argument, and the owner rules.
 
 ## What it takes {{slug:what-it-takes}}
 
-%% The scope is design@agent-skills@intake-takes-the-project-file.
+%% The scope is `design@agent-skills@intake-takes-the-project-file`.
 - **In scope: the project's file of a retrospective**, `<YYYY-MM-DD>-<project>-<subject>.md`, any
   number of them at once. It holds the findings on the project's own instructions (P) and the
   project's side of an interaction finding. What each of the retrospective's two files holds is
@@ -49,8 +49,8 @@ A finding is cited by its id and its file's stem, in the form
    file received together. Dispatch `agent@knowledge-architect-standing-entry-searcher` as its
    description says, with the files' paths and their subjects as the work, and as the seeds the
    design heads and goals the findings name, or none.
-%% The dispatch rule is design@agent-skills@standing-entry-search-agent, and the groups are
-%% design@agent-skills@standing-entry-search-groups.
+%% The dispatch rule is `design@agent-skills@standing-entry-search-agent`, and the groups are
+%% `design@agent-skills@standing-entry-search-groups`.
 
    Read every entry returned whole with `{{command}} show <ref>`, never from its reason line. The
    search finds what a grep per finding does not: a finding already recorded, a deferred issue
@@ -67,7 +67,7 @@ The order is a suggestion; the content is not.
 
 - **a. What it says.** What happened in the session, which text it blames, quoted, and the fix it
   proposes.
-%% The commit of the version line is design@agent-skills@version-line-names-the-main-commit.
+%% The commit of the version line is `design@agent-skills@version-line-names-the-main-commit`.
 - **b. Whether it still applies.** Read the blamed text at the main commit the version line names,
   `git show <commit>:<path>`, then on the main branch as it stands, which holds the reported
   session's branch once it merged, and quote it with its `file:line`. A file whose version line
@@ -94,9 +94,10 @@ The order is a suggestion; the content is not.
     An installed skill with no set has no such test yet, and a finding on the project's own skill
     has none. **A finding that two installed instructions leave no move satisfying both is always
     in scope**, and is never closed by citing an expectation set;
-%% The sets bound a skill's scope per design@agent-skills@expectation-set-bounds-scope; the
-%% missing sets are issue@agent-skills@expectation-sets-for-the-installed-skills; the closing of a
-%% contradiction by a set is watched by tripwire@agent-skills@expectation-set-closes-a-contradiction.
+%% The sets bound a skill's scope per `design@agent-skills@expectation-set-bounds-scope`; the
+%% missing sets are `issue@agent-skills@expectation-sets-for-the-installed-skills`; the closing of a
+%% contradiction by a set is watched by
+%% `tripwire@agent-skills@expectation-set-closes-a-contradiction`.
   - **an observation**: a use that went well, or a behaviour not reproduced. It needs no action.
 - **e. Its scope.** The goal it serves or threatens, from the goals homes, `register@*@goal`. The
   owner of the fix: the Component or the location that owns the blamed text; or the installed
@@ -116,7 +117,7 @@ The order is a suggestion; the content is not.
   The fix is shaped, and read against the record, as
   `skill@knowledge-architect-agent-configuration@admission-standard` says, read whole: it is the
   standard of every actor that writes or judges agent-facing text.
-%% The intake shares that standard per design@agent-skills@intake-shares-the-admission-standard.
+%% The intake shares that standard per `design@agent-skills@intake-shares-the-admission-standard`.
 - **g. Its route.** What handling it needs, which says what "now" would mean:
   - a text edit of the project's own agent configuration whose design is settled:
     `skill@knowledge-architect-agent-configuration`;
@@ -141,7 +142,7 @@ alternatives, and does not search the registers again. Each returns, per finding
 its file and line, and its verdict. The session itself establishes d to h, and re-checks every
 verdict a proposal rests on. No subagent replays the reported session or builds a scenario of agent
 behaviour.
-%% No synthetic evidence is built, per design@agent-skills@synthetic-evidence-not-built.
+%% No synthetic evidence is built, per `design@agent-skills@synthetic-evidence-not-built`.
 
 ## The analysis file and the owner's ruling {{slug:analysis-and-ruling}}
 
@@ -175,7 +176,7 @@ whose `Outcome` line is still pending, and ask the owner for those. **Four outco
   that follow it, under the skill its route names. It needs no issue entry, and the proposal does
   not suggest one;
 - **open an issue**: name its anchor and its kind;
-%% The outcome is design@agent-skills@installed-fix-goes-upstream.
+%% The outcome is `design@agent-skills@installed-fix-goes-upstream`.
 - **sent upstream**: the fix lies in the installed text or in the checker. Ask the owner whether
   the workflow file of the same retrospective was sent, and how:
   - not sent yet: add the finding to it, as a W finding for the installed text or a C finding for
@@ -206,7 +207,7 @@ findings handled now are handled, in the commits their routes need. The commit t
 last outcome, or a later commit of the same branch, deletes it, and its message names the analysis
 by its path. History keeps it: `git log -- docs/retrospective-reports/` lists every analysis.
 %% The analysis is committed and leaves with its last outcome per
-%% design@agent-skills@committed-intake-analysis.
+%% `design@agent-skills@committed-intake-analysis`.
 
 A finding handled now can turn out to need a design discussion and a plan. Its `Outcome` line is
 then rewritten, on the owner's word, to name the plan document or the issue that now carries it,
