@@ -640,8 +640,8 @@ an issue would ever be checked. A rename to a second segment costs no capability
 
 `live`. `cargo klarch show` would list where an entry's id is written as a plain word, and no
 check would report it. Its premise was the noise of the first census, 713 plain hits in thaum and
-none meant as a pointer in the sample. The second census defeated it: every plain hit that was no
-pointer came from a slug naming a subject, which the rename repairs, and the rest were pointers
+none meant as a pointer in the sample. The second census defeated it in thaum, where it sorted the
+hits: every plain hit that was no pointer came from a slug naming a subject, which the rename repairs, and the rest were pointers
 written in words, which a listing leaves unchecked. Both censuses are kept in the spec of the
 design discussion, `path@elsewhere@docs/plans/specs/defined-ids-outside-references.md`. It is the first candidate where the owner rules
 a finding of the plain-word lint to be on a word that is neither a pointer nor a subject slug.

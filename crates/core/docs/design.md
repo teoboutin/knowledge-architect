@@ -1547,7 +1547,8 @@ reference names, and no lint on ids reports one as an id.
 so the lints on ids, `design@core@backticked-bare-id` and `design@core@plain-word-lint`, report a
 pointer and not a word: in the census of the design discussion, the one-word ids of thaum, its
 issues named after a feature area and its argument items, drew most of its plain hits and its
-ordinary words in backticks. A rename of the id is a migration, which costs a consumer no capability: a two-word id
+ordinary words in backticks. A rename of the id is a migration, which costs a consumer no capability, per
+`design@knowledge-architect@capability-cost-before-migration`: a two-word id
 that names the subject without a claim, such as `combat-coverage`, keeps the stability a feature's
 own name had. The nearest rival, one-word ids exempt from the lints, leaves every mention of such an
 id unchecked for good: `rejected@core@one-word-id-exception`. A second rival, plan items exempt
@@ -1992,9 +1993,10 @@ subject: the entry is renamed to state its decision, as `primer@design-heads` as
 
 **The rule is the owner's**, given against the session's proposal of a listing in `show`: a word
 meant as an ordinary term probably shows a slug wrongly chosen and not specific enough, in the
-owner's view. The census of the design discussion, kept in its spec, `path@elsewhere@docs/plans/specs/defined-ids-outside-references.md`, bore it out: every plain hit that was no pointer
-came from a subject slug, and every other hit was a pointer written in words. A listing would leave
-those pointers unchecked: `rejected@core@plain-word-mention`. A slug kept as a concept index, so
+owner's view. The census of the design discussion, kept in its spec,
+`path@elsewhere@docs/plans/specs/defined-ids-outside-references.md`, bore it out in thaum, where it
+sorted the hits: every plain hit that was no pointer came from a subject slug, and every other hit
+was a pointer written in words. A listing would leave those pointers unchecked: `rejected@core@plain-word-mention`. A slug kept as a concept index, so
 that a term's mentions read as its pointers, is not the intended use of the workflow, in the
 owner's view, and `show` lists every citation of an entry. `register@core@tripwire` watches the
 premise: a finding the owner rules to be on a word that is neither a pointer nor a subject slug.
