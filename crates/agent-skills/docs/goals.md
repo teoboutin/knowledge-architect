@@ -5,13 +5,25 @@ lives in `register@agent-skills@design`. A goal stays here while it is met, and 
 when the owner abandons it. This component is published, so its goals are encouraged to refine a
 goal of the project as a whole, `register@knowledge-architect@goal`.
 
-## Every activity of the workflow has one installed skill, and no two installed texts contradict `##one-skill-per-activity`
+## Every activity of the workflow has one installed skill `##one-skill-per-activity`
 
-The installed set covers setting up, setting goals, discussing designs, planning, recording
-decisions, tracking open issues, reviewing, auditing a whole project on one aspect, maintaining the
-configuration and the retrospective, one skill each, and the agents its skills dispatch. It is met while no activity of the
-workflow is left without its skill, and a review finds no two installed instructions a session
-cannot both obey. It refines `goal@knowledge-architect@agents-get-a-complete-workflow`.
+The installed set holds one skill for each activity the workflow asks an agent to carry out in
+every project that installs it, and the agents those skills dispatch. The activities include
+setting up a project and its goals, discussing designs, planning, recording decisions, tracking
+open issues, reviewing, auditing a project, maintaining the agent configuration, the retrospective,
+and the intake of a retrospective's findings; the list grows with the workflow. It is met while no
+such activity is left without its skill, and an agent carries out each activity from its skill,
+reading another skill only at a step that points to it. It refines
+`goal@knowledge-architect@agents-get-a-complete-workflow`.
+
+## Two installed texts never contradict `##no-contradiction-in-workflow`
+
+The installed texts (the skills, the agent definitions, the saved workflows and the primer) give
+no two instructions a session cannot both obey. A review or an audit judges a text by the criteria
+the skill of its activity asks the writer to meet, and by no other, and the criteria of the reviews
+and of the audits agree with each other. It is met while no review and no audit finds two installed
+instructions a session cannot both obey, or a criterion of a review or an audit that the activity's
+skill does not state. It refines `goal@knowledge-architect@agents-get-a-complete-workflow`.
 
 ## An installed text works unchanged in any project that installs it `##installed-text-works-anywhere`
 
