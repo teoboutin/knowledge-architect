@@ -2028,6 +2028,39 @@ fn a_message_naming_in_words_the_entry_its_commit_deletes_is_a_finding() {
     }
 }
 
+/// The claim: an id that a commit's tree and its parent's define under different kinds is one
+/// finding in its message, listing both references, not one finding per tree. Mutation checked:
+/// judging the message's lints on ids once per tree gives two findings on the line.
+#[test]
+fn a_message_naming_an_id_two_trees_define_apart_lists_both() {
+    let history = History::new("commit-id-two-trees");
+    tiny_project(&history, false);
+    let design = "# tiny — design\n\n### A decision this project records `##tiny-anchor`\n\n\
+                  It exists so that a message has something to name.\n";
+    history.write(
+        "docs/design.md",
+        &format!("{design}\n### A second decision `##second-way`\n"),
+    );
+    let base = history.commit("The project is created\n");
+    history.write(
+        "docs/design.md",
+        &format!("{design}It rejected `rejected@tiny@second-way`.\n"),
+    );
+    history.write(
+        "docs/rejected.md",
+        "# tiny — rejected designs\n\n### A second decision `##second-way`\n\n`live`. It lost.\n",
+    );
+    let sha = history.commit("The decision is reversed\n\nThe second-way decision is rejected.\n");
+    let (stdout, stderr, code) = history.run(&["commits", &format!("{base}..HEAD")]);
+    assert_eq!(code, 1, "{stdout}{stderr}");
+    let lines: Vec<&str> = stdout
+        .lines()
+        .filter(|l| l.starts_with(&format!("commit {sha}:3")))
+        .collect();
+    assert_eq!(lines.len(), 1, "{stdout}");
+    assert!(lines[0].contains("2 entries define it"), "{stdout}");
+}
+
 /// The claim: a commit whose message alone carries findings is counted failed, and its line
 /// says so, while the commit before it passes. Mutation checked: the message's findings left
 /// out of the causes.

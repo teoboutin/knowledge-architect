@@ -120,7 +120,7 @@ fn judge_message(
     primary_entities: &Entities,
     parent: Option<(&Assembly, &Entities)>,
 ) -> Vec<Finding> {
-    use check::references::{judge_part, Part};
+    use check::references::{judge_ids, judge_part, IdTable, Part};
     let model = Model::from_documents(vec![(message_rel(), text.to_string())]);
     let doc = &model.documents()[0];
     let mut out = Vec::new();
@@ -184,6 +184,14 @@ fn judge_message(
     };
     out.extend(references);
     out.extend(lints);
+    // The lints on ids read both trees in one pass, so an id the two define under different
+    // kinds or anchors gets one finding listing every candidate, not one per tree.
+    let parent_anchors = parent.map(|(other, _)| other.anchors());
+    let mut tables = vec![IdTable::new(primary_entities, &anchors)];
+    if let (Some((_, other_entities)), Some(other_anchors)) = (parent, &parent_anchors) {
+        tables.push(IdTable::new(other_entities, other_anchors));
+    }
+    out.extend(judge_ids(model.documents(), &tables));
     out.sort_by_key(|f| f.line);
     out
 }

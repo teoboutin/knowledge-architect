@@ -1740,13 +1740,15 @@ A token outside every backtick span and every quotation, in a document, a Rust c
 string literal outside the checker's own source or a commit message, fenced blocks included, is a
 reference written without its backticks when it starts with a kind the entity table knows and has
 the segments a reference of that kind takes, as `design@core@at-span-candidate-rule` segments a
-backticked span, each in its grammar: an anchor name or `*`, and an id. So an email address, a URL
-or a git remote never matches: its head is no kind, or its last segment is no id. The token starts
-after a character that is no letter, digit, `@`, `/`, `.` or backtick, and ends at whitespace, less
-the punctuation that ends a sentence or a clause and the markdown that closes an emphasis, a link's
-text or a quotation around it. A token holding an angle bracket is a placeholder, and is silent.
-The finding names its repair, the token in backticks, and `check --fix` writes nothing for it, as
-for the other lints on ids, per `design@core@backticked-bare-id`.
+backticked span, each in its grammar: an anchor name or `*`, and an id of two segments or more, per
+`design@core@two-segment-ids`, a register's name for the `register` kind. So an email address, a
+URL or a git remote never matches: its head is no kind, or its last segment is no id. The token
+starts after a character that is no letter, digit, `@`, `/`, `.` or backtick, and ends at
+whitespace or at a `]`, which closes a link's text, less the punctuation that ends a sentence or a
+clause and the markdown that closes an emphasis or a quotation around it. A token holding an angle
+bracket is a placeholder, and is silent. The finding names its repair, the token in backticks, and,
+where the token names nothing of this project, a rewrite of the sentence; `check --fix` writes
+nothing for it, as for the other lints on ids, per `design@core@backticked-bare-id`.
 
 **Beside a backticked reference to an issue entry, in the same paragraph, the token is silent.** It
 is then the first exception of `design@agent-skills@plain-text-is-no-repair`: text in the checker's
@@ -1934,7 +1936,8 @@ register's id is: the census of the design discussion found 34 plain hits on 10 
 this repository, most of them pointers written in words. Under `harness = []` the table defines no harness
 kind, per `design@core@harness-kinds`, so their names and slugs are silent. A commit message is
 judged as every lint is, per `design@core@a-commit-message-is-a-document`, so a span naming an
-entry the commit deletes is reported against its first parent's tree.
+entry the commit deletes is reported against its first parent's tree, and the candidates of both
+trees are listed in one finding.
 
 **A bare id is a pointer written with no kind.** Silent, it dangles unseen when the entry is renamed
 or deleted. The reference costs the kind and its anchor, and `show` then lists the text among what
@@ -1968,7 +1971,8 @@ A word outside every backtick span, in every prose region the checker reads, tha
 defined id, as `design@core@backticked-bare-id` defines one, is a finding. A word is bounded as an
 id is: no letter, digit, hyphen, `/`, `@`, `#` or brace on either side, and no `.` followed by a
 letter or a digit after it, so a file name, a path, a reference, a slug with its hashes and a
-template's placeholder holding an id are no word, and an id that ends a sentence is one. The value
+template's placeholder holding an id are no word, and an id that ends a sentence is one. A URL and
+an HTML comment inside a line hold no word. The value
 of a frontmatter `name` line is the name a skill or an agent is defined by, not a mention, and is
 not read. Its repair names the reference, and adds that where the word is meant as an ordinary
 term, the entry's slug names a subject: the entry is renamed to state its decision, as
@@ -1987,7 +1991,8 @@ neither a pointer nor a subject slug.
 `”`, within one paragraph, or a blockquote line. A quotation is someone else's words, such as the
 owner's ruling on a thread named by its slug, or the rules text of a specification, which its
 writer may not respell; a finding there would have no repair the writer may make. A quotation left
-open ends at its paragraph, a blank line or a heading, so it cannot silence the rest of a file. A
+open ends at its paragraph, which ends at a blank line, a heading, a fence's edge, a list item or a
+table row, the blocks a renderer shows apart, so it cannot silence the rest of a file. A
 pointer someone writes inside a quotation goes unchecked, which is what the exemption costs. It is
 the fourth exception of `design@agent-skills@plain-text-is-no-repair`.
 

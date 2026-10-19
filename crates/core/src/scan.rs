@@ -89,8 +89,8 @@ pub enum Observation {
     /// segments, `[a-z0-9]+(-[a-z0-9]+)+`: the plain-word lint's input, reported where the entity
     /// table defines that id.
     ///
-    /// A word is bounded on both sides by no letter, digit, hyphen, `/`, `@` or `#`, and is
-    /// followed by no `.` before a letter or a digit, so a file name or a path holding an id is
+    /// A word is bounded on both sides by no letter, digit, hyphen, `/`, `@`, `#` or brace, and is
+    /// followed by no `.` before a letter or a digit, and sits in no URL and no HTML comment, so a file name or a path holding an id is
     /// no word and an id that ends a sentence is one.
     PlainWord(String),
     /// A markdown link's target, as written.
@@ -201,6 +201,13 @@ static PLAIN_WORD: LazyLock<Regex> =
 /// A token that opens with a word and an `@`, [`Observation::UnquotedReference`]'s candidate.
 static AT_TOKEN: LazyLock<Regex> =
     LazyLock::new(|| Regex::new(r"[a-z0-9][a-z0-9-]*@[^\s`]*").unwrap());
+/// An HTML comment inside a line, or a URL, which no lint on ids reads.
+static HIDDEN: LazyLock<Regex> =
+    LazyLock::new(|| Regex::new(r"<!--.*?-->|[A-Za-z][A-Za-z0-9+.-]*://[^\s)>\]]*").unwrap());
+/// A list item's marker or a table row's pipe at the head of a line: each opens a block of its own,
+/// which ends a paragraph for a quotation and for the issue reference beside a token.
+static BLOCK_START: LazyLock<Regex> =
+    LazyLock::new(|| Regex::new(r"^\s*(?:[-*+]\s|\d+[.)]\s|\|)").unwrap());
 /// A backtick pair on one line, which is how a fenced line is read for code spans.
 static BACKTICKED: LazyLock<Regex> = LazyLock::new(|| Regex::new(r"`[^`]*`").unwrap());
 /// A reference candidate as [`AT_SPAN`] reads one, over the whole of a span's text joined
@@ -255,6 +262,8 @@ struct OpenSpan {
     /// Whether it has already crossed a line holding no closing run: a span over three lines
     /// or more is no wrapped pointer.
     crossed: bool,
+    /// Whether it opened inside a quotation, where no lint on ids reads it.
+    quoted: bool,
 }
 
 /// Read a line's backtick runs as CommonMark does: a code span opens with a run of backticks
@@ -355,6 +364,9 @@ fn token_end(line: &str, start: usize, end: usize) -> Option<usize> {
     if line[..start].chars().next_back().is_some_and(opens) {
         return None;
     }
+    // A reference holds no `]`, so one ends the token where it closes a link's text, as in
+    // `[<reference>](<url>)`, whatever follows it.
+    let end = line[start..end].find(']').map_or(end, |i| start + i);
     let token = line[start..end]
         .trim_end_matches(['.', ',', ';', ':', ')', '!', '?', '*', '_', ']', '"', '\'']);
     (!token.contains(['<', '>'])).then_some(start + token.len())
@@ -371,8 +383,10 @@ fn quoted(
     line: &str,
     open: &mut Option<char>,
     code: impl Fn(usize) -> bool,
+    fenced: bool,
 ) -> Vec<(usize, usize)> {
-    if line.trim_start().starts_with('>') {
+    // A fenced line opening with `>` is code, a prompt or an operator, and no blockquote.
+    if !fenced && line.trim_start().starts_with('>') {
         return vec![(0, line.len())];
     }
     // Most lines hold no quotation mark and inherit no quotation: nothing to walk.
@@ -495,6 +509,7 @@ pub(crate) fn scan(parsed: &Parsed) -> Vec<Located> {
         // delimiter is a run of three backticks, which no single backtick inside it closes.
         let mut open: Option<OpenSpan> = None;
         let mut paragraph = Paragraph::default();
+        let mut was_fenced = false;
         for (i, line) in region.text.split('\n').enumerate() {
             let at = line_start;
             line_start += line.len() + 1;
@@ -507,10 +522,15 @@ pub(crate) fn scan(parsed: &Parsed) -> Vec<Located> {
                 continue;
             }
             let heading = HEADING.is_match(line) && !fenced.contains(&n);
-            if line.trim().is_empty() || heading {
+            // A paragraph also ends where a fence opens or closes, and at a list item or a table
+            // row, each a block a renderer shows apart, so a quotation left open in one does not
+            // silence the next.
+            let fence_edge = fenced.contains(&n) != was_fenced;
+            was_fenced = fenced.contains(&n);
+            if line.trim().is_empty() || heading || fence_edge || BLOCK_START.is_match(line) {
                 paragraph.end(&mut tokens);
             }
-            outside_backticks(
+            let quotes = outside_backticks(
                 region,
                 at,
                 line,
@@ -612,7 +632,7 @@ pub(crate) fn scan(parsed: &Parsed) -> Vec<Located> {
                             what: Observation::WrappedSpan(text),
                         });
                     } else if let Some(name) =
-                        joined_name(&o.head, &line[..close]).filter(|_| !o.crossed)
+                        joined_name(&o.head, &line[..close]).filter(|_| !o.crossed && !o.quoted)
                     {
                         // A name wrapped at one of its hyphens is the name the bare-name lint
                         // reads; read line by line, neither half is a closed span.
@@ -628,6 +648,7 @@ pub(crate) fn scan(parsed: &Parsed) -> Vec<Located> {
                         line: n,
                         head: line[from..].to_string(),
                         crossed: false,
+                        quoted: quotes.iter().any(|&(a, b)| a <= from && from < b),
                     }),
                     Some((_, None)) => open.map(|o| OpenSpan { crossed: true, ..o }),
                     None => None,
@@ -693,7 +714,7 @@ fn outside_backticks(
     mut push: impl FnMut(Observation),
     locate: impl Fn(String) -> (u32, String),
     name_line: bool,
-) {
+) -> Vec<(usize, usize)> {
     let ticked: Vec<(usize, usize)> = if fenced {
         BACKTICKED
             .find_iter(line)
@@ -702,14 +723,26 @@ fn outside_backticks(
     } else {
         Vec::new()
     };
-    let code = |j: usize| {
-        if fenced {
-            ticked.iter().any(|&(a, b)| a <= j && j < b)
-        } else {
-            region.in_code_span(at + j)
-        }
+    // Text a renderer hides or shows as an address: an HTML comment inside a line, which the
+    // parser marks inert only where it fills its lines, and a URL, whose path and query may hold
+    // an id with no slash beside it.
+    let hidden: Vec<(usize, usize)> = if line.contains("<!--") || line.contains("://") {
+        HIDDEN
+            .find_iter(line)
+            .map(|m| (m.start(), m.end()))
+            .collect()
+    } else {
+        Vec::new()
     };
-    let quotes = quoted(line, &mut paragraph.quote, code);
+    let code = |j: usize| {
+        hidden.iter().any(|&(a, b)| a <= j && j < b)
+            || if fenced {
+                ticked.iter().any(|&(a, b)| a <= j && j < b)
+            } else {
+                region.in_code_span(at + j)
+            }
+    };
+    let quotes = quoted(line, &mut paragraph.quote, code, fenced);
     let quoted = |j: usize| quotes.iter().any(|&(a, b)| a <= j && j < b);
     // The patterns below run over every line of the walk, so a line that cannot hold their
     // shape is passed over before any of them runs.
@@ -722,7 +755,10 @@ fn outside_backticks(
         paragraph.beside_issue = true;
     }
     for c in BARE_NAME.captures_iter(line) {
-        if !quoted(c.get(0).unwrap().start()) {
+        // Outside a fence the parser decides which backticks pair: a stray one before a word
+        // would otherwise pair with the closing backtick of the span before it.
+        let start = c.get(1).unwrap().start();
+        if !quoted(start) && (fenced || region.in_code_span(at + start)) {
             push(Observation::BareName(c[1].to_string()));
         }
     }
@@ -742,13 +778,14 @@ fn outside_backticks(
         }
     }
     if name_line || !line.contains('-') {
-        return;
+        return quotes;
     }
     for m in PLAIN_WORD.find_iter(line) {
         if bounded(line, m.start(), m.end()) && !code(m.start()) && !quoted(m.start()) {
             push(Observation::PlainWord(m.as_str().to_string()));
         }
     }
+    quotes
 }
 
 #[cfg(test)]
@@ -1559,6 +1596,66 @@ mod tests {
                 (4, "design@a-b@e-f".to_string(), false),
             ]
         );
+    }
+
+    /// The claim: a quotation ends where a renderer starts another block, a fence's edge, a list
+    /// item or a table row, as well as at a blank line. Mutation checked: not ending the paragraph
+    /// at `BLOCK_START` or at a fence's edge silences the id after the open mark.
+    #[test]
+    fn a_quotation_ends_at_a_fence_a_list_item_and_a_table_row() {
+        assert_eq!(
+            words("A screen of 5\" width\n```\nfence need-test\n```\nAfter need-test.\n"),
+            vec![(3, "need-test".to_string()), (5, "need-test".to_string())]
+        );
+        assert_eq!(
+            words("- item \"one\n- item need-test two\n"),
+            vec![(2, "need-test".to_string())]
+        );
+        assert_eq!(
+            words("| 5\" | x |\n| need-test | y |\n"),
+            vec![(2, "need-test".to_string())]
+        );
+        // A fenced line opening with `>` is no blockquote.
+        assert_eq!(
+            words("```\n> need-test\n```\n"),
+            vec![(2, "need-test".to_string())]
+        );
+    }
+
+    /// The claim: a backticked id wrapped at a hyphen inside a quotation is silent, as one on one
+    /// line is. Mutation checked: dropping `quoted` from the wrapped name's filter records it.
+    #[test]
+    fn a_wrapped_bare_id_inside_a_quotation_is_silent() {
+        assert_eq!(
+            bare("The owner said \"keep `need-\ntest` as it is\".\n"),
+            Vec::<String>::new()
+        );
+        assert_eq!(bare("Keep `need-\ntest` as it is.\n"), vec!["need-test"]);
+    }
+
+    /// The claim: a reference written as a link's text ends at the `]` that closes it. Mutation
+    /// checked: not cutting the token at `]` records nothing for either line.
+    #[test]
+    fn a_reference_as_a_link_s_text_is_recorded() {
+        assert_eq!(
+            tokens("See [design@a-b@c-d](https://h.test/x) here.\n\nSee [design@a-b@e-f][r].\n"),
+            vec![
+                (1, "design@a-b@c-d".to_string(), false),
+                (3, "design@a-b@e-f".to_string(), false),
+            ]
+        );
+    }
+
+    /// The claim: an HTML comment inside a line and a URL hold no plain word, and a backtick left
+    /// unpaired by the parser pairs with nothing. Mutations checked: dropping `HIDDEN` records the
+    /// two ids; dropping the code-span test of a bare id records `need-test` in backticks.
+    #[test]
+    fn hidden_text_and_a_stray_backtick_hold_no_id() {
+        assert_eq!(
+            words("Hidden <!-- need-test --> and https://h.test/?q=need-test here.\n"),
+            Vec::<(u32, String)>::new()
+        );
+        assert_eq!(bare("A `a b`need-test` thing.\n"), Vec::<String>::new());
     }
 
     /// The claim: the value of a frontmatter `name` line is the name a skill or an agent is
