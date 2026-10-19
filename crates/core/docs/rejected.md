@@ -613,8 +613,8 @@ one shape; and it gives a subject no reference of its own and no generated listi
 
 `live`. Every Component carried the component registers and nothing else, so one mechanism, the
 location, placed every other register, and a Component's register list stayed a fact about the word
-_component_. It loses on the owner's intent, that a project may attach any register it declares to
-any Component. Under it, a register's home at `<component>/docs/<dir>/` needs a location carrying
+_component_. It loses on the owner's intent, that a project may add any kind of register to any
+Component, the root included. Under it, a register's home at `<component>/docs/<dir>/` needs a location carrying
 the register at its own path, a manifest row and an anchor name invented for each placement, where
 attaching costs one key.
 
@@ -622,6 +622,7 @@ attaching costs one key.
 
 `live`. Attaching a register to a Component places its home under that Component's `docs/`, and
 the key `dir = "."` with its rule, that a location carrying such a register carries no other, would
-have left the manifest. It loses on the owner's choice to keep both: only a location at its own
-path places a home directly at a directory outside every Component's `docs/`, with no directory
-level between the location and the entries.
+have left the manifest. It loses on the owner's choice to keep both, made on the session's
+recommendation, whose argument is that only a location at its own path places a home directly at a
+directory outside every Component's `docs/`, with no directory level between the location and the
+entries.

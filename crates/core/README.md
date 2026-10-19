@@ -389,7 +389,7 @@ level-one title, then the declared sections.
 
 A **directory register** keeps one directory per entry under `<dir>/`, beside a hand-written
 `README.md` and a generated `index.md`. Each entry directory holds a `README.md`, the entry's
-document, which owes a level-one title, and nothing but the files of what it carries: no
+document, which owes a level-one title, beside the files of what it carries, and holds no
 subdirectory and no `register.toml`. Each entry is an anchor named by its basename, cited as a
 whole `<register>@<parent>@<id>`, the parent being the anchor that carries the home, and it carries
 the one register `carries` names, an `opt-in` heading or file register, with its home at the

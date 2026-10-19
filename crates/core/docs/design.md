@@ -834,10 +834,13 @@ with `dir = "."`, the root's plans directory, or the directory of another regist
 phase-1 finding, and that Component does not carry it.
 
 **The ground is the owner's intent**: a Component is always required to carry the registers the
-workflow needs to function, and a project may attach any register it declares to any Component.
-The floor holds for every project, one that installs no agent harness included, on the owner's
-word that such a project's people still work by the workflow, without which the checker has little
-use. A register attached adds obligations and removes none, per
+workflow needs to function, and a project may add any kind of register to any Component, the root
+included. The floor holds for every project, one that installs no agent harness included, on the
+owner's word that such a project is still supposed, in most cases, to have people working by the
+workflow, without which the checker has little use. Which registers can be attached is the
+session's argued limit within that intent: a register the project declares, since a built-in
+component register is carried by every Component already and a plan register belongs to the plans
+layout, per `design@core@plan-register`. A register attached adds obligations and removes none, per
 `design@core@the-regime-has-no-opt-out`. Against a location carrying the register at its own path,
 per `design@core@home-at-the-carrier-path`, attaching costs one key, invents no anchor name, and
 cites what the register holds under the Component's name. The rival, a Component's register list
