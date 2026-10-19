@@ -88,9 +88,22 @@ a row dangles, reported by the check, when its work closes.
 
 **A separate installed file holding the expectation sets, read only by those who judge findings** —
 lost to `design@agent-skills@expectation-set-bounds-scope`. `live`. It would keep the sets out of
-every skill's text and out of the retrospective, at the cost of a change to the install layout for
-a file one skill reads. It wins if a second installed activity ever needs the sets, which
-`issue@agent-skills@expectation-sets-for-the-installed-skills` may bring about.
+every skill's text and out of the retrospective, at the cost of a change to the install layout. The
+two activities that read the sets, the retrospective and the intake, would both reach them by a
+pointer to the file, where today the intake alone points to the retrospective: the file adds one
+pointer and removes none. It wins if an activity reads the sets without reading anything else of
+the retrospective's, so that its pointer loads unrelated text, which
+`issue@agent-skills@expectation-sets-for-the-installed-skills` may bring about as the sets grow.
+
+**A project's kept retrospective finding turned straight into an issue entry, with no analysis** —
+lost to `design@agent-skills@retrospective-destination`. `live`. The first use of this repository's
+intake, on five received files holding 40 findings, found 4 already repaired, 3 already recorded, 2
+resting on a false premise, since a checked form already existed, 2 whose report credited a repair
+the history places earlier, and 3 whose proposed fix would have reversed a recorded head: 14 that
+the direct path would have recorded as open work or applied against the record. Those files held
+mostly findings on the workflow; the rate on a project's own file is not measured. The figures are
+those of the issue the intake's shipping closed, read with
+`git log --diff-filter=D -- crates/agent-skills/docs/open-issues/a-received-retrospective-file-has-no-installed-analysis.md`.
 
 **A transcript reviewer that reports every clause added inside a ruling, as the agent's addition
 for the owner to contest** — lost to `design@agent-skills@transcript-reviewer-agent`. `live`. It

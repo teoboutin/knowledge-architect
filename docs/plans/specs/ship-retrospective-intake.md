@@ -132,7 +132,7 @@ analysis of the workflow files other projects send.
 | --- | --- | --- | --- |
 | `design@agent-skills@retrospective-destination` | rewritten in place: the project's findings go to the intake | crates/agent-skills/docs/design.md:85 and :2001; the issue `a-received-retrospective-file-has-no-installed-analysis`; docs/design.md:436 (in `design@knowledge-architect@workflow-findings-stay-here`) | the harvest reads each; the issue closes in step 6 |
 | `design@knowledge-architect@committed-findings-analysis` | narrowed to what this repository adds: the analysis of received workflow files, of audit files, and of this repository's own project file with its three outcomes | the agent-config issue `a-pending-retrospective-analysis-is-reached-by-no-standing-search`, closed in step 4; the local intake, rewritten in step 4; `path@knowledge-architect@CLAUDE.md`:58; the issue `a-received-retrospective-file-has-no-installed-analysis`, closed in step 6; `path@knowledge-architect@docs/retrospective-reports/README.md`, step 4 | the harvest |
-| `design@knowledge-architect@intake-shares-the-admission-standard` | moved to agent-skills, same slug, since it decides what the installed intake does; its body's subject becomes the installed intake, with the local intake applying it to received files | the local intake's citation, which step 4 dropped with item f; the `%%` line of the installed intake that step 1 writes under the root anchor, which the harvest re-points | the harvest |
+| `design@agent-skills@intake-shares-the-admission-standard` | moved to agent-skills, same slug, since it decides what the installed intake does; its body's subject becomes the installed intake, with the local intake applying it to received files | the local intake's citation, which step 4 dropped with item f; the `%%` line of the installed intake that step 1 writes under the root anchor, which the harvest re-points | the harvest |
 | `design@agent-skills@expectation-set-bounds-scope` | rewritten in place: its premise "the one installed activity that judges whether something is a defect of an installed skill" becomes two activities, the retrospective, which carries the sets, and the installed intake, which reads them by a pointer at check d. The rejected alternative "A separate installed file holding the expectation sets", whose reopening condition the intake meets, is judged again, per "The expectation sets" below | the `%%` line of the installed intake, the local intake's citation having left in step 4; `tripwire@agent-skills@expectation-set-closes-a-contradiction`; `issue@agent-skills@expectation-sets-for-the-installed-skills`; the agent-skills README, which restates the sets; `path@agent-skills@docs/rejected-alternatives.md` | the harvest reads each |
 
 **Standing entries the discussion's search returned, and their outcome:**
@@ -281,7 +281,7 @@ since the thread's name names the row and not the decision.
 Proposed by the session in round 1 (a10) and round 2 (a30 to a33). Approved by the owner in round 3:
 "agreed. This is quite commonly done (thaum does it too to expand the review and planning skills,
 with a thaum-review skill)." Shape: Decided design, "What stays local". Harvest:
-`design@knowledge-architect@committed-findings-analysis`, narrowed; `design@knowledge-architect@intake-shares-the-admission-standard`,
+`design@knowledge-architect@committed-findings-analysis`, narrowed; `design@agent-skills@intake-shares-the-admission-standard`,
 moved to agent-skills.
 
 ### The README advertises extending an installed skill with a project skill `##extension-by-project-skill`
@@ -728,7 +728,7 @@ Which head each `%%` line cites, and when:
   re-pointed to the new head `committed-intake-analysis` at the harvest. The citation at line 188 of
   the local intake, `design@knowledge-architect@committed-findings-analysis`, whose argument rests
   on this repository's rebase merge (a5), is not carried;
-- beside item f: `design@knowledge-architect@intake-shares-the-admission-standard` at step 1,
+- beside item f: `design@agent-skills@intake-shares-the-admission-standard` at step 1,
   re-pointed to its agent-skills anchor at the harvest;
 - the harvest adds a `%%` line citing each new head of agent-skills beside the sentence that
   applies it: `intake-skill-home` at the scope, `intake-takes-the-project-file` at what it takes,
@@ -1075,7 +1075,7 @@ the install; a check failure that the overlap causes reopens the thread.
 | #retrospective-hands-project-file-to-intake | `design@agent-skills@retrospective-destination`, rewritten in place; the direct path in `path@agent-skills@docs/rejected-alternatives.md`, which recording tests 3 and 4 admit: the measurement a22, written into the entry with its source, since step 6 closes the issue that records it, and the doubt a23 | step 8, after D4 |
 | #analysis-home-row | a head of `register@agent-skills@design`, slug `committed-intake-analysis`, pair `#analysis-home-row → committed-intake-analysis`, carrying both rivals: a home each project chooses (a29), and the outcomes kept in commit messages alone, which keep the outcomes and lose the evidence, the audit record's argument | step 8 |
 | the expectation sets | `design@agent-skills@expectation-set-bounds-scope`, rewritten in place, and its rejected alternative re-judged, per "The expectation sets" | step 8 |
-| #local-intake-fate | `design@knowledge-architect@committed-findings-analysis`, narrowed to what this repository adds, its subject the installed intake with the local one, and its fixed order of commits replaced by the installed intake's shape; `design@knowledge-architect@intake-shares-the-admission-standard`, moved to `register@agent-skills@design`, its subject the installed intake | step 8 |
+| #local-intake-fate | `design@knowledge-architect@committed-findings-analysis`, narrowed to what this repository adds, its subject the installed intake with the local one, and its fixed order of commits replaced by the installed intake's shape; `design@agent-skills@intake-shares-the-admission-standard`, moved to `register@agent-skills@design`, its subject the installed intake | step 8 |
 | #project-commit-in-version-line | the `%%` comment at the version line; a head of `register@agent-skills@design`, slug `version-line-names-the-main-commit`, by entry test 2 | step 3, and the head at step 8, after D5 |
 | #shipped-citations-in-comments, #extension-by-project-skill, #pending-analysis-search, #restatement-by-substitution | no head: their homes are named in their threads | — |
 | the losing alternatives | judged by `skill@knowledge-architect-decision-recording@losing-alternatives` | step 8 |
