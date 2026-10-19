@@ -241,16 +241,17 @@ dispatched it carries them into its own section.
 
 **The manifest**, knowledge-architect.toml at the project's root, declares the Components, the
 locations, the registers, and what is exempt from the checks. `{{command}} anchors` lists what it
-resolves to: every anchor with its kind and its path, and, under a Component, a location and
-`plans`, the home of each register it carries.
+resolves to: every anchor with its kind and its path, and, under every anchor but a spec or a
+milestone, the home of each register it carries.
 
 **An anchor** is a named place that carries registers. A **Component** is a directory the manifest
 declares, named by its basename, or the project's root, named by the manifest's project name; it
 carries the required documents,
 every component register, and each `opt-in` register whose `components` names it. A **location** carries only the registers it declares, their homes
 directly under its path, or at its path for a register declared with `dir = "."`. The checker
-constructs the anchor `plans` at docs/plans/, one anchor per spec file, and one per entry directory
-of a directory register, each milestone's included. The anchor words `*` (every Component), `elsewhere` (a
+constructs the anchor `plans` at docs/plans/ and one anchor per spec file, and, under the home of
+every directory register, wherever that home sits, one anchor per entry directory, each milestone
+included. The anchor words `*` (every Component), `elsewhere` (a
 path the tree does not hold) and `plans` are reserved.
 
 **Every Component carries** `path@*@README.md`, `path@*@CLAUDE.md` while the project serves the
@@ -267,9 +268,8 @@ path the tree does not hold) and `plans` are reserved.
   basename is the entry's id, beside a hand-written `README.md` and a generated `index.md`;
 - a **directory register**, such as `milestone`, keeps its home in a directory: one directory per
   entry, holding a `README.md`, beside a hand-written `README.md` and a generated `index.md`. Each
-  entry is an anchor named by its basename, carrying at its own directory the registers that a
-  declared directory register's `carries` names, so an entry of one of them is cited
-  `<kind>@<entry>@<id>`;
+  entry is an anchor named by its basename, carrying at its own directory the register that a
+  declared directory register's `carries` names, so an entry of it is cited `<kind>@<entry>@<id>`;
 - a **plan document** is an entry of `spec` or of `milestone`, and a plan's items, of `thread`,
   `argument`, `criterion` and `acceptance`, are level-three headings under the section of their
   kind.

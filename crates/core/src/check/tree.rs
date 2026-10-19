@@ -503,8 +503,9 @@ fn file_home(
     inputs: &Inputs,
 ) {
     // The single-file shape a heading register accepts is not a shape here, and a project
-    // migrating from one is exactly where the mistake is made, so it is named.
-    if inputs.present.contains(&home.file) {
+    // migrating from one is exactly where the mistake is made, so it is named. A register at its
+    // carrier's own path has none, and its home's directory stands in for it.
+    if home.file != home.dir && inputs.present.contains(&home.file) {
         out.push(Finding::in_file(
             &home.file,
             format!(

@@ -117,15 +117,14 @@ registers = ["issue"]
 
 **A kind of record the built-in registers do not hold is a register the project declares**, under
 `[registers.<name>]`, its name the kind its references spell. `scope = "component"` makes every
-Component carry it under its `docs/`, and `scope = "opt-in"` only the Components its
-`components = [...]` names and the locations that name it. Its home is `<dir>/` under its carrier,
-under `docs/` for a Component, `dir` defaulting to the register's name, or the location's own
-directory for an `opt-in` register declared with `dir = "."`, which that location then carries
-alone. Pick the shape from how the project's existing records are cut:
+Component carry it, and `scope = "opt-in"` only the Components its `components = [...]` names and
+the locations that name it. Its home sits under its carrier, under `docs/` for a Component, named
+by `dir`, which defaults to the register's name; an `opt-in` register declared with `dir = "."`
+has its home at the location's own directory, and that location carries it alone. How each shape
+keeps its entries, and how they are cited, is `primer@checker-model`. Pick the shape from how the
+project's existing records are cut, and declare it with its own keys:
 
-- **`shape = "heading"`**, with `level`: one record per heading at that level, its slug last, in
-  `<dir>.md` or in files behind a `<dir>/README.md` that links them; cited
-  `<kind>@<anchor>@<slug>`.
+- **`shape = "heading"`**, one record per slugged heading, with `level`, the heading level:
 
   ```toml
   [registers.note]
@@ -134,9 +133,8 @@ alone. Pick the shape from how the project's existing records are cut:
   level = 3
   ```
 
-- **`shape = "file"`**: one record per file under `<dir>/`, whose basename is its id, beside a
-  hand-written `README.md` and a generated `index.md`; `sections` lists the level-two headings every
-  record carries, and `metadata.<key>.values` the frontmatter keys and their values.
+- **`shape = "file"`**, one record per file, with `sections`, the level-two headings every record
+  carries, and `metadata.<key>.values`, its frontmatter keys and their values:
 
   ```toml
   [registers.card]
@@ -145,11 +143,8 @@ alone. Pick the shape from how the project's existing records are cut:
   sections = ["Summary", "Details"]
   ```
 
-- **`shape = "directory"`**, with `carries`: one directory per subject under `<dir>/`, each holding
-  a `README.md` that links its files, beside a hand-written `README.md` and a generated `index.md`.
-  Each subject directory is an anchor named by its basename and carries the registers `carries`
-  names, `opt-in` heading or file registers, so a record is cited `<kind>@<subject>@<id>`, and the
-  subject as a whole `<register>@<anchor>@<subject>`.
+- **`shape = "directory"`**, one directory per subject, with `carries`, the one `opt-in` heading or
+  file register each subject carries:
 
   ```toml
   [registers.subject]

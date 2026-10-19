@@ -4477,3 +4477,77 @@ fn a_component_carries_the_register_a_project_attaches_to_it() {
         "{stdout}"
     );
 }
+
+/// The claim: a register at its carrier's own path has no single-file shape, so a file beside the
+/// location named like it is an ordinary document of the anchor that holds it, never a second
+/// home, for a heading register and for a file register alike, per
+/// `design@core@home-at-the-carrier-path`.
+#[test]
+fn a_register_at_its_carrier_s_path_claims_no_file_beside_it() {
+    let manifest = "[project]\nchecker-version = \"fixture\"\nname = \"core-mock\"\n\
+        components = []\n\n\
+        [locations.rules]\npath = \"rules\"\nregisters = [\"rule\"]\n\n\
+        [locations.notes]\npath = \"notes\"\nregisters = [\"note\"]\n\n\
+        [registers.rule]\nscope = \"opt-in\"\nshape = \"heading\"\nlevel = 3\ndir = \".\"\n\n\
+        [registers.note]\nscope = \"opt-in\"\nshape = \"file\"\ndir = \".\"\n\n\
+        [walk]\nskip-dirs = []\nskip-files = []\n\n[agents]\nharness = []\n";
+    let sandbox = Sandbox::seeded(
+        "carrier-path-no-file",
+        "core",
+        &[
+            ("knowledge-architect.toml", manifest),
+            ("rules/README.md", "# Rules\n\n- [Core](core.md)\n"),
+            ("rules/core.md", "# Core\n\n### A rule `##a-rule`\n"),
+            ("notes/README.md", "# Notes\n"),
+            (
+                "rules.md",
+                "# About the rules\n\nSee `rule@rules@a-rule`.\n",
+            ),
+            ("notes.md", "# About the notes\n"),
+        ],
+    );
+    let (stdout, stderr, code) = sandbox.run(&["index"]);
+    assert_eq!(code, 0, "{stdout}{stderr}");
+    sandbox.stage();
+    let (stdout, stderr, code) = sandbox.run(&["check"]);
+    assert_eq!(code, 0, "{stdout}{stderr}");
+}
+
+/// The claim: what has no `register` form is refused with the form that names it: a register only
+/// entries carry is named by the entry, and a register attached to Components by one of them,
+/// under `register` and under a `path` through `*`; and a register at its carrier's own path is
+/// named by the repair of an undefined entry as that carrier's own directory.
+#[test]
+fn a_home_with_no_register_form_is_refused_with_the_form_that_names_it() {
+    let manifest = GAME_MANIFEST.replace(
+        "[walk]",
+        "[registers.lore]\nscope = \"opt-in\"\nshape = \"file\"\ndir = \"lore\"\n\
+         components = [\"core-mock\"]\n\n[walk]",
+    );
+    let sandbox = game_sandbox("no-register-form");
+    sandbox.write("knowledge-architect.toml", &manifest);
+    sandbox.write("docs/lore/README.md", "# Lore\n");
+    sandbox.write(
+        "README.md",
+        "# core-mock\n\nSee `register@gdd@game-design`, `register@*@lore`, `path@*@docs/lore/` \
+         and `subject@gdd@nowhere`.\n",
+    );
+    sandbox.stage();
+    let (stdout, stderr, code) = sandbox.run(&["index"]);
+    assert_eq!(code, 0, "{stdout}{stderr}");
+    sandbox.stage();
+    let (stdout, stderr, code) = sandbox.run(&["check"]);
+    assert_eq!(code, 1, "{stdout}{stderr}");
+    for what in [
+        "`register@gdd@game-design` names the game-design register, whose homes are the entries \
+         of the subject register",
+        "cite the entry whose home it is, as `subject@<anchor>@<entry>`",
+        "`register@*@lore` names `*`, which names a component register's homes, and the lore \
+         register is attached to core-mock",
+        "`path@*@docs/lore/` names the homes of the lore register by their path",
+        "write `register@<component>@lore` for one of core-mock",
+        "define it in the home at its own directory of `gdd`",
+    ] {
+        assert!(stdout.contains(what), "no finding `{what}`:\n{stdout}");
+    }
+}

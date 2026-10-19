@@ -668,7 +668,8 @@ holds the plans directory, which is not a component's document but the anchor `p
 That is not an exception to `design@core@nothing-of-a-project-is-compiled-in`: the document list and
 the five built-in component registers in `manifest.rs` belong to no project, they are what the word
 _component_ means here. A project adds to that set, per
-`design@core@a-component-carries-what-a-project-attaches`, and removes nothing from it: a project
+`design@core@a-component-carries-what-a-project-attaches`, and removes nothing from it but the
+agent document, below: a project
 free to declare its own set would be conformant with whatever
 it declared, which is the same as being checked against nothing, against
 `goal@core@declared-instructions-are-checked`: a tree that passes the check conforms to all of it,
@@ -834,11 +835,13 @@ phase-1 finding, and that Component does not carry it.
 
 **The ground is the owner's intent**: a Component is always required to carry the registers the
 workflow needs to function, and a project may attach any register it declares to any Component.
-What a Component must carry is the floor this keeps, and a register attached adds obligations and
-removes none, per `design@core@the-regime-has-no-opt-out`. A location cannot place such a home, since
-a location at a Component's `docs/` holds its other homes and is refused, per
-`design@core@anchor-collisions-refused`. The rival, a Component's register list fixed by the word
-_component_, is `rejected@core@component-register-list-fixed`.
+The floor holds for every project, one that installs no agent harness included, on the owner's
+word that such a project's people still work by the workflow, without which the checker has little
+use. A register attached adds obligations and removes none, per
+`design@core@the-regime-has-no-opt-out`. Against a location carrying the register at its own path,
+per `design@core@home-at-the-carrier-path`, attaching costs one key, invents no anchor name, and
+cites what the register holds under the Component's name. The rival, a Component's register list
+fixed by the word _component_, is `rejected@core@component-register-list-fixed`.
 
 **The list is the register's**, beside its `scope`, because a Component is declared by its path in
 `[project] components` and has no table of its own: a table per Component would declare the
@@ -909,8 +912,8 @@ reads as the other anchor, and which one wins depends on the order the anchors w
 Directory registers, by register name, each register's entries by path. Of a spec and a milestone
 of one name, the milestone keeps it, and an entry of a declared register gives way to every plan,
 since the plans layout is the tool's and every project has it. An entry's name is also an entity
-id, since it is the id of an entry of its register, and is not `index`: the single file beside an
-entry is `<id>.md`, which for `index` is its home's own listing.
+id, since it is the id of an entry of its register, and is not `index`: beside an entry, `<id>.md`
+is the refused single-file shape of what it carries, which for `index` is its home's own listing.
 
 ### A plan's items are the level-three headings of its item sections, and the section gives the kind `##plan-items-by-section`
 
@@ -1008,14 +1011,16 @@ subdocuments sit in the location's directory, behind its README. Any other regis
 named would keep its home inside that one, one path with two meanings, so the location carries the
 first such register it names and the others leave its row, each a phase-1 finding, per
 `design@core@anchor-collisions-refused`. At component scope it is refused: every component would
-keep the home at its own `docs/`, among its other homes. A heading register at `.` keeps the
-directory shape alone, since its file shape would be `<path>.md`, outside the location.
+keep the home at its own `docs/`, among its other homes. A register at `.` has no single-file
+shape, which would be `<path>.md`, outside the location: a file beside the location is one more
+document of the anchor holding it.
 
-**It exists because a register's home is otherwise always one segment under its carrier**, so no
-declaration placed a home directly at a location's path. A Component carrying the register places
-its home at `<component>/docs/<dir>/`, per `design@core@a-component-carries-what-a-project-attaches`;
-a location carrying it at its own path places the home anywhere a location sits, under a name of
-the location's own, which is how a project places a register outside every Component's `docs/`.
+**It serves a home directly at a directory outside every Component's `docs/`**, such as subjects
+at `<path>/<subject>/` under the project's root. Its nearest rival is an ordinary `dir`, which puts
+the home one segment under the location, at `<path>/<dir>/`, a directory level the records do not
+need. A home under a Component's `docs/` is placed by attaching the register to the Component, per
+`design@core@a-component-carries-what-a-project-attaches`, with no location to name. The owner chose
+to keep this key beside that attachment rather than replace it: `rejected@core@carrier-dir-replaced-by-components`.
 
 ### A register instance's own options sit beside it, in `register.toml` `##instance-options-beside-the-instance`
 
@@ -1161,9 +1166,9 @@ exists for it because the owner asked to cite a milestone as `milestone@plans@<i
 milestone is a directory: a File entry is one file and could hold no slice specs. Citing the
 milestone by a path to its README needs no new shape, and loses to that request.
 
-### A project declares a Directory register, each entry an anchor carrying the registers its `carries` names `##declarable-directory-register`
+### A project declares a Directory register, each entry an anchor carrying the register its `carries` names `##declarable-directory-register`
 
-`shape = "directory"` with `carries = [<register>, …]`: its home holds a hand-written `README.md`,
+`shape = "directory"` with `carries = [<register>]`: its home holds a hand-written `README.md`,
 a generated `index.md`, and one directory per entry, each holding a file `README.md`, which is the
 entry's document and owes a level-one title. Nothing else sits in the home, and no entry holds a
 `register.toml` or a subdirectory; each of these is a phase-2 finding, because the entries are
@@ -1171,25 +1176,43 @@ anchors read off the tree. An entry is defined at its `README.md`, and only whil
 that file, as a File entry the walk leaves out defines nothing, and it is cited
 `<register>@<parent>@<id>`, the parent being the anchor that carries the home.
 
-**Each entry is an anchor carrying, at its own directory, the registers `carries` names**, each an
-`opt-in` register of the heading or file shape, the registers a location could carry: a
-component-scoped register is carried by every component already, a plan register by the plan
-anchors alone, and a Directory register carried by an entry would nest anchors inside anchors,
-which no case has asked for. A carried heading register keeps the directory shape alone: the
-entry's README is its head, so it links every file and defines no slug, and the file shape would
-be `<id>.md` beside the entry, a second home. An entry carries `path`, since a file inside it is no
-entry and a path is its only name; its directory and its README are named by the entry's
-reference, per `design@core@path-to-a-home-is-reported` and
-`design@core@register-home-reference`.
+**Each entry is an anchor carrying, at its own directory, the one register `carries` names**, an
+`opt-in` register of the heading or file shape, one a location could carry: a component-scoped
+register is carried by every component already, a plan register by the plan anchors alone, and a
+Directory register carried by an entry would nest anchors inside anchors, which no case has asked
+for. **One register, on the owner's ruling**: a second would keep its home at the same directory,
+one path with two meanings, which `design@core@anchor-collisions-refused` refuses for every other
+anchor, and a home of its own under the entry would put a directory level between a subject and
+its files. How a carried home is shaped is `design@core@entry-anchor-carries`, and what names an
+entry's files is `design@core@entry-anchor-path-kind`.
 
 **It is declared because a project can hold records whose subjects are directories**, as a game's
 design split by subject: one subject per directory, several files each, every entry cited
 `<kind>@<subject>@<id>`, which `goal@knowledge-architect@any-project-can-adopt-it` asks the manifest
 to express without anything of the project compiled in. Adding a subject is creating a directory,
 not a manifest edit, and moving the home is one manifest edit, per
-`goal@core@relocation-is-one-manifest-edit`. A location declared per subject was the shape before
-it, and it costs a manifest row per subject. The rival that made each subdirectory of a location an
-anchor, with no Directory register, is `rejected@core@subdirectory-anchors-location`.
+`goal@core@relocation-is-one-manifest-edit`. A location declared per subject costs a manifest row
+per subject. The rival that makes each subdirectory of a location an anchor, with no Directory
+register, is `rejected@core@subdirectory-anchors-location`.
+
+### A register an entry carries keeps the directory shape alone, the entry's README its head `##entry-anchor-carries`
+
+The home of what an entry carries is the entry's own directory, beside its `README.md`, which is
+both the entry's document and the head of that home: it links every file of a carried heading
+register and defines no slug, per `design@core@heading-register-two-shapes`. The single-file shape
+would be `<id>.md` beside the entry directory, so a heading register at an entry would have two
+homes, which that head refuses: `<id>.md` beside an entry is a phase-2 finding. A file register an
+entry carries keeps its generated `index.md` in the entry, as a milestone's slice specs do.
+
+### An entry of a declared Directory register carries `path`, and its directory and README are named by the entry's reference `##entry-anchor-path-kind`
+
+A file inside an entry, other than its README, is no entry of any register: it is a subdocument of
+the heading register the entry carries, so a `path` is its only name, `path@<entry>@<file>`. The
+rival is the plan anchors' rule, which carries no `path` kind because every plan document has a
+kind's name, per `design@core@plan-document-kinds`; a subject's file has none. The entry's directory
+and its README are the entry itself, so a `path` or a `register` reference to either is a finding
+whose repair names `<register>@<parent>@<id>`, per `design@core@path-to-a-home-is-reported` and
+`design@core@register-home-reference`: one directory has one name, so `show` finds every citation.
 
 ### A file register's index is a banner, a count and one row per entry, and its bytes are the contract `##a-file-register-index-is-rows`
 

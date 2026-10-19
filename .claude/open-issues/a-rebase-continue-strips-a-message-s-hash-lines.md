@@ -36,7 +36,7 @@ to another character, would keep them.
 A commit message is a document of the project, per `design@core@a-commit-message-is-a-document`,
 and on the in-change path of the design skill it is the only home of the deliberation. The rule of
 `design@knowledge-architect@no-operation-loses-content` bounds a history edit by the check that no
-content was lost, and the root CLAUDE.md states that check as `git diff <old-head> HEAD` for a
+content was lost, and the root CLAUDE.md states that check, in `instructions@git-workflow`, as `git diff <old-head> HEAD` for a
 rewrite and `git range-diff` for a rebase onto a moved base. The diff compares trees and sees no
 message; the range-diff shows a changed message only to a reader who reads it, and a session
 reading for its resolved conflict passes over it. `cargo klarch commits` judges the shortened
@@ -44,7 +44,7 @@ message and finds nothing wrong with it.
 
 ### What would close it
 
-The root CLAUDE.md's rebase procedure, point 3 of its Git section, finishes a resolved conflict
+The rebase procedure of `instructions@git-workflow`, its point 3, finishes a resolved conflict
 with a form measured to keep a message whole, such as
 `git -c core.commentChar=';' rebase --continue` or an amend with `--cleanup=verbatim` from the old
 commit's message, and its verification states that every commit's message is unchanged in the

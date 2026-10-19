@@ -438,8 +438,9 @@ fn commit_tree(
             snapshot: None,
         });
     }
-    // The commit's own listing places its milestone anchors, so a message is judged against
-    // the anchors of the tree it commits rather than of the working tree.
+    // The commit's own listing places its entry anchors, so the register options read below
+    // and the ignore questions asked of this tree follow the homes of the tree it commits rather
+    // than the working tree's.
     let anchors = Anchors::of(&manifest, &read.listing);
     let generated = crate::index::generated_paths(&manifest, &read.listing);
     // The walk reads through no symlink and no gitlink, so the files alone are walked.
