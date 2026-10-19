@@ -903,14 +903,17 @@ loser wrong, and an entry that names no winner drops it. The designs this decisi
 `rejected@agent-skills@both-directions-written-by-hand` and
 `rejected@agent-skills@both-directions-checked-for-symmetry`.
 
-### A design discussion's grounding sends a search of the design entries and the `rejected` entries, and sends it again for a later thread `##design-entry-search`
+### A search of the goals, the design entries and the `rejected` entries runs before a proposal reaches the owner, at a design discussion's grounding and at a retrospective intake, and again for a subject it was not given `##design-entry-search`
 
 The installed design skill's step 1 sends `agent@knowledge-architect-design-entry-searcher` beside
 the standing-entry searcher, and the session reads every entry it grades `bears` or `may-bear`
 before it proposes anything. The skill sends the search again for a thread on a subject the first
 search was not given, and the plan-document review of
-`design@agent-skills@plan-read-against-the-record` stays the backstop. How the search is split is
-`design@agent-skills@design-entry-search-groups`.
+`design@agent-skills@plan-read-against-the-record` stays the backstop. The installed retrospective
+intake sends it at its grounding, with the received files as the work, to each Component that owns
+a blamed text and to the project's root, and again before a proposed fix that touches a Component it
+was not given; its check of whether a finding is already recorded reads the entries it grades. How
+the search is split is `design@agent-skills@design-entry-search-groups`.
 
 It serves `goal@knowledge-architect@agents-work-without-drift`: the owner reported design entries
 missed in part many times, and in one case the owner approved a proposal contradicting a head the
@@ -919,6 +922,23 @@ record in view before the first proposal, so before any ruling, where a reading 
 comes after the owner has ruled most threads. The searcher is an agent of its own, since a design
 entry is no standing entry, per `design@agent-skills@standing-entry-search-agent`. The design this
 decision did not keep: `rejected@agent-skills@conformance-reader-at-the-checkpoint`.
+
+An intake meets the same need: it puts a proposal to the owner for every finding, and the owner
+rules before any review reads it. The instance: an intake of thirteen received files analysed a
+finding about naming a skill not yet created, and missed the third exception of
+`design@agent-skills@plain-text-is-no-repair`, which decides that case; its check read only the
+`rejected` home of the owning Component and the standing entries, and the owner recalled the head
+while ruling. The nearest rival, the session's own reading, which the intake's reversal check and
+record check already ask for, is the reading this decision exists because sessions miss in large
+design homes, and the searcher is the capability form of that reading, per
+`design@agent-skills@capabilities-not-structure`. The design audit of a slice or a spec sends no
+design-entry search: no instance of a miss there is recorded, per
+`design@agent-skills@behaviour-additions-need-real-use`.
+
+The searcher also reads its Component's goals home whole and grades each goal, in every group of a
+cut Component, and the session still reads every goals home itself. On the owner's word, both layers
+stay: the owner saw design sessions miss a goal twice, although the goals homes are small enough to
+be read whole.
 
 ### The design-entry search sends one agent per Component, and cuts a Component too large for one along whole level-two subjects, with no numeric bound `##design-entry-search-groups`
 
@@ -943,12 +963,13 @@ decision did not keep: `rejected@agent-skills@design-listing-cut-in-groups-of-si
 
 ### The design-entry searcher grades each entry it reads, and lists every one `##search-relevance-grade`
 
-The searcher grades each entry `bears`, with the relation `constrains`, `may change` or `may bring
-back`, or `may-bear`, and lists every unrelated entry it read, so every entry of its group appears
-in exactly one of three lists. The design skill routes each grade to an act: the session reads
-every `bears` and `may-bear` entry whole, states for each `may-bear` whether it bears, sends a
-`may change` entry to the reversal check and proposes a `may bring back` entry again only with a
-new argument.
+The searcher grades each entry and each goal it reads `bears`, with the relation `constrains`,
+`may change` or `may bring back`, or `may-bear`, and lists every unrelated one it read, so every
+goal and every entry of its group appears in exactly one of three lists. The design skill routes
+each grade to an act: the session reads every `bears` and `may-bear` entry whole, states for each
+`may-bear` whether it bears, sends a `may change` entry to the reversal check and a `may change`
+goal to the goal-setting skill, since a goal changes only there, and proposes a `may bring back`
+entry again only with a new argument.
 
 A grade is kept only where it changes what the session does: the standing-entry searchers of the
 discussion that decided this graded a doubt anyway, unasked, in 12 of the 41 entries they returned,
@@ -1136,7 +1157,9 @@ the planned code meets, and an issue of any kind the slice's code touches, close
 depends on. A tripwire of the milestone document's premortem whose firing condition the planned
 code meets is listed with them: it enters a tripwires home only at the harvest, so the search
 cannot return it, and the audit reads it in the milestone document. The slice's grounding, point 1 of `skill@knowledge-architect-planning@working-a-slice`, reads no issues and no tripwires, since the audit's
-search covers every anchor. Work that does not go through the design skill sends no search: the
+search covers every anchor. The retrospective intake sends it at its grounding, with the received
+files as the work, beside the design-entry search, per `design@agent-skills@design-entry-search`.
+Other work that does not go through the design skill sends no search: the
 standing-state review reads its deferred triggers, per
 `design@agent-skills@standing-state-review-before-every-merge`, which this search adds to and never
 replaces. The design skill
@@ -1169,8 +1192,8 @@ decision taken in the change under way too. The search at convergence is parked,
 The occasions are the owner's: the search runs at least at a design discussion's grounding and at
 the audits of a plan's steps, the main moments design is discussed, and should miss nothing.
 
-At the design skill's step 1 this search runs beside the design-entry search, per
-`design@agent-skills@design-entry-search`; the audits of a slice or a spec send this one alone.
+At the design skill's step 1 and at the intake this search runs beside the design-entry search,
+per `design@agent-skills@design-entry-search`; the audits of a slice or a spec send this one alone.
 
 ## How documents point at each other
 
@@ -1741,8 +1764,8 @@ work at a moment that might not be the best".
 The installed review skill sends the standing-state reviewer before every merge to the
 main branch, whatever the change. That reviewer is the standing re-entry point of every tripwire
 home and of every deferred trigger, as the installed issue-tracking skill states: it runs for every
-change, where the search before the work runs only for work that goes through the design skill or a
-plan, per
+change, where the search before the work runs only for work that goes through the design skill, a
+plan or a retrospective intake, per
 `design@agent-skills@standing-entries-searched-before-the-work`. A re-entry point that depends on whether a change looked
 related to a tripwire is one that a change touching the guarded decision indirectly skips: the
 reviewer reads every entry of every home, not the subset the diff seems to concern. This serves

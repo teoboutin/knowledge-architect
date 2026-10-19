@@ -25,7 +25,7 @@
 | question | [The project audit gives a rebase merge as the reason to cite a commit by its subject, in every installing project](the-audit-assumes-every-project-merges-by-rebase.md) |
 | question | [The audit that ends the move of an adopting project's documents is stated where the move's sessions do not read](the-closing-audit-of-a-move-reaches-no-planning-text.md) |
 | question | [The issue-tracking skill gives the cold-reader standard to `defect` alone in one place and to every entry in another](the-cold-reader-standard-s-scope-reads-two-ways.md) |
-| question | [The design-entry search runs only at a design discussion's grounding, not at the design audit of a slice or a spec, nor at a retrospective intake](the-design-entry-search-runs-only-at-a-discussion-s-grounding.md) |
+| question | [The design-entry search does not run at the design audit of a slice or a spec](the-design-entry-search-does-not-run-at-a-design-audit.md) |
 | question | [The design-record auditor's return names two verdict vocabularies](the-design-record-auditor-s-return-names-two-verdict-vocabularies.md) |
 | question | [The installed text delivers the check of a commit's tree before the commit, and no check of its message after it](the-message-check-after-a-commit-is-delivered-by-no-installed-text.md) |
 | question | [Does the design skill's open-space test leave bounded work almost unreachable?](the-open-space-test-may-admit-every-problem.md) |

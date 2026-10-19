@@ -23,6 +23,10 @@ reading grows with the batch. The owner judged it a problem to handle one day, n
   the 64 entries bore on no outcome.
 - The searcher's description asks the same reading of every dispatching session, per
   `design@agent-skills@standing-entry-search-agent`.
+- The intake also sends the design-entry search at its grounding, per
+  `design@agent-skills@design-entry-search`, whose `bears` and `may-bear` entries the session reads
+  whole too, so the reading this entry measures grows with it. The owner accepted that cost as
+  unmet when the search was sent there.
 
 The suspected mechanism, in one sentence: a search whose work is the union of many files returns
 the union of their neighbourhoods, and the rule that the session reads each entry whole does not

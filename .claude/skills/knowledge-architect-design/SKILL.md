@@ -413,7 +413,7 @@ choices whose option space genuinely is closed and consequence-free.
    and, as seeds, the decisions and goals read so far that bear on it:
    the open issues and the tripwires, dispatched as the description of
    `agent@knowledge-architect-standing-entry-searcher` says; and the
-   design entries and the `rejected` entries, dispatched as the
+   goals, the design entries and the `rejected` entries, dispatched as the
    description of `agent@knowledge-architect-design-entry-searcher` says,
    which grades each entry it reads. Then run
    `cargo klarch show <kind>@<anchor>@<id>`, which prints the entry and
@@ -425,7 +425,8 @@ choices whose option space genuinely is closed and consequence-free.
    of them the question bears on, and, for each entry graded `may-bear`,
    whether it bears. An entry graded `may change` goes to
    `skill@knowledge-architect-decision-recording@reversal-check`, and to the
-   backstop of `primer@design-heads`, before a proposal that would change it; one graded `may bring back` is
+   backstop of `primer@design-heads`, before a proposal that would change it,
+   and a goal graded so to `skill@knowledge-architect-goal-setting`; one graded `may bring back` is
    proposed again only with a new argument, by the Reopening rule. When a
    thread opens on a subject the work given to the design-entry search
    did not cover, dispatch that search again for the Components the
