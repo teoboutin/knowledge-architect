@@ -2,8 +2,8 @@
 
 The library that runs a project's merge gates: every check a branch must pass before it merges,
 run in order, with complete logs, distilled failures and one verdict from exit codes. It is
-published so that every project using knowledge-architect runs its gates the same way. What lost
-to a decision here is `path@gates@docs/rejected-alternatives.md`.
+published so that every project using knowledge-architect runs its gates the same way. The designs
+it did not keep are `register@gates@rejected`, each cited by the heads whose argument covers it.
 
 **What belongs here:** how the gates run. Which gates a project runs is that project's own; this
 repository's are `design@xtask@gates-list-primary-home`.
@@ -19,6 +19,10 @@ adopting the workflow gets gates refined over two projects instead of writing it
 checker's own binary lost: it would make the document checker run cargo, the linter and the
 tests. A published binary configured by a file lost because it leaves the project no place for its
 other repeated tasks, and adds a configuration format a list in Rust does not need.
+
+The designs this decision did not keep: `rejected@gates@gates-command-of-the-checker`,
+`rejected@gates@gates-binary-configured-by-file` and
+`rejected@gates@each-project-writes-its-runner`.
 
 ### A project holds its gate list, and the library offers a recommended one `##a-project-holds-its-gate-list`
 
@@ -58,6 +62,8 @@ where the child blocks writing a pipe nobody drains. Two pipes have none of the 
 regular file shared by both streams showed: it lost output written through /dev/stdout and output
 of a descendant that outlives the child, and a killed run left the file behind to fail a later run,
 as the rejected alternative on it records.
+
+The design this decision did not keep: `rejected@gates@streams-through-one-file`.
 
 ### Every gate runs; nothing fails fast by default `##gates-run-all`
 

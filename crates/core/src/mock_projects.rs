@@ -81,7 +81,7 @@ fn the_walk_obeys_the_project_that_declares_it() {
             "docs/plans/README.md".to_string(),
             "docs/plans/milestones/README.md".to_string(),
             "docs/plans/specs/README.md".to_string(),
-            "docs/rejected-alternatives.md".to_string(),
+            "docs/rejected.md".to_string(),
             "docs/tripwires.md".to_string(),
             "notes/a.md".to_string(),
             "notes/b.md".to_string(),
@@ -425,8 +425,9 @@ mod planted {
         // five refusals of the plans layout, in notes/plans.md: a spec, a milestone directory,
         // a slice spec cited by path, a milestone named as a path's anchor, and a pointer from
         // the root reaching inside `plans`.
-        // And an item of a plan cited from outside it, which the scoped resolution refuses.
-        ("references", 23, "is referenced"),
+        // And an item of a plan cited from outside it, which the scoped resolution refuses, and
+        // a `rejected` entry no design entry cites, which the orphan check reports.
+        ("references", 24, "is referenced"),
         // One defect per shape assertion over what is there: a missing index, an undeclared
         // kind, a missing owed subsection, an undeclared group, a file of another suffix, and
         // frontmatter that does not parse.

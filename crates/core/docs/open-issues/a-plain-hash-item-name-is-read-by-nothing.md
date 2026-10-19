@@ -50,10 +50,12 @@ its plan is the one form the checker never reads, so its correctness rests on re
 
 Two rivals already lost, and a design must answer both:
 
-- "Citing an item of another plan", lost to `design@core@plan-item-scope`: item citations across
+- "Citing an item of another plan", `rejected@core@cross-plan-item-citation`, not kept by
+  `design@core@plan-item-scope`: item citations across
   plans "would force a design revisit of every citing plan, item by item, at the moment a plan is
   retired".
-- "The retired slug reference reported whatever it names", lost to
+- "The retired slug reference reported whatever it names",
+  `rejected@core@retired-slug-reference-always-reported`, not kept by
   `design@core@candidate-rule-and-retired-forms`: a backticked `#<id>` is often another project's
   notation, such as an issue number. A check limited to a plan document's own item ids, inside that
   document, does not meet that argument: its set of ids is the plan's own.

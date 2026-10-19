@@ -277,7 +277,7 @@ The standing-entry search of the reply to round 1 returned 41 entries. Each, wit
 | `tripwire@core@plans-directory-split-asked` | the same |
 | `tripwire@core@phases-gate-the-report-two` | the same |
 | `tripwire@core@extension-defines-a-kind` | `rejected` is a core kind; not fired |
-| `tripwire@core@candidate-rule-silence` | a span `rejected@…` becomes a candidate; AC2 tests that it resolves or is reported; not fired |
+| `tripwire@core@candidate-rule-silence` | a span `rejected@<anchor>@<id>` becomes a candidate; AC2 tests that it resolves or is reported; not fired |
 | `tripwire@core@fix-makes-a-choice` | no `--fix` converts an old entry, by `thread@rejected-register@rejected-migration`; not fired |
 
 Three entries the search did not return, found by the standing-state review of this spec, bear on

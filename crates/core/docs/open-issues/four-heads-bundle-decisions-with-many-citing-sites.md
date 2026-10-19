@@ -30,8 +30,8 @@ the first run of the design-record axis counted 20, 23, 26 and 31.
     register's old entry numbers are not read", against reporting every such shape and against
     keeping thaum's lint permanently;
   - the paragraph "A reference is live wherever it is prose, fenced blocks included, for every
-    kind", against the rejected alternative "A fenced reference read as an illustration", which
-    names this head as the one it lost to.
+    kind", against the rejected design "A fenced reference read as an illustration",
+    `rejected@core@fenced-reference-as-illustration`, which this head cites.
 - `design@core@every-path-names-its-anchor`, 25 citing sites, 8 of them in
   `spec@plans@path-quickfixes`. Its title is joined by "and" over two decisions, and its body holds
   a third:
@@ -48,7 +48,8 @@ the first run of the design-record axis counted 20, 23, 26 and 31.
   - a message is judged against its own commit's tree, against the working tree;
   - "One command judges messages, after the commit exists", against the rejected alternatives "A
     `commit-msg` hook judging each message before the commit exists" and "A `commit` subcommand
-    that runs the checks and then `git commit`", both of which name this head;
+    that runs the checks and then `git commit`", `rejected@core@commit-msg-hook` and `rejected@core@commit-subcommand`, both of which this head
+    cites;
   - "Every commit of the range is judged by the tip checker, and a tree that fails is a finding",
     with "A branch that makes the checker stricter orders its commits for it", against skipping a
     commit whose tree fails and against building each commit's own checker;
@@ -88,8 +89,8 @@ Not established: whether every citing site cites one part alone. The sites were 
 `primer@design-heads` holds that a head holds one decision. A session that reverses or extends one
 of the bundled decisions cannot cite the decision it changes, since the slug names several, and
 `cargo klarch show` on the slug lists the sites of every bundled decision at once, so the list of
-texts to revisit is wider than the change. A rejected alternative that names the head cannot be
-checked against the one decision it lost to. This strains `design@agent-skills@one-decision-per-head`,
+texts to revisit is wider than the change. A `rejected` entry that the head cites cannot be
+checked against the one decision whose argument covers it. This strains `design@agent-skills@one-decision-per-head`,
 against `goal@knowledge-architect@design-is-recorded-with-its-arguments`.
 
 ### What would close it

@@ -21,11 +21,15 @@
 //! `design@core@candidate-rule-and-retired-forms`. A span that names nothing here is another
 //! tool's notation, and is silent.
 //!
+//! **A `rejected` entry that no design entry cites is reported**, per
+//! `design@core@orphan-rejected-entry`: the one finding of this family raised over the entities
+//! rather than over a span, and over a tree only, since a commit message holds no design entry.
+//!
 //! **The definition-site findings are not this family's.** Misplaced, malformed and duplicate
 //! definitions are found while the table is built, and `check::foundation` reports them: where a
 //! definition may sit is a question about a register's shape.
 
-use crate::manifest::{Scope, Shape, MANIFEST_NAME};
+use crate::manifest::{Scope, Shape, MANIFEST_NAME, REJECTED_REGISTER};
 use std::path::{Path, PathBuf};
 
 use crate::entity::{
@@ -34,6 +38,7 @@ use crate::entity::{
 use crate::finding::Finding;
 use crate::manifest::Manifest;
 use crate::model::Model;
+use crate::records;
 use crate::scan::{Observation, RetiredForm};
 
 use super::Inputs;
@@ -63,7 +68,36 @@ pub(crate) fn check_under(
     anchors: &Anchors,
 ) -> (Vec<Finding>, Counts) {
     let entities = Entities::build(model, anchors);
-    judge(model.documents(), &entities, anchors, inputs)
+    let (mut out, counts) = judge(model.documents(), &entities, anchors, inputs);
+    out.extend(orphans(model, &entities, anchors));
+    (out, counts)
+}
+
+/// Every `rejected` entry that no design entry cites, one finding at its definition site.
+///
+/// Raised here, over a tree, and not in [`judge_part`], which `commits` also runs over each
+/// commit message: a message holds no design entry, so the question is only the tree's. A
+/// citation counts only inside a design entry's section, per `records::cited_within`, so a
+/// reference from a goal, an issue, a tripwire or another `rejected` entry leaves the entry
+/// reported, per `design@core@orphan-rejected-entry`.
+fn orphans(model: &Model, entities: &Entities, anchors: &Anchors) -> Vec<Finding> {
+    let rejected = Kind::new(REJECTED_REGISTER);
+    let cited = records::cited_within(model, anchors, entities, &Kind::new("design"), &rejected);
+    let mut out = Vec::new();
+    for (anchor, id, sites) in entities.of_kind(&rejected) {
+        if cited.contains(&(anchor.to_string(), id.to_string())) {
+            continue;
+        }
+        let Some(site) = sites.first() else { continue };
+        out.push(Finding::at(
+            &site.file,
+            site.line,
+            format!("the `rejected` entry `{id}` of `{anchor}` is cited by no design entry"),
+            "cite it from the design head whose argument covers it, or from a head of absence \
+             that records the decision not to build it",
+        ));
+    }
+    out
 }
 
 /// The same, over a stated document list and a stated entity table.
@@ -1406,6 +1440,134 @@ mod tests {
         "### The decision `##a-decision`\n"
     }
 
+    // --- rejected entries -------------------------------------------------------------
+
+    /// A rejected home defining `not-kept`, the entry the tests below cite or leave uncited.
+    fn not_kept() -> (&'static str, &'static str) {
+        (
+            "docs/rejected.md",
+            "# Rejected\n\n### A design not kept `##not-kept`\n\n`live`. The reason.\n",
+        )
+    }
+
+    /// The claim, AC2 of `spec@plans@rejected-register`: a `rejected` reference resolves to an
+    /// entry of the `rejected` home, a dangling one is reported like any table reference, and an
+    /// entry a design entry cites is no orphan. Mutation checked: `REJECTED_REGISTER` left out of
+    /// `Registers::built_in`, which leaves the kind unknown and the span silent, so the dangling
+    /// citation is not reported.
+    #[test]
+    fn a_rejected_reference_resolves_and_a_cited_entry_is_no_orphan() {
+        let (found, counts) = checked_docs(
+            &manifest(),
+            vec![
+                not_kept(),
+                (
+                    "docs/design.md",
+                    "### The decision `##a-decision`\n\nIt did not keep `rejected@a-project@not-kept`, \
+                     nor `rejected@a-project@nowhere`.\n",
+                ),
+            ],
+            &[],
+        );
+        assert_eq!(found.len(), 1, "{found:#?}");
+        assert!(
+            found[0].contains("`rejected@a-project@nowhere` is referenced"),
+            "{found:#?}"
+        );
+        assert_eq!(counts.entities, 2);
+    }
+
+    /// The claim, AC2 of `spec@plans@rejected-register` and `design@core@orphan-rejected-entry`:
+    /// an entry no design entry cites is reported at its definition site, whatever else cites
+    /// it: a goal, an issue, another `rejected` entry, or the design home's own introduction,
+    /// which is no entry. Mutation checked: `cited_within` reading every span of the design
+    /// home's document rather than the entry's section, which lets the introduction's citation
+    /// pass the entry.
+    #[test]
+    fn an_entry_no_design_entry_cites_is_reported_whatever_else_cites_it() {
+        let (found, _) = checked_docs(
+            &manifest(),
+            vec![
+                (
+                    "docs/rejected.md",
+                    "# Rejected\n\n### Not kept `##not-kept`\n\n`live`. It cites `rejected@a-project@other`.\n\n\
+                     ### Other `##other`\n\n`live`. The reason.\n",
+                ),
+                (
+                    "docs/design.md",
+                    "# Design\n\nThis home did not keep `rejected@a-project@not-kept`.\n\n\
+                     ### The decision `##a-decision`\n\nIt cites nothing rejected.\n",
+                ),
+                (
+                    "docs/goals.md",
+                    "## A goal `##a-goal`\n\nIt cites `rejected@a-project@not-kept`.\n",
+                ),
+                (
+                    "docs/open-issues/an-issue.md",
+                    "# An issue\n\nIt cites `rejected@a-project@other`.\n",
+                ),
+            ],
+            &[],
+        );
+        let orphans: Vec<&String> = found
+            .iter()
+            .filter(|f| f.contains("is cited by no design entry"))
+            .collect();
+        assert_eq!(orphans.len(), 2, "{found:#?}");
+        assert!(orphans[0].starts_with("docs/rejected.md:3"), "{found:#?}");
+        assert!(
+            orphans[0].contains("the `rejected` entry `not-kept` of `a-project`"),
+            "{found:#?}"
+        );
+        assert!(orphans[1].starts_with("docs/rejected.md:7"), "{found:#?}");
+        assert!(orphans[0].contains("head of absence"), "{found:#?}");
+    }
+
+    /// The claim, AC2 of `spec@plans@rejected-register`: a citation from a design entry of a
+    /// directory-shaped design home, in a subdocument and in another anchor, counts. Mutation
+    /// checked: `cited_within` keeping only citations whose anchor is the citing entry's own,
+    /// which reports the entry the other anchor's head cites.
+    #[test]
+    fn a_citation_from_a_subdocument_or_another_anchor_counts() {
+        let (found, _) = checked_docs(
+            &manifest(),
+            vec![
+                not_kept(),
+                ("docs/design/README.md", "# Design\n\n- [One](one.md)\n"),
+                (
+                    "docs/design/one.md",
+                    "### The decision `##a-decision`\n\nIt did not keep `rejected@a-project@not-kept`.\n",
+                ),
+                (
+                    "parts/a-part/docs/rejected.md",
+                    "### Elsewhere `##elsewhere`\n\n`live`. The reason.\n",
+                ),
+            ],
+            &[],
+        );
+        assert!(found.iter().all(|f| !f.contains("not-kept")), "{found:#?}");
+        let orphans = found
+            .iter()
+            .filter(|f| f.contains("is cited by no design entry"))
+            .count();
+        assert_eq!(orphans, 1, "{found:#?}");
+        let (found, _) = checked_docs(
+            &manifest(),
+            vec![
+                (
+                    "parts/a-part/docs/rejected.md",
+                    "### Elsewhere `##elsewhere`\n\n`live`. The reason.\n",
+                ),
+                (
+                    "docs/design.md",
+                    "### The decision `##a-decision`\n\nThe part did not keep `rejected@a-part@elsewhere`.\n",
+                ),
+            ],
+            &[],
+        );
+        assert_eq!(found, Vec::<String>::new(), "{found:#?}");
+    }
+
     // --- table kinds -----------------------------------------------------------------
 
     #[test]
@@ -2134,10 +2296,15 @@ mod tests {
         let m = manifest();
         // A required document name passes with no component carrying it in the listing. A
         // register's home is not among them: the `register` kind names it.
-        let required = "See `path@*@README.md`, `path@*@docs/rejected-alternatives.md`, \
+        let required = "See `path@*@README.md`, \
                      `path@*@docs/open-issues/README.md`, `path@*@docs/open-issues/index.md`.\n";
         let (found, _) = checked(&m, required, &tree());
         assert_eq!(found, Vec::<String>::new(), "{found:#?}");
+        // The document the `rejected` register replaced is no required document: a reference to
+        // it is judged like any path, and no component of this tree carries it.
+        let (found, _) = checked(&m, "See `path@*@docs/rejected-alternatives.md`.\n", &tree());
+        assert_eq!(found.len(), 1, "{found:#?}");
+        assert!(found[0].contains("resolves in no component"), "{found:#?}");
         // A path one component carries passes; one nobody carries is reported.
         let (found, _) = checked(&m, "See `path@*@notes/real/a.md`.\n", &tree());
         assert_eq!(found, Vec::<String>::new(), "{found:#?}");

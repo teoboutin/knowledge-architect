@@ -6,7 +6,7 @@
 //! `design@core@one-entity-table`.
 //!
 //! **A kind is a register's name, `path`, `planned`, `register`, or, under the `claude` harness,
-//! one of the four harness kinds.** Ten registers are compiled in and a project declares the rest, so the
+//! one of the four harness kinds.** Eleven registers are compiled in and a project declares the rest, so the
 //! kind set is data rather than an enum — `path@core@src/manifest.rs` owns what a register is,
 //! and this module owns what naming one means. A harness kind, `skill`, `agent`, `primer` or
 //! `instructions`, is no register: no anchor carries it, and a reference to one names no anchor,
@@ -2029,17 +2029,27 @@ mod tests {
 
     #[test]
     fn a_slug_in_each_register_home_defines_an_entity_of_that_kind() {
-        // The three heading registers, file shape, each defining the same word: three
+        // The four heading registers, file shape, each defining the same word: four
         // entities, because the register is part of the key.
         let e = table(vec![
             ("docs/design.md", "### A decision `##same`\n"),
             ("docs/goals.md", "## A goal `##same`\n"),
             ("docs/tripwires.md", "## Guarding it `##same`\n"),
+            ("docs/rejected.md", "### A design not kept `##same`\n"),
         ]);
-        assert_eq!(e.len(), 3);
+        assert_eq!(e.len(), 4);
         assert!(e.definition_findings().is_empty(), "{:#?}", e.findings);
+        // A level-three heading of the rejected home is an entry, so one with no slug is
+        // reported, AC2 of `spec@plans@rejected-register`.
+        let unslugged = table(vec![("docs/rejected.md", "### A design not kept\n")]);
+        assert_eq!(
+            unslugged.definition_findings().len(),
+            1,
+            "{:#?}",
+            unslugged.findings
+        );
         let a = anchors();
-        for kind in ["design", "goal", "tripwire"] {
+        for kind in ["design", "goal", "tripwire", "rejected"] {
             assert_eq!(
                 e.resolve(&a, &Kind::new(kind), "a-project", "same"),
                 Resolution::Resolved,
@@ -2580,13 +2590,12 @@ mod tests {
         // a heading register's README again.
         let a = anchors();
         assert_eq!(a.required_kind("README.md"), Some(false));
-        assert_eq!(
-            a.required_kind("docs/rejected-alternatives.md"),
-            Some(false)
-        );
+        assert_eq!(a.required_kind("docs/rejected-alternatives.md"), None);
         assert_eq!(a.required_kind("docs/open-issues/README.md"), Some(false));
         assert_eq!(a.required_kind("docs/open-issues/index.md"), Some(false));
         for home in [
+            "docs/rejected.md",
+            "docs/rejected",
             "docs/tripwires.md",
             "docs/goals.md",
             "docs/goals",

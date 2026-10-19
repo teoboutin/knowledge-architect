@@ -79,7 +79,7 @@ The order is a suggestion; the content is not.
   searched in a commit message or in wrapped prose is matched across a line break.
 - **c. Whether it is already recorded.** An issue or a tripwire, from the search of
   `skill@knowledge-architect-retrospective-intake@ground-before-judging`. A rejected alternative:
-  read `path@*@docs/rejected-alternatives.md` of the Component that owns the blamed text, where a
+  read `register@*@rejected` of the Component that owns the blamed text, where a
   Component owns it. A proposed fix that already lost is not proposed again: an alternative counts
   as argued and lost only when a recorded reason covers it, per the record test of
   `skill@knowledge-architect-design@threads-and-states`.

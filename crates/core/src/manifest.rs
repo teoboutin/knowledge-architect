@@ -9,8 +9,8 @@
 //! rather than two: a directory either declares itself a project or it does not, and the tool
 //! refuses to run outside one instead of guessing a root from its own location.
 //!
-//! **Ten registers are compiled in and the rest are declared.** `design`, `goal`, `tripwire`
-//! and `issue` are what the word component means here, so a project neither adds nor removes
+//! **Eleven registers are compiled in and the rest are declared.** `design`, `goal`, `tripwire`,
+//! `rejected` and `issue` are what the word component means here, so a project neither adds nor removes
 //! them; `spec` and `milestone` are the plan documents, carried by the plan anchors,
 //! which the tool constructs at [`PLANS_DIR`]. `[registers.<name>]` declares further ones, and
 //! `[locations.<name>]` names a directory that carries a subset of them. The argument is
@@ -35,9 +35,9 @@ pub const MANIFEST_NAME: &str = "knowledge-architect.toml";
 /// which is the same as being checked against nothing.
 ///
 /// The register homes are not in this list. Each is a register's own storage, in whichever
-/// shape that register accepts, and `check::registers` asserts them from the register list.
-pub(crate) const COMPONENT_DOCUMENTS: [&str; 3] =
-    ["README.md", "CLAUDE.md", "docs/rejected-alternatives.md"];
+/// shape that register accepts, and `check::tree` asserts them from the register list. So no
+/// document of this list lies under `docs/`, where the component registers keep their homes.
+pub(crate) const COMPONENT_DOCUMENTS: [&str; 2] = ["README.md", "CLAUDE.md"];
 
 /// The document of `COMPONENT_DOCUMENTS` that holds agent instructions, required only while the
 /// project declares the `claude` harness, per `design@core@agents-table`.
@@ -62,6 +62,10 @@ pub(crate) const ISSUE_REGISTER: &str = "issue";
 /// The built-in heading register of evidence that would flip a decision, by the name a
 /// reference spells in kind position.
 pub(crate) const TRIPWIRE_REGISTER: &str = "tripwire";
+
+/// The built-in heading register of designs a project did not keep, each cited by the design
+/// entries whose argument covers it.
+pub(crate) const REJECTED_REGISTER: &str = "rejected";
 
 /// The built-in register of plan documents: a spec file, or a slice spec inside a milestone.
 pub(crate) const SPEC_REGISTER: &str = "spec";
@@ -269,6 +273,7 @@ impl Registers {
             heading("design", "design", 3),
             heading("goal", "goals", 2),
             heading(TRIPWIRE_REGISTER, "tripwires", 2),
+            heading(REJECTED_REGISTER, "rejected", 3),
             Register {
                 name: ISSUE_REGISTER.to_string(),
                 scope: Scope::Component,
@@ -829,7 +834,7 @@ pub fn normalise_one(list: &str, path: &mut PathBuf, complaints: &mut Vec<Findin
 /// grammar is a register nothing can point at, and `path` and `planned` are names the resolver
 /// answers before it ever reaches the register list. Its home is `<home base>/<dir>`, so a `dir` that
 /// is not one plain segment puts the home somewhere the anchor does not reach, and a `dir`
-/// spelling a compiled document makes one file both the document and the home. Each is a
+/// that makes the root's home the plans directory gives one directory two meanings. Each is a
 /// complaint, and the register is not declared. The built-in ones are named and placed by
 /// this tool and are never refused here.
 fn resolve_registers(registers: &mut Registers, complaints: &mut Vec<Finding>) {
@@ -891,20 +896,6 @@ fn resolve_registers(registers: &mut Registers, complaints: &mut Vec<Finding>) {
                 ),
                 "give the register another directory; the plans directory is the anchor `plans`, \
                  which the tool constructs, and one directory answers for one anchor",
-            ))
-        } else if register.scope == Scope::Component
-            && COMPONENT_DOCUMENTS.contains(&format!("docs/{}.md", register.dir).as_str())
-        {
-            // Every heading register has the file shape, so the `.md` is what collides; the
-            // compiled documents are all files, so the directory shape collides with none.
-            Some((
-                format!(
-                    "the {} register's directory `{}` makes its home the compiled document \
-                     `docs/{}.md`",
-                    register.name, register.dir, register.dir
-                ),
-                "give the register another directory; a compiled document is what every \
-                 component carries, and a file that is also a register home means two things",
             ))
         } else {
             None
@@ -1307,7 +1298,7 @@ fn build_registers(
         if let Some(at) = built_in {
             // A built-in register's storage is what the word component means, so a
             // declaration may extend only what is extensible about it. `issue` extends its
-            // kind list; the three heading registers extend nothing.
+            // kind list; the four heading registers extend nothing.
             let mut wrong: Vec<&str> = Vec::new();
             if decl.scope.is_some() {
                 wrong.push("scope");
@@ -1631,10 +1622,7 @@ pub(crate) mod tests {
         assert!(default.required_documents().contains(&AGENT_DOCUMENT));
         let none = with_agents("[agents]\nharness = []\n");
         assert!(!none.serves_claude());
-        assert_eq!(
-            none.required_documents(),
-            vec!["README.md", "docs/rejected-alternatives.md"]
-        );
+        assert_eq!(none.required_documents(), vec!["README.md"]);
         assert!(!none.owned(Path::new(".claude/agents/knowledge-architect-a.md")));
     }
 
@@ -2163,6 +2151,7 @@ pub(crate) mod tests {
                 "design",
                 "goal",
                 "tripwire",
+                "rejected",
                 "issue",
                 "spec",
                 "milestone",
@@ -2303,6 +2292,7 @@ pub(crate) mod tests {
         assert_eq!(level("design"), Some(3));
         assert_eq!(level("goal"), Some(2));
         assert_eq!(level("tripwire"), Some(2));
+        assert_eq!(level("rejected"), Some(3));
         assert_eq!(level("issue"), None);
     }
 

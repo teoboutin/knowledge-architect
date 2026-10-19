@@ -30,7 +30,7 @@ decision** (`skill@knowledge-architect-decision-recording`), and **parking anyth
 Read the Component's own files first:
 - its `CLAUDE.md`, for the invariants and traps that hold of the code as it stands;
 - its design home, for the recorded intent;
-- its `path@*@docs/rejected-alternatives.md`, for what has already lost;
+- its `register@*@rejected`, for the designs already not kept;
 - its `register@*@issue` and `register@*@tripwire`, for what is outstanding and what
   would reopen a decision.
 

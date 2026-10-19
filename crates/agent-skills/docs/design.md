@@ -2,8 +2,8 @@
 
 Recorded intent for the text the checker installs: which skills and agents exist, how they are
 named, and how they divide the work. Present tense, each decision carrying a slug, cited as
-`design@agent-skills@<slug>`. What lost to a decision here is
-`path@agent-skills@docs/rejected-alternatives.md`.
+`design@agent-skills@<slug>`. The designs this Component did not keep are
+`register@agent-skills@rejected`, each cited by the heads whose argument covers it.
 
 **What belongs here:** a decision about the installed text that does not survive deleting this
 component, and the rules of the published workflow, which this repository follows as an adopting
@@ -76,6 +76,9 @@ what the owner said of the installed files: "I don't want to cater too much to t
 installed files"; the extension is the session's argument, which the owner's choice of content/ in
 the walk followed.
 
+The design this decision did not keep:
+`rejected@agent-skills@published-checker-reads-percent-lines`.
+
 ### The shipped text cites only what every installing project holds, and so no entry of this repository `##shipped-text-cites-no-entry`
 
 The text under content/, with the snippets the build inlines, is read in every project that installs
@@ -85,7 +88,7 @@ workflow's own upstream repository, where a retrospective's findings on the work
 `design@agent-skills@retrospective-destination`. It cites no entry: a reference to an entry resolves
 only against the tree it stands in, and no tree but this one holds this repository's entries. A path
 or a home that every conforming project holds may be written as a reference:
-`path@*@docs/rejected-alternatives.md` names each Component's own copy of a required document, per
+`path@*@README.md` names each Component's own copy of a required document, per
 `design@core@components-carry-the-same-documents`; `register@*@goal` names each Component's own
 goals home, in whichever shape it has, per `design@core@register-home-reference`; and
 `path@plans@README.md` and `register@plans@spec` name a file and a home of the one plans directory,
@@ -161,6 +164,8 @@ bounded problems, would repeat the grounding to classify at all; it is in the re
 alternatives. A bounded path names no skill outside the installed set, per
 `design@agent-skills@no-external-handoff`.
 
+The design this decision did not keep: `rejected@agent-skills@separate-bounded-problem-skill`.
+
 ### The design skill is written for frontier-tier models only `##frontier-tier-only`
 
 The design skill is not simplified for smaller models. A smaller model takes part in the
@@ -174,6 +179,8 @@ in `path@agent-skills@README.md`; it is not re-taken, since
 `design@agent-skills@synthetic-evidence-not-built` builds no such run, and it stands for the part a
 reading of its transcripts confirms: the smaller one reproduced the ledger's format, and it endorsed a weak proposal, invented states outside
 the closed set, and dropped open threads between rounds.
+
+The design this decision did not keep: `rejected@agent-skills@design-skill-for-weaker-models`.
 
 ### The design skill structures how a discussion is conducted, never what or how much is proposed `##structure-the-flow`
 
@@ -232,6 +239,8 @@ asks for that section to be read again at the moment of writing.
 `tripwire@agent-skills@head-created-without-deliberation` watches whether they reach a session in
 time.
 
+The design this decision did not keep: `rejected@agent-skills@every-decision-through-design-skill`.
+
 ### A head's title states the rule that decided, and its body names the members built `##title-states-the-rule`
 
 When a decision admits members, such as fixes, kinds, verbs, sections or consumers, or picks a
@@ -252,6 +261,8 @@ into a title makes the defect: "the title now states it". The opposite defect, a
 wider than its argument, caused reversals too, which the last sentence of the rule guards. A title
 stating a rule alone would let a session add members the owner never saw, so it holds only with the
 routing of `design@agent-skills@extension-follows-the-ground`.
+
+The design this decision did not keep: `rejected@agent-skills@title-states-built-instance`.
 
 ### A head holds one decision, and parts that lose to different nearest rivals are separate heads `##one-decision-per-head`
 
@@ -277,6 +288,8 @@ more heads, not more decisions: the owner's words, "We are not adding content an
 slugs and independent heads", and the entry tests still judge each part, so the decisions recorded
 stay few, per `design@agent-skills@a-head-is-owed-by-an-entry-test`.
 
+The design this decision did not keep: `rejected@agent-skills@head-split-by-independent-reversal`.
+
 ### A member that a head's argument covers is recorded directly, and one that the owner's words name goes to the owner `##extension-follows-the-ground`
 
 A new member of a head, which the head's rule admits and its body does not name, is routed by the
@@ -295,6 +308,8 @@ found in the history of each head, often over several commits. Sending every new
 the design skill costs a reversal for an ordinary extension, which
 `design@agent-skills@title-states-the-rule` measured. The risk is a session judging "the argument
 covers it" too widely; the design-conformance reviewer reads every plan document against the heads.
+
+The design this decision did not keep: `rejected@agent-skills@member-routed-by-approval-scope`.
 
 ### A head that a change touches is brought to the rules on heads in that change `##existing-heads-on-touch`
 
@@ -506,6 +521,8 @@ session, and four further review findings about the user's behaviour were queued
 same reasoning. Only the design skill and the setup skill state a set so far:
 `issue@agent-skills@expectation-sets-for-the-installed-skills`.
 
+The design this decision did not keep: `rejected@agent-skills@separate-expectation-sets-file`.
+
 ### Every statement of agent-facing text names an act an agent does differently because of it, or it is not written `##need-test`
 
 Every statement of agent-facing text, installed or a project's own, passes the need test of
@@ -569,6 +586,8 @@ reads another subset of the rules than the audit applies. An installed agent hol
 `skill@knowledge-architect-agent-configuration@where-text-goes`: a session writing configuration
 reads the standard in the main session, which loads a skill and reads an agent's definition only by
 opening its file.
+
+The design this decision did not keep: `rejected@agent-skills@admission-standard-in-primer`.
 
 ## The workflow the skills carry
 
@@ -722,6 +741,8 @@ defaults approved", and the citation, deleted, takes no argument with it. The fi
 a fresh read-only audit of those heads at that commit, against the commits and plan documents that
 wrote each citation.
 
+The design this decision did not keep: `rejected@agent-skills@head-cites-every-owner-ruling`.
+
 ### A durable record attributes a decision to the owner, and the owner's words verbatim stay in a plan document or a file that leaves `##attribution-replaces-quotation`
 
 `primer@design-heads` states it: a design head, a commit message, a tripwire and an issue entry
@@ -753,6 +774,8 @@ misstated the owner's request, and a quotation replaced it, in the commit "[revi
 transcript review of the small-fixes branch: no ruling misstated, three items given a durable
 outcome, one paraphrase replaced by the owner's words". The transcript reviewer reads the words
 against the record, and `tripwire@agent-skills@attribution-loses-the-scope` watches.
+
+The design this decision did not keep: `rejected@agent-skills@owner-words-quoted-in-head`.
 
 ### A decision approved with no argument is argued before it is recorded `##unargued-approval-is-argued`
 
@@ -830,6 +853,8 @@ under a wide reading and almost none under a narrow one, and the design homes ho
 `design@agent-skills@design-home-is-built-intent`. Whether the heads cost a session more than they
 save is not measured: `issue@agent-skills@the-retrospective-counts-no-review-cost`.
 
+The design this decision did not keep: `rejected@agent-skills@entry-test-for-unbuilt-work`.
+
 ### An alternative earns an entry by the recording tests, not by having lost `##losing-alternatives-filter`
 
 A losing alternative earns an entry in the rejected alternatives only if it passes the tests of the
@@ -843,6 +868,8 @@ proposal costs, and one refuted by evidence is not. Recording every losing threa
 every discussion would grow the rejected alternatives by proposals nobody would raise again, and a
 reader proposing an alternative would have to search through them to find the few whose refutation
 cannot be derived again in one round.
+
+The design this decision did not keep: `rejected@agent-skills@every-losing-thread-recorded`.
 
 ### A thread is a candidate when a shape lost to an argument, whatever its state `##losing-shape-test`
 
@@ -907,6 +934,8 @@ design skill's tie for the owner at loop step 5 and its rule that no fork remain
 stands, joined to closure. The
 risk, a session judging a rival defeated on a weak argument, is what the checkpoint's contest and
 `tripwire@agent-skills@argued-closure-reopened` watch.
+
+The design this decision did not keep: `rejected@agent-skills@every-thread-closed-by-argument`.
 
 ### A default that holds no fork, on bounded work or settled by the record, is built without waiting for the owner's word `##derived-decision-proceeds-on-default`
 
@@ -1013,6 +1042,9 @@ and on no measurement of recall. Both figures are re-taken with `git ls-files` o
 files and the tripwires homes, then `wc -c`: summed by the anchor that holds each file for the
 first, divided by the rows of the issue and tripwire listings for the second; real sessions measure
 it, per `goal@knowledge-architect@the-workflow-improves-through-real-use`.
+
+The designs this decision did not keep: `rejected@agent-skills@one-agent-reads-every-standing-entry`
+and `rejected@agent-skills@one-search-agent-per-anchor`.
 
 ### The search runs where design is discussed, before the work, over every issue kind and every tripwire `##standing-entries-searched-before-the-work`
 
@@ -1215,6 +1247,8 @@ A label beside a checked pointer is not such a form. A plan item named outside i
 stands beside a citation of the whole plan, because an item reference is refused there, per
 `design@core@plan-item-scope`.
 
+The design this decision did not keep: `rejected@agent-skills@checked-commit-form-by-subject`.
+
 ## Plan documents
 
 ### The plan documents' words follow common developer usage, one word to one meaning `##document-vocabulary`
@@ -1260,6 +1294,8 @@ The one exception is a detailed plan, if one is ever written for a less capable 
 amount of work and opens by saying it rests on assumptions, per
 `design@agent-skills@no-untested-snippet-is-authority`.
 
+The design this decision did not keep: `rejected@agent-skills@spec-plus-detailed-plan`.
+
 ### No untested code snippet in a plan document is authority `##no-untested-snippet-is-authority`
 
 A plan document is detailed about the design and concise about the implementation sequence, and no
@@ -1275,6 +1311,8 @@ instructions, is not prevented by one document per layer, since a spec with no s
 still carry them. Asked, under entry test 4, whether these words record the owner's intent, the
 owner answered: "this one is quite important and I want to give it a higher ranking. It could
 apply elsewhere in the future too."
+
+The design this decision did not keep: `rejected@agent-skills@spec-plus-detailed-plan`.
 
 ### A milestone is a directory, its head a README, each slice a spec `##milestone-is-a-directory`
 
@@ -1300,6 +1338,8 @@ in place, in whichever document holds the shape, and a new slice found at an aud
 own, as a scope change the owner rules on. The audit's commit message lists each finding with its
 gap, its answer and the decision it follows from, so an edit in place loses no record of what the
 audit found.
+
+The design this decision did not keep: `rejected@agent-skills@milestone-holds-every-slice-design`.
 
 ### A plan document leaves when its work lands `##plan-document-leaves-at-landing`
 
@@ -1388,6 +1428,8 @@ rival, a draft ledger the agent writes to a file every round with the least effo
 cost of a write per round and not the other two reasons of the rejected alternative it repeats: a
 stale ledger stated with confidence is worse than none, and a file the agent writes is corroborated
 only by the conversation, which compaction removes.
+
+The design this decision did not keep: `rejected@agent-skills@ledger-written-during-discussion`.
 
 ### Acceptance criteria live in the plan document of the work that judges them `##acceptance-criteria-in-the-document`
 
@@ -1491,6 +1533,8 @@ real use: thaum kept a file of its next milestones as an exception to the instal
 roadmap register of its own, holding undesigned work, lost: two registers would each hold known,
 undesigned work, which needs a routing rule and hides one of them from the issue listing.
 
+The design this decision did not keep: `rejected@agent-skills@no-roadmap`.
+
 ### The roadmap's order is the owner's `##roadmap-order-is-the-owners`
 
 A row of the roadmap is added or moved on the owner's word, since ordering known work is a fork: no
@@ -1533,6 +1577,9 @@ document of the v0.1 extraction holds that count, in its section on session B of
 `git log --diff-filter=D --name-only -- docs/plans/` finds it; the message of the commit "[review]
 Six reviewers read PR 1: the hand-off rule, the shipped text and the record are corrected" records
 the review's six axes and its finding.
+
+The design this decision did not keep:
+`rejected@agent-skills@transcript-reviewer-reports-every-clause`.
 
 ### A misstated ruling is critical only when it reverses the ruling, or changes what is built or a load-bearing decision `##misstated-ruling-rated-by-what-it-changes`
 
@@ -1810,6 +1857,8 @@ The rival, a lighter method with no re-check, lost on real audits, whose commits
 `git log --grep='design-record axis'` finds: in the first audit of the design-record axis on this
 repository, the re-check of each pass found violations the pass had missed or made.
 
+The design this decision did not keep: `rejected@agent-skills@audit-without-calibration-or-recheck`.
+
 ### The convergence count of an audit reads only the violations left on text the previous pass also read `##convergence-count-scope`
 
 A violation left is on old text when the previous pass also read its words and no commit after the
@@ -1830,6 +1879,8 @@ compares two corpora, and measures how much text the last pass wrote more than h
 left. The nearest rival, the plain count with its fall judged over its context, was argued by hand
 at each firing, with the same explanation each time. Dropping the count for the owner's judgement
 alone drops the convergence signal the stop rule reads.
+
+The design this decision did not keep: `rejected@agent-skills@plain-confirmed-findings-count`.
 
 ### A pass of an axis is one run of its saved workflow, from its preflight to its report, with one more run to judge its application where the axis has one, and the session reads each report after its run, never between its steps `##one-run-pass`
 
@@ -1884,6 +1935,9 @@ cost the session most of its context. The rival that has the session read every 
 the run lost on the same measurement, since the verifier makes the refutations that sort made. The
 plan document of that work holds the measurement, and
 `git log --diff-filter=D --name-only -- docs/plans/` finds it.
+
+The designs this decision did not keep: `rejected@agent-skills@three-runs-per-pass` and
+`rejected@agent-skills@session-rereads-every-draft`.
 
 ### The session applies the repairs the owner approves, and no saved workflow does `##apply-stays-with-the-session`
 
@@ -1947,6 +2001,9 @@ Claude Code personally... I'm not really expecting anyone to start using this, o
 more projects than thaum." The cost of shipping them: each saved workflow is listed in every
 session of every project that installs the workflow, one that never audits included.
 
+The designs this decision did not keep: `rejected@agent-skills@manual-fallback-file-per-axis` and
+`rejected@agent-skills@workflow-script-inline-in-skill`.
+
 ### Each audit pass commits a report file holding its evidence and the owner's rulings, on every axis, and the file leaves once its outcomes are carried out `##committed-audit-report`
 
 The file is `docs/audit-reports/<YYYY-MM-DD>-<axis>-pass-<n>.md` at the project's root, the axis
@@ -1970,6 +2027,8 @@ or new text. The nearest rival, the commit messages alone, keeps the outcomes an
 evidence, and a commit that records rulings and changes no file is dropped by GitHub's rebase merge, as
 `design@knowledge-architect@a-record-rides-on-a-commit-that-changes-a-file` measured. History grows
 by the report's size at each pass, and the tree by nothing once the file leaves.
+
+The design this decision did not keep: `rejected@agent-skills@commit-messages-as-audit-record`.
 
 ### Every finding of an audit takes exactly one outcome of its axis's table, and none is left to judgement `##audit-outcomes`
 
@@ -2046,6 +2105,8 @@ on the owner list, and no other step reads it for a head no branch touches: the 
 `agent@knowledge-architect-routing-reviewer@routing-predicates`, judges it only for a head a diff
 writes. The rival, that outcome removed, leaves a misfiled head unread until a change touches it.
 
+The design this decision did not keep: `rejected@agent-skills@wrong-component-outcome-removed`.
+
 ### The design-record axis is dispatched in bounded groups calibrated on a shared sample `##design-record-axis-dispatch`
 
 Its saved workflow's preflight lists every entry of every Component, in the order the auditor's
@@ -2072,6 +2133,8 @@ audit on this repository, two agents read one shared sample entry two ways in tw
 and a method that trusted one reading per entry would have left both. The audit's commits, found
 with `git log --grep='design-record axis'`, carry the counts.
 
+The design this decision did not keep: `rejected@agent-skills@audit-without-calibration-or-recheck`.
+
 ### The design-record axis compares its calibration sample inside the run, an auditor proposing each reading and the session confirming it `##calibration-in-the-run`
 
 Once every group has returned, one design-record auditor under its calibration brief compares the
@@ -2091,6 +2154,8 @@ calibrates after them needs one agent to read again, across every group, the dra
 reading bears on, the load the group bound exists to avoid; the barrier costs the time of the
 slowest auditor. A verifier sees one group only, so it cannot replace the sample: the sample's
 readings differ between groups, not inside one.
+
+The design this decision did not keep: `rejected@agent-skills@session-settles-calibration`.
 
 ### Each head a proposed split, merge, rename, retitle or move would create is judged alone inside the run, before the owner rules `##created-heads-checked-in-the-run`
 
@@ -2215,6 +2280,10 @@ against its home, and L9 whether a statement is needed at all.
 Its two auditors by default rest on the premise above, that a second agent of one lens finds what
 the others missed.
 
+The designs this decision did not keep: `rejected@agent-skills@workflow-corpus-shared-out`,
+`rejected@agent-skills@narrower-two-readings-lens` and
+`rejected@agent-skills@divergent-verdicts-without-lens`.
+
 ### The agentic-workflow axis admits a finding only when a reading confirms it, and a gap that only predicts what an agent would do leads to no edit `##workflow-axis-finding-standard`
 
 A finding is admitted in a class whose evidence a reading checks: a contradiction, two instructions
@@ -2252,6 +2321,8 @@ measurement, and `git log --diff-filter=D --name-only -- docs/plans/` finds it. 
 reading are worth their repairs: of the first pass, the owner observed that several findings were likely the
 source of a misbehaviour the owner had seen.
 
+The design this decision did not keep: `rejected@agent-skills@two-readings-left-to-judgement`.
+
 ### One installed agent carries the agentic-workflow axis's standard, its brief choosing its lens, or its role as a verifier or a checker `##workflow-auditor-agent`
 
 `agent@knowledge-architect-workflow-auditor` holds the standard every auditor of the axis follows:
@@ -2274,6 +2345,8 @@ weighed the count of published agents: "I was worried about publishing too many 
 polluting the directory. I think this shape works." The rival of the verify brief, a verifier agent
 of its own, would carry the axis's standard outside the axis's agent, the shape
 `design@agent-skills@audit-agent-per-axis` rejects in one generic auditor.
+
+The design this decision did not keep: `rejected@agent-skills@workflow-auditor-per-lens`.
 
 ### One adversarial verifier per auditor tries to refute that auditor's drafts inside the run `##verifier-in-the-run`
 
@@ -2368,6 +2441,9 @@ stops the run: the count did not fall, the repairs move to a method by cause" re
 the second phase, the session grouping the findings alone, lost on the same audit: the session's
 sort dropped a finding and left a ruling of the owner off the next pass's kept list.
 
+The designs this decision did not keep: `rejected@agent-skills@one-repair-per-finding` and
+`rejected@agent-skills@workflow-repair-steps-reused`.
+
 ### A set of repairs that adds more instructions than it removes goes to the owner first, with its net count, and the word count is recorded beside it `##audit-net-growth`
 
 An instruction is a sentence that tells an agent to do, or not to do, an act at a moment; a
@@ -2388,6 +2464,8 @@ proposal before the edit. No bound at all loses on the axis's first passes, whos
 most findings into added rules that the next pass found interacting, per
 `design@agent-skills@root-cause-repair`.
 
+The design this decision did not keep: `rejected@agent-skills@unbounded-repair-growth`.
+
 ### A step of the run reads each repair proposal's new text for contradictions and two readings before the session reads it `##repair-proposals-audited`
 
 In the agentic-workflow axis's run a check step follows the repair proposals: one workflow auditor
@@ -2406,6 +2484,8 @@ defects left for the next pass to find, costs a full pass to surface each. The r
 reading every proposal's new text through L1 and L3 moves those readings into the session, against
 the burden `design@agent-skills@one-run-pass` keeps from it. The step adds one agent per proposal
 to a pass.
+
+The design this decision did not keep: `rejected@agent-skills@repair-defects-left-to-next-pass`.
 
 ### Each repair of agent-facing text is read against the goals, the design heads and the rejected alternatives it touches before the owner rules on it `##repairs-read-against-the-record`
 
@@ -2430,6 +2510,8 @@ a head, against `goal@knowledge-architect@the-owner-decides`. The search by beha
 judgement, and a head it misses is found at the review of the audit's branch, which reads each
 repair against the design heads.
 
+The design this decision did not keep: `rejected@agent-skills@repair-check-left-to-session`.
+
 ### An audit runs on an occasion whose own work needs the record read under the rules, never on a period `##audit-triggers`
 
 The owner's request is the main occasion. A version that changes the rules recorded content must
@@ -2448,6 +2530,8 @@ one text. Its read-only rule is in its body, since its tools include a shell. Th
 generic auditor briefed to read the axis's section of the skill, puts the standard behind a read the
 brief must ask for.
 
+The design this decision did not keep: `rejected@agent-skills@one-generic-auditor-agent`.
+
 ### A project audit repairs the whole record at once, on each occasion an audit runs `##audit-repairs-the-whole-record`
 
 Beside the repair of a head a change touches, `design@agent-skills@existing-heads-on-touch`, a
@@ -2458,6 +2542,8 @@ to decision record conditions and shapes, at the next version pin, projects migr
 migrate their design home to match them." A repair on touch never reaches a head no change touches.
 The rival, the repair on touch alone, leaves a project's record under the old rules after its
 migration.
+
+The design this decision did not keep: `rejected@agent-skills@head-repaired-only-when-touched`.
 
 ## The configuration a project holds
 
@@ -2536,6 +2622,8 @@ finding messages rather than by the installed text, and an unstated checker rule
 where its finding message does not name its repair. The rulings are recorded in
 `issue@core@a-reference-with-a-line-or-fragment-suffix-names-a-wrong-repair`. A rule a writer of
 every `path` reference needs stays in `primer@where-knowledge-goes`.
+
+The design this decision did not keep: `rejected@agent-skills@checker-model-printed-by-binary`.
 
 ### The primer states the rules for verifying a claim before relying on it or writing it, and a skill keeps only the narrower rule its own moment needs `##verification-in-primer`
 
@@ -2618,6 +2706,8 @@ owner such facts, as at the fourth entry test of
 `design@agent-skills@a-head-is-owed-by-an-entry-test`, and a ruling on intent is defined by these
 kinds.
 
+The design this decision did not keep: `rejected@agent-skills@delegated-decision-state`.
+
 ### An answer of the owner on a reading or a fact is recorded with its source, never as the owner's ruling `##answer-keeps-its-authority`
 
 `primer@labelled-items` states it beside the label rule of
@@ -2662,6 +2752,8 @@ the second on a premise the session supplied, that the decision failed the first
 the same change had made the second pass. A word acted on past its premise records a decision the
 owner did not make, against `goal@knowledge-architect@the-owner-decides`.
 
+The design this decision did not keep: `rejected@agent-skills@owner-reading-answer-put-back`.
+
 ### Something met outside the task takes the first outcome of the primer's table that applies, routed by its authority, and the turn lists every item `##met-outside-the-task-outcomes`
 
 `primer@met-outside-the-task` gives four outcomes, the first that applies. An item that bears on
@@ -2683,6 +2775,8 @@ so every outcome leaves a record or a listed line. A fix under the second outcom
 the owner's: the owner accepts such an autonomous fix as long as it passes the test the session
 wrote. The directive sits
 in the primer since every session meets something outside its task.
+
+The design this decision did not keep: `rejected@agent-skills@finding-reported-not-recorded`.
 
 ### A turn that decided what the owner could have decided ends with a Decided section `##decisions-reported-to-the-owner`
 
@@ -2730,6 +2824,8 @@ first, and nothing makes it do so. The cost is the primer's size, roughly double
 of every installing project, which `design@agent-skills@primer-limit` admits for what no skill
 delivers at the moment it is needed; it is re-taken with `wc -w` on the primer.
 
+The design this decision did not keep: `rejected@agent-skills@head-rules-in-decision-recording`.
+
 ### A directive is restated only where the restatement is no longer than a pointer to it `##restatement-size-test`
 
 A directive is restated at its point of delivery only when the restatement is no longer than a
@@ -2753,6 +2849,8 @@ read the home whole is itself about one sentence. A partial copy drifts, and its
 the whole: the rival, a directive restated wherever it is delivered, gives the partial restatements that
 `design@agent-skills@one-home-for-head-rules` measures. That rival's own reason, that a reader who cannot reach a statement at the moment
 of acting is not served by a pointer, stays answered for a short directive, which is still restated.
+
+The design this decision did not keep: `rejected@agent-skills@directive-restated-everywhere`.
 
 ### The decision-recording skill asks for the primer's section on design heads to be read again before a head is written or judged `##primer-reread-before-recording`
 
@@ -2791,6 +2889,8 @@ this repository's first agentic-workflow audit, no row of the table delivered an
 description or the dispatching skill did not, and every finding on the routing side turned on
 whether a row was owed. After an install that changes the installed files, each project skill and
 agent is read against the installed text that changed, not against a row.
+
+The design this decision did not keep: `rejected@agent-skills@root-routing-table`.
 
 ### A project adds to the workflow through skills of its own, never by editing an installed one `##overlay-by-separate-skills`
 
@@ -3001,8 +3101,9 @@ upstream, the one name of a project the shipped text holds.
 The project's file goes to an intake, `design@agent-skills@intake-skill-home`, which analyses each
 finding before anything changes in the project, since the analysis finds what
 a direct entry would record wrongly: a finding already repaired, already recorded, resting on a
-false premise, or proposing a fix that would reverse a recorded head. The direct path is in
-`path@agent-skills@docs/rejected-alternatives.md`, with the measurement that defeated it.
+false premise, or proposing a fix that would reverse a recorded head. The direct path is
+`rejected@agent-skills@retrospective-finding-straight-to-issue`, with the measurement that
+defeated it.
 
 ### The intake of a retrospective's findings is an activity with an installed skill of its own, apart from the retrospective `##intake-skill-home`
 

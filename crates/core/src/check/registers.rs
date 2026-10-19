@@ -1,8 +1,8 @@
 //! Every anchor carries the registers it owes, in the shape that register has.
 //!
 //! An anchor is a component or a location. A **component** carries its README, its scoped
-//! `CLAUDE.md` while the project serves the `claude` harness, its rejected-alternatives document,
-//! and every component-scoped register; a
+//! `CLAUDE.md` while the project serves the `claude` harness, and every component-scoped
+//! register, `rejected` among them; a
 //! **location** carries the registers it declares and nothing else. What that buys is one home
 //! per anchor for each kind of statement, and one place to look for it.
 //!
@@ -683,7 +683,7 @@ mod tests {
         };
         let mut out: Vec<String> = COMPONENT_DOCUMENTS.iter().map(|n| at(n)).collect();
         out.push(at("docs"));
-        for name in ["design.md", "goals.md", "tripwires.md"] {
+        for name in ["design.md", "goals.md", "tripwires.md", "rejected.md"] {
             out.push(at(&format!("docs/{name}")));
         }
         out.push(at("docs/open-issues"));
@@ -729,6 +729,13 @@ mod tests {
         let found = findings(&manifest, &present);
         assert_eq!(found.len(), 1, "{found:#?}");
         assert!(found[0].contains("no goal home"), "{found:#?}");
+        // So is the rejected home, AC2 of
+        // `spec@plans@rejected-register`.
+        let mut present = all_of("");
+        present.retain(|p| p != "docs/rejected.md");
+        let found = findings(&manifest, &present);
+        assert_eq!(found.len(), 1, "{found:#?}");
+        assert!(found[0].contains("no rejected home"), "{found:#?}");
     }
 
     #[test]
@@ -2051,8 +2058,8 @@ mod tests {
         assert_eq!(holding.len(), 1, "{found:#?}");
         assert!(
             holding[0].contains(
-                "the location `papers` at `docs` holds the design, goal, tripwire and issue \
-                 homes of `a-project`"
+                "the location `papers` at `docs` holds the design, goal, tripwire, rejected and \
+                 issue homes of `a-project`"
             ),
             "{found:#?}"
         );
@@ -2241,28 +2248,5 @@ mod tests {
         let found = findings(&manifest, &all_of(""));
         assert_eq!(found.len(), 1, "{found:#?}");
         assert!(found[0].contains("which is a file"), "{found:#?}");
-    }
-
-    #[test]
-    fn a_register_directory_wearing_a_compiled_document_s_name_is_reported() {
-        // `path@*@docs/rejected-alternatives.md` is a compiled document of every component; a
-        // heading register at that directory name would make the same file its home, so
-        // one path would carry two meanings.
-        let manifest = declaring_full(
-            "",
-            "[registers.note]\nscope = \"component\"\nshape = \"heading\"\nlevel = 3\n\
-             dir = \"rejected-alternatives\"\n\n",
-            "[]",
-            "[]",
-            "[]",
-            "[]",
-        );
-        let found = findings(&manifest, &all_of(""));
-        assert!(
-            found
-                .iter()
-                .any(|f| f.contains("`rejected-alternatives`") && f.contains("compiled document")),
-            "{found:#?}"
-        );
     }
 }

@@ -250,15 +250,15 @@ milestone directory and one per spec file. The anchor words `*` (every Component
 path the tree does not hold) and `plans` are reserved.
 
 **Every Component carries** `path@*@README.md`, `path@*@CLAUDE.md` while the project serves the
-`claude` harness, `path@*@docs/rejected-alternatives.md`, and the home of each component register:
-`register@*@goal`, `register@*@design`, `register@*@tripwire` and `register@*@issue`.
+`claude` harness, and the home of each component register: `register@*@goal`,
+`register@*@design`, `register@*@rejected`, `register@*@tripwire` and `register@*@issue`.
 
 **A register's entries**:
 
-- a **heading register**, such as `design`, `goal` and `tripwire`, keeps its home in one file, or
-  in a directory behind a `README.md` that links every subdocument. An entry is a heading at the
-  register's level, its statement first and its slug last: level 3 for `design`, level 2 for
-  `goal` and `tripwire`;
+- a **heading register**, such as `design`, `rejected`, `goal` and `tripwire`, keeps its home in
+  one file, or in a directory behind a `README.md` that links every subdocument. An entry is a
+  heading at the register's level, its statement first and its slug last: level 3 for `design` and
+  `rejected`, level 2 for `goal` and `tripwire`;
 - a **file register**, such as `issue`, keeps its home in a directory: one file per entry, whose
   basename is the entry's id, beside a hand-written `README.md` and a generated `index.md`;
 - a **plan document** is an entry of `spec` or of `milestone`, and a plan's items, of `thread`,
@@ -319,7 +319,7 @@ it was written.
 | --- | --- | --- |
 | what the project, or one Component, is for, and what would show it achieved | that Component's goals home, `register@*@goal` (the project's root is a Component) | the owner abandons the goal |
 | how the project or a Component is built, and why | that Component's design home, `register@*@design` | the design changes: the entry is rewritten in place |
-| the engineering alternative that lost, and why | that Component's `path@*@docs/rejected-alternatives.md` | it is reopened and chosen, the owner rules it fails every recording test, or the decision it lost to leaves the design home and the text that keeps that decision's reason names it; a reversal moves the old winner into it if it meets a recording test of `skill@knowledge-architect-decision-recording` |
+| the engineering alternative that lost, and why | that Component's `register@*@rejected` | it is reopened and chosen, the owner rules it fails every recording test, or the decision it lost to leaves the design home and the text that keeps that decision's reason names it; a reversal moves the old winner into it if it meets a recording test of `skill@knowledge-architect-decision-recording` |
 | what is outstanding: a defect, an unexplained observation, an open question, missing work | one file in the owning anchor's issue directory, `register@*@issue` in a Component | the issue closes |
 | evidence that would flip a recorded decision whose work exists, or that no work implements | the owning Component's tripwires home, `register@*@tripwire` | it fires, or its decision is gone |
 | a contract or a trap that only a developer needs, true of the code as it stands | the scoped `CLAUDE.md` nearest the code | the contract changes or the trap is removed |
