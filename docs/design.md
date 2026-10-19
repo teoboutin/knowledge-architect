@@ -343,7 +343,8 @@ a re-run cannot change.
 ### All work goes through a branch, a review and a pull request merged up to date with main `##git-flow`
 
 - All work happens on a branch. Once it holds a first commit, it is pushed and a draft pull
-  request is opened. CI does not run on a draft.
+  request is opened. CI does not run on a draft. A scratch worktree made only for temporary testing
+  holds no work in this sense, per `design@knowledge-architect@scratch-worktree-outside-git-rules`.
 - The branch is rebased on main before review and merge, and reviewed before any merge. A review
   repair lands as `design@agent-skills@review-repair-appended-or-folded` decides: appended, and
   folded where appending leaves an earlier commit failing the per-commit rule below. Where every
@@ -379,11 +380,21 @@ ordinary move, bounded by verifying that nothing was lost. The one exception is
 edit begun with a clean tree, and the uncommitted content it meets is the resolution, which the
 replayed commit records.
 
-The rule binds a checkout that holds work. A scratch worktree made only for temporary testing, such
-as the one a mutation check runs in, holds a copy of work committed or kept elsewhere, and is
-removed once the test is done, so no operation in it can lose content; the rule does not bind there,
-on the owner's word. The rival, one worktree per mutation, keeps the rule's letter at the cost of a
-full build per mutation.
+The rule binds a checkout that holds work, and a scratch worktree is outside it, per
+`design@knowledge-architect@scratch-worktree-outside-git-rules`.
+
+### A scratch worktree made only for temporary testing is outside every Git rule `##scratch-worktree-outside-git-rules`
+
+A worktree made only for temporary testing, such as the one a mutation check of
+`skill@klarch-development@discriminating-tests` runs in, is outside every rule that the root
+`CLAUDE.md` restates in `instructions@git-workflow`, whichever head is its home: it holds a copy of work committed
+or kept elsewhere, records nothing durable, and is removed once the test is done, so no operation in
+it can lose content and nothing in it reaches the main branch. The scope is the owner's: the owner
+ruled that the Git rules do not apply in a scratch worktree, which is meant for temporary testing and
+not for durable work, over a second exception in the rule on losing content that admitted only the
+revert of a mutation by `git checkout -- <path>`. The case that the rule of `design@knowledge-architect@no-operation-loses-content`
+alone would refuse is several mutations reverted in one worktree, whose rival, one worktree per
+mutation, keeps the rule's letter at the cost of a full build per mutation.
 
 ### A commit is pushed only after the commits check passed on it `##push-after-the-commits-check`
 

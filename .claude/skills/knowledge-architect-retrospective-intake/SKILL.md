@@ -61,8 +61,7 @@ A finding is cited by its id and its file's stem, in the form
 4. **Cluster the findings.** One defect is often reported in several files, or as two findings of
    one file. A cluster, and a standing entry that several files meet, is analysed once, in the
    analysis of the first file by stem that holds it, and cites every id in it; the analysis of each
-   other file holds a section that points there, with no `Default` and no `Outcome` line of its
-   own, since the ruling is given where the cluster is analysed. That a
+   other file holds a section that points there. That a
    finding recurs across sessions is evidence: say how many times.
 
 ## What to establish for each finding or cluster `##what-to-establish`
@@ -151,18 +150,21 @@ Write the analysis in docs/retrospective-reports/ at the project's root, as `<st
 - **One section per finding or cluster**, headed by its ids and a short title, with a bullet per
   item of `skill@knowledge-architect-retrospective-intake@what-to-establish`, in prose. No table:
   the content of each item is too long to read in a cell.
-- **Every section ends with a `Default` line and an `Outcome` line**, except a section that points
-  to a cluster, whatever it proposes, no change included, the latter left pending: a finding, a noted item, and a judgement on a standing
+- **Every section ends with a `Default` line and an `Outcome` line**, whatever it proposes, no
+  change included, the latter left pending: a finding, a noted item, and a judgement on a standing
   entry. A standing entry the file may meet gets a section of its own: a tripwire that may have
   fired, a deferred trigger, a design issue's re-entry. Whether it fired, and its response, are the
   owner's to rule; the analysis proposes the judgement and its evidence.
+  A section that points to a cluster analysed in another file has neither line: the ruling is given
+  where the cluster is analysed, once, so that it cannot be given twice and differ.
 - **A span the checker would refuse is quoted in words**, and an entry an outcome removes, renames
   or creates is named as `primer@where-knowledge-goes` says. A finding about a refused form tempts a
   quotation of that form, and the analysis then fails the check it reports on. The project's paths
   and entries are written in the checked forms, since the file is checked like any other.
 
 Then give the owner the full path of each file, and in the conversation one line per section:
-its ids, the proposal in a few words, and the default outcome. **Propose that the owner rules by
+its ids, the proposal in a few words, and the default outcome, or, for a section that points to a
+cluster, the file that analyses it. **Propose that the owner rules by
 writing each `Outcome` line in the file**: with many findings, a ruling written beside its
 evidence is easier to give than one in the conversation, and it lands in the record as written. A
 ruling given in the conversation instead, such as "now: P1, P5; issue: P3; no change as proposed

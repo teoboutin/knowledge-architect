@@ -372,8 +372,8 @@ message and tree through `{{command}} commits`. A reference anywhere else is fou
 text**: the right anchor, `path@elsewhere@<path>` for a path the tree does not hold, a placeholder,
 or a rewritten sentence. A record of a deliberation (a plan document, a committed file that leaves
 once its outcomes are carried out, or a commit message) names by its bare slug in backticks an
-entry, and by its bare name in backticks a skill or an agent, that the work it records removes,
-renames or is still to create, where its tree does not hold it, nor, for a commit message, its first parent's: a name, not a reference, since there is nothing
+entry that the work it records removes, renames or is still to create, and by its bare name in
+backticks a skill or an agent that it removes or is still to create, where its tree does not hold it, nor, for a commit message, its first parent's: a name, not a reference, since there is nothing
 for the checker to judge. A renamed entry's old slug carries beside it the reference to the entry
 under its new slug, so a reader reaches the live entry by a checked pointer. A reference or a path that no checked form expresses is
 written without backticks only beside a reference to an issue entry of this project that records

@@ -14,7 +14,7 @@ correctly. Those are other axes.
 **This axis is the standing re-entry point for every tripwire home and every deferred trigger**,
 for the reason `skill@knowledge-architect-issue-tracking@tripwire-entry` gives. If you skip a file
 here, nothing is sure to re-read it before merge: the search before the work runs only for work
-that went through the design skill or a plan.
+that went through the design skill, a plan or a retrospective intake.
 
 **Establish the state of the tree yourself.** A brief that describes the change is a lead, and a
 disagreement between the brief and the tree is itself a finding.

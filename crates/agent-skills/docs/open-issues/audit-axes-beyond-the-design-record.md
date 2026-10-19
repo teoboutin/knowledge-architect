@@ -65,12 +65,13 @@ Additions of the session, for the discussion to judge:
   an issue whose diagnosis has gone stale, a tripwire whose decision has changed under it, or a
   deferred trigger met without anyone noticing; the standing-state reviewer does this only for the
   entries a diff bears on;
-  an instance of the need, in thaum at its move to 0.7.0: the 0.7.0 Migration entry on owner
-  attributions binds design heads, commit messages, tripwires and issue entries, and routes the work
-  to the design-record axis, which reads heads and `rejected` entries only; 21 of the 28 records
-  that failed the rule were issue entries, which the session reached only by widening an auditor's
-  group by hand. No axis reads the issue and tripwire entries against a rule of the primer that binds
-  them. Reported as W1 of that session's retrospective workflow file; the count is that project's;
+- **the records a rule of the primer binds, read against that rule**: no axis reads the issue and
+  tripwire entries against a rule of the primer that binds them. An instance, in thaum at its move
+  to 0.7.0: the 0.7.0 Migration entry on owner attributions binds design heads, commit messages,
+  tripwires and issue entries, and routes the work to the design-record axis, which reads heads and
+  `rejected` entries only; 21 of the 28 records that failed the rule were issue entries, which the
+  session reached only by widening an auditor's group by hand, on its owner's word. Reported as W1
+  of that session's retrospective workflow file; the count is that project's;
 - **goal coverage**: each goal against the design heads that serve it, for a goal no head serves and
   a head that serves no goal. The installed design-conformance reviewer already reads one plan
   document against the goals and the heads, per `design@agent-skills@plan-read-against-the-record`;

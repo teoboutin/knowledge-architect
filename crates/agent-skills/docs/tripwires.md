@@ -92,8 +92,8 @@ owner's word: the evidence arises in the sessions of the projects that use the w
 
 ## Guarding `design@agent-skills@standing-entries-searched-before-the-work`: a deferred trigger met by work that bypasses the design skill and found only at the review `##deferred-trigger-met-by-undesigned-work`
 
-The decision sends no search before work that does not go through the design skill; bounded work
-that does is searched at the grounding, per `design@agent-skills@bounded-path-in-design`. It rests
+The decision sends no search before work that goes through neither the design skill nor a
+retrospective intake; bounded work that goes through the skill is searched at the grounding, per `design@agent-skills@bounded-path-in-design`. It rests
 on the premise that a deferred trigger met by work that bypasses the skill costs little when the
 review is the first to read it.
 
@@ -567,7 +567,7 @@ that opened after the search.
 **Re-entry:** the reviews of every plan document, each retrospective, and the review of the branch
 that carries out an intake's outcomes.
 
-## Guarding `design@agent-skills@search-relevance-grade`: a goal is missed where the searcher graded the goals `##goal-missed-though-graded`
+## Guarding `design@agent-skills@searcher-grades-goals`: a goal is missed where the searcher graded the goals `##goal-missed-though-graded`
 
 The owner ruled on it as T2 of the discussion that had the design-entry searcher grade each goal of
 its Component. The decision rests on the premise that the searcher's grades of the goals are a
@@ -576,6 +576,5 @@ instead.
 
 **Fires when:** a retrospective or a review reports a goal missed in a design discussion or a
 retrospective intake where the design-entry searcher graded that goal's Component's goals.
-**Response:** reopen `design@agent-skills@search-relevance-grade` and
-`design@agent-skills@design-entry-search` on how goals reach the session.
+**Response:** reopen `design@agent-skills@searcher-grades-goals` on how goals reach the session.
 **Re-entry:** the retrospective of that session, and the review of the change.
