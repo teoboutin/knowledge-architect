@@ -263,8 +263,10 @@ declared registers.
 
 ## Guarding `design@core@plain-word-lint`: a plain word that is neither a pointer nor a subject slug `##plain-word-neither-pointer-nor-subject`
 
-The decision rests on the premise, the owner's, that a plain word equal to a defined id is either a
-pointer written in words or a sign that the slug names a subject rather than its decision. T1 of the
+The decision rests on the premise that a plain word equal to a defined id is either a pointer
+written in words or a sign that the slug names a subject rather than its decision: in the owner's
+view, such a word meant as an ordinary term probably shows a slug wrongly chosen, and in thaum's
+census every other hit was a pointer written in words. T1 of the
 premortem of the discussion that decided it, written on the owner's word.
 
 **Fires when:** at a consuming project's upgrade, or here, the owner rules a finding of the
