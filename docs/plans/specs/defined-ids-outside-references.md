@@ -136,7 +136,7 @@ it states, and else at the harvest.
 | `design@core@unusable-harness-name-is-a-finding` | its grammar for skill and agent names becomes two or more segments | `issue@core@tooling-for-project-skills`; `path@core@src/entity.rs`:1349, :3059 | step 1 for the source; the harvest |
 | `design@core@plan-document-kinds` | its example of a one-word slice id, `harvest`, takes two segments | its 12 citing lines, which state no grammar | the harvest |
 | `design@agent-skills@plain-text-is-no-repair` | its closed set of exceptions gains the quotation, which the owner approved in round 4; and class A keeps its first exception mechanically, under D2 | 18 citing lines, the primer's `primer@where-knowledge-goes` and `tripwire@agent-skills@plain-text-pointer-found` among them | the harvest, after D2 and D3 |
-| `design@knowledge-architect@changelog-section-fixed-at-release` | a member within the owner's words of round 4, "The rule is no content change, but structural change allowed": a slug written in words in a released section is repaired as its reference | 10 citing lines, the changelog reviewer among them | the harvest |
+| `design@knowledge-architect@changelog-section-fixed-at-release` | a member within the owner's rule of round 4, that a released section's content never changes and its structure may: a slug written in words in a released section is repaired as its reference, each such finding ruled by the owner case by case, as the owner reserved (D5) | 10 citing lines, the changelog reviewer among them | the harvest |
 
 **Standing entries the discussion's search returned, and their outcome:**
 
@@ -155,6 +155,10 @@ it states, and else at the harvest.
 | `issue@core@a-message-lint-is-deduplicated-in-one-tree-only` | the lints inherit the message union; read at step 1's tests |
 | `issue@agent-skills@a-premortem-criterion-listed-as-a-default-reads-two-ways` | not its case: the owner applied AC2; only its threshold is a default, D4 |
 | `issue@core@tooling-for-project-skills`, `issue@core@references-are-read-in-markdown-and-rust-only`, `issue@core@the-rust-parser-choice-has-no-head`, `issue@core@a-heading-line-markdown-renders-as-no-heading-defines-an-entry` | bear on the regions the lints read; nothing changes in them |
+| `issue@agent-skills@a-tripwire-on-agent-behaviour-fires-where-this-project-cannot-see` | the retrospective's question on references written without backticks is the channel it names; under D2 class A keeps the escape that question watches, so the channel is unchanged; read at the harvest |
+| `issue@agent-skills@a-saved-workflow-s-comments-ship-to-every-project` | a saved workflow's `//` comment is JavaScript, which the checker does not read, per `issue@core@references-are-read-in-markdown-and-rust-only`; the lints do not reach it; nothing |
+| `issue@core@no-checked-form-cites-a-point-inside-a-section` | the lints report section slugs written outside a reference; a point inside a section written in words stays that entry's question; nothing |
+| `tripwire@agent-skills@rarer-rule-in-the-model` | the lints' rules go into their finding messages and the core's README, not into `primer@checker-model`, so it does not fire; step 1 adds nothing to the primer's model |
 | `issue@knowledge-architect@the-released-changelog-section-rule-has-no-argument` | the owner ruled that released sections are linted, findings ruled one by one (round 4); read at the harvest |
 
 **The rejected alternative the issue asked about**, "The retired slug reference reported whatever
@@ -393,7 +397,7 @@ already asks for."
 
 Round 3, the session. No plain id in this repository's Rust; thaum's 51 Rust hits covered above; an
 entry to be created is reported once it exists; a commit message is judged against its own tree; a
-thread written `#slug` is excluded by its `#`.
+thread written `#slug` is excluded by its `#`. Corrected by the code-claims review: a commit message's lints read its first parent's tree too, per `design@core@a-commit-message-is-a-document`.
 
 ### The listing's premise is defeated `##arg-27`
 
@@ -433,7 +437,7 @@ words; thaum 5, all `skill@knowledge-architect-design@keep-or-change`; one-word 
 
 Round 4, the session, measured. 18 such ids here and 41 in thaum, mostly agent section slugs such as
 the section slug of the brief in three agents; picking the nearest definition makes the checker choose a meaning, which
-`tripwire@core@fix-makes-a-choice` guards against.
+`tripwire@core@fix-makes-a-choice` guards against. Corrected by the code-claims review: that tripwire guards a `--fix` whose bytes the tree does not determine, and says nothing of a finding's text; the losing alternative stands on the checker choosing no meaning a writer did not write.
 
 ### Respelling belongs to the held quick-fixes spec `##arg-34`
 
@@ -460,17 +464,18 @@ the cost claim, with a threshold of 10% offered as the session's default.
 
 Round 5, the session, read from the tree: the `ID` regex of `path@core@src/entity.rs`,
 `Observation::BareName` in `path@core@src/scan.rs`, its report in
-`path@core@src/check/references.rs`, and `design@core@candidate-rule-and-retired-forms`.
+`path@core@src/check/references.rs`, and `design@core@candidate-rule-and-retired-forms`. Corrected by the code-claims review: the regex is `ENTITY_ID`, and the session's words named it by its line.
 
 ## New names, in one place
 
 ```
-crates/core/src/entity.rs            existing: ENTITY_ID; new: the two-segment form of the id grammar
-                                     beside it, its name the implementing session's
+crates/core/src/entity.rs            existing: ENTITY_ID, kept for a register's name and directory;
+                                     new: ENTRY_ID, the two-segment grammar, behind is_entry_id
 crates/core/src/scan.rs              existing: Observation::BareName, SLUG_SITE, SLUG_ANY, BARE_NAME,
-                                     NAME_WHOLE; new: an observation for a class A token and one for a
-                                     class C word, and a definition-site observation of a one-segment
-                                     slug, their names the implementing session's
+                                     NAME_WHOLE; new: Observation::UnquotedReference(String), a class A
+                                     token; Observation::PlainWord(String), a class C word;
+                                     Observation::OneSegmentSlug(String), a one-segment slug at a
+                                     definition site
 crates/core/src/check/references.rs  existing: the match arm Observation::BareName(name) if lints in
                                      judge_part, widened to every defined id
 crates/agent-skills/src/render.rs    existing: is_id, two segments for a slug placeholder
@@ -575,11 +580,11 @@ The sites of the id grammar, and the grammar each judges after the work:
 
 | site | what it judges | after the work |
 | --- | --- | --- |
-| `ENTITY_ID` through `is_entity_id`, entity.rs, file-register entries | an issue's id | two segments |
-| `is_entity_id`, entity.rs, milestones | a milestone's name | two segments |
-| `is_entity_id`, check/references.rs, plan paths | a milestone segment of a `plans` path | two segments |
-| `is_entity_id`, entity.rs, harness entities | a skill's or an agent's name | two segments |
-| `is_entity_id`, manifest.rs, declared registers | a register's name and its directory | one or more, unchanged |
+| `is_entity_id`, entity.rs, file-register entries | an issue's id | two segments, through `is_entry_id` |
+| `is_entity_id`, entity.rs, milestones | a milestone's name | two segments, through `is_entry_id` |
+| `is_entity_id`, check/references.rs, plan paths | a milestone segment of a `plans` path | two segments, through `is_entry_id` |
+| `is_entity_id`, entity.rs, harness entities | a skill's or an agent's name | two segments, through `is_entry_id` |
+| `is_entity_id`, manifest.rs, declared registers | a register's name and its directory | one or more, `ENTITY_ID` unchanged |
 | `SLUG_SITE`, `SLUG_ANY`, scan.rs | a heading slug's definition | records one or more; a one-segment slug is the new definition finding |
 | `BARE_NAME`, `NAME_WHOLE`, scan.rs | a backticked bare span | one or more, since a one-segment span is no defined id and stays silent |
 | `is_id`, render.rs | a `{{slug:…}}` placeholder of the shipped text | two segments |
@@ -693,6 +698,9 @@ the scan is reworked before landing, or the owner rules on the cost.
 - **D3**, bearing on #plain-word-lint: the quotation exemption the owner approved for class C also
   holds for classes A and B. It widens that approval.
 - **D4**, bearing on AC2: its threshold, 10%, the session's default.
+- **D5**, bearing on #plain-word-lint: the member the harvest writes into
+  `design@knowledge-architect@changelog-section-fixed-at-release` carries the owner's reservation,
+  each finding in a released section ruled by the owner case by case.
 
 ## Harvest
 
