@@ -618,5 +618,7 @@ the owner named to the rule, the change goes to the owner as one proposal, as a 
   project's existing documents have moved.
 - `skill@knowledge-architect-retrospective`: once per session, offered when a branch the session
   worked on merges, a plan document leaves, or the session ends.
+- `skill@knowledge-architect-retrospective-intake`: the owner hands the session the project's own
+  retrospective files; an outcome of an analysis in docs/retrospective-reports/ is carried out.
 
 A project's own skills add to these, and never replace them.
