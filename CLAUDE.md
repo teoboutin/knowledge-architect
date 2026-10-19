@@ -297,5 +297,7 @@ git checkout main && git pull --ff-only
   `design@knowledge-architect@stays-at-zero-x`. How each kind of change is versioned is
   `design@knowledge-architect@versioning-policy`.
 - **A change's cost is first what a consumer could no longer do, and a migration is the lowest
-  cost**; no decision is argued on a break that changing it later would cause. This is a
-  restatement; its home is `design@knowledge-architect@capability-cost-before-migration`.
+  cost.** This is a restatement; its home is
+  `design@knowledge-architect@capability-cost-before-migration`.
+- **Do not argue a decision on the grounds that changing it later would be breaking.** This is a
+  restatement; its home is `design@knowledge-architect@no-future-breaking-cost-argument`.

@@ -254,14 +254,18 @@ An argument that a change is expensive names its costs in this order:
   and named, and it is the lowest kind of cost: a mechanical rename argues against nothing that a
   lost use does not.
 
-A cost that exists only in a future where changes are refused argues against nothing. While the
-project stays at 0.x, breaking changes are allowed, per `design@knowledge-architect@stays-at-zero-x`,
-and accepted, such a cost would freeze the design before it has converged. A consumer that pins a
-version pays a migration only when it moves its pin.
-
 The ranking is the owner's: the owner set the test, what a future consumer would no longer be able
-to do and why they would want to, and weighed a migration as one of the lowest arguments to take
-into account.
+to do and why they would want to, weighed a migration as one of the lowest arguments to take into
+account, and ruled that it ranks as the lowest cost.
+
+### A decision is never argued on the grounds that changing it later would be breaking `##no-future-breaking-cost-argument`
+
+While the project stays at 0.x, breaking changes are allowed, per
+`design@knowledge-architect@stays-at-zero-x`, so a cost that exists only in a future where
+changes are refused argues against nothing; accepted, it would freeze the design before it has
+converged. A consumer that pins a version pays a migration only when it moves its pin, and that
+migration is a present cost, which `design@knowledge-architect@capability-cost-before-migration`
+ranks as the lowest.
 
 ### A version is published from main, after its merge, on the owner's word `##publish-after-merge`
 
