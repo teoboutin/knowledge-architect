@@ -369,7 +369,7 @@ a re-run cannot change.
   owner, on the ruleset: "This is much cleaner than a "rebase and merge" button, which makes CI
   meaningless if history was not already linear."
 
-### No operation can lose content, and the branch's own history is edited only with a clean tree `##no-operation-loses-content`
+### No operation can lose content in a checkout that holds work, and the branch's own history is edited only with a clean tree `##no-operation-loses-content`
 
 No operation can lose content, committed or not. Content is lost in two forms: an operation that
 removes uncommitted content from the working tree, which no commit holds, and a history edit that
@@ -378,6 +378,12 @@ ordinary move, bounded by verifying that nothing was lost. The one exception is
 `git rebase --continue` on a rebase whose conflicts the tree now resolves: it resumes a history
 edit begun with a clean tree, and the uncommitted content it meets is the resolution, which the
 replayed commit records.
+
+The rule binds a checkout that holds work. A scratch worktree made only for temporary testing, such
+as the one a mutation check runs in, holds a copy of work committed or kept elsewhere, and is
+removed once the test is done, so no operation in it can lose content; the rule does not bind there,
+on the owner's word. The rival, one worktree per mutation, keeps the rule's letter at the cost of a
+full build per mutation.
 
 ### A commit is pushed only after the commits check passed on it `##push-after-the-commits-check`
 

@@ -116,6 +116,10 @@ force is needed because the worktree holds the mutation, and it removes that wor
 
 Each of the three test runs carries a claim, so leaving one out weakens the check rather than
 shortening it.
+
+Several mutations run in one worktree, one after another: each is reverted with
+`git checkout -- <path>` before the next is applied. The
+worktree is outside the Git rules of `instructions@git-workflow`, which say so.
 - **The baseline:** over a red base, every mutation reads as caught. It must run with the work
   under check, or it passes over a tree that lacks the new test.
 - **The compile:** a mutant that does not compile also reads as caught, and the sites this check

@@ -196,6 +196,9 @@ commands and procedures that carry those rules out are this file's own.
   whose conflicts the tree now resolves, as point 3 does.
 - **Before applying a mutation that will need reverting, stage the file**, so the revert does not
   depend on a restore.
+- **A scratch worktree made only for temporary testing is outside these rules**, such as the one
+  `skill@klarch-development@discriminating-tests` runs a mutation in: it holds a copy of the work,
+  and no operation in it can lose content.
 - **With a clean tree, editing the branch's own history is an ordinary move**: rewording or
   amending a commit message, squashing, rebasing. It is bounded by two verifications before the
   old head is dropped: that the tree was clean, and that no content was lost. For a rewrite that
