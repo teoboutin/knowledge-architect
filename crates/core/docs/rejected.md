@@ -609,11 +609,11 @@ facts: `milestone` needs entries that are directories, to be cited `milestone@pl
 keeps the Directory shape, and the tool would hold two mechanisms placing anchors off the tree for
 one shape; and it gives a subject no reference of its own and no generated listing of the subjects.
 
-### A component opting in to an `opt-in` register `##component-opt-in-register`
+### A Component's register list fixed by the word _component_ `##component-register-list-fixed`
 
-`live`. It places a register's home at `<component>/docs/<dir>/` for one component, with no new
-path rule and no anchor name to invent, which a location cannot reach, since a location at a
-component's `docs/` is refused. The owner chose the location carrying the register at its own path
-instead, for the reference it gives what the register holds: an entry cited under the location's
-name rather than the component's. It also reaches only `<component>/docs/<dir>/`, where the location
-reaches any directory.
+`live`. Every Component carried the component registers and nothing else, so one mechanism, the
+location, placed every other register, and a Component's register list stayed a fact about the word
+_component_. It loses on the owner's intent, that a project may attach any register it declares to
+any Component, and on a measurement: a location at a Component's `docs/` is refused, since it holds
+the Component's own homes, so no declaration placed a register's home at `<component>/docs/<dir>/`
+of one Component among several.

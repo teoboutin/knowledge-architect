@@ -1796,7 +1796,7 @@ mod tests {
 
     #[test]
     fn a_location_that_names_the_root_or_a_file_is_reported() {
-        // The root is a component and carries every register already; a file satisfies a
+        // The root is a component, carrying what is attached to it; a file satisfies a
         // presence test and every home under it then reads as absent.
         let manifest = declaring_full(
             "",

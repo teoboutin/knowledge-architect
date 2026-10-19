@@ -44,6 +44,8 @@ subsection is omitted.
   specs are.
 - `manifest`, minor: an `opt-in` register declares `dir = "."` to keep its home at its carrier's
   own directory, as `<location>/<entry>/` for a directory register.
+- `manifest`, minor: an `opt-in` register names in `components = [...]` the Components that carry
+  it, the root included, each at its own `docs/<dir>/`.
 - `agent-skills`, patch: `agent@knowledge-architect-design-entry-searcher` reads the goals, the design
   entries and the `rejected` entries of one Component whole and grades each against a piece of work:
   `bears`, with the relation `constrains`, `may change` or `may bring back`, or `may-bear`, listing
@@ -57,8 +59,8 @@ subsection is omitted.
 ### Workflow
 
 - `agent-skills`, patch: the setup skill shows how a project declares a register of each shape,
-  heading, file and directory, and `dir = "."`, so an adoption can propose one for records the
-  built-in registers do not hold.
+  heading, file and directory, attaches it to a Component or to a location, and uses `dir = "."`,
+  so an adoption can propose one for records the built-in registers do not hold.
 - `agent-skills`, patch: a design discussion's grounding sends the design-entry searcher beside the
   standing-entry searcher, one per Component the question touches, and again for a thread whose
   subject the first search was not given; its first round names the entries graded `bears`, and a

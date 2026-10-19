@@ -215,6 +215,9 @@ pub(crate) struct Register {
     pub section: Option<String>,
     /// Directory shape: the registers each entry carries, at the entry's own directory.
     pub carries: Vec<String>,
+    /// An `opt-in` register: the Components, by name, that carry it under their `docs/`, per
+    /// `design@core@a-component-carries-what-a-project-attaches`.
+    pub components: Vec<String>,
     /// Whether this register is one of those the tool compiles in.
     pub built_in: bool,
 }
@@ -272,6 +275,17 @@ impl Registers {
         self.0.iter().filter(|r| r.scope == Scope::Component)
     }
 
+    /// The registers the Component named `name` carries: every component-scoped one, and each
+    /// `opt-in` register the project attaches to it.
+    pub(crate) fn carried_by_component<'a>(
+        &'a self,
+        name: &'a str,
+    ) -> impl Iterator<Item = &'a Register> + 'a {
+        self.0
+            .iter()
+            .filter(move |r| r.scope == Scope::Component || r.components.iter().any(|c| c == name))
+    }
+
     /// The compiled-in registers, before any declaration is read.
     fn built_in() -> Vec<Register> {
         let heading = |name: &str, dir: &str, level: u8| Register {
@@ -285,6 +299,7 @@ impl Registers {
             kinds: Vec::new(),
             section: None,
             carries: Vec::new(),
+            components: Vec::new(),
             built_in: true,
         };
         let mut out = vec![
@@ -306,6 +321,7 @@ impl Registers {
                 kinds: ISSUE_KINDS.iter().map(|k| k.to_string()).collect(),
                 section: None,
                 carries: Vec::new(),
+                components: Vec::new(),
                 built_in: true,
             },
         ];
@@ -355,6 +371,7 @@ fn plan(name: &str, shape: Shape, dir: &str, section: Option<&str>) -> Register 
         kinds: Vec::new(),
         section: section.map(str::to_string),
         carries: Vec::new(),
+        components: Vec::new(),
         built_in: true,
     }
 }
@@ -373,6 +390,7 @@ pub(crate) struct RegisterDecl {
     pub metadata: BTreeMap<String, MetadataDecl>,
     pub kinds: Option<Vec<String>>,
     pub carries: Option<Vec<String>>,
+    pub components: Option<Vec<String>>,
 }
 
 /// One frontmatter key an entry must carry, and the values it accepts.
@@ -638,6 +656,7 @@ impl Manifest {
         let mut registers = build_registers(&declared.registers, &mut complaints);
         resolve_registers(&mut registers, &mut complaints);
         normalise_paths(&mut declared, &mut complaints)?;
+        resolve_components(&declared, &mut registers, &mut complaints);
         let plans = resolve_anchors(&mut declared, &registers, &mut complaints);
         resolve_agents(&mut declared, &mut complaints);
         resolve_command(&mut declared, &mut complaints);
@@ -1006,6 +1025,80 @@ fn resolve_carries(registers: &mut Registers, complaints: &mut Vec<Finding>) {
     }
 }
 
+/// The Components an `opt-in` register names carry it, each under its own `docs/`, per
+/// `design@core@a-component-carries-what-a-project-attaches`.
+///
+/// A name that is no declared Component carries nothing and is reported. A Component keeps the
+/// homes of the registers it carries under one `docs/`, so a home there at its `docs/` itself, at
+/// the root's plans directory, or at the directory of another register it carries would give one
+/// directory two meanings: that Component leaves the list, and the finding says why. Run before
+/// the anchors are resolved, so a Component's homes are known when its collisions are judged.
+fn resolve_components(
+    declared: &Declared,
+    registers: &mut Registers,
+    complaints: &mut Vec<Finding>,
+) {
+    let root = declared.project.name.clone();
+    let names: Vec<String> = std::iter::once(root.clone())
+        .chain(declared.project.components.iter().map(|p| {
+            p.file_name()
+                .map(|n| n.to_string_lossy().into_owned())
+                .unwrap_or_default()
+        }))
+        .collect();
+    // The directories each Component keeps a home at so far: every component register's, then
+    // those of the opt-in registers already attached, in name order.
+    let mut taken: Vec<(String, String, String)> = Vec::new();
+    for register in registers.component_scoped() {
+        for component in &names {
+            taken.push((
+                component.clone(),
+                register.dir.clone(),
+                register.name.clone(),
+            ));
+        }
+    }
+    for register in registers.0.iter_mut().filter(|r| !r.components.is_empty()) {
+        let name = register.name.clone();
+        let dir = register.dir.clone();
+        let mut kept = Vec::new();
+        for component in std::mem::take(&mut register.components) {
+            let why = if !names.contains(&component) {
+                Some("which is no component of this project".to_string())
+            } else if dir == CARRIER_DIR {
+                Some(format!(
+                    "whose home would be the component's docs/ itself, with `dir = \"{CARRIER_DIR}\"`"
+                ))
+            } else if component == root && Path::new("docs").join(&dir) == Path::new(PLANS_DIR) {
+                Some(format!(
+                    "whose home would be the plans directory {PLANS_DIR}/"
+                ))
+            } else if let Some((_, _, other)) =
+                taken.iter().find(|(c, d, _)| *c == component && *d == dir)
+            {
+                Some(format!(
+                    "which keeps the {other} register at docs/{dir}/ already"
+                ))
+            } else {
+                None
+            };
+            match why {
+                Some(why) => complaints.push(Finding::in_file(
+                    MANIFEST_NAME,
+                    format!("[registers.{name}] names the component `{component}`, {why}"),
+                    "name a declared component, and give the register a directory of its own \
+                     under that component's docs/; one directory answers for one register",
+                )),
+                None => {
+                    taken.push((component.clone(), dir.clone(), name.clone()));
+                    kept.push(component);
+                }
+            }
+        }
+        register.components = kept;
+    }
+}
+
 /// One anchor as the declaration names it, before it is accepted.
 struct Candidate {
     name: String,
@@ -1052,8 +1145,8 @@ impl Candidate {
 /// - **a name no reference can spell, or a reserved one, or one an accepted anchor already
 ///   has**: every pointer at it would miss or read as the other. `plans` is reserved for the
 ///   anchor the tool constructs.
-/// - **the root's path, spelled by a component or a location**: the root is a component and
-///   carries every register already.
+/// - **the root's path, spelled by a component or a location**: the root is a component, which
+///   carries the component registers and every register attached to it with `components`.
 /// - **a component inside a location**: it nests a full register set inside a partial one.
 /// - **the same path as an accepted anchor**: nothing decides which owns the documents under it.
 /// - **inside, or at, an accepted anchor's register directory**: every file under it would
@@ -1070,9 +1163,9 @@ fn resolve_anchors(
     registers: &Registers,
     complaints: &mut Vec<Finding>,
 ) -> bool {
-    let component_homes = |path: &Path| -> Vec<(String, PathBuf)> {
+    let component_homes = |name: &str, path: &Path| -> Vec<(String, PathBuf)> {
         registers
-            .component_scoped()
+            .carried_by_component(name)
             .map(|r| (r.name.clone(), r.home_in(&path.join("docs"))))
             .collect()
     };
@@ -1080,7 +1173,7 @@ fn resolve_anchors(
         name: declared.project.name.clone(),
         path: PathBuf::new(),
         is_component: true,
-        homes: component_homes(Path::new("")),
+        homes: component_homes(&declared.project.name, Path::new("")),
         declared_at: "[project] name".to_string(),
         tool_built: false,
     }];
@@ -1101,14 +1194,15 @@ fn resolve_anchors(
         tool_built: true,
     });
     for path in &declared.project.components {
+        let name = path
+            .file_name()
+            .map(|n| n.to_string_lossy().into_owned())
+            .unwrap_or_default();
         candidates.push(Candidate {
-            name: path
-                .file_name()
-                .map(|n| n.to_string_lossy().into_owned())
-                .unwrap_or_default(),
+            homes: component_homes(&name, path),
+            name,
             path: path.clone(),
             is_component: true,
-            homes: component_homes(path),
             declared_at: format!("[project] components row `{}`", path.display()),
             tool_built: false,
         });
@@ -1261,8 +1355,9 @@ fn resolve_anchors(
         if candidate.path.as_os_str().is_empty() && !accepted.is_empty() {
             refuse(
                 format!("{} names the project root", candidate.declared_at),
-                "give it a directory of its own; the root is a component, and it carries \
-                 every register already",
+                "give it a directory of its own, or name the root in the `components` of each \
+                 register it carries; the root is a component, which carries the component \
+                 registers and those attached to it",
             );
             continue;
         }
@@ -1420,6 +1515,9 @@ fn build_registers(
             if decl.carries.is_some() {
                 wrong.push("carries");
             }
+            if decl.components.is_some() {
+                wrong.push("components");
+            }
             if !wrong.is_empty() {
                 complaints.push(format!(
                     "[registers.{name}] sets {} on a built-in register",
@@ -1506,6 +1604,19 @@ fn build_registers(
             }
             (_, None) => Vec::new(),
         };
+        // A component-scoped register is carried by every Component already, so naming some of
+        // them would change nothing; which names are Components is `resolve_components`' question.
+        let components = match (scope, &decl.components) {
+            (Scope::Component, Some(_)) => {
+                complaints.push(format!(
+                    "[registers.{name}] names components, and its scope `component` makes every \
+                     component carry it"
+                ));
+                Vec::new()
+            }
+            (_, Some(named)) => named.clone(),
+            (_, None) => Vec::new(),
+        };
         let level = match (shape, decl.level) {
             // Level one is the document's title, so no register's entries sit there.
             (Shape::Heading, Some(level @ 2..=6)) => Some(level as u8),
@@ -1556,6 +1667,7 @@ fn build_registers(
             kinds: Vec::new(),
             section: None,
             carries,
+            components,
             built_in: false,
         });
     }
@@ -2674,6 +2786,102 @@ pub(crate) mod tests {
                 "{bad}: {:?}",
                 whats(&m)
             );
+        }
+    }
+
+    /// The claim: an `opt-in` register names the Components that carry it, each at its own
+    /// `docs/<dir>/`, and a name that is no Component, or a home that would give a directory of a
+    /// Component two meanings, is a complaint that leaves that Component out, per
+    /// `design@core@a-component-carries-what-a-project-attaches`.
+    #[test]
+    fn an_opt_in_register_is_carried_by_the_components_it_names() {
+        let declaring = |registers: &str| {
+            Manifest::parse(
+                Path::new("/nowhere"),
+                &format!(
+                    "[project]\nchecker-version = \"fixture\"\nname = \"game\"\n\
+                     components = [\"crates/engine\"]\n\n{registers}\n\
+                     [walk]\nskip-dirs = []\nskip-files = []\n"
+                ),
+            )
+            .expect("a declaration")
+        };
+        let m = declaring(
+            "[registers.lore]\nscope = \"opt-in\"\nshape = \"heading\"\nlevel = 3\n\
+             components = [\"game\", \"engine\"]\n",
+        );
+        assert!(whats(&m).is_empty(), "{:?}", whats(&m));
+        let lore = m.registers().by_name("lore").expect("lore");
+        assert_eq!(lore.components, ["game", "engine"]);
+        let carried: Vec<&str> = m
+            .registers()
+            .carried_by_component("engine")
+            .map(|r| r.name.as_str())
+            .collect();
+        assert!(
+            carried.contains(&"lore") && carried.contains(&"design"),
+            "{carried:?}"
+        );
+
+        for (body, complaint, left) in [
+            (
+                "components = [\"game\", \"nowhere\"]\n",
+                "names the component `nowhere`, which is no component of this project",
+                vec!["game"],
+            ),
+            (
+                "dir = \".\"\ncomponents = [\"engine\"]\n",
+                "whose home would be the component's docs/ itself",
+                vec![],
+            ),
+            (
+                "dir = \"plans\"\ncomponents = [\"game\", \"engine\"]\n",
+                "names the component `game`, whose home would be the plans directory",
+                vec!["engine"],
+            ),
+            (
+                "dir = \"design\"\ncomponents = [\"engine\"]\n",
+                "which keeps the design register at docs/design/ already",
+                vec![],
+            ),
+        ] {
+            let m = declaring(&format!(
+                "[registers.lore]\nscope = \"opt-in\"\nshape = \"heading\"\nlevel = 3\n{body}"
+            ));
+            let w = whats(&m);
+            assert!(
+                w.iter().any(|c| c.contains(complaint)),
+                "{complaint}: {w:?}"
+            );
+            assert_eq!(
+                m.registers().by_name("lore").expect("lore").components,
+                left
+            );
+        }
+        // Two opt-in registers at one directory of one Component: the later in name order leaves.
+        let m = declaring(
+            "[registers.lore]\nscope = \"opt-in\"\nshape = \"heading\"\nlevel = 3\n\
+             dir = \"world\"\ncomponents = [\"engine\"]\n\n\
+             [registers.maps]\nscope = \"opt-in\"\nshape = \"file\"\ndir = \"world\"\n\
+             components = [\"engine\"]\n",
+        );
+        assert!(
+            whats(&m).iter().any(|c| c.contains(
+                "[registers.maps] names the component `engine`, which keeps \
+                                     the lore register at docs/world/ already"
+            )),
+            "{:?}",
+            whats(&m)
+        );
+        for (table, complaint) in [
+            (
+                "[registers.lore]\nscope = \"component\"\nshape = \"file\"\ncomponents = [\"game\"]\n",
+                "its scope `component` makes every component carry it",
+            ),
+            ("[registers.design]\ncomponents = [\"game\"]\n", "sets components on a built-in"),
+        ] {
+            let w = whats(&declaring(table));
+            assert!(w.iter().any(|c| c.contains(complaint)), "{complaint}: {w:?}");
         }
     }
 
