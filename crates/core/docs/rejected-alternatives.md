@@ -30,8 +30,8 @@ commit'` printed the refusal, then `commit`, and exited 0. The chained command s
 over a tree the checker had not judged at all. Two further costs were measured. The test was
 `is_fifo` on stdout, and ksh93 builds its pipelines from sockets, so `klarch check | tail`
 under ksh93 was not refused. And every caller that captures the output had to give the child a
-regular file: `cargo x gates` and the test helpers of thaum's two checker binaries; the xtask
-side is its own entry in `path@xtask@docs/rejected-alternatives.md`. The merge is guarded either way by the
+regular file: `cargo x gates` and the test helpers of thaum's two checker binaries; the runner's
+side, now the gates library's, is its own entry in `path@gates@docs/rejected-alternatives.md`. The merge is guarded either way by the
 range check this entry lost to.
 
 **A `commit` subcommand that runs the checks and then `git commit`** — lost to
