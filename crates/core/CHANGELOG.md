@@ -30,6 +30,9 @@ subsection is omitted.
 
 ### Workflow
 
+- `agent-skills`, patch: a plan document's status section names each transcript it was assembled
+  from by the message where the discussion begins in it, and no longer by the transcript file's
+  path, which holds the session identifier and the machine's home directory.
 - `agent-skills`, patch: before each commit, a session lists the factual claims of the commit's
   message and checks each against the tree; a design discussion's grounding opens by reading
   `primer@verify-before-relying` again.

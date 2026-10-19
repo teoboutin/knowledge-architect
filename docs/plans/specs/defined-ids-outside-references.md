@@ -14,11 +14,9 @@ every id the checker defines takes two or more segments.
 - Every name it uses is defined in it, under Names or New names, or exists in the tree.
 - Where the owner's word is awaited, `skill@knowledge-architect-planning@working-a-slice` says what
   waits.
-- **Assembled from one transcript**, the session's log
-  `path@elsewhere@~/.claude/projects/-home-catA-tb266682-Documents-code-knowledge-architect/474d34ec-235f-4827-8a52-f3ad062ff4cf.jsonl`,
-  whose discussion begins at the owner's message "For the citations: we'll do the repair, and try to
-  think of a more general, long term fix, in the same PR, as a spec that we will merge with it." A
-  round here is one owner message and the replies to it, numbered from that message.
+- **Assembled from one transcript**, the session's log, whose discussion begins at the owner's
+  message "For the citations: we'll do the repair, and try to think of a more general, long term
+  fix, in the same PR, as a spec that we will merge with it." A round here is one owner message and the replies to it, numbered from that message.
 - **Its arguments are numbered `arg-<n>`**, the numbering its step 1 gives the planning skill, which
   still prescribes `a<n>` until then, so the spec passes the grammar it plans.
 - **The spec lands before its work**, on the branch `backtick-comment-citations` with the repair

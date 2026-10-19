@@ -46,9 +46,7 @@ leaves the repository in the commit that completes its harvest.
   through a design audit." It applies an inference, so adopting it reopens
   `thread@path-quickfixes@fix-admission`: a design session under
   `skill@knowledge-architect-design`, before step 1, and the reviews of a plan document after it.
-- It was assembled from one transcript,
-  `path@elsewhere@~/.claude/projects/-home-catA-tb266682-Documents-code-knowledge-architect/e2ab040a-95d3-4ad6-bcf7-65e563887a82.jsonl`.
-  The discussion begins at the owner's message that opens "I would like to provide quickfix (under
+- It was assembled from one transcript. The discussion begins at the owner's message that opens "I would like to provide quickfix (under
   --fix) for paths", and ends at the owner's message "Keep all tripwires and AC, proceed." It holds
   4 owner messages, called rounds 1 to 4 below, and 3 agent replies, one after each of rounds 1 to
   3. The agent's replies carry the headings "Round 1", "Round 2" and "Round 3" in the transcript;
