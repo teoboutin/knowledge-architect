@@ -89,7 +89,7 @@ pub(crate) fn strip_comments(text: &str, file: &Path) -> String {
 /// `text` with each section slug placeholder rendered into the slug the checker reads.
 ///
 /// A placeholder is legal at one place only: at the end of a level-two heading outside a fenced
-/// block, after a space, holding an id in the grammar `[a-z0-9]+(-[a-z0-9]+)*`. It ships as a
+/// block, after a space, holding an id in the grammar `[a-z0-9]+(-[a-z0-9]+)+`. It ships as a
 /// backticked `##<id>`, which defines a section in the installed copy, per the section rule of
 /// the checker's entity table. Anywhere else it panics with the file and the line: a placeholder
 /// that shipped unrendered would leave the section without its slug, and one in a fence would

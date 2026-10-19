@@ -40,9 +40,10 @@ names the prefix after the project. Open for that check's design session:
 The installed workflow asks a project to name its skills with its own prefix, per
 `design@agent-skills@project-name-prefix`, and to begin each skill's description with MUST and its
 symptom, per `design@agent-skills@no-routing-table`, since that description is how the skill reaches
-a session. A skill that breaks either is found by review or not at all. The bare-name lint, `design@core@bare-skill-name-reported`, rests on the
-prefix too: a project skill named by an ordinary word, such as `check`, makes every backticked use
-of that word a finding.
+a session. A skill that breaks either is found by review or not at all. The lints on ids,
+`design@core@backticked-bare-id` and `design@core@plain-word-lint`, rest on the prefix too: a
+project skill named like a hyphenated term, such as `follow-up`, makes every use of that term a
+finding.
 
 ### What would close it
 

@@ -105,14 +105,14 @@ from the tree, the `register` kind against the anchors that carry the register, 
 CLAUDE.md, cited with no anchor as `skill@<name>@<slug>` — and reports the retired slug
 reference form and the unanchored path shape where either names something of this project, and
 a defined id written outside its reference form: a reference-shaped token outside backticks, per
-`design@core@candidate-rule-and-retired-forms`, and an id written in backticks alone or as a plain
-word, per `design@core@bare-skill-name-reported`. An id several entries define gets one finding
+`design@core@reference-shape-outside-span`, and an id written in backticks alone or as a plain
+word, per `design@core@backticked-bare-id`. An id several entries define gets one finding
 listing each reference, and a quotation, between double quotes or on a blockquote line, is read by
 none of the three.
 The directory of an anchor other than the root has no spelling under its own name, so a reference
 names it from the anchor above it, as `path@<parent-anchor>@<dir>/`, per
 `design@core@every-path-names-its-anchor`. An illustration of a form writes its id as a placeholder
-in angle brackets, as `path@*@<path>`, per `design@core@candidate-rule-and-retired-forms`: a span
+in angle brackets, as `path@*@<path>`, per `design@core@a-reference-is-live-in-every-prose`: a span
 with an empty id is malformed.
 `registers` judges the shape of what each anchor carries: a file
 register's README, index, groups and entry shapes, and a directory home's links. A check the tree

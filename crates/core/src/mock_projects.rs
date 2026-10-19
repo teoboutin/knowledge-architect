@@ -955,7 +955,7 @@ mod unsound {
             .collect();
         assert_eq!(twice.len(), 2, "{all:#?}");
         // An id of one segment, reported where it is defined, per
-        // `spec@plans@defined-ids-outside-references`.
+        // `design@core@two-segment-ids`.
         let lonely = one_of(&all, "`##lonely` is an id of one segment");
         assert!(lonely.starts_with("docs/design/planted.md:"), "{lonely}");
         assert_eq!(all.len(), 13, "{all:#?}");

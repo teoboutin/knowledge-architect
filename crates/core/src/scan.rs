@@ -69,7 +69,7 @@ pub enum Observation {
     /// Reported, never ignored: it has no `@`, so without this a pointer the migration
     /// missed would be silent, which is the founding failure class.
     Retired(RetiredForm),
-    /// A backticked span that is one word in the id grammar `[a-z0-9]+(-[a-z0-9]+)*`, with no
+    /// A backticked span that is one word in the grammar `[a-z0-9]+(-[a-z0-9]+)*`, with no
     /// `@` and no `/`, outside a quotation: the bare-id lint's input. Every defined id has that
     /// shape, so a span naming one with no kind is recorded, and the lint reports it where the
     /// entity table defines that id.
@@ -144,7 +144,8 @@ static RETIRED_SLUG_REF: LazyLock<Regex> = LazyLock::new(|| {
     Regex::new(r"`(\.?[A-Za-z0-9][A-Za-z0-9._-]*)?#([a-z0-9][a-z0-9-]{2,})`").unwrap()
 });
 /// The first slug in a heading of ANY level, or a slug at the head of a plain line. The id is
-/// `[a-z0-9]+(-[a-z0-9]+)*`.
+/// `[a-z0-9]+(-[a-z0-9]+)*`, one segment or more, so that a slug of one segment is reported where
+/// it is defined, per `design@core@two-segment-ids`, rather than read as no slug.
 ///
 /// The heading form takes the slug anywhere in the heading, so the statement may precede it:
 /// a heading reads as an outline entry, which a slug alone does not. Requiring text AFTER the
@@ -1499,7 +1500,7 @@ mod tests {
         );
     }
 
-    /// The claim, AC1 of `spec@plans@defined-ids-outside-references`: a quotation silences its
+    /// The claim, per `design@core@plain-word-lint`: a quotation silences its
     /// own text and nothing past its paragraph. An id after an unclosed `"` in one paragraph is
     /// silent there and recorded in the next; an id inside a closed quotation is silent while the
     /// same id beside it on the line is recorded. Mutations checked: not ending the quotation at

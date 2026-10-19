@@ -87,7 +87,7 @@ Per `skill@knowledge-architect-planning@working-a-slice`, the work of a spec.
   anchor above it; anything else with its deepest anchor, and a trailing slash when it is a
   directory.
 - **the lint**: the bare-name lint, `Observation::BareName` at line 199 of
-  `path@core@src/check/references.rs`, per `design@core@bare-skill-name-reported`.
+  `path@core@src/check/references.rs`, per `design@core@backticked-bare-id`.
 - **the census**: the measurement the agent's subagent took during the discussion, over the
   transcripts of this repository (14 sessions) and of thaum (25 sessions), of every reference
   finding and of how each session repaired it. Its figures are the ones quoted under Arguments.
@@ -163,7 +163,7 @@ What exists today at each site the work touches:
   lines 168 to 176, which joins the span unnormalized to every anchor and decides whether the
   `planned` form is offered.
 - **A bare skill or agent name** is reported at `Observation::BareName`, line 199, with the repair
-  `write `skill@<name>`` or `write `agent@<name>``, per `design@core@bare-skill-name-reported`.
+  `write `skill@<name>`` or `write `agent@<name>``, per `design@core@backticked-bare-id`.
 - **The retired form `<anchor>@<path>`** is reported at `Candidate::AnchorInKindPosition`, line 146,
   with the repair "prefix the kind".
 - **The documentation of `--fix`**: `path@core@README.md`, its command listing and the paragraphs
@@ -208,7 +208,7 @@ The design rests on these decisions, and does not argue them again:
   the form these heads require.
 - `design@core@harness-kinds-cited-without-anchor`: a skill or an agent is cited `skill@<name>` or
   `agent@<name>`.
-- `design@core@bare-skill-name-reported`: "A bare name is a pointer written with no kind." This is
+- `design@core@backticked-bare-id`: "A bare name is a pointer written with no kind." This is
   the recorded meaning the bare-name respelling relies on. The same head records that a match may be
   a span not meant as a pointer, and that its repair is then to rename the skill; that sentence is
   rewritten, in the table below.
@@ -225,9 +225,9 @@ referencing each, on the main branch before this spec:
 | `design@core@fix-refusal-mixed-state`: its sentence "`--fix` cannot lose unstaged content, since it writes only generated and installed files" is rewritten, and, per D1, its clause "The refusal is exit 2, or 1 where agent files were installed before it" becomes "exit 2, or 1 where any file was written before it" | `path@core@README.md`, its section `check`; `design@core@index-staged-write`, `design@core@check-fix-flag` and `design@core@fix-before-the-checks`; `register@core@tripwire`, the entry `tripwire@core@fix-refusal-routed-around` | step 1 for the README; the harvest for the design home and the tripwires |
 | `design@core@fix-before-the-checks`, and the sentence of `design@core@phases-gate-the-report`, "having repaired before that gate only the installed files": the respellings join the order, per D1; the same sentence's "exits 1" stays, per D7. The other texts referencing `design@core@phases-gate-the-report` cite it for the gate itself, which the work keeps: `primer@checker-model`, `path@core@CLAUDE.md` line 90, `design@core@model-then-checks`, `design@core@an-extension-plugs-in-through-phased-hooks`, `design@core@tracked-and-ignored-is-a-finding`, `design@core@a-wrong-declaration-is-a-finding`, `design@core@index-staged-write`, `design@core@fix-before-the-checks`, `design@core@headings-open-with-hash-marks` and `design@core@owned-namespace-check`, four entries of `register@core@rejected`, at lines 74, 84, 90 and 96 of the document it replaced when this spec was written, `issue@core@installed-file-findings-belong-in-phase-four` line 20, and `tripwire@core@phases-gate-the-report-two`; `path@core@README.md`, its section `check`, restates the sentence and is updated | `path@core@README.md`, its section `check`; `design@core@model-then-checks` and `design@core@phases-gate-the-report`; `issue@core@installed-file-findings-belong-in-phase-four`, line 27; `path@core@src/cli/mod.rs` lines 445 and 542; `path@core@tests/binary.rs` line 3746 | step 1 for the README, the source and the test; the harvest for the design home and the issue |
 | `tripwire@core@fix-makes-a-choice`: it fired on the proposal this spec plans, per D4 | `design@core@safe-fix-definition` | per D4: its firing clause narrowed in this spec's branch, on the owner's word; deleted at the harvest |
-| `design@core@every-path-names-its-anchor`: gains the refusal of a `path` citation of a skill or an agent, and the question form of a raw path's repair | `primer@where-knowledge-goes`; `path@core@README.md`, its section `check`; `design@core@anchors-are-components-and-locations`, `design@core@plan-document-kinds`, `design@core@candidate-rule-and-retired-forms` and `design@core@a-commit-message-is-a-document`; six entries of `register@core@rejected`, at lines 117, 146, 180, 186, 362 and 371 of the document it replaced when this spec was written; `path@core@src/check/references.rs` line 14; `path@core@src/manifest.rs` line 971 | steps 3 and 5 for the source; step 6 for the README and the primer; the harvest for the design home and the rejected alternatives |
-| `design@core@harness-kinds-cited-without-anchor`: a skill or an agent has no `path` spelling | `primer@checker-model`; `design@core@an-entity-belongs-to-its-anchor` and `design@core@candidate-rule-and-retired-forms`; three entries of `register@core@rejected`, at lines 156, 161 and 167 of the document it replaced when this spec was written | step 6 for the primer; the harvest for the design home and the rejected alternatives |
-| `design@core@bare-skill-name-reported`: its repair is applied by `--fix`, and its sentence "A project skill named by an ordinary word makes every backticked use of that word a finding, and the repair is to rename the skill with the project's prefix" is rewritten: `--fix` respells such a span before a session reads the finding, which T1 watches | `primer@where-knowledge-goes`; `design@agent-skills@plain-text-is-no-repair`; `path@core@README.md`, its section `check`; `design@core@candidate-rule-and-retired-forms` and `design@core@every-path-names-its-anchor`; the issue `a-bare-mention-of-a-deleted-entry-is-never-reported`, closed by `spec@plans@defined-ids-outside-references`; `issue@core@tooling-for-project-skills`, line 42; `design@knowledge-architect@changelog-section-fixed-at-release` | step 4 for the source; step 6 for the README and the primer; the harvest for the design home; `issue@core@tooling-for-project-skills` read again at the harvest |
+| `design@core@every-path-names-its-anchor`: gains the refusal of a `path` citation of a skill or an agent, and the question form of a raw path's repair | `primer@where-knowledge-goes`; `path@core@README.md`, its section `check`; `design@core@anchors-are-components-and-locations`, `design@core@plan-document-kinds`, `design@core@at-span-candidate-rule` and `design@core@a-commit-message-is-a-document`; six entries of `register@core@rejected`, at lines 117, 146, 180, 186, 362 and 371 of the document it replaced when this spec was written; `path@core@src/check/references.rs` line 14; `path@core@src/manifest.rs` line 971 | steps 3 and 5 for the source; step 6 for the README and the primer; the harvest for the design home and the rejected alternatives |
+| `design@core@harness-kinds-cited-without-anchor`: a skill or an agent has no `path` spelling | `primer@checker-model`; `design@core@an-entity-belongs-to-its-anchor` and `design@core@at-span-candidate-rule`; three entries of `register@core@rejected`, at lines 156, 161 and 167 of the document it replaced when this spec was written | step 6 for the primer; the harvest for the design home and the rejected alternatives |
+| `design@core@backticked-bare-id`: its repair is applied by `--fix`, and its sentence "A project skill named by an ordinary word makes every backticked use of that word a finding, and the repair is to rename the skill with the project's prefix" is rewritten: `--fix` respells such a span before a session reads the finding, which T1 watches | `primer@where-knowledge-goes`; `design@agent-skills@plain-text-is-no-repair`; `path@core@README.md`, its section `check`; `design@core@at-span-candidate-rule` and `design@core@every-path-names-its-anchor`; the issue `a-bare-mention-of-a-deleted-entry-is-never-reported`, since closed; `issue@core@tooling-for-project-skills`, line 42; `design@knowledge-architect@changelog-section-fixed-at-release` | step 4 for the source; step 6 for the README and the primer; the harvest for the design home; `issue@core@tooling-for-project-skills` read again at the harvest |
 
 Open entries that bear on the work, read again at the audit:
 
@@ -239,7 +239,7 @@ Open entries that bear on the work, read again at the audit:
   raw path and the new `fixed:` lines change a command's printed output.
 - `tripwire@core@candidate-rule-silence`: a span the candidate rule leaves silent gets no
   respelling, and a widened rule widens what `--fix` rewrites. Judged: a widening is a change to
-  `design@core@candidate-rule-and-retired-forms`, which reopens this work's mapping table.
+  `design@core@at-span-candidate-rule`, which reopens this work's mapping table.
 - `issue@agent-skills@pointers-written-bare-to-clear-a-finding-reach-no-check`: it reopens
   `design@agent-skills@plain-text-is-no-repair`, with a mechanical check for plain-text pointers
   among the candidates. Judged: the respellings and the question form are a
@@ -647,7 +647,7 @@ D7 restores exit 1.
 ### A bare-name respelling rests on the head's presumption, not on a guarantee `##arg-30`
 
 The design-conformance re-review of this spec. Bears on `thread@path-quickfixes@respelling-fixes`.
-`design@core@bare-skill-name-reported` states "A bare name is a pointer written with no kind", and
+`design@core@backticked-bare-id` states "A bare name is a pointer written with no kind", and
 also keeps a census that re-takes its false positives: "one on a span that is not meant as a
 pointer reopens the exact match". So the row respells under the head's presumption that a matched
 name is a pointer. A false positive is the case T1 watches, and the owner kept T1 on the premortem
@@ -1052,7 +1052,7 @@ harness, as `Sandbox::serve_claude` does; `check --fix` is never run inside `pla
 6. **The documentation and the changelog.** `path@core@README.md` on `--fix`, on the new finding,
    and on the question form; the primer, `primer@checker-model` and `primer@where-knowledge-goes`,
    where it states the rules of `design@core@every-path-names-its-anchor`, `design@core@harness-kinds-cited-without-anchor` and
-   `design@core@bare-skill-name-reported`; the shipped setup, issue-tracking and planning skills
+   `design@core@backticked-bare-id`; the shipped setup, issue-tracking and planning skills
    where they say what `--fix` writes, then `cargo klarch install-agent-skills`. In this
    repository the root CHANGELOG.md is walked and its copies in the crates are not, so a `--fix`
    that respells the root file leaves the copies different until `cargo x changelog` runs. Entries in the
@@ -1159,7 +1159,7 @@ commit, with the test it fails.
 | item | home |
 | --- | --- |
 | `thread@path-quickfixes@fix-admission` | `design@core@safe-fix-definition` rewritten in place: the principle in its title, its tests, the respelling and the inference; `argument@path-quickfixes@arg-20` as its argument, and the census figures in the harvest's commit message, per D6 |
-| `thread@path-quickfixes@respelling-fixes` | `design@core@fix-scope` rewritten: the three kinds of fix, the respellings listed as the table of "The respellings", the shapes not respelled; `design@core@bare-skill-name-reported` rewritten, its title and its sentence that name renaming the skill as the repair of an ordinary-word match, and its census clause, per `argument@path-quickfixes@arg-30` |
+| `thread@path-quickfixes@respelling-fixes` | `design@core@fix-scope` rewritten: the three kinds of fix, the respellings listed as the table of "The respellings", the shapes not respelled; `design@core@backticked-bare-id` rewritten, its title and its sentence that name renaming the skill as the repair of an ordinary-word match, and its census clause, per `argument@path-quickfixes@arg-30` |
 | `thread@path-quickfixes@fix-run-order` | `design@core@fix-before-the-checks` rewritten with the order of "The order of a run"; the sentence and the exit clause of `design@core@fix-refusal-mixed-state` named in "What is already decided" rewritten; the sentence of `design@core@phases-gate-the-report` named there rewritten; `issue@core@installed-file-findings-belong-in-phase-four` read again for its sentence on the order |
 | `thread@path-quickfixes@skill-cited-by-path` | a head whose title states that a skill or an agent has no `path` spelling: a new head, or `design@core@harness-kinds-cited-without-anchor` with its title rewritten to state it, as `primer@design-heads` decides; with `argument@path-quickfixes@arg-15` |
 | `thread@path-quickfixes@raw-path-inference` | a head whose title states the question form: a new head, or `design@core@every-path-names-its-anchor` with its title rewritten to state it, as `primer@design-heads` decides |

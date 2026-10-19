@@ -7,10 +7,10 @@ kind: design
 
 `design@agent-skills@plain-text-is-no-repair` refuses plain text as the repair of a finding. Its
 tripwire fired at its second instance, so the decision is reopened, with a mechanical check for
-plain-text pointers among the candidates. Three instances are known. The class A finding that
-`spec@plans@defined-ids-outside-references` plans, a reference-shaped token outside backticks,
-would have reported the first, references in the checker's syntax with their backticks removed,
-and neither of the other two, a bare path and a bare skill name.
+plain-text pointers among the candidates. Three instances are known. The finding on a
+reference-shaped token outside backticks, `design@core@reference-shape-outside-span`, reports the
+first, references in the checker's syntax with their backticks removed, and neither of the other
+two: a bare path, and the bare name of a skill still to be created, which no table defines.
 
 ## Details
 
@@ -38,8 +38,8 @@ The instances:
 The suspected mechanism, in one sentence: a writer who meets a finding with no form it recognises
 removes the backticks, and nothing reads text outside backticks unless it is reference-shaped.
 
-Re-entry point: the harvest of `spec@plans@defined-ids-outside-references`, which reads
-`design@agent-skills@plain-text-is-no-repair` again, or earlier on the owner's word.
+Re-entry point: a further instance, a pointer written bare that no check reads, or earlier on the
+owner's word.
 
 The tripwire that watched for these instances left the tripwires home when it fired, per
 `skill@knowledge-architect-issue-tracking@movement-instruction`; this entry carries its instances.

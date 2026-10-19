@@ -43,7 +43,7 @@ document holding six spans, each in backticks, `path@<c>@README.md:3`, `path@<c>
 `cargo klarch check` over such a project gave six findings, and none names the suffix: two `path` findings with the `assert_target`
 repair, two goal findings with the `table` repair, one with the skill-section repair and one with
 the primer repair. The goal, the section and the file exist; only the suffix fails. The id grammar
-`[a-z0-9]+(-[a-z0-9]+)*` refuses `:` and `#`, so the first repair the register and harness
+`[a-z0-9]+(-[a-z0-9]+)+` refuses `:` and `#`, so the first repair the register and harness
 findings name cannot be carried out. The draft's run gave, for the skill section reference, "end a
 level-2 heading of the skill `demo-x` with that slug, or repair the reference".
 

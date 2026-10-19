@@ -39,7 +39,8 @@ The forms and checks as they stand:
 - Inside its plan, an item is cited by its checked form, `<kind>@<plan>@<id>`, per
   `design@core@plan-item-scope`, which refuses that form from outside the plan.
 - A backticked `#<id>` naming a defined entry, plan items included, is reported as the retired form,
-  per `design@core@candidate-rule-and-retired-forms`. A plain one is not read.
+  per `design@core@retired-slug-reference-reported`. A plain one is not read: the lints on ids read
+  no word with a hash sign before it, per `design@core@plain-word-lint`.
 - The design skill now says the plan document cites its own items by their checked form. One
   plain `#<thread>` inside a plan document is prescribed: `primer@design-heads` states the pair
   `#<thread> → <entry slug>` in the plan document's harvest row, so a check of the inside case
@@ -56,11 +57,11 @@ Two rivals already lost, and a design must answer both:
   retired".
 - "The retired slug reference reported whatever it names",
   `rejected@core@retired-slug-reference-always-reported`, not kept by
-  `design@core@candidate-rule-and-retired-forms`: a backticked `#<id>` is often another project's
+  `design@core@retired-slug-reference-reported`: a backticked `#<id>` is often another project's
   notation, such as an issue number. A check limited to a plan document's own item ids, inside that
   document, does not meet that argument: its set of ids is the plan's own.
 
-Re-entry point: the next change to `design@core@candidate-rule-and-retired-forms` or to
+Re-entry point: the next change to `design@core@retired-slug-reference-reported` or to
 `design@core@plan-item-scope`, or earlier on the owner's word.
 
 ### Why it matters
@@ -68,9 +69,7 @@ Re-entry point: the next change to `design@core@candidate-rule-and-retired-forms
 A wrong or stale item name in a commit message or a design head is a pointer nobody revisits,
 against `goal@knowledge-architect@design-is-recorded-with-its-arguments`, and
 `tripwire@core@candidate-rule-silence` watches the same family of silence for backticked spans. A
-new finding on plain text changes `design@core@candidate-rule-and-retired-forms`.
-`spec@plans@defined-ids-outside-references` plans the report of a defined id written outside a
-reference, and leaves the `#<id>` form to this entry.
+finding on a plain `#<id>` changes `design@core@retired-slug-reference-reported`.
 
 ### What would close it
 
