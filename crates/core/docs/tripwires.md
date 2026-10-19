@@ -51,7 +51,10 @@ guards the case where it reports success and returns nothing.
 meant as a reference and for which `cargo klarch check` reported nothing — a typo inside the
 kind, an unmigrated span whose head is neither a kind nor an anchor, or a shape the tokenizer
 does not record. `cargo klarch model` filtered on the file shows whether the span was
-recorded as a `span` observation at all.
+recorded as a `span` observation at all. A backticked span that is exactly a defined id, and a
+reference-shaped token outside backticks, are excepted: they fired this tripwire in the census of
+`spec@plans@defined-ids-outside-references`, which plans to report both, and its harvest restates
+or deletes this entry.
 **Response:** widen the candidate rule to the shape found, at
 `design@core@candidate-rule-and-retired-forms`, with a false-positive census over the tree for
 the widened class; or re-accept the silence knowingly and record the shape as the reviewer's.
