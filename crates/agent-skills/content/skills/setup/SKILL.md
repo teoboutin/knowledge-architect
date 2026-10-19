@@ -1,6 +1,6 @@
 ---
 name: knowledge-architect-setup
-description: MUST use when a project adopts the knowledge-architect workflow, after the first install has run, and when a project moves its pin of the checker to another version. Covers how the checker is pinned and run, the declared command, the manifest and its Components, the documents and register homes each Component carries, the primer's import line, the project's rows of the knowledge table, the project's skill prefix, the gates convention, what happens to the documentation the project already has, and, in a Rust project, the maintenance crate, its aliases, its gates and its continuous integration.
+description: MUST use when a project adopts the knowledge-architect workflow, after the first install has run, and when a project moves its pin of the checker to another version. Covers how the checker is pinned and run, the declared command, the manifest, its Components and the registers it declares, the documents and register homes each Component carries, the primer's import line, the project's rows of the knowledge table, the project's skill prefix, the gates convention, what happens to the documentation the project already has, and, in a Rust project, the maintenance crate, its aliases, its gates and its continuous integration.
 ---
 
 # Setting up
@@ -114,6 +114,53 @@ to no Component, such as the agent configuration:
 path = ".claude"
 registers = ["issue"]
 ```
+
+**A kind of record the built-in registers do not hold is a register the project declares**, under
+`[registers.<name>]`, its name the kind its references spell. `scope = "component"` makes every
+Component carry it under its `docs/`, and `scope = "opt-in"` only the locations that name it. Its
+home is `<dir>/` under its carrier, `dir` defaulting to the register's name, or the carrier's own
+directory for an `opt-in` register declared with `dir = "."`, which its location then carries
+alone. Pick the shape from how the project's existing records are cut:
+
+- **`shape = "heading"`**, with `level`: one record per heading at that level, its slug last, in
+  `<dir>.md` or in files behind a `<dir>/README.md` that links them; cited
+  `<kind>@<anchor>@<slug>`.
+
+  ```toml
+  [registers.note]
+  scope = "opt-in"
+  shape = "heading"
+  level = 3
+  ```
+
+- **`shape = "file"`**: one record per file under `<dir>/`, whose basename is its id, beside a
+  hand-written `README.md` and a generated `index.md`; `sections` lists the level-two headings every
+  record carries, and `metadata.<key>.values` the frontmatter keys and their values.
+
+  ```toml
+  [registers.card]
+  scope = "opt-in"
+  shape = "file"
+  sections = ["Summary", "Details"]
+  ```
+
+- **`shape = "directory"`**, with `carries`: one directory per subject under `<dir>/`, each holding
+  a `README.md` that links its files, beside a hand-written `README.md` and a generated `index.md`.
+  Each subject directory is an anchor named by its basename and carries the registers `carries`
+  names, `opt-in` heading or file registers, so a record is cited `<kind>@<subject>@<id>`, and the
+  subject as a whole `<register>@<anchor>@<subject>`.
+
+  ```toml
+  [locations.<name>]
+  path = "<path of the directory holding the subjects>"
+  registers = ["subject"]
+
+  [registers.subject]
+  scope = "opt-in"
+  shape = "directory"
+  dir = "."
+  carries = ["note"]
+  ```
 
 What the walk must not read is declared under `[walk]`, each row with its reason in a comment
 beside it: `skip-dirs` and `skip-files` for paths, `exclude` for another project kept inside this
