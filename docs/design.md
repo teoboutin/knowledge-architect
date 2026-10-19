@@ -217,13 +217,13 @@ pruned at any time. A released section's content never changes; its structure ma
 
 **A skill's or an agent's name in a released section is structure.** Writing a bare name there as
 its reference, `skill@<name>` or `agent@<name>`, changes no statement of the section, in the owner's
-view, which allows structural changes in older sections. So does writing it back as the bare name once the skill or the agent is deleted, since the
+view; older sections allow structural changes, on the owner's word. So does writing it back as the bare name once the skill or the agent is deleted, since the
 reference then names nothing and the section's content cannot change. Why the bare name is no
 evasion is `design@agent-skills@plain-text-is-no-repair`, and the lint that reports a bare name
 `design@core@backticked-bare-id`.
 
-**So is a defined id written alone or as a word.** Writing it as its reference is the same
-structural change, so the lints on ids, `design@core@backticked-bare-id`,
+**So is a defined id written alone or as a word, or a reference written without its backticks.**
+Writing it as its reference is the same structural change, so the lints on ids, `design@core@backticked-bare-id`,
 `design@core@plain-word-lint` and `design@core@reference-shape-outside-span`, read a released
 section as any other, past or future. Each finding
 they give in a released section is ruled by the owner case by case, on the owner's word.

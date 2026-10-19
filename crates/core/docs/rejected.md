@@ -630,7 +630,8 @@ entries.
 ### One-word ids exempt from the lints on ids `##one-word-id-exception`
 
 `live`. A defined id of one segment would be silent wherever it is written alone or as a word, so
-the lints would report no ordinary word. It loses on the census of the design discussion: in thaum,
+the lints would report no ordinary word. It loses on the census of the design discussion, kept in
+its spec, `path@elsewhere@docs/plans/specs/defined-ids-outside-references.md`: in thaum,
 661 of the 713 plain hits fell on its one-word ids, its argument items and its issues named after a
 feature area, such as an issue on combat cited 68 times, and under the exemption no mention of such
 an issue would ever be checked. A rename to a second segment costs no capability.
@@ -641,7 +642,8 @@ an issue would ever be checked. A rename to a second segment costs no capability
 check would report it. Its premise was the noise of the first census, 713 plain hits in thaum and
 none meant as a pointer in the sample. The second census defeated it: every plain hit that was no
 pointer came from a slug naming a subject, which the rename repairs, and the rest were pointers
-written in words, which a listing leaves unchecked. It is the first candidate where the owner rules
+written in words, which a listing leaves unchecked. Both censuses are kept in the spec of the
+design discussion, `path@elsewhere@docs/plans/specs/defined-ids-outside-references.md`. It is the first candidate where the owner rules
 a finding of the plain-word lint to be on a word that is neither a pointer nor a subject slug.
 
 ### Plan argument items exempt from the two-segment grammar `##plan-items-exempt-from-the-grammar`
@@ -654,6 +656,7 @@ item's scope, while numbering the items `arg-1`, `arg-2` costs no capability.
 ### No finding on a backticked bare id, only a listing `##bare-id-listing-only`
 
 `live`. A backticked span that is exactly a defined id would be listed by `show` and reported by
-nothing. It loses on the census of the design discussion: with ids of two segments and plan items
+nothing. It loses on the census of the design discussion, kept in its spec,
+`path@elsewhere@docs/plans/specs/defined-ids-outside-references.md`: with ids of two segments and plan items
 read inside their plan, the bare ids it found were pointers, one here and about 11 in thaum, which a
 listing leaves silent until a reviewer reads them, against 3 in thaum that were not.

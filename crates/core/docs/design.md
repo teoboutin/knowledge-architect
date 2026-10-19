@@ -1553,9 +1553,10 @@ own name had. The nearest rival, one-word ids exempt from the lints, leaves ever
 id unchecked for good: `rejected@core@one-word-id-exception`. A second rival, plan items exempt
 from the grammar since they are scoped to their plan, adds an exception justified by nothing but
 that scope: `rejected@core@plan-items-exempt-from-the-grammar`. The census figures are those of
-the design discussion, kept in its spec,
-`path@elsewhere@docs/plans/specs/defined-ids-outside-references.md`, deleted at its landing; the
-lints on ids are now the instrument that re-takes them, over a project's tree at its upgrade. This serves `goal@knowledge-architect@documentation-stays-consistent`.
+the design discussion, kept in its spec, `path@elsewhere@docs/plans/specs/defined-ids-outside-references.md`. They are re-taken over a
+tree that still holds one-word ids, as a project's at its upgrade, by counting the plain words and
+the backticked words equal to each, `git grep -nwF` on each id, since the lints read ids of two
+segments only. This serves `goal@knowledge-architect@documentation-stays-consistent`.
 
 ### An entry's heading puts its statement before its slug `##statement-precedes-the-slug`
 
@@ -1935,8 +1936,9 @@ reports such a span when the entity table defines its id: a register entry's id,
 a slice's, a skill's or an agent's name, a section slug of a skill, an agent, the primer or the
 root CLAUDE.md, and an item's id inside its own plan, the only place an item may be cited, per
 `design@core@plan-item-scope`. Its repair is the entry's reference. A section slug is in scope as a
-register's id is: the census of the design discussion found section slugs written bare or in words,
-most of them pointers. Under `harness = []` the table defines no harness
+register's id is: the census of the design discussion, kept in its spec,
+`path@elsewhere@docs/plans/specs/defined-ids-outside-references.md`, found 34 plain hits on 10
+section slugs in this repository, most of them pointers written in words. Under `harness = []` the table defines no harness
 kind, per `design@core@harness-kinds`, so their names and slugs are silent. A commit message is
 judged as every lint is, per `design@core@a-commit-message-is-a-document`, so a span naming an
 entry the commit deletes is reported against its first parent's tree, and the candidates of both
@@ -1958,12 +1960,11 @@ prefix, per `design@agent-skills@project-name-prefix`, which nothing checks yet,
 were no pointer, in thaum thread names backticked in a plan table against the design skill's own
 rule. Re-take the false positives with `cargo klarch check` over a tree that has not
 rewritten its bare ids, such as another project's at its upgrade, counting this lint's findings: a
-finding on a span that the writer's own rules allow and that is not meant as a pointer reopens the
-exact match.
+finding on a span that is not meant as a pointer reopens the exact match.
 
 **An id that several entries define gets one finding, which lists every reference it can take and
 chooses none.** A skill and an agent of one name, and an agent's section slug shared by three agents,
-are among the cases the census found, in this repository and in thaum. Choosing the nearest definition would make the checker supply a meaning the writer did not
+are among the cases the census found, 18 such ids here and 41 in thaum, in the spec named above. Choosing the nearest definition would make the checker supply a meaning the writer did not
 write, so the writer chooses. The same holds for the plain-word lint.
 
 **The lints on ids report, and `check --fix` writes nothing for them**: no respelling of a
@@ -1978,8 +1979,9 @@ the table, so the lint leaves it silent.
 
 ### A plain word that is exactly a defined id is a finding `##plain-word-lint`
 
-A word outside every backtick span and every quotation, in every prose region the checker reads,
-that is exactly a defined id, as `design@core@backticked-bare-id` defines one, is a finding. A word
+A word outside every backtick span and every quotation, per
+`design@core@quotation-read-by-no-id-lint`, in every prose region the checker reads, that is exactly
+a defined id, as `design@core@backticked-bare-id` defines one, is a finding. A word
 is bounded as an id is: no letter, digit, hyphen, `/`, `@`, `#` or brace on either side, and no `.`
 followed by a letter or a digit after it, so a file name, a path, a reference, a slug with its
 hashes and a template's placeholder holding an id are no word, and an id that ends a sentence is
@@ -1990,7 +1992,7 @@ subject: the entry is renamed to state its decision, as `primer@design-heads` as
 
 **The rule is the owner's**, given against the session's proposal of a listing in `show`: a word
 meant as an ordinary term probably shows a slug wrongly chosen and not specific enough, in the
-owner's view. The census of the design discussion bore it out: every plain hit that was no pointer
+owner's view. The census of the design discussion, kept in its spec, `path@elsewhere@docs/plans/specs/defined-ids-outside-references.md`, bore it out: every plain hit that was no pointer
 came from a subject slug, and every other hit was a pointer written in words. A listing would leave
 those pointers unchecked: `rejected@core@plain-word-mention`. A slug kept as a concept index, so
 that a term's mentions read as its pointers, is not the intended use of the workflow, in the
