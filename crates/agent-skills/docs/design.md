@@ -1088,7 +1088,7 @@ a collision with the design entries and the `rejected` entries of the Component 
 since a thread that loses may become a `rejected` entry under its own name. In discussion prose it is written
 plain, with a hash sign before it, never as a backticked span, which the checker reports as the
 retired slug form once an entry carries that slug, per
-`design@core@candidate-rule-and-retired-forms`. When
+`design@core@retired-slug-reference-reported`. When
 the thread is approved, or closed `argued`, and its decision earns an entry, the entry's heading ends with the same
 slug, except in the case below, so the spec, the commit messages and the design home name the decision with one identifier.
 In the plan document the thread is an item, a level-three heading ending with the same slug under
@@ -1239,7 +1239,7 @@ hand-written one is stale at the next reference written elsewhere.
 
 **A reference in prose is checked wherever it stands**, a Rust comment and a fenced block
 included; a string literal bound to a name yields none, per
-`design@core@candidate-rule-and-retired-forms`. So a comment in code naming an issue is
+`design@core@a-reference-is-live-in-every-prose`. So a comment in code naming an issue is
 as live as a sentence in a document, and closing the issue reaches the code. This serves
 `goal@knowledge-architect@design-is-recorded-with-its-arguments`.
 
@@ -1258,7 +1258,7 @@ bare name instead, per `design@agent-skills@plain-text-is-no-repair`. In a recor
 an entry its tree does not hold is named by its bare slug instead, and a skill or an agent by its
 bare name, per the same head.
 
-### Plain text is never the repair of a finding, except text in the checker's syntax beside the issue that records its missing form, a deleted skill's or agent's name in a released changelog section, and an absent entry's, skill's or agent's bare name in a record of a deliberation, and no instruction offers an unchecked form as the way to clear one `##plain-text-is-no-repair`
+### Plain text is never the repair of a finding, except text in the checker's syntax beside the issue that records its missing form, a deleted skill's or agent's name in a released changelog section, an absent entry's, skill's or agent's bare name in a record of a deliberation, and a quotation, and no instruction offers an unchecked form as the way to clear one `##plain-text-is-no-repair`
 
 A form a writer can use is either one the checker judges, and the workflow recommends it, or one
 the checker does not read, and the workflow never directs a pointer into it to clear a finding. So
@@ -1268,7 +1268,9 @@ tree does not hold, `planned@<anchor>@<path>` in a plan document for a path its 
 per `design@core@planned-path-form`, an angle-bracket placeholder for an illustration, or a
 rewrite of the sentence.
 One exception is text in the checker's syntax that no checked form expresses, written without
-backticks beside a reference to the issue entry that records the missing form. Prose that mentions a
+backticks beside a reference to the issue entry that records the missing form. The check reads it:
+a reference-shaped token outside backticks is reported, and is silent where its paragraph holds a
+backticked reference to an issue entry, per `design@core@reference-shape-outside-span`. Prose that mentions a
 directory without asking the reader to follow it is not a repair and is outside this head.
 
 The checker cannot express every reference a project needs. The first exception covers text in the checker's
@@ -1310,7 +1312,7 @@ The second exception is a deleted skill's or agent's reference in a released sec
 CHANGELOG.md: the section's content never changes, per
 `design@knowledge-architect@changelog-section-fixed-at-release`, and nothing exists that a
 reference could cite.
-Its repair is the bare name, which `design@core@bare-skill-name-reported` leaves silent. It evades
+Its repair is the bare name, which `design@core@backticked-bare-id` leaves silent. It evades
 nothing, since no checked form remains that it could have used. The rival, rewriting the sentence
 as `design@agent-skills@a-past-sentence-is-rewritten` asks elsewhere, would change a released
 section's content.
@@ -1319,7 +1321,7 @@ The third exception is an entry that the tree of a record of a deliberation does
 a commit message, its first parent's, removed or renamed by the work the record carries, or still to
 be created by it, named there by its bare slug in backticks. A skill or an agent the work removes
 or is still to create is in the same case, on the owner's word, named by its bare name in
-backticks, which `design@core@bare-skill-name-reported` leaves silent while the tree does not hold
+backticks, which `design@core@backticked-bare-id` leaves silent while the tree does not hold
 it. A record of a deliberation is where the deliberation is kept: a plan document
 or a commit message, per `skill@knowledge-architect-decision-recording@three-homes`, and a committed
 file that leaves once its outcomes are carried out, per `primer@design-heads`. The exception
@@ -1327,8 +1329,8 @@ for an entry the work removes or is still to create is the owner's proposal: for
 checker has nothing left to check, and what this head refuses is avoiding the check on a live
 entry, which leaves dangling references and makes grounding less efficient. A renamed entry's old
 slug is in the same case, since nothing resolves it once the rename lands. It evades nothing, as the changelog exception does not: no entry remains,
-or none exists yet, that a checked form could cite, and a one-segment span is silent, per
-`design@core@candidate-rule-and-retired-forms`. The owner chose the form among three, the bare slug
+or none exists yet, that a checked form could cite, and a bare slug no entry defines is silent, per
+`design@core@backticked-bare-id`. The owner chose the form among three, the bare slug
 in backticks, the bare slug in plain text and the full reference with its backticks removed, and the
 scope:
 records of a deliberation only, since every other document states current reality, where a
@@ -1346,6 +1348,13 @@ A renamed entry still exists, under its new slug, so its old slug carries beside
 to the live entry, the shape a quotation of the owner naming a renamed entry already takes, per
 `design@agent-skills@a-past-sentence-is-rewritten`: the old slug alone would leave a reader no
 checked way to the entry it names.
+
+The fourth exception is a quotation: text between double quotes, straight or typographic, within
+one paragraph, or a blockquote line, which none of the lints on ids reads, per
+`design@core@plain-word-lint`. A quotation is someone else's words, such as the owner's ruling
+naming a thread by its slug, which its writer may not respell, so a finding in it would have no
+repair the writer may make. A quotation of the writer's own words, made to clear a finding, is the
+evasion this head refuses.
 
 The set of exceptions is closed: each lets a finding clear without a checked form,
 so another one weakens the check, and is argued as a change of this decision.

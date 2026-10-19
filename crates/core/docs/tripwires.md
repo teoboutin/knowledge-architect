@@ -45,18 +45,19 @@ indistinguishable from a clean tree. `Parsed::trouble` catches the cases the gra
 guards the case where it reports success and returns nothing.
 **Re-entry:** standing, and each time either parser's version changes.
 
-## Guarding `design@core@candidate-rule-and-retired-forms`' silence on an unknown head `##candidate-rule-silence`
+## Guarding `design@core@at-span-candidate-rule`' silence on an unknown head `##candidate-rule-silence`
 
-**Fires when:** a review, or a session reading a document, finds a backticked span that was
-meant as a reference and for which `cargo klarch check` reported nothing — a typo inside the
-kind, an unmigrated span whose head is neither a kind nor an anchor, or a shape the tokenizer
-does not record. `cargo klarch model` filtered on the file shows whether the span was
-recorded as a `span` observation at all. A backticked span that is exactly a defined id, and a
-reference-shaped token outside backticks, are excepted: they fired this tripwire in the census of
-`spec@plans@defined-ids-outside-references`, which plans to report both, and its harvest restates
-or deletes this entry.
+**Fires when:** a review, or a session reading a document, finds a span or a token that was meant
+as a reference and for which `cargo klarch check` reported nothing — a typo inside the kind, an
+unmigrated span whose head is neither a kind nor an anchor, or a shape the tokenizer does not
+record. `cargo klarch model` filtered on the file shows whether the span was recorded as a `span`
+or an `unquoted-reference` observation at all. A defined id written alone or as a word, and a
+reference-shaped token outside backticks, are reported by the lints on ids, per
+`design@core@backticked-bare-id`, `design@core@plain-word-lint` and
+`design@core@reference-shape-outside-span`; one of those the lints leave silent fires this entry
+too, outside a quotation and beside no reference to an issue entry.
 **Response:** widen the candidate rule to the shape found, at
-`design@core@candidate-rule-and-retired-forms`, with a false-positive census over the tree for
+`design@core@at-span-candidate-rule`, with a false-positive census over the tree for
 the widened class; or re-accept the silence knowingly and record the shape as the reviewer's.
 Open a `defect` naming the span if the decision is not reopened in the same change.
 **Re-entry:** standing, and the review of the migration that follows the grammar change.
@@ -263,3 +264,16 @@ Directory register carried by an entry of a Directory register.
 the nesting the request needs among the candidates.
 **Re-entry:** the standing-state review on every dispatched review, and each design discussion about
 declared registers.
+
+## Guarding `design@core@plain-word-lint`: a plain word that is neither a pointer nor a subject slug `##plain-word-neither-pointer-nor-subject`
+
+The decision rests on the premise, the owner's, that a plain word equal to a defined id is either a
+pointer written in words or a sign that the slug names a subject rather than its decision. T1 of the
+premortem of the discussion that decided it, written on the owner's word.
+
+**Fires when:** at a consuming project's upgrade, or here, the owner rules a finding of the
+plain-word lint to be on a word that is neither a pointer nor a subject slug: an ordinary use of a
+slug that states its decision.
+**Response:** reopen `design@core@plain-word-lint`, with a listing in `show`,
+`rejected@core@plain-word-mention`, among the candidates.
+**Re-entry:** each intake of a retrospective file that reports an upgrade.

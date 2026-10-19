@@ -17,14 +17,14 @@
 //! the grammar retired, `` `<word>#<word>` ``, is reported as what it was when its id is an entry
 //! of this project or its word is an anchor or a kind, so a pointer the migration missed or
 //! copied out of the commit history is a finding rather than silence.
-//! The candidate rule and the retired-form lint are
-//! `design@core@candidate-rule-and-retired-forms`. A span that names nothing here is another
+//! The candidate rule is `design@core@at-span-candidate-rule`, and the retired-form lint
+//! `design@core@retired-slug-reference-reported`. A span that names nothing here is another
 //! tool's notation, and is silent.
 //!
 //! **A defined id is written as its reference, or it is a finding.** Three lints read what the
 //! reference form leaves out: a reference-shaped token outside backticks, per
-//! `design@core@candidate-rule-and-retired-forms`, and an id the entity table defines written in
-//! backticks alone or as a plain word, per `design@core@bare-skill-name-reported`. Each matches
+//! `design@core@reference-shape-outside-span`, and an id the entity table defines written in
+//! backticks alone or as a plain word, per `design@core@backticked-bare-id`. Each matches
 //! this project's ids only, so another project's id, or one whose entry has left, is silent.
 //!
 //! **A `rejected` entry that no design entry cites is reported**, per
@@ -2128,7 +2128,7 @@ mod tests {
     /// in its paragraph, per `design@agent-skills@plain-text-is-no-repair`; a token of the wrong
     /// arity, one whose id is no id, as an address is not, and a placeholder are silent.
     /// Mutations checked: ignoring `beside_issue` reports line 3; dropping the id grammar from
-    /// `written_reference` reports the address.
+    /// `written_reference` reports an address, under a harness kind and under a register kind.
     #[test]
     fn a_reference_written_without_backticks_is_reported_except_beside_an_issue() {
         let m = manifest();
@@ -2141,8 +2141,8 @@ mod tests {
             (
                 "notes/prose.md",
                 "See design@a-part@a-decision here.\n\nSee design@a-part@a-decision, beside \
-                 `issue@a-part@a-gap`.\n\nNot design@a-part, skill@example.test, nor \
-                 design@<anchor>@<id>.\n",
+                 `issue@a-part@a-gap`.\n\nNot design@a-part, skill@example.test, design@a-part@Not.an-id, \
+                 nor design@<anchor>@<id>.\n",
             ),
         ];
         let present: Vec<String> = docs.iter().map(|(p, _)| p.to_string()).collect();

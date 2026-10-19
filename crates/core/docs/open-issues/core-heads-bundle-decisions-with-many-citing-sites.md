@@ -1,14 +1,14 @@
 ---
 kind: design
 ---
-# Four core heads bundle decisions that lose to different rivals, and each has many citing sites
+# Three core heads bundle decisions that lose to different rivals, and each has many citing sites
 
 ## Summary
 
-Four heads of `register@core@design` each hold two or more decisions whose nearest rivals
+Three heads of `register@core@design` each hold two or more decisions whose nearest rivals
 differ, against `design@agent-skills@one-decision-per-head`. The first run of the design-record
 axis on this repository found them, and left them unsplit because each split must first read every
-site that cites the head, 23 to 33 sites per head, to re-point each one to the part it cites.
+site that cites the head, 25 to 33 sites per head, to re-point each one to the part it cites.
 
 ## Details
 
@@ -18,20 +18,8 @@ site that cites the head, 23 to 33 sites per head, to re-point each one to the p
 is the number of lines `cargo klarch show design@core@<slug>` lists under "referenced at",
 less the lines of this entry, taken again on the working tree of the branch of the first
 agentic-workflow audit of this repository, at its review. The counts grow as text cites the heads:
-the first run of the design-record axis counted 20, 23, 26 and 31.
+the first run of the design-record axis counted 20, 23, 26 and 31 for the four heads it found.
 
-- `design@core@candidate-rule-and-retired-forms`, 23 citing sites. Its title is joined by "and"
-  over three statements, and its body holds more, each with a nearest rival of its own:
-  - the candidate rule and the silence of every other `@` span, against widening it to "any span
-    with two `@`";
-  - the paragraph "A span is one line", against reading each line alone;
-  - the retired slug reference reported where it names something of this project, with the
-    paragraphs "A shape that names nothing here is another tool's notation" and "The interpretation
-    register's old entry numbers are not read", against reporting every such shape and against
-    keeping thaum's lint permanently;
-  - the paragraph "A reference is live wherever it is prose, fenced blocks included, for every
-    kind", against the rejected design "A fenced reference read as an illustration",
-    `rejected@core@fenced-reference-as-illustration`, which this head cites.
 - `design@core@every-path-names-its-anchor`, 25 citing sites, 8 of them in
   `spec@plans@path-quickfixes`. Its title is joined by "and" over two decisions, and its body holds
   a third:
@@ -67,17 +55,15 @@ the first run of the design-record axis counted 20, 23, 26 and 31.
   - the installed files are checked byte for byte in a namespace the installer owns, ownership
     decided by a name; its rivals are a record of installed files and a digest.
 
-The run applied rewordings of tense to `design@core@candidate-rule-and-retired-forms` and left its
-bundle. Its second pass edited two of the four heads again and split neither, the four bundles
-being left to this entry: it gave a census in `design@core@candidate-rule-and-retired-forms` its
-re-take command, and reworded a sentence of `design@core@a-commit-message-is-a-document` into the
-present tense. So both heads are a change's touched heads left short of
-`design@agent-skills@existing-heads-on-touch`.
+The second pass of that run reworded a sentence of `design@core@a-commit-message-is-a-document`
+into the present tense and left its bundle, so that head is a change's touched head left short of
+`design@agent-skills@existing-heads-on-touch`. A fourth head the run found bundled has since been
+split, with every site that cited it re-pointed.
 
 **Suspected mechanism**: each head grew by appending a bold paragraph for a decision argued later
 in the same subject, and a citing site then cited the head for whichever paragraph it needed.
 
-**The re-entry point**: the next change that touches one of the four heads, in a branch other than
+**The re-entry point**: the next change that touches one of the three heads, in a branch other than
 the one that opened this entry, which `design@agent-skills@existing-heads-on-touch` brings to the
 rules on heads; or the next run of the design-record axis of
 `skill@knowledge-architect-project-audit`.
@@ -95,7 +81,7 @@ against `goal@knowledge-architect@design-is-recorded-with-its-arguments`.
 
 ### What would close it
 
-Each of the four splits applied: one head per decision, its text moved unchanged except the minimum
+Each of the three splits applied: one head per decision, its text moved unchanged except the minimum
 to read alone, and every site `cargo klarch show` lists for the head read and re-pointed to the head
 of the part it cites, the sites outside `path@core@docs/` included. A head whose split the owner
 rules out instead closes its part of this entry with that ruling, recorded in the closing commit.

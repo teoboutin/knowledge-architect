@@ -37,7 +37,7 @@ locations, register instances and file entries. Report those counts as well as t
 defined count that grows while the reference count does not is an anchor nobody cites, and the
 reverse is a family of pointers about to dangle.
 
-%% The table below restates `design@core@an-unresolved-reference-is-reported`, `design@core@candidate-rule-and-retired-forms`, `design@core@every-path-names-its-anchor`, `design@core@trailing-slash-claims-directory`, `design@core@a-slug-elsewhere-defines-nothing`, `design@core@an-entry-is-a-heading-at-the-register-level`, `design@core@an-entity-belongs-to-its-anchor`, `design@core@links-are-navigation-rows`, `design@core@orphan-rejected-entry` and `design@core@bare-skill-name-reported`.
+%% The table below restates `design@core@an-unresolved-reference-is-reported`, `design@core@at-span-candidate-rule`, `design@core@retired-slug-reference-reported`, `design@core@every-path-names-its-anchor`, `design@core@trailing-slash-claims-directory`, `design@core@a-slug-elsewhere-defines-nothing`, `design@core@an-entry-is-a-heading-at-the-register-level`, `design@core@an-entity-belongs-to-its-anchor`, `design@core@links-are-navigation-rows`, `design@core@orphan-rejected-entry`, `design@core@backticked-bare-id`, `design@core@plain-word-lint`, `design@core@reference-shape-outside-span` and `design@core@two-segment-ids`.
 | failure | what it actually means |
 | --- | --- |
 | `is referenced and` … `defines no` | a pointer into nothing: the anchor carries the register and no entry there has that id. Define it where the decision is made, or point at the entry that exists. |
@@ -54,7 +54,7 @@ reverse is a family of pointers about to dangle.
 | `is a reference written without backticks`; `is written in backticks without its kind`; `is written as a plain word` | a pointer to a live entry written outside its reference form, which no check resolves: when the entry moves or leaves, it goes stale unseen. A plain word meant as an ordinary term shows a slug that names a subject rather than its decision: the entry is renamed. |
 | `is an id of one segment` | a slug of one word. Every id has two segments or more, so that no ordinary word is a defined id. |
 
-%% The paragraph below restates `design@core@candidate-rule-and-retired-forms`, `design@core@every-path-names-its-anchor` and `design@core@ignored-targets-are-not-asserted`.
+%% The paragraph below restates `design@core@at-span-candidate-rule`, `design@core@retired-slug-reference-reported`, `design@core@every-path-names-its-anchor` and `design@core@ignored-targets-are-not-asserted`.
 **What the checks cannot see.** Some backticked spans are silent: a bare filename named in
 prose, a heading or a section title quoted from another document, a misspelt kind. A path-shaped
 span whose first
