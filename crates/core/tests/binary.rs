@@ -4551,3 +4551,147 @@ fn a_home_with_no_register_form_is_refused_with_the_form_that_names_it() {
         assert!(stdout.contains(what), "no finding `{what}`:\n{stdout}");
     }
 }
+
+/// The game manifest with a second location, `zz` at aa-lore/, carrying the same Directory
+/// register at its own path, so one register keeps two homes.
+fn two_homes_manifest() -> String {
+    GAME_MANIFEST.replace(
+        "[registers.subject]",
+        "[locations.zz]\npath = \"aa-lore\"\nregisters = [\"subject\"]\n\n[registers.subject]",
+    )
+}
+
+/// The claim: the order of `design@core@a-placed-name-reads-as-nothing-else` decides every
+/// clash: a spec before any declared entry, even where a refused entry of another register holds
+/// the name first; among one register's entries, the first by path, whichever home holds it; and
+/// an entry named `index` reads as its own home's listing.
+#[test]
+fn an_entry_s_name_gives_way_to_a_spec_and_to_an_earlier_path() {
+    let sandbox = game_sandbox("entry-name-order");
+    let manifest = two_homes_manifest().replace(
+        "[walk]",
+        "[locations.world]\npath = \"world\"\nregisters = [\"area\"]\n\n\
+         [registers.area]\nscope = \"opt-in\"\nshape = \"directory\"\ndir = \".\"\n\
+         carries = [\"game-design\"]\n\n[walk]",
+    );
+    sandbox.write("knowledge-architect.toml", &manifest);
+    sandbox.write("aa-lore/README.md", "# Lore\n");
+    sandbox.write("aa-lore/combat/README.md", "# Combat lore\n");
+    sandbox.write("world/README.md", "# World\n");
+    sandbox.write("world/economy/README.md", "# A market\n");
+    sandbox.write("docs/plans/specs/economy.md", "# A spec named economy\n");
+    sandbox.write("game-design/index/README.md", "# An entry named index\n");
+    sandbox.stage();
+    let (stdout, stderr, code) = sandbox.run(&["check"]);
+    assert_eq!(code, 1, "{stdout}{stderr}");
+    for what in [
+        // aa-lore/combat sorts before game-design/combat.
+        "the subject entry `combat` is no anchor: its name is also the name of an entry of \
+         `subject`",
+        // The area entry is refused for the spec, and the subject entry too, for the spec
+        // rather than for the refused area entry.
+        "the area entry `economy` is no anchor: its name is also the name of a spec",
+        "the subject entry `economy` is no anchor: its name is also the name of a spec",
+        "the subject entry `index` is no anchor: its name names the listing of game-design/",
+    ] {
+        assert!(stdout.contains(what), "no finding `{what}`:\n{stdout}");
+    }
+    assert_eq!(
+        stdout.matches("entry `combat` is no anchor").count(),
+        1,
+        "{stdout}"
+    );
+    assert!(
+        stdout.contains("game-design/combat  the subject entry `combat`"),
+        "the later path is the one refused:\n{stdout}"
+    );
+}
+
+/// The claim: a Directory register kept by two homes lists in each home's index the entries of
+/// that home alone, and an entry of a component-scoped Directory register is placed under every
+/// component's `docs/<dir>/`.
+#[test]
+fn each_home_of_a_directory_register_lists_its_own_entries() {
+    let sandbox = game_sandbox("directory-two-homes");
+    sandbox.write("knowledge-architect.toml", &two_homes_manifest());
+    sandbox.write("aa-lore/README.md", "# Lore\n");
+    sandbox.write("aa-lore/magic/README.md", "# Magic\n");
+    sandbox.stage();
+    let (stdout, stderr, code) = sandbox.run(&["index"]);
+    assert_eq!(code, 0, "{stdout}{stderr}");
+    sandbox.stage();
+    let (stdout, stderr, code) = sandbox.run(&["check"]);
+    assert_eq!(code, 0, "{stdout}{stderr}");
+    let here = std::fs::read_to_string(sandbox.path("game-design/index.md")).expect("an index");
+    let there = std::fs::read_to_string(sandbox.path("aa-lore/index.md")).expect("an index");
+    assert!(
+        here.contains("\n2 entries\n") && !here.contains("magic"),
+        "{here}"
+    );
+    assert!(
+        there.contains("\n1 entry\n") && there.contains("| magic |"),
+        "{there}"
+    );
+
+    let manifest = GAME_MANIFEST.replace(
+        "[walk]",
+        "[registers.area]\nscope = \"component\"\nshape = \"directory\"\ndir = \"areas\"\n\
+         carries = [\"game-design\"]\n\n[walk]",
+    );
+    sandbox.write("knowledge-architect.toml", &manifest);
+    sandbox.write("docs/areas/README.md", "# Areas\n");
+    sandbox.write(
+        "docs/areas/north/README.md",
+        "# North\n\n- [Paths](paths.md)\n",
+    );
+    sandbox.write(
+        "docs/areas/north/paths.md",
+        "# Paths\n\n### A path `##a-path`\n",
+    );
+    std::fs::remove_dir_all(sandbox.path("aa-lore")).expect("the second home");
+    sandbox.stage();
+    let (stdout, stderr, code) = sandbox.run(&["index"]);
+    assert_eq!(code, 0, "{stdout}{stderr}");
+    sandbox.stage();
+    let (stdout, stderr, code) = sandbox.run(&["check"]);
+    assert_eq!(code, 0, "{stdout}{stderr}");
+    let (out, stderr, code) = sandbox.run(&["anchors"]);
+    assert_eq!(code, 0, "{out}{stderr}");
+    assert!(
+        out.lines().any(|l| l == "north  area  docs/areas/north"),
+        "{out}"
+    );
+}
+
+/// The claim: an entry's name is no anchor word, so a span headed by it is silent, and a path of
+/// either path kind to an entry's directory or README, through the escape anchor or as a
+/// `planned` path the tree now holds, is refused with the entry's reference as the repair.
+#[test]
+fn every_path_to_an_entry_s_directory_names_the_entry() {
+    let sandbox = game_sandbox("entry-path-forms");
+    sandbox.write(
+        "README.md",
+        "# core-mock\n\nSee `combat@north` and `path@elsewhere@game-design/combat/README.md`.\n",
+    );
+    sandbox.write(
+        "docs/plans/specs/a-plan.md",
+        "# A plan\n\nIt creates `planned@gdd@combat/`.\n",
+    );
+    sandbox.stage();
+    let (stdout, stderr, code) = sandbox.run(&["index"]);
+    assert_eq!(code, 0, "{stdout}{stderr}");
+    sandbox.stage();
+    let (stdout, stderr, code) = sandbox.run(&["check"]);
+    assert_eq!(code, 1, "{stdout}{stderr}");
+    assert!(!stdout.contains("combat@north"), "{stdout}");
+    for span in [
+        "`path@elsewhere@game-design/combat/README.md` cites an entry by its path",
+        "`planned@gdd@combat/` cites an entry by its path",
+    ] {
+        assert!(stdout.contains(span), "no finding `{span}`:\n{stdout}");
+    }
+    assert!(
+        stdout.matches("cite it as `subject@gdd@combat`").count() >= 2,
+        "{stdout}"
+    );
+}

@@ -2718,6 +2718,11 @@ pub(crate) mod tests {
                 "shape = \"directory\"\ncarries = [\"note\"]\nsections = [\"A\"]\n",
                 "sections or metadata on a directory register",
             ),
+            (
+                "shape = \"directory\"\ncarries = [\"note\"]\n\n\
+                 [registers.subject.metadata.status]\nvalues = [\"open\"]\n",
+                "sections or metadata on a directory register",
+            ),
         ] {
             let m = with_registers(&format!(
                 "{carried}[registers.subject]\nscope = \"opt-in\"\n{body}"
@@ -2879,6 +2884,21 @@ pub(crate) mod tests {
                 left
             );
         }
+        // A location inside the home a Component keeps for an attached register is refused, as
+        // inside any register home.
+        let m = declaring(
+            "[locations.inner]\npath = \"crates/engine/docs/lore/sub\"\nregisters = [\"issue\"]\n\n\
+             [registers.lore]\nscope = \"opt-in\"\nshape = \"heading\"\nlevel = 3\n\
+             components = [\"engine\"]\n",
+        );
+        assert!(
+            whats(&m).iter().any(|c| c.contains(
+                "the location `inner` sits inside the lore register's directory \
+                 `crates/engine/docs/lore` of `engine`"
+            )),
+            "{:?}",
+            whats(&m)
+        );
         // Two opt-in registers at one directory of one Component: the later in name order leaves.
         let m = declaring(
             "[registers.lore]\nscope = \"opt-in\"\nshape = \"heading\"\nlevel = 3\n\
