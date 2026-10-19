@@ -36,8 +36,9 @@ Then **the version the session used**, in one line:
   the branch the session worked on, and whether the tree held uncommitted changes;
 - in the project's file, also the project's main commit the session's tree contains,
   `git rev-parse --short $(git merge-base HEAD <main branch>)`, the branch the session worked on,
-  and whether the tree held uncommitted changes. The workflow's file names them only where the
-  project builds the checker from source, since that file may become public.
+  and whether the tree held uncommitted changes. The workflow's file does not name them, since it
+  may become public; where the project builds the checker from source, the first bullet names
+  that commit there.
 
 A commit of the branch itself is not named: a merge that rewrites the branch's commits leaves it
 pointing at nothing.

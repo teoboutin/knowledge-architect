@@ -59,9 +59,9 @@ established: whether either occurs in practice.
 
 In this repository, `instructions@verify-before-relying` also lists
 `path@knowledge-architect@docs/retrospective-reports/`, where this repository keeps its analyses of
-received workflow files beside those of its own project files. An analysis of a project file was
-this repository's convention until the intake shipped; the home is now an installed row of the
-primer, so the installed text could name both directories in one place.
+received workflow files beside those of its own project files. The home of an analysis of a
+project file is an installed row of the primer, so the installed text could name both directories
+in one place.
 
 Two repairs were considered for the analyses and not made, since each adds an instruction on a
 prediction: naming the directory at the grounding of a design and at the design audit of a slice

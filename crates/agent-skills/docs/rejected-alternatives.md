@@ -89,14 +89,14 @@ a row dangles, reported by the check, when its work closes.
 **A separate installed file holding the expectation sets, read only by those who judge findings** —
 lost to `design@agent-skills@expectation-set-bounds-scope`. `live`. It would keep the sets out of
 every skill's text and out of the retrospective, at the cost of a change to the install layout. The
-two activities that read the sets, the retrospective and the intake, would both reach them by a
-pointer to the file, where today the intake alone points to the retrospective: the file adds one
-pointer and removes none. It wins if an activity reads the sets without reading anything else of
-the retrospective's, so that its pointer loads unrelated text, which
-`issue@agent-skills@expectation-sets-for-the-installed-skills` may bring about as the sets grow.
+texts that read the sets, the retrospective, the intake and the admission standard of the
+agent-configuration skill, would all reach them by a pointer to the file, where today the two others
+point to the retrospective's section: the file adds one pointer and removes none. It wins if the
+sets grow beyond what one section of the retrospective can hold, which
+`issue@agent-skills@expectation-sets-for-the-installed-skills` may bring about.
 
 **A project's kept retrospective finding turned straight into an issue entry, with no analysis** —
-lost to `design@agent-skills@retrospective-destination`. `live`. The first use of this repository's
+lost to `design@agent-skills@project-file-goes-to-an-intake`. `live`. The first use of this repository's
 intake, on five received files holding 40 findings, found 4 already repaired, 3 already recorded, 2
 resting on a false premise, since a checked form already existed, 2 whose report credited a repair
 the history places earlier, and 3 whose proposed fix would have reversed a recorded head: 14 that
