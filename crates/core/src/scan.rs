@@ -780,6 +780,8 @@ fn outside_backticks(
                 .push(locate(line[m.start()..end].to_string()));
         }
     }
+    // A defined id has two segments, per `design@core@two-segment-ids`, so a line with no hyphen
+    // holds none as a word.
     if name_line || !line.contains('-') {
         return quotes;
     }

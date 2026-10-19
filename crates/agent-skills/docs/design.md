@@ -135,8 +135,8 @@ It is never named as an artifact the activity writes, because the text names bot
 "decision-record" would share its name with the design homes and rejected alternatives the
 design skill calls the decision record, and one called "open-issues" with the issue directory. One
 exception holds: agent-configuration is named like the configuration it edits. Its nearest rival,
-agent-setup, reads like the setup skill, and the installer's prefix makes the full name,
-"knowledge-architect-agent-configuration", read as a skill; the cost is that the name is also the
+agent-setup, reads like the setup skill, and the installer's prefix makes the full name of
+`skill@knowledge-architect-agent-configuration` read as a skill; the cost is that the name is also the
 artifact's. A name built on a verb form, such as discussing-design-decisions, reads as a sentence
 and grows long. That argument is the owner's: "naming an "action" makes the skill names into full
 sentences, which is weird and often too long". The rule binds a project's own skills too, through
