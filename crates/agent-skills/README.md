@@ -89,7 +89,7 @@ about an existing architecture — the assistant:
   where the recording tests keep it, cited by the heads whose argument
   covers it;
 - writes in plain technical English, as `primer@working-prose` asks
-  say for every text a project's contributors read: explicit quantities
+  of every text a project's contributors read: explicit quantities
   and invariants over qualitative wording, no idioms, no aphorisms; and,
   as the design skill adds, a qualitative claim may open a thread, never
   close one.
@@ -355,7 +355,7 @@ and real use decides whether it becomes a reason to change anything.
   requiring cost to arrive before the verdict is recorded.
 - **Vague words diverge across readers.** Verbal likelihood terms are
   interpreted with large between-person variance (Wallsten, Budescu et
-  al., 1980s work on the vague meanings of probability terms); the
+  al., 1980s work on the vague meanings of probability terms);
   `primer@working-prose` extends the same caution to qualitative
   quality wording, preferring explicit quantities, bounds, and
   invariants.

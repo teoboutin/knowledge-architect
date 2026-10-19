@@ -364,9 +364,11 @@ fn token_end(line: &str, start: usize, end: usize) -> Option<usize> {
     if line[..start].chars().next_back().is_some_and(opens) {
         return None;
     }
-    // A reference holds no `]`, so one ends the token where it closes a link's text, as in
-    // `[<reference>](<url>)`, whatever follows it.
-    let end = line[start..end].find(']').map_or(end, |i| start + i);
+    // A reference holds no `]` and no apostrophe, so one ends the token where it closes a link's
+    // text, as in `[<reference>](<url>)`, or opens a possessive, whatever follows it.
+    let end = line[start..end]
+        .find([']', '\'', '’'])
+        .map_or(end, |i| start + i);
     let token = line[start..end]
         .trim_end_matches(['.', ',', ';', ':', ')', '!', '?', '*', '_', ']', '"', '\'']);
     (!token.contains(['<', '>'])).then_some(start + token.len())
@@ -444,8 +446,9 @@ pub(crate) fn unread_headings(parsed: &Parsed) -> Vec<u32> {
 
 /// What one paragraph carries across its lines for the lints on text outside backticks.
 ///
-/// A paragraph is a run of lines between blank lines, a heading being one of its own. In a Rust
-/// comment the same holds, since a doc comment's content is markdown, per
+/// A paragraph is a run of lines between blank lines, a heading being one of its own, and it ends
+/// too where a fence opens or closes, at a list item, at a table row and at a commented-out line.
+/// In a Rust comment the same holds, since a doc comment's content is markdown, per
 /// `design@core@grammars-not-prefixes`, so a blank comment line ends a paragraph too.
 #[derive(Default)]
 struct Paragraph {
@@ -1633,8 +1636,9 @@ mod tests {
         assert_eq!(bare("Keep `need-\ntest` as it is.\n"), vec!["need-test"]);
     }
 
-    /// The claim: a reference written as a link's text ends at the `]` that closes it. Mutation
-    /// checked: not cutting the token at `]` records nothing for either line.
+    /// The claim: a reference written as a link's text ends at the `]` that closes it, and one
+    /// with a possessive at its apostrophe. Mutation checked: not cutting the token at `]` or at an
+    /// apostrophe records nothing for those lines.
     #[test]
     fn a_reference_as_a_link_s_text_is_recorded() {
         assert_eq!(
@@ -1642,6 +1646,14 @@ mod tests {
             vec![
                 (1, "design@a-b@c-d".to_string(), false),
                 (3, "design@a-b@e-f".to_string(), false),
+            ]
+        );
+        // A possessive ends the token too.
+        assert_eq!(
+            tokens("design@a-b@c-d's argument, and design@a-b@e-f’s.\n"),
+            vec![
+                (1, "design@a-b@c-d".to_string(), false),
+                (1, "design@a-b@e-f".to_string(), false),
             ]
         );
     }

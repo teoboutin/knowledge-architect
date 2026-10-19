@@ -389,8 +389,8 @@ made the run take about nine seconds, against half a second when the listing alo
 
 `live`. It reported a copied form whose entry has left the tree and whose word is no anchor, which `design@core@retired-slug-reference-reported` leaves silent. It loses because the form was this grammar's alone: in a project that
 never used it, every match is that project's own notation, such as an issue number `#123` or a
-preprocessor directive `#include`, and in the census of the commit that left such a form silent, its one finding was an issue
-number.
+preprocessor directive `#include`, and in the census of the commit "Report an unanchored path or a retired slug form only where it
+names something of this project", its one finding was an issue number.
 
 ### The interpretation entry number kept as a retired form permanently, a bare `R` followed by digits reported wherever prose holds it `##permanent-interpretation-number-form`
 
@@ -631,9 +631,9 @@ entries.
 
 `live`. A defined id of one segment would be silent wherever it is written alone or as a word, so
 the lints would report no ordinary word. It loses on the census of the design discussion: in thaum,
-every one of its one-word issue ids, named after a feature area, was written in words across its
-documents, 661 plain hits in all, and under the exemption no mention of such an issue would ever be
-checked. A rename to a second segment costs no capability.
+661 of the 713 plain hits fell on its one-word ids, its argument items and its issues named after a
+feature area, such as an issue on combat cited 68 times, and under the exemption no mention of such
+an issue would ever be checked. A rename to a second segment costs no capability.
 
 ### A listing in `show` of the plain words that are an entry's id, instead of a finding `##plain-word-mention`
 
@@ -644,8 +644,16 @@ pointer came from a slug naming a subject, which the rename repairs, and the res
 written in words, which a listing leaves unchecked. It is the first candidate where the owner rules
 a finding of the plain-word lint to be on a word that is neither a pointer nor a subject slug.
 
+### Plan argument items exempt from the two-segment grammar `##plan-items-exempt-from-the-grammar`
+
+`live`. An item of a plan document would keep a one-segment id, numbered `a1`, `a2`, since an item
+is cited from inside its own plan only, so no lint outside it would meet the word. It loses because
+it adds an exception to the grammar every project's documents follow, justified by nothing but the
+item's scope, while numbering the items `arg-1`, `arg-2` costs no capability.
+
 ### No finding on a backticked bare id, only a listing `##bare-id-listing-only`
 
 `live`. A backticked span that is exactly a defined id would be listed by `show` and reported by
-nothing. It loses on the census of the design discussion: the bare ids it found were pointers,
-one here and about 11 in thaum, which a listing leaves silent until a reviewer reads them.
+nothing. It loses on the census of the design discussion: with ids of two segments and plan items
+read inside their plan, the bare ids it found were pointers, one here and about 11 in thaum, which a
+listing leaves silent until a reviewer reads them, against 3 in thaum that were not.

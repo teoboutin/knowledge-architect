@@ -41,9 +41,8 @@ range has no entry, and a change to something added inside the range is told by 
 entry, not by one of its own, per `design@knowledge-architect@changelog-entries`. Entries follow the order CHANGELOG.md's preamble states.
 
 **Did a released section's content change?** A released section's content never changes; its
-structure may, per `design@knowledge-architect@changelog-section-fixed-at-release`. A defined id,
-a skill's or an agent's name among them, written as its reference, or written back as the bare id
-once its entry is deleted, is structure. Any other change to a statement of a released section is a finding.
+structure may, per `design@knowledge-architect@changelog-section-fixed-at-release`, which says,
+read whole, what counts as structure. Any other change to a statement of a released section is a finding.
 
 **Is the version right?** It follows the highest class among the entries, a patch at least, under
 the policy's mapping onto Cargo's two positions while at 0.x.

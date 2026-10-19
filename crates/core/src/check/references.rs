@@ -24,7 +24,8 @@
 //! **A defined id is written as its reference, or it is a finding.** Three lints read what the
 //! reference form leaves out: a reference-shaped token outside backticks, per
 //! `design@core@reference-shape-outside-span`, and an id the entity table defines written in
-//! backticks alone or as a plain word, per `design@core@backticked-bare-id`. Each matches
+//! backticks alone, per `design@core@backticked-bare-id`, or as a plain word, per
+//! `design@core@plain-word-lint`. Each matches
 //! this project's ids only, so another project's id, or one whose entry has left, is silent.
 //!
 //! **A `rejected` entry that no design entry cites is reported**, per
@@ -1774,8 +1775,8 @@ mod tests {
             vec![
                 (
                     "docs/rejected.md",
-                    "# Rejected\n\n### Not kept `##not-kept`\n\n`live`. It cites `rejected@a-project@other`.\n\n\
-                     ### Other `##other`\n\n`live`. The reason.\n",
+                    "# Rejected\n\n### Not kept `##not-kept`\n\n`live`. It cites `rejected@a-project@other-kept`.\n\n\
+                     ### Other `##other-kept`\n\n`live`. The reason.\n",
                 ),
                 (
                     "docs/design.md",
@@ -1788,7 +1789,7 @@ mod tests {
                 ),
                 (
                     "docs/open-issues/an-issue.md",
-                    "# An issue\n\nIt cites `rejected@a-project@other`.\n",
+                    "# An issue\n\nIt cites `rejected@a-project@other-kept`.\n",
                 ),
             ],
             &[],
@@ -1832,18 +1833,18 @@ mod tests {
         // A citation in a design home's text after the entry's section: no citation.
         assert_eq!(
             orphans(
-                "### D `##d`\n\nBody.\n\n## Next subject\n\nCites `rejected@a-project@not-kept`.\n"
+                "### D `##a-design`\n\nBody.\n\n## Next subject\n\nCites `rejected@a-project@not-kept`.\n"
             ),
             1
         );
         // A reference of another kind with the same id: no citation.
         assert_eq!(
-            orphans("### D `##d`\n\nServes `goal@a-project@not-kept`.\n"),
+            orphans("### D `##a-design`\n\nServes `goal@a-project@not-kept`.\n"),
             1
         );
         // A citation in the entry's own heading line: a citation.
         assert_eq!(
-            orphans("### Not `rejected@a-project@not-kept` `##d`\n\nBody.\n"),
+            orphans("### Not `rejected@a-project@not-kept` `##a-design`\n\nBody.\n"),
             0
         );
     }
@@ -1865,7 +1866,7 @@ mod tests {
                 ),
                 (
                     "parts/a-part/docs/rejected.md",
-                    "### Elsewhere `##elsewhere`\n\n`live`. The reason.\n",
+                    "### Elsewhere `##kept-elsewhere`\n\n`live`. The reason.\n",
                 ),
             ],
             &[],
@@ -1881,11 +1882,11 @@ mod tests {
             vec![
                 (
                     "parts/a-part/docs/rejected.md",
-                    "### Elsewhere `##elsewhere`\n\n`live`. The reason.\n",
+                    "### Elsewhere `##kept-elsewhere`\n\n`live`. The reason.\n",
                 ),
                 (
                     "docs/design.md",
-                    "### The decision `##a-decision`\n\nThe part did not keep `rejected@a-part@elsewhere`.\n",
+                    "### The decision `##a-decision`\n\nThe part did not keep `rejected@a-part@kept-elsewhere`.\n",
                 ),
             ],
             &[],
@@ -1924,19 +1925,20 @@ mod tests {
         let (found, _) = checked_docs(
             &manifest(),
             vec![
-                ("docs/goals.md", "## What it is for `##shared`\n"),
-                ("docs/tripwires.md", "## Guarding it `##shared`\n"),
+                ("docs/goals.md", "## What it is for `##shared-word`\n"),
+                ("docs/tripwires.md", "## Guarding it `##shared-word`\n"),
                 (
                     "notes/a.md",
-                    "`goal@a-project@shared` and `tripwire@a-project@shared` resolve;\n\
-                     `design@a-project@shared` does not.\n",
+                    "`goal@a-project@shared-word` and `tripwire@a-project@shared-word` resolve;\n\
+                     `design@a-project@shared-word` does not.\n",
                 ),
             ],
             &[],
         );
         assert_eq!(found.len(), 1, "{found:#?}");
         assert!(
-            found[0].starts_with("notes/a.md:2") && found[0].contains("defines no design `shared`"),
+            found[0].starts_with("notes/a.md:2")
+                && found[0].contains("defines no design `shared-word`"),
             "{found:#?}"
         );
     }
@@ -2493,7 +2495,7 @@ mod tests {
             vec![
                 (
                     "docs/design.md",
-                    "### One `##twice`\n\n### Two `##twice`\n\n#### Deep `##deep`\n",
+                    "### One `##defined-twice`\n\n### Two `##defined-twice`\n\n#### Deep `##deep`\n",
                 ),
                 ("notes/a.md", "### Stray `##stray`\n"),
             ],

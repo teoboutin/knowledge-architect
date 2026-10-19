@@ -12,8 +12,10 @@ once per line when only the parent tree raises it. Nothing decides which of the 
 
 ### What
 
-`judge_message` in `path@core@src/cli/history.rs` judges a message's lints against the commit's
-tree and against its first parent's, and unites the two lists. The union drops a parent's lint
+`judge_message` in `path@core@src/cli/history.rs` judges a message's path lints, the unanchored
+path and the retired slug reference, against the commit's tree and against its first parent's, and
+unites the two lists. The lints on ids are judged once over both trees, through `judge_ids` in
+`path@core@src/check/references.rs`, and are outside this entry. The union drops a parent's lint
 equal to one already in the list, and that list grows with each parent lint pushed. So:
 
 - two equal lints from the commit's own tree are both kept;

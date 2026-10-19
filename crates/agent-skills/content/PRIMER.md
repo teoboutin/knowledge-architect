@@ -540,7 +540,7 @@ at level two or four. Nowhere else: a slug at another heading level, in a table 
 of a plain line, in the middle of a line or in a file that is not the design home defines nothing.
 Outside a fenced block, `{{command}} check` reports it as a misplaced definition; a reference to it
 resolves to nothing.
-The slug is an id in the grammar `[a-z0-9]+(-[a-z0-9]+)+`, unique in the design home.
+The slug is an id, unique in the design home.
 
 **When the decision was a thread of a design discussion, its slug is the thread's name**, unless
 that name misdescribes the decision as approved, as a name for the change it proposed does. The
