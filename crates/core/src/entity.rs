@@ -392,7 +392,10 @@ impl Anchor {
         } else if self.is_entry() {
             (self.path.clone(), self.path.with_extension("md"))
         } else if register.dir == CARRIER_DIR {
-            (self.home_base.clone(), self.home_base.with_extension("md"))
+            // A register at its carrier's own path has no single-file shape: `<path>.md` would
+            // sit outside the carrier, in its parent. The directory stands in for it, and a
+            // directory is never the file a check of that shape looks for.
+            (self.home_base.clone(), self.home_base.clone())
         } else {
             (
                 register.home_in(&self.home_base),
@@ -421,12 +424,13 @@ pub(crate) struct Anchors {
 
 impl Anchors {
     /// The anchors of one tree: the components and locations its manifest declares, then the
-    /// anchor `plans`, one anchor per milestone directory and one per spec file the tree holds.
+    /// anchor `plans`, one anchor per entry directory of a Directory register, a milestone's
+    /// included, and one per spec file the tree holds.
     ///
-    /// **`paths` is the tree's listing**, files and directories or files alone: the milestone
-    /// anchors are read off it, so every caller that builds the anchors of a tree hands in that
-    /// tree's own paths, a commit's included. A milestone directory whose name
-    /// [`milestone_refusal`] refuses is no anchor, and `check::tree` reports it.
+    /// **`paths` is the tree's listing**, files and directories or files alone: the entry and
+    /// spec anchors are read off it, so every caller that builds the anchors of a tree hands in
+    /// that tree's own paths, a commit's included. An entry whose name [`placed_entries`]
+    /// refuses is no anchor, and `check::tree` reports it.
     pub(crate) fn of<'a>(
         manifest: &Manifest,
         paths: impl IntoIterator<Item = &'a PathBuf>,
@@ -681,13 +685,19 @@ impl Anchors {
     /// The component-scoped register whose home a component-relative path is, under the generic
     /// anchor `*`, by the shapes [`Anchors::home_target`] reads.
     pub(crate) fn generic_home_target(&self, path: &str) -> Option<&Register> {
-        self.registers.component_scoped().find(|r| {
-            let dir = &r.dir;
-            path == format!("docs/{dir}")
-                || (r.shape == Shape::Heading
-                    && (path == format!("docs/{dir}.md")
-                        || path == format!("docs/{dir}/README.md")))
-        })
+        // A register attached to some Components keeps its home at the same place in each, so
+        // its home under `*` is a home target too.
+        self.registers
+            .all()
+            .iter()
+            .filter(|r| r.scope == crate::manifest::Scope::Component || !r.components.is_empty())
+            .find(|r| {
+                let dir = &r.dir;
+                path == format!("docs/{dir}")
+                    || (r.shape == Shape::Heading
+                        && (path == format!("docs/{dir}.md")
+                            || path == format!("docs/{dir}/README.md")))
+            })
     }
 }
 
@@ -907,8 +917,8 @@ pub(crate) fn entry_refusal(name: &str, manifest: &Manifest, listing: &str) -> O
     if is_kind_name(name, manifest.registers()) {
         return Some("is the name of a kind".to_string());
     }
-    // The `<id>.md` beside a milestone is its home's retired single file, and beside `index`
-    // that is the milestones home's own generated listing.
+    // The `<id>.md` beside an entry is the refused single-file shape of what it carries, and
+    // beside `index` that is the entry's home's own generated listing.
     if name == "index" {
         return Some(format!("names the listing of {listing}/"));
     }
@@ -1984,6 +1994,9 @@ fn heading_homes(anchors: &Anchors, owner: &Anchor) -> String {
         .filter_map(|n| anchors.registers().by_name(n))
         .filter(|r| r.shape == Shape::Heading)
         .map(|r| match r.level {
+            Some(level) if r.dir == CARRIER_DIR => {
+                format!("{} at level {level}, in its own directory", r.name)
+            }
             Some(level) => format!("{} at level {level}, in `{}`", r.name, r.dir),
             None => format!("{}, in `{}`", r.name, r.dir),
         })

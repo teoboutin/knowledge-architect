@@ -39,9 +39,9 @@ subsection is omitted.
   its kind and its path, and, under every anchor but a plan's, the home of each register it
   carries; it exits 1 when a home is missing.
 - `manifest`, minor: a register declares `shape = "directory"` and `carries = [...]`: one directory
-  per entry, each an anchor named by its basename that carries the named `opt-in` registers at its
-  own directory, so an entry of one of them is cited `<kind>@<entry>@<id>`, as a milestone's slice
-  specs are.
+  per entry, each an anchor named by its basename that carries the one named `opt-in` register at
+  its own directory, so an entry of it is cited `<kind>@<entry>@<id>`, as a milestone's slice specs
+  are.
 - `manifest`, minor: an `opt-in` register declares `dir = "."` to keep its home at its carrier's
   own directory, as `<location>/<entry>/` for a directory register.
 - `manifest`, minor: an `opt-in` register names in `components = [...]` the Components that carry

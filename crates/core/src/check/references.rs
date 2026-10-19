@@ -432,12 +432,16 @@ fn table(
                      reference"
                 ),
                 None => format!(
-                    "define it in the {} home of `{anchor}`, or repair the reference",
+                    "define it in the {} of `{anchor}`, or repair the reference",
                     anchors
                         .registers()
                         .by_name(kind.name())
-                        .map(|r| r.dir.as_str())
-                        .unwrap_or("register")
+                        .map(|r| if r.dir == crate::manifest::CARRIER_DIR {
+                            "home at its own directory".to_string()
+                        } else {
+                            format!("{} home", r.dir)
+                        })
+                        .unwrap_or_else(|| "register home".to_string())
                 ),
             },
         )),
@@ -559,12 +563,48 @@ pub(crate) fn register(
             .collect::<Vec<_>>()
             .join(", ")
     };
+    // A register only the entries of a Directory register carry has its homes at those entries'
+    // own directories, which each entry's reference names, so no anchor gives it this form. At an
+    // entry, the arm below names that entry's own reference.
+    if carriers().is_empty() && !anchors.by_name(anchor).is_some_and(|a| a.is_entry()) {
+        if let Some(by) = registers
+            .all()
+            .iter()
+            .find(|d| d.shape == Shape::Directory && d.carries.iter().any(|c| c == id))
+        {
+            out.push(Finding::at(
+                rel,
+                line,
+                format!(
+                    "`{span}` names the {id} register, whose homes are the entries of the {} \
+                     register",
+                    by.name
+                ),
+                format!(
+                    "cite the entry whose home it is, as `{}@<anchor>@<entry>`; one directory has \
+                     one name, so `show` finds every citation of it",
+                    by.name
+                ),
+            ));
+            return;
+        }
+    }
     match anchor {
         ESCAPE_ANCHOR => out.push(Finding::at(
             rel,
             line,
             format!("`{span}` names `{ESCAPE_ANCHOR}`, which serves the path kind alone"),
             format!("anchor at one of {}{every}", carriers()),
+        )),
+        entity::EVERY_ANCHOR if !r.components.is_empty() => out.push(Finding::at(
+            rel,
+            line,
+            format!(
+                "`{span}` names `*`, which names a component register's homes, and the {id} \
+                 register is attached to {}",
+                r.components.join(", ")
+            ),
+            format!("anchor at one of {}", carriers()),
         )),
         entity::EVERY_ANCHOR => {
             if r.scope != Scope::Component {
@@ -774,6 +814,28 @@ fn path(
             // judged: either shape of a home names the same register, and the manifest, not the
             // listing, says which paths are homes.
             let (bare, suffix) = without_suffix(path);
+            if let Some(r) = anchors
+                .generic_home_target(bare.trim_end_matches('/'))
+                .filter(|r| r.scope != Scope::Component)
+            {
+                // A register attached to some Components has no `register` form under `*`: each
+                // of its homes is named under the Component that keeps it.
+                out.push(Finding::at(
+                    rel,
+                    line,
+                    format!(
+                        "`{span}` names the homes of the {} register by their path",
+                        r.name
+                    ),
+                    format!(
+                        "write `register@<component>@{}` for one of {}, which names the home in \
+                         either of its shapes",
+                        r.name,
+                        r.components.join(", ")
+                    ),
+                ));
+                return;
+            }
             if let Some(r) = anchors.generic_home_target(bare.trim_end_matches('/')) {
                 out.push(home_finding(
                     rel,

@@ -481,7 +481,8 @@ pub(crate) struct CommitsDecl {
     pub refuse_branch_shas: bool,
 }
 
-/// One component: a directory carrying its own documents and every component register.
+/// One component: a directory carrying its own documents, every component register, and each
+/// `opt-in` register attached to it.
 #[derive(Debug, Clone, PartialEq, Eq)]
 pub(crate) struct Component {
     /// The one word a reference names it by: the basename of its path, or the project's
@@ -990,7 +991,7 @@ fn resolve_registers(registers: &mut Registers, complaints: &mut Vec<Finding>) {
     resolve_carries(registers, complaints);
 }
 
-/// What a Directory register's entries carry is a register a location could carry: an `opt-in`
+/// What a Directory register's entries carry is one register a location could carry: an `opt-in`
 /// register of the heading or file shape, per `design@core@declarable-directory-register`.
 ///
 /// A component-scoped register is carried by every component already, a plan register by the
@@ -1022,6 +1023,23 @@ fn resolve_carries(registers: &mut Registers, complaints: &mut Vec<Finding>) {
             ));
             false
         });
+        // Each register an entry carries keeps its home at the entry's own directory, so a
+        // second one would make that directory answer for two registers, the case
+        // `design@core@anchor-collisions-refused` refuses for every other anchor. The first one
+        // named stays.
+        if register.carries.len() > 1 {
+            for extra in register.carries.split_off(1) {
+                complaints.push(Finding::in_file(
+                    MANIFEST_NAME,
+                    format!(
+                        "[registers.{name}] carries `{extra}` besides `{}`",
+                        register.carries[0]
+                    ),
+                    "name one register; an entry keeps what it carries at its own directory, \
+                     and one directory answers for one register",
+                ));
+            }
+        }
     }
 }
 
@@ -2654,10 +2672,13 @@ pub(crate) mod tests {
             "{carried}[registers.subject]\nscope = \"opt-in\"\nshape = \"directory\"\n\
              carries = [\"note\", \"card\"]\n"
         ));
-        assert!(whats(&m).is_empty(), "{:?}", whats(&m));
+        // A second register would share the entry's directory with the first, so it leaves.
+        let w = whats(&m);
+        assert_eq!(w.len(), 1, "{w:?}");
+        assert!(w[0].contains("carries `card` besides `note`"), "{w:?}");
         let subject = m.registers().by_name("subject").expect("subject");
         assert_eq!(subject.shape, Shape::Directory);
-        assert_eq!(subject.carries, ["note", "card"]);
+        assert_eq!(subject.carries, ["note"]);
 
         let m = with_registers(&format!(
             "{carried}[registers.subject]\nscope = \"opt-in\"\nshape = \"directory\"\n\

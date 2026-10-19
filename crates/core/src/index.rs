@@ -284,8 +284,8 @@ pub(crate) fn file_register_indexes(
 /// generated file that was walked would be read as a document: the rule index's table cells
 /// carry every slug the tree defines, and each read as a definition where none may sit.
 ///
-/// `paths` is the tree's listing, before any exclusion: it places the milestone anchors, each of
-/// which has an index, per `Anchors::of`. So the walk asks this with git's listing, before it
+/// `paths` is the tree's listing, before any exclusion: it places the entry anchors, each with an
+/// index for a file register it carries, per `Anchors::of`. So the walk asks this with git's listing, before it
 /// knows which files it reads.
 pub(crate) fn generated_paths<'a>(
     manifest: &Manifest,

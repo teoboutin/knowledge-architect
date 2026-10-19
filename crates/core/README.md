@@ -392,7 +392,7 @@ A **directory register** keeps one directory per entry under `<dir>/`, beside a 
 document, which owes a level-one title, and nothing but the files of what it carries: no
 subdirectory and no `register.toml`. Each entry is an anchor named by its basename, cited as a
 whole `<register>@<parent>@<id>`, the parent being the anchor that carries the home, and it carries
-the registers `carries` names, each an `opt-in` heading or file register, with its home at the
+the one register `carries` names, an `opt-in` heading or file register, with its home at the
 entry's own directory: a carried heading register's README is the entry's README, which links
 every file and defines no slug. A `register` or a `path` reference to an entry's directory or to
 its README is a finding naming the entry's reference. An entry's name is refused when it is a

@@ -215,8 +215,8 @@ fn file_home(
 
 /// A Directory register: its two navigation files, and each entry's README as an entry.
 ///
-/// Its entries are the milestone anchors directly under its home. What else the home holds,
-/// and which directories are milestones, is phase 2's, in `check::tree`; what is asserted here
+/// Its entries are the entry anchors directly under its home. What else the home holds, and
+/// which directories are entries, is phase 2's, in `check::tree`; what is asserted here
 /// is the same shape a File home owes, over the README of each entry. Returns how many entries
 /// were judged.
 fn directory_home(
