@@ -558,8 +558,24 @@ it as T2 at the premortem of its discussion.
 
 **Fires when:** the design-conformance review of a plan document reports a contradicted head, or a
 `rejected` entry brought back without a recorded reopening, in a discussion where the design-entry
-search ran.
-**Response:** open a `design` issue naming the review and the discussion, and reopen
-`design@agent-skills@design-entry-search`, asking whether the miss came from a thread that opened
-after the search.
-**Re-entry:** the reviews of every plan document, and each retrospective.
+search ran; or an outcome the owner ruled in a retrospective intake whose design-entry search ran
+turns out to reverse a head, or to bring back a `rejected` entry, that its analysis did not name.
+The owner ruled on the intake's case as T1 of the discussion that sent the search to the intake.
+**Response:** open a `design` issue naming the review and the discussion or the intake, and reopen
+`design@agent-skills@design-entry-search`, asking whether the miss came from a thread or a subject
+that opened after the search.
+**Re-entry:** the reviews of every plan document, each retrospective, and the review of the branch
+that carries out an intake's outcomes.
+
+## Guarding `design@agent-skills@search-relevance-grade`: a goal is missed where the searcher graded the goals `##goal-missed-though-graded`
+
+The owner ruled on it as T2 of the discussion that had the design-entry searcher grade each goal of
+its Component. The decision rests on the premise that the searcher's grades of the goals are a
+second reading beside the session's own, which the session keeps, and not a summary it reads
+instead.
+
+**Fires when:** a retrospective or a review reports a goal missed in a design discussion or a
+retrospective intake where the design-entry searcher graded that goal's Component's goals.
+**Response:** reopen `design@agent-skills@search-relevance-grade` and
+`design@agent-skills@design-entry-search` on how goals reach the session.
+**Re-entry:** the retrospective of that session, and the review of the change.

@@ -47,10 +47,17 @@ A finding is cited by its id and its file's stem, in the form
    description says, with the files' paths and their subjects as the work, and as the seeds the
    design heads and goals the findings name, or none.
 
-   Read every entry returned whole with `cargo klarch show <ref>`, never from its reason line. The
-   search finds what a grep per finding does not: a finding already recorded, a deferred issue
-   whose trigger the file meets, a tripwire whose firing evidence the file carries, a design issue
-   whose re-entry it meets.
+   Beside it, search the goals, the design entries and the `rejected` entries, with the same work
+   and seeds: dispatch `agent@knowledge-architect-design-entry-searcher` as its description says, to
+   each Component that owns a blamed text, the project's root always among them. A proposed fix
+   that touches a Component this search was not given sends it again, for that Component, before
+   the proposal goes to the owner.
+
+   Read every entry returned, and every entry graded `bears` or `may-bear`, whole with
+   `cargo klarch show <ref>`, never from its reason line. The searches find what a grep per finding
+   does not: a finding already recorded, a deferred issue whose trigger the file meets, a tripwire
+   whose firing evidence the file carries, a design issue whose re-entry it meets, and a head or a
+   goal a proposed fix would contradict or strain.
 4. **Cluster the findings.** One defect is often reported in several files, or as two findings of
    one file. A cluster, and a standing entry that several files meet, is analysed once, in the
    analysis of the first file by stem that holds it, and cites every id in it; the analysis of each
@@ -75,10 +82,8 @@ The order is a suggestion; the content is not.
   the session" is a claim like any other, and is often wrong: find when the credited wording
   entered, with `git log -L` or `git log -G` on it, and compare with the session's work. A phrase
   searched in a commit message or in wrapped prose is matched across a line break.
-- **c. Whether it is already recorded.** An issue or a tripwire, from the search of
-  `skill@knowledge-architect-retrospective-intake@ground-before-judging`. A rejected design:
-  read `register@*@rejected` of the Component that owns the blamed text, where a
-  Component owns it. A proposed fix that already lost is not proposed again: an alternative counts
+- **c. Whether it is already recorded.** An issue or a tripwire, a design head, or a rejected
+  design, from the searches of `skill@knowledge-architect-retrospective-intake@ground-before-judging`. A proposed fix that already lost is not proposed again: an alternative counts
   as argued and lost only when a recorded reason covers it, per the record test of
   `skill@knowledge-architect-design@threads-and-states`.
 - **d. Its kind.**
@@ -130,8 +135,8 @@ output, a commit. A verdict without evidence is labelled an assumption.
 The checks a to c read text, and fresh subagents may run them, one per file or per cluster. Brief
 each with the findings, the files to read, the entries the search of
 `skill@knowledge-architect-retrospective-intake@ground-before-judging` returned, and a scratch
-directory of its own, never shared. The agent checks c against those entries and the `rejected`
-entries, and does not search the registers again. Each returns, per finding: the quotation,
+directory of its own, never shared. The agent checks c against those entries, and does not
+search the registers again. Each returns, per finding: the quotation,
 its file and line, and its verdict. The session itself establishes d to h, and re-checks every
 verdict a proposal rests on. No subagent replays the reported session or builds a scenario of agent
 behaviour.

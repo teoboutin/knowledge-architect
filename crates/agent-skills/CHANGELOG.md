@@ -38,14 +38,15 @@ subsection is omitted.
 - `cli`, minor: `anchors` lists every anchor of the project, the constructed ones included, with
   its kind and its path, and, under a Component, a location and `plans`, the home of each register
   it carries; it exits 1 when a home is missing.
-- `agent-skills`, patch: `agent@knowledge-architect-design-entry-searcher` reads the design entries
-  and the `rejected` entries of one Component whole and grades each against a piece of work:
+- `agent-skills`, patch: `agent@knowledge-architect-design-entry-searcher` reads the goals, the design
+  entries and the `rejected` entries of one Component whole and grades each against a piece of work:
   `bears`, with the relation `constrains`, `may change` or `may bring back`, or `may-bear`, listing
   every entry it read.
 - `agent-skills`, patch: `skill@knowledge-architect-retrospective-intake` analyses a project's own
   retrospective files, several at once, finding by finding, and the owner rules one outcome per
-  finding: handle now, open an issue, sent upstream, or no change with the reason. Once every
-  outcome is carried out, the intake marks the project file it analysed as analysed.
+  finding: handle now, open an issue, sent upstream, or no change with the reason. Its grounding
+  sends the standing-entry searcher and the design-entry searcher. Once every outcome is carried
+  out, the intake marks the project file it analysed as analysed.
 
 ### Workflow
 
