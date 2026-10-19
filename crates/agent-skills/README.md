@@ -85,8 +85,9 @@ about an existing architecture — the assistant:
 - hands the converged design to `skill@knowledge-architect-planning`, which
   writes the spec or the milestone in the same session; each decision
   is recorded in its design home when the work implementing it lands,
-  or when it is made if no work implements it, and a losing alternative
-  where the recording tests keep it;
+  or when it is made if no work implements it, and a rejected design
+  where the recording tests keep it, cited by the heads whose argument
+  covers it;
 - writes in plain technical English, as the primer's working-prose rules
   say for every text a project's contributors read: explicit quantities
   and invariants over qualitative wording, no idioms, no aphorisms; and,
@@ -208,8 +209,9 @@ One assumption is about the project rather than about you:
 
 **Design intent is discoverable, or the project is new.** The skill
 grounds itself before proposing, by reading the goals, the design
-homes, the rejected alternatives, the README files, the open issues
-and the tripwires, or failing those the code and its history. A
+homes, the rejected designs, the README files, the open issues
+and the tripwires, with subagents that search the design and rejected
+entries and the open issues and tripwires beside its own reading, or failing those the code and its history. A
 greenfield project is handled explicitly. Intent that exists only in
 someone's memory is not reachable, and proposals will contradict
 decisions already made without either party noticing.

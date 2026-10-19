@@ -10,6 +10,18 @@ subsection is omitted.
 
 ### Migration
 
+- `checks`, major: every Component carries the home of a built-in heading register, `rejected`,
+  `register@*@rejected`, a file rejected.md or a directory rejected/ under its docs/, and its
+  rejected-alternatives.md under docs/ is no longer a required document. Move each Component's rejected-alternatives document to its
+  `rejected` home and turn each entry into a level-three heading that names the design not kept,
+  its slug last, its body opening with its `live` or `void` marker, its "lost to" clause dropped;
+  then cite each entry, `rejected@<anchor>@<slug>`, from the design heads whose argument covers it.
+  A new check reports an entry that no design entry cites. Choosing the slugs and the citing heads
+  can be handed to subagents, one per Component, that propose them for review and then apply them.
+  This holds for every project the consumer's tests build, mock projects included. A Component, a
+  location or a plan named `rejected` is now refused, as any kind's name is, and so is a manifest
+  table `[registers.rejected]` that sets a key. After the move, run the design-record axis of the
+  audit, `skill@knowledge-architect-project-audit@design-record-axis`.
 - `agent-skills`, patch: the primer states the checker's model, the verification rules, the
   working-prose rules and the checker's CLI facts, the staged check before each commit among them,
   in `primer@checker-model`, `primer@verify-before-relying` and `primer@working-prose`. A project's
@@ -21,6 +33,10 @@ subsection is omitted.
 
 ### New features
 
+- `agent-skills`, patch: `agent@knowledge-architect-design-entry-searcher` reads the design entries
+  and the `rejected` entries of one Component whole and grades each against a piece of work:
+  `bears`, with the relation `constrains`, `may change` or `may bring back`, or `may-bear`, listing
+  every entry it read.
 - `cli`, minor: `anchors` lists every anchor of the project, the constructed ones included, with
   its kind and its path, and, under a Component, a location and `plans`, the home of each register
   it carries; it exits 1 when a home is missing.
@@ -30,6 +46,11 @@ subsection is omitted.
 
 ### Workflow
 
+- `agent-skills`, patch: a design discussion's grounding sends the design-entry searcher beside the
+  standing-entry searcher, one per Component the question touches, and again for a thread whose
+  subject the first search was not given; its first round names the entries graded `bears`, and a
+  plan document lists them under "What is already decided". A design head cites the `rejected`
+  entries its argument covers, and a `rejected` entry names no winner.
 - `agent-skills`, patch: a plan document's status section names each transcript it was assembled
   from by the message where the discussion begins in it, and no longer by the transcript file's
   path, which holds the session identifier and the machine's home directory.
