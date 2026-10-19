@@ -52,14 +52,14 @@ analysis of the workflow files other projects send.
 
 **What exists today.**
 
-- The local intake takes, per `skill@klarch-retrospective-intake@what-it-takes`, the workflow
+- The local intake took, before this work, per its section `what-it-takes`, the workflow
   files of any project, this repository's own project file, and another project's file for
   grounding only. It establishes eight items per finding
-  (`skill@klarch-retrospective-intake@what-to-establish`), writes an analysis into
+  (its section `what-to-establish`), writes an analysis into
   `path@knowledge-architect@docs/retrospective-reports/`
-  (`skill@klarch-retrospective-intake@analysis-and-ruling`), offers three outcomes, and keeps the
+  (its section `analysis-and-ruling`), offers three outcomes, and keeps the
   analysis until its last outcome is carried out
-  (`skill@klarch-retrospective-intake@after-the-ruling`). It cites 10 entries of this repository:
+  (its section `after-the-ruling`). It cites 10 entries of this repository:
   a goal, seven design heads, an issue and a tripwire, counted with
   `grep -oE '(goal|design|issue|tripwire)@[a-z-]+@[a-z0-9-]+' .claude/skills/klarch-retrospective-intake/SKILL.md | sort -u`,
   which shipped text may not cite, per `design@agent-skills@shipped-text-cites-no-entry`.
@@ -130,7 +130,7 @@ analysis of the workflow files other projects send.
 | decision | change | referencing texts, from `cargo klarch show` | judged or updated by |
 | --- | --- | --- | --- |
 | `design@agent-skills@retrospective-destination` | rewritten in place: the project's findings go to the intake | crates/agent-skills/docs/design.md:85 and :2001; `issue@agent-skills@a-received-retrospective-file-has-no-installed-analysis`; docs/design.md:436 (in `design@knowledge-architect@workflow-findings-stay-here`) | the harvest reads each; the issue closes in step 6 |
-| `design@knowledge-architect@committed-findings-analysis` | narrowed to what this repository adds: the analysis of received workflow files, of audit files, and of this repository's own project file with its three outcomes | `issue@agent-config@a-pending-retrospective-analysis-is-reached-by-no-standing-search`, closed in step 4; the local intake, rewritten in step 4; `path@knowledge-architect@CLAUDE.md`:58; `issue@agent-skills@a-received-retrospective-file-has-no-installed-analysis`, closed in step 6; `path@knowledge-architect@docs/retrospective-reports/README.md`, step 4 | the harvest |
+| `design@knowledge-architect@committed-findings-analysis` | narrowed to what this repository adds: the analysis of received workflow files, of audit files, and of this repository's own project file with its three outcomes | the agent-config issue `a-pending-retrospective-analysis-is-reached-by-no-standing-search`, closed in step 4; the local intake, rewritten in step 4; `path@knowledge-architect@CLAUDE.md`:58; `issue@agent-skills@a-received-retrospective-file-has-no-installed-analysis`, closed in step 6; `path@knowledge-architect@docs/retrospective-reports/README.md`, step 4 | the harvest |
 | `design@knowledge-architect@intake-shares-the-admission-standard` | moved to agent-skills, same slug, since it decides what the installed intake does; its body's subject becomes the installed intake, with the local intake applying it to received files | the local intake, line 119, which step 4 drops with item f; the `%%` line of the installed intake that step 1 writes under the root anchor, which the harvest re-points | the harvest |
 | `design@agent-skills@expectation-set-bounds-scope` | rewritten in place: its premise "the one installed activity that judges whether something is a defect of an installed skill" becomes two activities, the retrospective, which carries the sets, and the installed intake, which reads them by a pointer at check d. The rejected alternative "A separate installed file holding the expectation sets", whose reopening condition the intake meets, is judged again, per "The expectation sets" below | the local intake, line 99, and the `%%` line of the installed intake; `tripwire@agent-skills@expectation-set-closes-a-contradiction`; `issue@agent-skills@expectation-sets-for-the-installed-skills`; the agent-skills README, which restates the sets; `path@agent-skills@docs/rejected-alternatives.md` | the harvest reads each |
 
@@ -139,8 +139,8 @@ analysis of the workflow files other projects send.
 | entry | outcome |
 | --- | --- |
 | `issue@agent-skills@a-received-retrospective-file-has-no-installed-analysis` | closed by this work, step 6 |
-| `issue@agent-config@a-pending-retrospective-analysis-is-reached-by-no-standing-search` | closed into `issue@agent-skills@a-pending-audit-report-is-reached-by-no-installed-search`, widened to both directories, step 4, since it cites a section step 4 removes (#pending-analysis-search) |
-| `issue@agent-skills@a-pending-audit-report-is-reached-by-no-installed-search` | widened and renamed in step 4, per "Pending analyses" |
+| the agent-config issue `a-pending-retrospective-analysis-is-reached-by-no-standing-search` | closed into `a-pending-audit-report-is-reached-by-no-installed-search`, now `issue@agent-skills@a-pending-ruled-file-is-reached-by-no-installed-search`, widened to both directories, step 4, since it cites a section step 4 removes (#pending-analysis-search) |
+| `issue@agent-skills@a-pending-ruled-file-is-reached-by-no-installed-search`, named `a-pending-audit-report-is-reached-by-no-installed-search` before step 4 | widened and renamed in step 4, per "Pending analyses" |
 | `issue@agent-skills@an-upgrade-re-reads-no-root-restatement`, case 2 | the overlap of the installed and the local intake is made on purpose, and the local intake's description names it (AC3); the issue stays open |
 | `issue@agent-skills@an-upstream-finding-stays-in-every-later-old-text-count` | bears on the audit's "sent upstream" outcome only; nothing |
 | `issue@agent-skills@expectation-sets-for-the-installed-skills` | cited from a `%%` line of the installed intake; stays open |
@@ -736,7 +736,7 @@ Which head each `%%` line cites, and when:
 
 ### The checks a to h, in the installed intake
 
-As in `skill@klarch-retrospective-intake@what-to-establish`, with these changes:
+As in the local intake's section `what-to-establish`, now `skill@knowledge-architect-retrospective-intake@what-to-establish`, with these changes:
 
 - **b**: the blamed text is read at the main commit the version line names, with
   `git show <commit>:<path>`, then on the main branch as it stands, which holds the session's
@@ -818,8 +818,9 @@ commit that carries out its last outcome, or a later commit of the same branch, 
 primer's list of installed skills, `primer@installed-skills`, gains the intake's line. The
 analysis's sections, its `Default` and `Outcome` lines, the ruling written in the file, and the
 paragraphs on the ruling's collection, are those of
-`skill@klarch-retrospective-intake@analysis-and-ruling`, with four outcomes. Its life after the
-ruling is that of `skill@klarch-retrospective-intake@after-the-ruling` without its numbered
+the local intake's section `analysis-and-ruling`, now `skill@knowledge-architect-retrospective-intake@analysis-and-ruling`,
+with four outcomes. Its life after the ruling is that of the local intake's `after-the-ruling`,
+now `skill@knowledge-architect-retrospective-intake@after-the-ruling`, without its numbered
 sequence of commits, which `goal@agent-skills@installed-text-leaves-room-to-judge` rules out where
 judgement serves, as `design@agent-skills@step-is-no-commit` records for steps: the file is
 committed once every `Outcome` line holds the owner's ruling, before any outcome is carried out;
@@ -875,8 +876,8 @@ activities ending "and a retrospective", names the intake too.
 
 ### Pending analyses
 
-No instruction is added. `issue@agent-config@a-pending-retrospective-analysis-is-reached-by-no-standing-search`
-closes into `issue@agent-skills@a-pending-audit-report-is-reached-by-no-installed-search`, which is
+No instruction is added. the agent-config issue `a-pending-retrospective-analysis-is-reached-by-no-standing-search`
+closes into the audit-report issue, now `issue@agent-skills@a-pending-ruled-file-is-reached-by-no-installed-search`, which is
 widened to docs/retrospective-reports/, with the fact a26 that an analysis stays on the main branch
 across branches by design. Its id and title then describe half its subject, so it is renamed to
 the id `a-pending-ruled-file-is-reached-by-no-installed-search`, the commit writing the old id
@@ -1017,8 +1018,8 @@ the install; a check failure that the overlap causes reopens the thread.
 4. **The local intake reduced**, with the root `CLAUDE.md` row and `instructions@repository-skills`
    read again, the directory's README, and AC3. The same commit re-points this spec's references
    to sections of the local intake to the installed intake's same slugs, closes
-   `issue@agent-config@a-pending-retrospective-analysis-is-reached-by-no-standing-search`, which
-   cites `skill@klarch-retrospective-intake@after-the-ruling`, and widens and renames the
+   the agent-config issue `a-pending-retrospective-analysis-is-reached-by-no-standing-search`, which
+   cites the local intake's section `after-the-ruling`, and widens and renames the
    audit-report issue. Fails alone on: AC3, and a dangling reference to a section of the local
    intake that moved.
 5. **The READMEs**: the extension section of `path@agent-skills@README.md`, its framing sentence,

@@ -1,38 +1,29 @@
 ---
 name: klarch-retrospective-intake
-description: MUST use when the owner hands this session one or more files of findings on the workflow to act on — a `-klarch-workflow.md` file, written by a retrospective or by a project audit, or a `-workflow.md` file written before that name, from this repository or from a project that uses the workflow, or this repository's own retrospective project file — or asks what to do with the findings of such a file already received; and while an outcome of an analysis in docs/retrospective-reports/ is carried out, for what the analysis file owes until it leaves. Covers checking each finding against the tree as it stands, against the registers and the history, against the goals and the design, looking for a better fix than the one proposed, writing the analysis to a file, offering the owner three outcomes per finding, and the life of the analysis after the ruling. Not for running a retrospective or an audit, nor for the work an outcome rules, which its route's skill covers.
+description: MUST use, together with knowledge-architect-retrospective-intake, which it adds to, when the owner hands this session a file of findings on the workflow to act on — a `-klarch-workflow.md` file, written by a retrospective or by a project audit, or a `-workflow.md` file written before that name, from this repository or from a project that uses the workflow — or this repository's own retrospective project file, or asks what to do with the findings of such a file; and while an outcome of an analysis of such a file in docs/retrospective-reports/ is carried out. Covers what this repository adds as the workflow's upstream: the files it takes, another project's file read for grounding, the commit an analysis is checked against, the routes to the installed text's source and to the Rust source, and the outcomes. Not for running a retrospective or an audit, nor for the work an outcome rules, which its route's skill covers.
 ---
 
-# Retrospective intake
+# Retrospective intake, as the workflow's upstream
 
-Scope: the analysis of the findings a retrospective or a project audit sends to this repository,
-the owner's ruling on each, and the life of the analysis file until it leaves.
-
-Not covered here:
-- **running a retrospective or an audit**: `skill@knowledge-architect-retrospective`,
-  `skill@knowledge-architect-project-audit`;
-- **the work an outcome rules**: an issue is opened under
-  `skill@knowledge-architect-issue-tracking`; a finding handled now is handled under the skill that
-  item g of `skill@klarch-retrospective-intake@what-to-establish` names for it. What the analysis
-  file owes meanwhile is `skill@klarch-retrospective-intake@after-the-ruling`.
-
-**This skill decides nothing.** It establishes the facts about each finding, proposes an action
-with its argument, and the owner rules, per
-`goal@knowledge-architect@the-workflow-improves-through-real-use`, under which the owner decides what
-real use changes in the workflow.
+Scope: what this repository adds to `skill@knowledge-architect-retrospective-intake`, as the
+repository that receives the workflow files of every project and edits the installed text at its
+source. Read the installed intake whole and follow it, with the additions below. Where an addition
+differs from it, the addition is this repository's departure,
+`design@knowledge-architect@workflow-findings-stay-here`, which the root `CLAUDE.md` states in
+`instructions@repository-skills`.
 
 ## What it takes `##what-it-takes`
 
-- **In scope: a workflow file**, the second file of
-  `skill@knowledge-architect-retrospective@two-files`, whatever project wrote it, and whether a
-  retrospective or the agentic-workflow axis of a project audit wrote it. It is named
-  `<date>-<project>-<subject>-klarch-workflow.md`, or, before that name,
-  `<date>-<project>-workflow.md` or `<date>-<project>-<subject>-workflow.md`. It holds the
-  findings on the installed files (W), and, from a retrospective, the
-  findings on the checker (C) and the answers to the standing questions.
-- **In scope: this repository's own project file**, `<date>-knowledge-architect-<subject>.md`, or
-  `<date>-knowledge-architect.md` before that name.
-  Its findings (P) are on this repository's own instructions, and the same checks apply to them.
+Beside the project file of the installed intake:
+
+- **A workflow file**, the second file of `skill@knowledge-architect-retrospective@two-files`,
+  whatever project wrote it, and whether a retrospective or the agentic-workflow axis of a project
+  audit wrote it. It is named `<date>-<project>-<subject>-klarch-workflow.md`, or, before that
+  name, `<date>-<project>-workflow.md` or `<date>-<project>-<subject>-workflow.md`. It holds the
+  findings on the installed files (W), and, from a retrospective, the findings on the checker (C)
+  and the answers to the standing questions. Here its findings are resolved, not only read.
+- **This repository's own project file**, `<date>-knowledge-architect-<subject>.md`, or
+  `<date>-knowledge-architect.md` before that name, which the installed intake takes too.
 - **For grounding only: another project's file** of the same retrospective, when it is present. It
   can explain a workflow finding: what the project's text said, what the session did. Its own
   findings are that project's, and are fixed in its text. **Nothing of it enters the analysis
@@ -42,161 +33,30 @@ real use changes in the workflow.
 The findings of this repository's two files are handled here, never as an issue on GitHub, per
 `design@knowledge-architect@workflow-findings-stay-here`.
 
-A finding is cited by its id and its file's stem, as "W3 of <date>-<project>-<subject>-workflow",
-a file of the older form; the installed retrospective skill gives the form for its own files.
+## The commit an analysis is checked against `##analysed-commit`
 
-## Ground before judging any finding `##ground-before-judging`
+The main commit you analyse against is `git describe --tags origin/main`, named in the analysis's
+head. The version a received file used is its own version line's. A W or C finding is read against
+the installed text's source under `path@agent-skills@content/` and the checker's source at that
+commit; a finding against an older version of the checker may already be repaired.
 
-1. **Read the workflow file whole**, and the project's file if present.
-2. **Note the version the retrospective used**, from the line that names it, and the main commit you
-   analyse against: `git describe --tags origin/main`. A finding against an older version may
-   already be repaired.
-3. **Search the standing entries with the received files as the work.** One search covers every
-   file received together. Dispatch `agent@knowledge-architect-standing-entry-searcher`:
-   - count the rows of `cargo klarch issues` and of `cargo klarch tripwires`, the header rows
-     excluded, a listing that prints only `(no entry)` counting 0;
-   - send ceil(count / 60) agents, all in parallel, on consecutive groups whose sizes differ by at
-     most one;
-   - give each the work (the files' paths and their subjects), the seeds (the design heads and
-     goals the findings name, or none), its group's first and last positions, and a scratch
-     directory of its own.
+## Routes and outcomes `##routes-and-outcomes`
 
-   This restates the dispatch rule of `design@agent-skills@standing-entry-search-agent` and the
-   groups of `design@agent-skills@standing-entry-search-groups`, which the agent's description also
-   carries. Read every entry returned whole with `cargo klarch show <ref>`, never from its reason
-   line. The search finds what a grep per finding does not: a finding already recorded, a deferred
-   issue whose trigger the file meets, a tripwire whose firing evidence the file carries, a design
-   issue whose re-entry it meets.
-4. **Cluster the findings.** One defect is often reported in several files, or as two findings of
-   one file. A cluster is analysed once, in the analysis of the first file that holds it, and cites
-   every id in it; the analysis of each other file holds a section that points there. That a
-   finding recurs across sessions is evidence: say how many times.
+Route g of the installed intake gains two routes:
 
-## What to establish for each finding or cluster `##what-to-establish`
+- a fix in the installed text: edited at its source under `path@agent-skills@content/`, as
+  `path@agent-skills@CLAUDE.md`, section "Editing an installed skill or agent", says, read whole;
+- a change to the Rust source: `skill@klarch-development`.
 
-The order is a suggestion; the content is not.
+For a workflow file and for this repository's own project file, the outcomes are three: handle now,
+open an issue, and no change with the reason. "Sent upstream" does not apply: this repository is
+the upstream, and a fix in the installed text is handled now at its source or opened as an issue.
 
-- **a. What it says.** What happened in the session, which text it blames, quoted, and the fix it
-  proposes.
-- **b. Whether it still applies.** Read the blamed text on main as it stands, and quote it with
-  its `file:line`. The report is a claim about the text at its version, so it is checked like any
-  claim about the code. A finding may be already repaired: name the commit, found with
-  `git log -S '<phrase>'` or `git log --grep`. A report's own "repaired in the session" is a claim
-  like any other, and is often wrong: find when the credited wording entered, with `git log -L` or
-  `git log -G` on it, and compare with the session's work. A phrase searched in a commit message
-  or in wrapped prose is matched across a line break.
-- **c. Whether it is already recorded.** An issue or a tripwire, from the search of `skill@klarch-retrospective-intake@ground-before-judging`. A
-  rejected alternative: read the rejected alternatives of the Component that owns the blamed text.
-  A proposed fix that already lost, by the record test of
-  `skill@knowledge-architect-design@threads-and-states`, is not proposed again.
-- **d. Its kind.**
-  - **a defect of the text**: unclear, missing or wrong, as
-    `skill@knowledge-architect-retrospective@what-it-examines` defines the three, read whole;
-  - **a lapse of the session**: the instruction exists, is clear, and was not followed. What
-    repairs it is the lapse rule of `skill@knowledge-architect-agent-configuration@admission-standard`;
-  - **about the owner's behaviour**: judged against the expectation set of the skill concerned, in
-    `skill@knowledge-architect-retrospective@expectation-sets`. Behaviour the set says the skill assumes otherwise is
-    outside that skill's scope, per `design@agent-skills@expectation-set-bounds-scope`. A skill
-    with no set has no such test yet, per
-    `issue@agent-skills@expectation-sets-for-the-installed-skills`. **A finding that two installed
-    instructions leave no move satisfying both is always in scope**, and is never closed by citing
-    an expectation set, per `tripwire@agent-skills@expectation-set-closes-a-contradiction`;
-  - **an observation**: a use that went well, or a behaviour not reproduced. It needs no action.
-- **e. Its scope.** The goal it serves or threatens, from the goals homes. The Component that owns
-  the fix: agent-skills for the installed text, core for the checker, the root or the agent-config
-  location for this repository's own configuration. Whether the fix reverses a recorded decision,
-  per `skill@knowledge-architect-decision-recording@reversal-check`: if it does, the fix is a reversal and goes
-  through that skill. The record check of item f names the heads it would reverse.
-- **f. A better fix.** Name the nearest rival to the fix the report proposes, and the fact that
-  decides between them. Rivals worth looking for:
-  - the same defect fixed at another site: the checker rather than the text, or the reverse;
-  - one fix for a whole cluster;
-  - a fix where the instruction is delivered, rather than more instruction;
-  - no change.
+The committed analysis of these files is `design@knowledge-architect@committed-findings-analysis`.
 
-  The fix is shaped, and read against the record, as
-  `skill@knowledge-architect-agent-configuration@admission-standard` says, read whole: it is the standard of every actor that writes or judges agent-facing text, per
-  `design@knowledge-architect@intake-shares-the-admission-standard`.
-- **g. Its route.** What handling it needs, which says what "now" would mean:
-  - a text edit whose design is settled: under `skill@knowledge-architect-agent-configuration` for
-    this repository's own configuration, and for the installed text, at its source under
-    `path@agent-skills@content/`, under the agent-skills `CLAUDE.md`, section "Editing an installed
-    skill or agent", read whole;
-  - a decision, or one whose design is not settled: `skill@knowledge-architect-design`;
-  - a change to the Rust source: `skill@klarch-development`;
-  - an issue only, when the work is not to be done in this session;
-  - nothing.
-- **h. The proposal.** The action, its argument, and the default outcome (`skill@klarch-retrospective-intake@analysis-and-ruling`).
+## The analysis of a received file `##received-analysis`
 
-**Every verdict carries its evidence**: a quotation with its `file:line`, a command and its
-output, a commit. A verdict without evidence is labelled an assumption.
-
-## Subagents `##intake-subagents`
-
-The checks a to c read text, and fresh subagents may run them, one per file or per cluster. Brief
-each with the findings, the files to read, the entries the search of `skill@klarch-retrospective-intake@ground-before-judging` returned, and a scratch
-directory of its own, never shared. The agent checks c against those entries and the rejected
-alternatives, and does not search the registers again. Each
-returns, per finding: the quotation, its `file:line`, and its verdict. The session itself
-establishes d to h, and re-checks every verdict a proposal rests on. No subagent replays the
-reported session or builds a scenario of agent behaviour, per
-`design@agent-skills@synthetic-evidence-not-built`.
-
-## The analysis file and the owner's ruling `##analysis-and-ruling`
-
-Write the analysis in `path@knowledge-architect@docs/retrospective-reports/`, as `<stem>.md`,
-where `<stem>` is the received file's stem. The directory's README says what it holds and when a file leaves it.
-
-- A head: the received file's name, the version it used, the main commit analysed against, and the
-  standing entries the search returned that bear on it.
-- **One section per finding or cluster**, headed by its ids and a short title, with a bullet per
-  item of `skill@klarch-retrospective-intake@what-to-establish`, in prose. No table: the content of each item is too long to read in a cell.
-- **Every section ends with a `Default` line and an `Outcome` line**, whatever it proposes, no
-  change included, the latter left pending: a finding, a standing answer, a noted item, and a
-  judgement on a standing entry. A standing entry the file may meet gets a section of its own: a tripwire that may have
-  fired, a deferred trigger, a design issue's re-entry. Whether it fired, and its response, are the
-  owner's to rule; the analysis proposes the judgement and its evidence.
-- **A span the checker would refuse is quoted in words**, and an entry an outcome removes, renames
-  or creates is named as `primer@where-knowledge-goes` says. A finding about a refused form tempts a
-  quotation of that form, and the analysis then fails the check it reports on.
-- **Name nothing of the other project in detail**: none of its paths, none of its design heads,
-  none of its internals, which tell a reader of this repository nothing. Say it in words where
-  the finding needs it, as "the project's design home". This repository's paths and entries are
-  written in the checked forms, since the file is checked like any other.
-
-Then give the owner the full path of each file, and in the conversation one line per section:
-its ids, the proposal in a few words, and the default outcome. **Propose that the owner rules by
-writing each `Outcome` line in the file**: with many findings, a ruling written beside its
-evidence is easier to give than one in the conversation, and it lands in the record as written. A
-ruling given in the conversation instead, such as "now: W1, W5; issue: C3; no change as proposed
-for the rest", is copied into the `Outcome` lines verbatim. Before committing, list every section
-whose `Outcome` line is still pending, and ask the owner for those. **Three outcomes**:
-
-- **handle now**: the finding is handled after the ruling, on the same branch or on the branches
-  that follow it, under the skill its route names. It needs no issue entry, and the proposal does
-  not suggest one;
-- **open an issue**: name its anchor and its kind;
-- **no change, with the reason**: a lapse, already repaired, out of scope, or an observation.
-
-A question tool is not the way to collect the ruling: it shows a label, not the evidence and the
-rival fix the ruling depends on.
-
-## After the ruling `##after-the-ruling`
-
-Each section's `Outcome` line holds the owner's choice and the owner's words, verbatim. The
-analysis is then committed on a branch, under the root `CLAUDE.md` `## Git` rules. Its life
-after that, per `design@knowledge-architect@committed-findings-analysis`:
-
-1. a commit adds the analysis, with its Outcome lines;
-2. the next commit opens the issues it ruled;
-3. the findings handled now are handled, in as many commits or branches as their routes need;
-4. the commit that carries out its last outcome, or a later commit of the same branch, deletes it,
-   and its message names the analysis by its path. History keeps it:
-   `git log -- docs/retrospective-reports/` lists every analysis.
-
-A finding handled now can turn out to need a design discussion and a plan. Its Outcome line is then
-rewritten, on the owner's word, to name the plan document or the issue that now carries it, so the
-analysis can still leave.
-
-A file whose cluster other files point to leaves after them, or the commit that deletes it rewrites
-the pointing sections, since their references would dangle.
+**Name nothing of the other project in detail**: none of its paths, none of its design heads, none
+of its internals, which tell a reader of this repository nothing. Say it in words where the finding
+needs it, as "the project's design home". The directory's README,
+`path@knowledge-architect@docs/retrospective-reports/README.md`, says what it holds.
