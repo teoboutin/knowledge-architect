@@ -899,8 +899,8 @@ pub(crate) fn spec_files<'a>(
 
 /// Why a milestone directory's name makes it no anchor, or `None` when it is one.
 ///
-/// A milestone is cited `spec@<id>@<slice>` and `milestone@plans@<id>`, so its name is an entity
-/// id, and it is no other anchor's name and no reserved word, or a reference would read as the
+/// A milestone is cited `spec@<id>@<slice>` and `milestone@plans@<id>`, so its name is an entry
+/// id, of two segments or more, and it is no other anchor's name and no reserved word, or a reference would read as the
 /// other anchor, per `design@core@a-placed-name-reads-as-nothing-else`. Judged against the anchors the manifest
 /// accepted.
 pub(crate) fn milestone_refusal(name: &str, manifest: &Manifest) -> Option<String> {
@@ -911,9 +911,9 @@ pub(crate) fn milestone_refusal(name: &str, manifest: &Manifest) -> Option<Strin
 /// when it may be one.
 ///
 /// An entry is cited `<register>@<parent>@<id>`, and its name stands in the anchor position of
-/// every reference to what it carries, so it is an entity id, and no other anchor's name and no
-/// reserved word, per `design@core@a-placed-name-reads-as-nothing-else`. A name another entry
-/// already holds is [`placed_entries`]' question.
+/// every reference to what it carries, so it is an entry id, of two segments or more, and no other
+/// anchor's name and no reserved word, per `design@core@a-placed-name-reads-as-nothing-else`. A
+/// name another entry already holds is [`placed_entries`]' question.
 pub(crate) fn entry_refusal(name: &str, manifest: &Manifest) -> Option<String> {
     // The grammar comes first, and it refuses every one-word name, `index` among them, which
     // would read as the home's own generated listing beside the entry's `<id>.md`.
@@ -2794,15 +2794,15 @@ mod tests {
         let a = Anchors::from_list(vec![root, bare], base.registers().clone());
         let model = Model::from_documents(vec![(
             PathBuf::from("docs/design.md"),
-            "### A decision `##word`\n".to_string(),
+            "### A decision `##a-word`\n".to_string(),
         )]);
         let e = Entities::build(&model, &a);
         assert_eq!(
-            e.resolve(&a, &Kind::new("design"), "nowhere", "word"),
+            e.resolve(&a, &Kind::new("design"), "nowhere", "a-word"),
             Resolution::UnknownAnchor
         );
         assert_eq!(
-            e.resolve(&a, &Kind::new("design"), "bare", "word"),
+            e.resolve(&a, &Kind::new("design"), "bare", "a-word"),
             Resolution::AnchorLacksRegister {
                 carriers: vec!["a-project".to_string()]
             }
@@ -2812,7 +2812,7 @@ mod tests {
             Resolution::Undefined
         );
         assert_eq!(
-            e.resolve(&a, &Kind::new("design"), "a-project", "word"),
+            e.resolve(&a, &Kind::new("design"), "a-project", "a-word"),
             Resolution::Resolved
         );
         // Every anchor but a milestone carries `path`, whatever its register list.
@@ -3199,11 +3199,15 @@ mod tests {
             vec![],
             vec![(
                 ".claude/skills/knowledge-architect-old/SKILL.md",
-                "---\nname: other\n---\n# Old\n\n## Unslugged\n\n## Slugged `##slugged`\n",
+                "---\nname: other\n---\n# Old\n\n## Unslugged\n\n## Slugged `##slugged-part`\n",
             )],
         );
         assert!(e.definition_findings().is_empty(), "{:#?}", whats(&e));
-        assert!(e.defines(&Kind::new(SKILL_KIND), "knowledge-architect-old", "slugged"));
+        assert!(e.defines(
+            &Kind::new(SKILL_KIND),
+            "knowledge-architect-old",
+            "slugged-part"
+        ));
     }
 
     /// The claim: a frontmatter line that reads as a heading, inside a block holding a blank line,

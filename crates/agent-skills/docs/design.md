@@ -136,7 +136,7 @@ It is never named as an artifact the activity writes, because the text names bot
 design skill calls the decision record, and one called "open-issues" with the issue directory. One
 exception holds: agent-configuration is named like the configuration it edits. Its nearest rival,
 agent-setup, reads like the setup skill, and the installer's prefix makes the full name,
-`skill@knowledge-architect-agent-configuration`, read as a skill; the cost is that the name is also the
+"knowledge-architect-agent-configuration", read as a skill; the cost is that the name is also the
 artifact's. A name built on a verb form, such as discussing-design-decisions, reads as a sentence
 and grows long. That argument is the owner's: "naming an "action" makes the skill names into full
 sentences, which is weird and often too long". The rule binds a project's own skills too, through
@@ -687,7 +687,7 @@ The owner's argument: "Since the workflow is instructing that "code follow desig
 not argumented in design records could end up judged "superfluous" and deleted autonomously." Fewer
 heads, per `design@agent-skills@a-head-is-owed-by-an-entry-test`, leaves more intent in comments.
 Without a class of its own, an inline comment reads as a claim about the code, to verify and
-discard; and the design skill's rule, on evaluating an incumbent, on an implementation coincidence applies only while an incumbent
+discard; and `skill@knowledge-architect-design@incumbent-evaluation`'s rule on an implementation coincidence applies only while an incumbent
 design is evaluated. A comment is part of the code, so the head prevails over it. The order serves
 `goal@knowledge-architect@agents-work-without-drift`. In a project whose comments the checker does
 not read, a reference in a comment is not checked, which weakens this record there:
@@ -1349,12 +1349,9 @@ to the live entry, the shape a quotation of the owner naming a renamed entry alr
 `design@agent-skills@a-past-sentence-is-rewritten`: the old slug alone would leave a reader no
 checked way to the entry it names.
 
-The fourth exception is a quotation: text between double quotes, straight or typographic, within
-one paragraph, or a blockquote line, which none of the lints on ids reads, per
-`design@core@plain-word-lint`. A quotation is someone else's words, such as the owner's ruling
-naming a thread by its slug, which its writer may not respell, so a finding in it would have no
-repair the writer may make. A quotation of the writer's own words, made to clear a finding, is the
-evasion this head refuses.
+The fourth exception is a quotation, which none of the lints on ids reads, per
+`design@core@quotation-read-by-no-id-lint`, where its definition and its argument are. A quotation
+of the writer's own words, made to clear a finding, is the evasion this head refuses.
 
 The set of exceptions is closed: each lets a finding clear without a checked form,
 so another one weakens the check, and is argued as a change of this decision.
@@ -2439,7 +2436,8 @@ A confirmed finding of two readings is repaired even where both acts it allows a
 `design@agent-skills@audit-outcomes` says. The rival that left it to judgement where no text rules
 either act out would have left 6 of the 14 findings of two readings the session kept at the fifth
 pass, by a reading of each against the corpus, the design homes and the goals at the commit that
-pass audited. The spec of that work, deleted at its landing, holds the
+pass audited. The spec of that work,
+`path@elsewhere@docs/plans/specs/agentic-workflow-axis.md`, deleted at its landing, holds the
 measurement, and `git log --diff-filter=D --name-only -- docs/plans/` finds it. The findings of a
 reading are worth their repairs: of the first pass, the owner observed that several findings were likely the
 source of a misbehaviour the owner had seen.

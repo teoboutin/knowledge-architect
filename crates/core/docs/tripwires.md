@@ -47,15 +47,11 @@ guards the case where it reports success and returns nothing.
 
 ## Guarding `design@core@at-span-candidate-rule`' silence on an unknown head `##candidate-rule-silence`
 
-**Fires when:** a review, or a session reading a document, finds a span or a token that was meant
-as a reference and for which `cargo klarch check` reported nothing — a typo inside the kind, an
-unmigrated span whose head is neither a kind nor an anchor, or a shape the tokenizer does not
-record. `cargo klarch model` filtered on the file shows whether the span was recorded as a `span`
-or an `unquoted-reference` observation at all. A defined id written alone or as a word, and a
-reference-shaped token outside backticks, are reported by the lints on ids, per
-`design@core@backticked-bare-id`, `design@core@plain-word-lint` and
-`design@core@reference-shape-outside-span`; one of those the lints leave silent fires this entry
-too, outside a quotation and beside no reference to an issue entry.
+**Fires when:** a review, or a session reading a document, finds a backticked span that was
+meant as a reference and for which `cargo klarch check` reported nothing — a typo inside the
+kind, an unmigrated span whose head is neither a kind nor an anchor, or a shape the tokenizer
+does not record. `cargo klarch model` filtered on the file shows whether the span was recorded as
+a `span` observation at all.
 **Response:** widen the candidate rule to the shape found, at
 `design@core@at-span-candidate-rule`, with a false-positive census over the tree for
 the widened class; or re-accept the silence knowingly and record the shape as the reviewer's.

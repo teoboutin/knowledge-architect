@@ -1535,27 +1535,27 @@ The design this decision did not keep: `rejected@core@slug-at-any-heading-or-cel
 ### Every id the checker defines has two segments or more `##two-segment-ids`
 
 An id is `[a-z0-9]+(-[a-z0-9]+)+`: a register entry's id, a plan document's, a slice's, a plan
-item's, a skill's or an agent's name and a section slug. `is_entry_id` in `path@core@src/entity.rs`
-judges a file-register entry, an entry directory, a milestone, a spec's file, a milestone segment
-of a plans path and a harness name, and the shipped text's section placeholder is held to it by the
-agent-skills build. The scanner records a slug of one segment where it records any slug, and the
-entity table reports it where it defines it, with the repair "rename it with a second segment", so
-a heading carrying one reads as an entry with a wrong slug rather than as one with none. A plan
-document numbers its argument items `arg-1`, `arg-2`, as the planning skill states. A register's
-name and its directory keep the grammar of one segment or more: they are the kind and the home a
-reference names, and no lint reads them in prose.
+item's, a skill's or an agent's name and a section slug, at every site that judges one, the
+shipped text's section placeholders included. A slug of one segment is reported where it is
+defined, with the repair "rename it with a second segment", so a heading carrying one reads as an
+entry with a wrong slug rather than as one with none. A plan document numbers its argument items
+`arg-1`, `arg-2`, as `skill@knowledge-architect-planning@spec-contents` states. A register's name
+and its directory keep the grammar of one segment or more: they are the kind and the home a
+reference names, and no lint on ids reports one as an id.
 
-**The rule is the owner's proposal**, made against the lints' noise and kept after the session
-argued against it at the owner's request. Two segments keep a defined id from being an ordinary
-word, so the lints on ids, `design@core@backticked-bare-id` and `design@core@plain-word-lint`,
-report a pointer and not a word: the census of the design discussion counted, in thaum, 661 plain
-hits on its one-word ids, issues named after a feature area such as `combat`, and 8 ordinary words
-in backticks. A rename of the id is a migration, which costs a consumer no capability: a two-word id
+**The rule is the owner's proposal.** Two segments keep a defined id from being an ordinary word,
+so the lints on ids, `design@core@backticked-bare-id` and `design@core@plain-word-lint`, report a
+pointer and not a word: in the census of the design discussion, the one-word ids of thaum, its
+issues named after a feature area and its argument items, drew most of its plain hits and its
+ordinary words in backticks. A rename of the id is a migration, which costs a consumer no capability: a two-word id
 that names the subject without a claim, such as `combat-coverage`, keeps the stability a feature's
 own name had. The nearest rival, one-word ids exempt from the lints, leaves every mention of such an
 id unchecked for good: `rejected@core@one-word-id-exception`. A second rival, plan items exempt
 from the grammar since they are scoped to their plan, adds an exception justified by nothing but
-that scope. This serves `goal@knowledge-architect@documentation-stays-consistent`.
+that scope: `rejected@core@plan-items-exempt-from-the-grammar`. The census figures are those of
+the design discussion, kept in its spec,
+`path@elsewhere@docs/plans/specs/defined-ids-outside-references.md`, deleted at its landing; the
+lints on ids are now the instrument that re-takes them, over a project's tree at its upgrade. This serves `goal@knowledge-architect@documentation-stays-consistent`.
 
 ### An entry's heading puts its statement before its slug `##statement-precedes-the-slug`
 
@@ -1744,8 +1744,9 @@ backticked span, each in its grammar: an anchor name or `*`, and an id of two se
 `design@core@two-segment-ids`, a register's name for the `register` kind. So an email address, a
 URL or a git remote never matches: its head is no kind, or its last segment is no id. The token
 starts after a character that is no letter, digit, `@`, `/`, `.` or backtick, and ends at
-whitespace or at a `]`, which closes a link's text, less the punctuation that ends a sentence or a
-clause and the markdown that closes an emphasis or a quotation around it. A token holding an angle
+whitespace, at a `]`, which closes a link's text, or at an apostrophe, which opens a possessive,
+less the punctuation that ends a sentence or a clause and the markdown that closes an emphasis or a
+quotation around it. A token holding an angle
 bracket is a placeholder, and is silent. The finding names its repair, the token in backticks, and,
 where the token names nothing of this project, a rewrite of the sentence; `check --fix` writes
 nothing for it, as for the other lints on ids, per `design@core@backticked-bare-id`.
@@ -1755,15 +1756,16 @@ is then the first exception of `design@agent-skills@plain-text-is-no-repair`: te
 syntax that no checked form expresses, written beside the issue that records the missing form. The
 check reads the exception mechanically rather than leaving it to review, so the escape stays
 available and nothing else clears the finding. **A quotation is read by none of the lints on ids**,
-per `design@core@plain-word-lint`, since it is someone else's words.
+per `design@core@quotation-read-by-no-id-lint`.
 
 The token is the same defect in any prose, so the check reads every region the scanner reads,
 fenced blocks included, as `design@core@a-reference-is-live-in-every-prose` reads a fence. The
 nearest rival, the check limited to the `%%` comment lines of the shipped text, which a
 retrospective proposed, adds a rule with no reason behind it: a token written without its backticks
 in a design home dangles as silently as one in a comment line. The census taken in the design
-discussion found 15 such tokens in this repository, every one a pointer, and none in thaum; the
-lint reports a token a writer stripped of its backticks, which is the evasion
+discussion, kept in its spec, `path@elsewhere@docs/plans/specs/defined-ids-outside-references.md`,
+found such tokens in this repository, every one a pointer, and none in thaum; the lint reports a
+token a writer stripped of its backticks, which is the evasion
 `design@agent-skills@plain-text-is-no-repair` refuses, and serves
 `goal@knowledge-architect@documentation-stays-consistent`.
 
@@ -1926,14 +1928,15 @@ The designs this decision did not keep: `rejected@core@bare-root-relative-path`,
 
 ### A backticked span that is exactly a defined id is a finding, whose repair names every reference the id can take `##backticked-bare-id`
 
-The scanner records every backticked span that is one word in the id grammar, a span wrapped
-across a line break at one of its hyphens joined, outside a quotation. A lint of the last phase
+The scanner records every backticked span that is one word in the grammar of one segment or more,
+a span wrapped across a line break at one of its hyphens joined, outside a quotation, per
+`design@core@quotation-read-by-no-id-lint`. A lint of the last phase
 reports such a span when the entity table defines its id: a register entry's id, a plan document's,
 a slice's, a skill's or an agent's name, a section slug of a skill, an agent, the primer or the
 root CLAUDE.md, and an item's id inside its own plan, the only place an item may be cited, per
 `design@core@plan-item-scope`. Its repair is the entry's reference. A section slug is in scope as a
-register's id is: the census of the design discussion found 34 plain hits on 10 section slugs in
-this repository, most of them pointers written in words. Under `harness = []` the table defines no harness
+register's id is: the census of the design discussion found section slugs written bare or in words,
+most of them pointers. Under `harness = []` the table defines no harness
 kind, per `design@core@harness-kinds`, so their names and slugs are silent. A commit message is
 judged as every lint is, per `design@core@a-commit-message-is-a-document`, so a span naming an
 entry the commit deletes is reported against its first parent's tree, and the candidates of both
@@ -1948,64 +1951,72 @@ listing of such spans, leaves every such pointer silent: `rejected@core@bare-id-
 entry has left are silent, so the lint reports no span that names nothing here. Every id has two
 segments or more, per `design@core@two-segment-ids`, so no ordinary word in backticks is a
 defined id; a hyphenated term that is, such as a project skill named like a command, is renamed,
-as `design@core@plain-word-lint` says of a subject slug.
+as `design@core@plain-word-lint` says of a subject slug. Whether a skill's name meets such a term
+rests on the names: the installed ones carry the installer's prefix, and a project's own carry its
+prefix, per `design@agent-skills@project-name-prefix`, which nothing checks yet, per
+`issue@core@tooling-for-project-skills`. The census of the design discussion found few spans that
+were no pointer, in thaum thread names backticked in a plan table against the design skill's own
+rule. Re-take the false positives with `cargo klarch check` over a tree that has not
+rewritten its bare ids, such as another project's at its upgrade, counting this lint's findings: a
+finding on a span that the writer's own rules allow and that is not meant as a pointer reopens the
+exact match.
 
 **An id that several entries define gets one finding, which lists every reference it can take and
-chooses none.** A skill and an agent of one name, an agent's section slug shared by three agents and
-a slug that two Components each define are the cases the census found, 18 such ids here and 41 in
-thaum. Choosing the nearest definition would make the checker supply a meaning the writer did not
+chooses none.** A skill and an agent of one name, and an agent's section slug shared by three agents,
+are among the cases the census found, in this repository and in thaum. Choosing the nearest definition would make the checker supply a meaning the writer did not
 write, so the writer chooses. The same holds for the plain-word lint.
 
-**The lints on ids report, and `check --fix` writes nothing for them.** Respelling a span into its
-reference is a fix whose bytes the tree determines only where one entry defines the id, and it is
-the subject of `spec@plans@path-quickfixes`. The rule holds for the three lints on ids.
+**The lints on ids report, and `check --fix` writes nothing for them**: no respelling of a
+hand-written file is among the fixes `design@core@fix-scope` admits, per
+`design@core@safe-fix-definition`. Respelling a span into its reference is the subject of
+`spec@plans@path-quickfixes`. The rule holds for the three lints on ids.
 
 **In a released section of CHANGELOG.md the id is written as its reference too**, a structural
-change, and as the bare id again once its entry is deleted, per
-`design@knowledge-architect@changelog-section-fixed-at-release`. That bare id names nothing in the
-table, so the lint leaves it silent.
+change, and a skill's or an agent's name as the bare name again once it is deleted, per
+`design@knowledge-architect@changelog-section-fixed-at-release`. That bare name names nothing in
+the table, so the lint leaves it silent.
 
-### A plain word that is exactly a defined id is a finding, and a quotation is read by none of the lints on ids `##plain-word-lint`
+### A plain word that is exactly a defined id is a finding `##plain-word-lint`
 
-A word outside every backtick span, in every prose region the checker reads, that is exactly a
-defined id, as `design@core@backticked-bare-id` defines one, is a finding. A word is bounded as an
-id is: no letter, digit, hyphen, `/`, `@`, `#` or brace on either side, and no `.` followed by a
-letter or a digit after it, so a file name, a path, a reference, a slug with its hashes and a
-template's placeholder holding an id are no word, and an id that ends a sentence is one. A URL and
-an HTML comment inside a line hold no word. The value
-of a frontmatter `name` line is the name a skill or an agent is defined by, not a mention, and is
-not read. Its repair names the reference, and adds that where the word is meant as an ordinary
-term, the entry's slug names a subject: the entry is renamed to state its decision, as
-`primer@design-heads` asks of a slug.
+A word outside every backtick span and every quotation, in every prose region the checker reads,
+that is exactly a defined id, as `design@core@backticked-bare-id` defines one, is a finding. A word
+is bounded as an id is: no letter, digit, hyphen, `/`, `@`, `#` or brace on either side, and no `.`
+followed by a letter or a digit after it, so a file name, a path, a reference, a slug with its
+hashes and a template's placeholder holding an id are no word, and an id that ends a sentence is
+one. A URL and an HTML comment inside a line hold no word. The value of a frontmatter `name` line is
+the name a skill or an agent is defined by, not a mention, and is not read. Its repair names the
+reference, and adds that where the word is meant as an ordinary term, the entry's slug names a
+subject: the entry is renamed to state its decision, as `primer@design-heads` asks of a slug.
 
 **The rule is the owner's**, given against the session's proposal of a listing in `show`: a word
-meant as an ordinary term shows a slug wrongly chosen and not specific enough. The census bore it
-out: every plain hit that was no pointer came from a subject slug, and every other hit was a pointer
-written in words. A listing would leave those pointers unchecked: `rejected@core@plain-word-mention`.
-A slug kept as a concept index, so that a term's mentions read as its pointers, is not the
-intended use of the workflow, on the owner's word, and `show` lists every citation of an entry.
-`register@core@tripwire` watches the premise: a finding the owner rules to be on a word that is
-neither a pointer nor a subject slug.
+meant as an ordinary term probably shows a slug wrongly chosen and not specific enough, in the
+owner's view. The census of the design discussion bore it out: every plain hit that was no pointer
+came from a subject slug, and every other hit was a pointer written in words. A listing would leave
+those pointers unchecked: `rejected@core@plain-word-mention`. A slug kept as a concept index, so
+that a term's mentions read as its pointers, is not the intended use of the workflow, in the
+owner's view, and `show` lists every citation of an entry. `register@core@tripwire` watches the
+premise: a finding the owner rules to be on a word that is neither a pointer nor a subject slug.
 
-**A quotation is read by none of the three lints on ids**: text between `"` and `"`, or `“` and
-`”`, within one paragraph, or a blockquote line. A quotation is someone else's words, such as the
-owner's ruling on a thread named by its slug, or the rules text of a specification, which its
-writer may not respell; a finding there would have no repair the writer may make. A quotation left
-open ends at its paragraph, which ends at a blank line, a heading, a fence's edge, a list item or a
-table row, the blocks a renderer shows apart, so it cannot silence the rest of a file. A
-pointer someone writes inside a quotation goes unchecked, which is what the exemption costs. It is
-the fourth exception of `design@agent-skills@plain-text-is-no-repair`.
+**A released section of CHANGELOG.md is linted** as any other prose; how a finding there is ruled
+is `design@knowledge-architect@changelog-section-fixed-at-release`.
 
-**A released section of CHANGELOG.md is linted.** A finding there is ruled by the owner case by
-case, and its repair, the reference, is a structural change the section allows, per
-`design@knowledge-architect@changelog-section-fixed-at-release`. The rule applies to future
-sections as to past ones, on the owner's word.
+**The lints cost little time.** Re-take it with `klarch check` over this repository, release
+build, median of five runs on one machine, against the same commit built with the lints' arms and
+the scanner's reading for them removed: a run that takes more than 10% longer than that one reopens
+the scan.
 
-**The lints cost little time.** The scanner reads each line once more for them, and passes over a
-line holding no quotation mark, no `@` or no hyphen before any pattern runs; the table is looked up
-once per word. Re-take it with `klarch check` over this repository, release build, median of five
-runs, against the same commit built with the lints' arms and that reading removed: a cost that grows
-toward a tenth of the run reopens the scan.
+### A quotation is read by none of the lints on ids `##quotation-read-by-no-id-lint`
+
+A quotation is text between `"` and `"`, or `“` and `”`, within one paragraph, or a blockquote
+line. None of the three lints on ids, `design@core@reference-shape-outside-span`,
+`design@core@backticked-bare-id` and `design@core@plain-word-lint`, reads one. A quotation is
+someone else's words, such as the owner's ruling on a thread named by its slug, or the rules text of
+a specification, which its writer may not respell, so a finding there would have no repair the
+writer may make. A quotation left open ends at its paragraph, which ends at a blank line, a heading,
+a fence's edge, a list item or a table row, the blocks a renderer shows apart, so it cannot silence
+the rest of a file. A pointer someone writes inside a quotation goes unchecked, which is what the
+exemption costs. The nearest rival, no exemption, would report words the writer may not change. It
+is the fourth exception of `design@agent-skills@plain-text-is-no-repair`.
 
 ### The escape for a path this tree does not hold, under `path`, and `*` for every component's own copy, under `path` and `register`, are reserved anchor words `##reserved-anchors`
 

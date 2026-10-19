@@ -43,7 +43,7 @@ symptom, per `design@agent-skills@no-routing-table`, since that description is h
 a session. A skill that breaks either is found by review or not at all. The lints on ids,
 `design@core@backticked-bare-id` and `design@core@plain-word-lint`, rest on the prefix too: a
 project skill named like a hyphenated term, such as `follow-up`, makes every use of that term a
-finding.
+finding, and the prefix is what keeps a project's names apart from such terms.
 
 ### What would close it
 

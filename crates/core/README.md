@@ -105,10 +105,11 @@ from the tree, the `register` kind against the anchors that carry the register, 
 CLAUDE.md, cited with no anchor as `skill@<name>@<slug>` — and reports the retired slug
 reference form and the unanchored path shape where either names something of this project, and
 a defined id written outside its reference form: a reference-shaped token outside backticks, per
-`design@core@reference-shape-outside-span`, and an id written in backticks alone or as a plain
-word, per `design@core@backticked-bare-id`. An id several entries define gets one finding
-listing each reference, and a quotation, between double quotes or on a blockquote line, is read by
-none of the three.
+`design@core@reference-shape-outside-span`, an id written in backticks alone, per
+`design@core@backticked-bare-id`, and an id written as a plain word, per
+`design@core@plain-word-lint`. An id several entries define gets one finding listing each
+reference, and a quotation, between double quotes or on a blockquote line, is read by none of the
+three, per `design@core@quotation-read-by-no-id-lint`.
 The directory of an anchor other than the root has no spelling under its own name, so a reference
 names it from the anchor above it, as `path@<parent-anchor>@<dir>/`, per
 `design@core@every-path-names-its-anchor`. An illustration of a form writes its id as a placeholder
@@ -485,7 +486,8 @@ its `README.md` names the entry's own reference. A register named `register` is 
 
 **A plan's name reads as nothing else.** A milestone's name or a spec's id that is the name of a
 component, of a location or of `plans`, `elsewhere` or `*`, and one name used under both homes,
-are findings. So is a milestone name outside the id grammar, `[a-z0-9]+(-[a-z0-9]+)+`. An entry of
+are findings. So is a milestone name outside the id grammar, `[a-z0-9]+(-[a-z0-9]+)+`, per
+`design@core@two-segment-ids`. An entry of
 a declared directory register gives way to every plan of the same name.
 
 A tree that breaks this layout stops the run at phase 2, except a home's missing `README.md` or

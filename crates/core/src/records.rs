@@ -483,18 +483,21 @@ mod tests {
     #[test]
     fn a_heading_entry_is_its_own_section_and_loses_the_slug_from_its_title() {
         let home = "# Tripwires\n\n\
-                    ## The first one `##first`\n\n\
+                    ## The first one `##first-one`\n\n\
                     **Fires when:** it fires, guarding `design@a-project@a-decision`, and see \
                     `path@a-project@docs/design.md` and `issue@notes@a-thing`.\n\n\
                     **Response:** reopen `design@a-project@a-decision`, and read \
                     `design@a-project@another-one`, `reading@notes@a-reading`, \
-                    `goal@a-project@a-goal`, `tripwire@a-project@second` and \
+                    `goal@a-project@a-goal`, `tripwire@a-project@second-one` and \
                     `rejected@a-project@not-kept`.\n\n\
-                    ## The second one `##second`\n\n\
+                    ## The second one `##second-one`\n\n\
                     **Fires when:** something else.\n";
         let found = rows(vec![("docs/tripwires.md", home)], "tripwire");
         assert_eq!(found.len(), 2, "{found:#?}");
-        let first = found.iter().find(|r| r.id == "first").expect("the first");
+        let first = found
+            .iter()
+            .find(|r| r.id == "first-one")
+            .expect("the first");
         assert_eq!(first.title, "The first one");
         assert_eq!(first.site.line, 3);
         // The section stops at the next heading of the same level, so the second entry's body
@@ -522,7 +525,10 @@ mod tests {
             "design@a-project@a-decision design@a-project@another-one \
              reading@notes@a-reading goal@a-project@a-goal"
         );
-        let second = found.iter().find(|r| r.id == "second").expect("the second");
+        let second = found
+            .iter()
+            .find(|r| r.id == "second-one")
+            .expect("the second");
         assert!(second.guards.is_empty(), "{second:#?}");
         assert_eq!(second.guarding(), "-");
     }
@@ -537,7 +543,7 @@ mod tests {
             ),
             (
                 PathBuf::from("docs/tripwires.md"),
-                "# Tripwires\n\n## One `##one`\n\nGuarding `design@a-project@a-decision`.\n"
+                "# Tripwires\n\n## One `##tripwire-one`\n\nGuarding `design@a-project@a-decision`.\n"
                     .to_string(),
             ),
             (

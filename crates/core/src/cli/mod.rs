@@ -1776,7 +1776,7 @@ mod tests {
     /// any run stops at the fenced heading; a level-one heading ignored runs past it.
     #[test]
     fn a_section_runs_to_the_next_heading_outside_a_fence() {
-        let text = "# T\n\n## A `##a`\n\n````\n```sh\n## In the fence\n````\n\nend of A\n\n# Next\n\nafter\n";
+        let text = "# T\n\n## A `##a-section`\n\n````\n```sh\n## In the fence\n````\n\nend of A\n\n# Next\n\nafter\n";
         let section = super::section_text(text, 3);
         assert!(section.contains("end of A"), "{section}");
         assert!(!section.contains("after"), "{section}");
