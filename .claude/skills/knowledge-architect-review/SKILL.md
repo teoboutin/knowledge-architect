@@ -61,8 +61,9 @@ their reports reach the session as messages of its transcript.
 
 **Find each transcript file by the message where the work begins, never by a session
 identifier.** Search the harness's transcript directory for the opening words of that message, and
-name a file only once it is seen to hold the message: a session that was cleared or compacted can
-leave an earlier session's identifier in the harness's paths.
+name a file only once it is seen to hold the message as one the owner sent, not as a quotation of
+it in a later session: a session that was cleared or compacted can leave an earlier session's
+identifier in the harness's paths.
 
 ## The invariants `##review-invariants`
 
