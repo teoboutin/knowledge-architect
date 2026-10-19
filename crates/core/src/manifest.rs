@@ -85,6 +85,10 @@ pub(crate) const SPECS_HOME: &str = "specs";
 /// The home of the `milestone` register under [`PLANS_DIR`].
 pub(crate) const MILESTONES_HOME: &str = "milestones";
 
+/// The `dir` of a register whose home is its carrier's own directory rather than a directory
+/// under it, per `design@core@home-at-the-carrier-path`.
+pub(crate) const CARRIER_DIR: &str = ".";
+
 /// The item register of a plan's threads.
 pub(crate) const THREAD_REGISTER: &str = "thread";
 
@@ -172,7 +176,8 @@ pub(crate) enum Shape {
     /// Entries are files `<id>.md` under `<dir>/`, beside a README and a generated index.
     File,
     /// Entries are directories `<id>/` under `<dir>/`, each holding a `README.md`, beside a
-    /// README and a generated index. Only `milestone` has it: each entry is an anchor of its own.
+    /// README and a generated index. Each entry is an anchor of its own, carrying the registers
+    /// the Directory register's `carries` names, at the entry's own directory.
     Directory,
     /// Entries are level-three headings carrying a slug, under the level-two section the register
     /// names, in the documents of a plan anchor. Only the four item registers have it.
@@ -208,11 +213,23 @@ pub(crate) struct Register {
     pub kinds: Vec<String>,
     /// Section shape: the level-two section whose level-three headings are its entries.
     pub section: Option<String>,
+    /// Directory shape: the registers each entry carries, at the entry's own directory.
+    pub carries: Vec<String>,
     /// Whether this register is one of those the tool compiles in.
     pub built_in: bool,
 }
 
 impl Register {
+    /// The directory of this register's home under `base`: `<base>/<dir>`, or `base` itself for
+    /// a register declared at its carrier's own path.
+    pub(crate) fn home_in(&self, base: &Path) -> PathBuf {
+        if self.dir == CARRIER_DIR {
+            base.to_path_buf()
+        } else {
+            base.join(&self.dir)
+        }
+    }
+
     /// The subsections an entry of this register owes under its last section, given the
     /// value of its first metadata key. Empty for every register but `issue`.
     pub(crate) fn owed_subsections(&self, kind: Option<&str>) -> &'static [&'static str] {
@@ -267,6 +284,7 @@ impl Registers {
             metadata: Vec::new(),
             kinds: Vec::new(),
             section: None,
+            carries: Vec::new(),
             built_in: true,
         };
         let mut out = vec![
@@ -287,6 +305,7 @@ impl Registers {
                 )],
                 kinds: ISSUE_KINDS.iter().map(|k| k.to_string()).collect(),
                 section: None,
+                carries: Vec::new(),
                 built_in: true,
             },
         ];
@@ -294,12 +313,15 @@ impl Registers {
         // declared anchor may. A plan document owes the plan sections; a slice spec owes its own
         // list, which `Anchor::sections_of` gives at a milestone anchor.
         out.push(plan(SPEC_REGISTER, Shape::File, SPECS_HOME, None));
-        out.push(plan(
-            MILESTONE_REGISTER,
-            Shape::Directory,
-            MILESTONES_HOME,
-            None,
-        ));
+        // A milestone is the built-in Directory register: each entry carries the slice specs
+        // and the four item registers, per `design@core@milestone-entries-are-directories`.
+        out.push(Register {
+            carries: std::iter::once(SPEC_REGISTER)
+                .chain(ITEM_REGISTERS.iter().map(|(name, _, _)| *name))
+                .map(str::to_string)
+                .collect(),
+            ..plan(MILESTONE_REGISTER, Shape::Directory, MILESTONES_HOME, None)
+        });
         for (name, dir, section) in ITEM_REGISTERS {
             out.push(plan(name, Shape::Section, dir, Some(section)));
         }
@@ -332,6 +354,7 @@ fn plan(name: &str, shape: Shape, dir: &str, section: Option<&str>) -> Register 
         metadata: Vec::new(),
         kinds: Vec::new(),
         section: section.map(str::to_string),
+        carries: Vec::new(),
         built_in: true,
     }
 }
@@ -349,6 +372,7 @@ pub(crate) struct RegisterDecl {
     #[serde(default)]
     pub metadata: BTreeMap<String, MetadataDecl>,
     pub kinds: Option<Vec<String>>,
+    pub carries: Option<Vec<String>>,
 }
 
 /// One frontmatter key an entry must carry, and the values it accepts.
@@ -832,8 +856,9 @@ pub fn normalise_one(list: &str, path: &mut PathBuf, complaints: &mut Vec<Findin
 ///
 /// A register's name is what a reference spells in kind position, so a name outside the id
 /// grammar is a register nothing can point at, and `path` and `planned` are names the resolver
-/// answers before it ever reaches the register list. Its home is `<home base>/<dir>`, so a `dir` that
-/// is not one plain segment puts the home somewhere the anchor does not reach, and a `dir`
+/// answers before it ever reaches the register list. Its home is `<home base>/<dir>`, so a `dir`
+/// that is neither one plain segment nor [`CARRIER_DIR`] puts the home somewhere the anchor does
+/// not reach, [`CARRIER_DIR`] on a component register puts it at every component's `docs/`, and a `dir`
 /// that makes the root's home the plans directory gives one directory two meanings. Each is a
 /// complaint, and the register is not declared. The built-in ones are named and placed by
 /// this tool and are never refused here.
@@ -875,7 +900,19 @@ fn resolve_registers(registers: &mut Registers, complaints: &mut Vec<Finding>) {
                 "name it in lower-case words joined by hyphens; a register nothing can point \
                  at is one every pointer misses in silence",
             ))
-        } else if !crate::entity::is_entity_id(&register.dir) {
+        } else if register.dir == CARRIER_DIR && register.scope == Scope::Component {
+            // Every component would keep the home at its own `docs/`, the directory that holds
+            // its other homes, so one directory would answer for several registers.
+            Some((
+                format!(
+                    "the {} register's directory `{CARRIER_DIR}` puts its home at each \
+                     component's docs/, beside the component's other homes",
+                    register.name
+                ),
+                "give the register a directory of its own, or scope it `opt-in` and declare a \
+                 location that carries it at its own path",
+            ))
+        } else if register.dir != CARRIER_DIR && !crate::entity::is_entity_id(&register.dir) {
             Some((
                 format!(
                     "the {} register's directory `{}` is not one plain segment",
@@ -931,6 +968,42 @@ fn resolve_registers(registers: &mut Registers, complaints: &mut Vec<Finding>) {
         taken.push((register.name.clone(), register.dir.clone()));
         true
     });
+    resolve_carries(registers, complaints);
+}
+
+/// What a Directory register's entries carry is a register a location could carry: an `opt-in`
+/// register of the heading or file shape, per `design@core@declarable-directory-register`.
+///
+/// A component-scoped register is carried by every component already, a plan register by the
+/// plan anchors alone, and a Directory register carried by an entry would nest anchors inside
+/// anchors, which nothing has asked for. A refused name leaves the list and is reported, so the
+/// entries carry what remains. Run after the refusals above, so a name that was refused as a
+/// register is reported as no register here.
+fn resolve_carries(registers: &mut Registers, complaints: &mut Vec<Finding>) {
+    let known: Vec<(String, Scope, Shape, bool)> = registers
+        .0
+        .iter()
+        .map(|r| (r.name.clone(), r.scope, r.shape, r.built_in))
+        .collect();
+    for register in registers.0.iter_mut().filter(|r| !r.built_in) {
+        let name = register.name.clone();
+        register.carries.retain(|carried| {
+            let why = match known.iter().find(|(n, ..)| n == carried) {
+                None => "is no register",
+                Some((_, _, _, true)) => "is a built-in register",
+                Some((_, Scope::Component, ..)) => "is carried by every component already",
+                Some((_, _, Shape::Directory, _)) => "is a directory register",
+                Some(_) => return true,
+            };
+            complaints.push(Finding::in_file(
+                MANIFEST_NAME,
+                format!("[registers.{name}] carries `{carried}`, which {why}"),
+                "name an `opt-in` register of the heading or file shape; each entry carries \
+                 it at the entry's own directory",
+            ));
+            false
+        });
+    }
 }
 
 /// One anchor as the declaration names it, before it is accepted.
@@ -1000,7 +1073,7 @@ fn resolve_anchors(
     let component_homes = |path: &Path| -> Vec<(String, PathBuf)> {
         registers
             .component_scoped()
-            .map(|r| (r.name.clone(), path.join("docs").join(&r.dir)))
+            .map(|r| (r.name.clone(), r.home_in(&path.join("docs"))))
             .collect()
     };
     let mut candidates: Vec<Candidate> = vec![Candidate {
@@ -1085,6 +1158,32 @@ fn resolve_anchors(
             dirs.push((known.name.clone(), known.dir.clone()));
             true
         });
+        // A register at the location's own path makes the location its home, so any other
+        // register's home would sit inside it: one path, two meanings, per
+        // `design@core@home-at-the-carrier-path`. The first such register named keeps the
+        // location, and the others leave the row.
+        let at_path = decl.registers.iter().find(|r| {
+            registers
+                .by_name(r)
+                .is_some_and(|known| known.dir == CARRIER_DIR)
+        });
+        if let Some(at_path) = at_path.cloned() {
+            decl.registers.retain(|register| {
+                if *register == at_path {
+                    return true;
+                }
+                complaints.push(Finding::in_file(
+                    MANIFEST_NAME,
+                    format!(
+                        "[locations.{name}] carries the {at_path} register at its own path, and \
+                         `{register}` besides"
+                    ),
+                    "declare another location for it; the location is the home of the register \
+                     it carries at its own path, and every other home would sit inside that one",
+                ));
+                false
+            });
+        }
         candidates.push(Candidate {
             name: name.clone(),
             path: decl.path.clone(),
@@ -1093,7 +1192,7 @@ fn resolve_anchors(
                 .registers
                 .iter()
                 .filter_map(|r| registers.by_name(r))
-                .map(|r| (r.name.clone(), decl.path.join(&r.dir)))
+                .map(|r| (r.name.clone(), r.home_in(&decl.path)))
                 .collect(),
             declared_at: format!("[locations.{name}]"),
             tool_built: false,
@@ -1318,6 +1417,9 @@ fn build_registers(
             if !decl.metadata.is_empty() {
                 wrong.push("metadata");
             }
+            if decl.carries.is_some() {
+                wrong.push("carries");
+            }
             if !wrong.is_empty() {
                 complaints.push(format!(
                     "[registers.{name}] sets {} on a built-in register",
@@ -1356,10 +1458,11 @@ fn build_registers(
         let shape = match decl.shape.as_deref() {
             Some("heading") => Shape::Heading,
             Some("file") => Shape::File,
+            Some("directory") => Shape::Directory,
             other => {
                 complaints.push(format!(
                     "[registers.{name}] declares shape {}; a declared register takes \
-                     `heading` or `file`",
+                     `heading`, `file` or `directory`",
                     other.unwrap_or("nothing")
                 ));
                 Shape::File
@@ -1371,6 +1474,38 @@ fn build_registers(
                  which has neither"
             ));
         }
+        if shape == Shape::Directory && (!decl.sections.is_empty() || !decl.metadata.is_empty()) {
+            complaints.push(format!(
+                "[registers.{name}] declares sections or metadata on a directory register, \
+                 whose entries are directories"
+            ));
+        }
+        // What each entry of a Directory register carries is what makes the entry an anchor
+        // worth naming; which names are acceptable is `resolve_carries`' question, once every
+        // declared register is known.
+        let carries = match (shape, &decl.carries) {
+            (Shape::Directory, Some(carried)) if !carried.is_empty() => carried.clone(),
+            (Shape::Directory, _) => {
+                complaints.push(format!(
+                    "[registers.{name}] declares no carries; a directory register names the \
+                     registers each of its entries carries"
+                ));
+                Vec::new()
+            }
+            (_, Some(_)) => {
+                complaints.push(format!(
+                    "[registers.{name}] declares carries on a {} register; only a directory \
+                     register's entries carry registers",
+                    if shape == Shape::Heading {
+                        "heading"
+                    } else {
+                        "file"
+                    }
+                ));
+                Vec::new()
+            }
+            (_, None) => Vec::new(),
+        };
         let level = match (shape, decl.level) {
             // Level one is the document's title, so no register's entries sit there.
             (Shape::Heading, Some(level @ 2..=6)) => Some(level as u8),
@@ -1388,8 +1523,16 @@ fn build_registers(
                 ));
                 None
             }
-            // A declared shape is `heading` or `file`; the others are the plan registers'.
-            (Shape::File | Shape::Directory | Shape::Section, Some(_)) => {
+            (Shape::Directory, Some(_)) => {
+                complaints.push(format!(
+                    "[registers.{name}] declares a level on a directory register, whose entries \
+                     are directories"
+                ));
+                None
+            }
+            // A declared shape is `heading`, `file` or `directory`; `Section` is the item
+            // registers'.
+            (Shape::File | Shape::Section, Some(_)) => {
                 complaints.push(format!(
                     "[registers.{name}] declares a level on a file register, whose entries \
                      are files"
@@ -1412,6 +1555,7 @@ fn build_registers(
                 .collect(),
             kinds: Vec::new(),
             section: None,
+            carries,
             built_in: false,
         });
     }
@@ -2381,6 +2525,156 @@ pub(crate) mod tests {
         let root = this_project();
         let deep = root.join("crates/core/src");
         assert_eq!(Manifest::find(&deep).expect("a manifest").root(), root);
+    }
+
+    /// The claim: a declared Directory register names what its entries carry, an `opt-in`
+    /// register of the heading or file shape, and every other name is a complaint that leaves the
+    /// list, per `design@core@declarable-directory-register`; the built-in `milestone` carries the
+    /// slice specs and the four item registers.
+    #[test]
+    fn a_directory_register_carries_only_what_a_location_could_carry() {
+        let carried = "[registers.note]\nscope = \"opt-in\"\nshape = \"heading\"\nlevel = 3\n\n\
+                       [registers.card]\nscope = \"opt-in\"\nshape = \"file\"\n\n\
+                       [registers.shared]\nscope = \"component\"\nshape = \"file\"\n\n\
+                       [registers.other]\nscope = \"opt-in\"\nshape = \"directory\"\n\
+                       carries = [\"note\"]\n\n";
+        let m = with_registers(&format!(
+            "{carried}[registers.subject]\nscope = \"opt-in\"\nshape = \"directory\"\n\
+             carries = [\"note\", \"card\"]\n"
+        ));
+        assert!(whats(&m).is_empty(), "{:?}", whats(&m));
+        let subject = m.registers().by_name("subject").expect("subject");
+        assert_eq!(subject.shape, Shape::Directory);
+        assert_eq!(subject.carries, ["note", "card"]);
+
+        let m = with_registers(&format!(
+            "{carried}[registers.subject]\nscope = \"opt-in\"\nshape = \"directory\"\n\
+             carries = [\"note\", \"nothing\", \"design\", \"shared\", \"spec\", \"other\"]\n"
+        ));
+        let w = whats(&m);
+        for refused in [
+            "carries `nothing`, which is no register",
+            "carries `design`, which is a built-in register",
+            "carries `shared`, which is carried by every component already",
+            "carries `spec`, which is a built-in register",
+            "carries `other`, which is a directory register",
+        ] {
+            assert!(w.iter().any(|c| c.contains(refused)), "{refused}: {w:?}");
+        }
+        assert_eq!(w.len(), 5, "{w:?}");
+        assert_eq!(
+            m.registers().by_name("subject").expect("subject").carries,
+            ["note"]
+        );
+
+        for (body, complaint) in [
+            ("shape = \"directory\"\n", "declares no carries"),
+            (
+                "shape = \"directory\"\ncarries = []\n",
+                "declares no carries",
+            ),
+            (
+                "shape = \"heading\"\nlevel = 3\ncarries = [\"note\"]\n",
+                "carries on a heading register",
+            ),
+            (
+                "shape = \"directory\"\ncarries = [\"note\"]\nlevel = 3\n",
+                "a level on a directory register",
+            ),
+            (
+                "shape = \"directory\"\ncarries = [\"note\"]\nsections = [\"A\"]\n",
+                "sections or metadata on a directory register",
+            ),
+        ] {
+            let m = with_registers(&format!(
+                "{carried}[registers.subject]\nscope = \"opt-in\"\n{body}"
+            ));
+            let w = whats(&m);
+            assert!(
+                w.iter().any(|c| c.contains(complaint)),
+                "{complaint}: {w:?}"
+            );
+        }
+        let m = with_registers("[registers.milestone]\ncarries = [\"design\"]\n");
+        assert!(
+            whats(&m)
+                .iter()
+                .any(|c| c.contains("declares a plan register")),
+            "{:?}",
+            whats(&m)
+        );
+        let m = with_registers("[registers.design]\ncarries = [\"goal\"]\n");
+        assert!(
+            whats(&m)
+                .iter()
+                .any(|c| c.contains("sets carries on a built-in")),
+            "{:?}",
+            whats(&m)
+        );
+        let milestone = m
+            .registers()
+            .by_name(MILESTONE_REGISTER)
+            .expect("milestone");
+        assert_eq!(
+            milestone.carries,
+            [
+                SPEC_REGISTER,
+                "thread",
+                "argument",
+                "criterion",
+                "acceptance"
+            ]
+        );
+    }
+
+    /// The claim: a register declared at its carrier's own path, `dir = "."`, is opt-in, and a
+    /// location carrying one carries nothing else, so no other home sits inside it, per
+    /// `design@core@home-at-the-carrier-path`: AC2 of the discussion that made the shape
+    /// declarable.
+    #[test]
+    fn a_register_at_its_carrier_s_path_is_opt_in_and_alone_at_its_location() {
+        let body =
+            "[locations.gdd]\npath = \"game-design\"\nregisters = [\"subject\", \"issue\"]\n\n\
+                    [registers.subject]\nscope = \"opt-in\"\nshape = \"heading\"\nlevel = 3\n\
+                    dir = \".\"\n";
+        let m = with_registers(body);
+        let w = whats(&m);
+        assert_eq!(w.len(), 1, "{w:?}");
+        assert!(
+            w[0].contains("carries the subject register at its own path, and `issue` besides"),
+            "{w:?}"
+        );
+        assert_eq!(m.locations()["gdd"].registers, ["subject"]);
+        let subject = m.registers().by_name("subject").expect("subject");
+        assert_eq!(
+            subject.home_in(Path::new("game-design")),
+            PathBuf::from("game-design")
+        );
+
+        let m = with_registers(
+            "[registers.subject]\nscope = \"component\"\nshape = \"heading\"\nlevel = 3\n\
+             dir = \".\"\n",
+        );
+        let w = whats(&m);
+        assert!(
+            w.iter()
+                .any(|c| c.contains("puts its home at each component's docs/")),
+            "{w:?}"
+        );
+        assert!(m.registers().by_name("subject").is_none());
+
+        for bad in ["./x", "..", "a/b"] {
+            let m = with_registers(&format!(
+                "[registers.subject]\nscope = \"opt-in\"\nshape = \"file\"\ndir = \"{bad}\"\n"
+            ));
+            assert!(
+                whats(&m)
+                    .iter()
+                    .any(|c| c.contains("is not one plain segment")),
+                "{bad}: {:?}",
+                whats(&m)
+            );
+        }
     }
 
     #[test]

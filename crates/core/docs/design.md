@@ -739,8 +739,9 @@ Both carry registers. Every anchor is a named directory and a path anchor under
 spec anchor is a file, and no plan anchor carries the `path` kind. What separates them is what they owe. A **component**
 owes the compiled documents and every `component`-scoped register, with its homes under
 `<component>/docs/`. A **location** owes the homes of the registers its `[locations.<name>]`
-row declares and nothing else, with its homes directly under its own path — a location's
-directory is already documentation, where a component's is source code.
+row declares and nothing else, with its homes directly under its own path, or at it for a register
+declared there, per `design@core@home-at-the-carrier-path` — a location's directory is already
+documentation, where a component's is source code.
 
 **A location exists so that a directory outside every component can be cited.** Naming the
 directory gives every entry in it a reference and makes relocating it one manifest edit, which
@@ -760,23 +761,25 @@ in every respect but the one its layout fixes:
   among the anchors of its depth, so a declaration that collides with it is the one refused and
   its complaint names a declaration the project can change. It owes a `README.md` beside its two
   homes.
-- **One anchor per milestone**: each directory of `register@plans@milestone` holding a file
-  `README.md`, named by its basename, per `design@core@plan-document-kinds`. Its `spec` register
-  has its home at the anchor's own path, so its slice specs sit beside the milestone
-  document and are cited `spec@<milestone>@<slice>`, unique only inside the milestone. It carries
-  no `path` kind. A directory whose name `design@core@a-plan-name-reads-as-nothing-else` refuses
-  is no anchor. It carries the four item registers, per `design@core@plan-items-by-section`.
+- **One anchor per entry of a Directory register**: each directory of a Directory register's
+  home holding a file `README.md`, named by its basename, per
+  `design@core@declarable-directory-register`. Each register it carries has its home at the
+  anchor's own path. A directory whose name `design@core@a-placed-name-reads-as-nothing-else`
+  refuses is no anchor. A milestone is one: its `spec` register's slice specs sit beside the
+  milestone document and are cited `spec@<milestone>@<slice>`, unique only inside the milestone,
+  per `design@core@plan-document-kinds`; it carries the four item registers, per
+  `design@core@plan-items-by-section`, and no `path` kind.
 - **One anchor per spec**: each spec file of specs/, grouped or not, named by its id, per
   `design@core@spec-file-is-an-anchor`. It owns its own file, carries the four item registers,
   and carries no `path` kind. A spec whose name is refused, or that a milestone holds, is no
   anchor, and a directory is never a spec.
 
-**The plan anchors are read off the tree, so every builder of the anchors is handed the tree's
-paths**: a check the survey's listing, a command git's listing, `commits` each commit's own
-listing. A milestone is a directory a session creates, not a declaration, so asking the manifest
-alone would give a commit the working tree's milestones and judge its message against anchors it
-never held. `manifest::collides` does not judge them, because the layout places them; the name
-check is their collision check, and it is a phase-2 finding.
+**The entry and spec anchors are read off the tree, so every builder of the anchors is handed the
+tree's paths**: a check the survey's listing, a command git's listing, `commits` each commit's own
+listing. An entry is a directory a session creates, not a declaration, so asking the manifest
+alone would give a commit the working tree's entries and judge its message against anchors it
+never held. `manifest::collides` does not judge them, because a register's home places them; the
+name check is their collision check, and it is a phase-2 finding.
 
 ### No two anchors give one path two meanings: an anchor sits inside another's directory, never at its path or comparable with one of its register homes `##anchor-collisions-refused`
 
@@ -809,8 +812,9 @@ shapes above.
 
 A reference's head is read as a kind before it is read as an anchor, so an anchor named `design`, `path` or `skill` would be shadowed there, and the old form
 written with it would be misread. Every kind's name, the harness kinds' whatever the harness and
-every declared register's included, is refused for a Component, a location, the project and a
-plan, per `design@core@a-plan-name-reads-as-nothing-else` for the last. The owner, on the question:
+every declared register's included, is refused for a Component, a location, the project, a
+plan and an entry of a directory register, per `design@core@a-placed-name-reads-as-nothing-else`
+for the last two. The owner, on the question:
 "My ruling on this is that all kind names should be refused for anything that can be an anchor
 name (components, custom locations...). I'd rather make this decision early to avoid painful
 migrations."
@@ -819,6 +823,13 @@ migrations."
 
 No syntax exists for it, and a component that wants one declares a location under its own directory. One mechanism, and the register list
 of a component stays a fact about the word _component_ rather than a per-component declaration.
+
+**What it costs: such a location cannot sit at the component's `docs/`**, which holds the
+component's own homes, per `design@core@anchor-collisions-refused`, so the register's home is never
+`<component>/docs/<dir>/`. A location at the directory the home should have, carrying the register
+at its own path, per `design@core@home-at-the-carrier-path`, places it at `<component>/docs/<dir>/`
+under a name of the location's own. The owner chose that over a component opting in, for the
+reference it gives an entry: `rejected@core@component-opt-in-register`.
 
 ### Plan documents are a structure the checker reads: the anchor `plans` carries a `spec` and a `milestone` register `##plan-register`
 
@@ -874,15 +885,19 @@ refused, per `design@core@every-path-names-its-anchor`: with two names for one d
 `show` would miss the citations written the other way. A whole plan document may be cited from
 anywhere; when it leaves, each citation dangles, and that is the revisit it asks for.
 
-### A plan's name reads as no kind's name, no other anchor's and no other plan's `##a-plan-name-reads-as-nothing-else`
+### A name the tree places as an anchor reads as no kind's name, no declared anchor's and no other placed anchor's `##a-placed-name-reads-as-nothing-else`
 
-A plan's name sits in the anchor position of a reference: a milestone's, and a spec's id, since
-each spec file is an anchor. So a milestone name or a spec id that is a kind's name, a component's
-name, a location's name, a reserved word, or the other home's name for another plan, is a phase-2 finding,
-and a plan so named is no anchor; of a spec and a milestone of one name, the milestone keeps it. Otherwise a reference reads as the other anchor, and which one
-wins depends on the order the anchors were built in. A milestone's name is also an entity id,
-since it is the id of a `milestone` entry, and is not `index`: the File shape's retired single
-file beside a milestone is `<id>.md`, which for `index` is the milestones home's own listing.
+An entry's name, a milestone's among them, and a spec's id sit in the anchor position of a
+reference, since each entry directory and each spec file is an anchor. So such a name that is a
+kind's name, a component's name, a location's name or a reserved word is a phase-2 finding, and so
+is one another placed anchor already holds; a name so refused is no anchor. Otherwise a reference
+reads as the other anchor, and which one wins depends on the order the anchors were built in.
+**The order is fixed**: the milestones first, then the specs, then the entries of the declared
+Directory registers, by register name, each register's entries by path. Of a spec and a milestone
+of one name, the milestone keeps it, and an entry of a declared register gives way to every plan,
+since the plans layout is the tool's and every project has it. An entry's name is also an entity
+id, since it is the id of an entry of its register, and is not `index`: the single file beside an
+entry is `<id>.md`, which for `index` is its home's own listing.
 
 ### A plan's items are the level-three headings of its item sections, and the section gives the kind `##plan-items-by-section`
 
@@ -950,8 +965,10 @@ The two lists are the planning skill's, which owns the shape of a plan document,
 
 ### Which registers exist beyond the built-in ones is the manifest's `##registers-are-declared`
 
-`[registers.<name>]` declares a register's `scope`, `shape`, `dir`, `level`, `sections` and
-`metadata.<key>.values`; `[locations.<name>]` declares a directory and the registers it carries.
+`[registers.<name>]` declares a register's `scope`, `shape`, `dir`, `level`, `sections`,
+`metadata.<key>.values` and, for a Directory register, `carries`, per
+`design@core@declarable-directory-register`; `[locations.<name>]` declares a directory and the
+registers it carries.
 Eleven registers are compiled in — `design`, `goal`, `tripwire`, `rejected`, `issue`, carried
 by every component; `spec` and `milestone`, carried by the anchor `plans`, `spec` also by each milestone
 anchor, per `design@core@plan-register`; and the four item registers, carried by the plan
@@ -962,11 +979,28 @@ register or an item register is refused whole, and so is any of their names in a
 component register whose home at the root would be the plans directory: the plans layout is the
 tool's, and a declaration that changes it changes nothing a project can rely on. A declared
 register named `path`, `planned`, `register` or a harness kind is refused too: a reference whose
-kind segment is that word never reaches the register. Setting `scope`, `shape`, `dir`, `level`, `sections` or `metadata` on a
-built-in is a finding, and the compiled value stands.
+kind segment is that word never reaches the register. Setting `scope`, `shape`, `dir`, `level`,
+`sections`, `metadata` or `carries` on a built-in is a finding, and the compiled value stands.
 
 **Declarations go in the manifest because its header promises that what is checked is said in one
 place.** Its bulk is comments, which is what a declaration owes a reader.
+
+### An `opt-in` register declared with `dir = "."` keeps its home at its carrier's own directory, and that carrier carries no other register `##home-at-the-carrier-path`
+
+A location at `<path>` carrying such a register is that register's home, so a Directory register
+places its entries directly under the location, as `<path>/<entry>/`, and a heading register's
+subdocuments sit in the location's directory, behind its README. Any other register the location
+named would keep its home inside that one, one path with two meanings, so the location carries the
+first such register it names and the others leave its row, each a phase-1 finding, per
+`design@core@anchor-collisions-refused`. At component scope it is refused: every component would
+keep the home at its own `docs/`, among its other homes. A heading register at `.` keeps the
+directory shape alone, since its file shape would be `<path>.md`, outside the location.
+
+**It exists because a register's home is otherwise always one segment under its carrier**, and a
+location cannot sit at a component's `docs/`, per `design@core@no-component-opt-in`, so no
+declaration placed a home at `docs/<dir>/` of a component that is not the only one, nor directly
+under a location. A component opting in to the register reached the first and not the second; the
+owner chose the location, for the name it gives what it holds: `rejected@core@component-opt-in-register`.
 
 ### A register instance's own options sit beside it, in `register.toml` `##instance-options-beside-the-instance`
 
@@ -1099,18 +1133,48 @@ decides which subsections the entry owes, so an unknown one would owe the wrong 
 rather than tidy. The open set is `rejected@core@open-issue-kind-set`, and
 `register@core@tripwire` guards the closing.
 
-### A milestone entry is a directory, the register shape `Directory` `##milestone-entries-are-directories`
+### A milestone entry is a directory, carrying the slice specs and the four item registers `##milestone-entries-are-directories`
 
-One register has entries that are directories: `milestone`, the shape `Directory`, per
-`design@core@plan-document-kinds`. Its home holds a hand-written `README.md`, a generated
-`index.md`, and one directory per entry, each holding a file `README.md`, which is the entry's
-document and owes a level-one title. Nothing else sits in the home, and no entry holds a
+`milestone` is the built-in Directory register, per `design@core@declarable-directory-register`,
+carried by the anchor `plans`: each milestone is a directory of milestones/ holding its
+`README.md`, the milestone document, and its entry carries `spec`, for its slice specs, and the
+four item registers, per `design@core@plan-document-kinds`. What a plan adds on top of the shape is
+the tool's and keyed on the register: its documents owe the sections of their kind, per
+`design@core@plan-document-sections-by-kind`, its README defines items, its items are cited from
+inside the plan only, per `design@core@plan-item-scope`, and it carries no `path` kind. The shape
+exists for it because the owner asked to cite a milestone as `milestone@plans@<id>`, and a
+milestone is a directory: a File entry is one file and could hold no slice specs. Citing the
+milestone by a path to its README needs no new shape, and loses to that request.
+
+### A project declares a Directory register, each entry an anchor carrying the registers its `carries` names `##declarable-directory-register`
+
+`shape = "directory"` with `carries = [<register>, …]`: its home holds a hand-written `README.md`,
+a generated `index.md`, and one directory per entry, each holding a file `README.md`, which is the
+entry's document and owes a level-one title. Nothing else sits in the home, and no entry holds a
 `register.toml` or a subdirectory; each of these is a phase-2 finding, because the entries are
 anchors read off the tree. An entry is defined at its `README.md`, and only while the walk reads
-that file, as a File entry the walk leaves out defines nothing. The shape exists because the owner
-asked to cite a milestone as `milestone@plans@<id>`, and a milestone is a directory: a File entry
-is one file and could hold no slice specs. Citing the milestone by a path to its README needs no
-new shape, and loses to that request.
+that file, as a File entry the walk leaves out defines nothing, and it is cited
+`<register>@<parent>@<id>`, the parent being the anchor that carries the home.
+
+**Each entry is an anchor carrying, at its own directory, the registers `carries` names**, each an
+`opt-in` register of the heading or file shape, the registers a location could carry: a
+component-scoped register is carried by every component already, a plan register by the plan
+anchors alone, and a Directory register carried by an entry would nest anchors inside anchors,
+which no case has asked for. A carried heading register keeps the directory shape alone: the
+entry's README is its head, so it links every file and defines no slug, and the file shape would
+be `<id>.md` beside the entry, a second home. An entry carries `path`, since a file inside it is no
+entry and a path is its only name; its directory and its README are named by the entry's
+reference, per `design@core@path-to-a-home-is-reported` and
+`design@core@register-home-reference`.
+
+**It is declared because a project can hold records whose subjects are directories**, as a game's
+design split by subject: one subject per directory, several files each, every entry cited
+`<kind>@<subject>@<id>`, which `goal@knowledge-architect@any-project-can-adopt-it` asks the manifest
+to express without anything of the project compiled in. Adding a subject is creating a directory,
+not a manifest edit, and moving the home is one manifest edit, per
+`goal@core@relocation-is-one-manifest-edit`. A location declared per subject was the shape before
+it, and it costs a manifest row per subject. The rival that made each subdirectory of a location an
+anchor, with no Directory register, is `rejected@core@subdirectory-anchors-location`.
 
 ### A file register's index is a banner, a count and one row per entry, and its bytes are the contract `##a-file-register-index-is-rows`
 
@@ -1207,12 +1271,13 @@ say which of the two was right.
 
 The design this decision did not keep: `rejected@core@index-diff-with-write-flag`.
 
-### `anchors` lists every anchor of a project, computed as `check` computes them, with the home of each register a declared anchor or `plans` carries `##anchors-listing-command`
+### `anchors` lists every anchor of a project, computed as `check` computes them, with the home of each register it carries but a plan's `##anchors-listing-command`
 
 `klarch anchors` prints every anchor, the constructed ones included, built by `Anchors::of` over the
 manifest and the tree's listing as every check builds them: its name, its kind and its path, and,
-under a Component, a location and `plans`, each register it carries with the home the tree holds,
-the file, the directory, both, or `missing`. A milestone and a spec list no register: a plan
+under every anchor but a plan's, each register it carries with the home the tree holds,
+the file, the directory, both, or `missing`. An entry's kind is the Directory register it is an
+entry of. A milestone and a spec list no register: a plan
 anchor's registers keep their homes inside the plan itself, its sections, or a milestone's own
 directory for its slice specs. A home is judged held by the rule `check` judges it by, over the
 same listing, so the two agree on what a project carries. It exits 1 when a home is missing, a negative answer
@@ -1844,9 +1909,10 @@ hash sign before it stays silent under `design@core@candidate-rule-and-retired-f
 
 - **The anchor** is a component, a declared location or the anchor `plans`, where it carries the
   register; `*` names every component's own home of a component-scoped register, per
-  `design@core@reserved-anchors`. A milestone or a spec anchor is no anchor of the form: a
-  milestone's `spec` home is the milestone's own directory, which `milestone@plans@<id>` already
-  names, and one document has one name, per `design@core@plan-document-kinds`.
+  `design@core@reserved-anchors`. An entry or a spec anchor is no anchor of the form: an entry's
+  homes are its own directory, which the entry's reference already names, as
+  `milestone@plans@<id>` names a milestone's, and one document has one name, per
+  `design@core@plan-document-kinds` and `design@core@declarable-directory-register`.
 - **The id** is a register's name, built in or declared. An item register is no id of the form:
   its home is a plan's own documents, cited by the plan document's kind.
 - **Each refusal names the form that resolves**, per `design@core@finding-names-the-repair`.
@@ -1875,9 +1941,12 @@ The designs this decision did not keep: `rejected@core@home-kind-word` and
 ### A `path` reference whose target is a register's home is a finding, whose repair names the `register` form `##path-to-a-home-is-reported`
 
 A home target is a heading register's file, its directory, or that directory's `README.md`, which
-is the home's head per `design@core@heading-register-two-shapes`; a file register's directory; the
-`milestone` register's directory. A file register's `README.md` and generated `index.md`, a
-subdocument and an entry are files inside a home, and stay `path` targets.
+is the home's head per `design@core@heading-register-two-shapes`; a file register's directory; a
+Directory register's directory. A file register's `README.md` and generated `index.md`, a
+subdocument and an entry are files inside a home, and stay `path` targets. **An entry's directory
+and its `README.md` are no home target**: they are the entry, and a `path` to either is a finding
+whose repair names the entry's reference, `<register>@<parent>@<id>`, per
+`design@core@declarable-directory-register`; a milestone's, by `design@core@plan-document-kinds`.
 
 - The finding is raised for a named anchor after the refusals of a refused shape and of a plan
   document cited by its path, on the target resolved to the anchor that keeps the home, and in

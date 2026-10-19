@@ -102,21 +102,22 @@ pub(crate) fn file_register_index(
     render(rows, &keys, command)
 }
 
-/// The index of one Directory-shape instance: one row per milestone anchor directly under its
-/// home, its id, then its README's title linking `<id>/README.md`.
+/// The index of one Directory-shape instance of `register`: one row per entry anchor directly
+/// under its home, its id, then its README's title linking `<id>/README.md`.
 ///
-/// Read off the anchors rather than off the documents, so a file inside a milestone is never a
-/// row: the milestone is the entry, and its own files are listed by its own index. A milestone
-/// whose README the walk does not hold is still listed, under its id.
+/// Read off the anchors rather than off the documents, so a file inside an entry is never a
+/// row: the entry is the anchor, and a file register it carries lists its own files in its own
+/// index. An entry whose README the walk does not hold is still listed, under its id.
 pub(crate) fn directory_register_index(
     model: &Model,
     anchors: &Anchors,
+    register: &str,
     home: &Home,
     command: &str,
 ) -> String {
     let mut rows = Vec::new();
     for anchor in anchors.all() {
-        if !anchor.is_milestone() || anchor.path.parent() != Some(home.dir.as_path()) {
+        if !anchor.is_entry_in(register, &home.dir) {
             continue;
         }
         let readme = anchor.path.join("README.md");
@@ -243,7 +244,7 @@ fn link_target(path: &str) -> String {
 /// create a register home as a side effect of a listing; the missing home is a `registers`
 /// finding, which is where a reader is told about it.
 ///
-/// `present` is the tree's listing, which places the milestone anchors, per `Anchors::of`.
+/// `present` is the tree's listing, which places the entry anchors, per `Anchors::of`.
 pub(crate) fn file_register_indexes(
     model: &Model,
     manifest: &Manifest,
@@ -261,7 +262,7 @@ pub(crate) fn file_register_indexes(
             Shape::Heading | Shape::Section => continue,
             Shape::File => file_register_index(model, register, &home, manifest.command()),
             Shape::Directory => {
-                directory_register_index(model, &anchors, &home, manifest.command())
+                directory_register_index(model, &anchors, &register.name, &home, manifest.command())
             }
         };
         out.push((home.index.clone(), text));

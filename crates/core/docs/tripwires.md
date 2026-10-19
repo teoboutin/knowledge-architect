@@ -250,3 +250,31 @@ ran `git reset`, `git restore --staged` or `git stash`, or otherwise unstaged ch
 named.
 **Response:** reopen `design@core@fix-refusal-mixed-state`.
 **Re-entry:** each retrospective intake.
+
+## Guarding `design@core@declarable-directory-register`: a project asks for entries nested in entries `##nested-entries-asked`
+
+T1 of the premortem of the discussion that made the Directory shape declarable. An entry carries an
+`opt-in` heading or file register and never a Directory register, on the premise that no project
+needs subjects inside subjects.
+
+**Fires when:** a project's owner, in a design discussion, an issue or a review, asks for a
+Directory register carried by an entry of a Directory register.
+**Response:** reopen `design@core@declarable-directory-register` on what an entry may carry, with
+the nesting the request needs among the candidates.
+**Re-entry:** the standing-state review on every dispatched review, and each design discussion about
+declared registers.
+
+## Guarding `design@core@home-at-the-carrier-path`: a project asks for a register at one component's own `docs/` `##component-opt-in-asked`
+
+T2 of the premortem of the discussion that made the Directory shape declarable. The owner chose a
+location carrying a register at its own path over a component opting in, on the premise that a
+name of the location's own serves the references better than the component's.
+
+**Fires when:** a project's owner, in a design discussion, an issue or a review, asks for an
+`opt-in` register whose home is `<component>/docs/<dir>/` for one component, carried by that
+component.
+**Response:** reopen `design@core@home-at-the-carrier-path` with the rival it lost,
+`rejected@core@component-opt-in-register`, and the measurement that a location at a component's
+`docs/` is refused.
+**Re-entry:** the standing-state review on every dispatched review, and each design discussion about
+declared registers.
