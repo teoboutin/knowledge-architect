@@ -21,8 +21,17 @@ the design-entry search too?
   the tripwires, per `design@agent-skills@standing-entries-searched-before-the-work`.
 - `skill@knowledge-architect-retrospective-intake` checks a proposed fix against the `rejected`
   entries of the Component that owns the blamed text, in the session.
-- Not established: whether either reading misses design entries as the grounding of a discussion
-  did. No instance is recorded.
+- An instance, at an intake: this repository's intake of thirteen received retrospective files,
+  analysing C1 of the workflow file of the session that shipped the intake, a skill named in plain
+  text before it existed, cited `design@core@planned-path-form` and the `rejected` entry it beat,
+  and not the third exception of `design@agent-skills@plain-text-is-no-repair`, which decides how a
+  record of a deliberation names what its work removes or will create, and records the owner's
+  choice of the backticked bare slug over plain text. The owner recalled the head while ruling, as
+  "plain words", and the session corrected the reading from the head. The intake's check c reads
+  the `rejected` home of the owning Component and the standing entries; no step of it searches the
+  design heads.
+- Not established: whether the design audit of a slice or a spec misses design entries as the
+  grounding of a discussion did. No instance is recorded there.
 
 ### Why it matters
 

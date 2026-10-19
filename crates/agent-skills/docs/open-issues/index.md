@@ -1,6 +1,6 @@
 **Generated — do not edit.** `cargo klarch index`
 
-41 entries
+43 entries
 
 | kind | title |
 | --- | --- |
@@ -9,12 +9,14 @@
 | defect | [A saved workflow's `//` comments ship to every installing project, though the standard sends maintainer-only text to a comment the build removes](a-saved-workflow-s-comments-ship-to-every-project.md) |
 | defect | [In an adopting project, a finding sent upstream is counted again as a violation left on old text at every later pass](an-upstream-finding-stays-in-every-later-old-text-count.md) |
 | deferred | [A plan document deleted in the commit that completes its harvest is absent from the tree of the acts that still need it](a-plan-document-deleted-at-its-harvest-is-unseen-by-the-acts-that-need-it.md) |
+| design | [An intake of many files at once reads every standing entry the search returns whole, and the cost grows with the batch](a-batch-intake-reads-every-returned-standing-entry-whole.md) |
 | design | [A pointer delivers its directive only when the session fetches the section it names, and a copy filled by substitution would deliver it with no drift](a-pointer-delivers-its-directive-only-when-the-session-fetches-it.md) |
 | design | [A tripwire on a procedure of the workflow states no bound on how much the failure must matter](a-procedure-tripwire-states-no-severity-bound.md) |
 | design | [A tripwire on agent behaviour under the workflow fires in sessions this project does not see](a-tripwire-on-agent-behaviour-fires-where-this-project-cannot-see.md) |
 | design | [Pointers written as bare plain text to clear a finding reach no check, and the rule against them is reopened](pointers-written-bare-to-clear-a-finding-reach-no-check.md) |
 | design | [The workflow assumes one owner, unnamed, which a project with several contributors does not have](the-workflow-assumes-one-unnamed-owner.md) |
 | observation | [A general-purpose subagent is refused a file access its work needs, the write of its report or the read of a transcript, where an installed agent is not](a-general-purpose-subagent-is-refused-a-file-access.md) |
+| observation | [A retrospective's version line can name a main commit the repository does not hold](a-retrospective-version-line-names-a-commit-the-repository-does-not-hold.md) |
 | question | [A head in the wrong Component goes to the owner, though the record settles the Component](a-head-in-the-wrong-component-goes-to-the-owner-though-the-record-settles-the-component.md) |
 | question | [A pending audit report or retrospective analysis is outstanding work that no installed search of what is already known reads](a-pending-ruled-file-is-reached-by-no-installed-search.md) |
 | question | [A reviewer that queues long work reports nothing until it is asked](a-reviewer-s-running-time-is-unbounded.md) |
