@@ -242,14 +242,26 @@ owner's, per `goal@knowledge-architect@the-owner-decides`. The open issues are
 `issue@agent-skills@patching-an-installed-skill` and
 `issue@agent-skills@a-skill-for-creating-a-component`.
 
-### A decision is never argued on the grounds that changing it later would be breaking `##no-future-breaking-cost-argument`
+### A change's cost is first what a consumer could no longer do, and a migration is the lowest cost `##capability-cost-before-migration`
 
-An argument that a change is expensive names the cost it has today, a consumer's migration
-included. While the project stays at 0.x, breaking changes are allowed, per
-`design@knowledge-architect@stays-at-zero-x`, so a cost that exists only in a future where
-changes are refused argues against nothing; accepted, it would freeze the design before it has
-converged. A consumer that pins a version pays a migration only when it moves its pin, and that
-migration is a present cost, named in the changelog's migration entries.
+An argument that a change is expensive names its costs in this order:
+
+- **What a consumer could no longer do** once the change lands, and why a consumer would want to
+  do it: a use the change removes, named with the use it served. This is the cost to measure and
+  to weigh.
+- **The migration** the change asks of a consumer that moves its pin: the files it rewrites and
+  the references it renames, which the changelog's Migration entries name. A migration is measured
+  and named, and it is the lowest kind of cost: a mechanical rename argues against nothing that a
+  lost use does not.
+
+A cost that exists only in a future where changes are refused argues against nothing. While the
+project stays at 0.x, breaking changes are allowed, per `design@knowledge-architect@stays-at-zero-x`,
+and accepted, such a cost would freeze the design before it has converged. A consumer that pins a
+version pays a migration only when it moves its pin.
+
+The ranking is the owner's: the owner set the test, what a future consumer would no longer be able
+to do and why they would want to, and weighed a migration as one of the lowest arguments to take
+into account.
 
 ### A version is published from main, after its merge, on the owner's word `##publish-after-merge`
 

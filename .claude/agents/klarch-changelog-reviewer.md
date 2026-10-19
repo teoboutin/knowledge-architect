@@ -49,9 +49,10 @@ agent is deleted, is structure. Any other change to a statement of a released se
 the policy's mapping onto Cargo's two positions while at 0.x.
 
 **Is a decision argued on the grounds that changing it later would be breaking?** The rule is
-`design@knowledge-architect@no-future-breaking-cost-argument`. Read every design
+`design@knowledge-architect@capability-cost-before-migration`. Read every design
 head, rejected alternative and commit message the range adds or rewrites. An argument that a change
-is expensive names the cost it has today, a consumer's migration included. One that defends a choice
+is expensive names first what a consumer could no longer do, and its migration as the lowest cost.
+One that defends a choice
 by a future cost to consumers, with no present cost named, is a finding. A version bump is not an
 argument either way.
 
