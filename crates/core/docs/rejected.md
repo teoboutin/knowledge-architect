@@ -372,7 +372,7 @@ directory left the tree included, and it needed no read of the tree. It loses on
 project new to the tool, in the commit that rewrote `design@core@every-path-names-its-anchor`: nearly all its findings there
 were another tool's notation (fixture paths of tests, paths on the user's machine, example paths in
 a changelog), each to be rewritten or anchored at `elsewhere` before the project passed, and the one
-real pointer, a stale one, is reported under the winner too.
+real pointer, a stale one, is reported under `design@core@every-path-names-its-anchor` too.
 
 ### The ignore rules asked whether an unanchored path's first segment is ignored, and an ignored one reported `##ignored-first-segment-reported`
 
@@ -561,8 +561,8 @@ cite, since a paragraph has no slug.
 ### The kind named `rejected-alternative` `##kind-named-rejected-alternative`
 
 `live`. It names what most entries are. The span is 12 characters longer, `-alternative`, in a
-reference that never crosses a line break, the slug already names the design, and the owner judged
-"alternatives" a poor fit for a design rejected without being an alternative to one built.
+reference that never crosses a line break, the slug already names the design, and the owner found
+a register of alternatives alone a bit odd.
 
 ### The home keeping the file name of the rejected-alternatives document `##home-keeping-the-old-file-name`
 
@@ -590,8 +590,8 @@ reference rule and is decoration, and a goal is written only on the owner's word
 
 ### A `rejected` entry made reachable by its own citation of a goal `##entry-reachable-by-citing-a-goal`
 
-`live`. It was the default of the discussion that built the check, for an entry whose design lost to
-a goal alone, and its citation passes the revisit test. The owner judged that only a design entry
+`live`. It keeps reachable an entry whose design lost to a goal alone, and its citation passes the
+revisit test. The owner judged that only a design entry
 should count, and that a head of absence is the right home where nothing is built; it is the
 candidate if heads of absence prove to be written only to satisfy the check.
 

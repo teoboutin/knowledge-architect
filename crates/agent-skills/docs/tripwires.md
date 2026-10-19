@@ -78,6 +78,11 @@ unmoved main branch, has no audit, and an entry can be added after the grounding
 
 **Fires when:** across sessions, 2 standing-state reviews report a standing entry the work bears
 on, which no search before the work returned.
+**Instances:** 1. The standing-state review of the spec of the `rejected` register, in its review
+commit "[review] Repairs of the spec on the rejected register: …", reported
+`issue@core@a-plain-hash-item-name-is-read-by-nothing`,
+`tripwire@agent-skills@ruling-lost-in-assembly` and `tripwire@agent-skills@attribution-loses-the-scope`,
+which the discussion's search had not returned: each named a rejected alternative in words.
 **Response:** open a `design` issue naming the entries and the works, and reopen
 `design@agent-skills@standing-entries-searched-before-the-work` on its occasions, with a search
 when convergence is proposed, before the premortem, among the candidates.
@@ -558,7 +563,10 @@ covers it, so that a session reading that head meets the design. The owner ruled
 premortem of its discussion.
 
 **Fires when:** a review or an audit finds a `rejected` entry whose only citing heads decide a
-question other than the one the design it records answered.
+question other than the one the design it records answered, where the head that decides that
+question exists. An entry whose deciding head is missing, and recorded as missing by an open issue,
+does not count: `rejected@core@syn-rust-parser` and `rejected@core@rust-analyzer-syntax-crate`, per
+`issue@core@the-rust-parser-choice-has-no-head`, are that case.
 **Response:** reopen `design@agent-skills@rejected-citation-direction` on how the citing head is
 chosen.
 **Re-entry:** the decision-record review of every branch that adds a `rejected` entry, and the

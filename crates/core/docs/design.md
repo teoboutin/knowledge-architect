@@ -686,8 +686,7 @@ Every component carries the register `rejected`, its home `register@*@rejected` 
 heading that names the design not kept, its slug last, and its body opens with a marker, `live` or
 `void`, then the reason it was not kept. It is cited `rejected@<anchor>@<id>`, so `show` prints it
 whole with every text that cites it, and a plan item, a review finding, a commit message or a head
-can name one design. A tripwire's `guarding` column leaves it out: a tripwire guards a decision,
-and a `rejected` entry is none.
+can name one design.
 
 It serves `goal@knowledge-architect@design-is-recorded-with-its-arguments`, which asks for the
 alternatives that lost and why, and `goal@core@records-reach-their-reader`, which asks that a
@@ -698,15 +697,22 @@ take a rejected design for what is built, and separating the two at the level of
 grep hit on one from reading as the other. The nearest rival, the paragraphs of a compiled
 document with `show` printing each one that cites a head, delivers only to a session that runs
 `show` on the right head, and leaves nothing for an item, a finding or a message to cite. The name
-is `rejected`, which the owner proposed for a shorter citation, finding a register of alternatives
-alone somewhat odd since a design can be rejected without being an alternative to one built, by
-the agent's reading of the owner's words; the home is named after it, since a `path` span to a
-register's home is a finding whose repair is the `register` form, so a home named otherwise than
-its kind saves no edit. Which designs earn an entry is installed text, the decision-recording skill's.
+is `rejected`, and the home is named after it, both on the owner's word: the owner proposed the
+name for a shorter citation, finding a register of alternatives alone a bit odd, and judged the
+new home's name to read better and to avoid a confusion point. Which designs earn an entry is
+`design@agent-skills@losing-alternatives-filter`.
 
 The designs this decision did not keep: `rejected@core@paragraphs-with-show-printing-them`,
 `rejected@core@kind-named-rejected-alternative`, `rejected@core@home-keeping-the-old-file-name` and
 `rejected@core@validity-marker-checked`.
+
+### A tripwire guards no `rejected` entry `##tripwire-guards-no-rejected-entry`
+
+The `guarding` column of `cargo klarch tripwires`, and its `--guarding` filter, read every
+reference of a tripwire to an entry of a register but `issue`, `tripwire` and `rejected`. A
+tripwire guards a decision: a `rejected` entry records a design not kept, which is no decision, so
+a tripwire that names one names the candidate its response would reopen, not what it guards. The
+rival, counting it like a declared register's entry, would list a design not kept as guarded.
 
 ### A `rejected` entry that no design entry cites is a finding `##orphan-rejected-entry`
 
@@ -717,13 +723,11 @@ The finding names the repair: cite it from the design head whose argument covers
 of absence that records the decision not to build it. It is raised over a tree in
 `path@core@src/check/references.rs`, not over a commit message, which holds no design entry.
 
-It serves `goal@core@declared-instructions-are-checked`: the installed text tells a head to cite
-the designs its argument covers, and this check is what makes every `rejected` entry reachable from
-the text a design session reads, the head, rather than only from `show`. A citation from a goal
-fails the revisit test of the installed reference rule, since a goal does not change when a design
-it did not keep goes `void`. The owner judged that only a design entry should count, a design rejected with
-nothing built in its place being cited by a head of absence, over counting an entry that cites a
-goal itself.
+It serves `goal@core@declared-instructions-are-checked`: a head cites the designs its argument
+covers, per `design@agent-skills@rejected-citation-direction`, and this check is what makes every
+`rejected` entry reachable from the text a design session reads, the head, rather than only from
+`show`. Only a citation from a design entry counts, on the owner's judgement; a citation counts by
+the reference rule of `design@agent-skills@a-reference-claims-a-revisit`.
 
 The designs this decision did not keep: `rejected@core@goal-citing-a-rejected-entry`,
 `rejected@core@entry-reachable-by-citing-a-goal` and `rejected@core@no-orphan-check`.
@@ -1314,9 +1318,9 @@ it.
 `--fix` applies a repair only when it passes `design@core@safe-fix-definition`. Passing the test
 makes a repair admissible, not owed: each kind of repair `--fix` applies is a member added on
 purpose. The direction of the rule is the owner's, given against a title stating that `--fix`
-repairs every finding whose repair passes the test: "I'd word it the other way: '--fix only admit
-repairs when they pass the safe-fix test'. Otherwise, it becomes a source of defects when we might
-have never intended to cover some possible repairs."
+repairs every finding whose repair passes the test: the owner put the rule the other way round,
+`--fix` admitting a repair only when it passes the safe-fix test, since otherwise it becomes a
+source of defects where the project may never have meant to cover some repairs.
 
 `--fix` applies two kinds of repair today: an installed file missing, differing or no longer
 shipped, and a stale or missing generated file. Every other repair touches git, such as staging a
@@ -1342,8 +1346,8 @@ generated file is never written over an incomplete model, per `design@core@phase
 An upgrade that removes a shipped file takes two runs: the deletion is unstaged, phase 2 reports
 it, and staging it touches git. The rival, `--fix` treating the deletions its own install just made
 as done, adds a special case to the phase gate. The cost of two runs is small by the owner's
-weighing: "skill deletion/rename is a rare thing anyway. Not much of a problem if it takes multiple
-invocations to handle." A failed
+weighing: the owner judged deleting or renaming a skill rare, and several invocations to handle it
+not much of a problem. A failed
 write exits 2 with nothing written, and 1 after any write, since 2 promises an untouched tree. The check stays the only verifier: `--fix` only writes
 before it verifies, so the rejected design of an `index` that prints a diff and a `--write`
 that applies it, a second command answering whether a file is current in its own format,

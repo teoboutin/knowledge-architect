@@ -6,7 +6,7 @@ kind: question
 ## Summary
 
 `skill@knowledge-architect-decision-recording@losing-alternatives` says of a `void` entry: "The
-alternative may still be wrong, but _this_ argument no longer supports that, and the marker prevents
+design may still be wrong, but _this_ argument no longer supports that, and the marker prevents
 reopening a settled question on a dead argument." Does the marker keep a reader from reopening, or
 from keeping closed, a question on the dead argument?
 

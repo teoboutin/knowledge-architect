@@ -855,7 +855,7 @@ save is not measured: `issue@agent-skills@the-retrospective-counts-no-review-cos
 
 The design this decision did not keep: `rejected@agent-skills@entry-test-for-unbuilt-work`.
 
-### An alternative earns an entry by the recording tests, not by having lost `##losing-alternatives-filter`
+### A design not kept earns an entry by the recording tests, not by having been rejected `##losing-alternatives-filter`
 
 A design not kept earns an entry in the `rejected` home only if it passes the tests of the
 installed decision-recording skill: it would change an interface others consume, as entry test 1
@@ -879,8 +879,8 @@ withdrawn with no defeating reason, and a superseded thread whose shape the abso
 carries whole, stay in the spec only. So does a shape that lost while its question stays open,
 since the question is an issue. A shape rejected with nothing built in its place is judged by the
 filter like any other, and the decision not to build it is a head of absence, "we do not do X",
-which entry test 2 of `primer@design-heads` admits and which cites the entry: the owner judged such
-a head the right home where nothing is built, over leaving the shape to the deliberation. The state of a thread records how it
+which entry test 2 of `primer@design-heads` admits and which cites the entry: the owner came to judge
+such a head the right solution where the design is not built. The state of a thread records how it
 closed, not whether an argument defeated a shape, and a rule keyed on the state would drop a
 superseded thread that lost on its merits.
 
@@ -903,31 +903,40 @@ loser wrong, and an entry that names no winner drops it. The designs this decisi
 `rejected@agent-skills@both-directions-written-by-hand` and
 `rejected@agent-skills@both-directions-checked-for-symmetry`.
 
-### A design discussion's grounding sends a design-entry searcher, one per Component, cut along whole subjects where a Component is too large `##design-entry-search`
+### A design discussion's grounding sends a search of the design entries and the `rejected` entries, and sends it again for a later thread `##design-entry-search`
 
 The installed design skill's step 1 sends `agent@knowledge-architect-design-entry-searcher` beside
-the standing-entry searcher: one agent per Component the question touches, the project's root
-always among them, each reading the design entries and the `rejected` entries of its group whole.
-A Component the session judges too large for one agent is cut into groups of whole level-two
-subjects of its design home, and no number bounds a group; an agent reports a subject too large to
-read whole. The skill sends the search again for a thread on a subject the first search was not
-given, and the plan-document review of `design@agent-skills@plan-read-against-the-record` stays
-the backstop.
+the standing-entry searcher, and the session reads every entry it grades `bears` or `may-bear`
+before it proposes anything. The skill sends the search again for a thread on a subject the first
+search was not given, and the plan-document review of
+`design@agent-skills@plan-read-against-the-record` stays the backstop. How the search is split is
+`design@agent-skills@design-entry-search-groups`.
 
 It serves `goal@knowledge-architect@agents-work-without-drift`: the owner reported design entries
-missed in part many times, and a case is recorded where the owner approved a proposal contradicting
-a head the session had not read, caught only at the plan-document review. A search at grounding
-puts the record in view before the first proposal, so before any ruling, where a reading at the
-checkpoint comes after the owner has ruled most threads. The searcher is an agent of its own, since
-a design entry is no standing entry, per `design@agent-skills@standing-entry-search-agent`. The
-grouping is the owner's: grouping by count would make an agent read unrelated entries and cut a
-subject, while a subject's kept and rejected entries have to be read together; and the owner put no
-numeric bound on a group, judging the bound of 60 that
-`design@agent-skills@standing-entry-search-groups` argues for standing entries not sensible here,
-and that a subject too large to read whole is a sign of a design home not divided enough, which an
-agent reports. The designs this decision did not keep:
-`rejected@agent-skills@conformance-reader-at-the-checkpoint`,
-`rejected@agent-skills@design-listing-cut-in-groups-of-sixty` and
+missed in part many times, and in one case the owner approved a proposal contradicting a head the
+session had not read, caught only at the plan-document review. A search at grounding puts the
+record in view before the first proposal, so before any ruling, where a reading at the checkpoint
+comes after the owner has ruled most threads. The searcher is an agent of its own, since a design
+entry is no standing entry, per `design@agent-skills@standing-entry-search-agent`. The design this
+decision did not keep: `rejected@agent-skills@conformance-reader-at-the-checkpoint`.
+
+### The design-entry search sends one agent per Component, and cuts a Component too large for one along whole level-two subjects, with no numeric bound `##design-entry-search-groups`
+
+One agent goes to each Component the question touches, the project's root always among them, and
+reads the design entries and the `rejected` entries of its group whole. A Component the session
+judges too large for one agent is cut into groups of whole level-two subjects of its design home,
+never inside a subject, and no number bounds a group; an agent reports a subject whose size
+strained its reading.
+
+The grouping is the owner's: the owner believed that grouping by quantity alone would most likely
+make an agent read unrelated entries and read a subject in part, while a subject's kept and
+rejected entries have to be read together. The owner was not convinced that a bound of 60 is
+sensible for design entries, and judged that a Component with a subject that large is probably not
+divided enough, which an agent should probably report. So the bound of 60 that
+`design@agent-skills@standing-entry-search-groups` argues stands for standing entries, and the
+anchor-sized group that `rejected@agent-skills@one-search-agent-per-anchor` rejects there is the
+starting group here, cut by subject where the session judges it too large. The designs this
+decision did not keep: `rejected@agent-skills@design-listing-cut-in-groups-of-sixty` and
 `rejected@agent-skills@subject-groups-bounded-at-sixty`.
 
 ### The design-entry searcher grades each entry it reads, and lists every one `##search-relevance-grade`
@@ -941,9 +950,10 @@ new argument.
 
 A grade is kept only where it changes what the session does: the standing-entry searchers of the
 discussion that decided this graded a doubt anyway, unasked, in 12 of the 41 entries they returned,
-each wording it differently, and a numeric scale would route no act. The owner proposed the grades
-and asked that every entry read be listed, which is also what a later check of a report's coverage
-would read, per `issue@core@searcher-reports-are-written-and-checked-by-hand`.
+each wording it differently, and a numeric scale would route no act. The owner asked for a ruling
+per entry on how closely it relates, unsure whether yes or no would suffice, and asked that every
+entry read be listed, which is also what a later check of a report's coverage would read, per
+`issue@core@searcher-reports-are-written-and-checked-by-hand`.
 
 ### A premortem's cause becomes a tripwire only on the owner's word `##premortem-tripwires-on-the-owners-word`
 
