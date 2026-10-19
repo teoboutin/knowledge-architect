@@ -468,7 +468,7 @@ that a search at grounding misses a thread opened later, which
 ### A listing command of design entries, cut into groups of 60 rows `##design-listing-cut-in-groups-of-sixty`
 
 `live`. It would give even groups, as the standing-entry search has. It loses on the owner's
-argument that `design@agent-skills@design-entry-search` records, and it needs a command that
+argument that `design@agent-skills@design-entry-search-groups` records, and it needs a command that
 grouping by Component does not.
 
 ### Groups of whole subjects bounded at 60 design entries, a larger subject cut into consecutive heads `##subject-groups-bounded-at-sixty`
@@ -476,6 +476,6 @@ grouping by Component does not.
 `live`. It applied to design entries the bound of 60 that
 `design@agent-skills@standing-entry-search-groups` argues for standing entries, measured on their
 size in thaum. The owner ruled otherwise for design entries, as
-`design@agent-skills@design-entry-search` records. A
+`design@agent-skills@design-entry-search-groups` records. A
 doubt remains whether one agent reads a large subject reliably; this is the candidate if reports of
 large subjects come with missed entries.
