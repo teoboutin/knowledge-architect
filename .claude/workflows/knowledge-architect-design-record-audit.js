@@ -15,7 +15,7 @@ export const meta = {
 //   previous    optional: for a re-check, the commit the previous pass audited
 //   kept        optional: the path of the kept list, for a re-check
 //   sample      optional: the calibration sample, an array of entries, each { ref } for a design
-//               head or { name, file } for a rejected alternative; the preflight chooses one if absent
+//               head or a rejected entry; the preflight chooses one if absent
 //   counts      optional: { groupSize, checkersPerGroup }, each missing key taking its default
 //   from        optional: 'calibration' or 'verify', to restart from the files a run wrote; or
 //               'application', to judge the session's application of a pass instead of auditing
@@ -109,9 +109,9 @@ const DONE = {
   required: ['done', 'notes'],
 }
 
-// An entry is named by its reference for a head, and by its name for a rejected alternative.
-const id = (e) => e.ref || e.name
-const show = (e) => (e.ref ? e.ref : 'the rejected alternative "' + e.name + '" in ' + e.file)
+// An entry is named by its reference, a design head's or a rejected entry's.
+const id = (e) => e.ref
+const show = (e) => e.ref
 
 // The cut: a Component above groupSize is cut alone into groups of consecutive entries whose sizes
 // differ by at most one; the others are packed whole, in the manifest's order, each into the first
@@ -160,14 +160,14 @@ if (args.from === 'application') {
       'project audit. From the project root:',
     '- run git worktree add --detach ' + judging + ' ' + args.applied + ', and work in that ' +
       'worktree for every step below;',
-    '- list every design head and every rejected alternative whose text differs between ' +
+    '- list every design head and every rejected entry whose text differs between ' +
       args.commit + ' and ' + args.applied + ', a head the application created included and one it ' +
       'removed left out, and an entry whose only change is the target of a reference left out too, ' +
       'its words unchanged; read git diff ' + args.commit + ' ' + args.applied + ' over every ' +
-      'Component\'s design home and rejected-alternatives file whole. Order them as the section ' +
-      'take-your-group of the agent definition ' + AUDITOR + ' states, which you read whole, a head ' +
-      'as { ref, file, line }, its ref design@<component>@<slug>, a rejected alternative as { name, ' +
-      'file, line };',
+      'Component\'s design home and rejected home whole. Order them as the section ' +
+      'take-your-group of the agent definition ' + AUDITOR + ' states, which you read whole, each ' +
+      'as { ref, file, line }, a head\'s ref design@<component>@<slug>, a rejected entry\'s ' +
+      'rejected@<component>@<slug>;',
     '- write that list, as JSON, to ' + at(dir, 'entries.json') + ', creating the directory;',
     '- run cargo klarch issues and save its output to ' + at(dir, 'issues.txt') + ', and ' +
       'cargo klarch tripwires to ' + at(dir, 'tripwires.txt') + '.',
@@ -201,8 +201,7 @@ if (args.from === 'application') {
     'Issues listing: ' + at(dir, 'issues.txt'),
     'Tripwires listing: ' + at(dir, 'tripwires.txt'),
     'Your directory: ' + at(dir, g.label),
-    'In the return, name each entry by its reference, or a rejected alternative by its name as ' +
-      'listed here.',
+    'In the return, name each entry by its reference, as listed here.',
     FROM_DISK,
   ]), { agentType: AUDITOR, schema: JUDGED, phase: 'judge', label: 'judge ' + g.label })
     .then((r) => {
@@ -251,10 +250,9 @@ if (!args.from) {
       'knowledge-architect.toml, the root Component first, then its components list in order; each ' +
       'Component\'s entries in the order the section take-your-group of the agent definition ' +
       AUDITOR + ' states, which you read whole in the worktree. Run the checker command cargo klarch ' +
-      'model for the level-three headings that end with a slug, and read each Component\'s ' +
-      'rejected-alternatives file whole for its rejected alternatives. Give a head as { ref, file, ' +
-      'line }, its ref design@<component>@<slug>; a rejected alternative as { name, file, line }, its ' +
-      'name as the file writes it;',
+      'model for the level-three headings that end with a slug, in each Component\'s design home ' +
+      'and rejected home. Give each as { ref, file, line }, a head\'s ref ' +
+      'design@<component>@<slug>, a rejected entry\'s rejected@<component>@<slug>;',
     '- write that list, as JSON, to ' + at(preflightDir, 'entries.json') + ', creating the directory;',
     args.sample ? '' : '- choose the calibration sample: about five entries, from different ' +
       'Components where there are several, in the same shape;',
@@ -320,11 +318,9 @@ if (!args.from) {
     'The calibration sample, which you judge exactly as your own:',
     sample.map((e) => '- ' + show(e)).join('\n'),
     'Scratch directory: ' + at(args.scratch, g.label) + '. Name each draft <nn>-<slug>.md: nn its ' +
-      'position, two digits, the sample following your group in its order; slug the head\'s slug, ' +
-      'or the alternative\'s name in lower case with hyphens.',
+      'position, two digits, the sample following your group in its order; slug the entry\'s slug.',
     args.kept ? 'Kept list, for this re-check: ' + at(args.scratch, g.label, 'kept.md') : '',
-    'In the return, name each entry by its reference, or a rejected alternative by its name as ' +
-      'listed here.',
+    'In the return, name each entry by its reference, as listed here.',
     FROM_DISK,
   ])
   const drafted = await parallel(groups.map((g) => () => agent(draftBrief(g),
@@ -431,7 +427,7 @@ await agent(lines([
   'Write ' + cross + ' in three parts:',
   '1. the overlap map: every pair of verified findings that edit one paragraph or one slug, every ' +
     'rename whose citing sites another finding edits, and every split, merge or move whose ' +
-    'rejected alternative or citing head another group drafted;',
+    'rejected entry or citing head another group drafted;',
   '2. the stale entries: each tripwire and each issue that cites a head some verified finding ' +
     'edits, read whole with the checker command cargo klarch show, and whether the edit leaves it ' +
     'false;',

@@ -117,7 +117,7 @@ your brief's.
   the two standards side by side, and report a text of the project that one reports as a finding
   and the other must not report, or treats as conforming, as divergent verdicts. Start from these
   pairs, and add any other the corpus holds: the decision-record reviewer and the design-record
-  auditor, on design heads and rejected alternatives; the routing reviewer and this agent's L5,
+  auditor, on design heads and rejected designs; the routing reviewer and this agent's L5,
   on restatements and pointers; the review's self-consistency axis and L1, on contradictions;
   the standing-state reviewer and the audits' reading of tripwires and issues; the review skill's
   outcomes and the audit's outcome table; the agent-facing-text reviewer and L9, on whether a
@@ -198,9 +198,9 @@ corpus. Read the corpus as for drafting, then read the proposal's text after its
 - through L1 and L3, as `agent@knowledge-architect-workflow-auditor@the-lenses` gives them, for a
   contradiction or two readings that the new text creates with the rest of the corpus;
 - against the record, as `skill@knowledge-architect-agent-configuration@admission-standard` says: for this
-  you read the design homes, the goals homes and the rejected alternatives beside the corpus, which
+  you read the design homes, the goals homes and the rejected designs beside the corpus, which
   hold no instruction and stay outside it, and run `{{command}} show`.
 
 Write `check.md` in your directory: each defect the new text creates, each head the repair would
-reverse, each rejected alternative it brings back and each goal it strains, each with its quotation,
+reverse, each rejected design it brings back and each goal it strains, each with its quotation,
 its file and its line; or that you found none. Return its path and the count of each.

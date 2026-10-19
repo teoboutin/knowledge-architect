@@ -1,6 +1,6 @@
 ---
 name: knowledge-architect-project-audit
-description: MUST use when the owner asks to audit one aspect of the whole project rather than the work of one branch; when a pin move crosses a version whose changelog has a Migration entry citing an axis of this skill; and when an adopting project's existing documents have been moved into the workflow's homes. Covers what a project audit is, its method (an axis's saved workflow, whose one run per pass delivers a report the session verifies; then one list for the owner, the application, the re-check, the review), the outcome of each kind of finding, where the record of an audit goes, and one section per axis: the design-record axis, which re-applies the rules on design heads and rejected alternatives to every entry, and the agentic-workflow axis, which reads every instruction the harness delivers as one whole for instructions a session cannot follow and statements no act needs.
+description: MUST use when the owner asks to audit one aspect of the whole project rather than the work of one branch; when a pin move crosses a version whose changelog has a Migration entry citing an axis of this skill; and when an adopting project's existing documents have been moved into the workflow's homes. Covers what a project audit is, its method (an axis's saved workflow, whose one run per pass delivers a report the session verifies; then one list for the owner, the application, the re-check, the review), the outcome of each kind of finding, where the record of an audit goes, and one section per axis: the design-record axis, which re-applies the rules on design heads and rejected designs to every entry, and the agentic-workflow axis, which reads every instruction the harness delivers as one whole for instructions a session cannot follow and statements no act needs.
 ---
 
 # Auditing a project
@@ -19,7 +19,7 @@ project, not a verdict on one branch.
 - **A retrospective's findings**: `skill@knowledge-architect-retrospective` writes them, and
   `skill@knowledge-architect-retrospective-intake` analyses a project's own.
 - **Recording** what an audit changes: `skill@knowledge-architect-decision-recording` for a design
-  head and a rejected alternative, `skill@knowledge-architect-issue-tracking` for an issue and a
+  head and a rejected design, `skill@knowledge-architect-issue-tracking` for an issue and a
   tripwire, and `skill@knowledge-architect-goal-setting` for a conflict with a goal. Read the
   first before any write into a design home.
 
@@ -173,7 +173,7 @@ and proposes each finding's outcome; the report gathers all of it. Its `args`:
 | `history` | a git range whose commit messages, and the report files it added, record the audit's earlier passes, for the verifiers |
 | `previous` | for a re-check, the commit the previous pass audited, against which each finding is classified as on old or new text |
 | `kept` | for a re-check, the path of the file of entries and rules the owner ruled to keep |
-| `sample` | optional: the calibration sample, each entry a head's reference or a rejected alternative's name and file; the preflight chooses one when it is left out, and a re-check may keep the entries whose readings differed |
+| `sample` | optional: the calibration sample, each entry a head's or a `rejected` entry's reference; the preflight chooses one when it is left out, and a re-check may keep the entries whose readings differed |
 | `counts` | optional: `groupSize` and `checkersPerGroup`; a key left out takes its default, written in the script |
 | `from` | optional: `calibration` or `verify`, to restart a run from the files it already wrote; or `application`, to judge the session's application of the pass |
 | `applied` | with `from` set to `application`: the commit that holds the application |
@@ -202,8 +202,8 @@ uncommitted work in the tree.
 
 | outcome | the findings |
 | --- | --- |
-| applied in the branch | a rewording; the tense; a missing or wrong reference; an approval cited as a head's ground, removed when the head stands on its argument; a split that touches no word of the owner; a rejected alternative repaired in place, its reason made checkable or its marker set; a tripwire or an issue made stale by an edit of the audit, repaired in place |
-| put to the owner, on the owner list | a widening of what the owner's words approved, such as a title moved from the members the owner named to the rule; the removal of a head that fails every entry test; the removal of a rejected alternative that fails every recording test; a ground that is the owner's words; a head in the wrong Component |
+| applied in the branch | a rewording; the tense; a missing or wrong reference; an approval cited as a head's ground, removed when the head stands on its argument; a split that touches no word of the owner; a rejected design repaired in place, its reason made checkable or its marker set; a tripwire or an issue made stale by an edit of the audit, repaired in place |
+| put to the owner, on the owner list | a widening of what the owner's words approved, such as a title moved from the members the owner named to the rule; the removal of a head that fails every entry test; the removal of a rejected design that fails every recording test; a ground that is the owner's words; a head in the wrong Component |
 | an issue entry | a head false of the code, kind `defect`; a split or a move the owner approved that is too large for the branch, kind `design` |
 
 A tripwire or an issue is edited only where an edit of the audit makes it stale. An issue whose

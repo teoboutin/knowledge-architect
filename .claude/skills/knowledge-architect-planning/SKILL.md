@@ -22,7 +22,7 @@ each landing.
 - **Auditing one aspect of the whole project**, which the design audit of a slice or a spec is
   not: `skill@knowledge-architect-project-audit`.
 - **Recording** what a landing establishes. The procedure is
-  `skill@knowledge-architect-decision-recording` for the decisions and the losing alternatives, and
+  `skill@knowledge-architect-decision-recording` for the decisions and the rejected designs, and
   `skill@knowledge-architect-issue-tracking` for the tripwires and the issues.
 
 ## Terms `##planning-terms`
@@ -160,7 +160,7 @@ so in one line rather than being omitted, so a reader can tell an empty section 
 | How the work is done | in a milestone document: a pointer to `skill@knowledge-architect-planning@working-a-slice`, with an instruction to read it whole before each slice, and any addition the milestone's work needs. In a spec: one line naming this skill |
 | Names | every project shorthand the document uses, expanded to the file, function or command it names |
 | What the work is | what exists today at each site the work touches; what is outside the work and why, each exclusion naming the work or the decision that owns it |
-| What is already decided | the recorded decisions the design rests on and does not argue again, as references; and each recorded decision the work reverses or rewrites, with every text that `cargo klarch show` lists as referencing it (a tripwire, an issue, a restatement in a `CLAUDE.md` or a skill, a README, a comment), and the step, slice or harvest that judges or updates each; and each standing entry the discussion's search returned, with its outcome: how it bears on the work, or that it bears on nothing |
+| What is already decided | the recorded decisions the design rests on and does not argue again, as references; and each recorded decision the work reverses or rewrites, with every text that `cargo klarch show` lists as referencing it (a tripwire, an issue, a restatement in a `CLAUDE.md` or a skill, a README, a comment), and the step, slice or harvest that judges or updates each; and each standing entry the discussion's search returned, and each design or `rejected` entry its design-entry search graded `bears`, with its outcome: how it bears on the work, or that it bears on nothing |
 | Criteria | one item per criterion, ``### <criterion> `##<id>` ``: its kind, its source and its satisfaction |
 | Threads | one item per thread, ``### <resolution> `##<id>` ``: who proposed it and in which round, its final state, the arguments that moved it, the section that carries its shape, the durable home that will harvest it, and the owner's words that closed it, verbatim, with their round, or, for a thread closed `argued`, the argument that closed it |
 | Arguments | one item per argument of the discussion, ``### <argument> `##a<n>` ``: its round, who gave it, the threads it bears on, and its key words verbatim |
@@ -356,7 +356,7 @@ before its ruling. A load-bearing gap of point 2 is not such a default, even whe
 that puts it to the owner names one: it stops the slice, the whole of which rests on the decided
 design the gap defeats.
 
-1. **Ground**: the Component's `CLAUDE.md`, its design home, its rejected alternatives; then the
+1. **Ground**: the Component's `CLAUDE.md`, its design home, its `rejected` home; then the
    milestone document entire, then the slice's spec. The issues and the tripwires, of every anchor,
    are read at the audit.
 2. **The design audit.** Read the slice's entry and every decided shape it depends on against the
@@ -476,10 +476,10 @@ these four:
 - `agent@knowledge-architect-code-claims-reviewer` verifies every statement the document makes about
   the code as it stands, and reports each as confirmed, wrong or imprecise, with the evidence.
 - `agent@knowledge-architect-design-conformance-reviewer` reads the document against the project's
-  record: the goals, the design heads and the rejected alternatives of every Component it touches.
+  record: the goals, the design heads and the rejected designs of every Component it touches.
   It reports a shape, an acceptance criterion, a default, a step or a harvest row that contradicts
   a goal, that contradicts or widens a head the document does not list as reversed or rewritten,
-  or that brings back an alternative that lost. A conflict with a goal goes to the owner.
+  or that brings back a rejected design. A conflict with a goal goes to the owner.
 - `agent@knowledge-architect-transcript-reviewer` reads the discussion's transcripts and checks that
   everything the discussion established that must outlive it is in the document or has another
   durable outcome, and that no ruling of the owner is recorded wider, narrower or in another state

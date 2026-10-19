@@ -127,7 +127,7 @@ test mechanism, an issue's diagnosis; the list is illustrative, not a boundary):
 - **A transfer from another project names the property it depends on, and checks that the property
   holds here.** Naming the pattern is not enough. A claim taken from another project's record,
   such as a count of occurrences, is checked against that project's registers as well as its
-  history: its rejected alternatives and its issues often hold what its commit log does not.
+  history: its rejected designs and its issues often hold what its commit log does not.
 
 **Evidence is textual and cheap**: a verbatim reading of a file, a measurement over a tree, a
 failing test. Build it rather than trading intuitions.
@@ -319,7 +319,7 @@ it was written.
 | --- | --- | --- |
 | what the project, or one Component, is for, and what would show it achieved | that Component's goals home, `register@*@goal` (the project's root is a Component) | the owner abandons the goal |
 | how the project or a Component is built, and why | that Component's design home, `register@*@design` | the design changes: the entry is rewritten in place |
-| the engineering alternative that lost, and why | that Component's `register@*@rejected` | it is reopened and chosen, the owner rules it fails every recording test, or the decision it lost to leaves the design home and the text that keeps that decision's reason names it; a reversal moves the old winner into it if it meets a recording test of `skill@knowledge-architect-decision-recording` |
+| a design not kept, and why | that Component's `register@*@rejected`, each entry cited by the design heads whose argument covers it | it is reopened, chosen and built; the owner rules it fails every recording test; or no design head cites it any longer and no head of absence is written for it; a reversal moves the reversed decision into it if it meets a recording test of `skill@knowledge-architect-decision-recording` |
 | what is outstanding: a defect, an unexplained observation, an open question, missing work | one file in the owning anchor's issue directory, `register@*@issue` in a Component | the issue closes |
 | evidence that would flip a recorded decision whose work exists, or that no work implements | the owning Component's tripwires home, `register@*@tripwire` | it fires, or its decision is gone |
 | a contract or a trap that only a developer needs, true of the code as it stands | the scoped `CLAUDE.md` nearest the code | the contract changes or the trap is removed |
@@ -339,11 +339,11 @@ the head of the decision it supports, the issue entry it characterises, the trip
 threshold it is, or else the commit message that took it.
 
 **A reference is written wherever the text would have to be revisited if the entry it names
-changed**: a design head names the goal it derives from and a decision of another Component it
-depends on; an issue names the decision it strains and the goal it threatens, when it does
+changed**: a design head names the goal it derives from, a decision of another Component it
+depends on, and the `rejected` entries its argument covers; an issue names the decision it strains and the goal it threatens, when it does
 directly; a guard, a
 workaround, a stub or a test that exists because of an issue names it in the comment at the site; a
-tripwire names its decision; a rejected alternative names the decision it lost to; a commit message
+tripwire names its decision; a commit message
 names every entry it opens, closes, reverses or argues from. A reference whose entry's change would
 leave the text unaffected is not written. A reference, whose kinds
 `primer@checker-model` lists, names the anchor that defines the entry, and it is live wherever it is
@@ -470,14 +470,14 @@ design skill, as the backstop says.
 **The standing argument** is every premise whose failure would reopen the decision: the goal it
 derives a constraint from and a decision of another Component it depends on, as references; the
 measurement it rests on, with the command that takes it again; the fact that defeated its nearest
-rival. A constraint from a goal binds outright, where one from a decision is a presumption, and the
+rival, citing the rival's `rejected` entry where it has one. A constraint from a goal binds outright, where one from a decision is a presumption, and the
 reference is what tells a reader which. **The test: if this premise turned false, would the
 decision have to be argued again? If yes, it is in the head.** If no, it is deliberation.
 
 **A head stands on its argument, and cites the owner only for what came from the owner.** Most
 decisions are proposed, argued over their costs and rivals, and approved by the owner. The head
-records such a decision on that argument, with its costs and rivals in its body or in the rejected
-alternatives. An approval is not a ground, whatever its words ("approved", "agreed", "all defaults
+records such a decision on that argument, with its costs and rivals in its body or in the
+`rejected` entries it cites. An approval is not a ground, whatever its words ("approved", "agreed", "all defaults
 approved", "accepted the cost"). It stays in the deliberation: the plan document or the commit
 message. The owner's words are a ground, attributed to the owner, only where the decision came from
 the owner: the owner proposed it, the owner chose where the argued rivals did not settle it, or it

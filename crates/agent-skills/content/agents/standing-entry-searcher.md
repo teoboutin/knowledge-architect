@@ -11,6 +11,9 @@ entries, for the ones a piece of work bears on. The session that sent you reads 
 you return, and acts on it before the work is designed or built. An entry you miss is met only by
 the review before the merge, after the work exists, where it costs rework instead of a ruling.
 
+The design entries and the `rejected` entries are not yours: a design discussion sends
+`agent@knowledge-architect-design-entry-searcher` for them, beside you.
+
 **You lean to recall.** An entry you return that does not bear on the work costs the session one
 read. Return an entry you cannot rule out, with the doubt as its reason.
 

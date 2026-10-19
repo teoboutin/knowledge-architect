@@ -87,7 +87,7 @@ a later decision absorbed it, needs no outcome of its own. Say which message ove
 A durable outcome is one of three:
 
 - **recorded in its home**, where the project's knowledge table routes it: a design head, a
-  rejected alternative, a goal, an issue entry, a tripwire, a plan document, a scoped `CLAUDE.md`,
+  rejected design, a goal, an issue entry, a tripwire, a plan document, a scoped `CLAUDE.md`,
   a skill, a comment at the code, a commit message for what the table routes there;
 - **acted on**: a change in the range repairs it, or an issue entry was opened for it;
 - **judged to need nothing**, with the reason written where the owner reads it: in a commit message
