@@ -42,6 +42,7 @@ reverse is a family of pointers about to dangle.
 | `is referenced and` … `defines no` | a pointer into nothing: the anchor carries the register and no entry there has that id. Define it where the decision is made, or point at the entry that exists. |
 | `names` … `which is no anchor of this project`, or `which carries no` … `register` | the wrong segment of the reference: an anchor nobody declares, or one that does not carry that register. The finding lists the anchors that would resolve. |
 | `opens with` … `an anchor, where the kind goes`; `is the retired slug reference form` | a pointer in a retired grammar. It resolves to nothing until it is rewritten as `<kind>@<anchor>@<id>`. |
+| `is cited by no design entry` | a `rejected` entry that no design head cites: a design session reading the heads never meets it. Cite it from the head whose argument covers it, or from a head of absence. |
 | `is shaped like a path and names no anchor` | an unanchored path in prose, checked by nothing until it is anchored. |
 | `does not exist, at`; `claims a directory and names a file`; `claims a file and names a directory` | a path reference whose target moved, or whose trailing slash claims the wrong kind. |
 | `reaches inside the anchor` | a path named from an ancestor of the anchor that owns it. The deepest anchor names it. |

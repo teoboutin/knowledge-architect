@@ -1,0 +1,39 @@
+---
+kind: question
+---
+# The design-entry search runs only at a design discussion's grounding, not at the design audit of a slice or a spec, nor at a retrospective intake
+
+## Summary
+
+`agent@knowledge-architect-design-entry-searcher` is sent by the design skill's step 1 and nowhere
+else. The design audit of a slice or a spec, and a retrospective intake, send the standing-entry
+searcher alone, and read the design homes and the `rejected` homes in the session. Should they send
+the design-entry search too?
+
+## Details
+
+### What
+
+- `design@agent-skills@design-entry-search` places the search at the design skill's grounding, the
+  occasion the owner named when proposing it, design sessions.
+- `skill@knowledge-architect-planning@working-a-slice`, point 2, reads a slice's entry against the
+  code and the design homes in the session, and sends the standing-entry searcher for the issues and
+  the tripwires, per `design@agent-skills@standing-entries-searched-before-the-work`.
+- `skill@knowledge-architect-retrospective-intake` checks a proposed fix against the `rejected`
+  entries of the Component that owns the blamed text, in the session.
+- Not established: whether either reading misses design entries as the grounding of a discussion
+  did. No instance is recorded.
+
+### Why it matters
+
+An audit that misses a head a slice contradicts finds it only at the slice's review, after the code
+exists, against `goal@knowledge-architect@agents-work-without-drift`. The design skill's grounding
+gained the search on the owner's account of design entries missed in part many times; whether the
+audits share that failure is unknown.
+
+### What would close it
+
+A recorded instance of an audit or an intake that missed a design entry or a `rejected` entry the
+work bore on, then a change argued under `skill@knowledge-architect-design` that sends the search
+there; or a decision, argued the same way, that the session's own reading suffices at those
+occasions, with its reason.

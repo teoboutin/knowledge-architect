@@ -144,13 +144,13 @@ too how many of the owner's rulings on the owner list went against the default.
 
 ## The design-record axis {{slug:design-record-axis}}
 
-**The corpus**: every design head of every Component, and every entry of its rejected
-alternatives.
+**The corpus**: every design head of every Component, and every entry of its `rejected`
+home.
 
 **The rules**: every rule of `primer@design-heads` for a head, the questions of
 `skill@knowledge-architect-decision-recording@owning-component` for the Component it sits in, and
-every rule of `skill@knowledge-architect-decision-recording@losing-alternatives` for a rejected
-alternative.
+every rule of `skill@knowledge-architect-decision-recording@losing-alternatives` for a `rejected`
+entry.
 
 **Not in this axis**: whether a head is true of the code, and the restatements of a head in other
 texts.

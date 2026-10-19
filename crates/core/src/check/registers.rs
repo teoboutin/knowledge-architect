@@ -729,8 +729,7 @@ mod tests {
         let found = findings(&manifest, &present);
         assert_eq!(found.len(), 1, "{found:#?}");
         assert!(found[0].contains("no goal home"), "{found:#?}");
-        // So is the rejected home, AC2 of
-        // `spec@plans@rejected-register`.
+        // So is the rejected home, per `design@core@rejected-register`.
         let mut present = all_of("");
         present.retain(|p| p != "docs/rejected.md");
         let found = findings(&manifest, &present);

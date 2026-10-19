@@ -470,7 +470,7 @@ design skill, as the backstop says.
 **The standing argument** is every premise whose failure would reopen the decision: the goal it
 derives a constraint from and a decision of another Component it depends on, as references; the
 measurement it rests on, with the command that takes it again; the fact that defeated its nearest
-rival, citing the rival's `rejected` entry where it has one. A constraint from a goal binds outright, where one from a decision is a presumption, and the
+rival. A constraint from a goal binds outright, where one from a decision is a presumption, and the
 reference is what tells a reader which. **The test: if this premise turned false, would the
 decision have to be argued again? If yes, it is in the head.** If no, it is deliberation.
 

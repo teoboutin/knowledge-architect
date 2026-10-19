@@ -131,7 +131,7 @@ Every Component carries the same documents. `{{command}} check` names each one m
 | `CLAUDE.md` | the contracts and traps a developer needs, true of the code as it stands |
 | `register@*@goal`, one file, or a directory with a `README.md` | what the Component is for |
 | `register@*@design`, one file, or a directory with a `README.md` | how it is built and why; it may hold no entry yet |
-| `register@*@rejected` | what lost, and why; it may hold no entry yet |
+| `register@*@rejected`, one file, or a directory with a `README.md` | the designs not kept, and why, each cited by a design head; it may hold no entry yet |
 | `register@*@tripwire`, one file, or a directory with a `README.md` | evidence that would flip a decision; it may hold no entry yet |
 | `register@*@issue` | one file per outstanding item, a hand-written `README.md` and an `index.md` that `{{command}} index` generates |
 

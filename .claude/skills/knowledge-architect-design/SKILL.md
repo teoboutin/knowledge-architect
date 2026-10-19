@@ -417,15 +417,15 @@ choices whose option space genuinely is closed and consequence-free.
    description of `agent@knowledge-architect-design-entry-searcher` says,
    which grades each entry it reads. Then run
    `cargo klarch show <kind>@<anchor>@<id>`, which prints the entry and
-   every reference to it, on every entry either search returns, every
-   design or `rejected` entry graded `bears` or `may-bear` included, and on
-   each entry the question bears on, and read each whole: never act on an
+   every reference to it, on every entry the standing-entry search
+   returns, every entry the design-entry search grades `bears` or
+   `may-bear`, and each entry the question bears on, and read each whole: never act on an
    entry from the reason the search gave. The first round states which
    of these were read and run, which entries each search returned, which
    of them the question bears on, and, for each entry graded `may-bear`,
    whether it bears. An entry graded `may change` goes to
-   `skill@knowledge-architect-decision-recording@reversal-check` before a
-   proposal that would change it; one graded `may bring back` is
+   `skill@knowledge-architect-decision-recording@reversal-check`, and to the
+   backstop of `primer@design-heads`, before a proposal that would change it; one graded `may bring back` is
    proposed again only with a new argument, by the Reopening rule. When a
    thread opens on a subject the work given to the design-entry search
    did not cover, dispatch that search again for the Components the

@@ -37,8 +37,7 @@ further costs were measured. The test was `is_fifo` on stdout, and ksh93 builds 
 sockets, so `klarch check | tail` under ksh93 was not refused. And every caller that captures the
 output had to give the child a regular file: `cargo x gates` and the test helpers of thaum's two
 checker binaries; the runner's side, now the gates library's, is its own entry,
-`rejected@gates@streams-through-one-file`. The merge is guarded either way by the range check this
-entry lost to.
+`rejected@gates@streams-through-one-file`. The merge is guarded either way by the range check of `design@core@a-commit-message-is-a-document`.
 
 ### A `commit` subcommand that runs the checks and then `git commit` `##commit-subcommand`
 
@@ -173,8 +172,7 @@ the prefix carries none of them.
 
 `live`. It was the repair a defect proposed: relocating thaum's nine game-driving suites moved every
 backticked Rust path across five of its knowledge documents, and the checker reported none of them,
-because no suffix in the set covered them; the sweep had to be grep-driven. It loses because the
-winner retires the form that carried the set: a path reference names its kind and its anchor and is
+because no suffix in the set covered them; the sweep had to be grep-driven. It loses because `design@core@every-path-names-its-anchor` retires the form that carried the set: a path reference names its kind and its anchor and is
 checked whatever its suffix, so no set is left to widen and no suffix can be missing from one.
 
 ### `syn` as the Rust parser `##syn-rust-parser`
@@ -225,8 +223,7 @@ float.
 
 ### A fixture marker, a macro whose token tree the checker reads as data `##fixture-marker-macro`
 
-`live`. It frees every fixture and needs a convention at each one, which the winner's rule, by the
-directory a file sits in, does not. It is the recorded fallback should a literal outside the tool
+`live`. It frees every fixture and needs a convention at each one, which the rule of `design@core@checker-source-literals-are-data`, by the directory a file sits in, does not. It is the recorded fallback should a literal outside the tool
 ever need rule-shaped bytes as data where no binding can hold it.
 
 ### Moving the tool's unit tests under `path@core@tests/` and excluding the directory `##unit-tests-moved-under-tests`
@@ -317,7 +314,7 @@ layout.
 `live`. A row written in another shape was not silent: an angle-bracketed target was read with its
 brackets and an existing file was reported as missing, which a test in a navigation README showed. A
 directory home's README written with link definitions would have been reported as linking none of
-its subdocuments. Both are wrong findings, where the head had judged the gap to be a silence.
+its subdocuments. Both are wrong findings, where `design@core@links-are-navigation-rows` had judged the gap to be a silence.
 
 ### Refusing to load a manifest whose register declaration is wrong `##refusing-a-wrong-declaration`
 
@@ -364,7 +361,7 @@ manifest format of every project and every mock for no check that reads the diff
 no build to confirm anything, and worked wherever an extension keeps its mock projects. It loses
 because a value open to every project is an opt-out: an agent stuck on the refusal could write
 `"fixture"` in a real manifest, and the pin the key exists for would be silently off. Recorded
-because doubt remains on the winner: its review found two layouts that confirmed a sentinel on a
+because doubt remains on `design@core@checked-sentinel-values`: its review found two layouts that confirmed a sentinel on a
 real project, a root that is an extension's crate and a registry inside the tree, and closed each by
 its own rule; a third would argue for this one again.
 
@@ -372,7 +369,7 @@ its own rule; a third would argue for this one again.
 
 `live`. It let no backticked pointer pass unregistered, a pointer written after its target's
 directory left the tree included, and it needed no read of the tree. It loses on a census of a
-project new to the tool, in the commit that rewrote the winner's head: nearly all its findings there
+project new to the tool, in the commit that rewrote `design@core@every-path-names-its-anchor`: nearly all its findings there
 were another tool's notation (fixture paths of tests, paths on the user's machine, example paths in
 a changelog), each to be rewritten or anchored at `elsewhere` before the project passed, and the one
 real pointer, a stale one, is reported under the winner too.
@@ -389,10 +386,9 @@ made the run take about nine seconds, against half a second when the listing alo
 
 ### The retired slug reference reported whatever it names `##retired-slug-reference-always-reported`
 
-`live`. It reported a copied form whose entry has left the tree and whose word is no anchor, which
-the winner leaves silent. It loses because the form was this grammar's alone: in a project that
+`live`. It reported a copied form whose entry has left the tree and whose word is no anchor, which `design@core@candidate-rule-and-retired-forms` leaves silent. It loses because the form was this grammar's alone: in a project that
 never used it, every match is that project's own notation, such as an issue number `#123` or a
-preprocessor directive `#include`, and in the census of the commit that rewrote the winner's head
+preprocessor directive `#include`, and in the census of the commit that rewrote `design@core@candidate-rule-and-retired-forms`
 its one finding was an issue number.
 
 ### The interpretation entry number kept as a retired form permanently, a bare `R` followed by digits reported wherever prose holds it `##permanent-interpretation-number-form`
@@ -488,8 +484,7 @@ readable from a path alone with no record and no history.
 
 ### A plans directory in every component `##plans-directory-per-component`
 
-`live`. It lets a large project keep each component's plans beside it. It loses on the premises that
-head states: most work spans components, so its plans sit at the root anyway; no project should hold
+`live`. It lets a large project keep each component's plans beside it. It loses on the premises `design@core@plans-at-root` states: most work spans components, so its plans sit at the root anyway; no project should hold
 enough open plans for a split to help; and plans designed before another is built break each other,
 which separate directories hide from each other. A further cost, which the owner did not argue:
 every component would owe a plans home that holds nothing.
@@ -510,8 +505,7 @@ listed both, `git diff --cached` and `git write-tree` the empty file alone.
 ### A third `extension::Tree` variant for the index `##third-tree-variant-for-index`
 
 `live`. The index is read through the same git objects as a commit, so the third arm reads what the
-second reads. It is what `design@core@ne-minimal` would ask of a new tree, and the winner records
-the cost of not taking it: an extension's commit-mode handling runs under `check --staged` without
+second reads. It is what `design@core@ne-minimal` would ask of a new tree, and `design@core@an-extension-reads-a-snapshot` records the cost of not taking it: an extension's commit-mode handling runs under `check --staged` without
 the extension deciding anything.
 
 ### `index --staged` writing the staged rows into the working-tree file `##index-staged-writes-working-file`
@@ -556,3 +550,53 @@ puts a special case into path resolution.
 not any component used that shape yet, so a text that must hold in every project could name both
 shapes and pass. The `register` form serves that need with one span. Kept legal, the path form keeps
 being written, and a home that changes shape dangles every one of them.
+
+### The paragraphs of a compiled document, with `show` printing each one that cites a head `##paragraphs-with-show-printing-them`
+
+`live`. It needed no migration of any project. It delivers a rejected design only to a session that
+runs `show` on the right head, and the case that prompted the register is a session that did not
+read the right head; it also leaves nothing for a plan item, a review finding or a commit message to
+cite, since a paragraph has no slug.
+
+### The kind named `rejected-alternative` `##kind-named-rejected-alternative`
+
+`live`. It names what most entries are. The span is 12 characters longer, `-alternative`, in a
+reference that never crosses a line break, the slug already names the design, and the owner judged
+"alternatives" a poor fit for a design rejected without being an alternative to one built.
+
+### The home keeping the file name of the rejected-alternatives document `##home-keeping-the-old-file-name`
+
+`live`. It would leave the file a reader already knows. Every pointer to the file changed anyway,
+since a `path` span to a register's home is a finding whose repair is the `register` form, so it
+saves no edit, and it leaves a home named otherwise than its kind; the owner judged the new name to
+read better and to avoid a confusion point.
+
+### A validity marker the checker reads `##validity-marker-checked`
+
+`live`. It would make `void` mechanical. A heading register has no field for it, per
+`design@core@registers-are-declared`, so it needs a syntax of its own, and when the register was
+built no entry of this repository was marked `void`, so it would protect none.
+
+### A `--fix` that converts the paragraphs of a rejected-alternatives document into `rejected` entries `##fix-converting-old-entries`
+
+`live`. It would make the migration one command. Converting an entry chooses its slug and its
+citing heads, and a fix never makes a choice, per `design@core@fix-scope`.
+
+### A goal citing a `rejected` entry to make it reachable `##goal-citing-a-rejected-entry`
+
+`live`. It would keep reachable an entry whose design lost to a goal alone. A goal does not change
+when a design it did not keep goes `void`, so the citation fails the revisit test of the installed
+reference rule and is decoration, and a goal is written only on the owner's word.
+
+### A `rejected` entry made reachable by its own citation of a goal `##entry-reachable-by-citing-a-goal`
+
+`live`. It was the default of the discussion that built the check, for an entry whose design lost to
+a goal alone, and its citation passes the revisit test. The owner judged that only a design entry
+should count, and that a head of absence is the right home where nothing is built; it is the
+candidate if heads of absence prove to be written only to satisfy the check.
+
+### No check of uncited `rejected` entries `##no-orphan-check`
+
+`live`. It would leave the citations to review. An entry that no head cites is the case the
+register exists to end: a design session reads the heads, and an uncited entry reaches it only
+through `show`.

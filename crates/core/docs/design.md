@@ -31,7 +31,7 @@ code that checks the real tree.
 
 Five things are compiled in, and none of them describes a project:
 
-- **What the word _component_ means**: the documents a component carries and the four built-in
+- **What the word _component_ means**: the documents a component carries and the five built-in
   component registers, per `design@core@components-carry-the-same-documents`.
 - **Where plan documents live**: the anchor `plans` at docs/plans/ of the root and its two
   registers, per `design@core@plans-dir-fixed`. It is the tool's convention for a kind of
@@ -633,7 +633,7 @@ it, and no project can hold part of it back.
 
 **A declared register adds obligations and removes none**, which is what keeps
 `design@core@registers-are-declared` inside this head rather than an exception to it. Declaring one
-gives a project a kind, a shape and a home to be checked against; it cannot loosen the ten built
+gives a project a kind, a shape and a home to be checked against; it cannot loosen the eleven built
 in, and it cannot exempt a document from anything. A manifest that declares no register is checked
 exactly as it was.
 
@@ -692,15 +692,21 @@ and a `rejected` entry is none.
 It serves `goal@knowledge-architect@design-is-recorded-with-its-arguments`, which asks for the
 alternatives that lost and why, and `goal@core@records-reach-their-reader`, which asks that a
 recorded entry reach whoever needs it through checked references: an entry with no slug can be
-cited by nothing, and `show` on a head listed it as a file and a line. The home stays apart from
+cited by nothing, and `show` prints an entry whole only when it is one. The home stays apart from
 the design home, on the owner's argument: an agent reading a decision file partly, by grep, could
 take a rejected design for what is built, and separating the two at the level of the files keeps a
 grep hit on one from reading as the other. The nearest rival, the paragraphs of a compiled
 document with `show` printing each one that cites a head, delivers only to a session that runs
 `show` on the right head, and leaves nothing for an item, a finding or a message to cite. The name
-is `rejected`, which the owner proposed, judging "alternatives" a poor fit for a design rejected
-without being an alternative to one built; the home is named after it, since every pointer to the former document changed with
-it anyway. Which designs earn an entry is installed text, the decision-recording skill's.
+is `rejected`, which the owner proposed for a shorter citation, finding a register of alternatives
+alone somewhat odd since a design can be rejected without being an alternative to one built, by
+the agent's reading of the owner's words; the home is named after it, since a `path` span to a
+register's home is a finding whose repair is the `register` form, so a home named otherwise than
+its kind saves no edit. Which designs earn an entry is installed text, the decision-recording skill's.
+
+The designs this decision did not keep: `rejected@core@paragraphs-with-show-printing-them`,
+`rejected@core@kind-named-rejected-alternative`, `rejected@core@home-keeping-the-old-file-name` and
+`rejected@core@validity-marker-checked`.
 
 ### A `rejected` entry that no design entry cites is a finding `##orphan-rejected-entry`
 
@@ -718,6 +724,9 @@ fails the revisit test of the installed reference rule, since a goal does not ch
 it did not keep goes `void`. The owner judged that only a design entry should count, a design rejected with
 nothing built in its place being cited by a head of absence, over counting an entry that cites a
 goal itself.
+
+The designs this decision did not keep: `rejected@core@goal-citing-a-rejected-entry`,
+`rejected@core@entry-reachable-by-citing-a-goal` and `rejected@core@no-orphan-check`.
 
 ### An anchor is a component or a location, and a location carries the registers it declares or the tool gives it `##anchors-are-components-and-locations`
 
@@ -1317,6 +1326,8 @@ git's listing after normalising line endings: a file git does not list, such as 
 the namespace, is never touched. The generated files alone, the rival, lost: repairing the installed set costs little, and it removes the
 install-then-index sequence from an upgrade.
 
+The design this decision did not keep: `rejected@core@fix-converting-old-entries`.
+
 ### A fix run repairs the installed files, gates the model, refuses a partial commit's mismatch, writes the generated files, then checks `##fix-before-the-checks`
 
 The order of a `--fix` run: `--fix` with `--staged` is refused while parsing; a manifest holding a
@@ -1334,9 +1345,9 @@ as done, adds a special case to the phase gate. The cost of two runs is small by
 weighing: "skill deletion/rename is a rare thing anyway. Not much of a problem if it takes multiple
 invocations to handle." A failed
 write exits 2 with nothing written, and 1 after any write, since 2 promises an untouched tree. The check stays the only verifier: `--fix` only writes
-before it verifies, so the rejected alternative of an `index` that prints a diff and a `--write`
-that applies it, a second command answering whether a file is current in its own format, is not
-reopened.
+before it verifies, so the rejected design of an `index` that prints a diff and a `--write`
+that applies it, a second command answering whether a file is current in its own format,
+`rejected@core@index-diff-with-write-flag`, is not reopened.
 
 ## 3. Names and references
 
@@ -1344,8 +1355,8 @@ reopened.
 
 **A kind is a register's name, or `path`, or `planned`, or `register`, or, under the `claude`
 harness, a harness kind**: `skill`, `agent`, `primer` or `instructions`, which is no register and takes no anchor, per
-`design@core@harness-kinds`. The ten built-in registers give the kinds `design`,
-`goal`, `tripwire`, `issue`, `spec`, `milestone`, `thread`, `argument`, `criterion` and
+`design@core@harness-kinds`. The eleven built-in registers give the kinds `design`,
+`goal`, `tripwire`, `rejected`, `issue`, `spec`, `milestone`, `thread`, `argument`, `criterion` and
 `acceptance`, and a project's own declarations give the rest, so the kind set is
 data rather than a compiled enumeration. A heading register's entities are slugs defined in the
 register's home under an anchor, per `design@core@an-entry-is-a-heading-at-the-register-level`; a file register's are the

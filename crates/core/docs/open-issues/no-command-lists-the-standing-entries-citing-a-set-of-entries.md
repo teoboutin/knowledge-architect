@@ -19,7 +19,7 @@ What the commands print today:
 
 - `show <ref>` prints the entry, then `referenced at:` and one `<file>:<line>` per reference. A
   tripwires home holds many entries in one file, so a line number has to be mapped by hand to the
-  heading above it. A reference from a design head, a rejected alternative or a plan document is
+  heading above it. A reference from a design head, a `rejected` entry or a plan document is
   listed beside those from standing entries.
 - `tripwires --guarding <ref>` prints the tripwire rows guarding one entry. It takes one reference.
 - `issues` filters by anchor, by kind, by group and by text in the id or the title. It has no

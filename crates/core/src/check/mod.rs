@@ -387,7 +387,7 @@ mod phase_tests {
     #[test]
     fn a_location_holding_the_root_s_homes_is_the_one_finding_and_owns_no_slug() {
         // The shape the cascade entry was about: a location at the root's `docs/`, refused for
-        // holding the four homes, and a slug in the design home that it would have owned. The
+        // holding the five homes, and a slug in the design home that it would have owned. The
         // refusal is the one finding; nothing reports the slug misplaced against the location.
         let m = manifest("[locations.papers]\npath = \"docs\"\nregisters = [\"issue\"]\n");
         let model = Model::from_documents(vec![(
