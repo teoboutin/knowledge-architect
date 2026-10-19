@@ -21,6 +21,12 @@
 //! `design@core@candidate-rule-and-retired-forms`. A span that names nothing here is another
 //! tool's notation, and is silent.
 //!
+//! **A defined id is written as its reference, or it is a finding.** Three lints read what the
+//! reference form leaves out: a reference-shaped token outside backticks, per
+//! `design@core@candidate-rule-and-retired-forms`, and an id the entity table defines written in
+//! backticks alone or as a plain word, per `design@core@bare-skill-name-reported`. Each matches
+//! this project's ids only, so another project's id, or one whose entry has left, is silent.
+//!
 //! **A `rejected` entry that no design entry cites is reported**, per
 //! `design@core@orphan-rejected-entry`: the one finding of this family raised over the entities
 //! rather than over a span, and over a tree only, since a commit message holds no design entry.
@@ -127,8 +133,9 @@ pub(crate) enum Part {
     All,
     /// The references, the links and the wrapped spans.
     References,
-    /// The unanchored path, the retired slug reference and the bare name of a skill or an
-    /// agent.
+    /// The unanchored path, the retired slug reference, and the three lints on a defined id
+    /// written outside its reference form: a reference-shaped token outside backticks, an id in
+    /// backticks alone, and an id as a plain word.
     Lints,
 }
 
@@ -142,6 +149,7 @@ pub(crate) fn judge_part(
 ) -> (Vec<Finding>, Counts) {
     let references = part != Part::Lints;
     let lints = part != Part::References;
+    let ids = entities.by_id();
     let mut out: Vec<Finding> = Vec::new();
     let mut counts = Counts {
         entities: entities.len(),
@@ -236,25 +244,35 @@ pub(crate) fn judge_part(
                         ),
                     ))
                 }
-                Observation::BareName(name) if lints => {
-                    // Exact against the table, so a crate's name or a name that no longer exists
-                    // is silent: the lint reports a pointer written with no kind, and a word that
-                    // names no skill and no agent here is no pointer. Under `harness = []` the
-                    // table defines neither kind, so nothing is reported. A name both kinds hold
-                    // is repaired as the skill: the order below is the only reason.
-                    let Some(kind) = [entity::SKILL_KIND, entity::AGENT_KIND]
-                        .into_iter()
-                        .find(|k| entities.defines(&Kind::new(k), "", name))
-                    else {
-                        continue;
-                    };
-                    out.push(Finding::at(
-                        &doc.rel,
-                        l.line,
-                        format!("`{name}` is a bare {kind} name"),
-                        format!("write `{kind}@{name}`"),
-                    ))
+                // The three lints on ids are exact against the table, so a name that no longer
+                // exists, or that another project defines, is silent: each reports a pointer
+                // written without its reference form, and a word that names nothing here is no
+                // pointer. An id several entries define lists every one and chooses none, so the
+                // checker supplies no meaning the writer did not write.
+                Observation::BareName(id) if lints => {
+                    let forms = defined_forms(id, &ids, entities, anchors, &doc.rel);
+                    if let Some(finding) = id_finding(&doc.rel, l.line, id, &forms, IdForm::Bare) {
+                        out.push(finding);
+                    }
                 }
+                Observation::PlainWord(id) if lints => {
+                    let forms = defined_forms(id, &ids, entities, anchors, &doc.rel);
+                    if let Some(finding) = id_finding(&doc.rel, l.line, id, &forms, IdForm::Plain) {
+                        out.push(finding);
+                    }
+                }
+                // Beside a backticked reference to an issue entry, a token is the pointer no
+                // checked form expresses, which `design@agent-skills@plain-text-is-no-repair`
+                // lets a writer put in plain text beside the issue that records the gap.
+                Observation::UnquotedReference {
+                    token,
+                    beside_issue: false,
+                } if lints && written_reference(token, anchors) => out.push(Finding::at(
+                    &doc.rel,
+                    l.line,
+                    format!("`{token}` is a reference written without backticks"),
+                    format!("write it in backticks, as `{token}`, so the check reads it"),
+                )),
                 Observation::WrappedSpan(span) if references => out.push(Finding::at(
                     &doc.rel,
                     l.line,
@@ -286,6 +304,100 @@ pub(crate) fn judge_part(
         }
     }
     (out, counts)
+}
+
+/// How an id was written outside its reference form.
+#[derive(Clone, Copy)]
+enum IdForm {
+    /// In backticks, alone.
+    Bare,
+    /// As a plain word.
+    Plain,
+}
+
+/// The reference of every entity the table defines with this id that `rel` may cite: an item of
+/// a plan only from inside that plan, as its reference resolves, per
+/// `design@core@plan-item-scope`.
+fn defined_forms(
+    id: &str,
+    ids: &std::collections::HashMap<&str, Vec<(&Kind, &str)>>,
+    entities: &Entities,
+    anchors: &Anchors,
+    rel: &Path,
+) -> Vec<String> {
+    let Some(defined) = ids.get(id) else {
+        return Vec::new();
+    };
+    let mut forms: Vec<String> = defined
+        .iter()
+        .filter(|(kind, anchor)| {
+            kind.is_harness()
+                || entities.resolve_from(anchors, kind, anchor, id, Some(rel))
+                    == Resolution::Resolved
+        })
+        .map(|(kind, anchor)| {
+            if anchor.is_empty() {
+                format!("{kind}@{id}")
+            } else {
+                format!("{kind}@{anchor}@{id}")
+            }
+        })
+        .collect();
+    forms.sort();
+    forms
+}
+
+/// The finding on an id written outside its reference form, or `None` where no entity this
+/// document may cite has that id.
+fn id_finding(rel: &Path, line: u32, id: &str, forms: &[String], how: IdForm) -> Option<Finding> {
+    let (written, word) = match how {
+        IdForm::Bare => ("in backticks without its kind", ""),
+        IdForm::Plain => (
+            "as a plain word",
+            "; where the word is meant as an ordinary term, the entry's slug names a subject: \
+             rename the entry to state its decision",
+        ),
+    };
+    let listed = |forms: &[String]| {
+        forms
+            .iter()
+            .map(|f| format!("`{f}`"))
+            .collect::<Vec<_>>()
+            .join(", ")
+    };
+    match forms {
+        [] => None,
+        [form] => Some(Finding::at(
+            rel,
+            line,
+            format!("`{id}` is written {written}, and names `{form}`"),
+            format!("write `{form}`{word}"),
+        )),
+        _ => Some(Finding::at(
+            rel,
+            line,
+            format!(
+                "`{id}` is written {written}, and {} entries define it",
+                forms.len()
+            ),
+            format!("write the reference meant, one of {}{word}", listed(forms)),
+        )),
+    }
+}
+
+/// Whether a token outside backticks is a reference: a kind, and the segments that kind takes,
+/// each in its grammar, so an address whose head is a kind, as `<kind>@example.test`, is none.
+fn written_reference(token: &str, anchors: &Anchors) -> bool {
+    let anchor_ok = |a: &str| a == "*" || entity::is_anchor_name(a);
+    match entity::candidate(token, anchors) {
+        Candidate::Reference { kind, anchor, id } => {
+            anchor_ok(anchor) && (kind.takes_a_path() || entity::is_entity_id(id))
+        }
+        Candidate::Harness { owner, id, .. } => {
+            (owner.is_empty() || entity::is_entity_id(owner)) && entity::is_entity_id(id)
+        }
+        _ => false,
+    }
 }
 
 /// Whether an unanchored path-shaped span names a file or a directory of this tree.
@@ -1241,7 +1353,7 @@ fn plan_document(anchors: &Anchors, target: &Path) -> Option<String> {
             .collect();
         // The first segment names a milestone only in the id grammar: a directory of another
         // name is no milestone, and its finding is phase 2's.
-        let m = parts.first().filter(|m| entity::is_entity_id(m))?;
+        let m = parts.first().filter(|m| entity::is_entry_id(m))?;
         let slice = match parts.as_slice() {
             [_, file] => file
                 .strip_suffix(".md")
@@ -1820,12 +1932,12 @@ mod tests {
         let m = manifest();
         let docs = vec![
             ("docs/plans/specs/a-spec.md", "# A spec\n"),
-            ("docs/plans/milestones/m/README.md", "# A milestone\n"),
-            ("docs/plans/milestones/m/a-slice.md", "# A slice\n"),
+            ("docs/plans/milestones/m-one/README.md", "# A milestone\n"),
+            ("docs/plans/milestones/m-one/a-slice.md", "# A slice\n"),
             (
                 "notes/prose.md",
-                "`spec@plans@a-spec`, `milestone@plans@m` and `spec@m@a-slice` resolve;\n\
-                 `spec@plans@none`, `milestone@plans@none` and `spec@m@none` do not.\n",
+                "`spec@plans@a-spec`, `milestone@plans@m-one` and `spec@m-one@a-slice` resolve;\n\
+                 `spec@plans@none-such`, `milestone@plans@none-such` and `spec@m-one@none-such` do not.\n",
             ),
         ];
         let present: Vec<PathBuf> = docs.iter().map(|(p, _)| PathBuf::from(p)).collect();
@@ -1836,13 +1948,13 @@ mod tests {
         assert_eq!(found.len(), 3, "{found:#?}");
         assert!(found
             .iter()
-            .any(|f| f.contains("`plans` defines no spec `none`")));
+            .any(|f| f.contains("`plans` defines no spec `none-such`")));
         assert!(found
             .iter()
-            .any(|f| f.contains("`plans` defines no milestone `none`")));
+            .any(|f| f.contains("`plans` defines no milestone `none-such`")));
         assert!(found
             .iter()
-            .any(|f| f.contains("`m` defines no spec `none`")));
+            .any(|f| f.contains("`m-one` defines no spec `none-such`")));
     }
 
     /// The claim: the repair a refused plan citation names is the form that resolves for each position: a slice for
@@ -1854,24 +1966,27 @@ mod tests {
         let m = manifest();
         let anchors = Anchors::of(&m, &[] as &[PathBuf]);
         for (target, form) in [
-            ("docs/plans/milestones/m/a-slice.md", Some("spec@m@a-slice")),
             (
-                "docs/plans/milestones/m/README.md",
-                Some("milestone@plans@m"),
+                "docs/plans/milestones/m-one/a-slice.md",
+                Some("spec@m-one@a-slice"),
             ),
             (
-                "docs/plans/milestones/m/index.md",
-                Some("milestone@plans@m"),
+                "docs/plans/milestones/m-one/README.md",
+                Some("milestone@plans@m-one"),
             ),
             (
-                "docs/plans/milestones/m/sub/x.md",
-                Some("milestone@plans@m"),
+                "docs/plans/milestones/m-one/index.md",
+                Some("milestone@plans@m-one"),
             ),
             (
-                "docs/plans/milestones/m/a.md/x.md",
-                Some("milestone@plans@m"),
+                "docs/plans/milestones/m-one/sub/x.md",
+                Some("milestone@plans@m-one"),
             ),
-            ("docs/plans/milestones/m", Some("milestone@plans@m")),
+            (
+                "docs/plans/milestones/m-one/a.md/x.md",
+                Some("milestone@plans@m-one"),
+            ),
+            ("docs/plans/milestones/m-one", Some("milestone@plans@m-one")),
             ("docs/plans/specs/a-spec.md", Some("spec@plans@a-spec")),
             ("docs/plans/specs/README.md", None),
             ("docs/plans/milestones/README.md", None),
@@ -1891,13 +2006,13 @@ mod tests {
     #[test]
     fn a_milestone_name_in_the_kind_position_is_silent() {
         let m = manifest();
-        let tree: Vec<PathBuf> = ["docs/plans/milestones/git/README.md"]
+        let tree: Vec<PathBuf> = ["docs/plans/milestones/a-host/README.md"]
             .iter()
             .map(PathBuf::from)
             .collect();
         let anchors = Anchors::of(&m, &tree);
-        assert!(anchors.by_name("git").is_some());
-        let text = "The remote is `git@github.com:org/repo.git`.\n";
+        assert!(anchors.by_name("a-host").is_some());
+        let text = "The remote is `a-host@example.test:org/repo.git`.\n";
         let (found, counts) = checked_under(vec![("notes/prose.md", text)], &[], &anchors);
         assert!(found.is_empty(), "{found:#?}");
         assert_eq!(counts.references, 0);
@@ -1913,8 +2028,8 @@ mod tests {
         let m = manifest();
         let tree: Vec<PathBuf> = [
             "docs/plans/specs/a-spec.md",
-            "docs/plans/milestones/m/README.md",
-            "docs/plans/milestones/m/a-slice.md",
+            "docs/plans/milestones/m-one/README.md",
+            "docs/plans/milestones/m-one/a-slice.md",
         ]
         .iter()
         .map(PathBuf::from)
@@ -1924,10 +2039,10 @@ mod tests {
         // The milestone's README is in the tree and not in the walk.
         let docs = vec![
             ("docs/plans/specs/a-spec.md", "# A spec\n"),
-            ("docs/plans/milestones/m/a-slice.md", "# A slice\n"),
+            ("docs/plans/milestones/m-one/a-slice.md", "# A slice\n"),
             (
                 "notes/prose.md",
-                "`path@*@specs/a-spec.md`, `path@*@a-slice.md` and `milestone@plans@m`.\n",
+                "`path@*@specs/a-spec.md`, `path@*@a-slice.md` and `milestone@plans@m-one`.\n",
             ),
         ];
         let (found, _) = checked_under(docs, &present, &anchors);
@@ -1942,7 +2057,7 @@ mod tests {
         );
         assert!(found
             .iter()
-            .any(|f| f.contains("`plans` defines no milestone `m`")));
+            .any(|f| f.contains("`plans` defines no milestone `m-one`")));
     }
 
     /// The claim: an item of a plan resolves from inside its plan and is refused from outside
@@ -1955,13 +2070,13 @@ mod tests {
         let m = manifest();
         let docs = vec![
             (
-                "docs/plans/specs/s.md",
-                "# A spec\n\n## Threads\n\n### A thread `##one`\n\nIt cites `thread@s@one` and \
-                 `thread@s@nope`.\n",
+                "docs/plans/specs/a-spec.md",
+                "# A spec\n\n## Threads\n\n### A thread `##thread-one`\n\nIt cites `thread@a-spec@thread-one` and \
+                 `thread@a-spec@no-such`.\n",
             ),
             (
                 "notes/prose.md",
-                "`thread@s@one`, `thread@s@none`, `spec@plans@s` and `path@s@x.md`.\n",
+                "`thread@a-spec@thread-one`, `thread@a-spec@none-such`, `spec@plans@a-spec` and `path@a-spec@x.md`.\n",
             ),
         ];
         let tree: Vec<PathBuf> = docs.iter().map(|(p, _)| PathBuf::from(p)).collect();
@@ -1970,17 +2085,78 @@ mod tests {
         let (found, _) = checked_under(docs, &present, &anchors);
         let outside: Vec<&String> = found
             .iter()
-            .filter(|f| f.contains("cites an item of the plan `s` from outside it"))
+            .filter(|f| f.contains("cites an item of the plan `a-spec` from outside it"))
             .collect();
         assert_eq!(outside.len(), 2, "{found:#?}");
-        assert!(found
-            .iter()
-            .any(|f| f.contains("`path@s@x.md` names the spec `s`, which carries no path kind")));
+        assert!(found.iter().any(|f| f
+            .contains("`path@a-spec@x.md` names the spec `a-spec`, which carries no path kind")));
         // An undefined item cited from inside its plan is the ordinary dangling finding.
         assert!(found
             .iter()
-            .any(|f| f.contains("`s` defines no thread `nope`")));
+            .any(|f| f.contains("`a-spec` defines no thread `no-such`")));
         assert_eq!(found.len(), 4, "{found:#?}");
+    }
+
+    /// The claim: an item's id written outside its reference form is reported inside its own
+    /// plan, with the item's reference, and is silent outside it, where no document may cite the
+    /// item, per `design@core@plan-item-scope`. Mutation checked: dropping the resolution test of
+    /// `defined_forms` reports the plain word in notes/prose.md.
+    #[test]
+    fn an_item_id_written_plain_is_reported_inside_its_plan_alone() {
+        let m = manifest();
+        let docs = vec![
+            (
+                "docs/plans/specs/a-spec.md",
+                "# A spec\n\n## Threads\n\n### A thread `##thread-one`\n\nThe thread-one rule, \
+                 and `thread-one`.\n",
+            ),
+            ("notes/prose.md", "The thread-one rule, and `thread-one`.\n"),
+        ];
+        let tree: Vec<PathBuf> = docs.iter().map(|(p, _)| PathBuf::from(p)).collect();
+        let anchors = Anchors::of(&m, &tree);
+        let present: Vec<String> = docs.iter().map(|(p, _)| p.to_string()).collect();
+        let (found, _) = checked_under(docs, &present, &anchors);
+        assert_eq!(found.len(), 2, "{found:#?}");
+        assert!(found
+            .iter()
+            .all(|f| f.starts_with("docs/plans/specs/a-spec.md:7")
+                && f.contains("names `thread@a-spec@thread-one`")));
+    }
+
+    /// The claim: a reference-shaped token outside backticks is reported where its kind and its
+    /// segments make a reference, and is silent beside a backticked reference to an issue entry
+    /// in its paragraph, per `design@agent-skills@plain-text-is-no-repair`; a token of the wrong
+    /// arity, one whose id is no id, as an address is not, and a placeholder are silent.
+    /// Mutations checked: ignoring `beside_issue` reports line 3; dropping the id grammar from
+    /// `written_reference` reports the address.
+    #[test]
+    fn a_reference_written_without_backticks_is_reported_except_beside_an_issue() {
+        let m = manifest();
+        let docs = vec![
+            (
+                "parts/a-part/docs/design.md",
+                "# Design\n\n### A decision `##a-decision`\n",
+            ),
+            ("parts/a-part/docs/open-issues/a-gap.md", "# A gap\n"),
+            (
+                "notes/prose.md",
+                "See design@a-part@a-decision here.\n\nSee design@a-part@a-decision, beside \
+                 `issue@a-part@a-gap`.\n\nNot design@a-part, skill@example.test, nor \
+                 design@<anchor>@<id>.\n",
+            ),
+        ];
+        let present: Vec<String> = docs.iter().map(|(p, _)| p.to_string()).collect();
+        let (found, _) = checked_docs(&m, docs, &present);
+        let tokens: Vec<&String> = found
+            .iter()
+            .filter(|f| f.contains("written without backticks"))
+            .collect();
+        assert_eq!(tokens.len(), 1, "{found:#?}");
+        assert!(tokens[0].starts_with("notes/prose.md:1"), "{found:#?}");
+        assert!(
+            tokens[0].contains("write it in backticks, as `design@a-part@a-decision`"),
+            "{found:#?}"
+        );
     }
 
     /// The claim: an item a slice spec defines, cited from outside its milestone, gets the slice
@@ -1991,16 +2167,16 @@ mod tests {
         let m = manifest();
         let docs = [
             (
-                "docs/plans/milestones/m/README.md",
+                "docs/plans/milestones/m-one/README.md",
                 "# A milestone\n\n## Threads\n\n### In the README `##in-readme`\n",
             ),
             (
-                "docs/plans/milestones/m/a-slice.md",
+                "docs/plans/milestones/m-one/a-slice.md",
                 "# A slice\n\n## Threads\n\n### In the slice `##in-slice`\n",
             ),
             (
                 "notes/prose.md",
-                "`thread@m@in-readme` and `thread@m@in-slice`.\n",
+                "`thread@m-one@in-readme` and `thread@m-one@in-slice`.\n",
             ),
         ];
         let tree: Vec<PathBuf> = docs.iter().map(|(p, _)| PathBuf::from(p)).collect();
@@ -2015,26 +2191,28 @@ mod tests {
         let form = |id: &str| match entities.resolve_from(
             &anchors,
             &Kind::new("thread"),
-            "m",
+            "m-one",
             id,
             Some(notes),
         ) {
             Resolution::OutsidePlan { form } => form,
             other => panic!("{other:?}"),
         };
-        assert_eq!(form("in-readme"), "milestone@plans@m");
-        assert_eq!(form("in-slice"), "spec@m@a-slice");
+        assert_eq!(form("in-readme"), "milestone@plans@m-one");
+        assert_eq!(form("in-slice"), "spec@m-one@a-slice");
         // And the Undefined repair of an item names its section, not a home.
         let (found, _) = checked_under(
             vec![(
-                "docs/plans/milestones/m/README.md",
-                "# A milestone\n\nIt cites `thread@m@nope`.\n",
+                "docs/plans/milestones/m-one/README.md",
+                "# A milestone\n\nIt cites `thread@m-one@no-such`.\n",
             )],
             &[],
             &anchors,
         );
         assert!(
-            found.iter().any(|f| f.contains("defines no thread `nope`")),
+            found
+                .iter()
+                .any(|f| f.contains("defines no thread `no-such`")),
             "{found:#?}"
         );
     }
@@ -2050,8 +2228,8 @@ mod tests {
             .map(PathBuf::from)
             .collect();
         let anchors = Anchors::of(&m, &present);
-        let text = "`path@plans@milestones/gone/` and `path@plans@milestones/gone/a-slice.md` and \
-                    `path@plans@specs/gone.md` are gone.\n";
+        let text = "`path@plans@milestones/gone-one/` and `path@plans@milestones/gone-one/a-slice.md` and \
+                    `path@plans@specs/gone-one.md` are gone.\n";
         let present: Vec<String> = present.iter().map(|p| p.display().to_string()).collect();
         let (found, _) = checked_under(vec![("notes/prose.md", text)], &present, &anchors);
         assert_eq!(found.len(), 3, "{found:#?}");
@@ -2942,7 +3120,7 @@ mod tests {
             "docs",
             "docs/plans",
             "docs/plans/specs",
-            "docs/plans/specs/s.md",
+            "docs/plans/specs/a-spec.md",
             "docs/plans/specs/README.md",
         ] {
             present.push(p.to_string());
@@ -2953,7 +3131,7 @@ mod tests {
             anchors
                 .all()
                 .iter()
-                .any(|a| a.path == Path::new("docs/plans/specs/s.md")),
+                .any(|a| a.path == Path::new("docs/plans/specs/a-spec.md")),
             "the spec is an anchor: {}",
             anchors.listed()
         );
@@ -3138,12 +3316,12 @@ mod tests {
     fn a_harness_reference_resolves_to_what_its_owner_defines() {
         let a = "# A\n\n## A part `##a-part`\n";
         let b = "# B\n\n## B part `##b-part`\n";
-        let citing = "See `skill@a`, `skill@a@a-part`, `skill@b@b-part`, `primer@goals-bind`.\n\
-                      Not `skill@b@a-part`, `skill@c@a-part`, `skill@c`, `primer@nothing`.\n";
+        let citing = "See `skill@a-skill`, `skill@a-skill@a-part`, `skill@b-skill@b-part`, `primer@goals-bind`.\n\
+                      Not `skill@b-skill@a-part`, `skill@c-skill@a-part`, `skill@c-skill`, `primer@nothing`.\n";
         let (found, counts) = harness_checked(
             vec![
-                (".claude/skills/a/SKILL.md", a),
-                (".claude/skills/b/SKILL.md", b),
+                (".claude/skills/a-skill/SKILL.md", a),
+                (".claude/skills/b-skill/SKILL.md", b),
                 ("notes/prose.md", citing),
             ],
             vec![(
@@ -3154,11 +3332,17 @@ mod tests {
         assert_eq!(counts.references, 8);
         assert_eq!(found.len(), 4, "{found:#?}");
         assert!(
-            found[0].contains("the skill `b` defines no section `a-part`"),
+            found[0].contains("the skill `b-skill` defines no section `a-part`"),
             "{found:#?}"
         );
-        assert!(found[1].contains("no skill is named `c`"), "{found:#?}");
-        assert!(found[2].contains("no skill is named `c`"), "{found:#?}");
+        assert!(
+            found[1].contains("no skill is named `c-skill`"),
+            "{found:#?}"
+        );
+        assert!(
+            found[2].contains("no skill is named `c-skill`"),
+            "{found:#?}"
+        );
         assert!(
             found[3].contains("the primer defines no section `nothing`"),
             "{found:#?}"
@@ -3181,14 +3365,14 @@ mod tests {
         assert_eq!(found, Vec::<String>::new(), "{found:#?}");
     }
 
-    /// The claim: a backticked span that is exactly the name of a skill or an agent the table
-    /// defines, installed or the project's own, is reported with its reference as the repair, in
-    /// a fenced block and in a Rust comment too; a span naming no skill and no agent is silent: a
-    /// crate's name carrying the installer's prefix, a removed agent's name, a skill's section
-    /// slug, a register entry's slug. Where a skill and an agent share a name, the repair names the skill. Mutations
-    /// checked: matching any span with the installer's prefix reports the crate's name and the
-    /// removed agent's; trying the agent kind first names the agent for `twin`; counting any id
-    /// the table defines, as `Entities::defines_id` does, reports `a-decision`.
+    /// The claim: a backticked span that is exactly an id the table defines is reported with its
+    /// reference as the repair, in a fenced block and in a Rust comment too: the name of a skill
+    /// or an agent, installed or the project's own, a skill's section slug and a register entry's
+    /// slug. A span naming nothing here is silent: a crate's name carrying the installer's prefix,
+    /// a removed agent's name. Where a skill and an agent share a name, the finding lists both and
+    /// chooses neither. Mutations checked: matching any span with the installer's prefix reports
+    /// the crate's name and the removed agent's; keeping the first candidate alone names the skill
+    /// for `twin-name-name`.
     #[test]
     fn a_bare_name_of_a_skill_or_an_agent_is_reported() {
         let (found, _) = harness_checked(
@@ -3201,8 +3385,8 @@ mod tests {
                     ".claude/agents/an-agent.md",
                     "---\nname: an-agent\n---\n# An agent\n",
                 ),
-                (".claude/skills/twin/SKILL.md", "# Twin\n"),
-                (".claude/agents/twin.md", "---\nname: twin\n---\n# Twin\n"),
+                (".claude/skills/twin-name/SKILL.md", "# Twin\n"),
+                (".claude/agents/twin-name.md", "---\nname: twin-name\n---\n# Twin\n"),
                 (
                     "parts/a-part/docs/design.md",
                     "# D\n\n### A decision `##a-decision`\n",
@@ -3210,9 +3394,9 @@ mod tests {
                 (
                     "notes/prose.md",
                     "Run `knowledge-architect-review`, then `a-skill` and `an-agent`.\n\
-                     Not `knowledge-architect-gates`, `knowledge-architect-gone-reviewer`, `a-part`, \
+                     Then `knowledge-architect-gates`, `knowledge-architect-gone-reviewer`, `a-part`, \
                      `a-decision`.\n\
-                     ```\n`twin`\n```\n",
+                     ```\n`twin-name`\n```\n",
                 ),
                 ("src/lib.rs", "//! Run `a-skill`.\n"),
             ],
@@ -3223,12 +3407,22 @@ mod tests {
         assert_eq!(
             found,
             vec![
-                "notes/prose.md:1  `a-skill` is a bare skill name\n    → write `skill@a-skill`",
-                "notes/prose.md:1  `an-agent` is a bare agent name\n    → write `agent@an-agent`",
-                "notes/prose.md:1  `knowledge-architect-review` is a bare skill name\n    \
+                "notes/prose.md:1  `a-skill` is written in backticks without its kind, and names \
+                 `skill@a-skill`\n    → write `skill@a-skill`",
+                "notes/prose.md:1  `an-agent` is written in backticks without its kind, and names \
+                 `agent@an-agent`\n    → write `agent@an-agent`",
+                "notes/prose.md:1  `knowledge-architect-review` is written in backticks without its \
+                 kind, and names `skill@knowledge-architect-review`\n    \
                  → write `skill@knowledge-architect-review`",
-                "notes/prose.md:4  `twin` is a bare skill name\n    → write `skill@twin`",
-                "src/lib.rs:1  `a-skill` is a bare skill name\n    → write `skill@a-skill`",
+                "notes/prose.md:2  `a-decision` is written in backticks without its kind, and names \
+                 `design@a-part@a-decision`\n    → write `design@a-part@a-decision`",
+                "notes/prose.md:2  `a-part` is written in backticks without its kind, and names \
+                 `skill@a-skill@a-part`\n    → write `skill@a-skill@a-part`",
+                "notes/prose.md:4  `twin-name` is written in backticks without its kind, and 2 \
+                 entries define it\n    → write the reference meant, one of `agent@twin-name`, \
+                 `skill@twin-name`",
+                "src/lib.rs:1  `a-skill` is written in backticks without its kind, and names \
+                 `skill@a-skill`\n    → write `skill@a-skill`",
             ],
             "{found:#?}"
         );
@@ -3267,8 +3461,8 @@ mod tests {
         let anchors = Anchors::of(
             &m,
             &[
-                PathBuf::from("docs/plans/milestones/m/README.md"),
-                PathBuf::from("docs/plans/specs/s.md"),
+                PathBuf::from("docs/plans/milestones/m-one/README.md"),
+                PathBuf::from("docs/plans/specs/a-spec.md"),
             ],
         );
         (m, anchors)
@@ -3318,10 +3512,10 @@ mod tests {
         assert!(f.contains("serves the path kind alone"), "{f}");
         let f = one("register@a-part@thread");
         assert!(f.contains("a plan's own documents"), "{f}");
-        let f = one("register@m@spec");
-        assert!(f.contains("`milestone@plans@m`"), "{f}");
-        let f = one("register@s@design");
-        assert!(f.contains("`spec@plans@s`"), "{f}");
+        let f = one("register@m-one@spec");
+        assert!(f.contains("`milestone@plans@m-one`"), "{f}");
+        let f = one("register@a-spec@design");
+        assert!(f.contains("`spec@plans@a-spec`"), "{f}");
         // The anchors a repair offers are the ones that resolve: no plan anchor, and `*` only
         // for a register every component carries.
         let f = one("register@nowhere@spec");
@@ -3534,15 +3728,15 @@ mod tests {
         let (_, anchors) = register_project();
         let (found, _) = checked_under(
             vec![(
-                "docs/plans/specs/s.md",
+                "docs/plans/specs/a-spec.md",
                 "Creates `planned@a-part@docs/goals.md`.\n",
             )],
             &[],
             &anchors,
         );
         assert!(found.iter().all(|f| !f.contains("register@")), "{found:#?}");
-        let found = register_checked("See `path@plans@milestones/m/`.\n");
+        let found = register_checked("See `path@plans@milestones/m-one/`.\n");
         assert_eq!(found.len(), 1, "{found:#?}");
-        assert!(found[0].contains("`milestone@plans@m`"), "{found:#?}");
+        assert!(found[0].contains("`milestone@plans@m-one`"), "{found:#?}");
     }
 }

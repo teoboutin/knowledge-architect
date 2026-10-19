@@ -1999,6 +1999,35 @@ fn a_message_naming_the_file_its_commit_deletes_by_a_bare_path_is_a_finding() {
     assert!(!stdout.contains(&format!("commit {silent}:")), "{stdout}");
 }
 
+/// The claim: a message's lints on ids read its first parent's tree too, so a message that names
+/// in words the decision its commit deletes is reported, and one that names it in the commit
+/// before is reported too, against its own tree. Mutation checked: judging the message's lints
+/// against its own tree alone leaves the deleting commit's message silent.
+#[test]
+fn a_message_naming_in_words_the_entry_its_commit_deletes_is_a_finding() {
+    let history = History::new("commit-plain-id");
+    tiny_project(&history, false);
+    let design = "# tiny — design\n\n### A decision this project records `##tiny-anchor`\n\n\
+                  It exists so that a message has something to name.\n";
+    history.write(
+        "docs/design.md",
+        &format!("{design}\n### A decision a later commit removes `##gone-anchor`\n"),
+    );
+    let base = history.commit("The project is created\n");
+    let named = history.commit("A subject line\n\nIt keeps the gone-anchor decision.\n");
+    history.write("docs/design.md", design);
+    let sha = history.commit("The decision leaves\n\nIt removes the gone-anchor decision.\n");
+    let (stdout, stderr, code) = history.run(&["commits", &format!("{base}..HEAD")]);
+    assert_eq!(code, 1, "{stdout}{stderr}");
+    for commit in [named, sha] {
+        assert!(
+            stdout.contains(&format!("commit {commit}:3"))
+                && stdout.contains("`gone-anchor` is written as a plain word"),
+            "{stdout}"
+        );
+    }
+}
+
 /// The claim: a commit whose message alone carries findings is counted failed, and its line
 /// says so, while the commit before it passes. Mutation checked: the message's findings left
 /// out of the causes.
@@ -2181,39 +2210,39 @@ fn a_message_naming_the_plan_document_its_commit_deletes_resolves_against_the_pa
         "docs/plans/milestones/a-milestone/README.md",
         &plan_document(
             "A milestone that lands",
-            "Its steps: [the first](first.md), [the last](last.md); [the index](index.md).",
+            "Its steps: [the first](first-step.md), [the last](last-step.md); [the index](index.md).",
             &[],
         ),
     );
     history.write(
-        "docs/plans/milestones/a-milestone/first.md",
+        "docs/plans/milestones/a-milestone/first-step.md",
         &slice_document("Its first step"),
     );
     history.write(
-        "docs/plans/milestones/a-milestone/last.md",
+        "docs/plans/milestones/a-milestone/last-step.md",
         &slice_document("Its last step"),
     );
     let base = history.commit("The plans are written\n");
     history.remove("docs/plans/specs/a-spec.md");
-    history.remove("docs/plans/milestones/a-milestone/first.md");
+    history.remove("docs/plans/milestones/a-milestone/first-step.md");
     history.write(
         "docs/plans/milestones/a-milestone/README.md",
         &plan_document(
             "A milestone that lands",
-            "Its step: [the last](last.md); [the index](index.md).",
+            "Its step: [the last](last-step.md); [the index](index.md).",
             &[],
         ),
     );
     let spec = history.commit(
         "The spec and the first step land\n\nThey leave: `spec@plans@a-spec` and \
-         `spec@a-milestone@first`.\n",
+         `spec@a-milestone@first-step`.\n",
     );
-    for rel in ["README.md", "last.md", "index.md"] {
+    for rel in ["README.md", "last-step.md", "index.md"] {
         history.remove(&format!("docs/plans/milestones/a-milestone/{rel}"));
     }
     let milestone = history.commit(
         "The milestone lands\n\nIt leaves: `milestone@plans@a-milestone` and \
-         `spec@a-milestone@last`.\n",
+         `spec@a-milestone@last-step`.\n",
     );
     let (stdout, stderr, code) = history.run(&["commits", &format!("{base}..HEAD")]);
     assert_eq!(
@@ -3607,7 +3636,9 @@ fn a_message_naming_a_skill_its_commit_adds_by_its_bare_name_is_a_finding() {
     assert!(out.contains(&format!("commit {gone}:3")), "{out}");
     assert!(
         out.contains(&format!("commit {sha}:3"))
-            && out.contains("`tiny-own` is a bare skill name")
+            && out.contains(
+                "`tiny-own` is written in backticks without its kind, and names `skill@tiny-own`"
+            )
             && out.contains("write `skill@tiny-own`"),
         "{out}"
     );
@@ -3637,7 +3668,12 @@ fn a_bare_skill_name_is_silent_under_no_harness() {
     plant(&harnessed);
     let (out, err, code) = harnessed.run(&["check"]);
     assert_eq!(code, 1, "{out}{err}");
-    assert!(out.contains("`tiny-own` is a bare skill name"), "{out}");
+    assert!(
+        out.contains(
+            "`tiny-own` is written in backticks without its kind, and names `skill@tiny-own`"
+        ),
+        "{out}"
+    );
     let bare = Sandbox::new("bare-skill-unharnessed", "minimal");
     plant(&bare);
     let (out, err, code) = bare.run(&["check"]);
@@ -4172,28 +4208,28 @@ const GAME_FILES: [(&str, &str); 7] = [
         "# Game design\n\nOne directory per subject; the listing beside this file is generated.\n",
     ),
     (
-        "game-design/combat/README.md",
+        "game-design/close-combat/README.md",
         "# Combat\n\n- [Melee](melee.md)\n- [Ranged](ranged.md)\n",
     ),
     (
-        "game-design/combat/melee.md",
+        "game-design/close-combat/melee.md",
         "# Melee\n\n### A sword swing takes 400 ms `##sword-swing`\n\n\
-         It costs stamina, per `game-design@economy@stamina-is-a-currency`.\n",
+         It costs stamina, per `game-design@war-economy@stamina-is-a-currency`.\n",
     ),
     (
-        "game-design/combat/ranged.md",
+        "game-design/close-combat/ranged.md",
         "# Ranged\n\n### Arrows drop with gravity `##arrow-drop`\n\n\
-         Slower than `game-design@combat@sword-swing`, in the subject `subject@gdd@combat`, \
-         beside `path@combat@melee.md`.\n",
+         Slower than `game-design@close-combat@sword-swing`, in the subject `subject@gdd@close-combat`, \
+         beside `path@close-combat@melee.md`.\n",
     ),
     (
-        "game-design/economy/README.md",
+        "game-design/war-economy/README.md",
         "# Economy\n\n- [Resources](resources.md)\n",
     ),
     (
-        "game-design/economy/resources.md",
+        "game-design/war-economy/resources.md",
         "# Resources\n\n### Stamina is spent like a currency `##stamina-is-a-currency`\n\n\
-         See `game-design@combat@arrow-drop`, and every subject in `register@gdd@subject`.\n",
+         See `game-design@close-combat@arrow-drop`, and every subject in `register@gdd@subject`.\n",
     ),
 ];
 
@@ -4222,26 +4258,30 @@ fn a_declared_directory_register_places_one_anchor_per_entry_carrying_its_regist
     for line in [
         "gdd  location  game-design",
         "  subject  game-design/",
-        "combat  subject  game-design/combat",
-        "  game-design  game-design/combat/",
-        "economy  subject  game-design/economy",
+        "close-combat  subject  game-design/close-combat",
+        "  game-design  game-design/close-combat/",
+        "war-economy  subject  game-design/war-economy",
     ] {
         assert!(out.lines().any(|l| l == line), "no line `{line}`:\n{out}");
     }
 
-    let (out, stderr, code) = sandbox.run(&["show", "game-design@economy@stamina-is-a-currency"]);
+    let (out, stderr, code) =
+        sandbox.run(&["show", "game-design@war-economy@stamina-is-a-currency"]);
     assert_eq!(code, 0, "{out}{stderr}");
-    assert!(out.contains("game-design/combat/melee.md:5"), "{out}");
-    let (out, stderr, code) = sandbox.run(&["show", "subject@gdd@combat"]);
+    assert!(out.contains("game-design/close-combat/melee.md:5"), "{out}");
+    let (out, stderr, code) = sandbox.run(&["show", "subject@gdd@close-combat"]);
     assert_eq!(code, 0, "{out}{stderr}");
-    assert!(out.contains("game-design/combat/ranged.md:5"), "{out}");
+    assert!(
+        out.contains("game-design/close-combat/ranged.md:5"),
+        "{out}"
+    );
 
     let index =
         std::fs::read_to_string(sandbox.path("game-design/index.md")).expect("the subjects' index");
     assert!(index.contains("\n2 entries\n"), "{index}");
     assert!(
-        index.contains("| combat | [Combat](combat/README.md) |")
-            && index.contains("| economy | [Economy](economy/README.md) |"),
+        index.contains("| close-combat | [Combat](close-combat/README.md) |")
+            && index.contains("| war-economy | [Economy](war-economy/README.md) |"),
         "{index}"
     );
 }
@@ -4254,8 +4294,8 @@ fn a_declared_directory_home_holds_its_entries_and_nothing_else() {
     let sandbox = game_sandbox("directory-layout");
     sandbox.write("game-design/lore/notes.md", "# Notes\n");
     sandbox.write("game-design/stray.md", "# Stray\n");
-    sandbox.write("game-design/combat/extra/deep.md", "# Deep\n");
-    sandbox.write("game-design/economy/register.toml", "groups = []\n");
+    sandbox.write("game-design/close-combat/extra/deep.md", "# Deep\n");
+    sandbox.write("game-design/war-economy/register.toml", "groups = []\n");
     sandbox.stage();
     let (stdout, stderr, code) = sandbox.run(&["check"]);
     assert_eq!(code, 1, "{stdout}{stderr}");
@@ -4264,7 +4304,7 @@ fn a_declared_directory_home_holds_its_entries_and_nothing_else() {
         "`game-design/lore` holds no README.md, so it is no subject entry",
         "`game-design/stray.md` sits in game-design/, which holds its README.md, its index.md and \
          one directory per subject entry",
-        "`game-design/combat/extra` is a subdirectory of a subject entry",
+        "`game-design/close-combat/extra` is a subdirectory of a subject entry",
         "a subject entry directory holds no register.toml",
     ] {
         assert!(stdout.contains(what), "no finding `{what}`:\n{stdout}");
@@ -4288,30 +4328,31 @@ fn an_entry_named_like_another_anchor_is_refused_in_a_fixed_order() {
     sandbox.write("knowledge-architect.toml", &manifest);
     sandbox.write("world/README.md", "# World\n");
     sandbox.write("world/area/README.md", "# Areas\n");
-    sandbox.write("world/area/combat/README.md", "# Combat areas\n");
-    sandbox.write("world/area/economy/README.md", "# Market\n");
+    sandbox.write("world/area/close-combat/README.md", "# Combat areas\n");
+    sandbox.write("world/area/war-economy/README.md", "# Market\n");
     sandbox.write(
-        "docs/plans/milestones/economy/README.md",
-        "# An economy milestone\n",
+        "docs/plans/milestones/war-economy/README.md",
+        "# A war-economy milestone\n",
     );
     sandbox.write(
-        "game-design/design/README.md",
+        "game-design/game-design/README.md",
         "# A subject named like a kind\n",
     );
     sandbox.stage();
     let (stdout, stderr, code) = sandbox.run(&["check"]);
     assert_eq!(code, 1, "{stdout}{stderr}");
     for what in [
-        // `area` sorts before `subject`, so its `combat` is the anchor.
-        "the subject entry `combat` is no anchor: its name is also the name of an entry of `area`",
+        // `area` sorts before `subject`, so its `close-combat` is the anchor.
+        "the subject entry `close-combat` is no anchor: its name is also the name of an entry of `area`",
         // A milestone comes first of all.
-        "the area entry `economy` is no anchor: its name is also the name of a milestone",
-        "the subject entry `design` is no anchor: its name is the name of a kind",
+        "the area entry `war-economy` is no anchor: its name is also the name of a milestone",
+        "the subject entry `game-design` is no anchor: its name is the name of a kind",
     ] {
         assert!(stdout.contains(what), "no finding `{what}`:\n{stdout}");
     }
     assert!(
-        !stdout.contains("the area entry `combat`") && !stdout.contains("the milestone `economy`"),
+        !stdout.contains("the area entry `close-combat`")
+            && !stdout.contains("the milestone `war-economy`"),
         "{stdout}"
     );
 }
@@ -4323,14 +4364,14 @@ fn an_entry_named_like_another_anchor_is_refused_in_a_fixed_order() {
 fn a_slug_in_an_entry_s_readme_defines_nothing() {
     let sandbox = game_sandbox("directory-readme-slug");
     sandbox.write(
-        "game-design/combat/README.md",
+        "game-design/close-combat/README.md",
         "# Combat\n\n- [Melee](melee.md)\n- [Ranged](ranged.md)\n\n### Parry `##parry`\n",
     );
     sandbox.stage();
     let (stdout, stderr, code) = sandbox.run(&["check"]);
     assert_eq!(code, 1, "{stdout}{stderr}");
     assert!(
-        stdout.contains("game-design/combat/README.md:6") && stdout.contains("`##parry`"),
+        stdout.contains("game-design/close-combat/README.md:6") && stdout.contains("`##parry`"),
         "{stdout}"
     );
 }
@@ -4343,23 +4384,25 @@ fn an_entry_s_directory_is_cited_by_the_entry_and_by_nothing_else() {
     let sandbox = game_sandbox("directory-forms");
     sandbox.write(
         "README.md",
-        "# core-mock\n\nSee `register@combat@game-design`, `path@gdd@combat/` and \
-         `path@combat@README.md`.\n",
+        "# core-mock\n\nSee `register@close-combat@game-design`, `path@gdd@close-combat/` and \
+         `path@close-combat@README.md`.\n",
     );
     sandbox.stage();
     let (stdout, stderr, code) = sandbox.run(&["check"]);
     assert_eq!(code, 1, "{stdout}{stderr}");
     assert!(
-        stdout.contains("`register@combat@game-design` names the entry `combat`")
-            && stdout.contains("`path@gdd@combat/` cites an entry by its path")
-            && stdout.contains("`path@combat@README.md` cites an entry by its path"),
+        stdout.contains("`register@close-combat@game-design` names the entry `close-combat`")
+            && stdout.contains("`path@gdd@close-combat/` cites an entry by its path")
+            && stdout.contains("`path@close-combat@README.md` cites an entry by its path"),
         "{stdout}"
     );
     assert_eq!(
         stdout
-            .matches("cite the entry as `subject@gdd@combat`")
+            .matches("cite the entry as `subject@gdd@close-combat`")
             .count()
-            + stdout.matches("cite it as `subject@gdd@combat`").count(),
+            + stdout
+                .matches("cite it as `subject@gdd@close-combat`")
+                .count(),
         3,
         "{stdout}"
     );
@@ -4380,25 +4423,30 @@ fn commits_reads_the_entry_anchors_of_each_commit_s_own_tree() {
     }
     let base = history.commit("The project is created\n");
     history.write(
-        "game-design/magic/README.md",
+        "game-design/high-magic/README.md",
         "# Magic\n\n- [Spells](spells.md)\n",
     );
     history.write(
-        "game-design/magic/spells.md",
-        "# Spells\n\n### A fireball costs mana `##fireball`\n",
+        "game-design/high-magic/spells.md",
+        "# Spells\n\n### A fireball costs mana `##fireball-cost`\n",
     );
-    history.commit("The subject `subject@gdd@magic` holds `game-design@magic@fireball`\n");
-    for rel in ["game-design/magic/README.md", "game-design/magic/spells.md"] {
+    history.commit(
+        "The subject `subject@gdd@high-magic` holds `game-design@high-magic@fireball-cost`\n",
+    );
+    for rel in [
+        "game-design/high-magic/README.md",
+        "game-design/high-magic/spells.md",
+    ] {
         history.remove(rel);
     }
-    history.commit("The subject `subject@gdd@magic` leaves, with `game-design@magic@fireball`\n");
+    history.commit("The subject `subject@gdd@high-magic` leaves, with `game-design@high-magic@fireball-cost`\n");
     let (stdout, stderr, code) = history.run(&["commits", &format!("{base}..HEAD")]);
     assert_eq!(code, 0, "{stdout}{stderr}");
-    let late = history.commit("Nothing names `game-design@magic@fireball` any more\n");
+    let late = history.commit("Nothing names `game-design@high-magic@fireball-cost` any more\n");
     let (stdout, stderr, code) = history.run(&["commits", &format!("{base}..HEAD")]);
     assert_eq!(code, 1, "{stdout}{stderr}");
     assert!(
-        stdout.contains(&late) && stdout.contains("`game-design@magic@fireball`"),
+        stdout.contains(&late) && stdout.contains("`game-design@high-magic@fireball-cost`"),
         "{stdout}"
     );
 }
@@ -4450,22 +4498,25 @@ fn a_component_carries_the_register_a_project_attaches_to_it() {
     assert_eq!(code, 0, "{out}{stderr}");
     for line in [
         "  subject  docs/game-design/",
-        "combat  subject  docs/game-design/combat",
+        "close-combat  subject  docs/game-design/close-combat",
     ] {
         assert!(out.lines().any(|l| l == line), "no line `{line}`:\n{out}");
     }
-    let (out, stderr, code) = sandbox.run(&["show", "subject@core-mock@combat"]);
+    let (out, stderr, code) = sandbox.run(&["show", "subject@core-mock@close-combat"]);
     assert_eq!(code, 0, "{out}{stderr}");
-    assert!(out.contains("docs/game-design/combat/ranged.md:5"), "{out}");
+    assert!(
+        out.contains("docs/game-design/close-combat/ranged.md:5"),
+        "{out}"
+    );
 
     for rel in [
         "README.md",
         "index.md",
-        "combat/README.md",
-        "combat/melee.md",
-        "combat/ranged.md",
-        "economy/README.md",
-        "economy/resources.md",
+        "close-combat/README.md",
+        "close-combat/melee.md",
+        "close-combat/ranged.md",
+        "war-economy/README.md",
+        "war-economy/resources.md",
     ] {
         std::fs::remove_file(sandbox.path(&format!("docs/game-design/{rel}"))).expect("a file");
     }
@@ -4564,7 +4615,8 @@ fn two_homes_manifest() -> String {
 /// The claim: the order of `design@core@a-placed-name-reads-as-nothing-else` decides every
 /// clash: a spec before any declared entry, even where a refused entry of another register holds
 /// the name first; among one register's entries, the first by path, whichever home holds it; and
-/// an entry named `index` reads as its own home's listing.
+/// an entry named `index` is refused, since it is no id of two segments and would read as its own
+/// home's listing.
 #[test]
 fn an_entry_s_name_gives_way_to_a_spec_and_to_an_earlier_path() {
     let sandbox = game_sandbox("entry-name-order");
@@ -4576,33 +4628,37 @@ fn an_entry_s_name_gives_way_to_a_spec_and_to_an_earlier_path() {
     );
     sandbox.write("knowledge-architect.toml", &manifest);
     sandbox.write("aa-lore/README.md", "# Lore\n");
-    sandbox.write("aa-lore/combat/README.md", "# Combat lore\n");
+    sandbox.write("aa-lore/close-combat/README.md", "# Combat lore\n");
     sandbox.write("world/README.md", "# World\n");
-    sandbox.write("world/economy/README.md", "# A market\n");
-    sandbox.write("docs/plans/specs/economy.md", "# A spec named economy\n");
+    sandbox.write("world/war-economy/README.md", "# A market\n");
+    sandbox.write(
+        "docs/plans/specs/war-economy.md",
+        "# A spec named war-economy\n",
+    );
     sandbox.write("game-design/index/README.md", "# An entry named index\n");
     sandbox.stage();
     let (stdout, stderr, code) = sandbox.run(&["check"]);
     assert_eq!(code, 1, "{stdout}{stderr}");
     for what in [
-        // aa-lore/combat sorts before game-design/combat.
-        "the subject entry `combat` is no anchor: its name is also the name of an entry of \
+        // aa-lore/close-combat sorts before game-design/close-combat.
+        "the subject entry `close-combat` is no anchor: its name is also the name of an entry of \
          `subject`",
         // The area entry is refused for the spec, and the subject entry too, for the spec
         // rather than for the refused area entry.
-        "the area entry `economy` is no anchor: its name is also the name of a spec",
-        "the subject entry `economy` is no anchor: its name is also the name of a spec",
-        "the subject entry `index` is no anchor: its name names the listing of game-design/",
+        "the area entry `war-economy` is no anchor: its name is also the name of a spec",
+        "the subject entry `war-economy` is no anchor: its name is also the name of a spec",
+        "the subject entry `index` is no anchor: its name is not two or more lower-case words \
+         joined by hyphens",
     ] {
         assert!(stdout.contains(what), "no finding `{what}`:\n{stdout}");
     }
     assert_eq!(
-        stdout.matches("entry `combat` is no anchor").count(),
+        stdout.matches("entry `close-combat` is no anchor").count(),
         1,
         "{stdout}"
     );
     assert!(
-        stdout.contains("game-design/combat  the subject entry `combat`"),
+        stdout.contains("game-design/close-combat  the subject entry `close-combat`"),
         "the later path is the one refused:\n{stdout}"
     );
 }
@@ -4615,7 +4671,7 @@ fn each_home_of_a_directory_register_lists_its_own_entries() {
     let sandbox = game_sandbox("directory-two-homes");
     sandbox.write("knowledge-architect.toml", &two_homes_manifest());
     sandbox.write("aa-lore/README.md", "# Lore\n");
-    sandbox.write("aa-lore/magic/README.md", "# Magic\n");
+    sandbox.write("aa-lore/high-magic/README.md", "# Magic\n");
     sandbox.stage();
     let (stdout, stderr, code) = sandbox.run(&["index"]);
     assert_eq!(code, 0, "{stdout}{stderr}");
@@ -4625,11 +4681,11 @@ fn each_home_of_a_directory_register_lists_its_own_entries() {
     let here = std::fs::read_to_string(sandbox.path("game-design/index.md")).expect("an index");
     let there = std::fs::read_to_string(sandbox.path("aa-lore/index.md")).expect("an index");
     assert!(
-        here.contains("\n2 entries\n") && !here.contains("magic"),
+        here.contains("\n2 entries\n") && !here.contains("high-magic"),
         "{here}"
     );
     assert!(
-        there.contains("\n1 entry\n") && there.contains("| magic |"),
+        there.contains("\n1 entry\n") && there.contains("| high-magic |"),
         "{there}"
     );
 
@@ -4641,11 +4697,11 @@ fn each_home_of_a_directory_register_lists_its_own_entries() {
     sandbox.write("knowledge-architect.toml", &manifest);
     sandbox.write("docs/areas/README.md", "# Areas\n");
     sandbox.write(
-        "docs/areas/north/README.md",
+        "docs/areas/far-north/README.md",
         "# North\n\n- [Paths](paths.md)\n",
     );
     sandbox.write(
-        "docs/areas/north/paths.md",
+        "docs/areas/far-north/paths.md",
         "# Paths\n\n### A path `##a-path`\n",
     );
     std::fs::remove_dir_all(sandbox.path("aa-lore")).expect("the second home");
@@ -4658,7 +4714,8 @@ fn each_home_of_a_directory_register_lists_its_own_entries() {
     let (out, stderr, code) = sandbox.run(&["anchors"]);
     assert_eq!(code, 0, "{out}{stderr}");
     assert!(
-        out.lines().any(|l| l == "north  area  docs/areas/north"),
+        out.lines()
+            .any(|l| l == "far-north  area  docs/areas/far-north"),
         "{out}"
     );
 }
@@ -4671,11 +4728,11 @@ fn every_path_to_an_entry_s_directory_names_the_entry() {
     let sandbox = game_sandbox("entry-path-forms");
     sandbox.write(
         "README.md",
-        "# core-mock\n\nSee `combat@north` and `path@elsewhere@game-design/combat/README.md`.\n",
+        "# core-mock\n\nSee `close-combat@north` and `path@elsewhere@game-design/close-combat/README.md`.\n",
     );
     sandbox.write(
         "docs/plans/specs/a-plan.md",
-        "# A plan\n\nIt creates `planned@gdd@combat/`.\n",
+        "# A plan\n\nIt creates `planned@gdd@close-combat/`.\n",
     );
     sandbox.stage();
     let (stdout, stderr, code) = sandbox.run(&["index"]);
@@ -4683,15 +4740,18 @@ fn every_path_to_an_entry_s_directory_names_the_entry() {
     sandbox.stage();
     let (stdout, stderr, code) = sandbox.run(&["check"]);
     assert_eq!(code, 1, "{stdout}{stderr}");
-    assert!(!stdout.contains("combat@north"), "{stdout}");
+    assert!(!stdout.contains("close-combat@north"), "{stdout}");
     for span in [
-        "`path@elsewhere@game-design/combat/README.md` cites an entry by its path",
-        "`planned@gdd@combat/` cites an entry by its path",
+        "`path@elsewhere@game-design/close-combat/README.md` cites an entry by its path",
+        "`planned@gdd@close-combat/` cites an entry by its path",
     ] {
         assert!(stdout.contains(span), "no finding `{span}`:\n{stdout}");
     }
     assert!(
-        stdout.matches("cite it as `subject@gdd@combat`").count() >= 2,
+        stdout
+            .matches("cite it as `subject@gdd@close-combat`")
+            .count()
+            >= 2,
         "{stdout}"
     );
 }

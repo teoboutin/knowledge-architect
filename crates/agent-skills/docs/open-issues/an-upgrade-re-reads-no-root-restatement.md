@@ -79,12 +79,12 @@ puts in the agent's definition, against the same goal.
 
 A retrospective of a session that moved a pin across a version that reworded a restated directive:
 either the session found the restatement and repaired it, and the entry closes, or it did not, and
-the after-installing steps gain one that reads the root CLAUDE.md's restatements against their
+the steps of `skill@knowledge-architect-agent-configuration@after-installing` gain one that reads the root CLAUDE.md's restatements against their
 homes. The second case closes the same way, on a session that moved a pin across a
 version whose new installed text covers a project skill's activity. The third case closes on a
-retrospective of a session that moved a pin across a version that changed the primer or the
-moving-the-pin steps: either it read the new text after the install, or step 3 gains a clause to
-re-read the primer and the moving-the-pin section from disk before step 4. The fourth case closes
+retrospective of a session that moved a pin across a version that changed the primer or the steps of
+`skill@knowledge-architect-setup@moving-the-pin`: either it read the new text after the install, or step 3 gains a clause to
+re-read the primer and `skill@knowledge-architect-setup@moving-the-pin` from disk before step 4. The fourth case closes
 on a retrospective of a session that moved a pin across a version adding an audit agent and ran
 the axis: either it dispatched the agent, or the harness had not registered it and step 5 gains a
 clause that runs the audit from a session started after the install, which the owner rules on

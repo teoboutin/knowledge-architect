@@ -1,6 +1,6 @@
 ---
 name: knowledge-architect-design
-description: MUST use when a design discussion has an open solution space — requirements still being discovered, several defensible shapes, a technical choice with real trade-offs — when evaluating whether to keep or change an existing design or architecture, when a recurring bug trend suggests the design itself is the problem, when a choice about how something is built, or an owner's word that settles one, is met during another task and the decision creates a design head, contradicts a statement of one, or adds a member its argument does not cover, before starting a requested change whose design is not settled, to ground it and to find out whether it is bounded work that needs only one proposal, built on its default, or when a discussion is reverting to multiple-choice menus, minimal-solution defaults, or approval-seeking closers. Covers bounded work, threads and their states, criteria, decision authority and material findings, the loop from grounding to convergence and the premortem, the hand-off to planning, and keep-or-change verdicts. Requires a frontier-tier model (Opus-class or stronger).
+description: MUST use when a design discussion has an open solution space — requirements still being discovered, several defensible shapes, a technical choice with real trade-offs — when evaluating whether to keep or change an existing design or architecture, when a recurring bug trend suggests the design itself is the problem, when a choice about how something is built, or an owner's word that settles one, is met during another task and the decision creates a design head, contradicts a statement of one, or adds a member its argument does not cover, before starting a requested change whose design is not settled, to ground it and to find out whether it is bounded work that needs only one proposal, built on its default, or when a discussion is reverting to multiple-choice menus, minimal-solution defaults, or approval-seeking closers. Covers bounded work, threads and their states, criteria, decision authority and material findings, the loop from grounding to convergence and the premortem, the hand-off to planning, and verdicts on keeping or changing an incumbent design. Requires a frontier-tier model (Opus-class or stronger).
 ---
 
 # Discussing design decisions
@@ -195,7 +195,7 @@ converted into its checkable form. This governs arguments and never rulings: the
 closes a thread whatever their reasons, and "it reads better to me" is a decision they are
 entitled to make, not a claim for you to convert.
 
-A one-sentence compression (see keep-or-change) names a mechanism in plain words. It lives as a
+A one-sentence compression (see `skill@knowledge-architect-design@incumbent-evaluation`) names a mechanism in plain words. It lives as a
 titled summary line next to a plain-prose restatement, never as the body prose of a document, a
 commit message, or the discussion itself.
 
@@ -207,7 +207,7 @@ threads, new arguments, and proposals that supersede settled points
 enter freely at any time.
 
 **Naming.** A thread gets a short content-named slug in the grammar of an
-entry id, `[a-z0-9]+(-[a-z0-9]+)*`, since a decided thread whose
+entry id, `[a-z0-9]+(-[a-z0-9]+)+`, since a decided thread whose
 decision earns a design entry gives that entry its slug, or a slug and a
 stated pair, per `primer@design-heads`. Name the thread by the decision it
 would record if decided, not by the change it proposes: #retention-window,
@@ -317,7 +317,7 @@ Closure by you, not the owner, exists in exactly three declared cases:
   defeating reason — the Reopening record test reads it.
 - `parked` — your own overruled dissent after the owner's explicit
   ruling on the point (`skill@knowledge-architect-design@decision-authority`), and the observation
-  recorded during a bug hunt for a later discussion (`skill@knowledge-architect-design@keep-or-change`).
+  recorded during a bug hunt for a later discussion (`skill@knowledge-architect-design@incumbent-evaluation`).
   Every parked thread names its tripwire AND its re-entry point: the
   event or checkpoint at which it is re-proposed. A parked thread
   missing either one is open. A tripwire with no re-entry point names
@@ -631,7 +631,7 @@ homes, under `skill@knowledge-architect-issue-tracking`. A decision that no
 work implements and that is not part of any spec is recorded when it is made, per
 `skill@knowledge-architect-decision-recording@when-recording-happens`.
 
-## Keep-or-change (evaluating an incumbent design) `##keep-or-change`
+## Keep-or-change (evaluating an incumbent design) `##incumbent-evaluation`
 
 A recurring bug trend, a refactor proposal, a questioned pillar: run
 the same exchange, plus:
@@ -657,7 +657,7 @@ the same exchange, plus:
   But cost enters before the verdict is recorded: a direction chosen
   in ignorance of an unaffordable migration is not a decision — the
   cost will be discovered later and force the decision to be remade.
-- **Verdicts must be falsifiable.** Every keep-or-change verdict
+- **Verdicts must be falsifiable.** Every verdict on an incumbent design
   ships with tripwires: the specific evidence that would flip it,
   proposed to the owner and recorded on their word, per step 7.
   "Each bug has a fix" is the unfalsifiable non-answer.
@@ -682,7 +682,7 @@ the same exchange, plus:
 
 Verdict record — the account step 8 hands off on the full path, or
 the commit message carries on the in-change path, specialized for a
-keep-or-change verdict. Fill every slot. A decision that evaluates no
+verdict on an incumbent. Fill every slot. A decision that evaluates no
 incumbent design hands off under step 8 alone: it has no recurring
 failure to diagnose, so it has no Mechanism slot to fill, and this form
 is not the shape for it.

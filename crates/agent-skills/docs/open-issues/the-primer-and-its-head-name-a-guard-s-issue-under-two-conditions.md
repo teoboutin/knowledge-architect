@@ -18,7 +18,7 @@ Which condition is meant?
 
 The two texts:
 
-- `path@agent-skills@content/PRIMER.md`, the reference sentence of its section `where-knowledge-goes`:
+- `path@agent-skills@content/PRIMER.md`, the reference sentence of its section `primer@where-knowledge-goes`:
   "a guard, a workaround, a stub or a test that exists because of an issue names it in the comment
   at the site".
 - `register@agent-skills@design`, the table of `design@agent-skills@a-reference-claims-a-revisit`:

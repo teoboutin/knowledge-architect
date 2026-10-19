@@ -8,7 +8,8 @@ kind: question
 `agent@knowledge-architect-design-record-auditor@what-to-return` says "Write `return.md` in your
 scratch directory, in exactly this shape", with a line `- <entry>: <verdict>; proposed outcome
 <outcome>`, and then "Return each entry you judged with its verdict, `conforms` or `fails`, in the
-shape the brief's schema asks". Its section `write-a-draft` defines a draft's verdict as
+shape the brief's schema asks". Its section
+`agent@knowledge-architect-design-record-auditor@write-a-draft` defines a draft's verdict as
 "`conforms`, or each rule it fails". Which vocabulary does `<verdict>` in `return.md` take?
 
 ## Details

@@ -34,7 +34,7 @@ list the workflow.
 
 ### Why it matters
 
-`design@agent-skills@need-test` keeps maintainer-only text out of what an installing project
+`design@agent-skills@statement-names-an-act` keeps maintainer-only text out of what an installing project
 receives. A rule whose stated mechanism does not exist for one kind of installed file is a
 contradiction a writer of that file cannot satisfy, against
 `goal@knowledge-architect@agents-get-a-complete-workflow`.

@@ -21,7 +21,7 @@ edits the installed text at its source, so no pass here sends a finding upstream
 
 The chain, in the installed `skill@knowledge-architect-project-audit`:
 
-- `skill@knowledge-architect-project-audit@outcomes`: the row "sent upstream" takes "a finding on
+- `skill@knowledge-architect-project-audit@finding-outcomes`: the row "sent upstream" takes "a finding on
   the installed text that the row "nothing" does not name; the project never edits the installed
   text". The row "nothing" names "a finding an issue entry already records; a finding on the kept
   list".

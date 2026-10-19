@@ -135,7 +135,7 @@ One file per finding in your scratch directory, holding:
   search or the command its class asks for;
 - **known**: the reference of the issue entry that records it, if one does;
 - **the proposed repair**: the text before and after, or what is missing and where it would go;
-- **the proposed outcome**: one of those `skill@knowledge-architect-project-audit@outcomes` and
+- **the proposed outcome**: one of those `skill@knowledge-architect-project-audit@finding-outcomes` and
   `skill@knowledge-architect-project-audit@agentic-workflow-axis` give, with its reason.
 
 ## Return {{slug:what-to-return}}

@@ -41,7 +41,7 @@ supersession rather than an addition: the need for one, and its lack of a sancti
 ## The design skill: what it changes
 
 When a design question has an open solution space — requirements still
-being discovered, several defensible shapes, a keep-or-change question
+being discovered, several defensible shapes, a question whether to keep or change a design
 about an existing architecture — the assistant:
 
 - opens with argued proposals (its own ideas included), not a menu of
@@ -88,7 +88,7 @@ about an existing architecture — the assistant:
   or when it is made if no work implements it, and a rejected design
   where the recording tests keep it, cited by the heads whose argument
   covers it;
-- writes in plain technical English, as the primer's working-prose rules
+- writes in plain technical English, as `primer@working-prose` asks
   say for every text a project's contributors read: explicit quantities
   and invariants over qualitative wording, no idioms, no aphorisms; and,
   as the design skill adds, a qualitative claim may open a thread, never
@@ -103,7 +103,7 @@ it set aside, the consequences, and its default, which it then builds;
 your answer stops or redirects it, and an argument in your reply turns it
 into a discussion.
 
-It also carries a keep-or-change discipline for questioning incumbent
+It also carries a discipline for questioning incumbent
 designs: fresh-discussion trend framing (a new session when the
 incident still dominates the context), direction argued before
 migration cost inside one decision, falsifiable verdicts with
@@ -347,7 +347,7 @@ and real use decides whether it becomes a reason to change anything.
   convergence, and its outputs become tripwires on the record.
 - **Tripwires.** Predetermined signals that force reconsideration are
   a named prescription in Heath & Heath, *Decisive* (2013), countering
-  escalation of commitment. Every keep-or-change verdict here ships
+  escalation of commitment. Every verdict on an incumbent design here ships
   with them.
 - **Status-quo bias.** Incumbents win by default beyond their merits
   (Samuelson & Zeckhauser 1988); the skill therefore argues direction
@@ -356,7 +356,7 @@ and real use decides whether it becomes a reason to change anything.
 - **Vague words diverge across readers.** Verbal likelihood terms are
   interpreted with large between-person variance (Wallsten, Budescu et
   al., 1980s work on the vague meanings of probability terms); the
-  primer's working-prose rule extends the same caution to qualitative
+  `primer@working-prose` extends the same caution to qualitative
   quality wording, preferring explicit quantities, bounds, and
   invariants.
 - **An LLM as arguing counterpart is starting to be tested.** An
@@ -417,7 +417,7 @@ Known gaps, stated honestly: this mapping covers the mechanisms above
 plus those in the list before it, and a majority of the skill's
 mechanisms have never been mapped at all — the loop's middle steps,
 most of Decision authority, the Language rules and the state machine
-among them. The one-sentence mechanism compression in keep-or-change
+among them. The one-sentence mechanism compression in `skill@knowledge-architect-design@incumbent-evaluation`
 has no direct literature support (it is congruent with root-cause
 practice, but unvalidated). Linked citations come from a research pass
 followed by an independent per-claim fact-check; characterizations
@@ -431,8 +431,8 @@ where the argued-exchange mode repeatedly out-performed narrowing
 elicitation on open design questions (one structural pivot found, one
 harmful implicit behavior removed). Project-specific machinery
 (document conventions, engine invariants) was stripped; the loop, the
-thread-and-state machinery, the decision-authority rules, the stop
-signals, the language rules, and the keep-or-change discipline are the
+thread-and-state machinery, `skill@knowledge-architect-design@decision-authority`, the stop
+signals, the language rules, and the discipline on an incumbent design are the
 parts that generalize.
 
 It was forked into this crate from designing-together 0.6.0, and

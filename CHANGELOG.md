@@ -24,8 +24,31 @@ subsection is omitted.
   `rejected`. Run `cargo klarch check` after the move: its findings name a missing home, an
   unslugged heading and an uncited entry. Then run the design-record axis of the audit,
   `skill@knowledge-architect-project-audit@design-record-axis`.
+- `checks`, minor: every id the checker defines has two segments or more, `[a-z0-9]+(-[a-z0-9]+)+`:
+  a register entry's id, a plan document's, a plan item's, a skill's or an agent's name and a
+  section slug. A slug of one segment is reported where it is defined, and an issue file, a
+  milestone, a spec, a skill or an agent named by one word is refused. Rename each such id with a
+  second segment, and every reference to it; a plan document numbers its argument items `arg-1`,
+  `arg-2`, and so on. A register's name and its directory keep the grammar of one segment or more.
+  This holds for every project the consumer's tests build, mock projects included.
+- `checks`, minor: a defined id written outside its reference form is reported, by three lints of
+  the last phase: a reference-shaped token outside backticks, an id in backticks alone, which was
+  reported for a skill's or an agent's name only, and an id written as a plain word. Each finding
+  names the reference to write, or every candidate where several entries define the id; a plain
+  word meant as an ordinary term shows a slug that names a subject, and the entry is renamed to
+  state its decision. Text inside double quotes, typographic or straight, or on a blockquote line,
+  is read by none of the three, and a token beside a backticked reference to an issue entry in its
+  paragraph is not reported. Run `cargo klarch check` and repair each finding. Commit messages are
+  judged too, by `commits`.
+- `library`, major: `document::Observation` gains the variants `UnquotedReference` and
+  `PlainWord`, and `BareName` is no longer recorded inside a quotation. A `match` over it adds the
+  two arms.
+- `agent-skills`, patch: the section `outcomes` of the project-audit skill is now
+  `skill@knowledge-architect-project-audit@finding-outcomes`, and the section `keep-or-change` of
+  the design skill is now `skill@knowledge-architect-design@incumbent-evaluation`. Rewrite each
+  reference to either.
 - `agent-skills`, patch: the primer states the checker's model, the verification rules, the
-  working-prose rules and the checker's CLI facts, the staged check before each commit among them,
+  rules of working prose and the checker's CLI facts, the staged check before each commit among them,
   in `primer@checker-model`, `primer@verify-before-relying` and `primer@working-prose`. A project's
   root CLAUDE.md that restates any of these deletes its copy: the primer and the root CLAUDE.md are
   one text, and a duplicate inside one text fails the need test of
@@ -93,6 +116,7 @@ subsection is omitted.
   leaves it untouched.
 - `agent-skills`, patch: a record of a deliberation names a skill or an agent that its work removes
   or is still to create by its bare name in backticks, as it names such an entry by its bare slug.
+- `agent-skills`, patch: a plan document numbers its argument items `arg-1`, `arg-2`, and so on.
 
 ## 0.7.0
 

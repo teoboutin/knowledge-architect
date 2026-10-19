@@ -33,11 +33,11 @@ None.
 
 ### The milestone has one slice `##one-slice`
 
-Approved, argued by `argument@a-milestone@a1`.
+Approved, argued by `argument@a-milestone@arg-1`.
 
 ## Arguments
 
-### One slice is enough for a mock `##a1`
+### One slice is enough for a mock `##arg-1`
 
 Bears on `thread@a-milestone@one-slice`.
 

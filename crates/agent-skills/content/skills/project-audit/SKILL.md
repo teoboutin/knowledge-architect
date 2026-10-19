@@ -101,7 +101,7 @@ script. The run's worktrees are removed once the pass's findings have their outc
    says that review owes. Its briefs name each report file the audit's branch added and deleted,
    with the commit that holds it, since a reviewer of the branch's tip does not see it.
 
-## Outcomes {{slug:outcomes}}
+## Outcomes {{slug:finding-outcomes}}
 
 Every finding takes exactly one outcome.
 
@@ -290,7 +290,7 @@ A cause's findings on the installed text are sent upstream, as below. Its findin
 project's own text take the outcome its repair's edits on that text take in the table below:
 applied in the branch when every such edit falls in the applied row, the owner list otherwise. A
 finding marked known or kept, and a predicted gap, take instead the outcome
-`skill@knowledge-architect-project-audit@outcomes` and the table below give them. The
+`skill@knowledge-architect-project-audit@finding-outcomes` and the table below give them. The
 cross-check proposes each cause's outcome, and the session decides it. An item of the owner list is
 one cause, with the ids of its findings, the repair, its count and a default. The owner list states
 the net growth of the pass's repairs in the project first, where they add more instructions than

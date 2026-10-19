@@ -16,7 +16,7 @@
 # A mock project inside the core's directory, which the binary built here confirms.
 checker-version = "fixture"
 name = "unsound"
-components = ["parts/widget"]
+components = ["parts/the-widget"]
 
 # PLANTED: a location whose issue directory is not there. A location carries the registers it
 # declares, so the missing home is a finding against the location rather than a silent gap.

@@ -176,18 +176,30 @@ pub(crate) fn is_kind_name(word: &str, registers: &Registers) -> bool {
 static ANCHOR_NAME: LazyLock<Regex> =
     LazyLock::new(|| Regex::new(r"^\.?[A-Za-z0-9][A-Za-z0-9._-]*$").unwrap());
 
-/// The shape an entity's id must have, for every kind but `path` and `planned`.
+/// The id grammar of one or more segments, which a register's name and its directory keep: they
+/// are a kind and a home a reference names, not ids a lint reads in prose.
 static ENTITY_ID: LazyLock<Regex> =
     LazyLock::new(|| Regex::new(r"^[a-z0-9]+(?:-[a-z0-9]+)*$").unwrap());
+
+/// The shape an entry's id must have: two segments or more, so that no defined id is an ordinary
+/// word, which the lints on ids would then report wherever the word is written.
+static ENTRY_ID: LazyLock<Regex> =
+    LazyLock::new(|| Regex::new(r"^[a-z0-9]+(?:-[a-z0-9]+)+$").unwrap());
 
 /// Can a reference name an anchor called this.
 pub(crate) fn is_anchor_name(name: &str) -> bool {
     ANCHOR_NAME.is_match(name)
 }
 
-/// Can an entity be given this id.
+/// Can a register be given this name, or its home this directory.
 pub(crate) fn is_entity_id(id: &str) -> bool {
     ENTITY_ID.is_match(id)
+}
+
+/// Can an entry be given this id: a register entry, a plan document or item, a skill, an agent or
+/// a section.
+pub(crate) fn is_entry_id(id: &str) -> bool {
+    ENTRY_ID.is_match(id)
 }
 
 /// Where one register's entries live, for one anchor.
@@ -769,19 +781,15 @@ pub(crate) fn placed_entries(manifest: &Manifest, paths: &[&PathBuf]) -> Vec<Pla
                 homes.push((name.clone(), register.home_in(&decl.path)));
             }
         }
-        let mut found: Vec<(PathBuf, String, String, String)> = Vec::new();
+        let mut found: Vec<(PathBuf, String, String)> = Vec::new();
         for (parent, home) in &homes {
-            let listing = home
-                .file_name()
-                .map(|n| n.to_string_lossy().into_owned())
-                .unwrap_or_default();
             for (name, path) in directory_entries(home, paths.iter().copied()) {
-                found.push((path, name, parent.clone(), listing.clone()));
+                found.push((path, name, parent.clone()));
             }
         }
         found.sort();
-        for (path, name, parent, listing) in found {
-            let refusal = entry_refusal(&name, manifest, &listing).or_else(|| {
+        for (path, name, parent) in found {
+            let refusal = entry_refusal(&name, manifest).or_else(|| {
                 if let Some(other) = out.iter().find(|e| e.name == name && e.refusal.is_none()) {
                     Some(if other.register == MILESTONE_REGISTER {
                         "is also the name of a milestone".to_string()
@@ -896,31 +904,29 @@ pub(crate) fn spec_files<'a>(
 /// other anchor, per `design@core@a-placed-name-reads-as-nothing-else`. Judged against the anchors the manifest
 /// accepted.
 pub(crate) fn milestone_refusal(name: &str, manifest: &Manifest) -> Option<String> {
-    entry_refusal(name, manifest, MILESTONES_HOME)
+    entry_refusal(name, manifest)
 }
 
 /// Why an entry directory's name makes it no anchor, whatever else the tree holds, or `None`
-/// when it may be one. `listing` is the basename of the home, whose generated index is the
-/// `index.md` an entry named `index` would read as.
+/// when it may be one.
 ///
 /// An entry is cited `<register>@<parent>@<id>`, and its name stands in the anchor position of
 /// every reference to what it carries, so it is an entity id, and no other anchor's name and no
 /// reserved word, per `design@core@a-placed-name-reads-as-nothing-else`. A name another entry
 /// already holds is [`placed_entries`]' question.
-pub(crate) fn entry_refusal(name: &str, manifest: &Manifest, listing: &str) -> Option<String> {
-    if !is_entity_id(name) {
-        return Some("is not lower-case words joined by hyphens".to_string());
+pub(crate) fn entry_refusal(name: &str, manifest: &Manifest) -> Option<String> {
+    // The grammar comes first, and it refuses every one-word name, `index` among them, which
+    // would read as the home's own generated listing beside the entry's `<id>.md`.
+    if !is_entry_id(name) {
+        return Some("is not two or more lower-case words joined by hyphens".to_string());
     }
+    // Every reserved word has one segment today, so the grammar refuses it first; the list is the
+    // tool's own and may gain a word the grammar admits.
     if is_reserved_anchor(name) {
         return Some("is a word the tool reserves".to_string());
     }
     if is_kind_name(name, manifest.registers()) {
         return Some("is the name of a kind".to_string());
-    }
-    // The `<id>.md` beside an entry is the refused single-file shape of what it carries, and
-    // beside `index` that is the entry's home's own generated listing.
-    if name == "index" {
-        return Some(format!("names the listing of {listing}/"));
     }
     if manifest.components().all().iter().any(|c| c.name == name) {
         return Some("is the name of a component".to_string());
@@ -1307,14 +1313,16 @@ impl Entities {
                     }
                 };
                 match &home {
-                    Some(Ok(register)) if register.level == Some(level) => self
-                        .defined
-                        .entry((Kind::new(&register.name), owner.name.clone(), id.clone()))
-                        .or_default()
-                        .push(Site {
-                            file: doc.rel.clone(),
-                            line: l.line,
-                        }),
+                    Some(Ok(register)) if register.level == Some(level) => {
+                        self.findings.extend(one_segment(&doc.rel, l.line, id));
+                        self.defined
+                            .entry((Kind::new(&register.name), owner.name.clone(), id.clone()))
+                            .or_default()
+                            .push(Site {
+                                file: doc.rel.clone(),
+                                line: l.line,
+                            })
+                    }
                     Some(Ok(_)) => self
                         .findings
                         .push(misplaced(format!("at a level-{level} heading"))),
@@ -1431,14 +1439,16 @@ impl Entities {
                 continue;
             }
             match register {
-                Some(register) => self
-                    .defined
-                    .entry((Kind::new(&register.name), owner.name.clone(), id.clone()))
-                    .or_default()
-                    .push(Site {
-                        file: doc.rel.clone(),
-                        line: l.line,
-                    }),
+                Some(register) => {
+                    self.findings.extend(one_segment(&doc.rel, l.line, id));
+                    self.defined
+                        .entry((Kind::new(&register.name), owner.name.clone(), id.clone()))
+                        .or_default()
+                        .push(Site {
+                            file: doc.rel.clone(),
+                            line: l.line,
+                        })
+                }
                 None => self.findings.push(Finding::at(
                     &doc.rel,
                     l.line,
@@ -1522,13 +1532,13 @@ impl Entities {
                 } else {
                     "the agent's file"
                 };
-                if !is_entity_id(name) {
+                if !is_entry_id(name) {
                     findings.push(Finding::in_file(
                         &doc.rel,
                         format!("`{name}` cannot be the name of a {kind}"),
                         format!(
-                            "rename {what} in lower-case words and digits joined by hyphens; a \
-                             {kind} no reference can spell is one every pointer misses"
+                            "rename {what} in two or more lower-case words and digits joined by \
+                             hyphens; a {kind} no reference can spell is one every pointer misses"
                         ),
                     ));
                     if report {
@@ -1538,16 +1548,15 @@ impl Entities {
                 }
                 // The harness loads no skill of a name it reserves, per
                 // `design@core@unusable-harness-name-is-a-finding`: the check would otherwise pass
-                // a skill no session can use. The name is in the id grammar here, so only the
-                // lower-case spellings remain to refuse.
-                if kind.name() == SKILL_KIND
-                    && (name == "synced" || name.starts_with("anthropic-skills"))
-                {
+                // a skill no session can use. The name is in the id grammar of two segments
+                // here, which refuses `synced` in every capitalization, so only the prefix
+                // remains to refuse.
+                if kind.name() == SKILL_KIND && name.starts_with("anthropic-skills") {
                     findings.push(Finding::in_file(
                         &doc.rel,
                         format!("the harness loads no skill named `{name}`"),
-                        "rename the skill's directory; the harness reserves `synced`, and every \
-                         name beginning `anthropic-skills`",
+                        "rename the skill's directory; the harness loads no skill whose name \
+                         begins `anthropic-skills`",
                     ));
                 }
                 // The harness invokes a skill by its directory's name as well as by its `name`,
@@ -1617,6 +1626,7 @@ impl Entities {
                 }
                 Observation::SlugDef { id, site } => {
                     if *site == SlugSite::Heading(2) {
+                        findings.extend(one_segment(&doc.rel, l.line, id));
                         self.defined
                             .entry((kind.clone(), owner.to_string(), id.clone()))
                             .or_default()
@@ -1718,20 +1728,16 @@ impl Entities {
                 };
                 // The two navigation names are not entry ids at any depth. At the instance's
                 // top level they are the README and the index; inside a group they are an
-                // entry wearing a name that means something else, and `index` passes the id
-                // grammar, so refusing it by name is what makes the pair symmetric.
-                let navigation = matches!(
-                    doc.rel.file_name().and_then(|n| n.to_str()),
-                    Some("README.md" | "index.md")
-                );
-                if navigation || !is_entity_id(&id) {
+                // entry wearing a name that means something else, which the grammar refuses,
+                // since each is one word.
+                if !is_entry_id(&id) {
                     self.findings.push(Finding::in_file(
                         &doc.rel,
                         format!(
                             "`{id}` cannot be an entry id of the {} register",
                             register.name
                         ),
-                        "name the file in lower-case words joined by hyphens, and not \
+                        "name the file in two or more lower-case words joined by hyphens, and not \
                          `README` or `index`, which name a directory's head and its listing; \
                          an id no reference can spell is an entry nothing points at",
                     ));
@@ -1924,6 +1930,19 @@ impl Entities {
             .any(|(kind, _, defined)| defined == id && !kind.is_harness())
     }
 
+    /// Every id the table defines, with each kind and anchor that defines it: the owner of a
+    /// harness kind's section, and an empty anchor for a skill, an agent, the primer and the root
+    /// instructions.
+    pub(crate) fn by_id(&self) -> std::collections::HashMap<&str, Vec<(&Kind, &str)>> {
+        let mut out: std::collections::HashMap<&str, Vec<(&Kind, &str)>> = Default::default();
+        for (kind, anchor, id) in self.defined.keys() {
+            out.entry(id.as_str())
+                .or_default()
+                .push((kind, anchor.as_str()));
+        }
+        out
+    }
+
     /// How many distinct entities the table holds.
     pub(crate) fn len(&self) -> usize {
         self.defined.len()
@@ -1933,6 +1952,23 @@ impl Entities {
     pub(crate) fn definition_findings(&self) -> &[Finding] {
         &self.findings
     }
+}
+
+/// The finding on a slug of one segment at a site that defines it, or `None` for an id of two
+/// segments or more.
+///
+/// The scanner records a slug of one segment, so that it is reported here rather than read as a
+/// heading carrying no slug. It is still defined, so a reference to it resolves and the one repair
+/// the finding names, the rename, is the whole of what the run reports about it.
+fn one_segment(rel: &Path, line: u32, id: &str) -> Option<Finding> {
+    (!is_entry_id(id)).then(|| {
+        Finding::at(
+            rel,
+            line,
+            format!("`##{id}` is an id of one segment, and an id has two or more"),
+            format!("rename it with a second segment, as `{id}-<word>`, and every reference to it"),
+        )
+    })
 }
 
 /// The id of a file-register entry at `rel`, for an instance rooted at `dir`, or `None`.
@@ -2060,27 +2096,27 @@ mod tests {
     /// document rather than the one in force.
     #[test]
     fn an_item_is_defined_by_the_section_in_force_in_its_plan() {
-        let spec = "# A spec\n\n## Threads\n\n### A thread `##one`\n\n\
-                    ## Arguments\n\n### An argument `##a1`\n";
-        let readme = "# A milestone\n\n## Criteria\n\n### A criterion `##crit`\n";
-        let step = "# A slice\n\n## Acceptance criteria\n\n### It holds `##holds`\n";
+        let spec = "# A spec\n\n## Threads\n\n### A thread `##thread-one`\n\n\
+                    ## Arguments\n\n### An argument `##arg-1`\n";
+        let readme = "# A milestone\n\n## Criteria\n\n### A criterion `##a-crit`\n";
+        let step = "# A slice\n\n## Acceptance criteria\n\n### It holds `##it-holds`\n";
         let (e, found) = plan_table(vec![
-            ("docs/plans/specs/s.md", spec),
-            ("docs/plans/milestones/m/README.md", readme),
-            ("docs/plans/milestones/m/a-slice.md", step),
+            ("docs/plans/specs/a-spec.md", spec),
+            ("docs/plans/milestones/m-one/README.md", readme),
+            ("docs/plans/milestones/m-one/a-slice.md", step),
         ]);
         assert!(found.is_empty(), "{found:#?}");
         let a = |kind: &str, anchor: &str, id: &str| {
             e.defined
                 .contains_key(&(Kind::new(kind), anchor.to_string(), id.to_string()))
         };
-        assert!(a("thread", "s", "one"));
-        assert!(a("argument", "s", "a1"));
-        assert!(!a("thread", "s", "a1"));
-        assert!(a("criterion", "m", "crit"));
-        assert!(a("acceptance", "m", "holds"));
+        assert!(a("thread", "a-spec", "thread-one"));
+        assert!(a("argument", "a-spec", "arg-1"));
+        assert!(!a("thread", "a-spec", "arg-1"));
+        assert!(a("criterion", "m-one", "a-crit"));
+        assert!(a("acceptance", "m-one", "it-holds"));
         // The spec file is still an entry of the `spec` register of `plans`.
-        assert!(a("spec", "plans", "s"));
+        assert!(a("spec", "plans", "a-spec"));
     }
 
     /// The claims at the edges of an item section: a level-one heading closes it, a heading
@@ -2089,33 +2125,36 @@ mod tests {
     /// from three down owing a slug; every document of a plan read for items.
     #[test]
     fn an_item_section_ends_at_a_shallower_heading_and_owes_level_three_alone() {
-        let spec = "# A spec\n\n## Threads\n\n### A thread `##one`\n\n#### A detail, no slug\n\n\
-                    # Appendix\n\n### After the appendix `##stray`\n";
+        let spec =
+            "# A spec\n\n## Threads\n\n### A thread `##thread-one`\n\n#### A detail, no slug\n\n\
+                    # Appendix\n\n### After the appendix `##a-stray`\n";
         let (e, found) = plan_table(vec![
-            ("docs/plans/specs/s.md", spec),
-            ("docs/plans/milestones/m/README.md", "# A milestone\n"),
+            ("docs/plans/specs/a-spec.md", spec),
+            ("docs/plans/milestones/m-one/README.md", "# A milestone\n"),
             (
-                "docs/plans/milestones/m/tool.rs",
+                "docs/plans/milestones/m-one/tool.rs",
                 "//! ## Threads\n//!\n//! ### A comment heading `##in-source`\n",
             ),
         ]);
-        assert!(e
-            .defined
-            .contains_key(&(Kind::new("thread"), "s".to_string(), "one".to_string())));
-        assert!(!e.defined.contains_key(&(
+        assert!(e.defined.contains_key(&(
             Kind::new("thread"),
-            "s".to_string(),
-            "stray".to_string()
+            "a-spec".to_string(),
+            "thread-one".to_string()
         )));
         assert!(!e.defined.contains_key(&(
             Kind::new("thread"),
-            "m".to_string(),
+            "a-spec".to_string(),
+            "a-stray".to_string()
+        )));
+        assert!(!e.defined.contains_key(&(
+            Kind::new("thread"),
+            "m-one".to_string(),
             "in-source".to_string()
         )));
         assert!(
             found
                 .iter()
-                .any(|f| f.contains("`##stray` is written outside")),
+                .any(|f| f.contains("`##a-stray` is written outside")),
             "{found:#?}"
         );
         assert!(!found.iter().any(|f| f.contains("A detail")), "{found:#?}");
@@ -2144,24 +2183,22 @@ mod tests {
         let (_, found) = plan_table(vec![
             (
                 "docs/plans/specs/Bad_Name.md",
-                "# A spec\n\n## Threads\n\n### A thread `##one`\n",
+                "# A spec\n\n## Threads\n\n### A thread `##thread-one`\n",
             ),
             (
-                "docs/plans/specs/s.md",
-                "# A spec\n\n## Threads\n\n#### Too deep `##deep`\n",
+                "docs/plans/specs/a-spec.md",
+                "# A spec\n\n## Threads\n\n#### Too deep `##too-deep`\n",
             ),
         ]);
         assert!(
             found
                 .iter()
-                .any(|f| f.contains("`##one` is written in a plan that is no anchor")),
+                .any(|f| f.contains("`##thread-one` is written in a plan that is no anchor")),
             "{found:#?}"
         );
         assert!(
-            found
-                .iter()
-                .any(|f| f
-                    .contains("`##deep` is written at a level-4 heading of the Threads section")),
+            found.iter().any(|f| f
+                .contains("`##too-deep` is written at a level-4 heading of the Threads section")),
             "{found:#?}"
         );
     }
@@ -2172,26 +2209,26 @@ mod tests {
     /// counted as anchor words.
     #[test]
     fn a_spec_anchor_takes_no_name_another_anchor_holds() {
-        let text = "[project]\nchecker-version = \"fixture\"\nname = \"a-project\"\ncomponents = [\"parts/widget\"]\n\n\
+        let text = "[project]\nchecker-version = \"fixture\"\nname = \"a-project\"\ncomponents = [\"parts/a-widget\"]\n\n\
              [walk]\nskip-dirs = []\nskip-files = []\n\n";
         let manifest = Manifest::parse(Path::new("/nowhere"), text).expect("a declaration");
         let tree: Vec<PathBuf> = [
-            "docs/plans/specs/m.md",
-            "docs/plans/specs/widget.md",
-            "docs/plans/specs/s.md",
-            "docs/plans/milestones/m/README.md",
+            "docs/plans/specs/m-one.md",
+            "docs/plans/specs/a-widget.md",
+            "docs/plans/specs/a-spec.md",
+            "docs/plans/milestones/m-one/README.md",
         ]
         .iter()
         .map(PathBuf::from)
         .collect();
         let a = Anchors::of(&manifest, &tree);
-        assert!(a.by_name("m").is_some_and(|m| m.is_milestone()));
-        assert_eq!(a.all().iter().filter(|x| x.name == "m").count(), 1);
-        assert!(a.by_name("widget").is_some_and(|w| w.is_component));
-        assert_eq!(a.all().iter().filter(|x| x.name == "widget").count(), 1);
-        assert!(a.by_name("s").is_some_and(|s| s.is_plan()));
-        assert!(!a.is_anchor_word("s"));
-        assert!(!a.is_anchor_word("m"));
+        assert!(a.by_name("m-one").is_some_and(|m| m.is_milestone()));
+        assert_eq!(a.all().iter().filter(|x| x.name == "m-one").count(), 1);
+        assert!(a.by_name("a-widget").is_some_and(|w| w.is_component));
+        assert_eq!(a.all().iter().filter(|x| x.name == "a-widget").count(), 1);
+        assert!(a.by_name("a-spec").is_some_and(|s| s.is_plan()));
+        assert!(!a.is_anchor_word("a-spec"));
+        assert!(!a.is_anchor_word("m-one"));
     }
 
     /// The claim: only the four item sections owe a slug, and a slug anywhere else in a plan
@@ -2201,13 +2238,13 @@ mod tests {
     #[test]
     fn a_plan_document_owes_slugs_in_its_item_sections_alone() {
         let spec = "# A spec\n\n## Decided design\n\n### A subsection, no slug\n\n\
-                    ### A subsection with one `##stray`\n\n\
+                    ### A subsection with one `##a-stray`\n\n\
                     ## Threads\n\n### A thread with none\n";
-        let (_, found) = plan_table(vec![("docs/plans/specs/s.md", spec)]);
+        let (_, found) = plan_table(vec![("docs/plans/specs/a-spec.md", spec)]);
         assert_eq!(found.len(), 2, "{found:#?}");
         assert!(found
             .iter()
-            .any(|f| f.contains("`##stray` is written outside the item sections")));
+            .any(|f| f.contains("`##a-stray` is written outside the item sections")));
         assert!(found
             .iter()
             .any(|f| f.contains("the level-3 heading \"A thread with none\" under Threads")));
@@ -2226,10 +2263,10 @@ mod tests {
         // The four heading registers, file shape, each defining the same word: four
         // entities, because the register is part of the key.
         let e = table(vec![
-            ("docs/design.md", "### A decision `##same`\n"),
-            ("docs/goals.md", "## A goal `##same`\n"),
-            ("docs/tripwires.md", "## Guarding it `##same`\n"),
-            ("docs/rejected.md", "### A design not kept `##same`\n"),
+            ("docs/design.md", "### A decision `##same-slug`\n"),
+            ("docs/goals.md", "## A goal `##same-slug`\n"),
+            ("docs/tripwires.md", "## Guarding it `##same-slug`\n"),
+            ("docs/rejected.md", "### A design not kept `##same-slug`\n"),
         ]);
         assert_eq!(e.len(), 4);
         assert!(e.definition_findings().is_empty(), "{:#?}", e.findings);
@@ -2245,7 +2282,7 @@ mod tests {
         let a = anchors();
         for kind in ["design", "goal", "tripwire", "rejected"] {
             assert_eq!(
-                e.resolve(&a, &Kind::new(kind), "a-project", "same"),
+                e.resolve(&a, &Kind::new(kind), "a-project", "same-slug"),
                 Resolution::Resolved,
                 "{kind}"
             );
@@ -2554,18 +2591,18 @@ mod tests {
     #[test]
     fn a_definition_belongs_to_the_deepest_anchor_holding_its_document() {
         let e = table(vec![
-            ("docs/design.md", "### A decision `##word`\n"),
-            ("parts/a-part/docs/design.md", "### A decision `##word`\n"),
+            ("docs/design.md", "### A decision `##a-word`\n"),
+            ("parts/a-part/docs/design.md", "### A decision `##a-word`\n"),
         ]);
         assert_eq!(e.len(), 2, "two anchors, two entities");
         assert!(e.definition_findings().is_empty());
         let a = anchors();
         assert_eq!(
-            e.resolve(&a, &Kind::new("design"), "a-part", "word"),
+            e.resolve(&a, &Kind::new("design"), "a-part", "a-word"),
             Resolution::Resolved
         );
         assert_eq!(
-            e.resolve(&a, &Kind::new("design"), "a-project", "word"),
+            e.resolve(&a, &Kind::new("design"), "a-project", "a-word"),
             Resolution::Resolved
         );
     }
@@ -2575,8 +2612,11 @@ mod tests {
         // Mutation checked: iterating `sites.iter().take(1)` leaves one finding, and the
         // assertion on two fails.
         let found = findings(vec![
-            ("docs/design.md", "### One `##twice`\n\n### Two `##twice`\n"),
-            ("docs/goals.md", "## A goal `##twice`\n"),
+            (
+                "docs/design.md",
+                "### One `##twice-defined`\n\n### Two `##twice-defined`\n",
+            ),
+            ("docs/goals.md", "## A goal `##twice-defined`\n"),
         ]);
         assert_eq!(found.len(), 2, "{found:#?}");
         assert!(
@@ -2588,7 +2628,9 @@ mod tests {
             "{found:#?}"
         );
         assert!(
-            found.iter().all(|f| f.contains("`design@a-project@twice`")),
+            found
+                .iter()
+                .all(|f| f.contains("`design@a-project@twice-defined`")),
             "the finding names the entity in the grammar: {found:#?}"
         );
     }
@@ -2597,8 +2639,8 @@ mod tests {
     fn a_misplaced_definition_does_not_count_toward_a_duplicate() {
         // It defines nothing, so it cannot collide with the one that does.
         let found = findings(vec![
-            ("docs/design.md", "### One `##once`\n"),
-            ("notes/a.md", "### One `##once`\n"),
+            ("docs/design.md", "### One `##just-once`\n"),
+            ("notes/a.md", "### One `##just-once`\n"),
         ]);
         assert_eq!(found.len(), 1, "{found:#?}");
         assert!(found[0].contains("defines nothing"), "{found:#?}");
@@ -2920,12 +2962,12 @@ mod tests {
     fn an_agent_is_a_named_file_at_any_depth_and_a_file_with_no_name_is_none() {
         let agent =
             "---\nname: a-reviewer\ndescription: d\n---\n# A\n\n## Its steps `##its-steps`\n";
-        let nested = "---\nname: deep\n---\n# D\n";
+        let nested = "---\nname: deep-one\n---\n# D\n";
         let readme = "# Agents\n\nWhat sits here.\n";
         let e = harness_table(
             vec![
                 (".claude/agents/a-reviewer.md", agent),
-                (".claude/agents/review/deep.md", nested),
+                (".claude/agents/review/deep-one.md", nested),
                 (".claude/agents/README.md", readme),
             ],
             vec![],
@@ -2934,7 +2976,7 @@ mod tests {
         let kind = Kind::new(AGENT_KIND);
         assert!(e.defines(&kind, "", "a-reviewer"));
         assert!(e.defines(&kind, "a-reviewer", "its-steps"));
-        assert!(e.defines(&kind, "", "deep"));
+        assert!(e.defines(&kind, "", "deep-one"));
         assert!(!e.defines(&kind, "", "README"));
     }
 
@@ -2958,8 +3000,8 @@ mod tests {
     /// Mutation checked: the rule applied at level three reports neither case.
     #[test]
     fn a_section_home_owes_a_slug_on_every_level_two_heading() {
-        let skill = "# S\n\n## Bare\n\n### Deep `##deep`\n\n```\n## Fenced\n```\n";
-        let e = harness_table(vec![(".claude/skills/s/SKILL.md", skill)], vec![]);
+        let skill = "# S\n\n## Bare\n\n### Deep `##too-deep`\n\n```\n## Fenced\n```\n";
+        let e = harness_table(vec![(".claude/skills/a-skill/SKILL.md", skill)], vec![]);
         let found = e.definition_findings();
         assert_eq!(found.len(), 2, "{:#?}", whats(&e));
         assert!(found[0].what.contains("\"Bare\""), "{:#?}", whats(&e));
@@ -2968,8 +3010,8 @@ mod tests {
             "{}",
             found[0].action
         );
-        assert!(found[1].what.contains("`##deep`"), "{:#?}", whats(&e));
-        assert!(!e.defines(&Kind::new(SKILL_KIND), "s", "deep"));
+        assert!(found[1].what.contains("`##too-deep`"), "{:#?}", whats(&e));
+        assert!(!e.defines(&Kind::new(SKILL_KIND), "a-skill", "too-deep"));
     }
 
     /// The claim: a frontmatter `name` that differs from the skill's directory, or from the
@@ -2979,11 +3021,20 @@ mod tests {
     fn a_name_its_frontmatter_contradicts_is_a_finding() {
         let e = harness_table(
             vec![
-                (".claude/skills/s/SKILL.md", "---\nname: other\n---\n# S\n"),
-                (".claude/agents/a.md", "---\nname: b\n---\n# A\n"),
-                (".claude/agents/t.md", "---\nname: t\nname: t\n---\n# T\n"),
                 (
-                    ".claude/skills/plain/SKILL.md",
+                    ".claude/skills/a-skill/SKILL.md",
+                    "---\nname: other-one\n---\n# S\n",
+                ),
+                (
+                    ".claude/agents/an-agent.md",
+                    "---\nname: b-agent\n---\n# A\n",
+                ),
+                (
+                    ".claude/agents/t-agent.md",
+                    "---\nname: t-agent\nname: t-agent\n---\n# T\n",
+                ),
+                (
+                    ".claude/skills/plain-skill/SKILL.md",
                     "---\ndescription: d\n---\n# P\n",
                 ),
             ],
@@ -2992,18 +3043,22 @@ mod tests {
         let found = whats(&e);
         assert_eq!(found.len(), 3, "{found:#?}");
         assert!(
-            found.iter().any(|w| w.contains("names this skill `other`")),
+            found
+                .iter()
+                .any(|w| w.contains("names this skill `other-one`")),
             "{found:#?}"
         );
         assert!(
-            found.iter().any(|w| w.contains("names this agent `b`")),
+            found
+                .iter()
+                .any(|w| w.contains("names this agent `b-agent`")),
             "{found:#?}"
         );
         assert!(
             found.iter().any(|w| w.contains("sets `name` twice")),
             "{found:#?}"
         );
-        assert!(e.defines(&Kind::new(SKILL_KIND), "", "plain"));
+        assert!(e.defines(&Kind::new(SKILL_KIND), "", "plain-skill"));
     }
 
     /// The claim: a skill or an agent whose name a reference cannot spell is a finding, and
@@ -3105,11 +3160,15 @@ mod tests {
     }
 
     /// The claim: every kind name is refused as a plan's name, per
-    /// `design@core@a-placed-name-reads-as-nothing-else`.
+    /// `design@core@a-placed-name-reads-as-nothing-else`. A built-in kind's name is one segment,
+    /// so the id grammar refuses it first; a declared register's name of two segments reaches the
+    /// kind test. Mutation checked: deleting the kind test passes `work-item`.
     #[test]
     fn a_kind_name_is_no_plan_name() {
         let text =
             "[project]\nchecker-version = \"fixture\"\nname = \"a-project\"\ncomponents = []\n\n\
+                    [locations.notes]\npath = \"notes\"\nregisters = [\"work-item\"]\n\n\
+                    [registers.work-item]\nscope = \"opt-in\"\nshape = \"file\"\ndir = \"work-items\"\n\n\
                     [walk]\nskip-dirs = []\nskip-files = []\n\n";
         let m = Manifest::parse(Path::new("/nowhere"), text).expect("a declaration");
         for name in [
@@ -3122,12 +3181,12 @@ mod tests {
             "path",
             "planned",
         ] {
-            assert_eq!(
-                milestone_refusal(name, &m).as_deref(),
-                Some("is the name of a kind"),
-                "{name}"
-            );
+            assert!(milestone_refusal(name, &m).is_some(), "{name}");
         }
+        assert_eq!(
+            milestone_refusal("work-item", &m).as_deref(),
+            Some("is the name of a kind")
+        );
         assert_eq!(milestone_refusal("a-plan", &m), None);
     }
 
@@ -3231,8 +3290,14 @@ mod tests {
     fn two_agents_of_one_name_are_a_duplicate() {
         let e = harness_table(
             vec![
-                (".claude/agents/a/twin.md", "---\nname: twin\n---\n# T\n"),
-                (".claude/agents/b/twin.md", "---\nname: twin\n---\n# T\n"),
+                (
+                    ".claude/agents/a/twin-agent.md",
+                    "---\nname: twin-agent\n---\n# T\n",
+                ),
+                (
+                    ".claude/agents/b/twin-agent.md",
+                    "---\nname: twin-agent\n---\n# T\n",
+                ),
             ],
             vec![],
         );
@@ -3241,7 +3306,7 @@ mod tests {
         assert!(
             found
                 .iter()
-                .all(|w| w.contains("`agent@twin` is also defined")),
+                .all(|w| w.contains("`agent@twin-agent` is also defined")),
             "{found:#?}"
         );
     }
@@ -3273,10 +3338,7 @@ mod tests {
         );
         let found = whats(&e);
         assert_eq!(found.len(), 2, "{found:#?}");
-        assert!(
-            found.iter().any(|w| w.contains("no skill named `synced`")),
-            "{found:#?}"
-        );
+        assert!(found.iter().any(|w| w.contains("`synced`")), "{found:#?}");
         assert!(
             found
                 .iter()
