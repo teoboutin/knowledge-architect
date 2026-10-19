@@ -35,7 +35,7 @@ analysis of the workflow files other projects send.
 | name | what it is |
 | --- | --- |
 | the local intake | `skill@klarch-retrospective-intake`, at .claude/skills/klarch-retrospective-intake/SKILL.md: this repository's own skill |
-| the installed intake | the skill this work ships, named knowledge-architect-retrospective-intake once installed, whose source is `planned@agent-skills@content/skills/retrospective-intake/SKILL.md` |
+| the installed intake | the skill this work ships, named knowledge-architect-retrospective-intake once installed, whose source is `path@agent-skills@content/skills/retrospective-intake/SKILL.md` |
 | the retrospective | `skill@knowledge-architect-retrospective`, source `path@agent-skills@content/skills/retrospective/SKILL.md` |
 | the project file | the retrospective's first file, `<YYYY-MM-DD>-<project>-<subject>.md`: findings P on the project's own instructions, and the project's side of an interaction finding, per `skill@knowledge-architect-retrospective@two-files` |
 | the workflow file | the retrospective's second file, `<YYYY-MM-DD>-<project>-<subject>-klarch-workflow.md`: findings W on the installed files, C on the checker, and the answers to the standing questions |
@@ -682,7 +682,7 @@ docs/retrospective-reports/                                           existing h
 
 ### The installed intake
 
-A skill of its own, `planned@agent-skills@content/skills/retrospective-intake/SKILL.md`, installed
+A skill of its own, `path@agent-skills@content/skills/retrospective-intake/SKILL.md`, installed
 as knowledge-architect-retrospective-intake. Its description triggers when the owner hands the
 session one or more of the project's retrospective files, and while an outcome of an analysis in
 docs/retrospective-reports/ is carried out. It says it runs on the owner's word, usually in a
@@ -1001,7 +1001,7 @@ the install; a check failure that the overlap causes reopens the thread.
 
 ## Implementation sequence
 
-1. **The installed intake.** Write `planned@agent-skills@content/skills/retrospective-intake/SKILL.md`
+1. **The installed intake.** Write `path@agent-skills@content/skills/retrospective-intake/SKILL.md`
    from the local intake, by the mapping table and the decided design, under
    `skill@knowledge-architect-agent-configuration`, read whole, and
    `path@agent-skills@CLAUDE.md`, section "Editing an installed skill or agent". Add its line to
