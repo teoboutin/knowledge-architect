@@ -1,6 +1,6 @@
 ---
 name: knowledge-architect-retrospective
-description: MUST use once per session, at the first of these moments (deferred to the end of a task under way), to offer a retrospective to the owner - a branch the session worked on has merged into the main branch, a plan document has left, or the owner says the session is ending - and run it only if the owner accepts. Covers what the retrospective examines (the installed files, the project's own instructions, how the two interact, and the checker), the standing questions it always asks, the expectation sets that bound what counts as a defect of an installed skill, the two files it writes outside the project, and how each file reaches the project that must change.
+description: MUST use once per session, at the first of these moments (deferred to the end of a task under way), to offer a retrospective to the owner - a branch the session worked on has merged into the main branch, a plan document has left, or the owner says the session is ending - and run it only if the owner accepts. Covers what the retrospective examines (the installed files, the project's own instructions, how the two interact, and the checker), the standing questions it always asks, the expectation sets that bound what counts as a defect of an installed skill, the two files it writes outside the project, and where each file goes: the project's file to an intake the owner starts, the workflow's file to the workflow's repository.
 ---
 
 # Retrospective
@@ -8,7 +8,8 @@ description: MUST use once per session, at the first of these moments (deferred 
 Scope: looking back at one session's use of the workflow, and turning what was unclear, missing or
 wrong into findings the owner can act on.
 
-Not covered here: **opening an issue entry in the project**,
+Not covered here: **analysing the project's file and ruling on its findings**,
+`skill@knowledge-architect-retrospective-intake`; **opening an issue entry in the project**,
 `skill@knowledge-architect-issue-tracking`.
 
 ## When it is offered {{slug:when-offered}}
@@ -27,14 +28,21 @@ and run it only if the owner accepts. A declined retrospective is not offered ag
 Open with **what the session did**: one paragraph, at the level of the workflow ("a design
 discussion and two merged branches"), not of the project's subject matter.
 
-%% The version lets a finding be judged against the text that produced it.
-Then **the version of knowledge-architect the session used**, in one line:
+%% The version lets a finding be judged against the text that produced it, and the project's
+%% main commit lets the intake read the blamed text as the session read it.
+Then **the version the session used**, in one line:
 
-- where the project pins the checker, the exact version of the pin;
-- where the project builds the checker from its own source, the main commit the session's tree
-  contains, described with `git describe --tags $(git merge-base HEAD <main branch>)`, the branch
-  the session worked on, and whether the tree held uncommitted changes. A commit of the branch
-  itself is not named: a merge that rewrites the branch's commits leaves it pointing at nothing.
+- in both files, the version of knowledge-architect: where the project pins the checker, the exact
+  version of the pin; where the project builds the checker from its own source, the main commit
+  the session's tree contains, described with `git describe --tags $(git merge-base HEAD <main branch>)`,
+  the branch the session worked on, and whether the tree held uncommitted changes;
+- in the project's file, also the project's main commit the session's tree contains,
+  `git rev-parse --short $(git merge-base HEAD <main branch>)`, the branch the session worked on,
+  and whether the tree held uncommitted changes. The workflow's file names them only where the
+  project builds the checker from source, since that file may become public.
+
+A commit of the branch itself is not named: a merge that rewrites the branch's commits leaves it
+pointing at nothing.
 
 %% A wider "missing" turns every judgement into a request for a rule, against
 %% `goal@agent-skills@installed-text-leaves-room-to-judge`. The scope is wider than the installed
@@ -137,8 +145,10 @@ Give the owner the full path of each file, and never print either file into the 
 owner reads both files at those paths, verbatim, and may edit them. Then, **on the owner's word
 only, and where the owner directs**:
 
-- **The project's file**: each finding the owner keeps becomes an issue entry in the project's own
-  register, under `skill@knowledge-architect-issue-tracking`.
+- **The project's file**: it stays where the files went until the owner hands it to an intake,
+  usually in a later session and with other files, under
+  `skill@knowledge-architect-retrospective-intake`, which puts each finding to the owner with its
+  evidence and a default outcome.
 - **The workflow's file**: it becomes an issue on the repository of knowledge-architect,
   <https://github.com/teoboutin/knowledge-architect>, opened with
   `gh issue create --repo teoboutin/knowledge-architect --title "<title>" --body-file <file>`.
