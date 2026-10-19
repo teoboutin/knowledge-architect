@@ -1,6 +1,6 @@
 ---
 name: knowledge-architect-retrospective-intake
-description: MUST use when the owner hands this session one or more of the project's own retrospective files to act on — a `<date>-<project>-<subject>.md` file, the findings of a retrospective on the project's own instructions — or asks what to do with the findings of such a file; and while an outcome of an analysis in docs/retrospective-reports/ is carried out, for what the analysis owes until it leaves. It runs on the owner's word, usually in a session that did not write the files, often on several files at once. Covers checking each finding against the text as it stands, against the registers and the history, against the goals and the design, looking for a better fix than the one proposed, writing the analysis to a file, offering the owner an outcome per finding, and the life of the analysis after the ruling. Not for running a retrospective, nor for the retrospective's workflow file, which goes to the workflow's repository, nor for the work an outcome rules, which its route's skill covers.
+description: MUST use when the owner hands this session one or more of the project's own retrospective files to act on — a `<date>-<project>-<subject>.md` file, the findings of a retrospective on the project's own instructions — or asks what to do with the findings of such a file; and while an outcome of an analysis in docs/retrospective-reports/ is carried out, for what the analysis owes until it leaves. It runs on the owner's word. Covers checking each finding against the text as it stands, against the registers and the history, against the goals and the design, looking for a better fix than the one proposed, writing the analysis to a file, offering the owner an outcome per finding, and the life of the analysis after the ruling. Not for running a retrospective, nor for the retrospective's workflow file, which goes to the workflow's repository, nor for the work an outcome rules, which its route's skill covers.
 ---
 
 # Retrospective intake
@@ -94,9 +94,10 @@ The order is a suggestion; the content is not.
 %% contradiction by a set is watched by tripwire@agent-skills@expectation-set-closes-a-contradiction.
   - **an observation**: a use that went well, or a behaviour not reproduced. It needs no action.
 - **e. Its scope.** The goal it serves or threatens, from the goals homes, `register@*@goal`. The
-  owner of the fix: the Component that owns the blamed text, or the installed text, which the
-  project never edits, per `skill@knowledge-architect-agent-configuration@installed-files-never-edited`:
-  a fix there is sent upstream. Whether the fix reverses a recorded decision, per
+  owner of the fix: the Component or the location that owns the blamed text; or the installed
+  text, which the project never edits, per
+  `skill@knowledge-architect-agent-configuration@installed-files-never-edited`; or the checker.
+  Whether the fix reverses a recorded decision, per
   `skill@knowledge-architect-decision-recording@reversal-check`: if it does, the fix is a reversal
   and goes through that skill. The record check of item f names the heads it would reverse.
 - **f. A better fix.** Name the nearest rival to the fix the report proposes, and the fact that
@@ -117,7 +118,7 @@ The order is a suggestion; the content is not.
   - a decision, or one whose design is not settled: `skill@knowledge-architect-design`;
   - a change to the project's code: the project's own development procedure;
   - an issue only, when the work is not to be done in this session;
-  - a fix in the installed text: sent upstream;
+  - a fix in the installed text or in the checker: sent upstream;
   - nothing.
 - **h. The proposal.** The action, its argument, and the default outcome
   (`skill@knowledge-architect-retrospective-intake@analysis-and-ruling`).
@@ -169,10 +170,11 @@ whose `Outcome` line is still pending, and ask the owner for those. **Four outco
   that follow it, under the skill its route names. It needs no issue entry, and the proposal does
   not suggest one;
 - **open an issue**: name its anchor and its kind;
-- **sent upstream**: the fix lies in the installed text. Ask the owner whether the workflow file of
-  the same retrospective was sent, and how:
-  - not sent yet: add the finding to it as a W finding with the next number of that file; it
-    becomes an interaction finding, the P id and the W id each naming the other;
+- **sent upstream**: the fix lies in the installed text or in the checker. Ask the owner whether
+  the workflow file of the same retrospective was sent, and how:
+  - not sent yet: add the finding to it, as a W finding for the installed text or a C finding for
+    the checker, with the next number of its letter in that file, the two ids each naming the
+    other, as an interaction finding's do;
   - sent as an issue on the workflow's repository, which
     `skill@knowledge-architect-retrospective@what-becomes-of-files` names: edit the issue's body
     with `gh issue edit <n> --repo <that repository> --body-file <file>`, and post a one-line
@@ -182,7 +184,8 @@ whose `Outcome` line is still pending, and ask the owner for those. **Four outco
     retrospective opens one.
 
   Nothing leaves the machine before the owner has read it. Where `gh` is absent or fails, give the
-  owner the text and the address. The outcome is carried out once the owner has sent it;
+  owner the text and the address. The outcome is carried out once the owner has sent it, and its
+  `Outcome` line says so;
 - **no change, with the reason**: a lapse, already repaired, out of scope, or an observation.
 
 A question tool is not the way to collect the ruling: it shows a label, not the evidence and the

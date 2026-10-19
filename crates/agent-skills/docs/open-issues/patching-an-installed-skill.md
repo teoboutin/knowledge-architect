@@ -29,7 +29,10 @@ The three supersessions this repository holds today, each ruled by the owner:
 - the project skill prefix `klarch-`, against the installed rule that the prefix is the project's
   name and a hyphen, per `instructions@repository-skills`;
 - a retrospective's workflow file handled here rather than filed as an issue on GitHub, per
-  `design@knowledge-architect@workflow-findings-stay-here`;
+  `design@knowledge-architect@workflow-findings-stay-here`; with it, `skill@klarch-retrospective-intake`
+  sets aside two instructions of `skill@knowledge-architect-retrospective-intake`: a workflow
+  file's findings are resolved rather than read for grounding only, and the outcome "sent
+  upstream" does not apply;
 - the agentic-workflow axis's findings on the installed text edited at their source, with no
   upstream file, in `instructions@repository-skills`.
 

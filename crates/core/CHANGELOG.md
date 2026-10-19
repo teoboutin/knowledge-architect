@@ -36,8 +36,9 @@ subsection is omitted.
 - `agent-skills`, patch: a retrospective's project file no longer becomes issue entries directly.
   It waits where the files went until the owner hands it to an intake, which writes an analysis
   into docs/retrospective-reports/, commits it with the owner's rulings, and deletes it in the
-  commit that carries out its last outcome. A finding whose fix lies in the installed text is added
-  to the retrospective's workflow file, or to the issue that carries it upstream.
+  commit that carries out its last outcome. A finding whose fix lies in the installed text or in
+  the checker is added to the retrospective's workflow file, or to the issue that carries it
+  upstream.
 - `agent-skills`, patch: a retrospective's project file names the project's main commit, the
   branch and whether the tree held uncommitted changes, so that an intake reads the blamed text as
   the session read it; the workflow file names them only where the project builds the checker from
