@@ -934,7 +934,8 @@ rejected entries have to be read together. The owner was not convinced that the 
 is sensible and would put no numeric limit on the grouping, and judged that a Component with a
 subject of more than 60 entries is probably not divided enough, which an agent should probably
 report. The bound of 60 that `design@agent-skills@standing-entry-search-groups` argues stands for
-standing entries, by the session's reading that the owner's ruling reaches this search alone, and the
+standing entries, on the owner's word: the design registers of a Component are one coherent whole,
+while issues and tripwires are about diverse things, and the
 anchor-sized group that `rejected@agent-skills@one-search-agent-per-anchor` rejects there is the
 starting group here, cut by subject where the session judges it too large. The designs this
 decision did not keep: `rejected@agent-skills@design-listing-cut-in-groups-of-sixty` and

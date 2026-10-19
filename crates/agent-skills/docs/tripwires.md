@@ -563,10 +563,7 @@ covers it, so that a session reading that head meets the design. The owner ruled
 premortem of its discussion.
 
 **Fires when:** a review or an audit finds a `rejected` entry whose only citing heads decide a
-question other than the one the design it records answered, where the head that decides that
-question exists. An entry whose deciding head is missing, and recorded as missing by an open issue,
-does not count: `rejected@core@syn-rust-parser` and `rejected@core@rust-analyzer-syntax-crate`, per
-`issue@core@the-rust-parser-choice-has-no-head`, are that case.
+question other than the one the design it records answered.
 **Response:** reopen `design@agent-skills@rejected-citation-direction` on how the citing head is
 chosen.
 **Re-entry:** the decision-record review of every branch that adds a `rejected` entry, and the
