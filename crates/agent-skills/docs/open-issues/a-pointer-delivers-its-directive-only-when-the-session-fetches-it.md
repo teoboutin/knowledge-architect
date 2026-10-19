@@ -9,31 +9,42 @@ The installed text delivers a directive longer than one sentence by a pointer to
 `design@agent-skills@restatement-size-test`. A pointer delivers nothing unless the session reads
 the section it names at that moment. The owner proposes a rival: the text at the point of delivery
 is a copy that the build or the install fills from the one home, so it is delivered where it is
-needed and cannot drift. A second rival of the owner's is a harness hook that delivers the named
-sections whenever a session reads an instruction text holding a pointer. No real session is
-established to have missed a pointed directive.
+needed and cannot drift. A second rival of the owner's is a harness hook that delivers the
+pointed sections whenever a session reads a text holding a pointer to an instruction text. No real
+session is established to have missed a pointed directive.
 
 ## Details
 
 ### What
 
-**Instances seen: none established.** The owner has not seen a session miss a directive that a
-pointer stood for with certainty, and is fairly certain that sessions do not always read the
-pointed section again when they meet such a pointer. The owner's reasons:
+**Instances seen: none established.** The owner has not seen with certainty a session miss a
+directive that a pointer stood for, and is fairly certain that sessions do not always read the
+pointed section again when they meet such a pointer. The owner's reasons, each with the owner's
+hedge:
 
-- no instruction of the installed set asks, everywhere, that a pointed section be read again; the
-  primer asks it pointer by pointer instead: `primer@where-knowledge-goes` delivers a directive
-  longer than one sentence "by a pointer to its home, with an instruction to read the home whole at
-  that moment". Not established: whether every pointer that needs that instruction carries it;
-- agents tend to work from what they remember of a text already read;
-- `tripwire@agent-skills@pointer-not-followed` watches this failure, and its firing evidence is in
-  session transcripts that no occasion reads, the gap
-  `issue@agent-skills@a-tripwire-on-agent-behaviour-fires-where-this-project-cannot-see` records.
-  A tripwire that exists is not a tripwire that is read.
+- as far as the owner knows, no instruction tells a session, everywhere, to read a pointed section
+  again;
+- agents tend to work from memory, especially of a text already read, though recent models seem to
+  improve on this;
+- as far as the owner knows, `tripwire@agent-skills@pointer-not-followed`, which watches this
+  failure, is not watched closely: watching it would probably require reading session
+  transcripts, the gap `issue@agent-skills@a-tripwire-on-agent-behaviour-fires-where-this-project-cannot-see`
+  records. An existing tripwire does not always mean the problem is watched.
 
-The owner also bounds the problem: in most cases, working from memory of a pointed section is a
-defensible call that `primer@room-to-judge` leaves to the session, and only some directives must be
-read again at the moment they are applied.
+The session's reading of the source, on the first reason: `primer@where-knowledge-goes` asks it
+pointer by pointer, delivering a directive longer than one sentence "by a pointer to its home, with
+an instruction to read the home whole at that moment". Not established: whether every pointer that
+needs that instruction carries it, which the owner also doubts.
+
+The owner also bounds the problem: in most cases, reading the pointed section is not important,
+and working from memory is a defensible call that the room to judge, `primer@room-to-judge`,
+allows; in some cases reading it again is necessary, some of which the text states, and the owner
+is not certain it is asked wherever it is needed.
+
+In the owner's rewording of the agent-skills goals, left out of the goal wording the owner
+approved and kept here on the owner's word: restatements are avoided because they lead to drift
+and conflicts, and they can be avoided by pointers or by text injected at several places by
+substitution, at build or at install time.
 
 **The suspected mechanism, in one sentence:** a pointer moves the cost of delivery from the
 writer's text to the session's choice to fetch it, and the session chooses from memory.
@@ -47,8 +58,9 @@ writer's text to the session's choice to fetch it, and the session chooses from 
   heading. The install fills the project's command, `PLACEHOLDER` in
   `path@core@src/agents.rs`. What does not exist is a placeholder that copies a section of one
   installed text into another.
-- **A harness hook** that, when a session reads a skill, an agent definition, the primer or the
-  root `CLAUDE.md` holding a pointer to a section of an instruction text, delivers that section.
+- **A harness hook** that delivers the pointed sections whenever a session reads a text holding a
+  pointer to an instruction text: a skill, an agent definition, the primer or the root
+  `CLAUDE.md`.
 
 The questions a design discussion would answer:
 
@@ -65,11 +77,11 @@ The questions a design discussion would answer:
 
 ### Why it matters
 
-`goal@agent-skills@no-contradiction-in-workflow` is met only while no restatement drifts from its
-home, and `goal@agent-skills@one-skill-per-activity` only while an agent can carry out an activity
-from its skill, reading another only at a step that points to it. A pointer that is not followed
-fails the second without anyone seeing it, and a manual restatement fails the first. The entry
-strains `design@agent-skills@restatement-size-test`, whose rival lost on drift alone.
+A manual restatement that drifts until it contradicts its home fails
+`goal@agent-skills@no-contradiction-in-workflow`. A pointer that is not followed leaves its
+directive undelivered at the step that needs it, and nothing sees it, since its tripwire is read by
+no occasion that holds a session's record. The entry strains
+`design@agent-skills@restatement-size-test`, whose rival lost on drift alone.
 
 ### What would close it
 
@@ -82,4 +94,6 @@ owner's ruling that the pointer stays.
 
 That design discussion, proposed to the owner when work next reshapes how the installed text
 delivers a directive, or when a retrospective or a review reports a directive missed behind a
-pointer, which also fires `tripwire@agent-skills@pointer-not-followed`.
+pointer. Where that pointer had replaced a restatement under
+`design@agent-skills@restatement-size-test`, the report also fires
+`tripwire@agent-skills@pointer-not-followed`.
