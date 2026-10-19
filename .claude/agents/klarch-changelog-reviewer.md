@@ -53,8 +53,7 @@ the policy's mapping onto Cargo's two positions while at 0.x.
 alternative and commit message the range adds or rewrites. One that defends a choice by a future
 cost to consumers, with no present cost named, is a finding; a migration is a present cost, which
 `design@knowledge-architect@capability-cost-before-migration` ranks after what a consumer could no
-longer do. A version bump is not an
-argument either way.
+longer do. A version bump is not an argument either way.
 
 ## Reporting `##how-to-report`
 

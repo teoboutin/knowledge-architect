@@ -134,7 +134,7 @@ it states, and else at the harvest.
 | `design@core@unusable-harness-name-is-a-finding` | its grammar for skill and agent names becomes two or more segments | `issue@core@tooling-for-project-skills`; `path@core@src/entity.rs`:1349, :3059 | step 1 for the source; the harvest |
 | `design@core@plan-document-kinds` | its example of a one-word slice id, `harvest`, takes two segments | its 12 citing lines, which state no grammar | the harvest |
 | `design@agent-skills@plain-text-is-no-repair` | its closed set of exceptions gains the quotation, which the owner approved in round 4; and class A keeps its first exception mechanically, under D2 | 18 citing lines, the primer's `primer@where-knowledge-goes` and `tripwire@agent-skills@plain-text-pointer-found` among them | the harvest, after D2 and D3 |
-| `design@knowledge-architect@changelog-section-fixed-at-release` | a member within the owner's rule of round 4, that a released section's content never changes and its structure may: a slug written in words in a released section is repaired as its reference, each such finding ruled by the owner case by case, as the owner reserved (D5) | 10 citing lines, the changelog reviewer among them | the harvest |
+| `design@knowledge-architect@changelog-section-fixed-at-release` | a member within its rule, that a released section's content never changes and its structure may, which the owner pointed to in round 4: a slug written in words in a released section is repaired as its reference, each such finding ruled by the owner case by case, as the owner reserved (D5) | 10 citing lines, the changelog reviewer among them | the harvest |
 
 **Standing entries the discussion's search returned, and their outcome:**
 
@@ -156,6 +156,8 @@ it states, and else at the harvest.
 | `issue@agent-skills@a-tripwire-on-agent-behaviour-fires-where-this-project-cannot-see` | the retrospective's question on references written without backticks is the channel it names; under D2 class A keeps the escape that question watches, so the channel is unchanged; read at the harvest |
 | `issue@agent-skills@a-saved-workflow-s-comments-ship-to-every-project` | a saved workflow's `//` comment is JavaScript, which the checker does not read, per `issue@core@references-are-read-in-markdown-and-rust-only`; the lints do not reach it; nothing |
 | `issue@core@no-checked-form-cites-a-point-inside-a-section` | the lints report section slugs written outside a reference; a point inside a section written in words stays that entry's question; nothing |
+| `tripwire@core@grammars-not-prefixes` | the lints read the prose regions and item scopes the extractor already yields, and add no parser, so it does not fire; it still guards their input, since a file that yields nothing hides its findings from the lints too |
+| `tripwire@core@phases-gate-the-report-two` | each lint consumes the entity table in the last phase and produces nothing another check reads, and the work adds no flag, variable or manifest row that switches a lint off or reports past a phase, so neither clause fires |
 | `tripwire@agent-skills@rarer-rule-in-the-model` | the lints' rules go into their finding messages and the core's README, not into `primer@checker-model`, so it does not fire; step 1 adds nothing to the primer's model |
 | `issue@knowledge-architect@the-released-changelog-section-rule-has-no-argument` | the owner ruled that released sections are linted, findings ruled one by one (round 4); read at the harvest |
 
