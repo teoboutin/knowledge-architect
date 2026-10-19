@@ -211,9 +211,9 @@ Binding, from the owner's ruling of round 2. Met by #intake-input.
 Proposed by the session in round 1 (a1, a2). Approved by the owner in round 2: "yes, the input to
 analyze and resolves is only the project file. There is no need to do the job of knowledge-architect
 in consumer project, that would be weird." The session's reading, that the workflow file may still
-be read for the other side of an interaction finding and nothing resolved from it (a14), is
-presumed-settled: the owner did not name it, and it awaits the owner's word as D3. Shape: Decided
-design, "What the installed intake takes". Harvest: a design head of agent-skills, slug
+be read for the other side of an interaction finding and nothing resolved from it (a14), was
+presumed-settled until the owner accepted it as D3 in round 6: "D3, D4, D5 accepted."
+Shape: Decided design, "What the installed intake takes". Harvest: a design head of agent-skills, slug
 `intake-takes-the-project-file`, pair `#intake-input → intake-takes-the-project-file`, since the
 thread's name names no decision.
 
@@ -250,9 +250,10 @@ Proposed by the session in round 1 (a7) and round 2 (a22, a23). Approved by the 
 with its use: "I can agree with that, though it is not really the intended use case, that I
 described above. I prefer doing that task in a new session, and if possible with multiple reports at
 once." The session reworded the shape for that use (a50): the retrospective offers no intake at
-its own end, which narrows the shape the owner approved and awaits the owner's word as D4. Shape:
-Decided design, "The retrospective's project file". Harvest: `design@agent-skills@retrospective-destination`, rewritten in place, and
-the losing shape in agent-skills' rejected alternatives if it meets a recording test.
+its own end, which narrows the shape the owner approved; the owner accepted it as D4 in round 6.
+Shape: Decided design, "The retrospective's project file". Harvest:
+`design@agent-skills@retrospective-destination`, rewritten in place, and the losing shape in
+agent-skills' rejected alternatives, which recording tests 3 and 4 admit.
 
 ### The version line names the project's main commit in every project `##project-commit-in-version-line`
 
@@ -260,8 +261,8 @@ Proposed by the session in round 1 (a8), withdrawn by the session in round 2 (a2
 approved by the owner in round 3: "I think that is worth it. It would save a bit of time and effort
 for everyone. It's minor enough that no session would bother asking for it, but it would
 definitively be useful, and it carries no downside." The session stated its shape (a51). Which of
-the two files names the commit awaits the owner's word as D5, since the workflow file may become
-public. Shape: Decided design, "The version line". Harvest: a design head of agent-skills by entry
+the two files names the commit was put to the owner as D5, since the workflow file may become
+public, and the owner accepted it in round 6. Shape: Decided design, "The version line". Harvest: a design head of agent-skills by entry
 test 2, slug `version-line-names-the-main-commit`, pair
 `#project-commit-in-version-line → version-line-names-the-main-commit`: its reason is respected at
 the version line and at the installed intake's check b.
@@ -701,7 +702,7 @@ sections at the step that needs them meets `goal@agent-skills@one-skill-per-acti
 ### What the installed intake takes
 
 The project file, any number of them at once. The workflow file of the same retrospective is read
-for the other side of an interaction finding, and nothing of it is resolved (a14, awaiting D3); it
+for the other side of an interaction finding, and nothing of it is resolved (a14, D3); it
 is written to only under "Sent upstream". A finding is cited by its id and its file's stem, as the
 retrospective gives it.
 
@@ -781,7 +782,7 @@ cannot close.
 says that the file stays where the files went until the owner hands it to an intake, usually in a
 later session and with other files, under the installed intake, which puts each finding to the
 owner with its evidence and a default outcome. The retrospective offers no intake at its own end
-(awaiting D4). Its "Not covered here" names the installed intake for what becomes of the project
+(D4). Its "Not covered here" names the installed intake for what becomes of the project
 file, beside issue-tracking for an issue, and its description says the project file goes to an
 intake. The scope of `skill@knowledge-architect-agent-configuration` names the installed intake in
 place of "an analysis of received findings where a project makes one".
@@ -803,7 +804,7 @@ contains, `git rev-parse --short $(git merge-base HEAD <main branch>)`, the bran
 worked on, and whether the tree held uncommitted changes. The workflow file's version line names
 what it names today: the exact pin where the project pins the checker, and where it builds the
 checker from source, `git describe --tags` of that commit, the branch and the tree's state. The
-split awaits the owner's word as D5: the workflow file "may become public" and holds "nothing of the
+split is D5, which the owner accepted: the workflow file "may become public" and holds "nothing of the
 project beyond what a finding needs", and the intake that reads the commit reads the project file.
 A commit of the branch itself is still not named. The `%%` comment above the line gains the reason:
 the intake reads the blamed text at that commit (a51). Ground: the owner's weighing (a39).
@@ -896,7 +897,8 @@ since the intake would point to the file as it points to the retrospective. The 
 at the harvest with this reason and a new reopening condition: an activity that reads the sets
 without reading anything else of the retrospective, so that the pointer loads unrelated text.
 This shape is the session's default, presented to the owner as a material finding in the turn that
-repaired this spec.
+repaired this spec; the owner's reply, round 6, ruled the other items of that turn and gave no word
+against it.
 
 ## Mapping tables
 
@@ -1052,13 +1054,14 @@ the install; a check failure that the overlap causes reopens the thread.
 - **D2**, withdrawn: #project-commit-in-version-line earns a head by entry test 2, since its reason
   is respected at two installed sites, so no question of entry test 4 is owed.
 - **D3**: the installed intake may read the workflow file of the same retrospective for the other
-  side of an interaction finding, and resolves nothing from it. Bears on #intake-input.
+  side of an interaction finding, and resolves nothing from it. Bears on #intake-input. Ruled:
+  accepted by the owner, round 6.
 - **D4**: the retrospective offers no intake at its own end, a critical finding included; the
   owner starts an intake whenever the owner chooses. Bears on
-  #retrospective-hands-project-file-to-intake.
+  #retrospective-hands-project-file-to-intake. Ruled: accepted by the owner, round 6.
 - **D5**: the main commit, the branch and the tree's state are named in the project file only; the
   workflow file names the pin, or for a project that builds the checker from source, what it names
-  today. Bears on #project-commit-in-version-line.
+  today. Bears on #project-commit-in-version-line. Ruled: accepted by the owner, round 6.
 
 ## Harvest
 
@@ -1083,5 +1086,6 @@ the install; a check failure that the overlap causes reopens the thread.
   owner's observation or a workflow file, since T1 was not recorded.
 - `goal@knowledge-architect@agents-get-a-complete-workflow` lists the workflow's activities ending
   "and a retrospective"; whether it names the intake is the owner's, under
-  `skill@knowledge-architect-goal-setting`, and is put to the owner in the turn that repaired this
-  spec, with the default that it stays as it is.
+  `skill@knowledge-architect-goal-setting`. Put to the owner as Q3, with the default that it stays
+  as it is and reads "a retrospective" as including its intake; the owner accepted the default in
+  round 6, so the goal stays as it is.
