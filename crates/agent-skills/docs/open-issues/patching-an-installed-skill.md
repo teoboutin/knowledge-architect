@@ -30,9 +30,10 @@ The three supersessions this repository holds today, each ruled by the owner:
   name and a hyphen, per `instructions@repository-skills`;
 - a retrospective's workflow file handled here rather than filed as an issue on GitHub, per
   `design@knowledge-architect@workflow-findings-stay-here`; with it, `skill@klarch-retrospective-intake`
-  sets aside two instructions of `skill@knowledge-architect-retrospective-intake`: a workflow
-  file's findings are resolved rather than read for grounding only, and the outcome "sent
-  upstream" does not apply;
+  sets aside three instructions of `skill@knowledge-architect-retrospective-intake`: a workflow
+  file's findings are resolved rather than read for grounding only, the outcome "sent
+  upstream" does not apply, and this repository's own received files are deleted rather than
+  marked once their analyses leave, on the owner's word;
 - the agentic-workflow axis's findings on the installed text edited at their source, with no
   upstream file, in `instructions@repository-skills`.
 

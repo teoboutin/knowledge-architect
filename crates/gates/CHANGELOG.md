@@ -44,7 +44,8 @@ subsection is omitted.
   every entry it read.
 - `agent-skills`, patch: `skill@knowledge-architect-retrospective-intake` analyses a project's own
   retrospective files, several at once, finding by finding, and the owner rules one outcome per
-  finding: handle now, open an issue, sent upstream, or no change with the reason.
+  finding: handle now, open an issue, sent upstream, or no change with the reason. Once every
+  outcome is carried out, the intake marks the project file it analysed as analysed.
 
 ### Workflow
 

@@ -52,8 +52,10 @@ A finding is cited by its id and its file's stem, in the form
    whose trigger the file meets, a tripwire whose firing evidence the file carries, a design issue
    whose re-entry it meets.
 4. **Cluster the findings.** One defect is often reported in several files, or as two findings of
-   one file. A cluster is analysed once, in the analysis of the first file that holds it, and cites
-   every id in it; the analysis of each other file holds a section that points there. That a
+   one file. A cluster, and a standing entry that several files meet, is analysed once, in the
+   analysis of the first file by stem that holds it, and cites every id in it; the analysis of each
+   other file holds a section that points there, with no `Default` and no `Outcome` line of its
+   own, since the ruling is given where the cluster is analysed. That a
    finding recurs across sessions is evidence: say how many times.
 
 ## What to establish for each finding or cluster `##what-to-establish`
@@ -64,8 +66,10 @@ The order is a suggestion; the content is not.
   proposes.
 - **b. Whether it still applies.** Read the blamed text at the main commit the version line names,
   `git show <commit>:<path>`, then on the main branch as it stands, which holds the reported
-  session's branch once it merged, and quote it with its `file:line`. A file whose version line
-  names no commit is matched by `git log -S '<phrase>'` on the instruction it quotes. The report is a claim about the text at its
+  session's branch once it merged, and quote it with its `file:line`. A version line whose commit
+  the repository does not hold is read at the commit its `git describe` count gives on the main
+  branch, and a file whose version line names no commit is matched by `git log -S '<phrase>'` on
+  the instruction it quotes. The report is a claim about the text at its
   version, so it is checked like any claim about the code. A finding may be already repaired: name
   the commit, found with `git log -S '<phrase>'` or `git log --grep`. A report's own "repaired in
   the session" is a claim like any other, and is often wrong: find when the credited wording
@@ -142,8 +146,8 @@ Write the analysis in docs/retrospective-reports/ at the project's root, as `<st
 - **One section per finding or cluster**, headed by its ids and a short title, with a bullet per
   item of `skill@knowledge-architect-retrospective-intake@what-to-establish`, in prose. No table:
   the content of each item is too long to read in a cell.
-- **Every section ends with a `Default` line and an `Outcome` line**, whatever it proposes, no
-  change included, the latter left pending: a finding, a noted item, and a judgement on a standing
+- **Every section ends with a `Default` line and an `Outcome` line**, except a section that points
+  to a cluster, whatever it proposes, no change included, the latter left pending: a finding, a noted item, and a judgement on a standing
   entry. A standing entry the file may meet gets a section of its own: a tripwire that may have
   fired, a deferred trigger, a design issue's re-entry. Whether it fired, and its response, are the
   owner's to rule; the analysis proposes the judgement and its evidence.
@@ -193,6 +197,9 @@ owner's ruling, and before any outcome is carried out. The issues it rules are o
 findings handled now are handled, in the commits their routes need. The commit that carries out its
 last outcome, or a later commit of the same branch, deletes it, and its message names the analysis
 by its path. History keeps it: `git log -- docs/retrospective-reports/` lists every analysis.
+Then mark each received project file the analysis carried out: a line at its head saying that it
+was analysed and every outcome carried out, and that `git log -- docs/retrospective-reports/<stem>.md`
+in the project finds the analysis. A file the owner keeps is then not handed to an intake again.
 
 A finding handled now can turn out to need a design discussion and a plan. Its `Outcome` line is
 then rewritten, on the owner's word, to name the plan document or the issue that now carries it,
