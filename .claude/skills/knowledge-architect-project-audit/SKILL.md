@@ -16,7 +16,8 @@ project, not a verdict on one branch.
   `skill@knowledge-architect-review`.
 - **The design audit** of a slice or a spec before its work is built:
   `skill@knowledge-architect-planning`.
-- **A retrospective's findings**: `skill@knowledge-architect-retrospective`.
+- **A retrospective's findings**: `skill@knowledge-architect-retrospective` writes them, and
+  `skill@knowledge-architect-retrospective-intake` analyses a project's own.
 - **Recording** what an audit changes: `skill@knowledge-architect-decision-recording` for a design
   head and a rejected alternative, `skill@knowledge-architect-issue-tracking` for an issue and a
   tripwire, and `skill@knowledge-architect-goal-setting` for a conflict with a goal. Read the
