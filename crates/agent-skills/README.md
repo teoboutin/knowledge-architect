@@ -111,7 +111,8 @@ tripwires, losing arguments absorbed rather than deleted.
 
 This section restates, for you, the expectation set that the retrospective skill carries in
 `skill@knowledge-architect-retrospective@expectation-sets`, `path@agent-skills@content/skills/retrospective/SKILL.md`,
-which is where it is applied, per `design@agent-skills@expectation-set-bounds-scope`.
+which the retrospective and the intake of its findings apply, per
+`design@agent-skills@expectation-set-bounds-scope`.
 
 The skill is scoped on purpose. It does not try to behave well under
 every possible way of working, and it is not grown to absorb each new

@@ -5,6 +5,7 @@ description: MUST use when the owner hands this session one or more of the proje
 
 # Retrospective intake
 
+%% The intake is an activity of its own, per design@agent-skills@intake-skill-home.
 Scope: the analysis of the findings of the project's own retrospective files, the owner's ruling
 on each, and the life of the analysis file until it leaves.
 
@@ -21,6 +22,7 @@ with its argument, and the owner rules.
 
 ## What it takes {{slug:what-it-takes}}
 
+%% The scope is design@agent-skills@intake-takes-the-project-file.
 - **In scope: the project's file of a retrospective**, `<YYYY-MM-DD>-<project>-<subject>.md`, any
   number of them at once. It holds the findings on the project's own instructions (P) and the
   project's side of an interaction finding. What each of the retrospective's two files holds is
@@ -64,6 +66,7 @@ The order is a suggestion; the content is not.
 
 - **a. What it says.** What happened in the session, which text it blames, quoted, and the fix it
   proposes.
+%% The commit of the version line is design@agent-skills@version-line-names-the-main-commit.
 - **b. Whether it still applies.** Read the blamed text at the main commit the version line names,
   `git show <commit>:<path>`, then on the main branch as it stands, which holds the reported
   session's branch once it merged, and quote it with its `file:line`. A file whose version line
@@ -111,7 +114,7 @@ The order is a suggestion; the content is not.
   The fix is shaped, and read against the record, as
   `skill@knowledge-architect-agent-configuration@admission-standard` says, read whole: it is the
   standard of every actor that writes or judges agent-facing text.
-%% The intake shares that standard per design@knowledge-architect@intake-shares-the-admission-standard.
+%% The intake shares that standard per design@agent-skills@intake-shares-the-admission-standard.
 - **g. Its route.** What handling it needs, which says what "now" would mean:
   - a text edit of the project's own agent configuration whose design is settled:
     `skill@knowledge-architect-agent-configuration`;
@@ -170,6 +173,7 @@ whose `Outcome` line is still pending, and ask the owner for those. **Four outco
   that follow it, under the skill its route names. It needs no issue entry, and the proposal does
   not suggest one;
 - **open an issue**: name its anchor and its kind;
+%% The outcome is design@agent-skills@installed-fix-goes-upstream.
 - **sent upstream**: the fix lies in the installed text or in the checker. Ask the owner whether
   the workflow file of the same retrospective was sent, and how:
   - not sent yet: add the finding to it, as a W finding for the installed text or a C finding for
@@ -199,8 +203,8 @@ owner's ruling, and before any outcome is carried out. The issues it rules are o
 findings handled now are handled, in the commits their routes need. The commit that carries out its
 last outcome, or a later commit of the same branch, deletes it, and its message names the analysis
 by its path. History keeps it: `git log -- docs/retrospective-reports/` lists every analysis.
-%% The analysis takes the shape of an audit's report file: the commit messages alone keep the
-%% outcomes and lose the evidence, per design@agent-skills@committed-audit-report.
+%% The analysis is committed and leaves with its last outcome per
+%% design@agent-skills@committed-intake-analysis.
 
 A finding handled now can turn out to need a design discussion and a plan. Its `Outcome` line is
 then rewritten, on the owner's word, to name the plan document or the issue that now carries it,

@@ -491,9 +491,12 @@ The set scopes the owner's behaviour only. A finding that two installed instruct
 satisfying both is always in scope, because `goal@agent-skills@no-contradiction-in-workflow` is met only
 while no two installed instructions contradict.
 
-The sets live in the retrospective skill, the one installed activity that judges whether something
-is a defect of an installed skill. The retrospective runs in the installing project, which holds the
-installed files and not this component's README, so a set the retrospective applies has to ship. A
+The sets live in the retrospective skill. Two installed activities judge whether something is a
+defect of an installed skill: the retrospective, which writes the findings, and the intake, which
+reads the sets by a pointer at its check of a finding's kind. A file of the sets' own would add a
+pointer from the retrospective and remove none, since the intake would point to it as it points to
+the retrospective. Both run in the installing project, which holds the installed files and not
+this component's README, so a set they apply has to ship. A
 set inside the skill it bounds would be read on every use of that skill, and an agent reading it
 would check the owner against a list. The README restates each set for the owner, who is the one it
 describes. It works with `design@agent-skills@behaviour-additions-need-real-use`: that entry says what evidence
@@ -2988,6 +2991,118 @@ with `git show d917506^:crates/agent-skills/docs/open-issues/the-primer-question
 The owner reads both files verbatim and may edit them. The workflow's file can become a public
 issue on another repository, and a finding written in a session can carry the project's content, so
 nothing of either file leaves before the owner has read it. On the owner's word, and where the owner
-directs, the project's findings become issue entries in its own register, and the workflow's file
-becomes an issue on knowledge-architect's repository, through `gh` or by the file and the address.
-The repository is the workflow's own upstream, the one name of a project the shipped text holds.
+directs, the workflow's file becomes an issue on knowledge-architect's repository, through `gh` or
+by the file and the address, and the project's file waits where the files went until the owner
+hands it to an intake, `design@agent-skills@intake-skill-home`. The retrospective offers no intake
+at its own end: the owner starts one, usually in a later session and with other files. The
+repository is the workflow's own upstream, the one name of a project the shipped text holds.
+
+A kept finding of the project's file is analysed before it becomes an issue, since the analysis
+finds what a direct entry would record wrongly: a finding already repaired, already recorded,
+resting on a false premise, or proposing a fix that would reverse a recorded head. The direct path
+is in `path@agent-skills@docs/rejected-alternatives.md`, with the measurement that defeated it.
+
+### The intake of a retrospective's findings is an activity with an installed skill of its own, apart from the retrospective `##intake-skill-home`
+
+`skill@knowledge-architect-retrospective-intake` analyses a project's own retrospective files
+finding by finding, writes the analysis, and puts each finding to the owner with its evidence and a
+default outcome. The retrospective writes the files; the intake takes them later, on the owner's
+word. `goal@agent-skills@one-skill-per-activity` names the intake among the workflow's activities.
+
+The two produce different artifacts, two files outside the project and an analysis inside it,
+which makes them two activities by the dispatch rule of
+`skill@knowledge-architect-agent-configuration@where-text-goes`. They also run at different
+moments. The owner's account of the practice: an intake runs on the owner's word, nearly never
+right after the retrospective unless a finding is critical, usually in a fresh session with no
+memory of the work, on several files at once and on a later branch. The intake applies again while
+its outcomes are carried out, on branches the retrospective's trigger does not name. The nearest
+rival, a section of the retrospective that avoids describing twice how the report is read, loses
+on that practice: a session with no session to examine would load the procedure for examining one,
+and every retrospective offer would load the intake. The intake reads the report's format by
+pointers to the retrospective's sections on the two files, on what a finding examines and on the
+expectation sets, so nothing is described twice; the goal's measure admits it, since an agent
+reads another skill only at a step that points to it. A project adds to the intake through a skill
+of its own, per `design@agent-skills@overlay-by-separate-skills`.
+
+### A project's intake analyses only its own retrospective file, reading the workflow file only for the other side of an interaction finding `##intake-takes-the-project-file`
+
+The installed intake takes the project's file of a retrospective, any number at once. The workflow
+file of the same retrospective is read for the other side of an interaction finding, whose id names
+the other file's, and nothing of it is resolved; it is written to only under the outcome of
+`design@agent-skills@installed-fix-goes-upstream`. The workflow file goes upstream, per
+`design@agent-skills@retrospective-destination`.
+
+The scope is the owner's: a consuming project does not do the workflow's own job. Its argument: the
+checks that judge a workflow finding, whether it still applies, whether it is already recorded,
+whether its fix reverses a recorded head, read the workflow's history, design homes and rejected
+alternatives, which a consuming project does not hold. The reading of the workflow file for an
+interaction finding's other side is a reading of that ruling the session proposed and the owner
+accepted.
+
+### A finding whose fix lies in the installed text or in the checker is sent upstream, added to the workflow file or to the issue that carries it `##installed-fix-goes-upstream`
+
+A finding of the project's file whose fix lies in text or code the project does not own takes the
+outcome "sent upstream". Where the retrospective's workflow file is not sent yet, the finding is
+added to it, with the next number of its letter, its id and the project file's each naming the
+other. Where the issue that carries the workflow file exists, its body is edited and a comment names
+the added finding, so that those who follow the issue see it. Where neither applies, a new issue
+carries it. Nothing leaves before the owner has read it, per
+`design@agent-skills@retrospective-destination`.
+
+The project never edits the installed text, per `design@agent-skills@overlay-by-separate-skills`,
+nor the checker it pins. The three other outcomes each lose such a finding: handled now, it has
+nothing the project can edit; as an issue, it sits in the project's register, where it cannot
+close and which the upstream cannot cite, per `design@agent-skills@premortem-as-watch-points`; as
+no change, it is dropped. The audit sends its findings on the installed text upstream for the same
+reason, per `design@agent-skills@audit-outcomes`. The action, an edit of the workflow file or of
+the issue that carries it, is the owner's.
+
+### An analysis of a project's retrospective file is committed with the owner's ruling on each finding, and leaves with its last outcome `##committed-intake-analysis`
+
+The analysis is one file per analysed file in docs/retrospective-reports/ at the project's root,
+named by the analysed file's stem, a row of the primer's knowledge table, per
+`design@agent-skills@knowledge-table-home`. Each finding's section ends with a default and the
+owner's ruling. The file is committed once every ruling is in it, before any outcome is carried
+out; the issues it rules are opened and the findings handled now are handled, in the commits their
+routes need; the commit that carries out its last outcome, or a later commit of the same branch,
+deletes it. The skill fixes no order of those commits, per
+`goal@agent-skills@installed-text-leaves-room-to-judge`.
+
+It takes the shape of the audit's report file, `design@agent-skills@committed-audit-report`, whose
+argument holds here: the commit messages alone keep the outcomes and lose the evidence each ruling
+was given on. A home each project chooses loses too: the skill could name no path, and the primer's
+last row, to ask the owner, would fire at the first intake of every project.
+
+### A retrospective's project file names the project's main commit, which its workflow file names only where the project builds the checker from source `##version-line-names-the-main-commit`
+
+The version line of the project's file names the main commit the session's tree contains, the
+branch the session worked on, and whether the tree held uncommitted changes, beside the version of
+knowledge-architect both files name. No commit of the branch is named, since a merge that rewrites
+the branch's commits leaves it pointing at nothing. The intake reads the blamed text at that commit
+before reading it on the main branch, so the reason is respected at the retrospective's version
+line and at the intake's check of whether a finding still applies.
+
+Naming the commit is the owner's weighing: it saves a little time and effort at every intake,
+and carries no downside. Its absence from the workflow file is the session's proposal, which the
+owner accepted: that file may become public and holds nothing of the project beyond what a finding
+needs, per the retrospective's rule on its two files, the upstream has no use for a consuming
+project's commit, and the intake that reads the commit reads the project's file.
+
+### The intake judges a fix of agent-facing text by the standard every writer and judge of that text applies `##intake-shares-the-admission-standard`
+
+`skill@knowledge-architect-retrospective-intake` judges a finding's fix by
+`skill@knowledge-architect-agent-configuration@admission-standard`, read whole where it shapes a
+fix, and by its lapse rule where it judges a finding's kind: the need test, the evidence an
+addition needs and the kind of a gap, the lapse rule, the repair by cause with its instruction
+count and net growth, and the record check. What admits a finding is the intake's own: a real
+session behind each finding, and the owner's ruling on every finding.
+
+The direction is the owner's: the owner judged it important, as the owner's view, that the intake
+analyse findings and repairs on the same standard as the workflow. The evidence that admits a
+finding differs between an audit and the intake: the intake has a real session behind each
+finding, as `design@agent-skills@behaviour-additions-need-real-use` asks of an addition, and an
+audit never has one. The worth of a fix and its shape do not differ, since both decide edits to the
+same text at the same cost. The standard's home is the agent-configuration skill, per
+`design@agent-skills@admission-rules-home`, and the intake reads it where the worth is judged: a
+pointer read whole at its step that shapes a fix, before any edit is written, wherever the section
+lives.

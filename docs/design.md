@@ -450,20 +450,22 @@ the project that publishes it, as the owner stated of this repository's use of t
 own text: the owner did not want the installed files to cater too much to that use. So the root
 `CLAUDE.md` states this case, in `instructions@repository-skills`.
 
-### Each finding of a received workflow file gets an outcome the owner rules, in a committed analysis that leaves when its last outcome is carried out `##committed-findings-analysis`
+### Each finding of a workflow file this repository receives, and of its own retrospective project file, gets one of three outcomes the owner rules, in a committed analysis that leaves when its last outcome is carried out `##committed-findings-analysis`
 
 A workflow file that this repository receives, written by a retrospective or by a project audit's
-agentic-workflow axis, from its own sessions or from a project that uses the workflow, and the project file of this repository's own retrospective, are
-each analysed finding by finding under `skill@klarch-retrospective-intake`, and the analysis is a
-file of `path@knowledge-architect@docs/retrospective-reports/`, named by the received file's stem.
-Each finding gets one of three outcomes, ruled by the owner: handled now, opened as an issue, or no
-change with the reason, per `goal@knowledge-architect@the-workflow-improves-through-real-use`, under
-which the owner decides what real use changes in the workflow. The analysis is committed
-with the owner's ruling on each finding, the issues it rules are opened next, the findings handled
-now are handled, and the commit that carries out its last outcome, or a later commit of the same
-branch, deletes it. A finding handled now that grows into a design discussion has its outcome
-rewritten, on the owner's word, to name the plan document or the issue that carries it, so the file
-still leaves.
+agentic-workflow axis, from its own sessions or from a project that uses the workflow, and the
+project file of this repository's own retrospective, are each analysed finding by finding under
+`skill@knowledge-architect-retrospective-intake`, with what `skill@klarch-retrospective-intake`
+adds, in a file of `path@knowledge-architect@docs/retrospective-reports/` named by the received
+file's stem, the home and the life `design@agent-skills@committed-intake-analysis` gives every
+project's analysis of its own file. Each finding gets one of three outcomes, ruled by the owner:
+handled now, opened as an issue, or no change with the reason, per
+`goal@knowledge-architect@the-workflow-improves-through-real-use`, under which the owner decides
+what real use changes in the workflow. The installed intake's fourth outcome, sent upstream, does
+not apply, since this repository is the upstream, per
+`design@knowledge-architect@workflow-findings-stay-here`. A finding handled now that grows into a
+design discussion has its outcome rewritten, on the owner's word, to name the plan document or the
+issue that carries it, so the file still leaves.
 
 The file is the record of the rulings, so every finding of a received file reaches an outcome that
 history keeps, per `goal@knowledge-architect@the-workflow-improves-through-real-use`. Its nearest
@@ -471,22 +473,3 @@ rival, the ledger of outcomes in the message of the commit that handles the firs
 on a file whose findings all end in no change: that commit changes no file, and the rebase merge
 drops a commit that changes no file, per
 `design@knowledge-architect@a-record-rides-on-a-commit-that-changes-a-file`.
-
-### The intake of received findings judges a fix of agent-facing text by the standard every writer and judge of that text applies `##intake-shares-the-admission-standard`
-
-`skill@klarch-retrospective-intake` judges a finding's fix by
-`skill@knowledge-architect-agent-configuration@admission-standard`, read whole where it shapes a fix, and by its lapse rule where it judges a finding's kind: the need test, the evidence an addition needs and the
-kind of a gap, the lapse rule, the repair by cause with its instruction count and net growth, and
-the record check. What admits a finding is the intake's own: a real session behind each finding,
-and the owner's ruling on every finding.
-
-The direction is the owner's: the owner judged it important, as the owner's view, that the intake
-analyse findings and repairs on the same standard as the workflow. The evidence that admits a finding differs between an audit and the
-intake: the intake has a real session behind each finding, as
-`design@agent-skills@behaviour-additions-need-real-use` asks of an addition, and an audit never has
-one. The worth of a fix and its shape do not differ, since both decide edits to the same text at the
-same cost. The standard's home is the agent-configuration skill, per
-`design@agent-skills@admission-rules-home`, and the intake reads it where the worth is judged: a
-pointer read whole at its step that shapes a fix, before any edit is written, wherever the section
-lives.
-

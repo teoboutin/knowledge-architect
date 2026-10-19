@@ -29,7 +29,8 @@ Open with **what the session did**: one paragraph, at the level of the workflow 
 discussion and two merged branches"), not of the project's subject matter.
 
 %% The version lets a finding be judged against the text that produced it, and the project's
-%% main commit lets the intake read the blamed text as the session read it.
+%% main commit lets the intake read the blamed text as the session read it, per
+%% design@agent-skills@version-line-names-the-main-commit.
 Then **the version the session used**, in one line:
 
 - in both files, the version of knowledge-architect: where the project pins the checker, the exact
@@ -145,6 +146,7 @@ Give the owner the full path of each file, and never print either file into the 
 owner reads both files at those paths, verbatim, and may edit them. Then, **on the owner's word
 only, and where the owner directs**:
 
+%% The project's file waits for an intake per design@agent-skills@retrospective-destination.
 - **The project's file**: it stays where the files went until the owner hands it to an intake,
   usually in a later session and with other files, under
   `skill@knowledge-architect-retrospective-intake`, which puts each finding to the owner with its
