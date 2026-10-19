@@ -64,7 +64,8 @@ says.
 - **an old entry**: one alternative of a rejected-alternatives document as it stands before the
   work. In the root's, agent-skills' and core's documents it is a paragraph that opens with the
   alternative's name in bold, then "— lost to" and one or more references, then a marker, `live`;
-  in gates' document it is a level-two heading, then a line "Lost to `<reference>`. `live`.".
+  in gates' document it is a level-two heading, then a paragraph that opens with "Lost to
+  `<reference>`. `live`." and goes on with the reason.
 - **the lost-to clause**: the part of an old entry from "lost to" to its marker, the marker
   excluded.
 - **a citing head**: a design entry whose section holds a reference to a `rejected` entry.
@@ -87,7 +88,7 @@ says.
   C4 `criterion@rejected-register@rules-are-checked`, C5
   `criterion@rejected-register@filter-unchanged`, C6 `criterion@rejected-register@adopter-cost`.
 - **the recorded case**: the case of the issue `a-proposal-is-read-against-the-heads-only-after-the-plan-is-written`,
-  which the commit adding this spec closes: in the discussion that produced
+  which this spec's branch closes, in the commit of its review repairs: in the discussion that produced
   `spec@plans@path-quickfixes`, the owner approved a proposal that contradicted a core design head
   the session had not read, and the spec's reviewers found it.
 - **the shapes A, B and C** of `thread@rejected-register@rejected-citation-direction`: A, both
@@ -237,7 +238,7 @@ The standing-entry search of the reply to round 1 returned 41 entries. Each, wit
 
 | entry | outcome |
 | --- | --- |
-| `a-proposal-is-read-against-the-heads-only-after-the-plan-is-written`, an issue of agent-skills | the failure this work addresses, for heads; closed in the commit that adds this spec, which schedules its work, per `skill@knowledge-architect-planning@spec-or-milestone`: its question is answered by `thread@rejected-register@design-entry-search`, which reads the record before the first ruling, and by the plan-document review that stays the backstop |
+| `a-proposal-is-read-against-the-heads-only-after-the-plan-is-written`, an issue of agent-skills | the failure this work addresses, for heads; closed on this spec's branch, in the commit of its review repairs, since this spec schedules its work, per `skill@knowledge-architect-planning@spec-or-milestone`: its question is answered by `thread@rejected-register@design-entry-search`, which reads the record before the first ruling, and by the plan-document review that stays the backstop |
 | `issue@agent-skills@the-void-marker-s-reason-reads-two-ways` | step 3 keeps the sentence it asks about with its meaning unchanged; the issue stays open |
 | `issue@agent-skills@the-primer-and-its-head-name-a-guard-s-issue-under-two-conditions` | its sentence of the primer is next to the one step 3 rewrites; read again at the harvest, not closed |
 | `issue@agent-skills@shipped-text-citing-an-entry-is-unchecked` | the installed text writes `rejected@<anchor>@<id>` and `register@<anchor>@rejected` only as placeholders and the generic form, step 3 |
@@ -335,7 +336,8 @@ Proposed by the owner, round 1; minted by the agent in the reply to round 1. App
 ### A design head cites the rejected entries its argument covers, and an entry names no winner `##rejected-citation-direction`
 
 The owner proposed in round 1 that heads cite their rejected alternatives; the agent proposed
-shape B against the owner's both-directions reading, in the reply to round 1. Approved. Arguments:
+shape B in the reply to round 1, against shape A, the agent's reading of the owner's request: the
+heads citing, added to the lost-to link the entries already held. Approved. Arguments:
 `argument@rejected-register@a3`, `argument@rejected-register@a9`, `argument@rejected-register@a12`,
 `argument@rejected-register@a13`, `argument@rejected-register@a15`, `argument@rejected-register@a23`.
 Shape: Decided design, "Citations". Harvest: a new head of `register@agent-skills@design`, and
@@ -349,7 +351,7 @@ is a wrong way to put it." In the reply to round 1, B included the orphan check;
 
 Proposed by the owner, round 1. Approved. Arguments: `argument@rejected-register@a4`,
 `argument@rejected-register@a5`, `argument@rejected-register@a16`. Shape: Decided design, "The
-register". Harvest: the head of `thread@rejected-register@rejected-register`, as its parameter. The
+register's name". Harvest: the head of `thread@rejected-register@rejected-register`, as its parameter. The
 owner's words, round 2: "rejected-register-name: approved".
 
 ### Which rejected designs enter is unchanged; a design rejected with nothing built in its place is cited by a head of absence `##rejected-scope`
@@ -359,7 +361,7 @@ be rejected with being an alternative to something that is implemented" (the own
 agent read "with" as "without"). Approved. Arguments: `argument@rejected-register@a5`,
 `argument@rejected-register@a10`, `argument@rejected-register@a17`, `argument@rejected-register@a24`,
 `argument@rejected-register@a25`, `argument@rejected-register@a34`. Shape: Decided design,
-"Citations". Harvest: `design@agent-skills@losing-shape-test` rewritten. The owner's words, round
+"Which rejected designs enter". Harvest: `design@agent-skills@losing-shape-test` rewritten. The owner's words, round
 2: "rejected-scope: I agree that the design "we do not do X" already covers it. It feels a bit
 weird to me, but it is probably the best way to put it. It is weird because the winner is the
 negation of the loser. TBH, this is making me question whether the rejected register is even
@@ -373,7 +375,7 @@ propose removing it with just that weird feeling that "we do not do X" give."
 ### The register's home is `planned@<anchor>@docs/rejected.md` `##rejected-home-path`
 
 Proposed by the agent in the reply to round 1. Approved. Arguments: `argument@rejected-register@a18`,
-`argument@rejected-register@a26`. Shape: Decided design, "The register". Harvest: the head of
+`argument@rejected-register@a26`. Shape: Decided design, "The register's home". Harvest: the head of
 `thread@rejected-register@rejected-register`. The owner's words, round 2: "rejected-home-path:
 agreed, docs/rejected.md reads better and avoids a confusion point." The directory shape,
 `planned@<anchor>@docs/rejected/`, is no part of the ruling: `design@core@heading-register-two-shapes` gives it to
@@ -402,8 +404,9 @@ dispatches, it does not require them.
 ### The reading of a design discussion's proposals against the record is bundled into this work `##proposals-read-against-record`
 
 Proposed by the agent in the reply to round 1, as a fork on scope with the default to bundle.
-Approved. Arguments: `argument@rejected-register@a21`. Shape: carried by
-`thread@rejected-register@design-entry-search`, which decides how. Harvest: through that thread.
+Approved. Arguments: `argument@rejected-register@a21`. Shape: Decided design, "The reading of
+proposals against the record", carried by `thread@rejected-register@design-entry-search`, which
+decides how. Harvest: through that thread.
 The owner's words, round 2: "proposals-read-against-record: agreed. I'd bundle it too."
 
 ### A `rejected` entry is reachable only when a design entry cites it `##orphan-rejected-entry`
@@ -439,7 +442,7 @@ Arguments: `argument@rejected-register@a35`, `argument@rejected-register@a37`,
 Shape: Decided design, "The design-entry search". Harvest: a new head of
 `register@agent-skills@design`, and `design@agent-skills@standing-entries-searched-before-the-work`
 rewritten. It answers the question of the issue `a-proposal-is-read-against-the-heads-only-after-the-plan-is-written`,
-which the commit that adds this spec closes.
+which this spec's branch closes, in the commit of its review repairs.
 The owner's words, round 4: "p1 approved. I believe grouping by quantity only would most likely be
 a bad decision, because then the subagent might need to read completely unrelated entries, and get
 a partial read of a section in a component's design. Also, the rejected and kept entries about
@@ -451,7 +454,7 @@ Proposed by the owner, round 4; minted by the agent in the reply to round 4. App
 owner's change that every unrelated entry is listed, not counted. Arguments:
 `argument@rejected-register@a41`, `argument@rejected-register@a42`, `argument@rejected-register@a43`,
 `argument@rejected-register@a44`, `argument@rejected-register@a45`, `argument@rejected-register@a47`.
-Shape: Decided design, "The design-entry search". Harvest: a new head of
+Shape: Decided design, "The grades". Harvest: a new head of
 `register@agent-skills@design`, or a clause of the head of
 `thread@rejected-register@design-entry-search`, as `primer@design-heads` decides. The owner's
 words, round 5: "For search-relevance-grade: I agree on the grades. For the unrelated entries, the
@@ -792,9 +795,25 @@ commit message, and `show` then prints it whole, per `argument@rejected-register
 `argument@rejected-register@a7`. The separate home keeps a grep hit on a rejected design from being
 read as the design in place, per `argument@rejected-register@a25`. The nearest rival, the old
 paragraphs with `show` printing each one that cites a head, delivers only to a session that runs
-`show` on the right head, per `argument@rejected-register@a11`. The name is `rejected`, per
-`argument@rejected-register@a16`, and the home `planned@<anchor>@docs/rejected.md`, per
-`argument@rejected-register@a18`.
+`show` on the right head, per `argument@rejected-register@a11`.
+
+### The register's name
+
+The kind is `rejected`, cited `rejected@<anchor>@<id>`. The argument: the owner asked for the
+shorter citation and judged "alternatives" wrong for a design that was not an alternative, per
+`argument@rejected-register@a4` and `argument@rejected-register@a5`; the span is 12 characters
+shorter, and the slug, which names the design, says what "alternative" would add, per
+`argument@rejected-register@a16`. The nearest rival, `rejected-alternative`, loses on both.
+
+### The register's home
+
+The home is `planned@<anchor>@docs/rejected.md`, or `planned@<anchor>@docs/rejected/` with a
+`README.md`, the second shape given to every heading register by
+`design@core@heading-register-two-shapes`. The argument: every pointer to the old file changes
+anyway, since a `path` span to a register's home is a finding whose repair is the `register` form,
+per `argument@rejected-register@a18`, and the owner judged the new name to read better and to avoid
+a confusion point, per `argument@rejected-register@a26`. The nearest rival, keeping the old file
+name as the home, saves no edit and leaves a name that differs from its kind.
 
 ### An entry
 
@@ -821,9 +840,7 @@ heading register lacks, per `design@core@registers-are-declared`, and protects n
 ### Citations
 
 A design head cites each `rejected` entry its argument covers: where its argument meets that
-design, or, where the argument names none, in a closing sentence of its body. A design rejected with
-nothing built in its place is cited by a head of absence, which records the decision not to build
-it. A design rejected while its question stays open is no entry; the question is an issue.
+design, or, where the argument names none, in a closing sentence of its body.
 
 A citation that the conversion adds to an existing head moves the link the old entry held into the
 head, and changes no decision: it is a re-pointing of a reference, which `primer@design-heads` says
@@ -841,6 +858,21 @@ per `argument@rejected-register@a9` and `argument@rejected-register@a12`, and ch
 symmetry needs a field a heading register lacks, per `argument@rejected-register@a15`. The owner
 judged the winner-and-loser framing wrong, per `argument@rejected-register@a23`, so the entry names
 no winner.
+
+### Which rejected designs enter
+
+Which designs earn an entry is unchanged, per `criterion@rejected-register@filter-unchanged`. A
+design rejected with nothing built in its place is cited by a head of absence, which records the
+decision not to build it. A design rejected while its question stays open is no entry; the question
+is an issue.
+
+The argument: a design rejected outright is a decision about an absence, which entry test 2 of
+`primer@design-heads` admits as a head, per `argument@rejected-register@a17`, and the owner chose to
+write such a head where nothing is built, per `argument@rejected-register@a34`. The nearest rival,
+widening the register to designs no decision covers, as the name `rejected` could suggest, per
+`argument@rejected-register@a10`, would leave entries no head cites, which the orphan check reports;
+the owner kept the register on the separation of the provenance, per
+`argument@rejected-register@a25`, not on a wider scope.
 
 ### The orphan check
 
@@ -930,6 +962,27 @@ search adds a second reader that grades each entry. The grades are the ones that
 `argument@rejected-register@a43`; the rival scale routes none, per `argument@rejected-register@a44`.
 The survey's blind spot, a later thread, is covered by the re-dispatch and by the plan-document
 review, per `argument@rejected-register@a37`. The bound of 60 and the cut along subjects are D5's.
+
+### The grades
+
+The grades are the table of "The design-entry search": `bears` with one of three relations,
+`may-bear`, and unrelated, every entry read listed in one of the return's three lists. The
+argument: the searchers of this discussion graded a doubt anyway, unasked, in 12 of 41 entries, per
+`argument@rejected-register@a42`; a grade is kept only where it routes an act, per
+`argument@rejected-register@a43`; the owner asked that every entry be listed, per
+`argument@rejected-register@a45`, which is also what a later coverage tool would check, per
+`argument@rejected-register@a47`. The nearest rival, a numeric scale, routes no act, per
+`argument@rejected-register@a44`.
+
+### The reading of proposals against the record
+
+The record is read against the work before the first proposal, by the design-entry search at
+grounding and its re-dispatch for a later thread; the plan-document review of
+`design@agent-skills@plan-read-against-the-record` stays the backstop. The argument: the register
+alone reaches only a session that reads the right head, per `argument@rejected-register@a21`, and a
+reading at the checkpoint comes after the owner has ruled most threads, per
+`argument@rejected-register@a36`. The nearest rival, the design-conformance reviewer at the
+checkpoint, is `thread@rejected-register@checkpoint-reader`, withdrawn on that fact.
 
 ### The conversion
 
@@ -1251,7 +1304,10 @@ the commit that completes the harvest.
 - **D5**, a material finding against `thread@rejected-register@design-entry-search`, which the
   owner closed on shape p1, round 4: "p1 approved. I believe grouping by quantity only would most
   likely be a bad decision, because then the subagent might need to read completely unrelated
-  entries, and get a partial read of a section in a component's design." The design-conformance
+  entries, and get a partial read of a section in a component's design. Also, the rejected and kept
+  entries about similar subjects have to be read together. The point here is that the searcher
+  reads the components design and rejected registers in full, and reports a list of related
+  entries." The design-conformance
   review of this spec found the rejected entry of agent-skills "One search agent per anchor", whose
   reason is "An anchor bounds nothing", and the bound of 60 entries per agent that
   `design@agent-skills@standing-entry-search-groups` and
@@ -1261,8 +1317,12 @@ the commit that completes the harvest.
   entries, core 108 and 72, by `grep -c '^### '` and the counts of "This repository's record
   today". The largest level-two subject of a design home holds 40 heads, core's "What a tree
   carries: anchors and registers", by an awk count of level-three headings per level-two heading.
-  Default: the cut along whole subjects that "The design-entry search" states, which keeps the
-  owner's argument and the bound. **Held**: the dispatch rule of the new agent is written once the
+  Default: the cut along whole subjects that "The design-entry search" states. It changes the
+  ruling: for a Component of more than 60 design entries, no single searcher reads its registers
+  in full, as the owner's last sentence asks; each reads whole subjects, up to 60 heads, with the
+  `rejected` entries those heads cite. It keeps the rest of the owner's words: no section is cut,
+  kept and rejected entries of one subject are read together, and grouping is not by quantity
+  alone. **Held**: the dispatch rule of the new agent is written once the
   owner rules; the rest of the work proceeds.
 
 ## Harvest
