@@ -690,17 +690,17 @@ the scan is reworked before landing, or the owner rules on the cost.
 ## Defaults awaiting the owner
 
 - **D1**, bearing on the whole work: this is a spec, not a milestone; one branch, one pull request
-  for its work.
+  for its work. Ruled: accepted by the owner, the work's pull request coming later.
 - **D2**, bearing on #reference-shape-outside-span: class A is silent on a token in a paragraph that
   also holds a backticked reference to an issue entry, which keeps the first exception of
   `design@agent-skills@plain-text-is-no-repair` and of `primer@where-knowledge-goes`. It narrows
-  the owner's approval of class A "in every prose region".
+  the owner's approval of class A "in every prose region". Ruled: accepted by the owner.
 - **D3**, bearing on #plain-word-lint: the quotation exemption the owner approved for class C also
-  holds for classes A and B. It widens that approval.
-- **D4**, bearing on AC2: its threshold, 10%, the session's default.
+  holds for classes A and B. It widens that approval. Ruled: accepted by the owner.
+- **D4**, bearing on AC2: its threshold, 10%, the session's default. Ruled: accepted by the owner.
 - **D5**, bearing on #plain-word-lint: the member the harvest writes into
   `design@knowledge-architect@changelog-section-fixed-at-release` carries the owner's reservation,
-  each finding in a released section ruled by the owner case by case.
+  each finding in a released section ruled by the owner case by case. Ruled: accepted by the owner.
 
 ## Harvest
 
