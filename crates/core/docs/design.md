@@ -2007,8 +2007,26 @@ every literal as prose is a recorded rejected design**,
 a rule-shaped number by accident. The binding rule does not serve the checker's own
 fixtures, which `design@core@checker-source-literals-are-data` answers.
 
-The designs this decision did not keep: `rejected@core@syn-rust-parser`,
-`rejected@core@rust-analyzer-syntax-crate` and `rejected@core@hand-rolled-indentation-scanner`.
+The design this decision did not keep: `rejected@core@hand-rolled-indentation-scanner`.
+
+### Rust source is parsed by one parser that keeps every comment and is released on its own cadence, `tree-sitter-rust` `##rust-parser-keeps-every-comment`
+
+The core reads Rust source with `tree-sitter-rust`, through the `tree-sitter` crate, both declared in
+`path@core@Cargo.toml`. Its syntax tree keeps every comment, doc comments and ordinary `//` and
+`/* */` comments alike, with their byte ranges, so one pass tells which bytes of a Rust file are
+prose, as `design@core@grammars-not-prefixes` requires, and `pulldown-cmark` reads those ranges as
+it reads a markdown file.
+
+The choice turns on two external tools' behaviour, entry test 3 of `primer@design-heads`. The
+nearest rival, `syn`, drops ordinary comments while lexing, as the prototype that
+`rejected@core@syn-rust-parser` records showed, so a reference in a `//` comment inside a function
+body would need a second pass over the raw text: two readers that each answer half of the question.
+Rust-analyzer's syntax crate keeps comments, but it is a crate of compiler internals released with
+the rust-analyzer releases, whose interface changes from one release to the next; this cadence is an
+assumption, which no measurement or documentation in this tree checks.
+`tripwire@core@grammars-not-prefixes` watches an upgrade of `tree-sitter-rust` or `pulldown-cmark`
+that renames a node the extractor asks for. The designs this decision did not keep: `rejected@core@syn-rust-parser` and
+`rejected@core@rust-analyzer-syntax-crate`.
 
 ### A Rust name is collected where it is declared, never where it is used `##names-collected-where-declared`
 
