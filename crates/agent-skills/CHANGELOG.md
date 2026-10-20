@@ -18,12 +18,10 @@ subsection is omitted.
   then cite each entry, `rejected@<anchor>@<slug>`, from the design heads whose argument covers it.
   A new check reports an entry that no design entry cites. Choosing the slugs and the citing heads
   can be handed to subagents, one per Component, that propose them for review and then apply them.
-  This holds for every project the consumer's tests build, mock projects included. A Component, a
-  location or a plan named `rejected` is now refused, as any kind's name is, and so are a manifest
-  table `[registers.rejected]` that sets a key and a declared register whose directory is
-  `rejected`. Run `cargo klarch check` after the move: its findings name a missing home, an
-  unslugged heading and an uncited entry. Then run the design-record axis of the audit,
-  `skill@knowledge-architect-project-audit@design-record-axis`.
+  This holds for every project the consumer's tests build, mock projects included. A plan named
+  `rejected` is now refused, as any kind's name is. Run `cargo klarch check` after the move: its
+  findings name a missing home, an unslugged heading and an uncited entry. Then run the
+  design-record axis of the audit, `skill@knowledge-architect-project-audit@design-record-axis`.
 - `checks`, minor: every id the checker defines has two segments or more, `[a-z0-9]+(-[a-z0-9]+)+`:
   a register entry's id, a plan document's, a plan item's, a skill's or an agent's name and a
   section slug. A slug of one segment is reported where it is defined, and an issue file, a
@@ -40,6 +38,10 @@ subsection is omitted.
   is read by none of the three, and a token beside a backticked reference to an issue entry in its
   paragraph is not reported. Run `cargo klarch check` and repair each finding. Commit messages are
   judged too, by `commits`.
+- `manifest`, major: `rejected` is now a built-in register, so a manifest that names a Component or
+  a location `rejected`, sets a key in a table `[registers.rejected]`, or declares a register of
+  `scope = "component"` whose directory is `rejected` is refused. Rename the Component or the
+  location, or give the declared register another name and directory.
 - `library`, major: `document::Observation` gains the variants `UnquotedReference` and
   `PlainWord`, and `BareName` is no longer recorded inside a quotation. A `match` over it adds the
   two arms.
@@ -54,7 +56,8 @@ subsection is omitted.
   one text, and a duplicate inside one text fails the need test of
   `skill@knowledge-architect-agent-configuration@admission-standard`. The setup skill no longer
   recommends that the root CLAUDE.md state the staged check. A hand-written list of the project's
-  anchors in the root CLAUDE.md can be deleted too: `anchors` prints it from the manifest.
+  anchors in the root CLAUDE.md can be deleted too: `anchors` prints it from the manifest. Then run
+  the agentic-workflow axis of the audit, `skill@knowledge-architect-project-audit@agentic-workflow-axis`.
 
 ### New features
 
@@ -65,8 +68,9 @@ subsection is omitted.
   per entry, each an anchor named by its basename that carries the one named `opt-in` register at
   its own directory, so an entry of it is cited `<kind>@<entry>@<id>`, as a milestone's slice specs
   are.
-- `manifest`, minor: an `opt-in` register declares `dir = "."` to keep its home at its carrier's
-  own directory, as `<location>/<entry>/` for a directory register.
+- `manifest`, minor: an `opt-in` register declares `dir = "."` to keep its home at the own
+  directory of the location that carries it, or of each entry of a directory register that carries
+  it, as `<location>/<entry>/`. A Component cannot carry such a register.
 - `manifest`, minor: an `opt-in` register names in `components = [...]` the Components that carry
   it, the root included, each at its own `docs/<dir>/`.
 - `agent-skills`, patch: `agent@knowledge-architect-design-entry-searcher` reads the goals, the design
