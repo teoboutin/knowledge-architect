@@ -1,6 +1,6 @@
 **Generated — do not edit.** `cargo klarch index`
 
-37 entries
+39 entries
 
 | kind | title |
 | --- | --- |
@@ -11,7 +11,7 @@
 | defect | [A backticked span with an empty head and a slash is reported as malformed, which the candidate rule says is silent](a-span-with-an-empty-head-is-malformed-against-its-head.md) |
 | defect | [In a project that builds the checker from its own tree, `check --staged` compares the staged installed files with unstaged shipped text](a-staged-check-compares-installed-files-with-unstaged-shipped-text.md) |
 | defect | [An unbound Rust string literal is read as prose only up to its first escape sequence](an-unbound-literal-is-read-up-to-its-first-escape.md) |
-| defect | [`GIT_DIR` or `GIT_WORK_TREE` in the environment makes every command read another repository](git-environment-variables-redirect-the-walk.md) |
+| defect | [A git variable in the environment, such as `GIT_DIR` or `GIT_INDEX_FILE`, makes every command read another repository's files](git-environment-variables-redirect-the-walk.md) |
 | defect | [The escape anchor silences a path that resolves relative to its own document, which the unanchored-path lint reports](the-escape-anchor-silences-a-path-relative-to-its-document.md) |
 | defect | [The finding on an escaped path that resolves names the first anchor that holds it, not the deepest](the-escape-finding-names-the-first-anchor-not-the-one-that-holds-the-target.md) |
 | defect | [The head on `index` credits the missing-directory refusal with a claim that the refusal does not hold](the-missing-directory-refusal-does-not-hold-the-no-loss-claim.md) |
@@ -22,6 +22,7 @@
 | deferred | [The citation regime could be offered by the core over any pinned text](citation-regime-over-any-pinned-text.md) |
 | deferred | [The agent configuration serves one provider's harness](configuration-for-several-agent-providers.md) |
 | deferred | [A project cannot reference an entry of another project](cross-project-references.md) |
+| deferred | [`init --rust` cannot add the maintenance crate to an existing Cargo workspace or package](init-rust-into-an-existing-cargo-workspace.md) |
 | design | [A plan item named as a plain `#<id>`, inside its plan or outside it, is read by no check](a-plain-hash-item-name-is-read-by-nothing.md) |
 | design | [Three core heads bundle decisions that lose to different rivals, and each has many citing sites](core-heads-bundle-decisions-with-many-citing-sites.md) |
 | design | [No checked form cites a level-three subsection or a numbered point inside a section of a skill, an agent or the primer](no-checked-form-cites-a-point-inside-a-section.md) |
@@ -31,6 +32,7 @@
 | question | [The refusal of a kind's name as an anchor quotes a reason the root forbids](a-kind-name-refusal-quotes-a-future-migration-reason.md) |
 | question | [A project's own saved workflow can declare the name of an installed one, and nothing reports it](a-project-workflow-can-declare-an-installed-workflow-s-name.md) |
 | question | [An extension reads its manifest table as a `toml::Value`, so the core's toml version is part of the public API](manifest-table-exposes-the-toml-crate.md) |
+| question | [`new-component` ends with exit 1, writing no index, where the index holds staged changes](new-component-ends-refused-over-staged-changes.md) |
 | todo | [A change to a generated file's contract fails every earlier commit with no word on the repair](a-contract-change-fails-every-earlier-commit-unexplained.md) |
 | todo | [An extension cannot see which register, anchor or entry a document belongs to](an-extension-cannot-see-which-register-a-document-belongs-to.md) |
 | todo | [`commits` sees a citation of a branch commit by SHA only when the cited commit is in the range it judges](branch-sha-citations-are-judged-within-the-range-only.md) |

@@ -70,10 +70,11 @@ pub enum Command {
     /// longer ships.
     InstallAgentSkills,
     /// Create a knowledge-architect project: its manifest, the installed agent files, and the
-    /// documents and homes the check requires. It overwrites no hand-written file.
+    /// documents and homes the check requires. It overwrites no hand-written file outside the
+    /// installer's namespace, which every install rewrites.
     Init(InitArgs),
     /// Add a Component to the project: its line in the manifest, its documents and its register
-    /// homes. It overwrites no hand-written file.
+    /// homes. It overwrites no hand-written file outside the installer's namespace.
     NewComponent(NewComponentArgs),
 }
 
@@ -97,7 +98,7 @@ pub struct InitArgs {
     pub components: Vec<std::path::PathBuf>,
     /// Also write the maintenance crate of a Rust project, `xtask`, with its virtual workspace,
     /// its cargo aliases and `/target` in `.gitignore`, as the setup skill shows them. Refused
-    /// where PATH holds a `Cargo.toml`.
+    /// where a `Cargo.toml` lies at or above PATH, or a file it writes already exists.
     #[arg(long)]
     pub rust: bool,
     /// The project's command, written as `[project] command`; the default is `klarch`, or
@@ -113,7 +114,7 @@ pub struct InitArgs {
 /// The value of `init --vcs`.
 #[derive(Clone, Copy, Debug, PartialEq, Eq, clap::ValueEnum)]
 pub enum Vcs {
-    /// Run `git init` at PATH, wherever PATH is.
+    /// Run `git init` at PATH, inside a worktree or outside, unless PATH already holds `.git`.
     Git,
     /// Never run `git init`.
     None,
@@ -211,7 +212,8 @@ pub fn run(
         Command::Commits(args) => history::commits(manifest, &args.range, checker, extensions),
         Command::InstallAgentSkills => install_agent_skills(manifest),
         // A binary hands `init` to [`init`] before it locates a project, since `init` is what
-        // makes one; reaching here means the binary skipped that step, inside a project.
+        // makes one, per `design@core@the-core-cli-is-a-library-module`; reaching here means the
+        // binary skipped that step, inside a project.
         Command::NewComponent(args) => create::new_component(manifest, &args, checker, extensions),
         Command::Init(_) => Err(format!(
             "`init` creates a project, and {} already holds one; a binary dispatches `init` to \
@@ -682,7 +684,8 @@ pub(super) fn fix_then_check(
     // from the working tree would, staged with a partial commit, make a commit whose tree fails.
     // It comes after the installed repairs, whose bytes are the same for both trees, and after
     // the gate, whose model the comparison reads. Where no staged tree is there to commit, an
-    // unmerged index or a staged tree stopped in phases 1 to 3, nothing is compared; any other
+    // unmerged index, a staged tree holding no manifest or one stopped in phases 1 to 3, nothing
+    // is compared; any other
     // failure to compute the staged side refuses, since a comparison skipped in silence is the
     // hazard it guards against.
     let staged_differs = match crate::git::index_differs_from_head(manifest.root()) {

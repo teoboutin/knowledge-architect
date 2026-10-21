@@ -295,7 +295,7 @@ refuses outside every worktree whatever the directory holds.
 T2 of the premortem of the plan that built `new-component`, on the owner's word.
 
 **Fires when:** one reported case of `new-component` refused over a finding of phases 1 to 3 that
-the user could not repair before adding the Component, so the Component was added by hand.
+the user could not repair before adding the Component.
 
 **Response:** reopen the writer gate of `design@core@phases-gate-the-report` for `new-component`.
 

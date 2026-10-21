@@ -21,9 +21,10 @@ subsection is omitted.
 
 - `cli`, minor: `klarch init [PATH]` creates a project: its manifest, pinned to the binary that
   runs it, the installed agent files, and every document and register home the check requires,
-  then the indexes and the check. It writes no file that exists and asks nothing; `--component`
-  adds Components, `--command` declares the command, `--vcs` decides whether `git init` runs, and
-  `--rust` adds the maintenance crate, its workspace and its cargo aliases. The core's README says
+  then the indexes and the check. It overwrites no hand-written file outside the installer's
+  namespace and asks nothing; `--component` adds Components, `--command` declares the command,
+  `--vcs` decides whether `git init` runs, and `--rust` adds the maintenance crate, its workspace
+  and its cargo aliases. The core's README says
   what it refuses.
 - `cli`, minor: `klarch new-component <DIR>` adds a Component to a project: its line in
   `[project] components`, keeping every other byte of the manifest, and its documents and homes.

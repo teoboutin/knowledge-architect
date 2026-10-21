@@ -9,7 +9,9 @@
 //! A line of shipped text that is a snippet placeholder, `{{snippet:<file>}}`, is replaced with
 //! the file of that name under snippets/, so the text shipped is the text a test of this workspace
 //! checks: a Rust snippet compiled by an example of the maintenance crate, a manifest or a
-//! configuration built by the test of `klarch init --rust`, which writes them. A placeholder naming
+//! configuration built by the test of `klarch init --rust`, which writes them, per
+//! `design@agent-skills@rust-templates-one-home`, or the CI workflow, whose gates command that test
+//! parses. A placeholder naming
 //! no file, and a file no placeholder names, fail the build. The placeholder is filled here rather
 //! than at install, where the project's command is filled, because a snippet does not vary by
 //! project. The snippets are also listed whole, by file name, as `SNIPPETS`, for the core to write.

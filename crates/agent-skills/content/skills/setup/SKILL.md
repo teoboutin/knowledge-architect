@@ -18,8 +18,9 @@ existing documentation into the new homes**, which is planned work of its own
 what this skill starts from: the manifest below, pinned to the version of the binary that runs it,
 the installed files, and every document and register home the check requires, holding no entry;
 `--component <dir>` adds a Component, and `--rust` the maintenance crate of
-`skill@knowledge-architect-setup@rust-project`. It overwrites no file that exists. By hand, the
-smallest manifest the install accepts is the file `knowledge-architect.toml` at the project's root,
+`skill@knowledge-architect-setup@rust-project`. It overwrites no hand-written file outside the
+installer's namespace. By hand, the smallest manifest the install accepts is the file
+`knowledge-architect.toml` at the project's root,
 where `<version>` is the version of the checker the project runs, as
 `skill@knowledge-architect-setup@pin-the-checker` says:
 
@@ -79,7 +80,8 @@ them.
 %% A second value that is not a version, `"self"`, serves only a project that builds the checker
 %% from its own tree, the workflow's own source.
 **The manifest declares the pin**, in `[project] checker-version = "<version>"`, the version of the
-checker the project runs, exactly. Every command refuses to run when the binary is another version,
+checker the project runs, exactly. Every command but `init`, which writes the pin, refuses to run
+when the binary is another version,
 names the two versions and says which side is older, so an install or a build left behind is
 caught at its first run. A value that is not a version serves a project's own tests: `"fixture"`
 in a mock project that lies inside the directory of a library the binary links, such as the
@@ -111,7 +113,7 @@ name is the basename of that path, and the project's root is a Component named b
 own design, such as a published package, a service, or a maintenance tool. A directory named after
 its role, not after its package, avoids a Component whose name equals the project's.
 `{{command}} new-component <dir>` adds one: its line in `[project] components`, its documents and
-its register homes. Its goals are stated with the owner all the same.
+its register homes.
 
 A **location** is a directory that carries only the registers it declares, for content that belongs
 to no Component, such as the agent configuration:

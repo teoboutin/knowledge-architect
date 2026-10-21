@@ -33,8 +33,8 @@ Five things are compiled in, and none of them describes a project:
 
 - **What the word _component_ means**: the documents a component carries and the five built-in
   component registers, per `design@core@components-carry-the-same-documents`, and the starting text
-  `init` and `new-component` write in each document and home: a title and one sentence on what it
-  holds, with no entry, no reference and no link, so it passes every check in any project, and no
+  `init` and `new-component` write in each document and home: a title and a line on what it
+  holds, or that it holds no entry yet, with no entry, no reference and no link, so it passes every check in any project, and no
   goal, which is the owner's to state, per `design@agent-skills@goals-change-through-goal-setting`;
   the root CLAUDE.md is its title and the primer's import line, since what every root would say
   alike is the primer's, per `design@agent-skills@primer-limit`.
@@ -49,7 +49,7 @@ Five things are compiled in, and none of them describes a project:
   configuration**, per `design@core@agents-table` and `design@core@owned-namespace-check`: what
   this tool writes, not what a project holds. The files `init --rust` writes are of the same kind:
   the setup skill's snippets, per `design@agent-skills@rust-templates-one-home`, with the version
-  and the project's name filled in.
+  and the checkout variable derived from the project's name filled in.
 
 ### The model is built once, and every check is a pure function over it `##model-then-checks`
 
@@ -1401,8 +1401,9 @@ generated and installed files; the hazard is a wrong commit, since the `index.md
 reflects the working tree, and staged with a partial commit it makes a commit whose tree fails. A
 file already current on disk is not written, so no refusal names it: the hazard is in what `--fix`
 writes, and refusing a run that writes nothing would refuse one that `index`, the repair it names,
-cannot clear. Where no staged tree is there to commit, an unmerged index or a staged tree stopped
-in phases 1 to 3, nothing is compared and the fix runs. Any other failure to compute the staged
+cannot clear. Where no staged tree is there to commit, an unmerged index, a staged tree holding no
+manifest, as one where the manifest is written and not yet staged, or a staged tree stopped in
+phases 1 to 3, nothing is compared and the fix runs. Any other failure to compute the staged
 side refuses, naming it, such as an extension that cannot prepare over a snapshot: a comparison
 skipped in silence lets the partial commit through, per `design@core@a-failed-parse-is-loud`. The
 refusal is exit 2, or 1 where agent files were installed before it, since 2 promises an untouched
@@ -2733,18 +2734,22 @@ section in an upgrade and repairs its citations passes `commits` on every commit
   definitions are the installed copies', which this repository installs with each change to
   content/.
 
-
 ## 7. Creating a project and a Component
 
 ### `init` creates a project: its manifest, the installed set, and every document and home the check requires, ending as `check --fix` ends `##init-command`
 
 `klarch init` writes the manifest, pinned to the version of the binary that runs it, then every
-document the root Component, each Component it lists and the plans directory owe, then runs
-`fix_then_check`, the code `check --fix` runs, which installs the shipped set, writes the indexes
-once phases 1 to 3 find nothing, and runs the check, whose verdict is the run's. A project created
-from nothing is the target `goal@knowledge-architect@any-project-can-adopt-it` puts first, and its
-creation is where a person or an agent starts, per `goal@knowledge-architect@adoption-is-easy`:
-without the command, 11 files are written by hand before the first check passes.
+document the root Component, each Component it lists and the plans directory owe, then ends as
+`check --fix` does, through its code: it installs the shipped set, writes the indexes once phases 1
+to 3 find nothing, and runs the check, whose verdict is the run's. Outside every git worktree, under
+`--vcs none`, it installs the shipped set and stops there, saying what comes next: the indexes and
+the check read git's listing, per `design@core@failed-git-is-exit-two`, and the install reads none.
+No directory of audit reports or of retrospective analyses, and no roadmap, is written: each is
+created when first needed. A project created from nothing is the target
+`goal@knowledge-architect@any-project-can-adopt-it` puts first, and its creation is where a person
+or an agent starts, per `goal@knowledge-architect@adoption-is-easy`: without the command, every
+file `klarch init` lists as `wrote` but the installed ones and the manifest is written by hand
+before the first check passes.
 
 The rival, `check --fix` creating the missing documents, is out on
 `design@core@safe-fix-definition`: a README is neither an installed file nor a generated one. The
@@ -2759,12 +2764,18 @@ change of what a Component carries reaches `init` with no edit to it, per
 `klarch init [PATH] [--name <NAME>]`: PATH is `.` by default, and is created with its parents when
 it does not exist; the name is PATH's basename unless `--name` gives one. `--component <DIR>`,
 DIR relative to PATH, lists a Component in the manifest it writes; `--command` declares
-`[project] command`. The project's users are Rust developers first, and `cargo init` and `git init`
-are the commands they already type for this act; `bootstrap <name>`, the rival, named the same act
-in a word none of them types for it, and lost on the owner's word. A name that begins with
-`knowledge-architect-` is refused: a project's own skills take its name and a hyphen as their
-prefix by default, per `design@agent-skills@project-name-prefix`, and under that name the prefix is
-the installer's namespace, whose files every install deletes.
+`[project] command`. Rust is the language the project focuses on first, on the owner's word, and
+`cargo init` and `git init` are the commands its users already type for this act: `cargo init d`
+creates `d/` when it does not exist, measured with cargo 1.98.0. `bootstrap <name>`, the rival,
+named the same act in a word none of them types for it.
+
+### `init` refuses a project name that begins with the installer's prefix `##init-refuses-the-installer-s-prefix`
+
+A name that begins with `knowledge-architect-` is refused, exit 2, before any write: a project's
+own skills take its name and a hyphen as their prefix by default, per
+`design@agent-skills@project-name-prefix`, and under that name the prefix is the installer's
+namespace, whose files every install deletes. The name `knowledge-architect` itself is accepted,
+since its prefix, `knowledge-architect-`, is the namespace only with the hyphen.
 
 ### `init` asks for no confirmation, and every refusal comes before its first write `##init-asks-no-confirmation`
 
@@ -2772,17 +2783,22 @@ the installer's namespace, whose files every install deletes.
 path, a name the manifest's parse complains of, a destination that is not a regular file or lies
 under one, the installed set's destinations included, two destinations that overlap, an `index.md`
 already at a generated path, whose text the index writer would replace without this tool having
-generated it, and the refusals of git and `--rust`; it then prints the absolute root and one line
-per file. Each file is created only where nothing stands, so one that appears during the run is
+generated it, a PATH that lies under a file, is a dangling symlink or lies in a `.git`
+directory, a PATH or a Component git ignores, whose files the check would read as missing with no
+repair but the rule, and the refusals of git, of the project's name and of `--rust`; once every
+file is written it prints the absolute root and one line per file. Each file is created only where nothing stands, so one that appears during the run is
 kept as well. A
 prompt guards against a loss, and a run that refuses before any write and overwrites no
-hand-written file loses nothing, which is the argument of `design@core@index-takes-no-dry-run`;
-the worst a mistaken run does is add files. The checker's binaries run blind, as gates, per
+hand-written file outside the installer's namespace loses nothing an install would not, which is
+the argument of `design@core@index-takes-no-dry-run`: the worst a mistaken run does is add files,
+and install the shipped set as `design@core@owned-namespace-check` lets every install do. The checker's binaries run blind, as gates, per
 `design@core@arguments-parse-through-clap`, and an agent's shell has no terminal, so a prompt
 either blocks or is answered by a flag every caller passes. `cargo init` asks nothing either:
-`cargo init </dev/null` in cargo 1.98.0 prints no question and exits 0. Once files are written the
-exit code is 0 or 1, never 2, which `design@core@exit-code-ladder` keeps for a run that touched
-nothing.
+`cargo init </dev/null` in cargo 1.98.0 prints no question and exits 0. Once files are written a
+failure exits 1, not 2, which promises a run that touched nothing, as
+`design@core@fix-refusal-mixed-state` keeps it for `check --fix`. The one exception is a stdout
+closed early, which ends every command with 2, per `design@core@exit-code-ladder`; `check --fix`
+completes such a run.
 
 The design this decision did not keep: `rejected@core@init-asks-for-confirmation`.
 
@@ -2790,10 +2806,11 @@ The design this decision did not keep: `rejected@core@init-asks-for-confirmation
 
 A README.md, a CLAUDE.md or a register home that exists, in either shape of its register, is kept
 byte for byte and listed as `kept`; the check then reports what it lacks, such as the primer's
-import line. The installed set is the install's, and the install writes and deletes there as
-`install-agent-skills` does, per `design@core@owned-namespace-check`. On the owner's word, `init`
-serves an existing project the owner wants to migrate, and refusing whenever a destination exists
-would leave every such project with the hand procedure. A manifest at PATH still refuses the run:
+import line. The installed set is the install's, and the install writes and deletes there, per
+`design@core@owned-namespace-check`: inside a worktree as `check --fix` repairs it, from git's
+listing, and outside one as `install-agent-skills` does. On the owner's word, `init` serves an
+existing project, one the owner would migrate being the owner's example, and refusing whenever a
+destination exists would leave every such project with the hand procedure. A manifest at PATH still refuses the run:
 that project exists, and `new-component` is what extends it.
 
 ### Outside every git worktree, `init` creates a repository in a new or empty directory, and refuses one holding files unless `--vcs` decides `##init-runs-git-init`
@@ -2802,18 +2819,22 @@ The rule over PATH and `--vcs <git|none>`:
 
 | PATH | no `--vcs` | `--vcs git` | `--vcs none` |
 | --- | --- | --- | --- |
-| inside a worktree | no `git init` | `git init` at PATH | no `git init` |
-| outside, new or empty | `git init` | `git init` | no `git init`; no index, no check |
-| outside, holding files | refused, exit 2 | `git init` | no `git init`; no index, no check |
+| inside a worktree | no `git init` | `git init` at PATH, unless PATH holds `.git` | no `git init` |
+| outside, new or empty | `git init` | `git init` | no `git init`; the agent files, no index, no check |
+| outside, holding files | refused, exit 2 | `git init` | no `git init`; the agent files, no index, no check |
 
 Git is asked about PATH before the first write, whatever `--vcs` says, since the check the run
 ends with reads the tree through git: a git that cannot answer refuses the run, and so does a
 failure other than "not a git repository", such as a repository refused as another user's, which
-would otherwise read as outside every repository. `GIT_DIR` or `GIT_WORK_TREE` set, as in a git
-hook, refuses it too, since git then answers about another repository, per
+would otherwise read as outside every repository. A variable that points git at another
+repository's files refuses it too, `GIT_DIR`, `GIT_WORK_TREE`, `GIT_INDEX_FILE`, `GIT_COMMON_DIR`
+or `GIT_OBJECT_DIRECTORY`, since git can then answer from them, and a git hook sets one: a
+pre-commit hook gets `GIT_INDEX_FILE`, measured with git 2.43.0, per
 `issue@core@git-environment-variables-redirect-the-walk`. Inside a worktree no repository is needed: a project in a subdirectory of a repository passes the
 check, measured by copying a passing project into a subdirectory of another repository and running
-`klarch check` there, exit 0. Outside one, the checker cannot run without a repository, per
+`klarch check` there, exit 0. A repository `--vcs git` creates there is nested in the outer one,
+whose check reports it in phase 2 until an ignore rule or `[walk] skip-dirs` names it, as that
+finding says. Outside one, the checker cannot run without a repository, per
 `design@core@failed-git-is-exit-two`, and `cargo init` creates one: cargo 1.98.0 creates `.git` and
 `.gitignore` in a directory outside every repository and none in a subdirectory of one. The one
 departure from `cargo init` is the refusal of a directory holding files, chosen by the owner over
@@ -2852,7 +2873,8 @@ add was the rival: the command could then not finish in one run.
 ### `init --rust` writes the setup skill's maintenance crate, workspace and aliases, and no CI workflow `##rust-scaffold`
 
 `--rust` refuses a `Cargo.toml` at or above PATH, since adding the maintenance crate to an
-existing workspace or package is a design of its own, and cargo reads a `Cargo.toml` above PATH as
+existing workspace or package is a design of its own, as `cargo init` refuses an existing package,
+exit 101 in cargo 1.98.0, and cargo reads a `Cargo.toml` above PATH as
 an enclosing workspace, which a `members` glob covering PATH would break with two workspace roots.
 It refuses as well any of the files it writes that already exists: kept, an older cargo
 configuration would leave the declared `cargo klarch` undefined. Otherwise it writes the snippets of
@@ -2860,8 +2882,10 @@ configuration would leave the declared `cargo klarch` undefined. Otherwise it wr
 and the cargo aliases with the project's checkout variable; it lists `xtask` as a Component and
 declares `cargo klarch` as the command unless `--command` gives one. It makes `.gitignore` ignore
 `/target`, keeping every line of an existing one and appending under `# Added by klarch`, as
-`cargo init` appends its own, or leaving it as it is where git already ignores `target/` there,
-which git, not a reading of the lines, decides. This is the
+`cargo init` appends `/target` under `# Added by cargo`, measured with cargo 1.98.0 over a
+`.gitignore` holding `mine`; or it leaves the file as it is where `target/` is already ignored. In a
+repository git decides, a negation or a leading space included; outside one, under `--vcs none`, a
+line `target`, `target/`, `/target` or `/target/` does. This is the
 shape of `design@agent-skills@xtask-pins-checker`, and it gives a new project the gates
 `goal@knowledge-architect@setup-brings-quality-tools` asks for. It writes no CI workflow, on the
 owner's word; a workflow file assumes a host, and the setup skill's block stays the route to
