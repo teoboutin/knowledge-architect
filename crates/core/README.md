@@ -7,7 +7,8 @@ extension of it, per `design@core@an-extension-plugs-in-through-phased-hooks`.
 **The core's binary, and a binary per set of extensions.** The core's own binary, `klarch` in the
 package `knowledge-architect`, runs every command below with no extension registered. A binary
 that registers extensions runs the same commands unchanged, and its extensions' own commands beside them, per
-`design@core@the-core-cli-is-a-library-module`. Over a manifest holding a table no
+`design@core@the-core-cli-is-a-library-module`. Every such binary hands `init` to `cli::init`
+before it locates a project, since `init` is what creates one. Over a manifest holding a table no
 extension of the binary claims, the binary reports that table in phase 1, rather than skip in
 silence what the table configures, per `design@core@an-extension-claims-its-manifest-tables`.
 The commands below are written `cargo klarch <command>`, the command this repository declares: a
@@ -49,6 +50,9 @@ cargo klarch model                     every observation the walk produced
 cargo klarch anchors                   every anchor, its kind, its path and each register's home
 cargo klarch commits <range>           judge every commit in the range, message and tree, against its own tree
 cargo klarch install-agent-skills      write the agent files this version ships, remove the ones it does not
+klarch init [PATH] [--name n] [--component DIR]… [--rust] [--vcs git|none] [--command c]
+                                       create a project, overwriting no file that exists
+cargo klarch new-component <DIR>       add a Component: its manifest line, its documents and homes
 cargo klarch --version                 the version of the checker that runs
 ```
 
@@ -58,9 +62,9 @@ Three, per `design@core@exit-code-ladder`, and the third is what makes the other
 
 | code | meaning | where it comes from |
 | ---- | ------- | ------------------- |
-| `0` | the command ran and its subject is in order | `--version`, from any directory; `check` with no findings; `show` on a reference that resolves; `issues` and `tripwires` with at least one row; `index` having written every destination, or found each already current; `index --staged` having staged every generated file whose staged bytes differed, or found each already current; every `model` run; `anchors` with every home it prints present; `commits` with no finding, an empty range included; `install-agent-skills` having written and removed what it had to, or found nothing to do |
-| `1` | the command ran and reports a negative answer | `check` with findings, `--fix` included; `check --fix` when a write failed, a destination was refused, a partial commit's mismatch was refused, or the final check could not run, after another file was already written; `show` on a reference that resolves to nothing; `issues` or `tripwires` with no row; `anchors` with a home missing; `index` when a write failed after another destination was already rewritten; `commits` with a finding against a judged message or a failing tree |
-| `2` | the command could not run, `anchors` included | an unknown or invalid argument, `--fix` with `--staged` among them, a `show` argument that is not reference-shaped, a binary built from another checkout of the tool, which names the `cargo clean` that rebuilds it, a binary of another version than `[project] checker-version` pins, or a pin it does not confirm, or a manifest with no pin, `index` or `check --fix` refusing a destination — a symlink, or a directory that is not there — having written nothing, `check --fix` refusing a partial commit's mismatch having installed nothing, `check --staged` or `index --staged` over an index that holds an unmerged path or a staged tree that cannot be read, `index --staged` refused by its gate, a destination or git's index lock, having staged nothing, `commits` on a range that does not resolve, no project above the working directory, no `git` on the path or a project outside a worktree, `install-agent-skills` over a manifest holding a refused declaration, over a symbolic link on an owned path, or when a write or a removal failed, naming the path, a stdout closed before the output was written — as `\| head` does — which ends the run silently, an input that cannot be read, an input an extension prepares that it cannot resolve |
+| `0` | the command ran and its subject is in order | `--version`, from any directory; `check` with no findings; `show` on a reference that resolves; `issues` and `tripwires` with at least one row; `index` having written every destination, or found each already current; `index --staged` having staged every generated file whose staged bytes differed, or found each already current; every `model` run; `anchors` with every home it prints present; `commits` with no finding, an empty range included; `install-agent-skills` having written and removed what it had to, or found nothing to do; `init` and `new-component` having written, with the final check passing, and `init` under `--vcs none` outside a worktree, where no check runs |
+| `1` | the command ran and reports a negative answer | `check` with findings, `--fix` included; `check --fix` when a write failed, a destination was refused, a partial commit's mismatch was refused, or the final check could not run, after another file was already written; `show` on a reference that resolves to nothing; `issues` or `tripwires` with no row; `anchors` with a home missing; `index` when a write failed after another destination was already rewritten; `commits` with a finding against a judged message or a failing tree; `init` and `new-component` having written, when the final check finds anything, cannot run, or a write failed |
+| `2` | the command could not run, `anchors` included | an unknown or invalid argument, `--fix` with `--staged` among them, a `show` argument that is not reference-shaped, a binary built from another checkout of the tool, which names the `cargo clean` that rebuilds it, a binary of another version than `[project] checker-version` pins, or a pin it does not confirm, or a manifest with no pin, `index` or `check --fix` refusing a destination — a symlink, or a directory that is not there — having written nothing, `check --fix` refusing a partial commit's mismatch having installed nothing, `check --staged` or `index --staged` over an index that holds an unmerged path or a staged tree that cannot be read, `index --staged` refused by its gate, a destination or git's index lock, having staged nothing, `commits` on a range that does not resolve, no project above the working directory, no `git` on the path or a project outside a worktree, `install-agent-skills` over a manifest holding a refused declaration, over a symbolic link on an owned path, or when a write or a removal failed, naming the path, a stdout closed before the output was written — as `\| head` does — which ends the run silently, an input that cannot be read, an input an extension prepares that it cannot resolve, `init` refusing, having written nothing: a manifest at PATH, a refused name, a destination that is a symlink or a directory where a file is due, a non-empty directory outside every git repository with no `--vcs`, a `Cargo.toml` under `--rust`; `new-component` refusing, having written nothing: an incomplete model, a DIR outside the project or one the manifest refuses; `init` dispatched inside a project by a binary that skips `cli::init` |
 
 **A caller scripting against a run reads the exit code; a person reads the last line.** Arguments
 are refused before the project is located, so `--help` answers from anywhere and a mistyped
@@ -121,9 +125,11 @@ gives no input to is printed as not run rather than counted. There is no way to 
 the checks cross the phases, and a run over a passing tree costs under a second. The argument is
 `design@core@phases-gate-the-report`.
 
-`index`, `index --staged` over the staged tree, `check --fix` and a writing command of an
-extension run the first three phases too, and
-write no generated file while one of them holds anything. `index` and an extension's command refuse
+`index`, `index --staged` over the staged tree, `check --fix`, `new-component` and a writing
+command of an extension run the first three phases too, and
+write no generated file while one of them holds anything; `init`, which writes where no project
+exists yet, checks every destination before its first write instead, and writes the indexes only
+once the three phases find nothing. `index` and an extension's command refuse
 with exit 2; `check --fix` prints the stopped report and exits 1, having installed agent files
 before that gate when they needed it, since their bytes do not depend on the model: an index generated over an incomplete model lists rows nobody asked for.
 
@@ -289,10 +295,10 @@ harness = ["claude"]   # the default when the table is absent
 With `harness = []` no component owes a CLAUDE.md, and nothing is installed or checked, per
 `design@core@agents-table`.
 
-**Adopting the workflow starts with the install.** The skill that sets a project up,
-`skill@knowledge-architect-setup`, is one of the files it writes, so a project first holds the
-smallest manifest the install accepts, at its root, `<version>` being the version of the checker
-the project runs:
+**Adopting the workflow starts with `init`**, below, which writes the manifest and runs the
+install. By hand, a project first holds the smallest manifest the install accepts, at its root,
+`<version>` being the version of the checker the project runs, since the skill that sets a project
+up, `skill@knowledge-architect-setup`, is one of the files the install writes:
 
 ```toml
 [project]
@@ -309,6 +315,47 @@ exclude = []
 Then `klarch install-agent-skills` writes the skills, the agents, the saved workflows and the primer, and an agent
 session follows the installed setup skill from there. `klarch check` lists every document the
 project still owes, each with its repair.
+
+## `init` and `new-component`
+
+**`init` creates a project, before any agent session**, so the session starts with the workflow
+installed. It runs from a binary its user installed, such as
+`cargo install --locked knowledge-architect`; the project then runs the version that binary pinned,
+as the setup skill says. Like `cargo init`, it takes a PATH, `.` by default, created when missing,
+names the project after its basename unless `--name` is given, and asks nothing:
+
+```sh
+klarch init my-project              # the manifest, the agent files, every document and home
+klarch init . --component crates/core --component tools/xtask
+klarch init my-project --rust       # also the maintenance crate, its workspace and aliases
+```
+
+- **It writes no file that exists.** An existing README.md or CLAUDE.md is kept and listed as
+  `kept`; the check then reports what it lacks, such as the primer's import. Every refusal comes
+  before its first write: a manifest at PATH, a name the manifest refuses or that begins with
+  `knowledge-architect-`, a destination that is a symlink or a directory where a file is due, and,
+  under `--rust`, a `Cargo.toml` at PATH. A manifest above PATH does not refuse it: a project nested
+  in another is legal.
+- **Git, as `cargo init` does, with one guard.** Inside a git worktree no repository is created;
+  outside every worktree a new or empty directory gets one. A directory there that already holds
+  files is refused unless `--vcs git` or `--vcs none` decides, since an accidental run would leave
+  its files untracked beside the project's, where `git clean` deletes both.
+- **It ends as `check --fix` does**: it installs the agent files, writes the indexes once the first
+  three phases find nothing, and runs the check, whose verdict is its exit code. Under `--vcs none`
+  outside a worktree it stops before them, and says so.
+- **The documents hold no entry.** Each opens with a title and one sentence on what it holds. No
+  goal is written: the goals are stated with the owner. The root CLAUDE.md is its title and the
+  primer's import line.
+- **`--rust`** writes the blocks the setup skill shows: a virtual workspace, the maintenance crate
+  `xtask/`, pinned to this version, and the cargo aliases, declares `cargo klarch` as the command,
+  and makes `.gitignore` ignore `/target`, appending to an existing one. It writes no CI workflow.
+
+**`new-component <DIR>` adds a Component to an existing project**: it appends DIR to
+`[project] components`, keeping every other byte of the manifest, comments included, then writes
+the Component's documents and register homes, and ends as `init` does. It runs behind the gate of
+the first three phases, so over a tree they find incomplete it refuses, writing nothing. A
+register declared `opt-in` is not guessed: name the Component in its `components`, and the check
+reports the home.
 
 ## `model`
 
