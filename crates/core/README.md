@@ -321,7 +321,7 @@ project still owes, each with its repair.
 **`init` creates a project, before any agent session**, so the session starts with the workflow
 installed. It runs from a binary its user installed, such as
 `cargo install --locked knowledge-architect`; the project then runs the version that binary pinned,
-as the setup skill says. Like `cargo init`, it takes a PATH, `.` by default, created when missing,
+as the setup skill says. Like `cargo init`, per `design@core@init-follows-cargo-init`, it takes a PATH, `.` by default, created when missing,
 names the project after its basename unless `--name` is given, and asks nothing:
 
 ```sh
@@ -360,8 +360,8 @@ klarch init my-project --rust       # also the maintenance crate, its workspace 
 - **`--rust`** writes the blocks the setup skill shows: a virtual workspace, the maintenance crate
   `xtask/`, pinned to this version, and the cargo aliases, declares `cargo klarch` as the command,
   and makes `.gitignore` ignore `/target`, appending to an existing one unless git already ignores
-  it there. It writes no CI workflow. Its refusals and their reasons are
-  `design@core@rust-scaffold`.
+  it there. It writes no CI workflow, per `design@core@init-writes-no-ci-workflow`. Its refusals
+  and their reasons are `design@core@rust-scaffold`.
 
 **`new-component <DIR>` adds a Component to an existing project**: it appends DIR to
 `[project] components`, keeping every other byte of the manifest, comments included, per
