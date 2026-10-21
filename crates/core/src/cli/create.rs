@@ -10,9 +10,9 @@ use std::path::{Component, Path, PathBuf};
 use std::process::ExitCode;
 
 use super::output::outln;
-use super::{InitArgs, Library, Vcs};
+use super::{InitArgs, Library, NewComponentArgs, Vcs};
 use crate::agents::IMPORT_LINE;
-use crate::entity::{Anchors, Constructed};
+use crate::entity::{Anchor, Anchors, Constructed};
 use crate::extension::Extension;
 use crate::manifest::{
     Shape, AGENT_DOCUMENT, ISSUE_REGISTER, MANIFEST_NAME, MILESTONE_REGISTER, OWNED_PREFIX,
@@ -71,12 +71,18 @@ pub fn init(
              install. Pass another --name"
         ));
     }
-    let manifest = manifest_text(&name, args.command.as_deref());
+    let components = args
+        .components
+        .iter()
+        .map(|dir| project_relative(&root, &lexical(&root.join(dir))))
+        .collect::<Result<Vec<_>, _>>()?;
+    let manifest = manifest_text(&name, args.command.as_deref(), &components);
     let parsed = Manifest::parse(&root, &manifest)
         .map_err(|e| format!("the manifest `init` would write does not parse: {e}"))?;
     if let Some(complaint) = parsed.complaints().first() {
         return Err(format!(
-            "the manifest `init` would write is refused: {}. Pass another --name",
+            "the manifest `init` would write is refused: {}. Pass another --name or \
+             --component",
             complaint.what
         ));
     }
@@ -84,7 +90,7 @@ pub fn init(
         super::refuse_a_foreign_build(&root, libraries, packages)?;
     }
     let run_git = git_rule(&root, args.vcs)?;
-    let documents = owed_documents(&parsed, &root)?;
+    let documents = owed_documents(&parsed, &root, |_| true)?;
 
     // The writes.
     std::fs::create_dir_all(&root).map_err(|e| format!("cannot create {}: {e}", root.display()))?;
@@ -152,18 +158,22 @@ struct Document {
     kept: bool,
 }
 
-/// Every document the root Component and the plans directory owe under `manifest`, each judged
-/// against the filesystem before anything is written.
+/// Every document the anchors `wanted` admits owe under `manifest`, of the Components and the
+/// plans directory, each judged against the filesystem before anything is written.
 ///
 /// The list is not written down here: it is the required documents and the register homes the
 /// check asks for, from [`Manifest::required_documents`] and [`Anchors::of`], with the plans
 /// directory's README, which the check requires by its own rule. So a register declared, or a
 /// document a Component comes to owe, reaches this with no edit. `Err` refuses the run: a
 /// destination that is a symlink, a directory where a file is due, or under a file.
-fn owed_documents(manifest: &Manifest, root: &Path) -> Result<Vec<Document>, String> {
+fn owed_documents(
+    manifest: &Manifest,
+    root: &Path,
+    wanted: impl Fn(&Anchor) -> bool,
+) -> Result<Vec<Document>, String> {
     let anchors = Anchors::of(manifest, &[] as &[PathBuf]);
     let mut out = Vec::new();
-    for anchor in anchors.all() {
+    for anchor in anchors.all().iter().filter(|a| wanted(a)) {
         if anchor.is_component {
             for name in manifest.required_documents() {
                 let text =
@@ -179,7 +189,11 @@ fn owed_documents(manifest: &Manifest, root: &Path) -> Result<Vec<Document>, Str
             ));
         }
     }
-    for (anchor, register, home) in anchors.instances() {
+    for (anchor, register, home) in anchors
+        .instances()
+        .into_iter()
+        .filter(|(a, _, _)| wanted(a))
+    {
         let text = home_text(&register.name, &anchor.name);
         match register.shape {
             Shape::Heading => out.push((home.file, text, Some(home.readme))),
@@ -292,6 +306,91 @@ fn home_text(register: &str, anchor: &str) -> String {
     format!("# {title}\n\n{holds}\n")
 }
 
+/// Add a Component to the project `manifest` describes, as `klarch new-component` does.
+///
+/// It runs inside a located project and behind the writer gate, so over a model phases 1 to 3
+/// find incomplete it refuses, per `design@core@phases-gate-the-report`. Every refusal comes
+/// before its first write and is `Err`, exit 2. It edits the manifest with `toml_edit`, which
+/// keeps every byte it does not change, comments included: the manifest is hand-written, and the
+/// reasons beside its rows are its own.
+pub(super) fn new_component(
+    manifest: &Manifest,
+    args: &NewComponentArgs,
+    checker: &[&Path],
+    extensions: &mut [Box<dyn Extension>],
+) -> Result<ExitCode, String> {
+    let model = crate::Model::build(manifest, checker).map_err(|e| e.to_string())?;
+    super::complete_working_tree(manifest, &model)?;
+    let cwd =
+        std::env::current_dir().map_err(|e| format!("cannot read the working directory: {e}"))?;
+    let root = manifest.root();
+    let rel = project_relative(root, &lexical(&cwd.join(&args.dir)))?;
+
+    let path = root.join(MANIFEST_NAME);
+    let text = std::fs::read_to_string(&path).map_err(|e| format!("{}: {e}", path.display()))?;
+    let edited = with_component(&text, &rel)?;
+    let parsed = Manifest::parse(root, &edited)
+        .map_err(|e| format!("{MANIFEST_NAME} with `{rel}` added does not parse: {e}"))?;
+    if let Some(complaint) = parsed.complaints().first() {
+        return Err(format!(
+            "{MANIFEST_NAME} with `{rel}` added is refused: {}. Nothing was written.",
+            complaint.what
+        ));
+    }
+    let documents = owed_documents(&parsed, root, |a| {
+        a.is_component && a.path == Path::new(&rel)
+    })?;
+
+    std::fs::write(&path, &edited).map_err(|e| format!("cannot write {MANIFEST_NAME}: {e}"))?;
+    outln!("wrote    {MANIFEST_NAME}, its components gaining `{rel}`");
+    if let Err(e) = write_documents(root, &documents) {
+        eprintln!("error: {e}");
+        return Ok(ExitCode::FAILURE);
+    }
+    finish(&parsed, checker, extensions)
+}
+
+/// `text`, a manifest, with `rel` appended to `[project] components` and nothing else changed.
+fn with_component(text: &str, rel: &str) -> Result<String, String> {
+    let mut doc: toml_edit::DocumentMut = text
+        .parse()
+        .map_err(|e| format!("{MANIFEST_NAME} does not parse: {e}"))?;
+    let components = doc
+        .get_mut("project")
+        .and_then(|p| p.get_mut("components"))
+        .and_then(|c| c.as_array_mut())
+        .ok_or_else(|| format!("{MANIFEST_NAME} holds no `[project] components` array"))?;
+    components.push(rel);
+    Ok(doc.to_string())
+}
+
+/// `path` relative to `root`, with `/` separators, as a manifest lists a Component; `Err` where it
+/// is the root itself or lies outside it.
+fn project_relative(root: &Path, path: &Path) -> Result<String, String> {
+    let rel = path.strip_prefix(root).map_err(|_| {
+        format!(
+            "{} is outside the project at {}",
+            path.display(),
+            root.display()
+        )
+    })?;
+    if rel.as_os_str().is_empty() {
+        return Err(format!(
+            "{} is the project's root, which is a Component already",
+            path.display()
+        ));
+    }
+    let parts: Vec<&str> = rel
+        .components()
+        .map(|c| {
+            c.as_os_str()
+                .to_str()
+                .ok_or("a Component's path is not UTF-8")
+        })
+        .collect::<Result<_, _>>()?;
+    Ok(parts.join("/"))
+}
+
 /// Whether `init` runs `git init` at `root`, or `Err` where its rule refuses.
 ///
 /// Inside a worktree no repository is created unless `--vcs git` asks: a project in a
@@ -329,17 +428,23 @@ fn git_rule(root: &Path, vcs: Option<Vcs>) -> Result<bool, String> {
     Ok(true)
 }
 
-/// The manifest `init` writes: the setup skill's smallest one, named and pinned.
-fn manifest_text(name: &str, command: Option<&str>) -> String {
+/// The manifest `init` writes: the setup skill's smallest one, named, pinned, and listing the
+/// Components it creates, each a project-relative path with `/` separators.
+fn manifest_text(name: &str, command: Option<&str>, components: &[String]) -> String {
     let command = command
         .map(|c| format!("command = {}\n", toml_string(c)))
         .unwrap_or_default();
+    let components = components
+        .iter()
+        .map(|c| toml_string(c))
+        .collect::<Vec<_>>()
+        .join(", ");
     format!(
         "[project]\n\
          name = {}\n\
          checker-version = {}\n\
          {command}\
-         components = []\n\
+         components = [{components}]\n\
          \n\
          [walk]\n\
          skip-dirs = []\n\
@@ -381,7 +486,7 @@ mod tests {
     fn run_refuses_init() {
         let manifest = Manifest::parse(
             Path::new("/nowhere"),
-            &manifest_text("probe", None).replace(crate::CHECKER_VERSION, "fixture"),
+            &manifest_text("probe", None, &[]).replace(crate::CHECKER_VERSION, "fixture"),
         )
         .expect("the written manifest parses");
         let args = InitArgs {
@@ -389,6 +494,7 @@ mod tests {
             name: None,
             command: None,
             vcs: None,
+            components: Vec::new(),
         };
         let outcome = super::super::run(super::super::Command::Init(args), &manifest, &[], &mut []);
         let err = outcome.expect_err("refused");

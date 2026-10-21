@@ -307,3 +307,79 @@ fn outside_a_worktree_the_run_stops_before_the_indexes() {
     assert!(scratch.path("p/docs/goals.md").is_file());
     assert!(!scratch.path("p/docs/open-issues/index.md").exists());
 }
+
+/// The comment lines of a manifest, in order.
+fn comment_lines(text: &str) -> Vec<String> {
+    text.lines()
+        .filter_map(|l| l.find('#').map(|at| l[at..].to_string()))
+        .collect()
+}
+
+/// AC1: a manifest's comments survive `new-component` byte for byte, in their order. Guards
+/// #component-manifest-edit of `spec@plans@init-and-new-component`.
+#[test]
+fn new_component_keeps_every_comment_of_the_manifest() {
+    let scratch = Scratch::new("ac1");
+    assert_eq!(klarch(&scratch.dir, &["init", "p"]).2, 0);
+    let path = scratch.path("p/knowledge-architect.toml");
+    let text = std::fs::read_to_string(&path).unwrap();
+    let text = format!("# above the project table\n{text}")
+        .replace(
+            "components = []",
+            "components = [\n    # inside the array\n]  # after the array",
+        )
+        .replace("skip-dirs = []", "skip-dirs = []  # in the walk table");
+    std::fs::write(&path, &text).unwrap();
+    let (out, err, code) = klarch(&scratch.path("p"), &["new-component", "svc"]);
+    assert_eq!(code, 0, "{out}{err}");
+    let after = std::fs::read_to_string(&path).unwrap();
+    assert_eq!(comment_lines(&after), comment_lines(&text), "{after}");
+    let value: toml::Table = toml::from_str(&after).unwrap();
+    assert_eq!(
+        value["project"]["components"].as_array().unwrap().len(),
+        1,
+        "{after}"
+    );
+}
+
+/// AC3, Component shape: `new-component` then `check` passes, and `init --component` lists the
+/// Component once and passes too.
+#[test]
+fn a_component_added_either_way_passes_the_check() {
+    let scratch = Scratch::new("ac3-component");
+    assert_eq!(klarch(&scratch.dir, &["init", "p"]).2, 0);
+    let (out, err, code) = klarch(&scratch.path("p"), &["new-component", "crates/core"]);
+    assert_eq!(code, 0, "{out}{err}");
+    assert!(scratch.path("p/crates/core/docs/goals.md").is_file());
+    assert_eq!(klarch(&scratch.path("p"), &["check"]).2, 0);
+
+    let (out, err, code) = klarch(&scratch.dir, &["init", "q", "--component", "svc"]);
+    assert_eq!(code, 0, "{out}{err}");
+    let manifest = std::fs::read_to_string(scratch.path("q/knowledge-architect.toml")).unwrap();
+    assert_eq!(manifest.matches("\"svc\"").count(), 1, "{manifest}");
+    assert!(scratch.path("q/svc/README.md").is_file());
+}
+
+/// The claims: over a tree phases 1 to 3 find incomplete, `new-component` refuses, exit 2,
+/// writing nothing; a DIR named like the project refuses with the manifest's complaint, writing
+/// nothing.
+#[test]
+fn new_component_refuses_before_any_write() {
+    let scratch = Scratch::new("nc-refuse");
+    assert_eq!(klarch(&scratch.dir, &["init", "p"]).2, 0);
+    let manifest = scratch.path("p/knowledge-architect.toml");
+    let before = std::fs::read_to_string(&manifest).unwrap();
+
+    let (out, err, code) = klarch(&scratch.path("p"), &["new-component", "p"]);
+    assert_eq!(code, 2, "{out}{err}");
+    assert!(err.contains("names 2 anchors"), "{err}");
+    assert_eq!(std::fs::read_to_string(&manifest).unwrap(), before);
+    assert!(!scratch.path("p/p").exists());
+
+    std::fs::remove_file(scratch.path("p/docs/design.md")).unwrap();
+    let (out, err, code) = klarch(&scratch.path("p"), &["new-component", "svc"]);
+    assert_eq!(code, 2, "{out}{err}");
+    assert!(err.contains("incomplete"), "{err}");
+    assert_eq!(std::fs::read_to_string(&manifest).unwrap(), before);
+    assert!(!scratch.path("p/svc").exists());
+}
