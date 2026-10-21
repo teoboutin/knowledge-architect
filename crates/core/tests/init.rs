@@ -553,10 +553,19 @@ fn the_git_rule_holds_at_its_edges() {
     assert_eq!(code, 0, "{out}{err}");
     assert!(!out.contains("created  a git repository"), "{out}");
 
+    // A machine whose configuration sets `safe.directory = *` makes git trust every repository, so
+    // the refusal is reached only with the machine's configuration kept out,
+    // per `issue@core@the-tests-read-the-machine-s-git-configuration`.
+    scratch.write("empty.gitconfig", "");
+    let empty_config = scratch.path("empty.gitconfig");
     let (out, err, code) = klarch_env(
         &scratch.path("host"),
         &["init", "owned"],
-        &[("GIT_TEST_ASSUME_DIFFERENT_OWNER", "1")],
+        &[
+            ("GIT_TEST_ASSUME_DIFFERENT_OWNER", "1"),
+            ("GIT_CONFIG_NOSYSTEM", "1"),
+            ("GIT_CONFIG_GLOBAL", empty_config.to_str().unwrap()),
+        ],
     );
     assert_eq!(code, 2, "{out}{err}");
     assert!(!scratch.path("host/owned").exists());
