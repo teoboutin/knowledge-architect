@@ -54,6 +54,8 @@ fn cargo(dir: &Path, args: &[&str]) -> std::process::Output {
 /// A project written by `init --rust` builds against this workspace's crates, and its
 /// `cargo klarch check` passes: a change to the gates library or the core that the shipped
 /// snippets do not follow fails it, per `design@agent-skills@rust-templates-one-home`.
+// It runs in the default suite while it takes at most 60 seconds on the owner's workstation, a
+// threshold the owner accepted; past it, it is marked ignored and where it runs goes to the owner.
 #[test]
 fn a_project_written_by_init_rust_builds_and_checks() {
     let scratch = Scratch::new("scaffold");

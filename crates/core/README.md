@@ -334,7 +334,8 @@ klarch init my-project --rust       # also the maintenance crate, its workspace 
   `design@core@init-keeps-existing-files`. An
   existing README.md, CLAUDE.md or register home is kept and listed as `kept`; the check then
   reports what it lacks, such as the primer's import. The agent files are the install's, and it
-  writes them as `install-agent-skills` does. Every refusal comes before its first write, exit 2,
+  writes them inside a worktree as `check --fix` repairs them, and outside one as
+  `install-agent-skills` does. Every refusal comes before its first write, exit 2,
   each listed in the table of exit codes above, per `design@core@init-asks-no-confirmation`. Each
   file is created only if nothing is there, so one that appears during the run is kept too. A manifest above PATH does not refuse
   it: a project nested in another is legal, and the run notes that the outer project walks it
