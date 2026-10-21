@@ -27,6 +27,9 @@ use crate::Manifest;
 
 mod history;
 
+mod create;
+pub use create::init;
+
 mod gathered;
 pub use gathered::Gathered;
 
@@ -66,6 +69,35 @@ pub enum Command {
     /// Write the agent files this version ships into the project, and remove the ones it no
     /// longer ships.
     InstallAgentSkills,
+    /// Create a knowledge-architect project: its manifest, the installed agent files, and the
+    /// documents and homes the check requires. It overwrites no hand-written file.
+    Init(InitArgs),
+}
+
+#[derive(Args)]
+pub struct InitArgs {
+    /// The project's directory, created when it does not exist.
+    #[arg(value_name = "PATH", default_value = ".")]
+    pub path: std::path::PathBuf,
+    /// The project's name. The default is the basename of PATH.
+    #[arg(long, value_name = "NAME")]
+    pub name: Option<String>,
+    /// The project's command, written as `[project] command`; the default is `klarch`.
+    #[arg(long, value_name = "CMD")]
+    pub command: Option<String>,
+    /// Whether to run `git init`. The default runs it outside every git worktree, and refuses
+    /// a directory there that already holds files.
+    #[arg(long, value_enum, value_name = "VCS")]
+    pub vcs: Option<Vcs>,
+}
+
+/// The value of `init --vcs`.
+#[derive(Clone, Copy, Debug, PartialEq, Eq, clap::ValueEnum)]
+pub enum Vcs {
+    /// Run `git init` at PATH, wherever PATH is.
+    Git,
+    /// Never run `git init`.
+    None,
 }
 
 #[derive(Args)]
@@ -159,6 +191,13 @@ pub fn run(
         Command::Anchors => list_anchors(manifest, checker),
         Command::Commits(args) => history::commits(manifest, &args.range, checker, extensions),
         Command::InstallAgentSkills => install_agent_skills(manifest),
+        // A binary hands `init` to [`init`] before it locates a project, since `init` is what
+        // makes one; reaching here means the binary skipped that step, inside a project.
+        Command::Init(_) => Err(format!(
+            "`init` creates a project, and {} already holds one; a binary dispatches `init` to \
+             `cli::init` before it locates a project",
+            manifest.root().display()
+        )),
     }
 }
 
@@ -243,8 +282,10 @@ pub fn locate() -> Result<Manifest, String> {
 /// per `design@core@installed-binary-version-check` and `design@core@checked-sentinel-values`.
 ///
 /// **Each binary that dispatches a command of the checker calls it in its `main`**, right after
-/// [`refuse_a_foreign_build`] and before it dispatches any command, its own included, with the directories of its own source: the same
-/// list it hands [`run`] as `checker`. [`run`] does not call it, so a test driving a command
+/// [`refuse_a_foreign_build`] and before it dispatches any command but `init`, its own included,
+/// with the directories of its own source: the same list it hands [`run`] as `checker`. `init`
+/// goes to [`init`] before a project is located, since no manifest exists to read a pin from,
+/// and the manifest it writes pins this library's version. [`run`] does not call it, so a test driving a command
 /// in-process over a mock project needs no confirmed pin; the parse still requires the key.
 ///
 /// A version is accepted when it equals the version of this library, the checker every binary

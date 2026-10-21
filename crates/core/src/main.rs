@@ -29,32 +29,39 @@ fn main() -> ExitCode {
     // per `design@core@checker-source-literals-are-data`.
     let dir = knowledge_architect::component_dir();
     let dirs: Vec<&Path> = vec![dir.as_path()];
-    let outcome = knowledge_architect::cli::locate().and_then(|manifest| {
-        // A binary built from another checkout would judge this tree with that checkout's
-        // code, so no command runs, per `design@core@a-foreign-build-is-refused`.
-        knowledge_architect::cli::refuse_a_foreign_build(
-            manifest.root(),
-            // The library and the binary are one crate, so its one entry covers both. The crate
-            // of installed text is linked too, so a stale copy of it is refused as well.
-            &[
-                knowledge_architect::cli::this_library(),
-                knowledge_architect::cli::Library {
-                    crate_dir: std::path::PathBuf::from(
-                        knowledge_architect_agent_skills::CRATE_DIR,
-                    ),
-                    package: knowledge_architect_agent_skills::PACKAGE,
-                },
-            ],
-            &[
-                env!("CARGO_PKG_NAME"),
-                knowledge_architect_agent_skills::PACKAGE,
-            ],
-        )?;
-        // A binary of another version than the project pins would judge it by other rules, or
-        // install other skills over it, per `design@core@installed-binary-version-check`.
-        knowledge_architect::cli::refuse_another_version(&manifest, &dirs)?;
-        knowledge_architect::cli::run(cli.command, &manifest, &dirs, &mut [])
-    });
+    // The library and the binary are one crate, so its one entry covers both. The crate of
+    // installed text is linked too, so a stale copy of it is refused as well.
+    let libraries = [
+        knowledge_architect::cli::this_library(),
+        knowledge_architect::cli::Library {
+            crate_dir: std::path::PathBuf::from(knowledge_architect_agent_skills::CRATE_DIR),
+            package: knowledge_architect_agent_skills::PACKAGE,
+        },
+    ];
+    let packages = [
+        env!("CARGO_PKG_NAME"),
+        knowledge_architect_agent_skills::PACKAGE,
+    ];
+    // `init` makes the project the other commands locate, so it is dispatched first, per
+    // `design@core@the-core-cli-is-a-library-module`.
+    let outcome = match cli.command {
+        knowledge_architect::cli::Command::Init(args) => {
+            knowledge_architect::cli::init(args, &libraries, &packages, &dirs, &mut [])
+        }
+        command => knowledge_architect::cli::locate().and_then(|manifest| {
+            // A binary built from another checkout would judge this tree with that checkout's
+            // code, so no command runs, per `design@core@a-foreign-build-is-refused`.
+            knowledge_architect::cli::refuse_a_foreign_build(
+                manifest.root(),
+                &libraries,
+                &packages,
+            )?;
+            // A binary of another version than the project pins would judge it by other rules, or
+            // install other skills over it, per `design@core@installed-binary-version-check`.
+            knowledge_architect::cli::refuse_another_version(&manifest, &dirs)?;
+            knowledge_architect::cli::run(command, &manifest, &dirs, &mut [])
+        }),
+    };
     match outcome {
         Ok(code) => code,
         Err(e) => {

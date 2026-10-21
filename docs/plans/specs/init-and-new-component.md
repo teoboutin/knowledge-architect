@@ -535,10 +535,13 @@ crates/core/src/cli/mod.rs
                                           `command`, per D5
   NewComponentArgs { dir: PathBuf }
   Vcs { Git, None }                       the value of `--vcs`
-  init(args: InitArgs, checker: &[&Path], extensions: &mut [Box<dyn Extension>])
-      -> Result<ExitCode, String>         runs `init` with no located manifest, with the same
-                                          `checker` and `extensions` a binary hands `run`;
-                                          public, so every binary dispatches it before `locate`
+  init(args: InitArgs, libraries: &[Library], packages: &[&str], checker: &[&Path],
+       extensions: &mut [Box<dyn Extension>]) -> Result<ExitCode, String>
+                                          runs `init` with no located manifest, with the same
+                                          `libraries` and `packages` a binary hands the
+                                          build-origin refusal, and the same `checker` and
+                                          `extensions` it hands `run`; public, so every binary
+                                          dispatches it before `locate`
 crates/core/src/cli/create.rs             (new) the writer both commands share: the destination
                                           check, the starting text of each document, the
                                           manifest edit, the `.gitignore` append
@@ -556,7 +559,7 @@ crates/agent-skills/src/lib.rs
                                           the build from the directory, as FILES is
 ```
 
-`planned@core@src/cli/create.rs`, `planned@agent-skills@snippets/workspace-cargo.toml`,
+`path@core@src/cli/create.rs`, `planned@agent-skills@snippets/workspace-cargo.toml`,
 `planned@agent-skills@snippets/xtask-cargo.toml`, `planned@agent-skills@snippets/cargo-config.toml`,
 `planned@agent-skills@snippets/ci.yml`.
 
@@ -873,7 +876,7 @@ Claims:
 - a name `design`, `plans`, `elsewhere` or `knowledge-architect-x` exits 2 and writes nothing;
 - each row of the git table holds, each in a scratch directory;
 - stdin from /dev/null changes nothing;
-- the clap declaration passes `debug_assert` in the core's binary and in the xtask example.
+- the clap declaration passes `debug_assert` in the core's binary.
 
 Fails alone on: the manifest's text or the git rule.
 
