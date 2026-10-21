@@ -383,3 +383,59 @@ fn new_component_refuses_before_any_write() {
     assert_eq!(std::fs::read_to_string(&manifest).unwrap(), before);
     assert!(!scratch.path("p/svc").exists());
 }
+
+/// AC3, `--rust` shape: `init --rust` then `check` passes, the manifest declares the command and
+/// the maintenance crate, and the files carry this version and the project's checkout variable.
+#[test]
+fn init_rust_then_check_passes() {
+    let scratch = Scratch::new("ac3-rust");
+    let (out, err, code) = klarch(&scratch.dir, &["init", "my-proj", "--rust"]);
+    assert_eq!(code, 0, "{out}{err}");
+    assert_eq!(klarch(&scratch.path("my-proj"), &["check"]).2, 0);
+    let read = |rel: &str| std::fs::read_to_string(scratch.path("my-proj").join(rel)).unwrap();
+    let manifest: toml::Table = toml::from_str(&read("knowledge-architect.toml")).unwrap();
+    assert_eq!(
+        manifest["project"]["command"].as_str(),
+        Some("cargo klarch")
+    );
+    assert_eq!(
+        manifest["project"]["components"].as_array().unwrap().len(),
+        1
+    );
+    assert!(read("xtask/Cargo.toml").contains(&format!(
+        "knowledge-architect = \"={}\"",
+        knowledge_architect::CHECKER_VERSION
+    )));
+    assert!(read(".cargo/config.toml").contains("MY_PROJ_CHECKOUT"));
+    assert!(read("xtask/src/main.rs").contains("option_env!(\"MY_PROJ_CHECKOUT\")"));
+    assert_eq!(read(".gitignore"), "/target\n");
+}
+
+/// The claims: an existing `.gitignore` keeps every line and gains `/target` once; one that
+/// already ignores it is untouched; a PATH holding a `Cargo.toml` refuses `--rust`, exit 2,
+/// writing nothing.
+#[test]
+fn rust_keeps_the_gitignore_and_refuses_an_existing_cargo_toml() {
+    let scratch = Scratch::new("rust-ignore");
+    scratch.write("a/.gitignore", "mine");
+    let (out, err, code) = klarch(&scratch.dir, &["init", "a", "--rust", "--vcs", "git"]);
+    assert_eq!(code, 0, "{out}{err}");
+    assert_eq!(
+        std::fs::read_to_string(scratch.path("a/.gitignore")).unwrap(),
+        "mine\n\n# Added by klarch\n/target\n"
+    );
+
+    scratch.write("b/.gitignore", "target/\n");
+    let (out, err, code) = klarch(&scratch.dir, &["init", "b", "--rust", "--vcs", "git"]);
+    assert_eq!(code, 0, "{out}{err}");
+    assert_eq!(
+        std::fs::read_to_string(scratch.path("b/.gitignore")).unwrap(),
+        "target/\n"
+    );
+
+    scratch.write("c/Cargo.toml", "[package]\nname = \"c\"\n");
+    let before = listing(&scratch.path("c"));
+    let (out, err, code) = klarch(&scratch.dir, &["init", "c", "--rust", "--vcs", "git"]);
+    assert_eq!(code, 2, "{out}{err}");
+    assert_eq!(listing(&scratch.path("c")), before);
+}

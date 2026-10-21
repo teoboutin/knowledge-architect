@@ -325,6 +325,15 @@ A Rust project gets its gates and its pinned checker from one maintenance crate,
 workspace that is never
 published. The shapes below are illustrations, to adapt.
 
+**The workspace.** A project with no `Cargo.toml` gets a virtual workspace at its root, whose
+members name the crate:
+
+```toml
+[workspace]
+members = ["xtask"]
+resolver = "2"
+```
+
 **The crate.** It depends on the checker and on the gates library, both pinned exactly to the
 version the project uses, and on clap:
 

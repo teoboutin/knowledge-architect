@@ -336,20 +336,18 @@ A Rust project gets its gates and its pinned checker from one maintenance crate,
 workspace that is never
 published. The shapes below are illustrations, to adapt.
 
+**The workspace.** A project with no `Cargo.toml` gets a virtual workspace at its root, whose
+members name the crate:
+
+```toml
+{{snippet:workspace-cargo.toml}}
+```
+
 **The crate.** It depends on the checker and on the gates library, both pinned exactly to the
 version the project uses, and on clap:
 
 ```toml
-[package]
-name = "xtask"
-version = "0.0.0"
-edition = "2021"
-publish = false
-
-[dependencies]
-clap = { version = "4", features = ["derive"] }
-knowledge-architect = "=<version>"
-knowledge-architect-gates = "=<version>"
+{{snippet:xtask-cargo.toml}}
 ```
 
 **The aliases**, in `<workspace-root>/.cargo/config.toml`: `cargo x` runs the crate's own commands, and
@@ -357,12 +355,7 @@ knowledge-architect-gates = "=<version>"
 command (`skill@knowledge-architect-setup@declare-the-command`).
 
 ```toml
-[alias]
-x = "run -q -p xtask --"
-klarch = "run -q --release -p xtask -- klarch"
-
-[env]
-<PROJECT>_CHECKOUT = { value = ".", relative = true, force = true }
+{{snippet:cargo-config.toml}}
 ```
 
 %% The argument for the tie, and the observations of cargo it rests on, are this repository's own
@@ -419,30 +412,7 @@ a mock plants, and what a test pins.
 history deep enough for the range and the rebase check:
 
 ```yaml
-name: ci
-on:
-  pull_request:
-    types: [opened, synchronize, reopened, ready_for_review]
-permissions:
-  contents: read
-jobs:
-  check:
-    if: ${{ !github.event.pull_request.draft }}
-    runs-on: ubuntu-latest
-    timeout-minutes: 30
-    steps:
-      - uses: actions/checkout@v5
-        with:
-          ref: ${{ github.event.pull_request.head.sha }}
-          fetch-depth: 0
-      - name: gates
-        run: cargo --locked x gates --locked --fail-fast --require-rebased --full
-      - name: gate logs
-        if: failure()
-        uses: actions/upload-artifact@v7
-        with:
-          name: gate-logs
-          path: target/gates/
+{{snippet:ci.yml}}
 ```
 
 `cargo --locked x` keeps cargo from rewriting a drifted `Cargo.lock` before the tool starts, and

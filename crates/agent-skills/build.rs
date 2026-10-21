@@ -7,10 +7,12 @@
 //! would not ship has no reason to be in the package.
 //!
 //! A line of shipped text that is a snippet placeholder, `{{snippet:<file>}}`, is replaced with
-//! the file of that name under snippets/, so the text shipped is the text a workspace target
-//! compiles. A placeholder naming no file, and a file no placeholder names, fail the build. The
-//! placeholder is filled here rather than at install, where the project's command is filled,
-//! because a snippet does not vary by project.
+//! the file of that name under snippets/, so the text shipped is the text a test of this workspace
+//! checks: a Rust snippet compiled by an example of the maintenance crate, a manifest or a
+//! configuration built by the test of `klarch init --rust`, which writes them. A placeholder naming
+//! no file, and a file no placeholder names, fail the build. The placeholder is filled here rather
+//! than at install, where the project's command is filled, because a snippet does not vary by
+//! project. The snippets are also listed whole, by file name, as `SNIPPETS`, for the core to write.
 //!
 //! Before that, three passes, in this order. A line whose first two characters are `%%` is a
 //! comment for this repository's maintainers: it is removed whole, so it may cite design heads and
@@ -23,7 +25,7 @@
 //! that the checker would misread if content/ held it. A row no text uses fails the build. The
 //! substitutions are filled here, not at install, for the snippets' reason: their literals do not
 //! vary by project. Snippets come last so that a snippet's own text is never stripped or
-//! substituted: a snippet is code a workspace target compiles, shipped as compiled.
+//! substituted: a snippet is text a test of this workspace checks, shipped as checked.
 
 use std::fmt::Write as _;
 use std::path::{Path, PathBuf};
@@ -127,6 +129,11 @@ fn main() {
         "substitution rows no text of content/ uses: {unused:?}"
     );
     std::fs::write(out.join("files.rs"), list).expect("OUT_DIR is writable");
+    std::fs::write(
+        out.join("snippets.rs"),
+        snippets.listing(&root.join("snippets")),
+    )
+    .expect("OUT_DIR is writable");
 }
 
 /// The files under snippets/, by name, each with whether a placeholder has named it.
@@ -184,7 +191,22 @@ impl Snippets {
         rendered
     }
 
-    /// Fails the build on a snippet no placeholder named: it would be compiled and never shipped.
+    /// Every snippet as a Rust slice of its file name and its text, in name order, the text
+    /// included from `dir` so the generated source holds no copy of it.
+    fn listing(&self, dir: &Path) -> String {
+        let mut names: Vec<&str> = self.0.iter().map(|(n, _, _)| n.as_str()).collect();
+        names.sort();
+        let mut list = String::from("&[\n");
+        for name in names {
+            let path = dir.join(name);
+            let path = path.to_str().expect("a UTF-8 path");
+            writeln!(list, "    ({name:?}, include_str!({path:?})),").expect("a String");
+        }
+        list.push(']');
+        list
+    }
+
+    /// Fails the build on a snippet no placeholder named: it would be checked and never shipped.
     fn all_used(&self) {
         let unused: Vec<&str> = self
             .0

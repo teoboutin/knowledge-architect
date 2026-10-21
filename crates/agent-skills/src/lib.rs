@@ -13,6 +13,10 @@ const _: Option<&str> = option_env!("KNOWLEDGE_ARCHITECT_CHECKOUT");
 /// Every file the installer writes, as its install path and its text, in path order.
 pub static FILES: &[(&str, &str)] = include!(concat!(env!("OUT_DIR"), "/files.rs"));
 
+/// Every file of the snippets the setup skill inlines, as its file name and its text, in name
+/// order: the files `klarch init --rust` writes, so a project gets what the skill shows.
+pub static SNIPPETS: &[(&str, &str)] = include!(concat!(env!("OUT_DIR"), "/snippets.rs"));
+
 /// This crate's directory, compiled in, so a binary that links it can refuse a build made from
 /// another checkout, per `design@core@a-foreign-build-is-refused`.
 pub const CRATE_DIR: &str = env!("CARGO_MANIFEST_DIR");

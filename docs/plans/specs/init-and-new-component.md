@@ -87,7 +87,7 @@ paragraph, and the repository's development procedure, `skill@klarch-development
   crate's Cargo.toml, its cargo aliases with the `[env]` tie, its main (the xtask snippet), and a
   CI workflow. It states the workspace a project gains in prose, with no block. The three blocks
   other than the main are checked by nothing,
-  `issue@agent-skills@the-setup-section-s-toml-and-ci-blocks-are-unchecked`.
+  `the-setup-section-s-toml-and-ci-blocks-are-unchecked`.
 - The snippets directory holds one file, the xtask snippet. The build's header says a snippet is
   code a workspace target compiles, and `path@xtask@tests/snippets.rs` requires every snippet to be
   included by an example of the xtask crate.
@@ -217,7 +217,7 @@ outcome:**
 | --- | --- |
 | `issue@agent-skills@a-skill-for-creating-a-component` | bears: `new-component` creates the files and leaves the issue open; the setup skill points to the command, step 5 |
 | `issue@core@a-component-states-at-least-one-goal` | bears: the commands create empty goals homes, as M2 shows the check accepts; unchanged |
-| `issue@agent-skills@the-setup-section-s-toml-and-ci-blocks-are-unchecked` | bears: closed by step 4, per #rust-templates-one-home |
+| `the-setup-section-s-toml-and-ci-blocks-are-unchecked` | bears: closed by step 4, per #rust-templates-one-home |
 | `issue@core@a-home-for-developer-contracts-outside-agent-configuration` | bears: the commands take the document list from required documents, so they follow that work |
 | `tripwire@core@phases-gate-the-report-two` | bears: re-read at step 6; `init` adds no flag around the gate, and `new-component` passes through it |
 | `tripwire@core@fix-makes-a-choice` | bears on nothing: no creation runs under `--fix` |
@@ -378,7 +378,7 @@ and "Q3: no."
 
 Proposed by the session, round 1 (#arg-12). Final state: approved. Shape: "Decided design", "The
 templates". Harvest: a design head of agent-skills; closes
-`issue@agent-skills@the-setup-section-s-toml-and-ci-blocks-are-unchecked`. The owner, round 2:
+`the-setup-section-s-toml-and-ci-blocks-are-unchecked`. The owner, round 2:
 "rust-templates-one-home: agreed."
 
 ### `init` is documented in the core's README and run from a binary the user installed; the setup skill names the commands `##init-delivery`
@@ -469,7 +469,7 @@ adds a hosting assumption."
 ### A separate template would be a fourth unchecked copy `##arg-12`
 
 Round 1, the session. Bears on #rust-templates-one-home. "That closes
-`issue@agent-skills@the-setup-section-s-toml-and-ci-blocks-are-unchecked`, where a separate template
+`the-setup-section-s-toml-and-ci-blocks-are-unchecked`, where a separate template
 would add a fourth unchecked copy."
 
 ### `init` runs before any installed text exists `##arg-13`
@@ -559,9 +559,9 @@ crates/agent-skills/src/lib.rs
                                           the build from the directory, as FILES is
 ```
 
-`path@core@src/cli/create.rs`, `planned@agent-skills@snippets/workspace-cargo.toml`,
-`planned@agent-skills@snippets/xtask-cargo.toml`, `planned@agent-skills@snippets/cargo-config.toml`,
-`planned@agent-skills@snippets/ci.yml`.
+`path@core@src/cli/create.rs`, `path@agent-skills@snippets/workspace-cargo.toml`,
+`path@agent-skills@snippets/xtask-cargo.toml`, `path@agent-skills@snippets/cargo-config.toml`,
+`path@agent-skills@snippets/ci.yml`.
 
 ## Decided design
 
@@ -977,7 +977,7 @@ request, on the owner's word in the same message.
 | #component-command | a design head of core on `new-component` | step 6 |
 | #component-manifest-edit | a design head of core, by entry test 3 | step 6 |
 | #rust-scaffold | a design head of core on `--rust` | step 6 |
-| #rust-templates-one-home | a design head of agent-skills; closes `issue@agent-skills@the-setup-section-s-toml-and-ci-blocks-are-unchecked` | step 4 for the issue, step 6 for the head |
+| #rust-templates-one-home | a design head of agent-skills; closes `the-setup-section-s-toml-and-ci-blocks-are-unchecked` | step 4 for the issue, step 6 for the head |
 | #init-delivery | the rewrites of `design@agent-skills@exact-pin` and `design@agent-skills@pinned-binary-runs-inside-the-project` | step 6 |
 | #init-under-an-extension | the rewrite of `design@core@the-core-cli-is-a-library-module`; a head of core on the absent hook | step 6 |
 | the rewrites under "What is already decided" | each head named there | step 6 |
