@@ -2762,9 +2762,10 @@ change of what a Component carries reaches `init` with no edit to it, per
 
 ### `init` follows `cargo init` wherever no argument departs from it `##init-follows-cargo-init`
 
-Rust is the language the project focuses on first, on the owner's word, and `cargo init` is the
-command its users already type to start a project. The owner holds that following `cargo init`'s
-usage as far as possible is probably best, so a user's habits carry over to `init`: a choice about
+Rust is the language the project serves first, per
+`goal@knowledge-architect@rust-projects-come-first`, and `cargo init` is the command its users
+already type to start a project. The owner holds that following `cargo init`'s usage as far as
+possible is probably best, so a user's habits carry over to `init`: a choice about
 `init` that `cargo init` already makes is made the same way unless an argument departs from it. The
 owner holds this argument as the one that may shape later changes of `init`. The
 members today are the name and PATH of `design@core@init-name-and-path`, the absence of a prompt of
