@@ -1,0 +1,6 @@
+[alias]
+x = "run -q -p xtask --"
+klarch = "run -q --release -p xtask -- klarch"
+
+[env]
+<PROJECT>_CHECKOUT = { value = ".", relative = true, force = true }

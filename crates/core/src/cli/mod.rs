@@ -95,7 +95,13 @@ pub struct InitArgs {
     /// A Component to add, as `new-component` adds one; repeatable. DIR is relative to PATH.
     #[arg(long = "component", value_name = "DIR")]
     pub components: Vec<std::path::PathBuf>,
-    /// The project's command, written as `[project] command`; the default is `klarch`.
+    /// Also write the maintenance crate of a Rust project, `xtask`, with its virtual workspace,
+    /// its cargo aliases and `/target` in `.gitignore`, as the setup skill shows them. Refused
+    /// where PATH holds a `Cargo.toml`.
+    #[arg(long)]
+    pub rust: bool,
+    /// The project's command, written as `[project] command`; the default is `klarch`, or
+    /// `cargo klarch` under `--rust`.
     #[arg(long, value_name = "CMD")]
     pub command: Option<String>,
     /// Whether to run `git init`. The default runs it outside every git worktree, and refuses

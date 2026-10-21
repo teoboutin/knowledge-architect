@@ -71,12 +71,24 @@ pub fn init(
              install. Pass another --name"
         ));
     }
-    let components = args
+    let mut components = args
         .components
         .iter()
         .map(|dir| project_relative(&root, &lexical(&root.join(dir))))
         .collect::<Result<Vec<_>, _>>()?;
-    let manifest = manifest_text(&name, args.command.as_deref(), &components);
+    let mut command = args.command.clone();
+    if args.rust {
+        if root.join("Cargo.toml").exists() {
+            return Err(format!(
+                "{} holds a Cargo.toml: `--rust` writes a workspace of its own, and adding the \
+                 maintenance crate to an existing one is left to the project. Nothing was written.",
+                root.display()
+            ));
+        }
+        components.push(XTASK_DIR.to_string());
+        command.get_or_insert_with(|| "cargo klarch".to_string());
+    }
+    let manifest = manifest_text(&name, command.as_deref(), &components);
     let parsed = Manifest::parse(&root, &manifest)
         .map_err(|e| format!("the manifest `init` would write does not parse: {e}"))?;
     if let Some(complaint) = parsed.complaints().first() {
@@ -90,7 +102,10 @@ pub fn init(
         super::refuse_a_foreign_build(&root, libraries, packages)?;
     }
     let run_git = git_rule(&root, args.vcs)?;
-    let documents = owed_documents(&parsed, &root, |_| true)?;
+    let mut documents = owed_documents(&parsed, &root, |_| true)?;
+    if args.rust {
+        documents.extend(rust_files(&root, &name)?);
+    }
 
     // The writes.
     std::fs::create_dir_all(&root).map_err(|e| format!("cannot create {}: {e}", root.display()))?;
@@ -105,7 +120,13 @@ pub fn init(
     std::fs::write(root.join(MANIFEST_NAME), manifest)
         .map_err(|e| format!("cannot write {MANIFEST_NAME}: {e}"))?;
     outln!("wrote    {MANIFEST_NAME}");
-    let written = write_documents(&root, &documents);
+    let written = write_documents(&root, &documents).and_then(|()| {
+        if args.rust {
+            ignore_target(&root)
+        } else {
+            Ok(())
+        }
+    });
     let manifest = Manifest::load(&root);
     match (written, manifest) {
         (Ok(()), Ok(manifest)) => finish(&manifest, checker, extensions),
@@ -306,6 +327,86 @@ fn home_text(register: &str, anchor: &str) -> String {
     format!("# {title}\n\n{holds}\n")
 }
 
+/// The directory of the maintenance crate `--rust` writes, which is also a Component.
+const XTASK_DIR: &str = "xtask";
+
+/// The files `--rust` writes, each the setup skill's snippet with its placeholders filled: the
+/// version this binary is, and the project's checkout variable. Judged like the documents, so an
+/// existing one is kept and an unwritable one refuses the run.
+fn rust_files(root: &Path, name: &str) -> Result<Vec<Document>, String> {
+    let checkout = name
+        .chars()
+        .map(|c| {
+            if c.is_ascii_alphanumeric() {
+                c.to_ascii_uppercase()
+            } else {
+                '_'
+            }
+        })
+        .collect::<String>();
+    let snippet = |file: &str| -> String {
+        knowledge_architect_agent_skills::SNIPPETS
+            .iter()
+            .find(|(n, _)| *n == file)
+            .map(|(_, text)| {
+                text.replace("<version>", crate::CHECKER_VERSION)
+                    .replace("<PROJECT>", &checkout)
+            })
+            .unwrap_or_else(|| panic!("the agent-skills crate ships the snippet {file}"))
+    };
+    [
+        ("Cargo.toml", "workspace-cargo.toml"),
+        ("xtask/Cargo.toml", "xtask-cargo.toml"),
+        ("xtask/src/main.rs", "xtask-main.rs"),
+        (".cargo/config.toml", "cargo-config.toml"),
+    ]
+    .into_iter()
+    .map(|(rel, file)| {
+        let path = root.join(rel);
+        refuse_unwritable(root, &path)?;
+        Ok(Document {
+            rel: PathBuf::from(rel),
+            text: snippet(file),
+            kept: path.is_file(),
+        })
+    })
+    .collect()
+}
+
+/// Make `.gitignore` ignore `/target`, where cargo builds: an existing file keeps every line and
+/// gains the rule under a line saying who added it, as `cargo init` appends its own; a file that
+/// already holds one of the four usual spellings of the rule is left as it is.
+fn ignore_target(root: &Path) -> Result<(), String> {
+    let path = root.join(".gitignore");
+    let existing = match std::fs::read_to_string(&path) {
+        Ok(text) => Some(text),
+        Err(e) if e.kind() == std::io::ErrorKind::NotFound => None,
+        Err(e) => return Err(format!("cannot read {}: {e}", path.display())),
+    };
+    let text = match existing {
+        Some(text)
+            if text
+                .lines()
+                .any(|l| matches!(l.trim(), "/target" | "/target/" | "target" | "target/")) =>
+        {
+            outln!("kept     .gitignore");
+            return Ok(());
+        }
+        Some(text) => {
+            let sep = if text.is_empty() || text.ends_with('\n') {
+                ""
+            } else {
+                "\n"
+            };
+            format!("{text}{sep}\n# Added by klarch\n/target\n")
+        }
+        None => "/target\n".to_string(),
+    };
+    std::fs::write(&path, text).map_err(|e| format!("cannot write {}: {e}", path.display()))?;
+    outln!("wrote    .gitignore");
+    Ok(())
+}
+
 /// Add a Component to the project `manifest` describes, as `klarch new-component` does.
 ///
 /// It runs inside a located project and behind the writer gate, so over a model phases 1 to 3
@@ -495,6 +596,7 @@ mod tests {
             command: None,
             vcs: None,
             components: Vec::new(),
+            rust: false,
         };
         let outcome = super::super::run(super::super::Command::Init(args), &manifest, &[], &mut []);
         let err = outcome.expect_err("refused");

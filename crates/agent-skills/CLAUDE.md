@@ -34,11 +34,13 @@ removes it. Indented, or inside a fenced block, it fails the build. **A literal 
 misread** goes in `SUBSTITUTIONS` of `path@agent-skills@build.rs`, with the reason in its comment,
 and the text writes its placeholder; a row no text uses fails the build.
 
-**The maintenance crate's main that the setup skill shows is a file under
-`path@agent-skills@snippets/`**, which the skill names by a placeholder line,
-`{{snippet:<file>}}`, and the build script inlines. Edit the file, not the skill. The example
-`path@xtask@examples/setup_snippet.rs` compiles it. rustfmt does not reach an included file, so
-`rustfmt --edition 2021 --check` it by hand after an edit. The checker reads it as Rust source:
+**The blocks the setup skill shows for a Rust project are files under
+`path@agent-skills@snippets/`**, which the skill names by placeholder lines,
+`{{snippet:<file>}}`, and the build script inlines; `klarch init --rust` writes them from the
+crate's `SNIPPETS`. Edit the file, not the skill. The example
+`path@xtask@examples/setup_snippet.rs` compiles the main, and `path@xtask@tests/scaffold.rs`
+builds a project written from the others and parses the CI workflow's gates command. rustfmt does
+not reach an included file, so `rustfmt --edition 2021 --check` the main by hand after an edit. The checker reads the main as Rust source:
 its comments are prose, a reference in them that resolves here passes the check and ships, and the
 text it ships cites no entry, as content/ does, per
 `design@agent-skills@shipped-text-cites-no-entry`. The release's hand check reads the installed copies, which hold the snippet inlined.

@@ -1,6 +1,8 @@
-//! Every snippet the setup skill ships is compiled, per the doc comment of
+//! Every Rust snippet the setup skill ships is compiled, per the doc comment of
 //! `path@agent-skills@build.rs`: the build fails on a snippet no placeholder names, and this test
-//! fails on one no example of this crate includes, so the shipped text is the compiled text.
+//! fails on a Rust one no example of this crate includes, so the shipped text is the compiled
+//! text. The other snippets are checked by `path@xtask@tests/scaffold.rs`, which builds a project
+//! `klarch init --rust` wrote from them, and checks the CI workflow's gates command.
 
 use std::path::Path;
 
@@ -8,7 +10,7 @@ use std::path::Path;
 const _: Option<&str> = option_env!("KNOWLEDGE_ARCHITECT_CHECKOUT");
 
 #[test]
-fn every_snippet_is_included_by_an_example() {
+fn every_rust_snippet_is_included_by_an_example() {
     let crate_dir = Path::new(env!("CARGO_MANIFEST_DIR"));
     let snippets = crate_dir.join("../../crates/agent-skills/snippets");
     let examples = crate_dir.join("examples");
@@ -21,6 +23,9 @@ fn every_snippet_is_included_by_an_example() {
     for entry in std::fs::read_dir(&snippets).expect("snippets/ is readable") {
         let name = entry.expect("snippets/ is readable").file_name();
         let name = name.to_str().expect("a UTF-8 file name");
+        if !name.ends_with(".rs") {
+            continue;
+        }
         let line = format!("include!(\"../../../crates/agent-skills/snippets/{name}\");");
         if !included.lines().any(|l| l.trim() == line) {
             missing.push(name.to_owned());
