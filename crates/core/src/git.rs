@@ -38,6 +38,23 @@ pub(crate) struct Invocation {
     accept: Vec<i32>,
 }
 
+/// Whether `dir`, an existing directory, lies inside a git working tree.
+///
+/// Outside every repository git exits 128, which is an answer here; inside a repository's own
+/// `.git` directory it prints `false`, which is not a working tree either.
+pub(crate) fn inside_work_tree(dir: &Path) -> io::Result<bool> {
+    let out = git(dir)
+        .args(["rev-parse", "--is-inside-work-tree"])
+        .accept(128)
+        .output()?;
+    Ok(String::from_utf8_lossy(&out).trim() == "true")
+}
+
+/// Create a repository at `dir`, an existing directory, as `init` does where its git rule asks.
+pub(crate) fn init_repository(dir: &Path) -> io::Result<()> {
+    git(dir).args(["init", "-q"]).output().map(|_| ())
+}
+
 /// A git invocation rooted at `root`, with nothing asked yet.
 pub(crate) fn git(root: &Path) -> Invocation {
     Invocation {

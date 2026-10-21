@@ -41,21 +41,23 @@ fn main() -> ExitCode {
         }
         Command::Klarch { command } => {
             let own = Path::new(env!("CARGO_MANIFEST_DIR"));
-            let outcome = cli::locate().and_then(|manifest| {
-                cli::refuse_a_foreign_build(
-                    manifest.root(),
-                    &[
-                        cli::this_library(),
-                        cli::Library {
-                            crate_dir: own.to_path_buf(),
-                            package: env!("CARGO_PKG_NAME"),
-                        },
-                    ],
-                    &[env!("CARGO_PKG_NAME")],
-                )?;
-                cli::refuse_another_version(&manifest, &[own])?;
-                cli::run(command, &manifest, &[own], &mut [])
-            });
+            let libraries = [
+                cli::this_library(),
+                cli::Library {
+                    crate_dir: own.to_path_buf(),
+                    package: env!("CARGO_PKG_NAME"),
+                },
+            ];
+            let packages = [env!("CARGO_PKG_NAME")];
+            // `init` creates the project the other commands locate, so it goes first.
+            let outcome = match command {
+                cli::Command::Init(args) => cli::init(args, &libraries, &packages, &[own], &mut []),
+                command => cli::locate().and_then(|manifest| {
+                    cli::refuse_a_foreign_build(manifest.root(), &libraries, &packages)?;
+                    cli::refuse_another_version(&manifest, &[own])?;
+                    cli::run(command, &manifest, &[own], &mut [])
+                }),
+            };
             outcome.unwrap_or_else(|e| {
                 eprintln!("error: {e}");
                 ExitCode::from(2)

@@ -64,25 +64,29 @@
 //!     // The directory of the binary's own crate: its string literals are read as data.
 //!     let own = Path::new(env!("CARGO_MANIFEST_DIR"));
 //!     let mut extensions: Vec<Box<dyn Extension>> = Vec::new(); // Box::new(TheExtension), …
-//!     let outcome = cli::locate().and_then(|manifest| {
-//!         cli::refuse_a_foreign_build(
-//!             manifest.root(),
-//!             // Every library the binary links, the binary's own crate included, and one
-//!             // entry per crate of the extension's library.
-//!             &[
-//!                 cli::this_library(),
-//!                 cli::Library { crate_dir: own.to_path_buf(), package: env!("CARGO_PKG_NAME") },
-//!             ],
-//!             // The packages of the project's own workspace that the binary links.
-//!             &[env!("CARGO_PKG_NAME")],
-//!         )?;
-//!         // Before any command, the extension's own included.
-//!         cli::refuse_another_version(&manifest, &[own])?;
-//!         match parsed.command {
-//!             Commands::Core(command) => cli::run(command, &manifest, &[own], &mut extensions),
-//!             // Each command of the extension is one more arm here.
+//!     // Every library the binary links, the binary's own crate included, and one entry per
+//!     // crate of the extension's library.
+//!     let libraries = [
+//!         cli::this_library(),
+//!         cli::Library { crate_dir: own.to_path_buf(), package: env!("CARGO_PKG_NAME") },
+//!     ];
+//!     // The packages of the project's own workspace that the binary links.
+//!     let packages = [env!("CARGO_PKG_NAME")];
+//!     let outcome = match parsed.command {
+//!         // `init` creates the project the other commands locate, so it goes first.
+//!         Commands::Core(cli::Command::Init(args)) => {
+//!             cli::init(args, &libraries, &packages, &[own], &mut extensions)
 //!         }
-//!     });
+//!         command => cli::locate().and_then(|manifest| {
+//!             cli::refuse_a_foreign_build(manifest.root(), &libraries, &packages)?;
+//!             // Before any other command, the extension's own included.
+//!             cli::refuse_another_version(&manifest, &[own])?;
+//!             match command {
+//!                 Commands::Core(command) => cli::run(command, &manifest, &[own], &mut extensions),
+//!                 // Each command of the extension is one more arm here.
+//!             }
+//!         }),
+//!     };
 //!     outcome.unwrap_or_else(|e| {
 //!         eprintln!("error: {e}");
 //!         ExitCode::from(2)
@@ -100,7 +104,9 @@
 //!
 //! [`cli::refuse_another_version`] refuses to run over a project whose manifest pins another
 //! version of the checker in `[project] checker-version`. Every binary that dispatches a command
-//! of the checker calls it before dispatching; without the call, that binary enforces no pin. A
+//! of the checker calls it before dispatching any command but `init`; without the call, that
+//! binary enforces no pin. `init` goes to [`cli::init`] before a project is located, as the
+//! example above does, since it writes the manifest the pin is read from. A
 //! crate that uses the library only for [`MANIFEST_NAME`] dispatches no command, and does not. A
 //! mock project inside the extension's crate may say `checker-version = "fixture"`, which this
 //! call accepts because the crate's directory is among the directories it is given. A copy of a
