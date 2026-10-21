@@ -88,7 +88,16 @@ version it uses, and moves to a new one when it chooses. The target is projects 
 AI agents, and a new project, which adopts the checker and the workflow from its first commit, comes
 first. An existing project can adopt them too, by bringing its documents into conformance; what that
 costs it is never an argument against a check the workflow needs to work well. A project without
-agents can still use the checker alone.
+agents can still use the checker alone. A project in a language other than Rust adopts it in the
+reduced mode of `goal@knowledge-architect@rust-projects-come-first`.
+
+## A Rust project gets every feature, and a project in another language a reduced mode `##rust-projects-come-first`
+
+Rust is the language the project serves first. A feature that depends on the project's language is
+built for Rust, and a feature is not given up because it can serve only Rust projects. A project in
+another language can still adopt the checker and the workflow, without what depends on Rust. It is
+met while a Rust project gets every check and tool the project offers, and a project in another
+language adopts the rest.
 
 ## Adopting the project is easy, with documentation that is clear and reaches its reader `##adoption-is-easy`
 

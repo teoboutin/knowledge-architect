@@ -1,6 +1,6 @@
 **Generated — do not edit.** `cargo klarch index`
 
-5 entries
+6 entries
 
 | kind | title |
 | --- | --- |
@@ -9,3 +9,4 @@
 | question | [A measurement taken in another project that a head leans on has two homes in the knowledge table](a-measurement-from-another-project-has-two-homes.md) |
 | question | [Does the quick-fixes spec still hold now that the lints on ids are built?](path-quickfixes-read-against-the-lints-on-ids.md) |
 | todo | [CHANGELOG.md's shape is checked by a reviewer only, and no model of it exists](a-mechanical-changelog-check.md) |
+| todo | [No document tells a project in another language than Rust what its reduced mode lacks](the-reduced-mode-outside-rust-is-not-documented.md) |
