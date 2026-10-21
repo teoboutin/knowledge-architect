@@ -36,6 +36,20 @@ drift ships: a skill missing from the list is never installed, and nothing repor
 test `every_shipped_file_is_installed_in_the_owned_namespace` holds the build script to the
 namespace, since an install path outside it would write a file the project owns.
 
+### The setup skill's blocks for a Rust project are snippets that a test checks and `klarch init --rust` writes `##rust-templates-one-home`
+
+Each block `skill@knowledge-architect-setup@rust-project` shows is a file of
+`path@agent-skills@snippets/`, inlined by the build, and exposed whole as `SNIPPETS`: the
+workspace's Cargo.toml, the maintenance crate's Cargo.toml, the cargo aliases with the `[env]` tie,
+the crate's main and the CI workflow. `klarch init --rust` writes all of them but the CI workflow,
+per `design@core@rust-scaffold`, so a project gets the text the skill shows. Each is checked by a
+test of the workspace: the main is compiled by an example of the maintenance crate, the three TOML
+files by a test that builds a project `init --rust` wrote and runs its checker, and the CI
+workflow's gates command by a test that parses it with the gates library's flags. A block copied
+into a template of the core would be one more text that drifts from the skill, and a block in the
+skill alone is checked by nothing, so a change of the gates library or of the checker's command
+line could leave it wrong while every gate passes.
+
 ### A saved workflow's `meta` name equals its installed file's stem, which the build asserts `##saved-workflow-name-is-its-file-stem`
 
 The harness reads saved workflows directly under .claude/workflows/, no deeper, and calls each by
@@ -3048,8 +3062,9 @@ A project depends on one exact version of the checker, so moving it is an explic
 installed skills move with it. **The manifest declares the
 same pin**, in `[project] checker-version`, and every binary that dispatches a command of the
 checker refuses to run over a project whose pin it does not satisfy, per `design@core@installed-binary-version-check`, so an install or a build
-left behind by a move of the pin is refused at its first command rather than run. The setup skill
-writes the key and moves it with the pin.
+left behind by a move of the pin is refused at its first command rather than run. `klarch init`
+writes the key, per `design@core@init-command`, or the setup skill does by hand, and the setup
+skill moves it with the pin.
 
 ### A project runs its pinned checker from inside the project, never from a machine-wide install `##pinned-binary-runs-inside-the-project`
 
@@ -3062,7 +3077,9 @@ asks for, or installs the binary as any other project does and builds its own ga
 owner's ruling, since the first changes the project's build. A machine-wide install would give two projects on one machine one
 version, which is what bundling the workflow into the checker avoids, per
 `design@knowledge-architect@binary-bundles-workflow`. A project with an extension runs its own
-binary under a name of its own, per `design@core@declared-command`.
+binary under a name of its own, per `design@core@declared-command`. The binary that runs
+`klarch init` is the one exception: it runs before any pin exists, from whatever install its user
+keeps, and writes its own version as the pin, per `design@core@init-command`.
 
 ### The setup skill recommends one gates command, run by the published gates library where the project has a maintenance crate `##gates-convention`
 

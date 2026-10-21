@@ -37,20 +37,26 @@ pub fn init(
     let root = lexical(&cwd.join(&args.path));
     let name = match &args.name {
         Some(name) => name.clone(),
-        None => root
-            .file_name()
-            .and_then(|n| n.to_str())
-            .map(str::to_string)
-            .ok_or_else(|| {
+        None => match root.file_name() {
+            Some(n) => n.to_str().map(str::to_string).ok_or_else(|| {
                 format!(
-                    "{} has no basename to name the project by: pass --name",
+                    "{}'s basename is not UTF-8, and a project's name is: pass --name",
                     root.display()
                 )
             })?,
+            None => {
+                return Err(format!(
+                    "{} has no basename to name the project by: pass --name",
+                    root.display()
+                ))
+            }
+        },
     };
 
     // Every refusal before the first write.
-    if root.join(MANIFEST_NAME).exists() {
+    // Anything at the manifest's path refuses, a dangling symlink included, which `exists`
+    // would not see and a write would follow out of the project.
+    if std::fs::symlink_metadata(root.join(MANIFEST_NAME)).is_ok() {
         return Err(format!(
             "{} already holds {MANIFEST_NAME}: `init` creates a project, and this is one",
             root.display()
@@ -74,15 +80,24 @@ pub fn init(
     let mut components = args
         .components
         .iter()
-        .map(|dir| project_relative(&root, &lexical(&root.join(dir))))
+        .map(|dir| component_path(&root, &lexical(&root.join(dir))))
         .collect::<Result<Vec<_>, _>>()?;
     let mut command = args.command.clone();
     if args.rust {
-        if root.join("Cargo.toml").exists() {
+        // `--rust` writes a workspace of its own. Under a directory holding a Cargo.toml, cargo
+        // would read that manifest as an enclosing workspace, and a `members` glob covering PATH
+        // breaks it with two workspace roots; adding the maintenance crate to an existing
+        // workspace or package is a design of its own, per `design@core@rust-scaffold`.
+        if let Some(cargo) = root
+            .ancestors()
+            .map(|dir| dir.join("Cargo.toml"))
+            .find(|path| path.exists())
+        {
             return Err(format!(
-                "{} holds a Cargo.toml: `--rust` writes a workspace of its own, and adding the \
-                 maintenance crate to an existing one is left to the project. Nothing was written.",
-                root.display()
+                "{} exists: `--rust` writes a Cargo workspace of its own, and adding the \
+                 maintenance crate to an existing workspace or package is left to the project. \
+                 Nothing was written.",
+                cargo.display()
             ));
         }
         components.push(XTASK_DIR.to_string());
@@ -101,38 +116,76 @@ pub fn init(
     if root.is_dir() {
         super::refuse_a_foreign_build(&root, libraries, packages)?;
     }
+    // With either variable set, as inside a git hook, git answers about another repository than
+    // PATH's, and `git init` re-initialises that one. Every other command reads that repository
+    // too, per `issue@core@git-environment-variables-redirect-the-walk`.
+    for variable in ["GIT_DIR", "GIT_WORK_TREE"] {
+        if std::env::var_os(variable).is_some() {
+            return Err(format!(
+                "{variable} is set, so git would answer about another repository than {}'s: \
+                 run `init` without it. Nothing was written.",
+                root.display()
+            ));
+        }
+    }
     let run_git = git_rule(&root, args.vcs)?;
     let mut documents = owed_documents(&parsed, &root, |_| true)?;
+    let mut ignore = None;
     if args.rust {
         documents.extend(rust_files(&root, &name)?);
+        ignore = Some(read_gitignore(&root)?);
     }
+    let mut destinations: Vec<PathBuf> = documents.iter().map(|d| d.rel.clone()).collect();
+    destinations.push(PathBuf::from(MANIFEST_NAME));
+    destinations.push(PathBuf::from(".gitignore"));
+    for (rel, _) in crate::agents::shipped(&parsed) {
+        refuse_unwritable(&root, &root.join(&rel))?;
+        destinations.push(rel);
+    }
+    refuse_overlaps(&destinations)?;
+    refuse_present_indexes(&parsed, &root, |_| true)?;
+    let enclosing = root
+        .ancestors()
+        .skip(1)
+        .find(|dir| dir.join(MANIFEST_NAME).is_file())
+        .map(Path::to_path_buf);
 
-    // The writes.
-    std::fs::create_dir_all(&root).map_err(|e| format!("cannot create {}: {e}", root.display()))?;
-    outln!(
-        "creating a knowledge-architect project `{name}` in {}",
-        root.display()
-    );
-    if run_git {
-        crate::git::init_repository(&root).map_err(|e| e.to_string())?;
-        outln!("created  a git repository");
-    }
-    std::fs::write(root.join(MANIFEST_NAME), manifest)
-        .map_err(|e| format!("cannot write {MANIFEST_NAME}: {e}"))?;
-    outln!("wrote    {MANIFEST_NAME}");
-    let written = write_documents(&root, &documents).and_then(|()| {
-        if args.rust {
-            ignore_target(&root)
-        } else {
-            Ok(())
+    // The writes. Once the first is made, a failure exits 1: exit 2 promises an untouched tree,
+    // per `design@core@exit-code-ladder`.
+    let written = (|| -> Result<(), String> {
+        std::fs::create_dir_all(&root)
+            .map_err(|e| format!("cannot create {}: {e}", root.display()))?;
+        outln!(
+            "creating a knowledge-architect project `{name}` in {}",
+            root.display()
+        );
+        if run_git {
+            crate::git::init_repository(&root).map_err(|e| e.to_string())?;
+            outln!("created  a git repository");
         }
-    });
-    let manifest = Manifest::load(&root);
-    match (written, manifest) {
-        (Ok(()), Ok(manifest)) => finish(&manifest, checker, extensions),
-        // Files were written, so the run is no longer one that touched nothing: exit 2 would
-        // promise an untouched tree, per `design@core@exit-code-ladder`.
-        (Err(e), _) | (_, Err(e)) => {
+        create_new(&root.join(MANIFEST_NAME), &manifest)?
+            .then_some(())
+            .ok_or_else(|| {
+                format!("{MANIFEST_NAME} appeared during the run: it is left as found")
+            })?;
+        outln!("wrote    {MANIFEST_NAME}");
+        write_documents(&root, &documents)?;
+        if let Some(existing) = ignore {
+            let in_repository =
+                run_git || crate::git::inside_work_tree(&root).map_err(|e| e.to_string())?;
+            ignore_target(&root, existing, in_repository)?;
+        }
+        Ok(())
+    })();
+    if let Some(outer) = enclosing {
+        outln!(
+            "note: the project at {} walks this one too, unless its [walk] exclude names it",
+            outer.display()
+        );
+    }
+    match written.and_then(|()| Manifest::load(&root)) {
+        Ok(manifest) => finish(&manifest, checker, extensions),
+        Err(e) => {
             eprintln!("error: {e}");
             Ok(ExitCode::FAILURE)
         }
@@ -149,7 +202,14 @@ fn finish(
     checker: &[&Path],
     extensions: &mut [Box<dyn Extension>],
 ) -> Result<ExitCode, String> {
-    if !crate::git::inside_work_tree(manifest.root()).unwrap_or(false) {
+    let inside = match crate::git::inside_work_tree(manifest.root()) {
+        Ok(inside) => inside,
+        Err(e) => {
+            eprintln!("error: the check cannot run: {e}");
+            return Ok(ExitCode::FAILURE);
+        }
+    };
+    if !inside {
         outln!(
             "not inside a git repository: run `git init`, then `{} check --fix`, to install the \
              agent files and write the indexes",
@@ -174,9 +234,9 @@ struct Document {
     /// Project-relative.
     rel: PathBuf,
     text: String,
-    /// It exists already, in this shape or in the other shape of its heading register, and is
-    /// left as it is.
-    kept: bool,
+    /// The project-relative path of the document already there, in this shape or in the other
+    /// shape of its heading register, which is left as it is.
+    kept: Option<PathBuf>,
 }
 
 /// Every document the anchors `wanted` admits owe under `manifest`, of the Components and the
@@ -225,17 +285,19 @@ fn owed_documents(
     }
     out.into_iter()
         .map(|(rel, text, other_shape)| {
-            let path = root.join(&rel);
-            refuse_unwritable(root, &path)?;
-            let kept = path.is_file() || other_shape.is_some_and(|o| root.join(o).is_file());
+            refuse_unwritable(root, &root.join(&rel))?;
+            let kept = std::iter::once(rel.clone())
+                .chain(other_shape)
+                .find(|r| root.join(r).is_file());
             Ok(Document { rel, text, kept })
         })
         .collect()
 }
 
-/// `Err` where writing `path` could follow a symlink, would replace a directory, or would need a
-/// directory where a file stands, so the run refuses before its first write, as `index` refuses
-/// a symlinked destination, per `design@core@index-takes-no-dry-run`.
+/// `Err` where writing `path` could follow a symlink, would meet anything but a regular file,
+/// such as a directory or a FIFO a write would block on, or would need a directory where a file
+/// stands, so the run refuses before its first write, as `index` refuses a symlinked destination,
+/// per `design@core@index-takes-no-dry-run`.
 fn refuse_unwritable(root: &Path, path: &Path) -> Result<(), String> {
     for at in path
         .ancestors()
@@ -248,6 +310,8 @@ fn refuse_unwritable(root: &Path, path: &Path) -> Result<(), String> {
             Some("is a symlink")
         } else if at == path && meta.is_dir() {
             Some("is a directory where a file is due")
+        } else if at == path && !meta.is_file() {
+            Some("is not a regular file")
         } else if at != path && !meta.is_dir() {
             Some("is a file where a directory is due")
         } else {
@@ -260,11 +324,73 @@ fn refuse_unwritable(root: &Path, path: &Path) -> Result<(), String> {
     Ok(())
 }
 
-/// Write every document not kept, listing each.
+/// `Err` where two destinations overlap: one is another, or lies inside another, as a Component
+/// named like a file the run also writes. The filesystem cannot show it before the run writes.
+fn refuse_overlaps(destinations: &[PathBuf]) -> Result<(), String> {
+    for (i, a) in destinations.iter().enumerate() {
+        for b in &destinations[i + 1..] {
+            if a.starts_with(b) || b.starts_with(a) {
+                return Err(format!(
+                    "{} and {} would both be written: nothing was written",
+                    a.display(),
+                    b.display()
+                ));
+            }
+        }
+    }
+    Ok(())
+}
+
+/// `Err` where a file stands at a generated index's path of an anchor `wanted` admits before the
+/// run: the index writer replaces it, and the text there is not one this tool generated, so
+/// `design@core@index-takes-no-dry-run`'s "a generated file destroys nothing" does not cover it.
+fn refuse_present_indexes(
+    manifest: &Manifest,
+    root: &Path,
+    wanted: impl Fn(&Anchor) -> bool,
+) -> Result<(), String> {
+    let anchors = Anchors::of(manifest, &[] as &[PathBuf]);
+    for (_, register, home) in anchors
+        .instances()
+        .into_iter()
+        .filter(|(a, _, _)| wanted(a))
+    {
+        if matches!(register.shape, Shape::File | Shape::Directory)
+            && std::fs::symlink_metadata(root.join(&home.index)).is_ok()
+        {
+            return Err(format!(
+                "{} exists, and the index generated there would replace it: move it aside. \
+                 Nothing was written.",
+                home.index.display()
+            ));
+        }
+    }
+    Ok(())
+}
+
+/// Write `text` at `path` only if nothing is there yet; `Ok(false)` where something appeared
+/// since the destinations were judged, which is then left as found.
+fn create_new(path: &Path, text: &str) -> Result<bool, String> {
+    use std::io::Write;
+    match std::fs::OpenOptions::new()
+        .write(true)
+        .create_new(true)
+        .open(path)
+    {
+        Ok(mut file) => file
+            .write_all(text.as_bytes())
+            .map(|()| true)
+            .map_err(|e| format!("cannot write {}: {e}", path.display())),
+        Err(e) if e.kind() == std::io::ErrorKind::AlreadyExists => Ok(false),
+        Err(e) => Err(format!("cannot write {}: {e}", path.display())),
+    }
+}
+
+/// Write every document not kept, listing each; one that appeared during the run is kept too.
 fn write_documents(root: &Path, documents: &[Document]) -> Result<(), String> {
     for doc in documents {
-        if doc.kept {
-            outln!("kept     {}", doc.rel.display());
+        if let Some(kept) = &doc.kept {
+            outln!("kept     {}", kept.display());
             continue;
         }
         let path = root.join(&doc.rel);
@@ -272,9 +398,14 @@ fn write_documents(root: &Path, documents: &[Document]) -> Result<(), String> {
             std::fs::create_dir_all(dir)
                 .map_err(|e| format!("cannot create {}: {e}", dir.display()))?;
         }
-        std::fs::write(&path, &doc.text)
-            .map_err(|e| format!("cannot write {}: {e}", path.display()))?;
-        outln!("wrote    {}", doc.rel.display());
+        if create_new(&path, &doc.text)? {
+            outln!("wrote    {}", doc.rel.display());
+        } else {
+            outln!(
+                "kept     {}, which appeared during the run",
+                doc.rel.display()
+            );
+        }
     }
     Ok(())
 }
@@ -364,31 +495,60 @@ fn rust_files(root: &Path, name: &str) -> Result<Vec<Document>, String> {
     .map(|(rel, file)| {
         let path = root.join(rel);
         refuse_unwritable(root, &path)?;
+        // Kept, the file would leave the project with a manifest declaring `cargo klarch` that an
+        // older configuration may not define: the setup is the project's own, as a Cargo.toml is.
+        if std::fs::symlink_metadata(&path).is_ok() {
+            return Err(format!(
+                "{} exists: `--rust` writes the maintenance crate's files and its cargo \
+                 configuration whole, and merging into existing ones is left to the project. \
+                 Nothing was written.",
+                path.display()
+            ));
+        }
         Ok(Document {
             rel: PathBuf::from(rel),
             text: snippet(file),
-            kept: path.is_file(),
+            kept: None,
         })
     })
     .collect()
 }
 
-/// Make `.gitignore` ignore `/target`, where cargo builds: an existing file keeps every line and
-/// gains the rule under a line saying who added it, as `cargo init` appends its own; a file that
-/// already holds one of the four usual spellings of the rule is left as it is.
-fn ignore_target(root: &Path) -> Result<(), String> {
+/// The `.gitignore` at `root` as it stands, `None` where there is none, read before the run's
+/// first write: one `--rust` cannot append to, a symlink, a directory or text that is not UTF-8,
+/// refuses the run.
+fn read_gitignore(root: &Path) -> Result<Option<String>, String> {
     let path = root.join(".gitignore");
-    let existing = match std::fs::read_to_string(&path) {
-        Ok(text) => Some(text),
-        Err(e) if e.kind() == std::io::ErrorKind::NotFound => None,
-        Err(e) => return Err(format!("cannot read {}: {e}", path.display())),
+    refuse_unwritable(root, &path)?;
+    match std::fs::read_to_string(&path) {
+        Ok(text) => Ok(Some(text)),
+        Err(e) if e.kind() == std::io::ErrorKind::NotFound => Ok(None),
+        Err(e) => Err(format!(
+            "cannot read {}: {e}. Nothing was written.",
+            path.display()
+        )),
+    }
+}
+
+/// Make `.gitignore` ignore `/target`, where cargo builds: an existing file keeps every line and
+/// gains the rule under a line saying who added it, as `cargo init` appends its own; a file whose
+/// rules already ignore it is left as it is.
+fn ignore_target(root: &Path, existing: Option<String>, in_repository: bool) -> Result<(), String> {
+    let path = root.join(".gitignore");
+    // Git decides what it ignores, a negation or a leading space included, so it is asked where
+    // there is a repository; with none, one of the four usual spellings on a line of its own is
+    // taken for the rule.
+    let ignored = |text: &str| -> Result<bool, String> {
+        if in_repository {
+            crate::git::ignores(root, "target/").map_err(|e| e.to_string())
+        } else {
+            Ok(text
+                .lines()
+                .any(|l| matches!(l.trim_end(), "/target" | "/target/" | "target" | "target/")))
+        }
     };
     let text = match existing {
-        Some(text)
-            if text
-                .lines()
-                .any(|l| matches!(l.trim(), "/target" | "/target/" | "target" | "target/")) =>
-        {
+        Some(text) if ignored(&text)? => {
             outln!("kept     .gitignore");
             return Ok(());
         }
@@ -425,11 +585,17 @@ pub(super) fn new_component(
     let cwd =
         std::env::current_dir().map_err(|e| format!("cannot read the working directory: {e}"))?;
     let root = manifest.root();
-    let rel = project_relative(root, &lexical(&cwd.join(&args.dir)))?;
+    let rel = component_path(root, &lexical(&cwd.join(&args.dir)))?;
 
     let path = root.join(MANIFEST_NAME);
     let text = std::fs::read_to_string(&path).map_err(|e| format!("{}: {e}", path.display()))?;
     let edited = with_component(&text, &rel)?;
+    // `toml_edit` writes `\n` line breaks; a manifest written with `\r\n` keeps them.
+    let edited = if text.contains("\r\n") {
+        edited.replace("\r\n", "\n").replace('\n', "\r\n")
+    } else {
+        edited
+    };
     let parsed = Manifest::parse(root, &edited)
         .map_err(|e| format!("{MANIFEST_NAME} with `{rel}` added does not parse: {e}"))?;
     if let Some(complaint) = parsed.complaints().first() {
@@ -438,9 +604,9 @@ pub(super) fn new_component(
             complaint.what
         ));
     }
-    let documents = owed_documents(&parsed, root, |a| {
-        a.is_component && a.path == Path::new(&rel)
-    })?;
+    let wanted = |a: &Anchor| a.is_component && a.path == Path::new(&rel);
+    let documents = owed_documents(&parsed, root, wanted)?;
+    refuse_present_indexes(&parsed, root, wanted)?;
 
     std::fs::write(&path, &edited).map_err(|e| format!("cannot write {MANIFEST_NAME}: {e}"))?;
     outln!("wrote    {MANIFEST_NAME}, its components gaining `{rel}`");
@@ -466,7 +632,27 @@ fn with_component(text: &str, rel: &str) -> Result<String, String> {
 }
 
 /// `path` relative to `root`, with `/` separators, as a manifest lists a Component; `Err` where it
-/// is the root itself or lies outside it.
+/// is the root itself, lies outside it, or lies where no Component can live: in a repository's
+/// `.git` directory, which git keeps out of every walk, or in the installer's namespace, whose
+/// files the install deletes.
+fn component_path(root: &Path, path: &Path) -> Result<String, String> {
+    let rel = project_relative(root, path)?;
+    if rel.split('/').any(|part| part == ".git") {
+        return Err(format!(
+            "`{rel}` lies in a git directory, which no walk reads"
+        ));
+    }
+    // The namespace is judged over files, so the README the Component would hold is asked.
+    if crate::manifest::owned_path(&Path::new(&rel).join("README.md")) {
+        return Err(format!(
+            "`{rel}` lies in the installer's namespace, whose files every install deletes"
+        ));
+    }
+    Ok(rel)
+}
+
+/// `path` relative to `root`, with `/` separators; `Err` where it is the root itself or lies
+/// outside it.
 fn project_relative(root: &Path, path: &Path) -> Result<String, String> {
     let rel = path.strip_prefix(root).map_err(|_| {
         format!(
@@ -498,19 +684,22 @@ fn project_relative(root: &Path, path: &Path) -> Result<String, String> {
 /// subdirectory of a repository is legal. Outside every worktree a new or empty directory gets
 /// one, as `cargo init` gives one. A directory there that already holds files is refused unless
 /// `--vcs` decides, since an accidental run would leave its files untracked beside the new ones,
-/// where a `git clean` deletes both: the owner's choice of that guard over `cargo init`'s plain
-/// rule is recorded in `spec@plans@init-and-new-component`.
+/// where a `git clean` deletes both. The rule and its argument are `design@core@init-runs-git-init`.
 fn git_rule(root: &Path, vcs: Option<Vcs>) -> Result<bool, String> {
-    match vcs {
-        Some(Vcs::Git) => return Ok(true),
-        Some(Vcs::None) => return Ok(false),
-        None => {}
-    }
     let existing = root
         .ancestors()
         .find(|dir| dir.is_dir())
         .ok_or_else(|| format!("no directory at or above {} exists", root.display()))?;
-    if crate::git::inside_work_tree(existing).map_err(|e| e.to_string())? {
+    // Asked whatever `--vcs` says: the check the run ends with reads the tree through git, so a
+    // git that cannot answer refuses the run before its first write.
+    let inside = crate::git::inside_work_tree(existing).map_err(|e| e.to_string())?;
+    match vcs {
+        // A repository's root already holds one, and `git init` there would only re-initialise it.
+        Some(Vcs::Git) => return Ok(!root.join(".git").exists()),
+        Some(Vcs::None) => return Ok(false),
+        None => {}
+    }
+    if inside {
         return Ok(false);
     }
     let holds_files = root.is_dir()

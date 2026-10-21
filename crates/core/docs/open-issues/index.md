@@ -1,6 +1,6 @@
 **Generated — do not edit.** `cargo klarch index`
 
-36 entries
+37 entries
 
 | kind | title |
 | --- | --- |
@@ -11,6 +11,7 @@
 | defect | [A backticked span with an empty head and a slash is reported as malformed, which the candidate rule says is silent](a-span-with-an-empty-head-is-malformed-against-its-head.md) |
 | defect | [In a project that builds the checker from its own tree, `check --staged` compares the staged installed files with unstaged shipped text](a-staged-check-compares-installed-files-with-unstaged-shipped-text.md) |
 | defect | [An unbound Rust string literal is read as prose only up to its first escape sequence](an-unbound-literal-is-read-up-to-its-first-escape.md) |
+| defect | [`GIT_DIR` or `GIT_WORK_TREE` in the environment makes every command read another repository](git-environment-variables-redirect-the-walk.md) |
 | defect | [The escape anchor silences a path that resolves relative to its own document, which the unanchored-path lint reports](the-escape-anchor-silences-a-path-relative-to-its-document.md) |
 | defect | [The finding on an escaped path that resolves names the first anchor that holds it, not the deepest](the-escape-finding-names-the-first-anchor-not-the-one-that-holds-the-target.md) |
 | defect | [The head on `index` credits the missing-directory refusal with a claim that the refusal does not hold](the-missing-directory-refusal-does-not-hold-the-no-loss-claim.md) |

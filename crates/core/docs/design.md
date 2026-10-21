@@ -32,7 +32,12 @@ code that checks the real tree.
 Five things are compiled in, and none of them describes a project:
 
 - **What the word _component_ means**: the documents a component carries and the five built-in
-  component registers, per `design@core@components-carry-the-same-documents`.
+  component registers, per `design@core@components-carry-the-same-documents`, and the starting text
+  `init` and `new-component` write in each document and home: a title and one sentence on what it
+  holds, with no entry, no reference and no link, so it passes every check in any project, and no
+  goal, which is the owner's to state, per `design@agent-skills@goals-change-through-goal-setting`;
+  the root CLAUDE.md is its title and the primer's import line, since what every root would say
+  alike is the primer's, per `design@agent-skills@primer-limit`.
 - **Where plan documents live**: the anchor `plans` at docs/plans/ of the root and its two
   registers, per `design@core@plans-dir-fixed`. It is the tool's convention for a kind of
   document every project has, not a fact about one project.
@@ -42,7 +47,9 @@ Five things are compiled in, and none of them describes a project:
   is refused, per `design@core@a-foreign-build-is-refused`.
 - **The agent harnesses it knows, and the installer's namespace in a project's agent
   configuration**, per `design@core@agents-table` and `design@core@owned-namespace-check`: what
-  this tool writes, not what a project holds.
+  this tool writes, not what a project holds. The files `init --rust` writes are of the same kind:
+  the setup skill's snippets, per `design@agent-skills@rust-templates-one-home`, with the version
+  and the project's name filled in.
 
 ### The model is built once, and every check is a pure function over it `##model-then-checks`
 
@@ -105,10 +112,13 @@ hiding only what an unread file could have defined, is three times the machinery
 that mostly have no per-file scope, and `register@core@tripwire` guards that choice.
 
 **An extension prepares its tree when the last phase is reached**, so a run that stops earlier
-resolves no release and fetches nothing, whatever it would have judged. **A writer refuses over an incomplete model**: `index`
-and a writing command of an extension, such as thaum's `rules bump`, run the first three phases
-before touching anything and exit 2 naming the
-phase, since an index generated over such a model lists rows nobody asked for. `check --fix` writes
+resolves no release and fetches nothing, whatever it would have judged. **A writer refuses over an incomplete model**: `index`,
+`new-component` and a writing command of an extension, such as thaum's `rules bump`, run the first
+three phases before touching anything and exit 2 naming the
+phase, since an index generated over such a model lists rows nobody asked for. `init` writes where
+no model exists yet: its guarantee is that it judges every destination before its first write, per
+`design@core@init-asks-no-confirmation`, and it writes the indexes, as `check --fix` does, only
+once the three phases find nothing over what it wrote. `check --fix` writes
 no generated file over such a model either; it prints the stopped report and exits 1, having
 repaired before that gate only the installed files, whose bytes do not depend on the model, per
 `design@core@fix-before-the-checks`. `commits` judges
@@ -250,10 +260,14 @@ skipping the regime in silence.
 ### The core's commands are a library module, so a binary that registers extensions offers them unchanged `##the-core-cli-is-a-library-module`
 
 The commands of the core, `check`, `show`, `issues`, `tripwires`, `index`, `model`, `anchors`,
-`commits` and `install-agent-skills`, and the code that runs them, are a module of the core library rather than
-of its binary. A binary that registers extensions flattens the core's command enum into its own and
+`commits`, `install-agent-skills`, `init` and `new-component`, and the code that runs them, are a
+module of the core library rather than of its binary. A binary that registers extensions flattens the core's command enum into its own and
 adds the commands of its extensions beside them, so the core's commands keep one spelling, one set
 of arguments and one exit-code contract in every binary. The core's binary is that module with no extension registered.
+`init` creates the project the other commands locate, so every binary hands it to `cli::init`
+before it locates one, as the core's main, the setup skill's maintenance crate and the crate
+documentation's example of an extension binary do; `cli::run` refuses it inside a project, naming
+`cli::init`, so a binary that skips the step says why instead of acting.
 
 A binary crate cannot be depended on, so a command set held in the core's binary would be copied
 into every binary that registers an extension, and the copies would drift. The helpers an
@@ -2321,7 +2335,7 @@ target directory leave the last build's binary for both, and cargo does not rebu
 other checkout, whose own package is still fresh; observed on thaum's repository, the other
 checkout then runs that binary, its code and not only its compiled paths; the reproduction is in
 the message of 4ebd9a2. Before any command,
-the binary compares where its own crate and each library it links were compiled with the tree it
+the binary compares, over the project it locates or, for `init`, over PATH where PATH exists, where its own crate and each library it links were compiled with the tree it
 is run over: a tree that holds the same package, by the name its `Cargo.toml` declares, at a
 trailing run of the compiled directory but not at the compiled directory itself is a second
 checkout, and the run exits 2 naming both directories and the `cargo clean` of every workspace
@@ -2371,11 +2385,13 @@ of `design@core@checked-sentinel-values`. `Manifest::parse` reads it; an absent 
 of none of the three forms, is a complaint opening with the key's name, and a value that is not a
 string fails the parse. Each binary that dispatches a command of the checker calls
 `cli::refuse_another_version` in its `main`, right after the build-origin refusal of
-`design@core@a-foreign-build-is-refused`, before it dispatches any command, an extension's own
-included: a version is accepted when it equals the core library's, and any refusal, the key's own
+`design@core@a-foreign-build-is-refused`, before it dispatches any command but `init`, an
+extension's own included: a version is accepted when it equals the core library's, and any refusal, the key's own
 complaint included, is exit 2, per `design@core@exit-code-ladder`, naming the two versions and
-which side is older. `cli::run` does not refuse, so a command driven in-process needs a key but no
-confirmed one. A binary that links the library and dispatches no command of the checker, such as a
+which side is older. `init`, which every binary hands to `cli::init` before it locates a project,
+calls no version refusal: no manifest exists to read a pin from, and the one it writes pins the
+core library's version, per `design@core@init-command`. `cli::run` does not refuse, so a command
+driven in-process needs a key but no confirmed one. A binary that links the library and dispatches no command of the checker, such as a
 maintenance crate that uses it only to find the project's root through `MANIFEST_NAME`, does not
 call it: nothing it runs reads the documents by the checker's rules, and where it runs the checker,
 as a gate does, it starts a binary that makes the call, since the gates library depends on nothing
@@ -2717,3 +2733,146 @@ section in an upgrade and repairs its citations passes `commits` on every commit
   definitions are the installed copies', which this repository installs with each change to
   content/.
 
+
+## 7. Creating a project and a Component
+
+### `init` creates a project: its manifest, the installed set, and every document and home the check requires, ending as `check --fix` ends `##init-command`
+
+`klarch init` writes the manifest, pinned to the version of the binary that runs it, then every
+document the root Component, each Component it lists and the plans directory owe, then runs
+`fix_then_check`, the code `check --fix` runs, which installs the shipped set, writes the indexes
+once phases 1 to 3 find nothing, and runs the check, whose verdict is the run's. A project created
+from nothing is the target `goal@knowledge-architect@any-project-can-adopt-it` puts first, and its
+creation is where a person or an agent starts, per `goal@knowledge-architect@adoption-is-easy`:
+without the command, 11 files are written by hand before the first check passes.
+
+The rival, `check --fix` creating the missing documents, is out on
+`design@core@safe-fix-definition`: a README is neither an installed file nor a generated one. The
+list of what is written is not a second list: it is `Manifest::required_documents`, the register
+homes `Anchors::of` gives, and the plans directory's README by the rule the check uses for it, so a
+change of what a Component carries reaches `init` with no edit to it, per
+`design@core@one-question-one-command`. What each document starts with is
+`design@core@nothing-of-a-project-is-compiled-in`'s.
+
+### `init` takes a PATH, created when missing, and names the project after its basename, as `cargo init` does `##init-name-and-path`
+
+`klarch init [PATH] [--name <NAME>]`: PATH is `.` by default, and is created with its parents when
+it does not exist; the name is PATH's basename unless `--name` gives one. `--component <DIR>`,
+DIR relative to PATH, lists a Component in the manifest it writes; `--command` declares
+`[project] command`. The project's users are Rust developers first, and `cargo init` and `git init`
+are the commands they already type for this act; `bootstrap <name>`, the rival, named the same act
+in a word none of them types for it, and lost on the owner's word. A name that begins with
+`knowledge-architect-` is refused: a project's own skills take its name and a hyphen as their
+prefix by default, per `design@agent-skills@project-name-prefix`, and under that name the prefix is
+the installer's namespace, whose files every install deletes.
+
+### `init` asks for no confirmation, and every refusal comes before its first write `##init-asks-no-confirmation`
+
+`init` reads no input. It refuses, exit 2, having written nothing, on anything at the manifest's
+path, a name the manifest's parse complains of, a destination that is not a regular file or lies
+under one, the installed set's destinations included, two destinations that overlap, an `index.md`
+already at a generated path, whose text the index writer would replace without this tool having
+generated it, and the refusals of git and `--rust`; it then prints the absolute root and one line
+per file. Each file is created only where nothing stands, so one that appears during the run is
+kept as well. A
+prompt guards against a loss, and a run that refuses before any write and overwrites no
+hand-written file loses nothing, which is the argument of `design@core@index-takes-no-dry-run`;
+the worst a mistaken run does is add files. The checker's binaries run blind, as gates, per
+`design@core@arguments-parse-through-clap`, and an agent's shell has no terminal, so a prompt
+either blocks or is answered by a flag every caller passes. `cargo init` asks nothing either:
+`cargo init </dev/null` in cargo 1.98.0 prints no question and exits 0. Once files are written the
+exit code is 0 or 1, never 2, which `design@core@exit-code-ladder` keeps for a run that touched
+nothing.
+
+The design this decision did not keep: `rejected@core@init-asks-for-confirmation`.
+
+### `init` keeps a hand-written document that exists, so it serves an existing project `##init-keeps-existing-files`
+
+A README.md, a CLAUDE.md or a register home that exists, in either shape of its register, is kept
+byte for byte and listed as `kept`; the check then reports what it lacks, such as the primer's
+import line. The installed set is the install's, and the install writes and deletes there as
+`install-agent-skills` does, per `design@core@owned-namespace-check`. On the owner's word, `init`
+serves an existing project the owner wants to migrate, and refusing whenever a destination exists
+would leave every such project with the hand procedure. A manifest at PATH still refuses the run:
+that project exists, and `new-component` is what extends it.
+
+### Outside every git worktree, `init` creates a repository in a new or empty directory, and refuses one holding files unless `--vcs` decides `##init-runs-git-init`
+
+The rule over PATH and `--vcs <git|none>`:
+
+| PATH | no `--vcs` | `--vcs git` | `--vcs none` |
+| --- | --- | --- | --- |
+| inside a worktree | no `git init` | `git init` at PATH | no `git init` |
+| outside, new or empty | `git init` | `git init` | no `git init`; no index, no check |
+| outside, holding files | refused, exit 2 | `git init` | no `git init`; no index, no check |
+
+Git is asked about PATH before the first write, whatever `--vcs` says, since the check the run
+ends with reads the tree through git: a git that cannot answer refuses the run, and so does a
+failure other than "not a git repository", such as a repository refused as another user's, which
+would otherwise read as outside every repository. `GIT_DIR` or `GIT_WORK_TREE` set, as in a git
+hook, refuses it too, since git then answers about another repository, per
+`issue@core@git-environment-variables-redirect-the-walk`. Inside a worktree no repository is needed: a project in a subdirectory of a repository passes the
+check, measured by copying a passing project into a subdirectory of another repository and running
+`klarch check` there, exit 0. Outside one, the checker cannot run without a repository, per
+`design@core@failed-git-is-exit-two`, and `cargo init` creates one: cargo 1.98.0 creates `.git` and
+`.gitignore` in a directory outside every repository and none in a subdirectory of one. The one
+departure from `cargo init` is the refusal of a directory holding files, chosen by the owner over
+following `cargo init` exactly: after `cargo init` in such a directory, `git status --short` lists
+the files that were there as untracked beside the new ones, so the cleanup of a mistaken run is
+not `git clean`, which deletes both. Whether PATH is inside a worktree is asked through
+`path@core@src/git.rs`, per `design@core@git-is-asked-through-one-module`.
+
+The designs this decision did not keep: `rejected@core@init-git-init-anywhere-outside-a-worktree`
+and `rejected@core@init-refused-outside-a-repository-root`.
+
+### `new-component` adds a Component behind the writer gate, writing what the check requires of it `##component-command`
+
+`klarch new-component <DIR>` runs inside a located project and behind the writer gate, so over a
+model phases 1 to 3 find incomplete it refuses, exit 2, writing nothing, per
+`design@core@phases-gate-the-report`. DIR is relative to the working directory, inside the root,
+and is written relative to the root with `/` separators. A DIR in a `.git` directory, which no walk
+reads, or in the installer's namespace, whose files every install deletes, is refused, by
+`new-component` and by `init --component` alike. It writes the Component's required
+documents and the home of every register it carries, through the code `init` uses, and ends as
+`init` ends. A register declared `opt-in` is not guessed: the user names the Component in its
+`components`, and the check reports the home. What a Component owes beyond its files, its goals and
+the decisions it inherits, is no command's to write: `issue@agent-skills@a-skill-for-creating-a-component`.
+
+### The manifest is edited with a format-preserving editor, and parsed before it is written `##component-manifest-edit`
+
+`new-component` appends DIR to `[project] components` with `toml_edit`, which keeps every byte it
+does not change, comments included, then parses the edited text with `Manifest::parse` and refuses
+with its first complaint, such as a DIR named like the project, which names two anchors, before
+writing anything. A manifest written with `\r\n` line breaks keeps them. The manifest is
+hand-written and carries the reasons beside its rows, and the
+`toml` crate, which the core reads it with, holds no comment in a value it writes back: its `Table`
+is a map of values, as its source under the cargo registry shows. Printing the line for the user to
+add was the rival: the command could then not finish in one run.
+
+### `init --rust` writes the setup skill's maintenance crate, workspace and aliases, and no CI workflow `##rust-scaffold`
+
+`--rust` refuses a `Cargo.toml` at or above PATH, since adding the maintenance crate to an
+existing workspace or package is a design of its own, and cargo reads a `Cargo.toml` above PATH as
+an enclosing workspace, which a `members` glob covering PATH would break with two workspace roots.
+It refuses as well any of the files it writes that already exists: kept, an older cargo
+configuration would leave the declared `cargo klarch` undefined. Otherwise it writes the snippets of
+`design@agent-skills@rust-templates-one-home`: a virtual workspace, `xtask/` pinned to this version,
+and the cargo aliases with the project's checkout variable; it lists `xtask` as a Component and
+declares `cargo klarch` as the command unless `--command` gives one. It makes `.gitignore` ignore
+`/target`, keeping every line of an existing one and appending under `# Added by klarch`, as
+`cargo init` appends its own, or leaving it as it is where git already ignores `target/` there,
+which git, not a reading of the lines, decides. This is the
+shape of `design@agent-skills@xtask-pins-checker`, and it gives a new project the gates
+`goal@knowledge-architect@setup-brings-quality-tools` asks for. It writes no CI workflow, on the
+owner's word; a workflow file assumes a host, and the setup skill's block stays the route to
+one.
+
+### `init` takes no contribution from an extension `##init-has-no-extension-hook`
+
+An extension binary that dispatches `cli::init` writes a manifest holding none of the extension's
+tables, and its first check reports each, with its repair, per
+`design@core@an-extension-claims-its-manifest-tables`. On the owner's word, a project with an
+extension would not need to run `klarch init`, so a hook would serve no adoption the owner
+expects.
+
+The design this decision did not keep: `rejected@core@init-extension-hook`.

@@ -275,3 +275,28 @@ slug that states its decision.
 **Response:** reopen `design@core@plain-word-lint`, with a listing in `show`,
 `rejected@core@plain-word-mention`, among the candidates.
 **Re-entry:** each intake of a retrospective file that reports an upgrade.
+
+## Guarding `design@core@init-runs-git-init` and `design@core@init-asks-no-confirmation`: a mistaken run's cleanup `##init-cleanup-beyond-the-listed-files`
+
+T1 of the premortem of the plan that built `init`, on the owner's word.
+
+**Fires when:** one report, an issue, a retrospective finding or the owner's observation, of an
+`init` run in an unintended directory that needed a cleanup beyond deleting the files its output
+listed, or that lost a file.
+
+**Response:** reopen `design@core@init-runs-git-init` and `design@core@init-asks-no-confirmation`
+with the stronger guard, `rejected@core@init-refused-outside-a-repository-root` in its form that
+refuses outside every worktree whatever the directory holds.
+
+**Re-entry:** the standing-state review.
+
+## Guarding `design@core@component-command`: the writer gate blocks a new Component `##new-component-blocked-by-the-gate`
+
+T2 of the premortem of the plan that built `new-component`, on the owner's word.
+
+**Fires when:** one reported case of `new-component` refused over a finding of phases 1 to 3 that
+the user could not repair before adding the Component, so the Component was added by hand.
+
+**Response:** reopen the writer gate of `design@core@phases-gate-the-report` for `new-component`.
+
+**Re-entry:** the standing-state review.

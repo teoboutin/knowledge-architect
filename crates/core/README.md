@@ -64,7 +64,7 @@ Three, per `design@core@exit-code-ladder`, and the third is what makes the other
 | ---- | ------- | ------------------- |
 | `0` | the command ran and its subject is in order | `--version`, from any directory; `check` with no findings; `show` on a reference that resolves; `issues` and `tripwires` with at least one row; `index` having written every destination, or found each already current; `index --staged` having staged every generated file whose staged bytes differed, or found each already current; every `model` run; `anchors` with every home it prints present; `commits` with no finding, an empty range included; `install-agent-skills` having written and removed what it had to, or found nothing to do; `init` and `new-component` having written, with the final check passing, and `init` under `--vcs none` outside a worktree, where no check runs |
 | `1` | the command ran and reports a negative answer | `check` with findings, `--fix` included; `check --fix` when a write failed, a destination was refused, a partial commit's mismatch was refused, or the final check could not run, after another file was already written; `show` on a reference that resolves to nothing; `issues` or `tripwires` with no row; `anchors` with a home missing; `index` when a write failed after another destination was already rewritten; `commits` with a finding against a judged message or a failing tree; `init` and `new-component` having written, when the final check finds anything, cannot run, or a write failed |
-| `2` | the command could not run, `anchors` included | an unknown or invalid argument, `--fix` with `--staged` among them, a `show` argument that is not reference-shaped, a binary built from another checkout of the tool, which names the `cargo clean` that rebuilds it, a binary of another version than `[project] checker-version` pins, or a pin it does not confirm, or a manifest with no pin, `index` or `check --fix` refusing a destination — a symlink, or a directory that is not there — having written nothing, `check --fix` refusing a partial commit's mismatch having installed nothing, `check --staged` or `index --staged` over an index that holds an unmerged path or a staged tree that cannot be read, `index --staged` refused by its gate, a destination or git's index lock, having staged nothing, `commits` on a range that does not resolve, no project above the working directory, no `git` on the path or a project outside a worktree, `install-agent-skills` over a manifest holding a refused declaration, over a symbolic link on an owned path, or when a write or a removal failed, naming the path, a stdout closed before the output was written — as `\| head` does — which ends the run silently, an input that cannot be read, an input an extension prepares that it cannot resolve, `init` refusing, having written nothing: a manifest at PATH, a refused name, a destination that is a symlink or a directory where a file is due, a non-empty directory outside every git repository with no `--vcs`, a `Cargo.toml` under `--rust`; `new-component` refusing, having written nothing: an incomplete model, a DIR outside the project or one the manifest refuses; `init` dispatched inside a project by a binary that skips `cli::init` |
+| `2` | the command could not run, `anchors` included | an unknown or invalid argument, `--fix` with `--staged` among them, a `show` argument that is not reference-shaped, a binary built from another checkout of the tool, which names the `cargo clean` that rebuilds it, a binary of another version than `[project] checker-version` pins, or a pin it does not confirm, or a manifest with no pin, `index` or `check --fix` refusing a destination — a symlink, or a directory that is not there — having written nothing, `check --fix` refusing a partial commit's mismatch having installed nothing, `check --staged` or `index --staged` over an index that holds an unmerged path or a staged tree that cannot be read, `index --staged` refused by its gate, a destination or git's index lock, having staged nothing, `commits` on a range that does not resolve, no project above the working directory, no `git` on the path or a project outside a worktree, `install-agent-skills` over a manifest holding a refused declaration, over a symbolic link on an owned path, or when a write or a removal failed, naming the path, a stdout closed before the output was written — as `\| head` does — which ends the run silently, an input that cannot be read, an input an extension prepares that it cannot resolve, `init` refusing, having written nothing: anything at the manifest's path, a refused name, a destination that is not a regular file or lies under one, two destinations that overlap, an `index.md` already at a generated path, a non-empty directory outside every git repository with no `--vcs`, `GIT_DIR` or `GIT_WORK_TREE` set, a git that cannot answer, a `Cargo.toml` at or above PATH or a file `--rust` writes already there, a `.gitignore` it cannot read; `new-component` refusing, having written nothing: an incomplete model, a DIR outside the project, in a `.git` directory or in the installer's namespace, or one the manifest refuses, a destination it cannot write; `init` dispatched inside a project by a binary that skips `cli::init` |
 
 **A caller scripting against a run reads the exit code; a person reads the last line.** Arguments
 are refused before the project is located, so `--help` answers from anywhere and a mistyped
@@ -330,16 +330,23 @@ klarch init . --component crates/core --component tools/xtask
 klarch init my-project --rust       # also the maintenance crate, its workspace and aliases
 ```
 
-- **It writes no file that exists.** An existing README.md or CLAUDE.md is kept and listed as
-  `kept`; the check then reports what it lacks, such as the primer's import. Every refusal comes
-  before its first write: a manifest at PATH, a name the manifest refuses or that begins with
-  `knowledge-architect-`, a destination that is a symlink or a directory where a file is due, and,
-  under `--rust`, a `Cargo.toml` at PATH. A manifest above PATH does not refuse it: a project nested
-  in another is legal.
+- **It writes no file that exists.** An existing README.md, CLAUDE.md or register home is kept
+  and listed as `kept`; the check then reports what it lacks, such as the primer's import. Every
+  refusal comes before its first write: anything at the manifest's path, a name the manifest
+  refuses or that begins with `knowledge-architect-`, a destination that is not a regular file or
+  lies under one, an `index.md` already where an index is generated, and, under `--rust`, a
+  `Cargo.toml` at or above PATH or any file it writes. Each file is created only if nothing is
+  there, so one that appears during the run is kept too. A manifest above PATH does not refuse
+  it: a project nested in another is legal, and the run notes that the outer project walks it
+  unless its `[walk] exclude` names it. A run stopped after its first write, such as by a stdout
+  closed early, is completed by `check --fix`.
 - **Git, as `cargo init` does, with one guard.** Inside a git worktree no repository is created;
   outside every worktree a new or empty directory gets one. A directory there that already holds
   files is refused unless `--vcs git` or `--vcs none` decides, since an accidental run would leave
-  its files untracked beside the project's, where `git clean` deletes both.
+  its files untracked beside the project's, where `git clean` deletes both. Git is asked about
+  PATH before anything is written, so a git that cannot answer, such as one refusing a repository
+  owned by another user, refuses the run, and so does `GIT_DIR` or `GIT_WORK_TREE` set, as inside
+  a git hook, under which git answers about another repository.
 - **It ends as `check --fix` does**: it installs the agent files, writes the indexes once the first
   three phases find nothing, and runs the check, whose verdict is its exit code. Under `--vcs none`
   outside a worktree it stops before them, and says so.
@@ -348,11 +355,13 @@ klarch init my-project --rust       # also the maintenance crate, its workspace 
   primer's import line.
 - **`--rust`** writes the blocks the setup skill shows: a virtual workspace, the maintenance crate
   `xtask/`, pinned to this version, and the cargo aliases, declares `cargo klarch` as the command,
-  and makes `.gitignore` ignore `/target`, appending to an existing one. It writes no CI workflow.
+  and makes `.gitignore` ignore `/target`, appending to an existing one unless git already ignores
+  it there. It writes no CI workflow.
 
 **`new-component <DIR>` adds a Component to an existing project**: it appends DIR to
 `[project] components`, keeping every other byte of the manifest, comments included, then writes
-the Component's documents and register homes, and ends as `init` does. It runs behind the gate of
+the Component's documents and register homes, and ends as `init` does. A manifest written with
+`\r\n` line breaks keeps them. It runs behind the gate of
 the first three phases, so over a tree they find incomplete it refuses, writing nothing. A
 register declared `opt-in` is not guessed: name the Component in its `components`, and the check
 reports the home.

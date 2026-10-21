@@ -33,6 +33,8 @@ pub(crate) struct Invocation {
     root: PathBuf,
     args: Vec<OsString>,
     stdin: Option<Vec<u8>>,
+    /// Environment variables set for this invocation alone.
+    env: Vec<(OsString, OsString)>,
     /// Exit codes that are answers rather than failures. `git check-ignore` exits 1 to say
     /// "none of these", which is a result and not an error.
     accept: Vec<i32>,
@@ -40,14 +42,30 @@ pub(crate) struct Invocation {
 
 /// Whether `dir`, an existing directory, lies inside a git working tree.
 ///
-/// Outside every repository git exits 128, which is an answer here; inside a repository's own
-/// `.git` directory it prints `false`, which is not a working tree either.
+/// Inside a repository's own `.git` directory git prints `false`, which is not a working tree
+/// either. Outside every repository it exits 128 saying "not a git repository", which is the one
+/// failure that answers the question: git exits 128 on every fatal error, a repository it refuses
+/// as owned by another user included, and that one is `Err`, since the directory may well lie
+/// inside a working tree. The message is read in the C locale, which git does not translate.
 pub(crate) fn inside_work_tree(dir: &Path) -> io::Result<bool> {
-    let out = git(dir)
+    match git(dir)
         .args(["rev-parse", "--is-inside-work-tree"])
-        .accept(128)
-        .output()?;
-    Ok(String::from_utf8_lossy(&out).trim() == "true")
+        .env("LC_ALL", "C")
+        .output()
+    {
+        Ok(out) => Ok(String::from_utf8_lossy(&out).trim() == "true"),
+        Err(e) if e.to_string().contains("not a git repository") => Ok(false),
+        Err(e) => Err(e),
+    }
+}
+
+/// Whether git ignores `path`, relative to `root`, by the rules of the repository `root` lies in.
+pub(crate) fn ignores(root: &Path, path: &str) -> io::Result<bool> {
+    git(root)
+        .args(["check-ignore", "-q", path])
+        .accept(1)
+        .code()
+        .map(|code| code == 0)
 }
 
 /// Create a repository at `dir`, an existing directory, as `init` does where its git rule asks.
@@ -61,6 +79,7 @@ pub(crate) fn git(root: &Path) -> Invocation {
         root: root.to_path_buf(),
         args: Vec::new(),
         stdin: None,
+        env: Vec::new(),
         accept: vec![0],
     }
 }
@@ -78,6 +97,12 @@ impl Invocation {
 
     pub(crate) fn stdin(mut self, bytes: Vec<u8>) -> Self {
         self.stdin = Some(bytes);
+        self
+    }
+
+    /// Set an environment variable for this invocation alone.
+    pub(crate) fn env(mut self, key: &str, value: &str) -> Self {
+        self.env.push((key.into(), value.into()));
         self
     }
 
@@ -115,6 +140,7 @@ impl Invocation {
             // `design@core@per-user-ignore-file-pinned`.
             .args(["-c", "core.excludesFile=/dev/null"])
             .args(&self.args)
+            .envs(self.env.iter().map(|(k, v)| (k, v)))
             .stdout(Stdio::piped())
             .stderr(Stdio::piped())
             .stdin(if self.stdin.is_some() {
