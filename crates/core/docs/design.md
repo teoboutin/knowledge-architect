@@ -2764,10 +2764,13 @@ change of what a Component carries reaches `init` with no edit to it, per
 `klarch init [PATH] [--name <NAME>]`: PATH is `.` by default, and is created with its parents when
 it does not exist; the name is PATH's basename unless `--name` gives one. `--component <DIR>`,
 DIR relative to PATH, lists a Component in the manifest it writes; `--command` declares
-`[project] command`. Rust is the language the project focuses on first, on the owner's word, and
-`cargo init` and `git init` are the commands its users already type for this act: `cargo init d`
-creates `d/` when it does not exist, measured with cargo 1.98.0. `bootstrap <name>`, the rival,
-named the same act in a word none of them types for it.
+`[project] command`, per `design@core@declared-command`, for a project whose command is neither
+`klarch`, the default where none is declared, nor the `cargo klarch` that `--rust` declares, such
+as a script the project keeps in its own tree. The name `init` is the owner's choice over
+`bootstrap`, which the argument below leaves to preference. Rust is the language the project
+focuses on first, on the owner's word, and `cargo init` and `git init` are the commands its users
+already type for this act: `cargo init d` creates `d/` when it does not exist, measured with cargo
+1.98.0. `bootstrap <name>`, the rival, named the same act in a word none of them types for it.
 
 ### `init` refuses a project name that begins with the installer's prefix `##init-refuses-the-installer-s-prefix`
 
@@ -2822,6 +2825,11 @@ The rule over PATH and `--vcs <git|none>`:
 | inside a worktree | no `git init` | `git init` at PATH, unless PATH holds `.git` | no `git init` |
 | outside, new or empty | `git init` | `git init` | no `git init`; the agent files, no index, no check |
 | outside, holding files | refused, exit 2 | `git init` | no `git init`; the agent files, no index, no check |
+
+`init` follows `cargo init` wherever no argument departs from it, since the owner holds that
+following `cargo init`'s usage as far as possible is probably best: `--vcs` is `cargo init`'s flag,
+restricted to `git` and `none` of the five values cargo 1.98.0 takes, and `design@core@rust-scaffold` appends to
+`.gitignore` as `cargo init` does.
 
 Git is asked about PATH before the first write, whatever `--vcs` says, since the check the run
 ends with reads the tree through git: a git that cannot answer refuses the run, and so does a
