@@ -142,7 +142,7 @@ each re-taken by the code-claims review of this spec. `<klarch>` is that binary.
 - Adding the maintenance crate to an existing Cargo workspace or package: `init --rust` refuses
   when a `Cargo.toml` exists, #rust-scaffold.
 - A hook through which an extension contributes its manifest tables to `init`:
-  #init-under-an-extension, awaiting the owner, D4.
+  #init-under-an-extension, ruled by the owner, D4.
 - Where developer contracts live instead of a scoped CLAUDE.md:
   `issue@core@a-home-for-developer-contracts-outside-agent-configuration`. The commands write the
   documents required documents names at the time, so they follow that work when it lands.
@@ -395,10 +395,11 @@ myself."
 
 Proposed by the session, round 1 (#arg-14). Final state: closed by the session at the round-2
 checkpoint, reading the owner's round-3 answers as the batch confirmation of the table that listed
-it; the owner's round-3 words answered Q5 and Q6 alone, so the closure awaits the owner's word, D4.
+it; the owner's round-3 words answered Q5 and Q6 alone, and the owner confirmed it in round 4,
+D4, adding that a project with an extension would not need to run `klarch init` anyway.
 Shape: "Decided design", "Extension binaries". Harvest: the rewrite of
 `design@core@the-core-cli-is-a-library-module`, and a design head of core on the absence of an
-extension hook, by entry test 2, if the owner confirms D4. The owner, round 3: "Q5: B\nQ6: all
+extension hook, by entry test 2. The owner, round 3: "Q5: B\nQ6: all
 five."
 
 ## Arguments
@@ -531,7 +532,7 @@ crates/core/src/cli/mod.rs
   Command::NewComponent(NewComponentArgs) the `new-component` subcommand
   InitArgs { path: Option<PathBuf>, name: Option<String>, component: Vec<PathBuf>,
              rust: bool, vcs: Option<Vcs>, command: Option<String> }
-                                          `command` exists only if the owner confirms D5
+                                          `command`, per D5
   NewComponentArgs { dir: PathBuf }
   Vcs { Git, None }                       the value of `--vcs`
   init(args: InitArgs, checker: &[&Path], extensions: &mut [Box<dyn Extension>])
@@ -565,11 +566,14 @@ crates/agent-skills/src/lib.rs
 
 ```text
 klarch init [PATH] [--name <NAME>] [--component <DIR>]... [--rust] [--vcs <git|none>]
+            [--command <CMD>]
   PATH         defaults to "."; created, with its parents, when it does not exist
   --name       defaults to PATH's basename
   --component  a Component to add, as `new-component` adds it; repeatable; DIR is relative to PATH
   --rust       the maintenance crate, its aliases and its workspace
   --vcs        whether `git init` runs; the default is the rule under "Git"
+  --command    the project's command, written as [project] command; `--rust` defaults it to
+               `cargo klarch`; absent otherwise, which means `klarch`, per D5
 
 klarch new-component <DIR>
   DIR          relative to the working directory, and inside the project's root; written into
@@ -744,9 +748,9 @@ Every binary that dispatches the command enum dispatches `Command::Init` to `cli
 `locate`: the core's main, the xtask snippet, and the crate documentation's example of an extension
 binary. `run` refuses `Command::Init`, exit 2, with a message naming `cli::init`, so a binary that
 skips the step says why instead of acting. The manifest `init` writes holds
-no extension's table, and the first check reports each, with its repair (#arg-14). It declares no
-`command`, so a project created through an extension binary runs the core's command name until its
-manifest declares one, per `design@core@declared-command`: D5.
+no extension's table, and the first check reports each, with its repair (#arg-14). Its `command` is
+the one `--command` gives, per `design@core@declared-command` and D5; a project with an extension
+starts from the core's own `klarch init` in practice, on the owner's word, D4.
 
 ## Mapping tables
 
@@ -798,7 +802,7 @@ The starting text of each document is the table under "The files".
 - **Templates kept apart from the setup skill's blocks**, lost in #rust-templates-one-home: a fourth
   unchecked copy (#arg-12).
 - **An extension hook contributing tables to `init`**, lost in #init-under-an-extension: the
-  finding names its repair (#arg-14). Awaiting the owner, D4.
+  finding names its repair (#arg-14). Ruled by the owner, D4.
 
 ## Readings
 
@@ -857,7 +861,7 @@ repo in each of the three shapes, then `check`; it fires when `check` does not p
 Builds: `Command::Init`, `InitArgs`, `Vcs`, `cli::init`; its dispatch before `locate` in the core's
 main, the xtask snippet and the crate documentation's example; the refusal of `Command::Init` in
 `run`; the refusals of "What a run of `init` writes", item 1; the git rule, with the two git
-functions; the manifest text. The comments that state the version refusal's timing, listed under
+functions; the manifest text, with `--command`. The comments that state the version refusal's timing, listed under
 "Decisions this work rewrites", gain the exception of `init`. No document, no install.
 
 Claims:
@@ -939,17 +943,21 @@ Per the harvest below.
 
 ## Defaults awaiting the owner
 
-- D1. The work is planned as one spec, on one branch, rather than a milestone. It bears on every
+All five ruled, round 4: "All five defaults accepted. Note on D4: a project with an extension would
+not need to run `klarch init` anyway." The work lands on the spec's own branch, in the same pull
+request, on the owner's word in the same message.
+
+- D1, ruled. The work is planned as one spec, on one branch, rather than a milestone. It bears on every
   thread.
-- D2. AC2 runs in the default test suite. Default: it does, unless its run time measured at step 4
+- D2, ruled. AC2 runs in the default test suite. Default: it does, unless its run time measured at step 4
   exceeds 60 seconds on the owner's workstation, a threshold that is the owner's to reset; above it,
   it is marked `#[ignore]` and the owner rules where it runs. It bears on #rust-templates-one-home.
-- D3. The owner's guard of round 2, a refusal wherever PATH is not a git repository's root, is
+- D3, ruled. The owner's guard of round 2, a refusal wherever PATH is not a git repository's root, is
   recorded as lost to shape B and T1 on the session's argument (M3), not on the owner's word. It
   bears on #init-runs-git-init.
-- D4. No extension hook contributes tables to `init`; an extension binary's `init` writes a
+- D4, ruled. No extension hook contributes tables to `init`; an extension binary's `init` writes a
   manifest the check then reports. It bears on #init-under-an-extension.
-- D5. `init` gains `--command <CMD>`, written as `[project] command`, which `--rust` sets to
+- D5, ruled. `init` gains `--command <CMD>`, written as `[project] command`, which `--rust` sets to
   `cargo klarch` and an extension project sets to its own command, per `design@core@declared-command`.
   Default: it does. It bears on #init-under-an-extension and #init-name-and-path.
 
@@ -968,7 +976,7 @@ Per the harvest below.
 | #rust-scaffold | a design head of core on `--rust` | step 6 |
 | #rust-templates-one-home | a design head of agent-skills; closes `issue@agent-skills@the-setup-section-s-toml-and-ci-blocks-are-unchecked` | step 4 for the issue, step 6 for the head |
 | #init-delivery | the rewrites of `design@agent-skills@exact-pin` and `design@agent-skills@pinned-binary-runs-inside-the-project` | step 6 |
-| #init-under-an-extension | the rewrite of `design@core@the-core-cli-is-a-library-module`; a head of core on the absent hook if D4 is confirmed | step 6 |
+| #init-under-an-extension | the rewrite of `design@core@the-core-cli-is-a-library-module`; a head of core on the absent hook | step 6 |
 | the rewrites under "What is already decided" | each head named there | step 6 |
 | the losing alternatives | `rejected` entries of core where `skill@knowledge-architect-decision-recording@losing-alternatives` admits them; the candidates are the Y/N prompt, shape A, the refusal outside a worktree whatever the directory holds, and the extension hook | step 6 |
 | T1, T2 | `register@core@tripwire` | step 6 |
