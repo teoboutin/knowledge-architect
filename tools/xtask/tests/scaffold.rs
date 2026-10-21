@@ -1,5 +1,5 @@
 //! The snippets of the setup skill that are not Rust, checked by what `klarch init --rust` writes
-//! from them, per `spec@plans@init-and-new-component`: the workspace, the maintenance crate's
+//! from them, per `design@agent-skills@rust-templates-one-home`: the workspace, the maintenance crate's
 //! manifest and the cargo configuration must build and run the checker, and the CI workflow's
 //! gates command must parse as the gates library declares its flags.
 
@@ -51,10 +51,9 @@ fn cargo(dir: &Path, args: &[&str]) -> std::process::Output {
         .expect("cargo runs")
 }
 
-/// AC2: a project written by `init --rust` builds against this workspace's crates, and its
-/// `cargo klarch check` passes. Guards #rust-templates-one-home of
-/// `spec@plans@init-and-new-component`: a change to the gates library or the core that the
-/// shipped snippets do not follow fails it.
+/// A project written by `init --rust` builds against this workspace's crates, and its
+/// `cargo klarch check` passes: a change to the gates library or the core that the shipped
+/// snippets do not follow fails it, per `design@agent-skills@rust-templates-one-home`.
 #[test]
 fn a_project_written_by_init_rust_builds_and_checks() {
     let scratch = Scratch::new("scaffold");
@@ -87,6 +86,13 @@ fn a_project_written_by_init_rust_builds_and_checks() {
         "{}",
         String::from_utf8_lossy(&build.stderr)
     );
+    // The `x` alias names the crate's own commands, which the CI workflow runs.
+    let help = cargo(&root, &["x", "--help"]);
+    assert!(
+        help.status.success(),
+        "{}",
+        String::from_utf8_lossy(&help.stderr)
+    );
     let check = cargo(&root, &["klarch", "check"]);
     let out = String::from_utf8_lossy(&check.stdout);
     assert!(
@@ -106,10 +112,13 @@ fn the_ci_workflow_runs_flags_the_gates_library_declares() {
         args: GatesArgs,
     }
     let ci = include_str!("../../../crates/agent-skills/snippets/ci.yml");
-    let line = ci
+    // A step's command, never a comment that mentions it.
+    let lines: Vec<&str> = ci
         .lines()
-        .find(|l| l.contains(" x gates"))
-        .expect("the workflow runs `x gates`");
+        .filter(|l| l.trim_start().starts_with("run:") && l.contains(" x gates"))
+        .collect();
+    assert_eq!(lines.len(), 1, "one step runs `x gates`: {lines:?}");
+    let line = lines[0];
     let flags = line
         .split_once(" x gates")
         .map(|(_, rest)| rest.split_whitespace())

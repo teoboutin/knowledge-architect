@@ -660,3 +660,27 @@ nothing. It loses on the census of the design discussion, kept in its spec,
 `path@elsewhere@docs/plans/specs/defined-ids-outside-references.md`: with ids of two segments and plan items
 read inside their plan, the bare ids it found were pointers, one here and about 11 in thaum, which a
 listing leaves silent until a reviewer reads them, against 3 in thaum that were not.
+
+### A confirmation prompt before `init` writes `##init-asks-for-confirmation`
+
+`live`. It guards against no loss: `init` refuses before its first write and overwrites no
+hand-written file. It blocks an agent, whose shell has no terminal, or is answered by a `--yes`
+every caller passes. `cargo init` asks nothing, measured with cargo 1.98.0.
+
+### `init` running `git init` in any directory outside a worktree, as `cargo init` does `##init-git-init-anywhere-outside-a-worktree`
+
+`live`. In a directory that already holds files, the files there become untracked beside the
+project's, as `git status --short` after `cargo init` shows, so `git clean`, the obvious cleanup of
+a mistaken run, deletes them too. The owner chose a refusal there over following `cargo init`.
+
+### `init` refused wherever PATH is outside a git repository, or not its root `##init-refused-outside-a-repository-root`
+
+`live`. A project in a subdirectory of a repository passes the check, so a refusal there refuses a
+legal layout, and a new or empty directory outside every repository loses nothing to `git init`.
+There is still some doubt that the kept rule spares every mistaken run a messy cleanup: the
+tripwire `tripwire@core@init-cleanup-beyond-the-listed-files` watches it.
+
+### A hook through which an extension contributes its manifest tables to `init` `##init-extension-hook`
+
+`live`. It would add a hook to the extension interface for a case the check already reports with
+its repair, and a project with an extension would not need to run `init`, on the owner's word.

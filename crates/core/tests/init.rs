@@ -1,5 +1,5 @@
-//! `klarch init`, run as a caller runs it, in scratch directories outside this repository, per
-//! the claims of `spec@plans@init-and-new-component`.
+//! `klarch init` and `klarch new-component`, run as a caller runs them, in scratch directories
+//! outside this repository, per `design@core@init-command` and `design@core@component-command`.
 
 use std::path::{Path, PathBuf};
 use std::process::Command;
@@ -221,9 +221,8 @@ fn the_git_rule_holds_in_every_case() {
     assert!(repo("host/nested"), "--vcs git creates one anyway");
 }
 
-/// AC3, root-only shape: `init` then `check` passes. Guards #init-file-contents of
-/// `spec@plans@init-and-new-component`: a document the check comes to require that `init` does
-/// not write fires it.
+/// `init` then `check` passes, at the root: a document the check comes to require that `init` does
+/// not write fails it, per `design@core@init-command`.
 #[test]
 fn init_then_check_passes_at_the_root() {
     let scratch = Scratch::new("ac3-root");
@@ -315,8 +314,8 @@ fn comment_lines(text: &str) -> Vec<String> {
         .collect()
 }
 
-/// AC1: a manifest's comments survive `new-component` byte for byte, in their order. Guards
-/// #component-manifest-edit of `spec@plans@init-and-new-component`.
+/// A manifest's comments survive `new-component` byte for byte, in their order, per
+/// `design@core@component-manifest-edit`.
 #[test]
 fn new_component_keeps_every_comment_of_the_manifest() {
     let scratch = Scratch::new("ac1");
@@ -342,7 +341,7 @@ fn new_component_keeps_every_comment_of_the_manifest() {
     );
 }
 
-/// AC3, Component shape: `new-component` then `check` passes, and `init --component` lists the
+/// `new-component` then `check` passes, and `init --component` lists the
 /// Component once and passes too.
 #[test]
 fn a_component_added_either_way_passes_the_check() {
@@ -384,7 +383,7 @@ fn new_component_refuses_before_any_write() {
     assert!(!scratch.path("p/svc").exists());
 }
 
-/// AC3, `--rust` shape: `init --rust` then `check` passes, the manifest declares the command and
+/// `init --rust` then `check` passes, the manifest declares the command and
 /// the maintenance crate, and the files carry this version and the project's checkout variable.
 #[test]
 fn init_rust_then_check_passes() {
@@ -406,7 +405,7 @@ fn init_rust_then_check_passes() {
         "knowledge-architect = \"={}\"",
         knowledge_architect::CHECKER_VERSION
     )));
-    assert!(read(".cargo/config.toml").contains("MY_PROJ_CHECKOUT"));
+    assert!(read(".cargo/config.toml").contains("\nMY_PROJ_CHECKOUT = {"));
     assert!(read("xtask/src/main.rs").contains("option_env!(\"MY_PROJ_CHECKOUT\")"));
     assert_eq!(read(".gitignore"), "/target\n");
 }
@@ -438,4 +437,310 @@ fn rust_keeps_the_gitignore_and_refuses_an_existing_cargo_toml() {
     let (out, err, code) = klarch(&scratch.dir, &["init", "c", "--rust", "--vcs", "git"]);
     assert_eq!(code, 2, "{out}{err}");
     assert_eq!(listing(&scratch.path("c")), before);
+}
+
+/// Stdout, stderr and the exit code of one run in `dir` with environment variables set.
+fn klarch_env(dir: &Path, args: &[&str], env: &[(&str, &str)]) -> (String, String, i32) {
+    let mut command = Command::new(env!("CARGO_BIN_EXE_klarch"));
+    command
+        .args(args)
+        .current_dir(dir)
+        .stdin(std::process::Stdio::null());
+    for (key, value) in env {
+        command.env(key, value);
+    }
+    let out = command.output().expect("the binary runs");
+    (
+        String::from_utf8_lossy(&out.stdout).into_owned(),
+        String::from_utf8_lossy(&out.stderr).into_owned(),
+        out.status.code().unwrap_or(-1),
+    )
+}
+
+/// The claims of the git rule's edges: a new PATH under a worktree gets no repository; `--vcs git`
+/// over an existing directory inside a worktree creates one at PATH; over a repository's root it
+/// creates none and says nothing of one; a git failure other than "not a git repository", here a
+/// repository git refuses as another user's, refuses the run instead of reading as outside every
+/// repository; `GIT_DIR` or `GIT_WORK_TREE` set refuses the run.
+#[test]
+fn the_git_rule_holds_at_its_edges() {
+    let scratch = Scratch::new("git-edges");
+    let repo = |rel: &str| scratch.path(rel).join(".git").exists();
+    std::fs::create_dir_all(scratch.path("host")).unwrap();
+    git(&scratch.path("host"), &["init", "-q"]);
+
+    assert_eq!(klarch(&scratch.path("host"), &["init", "new/deep"]).2, 0);
+    assert!(
+        !repo("host/new/deep"),
+        "a new PATH under a worktree gets no repository"
+    );
+
+    scratch.write("host/existing/notes.txt", "mine");
+    let (out, err, code) = klarch(&scratch.path("host"), &["init", "existing", "--vcs", "git"]);
+    assert_eq!(code, 0, "{out}{err}");
+    assert!(
+        repo("host/existing"),
+        "--vcs git creates one at an existing PATH"
+    );
+
+    std::fs::create_dir_all(scratch.path("root")).unwrap();
+    git(&scratch.path("root"), &["init", "-q"]);
+    let (out, err, code) = klarch(&scratch.dir, &["init", "root", "--vcs", "git"]);
+    assert_eq!(code, 0, "{out}{err}");
+    assert!(!out.contains("created  a git repository"), "{out}");
+
+    let (out, err, code) = klarch_env(
+        &scratch.path("host"),
+        &["init", "owned"],
+        &[("GIT_TEST_ASSUME_DIFFERENT_OWNER", "1")],
+    );
+    assert_eq!(code, 2, "{out}{err}");
+    assert!(!scratch.path("host/owned").exists());
+
+    for variable in ["GIT_DIR", "GIT_WORK_TREE"] {
+        let (out, err, code) = klarch_env(
+            &scratch.dir,
+            &["init", "hooked"],
+            &[(variable, scratch.path("host/.git").to_str().unwrap())],
+        );
+        assert_eq!(code, 2, "{variable}: {out}{err}");
+        assert!(!scratch.path("hooked").exists(), "{variable}");
+    }
+}
+
+/// The claims of `--rust` against what exists: a Cargo.toml above PATH refuses it, as one at
+/// PATH does; an existing file of the four it writes refuses it, a symlink included; a
+/// `.gitignore` that is a symlink or a directory refuses it; each refusal writes nothing.
+#[test]
+fn rust_refuses_what_it_would_overwrite_or_nest_in() {
+    let scratch = Scratch::new("rust-refuse");
+    git(&scratch.dir, &["init", "-q"]);
+    let refused = |rel: &str| {
+        let before = listing(&scratch.dir);
+        let (out, err, code) = klarch(&scratch.dir, &["init", rel, "--rust"]);
+        assert_eq!(code, 2, "{rel}: {out}{err}");
+        assert_eq!(
+            listing(&scratch.dir),
+            before,
+            "{rel}: a refused run writes nothing"
+        );
+    };
+    scratch.write("ws/Cargo.toml", "[workspace]\nmembers = [\"crates/*\"]\n");
+    refused("ws/crates/kp");
+    scratch.write("cc/.cargo/config.toml", "[build]\njobs = 1\n");
+    refused("cc");
+    scratch.write("xf/xtask", "a file where the crate's directory is due");
+    refused("xf");
+    scratch.write("elsewhere.txt", "not this project's");
+    std::fs::create_dir_all(scratch.path("sl")).unwrap();
+    std::os::unix::fs::symlink(scratch.path("elsewhere.txt"), scratch.path("sl/.gitignore"))
+        .unwrap();
+    refused("sl");
+    std::fs::create_dir_all(scratch.path("dg/.gitignore")).unwrap();
+    refused("dg");
+    assert_eq!(
+        std::fs::read_to_string(scratch.path("elsewhere.txt")).unwrap(),
+        "not this project's"
+    );
+}
+
+/// The claims of the `.gitignore` rule: inside a repository, git decides whether `/target` is
+/// ignored, so each usual spelling is kept and a negated or indented one is not taken for it;
+/// outside every repository, a line holding one of the four spellings is; an empty file gains
+/// the rule.
+#[test]
+fn the_gitignore_rule_follows_what_git_ignores() {
+    let scratch = Scratch::new("ignore");
+    let after = |rel: &str, given: &str, vcs: &str| -> String {
+        scratch.write(&format!("{rel}/.gitignore"), given);
+        let (out, err, code) = klarch(&scratch.dir, &["init", rel, "--rust", "--vcs", vcs]);
+        assert_eq!(code, 0, "{rel}: {out}{err}");
+        std::fs::read_to_string(scratch.path(rel).join(".gitignore")).unwrap()
+    };
+    for (i, spelling) in ["/target", "/target/", "target", "target/"]
+        .iter()
+        .enumerate()
+    {
+        let given = format!("{spelling}\n");
+        assert_eq!(after(&format!("kept{i}"), &given, "git"), given);
+        assert_eq!(after(&format!("bare{i}"), &given, "none"), given);
+    }
+    let appended = "\n# Added by klarch\n/target\n";
+    assert_eq!(
+        after("negated", "target/\n!target/\n", "git"),
+        format!("target/\n!target/\n{appended}")
+    );
+    assert_eq!(
+        after("indented", "  target\n", "git"),
+        format!("  target\n{appended}")
+    );
+    assert_eq!(after("empty", "", "git"), appended);
+}
+
+/// The claims: a file where the agent configuration's directory is due refuses the run before
+/// its first write; a failure only the write itself meets, here a read-only `docs/`, comes after
+/// the manifest is written, and makes the run exit 1, never 2.
+#[test]
+fn a_failure_after_the_first_write_exits_one() {
+    use std::os::unix::fs::PermissionsExt;
+    let scratch = Scratch::new("late-failure");
+    git(&scratch.dir, &["init", "-q"]);
+    scratch.write("a/.claude", "a file where a directory is due");
+    let (out, err, code) = klarch(&scratch.dir, &["init", "a"]);
+    assert_eq!(code, 2, "{out}{err}");
+    assert!(!scratch.path("a/knowledge-architect.toml").exists());
+
+    std::fs::create_dir_all(scratch.path("b/docs")).unwrap();
+    std::fs::set_permissions(
+        scratch.path("b/docs"),
+        std::fs::Permissions::from_mode(0o555),
+    )
+    .unwrap();
+    let (out, err, code) = klarch(&scratch.dir, &["init", "b"]);
+    std::fs::set_permissions(
+        scratch.path("b/docs"),
+        std::fs::Permissions::from_mode(0o755),
+    )
+    .unwrap();
+    assert_eq!(code, 1, "{out}{err}");
+    assert!(scratch.path("b/knowledge-architect.toml").is_file());
+
+    // The install, run by the code `check --fix` runs, fails having written nothing of its own,
+    // which `--fix` reports as 2; this run had written, so it exits 1.
+    std::fs::create_dir_all(scratch.path("c/.claude")).unwrap();
+    std::fs::set_permissions(
+        scratch.path("c/.claude"),
+        std::fs::Permissions::from_mode(0o555),
+    )
+    .unwrap();
+    let (out, err, code) = klarch(&scratch.dir, &["init", "c"]);
+    std::fs::set_permissions(
+        scratch.path("c/.claude"),
+        std::fs::Permissions::from_mode(0o755),
+    )
+    .unwrap();
+    assert_eq!(code, 1, "{out}{err}");
+
+    // `new-component` writes the manifest, then fails on a read-only Component directory.
+    assert_eq!(klarch(&scratch.dir, &["init", "d"]).2, 0);
+    std::fs::create_dir_all(scratch.path("d/svc")).unwrap();
+    std::fs::set_permissions(
+        scratch.path("d/svc"),
+        std::fs::Permissions::from_mode(0o555),
+    )
+    .unwrap();
+    let (out, err, code) = klarch(&scratch.path("d"), &["new-component", "svc"]);
+    std::fs::set_permissions(
+        scratch.path("d/svc"),
+        std::fs::Permissions::from_mode(0o755),
+    )
+    .unwrap();
+    assert_eq!(code, 1, "{out}{err}");
+}
+
+/// The claims of the destination check, each a refusal before the first write, exit 2: a
+/// dangling symlink at the manifest's path; an `index.md` this tool did not write at a generated
+/// path; a FIFO at a destination; a file where a directory is due; a `--component` that overlaps
+/// a file the run writes; a Component in a `.git` directory or in the installer's namespace; a
+/// git that cannot run. And: a home kept in its other shape is named as it stands.
+#[test]
+fn init_refuses_every_destination_it_cannot_write_safely() {
+    let scratch = Scratch::new("destinations");
+    git(&scratch.dir, &["init", "-q"]);
+    let refused = |args: &[&str], dir: &str| {
+        let before = listing(&scratch.dir);
+        let (out, err, code) = klarch(&scratch.dir, args);
+        assert_eq!(code, 2, "{args:?}: {out}{err}");
+        assert_eq!(listing(&scratch.dir), before, "{args:?}: nothing written");
+        let _ = dir;
+    };
+    std::fs::create_dir_all(scratch.path("a1")).unwrap();
+    std::os::unix::fs::symlink(
+        scratch.path("outside.toml"),
+        scratch.path("a1/knowledge-architect.toml"),
+    )
+    .unwrap();
+    refused(&["init", "a1"], "a1");
+    assert!(!scratch.path("outside.toml").exists());
+
+    scratch.write("a6/docs/open-issues/index.md", "# Our own table\n");
+    refused(&["init", "a6"], "a6");
+
+    std::fs::create_dir_all(scratch.path("a8")).unwrap();
+    assert!(Command::new("mkfifo")
+        .arg(scratch.path("a8/README.md"))
+        .status()
+        .unwrap()
+        .success());
+    refused(&["init", "a8"], "a8");
+
+    scratch.write("fd/docs", "a file where a directory is due");
+    refused(&["init", "fd"], "fd");
+
+    refused(&["init", "ov", "--component", "README.md"], "ov");
+    refused(&["init", "g1", "--component", ".git/c"], "g1");
+    refused(
+        &[
+            "init",
+            "ns",
+            "--component",
+            ".claude/skills/knowledge-architect-x",
+        ],
+        "ns",
+    );
+
+    let nogit = scratch.path("no-git-bin");
+    std::fs::create_dir_all(&nogit).unwrap();
+    let (out, err, code) = klarch_env(
+        &scratch.dir,
+        &["init", "ng", "--vcs", "none"],
+        &[("PATH", nogit.to_str().unwrap())],
+    );
+    assert_eq!(code, 2, "{out}{err}");
+    assert!(!scratch.path("ng").exists());
+
+    scratch.write("ks/docs/design/README.md", "# Our design\n");
+    let (out, err, code) = klarch(&scratch.dir, &["init", "ks"]);
+    assert_eq!(code, 0, "{out}{err}");
+    assert!(out.contains("kept     docs/design/README.md"), "{out}");
+    assert!(!scratch.path("ks/docs/design.md").exists());
+}
+
+/// The claim: `init` runs the build-origin refusal over PATH, so a directory holding a copy of
+/// this tool's crate, at the trailing path it was compiled at, refuses it.
+#[test]
+fn init_refuses_a_foreign_build_over_path() {
+    let scratch = Scratch::new("foreign");
+    git(&scratch.dir, &["init", "-q"]);
+    scratch.write(
+        "copy/crates/core/Cargo.toml",
+        "[package]\nname = \"knowledge-architect\"\n",
+    );
+    let (out, err, code) = klarch(&scratch.dir, &["init", "copy", "--name", "copy"]);
+    assert_eq!(code, 2, "{out}{err}");
+    assert!(!scratch.path("copy/knowledge-architect.toml").exists());
+}
+
+/// The claims of `new-component`'s edge: a destination it cannot write refuses it with the
+/// manifest untouched; a manifest written with CRLF line breaks keeps them.
+#[test]
+fn new_component_keeps_the_manifest_whole() {
+    let scratch = Scratch::new("nc-whole");
+    assert_eq!(klarch(&scratch.dir, &["init", "p"]).2, 0);
+    let manifest = scratch.path("p/knowledge-architect.toml");
+    let before = std::fs::read_to_string(&manifest).unwrap();
+    std::fs::create_dir_all(scratch.path("p/svc/README.md")).unwrap();
+    let (out, err, code) = klarch(&scratch.path("p"), &["new-component", "svc"]);
+    assert_eq!(code, 2, "{out}{err}");
+    assert_eq!(std::fs::read_to_string(&manifest).unwrap(), before);
+
+    std::fs::write(&manifest, before.replace('\n', "\r\n")).unwrap();
+    let (out, err, code) = klarch(&scratch.path("p"), &["new-component", "lib"]);
+    assert_eq!(code, 0, "{out}{err}");
+    let after = std::fs::read_to_string(&manifest).unwrap();
+    assert_eq!(
+        after.matches('\n').count(),
+        after.matches("\r\n").count(),
+        "{after:?}"
+    );
 }
