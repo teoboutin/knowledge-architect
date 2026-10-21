@@ -11,8 +11,13 @@ use std::process::ExitCode;
 
 use super::output::outln;
 use super::{InitArgs, Library, Vcs};
+use crate::agents::IMPORT_LINE;
+use crate::entity::{Anchors, Constructed};
 use crate::extension::Extension;
-use crate::manifest::{MANIFEST_NAME, OWNED_PREFIX};
+use crate::manifest::{
+    Shape, AGENT_DOCUMENT, ISSUE_REGISTER, MANIFEST_NAME, MILESTONE_REGISTER, OWNED_PREFIX,
+    REJECTED_REGISTER, SPEC_REGISTER, TRIPWIRE_REGISTER,
+};
 use crate::Manifest;
 
 /// Create a knowledge-architect project at `args.path`, as `klarch init` does.
@@ -24,8 +29,8 @@ pub fn init(
     args: InitArgs,
     libraries: &[Library],
     packages: &[&str],
-    _checker: &[&Path],
-    _extensions: &mut [Box<dyn Extension>],
+    checker: &[&Path],
+    extensions: &mut [Box<dyn Extension>],
 ) -> Result<ExitCode, String> {
     let cwd =
         std::env::current_dir().map_err(|e| format!("cannot read the working directory: {e}"))?;
@@ -79,6 +84,7 @@ pub fn init(
         super::refuse_a_foreign_build(&root, libraries, packages)?;
     }
     let run_git = git_rule(&root, args.vcs)?;
+    let documents = owed_documents(&parsed, &root)?;
 
     // The writes.
     std::fs::create_dir_all(&root).map_err(|e| format!("cannot create {}: {e}", root.display()))?;
@@ -93,7 +99,197 @@ pub fn init(
     std::fs::write(root.join(MANIFEST_NAME), manifest)
         .map_err(|e| format!("cannot write {MANIFEST_NAME}: {e}"))?;
     outln!("wrote    {MANIFEST_NAME}");
-    Ok(ExitCode::SUCCESS)
+    let written = write_documents(&root, &documents);
+    let manifest = Manifest::load(&root);
+    match (written, manifest) {
+        (Ok(()), Ok(manifest)) => finish(&manifest, checker, extensions),
+        // Files were written, so the run is no longer one that touched nothing: exit 2 would
+        // promise an untouched tree, per `design@core@exit-code-ladder`.
+        (Err(e), _) | (_, Err(e)) => {
+            eprintln!("error: {e}");
+            Ok(ExitCode::FAILURE)
+        }
+    }
+}
+
+/// The last part of a run that wrote: the installed set and the indexes, through the code
+/// `check --fix` runs, then the check, whose verdict is the run's.
+///
+/// Outside every worktree the walk cannot run, per `design@core@failed-git-is-exit-two`, so
+/// nothing more is done: the run said what it wrote, and says what comes next.
+fn finish(
+    manifest: &Manifest,
+    checker: &[&Path],
+    extensions: &mut [Box<dyn Extension>],
+) -> Result<ExitCode, String> {
+    if !crate::git::inside_work_tree(manifest.root()).unwrap_or(false) {
+        outln!(
+            "not inside a git repository: run `git init`, then `{} check --fix`, to install the \
+             agent files and write the indexes",
+            manifest.command()
+        );
+        return Ok(ExitCode::SUCCESS);
+    }
+    match super::fix_then_check(manifest, checker, extensions) {
+        // A 2 from `--fix` means it wrote nothing, which is not true of this run.
+        Ok(code) if code == ExitCode::from(2) => Ok(ExitCode::FAILURE),
+        Ok(code) => Ok(code),
+        Err(e) => {
+            eprintln!("error: {e}");
+            Ok(ExitCode::FAILURE)
+        }
+    }
+}
+
+/// One hand-written document a Component or the plans directory owes, and what `init` does
+/// with it.
+struct Document {
+    /// Project-relative.
+    rel: PathBuf,
+    text: String,
+    /// It exists already, in this shape or in the other shape of its heading register, and is
+    /// left as it is.
+    kept: bool,
+}
+
+/// Every document the root Component and the plans directory owe under `manifest`, each judged
+/// against the filesystem before anything is written.
+///
+/// The list is not written down here: it is the required documents and the register homes the
+/// check asks for, from [`Manifest::required_documents`] and [`Anchors::of`], with the plans
+/// directory's README, which the check requires by its own rule. So a register declared, or a
+/// document a Component comes to owe, reaches this with no edit. `Err` refuses the run: a
+/// destination that is a symlink, a directory where a file is due, or under a file.
+fn owed_documents(manifest: &Manifest, root: &Path) -> Result<Vec<Document>, String> {
+    let anchors = Anchors::of(manifest, &[] as &[PathBuf]);
+    let mut out = Vec::new();
+    for anchor in anchors.all() {
+        if anchor.is_component {
+            for name in manifest.required_documents() {
+                let text =
+                    component_document(name, &anchor.name, anchor.path.as_os_str().is_empty());
+                out.push((anchor.path.join(name), text, None));
+            }
+        }
+        if anchor.constructed == Some(Constructed::Plans) {
+            out.push((
+                anchor.path.join("README.md"),
+                "# Plans\n\nThe plan documents of work designed and not yet built.\n".to_string(),
+                None,
+            ));
+        }
+    }
+    for (anchor, register, home) in anchors.instances() {
+        let text = home_text(&register.name, &anchor.name);
+        match register.shape {
+            Shape::Heading => out.push((home.file, text, Some(home.readme))),
+            Shape::File | Shape::Directory => out.push((home.readme, text, None)),
+            // An item register lives inside a plan document and has no home of its own.
+            Shape::Section => {}
+        }
+    }
+    out.into_iter()
+        .map(|(rel, text, other_shape)| {
+            let path = root.join(&rel);
+            refuse_unwritable(root, &path)?;
+            let kept = path.is_file() || other_shape.is_some_and(|o| root.join(o).is_file());
+            Ok(Document { rel, text, kept })
+        })
+        .collect()
+}
+
+/// `Err` where writing `path` could follow a symlink, would replace a directory, or would need a
+/// directory where a file stands, so the run refuses before its first write, as `index` refuses
+/// a symlinked destination, per `design@core@index-takes-no-dry-run`.
+fn refuse_unwritable(root: &Path, path: &Path) -> Result<(), String> {
+    for at in path
+        .ancestors()
+        .take_while(|a| a.starts_with(root) && *a != root)
+    {
+        let Ok(meta) = std::fs::symlink_metadata(at) else {
+            continue;
+        };
+        let refusal = if meta.file_type().is_symlink() {
+            Some("is a symlink")
+        } else if at == path && meta.is_dir() {
+            Some("is a directory where a file is due")
+        } else if at != path && !meta.is_dir() {
+            Some("is a file where a directory is due")
+        } else {
+            None
+        };
+        if let Some(why) = refusal {
+            return Err(format!("{} {why}: nothing was written", at.display()));
+        }
+    }
+    Ok(())
+}
+
+/// Write every document not kept, listing each.
+fn write_documents(root: &Path, documents: &[Document]) -> Result<(), String> {
+    for doc in documents {
+        if doc.kept {
+            outln!("kept     {}", doc.rel.display());
+            continue;
+        }
+        let path = root.join(&doc.rel);
+        if let Some(dir) = path.parent() {
+            std::fs::create_dir_all(dir)
+                .map_err(|e| format!("cannot create {}: {e}", dir.display()))?;
+        }
+        std::fs::write(&path, &doc.text)
+            .map_err(|e| format!("cannot write {}: {e}", path.display()))?;
+        outln!("wrote    {}", doc.rel.display());
+    }
+    Ok(())
+}
+
+/// The starting text of a Component's README.md or CLAUDE.md. The root's CLAUDE.md is its title
+/// and the primer's import line, and nothing else, since what every root would say alike is the
+/// primer's, per `design@agent-skills@primer-limit`.
+fn component_document(document: &str, name: &str, root: bool) -> String {
+    match (document, root) {
+        (AGENT_DOCUMENT, true) => format!("# {name}\n\n{IMPORT_LINE}\n"),
+        (AGENT_DOCUMENT, false) => format!(
+            "# {name}\n\nThe contracts and traps a developer of {name} needs: none recorded yet.\n"
+        ),
+        _ => format!("# {name}\n\nWhat {name} is for, and how to use it: not written yet.\n"),
+    }
+}
+
+/// The starting text of a register's home under `anchor`: a title and one sentence on what it
+/// holds, with no heading at a register's level, no reference and no link, so it passes every
+/// check in any project. No goal is written: the goals are the owner's to state.
+fn home_text(register: &str, anchor: &str) -> String {
+    let (title, holds) = match register {
+        "goal" => (
+            "Goals",
+            format!("What {anchor} is for. No entry yet: the goals are stated with the owner."),
+        ),
+        "design" => (
+            "Design",
+            format!("How {anchor} is built, and why. No entry yet."),
+        ),
+        REJECTED_REGISTER => (
+            "Rejected designs",
+            format!("The designs {anchor} did not keep, and why. No entry yet."),
+        ),
+        TRIPWIRE_REGISTER => (
+            "Tripwires",
+            format!("The evidence that would reopen a decision of {anchor}. No entry yet."),
+        ),
+        ISSUE_REGISTER => (
+            "Open issues",
+            format!("One file per outstanding item of {anchor}. No entry yet."),
+        ),
+        SPEC_REGISTER => ("Specs", "No entry yet.".to_string()),
+        MILESTONE_REGISTER => ("Milestones", "No entry yet.".to_string()),
+        other => (
+            other,
+            format!("The entries of the {other} register. No entry yet."),
+        ),
+    };
+    format!("# {title}\n\n{holds}\n")
 }
 
 /// Whether `init` runs `git init` at `root`, or `Err` where its rule refuses.
