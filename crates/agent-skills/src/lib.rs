@@ -14,7 +14,8 @@ const _: Option<&str> = option_env!("KNOWLEDGE_ARCHITECT_CHECKOUT");
 pub static FILES: &[(&str, &str)] = include!(concat!(env!("OUT_DIR"), "/files.rs"));
 
 /// Every file of the snippets the setup skill inlines, as its file name and its text, in name
-/// order: the files `klarch init --rust` writes, so a project gets what the skill shows.
+/// order: `klarch init --rust` writes every one of them but `ci.yml`, so a project gets what the
+/// skill shows.
 pub static SNIPPETS: &[(&str, &str)] = include!(concat!(env!("OUT_DIR"), "/snippets.rs"));
 
 /// This crate's directory, compiled in, so a binary that links it can refuse a build made from

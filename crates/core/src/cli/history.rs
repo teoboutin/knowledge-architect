@@ -760,8 +760,8 @@ pub(super) fn index_staged(
 /// The generated files the tree git's index would commit needs, for `check --fix`, which compares
 /// them with the working tree's.
 ///
-/// `Ok(None)` in the two states where no staged tree is there to commit: an index holding an
-/// unmerged path, and a staged tree that stops in phases 1 to 3. **Every other failure is an
+/// `Ok(None)` in the three states where no staged tree is there to commit: an index holding an
+/// unmerged path, a staged tree holding no manifest, and one that stops in phases 1 to 3. **Every other failure is an
 /// error**, a git read or an extension that cannot prepare over the snapshot among them: the
 /// comparison guards a partial commit against the generated files of the wrong tree, and a
 /// comparison skipped in silence lets that commit through.
@@ -772,6 +772,17 @@ pub(super) fn staged_generated(
 ) -> Result<Option<Vec<(PathBuf, String)>>, String> {
     let unmerged = crate::git::unmerged(root).map_err(|e| e.to_string())?;
     if !unmerged.is_empty() {
+        return Ok(None);
+    }
+    // A staged tree holding no manifest is no project: phase 1 has nothing to read, and a commit
+    // of it carries no generated file to get wrong. `init` over a repository with staged changes
+    // meets it, as does a manifest written and not yet staged.
+    let listed = crate::git::snapshot_entries(root, crate::git::Source::Index)
+        .map_err(|e| format!("the staged tree could not be listed: {e}"))?;
+    if !listed.iter().any(|e| {
+        let entry = e.entry();
+        entry.kind == crate::git::EntryKind::File && entry.rel == Path::new(MANIFEST_NAME)
+    }) {
         return Ok(None);
     }
     let (inside, _) = crate::model::snapshot_checker_dirs(root, checker)

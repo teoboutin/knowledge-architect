@@ -178,7 +178,8 @@ fn a_refused_name_writes_nothing() {
     assert_eq!(code, 0, "{out}{err}");
 }
 
-/// The claim: each row of the spec's git table, outside a worktree and inside one.
+/// The claim: each row of the table of `design@core@init-runs-git-init`, outside a worktree and
+/// inside one.
 #[test]
 fn the_git_rule_holds_in_every_case() {
     let scratch = Scratch::new("git");
@@ -295,8 +296,8 @@ fn an_unwritable_destination_refuses_before_any_write() {
     );
 }
 
-/// The claim: under `--vcs none` outside every worktree, the documents are written, no index
-/// and no check run, and the run exits 0 saying what comes next.
+/// The claim: under `--vcs none` outside every worktree, the documents and the agent files are
+/// written, no index and no check run, and the run exits 0 saying what comes next.
 #[test]
 fn outside_a_worktree_the_run_stops_before_the_indexes() {
     let scratch = Scratch::new("no-vcs");
@@ -304,7 +305,26 @@ fn outside_a_worktree_the_run_stops_before_the_indexes() {
     assert_eq!(code, 0, "{out}{err}");
     assert!(out.contains("git init"), "{out}");
     assert!(scratch.path("p/docs/goals.md").is_file());
+    assert!(scratch
+        .path("p/.claude/knowledge-architect/PRIMER.md")
+        .is_file());
     assert!(!scratch.path("p/docs/open-issues/index.md").exists());
+}
+
+/// The claim: `init` over a repository whose index holds staged changes, and no manifest,
+/// writes the indexes and passes the check: a commit of that index is no project, so `--fix`
+/// has no staged tree to compare with.
+#[test]
+fn init_over_staged_changes_passes() {
+    let scratch = Scratch::new("staged");
+    let dir = scratch.path("p");
+    std::fs::create_dir(&dir).unwrap();
+    git(&dir, &["init", "-q"]);
+    std::fs::write(dir.join("notes.txt"), "kept\n").unwrap();
+    git(&dir, &["add", "notes.txt"]);
+    let (out, err, code) = klarch(&dir, &["init"]);
+    assert_eq!(code, 0, "{out}{err}");
+    assert!(dir.join("docs/open-issues/index.md").is_file());
 }
 
 /// The comment lines of a manifest, in order.
@@ -339,6 +359,43 @@ fn new_component_keeps_every_comment_of_the_manifest() {
         1,
         "{after}"
     );
+
+    // A reason beside an element stays on that element's line, with or without its comma, and
+    // the new element takes a line of its own.
+    for (case, listed) in [
+        "components = [\n    \"a\", # reason for a\n    \"b\", # reason for b\n]",
+        "components = [\n    \"a\", # reason for a\n    \"b\" # reason for b\n]",
+    ]
+    .into_iter()
+    .enumerate()
+    {
+        let project = format!("q{case}");
+        let args = ["init", &project, "--component", "a", "--component", "b"];
+        assert_eq!(klarch(&scratch.dir, &args).2, 0);
+        let path = scratch.path(&format!("{project}/knowledge-architect.toml"));
+        let written = std::fs::read_to_string(&path).unwrap();
+        let line = written
+            .lines()
+            .find(|l| l.starts_with("components = "))
+            .unwrap();
+        std::fs::write(&path, written.replace(line, listed)).unwrap();
+        let (out, err, code) = klarch(&scratch.path(&project), &["new-component", "svc"]);
+        assert_eq!(code, 0, "{out}{err}");
+        let after = std::fs::read_to_string(&path).unwrap();
+        for element in ["a", "b"] {
+            let line = format!("    \"{element}\", # reason for {element}");
+            assert!(
+                after.lines().any(|l| l == line),
+                "{line:?} not in:\n{after}"
+            );
+        }
+        assert!(
+            after
+                .lines()
+                .any(|l| l.trim_end_matches(',') == "    \"svc\""),
+            "{after}"
+        );
+    }
 }
 
 /// `new-component` then `check` passes, and `init --component` lists the
@@ -361,7 +418,7 @@ fn a_component_added_either_way_passes_the_check() {
 
 /// The claims: over a tree phases 1 to 3 find incomplete, `new-component` refuses, exit 2,
 /// writing nothing; a DIR named like the project refuses with the manifest's complaint, writing
-/// nothing.
+/// nothing; so does an `index.md` already in the new Component.
 #[test]
 fn new_component_refuses_before_any_write() {
     let scratch = Scratch::new("nc-refuse");
@@ -381,6 +438,13 @@ fn new_component_refuses_before_any_write() {
     assert!(err.contains("incomplete"), "{err}");
     assert_eq!(std::fs::read_to_string(&manifest).unwrap(), before);
     assert!(!scratch.path("p/svc").exists());
+
+    // An index this tool did not write, in the new Component, refuses it.
+    scratch.write("p/docs/design.md", "# Design\n\nNo entry yet.\n");
+    scratch.write("p/own/docs/open-issues/index.md", "# Our own table\n");
+    let (out, err, code) = klarch(&scratch.path("p"), &["new-component", "own"]);
+    assert_eq!(code, 2, "{out}{err}");
+    assert_eq!(std::fs::read_to_string(&manifest).unwrap(), before);
 }
 
 /// `init --rust` then `check` passes, the manifest declares the command and
@@ -461,7 +525,7 @@ fn klarch_env(dir: &Path, args: &[&str], env: &[(&str, &str)]) -> (String, Strin
 /// over an existing directory inside a worktree creates one at PATH; over a repository's root it
 /// creates none and says nothing of one; a git failure other than "not a git repository", here a
 /// repository git refuses as another user's, refuses the run instead of reading as outside every
-/// repository; `GIT_DIR` or `GIT_WORK_TREE` set refuses the run.
+/// repository; a variable that points git at another repository's files refuses the run.
 #[test]
 fn the_git_rule_holds_at_its_edges() {
     let scratch = Scratch::new("git-edges");
@@ -497,11 +561,17 @@ fn the_git_rule_holds_at_its_edges() {
     assert_eq!(code, 2, "{out}{err}");
     assert!(!scratch.path("host/owned").exists());
 
-    for variable in ["GIT_DIR", "GIT_WORK_TREE"] {
+    for (variable, value) in [
+        ("GIT_DIR", "host/.git"),
+        ("GIT_WORK_TREE", "host"),
+        ("GIT_INDEX_FILE", "host/.git/index"),
+        ("GIT_COMMON_DIR", "host/.git"),
+        ("GIT_OBJECT_DIRECTORY", "host/.git/objects"),
+    ] {
         let (out, err, code) = klarch_env(
             &scratch.dir,
             &["init", "hooked"],
-            &[(variable, scratch.path("host/.git").to_str().unwrap())],
+            &[(variable, scratch.path(value).to_str().unwrap())],
         );
         assert_eq!(code, 2, "{variable}: {out}{err}");
         assert!(!scratch.path("hooked").exists(), "{variable}");
@@ -547,7 +617,7 @@ fn rust_refuses_what_it_would_overwrite_or_nest_in() {
 /// The claims of the `.gitignore` rule: inside a repository, git decides whether `/target` is
 /// ignored, so each usual spelling is kept and a negated or indented one is not taken for it;
 /// outside every repository, a line holding one of the four spellings is; an empty file gains
-/// the rule.
+/// the rule; inside an existing worktree git decides too.
 #[test]
 fn the_gitignore_rule_follows_what_git_ignores() {
     let scratch = Scratch::new("ignore");
@@ -575,6 +645,17 @@ fn the_gitignore_rule_follows_what_git_ignores() {
         format!("  target\n{appended}")
     );
     assert_eq!(after("empty", "", "git"), appended);
+
+    // Inside an existing worktree, where no repository is created, git decides as well.
+    std::fs::create_dir_all(scratch.path("host")).unwrap();
+    git(&scratch.path("host"), &["init", "-q"]);
+    scratch.write("host/inner/.gitignore", "/target*\n");
+    let (out, err, code) = klarch(&scratch.path("host"), &["init", "inner", "--rust"]);
+    assert_eq!(code, 0, "{out}{err}");
+    assert_eq!(
+        std::fs::read_to_string(scratch.path("host/inner/.gitignore")).unwrap(),
+        "/target*\n"
+    );
 }
 
 /// The claims: a file where the agent configuration's directory is due refuses the run before
@@ -642,7 +723,9 @@ fn a_failure_after_the_first_write_exits_one() {
 /// dangling symlink at the manifest's path; an `index.md` this tool did not write at a generated
 /// path; a FIFO at a destination; a file where a directory is due; a `--component` that overlaps
 /// a file the run writes; a Component in a `.git` directory or in the installer's namespace; a
-/// git that cannot run. And: a home kept in its other shape is named as it stands.
+/// git that cannot run; the index of a directory register; a symlink where `--rust` writes; a
+/// PATH that is a file, lies under one, is a dangling symlink or lies in `.git`; a PATH or a
+/// Component git ignores. And: a home kept in its other shape is named as it stands.
 #[test]
 fn init_refuses_every_destination_it_cannot_write_safely() {
     let scratch = Scratch::new("destinations");
@@ -699,6 +782,25 @@ fn init_refuses_every_destination_it_cannot_write_safely() {
     assert_eq!(code, 2, "{out}{err}");
     assert!(!scratch.path("ng").exists());
 
+    scratch.write("a7/docs/plans/milestones/index.md", "# Our milestones\n");
+    refused(&["init", "a7"], "a7");
+
+    std::fs::create_dir_all(scratch.path("a9")).unwrap();
+    std::os::unix::fs::symlink(scratch.path("elsewhere"), scratch.path("a9/.cargo")).unwrap();
+    refused(&["init", "a9", "--rust"], "a9");
+    assert!(!scratch.path("elsewhere").exists());
+
+    scratch.write("plain", "a file at PATH");
+    refused(&["init", "plain"], "plain");
+    refused(&["init", "plain/p"], "plain/p");
+    std::os::unix::fs::symlink(scratch.path("nowhere"), scratch.path("dangling")).unwrap();
+    refused(&["init", "dangling"], "dangling");
+    refused(&["init", ".git/proj"], ".git/proj");
+
+    scratch.write(".gitignore", "ign/\nbuild/\n");
+    refused(&["init", "ign/p"], "ign/p");
+    refused(&["init", "cb", "--component", "build"], "cb");
+
     scratch.write("ks/docs/design/README.md", "# Our design\n");
     let (out, err, code) = klarch(&scratch.dir, &["init", "ks"]);
     assert_eq!(code, 0, "{out}{err}");
@@ -722,7 +824,8 @@ fn init_refuses_a_foreign_build_over_path() {
 }
 
 /// The claims of `new-component`'s edge: a destination it cannot write refuses it with the
-/// manifest untouched; a manifest written with CRLF line breaks keeps them.
+/// manifest untouched; a manifest written with CRLF line breaks keeps them, and one with a
+/// byte-order mark or mixed line endings keeps every byte outside the array.
 #[test]
 fn new_component_keeps_the_manifest_whole() {
     let scratch = Scratch::new("nc-whole");
@@ -743,4 +846,68 @@ fn new_component_keeps_the_manifest_whole() {
         after.matches("\r\n").count(),
         "{after:?}"
     );
+
+    // Every byte outside the array is kept: a byte-order mark, and line endings that mix; the
+    // array's own `\n` line breaks stay `\n`.
+    let mixed = format!("\u{feff}{}", before.replacen('\n', "\r\n", 1))
+        .replace("components = []", "components = [\n    \"lib\",\n]");
+    std::fs::write(&manifest, &mixed).unwrap();
+    let (out, err, code) = klarch(&scratch.path("p"), &["new-component", "app"]);
+    assert!(code < 2, "{out}{err}");
+    assert!(out.contains("wrote    app/README.md"), "{out}");
+    assert_eq!(
+        std::fs::read_to_string(&manifest).unwrap(),
+        mixed.replace("    \"lib\",\n]", "    \"lib\",\n    \"app\",\n]")
+    );
+}
+
+/// The claim: a stdout that cannot be written ends `init` with 2, as every command, only once
+/// every document is written, so `check --fix` completes the project; and `new-component` the
+/// same.
+#[cfg(target_os = "linux")]
+#[test]
+fn a_closed_stdout_leaves_every_document_written() {
+    let scratch = Scratch::new("full");
+    let full = || {
+        std::fs::OpenOptions::new()
+            .write(true)
+            .open("/dev/full")
+            .unwrap()
+    };
+    let status = Command::new(env!("CARGO_BIN_EXE_klarch"))
+        .args(["init", "p"])
+        .current_dir(&scratch.dir)
+        .stdin(std::process::Stdio::null())
+        .stdout(full())
+        .stderr(std::process::Stdio::null())
+        .status()
+        .unwrap();
+    assert_eq!(status.code(), Some(2));
+    let (out, err, code) = klarch(&scratch.path("p"), &["check", "--fix"]);
+    assert_eq!(code, 0, "{out}{err}");
+
+    git(&scratch.path("p"), &["add", "-A"]);
+    git(
+        &scratch.path("p"),
+        &[
+            "-c",
+            "user.name=t",
+            "-c",
+            "user.email=t@t",
+            "commit",
+            "-qm",
+            "p",
+        ],
+    );
+    let status = Command::new(env!("CARGO_BIN_EXE_klarch"))
+        .args(["new-component", "svc"])
+        .current_dir(scratch.path("p"))
+        .stdin(std::process::Stdio::null())
+        .stdout(full())
+        .stderr(std::process::Stdio::null())
+        .status()
+        .unwrap();
+    assert_eq!(status.code(), Some(2));
+    let (out, err, code) = klarch(&scratch.path("p"), &["check", "--fix"]);
+    assert_eq!(code, 0, "{out}{err}");
 }

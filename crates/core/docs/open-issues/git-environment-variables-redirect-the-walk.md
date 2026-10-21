@@ -1,14 +1,14 @@
 ---
 kind: defect
 ---
-# `GIT_DIR` or `GIT_WORK_TREE` in the environment makes every command read another repository
+# A git variable in the environment, such as `GIT_DIR` or `GIT_INDEX_FILE`, makes every command read another repository's files
 
 ## Summary
 
-Every git invocation of the checker inherits the caller's environment, so with `GIT_DIR` or
-`GIT_WORK_TREE` set, as git sets them for a hook, `check` and every other command read the index
-and the tree of the repository those variables name rather than the project's. `init` refuses to
-run with either set; no other command does.
+Every git invocation of the checker inherits the caller's environment, so with `GIT_DIR`,
+`GIT_WORK_TREE` or `GIT_INDEX_FILE` set, the last as git sets it for a pre-commit hook, `check`
+and every other command read the index and the tree those variables name rather than the
+project's. `init` refuses to run with any of them set; no other command does.
 
 ## Details
 
@@ -29,15 +29,24 @@ GIT_DIR=../other/.git klarch check # exit 1: "f  git lists this file and the wor
                                    # not hold it"; the walk is other's index
 ```
 
-Not established: what each other command does under the variables, and whether `GIT_INDEX_FILE`
-or `GIT_COMMON_DIR` misdirect the walk the same way. Ruled out: the per-user ignore file, which
+`GIT_INDEX_FILE` misdirects the walk the same way: `GIT_INDEX_FILE=$PWD/other/.git/index klarch
+init g1`, run with `init`'s refusal of it absent, exits 1 on the same finding about `f`. A
+pre-commit hook gets `GIT_INDEX_FILE` and neither `GIT_DIR` nor `GIT_WORK_TREE`, measured with git
+2.43.0 by a hook running `env`: `.git/index` for `git commit`, a path relative to the repository's
+root, and the absolute path of `.git/index.lock` for `git commit -a`, each the index the commit
+records.
+
+Not established: what each other command does under the variables; whether `GIT_COMMON_DIR` or
+`GIT_OBJECT_DIRECTORY` misdirect the walk the same way; and what a hook's relative
+`GIT_INDEX_FILE` names for a project in a subdirectory of its repository, where git runs with the
+project's root as its working directory. Ruled out: the per-user ignore file, which
 `Invocation::run` already pins away with `core.excludesFile=/dev/null`.
 
 ### Why it matters
 
 `design@core@git-supplies-the-walk` makes git's listing of the project the walk; under these
-variables the listing is another repository's, so a check run from a git hook, a pre-commit hook
-running `cargo klarch check` among them, judges the wrong tree, and can pass or fail regardless of
+variables the listing can be another repository's or another index's, so a check run where they
+are set can judge the wrong tree, and can pass or fail regardless of
 the project. It strains `goal@core@documents-stay-current`, whose test is the check passing on the
 project's own commits.
 

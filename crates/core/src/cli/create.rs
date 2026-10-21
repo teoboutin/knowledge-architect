@@ -3,8 +3,10 @@
 //! **It writes where no project exists yet**, so it runs before [`super::locate`] and before the
 //! version refusal, which read a manifest it is about to write. Every binary that dispatches
 //! [`super::Command`] hands it here first, per `design@core@the-core-cli-is-a-library-module`.
-//! Its no-loss guarantee is that every refusal comes before the first write: a refused run
-//! leaves the filesystem as it found it, and exits 2.
+//! Its no-loss guarantee is that every refusal comes before the first write, per
+//! `design@core@init-asks-no-confirmation`: a refused run leaves the filesystem as it found it,
+//! and exits 2. Once it has written, a failure exits 1; a stdout closed early still exits 2, as
+//! in every command, and `check --fix` completes that run.
 
 use std::path::{Component, Path, PathBuf};
 use std::process::ExitCode;
@@ -62,10 +64,29 @@ pub fn init(
             root.display()
         ));
     }
-    if root.exists() && !root.is_dir() {
-        return Err(format!("{} exists and is not a directory", root.display()));
+    // The nearest path at or above PATH that exists is a directory, or the first write fails: a
+    // PATH under a file, or a dangling symlink at PATH.
+    if let Some(found) = root
+        .ancestors()
+        .find(|dir| std::fs::symlink_metadata(dir).is_ok())
+    {
+        if !found.is_dir() {
+            return Err(format!(
+                "{} lies at or under {}, which is not a directory",
+                root.display(),
+                found.display()
+            ));
+        }
     }
-    // A project's own skills take its name and a hyphen as their prefix by default, per
+    // A repository's `.git` directory is no walk's, as a Component there is refused.
+    if root.components().any(|part| part.as_os_str() == ".git") {
+        return Err(format!(
+            "{} lies in a git directory, which no walk reads",
+            root.display()
+        ));
+    }
+    // Per `design@core@init-refuses-the-installer-s-prefix`: a project's own skills take its
+    // name and a hyphen as their prefix by default, per
     // `design@agent-skills@project-name-prefix`; under a name that begins with the installer's
     // namespace, that default lies inside it, and the install deletes such files as unshipped.
     // A name equal to the namespace without its hyphen is accepted: its project takes another
@@ -116,10 +137,17 @@ pub fn init(
     if root.is_dir() {
         super::refuse_a_foreign_build(&root, libraries, packages)?;
     }
-    // With either variable set, as inside a git hook, git answers about another repository than
-    // PATH's, and `git init` re-initialises that one. Every other command reads that repository
-    // too, per `issue@core@git-environment-variables-redirect-the-walk`.
-    for variable in ["GIT_DIR", "GIT_WORK_TREE"] {
+    // With one of these set, git can answer from another repository's files than PATH's, and
+    // `git init` re-initialise another one; a pre-commit hook gets `GIT_INDEX_FILE`, measured
+    // with git 2.43.0. Every other command reads them too, per
+    // `issue@core@git-environment-variables-redirect-the-walk`.
+    for variable in [
+        "GIT_DIR",
+        "GIT_WORK_TREE",
+        "GIT_INDEX_FILE",
+        "GIT_COMMON_DIR",
+        "GIT_OBJECT_DIRECTORY",
+    ] {
         if std::env::var_os(variable).is_some() {
             return Err(format!(
                 "{variable} is set, so git would answer about another repository than {}'s: \
@@ -129,6 +157,9 @@ pub fn init(
         }
     }
     let run_git = git_rule(&root, args.vcs)?;
+    if !run_git {
+        refuse_ignored(&root, &components)?;
+    }
     let mut documents = owed_documents(&parsed, &root, |_| true)?;
     let mut ignore = None;
     if args.rust {
@@ -151,32 +182,39 @@ pub fn init(
         .map(Path::to_path_buf);
 
     // The writes. Once the first is made, a failure exits 1: exit 2 promises an untouched tree,
-    // per `design@core@exit-code-ladder`.
+    // per `design@core@init-asks-no-confirmation`. Their lines are printed once every document
+    // is written, since a stdout closed early ends the process with 2, as in every command, per
+    // `design@core@exit-code-ladder`: a run stopped between two documents would leave a project
+    // that `init` refuses, holding a manifest, and that `check --fix` cannot complete, since it
+    // writes no document. Stopped after them, it can.
+    let mut log = vec![format!(
+        "creating a knowledge-architect project `{name}` in {}",
+        root.display()
+    )];
     let written = (|| -> Result<(), String> {
         std::fs::create_dir_all(&root)
             .map_err(|e| format!("cannot create {}: {e}", root.display()))?;
-        outln!(
-            "creating a knowledge-architect project `{name}` in {}",
-            root.display()
-        );
         if run_git {
             crate::git::init_repository(&root).map_err(|e| e.to_string())?;
-            outln!("created  a git repository");
+            log.push("created  a git repository".to_string());
         }
         create_new(&root.join(MANIFEST_NAME), &manifest)?
             .then_some(())
             .ok_or_else(|| {
                 format!("{MANIFEST_NAME} appeared during the run: it is left as found")
             })?;
-        outln!("wrote    {MANIFEST_NAME}");
-        write_documents(&root, &documents)?;
+        log.push(format!("wrote    {MANIFEST_NAME}"));
+        write_documents(&root, &documents, &mut log)?;
         if let Some(existing) = ignore {
             let in_repository =
                 run_git || crate::git::inside_work_tree(&root).map_err(|e| e.to_string())?;
-            ignore_target(&root, existing, in_repository)?;
+            ignore_target(&root, existing, in_repository, &mut log)?;
         }
         Ok(())
     })();
+    for line in &log {
+        outln!("{line}");
+    }
     if let Some(outer) = enclosing {
         outln!(
             "note: the project at {} walks this one too, unless its [walk] exclude names it",
@@ -210,9 +248,24 @@ fn finish(
         }
     };
     if !inside {
+        // The walk is git's listing, so outside a worktree no index is written and no check
+        // runs, per `design@core@failed-git-is-exit-two`. The install reads no listing, so the
+        // agent files are written here all the same: a session started in the project finds them.
+        if manifest.serves_claude() {
+            let shipped = crate::agents::shipped(manifest);
+            let mut done = crate::agents::Installed::default();
+            let outcome = crate::agents::install_into(manifest.root(), &shipped, &mut done);
+            for rel in &done.written {
+                outln!("fixed: wrote {} (installed)", rel.display());
+            }
+            if let Err(e) = outcome {
+                eprintln!("error: {e}");
+                return Ok(ExitCode::FAILURE);
+            }
+        }
         outln!(
-            "not inside a git repository: run `git init`, then `{} check --fix`, to install the \
-             agent files and write the indexes",
+            "not inside a git repository: run `git init`, then `{} check --fix`, to write the \
+             indexes and run the check",
             manifest.command()
         );
         return Ok(ExitCode::SUCCESS);
@@ -242,8 +295,8 @@ struct Document {
 /// Every document the anchors `wanted` admits owe under `manifest`, of the Components and the
 /// plans directory, each judged against the filesystem before anything is written.
 ///
-/// The list is not written down here: it is the required documents and the register homes the
-/// check asks for, from [`Manifest::required_documents`] and [`Anchors::of`], with the plans
+/// The list is not written down here, per `design@core@init-command`: it is the required
+/// documents and the register homes the check asks for, from [`Manifest::required_documents`] and [`Anchors::of`], with the plans
 /// directory's README, which the check requires by its own rule. So a register declared, or a
 /// document a Component comes to owe, reaches this with no edit. `Err` refuses the run: a
 /// destination that is a symlink, a directory where a file is due, or under a file.
@@ -387,10 +440,14 @@ fn create_new(path: &Path, text: &str) -> Result<bool, String> {
 }
 
 /// Write every document not kept, listing each; one that appeared during the run is kept too.
-fn write_documents(root: &Path, documents: &[Document]) -> Result<(), String> {
+fn write_documents(
+    root: &Path,
+    documents: &[Document],
+    log: &mut Vec<String>,
+) -> Result<(), String> {
     for doc in documents {
         if let Some(kept) = &doc.kept {
-            outln!("kept     {}", kept.display());
+            log.push(format!("kept     {}", kept.display()));
             continue;
         }
         let path = root.join(&doc.rel);
@@ -398,20 +455,21 @@ fn write_documents(root: &Path, documents: &[Document]) -> Result<(), String> {
             std::fs::create_dir_all(dir)
                 .map_err(|e| format!("cannot create {}: {e}", dir.display()))?;
         }
-        if create_new(&path, &doc.text)? {
-            outln!("wrote    {}", doc.rel.display());
+        log.push(if create_new(&path, &doc.text)? {
+            format!("wrote    {}", doc.rel.display())
         } else {
-            outln!(
+            format!(
                 "kept     {}, which appeared during the run",
                 doc.rel.display()
-            );
-        }
+            )
+        });
     }
     Ok(())
 }
 
-/// The starting text of a Component's README.md or CLAUDE.md. The root's CLAUDE.md is its title
-/// and the primer's import line, and nothing else, since what every root would say alike is the
+/// The starting text of a Component's README.md or CLAUDE.md, per
+/// `design@core@nothing-of-a-project-is-compiled-in`. The root's CLAUDE.md is its title and the
+/// primer's import line, and nothing else, since what every root would say alike is the
 /// primer's, per `design@agent-skills@primer-limit`.
 fn component_document(document: &str, name: &str, root: bool) -> String {
     match (document, root) {
@@ -423,8 +481,8 @@ fn component_document(document: &str, name: &str, root: bool) -> String {
     }
 }
 
-/// The starting text of a register's home under `anchor`: a title and one sentence on what it
-/// holds, with no heading at a register's level, no reference and no link, so it passes every
+/// The starting text of a register's home under `anchor`, per
+/// `design@core@nothing-of-a-project-is-compiled-in`: a title and a line on what it holds, with no heading at a register's level, no reference and no link, so it passes every
 /// check in any project. No goal is written: the goals are the owner's to state.
 fn home_text(register: &str, anchor: &str) -> String {
     let (title, holds) = match register {
@@ -462,8 +520,8 @@ fn home_text(register: &str, anchor: &str) -> String {
 const XTASK_DIR: &str = "xtask";
 
 /// The files `--rust` writes, each the setup skill's snippet with its placeholders filled: the
-/// version this binary is, and the project's checkout variable. Judged like the documents, so an
-/// existing one is kept and an unwritable one refuses the run.
+/// version this binary is, and the project's checkout variable. An existing one refuses the run,
+/// per `design@core@rust-scaffold`, and so does an unwritable one.
 fn rust_files(root: &Path, name: &str) -> Result<Vec<Document>, String> {
     let checkout = name
         .chars()
@@ -533,7 +591,12 @@ fn read_gitignore(root: &Path) -> Result<Option<String>, String> {
 /// Make `.gitignore` ignore `/target`, where cargo builds: an existing file keeps every line and
 /// gains the rule under a line saying who added it, as `cargo init` appends its own; a file whose
 /// rules already ignore it is left as it is.
-fn ignore_target(root: &Path, existing: Option<String>, in_repository: bool) -> Result<(), String> {
+fn ignore_target(
+    root: &Path,
+    existing: Option<String>,
+    in_repository: bool,
+    log: &mut Vec<String>,
+) -> Result<(), String> {
     let path = root.join(".gitignore");
     // Git decides what it ignores, a negation or a leading space included, so it is asked where
     // there is a repository; with none, one of the four usual spellings on a line of its own is
@@ -549,7 +612,7 @@ fn ignore_target(root: &Path, existing: Option<String>, in_repository: bool) -> 
     };
     let text = match existing {
         Some(text) if ignored(&text)? => {
-            outln!("kept     .gitignore");
+            log.push("kept     .gitignore".to_string());
             return Ok(());
         }
         Some(text) => {
@@ -563,7 +626,7 @@ fn ignore_target(root: &Path, existing: Option<String>, in_repository: bool) -> 
         None => "/target\n".to_string(),
     };
     std::fs::write(&path, text).map_err(|e| format!("cannot write {}: {e}", path.display()))?;
-    outln!("wrote    .gitignore");
+    log.push("wrote    .gitignore".to_string());
     Ok(())
 }
 
@@ -572,8 +635,8 @@ fn ignore_target(root: &Path, existing: Option<String>, in_repository: bool) -> 
 /// It runs inside a located project and behind the writer gate, so over a model phases 1 to 3
 /// find incomplete it refuses, per `design@core@phases-gate-the-report`. Every refusal comes
 /// before its first write and is `Err`, exit 2. It edits the manifest with `toml_edit`, which
-/// keeps every byte it does not change, comments included: the manifest is hand-written, and the
-/// reasons beside its rows are its own.
+/// keeps every byte it does not change, comments included, per
+/// `design@core@component-manifest-edit`.
 pub(super) fn new_component(
     manifest: &Manifest,
     args: &NewComponentArgs,
@@ -590,12 +653,6 @@ pub(super) fn new_component(
     let path = root.join(MANIFEST_NAME);
     let text = std::fs::read_to_string(&path).map_err(|e| format!("{}: {e}", path.display()))?;
     let edited = with_component(&text, &rel)?;
-    // `toml_edit` writes `\n` line breaks; a manifest written with `\r\n` keeps them.
-    let edited = if text.contains("\r\n") {
-        edited.replace("\r\n", "\n").replace('\n', "\r\n")
-    } else {
-        edited
-    };
     let parsed = Manifest::parse(root, &edited)
         .map_err(|e| format!("{MANIFEST_NAME} with `{rel}` added does not parse: {e}"))?;
     if let Some(complaint) = parsed.complaints().first() {
@@ -609,8 +666,15 @@ pub(super) fn new_component(
     refuse_present_indexes(&parsed, root, wanted)?;
 
     std::fs::write(&path, &edited).map_err(|e| format!("cannot write {MANIFEST_NAME}: {e}"))?;
-    outln!("wrote    {MANIFEST_NAME}, its components gaining `{rel}`");
-    if let Err(e) = write_documents(root, &documents) {
+    // Printed once the documents are written, as `init` prints its own.
+    let mut log = vec![format!(
+        "wrote    {MANIFEST_NAME}, its components gaining `{rel}`"
+    )];
+    let written = write_documents(root, &documents, &mut log);
+    for line in &log {
+        outln!("{line}");
+    }
+    if let Err(e) = written {
         eprintln!("error: {e}");
         return Ok(ExitCode::FAILURE);
     }
@@ -618,21 +682,87 @@ pub(super) fn new_component(
 }
 
 /// `text`, a manifest, with `rel` appended to `[project] components` and nothing else changed.
+///
+/// `toml_edit` writes the whole document back with `\n` line breaks and no byte-order mark, so
+/// only the array's own text is taken from it, spliced over the array's span in `text`: every
+/// byte outside the array is kept, line endings and a mark included. Inside the array, `\r\n` is
+/// written where the array's text held one.
 fn with_component(text: &str, rel: &str) -> Result<String, String> {
-    let mut doc: toml_edit::DocumentMut = text
-        .parse()
-        .map_err(|e| format!("{MANIFEST_NAME} does not parse: {e}"))?;
+    let does_not_parse = |e: toml_edit::TomlError| format!("{MANIFEST_NAME} does not parse: {e}");
+    let no_array = || format!("{MANIFEST_NAME} holds no `[project] components` array");
+    let span = toml_edit::Document::parse(text)
+        .map_err(does_not_parse)?
+        .get("project")
+        .and_then(|p| p.get("components"))
+        .filter(|c| c.is_array())
+        .and_then(toml_edit::Item::span)
+        .ok_or_else(no_array)?;
+    let mut doc: toml_edit::DocumentMut = text.parse().map_err(does_not_parse)?;
     let components = doc
         .get_mut("project")
         .and_then(|p| p.get_mut("components"))
         .and_then(|c| c.as_array_mut())
-        .ok_or_else(|| format!("{MANIFEST_NAME} holds no `[project] components` array"))?;
-    components.push(rel);
-    Ok(doc.to_string())
+        .ok_or_else(no_array)?;
+    append(components, rel);
+    let mut array = toml_edit::Value::Array(components.clone());
+    array.decor_mut().clear();
+    let mut array = array.to_string();
+    if text[span.clone()].contains("\r\n") {
+        array = array.replace('\n', "\r\n");
+    }
+    Ok(format!(
+        "{}{array}{}",
+        &text[..span.start],
+        &text[span.end..]
+    ))
+}
+
+/// Push `rel` onto `components`, keeping the array's layout.
+fn append(components: &mut toml_edit::Array, rel: &str) {
+    // In an array written one element per line, the new element takes a line of its own at the
+    // last element's indentation. What follows the last element, up to the last line break before
+    // `]`, is its reason comment, or comment lines before `]`: it moves ahead of the new element,
+    // after the comma, so every comment line stays byte for byte on its own line and a reason never
+    // reads as the new element's. `push` alone writes `"a", "svc", # reason for a`. An array on one
+    // line, or an empty one, holds no element line, and `push` keeps it as it is.
+    let indent = components
+        .iter()
+        .last()
+        .and_then(|last| last.decor().prefix().and_then(|p| p.as_str()))
+        .and_then(|prefix| prefix.rfind('\n').map(|at| prefix[at + 1..].to_string()));
+    let Some(indent) = indent else {
+        components.push(rel);
+        return;
+    };
+    let last = components.len() - 1;
+    let decor = components
+        .get_mut(last)
+        .expect("the array holds its last element")
+        .decor_mut();
+    let suffix = decor
+        .suffix()
+        .and_then(|s| s.as_str())
+        .unwrap_or("")
+        .to_string();
+    decor.set_suffix("");
+    let tail = format!("{suffix}{}", components.trailing().as_str().unwrap_or(""));
+    let (comments, closing) = match tail.rfind('\n') {
+        Some(at) => (&tail[..=at], &tail[at + 1..]),
+        None => ("\n", tail.as_str()),
+    };
+    let mut value = toml_edit::Value::from(rel);
+    value.decor_mut().set_prefix(format!("{comments}{indent}"));
+    components.push_formatted(value);
+    components.set_trailing(if tail.contains('\n') {
+        format!("\n{closing}")
+    } else {
+        closing.to_string()
+    });
 }
 
 /// `path` relative to `root`, with `/` separators, as a manifest lists a Component; `Err` where it
-/// is the root itself, lies outside it, or lies where no Component can live: in a repository's
+/// is the root itself, lies outside it, or lies where no Component can live, per
+/// `design@core@component-command`: in a repository's
 /// `.git` directory, which git keeps out of every walk, or in the installer's namespace, whose
 /// files the install deletes.
 fn component_path(root: &Path, path: &Path) -> Result<String, String> {
@@ -716,6 +846,39 @@ fn git_rule(root: &Path, vcs: Option<Vcs>) -> Result<bool, String> {
         ));
     }
     Ok(true)
+}
+
+/// `Err` where PATH or a Component's directory lies in a worktree and git ignores it: the walk
+/// is git's listing, so the check would report every file written there missing, with no repair
+/// but the ignore rule. A repository `init` creates holds no rule yet, so the caller asks only
+/// where it creates none.
+fn refuse_ignored(root: &Path, components: &[String]) -> Result<(), String> {
+    let existing = root
+        .ancestors()
+        .find(|dir| dir.is_dir())
+        .ok_or_else(|| format!("no directory at or above {} exists", root.display()))?;
+    if !crate::git::inside_work_tree(existing).map_err(|e| e.to_string())? {
+        return Ok(());
+    }
+    let from_existing = |dir: &Path| -> String {
+        let rel = dir.strip_prefix(existing).unwrap_or(dir);
+        if rel.as_os_str().is_empty() {
+            ".".to_string()
+        } else {
+            format!("{}/", rel.display())
+        }
+    };
+    let dirs = std::iter::once(root.to_path_buf()).chain(components.iter().map(|c| root.join(c)));
+    for dir in dirs {
+        if crate::git::ignores(existing, &from_existing(&dir)).map_err(|e| e.to_string())? {
+            return Err(format!(
+                "git ignores {}, so the check would read none of the files written there: \
+                 remove the ignore rule, or choose another place. Nothing was written.",
+                dir.display()
+            ));
+        }
+    }
+    Ok(())
 }
 
 /// The manifest `init` writes: the setup skill's smallest one, named, pinned, and listing the

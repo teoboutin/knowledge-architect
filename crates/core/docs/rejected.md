@@ -664,7 +664,7 @@ listing leaves silent until a reviewer reads them, against 3 in thaum that were 
 ### A confirmation prompt before `init` writes `##init-asks-for-confirmation`
 
 `live`. It guards against no loss: `init` refuses before its first write and overwrites no
-hand-written file. It blocks an agent, whose shell has no terminal, or is answered by a `--yes`
+hand-written file outside the installer's namespace, which every install rewrites. It blocks an agent, whose shell has no terminal, or is answered by a `--yes`
 every caller passes. `cargo init` asks nothing, measured with cargo 1.98.0.
 
 ### `init` running `git init` in any directory outside a worktree, as `cargo init` does `##init-git-init-anywhere-outside-a-worktree`
