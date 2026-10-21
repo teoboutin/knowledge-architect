@@ -582,7 +582,7 @@ fn check(
 /// Each file written or removed is listed before the report, so a session sees what to commit.
 /// A failed write exits 2 when nothing was written yet and 1 after any write, as `index` does:
 /// 2 promises a caller that the tree is as they left it.
-fn fix_then_check(
+pub(super) fn fix_then_check(
     manifest: &Manifest,
     checker: &[&Path],
     extensions: &mut [Box<dyn Extension>],

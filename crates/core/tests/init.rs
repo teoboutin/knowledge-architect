@@ -220,3 +220,90 @@ fn the_git_rule_holds_in_every_case() {
     );
     assert!(repo("host/nested"), "--vcs git creates one anyway");
 }
+
+/// AC3, root-only shape: `init` then `check` passes. Guards #init-file-contents of
+/// `spec@plans@init-and-new-component`: a document the check comes to require that `init` does
+/// not write fires it.
+#[test]
+fn init_then_check_passes_at_the_root() {
+    let scratch = Scratch::new("ac3-root");
+    let (out, err, code) = klarch(&scratch.dir, &["init", "probe"]);
+    assert_eq!(code, 0, "{out}{err}");
+    assert!(out.contains("PASSED: no findings"), "{out}");
+    let (out, err, code) = klarch(&scratch.path("probe"), &["check"]);
+    assert_eq!(code, 0, "{out}{err}");
+    assert!(out.contains("PASSED: no findings"), "{out}");
+    let goals = std::fs::read_to_string(scratch.path("probe/docs/goals.md")).expect("written");
+    assert!(!goals.contains("\n## "), "no goal is written: {goals}");
+}
+
+/// The claim: an existing README.md and CLAUDE.md are kept byte for byte and listed as kept;
+/// a kept CLAUDE.md that lacks the primer's import makes the run exit 1 with the check's
+/// finding, since files were written.
+#[test]
+fn existing_documents_are_kept() {
+    let scratch = Scratch::new("kept");
+    git(&scratch.dir, &["init", "-q"]);
+    scratch.write("README.md", "# Mine\n\nMy own words.\n");
+    scratch.write("CLAUDE.md", "# Mine\n\nMy own instructions.\n");
+    let (out, err, code) = klarch(&scratch.dir, &["init", "--name", "mine"]);
+    assert_eq!(code, 1, "{out}{err}");
+    assert!(out.contains("kept     README.md"), "{out}");
+    assert!(out.contains("kept     CLAUDE.md"), "{out}");
+    assert!(
+        out.contains("the root CLAUDE.md does not import the installed primer"),
+        "{out}"
+    );
+    assert_eq!(
+        std::fs::read_to_string(scratch.path("README.md")).unwrap(),
+        "# Mine\n\nMy own words.\n"
+    );
+    assert_eq!(
+        std::fs::read_to_string(scratch.path("CLAUDE.md")).unwrap(),
+        "# Mine\n\nMy own instructions.\n"
+    );
+    assert!(
+        scratch.path("docs/goals.md").is_file(),
+        "the missing documents are written"
+    );
+}
+
+/// The claim: a directory where a file is due, or a symlink at a destination, refuses the run
+/// with exit 2 and nothing written, the manifest included.
+#[test]
+fn an_unwritable_destination_refuses_before_any_write() {
+    let scratch = Scratch::new("unwritable");
+    git(&scratch.dir, &["init", "-q"]);
+    std::fs::create_dir_all(scratch.path("a/README.md")).unwrap();
+    let before = listing(&scratch.path("a"));
+    let (out, err, code) = klarch(&scratch.dir, &["init", "a"]);
+    assert_eq!(code, 2, "{out}{err}");
+    assert_eq!(listing(&scratch.path("a")), before);
+
+    scratch.write("elsewhere.md", "not this project's");
+    std::fs::create_dir_all(scratch.path("b/docs")).unwrap();
+    std::os::unix::fs::symlink(
+        scratch.path("elsewhere.md"),
+        scratch.path("b/docs/goals.md"),
+    )
+    .unwrap();
+    let (out, err, code) = klarch(&scratch.dir, &["init", "b"]);
+    assert_eq!(code, 2, "{out}{err}");
+    assert!(!scratch.path("b/knowledge-architect.toml").exists());
+    assert_eq!(
+        std::fs::read_to_string(scratch.path("elsewhere.md")).unwrap(),
+        "not this project's"
+    );
+}
+
+/// The claim: under `--vcs none` outside every worktree, the documents are written, no index
+/// and no check run, and the run exits 0 saying what comes next.
+#[test]
+fn outside_a_worktree_the_run_stops_before_the_indexes() {
+    let scratch = Scratch::new("no-vcs");
+    let (out, err, code) = klarch(&scratch.dir, &["init", "p", "--vcs", "none"]);
+    assert_eq!(code, 0, "{out}{err}");
+    assert!(out.contains("git init"), "{out}");
+    assert!(scratch.path("p/docs/goals.md").is_file());
+    assert!(!scratch.path("p/docs/open-issues/index.md").exists());
+}
