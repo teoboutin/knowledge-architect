@@ -6,6 +6,37 @@ class is `design@knowledge-architect@changelog-entries`. Inside a subsection, en
 surface, in the order `checks`, `cli`, `manifest`, `library`, `agent-skills`, `gates`; an empty
 subsection is omitted.
 
+## Next release
+
+### Migration
+
+- `library`, minor: a binary that dispatches the core's command enum, as the setup skill's
+  maintenance crate and the crate documentation's extension example do, hands `Command::Init` to
+  `cli::init` before `cli::locate`, with the libraries and packages it gives
+  `cli::refuse_a_foreign_build`. Without that arm the binary still compiles, and its `init`
+  refuses inside a project and cannot run outside one. The setup skill's main and the crate
+  documentation show the arm.
+
+### New features
+
+- `cli`, minor: `klarch init [PATH]` creates a project: its manifest, pinned to the binary that
+  runs it, the installed agent files, and every document and register home the check requires,
+  then the indexes and the check. It writes no file that exists and asks nothing; `--component`
+  adds Components, `--command` declares the command, `--vcs` decides whether `git init` runs, and
+  `--rust` adds the maintenance crate, its workspace and its cargo aliases. The core's README says
+  what it refuses.
+- `cli`, minor: `klarch new-component <DIR>` adds a Component to a project: its line in
+  `[project] components`, keeping every other byte of the manifest, and its documents and homes.
+- `library`, minor: `cli::init`, `cli::InitArgs`, `cli::NewComponentArgs`, `cli::Vcs` and the
+  command enum's variants `Init` and `NewComponent`; and the agent-skills crate's `SNIPPETS`, the
+  files the setup skill's Rust section shows.
+
+### Workflow
+
+- `agent-skills`, patch: the setup skill names `klarch init` as how a project is created, and
+  `new-component` as how a Component is added; its Rust section shows the virtual workspace a
+  project gains, and says `init --rust` writes its blocks but the continuous integration workflow.
+
 ## 0.8.0
 
 ### Migration

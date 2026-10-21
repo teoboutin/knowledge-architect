@@ -14,9 +14,14 @@ existing documentation into the new homes**, which is planned work of its own
 (`skill@knowledge-architect-setup@existing-documentation`); **writing the project's own skills**,
 `skill@knowledge-architect-agent-configuration`.
 
-**Reaching this skill.** The smallest manifest the install accepts is the file
-`knowledge-architect.toml` at the project's root, where `<version>` is the version of the checker
-the project runs, as `skill@knowledge-architect-setup@pin-the-checker` says:
+**Reaching this skill.** `klarch init [<path>]`, run by whoever creates the project, writes
+what this skill starts from: the manifest below, pinned to the version of the binary that runs it,
+the installed files, and every document and register home the check requires, holding no entry;
+`--component <dir>` adds a Component, and `--rust` the maintenance crate of
+`skill@knowledge-architect-setup@rust-project`. It overwrites no file that exists. By hand, the
+smallest manifest the install accepts is the file `knowledge-architect.toml` at the project's root,
+where `<version>` is the version of the checker the project runs, as
+`skill@knowledge-architect-setup@pin-the-checker` says:
 
 ```toml
 [project]
@@ -105,6 +110,8 @@ name is the basename of that path, and the project's root is a Component named b
 `[project] name`. Propose the Components to the owner: one per unit that has its own goals and its
 own design, such as a published package, a service, or a maintenance tool. A directory named after
 its role, not after its package, avoids a Component whose name equals the project's.
+`{{command}} new-component <dir>` adds one: its line in `[project] components`, its documents and
+its register homes. Its goals are stated with the owner all the same.
 
 A **location** is a directory that carries only the registers it declares, for content that belongs
 to no Component, such as the agent configuration:
@@ -334,7 +341,9 @@ To move to another version:
 A Rust project gets its gates and its pinned checker from one maintenance crate, a package named
 `xtask` in a directory of its own, `<xtask-dir>/`, such as `xtask/` at the root, a member of its
 workspace that is never
-published. The shapes below are illustrations, to adapt.
+published. The shapes below are illustrations, to adapt. `klarch init --rust` writes each of them
+but the continuous integration workflow into a project with no `Cargo.toml`, with `xtask/` as the
+directory and `cargo klarch` as the declared command.
 
 **The workspace.** A project with no `Cargo.toml` gets a virtual workspace at its root, whose
 members name the crate:
@@ -385,7 +394,8 @@ checkout. The refusal in the main below stays, and detects a binary built before
 
 **Its main**: a `gates` command over the recommended list of the gates library, and a `klarch`
 command carrying the checker's own commands. **Every binary that dispatches a command of the
-checker calls `cli::refuse_another_version` before it dispatches**, as the `klarch` arm below does;
+checker calls `cli::refuse_another_version` before it dispatches any command but `init`**, which
+it hands to `cli::init` before it locates a project, as the `klarch` arm below does;
 without the call, that binary enforces no pin. Where the `cargo klarch` alias runs an extension's
 binary instead, that binary calls it, and a maintenance crate that dispatches no command of the
 checker, using the library only for `MANIFEST_NAME`, does not.
