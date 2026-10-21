@@ -72,6 +72,16 @@ pub enum Command {
     /// Create a knowledge-architect project: its manifest, the installed agent files, and the
     /// documents and homes the check requires. It overwrites no hand-written file.
     Init(InitArgs),
+    /// Add a Component to the project: its line in the manifest, its documents and its register
+    /// homes. It overwrites no hand-written file.
+    NewComponent(NewComponentArgs),
+}
+
+#[derive(Args)]
+pub struct NewComponentArgs {
+    /// The Component's directory, relative to the working directory and inside the project.
+    #[arg(value_name = "DIR")]
+    pub dir: std::path::PathBuf,
 }
 
 #[derive(Args)]
@@ -82,6 +92,9 @@ pub struct InitArgs {
     /// The project's name. The default is the basename of PATH.
     #[arg(long, value_name = "NAME")]
     pub name: Option<String>,
+    /// A Component to add, as `new-component` adds one; repeatable. DIR is relative to PATH.
+    #[arg(long = "component", value_name = "DIR")]
+    pub components: Vec<std::path::PathBuf>,
     /// The project's command, written as `[project] command`; the default is `klarch`.
     #[arg(long, value_name = "CMD")]
     pub command: Option<String>,
@@ -193,6 +206,7 @@ pub fn run(
         Command::InstallAgentSkills => install_agent_skills(manifest),
         // A binary hands `init` to [`init`] before it locates a project, since `init` is what
         // makes one; reaching here means the binary skipped that step, inside a project.
+        Command::NewComponent(args) => create::new_component(manifest, &args, checker, extensions),
         Command::Init(_) => Err(format!(
             "`init` creates a project, and {} already holds one; a binary dispatches `init` to \
              `cli::init` before it locates a project",
