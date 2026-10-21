@@ -2738,8 +2738,9 @@ section in an upgrade and repairs its citations passes `commits` on every commit
 
 ### `init` creates a project: its manifest, the installed set, and every document and home the check requires, ending as `check --fix` ends `##init-command`
 
-`klarch init` writes the manifest, pinned to the version of the binary that runs it, then every
-document the root Component, each Component it lists and the plans directory owe, then ends as
+`klarch init` writes the manifest, pinned to the version of the binary that runs it, listing each
+`--component <DIR>`, DIR relative to PATH, as a Component, then every document the root Component,
+each Component it lists and the plans directory owe, then ends as
 `check --fix` does, through its code: it installs the shipped set, writes the indexes once phases 1
 to 3 find nothing, and runs the check, whose verdict is the run's. Outside every git worktree, under
 `--vcs none`, it installs the shipped set and stops there, saying what comes next: the indexes and
@@ -2759,18 +2760,38 @@ change of what a Component carries reaches `init` with no edit to it, per
 `design@core@one-question-one-command`. What each document starts with is
 `design@core@nothing-of-a-project-is-compiled-in`'s.
 
+### `init` follows `cargo init` wherever no argument departs from it `##init-follows-cargo-init`
+
+Rust is the language the project focuses on first, on the owner's word, and `cargo init` is the
+command its users already type to start a project. The owner holds that following `cargo init`'s
+usage as far as possible is probably best, so a user's habits carry over to `init`: a choice about
+`init` that `cargo init` already makes is made the same way unless an argument departs from it. The
+owner holds this argument as the one that may shape later changes of `init`. The
+members today are the name and PATH of `design@core@init-name-and-path`, the absence of a prompt of
+`design@core@init-asks-no-confirmation`, the repository and `--vcs` of
+`design@core@init-runs-git-init`, and the `.gitignore` append and the refusal of an existing
+package of `design@core@rust-scaffold`. The departures, each argued in the head that makes it: the
+refusal of a directory holding files outside a worktree, and `--vcs` restricted to two values, in
+`design@core@init-runs-git-init`; the refusal of a `Cargo.toml` above PATH, in
+`design@core@rust-scaffold`.
+
 ### `init` takes a PATH, created when missing, and names the project after its basename, as `cargo init` does `##init-name-and-path`
 
 `klarch init [PATH] [--name <NAME>]`: PATH is `.` by default, and is created with its parents when
-it does not exist; the name is PATH's basename unless `--name` gives one. `--component <DIR>`,
-DIR relative to PATH, lists a Component in the manifest it writes; `--command` declares
-`[project] command`, per `design@core@declared-command`, for a project whose command is neither
-`klarch`, the default where none is declared, nor the `cargo klarch` that `--rust` declares, such
-as a script the project keeps in its own tree. The name `init` is the owner's choice over
-`bootstrap`, which the argument below leaves to preference. Rust is the language the project
-focuses on first, on the owner's word, and `cargo init` and `git init` are the commands its users
-already type for this act: `cargo init d` creates `d/` when it does not exist, measured with cargo
-1.98.0. `bootstrap <name>`, the rival, named the same act in a word none of them types for it.
+it does not exist; the name is PATH's basename unless `--name` gives one. Per
+`design@core@init-follows-cargo-init`, `cargo init` is the command a Rust user already types for
+this act, and `git init` uses the same word for a repository: `cargo init d` creates `d/` when it
+does not exist, measured with cargo 1.98.0. `bootstrap <name>`, the rival, named the same act in a
+word neither of them types for it.
+
+### `init` declares the project's command at creation when `--command` names one `##init-declares-the-command`
+
+`--command <CMD>` writes `[project] command` into the manifest `init` creates, per
+`design@core@declared-command`. It serves a project whose command is neither `klarch`, the default
+where none is declared, nor the `cargo klarch` that `--rust` declares, such as a script the project
+keeps in its own tree. The rival, no flag, leaves such a project to edit
+the manifest by hand after its creation, and a command left undeclared is the default, which no
+check reports, so the messages and the installed files name a command that project does not run.
 
 ### `init` refuses a project name that begins with the installer's prefix `##init-refuses-the-installer-s-prefix`
 
@@ -2796,7 +2817,8 @@ hand-written file outside the installer's namespace loses nothing an install wou
 the argument of `design@core@index-takes-no-dry-run`: the worst a mistaken run does is add files,
 and install the shipped set as `design@core@owned-namespace-check` lets every install do. The checker's binaries run blind, as gates, per
 `design@core@arguments-parse-through-clap`, and an agent's shell has no terminal, so a prompt
-either blocks or is answered by a flag every caller passes. `cargo init` asks nothing either:
+either blocks or is answered by a flag every caller passes. `cargo init` asks nothing either,
+which `design@core@init-follows-cargo-init` makes a ground:
 `cargo init </dev/null` in cargo 1.98.0 prints no question and exits 0. Once files are written a
 failure exits 1, not 2, which promises a run that touched nothing, as
 `design@core@fix-refusal-mixed-state` keeps it for `check --fix`. The one exception is a stdout
@@ -2826,10 +2848,10 @@ The rule over PATH and `--vcs <git|none>`:
 | outside, new or empty | `git init` | `git init` | no `git init`; the agent files, no index, no check |
 | outside, holding files | refused, exit 2 | `git init` | no `git init`; the agent files, no index, no check |
 
-`init` follows `cargo init` wherever no argument departs from it, since the owner holds that
-following `cargo init`'s usage as far as possible is probably best: `--vcs` is `cargo init`'s flag,
-restricted to `git` and `none` of the five values cargo 1.98.0 takes, and `design@core@rust-scaffold` appends to
-`.gitignore` as `cargo init` does.
+`--vcs` is `cargo init`'s flag, per `design@core@init-follows-cargo-init`, restricted to `git` and
+`none` of the five values cargo 1.98.0 takes, `git`, `hg`, `pijul`, `fossil` and `none`: the
+checker reads every tree through git, per `design@core@git-supplies-the-walk`, so a repository of
+another system would leave a project the check cannot run in.
 
 Git is asked about PATH before the first write, whatever `--vcs` says, since the check the run
 ends with reads the tree through git: a git that cannot answer refuses the run, and so does a
@@ -2844,10 +2866,10 @@ check, measured by copying a passing project into a subdirectory of another repo
 whose check reports it in phase 2 until an ignore rule or `[walk] skip-dirs` names it, as that
 finding says. Outside one, the checker cannot run without a repository, per
 `design@core@failed-git-is-exit-two`, and `cargo init` creates one: cargo 1.98.0 creates `.git` and
-`.gitignore` in a directory outside every repository and none in a subdirectory of one. The one
-departure from `cargo init` is the refusal of a directory holding files, chosen by the owner over
-following `cargo init` exactly: after `cargo init` in such a directory, `git status --short` lists
-the files that were there as untracked beside the new ones, so the cleanup of a mistaken run is
+`.gitignore` in a directory outside every repository and none in a subdirectory of one. A departure
+from `cargo init`, per `design@core@init-follows-cargo-init`, is the refusal of a directory holding
+files, chosen by the owner over following `cargo init` exactly: after `cargo init` in such a
+directory, `git status --short` lists the files that were there as untracked beside the new ones, so the cleanup of a mistaken run is
 not `git clean`, which deletes both. Whether PATH is inside a worktree is asked through
 `path@core@src/git.rs`, per `design@core@git-is-asked-through-one-module`.
 
@@ -2878,9 +2900,10 @@ hand-written and carries the reasons beside its rows, and the
 is a map of values, as its source under the cargo registry shows. Printing the line for the user to
 add was the rival: the command could then not finish in one run.
 
-### `init --rust` writes the setup skill's maintenance crate, workspace and aliases, and no CI workflow `##rust-scaffold`
+### `init --rust` writes the setup skill's maintenance crate, workspace and aliases `##rust-scaffold`
 
-`--rust` refuses a `Cargo.toml` at or above PATH, since adding the maintenance crate to an
+`--rust` refuses a `Cargo.toml` at or above PATH, above PATH a departure argued here under
+`design@core@init-follows-cargo-init`, since adding the maintenance crate to an
 existing workspace or package is a design of its own, as `cargo init` refuses an existing package,
 exit 101 in cargo 1.98.0, and cargo reads a `Cargo.toml` above PATH as
 an enclosing workspace, which a `members` glob covering PATH would break with two workspace roots.
@@ -2890,14 +2913,18 @@ configuration would leave the declared `cargo klarch` undefined. Otherwise it wr
 and the cargo aliases with the project's checkout variable; it lists `xtask` as a Component and
 declares `cargo klarch` as the command unless `--command` gives one. It makes `.gitignore` ignore
 `/target`, keeping every line of an existing one and appending under `# Added by klarch`, as
-`cargo init` appends `/target` under `# Added by cargo`, measured with cargo 1.98.0 over a
-`.gitignore` holding `mine`; or it leaves the file as it is where `target/` is already ignored. In a
+`design@core@init-follows-cargo-init` asks and `cargo init` appends `/target` under
+`# Added by cargo`, measured with cargo 1.98.0 over a `.gitignore` holding `mine`; or it leaves the file as it is where `target/` is already ignored. In a
 repository git decides, a negation or a leading space included; outside one, under `--vcs none`, a
 line `target`, `target/`, `/target` or `/target/` does. This is the
 shape of `design@agent-skills@xtask-pins-checker`, and it gives a new project the gates
-`goal@knowledge-architect@setup-brings-quality-tools` asks for. It writes no CI workflow, on the
-owner's word; a workflow file assumes a host, and the setup skill's block stays the route to
-one.
+`goal@knowledge-architect@setup-brings-quality-tools` asks for.
+
+### `init --rust` writes no CI workflow `##init-writes-no-ci-workflow`
+
+The setup skill's block for a CI workflow is the one snippet of
+`design@agent-skills@rust-templates-one-home` that `init --rust` does not write, on the owner's
+word. A workflow file assumes a host, and the setup skill's block stays the route to one.
 
 ### `init` takes no contribution from an extension `##init-has-no-extension-hook`
 

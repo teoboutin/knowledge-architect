@@ -42,7 +42,7 @@ Each block `skill@knowledge-architect-setup@rust-project` shows is a file of
 `path@agent-skills@snippets/`, inlined by the build, and exposed whole as `SNIPPETS`: the
 workspace's Cargo.toml, the maintenance crate's Cargo.toml, the cargo aliases with the `[env]` tie,
 the crate's main and the CI workflow. `klarch init --rust` writes all of them but the CI workflow,
-per `design@core@rust-scaffold`, so a project gets the text the skill shows. Each is checked by a
+per `design@core@rust-scaffold` and `design@core@init-writes-no-ci-workflow`, so a project gets the text the skill shows. Each is checked by a
 test of the workspace: the main is compiled by an example of the maintenance crate, the three TOML
 files by a test that builds a project `init --rust` wrote and runs its checker, and the CI
 workflow's gates command by a test that parses it with the gates library's flags. A block copied
