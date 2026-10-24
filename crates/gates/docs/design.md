@@ -85,7 +85,9 @@ and never the run, the logs or the exit code.
 
 **Outside GitHub Actions, a gates run refuses a pipe on stdout before running anything.** The
 exit code is the run's product, and a pipe hands it to the reader at the far end: `| tail`
-exits with tail's status in a shell without `pipefail`, and a filter drops lines in any shell of a report that is already distilled, so
+exits with tail's status in a shell without `pipefail`, which
+`design@agent-skills@harness-shell-fails-on-a-pipe` sets in the `claude` harness, and in any shell a filter drops lines of a
+report that is already distilled, so
 the loss is silent both ways. A terminal and a regular file pass, so `> log 2>&1` stays
 available, and the complete logs under the project's target/gates/ need no `tee`.
 

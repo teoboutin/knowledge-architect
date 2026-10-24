@@ -2724,7 +2724,9 @@ pin adds it, per the Migration entry of the version that ships it. Every shell t
 then fails a pipeline when any command of it fails, so a command chained after a piped verdict does
 not run over a failing check. The primer's rule against that chain stays, for `;`, for any other
 shell, and because a filter drops lines in any shell, per `goal@agent-skills@installed-text-works-anywhere`:
-the option is bash's, and the setting the `claude` harness's.
+the option is bash's, and the setting the `claude` harness's. The setup delivers the setting, as
+`goal@knowledge-architect@setup-brings-quality-tools` asks of the tools a project gets at its
+adoption.
 
 The rule alone did not hold: sessions chained a push or a commit on a piped verdict in five of nine
 sessions of one adopting project, three times pushing a commit that failed the gate, and five times
@@ -2742,7 +2744,8 @@ harness gives its shells.
 
 The owner ruled that the setup sets it, over a recommendation, and that existing projects are told
 by a Migration entry. The rivals: an option of `check` and `commits` that prints the verdict alone,
-which removes the motive for a session that uses it and stops no pipe; the checker refusing a pipe,
+`rejected@core@verdict-only-output`, which removes the motive for a session that uses it and stops
+no pipe; the checker refusing a pipe,
 `rejected@core@check-refusing-a-pipe`, which a shell without the option makes powerless and the
 option makes needless; the install writing the setting, which edits a file outside the installer's
 namespace, against `design@core@owned-namespace-check`.

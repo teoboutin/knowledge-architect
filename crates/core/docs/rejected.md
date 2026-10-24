@@ -28,7 +28,7 @@ construction, and the walked-file count over thaum's tree was identical under th
 ### `check` and `commits` refusing a pipe on stdout `##check-refusing-a-pipe`
 
 `live`. It was meant to stop `cargo klarch check | tail -n 10 && git commit`, which commits over a
-failing tree because the shell takes the exit status of `tail`. It was built and reviewed, and it
+failing tree because a shell without `pipefail` takes the exit status of `tail`. It was built and reviewed, and it
 loses because it cannot stop that chain in a shell without `pipefail`, where a process inside a
 pipeline does not set the pipeline's status; under the option, which the setup sets in the `claude`
 harness's shell per `design@agent-skills@harness-shell-fails-on-a-pipe`, the chain stops whatever
@@ -686,3 +686,11 @@ tripwire `tripwire@core@init-cleanup-beyond-the-listed-files` watches it.
 
 `live`. It would add a hook to the extension interface for a case the check already reports with
 its repair, and a project with an extension would not need to run `init`, on the owner's word.
+
+### An option of `check` and `commits` that prints the verdict alone `##verdict-only-output`
+
+`live`. It was proposed so that a session that wants only the verdict line has no reason to pipe
+the checker's output and chain on the pipe. It removes that motive for a session that uses it, and
+stops no pipe: a session that pipes anyway still chains on the filter's status in a shell without
+`pipefail`. The shell option stops the chain for every command a session runs.
+
