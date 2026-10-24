@@ -194,6 +194,9 @@ if (args.from === 'application') {
       'empty array, and listed as the count of entries you listed.',
   ]), { schema: ENTRIES, phase: 'preflight', label: 'preflight' })
   if (!pre) throw new Error('preflight returned nothing')
+  if (total(pre.components) !== pre.listed) {
+    throw new Error('preflight: ' + pre.listed + ' entries listed, ' + total(pre.components) + ' returned')
+  }
   const jgroups = cut(pre.components)
   if (!jgroups.length) {
     log('the application changed no tripwire')

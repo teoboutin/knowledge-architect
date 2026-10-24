@@ -197,7 +197,7 @@ standing, 0 retired, 1 of 194 stating when it stops being needed. The full table
 | `design@agent-skills@standing-state-review-before-every-merge` | rewritten: the reviewer also reads every horizon | design.md:1200; the agent-behaviour issue line 66; `issue@agent-skills@an-issue-s-re-entry-point-is-read-by-no-review` line 50 (harvest re-reads all three) |
 | `design@agent-skills@standing-entries-searched-before-the-work` | rewritten where it lists "a tripwire of the milestone document's premortem" at design.md:1192 to 1194: a premortem holds causes, and a cause enters a tripwires home only at the end of the work | harvest |
 | `design@agent-skills@design-record-axis` | rewritten: "the conformance of a tripwire … to its own register's rules is the axis of that register", at design.md:2261 to 2262, names the tripwire axis | `issue@agent-skills@a-head-in-the-wrong-component-goes-to-the-owner-though-the-record-settles-the-component` line 25 (harvest re-reads); `tripwire@agent-skills@component-judgement-noisy` (step 5) |
-| `design@agent-skills@content-mirrors-the-install-layout` | rewritten: the build also fills fragment placeholders | crates/agent-skills/CLAUDE.md:6 (step 1); crates/core/docs/design.md:2742 (harvest re-reads) |
+| `design@agent-skills@content-mirrors-the-install-layout` | rewritten: the build also fills fragment placeholders | crates/agent-skills/CLAUDE.md:6 (step 1); crates/core/docs/design.md:2742 (harvest re-reads); and the two citations the work adds, in crates/agent-skills/CLAUDE.md on fragments and in the module documentation of src/render.rs (harvest re-reads both) |
 | `design@agent-skills@knowledge-table-home` | unchanged; the primer's tripwire row it ships gains "or its horizon passes" (step 2) | CLAUDE.md:47 and design.md:2185, 3080, 3383 cite the head, not the row: nothing to update |
 | `rejected@agent-skills@directive-restated-everywhere` | unchanged: its recorded reason, nine inconsistencies between hand-written restatements and their home, does not cover a copy the build fills from that home | design.md:3058 (the rewritten `design@agent-skills@restatement-size-test` keeps citing it) |
 
@@ -286,6 +286,12 @@ since not all long term conseauences may come to the mind of everyone. the impor
 rather that accepted tripwires are valuable, rather than no past useful tripwire stays accepted. the
 future side is more important than the past here." The condition "unless a small refinement can
 make them pass" is carried by step 2, which applies the standard to the useful firings first.
+
+During the review of the work, the owner added a weight on a doubt: "if it is something I can see
+myself (eg by using agents to carry work, or using the project), losing the tripwire becomes minor.
+It is not a criteria to refuse a tripwire though"; the session read it as a weight on a doubtful
+cause, never a reason to refuse one the conditions admit, and the owner confirmed: "you read my
+criteria correctly". The standard's paragraph on a doubt carries it.
 
 ### Every tripwire names the occasions after which, unfired, it leaves `##tripwire-horizon`
 
@@ -677,7 +683,7 @@ crates/agent-skills/fragments/tripwire-lifecycle.md  new: the lifecycle
 {{fragment:<file>}}                                  new placeholder line, rendered by the fragment pass
 render_fragments                                     new function in src/render.rs: the fragment pass over one text
 FRAGMENT                                             new const in src/render.rs: "{{fragment:"
-Fragments                                            new struct in build.rs: the files under fragments/, read once, with which ones a placeholder named
+read_fragments                                       new function in build.rs: the files directly under fragments/, as names and texts
 **Watches until:**                                   new line of a tripwire entry
 crates/agent-skills/content/agents/tripwire-auditor.md       new agent: `agent@knowledge-architect-tripwire-auditor`
 crates/agent-skills/content/workflows/tripwire-audit.js      new saved workflow: knowledge-architect-tripwire-audit
@@ -838,16 +844,18 @@ ranks every cause it admits as it ranks those it excludes.
   file directly under `path@agent-skills@fragments/`, with its `.md` extension, as
   `{{fragment:tripwire-standard.md}}`. Its leading spaces are its indentation.
 - **The pass** is `render_fragments` in render.rs, a pure function over one text and the fragments'
-  texts, which returns the rendered text and the names it used. It runs after the workflow-name
-  check and before the `%%` strip, the `{{slug:…}}` rendering and `SUBSTITUTIONS`. It removes the
-  `%%` lines of the fragment's own text first, then prefixes every non-blank line of it with the
-  placeholder's indentation, so a fragment sits inside a list item, as step 7 of the design skill
-  needs. A `{{command}}` or a delivery placeholder in a fragment is filled like any text.
+  texts, which returns the rendered text and the names it used. It runs after the host's `%%`
+  strip and `{{slug:…}}` rendering, so that their failures name the host's own lines, and before
+  `SUBSTITUTIONS`. It removes the `%%` lines of the fragment's own text first, then prefixes every
+  non-blank line of it with the placeholder's indentation, so a fragment sits inside a list item, as
+  step 7 of the design skill needs. A fragment holds no build placeholder but the install's
+  `{{command}}`, which the install fills like any text.
 - **The build fails** on a placeholder naming no file; on a fragment no placeholder names; on a
   fragment holding a `{{fragment:` line, since a fragment does not nest; and on a fragment holding a
   `{{slug:` placeholder, since the host supplies the heading and its slug. The first, third and
-  fourth are raised by `render_fragments`; the second by build.rs over the names each call returned,
-  as `Snippets::all_used` does.
+  fourth are raised by `render_fragments`, with a fifth, a fragment holding any other build
+  placeholder; the second by build.rs over the names each call returned, as `Snippets::all_used`
+  does.
 - **The fragments directory** is in the package's `include` list, `/fragments/**`, and in a
   `cargo:rerun-if-changed=fragments` line beside the one for snippets/.
 - **The checker** reads a fragment as a document of this repository, as it reads content/: its
@@ -1042,8 +1050,10 @@ T1, written at the harvest in `register@agent-skills@tripwire`, guarding the hea
   cause at the end of that work" read in the tripwire auditor, which implements no decision.
 - **Response:** reopen #shared-text-fragment on what a fragment may hold, and split the fragment or
   move the sentence to the hosts that need it. Whatever this criterion's outcome, step 2 writes into
-  `agent@knowledge-architect-agent-text-reviewer` that it reads the installed copy of every host of
-  a fragment the diff changes (`argument@tripwire-standard@arg-36`).
+  `path@agent-skills@CLAUDE.md` that the review of a changed fragment reads the installed copy of
+  every host (`argument@tripwire-standard@arg-36`); not into the installed agent-text reviewer,
+  since fragments are a convention of this repository, which shipped text names none of, per
+  `design@agent-skills@shipped-text-cites-no-entry`.
 
 ### AC2: the first pass's owner list groups every proposed deletion by its outcome and condition `##removals-grouped-by-condition`
 
@@ -1058,11 +1068,11 @@ T1, written at the harvest in `register@agent-skills@tripwire`, guarding the hea
 
 ### Step 1: the fragment pass, empty
 
-Builds `render_fragments` and `FRAGMENT` in render.rs, `Fragments` in build.rs, the pass's call
-before the `%%` strip, its four build failures, the `include` entry, the `rerun-if-changed` line,
-and the paragraph of crates/agent-skills/CLAUDE.md. No content file uses a placeholder yet, and the
-fragments directory is absent or empty, which `Fragments` accepts as `Snippets` accepts an absent
-snippets/.
+Builds `render_fragments` and `FRAGMENT` in render.rs, `read_fragments` in build.rs, the pass's
+call, its build failures, the `include` entry and the `rerun-if-changed` line. No content file uses
+a placeholder yet, and the fragments directory is absent, which `read_fragments` accepts as
+`Snippets` accepts an absent snippets/. The paragraph of crates/agent-skills/CLAUDE.md lands at
+step 2, with the first fragment its pointer names.
 
 - **Claims:** a placeholder line is replaced by its fragment's text; an indented placeholder
   indents every non-blank line of it; the fragment's `%%` lines are absent from the result; each of
@@ -1090,7 +1100,8 @@ Then the two fragments and every host edit of "The hosts"; the rewrite of
 keeps" says; step 7 of the design skill; the other texts listed under "What the work is" as stating
 the old rule; the primer's tripwire row of the knowledge table, its tripwire example in
 `primer@labelled-items`, and its sentence on fragments in `primer@where-knowledge-goes`; the
-agent-text reviewer's reading of hosts; the `%%` lines listed under "What is already decided",
+paragraph of crates/agent-skills/CLAUDE.md on fragments, the reading of every host by the review
+of a changed fragment included; the `%%` lines listed under "What is already decided",
 and a new one citing `design@agent-skills@acceptance-criteria-in-the-document`. Then
 `cargo klarch install-agent-skills`.
 
@@ -1176,8 +1187,9 @@ checks it. This adds an obligation to the text the owner approved, so it is the 
 
 ### D3: two refinements of the standard, from the check on the useful firings
 
-Step 2 applied the standard, without hindsight, to the 8 useful firings. A subagent's judgement: it
-keeps the premise of 5, two of them as checks, and drops 2: `decision-trigger-does-not-fire`, on
+Step 2 applied the standard, without hindsight, to the 8 useful firings, of 7 tripwires, since
+`one-mutation-vocabulary-three` fired twice. A subagent's judgement, per tripwire: it keeps the
+premise of 5, two of them as checks, and drops 2: `decision-trigger-does-not-fire`, on
 condition 2, and thaum's commit-message tripwire, whose one firing was a single message on the main
 branch that no review had reported, which the rule on slips excluded because it asked for a
 recurrence. **Default**, built in the fragment:
@@ -1196,6 +1208,10 @@ would admit `decision-trigger-does-not-fire` but needs the transcript reviewer t
 tripwires homes, and reopens condition 2's ground, the cost of watching. Each refinement changes what
 a condition admits, which the owner ruled is the owner's, round 4: "unless a small refinement can
 make them pass". Bears on #tripwire-admission-test.
+
+**Ruled**: accepted, the owner: "D3 accepted". The review of the work then bounded the second
+refinement: a check of the work being built is that work's acceptance criterion, and only a check
+writable after another event is a `deferred` issue.
 
 ## Harvest
 

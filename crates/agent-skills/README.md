@@ -344,11 +344,11 @@ and real use decides whether it becomes a reason to change anything.
   reason generation
   ([Mitchell, Russo & Pennington 1989](https://onlinelibrary.wiley.com/doi/abs/10.1002/bdm.3960020103);
   popularized as the premortem by Gary Klein). The skill runs one at
-  convergence, and its outputs become tripwires on the record.
+  convergence, and the causes it names that meet the standard become tripwires on the record.
 - **Tripwires.** Predetermined signals that force reconsideration are
   a named prescription in Heath & Heath, *Decisive* (2013), countering
-  escalation of commitment. Every verdict on an incumbent design here ships
-  with them.
+  escalation of commitment. Every verdict on an incumbent design here names
+  the evidence that would flip it.
 - **Status-quo bias.** Incumbents win by default beyond their merits
   (Samuelson & Zeckhauser 1988); the skill therefore argues direction
   on merits before migration cost enters the exchange — while still

@@ -96,11 +96,10 @@ mod tests {
             let source = match path.strip_prefix(".claude/") {
                 Some("knowledge-architect/PRIMER.md") => "PRIMER.md".to_owned(),
                 Some(rest) => rest.replacen("knowledge-architect-", "", 1),
-                None => continue,
+                None => panic!("{path} is installed outside .claude/"),
             };
-            let Ok(text) = std::fs::read_to_string(root.join("content").join(&source)) else {
-                continue;
-            };
+            let text = std::fs::read_to_string(root.join("content").join(&source))
+                .unwrap_or_else(|e| panic!("{path} maps to content/{source}, unreadable: {e}"));
             for line in text.lines() {
                 if !line.trim_start().starts_with(crate::render::FRAGMENT) {
                     continue;
@@ -121,6 +120,50 @@ mod tests {
             }
         }
         assert!(hosts > 0, "no content file names a fragment");
+    }
+
+    /// Each fragment reaches every text whose act applies it whole, and no other, per the hosts the
+    /// tripwire standard's spec ruled. A host that loses its placeholder still ships and still
+    /// passes the test above, so this list is what fails: change it with the hosts.
+    #[test]
+    fn each_fragment_has_its_hosts() {
+        let hosts: &[(&str, &[&str])] = &[
+            (
+                "tripwire-standard.md",
+                &[
+                    ".claude/agents/knowledge-architect-decision-record-reviewer.md",
+                    ".claude/agents/knowledge-architect-tripwire-auditor.md",
+                    ".claude/skills/knowledge-architect-decision-recording/SKILL.md",
+                    ".claude/skills/knowledge-architect-design/SKILL.md",
+                    ".claude/skills/knowledge-architect-issue-tracking/SKILL.md",
+                    ".claude/skills/knowledge-architect-planning/SKILL.md",
+                ],
+            ),
+            (
+                "tripwire-lifecycle.md",
+                &[
+                    ".claude/agents/knowledge-architect-standing-state-reviewer.md",
+                    ".claude/agents/knowledge-architect-tripwire-auditor.md",
+                    ".claude/skills/knowledge-architect-issue-tracking/SKILL.md",
+                ],
+            ),
+        ];
+        let root = std::path::Path::new(env!("CARGO_MANIFEST_DIR"));
+        for (fragment, expected) in hosts {
+            let text = std::fs::read_to_string(root.join("fragments").join(fragment))
+                .expect("the fragment is readable");
+            let first = text
+                .lines()
+                .find(|l| !l.trim().is_empty() && !l.starts_with("%%"))
+                .expect("a fragment holds a line");
+            let mut found: Vec<&str> = FILES
+                .iter()
+                .filter(|(_, shipped)| shipped.lines().any(|l| l.trim() == first.trim()))
+                .map(|(path, _)| *path)
+                .collect();
+            found.sort();
+            assert_eq!(&found, expected, "the hosts of fragments/{fragment}");
+        }
     }
 
     /// No shipped file holds a snippet placeholder: a line that is not exactly one, such as an
