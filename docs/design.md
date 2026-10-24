@@ -243,7 +243,7 @@ The entries are reviewed once, at the release, against the tests of
 `design@knowledge-architect@changelog-entries`, and for the truth of what each says the checker
 reports, refuses or accepts, rather than at every merge, because a release branch can repair any gap
 before anything is published. The release review is where every entry is read against the range,
-and a false behavioural claim in an entry reached a reviewed release head with no axis reading it.
+and no other axis reads an entry's claims about the checker's behaviour.
 
 ### The project stays at 0.x until the owner's word, given once its first design discussion's open issues are settled `##stays-at-zero-x`
 

@@ -11,6 +11,6 @@ else:
   `index.md` is the generated listing of its slices, and each other file in it is the spec of one
   slice, cited `spec@<milestone>@<slice>`.
 
-A plan document may land before its work starts, and leaves in the commit that completes its last
-harvest. The procedure is the
+A plan document may land before its work starts, and leaves in a commit of its own, after its last
+harvest and the review before the merge that reads it. The procedure is the
 installed `skill@knowledge-architect-planning`.

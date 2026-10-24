@@ -5,7 +5,12 @@ kind: observation
 
 ## Summary
 
-A general-purpose reviewer was refused the read of the session's transcript by the harness's
+At the review before the merge of this repository's agentic-workflow axis branch, the three
+reviewers dispatched as general-purpose subagents reported that the harness refused their write of
+the findings file their brief named in their scratch directory, with the message "Subagents should
+return findings as text", and returned their findings in their final message instead; their briefs
+had asked for a file there. That write half is reproduced and answered, below. A later session met
+the same split for a read: a general-purpose reviewer was refused the read of the session's transcript by the harness's
 permission classifier, while `agent@knowledge-architect-transcript-reviewer` read the same file.
 The same split for the write of a report file is reproduced and answered: the review skill states
 that a general-purpose subagent returns its report as text, and the dispatcher saves it.

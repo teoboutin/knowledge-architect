@@ -54,7 +54,12 @@ anchored at this repository's root names this repository's directory only. The i
 the same directory and docs/audit-reports/ in plain text too, in the primer's knowledge table and
 closing paragraph, the intake skill and the design-record auditor's definition; it cannot cite this
 entry, per `design@agent-skills@shipped-text-cites-no-entry`, and a mention of a directory the reader
-is not asked to follow is outside `design@agent-skills@plain-text-is-no-repair`. Reported by the
+is not asked to follow is outside `design@agent-skills@plain-text-is-no-repair`. Two more sites:
+`design@agent-skills@committed-audit-report` writes the audit directory as a span with a
+placeholder, which the checker reads as no reference, and this repository's own intake skill,
+`skill@klarch-retrospective-intake`, names the analyses' directory bare in its description. A
+candidate for the discussion: a reserved anchor for every installing project's root, which changes
+`design@core@reserved-anchors` and `design@core@nothing-of-a-project-is-compiled-in`. Reported by the
 retrospective of the intake of 2026-10-19, analysed at the intake of 2026-10-24.
 
 ### Why it matters

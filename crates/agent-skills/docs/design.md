@@ -927,7 +927,8 @@ search was not given, and the plan-document review of
 `design@agent-skills@plan-read-against-the-record` stays the backstop. The installed retrospective
 intake sends it at its grounding, with the received files as the work, to each Component that owns
 a blamed text and to the project's root, and again before a proposed fix that touches a Component it
-was not given; its check of whether a finding is already recorded reads the entries it grades. How
+was not given; its check of whether a finding is already recorded reads the entries it grades, as
+`design@agent-skills@search-relevance-grade` says at an intake. How
 the search is split is `design@agent-skills@design-entry-search-groups`.
 
 It serves `goal@knowledge-architect@agents-work-without-drift`: the owner reported design entries
@@ -988,8 +989,8 @@ The searcher grades each entry and each goal it reads, per
 `design@agent-skills@searcher-grades-goals`, `bears`, with the relation `constrains`,
 `may change` or `may bring back`, or `may-bear`, and lists every unrelated one it read, so every
 goal and every entry of its group appears in exactly one of three lists. The design skill routes
-each grade to an act: the session reads every `bears` and `may-bear` entry whole, a retrospective
-intake as `design@agent-skills@standing-entry-search-agent` says, states for each
+each grade to an act: the session reads every `bears` and `may-bear` entry whole, but at a
+retrospective intake, below, states for each
 `may-bear` whether it bears, sends a `may change` entry to the reversal check and a `may change`
 goal to the goal-setting skill, since a goal changes only there, and proposes a `may bring back`
 entry again only with a new argument.
@@ -1000,6 +1001,16 @@ each wording it differently, and a numeric scale would route no act. The owner a
 per entry on how closely it relates, unsure whether yes or no would suffice, and asked that every
 entry read be listed, which is also what a later check of a report's coverage would read, per
 `issue@core@searcher-reports-are-written-and-checked-by-hand`.
+
+At a retrospective intake, a batch of files, the session reads a `may-bear` entry whole only where a
+proposal touches its subject, and lists the others with the searcher's reason as not read, beside
+every `bears` entry and every entry a proposal rests on or would change, which it reads whole. A
+batch's design-entry search returns the union of many files' neighbourhoods, mostly graded
+`may-bear` with no bearing established: one intake of nine files returned 169 distinct entries, and
+the session read whole about 35, those its proposals rested on; this repository's intake of 24 files
+did the same. Both read whole what their proposals rested on, so no outcome rested on an unread
+entry. This reading is a default awaiting the owner, who asked that the session read the reported
+entries whole. The design it does not keep: `rejected@agent-skills@intake-reads-every-may-bear-entry-whole`.
 
 ### A premortem's cause becomes a tripwire only on the owner's word `##premortem-tripwires-on-the-owners-word`
 
@@ -1019,8 +1030,9 @@ or the instruction it guards and a head exists from the landing of its work, per
 ### A tripwire's wording is the agent's, and the owner rules only on whether its cause is watched `##tripwire-wording-is-the-agents`
 
 The owner's word on a premortem's cause, per `design@agent-skills@premortem-tripwires-on-the-owners-word`,
-records that the cause is watched. The tripwire's firing evidence, response and re-entry point are
-reworded when it is written, or on a review finding, on the agent's judgement, and each change is
+records that the cause is watched. The tripwire's premise, firing evidence, response and re-entry point are
+reworded when it is written, on a review finding, or at a later change, on the agent's judgement,
+while it watches the same cause, and each change is
 listed in the turn's "Decided" section, per `design@agent-skills@decisions-reported-to-the-owner`.
 A tripwire that watches another cause is a new one, and needs the owner's word. A ruling that bound
 the wording would make every repair of a tripwire a question to the owner, against
@@ -1135,20 +1147,16 @@ through `show` to the entries that cite it, which it always returns, and judges 
 group against the work, leaning to recall. It returns every entry of its group in one of two lists,
 the entries that bear on the work, each with a reason, and the entries judged unrelated, so that a
 silent report cannot be mistaken for a skipped one. The session reads whole every entry returned,
-never from its reason line, except at a retrospective intake, below. It relies on the checker working as intended: `show` prints an entry's
+never from its reason line. It relies on the checker working as intended: `show` prints an entry's
 file and definition line, and the references to it.
 
 The search runs in a subagent so that the main session spends its context on the entries the work
 bears on, per `goal@knowledge-architect@agents-get-a-complete-workflow`, and the session still
 reads each of those whole, as the owner asked, to "find and read the full reported issues and
 tripwires, rather than relying on the subagent summary", since the session acts on the entry and
-not on a summary of it, per `goal@knowledge-architect@the-owner-decides`. A retrospective intake
-takes many files at once, and its searches return their union: in two batch intakes the session
-could not read every entry whole and judge, and read whole the entries its proposals rested on.
-There, on the owner's acceptance of that scope over the reading the owner had asked for, the session
-reads whole every entry the standing-entry search returns, every `bears` entry, every entry a
-proposal rests on or would change, and a `may-bear` entry where a proposal touches its subject, and
-lists the rest as not read. It is an agent of its own rather
+not on a summary of it, per `goal@knowledge-architect@the-owner-decides`. The reading holds at a
+retrospective intake of many files too, at its cost: an intake of thirteen files read 64 standing
+entries whole, about 167 KB. It is an agent of its own rather
 than the standing-state reviewer in a second mode: that reviewer reads every entry by rule, the
 search filters by relevance on purpose, and one text holding both standards lets a session apply
 the wrong one.
@@ -1466,8 +1474,9 @@ resolves a relative link only in a `README.md` or an `index.md`, per
 `design@core@links-are-navigation-rows`, so the head can link each slice's spec as a navigation row.
 A slice's spec is a spec, so it leaves when its slice lands, per
 `design@agent-skills@plan-document-leaves-at-landing`: its decisions are then in the design homes. The
-README leaves at the last slice, in the commit that deletes that slice's spec, once every default
-it lists is ruled, per `design@agent-skills@default-ruled-before-merge`.
+README leaves once its last slice has landed and every default it lists is ruled, per
+`design@agent-skills@default-ruled-before-merge`: in the commit that deletes that slice's spec, or in
+the commit that records the last ruling.
 
 ### A milestone's design is split across its documents by lifetime, from the session that converged `##milestone-split-by-lifetime`
 
@@ -1500,7 +1509,11 @@ The deletion comes after the review before the merge, since four acts of that re
 document: the transcript reviewer's search of the tip for an argument's outcome, the standing-state
 reviewer's reading of the criteria the landing judges, the spec-conformity and
 fidelity-of-relocation axes, and `git log -G` on a thread-to-slug pair written into the harvest row,
-which a row edited in the deleting commit leaves in no tree. A branch that deleted its spec with its
+which a row edited in the deleting commit leaves in no tree: re-taken by the reproduction the
+issue entry closed by the commit "[agent-skills] A plan document leaves in a commit of its own, after
+the review before the merge has read it" held, in its parent's tree, where `git log -G` on the pair
+prints nothing. A
+branch that deleted its spec with its
 harvest showed the first three in real use: every brief had to name the deleting commit's parent,
 and a history edit of the branch then gave that commit a new SHA, so the briefs named a commit the
 branch no longer held. Extending the briefs to read the document from history was the rival: it
@@ -2775,7 +2788,9 @@ to anchor, a register's home cited by its path, a plan item's scope, a slug outs
 site. Each reaches a session through its finding, which names its repair, on the owner's rulings in
 three passes of the first agentic-workflow audit: the rarer checker rules are delivered by their
 finding messages rather than by the installed text, and an unstated checker rule is a finding only
-where its finding message does not name its repair. The rulings are recorded in
+where its finding message does not name its repair. One rule stands in the section on the owner's
+word, placed there over that ruling: `check --fix`'s refusal and the two repairs it names, which
+sessions of an adopting project routed around in real use. The rulings are recorded in
 `issue@core@a-reference-with-a-line-or-fragment-suffix-names-a-wrong-repair`. A rule a writer of
 every `path` reference needs stays in `primer@where-knowledge-goes`.
 
@@ -3358,7 +3373,7 @@ handed to an intake again.
 ### A retrospective's project file names the project's main commit, which its workflow file names only where the project builds the checker from source `##version-line-names-the-main-commit`
 
 The version line of the project's file names the main commit the session's tree contained when its
-work began, the commit its branch started from, the branch the session worked on, and whether the tree held uncommitted changes, beside the version of
+work began, as the session's first look at the tree reported it, the branch the session worked on, and whether the tree held uncommitted changes, beside the version of
 knowledge-architect both files name. No commit of the branch is named, since a merge that rewrites
 the branch's commits leaves it pointing at nothing, and no commit of the main branch after the
 merge is named either: it holds the session's own work, so the intake would read the blamed text

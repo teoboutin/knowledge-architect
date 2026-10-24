@@ -199,6 +199,24 @@ mod tests {
             assert!(f.what.contains("this build"), "{f:?}");
             assert!(!f.what.contains("version"), "{f:?}");
         }
+        let pinned = Manifest::parse(
+            Path::new("/nowhere"),
+            &format!(
+                "[project]\nchecker-version = \"{}\"\nname = \"p\"\ncomponents = []\n\
+                 [walk]\nskip-dirs = []\nskip-files = []\nexclude = []\n",
+                crate::CHECKER_VERSION
+            ),
+        )
+        .expect("a declaration");
+        let found = run(&pinned, IMPORTING, &installed, &shipped);
+        assert_eq!(found.len(), 3, "{found:?}");
+        for f in &found {
+            assert!(
+                f.what
+                    .contains(&format!("version {}", crate::CHECKER_VERSION)),
+                "a version pin: {f:?}"
+            );
+        }
         let found = run(&manifest(""), IMPORTING, &installed, &shipped);
         assert_eq!(found.len(), 3, "{found:?}");
         for f in &found {

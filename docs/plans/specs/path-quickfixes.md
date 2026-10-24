@@ -26,7 +26,7 @@ and never chooses a target the span does not name. The work does four things:
   rewrites what a writer meant", with the respelling as its test.
 
 The spec is written for a session that did not witness the design discussion that produced it. It
-leaves the repository in the commit that completes its harvest.
+leaves the repository in a commit of its own, after its harvest and the review before the merge.
 
 - Where this spec and a design home disagree, the design home wins, and the disagreement is a
   defect of this spec.
@@ -1066,8 +1066,8 @@ harness, as `Sandbox::serve_claude` does; `check --fix` is never run inside `pla
    Claims: `cargo klarch check` passes with the installed copies committed;
    `cargo test -p knowledge-architect-agent-skills` passes; the shipped edits cite no entry and
    write `{{command}}`, by a reading. Fails alone on: a changelog copy that differs.
-7. **The harvest**, below, reviewed before the merge. The spec is deleted in the commit that
-   completes it.
+7. **The harvest**, below, reviewed before the merge. The spec is deleted in a commit of its own
+   after that review.
 
 ## Order rationale
 
@@ -1173,7 +1173,7 @@ commit, with the test it fails.
 | T2 | `register@core@tripwire`, guarding the head that records the question form, as the Premortem section words it |
 | AC1 to AC4, and AC1 of the register-references work | reported on at the landing; each spent, or proposed to the owner as a tripwire if it recurs |
 | the respelling of a register's home | `design@core@fix-scope` with the other respellings; the two exclusions that give way for a home target, in the head that states them |
-| this spec | deleted in the harvest's commit, cited as `spec@plans@path-quickfixes` |
+| this spec | deleted in a commit of its own after the review before the merge, cited as `spec@plans@path-quickfixes` |
 
 ## Later consequences
 

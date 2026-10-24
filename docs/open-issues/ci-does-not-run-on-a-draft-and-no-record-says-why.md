@@ -14,8 +14,8 @@ CI's machine shows is fixed by a commit no review covered. Should CI run on a dr
 ### What
 
 - `design@knowledge-architect@git-flow`: "Once it holds a first commit, it is pushed and a draft
-  pull request is opened. CI does not run on a draft." The CI workflow, ci.yml under
-  .github/workflows, runs its job only where the pull request is not a draft; its comment explains
+  pull request is opened. CI does not run on a draft." The CI workflow,
+  `path@knowledge-architect@.github/workflows/ci.yml`, runs its job only where the pull request is not a draft; its comment explains
   why a skipped job counts as passing, and not why drafts are skipped. Both the condition and the
   head's sentence come from the commit that imported the checker into this workspace, whose message
   says nothing of drafts.

@@ -50,7 +50,6 @@ heading above it. The narrowest shape that serves it, and the standing entries' 
 `design@core@orphan-rejected-entry` already maps a citation to the design entry whose section holds
 it. Analysed at the intake of 2026-10-24.
 
-
 ### Why it matters
 
 `goal@knowledge-architect@structure-and-workflow-work-together` states that "the tool computes the

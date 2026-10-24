@@ -952,7 +952,8 @@ core's, per `design@core@an-extension-plugs-in-through-phased-hooks`.
 An item citation, `<kind>@<plan>@<id>`, resolves only from a file inside the plan: the spec file, or a file of the milestone's directory. From anywhere
 else, a commit message included, it is refused before its id is looked up, and the repair names
 the document to cite whole: the spec, the milestone, or the slice spec that defines the item, with
-the item named beside it as `#<id>`, the label the planning skill gives an item outside its plan. A
+the item named beside it as `#<id>`, the label `skill@knowledge-architect-planning@spec-contents`
+gives an item outside its plan. A
 whole plan may be cited from anywhere, so a dependency between plans is carried by the document,
 and retiring a plan asks no other plan to be redesigned item by item. The premise is that a
 whole-document citation carries every dependency between plans that matters while few plans are
@@ -2009,8 +2010,8 @@ the name a skill or an agent is defined by, not a mention, and is not read. Its 
 reference, and adds what to do where the word is meant as an ordinary term: a design entry's slug
 then names a subject, and the entry is renamed to state its decision, as `primer@design-heads` asks
 of a slug; any other entry is renamed so that its slug is not an ordinary word, since, on the
-owner's word, a slug has no reason to be used as an ordinary word, and that is what lets the lint
-report a wrong use reliably.
+owner's word, a slug has no reason to be used as an ordinary word, and that is the only way the
+lint reports a wrong use reliably.
 
 **The rule is the owner's**, given against the session's proposal of a listing in `show`: a word
 meant as an ordinary term probably shows a slug wrongly chosen and not specific enough, in the

@@ -241,10 +241,10 @@ T2, as the owner ruled it at the premortem of `check --staged`. It fires only in
 sees, as `issue@agent-skills@a-tripwire-on-agent-behaviour-fires-where-this-project-cannot-see`
 records of every tripwire on agent behaviour.
 
-**Fires when:** a retrospective finding, or an observation of the owner, reports a session that
-ran `git reset`, `git restore --staged` or `git stash`, or otherwise unstaged changes, after
-`check --fix` refused a partial commit's mismatch, instead of taking one of the two repairs it
-named.
+**Fires when:** a retrospective finding, or an observation of the owner, reports a session on a
+version whose primer explains the refusal and its two repairs that ran `git reset`,
+`git restore --staged` or `git stash`, or otherwise unstaged changes, after `check --fix` refused a
+partial commit's mismatch, instead of taking one of the two repairs it named.
 **Response:** reopen `design@core@fix-refusal-mixed-state`.
 **Re-entry:** each retrospective intake.
 

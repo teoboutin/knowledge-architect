@@ -406,18 +406,23 @@ fn id_finding(rel: &Path, line: u32, id: &str, forms: &[String], how: IdForm) ->
     // A design head's slug states its decision, so a word meant as an ordinary term shows it
     // names a subject; any other entry's slug has no reason to be a word a sentence uses, on the
     // owner's word, per `design@core@plain-word-lint`.
-    let decisions = forms.iter().all(|f| f.starts_with("design@"));
+    let designs = forms.iter().filter(|f| f.starts_with("design@")).count();
     let (written, word) = match how {
         IdForm::Bare => ("in backticks without its kind", ""),
-        IdForm::Plain if decisions => (
+        IdForm::Plain if designs == forms.len() => (
             "as a plain word",
             "; where the word is meant as an ordinary term, the entry's slug names a subject: \
              rename the entry to state its decision",
         ),
+        IdForm::Plain if designs == 0 => (
+            "as a plain word",
+            "; where the word is meant as an ordinary term, rename what it names so that its slug \
+             is not an ordinary word",
+        ),
         IdForm::Plain => (
             "as a plain word",
-            "; where the word is meant as an ordinary term, rename the entry so that its slug is \
-             not an ordinary word",
+            "; where the word is meant as an ordinary term, rename what it names: a design entry \
+             to state its decision, anything else so that its slug is not an ordinary word",
         ),
     };
     let listed = |forms: &[String]| {
@@ -1774,16 +1779,11 @@ mod tests {
         assert_eq!(counts.entities, 2);
     }
 
-    /// The claim, per `design@core@orphan-rejected-entry`:
-    /// an entry no design entry cites is reported at its definition site, whatever else cites
-    /// it: a goal, an issue, another `rejected` entry, or the design home's own introduction,
-    /// which is no entry. Mutation checked: `cited_within` reading every span of the design
-    /// home's document rather than the entry's section, which lets the introduction's citation
-    /// pass the entry.
     /// The claim: the plain-word finding's repair for a word meant as an ordinary term asks a
-    /// design head to be renamed to state its decision, and any other entry to be renamed so its
-    /// slug is not an ordinary word, per `design@core@plain-word-lint`. Mutation: the decision
-    /// branch given whatever the kind fails the issue's case.
+    /// design head to be renamed to state its decision, anything else to be renamed so its slug
+    /// is not an ordinary word, and gives both where the forms mix kinds, per
+    /// `design@core@plain-word-lint`. Mutations: the decision branch given whatever the kind
+    /// fails the issue entry's case; `all` read as `any` fails the mixed case.
     #[test]
     fn the_plain_word_repair_is_given_by_the_kind_of_the_entry() {
         let (found, _) = checked_docs(
@@ -1791,12 +1791,14 @@ mod tests {
             vec![
                 (
                     "docs/design.md",
-                    "# Design\n\n### The decision `##a-decision`\n\nIt holds.\n",
+                    "# Design\n\n### The decision `##a-decision`\n\nIt holds.\n\n\
+                     ### Another decision `##a-mixed-slug`\n\nIt holds.\n",
                 ),
                 ("docs/open-issues/an-issue.md", "# An issue\n\nIt holds.\n"),
+                ("docs/open-issues/a-mixed-slug.md", "# Mixed\n\nIt holds.\n"),
                 (
                     "docs/notes.md",
-                    "# Notes\n\nThe a-decision word.\n\nThe an-issue word.\n",
+                    "# Notes\n\nThe a-decision word.\n\nThe an-issue word.\n\nThe a-mixed-slug word.\n",
                 ),
             ],
             &[],
@@ -1815,12 +1817,23 @@ mod tests {
         );
         let issue = plain("an-issue");
         assert!(
-            issue.contains("rename the entry so that its slug is not an ordinary word"),
+            issue.contains("rename what it names so that its slug is not an ordinary word"),
             "{issue}"
         );
         assert!(!issue.contains("state its decision"), "{issue}");
+        let mixed = plain("a-mixed-slug");
+        assert!(
+            mixed.contains("a design entry to state its decision, anything else so that its slug"),
+            "both branches where the forms mix kinds: {mixed}"
+        );
     }
 
+    /// The claim, per `design@core@orphan-rejected-entry`:
+    /// an entry no design entry cites is reported at its definition site, whatever else cites
+    /// it: a goal, an issue, another `rejected` entry, or the design home's own introduction,
+    /// which is no entry. Mutation checked: `cited_within` reading every span of the design
+    /// home's document rather than the entry's section, which lets the introduction's citation
+    /// pass the entry.
     #[test]
     fn an_entry_no_design_entry_cites_is_reported_whatever_else_cites_it() {
         let (found, _) = checked_docs(

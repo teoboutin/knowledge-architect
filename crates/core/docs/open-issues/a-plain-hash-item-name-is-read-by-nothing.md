@@ -61,10 +61,10 @@ Two rivals already lost, and a design must answer both:
   notation, such as an issue number. A check limited to a plan document's own item ids, inside that
   document, does not meet that argument: its set of ids is the plan's own.
 
-Re-entry point: the next change to `design@core@retired-slug-reference-reported` or to
-`design@core@plan-item-scope`, or earlier on the owner's word.
+Re-entry point: the next change to `design@core@retired-slug-reference-reported`, or the owner's
+word.
 
-The re-entry point was met by the change that gave the finding on an item cited from outside its
+The earlier re-entry point, a change to `design@core@plan-item-scope`, was met by the change that gave the finding on an item cited from outside its
 plan a repair naming the label, "and name the item beside it in plain text as #<id>", after a thaum
 session met that finding three times on one branch and named the item in words the third time, as
 its retrospective reports, analysed at the intake of 2026-10-24. The repair now advises the one form

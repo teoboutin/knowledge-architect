@@ -20,13 +20,16 @@ session that worked six slices of a milestone in one branch:
   where "the owner chose where the argued rivals did not settle it", and the decision-recording
   skill makes the owner's choice the ground of a tie. The owner disagreed: an approval of a default
   is given without analysing the proposal deeply, and the owner does not want such a decision
-  attributed to them long term. The owner suggested, hedged as a "maybe", a path that lets an
+  attributed to them long term. The owner suggested, as a hedged possibility, a path that lets an
   agent attribute the decision to itself, explicitly in the design head.
 - A built default that narrows a head while it awaits the owner. The owner wants to change the
   condition of `skill@knowledge-architect-decision-recording@when-recording-happens`, "A default
   awaiting the owner is built as written … and enters a design head once the owner rules on it",
   so that agents are more autonomous about design, defaults and records, and more of the owner's
-  intent moves to goals.
+  intent moves to goals. The analysis read the case against the planning skill's sentence that "A
+  scope change listed there does not start before its ruling", which the session had not applied,
+  and against `issue@agent-skills@the-primer-s-divergence-paragraph-reads-two-ways-on-work-that-goes-on`,
+  whose question the case answers in real use.
 - A milestone whose last slice landed with six defaults unruled, which the planning skill had leave
   with its last slice; the rewording of that sentence was carried out, and the owner asked that the
   case be noted here.

@@ -27,7 +27,9 @@ ways, and one harvest applied it both ways.
   repair added three more entries. Reported in that session's retrospective, analysed at the intake
   of 2026-10-24.
 - The rival proposed there: test 1 reads "and its refutation cannot be derived again from the head
-  that cites it". Another rival: keep test 1 broad and drop the opening sentence.
+  that cites it", which narrows test 1 to its argument. Other rivals: test 1 kept broad and the
+  opening sentence dropped, which inverts the home's intent for interface decisions; the derivation
+  sentence placed so that it binds every test, which narrows all of them.
 
 The suspected mechanism, in one sentence: the head's list and its argument part, so a reader
 applying the list admits what the argument would leave out.

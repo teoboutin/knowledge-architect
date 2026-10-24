@@ -254,7 +254,7 @@ than scheduling anyone.
   issue file is **created**, or the decision is reopened. It never becomes a fired-but-still-listed
   entry. Where the reopened decision's reversal is recorded only at a plan document's harvest, the
   tripwire is narrowed to except that plan document's work, citing it, so the citation dangles when
-  the document leaves and its harvest deletes the entry.
+  the document leaves, and the commit that deletes the document deletes the entry.
 - **Unless it guards a standing guarantee, in which case it is restated and stays.** A tripwire is
   usually a one-shot hypothesis, _if this happens, that decision was wrong_, and firing consumes it.
   A tripwire guarding a guarantee that holds for the life of the project is not consumed by one
