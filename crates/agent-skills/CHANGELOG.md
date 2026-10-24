@@ -37,6 +37,25 @@ subsection is omitted.
 - `agent-skills`, patch: the setup skill names `klarch init` as how a project is created, and
   `new-component` as how a Component is added; its Rust section shows the virtual workspace a
   project gains, and says `init --rust` writes its blocks but the continuous integration workflow.
+- `agent-skills`, patch: a plan document is deleted in a commit of its own, after the review before
+  the merge has read the tip that holds it, where it was deleted in the commit that completed its
+  harvest; that commit counts among the review's repairs, as does a commit landing after the review
+  on the owner's answer to one of its items or to meet a gate.
+- `agent-skills`, patch: every review brief asks the reviewer to end its report with a line asking
+  the dispatcher to save it whole, and a general-purpose reviewer returns its report as text; the
+  record of the last transcript review's items is the message of its own repair commit, and the
+  review ends with the repairs of the decision-record review of those repairs.
+- `agent-skills`, patch: the primer asks for `commits <main>..HEAD` after each commit, and explains
+  the two repairs `check --fix` names when it refuses.
+- `agent-skills`, patch: a pin move whose Migration entries cite an audit axis opens one `todo`
+  issue per owed axis, in the root Component, which the audit's commit closes.
+- `agent-skills`, patch: a rewording of a ruled tripwire's text that keeps the cause it watches is
+  the session's, listed under "Decided", and not put to the owner; a clause that watches another
+  cause is a new tripwire, which is.
+- `agent-skills`, patch: the retrospective's version line names the main commit the session's tree
+  held when its work began; a retrospective intake reads whole the entries its proposals rest on,
+  every standing entry returned and every `bears` entry, and lists the rest of a batch's return as
+  not read; a finding already repaired or recorded takes a short section.
 
 ## 0.8.0
 
