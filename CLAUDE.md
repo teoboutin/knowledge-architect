@@ -104,8 +104,8 @@ origin/main. Exit 0 means every gate passed. The gate list's primary home is
 `design@xtask@gates-list-primary-home`, and `path@xtask@README.md` is the usage. This is a
 restatement.
 
-**Do not filter the tool's output through pipes.** A hand-built filter pipeline hides lines and
-loses the exit code. `cargo x gates` refuses a pipe on stdout for that reason, outside GitHub
+**Do not filter the tool's output through pipes.** A hand-built filter pipeline hides lines,
+and loses the exit code in a shell without `pipefail`. `cargo x gates` refuses a pipe on stdout for that reason, outside GitHub
 Actions, per `design@gates@gates-refuse-a-pipe`. When the text is wanted, redirect it to a
 file.
 
@@ -157,9 +157,6 @@ head. The
 audit's checker-rules auditors, L7, also read the checker's design home, `register@core@design`,
 beside its README: the installed lens names the README alone, since an adopting project holds no
 design home of the checker, and here the checker's rules are decided in that home.
-Once its analyses leave, a received file of this repository's own sessions is deleted rather than
-marked as the installed intake marks one, on the owner's word, per
-`skill@klarch-retrospective-intake@received-files-after`.
 
 ## Git `##git-workflow`
 

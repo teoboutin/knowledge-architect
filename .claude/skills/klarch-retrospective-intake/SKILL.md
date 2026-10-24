@@ -7,12 +7,11 @@ description: MUST use, together with `skill@knowledge-architect-retrospective-in
 
 Scope: what this repository adds to `skill@knowledge-architect-retrospective-intake`, as the
 repository that receives the workflow files of every project and edits the installed text at its
-source. Read the installed intake whole and follow it, with the additions below. Three of them set
+source. Read the installed intake whole and follow it, with the additions below. Two of them set
 an instruction of the installed intake aside: a workflow file's findings are resolved here, and a
 fix in the installed text or in the checker is handled here rather than sent upstream, both this
 repository's departure, `design@knowledge-architect@workflow-findings-stay-here`, which the
-root `CLAUDE.md` states in `instructions@repository-skills`; and this repository's own received
-files are deleted rather than marked, on the owner's word, as the last section says.
+root `CLAUDE.md` states in `instructions@repository-skills`.
 
 ## What it takes `##what-it-takes`
 
@@ -70,10 +69,12 @@ needs it, as "the project's design home". The directory's README,
 Once the analyses leave, every received file the intake analysed is dealt with, in the place the
 owner keeps it:
 
-- **A file written by a session of this repository**, its workflow file or its project file, is
-  deleted: the analysis, which history keeps, holds every finding and its ruling.
-- **A workflow file from another project** is marked, as the installed intake marks a project file:
+- **A file written by a session of this repository**, its workflow file or its project file, and
+  **a workflow file from another project** are marked, as the installed intake marks a project file:
   a line at its head saying that it was analysed and every outcome carried out, and that
   `git log -- docs/retrospective-reports/<stem>.md` in this repository finds the analysis.
-- **Another project's own file, read for grounding**, is neither marked nor deleted: its findings
-  are that project's, for its own intake.
+- **Another project's own file, read for grounding**, is not marked: its findings are that
+  project's, for its own intake.
+
+Where the owner keeps handled files apart from pending ones, the shape is the owner's, per
+`issue@agent-skills@a-handled-retrospective-file-is-marked-where-it-lies`.
