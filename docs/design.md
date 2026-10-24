@@ -44,7 +44,8 @@ The design this decision did not keep: `rejected@knowledge-architect@single-publ
 Each crate under crates/ declares `include` in its Cargo.toml, listing its sources, its Cargo.toml,
 its README, its license files and its CHANGELOG.md, and nothing else. Cargo adds the file `readme`
 names, its CRATES-IO.md, whatever `include` says, per
-`design@knowledge-architect@crates-io-page-file`; `cargo package --list -p <crate>` re-takes it, and
+`design@knowledge-architect@crates-io-page-file`, and the three files it generates for every
+package, `.cargo_vcs_info.json`, `Cargo.lock` and `Cargo.toml.orig`; `cargo package --list -p <crate>` re-takes it, and
 the release procedure runs it. A new directory is shipped only once it is listed, so the test
 fixtures and the design documents never reach a package, and their growth cannot push a package past
 the crates.io size limit. The cost is accepted: `cargo test` cannot run from a downloaded package.
@@ -239,8 +240,10 @@ skill after 0.1.0 was.
 ### The changelog entries are reviewed once, at the release, rather than at every merge `##changelog-reviewed-at-the-release`
 
 The entries are reviewed once, at the release, against the tests of
-`design@knowledge-architect@changelog-entries`, rather than at every merge, because a release branch
-can repair any gap before anything is published.
+`design@knowledge-architect@changelog-entries`, and for the truth of what each says the checker
+reports, refuses or accepts, rather than at every merge, because a release branch can repair any gap
+before anything is published. The release review is where every entry is read against the range,
+and a false behavioural claim in an entry reached a reviewed release head with no axis reading it.
 
 ### The project stays at 0.x until the owner's word, given once its first design discussion's open issues are settled `##stays-at-zero-x`
 

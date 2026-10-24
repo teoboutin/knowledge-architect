@@ -32,8 +32,10 @@ On a branch of its own, `release-<version>`, under the Git rules of the root `CL
    - the status line: the opening sentence of `## Status` in the root README.md. Change the
      number, and any other part of the sentence the release makes false.
 
-   `git grep -n '<previous version>'` finds every site that still names the previous one. An
-   example inside a skill, such as an xtask manifest's own version, is not a site.
+   `git grep -n '<previous version>'` finds every site that still names the previous one. A
+   statement about a past version, such as a released changelog section or an issue entry's
+   evidence, and an example inside a skill, such as an xtask manifest's own version, are not
+   sites.
 2. **The changelog.** Rename CHANGELOG.md's `## Next release` to `## <version>`, or, where
    `## <version>` already exists, move the entries into it and delete the `Next release`
    heading. Then run `cargo x changelog` to write the crates'
@@ -85,7 +87,9 @@ On a branch of its own, `release-<version>`, under the Git rules of the root `CL
    ```
 7. **The package lists.** `cargo package --list -p <crate>` for each crate. Each lists its sources,
    its Cargo.toml, its README, its CRATES-IO.md, its licence files and its CHANGELOG.md, and agent-skills also its
-   build script, content/ and snippets/, per `design@knowledge-architect@package-include-whitelist`. Compare each
+   build script, content/ and snippets/, beside the three files Cargo generates for every package,
+   `.cargo_vcs_info.json`, `Cargo.lock` and `Cargo.toml.orig`, per
+   `design@knowledge-architect@package-include-whitelist`. Compare each
    list with these, and report to the owner every file the step does not name. The owner may read
    the lists; the release does not wait for it.
 8. **The dry run.** `cargo publish --workspace --dry-run` passes, skips xtask, and orders

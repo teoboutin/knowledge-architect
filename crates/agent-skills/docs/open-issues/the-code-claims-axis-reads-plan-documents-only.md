@@ -28,6 +28,13 @@ improvised reviewer on that question produced the review's most consequential fi
   about 50 imprecise ones. The report calls them the review's most consequential findings, and
   without that improvised axis none would have been read before the merge.
 
+- A second case, in this repository's release of 0.8.0: a Migration entry said a declared register
+  whose directory is `rejected` is refused, which held for a register of `scope = "component"` only.
+  The changelog reviewer kept the clause as written, citing the code and running nothing, and no
+  axis caught it; the session's check of its own commit message did, by a run on a copy of a mock
+  project. This repository's changelog reviewer now checks each such statement, for the changelog
+  at a release only. Analysed at the intake of 2026-10-24.
+
 ### Why it matters
 
 An issue entry whose diagnosis is false of the code misleads every session that reads it before

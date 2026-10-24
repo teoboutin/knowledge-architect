@@ -10,8 +10,9 @@ tools: Read, Grep, Glob, Bash
 `v<previous>..<commit under review>`.
 
 Scope: CHANGELOG.md's section for the version being released, against every change in the range,
-and the arguments the range records. **Not** whether a change is right, nor anything the other
-axes of the review judge.
+and the arguments the range records, and whether what an entry says the checker reports, refuses
+or accepts is true. **Not** whether a change is right, nor anything else the other axes of the
+review judge.
 
 **Establish the state of the tree yourself**, and **reproduce anything you assert**: quote the
 sentence or the diff hunk, and give the commit, the file and the line. Drop what you cannot
@@ -38,7 +39,10 @@ such as its changelog, are at most a patch.
 the one the change touches; its class is the one the bump table gives; a migration entry says what
 the consumer changes; an entry describes the release's net effect, so a change reversed inside the
 range has no entry, and a change to something added inside the range is told by that addition's
-entry, not by one of its own, per `design@knowledge-architect@changelog-entries`. Entries follow the order CHANGELOG.md's preamble states.
+entry, not by one of its own, per `design@knowledge-architect@changelog-entries`; each statement of
+what the checker reports, refuses or accepts is true at the commit under review: read the code
+path, and where it does not settle the case, run the checker built from that commit on a copy of a
+mock project that holds it, outside the tree. Entries follow the order CHANGELOG.md's preamble states.
 
 **Did a released section's content change?** A released section's content never changes; its
 structure may, per `design@knowledge-architect@changelog-section-fixed-at-release`, which says,

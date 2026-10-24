@@ -79,7 +79,8 @@ passes on its first run, and nothing was ever at risk. Two ways to show it:
 **A mutation runs in a scratch worktree by default.** Reverting a hand-made mutation in the live
 tree with a restore can lose uncommitted work. Where the live tree is used
 anyway, the file is staged before the mutation, per `instructions@git-workflow`, so the revert
-does not depend on a restore. The worktree starts at HEAD, and the session's uncommitted work is
+does not depend on a restore: it undoes the edit, and `git diff -- <path>` shows it matches the
+staged copy. The worktree starts at HEAD, and the session's uncommitted work is
 brought into it, because the test under check is usually not committed yet. From the main tree's
 root, with `<name>` unique to the session so that no two sessions share a worktree:
 

@@ -64,7 +64,8 @@ adding a row.
 **Never record a number that will go stale, unless staleness is the point.** A figure carries the
 claim it supports, the command that re-takes it, and the direction that would reopen the argument.
 It does not carry the magnitude, which goes in the commit and cannot go stale there. A threshold, a
-count over a frozen corpus and a zero keep their digits, because in those the value _is_ the claim.
+count over a frozen corpus, which names the corpus and the state it was counted in, and a zero keep
+their digits, because in those the value _is_ the claim.
 An issue entry keeps its magnitudes, per the cold-reader standard of
 `skill@knowledge-architect-issue-tracking`.
 
@@ -201,7 +202,8 @@ only for temporary testing is outside every rule of this section**, such as the 
   `stash`, `commit --amend`, `rebase`. The one exception is `git rebase --continue` on a rebase
   whose conflicts the tree now resolves, as point 3 does.
 - **Before applying a mutation that will need reverting, stage the file**, so the revert does not
-  depend on a restore.
+  depend on a restore: the revert undoes the edit, and `git diff -- <path>` showing no difference
+  with the staged copy confirms it.
 - **With a clean tree, editing the branch's own history is an ordinary move**: rewording or
   amending a commit message, squashing, rebasing. It is bounded by two verifications before the
   old head is dropped: that the tree was clean, and that no content was lost. For a rewrite that
