@@ -329,8 +329,8 @@ the owner has ruled on it, per `primer@question-authority`. One the owner declin
 the document. A criterion that gains its slug keeps its label beside it, in
 the item's text.
 
-A number in a criterion is a threshold the owner sets. Until the owner has, it is written as a
-default marked as the owner's to reset.
+A number in a criterion is a threshold the owner sets, proposed with its basis. Until the owner has
+set it, it is written as a default marked as the owner's to reset.
 
 - **At each landing**, the messages of the commits that land it report on every criterion judged
   there, one line each, naming it as #<id> beside a citation of the whole plan, since a commit
@@ -359,8 +359,9 @@ and are not written.
    gates pass, no work is stopped by it, no review reports it as a defect of the decision, and no
    request names it. A failure that fails a test or a check, stops the work that meets it, or
    arrives as a request for what the decision refused reaches the decision without a tripwire.
-   Where a script could compute the firing, write that check instead; where the check can be written
-   only later, the cause is a `deferred` issue whose trigger is that moment.
+   Where a script could compute the firing, write that check instead. A check of the work being
+   built is that work's acceptance criterion; one that can be written only after another event,
+   such as the end of a migration, is a `deferred` issue whose trigger is that event.
 2. **The evidence lands where tripwires are read.** It is in the tree, the history, an audit
    report, or a retrospective file the intake receives. Evidence that exists only in a session's
    transcript, or only in what the owner sees while driving a session, reaches no occasion that
@@ -368,7 +369,7 @@ and are not written.
 3. **The evidence is what the decision says must not happen.** A clause that counts what the
    decision instructs or endorses fires on the decision working.
 4. **A number has a basis.** A bound in the firing clause comes from a measurement or an argument
-   the decision's head carries, and exceeds the noise of the instrument that takes it. Otherwise
+   the decision's record carries, its head, or its plan document before the head is written, and exceeds the noise of the instrument that takes it. Otherwise
    the clause names the event.
 
 **A slip is no firing.** A clause on how sessions follow an instruction never fires on one instance
@@ -379,7 +380,9 @@ something more, strike the slip.
 
 **A doubt keeps the cause, briefly.** A cause that no condition clearly excludes is recorded with a
 short horizon. A wrong keep costs reading until its horizon; a wrong drop loses the evidence for
-good.
+good, unless the owner would see the failure anyway, by using the project or by carrying work with
+its agents: then a wrong drop costs little, and a cause in doubt may be dropped. That weighs a
+doubt only; it never drops a cause the four conditions admit.
 
 The entry is a level-two heading in the tripwires home of the Component that owns the decision, its
 slug last:
@@ -420,8 +423,9 @@ design the gap defeats.
    code as it stands and against the design homes. List every gap: a shape the code refutes, a
    passage of a specification the entry did not read, a name the entry uses that the code does not
    have, a consequence the entry did not see, and **a standing entry the slice's planned code bears on**:
-   a tripwire whose firing condition, or a `deferred` issue whose trigger, the planned code meets, a
-   cause of the milestone document's premortem included, and an issue of any kind the slice's code touches, closes, makes worse or depends on. Dispatch the
+   a tripwire whose firing condition, or a `deferred` issue whose trigger, the planned code meets, and an issue of any kind the slice's code touches, closes, makes worse or depends on. A cause of the milestone document's premortem whose firing condition the planned
+   code meets bears on it too: read it in the milestone document, since no register holds it before
+   the harvest. Dispatch the
    search as the description of `agent@knowledge-architect-standing-entry-searcher` says, with the
    slice's spec and the milestone document as the work and, as seeds, the decisions the milestone
    document lists under "What is already decided", those the design rests on and those it reverses

@@ -238,10 +238,6 @@ whose occasion fails it blocks a session rather than scheduling anyone.
 
 {{fragment:tripwire-lifecycle.md}}
 
-Where a fired tripwire's reopened decision is reversed only at a plan document's harvest, the
-tripwire is narrowed instead of deleted, to except that plan document's work, citing it, so the citation dangles when
-the document leaves, and the commit that deletes the document deletes the entry.
-
 An issue entry moves too:
 
 - An `observation` that becomes reproducible is **promoted in place** to `defect`: its `kind`

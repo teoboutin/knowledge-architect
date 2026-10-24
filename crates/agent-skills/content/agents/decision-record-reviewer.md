@@ -106,7 +106,8 @@ still asserting what the new one denies.
 premortem cause with its outcome?** Judge each tripwire the diff adds by the standard, and by
 `skill@knowledge-architect-decision-recording@ruled-tripwires`: whether it is written with the
 decision it guards. A premortem cause of the work whose outcome, recorded or dropped with the
-condition it fails, no commit message of the range or plan document states is a finding.
+condition it fails, no commit message of the range states is a finding: the record is the harvest's
+or the in-change commit message, since a plan document leaves when its work lands.
 
 {{fragment:tripwire-standard.md}}
 

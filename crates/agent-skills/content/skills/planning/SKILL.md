@@ -342,8 +342,8 @@ the owner has ruled on it, per `primer@question-authority`. One the owner declin
 the document. A criterion that gains its slug keeps its label beside it, in
 the item's text.
 
-A number in a criterion is a threshold the owner sets. Until the owner has, it is written as a
-default marked as the owner's to reset.
+A number in a criterion is a threshold the owner sets, proposed with its basis. Until the owner has
+set it, it is written as a default marked as the owner's to reset.
 
 - **At each landing**, the messages of the commits that land it report on every criterion judged
   there, one line each, naming it as #<id> beside a citation of the whole plan, since a commit
@@ -386,8 +386,9 @@ design the gap defeats.
    code as it stands and against the design homes. List every gap: a shape the code refutes, a
    passage of a specification the entry did not read, a name the entry uses that the code does not
    have, a consequence the entry did not see, and **a standing entry the slice's planned code bears on**:
-   a tripwire whose firing condition, or a `deferred` issue whose trigger, the planned code meets, a
-   cause of the milestone document's premortem included, and an issue of any kind the slice's code touches, closes, makes worse or depends on. Dispatch the
+   a tripwire whose firing condition, or a `deferred` issue whose trigger, the planned code meets, and an issue of any kind the slice's code touches, closes, makes worse or depends on. A cause of the milestone document's premortem whose firing condition the planned
+   code meets bears on it too: read it in the milestone document, since no register holds it before
+   the harvest. Dispatch the
    search as the description of `agent@knowledge-architect-standing-entry-searcher` says, with the
    slice's spec and the milestone document as the work and, as seeds, the decisions the milestone
    document lists under "What is already decided", those the design rests on and those it reverses

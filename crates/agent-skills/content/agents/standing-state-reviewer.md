@@ -69,14 +69,13 @@ each entry carries to a decision, a goal or a declared register's entry.
 **Read every entry in every one of those homes, not the subset whose subject the diff touches.**
 For each: has it fired, and has its horizon passed? Its `**Watches until:**` line names occasions a
 command over the history counts: find the commit that wrote the line, with `git log -S` on it, and
-count the occasions since. An entry with no such line is reported, since it has no end.
+count the occasions since. An entry with no such line has no horizon to pass until an audit or a
+change writes one.
 
 A diff that cannot have fired a tripwire is a normal outcome and is reported as one.
 
 **Read every entry under a heading, not just the first.** A heading may carry two firing clauses, and
 a slug may be guarded from more than one direction.
-
-When a tripwire leaves its home, and what replaces it:
 
 {{fragment:tripwire-lifecycle.md}}
 

@@ -250,7 +250,9 @@ meets it.
 A premortem names causes and puts none to the owner. **At the end of the work that implements the
 decision**, the session judges each surviving cause by the standard below, on the wording the cause
 has then: on the full path of `skill@knowledge-architect-design`, at the harvest; on its in-change
-path, in the commit that records the decision. A parked thread's tripwire is judged the same way.
+path, in the commit that records the decision. A parked thread's tripwire is judged the same way, and so is a tripwire anything else names, such
+as a recurring acceptance criterion, written in the change that records its decision or in a later
+one.
 **It writes each cause that passes with the decision it guards**, in the tripwires home of the
 Component that owns that decision, so the decision's head exists before the tripwire that names it,
 and **lists every cause with its outcome**, a dropped one with the condition it fails, in its turn's

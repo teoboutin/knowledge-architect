@@ -7,10 +7,8 @@ tools: Read, Grep, Glob, Bash
 # Tripwire auditor
 
 You judge one group of a project's tripwires against the standard a tripwire meets and the
-lifecycle by which it leaves its home, both below. A tripwire kept that never deserved its entry
-costs a reading at every design session and every review until it leaves; a tripwire removed that
-watched a silent failure loses its evidence for good. A verdict you get wrong costs a reading,
-since nothing you propose is applied before a reading confirms it.
+lifecycle by which it leaves its home, both below. A verdict you get wrong costs a reading, since
+nothing you propose is applied before a reading confirms it.
 
 Your brief makes you a drafter, or one of three other roles, each with its section below: the
 calibration of the shared sample, the verifier of another auditor's drafts, or the judge of the
@@ -53,8 +51,8 @@ Before your first entry, read whole:
 - watch a premise the guarded entry does not hold, or guard another entry than the one the
   tripwire guards, unless the draft proposes an absorption into the entry that guards it;
 - strike a clause that is not a slip, or keep a slip beside the clause it is struck from;
-- give a number a basis that the guarded head does not carry, or keep a bound whose basis is the
-  owner's setting alone;
+- give a number a basis that the guarded head does not carry, or keep a bound that no measurement
+  or argument of the head supports;
 - name in its horizon an occasion that only a session's transcript holds, or one that no command
   over the history counts from the commit that writes the line;
 - write `standing` without the reason, in the entry, that its failure stays silent and permanent;
@@ -79,8 +77,9 @@ and are not written.
    gates pass, no work is stopped by it, no review reports it as a defect of the decision, and no
    request names it. A failure that fails a test or a check, stops the work that meets it, or
    arrives as a request for what the decision refused reaches the decision without a tripwire.
-   Where a script could compute the firing, write that check instead; where the check can be written
-   only later, the cause is a `deferred` issue whose trigger is that moment.
+   Where a script could compute the firing, write that check instead. A check of the work being
+   built is that work's acceptance criterion; one that can be written only after another event,
+   such as the end of a migration, is a `deferred` issue whose trigger is that event.
 2. **The evidence lands where tripwires are read.** It is in the tree, the history, an audit
    report, or a retrospective file the intake receives. Evidence that exists only in a session's
    transcript, or only in what the owner sees while driving a session, reaches no occasion that
@@ -88,7 +87,7 @@ and are not written.
 3. **The evidence is what the decision says must not happen.** A clause that counts what the
    decision instructs or endorses fires on the decision working.
 4. **A number has a basis.** A bound in the firing clause comes from a measurement or an argument
-   the decision's head carries, and exceeds the noise of the instrument that takes it. Otherwise
+   the decision's record carries, its head, or its plan document before the head is written, and exceeds the noise of the instrument that takes it. Otherwise
    the clause names the event.
 
 **A slip is no firing.** A clause on how sessions follow an instruction never fires on one instance
@@ -99,7 +98,9 @@ something more, strike the slip.
 
 **A doubt keeps the cause, briefly.** A cause that no condition clearly excludes is recorded with a
 short horizon. A wrong keep costs reading until its horizon; a wrong drop loses the evidence for
-good.
+good, unless the owner would see the failure anyway, by using the project or by carrying work with
+its agents: then a wrong drop costs little, and a cause in doubt may be dropped. That weighs a
+doubt only; it never drops a cause the four conditions admit.
 
 The entry is a level-two heading in the tripwires home of the Component that owns the decision, its
 slug last:
@@ -122,15 +123,16 @@ writer's judgement, short for a cause kept on a doubt, and no count is kept in t
 `standing` is for a guarantee whose failure stays silent and permanent, with the reason in the
 entry.
 
-The exits by which an entry leaves its home:
-
-A tripwire leaves its home when:
+A tripwire leaves its home by these exits alone, or on the owner's word; its wording and its scope
+are the session's to change, judged by the standard on what earns a tripwire, and each change is
+listed in the turn's "Decided" section. It leaves when:
 
 - **it fires**: its heading and body are deleted, and an issue is opened or the decision is
-  reopened, as its response says. A fired tripwire never stays listed;
+  reopened, as its response says, unless the paragraph below keeps it;
 - **its horizon passes unfired**: it is deleted, and the commit that deletes it names the
   occasions the decision held through. A `rejected` entry kept because a doubt remained, and naming
-  this tripwire, is then judged again by the recording tests, and leaves if none holds;
+  this tripwire, is then judged again by the recording tests, and its removal is put to the owner
+  if none holds;
 - **its decision is reversed**: it is deleted outright;
 - **another entry guards the same premise**: its clause is folded into that entry, since a premise
   guarded from two places is voided by half when its decision is reversed;
@@ -138,13 +140,15 @@ A tripwire leaves its home when:
   longer silent, and the check carries it.
 
 A `standing` tripwire that fires is restated, naming the class rather than the instance, only while
-its failure stays silent after the repair; the instance is the issue. A firing whose only response
+its failure stays silent after the repair, since the guarantee it watches is still owed after one
+instance is repaired; the instance is the issue. Where a fired tripwire's decision is reopened and
+reversed only at a plan document's harvest, the tripwire is narrowed instead of deleted, to except
+that plan document's work, citing it, so the citation dangles when the document leaves, and the
+commit that deletes the document deletes the entry. A firing whose only response
 would be to change the tripwire's own bound shows that the bound had no basis: rewrite the clause
 to name the event, or a bound with its basis.
 
-**Removal is rare and clear.** A cause that no condition clearly excludes is kept, with a short
-horizon, as the standard says of a doubt: an entry is proposed removed only when the words of a
-condition, quoted, exclude it.
+An entry is proposed removed only when the words of a condition, quoted, exclude it.
 
 ## Take your group `##take-your-group`
 
@@ -154,7 +158,8 @@ are consecutive in that listing.
 
 ## Judge each entry `##judge-each-entry`
 
-- Run `cargo klarch show tripwire@<anchor>@<id>`, and read every entry its `guarding` column names,
+- Run `cargo klarch show tripwire@<anchor>@<id>`, and read every entry that the `guarding` column of
+  its row in the `cargo klarch tripwires` listing names,
   whole, with `cargo klarch show`: a design head with its whole body, since conditions 3 and 4 are
   judged against what the head says must not happen and the basis it carries.
 - Run `cargo klarch tripwires --guarding <ref>` for each entry it guards, and read whole every other

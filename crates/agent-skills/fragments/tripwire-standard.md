@@ -8,8 +8,9 @@ and are not written.
    gates pass, no work is stopped by it, no review reports it as a defect of the decision, and no
    request names it. A failure that fails a test or a check, stops the work that meets it, or
    arrives as a request for what the decision refused reaches the decision without a tripwire.
-   Where a script could compute the firing, write that check instead; where the check can be written
-   only later, the cause is a `deferred` issue whose trigger is that moment.
+   Where a script could compute the firing, write that check instead. A check of the work being
+   built is that work's acceptance criterion; one that can be written only after another event,
+   such as the end of a migration, is a `deferred` issue whose trigger is that event.
 2. **The evidence lands where tripwires are read.** It is in the tree, the history, an audit
    report, or a retrospective file the intake receives. Evidence that exists only in a session's
    transcript, or only in what the owner sees while driving a session, reaches no occasion that
@@ -17,7 +18,7 @@ and are not written.
 3. **The evidence is what the decision says must not happen.** A clause that counts what the
    decision instructs or endorses fires on the decision working.
 4. **A number has a basis.** A bound in the firing clause comes from a measurement or an argument
-   the decision's head carries, and exceeds the noise of the instrument that takes it. Otherwise
+   the decision's record carries, its head, or its plan document before the head is written, and exceeds the noise of the instrument that takes it. Otherwise
    the clause names the event.
 
 **A slip is no firing.** A clause on how sessions follow an instruction never fires on one instance
@@ -28,7 +29,9 @@ something more, strike the slip.
 
 **A doubt keeps the cause, briefly.** A cause that no condition clearly excludes is recorded with a
 short horizon. A wrong keep costs reading until its horizon; a wrong drop loses the evidence for
-good.
+good, unless the owner would see the failure anyway, by using the project or by carrying work with
+its agents: then a wrong drop costs little, and a cause in doubt may be dropped. That weighs a
+doubt only; it never drops a cause the four conditions admit.
 
 The entry is a level-two heading in the tripwires home of the Component that owns the decision, its
 slug last:
