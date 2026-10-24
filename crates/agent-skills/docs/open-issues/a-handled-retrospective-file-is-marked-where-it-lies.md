@@ -8,7 +8,7 @@ kind: design
 `skill@knowledge-architect-retrospective-intake@after-the-ruling` marks each received project file
 it carried out with a line at its head, and leaves it in the directory the owner keeps it in. The
 owner keeps pending and handled files in two directories, and judges moving a handled file to an
-archive better than marking it or deleting it, with the exact shape left to a design discussion.
+archive better than deleting it, with the exact shape left to a design discussion.
 
 ## Details
 

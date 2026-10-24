@@ -50,7 +50,7 @@ reverse is a family of pointers about to dangle.
 | `heading` … `home carries no slug` | a heading at its register's entry level with no slug: an entry nothing lists and no reference can name. Either it is an entry and takes a slug, or it is section text and moves to another level. |
 | `is also defined at` | one id defined twice in one register instance; usually a rename that left one behind. A reference must resolve to exactly one entity. |
 | `is linked from a file that is not a navigation home` | a relative markdown link in prose. A pointer in prose is a reference. |
-| `is a reference written without backticks`; `is written in backticks without its kind`; `is written as a plain word` | a pointer to a live entry written outside its reference form, which no check resolves: when the entry moves or leaves, it goes stale unseen. A plain word meant as an ordinary term shows a slug that names a subject rather than its decision: the entry is renamed. |
+| `is a reference written without backticks`; `is written in backticks without its kind`; `is written as a plain word` | a pointer to a live entry written outside its reference form, which no check resolves: when the entry moves or leaves, it goes stale unseen. A plain word meant as an ordinary term shows a slug wrongly chosen: a design entry is renamed to state its decision, and anything else so that its slug is not an ordinary word. |
 | `is an id of one segment` | a slug of one word. Every id has two segments or more, so that no ordinary word is a defined id. |
 
 **What the checks cannot see.** Some backticked spans are silent: a bare filename named in

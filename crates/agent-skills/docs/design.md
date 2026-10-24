@@ -903,7 +903,7 @@ superseded thread that lost on its merits.
 A design head names each `rejected` entry its argument covers: inside the sentence where its
 argument meets that design, or in a closing sentence of its body, never between two sentences of
 one argument, where it would take the next sentence's antecedent. A `rejected` entry names no winner; `show` on it
-computes the heads that cite it. A design rejected with nothing built in its place is cited by a
+lists every citation of it, with the file and the line of each. A design rejected with nothing built in its place is cited by a
 head of absence, per `design@agent-skills@losing-shape-test`, and the checker reports an entry that
 no design entry cites, per `design@core@orphan-rejected-entry`.
 
@@ -1009,8 +1009,7 @@ batch's design-entry search returns the union of many files' neighbourhoods, mos
 `may-bear` with no bearing established: one intake of nine files returned 169 distinct entries, and
 the session read whole about 35, those its proposals rested on; this repository's intake of 24 files
 did the same. Both read whole what their proposals rested on, so no outcome rested on an unread
-entry. The owner ruled this reading for an intake, over the reading of every graded entry the
-owner had asked for. The design it does not keep: `rejected@agent-skills@intake-reads-every-may-bear-entry-whole`.
+entry, and every standing entry the other search returns is still read whole. The design it does not keep: `rejected@agent-skills@intake-reads-every-may-bear-entry-whole`.
 
 ### A premortem's cause becomes a tripwire only on the owner's word `##premortem-tripwires-on-the-owners-word`
 
@@ -2823,8 +2822,9 @@ site. Each reaches a session through its finding, which names its repair, on the
 three passes of the first agentic-workflow audit: the rarer checker rules are delivered by their
 finding messages rather than by the installed text, and an unstated checker rule is a finding only
 where its finding message does not name its repair. One rule stands in the section on the owner's
-word, placed there over that ruling: `check --fix`'s refusal and the two repairs it names, which
-sessions of an adopting project routed around in real use. The rulings are recorded in
+word, which asked for a short explanation in the primer: `check --fix`'s refusal and the two repairs
+it names, which sessions of an adopting project routed around in real use. The owner accepted its
+placement in this section, over that ruling. The rulings are recorded in
 `issue@core@a-reference-with-a-line-or-fragment-suffix-names-a-wrong-repair`. A rule a writer of
 every `path` reference needs stays in `primer@where-knowledge-goes`.
 
