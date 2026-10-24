@@ -67,18 +67,18 @@ not homes: open every tripwires home as well, since an empty one does not appear
 each entry carries to a decision, a goal or a declared register's entry.
 
 **Read every entry in every one of those homes, not the subset whose subject the diff touches.**
-For each: has it fired?
+For each: has it fired, and has its horizon passed? Its `**Watches until:**` line names occasions a
+command over the history counts: find the commit that wrote the line, with `git log -S` on it, and
+count the occasions since. An entry with no such line is reported, since it has no end.
 
 A diff that cannot have fired a tripwire is a normal outcome and is reported as one.
 
 **Read every entry under a heading, not just the first.** A heading may carry two firing clauses, and
 a slug may be guarded from more than one direction.
 
-A tripwire that has fired **leaves its home**, and so does one whose decision was reversed or that
-another entry guarding the same decision absorbs. What replaces it, and the exception of a
-tripwire guarding a standing guarantee, are
-`skill@knowledge-architect-issue-tracking@movement-instruction`: read it whole before you report
-the repair.
+When a tripwire leaves its home, and what replaces it:
+
+{{fragment:tripwire-lifecycle.md}}
 
 **Read every deferred trigger too.** A `deferred` issue waits for an event, named in its
 `### Trigger` subsection, and a trigger answers the same question as a tripwire's firing clause:
@@ -100,8 +100,9 @@ the ones that did not fire**. A landing that does not report on them means they 
 
 When the diff deletes a plan document, or the branch's plan document leaves after this review, in
 the commit of its own its planning skill gives it, confirm that every criterion still standing was reported on
-once more, and that each one that recurs at later work was proposed to the owner as a tripwire and
-either written, on the owner's word, or deleted.
+once more, and that each one that recurs at later work was judged as a cause, as
+`skill@knowledge-architect-decision-recording@ruled-tripwires` says, and either written or deleted,
+with its outcome in the record of the work.
 
 ## The predicate {{slug:standing-predicate}}
 

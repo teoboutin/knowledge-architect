@@ -13,8 +13,8 @@ each landing.
 **Not covered here**, each named where it lives:
 
 - **The design discussion** that produces the converged design:
-  `skill@knowledge-architect-design`. On its full path, it ends at convergence, the premortem and
-  the owner's rulings on its tripwires and acceptance criteria, and hands off to this skill; its
+  `skill@knowledge-architect-design`. On its full path, it ends at convergence, the premortem, its
+  causes named, and the owner's rulings on its acceptance criteria, and hands off to this skill; its
   in-change path writes no plan document.
 - **Writing the code** of a step, its claims and its tests: the project's own development
   procedure. This workflow installs none.
@@ -169,7 +169,7 @@ so in one line rather than being omitted, so a reader can tell an empty section 
 | Mapping tables | one table per total function the code will need, over its whole domain: which existing thing becomes which new thing. Empty when the work needs none |
 | Losing alternatives | every ruled-out thread, every thread withdrawn with its defeating reason, and every superseded thread under the thread that absorbed it, each with the thread it lost to and the fact that decided it |
 | Readings | where the work reads an external specification the project implements: each reading it makes, and where it is recorded. Empty for work that reads none |
-| Premortem | each cause, the thread it stresses, and its verdict: survives into a named claim, criterion or guard; converted into a named clause of the design; becomes a tripwire or an acceptance criterion, on the owner's word; or fired and the thread reopened. Each tripwire and acceptance criterion carries the label it was put to the owner under, `T<n>` or `AC<n>` |
+| Premortem | each cause, the thread it stresses, and its verdict: survives into a named claim, criterion or guard; converted into a named clause of the design; named as a cause for the harvest to judge as a tripwire; becomes an acceptance criterion, on the owner's word; or fired and the thread reopened. Each acceptance criterion carries the label it was put to the owner under, `AC<n>` |
 | Acceptance criteria | one item per criterion, ``### <criterion> `##<id>` ``, as `skill@knowledge-architect-planning@acceptance-criteria` says |
 | Implementation sequence | in a spec, its steps; in a milestone document, its slices, each linked to its spec, whose own steps it holds (`skill@knowledge-architect-planning@cutting-steps-and-slices`). Concise: what each builds and what it fails alone on, and, in a spec, each step's Claims, as a slice's entry states them |
 | Order rationale | one sentence per pair of adjacent steps or slices |
@@ -315,7 +315,9 @@ every plan document and every slice owes is the baseline. A criterion names an o
 the decision it guards; listing "the reviews pass" in every plan document would stand in for the
 specific criterion that is harder to find.
 
-**An acceptance criterion stands on the owner's word**, as a tripwire does. The owner rules on
+**An acceptance criterion stands on the owner's word**, since it decides, before the merge, what
+the branch must build. A criterion meets conditions 3 and 4 of the standard below: it names a
+built result under which it fails, and a bound in it carries its basis. The owner rules on
 whether it is applied and on the decision its firing reopens; its observable is worded by the agent,
 and a rewording is listed in the turn's "Decided" section, per `primer@decided-section`. It is put to the owner under a label,
 `AC<n>`, numbered as `primer@labelled-items` says, so the owner's ruling in the transcript finds it.
@@ -340,10 +342,65 @@ default marked as the owner's to reset.
   reported it as not fired is reported as fired in the next landing commit, which names the earlier
   report as superseded.
 - **When the document leaves**, the landing that deletes it reports on every criterion once more.
-  One that did not fire and recurs at later work is proposed to the owner as a tripwire, and written
-  on the owner's word as `skill@knowledge-architect-decision-recording@ruled-tripwires` says, or,
-  where an entry already guards the same decision, folded into it as an absorbed tripwire is. One
-  that is spent, or that the owner declines, is deleted with the document.
+  One that did not fire and recurs at later work is judged as a cause by the standard below, and
+  written as `skill@knowledge-architect-decision-recording@ruled-tripwires` says, or, where an
+  entry already guards the same premise, folded into it. One that is spent, or that the standard
+  drops, is deleted with the document.
+
+The standard a recurring criterion is judged by, and whose conditions 3 and 4 every criterion meets:
+
+A tripwire watches one premise of a recorded decision: a failure that would show the decision
+wrong and that nothing else in the project reports. Most causes a premortem names are not that,
+and are not written.
+
+**A cause becomes a tripwire only when all four conditions hold.**
+
+1. **The failure is silent.** Every procedure that meets it counts it as success: the tests and
+   gates pass, no work is stopped by it, no review reports it as a defect of the decision, and no
+   request names it. A failure that fails a test or a check, stops the work that meets it, or
+   arrives as a request for what the decision refused reaches the decision without a tripwire.
+   Where a script could compute the firing, write that check instead; where the check can be written
+   only later, the cause is a `deferred` issue whose trigger is that moment.
+2. **The evidence lands where tripwires are read.** It is in the tree, the history, an audit
+   report, or a retrospective file the intake receives. Evidence that exists only in a session's
+   transcript, or only in what the owner sees while driving a session, reaches no occasion that
+   reads the tripwires.
+3. **The evidence is what the decision says must not happen.** A clause that counts what the
+   decision instructs or endorses fires on the decision working.
+4. **A number has a basis.** A bound in the firing clause comes from a measurement or an argument
+   the decision's head carries, and exceeds the noise of the instrument that takes it. Otherwise
+   the clause names the event.
+
+**A slip is no firing.** A clause on how sessions follow an instruction never fires on one instance
+that a review, a check or a retrospective reported under its own procedure: one slip is the review
+working. It fires on the same failure recurring in separate pieces of work, or on one instance that
+reached the main branch with no procedure reporting it. Where a clause fires on both a slip and
+something more, strike the slip.
+
+**A doubt keeps the cause, briefly.** A cause that no condition clearly excludes is recorded with a
+short horizon. A wrong keep costs reading until its horizon; a wrong drop loses the evidence for
+good.
+
+The entry is a level-two heading in the tripwires home of the Component that owns the decision, its
+slug last:
+
+```markdown
+## Guarding `design@<anchor>@<id>`: <the premise watched> `##<slug>`
+
+**Fires when:** the event, or a count with its basis.
+**Response:** reopen the decision by its reference, or open an issue of a named kind.
+**Re-entry:** an occasion that holds the evidence.
+**Watches until:** the occasions after which the cause, unfired, no longer will.
+```
+
+**Watches until** names the first occasions that exercise the decision, so that a command over the
+history counts them from the commit that wrote the line: commits on the main branch that change a
+named path or the guarded head's text, release tags, audit reports of an axis, plan documents
+deleted at their landing, or one event the tree shows, such as the first issue a consumer of an
+interface opens; never an occasion that only a session's transcript holds. Its length is the
+writer's judgement, short for a cause kept on a doubt, and no count is kept in the entry.
+`standing` is for a guarantee whose failure stays silent and permanent, with the reason in the
+entry.
 
 ## Working a slice, and the work of a spec `##working-a-slice`
 
@@ -364,7 +421,7 @@ design the gap defeats.
    passage of a specification the entry did not read, a name the entry uses that the code does not
    have, a consequence the entry did not see, and **a standing entry the slice's planned code bears on**:
    a tripwire whose firing condition, or a `deferred` issue whose trigger, the planned code meets, a
-   tripwire of the milestone document's premortem included, and an issue of any kind the slice's code touches, closes, makes worse or depends on. Dispatch the
+   cause of the milestone document's premortem included, and an issue of any kind the slice's code touches, closes, makes worse or depends on. Dispatch the
    search as the description of `agent@knowledge-architect-standing-entry-searcher` says, with the
    slice's spec and the milestone document as the work and, as seeds, the decisions the milestone
    document lists under "What is already decided", those the design rests on and those it reverses
@@ -424,8 +481,8 @@ design the gap defeats.
 5. **The report** on each acceptance criterion judged at this slice, as
    `skill@knowledge-architect-planning@acceptance-criteria` says.
 6. **The harvest**, per the harvest row of the slice's spec: the decisions and the losing
-   alternatives under `skill@knowledge-architect-decision-recording`, then the tripwires, written as
-   `skill@knowledge-architect-decision-recording@ruled-tripwires` says, and the issues under
+   alternatives under `skill@knowledge-architect-decision-recording`, then the premortem's causes, judged and
+   written as `skill@knowledge-architect-decision-recording@ruled-tripwires` says, and the issues under
    `skill@knowledge-architect-issue-tracking`. Read `primer@design-heads` again, whole,
    before writing a head: it holds what earns one and how it is shaped, the thread's slug and its
    pair included. The row names what is judged; the entry tests and the tests for a losing

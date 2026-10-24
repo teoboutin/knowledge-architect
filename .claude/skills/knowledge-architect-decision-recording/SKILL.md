@@ -1,6 +1,6 @@
 ---
 name: knowledge-architect-decision-recording
-description: MUST use before writing into a design home, whatever the activity, and when a design decision has been made or reversed — a choice about how the project or one of its Components is built, including anything a consumer of it may depend on — in order to decide whether it earns durable text at all (most implementation choices do not) and where that text lands. Covers when recording happens, the reversal check that comes before everything else, which Component owns it, the split between the design home, the rejected designs and history, where a head is written and how a slug is renamed, and when a tripwire the owner ruled on is written; what earns a head and how a head is shaped are the primer's section on design heads.
+description: MUST use before writing into a design home, whatever the activity, and when a design decision has been made or reversed — a choice about how the project or one of its Components is built, including anything a consumer of it may depend on — in order to decide whether it earns durable text at all (most implementation choices do not) and where that text lands. Covers when recording happens, the reversal check that comes before everything else, which Component owns it, the split between the design home, the rejected designs and history, where a head is written and how a slug is renamed, and how a premortem's causes become tripwires; what earns a head and how a head is shaped are the primer's section on design heads.
 ---
 
 # Recording a decision
@@ -10,7 +10,7 @@ loaded when the session started, and a recording comes late in it.
 
 Scope: turning a decision about **what we build** into durable text. Whether it earns durable text
 at all, when it is written, which Component owns it, what goes in the design home, what stays in
-history, and when a tripwire the owner ruled on is written.
+history, and which of a premortem's causes become tripwires, and when.
 
 Not covered here: **having** the discussion (`skill@knowledge-architect-design`);
 **writing the spec or the milestone document** that carries a decision until its work lands
@@ -245,20 +245,76 @@ or when what it lost to is an instruction that no head states: the line beside t
 names the design and the reason it was not kept, so a session that reopens the instruction still
 meets it.
 
-## Writing a tripwire the owner ruled on `##ruled-tripwires`
+## Recording a premortem's tripwires `##ruled-tripwires`
 
-A design discussion that runs a premortem ends with it, and the owner rules on which of its
-surviving causes become tripwires, each by the label, `T<n>`, it was put to the owner under. **A
-tripwire is written only on the owner's word, and with the decision it guards**, whatever named
-it, a parked thread included: in the change that records that decision, which on the full path of
-`skill@knowledge-architect-design` is the harvest, or in a later change once that decision is
-recorded. It goes in the tripwires home of the Component that owns the guarded decision, so the
-decision's head exists before the tripwire that names it. The owner's word rules on whether a
-cause is watched, per step 7 of `skill@knowledge-architect-design@discussion-loop`: a later rewording
-of the tripwire's text that keeps that cause is the session's, listed under "Decided", and a clause
-that watches another cause is a new tripwire, which needs the owner's word. A parked thread's tripwire whose ruling
-records no decision, as when the owner defers the question, is instead the trigger of a `deferred`
-issue. Its shape and its lifecycle are `skill@knowledge-architect-issue-tracking`.
+A premortem names causes and puts none to the owner. **At the end of the work that implements the
+decision**, the session judges each surviving cause by the standard below, on the wording the cause
+has then: on the full path of `skill@knowledge-architect-design`, at the harvest; on its in-change
+path, in the commit that records the decision. A parked thread's tripwire is judged the same way.
+**It writes each cause that passes with the decision it guards**, in the tripwires home of the
+Component that owns that decision, so the decision's head exists before the tripwire that names it,
+and **lists every cause with its outcome**, a dropped one with the condition it fails, in its turn's
+"Decided" section and in the record of the work: the harvest's commit message, or the in-change
+commit message. No cause is put to the owner, who overrules by reading the work.
+
+**A recorded tripwire's wording and scope are the session's**, judged by the standard and listed
+under "Decided"; its removal outside the exits of
+`skill@knowledge-architect-issue-tracking@movement-instruction` is the owner's. A parked thread
+whose question the owner deferred records no decision: its cause is the trigger of a `deferred`
+issue instead. The entry's lifecycle is `skill@knowledge-architect-issue-tracking`.
+
+A tripwire watches one premise of a recorded decision: a failure that would show the decision
+wrong and that nothing else in the project reports. Most causes a premortem names are not that,
+and are not written.
+
+**A cause becomes a tripwire only when all four conditions hold.**
+
+1. **The failure is silent.** Every procedure that meets it counts it as success: the tests and
+   gates pass, no work is stopped by it, no review reports it as a defect of the decision, and no
+   request names it. A failure that fails a test or a check, stops the work that meets it, or
+   arrives as a request for what the decision refused reaches the decision without a tripwire.
+   Where a script could compute the firing, write that check instead; where the check can be written
+   only later, the cause is a `deferred` issue whose trigger is that moment.
+2. **The evidence lands where tripwires are read.** It is in the tree, the history, an audit
+   report, or a retrospective file the intake receives. Evidence that exists only in a session's
+   transcript, or only in what the owner sees while driving a session, reaches no occasion that
+   reads the tripwires.
+3. **The evidence is what the decision says must not happen.** A clause that counts what the
+   decision instructs or endorses fires on the decision working.
+4. **A number has a basis.** A bound in the firing clause comes from a measurement or an argument
+   the decision's head carries, and exceeds the noise of the instrument that takes it. Otherwise
+   the clause names the event.
+
+**A slip is no firing.** A clause on how sessions follow an instruction never fires on one instance
+that a review, a check or a retrospective reported under its own procedure: one slip is the review
+working. It fires on the same failure recurring in separate pieces of work, or on one instance that
+reached the main branch with no procedure reporting it. Where a clause fires on both a slip and
+something more, strike the slip.
+
+**A doubt keeps the cause, briefly.** A cause that no condition clearly excludes is recorded with a
+short horizon. A wrong keep costs reading until its horizon; a wrong drop loses the evidence for
+good.
+
+The entry is a level-two heading in the tripwires home of the Component that owns the decision, its
+slug last:
+
+```markdown
+## Guarding `design@<anchor>@<id>`: <the premise watched> `##<slug>`
+
+**Fires when:** the event, or a count with its basis.
+**Response:** reopen the decision by its reference, or open an issue of a named kind.
+**Re-entry:** an occasion that holds the evidence.
+**Watches until:** the occasions after which the cause, unfired, no longer will.
+```
+
+**Watches until** names the first occasions that exercise the decision, so that a command over the
+history counts them from the commit that wrote the line: commits on the main branch that change a
+named path or the guarded head's text, release tags, audit reports of an axis, plan documents
+deleted at their landing, or one event the tree shows, such as the first issue a consumer of an
+interface opens; never an occasion that only a session's transcript holds. Its length is the
+writer's judgement, short for a cause kept on a doubt, and no count is kept in the entry.
+`standing` is for a guarantee whose failure stays silent and permanent, with the reason in the
+entry.
 
 ## Before you finish `##before-you-finish`
 
