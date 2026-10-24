@@ -46,7 +46,8 @@ rather than a diff (`skill@knowledge-architect-project-audit`).
 **A review owes every axis of this table whose condition holds, and every axis that the skill of an
 activity whose work it reviews adds, where that axis's condition holds.** The review before a merge is the last review of a branch, after
 which only its own repairs land: a commit that lands after it on the owner's answer to an item it
-raised, or to meet a gate before the merge, is one of them. This holds whichever activity's skill dispatched it, such as the review of a
+raised, or to meet a gate before the merge, is one of them, and so is the commit that deletes a plan
+document the review read, as `skill@knowledge-architect-planning@plan-document-leaves` says. This holds whichever activity's skill dispatched it, such as the review of a
 plan document on a branch of its own; the work it reviews is the whole branch. **An axis named by
 an agent is dispatched as that agent. An axis with no agent is dispatched as a fresh
 general-purpose subagent**, briefed with the axis's question as this table states it, the commit range, and the files that carry the standard. **An axis that applies and was not run is said,

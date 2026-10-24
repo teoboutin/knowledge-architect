@@ -436,7 +436,8 @@ design the gap defeats.
    `skill@knowledge-architect-review@review-axes` defines it and says what it owes: the harvest
    writes the record the decision-record, routing and standing-state axes judge, so the review of
    point 4 cannot see it.
-7. **The slice's spec leaves** in the commit that completes its harvest, as in `skill@knowledge-architect-planning@plan-document-leaves`. What crosses slices stays in the
+7. **The slice's spec leaves** in a commit of its own, after the review before the merge has read
+   the tip that holds it, as in `skill@knowledge-architect-planning@plan-document-leaves`. What crosses slices stays in the
    milestone document, amended in place where the landing changed it.
 
 **The work of a spec** takes the same points once, for the whole spec, on its one branch:
@@ -449,7 +450,8 @@ design the gap defeats.
 - point 3, the claims and checks of each step;
 - point 4, the review of the work, once;
 - points 5 and 6, the report and the harvest, in the commits that land the work;
-- point 7, the deletion of the spec, in the commit that completes its harvest, as in `skill@knowledge-architect-planning@plan-document-leaves`.
+- point 7, the deletion of the spec, in a commit of its own after the review before the merge, as
+  in `skill@knowledge-architect-planning@plan-document-leaves`.
 
 Where a point names the milestone document or the slice's spec, the work of a spec reads the spec:
 its defaults, its threads, its harvest row, and the design audit its commit subject names.
@@ -531,11 +533,14 @@ This list is their one home; the reviewer reads it here.
 
 ## When a plan document leaves `##plan-document-leaves`
 
-**A plan document is deleted in the commit that completes its last harvest, and that commit's message cites
-it by its kind**, `spec@plans@<id>`, `milestone@plans@<id>` or `spec@<milestone>@<slice>`, which
-resolves against the commit's parent. A milestone's slice spec leaves when its slice lands; the
-milestone document leaves in the commit that completes the last slice's harvest, which records the
-ruling of every default it lists. Before deleting:
+**A plan document is deleted in a commit of its own, once its last harvest is complete and the
+review before the merge has read the tip that holds it, and that commit's message cites it by its
+kind**, `spec@plans@<id>`, `milestone@plans@<id>` or `spec@<milestone>@<slice>`, which resolves
+against the commit's parent. The reviewers of that review, the transcript reviewer's search
+included, read the document in the tree they judge, and a pair a harvest row states is in a tree
+`git log -G` reads. A milestone's slice spec leaves when its slice lands; the milestone document
+leaves at its last slice, in the same commit as that slice's spec, once every default it lists is
+ruled. Before deleting:
 
 - every harvest row of the document is done;
 - every acceptance criterion has been reported on, and has become a tripwire or left (`skill@knowledge-architect-planning@acceptance-criteria`);

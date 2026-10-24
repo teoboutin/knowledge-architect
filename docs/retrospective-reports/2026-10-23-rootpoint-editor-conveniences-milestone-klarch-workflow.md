@@ -17,7 +17,7 @@
     `issue@agent-skills@the-primer-s-divergence-paragraph-reads-two-ways-on-work-that-goes-on`;
   - for W3: `design@agent-skills@plan-document-leaves-at-landing`,
     `design@agent-skills@milestone-is-a-directory`, `design@agent-skills@default-ruled-before-merge`,
-    `issue@agent-skills@a-plan-document-deleted-at-its-harvest-is-unseen-by-the-acts-that-need-it`,
+    `a-plan-document-deleted-at-its-harvest-is-unseen-by-the-acts-that-need-it`,
     `tripwire@agent-skills@expectation-set-closes-a-contradiction`, not met: no outcome below closes a
     contradiction by an expectation set;
   - for W5: `design@agent-skills@document-vocabulary`,

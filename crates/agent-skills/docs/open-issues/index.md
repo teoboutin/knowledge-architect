@@ -1,6 +1,6 @@
 **Generated — do not edit.** `cargo klarch index`
 
-46 entries
+45 entries
 
 | kind | title |
 | --- | --- |
@@ -9,7 +9,6 @@
 | defect | [A saved workflow's `//` comments ship to every installing project, though the standard sends maintainer-only text to a comment the build removes](a-saved-workflow-s-comments-ship-to-every-project.md) |
 | defect | [In an adopting project, a finding sent upstream is counted again as a violation left on old text at every later pass](an-upstream-finding-stays-in-every-later-old-text-count.md) |
 | defect | [Eight tripwires of this repository respond with a direct action, which the tripwire shape does not name](eight-tripwires-respond-with-an-action-the-tripwire-shape-does-not-name.md) |
-| deferred | [A plan document deleted in the commit that completes its harvest is absent from the tree of the acts that still need it](a-plan-document-deleted-at-its-harvest-is-unseen-by-the-acts-that-need-it.md) |
 | design | [An intake of many files at once reads every standing entry the search returns whole, and the cost grows with the batch](a-batch-intake-reads-every-returned-standing-entry-whole.md) |
 | design | [A member recorded directly, as covered by its head's argument, lay beyond that argument](a-member-recorded-directly-lies-beyond-its-head-s-argument.md) |
 | design | [A pointer delivers its directive only when the session fetches the section it names, and a copy filled by substitution would deliver it with no drift](a-pointer-delivers-its-directive-only-when-the-session-fetches-it.md) |
