@@ -54,8 +54,12 @@ A finding is cited by its id and its file's stem, in the form
    that touches a Component this search was not given sends it again, for that Component, before
    the proposal goes to the owner.
 
-   Read every entry returned, and every entry graded `bears` or `may-bear`, whole with
-   `cargo klarch show <ref>`, never from its reason line. The searches find what a grep per finding
+   Read whole with `cargo klarch show <ref>` every entry the standing-entry search returns, every
+   entry the design-entry search grades `bears`, every entry a proposal rests on or would change,
+   and an entry graded `may-bear` where a proposal touches its subject. Never act on an entry from
+   its reason line. The analysis lists each other entry returned, with the searcher's reason, as not
+   read: a batch of files returns more entries than a session can read whole and still judge. The
+   searches find what a grep per finding
    does not: a finding already recorded, a deferred issue whose trigger the file meets, a tripwire
    whose firing evidence the file carries, a design issue whose re-entry it meets, and a head or a
    goal a proposed fix would contradict or strain.

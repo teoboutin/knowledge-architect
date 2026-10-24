@@ -988,7 +988,8 @@ The searcher grades each entry and each goal it reads, per
 `design@agent-skills@searcher-grades-goals`, `bears`, with the relation `constrains`,
 `may change` or `may bring back`, or `may-bear`, and lists every unrelated one it read, so every
 goal and every entry of its group appears in exactly one of three lists. The design skill routes
-each grade to an act: the session reads every `bears` and `may-bear` entry whole, states for each
+each grade to an act: the session reads every `bears` and `may-bear` entry whole, a retrospective
+intake as `design@agent-skills@standing-entry-search-agent` says, states for each
 `may-bear` whether it bears, sends a `may change` entry to the reversal check and a `may change`
 goal to the goal-setting skill, since a goal changes only there, and proposes a `may bring back`
 entry again only with a new argument.
@@ -1134,14 +1135,20 @@ through `show` to the entries that cite it, which it always returns, and judges 
 group against the work, leaning to recall. It returns every entry of its group in one of two lists,
 the entries that bear on the work, each with a reason, and the entries judged unrelated, so that a
 silent report cannot be mistaken for a skipped one. The session reads whole every entry returned,
-never from its reason line. It relies on the checker working as intended: `show` prints an entry's
+never from its reason line, except at a retrospective intake, below. It relies on the checker working as intended: `show` prints an entry's
 file and definition line, and the references to it.
 
 The search runs in a subagent so that the main session spends its context on the entries the work
 bears on, per `goal@knowledge-architect@agents-get-a-complete-workflow`, and the session still
 reads each of those whole, as the owner asked, to "find and read the full reported issues and
 tripwires, rather than relying on the subagent summary", since the session acts on the entry and
-not on a summary of it, per `goal@knowledge-architect@the-owner-decides`. It is an agent of its own rather
+not on a summary of it, per `goal@knowledge-architect@the-owner-decides`. A retrospective intake
+takes many files at once, and its searches return their union: in two batch intakes the session
+could not read every entry whole and judge, and read whole the entries its proposals rested on.
+There, on the owner's acceptance of that scope over the reading the owner had asked for, the session
+reads whole every entry the standing-entry search returns, every `bears` entry, every entry a
+proposal rests on or would change, and a `may-bear` entry where a proposal touches its subject, and
+lists the rest as not read. It is an agent of its own rather
 than the standing-state reviewer in a second mode: that reviewer reads every entry by rule, the
 search filters by relevance on purpose, and one text holding both standards lets a session apply
 the wrong one.
