@@ -235,19 +235,6 @@ state, not run over a snapshot.
 rule, an extension check not run under `--staged`, or another.
 **Re-entry:** each time a CI failure is read against a local run.
 
-## Guarding `design@core@fix-refusal-mixed-state`: sessions unstage to get past the refusal `##fix-refusal-routed-around`
-
-T2, as the owner ruled it at the premortem of `check --staged`. It fires only in sessions the owner
-sees, as `issue@agent-skills@a-tripwire-on-agent-behaviour-fires-where-this-project-cannot-see`
-records of every tripwire on agent behaviour.
-
-**Fires when:** a retrospective finding, or an observation of the owner, reports a session on a
-version whose primer explains the refusal and its two repairs that ran `git reset`,
-`git restore --staged` or `git stash`, or otherwise unstaged changes, after `check --fix` refused a
-partial commit's mismatch, instead of taking one of the two repairs it named.
-**Response:** reopen `design@core@fix-refusal-mixed-state`.
-**Re-entry:** each retrospective intake.
-
 ## Guarding `design@core@declarable-directory-register`: a project asks for entries nested in entries `##nested-entries-asked`
 
 T1 of the premortem of the discussion that made the Directory shape declarable. An entry carries an
