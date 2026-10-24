@@ -1160,6 +1160,9 @@ against the owner's word, a predicate this work removes. **Default:** the decisi
 hosts the standard and judges each added tripwire by it. This adds a host to the table the owner
 approved, so it is the owner's. Bears on #shared-text-fragment and #tripwire-recording-authority.
 
+**Ruled**: accepted, the owner, after the spec's reviews: "D1 and D2 accepted, proceed to
+implementation of the whole work".
+
 ### D2: the record of the work lists every premortem cause with its outcome
 
 The standard the owner approved in round 4 lists every cause "in its turn's 'Decided' section". A
@@ -1168,6 +1171,8 @@ turns. **Default:** the standard says "in its turn's 'Decided' section and in th
 work", the harvest's or the in-change commit message, and, under D1, the decision-record reviewer
 checks it. This adds an obligation to the text the owner approved, so it is the owner's. Bears on
 #tripwire-recording-authority.
+
+**Ruled**: accepted, in the same words as D1.
 
 ## Harvest
 
