@@ -15,7 +15,7 @@ use std::path::{Path, PathBuf};
 
 use crate::agents::{imports_primer, IMPORT_LINE, PRIMER};
 use crate::finding::Finding;
-use crate::manifest::Manifest;
+use crate::manifest::{Manifest, Pin};
 use crate::model::Model;
 use crate::survey::Outside;
 
@@ -27,14 +27,19 @@ pub(crate) fn check(model: &Model, manifest: &Manifest, inputs: &Inputs) -> Vec<
         return out;
     }
     let install = format!("run `{} install-agent-skills`", manifest.command());
-    let version = crate::CHECKER_VERSION;
+    // Under the `"self"` pin the text compared is what this build ships, which can differ from
+    // the release its package version names, so the message names the build, not a version.
+    let shipper = match manifest.pin() {
+        Some(Pin::OwnBuild) => "this build".to_string(),
+        _ => format!("version {}", crate::CHECKER_VERSION),
+    };
     let installed = |rel: &Path| inputs.installed.iter().find(|(p, _)| p == rel);
     for (rel, expected) in inputs.shipped {
         match installed(rel).map(|(_, state)| state) {
             None | Some(Outside::Missing) => out.push(Finding::in_file(
                 rel,
                 format!(
-                    "version {version} ships this file, and git lists no installed copy: it is \
+                    "{shipper} ships this file, and git lists no installed copy: it is \
                      missing, or an ignore rule covers it"
                 ),
                 format!("{install}, and commit the file; an installed file is never ignored"),
@@ -43,7 +48,7 @@ pub(crate) fn check(model: &Model, manifest: &Manifest, inputs: &Inputs) -> Vec<
             Some(_) => out.push(Finding::in_file(
                 rel,
                 format!(
-                    "this installed file differs from what version {version} ships for this \
+                    "this installed file differs from what {shipper} ships for this \
                      project"
                 ),
                 format!(
@@ -70,7 +75,7 @@ pub(crate) fn check(model: &Model, manifest: &Manifest, inputs: &Inputs) -> Vec<
         out.push(Finding::in_file(
             rel,
             format!(
-                "this file sits in the installer's namespace, and version {version} does \
+                "this file sits in the installer's namespace, and {shipper} does \
                  not ship it"
             ),
             format!("{install}, which removes it; a project's own file takes a name of its own"),
@@ -166,6 +171,43 @@ mod tests {
             run(&m, "# P\n", &[], &[]).is_empty(),
             "nothing shipped, nothing owed"
         );
+    }
+
+    /// The claim: under the `"self"` pin, the three findings on the installed set name this
+    /// build as what ships, since the text compared is the build's and its package version names
+    /// a release whose text can differ; under a version or the fixture pin they name the version.
+    /// Mutation: naming the version whatever the pin fails the first half.
+    #[test]
+    fn the_self_pin_names_the_build_as_what_ships() {
+        let shipped = [(SKILL, "fresh"), (PRIMER, "primer")];
+        let installed = [
+            (SKILL, Outside::Text("edited".into())),
+            (
+                ".claude/agents/knowledge-architect-old.md",
+                Outside::Text("old".into()),
+            ),
+        ];
+        let own = Manifest::parse(
+            Path::new("/nowhere"),
+            "[project]\nchecker-version = \"self\"\nname = \"p\"\ncomponents = []\n\
+             [walk]\nskip-dirs = []\nskip-files = []\nexclude = []\n",
+        )
+        .expect("a declaration");
+        let found = run(&own, IMPORTING, &installed, &shipped);
+        assert_eq!(found.len(), 3, "{found:?}");
+        for f in &found {
+            assert!(f.what.contains("this build"), "{f:?}");
+            assert!(!f.what.contains("version"), "{f:?}");
+        }
+        let found = run(&manifest(""), IMPORTING, &installed, &shipped);
+        assert_eq!(found.len(), 3, "{found:?}");
+        for f in &found {
+            assert!(
+                f.what
+                    .contains(&format!("version {}", crate::CHECKER_VERSION)),
+                "{f:?}"
+            );
+        }
     }
 
     /// The claim: each defect of the installed set is one finding on its own path: a missing

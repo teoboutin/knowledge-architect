@@ -737,7 +737,9 @@ The last phase reports, at its definition site, every `rejected` entry that no e
 register cites inside its own section, in any anchor. A citation from any other text, a goal, an
 issue, a tripwire, another `rejected` entry, or a design home outside its entries, does not count.
 The finding names the repair: cite it from the design head whose argument covers it, or from a head
-of absence that records the decision not to build it. It is raised over a tree in
+of absence that records the decision not to build it; or, where what it lost to is an instruction no
+head states, delete it and name the design and its reason beside that instruction, which
+`skill@knowledge-architect-decision-recording@losing-alternatives` admits since no head cites it. It is raised over a tree in
 `path@core@src/check/references.rs`, not over a commit message, which holds no design entry.
 
 It serves `goal@core@declared-instructions-are-checked`: a head cites the designs its argument
@@ -949,7 +951,8 @@ core's, per `design@core@an-extension-plugs-in-through-phased-hooks`.
 
 An item citation, `<kind>@<plan>@<id>`, resolves only from a file inside the plan: the spec file, or a file of the milestone's directory. From anywhere
 else, a commit message included, it is refused before its id is looked up, and the repair names
-the document to cite whole: the spec, the milestone, or the slice spec that defines the item. A
+the document to cite whole: the spec, the milestone, or the slice spec that defines the item, with
+the item named beside it as `#<id>`, the label the planning skill gives an item outside its plan. A
 whole plan may be cited from anywhere, so a dependency between plans is carried by the document,
 and retiring a plan asks no other plan to be redesigned item by item. The premise is that a
 whole-document citation carries every dependency between plans that matters while few plans are
@@ -2003,8 +2006,11 @@ followed by a letter or a digit after it, so a file name, a path, a reference, a
 hashes and a template's placeholder holding an id are no word, and an id that ends a sentence is
 one. A URL and an HTML comment inside a line hold no word. The value of a frontmatter `name` line is
 the name a skill or an agent is defined by, not a mention, and is not read. Its repair names the
-reference, and adds that where the word is meant as an ordinary term, the entry's slug names a
-subject: the entry is renamed to state its decision, as `primer@design-heads` asks of a slug.
+reference, and adds what to do where the word is meant as an ordinary term: a design entry's slug
+then names a subject, and the entry is renamed to state its decision, as `primer@design-heads` asks
+of a slug; any other entry is renamed so that its slug is not an ordinary word, since, on the
+owner's word, a slug has no reason to be used as an ordinary word, and that is what lets the lint
+report a wrong use reliably.
 
 **The rule is the owner's**, given against the session's proposal of a listing in `show`: a word
 meant as an ordinary term probably shows a slug wrongly chosen and not specific enough, in the
