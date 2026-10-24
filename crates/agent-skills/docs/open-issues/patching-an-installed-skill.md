@@ -44,7 +44,9 @@ wrote the first as an addition to the primer, as the agent-configuration skill a
 reviewers showed the addition still contradicted the primer, and its owner then ruled the installed
 text wrong for the project on that point. The first override answers a gap the primer has since
 closed, under `design@agent-skills@questions-go-to-their-authority`; the second stands as that
-project's own scope.
+project's own scope. The owner judges its reason outdated, and plans to have that project record its
+design decisions about its agent workflow again, a change the owner expects to settle the case
+of `rejected` entries that lost to its instructions.
 
 An earlier lead, kept: a patch stored as a diff in the project, applied by the install and checked
 by the check, so that an upgrade either applies it again or reports that it no longer applies.

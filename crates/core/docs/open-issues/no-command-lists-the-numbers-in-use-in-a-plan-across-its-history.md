@@ -35,4 +35,6 @@ computes the workflow's work lists".
 
 A command, shaped under `design@core@one-question-one-command`, that prints per prefix the highest
 number in use in a plan and its deleted documents, tested over a mock milestone whose deleted slice
-spec holds the highest number; or the owner's ruling that the search by hand stays.
+spec holds the highest number; or `commits` checking the numbers unique across the plan's history,
+a rival that reports a reused number where the command lets a session avoid it; or the owner's
+ruling that the search by hand stays.

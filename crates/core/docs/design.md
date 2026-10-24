@@ -2011,7 +2011,9 @@ reference, and adds what to do where the word is meant as an ordinary term: a de
 then names a subject, and the entry is renamed to state its decision, as `primer@design-heads` asks
 of a slug; any other entry is renamed so that its slug is not an ordinary word, since, on the
 owner's word, a slug has no reason to be used as an ordinary word, and that is the only way the
-lint reports a wrong use reliably.
+lint reports a wrong use reliably. The owner's ruling covers the slugs of the installed text too,
+which a consuming project cannot rename: such a slug met there as an ordinary word is reported
+upstream, by the project's retrospective.
 
 **The rule is the owner's**, given against the session's proposal of a listing in `show`: a word
 meant as an ordinary term probably shows a slug wrongly chosen and not specific enough, in the
