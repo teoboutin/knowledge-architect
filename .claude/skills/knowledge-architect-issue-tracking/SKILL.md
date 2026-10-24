@@ -209,64 +209,108 @@ one whose own work includes this, or do the work now, in a change of its own.
 
 ## A tripwire entry `##tripwire-entry`
 
-A level-two heading carrying a slug at its end, in the anchor's tripwires home, and its body:
+A tripwire watches one premise of a recorded decision: a failure that would show the decision
+wrong and that nothing else in the project reports. Most causes a premortem names are not that,
+and are not written.
+
+**A cause becomes a tripwire only when all four conditions hold.**
+
+1. **The failure is silent.** Every procedure that meets it counts it as success: the tests and
+   gates pass, no work is stopped by it, no review reports it as a defect of the decision, and no
+   request names it. A failure that fails a test or a check, stops the work that meets it, or
+   arrives as a request for what the decision refused reaches the decision without a tripwire.
+   Where a script could compute the firing, write that check instead; where the check can be written
+   only later, the cause is a `deferred` issue whose trigger is that moment.
+2. **The evidence lands where tripwires are read.** It is in the tree, the history, an audit
+   report, or a retrospective file the intake receives. Evidence that exists only in a session's
+   transcript, or only in what the owner sees while driving a session, reaches no occasion that
+   reads the tripwires.
+3. **The evidence is what the decision says must not happen.** A clause that counts what the
+   decision instructs or endorses fires on the decision working.
+4. **A number has a basis.** A bound in the firing clause comes from a measurement or an argument
+   the decision's head carries, and exceeds the noise of the instrument that takes it. Otherwise
+   the clause names the event.
+
+**A slip is no firing.** A clause on how sessions follow an instruction never fires on one instance
+that a review, a check or a retrospective reported under its own procedure: one slip is the review
+working. It fires on the same failure recurring in separate pieces of work, or on one instance that
+reached the main branch with no procedure reporting it. Where a clause fires on both a slip and
+something more, strike the slip.
+
+**A doubt keeps the cause, briefly.** A cause that no condition clearly excludes is recorded with a
+short horizon. A wrong keep costs reading until its horizon; a wrong drop loses the evidence for
+good.
+
+The entry is a level-two heading in the tripwires home of the Component that owns the decision, its
+slug last:
 
 ```markdown
-## Guarding `design@<anchor>@<id>`: <what the guard is about> `##<slug>`
+## Guarding `design@<anchor>@<id>`: <the premise watched> `##<slug>`
 
-**Fires when:** …
-**Response:** …
-**Re-entry:** …
+**Fires when:** the event, or a count with its basis.
+**Response:** reopen the decision by its reference, or open an issue of a named kind.
+**Re-entry:** an occasion that holds the evidence.
+**Watches until:** the occasions after which the cause, unfired, no longer will.
 ```
 
-- **the decision it guards**, as a `design@<anchor>@<id>` reference in the heading or the body, so
-  that a reversed decision dangles its tripwires mechanically, and `tripwires --guarding <ref>`
-  finds them. One guarding an instruction, a guarantee, or a decision that earned no head names
-  what it can, the last naming in words the site that records it, and stays legal with no
-  reference;
-- **the firing evidence**, meeting the falsifiability bar: an event, or a count crossing a bound,
-  specific enough that both parties would agree it fired. "It gets slow" is not a tripwire;
-- **the response**: reopen the decision by its reference, or open an issue of a named kind;
-- **the re-entry point**: the checkpoint at which it is read again.
+**Watches until** names the first occasions that exercise the decision, so that a command over the
+history counts them from the commit that wrote the line: commits on the main branch that change a
+named path or the guarded head's text, release tags, audit reports of an axis, plan documents
+deleted at their landing, or one event the tree shows, such as the first issue a consumer of an
+interface opens; never an occasion that only a session's transcript holds. Its length is the
+writer's judgement, short for a cause kept on a doubt, and no count is kept in the entry.
+`standing` is for a guarantee whose failure stays silent and permanent, with the reason in the
+entry.
+
+**The decision it guards** is a `design@<anchor>@<id>` reference in the heading or the body, so that
+a reversed decision dangles its tripwires mechanically, and `tripwires --guarding <ref>` finds
+them. One guarding an instruction, a guarantee, or a decision that earned no head names what it
+can, the last naming in words the site that records it, and stays legal with no reference.
 
 The slug is what `tripwire@<anchor>@<slug>` references name, and it follows the id grammar above.
 Every level-two heading of a tripwires home is a tripwire: a heading there with no slug is
 reported. A slug at another level, at the head of a plain line, or in the `README.md` of a
 directory-shaped home, defines nothing, and outside a fenced block it is reported as misplaced.
 
-When a tripwire is written, and on whose word, is
+Who judges a premortem's causes, and when a tripwire is written, is
 `skill@knowledge-architect-decision-recording@ruled-tripwires`.
 
 One standing re-entry point: `agent@knowledge-architect-standing-state-reviewer` reads every
-tripwire home and every deferred trigger again, on the review axis whose whole subject they are. An
-entry may name a narrower one.
+tripwire home and every deferred trigger again, on the review axis whose whole subject they are,
+and asks of each tripwire whether it has fired and whether its horizon has passed. An entry may
+name a narrower one.
 **A tripwire nobody reads again is a parked item with no re-entry point**, which is the thing this
 register exists to avoid, not to become.
 
-**If a script could check the firing evidence, it is not a tripwire: it is an assertion**, a test
-or a check the project runs on every commit. A threshold with no enforcement is a wish. Apply
-the trigger test above first, though: an assertion whose occasion fails it blocks a session rather
-than scheduling anyone.
+**Where condition 1 sends a firing to a check, apply the trigger test above first**: an assertion
+whose occasion fails it blocks a session rather than scheduling anyone.
 
 ## The movement instruction `##movement-instruction`
 
-- A tripwire that **fires** has its heading and body **deleted** from the tripwires home, and an
-  issue file is **created**, or the decision is reopened. It never becomes a fired-but-still-listed
-  entry. Where the reopened decision's reversal is recorded only at a plan document's harvest, the
-  tripwire is narrowed to except that plan document's work, citing it, so the citation dangles when
-  the document leaves, and the commit that deletes the document deletes the entry.
-- **Unless it guards a standing guarantee, in which case it is restated and stays.** A tripwire is
-  usually a one-shot hypothesis, _if this happens, that decision was wrong_, and firing consumes it.
-  A tripwire guarding a guarantee that holds for the life of the project is not consumed by one
-  instance of it being broken: the guarantee is still owed after the repair. Restate it so it names
-  the _class_ rather than the instance, and record the instance as the issue.
-- A tripwire whose decision is **reversed** is deleted outright.
-- A tripwire is **absorbed** when another entry already guards the same decision: fold its firing
-  condition into that entry rather than leaving one decision guarded from two places, where a
-  reversal voids only half of itself.
-- A tripwire is **retired** when its firing evidence names an artifact the project's own
-  instructions prevent from existing. It is deleted, and the guard becomes a predicate a reader
-  applies, in whichever review axis owns its subject or in the instruction itself.
+A tripwire leaves its home when:
+
+- **it fires**: its heading and body are deleted, and an issue is opened or the decision is
+  reopened, as its response says. A fired tripwire never stays listed;
+- **its horizon passes unfired**: it is deleted, and the commit that deletes it names the
+  occasions the decision held through. A `rejected` entry kept because a doubt remained, and naming
+  this tripwire, is then judged again by the recording tests, and leaves if none holds;
+- **its decision is reversed**: it is deleted outright;
+- **another entry guards the same premise**: its clause is folded into that entry, since a premise
+  guarded from two places is voided by half when its decision is reversed;
+- **a firing's repair adds a test or a check that now catches the failure**: the failure is no
+  longer silent, and the check carries it.
+
+A `standing` tripwire that fires is restated, naming the class rather than the instance, only while
+its failure stays silent after the repair; the instance is the issue. A firing whose only response
+would be to change the tripwire's own bound shows that the bound had no basis: rewrite the clause
+to name the event, or a bound with its basis.
+
+Where a fired tripwire's reopened decision is reversed only at a plan document's harvest, the
+tripwire is narrowed instead of deleted, to except that plan document's work, citing it, so the citation dangles when
+the document leaves, and the commit that deletes the document deletes the entry.
+
+An issue entry moves too:
+
 - An `observation` that becomes reproducible is **promoted in place** to `defect`: its `kind`
   changes and it acquires the checklist at that moment. Do not rewrite it from scratch, and keep
   what was already ruled out.

@@ -66,18 +66,34 @@ not homes: open every tripwires home as well, since an empty one does not appear
 each entry carries to a decision, a goal or a declared register's entry.
 
 **Read every entry in every one of those homes, not the subset whose subject the diff touches.**
-For each: has it fired?
+For each: has it fired, and has its horizon passed? Its `**Watches until:**` line names occasions a
+command over the history counts: find the commit that wrote the line, with `git log -S` on it, and
+count the occasions since. An entry with no such line is reported, since it has no end.
 
 A diff that cannot have fired a tripwire is a normal outcome and is reported as one.
 
 **Read every entry under a heading, not just the first.** A heading may carry two firing clauses, and
 a slug may be guarded from more than one direction.
 
-A tripwire that has fired **leaves its home**, and so does one whose decision was reversed or that
-another entry guarding the same decision absorbs. What replaces it, and the exception of a
-tripwire guarding a standing guarantee, are
-`skill@knowledge-architect-issue-tracking@movement-instruction`: read it whole before you report
-the repair.
+When a tripwire leaves its home, and what replaces it:
+
+A tripwire leaves its home when:
+
+- **it fires**: its heading and body are deleted, and an issue is opened or the decision is
+  reopened, as its response says. A fired tripwire never stays listed;
+- **its horizon passes unfired**: it is deleted, and the commit that deletes it names the
+  occasions the decision held through. A `rejected` entry kept because a doubt remained, and naming
+  this tripwire, is then judged again by the recording tests, and leaves if none holds;
+- **its decision is reversed**: it is deleted outright;
+- **another entry guards the same premise**: its clause is folded into that entry, since a premise
+  guarded from two places is voided by half when its decision is reversed;
+- **a firing's repair adds a test or a check that now catches the failure**: the failure is no
+  longer silent, and the check carries it.
+
+A `standing` tripwire that fires is restated, naming the class rather than the instance, only while
+its failure stays silent after the repair; the instance is the issue. A firing whose only response
+would be to change the tripwire's own bound shows that the bound had no basis: rewrite the clause
+to name the event, or a bound with its basis.
 
 **Read every deferred trigger too.** A `deferred` issue waits for an event, named in its
 `### Trigger` subsection, and a trigger answers the same question as a tripwire's firing clause:
@@ -99,8 +115,9 @@ the ones that did not fire**. A landing that does not report on them means they 
 
 When the diff deletes a plan document, or the branch's plan document leaves after this review, in
 the commit of its own its planning skill gives it, confirm that every criterion still standing was reported on
-once more, and that each one that recurs at later work was proposed to the owner as a tripwire and
-either written, on the owner's word, or deleted.
+once more, and that each one that recurs at later work was judged as a cause, as
+`skill@knowledge-architect-decision-recording@ruled-tripwires` says, and either written or deleted,
+with its outcome in the record of the work.
 
 ## The predicate `##standing-predicate`
 

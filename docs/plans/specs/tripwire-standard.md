@@ -57,10 +57,10 @@ again under the standard.
 
 | name | what it is |
 | --- | --- |
-| the standard | the text of `planned@agent-skills@fragments/tripwire-standard.md`: what earns a tripwire and the entry's shape |
-| the lifecycle | the text of `planned@agent-skills@fragments/tripwire-lifecycle.md`: when a tripwire leaves its home |
+| the standard | the text of `path@agent-skills@fragments/tripwire-standard.md`: what earns a tripwire and the entry's shape |
+| the lifecycle | the text of `path@agent-skills@fragments/tripwire-lifecycle.md`: when a tripwire leaves its home |
 | condition 1 to 4 | the four numbered conditions of the standard, in "Decided design" |
-| a fragment | a file directly under `planned@agent-skills@fragments/`, copied by the build into every content file that names it |
+| a fragment | a file directly under `path@agent-skills@fragments/`, copied by the build into every content file that names it |
 | a host | a content file that names a fragment by a placeholder line |
 | the horizon | the `**Watches until:**` line of a tripwire entry |
 | silent | the property of condition 1: every procedure that meets the failure counts it as success |
@@ -692,7 +692,7 @@ FILES                                                existing, src/lib.rs
 
 ### The standard
 
-The text of `planned@agent-skills@fragments/tripwire-standard.md`, as the owner approved it in round
+The text of `path@agent-skills@fragments/tripwire-standard.md`, as the owner approved it in round
 4, with three editorial changes: the second person becomes "the session", the T-labels of the
 premortem are gone, and the criterion's paragraph is added per #acceptance-criterion-quality. The
 clause "and in the record of the work" is D2. The implementing session may reword it; a change of
@@ -779,7 +779,7 @@ of occasions survived (`argument@tripwire-standard@arg-10`) and an age or versio
 
 ### The lifecycle
 
-The text of `planned@agent-skills@fragments/tripwire-lifecycle.md`, as shown in round 3 and approved
+The text of `path@agent-skills@fragments/tripwire-lifecycle.md`, as shown in round 3 and approved
 in round 4. An illustration, not authority:
 
 ```markdown
@@ -835,7 +835,7 @@ ranks every cause it admits as it ranks those it excludes.
 ### Fragments
 
 - **The placeholder** is a line that is `{{fragment:<file>}}` after any leading spaces, `<file>` a
-  file directly under `planned@agent-skills@fragments/`, with its `.md` extension, as
+  file directly under `path@agent-skills@fragments/`, with its `.md` extension, as
   `{{fragment:tripwire-standard.md}}`. Its leading spaces are its indentation.
 - **The pass** is `render_fragments` in render.rs, a pure function over one text and the fragments'
   texts, which returns the rendered text and the names it used. It runs after the workflow-name
@@ -1173,6 +1173,29 @@ checks it. This adds an obligation to the text the owner approved, so it is the 
 #tripwire-recording-authority.
 
 **Ruled**: accepted, in the same words as D1.
+
+### D3: two refinements of the standard, from the check on the useful firings
+
+Step 2 applied the standard, without hindsight, to the 8 useful firings. A subagent's judgement: it
+keeps the premise of 5, two of them as checks, and drops 2: `decision-trigger-does-not-fire`, on
+condition 2, and thaum's commit-message tripwire, whose one firing was a single message on the main
+branch that no review had reported, which the rule on slips excluded because it asked for a
+recurrence. **Default**, built in the fragment:
+
+- the rule on slips reads: a clause on how sessions follow an instruction never fires on one
+  instance that a review, a check or a retrospective reported under its own procedure; it fires on
+  the same failure recurring in separate pieces of work, or on one instance that reached the main
+  branch with no procedure reporting it. It admits the commit-message firing and none of the 25
+  firings the counterfactual found acted on anyway;
+- condition 1 adds: where the check can be written only later, the cause is a `deferred` issue
+  whose trigger is that moment, which `a-commit-is-skipped-for-a-new-reason` of thaum needed. It
+  admits no tripwire.
+
+Not proposed: counting transcript evidence where the review before a merge reads transcripts, which
+would admit `decision-trigger-does-not-fire` but needs the transcript reviewer to read the
+tripwires homes, and reopens condition 2's ground, the cost of watching. Each refinement changes what
+a condition admits, which the owner ruled is the owner's, round 4: "unless a small refinement can
+make them pass". Bears on #tripwire-admission-test.
 
 ## Harvest
 
