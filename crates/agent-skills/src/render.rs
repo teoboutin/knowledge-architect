@@ -8,6 +8,9 @@
 //!   and the installed copy does.
 //! - **The workflow name check.** A saved workflow is called by the name its `meta` declares, not
 //!   by its file's name, so the name must carry the installer's prefix as the file does.
+//! - **The fragment pass.** A line that is a fragment placeholder, `{{fragment:<file>}}`, is replaced
+//!   with a file of shared text from fragments/, so one text applied whole at several places has
+//!   one home and every host ships it, per `design@agent-skills@content-mirrors-the-install-layout`.
 
 use std::path::Path;
 
@@ -16,6 +19,9 @@ pub(crate) const COMMENT: &str = "%%";
 
 /// What opens a section slug placeholder; `}}` closes it.
 pub(crate) const SLUG: &str = "{{slug:";
+
+/// What opens a fragment placeholder; `}}` closes it.
+pub(crate) const FRAGMENT: &str = "{{fragment:";
 
 /// Whether a line is inside a fenced block, read as CommonMark reads one.
 ///
@@ -136,6 +142,73 @@ pub(crate) fn render_slugs(text: &str, file: &Path) -> String {
         rendered.push_str(&line[bare.len()..]);
     }
     rendered
+}
+
+/// `text` with each fragment placeholder line replaced by its fragment, and the names of the
+/// fragments it used, in order, a name once per use.
+///
+/// A placeholder is a line that is `{{fragment:<file>}}` after any leading spaces, `<file>` the
+/// name of one of `fragments`, each a file name and its text. The fragment's own `%%` lines are
+/// removed first, by the comment pass's rules, and each of its non-blank lines is then prefixed with
+/// the placeholder's leading spaces, so a fragment can sit inside a list item; its final line break
+/// is the placeholder line's own. The pass runs before the comment and slug passes of the host, so
+/// the fragment's text is otherwise treated as the host's.
+///
+/// It panics, naming the file and the line, on a placeholder naming no fragment; and, naming the
+/// fragment, on a fragment that holds a fragment placeholder, since a fragment does not nest, or a
+/// section slug placeholder, since its host supplies the heading and the slug, and the same slug
+/// rendered twice in one installed file would be defined twice.
+pub(crate) fn render_fragments<'a>(
+    text: &str,
+    fragments: &[(&'a str, &str)],
+    file: &Path,
+) -> (String, Vec<&'a str>) {
+    let mut rendered = String::with_capacity(text.len());
+    let mut used = Vec::new();
+    for (n, line) in text.split_inclusive('\n').enumerate() {
+        let bare = line.trim_end_matches(['\n', '\r']);
+        let trimmed = bare.trim_start_matches(' ');
+        let Some(name) = trimmed
+            .strip_prefix(FRAGMENT)
+            .and_then(|rest| rest.strip_suffix("}}"))
+        else {
+            rendered.push_str(line);
+            continue;
+        };
+        let Some(&(name, fragment)) = fragments.iter().find(|(n, _)| *n == name) else {
+            panic!(
+                "{}:{}: names fragments/{name}, which does not exist",
+                file.display(),
+                n + 1
+            )
+        };
+        let own = format!("fragments/{name}");
+        let body = strip_comments(fragment, Path::new(&own));
+        assert!(
+            !body
+                .lines()
+                .any(|l| l.trim_start_matches(' ').starts_with(FRAGMENT)),
+            "{own}: a fragment holds no fragment placeholder"
+        );
+        assert!(
+            !body.contains(SLUG),
+            "{own}: a fragment holds no section slug placeholder: its host supplies the heading"
+        );
+        let indent = &bare[..bare.len() - trimmed.len()];
+        for part in body
+            .strip_suffix('\n')
+            .unwrap_or(&body)
+            .split_inclusive('\n')
+        {
+            if !part.trim().is_empty() {
+                rendered.push_str(indent);
+            }
+            rendered.push_str(part);
+        }
+        rendered.push_str(&line[bare.len()..]);
+        used.push(name);
+    }
+    (rendered, used)
 }
 
 /// What opens a saved workflow's declaration; its `name` key follows inside the object.
@@ -285,8 +358,66 @@ fn is_id(id: &str) -> bool {
 
 #[cfg(test)]
 mod tests {
-    use super::{check_workflow_name, render_slugs, strip_comments};
+    use super::{check_workflow_name, render_fragments, render_slugs, strip_comments};
     use std::path::Path;
+
+    fn fragments(text: &str, shared: &[(&'static str, &str)]) -> (String, Vec<&'static str>) {
+        render_fragments(text, shared, Path::new("t.md"))
+    }
+
+    #[test]
+    fn a_placeholder_line_is_replaced_by_its_fragment() {
+        let shared = [("f.md", "one\ntwo\n")];
+        let rendered = "# T\none\ntwo\nend\n";
+        let (text, used) = fragments("# T\n{{fragment:f.md}}\nend\n", &shared);
+        assert_eq!(text, rendered);
+        assert_eq!(used, ["f.md"]);
+    }
+
+    #[test]
+    fn an_indented_placeholder_indents_every_non_blank_line() {
+        let shared = [("f.md", "one\n\n- two\n")];
+        let rendered = "1. Step\n   one\n\n   - two\n";
+        let (text, _) = fragments("1. Step\n   {{fragment:f.md}}\n", &shared);
+        assert_eq!(text, rendered);
+    }
+
+    #[test]
+    fn a_fragment_s_comment_lines_are_removed() {
+        let shared = [("f.md", "%% why\nkept\n")];
+        let rendered = "kept\n";
+        let (text, _) = fragments("{{fragment:f.md}}\n", &shared);
+        assert_eq!(text, rendered);
+    }
+
+    #[test]
+    fn a_text_with_no_fragment_placeholder_is_unchanged() {
+        let text = "a {{fragment:f.md}} in prose\n";
+        let (rendered, used) = fragments(text, &[("f.md", "x\n")]);
+        assert_eq!(rendered, text);
+        assert!(used.is_empty());
+    }
+
+    #[test]
+    #[should_panic(expected = "t.md:2: names fragments/g.md, which does not exist")]
+    fn a_placeholder_naming_no_fragment_fails() {
+        fragments("x\n{{fragment:g.md}}\n", &[("f.md", "x\n")]);
+    }
+
+    #[test]
+    #[should_panic(expected = "fragments/f.md: a fragment holds no fragment placeholder")]
+    fn a_nested_fragment_fails() {
+        fragments(
+            "{{fragment:f.md}}\n",
+            &[("f.md", "  {{fragment:g.md}}\n"), ("g.md", "x\n")],
+        );
+    }
+
+    #[test]
+    #[should_panic(expected = "fragments/f.md: a fragment holds no section slug placeholder")]
+    fn a_fragment_holding_a_slug_placeholder_fails() {
+        fragments("{{fragment:f.md}}\n", &[("f.md", "## A {{slug:a-b}}\n")]);
+    }
 
     fn strip(text: &str) -> String {
         strip_comments(text, Path::new("t.md"))
