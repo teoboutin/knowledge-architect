@@ -221,6 +221,10 @@ citation is one act: `{{command}} check` reports an entry that no design entry c
   but _this_ argument no longer supports that, and the marker prevents reopening a settled question
   on a dead argument.
 
+**A reason defeated in part**, as when a design the entry never weighed solves the problem its
+reason called unsolved, is narrowed to what still holds, and the entry stays `live` for its own
+design; the head of that other design cites it, where its argument meets the entry's design.
+
 **`live` records that the reason held against the arguments seen, not that the question is shut.**
 A new argument or new evidence reopens any entry here at any time, and that is an ordinary move
 rather than a transgression.
