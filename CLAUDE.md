@@ -174,7 +174,7 @@ only for temporary testing is outside every rule of this section**, such as the 
   it: `git push -u origin <branch>`, then `gh pr create --draft`. CI does not run on a draft.
 - **A commit is pushed only after `cargo klarch commits` has passed on it**: in a command of its
   own, or behind `&&` on the bare check. A push after `;`, or after a check whose output went
-  through a pipe, runs whatever the check found. Its home is
+  through a pipe in a shell without `pipefail`, runs whatever the check found. Its home is
   `design@knowledge-architect@push-after-the-commits-check`.
 - A repair folded into an earlier commit, per `primer@branch-commits`, uses the procedure of
   point 2.

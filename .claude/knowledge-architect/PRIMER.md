@@ -309,8 +309,7 @@ shaped, are in `primer@where-knowledge-goes`.
   each commit, where an amend still repairs a failing message.
 - Never chain a command on a verdict that went through a pipe: in `check | tail && git commit`, a
   shell without `pipefail` takes the exit status of `tail`, so the commit runs whatever the check
-  found, and a filter drops lines in any shell. The setup sets the option in the `claude` harness's
-  shell. Run the
+  found, and a filter drops lines in any shell. Run the
   checker bare, or redirect its output to a file, read its last line, and chain nothing on the
   redirection's command.
 

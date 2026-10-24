@@ -35,6 +35,8 @@ to the intake's section on the life of an analysis.
 
 A handled file left among pending ones can be handed to an intake again, and a deleted one loses
 the other side of an interaction finding, against `goal@knowledge-architect@agents-get-a-complete-workflow`.
+It strains `design@agent-skills@received-file-marked`, under which a marked file stays where the
+owner keeps it.
 
 ### What would close it
 

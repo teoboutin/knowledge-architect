@@ -217,8 +217,8 @@ impl Outcome<'_> {
 /// run. Refuses to write its report into a pipe, outside GitHub Actions.
 pub fn run(root: &Path, gates: &[Gate], args: &GatesArgs) -> ExitCode {
     // Refused before any gate runs: the run's product is its exit code, and a pipe hands that
-    // to the reader at the far end (`| tail` exits with tail's status) while a filter drops
-    // lines of a report that is already distilled. A regular file passes, so `> log 2>&1`
+    // to the reader at the far end (`| tail` exits with tail's status in a shell without
+    // `pipefail`) while a filter drops lines of a report that is already distilled, in any shell. A regular file passes, so `> log 2>&1`
     // stays available, and every gate's full output is under the root's target/gates/
     // whatever stdout was.
     //
