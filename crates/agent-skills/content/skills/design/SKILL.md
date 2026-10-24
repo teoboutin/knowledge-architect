@@ -153,7 +153,7 @@ evidence bring, which nobody knows in advance.
   decides whether any other decision earns a design head at all. Apply both before proposing to the
   owner where a decision lands. Where the premortem runs, nothing of the decision is implemented
   or committed before it has run and the owner has ruled on its acceptance criteria, so the record
-  that carries the deliberation carries those rulings, and the outcome of each cause.
+  that carries the deliberation carries those rulings.
 - **The full path.** Otherwise, and whenever a discussion converges on
   work that no longer lands in the change under way (it needs a branch
   of its own, several pull requests, or nobody has started it): the
@@ -335,13 +335,13 @@ Closure by you, not the owner, exists in exactly three declared cases:
 - `parked` — your own overruled dissent after the owner's explicit
   ruling on the point (`skill@knowledge-architect-design@decision-authority`), and the observation
   recorded during a bug hunt for a later discussion (`skill@knowledge-architect-design@incumbent-evaluation`).
-  Every parked thread names its tripwire AND its re-entry point: the
-  event or checkpoint at which it is re-proposed. A parked thread
-  missing either one is open. A tripwire with no re-entry point names
-  evidence nobody is scheduled to look for. A parked thread's tripwire
-  is named on the ledger as a cause of the premortem, and judged and
-  written as `skill@knowledge-architect-decision-recording@ruled-tripwires`
-  says.
+  Every parked thread names the evidence that would reopen it, as a
+  cause, AND its re-entry point: the event or checkpoint at which it is
+  re-proposed. A parked thread missing either one is open. A cause with
+  no re-entry point names evidence nobody is scheduled to look for. The
+  cause is named on the ledger, and judged and written as
+  `skill@knowledge-architect-decision-recording@ruled-tripwires` says;
+  the thread stays parked whatever the standard rules on its cause.
   `superseded` is not a fourth case:
   threads absorbed by a proposal close when that proposal closes, on the
   owner's word approving it by name or `argued`, and until then the
@@ -589,7 +589,7 @@ choices whose option space genuinely is closed and consequence-free.
    a decided thread. In that case, convergence cannot hold, the invalidated thread reopens,
    and the discussion continues.
 
-   If the design holds against the premortem, what survives is proposed as tripwires,
+   If the design holds against the premortem, what survives is named as causes,
    except a cause that only the built code can check: that is an acceptance
    criterion, which `skill@knowledge-architect-planning` writes into the plan document,
    or which, on the in-change path, the change applies as a test.
@@ -610,7 +610,7 @@ choices whose option space genuinely is closed and consequence-free.
    scope of the project, and the owner is the only judge of that. A
    criterion meets conditions 3 and 4 of the standard below: it names a
    built result under which it fails, and a bound in it carries its
-   basis. The owner's word rules on whether a criterion is applied, not
+   basis, per `skill@knowledge-architect-planning@acceptance-criteria`. The owner's word rules on whether a criterion is applied, not
    on the wording of its observable, which you may reword when it is
    written, on a review finding or at a later change, listing each change
    in the turn's "Decided" section, per `primer@decided-section`.
@@ -674,8 +674,8 @@ the same exchange, plus:
   in ignorance of an unaffordable migration is not a decision — the
   cost will be discovered later and force the decision to be remade.
 - **Verdicts must be falsifiable.** Every verdict on an incumbent design
-  ships with tripwires: the specific evidence that would flip it,
-  named as causes and judged as step 7 says.
+  names the specific evidence that would flip it, as causes judged as
+  step 7 says.
   "Each bug has a fix" is the unfalsifiable non-answer.
 - **Compress before concluding.** The recurring cost is not
   diagnosed until one sentence names the mechanism producing it. The
@@ -706,7 +706,7 @@ is not the shape for it.
 - Verdict: keep | change (one line)
 - Mechanism: the one-sentence statement of what produces the
   recurring failures
-- Tripwires: the specific evidence that would flip this verdict
+- Causes: the specific evidence that would flip this verdict, each with its outcome
 - Losing alternatives: what they were, and where the winner absorbs them
 - Recorded at: the plan document, or, for a verdict no work implements,
   such as keep, where the in-change path puts its deliberation; the design

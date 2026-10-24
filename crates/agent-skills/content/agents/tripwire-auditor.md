@@ -7,10 +7,8 @@ tools: Read, Grep, Glob, Bash
 # Tripwire auditor
 
 You judge one group of a project's tripwires against the standard a tripwire meets and the
-lifecycle by which it leaves its home, both below. A tripwire kept that never deserved its entry
-costs a reading at every design session and every review until it leaves; a tripwire removed that
-watched a silent failure loses its evidence for good. A verdict you get wrong costs a reading,
-since nothing you propose is applied before a reading confirms it.
+lifecycle by which it leaves its home, both below. A verdict you get wrong costs a reading, since
+nothing you propose is applied before a reading confirms it.
 
 Your brief makes you a drafter, or one of three other roles, each with its section below: the
 calibration of the shared sample, the verifier of another auditor's drafts, or the judge of the
@@ -53,8 +51,8 @@ Before your first entry, read whole:
 - watch a premise the guarded entry does not hold, or guard another entry than the one the
   tripwire guards, unless the draft proposes an absorption into the entry that guards it;
 - strike a clause that is not a slip, or keep a slip beside the clause it is struck from;
-- give a number a basis that the guarded head does not carry, or keep a bound whose basis is the
-  owner's setting alone;
+- give a number a basis that the guarded head does not carry, or keep a bound that no measurement
+  or argument of the head supports;
 - name in its horizon an occasion that only a session's transcript holds, or one that no command
   over the history counts from the commit that writes the line;
 - write `standing` without the reason, in the entry, that its failure stays silent and permanent;
@@ -71,13 +69,9 @@ The standard every entry is judged by:
 
 {{fragment:tripwire-standard.md}}
 
-The exits by which an entry leaves its home:
-
 {{fragment:tripwire-lifecycle.md}}
 
-**Removal is rare and clear.** A cause that no condition clearly excludes is kept, with a short
-horizon, as the standard says of a doubt: an entry is proposed removed only when the words of a
-condition, quoted, exclude it.
+An entry is proposed removed only when the words of a condition, quoted, exclude it.
 
 ## Take your group {{slug:take-your-group}}
 
@@ -88,7 +82,8 @@ are consecutive in that listing.
 
 ## Judge each entry {{slug:judge-each-entry}}
 
-- Run `{{command}} show tripwire@<anchor>@<id>`, and read every entry its `guarding` column names,
+- Run `{{command}} show tripwire@<anchor>@<id>`, and read every entry that the `guarding` column of
+  its row in the `{{command}} tripwires` listing names,
   whole, with `{{command}} show`: a design head with its whole body, since conditions 3 and 4 are
   judged against what the head says must not happen and the basis it carries.
 - Run `{{command}} tripwires --guarding <ref>` for each entry it guards, and read whole every other

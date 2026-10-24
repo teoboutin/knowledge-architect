@@ -151,13 +151,15 @@ pub(crate) fn render_slugs(text: &str, file: &Path) -> String {
 /// name of one of `fragments`, each a file name and its text. The fragment's own `%%` lines are
 /// removed first, by the comment pass's rules, and each of its non-blank lines is then prefixed with
 /// the placeholder's leading spaces, so a fragment can sit inside a list item; its final line break
-/// is the placeholder line's own. The pass runs before the comment and slug passes of the host, so
-/// the fragment's text is otherwise treated as the host's.
+/// is the placeholder line's own. The pass runs after the comment and slug passes of the host, so a
+/// failure of those passes names the host's own line, not a line of the expanded text.
 ///
 /// It panics, naming the file and the line, on a placeholder naming no fragment; and, naming the
-/// fragment, on a fragment that holds a fragment placeholder, since a fragment does not nest, or a
+/// fragment, on a fragment that holds a fragment placeholder, since a fragment does not nest; a
 /// section slug placeholder, since its host supplies the heading and the slug, and the same slug
-/// rendered twice in one installed file would be defined twice.
+/// rendered twice in one installed file would be defined twice; or any other build placeholder,
+/// since the host's passes have run before it. The install's `{{command}}` is filled later, as in
+/// any shipped text.
 pub(crate) fn render_fragments<'a>(
     text: &str,
     fragments: &[(&'a str, &str)],
@@ -193,6 +195,10 @@ pub(crate) fn render_fragments<'a>(
         assert!(
             !body.contains(SLUG),
             "{own}: a fragment holds no section slug placeholder: its host supplies the heading"
+        );
+        assert!(
+            !body.replace("{{command}}", "").contains("{{"),
+            "{own}: a fragment holds no build placeholder but the install's `{{{{command}}}}`"
         );
         let indent = &bare[..bare.len() - trimmed.len()];
         for part in body
@@ -396,6 +402,55 @@ mod tests {
         let (rendered, used) = fragments(text, &[("f.md", "x\n")]);
         assert_eq!(rendered, text);
         assert!(used.is_empty());
+    }
+
+    #[test]
+    fn a_line_with_text_after_the_placeholder_is_unchanged() {
+        let text = "{{fragment:f.md}} trailing\n";
+        let (rendered, _) = fragments(text, &[("f.md", "x\n")]);
+        assert_eq!(rendered, text);
+    }
+
+    #[test]
+    fn a_placeholder_indented_by_a_tab_is_unchanged() {
+        let text = "\t{{fragment:f.md}}\n";
+        let (rendered, _) = fragments(text, &[("f.md", "x\n")]);
+        assert_eq!(rendered, text);
+    }
+
+    #[test]
+    fn a_placeholder_keeps_its_own_line_break() {
+        let crlf = "a\r\nx\r\nb";
+        let (text, _) = fragments("a\r\n{{fragment:f.md}}\r\nb", &[("f.md", "x\n")]);
+        assert_eq!(text, crlf);
+        let last = "a\nx";
+        let (text, _) = fragments("a\n{{fragment:f.md}}", &[("f.md", "x\n")]);
+        assert_eq!(text, last);
+    }
+
+    #[test]
+    fn a_placeholder_selects_its_fragment_by_name() {
+        let shared = [("f.md", "eff\n"), ("g.md", "gee\n")];
+        let rendered = "gee\neff\n";
+        let (text, used) = fragments("{{fragment:g.md}}\n{{fragment:f.md}}\n", &shared);
+        assert_eq!(text, rendered);
+        assert_eq!(used, ["g.md", "f.md"]);
+    }
+
+    #[test]
+    #[should_panic(expected = "fragments/f.md: a fragment holds no build placeholder")]
+    fn a_fragment_holding_a_build_placeholder_fails() {
+        fragments("{{fragment:f.md}}\n", &[("f.md", "{{primer-import}}\n")]);
+    }
+
+    #[test]
+    fn a_fragment_may_hold_the_install_s_command() {
+        let rendered = "run {{command}} check\n";
+        let (text, _) = fragments(
+            "{{fragment:f.md}}\n",
+            &[("f.md", "run {{command}} check\n")],
+        );
+        assert_eq!(text, rendered);
     }
 
     #[test]

@@ -321,9 +321,9 @@ read with the entry it guards, whole, and with the history of that entry where t
 ground is the owner's.
 
 **The rules**: the standard a tripwire meets and the lifecycle by which it leaves its home, which
-`agent@knowledge-architect-tripwire-auditor@the-standard` carries whole, the standard being that of
-`skill@knowledge-architect-issue-tracking@tripwire-entry` and the lifecycle that of
-`skill@knowledge-architect-issue-tracking@movement-instruction`.
+`agent@knowledge-architect-tripwire-auditor@the-standard` carries whole, the same texts that
+`skill@knowledge-architect-issue-tracking@tripwire-entry` and
+`skill@knowledge-architect-issue-tracking@movement-instruction` hold.
 
 **Not in this axis**: the issues; the design heads the tripwires guard, which are the design-record
 axis's.
@@ -383,7 +383,7 @@ pass's commit, with no uncommitted work in the tree.
 | outcome | the findings | where it goes |
 | --- | --- | --- |
 | kept | it meets the standard | applied in the branch: a horizon is written, and a `T<n>` label or a ground "on the owner's word" is reworded to the entry's own premise |
-| reworded | a slip struck, a response brought to the shape, a number given its basis or replaced by the event | applied in the branch: a recorded tripwire's wording and scope are the session's |
+| reworded | a slip struck, a response brought to the shape, a number given its basis or replaced by the event | applied in the branch: a recorded tripwire's wording and scope are the session's, per `skill@knowledge-architect-decision-recording@ruled-tripwires` |
 | converted | a script could compute its firing | put to the owner, on the owner list: the entry leaves once the check exists, the check written in the branch where it is small, else a `todo` issue |
 | absorbed | another entry guards the same premise | put to the owner, on the owner list: the entry leaves, its clause folded into the other |
 | removed | it fails condition 1, 2 or 3 | put to the owner, on the owner list |

@@ -1,7 +1,7 @@
 # Tripwires — agent skills
 
 Evidence that would reopen a decision of `register@agent-skills@design`. A tripwire leaves this
-file when it fires. What is outstanding is `register@agent-skills@issue`.
+file by an exit of `skill@knowledge-architect-issue-tracking@movement-instruction`. What is outstanding is `register@agent-skills@issue`.
 
 ## Guarding `design@agent-skills@ledger-from-transcript`: a ruling lost or misstated at assembly `##ruling-lost-in-assembly`
 

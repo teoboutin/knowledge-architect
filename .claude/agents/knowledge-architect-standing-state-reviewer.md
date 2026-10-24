@@ -68,22 +68,24 @@ each entry carries to a decision, a goal or a declared register's entry.
 **Read every entry in every one of those homes, not the subset whose subject the diff touches.**
 For each: has it fired, and has its horizon passed? Its `**Watches until:**` line names occasions a
 command over the history counts: find the commit that wrote the line, with `git log -S` on it, and
-count the occasions since. An entry with no such line is reported, since it has no end.
+count the occasions since. An entry with no such line has no horizon to pass until an audit or a
+change writes one.
 
 A diff that cannot have fired a tripwire is a normal outcome and is reported as one.
 
 **Read every entry under a heading, not just the first.** A heading may carry two firing clauses, and
 a slug may be guarded from more than one direction.
 
-When a tripwire leaves its home, and what replaces it:
-
-A tripwire leaves its home when:
+A tripwire leaves its home by these exits alone, or on the owner's word; its wording and its scope
+are the session's to change, judged by the standard on what earns a tripwire, and each change is
+listed in the turn's "Decided" section. It leaves when:
 
 - **it fires**: its heading and body are deleted, and an issue is opened or the decision is
-  reopened, as its response says. A fired tripwire never stays listed;
+  reopened, as its response says, unless the paragraph below keeps it;
 - **its horizon passes unfired**: it is deleted, and the commit that deletes it names the
   occasions the decision held through. A `rejected` entry kept because a doubt remained, and naming
-  this tripwire, is then judged again by the recording tests, and leaves if none holds;
+  this tripwire, is then judged again by the recording tests, and its removal is put to the owner
+  if none holds;
 - **its decision is reversed**: it is deleted outright;
 - **another entry guards the same premise**: its clause is folded into that entry, since a premise
   guarded from two places is voided by half when its decision is reversed;
@@ -91,7 +93,11 @@ A tripwire leaves its home when:
   longer silent, and the check carries it.
 
 A `standing` tripwire that fires is restated, naming the class rather than the instance, only while
-its failure stays silent after the repair; the instance is the issue. A firing whose only response
+its failure stays silent after the repair, since the guarantee it watches is still owed after one
+instance is repaired; the instance is the issue. Where a fired tripwire's decision is reopened and
+reversed only at a plan document's harvest, the tripwire is narrowed instead of deleted, to except
+that plan document's work, citing it, so the citation dangles when the document leaves, and the
+commit that deletes the document deletes the entry. A firing whose only response
 would be to change the tripwire's own bound shows that the bound had no basis: rewrite the clause
 to name the event, or a bound with its basis.
 
