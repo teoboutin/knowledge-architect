@@ -41,8 +41,7 @@ meets this, since its binary's shipped text does not move with its working tree.
 
 `design@core@staged-check-semantics` states that `check --staged` applies `check`'s rules "as on a
 clean checkout of the staged tree". On a clean checkout of this staged tree the comparison passes,
-so the staged check reports a finding that the checkout does not have: the reverse of
-`tripwire@core@staged-pass-fails-the-checkout`, which watches a staged pass that a checkout fails.
+so the staged check reports a finding that the checkout does not have.
 The primer, `primer@checker-model`, asks that a failing staged check be repaired before the
 commit, so a session that commits edits of several
 installed texts one by one meets a finding it cannot repair except by staging them all at once.

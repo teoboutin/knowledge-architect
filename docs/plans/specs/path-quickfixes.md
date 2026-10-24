@@ -245,7 +245,8 @@ Open entries that bear on the work, read again at the audit:
   among the candidates. Judged: the respellings and the question form are a
   checked way out of the findings that sessions have cleared by writing plain text, which the
   reopening reads.
-- `tripwire@core@staged-pass-fails-the-checkout`: a respelling rewrites the working-tree file only.
+- A staged pass that a clean checkout of the same tree fails, which
+  `design@core@staged-check-semantics` rules out: a respelling rewrites the working-tree file only.
   Judged: `--fix --staged` stays refused, so no respelling is computed over the staged tree; the
   staged copy keeps the old span and `check --staged` reports it, as "The order of a run" says.
 - `issue@core@configuration-for-several-agent-providers`: the citation check assumes the `claude`

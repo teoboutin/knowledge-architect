@@ -1,6 +1,6 @@
 **Generated — do not edit.** `cargo klarch index`
 
-46 entries
+47 entries
 
 | kind | title |
 | --- | --- |
@@ -8,18 +8,17 @@
 | defect | [An acceptance criterion from the premortem, listed among the defaults awaiting the owner, is both judged and not judged before the ruling](a-premortem-criterion-listed-as-a-default-reads-two-ways.md) |
 | defect | [A saved workflow's `//` comments ship to every installing project, though the standard sends maintainer-only text to a comment the build removes](a-saved-workflow-s-comments-ship-to-every-project.md) |
 | defect | [In an adopting project, a finding sent upstream is counted again as a violation left on old text at every later pass](an-upstream-finding-stays-in-every-later-old-text-count.md) |
-| defect | [Eight tripwires of this repository respond with a direct action, which the tripwire shape does not name](eight-tripwires-respond-with-an-action-the-tripwire-shape-does-not-name.md) |
-| defect | [Two audit workflows can give two groups one label, and list a sample entry twice in one brief](two-audit-workflows-can-collide-group-labels-and-list-a-sample-entry-twice.md) |
+| defect | [Two audit workflows can give two groups one label, list a sample entry twice, and report verdicts as missing](two-audit-workflows-can-collide-group-labels-and-list-a-sample-entry-twice.md) |
 | design | [A handled retrospective file is marked where it lies, and the owner keeps handled files in an archive apart from pending ones](a-handled-retrospective-file-is-marked-where-it-lies.md) |
 | design | [A member recorded directly, as covered by its head's argument, lay beyond that argument](a-member-recorded-directly-lies-beyond-its-head-s-argument.md) |
 | design | [A pointer delivers its directive only when the session fetches the section it names, and a copy filled by substitution would deliver it with no drift](a-pointer-delivers-its-directive-only-when-the-session-fetches-it.md) |
-| design | [A tripwire on a procedure of the workflow states no bound on how much the failure must matter](a-procedure-tripwire-states-no-severity-bound.md) |
 | design | [A tripwire on agent behaviour under the workflow fires in sessions this project does not see](a-tripwire-on-agent-behaviour-fires-where-this-project-cannot-see.md) |
 | design | [A default the owner approved is attributed to the owner, and an agent has no way to record a decision as its own](an-approved-default-is-attributed-to-the-owner-and-the-agent-records-no-decision-of-its-own.md) |
 | design | [Plan documents keep the owner's words verbatim, where every other durable record attributes them, and sessions slip between the two](plan-documents-keep-the-owner-s-words-verbatim-where-other-records-attribute-them.md) |
 | design | [Pointers written as bare plain text to clear a finding reach no check, and the rule against them is reopened](pointers-written-bare-to-clear-a-finding-reach-no-check.md) |
 | design | [The claim check of a commit message is read at the session's start and needed at each commit](the-claim-check-of-a-commit-message-is-read-at-the-start-and-needed-at-each-commit.md) |
 | design | [The first test for a losing alternative admits every rival of a head that earned its place as an interface](the-first-test-for-a-losing-alternative-admits-every-rival-of-an-interface-head.md) |
+| design | [The search before the work missed standing entries the work bore on, in two pieces of work](the-search-before-the-work-missed-standing-entries-in-two-pieces-of-work.md) |
 | design | [The workflow assumes one owner, unnamed, which a project with several contributors does not have](the-workflow-assumes-one-unnamed-owner.md) |
 | observation | [A general-purpose subagent is refused the read of a transcript, where an installed agent is not](a-general-purpose-subagent-is-refused-a-file-access.md) |
 | question | [A head in the wrong Component goes to the owner, though the record settles the Component](a-head-in-the-wrong-component-goes-to-the-owner-though-the-record-settles-the-component.md) |
@@ -44,6 +43,8 @@
 | todo | [No installed skill says how a new Component is created](a-skill-for-creating-a-component.md) |
 | todo | [The project audit has two axes, and the other axes the owner named have none](audit-axes-beyond-the-design-record.md) |
 | todo | [Only the design and setup skills state what they expect of the owner](expectation-sets-for-the-installed-skills.md) |
+| todo | [No check compares an audit pass's count of severe violations left with the previous pass's](no-check-compares-an-audit-pass-s-owner-list-count-with-the-previous-pass-s.md) |
+| todo | [No check reports a lens of the agentic-workflow axis whose second agent found nothing the first did not](no-check-reports-a-duplicated-workflow-lens-whose-other-agents-found-nothing.md) |
 | todo | [A project cannot change one instruction of an installed skill](patching-an-installed-skill.md) |
 | todo | [Nothing checks mechanically that the shipped text cites no entry of this repository](shipped-text-citing-an-entry-is-unchecked.md) |
 | todo | [The code-claims review axis reads plan documents only, and statements about code elsewhere in a change are checked by no axis](the-code-claims-axis-reads-plan-documents-only.md) |

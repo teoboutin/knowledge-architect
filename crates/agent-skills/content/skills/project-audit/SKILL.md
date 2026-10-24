@@ -133,7 +133,6 @@ holds the owner's ruling, or, at the audit's stop, the issue entry point 4 gives
 does not rule on, before any edit of the pass is applied; the commit that carries out its last
 outcome, or a later commit of the same branch, deletes it, and its message names it by its path.
 
-%% The count of rulings against the default is read by `tripwire@agent-skills@audit-defaults-overruled`.
 The pass's commit is the one that applies its last edit, or the one that adds its report file
 where the pass applies none. Its message says what was audited, at which commit, how it was
 dispatched, the calibration reading settled where the axis has one, the outcome of each finding in
