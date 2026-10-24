@@ -46,8 +46,8 @@ it is searched on a reversal, and it is never the decision's home.
 
 `git log` over the branch is read for what its messages cite and claim: the names they cite and
 every factual sentence about the tree, under the last predicate; on a reversal, what was searched
-for the incumbent; the owner's ruling on any tripwire the branch adds; and, when a plan document is
-deleted, that the deleting commit cites it by its kind. None of the checks of
+for the incumbent; the owner's ruling on any tripwire the branch adds; and, when the range deletes a plan
+document, that the deleting commit cites it by its kind. None of the checks of
 `{{command}} check` will help with your task. Do not run it.
 
 ## The predicates {{slug:record-predicates}}

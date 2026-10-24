@@ -45,7 +45,6 @@ with `GIT_CONFIG_NOSYSTEM=1` and an empty `GIT_CONFIG_GLOBAL`, and its comment c
 the file's other helpers still read the machine's configuration. That the CI runner's configuration
 holds the setting is not established.
 
-
 ### Why it matters
 
 A contributor or a CI runner with commit signing or a hooks directory set globally sees the core's

@@ -613,9 +613,9 @@ choices whose option space genuinely is closed and consequence-free.
 
    The owner's word rules on whether a cause is watched, not on the
    wording of the tripwire that watches it; the same holds for an
-   acceptance criterion's observable. Its firing evidence, its
-   response and its re-entry point may be reworded when it is written,
-   or on a review finding, on your judgement, and each change is listed
+   acceptance criterion's observable. Its premise, its firing
+   evidence, its response and its re-entry point may be reworded when it is written,
+   on a review finding or at a later change, on your judgement, and each change is listed
    in the turn's "Decided" section, per `primer@decided-section`. A
    tripwire that watches another cause is a new one, and needs the
    owner's word.

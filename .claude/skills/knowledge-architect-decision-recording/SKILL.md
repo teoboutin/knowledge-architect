@@ -223,7 +223,8 @@ citation is one act: `cargo klarch check` reports an entry that no design entry 
 
 **A reason defeated in part**, as when a design the entry never weighed solves the problem its
 reason called unsolved, is narrowed to what still holds, and the entry stays `live` for its own
-design; the head of that other design cites it, where its argument meets the entry's design.
+design, since `void` would say its reason no longer holds while the design is still not wanted; the
+head of that other design cites it, where its argument meets the entry's design.
 
 **`live` records that the reason held against the arguments seen, not that the question is shut.**
 A new argument or new evidence reopens any entry here at any time, and that is an ordinary move

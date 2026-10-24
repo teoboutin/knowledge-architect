@@ -43,8 +43,9 @@ Then **the version the session used**, in one line:
   may become public; where the project builds the checker from source, the first bullet names
   that commit there.
 
-That commit is the one the session's branch started from, `git merge-base <branch> <main branch>`
-run before the branch merges; after the merge, the main branch holds the session's own work, and
+That commit is the main commit the session saw at its start, as its first look at the tree
+reported it; `git merge-base <branch> <main branch>` gives it only on a branch never rebased,
+before it merges. After the merge, the main branch holds the session's own work, and
 the command run on it names the merged result, a commit a rebase merge can replace. A commit of the
 branch itself is not named: a merge that rewrites the branch's commits leaves it pointing at
 nothing.

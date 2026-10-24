@@ -57,7 +57,9 @@ Two retrospectives of this repository carried the counts, unasked, analysed at t
   added a head brought the decision-record axis back, and each pass found real defects.
 - the spec on defined ids: 3 dispatches, one of seven axes, a re-review of two axes after a repair
   split a head, the transcript review; 3 appended `[review]` commits; 0 corrections of drift.
-
+- in part, the branch that built `klarch init`: a review before the merge on eight axes, the
+  transcript review alone and last, three follow-up reviews of repairs made after it, and a CI
+  failure fixed after the pull request was marked ready.
 
 ### Why it matters
 

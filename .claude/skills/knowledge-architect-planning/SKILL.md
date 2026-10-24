@@ -539,8 +539,9 @@ kind**, `spec@plans@<id>`, `milestone@plans@<id>` or `spec@<milestone>@<slice>`,
 against the commit's parent. The reviewers of that review, the transcript reviewer's search
 included, read the document in the tree they judge, and a pair a harvest row states is in a tree
 `git log -G` reads. A milestone's slice spec leaves when its slice lands; the milestone document
-leaves at its last slice, in the same commit as that slice's spec, once every default it lists is
-ruled. Before deleting:
+leaves once its last slice has landed and every default it lists is ruled: in the commit that deletes
+that slice's spec, or, where a default is still unruled then, in the commit that records the last
+ruling. Before deleting:
 
 - every harvest row of the document is done;
 - every acceptance criterion has been reported on, and has become a tripwire or left (`skill@knowledge-architect-planning@acceptance-criteria`);

@@ -222,7 +222,7 @@ correction removes the owner's own words, and this alternative is the candidate 
 ### A new member routed by the scope of the owner's approval, found in the history of each head `##member-routed-by-approval-scope`
 
 `live`. It needs the word that approved a head found over the commits and plan documents that wrote
-it, where the head's ground is read from the head itself. It is kept here because a doubt remains, and it is now open:
+it, where the head's ground is read from the head itself. It is kept here because a doubt remains:
 `issue@agent-skills@a-member-recorded-directly-lies-beyond-its-head-s-argument` reopens the routing
 of a new member, with this alternative among the candidates.
 
@@ -488,3 +488,11 @@ fidelity-of-relocation axes, and `git log -G` on a pair the harvest row states, 
 in the deleting commit leaves in no tree. A branch that deleted its spec this way had every brief
 name the deleting commit's parent, and a history edit then left those briefs naming a commit the
 branch no longer held.
+
+### A retrospective intake of many files reading whole every entry the design-entry search grades `may-bear` `##intake-reads-every-may-bear-entry-whole`
+
+`live`. A batch's search returns the union of its files' neighbourhoods, mostly graded `may-bear`
+with no bearing established: one intake of nine files returned 169 distinct entries, about 400 KB
+of `show` output, and its session read about 35 whole, the ones its proposals rested on; a later
+intake of 24 files did the same. Reading every one whole spends the session's context on reading
+instead of judging, and neither session could.

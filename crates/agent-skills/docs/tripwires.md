@@ -519,7 +519,8 @@ rests on the premise that the model section holds what a reader needs, and that 
 needs only for an uncommon shape reaches a session through its finding.
 
 **Fires when:** a review or an audit finds a rule in `primer@checker-model` that a finding message
-already delivers with its repair. On the owner's ruling, a rule that a review of the branch adding
+already delivers with its repair, other than one the owner placed there by name, as the explanation
+of `check --fix`'s refusal. On the owner's ruling, a rule that a review of the branch adding
 it finds, and that the branch removes before its merge, does not fire it.
 **Response:** remove the rule from the section, and reopen with the owner the scope of the ruling
 that the rarer checker rules are delivered by their findings.

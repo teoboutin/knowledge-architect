@@ -26,7 +26,6 @@ one PR". Each slice's review re-read the whole branch, as if before a merge. Wit
 retrospective reported the direction as a gap of the skill; an assumption that a slice is one branch
 would have placed it outside the skill's scope. Analysed at the intake of 2026-10-24.
 
-
 ### Why it matters
 
 `design@agent-skills@expectation-set-bounds-scope` makes the set the scope test for every edit of an

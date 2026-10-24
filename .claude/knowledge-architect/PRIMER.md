@@ -380,7 +380,7 @@ message and tree through `cargo klarch commits`. A reference anywhere else is fo
 
 **A finding is repaired in a form the checker judges, never by moving the pointer into plain
 text**: the right anchor, `path@elsewhere@<path>` for a path the tree does not hold, such as, in a
-commit message, a path the commit's work will create, a placeholder,
+commit message, a path later work will create, a placeholder,
 or a rewritten sentence. A record of a deliberation (a plan document, a committed file that leaves
 once its outcomes are carried out, or a commit message) names by its bare slug in backticks an
 entry that the work it records removes, renames or is still to create, and by its bare name in
