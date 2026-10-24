@@ -150,8 +150,8 @@
 //!   item), the fenced lines and the Rust names.
 //! - [`Document::observations`] are what the core's scanner recorded, each a
 //!   [`document::Located`] [`document::Observation`]: headings, slug definitions, reference
-//!   candidates, unanchored paths, spans wrapped across a line break, retired forms, bare names
-//!   and links.
+//!   candidates, unanchored paths, spans wrapped across a line break, retired forms, bare names,
+//!   references written without backticks, plain words that are defined ids, and links.
 //! - [`document::md::parse`] and [`document::rs::parse`] parse a text in a unit test, without
 //!   a project.
 //!
