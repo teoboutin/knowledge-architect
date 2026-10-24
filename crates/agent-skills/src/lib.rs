@@ -71,6 +71,101 @@ mod tests {
         }
     }
 
+    /// Each host ships every fragment its source names, rendered, once per placeholder: the
+    /// fragment pass of the build, `render::render_fragments`, ran over it and its text was not
+    /// lost to a later pass. The source of a shipped file is read back through its install path.
+    #[test]
+    fn every_host_ships_each_fragment_it_names() {
+        let root = std::path::Path::new(env!("CARGO_MANIFEST_DIR"));
+        let mut fragments = Vec::new();
+        for entry in std::fs::read_dir(root.join("fragments")).expect("fragments/ is readable") {
+            let path = entry.expect("fragments/ is readable").path();
+            let name = path
+                .file_name()
+                .and_then(|n| n.to_str())
+                .expect("a UTF-8 name");
+            let text = std::fs::read_to_string(&path).expect("a fragment is UTF-8");
+            fragments.push((name.to_owned(), text));
+        }
+        let shared: Vec<(&str, &str)> = fragments
+            .iter()
+            .map(|(n, t)| (n.as_str(), t.as_str()))
+            .collect();
+        let mut hosts = 0;
+        for (path, shipped) in FILES {
+            let source = match path.strip_prefix(".claude/") {
+                Some("knowledge-architect/PRIMER.md") => "PRIMER.md".to_owned(),
+                Some(rest) => rest.replacen("knowledge-architect-", "", 1),
+                None => panic!("{path} is installed outside .claude/"),
+            };
+            let text = std::fs::read_to_string(root.join("content").join(&source))
+                .unwrap_or_else(|e| panic!("{path} maps to content/{source}, unreadable: {e}"));
+            for line in text.lines() {
+                if !line.trim_start().starts_with(crate::render::FRAGMENT) {
+                    continue;
+                }
+                hosts += 1;
+                let (block, _) = crate::render::render_fragments(
+                    &format!("{line}\n"),
+                    &shared,
+                    std::path::Path::new(&source),
+                );
+                let placed = text.lines().filter(|l| *l == line).count();
+                assert_eq!(
+                    shipped.matches(block.as_str()).count(),
+                    placed,
+                    "{path} does not ship `{}` once per placeholder",
+                    line.trim()
+                );
+            }
+        }
+        assert!(hosts > 0, "no content file names a fragment");
+    }
+
+    /// Each fragment reaches every text whose act applies it whole, and no other, per the hosts the
+    /// tripwire standard's spec ruled. A host that loses its placeholder still ships and still
+    /// passes the test above, so this list is what fails: change it with the hosts.
+    #[test]
+    fn each_fragment_has_its_hosts() {
+        let hosts: &[(&str, &[&str])] = &[
+            (
+                "tripwire-standard.md",
+                &[
+                    ".claude/agents/knowledge-architect-decision-record-reviewer.md",
+                    ".claude/agents/knowledge-architect-tripwire-auditor.md",
+                    ".claude/skills/knowledge-architect-decision-recording/SKILL.md",
+                    ".claude/skills/knowledge-architect-design/SKILL.md",
+                    ".claude/skills/knowledge-architect-issue-tracking/SKILL.md",
+                    ".claude/skills/knowledge-architect-planning/SKILL.md",
+                ],
+            ),
+            (
+                "tripwire-lifecycle.md",
+                &[
+                    ".claude/agents/knowledge-architect-standing-state-reviewer.md",
+                    ".claude/agents/knowledge-architect-tripwire-auditor.md",
+                    ".claude/skills/knowledge-architect-issue-tracking/SKILL.md",
+                ],
+            ),
+        ];
+        let root = std::path::Path::new(env!("CARGO_MANIFEST_DIR"));
+        for (fragment, expected) in hosts {
+            let text = std::fs::read_to_string(root.join("fragments").join(fragment))
+                .expect("the fragment is readable");
+            let first = text
+                .lines()
+                .find(|l| !l.trim().is_empty() && !l.starts_with("%%"))
+                .expect("a fragment holds a line");
+            let mut found: Vec<&str> = FILES
+                .iter()
+                .filter(|(_, shipped)| shipped.lines().any(|l| l.trim() == first.trim()))
+                .map(|(path, _)| *path)
+                .collect();
+            found.sort();
+            assert_eq!(&found, expected, "the hosts of fragments/{fragment}");
+        }
+    }
+
     /// No shipped file holds a snippet placeholder: a line that is not exactly one, such as an
     /// indented one, is left as it is by the build.
     #[test]

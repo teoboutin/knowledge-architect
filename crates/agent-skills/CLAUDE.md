@@ -47,6 +47,15 @@ ships, and the text it ships cites no entry, as content/ does, per
 `design@agent-skills@shipped-text-cites-no-entry`. The release's hand check reads the installed
 copies, which hold the snippet inlined.
 
+**A text several installed texts apply whole is a file under `path@agent-skills@fragments/`**,
+which each host names by a placeholder line, `{{fragment:<file>}}`, indented to sit where the host
+needs it; the build copies it in after the host's comment and slug passes, per
+`design@agent-skills@content-mirrors-the-install-layout`. Edit the fragment, never a host's
+installed copy. A fragment is in the walk and cites no entry, as content/ does, and it holds no
+heading slug, no other fragment and no build placeholder but `{{command}}`. **A review of a change to a fragment reads it in every host**:
+the brief of the agent-facing-text axis names each host's installed copy, since a sentence true in
+one host's context can be false in another's, and the source holds only the placeholder.
+
 **The primer is the part of every installing project's root `CLAUDE.md` that is the same in every
 project**, per `design@agent-skills@primer-limit`.
 

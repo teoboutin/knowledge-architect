@@ -34,8 +34,8 @@ which the discussion grounds against and the harvest records into.
 A metaphor that names a defined concept, such as a tripwire, is vocabulary
 once defined, per `primer@working-prose`.
 
-**This skill ends at convergence**, and, where the premortem runs, the premortem and the owner's
-rulings on its tripwires and acceptance criteria.
+**This skill ends at convergence**, and, where the premortem runs, the premortem, its causes named,
+and the owner's rulings on its acceptance criteria.
 
 ## Decision authority `##decision-authority`
 
@@ -131,15 +131,16 @@ evidence bring, which nobody knows in advance.
   puts a record carried by a message: every thread with its final state, the
   ground of each closure: the owner's ruling, attributed to the owner with what it
   reaches, as `primer@design-heads` says, the rivals that lost with
-  their reasons, and the owner's rulings on tripwires and acceptance criteria. The decision is
+  their reasons, every premortem cause with its outcome, and the owner's rulings on acceptance
+  criteria. The decision is
   recorded at that landing like any other, under
   `skill@knowledge-architect-decision-recording`:
   `skill@knowledge-architect-decision-recording@reversal-check` decides the Component of a decision
   that reverses a recorded one, and `primer@design-heads`
   decides whether any other decision earns a design head at all. Apply both before proposing to the
   owner where a decision lands. Where the premortem runs, nothing of the decision is implemented
-  or committed before it has run and the owner has ruled on its tripwires and acceptance criteria, so the record that carries
-  the deliberation carries those rulings.
+  or committed before it has run and the owner has ruled on its acceptance criteria, so the record
+  that carries the deliberation carries those rulings.
 - **The full path.** Otherwise, and whenever a discussion converges on
   work that no longer lands in the change under way (it needs a branch
   of its own, several pull requests, or nobody has started it): the
@@ -321,13 +322,13 @@ Closure by you, not the owner, exists in exactly three declared cases:
 - `parked` — your own overruled dissent after the owner's explicit
   ruling on the point (`skill@knowledge-architect-design@decision-authority`), and the observation
   recorded during a bug hunt for a later discussion (`skill@knowledge-architect-design@incumbent-evaluation`).
-  Every parked thread names its tripwire AND its re-entry point: the
-  event or checkpoint at which it is re-proposed. A parked thread
-  missing either one is open. A tripwire with no re-entry point names
-  evidence nobody is scheduled to look for. A parked thread's tripwire
-  is named on the ledger, put to the owner under a label, `T<n>`, in the
-  premortem's sequence, and written as
-  `skill@knowledge-architect-decision-recording@ruled-tripwires` says.
+  Every parked thread names the evidence that would reopen it, as a
+  cause, AND its re-entry point: the event or checkpoint at which it is
+  re-proposed. A parked thread missing either one is open. A cause with
+  no re-entry point names evidence nobody is scheduled to look for. The
+  cause is named on the ledger, and judged and written as
+  `skill@knowledge-architect-decision-recording@ruled-tripwires` says;
+  the thread stays parked whatever the standard rules on its cause.
   `superseded` is not a fourth case:
   threads absorbed by a proposal close when that proposal closes, on the
   owner's word approving it by name or `argued`, and until then the
@@ -574,35 +575,85 @@ choices whose option space genuinely is closed and consequence-free.
    a decided thread. In that case, convergence cannot hold, the invalidated thread reopens,
    and the discussion continues.
 
-   If the design holds against the premortem, what survives is proposed as tripwires,
+   If the design holds against the premortem, what survives is named as causes,
    except a cause that only the built code can check: that is an acceptance
    criterion, which `skill@knowledge-architect-planning` writes into the plan document,
    or which, on the in-change path, the change applies as a test.
-   Ask the owner, for each tripwire, whether it is recorded, and for each
-   acceptance criterion, whether it is applied, naming the decision its
-   firing reopens. Put each under a label, `T<n>` for a tripwire and
-   `AC<n>` for an acceptance criterion, numbered as
-   `primer@labelled-items` says, so that the owner rules on each by its
-   label. The
-   tripwire's entry, and the criterion's item or, on the in-change path,
-   the comment at its test, keep that label in their
-   text, so the ruling in the transcript is found from either.
-   Some may be out of scope of the project, and the owner is the only judge of that.
-   A tripwire the owner rules to record is written as
-   `skill@knowledge-architect-decision-recording@ruled-tripwires` says.
+   **A cause is named, not ruled.** Name each with the decided thread it
+   stresses. It is judged by the standard below at the end of the work
+   that implements the decision, on its wording then, as
+   `skill@knowledge-architect-decision-recording@ruled-tripwires` says, and
+   no cause is put to the owner.
 
-   Every tripwire meets the falsifiability bar of
-   `skill@knowledge-architect-issue-tracking@tripwire-entry`: evidence
-   specific enough that both parties would agree it fired.
+   Ask the owner, for each acceptance criterion, whether it is applied,
+   naming the decision its firing reopens. Put each under a label,
+   `AC<n>`, numbered as `primer@labelled-items` says, so that the owner
+   rules on each by its label. The criterion's item or, on the in-change
+   path, the comment at its test, keeps that label in its text, so the
+   ruling in the transcript is found from either. Some may be out of
+   scope of the project, and the owner is the only judge of that. A
+   criterion meets conditions 3 and 4 of the standard below: it names a
+   built result under which it fails, and a bound in it carries its
+   basis, per `skill@knowledge-architect-planning@acceptance-criteria`. The owner's word rules on whether a criterion is applied, not
+   on the wording of its observable, which you may reword when it is
+   written, on a review finding or at a later change, listing each change
+   in the turn's "Decided" section, per `primer@decided-section`.
 
-   The owner's word rules on whether a cause is watched, not on the
-   wording of the tripwire that watches it; the same holds for an
-   acceptance criterion's observable. Its premise, its firing
-   evidence, its response and its re-entry point may be reworded when it is written,
-   on a review finding or at a later change, on your judgement, and each change is listed
-   in the turn's "Decided" section, per `primer@decided-section`. A
-   tripwire that watches another cause is a new one, and needs the
-   owner's word.
+   A tripwire watches one premise of a recorded decision: a failure that would show the decision
+   wrong and that nothing else in the project reports. Most causes a premortem names are not that,
+   and are not written.
+
+   **A cause becomes a tripwire only when all four conditions hold.**
+
+   1. **The failure is silent.** Every procedure that meets it counts it as success: the tests and
+      gates pass, no work is stopped by it, no review reports it as a defect of the decision, and no
+      request names it. A failure that fails a test or a check, stops the work that meets it, or
+      arrives as a request for what the decision refused reaches the decision without a tripwire.
+      Where a script could compute the firing, write that check instead. A check of the work being
+      built is that work's acceptance criterion; one that can be written only after another event,
+      such as the end of a migration, is a `deferred` issue whose trigger is that event.
+   2. **The evidence lands where tripwires are read.** It is in the tree, the history, an audit
+      report, or a retrospective file the intake receives. Evidence that exists only in a session's
+      transcript, or only in what the owner sees while driving a session, reaches no occasion that
+      reads the tripwires.
+   3. **The evidence is what the decision says must not happen.** A clause that counts what the
+      decision instructs or endorses fires on the decision working.
+   4. **A number has a basis.** A bound in the firing clause comes from a measurement or an argument
+      the decision's record carries, its head, or its plan document before the head is written, and exceeds the noise of the instrument that takes it. Otherwise
+      the clause names the event.
+
+   **A slip is no firing.** A clause on how sessions follow an instruction never fires on one instance
+   that a review, a check or a retrospective reported under its own procedure: one slip is the review
+   working. It fires on the same failure recurring in separate pieces of work, or on one instance that
+   reached the main branch with no procedure reporting it. Where a clause fires on both a slip and
+   something more, strike the slip.
+
+   **A doubt keeps the cause, briefly.** A cause that no condition clearly excludes is recorded with a
+   short horizon. A wrong keep costs reading until its horizon; a wrong drop loses the evidence for
+   good, unless the owner would see the failure anyway, by using the project or by carrying work with
+   its agents: then a wrong drop costs little, and a cause in doubt may be dropped. That weighs a
+   doubt only; it never drops a cause the four conditions admit.
+
+   The entry is a level-two heading in the tripwires home of the Component that owns the decision, its
+   slug last:
+
+   ```markdown
+   ## Guarding `design@<anchor>@<id>`: <the premise watched> `##<slug>`
+
+   **Fires when:** the event, or a count with its basis.
+   **Response:** reopen the decision by its reference, or open an issue of a named kind.
+   **Re-entry:** an occasion that holds the evidence.
+   **Watches until:** the occasions after which the cause, unfired, no longer will.
+   ```
+
+   **Watches until** names the first occasions that exercise the decision, so that a command over the
+   history counts them from the commit that wrote the line: commits on the main branch that change a
+   named path or the guarded head's text, release tags, audit reports of an axis, plan documents
+   deleted at their landing, or one event the tree shows, such as the first issue a consumer of an
+   interface opens; never an occasion that only a session's transcript holds. Its length is the
+   writer's judgement, short for a cause kept on a doubt, and no count is kept in the entry.
+   `standing` is for a guarantee whose failure stays silent and permanent, with the reason in the
+   entry.
 
 8. **On the full path, hand off to `skill@knowledge-architect-planning`, in this
    session.** On the in-change path there is no hand-off: the work
@@ -610,7 +661,7 @@ choices whose option space genuinely is closed and consequence-free.
    message that carries the deliberation.
    The ledger, the criteria table, the arguments and the facts they
    depended on, the designs as they were presented to the owner, the
-   premortem and the owner's rulings on its tripwires and acceptance
+   premortem, its causes and the owner's rulings on its acceptance
    criteria live in this
    conversation and in the harness's transcript of it. The planning
    skill assembles them from the transcript into its plan documents,
@@ -623,7 +674,7 @@ The plan document is the full account of the
 discussion, assembled from its transcript: every thread with its proposer
 and final state, the arguments on each side as items, the owner's
 rulings verbatim, the losing alternatives with their reasons, and the
-tripwires the premortem produced.
+causes the premortem named, each with its outcome once the work has judged it.
 The decision record is the durable harvest of that account, written when
 the work that implements each decision lands, under
 `skill@knowledge-architect-decision-recording`: a decided thread becomes a
@@ -661,8 +712,8 @@ the same exchange, plus:
   in ignorance of an unaffordable migration is not a decision — the
   cost will be discovered later and force the decision to be remade.
 - **Verdicts must be falsifiable.** Every verdict on an incumbent design
-  ships with tripwires: the specific evidence that would flip it,
-  proposed to the owner and recorded on their word, per step 7.
+  names the specific evidence that would flip it, as causes judged as
+  step 7 says.
   "Each bug has a fix" is the unfalsifiable non-answer.
 - **Compress before concluding.** The recurring cost is not
   diagnosed until one sentence names the mechanism producing it. The
@@ -693,7 +744,7 @@ is not the shape for it.
 - Verdict: keep | change (one line)
 - Mechanism: the one-sentence statement of what produces the
   recurring failures
-- Tripwires: the specific evidence that would flip this verdict
+- Causes: the specific evidence that would flip this verdict, each with its outcome
 - Losing alternatives: what they were, and where the winner absorbs them
 - Recorded at: the plan document, or, for a verdict no work implements,
   such as keep, where the in-change path puts its deliberation; the design

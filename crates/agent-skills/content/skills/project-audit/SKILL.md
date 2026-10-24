@@ -1,6 +1,6 @@
 ---
 name: knowledge-architect-project-audit
-description: MUST use when the owner asks to audit one aspect of the whole project rather than the work of one branch; when a pin move crosses a version whose changelog has a Migration entry citing an axis of this skill; and when an adopting project's existing documents have been moved into the workflow's homes. Covers what a project audit is, its method (an axis's saved workflow, whose one run per pass delivers a report the session verifies; then one list for the owner, the application, the re-check, the review), the outcome of each kind of finding, where the record of an audit goes, and one section per axis: the design-record axis, which re-applies the rules on design heads and rejected designs to every entry, and the agentic-workflow axis, which reads every instruction the harness delivers as one whole for instructions a session cannot follow and statements no act needs.
+description: MUST use when the owner asks to audit one aspect of the whole project rather than the work of one branch; when a pin move crosses a version whose changelog has a Migration entry citing an axis of this skill; and when an adopting project's existing documents have been moved into the workflow's homes. Covers what a project audit is, its method (an axis's saved workflow, whose one run per pass delivers a report the session verifies; then one list for the owner, the application, the re-check, the review), the outcome of each kind of finding, where the record of an audit goes, and one section per axis: the design-record axis, which re-applies the rules on design heads and rejected designs to every entry, the agentic-workflow axis, which reads every instruction the harness delivers as one whole for instructions a session cannot follow and statements no act needs, and the tripwire axis, which brings every tripwire to the standard on what earns one and gives each a horizon.
 ---
 
 # Auditing a project
@@ -313,3 +313,88 @@ workflow's file of `skill@knowledge-architect-retrospective@two-files`, named, w
 as that section and `skill@knowledge-architect-retrospective@what-becomes-of-files` say, its
 subject naming the audit. It differs in its content only: what was audited at which commit in
 place of what the session did, each finding numbered `W<n>`, and no standing answers.
+
+## The tripwire axis {{slug:tripwire-axis}}
+
+**The corpus**: every entry of every tripwires home, as `{{command}} tripwires` lists them, each
+read with the entry it guards, whole, and with the history of that entry where the tripwire's
+ground is the owner's.
+
+**The rules**: the standard a tripwire meets and the lifecycle by which it leaves its home, which
+`agent@knowledge-architect-tripwire-auditor@the-standard` carries whole, the same texts that
+`skill@knowledge-architect-issue-tracking@tripwire-entry` and
+`skill@knowledge-architect-issue-tracking@movement-instruction` hold.
+
+**Not in this axis**: the issues; the design heads the tripwires guard, which are the design-record
+axis's.
+
+**The agent**: `agent@knowledge-architect-tripwire-auditor`.
+
+**The saved workflow**: `knowledge-architect-tripwire-audit`. In one run, a preflight saves the
+output of `{{command}} tripwires`, whose order is the order of the entries, and the listings the
+agents read; the script cuts the groups, a Component larger than the group size alone and the
+smaller ones packed whole, and a setup agent creates their worktrees; one auditor per group drafts
+one verdict per entry, its brief listing its entries and a shared calibration sample; once every
+group has returned, one auditor compares the verdicts on the sample and proposes a reading where
+they differ; one verifier per group tries to refute every draft, under that reading; a cross-check
+maps the findings that touch one entry, an absorption and a rewording of the same entry included,
+and the texts an edit would leave false, and proposes each finding's outcome; the report gathers
+all of it. No step judges a created head, since the axis creates none. Its `args`:
+
+| arg | what it is |
+| --- | --- |
+| `commit` | the commit audited |
+| `scratch` | the run's scratch directory, under which every step and agent writes |
+| `worktrees` | the directory under which the run creates the worktrees, outside the project or under a path its ignore rules cover |
+| `history` | a git range whose commit messages, and the report files it added, record the audit's earlier passes, for the verifiers |
+| `previous` | for a re-check, the commit the previous pass audited, against which each finding is classified as on old or new text |
+| `kept` | for a re-check, the path of the file of entries and rules the owner ruled to keep |
+| `sample` | optional: the calibration sample, each entry a tripwire's reference; the preflight chooses one when it is left out, and a re-check may keep the entries whose readings differed |
+| `counts` | optional: `groupSize`; left out, it takes its default, written in the script |
+| `from` | optional: `calibration` or `verify`, to restart a run from the files it already wrote; or `application`, to judge the session's application of the pass |
+| `applied` | with `from` set to `application`: the commit that holds the application |
+
+**The draft of an entry** names its verdict, one outcome of the table below; the condition or the
+exit it rests on; the edit it proposes; and, for a kept entry, its horizon: a `**Watches until:**`
+line that meets the standard's paragraph on it. At the first audit of an entry, its occasions count
+from the commit that writes the line.
+
+**The verification of a report.** The session reads the report whole; each reading the calibration
+proposes, against the sample's drafts; every item of the owner-list draft, and every finding the
+report marks as plausible, as bearing on a ruling of the owner or as firing, against its draft; and
+a sample of the refuted drafts and a sample of the kept and reworded drafts, of its choosing. A
+reading of the calibration it rejects is corrected in the calibration file, and the workflow runs
+again from `verify`. Where the standard's or the lifecycle's text admits both readings and no record
+states the reading, the difference goes on the owner list. The session judges whether each entry
+marked as firing has fired.
+
+**Application.** The session commits its application, then runs the workflow again with `from` set
+to `application` and `applied` to that commit: an auditor per group judges every tripwire whose text
+the application changed, a re-pointed reference alone left out, against the standard, the failure
+modes of an edit and the owner's rulings, with the entry it guards; and every tripwire the
+application deleted, against the ruling that deletes it and what its outcome puts in its place. The
+session repairs each failure of the report that a reading confirms and folds the repairs into the
+pass's commit, with no uncommitted work in the tree.
+
+**Old and new text**, for a re-check: the verifier classifies each finding.
+
+**The outcomes of this axis:**
+
+| outcome | the findings | where it goes |
+| --- | --- | --- |
+| kept | it meets the standard | applied in the branch: a horizon is written, and a `T<n>` label or a ground "on the owner's word" is reworded to the entry's own premise |
+| reworded | a slip struck, a response brought to the shape, a number given its basis or replaced by the event | applied in the branch: a recorded tripwire's wording and scope are the session's, per `skill@knowledge-architect-decision-recording@ruled-tripwires` |
+| converted | a script could compute its firing | put to the owner, on the owner list: the entry leaves once the check exists, the check written in the branch where it is small, else a `todo` issue |
+| absorbed | another entry guards the same premise | put to the owner, on the owner list: the entry leaves, its clause folded into the other |
+| removed | it fails condition 1, 2 or 3 | put to the owner, on the owner list |
+| its decision is gone | the entry it guards no longer exists, or was reversed | put to the owner, on the owner list |
+| horizon passed | the occasions of its horizon have passed, counted from the commit that wrote the line, so from a re-check on for a horizon the audit wrote | put to the owner, on the owner list |
+| fired | its evidence is in the tree or the history | the session judges it; the deletion and the issue or the reopening its response names go on the owner list |
+
+**Every outcome that deletes an entry reaches the owner**, and the owner list groups those items:
+one group per outcome, the removals in one group per condition failed, each group one item of the
+list under its label, listing its entries with the words each turns on, with one default for the
+group and the entries it excepts. The owner rules on a group, and names any entry ruled otherwise.
+A text that cites a deleted entry is repaired in the commit that deletes it, and, for a horizon
+passed, a `rejected` entry kept on a doubt and naming the entry is judged again, as the lifecycle
+says.

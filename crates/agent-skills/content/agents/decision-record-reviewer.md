@@ -46,7 +46,7 @@ it is searched on a reversal, and it is never the decision's home.
 
 `git log` over the branch is read for what its messages cite and claim: the names they cite and
 every factual sentence about the tree, under the last predicate; on a reversal, what was searched
-for the incumbent; the owner's ruling on any tripwire the branch adds; and, when the range deletes a plan
+for the incumbent; the outcome the record gives each premortem cause the branch judges; and, when the range deletes a plan
 document, that the deleting commit cites it by its kind. None of the checks of
 `{{command}} check` will help with your task. Do not run it.
 
@@ -102,10 +102,14 @@ judge it against every point of `skill@knowledge-architect-decision-recording@re
 whole. A reversal that leaves the old head standing is two homes for one question, with the old one
 still asserting what the new one denies.
 
-**Does a tripwire stand on the owner's word?** Judge each tripwire the diff adds by
-`skill@knowledge-architect-decision-recording@ruled-tripwires`: whether the owner's word stands
-behind it, and whether it is written with the decision it guards. A tripwire the diff adds with no
-ruling recorded in the plan document or the commit message is a finding.
+**Does each tripwire the diff adds meet the standard below, and does the record list every
+premortem cause with its outcome?** Judge each tripwire the diff adds by the standard, and by
+`skill@knowledge-architect-decision-recording@ruled-tripwires`: whether it is written with the
+decision it guards. A premortem cause of the work whose outcome, recorded or dropped with the
+condition it fails, no commit message of the range states is a finding: the record is the harvest's
+or the in-change commit message, since a plan document leaves when its work lands.
+
+{{fragment:tripwire-standard.md}}
 
 **Does the commit cite anything that does not exist, or claim what it did not do?** Slugs, paths,
 section numbers, test names, run identifiers, tool flags: resolve each one, except the bare slug of

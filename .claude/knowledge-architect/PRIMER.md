@@ -64,7 +64,7 @@ rests on it waits for the answer, and the rest goes on.
 next number of its prefix in the record the label reaches, from 1, and that number is never reused
 there.** That record is a plan document, a milestone's documents counting as one; a file; or the
 commit messages of one branch, counting as one. A label carried later with its item into another
-record, as a tripwire's into a tripwires home, keeps its number, and that record numbers nothing.
+record, as an acceptance criterion's into the comment at its test, keeps its number, and that record numbers nothing.
 A label that reaches none is numbered within the message that puts it to the owner, wherever the
 item's ruling is kept.
 
@@ -229,8 +229,8 @@ outside the task", and the session that dispatched it routes each item by this t
 titled "Decided"**, before "Met outside the task" where both are owed: one line per decision, each
 with its ground, a reference or a source. A design thread closed on its argument, with the rivals
 it rules out, a default the
-record answered, a source applied over an answer of the owner, and a rewording of a tripwire's
-text, its premise included, that keeps the cause it watches, are such decisions; an implementation choice that a commit message records is not. A
+record answered, a source applied over an answer of the owner, and a premortem cause recorded as a
+tripwire or dropped, and a tripwire's wording or scope changed, are such decisions; an implementation choice that a commit message records is not. A
 subagent reports its decisions at the end of its report, under the same title, and the session that
 dispatched it carries them into its own section.
 
@@ -323,7 +323,9 @@ pointer beside it, and where the two disagree the restatement is the defect. A d
 than one sentence is delivered by a pointer to its home, with an instruction to read the home whole
 at that moment, or by one of its sentences restated with its pointer beside it, where that one
 sentence is what the point of delivery needs. More than one sentence of it is never restated: a
-partial copy drifts, and its reader takes it for the whole. For installed text, the home a pointer
+partial copy drifts, and its reader takes it for the whole. A whole text that the workflow's own
+build copies from one file into several installed texts is no restatement, since no copy can drift
+from that file. For installed text, the home a pointer
 names is installed text, a skill's section or the primer's, since installed text cites no entry of
 the project. An existing longer restatement is converted when a change edits what it says;
 re-pointing a reference in it does not count. Until then, its length alone is no defect, whenever
@@ -335,7 +337,7 @@ it was written.
 | how the project or a Component is built, and why | that Component's design home, `register@*@design` | the design changes: the entry is rewritten in place |
 | a design not kept, and why | that Component's `register@*@rejected`, each entry cited by the design heads whose argument covers it | it is reopened, chosen and built; the owner rules it fails every recording test; or no design head cites it any longer and no head of absence is written for it; a reversal moves the reversed decision into it if it meets a recording test of `skill@knowledge-architect-decision-recording` |
 | what is outstanding: a defect, an unexplained observation, an open question, missing work | one file in the owning anchor's issue directory, `register@*@issue` in a Component | the issue closes |
-| evidence that would flip a recorded decision whose work exists, or that no work implements | the owning Component's tripwires home, `register@*@tripwire` | it fires, or its decision is gone |
+| evidence that would flip a recorded decision whose work exists, or that no work implements | the owning Component's tripwires home, `register@*@tripwire` | it fires, its horizon passes, its decision is gone, or another entry or a check takes it over |
 | a contract or a trap that only a developer needs, true of the code as it stands | the scoped `CLAUDE.md` nearest the code | the contract changes or the trap is removed |
 | how a user can use a Component, and what to respect | its `README.md` | the contract changes |
 | directions about what to find where in a directory | a `README.md` in that directory | the directory's content changes |
