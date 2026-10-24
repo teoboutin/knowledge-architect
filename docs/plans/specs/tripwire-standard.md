@@ -78,7 +78,7 @@ again under the standard.
 | the audit-axes issue | `issue@agent-skills@audit-axes-beyond-the-design-record` |
 | design.md:NNNN | a line of crates/agent-skills/docs/design.md at commit 6da4781; the core's design home is written out in full |
 | the tripwire axis | the third axis of `skill@knowledge-architect-project-audit`, built by this work |
-| the tripwire auditor | the agent `knowledge-architect-tripwire-auditor`, built by this work |
+| the tripwire auditor | the agent `agent@knowledge-architect-tripwire-auditor`, built by this work |
 | the tripwire audit | the saved workflow `knowledge-architect-tripwire-audit`, built by this work |
 | build.rs | `path@agent-skills@build.rs` |
 | render.rs | `path@agent-skills@src/render.rs`, the passes build.rs includes and the crate's tests compile |
@@ -679,9 +679,9 @@ render_fragments                                     new function in src/render.
 FRAGMENT                                             new const in src/render.rs: "{{fragment:"
 Fragments                                            new struct in build.rs: the files under fragments/, read once, with which ones a placeholder named
 **Watches until:**                                   new line of a tripwire entry
-crates/agent-skills/content/agents/tripwire-auditor.md       new agent: knowledge-architect-tripwire-auditor
+crates/agent-skills/content/agents/tripwire-auditor.md       new agent: `agent@knowledge-architect-tripwire-auditor`
 crates/agent-skills/content/workflows/tripwire-audit.js      new saved workflow: knowledge-architect-tripwire-audit
-tripwire-axis                                        new section slug of the project-audit skill
+`skill@knowledge-architect-project-audit@tripwire-axis`                                      new section slug of the project-audit skill
 docs/audit-reports/<YYYY-MM-DD>-tripwire-axis-pass-<n>.md    the report file of a pass, by the generic name
 Snippets, SUBSTITUTIONS, substitute                  existing, build.rs
 strip_comments, render_slugs, check_workflow_name    existing, src/render.rs
@@ -904,7 +904,7 @@ tripwires lists, searches or counts them, and keeps its sentence.
 
 ### The tripwire axis
 
-A third axis of `skill@knowledge-architect-project-audit`, in its section `tripwire-axis`. **It takes
+A third axis of `skill@knowledge-architect-project-audit`, in its section `skill@knowledge-architect-project-audit@tripwire-axis`. **It takes
 the design-record axis's section, agent and saved workflow as its model, step for step**, with these
 differences:
 
@@ -1107,7 +1107,7 @@ and a new one citing `design@agent-skills@acceptance-criteria-in-the-document`. 
 
 ### Step 3: the tripwire axis
 
-Builds the tripwire auditor, the tripwire audit, and the section `tripwire-axis` of the project-audit
+Builds the tripwire auditor, the tripwire audit, and the section `skill@knowledge-architect-project-audit@tripwire-axis` of the project-audit
 skill, as "The tripwire axis" states, taking the design-record axis's three files as the model.
 Reinstall.
 
