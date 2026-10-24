@@ -95,5 +95,5 @@ owner's ruling that the pointer stays.
 That design discussion, proposed to the owner when work next reshapes how the installed text
 delivers a directive, or when a retrospective or a review reports a directive missed behind a
 pointer. Where that pointer had replaced a restatement under
-`design@agent-skills@restatement-size-test`, the report also fires
-`tripwire@agent-skills@pointer-not-followed`.
+`design@agent-skills@restatement-size-test`, the report is evidence for
+`tripwire@agent-skills@pointer-not-followed`, whose clause states when such reports fire it.

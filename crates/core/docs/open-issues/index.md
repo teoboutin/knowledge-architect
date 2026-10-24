@@ -1,6 +1,6 @@
 **Generated — do not edit.** `cargo klarch index`
 
-40 entries
+41 entries
 
 | kind | title |
 | --- | --- |
@@ -43,4 +43,5 @@
 | todo | [References are read in Markdown and Rust files only](references-are-read-in-markdown-and-rust-only.md) |
 | todo | [A searcher's report is written by hand, and nothing checks that it covers its group](searcher-reports-are-written-and-checked-by-hand.md) |
 | todo | [The documents do not yet render as one linked site](the-documents-do-not-render-as-a-site.md) |
+| todo | [The walk does not report the untracked files git's per-clone exclude file removes from it](the-walk-does-not-report-what-the-per-clone-exclude-file-removes.md) |
 | todo | [The checker does not read the structure of a project's own skills](tooling-for-project-skills.md) |

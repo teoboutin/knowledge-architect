@@ -29,13 +29,13 @@ answered, and the owner's rulings on D3 and on a doubt's weight").
 
 | group | first entry | last entry | entries | file |
 | --- | --- | --- | --- | --- |
-| agent-skills-1 | `tripwire@agent-skills@a-comment-escalation-is-overruled` | `tripwire@agent-skills@goal-missed-though-graded` | 22 | crates/agent-skills/docs/tripwires.md |
+| agent-skills-1 | `a-comment-escalation-is-overruled` | `tripwire@agent-skills@goal-missed-though-graded` | 22 | crates/agent-skills/docs/tripwires.md |
 | agent-skills-2 | `tripwire@agent-skills@head-created-without-deliberation` | `tripwire@agent-skills@verifiers-wave-findings-through` | 21 | crates/agent-skills/docs/tripwires.md |
-| packed-1 | `tripwire@core@candidate-rule-silence` | `tripwire@xtask@tip-alone-is-built` | 21 | crates/core/docs/tripwires.md (20), tools/xtask/docs/tripwires.md (1) |
+| packed-1 | `tripwire@core@candidate-rule-silence` | `tip-alone-is-built` | 21 | crates/core/docs/tripwires.md (20), tools/xtask/docs/tripwires.md (1) |
 
 **Sample** (5 entries), each with its draft of record: `tripwire@agent-skills@ruling-lost-in-assembly` and
-`tripwire@agent-skills@skipped-spec-audit-would-have-found-a-gap` (as2/14, as2/17); `tripwire@core@grammars-not-prefixes`,
-`tripwire@core@walked-count-differs-between-machines` and `tripwire@xtask@tip-alone-is-built` (pk/07, pk/20, pk/21). The
+`tripwire@agent-skills@skipped-spec-audit-would-have-found-a-gap` (as2/14, as2/17); the tripwire on `design@core@grammars-not-prefixes`,
+`tripwire@core@walked-count-differs-between-machines` and `tip-alone-is-built` (pk/07, pk/20, pk/21). The
 other groups' sample drafts are not of record: as1/23 to 27, as2/22 to 24, pk/22 and 23. pk/24,
 25 and 26 differ from pk/07, 20 and 21 "in their first line alone (`diff`)" (calibration, line 11);
 re-run for this report, `diff` prints only the heading line for each pair.
@@ -81,9 +81,9 @@ missing).
 | as1/03 | `tripwire@agent-skills@a-shortcut-decision-earns-a-head` | "\"at the second instance\" asks for no separate pieces of work: two commits on the bounded path in one branch would fire it. The draft's \"each instance is a commit of a separate piece of work\" does not follow from the clause. Under the slip rule it is reworded, the way the drafter reworded the same \"second time\" in 01 and 02. Repair: \"... at instances in two separate pieces of work, or once on the main branch with no review reporting it\"." |
 | as1/12 | `tripwire@agent-skills@axis-not-run-at-a-pin-move` | "The slip strike is right, but the edit attributes to the owner a ground the owner's words did not answer. At the thaum 0.7.0 intake (03f21a6^), the session proposed \"not fired\" on its own reasoning (...), and the owner's answer was \"Outcome: accepted\", an approval, which primer@design-heads says is no ground. Repair: state the exception on the head (\"The owner's request is the main occasion\"), unattributed." |
 | as2/17 | `tripwire@agent-skills@skipped-spec-audit-would-have-found-a-gap` | "Under calibration reading R3: 6e451b8 records the owner proposing the critical bound (...), so the entry's scope sentence carries a premise the owner stated and is attributed, keeping \"not load-bearing\" (...). The draft's \"no attribution is owed for it\" fails. The outcome, kept with a horizon (6 specs; command rerun: 13), stands; the edit gains the attribution." |
-| pk/07 | `tripwire@core@grammars-not-prefixes` | "The outcome, converted, stands. The draft's ground for the upgrade half is false: \"A renamed node empties those results and fails the `test` gate\". rs.rs:27-39 lists 11 `ITEMS` kinds, and the tests of rs.rs exercise none of `impl`, `union`, `trait`, `enum`, `static`, `type` or `macro_rules` (...). The conversion owes a node-kind test against the grammar as well, as agent-skills-1 and agent-skills-2 propose." |
+| pk/07 | the tripwire on `design@core@grammars-not-prefixes` | "The outcome, converted, stands. The draft's ground for the upgrade half is false: \"A renamed node empties those results and fails the `test` gate\". rs.rs:27-39 lists 11 `ITEMS` kinds, and the tests of rs.rs exercise none of `impl`, `union`, `trait`, `enum`, `static`, `type` or `macro_rules` (...). The conversion owes a node-kind test against the grammar as well, as agent-skills-1 and agent-skills-2 propose." |
 | pk/20 | `tripwire@core@walked-count-differs-between-machines` | "Under the calibration's R1. Condition 2 does not clearly exclude the entry: the comparison reached the history, in 4a7b000 (...) and in 48095d3, and it reached the intake in f964be0 and cebb978. A check on one clone can compute the per-clone exclude file's effect, which is the premise `design@core@per-user-ignore-file-pinned` names (design.md:516-518). So converted, not removed." |
-| pk/21 | `tripwire@xtask@tip-alone-is-built` | "Under the calibration's R2. The head says \"A commit before the tip that does not compile passes CI, and is found only by whoever builds it later\": it accepts the event the clause counts, which condition 3's first sentence excludes. So the outcome is removed, which comes before converted. The proposed release-range build also contradicts \"nothing compiles or tests a commit before the tip\", which makes it a reversal of the head." |
+| pk/21 | `tip-alone-is-built` | "Under the calibration's R2. The head says \"A commit before the tip that does not compile passes CI, and is found only by whoever builds it later\": it accepts the event the clause counts, which condition 3's first sentence excludes. So the outcome is removed, which comes before converted. The proposed release-range build also contradicts \"nothing compiles or tests a commit before the tip\", which makes it a reversal of the head." |
 
 ## 2. The calibration
 
@@ -96,9 +96,9 @@ the sections `skill@knowledge-architect-issue-tracking@tripwire-entry`, `skill@k
 | --- | --- | --- | --- | --- | --- |
 | `tripwire@agent-skills@ruling-lost-in-assembly` | reworded, slip | reworded, slip | reworded, slip | as2/14 | agree |
 | `tripwire@agent-skills@skipped-spec-audit-would-have-found-a-gap` | kept | kept | kept | as2/17 | agree on the outcome; R3 on the edit |
-| `tripwire@core@grammars-not-prefixes` | converted, cond. 1 | converted, cond. 1 | converted, cond. 1 | pk/07 | agree |
+| the tripwire on `design@core@grammars-not-prefixes` | converted, cond. 1 | converted, cond. 1 | converted, cond. 1 | pk/07 | agree |
 | `tripwire@core@walked-count-differs-between-machines` | converted, cond. 1 | removed, cond. 2 (converted second) | removed, cond. 2 | pk/20 | R1: converted |
-| `tripwire@xtask@tip-alone-is-built` | removed, cond. 1 and 3 | removed, cond. 3 (converted second) | converted, cond. 1 | pk/21 | R2: removed, cond. 3 |
+| `tip-alone-is-built` | removed, cond. 1 and 3 | removed, cond. 3 (converted second) | converted, cond. 1 | pk/21 | R2: removed, cond. 3 |
 
 "Proposed readings: 3 (R1, R2 on the outcome; R3 on an edit, the outcomes agreeing). Entries whose
 rule admits both outcomes: 0."
@@ -139,7 +139,7 @@ reading of the standard:
     to repair" comes from the owner's not-fired reasoning, and the definition "A gap is critical
     when ..." "is the session's, written in 6e451b8".
 
-### `tripwire@core@grammars-not-prefixes`: agree
+### the tripwire on `design@core@grammars-not-prefixes`: agree
 
 All three: converted on condition 1, "Where a script could compute the firing, write that check
 instead". The checks differ: as1 a node-kind test in the branch and a `todo` for the
@@ -179,7 +179,7 @@ unexercised kind silent."
   a new cause, not this entry's verdict". The untracked-files point (pk, as2) "bears on a fallback
   rewording, if the owner rules the conversion out: the clause then names a clean tree."
 
-### `tripwire@xtask@tip-alone-is-built`: R2, removed on condition 3
+### `tip-alone-is-built`: R2, removed on condition 3
 
 - Condition 3: "The evidence is what the decision says must not happen. A clause that counts what
   the decision instructs or endorses fires on the decision working." The head
@@ -369,7 +369,7 @@ a re-check: no old or new text.
 
 #### 3.1.2 Reworded (27)
 
-##### `tripwire@agent-skills@a-comment-escalation-is-overruled` (as1/01, verified), X1
+##### `a-comment-escalation-is-overruled` (as1/01, verified), X1
 
 - Outcome: reworded: the slip rule; kept on a doubt on conditions 1 and 2.
 - Evidence: "\"the second time\" is a recurrence, which the slip rule admits only across
@@ -389,7 +389,7 @@ a re-check: no old or new text.
 - Verifier: verified. "Keeping on a doubt is allowed: the doubt weight permits a drop but does not
   require one." Cross-check: "X1 is put to the owner beside it."
 
-##### `tripwire@agent-skills@a-head-verdict-is-overruled` (as1/02, verified, fires), X1
+##### `a-head-verdict-is-overruled` (as1/02, verified, fires), X1
 
 - Outcome: reworded: the slip rule, and the owner's ruling at the thaum intake; **not fired**
   (cross-check).
@@ -470,7 +470,7 @@ a re-check: no old or new text.
 - Verifier: verified. "T1 was agent-proposed and approved, so no owner premise is dropped. The
   condition-2 doubt is properly kept short."
 
-##### `tripwire@agent-skills@argued-closure-reopened` (as1/06, verified), horizon command corrected, X1
+##### `argued-closure-reopened` (as1/06, verified), horizon command corrected, X1
 
 - Outcome: reworded: condition 4 and the slip; `T1` label reworded.
 - Evidence: "**Fires when:** in one discussion, the owner reopens 2 or more threads closed
@@ -491,7 +491,7 @@ a re-check: no old or new text.
 
 - Outcome: reworded: the slip rule, a critical bound added; `T4` label reworded; **not fired**
   (cross-check).
-- Evidence: `issue@agent-skills@a-procedure-tripwire-states-no-severity-bound`: "was met by its
+- Evidence: `a-procedure-tripwire-states-no-severity-bound`: "was met by its
   letter again in two sessions, one of this repository and one of thaum ... none load-bearing ...
   The owner ruled it not fired, on the ground the earlier instance above was ruled on."
   `design@agent-skills@misstated-ruling-rated-by-what-it-changes`: "That such a slip is no critical
@@ -993,7 +993,7 @@ a re-check: no old or new text.
   and set aside by D3 \"on the session's argument\". So no stated premise is dropped. The
   attribution of shape B (Q5: B) is kept".
 
-##### `tripwire@core@inputs-builder-needed` (pk/09, plausible): cross-check departs from the draft, X3
+##### `inputs-builder-needed` (pk/09, plausible): cross-check departs from the draft, X3
 
 - Draft's outcome: removed, condition 1. Cross-check's: "**reworded, kept on a doubt**, aligned with
   private-item-needed (pk/18): the response brought to the shape (one of the eight, \"open a
@@ -1031,7 +1031,7 @@ a re-check: no old or new text.
 - Verifier: verified. "Dropping the first clause rather than naming its event is right, since a
   declared kind is what the head endorses (\"a reviewed manifest diff\")."
 
-##### `tripwire@core@phases-gate-the-report-two` (pk/14, verified): split, creates `a-second-producer-chain`
+##### `tripwire@core@phases-gate-the-report-two` (pk/14, verified): split, creates `tripwire@core@a-second-producer-chain`
 
 - Outcome: reworded: split into two entries; "proposed or" struck on condition 1.
 - Evidence: "The entry says \"Two clauses, one decision\", and has two `**Fires when:**` and two
@@ -1071,7 +1071,7 @@ a re-check: no old or new text.
 
 ### 3.3 Applied in the branch: xtask, tools/xtask/docs/tripwires.md
 
-None. Its one entry, `tripwire@xtask@tip-alone-is-built`, is proposed removed (3.6). pk/21 proposed
+None. Its one entry, `tip-alone-is-built`, is proposed removed (3.6). pk/21 proposed
 the SHA repair "applied in the branch whatever the ruling"; under removal the cross-check calls it
 moot.
 
@@ -1109,7 +1109,7 @@ moot.
 - Verifier: verified. "The firing is computable from the confirmed findings and their drafts. A
   `todo` is right, since the data shape is missing."
 
-##### `tripwire@core@grammars-not-prefixes` (pk/07, refuted on its ground; sample, agree)
+##### the tripwire on `design@core@grammars-not-prefixes` (pk/07, refuted on its ground; sample, agree)
 
 - Rests on condition 1, "Where a script could compute the firing, write that check instead."
   Evidence: "**Fires when:** a `.rs` file in the tree yields no prose region, or no item scope,
@@ -1141,7 +1141,7 @@ moot.
 
 ### 3.5 Removed, condition 1 (10): owner list
 
-##### `tripwire@agent-skills@auditor-skips-part-of-the-corpus` (as1/11, verified)
+##### `auditor-skips-part-of-the-corpus` (as1/11, verified)
 
 - Evidence: "**Fires when:** an auditor's return says it did not read every file of the corpus
   whole." The head: "an auditor's return that says it did not read every file whole reopens how the
@@ -1153,7 +1153,7 @@ moot.
 - Verifier: verified. "The event is reported by a procedure and reopens the decision by the head's
   own text, so condition 1 excludes it."
 
-##### `tripwire@agent-skills@real-use-refusal-overruled` (as2/08, verified), X1
+##### `real-use-refusal-overruled` (as2/08, verified), X1
 
 - Evidence: "**Fires when:** the owner overrules a refusal, made under the real-use rule, of an
   addition to a project's own agent-facing text." "The firing is the owner's own request for the
@@ -1162,7 +1162,7 @@ moot.
 - Edit: delete; "referenced by nothing".
 - Verifier: verified. "the known consumers being the owner's."
 
-##### `tripwire@agent-skills@structure-rejection-overruled` (as2/19, verified), X1
+##### `structure-rejection-overruled` (as2/19, verified), X1
 
 - Evidence: "**Fires when:** a review or a design discussion rejects an instruction by citing
   `design@agent-skills@capabilities-not-structure` or `goal@agent-skills@installed-text-leaves-room-to-judge`,
@@ -1171,7 +1171,7 @@ moot.
 - Verifier: verified. "the keeping reading (a pattern of overrules no single one reopens) is a doubt
   the owner's weight lets drop, since the owner makes each overrule."
 
-##### `tripwire@core@checker-source-literals-are-data-self-location` (pk/03, verified)
+##### `checker-source-literals-are-data-self-location` (pk/03, verified)
 
 - Evidence: first half, "a `cargo klarch check` run reports a finding on a string literal in a Rust
   file under one of the tool's own directories": "a finding of `cargo klarch check`". Second half:
@@ -1183,7 +1183,7 @@ moot.
 - Verifier: verified. "I found no silent reading." Cross-check: "If ruled kept, its response must be
   brought to the shape for the eight-responses issue to close."
 
-##### `tripwire@core@extension-defines-a-kind` (pk/05, verified)
+##### `extension-defines-a-kind` (pk/05, verified)
 
 - Evidence: "**Fires when:** a proposed feature, in a design discussion or a review, needs a
   reference whose kind an extension defines rather than the core ... and the need is stated as a
@@ -1193,7 +1193,7 @@ moot.
   the event that would." becomes "Nothing needs that today."
 - Verifier: verified. "The clause's \"stated as a requirement\" is that request."
 
-##### `tripwire@core@nested-entries-asked` (pk/12, verified)
+##### `nested-entries-asked` (pk/12, verified)
 
 - Evidence: "**Fires when:** a project's owner, in a design discussion, an issue or a review, asks
   for a Directory register carried by an entry of a Directory register." The head: "a Directory
@@ -1201,7 +1201,7 @@ moot.
 - Edit: delete; "referenced by nothing".
 - Verifier: verified. "T1 carries no attribution."
 
-##### `tripwire@core@new-component-blocked-by-the-gate` (pk/13, verified)
+##### `new-component-blocked-by-the-gate` (pk/13, verified)
 
 - Evidence: "**Fires when:** one reported case of `new-component` refused over a finding of phases
   1 to 3 that the user could not repair before adding the Component, so that the user added it by
@@ -1211,7 +1211,7 @@ moot.
 - Verifier: verified. "A case nobody reports leaves no evidence (condition 2)." Re-read after pk/18:
   "13 stands, because its clause fires only on a report".
 
-##### `tripwire@core@plain-word-neither-pointer-nor-subject` (pk/15, plausible), on the doubt's weight
+##### `plain-word-neither-pointer-nor-subject` (pk/15, plausible), on the doubt's weight
 
 - Evidence: "**Fires when:** at a consuming project's upgrade, or here, the owner rules a finding of
   the plain-word lint to be on a word that is neither a pointer nor a subject slug". The head:
@@ -1223,17 +1223,17 @@ moot.
   applies, since the firing is the owner's own ruling." Cross-check: "the item states that condition
   1's words are not clear here, and that the drop rests on the doubt's weight".
 
-##### `tripwire@core@plans-directory-split-asked` (pk/17, verified)
+##### `plans-directory-split-asked` (pk/17, verified)
 
 - Evidence: "**Fires when:** a project's owner, in a design discussion, an issue or a review, asks
   for a plans directory per component, or for more than one plans directory in a project." The
   head: "A project has one plans directory, in its root component". The owner's two premises stay
   in the head.
-- Edit: delete; design.md:899, "`tripwire@core@plans-directory-split-asked` watches the premise.",
+- Edit: delete; design.md:899, "`plans-directory-split-asked` watches the premise.",
   repaired.
 - Verifier: verified.
 
-##### `tripwire@core@staged-pass-fails-the-checkout` (pk/19, verified)
+##### `staged-pass-fails-the-checkout` (pk/19, verified)
 
 - Evidence: "**Fires when:** a commit whose tree passed `check --staged` just before it was made
   then fails `check` in CI, or the tree half of `commits`, with no file edited in between." "The
@@ -1245,17 +1245,17 @@ moot.
 
 ### 3.6 Removed, condition 3 (4): owner list
 
-##### `tripwire@agent-skills@audit-defaults-overruled` (as1/08, verified)
+##### `audit-defaults-overruled` (as1/08, verified)
 
 - Evidence: "**Fires when:** in one audit, the owner rules against the default on more than a
   quarter of the items of the owner list; the bound is the owner's to reset." Condition 4 then 3:
   "A ruling against a default is the owner's word, given where the head sends it." The premise
   "gives the owner defaults the owner mostly accepts" is not in `design@agent-skills@audit-method`.
 - Edit: delete; SKILL.md:136 `%%` line "%% The count of rulings against the default is read by
-  `tripwire@agent-skills@audit-defaults-overruled`." deleted in the same commit.
+  `audit-defaults-overruled`." deleted in the same commit.
 - Verifier: verified. "The owner rules every item, so the doubt weight also applies."
 
-##### `tripwire@agent-skills@component-judgement-noisy` (as1/14, verified)
+##### `component-judgement-noisy` (as1/14, verified)
 
 - Evidence: "**Fires when:** in one pass, the session or the owner rejects more than half of the
   findings of a head in the wrong Component, on at least 4 such findings; the bounds are the
@@ -1265,16 +1265,16 @@ moot.
   again by the recording tests; tripwire-standard.md:199.
 - Verifier: verified.
 
-##### `tripwire@core@item-of-another-plan-named` (pk/11, verified)
+##### `item-of-another-plan-named` (pk/11, verified)
 
 - Evidence: "**Fires when:** a plan document's prose names an item of another plan document, by its
   id or by its statement, because no citation of it can be written." The head: "the repair names the
   document to cite whole (...) with the item named beside it as `#<id>`". "every session that
   follows the finding's repair fires the clause."
-- Edit: delete; design.md:960, "`tripwire@core@item-of-another-plan-named` watches it.", dropped.
+- Edit: delete; design.md:960, "`item-of-another-plan-named` watches it.", dropped.
 - Verifier: verified. "That is exactly what the clause counts."
 
-##### `tripwire@xtask@tip-alone-is-built` (pk/21, refuted; sample, R2)
+##### `tip-alone-is-built` (pk/21, refuted; sample, R2)
 
 - Evidence: the head, "A commit before the tip that does not compile passes CI, and is found only
   by whoever builds it later." The entry: "**Fires when:** a `git bisect` over `main` stops on a
@@ -1284,12 +1284,12 @@ moot.
 
 ### 3.7 Fired (1): the session judges
 
-##### `tripwire@agent-skills@search-missed-before-the-work` (as2/16, verified, fires)
+##### `search-missed-before-the-work` (as2/16, verified, fires)
 
 - Evidence: the clause, "across sessions, 2 standing-state reviews report a standing entry the work
   bears on, which no search before the work returned". The entry's instance: 91565fc, "gains its
   first instance". The unlisted one, 2712ecd: "Recorded here for the count
-  `tripwire@agent-skills@search-missed-before-the-work` keeps across sessions: one instance of its
+  `search-missed-before-the-work` keeps across sessions: one instance of its
   firing evidence, the standing-state reviewer of this branch's spec reporting two open entries the
   search before the work did not return (...). One instance; the tripwire fires at two." Both on
   main's history, "2712ecd at 13:08 and 91565fc at 17:06 on 2026-10-19, on two specs". "Not
@@ -1313,19 +1313,19 @@ that the drafts missed").
 
 | entry or text touched | findings | how they meet |
 | --- | --- | --- |
-| `issue@agent-skills@eight-tripwires-respond-with-an-action-the-tripwire-shape-does-not-name`, lines 19 to 27 | as2/03, 07, 13; pk/01, 02, 04 (reworded); pk/03 (removed); pk/09 (removed in its draft, kept on a doubt by the cross-check) | "The issue closes only if every one of the eight lands. If the owner keeps `checker-source-literals-are-data-self-location`, or the session keeps `inputs-builder-needed` (part 3 proposes it), neither removal draft gives a response rewording to fall back on, and the session writes one." |
-| `issue@agent-skills@a-procedure-tripwire-states-no-severity-bound`, lines 32 to 38 | as1/07; as2/06, 13, 14, 15, 17 | "After the rewordings, three of its \"four\" no longer fire on one instance." Closes at step 5 of the spec (spec line 208). X4. |
+| `eight-tripwires-respond-with-an-action-the-tripwire-shape-does-not-name`, lines 19 to 27 | as2/03, 07, 13; pk/01, 02, 04 (reworded); pk/03 (removed); pk/09 (removed in its draft, kept on a doubt by the cross-check) | "The issue closes only if every one of the eight lands. If the owner keeps `checker-source-literals-are-data-self-location`, or the session keeps `inputs-builder-needed` (part 3 proposes it), neither removal draft gives a response rewording to fall back on, and the session writes one." |
+| `a-procedure-tripwire-states-no-severity-bound`, lines 32 to 38 | as1/07; as2/06, 13, 14, 15, 17 | "After the rewordings, three of its \"four\" no longer fire on one instance." Closes at step 5 of the spec (spec line 208). X4. |
 | `tripwire@core@checker-source-literals-are-data-purpose`, its Response | pk/02, pk/03 | "The two are applied together, after the owner's ruling on 03." |
-| `tripwire@agent-skills@search-missed-before-the-work`, Instances line (tripwires.md:81 to 84) | as2/16 (deleted); as2/14 and as1/07 (reword the two cited entries) | "No conflict: the rewordings keep both slugs, and the deletion removes the citing line." |
+| `search-missed-before-the-work`, Instances line (tripwires.md:81 to 84) | as2/16 (deleted); as2/14 and as1/07 (reword the two cited entries) | "No conflict: the rewordings keep both slugs, and the deletion removes the citing line." |
 | `issue@agent-skills@a-tripwire-on-agent-behaviour-fires-where-this-project-cannot-see`, lines 42, 86, 90 | as2/16; as1/16 | Line 90 "begins \"A second tripwire of the same class\", counted from the tripwire at line 86. Once search-missed is deleted, \"A second\" counts from nothing." |
 | `issue@agent-skills@a-pointer-delivers-its-directive-only-when-the-session-fetches-it`, line 99 | as2/06 | "One report no longer fires it after the rewording." |
 | `issue@core@an-extension-cannot-see-which-register-a-document-belongs-to`, lines 55 and 74 | pk/18; pk/09 | Line 74 repaired only if 09's removal is ruled. X3. |
-| `design@core@phases-gate-the-report` (design.md:112) | pk/13 (removed); pk/14 (split, new slug `a-second-producer-chain`) | design.md:112 "stays true". "The split creates a tripwire." |
+| `design@core@phases-gate-the-report` (design.md:112) | pk/13 (removed); pk/14 (split, new slug `tripwire@core@a-second-producer-chain`) | design.md:112 "stays true". "The split creates a tripwire." |
 | `rejected@agent-skills@workflow-corpus-shared-out` (rejected.md:274) | as1/11 | kept on a doubt naming the deleted entry |
 | `rejected@agent-skills@wrong-component-outcome-removed` (rejected.md:425) | as1/14 | the same |
 | crates/agent-skills/content/skills/project-audit/SKILL.md, lines 136 and 143 | as1/08 | line 143 "is left with no act needing it" |
 | docs/plans/specs/path-quickfixes.md | pk/01 (240), 06 (223 to 1168), 14 (226, 424), 19 (248) | "Only 19 deletes. 248 is repaired in the deleting commit." |
-| docs/plans/specs/tripwire-standard.md, lines 193, 196, 199 | as2/06, as2/15, as1/14 | 193 and 196 stay true; 199 dangles once `tripwire@agent-skills@component-judgement-noisy` is deleted |
+| docs/plans/specs/tripwire-standard.md, lines 193, 196, 199 | as2/06, as2/15, as1/14 | 193 and 196 stay true; 199 dangles once `component-judgement-noisy` is deleted |
 | crates/core/docs/design.md, `register@core@tripwire` pointers at 112, 242, 505, 632, 1175, 1699, 2025 | pk/14 (112), 05 (242), 20 (505, 518), 19 (632), 10 (1175), 01 (1699), 15 (2025) | "`cargo klarch show` does not list these, since they cite the register, not the entry." |
 | `issue@agent-skills@a-member-recorded-directly-lies-beyond-its-head-s-argument` | as2/01 | its recorded instances "may already" meet the reworded clause |
 
@@ -1355,29 +1355,29 @@ that the drafts missed").
 
 | entry (draft, outcome) | citing text | after the deletion |
 | --- | --- | --- |
-| `tripwire@agent-skills@audit-defaults-overruled` (as1/08, removed c3) | crates/agent-skills/content/skills/project-audit/SKILL.md:136, `%%` line | dangling; deleted in the same commit |
+| `audit-defaults-overruled` (as1/08, removed c3) | crates/agent-skills/content/skills/project-audit/SKILL.md:136, `%%` line | dangling; deleted in the same commit |
 | | the same file, line 143: "too how many of the owner's rulings on the owner list went against the default" | "not false, but its only reader is gone. The deleting commit judges it by the agent-text standard: delete it, or name another reader. The draft does not name it. It is installed text: edited under crates/agent-skills/content and installed again" |
-| `tripwire@agent-skills@auditor-skips-part-of-the-corpus` (as1/11, removed c1) | crates/agent-skills/docs/rejected.md:274, `rejected@agent-skills@workflow-corpus-shared-out`, kept on a doubt naming the entry | dangling; "the entry is judged again by the recording tests, its removal put to the owner if none holds." The draft's repointing "is one outcome of the re-judgement, not a substitute for it." |
-| `tripwire@agent-skills@component-judgement-noisy` (as1/14, removed c3) | crates/agent-skills/docs/rejected.md:425, `rejected@agent-skills@wrong-component-outcome-removed`, kept on a doubt naming the entry | dangling; judged again by the recording tests |
+| `auditor-skips-part-of-the-corpus` (as1/11, removed c1) | crates/agent-skills/docs/rejected.md:274, `rejected@agent-skills@workflow-corpus-shared-out`, kept on a doubt naming the entry | dangling; "the entry is judged again by the recording tests, its removal put to the owner if none holds." The draft's repointing "is one outcome of the re-judgement, not a substitute for it." |
+| `component-judgement-noisy` (as1/14, removed c3) | crates/agent-skills/docs/rejected.md:425, `rejected@agent-skills@wrong-component-outcome-removed`, kept on a doubt naming the entry | dangling; judged again by the recording tests |
 | | docs/plans/specs/tripwire-standard.md:199 | dangling. "A reference that resolves to nothing is a `check` finding at the deleting commit, so it cannot wait for the harvest. The spec's own work removes the entry, so the row writes its bare slug in backticks" |
-| `tripwire@agent-skills@search-missed-before-the-work` (as2/16, fired) | the agent-behaviour issue, line 42 | dangling; rewritten to name the new `design` issue |
+| `search-missed-before-the-work` (as2/16, fired) | the agent-behaviour issue, line 42 | dangling; rewritten to name the new `design` issue |
 | | the same issue, line 86, quoting the owner's word on the tripwire's wait | dangling; rewritten; the owner's word goes on the owner list with the firing |
 | | the same issue, line 90, "A second tripwire of the same class" | false once line 86 names no first; "Not named by any draft." |
 | | crates/agent-skills/docs/tripwires.md:84 | inside the deleted entry |
-| `tripwire@core@checker-source-literals-are-data-self-location` (pk/03, removed c1) | the eight-responses issue:24 | dangling, unless the issue closes at step 5 |
+| `checker-source-literals-are-data-self-location` (pk/03, removed c1) | the eight-responses issue:24 | dangling, unless the issue closes at step 5 |
 | | the purpose entry's Response, "the self-location tripwire above" | false; pk/02 repairs it |
-| `tripwire@core@extension-defines-a-kind` (pk/05) | crates/core/docs/design.md:242 | false; "Nothing needs that today." |
-| `tripwire@core@inputs-builder-needed` (pk/09, if removed) | the eight-responses issue:27; the extension issue:74 | dangling; repaired; "Not needed if part 3's proposal, keep, is taken" |
-| `tripwire@core@item-of-another-plan-named` (pk/11) | crates/core/docs/design.md:960 | dangling; the sentence dropped |
-| `tripwire@core@nested-entries-asked` (pk/12), `tripwire@core@new-component-blocked-by-the-gate` (pk/13) | referenced by nothing | none |
-| `tripwire@core@plain-word-neither-pointer-nor-subject` (pk/15) | crates/core/docs/design.md:2025 | false; repaired |
-| `tripwire@core@plans-directory-split-asked` (pk/17) | crates/core/docs/design.md:899 | dangling; repaired |
-| `tripwire@core@staged-pass-fails-the-checkout` (pk/19) | the staged-check issue:45 | dangling; repaired in words |
+| `extension-defines-a-kind` (pk/05) | crates/core/docs/design.md:242 | false; "Nothing needs that today." |
+| `inputs-builder-needed` (pk/09, if removed) | the eight-responses issue:27; the extension issue:74 | dangling; repaired; "Not needed if part 3's proposal, keep, is taken" |
+| `item-of-another-plan-named` (pk/11) | crates/core/docs/design.md:960 | dangling; the sentence dropped |
+| `nested-entries-asked` (pk/12), `new-component-blocked-by-the-gate` (pk/13) | referenced by nothing | none |
+| `plain-word-neither-pointer-nor-subject` (pk/15) | crates/core/docs/design.md:2025 | false; repaired |
+| `plans-directory-split-asked` (pk/17) | crates/core/docs/design.md:899 | dangling; repaired |
+| `staged-pass-fails-the-checkout` (pk/19) | the staged-check issue:45 | dangling; repaired in words |
 | | docs/plans/specs/path-quickfixes.md:248 | dangling. "A bare slug is not open here, since this spec's work does not remove the entry." |
 | | crates/core/docs/design.md:632 | false; repaired |
-| `tripwire@agent-skills@real-use-refusal-overruled`, `tripwire@agent-skills@structure-rejection-overruled`, `tripwire@agent-skills@agent-text-findings-need-nothing`, `tripwire@agent-skills@audit-drafts-mostly-noise`, `tripwire@agent-skills@audit-passes-do-not-converge`, `tripwire@agent-skills@duplicate-auditors-add-nothing` | referenced by nothing | none |
-| `tripwire@xtask@tip-alone-is-built` (pk/21, R2) | referenced by nothing | "tools/xtask/docs/tripwires.md is left with no entry, like the root's and gates' homes at the commit audited. Its wrong SHA, d2f0ce4, goes with it." |
-| `tripwire@core@grammars-not-prefixes` (converted) | crates/core/docs/design.md:2285 | repointed to the tests in the same commit |
+| `real-use-refusal-overruled`, `structure-rejection-overruled`, `tripwire@agent-skills@agent-text-findings-need-nothing`, `tripwire@agent-skills@audit-drafts-mostly-noise`, `tripwire@agent-skills@audit-passes-do-not-converge`, `tripwire@agent-skills@duplicate-auditors-add-nothing` | referenced by nothing | none |
+| `tip-alone-is-built` (pk/21, R2) | referenced by nothing | "tools/xtask/docs/tripwires.md is left with no entry, like the root's and gates' homes at the commit audited. Its wrong SHA, d2f0ce4, goes with it." |
+| the tripwire on `design@core@grammars-not-prefixes` (converted) | crates/core/docs/design.md:2285 | repointed to the tests in the same commit |
 | `tripwire@core@walked-count-differs-between-machines` (converted) | crates/core/docs/design.md:518 | repointed to the check |
 | | crates/core/docs/design.md:505, "The tripwire is in `register@core@tripwire`." | false once deleted; "the conversion's `todo` issue carries it" |
 
@@ -1397,7 +1397,7 @@ that the drafts missed").
 | `tripwire@agent-skills@deferred-trigger-met-by-undesigned-work` (as1/16) | the agent-behaviour issue, line 90 | false only through the deletion of search-missed |
 
 Judged to stay true after the edit (cross-check 2b): the citing texts of a-shortcut-decision,
-`tripwire@agent-skills@agent-text-written-without-the-standard`, `tripwire@agent-skills@argued-closure-reopened`, `tripwire@agent-skills@attribution-loses-the-scope`
+`tripwire@agent-skills@agent-text-written-without-the-standard`, `argued-closure-reopened`, `tripwire@agent-skills@attribution-loses-the-scope`
 (design.md:790, the plan-documents issue:44), `tripwire@agent-skills@calibration-reading-rejected`,
 `tripwire@agent-skills@design-entry-search-misses`, `tripwire@agent-skills@expectation-set-closes-a-contradiction`,
 `tripwire@agent-skills@head-created-without-deliberation`, `tripwire@agent-skills@owner-intent-stripped`, `tripwire@agent-skills@pointer-not-followed` (rejected.md:204,
@@ -1415,7 +1415,7 @@ plausible verdicts; the six drafts marked as firing; and, as samples of its choo
 drafts as1/13 and pk/16 and the reworded draft pk/14, with no correction. Its decisions on the
 points the run left to it:
 
-- **X3**: `tripwire@core@inputs-builder-needed` is removed on condition 1, the work that meets its
+- **X3**: `inputs-builder-needed` is removed on condition 1, the work that meets its
   failure being a test its author cannot write, and on the doubt's weight, the extension being the
   owner's own; `tripwire@core@private-item-needed` stays kept on a doubt, since a consumer that
   works around a missing item fails nothing. It joins F2.
@@ -1423,7 +1423,7 @@ points the run left to it:
   carry, through `design@agent-skills@misstated-ruling-rated-by-what-it-changes`, a rewording.
 - **The plausible verdicts**: the cross-check's readings are kept: as1/04 and as1/09 kept on a
   doubt; pk/15 removed on the doubt's weight, in F2.
-- **The firings**: `tripwire@agent-skills@search-missed-before-the-work` fired, two instances in
+- **The firings**: `search-missed-before-the-work` fired, two instances in
   separate pieces of work, which the rule on slips counts, its default in F4;
   `tripwire@agent-skills@attribution-loses-the-scope` did not, since its reworded clause counts a
   critical misstatement only and the owner ruled each past instance not load-bearing;
@@ -1439,9 +1439,9 @@ entry ruled otherwise. Write each `Outcome` line, or answer by label in the conv
 ### F1: converted, 4 entries
 
 `tripwire@agent-skills@audit-passes-do-not-converge`, `tripwire@agent-skills@duplicate-auditors-add-nothing`,
-`tripwire@core@grammars-not-prefixes`, `tripwire@core@walked-count-differs-between-machines`, as
+the tripwire on `design@core@grammars-not-prefixes`, `tripwire@core@walked-count-differs-between-machines`, as
 section 3.4 gives them with their checks. Condition 1: "Where a script could compute the firing,
-write that check instead". The two tests of `tripwire@core@grammars-not-prefixes` are written in the branch; the
+write that check instead". The two tests of the tripwire on `design@core@grammars-not-prefixes` are written in the branch; the
 three others become `todo` issues, and each entry leaves once its check exists, in the same
 commit for the tests, with the issue for the others.
 
@@ -1450,33 +1450,33 @@ Outcome: accepted, the default, on the owner's word: "I accept all defaults here
 
 ### F2: removed on condition 1, 12 entries
 
-`tripwire@agent-skills@auditor-skips-part-of-the-corpus`, `tripwire@agent-skills@real-use-refusal-overruled`,
-`tripwire@agent-skills@structure-rejection-overruled`, `tripwire@core@checker-source-literals-are-data-self-location`,
-`tripwire@core@extension-defines-a-kind`, `tripwire@core@nested-entries-asked`,
-`tripwire@core@new-component-blocked-by-the-gate`, `tripwire@core@plain-word-neither-pointer-nor-subject`
-(on the doubt's weight), `tripwire@core@plans-directory-split-asked`,
-`tripwire@core@staged-pass-fails-the-checkout`, and, by the session's decision on X3,
-`tripwire@core@inputs-builder-needed`; condition 1: "A failure that fails a test or a check, stops
+`auditor-skips-part-of-the-corpus`, `real-use-refusal-overruled`,
+`structure-rejection-overruled`, `checker-source-literals-are-data-self-location`,
+`extension-defines-a-kind`, `nested-entries-asked`,
+`new-component-blocked-by-the-gate`, `plain-word-neither-pointer-nor-subject`
+(on the doubt's weight), `plans-directory-split-asked`,
+`staged-pass-fails-the-checkout`, and, by the session's decision on X3,
+`inputs-builder-needed`; condition 1: "A failure that fails a test or a check, stops
 the work that meets it, or arrives as a request for what the decision refused reaches the decision
 without a tripwire". The words each turns on, and the texts each leaves stale, are in sections 3.5
 and 4.3. `rejected@agent-skills@workflow-corpus-shared-out` is judged again with the removal of
-`tripwire@agent-skills@auditor-skips-part-of-the-corpus`, as F7 says.
+`auditor-skips-part-of-the-corpus`, as F7 says.
 
 Default: removed, all twelve.
 Outcome: accepted, the default, on the owner's word: "I accept all defaults here, everything look fine, proceed".
 
 ### F3: removed on condition 3, 4 entries
 
-`tripwire@agent-skills@audit-defaults-overruled`, `tripwire@agent-skills@component-judgement-noisy`,
-`tripwire@core@item-of-another-plan-named`, `tripwire@xtask@tip-alone-is-built`; condition 3: "A
+`audit-defaults-overruled`, `component-judgement-noisy`,
+`item-of-another-plan-named`, `tip-alone-is-built`; condition 3: "A
 clause that counts what the decision instructs or endorses fires on the decision working". Section
 3.6. `rejected@agent-skills@wrong-component-outcome-removed` is judged again with the removal of
-`tripwire@agent-skills@component-judgement-noisy`, as F7 says.
+`component-judgement-noisy`, as F7 says.
 
 Default: removed, all four.
 Outcome: accepted, the default, on the owner's word: "I accept all defaults here, everything look fine, proceed".
 
-### F4: fired, `tripwire@agent-skills@search-missed-before-the-work`
+### F4: fired, `search-missed-before-the-work`
 
 Its clause: "across sessions, 2 standing-state reviews report a standing entry the work bears on,
 which no search before the work returned"; the instances are in the messages of two commits of
@@ -1491,9 +1491,9 @@ Outcome: accepted, the default, on the owner's word: "I accept all defaults here
 
 ### F5: X1, is the owner's own overrule "a request for what the decision refused"?
 
-Entries on the owner overruling what a decision produced: `tripwire@agent-skills@real-use-refusal-overruled` and
-`tripwire@agent-skills@structure-rejection-overruled` (in F2 on this reading), and `tripwire@agent-skills@a-comment-escalation-is-overruled`,
-`tripwire@agent-skills@a-head-verdict-is-overruled`, `tripwire@agent-skills@argued-closure-reopened`, which the drafts reword and keep. The
+Entries on the owner overruling what a decision produced: `real-use-refusal-overruled` and
+`structure-rejection-overruled` (in F2 on this reading), and `a-comment-escalation-is-overruled`,
+`a-head-verdict-is-overruled`, `argued-closure-reopened`, which the drafts reword and keep. The
 owner's overrule is the owner's act, seen by the owner, and reaches the decision with no tripwire.
 
 Default: yes: the three reworded entries join F2, removed; the two in F2 stay there.
@@ -1526,14 +1526,14 @@ Outcome: accepted, the default, on the owner's word: "I accept all defaults here
 | as1/04 | `tripwire@agent-skills@agent-text-findings-need-nothing` | removal on condition 3 against a recurrence reading; cross-check proposes kept on a doubt |
 | as1/09 | `tripwire@agent-skills@audit-drafts-mostly-noise` | the same; "Neither reading is settled by the text." |
 | as2/01 | `tripwire@agent-skills@head-created-without-deliberation` | the new branch may be met on its first day (cebb978's finding c) |
-| pk/09 | `tripwire@core@inputs-builder-needed` | X3; cross-check proposes kept on a doubt |
-| pk/15 | `tripwire@core@plain-word-neither-pointer-nor-subject` | condition 1 not clear; removal on the doubt's weight |
+| pk/09 | `inputs-builder-needed` | X3; cross-check proposes kept on a doubt |
+| pk/15 | `plain-word-neither-pointer-nor-subject` | condition 1 not clear; removal on the doubt's weight |
 
 ### 6.2 Firings for the session to judge
 
-- as2/16 `tripwire@agent-skills@search-missed-before-the-work`: proposed fired; "across sessions" not established.
+- as2/16 `search-missed-before-the-work`: proposed fired; "across sessions" not established.
 - as2/01 `tripwire@agent-skills@head-created-without-deliberation`: judged for a firing once reworded.
-- as1/02 `tripwire@agent-skills@a-head-verdict-is-overruled`: letter met once in thaum, ruled not fired by the owner; the
+- as1/02 `a-head-verdict-is-overruled`: letter met once in thaum, ruled not fired by the owner; the
   rewording narrows the clause to that ruling.
 - as1/07 `tripwire@agent-skills@attribution-loses-the-scope`: "The letter was met in several separate pieces of work and
   ruled not fired each time. Under the standard's recurrence branch that bears on those rulings;

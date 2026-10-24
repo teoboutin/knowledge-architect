@@ -71,6 +71,7 @@ entity table and the anchors, with an owner of a path, the entry at a site, the 
 register, and the resolution of a span; rather than making `Entities` and `Anchors` public as
 they are. It widens what `design@core@an-extension-builds-its-own-model` lists an extension as
 reading. Its design settles how the view reaches `check` (a new parameter breaks every
-extension; a field of `Inputs` meets `tripwire@core@inputs-builder-needed`), and whether a
+extension; a field of `Inputs` cannot be set by an extension's test, since `Inputs` is
+non-exhaustive and the fields of `Gathered` are private), and whether a
 `Finding` gains a check name. Then the implementation, a worked `impl Extension` in the crate
 docs.

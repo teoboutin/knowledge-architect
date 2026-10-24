@@ -238,8 +238,7 @@ one machine, compared. A measurement that grows to a share
 of the run comparable with the walk and the parse reopens caching the scan inside the extension.
 
 **An extension cannot add a kind to the entity table.** A reference kind is the core's, so an extension's
-subject cannot be cited as `<kind>@<anchor>@<id>`. Nothing needs that today, and
-`register@core@tripwire` names the event that would.
+subject cannot be cited as `<kind>@<anchor>@<id>`. Nothing needs that today.
 
 ### An extension claims the manifest tables it reads, and the core refuses a table nobody claims `##an-extension-claims-its-manifest-tables`
 
@@ -501,8 +500,7 @@ in the walk and is reported, because dropping it would take a live document out 
 the strength of a working-tree state.
 
 **The summary block prints the walked-file count**, so two machines disagreeing about the walk is
-visible in the output rather than inferred from a finding list. The tripwire is in
-`register@core@tripwire`.
+visible in the output rather than inferred from a finding list.
 
 **This is the working tree's walk, the one plain `check` reads.** `check --staged` and `commits`
 read a snapshot instead, from git objects alone, per `design@core@staged-tree-source` and
@@ -514,8 +512,9 @@ read a snapshot instead, from git objects alone, per `design@core@staged-tree-so
 is no part of any project, so every invocation runs with it pointed at the null device: a line
 there would otherwise take an untracked live document out of every check on one clone and not on
 another. What still decides the walk beside the tree's own ignore files is git's per-clone exclude
-file, which git offers no way to pin, and that is what
-`tripwire@core@walked-count-differs-between-machines` is left guarding.
+file, which git offers no way to pin. The check that would report the files it alone removes
+from the walk is
+`issue@core@the-walk-does-not-report-what-the-per-clone-exclude-file-removes`.
 
 ### A listed path is read as git's bytes, never decoded `##a-path-is-bytes`
 
@@ -628,8 +627,7 @@ The staged installed files are compared with the running binary's shipped set, p
 staged tree, lost because CI runs `check` on a checkout: a staged run that skips the installed
 files passes a tree CI fails. Two reads stay the working tree's: the ignore rules a path reference
 asks, as for `commits`, and the version pin, compared before any command per
-`design@core@installed-binary-version-check`. The tripwire on a staged pass that CI then fails is
-in `register@core@tripwire`.
+`design@core@installed-binary-version-check`.
 
 ### `check` judges no given commit's tree; `commits` does `##check-judges-no-given-commit`
 
@@ -896,8 +894,7 @@ component. Two premises are the owner's weighing: "there should never be that ma
 open at once that splitting the directory would make sense", and "plans have a tendency to break
 each other, when they are designed before the other is implemented", which one directory keeps in
 one view. The reference grammar names the anchor, so a later split adds
-anchors and rewrites no citation. `tripwire@core@plans-directory-split-asked`
-watches the premise.
+anchors and rewrites no citation.
 
 The design this decision did not keep: `rejected@core@plans-directory-per-component`.
 
@@ -957,7 +954,7 @@ gives an item outside its plan. A
 whole plan may be cited from anywhere, so a dependency between plans is carried by the document,
 and retiring a plan asks no other plan to be redesigned item by item. The premise is that a
 whole-document citation carries every dependency between plans that matters while few plans are
-open at once. `tripwire@core@item-of-another-plan-named` watches it.
+open at once.
 
 The design this decision did not keep: `rejected@core@cross-plan-item-citation`.
 
@@ -2022,8 +2019,7 @@ owner's view. The census of the design discussion, kept in its spec,
 sorted the hits: every plain hit that was no pointer came from a subject slug, and every other hit
 was a pointer written in words. A listing would leave those pointers unchecked: `rejected@core@plain-word-mention`. A slug kept as a concept index, so
 that a term's mentions read as its pointers, is not the intended use of the workflow, in the
-owner's view, and `show` lists every citation of an entry. `register@core@tripwire` watches the
-premise: a finding the owner rules to be on a word that is neither a pointer nor a subject slug.
+owner's view, and `show` lists every citation of an entry.
 
 **A released section of CHANGELOG.md is linted** as any other prose; how a finding there is ruled
 is `design@knowledge-architect@changelog-section-fixed-at-release`.
@@ -2282,8 +2278,11 @@ body would need a second pass over the raw text: two readers that each answer ha
 Rust-analyzer's syntax crate keeps comments, but it is a crate of compiler internals released with
 the rust-analyzer releases, whose interface changes from one release to the next; this cadence is an
 assumption, which no measurement or documentation in this tree checks.
-`tripwire@core@grammars-not-prefixes` watches an upgrade of `tree-sitter-rust` or `pulldown-cmark`
-that renames a node the extractor asks for. The designs this decision did not keep: `rejected@core@syn-rust-parser` and
+An upgrade of `tree-sitter-rust` that renames a node kind or a field the extractor asks for fails
+the test `every_rust_extractor_node_kind_is_one_the_grammar_defines`, and a Rust file of the tree
+that yields no prose region while it holds a comment, or no item scope while it holds a top-level
+function, fails `every_tracked_rust_file_yields_prose`. An upgrade of `pulldown-cmark` that renames
+an event fails to compile, since the extractor matches its events as Rust enum variants. The designs this decision did not keep: `rejected@core@syn-rust-parser` and
 `rejected@core@rust-analyzer-syntax-crate`.
 
 ### A Rust name is collected where it is declared, never where it is used `##names-collected-where-declared`

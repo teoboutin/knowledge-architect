@@ -9,8 +9,9 @@ The decision rests on the premise that assembly from the transcript, checked by 
 reviewer, records the owner's rulings as the owner made them, and an answer of the owner on a
 reading or a fact with its source, per `design@agent-skills@answer-keeps-its-authority`.
 
-**Fires when:** a ruling of the owner is found missing from, or misstated in, a committed plan
-document, after the plan document's own reviews, where the misstatement is critical under
+**Fires when:** a ruling of the owner is found missing from, or misstated in, a plan document that
+reached the main branch with no review reporting it, or in the plan documents of two separate
+pieces of work, where the misstatement is critical under
 `design@agent-skills@misstated-ruling-rated-by-what-it-changes`: reversed, or changing what is
 built or a load-bearing decision.
 **Response:** open a `defect` naming the ruling and the document, and reopen
@@ -19,6 +20,7 @@ discussion's ledger to a file during the discussion", `rejected@agent-skills@led
 among the candidates.
 **Re-entry:** the retrospective of the session that assembled the plan document: it reads that
 session's own record against the committed document.
+**Watches until:** 5 plan documents deleted at their landing.
 **Evidence when written:** in the commit that added the structured-plans milestone document, its
 transcript reviewers found three rulings recorded wider than the owner made them. The author wrote
 each of the three, and the extraction none, and each was repaired before that commit. That is
@@ -28,13 +30,20 @@ hedged word of the owner firmer than given, on details that were not load-bearin
 that such a slip is no critical defect, still repaired, and under the firing condition above
 neither fires.
 
-## Guarding `design@agent-skills@expectation-set-bounds-scope` `##expectation-set-closes-a-contradiction`
+## Guarding `design@agent-skills@expectation-set-bounds-scope`: a contradiction between two installed instructions is closed as outside a skill's scope `##expectation-set-closes-a-contradiction`
+
+The decision rests on the premise that an expectation set scopes the owner's behaviour only, so
+that no finding of two installed instructions leaving no move satisfying both is closed by citing
+one.
 
 **Fires when:** a finding that two installed instructions leave no move satisfying both is closed
-by citing an expectation set.
+by citing an expectation set, in two separate analyses or reviews, or in a record that reaches the
+main branch with no review reporting it.
 **Response:** open a `defect` naming the finding and the set cited, and reopen
 `design@agent-skills@expectation-set-bounds-scope` if its boundary sentence admits the reading.
 **Re-entry:** the standing-state review of the change that closed the finding.
+**Watches until:** three commits on the main branch that add analyses of received retrospective
+files under docs/retrospective-reports/, counted from the commit that writes this line.
 
 ## Guarding `design@agent-skills@new-or-reshaped-head-needs-design`: a head is created, contradicted or given a member its argument does not cover with no deliberation recorded `##head-created-without-deliberation`
 
@@ -44,16 +53,20 @@ before any write into a design home per `design@agent-skills@design-home-write-l
 reach a session before it writes a decision that creates a head, contradicts one, or adds a member
 its argument does not cover.
 
-**Fires when:** a commit creates a design head, contradicts a statement of one, or adds to it a
-member its argument does not cover, and neither its message nor a plan document carries the
-deliberation: no thread, no rival, and no record of the owner's ruling where the owner ruled. A relocation
-or rewording that adds or removes no decision does not count.
+**Fires when:** a commit on the main branch creates a design head, contradicts a statement of one,
+or adds to it a member its argument does not cover, and neither its message nor a plan document
+carries the deliberation: no thread, no rival, and no record of the owner's ruling where the owner
+ruled; or reviews of two separate branches each report such a commit of their branch. A relocation
+or rewording that adds or removes no decision does not count. The instances that
+`issue@agent-skills@a-member-recorded-directly-lies-beyond-its-head-s-argument` records do not
+count: they are that issue's.
 **Response:** open a `defect` naming the head and the commit, and reopen
 `design@agent-skills@new-or-reshaped-head-needs-design` on where its trigger is delivered; for a
 member beyond the argument, with the rival that sends every decision earning durable text through
 the design skill among the candidates.
 **Re-entry:** the standing-state review before every merge: the commits and their messages are in
 the branch's history.
+**Watches until:** 20 commits on the main branch that add a level-three heading to a design home.
 
 ## Guarding `design@agent-skills@in-change-path`: a ruling lost or misstated in an in-change commit message `##ruling-lost-in-change`
 
@@ -62,33 +75,15 @@ made them, as a plan document does, with no review of a plan document before the
 
 **Fires when:** a ruling of the owner is found missing from, or misstated in, the commit message
 that carries the deliberation of a discussion on the in-change path, after the branch's transcript
-review.
+review, and the misstatement is critical under
+`design@agent-skills@misstated-ruling-rated-by-what-it-changes`.
 **Response:** open a `defect` naming the ruling and the commit, and reopen
 `design@agent-skills@in-change-path` on its entry condition: whether a discussion with more than
 one approved thread takes the full path.
 **Re-entry:** the retrospective of each session that wrote such a commit message: it reads the
 session's own record against the message.
-
-## Guarding `design@agent-skills@standing-entries-searched-before-the-work`: an entry the work bears on that no search before the work returned `##search-missed-before-the-work`
-
-The decision rests on the premise that a search at the grounding of a design discussion and at the
-design audit of a milestone slice, or of a spec where its audit runs, meets the standing entries a
-piece of work bears on before the work. A spec implemented by the session that wrote it, on an
-unmoved main branch, has no audit, and an entry can be added after the grounding's search.
-
-**Fires when:** across sessions, 2 standing-state reviews report a standing entry the work bears
-on, which no search before the work returned.
-**Instances:** 1. The standing-state review of the spec of the `rejected` register, in its review
-commit "[review] Repairs of the spec on the rejected register: …", reported
-`issue@core@a-plain-hash-item-name-is-read-by-nothing`,
-`tripwire@agent-skills@ruling-lost-in-assembly` and `tripwire@agent-skills@attribution-loses-the-scope`,
-which the discussion's search had not returned: each named a rejected alternative in words.
-**Response:** open a `design` issue naming the entries and the works, and reopen
-`design@agent-skills@standing-entries-searched-before-the-work` on its occasions, with a search
-when convergence is proposed, before the premortem, among the candidates.
-**Re-entry:** the design discussion of
-`issue@agent-skills@a-tripwire-on-agent-behaviour-fires-where-this-project-cannot-see`, on the
-owner's word: the evidence arises in the sessions of the projects that use the workflow.
+**Watches until:** 10 commits on the main branch whose message carries a deliberation on the
+in-change path.
 
 ## Guarding `design@agent-skills@standing-entries-searched-before-the-work`: a deferred trigger met by work that bypasses the design skill and found only at the review `##deferred-trigger-met-by-undesigned-work`
 
@@ -104,14 +99,16 @@ of the pinned checker met the trigger of a deferred issue that named that move.
 with its host.
 **Re-entry:** the standing-state review before every merge, which reads every deferred trigger
 against the change.
+**Watches until:** three commits on the main branch that add analyses of received retrospective
+files under docs/retrospective-reports/, counted from the commit that writes this line.
 
 ## Guarding `skill@knowledge-architect-planning@working-a-slice`: a critical gap an audit would have found, in a spec's work that skipped it as the rule allows `##skipped-spec-audit-would-have-found-a-gap`
 
 The instruction that runs a spec's design audit only when a fresh session starts its work or the
 main branch has moved, argued in the `%%` line beside it, rests on the premise that a spec
 implemented by the session that wrote it, on a main branch with no commit since the spec other
-than its own, has nothing load-bearing for an audit to find. The tripwire guards against a critical failure of the workflow, not a small mistake that is
-cheap to repair.
+than its own, has nothing load-bearing for an audit to find. On the owner's word, the tripwire
+guards against a critical failure of the workflow, not a small mistake that is not load-bearing.
 
 **Fires when:** a review finds, in the work of a spec that skipped its design audit as the rule
 allows, a critical gap an audit would have listed: a shape the tree refutes, a name the code does
@@ -122,19 +119,7 @@ audit in `skill@knowledge-architect-planning@working-a-slice`, with a design aud
 every spec, as for every slice, the first candidate.
 **Re-entry:** the standing-state review before every merge: the spec, its commit and the main
 branch's history since are in the branch's range and its base.
-
-## Guarding `design@agent-skills@capabilities-not-structure`: a rejection that cites it is overruled `##structure-rejection-overruled`
-
-The decision rests on the premise that the principle against imposed structure is cited to remove
-structure the work does not need, and not to refuse structure it does.
-
-**Fires when:** a review or a design discussion rejects an instruction by citing
-`design@agent-skills@capabilities-not-structure` or
-`goal@agent-skills@installed-text-leaves-room-to-judge`, and the owner overrules that rejection.
-**Response:** open a `design` issue naming the instruction and the owner's reason, and reopen
-`design@agent-skills@capabilities-not-structure` on where structure is needed.
-**Re-entry:** the retrospective of the session where the owner overruled it, which reads that
-session's record.
+**Watches until:** 6 specs deleted at their landing.
 
 ## Guarding `design@agent-skills@bounded-path-in-design`: a decision taken on the bounded path earns a head `##a-shortcut-decision-earns-a-head`
 
@@ -142,452 +127,416 @@ The decision rests on the premise that a session classifies work as bounded only
 decision it makes fails the entry tests, and does not use the path to skip a discussion.
 
 **Fires when:** a decision-record review finds, in a commit made on the bounded path, a decision
-that passes an entry test of `design@agent-skills@a-head-is-owed-by-an-entry-test`, at the second
-instance.
+that passes an entry test of `design@agent-skills@a-head-is-owed-by-an-entry-test`, at instances in
+two separate pieces of work; or such a decision is found once on the main branch with no review
+having reported it.
 **Response:** reopen `design@agent-skills@bounded-path-in-design` on its three conditions.
 **Re-entry:** the decision-record review before every merge: the commit carries the proposal and,
 if one came, the owner's answer.
+**Watches until:** three commits on the main branch whose message names the bounded path, counted
+from the commit that writes this line.
 
-## Guarding `design@agent-skills@a-head-is-owed-by-an-entry-test`: the owner overrules a review's verdict on a head `##a-head-verdict-is-overruled`
-
-The decision rests on the premise that the entry tests decide whether a head is owed in a way the
-owner agrees with, and that whether a rival is plausible is not left to case-by-case taste.
-
-**Fires when:** the owner overrules a review's verdict on whether a decision earns a head, the
-second time.
-**Response:** reopen `design@agent-skills@a-head-is-owed-by-an-entry-test` on the wording of the
-tests.
-**Re-entry:** the decision-record review, whose verdicts the owner rules on.
-
-## Guarding `design@agent-skills@local-intent-binds`: an escalation over a comment is ruled unneeded `##a-comment-escalation-is-overruled`
-
-The decision rests on the premise that a reason recorded at the code is weighed as a presumption,
-and does not make every change to commented code a question for the owner.
-
-**Fires when:** the owner rules, the second time, that a session's escalation of a change because a
-comment states a reason was unneeded, the comment holding no decision worth the question.
-**Response:** reopen `design@agent-skills@local-intent-binds` on the rung of comments.
-**Re-entry:** the retrospective of the session where the owner ruled it, which reads that session's
-record; this is behaviour in sessions, with the limit
-`issue@agent-skills@a-tripwire-on-agent-behaviour-fires-where-this-project-cannot-see` names.
-
-## Guarding `design@agent-skills@plan-read-against-the-record`: the design-conformance reviewer's findings are mostly needless `##design-conformance-findings-needless`
+## Guarding `design@agent-skills@plan-read-against-the-record`: the design-conformance reviewer reports a widening the plan document lists as decided `##design-conformance-findings-needless`
 
 The decision rests on the premise that the reviewer reports departures from the record, and not the
-widenings a plan document makes on purpose, so that its findings are worth the owner's reading. The
-owner ruled on it as T1 at the premortem of its discussion.
+widenings a plan document makes on purpose, so that its findings are worth the owner's reading.
 
-**Fires when:** at two moments in a row at which the planning skill sends a plan document's
-reviewers, a re-review after a revision included, more than half of the design-conformance
-reviewer's findings end judged to need nothing, by the dispatching session or by the owner. The
-count, two moments, and the proportion, half, are defaults the owner may reset.
+**Fires when:** in the reviews of two separate plan documents, the design-conformance reviewer
+reports as a finding a widening or a reversal of a head that the document's "What is already
+decided" lists as reversed or rewritten.
 **Response:** open a `design` issue naming the two reviews and their findings, and reopen
 `design@agent-skills@plan-read-against-the-record` on the reviewer's scope.
 **Re-entry:** the standing-state review before every merge, which reads the outcome each review
 commit records for each finding; and the retrospective of the session where the second of those
 reviews ran, which reads that session's record.
+**Watches until:** three plan documents deleted at their landing on the main branch, counted from
+the commit that writes this line.
 
 ## Guarding `design@agent-skills@head-ground-is-the-argument`: the owner's own ground is removed from a head `##owner-intent-stripped`
 
-T2 of the premortem of the discussion that made the decision. The decision rests on the premise
-that the repair of an approval cited as a ground does not remove the owner's own ground with it.
+The decision rests on the premise that the repair of an approval cited as a ground does not remove
+the owner's own ground with it.
 
-**Fires when:** a commit removes, or rewords as an argument, the owner's ground in a design head,
-quoted or attributed, and the transcript or the plan document shows that the decision, or that
-part, came from the owner. A quotation converted to an attribution that states the same ground, per
-`design@agent-skills@attribution-replaces-quotation`, does not fire it.
-**Response:** restore the owner's ground, attributed, and reopen
-`design@agent-skills@head-ground-is-the-argument` on how a ground is told apart, with the rival
-that cites every ruling of the owner among the candidates.
-**Re-entry:** the standing-state review before every merge, and the transcript review of the change.
+**Fires when:** a commit on the main branch has removed, or reworded as an argument, the owner's
+ground in a design head, quoted or attributed, where a plan document or a commit message shows that
+the decision, or that part, came from the owner, and no review reported it before the merge; or
+reviews of two separate branches each report such a removal. A quotation converted to an
+attribution that states the same ground, per `design@agent-skills@attribution-replaces-quotation`,
+does not fire it.
+**Response:** reopen `design@agent-skills@head-ground-is-the-argument` on how a ground is told
+apart, with the rival that cites every ruling of the owner among the candidates; the removed ground
+is restored as the repair of the instance.
+**Re-entry:** the standing-state review before every merge, and the design-record axis of
+`skill@knowledge-architect-project-audit`.
+**Watches until:** 20 commits on the main branch that change a design home's heads' text, counted
+as commits that add or remove a level-three heading of a design home.
 
 ## Guarding `design@agent-skills@title-states-the-rule`: a rule title wider than its argument `##rule-title-wider-than-its-argument`
 
-T3 of the premortem of the discussion that made the decision. The decision rests on the premise
-that a title moved to the rule stays within what its argument argues.
+The decision rests on the premise that a title moved to the rule stays within what its argument
+argues.
 
-**Fires when:** a review finds a title wider than its argument in a head written or rewritten after
-the decision.
-**Response:** repair the title, and reopen `design@agent-skills@title-states-the-rule`.
+**Fires when:** the reviews of two separate branches each find a title wider than its argument in a
+head their branch writes or rewrites, or an audit finds one on the main branch in a head written or
+rewritten after the decision.
+**Response:** reopen `design@agent-skills@title-states-the-rule`; the title found is repaired as the
+instance.
 **Re-entry:** the decision-record review of every change that writes a head.
+**Watches until:** 20 commits on the main branch that add a level-three heading to a design home,
+and one pass of the design-record axis.
 
 ## Guarding `design@agent-skills@one-decision-per-head`: a split that separates a rule from its own exception `##split-rule-from-exception`
 
-T4 of the premortem of the discussion that made the decision. The decision rests on the premise
-that the nearest-rival test keeps a rule's exception with the rule.
+The decision rests on the premise that the nearest-rival test keeps a rule's exception with the
+rule.
 
-**Fires when:** a commit merges back two heads split under the decision, or a review finds an
-exception split from its rule.
+**Fires when:** a commit merges back two heads split under the decision; or the reviews of two
+separate branches each find an exception split from its rule in a head their branch writes, or an
+audit finds one on the main branch.
 **Response:** reopen `design@agent-skills@one-decision-per-head`, with the reversal test among the
 candidates.
 **Re-entry:** the decision-record review of every change that writes a head.
+**Watches until:** 20 commits on the main branch that add a level-three heading to a design home,
+and one pass of the design-record axis.
 
 ## Guarding `design@agent-skills@restatement-size-test`: a directive missed because its restatement became a pointer `##pointer-not-followed`
 
-T5 of the premortem of the discussion that made the decision. The decision rests on the premise
-that a session follows a pointer to a directive's home at the moment it needs the directive.
+The decision rests on the premise that a session follows a pointer to a directive's home at the
+moment it needs the directive.
 
-**Fires when:** a review or a retrospective finds a directive broken in a session where its
-restatement had been replaced by a pointer under the decision.
+**Fires when:** reviews or retrospectives of two separate pieces of work each find a directive
+broken where its restatement had been replaced by a pointer under the decision, or one such break
+reaches the main branch with no review or retrospective reporting it.
 **Response:** reopen `design@agent-skills@restatement-size-test`, with the rule it replaced, a
 directive restated wherever it is delivered, among the candidates.
 **Re-entry:** the retrospective of each session, and the review of every change.
-
-## Guarding `design@agent-skills@audit-method`: the owner overrules the defaults of an audit's owner list `##audit-defaults-overruled`
-
-T6 of the premortem of the discussion that made the decision. The decision rests on the premise that
-the session's reading that produces the owner list's defaults, the verification of a run's report,
-with the calibration where an axis has one, gives the owner defaults the owner mostly accepts, so
-the owner list costs a ruling per kind rather than a judgement per item.
-
-**Fires when:** in one audit, the owner rules against the default on more than a quarter of the
-items of the owner list; the bound is the owner's to reset.
-**Response:** reopen `design@agent-skills@audit-method`.
-**Re-entry:** the session that receives the owner's answers to an owner list counts them; the
-standing-state review of the audit's branch reads it again.
+**Watches until:** 12 retrospective analyses, each a file added under docs/retrospective-reports/.
 
 ## Guarding `design@agent-skills@audit-triggers`: a pin moves across a version whose changelog cites an axis, and the axis is not run `##axis-not-run-at-a-pin-move`
 
-T7 of the premortem of the discussion that made the decision. The decision rests on the premise
-that the move of a pin reads the Migration entries of the versions crossed and runs the axis they
-cite. It watches agent behaviour in a consumer project, which this project cannot see, per
+The decision rests on the premise that the move of a pin reads the Migration entries of the
+versions crossed and runs the axis they cite. It watches agent behaviour in a consumer project,
+which this project cannot see, per
 `issue@agent-skills@a-tripwire-on-agent-behaviour-fires-where-this-project-cannot-see`.
 
-**Fires when:** a retrospective finds a pin moved across such a version with the axis not run.
+**Fires when:** in two separate pin moves, received retrospective files show a pin moved across
+such a version with the axis not run. An axis that the owner chose to replace or to scope at the
+move is not counted, since the owner's request is the main occasion of an audit, per
+`design@agent-skills@audit-triggers`.
 **Response:** reopen `design@agent-skills@audit-triggers`.
 **Re-entry:** the retrospective of a session that moved a pin.
+**Watches until:** three commits on the main branch that add analyses of received retrospective
+files under docs/retrospective-reports/, counted from the commit that writes this line.
 
-## Guarding `design@agent-skills@workflow-axis-lenses`: in a pass, one agent of each duplicated lens alone reports every confirmed finding of that lens `##duplicate-auditors-add-nothing`
+## Guarding `design@agent-skills@workflow-axis-finding-standard`: auditors report predicted gaps as provable ones across passes `##audit-drafts-mostly-noise`
 
-T1 of the premortem of the discussion that made the decision. The decision rests on the premise
-that a second agent on one lens finds what the others of that lens missed, so its cost buys
-coverage.
+The decision rests on the premise that the finding standard keeps auditors from reporting predicted
+gaps as provable ones, and L8's auditors from reporting two standards that differ in wording and
+give one verdict.
 
-**Fires when:** in one pass, for every lens dispatched more than once, one of its agents alone
-reported every confirmed finding of that lens. Two L2 agents count as one lens dispatched twice
-only when they share a group of activities.
-**Response:** reopen `design@agent-skills@workflow-axis-lenses` on the duplicate dispatch.
-**Re-entry:** the session's verification of each pass's report counts it.
-
-## Guarding `design@agent-skills@workflow-axis-finding-standard`: most drafts of a pass fail the reading `##audit-drafts-mostly-noise`
-
-T2 of the premortem of the discussion that made the decision. The decision rests on the premise
-that the finding standard keeps auditors from reporting predicted gaps as provable ones, and L8's
-auditors from reporting two standards that differ in wording and give one verdict, so the reading
-of a pass is not spent rejecting drafts.
-
-**Fires when:** in one pass, more than half of the drafts fail the reading. A draft the verifier
-refutes or the session rejects fails it; a draft marked kept or known is not counted.
+**Fires when:** in two passes of the agentic-workflow axis, a draft fails the reading because it
+reports a predicted gap as a provable one, or, from L8, two standards that differ in wording and
+give one verdict. A draft the verifier refutes or the session rejects on that ground fails it; a
+draft marked kept or known is not counted.
 **Response:** reopen `design@agent-skills@workflow-axis-finding-standard` and the standard of
 `agent@knowledge-architect-workflow-auditor`.
 **Re-entry:** the session's verification of each pass's report.
-
-## Guarding `design@agent-skills@workflow-axis-corpus` and `design@agent-skills@workflow-axis-lenses`: an auditor does not read the whole corpus `##auditor-skips-part-of-the-corpus`
-
-T3 of the premortem of the discussion that made the decision. The decisions rest on the premise
-that one agent reads the whole corpus, every file whole, so that a contradiction between two files
-is in one agent's reading. The corpus grows with every skill and every repair.
-
-**Fires when:** an auditor's return says it did not read every file of the corpus whole.
-**Response:** reopen how the corpus is shared out among agents, in
-`design@agent-skills@workflow-axis-lenses`, with the corpus shared out among agents of one task
-among the candidates.
-**Re-entry:** the session's verification of each pass's report, which reads each auditor's saved
-return.
+**Watches until:** two report files of the agentic-workflow axis added under docs/audit-reports/ on
+the main branch, counted from the commit that writes this line.
 
 ## Guarding `design@agent-skills@verifier-in-the-run`: a verifier refutes a true finding `##verifier-refutes-a-true-finding`
 
-T5 of the premortem of the discussion that made the decision. The decision rests on the premise
-that the adversarial verifier refutes only drafts a reading refutes, since the session reads only a
-sample of the refuted drafts, chosen by its judgement.
+The decision rests on the premise that the adversarial verifier refutes only drafts a reading
+refutes, since the session reads only a sample of the refuted drafts, chosen by its judgement.
 
-**Fires when:** in any pass, the session's sample of refuted drafts holds one that a reading
-confirms.
+**Fires when:** in two passes, of any axis, the session's sample of refuted drafts holds one that a
+reading confirms.
 **Response:** reopen `design@agent-skills@verifier-in-the-run`.
 **Re-entry:** the session's verification of every report.
+**Watches until:** 3 passes of any audit axis, each counted by its report file.
 
 ## Guarding `design@agent-skills@verifier-in-the-run`: the verifiers wave findings through `##verifiers-wave-findings-through`
 
-T6 of the premortem of the discussion that made the decision. The decision rests on the premise
-that the verifiers refute what a reading refutes, so that the session's verification after the run
-is not a second sort.
+The decision rests on the premise that the verifiers refute what a reading refutes, so that the
+session's verification after the run is not a second sort.
 
-**Fires when:** in one pass, the session rejects more than a quarter of a report's confirmed
-findings; the bound is the owner's to reset.
+**Fires when:** in two passes, of any axis, the session's verification rejects a finding a verifier
+confirmed, on a refutation the verifier's brief gives it the record to make.
 **Response:** reopen `design@agent-skills@verifier-in-the-run`.
 **Re-entry:** the session's verification of every report.
+**Watches until:** 3 passes of any audit axis, each counted by its report file.
 
 ## Guarding `design@agent-skills@repairs-read-against-the-record`: a repair reverses a head or brings back a rejected alternative its check did not name `##record-check-misses-a-head`
 
-T8 of the premortem of the discussion that made the decision. The decision rests on the premise
-that the check of a repair proposal finds the heads its edits would reverse, although its search
-for the heads that describe a behaviour is a judgement.
+The decision rests on the premise that the check of a repair proposal finds the heads its edits
+would reverse, although its search for the heads that describe a behaviour is a judgement.
 
-**Fires when:** the review of an audit's branch finds a repair that contradicts a design head, or
-brings back a rejected alternative, which the check of its proposal did not name.
+**Fires when:** the reviews of two separate audits' branches each find a repair that contradicts a
+design head, or brings back a rejected alternative, which the check of its proposal did not name;
+one such miss, which the head's argument expects that review to find, does not fire it.
 **Response:** reopen `design@agent-skills@repairs-read-against-the-record` on where the record
 check runs.
 **Re-entry:** the review of each audit's branch.
-
-## Guarding `design@agent-skills@root-cause-repair`: an audit's passes do not converge `##audit-passes-do-not-converge`
-
-AC4 of the discussion that made the decision, proposed by the owner as an acceptance criterion and
-kept as a tripwire, on the owner's word, to watch future audits. The decision rests on the premise
-that repairing each cause rather than each finding makes an audit push the record toward
-improvement, so that what a pass leaves falls from one pass to the next.
-
-**Fires when:** from one pass to the next of an audit, the violations left on old text do not
-fall, or the severe ones among them, those whose outcome is the owner list, do not fall while they
-are above zero. Old text is text the previous pass also read, whose words are unchanged since the
-commit it audited, per `design@agent-skills@convergence-count-scope`; a first pass is not counted.
-**Response:** reopen `design@agent-skills@root-cause-repair`, with `design@agent-skills@workflow-axis-lenses`,
-`design@agent-skills@workflow-axis-finding-standard` and
-`design@agent-skills@audit-passes-repeat-while-the-count-falls` among what is read again.
-**Re-entry:** the session that writes each pass's commit message, which gives the counts on old
-text; the standing-state review of the audit's branch.
-**Evidence when written:** in the first agentic-workflow audit of this repository, as an
-acceptance criterion, it fired at passes 1 to 3 and 5 on the plain counts, and at pass 6 on the
-old-text counts: 21 violations left against pass 5's 16, the severe ones falling from 8 to 7. The
-owner stopped the audit after pass 6's application.
+**Watches until:** 3 passes of the agentic-workflow axis, each counted by its report file.
 
 ## Guarding `design@agent-skills@calibration-in-the-run`: the session rejects the calibration's readings `##calibration-reading-rejected`
 
-T1 of the premortem of the discussion that made the decision. The decision rests on the premise
-that the calibration agent proposes readings the session confirms, so that the session's
-confirmation is a check rather than a second calibration, and a wrong reading is not applied in
-every group.
+The decision rests on the premise that the calibration agent proposes readings the session
+confirms, so that the session's confirmation is a check rather than a second calibration, and a
+wrong reading is not applied in every group.
 
 **Fires when:** in one audit, the session's verification rejects a reading the calibration agent
 proposed, in two passes.
 **Response:** reopen `design@agent-skills@calibration-in-the-run`, with the session settling the
 reading among the candidates.
 **Re-entry:** the session's verification of each report of the design-record axis.
+**Watches until:** two report files of the design-record axis added under docs/audit-reports/ on
+the main branch, counted from the commit that writes this line.
 
 ## Guarding `design@agent-skills@verifier-in-the-run`: a design-record verifier passes a wrong conforming draft `##conforming-draft-wrong`
 
-T2 of the premortem of the discussion that made the design-record axis's saved workflow. The
-decision rests on the premise that a design-record verifier's sample of the drafts that find their
-entry conforming is enough, so a violation a drafter missed does not wait a whole pass for the
-re-check.
+The decision rests on the premise that a design-record verifier's sample of the drafts that find
+their entry conforming is enough, so a violation a drafter missed does not wait a whole pass for
+the re-check.
 
-**Fires when:** in any pass, the session's own sample of conforming drafts holds one that a reading
-shows failing a rule, and that the report does not list among the drafts whose verdict it doubts.
+**Fires when:** in two passes, the session's own sample of conforming drafts holds one that a
+reading shows failing a rule, and that the report does not list among the drafts whose verdict it
+doubts.
 **Response:** reopen `design@agent-skills@verifier-in-the-run`, on how much of the conforming drafts
 a design-record verifier reads.
 **Re-entry:** the session's verification of each report of the design-record axis.
+**Watches until:** three report files of the design-record axis added under docs/audit-reports/ on
+the main branch, counted from the commit that writes this line.
 **Evidence when written:** on the first pass of the design-record axis through its saved workflow
 on this repository, the session's sample held a wrong conforming draft that the drafter, the
-verifier and the cross-check had each flagged as doubtful; the clause leaves such a draft out, as
-the owner agreed with the rulings on that pass.
+verifier and the cross-check had each flagged as doubtful; the clause leaves such a draft out,
+since a draft the report lists as doubtful is one the session reads.
 
 ## Guarding `design@agent-skills@one-run-pass`: the design-record cross-check misses an overlap `##overlap-missed`
 
-T3 of the premortem of the discussion that made the design-record axis's saved workflow. The
-decision rests on the premise that the cross-check maps every pair of findings that edit one
+The decision rests on the premise that the cross-check maps every pair of findings that edit one
 paragraph or one slug, so the application meets no collision the report did not show.
 
 **Fires when:** during the application of a pass of the design-record axis, the session meets two
 findings that edit one paragraph or one slug, and the cross-check's overlap map does not list them.
 **Response:** reopen the design-record axis's cross-check, in `design@agent-skills@one-run-pass`.
 **Re-entry:** the application of each pass of the design-record axis.
+**Watches until:** the application of 2 passes of the design-record axis, each counted by the
+deletion of its report file at its last outcome.
 
 ## Guarding `design@agent-skills@root-cause-repair` and `design@agent-skills@design-record-axis-dispatch`: one rule misread across groups outside the sample `##rule-misread-across-groups`
 
-T4 of the premortem of the discussion that made the design-record axis's saved workflow. The
-decisions rest on the premise that the design-record axis's findings need no grouping by cause,
+The decisions rest on the premise that the design-record axis's findings need no grouping by cause,
 since the calibration sample catches a rule the auditors read apart.
 
-**Fires when:** in one pass, the session traces findings in at least three groups to one misreading
-of one rule, and the calibration did not catch it.
+**Fires when:** in one pass, the session traces findings of more than one group to one misreading of
+one rule, and the calibration did not catch it.
 **Response:** reopen the absence of a cause step for the design-record axis, in
 `design@agent-skills@root-cause-repair`, and how the sample is chosen, in
 `design@agent-skills@design-record-axis-dispatch`.
 **Re-entry:** the session's verification of each report of the design-record axis.
-
-## Guarding `design@agent-skills@design-record-axis`: the Component judgement is noisy `##component-judgement-noisy`
-
-T5 of the premortem of the discussion that made the design-record axis's saved workflow. The
-decision rests on the premise that the auditors' judgements of the Component a head sits in are
-mostly right, so the owner list does not grow by misfiled-head items the owner rejects.
-
-**Fires when:** in one pass, the session or the owner rejects more than half of the findings of a
-head in the wrong Component, on at least 4 such findings; the bounds are the owner's to reset.
-**Response:** reopen the Component judgement in `design@agent-skills@design-record-axis`.
-**Re-entry:** the session's verification of each report of the design-record axis, and the owner's
-ruling on its owner list.
+**Watches until:** 2 passes of the design-record axis, each counted by its report file.
 
 ## Guarding `design@agent-skills@questions-go-to-their-authority`: questions the record answers still reach the owner `##record-answered-questions-reach-the-owner`
 
-T2 of the premortem of the discussion that made the decision. The decision rests on the premise that routing a question by its
-authority, stated in the primer every session reads and delivered where a skill writes a default,
-per `design@agent-skills@derived-decision-proceeds-on-default`, overcomes the weight agents give to
-the owner's word, which `design@agent-skills@misstated-ruling-rated-by-what-it-changes` records
-the owner judging that no further instruction would reduce.
+The decision rests on the premise that routing a question by its authority, stated in the primer
+every session reads and delivered where a skill writes a default, per
+`design@agent-skills@derived-decision-proceeds-on-default`, overcomes the weight agents give to the
+owner's word, which `design@agent-skills@misstated-ruling-rated-by-what-it-changes` records the owner
+observing in agents.
 
-**Fires when:** a retrospective of a session after this decision's landing finds 2 or more
-questions put to the owner that a goal, a design head or a source's text answered.
+**Fires when:** the retrospectives of two separate pieces of work each find a question put to the
+owner that a goal, a design head or a source's text answered.
 **Response:** reopen `design@agent-skills@questions-go-to-their-authority` and
 `design@agent-skills@derived-decision-proceeds-on-default` on how the routing is delivered, for
 example at the points where a skill puts a finding to the owner rather than a default.
 **Re-entry:** the retrospective of each session, with the limit
 `issue@agent-skills@a-tripwire-on-agent-behaviour-fires-where-this-project-cannot-see` names.
+**Watches until:** 15 retrospective analyses, each a file added under docs/retrospective-reports/.
 
 ## Guarding `design@agent-skills@owner-word-holds-as-far-as-its-premise`: a deliberate departure from a specification is overridden as a reading `##departure-overridden-as-a-reading`
 
-T3 of the premortem of the discussion that made the decision. The decision rests on the premise that a project states its
-departures from a specification it follows, so that a session can tell an owner's answer on a
-reading from a scope decision.
+The decision rests on the premise that a project states its departures from a specification it
+follows, so that a session can tell an owner's answer on a reading from a scope decision.
 
 **Fires when:** a session applies a source's text over an answer the owner gave as a deliberate
-departure from that source.
+departure from that source, in two separate pieces of work, or once in a record that reaches the
+main branch with no review reporting it.
 **Response:** reopen `design@agent-skills@owner-word-holds-as-far-as-its-premise` on how a
 departure is recorded, so that a session can tell it from a reading.
 **Re-entry:** the retrospective of each session, and the standing-state review before every merge,
 with the limit `issue@agent-skills@a-tripwire-on-agent-behaviour-fires-where-this-project-cannot-see`
 names.
+**Watches until:** three commits on the main branch that add analyses of received retrospective
+files under docs/retrospective-reports/, counted from the commit that writes this line.
 
 ## Guarding `design@agent-skills@attribution-replaces-quotation`: an attribution loses the scope the owner's words had `##attribution-loses-the-scope`
 
-T4 of the premortem of the discussion that made the decision. The decision rests on the premise
-that an attribution states what the owner decided and how far it reaches as well as the owner's
-words did.
+The decision rests on the premise that an attribution states what the owner decided and how far it
+reaches as well as the owner's words did.
 
-**Fires when:** the transcript reviewer reports a misstated ruling that traces to an attribution in
-a durable record, where the owner's words would have shown the scope.
+**Fires when:** an attribution in a durable record misstates a ruling of the owner where the
+owner's words would have shown its scope, and the misstatement is critical under
+`design@agent-skills@misstated-ruling-rated-by-what-it-changes`, in two separate pieces of work, or
+once on the main branch with no review having reported it.
 **Response:** reopen `design@agent-skills@attribution-replaces-quotation` on where verbatim words
 are owed, with the rejected design that quotes the owner in a head whose ground is the owner's,
 `rejected@agent-skills@owner-words-quoted-in-head`, among the candidates.
 **Re-entry:** the transcript review of each change, which reads the owner's words in the transcript
 against the record.
-
-## Guarding `design@agent-skills@owner-rules-at-a-fork`: threads closed on their argument are reopened by the owner `##argued-closure-reopened`
-
-T1 of the premortem of the discussion that made the decision. The decision rests on the premise
-that a session tells a rival defeated by a named fact from a rival that survives, so that what it
-closes `argued` is what the owner would not have decided otherwise.
-
-**Fires when:** in one discussion, the owner reopens 2 or more threads closed `argued`, saying a
-rival was not defeated.
-**Response:** reopen `design@agent-skills@owner-rules-at-a-fork` on what defeats a rival, with the
-rival its head names that sends to the owner every choice weighing a cost among the candidates.
-**Re-entry:** the retrospective of that session, with the limit
-`issue@agent-skills@a-tripwire-on-agent-behaviour-fires-where-this-project-cannot-see` names.
+**Watches until:** ten commits on the main branch whose subject opens with `[review]`, counted from
+the commit that writes this line.
 
 ## Guarding `design@agent-skills@admission-rules-home`: an unneeded addition is made in a session that did not load the agent-configuration skill `##agent-text-written-without-the-standard`
 
-T1 of the premortem of the discussion that made the decision. The decision rests on the premise
-that a session writing agent-facing text loads the agent-configuration skill, whose trigger
-delivers the standard at that moment, so that a home outside the primer reaches every writer.
+The decision rests on the premise that a session writing agent-facing text loads the
+agent-configuration skill, whose trigger delivers the standard at that moment, so that a home
+outside the primer reaches every writer.
 
-**Fires when:** a review or a retrospective finds an addition to agent-facing text that fails the
-need test of `design@agent-skills@statement-names-an-act` or the real-use rule of
+**Fires when:** an addition to agent-facing text that fails the need test of
+`design@agent-skills@statement-names-an-act` or the real-use rule of
 `design@agent-skills@behaviour-additions-need-real-use`, made in a session that did not load the
-agent-configuration skill.
+agent-configuration skill, is reported in two separate pieces of work, or reaches the main branch
+with no review reporting it.
 **Response:** reopen `design@agent-skills@admission-rules-home` on its rival the primer, a
 one-sentence pointer in the primer to the standard.
 **Re-entry:** the retrospective of that session, and the outcome of the review's finding.
+**Watches until:** three commits on the main branch that add analyses of received retrospective
+files under docs/retrospective-reports/, counted from the commit that writes this line.
 
 ## Guarding `design@agent-skills@additions-review-agent`: most findings of the agent-facing-text axis need nothing `##agent-text-findings-need-nothing`
 
-T2 of the premortem of the discussion that made the decision. The decision rests on the premise
-that the agent reports statements that fail the need test, and not its hard cases, so that a
-session spends its verification on findings that hold.
+The decision rests on the premise that the agent reports statements that fail the need test, and
+not its hard cases, so that a session spends its verification on findings that hold.
 
-**Fires when:** in one review where the axis on agent-facing text reports at least four findings,
-the session or the owner judges more than half of them to need nothing.
+**Fires when:** in the reviews of two separate pieces of work, the axis on agent-facing text reports
+findings and every one of them is judged to need nothing, by the session or by the owner.
 **Response:** reopen the need test's readings in
 `skill@knowledge-architect-agent-configuration@admission-standard`, which the agent and the
 need-test lens both apply, and `design@agent-skills@statement-names-an-act` with them.
 **Re-entry:** the outcome step of each review, `skill@knowledge-architect-review@what-review-leaves`.
-
-## Guarding `design@agent-skills@behaviour-additions-need-real-use`: a refusal of an addition to a project's own text is overruled `##real-use-refusal-overruled`
-
-T3 of the premortem of the discussion that widened the rule to a project's own agent-facing text.
-The widening rests on the premise that a project's owner wants the same evidence for an addition to
-the project's own text as for the installed text.
-
-**Fires when:** the owner overrules a refusal, made under the real-use rule, of an addition to a
-project's own agent-facing text.
-**Response:** reopen the rule's scope over a project's own text, in
-`design@agent-skills@behaviour-additions-need-real-use`.
-**Re-entry:** the retrospective of that session.
+**Watches until:** ten commits on the main branch that change a file under
+`path@agent-skills@content/`, counted from the commit that writes this line.
 
 ## Guarding `design@agent-skills@checker-model-in-primer`: a rarer checker rule enters the model section `##rarer-rule-in-the-model`
 
-T2 of the premortem of the discussion that moved the checker's model into the primer. The decision
-rests on the premise that the model section holds what a reader needs, and that a rule a writer
-needs only for an uncommon shape reaches a session through its finding.
+The decision rests on the premise that the model section holds what a reader needs, and that a rule
+a writer needs only for an uncommon shape reaches a session through its finding.
 
 **Fires when:** a review or an audit finds a rule in `primer@checker-model` that a finding message
 already delivers with its repair, other than one the owner accepted there by name, as the explanation
 of `check --fix`'s refusal. On the owner's ruling, a rule that a review of the branch adding
 it finds, and that the branch removes before its merge, does not fire it.
-**Response:** remove the rule from the section, and reopen with the owner the scope of the ruling
-that the rarer checker rules are delivered by their findings.
+**Response:** reopen `design@agent-skills@checker-model-in-primer` with the owner, on the scope of
+the owner's ruling that the rarer checker rules are delivered by their findings; the rule found is
+removed from the section as the repair of the instance.
 **Re-entry:** that review or audit.
+**Watches until:** 10 commits on the main branch that change `path@agent-skills@content/PRIMER.md`.
 
 ## Guarding `design@agent-skills@rejected-citation-direction`: an entry cited only by heads that do not decide its question `##rejected-entry-cited-by-the-wrong-head`
 
 The decision rests on the premise that the head citing a `rejected` entry is the one whose argument
-covers it, so that a session reading that head meets the design. The owner ruled on it as T1 at the
-premortem of its discussion.
+covers it, so that a session reading that head meets the design.
 
-**Fires when:** a review or an audit finds a `rejected` entry whose only citing heads decide a
-question other than the one the design it records answered.
+**Fires when:** an audit, or the review of a branch that did not add the citation, finds on the
+main branch a `rejected` entry whose only citing heads decide a question other than the one the
+design it records answered; or the reviews of two separate branches each find one that their
+branch added.
 **Response:** reopen `design@agent-skills@rejected-citation-direction` on how the citing head is
 chosen.
 **Re-entry:** the decision-record review of every branch that adds a `rejected` entry, and the
 design-record axis of `skill@knowledge-architect-project-audit`.
+**Watches until:** 15 commits on the main branch that add a level-three heading to a `rejected`
+home, and one pass of the design-record axis.
 
 ## Guarding `design@agent-skills@design-entry-search`: a design entry missed though the search ran `##design-entry-search-misses`
 
 The decision rests on the premise that a search at grounding, sent again for a later thread, puts
-before the session every design entry and `rejected` entry its proposals bear on. The owner ruled on
-it as T2 at the premortem of its discussion.
+before the session every design entry and `rejected` entry its proposals bear on.
 
-**Fires when:** the design-conformance review of a plan document reports a contradicted head, or a
-`rejected` entry brought back without a recorded reopening, in a discussion where the design-entry
-search ran; or an outcome the owner ruled in a retrospective intake whose design-entry search ran
-turns out to reverse a head, or to bring back a `rejected` entry, that its analysis did not name.
-The owner ruled on the intake's case as T1 of the discussion that sent the search to the intake.
+**Fires when:** in two separate discussions or intakes where the design-entry search ran, a head
+contradicted, or a `rejected` entry brought back without a recorded reopening, is found that the
+search did not return: by the design-conformance review of a plan document, or by an outcome the
+owner ruled in the intake. Or once, on the main branch, with no review having reported it.
 **Response:** open a `design` issue naming the review and the discussion or the intake, and reopen
 `design@agent-skills@design-entry-search`, asking whether the miss came from a thread or a subject
 that opened after the search.
 **Re-entry:** the reviews of every plan document, each retrospective, and the review of the branch
 that carries out an intake's outcomes.
+**Watches until:** three plan documents deleted at their landing, and three commits that add
+analyses of received retrospective files under docs/retrospective-reports/, on the main branch,
+counted from the commit that writes this line.
 
 ## Guarding `design@agent-skills@searcher-grades-goals`: a goal is missed where the searcher graded the goals `##goal-missed-though-graded`
 
-The owner ruled on it as T2 of the discussion that had the design-entry searcher grade each goal of
-its Component. The decision rests on the premise that the searcher's grades of the goals are a
-second reading beside the session's own, which the session keeps, and not a summary it reads
-instead.
+The decision rests on the premise that the searcher's grades of the goals are a second reading
+beside the session's own, which the session keeps, and not a summary it reads instead.
 
-**Fires when:** a retrospective or a review reports a goal missed in a design discussion or a
-retrospective intake where the design-entry searcher graded that goal's Component's goals.
+**Fires when:** a goal is missed in a design discussion or a retrospective intake where the
+design-entry searcher graded that goal's Component's goals, in two separate pieces of work, or once
+in a record that reaches the main branch with no review reporting it.
 **Response:** reopen `design@agent-skills@searcher-grades-goals` on how goals reach the session.
 **Re-entry:** the retrospective of that session, and the review of the change.
+**Watches until:** three plan documents deleted at their landing, and three commits that add
+analyses of received retrospective files under docs/retrospective-reports/, on the main branch,
+counted from the commit that writes this line.
 
 ## Guarding `design@agent-skills@harness-shell-fails-on-a-pipe`: a chained command runs over a failing piped check in a project with the option `##piped-chain-runs-under-pipefail`
 
-T1 of the premortem of the decision, ruled by the owner at the intake of 2026-10-24. The decision
-rests on the premise that the option reaches every shell the harness starts.
+The decision rests on the premise that the option reaches every shell the harness starts.
 
 **Fires when:** a retrospective reports a command chained on a piped verdict that ran over a failing
 check, in a project whose harness settings set the option.
 **Response:** reopen `design@agent-skills@harness-shell-fails-on-a-pipe` on how the option reaches
 the shell.
 **Re-entry:** each retrospective intake.
+**Watches until:** 10 retrospective analyses, each a file added under docs/retrospective-reports/.
 
 ## Guarding `design@agent-skills@harness-shell-fails-on-a-pipe`: a session misreads a status the option produced `##pipefail-status-misread`
 
-T2 of the premortem of the decision, ruled by the owner at the intake of 2026-10-24. The decision
-rests on the premise that the statuses the option adds, 141 after `head` and 1 after a `grep` that
-matched nothing, fail safe.
+The decision rests on the premise that the statuses the option adds, 141 after `head` and 1 after a
+`grep` that matched nothing, fail safe.
 
 **Fires when:** a retrospective reports a session that read such a status as a failure of the
 command before the pipe, and acted on it.
 **Response:** reopen `design@agent-skills@harness-shell-fails-on-a-pipe` on what the setup tells a
 session of the statuses.
 **Re-entry:** each retrospective intake.
+**Watches until:** 8 retrospective analyses, each a file added under docs/retrospective-reports/.
 
+## Guarding `design@agent-skills@root-cause-repair`: an audit's passes do not converge `##audit-passes-do-not-converge`
+
+The decision rests on the premise that repairing each cause rather than each finding makes an audit
+push the record toward improvement, so that what a pass leaves falls from one pass to the next. The
+owner proposed this watch as an acceptance criterion, and kept it as a tripwire for future audits.
+
+**Fires when:** from one pass to the next of an audit, the severe violations left on old text, those
+whose outcome is the owner list, do not fall while they are above zero. Old text is text the
+previous pass also read, whose words are unchanged since the commit it audited, per
+`design@agent-skills@convergence-count-scope`; a first pass is not counted.
+**Response:** reopen `design@agent-skills@root-cause-repair`, with `design@agent-skills@workflow-axis-lenses`,
+`design@agent-skills@workflow-axis-finding-standard` and
+`design@agent-skills@audit-passes-repeat-while-the-count-falls` among what is read again.
+**Re-entry:** the session that writes each pass's commit message, which gives the counts on old
+text; the standing-state review of the audit's branch.
+**Watches until:** the commit that closes
+`issue@agent-skills@no-check-compares-an-audit-pass-s-owner-list-count-with-the-previous-pass-s`,
+whose check then carries it, and which deletes this entry.
+**Evidence when written:** in the first agentic-workflow audit of this repository, as an
+acceptance criterion, it fired at passes 1 to 3 and 5 on the plain counts, and at pass 6 on the
+old-text counts: 21 violations left against pass 5's 16, the severe ones falling from 8 to 7. The
+owner stopped the audit after pass 6's application.
+
+## Guarding `design@agent-skills@workflow-axis-lenses`: in a pass, one agent of each duplicated lens alone reports every confirmed finding of that lens `##duplicate-auditors-add-nothing`
+
+The decision rests on the premise that a second agent on one lens finds what the others of that lens
+missed, so its cost buys coverage.
+
+**Fires when:** in one pass, for every lens dispatched more than once, one of its agents alone
+reported every confirmed finding of that lens. Two L2 agents count as one lens dispatched twice
+only when they share a group of activities.
+**Response:** reopen `design@agent-skills@workflow-axis-lenses` on the duplicate dispatch.
+**Re-entry:** the session's verification of each pass's report counts it.
+**Watches until:** the commit that closes
+`issue@agent-skills@no-check-reports-a-duplicated-workflow-lens-whose-other-agents-found-nothing`,
+whose check then carries it, and which deletes this entry.

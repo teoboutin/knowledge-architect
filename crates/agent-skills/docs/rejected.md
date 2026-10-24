@@ -270,9 +270,10 @@ audit of this repository confirmed four findings that turned only on whether a r
 
 `live`. The workflow functions as a whole, and the axis exists mainly to find two instructions in
 different files that no single move satisfies; a contradiction across two files sent to different
-agents is found by neither. It is kept here because a doubt remains:
-`tripwire@agent-skills@auditor-skips-part-of-the-corpus` watches whether the corpus outgrows one
-agent's reading, and this alternative is a candidate if it does.
+agents is found by neither. It is kept here because a doubt remains: the corpus grows with every
+skill and every repair, and may outgrow one agent's reading. `design@agent-skills@workflow-axis-corpus`
+reopens how the corpus is shared out when an auditor's return says it did not read every file
+whole, and this alternative is a candidate then.
 
 ### One workflow auditor agent per lens `##workflow-auditor-per-lens`
 
@@ -383,8 +384,8 @@ lead to acceptable acts meets it.
 `live`. The application comes after the owner's ruling on the owner list, so the owner would rule on
 a repair without knowing it reverses a head. It is kept here because a doubt remains:
 `tripwire@agent-skills@record-check-misses-a-head` watches whether the check, whose search for the
-heads that describe a behaviour is a judgement, misses one, and where the check runs is then
-reopened.
+heads that describe a behaviour is a judgement, misses one in the reviews of two separate audits'
+branches, and where the check runs is then reopened.
 
 ### The commit messages alone as the record of an audit's passes `##commit-messages-as-audit-record`
 
@@ -422,8 +423,9 @@ beyond the calibration sample, and this alternative is a candidate if it is.
 ### The outcome "a head in the wrong Component" removed from the design-record axis, instead of the auditor judging it `##wrong-component-outcome-removed`
 
 `live`. It leaves a misfiled head unread until a change touches it. It is kept here because a doubt
-remains: `tripwire@agent-skills@component-judgement-noisy` watches whether the auditors' judgements
-of a head's Component are mostly rejected, and this alternative is the candidate if they are.
+remains that the auditors' judgements of a head's Component are mostly right. Each such finding goes
+to the owner list, per `design@agent-skills@audit-outcomes`, so the owner rules every one and
+sees whether they are mostly rejected, and this alternative is the candidate if they are.
 
 ### The standard on agent-facing text held in the primer `##admission-standard-in-primer`
 

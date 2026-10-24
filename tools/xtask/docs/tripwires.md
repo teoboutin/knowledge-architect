@@ -3,15 +3,4 @@
 Evidence that would flip a decision recorded in `register@xtask@design`. An entry leaves by an
 exit of `skill@knowledge-architect-issue-tracking@movement-instruction`.
 
----
-
-## Guarding `design@xtask@ci-builds-the-tip-alone` `##tip-alone-is-built`
-
-**Fires when:** a `git bisect` over `main` stops on a commit that does not compile, among the
-commits from the restructure commit d2f0ce4 onwards. The commits before it are the checker's
-history imported from thaum, which build in no workspace here, so a bisect reaching them proves
-nothing about this decision.
-**Response:** reopen `design@xtask@ci-builds-the-tip-alone`, with a
-build-only pass over each commit of the range origin/main..HEAD as the candidate, without the
-test suite.
-**Re-entry:** the bisect itself, and the standing-state review on every dispatched review.
+No entry yet.

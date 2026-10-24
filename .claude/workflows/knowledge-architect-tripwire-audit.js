@@ -246,11 +246,16 @@ if (args.from === 'application') {
   const failing = judged.filter((x) => x && x.r).reduce((t, x) => t + x.r.judged.filter((j) => j.verdict === 'fails').length, 0)
   log('judge: ' + jgroups.length + ' groups, ' + failing + ' entries failing' +
     (jgaps.length ? '; entries missing from a return: ' + jgaps.join('; ') : ''))
+  // The judges' verdicts reach the report as the script holds them: a judge writes a file for a
+  // failing entry and returns every verdict, so a report read from the files alone would take each
+  // conforming entry for one nobody judged.
+  const verdicts = judged.filter((x) => x && x.r).map((x) => ({ group: x.g.label, judged: x.r.judged }))
   phase('report')
   const jreport = await agent(lines([
     'You write the report of the judgement of an application of one pass of the tripwire axis, ' +
       'for the session that repairs it. Quote; do not summarise evidence. You edit nothing in the ' +
       'project.',
+    'Every verdict the judges returned, per group: ' + JSON.stringify(verdicts),
     'Read every file under ' + dir + ' that the judges wrote.',
     'Write ' + at(dir, 'report.md') + ': per failing entry, the rule, the failure mode of an edit ' +
       'or the ruling it fails, the words quoted, and the repair the judge proposes; then the counts ' +

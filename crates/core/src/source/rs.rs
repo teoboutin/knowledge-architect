@@ -479,6 +479,79 @@ fn runs(comments: Vec<CommentLine>) -> Vec<Prose> {
 mod tests {
     use super::*;
 
+    /// Every node kind and field name the extractor asks the grammar for is one the grammar
+    /// defines, so an upgrade of `tree-sitter-rust` that renames one fails here rather than
+    /// emptying the prose of every Rust file with no finding. The list is the extractor's: a kind
+    /// the extractor starts asking for is added to it.
+    #[test]
+    fn every_rust_extractor_node_kind_is_one_the_grammar_defines() {
+        let language: tree_sitter::Language = tree_sitter_rust::LANGUAGE.into();
+        let asked = [
+            "string_literal",
+            "raw_string_literal",
+            "string_content",
+            "line_comment",
+            "block_comment",
+            "doc_comment",
+            "arguments",
+            "parameter",
+            "closure_parameters",
+        ];
+        for kind in ITEMS.iter().chain(&BINDINGS).chain(&NAMES).chain(&asked) {
+            assert_ne!(
+                language.id_for_node_kind(kind, true),
+                0,
+                "the grammar defines no named node kind `{kind}`"
+            );
+        }
+        for field in ["doc", "name", "type", "pattern"] {
+            assert!(
+                language.field_id_for_name(field).is_some(),
+                "the grammar defines no field `{field}`"
+            );
+        }
+    }
+
+    /// Every Rust file this checkout tracks that holds a comment yields a prose region, and every
+    /// one with a top-level function yields an item scope: a file read as empty passes every check
+    /// with nothing checked, which no other test of a parse would see.
+    #[test]
+    fn every_tracked_rust_file_yields_prose() {
+        let root = std::path::Path::new(env!("CARGO_MANIFEST_DIR")).join("../..");
+        let out = std::process::Command::new("git")
+            .arg("-C")
+            .arg(&root)
+            .args(["ls-files", "-z", "--", "*.rs"])
+            .output()
+            .expect("git runs");
+        assert!(out.status.success(), "git ls-files fails");
+        let mut read = 0;
+        for path in out.stdout.split(|b| *b == 0).filter(|p| !p.is_empty()) {
+            let path = std::str::from_utf8(path).expect("a UTF-8 path");
+            let Ok(text) = std::fs::read_to_string(root.join(path)) else {
+                continue;
+            };
+            read += 1;
+            let p = parse(&text);
+            if text.lines().any(|l| l.trim_start().starts_with("//")) {
+                assert!(
+                    !p.prose.is_empty(),
+                    "{path} holds a comment and yields no prose"
+                );
+            }
+            if text
+                .lines()
+                .any(|l| l.starts_with("fn ") || l.starts_with("pub fn "))
+            {
+                assert!(
+                    p.scopes.iter().any(|s| s.kind == ScopeKind::Item),
+                    "{path} holds a top-level function and yields no item scope"
+                );
+            }
+        }
+        assert!(read > 0, "no tracked Rust file was read");
+    }
+
     /// Every test below reads a file the way the tree outside the checker is read.
     fn parse(text: &str) -> Parsed {
         super::parse(text, Literals::Prose)

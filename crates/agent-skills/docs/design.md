@@ -1063,8 +1063,8 @@ second rival, the owner closing any thread whose choice weighs a cost, closes ev
 owner's word, since nearly every choice has a cost or can be made to have one. The rule is the
 design skill's tie for the owner at loop step 5 and its rule that no fork remains where no rival
 stands, joined to closure. The
-risk, a session judging a rival defeated on a weak argument, is what the checkpoint's contest and
-`tripwire@agent-skills@argued-closure-reopened` watch.
+risk, a session judging a rival defeated on a weak argument, is what the checkpoint's contest
+watches.
 
 The design this decision did not keep: `rejected@agent-skills@every-thread-closed-by-argument`.
 
