@@ -187,18 +187,6 @@ count, two moments, and the proportion, half, are defaults the owner may reset.
 commit records for each finding; and the retrospective of the session where the second of those
 reviews ran, which reads that session's record.
 
-## Guarding `design@agent-skills@extension-follows-the-ground`: a member recorded directly that the argument does not cover `##member-beyond-the-argument`
-
-T1 of the premortem of the discussion that made the decision. The decision rests on the premise
-that a session judges whether a head's argument covers a new member as the owner would.
-
-**Fires when:** the owner, or a review, names one member recorded directly, as covered by its head's
-argument, that the argument does not cover.
-**Response:** reopen `design@agent-skills@extension-follows-the-ground`, with the rival that routes
-by the scope of the owner's approval among the candidates.
-**Re-entry:** the standing-state review before every merge, and the decision-record and
-design-conformance reviews, which read the heads a change writes.
-
 ## Guarding `design@agent-skills@head-ground-is-the-argument`: the owner's own ground is removed from a head `##owner-intent-stripped`
 
 T2 of the premortem of the discussion that made the decision. The decision rests on the premise

@@ -42,6 +42,15 @@ tripwire entries, and its set of references comes from the range. The retrospect
 `--changed` option of `show` taking a range. The design of this entry's command decides whether
 one command serves both lists.
 
+A third work list asks for the citing entry: a pin move of thaum to 0.8.0, whose migration cites
+each `rejected` entry from the heads whose argument covers it. To find which head cites an entry,
+the session and three reviewers wrote scripts mapping each line `show` prints to the level-three
+heading above it. The narrowest shape that serves it, and the standing entries' list as well, is
+`show` printing the reference of the enclosing entry beside each location; the orphan check of
+`design@core@orphan-rejected-entry` already maps a citation to the design entry whose section holds
+it. Analysed at the intake of 2026-10-24.
+
+
 ### Why it matters
 
 `goal@knowledge-architect@structure-and-workflow-work-together` states that "the tool computes the

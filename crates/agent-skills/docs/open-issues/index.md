@@ -1,6 +1,6 @@
 **Generated — do not edit.** `cargo klarch index`
 
-42 entries
+48 entries
 
 | kind | title |
 | --- | --- |
@@ -8,12 +8,18 @@
 | defect | [An acceptance criterion from the premortem, listed among the defaults awaiting the owner, is both judged and not judged before the ruling](a-premortem-criterion-listed-as-a-default-reads-two-ways.md) |
 | defect | [A saved workflow's `//` comments ship to every installing project, though the standard sends maintainer-only text to a comment the build removes](a-saved-workflow-s-comments-ship-to-every-project.md) |
 | defect | [In an adopting project, a finding sent upstream is counted again as a violation left on old text at every later pass](an-upstream-finding-stays-in-every-later-old-text-count.md) |
+| defect | [Eight tripwires of this repository respond with a direct action, which the tripwire shape does not name](eight-tripwires-respond-with-an-action-the-tripwire-shape-does-not-name.md) |
 | deferred | [A plan document deleted in the commit that completes its harvest is absent from the tree of the acts that still need it](a-plan-document-deleted-at-its-harvest-is-unseen-by-the-acts-that-need-it.md) |
 | design | [An intake of many files at once reads every standing entry the search returns whole, and the cost grows with the batch](a-batch-intake-reads-every-returned-standing-entry-whole.md) |
+| design | [A member recorded directly, as covered by its head's argument, lay beyond that argument](a-member-recorded-directly-lies-beyond-its-head-s-argument.md) |
 | design | [A pointer delivers its directive only when the session fetches the section it names, and a copy filled by substitution would deliver it with no drift](a-pointer-delivers-its-directive-only-when-the-session-fetches-it.md) |
 | design | [A tripwire on a procedure of the workflow states no bound on how much the failure must matter](a-procedure-tripwire-states-no-severity-bound.md) |
 | design | [A tripwire on agent behaviour under the workflow fires in sessions this project does not see](a-tripwire-on-agent-behaviour-fires-where-this-project-cannot-see.md) |
+| design | [A default the owner approved is attributed to the owner, and an agent has no way to record a decision as its own](an-approved-default-is-attributed-to-the-owner-and-the-agent-records-no-decision-of-its-own.md) |
+| design | [Plan documents keep the owner's words verbatim, where every other durable record attributes them, and sessions slip between the two](plan-documents-keep-the-owner-s-words-verbatim-where-other-records-attribute-them.md) |
 | design | [Pointers written as bare plain text to clear a finding reach no check, and the rule against them is reopened](pointers-written-bare-to-clear-a-finding-reach-no-check.md) |
+| design | [The claim check of a commit message is read at the session's start and needed at each commit](the-claim-check-of-a-commit-message-is-read-at-the-start-and-needed-at-each-commit.md) |
+| design | [The first test for a losing alternative admits every rival of a head that earned its place as an interface](the-first-test-for-a-losing-alternative-admits-every-rival-of-an-interface-head.md) |
 | design | [The workflow assumes one owner, unnamed, which a project with several contributors does not have](the-workflow-assumes-one-unnamed-owner.md) |
 | observation | [A general-purpose subagent is refused a file access its work needs, the write of its report or the read of a transcript, where an installed agent is not](a-general-purpose-subagent-is-refused-a-file-access.md) |
 | observation | [A retrospective's version line can name a main commit the repository does not hold](a-retrospective-version-line-names-a-commit-the-repository-does-not-hold.md) |

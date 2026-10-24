@@ -36,6 +36,16 @@ configuration untouched: each probe set `GIT_CONFIG_GLOBAL` to a file of its own
   in `path@core@src/git.rs` and `path@core@src/cli/history.rs` are configured. The failure counts
   above were not re-run by the session that opened this entry.
 
+A failure in real use, the first: the test file of `init`, `path@core@tests/init.rs`, runs git and
+the binary through helpers of its own, with no isolation. One case, which relies on git refusing a
+repository as another user's, passed on the workstation and failed in CI; it reproduced locally
+under a global configuration holding `safe.directory = *`. The commit "The test of a repository git
+refuses as another user's keeps the machine's git configuration out" isolated that one invocation
+with `GIT_CONFIG_NOSYSTEM=1` and an empty `GIT_CONFIG_GLOBAL`, and its comment cites this entry;
+the file's other helpers still read the machine's configuration. That the CI runner's configuration
+holds the setting is not established.
+
+
 ### Why it matters
 
 A contributor or a CI runner with commit signing or a hooks directory set globally sees the core's

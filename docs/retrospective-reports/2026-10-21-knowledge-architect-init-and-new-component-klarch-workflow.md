@@ -137,7 +137,8 @@ This finding is analysed with P2 of 2026-10-21-knowledge-architect-init-and-new-
   repair is in the commit "[review] `init` follows `cargo init` wherever no argument departs from it,
   a head of its own".
 - **d.** Lapses. The backstop lapse is one instance of the recurrence judged against
-  `tripwire@agent-skills@member-beyond-the-argument` and
+  `member-beyond-the-argument`, now
+  `issue@agent-skills@a-member-recorded-directly-lies-beyond-its-head-s-argument`, and
   `tripwire@agent-skills@head-created-without-deliberation` in
   `path@knowledge-architect@docs/retrospective-reports/2026-10-20-thaum-pin-move-0-8-0-klarch-workflow.md`,
   section "The standing answers"; the unchecked claims are instances of the recurrence analysed in

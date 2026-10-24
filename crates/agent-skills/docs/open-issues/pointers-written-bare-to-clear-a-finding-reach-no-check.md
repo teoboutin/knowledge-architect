@@ -44,6 +44,19 @@ owner's word.
 The tripwire that watched for these instances left the tripwires home when it fired, per
 `skill@knowledge-architect-issue-tracking@movement-instruction`; this entry carries its instances.
 
+A fourth instance, which meets the re-entry point, and a form the checker lacks: a path at the root
+of every installing project, named from a published Component's text. Two heads of
+`register@agent-skills@design`, `design@agent-skills@committed-intake-analysis` and
+`design@agent-skills@received-file-marked`, name docs/retrospective-reports/ at the project's root
+in plain text; each now cites this entry beside the path. `path@*@<path>` names each Component's own
+copy and resolves in no Component of an installing project before its first intake, and a path
+anchored at this repository's root names this repository's directory only. The installed text names
+the same directory and docs/audit-reports/ in plain text too, in the primer's knowledge table and
+closing paragraph, the intake skill and the design-record auditor's definition; it cannot cite this
+entry, per `design@agent-skills@shipped-text-cites-no-entry`, and a mention of a directory the reader
+is not asked to follow is outside `design@agent-skills@plain-text-is-no-repair`. Reported by the
+retrospective of the intake of 2026-10-19, analysed at the intake of 2026-10-24.
+
 ### Why it matters
 
 A pointer written bare is read by no check, so it dangles unseen when its target moves, against

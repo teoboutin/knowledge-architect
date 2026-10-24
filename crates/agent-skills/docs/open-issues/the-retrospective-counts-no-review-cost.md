@@ -48,6 +48,17 @@ Two sessions reported their review cost without the counts, as impressions the c
   three reviews of that axis, through `design@agent-skills@existing-heads-on-touch`, a split
   touching a second head that was then found bundled.
 
+Two retrospectives of this repository carried the counts, unasked, analysed at the intake of
+2026-10-24:
+
+- the intake of thirteen files of 2026-10-19: 4 review dispatches, one of seven axes, two of the
+  decision-record axis on repairs that added heads, one transcript review; 1 appended `[review]`
+  commit, with later repairs folded into it; 0 corrections of drift by the owner. Each repair that
+  added a head brought the decision-record axis back, and each pass found real defects.
+- the spec on defined ids: 3 dispatches, one of seven axes, a re-review of two axes after a repair
+  split a head, the transcript review; 3 appended `[review]` commits; 0 corrections of drift.
+
+
 ### Why it matters
 
 Without the counts, `goal@knowledge-architect@agents-get-a-complete-workflow` cannot be shown met
