@@ -383,7 +383,8 @@ design the gap defeats.
    tripwire of the milestone document's premortem included, and an issue of any kind the slice's code touches, closes, makes worse or depends on. Dispatch the
    search as the description of `agent@knowledge-architect-standing-entry-searcher` says, with the
    slice's spec and the milestone document as the work and, as seeds, the decisions the milestone
-   document lists under "What is already decided" and the decisions and goals the slice's spec
+   document lists under "What is already decided", those the design rests on and those it reverses
+   or rewrites, and the decisions and goals the slice's spec
    cites; for a spec, the spec is the work and its own "What is already decided" gives the seeds.
    Read whole, with `{{command}} show`, every entry the search returns, and judge it against the
    slice; never act on an entry from the reason the search gave. The audit's record gives one line
@@ -403,7 +404,9 @@ design the gap defeats.
      `git log --grep='design audit'`.
      **An answer that widens or narrows a ruling of the owner, or adds an obligation to one, is a
      scope change even when it is the one answer the document implies.** It is applied with the
-     others, and also listed in the milestone document as a default awaiting the owner.
+     others, and also listed in the milestone document as a default awaiting the owner. A premise
+     the session supplied to such a default is checked before the owner rules on it, per
+     `primer@owner-word-premise`.
    - **A change to the slices.** An audit that finds the work needs another slice, or a slice split
      or reordered, writes each new slice's spec with its harvest row, adds the slice to the
      implementation sequence and the order rationale, and moves into its spec the design it takes
@@ -437,8 +440,9 @@ design the gap defeats.
 5. **The report** on each acceptance criterion judged at this slice, as
    `skill@knowledge-architect-planning@acceptance-criteria` says.
 6. **The harvest**, per the harvest row of the slice's spec: the decisions and the losing
-   alternatives under `skill@knowledge-architect-decision-recording`, then the tripwires and the
-   issues under `skill@knowledge-architect-issue-tracking`. Read `primer@design-heads` again, whole,
+   alternatives under `skill@knowledge-architect-decision-recording`, then the tripwires, written as
+   `skill@knowledge-architect-decision-recording@ruled-tripwires` says, and the issues under
+   `skill@knowledge-architect-issue-tracking`. Read `primer@design-heads` again, whole,
    before writing a head: it holds what earns one and how it is shaped, the thread's slug and its
    pair included. The row names what is judged; the entry tests and the tests for a losing
    alternative decide whether each decision and each alternative earns an entry, the rules on a head's shape
@@ -555,7 +559,8 @@ This list is their one home; the reviewer reads it here.
 **A plan document is deleted in the commit that completes its last harvest, and that commit's message cites
 it by its kind**, `spec@plans@<id>`, `milestone@plans@<id>` or `spec@<milestone>@<slice>`, which
 resolves against the commit's parent. A milestone's slice spec leaves when its slice lands; the
-milestone document leaves with the last slice. Before deleting:
+milestone document leaves in the commit that completes the last slice's harvest, which records the
+ruling of every default it lists. Before deleting:
 
 - every harvest row of the document is done;
 - every acceptance criterion has been reported on, and has become a tripwire or left (`skill@knowledge-architect-planning@acceptance-criteria`);
@@ -564,7 +569,8 @@ milestone document leaves with the last slice. Before deleting:
 %% Later consequences: the work they hand on is neither a decision built nor a guess, so neither of
 %% the two bullets above carries it, and deleting the document would take it out of every tree.
 - each of its later consequences is in the issue entry or the plan document of the later work it
-  names, or in a `todo` issue opened for it where that work has neither;
+  names, or in a `todo` issue opened for it where that work has neither, or a `deferred` one if an
+  event gates it;
 - every default the document lists as awaiting the owner is ruled, since a design head records such
   a default only once the owner has ruled on it;
 - its row of the roadmap, if it has one, is removed (`skill@knowledge-architect-planning@spec-or-milestone`).

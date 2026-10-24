@@ -144,10 +144,10 @@ sentence is written:
   instrument the same change altered is taken again;
 - a count is re-counted: files, lines, entries, references, occurrences;
 - "a search returns nothing" and "the only hit in the tree" are run, against the revision the
-  sentence describes, so that they match across a line break, since wrapped prose splits a phrase
-  over two lines;
+  sentence describes, so that they match across a line break and across emphasis marks, since
+  wrapped prose splits a phrase over two lines and inline markup splits it inside one;
 - "X already says this" and "the skill requires that": open X and read it;
-- a slug, a path, a section or a run identifier is resolved;
+- a slug, a path, a section, a commit or a run identifier is resolved;
 - "this is fixed" and "that entry is closed" are diffed.
 
 **A commit message is a document for this purpose.** It is durable, and `{{command}} commits`
@@ -233,7 +233,7 @@ titled "Decided"**, before "Met outside the task" where both are owed: one line 
 with its ground, a reference or a source. A design thread closed on its argument, with the rivals
 it rules out, a default the
 record answered, a source applied over an answer of the owner, and a rewording of a tripwire's
-clauses are such decisions; an implementation choice that a commit message records is not. A
+text, its premise included, that keeps the cause it watches, are such decisions; an implementation choice that a commit message records is not. A
 subagent reports its decisions at the end of its report, under the same title, and the session that
 dispatched it carries them into its own section.
 
@@ -300,9 +300,16 @@ shaped, are in `primer@where-knowledge-goes`.
   changes. Run it after staging and before each commit, and repair a failing one before the
   commit: it catches a file left unstaged, or a change staged in part, before the commit exists,
   where the gates catch it only before the merge.
+- `{{command}} check --fix` writes the generated files, such as a register's index, then checks. It
+  refuses while a file it would write differs between the staged tree and the working tree: an
+  entry's deletion staged with `git rm`, beside an unstaged or untracked change to the same
+  register, is the common case. Take one of the two repairs it names: `{{command}} index --staged`
+  then `{{command}} check --staged`, to commit the staged part, or `{{command}} index`, to take the
+  working tree whole, staged after it.
 - `{{command}} commits <range>` judges each commit of a range, its message and its tree: a commit
   message is a document, read long after it is written, and every reference in it must resolve,
-  against its own commit's tree or its first parent's.
+  against its own commit's tree or its first parent's. Run `{{command}} commits <main>..HEAD` after
+  each commit, where an amend still repairs a failing message.
 - Never chain a command on a verdict that went through a pipe: in `check | tail && git commit`,
   the shell takes the exit status of `tail`, so the commit runs whatever the check found. Run the
   checker bare, or redirect its output to a file, read its last line, and chain nothing on the
@@ -375,12 +382,14 @@ being never bound and a macro's body bound like the rest of the value; it reads 
 message and tree through `{{command}} commits`. A reference anywhere else is found by grep.
 
 **A finding is repaired in a form the checker judges, never by moving the pointer into plain
-text**: the right anchor, `path@elsewhere@<path>` for a path the tree does not hold, a placeholder,
+text**: the right anchor, `path@elsewhere@<path>` for a path the tree does not hold, such as, in a
+commit message, a path the commit's work will create, a placeholder,
 or a rewritten sentence. A record of a deliberation (a plan document, a committed file that leaves
 once its outcomes are carried out, or a commit message) names by its bare slug in backticks an
 entry that the work it records removes, renames or is still to create, and by its bare name in
-backticks a skill or an agent that it removes or is still to create, where its tree does not hold it, nor, for a commit message, its first parent's: a name, not a reference, since there is nothing
-for the checker to judge. A renamed entry's old slug carries beside it the reference to the entry
+backticks a skill or an agent that it removes or is still to create. Either takes that form only
+where its tree does not hold the entry or the skill, nor, for a commit message, its first parent's:
+a name, not a reference, since there is nothing for the checker to judge. A renamed entry's old slug carries beside it the reference to the entry
 under its new slug, so a reader reaches the live entry by a checked pointer. A reference or a path that no checked form expresses is
 written without backticks only beside a reference to an issue entry of this project that records
 the missing form.
@@ -481,7 +490,9 @@ design skill, as the backstop says.
 
 **The standing argument** is every premise whose failure would reopen the decision: the goal it
 derives a constraint from and a decision of another Component it depends on, as references; the
-measurement it rests on, with the command that takes it again; the fact that defeated its nearest
+measurement it rests on, with the command that takes it again, one a reader can run on the corpus
+it names: a script that no tree holds is replaced by such a command, or kept in the message of the
+commit that took it, which the head names by its subject; the fact that defeated its nearest
 rival. A constraint from a goal binds outright, where one from a decision is a presumption, and the
 reference is what tells a reader which. **The test: if this premise turned false, would the
 decision have to be argued again? If yes, it is in the head.** If no, it is deliberation.
@@ -575,7 +586,7 @@ body. A title states no more than its argument argues.
 
 **A head holds one decision.** Two statements are one decision when they answer one question and
 lose to the same nearest rival. A rule's exception, its parameter and its delivery belong to its
-head, since none means anything without the rule. Two statements that lose to different nearest
+head, since none means anything without the rule, unless one loses to a nearest rival of its own. Two statements that lose to different nearest
 rivals, or whose arguments share no premise, are two decisions. Each takes a head of its own when
 it passes an entry test, and a comment at its code when it passes none. A title joined by "and"
 over two decisions shows a bundle. Rewording the title to state both does not make them one. A

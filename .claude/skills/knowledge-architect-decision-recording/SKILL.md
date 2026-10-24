@@ -212,7 +212,7 @@ place**. Where it was a thread of a design discussion, its slug is the thread's 
 
 Each entry carries: what the design was, a **validity marker** opening its body, and the reason.
 It names no winner as such, and its reason may name a head where the reason needs one: **each
-design head whose argument covers the design cites the entry**, where
+design head whose argument covers the design cites the entry**, inside the sentence where
 its argument meets that design, or in a closing sentence of its body. Writing the entry and its
 citation is one act: `cargo klarch check` reports an entry that no design entry cites.
 
@@ -235,9 +235,10 @@ must not describe as rejected a design the project now has.
 
 **An entry also leaves when the owner rules that it fails every recording test**, as an audit may
 propose, **or when no design head cites it any longer and no head of absence is written for it**,
-as when the heads that cited it leave the design home for a line beside the instruction they state:
-that line then names the design and the reason it was not kept, so a session that reopens the
-instruction still meets it.
+as when the heads that cited it leave the design home for a line beside the instruction they state,
+or when what it lost to is an instruction that no head states: the line beside that instruction then
+names the design and the reason it was not kept, so a session that reopens the instruction still
+meets it.
 
 ## Writing a tripwire the owner ruled on `##ruled-tripwires`
 
@@ -247,7 +248,10 @@ tripwire is written only on the owner's word, and with the decision it guards**,
 it, a parked thread included: in the change that records that decision, which on the full path of
 `skill@knowledge-architect-design` is the harvest, or in a later change once that decision is
 recorded. It goes in the tripwires home of the Component that owns the guarded decision, so the
-decision's head exists before the tripwire that names it. A parked thread's tripwire whose ruling
+decision's head exists before the tripwire that names it. The owner's word rules on whether a
+cause is watched, per step 7 of `skill@knowledge-architect-design@discussion-loop`: a later rewording
+of the tripwire's text that keeps that cause is the session's, listed under "Decided", and a clause
+that watches another cause is a new tripwire, which needs the owner's word. A parked thread's tripwire whose ruling
 records no decision, as when the owner defers the question, is instead the trigger of a `deferred`
 issue. Its shape and its lifecycle are `skill@knowledge-architect-issue-tracking`.
 

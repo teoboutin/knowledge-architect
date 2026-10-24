@@ -16,7 +16,7 @@
     delivery and a parameter, not an exception;
   - for W3: `design@agent-skills@losing-alternatives-filter`,
     `rejected@agent-skills@every-losing-thread-recorded`;
-  - for the cluster under W4: `issue@agent-skills@the-message-check-after-a-commit-is-delivered-by-no-installed-text`,
+  - for the cluster under W4: `the-message-check-after-a-commit-is-delivered-by-no-installed-text`,
     whose closing condition this file meets; `design@core@a-commit-message-is-a-document`,
     `rejected@core@commit-msg-hook`, `rejected@core@commit-subcommand`,
     `design@core@check-judges-no-given-commit`, `design@core@staged-check-semantics`,
@@ -142,7 +142,7 @@
   the clause on a skill or an agent, so it can be read to bind that clause alone. That reading is a
   second cause of W4's finding.
 - **c. Whether they are already recorded.** Yes.
-  `issue@agent-skills@the-message-check-after-a-commit-is-delivered-by-no-installed-text` predicts
+  `the-message-check-after-a-commit-is-delivered-by-no-installed-text` predicts
   this case, and its close: "A retrospective that reports a message finding first met at the gates, in
   a project that follows the installed text: then `primer@checker-model`'s staged-check line gains
   "and `{command} commits <main>..HEAD` after it"". W4 is that report, met at the review before the

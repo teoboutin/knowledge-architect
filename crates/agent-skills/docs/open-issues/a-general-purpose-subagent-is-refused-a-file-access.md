@@ -1,17 +1,14 @@
 ---
 kind: observation
 ---
-# A general-purpose subagent is refused a file access its work needs, the write of its report or the read of a transcript, where an installed agent is not
+# A general-purpose subagent is refused the read of a transcript, where an installed agent is not
 
 ## Summary
 
-At the review before the merge of this repository's agentic-workflow axis branch, the three
-reviewers dispatched as general-purpose subagents reported that the harness refused their write of
-the findings file their brief named in their scratch directory, with the message "Subagents should
-return findings as text", and returned their findings in their final message instead. The review
-skill tells a dispatcher to name a scratch directory for each reviewer, and the reviewers' briefs
-asked for a file there. A later session met the same split for a read: a general-purpose reviewer
-was refused the session's transcript, which the installed transcript reviewer read.
+A general-purpose reviewer was refused the read of the session's transcript by the harness's
+permission classifier, while `agent@knowledge-architect-transcript-reviewer` read the same file.
+The same split for the write of a report file is reproduced and answered: the review skill states
+that a general-purpose subagent returns its report as text, and the dispatcher saves it.
 
 ## Details
 
@@ -49,6 +46,13 @@ The fidelity axis then judged its quotations against the text they were moved in
 so. Reported as W3 of that session's retrospective workflow file. Four observations now pair a
 refused file access with a general-purpose subagent, and none with an installed agent.
 
+A fifth occurrence, the closing test of the write half: at the retrospective intake of
+2026-10-24, seven general-purpose subagents, each briefed to write a report file in a scratch
+directory of its own, were each refused with "Subagents should return findings as text, not write
+report files", in the harness version current then. `skill@knowledge-architect-review@review-invariants`
+now states that a general-purpose subagent returns its report as text, and every brief asks the
+reviewer to end its report with a line asking the dispatcher to save it whole.
+
 ### Why it matters
 
 `skill@knowledge-architect-review@review-invariants` has the dispatcher name a scratch directory for
@@ -62,9 +66,6 @@ read still leaves an axis judging without its source, as the fidelity axis above
 
 ### What would close it
 
-One dispatch of a general-purpose subagent briefed to write one file in a named scratch directory,
-in the harness version then current, observing whether the write is refused. If it is, the review
-skill states that a brief asks for the report as text, or names the agent types that write files;
-if it is not, this entry closes as not reproduced. The same, for a general-purpose subagent briefed
-to read a transcript file: refused, the review skill names the agent types an axis that reads a
-transcript is dispatched as; read, that half closes as not reproduced.
+One dispatch of a general-purpose subagent briefed to read a transcript file, in the harness
+version then current: refused, the review skill names the agent types an axis that reads a
+transcript is dispatched as; read, the entry closes as not reproduced.

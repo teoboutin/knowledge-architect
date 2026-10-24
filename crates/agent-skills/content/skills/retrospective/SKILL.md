@@ -35,16 +35,19 @@ Then **the version the session used**, in one line:
 
 - in both files, the version of knowledge-architect: where the project pins the checker, the exact
   version of the pin; where the project builds the checker from its own source, the main commit
-  the session's tree contains, described with `git describe --tags $(git merge-base HEAD <main branch>)`,
-  the branch the session worked on, and whether the tree held uncommitted changes;
-- in the project's file, also the project's main commit the session's tree contains,
-  `git rev-parse --short $(git merge-base HEAD <main branch>)`, the branch the session worked on,
-  and whether the tree held uncommitted changes. The workflow's file does not name them, since it
+  the session's tree contained when its work began, described with `git describe --tags` on that
+  commit, the branch the session worked on, and whether the tree held uncommitted changes;
+- in the project's file, also the project's main commit the session's tree contained when its work
+  began, `git rev-parse --short` on that commit, the branch the session worked on, and whether the
+  tree held uncommitted changes. The workflow's file does not name them, since it
   may become public; where the project builds the checker from source, the first bullet names
   that commit there.
 
-A commit of the branch itself is not named: a merge that rewrites the branch's commits leaves it
-pointing at nothing.
+That commit is the one the session's branch started from, `git merge-base <branch> <main branch>`
+run before the branch merges; after the merge, the main branch holds the session's own work, and
+the command run on it names the merged result, a commit a rebase merge can replace. A commit of the
+branch itself is not named: a merge that rewrites the branch's commits leaves it pointing at
+nothing.
 
 %% A wider "missing" turns every judgement into a request for a rule, against
 %% `goal@agent-skills@installed-text-leaves-room-to-judge`. The scope is wider than the installed
