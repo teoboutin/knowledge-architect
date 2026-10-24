@@ -101,7 +101,9 @@ fn orphans(model: &Model, entities: &Entities, anchors: &Anchors) -> Vec<Finding
             site.line,
             format!("the `rejected` entry `{id}` of `{anchor}` is cited by no design entry"),
             "cite it from the design head whose argument covers it, or from a head of absence \
-             that records the decision not to build it",
+             that records the decision not to build it; where what it lost to is an instruction \
+             no head states, delete it and name the design and its reason beside that \
+             instruction",
         ));
     }
     out
@@ -401,12 +403,21 @@ fn defined_forms(id: &str, tables: &[IdTable], rel: &Path) -> Vec<String> {
 /// The finding on an id written outside its reference form, or `None` where no entity this
 /// document may cite has that id.
 fn id_finding(rel: &Path, line: u32, id: &str, forms: &[String], how: IdForm) -> Option<Finding> {
+    // A design head's slug states its decision, so a word meant as an ordinary term shows it
+    // names a subject; any other entry's slug has no reason to be a word a sentence uses, on the
+    // owner's word, per `design@core@plain-word-lint`.
+    let decisions = forms.iter().all(|f| f.starts_with("design@"));
     let (written, word) = match how {
         IdForm::Bare => ("in backticks without its kind", ""),
-        IdForm::Plain => (
+        IdForm::Plain if decisions => (
             "as a plain word",
             "; where the word is meant as an ordinary term, the entry's slug names a subject: \
              rename the entry to state its decision",
+        ),
+        IdForm::Plain => (
+            "as a plain word",
+            "; where the word is meant as an ordinary term, rename the entry so that its slug is \
+             not an ordinary word",
         ),
     };
     let listed = |forms: &[String]| {
@@ -582,8 +593,9 @@ fn table(
             line,
             format!("`{span}` cites an item of the plan `{anchor}` from outside it"),
             format!(
-                "cite the plan whole, as `{form}`; an item is cited only from inside its own plan, \
-                 so retiring the plan asks no other document to be redesigned"
+                "cite the plan whole, as `{form}`, and name the item beside it in plain text as \
+                 #{id}; an item is cited only from inside its own plan, so retiring the plan asks \
+                 no other document to be redesigned"
             ),
         )),
         Resolution::Undefined => out.push(Finding::at(
@@ -1768,6 +1780,47 @@ mod tests {
     /// which is no entry. Mutation checked: `cited_within` reading every span of the design
     /// home's document rather than the entry's section, which lets the introduction's citation
     /// pass the entry.
+    /// The claim: the plain-word finding's repair for a word meant as an ordinary term asks a
+    /// design head to be renamed to state its decision, and any other entry to be renamed so its
+    /// slug is not an ordinary word, per `design@core@plain-word-lint`. Mutation: the decision
+    /// branch given whatever the kind fails the issue's case.
+    #[test]
+    fn the_plain_word_repair_is_given_by_the_kind_of_the_entry() {
+        let (found, _) = checked_docs(
+            &manifest(),
+            vec![
+                (
+                    "docs/design.md",
+                    "# Design\n\n### The decision `##a-decision`\n\nIt holds.\n",
+                ),
+                ("docs/open-issues/an-issue.md", "# An issue\n\nIt holds.\n"),
+                (
+                    "docs/notes.md",
+                    "# Notes\n\nThe a-decision word.\n\nThe an-issue word.\n",
+                ),
+            ],
+            &[],
+        );
+        let plain = |id: &str| {
+            found
+                .iter()
+                .find(|f| f.contains(&format!("`{id}` is written as a plain word")))
+                .unwrap_or_else(|| panic!("{found:#?}"))
+                .clone()
+        };
+        let design = plain("a-decision");
+        assert!(
+            design.contains("rename the entry to state its decision"),
+            "{design}"
+        );
+        let issue = plain("an-issue");
+        assert!(
+            issue.contains("rename the entry so that its slug is not an ordinary word"),
+            "{issue}"
+        );
+        assert!(!issue.contains("state its decision"), "{issue}");
+    }
+
     #[test]
     fn an_entry_no_design_entry_cites_is_reported_whatever_else_cites_it() {
         let (found, _) = checked_docs(
@@ -1806,6 +1859,10 @@ mod tests {
         );
         assert!(orphans[1].starts_with("docs/rejected.md:7"), "{found:#?}");
         assert!(orphans[0].contains("head of absence"), "{found:#?}");
+        assert!(
+            orphans[0].contains("name the design and its reason beside that instruction"),
+            "the third route of the repair: {found:#?}"
+        );
     }
 
     /// The claim, per `design@core@orphan-rejected-entry`: a citation counts only inside the design
@@ -2146,6 +2203,10 @@ mod tests {
             .filter(|f| f.contains("cites an item of the plan `a-spec` from outside it"))
             .collect();
         assert_eq!(outside.len(), 2, "{found:#?}");
+        assert!(
+            outside[0].contains("name the item beside it in plain text as #thread-one"),
+            "the label the planning skill gives an item outside its plan: {found:#?}"
+        );
         assert!(found.iter().any(|f| f
             .contains("`path@a-spec@x.md` names the spec `a-spec`, which carries no path kind")));
         // An undefined item cited from inside its plan is the ordinary dangling finding.

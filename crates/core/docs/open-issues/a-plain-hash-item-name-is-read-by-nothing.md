@@ -64,6 +64,12 @@ Two rivals already lost, and a design must answer both:
 Re-entry point: the next change to `design@core@retired-slug-reference-reported` or to
 `design@core@plan-item-scope`, or earlier on the owner's word.
 
+The re-entry point was met by the change that gave the finding on an item cited from outside its
+plan a repair naming the label, "and name the item beside it in plain text as #<id>", after a thaum
+session met that finding three times on one branch and named the item in words the third time, as
+its retrospective reports, analysed at the intake of 2026-10-24. The repair now advises the one form
+the checker never reads; the discussion this entry asks for weighs that.
+
 ### Why it matters
 
 A wrong or stale item name in a commit message or a design head is a pointer nobody revisits,
