@@ -9,7 +9,7 @@
   text this file blames but the setup skill are identical at both; every intake sentence it blames
   entered before the tag.
 - **Standing entries that bear on it**:
-  - for W1, W12, W13 and W14: `issue@agent-skills@a-batch-intake-reads-every-returned-standing-entry-whole`,
+  - for W1, W12, W13 and W14: `a-batch-intake-reads-every-returned-standing-entry-whole`,
     whose re-entry point is the next change to the intake's grounding;
     `design@agent-skills@standing-entry-search-agent`, `design@agent-skills@search-relevance-grade`,
     `design@agent-skills@design-entry-search`, `design@agent-skills@committed-intake-analysis`,
@@ -46,7 +46,7 @@
   same. This intake met it again: twenty-four files, fifteen searchers, and a return the session did
   not read whole; it read whole the entries its proposals rest on, and the subagents of checks a to
   c read whole the entries that bore on their findings.
-- **c. Whether it is already recorded.** Yes, `issue@agent-skills@a-batch-intake-reads-every-returned-standing-entry-whole`,
+- **c. Whether it is already recorded.** Yes, `a-batch-intake-reads-every-returned-standing-entry-whole`,
   a `design` entry: "the rule that the session reads each entry whole does not scale with that
   union". Its close names this shape among its candidates: "the session reads whole only the entries
   a proposal rests on, the subagents of checks a to c reading the rest". The rule rests on the
