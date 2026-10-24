@@ -3307,6 +3307,8 @@ the issue that carries it, is the owner's.
 ### An analysis of a project's retrospective file is committed with the owner's ruling on each finding, and leaves with its last outcome `##committed-intake-analysis`
 
 The analysis is one file per analysed file in docs/retrospective-reports/ at the project's root,
+which no checked form names, per
+`issue@agent-skills@pointers-written-bare-to-clear-a-finding-reach-no-check`,
 named by the analysed file's stem, a row of the primer's knowledge table, per
 `design@agent-skills@knowledge-table-home`. Each finding's section ends with a default and the
 owner's ruling, except a section that points to a cluster analysed in another file, which takes the
@@ -3327,7 +3329,9 @@ Once every outcome of an analysis is carried out and the analysis leaves, the in
 writes a line at the head of the received project file: that it was analysed, that every outcome
 was carried out, and the `git log` command that finds the analysis. The file stays where the owner
 keeps it. The rule is the owner's. A directory of received files can hold files an earlier intake
-analysed, which only the history of docs/retrospective-reports/ at the project's root tells apart; a marked file is not
+analysed, which only the history of docs/retrospective-reports/ at the project's root tells apart, a
+path no checked form names, per
+`issue@agent-skills@pointers-written-bare-to-clear-a-finding-reach-no-check`; a marked file is not
 handed to an intake again.
 
 ### A retrospective's project file names the project's main commit, which its workflow file names only where the project builds the checker from source `##version-line-names-the-main-commit`

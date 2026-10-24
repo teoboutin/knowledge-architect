@@ -9,7 +9,7 @@ The tripwire shape asks for firing evidence "specific enough that both parties w
 fired", and nothing about how much the failure must matter. A tripwire that guards a procedure of
 the workflow then fires, by its letter, on a slip that is cheap to repair, and its response
 reopens a recorded decision. The owner ruled one such firing out, and had that one tripwire bounded
-to a critical gap; five others keep the unbounded shape.
+to a critical gap; four others keep the unbounded shape, and a fifth fired on such a slip.
 
 ## Details
 
@@ -29,15 +29,14 @@ Instances seen:
   work's result, or a decision it rests on, is wrong without its repair."
 - `tripwire@agent-skills@ruling-lost-in-assembly` carries a bound too, through
   `design@agent-skills@misstated-ruling-rated-by-what-it-changes`.
-- Five tripwires on a procedure still fire on one instance with no bound:
+- Four tripwires on a procedure still fire on one instance with no bound:
   `tripwire@agent-skills@ruling-lost-in-change`, the sibling of the bounded one on assembly, which
   watches the same failure, a misstated ruling of the owner;
-  `tripwire@agent-skills@member-beyond-the-argument`;
   `tripwire@agent-skills@rule-title-wider-than-its-argument`;
   `tripwire@agent-skills@pointer-not-followed`; and
   `tripwire@agent-skills@attribution-loses-the-scope`, which watches a misstated ruling as
   `tripwire@agent-skills@ruling-lost-in-change` does.
-- Two of the five have since been met by their letter, on slips repaired before their merge, and
+- Two of the four have since been met by their letter, on slips repaired before their merge, and
   ruled not fired on that ground. `tripwire@agent-skills@attribution-loses-the-scope`: in the
   branch that set what enters agent-facing text, the transcript review found two attributions wider
   than the owner's words, one from a quotation converted at the harvest that dropped a quantifier
@@ -48,6 +47,11 @@ Instances seen:
   "[review] Repairs from the transcript review of slice 3: the last "approved" site, the bounded
   head's title and hedge, the reviewer's rivals, and the changelog's fork" says. Both were judged
   by the intake of the session's retrospective files.
+- A fifth, the tripwire that guarded `design@agent-skills@extension-follows-the-ground`, was met by
+  its letter on two members a review named before their merge, in thaum, and the owner ruled it
+  fired at the intake of 2026-10-24: it is now
+  `issue@agent-skills@a-member-recorded-directly-lies-beyond-its-head-s-argument`. So the owner has
+  ruled a slip repaired before its merge both ways.
 - Two more cases met by their letter, read at the intake of thirteen retrospective files:
   - `tripwire@agent-skills@rarer-rule-in-the-model` was met by a rule that the branch writing the
     primer's model section wrote, and that its own review found and removed before the merge. The
@@ -71,8 +75,8 @@ about the event and silent about its weight, so a procedure that fails a little 
 one that fails badly.
 
 Re-entry point: the next change to the tripwire shape of the issue-tracking skill, or to any of
-the five tripwires above, or earlier on the owner's word. The discussion then states the bound in
-the shape and puts each of the five tripwires to the owner, each having been written on the
+the four tripwires above, or earlier on the owner's word. The discussion then states the bound in
+the shape and puts each of the four tripwires to the owner, each having been written on the
 owner's word.
 
 ### Why it matters
@@ -87,5 +91,5 @@ it. The shape is the issue-tracking skill's, and each tripwire changed is a rule
 
 A design discussion under `skill@knowledge-architect-design` that either states in the tripwire
 shape that a tripwire on a procedure names the failure that matters, as the bounded tripwire above
-does, and brings each of the five tripwires to the owner with a bound; or keeps the shape and
+does, and brings each of the four tripwires to the owner with a bound; or keeps the shape and
 records why, with the standing-state reviewer weighing each firing instead.

@@ -26,7 +26,8 @@
     `design@core@section-homes-carry-slugs`;
   - for C3: `issue@core@no-command-lists-the-standing-entries-citing-a-set-of-entries`,
     `goal@core@records-reach-their-reader`;
-  - for the standing answers: `tripwire@agent-skills@member-beyond-the-argument`,
+  - for the standing answers: `member-beyond-the-argument`, now
+  `issue@agent-skills@a-member-recorded-directly-lies-beyond-its-head-s-argument`,
     `tripwire@agent-skills@head-created-without-deliberation`,
     `design@agent-skills@no-routing-table`, `design@agent-skills@goals-change-through-goal-setting`.
 
@@ -316,7 +317,7 @@
 - **c.** The backstop lapse recurs in this intake: here; in the init workflow file, two rules added
   to a head under a relocation said to add no decision; in the driven-tests workflow file, a brief
   that added a member a head lists by case without reading the head.
-  `tripwire@agent-skills@member-beyond-the-argument` fires when "the owner, or a review, names one
+  `member-beyond-the-argument` fires when "the owner, or a review, names one
   member recorded directly, as covered by its head's argument, that the argument does not cover".
   Here a review named two such members, in that project's tree, before its merge.
   `tripwire@agent-skills@head-created-without-deliberation` fires on "a commit" with no deliberation
@@ -325,11 +326,11 @@
   `design@agent-skills@no-routing-table`, through `design@agent-skills@premortem-as-watch-points`: one
   instance against its premise that the harness lists every skill with its description.
 - **d.** Lapses. The goal edit is caused by C1's repair branch, analysed above. On the tripwires:
-  the letter of `tripwire@agent-skills@member-beyond-the-argument` is met, by a review, in a project
+  the letter of `member-beyond-the-argument` is met, by a review, in a project
   that follows the installed text; the doubt is that each case was caught by the review the
   tripwire's re-entry names, before any merge, which is the guard working. The second tripwire is
   not met.
-- **h. The proposal.** `tripwire@agent-skills@member-beyond-the-argument` fired: it becomes an issue
+- **h. The proposal.** `member-beyond-the-argument` fired: it becomes an issue
   that reopens `design@agent-skills@extension-follows-the-ground`, with the rival its response names,
   per `skill@knowledge-architect-issue-tracking`; its design is not this session's work.
   `tripwire@agent-skills@head-created-without-deliberation` not fired. No change for the missed

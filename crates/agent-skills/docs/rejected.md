@@ -222,9 +222,9 @@ correction removes the owner's own words, and this alternative is the candidate 
 ### A new member routed by the scope of the owner's approval, found in the history of each head `##member-routed-by-approval-scope`
 
 `live`. It needs the word that approved a head found over the commits and plan documents that wrote
-it, where the head's ground is read from the head itself. It is kept here because a doubt remains:
-`tripwire@agent-skills@member-beyond-the-argument` watches whether a session records a member its
-head's argument does not cover, and this alternative is the candidate if it does.
+it, where the head's ground is read from the head itself. It is kept here because a doubt remains, and it is now open:
+`issue@agent-skills@a-member-recorded-directly-lies-beyond-its-head-s-argument` reopens the routing
+of a new member, with this alternative among the candidates.
 
 ### A head's title stating the instance built, the members or the mechanism that exist `##title-states-built-instance`
 

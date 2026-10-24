@@ -20,6 +20,13 @@ set states assumptions about the owner's behaviour, which are the owner's to sta
 written with the owner, item by item, and lands in the retrospective skill, with its restatement
 in the README of the agent-skills component.
 
+A case the planning skill's set would decide: a rootpoint session worked six slices of a milestone in
+one branch, by the owner's direction, where the planning skill defines a slice as "one branch and
+one PR". Each slice's review re-read the whole branch, as if before a merge. With no set, its
+retrospective reported the direction as a gap of the skill; an assumption that a slice is one branch
+would have placed it outside the skill's scope. Analysed at the intake of 2026-10-24.
+
+
 ### Why it matters
 
 `design@agent-skills@expectation-set-bounds-scope` makes the set the scope test for every edit of an
