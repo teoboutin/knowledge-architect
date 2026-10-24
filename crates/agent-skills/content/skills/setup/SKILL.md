@@ -332,7 +332,9 @@ To move to another version:
    which only the tests see.
 5. For each axis that step 2 listed, run it under `skill@knowledge-architect-project-audit`, in a
    branch of its own started from the main branch once the pin move has merged into it, so that
-   the audit's range holds the audit's work alone. Such an entry changes the rules the project's
+   the audit's range holds the audit's work alone. The pin move's branch opens one `todo` issue per
+   axis listed, in the root Component, which the audit's commit closes, so the owed audit is held by
+   a register until it runs. Such an entry changes the rules the project's
    existing record must meet, and the audit brings that record to them.
 
 ## In a Rust project {{slug:rust-project}}

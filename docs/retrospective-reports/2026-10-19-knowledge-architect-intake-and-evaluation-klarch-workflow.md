@@ -6,7 +6,7 @@
 - **Version used**: built from its own source, main at `v0.7.0-62-g6e2b300`.
 - **Analysed against**: main at `v0.8.0-14-ge763a3d`.
 - **Standing entries that bear on it**:
-  - for W1: `issue@agent-skills@a-retrospective-version-line-names-a-commit-the-repository-does-not-hold`,
+  - for W1: `a-retrospective-version-line-names-a-commit-the-repository-does-not-hold`,
     `design@agent-skills@version-line-names-the-main-commit`, `design@agent-skills@retro-trigger`;
   - for the cluster under W2: `design@agent-skills@only-a-head-changing-repair-is-reviewed-again`,
     `design@agent-skills@transcript-review-last-before-merge`,
@@ -33,7 +33,7 @@
   run after it has HEAD on main, which holds the branch. Confirmed: `git describe --tags` on the
   reported branch's last commit gives the line the command printed.
 - **c. Whether it is already recorded.** In part.
-  `issue@agent-skills@a-retrospective-version-line-names-a-commit-the-repository-does-not-hold`
+  `a-retrospective-version-line-names-a-commit-the-repository-does-not-hold`
   records version lines naming SHAs the repository does not hold, and its suspected mechanism is "the
   session described a local main branch that held the branch's own commits, as a merge done locally
   before GitHub's rebase merge would, whose SHAs the rebase merge then replaced. Not reproduced." This

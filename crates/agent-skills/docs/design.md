@@ -282,7 +282,7 @@ The design this decision did not keep: `rejected@agent-skills@title-states-built
 
 Two statements are one decision when they answer one question and lose to the same nearest rival.
 A rule's exception, its parameter and its delivery belong to its head, since none means anything
-without the rule. Two statements that lose to different nearest rivals, or whose arguments share no
+without the rule, unless one loses to a nearest rival of its own. Two statements that lose to different nearest rivals, or whose arguments share no
 premise, are two decisions, and each takes a head of its own when it passes an entry test, and a
 comment at its code when it passes none. A title joined by "and" over two decisions shows a bundle,
 and rewording the title to state both does not make them one. A member of a set the title's rule
@@ -900,8 +900,9 @@ superseded thread that lost on its merits.
 
 ### A design head cites the `rejected` entries its argument covers, and an entry names no design it lost to `##rejected-citation-direction`
 
-A design head names each `rejected` entry its argument covers: where its argument meets that
-design, or in a closing sentence of its body. A `rejected` entry names no winner; `show` on it
+A design head names each `rejected` entry its argument covers: inside the sentence where its
+argument meets that design, or in a closing sentence of its body, never between two sentences of
+one argument, where it would take the next sentence's antecedent. A `rejected` entry names no winner; `show` on it
 computes the heads that cite it. A design rejected with nothing built in its place is cited by a
 head of absence, per `design@agent-skills@losing-shape-test`, and the checker reports an entry that
 no design entry cites, per `design@core@orphan-rejected-entry`.
@@ -1458,7 +1459,8 @@ resolves a relative link only in a `README.md` or an `index.md`, per
 `design@core@links-are-navigation-rows`, so the head can link each slice's spec as a navigation row.
 A slice's spec is a spec, so it leaves when its slice lands, per
 `design@agent-skills@plan-document-leaves-at-landing`: its decisions are then in the design homes. The
-README leaves with the last slice.
+README leaves in the commit that completes the last slice's harvest, which records the ruling of
+every default it lists, per `design@agent-skills@default-ruled-before-merge`.
 
 ### A milestone's design is split across its documents by lifetime, from the session that converged `##milestone-split-by-lifetime`
 
@@ -1871,7 +1873,7 @@ A repair that would leave an earlier commit failing is folded, per
 The installed review skill sends the decision-record axis at every repair commit that adds, removes
 or reverses a design head, whether it answers the transcript reviewer or any other axis. A repair
 made before the last transcript review is reviewed before it; a repair of the last transcript review
-is reviewed after it, and the review ends with that review's repairs. Any other repair is reviewed
+is reviewed after it, and the review ends with the repairs of that decision-record review. Any other repair is reviewed
 by no axis again: a rewording, and an argument, a mention or a reference added inside an existing
 head, included. One made before the last transcript review is still read by it, as every commit of
 the branch is. Without the record review, a head added, removed or reversed in answer to a review
@@ -2918,8 +2920,8 @@ The design this decision did not keep: `rejected@agent-skills@finding-reported-n
 `primer@decided-section`: a turn in which the session decided something the owner could have
 decided ends with a section titled "Decided", one line per decision with its ground, before "Met
 outside the task" where both are owed. A design thread closed on its argument, a default the record
-answered, a source applied over an answer of the owner and a rewording of a tripwire's clauses are
-such decisions; an implementation choice a commit message records is not. A subagent reports its
+answered, a source applied over an answer of the owner and a rewording of a tripwire's text, its
+premise included, that keeps the cause it watches, are such decisions; an implementation choice a commit message records is not. A subagent reports its
 decisions under the same title, and the dispatching session carries them into its own.
 
 It serves `goal@knowledge-architect@the-owner-decides`, under which the owner is informed of every
@@ -3336,10 +3338,12 @@ handed to an intake again.
 
 ### A retrospective's project file names the project's main commit, which its workflow file names only where the project builds the checker from source `##version-line-names-the-main-commit`
 
-The version line of the project's file names the main commit the session's tree contains, the
-branch the session worked on, and whether the tree held uncommitted changes, beside the version of
+The version line of the project's file names the main commit the session's tree contained when its
+work began, the commit its branch started from, the branch the session worked on, and whether the tree held uncommitted changes, beside the version of
 knowledge-architect both files name. No commit of the branch is named, since a merge that rewrites
-the branch's commits leaves it pointing at nothing. The intake reads the blamed text at that commit
+the branch's commits leaves it pointing at nothing, and no commit of the main branch after the
+merge is named either: it holds the session's own work, so the intake would read the blamed text
+with the session's repairs in it, and a rebase merge can replace it. The intake reads the blamed text at that commit
 before reading it on the main branch, so the reason is respected at the retrospective's version
 line and at the intake's check of whether a finding still applies.
 

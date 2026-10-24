@@ -39,7 +39,8 @@ A finding is cited by its id and its file's stem, in the form
 1. **Read each file whole.** The session usually did not write it, so it knows of the reported
    session only what the file says.
 2. **Note the version each file used**, from its version line: the main commit the session's tree
-   contained, and the checker's version. Note the main commit you analyse against,
+   contained, and the checker's version. A file whose version line names no commit is dated as
+   item b of `skill@knowledge-architect-retrospective-intake@what-to-establish` says. Note the main commit you analyse against,
    `git rev-parse --short <main branch>`. A finding against an older commit or an older version of
    the checker may already be repaired.
 3. **Search the standing entries with the received files as the work.** One search covers every
@@ -149,7 +150,8 @@ Write the analysis in docs/retrospective-reports/ at the project's root, as `<st
   standing entries the search returned that bear on it.
 - **One section per finding or cluster**, headed by its ids and a short title, with a bullet per
   item of `skill@knowledge-architect-retrospective-intake@what-to-establish`, in prose. No table:
-  the content of each item is too long to read in a cell.
+  the content of each item is too long to read in a cell. A finding that item b shows repaired, or
+  item c shows recorded, takes only the bullets that establish it.
 - **Every section ends with a `Default` line and an `Outcome` line**, whatever it proposes, no
   change included, the latter left pending: a finding, a noted item, and a judgement on a standing
   entry. A standing entry the file may meet gets a section of its own: a tripwire that may have

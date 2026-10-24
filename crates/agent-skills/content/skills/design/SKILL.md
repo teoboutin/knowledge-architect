@@ -100,6 +100,9 @@ X" — ends the argument on that point at any time, converged or not.
   approval-seeking: you are surfacing information
   that arrived after the closure. If the check surfaces nothing
   material, proceed — no confirmation round.
+- **A premise you supplied is checked before the owner rules on it**, per
+  `primer@owner-word-premise`: a question or a default put to the owner on an unchecked premise gets
+  a ruling that holds only as far as that premise.
 - **The weighing at a fork is theirs.** How much a risk matters, which
   trade-off wins between shapes that both survive the argument, what is
   good enough — that belongs to the owner, and

@@ -205,7 +205,7 @@ These findings are analysed with P1 of 2026-10-20-knowledge-architect-defined-id
   primer's list for a document, `primer@verify-before-relying`: "a slug, a path, a section or a run
   identifier is resolved"; it names a commit only among a commit message's claims.
 - **c. Whether it is already recorded.** In part:
-  `issue@agent-skills@a-retrospective-version-line-names-a-commit-the-repository-does-not-hold`, for
+  `a-retrospective-version-line-names-a-commit-the-repository-does-not-hold`, for
   the version line only.
 - **d. Its kind.** Unclear: the primer's list of identifiers a document resolves omits the commit,
   which the list for a message names; the session's claim pass caught it anyway.

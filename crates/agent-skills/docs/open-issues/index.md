@@ -1,6 +1,6 @@
 **Generated — do not edit.** `cargo klarch index`
 
-48 entries
+46 entries
 
 | kind | title |
 | --- | --- |
@@ -21,8 +21,7 @@
 | design | [The claim check of a commit message is read at the session's start and needed at each commit](the-claim-check-of-a-commit-message-is-read-at-the-start-and-needed-at-each-commit.md) |
 | design | [The first test for a losing alternative admits every rival of a head that earned its place as an interface](the-first-test-for-a-losing-alternative-admits-every-rival-of-an-interface-head.md) |
 | design | [The workflow assumes one owner, unnamed, which a project with several contributors does not have](the-workflow-assumes-one-unnamed-owner.md) |
-| observation | [A general-purpose subagent is refused a file access its work needs, the write of its report or the read of a transcript, where an installed agent is not](a-general-purpose-subagent-is-refused-a-file-access.md) |
-| observation | [A retrospective's version line can name a main commit the repository does not hold](a-retrospective-version-line-names-a-commit-the-repository-does-not-hold.md) |
+| observation | [A general-purpose subagent is refused the read of a transcript, where an installed agent is not](a-general-purpose-subagent-is-refused-a-file-access.md) |
 | question | [A head in the wrong Component goes to the owner, though the record settles the Component](a-head-in-the-wrong-component-goes-to-the-owner-though-the-record-settles-the-component.md) |
 | question | [A pending audit report or retrospective analysis is outstanding work that no installed search of what is already known reads](a-pending-ruled-file-is-reached-by-no-installed-search.md) |
 | question | [A reviewer that queues long work reports nothing until it is asked](a-reviewer-s-running-time-is-unbounded.md) |
@@ -33,7 +32,6 @@
 | question | [The issue-tracking skill gives the cold-reader standard to `defect` alone in one place and to every entry in another](the-cold-reader-standard-s-scope-reads-two-ways.md) |
 | question | [The design-entry search does not run at the design audit of a slice or a spec](the-design-entry-search-does-not-run-at-a-design-audit.md) |
 | question | [The design-record auditor's return names two verdict vocabularies](the-design-record-auditor-s-return-names-two-verdict-vocabularies.md) |
-| question | [The installed text delivers the check of a commit's tree before the commit, and no check of its message after it](the-message-check-after-a-commit-is-delivered-by-no-installed-text.md) |
 | question | [Does the design skill's open-space test leave bounded work almost unreachable?](the-open-space-test-may-admit-every-problem.md) |
 | question | [The planning skill answers every material finding with a default, and states no hold for one that defeats a premise of the owner's ruling](the-planning-skill-answers-every-material-finding-with-a-default.md) |
 | question | [The primer and its head name a guard's issue under two conditions](the-primer-and-its-head-name-a-guard-s-issue-under-two-conditions.md) |

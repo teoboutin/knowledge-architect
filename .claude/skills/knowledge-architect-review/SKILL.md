@@ -45,7 +45,8 @@ rather than a diff (`skill@knowledge-architect-project-audit`).
 
 **A review owes every axis of this table whose condition holds, and every axis that the skill of an
 activity whose work it reviews adds, where that axis's condition holds.** The review before a merge is the last review of a branch, after
-which only its own repairs land, whichever activity's skill dispatched it, such as the review of a
+which only its own repairs land: a commit that lands after it on the owner's answer to an item it
+raised, or to meet a gate before the merge, is one of them. This holds whichever activity's skill dispatched it, such as the review of a
 plan document on a branch of its own; the work it reviews is the whole branch. **An axis named by
 an agent is dispatched as that agent. An axis with no agent is dispatched as a fresh
 general-purpose subagent**, briefed with the axis's question as this table states it, the commit range, and the files that carry the standard. **An axis that applies and was not run is said,
@@ -93,6 +94,11 @@ identifier in the harness's paths.
   disk. Point at the file; do not paraphrase what it says. Where the file changed on disk after
   the session started, tell the subagent to read it from disk and to follow the disk where its
   copy differs.
+- **Every brief asks the reviewer to end its report with one line asking the dispatcher to save the
+  report whole**, as `skill@knowledge-architect-review@what-review-leaves` asks: the report is the
+  one text that reaches the dispatcher when the save is due, often after a compaction. A
+  general-purpose subagent returns its report as text, since the harness refuses its write of a
+  report file.
 - **The dispatcher does not defend the work.** Findings arrive as claims to check, not as attacks to
   answer. Verify each against the tree before relaying or acting on it; a reviewer can be wrong, and
   saying so requires the same reproduction the reviewer owed.
@@ -144,7 +150,7 @@ the reports nor their items.
 **A repair that adds, removes or reverses a design head is reviewed by the decision-record axis**,
 and by any other axis whose condition it meets, whichever axis's finding it answers. A repair made before the last
 transcript review is reviewed before it, and that transcript review then runs as `skill@knowledge-architect-review@review-axes` says; a repair of the last transcript review
-is reviewed after it, and the review ends with that review's repairs. Any other repair, a rewording
+is reviewed after it, and the review ends with the repairs of that decision-record review. Any other repair, a rewording
 or an argument, a mention or a reference added inside an existing head included, and a title
 brought to what its head's body already argues, is reviewed by no axis again; one made before the
 last transcript review is still read by it.
@@ -185,7 +191,9 @@ the reviewer finds misstated is the owner's, and is put to the owner.
   of the branch changes is no mistake when the later commit's message names the change.
 - **A paragraph in the commit message** records the review: the message of the last repair
   commit, or, where no repair commit is left, the message of the branch's last commit, reworded
-  with no uncommitted work in the tree. A record carried by a message rides on a commit that
+  with no uncommitted work in the tree. Where the last transcript review has repairs, the record of
+  its items is the message of its last repair commit, and the record of the earlier axes stays in
+  the commit that held it when the transcript reviewer read it. A record carried by a message rides on a commit that
   changes a file: a commit of its own changes none, and the rebase merge drops it. Where no
   commit of the branch changes a file, the record is the report to the owner.
 
