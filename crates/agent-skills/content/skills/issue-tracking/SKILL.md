@@ -209,64 +209,41 @@ one whose own work includes this, or do the work now, in a change of its own.
 
 ## A tripwire entry {{slug:tripwire-entry}}
 
-A level-two heading carrying a slug at its end, in the anchor's tripwires home, and its body:
+{{fragment:tripwire-standard.md}}
 
-```markdown
-## Guarding `design@<anchor>@<id>`: <what the guard is about> `##<slug>`
-
-**Fires when:** …
-**Response:** …
-**Re-entry:** …
-```
-
-- **the decision it guards**, as a `design@<anchor>@<id>` reference in the heading or the body, so
-  that a reversed decision dangles its tripwires mechanically, and `tripwires --guarding <ref>`
-  finds them. One guarding an instruction, a guarantee, or a decision that earned no head names
-  what it can, the last naming in words the site that records it, and stays legal with no
-  reference;
-- **the firing evidence**, meeting the falsifiability bar: an event, or a count crossing a bound,
-  specific enough that both parties would agree it fired. "It gets slow" is not a tripwire;
-- **the response**: reopen the decision by its reference, or open an issue of a named kind;
-- **the re-entry point**: the checkpoint at which it is read again.
+**The decision it guards** is a `design@<anchor>@<id>` reference in the heading or the body, so that
+a reversed decision dangles its tripwires mechanically, and `tripwires --guarding <ref>` finds
+them. One guarding an instruction, a guarantee, or a decision that earned no head names what it
+can, the last naming in words the site that records it, and stays legal with no reference.
 
 The slug is what `tripwire@<anchor>@<slug>` references name, and it follows the id grammar above.
 Every level-two heading of a tripwires home is a tripwire: a heading there with no slug is
 reported. A slug at another level, at the head of a plain line, or in the `README.md` of a
 directory-shaped home, defines nothing, and outside a fenced block it is reported as misplaced.
 
-When a tripwire is written, and on whose word, is
+Who judges a premortem's causes, and when a tripwire is written, is
 `skill@knowledge-architect-decision-recording@ruled-tripwires`.
 
 One standing re-entry point: `agent@knowledge-architect-standing-state-reviewer` reads every
-tripwire home and every deferred trigger again, on the review axis whose whole subject they are. An
-entry may name a narrower one.
+tripwire home and every deferred trigger again, on the review axis whose whole subject they are,
+and asks of each tripwire whether it has fired and whether its horizon has passed. An entry may
+name a narrower one.
 **A tripwire nobody reads again is a parked item with no re-entry point**, which is the thing this
 register exists to avoid, not to become.
 
-**If a script could check the firing evidence, it is not a tripwire: it is an assertion**, a test
-or a check the project runs on every commit. A threshold with no enforcement is a wish. Apply
-the trigger test above first, though: an assertion whose occasion fails it blocks a session rather
-than scheduling anyone.
+**Where condition 1 sends a firing to a check, apply the trigger test above first**: an assertion
+whose occasion fails it blocks a session rather than scheduling anyone.
 
 ## The movement instruction {{slug:movement-instruction}}
 
-- A tripwire that **fires** has its heading and body **deleted** from the tripwires home, and an
-  issue file is **created**, or the decision is reopened. It never becomes a fired-but-still-listed
-  entry. Where the reopened decision's reversal is recorded only at a plan document's harvest, the
-  tripwire is narrowed to except that plan document's work, citing it, so the citation dangles when
-  the document leaves, and the commit that deletes the document deletes the entry.
-- **Unless it guards a standing guarantee, in which case it is restated and stays.** A tripwire is
-  usually a one-shot hypothesis, _if this happens, that decision was wrong_, and firing consumes it.
-  A tripwire guarding a guarantee that holds for the life of the project is not consumed by one
-  instance of it being broken: the guarantee is still owed after the repair. Restate it so it names
-  the _class_ rather than the instance, and record the instance as the issue.
-- A tripwire whose decision is **reversed** is deleted outright.
-- A tripwire is **absorbed** when another entry already guards the same decision: fold its firing
-  condition into that entry rather than leaving one decision guarded from two places, where a
-  reversal voids only half of itself.
-- A tripwire is **retired** when its firing evidence names an artifact the project's own
-  instructions prevent from existing. It is deleted, and the guard becomes a predicate a reader
-  applies, in whichever review axis owns its subject or in the instruction itself.
+{{fragment:tripwire-lifecycle.md}}
+
+Where a fired tripwire's reopened decision is reversed only at a plan document's harvest, the
+tripwire is narrowed instead of deleted, to except that plan document's work, citing it, so the citation dangles when
+the document leaves, and the commit that deletes the document deletes the entry.
+
+An issue entry moves too:
+
 - An `observation` that becomes reproducible is **promoted in place** to `defect`: its `kind`
   changes and it acquires the checklist at that moment. Do not rewrite it from scratch, and keep
   what was already ruled out.

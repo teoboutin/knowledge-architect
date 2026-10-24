@@ -46,7 +46,7 @@ it is searched on a reversal, and it is never the decision's home.
 
 `git log` over the branch is read for what its messages cite and claim: the names they cite and
 every factual sentence about the tree, under the last predicate; on a reversal, what was searched
-for the incumbent; the owner's ruling on any tripwire the branch adds; and, when the range deletes a plan
+for the incumbent; the outcome the record gives each premortem cause the branch judges; and, when the range deletes a plan
 document, that the deleting commit cites it by its kind. None of the checks of
 `cargo klarch check` will help with your task. Do not run it.
 
@@ -102,10 +102,64 @@ judge it against every point of `skill@knowledge-architect-decision-recording@re
 whole. A reversal that leaves the old head standing is two homes for one question, with the old one
 still asserting what the new one denies.
 
-**Does a tripwire stand on the owner's word?** Judge each tripwire the diff adds by
-`skill@knowledge-architect-decision-recording@ruled-tripwires`: whether the owner's word stands
-behind it, and whether it is written with the decision it guards. A tripwire the diff adds with no
-ruling recorded in the plan document or the commit message is a finding.
+**Does each tripwire the diff adds meet the standard below, and does the record list every
+premortem cause with its outcome?** Judge each tripwire the diff adds by the standard, and by
+`skill@knowledge-architect-decision-recording@ruled-tripwires`: whether it is written with the
+decision it guards. A premortem cause of the work whose outcome, recorded or dropped with the
+condition it fails, no commit message of the range or plan document states is a finding.
+
+A tripwire watches one premise of a recorded decision: a failure that would show the decision
+wrong and that nothing else in the project reports. Most causes a premortem names are not that,
+and are not written.
+
+**A cause becomes a tripwire only when all four conditions hold.**
+
+1. **The failure is silent.** Every procedure that meets it counts it as success: the tests and
+   gates pass, no work is stopped by it, no review reports it as a defect of the decision, and no
+   request names it. A failure that fails a test or a check, stops the work that meets it, or
+   arrives as a request for what the decision refused reaches the decision without a tripwire.
+   Where a script could compute the firing, write that check instead; where the check can be written
+   only later, the cause is a `deferred` issue whose trigger is that moment.
+2. **The evidence lands where tripwires are read.** It is in the tree, the history, an audit
+   report, or a retrospective file the intake receives. Evidence that exists only in a session's
+   transcript, or only in what the owner sees while driving a session, reaches no occasion that
+   reads the tripwires.
+3. **The evidence is what the decision says must not happen.** A clause that counts what the
+   decision instructs or endorses fires on the decision working.
+4. **A number has a basis.** A bound in the firing clause comes from a measurement or an argument
+   the decision's head carries, and exceeds the noise of the instrument that takes it. Otherwise
+   the clause names the event.
+
+**A slip is no firing.** A clause on how sessions follow an instruction never fires on one instance
+that a review, a check or a retrospective reported under its own procedure: one slip is the review
+working. It fires on the same failure recurring in separate pieces of work, or on one instance that
+reached the main branch with no procedure reporting it. Where a clause fires on both a slip and
+something more, strike the slip.
+
+**A doubt keeps the cause, briefly.** A cause that no condition clearly excludes is recorded with a
+short horizon. A wrong keep costs reading until its horizon; a wrong drop loses the evidence for
+good.
+
+The entry is a level-two heading in the tripwires home of the Component that owns the decision, its
+slug last:
+
+```markdown
+## Guarding `design@<anchor>@<id>`: <the premise watched> `##<slug>`
+
+**Fires when:** the event, or a count with its basis.
+**Response:** reopen the decision by its reference, or open an issue of a named kind.
+**Re-entry:** an occasion that holds the evidence.
+**Watches until:** the occasions after which the cause, unfired, no longer will.
+```
+
+**Watches until** names the first occasions that exercise the decision, so that a command over the
+history counts them from the commit that wrote the line: commits on the main branch that change a
+named path or the guarded head's text, release tags, audit reports of an axis, plan documents
+deleted at their landing, or one event the tree shows, such as the first issue a consumer of an
+interface opens; never an occasion that only a session's transcript holds. Its length is the
+writer's judgement, short for a cause kept on a doubt, and no count is kept in the entry.
+`standing` is for a guarantee whose failure stays silent and permanent, with the reason in the
+entry.
 
 **Does the commit cite anything that does not exist, or claim what it did not do?** Slugs, paths,
 section numbers, test names, run identifiers, tool flags: resolve each one, except the bare slug of
