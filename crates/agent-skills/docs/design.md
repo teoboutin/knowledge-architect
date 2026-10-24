@@ -1459,8 +1459,8 @@ resolves a relative link only in a `README.md` or an `index.md`, per
 `design@core@links-are-navigation-rows`, so the head can link each slice's spec as a navigation row.
 A slice's spec is a spec, so it leaves when its slice lands, per
 `design@agent-skills@plan-document-leaves-at-landing`: its decisions are then in the design homes. The
-README leaves in the commit that completes the last slice's harvest, which records the ruling of
-every default it lists, per `design@agent-skills@default-ruled-before-merge`.
+README leaves at the last slice, in the commit that deletes that slice's spec, once every default
+it lists is ruled, per `design@agent-skills@default-ruled-before-merge`.
 
 ### A milestone's design is split across its documents by lifetime, from the session that converged `##milestone-split-by-lifetime`
 
@@ -1477,16 +1477,28 @@ audit found.
 
 The design this decision did not keep: `rejected@agent-skills@milestone-holds-every-slice-design`.
 
-### A plan document leaves when its work lands `##plan-document-leaves-at-landing`
+### A plan document leaves when its work lands, in a commit of its own after the review before the merge `##plan-document-leaves-at-landing`
 
-A plan document is deleted in the commit that completes its last harvest, and that commit's message
-cites it by its kind, which resolves against the commit's parent. A plan document kept after its harvest is a second home for every decision it
-carried, and it starts drifting at the first later reversal. Walked by the checker, its references
-break at every reversal, and someone repairs a document about finished work; left out of the walk,
-it is unchecked text that a grep finds with no marker that it is stale. Either breaks
-`goal@knowledge-architect@documentation-stays-consistent`. Leaving the choice to each project lost
-too: the installed planning skill would have nothing to say where a document's work ends, against
-`goal@knowledge-architect@agents-get-a-complete-workflow`.
+A plan document is deleted once its last harvest is complete, in a commit of its own after the
+review before the merge has read the tip that holds it, and that commit's message cites it by its
+kind, which resolves against the commit's parent. A plan document kept after its work lands is a
+second home for every decision it carried, and it starts drifting at the first later reversal.
+Walked by the checker, its references break at every reversal, and someone repairs a document about
+finished work; left out of the walk, it is unchecked text that a grep finds with no marker that it
+is stale. Either breaks `goal@knowledge-architect@documentation-stays-consistent`. Leaving the
+choice to each project lost too: the installed planning skill would have nothing to say where a
+document's work ends, against `goal@knowledge-architect@agents-get-a-complete-workflow`.
+
+The deletion comes after the review before the merge, since four acts of that review need the
+document: the transcript reviewer's search of the tip for an argument's outcome, the standing-state
+reviewer's reading of the criteria the landing judges, the spec-conformity and
+fidelity-of-relocation axes, and `git log -G` on a thread-to-slug pair written into the harvest row,
+which a row edited in the deleting commit leaves in no tree. A branch that deleted its spec with its
+harvest showed the first three in real use: every brief had to name the deleting commit's parent,
+and a history edit of the branch then gave that commit a new SHA, so the briefs named a commit the
+branch no longer held. Extending the briefs to read the document from history was the rival: it
+closes neither the pair's case nor the stale SHA. The design this decision did not keep:
+`rejected@agent-skills@plan-document-deleted-with-its-harvest`.
 
 ### A discussion whose decision lands in the change under way keeps its deliberation in that change's commit message `##in-change-path`
 

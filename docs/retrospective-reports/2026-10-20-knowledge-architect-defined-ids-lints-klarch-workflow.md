@@ -6,7 +6,7 @@
 - **Version used**: built from its own source, main at `v0.7.0-77-g67d36d1`.
 - **Analysed against**: main at `v0.8.0-14-ge763a3d`.
 - **Standing entries that bear on it**:
-  - for W1: `issue@agent-skills@a-plan-document-deleted-at-its-harvest-is-unseen-by-the-acts-that-need-it`,
+  - for W1: `a-plan-document-deleted-at-its-harvest-is-unseen-by-the-acts-that-need-it`,
     whose trigger this file meets; `design@agent-skills@plan-document-leaves-at-landing`;
   - for the cluster under W3: `design@agent-skills@tripwire-wording-is-the-agents`,
     `design@agent-skills@premortem-tripwires-on-the-owners-word`,
@@ -32,7 +32,7 @@
   at `67d36d1` and on main but for unrelated edits: "**The harvest's review is the review before the
   merge**", and "**The slice's spec leaves** in the commit that completes its harvest". The commit
   that deleted the spec precedes four review commits on main.
-- **c. Whether it is already recorded.** Yes, `issue@agent-skills@a-plan-document-deleted-at-its-harvest-is-unseen-by-the-acts-that-need-it`,
+- **c. Whether it is already recorded.** Yes, `a-plan-document-deleted-at-its-harvest-is-unseen-by-the-acts-that-need-it`,
   `deferred`, which says "no real session has shown any of them". Its trigger: "a review before a
   merge shows a reviewer reporting, or judging without, a spec the range deletes", or "an intake of a
   retrospective's file … reads a real session in which one of the four cases occurred … deciding a

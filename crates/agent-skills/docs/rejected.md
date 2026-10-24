@@ -479,3 +479,12 @@ size in thaum. The owner ruled otherwise for design entries, as
 `design@agent-skills@design-entry-search-groups` records. A
 doubt remains whether one agent reads a large subject reliably; this is the candidate if reports of
 large subjects come with missed entries.
+
+### A plan document deleted in the commit that completes its last harvest `##plan-document-deleted-with-its-harvest`
+
+`live`. The review before the merge reads the tip, and four of its acts need the document there:
+the transcript reviewer's search, the standing-state reviewer's criteria, the spec-conformity and
+fidelity-of-relocation axes, and `git log -G` on a pair the harvest row states, which a row edited
+in the deleting commit leaves in no tree. A branch that deleted its spec this way had every brief
+name the deleting commit's parent, and a history edit then left those briefs naming a commit the
+branch no longer held.
