@@ -408,7 +408,10 @@ mutation, keeps the rule's letter at the cost of a full build per mutation.
 
 A commit is pushed only after `commits` has passed on it, since a failing message on the remote
 branch is what a later fetch or review reads. The push runs in a command of its own, or behind
-`&&` on the bare check: after `;`, or after a pipe, the shell runs it whatever the check found.
+`&&` on the bare check: after `;`, or after a pipe in a shell without `pipefail`, the shell runs it
+whatever the check found. This repository's harness settings set the option, per
+`design@agent-skills@harness-shell-fails-on-a-pipe`, and the rule stands for `;` and for a shell
+started elsewhere.
 
 ### No text cites the SHA of a commit of its own branch `##no-branch-sha-is-cited`
 

@@ -567,3 +567,27 @@ instead.
 retrospective intake where the design-entry searcher graded that goal's Component's goals.
 **Response:** reopen `design@agent-skills@searcher-grades-goals` on how goals reach the session.
 **Re-entry:** the retrospective of that session, and the review of the change.
+
+## Guarding `design@agent-skills@harness-shell-fails-on-a-pipe`: a chained command runs over a failing piped check in a project with the option `##piped-chain-runs-under-pipefail`
+
+T1 of the premortem of the decision, ruled by the owner at the intake of 2026-10-24. The decision
+rests on the premise that the option reaches every shell the harness starts.
+
+**Fires when:** a retrospective reports a command chained on a piped verdict that ran over a failing
+check, in a project whose harness settings set the option.
+**Response:** reopen `design@agent-skills@harness-shell-fails-on-a-pipe` on how the option reaches
+the shell.
+**Re-entry:** each retrospective intake.
+
+## Guarding `design@agent-skills@harness-shell-fails-on-a-pipe`: a session misreads a status the option produced `##pipefail-status-misread`
+
+T2 of the premortem of the decision, ruled by the owner at the intake of 2026-10-24. The decision
+rests on the premise that the statuses the option adds, 141 after `head` and 1 after a `grep` that
+matched nothing, fail safe.
+
+**Fires when:** a retrospective reports a session that read such a status as a failure of the
+command before the pipe, and acted on it.
+**Response:** reopen `design@agent-skills@harness-shell-fails-on-a-pipe` on what the setup tells a
+session of the statuses.
+**Re-entry:** each retrospective intake.
+

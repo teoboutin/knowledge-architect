@@ -16,6 +16,12 @@ subsection is omitted.
   `cli::refuse_a_foreign_build`. Without that arm the binary still compiles, and its `init`
   refuses inside a project and cannot run outside one. The setup skill's main and the crate
   documentation show the arm.
+- `agent-skills`, patch: a project that serves the `claude` harness adds
+  `"env": {"SHELLOPTS": "pipefail"}` to its checked-in `settings.json` of the `.claude` directory, merged
+  with what the file holds, as the setup skill's new section on the harness's shell writes it. Every shell the
+  harness starts then fails a pipeline when any of its commands fails, so a command chained after a
+  piped check does not run over a failing verdict. `head` cutting a producer short then exits 141,
+  and a `grep` that matches nothing fails its pipeline.
 
 ### New features
 

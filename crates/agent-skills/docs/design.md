@@ -1009,8 +1009,8 @@ batch's design-entry search returns the union of many files' neighbourhoods, mos
 `may-bear` with no bearing established: one intake of nine files returned 169 distinct entries, and
 the session read whole about 35, those its proposals rested on; this repository's intake of 24 files
 did the same. Both read whole what their proposals rested on, so no outcome rested on an unread
-entry. This reading is a default awaiting the owner, who asked that the session read the reported
-entries whole. The design it does not keep: `rejected@agent-skills@intake-reads-every-may-bear-entry-whole`.
+entry. The owner ruled this reading for an intake, over the reading of every graded entry the
+owner had asked for. The design it does not keep: `rejected@agent-skills@intake-reads-every-may-bear-entry-whole`.
 
 ### A premortem's cause becomes a tripwire only on the owner's word `##premortem-tripwires-on-the-owners-word`
 
@@ -2715,6 +2715,37 @@ migration.
 The design this decision did not keep: `rejected@agent-skills@head-repaired-only-when-touched`.
 
 ## The configuration a project holds
+
+### The setup sets `pipefail` in the shell of the `claude` harness, beside the primer's rule against chaining on a piped verdict `##harness-shell-fails-on-a-pipe`
+
+`skill@knowledge-architect-setup@harness-shell` writes `"env": {"SHELLOPTS": "pipefail"}` into the
+file `settings.json` of a project's checked-in `.claude` directory, for the `claude` harness, and a project that moves its
+pin adds it, per the Migration entry of the version that ships it. Every shell the harness starts
+then fails a pipeline when any command of it fails, so a command chained after a piped verdict does
+not run over a failing check. The primer's rule against that chain stays, for `;`, for any other
+shell, and because a filter drops lines in any shell, per `goal@agent-skills@installed-text-works-anywhere`:
+the option is bash's, and the setting the `claude` harness's.
+
+The rule alone did not hold: sessions chained a push or a commit on a piped verdict in five of nine
+sessions of one adopting project, three times pushing a commit that failed the gate, and five times
+in one session of this repository, each time to keep only the verdict line. A lapse that recurs at
+one moment is repaired where it is delivered, per
+`skill@knowledge-architect-agent-configuration@admission-standard`, and the option delivers it at
+every command. Measured: with `SHELLOPTS=pipefail` in the environment a shell starts with,
+`false | tail -1 && echo ran` prints nothing and exits 1, a passing check piped to `tail` still runs
+its chained command, and this repository's gates pass with the option inherited, re-taken with
+`env SHELLOPTS=pipefail cargo x gates`. Its costs fail safe: a producer cut short by `head` exits
+141, and a `grep` that matches nothing fails its pipeline, so a command chained after either does not
+run. Set as a prefix of one command, `SHELLOPTS=pipefail bash -c …`, the variable is refused as
+read-only and the command runs without the option, so the setting goes in the environment the
+harness gives its shells.
+
+The owner ruled that the setup sets it, over a recommendation, and that existing projects are told
+by a Migration entry. The rivals: an option of `check` and `commits` that prints the verdict alone,
+which removes the motive for a session that uses it and stops no pipe; the checker refusing a pipe,
+`rejected@core@check-refusing-a-pipe`, which a shell without the option makes powerless and the
+option makes needless; the install writing the setting, which edits a file outside the installer's
+namespace, against `design@core@owned-namespace-check`.
 
 ### The workflow's rows of the knowledge table ship in the primer; the project's own rows sit in its root CLAUDE.md `##knowledge-table-home`
 
