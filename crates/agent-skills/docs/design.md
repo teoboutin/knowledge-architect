@@ -3221,8 +3221,8 @@ the consumer's own entry for it is not citable here. The primer question asks ab
 the owner's direction: "this one should directly ask a session about what it observed in the
 behavior. No edit of the subagent briefs." A session sees a subagent's brief and its report, not
 its context: asked whether the primer reached the subagents, four received retrospectives answered
-that it could not be observed, or was assumed, as the issue closed in commit d917506 lists, read
-with `git show d917506^:crates/agent-skills/docs/open-issues/the-primer-question-cannot-be-answered-for-subagents.md`. The skill never states how many questions there are, so adding one changes no count.
+that it could not be observed, or was assumed, as the issue closed in commit 0a3c1a6 lists, read
+with `git show 0a3c1a6^:crates/agent-skills/docs/open-issues/the-primer-question-cannot-be-answered-for-subagents.md`. The skill never states how many questions there are, so adding one changes no count.
 
 ### A retrospective's files go where the owner directs, and nothing of them leaves the machine before the owner's reading and word `##retrospective-destination`
 
