@@ -231,6 +231,17 @@ words joined by hyphens, and a frontmatter `name`, where one is set, equals that
 cites: `instructions@<slug>` for the root `CLAUDE.md`, `skill@<name>@<slug>` for a skill and
 `agent@<name>@<slug>` for an agent.
 
+## The shell of the `claude` harness {{slug:harness-shell}}
+
+%% The decision: `design@agent-skills@harness-shell-fails-on-a-pipe`.
+In a project that serves the `claude` harness, write into its checked-in harness settings, the
+file `settings.json` of its `.claude` directory, the entry `"env": {"SHELLOPTS": "pipefail"}`, merged with what the file already holds. Every shell
+the harness starts then runs with `pipefail`, so a command chained after a pipeline does not run
+when any command of the pipeline failed, a check whose output was filtered included. Two statuses
+then come from the option, not from a failure of the command they follow: a producer cut short by
+`head` exits 141, and a `grep` that matches nothing fails its pipeline. The primer's rule against
+chaining on a piped verdict stays, for every other shell and for `;`.
+
 ## The gates {{slug:setup-gates}}
 
 Recommend one command that runs every check the project owes before a merge (formatting, the
@@ -267,7 +278,8 @@ left to be done by hand.
 - `{{command}} check --fix` until it passes: it writes the installed files, then, once the first
   three phases of the check find nothing, the generated `index.md` files the check would report,
   then runs every check.
-- Commit the manifest, the documents, the installed files and the root `CLAUDE.md` together,
+- Commit the manifest, the documents, the installed files, the root `CLAUDE.md` and, for the
+  `claude` harness, the harness settings of `.claude` together,
   ordered on the branch as `primer@branch-commits` says, read whole.
 
 ## Existing documentation {{slug:existing-documentation}}

@@ -29,8 +29,10 @@ construction, and the walked-file count over thaum's tree was identical under th
 
 `live`. It was meant to stop `cargo klarch check | tail -n 10 && git commit`, which commits over a
 failing tree because the shell takes the exit status of `tail`. It was built and reviewed, and it
-loses because it cannot stop that chain: a process inside a pipeline does not set the pipeline's
-status. Reproduced with the refusal in place,
+loses because it cannot stop that chain in a shell without `pipefail`, where a process inside a
+pipeline does not set the pipeline's status; under the option, which the setup sets in the `claude`
+harness's shell per `design@agent-skills@harness-shell-fails-on-a-pipe`, the chain stops whatever
+the checker prints, and a refusal adds nothing. Reproduced with the refusal in place,
 `bash -c 'cargo klarch check | tail -n 3 && echo commit'` printed the refusal, then `commit`, and
 exited 0. The chained command still ran, now over a tree the checker had not judged at all. Two
 further costs were measured. The test was `is_fifo` on stdout, and ksh93 builds its pipelines from
