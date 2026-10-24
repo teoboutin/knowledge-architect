@@ -16,7 +16,14 @@
 //! than at install, where the project's command is filled, because a snippet does not vary by
 //! project. The snippets are also listed whole, by file name, as `SNIPPETS`, for the core to write.
 //!
-//! Before that, three passes, in this order. A line whose first two characters are `%%` is a
+//! Before those, a line that is a fragment placeholder, `{{fragment:<file>}}` after any leading
+//! spaces, is replaced with the file of that name under fragments/, indented to the placeholder:
+//! shared text that several installed texts apply whole, written once so the copies cannot drift.
+//! It runs first, after the workflow-name check of the raw text, so a fragment is stripped,
+//! rendered and substituted as its host is. A placeholder naming no file, and a file no placeholder
+//! names, fail the build; the rules of the pass are `render_fragments`, in src/render.rs.
+//!
+//! Then three passes, in this order. A line whose first two characters are `%%` is a
 //! comment for this repository's maintainers: it is removed whole, so it may cite design heads and
 //! issues that the walk checks and no installing project holds. A `%%` line inside a fenced block,
 //! or one with leading spaces, fails the build rather than ship. Then a level-two heading's section
@@ -36,7 +43,7 @@ use std::path::{Path, PathBuf};
 // script has no test target of its own.
 #[path = "src/render.rs"]
 mod render;
-use render::{check_workflow_name, render_slugs, strip_comments};
+use render::{check_workflow_name, render_fragments, render_slugs, strip_comments};
 
 /// The prefix every installed skill directory, agent file and workflow file carries in the
 /// project.
@@ -70,6 +77,7 @@ fn main() {
     // A directory makes cargo scan everything under it for a change.
     println!("cargo:rerun-if-changed=content");
     println!("cargo:rerun-if-changed=snippets");
+    println!("cargo:rerun-if-changed=fragments");
     // The rendered copies are read from this checkout's files, so a run from another checkout is
     // stale even when no file here changed: the run follows the checkout, per
     // `design@knowledge-architect@a-build-is-tied-to-its-checkout`.
@@ -96,6 +104,12 @@ fn main() {
     entries.sort();
 
     let mut snippets = Snippets::read(&root.join("snippets"));
+    let fragments = read_fragments(&root.join("fragments"));
+    let shared: Vec<(&str, &str)> = fragments
+        .iter()
+        .map(|(n, t)| (n.as_str(), t.as_str()))
+        .collect();
+    let mut fragments_used: Vec<&str> = Vec::new();
     let mut substituted = vec![false; SUBSTITUTIONS.len()];
     let mut list = String::from("&[\n");
     for (install, file) in &entries {
@@ -112,6 +126,8 @@ fn main() {
         {
             check_workflow_name(&text, stem, file);
         }
+        let (text, used) = render_fragments(&text, &shared, file);
+        fragments_used.extend(used);
         let text = render_slugs(&strip_comments(&text, file), file);
         let text = substitute(&text, &mut substituted);
         std::fs::write(&rendered, snippets.render(&text, file)).expect("OUT_DIR is writable");
@@ -120,6 +136,15 @@ fn main() {
     }
     list.push(']');
     snippets.all_used();
+    let unused: Vec<&str> = shared
+        .iter()
+        .map(|(n, _)| *n)
+        .filter(|n| !fragments_used.contains(n))
+        .collect();
+    assert!(
+        unused.is_empty(),
+        "fragments/ holds files no placeholder of content/ names: {unused:?}"
+    );
     let unused: Vec<&str> = SUBSTITUTIONS
         .iter()
         .zip(&substituted)
@@ -221,6 +246,31 @@ impl Snippets {
             "snippets/ holds files no placeholder of content/ names: {unused:?}"
         );
     }
+}
+
+/// Every file directly under `dir`, as its name and its text; none when the directory is absent.
+/// A directory under it fails the build: a fragment is one file.
+fn read_fragments(dir: &Path) -> Vec<(String, String)> {
+    let mut fragments = Vec::new();
+    if dir.is_dir() {
+        for entry in std::fs::read_dir(dir).expect("fragments/ is readable") {
+            let path = entry.expect("fragments/ is readable").path();
+            assert!(
+                !path.is_dir(),
+                "{} is a directory: fragments/ holds files only",
+                path.display()
+            );
+            let name = path
+                .file_name()
+                .and_then(|n| n.to_str())
+                .expect("a UTF-8 file name")
+                .to_owned();
+            let text = std::fs::read_to_string(&path)
+                .unwrap_or_else(|e| panic!("{} is readable as UTF-8: {e}", path.display()));
+            fragments.push((name, text));
+        }
+    }
+    fragments
 }
 
 /// `text` with every placeholder of `SUBSTITUTIONS` replaced, each row marked used where it is.
