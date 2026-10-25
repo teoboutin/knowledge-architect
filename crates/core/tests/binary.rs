@@ -5122,7 +5122,89 @@ fn worklist_verify_names_each_gap_of_a_report() {
             stdout.contains(expected) || stderr.contains(expected),
             "{expected}: {stdout}{stderr}"
         );
+        // A finding names the entry it is about, so the reader of the verdict finds its line.
+        if want == 1 && expected != "no section" && expected != "is not an entry of" {
+            assert!(
+                stdout
+                    .lines()
+                    .any(|l| l.contains(expected) && l.contains(target)),
+                "{expected} does not name {target}: {stdout}"
+            );
+        }
     }
+}
+
+/// Every case of a graded line `--verify` judges, beyond those of AC1, and the refusal of a list
+/// it cannot read. Mutations checked: the test of `bears` with no relation made `if false &&`, the
+/// test of a relation on another grade made `if false &&`, the empty-grade arm made to push
+/// nothing, and the empty-reason test made `if false &&`; each is caught by its case.
+#[test]
+fn worklist_verify_judges_every_case_of_a_graded_line() {
+    let (sandbox, out) = worklist_project("worklist-cases");
+    let out_text = out.to_string_lossy().into_owned();
+    let (_, _, code) = sandbox.run(&["worklist", "--out", &out_text]);
+    assert_eq!(code, 0);
+    fill_unrelated(&out);
+    let target = "design@core-mock@first-head";
+    let (path, text) = report_with(&out, target);
+    let line = text
+        .lines()
+        .find(|l| l.starts_with(&format!("- {target} |")))
+        .expect("its line")
+        .to_string();
+    let with = |grade: &str, relation: &str, reason: &str| {
+        text.replace(
+            &line,
+            &format!("- {target} | grade: {grade} | relation: {relation} | reason: {reason}"),
+        )
+    };
+    let cases: Vec<(String, Option<&str>)> = vec![
+        (with("", "", ""), Some("has no grade")),
+        (with("bears", "", "it does"), Some("bears with no relation")),
+        (with("bears", "constrains, may change", "it does"), None),
+        (
+            with("bears", "constrains, fires", "it does"),
+            Some("`fires` is no relation"),
+        ),
+        (
+            with("may-bear", "constrains", "a doubt"),
+            Some("gives a relation"),
+        ),
+        (
+            with("unrelated", "constrains", ""),
+            Some("gives a relation"),
+        ),
+        (with("may-bear", "", ""), Some("with no reason")),
+        (with("bears", "constrains", ""), Some("with no reason")),
+        (with("unrelated", "", ""), None),
+    ];
+    for (edited, expected) in cases {
+        std::fs::write(&path, &edited).expect("an edited report");
+        let (stdout, stderr, code) = sandbox.run(&["worklist", "--verify", &out_text]);
+        match expected {
+            None => assert_eq!(code, 0, "{stdout}{stderr}"),
+            Some(expected) => {
+                assert_eq!(code, 1, "{expected}: {stdout}{stderr}");
+                assert!(
+                    stdout
+                        .lines()
+                        .any(|l| l.contains(expected) && l.contains(target)),
+                    "{expected}: {stdout}"
+                );
+            }
+        }
+    }
+    std::fs::write(&path, &text).expect("the report restored");
+    let list = out.join("agents.txt");
+    let listed = std::fs::read_to_string(&list).expect("agents.txt");
+    std::fs::write(&list, format!("{listed}a line of one word\n")).expect("a broken list");
+    let (stdout, stderr, code) = sandbox.run(&["worklist", "--verify", &out_text]);
+    assert_eq!(code, 2, "{stdout}{stderr}");
+    assert!(stderr.contains("agents.txt"), "{stderr}");
+    std::fs::remove_file(&list).expect("the list removed");
+    let (stdout, stderr, code) = sandbox.run(&["worklist", "--verify", &out_text]);
+    assert_eq!(code, 2, "{stdout}{stderr}");
+    assert!(stderr.contains("agents.txt"), "{stderr}");
 }
 
 /// A seed and the entries that cite it are never graded `unrelated`, and a `bears` grade takes a

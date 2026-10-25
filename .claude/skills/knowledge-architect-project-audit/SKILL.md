@@ -143,7 +143,8 @@ too how many of the owner's rulings on the owner list went against the default.
 home.
 
 **The rules**: every rule of `primer@design-heads` and of
-`skill@knowledge-architect-decision-recording@head-shape` for a head, the questions of
+`skill@knowledge-architect-decision-recording@head-shape` for a head, the split standard of
+`skill@knowledge-architect-decision-recording@current-design` for the subject it sits in, the questions of
 `skill@knowledge-architect-decision-recording@owning-component` for the Component it sits in, and
 every rule of `skill@knowledge-architect-decision-recording@losing-alternatives` for a `rejected`
 entry.

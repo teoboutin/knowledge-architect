@@ -432,7 +432,9 @@ order. `cargo klarch model` prints every heading and slug definition with its fi
   and its alignment; present tense; and fidelity to what the owner approved. A head that argues
   from a goal's words without naming the goal is the common miss of the standing argument;
 - judge the Component the head sits in by the questions of `agent@knowledge-architect-design-record-auditor@record-rules`. A head those questions place in
-  another Component fails, and its draft names the Component they place it in.
+  another Component fails, and its draft names the Component they place it in;
+- judge the subject the head sits in by the split standard of `agent@knowledge-architect-design-record-auditor@design-head-rules`: the draft of a subject's
+  first head reports a subject the standard says to split, with the test it meets.
 
 **For a `rejected` entry:** judge it against every rule on rejected designs of `agent@knowledge-architect-design-record-auditor@record-rules`: whether it meets a recording
 test, whether the heads that cite it are the ones whose argument covers it, its marker, either a reason a reader can check without leaving the

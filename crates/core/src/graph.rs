@@ -414,11 +414,13 @@ mod tests {
     fn manifest() -> Manifest {
         let text = "[project]\nchecker-version = \"fixture\"\nname = \"a-project\"\n\
              components = [\"widget\"]\n\n\
-             [locations.notes]\npath = \"notes\"\nregisters = [\"issue\", \"reading\", \"rule\", \"law\"]\n\n\
+             [locations.notes]\npath = \"notes\"\nregisters = [\"issue\", \"reading\", \"rule\", \"law\", \"topic\"]\n\n\
              [registers.reading]\nscope = \"opt-in\"\nshape = \"file\"\ndir = \"readings\"\n\
              sections = [\"Reading\"]\n\n\
              [registers.rule]\nscope = \"opt-in\"\nshape = \"heading\"\ndir = \"rules\"\nlevel = 2\n\n\
              [registers.law]\nscope = \"opt-in\"\nshape = \"heading\"\ndir = \"laws\"\nlevel = 4\n\n\
+             [registers.topic]\nscope = \"opt-in\"\nshape = \"directory\"\ndir = \"topics\"\n\
+             carries = [\"rule\"]\n\n\
              [agents]\nharness = []\n\n\
              [walk]\nskip-dirs = []\nskip-files = []\n\n";
         Manifest::parse(Path::new("/nowhere"), text).expect("a declaration")
@@ -431,7 +433,10 @@ mod tests {
                 .map(|(p, t)| (PathBuf::from(p), t.to_string()))
                 .collect(),
         );
-        let anchors = Anchors::of(&manifest, model.listing());
+        // A model built from text has no listing, so the anchors read the documents' paths, which
+        // is where a Directory register's entries are placed.
+        let paths: Vec<PathBuf> = docs.iter().map(|(p, _)| PathBuf::from(p)).collect();
+        let anchors = Anchors::of(&manifest, &paths);
         let entities = Entities::build(&model, &anchors);
         graph(&model, &anchors, &entities)
     }
@@ -498,6 +503,9 @@ mod tests {
             ("notes/readings/top-reading.md", "# Top\n\n## Reading\n\nx\n"),
             ("notes/readings/loops/loop-reading.md", "# Loop\n\n## Reading\n\nx\n"),
             ("notes/readings/loops/other-loop.md", "# Other\n\n## Reading\n\nx\n"),
+            ("notes/topics/README.md", "# Topics\n"),
+            ("notes/topics/alpha-topic/README.md", "# Alpha\n\nx\n"),
+            ("notes/topics/beta-topic/README.md", "# Beta\n\nx\n"),
             (
                 "notes/rules.md",
                 "# Rules\n\n## A first rule `##first-rule`\n\nx\n\n## A second rule `##second-rule`\n\nx\n",
@@ -554,8 +562,9 @@ mod tests {
     }
 
     /// The claim: every entry of a unit register is in exactly one unit, by the rule of its
-    /// register's shape and level. Mutation checked: `subject_of` returning the nearest shallower
-    /// heading whatever its level, which puts `early-head` under the title rather than alone.
+    /// register's shape and level. Mutations checked: `subject_of` returning the nearest shallower
+    /// heading whatever its level, which puts `early-head` under the title rather than alone; and
+    /// a Directory register's unit keyed by the entry's file, which gives each topic a unit.
     #[test]
     fn each_unit_entry_is_in_one_unit_by_its_register_s_rule() {
         let g = graph_of(&project());
@@ -608,6 +617,10 @@ mod tests {
         );
         assert_eq!(unit("notes :: Of the old"), ["law@notes@old-law"]);
         assert_eq!(unit("notes :: Of the new"), ["law@notes@new-law"]);
+        assert_eq!(
+            unit("notes :: notes/topics"),
+            ["topic@notes@alpha-topic", "topic@notes@beta-topic"]
+        );
     }
 
     /// The claim: a cluster holds the goals its unit cites and every goal reached from them

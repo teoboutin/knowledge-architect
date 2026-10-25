@@ -451,12 +451,14 @@ review of the work, or by an outcome the owner ruled in an intake. Or once, on t
 no review having reported it.
 **Response:** open a `design` issue naming the review and the work, and reopen
 `design@agent-skills@one-record-searcher`, asking whether the miss came from the size of the
-agent's load, `design@core@clusters-packed-under-a-word-bound`, or from its reading.
+agent's load, `design@core@clusters-packed-under-a-word-bound`, from its reading, or from a thread or
+a fix on a subject the search's work did not cover, per
+`design@agent-skills@record-searched-before-the-work`.
 **Re-entry:** the reviews of every plan document, each retrospective, and the review of the branch
 that carries out an intake's outcomes.
-**Watches until:** three plan documents deleted at their landing, and three commits that add
+**Watches until:** three plan documents deleted at their landing and three commits that add
 analyses of received retrospective files under docs/retrospective-reports/, on the main branch,
-counted from the commit that writes this line.
+both counted from the commit that writes this line, the first that guards the record searcher.
 
 ## Guarding `design@agent-skills@searcher-grades-goals`: a goal is missed where the searcher graded the goals `##goal-missed-though-graded`
 

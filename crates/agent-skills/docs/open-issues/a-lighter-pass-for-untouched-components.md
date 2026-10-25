@@ -31,11 +31,14 @@ The leads, from the design discussion that decided the whole-record search:
   Components, such as thaum, and expects to start a project of about 30 core Components, about 20
   of them nearly standalone and the others depending on those.
 
-Measured at the decision, with `klarch worklist --out` at its default bound: 9 agents over this
-repository, 11 over thaum.
+Measured at the decision, at the default bound: 9 agents over this repository at ed9dd60, with
+`klarch worklist --out`; over thaum at its commit edd2cb5d, 8 agents for the clusters within the
+bound and 3 above it sent alone, with the scripts whose figures the spec of the work that built
+`klarch worklist` keeps, since the core binary refuses thaum's manifest, which holds the tables of
+thaum's own extension.
 
-Re-entry point: the first design discussion in the owner's planned project of about 30 Components,
-or a retrospective that reports the search's cost.
+Re-entry point: this repository's intake of a retrospective file from the owner's planned project
+of about 30 Components, or of any retrospective file that reports the search's cost.
 
 ### Why it matters
 
