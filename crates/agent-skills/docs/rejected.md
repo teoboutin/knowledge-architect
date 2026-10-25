@@ -549,3 +549,21 @@ which costs nothing in a session that never runs the command, where a standing q
 and answered by every retrospective of every project. It is kept because a doubt remains: the
 chosen route relies on the session carrying the header's line into its retrospective, and this
 question would not.
+
+### The design grounding reading whole every entry the search grades `may-bear` `##design-grounding-reads-every-may-bear-entry-whole`
+
+`live`. It lost to a measurement of the search that grounded the discussion of
+`design@agent-skills@search-relevance-grade`, over this repository: 137 entries graded `may-bear`
+alone, read whole beside 65 graded `bears`, 576 KB in 12 reads, of which 6 changed a proposal.
+
+### A `may-bear` grade on any entry the searcher cannot rule out, with a doubt that names nothing `##may-bear-on-a-doubt-naming-nothing`
+
+`live`. It lost to the same measurement: 80 of the 137 entries graded `may-bear` alone gave as
+reason that no bearing was established or that the entry shared the subject, so their reasons gave
+the session nothing to choose its reading by.
+
+### A goal among the seeds of the record search at a design grounding `##goal-seeds`
+
+`live`. It lost to the same search: 29 of its 137 entries graded `may-bear` alone carried the mark of
+one goal seed, each forced to a doubt because it cited the goal, while the goal already joined every
+cluster that cites it as context.

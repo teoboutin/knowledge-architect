@@ -750,3 +750,17 @@ claude-code-log, printed a warning on every line of the new types, its issue 116
 "Claude Code 2.1.x emits a few new top-level JSONL types" it did not recognise. The window's types are re-taken with the command of
 `design@core@transcript-format-tolerated-and-reported`. The harness documents the
 format as internal and liable to change between versions.
+
+### An assembly of the graded entries that reads the model again when `worklist --verify` runs `##assembly-reads-the-model`
+
+`live`. It would have changed the command line, by `--verify` reading a model or by a third mode of
+`worklist`. Reading a model in `--verify` lets a tree that gained a finding of the first three
+phases since `--out` block a check of reports that no longer depend on the tree; a third mode adds a
+command step to every grounding. Its one gain, an inbound list current to the minute, is lost only
+for the minutes between `--out` and `--verify`.
+
+### A slug test of the design and `rejected` entries of one named anchor `##slug-test-of-one-anchor`
+
+`live`. It would have changed the command line `id` takes. The anchor that will own a design
+thread's decision is often not settled when the thread is named, so the test would need the
+answer it is asked for; listing every kind and anchor answers it whatever the owner is.

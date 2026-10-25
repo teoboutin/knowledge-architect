@@ -32,18 +32,25 @@ The retrospective is offered once per session, at the first of the moments
 `design@agent-skills@retro-trigger` names, and not again at a later one. Offering it once keeps it
 from interrupting work.
 
-### A retrospective asks standing questions, each on the decisions it watches `##premortem-as-watch-points`
+### A retrospective asks standing questions, each on the decision or the goal it watches `##premortem-as-watch-points`
 
 Every retrospective asks whether the session needed to change an installed skill or agent, whether the
 session or one of its subagents acted as if a rule of the primer were absent, whether a project
-skill's addition was missed, and whether the session needed to write a reference or a path without
-backticks because no checked form expresses it. Real use is the test of the workflow, per
+skill's addition was missed, whether the session needed to write a reference or a path without
+backticks because no checked form expresses it, and whether the session or a subagent wrote a script
+or carried by hand over several steps a mechanical task the installed workflow asks of it. Real use
+is the test of the workflow, per
 `goal@knowledge-architect@the-workflow-improves-through-real-use`, and each question watches a
-decision whose failure would be seen in real sessions before any check could see it:
+decision or a goal whose failure would be seen in real sessions before any check could see it:
 `design@agent-skills@overlay-by-separate-skills`, the primer's delivery by an import line in
-`design@core@owned-namespace-check`, `design@agent-skills@no-routing-table`, and
-`design@agent-skills@plain-text-is-no-repair`. The last question is the
-one channel by which a gap of the checker met in a consumer project reaches this repository, since
+`design@core@owned-namespace-check`, `design@agent-skills@no-routing-table`,
+`design@agent-skills@plain-text-is-no-repair`, and
+`goal@knowledge-architect@mechanical-tasks-are-the-tool-s`. The last question is asked of every
+session, since every session follows the workflow's procedures, where the question that lost in
+`rejected@agent-skills@retrospective-asks-for-unrecognised-lines` met a command most sessions never
+run; its evidence is real use, the owner's report that every design session writes a loop to check
+a slug free, and the scripts with which half the searchers of one search filled their reports. The question on a
+reference or a path written without backticks is the one channel by which a gap of the checker met in a consumer project reaches this repository, since
 the consumer's own entry for it is not citable here. The primer question asks about behaviour, on
 the owner's direction: "this one should directly ask a session about what it observed in the
 behavior. No edit of the subagent briefs." A session sees a subagent's brief and its report, not
