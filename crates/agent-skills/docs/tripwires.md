@@ -107,8 +107,8 @@ files under docs/retrospective-reports/, counted from the commit that writes thi
 The instruction that runs a spec's design audit only when a fresh session starts its work or the
 main branch has moved, argued in the `%%` line beside it, rests on the premise that a spec
 implemented by the session that wrote it, on a main branch with no commit since the spec other
-than its own, has nothing load-bearing for an audit to find. On the owner's word, the tripwire
-guards against a critical failure of the workflow, not a small mistake that is not load-bearing.
+than its own, has nothing load-bearing for an audit to find. The tripwire guards against a critical failure of
+the workflow, not a small mistake that is not load-bearing.
 
 **Fires when:** a review finds, in the work of a spec that skipped its design audit as the rule
 allows, a critical gap an audit would have listed: a shape the tree refutes, a name the code does
@@ -425,9 +425,9 @@ The decision rests on the premise that the model section holds what a reader nee
 a writer needs only for an uncommon shape reaches a session through its finding.
 
 **Fires when:** a review or an audit finds a rule in `primer@checker-model` that a finding message
-already delivers with its repair, other than one the owner accepted there by name, as the explanation
-of `check --fix`'s refusal. On the owner's ruling, a rule that a review of the branch adding
-it finds, and that the branch removes before its merge, does not fire it.
+already delivers with its repair, other than one the head keeps there, the explanation of
+`check --fix`'s refusal. A rule that a review of the branch adding it finds, and that the branch
+removes before its merge, does not fire it: that is the review working.
 **Response:** reopen `design@agent-skills@checker-model-in-primer` with the owner, on the scope of
 the owner's ruling that the rarer checker rules are delivered by their findings; the rule found is
 removed from the section as the repair of the instance.
@@ -505,29 +505,6 @@ session of the statuses.
 **Re-entry:** each retrospective intake.
 **Watches until:** 8 retrospective analyses, each a file added under docs/retrospective-reports/.
 
-## Guarding `design@agent-skills@root-cause-repair`: an audit's passes do not converge `##audit-passes-do-not-converge`
-
-The decision rests on the premise that repairing each cause rather than each finding makes an audit
-push the record toward improvement, so that what a pass leaves falls from one pass to the next. The
-owner proposed this watch, as an acceptance criterion of the discussion that made the decision.
-
-**Fires when:** from one pass to the next of an audit, the severe violations left on old text, those
-whose outcome is the owner list, do not fall while they are above zero. Old text is text the
-previous pass also read, whose words are unchanged since the commit it audited, per
-`design@agent-skills@convergence-count-scope`; a first pass is not counted.
-**Response:** reopen `design@agent-skills@root-cause-repair`, with `design@agent-skills@workflow-axis-lenses`,
-`design@agent-skills@workflow-axis-finding-standard` and
-`design@agent-skills@audit-passes-repeat-while-the-count-falls` among what is read again.
-**Re-entry:** the session that writes each pass's commit message, which gives the counts on old
-text; the standing-state review of the audit's branch.
-**Watches until:** the commit that closes
-`issue@agent-skills@no-check-compares-an-audit-pass-s-owner-list-count-with-the-previous-pass-s`,
-whose check then carries it, and which deletes this entry.
-**Evidence when written:** in the first agentic-workflow audit of this repository, as an
-acceptance criterion, it fired at passes 1 to 3 and 5 on the plain counts, and at pass 6 on the
-old-text counts: 21 violations left against pass 5's 16, the severe ones falling from 8 to 7. The
-owner stopped the audit after pass 6's application.
-
 ## Guarding `design@agent-skills@workflow-axis-lenses`: in a pass, one agent of each duplicated lens alone reports every confirmed finding of that lens `##duplicate-auditors-add-nothing`
 
 The decision rests on the premise that a second agent on one lens finds what the others of that lens
@@ -542,14 +519,14 @@ only when they share a group of activities.
 `issue@agent-skills@no-check-reports-a-duplicated-workflow-lens-whose-other-agents-found-nothing`,
 whose check then carries it, and which deletes this entry.
 
-## Guarding `design@agent-skills@tripwire-admission-test`: sessions read "silent" too widely, and drop a cause whose failure was silent `##silent-read-too-widely`
+## Guarding `design@agent-skills@tripwire-admission-test`: sessions read "silent" too widely, and drop a cause or remove a tripwire whose failure was silent `##silent-read-too-widely`
 
-The decision rests on the premise that a session can tell, before the work lands, a failure every
+The decision rests on the premise that a session can tell, at recording or later, a failure every
 procedure would count as success from one a test, a check, a review or a request would reach.
 
-**Fires when:** an issue is opened on a silent failure of a decision, and the commit message or the
-plan document of the work that recorded that decision lists the cause of that failure as dropped
-under condition 1.
+**Fires when:** an issue is opened on a silent failure of a decision, and a commit message or a plan
+document lists the cause of that failure as dropped, or the tripwire watching it as removed, under
+condition 1.
 **Response:** reopen `design@agent-skills@tripwire-admission-test`, on how condition 1 is worded.
 **Re-entry:** the standing-state review: the issue and the commit are in the tree and the history.
 **Watches until:** the fifth plan document deleted at its landing on the main branch after the

@@ -260,10 +260,10 @@ and **lists every cause with its outcome**, a dropped one with the condition it 
 "Decided" section and in the record of the work: the harvest's commit message, or the in-change
 commit message. No cause is put to the owner, who overrules by reading the work.
 
-**A recorded tripwire's wording and scope are the session's** while it watches the same cause,
-judged by the standard and listed under "Decided"; its removal outside the exits of
-`skill@knowledge-architect-issue-tracking@movement-instruction`, and the narrowing of one whose
-ground is the owner's own word, are the owner's. A parked thread
+**A recorded tripwire's wording, scope and removal are the session's**, judged by the standard
+below and listed under "Decided": it is reworded while it watches the same cause, and removed when a
+condition excludes it, the commit naming the condition. A removal on the doubt's weight alone is the
+owner's, since it rests on the owner's own weighing of what the owner would see. A parked thread
 whose question the owner deferred records no decision: its cause is the trigger of a `deferred`
 issue instead. The entry's lifecycle is `skill@knowledge-architect-issue-tracking`.
 
@@ -290,6 +290,11 @@ and are not written.
    the decision's record carries, its head, or its plan document before the head is written, and
    exceeds the noise of the instrument that takes it. Otherwise the clause names the event,
    specific enough that two readers agree whether it occurred: "it gets slow" names none.
+
+**The owner's word admits no tripwire alone.** A cause the owner proposes, or one derived from the
+owner's words, is judged by these conditions like any other, and a tripwire that fails them is not
+kept, whoever proposed it. A ruling of the owner that a tripwire restates, such as a bound or an
+exception, lives in the design head the tripwire guards, which the tripwire cites.
 
 **A slip is no firing.** A clause on how sessions follow an instruction never fires on one instance
 that a review, a check or a retrospective reported under its own procedure: one slip is the review

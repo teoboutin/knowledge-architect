@@ -1,9 +1,8 @@
-%% The decisions: `design@agent-skills@tripwire-horizon`, `design@agent-skills@tripwire-wording-is-the-agents`.
-A tripwire leaves its home by these exits alone, or on the owner's word; its wording and its scope
-are the session's to change while it watches the same cause, judged by the standard of
-`skill@knowledge-architect-decision-recording@ruled-tripwires`, except the narrowing of a tripwire
-whose ground is the owner's own word, which is the owner's; each change is listed in the turn's
-"Decided" section. It leaves when:
+%% The decisions: `design@agent-skills@tripwire-horizon`, `design@agent-skills@tripwire-judged-by-the-standard-alone`.
+A tripwire leaves its home by these exits, or on the owner's word; its wording and its scope are the
+session's to change while it watches the same cause, judged by the standard of
+`skill@knowledge-architect-decision-recording@ruled-tripwires`; each change and each exit is listed
+in the turn's "Decided" section. It leaves when:
 
 - **it fires**: its heading and body are deleted, and an issue is opened or the decision is
   reopened, as its response says, unless the paragraph below keeps it;
@@ -13,6 +12,8 @@ whose ground is the owner's own word, which is the owner's; each change is liste
   `skill@knowledge-architect-decision-recording@losing-alternatives`, and its removal is put to the
   owner if none holds;
 - **its decision is reversed**: it is deleted outright;
+- **a condition of the standard excludes it**: it is deleted, and the commit names the condition;
+  a removal on the doubt's weight alone is the owner's;
 - **another entry guards the same premise**: its clause is folded into that entry, since a premise
   guarded from two places is voided by half when its decision is reversed;
 - **a firing's repair adds a test or a check that now catches the failure**: the failure is no

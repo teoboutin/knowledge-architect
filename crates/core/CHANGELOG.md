@@ -25,8 +25,9 @@ subsection is omitted.
 - `agent-skills`, patch: every tripwire of a project meets the new standard on what earns a
   tripwire, and carries a fourth line, `**Watches until:**`, naming the occasions after which it
   leaves unfired. Run the tripwire axis of the project audit,
-  `skill@knowledge-architect-project-audit@tripwire-axis`, which proposes for each entry its
-  horizon, a rewording, or its deletion, every deletion put to the owner.
+  `skill@knowledge-architect-project-audit@tripwire-axis`, which gives each entry its horizon, a
+  rewording or its deletion, applied in the branch and listed in its report; only a removal on the
+  doubt's weight goes to the owner.
 
 ### New features
 
@@ -66,8 +67,9 @@ subsection is omitted.
   that implements the decision, the session judges each cause by the tripwire standard, records
   those that pass, and lists every cause with its outcome in its turn's "Decided" section and in the
   harvest's or the in-change commit message; the owner overrules by reading. The `T` label is gone.
-  A recorded tripwire's wording and scope are the session's while it watches the same cause; its
-  removal outside its exits, and the narrowing of one grounded on the owner's word, are the owner's.
+  A recorded tripwire's wording, scope and removal are the session's under the standard, listed in
+  "Decided"; a removal on the doubt's weight alone is the owner's. The owner's word admits and keeps
+  no tripwire the standard refuses.
 - `agent-skills`, patch: a cause becomes a tripwire only where its failure is silent, its evidence
   lands in the tree, the history, an audit report or a received retrospective file, it is what the
   decision forbids, and a number in it has a basis; one slip a review repaired fires none.

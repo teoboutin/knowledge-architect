@@ -261,10 +261,10 @@ and **lists every cause with its outcome**, a dropped one with the condition it 
 "Decided" section and in the record of the work: the harvest's commit message, or the in-change
 commit message. No cause is put to the owner, who overrules by reading the work.
 
-**A recorded tripwire's wording and scope are the session's** while it watches the same cause,
-judged by the standard and listed under "Decided"; its removal outside the exits of
-`skill@knowledge-architect-issue-tracking@movement-instruction`, and the narrowing of one whose
-ground is the owner's own word, are the owner's. A parked thread
+**A recorded tripwire's wording, scope and removal are the session's**, judged by the standard
+below and listed under "Decided": it is reworded while it watches the same cause, and removed when a
+condition excludes it, the commit naming the condition. A removal on the doubt's weight alone is the
+owner's, since it rests on the owner's own weighing of what the owner would see. A parked thread
 whose question the owner deferred records no decision: its cause is the trigger of a `deferred`
 issue instead. The entry's lifecycle is `skill@knowledge-architect-issue-tracking`.
 

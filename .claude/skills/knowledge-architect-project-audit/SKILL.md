@@ -377,19 +377,21 @@ pass's commit, with no uncommitted work in the tree.
 | outcome | the findings | where it goes |
 | --- | --- | --- |
 | kept | it meets the standard | applied in the branch: a horizon is written, and a `T<n>` label or a ground "on the owner's word" is reworded to the entry's own premise |
-| reworded | a slip struck, a response brought to the shape, a number given its basis or replaced by the event | applied in the branch: a recorded tripwire's wording and scope are the session's, per `skill@knowledge-architect-decision-recording@ruled-tripwires`; a narrowing of one whose ground is the owner's own word is put to the owner, on the owner list |
-| converted | a script could compute its firing | put to the owner, on the owner list: the entry leaves once the check exists, the check written in the branch where it is small, else a `todo` issue |
-| absorbed | another entry guards the same premise | put to the owner, on the owner list: the entry leaves, its clause folded into the other |
-| removed | it fails condition 1, 2 or 3; or no condition clearly excludes it and the owner would see its failure anyway, the doubt's weight | put to the owner, on the owner list |
-| its decision is gone | the entry it guards no longer exists, or was reversed | put to the owner, on the owner list |
-| horizon passed | the occasions of its horizon have passed, counted from the commit that wrote the line, so from a re-check on for a horizon the audit wrote | put to the owner, on the owner list |
-| fired | its evidence is in the tree or the history | the session judges it; the deletion and the issue or the reopening its response names go on the owner list |
+| reworded | a slip struck, a response brought to the shape, a number given its basis or replaced by the event | applied in the branch |
+| converted | a script could compute its firing | applied in the branch: the entry leaves once the check exists, the check written in the branch where it is small, else a `todo` issue |
+| absorbed | another entry guards the same premise | applied in the branch: the entry leaves, its clause folded into the other |
+| removed | it fails condition 1, 2 or 3; or no condition clearly excludes it and the owner would see its failure anyway, the doubt's weight | applied in the branch on a condition; put to the owner, on the owner list, on the doubt's weight |
+| its decision is gone | the entry it guards no longer exists, or was reversed | applied in the branch |
+| horizon passed | the occasions of its horizon have passed, counted from the commit that wrote the line, so from a re-check on for a horizon the audit wrote | applied in the branch |
+| fired | its evidence is in the tree or the history | the session judges it, and applies the deletion and the issue or the reopening its response names |
 
-**Every outcome that deletes an entry reaches the owner**, and the owner list groups those items:
-one group per outcome, the removals in one group per condition failed and one on the doubt's
-weight, each group one item of the
-list under its label, listing its entries with the words each turns on, with one default for the
-group and the entries it excepts. The owner rules on a group, and names any entry ruled otherwise.
+**A deletion the standard or the lifecycle decides is applied in the branch**, as
+`skill@knowledge-architect-decision-recording@ruled-tripwires` gives a recorded tripwire's removal
+to the session, and the report lists the deletions grouped: one group per outcome, the removals in
+one group per condition failed, each entry with the words it turns on. The owner reads the report
+and overrules any of them. The removals on the doubt's weight rest on the owner's own weighing of
+what the owner would see, and go on the owner list as one group, under its label, with one default
+and the entries it excepts; the owner rules on the group and names any entry ruled otherwise.
 A text that cites a deleted entry is repaired in the commit that deletes it, and, for a horizon
 passed, a `rejected` entry kept on a doubt and naming the entry is judged again, as the lifecycle
 says.

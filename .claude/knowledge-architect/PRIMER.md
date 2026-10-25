@@ -230,7 +230,7 @@ titled "Decided"**, before "Met outside the task" where both are owed: one line 
 with its ground, a reference or a source. A design thread closed on its argument, with the rivals
 it rules out, a default the
 record answered, a source applied over an answer of the owner, and a premortem cause recorded as a
-tripwire or dropped, and a tripwire's wording or scope changed, are such decisions; an implementation choice that a commit message records is not. A
+tripwire or dropped, and a tripwire's wording or scope changed or the tripwire removed, are such decisions; an implementation choice that a commit message records is not. A
 subagent reports its decisions at the end of its report, under the same title, and the session that
 dispatched it carries them into its own section.
 
@@ -337,7 +337,7 @@ it was written.
 | how the project or a Component is built, and why | that Component's design home, `register@*@design` | the design changes: the entry is rewritten in place |
 | a design not kept, and why | that Component's `register@*@rejected`, each entry cited by the design heads whose argument covers it | it is reopened, chosen and built; the owner rules it fails every recording test; or no design head cites it any longer and no head of absence is written for it; a reversal moves the reversed decision into it if it meets a recording test of `skill@knowledge-architect-decision-recording` |
 | what is outstanding: a defect, an unexplained observation, an open question, missing work | one file in the owning anchor's issue directory, `register@*@issue` in a Component | the issue closes |
-| evidence that would flip a recorded decision whose work exists, or that no work implements | the owning Component's tripwires home, `register@*@tripwire` | it fires, its horizon passes, its decision is gone, or another entry or a check takes it over |
+| evidence that would flip a recorded decision whose work exists, or that no work implements | the owning Component's tripwires home, `register@*@tripwire` | it fires, its horizon passes, its decision is gone, another entry or a check takes it over, or the standard excludes it |
 | a contract or a trap that only a developer needs, true of the code as it stands | the scoped `CLAUDE.md` nearest the code | the contract changes or the trap is removed |
 | how a user can use a Component, and what to respect | its `README.md` | the contract changes |
 | directions about what to find where in a directory | a `README.md` in that directory | the directory's content changes |
