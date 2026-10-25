@@ -254,7 +254,7 @@ list to the published library knowledge-architect-gates.
 %% The two goals and their wordings are the owner's proposal: "I would also recommend setting
 %% these two goals (with those wordings) in the project setting-up skill".
 %% The second goal's scope, mechanical work local to the project and not a task the installed text
-%% asks of every project, is the owner's ruling: a goal with the wider reading should not be
+%% asks of every project, is the owner's ruling: a goal with such an ambiguous reading should not be
 %% recommended.
 A maintenance tool of that kind is a Component of its own, which serves the project rather than its
 consumers. Propose these two goals for it, under `skill@knowledge-architect-goal-setting`, for the

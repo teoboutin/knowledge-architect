@@ -241,19 +241,22 @@ fn top_level_files(dir: &Path) -> Result<Vec<PathBuf>, String> {
     Ok(files)
 }
 
-/// The top-level files whose first chain line's `cwd` is `root` or a path under it, or every
-/// top-level file when `root` is `None`.
+/// The top-level files whose first chain line's `cwd` is one of `roots` or a path under one, or
+/// every top-level file when `roots` is `None`.
 ///
 /// Both sides are canonicalised where they exist, so a symlinked checkout matches; a `cwd` that no
 /// longer exists is compared as written. Only the first chain line is read: a session that later
 /// works in a worktree changes its `cwd` mid-file, and the directory it started in is what names its
 /// project.
-pub(crate) fn project_files(dir: &Path, root: Option<&Path>) -> Result<Vec<PathBuf>, String> {
+pub(crate) fn project_files(dir: &Path, roots: Option<&[PathBuf]>) -> Result<Vec<PathBuf>, String> {
     let files = top_level_files(dir)?;
-    let Some(root) = root else {
+    let Some(roots) = roots else {
         return Ok(files);
     };
-    let root = root.canonicalize().unwrap_or_else(|_| root.to_path_buf());
+    let roots: Vec<PathBuf> = roots
+        .iter()
+        .map(|r| r.canonicalize().unwrap_or_else(|_| r.clone()))
+        .collect();
     let mut kept = Vec::new();
     for path in files {
         let Some(cwd) = first_cwd(&path)? else {
@@ -261,7 +264,7 @@ pub(crate) fn project_files(dir: &Path, root: Option<&Path>) -> Result<Vec<PathB
         };
         let cwd = PathBuf::from(&cwd);
         let cwd = cwd.canonicalize().unwrap_or(cwd);
-        if cwd.starts_with(&root) {
+        if roots.iter().any(|root| cwd.starts_with(root)) {
             kept.push(path);
         }
     }

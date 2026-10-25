@@ -5949,3 +5949,33 @@ fn transcript_shapes_rows_and_output_forms_hold() {
     assert!(stdout.contains("\"text\":\"first question\""), "{stdout}");
     assert!(!stdout.lines().any(|l| l.starts_with('[')), "{stdout}");
 }
+
+/// From a linked worktree of the project, as every reviewer runs, the project's sessions are those
+/// that ran in the main checkout, at the same path.
+#[test]
+fn transcript_a_linked_worktree_reads_the_sessions_of_its_main_checkout() {
+    let sandbox = Sandbox::new("transcript-worktree", "core");
+    sandbox.git(&["commit", "-q", "-m", "the mock"]);
+    let worktree = sandbox.path("linked");
+    sandbox.git(&["worktree", "add", "-q", "--detach", "linked"]);
+    let root = sandbox.dir.canonicalize().expect("the sandbox exists");
+    let config =
+        std::env::temp_dir().join(format!("klarch-transcript-worktree-{}", std::process::id()));
+    let _ = std::fs::remove_dir_all(&config);
+    copy_rendered(
+        &PathBuf::from(env!("CARGO_MANIFEST_DIR")).join("tests/transcripts/places"),
+        &config,
+        &root.display().to_string(),
+    );
+    let (stdout, stderr, code) = run_with_env(
+        &worktree,
+        &["transcript", "list"],
+        &[("CLAUDE_CONFIG_DIR", &config)],
+    );
+    assert_eq!(code, 0, "{stdout}{stderr}");
+    assert!(
+        stdout.contains("88888888 "),
+        "a session of the main checkout:\n{stdout}"
+    );
+    assert!(!stdout.contains("99999999 "), "another project:\n{stdout}");
+}

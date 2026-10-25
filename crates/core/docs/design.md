@@ -3198,7 +3198,9 @@ tolerant one hides a renamed field, against `design@core@a-failed-parse-is-loud`
 The transcript directory is `$CLAUDE_CONFIG_DIR/projects/`, or `~/.claude/projects/` where the
 variable is unset. A top-level file belongs to the project when the `cwd` of its first chain line is
 the project's root or a path under it, both canonicalised where they exist, so a session started in
-a worktree under the root is the project's; `--all-projects` reads every file. The harness names
+a worktree under the root is the project's; from a linked worktree, the same path in the
+repository's main checkout counts too, since a reviewer reads from a worktree of its own the
+sessions that ran in the main checkout; `--all-projects` reads every file. The harness names
 each project's directory by a rule of its own, "your working directory path with non-alphanumeric
 characters replaced by `-`", truncated at 200 characters with an undocumented hash and overridden by
 `CLAUDE_CODE_PROJECT_DIR_NAME`, on the same page of its documentation: the nearest rival, recomputing
