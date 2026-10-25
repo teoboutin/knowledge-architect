@@ -33,6 +33,8 @@ pub use create::init;
 mod gathered;
 pub use gathered::Gathered;
 
+mod worklist;
+
 // A binary's `main` refuses a build made from another checkout before any command, per
 // `design@core@a-foreign-build-is-refused`.
 pub use crate::build_origin::{refuse_a_foreign_build, this_library, Library};
@@ -76,6 +78,38 @@ pub enum Command {
     /// Add a Component to the project: its line in the manifest, its documents and its register
     /// homes. It overwrites no hand-written file outside the installer's namespace.
     NewComponent(NewComponentArgs),
+    /// The work list of a search of the whole record: every entry grouped into clusters, packed
+    /// into agents, with one report skeleton per agent; or the check of the filled reports.
+    Worklist(WorklistArgs),
+}
+
+#[derive(Args)]
+pub struct WorklistArgs {
+    /// Write the work list into DIR, a new or empty directory outside the project: `agents.txt`,
+    /// and per agent a directory holding its entries whole and the report it fills.
+    #[arg(
+        long,
+        value_name = "DIR",
+        conflicts_with = "verify",
+        required_unless_present = "verify"
+    )]
+    pub out: Option<std::path::PathBuf>,
+    /// Check the reports the agents filled in DIR, a directory `--out` wrote: every entry
+    /// graded once, in the grades and relations its role takes.
+    #[arg(long, value_name = "DIR")]
+    pub verify: Option<std::path::PathBuf>,
+    /// The words one agent is given at most; a cluster above it goes to an agent alone.
+    #[arg(
+        long,
+        value_name = "WORDS",
+        default_value_t = 25000,
+        conflicts_with = "verify"
+    )]
+    pub bound: usize,
+    /// A reference the work names, repeatable: each report line of an entry that cites it, or is
+    /// it, names it, and such an entry is never graded `unrelated`.
+    #[arg(long = "seed", value_name = "REF", conflicts_with = "verify")]
+    pub seeds: Vec<String>,
 }
 
 #[derive(Args)]
@@ -215,6 +249,7 @@ pub fn run(
         // makes one, per `design@core@the-core-cli-is-a-library-module`; reaching here means the
         // binary skipped that step, inside a project.
         Command::NewComponent(args) => create::new_component(manifest, &args, checker, extensions),
+        Command::Worklist(args) => worklist::worklist(manifest, &args, checker),
         Command::Init(_) => Err(format!(
             "`init` creates a project, and {} already holds one; a binary dispatches `init` to \
              `cli::init` before it locates a project",
