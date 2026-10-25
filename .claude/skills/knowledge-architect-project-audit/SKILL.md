@@ -259,7 +259,7 @@ walked in the group of the activity it serves.
 full, every finding the report marks as bearing on a ruling of the owner, on a tripwire or as
 plausible, against its draft, and a sample of the refuted drafts it chooses.
 
-**The repair by cause**, as `skill@knowledge-architect-agent-configuration@admission-standard` says, read whole. The
+**The repair by cause**, as `skill@knowledge-architect-project-audit@repair-shape` says. The
 repair step proposes one repair per cause, never one per finding, and a draft's proposed repair is
 one of its inputs; where `counts` gives a cause several repair agents, their proposals are
 alternatives for that one repair. **The check**: one workflow auditor per proposal, under its check
@@ -290,7 +290,7 @@ finding marked known or kept, and a predicted gap, take instead the outcome
 cross-check proposes each cause's outcome, and the session decides it. An item of the owner list is
 one cause, with the ids of its findings, the repair, its count and a default. The owner list states
 the net growth of the pass's repairs in the project first, where they add more instructions than
-they remove, as `skill@knowledge-architect-agent-configuration@admission-standard` says. Each pass's commit
+they remove, as `skill@knowledge-architect-project-audit@repair-shape` says. Each pass's commit
 message also gives the corpus's word count before and after the pass, `wc -w` over the corpus's
 files.
 
@@ -309,6 +309,36 @@ workflow's file of `skill@knowledge-architect-retrospective@two-files`, named, w
 as that section and `skill@knowledge-architect-retrospective@what-becomes-of-files` say, its
 subject naming the audit. It differs in its content only: what was audited at which commit in
 place of what the session did, each finding numbered `W<n>`, and no standing answers.
+
+## How a repair of agent-facing text is shaped `##repair-shape`
+
+**A finding is repaired at the cause that produced it, not at its site**: a repair written for one
+finding adds a rule, and added rules interact at the next pass. A cause is one of four kinds:
+
+- **two homes for one moment**: instructions about one moment or one kind of act stated in more
+  than one text;
+- **a structure the work did not need**: a fixed sequence, count or mapping that another
+  instruction needs to vary;
+- **a restatement that drifted from its home**;
+- **a rule written for one interaction**: a narrow rule where judgement already decides.
+
+A finding that fits none is a cause of its own, with no kind. A repair is the homes merged into one
+and the others pointing to it, the structure removed, the restatement brought back to a pointer, or
+the narrow rule deleted and the case left to judgement. It adds an instruction only where none of
+these closes the cause. **An instruction** is a sentence that tells an agent to do, or not to do,
+an act at a moment; a rewording that makes an existing instruction's intent clearer adds none,
+whatever its length. Each repair counts the instructions it adds and removes, and names the nearest
+rival to itself and the fact that decides between them. **When the repairs applied together add
+more instructions than they remove, the owner is told so first, with the net figure**, and rules on
+that growth before any of them is applied.
+
+**The size cost of agent-facing text is counted in the context of the sessions that load it, never
+in the text's length.** A statement a session applies to its act costs that session nothing when
+the text it loads delivers it, since the session holds it either way. A pointer the session must
+follow costs more: the reference resolved, the location found and the target read, each in context
+and in time, and the risk that the session acts from memory instead. A size cost exists only for a
+session that loads a statement its act does not apply: the primer's text, in every session that
+never meets its occasion, or a fragment's copy, in a host whose act does not apply it whole.
 
 ## The tripwire axis `##tripwire-axis`
 

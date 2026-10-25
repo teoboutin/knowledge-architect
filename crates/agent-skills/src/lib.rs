@@ -209,6 +209,53 @@ mod tests {
                 ".claude/skills/knowledge-architect-decision-recording/SKILL.md",
             ],
         ),
+        (
+            "admission-need-test.md",
+            &[
+                ".claude/agents/knowledge-architect-agent-text-reviewer.md",
+                ".claude/agents/knowledge-architect-workflow-auditor.md",
+                ".claude/skills/knowledge-architect-agent-configuration/SKILL.md",
+                ".claude/skills/knowledge-architect-retrospective-intake/SKILL.md",
+            ],
+        ),
+        (
+            "admission-evidence.md",
+            &[
+                ".claude/agents/knowledge-architect-agent-text-reviewer.md",
+                ".claude/skills/knowledge-architect-agent-configuration/SKILL.md",
+                ".claude/skills/knowledge-architect-retrospective-intake/SKILL.md",
+            ],
+        ),
+        (
+            "admission-repair-shape.md",
+            &[
+                ".claude/agents/knowledge-architect-agent-text-reviewer.md",
+                ".claude/skills/knowledge-architect-agent-configuration/SKILL.md",
+                ".claude/skills/knowledge-architect-project-audit/SKILL.md",
+                ".claude/skills/knowledge-architect-retrospective-intake/SKILL.md",
+                ".claude/skills/knowledge-architect-retrospective/SKILL.md",
+            ],
+        ),
+        (
+            "admission-record-check.md",
+            &[
+                ".claude/agents/knowledge-architect-agent-text-reviewer.md",
+                ".claude/agents/knowledge-architect-workflow-auditor.md",
+                ".claude/skills/knowledge-architect-agent-configuration/SKILL.md",
+                ".claude/skills/knowledge-architect-retrospective-intake/SKILL.md",
+            ],
+        ),
+        (
+            "context-cost.md",
+            &[
+                ".claude/agents/knowledge-architect-agent-text-reviewer.md",
+                ".claude/knowledge-architect/PRIMER.md",
+                ".claude/skills/knowledge-architect-agent-configuration/SKILL.md",
+                ".claude/skills/knowledge-architect-project-audit/SKILL.md",
+                ".claude/skills/knowledge-architect-retrospective-intake/SKILL.md",
+                ".claude/skills/knowledge-architect-retrospective/SKILL.md",
+            ],
+        ),
     ];
 
     /// Each fragment's first line, a `%%` comment aside, ships in exactly its hosts.

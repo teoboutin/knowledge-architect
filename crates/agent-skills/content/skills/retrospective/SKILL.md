@@ -108,7 +108,13 @@ A finding that two installed instructions leave no move satisfying both is alway
 whatever the owner did.
 
 End with **proposals**: for each finding that has one, what to change, and where, shaped as
-`skill@knowledge-architect-agent-configuration@admission-standard` says, read whole.
+`skill@knowledge-architect-retrospective@proposal-shape` says.
+
+## How a proposal is shaped {{slug:proposal-shape}}
+
+{{fragment:admission-repair-shape.md}}
+
+{{fragment:context-cost.md}}
 
 ## Two files, sorted by whose text must change {{slug:two-files}}
 

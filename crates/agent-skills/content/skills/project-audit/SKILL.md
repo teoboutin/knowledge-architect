@@ -263,7 +263,7 @@ walked in the group of the activity it serves.
 full, every finding the report marks as bearing on a ruling of the owner, on a tripwire or as
 plausible, against its draft, and a sample of the refuted drafts it chooses.
 
-**The repair by cause**, as `skill@knowledge-architect-agent-configuration@admission-standard` says, read whole. The
+**The repair by cause**, as `skill@knowledge-architect-project-audit@repair-shape` says. The
 repair step proposes one repair per cause, never one per finding, and a draft's proposed repair is
 one of its inputs; where `counts` gives a cause several repair agents, their proposals are
 alternatives for that one repair. **The check**: one workflow auditor per proposal, under its check
@@ -294,7 +294,7 @@ finding marked known or kept, and a predicted gap, take instead the outcome
 cross-check proposes each cause's outcome, and the session decides it. An item of the owner list is
 one cause, with the ids of its findings, the repair, its count and a default. The owner list states
 the net growth of the pass's repairs in the project first, where they add more instructions than
-they remove, as `skill@knowledge-architect-agent-configuration@admission-standard` says. Each pass's commit
+they remove, as `skill@knowledge-architect-project-audit@repair-shape` says. Each pass's commit
 message also gives the corpus's word count before and after the pass, `wc -w` over the corpus's
 files.
 
@@ -313,6 +313,12 @@ workflow's file of `skill@knowledge-architect-retrospective@two-files`, named, w
 as that section and `skill@knowledge-architect-retrospective@what-becomes-of-files` say, its
 subject naming the audit. It differs in its content only: what was audited at which commit in
 place of what the session did, each finding numbered `W<n>`, and no standing answers.
+
+## How a repair of agent-facing text is shaped {{slug:repair-shape}}
+
+{{fragment:admission-repair-shape.md}}
+
+{{fragment:context-cost.md}}
 
 ## The tripwire axis {{slug:tripwire-axis}}
 
