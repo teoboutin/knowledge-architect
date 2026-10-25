@@ -5630,7 +5630,7 @@ fn transcript_the_remaining_rows_of_the_mapping_hold() {
     // A line holding a tool result keeps its own text.
     has("owner 2026-02-01 10:00]\nwords beside a result");
     // Questions with no answers are a tool result, not the owner's answer.
-    assert_eq!(stdout.matches("owner-answer").count(), 1, "{stdout}");
+    assert_eq!(stdout.matches("owner-answer").count(), 2, "{stdout}");
     has("options: A (the first) | B (the second)");
     has("answer: B");
     has("annotations:");
@@ -5648,9 +5648,10 @@ fn transcript_the_remaining_rows_of_the_mapping_hold() {
     has("injected meta 2026-02-01 10:00]\nnotes: Base directory for this skill: inside");
     has("# unrecognised attachment.type \"dup_thing\": 2, first at -proj/12345678-0000-0000-0000-000000000009.jsonl:17");
     has("# files read: 1; harness versions: 2.1.310");
-    assert!(
-        !stdout.contains("# not JSON"),
-        "a blank line is no line:\n{stdout}"
+    assert_eq!(
+        stdout.matches("# not JSON").count(),
+        1,
+        "a blank line is no line, and `[1, 2]` is no JSON object:\n{stdout}"
     );
 
     // A file whose one field is `isCompactSummary` takes no fallback; a line with no parent key
@@ -5714,7 +5715,8 @@ fn transcript_handles_order_and_placement_hold_across_files() {
         ),
         "{stdout}"
     );
-    assert!(rows[1].contains("subagents 1"), "{stdout}");
+    // Agent x by its call, and agent z by the call agent x made.
+    assert!(rows[1].contains("subagents 2"), "{stdout}");
     assert!(rows[2].contains("subagents 1"), "{stdout}");
     assert!(rows[3].contains("zeta, alpha"), "{stdout}");
     assert!(rows[3].contains("owner 1"), "{stdout}");
@@ -5821,4 +5823,129 @@ fn transcript_from_counts_and_search_scopes_hold() {
         !stdout.contains(" owner ") && !stdout.contains(" agent "),
         "{stdout}"
     );
+}
+
+/// What the second adversarial review found untested: the shapes counted, the rows it mutated, the
+/// cuts and excerpts, the header's gap and scope, `search`'s scopes and `--json`.
+#[test]
+fn transcript_shapes_rows_and_output_forms_hold() {
+    let (stdout, _, code) = transcript("extras", "adv-show", &["show", "12345678", "--tools"]);
+    assert_eq!(code, 0, "{stdout}");
+    let has = |needle: &str| assert!(stdout.contains(needle), "missing {needle:?} in:\n{stdout}");
+    // A command's parent that carries a field is no command line, and prints.
+    has("owner 2026-02-01 10:00]\nthe owner speaks before a command");
+    has("injected meta 2026-02-01 10:00]\na meta line before a command");
+    has("injected unknown 2026-02-01 10:00]\na meta line from a robot");
+    has("long question line 44");
+    // A tool result is never a command's own line, whatever its parent link says.
+    has("a result before a command");
+    // The shapes the labels cannot read are counted.
+    has("# unrecognised assistant content shape \"neither a list nor a string the line takes\": 1");
+    has("# unrecognised assistant content item shape \"text with no text\": 1");
+    has("# unrecognised queued_command shape \"no prompt\": 1");
+    has("# unrecognised origin \"not an object: \\\"human\\\"\": 1");
+    has("# unrecognised type \"(none)\": 1");
+    has("# not JSON: -proj/12345678-0000-0000-0000-000000000009.jsonl:");
+
+    let (stdout, _, _) = transcript("extras", "adv-list", &["list"]);
+    assert!(
+        stdout.contains("first owner word"),
+        "the first non-empty line:\n{stdout}"
+    );
+
+    let (stdout, _, code) = transcript("extras", "adv-search-cut", &["search", "owner w+"]);
+    assert_eq!(code, 0, "{stdout}");
+    let hit = stdout
+        .lines()
+        .find(|l| l.contains("owner www"))
+        .expect("a hit");
+    assert!(hit.ends_with('…') && hit.chars().count() < 250, "{hit}");
+
+    // A long brief is never cut, and agent x's own subagent is placed by its call.
+    let (stdout, _, _) = transcript(
+        "twofiles",
+        "adv-brief",
+        &["show", "a1000000", "--subagents"],
+    );
+    assert!(stdout.contains("briefline 44"), "{stdout}");
+    assert!(stdout.contains("brief of nested agent z"), "{stdout}");
+
+    // A subagent's `isMeta` line is injected, not its dispatcher's.
+    let (stdout, _, _) = transcript(
+        "labels",
+        "adv-submeta",
+        &["show", "eeeeeeee", "--subagents"],
+    );
+    assert!(
+        stdout.contains("injected meta 2026-01-03 10:00]\na skill loaded in the subagent"),
+        "{stdout}"
+    );
+    // A compaction's line names its trigger.
+    let (stdout, _, _) = transcript("split", "adv-trigger", &["show", "aaaaaaaa"]);
+    assert!(stdout.contains("compaction, trigger auto"), "{stdout}");
+
+    // The header: the gap on an unknown value alone and on a line that is no JSON alone; `show`
+    // reads no subagent file without `--subagents`; a `--from` miss prints the header.
+    let (stdout, _, _) = transcript("twofiles", "adv-gap-type", &["list"]);
+    assert!(
+        stdout.contains("# unrecognised type \"brand-new-type\"")
+            && stdout.contains("# each is a gap"),
+        "{stdout}"
+    );
+    let (stdout, _, _) = transcript("places", "adv-gap-json", &["show", "ffffffff"]);
+    assert!(
+        stdout.contains("# not JSON") && stdout.contains("# each is a gap"),
+        "{stdout}"
+    );
+    let (stdout, _, _) = transcript("labels", "adv-files", &["show", "eeeeeeee"]);
+    assert!(stdout.contains("# files read: 1;"), "{stdout}");
+    let (stdout, _, _) = transcript(
+        "labels",
+        "adv-from-miss",
+        &["show", "eeeeeeee", "--from", "nowhere"],
+    );
+    assert!(stdout.contains("# files read:"), "{stdout}");
+
+    // A project's file is the one whose first chain line ran in its root.
+    let (stdout, _, _) = transcript("places", "adv-mixed", &["list"]);
+    assert!(!stdout.contains("77777777 "), "{stdout}");
+
+    // `search`: a later line of a text, `--tools`, `--branch`, and an unknown role refused.
+    let (stdout, _, code) = transcript("labels", "adv-s2", &["search", "(?m)body line 3$"]);
+    assert_eq!(code, 0, "{stdout}");
+    let (stdout, _, code) = transcript("labels", "adv-s3", &["search", "--tools", "file listing"]);
+    assert_eq!(code, 0, "{stdout}");
+    assert!(stdout.contains("tool Bash"), "{stdout}");
+    let (stdout, _, _) = transcript("split", "adv-s4", &["search", "--branch", "feature", "."]);
+    assert!(
+        stdout.contains("bbbbbbbb#2 ") && !stdout.contains("aaaaaaaa "),
+        "{stdout}"
+    );
+    assert_eq!(
+        transcript(
+            "labels",
+            "adv-role",
+            &["search", "--role", "owner-anwser", "."]
+        )
+        .2,
+        2
+    );
+
+    // `--json`: the header first, then one object per row or line.
+    let (stdout, _, code) = transcript("split", "adv-json-list", &["list", "--json"]);
+    assert_eq!(code, 0, "{stdout}");
+    let first = stdout.lines().next().expect("a line");
+    assert!(
+        first.starts_with("{\"files\"") || first.contains("\"header\":\"read\""),
+        "{stdout}"
+    );
+    assert!(
+        stdout
+            .lines()
+            .any(|l| l.contains("\"session\":\"aaaaaaaa\"")),
+        "{stdout}"
+    );
+    let (stdout, _, _) = transcript("split", "adv-json-show", &["show", "aaaaaaaa", "--json"]);
+    assert!(stdout.contains("\"text\":\"first question\""), "{stdout}");
+    assert!(!stdout.lines().any(|l| l.starts_with('[')), "{stdout}");
 }

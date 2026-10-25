@@ -31,6 +31,9 @@ const KNOWN_METADATA_TYPES: &[&str] = &[
     "file-history-delta",
     "file-history-snapshot",
     "cost-state",
+    "artifact-autoreact-ledger",
+    "artifact-comment-monitor",
+    "frame-link",
 ];
 
 /// The `system` subtypes: `local_command` and `compact_boundary` are used, the others ignored.
@@ -169,6 +172,19 @@ fn is_chain(value: &Value) -> bool {
         .get("type")
         .and_then(Value::as_str)
         .is_some_and(|t| CHAIN_TYPES.contains(&t))
+}
+
+/// Whether a line's content holds a `tool_result` item.
+fn holds_tool_results(value: &Value) -> bool {
+    value
+        .get("message")
+        .and_then(|m| m.get("content"))
+        .and_then(Value::as_array)
+        .is_some_and(|items| {
+            items
+                .iter()
+                .any(|i| str_field(i, "type") == Some("tool_result"))
+        })
 }
 
 /// The kind of an `origin` object: its `kind`, or `(none)` for an `origin` that holds none, which no
@@ -356,6 +372,23 @@ impl Inventory {
         slot.0 += 1;
     }
 
+    /// Count an `origin` the labels cannot read: a `kind` outside the known set, an object with no
+    /// `kind`, or a value that is no object, named by its JSON so the value a release wrote shows.
+    fn note_origin(&mut self, field: &str, origin: Option<&Value>, at: &str) {
+        match origin {
+            None => {}
+            Some(Value::Object(_)) => {
+                let kind = origin_kind(origin).expect("an object gives a kind");
+                if !KNOWN_ORIGIN_KINDS.contains(&kind) {
+                    self.note_unknown(&format!("{field}.kind"), kind, at.to_string());
+                }
+            }
+            Some(other) => {
+                self.note_unknown(field, &format!("not an object: {other}"), at.to_string())
+            }
+        }
+    }
+
     /// Whether the header ends with the line asking for the gap to be reported.
     pub(crate) fn has_gap(&self) -> bool {
         !self.unknown.is_empty() || self.unlabelled > 0 || !self.malformed.is_empty()
@@ -389,28 +422,37 @@ impl Inventory {
                     } else {
                         KNOWN_ASSISTANT_ITEMS
                     };
-                    if let Some(items) = value
-                        .get("message")
-                        .and_then(|m| m.get("content"))
-                        .and_then(Value::as_array)
-                    {
-                        for item in items {
-                            let item_type = str_field(item, "type").unwrap_or("(none)");
-                            if !known.contains(&item_type) {
-                                self.note_unknown(
-                                    &format!("{kind} content item"),
-                                    item_type,
-                                    at.clone(),
-                                );
+                    // The shapes the labels read: a `user` line's content a string or a list, an
+                    // `assistant` line's a list, each `text` item with its `text`. Another shape
+                    // would print as nothing, so it is counted.
+                    match value.get("message").and_then(|m| m.get("content")) {
+                        Some(Value::Array(items)) => {
+                            for item in items {
+                                let item_type = str_field(item, "type").unwrap_or("(none)");
+                                if !known.contains(&item_type) {
+                                    self.note_unknown(
+                                        &format!("{kind} content item"),
+                                        item_type,
+                                        at.clone(),
+                                    );
+                                } else if item_type == "text" && str_field(item, "text").is_none() {
+                                    self.note_unknown(
+                                        &format!("{kind} content item shape"),
+                                        "text with no text",
+                                        at.clone(),
+                                    );
+                                }
                             }
                         }
+                        Some(Value::String(_)) if kind == "user" => {}
+                        _ => self.note_unknown(
+                            &format!("{kind} content shape"),
+                            "neither a list nor a string the line takes",
+                            at.clone(),
+                        ),
                     }
                     if kind == "user" {
-                        if let Some(origin) = origin_kind(value.get("origin")) {
-                            if !KNOWN_ORIGIN_KINDS.contains(&origin) {
-                                self.note_unknown("origin.kind", origin, at.clone());
-                            }
-                        }
+                        self.note_origin("origin", value.get("origin"), &at);
                     }
                 }
                 "attachment" => {
@@ -422,11 +464,13 @@ impl Inventory {
                         self.note_unknown("attachment.type", attachment_type, at.clone());
                     }
                     if attachment_type == "queued_command" {
-                        if let Some(origin) = origin_kind(attachment.and_then(|a| a.get("origin")))
-                        {
-                            if !KNOWN_ORIGIN_KINDS.contains(&origin) {
-                                self.note_unknown("attachment.origin.kind", origin, at.clone());
-                            }
+                        self.note_origin(
+                            "attachment.origin",
+                            attachment.and_then(|a| a.get("origin")),
+                            &at,
+                        );
+                        if attachment.and_then(|a| a.get("prompt")).is_none() {
+                            self.note_unknown("queued_command shape", "no prompt", at.clone());
                         }
                     }
                 }
@@ -819,6 +863,7 @@ impl Labelling<'_> {
                 }
                 if consumed.contains(uuid)
                     && str_field(value, "type") == Some("user")
+                    && !holds_tool_results(value)
                     && value.get("isMeta").is_none()
                     && value.get("isCompactSummary").is_none()
                     && value.get("origin").is_none()
@@ -1113,5 +1158,6 @@ mod tests {
         assert!(!opens_with_tag("<A>"));
         assert!(!opens_with_tag("plain text <b>"));
         assert!(!opens_with_tag("<>"));
+        assert!(!opens_with_tag("<abc!x"));
     }
 }

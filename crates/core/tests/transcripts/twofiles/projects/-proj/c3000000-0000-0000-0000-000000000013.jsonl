@@ -1,1 +1,2 @@
 {"type": "attachment", "uuid": "c1", "parentUuid": null, "sessionId": "c3000000-0000-0000-0000-000000000013", "timestamp": "2026-03-05T10:00:00.000Z", "cwd": "{{root}}", "gitBranch": "main", "version": "2.1.310", "isSidechain": false, "attachment": {"type": "date"}}
+{"type": "brand-new-type", "sessionId": "c3000000-0000-0000-0000-000000000013"}

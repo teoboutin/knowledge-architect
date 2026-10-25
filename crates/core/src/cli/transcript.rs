@@ -87,7 +87,21 @@ pub struct TranscriptSearchArgs {
     pub pattern: String,
     /// Keep lines of this role, repeatable: owner, owner-answer, owner-queued, owner-command,
     /// agent, dispatch, injected, tool, unlabelled.
-    #[arg(long = "role", value_name = "ROLE")]
+    #[arg(
+        long = "role",
+        value_name = "ROLE",
+        value_parser = [
+            "owner",
+            "owner-answer",
+            "owner-queued",
+            "owner-command",
+            "agent",
+            "dispatch",
+            "injected",
+            "tool",
+            "unlabelled"
+        ]
+    )]
     pub roles: Vec<String>,
     /// Keep the calls of this tool and their results.
     #[arg(long, value_name = "NAME")]
@@ -350,22 +364,14 @@ fn search(
             }
         }
         for (tag, entries) in units {
-            // A tool result names its call by id, so `--tool` keeps the results of the calls
-            // that tool made.
-            let calls: std::collections::HashSet<&str> = entries
-                .iter()
-                .filter(|e| matches!(&e.label, Label::Tool(n) if Some(n) == args.tool.as_ref()))
-                .filter_map(|e| e.tool_use_id.as_deref())
-                .collect();
             for e in entries {
                 let is_tool = matches!(e.label, Label::Tool(_));
                 if is_tool {
                     let kept = match &args.tool {
                         Some(name) => {
+                            // A tool result carries the name of the call it answers, per
+                            // `crate::transcript`'s labelling, so one test keeps both.
                             matches!(&e.label, Label::Tool(n) if n == name)
-                                || e.tool_use_id
-                                    .as_deref()
-                                    .is_some_and(|id| calls.contains(id))
                         }
                         None => args.tools,
                     };

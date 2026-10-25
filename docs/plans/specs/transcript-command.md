@@ -91,7 +91,9 @@ transcripts after 30 days, so each figure keeps the count that is its claim and 
 - the top-level `type` values: `user`, `assistant`, `attachment`, `system`, and the metadata types
   `api-request`, `api-request-blob`, `api-request-shape`, `last-prompt`, `atis-latch`, `mode`,
   `permission-mode`, `ai-title`, `queue-operation`, `pr-link`, `file-history-delta`,
-  `file-history-snapshot`, `cost-state`. Re-taken with
+  `file-history-snapshot`, `cost-state`, and, met at the review before the merge in a session that
+  used Claude Code's artifacts, `artifact-autoreact-ledger`, `artifact-comment-monitor` and
+  `frame-link`, each with no `uuid` and no message. Re-taken with
   `find ~/.claude/projects -name '*.jsonl' ! -name journal.jsonl -exec jq -r .type {} + | sort | uniq -c`;
 - the `system` subtypes: `turn_duration`, `compact_boundary`, `scheduled_task_fire`,
   `informational`, `local_command`; re-taken with the same command on `select(.type=="system") | .subtype`;
@@ -688,7 +690,8 @@ line, and at a chain line whose `sessionId` differs from the previous chain line
 line written before its parent cuts nothing. A compaction and a resumed process stay inside their
 session: a resume's first chain line has a parent, measured under "What the work is".
 
-A subagent file is attached to a session of the file whose name is the `sessionId` its lines carry:
+A subagent file is attached to a session of the top-level file whose stem names the directory it
+sits under, the `sessionId` its lines carry in every subagent file measured:
 where that `sessionId` holds one session, to it; where it holds several, to the one holding the
 `tool_use` item whose id the subagent's `toolUseId` names, searched through the top-level file and
 the other subagent files; and otherwise to the last. A line whose `uuid` was already read in the
@@ -757,7 +760,8 @@ dde8ed67 L475 agent  … the matching line, cut to 200 characters …
   `tool-results/` prints as the reference its line holds.
 - `search` prints one line per kept line whose whole text matches the regex, in the `regex` crate's
   syntax, a match spanning a line break included, with the handle, the line number, the label and the
-  text's line where the match starts. `tool` lines are searched only under
+  text's line where the match starts. `--role` takes one of the labels' roles, and refuses any other
+  word with exit 2. `tool` lines are searched only under
   `--tools`, or under `--tool <name>`, which keeps the tool calls of that name and their results. A
   tool call's text is its name and its input as compact JSON; a tool result's is its text items
   joined, or its string.
@@ -808,7 +812,7 @@ each item is mapped by the rows of its line's type.
 
 | line | condition | label |
 | --- | --- | --- |
-| `user` | the parent of a `system` `local_command` line with a `commandRun`, by `uuid` over the session, with neither `isMeta`, `isCompactSummary` nor `origin` | consumed by that line, not printed |
+| `user` | the parent of a `system` `local_command` line with a `commandRun`, by `uuid` over the session, with neither `isMeta`, `isCompactSummary` nor `origin`, and no `tool_result` item | consumed by that line, not printed |
 | `user` | holds only `tool_result` items, and its `toolUseResult` holds `questions` and `answers` | `owner-answer`: the questions, their options with their descriptions, the answers and any `annotations` |
 | `user` | holds only `tool_result` items, otherwise | `tool`, with the name of the call it answers where the run holds it, kept under `--tools` |
 | `user` | in a subagent file, with neither `isMeta`, `isCompactSummary` nor `origin` | `dispatch` |
@@ -817,7 +821,7 @@ each item is mapped by the rows of its line's type.
 | `user` | `isMeta` true, no `origin` | `injected skill` when its text opens "Base directory for this skill:", else `injected meta` |
 | `user` | `origin.kind` `human` | `owner` |
 | `user` | `origin.kind` `peer`, `task-notification` or `coordinator` | `injected` with that kind |
-| `user` | `origin.kind` any other value, or an `origin` with no `kind` | `injected unknown`, counted in the header |
+| `user` | `origin.kind` any other value, an `origin` with no `kind`, or an `origin` that is no object, the last counted by its JSON | `injected unknown`, counted in the header |
 | `user` | none of the above | `unlabelled`, counted in the header; the fallback where it runs |
 | `user` item | a content item type other than `text` or `tool_result` | dropped, counted in the header |
 | `assistant` item | `text` | `agent` |
@@ -837,7 +841,8 @@ each item is mapped by the rows of its line's type.
 | `system` | an unknown subtype | dropped, counted in the header |
 | a known metadata type | | dropped |
 | an unknown top-level `type` | | dropped, counted in the header |
-| no JSON | | counted in the header with its file and line; a line of whitespace alone is no line |
+| no JSON object | | counted in the header with its file and line; a line of whitespace alone is no line |
+| a content that is neither a list nor, on a `user` line, a string; a `text` item with no `text`; a `queued_command` with no `prompt` | | counted in the header as an unknown shape, the line kept as the rows give it |
 
 The `injected skill` kind reads a text prefix for a line its fields already mark injected, so it
 chooses a kind and never a side: it keeps `criterion@transcript-command@labels-by-fields`.
