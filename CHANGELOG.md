@@ -58,11 +58,21 @@ subsection is omitted.
   command enum's variants `Init` and `NewComponent`; and the agent-skills crate's `SNIPPETS`, the
   files the setup skill's Rust section shows.
 - `library`, minor: `cli::Command::Worklist` and `cli::WorklistArgs`.
+- `cli`, minor: `klarch transcript list`, `show` and `search` read the session transcripts Claude
+  Code writes: the project's sessions, cut where a new session starts, `/clear` included, each line
+  labelled by its fields as the owner's, injected, the agent's, a dispatch or a tool's, and a header
+  naming every line and value the command does not recognise. The core's README says how.
+- `library`, minor: `cli::Command::Transcript`, `cli::TranscriptArgs`, `cli::TranscriptVerb`,
+  `cli::TranscriptListArgs`, `cli::TranscriptShowArgs` and `cli::TranscriptSearchArgs`.
 - `agent-skills`, patch: the project audit gains its tripwire axis, with the agent
   `agent@knowledge-architect-tripwire-auditor` and the saved workflow `knowledge-architect-tripwire-audit`.
 
 ### Workflow
 
+- `agent-skills`, patch: the transcript reviewer, and the subagent that assembles a plan document,
+  extract a session with `klarch transcript show` instead of writing a script, and find each session
+  with `klarch transcript list`, never by a session identifier; a reviewer lists under "Met outside
+  the task" each line the command's header reports as not recognised.
 - `agent-skills`, patch: the standards a session applied by reading a pointed section whole are
   copied into each text that applies them: the rules on design heads, the admission standard,
   the retrospective's file format and kinds of defect, the decision-recording skill's rules on the

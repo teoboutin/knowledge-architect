@@ -26,46 +26,34 @@ owner's.
 **Reproduce anything you assert.** Every finding quotes the transcript verbatim, and names where you
 looked for the outcome, with the command you ran. Drop what you cannot quote.
 
-**You do not use `Write` or `Edit`.** You may write your extraction script and its output to a
-scratch directory the brief names, through the shell, and nowhere else.
+**You do not use `Write` or `Edit`.** You may write the extraction the command prints to a scratch
+directory the brief names, through the shell, and nowhere else.
 
 ## Extract the transcripts {{slug:extract-transcripts}}
 
-The log of the `claude` harness is a JSONL file, one JSON object per line. Keep the lines whose
-`type` is `user` or `assistant`. From each, keep the text: a message's `message.content` may be a
-plain string, or a list of items; keep the items whose `type` is `text`. Keep as well the lines
-whose `type` is `attachment` and whose `attachment.type` is `queued_command`: a message delivered
-while the session was mid-turn, such as a peer agent's report, and its text is `attachment.prompt`.
-**Keep the owner's answers to a question tool** (`AskUserQuestion` in the `claude` harness): the
-answer arrives as a `tool_result` item in a `user` line, and that line is selected by its
-`toolUseResult` object holding `questions` and `answers`: the questions asked, each with its
-options, and the answers given, keyed by question text, a choice typed in by the owner included,
-with any notes in `annotations`. Keep the questions with
-their options and the answers, labelled as the owner's answer, at the place of that line. Such a
-line carries neither `isMeta` nor `origin`, and this label holds for it in place of the labelling
-by fields below. Drop every other tool call and tool result, and every other line. Extract each transcript the brief names, in
-the order it gives, from the message where the work begins to the end.
+The brief names each session by its handle and by the opening words of the message where the work
+begins in it. Confirm each with `{{command}} transcript list --containing "<opening words>"`, which
+lists the sessions holding those words in a message the owner typed: **a session the brief names
+that does not hold that message is reported at once, and not read**: it is another session's. Never
+find a session by a session identifier: after `/clear`, the harness keeps the earlier session's
+identifier in its paths.
 
-**Not every `user` line is the owner's.** The harness also writes, as `user` lines, text it injects:
-a line whose `isMeta` is true (a loaded skill, a message from another agent), a line whose
-`isCompactSummary` is true (the summary the harness writes when it compacts a session), and a line
-whose `origin.kind` is not `human` (a background task's notification, a message from a peer agent). A
-`queued_command` line carries the same two fields inside `attachment`, as `attachment.isMeta` and
-`attachment.origin.kind`. An owner's message typed mid-turn arrives that way, with
-`attachment.origin.kind` `human` and its text in `attachment.prompt`. Label each `user` line and
-each `queued_command` line as the owner's or as injected, by those fields, and keep both: an
-injected line carries the report of another reviewer or agent, which is part of what the session
-established. Only a line labelled the owner's carries the owner's word. Where a log carries neither
-field, say so, and treat a line whose text opens with a harness tag, such as `<task-notification>`
-or `<system-reminder>`, as injected.
+Extract each session, in the order the brief gives, with
+`{{command}} transcript show <session> --from "<opening words>"`, written to a file of your scratch
+directory. The command keeps every message whole and in order, and labels each line by its fields,
+never by a substring of its text: a filter on text once dropped a message of the owner's, and a
+ruling dropped that way is one the review never sees.
 
-**Select and label by the fields of each line, never by a substring of its text, except by the
-harness tag above in a log that carries neither field.** A filter on text content drops messages
-whose wording happens to match it, and an owner's message dropped that way is a ruling the review
-never sees. The message where the work begins is found by the opening words the brief gives.
-**A file named in the brief that does not hold
-that message is reported at once, and not read**: it is another session's. Keep the order of the
-lines.
+- **Only the lines labelled `owner`, `owner-queued`, `owner-answer` and `owner-command` carry the
+  owner's word**: a message, a message typed while the session was mid-turn, an answer to a
+  question tool with its questions and options, and a command such as `/clear`.
+- **A line labelled `injected` carries what the harness or another agent delivered**: a skill, a
+  reviewer's or a peer agent's report, a task's notification, a compaction's summary. It is part of
+  what the session established.
+- **A line labelled `unlabelled` is one the command could not place by its fields**: read it,
+  judge whose it is, and say how you judged.
+- **The header names each line the command did not recognise.** Where it names any, list them under
+  "Met outside the task", as the header asks.
 
 ## List what must outlive the sessions {{slug:list-what-outlives}}
 

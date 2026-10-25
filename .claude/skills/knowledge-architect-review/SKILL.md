@@ -61,11 +61,11 @@ given after its extraction reads to it as missing. Its range is the whole branch
 branch, with the message where the branch's work begins in each. It is the one axis that can see whether the findings of the others were acted on, since
 their reports reach the session as messages of its transcript.
 
-**Find each transcript file by the message where the work begins, never by a session
-identifier.** Search the harness's transcript directory for the opening words of that message, and
-name a file only once it is seen to hold the message as one the owner sent, not as a quotation of
-it in a later session: a session that was cleared or compacted can leave an earlier session's
-identifier in the harness's paths.
+**Find each session with `cargo klarch transcript list`, never by a session identifier**: after
+`/clear`, the harness keeps the earlier session's identifier in its paths. `--branch <branch>` lists
+the sessions that worked on the branch, and `--containing "<opening words>"` the session holding the
+message where the work begins as one the owner typed. The brief names each session by its handle
+and by those opening words.
 
 ## The invariants `##review-invariants`
 
