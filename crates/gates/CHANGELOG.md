@@ -69,6 +69,9 @@ subsection is omitted.
 
 ### Workflow
 
+- `agent-skills`, patch: the goal on repeated tasks that the setup skill proposes for a maintenance
+  tool takes only the mechanical tasks local to the project: a task the installed text asks of every
+  project is the checker's to automate.
 - `agent-skills`, patch: the transcript reviewer, and the subagent that assembles a plan document,
   extract a session with `klarch transcript show` instead of writing a script, and find each session
   with `klarch transcript list`, never by a session identifier; a reviewer lists under "Met outside
