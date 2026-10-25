@@ -12,8 +12,10 @@ the commit messages, the linter and the tests. It runs them all when one fails, 
 verdict as its exit code. It is met while a session needs no other command to know whether a branch
 may merge, and the continuous integration runs the same command.
 
-## A task performed repeatedly in the project is a command of the tool `##repeated-tasks-are-automated`
+## A mechanical task performed repeatedly in this repository alone is a command of the tool `##repeated-tasks-are-automated`
 
-A task that sessions perform in this repository more than once, by hand and in the same steps,
-becomes a command of the tool, so it runs the same way each time. It is met while no such task is
-left to be done by hand. None exists today.
+A task that sessions perform in this repository more than once, by hand and in the same steps, and
+that is local to this repository, becomes a command of the tool, so it runs the same way each time.
+A task the installed agent text asks of every project that adopts the workflow is the published
+checker's to automate, not the tool's. It is met while no such task is left to be done by hand.
+None exists today.
