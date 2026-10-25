@@ -1,8 +1,9 @@
-%% The decisions: `design@agent-skills@tripwire-horizon`, `design@agent-skills@tripwire-recording-authority`.
+%% The decisions: `design@agent-skills@tripwire-horizon`, `design@agent-skills@tripwire-wording-is-the-agents`.
 A tripwire leaves its home by these exits alone, or on the owner's word; its wording and its scope
-are the session's to change, judged by the standard of
-`skill@knowledge-architect-decision-recording@ruled-tripwires`, and each change is
-listed in the turn's "Decided" section. It leaves when:
+are the session's to change while it watches the same cause, judged by the standard of
+`skill@knowledge-architect-decision-recording@ruled-tripwires`, except the narrowing of a tripwire
+whose ground is the owner's own word, which is the owner's; each change is listed in the turn's
+"Decided" section. It leaves when:
 
 - **it fires**: its heading and body are deleted, and an issue is opened or the decision is
   reopened, as its response says, unless the paragraph below keeps it;

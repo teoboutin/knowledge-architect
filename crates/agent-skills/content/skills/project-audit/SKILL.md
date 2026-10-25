@@ -381,7 +381,7 @@ pass's commit, with no uncommitted work in the tree.
 | outcome | the findings | where it goes |
 | --- | --- | --- |
 | kept | it meets the standard | applied in the branch: a horizon is written, and a `T<n>` label or a ground "on the owner's word" is reworded to the entry's own premise |
-| reworded | a slip struck, a response brought to the shape, a number given its basis or replaced by the event | applied in the branch: a recorded tripwire's wording and scope are the session's, per `skill@knowledge-architect-decision-recording@ruled-tripwires` |
+| reworded | a slip struck, a response brought to the shape, a number given its basis or replaced by the event | applied in the branch: a recorded tripwire's wording and scope are the session's, per `skill@knowledge-architect-decision-recording@ruled-tripwires`; a narrowing of one whose ground is the owner's own word is put to the owner, on the owner list |
 | converted | a script could compute its firing | put to the owner, on the owner list: the entry leaves once the check exists, the check written in the branch where it is small, else a `todo` issue |
 | absorbed | another entry guards the same premise | put to the owner, on the owner list: the entry leaves, its clause folded into the other |
 | removed | it fails condition 1, 2 or 3; or no condition clearly excludes it and the owner would see its failure anyway, the doubt's weight | put to the owner, on the owner list |
