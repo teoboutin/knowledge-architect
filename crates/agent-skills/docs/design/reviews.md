@@ -149,3 +149,74 @@ definition from disk, as `skill@knowledge-architect-review@review-invariants` as
 definition. The nearest rival, a general-purpose subagent briefed with the axis's question, has each
 dispatching session write the procedure into its brief anew, and a procedure rewritten per brief
 drifts; every other review axis with a fixed standard has an agent of its own.
+
+### A transcript reviewer checks that what a work's sessions established has a durable outcome, and that no ruling of the owner is recorded in a state or a scope the owner did not give `##transcript-reviewer-agent`
+
+The installed agent `agent@knowledge-architect-transcript-reviewer` reads the transcripts of the
+sessions that produced a piece of work, named as a commit range, and checks two things. First, that
+each decision of the owner, each argument that decided something, each finding of a reviewer and
+each thing met outside the task has a durable outcome: recorded in its home, acted on by a repair or
+an issue, or judged to need nothing with the reason written where the owner reads it. What lives
+only in a conversation is lost when the session ends or is compacted. Second, that no ruling of the
+owner is recorded in a state or a scope the owner did not give. Detail added inside a ruling, and a
+wording better than the one the owner was shown, are not findings. On the owner's word, the
+reviewer's weight is on whether something from the transcript was forgotten or not handled
+durably, and a small addition, even a clearly sane deviation, is no finding. A ruling is a word of the owner on a question
+`primer@question-authority` reserves to the owner; an answer on a reading or a fact is checked
+against its source, per `design@agent-skills@answer-keeps-its-authority`. The reviewer assumes no shape of
+the work: a plan document is one home among the others.
+
+It is an agent, not a line in a skill, because its standard is fixed. Its extraction is the
+checker's, per `design@agent-skills@transcript-extraction-is-the-checker-s`. It serves `goal@knowledge-architect@the-owner-decides`. The durability check serves
+`goal@knowledge-architect@design-is-recorded-with-its-arguments`. The check of rulings has shown
+its worth: in the review of the change that installed the first skills, a reviewer briefed with it
+was the one of six to find a decision recorded narrower than the owner's approval. The milestone
+document of the v0.1 extraction holds that count, in its section on session B of step 5, and
+`git log --diff-filter=D --name-only -- docs/plans/` finds it; the message of the commit "[review]
+Six reviewers read PR 1: the hand-off rule, the shipped text and the record are corrected" records
+the review's six axes and its finding.
+
+The design this decision did not keep:
+`rejected@agent-skills@transcript-reviewer-reports-every-clause`.
+
+### A session is extracted with the checker's `transcript show`, and no installed text holds an extraction rule of its own `##transcript-extraction-is-the-checker-s`
+
+The transcript reviewer extracts each session with `klarch transcript show --from --full`, and the
+subagent that assembles a plan document extracts as the reviewer's section says; the command labels
+every line by its fields, per `design@core@transcript-labels-in-code`, so the installed texts state
+what the labels mean and no rule for which lines to keep or whose they are. A rule held in the
+reviewer's text, with the command as a helper, is applied by a script each session writes again,
+and stands in two homes beside the command's, against `design@core@one-question-one-command`; a
+fragment the build copies would still leave each session to write the script. It serves
+`goal@knowledge-architect@agents-get-a-complete-workflow`.
+
+### A transcript is found by the transcript command's listing, never by a session identifier `##transcript-found-by-listing`
+
+The review skill, the planning skill and the transcript reviewer name a session by the opening words
+of the message where its work begins, and find it with `klarch transcript list`: `--branch` lists
+the sessions that worked on a branch, `--containing` the session holding those words in a message the
+owner typed. No installed text finds a transcript by a session identifier. After `/clear`, the
+process keeps the earlier identifier in its paths while the harness writes a new file, as
+`design@core@transcript-session-split` measures, so a session that derives its transcript from the
+identifier it sees reads the session before the clear. The same reason holds at
+the three texts, which is why it has this home. The listing is computed from the transcripts, per
+`design@core@transcript-query-verbs`.
+
+### A misstated ruling is critical only when it reverses the ruling, or changes what is built or a load-bearing decision `##misstated-ruling-rated-by-what-it-changes`
+
+A misstated ruling is critical only when it is reversed, or when its state or scope changes what is
+built or a load-bearing decision. A ruling recorded a little wider, narrower or firmer on a detail
+that is not load-bearing is minor, still goes to the owner, and is no finding of the retrospective
+once caught before the merge. Any other misstated ruling is major. The cut is what the misstatement
+would build: a reversal, or a change of what is built or of a decision others rest on, produces
+wrong work if it merges, where a slip on a detail that bears on nothing built produces none, and is
+repaired once the owner sees it. That such a slip is no critical defect is the owner's weighing,
+from the owner's observation of real sessions: "everytime, it was on details that were small and
+not load bearing in my opinion", "the transcript reviewer is catching those issues reliably IMO. I do not believe any amount of instruction anywhere would help improve
+more than the current situation: LLM agents are trained to take the input they receive from humans
+seriously and follow them closely", and "This kind of findings being flagged by the transcript
+reviewer once in a while (for decisions that are not the most criticals, and with only a small
+deviation from my word, not a complete reversal) is not a critical defect and should not be
+considered as such." The rival, every misstated ruling rated critical, made a reviewer's report of a
+slip read as a critical defect, which the owner ruled it is not; the slip is still repaired, and it
+is no defect of the workflow.
