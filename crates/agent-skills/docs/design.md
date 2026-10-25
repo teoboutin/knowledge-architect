@@ -1068,21 +1068,40 @@ excludes. This is no grant of judgement within a boundary, which
 `primer@question-authority` applied once the record ranks the question. The design this decision
 did not keep: `rejected@agent-skills@owner-rules-each-tripwire`.
 
-### A recorded tripwire's wording and scope are the session's, and its removal outside the lifecycle's exits, or the narrowing of one grounded on the owner's word, is the owner's `##tripwire-wording-is-the-agents`
+### A tripwire is admitted, worded, scoped and removed by the standard alone, whoever proposed it `##tripwire-judged-by-the-standard-alone`
 
 A recorded tripwire's premise, firing clause, response, re-entry point and horizon change on the
 session's judgement under the standard of `design@agent-skills@tripwire-admission-test`, while it
-watches the same cause, and each change is listed in the turn's "Decided" section, per
-`design@agent-skills@decisions-reported-to-the-owner`. The owner named the wording and the small
-changes of scope of tripwires among the rulings a clearer standard should let the session's
-judgement cover. A ruling that bound the wording would make every repair of a tripwire a question
-to the owner, against `goal@knowledge-architect@agents-work-without-drift`.
+watches the same cause. The session removes a recorded tripwire that a condition of the standard
+excludes, the commit naming the condition, as it drops a cause at recording, per
+`design@agent-skills@tripwire-recording-authority`; in a project audit the removal is applied in
+the branch and listed in the report, grouped by condition. Each change and each removal is listed
+in the turn's "Decided" section, per `design@agent-skills@decisions-reported-to-the-owner`, and the
+owner overrules by reading it. A removal on the doubt's weight alone is the owner's, since it rests
+on the owner's own weighing of what the owner would see. A cause the owner proposes, or one derived
+from the owner's words, is judged by the standard like any other: the owner's word alone admits no
+tripwire and keeps none. A ruling of the owner that a tripwire restates, a bound or an exception,
+lives in the head the tripwire guards, which the tripwire cites.
 
-Two changes stay the owner's. A removal outside the exits of `design@agent-skills@tripwire-horizon`
-drops a premise the standard admitted with no exit deciding it, so no condition ranks it, and it is
-the owner's per `primer@question-authority`; an audit's deletion of one goes to the owner, per
-`design@agent-skills@audit-outcomes`. The narrowing of a tripwire whose ground is the owner's own
-word changes what that word covers, which only the owner rules, per `primer@owner-word-premise`.
+A tripwire is no decision: it watches one premise of a decision, and its only value is the fact it
+delivers, which the standard measures whoever proposed it. A ruling of the owner bears on a
+tripwire in one of two ways, and neither lives only in the tripwire. A ruling to watch a cause is
+the question the standard now ranks: of the 64 tripwires of this repository when the standard was
+written, 35 cited such a ruling, by a label or a ground on the owner's word, and the first pass of
+the tripwire axis removed, among its 20, 8 the owner had ruled kept, with the owner's approval. A ruling on the decision itself, such
+as the explanation of `check --fix`'s refusal that `design@agent-skills@checker-model-in-primer`
+keeps in the primer, lives in that head, and a narrowing of the tripwire that dropped it would make
+its clause fire on the decision working, which condition 3 excludes. So a narrowing or a removal of
+a tripwire changes no ruling of the owner, unlike a head, which can record the owner's intent, per
+`design@agent-skills@head-ground-is-the-argument`. The owner rules only on what the goals and the
+record leave open, per `goal@knowledge-architect@agents-work-without-drift`, and is informed of each
+removal and can overrule it, per `goal@knowledge-architect@the-owner-decides`. The owner named the
+wording and the small changes of scope of tripwires among the rulings a clearer standard should
+let the session's judgement cover. Of the two shapes that meet these goals, the owner chose one
+rule for every removal over a split that keeps an audit's removals on the owner's list, and ruled
+that a tripwire grounded on the owner's word gets no standing the standard does not give it.
+Keeping each removal with the owner brings back part of
+`rejected@agent-skills@owner-rules-each-tripwire`.
 
 ### A cause becomes a tripwire only where its failure is silent, its evidence lands where tripwires are read, it is what the decision forbids, and its numbers have a basis `##tripwire-admission-test`
 
@@ -2335,7 +2354,8 @@ pointer whose target exists under another name, a drifted restatement brought ba
 instruction read two ways reworded to the reading a design head or another instruction states. An
 approval cited as a head's ground is removed in the branch where the head stands on its argument,
 since its repair removes a false ground and widens nothing. A widening of what the owner's words
-approved, the removal of an entry, a ground that is the owner's words, which side of a
+approved, the removal of an entry, but for a tripwire the standard excludes, per
+`design@agent-skills@tripwire-judged-by-the-standard-alone`, a ground that is the owner's words, which side of a
 contradiction wins where no design head, goal or source settles it, a verdict where a rule reads
 two ways and no record states the reading, a
 provable gap, a head in the wrong Component and a conflict with a goal go to the owner, per
@@ -2401,7 +2421,7 @@ writes. The rival, that outcome removed, leaves a misfiled head unread until a c
 
 The design this decision did not keep: `rejected@agent-skills@wrong-component-outcome-removed`.
 
-### The tripwire axis re-applies the tripwire standard and its lifecycle to every tripwire, as the design-record axis applies its rules, and every deletion reaches the owner `##tripwire-audit-axis`
+### The tripwire axis re-applies the tripwire standard and its lifecycle to every tripwire, as the design-record axis applies its rules, and applies the deletions the standard and the lifecycle decide `##tripwire-audit-axis`
 
 A third axis of the project audit reads every entry of every tripwires home, with the head it guards
 and the history of any ruling of the owner it rests on, against the two fragments of
@@ -2409,20 +2429,21 @@ and the history of any ruling of the owner it rests on, against the two fragment
 agent, `agent@knowledge-architect-tripwire-auditor`, hosts. Its saved workflow takes the
 design-record axis's steps, per `design@agent-skills@design-record-axis-dispatch`: groups by
 Component, a shared calibration sample, one verifier per group on every draft, a cross-check, a
-report, and a run judging the application; it has no checker step, since it creates no head. Kept
-and reworded entries are applied in the branch; every outcome that deletes an entry, converted,
-absorbed, removed, decision gone, horizon passed or fired, goes on the owner list, grouped by
-outcome and, for a removal, by the condition failed, each group with a default, per
-`design@agent-skills@audit-outcomes`. A removal rests on a condition, or, where no condition clearly
-excludes the entry, on the owner's weight on a doubt that
-`design@agent-skills@tripwire-admission-test` states, a failure the owner would see anyway; such
-removals form a group of their own.
+report, and a run judging the application; it has no checker step, since it creates no head. Every
+outcome is applied in the branch, a deletion included, converted, absorbed, removed on a condition,
+decision gone, horizon passed or fired, per
+`design@agent-skills@tripwire-judged-by-the-standard-alone`, and the report lists the deletions
+grouped by outcome and, for a removal, by the condition failed, so the owner reads them and
+overrules any. A removal where no condition clearly excludes the entry rests on the owner's weight
+on a doubt that `design@agent-skills@tripwire-admission-test` states, a failure the owner would see
+anyway: those removals go on the owner list as one group, with a default, per
+`design@agent-skills@audit-outcomes`.
 
 The standard changes the rules recorded tripwires must meet, so a version shipping it names this
 axis in its Migration entry, per `design@knowledge-architect@changelog-entries` and
 `design@agent-skills@audit-triggers`; horizons prune afterwards, and the axis runs again on the
 owner's request. It removes what never deserved an entry, which a horizon cannot. Grouping the
-deletions lets the owner rule on one item per group rather than on one item per entry.
+deletions lets the owner read one group at a time rather than one entry at a time.
 
 ### The design-record axis is dispatched in bounded groups calibrated on a shared sample `##design-record-axis-dispatch`
 
@@ -3140,7 +3161,7 @@ decided ends with a section titled "Decided", one line per decision with its gro
 outside the task" where both are owed. A design thread closed on its argument, a default the record
 answered, a source applied over an answer of the owner, a premortem cause recorded as a tripwire or
 dropped, per `design@agent-skills@tripwire-recording-authority`, and a tripwire's wording or scope
-changed, per `design@agent-skills@tripwire-wording-is-the-agents`,
+changed or a tripwire removed, per `design@agent-skills@tripwire-judged-by-the-standard-alone`,
 are such decisions; an implementation choice a commit message records is not. A subagent reports its
 decisions under the same title, and the dispatching session carries them into its own.
 
