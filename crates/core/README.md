@@ -436,7 +436,7 @@ agents were given.
 When every report passes, it writes the **assembly** from the snapshot: `bears.md`, every entry
 whose highest grade over every report is `bears`, and `may-bear.md`, every entry whose highest grade
 is `may-bear`, after a table of contents with each entry's reasons. Above each entry, every agent's
-bearing grade line, identical lines merged; then its show text, or a goal's first line alone. It
+bearing grade line, identical lines merged; then its show text, fenced, or for a goal its grade lines and its site alone. It
 removes a previous assembly first, so a run that fails or stops leaves none. A snapshot that is
 missing or lacks an entry the list gives, as an older `--out` wrote, writes no assembly and exits 2.
 
