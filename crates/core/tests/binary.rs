@@ -5388,6 +5388,176 @@ fn worklist_snapshot_holds_the_show_text_of_every_entry() {
     );
 }
 
+/// A work list directory written whole, as `--out` would write it: `agents.txt`, each agent's
+/// report, and the snapshot. `--verify` reads no model, so no `--out` run is needed to make one.
+fn write_work_list(out: &Path, agents: &str, reports: &[(&str, &str)], snapshot: &[(&str, &str)]) {
+    std::fs::create_dir_all(out).expect("the work list");
+    std::fs::write(out.join("agents.txt"), agents).expect("agents.txt");
+    for (agent, lines) in reports {
+        std::fs::create_dir_all(out.join(agent)).expect("an agent directory");
+        std::fs::write(
+            out.join(agent).join("report.md"),
+            format!("# The report of {agent}\n\n{lines}\n## Met outside the task\n"),
+        )
+        .expect("a report");
+    }
+    let mut shown = String::new();
+    for (reference, text) in snapshot {
+        shown.push_str(&format!("=== {reference}\n\n````text\n{text}\n````\n\n"));
+    }
+    std::fs::write(out.join("shown.md"), shown).expect("shown.md");
+}
+
+/// AC1 of the spec of the graded entries' assembly: a passing `--verify` places each graded
+/// entry once, under its highest grade, with every agent's bearing grade line and a goal's text
+/// left out, and a failing or stopped run leaves neither file, a previous run's included.
+/// Mutations checked: in `assemble`, the highest grade taken from the first grade line instead,
+/// which puts the goal under `may-bear.md`; and the removal of a previous assembly at the head of
+/// `verify` deleted, which leaves the passing run's files after a failing one.
+#[test]
+fn worklist_verify_assembles_each_entry_once_under_its_highest_grade() {
+    let (sandbox, out) = worklist_project("worklist-assembly");
+    let out_text = out.to_string_lossy().into_owned();
+    let goal = "goal@core-mock@top-goal";
+    let head = "design@core-mock@first-head";
+    let agent_2 = format!("- {goal} | grade: bears | relation: constrains | reason: the second\n");
+    write_work_list(
+        &out,
+        &format!("agent-1 goal {goal}\nagent-1 unit {head}\nagent-2 goal {goal}\n"),
+        &[
+            (
+                "agent-1",
+                &format!(
+                    "- {goal} | grade: may-bear | relation: | reason: the first\n\
+                     - {head} | grade: may-bear | relation: | reason: a doubt\n"
+                ),
+            ),
+            ("agent-2", &agent_2),
+        ],
+        &[
+            (
+                goal,
+                &format!("{goal}  docs/goals.md:9\n\nTHE GOAL'S BODY\n\nreferenced by nothing"),
+            ),
+            (
+                head,
+                &format!("{head}  docs/design.md:7\n\nTHE HEAD'S BODY\n\nreferenced by nothing"),
+            ),
+        ],
+    );
+    let (stdout, stderr, code) = sandbox.run(&["worklist", "--verify", &out_text]);
+    assert_eq!(code, 0, "{stdout}{stderr}");
+    let bears = std::fs::read_to_string(out.join("bears.md")).expect("bears.md");
+    let may_bear = std::fs::read_to_string(out.join("may-bear.md")).expect("may-bear.md");
+    assert_eq!(bears.matches(&format!("=== {goal}")).count(), 1, "{bears}");
+    assert!(
+        !may_bear.contains(goal),
+        "the goal under its lower grade too:\n{may_bear}"
+    );
+    assert!(
+        bears.contains("agent-1: grade: may-bear | relation: | reason: the first")
+            && bears.contains("agent-2: grade: bears | relation: constrains | reason: the second"),
+        "{bears}"
+    );
+    assert!(
+        bears.contains(&format!("{goal}  docs/goals.md:9")),
+        "{bears}"
+    );
+    assert!(
+        !bears.contains("THE GOAL'S BODY"),
+        "a goal's text:\n{bears}"
+    );
+    assert!(!bears.contains(head), "{bears}");
+    assert!(
+        may_bear.contains(&format!("- {head}: a doubt"))
+            && may_bear.matches(&format!("=== {head}")).count() == 1
+            && may_bear.contains("THE HEAD'S BODY"),
+        "{may_bear}"
+    );
+
+    // A failing run, the head graded nowhere, leaves neither file.
+    std::fs::write(
+        out.join("agent-1").join("report.md"),
+        format!(
+            "# The report of agent-1\n\n- {goal} | grade: may-bear | relation: | reason: x\n\n\
+             ## Met outside the task\n"
+        ),
+    )
+    .expect("a failing report");
+    let (stdout, _, code) = sandbox.run(&["worklist", "--verify", &out_text]);
+    assert_eq!(code, 1, "{stdout}");
+    assert!(!out.join("bears.md").exists() && !out.join("may-bear.md").exists());
+
+    // A run stopped on a line it cannot parse leaves neither file either.
+    std::fs::write(
+        out.join("agent-1").join("report.md"),
+        format!("- {goal} | nonsense\n\n## Met outside the task\n"),
+    )
+    .expect("an unparsable report");
+    let (_, _, code) = sandbox.run(&["worklist", "--verify", &out_text]);
+    assert_eq!(code, 2);
+    assert!(!out.join("bears.md").exists() && !out.join("may-bear.md").exists());
+}
+
+/// A snapshot that lacks an entry `agents.txt` lists, as one an older `--out` wrote: the reports
+/// pass, but no assembly is written, no `PASSED` line is printed, and the run exits 2. And the
+/// assembly is the snapshot's text, not the tree's: an entry edited after `--out` is assembled as
+/// `--out` saw it, since `--verify` reads no model. Mutation checked: in `assemble`, the check of
+/// the missing entries deleted, which writes an assembly without the entry and passes.
+#[test]
+fn worklist_verify_assembles_from_the_snapshot_and_refuses_one_that_lacks_an_entry() {
+    let (sandbox, out) = worklist_project("worklist-snapshot-gap");
+    let out_text = out.to_string_lossy().into_owned();
+    let (stdout, stderr, code) = sandbox.run(&["worklist", "--out", &out_text]);
+    assert_eq!(code, 0, "{stdout}{stderr}");
+    fill_unrelated(&out);
+    let head = "design@core-mock@first-head";
+    let (report, text) = report_with(&out, head);
+    std::fs::write(
+        &report,
+        text.replace(
+            &format!("- {head} | grade: unrelated | relation: | reason: none"),
+            &format!("- {head} | grade: bears | relation: constrains | reason: it bears"),
+        ),
+    )
+    .expect("a report grading the head");
+    sandbox.write(
+        "docs/design.md",
+        &WORKLIST_DESIGN.replace("It serves", "EDITED AFTER THE WORK LIST. It serves"),
+    );
+    sandbox.stage();
+    let (stdout, stderr, code) = sandbox.run(&["worklist", "--verify", &out_text]);
+    assert_eq!(code, 0, "{stdout}{stderr}");
+    let bears = std::fs::read_to_string(out.join("bears.md")).expect("bears.md");
+    assert!(
+        bears.contains("It serves `goal@core-mock@fine-goal`"),
+        "{bears}"
+    );
+    assert!(!bears.contains("EDITED AFTER THE WORK LIST"), "{bears}");
+
+    let shown = std::fs::read_to_string(out.join("shown.md")).expect("shown.md");
+    let start = shown
+        .find(&format!("=== {head}\n"))
+        .expect("the head's entry");
+    let end = shown[start + 4..]
+        .find("\n=== ")
+        .map(|i| start + 4 + i + 1)
+        .unwrap_or(shown.len());
+    std::fs::write(
+        out.join("shown.md"),
+        format!("{}{}", &shown[..start], &shown[end..]),
+    )
+    .expect("a snapshot lacking the head");
+    let (stdout, stderr, code) = sandbox.run(&["worklist", "--verify", &out_text]);
+    assert_eq!(code, 2, "{stdout}{stderr}");
+    assert!(!stdout.contains("PASSED"), "{stdout}");
+    assert!(
+        stderr.contains(head) && stderr.contains("--out"),
+        "{stderr}"
+    );
+    assert!(!out.join("bears.md").exists() && !out.join("may-bear.md").exists());
+}
+
 /// Every `entries.md` of a work list, each under a line naming its agent, in agent order.
 fn worklist_entries_files(out: &Path) -> String {
     let mut agents: Vec<PathBuf> = std::fs::read_dir(out)
