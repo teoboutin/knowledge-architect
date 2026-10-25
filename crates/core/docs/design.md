@@ -3168,7 +3168,8 @@ are the harness's, measured over every transcript of the machine the reader was 
 `design@core@transcript-session-split` says; a field-less `user` line of a subagent file was the
 dispatcher's brief or a workflow's task in every subagent file measured, but one owner's interrupt,
 re-taken with
-`find ~/.claude/projects -path '*subagents*' -name 'agent-*.jsonl' -exec jq -r 'select(.type=="user" and .isMeta==null and .origin==null and .isCompactSummary==null and ((.message.content|type)=="string" or ([.message.content[] | select(.type=="tool_result")] | length) == 0)) | .message.content | if type=="string" then .[:40] else ([.[] | .text? // empty] | join(" "))[:40] end' {} + | sort | uniq -c`.
+`find ~/.claude/projects -path '*subagents*' -name 'agent-*.jsonl' -exec jq -r 'select(.type=="user" and .isMeta==null and .origin==null and .isCompactSummary==null and ((.message.content|type)=="string" or ([.message.content[] | select(.type=="tool_result")] | length) == 0)) | .message.content | if type=="string" then .[:40] else ([.[] | .text? // empty] | join(" "))[:40] end' {} + | sort | uniq -c`. That interrupt reads as `dispatch`, no field
+telling it apart and the rule refusing a text test: the owner accepted that row over a narrower row or a text test for the interrupt.
 
 ### The transcript reader tolerates every line it does not know, and every run reports each one `##transcript-format-tolerated-and-reported`
 

@@ -1064,7 +1064,8 @@ Fails alone on: the agent-facing-text review of the step's diff.
   only its text does, which `criterion@transcript-command@labels-by-fields` refuses. The transcript
   reviewer does not read subagent files, so it never meets the line; a survey with `--subagents`
   does. Default: the row stands as amended; the owner rules whether a narrower row, or a text test
-  for the interrupt alone, is wanted.
+  for the interrupt alone, is wanted. **Ruled**: the owner, after the review before the merge, "D2 qccepted": the row
+  stands as amended.
 
 ## Harvest
 
