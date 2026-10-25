@@ -93,7 +93,7 @@ and are not written.
 **The owner's word admits no tripwire alone.** A cause the owner proposes, or one derived from the
 owner's words, is judged by these conditions like any other, and a tripwire that fails them is not
 kept, whoever proposed it. A ruling of the owner that a tripwire restates, such as a bound or an
-exception, lives in the design head the tripwire guards, which the tripwire cites.
+exception, lives in a design head, which the tripwire cites.
 
 **A slip is no firing.** A clause on how sessions follow an instruction never fires on one instance
 that a review, a check or a retrospective reported under its own procedure: one slip is the review
@@ -304,8 +304,10 @@ commit.
 - **An entry the application changed**: judge it as the application leaves it, alone against the
   standard, the guarded entry read whole; and its change, `git diff` between the two commits,
   against the failure modes of an edit above and the ruling it carries out.
-- **An entry the application deleted**: read it at the commit audited, and judge that a ruling of
-  the report file deletes it, and that what its outcome puts in its place is in the application:
+- **An entry the application deleted**: read it at the commit audited, and judge that the report
+  lists the deletion under its outcome or the condition it fails, or, for a removal on the doubt's
+  weight, that a ruling of the report file deletes it; and that what its outcome puts in its place
+  is in the application:
   the issue opened or the decision reopened for a firing, the clause folded for an absorption, the
   check for a conversion, and every text that cited it repaired.
 

@@ -1170,7 +1170,7 @@ commit, with the test it fails.
 | the owner's direction of round 2 on this repository's own needs | per D5 |
 | every item of "Losing alternatives", the incumbent included | `register@core@rejected`, each as the recording tests admit, cited by the head whose argument covers it |
 | the existing entries of `register@core@rejected` that a rewritten head cites | each read again; each still covered by its head's argument as rewritten, or the citation moves to the head that covers it |
-| T1 | `register@core@tripwire`, guarding `design@core@fix-scope`, judged at the harvest by `skill@knowledge-architect-decision-recording@ruled-tripwires` on the wording it has then; since the owner ruled to keep it, a drop goes to the owner |
+| T1 | `register@core@tripwire`, guarding `design@core@fix-scope`, judged at the harvest by the standard of `skill@knowledge-architect-decision-recording@ruled-tripwires` alone, on the wording it has then, a drop listed under "Decided"; the owner's ruling to keep it admits it no more than the standard does |
 | T2 | `register@core@tripwire`, guarding the head that records the question form, judged as T1 is |
 | AC1 to AC4, and AC1 of the register-references work | reported on at the landing; each spent, or, if it recurs, judged as a cause by `skill@knowledge-architect-decision-recording@ruled-tripwires` |
 | the respelling of a register's home | `design@core@fix-scope` with the other respellings; the two exclusions that give way for a home target, in the head that states them |

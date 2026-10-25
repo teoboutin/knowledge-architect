@@ -626,7 +626,7 @@ choices whose option space genuinely is closed and consequence-free.
    **The owner's word admits no tripwire alone.** A cause the owner proposes, or one derived from the
    owner's words, is judged by these conditions like any other, and a tripwire that fails them is not
    kept, whoever proposed it. A ruling of the owner that a tripwire restates, such as a bound or an
-   exception, lives in the design head the tripwire guards, which the tripwire cites.
+   exception, lives in a design head, which the tripwire cites.
 
    **A slip is no firing.** A clause on how sessions follow an instruction never fires on one instance
    that a review, a check or a retrospective reported under its own procedure: one slip is the review
