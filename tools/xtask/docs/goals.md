@@ -17,5 +17,5 @@ may merge, and the continuous integration runs the same command.
 A task that sessions perform in this repository more than once, by hand and in the same steps, and
 that is local to this repository, becomes a command of the tool, so it runs the same way each time.
 A task the installed agent text asks of every project that adopts the workflow is the published
-checker's to automate, not the tool's. It is met while no such task is left to be done by hand.
+checker's, per `goal@knowledge-architect@mechanical-tasks-are-the-tool-s`. It is met while no such task is left to be done by hand.
 None exists today.
