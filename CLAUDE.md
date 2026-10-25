@@ -78,7 +78,8 @@ An issue entry keeps its magnitudes, per the cold-reader standard of
   `skill@klarch-development@ground-before-editing`.**
 - **No run is built to observe how an agent follows the workflow's instructions**, whether to
   originate an edit, choose a shape, accept a piece of work or check that a text runs as written;
-  the checker's and the installer's behaviour tested over mock projects is admitted, per
+  the harness's mechanics, such as one dispatch of a new agent to see that its tools are granted,
+  and the checker's and the installer's behaviour tested over mock projects are admitted, per
   `design@agent-skills@synthetic-evidence-not-built`.
 - Before diagnosing anything as a problem, run also:
 

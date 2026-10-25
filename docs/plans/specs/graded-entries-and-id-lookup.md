@@ -23,12 +23,12 @@ The spec is written for a session that did not witness the design discussion tha
   reversed or rewritten, the design home wins, and the disagreement is a defect of this spec.
 - Every name it uses is defined in it, under Names or New names, or exists in the tree.
 - Where the owner's word is awaited, `skill@knowledge-architect-planning@working-a-slice` says what
-  waits. D1 and D2, under "Defaults awaiting the owner", await it.
+  waits. D2 and D3, under "Defaults awaiting the owner", await it; D1 is ruled.
 
 It was assembled from one session's transcript. The discussion begins at the owner's message that
 opens "Two more things I would like to mechanically automate for the design skill:". Find the
 session by that message, with `cargo klarch transcript list --containing`, not by a file name. The
-session holds 7 owner messages. Here **round n** is the owner's n-th message and the session's
+session holds 8 owner messages, the eighth after this spec was first written. Here **round n** is the owner's n-th message and the session's
 reply to it:
 
 - round 1: the owner's request; the reply is the grounding and the record search, interrupted by the
@@ -42,7 +42,8 @@ reply to it:
 - round 5: the owner's rulings on the threads and the goal; the reply proposes convergence, the
   premortem and AC1 to AC4;
 - round 6: the owner's objection to AC1 and AC2; the reply corrects its premise;
-- round 7: the owner keeps AC1 to AC4 and says "Proceed".
+- round 7: the owner keeps AC1 to AC4 and says "Proceed";
+- round 8: the owner rules D1, "Agreed on the spec shape, to land in a single PR with the work".
 
 ## How the work is done
 
@@ -79,12 +80,17 @@ Per `skill@knowledge-architect-planning@working-a-slice`, the work of a spec.
   `thread@graded-entries-and-id-lookup@may-bear-needs-a-named-doubt`.
 - **the not-read list**: the `may-bear` entries a session did not read whole under
   `thread@graded-entries-and-id-lookup@may-bear-read-on-touch`, each with the searcher's reason.
-- **the installed text**: the sources under `path@agent-skills@content/`, which
-  `cargo klarch install-agent-skills` writes into `.claude`; edited per `path@agent-skills@CLAUDE.md`,
-  its section "Editing an installed skill or agent".
+- **the installed text**: the sources under `path@agent-skills@content/`, with the fragments of
+  `path@agent-skills@fragments/` and the snippets of `path@agent-skills@snippets/` the build copies
+  into them, which `cargo klarch install-agent-skills` writes into `.claude`; edited per
+  `path@agent-skills@CLAUDE.md`, its section "Editing an installed skill or agent". No passage this
+  work edits lives in a fragment or a snippet.
+- **the design audit**: point 2 of `skill@knowledge-architect-planning@working-a-slice`, the reading
+  of a slice's spec or of a spec against the tree and the record before its work, which dispatches
+  the record search.
 - **AC1 to AC4**: the labels the acceptance criteria were put to the owner under, in the reply to
   round 5, kept in their items.
-- **D1, D2**: the defaults awaiting the owner, under "Defaults awaiting the owner".
+- **D1, D2, D3**: the defaults put to the owner, under "Defaults awaiting the owner"; D1 is ruled.
 
 ## What the work is
 
@@ -100,26 +106,37 @@ What exists today at each site the work touches:
   what each agent was given is what `agents.txt` says, so the check holds whatever the tree has
   become since." It reads `agents.txt` and every report, collects findings, and prints
   `PASSED: every report grades every entry it was given` with exit 0, or
-  `FAILED: <n> findings above` with exit 1. It keeps no grade after judging a line, and writes
-  nothing.
+  `FAILED: <n> findings above` with exit 1. It stops with an error, exit 2, on a line of
+  `agents.txt` it cannot parse, a report it cannot read, and the first report line `parse_fields`
+  refuses. It keeps no grade after judging a line, and writes nothing. It holds the agents in a
+  `BTreeMap`, so it does not keep the order of `agents.txt`.
 - **`show`** is `show` in `path@core@src/cli/mod.rs`. It builds the model with no phase gate, finds
-  a register entry through `records::records`, prints it, then the inbound sites from
-  `records::inbound`. Its malformed argument exits 2, a reference that names nothing exits 1, per
-  `design@core@exit-code-ladder`.
+  a register entry through `records::records`, prints it line by line, then the inbound sites from
+  `records::inbound`, which scans every observation of every document for the one entry. No function
+  returns the show text; `records::records` builds the entity table again on each call. Its
+  malformed argument exits 2, a reference that names nothing exits 1, per
+  `design@core@exit-code-ladder`. `show`, `issues` and `tripwires` answer with no phase gate.
 - **No command answers "what defines this id"**. The bare-id lint builds the answer internally:
   `IdTable::new` in `path@core@src/check/references.rs` holds `Entities::by_id`. A session checks a
   slug today with two `show` calls per candidate, as the design skill's naming paragraph says, or
   with a loop of its own; the owner reported in round 1 that "every session writes a small bash
   script".
-- **The commands** are the variants of `Command` in `path@core@src/cli/mod.rs`, each with clap
-  arguments, per `design@core@arguments-parse-through-clap`, in the library module every extension
-  binary offers, per `design@core@the-core-cli-is-a-library-module`.
+- **The commands** are the variants of `Command` in `path@core@src/cli/mod.rs`, dispatched by the
+  match of `run` there, their arguments declared through clap, per
+  `design@core@arguments-parse-through-clap`, in the library module every extension binary offers,
+  per `design@core@the-core-cli-is-a-library-module`, whose head lists the commands one by one. The
+  declaration is tested by `cli_declaration_is_consistent` in `path@core@src/main.rs`. `Command` is
+  a public, non-exhaustive enum, so a variant is a `library` addition for the changelog. Under
+  `harness = []` the entity table holds no skill, agent or section.
 - **The record searcher**, `path@agent-skills@content/agents/record-searcher.md`: its description
   carries the dispatch and ends with "Then read whole with `{{command}} show` every entry graded
   `bears` or `may-bear`, never from its reason alone, or, at a retrospective intake, as
   `skill@knowledge-architect-retrospective-intake@ground-before-judging` says." Its body tells the
-  searcher to lean to recall and to "Grade `may-bear` an entry you cannot rule out, with the doubt as
-  its reason"; its grade table, `agent@knowledge-architect-record-searcher@grade-each-entry`, gives
+  searcher "The session that sent you reads whole the entries you grade `bears` or `may-bear`, as
+  its skill says", to lean to recall, that "An entry you grade `may-bear` that does not bear costs
+  the session at most one read", and to "Grade `may-bear` an entry you cannot rule out, with the
+  doubt as its reason"; its brief, `agent@knowledge-architect-record-searcher@your-brief`, names
+  "the decisions and goals the dispatching skill names" as seeds; its grade table, `agent@knowledge-architect-record-searcher@grade-each-entry`, gives
   `may-bear` as "an entry that shares the work's subject, with no relation established"; and
   `agent@knowledge-architect-record-searcher@fill-the-report` asks, for `may-bear`, "the subject it
   shares and why no bearing is established".
@@ -134,7 +151,10 @@ What exists today at each site the work touches:
   `skill@knowledge-architect-planning@working-a-slice` reads whole with `show` every entry graded
   `bears` or `may-bear`; the row "What is already decided" of
   `skill@knowledge-architect-planning@spec-contents` asks for each such entry "its outcome: how it
-  bears on the work, or that it bears on nothing".
+  bears on the work, or that it bears on nothing". The design audit seeds the search, for a slice,
+  with the decisions its milestone document lists under "What is already decided" and "the
+  decisions and goals the slice's spec cites", and for a spec with its own "What is already
+  decided", which can hold goals.
 - **The intake skill**, `path@agent-skills@content/skills/retrospective-intake/SKILL.md`: point 3
   of `skill@knowledge-architect-retrospective-intake@ground-before-judging` reads with `show` every
   issue and tripwire graded `bears` or `may-bear`, every other entry graded `bears`, and a `may-bear`
@@ -142,20 +162,29 @@ What exists today at each site the work touches:
 - **The design-conformance reviewer**,
   `path@agent-skills@content/agents/design-conformance-reviewer.md`: its section
   `agent@knowledge-architect-design-conformance-reviewer@read-against-record` reads "What is already
-  decided" first, and reads no entry a plan document lists as not read.
+  decided" first, and its section `agent@knowledge-architect-design-conformance-reviewer@find-the-record`
+  reads whole every goals home, design home and `rejected` home of each Component the document
+  touches. No text of it mentions a list of entries not read, and it reads no issue, no tripwire and
+  no entry of a declared register. Its description, and the row of
+  `skill@knowledge-architect-review@review-axes` that names it, scope it to a plan document, a spec
+  or a milestone document. The design-conformance reviewer is installed text of its own, not part of
+  the planning skill. The installed head behind its reading is
+  `design@agent-skills@plan-read-against-the-record`.
+- **The design skill's in-change path**, `skill@knowledge-architect-design@decision-authority`: the
+  deliberation goes in a commit message, with no plan document; no text gives that message a list of
+  entries not read.
 - **The retrospective skill**, `path@agent-skills@content/skills/retrospective/SKILL.md`: four
   standing questions in `skill@knowledge-architect-retrospective@what-it-examines`, after "**Always
   ask these standing questions**".
-- **The documentation**: `path@core@README.md`, its command listing and its section `worklist`; the
-  `Next release` section of CHANGELOG.md at the root.
+- **The documentation**: `path@core@README.md`, its command listing, its exit-code table, which
+  lists per command which outcome takes which code, and its section `worklist`; the `Next release`
+  section of CHANGELOG.md at the root, whose `cli` entry for `worklist` is not released yet.
 
 **Already done on this branch**, before this spec, so outside the work:
 
 - the goal `goal@knowledge-architect@mechanical-tasks-are-the-tool-s`, the edit of
-  `goal@xtask@repeated-tasks-are-automated` that points to it, and the `todo` issue for the goal's
-  first unmet instance, `issue@core@a-searcher-fills-its-report-by-a-script-of-its-own`, in the
-  commit "[goals] A mechanical task the workflow asks of a session is the tool's, and its first
-  unmet instance is an issue";
+  `goal@xtask@repeated-tasks-are-automated` that points to it, and the `todo` issue for an unmet
+  instance of the goal this discussion found, `issue@core@a-searcher-fills-its-report-by-a-script-of-its-own`;
 - the sentence of the root CLAUDE.md under `instructions@verify-before-relying` that restates
   `design@agent-skills@synthetic-evidence-not-built`, in the commit "[agent-config] The root
   CLAUDE.md restates that no run is built to observe an agent following the workflow".
@@ -167,12 +196,13 @@ What exists today at each site the work touches:
 - **The other instances of the new goal**: `issue@core@no-command-lists-the-numbers-in-use-in-a-plan-across-its-history`
   and `issue@core@no-command-lists-the-standing-entries-citing-a-set-of-entries`. Adding the goal
   does not oblige meeting it now, per the goal-setting skill, as the reply to round 3 says.
-- **The seeds of the other occasions.** `thread@graded-entries-and-id-lookup@seeds-name-decisions`
-  was approved as a change to the design skill's step 1: "One word removed from the design skill's
-  step 1." The planning audit's seeds and the intake's seeds keep their goals, and the searcher's
-  brief keeps "the decisions and goals the dispatching skill names". `worklist --seed` keeps
-  accepting a goal: the rule is the skill's, not the command's.
-- **The reading at the planning audit.** `thread@graded-entries-and-id-lookup@may-bear-read-on-touch`
+- **The intake's seeds.** `thread@graded-entries-and-id-lookup@seeds-name-decisions` was the
+  session's proposal of round 2, "One word removed from the design skill's step 1", which the owner
+  approved in round 3. The intake keeps its seeds, "the design heads and goals the findings name".
+  The design audit's seeds are D3's. The searcher's brief, which names the seeds "the dispatching
+  skill names", follows whatever each skill names. `worklist --seed` keeps accepting a goal: the
+  rule is the skill's, not the command's.
+- **The reading at the design audit.** `thread@graded-entries-and-id-lookup@may-bear-read-on-touch`
   applies at the design grounding. Point 2 of `skill@knowledge-architect-planning@working-a-slice`
   keeps reading every `bears` and `may-bear` entry whole, from the assembly instead of `show`.
 - **The intake's reading rule**, which `design@agent-skills@search-relevance-grade` records for an
@@ -189,9 +219,21 @@ The design rests on these decisions, and does not argue them again:
   written on this branch: the commands of this work are two of its instances.
 - `goal@core@records-reach-their-reader`: a listing is computed from the tree.
 - `design@core@one-question-one-command`: `klarch id` is the one command that answers "what defines
-  this id". The assembly is the show text byte for byte, not a second format of `show`'s answer.
-- `design@core@phases-gate-the-report`: `klarch id` answers over the first three phases only.
-- `design@core@exit-code-ladder`: 0, 1 and 2 for `klarch id`.
+  this id". The assembly holds the show text byte for byte, a goal's aside, not a second format of
+  `show`'s answer.
+- `design@core@phases-gate-the-report`: the head gates the writers and the report, and `show`,
+  `issues` and `tripwires` answer ungated. `klarch id` is the first reader to take the gate, on the
+  head's own reason: a `free` over a table missing an unread file's entries is a finding computed
+  over an incomplete model, unreliable in the direction the command exists to rule out, where `show`
+  prints an entry that exists whatever else the model misses. The cost: after an edit of the
+  installed text and before `install-agent-skills`, the installed copies differ, phase 2 reports
+  them, and `klarch id` exits 2 until the install runs.
+- `design@core@exit-code-ladder`: 0, 1 and 2 for `klarch id`. An argument outside the id grammar
+  exits 1, a negative answer about the command's subject, the candidate id, as an argument that
+  names no defined id does; the ladder's 2 is kept for the command that cannot run, a malformed
+  invocation that clap refuses, no project, or an incomplete model. `show`'s malformed argument is
+  a reference it cannot look up, so it cannot run; `klarch id` answers every candidate, malformed
+  ones included, in one run.
 - `design@core@arguments-parse-through-clap` and `design@core@the-core-cli-is-a-library-module`:
   `klarch id` is a variant of `Command`, its arguments declared through clap.
 - `design@core@two-segment-ids` and `design@core@an-entity-belongs-to-its-anchor`: the grammar
@@ -213,11 +255,13 @@ on this branch before the work:
 
 | decision | what changes | texts referencing it | judged or updated at |
 | --- | --- | --- | --- |
-| `design@core@worklist-writes-and-verifies-the-reports` | `--out` also writes the snapshot; a passing `--verify` writes the assembly, and still reads no model | `path@agent-skills@docs/design/record-search.md` twice, in `design@agent-skills@one-record-searcher` and in `design@agent-skills@search-relevance-grade`; `register@agent-skills@rejected`, the entry that cites it at line 537 of its home; `issue@core@a-searcher-fills-its-report-by-a-script-of-its-own`, line 30; `issue@core@no-command-lists-the-standing-entries-citing-a-set-of-entries`, line 28; the section comment of the `worklist` tests in `path@core@tests/binary.rs` | the harvest for the head and for each text, each read again; the two issues are read again at the harvest for whether the assembly changes what they state; the test comment stays true |
+| `design@core@worklist-writes-and-verifies-the-reports` | `--out` also writes the snapshot; a passing `--verify` writes the assembly, and still reads no model | `path@agent-skills@docs/design/record-search.md` twice, in `design@agent-skills@one-record-searcher` and in `design@agent-skills@search-relevance-grade`; `rejected@agent-skills@searches-split-by-kind`; `issue@core@a-searcher-fills-its-report-by-a-script-of-its-own`, line 30; `issue@core@no-command-lists-the-standing-entries-citing-a-set-of-entries`, line 28; the section comment of the `worklist` tests in `path@core@tests/binary.rs` | the harvest for the head and for each text, each read again; the two issues are read again at the harvest for whether the assembly changes what they state; the test comment stays true |
 | `design@agent-skills@search-relevance-grade` | the `may-bear` grade needs a named doubt on an element the change makes; at the design grounding a `may-bear` entry is read whole where a proposal touches it, and the not-read list goes to the review; goals appear in the assembly as grade lines only | `path@agent-skills@content/skills/retrospective-intake/SKILL.md`, a `%%` comment of point 3 of its grounding; `design@agent-skills@one-record-searcher`; `design@core@worklist-writes-and-verifies-the-reports` | step 4 for the intake skill's comment, read again; the harvest for the head and the two heads |
-| `design@agent-skills@record-searched-before-the-work` | its sentence "with the question as the work and the decisions and goals read so far as seeds" no longer states the design skill's step 1; the one-search rule, if the decision-recording skill places it here | `design@agent-skills@standing-state-review-before-every-merge`, in `path@agent-skills@docs/design/reviews.md`; `issue@agent-skills@a-pending-ruled-file-is-reached-by-no-installed-search`, lines 79 and 96; `tripwire@agent-skills@deferred-trigger-met-by-undesigned-work`; `tripwire@agent-skills@record-search-misses` | the harvest, under `skill@knowledge-architect-decision-recording`, which judges whether the head is rewritten; each text read again |
+| `design@agent-skills@record-searched-before-the-work` | its sentence "with the question as the work and the decisions and goals read so far as seeds" no longer states the design skill's step 1, nor, under D3's default, the design audit's seeds; `thread@graded-entries-and-id-lookup@one-search-per-question`, where the decision-recording skill places it | `design@agent-skills@standing-state-review-before-every-merge`, in `path@agent-skills@docs/design/reviews.md`; `issue@agent-skills@a-pending-ruled-file-is-reached-by-no-installed-search`, lines 79 and 96; `tripwire@agent-skills@deferred-trigger-met-by-undesigned-work`; `tripwire@agent-skills@record-search-misses` | the harvest rewrites the head, since its seeds sentence turns false; `skill@knowledge-architect-decision-recording` judges only where the one-search rule goes; each text read again |
 | `design@agent-skills@one-record-searcher` | its dispatch, carried by the searcher's description, ends with the reading of the assembly; it is rewritten only if the decision-recording skill judges that its text no longer holds | `path@agent-skills@content/skills/retrospective-intake/SKILL.md`, the `%%` comment of point 3 of its grounding; `tripwire@agent-skills@record-search-misses`, twice | the harvest; the comment and the tripwire read again |
-| `design@agent-skills@premortem-as-watch-points` | a fifth standing question, which watches a goal; the head's member set widens from "a decision" to "a decision or a goal" | `design@agent-skills@retrospective-destination`, in `path@agent-skills@docs/design/retrospective.md`; `issue@agent-skills@a-tripwire-on-agent-behaviour-fires-where-this-project-cannot-see`, line 34; `issue@agent-skills@patching-an-installed-skill`, line 63 | step 4 adds the question; the harvest rewrites the head, and reads each text again |
+| `design@agent-skills@premortem-as-watch-points` | a fifth standing question, which watches a goal; the head's member set widens from "a decision" to "a decision or a goal" | `design@agent-skills@installed-fix-goes-upstream`, in `path@agent-skills@docs/design/retrospective.md`; `issue@agent-skills@a-tripwire-on-agent-behaviour-fires-where-this-project-cannot-see`, line 34; `issue@agent-skills@patching-an-installed-skill`, line 63 | step 4 adds the question; the harvest rewrites the head, and reads each text again |
+| `design@agent-skills@plan-read-against-the-record`, under D2's default | the design-conformance reviewer reads the entries a document lists as not read, issues and tripwires included, and is dispatched at the review before the merge of an in-change deliberation | a `%%` comment of `path@agent-skills@content/skills/planning/SKILL.md`, in its section on the reviews of a plan document; `design@agent-skills@record-searched-before-the-work`; `issue@agent-skills@audit-axes-beyond-the-design-record`; `issue@agent-skills@the-code-claims-axis-reads-plan-documents-only` | D2's ruling; step 4 for the reviewer's text; the harvest rewrites the head, and reads each text again |
+| `design@core@the-core-cli-is-a-library-module` | its list of the core's commands gains `id` | `design@agent-skills@xtask-pins-checker`; `path@core@README.md`; four heads of `register@core@design`, `design@core@single-crate`, `design@core@arguments-parse-through-clap`, `design@core@exit-code-ladder` and `design@core@transcript-command-in-core`; comments in `path@core@src/cli/create.rs`, `path@core@src/cli/mod.rs`, `path@core@src/main.rs` and `path@core@tests/binary.rs` | the harvest adds the command to the list; each text cites the head for the module, not for its list, and stays true |
 
 The line numbers name this branch's tree when the spec was written.
 
@@ -256,7 +300,9 @@ by the session's own judgement.
   `argument@graded-entries-and-id-lookup@arg-7`.
 - `design@agent-skills@review-judges-additions`: the agent-facing-text axis reviews step 4.
 - `design@agent-skills@search-relevance-grade`: rewritten; listed above. Its intake rule is the
-  shape of `thread@graded-entries-and-id-lookup@may-bear-read-on-touch`.
+  model of `thread@graded-entries-and-id-lookup@may-bear-read-on-touch`, which differs from it on
+  one point: at the design grounding, a `may-bear` issue or tripwire is read whole only where a
+  proposal touches it, where the intake reads every one.
 - `design@agent-skills@searcher-grades-goals`: kept; listed among the decisions the design rests on.
 - `design@agent-skills@shipped-text-cites-no-entry`: step 4's installed edits cite no entry.
 - `design@agent-skills@statement-names-an-act`: each installed addition names an act: the reading
@@ -274,7 +320,9 @@ by the session's own judgement.
   `argument@graded-entries-and-id-lookup@arg-16`.
 - `design@core@arguments-parse-through-clap`: `klarch id` declares its arguments through clap.
 - `design@core@backticked-bare-id`: its defined-id set spans every register, plan item, skill,
-  agent and section slug; `klarch id` lists that same set, from `Entities::by_id`.
+  agent and section slug; `klarch id` lists the same set from `Entities::by_id`, unfiltered, where
+  the lint keeps for each citing document only the candidates it can resolve from there, such as a
+  plan item from inside its own plan alone.
 - `design@core@declared-command`: every installed mention of a command writes `{{command}}`.
 - `design@core@exit-code-ladder`: the exit codes of `klarch id`.
 - `design@core@nothing-of-a-project-is-compiled-in`: both commands read the manifest and the
@@ -373,7 +421,15 @@ Three more were used later in the discussion:
 - `design@agent-skills@synthetic-evidence-not-built`: the owner's objection of round 6 and its
   correction; listed among the decisions the design rests on.
 
-The other 128 were read whole at the grounding and bear on nothing in this work, by the session's
+Six more bear on no decided shape, but cite a head this work rewrites, and are read again at the
+harvest, as the table of rewritten decisions above lists:
+`design@agent-skills@standing-state-review-before-every-merge`,
+`issue@agent-skills@a-pending-ruled-file-is-reached-by-no-installed-search`,
+`tripwire@agent-skills@deferred-trigger-met-by-undesigned-work`,
+`rejected@agent-skills@searches-split-by-kind`, `design@agent-skills@xtask-pins-checker` and
+`issue@agent-skills@audit-axes-beyond-the-design-record`.
+
+The other 122 were read whole at the grounding and bear on nothing in this work, by the session's
 judgement in the reply to round 2: "The other 131 `may-bear` entries changed nothing. That is my
 judgement, not a measurement." Four of them are the discussion's examples of what inflated the list:
 `design@agent-skills@content-mirrors-the-install-layout`, the reply to round 2's example of a reason
@@ -382,52 +438,60 @@ that "shares the subject"; and `design@core@fix-scope`,
 `issue@agent-skills@no-check-compares-an-audit-pass-s-owner-list-count-with-the-previous-pass-s`,
 three of the reply to round 3's four examples of entries graded for what the goal might bring later;
 its fourth, `rejected@gates@gates-command-of-the-checker`, was graded `bears` and is listed above.
-The other 124:
-`design@agent-skills@a-scratch-directory-per-subagent`, `design@agent-skills@audit-axis-runs-a-workflow`,
-`design@agent-skills@audit-net-growth`, `design@agent-skills@audit-outcomes`,
-`design@agent-skills@bounded-path-in-design`, `design@agent-skills@context-cost-of-agent-text`,
-`design@agent-skills@design-hands-off-to-planning`, `design@agent-skills@design-record-axis-dispatch`,
-`design@agent-skills@existing-heads-on-touch`, `design@agent-skills@expectation-set-bounds-scope`,
-`design@agent-skills@goal-lifecycle`, `design@agent-skills@harness-shell-fails-on-a-pipe`,
-`design@agent-skills@in-change-path`, `design@agent-skills@instruction-record-is-minimal`,
-`design@agent-skills@intake-shares-the-admission-standard`, `design@agent-skills@knowledge-table-home`,
-`design@agent-skills@ledger-from-transcript`, `design@agent-skills@losing-alternatives-filter`,
-`design@agent-skills@no-external-handoff`, `design@agent-skills@one-run-pass`,
-`design@agent-skills@outcome-over-display`, `design@agent-skills@plain-text-is-no-repair`,
+The other 118:
+`design@agent-skills@a-scratch-directory-per-subagent`,
+`design@agent-skills@audit-axis-runs-a-workflow`, `design@agent-skills@audit-net-growth`,
+`design@agent-skills@audit-outcomes`, `design@agent-skills@bounded-path-in-design`,
+`design@agent-skills@context-cost-of-agent-text`,
+`design@agent-skills@design-hands-off-to-planning`,
+`design@agent-skills@design-record-axis-dispatch`, `design@agent-skills@existing-heads-on-touch`,
+`design@agent-skills@expectation-set-bounds-scope`, `design@agent-skills@goal-lifecycle`,
+`design@agent-skills@harness-shell-fails-on-a-pipe`, `design@agent-skills@in-change-path`,
+`design@agent-skills@instruction-record-is-minimal`,
+`design@agent-skills@intake-shares-the-admission-standard`,
+`design@agent-skills@knowledge-table-home`, `design@agent-skills@ledger-from-transcript`,
+`design@agent-skills@losing-alternatives-filter`, `design@agent-skills@no-external-handoff`,
+`design@agent-skills@one-run-pass`, `design@agent-skills@outcome-over-display`,
+`design@agent-skills@plain-text-is-no-repair`,
 `design@agent-skills@plan-document-leaves-at-landing`, `design@agent-skills@primer-limit`,
-`design@agent-skills@rejected-citation-direction`, `design@agent-skills@repairs-read-against-the-record`,
-`design@agent-skills@retrospective-destination`, `design@agent-skills@search-apart-from-the-standing-state-review`,
+`design@agent-skills@rejected-citation-direction`,
+`design@agent-skills@repairs-read-against-the-record`,
+`design@agent-skills@retrospective-destination`,
+`design@agent-skills@search-apart-from-the-standing-state-review`,
 `design@agent-skills@search-reads-the-whole-record`, `design@agent-skills@shared-text-fragment`,
-`design@agent-skills@staged-forms-for-a-partial-commit`, `design@agent-skills@standing-state-review-before-every-merge`,
+`design@agent-skills@staged-forms-for-a-partial-commit`,
 `design@agent-skills@subject-split-standard`, `design@agent-skills@title-states-the-rule`,
 `design@agent-skills@tripwire-admission-test`, `design@agent-skills@tripwire-recording-authority`,
 `design@agent-skills@tripwires-read-by-the-audit`, `design@agent-skills@verification-in-primer`,
 `design@agent-skills@workflow-axis-finding-standard`, `design@agent-skills@workflow-axis-lenses`,
-`design@agent-skills@xtask-pins-checker`, `design@core@a-foreign-build-is-refused`,
-`design@core@a-reference-is-live-in-every-prose`, `design@core@a-slug-elsewhere-defines-nothing`,
-`design@core@an-entry-is-a-heading-at-the-register-level`, `design@core@anchors-are-components-and-locations`,
-`design@core@api-facade`, `design@core@check-fix-flag`, `design@core@check-judges-no-given-commit`,
-`design@core@clusters-packed-under-a-word-bound`, `design@core@components-carry-the-same-documents`,
-`design@core@declarable-directory-register`, `design@core@finding-names-the-repair`,
-`design@core@generated-files-are-pure`, `design@core@heading-register-two-shapes`,
-`design@core@inputs-are-gathered`, `design@core@installed-binary-version-check`,
-`design@core@model-then-checks`, `design@core@ne-minimal`, `design@core@one-list-of-generated-files`,
-`design@core@plain-word-lint`, `design@core@plan-item-scope`, `design@core@plan-register`,
+`design@core@a-foreign-build-is-refused`, `design@core@a-reference-is-live-in-every-prose`,
+`design@core@a-slug-elsewhere-defines-nothing`,
+`design@core@an-entry-is-a-heading-at-the-register-level`,
+`design@core@anchors-are-components-and-locations`, `design@core@api-facade`,
+`design@core@check-fix-flag`, `design@core@check-judges-no-given-commit`,
+`design@core@clusters-packed-under-a-word-bound`,
+`design@core@components-carry-the-same-documents`, `design@core@declarable-directory-register`,
+`design@core@finding-names-the-repair`, `design@core@generated-files-are-pure`,
+`design@core@heading-register-two-shapes`, `design@core@inputs-are-gathered`,
+`design@core@installed-binary-version-check`, `design@core@model-then-checks`,
+`design@core@ne-minimal`, `design@core@one-list-of-generated-files`, `design@core@plain-word-lint`,
+`design@core@plan-item-scope`, `design@core@plan-register`,
 `design@core@record-is-every-register-entry`, `design@core@registers-are-declared`,
-`design@core@rejected-register`, `design@core@safe-fix-definition`, `design@core@section-homes-carry-slugs`,
-`design@core@staged-tree-source`, `design@core@transcript-format-tolerated-and-reported`,
-`design@core@transcript-query-verbs`, `design@knowledge-architect@committed-findings-analysis`,
-`design@knowledge-architect@no-future-breaking-cost-argument`, `design@knowledge-architect@workflow-findings-stay-here`,
+`design@core@rejected-register`, `design@core@safe-fix-definition`,
+`design@core@section-homes-carry-slugs`, `design@core@staged-tree-source`,
+`design@core@transcript-format-tolerated-and-reported`, `design@core@transcript-query-verbs`,
+`design@knowledge-architect@committed-findings-analysis`,
+`design@knowledge-architect@no-future-breaking-cost-argument`,
+`design@knowledge-architect@workflow-findings-stay-here`,
 `goal@agent-skills@one-skill-per-activity`, `goal@knowledge-architect@adoption-is-easy`,
-`goal@knowledge-architect@design-is-recorded-with-its-arguments`, `goal@knowledge-architect@rust-projects-come-first`,
+`goal@knowledge-architect@design-is-recorded-with-its-arguments`,
+`goal@knowledge-architect@rust-projects-come-first`,
 `issue@agent-skills@a-criterion-derived-from-a-decision-binds-until-the-owner-says-otherwise`,
 `issue@agent-skills@a-handled-retrospective-file-is-marked-where-it-lies`,
 `issue@agent-skills@a-lighter-pass-for-untouched-components`,
-`issue@agent-skills@a-pending-ruled-file-is-reached-by-no-installed-search`,
 `issue@agent-skills@a-saved-workflow-s-comments-ship-to-every-project`,
 `issue@agent-skills@an-approved-default-is-attributed-to-the-owner-and-the-agent-records-no-decision-of-its-own`,
 `issue@agent-skills@an-issue-s-re-entry-point-is-read-by-no-review`,
-`issue@agent-skills@audit-axes-beyond-the-design-record`,
 `issue@agent-skills@expectation-sets-for-the-installed-skills`,
 `issue@agent-skills@no-check-reports-a-duplicated-workflow-lens-whose-other-agents-found-nothing`,
 `issue@agent-skills@pointers-written-bare-to-clear-a-finding-reach-no-check`,
@@ -448,14 +512,14 @@ The other 124:
 `issue@core@installed-file-findings-belong-in-phase-four`, `issue@core@tooling-for-project-skills`,
 `issue@knowledge-architect@ci-does-not-run-on-a-draft-and-no-record-says-why`,
 `issue@knowledge-architect@path-quickfixes-read-against-the-lints-on-ids`,
-`rejected@agent-skills@admission-standard-in-primer`, `rejected@agent-skills@milestone-holds-every-slice-design`,
-`rejected@agent-skills@searches-split-by-kind`, `rejected@agent-skills@three-runs-per-pass`,
+`rejected@agent-skills@admission-standard-in-primer`,
+`rejected@agent-skills@milestone-holds-every-slice-design`,
+`rejected@agent-skills@three-runs-per-pass`,
 `rejected@agent-skills@two-readings-left-to-judgement`, `rejected@core@fix-converting-old-entries`,
 `rejected@core@index-diff-with-write-flag`, `rejected@core@per-document-phase-gate`,
 `rejected@core@project-wide-unique-slug`, `rejected@gates@gates-binary-configured-by-file`,
 `tripwire@agent-skills@a-shortcut-decision-earns-a-head`,
 `tripwire@agent-skills@agent-text-written-without-the-standard`,
-`tripwire@agent-skills@deferred-trigger-met-by-undesigned-work`,
 `tripwire@agent-skills@rarer-rule-in-the-model`, `tripwire@core@fix-makes-a-choice`,
 `tripwire@core@phases-gate-the-report-two`, `tripwire@core@private-item-needed`.
 
@@ -799,7 +863,9 @@ The reply to round 6. Bears on the same items. "`design@agent-skills@synthetic-e
 refuses runs that observe how an agent follows the workflow. Its "Admitted" bullet allows these
 tests" / "None of the acceptance criteria runs an agent. Each runs `klarch` over a fixture under
 `path@core@tests/projects/`, as every core test does. In AC1, the "graded reports" are input files
-the test writes. They are a planted fixture, not an agent's output."
+the test writes. They are a planted fixture, not an agent's output." The "under
+`path@core@tests/projects/`" is imprecise: the binary's tests copy a project from there or write
+one, and a unit test states its project as text; none runs an agent.
 
 ### A silent failure of the assembly is a test's, not a tripwire's `##arg-24`
 
@@ -813,8 +879,12 @@ work being built is that work's acceptance criterion.""
 
 Round 6, the owner, and the reply. "One question, is  no-synthetic-evidence mentionned in root
 CLAUDE.md ? If not, it probably should" / the reply: "No. A search of CLAUDE.md and the primer for
-"synthetic" and "real use" returns nothing." / "The sentence must carry the admitted boundary, or a
-reader will make the reading above". Round 7, the owner: "The synthetic evidence head should still
+"synthetic" and "real use" returns nothing." / "In the installed text, it reaches sessions in two
+weak ways: `%%` comments in the design skill and the intake skill, which the build removes; two
+general sentences: the design skill's "Evidence that the project's goals or design heads rule out is
+not built", and the intake's "No subagent replays the reported session or builds a scenario of agent
+behaviour"." / "The sentence must carry the admitted boundary, or a reader will make the reading
+above". Round 7, the owner: "The synthetic evidence head should still
 be mentionned in root CLAUDE.md anyway, since it was previously not followed, as a small commit
 during the work." Carried out on this branch, before this spec.
 
@@ -857,8 +927,28 @@ crates/core/src/entity.rs
 holds, for every entry of the record the work list holds, one entry per agent line's reference with
 no repeat, the show text of that entry, as `show` prints it over the same model: the entry's line,
 its body, and its `referenced at:` list or `referenced by nothing`. The text is computed by the code
-`show` uses, not by a copy of it, so the two cannot drift. Entries are separated by a line no body
-can hold, chosen by the implementing session as `render` chooses its fences.
+`show` uses, not by a copy of it, so the two cannot drift: `show`'s printing becomes a function that
+returns the show text, which `show` prints and `--out` writes. The inbound sites of every entry are
+gathered in one pass over the observations, rather than one scan per entry as `records::inbound`
+does for `show`'s one entry.
+
+The snapshot's shape is the entries file's: for each entry, a line `=== <reference>`, a blank line,
+then the show text in a fence longer than any run of backticks it holds, as `render` fences a body.
+`--verify` finds an entry's text by the reference on its `===` line and writes the text without the
+fence. An illustration of one entry, not authority:
+
+````text
+=== <kind>@<anchor>@<id>
+
+```text
+<kind>@<anchor>@<id>  <file>:<line>
+
+<the entry's body>
+
+referenced at:
+  <file>:<line>
+```
+````
 
 - The snapshot is written with the other files, after every refusal, so a refused run still writes
   nothing.
@@ -875,9 +965,10 @@ or adds a command step to every grounding, for a gain of an inbound list current
 ### The assembly
 
 When `worklist --verify <dir>` finds nothing, it writes `<dir>/bears.md` and `<dir>/may-bear.md`,
-then prints its `PASSED` line, naming the two files. When it finds anything, it writes neither, and
-prints what it prints today. It still reads no model: the text comes from the snapshot, the grades
-from the reports.
+then prints its `PASSED` line, naming the two files. When it finds anything, or stops with an error,
+it writes neither, removes the two files a previous run left, and prints what it prints today, so a
+session never reads an assembly from reports that no longer pass. It still reads no model: the text
+comes from the snapshot, the grades from the reports.
 
 - **Which file.** Each entry goes under its highest grade over every report that grades it: `bears`
   to `bears.md`, `may-bear` to `may-bear.md`, `unrelated` to neither. An entry appears once in all.
@@ -889,11 +980,14 @@ from the reports.
 - **`may-bear.md` opens with a table of contents**: one row per entry, its reference and its
   `may-bear` reasons, so the session picks the entries a proposal touches.
 - **Order**: the entries in the order of `agents.txt`, the first agent line of each entry deciding
-  its place. The order is the implementing session's to change, as long as it is fixed by the inputs.
-- **A rerun** after a passing one overwrites both files. A directory whose snapshot is missing, one
-  written by an `--out` older than this work, is judged as today and, when it passes, gets no
-  assembly: `--verify` says the snapshot is missing and that `--out` must run again, and exits 2,
-  since it could not do the whole of its job, per `design@core@exit-code-ladder`.
+  its place, which needs a structure that keeps line order where `verify` holds a `BTreeMap` today.
+  The order is the implementing session's to change, as long as it is fixed by the inputs.
+- **A rerun** after a passing one overwrites both files.
+- **A snapshot missing, unreadable, or lacking an entry `agents.txt` lists**, as in a directory an
+  `--out` older than this work wrote: the reports are judged as today, and when they pass, no
+  assembly is written, the `PASSED` line is not printed, and `--verify` says what the snapshot lacks
+  and that `--out` must run again, and exits 2, since it could not do the whole of its job, per
+  `design@core@exit-code-ladder`.
 
 An illustration of the shape of one entry of `bears.md`, not authority:
 
@@ -919,7 +1013,8 @@ defeated it: the owner's request of round 1, and the round-1 session wrote its o
 `klarch id <id>...` takes one or more arguments. For each, in the order given, it prints one line
 or a block:
 
-- an argument outside the id grammar: the argument, then `not an id`, with the grammar named;
+- an argument outside the id grammar: the argument, then
+  `not an id: an id matches [a-z0-9]+(-[a-z0-9]+)+`;
 - a well-formed id nothing defines: the argument, then `free`;
 - a well-formed id the entity table defines: the argument, then every entity defined under it, one
   per line, each as the reference `show` accepts for it: a register entry of any anchor, a plan
@@ -933,14 +1028,16 @@ authority:
 $ klarch id <free-slug> <taken-slug> two
 <free-slug>   free
 <taken-slug>  design@<anchor>@<taken-slug>
-two           not an id: an id has two segments or more
+two           not an id: an id matches [a-z0-9]+(-[a-z0-9]+)+
 ```
 
-**Exit codes**: 0 when every argument is well-formed and free; 1 otherwise; 2 when it cannot run,
-an incomplete model included. It builds the model and runs the first three phases, as
+**Exit codes**: 0 when every argument is well-formed and free; 1 otherwise, a malformed argument
+included, as "What is already decided" argues under `design@core@exit-code-ladder`; 2 when it
+cannot run, an incomplete model included. It builds the model and runs the first three phases, as
 `complete_working_tree` does for a writer, with a message of its own, since it writes nothing: a
 "free" over a table missing an unread file's entries would be false,
-`argument@graded-entries-and-id-lookup@arg-15`.
+`argument@graded-entries-and-id-lookup@arg-15`. Under `harness = []` the table defines no skill,
+agent or section, so `klarch id` lists none.
 
 **Scope**: every kind and every anchor. The design skill keeps its rule,
 `design@agent-skills@thread-slug-is-entry-id`: only a design or `rejected` entry of the owning
@@ -975,10 +1072,10 @@ Four changes to the installed text, each a thread approved in round 3, the widen
   against the record, as D2 says.
 
 The searcher's description, which carries the dispatch, ends with the reading of the assembly:
-`bears.md` whole, and `may-bear.md` as the dispatching skill says. The planning audit, point 2 of
+`bears.md` whole, and `may-bear.md` as the dispatching skill says. The design audit, point 2 of
 `skill@knowledge-architect-planning@working-a-slice`, and the intake, point 3 of
 `skill@knowledge-architect-retrospective-intake@ground-before-judging`, read from the assembly,
-each under its own rule, which this work does not change.
+each under its own reading rule, which this work does not change; the design audit's seeds are D3's.
 
 Nearest rival: the owner's proposal of round 2, every `may-bear` entry left to the plan review. The
 fact that defeated it: a bearing entry found at the plan review reopens a ruling, as
@@ -1010,7 +1107,7 @@ Where an entry goes in the assembly, by the set of grades the reports give it:
 | at least one `bears` | the entry, with its `bears` and `may-bear` grade lines | nothing |
 | `may-bear`, no `bears` | nothing | the entry, with its grade lines, and its row in the table of contents |
 | `unrelated` only | nothing | nothing |
-| a goal, in either of the first two rows | its grade lines and its site, no body, no inbound list | as in the column to the left |
+| a goal, in either of the first two rows | in the file its row gives, its grade lines and its site only, with no body and no inbound list | the same, where its row gives this file |
 
 What `klarch id` prints per entity `Entities::by_id` lists under an id, by kind:
 
@@ -1040,6 +1137,18 @@ implementing session adds its row here.
 - **No retrospective question, the owner's own observation instead.** Lost to
   `thread@graded-entries-and-id-lookup@retrospective-asks-for-hand-work` on
   `argument@graded-entries-and-id-lookup@arg-20`.
+- **The incumbents this work reverses**, each judged at the harvest by the tests of
+  `skill@knowledge-architect-decision-recording@losing-alternatives`, as the reversal rule asks:
+  - reading every `may-bear` entry whole at the design grounding, refuted by the measurement of
+    `argument@graded-entries-and-id-lookup@arg-3`, 202 entries and 576 KB for about 30 that changed
+    a proposal, 6 of them `may-bear`; beside it stands
+    `rejected@agent-skills@intake-reads-every-may-bear-entry-whole`, refuted the same way;
+  - `may-bear` as an entry the searcher "cannot rule out", lost to
+    `thread@graded-entries-and-id-lookup@may-bear-needs-a-named-doubt` on
+    `argument@graded-entries-and-id-lookup@arg-5` and `argument@graded-entries-and-id-lookup@arg-11`;
+  - goals among the seeds of the design grounding, lost to
+    `thread@graded-entries-and-id-lookup@seeds-name-decisions` on
+    `argument@graded-entries-and-id-lookup@arg-4`.
 - **Tripwires in place of AC1 and AC2**, the owner's proposal of round 6. Withdrawn by the owner in
   round 7, on `argument@graded-entries-and-id-lookup@arg-23` and
   `argument@graded-entries-and-id-lookup@arg-24`.
@@ -1060,8 +1169,8 @@ as the reply to round 6 read them, to be judged at the harvest by
 | 2. "searchers grade `unrelated` an entry that bore, so recall falls." | `thread@graded-entries-and-id-lookup@may-bear-needs-a-named-doubt` | folded into `tripwire@agent-skills@record-search-misses`; the harvest judges whether its wording or its horizon changes |
 | 3. "a goal the work strains is no longer seeded and gets missed." | `thread@graded-entries-and-id-lookup@seeds-name-decisions` | folded into `tripwire@agent-skills@goal-missed-though-graded`, beside the session's reading of every goals home; the harvest judges whether its wording or its horizon changes |
 | 4. "the session reads text that went stale because it edited an entry between `--out` and `--verify`." | `thread@graded-entries-and-id-lookup@entry-text-snapshot-at-out` | named as a cause for the harvest to judge as a tripwire: "In doubt. A short horizon at most." |
-| 5. "sessions keep writing loops, because a command reaches a session only where the text names it at the moment of use" | `thread@graded-entries-and-id-lookup@id-lookup-command` | dropped by the standard: the failure is not silent, since the new retrospective question reports it, condition 1 |
-| 6. "the answers either fill with trivial items, a single grep for instance, or come back "none" while sessions did write scripts." | `thread@graded-entries-and-id-lookup@retrospective-asks-for-hand-work` | dropped by the standard: "the evidence lives only in transcripts", condition 2 |
+| 5. "sessions keep writing loops, because a command reaches a session only where the text names it at the moment of use" | `thread@graded-entries-and-id-lookup@id-lookup-command` | named for the harvest to judge; the reply to round 6 read it as dropped, since the failure is not silent: the new retrospective question reports it, condition 1 |
+| 6. "the answers either fill with trivial items, a single grep for instance, or come back "none" while sessions did write scripts." | `thread@graded-entries-and-id-lookup@retrospective-asks-for-hand-work` | named for the harvest to judge, each half on its own condition. The reply to round 6 read it as dropped on condition 2, which fits the second half only: an answer "none" while a session wrote a script leaves its evidence in the transcript alone. The first half's answers land in the retrospective files the intake receives, so condition 2 admits them; condition 1 likely excludes it, since the intake judges each finding before any becomes work |
 
 AC1 to AC4 were proposed with the premortem, in the reply to round 5, and kept on the owner's word
 of round 7: "Keep AC1 to 4."
@@ -1071,12 +1180,15 @@ of round 7: "Keep AC1 to 4."
 ### AC1: a passing `--verify` places each graded entry once, under its highest grade, and a failing one writes neither file `##assembly-places-each-entry-once`
 
 Guards `thread@graded-entries-and-id-lookup@graded-entries-assembled`, and
-`thread@graded-entries-and-id-lookup@goals-listed-not-reshown`. Judged at step 2. Over a mock work
-list where two agents grade one goal `bears` and `may-bear` and one head `may-bear`, a passing
-`--verify` writes the goal once, under `bears.md`, with both grade lines and no goal text, and the
-head in `may-bear.md`, listed in its table of contents. A `--verify` that fails writes neither
-file. The reports are input files the test writes. Fires on any other placement, on a missing or
-duplicated entry or grade line, on goal text in the assembly, or on a file written by a failing run.
+`thread@graded-entries-and-id-lookup@goals-listed-not-reshown`. Judged at step 2. Over a work list
+directory the test writes whole, `agents.txt`, the snapshot and the reports, where two agents grade
+one goal `bears` and `may-bear` and one head `may-bear`, a passing `--verify` writes the goal once,
+under `bears.md`, with both grade lines and no goal text, and the head in `may-bear.md`, listed in
+its table of contents. A `--verify` that fails leaves neither file, a previous run's included.
+`--verify` reads no model, so the directory needs no project behind it; `worklist_project` gives
+every goal to one agent at the default bound and at `--bound 60`, so it cannot hold this case.
+Fires on any other placement, on a missing or duplicated entry or grade line, on goal text in the
+assembly, or on either file present after a failing run.
 Response: reopen `thread@graded-entries-and-id-lookup@graded-entries-assembled`. Applied on the
 owner's word, round 7.
 
@@ -1092,7 +1204,11 @@ word, round 7.
 
 Guards `thread@graded-entries-and-id-lookup@entry-text-snapshot-at-out`. Judged at step 1. The
 `entries.md` files `--out` writes over a mock project are byte-identical to those the binary before
-the change writes over it, so the agents' load does not change. Fires on any byte that differs.
+the change writes over it, so the agents' load does not change. The reference copy is taken first:
+the step's first commit adds, beside the worklist tests, the `entries.md` files the unchanged binary
+writes over `worklist_project` with a fixed seed and bound, and the test that compares a fresh
+`--out` with them, passing before any change to `write` or `render`. Fires on any byte that
+differs.
 Response: reopen `thread@graded-entries-and-id-lookup@entry-text-snapshot-at-out`. Applied on the
 owner's word, round 7.
 
@@ -1119,64 +1235,91 @@ build their project with `worklist_project`; the new tests follow them. Each def
      snapshot yet.
    - Claims: AC2, by a test that runs `--out` over a mock project and compares each entry of
      `shown.md` with the output of `show` on its reference; shown to fail by dropping the inbound
-     list from the snapshot. AC3, by a test that compares the `entries.md` files with a copy the
-     binary before the change wrote over the same mock project, committed with the test; shown to fail
-     by changing one byte of `render`'s entry line. A refused `--out` still writes nothing:
+     list from the snapshot. AC3, by the comparison AC3's item describes, its reference copy
+     committed first; shown to fail by changing one byte of `render`'s entry line. A refused `--out` still writes nothing:
      `worklist_refuses_an_incomplete_model_and_writes_nothing` and
      `worklist_refuses_a_directory_it_must_not_write_and_an_unknown_seed` pass unchanged.
    - Fails alone on: a snapshot whose text differs from `show`'s.
 2. **The assembly.**
-   - Builds: `verify` keeps the grade lines it judges and, when it finds nothing, writes `bears.md`
-     and `may-bear.md` from the snapshot, per "The assembly"; the message and exit 2 of a missing
-     snapshot.
-   - Claims: AC1, by a test whose reports, written by the test, give the grades AC1 names; shown to
-     fail by placing an entry under its first grade instead of its highest. The assembly reads no
-     model: a test edits an entry in the tree after `--out`, and `bears.md` holds the text of the
-     snapshot; shown to fail against an assembly that calls `show`. The existing tests of `--verify`
-     pass with their outputs unchanged but for the `PASSED` line.
+   - Builds: `verify` keeps the grade lines it judges, in the order of `agents.txt`, and, when it
+     finds nothing, writes `bears.md` and `may-bear.md` from the snapshot, per "The assembly"; the
+     removal of both files on a failing or stopped run; the message and exit 2 of a snapshot missing,
+     unreadable or lacking an entry.
+   - Claims: AC1, by a test over a work list directory it writes whole, giving the grades AC1 names;
+     shown to fail by placing an entry under its first grade instead of its highest, and by a
+     failing run that leaves a previous run's files. The assembly reads no model: a test edits an
+     entry in the tree after `--out`, and `bears.md` holds the text of the snapshot; shown to fail
+     against an assembly that calls `show`. A snapshot lacking an entry: a test removes one entry from
+     `shown.md` after `--out`, fills the reports to pass, and asserts exit 2, no `PASSED` line and no
+     assembly; shown to fail against a `--verify` that skips the missing entry. The existing tests of
+     `--verify` pass with their outputs unchanged but for the `PASSED` line.
    - Fails alone on: an entry placed twice or missing, or goal text in the assembly.
 3. **`klarch id`.**
    - Builds: `Command::Id` and its arguments, the first three phases before the answer, the output
      of "`klarch id`" from `Entities::by_id` and `is_entry_id`.
    - Claims: AC4, by a test over a project built with `Sandbox` holding the two definitions and a
      phase-2 defect in a copy; shown to fail by an implementation that skips the phase gate, which
-     answers `free` over the defect. The clap declaration test of the binary passes with the new
-     command.
+     answers `free` over the defect. `cli_declaration_is_consistent` in `path@core@src/main.rs`
+     passes with the new command, and `run` in `path@core@src/cli/mod.rs` dispatches it.
    - Fails alone on: a defined id reported free, or an answer over an incomplete model.
 4. **The installed text and the documentation.**
-   - Builds, in the installed text, each passage named in "What the work is":
-     - the record searcher: the `may-bear` definition, per "The search reads less"; its
-       description's last sentence reads `bears.md` whole and `may-bear.md` as the dispatching
-       skill says;
+   - Builds, in the installed text, each passage named in "What the work is". The installed copies
+     differ from the sources from the first edit until the install runs, and phase 2 reports them,
+     so run `cargo klarch install-agent-skills` before any `klarch id` or `worklist --out` in this
+     step:
+     - the record searcher: the `may-bear` definition, per "The search reads less"; the body's
+       sentences "The session that sent you reads whole the entries you grade `bears` or
+       `may-bear`, as its skill says" and "An entry you grade `may-bear` that does not bear costs the
+       session at most one read", brought to the reading of the dispatching skill; its description's
+       last sentence reads `bears.md` whole and `may-bear.md` as the dispatching skill says;
      - the design skill: step 1 of `skill@knowledge-architect-design@discussion-loop`, for the four
        changes of "The search reads less", the reading pointing to the assembly; the naming
        paragraph of `skill@knowledge-architect-design@threads-and-states` checks every candidate
        slug with one call, `{{command}} id <slug>...`, and keeps its rule on which collision refuses
-       a slug;
+       a slug; under D2's default, the in-change path of
+       `skill@knowledge-architect-design@decision-authority` lists the not-read entries in the commit
+       message that carries the deliberation;
      - the planning skill: point 2 of `skill@knowledge-architect-planning@working-a-slice` reads from
-       the assembly; the row "What is already decided" of
-       `skill@knowledge-architect-planning@spec-contents` and the design-conformance reviewer, per
-       D2;
+       the assembly, and, under D3's default, seeds the search with decisions alone; under D2's
+       default, the row "What is already decided" of
+       `skill@knowledge-architect-planning@spec-contents` admits "not read" for a `may-bear` entry,
+       with the searcher's reason;
+     - the design-conformance reviewer, under D2's default: its sections
+       `agent@knowledge-architect-design-conformance-reviewer@find-the-record` and
+       `agent@knowledge-architect-design-conformance-reviewer@read-against-record` read whole each
+       entry a document or a commit message lists as not read, and its description admits the review
+       before the merge of an in-change deliberation;
+     - the review skill, under D2's default: the design-conformance row of
+       `skill@knowledge-architect-review@review-axes` applies at the review before the merge of a
+       branch whose commit carries an in-change deliberation with a not-read list;
      - the intake skill: point 3 of `skill@knowledge-architect-retrospective-intake@ground-before-judging`
        reads from the assembly, its rule unchanged;
      - the retrospective skill: the question of "The retrospective question", verbatim, among the
        standing questions of `skill@knowledge-architect-retrospective@what-it-examines`.
    - Then `cargo klarch install-agent-skills`, and the installed copies committed.
-   - Builds, in the documentation: `path@core@README.md`, its command listing and its section
-     `worklist` for the snapshot and the assembly, and a section or a listing line for `id`.
+   - Builds, in the documentation: `path@core@README.md`, its command listing, its section
+     `worklist` for the snapshot and the assembly, a section or a listing line for `id`, and its
+     exit-code table: `id`'s three outcomes, and `--verify`'s exit 2 on a snapshot it lacks.
    - Builds, in the `Next release` section of CHANGELOG.md, after reading
      `design@knowledge-architect@changelog-entries` and `design@knowledge-architect@versioning-policy`
      whole, then `cargo x changelog`:
      - New features: `cli`, minor: `klarch id <id>...` says whether each id is free, and lists what
        defines it;
-     - New features: `cli`, minor: `worklist --out` writes `shown.md`, and a passing
-       `worklist --verify` writes `bears.md` and `may-bear.md`;
+     - New features: `library`, minor: `cli::Command::Id` and its arguments' type, in the shape of
+       the existing entry for `cli::Command::Worklist` and `cli::WorklistArgs`;
+     - `worklist --out` writing `shown.md` and a passing `worklist --verify` writing `bears.md` and
+       `may-bear.md`: `worklist` is not released yet, so the work edits its entry in `Next release`
+       rather than writing one, per `design@knowledge-architect@changelog-entries`;
      - Workflow: `agent-skills`, patch: the retrospective asks a fifth standing question, on
        mechanical tasks carried by a script or by hand;
      - Workflow: `agent-skills`, patch: the design session reads the search's `bears` entries from
        one file, and a `may-bear` entry only where a proposal touches it, the others listed as not
        read; a searcher grades `may-bear` only on a named doubt;
-     - Workflow: `agent-skills`, patch: the design skill seeds the search with decisions only.
+     - Workflow: `agent-skills`, patch: the design skill seeds the search with decisions only, and,
+       under D3's default, the design audit too;
+     - Workflow: `agent-skills`, patch, under D2's default: the design-conformance reviewer reads the
+       entries listed as not read, and runs at the review before the merge of an in-change
+       deliberation.
      The tests of the two heads decide each entry and its class; a line they exclude is dropped.
    - Claims: `cargo klarch check` passes with the installed copies committed;
      `cargo test -p knowledge-architect-agent-skills` passes; the installed edits cite no entry and
@@ -1203,17 +1346,20 @@ Step 4 before step 5: the harvest records the decisions the built work implement
   a spec, since the work is one branch and one pull request. The alternative: a milestone, with the
   design split by slice. **Ruled**: the owner, after round 7: "Agreed on the spec shape, to land in
   a single PR with the work".
-- **D2**, on `thread@graded-entries-and-id-lookup@may-bear-read-on-touch`, from the author at
-  assembly. The approved shape hands the not-read list "to the plan's design-conformance reviewer, or
-  to the review before the merge on the in-change path". Today no text carries it there: the row
-  "What is already decided" of `skill@knowledge-architect-planning@spec-contents` asks, for each
-  graded entry, how it bears or that it bears on nothing, which an unread entry cannot state; the
-  design-conformance reviewer reads no entry because it is listed as not read; and no axis of the
+- **D2**, on `thread@graded-entries-and-id-lookup@may-bear-read-on-touch`, from the author when the
+  spec was first written. The approved shape hands the not-read list "to the plan's
+  design-conformance reviewer, or to the review before the merge on the in-change path". Today no
+  text carries it there: the row "What is already decided" of
+  `skill@knowledge-architect-planning@spec-contents` asks, for each graded entry, how it bears or
+  that it bears on nothing, which an unread entry cannot state; the design-conformance reviewer reads
+  every goals, design and `rejected` home of the Components a document touches, but no issue, no
+  tripwire and no list of entries not read, and its scope is a plan document; and no axis of the
   review before the merge, `skill@knowledge-architect-review@review-axes`, reads the record against
-  an in-change deliberation. The default, which adds an obligation to the approved shape:
+  an in-change deliberation. The default, which adds an obligation to the approved shape and widens
+  `design@agent-skills@plan-read-against-the-record`, rewritten at the harvest:
   - the row admits, for a `may-bear` entry, "not read", with the searcher's reason;
-  - `agent@knowledge-architect-design-conformance-reviewer@read-against-record` reads whole each
-    entry the document lists as not read, and reports one a decided shape contradicts;
+  - the design-conformance reviewer reads whole each entry a document lists as not read, issues and
+    tripwires included, and reports one a decided shape contradicts;
   - on the in-change path, the commit that carries the deliberation lists the not-read entries, and
     the review before the merge dispatches the design-conformance reviewer on that list and the
     branch's diff.
@@ -1221,14 +1367,16 @@ Step 4 before step 5: the harvest records the decisions the built work implement
   The alternative: the not-read list is recorded, as above, and read by no reviewer; premortem cause
   1 is then watched only by the tripwire the harvest may write.
 - **D3**, on `thread@graded-entries-and-id-lookup@seeds-name-decisions`, from the author at the
-  review of the assembly. The owner approved the seeds rule for step 1 of
-  `skill@knowledge-architect-design@discussion-loop`. The design audit of a slice or a spec, point 2
-  of `skill@knowledge-architect-planning@working-a-slice`, seeds the same search with "the decisions
-  and goals the slice's spec cites", so a goal seed inflates its grades by the mechanism of
-  `argument@graded-entries-and-id-lookup@arg-4`. The default, which widens the owner's ruling: the
-  audit seeds with the decisions alone, as step 1 does. The alternative: the audit keeps its goal
-  seeds, and the inflation stays there until a real audit shows it. The intake's seeds, the received
-  files' own citations, are outside both.
+  review of the spec. The owner approved the seeds rule for step 1 of
+  `skill@knowledge-architect-design@discussion-loop`. The design audit, point 2 of
+  `skill@knowledge-architect-planning@working-a-slice`, seeds the same search, for a slice, with the
+  decisions of its milestone document and "the decisions and goals the slice's spec cites", and for
+  a spec with its own "What is already decided", which can hold goals, as this spec's does; a goal
+  seed inflates its grades by the mechanism of `argument@graded-entries-and-id-lookup@arg-4`. The
+  default, which widens the owner's ruling: the audit seeds with the decisions alone, for a slice and
+  for a spec, as step 1 does. The alternative: the audit keeps its goal seeds, and the inflation
+  stays there until a real audit shows it. The intake's seeds, the received files' own citations,
+  are outside both.
 
 ## Harvest
 
@@ -1241,25 +1389,25 @@ commit, with the test it fails.
 | --- | --- |
 | `thread@graded-entries-and-id-lookup@entry-text-snapshot-at-out` and `thread@graded-entries-and-id-lookup@graded-entries-assembled` | `design@core@worklist-writes-and-verifies-the-reports` rewritten in place: the snapshot, the assembly, "reads no model" kept; each text listed under "What is already decided" read again |
 | `thread@graded-entries-and-id-lookup@goals-listed-not-reshown` | the same head, for the assembly's form of a goal; `design@agent-skills@search-relevance-grade` for the reading |
-| `thread@graded-entries-and-id-lookup@id-lookup-command` | a new head of the core, its slug the thread's, by entry test 1: the command line, its scope, its exit codes, the nearest rival |
+| `thread@graded-entries-and-id-lookup@id-lookup-command` | a new head of the core, its slug the thread's, by entry test 1: the command line, its scope, its exit codes, the phase gate on a reader, the nearest rival; `design@core@the-core-cli-is-a-library-module`'s list of commands gains `id` |
 | `thread@graded-entries-and-id-lookup@may-bear-needs-a-named-doubt` and `thread@graded-entries-and-id-lookup@may-bear-read-on-touch` | `design@agent-skills@search-relevance-grade` rewritten: the named doubt, the reading on touch at the design grounding, the not-read list and its reader per D2's ruling; the owner's ruling of round 3 on narrowing the reading of issues and tripwires attributed to the owner |
-| `thread@graded-entries-and-id-lookup@seeds-name-decisions` and `thread@graded-entries-and-id-lookup@one-search-per-question` | `design@agent-skills@record-searched-before-the-work` and `design@agent-skills@one-record-searcher`, as the decision-recording skill judges which states each, or neither where a test excludes it |
+| `thread@graded-entries-and-id-lookup@seeds-name-decisions` and `thread@graded-entries-and-id-lookup@one-search-per-question` | `design@agent-skills@record-searched-before-the-work` rewritten, since its seeds sentence turns false, with the design audit's seeds as D3 is ruled; the one-search rule there or in `design@agent-skills@one-record-searcher`, as the decision-recording skill judges, or in neither where a test excludes it |
 | `thread@graded-entries-and-id-lookup@retrospective-asks-for-hand-work` | `design@agent-skills@premortem-as-watch-points` rewritten: the new question, and "a decision or a goal" |
 | `thread@graded-entries-and-id-lookup@gather-reads-the-model` and every item of "Losing alternatives" | `register@core@rejected` or `register@agent-skills@rejected`, each as the tests of `skill@knowledge-architect-decision-recording@losing-alternatives` admit, cited by the head whose argument covers it |
-| premortem causes 1 and 4 | judged by `skill@knowledge-architect-decision-recording@ruled-tripwires`, a keep or a drop listed under "Decided" |
+| premortem causes 1, 4, 5 and 6, cause 6 half by half | judged by `skill@knowledge-architect-decision-recording@ruled-tripwires`, each keep or drop listed under "Decided" with the condition that decides it |
 | premortem causes 2 and 3 | `tripwire@agent-skills@record-search-misses` and `tripwire@agent-skills@goal-missed-though-graded` read again; their wording or horizon changed where the standard asks it |
 | AC1 to AC4 | reported on at the landing; each spent, or, if it recurs, judged as a cause |
-| D1, D2 | ruled before the merge; D2's ruling is what the rewritten `design@agent-skills@search-relevance-grade` states |
+| D2, D3 | ruled before the merge; D2's ruling is what the rewritten `design@agent-skills@search-relevance-grade` and `design@agent-skills@plan-read-against-the-record` state, and D3's what the rewritten `design@agent-skills@record-searched-before-the-work` states |
 | this spec | deleted in a commit of its own after the review before the merge, cited as `spec@plans@graded-entries-and-id-lookup` |
 
 ## Later consequences
 
-- `issue@core@a-searcher-fills-its-report-by-a-script-of-its-own` stays open: the first unmet
-  instance of `goal@knowledge-architect@mechanical-tasks-are-the-tool-s`, not built here.
+- `issue@core@a-searcher-fills-its-report-by-a-script-of-its-own` stays open: an unmet instance of
+  `goal@knowledge-architect@mechanical-tasks-are-the-tool-s` this discussion found, not built here.
 - `issue@core@no-command-lists-the-numbers-in-use-in-a-plan-across-its-history` and
   `issue@core@no-command-lists-the-standing-entries-citing-a-set-of-entries` are instances of the
   same goal, not built here. The first is the sibling of `klarch id` for plan numbers; the second
   asks for the inbound sites of any set of entries, which the assembly gives only for the graded
   ones.
-- The seeds of the intake still admit what the received files cite, goals included; the planning
+- The seeds of the intake still admit what the received files cite, goals included; the design
   audit's seeds are D3's.
