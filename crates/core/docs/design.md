@@ -1168,8 +1168,7 @@ every offset the analysis returns is an offset into the file as written.
 
 An unknown kind is a finding naming the list, and adding one is a reviewed manifest diff. The kind
 decides which subsections the entry owes, so an unknown one would owe the wrong three in silence, which is what makes refusing it load-bearing
-rather than tidy. The open set is `rejected@core@open-issue-kind-set`, and
-`register@core@tripwire` guards the closing.
+rather than tidy. The open set is `rejected@core@open-issue-kind-set`.
 
 ### A milestone entry is a directory, carrying the slice specs and the four item registers `##milestone-entries-are-directories`
 

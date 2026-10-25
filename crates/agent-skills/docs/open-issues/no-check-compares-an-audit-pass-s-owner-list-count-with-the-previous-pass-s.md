@@ -17,7 +17,7 @@ the re-check's report would compare them.
 
 The convergence of an audit is watched by `tripwire@agent-skills@audit-passes-do-not-converge`, written from the owner's own acceptance
 criterion, AC4 of the discussion that made `design@agent-skills@root-cause-repair`, which the owner
-proposed and asked to keep, to watch future audits. As written, it fired when, from one pass to the
+proposed. As written, it fired when, from one pass to the
 next, the violations left on old text did not fall, or the severe ones among them, those whose
 outcome is the owner list, did not fall while above zero. Old text is text the previous pass also read, whose words
 are unchanged since the commit it audited, per `design@agent-skills@convergence-count-scope`; a

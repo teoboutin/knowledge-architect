@@ -18,7 +18,7 @@ candidate.
 the file, which fails `check` on that reference.
 **Watches until:** the next two release tags.
 
-## Guarding `design@core@at-span-candidate-rule`' silence on an unknown head `##candidate-rule-silence`
+## Guarding `design@core@at-span-candidate-rule`: a span meant as a reference passes the check unreported `##candidate-rule-silence`
 
 **Fires when:** a review, or a session reading a document, finds a backticked span that was
 meant as a reference and for which `cargo klarch check` reported nothing — a typo inside the
@@ -32,7 +32,7 @@ where the decision is not reopened in the same change, open a `defect` naming th
 **Watches until:** standing: a span the scanner leaves silent is reported by no later run, and the
 class stays after each shape found is repaired, so its failure stays silent and permanent.
 
-## Guarding `design@core@checker-source-literals-are-data`' whole-source scope `##checker-source-literals-are-data-whole-source-scope`
+## Guarding `design@core@checker-source-literals-are-data`: a literal of the tool's non-test source cites a rule `##checker-source-literals-are-data-whole-source-scope`
 
 **Fires when:** a review finds a string literal in the tool's non-test source that cites a rule:
 a `CR:` marker followed by a rule number written out, with a sentence around it that says
@@ -47,7 +47,7 @@ extension.
 **Watches until:** the next three commits on the main branch that add an analysis under
 `path@knowledge-architect@docs/retrospective-reports/`.
 
-## Guarding `design@core@checker-source-literals-are-data`' purpose `##checker-source-literals-are-data-purpose`
+## Guarding `design@core@checker-source-literals-are-data`: a test constant exists only to hide a fixture's bytes from the check `##checker-source-literals-are-data-purpose`
 
 **Fires when:** a test module of the tool gains a named constant whose only use is to be
 interpolated into a fixture so that its rule-shaped, slug-shaped or path-shaped bytes are not
@@ -57,25 +57,6 @@ a value or reuse across several sites, are not this.
 **Re-entry:** a review of a change that adds a test module under the checker's own directories.
 **Watches until:** the next five commits on the main branch that change a file under
 `path@core@src/`.
-
-## Guarding `design@core@issue-kind-list-closed`: a kind is added for a single situation `##issue-kind-list-grows`
-
-The kind list was closed so that an unknown kind is a finding naming the list, and so that the
-kind can decide which subsections an entry owes. The failure that would make the closing wrong is
-the list growing instead of being chosen from: each new situation gets a kind of its own, the list
-stops partitioning anything, and the finding stops carrying information.
-
-**Fires when:** a kind outside the six compiled defaults, declared in an issue register of this
-project or of a consuming project as a retrospective file the intake receives reports, ends up
-with a single member across that project.
-
-**Response:** reopen `design@core@issue-kind-list-closed`, with the open set,
-`rejected@core@open-issue-kind-set`, among the candidates.
-
-**Re-entry:** every manifest diff that touches `[registers.issue] kinds`, and
-the standing-state review on every dispatched review.
-
-**Watches until:** the next three release tags.
 
 ## Guarding `design@core@phases-gate-the-report`: a way around the whole-report stop `##phases-gate-the-report-two`
 
@@ -98,8 +79,9 @@ The classification of a finding by the phase that produces it rests on one chain
 feeds the walk, the walk the model, the model the entity table, and every check consumes the table
 and produces nothing another check reads.
 
-**Fires when:** a check of the core, under `path@core@src/check/`, or a check of an extension
-reads another check's findings, or a check's output is stored for another check to consume.
+**Fires when:** a check of the last phase, the core's under `path@core@src/check/` or an
+extension's, reads another check's findings, or stores its output for another check of the last
+phase to consume.
 **Response:** open a `design` issue proposing the new phase and its place in the order; the
 producing check is a phase, not a check of the last one, and it goes before its consumers in
 `check::foundation`.
@@ -108,7 +90,11 @@ check directory; and any new check of an extension.
 **Watches until:** the next ten commits on the main branch that change a file under
 `path@core@src/check/`.
 
-## Guarding `design@core@api-facade`'s membership `##private-item-needed`
+## Guarding `design@core@api-facade`: a consumer needs an item that is private behind the facade `##private-item-needed`
+
+The decision rests on the premise that the role modules publish every item a consumer of the
+library, a binary, an extension or the extension's tests, needs.
+
 
 **Fires when:** a consumer of the library, thaum's rules extension first, needs an item that is
 private behind the facade, and no public item replaces it. An example still unmet: the records
@@ -153,7 +139,7 @@ refuses outside every worktree whatever the directory holds.
 **Watches until:** the third release tag after the commit that writes this line, the first of them
 the release that ships `init`.
 
-## Guarding `design@core@git-supplies-the-walk`'s portability `##walked-count-differs-between-machines`
+## Guarding `design@core@git-supplies-the-walk`: two machines walk a different set of files for one commit `##walked-count-differs-between-machines`
 
 The walk is a `git` invocation, so what is checked depends on the git installed and on the
 per-clone configuration it reads. The design answers the two loud cases: no binary and no
