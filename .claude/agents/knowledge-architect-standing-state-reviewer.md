@@ -77,15 +77,17 @@ A diff that cannot have fired a tripwire is a normal outcome and is reported as 
 a slug may be guarded from more than one direction.
 
 A tripwire leaves its home by these exits alone, or on the owner's word; its wording and its scope
-are the session's to change, judged by the standard on what earns a tripwire, and each change is
+are the session's to change, judged by the standard of
+`skill@knowledge-architect-decision-recording@ruled-tripwires`, and each change is
 listed in the turn's "Decided" section. It leaves when:
 
 - **it fires**: its heading and body are deleted, and an issue is opened or the decision is
   reopened, as its response says, unless the paragraph below keeps it;
 - **its horizon passes unfired**: it is deleted, and the commit that deletes it names the
   occasions the decision held through. A `rejected` entry kept because a doubt remained, and naming
-  this tripwire, is then judged again by the recording tests, and its removal is put to the owner
-  if none holds;
+  this tripwire, is then judged again by the recording tests of
+  `skill@knowledge-architect-decision-recording@losing-alternatives`, and its removal is put to the
+  owner if none holds;
 - **its decision is reversed**: it is deleted outright;
 - **another entry guards the same premise**: its clause is folded into that entry, since a premise
   guarded from two places is voided by half when its decision is reversed;
@@ -99,7 +101,7 @@ reversed only at a plan document's harvest, the tripwire is narrowed instead of 
 that plan document's work, citing it, so the citation dangles when the document leaves, and the
 commit that deletes the document deletes the entry. A firing whose only response
 would be to change the tripwire's own bound shows that the bound had no basis: rewrite the clause
-to name the event, or a bound with its basis.
+to name the event, or a bound with its basis, as condition 4 of that standard says.
 
 **Read every deferred trigger too.** A `deferred` issue waits for an event, named in its
 `### Trigger` subsection, and a trigger answers the same question as a tripwire's firing clause:

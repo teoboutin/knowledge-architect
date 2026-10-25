@@ -173,7 +173,7 @@ names both repairs.
 
 - Two entries may carry the same measurement, and an entry may restate a figure that also lives in
   a head.
-- Both registers hold statements that **leave**: an issue when it closes, a tripwire when it fires.
+- Both registers hold statements that **leave**: an issue when it closes, a tripwire by an exit of its lifecycle.
   The cost of the alternative lands in the worst place. Opening an entry is nearly always churn
   inside a session that was doing something else and found a problem, and checking that no other
   entry or head carries the same figure is a tax on the one act this register exists to make
@@ -229,8 +229,9 @@ and are not written.
 3. **The evidence is what the decision says must not happen.** A clause that counts what the
    decision instructs or endorses fires on the decision working.
 4. **A number has a basis.** A bound in the firing clause comes from a measurement or an argument
-   the decision's record carries, its head, or its plan document before the head is written, and exceeds the noise of the instrument that takes it. Otherwise
-   the clause names the event.
+   the decision's record carries, its head, or its plan document before the head is written, and
+   exceeds the noise of the instrument that takes it. Otherwise the clause names the event,
+   specific enough that two readers agree whether it occurred: "it gets slow" names none.
 
 **A slip is no firing.** A clause on how sessions follow an instruction never fires on one instance
 that a review, a check or a retrospective reported under its own procedure: one slip is the review
@@ -291,15 +292,17 @@ whose occasion fails it blocks a session rather than scheduling anyone.
 ## The movement instruction `##movement-instruction`
 
 A tripwire leaves its home by these exits alone, or on the owner's word; its wording and its scope
-are the session's to change, judged by the standard on what earns a tripwire, and each change is
+are the session's to change, judged by the standard of
+`skill@knowledge-architect-decision-recording@ruled-tripwires`, and each change is
 listed in the turn's "Decided" section. It leaves when:
 
 - **it fires**: its heading and body are deleted, and an issue is opened or the decision is
   reopened, as its response says, unless the paragraph below keeps it;
 - **its horizon passes unfired**: it is deleted, and the commit that deletes it names the
   occasions the decision held through. A `rejected` entry kept because a doubt remained, and naming
-  this tripwire, is then judged again by the recording tests, and its removal is put to the owner
-  if none holds;
+  this tripwire, is then judged again by the recording tests of
+  `skill@knowledge-architect-decision-recording@losing-alternatives`, and its removal is put to the
+  owner if none holds;
 - **its decision is reversed**: it is deleted outright;
 - **another entry guards the same premise**: its clause is folded into that entry, since a premise
   guarded from two places is voided by half when its decision is reversed;
@@ -313,7 +316,7 @@ reversed only at a plan document's harvest, the tripwire is narrowed instead of 
 that plan document's work, citing it, so the citation dangles when the document leaves, and the
 commit that deletes the document deletes the entry. A firing whose only response
 would be to change the tripwire's own bound shows that the bound had no basis: rewrite the clause
-to name the event, or a bound with its basis.
+to name the event, or a bound with its basis, as condition 4 of that standard says.
 
 An issue entry moves too:
 

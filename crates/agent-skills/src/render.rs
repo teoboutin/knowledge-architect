@@ -158,8 +158,9 @@ pub(crate) fn render_slugs(text: &str, file: &Path) -> String {
 /// fragment, on a fragment that holds a fragment placeholder, since a fragment does not nest; a
 /// section slug placeholder, since its host supplies the heading and the slug, and the same slug
 /// rendered twice in one installed file would be defined twice; or any other build placeholder,
-/// since the host's passes have run before it. The install's `{{command}}` is filled later, as in
-/// any shipped text.
+/// since a later pass would change the fragment's text in its host, where a test looks for it whole.
+/// The install's `{{command}}` is filled later, as in any shipped text, and the `${{ ` that opens a
+/// GitHub Actions expression is no placeholder.
 pub(crate) fn render_fragments<'a>(
     text: &str,
     fragments: &[(&'a str, &str)],
@@ -197,7 +198,10 @@ pub(crate) fn render_fragments<'a>(
             "{own}: a fragment holds no section slug placeholder: its host supplies the heading"
         );
         assert!(
-            !body.replace("{{command}}", "").contains("{{"),
+            !body
+                .replace("{{command}}", "")
+                .replace("${{ ", "")
+                .contains("{{"),
             "{own}: a fragment holds no build placeholder but the install's `{{{{command}}}}`"
         );
         let indent = &bare[..bare.len() - trimmed.len()];
@@ -441,6 +445,25 @@ mod tests {
     #[should_panic(expected = "fragments/f.md: a fragment holds no build placeholder")]
     fn a_fragment_holding_a_build_placeholder_fails() {
         fragments("{{fragment:f.md}}\n", &[("f.md", "{{primer-import}}\n")]);
+    }
+
+    #[test]
+    #[should_panic(expected = "fragments/f.md: a fragment holds no build placeholder")]
+    fn a_fragment_holding_a_placeholder_of_any_name_fails() {
+        fragments("{{fragment:f.md}}\n", &[("f.md", "a {{snippet:x}} b\n")]);
+    }
+
+    #[test]
+    fn a_fragment_may_hold_an_actions_expression() {
+        let rendered = "runs-on: ${{ matrix.os }}\n";
+        let (text, _) = fragments("{{fragment:f.md}}\n", &[("f.md", rendered)]);
+        assert_eq!(text, rendered);
+    }
+
+    #[test]
+    fn a_fragment_placed_twice_is_named_twice() {
+        let (_, used) = fragments("{{fragment:f.md}}\n{{fragment:f.md}}\n", &[("f.md", "x\n")]);
+        assert_eq!(used, ["f.md", "f.md"]);
     }
 
     #[test]

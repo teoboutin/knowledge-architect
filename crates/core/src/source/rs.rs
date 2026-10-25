@@ -539,10 +539,19 @@ mod tests {
                     "{path} holds a comment and yields no prose"
                 );
             }
-            if text
-                .lines()
-                .any(|l| l.starts_with("fn ") || l.starts_with("pub fn "))
-            {
+            // A top-level function: a line at column 0 whose words before `fn` are a visibility
+            // and qualifiers, as `pub(crate) const fn` or `async fn`.
+            let top_level_fn = |l: &str| {
+                !l.starts_with(char::is_whitespace)
+                    && l.split_once("fn ").is_some_and(|(head, _)| {
+                        head.split_whitespace().all(|w| {
+                            w == "pub"
+                                || w.starts_with("pub(")
+                                || ["const", "async", "unsafe", "extern", "\"C\""].contains(&w)
+                        })
+                    })
+            };
+            if text.lines().any(top_level_fn) {
                 assert!(
                     p.scopes.iter().any(|s| s.kind == ScopeKind::Item),
                     "{path} holds a top-level function and yields no item scope"

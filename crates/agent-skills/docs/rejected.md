@@ -505,5 +505,6 @@ instead of judging, and neither session could.
 watching against the risk, so the owner ruled on each cause put under a label. The tripwire
 standard ranks a cause by named conditions, so no fork remains, and the measured cost of the
 ruling stood: the owner dropped 23 of 66 ruled causes of this repository, and about 45 of the 64
-tripwires it then held watched a failure caught anyway, a subagent's reading of each entry; the
-owner also spent rulings on the wording and scope of tripwires.
+tripwires it then held watched a failure caught anyway, by a review, a test, the checker or the
+owner, a subagent's reading of each entry kept in the spec of the tripwire standard, deleted at its
+landing and found with `git log --diff-filter=D --name-only -- docs/plans/`; the owner also spent rulings on the wording and scope of tripwires.

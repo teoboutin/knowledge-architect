@@ -57,4 +57,5 @@ The check above, written with a test that adds a line to a sandbox's `.git/info/
 asserts the report names the file it removes; and the sentence of
 `design@core@per-user-ignore-file-pinned` that names this entry, and the comment in
 `Invocation::run` of `path@core@src/git.rs` on what still decides the walk, repointed to the check;
-the commit that writes it deletes `tripwire@core@walked-count-differs-between-machines`.
+the commit that writes it narrows `tripwire@core@walked-count-differs-between-machines` to the
+cause no check reports, two git versions that walk one commit differently.

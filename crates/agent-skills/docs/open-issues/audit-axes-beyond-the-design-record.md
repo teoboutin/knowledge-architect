@@ -65,8 +65,9 @@ Additions of the session, for the discussion to judge:
   per `design@agent-skills@tripwire-audit-axis`: every issue read against the tree as it stands,
   for an issue whose diagnosis has gone stale, or a deferred trigger met without anyone noticing; the standing-state reviewer does this only for the
   entries a diff bears on;
-- **the records a rule of the primer binds, read against that rule**: no axis reads the issue and
-  tripwire entries against a rule of the primer that binds them. An instance, in thaum at its move
+- **the records a rule of the primer binds, read against that rule**: no axis reads the issue
+  entries against a rule of the primer that binds them; the tripwire axis reads the tripwires
+  against the primer's rule on owner attributions, per `agent@knowledge-architect-tripwire-auditor`. An instance, in thaum at its move
   to 0.7.0: the 0.7.0 Migration entry on owner attributions binds design heads, commit messages,
   tripwires and issue entries, and routes the work to the design-record axis, which reads heads and
   `rejected` entries only; 21 of the 28 records that failed the rule were issue entries, which the

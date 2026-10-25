@@ -19,8 +19,9 @@ and are not written.
 3. **The evidence is what the decision says must not happen.** A clause that counts what the
    decision instructs or endorses fires on the decision working.
 4. **A number has a basis.** A bound in the firing clause comes from a measurement or an argument
-   the decision's record carries, its head, or its plan document before the head is written, and exceeds the noise of the instrument that takes it. Otherwise
-   the clause names the event.
+   the decision's record carries, its head, or its plan document before the head is written, and
+   exceeds the noise of the instrument that takes it. Otherwise the clause names the event,
+   specific enough that two readers agree whether it occurred: "it gets slow" names none.
 
 **A slip is no firing.** A clause on how sessions follow an instruction never fires on one instance
 that a review, a check or a retrospective reported under its own procedure: one slip is the review

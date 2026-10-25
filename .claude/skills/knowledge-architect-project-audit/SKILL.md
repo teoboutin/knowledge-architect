@@ -351,8 +351,7 @@ all of it. No step judges a created head, since the axis creates none. Its `args
 
 **The draft of an entry** names its verdict, one outcome of the table below; the condition or the
 exit it rests on; the edit it proposes; and, for a kept entry, its horizon: a `**Watches until:**`
-line that meets the standard's paragraph on it. At the first audit of an entry, its occasions count
-from the commit that writes the line.
+line that meets the standard's paragraph on it.
 
 **The verification of a report.** The session reads the report whole; each reading the calibration
 proposes, against the sample's drafts; every item of the owner-list draft, and every finding the
@@ -381,13 +380,14 @@ pass's commit, with no uncommitted work in the tree.
 | reworded | a slip struck, a response brought to the shape, a number given its basis or replaced by the event | applied in the branch: a recorded tripwire's wording and scope are the session's, per `skill@knowledge-architect-decision-recording@ruled-tripwires` |
 | converted | a script could compute its firing | put to the owner, on the owner list: the entry leaves once the check exists, the check written in the branch where it is small, else a `todo` issue |
 | absorbed | another entry guards the same premise | put to the owner, on the owner list: the entry leaves, its clause folded into the other |
-| removed | it fails condition 1, 2 or 3 | put to the owner, on the owner list |
+| removed | it fails condition 1, 2 or 3; or no condition clearly excludes it and the owner would see its failure anyway, the doubt's weight | put to the owner, on the owner list |
 | its decision is gone | the entry it guards no longer exists, or was reversed | put to the owner, on the owner list |
 | horizon passed | the occasions of its horizon have passed, counted from the commit that wrote the line, so from a re-check on for a horizon the audit wrote | put to the owner, on the owner list |
 | fired | its evidence is in the tree or the history | the session judges it; the deletion and the issue or the reopening its response names go on the owner list |
 
 **Every outcome that deletes an entry reaches the owner**, and the owner list groups those items:
-one group per outcome, the removals in one group per condition failed, each group one item of the
+one group per outcome, the removals in one group per condition failed and one on the doubt's
+weight, each group one item of the
 list under its label, listing its entries with the words each turns on, with one default for the
 group and the entries it excepts. The owner rules on a group, and names any entry ruled otherwise.
 A text that cites a deleted entry is repaired in the commit that deletes it, and, for a horizon

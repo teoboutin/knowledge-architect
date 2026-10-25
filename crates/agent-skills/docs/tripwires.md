@@ -232,12 +232,12 @@ files under docs/retrospective-reports/, counted from the commit that writes thi
 
 The decision rests on the premise that the finding standard keeps auditors from reporting predicted
 gaps as provable ones, and L8's auditors from reporting two standards that differ in wording and
-give one verdict.
+give one verdict, so the reading of a pass is not spent rejecting drafts.
 
-**Fires when:** in two passes of the agentic-workflow axis, a draft fails the reading because it
-reports a predicted gap as a provable one, or, from L8, two standards that differ in wording and
-give one verdict. A draft the verifier refutes or the session rejects on that ground fails it; a
-draft marked kept or known is not counted.
+**Fires when:** in two passes of the agentic-workflow axis, drafts fail the reading, such as a
+predicted gap reported as a provable one or, from L8, two standards that differ in wording and give
+one verdict. A draft the verifier refutes or the session rejects fails it; a draft marked kept or
+known is not counted.
 **Response:** reopen `design@agent-skills@workflow-axis-finding-standard` and the standard of
 `agent@knowledge-architect-workflow-auditor`.
 **Re-entry:** the session's verification of each pass's report.
@@ -305,7 +305,7 @@ doubts.
 **Response:** reopen `design@agent-skills@verifier-in-the-run`, on how much of the conforming drafts
 a design-record verifier reads.
 **Re-entry:** the session's verification of each report of the design-record axis.
-**Watches until:** three report files of the design-record axis added under docs/audit-reports/ on
+**Watches until:** two report files of the design-record axis added under docs/audit-reports/ on
 the main branch, counted from the commit that writes this line.
 **Evidence when written:** on the first pass of the design-record axis through its saved workflow
 on this repository, the session's sample held a wrong conforming draft that the drafter, the
@@ -405,7 +405,7 @@ one-sentence pointer in the primer to the standard.
 **Watches until:** three commits on the main branch that add analyses of received retrospective
 files under docs/retrospective-reports/, counted from the commit that writes this line.
 
-## Guarding `design@agent-skills@additions-review-agent`: most findings of the agent-facing-text axis need nothing `##agent-text-findings-need-nothing`
+## Guarding `design@agent-skills@additions-review-agent`: the agent-facing-text axis reports findings that need nothing `##agent-text-findings-need-nothing`
 
 The decision rests on the premise that the agent reports statements that fail the need test, and
 not its hard cases, so that a session spends its verification on findings that hold.
@@ -552,6 +552,6 @@ plan document of the work that recorded that decision lists the cause of that fa
 under condition 1.
 **Response:** reopen `design@agent-skills@tripwire-admission-test`, on how condition 1 is worded.
 **Re-entry:** the standing-state review: the issue and the commit are in the tree and the history.
-**Watches until:** the fifth premortem recorded on the main branch after the commit that writes this
-line: a plan document's Premortem section, or an in-change commit message listing premortem causes.
+**Watches until:** the fifth plan document deleted at its landing on the main branch after the
+commit that writes this line.
 

@@ -249,7 +249,7 @@ meets it.
 
 %% Who records and when: `design@agent-skills@tripwire-recording-authority`.
 
-A premortem names causes and puts none to the owner. **At the end of the work that implements the
+A premortem names causes. **At the end of the work that implements the
 decision**, the session judges each surviving cause by the standard below, on the wording the cause
 has then: on the full path of `skill@knowledge-architect-design`, at the harvest; on its in-change
 path, in the commit that records the decision. A parked thread's tripwire is judged the same way, and so is a tripwire anything else names, such

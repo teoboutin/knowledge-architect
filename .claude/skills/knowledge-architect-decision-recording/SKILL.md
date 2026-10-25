@@ -248,7 +248,7 @@ meets it.
 ## Recording a premortem's tripwires `##ruled-tripwires`
 
 
-A premortem names causes and puts none to the owner. **At the end of the work that implements the
+A premortem names causes. **At the end of the work that implements the
 decision**, the session judges each surviving cause by the standard below, on the wording the cause
 has then: on the full path of `skill@knowledge-architect-design`, at the harvest; on its in-change
 path, in the commit that records the decision. A parked thread's tripwire is judged the same way, and so is a tripwire anything else names, such
@@ -286,8 +286,9 @@ and are not written.
 3. **The evidence is what the decision says must not happen.** A clause that counts what the
    decision instructs or endorses fires on the decision working.
 4. **A number has a basis.** A bound in the firing clause comes from a measurement or an argument
-   the decision's record carries, its head, or its plan document before the head is written, and exceeds the noise of the instrument that takes it. Otherwise
-   the clause names the event.
+   the decision's record carries, its head, or its plan document before the head is written, and
+   exceeds the noise of the instrument that takes it. Otherwise the clause names the event,
+   specific enough that two readers agree whether it occurred: "it gets slow" names none.
 
 **A slip is no firing.** A clause on how sessions follow an instruction never fires on one instance
 that a review, a check or a retrospective reported under its own procedure: one slip is the review

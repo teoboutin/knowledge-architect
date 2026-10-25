@@ -186,7 +186,7 @@ standing, 0 retired, 1 of 194 stating when it stops being needed. The full table
 | --- | --- | --- |
 | `premortem-tripwires-on-the-owners-word` | reversed: moves to `register@agent-skills@rejected` as `rejected@agent-skills@owner-rules-each-tripwire` | the `%%` at content/skills/decision-recording/SKILL.md:251 (step 2); design.md:1031, 1608 and 1629, in the bodies of three heads this table rewrites (harvest) |
 | `premortem-tripwire-written-at-harvest` | absorbed by the head of #tripwire-recording-authority, which states where and when a tripwire is written, and deleted: on the in-change path the end of the work is no harvest | the `%%` at decision-recording/SKILL.md:252 (step 2); design.md:1020 (harvest) |
-| `tripwire-wording-is-the-agents` | absorbed by the head of #tripwire-recording-authority, and deleted | design.md:1631 (harvest); the eight-responses issue lines 34 and 46, which closes at step 5 |
+| `design@agent-skills@tripwire-wording-is-the-agents` | absorbed by the head of #tripwire-recording-authority, and deleted | design.md:1631 (harvest); the eight-responses issue lines 34 and 46, which closes at step 5 |
 | `design@agent-skills@decisions-reported-to-the-owner` | rewritten where its body, at design.md:2992, names a rewording of a tripwire that "keeps the cause it watches": a tripwire recorded, dropped or reworded is a "Decided" item | harvest; the same rule in PRIMER.md:234 to 236 and agents/transcript-reviewer.md:20 to 22 (step 2) |
 | `design@agent-skills@acceptance-criteria-on-the-owners-word` | rewritten on its own ground, per #acceptance-criterion-authority | the `%%` at content/skills/design/SKILL.md:595 and planning/SKILL.md:328 (step 2); `issue@agent-skills@a-premortem-criterion-listed-as-a-default-reads-two-ways` line 48 (harvest re-reads it: the head keeps its rule on a criterion proposed after the premortem) |
 | `design@agent-skills@acceptance-criteria-in-the-document` | rewritten: a recurring criterion becomes a tripwire by the standard, not on the owner's word | nothing cites it; step 2 adds a `%%` line citing it at the planning skill's section on acceptance criteria |
@@ -324,7 +324,7 @@ judged by the standard, and its removal outside the lifecycle is the owner's.
 
 Shape: "Decided design", "Who records". Harvest: a head under this slug in `register@agent-skills@design`,
 standing on `argument@tripwire-standard@arg-25` and `argument@tripwire-standard@arg-34`, absorbing
-`tripwire-wording-is-the-agents` and `premortem-tripwire-written-at-harvest`;
+`design@agent-skills@tripwire-wording-is-the-agents` and `premortem-tripwire-written-at-harvest`;
 the reversed `premortem-tripwires-on-the-owners-word` moves to `register@agent-skills@rejected`.
 
 ### The standard has one home, delivered whole where it is applied `##tripwire-standard-home`
@@ -1219,7 +1219,7 @@ writable after another event is a `deferred` issue.
 | --- | --- | --- |
 | #tripwire-admission-test | a head in `register@agent-skills@design`, under the thread's slug | step 6 |
 | #tripwire-horizon | a head in `register@agent-skills@design`, under the thread's slug | step 6 |
-| #tripwire-recording-authority | a head under the thread's slug, absorbing `tripwire-wording-is-the-agents` and `premortem-tripwire-written-at-harvest`, both deleted; `premortem-tripwires-on-the-owners-word` moves to `register@agent-skills@rejected` as `rejected@agent-skills@owner-rules-each-tripwire` | step 6 |
+| #tripwire-recording-authority | a head under the thread's slug, absorbing `design@agent-skills@tripwire-wording-is-the-agents` and `premortem-tripwire-written-at-harvest`, both deleted; `premortem-tripwires-on-the-owners-word` moves to `register@agent-skills@rejected` as `rejected@agent-skills@owner-rules-each-tripwire` | step 6 |
 | #shared-text-fragment | a head under the thread's slug; `design@agent-skills@restatement-size-test` and `design@agent-skills@content-mirrors-the-install-layout` rewritten | step 6 |
 | #tripwire-audit-axis | a head under the thread's slug; `design@agent-skills@design-record-axis` rewritten | step 6 |
 | #tripwire-shape-unchecked | a head of absence in `register@core@design`, attributed to the owner with "for now" | step 6 |

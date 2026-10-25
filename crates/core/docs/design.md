@@ -500,7 +500,8 @@ in the walk and is reported, because dropping it would take a live document out 
 the strength of a working-tree state.
 
 **The summary block prints the walked-file count**, so two machines disagreeing about the walk is
-visible in the output rather than inferred from a finding list.
+visible in the output rather than inferred from a finding list. The tripwire is in
+`register@core@tripwire`.
 
 **This is the working tree's walk, the one plain `check` reads.** `check --staged` and `commits`
 read a snapshot instead, from git objects alone, per `design@core@staged-tree-source` and
@@ -512,9 +513,10 @@ read a snapshot instead, from git objects alone, per `design@core@staged-tree-so
 is no part of any project, so every invocation runs with it pointed at the null device: a line
 there would otherwise take an untracked live document out of every check on one clone and not on
 another. What still decides the walk beside the tree's own ignore files is git's per-clone exclude
-file, which git offers no way to pin. The check that would report the files it alone removes
-from the walk is
-`issue@core@the-walk-does-not-report-what-the-per-clone-exclude-file-removes`.
+file, which git offers no way to pin, and that is what
+`tripwire@core@walked-count-differs-between-machines` is left guarding, until the check of
+`issue@core@the-walk-does-not-report-what-the-per-clone-exclude-file-removes` reports the files it
+alone removes from the walk.
 
 ### A listed path is read as git's bytes, never decoded `##a-path-is-bytes`
 
@@ -729,15 +731,17 @@ tripwire guards a decision: a `rejected` entry records a design not kept, which 
 a tripwire that names one names the candidate its response would reopen, not what it guards. The
 rival, counting it like a declared register's entry, would list a design not kept as guarded.
 
-### The checker reads no line of a tripwire entry's body, its horizon included, for now `##tripwire-horizon-unchecked`
+### The checker does not check a tripwire's horizon line, for now `##tripwire-horizon-unchecked`
 
-A tripwire's `**Watches until:**` line is written and read by the sessions and the reviewers that
-the installed workflow sends, and no check of the core reads it. Whether a horizon has passed is an
-event over the history the checker does not judge, and a presence check would read a field of a
-heading entry, the syntax `rejected@core@validity-marker-checked` refused for the `rejected`
-register. The owner kept it out of the checker for now: "not much reason to check yet, we can keep
-this out of the checker". The tripwire axis of the project audit brings every entry to the line,
-and the standing-state reviewer reads each entry written after it.
+A tripwire's `**Watches until:**` line, which `design@agent-skills@tripwire-horizon` gives every
+entry, is written and read by the sessions and the reviewers that the installed workflow sends, and
+no check of the core reads it. Whether a horizon has passed is an event over the history the
+checker does not judge, and a presence check would read a field of a heading entry, the syntax
+`rejected@core@validity-marker-checked` refused for the `rejected` register. The owner chose to
+keep the line out of the checker for now, judging a check not yet needed. The tripwire axis of the
+project audit brings every entry to the line, per `design@agent-skills@tripwire-audit-axis`, and the
+standing-state reviewer reads each entry written after it, per
+`design@agent-skills@standing-state-review-before-every-merge`.
 
 ### A `rejected` entry that no design entry cites is a finding `##orphan-rejected-entry`
 

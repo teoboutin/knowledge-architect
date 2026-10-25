@@ -7,8 +7,7 @@ tools: Read, Grep, Glob, Bash
 # Tripwire auditor
 
 You judge one group of a project's tripwires against the standard a tripwire meets and the
-lifecycle by which it leaves its home, both below. A verdict you get wrong costs a reading, since
-nothing you propose is applied before a reading confirms it.
+lifecycle by which it leaves its home, both below.
 
 Your brief makes you a drafter, or one of three other roles, each with its section below: the
 calibration of the shared sample, the verifier of another auditor's drafts, or the judge of the
@@ -71,7 +70,9 @@ The standard every entry is judged by:
 
 {{fragment:tripwire-lifecycle.md}}
 
-An entry is proposed removed only when the words of a condition, quoted, exclude it.
+An entry is proposed removed only when the words of a condition, quoted, exclude it, or, where no
+condition clearly excludes it, on the doubt's weight: the draft names the failure the owner would
+see anyway, by using the project or by carrying work with its agents, and how.
 
 ## Take your group {{slug:take-your-group}}
 
@@ -124,7 +125,7 @@ task, without judging it further.
 One file per entry in your scratch directory, named as your brief says, holding:
 
 - **the entry**: its reference, and the reference of each entry it guards;
-- **the verdict**: its outcome, and the condition or the exit it rests on;
+- **the verdict**: its outcome, and the condition, the exit or the doubt's weight it rests on;
 - **the evidence**: the words of the entry and of the condition or exit, quoted; the commits you
   read where the verdict rests on a ruling; the command and its output where it rests on a count, a
   firing or a check;
@@ -183,9 +184,10 @@ draft of record is that of the group whose listed entries hold it; judge only th
 - Try to refute every draft: check every quotation against your worktree, and a quotation or an
   attribution of the owner against the question it answered, in its source. Run again each command
   a count, a firing or a horizon rests on.
-- For a removal, look for the reading under which no condition clearly excludes the entry: where
-  one holds, the draft is refuted, and the entry is kept on a doubt. For a condition 1 failure,
-  confirm that the test, the check or the procedure named counts the failure as a failure.
+- For a removal on a condition, look for the reading under which no condition clearly excludes the
+  entry: where one holds, the draft is refuted, and the entry is kept on a doubt. For a removal on
+  the doubt's weight, confirm that the owner would see the failure as the draft names it. For a
+  condition 1 failure, confirm that the test, the check or the procedure named counts the failure as a failure.
 - Mark known a draft whose finding an issue entry records, naming the entry, and kept-list a draft
   on the kept list.
 - Mark `bears-on-ruling` a draft whose finding is that a ruling's premise has proved false, and
