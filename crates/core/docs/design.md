@@ -1384,17 +1384,16 @@ register by the anchor that carries it. A cluster is a unit with the `rejected` 
 cite, the issues and tripwires that cite them, and the goals of `design@core@goals-join-a-cluster-as-context`.
 
 It serves `goal@agent-skills@installed-text-works-anywhere`, since every unit comes from what the
-manifest declares and the tree holds. A subject groups what the work reads together, the grouping
-the owner chose for design entries since a subject's kept and rejected entries are read together,
-so a cluster keeps a head with the `rejected` entries it cites and the standing entries that cite
-it. The nearest rival, a cluster rooted at a goal, reached 342 of the 677 entries of this repository
+manifest declares and the tree holds. A subject groups what the work reads together: the owner
+chose that grouping for design entries, since a subject's kept and rejected entries have to be read
+together, and a standing entry joins the cluster of the heads it cites, since it is judged beside
+them. The nearest rival, a cluster rooted at a goal, reached 342 of the 677 entries of this repository
 at ed9dd60 and 208 of the 801 of thaum at its commit edd2cb5d, since 213 heads here cite no goal, and
 the reference rule of `design@agent-skills@a-reference-claims-a-revisit` has a head name a goal only
 where it derives a constraint from it; rooted at a subject, the clusters reached 663 and 706.
 Followed transitively through design to design citations, a goal-rooted cluster held 466 to 480 of
 the 677 entries, since 159 heads cite one another in one cycle. The counts were taken by scripts over
-`klarch model`, whose figures the spec of the work that built `klarch worklist` keeps, which
-`git log --diff-filter=D --name-only -- docs/plans/` lists. The design this decision did not keep:
+`klarch model`, which the message of the commit "[review] Repairs of the transcript review of one search of the whole record, with the scripts of its measurements" holds. The design this decision did not keep:
 `rejected@core@goal-rooted-clusters`.
 
 ### A goal joins a cluster as context, with every goal it refines, and brings in no issue or tripwire `##goals-join-a-cluster-as-context`
@@ -1466,8 +1465,7 @@ György Dósa proved tight in 2007; over this repository at ed9dd60 it used the 
 and over thaum at edd2cb5d it used the lower bound for the groups within the bound, 8 agents, beside
 3 groups above it sent alone. The spreading keeps an agent from carrying the full bound while
 another carries a remnant: first-fit alone filled this repository's agents to a median of 24,737
-words of a 25,000 bound, as the scripts of the spec of the work that built `klarch worklist` took
-it. Re-take the packing with `klarch worklist --out` and `--bound` over this repository; a run whose
+words of a 25,000 bound, as the scripts the message of the commit "[review] Repairs of the transcript review of one search of the whole record, with the scripts of its measurements" holds took it. Re-take the packing with `klarch worklist --out` and `--bound` over this repository; a run whose
 agents sit at the bound reopens the spreading. Splitting a cluster to meet a bound would cut a
 subject, which the grouping exists to keep whole. The designs this decision did not keep:
 `rejected@core@packing-to-the-bound`, `rejected@core@bound-in-entries`,
