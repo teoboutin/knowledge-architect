@@ -104,16 +104,18 @@ subsection is omitted.
   its bound carries its basis; the owner still rules on each.
 - `agent-skills`, patch: the retrospective's version line names the main commit the session's tree
   held when its work began; a retrospective intake reads whole the entries its proposals rest on,
-  every standing entry returned and every `bears` entry, and lists the rest of a batch's return as
-  not read; a finding already repaired or recorded takes a short section.
+  every issue and tripwire its search grades `bears` or `may-bear` and every `bears` entry, and lists
+  the rest of what its search grades as bearing as not read; a finding already repaired or recorded takes a short section.
 - `agent-skills`, patch: one installed agent, `agent@knowledge-architect-record-searcher`, replaces
   the two searchers. The design skill's grounding, the design audit of a slice or a spec and the
   retrospective intake each run `worklist`, dispatch one searcher per agent directory, and check
-  the reports with `worklist --verify`; the design audit now reads the design entries and the
-  `rejected` entries too.
+  the reports with `worklist --verify`, again for a later thread or a proposed fix on a subject the
+  first work did not cover; the design audit now reads the design entries and the `rejected` entries
+  too.
 - `agent-skills`, patch: the decision-recording skill, the decision-record reviewer and the
   design-record auditor state when a subject of a design home is split: when `worklist` names its
-  cluster above the bound, or when its heads answer questions about parts that change apart.
+  cluster above the bound, or when its heads answer questions about parts that change apart. The
+  project audit's design-record axis and the decision-record review report a subject to split.
 
 ## 0.8.0
 

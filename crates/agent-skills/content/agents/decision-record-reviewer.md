@@ -112,6 +112,9 @@ A head that argues from a goal's words without naming the goal is the common mis
 argument. The owner's ground a head attributes is read in its source, against the question it
 answered: an answer to another question is not the owner's ground for this one.
 
+**Does each subject a head of the diff sits in meet the split standard of `agent@knowledge-architect-decision-record-reviewer@design-head-rules`?** Report a
+subject the standard says to split, with the test it meets.
+
 **Does the diff defeat a reason recorded at the code?** A decision that earned no entry lives in a
 comment at the code and in the message of the commit that introduced it. A diff that removes or
 reshapes that code against the reason its comment states, or the introducing commit argued, without

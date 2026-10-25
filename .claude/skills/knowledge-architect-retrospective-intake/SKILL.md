@@ -65,7 +65,8 @@ text leaves that room on purpose, per `primer@room-to-judge`.
 3. **Search the whole record with the received files as the work.** One search covers every file
    received together. Dispatch it as the description of `agent@knowledge-architect-record-searcher`
    says, with the files' paths and their subjects as the work, and as the seeds the design heads and
-   goals the findings name, or none.
+   goals the findings name, or none. A proposed fix on a subject the files did not raise sends the
+   search again, with the fix as the work, before the proposal goes to the owner.
 
    Read whole with `cargo klarch show <ref>` every issue and tripwire the search grades `bears` or
    `may-bear`, every other entry it grades `bears`, every entry a proposal rests on or would change,
@@ -100,7 +101,7 @@ The order is a suggestion; the content is not.
   entered, with `git log -L` or `git log -G` on it, and compare with the session's work. A phrase
   searched in a commit message or in wrapped prose is matched across a line break.
 - **c. Whether it is already recorded.** An issue or a tripwire, a design head, or a rejected
-  design, from the searches of `skill@knowledge-architect-retrospective-intake@ground-before-judging`. A proposed fix that already lost is not proposed again: an alternative counts
+  design, from the search of `skill@knowledge-architect-retrospective-intake@ground-before-judging`. A proposed fix that already lost is not proposed again: an alternative counts
   as argued and lost only when a recorded reason covers it, per the record test of
   `skill@knowledge-architect-design@threads-and-states`.
 - **d. Its kind.**

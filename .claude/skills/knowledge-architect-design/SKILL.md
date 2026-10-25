@@ -536,7 +536,10 @@ choices whose option space genuinely is closed and consequence-free.
    `skill@knowledge-architect-decision-recording@reversal-check`, and to the
    backstop of `skill@knowledge-architect-design@what-earns-a-head`, before a proposal that would change it,
    and a goal graded so to `skill@knowledge-architect-goal-setting`; one graded `may bring back` is
-   proposed again only with a new argument, by the Reopening rule. Where the record is silent, read the code and its history; where it is empty, state that the record starts with this
+   proposed again only with a new argument, by the Reopening rule. When a
+   thread opens on a subject the question did not cover, run the search
+   again with the thread as the work: the first search graded the record
+   against the question alone. Where the record is silent, read the code and its history; where it is empty, state that the record starts with this
    discussion. A record that
    carries a verdict but no decision — a review, an audit, an
    automated report, a prescribed change nobody ruled on — grounds

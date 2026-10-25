@@ -146,9 +146,9 @@ beside every other, where a group sees only its own.
 
 `live`. An anchor bounds nothing: in thaum at its commit ef21314, one Component holds 51.9% of the
 bytes of the standing entries, measured with `git ls-files` over the issue entry files and the
-tripwires homes and `wc -c`, summed by the anchor that holds each file. A residual group of one
-anchor's entries that no cluster holds is no such agent: it is packed under the bound with the
-clusters, and named when it exceeds it.
+tripwires homes and `wc -c`, summed by the anchor that holds each file. The residual group of one
+anchor, per `design@core@residual-grouped-by-anchor`, is no such agent: it is packed under the bound
+of `design@core@clusters-packed-under-a-word-bound` with the clusters, and named when it exceeds it.
 
 ### A separate installed skill for bounded problems `##separate-bounded-problem-skill`
 
@@ -496,9 +496,11 @@ subject in part, while a subject's kept and rejected entries have to be read tog
 
 `live`. It applied to design entries a bound of 60 entries, measured on the size of standing
 entries in thaum. The owner would put no numeric limit that cuts a subject, and judged that a subject
-of more than 60 entries is probably not divided enough, which the split notice of `klarch worklist`
-now names. A doubt remains whether one agent reads a large subject reliably; this is the candidate
-if reports of large subjects come with missed entries.
+of more than 60 entries is probably not divided enough, which an agent should probably report; the
+record searcher reports a subject whose size strained its reading, and the notice of
+`design@core@clusters-packed-under-a-word-bound` names a cluster above its bound in words. A doubt
+remains whether one agent reads a large subject reliably; this is the candidate if reports of large
+subjects come with missed entries.
 
 ### A plan document deleted in the commit that completes its last harvest `##plan-document-deleted-with-its-harvest`
 
@@ -530,8 +532,9 @@ deleted at its landing and found with `git log --diff-filter=D --name-only -- do
 ### Two searchers, one for the design entries of a Component and one for the issues and tripwires `##searches-split-by-kind`
 
 `live`. A cluster holds a head beside the `rejected` entries it cites and the issues and tripwires
-that cite it, so a searcher per kind reads half of every cluster, and each searcher derived its own
-group by hand: the work list now gives every agent its entries whole.
+that cite it, per `design@core@cluster-rooted-at-a-subject`, so a searcher per kind reads half of
+every cluster; and a searcher that derives its own group by hand can drop an entry, where the work
+list of `design@core@worklist-writes-and-verifies-the-reports` gives every agent its entries whole.
 
 ### A second search at convergence, of the entries changed since the first `##delta-search-at-convergence`
 

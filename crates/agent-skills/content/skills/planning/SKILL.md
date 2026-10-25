@@ -379,7 +379,7 @@ design the gap defeats.
 1. **Ground**: the Component's `CLAUDE.md`, its design home, its `rejected` home; then the
    milestone document entire, then the slice's spec. The issues and the tripwires, of every anchor,
    are read at the audit.
-%% The line per returned entry: a judgement that an entry bears on nothing is the claim a later
+%% The line per entry graded `bears` or `may-bear`: a judgement that an entry bears on nothing is the claim a later
 %% reader cannot check without it, and an entry that did bear and was dismissed is the failure the
 %% search exists to prevent. The rival, no record of such an entry, sent the transcript reviewer to
 %% report every unrecorded judgement as an item with no outcome.
