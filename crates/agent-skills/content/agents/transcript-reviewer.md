@@ -31,18 +31,17 @@ directory the brief names, through the shell, and nowhere else.
 
 ## Extract the transcripts {{slug:extract-transcripts}}
 
-The brief names each session by its handle and by the opening words of the message where the work
-begins in it. Confirm each with `{{command}} transcript list --containing "<opening words>"`, which
-lists the sessions holding those words in a message the owner typed: **a session the brief names
+The brief names each session by the opening words of the message where the work begins in it.
+Confirm each with `{{command}} transcript list --containing "<opening words>"`, which
+lists, with its handle, each session holding those words in a message the owner typed: **a session the brief names
 that does not hold that message is reported at once, and not read**: it is another session's. Never
 find a session by a session identifier: after `/clear`, the harness keeps the earlier session's
 identifier in its paths.
 
 Extract each session, in the order the brief gives, with
-`{{command}} transcript show <session> --from "<opening words>"`, written to a file of your scratch
-directory. The command keeps every message whole and in order, and labels each line by its fields,
-never by a substring of its text: a filter on text once dropped a message of the owner's, and a
-ruling dropped that way is one the review never sees.
+`{{command}} transcript show <session> --from "<opening words>" --full`, written to a file of your
+scratch directory: without `--full`, an injected text beyond 40 lines, such as a reviewer's report,
+prints its first 5. The command keeps the lines in order, and labels each by its fields.
 
 - **Only the lines labelled `owner`, `owner-queued`, `owner-answer` and `owner-command` carry the
   owner's word**: a message, a message typed while the session was mid-turn, an answer to a
@@ -52,8 +51,10 @@ ruling dropped that way is one the review never sees.
   what the session established.
 - **A line labelled `unlabelled` is one the command could not place by its fields**: read it,
   judge whose it is, and say how you judged.
-- **The header names each line the command did not recognise.** Where it names any, list them under
-  "Met outside the task", as the header asks.
+- **Where the header names anything the command did not recognise**, list what it names under "Met
+  outside the task", so the session carries it to its retrospective.
+- **Where the header names a file labelled by its text**, say so in the report: its `owner` labels
+  rest on a leading tag, not on fields.
 
 ## List what must outlive the sessions {{slug:list-what-outlives}}
 

@@ -1735,8 +1735,7 @@ discussion spans, the harness's log of the session on disk. The design skill's p
 the draft it reads, and the deltas are corroborated as written, since the owner read and answered
 each. Where the harness keeps no transcript, it assembles from the conversation. The premise is
 that the transcript keeps the records from before a compaction, which a summary of the
-conversation loses. It holds on one observed compaction of one session log, where every user and
-assistant record before the compaction boundary was still in the file;
+conversation loses. Every user and assistant record before a compaction boundary stays in the file;
 `jq -c 'select(.type=="system" and .subtype=="compact_boundary") | input_line_number' <log>` finds
 the boundaries of any log, and a count of the records before each re-takes it; the column
 `compactions` of `klarch transcript list --all-projects` counts them per session. Over every
@@ -1903,7 +1902,8 @@ the work: a plan document is one home among the others.
 It is an agent, not a line in a skill, because its standard is fixed. Its extraction is the
 checker's: it extracts each session with `transcript show`, which labels every line by its fields,
 per `design@core@transcript-labels-in-code`, so its text states what the labels mean and holds no
-extraction rule of its own; a rule held in the text was applied by a script each session wrote. It serves `goal@knowledge-architect@the-owner-decides`. The durability check serves
+extraction rule of its own: a rule held in the text is applied by a script each session writes
+again, and stands in two homes beside the command's. It serves `goal@knowledge-architect@the-owner-decides`. The durability check serves
 `goal@knowledge-architect@design-is-recorded-with-its-arguments`. The check of rulings has shown
 its worth: in the review of the change that installed the first skills, a reviewer briefed with it
 was the one of six to find a decision recorded narrower than the owner's approval. The milestone
@@ -1921,28 +1921,11 @@ The review skill, the planning skill and the transcript reviewer name a session 
 of the message where its work begins, and find it with `klarch transcript list`: `--branch` lists
 the sessions that worked on a branch, `--containing` the session holding those words in a message the
 owner typed. No installed text finds a transcript by a session identifier. After `/clear`, the
-harness starts a new file under a new `sessionId`, while the process keeps the earlier identifier in
-its paths, measured in the owner's test of it on Claude Code 2.1.310, so a session that derives its
-transcript from the identifier it sees reads the session before the clear. The same reason holds at
+process keeps the earlier identifier in its paths while the harness writes a new file, as
+`design@core@transcript-session-split` measures, so a session that derives its transcript from the
+identifier it sees reads the session before the clear. The same reason holds at
 the three texts, which is why it has this home. The listing is computed from the transcripts, per
 `design@core@transcript-query-verbs`.
-
-### An unrecognised transcript line reaches this repository through the command's header, the transcript reviewer's report and the retrospective's item on the checker `##unrecognised-entries-reach-upstream`
-
-The header of `klarch transcript` ends, where it names any line or value it does not recognise, with
-the line asking for each to be reported as a finding on the checker in the retrospective, per
-`design@core@transcript-format-tolerated-and-reported`. The transcript reviewer lists each such line
-under "Met outside the task", so the session receives it, and the retrospective's item on the
-checker, `skill@knowledge-architect-retrospective@what-it-examines`, carries it to the workflow's
-file. A reader of the format the harness documents as internal learns of a change only from the
-sessions of the projects that use it, which `goal@knowledge-architect@the-workflow-improves-through-real-use`
-relies on.
-
-The route is the owner's choice between two shapes neither of which failed a constraint, over a
-standing question of the retrospective, `rejected@agent-skills@retrospective-asks-for-unrecognised-lines`,
-which every retrospective of every project would load and answer though most of their sessions
-never ran the command. Its cost: it relies on the session carrying the header's line, or the
-reviewer's report of it, into its retrospective.
 
 ### A misstated ruling is critical only when it reverses the ruling, or changes what is built or a load-bearing decision `##misstated-ruling-rated-by-what-it-changes`
 
@@ -3518,6 +3501,23 @@ conflict to the owner. An agent never edits a goal outside it, since a goal bind
 decision binds as a presumption, per `goal@knowledge-architect@the-owner-decides`.
 
 ## The retrospective
+
+### An unrecognised transcript line reaches this repository through the command's header, the transcript reviewer's report and the retrospective's item on the checker `##unrecognised-entries-reach-upstream`
+
+The header of `klarch transcript` ends, where it names any line or value it does not recognise, with
+the line asking for each to be reported as a finding on the checker in the retrospective, per
+`design@core@transcript-format-tolerated-and-reported`. The transcript reviewer lists each such line
+under "Met outside the task", so the session receives it, and the retrospective's item on the
+checker, `skill@knowledge-architect-retrospective@what-it-examines`, carries it to the workflow's
+file. A reader of the format the harness documents as internal learns of a change only from the
+sessions of the projects that use it, which `goal@knowledge-architect@the-workflow-improves-through-real-use`
+relies on.
+
+The route is the owner's choice between two shapes neither of which failed a constraint, over a
+standing question of the retrospective, `rejected@agent-skills@retrospective-asks-for-unrecognised-lines`,
+which every retrospective of every project would load and answer though most of their sessions
+never ran the command. Its cost: it relies on the session carrying the header's line, or the
+reviewer's report of it, into its retrospective.
 
 ### A retrospective is offered at a moment an event names, never at one the agent judges `##retro-trigger`
 

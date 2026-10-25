@@ -5600,10 +5600,10 @@ fn transcript_search_selects_by_role_and_by_tool() {
     );
 }
 
-/// The cuts: a line no row placed, the agent's text and `--full` print whole; an injected text is
-/// cut beyond 40 lines and not at 40.
+/// The cuts: a line no row placed, the agent's text and `--full` print whole; an injected or a tool
+/// text is cut beyond 40 lines and not at 40.
 #[test]
-fn transcript_an_injected_text_is_cut_beyond_forty_lines_and_nothing_else_is() {
+fn transcript_an_injected_or_tool_text_is_cut_beyond_forty_lines_and_nothing_else_is() {
     let (stdout, _, code) = transcript("extras", "extras-cuts", &["show", "12345678"]);
     assert_eq!(code, 0, "{stdout}");
     let has = |needle: &str| assert!(stdout.contains(needle), "missing {needle:?} in:\n{stdout}");
@@ -5612,6 +5612,8 @@ fn transcript_an_injected_text_is_cut_beyond_forty_lines_and_nothing_else_is() {
     has("metalong 4\n(36 lines omitted; --full prints them)");
     has("metaforty 39\n");
     assert!(!stdout.contains("metalong 40"), "{stdout}");
+    let (stdout, _, _) = transcript("extras", "extras-toolcut", &["show", "12345678", "--tools"]);
+    assert!(stdout.contains("toolline 4\n(36 lines omitted"), "{stdout}");
 
     let (stdout, _, _) = transcript("labels", "labels-full", &["show", "eeeeeeee", "--full"]);
     assert!(stdout.contains("body line 59"), "{stdout}");
@@ -5789,6 +5791,26 @@ fn transcript_from_counts_and_search_scopes_hold() {
         transcript("labels", "search-nosub", &["search", "reviewer reports"]).2,
         1
     );
+
+    // A pattern reads a line's whole text, across a line break, and prints the line it starts on.
+    let (stdout, _, code) = transcript(
+        "labels",
+        "search-span",
+        &["search", "skill: /x\\nbody line 0"],
+    );
+    assert_eq!(code, 0, "{stdout}");
+    assert!(
+        stdout.contains("eeeeeeee L5 injected skill  Base directory for this skill: /x"),
+        "{stdout}"
+    );
+
+    // A subagent's line carries its agent's id in `show`.
+    let (stdout, _, _) = transcript(
+        "labels",
+        "show-agent-id",
+        &["show", "eeeeeeee", "--subagents"],
+    );
+    assert!(stdout.contains("[f00dcafe L1 dispatch"), "{stdout}");
 
     let (stdout, _, _) = transcript(
         "labels",

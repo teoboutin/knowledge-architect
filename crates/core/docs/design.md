@@ -3077,7 +3077,7 @@ The design this decision did not keep: `rejected@core@init-extension-hook`.
 
 ## 8. Session transcripts
 
-### Claude Code's session transcripts are read by a command of the core, `transcript`, so every binary offers it `##transcript-command-in-core`
+### The agent harness's session transcripts are read by a command of the core, `transcript`, so every binary offers it `##transcript-command-in-core`
 
 `klarch transcript` reads the transcripts the agent harness writes on disk, for the transcript
 reviewer, the assembly of a plan document and any survey of past sessions. It is a variant of the
@@ -3085,21 +3085,28 @@ core's command enum, so every binary that flattens it offers the command, per
 `design@core@the-core-cli-is-a-library-module`, and it runs inside a project, after the version
 refusal of `design@core@installed-binary-version-check`, whatever the project's
 `[agents] harness`: the transcripts are the harness's own, whether or not the project installs the
-workflow. It reads Claude Code alone, on the owner's word that the owner uses no other harness and
-that another waits for a consumer's request, should one ever come; a second harness is
-`issue@core@configuration-for-several-agent-providers`. The reader is internal; its argument types
-are public through `cli::Command`, per `design@core@api-facade`.
+workflow. The reader is internal; its argument types are public through `cli::Command`, per
+`design@core@api-facade`.
 
-It serves `goal@knowledge-architect@agents-get-a-complete-workflow`: every session that consulted a
-transcript wrote its own script, and `goal@knowledge-architect@structure-and-workflow-work-together`,
-under which the tool computes the workflow's work lists. The nearest rival, a command of the
-maintenance tool, is never published, so a project that adopts the workflow, such as thaum, would
-have no copy; a second crate or binary would be a second package to publish and pin, which
-`design@core@single-crate` argues against.
+It serves `goal@knowledge-architect@agents-get-a-complete-workflow`, since without it a session
+that consults a transcript writes its own script, and
+`goal@knowledge-architect@structure-and-workflow-work-together`, under which the tool computes the
+workflow's work lists. The task it takes from sessions is one `goal@xtask@repeated-tasks-are-automated`
+names, a task performed repeatedly by hand; its measure, that no such task is left to be done by
+hand, is met by a command of the core. The nearest rival, a command of the maintenance tool, is
+never published, so a project that adopts the workflow, such as thaum, would have no copy; a second
+crate or binary would be a second package to publish and pin, which `design@core@single-crate`
+argues against.
 
-### `transcript` answers three questions with three verbs: which sessions, what one session holds, and which lines match `##transcript-query-verbs`
+### The transcript command reads Claude Code's transcripts, and no other harness's `##transcript-reads-claude-code-alone`
 
-`list` prints one row per session of the project, oldest first, with its handle, its first and last
+The reader knows one harness's layout and fields, Claude Code's. That is the owner's word: the
+owner uses no other harness, and another waits for a consumer's request, should one ever come. A
+second harness is `issue@core@configuration-for-several-agent-providers`.
+
+### Each kind of question asked of a project's transcripts is a verb of `transcript`, computed from the transcripts `##transcript-query-verbs`
+
+Three verbs are built. `list` prints one row per session of the project, oldest first, with its handle, its first and last
 time, its git branches, its count of lines the owner typed, of compactions and of subagents, and its
 first message from the owner; `--branch`, `--containing` and `--since` filter. `show` prints one
 session's kept lines in file order, each with its line number and its label, from `--from` a text
@@ -3120,8 +3127,8 @@ extraction, leaves those two lists and every survey to a script each session wri
 ### A transcript file is cut into sessions where the `sessionId` changes and where a root that is no compaction opens, and a session carries the subagent files it dispatched `##transcript-session-split`
 
 A session opens at the first chain line of a top-level `.jsonl` file, at a chain line whose
-`sessionId` differs from the previous one's, and at a chain line whose `parentUuid` is null that is
-no `compact_boundary` line. A compaction and a resumed process stay in their session. A subagent
+`sessionId` differs from the previous one's, and at a chain line whose `parentUuid` is null or absent that
+is no `compact_boundary` line. A compaction and a resumed process stay in their session. A subagent
 file, under the parent file's directory `subagents/`, is attached to the session of its `sessionId`,
 and where that id holds several, to the one holding the `tool_use` its `meta.json` names. A
 session's handle is its `sessionId`'s first 8 characters, with `#2` and on for a later session of
@@ -3132,18 +3139,18 @@ designed on, Claude Code 2.1.306 to 2.1.310, on 2026-10-25: a compaction writes 
 null parent and keeps its file and its `sessionId`, in 7 of 7; a resumed session appends to its file
 under its `sessionId`, its first new line with a parent, in 3 of 3; `/clear` starts a new file under
 a new `sessionId`, while the process keeps the earlier id in its paths, in the owner's test of it.
-Re-take it with `klarch transcript list --all-projects`, whose rows give one session per file and
-count the compactions, and with
+Re-take it with `klarch transcript list --all-projects --json`, whose rows name each session's
+`file` and count its `compactions`, and with
 `jq -r 'select(.sessionId) | .sessionId' <file> | sort -u` over a file. The nearest rival, one
 session per file, agrees with every file measured; the rule is kept because the format is
 internal, per `design@core@transcript-format-tolerated-and-reported`, and a file holding two
 sessions would read as one with nothing reporting it.
 
-### Every kept line of a transcript is labelled by its fields, never by a substring of its text, and the command holds that rule `##transcript-labels-in-code`
+### Every kept line of a transcript is labelled by its fields, never by a substring of its text `##transcript-labels-in-code`
 
 Each kept line takes the label of the first row of the mapping it meets, over `type`, `isMeta`,
 `isCompactSummary`, `origin.kind`, `toolUseResult`, `attachment.type`, `attachment.origin.kind`,
-`isSidechain` and the `system` subtypes. The owner's words are the lines labelled `owner`,
+the `system` subtypes, and whether the line sits in a subagent file. The owner's words are the lines labelled `owner`,
 `owner-queued`, `owner-answer` (an answer to a question tool) and `owner-command` (a command such
 as `/clear`, read from its `local_command` line's `commandRun`); `injected` carries the kind of what
 the harness or another agent delivered; `agent` is the session's text; `dispatch` is a field-less
@@ -3154,12 +3161,14 @@ leading harness tag instead, and the header says so.
 
 The rule is learned from a failure: a filter on text substrings once dropped one of the owner's
 messages from a review, and an owner's message that opens with a pasted tag reads as injected text
-to any tag test. In code it has one implementation, with a test over a fixture of each row; the
-rival, the rule kept in the transcript reviewer's text with the command as a helper, would hold it
-in two homes, and every session applying the text wrote its own script. The fields are the
-harness's, measured as `design@core@transcript-session-split` says; a field-less `user` line of a
-subagent file was the dispatcher's brief or a workflow's task in every subagent file measured, but
-one owner's interrupt.
+to any tag test. The one text the rows read is the prefix that names a skill's body, inside a line
+its fields already mark injected: it chooses a kind, never a side. The command holds the rule, per
+`design@agent-skills@transcript-reviewer-agent`, with a test over a fixture of each row. The fields
+are the harness's, measured over every transcript of the machine the reader was designed on, as
+`design@core@transcript-session-split` says; a field-less `user` line of a subagent file was the
+dispatcher's brief or a workflow's task in every subagent file measured, but one owner's interrupt,
+re-taken with
+`find ~/.claude/projects -path '*subagents*' -name 'agent-*.jsonl' -exec jq -r 'select(.type=="user" and .isMeta==null and .origin==null and .isCompactSummary==null and ((.message.content|type)=="string" or ([.message.content[] | select(.type=="tool_result")] | length) == 0)) | .message.content | if type=="string" then .[:40] else ([.[] | .text? // empty] | join(" "))[:40] end' {} + | sort | uniq -c`.
 
 ### The transcript reader tolerates every line it does not know, and every run reports each one `##transcript-format-tolerated-and-reported`
 
@@ -3175,8 +3184,10 @@ by that route, per `design@agent-skills@unrecognised-entries-reach-upstream`.
 The harness documents the format as internal: "The entry format is internal to Claude Code and
 changes between versions, so scripts that parse these files directly can break on any release", at
 https://code.claude.com/docs/en/sessions. Over the window measured, each version added types or
-keys and none removed or renamed one the labels use; re-take it with the header of
-`klarch transcript list --all-projects`, which names any value outside the sets. A strict reader
+keys and none removed or renamed one the labels use; the first version that wrote each line type is
+re-taken with
+`find ~/.claude/projects -name '*.jsonl' -exec jq -r 'select(.version) | "\(.type) \(.attachment.type // .subtype // "") \(.version)"' {} + | sort -u`,
+and the header of `klarch transcript list --all-projects` names any value outside the sets. A strict reader
 would fail on each release that adds a type, `rejected@core@strict-transcript-reader`; a silent
 tolerant one hides a renamed field, against `design@core@a-failed-parse-is-loud`.
 

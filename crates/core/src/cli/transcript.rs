@@ -68,7 +68,7 @@ pub struct TranscriptShowArgs {
     /// Keep tool calls and tool results.
     #[arg(long)]
     pub tools: bool,
-    /// Print injected texts whole.
+    /// Print injected and tool texts whole.
     #[arg(long)]
     pub full: bool,
     /// Resolve SESSION among the sessions of every project.
@@ -113,7 +113,7 @@ pub struct TranscriptSearchArgs {
 }
 
 /// An injected or tool text above this many lines prints its first [`HEAD_LINES`] unless `--full`:
-/// a default of the spec, the owner's to reset, not a measurement.
+/// a choice of display, not a measurement.
 const CUT_ABOVE: usize = 40;
 const HEAD_LINES: usize = 5;
 /// The characters `list` keeps of the first owner message, and `search` of a matching line.
@@ -378,9 +378,16 @@ fn search(
                 if !args.roles.is_empty() && !args.roles.iter().any(|r| r == e.label.role()) {
                     continue;
                 }
-                let Some(matched) = e.text.lines().find(|l| pattern.is_match(l)) else {
+                // The pattern reads the line's whole text, so it may span a line break; what prints
+                // is the text's line where the match starts.
+                let Some(found) = pattern.find(&e.text) else {
                     continue;
                 };
+                let start = e.text[..found.start()].rfind('\n').map_or(0, |i| i + 1);
+                let end = e.text[found.start()..]
+                    .find('\n')
+                    .map_or(e.text.len(), |i| found.start() + i);
+                let matched = &e.text[start..end];
                 hits += 1;
                 if args.json {
                     outln!(
@@ -509,8 +516,13 @@ fn print_entry(tag: &str, e: &Entry, full: bool, json: bool) {
         );
         return;
     }
+    // A subagent's line carries its agent's id, so a quotation of it is told from the session's own.
+    let agent = tag
+        .split_once('/')
+        .map(|(_, id)| format!("{id} "))
+        .unwrap_or_default();
     outln!(
-        "[L{} {} {}]",
+        "[{agent}L{} {} {}]",
         e.line,
         e.label.display(),
         clock(&e.timestamp, true)
