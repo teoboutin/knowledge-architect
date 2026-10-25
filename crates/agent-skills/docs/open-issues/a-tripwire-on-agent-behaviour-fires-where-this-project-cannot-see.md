@@ -23,8 +23,8 @@ The instances, in `register@agent-skills@tripwire`:
   the tripwires homes, and the standing-state reviewer is given no transcript. The standing-state
   reviewer of that branch found it, and the re-entry points were moved to the session's
   retrospective.
-- `tripwire@agent-skills@ruling-lost-in-assembly` had the same defect, repaired after that
-  retrospective.
+- The tripwire on a ruling lost at assembly had the same defect, repaired after that
+  retrospective; it left its home when its horizon passed, in the commit "[plans] The spec of the graded entries' assembly and of `klarch id` leaves: its work has landed, and every default is ruled".
 - The premortem of the plain-text escape for text in the checker's syntax, an exception of
   `design@agent-skills@plain-text-is-no-repair`, named a
   cause it could not guard: a consumer's own entry for a gap of the checker stays open, with its
