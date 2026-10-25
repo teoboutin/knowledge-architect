@@ -259,7 +259,7 @@ skipping the regime in silence.
 ### The core's commands are a library module, so a binary that registers extensions offers them unchanged `##the-core-cli-is-a-library-module`
 
 The commands of the core, `check`, `show`, `issues`, `tripwires`, `index`, `model`, `anchors`,
-`commits`, `install-agent-skills`, `init` and `new-component`, and the code that runs them, are a
+`commits`, `install-agent-skills`, `init`, `new-component` and `worklist`, and the code that runs them, are a
 module of the core library rather than of its binary. A binary that registers extensions flattens the core's command enum into its own and
 adds the commands of its extensions beside them, so the core's commands keep one spelling, one set
 of arguments and one exit-code contract in every binary. The core's binary is that module with no extension registered.
