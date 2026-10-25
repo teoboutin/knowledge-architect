@@ -63,6 +63,19 @@ Wording and style follow `primer@working-prose`; placement across files is judge
 Current reality only: no history, no dates, no commit hashes, no session records. Examples are kept
 minimal.
 
+**The outcomes of a need-test failure.**
+
+| the failing statement | outcome |
+| --- | --- |
+| it carries no instruction: narration, a remark about the text, outside state no act uses, a duplicate whose twin stays, a lead or an emphasis whose statements carry every act | deleted in the branch: by the session, which applies an audit's outcomes, or as a review's repair |
+| it is maintainer-only, in installed text | moved to a comment of the workflow's source |
+| it is maintainer-only, in a project's own text, and longer than one sentence | cut to one sentence |
+| it is an instruction whose act no agent performs | put to the owner, since deleting it changes what agents are told: on an audit's owner list, as a default awaiting the owner in a plan document, or as a question in the turn elsewhere |
+| a suspect statement that passes | no finding; a suspect statement found false is a factual error |
+
+In a project that installs the workflow, a finding on installed text, of any row, is sent upstream,
+as every finding on installed text of an audit is.
+
 ### Evidence and kind
 
 **A defect provable by reading needs no other evidence**: a contradiction, a broken trigger, a
@@ -114,6 +127,14 @@ rival to itself and the fact that decides between them. **When the repairs appli
 more instructions than they remove, the owner is told so first, with the net figure**, and rules on
 that growth before any of them is applied.
 
+**The size cost of agent-facing text is counted in the context of the sessions that load it, never
+in the text's length.** A statement a session applies to its act costs that session nothing when
+the text it loads delivers it, since the session holds it either way. A pointer the session must
+follow costs more: the reference resolved, the location found and the target read, each in context
+and in time, and the risk that the session acts from memory instead. A size cost exists only for a
+session that loads a statement its act does not apply: the primer's text, in every session that
+never meets its occasion, or a fragment's copy, in a host whose act does not apply it whole.
+
 ### The record check
 
 **An edit that changes what an agent is told to do is a decision.** Before it is written, and before
@@ -131,19 +152,6 @@ not a decision.
 
 A project's skills and agents are walked by `cargo klarch check`, and a live reference in them must
 resolve. Run it after editing one.
-
-### The outcomes of a need-test failure
-
-| the failing statement | outcome |
-| --- | --- |
-| it carries no instruction: narration, a remark about the text, outside state no act uses, a duplicate whose twin stays, a lead or an emphasis whose statements carry every act | deleted in the branch: by the session, which applies an audit's outcomes, or as a review's repair |
-| it is maintainer-only, in installed text | moved to a comment of the workflow's source |
-| it is maintainer-only, in a project's own text, and longer than one sentence | cut to one sentence |
-| it is an instruction whose act no agent performs | put to the owner, since deleting it changes what agents are told: on an audit's owner list, as a default awaiting the owner in a plan document, or as a question in the turn elsewhere |
-| a suspect statement that passes | no finding; a suspect statement found false is a factual error |
-
-In a project that installs the workflow, a finding on installed text, of any row, is sent upstream,
-as every finding on installed text of an audit is.
 
 ## Where a piece of agent-facing text goes `##where-text-goes`
 

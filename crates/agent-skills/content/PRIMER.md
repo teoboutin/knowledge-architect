@@ -334,6 +334,8 @@ the project. An existing longer restatement is converted when a change edits wha
 re-pointing a reference in it does not count. Until then, its length alone is no defect, whenever
 it was written.
 
+{{fragment:context-cost.md}}
+
 | the statement is about | home | it leaves when |
 | --- | --- | --- |
 | what the project, or one Component, is for, and what would show it achieved | that Component's goals home, `register@*@goal` (the project's root is a Component) | the owner abandons the goal |

@@ -103,7 +103,7 @@ The order is a suggestion; the content is not.
   - **a defect of the text**: unclear, missing or wrong, as
     `skill@knowledge-architect-retrospective@what-it-examines` defines the three, read whole;
   - **a lapse of the session**: the instruction exists, is clear, and was not followed. What
-    repairs it is the lapse rule of `skill@knowledge-architect-agent-configuration@admission-standard`;
+    repairs it is the lapse rule of `skill@knowledge-architect-retrospective-intake@admission-rules`;
   - **about the owner's behaviour under an installed skill**: judged against that skill's
     expectation set, in `skill@knowledge-architect-retrospective@expectation-sets`, read whole at
     this check. Behaviour the set says the skill assumes otherwise is outside that skill's scope.
@@ -130,10 +130,10 @@ The order is a suggestion; the content is not.
   - a fix where the instruction is delivered, rather than more instruction;
   - no change.
 
-  The fix is shaped, and read against the record, as
-  `skill@knowledge-architect-agent-configuration@admission-standard` says, read whole: it is the
+  The fix is shaped, and read against the record, as `skill@knowledge-architect-retrospective-intake@admission-rules` says: it is the
   standard of every actor that writes or judges agent-facing text.
-%% The intake shares that standard per `design@agent-skills@intake-shares-the-admission-standard`.
+%% The intake shares that standard, delivered here whole, per
+%% `design@agent-skills@intake-shares-the-admission-standard`.
 - **g. Its route.** What handling it needs, which says what "now" would mean:
   - a text edit of the project's own agent configuration whose design is settled:
     `skill@knowledge-architect-agent-configuration`;
@@ -147,6 +147,28 @@ The order is a suggestion; the content is not.
 
 **Every verdict carries its evidence**: a quotation with its file and line, a command and its
 output, a commit. A verdict without evidence is labelled an assumption.
+
+## The standard on agent-facing text {{slug:admission-rules}}
+
+The standard of `skill@knowledge-architect-agent-configuration@admission-standard`, whole.
+
+### The need test
+
+{{fragment:admission-need-test.md}}
+
+### Evidence and kind
+
+{{fragment:admission-evidence.md}}
+
+### The shape of a repair
+
+{{fragment:admission-repair-shape.md}}
+
+{{fragment:context-cost.md}}
+
+### The record check
+
+{{fragment:admission-record-check.md}}
 
 ## Subagents {{slug:intake-subagents}}
 

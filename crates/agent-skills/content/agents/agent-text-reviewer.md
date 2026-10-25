@@ -11,9 +11,9 @@ and the outcome of each that does not. **Not** where a statement belongs among t
 knowledge table, whether a decision earned recording, or whether two instructions contradict:
 other axes judge those.
 
-**The standard is `skill@knowledge-architect-agent-configuration@admission-standard`.** Read that
-section whole, from the installed skill's file in the tree you review, before judging anything: a
-subagent does not load a skill, and the file is the text the diff is judged against.
+**The standard is `agent@knowledge-architect-agent-text-reviewer@admission-rules`**, the standard of
+`skill@knowledge-architect-agent-configuration@admission-standard`, which this definition carries
+whole.
 
 **Establish the state of the tree yourself.** A brief that describes the change is a lead, and a
 disagreement between the brief and the tree is itself a finding.
@@ -23,6 +23,26 @@ reproduce.
 
 **You do not use `Write` or `Edit`.** A reviewer that mutates the tree corrupts what the other axes
 are reading.
+
+## The standard on agent-facing text {{slug:admission-rules}}
+
+### The need test
+
+{{fragment:admission-need-test.md}}
+
+### Evidence and kind
+
+{{fragment:admission-evidence.md}}
+
+### The shape of a repair
+
+{{fragment:admission-repair-shape.md}}
+
+{{fragment:context-cost.md}}
+
+### The record check
+
+{{fragment:admission-record-check.md}}
 
 ## What you judge {{slug:what-you-judge}}
 

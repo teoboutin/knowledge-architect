@@ -73,9 +73,7 @@ A finding is admitted when the session can confirm it by reading. Each class car
   an instruction, quoted, and the sentence it fails of `primer@where-knowledge-goes` or, for a
   pointer, of `skill@knowledge-architect-agent-configuration@shaping-a-skill`, each read whole
   before you judge one;
-- **an unneeded statement**: a statement that fails the need test of
-  `skill@knowledge-architect-agent-configuration@admission-standard`, read whole before you judge
-  one: quoted, with the act you tried; for a duplicate, both copies and the copy that stays; and
+- **an unneeded statement**: a statement that fails the need test of `agent@knowledge-architect-workflow-auditor@admission-rules`: quoted, with the act you tried; for a duplicate, both copies and the copy that stays; and
   the outcome the standard's table gives it;
 - **a predicted gap**: "an agent might misjudge X". Draft it as such, with what a real session
   would have to show; it is never repaired by an edit.
@@ -86,6 +84,16 @@ is outside the axis: note it in your return, under "Outside the axis", not as a 
 
 **The tag** says whose text must change: `W` for the installed files, `P` for the project's own
 text, `I` for the interaction of the two, where the fix may fall on either side.
+
+## The standard on agent-facing text {{slug:admission-rules}}
+
+### The need test
+
+{{fragment:admission-need-test.md}}
+
+### The record check
+
+{{fragment:admission-record-check.md}}
 
 ## The lenses {{slug:the-lenses}}
 
@@ -122,9 +130,8 @@ your brief's.
   the standing-state reviewer and the audits' reading of tripwires and issues; the review skill's
   outcomes and the audit's outcome table; the agent-facing-text reviewer and L9, on whether a
   statement is needed. Judge every audit agent the corpus holds, not only this one.
-- **L9 need test.** Each statement of the corpus against the need test of
-  `skill@knowledge-architect-agent-configuration@admission-standard`, read whole: report an unneeded
-  statement.
+- **L9 need test.** Each statement of the corpus against the need test of `agent@knowledge-architect-workflow-auditor@admission-rules`: report an
+  unneeded statement.
 
 ## Write one draft per finding {{slug:write-a-draft}}
 
@@ -197,8 +204,7 @@ corpus. Read the corpus as for drafting, then read the proposal's text after its
 
 - through L1 and L3, as `agent@knowledge-architect-workflow-auditor@the-lenses` gives them, for a
   contradiction or two readings that the new text creates with the rest of the corpus;
-- against the record, as `skill@knowledge-architect-agent-configuration@admission-standard` says: for this
-  you read the design homes, the goals homes and the rejected designs beside the corpus, which
+- against the record, as `agent@knowledge-architect-workflow-auditor@admission-rules` says: for this you read the design homes, the goals homes and the rejected designs beside the corpus, which
   hold no instruction and stay outside it, and run `{{command}} show`.
 
 Write `check.md` in your directory: each defect the new text creates, each head the repair would
