@@ -71,11 +71,15 @@ An issue entry keeps its magnitudes, per the cold-reader standard of
 
 ## Verify before relying on anything `##verify-before-relying`
 
-`primer@verify-before-relying` holds the rules. This repository adds three:
+`primer@verify-before-relying` holds the rules. This repository adds four:
 
 - A figure in the core's documents measured in another project, thaum, names thaum as its source.
 - **Before touching the code of a Component, ground first, per
   `skill@klarch-development@ground-before-editing`.**
+- **No run is built to observe how an agent follows the workflow's instructions**, whether to
+  originate an edit, choose a shape, accept a piece of work or check that a text runs as written;
+  the checker's and the installer's behaviour tested over mock projects is admitted, per
+  `design@agent-skills@synthetic-evidence-not-built`.
 - Before diagnosing anything as a problem, run also:
 
 ```sh
