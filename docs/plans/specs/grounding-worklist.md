@@ -28,7 +28,7 @@ leaves the repository in a commit of its own, after its harvest and the review b
   spec.
 - Every name it uses is defined in it, under Names or New names, or exists in the tree.
 - Where the owner's word is awaited, `skill@knowledge-architect-planning@working-a-slice` says what
-  waits. D1 to D5 are ruled; D6 awaits the owner, and the entry it names stays open meanwhile.
+  waits. D1 to D6 are ruled.
 - **The work lands as this one spec and a single pull request, on the owner's word**, round 3:
   "This work should land as one spec and a single PR." No commit of the work changes what the
   per-commit gate checks: `worklist` is a command, not a check, and `commits` does not compare a
@@ -52,6 +52,7 @@ leaves the repository in a commit of its own, after its harvest and the review b
   - round 6, the owner's rulings on two review findings, which opens
     "goal@agent-skills@installed-text-leaves-room-to-judge is about cases";
   - round 7, the owner's ruling on D5, "D5 accepted, proceed".
+  - round 8, the owner's ruling on D6, "d6: it closes".
 
   Find the file by the opening message, not by its name.
 
@@ -148,7 +149,7 @@ same day:
 **Outside the work**, each with what owns it:
 
 - **The search at convergence** of
-  `issue@agent-skills@the-search-before-the-work-missed-standing-entries-in-two-pieces-of-work`:
+  `the-search-before-the-work-missed-standing-entries-in-two-pieces-of-work`:
   this work closes that issue on other grounds, per #search-delta's withdrawal.
 - **A lighter pass for Components a piece of work does not touch**,
   `thread@grounding-worklist@title-tier-for-untouched-components`: parked as a new issue, written at
@@ -216,7 +217,7 @@ each, and the step that updates it:**
 | `design-entry-search-groups` | `design-entry-search`; `rejected@agent-skills@design-listing-cut-in-groups-of-sixty`; `rejected@agent-skills@subject-groups-bounded-at-sixty` | step 4 |
 | `standing-entry-search-agent` | the intake's `%%` line 59; `design-entry-search`; `issue@core@no-command-lists-the-standing-entries-citing-a-set-of-entries`; `searcher-reports-are-written-and-checked-by-hand` | step 4 |
 | `standing-entry-search-groups` | the intake's `%%` line 60; `design-entry-search-groups`; `standing-entry-search-agent`; `design@agent-skills@design-record-axis-dispatch`; `rejected@agent-skills@subject-groups-bounded-at-sixty` | step 4 |
-| `standing-entries-searched-before-the-work`, now `design@agent-skills@record-searched-before-the-work` | `design@agent-skills@standing-state-review-before-every-merge`; `issue@agent-skills@a-pending-ruled-file-is-reached-by-no-installed-search`, twice; `the-design-entry-search-does-not-run-at-a-design-audit`; `issue@agent-skills@the-search-before-the-work-missed-standing-entries-in-two-pieces-of-work`, four times; `tripwire@agent-skills@deferred-trigger-met-by-undesigned-work` | step 4 |
+| `standing-entries-searched-before-the-work`, now `design@agent-skills@record-searched-before-the-work` | `design@agent-skills@standing-state-review-before-every-merge`; `issue@agent-skills@a-pending-ruled-file-is-reached-by-no-installed-search`, twice; `the-design-entry-search-does-not-run-at-a-design-audit`; `the-search-before-the-work-missed-standing-entries-in-two-pieces-of-work`, four times; `tripwire@agent-skills@deferred-trigger-met-by-undesigned-work` | step 4 |
 | `design@agent-skills@search-relevance-grade` | `design-entry-search`; `the-standing-entry-searcher-has-no-list-for-a-doubt` | step 4 |
 | `design@agent-skills@searcher-grades-goals` | `design@agent-skills@search-relevance-grade`; `tripwire@agent-skills@goal-missed-though-graded`, twice | step 4 |
 | `design@agent-skills@a-scratch-directory-per-subagent` | none; its sentence naming the standing-entry searcher's description and its rival's task, "sorts a listing and runs one command per entry", is rewritten | step 4 |
@@ -258,7 +259,7 @@ of round 0, and the doubts of the three standing-entry searchers' reports, in th
   `worklist --verify` checks, step 3, and the searcher states, step 4.
 - `the-design-entry-search-does-not-run-at-a-design-audit`: closed by
   #search-occasions, as argued under `design@agent-skills@behaviour-additions-need-real-use` above.
-- `issue@agent-skills@the-search-before-the-work-missed-standing-entries-in-two-pieces-of-work`:
+- `the-search-before-the-work-missed-standing-entries-in-two-pieces-of-work`:
   closed at step 4, its mechanism corrected, per #search-delta.
 - `issue@core@no-command-lists-the-standing-entries-citing-a-set-of-entries`: narrowed at step 4.
 - `issue@agent-skills@a-general-purpose-subagent-is-refused-a-file-access`: bears on who writes the
@@ -506,7 +507,7 @@ between search and end of design discussion. The suspected mechanism is likely w
 probably a failure at worklist assembly IMO. I think our mechanical tooling is the correct fix".
 Arguments: `argument@grounding-worklist@arg-42`, `argument@grounding-worklist@arg-50`,
 `argument@grounding-worklist@arg-56`, `argument@grounding-worklist@arg-57`. Harvest:
-`issue@agent-skills@the-search-before-the-work-missed-standing-entries-in-two-pieces-of-work`
+`the-search-before-the-work-missed-standing-entries-in-two-pieces-of-work`
 closes with its mechanism corrected.
 
 ## Arguments
@@ -774,7 +775,7 @@ recorded ground is `design@agent-skills@behaviour-additions-need-real-use`.
 
 The reply to round 1, the agent. Thread: #search-delta. "a cheap second search when convergence is
 proposed. This is the open candidate of
-`issue@agent-skills@the-search-before-the-work-missed-standing-entries-in-two-pieces-of-work`".
+`the-search-before-the-work-missed-standing-entries-in-two-pieces-of-work`".
 
 ### An installed agent can write its report `##arg-43`
 
@@ -1344,13 +1345,13 @@ file. The test plants a phase-2 finding. Response: reopen #report-skeleton-comma
   `argument@grounding-worklist@arg-28`, `argument@grounding-worklist@arg-40`,
   `argument@grounding-worklist@arg-48` and `argument@grounding-worklist@arg-65`, and no other.
   Ruled, round 7: "D5 accepted, proceed".
-- **D6**, #search-delta: `issue@agent-skills@the-search-before-the-work-missed-standing-entries-in-two-pieces-of-work`
+- **D6**, #search-delta: `the-search-before-the-work-missed-standing-entries-in-two-pieces-of-work`
   waits, on the owner's word, for the discussion of
   `issue@agent-skills@a-tripwire-on-agent-behaviour-fires-where-this-project-cannot-see`. The work
   corrected its mechanism and argues both instances in
   `design@agent-skills@record-searched-before-the-work`, which its closing condition names. Whether
   the owner's word of round 2, "I think our mechanical tooling is the correct fix", closes it now is
-  the owner's: the entry stays open until the owner rules.
+  the owner's: the entry stays open until the owner rules. Ruled, round 8: "d6: it closes".
 
 ## Harvest
 
@@ -1366,7 +1367,7 @@ All in the commit of step 4, then repaired by the review before the merge. What 
 | the bound of 60 the design-record axis borrows | `design@agent-skills@design-record-axis-dispatch` |
 | the rival's task named in `design@agent-skills@a-scratch-directory-per-subagent` | rewritten |
 | P1 to P5 | judged as `skill@knowledge-architect-decision-recording@ruled-tripwires` says; `tripwire@agent-skills@record-search-misses` guards the record searcher |
-| the issues | `searcher-reports-are-written-and-checked-by-hand`, `the-standing-entry-searcher-has-no-list-for-a-doubt` and `the-design-entry-search-does-not-run-at-a-design-audit` closed; `issue@agent-skills@the-search-before-the-work-missed-standing-entries-in-two-pieces-of-work` kept open, its mechanism corrected, awaiting the owner as D6; `issue@core@no-command-lists-the-standing-entries-citing-a-set-of-entries` rewritten; `issue@agent-skills@audit-axes-beyond-the-design-record` gains the sample of heads citing no goal; `issue@agent-skills@a-lighter-pass-for-untouched-components` opened, per D5 |
+| the issues | `searcher-reports-are-written-and-checked-by-hand`, `the-standing-entry-searcher-has-no-list-for-a-doubt` and `the-design-entry-search-does-not-run-at-a-design-audit` closed; `the-search-before-the-work-missed-standing-entries-in-two-pieces-of-work` closed on the owner's word, D6, its mechanism corrected first; `issue@core@no-command-lists-the-standing-entries-citing-a-set-of-entries` rewritten; `issue@agent-skills@audit-axes-beyond-the-design-record` gains the sample of heads citing no goal; `issue@agent-skills@a-lighter-pass-for-untouched-components` opened, per D5 |
 
 ## Later consequences
 
