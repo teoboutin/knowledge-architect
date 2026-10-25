@@ -437,9 +437,10 @@ design the gap defeats.
    or rewrites, and the decisions the slice's spec
    cites; for a spec, the spec is the work and the decisions its own "What is already decided"
    lists give the seeds. A goal is no seed: it reaches every cluster that cites it as context, and a
-   goal seed makes every entry citing it a doubt to read. Read whole `bears.md` and `may-bear.md`,
-   which the search's check writes, every entry the search grades `bears` or `may-bear` with
-   every reference to it, and judge each against the slice; never act on an entry from the reason the search gave. The audit's
+   goal seed forces every entry citing it to a `may-bear` grade at least. Read whole `bears.md` and
+   `may-bear.md`, which the search's check writes, every entry the search grades `bears` or
+   `may-bear` with every reference to it, and, with `cargo klarch show`, each goal they give by its
+   grades alone, since this grounding reads no goals home; and judge each against the slice; never act on an entry from the reason the search gave. The audit's
    record gives one line to each entry the search graded `bears` or `may-bear`, with its outcome, an entry judged to bear on nothing in the
    slice included: in the message of the audit's commit, or, where the audit applies nothing in
    place, in the message of the slice's first commit. A firing found at the audit is
@@ -553,7 +554,8 @@ these four:
   record: the goals, the design heads and the rejected designs of every Component it touches.
   It reports a shape, an acceptance criterion, a default, a step or a harvest row that contradicts
   a goal, that contradicts or widens a head the document does not list as reversed or rewritten,
-  or that brings back a rejected design. A conflict with a goal goes to the owner.
+  or that brings back a rejected design, and reads whole every entry the document lists as not read,
+  reporting one the work meets. A conflict with a goal goes to the owner.
 - `agent@knowledge-architect-transcript-reviewer` reads the discussion's transcripts and checks that
   everything the discussion established that must outlive it is in the document or has another
   durable outcome, and that no ruling of the owner is recorded wider, narrower or in another state

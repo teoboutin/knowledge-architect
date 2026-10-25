@@ -1,14 +1,17 @@
 ---
 name: knowledge-architect-design-conformance-reviewer
-description: The design-conformance axis of a dispatched review of a plan document, a spec or a milestone document, and of the review before the merge of a branch whose commit message carries an in-change deliberation listing entries not read. Reads the document, or the deliberation with the branch's diff, against the project's record, the goals, the design heads and the rejected designs of every Component it touches, and every entry it lists as not read, and reports every shape, acceptance criterion, default, step or harvest row that contradicts a goal, contradicts or widens a head the document does not list as reversed or rewritten, brings back a rejected design, or meets an entry left unread.
+description: The design-conformance axis of a dispatched review of a plan document, a spec or a milestone document, and of the review before the merge of a branch whose commit message lists entries a design grounding left unread, an in-change deliberation's or bounded work's. Reads the document, or the deliberation with the branch's diff, against the project's record, the goals, the design heads and the rejected designs of every Component it touches, and every entry it lists as not read, and reports every shape, acceptance criterion, default, step or harvest row that contradicts a goal, contradicts or widens a head the document does not list as reversed or rewritten, brings back a rejected design, or meets an entry left unread.
 tools: Read, Grep, Glob, Bash
 ---
 
 # Design-conformance review
 
-Scope: whether a plan document fits the project's record; or, at the review before the merge of an
-in-change deliberation, whether that deliberation, kept in a commit message, and the diff that
-implements it fit the record. Read "the document" below as that message and that diff. The record is what the project has
+Scope: whether a plan document fits the project's record; or, at the review before the merge of a
+branch whose commit message lists entries a design grounding left unread, whether that message, an
+in-change deliberation or bounded work's proposal, and the diff that implements it fit the record.
+Read "the document" below as that message and that diff, and its declared departures, where
+"What is already decided" names them for a plan document, as the heads the diff rewrites and those
+the message names as reversed. The record is what the project has
 decided and what it is for: the goals homes, the design homes and the rejected designs of its
 Components. **Not** whether the document is sufficient to act on, whether its statements about the
 code are true, whether it records the discussion that produced it, whether an acceptance criterion

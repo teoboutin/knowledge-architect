@@ -136,15 +136,15 @@ subsection is omitted.
   project audit's design-record axis and the decision-record review report a subject to split.
 - `agent-skills`, patch: a design session reads whole the entries its search grades `bears`, and an
   entry graded `may-bear` only where a proposal touches it, from the files `worklist --verify`
-  writes; it lists the others with the searcher's reason as not read, in the plan document or in
-  the commit message of an in-change deliberation. A searcher grades `may-bear` only on a named
+  writes; it lists the others with the searcher's reason as not read, in the plan document, or in
+  the commit message of an in-change deliberation or of bounded work. A searcher grades `may-bear` only on a named
   doubt, an element of the change and a sentence of the entry; an entry that only shares the work's
   subject is `unrelated`.
 - `agent-skills`, patch: the design skill's grounding and the design audit seed the record search
   with decisions only, never a goal; a goal a discussion sets is no part of its search's work.
 - `agent-skills`, patch: the design-conformance reviewer reads whole every entry a plan document
   lists as not read, issues and tripwires included, and runs at the review before the merge of a
-  branch whose commit message carries an in-change deliberation listing such entries.
+  branch whose commit message lists such entries.
 - `agent-skills`, patch: the design skill checks a thread's candidate slugs with one call of
   `klarch id`.
 - `agent-skills`, patch: the retrospective asks one more standing question: whether the session or
