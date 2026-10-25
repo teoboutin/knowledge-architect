@@ -256,6 +256,20 @@ mod tests {
                 ".claude/skills/knowledge-architect-retrospective/SKILL.md",
             ],
         ),
+        (
+            "retrospective-two-files.md",
+            &[
+                ".claude/skills/knowledge-architect-retrospective-intake/SKILL.md",
+                ".claude/skills/knowledge-architect-retrospective/SKILL.md",
+            ],
+        ),
+        (
+            "retrospective-defect-kinds.md",
+            &[
+                ".claude/skills/knowledge-architect-retrospective-intake/SKILL.md",
+                ".claude/skills/knowledge-architect-retrospective/SKILL.md",
+            ],
+        ),
     ];
 
     /// Each fragment's first line, a `%%` comment aside, ships in exactly its hosts.
