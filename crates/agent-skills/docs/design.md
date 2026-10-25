@@ -3215,10 +3215,9 @@ inventory of the installed text at commit bc22d4d, re-taken by a fresh read-only
 each statement of a rule on heads outside its home at that commit, finds about ten texts restating
 parts of the decision-recording skill, with nine inconsistencies between them and it.
 
-The split by act is the owner's intent: an instruction is delivered right before the act it shapes,
-since the primer is loaded once at the start of a session and dilutes in a long one, and a pointer
-costs a lookup the session may skip; the owner also judged that some of the rules are not needed in
-every session. `issue@agent-skills@the-claim-check-of-a-commit-message-is-read-at-the-start-and-needed-at-each-commit`
+The split by act delivers each rule right before the act it shapes: the primer is loaded once at
+the start of a session and dilutes in a long one, a pointer costs a lookup the session may skip,
+and the shape rules are applied only by a writer or a judge of a head. `issue@agent-skills@the-claim-check-of-a-commit-message-is-read-at-the-start-and-needed-at-each-commit`
 records that mechanism in real use for another rule of the primer. What stays in the primer stands
 on the owner's earlier arguments: the rules are needed to interpret recorded design and to tell in
 advance what kind of decision may need to enter a design home, and nearly every piece of work adds
