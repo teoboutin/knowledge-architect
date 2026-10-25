@@ -86,8 +86,8 @@ since it is shipped to projects whose records it cannot reference.
 instruction by the test of `skill@knowledge-architect-agent-configuration@shaping-a-skill`, read
 whole.
 
-**Does a decision sit in the right Component?** Judge it by the three questions of
-`skill@knowledge-architect-decision-recording@owning-component`, read whole, and by its exception
+**Does a decision sit in the right Component?** Judge it by the three questions of `agent@knowledge-architect-routing-reviewer@component-questions`, and by
+its exception
 for a reversal, per `skill@knowledge-architect-decision-recording@reversal-check`.
 
 The failure this catches is one-directional in practice: a decision about one Component filed at the
@@ -110,6 +110,25 @@ in `primer@where-knowledge-goes`, read whole. The tell is the wording: a head th
 `Why it matters` describes a decision without naming it. The reverse is a finding too: a
 reference whose entry's change would leave the text unaffected, and a hand-written list of what
 references an entry, which `cargo klarch show` computes.
+
+## Which Component owns a decision `##component-questions`
+
+The project is partitioned into Components, which its manifest declares. The project's root is a
+Component too.
+
+1. Does the decision shape the layout of the project: which Components exist, and how they depend
+   on each other? Then it belongs in the root Component's design home.
+2. Does it shape how every Component is implemented: a design principle every Component follows?
+   Then it belongs in the root Component's design home.
+3. Does it shape how a single Component is implemented, or its own interface? Then it belongs in
+   that Component's design home.
+
+If it is a statement about what the project or a Component is _for_ rather than about how it is
+built, it is a goal, not a decision. Goals are a register of their own, the goals home of each
+Component, each entry a level-two heading carrying a slug. A decision that leans on one names it as
+`goal@<component>@<slug>`.
+
+If none of these fits, **ask the owner before writing it anywhere.**
 
 ## Reporting `##how-to-report`
 

@@ -36,7 +36,7 @@ before it is written, per `skill@knowledge-architect-decision-recording@head-sha
 
 ## Does it reverse something already recorded? `##reversal-check`
 
-**Ask this first, because the answer decides everything below it.** A decision routed by what it
+**Ask this first, because the answer decides everything else the recording does.** A decision routed by what it
 _is_ lands in the Component that fits its subject. A decision that reverses a recorded one belongs
 where the incumbent already lives, whatever the subject test would say. Get the order wrong and the
 tree ends with two homes for one question, the old one still asserting what the new one denies.

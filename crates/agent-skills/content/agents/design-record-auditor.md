@@ -39,11 +39,8 @@ you read, and every command you list is one you ran.
 Before your first entry, read whole:
 
 - `agent@knowledge-architect-design-record-auditor@design-head-rules`, for a design head;
-- `skill@knowledge-architect-decision-recording@owning-component`, for the Component a head
-  belongs to;
-- `skill@knowledge-architect-decision-recording@losing-alternatives`, for a rejected design;
-- `skill@knowledge-architect-decision-recording@three-homes`, for where the deliberation behind a
-  head is kept;
+- `agent@knowledge-architect-design-record-auditor@record-rules`, for the Component a head belongs to, for a rejected design, and for where the
+  deliberation behind a head is kept;
 - `skill@knowledge-architect-project-audit@finding-outcomes` and
   `skill@knowledge-architect-project-audit@design-record-axis`, for the proposed outcome.
 
@@ -76,6 +73,20 @@ instead.
 
 {{fragment:head-shape.md}}
 
+## The rules on the Component, rejected designs and the deliberation {{slug:record-rules}}
+
+### Which Component owns a decision
+
+{{fragment:owning-component.md}}
+
+### Rejected designs
+
+{{fragment:losing-alternatives.md}}
+
+### Where the deliberation is kept
+
+{{fragment:three-homes.md}}
+
 ## Take your group {{slug:take-your-group}}
 
 %% The axis's saved workflow lists the entries in the order this paragraph gives.
@@ -98,12 +109,10 @@ order. `{{command}} model` prints every heading and slug definition with its fil
   the standing argument and the ground; the title tests; one decision per head; the slug, its level
   and its alignment; present tense; and fidelity to what the owner approved. A head that argues
   from a goal's words without naming the goal is the common miss of the standing argument;
-- judge the Component the head sits in by the questions of
-  `skill@knowledge-architect-decision-recording@owning-component`. A head those questions place in
+- judge the Component the head sits in by the questions of `agent@knowledge-architect-design-record-auditor@record-rules`. A head those questions place in
   another Component fails, and its draft names the Component they place it in.
 
-**For a `rejected` entry:** judge it against every rule of
-`skill@knowledge-architect-decision-recording@losing-alternatives`: whether it meets a recording
+**For a `rejected` entry:** judge it against every rule on rejected designs of `agent@knowledge-architect-design-record-auditor@record-rules`: whether it meets a recording
 test, whether the heads that cite it are the ones whose argument covers it, its marker, either a reason a reader can check without leaving the
 entry or a pointer to where that reason is, and that it cannot be read as the current design. Both
 forms of the reason are compliant.

@@ -179,6 +179,36 @@ mod tests {
                 ".claude/skills/knowledge-architect-decision-recording/SKILL.md",
             ],
         ),
+        (
+            "losing-alternatives.md",
+            &[
+                ".claude/agents/knowledge-architect-decision-record-reviewer.md",
+                ".claude/agents/knowledge-architect-design-record-auditor.md",
+                ".claude/skills/knowledge-architect-decision-recording/SKILL.md",
+            ],
+        ),
+        (
+            "owning-component.md",
+            &[
+                ".claude/agents/knowledge-architect-design-record-auditor.md",
+                ".claude/agents/knowledge-architect-routing-reviewer.md",
+                ".claude/skills/knowledge-architect-decision-recording/SKILL.md",
+            ],
+        ),
+        (
+            "three-homes.md",
+            &[
+                ".claude/agents/knowledge-architect-design-record-auditor.md",
+                ".claude/skills/knowledge-architect-decision-recording/SKILL.md",
+            ],
+        ),
+        (
+            "reversal-check.md",
+            &[
+                ".claude/agents/knowledge-architect-decision-record-reviewer.md",
+                ".claude/skills/knowledge-architect-decision-recording/SKILL.md",
+            ],
+        ),
     ];
 
     /// Each fragment's first line, a `%%` comment aside, ships in exactly its hosts.
@@ -202,19 +232,29 @@ mod tests {
         }
     }
 
-    /// No line of a fragment ships outside its hosts, so a paragraph a move left behind in a former
-    /// home is found: the test above reads a fragment's first line only. A line is compared when it
-    /// is long enough to be the fragment's own, more than 60 characters trimmed, and holds no build
-    /// placeholder, which ships rendered.
+    /// No line of a fragment's prose ships outside its hosts, so a paragraph a move left behind in a
+    /// former home is found: the test above reads a fragment's first line only. A line is compared
+    /// when it is long enough to be the fragment's own, more than 60 characters trimmed, holds no
+    /// build placeholder, which ships rendered, and stands outside a fenced block, whose commands
+    /// other texts show too.
     #[test]
     fn no_fragment_line_ships_outside_its_hosts() {
         let root = std::path::Path::new(env!("CARGO_MANIFEST_DIR"));
         for (fragment, hosts) in FRAGMENT_HOSTS {
             let text = std::fs::read_to_string(root.join("fragments").join(fragment))
                 .expect("the fragment is readable");
+            let mut fenced = false;
             for line in text.lines() {
                 let line = line.trim();
-                if line.starts_with("%%") || line.contains("{{") || line.chars().count() <= 60 {
+                if line.starts_with("```") {
+                    fenced = !fenced;
+                    continue;
+                }
+                if fenced
+                    || line.starts_with("%%")
+                    || line.contains("{{")
+                    || line.chars().count() <= 60
+                {
                     continue;
                 }
                 for (path, shipped) in FILES {

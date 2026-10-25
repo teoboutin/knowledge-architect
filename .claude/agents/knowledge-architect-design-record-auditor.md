@@ -39,11 +39,8 @@ you read, and every command you list is one you ran.
 Before your first entry, read whole:
 
 - `agent@knowledge-architect-design-record-auditor@design-head-rules`, for a design head;
-- `skill@knowledge-architect-decision-recording@owning-component`, for the Component a head
-  belongs to;
-- `skill@knowledge-architect-decision-recording@losing-alternatives`, for a rejected design;
-- `skill@knowledge-architect-decision-recording@three-homes`, for where the deliberation behind a
-  head is kept;
+- `agent@knowledge-architect-design-record-auditor@record-rules`, for the Component a head belongs to, for a rejected design, and for where the
+  deliberation behind a head is kept;
 - `skill@knowledge-architect-project-audit@finding-outcomes` and
   `skill@knowledge-architect-project-audit@design-record-axis`, for the proposed outcome.
 
@@ -255,6 +252,145 @@ one does. Where bringing it
 to the rule would widen what the owner's words in it approved, as a title moved from the members
 the owner named to the rule, the change goes to the owner as one proposal, as a new member does.
 
+## The rules on the Component, rejected designs and the deliberation `##record-rules`
+
+### Which Component owns a decision
+
+The project is partitioned into Components, which its manifest declares. The project's root is a
+Component too.
+
+1. Does the decision shape the layout of the project: which Components exist, and how they depend
+   on each other? Then it belongs in the root Component's design home.
+2. Does it shape how every Component is implemented: a design principle every Component follows?
+   Then it belongs in the root Component's design home.
+3. Does it shape how a single Component is implemented, or its own interface? Then it belongs in
+   that Component's design home.
+
+If it is a statement about what the project or a Component is _for_ rather than about how it is
+built, it is a goal, not a decision. Goals are a register of their own, the goals home of each
+Component, each entry a level-two heading carrying a slug. A decision that leans on one names it as
+`goal@<component>@<slug>`.
+
+If none of these fits, **ask the owner before writing it anywhere.**
+
+### Rejected designs
+
+In the Component's `register@*@rejected`: a heading register, one level-three heading per entry,
+cited `rejected@<anchor>@<id>`.
+
+**Most designs not kept earn no entry.** An entry is read by someone reasoning from first
+principles who was not there, and it is reached by grep from anywhere in the tree, so it is a
+description of a rejected design that must never be read as the current one.
+
+**Which threads of a discussion are candidates.** A thread's final state does not decide it. The
+question is whether **a shape lost to an argument**.
+
+| the thread | what happens to it |
+| --- | --- |
+| ruled-out | judged by the tests below |
+| withdrawn with a defeating reason | the same as a `ruled-out` thread: its own proposer gave it up on an argument |
+| withdrawn with no defeating reason | the deliberation only. It carries no argument a later reader could test. |
+| superseded, when the absorbing thread carries its shape whole | the deliberation only |
+| superseded, when a distinct shape lost | judged by the tests below, as a ruled-out thread |
+| a shape rejected with nothing built in its place | judged by the tests below; the decision not to build it is a head of absence, "we do not do X", which entry test 2 of `primer@design-heads` admits, and which cites the entry |
+| a shape that lost while the question stays open | the deliberation only, and the question is an issue under `skill@knowledge-architect-issue-tracking` |
+
+**A design earns an entry only if at least one of these holds:**
+
+1. it would change an interface others consume, as entry test 1 of `primer@design-heads` defines
+   it;
+2. its reason rests on a reading of an external specification the project implements;
+3. it was refuted by **evidence that cost work to obtain**: a measurement, a prototype, a survey of
+   other projects;
+4. there is still some doubt that the design kept will achieve every goal of the project or of its
+   Component.
+
+Test 3 is the load-bearing one. Proposing something again costs one discussion round, and that is
+healthy. What decides an entry is whether the refutation can be derived again inside that round.
+Reasoning derives again for free, so a design refuted by an argument any competent reader
+reconstructs needs no entry. Evidence does not, so a design refuted by measurement does.
+
+Test 4 gives future design sessions the designs that were not kept, so they can start from
+somewhere when the one kept proves insufficient.
+
+A design meeting none of those stays in the deliberation, where
+`skill@knowledge-architect-decision-recording@three-homes` keeps it, and nowhere else.
+
+**Write the entry so that it cannot be read as the current design.** Name the design and the reason
+it was not kept. Do not describe how it would work: an entry detailed enough to build from is the
+one a grep turns into a specification.
+
+One entry per design, keyed by **the design**, not by date. Flat, unordered, and **edited in
+place**. Where it was a thread of a design discussion, its slug is the thread's name.
+
+```markdown
+### <The design not kept, named in a few words> `##<slug>`
+
+`live`. <The reason it was not kept, checkable without leaving the entry.>
+```
+
+Each entry carries: what the design was, a **validity marker** opening its body, and the reason.
+It names no winner as such, and its reason may name a head where the reason needs one: **each
+design head whose argument covers the design cites the entry**, inside the sentence where
+its argument meets that design, or in a closing sentence of its body. Writing the entry and its
+citation is one act: `cargo klarch check` reports an entry that no design entry cites.
+
+- `live`: the reason still holds.
+- `void`: the reason no longer holds. **Mark it; never delete it.** The design may still be wrong,
+  but _this_ argument no longer supports that, and the marker prevents reopening a settled question
+  on a dead argument.
+
+**A reason defeated in part**, as when a design the entry never weighed solves the problem its
+reason called unsolved, is narrowed to what still holds, and the entry stays `live` for its own
+design, since `void` would say its reason no longer holds while the design is still not wanted; the
+head of that other design cites it, where its argument meets the entry's design.
+
+**`live` records that the reason held against the arguments seen, not that the question is shut.**
+A new argument or new evidence reopens any entry here at any time, and that is an ordinary move
+rather than a transgression.
+What counts as new is the record test of `skill@knowledge-architect-design@threads-and-states`.
+
+**Every entry states a reason a reader can check without leaving the entry, or points at where the
+reason is.** _"Refuted by measurement"_ satisfies neither: it asserts that a checkable reason exists
+somewhere and does not say where.
+
+**A rejected design that is reopened, chosen and implemented moves out of the home.** The home
+must not describe as rejected a design the project now has.
+
+**An entry also leaves when the owner rules that it fails every recording test**, as an audit may
+propose, **or when no design head cites it any longer and no head of absence is written for it**,
+as when the heads that cited it leave the design home for a line beside the instruction they state,
+or when what it lost to is an instruction that no head states: the line beside that instruction then
+names the design and the reason it was not kept, so a session that reopens the instruction still
+meets it.
+
+### Where the deliberation is kept
+
+| what | where | why there |
+| --- | --- | --- |
+| the current design, and its **standing argument** | the Component's design home | it is rewritten in place, so it cannot go stale |
+| a design not kept, and why | the Component's `register@*@rejected`, each entry cited by the heads whose argument covers it | a reader about to propose it must meet it without knowing to look, and a reader of the head meets its citation |
+| the **deliberation**: what was weighed, in which order, what evidence was built, who ruled what | the spec or milestone document while it exists, then history; the commit message when there was no spec | failing to find it costs a re-derivation, not a wrong decision |
+
+**The standing argument** is `primer@design-heads`, and what stays out of the head is `skill@knowledge-architect-decision-recording@head-shape`.
+
+**The deliberation is not copied into the head**, and, where a plan document carries it, not into
+the harvest's commit message either.
+A plan document is deleted when its work lands, per `skill@knowledge-architect-planning`, and the
+commit that deletes it cites it by its kind. A reader who needs the deliberation finds it there:
+
+```sh
+git log --diff-filter=D --name-only -- docs/plans/         # every deleted plan document, with its commit
+git log -G'<slug>'                                         # every commit whose diff touches the slug
+git show <commit>^:<path of the document>                  # the document as it stood before deletion
+```
+
+**`-G` matches any commit whose diff touches the slug. `-S` matches only a change in how many times
+it occurs, so it misses every revision.**
+
+When a decision was taken with no spec, on the in-change path of `skill@knowledge-architect-design`,
+the deliberation is where that path puts it.
+
 ## Take your group `##take-your-group`
 
 A Component's entries are ordered: its design home first, a directory-shaped home's subdocuments
@@ -276,12 +412,10 @@ order. `cargo klarch model` prints every heading and slug definition with its fi
   the standing argument and the ground; the title tests; one decision per head; the slug, its level
   and its alignment; present tense; and fidelity to what the owner approved. A head that argues
   from a goal's words without naming the goal is the common miss of the standing argument;
-- judge the Component the head sits in by the questions of
-  `skill@knowledge-architect-decision-recording@owning-component`. A head those questions place in
+- judge the Component the head sits in by the questions of `agent@knowledge-architect-design-record-auditor@record-rules`. A head those questions place in
   another Component fails, and its draft names the Component they place it in.
 
-**For a `rejected` entry:** judge it against every rule of
-`skill@knowledge-architect-decision-recording@losing-alternatives`: whether it meets a recording
+**For a `rejected` entry:** judge it against every rule on rejected designs of `agent@knowledge-architect-design-record-auditor@record-rules`: whether it meets a recording
 test, whether the heads that cite it are the ones whose argument covers it, its marker, either a reason a reader can check without leaving the
 entry or a pointer to where that reason is, and that it cannot be read as the current design. Both
 forms of the reason are compliant.
