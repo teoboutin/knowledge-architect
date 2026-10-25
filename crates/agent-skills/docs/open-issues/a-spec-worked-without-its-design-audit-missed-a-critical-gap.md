@@ -6,7 +6,8 @@ kind: defect
 ## Summary
 
 The planning skill runs a spec's design audit only when a fresh session starts its work or the main
-branch has moved. The work of `spec@plans@graded-entries-and-id-lookup` skipped it, as the rule
+branch has moved. The work of the spec of the graded entries' assembly and of `klarch id`, deleted at its landing in
+the commit "[plans] The spec of the graded entries' assembly and of `klarch id` leaves: its work has landed, and every default is ruled", skipped it, as the rule
 allows, and its review before the merge found a critical gap an audit would have listed: a shape
 the tree refuted. The tripwire that watched this premise fired and left its home.
 

@@ -204,9 +204,9 @@ miss seen in real use. The misses of a search are in its judgement, not in when 
 of work on one day met, only at their review before the merge, five standing entries the search
 before the work had not returned, `issue@core@a-span-with-an-empty-head-is-malformed-against-its-head`,
 `issue@agent-skills@a-premortem-criterion-listed-as-a-default-reads-two-ways`,
-`issue@core@a-plain-hash-item-name-is-read-by-nothing`, `tripwire@agent-skills@ruling-lost-in-assembly`
-and the tripwire on attributions that the commit "[tripwires] Three tripwires leave, their horizons
-passed unfired" removed, and each was recorded days before its
+`issue@core@a-plain-hash-item-name-is-read-by-nothing`, the tripwire on a ruling lost at assembly that
+the commit "[plans] The spec of the graded entries' assembly and of `klarch id` leaves: its work has landed, and every default is ruled" removed, and the tripwire on attributions that the commit "[tripwires] Three
+tripwires leave, their horizons passed unfired" removed, and each was recorded days before its
 search ran, dated with `git log -S"##<slug>"` and `--diff-filter=A`. The work list and its check take
 the assembly of the groups from the agents, and `tripwire@agent-skills@record-search-misses` watches
 what judgement still misses. The designs this decision did not keep:

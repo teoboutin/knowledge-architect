@@ -3,33 +3,6 @@
 Evidence that would reopen a decision of `register@agent-skills@design`. A tripwire leaves this
 file by an exit of `skill@knowledge-architect-issue-tracking@movement-instruction`. What is outstanding is `register@agent-skills@issue`.
 
-## Guarding `design@agent-skills@ledger-from-transcript`: a ruling lost or misstated at assembly `##ruling-lost-in-assembly`
-
-The decision rests on the premise that assembly from the transcript, checked by the transcript
-reviewer, records the owner's rulings as the owner made them, and an answer of the owner on a
-reading or a fact with its source, per `design@agent-skills@answer-keeps-its-authority`.
-
-**Fires when:** a ruling of the owner is found missing from, or misstated in, a plan document that
-reached the main branch with no review reporting it, or in the plan documents of two separate
-pieces of work, where the misstatement is critical under
-`design@agent-skills@misstated-ruling-rated-by-what-it-changes`: reversed, or changing what is
-built or a load-bearing decision.
-**Response:** open a `defect` naming the ruling and the document, and reopen
-`design@agent-skills@ledger-from-transcript`, with the rejected design "Writing the
-discussion's ledger to a file during the discussion", `rejected@agent-skills@ledger-written-during-discussion`,
-among the candidates.
-**Re-entry:** the retrospective of the session that assembled the plan document: it reads that
-session's own record against the committed document.
-**Watches until:** 5 plan documents deleted at their landing.
-**Evidence when written:** in the commit that added the structured-plans milestone document, its
-transcript reviewers found three rulings recorded wider than the owner made them. The author wrote
-each of the three, and the extraction none, and each was repaired before that commit. That is
-before the commit, so it did not fire; it is why the guard exists. Two later instances, in the
-discussion that produced the milestone load-bearing-records and in an earlier spec, recorded a
-hedged word of the owner firmer than given, on details that were not load-bearing; the owner ruled
-that such a slip is no critical defect, still repaired, and under the firing condition above
-neither fires.
-
 ## Guarding `design@agent-skills@expectation-set-bounds-scope`: a contradiction between two installed instructions is closed as outside a skill's scope `##expectation-set-closes-a-contradiction`
 
 The decision rests on the premise that an expectation set scopes the owner's behaviour only, so
