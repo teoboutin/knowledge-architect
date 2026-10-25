@@ -156,8 +156,8 @@ no consumer citation dangles and no Migration entry is owed.
 The search of the whole record at the discussion's grounding, seeded with
 `goal@knowledge-architect@agents-get-a-complete-workflow`,
 `goal@knowledge-architect@structure-and-workflow-work-together`,
-`goal@knowledge-architect@any-project-can-adopt-it` and
-`issue@agent-skills@a-general-purpose-subagent-is-refused-a-file-access`, graded 173 entries `bears`
+`goal@knowledge-architect@any-project-can-adopt-it` and the issue
+`a-general-purpose-subagent-is-refused-a-file-access`, since closed, graded 173 entries `bears`
 or `may-bear`, each read whole. Their outcomes:
 
 - **Bears**, each a constraint met by the decided design: the goals
@@ -176,7 +176,7 @@ or `may-bear`, each read whole. Their outcomes:
   `issue@knowledge-architect@command-output-is-not-declared-a-contract`, above;
   `issue@agent-skills@a-tripwire-on-agent-behaviour-fires-where-this-project-cannot-see`, above;
   `issue@core@configuration-for-several-agent-providers`, above;
-  `issue@agent-skills@a-general-purpose-subagent-is-refused-a-file-access`, cause P6; the tripwires
+  the issue `a-general-purpose-subagent-is-refused-a-file-access`, cause P6; the tripwires
   `tripwire@agent-skills@ruling-lost-in-assembly`, `tripwire@agent-skills@ruling-lost-in-change` and
   `tripwire@agent-skills@attribution-loses-the-scope`, whose re-entries read transcripts and whose
   premises the work leaves standing.
@@ -636,7 +636,9 @@ Assume the design shipped and failed.
   read whole, and the reviewer's report says what it read. Named for the harvest.
 - **P6**: the harness's classifier refuses the command run by a general-purpose subagent. Stresses
   `thread@transcript-command@transcript-command-in-core`. Not silent, since it stops the work: no
-  tripwire; `issue@agent-skills@a-general-purpose-subagent-is-refused-a-file-access` holds the case.
+  tripwire. The refusal is not reproduced: at this spec's assembly, in harness 2.1.310, a
+  general-purpose subagent read this session's transcript, and the issue that recorded the refusal,
+  `a-general-purpose-subagent-is-refused-a-file-access`, closed on that test.
 
 ## Acceptance criteria
 
