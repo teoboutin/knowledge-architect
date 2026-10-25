@@ -17,14 +17,14 @@ every file.
 
 ### What
 
-The text, at `path@core@docs/design/generated-files-and-fixes.md`, in the head created by the
-split of `design@core@generated-files-are-pure` in pass 1 of the design-record audit on this repository:
+The text, at `path@core@docs/design/generated-files-and-fixes.md`, in the head created by the split
+of `design@core@generated-files-are-pure` in pass 1 of the design-record audit on this repository:
 "**That last claim is held by two refusals, not by the paths being generated.** `fs::write` follows
-a symlink and writes through it, so a generated path that is one would replace content this
-command never produced; and a destination directory the manifest declares but the tree does not
-have is a manifest defect rather than something to create. Both are checked over **every**
-destination before any is written, so a run either refuses having written nothing or writes them
-all. Remove either check and the paragraph above stops being true."
+a symlink and writes through it, so a generated path that is one would replace content this command
+never produced; and a destination directory the manifest declares but the tree does not have is a
+manifest defect rather than something to create. Both are checked over **every** destination before
+any is written, so a run either refuses having written nothing or writes them all. Remove either
+check and the paragraph above stops being true."
 
 The check agent of that pass raised it: "Without that check, `fs::write` into a missing directory
 fails partway through, and nothing is destroyed." The code confirms it. `check_destinations` in
