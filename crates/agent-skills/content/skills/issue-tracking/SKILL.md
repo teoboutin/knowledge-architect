@@ -173,7 +173,7 @@ names both repairs.
 
 - Two entries may carry the same measurement, and an entry may restate a figure that also lives in
   a head.
-- Both registers hold statements that **leave**: an issue when it closes, a tripwire when it fires.
+- Both registers hold statements that **leave**: an issue when it closes, a tripwire by an exit of its lifecycle.
   The cost of the alternative lands in the worst place. Opening an entry is nearly always churn
   inside a session that was doing something else and found a problem, and checking that no other
   entry or head carries the same figure is a tax on the one act this register exists to make

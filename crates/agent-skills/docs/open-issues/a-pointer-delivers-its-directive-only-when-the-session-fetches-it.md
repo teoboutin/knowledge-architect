@@ -8,8 +8,8 @@ kind: todo
 A standard, or a similar large block of coherent instructions, read whole at several places is
 delivered by a fragment the build copies into each text that applies it, per
 `design@agent-skills@shared-text-fragment` and `design@agent-skills@restatement-size-test`. The
-tripwire standard and its lifecycle are the first. The owner ruled that the others "will be
-migrated later": they are still delivered by a pointer read whole, which the session may not fetch.
+tripwire standard and its lifecycle are the first. The owner ruled that the others are
+migrated later: they are still delivered by a pointer read whole, which the session may not fetch.
 
 ## Details
 
@@ -29,8 +29,11 @@ each by whether several texts apply it whole:
   definition is needed is the question to judge.
 
 The owner's reasons for the fragment are in the head: a pointer moves the cost of delivery from the
-writer's text to the session's choice to fetch it, and the session chooses from memory. No real
-session is established to have missed a pointed directive.
+writer's text to the session's choice to fetch it, and the session chooses from memory. The owner
+bounded the cost: in most cases working from memory of a pointed section is a defensible call that
+`primer@room-to-judge` allows, and in some cases reading it again is needed. Which blocks are the
+latter is the question each candidate is judged on; whether several texts apply a block whole is
+the first test. No real session is established to have missed a pointed directive.
 
 ### Why it matters
 

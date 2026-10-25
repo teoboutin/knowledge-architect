@@ -49,19 +49,19 @@ placeholder but the install's `{{command}}`. The pass is `render_fragments` of
 `path@agent-skills@src/render.rs`. A text is a host only where its act applies the whole fragment,
 and the test `each_fragment_has_its_hosts` of `path@agent-skills@src/lib.rs` holds the list.
 
-The owner proposed it, against the pointer read whole: "keep the standard written once, subsitute it
-at install time in all the skills and subagents that need it, so the standard cannot drift and is
-still delivered reliably", since a pointer costs the session a decision to fetch it and is often
-skipped "with the argument of "already in memory from earlier"", and ruled that fragments "have to
-become the main delivery mechanism for standards and similar large blocks of coherent instructions
-that need to be read as a whole at multiple locations". The step 7 of the design skill that proposed
-tripwires had never sent the writer to the rule it broke, in about 35 entries of this repository and
-thaum. The snippet pass cannot carry prose: it runs last, so a snippet keeps its `%%` lines and its
-placeholders, and every snippet is written into a new project by `klarch init --rust`. A harness
-hook delivering pointed sections would bind the shipped workflow to one harness, against
-`goal@agent-skills@installed-text-works-anywhere`. A review of a changed fragment reads it in every
-host, since a sentence true in one host's context can be false in another's: the first such review
-found two.
+The owner proposed it, against the pointer read whole, so that a standard is written once and still
+delivered whole wherever it applies, which `goal@agent-skills@no-contradiction-in-workflow` asks:
+a pointer costs the session a decision to fetch it, which the session often skips on the ground
+that it read the target earlier. The owner ruled that fragments are the delivery for every standard
+or similar block read whole at several places, the other such blocks migrated later. The hosts of
+the tripwire standard and its lifecycle are the owner's: the owner approved their list, so a host
+added to it goes to the owner. The pointer it replaces had left the writer of about 35 tripwires of
+this repository and thaum without the rule they broke. The snippet pass cannot carry prose: it runs
+last, so a snippet keeps its `%%` lines and its placeholders, and every snippet is written into a
+new project by `klarch init --rust`. A harness hook delivering pointed sections would bind the
+shipped workflow to one harness, against `goal@agent-skills@installed-text-works-anywhere`. A
+review of a changed fragment reads it in every host, since a sentence true in one host's context
+can be false in another's, as two sentences of the first fragments were.
 
 ### The setup skill's blocks for a Rust project are snippets that a test checks and `klarch init --rust` writes `##rust-templates-one-home`
 
@@ -656,13 +656,13 @@ listed here, and an edit that adds one checks it against the list:
 | `F` | a project audit's findings put to the owner | the audit report file of the pass |
 | `Q` | entry test 4's questions, and every label that stays in the conversation | none |
 
-The owner asked for it, from a premortem message that mixed causes, tripwires and findings: "it is
-often quite hard already to rule on tripwires, because I'm never certain how many there are and
-what they are about." A ruling given in words then matches items by guess. The owner asked before
-for entry test 4's questions to be numbered, per `design@agent-skills@a-head-is-owed-by-an-entry-test`,
-and judged the pattern recurring: "this should cover everything that I have to rule on by name". A
-label that reaches no document reuses `Q`, on the owner's argument against "searching for unique
-letters, which will necessarily end up needing more letters than available". The structure passes
+The owner asked for it, from a premortem message that mixed causes, tripwires and findings: the
+owner could not tell how many items there were to rule on, nor what each was about. A ruling given
+in words then matches items by guess. The owner asked before for entry test 4's questions to be
+numbered, per `design@agent-skills@a-head-is-owed-by-an-entry-test`, and judged the pattern
+recurring, to cover everything the owner rules on by name. A label that reaches no document reuses
+`Q`, on the owner's argument that searching for unique letters would in the end need more letters
+than exist. The structure passes
 `design@agent-skills@capabilities-not-structure`, since the owner named the lack and the label's
 scope follows the record that carries it. The numbering is stated once, in `primer@labelled-items`,
 since labels are given in sessions of every activity and a range stated per skill drifted: three
@@ -1043,28 +1043,42 @@ A premortem names causes and puts none to the owner. At the end of the work that
 decision, the harvest on the full path or the commit that records the decision on the in-change
 path, the session judges each cause by the standard of
 `design@agent-skills@tripwire-admission-test`, on the wording the cause has then, writes those that
-pass in the tripwires home of the Component that owns the decision, so the decision's head exists
-before the tripwire that names it, and lists every cause with its outcome in its turn's "Decided"
-section and in the record of the work, the harvest's or the in-change commit message. A recorded
-tripwire's wording and scope change on the session's judgement, listed under "Decided"; its removal
-outside the exits of `design@agent-skills@tripwire-horizon` is the owner's, and an audit's deletion
-of one goes to the owner, per `design@agent-skills@audit-outcomes`.
+pass in the tripwires home of the Component that owns the decision, and lists every cause with its
+outcome in its turn's "Decided" section and in the record of the work, the harvest's or the
+in-change commit message. A tripwire names the decision it guards, and a head exists from the
+landing of its work, per `design@agent-skills@design-home-is-built-intent`, so the tripwire is
+written with the head.
 
-Whether a risk is worth watching was argued a fork no goal or decision ranks, the cost of watching
-against the risk, so the owner ruled on each cause. The standard ranks it: a cause it admits and one
-it excludes are each decided by a named condition, so no fork remains, per
-`primer@question-authority` and `design@agent-skills@owner-rules-at-a-fork`. The cost of the rival
-was measured: of the 66 premortem causes the owner ruled on here, the owner dropped 23, and about 45
-of the 64 tripwires this repository held at that time watched a failure a review, a test or the
-checker caught anyway, a subagent's reading of each entry, re-taken by the first pass of the
-tripwire axis. That the wording and the scope of a recorded tripwire are the session's is the
-owner's aim: the owner named wording and small scope changes of tripwires among the rulings
-"judgement should be able to cover, under a clearer standard". The rival that keeps each admitted
-cause with the owner, as a question with a default, halves the rulings rather than removing them,
-while the standard ranks what it admits as it ranks what it excludes. This is no grant of judgement
-within a boundary, which `rejected@agent-skills@delegated-decision-state` refuses: it is the rule of
-`primer@question-authority` applied once the record ranks the question. The design this decision did
-not keep: `rejected@agent-skills@owner-rules-each-tripwire`.
+Whether a risk is worth watching trades the cost of watching against the risk. The standard ranks
+it: a cause it admits and one it excludes are each decided by a named condition, so no fork
+remains, and the question is the session's, per `primer@question-authority` and
+`design@agent-skills@owner-rules-at-a-fork`. The owner stays informed of each outcome and overrules
+any of them by reading the work, per `goal@knowledge-architect@the-owner-decides`, and rules only on
+what the goals and the record leave open, per `goal@knowledge-architect@agents-work-without-drift`.
+The rival, the owner ruling on each cause, was measured: of 66 premortem causes the owner ruled on
+in this repository, the owner dropped 23, and about 45 of the 64 tripwires this repository then
+held watched a failure that a review, a test, the checker or the owner caught anyway, by a
+subagent's reading of each entry kept in the spec of the tripwire standard, deleted at its landing.
+The rival that keeps each admitted cause with the owner, as a question with a default, halves the
+rulings rather than removing them, while the standard ranks what it admits as it ranks what it
+excludes. This is no grant of judgement within a boundary, which
+`rejected@agent-skills@delegated-decision-state` refuses: it is the rule of
+`primer@question-authority` applied once the record ranks the question. The design this decision
+did not keep: `rejected@agent-skills@owner-rules-each-tripwire`.
+
+### A recorded tripwire's wording and scope are the session's, and its removal outside the lifecycle's exits is the owner's `##tripwire-wording-is-the-agents`
+
+A recorded tripwire's premise, firing clause, response, re-entry point and horizon change on the
+session's judgement under the standard of `design@agent-skills@tripwire-admission-test`, while it
+watches the same cause, and each change is listed in the turn's "Decided" section, per
+`design@agent-skills@decisions-reported-to-the-owner`. Its removal outside the exits of
+`design@agent-skills@tripwire-horizon` is the owner's, and an audit's deletion of one goes to the
+owner, per `design@agent-skills@audit-outcomes`. The owner named the wording and the small changes
+of scope of tripwires among the rulings a clearer standard should let the session's judgement
+cover. A ruling that bound the wording would make every repair of a tripwire a question to the
+owner, against `goal@knowledge-architect@agents-work-without-drift`. That a removal needs the
+owner's word is the owner's intent: the owner ruled keeping the default and the owner's word needed
+only for a drop.
 
 ### A cause becomes a tripwire only where its failure is silent, its evidence lands where tripwires are read, it is what the decision forbids, and its numbers have a basis `##tripwire-admission-test`
 
@@ -1095,10 +1109,10 @@ a doubt, never a reason to refuse a cause the conditions admit.
 
 The rival, the falsifiability bar alone with the owner filtering, kept every cause precise enough
 to fire, whatever it watched: the owner dropped 23 of 66 ruled causes, and about 45 of 64 standing
-entries watched a failure caught anyway. The owner ranked the result: "the important criteria is
-rather that accepted tripwires are valuable, rather than no past useful tripwire stays accepted",
-so a refinement admitting a dropped useful firing was taken only where it admitted none of the 25
-found anyway, which is the rule on slips' second case.
+entries watched a failure caught anyway, per `rejected@agent-skills@owner-rules-each-tripwire`.
+The owner ranked the result: that the tripwires admitted are valuable matters more than that every
+past useful one stays admitted, so a refinement admitting a dropped useful firing was taken only
+where it admitted none of the 25 found anyway, which is the rule on slips' second case.
 
 ### Every tripwire names the occasions after which, unfired, it leaves `##tripwire-horizon`
 
@@ -1125,6 +1139,12 @@ sunset, which no evidence sets a period for, against `design@agent-skills@audit-
 fires on whoever crosses the date. A goal stays while it is met, per
 `design@agent-skills@goal-lifecycle`, because it is the owner's standing intent; a tripwire is a
 hypothesis about one premise, and the premise stays written in the head every grounding reads.
+
+A firing's repair that adds a check leaves the tripwire, since the check then reports the failure,
+which condition 1 of `design@agent-skills@tripwire-admission-test` excludes: thaum restated entries
+on such repairs, 10 of its 17 firings found anyway. An exit for a tripwire whose evidence names an
+artifact the project's instructions prevent is not kept: the surveys found it used 0 times in 250
+entries, and a failure a test or a check reaches is excluded by condition 1.
 
 ### A fork closes on the owner's word, and a thread with one shape standing closes on its argument `##owner-rules-at-a-fork`
 
@@ -1311,7 +1331,8 @@ evidence stands; a stream of audits that read the standing entries in the sessio
 and miss none would weaken it. A search at the reviews of
 a plan document lost to a second search when convergence is proposed, before the premortem: those
 reviews run only where a discussion wrote a plan document, and a search at convergence covers a
-decision taken in the change under way too. The search at convergence is parked, with a tripwire.
+decision taken in the change under way too. The search at convergence is the open question of
+`issue@agent-skills@the-search-before-the-work-missed-standing-entries-in-two-pieces-of-work`.
 The occasions are the owner's: the search runs at least at a design discussion's grounding and at
 the audits of a plan's steps, the main moments design is discussed, and should miss nothing.
 
@@ -1713,8 +1734,8 @@ under is `design@agent-skills@ruled-items-labelled`'s.
 
 A criterion decides, before the merge, what the branch must build: applying it and not applying it
 both meet every binding constraint and trade the cost of the check against the risk, and no standard
-ranks a criterion's application as `design@agent-skills@tripwire-admission-test` ranks a tripwire's.
-The owner judged it so: acceptance criteria are a point where the owner's ruling is useful, while
+ranks a criterion's application as `design@agent-skills@tripwire-admission-test` ranks a tripwire's,
+so it is the owner's, per `goal@knowledge-architect@the-owner-decides`. The owner judged it so: acceptance criteria are a point where the owner's ruling is useful, while
 the owner wants more autonomy for agents elsewhere. Both acceptance criteria that reached a plan
 document of this repository against a goal had no ruling: one was proposed at a premortem, one while
 a slice's spec was written. The rival, no ruling and the design-conformance reviewer alone, catches a
@@ -1729,8 +1750,8 @@ section on acceptance criteria and step 7 of the design skill host the standard 
 conditions for a criterion. Conditions 1 and 2 do not apply: the landing's own work checks a
 criterion once.
 
-The owner reported the defect: criteria "too often of low quality, in particular they carry
-numerical bounds that are not truly relevant, or they are basically guaranteed to pass". A
+The owner reported the defect: criteria often carry numerical bounds that are not relevant, or are
+in practice certain to pass. A
 criterion bound to pass checks what the design instructs, which condition 3 removes, and an
 irrelevant bound is a number with no basis, which condition 4 removes, so the two defects are
 answered by the same text that judges a tripwire, delivered where criteria are written.
@@ -2102,7 +2123,7 @@ whole. How passes follow one another is
 The reading guards against a quotation of the owner verbatim but taken from the answer to another
 question, which the first audit of the design-record axis on this repository showed. The rival that
 keeps the design-record axis's groups and calibration sample in the method, a later axis adjusting
-them as an exception, would state a rule that one of two axes breaks whole: the agentic-workflow
+them as an exception, would state a rule that one of its axes breaks whole: the agentic-workflow
 axis shares no corpus out, per `design@agent-skills@workflow-axis-lenses`. The groups and the
 sample are the design-record axis's dispatch, per `design@agent-skills@design-record-axis-dispatch`.
 No point of the method serves an axis with no saved workflow: every axis has one, and a new axis is
@@ -2231,15 +2252,14 @@ verify a report and write the owner list: the axis's corpus, its rules, what the
 verification reads, and its outcome table. The axis's agent states the standard its steps judge by,
 and no dispatch. A session whose harness does not list the workflow dispatches its steps by hand,
 in the script's order, with the script's prompts, read from the script. The agentic-workflow axis
-runs `knowledge-architect-agentic-workflow-audit`, and the design-record axis
-`knowledge-architect-design-record-audit`.
+runs `knowledge-architect-agentic-workflow-audit`, the design-record axis
+`knowledge-architect-design-record-audit`, and the tripwire axis
+`knowledge-architect-tripwire-audit`.
 
-The shape is the owner's: "ultimately, I think it should become the generic shape of every audit
-axis, with every audit axis having its own dynamic workflow that produces a ready to discuss and act
-report. That would also make the project audit skill much more concise." The delivery as a file of
-the harness's directory is the owner's too: "I think it would be best to deliver the workflow as a
-file directly in .claude/workflows/ (it would need to use the knowledge-architect prefix too, for
-namespacing)."
+The shape is the owner's: the owner judged it the generic shape of every audit axis, each with its
+own workflow producing a report ready to discuss and act on, which also keeps the project audit
+skill concise. The delivery as a file of the harness's directory is the owner's too, as a file of
+.claude/workflows/ named with the installer's prefix.
 
 The argument turns on the behaviour of Claude Code's Workflow tool, read in its description and its
 authoring reference and measured by probes, which the message of the commit "The agentic-workflow
@@ -2358,14 +2378,13 @@ Its corpus is every design head and every rejected alternative of every Componen
 `skill@knowledge-architect-decision-recording@owning-component` for the Component it sits in, and
 `skill@knowledge-architect-decision-recording@losing-alternatives` for a rejected alternative. Each
 head is read with the tripwires guarding it, the issues naming it and the history behind each
-citation of the owner. The owner narrowed the axis to that reading: "Reading the tripwires and
-issues related to design is important IMO, so that the audit on design takes them into account."
-The audit repairs a tripwire or an issue only where its own edit makes it stale: the conformance of
+citation of the owner. The owner narrowed the axis to that reading, so that the audit of the design
+takes into account the tripwires and the issues that bear on it. The audit repairs a tripwire or an issue only where its own edit makes it stale: the conformance of
 a tripwire or an issue to its own register's rules is the axis of that register, the tripwire
 axis's for a tripwire, per `design@agent-skills@tripwire-audit-axis`, and a judgement of
 it here would read entries the decision record does not hold, while a stale one the audit's edit
 leaves is a defect of the audit itself. The restatements of a head in other texts left the axis on
-the owner's word: "It does not read the same thing at all." The truth of a head about the code is
+the owner's word, since reading them is another reading altogether. The truth of a head about the code is
 another axis too, since it reads the code rather than the decision record. A head the axis meets
 false of the code gets an issue. The axis is carried by
 `agent@knowledge-architect-design-record-auditor`.
@@ -2389,15 +2408,16 @@ report, and a run judging the application; it has no checker step, since it crea
 and reworded entries are applied in the branch; every outcome that deletes an entry, converted,
 absorbed, removed, decision gone, horizon passed or fired, goes on the owner list, grouped by
 outcome and, for a removal, by the condition failed, each group with a default, per
-`design@agent-skills@audit-outcomes`.
+`design@agent-skills@audit-outcomes`. A removal rests on a condition, or, where no condition clearly
+excludes the entry, on the owner's weight on a doubt that
+`design@agent-skills@tripwire-admission-test` states, a failure the owner would see anyway; such
+removals form a group of their own.
 
 The standard changes the rules recorded tripwires must meet, so a version shipping it names this
 axis in its Migration entry, per `design@knowledge-architect@changelog-entries` and
 `design@agent-skills@audit-triggers`; horizons prune afterwards, and the axis runs again on the
-owner's request. It removes what never deserved an entry, which a horizon cannot: its first run on
-this repository removed 20 of 64 tripwires and gave every other one a horizon, and its re-check
-found 6 violations left on old text, none on the owner list. Grouping the deletions lets the owner
-rule on one item per group: the first pass's owner list held 7 items, each a group.
+owner's request. It removes what never deserved an entry, which a horizon cannot. Grouping the
+deletions lets the owner rule on one item per group rather than on one item per entry.
 
 ### The design-record axis is dispatched in bounded groups calibrated on a shared sample `##design-record-axis-dispatch`
 
@@ -3157,7 +3177,7 @@ delivers at the moment it is needed; it is re-taken with `wc -w` on the primer.
 
 The design this decision did not keep: `rejected@agent-skills@head-rules-in-decision-recording`.
 
-### A directive is restated only where the restatement is no longer than a pointer to it, and a standard read whole at several places is a fragment the build copies `##restatement-size-test`
+### A directive is restated only where the restatement is no longer than a pointer to it `##restatement-size-test`
 
 A directive is restated at its point of delivery only when the restatement is no longer than a
 pointer to it: a path, a file name, a command, a value, or one sentence, a sentence carrying its
@@ -3174,11 +3194,10 @@ directive. A sweep would convert at once every long restatement a project holds,
 delivery choice of its owner, where a conversion at an edit costs one read of a text the change
 already reads. The rule is the primer's `primer@where-knowledge-goes`.
 
-The test is the owner's proposal: "is the restatement significantly bigger than a pointer ? Then use
-a pointer." Its reason is the owner's too: the rule that a directive is restated wherever it is
-delivered "is meant to avoid loading excessive unrelated informations", and "Just state the
-path/filename, it takes as much space as the pointer", while "We can't restate a skill inside every
-other one". One sentence is the checkable form of that size, since a pointer with its instruction to
+The test is the owner's proposal: a restatement significantly bigger than a pointer is replaced by
+the pointer. Its reason is the owner's too: restating a directive wherever it is delivered is meant
+to keep unrelated text out of a session's load, a path or a file name costs no more than its
+pointer, and a skill cannot be restated inside every other one. One sentence is the checkable form of that size, since a pointer with its instruction to
 read the home whole is itself about one sentence. A partial copy drifts, and its reader takes it for
 the whole: the rival, a directive restated wherever it is delivered, gives the partial restatements that
 `design@agent-skills@one-home-for-head-rules` measures. That rival's own reason, that a reader who cannot reach a statement at the moment

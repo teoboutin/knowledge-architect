@@ -110,6 +110,12 @@ mod tests {
                     &shared,
                     std::path::Path::new(&source),
                 );
+                assert_ne!(
+                    block.trim_end(),
+                    line,
+                    "{source}: `{}` is not rendered as a fragment placeholder",
+                    line.trim()
+                );
                 let placed = text.lines().filter(|l| *l == line).count();
                 assert_eq!(
                     shipped.matches(block.as_str()).count(),
@@ -123,8 +129,9 @@ mod tests {
     }
 
     /// Each fragment reaches every text whose act applies it whole, and no other, per the hosts the
-    /// tripwire standard's spec ruled. A host that loses its placeholder still ships and still
-    /// passes the test above, so this list is what fails: change it with the hosts.
+    /// owner approved, `design@agent-skills@shared-text-fragment`. A host that loses its
+    /// placeholder still ships and still passes the test above, so this list is what fails: change
+    /// it with the hosts.
     #[test]
     fn each_fragment_has_its_hosts() {
         let hosts: &[(&str, &[&str])] = &[

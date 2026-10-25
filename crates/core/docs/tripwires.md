@@ -152,6 +152,6 @@ prints for the same commit. Both are the `walk: n file(s)` line of the summary b
 `cargo klarch check` prints on a stop as on a pass.
 **Response:** open a `defect` naming both counts and the two git versions.
 **Re-entry:** each time CI's output is read against a local run, and at any change to the walk.
-**Watches until:** the commit that closes
+**Watches until:** the third release tag after the commit that closes
 `issue@core@the-walk-does-not-report-what-the-per-clone-exclude-file-removes`, whose check then
-carries it, and which deletes this entry.
+reports the per-clone exclude file, and which narrows this entry to two git versions.

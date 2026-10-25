@@ -448,7 +448,7 @@ await agent(lines([
     'entry is named, since the lifecycle judges it again by the recording tests;',
   '3. for each verified or plausible finding, the outcome you propose under the outcome table, ' +
     'with its reason, for the session to decide; for an entry the outcome deletes, the group of ' +
-    'the owner list it belongs to: its outcome, and for a removal the condition it fails, 1, 2 or 3.',
+    'the owner list it belongs to: its outcome, and for a removal the condition it fails, 1, 2 or 3, or the doubt\'s weight.',
   'Return its path.',
 ]), { schema: PATH, phase: 'cross-check', label: 'cross-check' })
   .then((c) => {
@@ -488,8 +488,8 @@ const report = await agent(lines([
   '5. the draft of the owner list, its labels left for the session to number: every finding whose ' +
     'outcome deletes an entry, in one group per outcome, converted, absorbed, removed, its ' +
     'decision is gone, horizon passed and fired, and the removals in one group per condition ' +
-    'failed, 1, 2 and 3; each group with its entries, each entry with the words it turns on and ' +
-    'the texts its deletion leaves stale, and one default for the group, with its reason, and the ' +
+    'failed, 1, 2 and 3, and one for the doubt\'s weight; each group with its entries, each entry ' +
+    'with the words it turns on and the texts its deletion leaves stale, and one default for the group, with its reason, and the ' +
     'entries the default excepts, if any; then every other item the outcome table puts to the ' +
     'owner, grouped by kind, each with a default;',
   '6. what the run did not decide: the plausible verdicts, the firings for the session to judge, ' +

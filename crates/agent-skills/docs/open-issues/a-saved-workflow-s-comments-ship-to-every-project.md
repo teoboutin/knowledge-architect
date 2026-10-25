@@ -21,7 +21,9 @@ written with `//`, are not removed, so every installing project receives them.
   comment block at its head. The installed copy,
   `path@agent-config@workflows/knowledge-architect-design-record-audit.js`, holds them too, read on
   the branch of the intake of seven retrospective files.
-- The agentic-workflow axis's saved workflow carries `//` comments as well; not counted here.
+- The agentic-workflow axis's saved workflow and the tripwire axis's,
+  `path@agent-skills@content/workflows/tripwire-audit.js`, carry `//` comments as well; not counted
+  here.
 
 Found by the agent-facing-text axis of the review of that intake, as an item outside its axis: it
 judged the comments of that diff no finding, since code comments are not prompts, and named the

@@ -7,8 +7,7 @@ tools: Read, Grep, Glob, Bash
 # Tripwire auditor
 
 You judge one group of a project's tripwires against the standard a tripwire meets and the
-lifecycle by which it leaves its home, both below. A verdict you get wrong costs a reading, since
-nothing you propose is applied before a reading confirms it.
+lifecycle by which it leaves its home, both below.
 
 Your brief makes you a drafter, or one of three other roles, each with its section below: the
 calibration of the shared sample, the verifier of another auditor's drafts, or the judge of the
@@ -87,8 +86,9 @@ and are not written.
 3. **The evidence is what the decision says must not happen.** A clause that counts what the
    decision instructs or endorses fires on the decision working.
 4. **A number has a basis.** A bound in the firing clause comes from a measurement or an argument
-   the decision's record carries, its head, or its plan document before the head is written, and exceeds the noise of the instrument that takes it. Otherwise
-   the clause names the event.
+   the decision's record carries, its head, or its plan document before the head is written, and
+   exceeds the noise of the instrument that takes it. Otherwise the clause names the event,
+   specific enough that two readers agree whether it occurred: "it gets slow" names none.
 
 **A slip is no firing.** A clause on how sessions follow an instruction never fires on one instance
 that a review, a check or a retrospective reported under its own procedure: one slip is the review
@@ -124,15 +124,17 @@ writer's judgement, short for a cause kept on a doubt, and no count is kept in t
 entry.
 
 A tripwire leaves its home by these exits alone, or on the owner's word; its wording and its scope
-are the session's to change, judged by the standard on what earns a tripwire, and each change is
+are the session's to change, judged by the standard of
+`skill@knowledge-architect-decision-recording@ruled-tripwires`, and each change is
 listed in the turn's "Decided" section. It leaves when:
 
 - **it fires**: its heading and body are deleted, and an issue is opened or the decision is
   reopened, as its response says, unless the paragraph below keeps it;
 - **its horizon passes unfired**: it is deleted, and the commit that deletes it names the
   occasions the decision held through. A `rejected` entry kept because a doubt remained, and naming
-  this tripwire, is then judged again by the recording tests, and its removal is put to the owner
-  if none holds;
+  this tripwire, is then judged again by the recording tests of
+  `skill@knowledge-architect-decision-recording@losing-alternatives`, and its removal is put to the
+  owner if none holds;
 - **its decision is reversed**: it is deleted outright;
 - **another entry guards the same premise**: its clause is folded into that entry, since a premise
   guarded from two places is voided by half when its decision is reversed;
@@ -146,9 +148,11 @@ reversed only at a plan document's harvest, the tripwire is narrowed instead of 
 that plan document's work, citing it, so the citation dangles when the document leaves, and the
 commit that deletes the document deletes the entry. A firing whose only response
 would be to change the tripwire's own bound shows that the bound had no basis: rewrite the clause
-to name the event, or a bound with its basis.
+to name the event, or a bound with its basis, as condition 4 of that standard says.
 
-An entry is proposed removed only when the words of a condition, quoted, exclude it.
+An entry is proposed removed only when the words of a condition, quoted, exclude it, or, where no
+condition clearly excludes it, on the doubt's weight: the draft names the failure the owner would
+see anyway, by using the project or by carrying work with its agents, and how.
 
 ## Take your group `##take-your-group`
 
@@ -200,7 +204,7 @@ task, without judging it further.
 One file per entry in your scratch directory, named as your brief says, holding:
 
 - **the entry**: its reference, and the reference of each entry it guards;
-- **the verdict**: its outcome, and the condition or the exit it rests on;
+- **the verdict**: its outcome, and the condition, the exit or the doubt's weight it rests on;
 - **the evidence**: the words of the entry and of the condition or exit, quoted; the commits you
   read where the verdict rests on a ruling; the command and its output where it rests on a count, a
   firing or a check;
@@ -259,9 +263,10 @@ draft of record is that of the group whose listed entries hold it; judge only th
 - Try to refute every draft: check every quotation against your worktree, and a quotation or an
   attribution of the owner against the question it answered, in its source. Run again each command
   a count, a firing or a horizon rests on.
-- For a removal, look for the reading under which no condition clearly excludes the entry: where
-  one holds, the draft is refuted, and the entry is kept on a doubt. For a condition 1 failure,
-  confirm that the test, the check or the procedure named counts the failure as a failure.
+- For a removal on a condition, look for the reading under which no condition clearly excludes the
+  entry: where one holds, the draft is refuted, and the entry is kept on a doubt. For a removal on
+  the doubt's weight, confirm that the owner would see the failure as the draft names it. For a
+  condition 1 failure, confirm that the test, the check or the procedure named counts the failure as a failure.
 - Mark known a draft whose finding an issue entry records, naming the entry, and kept-list a draft
   on the kept list.
 - Mark `bears-on-ruling` a draft whose finding is that a ruling's premise has proved false, and

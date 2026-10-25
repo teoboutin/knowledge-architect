@@ -106,8 +106,8 @@ into a discussion.
 It also carries a discipline for questioning incumbent
 designs: fresh-discussion trend framing (a new session when the
 incident still dominates the context), direction argued before
-migration cost inside one decision, falsifiable verdicts with
-tripwires, losing arguments absorbed rather than deleted.
+migration cost inside one decision, verdicts that name the evidence
+that would flip them, losing arguments absorbed rather than deleted.
 
 ## What it expects of you
 

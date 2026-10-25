@@ -361,7 +361,7 @@ set it, it is written as a default marked as the owner's to reset.
   entry already guards the same premise, folded into it. One that is spent, or that the standard
   drops, is deleted with the document.
 
-The standard a recurring criterion is judged by, and whose conditions 3 and 4 every criterion meets:
+The standard a recurring criterion is judged by:
 
 {{fragment:tripwire-standard.md}}
 

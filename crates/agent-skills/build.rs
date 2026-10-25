@@ -26,8 +26,8 @@
 //! replaced with the file of that name under fragments/, its own `%%` lines removed and indented to
 //! the placeholder: shared text that several installed texts apply whole, written once so the copies
 //! cannot drift. It follows the host's comment and slug passes so that their failures name the
-//! host's own lines, and a fragment holds no build placeholder for the same reason. A placeholder
-//! naming no file, and a file no placeholder names, fail the build; the rules of the pass are
+//! host's own lines. A fragment holds no build placeholder, which a later pass would change. A
+//! placeholder naming no file, and a file no placeholder names, fail the build; the rules of the pass are
 //! `render_fragments`, in src/render.rs. Then each placeholder of `SUBSTITUTIONS`
 //! is replaced, wherever it stands in a line, by its literal: text that must ship verbatim and
 //! that the checker would misread if content/ held it. A row no text uses fails the build. The

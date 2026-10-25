@@ -22,7 +22,8 @@ closed `approved` or `argued`.
   deferral back is its trigger
 - **open state** is what a project currently has outstanding:
   the entries of its issue registers and its tripwires homes.
-  Differing from the decision record in that an item LEAVES it when it fires or closes
+  Differing from the decision record in that an item LEAVES it when it closes, or a tripwire
+  by an exit of its lifecycle
 - a **round** is one owner message and the reply to it.
 - the **ledger** is the whole set of named threads with their states.
 - a **delta** is the table of the threads whose state or note changed in one round
@@ -237,7 +238,7 @@ round.
 
 **States.** Open: `new`, `in-discussion`, `presumed-settled`. Closed:
 `approved`, `argued` (closed on its argument, one shape standing),
-`ruled-out`, `parked` (deferred, with a tripwire and a
+`ruled-out`, `parked` (deferred, with a named cause and a
 re-entry point), `superseded` (absorbed by a named other thread),
 `withdrawn` (retracted by its own proposer). The set is
 closed on purpose: convergence is computed from it.
@@ -511,9 +512,9 @@ choices whose option space genuinely is closed and consequence-free.
    doing closing work carries its provenance — measured (with the
    command that re-takes it), read in a named source, or assumed, as
    `primer@verify-before-relying` asks of every claim — and a thread may close over assumed
-   claims only if each assumption is named as a tripwire on that
+   claims only if each assumption is named as a cause on that
    closure, or, where only the built code can check it, as an acceptance
-   criterion, as step 7 splits and rules them. In the other direction, reverse when the opposing
+   criterion, as step 7 splits them. In the other direction, reverse when the opposing
    argument explains something your position cannot, or survives an
    objection your position fails — not merely because the owner
    insists. "Both have merits" with no synthesis proposal is a
@@ -579,8 +580,7 @@ choices whose option space genuinely is closed and consequence-free.
    except a cause that only the built code can check: that is an acceptance
    criterion, which `skill@knowledge-architect-planning` writes into the plan document,
    or which, on the in-change path, the change applies as a test.
-   **A cause is named, not ruled.** Name each with the decided thread it
-   stresses. It is judged by the standard below at the end of the work
+   **A cause is named, not ruled.** It is judged by the standard below at the end of the work
    that implements the decision, on its wording then, as
    `skill@knowledge-architect-decision-recording@ruled-tripwires` says, and
    no cause is put to the owner.
@@ -619,8 +619,9 @@ choices whose option space genuinely is closed and consequence-free.
    3. **The evidence is what the decision says must not happen.** A clause that counts what the
       decision instructs or endorses fires on the decision working.
    4. **A number has a basis.** A bound in the firing clause comes from a measurement or an argument
-      the decision's record carries, its head, or its plan document before the head is written, and exceeds the noise of the instrument that takes it. Otherwise
-      the clause names the event.
+      the decision's record carries, its head, or its plan document before the head is written, and
+      exceeds the noise of the instrument that takes it. Otherwise the clause names the event,
+      specific enough that two readers agree whether it occurred: "it gets slow" names none.
 
    **A slip is no firing.** A clause on how sessions follow an instruction never fires on one instance
    that a review, a check or a retrospective reported under its own procedure: one slip is the review
