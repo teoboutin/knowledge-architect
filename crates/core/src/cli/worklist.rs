@@ -480,8 +480,9 @@ fn verify(dir: &Path) -> Result<ExitCode, String> {
 /// Each entry goes under its highest grade over every report that grades it, `bears` above
 /// `may-bear`, once: an entry many agents grade is a goal, which joins every cluster that reaches
 /// it. Above its text, every agent's grade line at that grade or the other bearing one, identical
-/// lines merged into one naming every agent that gave it. A goal is its grade lines and its site
-/// alone, since the session reads every goals home whole. `may-bear.md` opens with a table of
+/// lines merged into one naming every agent that gave it, then its text, fenced. A goal is its
+/// grade lines and its site alone: the design grounding reads every goals home whole, and the
+/// other readers read a goal with `show`, per `design@core@graded-entries-assembled`. `may-bear.md` opens with a table of
 /// contents, each entry with its reasons, from which the session picks the entries a proposal
 /// touches. A snapshot that cannot be read, or that lacks an entry `agents.txt` lists, writes
 /// nothing: the run could not do its whole job, so it stops with exit 2, per
