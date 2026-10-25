@@ -5,7 +5,7 @@ kind: todo
 
 ## Summary
 
-The work of `spec@plans@standards-delivered-as-fragments` found the blocks of the installed text
+The work that made these blocks fragments, `design@agent-skills@shared-text-fragment`, found the blocks of the installed text
 read whole at several places by searching the lines that hold "whole" or "again" and the pointers
 beside them. A pointer that applies a whole standard with no such word near it, written as "as X
 says" or with another word such as "in full", was not found. The review before the merge of that
