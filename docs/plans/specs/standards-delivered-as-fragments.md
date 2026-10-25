@@ -425,8 +425,8 @@ an entry, holds: `argument@standards-delivered-as-fragments@arg-41`. Q12 left th
 
 ### The rules on design heads are split by the act that applies them, each part a fragment hosted where its act happens `##head-rules-delivery`
 
-Proposed by the owner, round 2, against the agent's Q12 of round 1; shape C proposed by the agent,
-round 2's reply. Final state: approved. The arguments:
+Opened by the owner's exception to Q12, round 2; the split, shape C, proposed by the agent, round
+2's reply. Final state: approved. The arguments:
 `argument@standards-delivered-as-fragments@arg-6` to `argument@standards-delivered-as-fragments@arg-27`.
 Its shape: "Decided design", "The rules on heads". Harvest: `design@agent-skills@one-home-for-head-rules`,
 rewritten; whether it attributes the split to the owner's intent is D3; where "The standing
@@ -1042,7 +1042,8 @@ the decision-record reviewer, the design-record auditor and the routing reviewer
 rejected designs, a reversal and the Component held the writer's acts with no framing sentence; the
 hosts of `thread@standards-delivered-as-fragments@head-rules-delivery` held none, so the response
 the owner ruled, reopening that thread's host list, is not owed. The three hosts gained the framing
-sentence the rules on heads already had.
+sentence the rules on heads already had. Both readings, that a framed sentence is no firing and that a firing
+outside the rules on heads reopens no host list, are the session's: D8.
 
 ### Every citation of `primer@design-heads` names a rule the section still holds, or is re-pointed `##citations-name-what-the-section-holds`
 
@@ -1191,7 +1192,7 @@ Each is built as written until the owner rules, and the branch merges once the o
   format of `skill@knowledge-architect-retrospective@two-files` alone, not its whole body, found at
   step 4: its other paragraphs ask acts only the retrospective session performs, which AC2 reports
   as false in the intake. It narrows the owner's ruling on Q2. Default: the format alone.
-- **D5**, on `thread@standards-delivered-as-fragments@head-rules-delivery`, from AC1, which fired at
+- **D5**, ruled: accepted by the owner. On `thread@standards-delivered-as-fragments@head-rules-delivery`, from AC1, which fired at
   the review before the merge: `skill@klarch-development`, this repository's own
   skill, outside AC1's corpus as worded, cites `primer@design-heads` for the test "if changing a
   piece of code would force a change to the design home, it is design", which shape C moved into
@@ -1200,15 +1201,25 @@ Each is built as written until the owner rules, and the branch merges once the o
   the paragraph "A head carries the intent it serves…", with its `%%` lines, moves into
   `head-entry-tests.md`, after "Otherwise it belongs in an inline comment…", so the primer keeps
   it. It narrows what leaves the primer, a ruling of the owner.
-- **D6**, on `thread@standards-delivered-as-fragments@fragment-migrations`: the decision-record
+- **D6**, ruled: accepted by the owner. On `thread@standards-delivered-as-fragments@fragment-migrations`: the decision-record
   reviewer hosts `three-homes.md` too. It judges a record by the split between the design home and
   history, and pointed to the section with "Read the last in full", which the search for candidates
   missed. It adds a host to a list the owner approved. Default, built: it hosts it.
-- **D7**, on `thread@standards-delivered-as-fragments@context-cost-of-agent-text`: the rule's last
+- **D7**, ruled: accepted by the owner. On `thread@standards-delivered-as-fragments@context-cost-of-agent-text`: the rule's last
   clause, "or a fragment's copy, in a host whose act does not apply it whole", uses two words no
   installed text defines outside the primer's restatement rule. Default, built: "or the copy of a
   text that the build places in several texts, in a text whose act does not apply it whole". It
   rewords the text the owner approved.
+- **D8**, on `acceptance@standards-delivered-as-fragments@host-copies-true-in-their-host`, from the
+  last transcript review: how AC2 was judged. Two readings the owner did not rule: a sentence that a
+  host's framing sentence turns into a matter to report, as entry test 4's "ask the owner" in the
+  record agents, counts as no firing; and a firing on a host of a migrated block's fragment, outside
+  the rules on heads, reopens no host list, since the ruled response names the rules on heads alone.
+  Default: both readings, as recorded under "Acceptance criteria".
+- **D9**, on `thread@standards-delivered-as-fragments@head-rules-delivery`: its line "Proposed by the
+  owner, round 2", after the owner declined to have the split attributed to the owner (D3). What the
+  owner proposed in round 2 was the exception to Q12. Default: "Opened by the owner's exception to
+  Q12, round 2; the split, shape C, proposed by the agent, round 2's reply."
 
 ## Harvest
 
