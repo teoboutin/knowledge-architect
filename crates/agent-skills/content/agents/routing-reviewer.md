@@ -88,8 +88,8 @@ since it is shipped to projects whose records it cannot reference.
 instruction by the test of `skill@knowledge-architect-agent-configuration@shaping-a-skill`, read
 whole.
 
-**Does a decision sit in the right Component?** Judge it by the three questions of
-`skill@knowledge-architect-decision-recording@owning-component`, read whole, and by its exception
+**Does a decision sit in the right Component?** Judge it by the three questions of `agent@knowledge-architect-routing-reviewer@component-questions`, and by
+its exception
 for a reversal, per `skill@knowledge-architect-decision-recording@reversal-check`.
 
 The failure this catches is one-directional in practice: a decision about one Component filed at the
@@ -112,6 +112,10 @@ in `primer@where-knowledge-goes`, read whole. The tell is the wording: a head th
 `Why it matters` describes a decision without naming it. The reverse is a finding too: a
 reference whose entry's change would leave the text unaffected, and a hand-written list of what
 references an entry, which `{{command}} show` computes.
+
+## Which Component owns a decision {{slug:component-questions}}
+
+{{fragment:owning-component.md}}
 
 ## Reporting {{slug:how-to-report}}
 

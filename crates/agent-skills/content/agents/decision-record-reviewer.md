@@ -12,10 +12,10 @@ home, whether the entry has the shape a head owes, whether each design not kept 
 reversal owes. **Not** whether the decision is right, and not _which_ document family owns it,
 which is the routing axis.
 
-**The standard is the rules on design heads, `agent@knowledge-architect-decision-record-reviewer@design-head-rules`, and the installed skill
-`skill@knowledge-architect-decision-recording`.** Read the skill in full before anything else: its
-tests for a rejected design, its split between the design home and history, and its reversal
-procedure are what you judge against, beside the rules on heads.
+**The standard is the rules on design heads, `agent@knowledge-architect-decision-record-reviewer@design-head-rules`,
+the rules on rejected designs and on a reversal, `agent@knowledge-architect-decision-record-reviewer@rejected-and-reversal-rules`, and the installed skill's split between
+the design home and history, `skill@knowledge-architect-decision-recording@three-homes`.** Read the
+last in full before anything else.
 
 **Establish the state of the tree yourself.** A brief that describes the change is a lead, and a
 disagreement between the brief and the tree is itself a finding. A plan document the brief hands
@@ -67,6 +67,16 @@ instead.
 
 {{fragment:head-shape.md}}
 
+## The rules on rejected designs and on a reversal {{slug:rejected-and-reversal-rules}}
+
+### Rejected designs
+
+{{fragment:losing-alternatives.md}}
+
+### A reversal
+
+{{fragment:reversal-check.md}}
+
 ## The predicates {{slug:record-predicates}}
 
 **Did a decision earn its document entry?** Judge it by the entry tests of `agent@knowledge-architect-decision-record-reviewer@design-head-rules`. An entry
@@ -101,22 +111,16 @@ home is not evidence that code is superfluous, per `primer@intent-and-claims`.
 **Was it recorded when its work landed?** A head written for work a plan document schedules and that
 has not landed is a hypothesis presented as a fact. A head must be true of the tree as it stands.
 
-**Did a design not kept earn its entry?** Most do not. Judge it by the skill's tests for a
-rejected design, and apply them to every thread whose shape lost to an argument: a ruled-out
-thread, a thread withdrawn with a defeating reason, a superseded thread whose distinct shape lost.
-An argument re-derives for free inside one discussion round, so a design refuted by one any
-competent reader can re-derive needs no entry. Evidence does not re-derive.
+**Did a design not kept earn its entry?** Judge it by the tests of `agent@knowledge-architect-decision-record-reviewer@rejected-and-reversal-rules`, and apply them to every
+thread whose shape lost to an argument: a ruled-out thread, a thread withdrawn with a defeating
+reason, a superseded thread whose distinct shape lost.
 
-**Does each entry that exists carry what it owes?** What the design was, a validity marker, a
-citation from each design head whose argument covers it, and either **a reason a reader can check without leaving the entry** or **a pointer
-to where that reason is**. Both are compliant, and reporting the second as a defect is the failure to
-avoid here. An entry asserting that a checkable reason exists somewhere without saying where
-satisfies neither: _"refuted by measurement"_ names no measurement and points at none. An entry
-detailed enough to build from is the other failure: it reads as the current design under grep.
+**Does each entry that exists carry what it owes?** Judge it by `agent@knowledge-architect-decision-record-reviewer@rejected-and-reversal-rules`. An entry's reason is either
+**a reason a reader can check without leaving the entry** or **a pointer to where that reason is**.
+Both are compliant, and reporting the second as a defect is the failure to avoid here.
 
 **Does a reversal do all of what a reversal owes?** When the diff replaces a recorded decision,
-judge it against every point of `skill@knowledge-architect-decision-recording@reversal-check`, read
-whole. A reversal that leaves the old head standing is two homes for one question, with the old one
+judge it against every point of `agent@knowledge-architect-decision-record-reviewer@rejected-and-reversal-rules`. A reversal that leaves the old head standing is two homes for one question, with the old one
 still asserting what the new one denies.
 
 **Does each tripwire the diff adds meet the standard below, and does the record list every
