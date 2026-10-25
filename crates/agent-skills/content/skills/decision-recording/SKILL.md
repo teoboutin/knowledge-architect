@@ -77,6 +77,8 @@ subdocument owning its subject, never in the directory's `README.md`, which is t
 index. A new subdocument is linked from that index, `[title](file.md)`, the target relative to the
 README, conventionally one bullet per subdocument.
 
+{{fragment:subject-split.md}}
+
 **What a head holds and how it is shaped is `skill@knowledge-architect-decision-recording@head-shape`.** The template:
 
 ```markdown

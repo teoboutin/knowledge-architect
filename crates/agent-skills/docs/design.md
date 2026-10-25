@@ -959,98 +959,108 @@ loser wrong, and an entry that names no winner drops it. The designs this decisi
 `rejected@agent-skills@both-directions-written-by-hand` and
 `rejected@agent-skills@both-directions-checked-for-symmetry`.
 
-### A search of the design entries and the `rejected` entries runs before a proposal reaches the owner wherever a session's own reading of the design homes is recorded to have missed one, and again for a subject it was not given `##design-entry-search`
+### One installed agent reads whole the clusters `klarch worklist` gives it, grades every entry against the work, and fills the report `klarch worklist --verify` judges `##one-record-searcher`
 
-The installed design skill's step 1 sends `agent@knowledge-architect-design-entry-searcher` beside
-the standing-entry searcher, and the session reads every entry it grades `bears` or `may-bear`
-before it proposes anything. The skill sends the search again for a thread on a subject the first
-search was not given, and the plan-document review of
-`design@agent-skills@plan-read-against-the-record` stays the backstop. The installed retrospective
-intake sends it at its grounding, with the received files as the work, to each Component that owns
-a blamed text and to the project's root, and again before a proposed fix that touches a Component it
-was not given; its check of whether a finding is already recorded reads the entries it grades, as
-`design@agent-skills@search-relevance-grade` says at an intake. How
-the search is split is `design@agent-skills@design-entry-search-groups`.
+`agent@knowledge-architect-record-searcher` takes the work, the seeds, the decisions and goals the
+work names, and one agent directory that `klarch worklist --out` wrote, per
+`design@core@worklist-writes-and-verifies-the-reports`. It reads its entries whole, leaning to
+recall, and edits its report in place, or returns it as text where the harness refuses the edit. Its
+description carries the dispatch, since a dispatcher reads an agent's description and never its
+body: the work list written with the seeds, one agent per directory in parallel, the check of every
+report, a report that fails it sent back, then every entry graded `bears` or `may-bear` read whole
+with `klarch show`, as `design@agent-skills@search-relevance-grade` says.
 
-It serves `goal@knowledge-architect@agents-work-without-drift`: the owner reported design entries
-missed in part many times, and in one case the owner approved a proposal contradicting a head the
-session had not read, caught only at the plan-document review. A search at grounding puts the
-record in view before the first proposal, so before any ruling, where a reading at the checkpoint
-comes after the owner has ruled most threads. The searcher is an agent of its own, since a design
-entry is no standing entry, per `design@agent-skills@standing-entry-search-agent`. The design this
-decision did not keep: `rejected@agent-skills@conformance-reader-at-the-checkpoint`.
+One agent reads every kind of entry, since a cluster holds a head beside the `rejected` entries it
+cites and the issues and tripwires that cite it, per `design@core@cluster-rooted-at-a-subject`: one
+agent per kind would read half of every cluster. The search runs in subagents so that the main
+session spends its context on the entries the work bears on, per
+`goal@knowledge-architect@agents-get-a-complete-workflow`, and the session still reads each of those
+whole, as the owner asked, since the session acts on the entry and not on a summary of it, per
+`goal@knowledge-architect@the-owner-decides`. The reading holds at a retrospective intake of many
+files too, at its cost: an intake of thirteen files read 64 standing entries whole, about 167 KB. It
+is an agent of its own rather than the standing-state reviewer in a second mode: that reviewer reads
+every entry by rule, the search grades by relevance on purpose, and one text holding both standards
+lets a session apply the wrong one. The design this decision did not keep:
+`rejected@agent-skills@searches-split-by-kind`.
 
-An intake meets the same need: it puts a proposal to the owner for every finding, and the owner
-rules before any review reads it. The instance: an intake of thirteen received files analysed a
-finding about naming a skill not yet created, and missed the third exception of
-`design@agent-skills@plain-text-is-no-repair`, which decides that case, and the owner recalled the
-head while ruling. The nearest rival, the session's own reading, which the intake's reversal check and
-record check already ask for, is the reading this decision exists because sessions miss in large
-design homes, and the searcher is the capability form of that reading, per
-`design@agent-skills@capabilities-not-structure`. The design audit of a slice or a spec sends no
-design-entry search: no instance of a miss there is recorded, per
-`design@agent-skills@behaviour-additions-need-real-use`.
+### A search reads the whole record, every cluster and every residual group, whatever the work `##search-reads-the-whole-record`
 
-### The design-entry searcher grades every goal of its Component beside the session's own reading of the goals `##searcher-grades-goals`
+The search gives no cluster a lighter reading because the work seems not to touch it. On the owner's
+weighing, the whole record is the safer reading, a choice by a cluster's title is a bad practice,
+and the work's bearing is found from the search's results, not before it. The rival, clusters chosen
+by the work, needs the judgement the work list removes, and rests on every pointer being a reference,
+which `issue@agent-skills@pointers-written-bare-to-clear-a-finding-reach-no-check` shows it is not. A
+lighter pass for the Components a piece of work does not touch waits for a project whose whole
+record costs more agents than one grounding should, per
+`issue@agent-skills@a-lighter-pass-for-untouched-components`. Its cost is the packing of
+`design@core@clusters-packed-under-a-word-bound`: 9 agents over this repository and 11 over thaum, at
+the default bound.
 
-`agent@knowledge-architect-design-entry-searcher` reads its Component's goals home whole, in every
-group of a cut Component, and grades each goal as it grades a design entry; the session still reads
-every goals home itself, at the design skill's grounding and at the intake's. The decision is the
-owner's: the owner saw design sessions miss a goal twice, although the goals homes are small enough
-to be read whole, and ruled that both readings stay. How a session misses a goal it is told to read
-is not established; the owner did not know. The nearest rival, the session's reading alone, is the
-reading those sessions had. The cost is small while a goals home is a small fraction of the design
-home its agent already reads; re-take both with `wc -c` on the goals and design homes, and a goals
-home that approaches its design home's size reopens the cost.
+### The searcher grades the goals its clusters reach, beside the session's own reading of every goals home `##searcher-grades-goals`
 
-### The design-entry search sends one agent per Component, and cuts a Component too large for one along whole level-two subjects, with no numeric bound `##design-entry-search-groups`
+A goal reaches a cluster as context, per `design@core@cluster-rooted-at-a-subject`, and one that no
+cluster reaches is in its anchor's residual group, so the searcher grades every goal, as it grades a
+design entry; the session still reads every goals home itself, at the design skill's grounding and
+at the intake's. The decision is the owner's: the owner saw design sessions miss a goal twice,
+although the goals homes are small enough to be read whole, and ruled that both readings stay. How
+a session misses a goal it is told to read is not established; the owner did not know. The nearest
+rival, the session's reading alone, is the reading those sessions had. The cost is small while a
+goal is small beside the entries a cluster holds: a goal's mean size over this repository is 0.6 KB,
+re-taken with `wc -c` over the goals homes divided by their entries.
 
-One agent goes to each Component the question touches, the project's root always among them, and
-reads the design entries and the `rejected` entries of its group whole. A Component the session
-judges too large for one agent is cut into groups of whole level-two subjects of its design home,
-never inside a subject, and no number bounds a group; an agent reports a subject whose size
-strained its reading.
+### The searcher grades each entry by a grade and a relation of its role, and the report lists every entry once `##search-relevance-grade`
 
-The grouping is the owner's: the owner believed that grouping by quantity alone would most likely
-make an agent read unrelated entries and read a subject in part, while a subject's kept and
-rejected entries have to be read together. The owner was not convinced that the bound of 60
-is sensible and would put no numeric limit on the grouping, and judged that a Component with a
-subject of more than 60 entries is probably not divided enough, which an agent should probably
-report. The bound of 60 that `design@agent-skills@standing-entry-search-groups` argues stands for
-standing entries, on the owner's word: the design registers of a Component are one coherent whole,
-while issues and tripwires are about diverse things, and the
-anchor-sized group that `rejected@agent-skills@one-search-agent-per-anchor` rejects there is the
-starting group here, cut by subject where the session judges it too large. The designs this
-decision did not keep: `rejected@agent-skills@design-listing-cut-in-groups-of-sixty` and
-`rejected@agent-skills@subject-groups-bounded-at-sixty`.
+The searcher grades each entry `bears`, with a relation of its role, `may-bear`, an entry it cannot
+rule out with the doubt as its reason, or `unrelated`. The relations: `constrains` and `may change`
+for a goal, a design entry or an entry of a declared register; `may bring back` for a `rejected`
+entry; `touches`, `closes`, `worsens`, `depends on` and `trigger met` for an issue; `fires` for a
+tripwire. An entry that is a seed, or cites one, is never `unrelated`. Every entry of the agent
+appears once in its report, and `klarch worklist --verify` checks it, per
+`design@core@worklist-writes-and-verifies-the-reports`. The design skill routes each grade to an
+act: the session reads every `bears` and `may-bear` entry whole, but at a retrospective intake,
+below, states for each `may-bear` whether it bears, sends a `may change` entry to the reversal check
+and a `may change` goal to the goal-setting skill, since a goal changes only there, and proposes a
+`may bring back` entry again only with a new argument.
 
-### The design-entry searcher grades each entry it reads, and lists every one `##search-relevance-grade`
+A grade is kept only where it changes what the session does: standing-entry searchers graded a doubt
+anyway, unasked, in 12 of the 41 entries they returned, each wording it differently, and a numeric
+scale would route no act. The owner asked for a ruling per entry on how closely it relates, unsure
+whether yes or no would suffice, and asked that every entry read be listed, which is what the check
+of a report's coverage reads.
 
-The searcher grades each entry and each goal it reads, per
-`design@agent-skills@searcher-grades-goals`, `bears`, with the relation `constrains`,
-`may change` or `may bring back`, or `may-bear`, and lists every unrelated one it read, so every
-goal and every entry of its group appears in exactly one of three lists. The design skill routes
-each grade to an act: the session reads every `bears` and `may-bear` entry whole, but at a
-retrospective intake, below, states for each
-`may-bear` whether it bears, sends a `may change` entry to the reversal check and a `may change`
-goal to the goal-setting skill, since a goal changes only there, and proposes a `may bring back`
-entry again only with a new argument.
-
-A grade is kept only where it changes what the session does: the standing-entry searchers of the
-discussion that decided this graded a doubt anyway, unasked, in 12 of the 41 entries they returned,
-each wording it differently, and a numeric scale would route no act. The owner asked for a ruling
-per entry on how closely it relates, unsure whether yes or no would suffice, and asked that every
-entry read be listed, which is also what a later check of a report's coverage would read, per
-`issue@core@searcher-reports-are-written-and-checked-by-hand`.
-
-At a retrospective intake, a batch of files, the session reads a `may-bear` entry whole only where a
-proposal touches its subject, and lists the others with the searcher's reason as not read, beside
+At a retrospective intake, a batch of files, the session reads whole every issue and tripwire graded
+`bears` or `may-bear`, and a goal, a design entry or a `rejected` entry graded `may-bear` only where
+a proposal touches its subject; it lists the others with the searcher's reason as not read, beside
 every `bears` entry and every entry a proposal rests on or would change, which it reads whole. A
-batch's design-entry search returns the union of many files' neighbourhoods, mostly graded
-`may-bear` with no bearing established: one intake of nine files returned 169 distinct entries, and
-the session read whole about 35, those its proposals rested on; this repository's intake of 24 files
-did the same. Both read whole what their proposals rested on, so no outcome rested on an unread
-entry, and every standing entry the other search returns is still read whole. The design it does not keep: `rejected@agent-skills@intake-reads-every-may-bear-entry-whole`.
+batch's search returns the union of many files' neighbourhoods, mostly graded `may-bear` with no
+bearing established: one intake of nine files returned 169 distinct design entries and `rejected`
+entries, and the session read whole about 35, those its proposals rested on; this repository's
+intake of 24 files did the same. Both read whole what their proposals rested on, so no outcome
+rested on an unread entry. The design it does not keep:
+`rejected@agent-skills@intake-reads-every-may-bear-entry-whole`.
+
+### A subject is split when `klarch worklist` names its cluster above the bound, or when its heads answer questions about parts that change apart, by a standard every writer and judge of a head hosts `##subject-split-standard`
+
+The standard is the fragment `path@agent-skills@fragments/subject-split.md`: a level-two subject
+holds the heads a piece of work reads together, one part of the Component; it is split when the
+work list's notice names its cluster above the bound of `design@core@clusters-packed-under-a-word-bound`,
+or when its heads answer questions about parts of the Component that change apart; a split moves
+headings and decides nothing, so it is a fix in a commit of its own, per `primer@met-outside-the-task`.
+Its hosts are `skill@knowledge-architect-decision-recording@current-design`, the writer's, and the
+two judges of a head, `agent@knowledge-architect-decision-record-reviewer` and
+`agent@knowledge-architect-design-record-auditor`, per `design@agent-skills@shared-text-fragment`.
+
+The direction is the owner's: a standard of how to split, and a strong incentive to split early;
+the owner chose the notice and the split as a fix of its own for the incentive, and asked that the
+decision-recording skill, its reviewer and the design-record axis of the audit look for subjects to
+split. A cluster above the bound is read whole by one agent, and thaum's state-model subject held
+55,103 words at its measurement, so a split keeps an agent's reading within what agents were seen to
+read whole. The citations between heads give no split point, since most subjects are one connected
+group of heads beside a few that cite nothing of theirs, measured over this repository and thaum for
+the spec of the work that built `klarch worklist`, so the second test stays a judgement. On
+`goal@agent-skills@installed-text-leaves-room-to-judge`, the owner's reading is that the goal covers
+a choice where either shape leaves the workflow working, and the split is what keeps it working. The
+design this decision did not keep: `rejected@core@split-enforced-by-a-check`.
 
 ### The session records or drops each premortem cause by the standard at the end of the work, and the owner overrules by reading it `##tripwire-recording-authority`
 
@@ -1283,54 +1293,7 @@ once it drifts, lost: every earlier delta carries the old slug, and the assembly
 from the transcript, per `design@agent-skills@ledger-from-transcript`, would read one thread as
 two.
 
-### The issues and tripwires a piece of work bears on are searched by an installed agent of its own, apart from the standing-state reviewer `##standing-entry-search-agent`
-
-The installed agent `agent@knowledge-architect-standing-entry-searcher` searches one group of a
-project's issue and tripwire entries for those a piece of work bears on. Its description carries
-the dispatch rule, since a dispatcher reads an agent's description and never its body: count the
-rows of the issue and tripwire listings, cut them into groups by the rule of
-`design@agent-skills@standing-entry-search-groups`, send one agent per group, all in parallel, and
-brief each with the work, the seeds and its group. A seed is a decision or a goal the work names.
-Its body fixes the order of the rows, reads every entry of its group whole, follows each seed
-through `show` to the entries that cite it, which it always returns, and judges every entry of its
-group against the work, leaning to recall. It returns every entry of its group in one of two lists,
-the entries that bear on the work, each with a reason, and the entries judged unrelated, so that a
-silent report cannot be mistaken for a skipped one. The session reads whole every entry returned,
-never from its reason line. It relies on the checker working as intended: `show` prints an entry's
-file and definition line, and the references to it.
-
-The search runs in a subagent so that the main session spends its context on the entries the work
-bears on, per `goal@knowledge-architect@agents-get-a-complete-workflow`, and the session still
-reads each of those whole, as the owner asked, to "find and read the full reported issues and
-tripwires, rather than relying on the subagent summary", since the session acts on the entry and
-not on a summary of it, per `goal@knowledge-architect@the-owner-decides`. The reading holds at a
-retrospective intake of many files too, at its cost: an intake of thirteen files read 64 standing
-entries whole, about 167 KB. It is an agent of its own rather
-than the standing-state reviewer in a second mode: that reviewer reads every entry by rule, the
-search filters by relevance on purpose, and one text holding both standards lets a session apply
-the wrong one.
-
-### The search reads every standing entry whole, split over parallel agents in groups of a bounded number of entries `##standing-entry-search-groups`
-
-Every entry is read whole rather than by its title, since a title shows neither a tripwire's firing
-clause nor a deferred trigger. It is read by several agents rather than by one: one agent's load
-grows linearly with the project, so one agent reads every entry whole only while its context holds
-them, and cannot judge so many entries reliably; a group size bounds each agent's load whatever the
-project's size. The groups are consecutive positions of the combined rows of the issue and
-tripwire listings, 60 or fewer each, the fewest groups that keep that bound, with sizes that differ
-by at most one. Equal groups keep a last group of a few entries from costing an agent of its own
-while another carries the full bound. The unit of a group is the entry rather than the anchor: in
-thaum at its commit ef21314, one Component holds 51.9% of the bytes of the standing entries, so a
-group per anchor bounds nothing. The bound of 60 rests on the mean size of an entry there, 1.6 KB,
-and on no measurement of recall. Both figures are re-taken with `git ls-files` over the issue entry
-files and the tripwires homes, then `wc -c`: summed by the anchor that holds each file for the
-first, divided by the rows of the issue and tripwire listings for the second; real sessions measure
-it, per `goal@knowledge-architect@the-workflow-improves-through-real-use`.
-
-The designs this decision did not keep: `rejected@agent-skills@one-agent-reads-every-standing-entry`
-and `rejected@agent-skills@one-search-agent-per-anchor`.
-
-### The search runs where design is discussed, before the work, over every issue kind and every tripwire `##standing-entries-searched-before-the-work`
+### The record search runs where design is discussed, before the work: at a design discussion's grounding, at a retrospective intake's, and at the design audit of a slice or a spec `##record-searched-before-the-work`
 
 The installed design skill dispatches the search at its loop step 1, with the question as the work
 and the decisions and goals read so far as seeds, for a design question and for bounded work alike,
@@ -1344,13 +1307,12 @@ depends on. A cause of the milestone document's premortem whose firing condition
 listed with them: it enters a tripwires home only at the harvest, if the standard admits it, so the
 search cannot return it, and the audit reads it in the milestone document. The slice's grounding, point 1 of `skill@knowledge-architect-planning@working-a-slice`, reads no issues and no tripwires, since the audit's
 search covers every anchor. The retrospective intake sends it at its grounding, with the received
-files as the work, beside the design-entry search, per `design@agent-skills@design-entry-search`.
-Other work that does not go through the design skill sends no search: the
+files as the work. Each sends one search of the whole record, per
+`design@agent-skills@search-reads-the-whole-record`, so a thread opening on a new subject needs no
+second dispatch. Other work that does not go through the design skill sends no search: the
 standing-state review reads its deferred triggers, per
 `design@agent-skills@standing-state-review-before-every-merge`, which this search adds to and never
-replaces. The design skill
-hosts a search before bounded work, at its grounding, per `design@agent-skills@bounded-path-in-design`.
-A search before every other piece of work stays parked: its one host would be
+replaces. A search before every other piece of work stays parked: its one host would be
 the primer, which holds only what every session needs, per `design@agent-skills@primer-limit`, the
 evidence for it is one instance, and a line sending every session to search before any work is a
 conformance rule. In thaum, a move of the pinned checker met the trigger of a deferred issue that
@@ -1365,22 +1327,23 @@ milestones, and the repairs and decisions this forced could have been taken befo
 the implementation. The owner's account is that the reviewer too often finds, after the work,
 issues the changes bear on or tripwires that fired and bear on the design, especially on large work
 within big milestones in thaum. The audit reads every issue kind because those late
-findings included issues the changes touched, not only fired tripwires. The slices of thaum whose
-reviews found such entries had their audits before the installed planning skill told an audit to
-read the tripwires and the deferred issues, and the reviews of the two slices audited after it
-found no entry missed. The
-owner judged the work before 0.2.0 not that different from the work just before the change, so the
-evidence stands; a stream of audits that read the standing entries in the session
-and miss none would weaken it. A search at the reviews of
-a plan document lost to a second search when convergence is proposed, before the premortem: those
-reviews run only where a discussion wrote a plan document, and a search at convergence covers a
-decision taken in the change under way too. The search at convergence is the open question of
-`issue@agent-skills@the-search-before-the-work-missed-standing-entries-in-two-pieces-of-work`.
-The occasions are the owner's: the search runs at least at a design discussion's grounding and at
-the audits of a plan's steps, the main moments design is discussed, and should miss nothing.
+findings included issues the changes touched, not only fired tripwires. The occasions are the
+owner's: the search runs at least at a design discussion's grounding and at the audits of a plan's
+steps, the main moments design is discussed, and should miss nothing.
 
-At the design skill's step 1 and at the intake this search runs beside the design-entry search,
-per `design@agent-skills@design-entry-search`; the audits of a slice or a spec send this one alone.
+At the design audit the search reads the design entries and the `rejected` entries too, which the
+audit's own reading of the design homes read before. That adds no instruction about how an agent
+behaves, which `design@agent-skills@behaviour-additions-need-real-use` would admit only on a miss
+seen in real use: it follows from the unit of `design@core@cluster-rooted-at-a-subject`, under which
+a standing entry is judged beside the heads it cites, and the owner approved one procedure at every
+occasion. Two pieces of work on one day each met, only at their review before the merge, standing
+entries the search before the work had not returned; every one of the five was recorded days before
+its search ran, dated with `git log -S"##<slug>"` and `--diff-filter=A`, so the misses were in the
+search, not in its occasion, and a second search when convergence is proposed would have met nothing
+new. The work list and its check take the assembly of a search's groups from the agents, and
+`tripwire@agent-skills@record-search-misses` watches what judgement still misses. The designs this
+decision did not keep: `rejected@agent-skills@conformance-reader-at-the-checkpoint` and
+`rejected@agent-skills@delta-search-at-convergence`.
 
 ## How documents point at each other
 
@@ -1993,7 +1956,7 @@ home and of every deferred trigger, and asks of each tripwire whether it fired a
 horizon passed, per `design@agent-skills@tripwire-horizon`, as the installed issue-tracking skill states: it runs for every
 change, where the search before the work runs only for work that goes through the design skill, a
 plan or a retrospective intake, per
-`design@agent-skills@standing-entries-searched-before-the-work`. A re-entry point that depends on whether a change looked
+`design@agent-skills@record-searched-before-the-work`. A re-entry point that depends on whether a change looked
 related to a tripwire is one that a change touching the guarded decision indirectly skips: the
 reviewer reads every entry of every home, not the subset the diff seems to concern. This serves
 `goal@knowledge-architect@documentation-stays-consistent`.
@@ -2092,16 +2055,17 @@ cost. A narrowing of an approved head that this trigger leaves out still goes to
 A dispatcher that sends several subagents together names in each brief a scratch directory distinct
 from the others', as it names a distinct worktree for a reviewer that builds, and an agent that
 writes working files writes them there only. The installed review skill states it among the
-invariants of a dispatch, and the standing-entry searcher's description, which carries its dispatch
-rule, gives each searcher one. Subagents sharing one scratch directory overwrite one another's
-files: parallel searchers in one session did, and one repeated its work, and reviewers in another
-could not tell whether files of the same names had been overwritten. A searcher that does not notice
-reads another group's rows, which `goal@knowledge-architect@agents-get-a-complete-workflow` does not
-allow of a step every design discussion runs.
+invariants of a dispatch, and the record searcher's description, which carries its dispatch rule,
+makes each agent directory that `klarch worklist` writes its searcher's scratch directory.
+Subagents sharing one scratch directory overwrite one another's files: parallel searchers in one
+session did, and one repeated its work, and reviewers in another could not tell whether files of the
+same names had been overwritten. A searcher that does not notice fills another agent's report,
+which `goal@knowledge-architect@agents-get-a-complete-workflow` does not allow of a step every
+design discussion runs.
 
-The rival that keeps every agent from writing files lost: the searcher's own task sorts a listing
-and runs one command per entry, and searchers told to write nothing wrote files all the same, so
-the instruction could not be obeyed together with the task.
+The rival that keeps every agent from writing files lost: the searcher's own task is to fill its
+report, and searchers told to write nothing wrote files all the same, so the instruction could not
+be obeyed together with the task.
 
 ### Every review whose diff adds to or changes agent-facing text owes an axis that judges each statement against the standard on that text `##review-judges-additions`
 
@@ -2421,7 +2385,8 @@ project's goals, for example.
 ### The design-record axis re-applies to every entry the rules on design heads, on the Component a head sits in and on rejected alternatives, reading the tripwires and issues that bear on each head and judging neither them, the restatements nor the code `##design-record-axis`
 
 Its corpus is every design head and every rejected alternative of every Component. Its rules are
-`primer@design-heads` and `skill@knowledge-architect-decision-recording@head-shape` for a head, the questions of
+`primer@design-heads` and `skill@knowledge-architect-decision-recording@head-shape` for a head, the
+split standard of `design@agent-skills@subject-split-standard` for the subject it sits in, the questions of
 `skill@knowledge-architect-decision-recording@owning-component` for the Component it sits in, and
 `skill@knowledge-architect-decision-recording@losing-alternatives` for a rejected alternative. Each
 head is read with the tripwires guarding it, the issues naming it and the history behind each
@@ -2484,10 +2449,9 @@ unjudged or judged twice with nothing to notice it; the listed entries make cove
 script. A group never splits a small Component, since a `rejected` entry is judged against the heads
 that cite it; packing whole Components keeps that, where one group per Component spends an agent
 on a handful of entries, and a group that mixes Components is no harder to judge by any record. The
-bound of 60 is the one `design@agent-skills@standing-entry-search-groups` argues for a standing
-entry; an auditor reads more per head, its tripwires, its issues and its history, and no
-measurement shows the bound right for that load, though the passes of the axis's audits on this
-repository ran with it. Bounded groups keep each agent's reading whole on a large project. The
+bound of 60 entries rests on the passes of the axis's audits on this repository, which ran with it;
+an auditor reads more per head than a searcher does, its tripwires, its issues and its history, and
+no measurement shows the bound right for that load. Bounded groups keep each agent's reading whole on a large project. The
 sample exists because agents dispatched together do not read a rule alike: in the axis's first
 audit on this repository, two agents read one shared sample entry two ways in two of the samples,
 and a method that trusted one reading per entry would have left both. The audit's commits, found

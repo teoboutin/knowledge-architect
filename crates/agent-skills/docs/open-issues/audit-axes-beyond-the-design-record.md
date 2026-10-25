@@ -76,7 +76,12 @@ Additions of the session, for the discussion to judge:
 - **goal coverage**: each goal against the design heads that serve it, for a goal no head serves and
   a head that serves no goal. The installed design-conformance reviewer already reads one plan
   document against the goals and the heads, per `design@agent-skills@plan-read-against-the-record`;
-  its reading is a lead for this audit at the scale of the whole project.
+  its reading is a lead for this audit at the scale of the whole project. A sample from the design
+  discussion of `klarch worklist`: of this repository's 346 heads, 213 cite no goal directly and 44
+  cite no entry at all; of 8 of them read, some derive from another head and cite only that head, as
+  `design@core@index-staged-write` does, which the reference rule asks, and others look like a goal
+  left unnamed, as `design@core@phases-gate-the-report` does. The work list's residual groups name
+  the goals no head serves.
 
 **A second worked instance.** The design discussion that produced
 `design@agent-skills@title-states-the-rule` audited every head of this repository's five design

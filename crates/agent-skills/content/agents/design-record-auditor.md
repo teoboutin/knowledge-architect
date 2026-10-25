@@ -73,6 +73,10 @@ instead.
 
 {{fragment:head-shape.md}}
 
+### When a subject is split
+
+{{fragment:subject-split.md}}
+
 ## The rules on the Component, rejected designs and the deliberation {{slug:record-rules}}
 
 These rules are written for the session that records, and you judge the record against them;

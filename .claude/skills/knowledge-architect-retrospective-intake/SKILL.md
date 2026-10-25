@@ -62,23 +62,17 @@ text leaves that room on purpose, per `primer@room-to-judge`.
    item b of `skill@knowledge-architect-retrospective-intake@what-to-establish` says. Note the main commit you analyse against,
    `git rev-parse --short <main branch>`. A finding against an older commit or an older version of
    the checker may already be repaired.
-3. **Search the standing entries with the received files as the work.** One search covers every
-   file received together. Dispatch `agent@knowledge-architect-standing-entry-searcher` as its
-   description says, with the files' paths and their subjects as the work, and as the seeds the
-   design heads and goals the findings name, or none.
+3. **Search the whole record with the received files as the work.** One search covers every file
+   received together. Dispatch it as the description of `agent@knowledge-architect-record-searcher`
+   says, with the files' paths and their subjects as the work, and as the seeds the design heads and
+   goals the findings name, or none.
 
-   Beside it, search the goals, the design entries and the `rejected` entries, with the same work
-   and seeds: dispatch `agent@knowledge-architect-design-entry-searcher` as its description says, to
-   each Component that owns a blamed text, the project's root always among them. A proposed fix
-   that touches a Component this search was not given sends it again, for that Component, before
-   the proposal goes to the owner.
-
-   Read whole with `cargo klarch show <ref>` every entry the standing-entry search returns, every
-   entry the design-entry search grades `bears`, every entry a proposal rests on or would change,
+   Read whole with `cargo klarch show <ref>` every issue and tripwire the search grades `bears` or
+   `may-bear`, every other entry it grades `bears`, every entry a proposal rests on or would change,
    and an entry graded `may-bear` where a proposal touches its subject. Never act on an entry from
-   its reason line. The analysis lists each other entry returned, with the searcher's reason, as not
-   read: a batch of files returns more entries than a session can read whole and still judge. The
-   searches find what a grep per finding
+   its reason line. The analysis lists each other entry graded `may-bear`, with the searcher's
+   reason, as not read: a batch of files brings more such entries than a session can read whole and
+   still judge. The search finds what a grep per finding
    does not: a finding already recorded, a deferred issue whose trigger the file meets, a tripwire
    whose firing evidence the file carries, a design issue whose re-entry it meets, and a head or a
    goal a proposed fix would contradict or strain.
@@ -300,7 +294,7 @@ Write the analysis in docs/retrospective-reports/ at the project's root, as `<st
 `<stem>` is the received file's stem.
 
 - A head: the received file's name, the version it used, the main commit analysed against, and the
-  standing entries the search returned that bear on it.
+  standing entries the search graded `bears` or `may-bear` that bear on it.
 - **One section per finding or cluster**, headed by its ids and a short title, with a bullet per
   item of `skill@knowledge-architect-retrospective-intake@what-to-establish`, in prose. No table:
   the content of each item is too long to read in a cell. A finding that item b shows repaired, or

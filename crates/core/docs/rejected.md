@@ -694,3 +694,36 @@ the checker's output and chain on the pipe. It removes that motive for a session
 stops no pipe: a session that pipes anyway still chains on the filter's status in a shell without
 `pipefail`. The shell option stops the chain for every command a session runs.
 
+### Clusters rooted at a goal, holding the heads that serve it `##goal-rooted-clusters`
+
+`live`. Rooted at the heads citing a goal directly, at a goal no other goal refines, or at any goal
+of its chain, they reached at most 342 of this repository's 677 entries and 208 of thaum's 801,
+since most heads cite another head rather than a goal; followed through the citations between heads
+they merged into one cluster of 466 to 480 entries. The spec of the work that built `klarch worklist`,
+deleted at its landing, keeps the counts. It is kept here because a doubt remains: a goal is the owner's own
+grouping, and a project whose heads all cite their goals would reach every entry.
+
+### Goals bringing into a cluster the issues and tripwires that cite them `##goals-pull-their-citers`
+
+`live`. A goal of the root is cited by heads of many subjects, so each of its citers joined every
+such cluster: the reads rose from 839 to 1323 for 663 entries over this repository, counted with the
+scripts whose figures the spec of the work that built `klarch worklist` keeps.
+
+### Agents filled to the bound by first-fit packing `##packing-to-the-bound`
+
+`live`. First-fit-decreasing alone fills each agent to the bound, a median of 24,737 words at a
+bound of 25,000 over this repository, so one agent carries the full bound while another carries a
+remnant; spreading the same groups over the same number of agents gave 22,907 to 23,409.
+
+### A rule that citations run one way, from goals down to issues, checked by the checker `##citation-direction-checked`
+
+`live`. Clustering reads an edge either way, so the rule buys only acyclicity, which serves a
+transitive membership that merges the clusters. It would fail 287 edges of this repository and 591
+of thaum's, a design head citing its `rejected` entries and a goal refining another among them, as
+counted for the spec of the work that built `klarch worklist`.
+
+### A check failing the tree on a subject whose cluster is above the bound `##split-enforced-by-a-check`
+
+`live`. The bound rests on the loads agents read with no strain reported, not on a measurement of
+recall, so a gate on it would fail a tree on a number with no basis; the notice of `klarch worklist`
+and a split as a fix of its own carry the incentive instead.

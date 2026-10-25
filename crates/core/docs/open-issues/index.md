@@ -1,6 +1,6 @@
 **Generated — do not edit.** `cargo klarch index`
 
-41 entries
+40 entries
 
 | kind | title |
 | --- | --- |
@@ -39,9 +39,8 @@
 | todo | [The findings' texts are not audited against the rule that a cause is named only where the repair depends on it](finding-texts-are-not-audited-for-a-needless-cause.md) |
 | todo | [The installed-file findings sit in phase 2, where the core's placement rule puts them in phase 4](installed-file-findings-belong-in-phase-four.md) |
 | todo | [No command lists the item and label numbers in use in a plan, its deleted documents included](no-command-lists-the-numbers-in-use-in-a-plan-across-its-history.md) |
-| todo | [No command lists the issues and tripwires that cite any of a set of entries](no-command-lists-the-standing-entries-citing-a-set-of-entries.md) |
+| todo | [No command lists the texts that cite any of a set of entries, nor names the entry that holds each citation](no-command-lists-the-standing-entries-citing-a-set-of-entries.md) |
 | todo | [References are read in Markdown and Rust files only](references-are-read-in-markdown-and-rust-only.md) |
-| todo | [A searcher's report is written by hand, and nothing checks that it covers its group](searcher-reports-are-written-and-checked-by-hand.md) |
 | todo | [The documents do not yet render as one linked site](the-documents-do-not-render-as-a-site.md) |
 | todo | [The walk does not report the untracked files git's per-clone exclude file removes from it](the-walk-does-not-report-what-the-per-clone-exclude-file-removes.md) |
 | todo | [The checker does not read the structure of a project's own skills](tooling-for-project-skills.md) |

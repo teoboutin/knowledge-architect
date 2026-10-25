@@ -428,29 +428,22 @@ choices whose option space genuinely is closed and consequence-free.
    then the project's record, before proposing. The
    goals homes of the project's root and of every Component the question
    touches; their design homes; their `rejected` homes; their
-   `README.md` files, which state their contracts. Two searches by
-   subagents run beside that reading, both with the question as the work
-   and, as seeds, the decisions and goals read so far that bear on it:
-   the open issues and the tripwires, dispatched as the description of
-   `agent@knowledge-architect-standing-entry-searcher` says; and the
-   goals, the design entries and the `rejected` entries, dispatched as the
-   description of `agent@knowledge-architect-design-entry-searcher` says,
-   which grades each entry it reads. Then run
+   `README.md` files, which state their contracts. A search of the whole
+   record runs beside that reading, with the question as the work and,
+   as seeds, the decisions and goals read so far that bear on it,
+   dispatched as the description of
+   `agent@knowledge-architect-record-searcher` says. Then run
    `{{command}} show <kind>@<anchor>@<id>`, which prints the entry and
-   every reference to it, on every entry the standing-entry search
-   returns, every entry the design-entry search grades `bears` or
+   every reference to it, on every entry the search grades `bears` or
    `may-bear`, and each entry the question bears on, and read each whole: never act on an
    entry from the reason the search gave. The first round states which
-   of these were read and run, which entries each search returned, which
-   of them the question bears on, and, for each entry graded `may-bear`,
-   whether it bears. An entry graded `may change` goes to
+   of these were read and run, which entries the search graded `bears`
+   or `may-bear`, which of them the question bears on, and, for each
+   entry graded `may-bear`, whether it bears. An entry graded `may change` goes to
    `skill@knowledge-architect-decision-recording@reversal-check`, and to the
    backstop of `skill@knowledge-architect-design@what-earns-a-head`, before a proposal that would change it,
    and a goal graded so to `skill@knowledge-architect-goal-setting`; one graded `may bring back` is
-   proposed again only with a new argument, by the Reopening rule. When a
-   thread opens on a subject the work given to the design-entry search
-   did not cover, dispatch that search again for the Components the
-   thread touches. Where the record is silent, read the code and its history; where it is empty, state that the record starts with this
+   proposed again only with a new argument, by the Reopening rule. Where the record is silent, read the code and its history; where it is empty, state that the record starts with this
    discussion. A record that
    carries a verdict but no decision — a review, an audit, an
    automated report, a prescribed change nobody ruled on — grounds

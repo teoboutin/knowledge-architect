@@ -85,7 +85,7 @@ session's own record against the message.
 **Watches until:** 10 commits on the main branch whose message names the in-change path and that
 add a heading to a design home.
 
-## Guarding `design@agent-skills@standing-entries-searched-before-the-work`: a deferred trigger met by work that bypasses the design skill and found only at the review `##deferred-trigger-met-by-undesigned-work`
+## Guarding `design@agent-skills@record-searched-before-the-work`: a deferred trigger met by work that bypasses the design skill and found only at the review `##deferred-trigger-met-by-undesigned-work`
 
 The decision sends no search before work that goes through neither the design skill nor a
 retrospective intake; bounded work that goes through the skill is searched at the grounding, per `design@agent-skills@bounded-path-in-design`. It rests
@@ -437,18 +437,21 @@ design-record axis of `skill@knowledge-architect-project-audit`.
 **Watches until:** 15 commits on the main branch that add a level-three heading to a `rejected`
 home, and one pass of the design-record axis.
 
-## Guarding `design@agent-skills@design-entry-search`: a design entry missed though the search ran `##design-entry-search-misses`
+## Guarding `design@agent-skills@one-record-searcher`: an entry the work bears on graded `unrelated` though the search ran `##record-search-misses`
 
-The decision rests on the premise that a search at grounding, sent again for a later thread, puts
-before the session every design entry and `rejected` entry its proposals bear on.
+The decision rests on the premise that a searcher reading its clusters whole grades `bears` or
+`may-bear` every entry a piece of work bears on, a check of its report's coverage holding nothing
+of its judgement.
 
-**Fires when:** in two separate discussions or intakes where the design-entry search ran, a head
-contradicted, or a `rejected` entry brought back without a recorded reopening, is found that the
-search did not return: by the design-conformance review of a plan document, or by an outcome the
-owner ruled in the intake. Or once, on the main branch, with no review having reported it.
-**Response:** open a `design` issue naming the review and the discussion or the intake, and reopen
-`design@agent-skills@design-entry-search`, asking whether the miss came from a thread or a subject
-that opened after the search.
+**Fires when:** in two separate discussions, audits or intakes where the record search ran and its
+reports passed `klarch worklist --verify`, an entry is found that the work bore on and that the
+search graded `unrelated`: a head contradicted, a `rejected` entry brought back without a recorded
+reopening, an issue or a tripwire met, found by the design-conformance review or the standing-state
+review of the work, or by an outcome the owner ruled in an intake. Or once, on the main branch, with
+no review having reported it.
+**Response:** open a `design` issue naming the review and the work, and reopen
+`design@agent-skills@one-record-searcher`, asking whether the miss came from the size of the
+agent's load, `design@core@clusters-packed-under-a-word-bound`, or from its reading.
 **Re-entry:** the reviews of every plan document, each retrospective, and the review of the branch
 that carries out an intake's outcomes.
 **Watches until:** three plan documents deleted at their landing, and three commits that add
@@ -461,8 +464,8 @@ The decision rests on the premise that the searcher's grades of the goals are a 
 beside the session's own, which the session keeps, and not a summary it reads instead.
 
 **Fires when:** a goal is missed in a design discussion or a retrospective intake where the
-design-entry searcher graded that goal's Component's goals, in two separate pieces of work, or once
-in a record that reaches the main branch with no review reporting it.
+record search graded that goal, in two separate pieces of work, or once in a record that reaches the
+main branch with no review reporting it.
 **Response:** reopen `design@agent-skills@searcher-grades-goals` on how goals reach the session.
 **Re-entry:** the retrospective of that session, and the review of the change.
 **Watches until:** three plan documents deleted at their landing, and three commits that add
