@@ -1,6 +1,6 @@
 **Generated — do not edit.** `cargo klarch index`
 
-40 entries
+41 entries
 
 | kind | title |
 | --- | --- |
@@ -8,6 +8,7 @@
 | defect | [The finding for a required document missing at the root Component names a repair that does not apply to the root](a-missing-root-document-finding-names-a-repair-that-does-not-apply.md) |
 | defect | [A reference whose id carries a line suffix or a fragment is told to define its entry or repair its pointer, not to drop the suffix](a-reference-with-a-line-or-fragment-suffix-names-a-wrong-repair.md) |
 | defect | [A finding on a slug written in a retired or a misplaced form names a repair blind to what the slug resolves to](a-slug-finding-names-a-repair-blind-to-what-the-slug-resolves-to.md) |
+| defect | [A backticked span whose head shortens a kind's name, as `arg@<plan>@<id>` for `argument`, passes the check silent](a-span-whose-head-shortens-a-kind-passes-the-check-silent.md) |
 | defect | [A backticked span with an empty head and a slash is reported as malformed, which the candidate rule says is silent](a-span-with-an-empty-head-is-malformed-against-its-head.md) |
 | defect | [In a project that builds the checker from its own tree, `check --staged` compares the staged installed files with unstaged shipped text](a-staged-check-compares-installed-files-with-unstaged-shipped-text.md) |
 | defect | [An unbound Rust string literal is read as prose only up to its first escape sequence](an-unbound-literal-is-read-up-to-its-first-escape.md) |
