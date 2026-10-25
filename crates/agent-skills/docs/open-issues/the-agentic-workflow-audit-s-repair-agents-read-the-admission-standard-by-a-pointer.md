@@ -20,7 +20,7 @@ agents carry no `agentType` (lines 188, 201, 216 and 264 at the commit that open
 their prompts' `KINDS` (lines 90-93) names "the section admission-standard of the skill
 knowledge-architect-agent-configuration" for how a repair is shaped. A prompt of a saved workflow
 is a JavaScript string, where a fragment's placeholder line cannot stand, so the fragments do not
-reach them. The work that left them was `spec@plans@standards-delivered-as-fragments`.
+reach them.
 
 ### Why it matters
 
