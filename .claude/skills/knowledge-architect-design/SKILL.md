@@ -132,8 +132,9 @@ evidence bring, which nobody knows in advance.
   puts a record carried by a message: every thread with its final state, the
   ground of each closure: the owner's ruling, attributed to the owner with what it
   reaches, as `skill@knowledge-architect-design@what-earns-a-head` says, the rivals that lost with
-  their reasons, every premortem cause with its outcome, and the owner's rulings on acceptance
-  criteria. The decision is
+  their reasons, every premortem cause with its outcome, the owner's rulings on acceptance
+  criteria, and the `may-bear` entries the grounding did not read, each with the searcher's
+  reason, which the review before the merge reads. The decision is
   recorded at that landing like any other, under
   `skill@knowledge-architect-decision-recording`:
   `skill@knowledge-architect-decision-recording@reversal-check` decides the Component of a decision
@@ -326,9 +327,11 @@ stated pair, per `skill@knowledge-architect-decision-recording@head-shape`. Name
 would record if decided, not by the change it proposes: #retention-window,
 not #shorten-retention. A slug is never changed during the discussion, since
 every earlier delta carries it. Before using a slug, check that no entry of
-the Component that will own the decision already holds it, with
-`cargo klarch show design@<anchor>@<slug>` and `cargo klarch show rejected@<anchor>@<slug>`: a
-thread that loses may become a `rejected` entry under its own name. In prose, write it plain with a
+the Component that will own the decision already holds it: a thread that
+loses may become a `rejected` entry under its own name.
+`cargo klarch id <slug>...` lists, for every candidate in one call, each
+entity the project defines under it, and only a design or a `rejected`
+entry of that Component refuses the slug. In prose, write it plain with a
 `#` before it, as in #retention-window, never in backticks: a backticked
 span may be read by the checker as a reference. In the plan document the
 thread becomes an item, which the plan document cites by its checked form,
@@ -523,16 +526,27 @@ choices whose option space genuinely is closed and consequence-free.
    touches; their design homes; their `rejected` homes; their
    `README.md` files, which state their contracts. A search of the whole
    record runs beside that reading, with the question as the work and,
-   as seeds, the decisions and goals read so far that bear on it,
-   dispatched as the description of
-   `agent@knowledge-architect-record-searcher` says. Then run
-   `cargo klarch show <kind>@<anchor>@<id>`, which prints the entry and
-   every reference to it, on every entry the search grades `bears` or
-   `may-bear`, and each entry the question bears on, and read each whole: never act on an
-   entry from the reason the search gave. The first round states which
-   of these were read and run, which entries the search graded `bears`
-   or `may-bear`, which of them the question bears on, and, for each
-   entry graded `may-bear`, whether it bears. An entry graded `may change` goes to
+   as seeds, the decisions read so far that the question rests on or may
+   change, never a goal: a goal reaches every cluster that cites it as
+   context, and a goal seed makes every entry citing it a doubt to read.
+   A goal the discussion sets through `skill@knowledge-architect-goal-setting`
+   is no part of the search's work; only its consequences on the design
+   are. The search is dispatched as the description of
+   `agent@knowledge-architect-record-searcher` says. Then read whole
+   `bears.md`, every entry the search grades `bears` with every reference
+   to it, a goal there by its grades alone since its home is read above,
+   and, from `may-bear.md`, the entries graded `may-bear` that a
+   proposal touches, chosen from its table of contents; run
+   `cargo klarch show <kind>@<anchor>@<id>` on each other entry the
+   question bears on, and read it whole: never act on an entry from the
+   reason the search gave. The first round states which of these were
+   read and run, which entries the search graded `bears` or `may-bear`,
+   which of them the question bears on, for each `may-bear` entry read
+   whether it bears, and the `may-bear` entries not read, each with the
+   searcher's reason. That list reaches the review that reads the work
+   against the record: the plan document's "What is already decided", or,
+   on the in-change path, the commit message that carries the
+   deliberation. An entry graded `may change` goes to
    `skill@knowledge-architect-decision-recording@reversal-check`, and to the
    backstop of `skill@knowledge-architect-design@what-earns-a-head`, before a proposal that would change it,
    and a goal graded so to `skill@knowledge-architect-goal-setting`; one graded `may bring back` is
