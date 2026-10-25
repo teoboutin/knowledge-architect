@@ -51,9 +51,10 @@ and the test `each_fragment_has_its_hosts` of `path@agent-skills@src/lib.rs` hol
 
 The owner proposed it, against the pointer read whole, so that a standard is written once and still
 delivered whole wherever it applies, which `goal@agent-skills@no-contradiction-in-workflow` asks:
-a pointer costs the session a decision to fetch it, which the session often skips on the ground
-that it read the target earlier. The owner ruled that fragments are the delivery for every standard
-or similar block read whole at several places, the other such blocks migrated later. The hosts of
+a pointer costs the session a decision to fetch it, which the owner believed sessions likely to
+skip on the ground that they read the target earlier. The owner ruled that fragments become the main
+delivery for standards and similar large blocks read whole at several places, the other such blocks
+migrated later. The hosts of
 the tripwire standard and its lifecycle are the owner's: the owner approved their list, so a host
 added to it goes to the owner. The pointer it replaces had left the writer of about 35 tripwires of
 this repository and thaum without the rule they broke. The snippet pass cannot carry prose: it runs
@@ -1058,7 +1059,8 @@ what the goals and the record leave open, per `goal@knowledge-architect@agents-w
 The rival, the owner ruling on each cause, was measured: of 66 premortem causes the owner ruled on
 in this repository, the owner dropped 23, and about 45 of the 64 tripwires this repository then
 held watched a failure that a review, a test, the checker or the owner caught anyway, by a
-subagent's reading of each entry kept in the spec of the tripwire standard, deleted at its landing.
+subagent's reading of each entry, whose count the spec of the tripwire standard keeps, deleted at
+its landing; the readings per entry were not kept.
 The rival that keeps each admitted cause with the owner, as a question with a default, halves the
 rulings rather than removing them, while the standard ranks what it admits as it ranks what it
 excludes. This is no grant of judgement within a boundary, which
@@ -1066,19 +1068,21 @@ excludes. This is no grant of judgement within a boundary, which
 `primer@question-authority` applied once the record ranks the question. The design this decision
 did not keep: `rejected@agent-skills@owner-rules-each-tripwire`.
 
-### A recorded tripwire's wording and scope are the session's, and its removal outside the lifecycle's exits is the owner's `##tripwire-wording-is-the-agents`
+### A recorded tripwire's wording and scope are the session's, and its removal outside the lifecycle's exits, or the narrowing of one grounded on the owner's word, is the owner's `##tripwire-wording-is-the-agents`
 
 A recorded tripwire's premise, firing clause, response, re-entry point and horizon change on the
 session's judgement under the standard of `design@agent-skills@tripwire-admission-test`, while it
 watches the same cause, and each change is listed in the turn's "Decided" section, per
-`design@agent-skills@decisions-reported-to-the-owner`. Its removal outside the exits of
-`design@agent-skills@tripwire-horizon` is the owner's, and an audit's deletion of one goes to the
-owner, per `design@agent-skills@audit-outcomes`. The owner named the wording and the small changes
-of scope of tripwires among the rulings a clearer standard should let the session's judgement
-cover. A ruling that bound the wording would make every repair of a tripwire a question to the
-owner, against `goal@knowledge-architect@agents-work-without-drift`. That a removal needs the
-owner's word is the owner's intent: the owner ruled keeping the default and the owner's word needed
-only for a drop.
+`design@agent-skills@decisions-reported-to-the-owner`. The owner named the wording and the small
+changes of scope of tripwires among the rulings a clearer standard should let the session's
+judgement cover. A ruling that bound the wording would make every repair of a tripwire a question
+to the owner, against `goal@knowledge-architect@agents-work-without-drift`.
+
+Two changes stay the owner's. A removal outside the exits of `design@agent-skills@tripwire-horizon`
+drops a premise the standard admitted with no exit deciding it, so no condition ranks it, and it is
+the owner's per `primer@question-authority`; an audit's deletion of one goes to the owner, per
+`design@agent-skills@audit-outcomes`. The narrowing of a tripwire whose ground is the owner's own
+word changes what that word covers, which only the owner rules, per `primer@owner-word-premise`.
 
 ### A cause becomes a tripwire only where its failure is silent, its evidence lands where tripwires are read, it is what the decision forbids, and its numbers have a basis `##tripwire-admission-test`
 
@@ -1089,20 +1093,20 @@ main branch with no procedure reporting it; and a doubt that keeps the cause wit
 unless the owner would see the failure anyway.
 
 A tripwire earns its reading only by delivering a fact no other procedure delivers. Condition 1,
-silence, is the owner's test: whether the facts that made a tripwire fire would have been found
-without it. Read in hindsight over the 12 firings of this repository and the 37 of thaum, 25 were
+silence, is the session's reading of the question the owner asked of past firings: whether the
+facts that made a tripwire fire would have been found without it. Read in hindsight over the 12 firings of this repository and the 37 of thaum, 25 were
 found and acted on anyway, through a test, a gate, a review doing its own job, a request or the plan
 itself, and 8 needed the tripwire, each a failure every procedure counted as success, by a
-subagent's hindsight judgement per firing with its commit, kept in the spec this decision landed
-from. Condition 2 is the owner's cost of watching: a tripwire whose evidence no reading occasion
+subagent's hindsight judgement per firing with its commit; the spec this decision landed from keeps
+the counts and names the 8, and the judgements per firing were not kept. Condition 2 is the owner's cost of watching: a tripwire whose evidence no reading occasion
 holds is read at every merge for nothing; a received retrospective file counts, since the intake
 reads every tripwire against it. Condition 3 removes the clause that counts what the decision
 instructs, which can fire only on the decision working: the three false alarms of the 49 firings.
 Condition 4 removes the number written to make a clause specific, which fires on noise or never:
 thaum's `t-event-payload` fired five times, the last three only moving its own bound, inside the
-noise of its instrument. The rule on slips is the owner's: an agent not following an instruction
-once or twice in a session is normal, and reviews exist to catch it; a recurrence stays, since it is
-how such a premise shows false. The doubt keeps the cause because horizons make the two errors
+noise of its instrument. That one slip is no firing is the owner's: an agent not following an
+instruction once or twice in a session is normal, and reviews exist to catch it. That a recurrence
+fires is the session's argument, since a recurrence is how such a premise shows false. The doubt keeps the cause because horizons make the two errors
 unequal: a wrong keep costs reading until its horizon, a wrong drop loses the evidence for good.
 That a wrong drop costs little where the owner would see the failure anyway is the owner's weight on
 a doubt, never a reason to refuse a cause the conditions admit.
@@ -1750,8 +1754,9 @@ section on acceptance criteria and step 7 of the design skill host the standard 
 conditions for a criterion. Conditions 1 and 2 do not apply: the landing's own work checks a
 criterion once.
 
-The owner reported the defect: criteria often carry numerical bounds that are not relevant, or are
-in practice certain to pass. A
+The owner judged that criteria are too often of low quality: they carry numerical bounds that are
+not relevant, or are in practice certain to pass; the owner wondered whether this was within the
+scope of the work, and accepted it in the same work. A
 criterion bound to pass checks what the design instructs, which condition 3 removes, and an
 irrelevant bound is a number with no basis, which condition 4 removes, so the two defects are
 answered by the same text that judges a tripwire, delivered where criteria are written.
@@ -3134,7 +3139,8 @@ The design this decision did not keep: `rejected@agent-skills@finding-reported-n
 decided ends with a section titled "Decided", one line per decision with its ground, before "Met
 outside the task" where both are owed. A design thread closed on its argument, a default the record
 answered, a source applied over an answer of the owner, a premortem cause recorded as a tripwire or
-dropped, and a tripwire's wording or scope changed, per `design@agent-skills@tripwire-recording-authority`,
+dropped, per `design@agent-skills@tripwire-recording-authority`, and a tripwire's wording or scope
+changed, per `design@agent-skills@tripwire-wording-is-the-agents`,
 are such decisions; an implementation choice a commit message records is not. A subagent reports its
 decisions under the same title, and the dispatching session carries them into its own.
 

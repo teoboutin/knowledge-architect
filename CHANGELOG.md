@@ -66,8 +66,8 @@ subsection is omitted.
   that implements the decision, the session judges each cause by the tripwire standard, records
   those that pass, and lists every cause with its outcome in its turn's "Decided" section and in the
   harvest's or the in-change commit message; the owner overrules by reading. The `T` label is gone.
-  A recorded tripwire's wording and scope are the session's; its removal outside its exits is the
-  owner's.
+  A recorded tripwire's wording and scope are the session's while it watches the same cause; its
+  removal outside its exits, and the narrowing of one grounded on the owner's word, are the owner's.
 - `agent-skills`, patch: a cause becomes a tripwire only where its failure is silent, its evidence
   lands in the tree, the history, an audit report or a received retrospective file, it is what the
   decision forbids, and a number in it has a basis; one slip a review repaired fires none.

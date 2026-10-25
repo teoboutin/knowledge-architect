@@ -29,7 +29,8 @@ each by whether several texts apply it whole:
   definition is needed is the question to judge.
 
 The owner's reasons for the fragment are in the head: a pointer moves the cost of delivery from the
-writer's text to the session's choice to fetch it, and the session chooses from memory. The owner
+writer's text to the session's choice to fetch it, and the owner believed the session likely to
+choose from memory. The owner
 bounded the cost: in most cases working from memory of a pointed section is a defensible call that
 `primer@room-to-judge` allows, and in some cases reading it again is needed. Which blocks are the
 latter is the question each candidate is judged on; whether several texts apply a block whole is
