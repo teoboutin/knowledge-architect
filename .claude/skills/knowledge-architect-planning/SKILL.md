@@ -235,17 +235,16 @@ that creates the file converts it to `path@<anchor>@<path>` in the same change.
 its proposer, its final state, the arguments on each side, the owner's rulings verbatim with their
 round, and its relations. An answer of the owner on a reading or a fact is recorded with its source,
 as `primer@labelled-items` says. It is assembled from the transcript, not from memory. Dispatch a
-subagent that reads every transcript file the discussion spans, a resumed session included, and
-extracts the delta tables, the owner's messages verbatim and the arguments; the design skill's
-per-round delta is the draft it reads. Its brief names
-`agent@knowledge-architect-transcript-reviewer@extract-transcripts`, read whole, for which lines
-it keeps and which it labels as the owner's: the transcript reviewer then checks the document
+subagent that extracts every session the discussion spans, a resumed session included, as
+`agent@knowledge-architect-transcript-reviewer@extract-transcripts` says, read whole, and from the
+extraction takes the delta tables, the owner's messages verbatim and the arguments; the design
+skill's per-round delta is the draft it reads. The transcript reviewer then checks the document
 against the same lines. Where one argument ends and the next begins is decided at
 assembly, and the transcript reviewer of `skill@knowledge-architect-planning@plan-reviews` checks that no argument was lost. The status section quotes, for
 each session the discussion spans, the message where the discussion begins in it, so that a
-reviewer reads the same transcripts: each file is found by that message, never by a session
-identifier, as `skill@knowledge-architect-review` says, and the document names no file of the
-transcript directory, whose path holds the session identifier and the machine's home directory. Where the harness keeps no
+reviewer reads the same sessions: each is found by that message, never by a session identifier,
+as `skill@knowledge-architect-review` says, and the document names no file of the transcript
+directory, whose path holds the session identifier and the machine's home directory. Where the harness keeps no
 transcript, assemble from the conversation, and say so, and why, in the commit that adds the
 document.
 
@@ -557,8 +556,8 @@ these four:
   everything the discussion established that must outlive it is in the document or has another
   durable outcome, and that no ruling of the owner is recorded wider, narrower or in another state
   than the owner gave it. Dispatch it on every assembled document, in the batch or alone and last
-  as `skill@knowledge-architect-review@review-axes` says, and name in its brief the transcript
-  files the assembly read, with the message where the discussion begins in each.
+  as `skill@knowledge-architect-review@review-axes` says, and name in its brief the sessions the
+  assembly read, with the message where the discussion begins in each.
 
 **What their findings become.** Check each finding against the tree, or against the transcript,
 before acting on it. A material finding is answered with a default, written into the sections it

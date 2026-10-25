@@ -56,6 +56,12 @@ cargo klarch new-component <DIR>       add a Component: its manifest line, its d
 cargo klarch worklist --out <dir> [--seed <ref>]…
                                        the work list of a search of the whole record, one directory per agent
 cargo klarch worklist --verify <dir>   check the reports the agents filled
+cargo klarch transcript list [--branch b] [--containing t] [--since d] [--all-projects]
+                                       the sessions of Claude Code's transcripts that ran in the project
+cargo klarch transcript show <session> [--from t] [--subagents] [--tools] [--full]
+                                       one session's lines, each labelled by its fields
+cargo klarch transcript search <regex> [--role r]… [--tool n] [--tools] [--branch b] [--since d]
+                                       every line whose text matches
 cargo klarch --version                 the version of the checker that runs
 ```
 
@@ -65,9 +71,9 @@ Three, per `design@core@exit-code-ladder`, and the third is what makes the other
 
 | code | meaning | where it comes from |
 | ---- | ------- | ------------------- |
-| `0` | the command ran and its subject is in order | `--version`, from any directory; `check` with no findings; `show` on a reference that resolves; `issues` and `tripwires` with at least one row; `index` having written every destination, or found each already current; `index --staged` having staged every generated file whose staged bytes differed, or found each already current; every `model` run; `worklist --out` having written the work list, notices included; `worklist --verify` on complete reports; `anchors` with every home it prints present; `commits` with no finding, an empty range included; `install-agent-skills` having written and removed what it had to, or found nothing to do; `init` and `new-component` having written, with the final check passing, and `init` under `--vcs none` outside a worktree, where no check runs |
-| `1` | the command ran and reports a negative answer | `check` with findings, `--fix` included; `check --fix` when a write failed, a destination was refused, a partial commit's mismatch was refused, or the final check could not run, after another file was already written; `show` on a reference that resolves to nothing; `issues` or `tripwires` with no row; `anchors` with a home missing; `index` when a write failed after another destination was already rewritten; `commits` with a finding against a judged message or a failing tree; `worklist --verify` with a finding on a report; `init` and `new-component` having written, when the final check finds anything, cannot run, or a write failed |
-| `2` | the command could not run, `anchors` included | an unknown or invalid argument, `--fix` with `--staged` among them, a `show` argument that is not reference-shaped, a binary built from another checkout of the tool, which names the `cargo clean` that rebuilds it, a binary of another version than `[project] checker-version` pins, or a pin it does not confirm, or a manifest with no pin, `index` or `check --fix` refusing a destination — a symlink, or a directory that is not there — having written nothing, `check --fix` refusing a partial commit's mismatch having installed nothing, `check --staged` or `index --staged` over an index that holds an unmerged path or a staged tree that cannot be read, `index --staged` refused by its gate, a destination or git's index lock, having staged nothing, `commits` on a range that does not resolve, no project above the working directory, no `git` on the path or a project outside a worktree, `install-agent-skills` over a manifest holding a refused declaration, over a symbolic link on an owned path, or when a write or a removal failed, naming the path, a stdout closed before the output was written — as `\| head` does — which ends the run silently, an input that cannot be read, an input an extension prepares that it cannot resolve, `init` refusing, having written nothing: anything at the manifest's path, a refused name, a DIR `--component` names in a `.git` directory or in the installer's namespace, a destination that is not a regular file or lies under one, two destinations that overlap, an `index.md` already at a generated path, a non-empty directory outside every git repository with no `--vcs`, a PATH git ignores, in a `.git` directory or under a file, a variable such as `GIT_DIR` or `GIT_INDEX_FILE` that points git at another repository's files, a git that cannot answer, a `Cargo.toml` at or above PATH or a file `--rust` writes already there, a `.gitignore` it cannot read; `new-component` refusing, having written nothing: an incomplete model, a DIR outside the project, in a `.git` directory or in the installer's namespace, or one the manifest refuses, a destination it cannot write; `init` dispatched inside a project by a binary that skips `cli::init`; `worklist --out` refusing, having written nothing: an incomplete model, a directory inside the project or not empty, a seed that names no entry; or a write that failed, naming the path, the files written before it left in place; `worklist --verify` over a file it cannot read or parse |
+| `0` | the command ran and its subject is in order | `--version`, from any directory; `check` with no findings; `show` on a reference that resolves; `issues` and `tripwires` with at least one row; `index` having written every destination, or found each already current; `index --staged` having staged every generated file whose staged bytes differed, or found each already current; every `model` run; `worklist --out` having written the work list, notices included; `worklist --verify` on complete reports; `transcript` having printed at least one row or line; `anchors` with every home it prints present; `commits` with no finding, an empty range included; `install-agent-skills` having written and removed what it had to, or found nothing to do; `init` and `new-component` having written, with the final check passing, and `init` under `--vcs none` outside a worktree, where no check runs |
+| `1` | the command ran and reports a negative answer | `check` with findings, `--fix` included; `check --fix` when a write failed, a destination was refused, a partial commit's mismatch was refused, or the final check could not run, after another file was already written; `show` on a reference that resolves to nothing; `issues` or `tripwires` with no row; `anchors` with a home missing; `index` when a write failed after another destination was already rewritten; `commits` with a finding against a judged message or a failing tree; `worklist --verify` with a finding on a report; `transcript list` or `search` finding no session or no line, `transcript show` on a session it cannot name, with a `--from` text no line the owner typed holds, or printing no line; `init` and `new-component` having written, when the final check finds anything, cannot run, or a write failed |
+| `2` | the command could not run, `anchors` included | an unknown or invalid argument, `--fix` with `--staged` among them, a `show` argument that is not reference-shaped, a binary built from another checkout of the tool, which names the `cargo clean` that rebuilds it, a binary of another version than `[project] checker-version` pins, or a pin it does not confirm, or a manifest with no pin, `index` or `check --fix` refusing a destination — a symlink, or a directory that is not there — having written nothing, `check --fix` refusing a partial commit's mismatch having installed nothing, `check --staged` or `index --staged` over an index that holds an unmerged path or a staged tree that cannot be read, `index --staged` refused by its gate, a destination or git's index lock, having staged nothing, `commits` on a range that does not resolve, no project above the working directory, no `git` on the path or a project outside a worktree, `install-agent-skills` over a manifest holding a refused declaration, over a symbolic link on an owned path, or when a write or a removal failed, naming the path, a stdout closed before the output was written — as `\| head` does — which ends the run silently, an input that cannot be read, an input an extension prepares that it cannot resolve, `init` refusing, having written nothing: anything at the manifest's path, a refused name, a DIR `--component` names in a `.git` directory or in the installer's namespace, a destination that is not a regular file or lies under one, two destinations that overlap, an `index.md` already at a generated path, a non-empty directory outside every git repository with no `--vcs`, a PATH git ignores, in a `.git` directory or under a file, a variable such as `GIT_DIR` or `GIT_INDEX_FILE` that points git at another repository's files, a git that cannot answer, a `Cargo.toml` at or above PATH or a file `--rust` writes already there, a `.gitignore` it cannot read; `new-component` refusing, having written nothing: an incomplete model, a DIR outside the project, in a `.git` directory or in the installer's namespace, or one the manifest refuses, a destination it cannot write; `init` dispatched inside a project by a binary that skips `cli::init`; `worklist --out` refusing, having written nothing: an incomplete model, a directory inside the project or not empty, a seed that names no entry; or a write that failed, naming the path, the files written before it left in place; `worklist --verify` over a file it cannot read or parse; `transcript` with no transcript directory, over a file it cannot read, or with a regular expression or a `--since` date that does not parse |
 
 **A caller scripting against a run reads the exit code; a person reads the last line.** Arguments
 are refused before the project is located, so `--help` answers from anywhere and a mistyped
@@ -422,6 +428,49 @@ nowhere or twice, a reference no agent was given, a grade other than `bears`, `m
 a missing reason, an entry that is or cites a seed graded `unrelated`, and a report with no
 section `## Met outside the task`. It reads no model, so it judges the reports against what the
 agents were given.
+
+## `transcript`
+
+The sessions of Claude Code's transcripts that ran in the project, for the transcript reviewer, the
+assembly of a plan document and any survey of past sessions. It reads only the harness Claude Code
+writes, under `$CLAUDE_CONFIG_DIR/projects/`, or `~/.claude/projects/` where the variable is unset.
+A session belongs to the project when the `cwd` of its first line is the project's root or a path
+under it, as a worktree under the root is; `--all-projects` reads every project's.
+
+- **A session** is a run of a transcript file cut where its `sessionId` changes or where a new root
+  opens, with the subagent files it dispatched. A compaction and a resumed session stay in their
+  session; `/clear` starts a new one. Its handle is its `sessionId`'s first 8 characters, with `#2`
+  and on for a later session of the same id.
+- **`list`** prints one row per session, oldest first: its handle, its first and last time, its git
+  branches, its count of lines the owner typed, of compactions and of subagents, and its first
+  message from the owner. `--branch` keeps the sessions that worked on a branch, `--containing` the
+  sessions holding a text the owner typed, and `--since <YYYY-MM-DD>` those whose last line is on or
+  after the date, in UTC.
+- **`show <session>`** prints the session's lines in order, each with its line number and its label;
+  `<session>` is a handle or a prefix of a `sessionId` that names one session. `--from` starts at a
+  text the owner typed, `--subagents` adds each subagent's lines, `--tools` the tool calls and their
+  results, and `--full` an injected text whole, which otherwise prints its first 5 lines beyond 40.
+- **`search <regex>`** prints each line whose text matches, with `--role` keeping one role,
+  `--tool <name>` one tool's calls and their results, and `--tools` every tool line.
+
+**Every line is labelled by its fields, never by its text.** The owner's words are the lines
+labelled `owner`, `owner-queued` (typed while the session was busy), `owner-answer` (an answer to a
+question tool) and `owner-command` (a command such as `/clear`); `injected` lines are what the
+harness or another agent delivered, with their kind; `agent` is the session's own text, `dispatch`
+the text a subagent received, `tool` a tool call or its result. A transcript with no field at all,
+such as one of a session run with `claude -p`, is labelled by its text, and the header says so.
+
+**The format is the harness's own, which it documents as internal and liable to change between
+versions.** The command never fails on what it does not know: its header names, before the rows,
+every line type and every value it does not recognise, with its count and its first file and line,
+every line it could not label, and every line that is no JSON. Each is a gap of this command, to
+report as a finding on the checker in the retrospective.
+
+**The harness deletes transcripts after 30 days by default**: the setting `cleanupPeriodDays` of
+Claude Code's own settings keeps them longer.
+
+`--json` prints one JSON object per row or line instead, the header first. The output is for a
+reader and is no contract, text and JSON alike.
 
 ## Registers
 
