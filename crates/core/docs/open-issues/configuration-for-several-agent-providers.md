@@ -15,7 +15,8 @@ others as symlinks to it or as files importing it. The checker has no harness fo
 ### What
 
 Harness values for other providers, each requiring its own file and installing into its own
-layout, and AGENTS.md as the generic file. The mechanism exists; what each value requires is open.
+layout, and AGENTS.md as the generic file; and, for `klarch transcript`, a reader of each other
+harness's session transcripts. The mechanism exists; what each value requires is open.
 
 ### Why it matters
 

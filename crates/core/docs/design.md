@@ -3154,7 +3154,8 @@ the `system` subtypes, and whether the line sits in a subagent file. The owner's
 `owner-queued`, `owner-answer` (an answer to a question tool) and `owner-command` (a command such
 as `/clear`, read from its `local_command` line's `commandRun`); `injected` carries the kind of what
 the harness or another agent delivered; `agent` is the session's text; `dispatch` is a field-less
-`user` line of a subagent file, the text its dispatcher or its workflow wrote; `tool` is a tool call
+`user` line of a subagent file, the text its dispatcher or its workflow wrote, but for the one case
+below; `tool` is a tool call
 or its result; a line no row places is `unlabelled`, printed and counted. A top-level file none of
 whose `user` lines carries a field, such as one of a session run with `claude -p`, is labelled by a
 leading harness tag instead, and the header says so.
@@ -3168,8 +3169,8 @@ are the harness's, measured over every transcript of the machine the reader was 
 `design@core@transcript-session-split` says; a field-less `user` line of a subagent file was the
 dispatcher's brief or a workflow's task in every subagent file measured, but one owner's interrupt,
 re-taken with
-`find ~/.claude/projects -path '*subagents*' -name 'agent-*.jsonl' -exec jq -r 'select(.type=="user" and .isMeta==null and .origin==null and .isCompactSummary==null and ((.message.content|type)=="string" or ([.message.content[] | select(.type=="tool_result")] | length) == 0)) | .message.content | if type=="string" then .[:40] else ([.[] | .text? // empty] | join(" "))[:40] end' {} + | sort | uniq -c`. That interrupt reads as `dispatch`, no field
-telling it apart and the rule refusing a text test: the owner accepted that row over a narrower row or a text test for the interrupt.
+`find ~/.claude/projects -path '*subagents*' -name 'agent-*.jsonl' -exec jq -r 'select(.type=="user" and .isMeta==null and .origin==null and .isCompactSummary==null and ((.message.content|type)=="string" or ([.message.content[] | select(.type=="tool_result")] | length) == 0)) | .message.content | if type=="string" then .[:40] else ([.[] | .text? // empty] | join(" "))[:40] end' {} + | sort | uniq -c`. That interrupt reads as `dispatch`: no field
+tells it apart, and the rule refuses a text test.
 
 ### The transcript reader tolerates every line it does not know, and every run reports each one `##transcript-format-tolerated-and-reported`
 
@@ -3187,8 +3188,8 @@ changes between versions, so scripts that parse these files directly can break o
 https://code.claude.com/docs/en/sessions. Over the window measured, each version added types or
 keys and none removed or renamed one the labels use; each line type, with the versions that wrote
 it, is listed by
-`find ~/.claude/projects -name '*.jsonl' -exec jq -r '"\(.type) \(.attachment.type // .subtype // "") \(.version // "-")"' {} + | sort -u`,
-where a metadata line, which carries no `version`, shows `-`, and the header of `klarch transcript list --all-projects` names any value outside the sets. A strict reader
+`find ~/.claude/projects \( \( -mindepth 2 -maxdepth 2 -name '*.jsonl' \) -o \( -path '*/subagents/*' -name 'agent-*.jsonl' \) \) -exec jq -r '"\(.type) \(.attachment.type // .subtype // "") \(.version // "-")"' {} + | sort -u`,
+over the files the reader reads, where a metadata line, which carries no `version`, shows `-`, and the header of `klarch transcript list --all-projects` names any value outside the sets. A strict reader
 would fail on each release that adds a type, `rejected@core@strict-transcript-reader`; a silent
 tolerant one hides a renamed field, against `design@core@a-failed-parse-is-loud`.
 

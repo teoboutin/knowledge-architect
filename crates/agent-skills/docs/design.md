@@ -1893,9 +1893,9 @@ each thing met outside the task has a durable outcome: recorded in its home, act
 an issue, or judged to need nothing with the reason written where the owner reads it. What lives
 only in a conversation is lost when the session ends or is compacted. Second, that no ruling of the
 owner is recorded in a state or a scope the owner did not give. Detail added inside a ruling, and a
-wording better than the one the owner was shown, are not findings. The owner was bothered that the reviewer flagged every small addition as a finding, even a clearly
-sane deviation, and asked it to focus more in the other direction: whether something from the
-transcript was forgotten or not handled durably. A ruling is a word of the owner on a question
+wording better than the one the owner was shown, are not findings. On the owner's word, the
+reviewer's weight is on whether something from the transcript was forgotten or not handled
+durably, and a small addition, even a clearly sane deviation, is no finding. A ruling is a word of the owner on a question
 `primer@question-authority` reserves to the owner; an answer on a reading or a fact is checked
 against its source, per `design@agent-skills@answer-keeps-its-authority`. The reviewer assumes no shape of
 the work: a plan document is one home among the others.
