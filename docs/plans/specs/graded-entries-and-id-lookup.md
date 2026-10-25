@@ -1405,14 +1405,17 @@ commit, with the test it fails.
 
 As harvested, each thread with the entry that records it:
 
-- #graded-entries-assembled and #entry-text-snapshot-at-out →
-  `design@core@worklist-writes-and-verifies-the-reports`;
-- #goals-listed-not-reshown, #may-bear-needs-a-named-doubt and #may-bear-read-on-touch →
-  `design@agent-skills@search-relevance-grade`;
-- #seeds-name-decisions and #one-search-per-question → `design@agent-skills@seeds-name-decisions`;
+- #graded-entries-assembled and #entry-text-snapshot-at-out → `design@core@graded-entries-assembled`;
+- #goals-listed-not-reshown → `design@core@graded-entries-assembled`;
+- #may-bear-needs-a-named-doubt → `design@agent-skills@search-relevance-grade`;
+- #may-bear-read-on-touch → `design@agent-skills@may-bear-read-on-touch`, and its list's reader, D2,
+  → `design@agent-skills@unread-entries-reach-the-conformance-review`;
+- #seeds-name-decisions → `design@agent-skills@seeds-name-decisions`;
+- #one-search-per-question → no head: one installed text states it, the design skill's step 1,
+  beside its reason, so it fails entry test 2;
 - #id-lookup-command → `design@core@id-lookup-command`;
 - #retrospective-asks-for-hand-work → `design@agent-skills@premortem-as-watch-points`;
-- #gather-reads-the-model → `rejected@core@assembly-reads-the-model`.
+- #gather-reads-the-model → `rejected@core@gather-reads-the-model`.
 
 ## Later consequences
 

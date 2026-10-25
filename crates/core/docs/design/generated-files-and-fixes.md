@@ -116,27 +116,6 @@ when the manifest changes, and no check reports the stale list; the command is c
 it describes. The primer names it, so every installing project's sessions learn its anchors from
 it.
 
-### `id` answers whether an id is free with every entity the table defines under it, of every kind and every anchor, and leaves to its reader which collision matters `##id-lookup-command`
-
-`klarch id <id>...` prints, for each argument in order, `free` where the entity table defines
-nothing under it, every entity it defines under it, as the reference `show` takes, or that the
-argument is outside the grammar of `design@core@two-segment-ids`. It reads the table through
-`Entities::by_id`, unfiltered, the set the lints on ids filter per citing document. It exits 0 when
-every argument is free and 1 otherwise, a malformed argument being a negative answer about the
-candidate, per `design@core@exit-code-ladder`, since the run answers every other argument; and 2
-over an incomplete model, since a `free` there is the finding computed over an incomplete model that
-`design@core@phases-gate-the-report` refuses.
-
-It answers a question no other command answers, per `design@core@one-question-one-command`: `show`
-takes a whole reference, and the lints compute the set only to report a span. A design thread's slug
-is checked against the design and `rejected` entries of the Component that will own its decision,
-per `design@agent-skills@thread-slug-is-entry-id`, and before `id` a session wrote a loop over two
-`show` calls per candidate, the case `goal@knowledge-architect@mechanical-tasks-are-the-tool-s`
-gives the checker. The rule on which collision refuses an id stays with the reader, since another
-reader, such as a label or a new entry of another register, has another rule. The nearest rival, a
-test of one named anchor's design and `rejected` entries, needs the owning anchor before the thread
-can name it: `rejected@core@slug-test-of-one-anchor`.
-
 ### `index --staged` writes the staged tree's generated files into git's index, and no working-tree file `##index-staged-write`
 
 `cargo klarch index --staged` generates each file from the tree git's index would commit, per

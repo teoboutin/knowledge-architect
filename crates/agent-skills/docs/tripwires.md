@@ -104,25 +104,6 @@ against the change.
 **Watches until:** three commits on the main branch that add analyses of received retrospective
 files under docs/retrospective-reports/, counted from the commit that writes this line.
 
-## Guarding `skill@knowledge-architect-planning@working-a-slice`: a critical gap an audit would have found, in a spec's work that skipped it as the rule allows `##skipped-spec-audit-would-have-found-a-gap`
-
-The instruction that runs a spec's design audit only when a fresh session starts its work or the
-main branch has moved, argued in the `%%` line beside it, rests on the premise that a spec
-implemented by the session that wrote it, on a main branch with no commit since the spec other
-than its own, has nothing load-bearing for an audit to find. The tripwire guards against a critical failure of
-the workflow, not a small mistake that is not load-bearing.
-
-**Fires when:** a review finds, in the work of a spec that skipped its design audit as the rule
-allows, a critical gap an audit would have listed: a shape the tree refutes, a name the code does
-not have, or a standing entry the work bears on that the grounding did not meet. A gap is critical
-when the work's result, or a decision it rests on, is wrong without its repair.
-**Response:** open a `defect` naming the spec and the change, and reopen the condition for the
-audit in `skill@knowledge-architect-planning@working-a-slice`, with a design audit for the work of
-every spec, as for every slice, the first candidate.
-**Re-entry:** the standing-state review before every merge: the spec, its commit and the main
-branch's history since are in the branch's range and its base.
-**Watches until:** 6 specs deleted at their landing.
-
 ## Guarding `design@agent-skills@bounded-path-in-design`: a decision taken on the bounded path earns a head `##a-shortcut-decision-earns-a-head`
 
 The decision rests on the premise that a session classifies work as bounded only when every
@@ -499,7 +480,7 @@ condition 1.
 report file of the tripwire axis added under docs/audit-reports/ on the main branch, both counted
 from the commit that writes this line.
 
-## Guarding `design@agent-skills@search-relevance-grade`: a `may-bear` entry left unread at the design grounding bears on the work `##unread-may-bear-entry-bore`
+## Guarding `design@agent-skills@may-bear-read-on-touch`: a `may-bear` entry left unread at the design grounding bears on the work `##unread-may-bear-entry-bore`
 
 The reading on touch rests on the premise that the design session reads every `may-bear` entry a
 proposal touches, so that an entry it leaves unread does not bear on the work.
@@ -508,8 +489,8 @@ proposal touches, so that an entry it leaves unread does not bear on the work.
 the plan document or the in-change commit message lists as not read, and that the work meets: a
 decided shape contradicts or widens it, or the work touches, closes or worsens an issue, or meets a
 trigger or a firing clause. Or once, on the main branch, with no review having reported it.
-**Response:** reopen `design@agent-skills@search-relevance-grade` on the reading on touch, with the
-entries and the reasons the searcher gave them.
+**Response:** reopen `design@agent-skills@may-bear-read-on-touch`, with the entries and the reasons
+the searcher gave them.
 **Re-entry:** the design-conformance review of every plan document, and at the review before the
 merge of an in-change deliberation, whose findings and their outcomes the commit messages record.
 **Watches until:** three plan documents deleted at their landing, on the main branch, counted from

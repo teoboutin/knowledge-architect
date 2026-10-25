@@ -1,12 +1,13 @@
 **Generated — do not edit.** `cargo klarch index`
 
-44 entries
+45 entries
 
 | kind | title |
 | --- | --- |
 | defect | [A criterion derived from a decision binds until the owner says otherwise](a-criterion-derived-from-a-decision-binds-until-the-owner-says-otherwise.md) |
 | defect | [An acceptance criterion from the premortem, listed among the defaults awaiting the owner, is both judged and not judged before the ruling](a-premortem-criterion-listed-as-a-default-reads-two-ways.md) |
 | defect | [A saved workflow's `//` comments ship to every installing project, though the standard sends maintainer-only text to a comment the build removes](a-saved-workflow-s-comments-ship-to-every-project.md) |
+| defect | [A spec worked without its design audit, as the rule allows, missed a critical gap an audit would have listed](a-spec-worked-without-its-design-audit-missed-a-critical-gap.md) |
 | defect | [In an adopting project, a finding sent upstream is counted again as a violation left on old text at every later pass](an-upstream-finding-stays-in-every-later-old-text-count.md) |
 | defect | [Two audit workflows can give two groups one label, list a sample entry twice, and report verdicts as missing](two-audit-workflows-can-collide-group-labels-and-list-a-sample-entry-twice.md) |
 | design | [A handled retrospective file is marked where it lies, and the owner keeps handled files in an archive apart from pending ones](a-handled-retrospective-file-is-marked-where-it-lies.md) |

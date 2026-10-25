@@ -553,8 +553,8 @@ question would not.
 ### The design grounding reading whole every entry the search grades `may-bear` `##design-grounding-reads-every-may-bear-entry-whole`
 
 `live`. It lost to a measurement of the search that grounded the discussion of
-`design@agent-skills@search-relevance-grade`, over this repository: 137 entries graded `may-bear`
-alone, read whole beside 65 graded `bears`, 576 KB in 12 reads, of which 6 changed a proposal.
+`design@agent-skills@may-bear-read-on-touch`, over this repository: 202 entries read whole, 576 KB in
+12 reads, 137 of them graded `may-bear` alone, of which 6 changed a proposal.
 
 ### A `may-bear` grade on any entry the searcher cannot rule out, with a doubt that names nothing `##may-bear-on-a-doubt-naming-nothing`
 

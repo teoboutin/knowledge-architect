@@ -472,8 +472,8 @@ design the gap defeats.
 %% it stands and recovers what a session that did not witness the discussion lacks, so a spec
 %% implemented by the session that wrote it, on an unmoved main branch, likely gives it nothing to
 %% find. The rival, an audit for every spec as for every slice, costs a reading with nothing to find;
-%% it is the first candidate if `tripwire@agent-skills@skipped-spec-audit-would-have-found-a-gap`
-%% fires.
+%% it is the first candidate of `issue@agent-skills@a-spec-worked-without-its-design-audit-missed-a-critical-gap`,
+%% which reopens this condition.
 **The work of a spec** takes the same points once, for the whole spec, on its one branch:
 
 - point 1, the grounding;
