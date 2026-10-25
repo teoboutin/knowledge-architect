@@ -1359,6 +1359,92 @@ when the manifest changes, and no check reports the stale list; the command is c
 it describes. The primer names it, so every installing project's sessions learn its anchors from
 it.
 
+### The record is grouped into clusters rooted at a unit of a unit register, a level-two subject of a heading home or a group of a file register, never at a goal `##cluster-rooted-at-a-subject`
+
+`klarch worklist` reads the record: every entry of every register but the plan registers. Its
+edges are the references written inside an entry's own text to another entry, the section of a
+heading entry or the file of a file entry, so a home's prose outside every entry yields none. A
+unit register is `design` or any register a project declares. Its entries are grouped into units:
+a heading register whose entries sit at level 3 or deeper by the nearest heading above each entry
+that is shallower than the entries, in a single file or in each subdocument of a directory home,
+each such heading a unit of its own, so a design home's units are its level-two subjects and the
+entries under its title; a heading register at level 2 by file; a file register by its
+group subdirectories, per `design@core@groups-are-subdirectories`, and the top of its home; a
+Directory register by the anchor that carries it. A cluster is a unit with the `rejected` entries
+its entries cite, the issues and tripwires that cite them, and the goals they cite with every goal
+those cite in turn, which are the goals they refine. A goal joins as context and brings in no issue
+or tripwire. Every entry no cluster holds is in the residual group of its anchor. Agent-facing text
+is no part of the record. The command relies on the checker working as intended: the edges are the
+references the checker resolves.
+
+It serves `goal@core@records-reach-their-reader`, a listing computed from the tree, and
+`goal@agent-skills@installed-text-works-anywhere`, since every unit comes from what the manifest
+declares and the tree holds. A subject groups what the work reads together, the grouping the owner
+chose for design entries since a subject's kept and rejected entries are read together, so a
+cluster keeps a head with the `rejected` entries it cites and the standing entries that cite it. The nearest rival, a cluster
+rooted at a goal, reached 342 of the 677 entries of this repository and 208 of thaum's 801, since
+213 heads here cite no goal, and the reference rule of `design@agent-skills@a-reference-claims-a-revisit`
+has a head name a goal only where it derives a constraint from it; rooted at a subject, the clusters
+reached 663 and 706, measured by scripts over `klarch model` whose figures the spec of
+the work that built `klarch worklist` keeps, which `git log --diff-filter=D --name-only -- docs/plans/`
+lists, and re-taken by counting the residual
+entries of `klarch worklist --out` over each tree. Followed transitively through design to design
+citations, a goal-rooted cluster held 466 to 480 of the 677 entries, since 159 heads cite one
+another in one cycle. Goals bringing in the issues that cite them raised the reads from 839 to 1323
+for 663 entries. The residual is grouped by anchor, as the owner judged, since the entries of one
+anchor share the anchor they apply to, and the packing bounds it, which answers
+`rejected@agent-skills@one-search-agent-per-anchor`. Agent-facing text stays out, since a decision stated by one
+text of it earns no head under entry test 2 of `primer@design-heads` and its reader reads that text
+whole, and the installed text cites no entry. No rule on the direction of a citation is needed, since
+membership reads an edge either way. The designs this decision did not keep:
+`rejected@core@goal-rooted-clusters`, `rejected@core@goals-pull-their-citers` and
+`rejected@core@citation-direction-checked`.
+
+### `worklist --out` writes the agents' entries and the report skeletons into a directory outside the project, and `worklist --verify` judges the filled reports against the list it wrote `##worklist-writes-and-verifies-the-reports`
+
+`klarch worklist --out <dir>` writes `agents.txt`, one line per agent and entry with its role and
+its seed mark, and per agent `entries.md`, its entries whole, and `report.md`, one line per entry
+to grade. It is a writer, so it refuses over an incomplete model, per
+`design@core@phases-gate-the-report`, and it refuses a directory inside the project, whose files the
+walk would read, a directory that holds anything, and a seed that names no entry, writing nothing.
+`klarch worklist --verify <dir>` reads no model: it judges each report against `agents.txt`, and
+reports an entry graded nowhere or twice, a reference no agent was given, a grade or a relation
+outside its role's set, a missing reason, an entry that is or cites a seed graded `unrelated`, and
+a report with no closing section on what was met outside the task. The grades and their relations
+are `design@agent-skills@search-relevance-grade`'s.
+
+It serves `goal@core@records-reach-their-reader` and `goal@core@declared-instructions-are-checked`:
+an instruction to grade every entry once is kept by a command, not by a reader. The nearest rival,
+each searcher deriving its group from the listings and writing its report by hand, listed one entry
+twice in the discussion that produced the `rejected` register, and nothing reported it. The
+command's output is read by its own `--verify` and the searcher, and is no contract with another
+reader, per `issue@knowledge-architect@command-output-is-not-declared-a-contract`.
+
+### The groups are packed into the fewest agents first-fit-decreasing gives, spread evenly, under a bound of 25,000 words, a group above it alone `##clusters-packed-under-a-word-bound`
+
+A group's load is the words of its entries. A group above the bound goes to an agent alone, never
+split, and `worklist` prints a notice naming it. The others are packed first-fit-decreasing, which
+fixes the number of agents, then dealt again over that many agents, each to the least-loaded agent
+it fits in; where one fits in none, the first-fit assignment stands. Ties break on the group's
+anchor, path and heading. `--bound` sets another bound.
+
+The owner set the bound at 25,000 words, on the loads this repository's searchers read whole with
+no strain reported, about 22,500 words each, and holds raising it to 30,000 open for later; no
+measurement of recall stands behind any value. Words rather than entries or bytes, on the owner's
+word that words translate better to an agent's tokens: an entry's mean size ranges from 0.5 KB, a
+`rejected` entry, to 2.9 KB, an issue, so a count of entries bounds a load poorly, while words and
+bytes differ by about 15% across kinds. First-fit-decreasing uses at most 11/9 of the optimal number
+of agents plus 6/9, by the bound György Dósa proved tight in 2007, and over this repository and
+thaum it used the lower bound, the total words divided by the bound and rounded up, 9 and 8 agents.
+The spreading keeps an agent from carrying the full bound while another carries a remnant: it put
+this repository's loads at 22,907 to 23,409 words, where first-fit filled them to a median of
+24,737. Re-take both with `klarch worklist --out` and `--bound` over each tree. Splitting a cluster
+to meet a bound would cut a subject, which the grouping exists to keep whole. The design this
+decision did not keep: `rejected@core@packing-to-the-bound`,
+`rejected@agent-skills@one-agent-reads-every-standing-entry`,
+`rejected@agent-skills@design-listing-cut-in-groups-of-sixty` and
+`rejected@agent-skills@subject-groups-bounded-at-sixty`.
+
 ### `index --staged` writes the staged tree's generated files into git's index, and no working-tree file `##index-staged-write`
 
 `cargo klarch index --staged` generates each file from the tree git's index would commit, per

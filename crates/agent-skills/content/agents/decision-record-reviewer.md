@@ -66,6 +66,10 @@ instead.
 
 {{fragment:head-shape.md}}
 
+### When a subject is split
+
+{{fragment:subject-split.md}}
+
 ## The rules on rejected designs, a reversal and the deliberation {{slug:rejected-and-reversal-rules}}
 
 These rules are written for the session that records, and you judge the record against them;

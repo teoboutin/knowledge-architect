@@ -35,6 +35,9 @@ subsection is omitted.
   decision per head, cites `skill@knowledge-architect-decision-recording@head-shape` instead;
   `primer@design-heads` keeps what earns a head, whether a reason belongs in a head or in a comment,
   and what a head stands on.
+- `agent-skills`, patch: a project whose own text cites `knowledge-architect-standing-entry-searcher`
+  or `knowledge-architect-design-entry-searcher` by its reference rewrites the citation to
+  `agent@knowledge-architect-record-searcher`, which replaces both.
 
 ### New features
 
@@ -47,9 +50,14 @@ subsection is omitted.
   what it refuses.
 - `cli`, minor: `klarch new-component <DIR>` adds a Component to a project: its line in
   `[project] components`, keeping every other byte of the manifest, and its documents and homes.
+- `cli`, minor: `klarch worklist --out <dir>` writes the work list of a search of the whole
+  record: every entry grouped into clusters rooted at a design home's subjects or a declared
+  register's groups, packed into agents under a bound in words, with each agent's entries and the
+  report it fills; `klarch worklist --verify <dir>` checks the filled reports.
 - `library`, minor: `cli::init`, `cli::InitArgs`, `cli::NewComponentArgs`, `cli::Vcs` and the
   command enum's variants `Init` and `NewComponent`; and the agent-skills crate's `SNIPPETS`, the
   files the setup skill's Rust section shows.
+- `library`, minor: `cli::Command::Worklist` and `cli::WorklistArgs`.
 - `agent-skills`, patch: the project audit gains its tripwire axis, with the agent
   `agent@knowledge-architect-tripwire-auditor` and the saved workflow `knowledge-architect-tripwire-audit`.
 
@@ -98,6 +106,14 @@ subsection is omitted.
   held when its work began; a retrospective intake reads whole the entries its proposals rest on,
   every standing entry returned and every `bears` entry, and lists the rest of a batch's return as
   not read; a finding already repaired or recorded takes a short section.
+- `agent-skills`, patch: one installed agent, `agent@knowledge-architect-record-searcher`, replaces
+  the two searchers. The design skill's grounding, the design audit of a slice or a spec and the
+  retrospective intake each run `worklist`, dispatch one searcher per agent directory, and check
+  the reports with `worklist --verify`; the design audit now reads the design entries and the
+  `rejected` entries too.
+- `agent-skills`, patch: the decision-recording skill, the decision-record reviewer and the
+  design-record auditor state when a subject of a design home is split: when `worklist` names its
+  cluster above the bound, or when its heads answer questions about parts that change apart.
 
 ## 0.8.0
 
@@ -166,7 +182,7 @@ subsection is omitted.
   it, as `<location>/<entry>/`. A Component cannot carry such a register.
 - `manifest`, minor: an `opt-in` register names in `components = [...]` the Components that carry
   it, the root included, each at its own `docs/<dir>/`.
-- `agent-skills`, patch: `agent@knowledge-architect-design-entry-searcher` reads the goals, the design
+- `agent-skills`, patch: `knowledge-architect-design-entry-searcher` reads the goals, the design
   entries and the `rejected` entries of one Component whole and grades each against a piece of work:
   `bears`, with the relation `constrains`, `may change` or `may bring back`, or `may-bear`, listing
   every entry it read.
@@ -741,7 +757,7 @@ subsection is omitted.
 - `agent-skills`, patch: on the design skill's in-change path, where the premortem runs, nothing of
   a decision is implemented or committed before it has run and the owner has ruled on its
   tripwires.
-- `agent-skills`, patch: a new installed agent, `agent@knowledge-architect-standing-entry-searcher`,
+- `agent-skills`, patch: a new installed agent, `knowledge-architect-standing-entry-searcher`,
   searches the issues and tripwires a piece of work bears on. The design skill dispatches it at the
   grounding of a discussion, and the planning skill at the design audit of a milestone step, one
   agent per group of at most 60 entries, in parallel. The session reads whole each entry it

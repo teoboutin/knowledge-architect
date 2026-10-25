@@ -139,14 +139,16 @@ does.
 `live`. One agent's load grows linearly with the project: the standing entries of thaum at its
 commit ef21314 hold 318,947 bytes. One agent reads every entry whole only while its context holds
 them, and cannot judge so many entries reliably. It is kept here because a doubt remains: no
-measurement shows that agents given groups of 60 entries judge better, and one agent sees every
-entry beside every other, where a group sees only its own.
+measurement shows that agents given a bounded load judge better, and one agent sees every entry
+beside every other, where a group sees only its own.
 
 ### One search agent per anchor `##one-search-agent-per-anchor`
 
 `live`. An anchor bounds nothing: in thaum at its commit ef21314, one Component holds 51.9% of the
 bytes of the standing entries, measured with `git ls-files` over the issue entry files and the
-tripwires homes and `wc -c`, summed by the anchor that holds each file.
+tripwires homes and `wc -c`, summed by the anchor that holds each file. A residual group of one
+anchor's entries that no cluster holds is no such agent: it is packed under the bound with the
+clusters, and named when it exceeds it.
 
 ### A separate installed skill for bounded problems `##separate-bounded-problem-skill`
 
@@ -479,25 +481,24 @@ so it needs a syntax of its own that the head-only direction does not.
 ### The design-conformance reviewer dispatched on a discussion's checkpoint `##conformance-reader-at-the-checkpoint`
 
 `live`. It would read the proposals as they stand at convergence, with an existing agent. In the
-discussion that decided the design-entry search, the owner ruled 7 of 8 threads one by one before
-any checkpoint table was shown, so a reader there reads rulings already given. A doubt remains
-that a search at grounding misses a thread opened later, which
-`tripwire@agent-skills@design-entry-search-misses` watches; this is the candidate if it fires.
+discussion that first decided a search of the design entries at grounding, the owner ruled 7 of 8
+threads one by one before any checkpoint table was shown, so a reader there reads rulings already
+given. A doubt remains that a search at grounding misses what bears on a thread opened later, which
+`tripwire@agent-skills@record-search-misses` watches; this is the candidate if it fires.
 
 ### A listing command of design entries, cut into groups of 60 rows `##design-listing-cut-in-groups-of-sixty`
 
-`live`. It would give even groups, as the standing-entry search has. It loses on the owner's
-argument that `design@agent-skills@design-entry-search-groups` records, and it needs a command that
-grouping by Component does not.
+`live`. It would give even groups. It cuts a subject between two agents, and the owner judged that
+a grouping by quantity alone would most likely make an agent read unrelated entries and read a
+subject in part, while a subject's kept and rejected entries have to be read together.
 
 ### Groups of whole subjects bounded at 60 design entries, a larger subject cut into consecutive heads `##subject-groups-bounded-at-sixty`
 
-`live`. It applied to design entries the bound of 60 that
-`design@agent-skills@standing-entry-search-groups` argues for standing entries, measured on their
-size in thaum. The owner ruled otherwise for design entries, as
-`design@agent-skills@design-entry-search-groups` records. A
-doubt remains whether one agent reads a large subject reliably; this is the candidate if reports of
-large subjects come with missed entries.
+`live`. It applied to design entries a bound of 60 entries, measured on the size of standing
+entries in thaum. The owner would put no numeric limit that cuts a subject, and judged that a subject
+of more than 60 entries is probably not divided enough, which the split notice of `klarch worklist`
+now names. A doubt remains whether one agent reads a large subject reliably; this is the candidate
+if reports of large subjects come with missed entries.
 
 ### A plan document deleted in the commit that completes its last harvest `##plan-document-deleted-with-its-harvest`
 
@@ -508,7 +509,7 @@ in the deleting commit leaves in no tree. A branch that deleted its spec this wa
 name the deleting commit's parent, and a history edit then left those briefs naming a commit the
 branch no longer held.
 
-### A retrospective intake of many files reading whole every entry the design-entry search grades `may-bear` `##intake-reads-every-may-bear-entry-whole`
+### A retrospective intake of many files reading whole every design entry, `rejected` entry and goal the search grades `may-bear` `##intake-reads-every-may-bear-entry-whole`
 
 `live`. A batch's search returns the union of its files' neighbourhoods, mostly graded `may-bear`
 with no bearing established: one intake of nine files returned 169 distinct entries, about 400 KB
@@ -525,3 +526,15 @@ ruling stood: the owner dropped 23 of 66 ruled causes of this repository, and ab
 tripwires it then held watched a failure caught anyway, by a review, a test, the checker or the
 owner, a subagent's reading of each entry, whose count the spec of the tripwire standard keeps,
 deleted at its landing and found with `git log --diff-filter=D --name-only -- docs/plans/`; the owner also spent rulings on the wording and scope of tripwires.
+
+### Two searchers, one for the design entries of a Component and one for the issues and tripwires `##searches-split-by-kind`
+
+`live`. A cluster holds a head beside the `rejected` entries it cites and the issues and tripwires
+that cite it, so a searcher per kind reads half of every cluster, and each searcher derived its own
+group by hand: the work list now gives every agent its entries whole.
+
+### A second search at convergence, of the entries changed since the first `##delta-search-at-convergence`
+
+`live`. The five entries two pieces of work missed before their review were each recorded days
+before the search ran, dated with `git log -S"##<slug>"` and `--diff-filter=A`, so a search of what
+changed since would have met none of them.

@@ -1,6 +1,6 @@
 **Generated — do not edit.** `cargo klarch index`
 
-47 entries
+45 entries
 
 | kind | title |
 | --- | --- |
@@ -10,6 +10,7 @@
 | defect | [In an adopting project, a finding sent upstream is counted again as a violation left on old text at every later pass](an-upstream-finding-stays-in-every-later-old-text-count.md) |
 | defect | [Two audit workflows can give two groups one label, list a sample entry twice, and report verdicts as missing](two-audit-workflows-can-collide-group-labels-and-list-a-sample-entry-twice.md) |
 | design | [A handled retrospective file is marked where it lies, and the owner keeps handled files in an archive apart from pending ones](a-handled-retrospective-file-is-marked-where-it-lies.md) |
+| design | [A lighter pass of the record search for the Components a piece of work does not touch](a-lighter-pass-for-untouched-components.md) |
 | design | [A member recorded directly, as covered by its head's argument, lay beyond that argument](a-member-recorded-directly-lies-beyond-its-head-s-argument.md) |
 | design | [A tripwire on agent behaviour under the workflow fires in sessions this project does not see](a-tripwire-on-agent-behaviour-fires-where-this-project-cannot-see.md) |
 | design | [A default the owner approved is attributed to the owner, and an agent has no way to record a decision as its own](an-approved-default-is-attributed-to-the-owner-and-the-agent-records-no-decision-of-its-own.md) |
@@ -17,7 +18,6 @@
 | design | [Pointers written as bare plain text to clear a finding reach no check, and the rule against them is reopened](pointers-written-bare-to-clear-a-finding-reach-no-check.md) |
 | design | [The claim check of a commit message is read at the session's start and needed at each commit](the-claim-check-of-a-commit-message-is-read-at-the-start-and-needed-at-each-commit.md) |
 | design | [The first test for a losing alternative admits every rival of a head that earned its place as an interface](the-first-test-for-a-losing-alternative-admits-every-rival-of-an-interface-head.md) |
-| design | [The search before the work missed standing entries the work bore on, in two pieces of work](the-search-before-the-work-missed-standing-entries-in-two-pieces-of-work.md) |
 | design | [The workflow assumes one owner, unnamed, which a project with several contributors does not have](the-workflow-assumes-one-unnamed-owner.md) |
 | observation | [A general-purpose subagent is refused the read of a transcript, where an installed agent is not](a-general-purpose-subagent-is-refused-a-file-access.md) |
 | question | [A head in the wrong Component goes to the owner, though the record settles the Component](a-head-in-the-wrong-component-goes-to-the-owner-though-the-record-settles-the-component.md) |
@@ -28,7 +28,6 @@
 | question | [The project audit gives a rebase merge as the reason to cite a commit by its subject, in every installing project](the-audit-assumes-every-project-merges-by-rebase.md) |
 | question | [The audit that ends the move of an adopting project's documents is stated where the move's sessions do not read](the-closing-audit-of-a-move-reaches-no-planning-text.md) |
 | question | [The issue-tracking skill gives the cold-reader standard to `defect` alone in one place and to every entry in another](the-cold-reader-standard-s-scope-reads-two-ways.md) |
-| question | [The design-entry search does not run at the design audit of a slice or a spec](the-design-entry-search-does-not-run-at-a-design-audit.md) |
 | question | [The design-record auditor's return names two verdict vocabularies](the-design-record-auditor-s-return-names-two-verdict-vocabularies.md) |
 | question | [Does the design skill's open-space test leave bounded work almost unreachable?](the-open-space-test-may-admit-every-problem.md) |
 | question | [The planning skill answers every material finding with a default, and states no hold for one that defeats a premise of the owner's ruling](the-planning-skill-answers-every-material-finding-with-a-default.md) |
@@ -50,4 +49,3 @@
 | todo | [The code-claims review axis reads plan documents only, and statements about code elsewhere in a change are checked by no axis](the-code-claims-axis-reads-plan-documents-only.md) |
 | todo | [The design skill's duty to bring back a material finding has no design head](the-material-finding-duty-has-no-head.md) |
 | todo | [The retrospective records no count of what a merged branch cost in review](the-retrospective-counts-no-review-cost.md) |
-| todo | [The standing-entry searcher's return has no list for an entry kept on a doubt](the-standing-entry-searcher-has-no-list-for-a-doubt.md) |

@@ -180,6 +180,14 @@ mod tests {
             ],
         ),
         (
+            "subject-split.md",
+            &[
+                ".claude/agents/knowledge-architect-decision-record-reviewer.md",
+                ".claude/agents/knowledge-architect-design-record-auditor.md",
+                ".claude/skills/knowledge-architect-decision-recording/SKILL.md",
+            ],
+        ),
+        (
             "losing-alternatives.md",
             &[
                 ".claude/agents/knowledge-architect-decision-record-reviewer.md",

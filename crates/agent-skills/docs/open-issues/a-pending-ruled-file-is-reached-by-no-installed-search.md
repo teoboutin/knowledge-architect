@@ -37,10 +37,10 @@ agentic-workflow audit ran:
   diagnosing, `cargo klarch issues`, `cargo klarch tripwires` and `cargo klarch show`.
 - `skill@knowledge-architect-issue-tracking@outstanding-across-registers` and
   `skill@knowledge-architect-issue-tracking@read-before-diagnosing`: the listings.
-- `agent@knowledge-architect-standing-entry-searcher@take-your-group`, the search that
+- `agent@knowledge-architect-record-searcher`, the search that
   `skill@knowledge-architect-design@discussion-loop` step 1 and
-  `skill@knowledge-architect-planning@working-a-slice` point 2 dispatch: it runs the two listings
-  only.
+  `skill@knowledge-architect-planning@working-a-slice` point 2 dispatch: it reads the entries of the
+  registers that `klarch worklist` lists, and no pending file.
 
 A search for "audit-reports" over the installed text, `grep -rn audit-reports` over
 `path@agent-skills@content/`, finds the primer's row, the audit skill's file name and the audit
@@ -76,8 +76,8 @@ since an instruction about how an agent behaves is added on evidence from real u
 
 ### Why it matters
 
-`design@agent-skills@standing-entries-searched-before-the-work` searches every issue kind and every
-tripwire before the work is designed, so that a standing entry the work bears on is ruled before
+`design@agent-skills@record-searched-before-the-work` searches the whole record before the work is
+designed, so that a standing entry the work bears on is ruled before
 the code is written. A pending file's ruled outcome is outstanding work of the same weight that
 the search does not reach. A design that duplicates or contradicts it costs the work twice. In this
 repository, `design@knowledge-architect@committed-findings-analysis` keeps an analysis of a
@@ -91,8 +91,8 @@ discussed a design or audited a slice or a spec bearing on one of the file's rul
 the session found the file, and the entry closes with no change; or it did not, and the installed
 text names docs/audit-reports/ and docs/retrospective-reports/ in one place, the listing of
 `skill@knowledge-architect-issue-tracking@outstanding-across-registers`, which the primer's check
-and the standing-entry search then point to, rather than in each of them. That fix makes the search
-read a place its head's argument does not cover, "every issue kind and every tripwire": it is a
-change of `design@agent-skills@standing-entries-searched-before-the-work`, argued under
+and the record search then point to, rather than in each of them. That fix makes the search read a
+place its head's argument does not cover, the entries of the record: it is a change of
+`design@agent-skills@record-searched-before-the-work`, argued under
 `skill@knowledge-architect-design` before its text is written, per the backstop of
 `primer@design-heads`.
