@@ -1016,7 +1016,7 @@ a re-check: no old or new text.
   command, as for pk/18: `git tag --contains <W> --list 'v*' | wc -l`, reaching 3. No step wrote
   the reworded response's text.
 
-##### `tripwire@core@issue-kind-list-grows` (pk/10, verified)
+##### `issue-kind-list-grows` (pk/10, verified)
 
 - Outcome: reworded: condition 4.
 - Evidence: "the commit that wrote the bound, a9ea4f2 (`git log -S'exceeds ten kinds'`), argues
@@ -1405,7 +1405,7 @@ the pointer issue:29, tripwire-standard.md:193), `tripwire@agent-skills@rule-mis
 `tripwire@agent-skills@ruling-lost-in-assembly`, `tripwire@agent-skills@ruling-lost-in-change`, `tripwire@agent-skills@split-rule-from-exception`,
 `tripwire@agent-skills@verifier-refutes-a-true-finding`, `tripwire@agent-skills@skipped-spec-audit-would-have-found-a-gap`, `tripwire@core@candidate-rule-silence`,
 `tripwire@core@fix-makes-a-choice`, `tripwire@core@phases-gate-the-report-two`, `tripwire@core@init-cleanup-beyond-the-listed-files`,
-`tripwire@core@private-item-needed`, `tripwire@core@issue-kind-list-grows`.
+`tripwire@core@private-item-needed`, `issue-kind-list-grows`.
 
 ## 5. The session's verification
 

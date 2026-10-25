@@ -73,10 +73,10 @@ The cross-check writes "16 verified, and 13 plausible". There, "13" is a draft n
   - The `tripwire@agent-skills@overlap-missed` clause is also unchanged (agent-skills tripwires.md at the commit pass 1 audited, lines 389-390), so it is old text too.
   - Proposed counts, if R1, the F6 extension and as2/13 are all confirmed:
     - on old text: 6, or 5 if walked-count's heading is left as an exception;
-    - on new text: 5 (`tripwire@core@issue-kind-list-grows`, `tripwire@agent-skills@rule-misread-across-groups`, `tripwire@agent-skills@ruling-lost-in-change`, `tripwire@core@a-second-producer-chain`, and the attribution in `tripwire@agent-skills@audit-passes-do-not-converge`);
+    - on new text: 5 (`issue-kind-list-grows`, `tripwire@agent-skills@rule-misread-across-groups`, `tripwire@agent-skills@ruling-lost-in-change`, `tripwire@core@a-second-producer-chain`, and the attribution in `tripwire@agent-skills@audit-passes-do-not-converge`);
     - on old text and on the owner list: 0.
   - Pass 1 counted none ("Violations left: not counted, this is a first pass"), so there is no convergence question for the owner.
-- **Owner list, as the cross-check proposes it:** 1 item, "removed on condition 3", holding `tripwire@core@issue-kind-list-grows`. A second item is conditional (part 5).
+- **Owner list, as the cross-check proposes it:** 1 item, "removed on condition 3", holding `issue-kind-list-grows`. A second item is conditional (part 5).
 - **Rulings against the default:** not asked yet.
 
 **Entries missing from a return:** none.
@@ -122,9 +122,9 @@ The calibration states: "Proposed readings: 1. Entries whose rule admits both ou
   - the standard: "The entry is a level-two heading ... its slug last:", with the template line "## Guarding `design@<anchor>@<id>`: <the premise watched> `##<slug>`";
   - the standard: "A tripwire watches one premise of a recorded decision";
   - the order "fired, its decision is gone, horizon passed, removed, converted, absorbed, reworded, kept", and the rule "propose the first in that order";
-  - precedent: pass-1 report lines 604-606, and the commit audited's "stated no premise" about `tripwire@core@issue-kind-list-grows`.
+  - precedent: pass-1 report lines 604-606, and the commit audited's "stated no premise" about `issue-kind-list-grows`.
 - R1 also reaches `tripwire@core@candidate-rule-silence`, `tripwire@core@checker-source-literals-are-data-whole-source-scope` and `tripwire@core@checker-source-literals-are-data-purpose`. It does not reach `tripwire@core@planned-path-outside-plans`.
-- the commit audited's application judgement covered "all 65 entries the application changed or deleted", including these entries. It failed only `tripwire@core@issue-kind-list-grows`'s heading. So it also passed the headings R1 now finds.
+- the commit audited's application judgement covered "all 65 entries the application changed or deleted", including these entries. It failed only `issue-kind-list-grows`'s heading. So it also passed the headings R1 now finds.
 
 **`tripwire@core@walked-count-differs-between-machines`** (c1/11)
 - All three groups: converted, already known.
@@ -141,7 +141,7 @@ The calibration states: "Proposed readings: 1. Entries whose rule admits both ou
 
 ### 3.1 Removed, condition 3 (owner list): core, crates/core/docs/tripwires.md
 
-**`tripwire@core@issue-kind-list-grows`** (c1/07). Verified, bears on a ruling, new text.
+**`issue-kind-list-grows`** (c1/07). Verified, bears on a ruling, new text.
 - **Head:** "An unknown kind is a finding naming the list, and adding one is a reviewed manifest diff ... so an unknown one would owe the wrong three in silence ... and `register@core@tripwire` guards the closing."
 - **Clause:** "a kind outside the six compiled defaults, declared in an issue register of this project or of a consuming project as a retrospective file the intake receives reports, ends up with a single member across that project."
 - **Verifier:** "`rejected@core@open-issue-kind-set` lost on "an unanticipated kind then owes the wrong three, silently", not on proliferation, and the premise "the list stops partitioning anything" appears only in the tripwire since a9ea4f2, never in the head ... no reading leaves it in doubt."
@@ -284,7 +284,7 @@ Two `rejected` entries are kept on a doubt and name a kept entry. Each is judged
 - **R1:** covers five headings. The default excludes `tripwire@core@fix-makes-a-choice`.
 - **The `<W>` form:** changes no outcome.
 
-**Stale texts if `tripwire@core@issue-kind-list-grows` is deleted:**
+**Stale texts if `issue-kind-list-grows` is deleted:**
 - pass-1 report:1019 and :1408 would dangle. Repair each with the bare slug.
 - `design@core@issue-kind-list-closed`, design.md:1172: "and `register@core@tripwire` guards the closing" becomes false. Strike it in the deleting commit as a case-2 fix.
 - `rejected@core@open-issue-kind-set` is still cited by the head, so it is not orphaned.
@@ -314,14 +314,14 @@ c1/07, and the plausible verdict as2/13. Its decisions:
   approval leaves the entry's text, as the primer says of an approval.
 - **`tripwire@core@a-second-producer-chain`**: the clause names a check of the last phase.
 - **Old and new text**: violations left on old text, 6 (the five headings and the clause of
-  `tripwire@agent-skills@overlap-missed`); on new text, 6 (`tripwire@core@issue-kind-list-grows`, `tripwire@agent-skills@rule-misread-across-groups`,
+  `tripwire@agent-skills@overlap-missed`); on new text, 6 (`issue-kind-list-grows`, `tripwire@agent-skills@rule-misread-across-groups`,
   `tripwire@agent-skills@ruling-lost-in-change`, `tripwire@core@a-second-producer-chain`, the attribution of
   `tripwire@agent-skills@audit-passes-do-not-converge`, and its issue's lines); on old text and on the owner list, 0. Pass 1
   counted none, so no convergence question arises.
 
 ## 6. The owner list
 
-### F1: removed on condition 3, `tripwire@core@issue-kind-list-grows`
+### F1: removed on condition 3, `issue-kind-list-grows`
 
 Its clause counts "a kind outside the six compiled defaults ... ends up with a single member across
 that project"; its head says "adding one is a reviewed manifest diff", which endorses what the clause

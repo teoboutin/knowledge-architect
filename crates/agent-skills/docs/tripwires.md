@@ -82,8 +82,8 @@ review, and the misstatement is critical under
 one approved thread takes the full path.
 **Re-entry:** the retrospective of each session that wrote such a commit message: it reads the
 session's own record against the message.
-**Watches until:** 10 commits on the main branch whose message carries a deliberation on the
-in-change path.
+**Watches until:** 10 commits on the main branch whose message names the in-change path and that
+add a heading to a design home.
 
 ## Guarding `design@agent-skills@standing-entries-searched-before-the-work`: a deferred trigger met by work that bypasses the design skill and found only at the review `##deferred-trigger-met-by-undesigned-work`
 
@@ -317,11 +317,12 @@ since a draft the report lists as doubtful is one the session reads.
 The decision rests on the premise that the cross-check maps every pair of findings that edit one
 paragraph or one slug, so the application meets no collision the report did not show.
 
-**Fires when:** during the application of a pass of the design-record axis, the session meets two
-findings that edit one paragraph or one slug, and the cross-check's overlap map does not list them.
+**Fires when:** in the applications of two passes of the design-record axis, the session meets two
+findings that edit one paragraph or one slug and that the cross-check's overlap map does not list;
+or two such findings, both applied, reach the main branch with no review reporting the collision.
 **Response:** reopen the design-record axis's cross-check, in `design@agent-skills@one-run-pass`.
 **Re-entry:** the application of each pass of the design-record axis.
-**Watches until:** the application of 2 passes of the design-record axis, each counted by the
+**Watches until:** the application of 3 passes of the design-record axis, each counted by the
 deletion of its report file at its last outcome.
 
 ## Guarding `design@agent-skills@root-cause-repair` and `design@agent-skills@design-record-axis-dispatch`: one rule misread across groups outside the sample `##rule-misread-across-groups`
@@ -329,13 +330,13 @@ deletion of its report file at its last outcome.
 The decisions rest on the premise that the design-record axis's findings need no grouping by cause,
 since the calibration sample catches a rule the auditors read apart.
 
-**Fires when:** in one pass, the session traces findings of more than one group to one misreading of
-one rule, and the calibration did not catch it.
+**Fires when:** in two passes of the design-record axis, the session traces findings of more than
+one group to one misreading of one rule that the calibration did not catch.
 **Response:** reopen the absence of a cause step for the design-record axis, in
 `design@agent-skills@root-cause-repair`, and how the sample is chosen, in
 `design@agent-skills@design-record-axis-dispatch`.
 **Re-entry:** the session's verification of each report of the design-record axis.
-**Watches until:** 2 passes of the design-record axis, each counted by its report file.
+**Watches until:** 3 passes of the design-record axis, each counted by its report file.
 
 ## Guarding `design@agent-skills@questions-go-to-their-authority`: questions the record answers still reach the owner `##record-answered-questions-reach-the-owner`
 
@@ -508,7 +509,7 @@ session of the statuses.
 
 The decision rests on the premise that repairing each cause rather than each finding makes an audit
 push the record toward improvement, so that what a pass leaves falls from one pass to the next. The
-owner proposed this watch as an acceptance criterion, and kept it as a tripwire for future audits.
+owner proposed this watch, as an acceptance criterion of the discussion that made the decision.
 
 **Fires when:** from one pass to the next of an audit, the severe violations left on old text, those
 whose outcome is the owner list, do not fall while they are above zero. Old text is text the
