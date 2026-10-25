@@ -60,6 +60,9 @@ pub enum Command {
     Check(CheckArgs),
     /// One recorded entry, whole, and every reference to it.
     Show(ShowArgs),
+    /// Whether each id is free: every entity the project defines under it, or `free`, or that it
+    /// is no id.
+    Id(IdArgs),
     /// Every issue entry, one row each.
     Issues(IssuesArgs),
     /// Every tripwire entry, one row each.
@@ -89,6 +92,13 @@ pub enum Command {
     /// The sessions of Claude Code's transcripts that ran in this project: listed, one shown, or
     /// searched, each line labelled by its fields, and every line not recognised reported.
     Transcript(TranscriptArgs),
+}
+
+#[derive(Args)]
+pub struct IdArgs {
+    /// The ids to look up, in the grammar `[a-z0-9]+(-[a-z0-9]+)+`.
+    #[arg(required = true, value_name = "ID")]
+    pub ids: Vec<String>,
 }
 
 #[derive(Args)]
@@ -245,6 +255,7 @@ pub fn run(
         Command::Check(args) if args.staged => history::check_staged(manifest, checker, extensions),
         Command::Check(_) => check(manifest, checker, extensions),
         Command::Show(args) => show(manifest, &args, checker),
+        Command::Id(args) => id(manifest, &args, checker),
         Command::Issues(args) => issues(manifest, &args, checker),
         Command::Tripwires(args) => tripwires(manifest, &args, checker),
         Command::Index(args) if args.staged => history::index_staged(manifest, checker, extensions),
@@ -1208,6 +1219,77 @@ fn show(manifest: &Manifest, args: &ShowArgs, checker: &[&Path]) -> Result<ExitC
         inbound_text(&cited_at(&index, &anchors, &kind, anchor, id))
     );
     Ok(ExitCode::SUCCESS)
+}
+
+/// Whether each id is free: every entity the table defines under it, as the reference `show`
+/// takes, or `free`, or that it is no id.
+///
+/// **A `free` is an answer over the whole table**, so it is given only over a complete model: the
+/// run asks the first three phases as a writer does, per `design@core@phases-gate-the-report`,
+/// where an entity an unread file defines would make the answer false. `show` needs no such gate,
+/// since what it prints exists whatever else the model misses.
+///
+/// **The exit codes**, per `design@core@exit-code-ladder`: 0 when every argument is an id nothing
+/// defines; 1 otherwise, an argument outside the grammar included, since that is a negative
+/// answer about the candidate, and the run still answers every other one; 2 when the command
+/// cannot run, an incomplete model included.
+///
+/// Every kind and every anchor is listed, unfiltered: which collision refuses an id is the
+/// reader's rule, such as a design thread's slug, which collides only with a design or a
+/// `rejected` entry of the Component that will own it.
+fn id(manifest: &Manifest, args: &IdArgs, checker: &[&Path]) -> Result<ExitCode, String> {
+    let model = crate::Model::build(manifest, checker).map_err(|e| e.to_string())?;
+    complete_working_tree(manifest, &model).map_err(|e| {
+        e.replace(
+            "Nothing was written.",
+            "No id is answered over it, since one it defines would read as free.",
+        )
+    })?;
+    let anchors = Anchors::of(manifest, model.listing());
+    let entities = Entities::build(&model, &anchors);
+    let by_id = entities.by_id();
+    let width = args.ids.iter().map(|i| i.len()).max().unwrap_or(0);
+    let mut all_free = true;
+    for candidate in &args.ids {
+        let pad = " ".repeat(width - candidate.len());
+        if !crate::entity::is_entry_id(candidate) {
+            all_free = false;
+            outln!("{candidate}{pad}  not an id: an id matches [a-z0-9]+(-[a-z0-9]+)+");
+            continue;
+        }
+        let mut forms: Vec<String> = by_id
+            .get(candidate.as_str())
+            .into_iter()
+            .flatten()
+            .map(|(kind, anchor)| {
+                if anchor.is_empty() {
+                    format!("{}@{candidate}", kind.name())
+                } else {
+                    format!("{}@{anchor}@{candidate}", kind.name())
+                }
+            })
+            .collect();
+        forms.sort();
+        forms.dedup();
+        if forms.is_empty() {
+            outln!("{candidate}{pad}  free");
+            continue;
+        }
+        all_free = false;
+        let indent = " ".repeat(width + 2);
+        for (n, form) in forms.iter().enumerate() {
+            if n == 0 {
+                outln!("{candidate}{pad}  {form}");
+            } else {
+                outln!("{indent}{form}");
+            }
+        }
+    }
+    Ok(if all_free {
+        ExitCode::SUCCESS
+    } else {
+        ExitCode::FAILURE
+    })
 }
 
 /// A register entry as `show` prints it: its reference and its site, a blank line, its body.
