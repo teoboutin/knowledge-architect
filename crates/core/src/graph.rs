@@ -152,20 +152,22 @@ pub(crate) fn graph(model: &Model, anchors: &Anchors, entities: &Entities) -> Gr
         .iter()
         .map(|d| (d.rel.as_path(), d))
         .collect();
-    let mut units: BTreeMap<(String, String, String), Vec<usize>> = BTreeMap::new();
+    let mut units: BTreeMap<(String, String, String), (String, Vec<usize>)> = BTreeMap::new();
     for (i, entry) in entries.iter().enumerate() {
         if entry.role != Role::Unit {
             continue;
         }
+        let (key, name) = unit_key(entry, anchors, &by_path);
         units
-            .entry(unit_key(entry, anchors, &by_path))
-            .or_default()
+            .entry(key)
+            .or_insert_with(|| (name, Vec::new()))
+            .1
             .push(i);
     }
 
     let mut groups = Vec::new();
     let mut held: BTreeSet<usize> = BTreeSet::new();
-    for (key, mut members) in units {
+    for (key, (unit_name, mut members)) in units {
         members.sort_by(|&a, &b| {
             let (sa, sb) = (&entries[a].record.site, &entries[b].record.site);
             (&sa.file, sa.line).cmp(&(&sb.file, sb.line))
@@ -195,13 +197,8 @@ pub(crate) fn graph(model: &Model, anchors: &Anchors, entities: &Entities) -> Gr
         list.extend(gathered(Role::Issue));
         list.extend(gathered(Role::Tripwire));
         held.extend(list.iter().copied());
-        let name = if key.2.is_empty() {
-            format!("{} :: {}", key.0, key.1)
-        } else {
-            format!("{} :: {}", key.0, key.2)
-        };
         groups.push(Group {
-            name,
+            name: format!("{} :: {unit_name}", key.0),
             key,
             entries: list,
             residual: false,
@@ -233,63 +230,80 @@ pub(crate) fn graph(model: &Model, anchors: &Anchors, entities: &Entities) -> Gr
     }
 }
 
-/// The unit an entry of a unit register belongs to: its anchor, the path of its file or group,
-/// and the heading it sits under, empty where none is its unit's.
+/// The unit an entry of a unit register belongs to, as its key and its name.
 ///
-/// A heading register whose entries sit at level 3 or deeper is cut at the heading one level
-/// above its entries, in each file of its home, so a design home is cut at its level-two
-/// subjects, in a single file or in each subdocument; the entries before the first such heading
-/// of a file are one unit of that file. A heading register at level 2 has no heading above its
-/// entries but the title, so each file is one unit. A file register is cut at its group
+/// A heading register whose entries sit at level 3 or deeper is cut at the nearest heading above
+/// an entry that is shallower than the entries, in each file of its home, so a design home is cut
+/// at its level-two subjects, in a single file or in each subdocument. Each such heading is a unit
+/// of its own, keyed by its line, so two subjects of one text stay two units. A unit is named by
+/// its heading's text where the heading sits one level above the entries; the entries under a
+/// file's first heading, its title, or under no heading are named by the file; under any other
+/// shallower heading, by the file and that heading. A heading register at level 2 has no heading
+/// above its entries but the title, so each file is one unit. A file register is cut at its group
 /// subdirectories, and the entries at the top of its home are one unit. A Directory register's
 /// entries are one unit per anchor that carries it.
 fn unit_key(
     entry: &Entry,
     anchors: &Anchors,
     by_path: &BTreeMap<&Path, &Document>,
-) -> (String, String, String) {
+) -> ((String, String, String), String) {
     let (kind, anchor, _) = &entry.key;
     let register = anchors.registers().by_name(kind.name());
     let home = anchors.by_name(anchor).and_then(|a| anchors.home(a, kind));
     let site = &entry.record.site;
+    let whole = |path: &Path| {
+        let text = path_text(path);
+        ((anchor.clone(), text.clone(), String::new()), text)
+    };
     match register.map(|r| (r.shape, r.level)) {
         Some((Shape::File, _)) => {
             let dir = home.map(|h| h.dir).unwrap_or_default();
-            let path = match &entry.record.group {
-                Some(group) => dir.join(group),
-                None => dir,
-            };
-            (anchor.clone(), path_text(&path), String::new())
+            match &entry.record.group {
+                Some(group) => whole(&dir.join(group)),
+                None => whole(&dir),
+            }
         }
-        Some((Shape::Directory, _)) => {
-            let dir = home.map(|h| h.dir).unwrap_or_default();
-            (anchor.clone(), path_text(&dir), String::new())
-        }
+        Some((Shape::Directory, _)) => whole(&home.map(|h| h.dir).unwrap_or_default()),
         Some((_, Some(level))) if level >= 3 => {
-            let subject = by_path
+            let file = path_text(&site.file);
+            let above = by_path
                 .get(site.file.as_path())
-                .and_then(|doc| subject_of(doc, site.line, level))
-                .unwrap_or_default();
-            (anchor.clone(), path_text(&site.file), subject)
+                .and_then(|doc| shallower_above(doc, site.line, level));
+            match above {
+                None => whole(&site.file),
+                Some((at, n, text, first)) => {
+                    let name = if n == level - 1 {
+                        text
+                    } else if first {
+                        file.clone()
+                    } else {
+                        format!("{file} :: {text}")
+                    };
+                    ((anchor.clone(), file, format!("{at:010}")), name)
+                }
+            }
         }
-        _ => (anchor.clone(), path_text(&site.file), String::new()),
+        _ => whole(&site.file),
     }
 }
 
-/// The text of the heading one level above `level` that holds `line`, or `None` where the
-/// nearest shallower heading above it is shallower still, as a document's title is.
-fn subject_of(doc: &Document, line: u32, level: u8) -> Option<String> {
-    let above = doc
+/// The nearest heading above `line` shallower than `level`: its line, its level, its text, and
+/// whether it is the document's first heading.
+fn shallower_above(doc: &Document, line: u32, level: u8) -> Option<(u32, u8, String, bool)> {
+    let headings: Vec<(u32, u8, &String)> = doc
         .observations
         .iter()
-        .rev()
-        .filter(|l| l.line < line)
         .filter_map(|l| match &l.what {
-            Observation::Heading { level: n, text } if *n < level => Some((*n, text)),
+            Observation::Heading { level: n, text } => Some((l.line, *n, text)),
             _ => None,
         })
-        .next()?;
-    (above.0 == level - 1).then(|| above.1.clone())
+        .collect();
+    let first = headings.first().map(|h| h.0);
+    headings
+        .iter()
+        .rev()
+        .find(|(at, n, _)| *at < line && *n < level)
+        .map(|&(at, n, text)| (at, n, text.clone(), Some(at) == first))
 }
 
 fn path_text(path: &Path) -> String {
@@ -638,6 +652,41 @@ mod tests {
                 "goal@a-project@unserved-goal",
                 "issue@a-project@on-the-goal"
             ]
+        );
+    }
+
+    /// The claim: two subjects of one text in one file are two units, and an entry under a
+    /// heading shallower than the subjects, after them, is a unit of its own, named by the file
+    /// and that heading, not a member of the file's first unit. Mutation checked: the heading's
+    /// line dropped from the unit's key, which merges the two `Commands` subjects.
+    #[test]
+    fn subjects_of_one_text_stay_apart_and_a_later_shallower_heading_is_its_own_unit() {
+        let design = "# Design\n\n### Early `##early`\n\nx\n\n\
+            ## Commands\n\n### Head a `##head-a`\n\nx\n\n\
+            ## Storage\n\n### Head b `##head-b`\n\nx\n\n\
+            ## Commands\n\n### Head c `##head-c`\n\nx\n\n\
+            # Part two\n\n### Head e `##head-e`\n\nx\n";
+        let mut docs = project();
+        docs.retain(|(p, _)| *p != "docs/design.md");
+        docs.push(("docs/design.md", design));
+        let g = graph_of(&docs);
+        let commands: Vec<Vec<String>> = g
+            .groups
+            .iter()
+            .filter(|grp| grp.name == "a-project :: Commands")
+            .map(|grp| names(&g, grp))
+            .collect();
+        assert_eq!(
+            commands,
+            [["design@a-project@head-a"], ["design@a-project@head-c"]]
+        );
+        assert_eq!(
+            names(&g, group(&g, "a-project :: docs/design.md :: Part two")),
+            ["design@a-project@head-e"]
+        );
+        assert_eq!(
+            names(&g, group(&g, "a-project :: docs/design.md")),
+            ["design@a-project@early"]
         );
     }
 
