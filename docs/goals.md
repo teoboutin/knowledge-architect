@@ -42,6 +42,16 @@ follow without guessing what it means, and no two parts contradict each other. W
 covers is left to the agent's judgement on purpose, per
 `goal@agent-skills@installed-text-leaves-room-to-judge`. Writing the code itself is left to each project.
 
+## A mechanical task the workflow asks of a session is done by the tool `##mechanical-tasks-are-the-tool-s`
+
+Where the installed workflow asks a session for a task whose result follows from the tree and the
+workflow's rules, with no judgement, and that takes several steps or a script the session would
+write, the published checker offers a command that does it, so every session gets the same result
+without building it again. A task found in real use is proposed as a command, and the owner decides
+whether it is built. It is met while no such task found in real use is left with neither a command
+nor the owner's ruling that it stays by hand. It refines
+`goal@knowledge-architect@agents-get-a-complete-workflow`.
+
 ## The documentation structure and the workflow work together `##structure-and-workflow-work-together`
 
 The workflow writes into the structure, and the structure gives the workflow what it needs: one
