@@ -1,0 +1,1 @@
+{"type": "user", "uuid": "g1", "parentUuid": null, "sessionId": "99999999-0000-0000-0000-000000000007", "timestamp": "2026-01-04T11:00:00.000Z", "cwd": "/nonexistent/other-project", "gitBranch": "main", "version": "2.1.310", "isSidechain": false, "message": {"role": "user", "content": "in another project"}, "origin": {"kind": "human"}}

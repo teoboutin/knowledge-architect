@@ -35,6 +35,11 @@ pub use gathered::Gathered;
 
 mod worklist;
 
+mod transcript;
+pub use transcript::{
+    TranscriptArgs, TranscriptListArgs, TranscriptSearchArgs, TranscriptShowArgs, TranscriptVerb,
+};
+
 // A binary's `main` refuses a build made from another checkout before any command, per
 // `design@core@a-foreign-build-is-refused`.
 pub use crate::build_origin::{refuse_a_foreign_build, this_library, Library};
@@ -81,6 +86,9 @@ pub enum Command {
     /// The work list of a search of the whole record: every entry grouped into clusters, packed
     /// into agents, with one report skeleton per agent; or the check of the filled reports.
     Worklist(WorklistArgs),
+    /// The sessions of Claude Code's transcripts that ran in this project: listed, one shown, or
+    /// searched, each line labelled by its fields, and every line not recognised reported.
+    Transcript(TranscriptArgs),
 }
 
 #[derive(Args)]
@@ -250,6 +258,7 @@ pub fn run(
         // binary skipped that step, inside a project.
         Command::NewComponent(args) => create::new_component(manifest, &args, checker, extensions),
         Command::Worklist(args) => worklist::worklist(manifest, &args, checker),
+        Command::Transcript(args) => transcript::transcript(manifest, &args),
         Command::Init(_) => Err(format!(
             "`init` creates a project, and {} already holds one; a binary dispatches `init` to \
              `cli::init` before it locates a project",

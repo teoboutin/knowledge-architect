@@ -178,6 +178,7 @@ dependencies = [
  "pulldown-cmark",
  "regex",
  "serde",
+ "serde_json",
  "toml",
  "toml_edit",
  "tree-sitter",
