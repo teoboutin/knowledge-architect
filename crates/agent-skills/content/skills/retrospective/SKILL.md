@@ -218,3 +218,12 @@ defect of the skill (`skill@knowledge-architect-retrospective@what-it-examines`)
   choice that changes the project's build or a file it already has. A run without an owner, such as a trial, makes those choices itself, the
   goals excepted, as `skill@knowledge-architect-setup` says, and a gap it reports in a choice it
   had to make alone is not a defect of the skill.
+
+### `skill@knowledge-architect-review`
+
+%% The owner's word: a branch under the workflow nearly always spans one session, and rarely more
+%% than a day or two.
+- **A branch spans one session, or a few within a day or two.** The transcript review before a
+  merge reads the transcripts of every session that worked on the branch, and the harness deletes a
+  transcript after its retention period, 30 days by default in Claude Code. A branch kept open
+  longer can lose its early sessions before that review, which then cannot read them.
