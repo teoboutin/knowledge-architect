@@ -53,11 +53,16 @@ subsection is omitted.
 - `cli`, minor: `klarch worklist --out <dir>` writes the work list of a search of the whole
   record: every entry grouped into clusters rooted at a design home's subjects or a declared
   register's groups, packed into agents under a bound in words, with each agent's entries and the
-  report it fills; `klarch worklist --verify <dir>` checks the filled reports.
+  report it fills, and a snapshot of every entry as `show` prints it; `klarch worklist --verify
+  <dir>` checks the filled reports and, when they pass, assembles the entries graded `bears` into
+  `bears.md` and those graded `may-bear` into `may-bear.md`.
+- `cli`, minor: `klarch id <id>…` says whether each id is free, or lists every entity the project
+  defines under it; it refuses an incomplete model.
 - `library`, minor: `cli::init`, `cli::InitArgs`, `cli::NewComponentArgs`, `cli::Vcs` and the
   command enum's variants `Init` and `NewComponent`; and the agent-skills crate's `SNIPPETS`, the
   files the setup skill's Rust section shows.
 - `library`, minor: `cli::Command::Worklist` and `cli::WorklistArgs`.
+- `library`, minor: `cli::Command::Id` and `cli::IdArgs`.
 - `cli`, minor: `klarch transcript list`, `show` and `search` read the session transcripts Claude
   Code writes: the project's sessions, cut where a new session starts, `/clear` included, each line
   labelled by its fields as the owner's, injected, the agent's, a dispatch or a tool's, and a header
@@ -129,6 +134,22 @@ subsection is omitted.
   design-record auditor state when a subject of a design home is split: when `worklist` names its
   cluster above the bound, or when its heads answer questions about parts that change apart. The
   project audit's design-record axis and the decision-record review report a subject to split.
+- `agent-skills`, patch: a design session reads whole the entries its search grades `bears`, and an
+  entry graded `may-bear` only where a proposal touches it, from the files `worklist --verify`
+  writes; it lists the others with the searcher's reason as not read, in the plan document or in
+  the commit message of an in-change deliberation. A searcher grades `may-bear` only on a named
+  doubt, an element of the change and a sentence of the entry; an entry that only shares the work's
+  subject is `unrelated`.
+- `agent-skills`, patch: the design skill's grounding and the design audit seed the record search
+  with decisions only, never a goal; a goal a discussion sets is no part of its search's work.
+- `agent-skills`, patch: the design-conformance reviewer reads whole every entry a plan document
+  lists as not read, issues and tripwires included, and runs at the review before the merge of a
+  branch whose commit message carries an in-change deliberation listing such entries.
+- `agent-skills`, patch: the design skill checks a thread's candidate slugs with one call of
+  `klarch id`.
+- `agent-skills`, patch: the retrospective asks one more standing question: whether the session or
+  a subagent wrote a script, or carried by hand over several steps, a mechanical task the installed
+  workflow asks of it.
 
 ## 0.8.0
 

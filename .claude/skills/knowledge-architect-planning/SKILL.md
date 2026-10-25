@@ -160,7 +160,7 @@ so in one line rather than being omitted, so a reader can tell an empty section 
 | How the work is done | in a milestone document: a pointer to `skill@knowledge-architect-planning@working-a-slice`, with an instruction to read it whole before each slice, and any addition the milestone's work needs. In a spec: one line naming this skill |
 | Names | every project shorthand the document uses, expanded to the file, function or command it names |
 | What the work is | what exists today at each site the work touches; what is outside the work and why, each exclusion naming the work or the decision that owns it |
-| What is already decided | the recorded decisions the design rests on and does not argue again, as references; and each recorded decision the work reverses or rewrites, with every text that `cargo klarch show` lists as referencing it (a tripwire, an issue, a restatement in a `CLAUDE.md` or a skill, a README, a comment), and the step, slice or harvest that judges or updates each; and each entry the discussion's search graded `bears` or `may-bear`, with its outcome: how it bears on the work, or that it bears on nothing |
+| What is already decided | the recorded decisions the design rests on and does not argue again, as references; and each recorded decision the work reverses or rewrites, with every text that `cargo klarch show` lists as referencing it (a tripwire, an issue, a restatement in a `CLAUDE.md` or a skill, a README, a comment), and the step, slice or harvest that judges or updates each; and each entry the discussion's search graded `bears` or `may-bear`, with its outcome: how it bears on the work, that it bears on nothing, or, for a `may-bear` entry the grounding did not read, "not read" with the searcher's reason, which the design-conformance review reads |
 | Criteria | one item per criterion, ``### <criterion> `##<id>` ``: its kind, its source and its satisfaction |
 | Threads | one item per thread, ``### <resolution> `##<id>` ``: who proposed it and in which round, its final state, the arguments that moved it, the section that carries its shape, the durable home that will harvest it, and the owner's words that closed it, verbatim, with their round, or, for a thread closed `argued`, the argument that closed it |
 | Arguments | one item per argument of the discussion, ``### <argument> `##arg-<n>` ``: its round, who gave it, the threads it bears on, and its key words verbatim |
@@ -434,10 +434,12 @@ design the gap defeats.
    search of the whole record as the description of `agent@knowledge-architect-record-searcher` says, with the
    slice's spec and the milestone document as the work and, as seeds, the decisions the milestone
    document lists under "What is already decided", those the design rests on and those it reverses
-   or rewrites, and the decisions and goals the slice's spec
-   cites; for a spec, the spec is the work and its own "What is already decided" gives the seeds.
-   Read whole, with `cargo klarch show`, every entry the search grades `bears` or `may-bear`, and
-   judge it against the slice; never act on an entry from the reason the search gave. The audit's
+   or rewrites, and the decisions the slice's spec
+   cites; for a spec, the spec is the work and the decisions its own "What is already decided"
+   lists give the seeds. A goal is no seed: it reaches every cluster that cites it as context, and a
+   goal seed makes every entry citing it a doubt to read. Read whole `bears.md` and `may-bear.md`,
+   which the search's check writes, every entry the search grades `bears` or `may-bear` with
+   every reference to it, and judge each against the slice; never act on an entry from the reason the search gave. The audit's
    record gives one line to each entry the search graded `bears` or `may-bear`, with its outcome, an entry judged to bear on nothing in the
    slice included: in the message of the audit's commit, or, where the audit applies nothing in
    place, in the message of the slice's first commit. A firing found at the audit is

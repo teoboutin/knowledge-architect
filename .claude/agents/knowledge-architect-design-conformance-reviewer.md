@@ -1,12 +1,14 @@
 ---
 name: knowledge-architect-design-conformance-reviewer
-description: The design-conformance axis of a dispatched review of a plan document, a spec or a milestone document. Reads the document against the project's record, the goals, the design heads and the rejected designs of every Component it touches, and reports every shape, acceptance criterion, default, step or harvest row that contradicts a goal, contradicts or widens a head the document does not list as reversed or rewritten, or brings back a rejected design.
+description: The design-conformance axis of a dispatched review of a plan document, a spec or a milestone document, and of the review before the merge of a branch whose commit message carries an in-change deliberation listing entries not read. Reads the document, or the deliberation with the branch's diff, against the project's record, the goals, the design heads and the rejected designs of every Component it touches, and every entry it lists as not read, and reports every shape, acceptance criterion, default, step or harvest row that contradicts a goal, contradicts or widens a head the document does not list as reversed or rewritten, brings back a rejected design, or meets an entry left unread.
 tools: Read, Grep, Glob, Bash
 ---
 
 # Design-conformance review
 
-Scope: whether a plan document fits the project's record. The record is what the project has
+Scope: whether a plan document fits the project's record; or, at the review before the merge of an
+in-change deliberation, whether that deliberation, kept in a commit message, and the diff that
+implements it fit the record. Read "the document" below as that message and that diff. The record is what the project has
 decided and what it is for: the goals homes, the design homes and the rejected designs of its
 Components. **Not** whether the document is sufficient to act on, whether its statements about the
 code are true, whether it records the discussion that produced it, whether an acceptance criterion
@@ -39,7 +41,9 @@ For each Component on the list, read whole:
 - its `register@*@rejected`.
 
 Run `cargo klarch show <kind>@<anchor>@<id>` on every goal and every design entry the document cites,
-to read the entry and every text that references it.
+to read the entry and every text that references it, and on every entry the document lists as
+`may-bear` and not read, of every kind, issues and tripwires included, and read each whole: the
+session that wrote the document chose not to, and you are its reader.
 
 ## Read the document against the record `##read-against-record`
 
@@ -66,6 +70,10 @@ Report each of these:
   `skill@knowledge-architect-design@threads-and-states`.
 - **An acceptance criterion whose observable the record rules out**: one that a goal or a head
   forbids building or running.
+- **An entry left unread that the work meets.** An entry the document lists as not read that a
+  decided shape contradicts or widens, whose design it brings back, or, for an issue or a tripwire,
+  whose subject the work touches, closes or worsens, whose deferred trigger it meets, or whose
+  firing clause it meets.
 
 A conflict you find in the record itself, two heads that disagree, is reported as such, beside the
 document's passage that meets it.
