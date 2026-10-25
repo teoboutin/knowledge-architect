@@ -21,7 +21,8 @@ Not covered here: **being** any of the reviewers (the record reviewers
 and `agent@knowledge-architect-standing-state-reviewer`; the plan-document reviewers
 `agent@knowledge-architect-cold-implementer-reviewer`,
 `agent@knowledge-architect-code-claims-reviewer` and
-`agent@knowledge-architect-design-conformance-reviewer`; and
+`agent@knowledge-architect-design-conformance-reviewer`, which also reads a commit message listing
+entries a grounding left unread; and
 `agent@knowledge-architect-transcript-reviewer`), **recording**
 what a review changes (`skill@knowledge-architect-decision-recording`,
 `skill@knowledge-architect-issue-tracking`), and **auditing** one aspect of the whole project
@@ -40,7 +41,7 @@ rather than a diff (`skill@knowledge-architect-project-audit`).
 | standing state | `agent@knowledge-architect-standing-state-reviewer` | at the review before a merge, since it is the standing re-entry point of every tripwire and every deferred trigger |
 | cold implementer | `agent@knowledge-architect-cold-implementer-reviewer`: can a session that did not see the discussion act on the plan document | a spec or a milestone was written under `skill@knowledge-architect-planning`, or a decided shape in one revised; that skill names the moment |
 | code claims | `agent@knowledge-architect-code-claims-reviewer`: is every statement the plan document makes about existing code true of the tree | the same moment |
-| design conformance | `agent@knowledge-architect-design-conformance-reviewer`: does the plan document fit the project's goals, design heads and rejected designs, and the entries it lists as not read | the same moment; and at the review before the merge of a branch whose commit message carries an in-change deliberation listing entries not read, on that message and the branch's diff |
+| design conformance | `agent@knowledge-architect-design-conformance-reviewer`: does the plan document fit the project's goals, design heads and rejected designs, and the entries it lists as not read | the same moment; and at the review before the merge of a branch whose commit message lists entries a design grounding left unread, an in-change deliberation's or bounded work's, on that message and the branch's diff |
 | transcript | `agent@knowledge-architect-transcript-reviewer`: has everything the work's sessions established that must outlive them a durable outcome, and is no ruling of the owner misstated | the transcripts of the sessions that produced the work are available; at the review before a merge, alone and last (below), not also with the other axes; at an earlier review of the branch, only where the work is a plan document assembled from a transcript, in the batch |
 
 **A review owes every axis of this table whose condition holds, and every axis that the skill of an

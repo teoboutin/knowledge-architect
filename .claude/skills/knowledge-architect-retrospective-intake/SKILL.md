@@ -72,7 +72,7 @@ text leaves that room on purpose, per `primer@room-to-judge`.
    tripwire the search grades `bears` or `may-bear`, every other entry it grades `bears`, and an
    entry graded `may-bear` where a proposal touches its subject, chosen from the table of contents of
    `may-bear.md`; and, with `cargo klarch show <ref>`, every other entry a proposal rests on or would
-   change. Never act on an entry from
+   change, and each goal the two files give by its grades alone. Never act on an entry from
    its reason line. The analysis lists each other entry graded `may-bear`, with the searcher's
    reason, as not read: a batch of files brings more such entries than a session can read whole and
    still judge. The search finds what a grep per finding

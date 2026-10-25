@@ -184,7 +184,9 @@ work proceeds on it unless the owner answers otherwise, a part that cannot be un
 owner's word, per `primer@question-authority`.
 A reply that brings an argument, a new shape or a doubt returns the work to the loop, on the
 in-change path or the full path. The commit that implements bounded work carries the proposal and,
-if one came, the owner's answer, attributed to the owner, as `skill@knowledge-architect-design@what-earns-a-head` says.
+if one came, the owner's answer, attributed to the owner, as `skill@knowledge-architect-design@what-earns-a-head` says,
+and the `may-bear` entries the grounding did not read, each with the searcher's reason, which the
+review before the merge reads.
 
 Misclassifying costs in both directions: a bounded problem does not need a discussion, and an open
 one needs argument. Territory that looks technical is often not bounded (error handling can turn out
@@ -528,7 +530,8 @@ choices whose option space genuinely is closed and consequence-free.
    record runs beside that reading, with the question as the work and,
    as seeds, the decisions read so far that the question rests on or may
    change, never a goal: a goal reaches every cluster that cites it as
-   context, and a goal seed makes every entry citing it a doubt to read.
+   context, and a goal seed forces every entry citing it to a `may-bear`
+   grade at least.
    A goal the discussion sets through `skill@knowledge-architect-goal-setting`
    is no part of the search's work; only its consequences on the design
    are. The search is dispatched as the description of
@@ -544,9 +547,9 @@ choices whose option space genuinely is closed and consequence-free.
    which of them the question bears on, for each `may-bear` entry read
    whether it bears, and the `may-bear` entries not read, each with the
    searcher's reason. That list reaches the review that reads the work
-   against the record: the plan document's "What is already decided", or,
-   on the in-change path, the commit message that carries the
-   deliberation. An entry graded `may change` goes to
+   against the record, in the record each path keeps: the plan document's
+   "What is already decided" on the full path, and the commit message on
+   the in-change path and for bounded work. An entry graded `may change` goes to
    `skill@knowledge-architect-decision-recording@reversal-check`, and to the
    backstop of `skill@knowledge-architect-design@what-earns-a-head`, before a proposal that would change it,
    and a goal graded so to `skill@knowledge-architect-goal-setting`; one graded `may bring back` is

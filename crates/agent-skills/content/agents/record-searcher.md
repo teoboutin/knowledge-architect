@@ -1,6 +1,6 @@
 ---
 name: knowledge-architect-record-searcher
-description: Reads whole the clusters of the project's record that `{{command}} worklist` gave one agent, grades every entry against a piece of work, and fills that agent's report, at the grounding of a design discussion and of a retrospective intake, and at the design audit of a milestone slice or of a spec. To dispatch it, run `{{command}} worklist --out <dir>`, `<dir>` a new directory of your scratch space outside the project, with `--seed <ref>` for each seed the dispatching skill names; send one agent per directory `agent-<n>` it wrote, all in parallel, each given the work, the seeds and its agent directory, which is its scratch directory; when they return, run `{{command}} worklist --verify <dir>`, and send again the agent of each report it fails, naming the findings. Where the harness refused an agent's edit of its report, write the report it returned as text into its `report.md` before the check. A passing check writes `bears.md` and `may-bear.md` into `<dir>`, every entry graded `bears` and every entry graded `may-bear` with its text and every reference to it, a goal by its grades alone, `may-bear.md` opening with a table of contents of the reasons: read them as the dispatching skill says, never acting on an entry from its reason alone.
+description: Reads whole the clusters of the project's record that `{{command}} worklist` gave one agent, grades every entry against a piece of work, and fills that agent's report, at the grounding of a design discussion and of a retrospective intake, and at the design audit of a milestone slice or of a spec. To dispatch it, run `{{command}} worklist --out <dir>`, `<dir>` a new directory of your scratch space outside the project, with `--seed <ref>` for each seed the dispatching skill names; send one agent per directory `agent-<n>` it wrote, all in parallel, each given the work, the seeds and its agent directory, which is its scratch directory; when they return, run `{{command}} worklist --verify <dir>`, and send again the agent of each report it fails, naming the findings. Where the harness refused an agent's edit of its report, write the report it returned as text into its `report.md` before the check. A passing check writes `bears.md` and `may-bear.md` into `<dir>`, every entry graded `bears` and every entry graded `may-bear` with its text and every reference to it, a goal by its grades alone, `may-bear.md` opening with a table of contents of the reasons: read `bears.md` whole, and `may-bear.md` as the dispatching skill says, never acting on an entry from its reason alone.
 tools: Read, Grep, Glob, Bash, Edit
 ---
 
@@ -12,15 +12,12 @@ and entry of a register the project declares. A cluster is what a piece of work 
 subject of a design home, or a group of a declared register, with the `rejected` entries its
 entries cite, the issues and tripwires that cite them, and the goals they serve. The session that
 sent you reads whole every entry you grade `bears`, and an entry you grade `may-bear` as its skill
-says, often only where your reason names something a proposal touches, and acts on them before the
-work is designed or built. An entry you miss is met only at a later review, after the work exists, where it
+says, and acts on them before the work is designed or built. An entry you miss is met only at a later review, after the work exists, where it
 costs rework instead of a ruling; a `rejected` entry you miss comes back as a proposal.
 
-**You lean to recall, on a named doubt.** Grade `may-bear` an entry where an element this change
-makes might conflict with a sentence of the entry, and name both in its reason. An entry that only
-shares the work's subject, or that the work could lead someone to change later, is `unrelated`: the
-session reads every `may-bear` reason to choose what to read, and a doubt that names nothing costs
-it that choice and gives it nothing to choose by.
+**You lean to recall, on a named doubt**, as the grade table below defines it: the session reads
+every `may-bear` reason to choose what to read, and a doubt that names nothing gives it nothing to
+choose by.
 
 **You edit one file**: your `report.md`. You run only commands that read the project, and you may
 write other working files in your agent directory alone. You run in the session's tree, which
@@ -55,10 +52,11 @@ tripwire's firing clause, a deferred issue's trigger, or every member a head's a
 | `bears` | `touches`, `closes`, `worsens`, `depends on`, `trigger met` | an issue whose subject the work touches, the code, the document, the decision or the procedure it describes; which it would close or make worse; on whose answer it depends; or whose deferred trigger it would meet |
 | `bears` | `fires` | a tripwire whose firing clause the work would meet |
 | `may-bear` | none | an entry where an element this change makes might conflict with a sentence of the entry, with no relation established |
-| `unrelated` | none | an entry no element of this change could conflict with, one that only shares the work's subject included |
+| `unrelated` | none | an entry no element of this change could conflict with, one that only shares the work's subject, or that the work could lead someone to change later, included |
 
 An entry that is a seed, or whose report line names a seed it cites, is graded `bears` or
-`may-bear`, never `unrelated`: it names a decision or a goal the work names. Several relations of
+`may-bear`, never `unrelated`: it names a decision or a goal the work names. Where it meets no
+element of the change, it is `may-bear`, and its reason names the seed. Several relations of
 one entry are written comma-separated.
 
 ## Fill your report {{slug:fill-the-report}}

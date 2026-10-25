@@ -5357,6 +5357,12 @@ fn worklist_snapshot(out: &Path) -> Vec<(String, String)> {
 #[test]
 fn worklist_snapshot_holds_the_show_text_of_every_entry() {
     let (sandbox, out) = worklist_project("worklist-snapshot");
+    // An entry holding a fence of three backticks, so the snapshot's own fence must be longer.
+    sandbox.write(
+        "docs/open-issues/with-a-fence.md",
+        &worklist_issue("`goal@core-mock@top-goal`, run as\n\n```sh\nklarch check\n```\n"),
+    );
+    sandbox.stage();
     let out_text = out.to_string_lossy().into_owned();
     let (stdout, stderr, code) = sandbox.run(&["worklist", "--out", &out_text]);
     assert_eq!(code, 0, "{stdout}{stderr}");
@@ -5379,6 +5385,12 @@ fn worklist_snapshot_holds_the_show_text_of_every_entry() {
         assert_eq!(code, 0, "{reference}: {shown}{stderr}");
         assert_eq!(&format!("{text}\n"), &shown, "{reference}");
     }
+    assert!(
+        snapshot
+            .iter()
+            .any(|(r, text)| r.ends_with("with-a-fence") && text.contains("```sh")),
+        "the entry holding a fence is whole"
+    );
     // The inbound lists are compared, not only the bodies: one entry here is cited.
     assert!(
         snapshot
@@ -5499,6 +5511,100 @@ fn worklist_verify_assembles_each_entry_once_under_its_highest_grade() {
     assert!(!out.join("bears.md").exists() && !out.join("may-bear.md").exists());
 }
 
+/// The assembly keeps the order of `agents.txt`, where agent-10 comes before agent-2 in the map
+/// `verify` judges with; merges an entry's identical grade lines into one naming every agent;
+/// lists every agent's reason in the table of contents; leaves out an entry graded `unrelated` by
+/// every report; and fences each entry's text, so a heading of the text reads as no section of the
+/// file. Mutations checked: in `assemble`, the order taken from the map instead of `order`; the
+/// merge's match made never to find a line; the reasons of the table of contents cut to the first;
+/// an `unrelated` grade let into the assembly; each caught.
+#[test]
+fn worklist_verify_assembly_keeps_the_list_order_merges_lines_and_leaves_out_unrelated_entries() {
+    let (sandbox, out) = worklist_project("worklist-assembly-order");
+    let out_text = out.to_string_lossy().into_owned();
+    let a = "design@core-mock@one-decision";
+    let b = "design@core-mock@first-head";
+    let tw = "tripwire@core-mock@first-premise";
+    write_work_list(
+        &out,
+        &format!(
+            "agent-2 unit {a}\nagent-2 tripwire {tw}\nagent-10 unit {b}\nagent-10 unit {a}\n\
+             agent-3 unit {b}\n"
+        ),
+        &[
+            (
+                "agent-2",
+                &format!(
+                    "- {a} | grade: may-bear | relation: | reason: the same doubt\n\
+                     - {tw} | grade: unrelated | relation: | reason:\n"
+                ),
+            ),
+            (
+                "agent-10",
+                &format!(
+                    "- {b} | grade: may-bear | relation: | reason: a doubt of ten\n\
+                     - {a} | grade: may-bear | relation: | reason: the same doubt\n"
+                ),
+            ),
+            (
+                "agent-3",
+                &format!("- {b} | grade: may-bear | relation: | reason: a doubt of three\n"),
+            ),
+        ],
+        &[
+            (
+                a,
+                &format!(
+                    "{a}  docs/design.md:3\n\n## A HEADING OF THE BODY\n\nreferenced by nothing"
+                ),
+            ),
+            (
+                b,
+                &format!("{b}  docs/design.md:7\n\nIts body.\n\nreferenced by nothing"),
+            ),
+            (
+                tw,
+                &format!("{tw}  docs/tripwires.md:3\n\nIts body.\n\nreferenced by nothing"),
+            ),
+        ],
+    );
+    let (stdout, stderr, code) = sandbox.run(&["worklist", "--verify", &out_text]);
+    assert_eq!(code, 0, "{stdout}{stderr}");
+    let may_bear = std::fs::read_to_string(out.join("may-bear.md")).expect("may-bear.md");
+    let at = |s: &str| {
+        may_bear
+            .find(s)
+            .unwrap_or_else(|| panic!("{s} in:\n{may_bear}"))
+    };
+    assert!(
+        at(&format!("=== {a}")) < at(&format!("=== {b}")),
+        "{may_bear}"
+    );
+    assert!(
+        may_bear
+            .contains("agent-2, agent-10: grade: may-bear | relation: | reason: the same doubt"),
+        "{may_bear}"
+    );
+    assert!(
+        may_bear.contains(&format!("- {b}: a doubt of ten / a doubt of three")),
+        "{may_bear}"
+    );
+    assert!(!may_bear.contains(tw), "an unrelated entry:\n{may_bear}");
+    let bears = std::fs::read_to_string(out.join("bears.md")).expect("bears.md");
+    assert!(!bears.contains(tw), "{bears}");
+    let mut fenced = false;
+    for line in may_bear.lines() {
+        if line.starts_with("```") {
+            fenced = !fenced;
+        } else if line == "## A HEADING OF THE BODY" {
+            assert!(
+                fenced,
+                "the body's heading is outside every fence:\n{may_bear}"
+            );
+        }
+    }
+}
+
 /// A snapshot that lacks an entry `agents.txt` lists, as one an older `--out` wrote: the reports
 /// pass, but no assembly is written, no `PASSED` line is printed, and the run exits 2. And the
 /// assembly is the snapshot's text, not the tree's: an entry edited after `--out` is assembled as
@@ -5556,6 +5662,12 @@ fn worklist_verify_assembles_from_the_snapshot_and_refuses_one_that_lacks_an_ent
         "{stderr}"
     );
     assert!(!out.join("bears.md").exists() && !out.join("may-bear.md").exists());
+    // A snapshot cut short, its last fence never closed, is refused the same way.
+    let cut = shown.trim_end().rfind('\n').expect("a last line");
+    std::fs::write(out.join("shown.md"), &shown[..cut]).expect("a snapshot cut short");
+    let (stdout, stderr, code) = sandbox.run(&["worklist", "--verify", &out_text]);
+    assert_eq!(code, 2, "{stdout}{stderr}");
+    assert!(stderr.contains("cut short"), "{stderr}");
 }
 
 /// AC4 of the spec of the graded entries' assembly: `id` answers a free id with exit 0, lists
@@ -5592,6 +5704,12 @@ fn id_answers_free_defined_and_malformed_ids_and_refuses_an_incomplete_model() {
         "{stdout}"
     );
 
+    // Each answer alone gives its own exit: a defined id, and a malformed one.
+    let (stdout, _, code) = sandbox.run(&["id", "first-head"]);
+    assert_eq!(code, 1, "{stdout}");
+    let (stdout, _, code) = sandbox.run(&["id", "two"]);
+    assert_eq!(code, 1, "{stdout}");
+
     // A phase-2 finding: a home every Component carries, deleted and staged.
     std::fs::remove_file(sandbox.path("widget/docs/goals.md")).expect("a home removed");
     sandbox.stage();
@@ -5599,6 +5717,25 @@ fn id_answers_free_defined_and_malformed_ids_and_refuses_an_incomplete_model() {
     assert_eq!(code, 2, "{stdout}{stderr}");
     assert!(!stdout.contains("free"), "{stdout}");
     assert!(stderr.contains("the model is incomplete"), "{stderr}");
+}
+
+/// `id` prints a harness kind's entity in the form `show` takes, with no anchor for a skill and
+/// with its owner for a section. Mutation checked: in `id`, the empty-anchor branch made never to
+/// match, which prints `skill@@<name>`; caught.
+#[test]
+fn id_prints_a_skill_and_a_section_in_their_reference_forms() {
+    let sandbox = harnessed("id-harness");
+    let (stdout, stderr, code) = sandbox.run(&["id", "knowledge-architect-review", "review-axes"]);
+    assert_eq!(code, 1, "{stdout}{stderr}");
+    assert!(
+        stdout.contains("  skill@knowledge-architect-review\n"),
+        "{stdout}"
+    );
+    assert!(
+        stdout.contains("skill@knowledge-architect-review@review-axes"),
+        "{stdout}"
+    );
+    assert!(!stdout.contains("@@"), "{stdout}");
 }
 
 /// Every `entries.md` of a work list, each under a line naming its agent, in agent order.

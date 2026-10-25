@@ -564,7 +564,10 @@ fn assemble(
         for (line, who) in &merged {
             block.push_str(&format!("{}: {line}\n", who.join(", ")));
         }
-        block.push_str(&format!("\n{shown}\n"));
+        // Fenced as the snapshot fences it, so an entry's own headings and any `=== ` line of its
+        // body read as its text, not as the file's sections or as another entry.
+        let fence = "`".repeat(longest_backtick_run(&shown).max(2) + 1);
+        block.push_str(&format!("\n{fence}text\n{shown}\n{fence}\n"));
         if highest_bears {
             bears.push_str(&block);
             n_bears += 1;
@@ -579,9 +582,19 @@ fn assemble(
         "# The entries graded `may-bear`\n\n## Contents\n\n{may_bear_contents}\n## Entries\n\
          {may_bear_entries}"
     );
-    for (name, text) in [(BEARS_FILE, bears), (MAY_BEAR_FILE, may_bear)] {
-        let path = dir.join(name);
-        std::fs::write(&path, text).map_err(|e| format!("{}: {e}", path.display()))?;
+    // Both files or neither: a write that fails removes the other, so a session never reads half an
+    // assembly as the whole.
+    let written = [(BEARS_FILE, bears), (MAY_BEAR_FILE, may_bear)]
+        .into_iter()
+        .try_for_each(|(name, text)| {
+            let path = dir.join(name);
+            std::fs::write(&path, text).map_err(|e| format!("{}: {e}", path.display()))
+        });
+    if let Err(e) = written {
+        for name in [BEARS_FILE, MAY_BEAR_FILE] {
+            let _ = std::fs::remove_file(dir.join(name));
+        }
+        return Err(format!("{e}. No assembly was written."));
     }
     Ok((n_bears, n_may_bear))
 }
@@ -617,11 +630,22 @@ fn read_snapshot(dir: &Path) -> Result<BTreeMap<String, String>, String> {
                 )
             })?;
         let mut body: Vec<&str> = Vec::new();
+        let mut closed = false;
         for line in lines.by_ref() {
             if line == fence {
+                closed = true;
                 break;
             }
             body.push(line);
+        }
+        // A fence never closed is a snapshot cut short, whose last entry would be assembled
+        // truncated.
+        if !closed {
+            return Err(format!(
+                "{}: the entry {reference} is cut short, its fence never closed: run `--out` \
+                 again into a new directory. No assembly was written.",
+                path.display()
+            ));
         }
         out.insert(reference.to_string(), body.join("\n"));
     }

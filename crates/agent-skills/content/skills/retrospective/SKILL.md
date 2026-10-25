@@ -98,7 +98,7 @@ finding gets one id in each file, each naming the other, since the two files may
 - Did this session, or one of its subagents, write a script or carry by hand over several steps a
   task the installed workflow asks of it, whose result follows from the tree and the workflow's
   rules with no judgement? For each: the task, the instruction that asks it, and the steps or the
-  script. Each is a finding on the checker, in the workflow's file.
+  script. Each is also a finding on the checker, in the workflow's file.
 
 **A ruling of the owner recorded a little wider, narrower or firmer than given, on a detail that is
 not load-bearing, and caught by the transcript reviewer before the merge, is no finding.** The
