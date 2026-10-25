@@ -477,6 +477,35 @@ pub(crate) fn rev_list(root: &Path, range: &str) -> io::Result<Vec<String>> {
         .collect())
 }
 
+/// Where `root` sits in the repository's main working tree, when `root` lies in a linked worktree:
+/// the same path relative to the main working tree's top, or `None` in the main working tree, in a
+/// repository whose common directory is not a `.git` directory, or where git cannot say.
+///
+/// A session that ran in the main checkout belongs to the project a review reads from a linked
+/// worktree of it, per `design@core@transcript-directory-resolution`.
+pub(crate) fn main_worktree_path(root: &Path) -> Option<PathBuf> {
+    let ask = |what: &str| {
+        let out = git(root)
+            .args(["rev-parse", "--path-format=absolute", what])
+            .output()
+            .ok()?;
+        let text = String::from_utf8_lossy(&out).trim().to_string();
+        (!text.is_empty()).then(|| PathBuf::from(text))
+    };
+    let top = ask("--show-toplevel")?;
+    let common = ask("--git-common-dir")?;
+    if common.file_name()? != ".git" {
+        return None;
+    }
+    let main = common.parent()?;
+    if main == top {
+        return None;
+    }
+    let root = root.canonicalize().ok()?;
+    let top = top.canonicalize().ok()?;
+    Some(main.join(root.strip_prefix(&top).ok()?))
+}
+
 /// What one revision expression resolves to, or `None` when it names nothing.
 ///
 /// A missing revision is an answer rather than a failure here: the caller asks whether HEAD is

@@ -144,8 +144,15 @@ pub(super) fn transcript(manifest: &Manifest, args: &TranscriptArgs) -> Result<E
     }
 }
 
-fn root_filter(manifest: &Manifest, all_projects: bool) -> Option<&Path> {
-    (!all_projects).then(|| manifest.root())
+/// The roots whose sessions are the project's: its own, and, from a linked worktree, the same path
+/// in the main checkout, where the sessions of the work under review ran; `None` for every project.
+fn root_filter(manifest: &Manifest, all_projects: bool) -> Option<Vec<std::path::PathBuf>> {
+    if all_projects {
+        return None;
+    }
+    let mut roots = vec![manifest.root().to_path_buf()];
+    roots.extend(crate::git::main_worktree_path(manifest.root()));
+    Some(roots)
 }
 
 fn check_date(date: &Option<String>) -> Result<(), String> {
@@ -176,7 +183,7 @@ fn session_kept(session: &Session, branch: &Option<String>, since: &Option<Strin
 
 fn list(manifest: &Manifest, dir: &Path, args: &TranscriptListArgs) -> Result<ExitCode, String> {
     check_date(&args.since)?;
-    let files = project_files(dir, root_filter(manifest, args.all_projects))?;
+    let files = project_files(dir, root_filter(manifest, args.all_projects).as_deref())?;
     let corpus = Corpus::read(dir, &files, true)?;
     let mut sessions: Vec<&Session> = corpus
         .sessions
@@ -238,7 +245,7 @@ fn list(manifest: &Manifest, dir: &Path, args: &TranscriptListArgs) -> Result<Ex
 }
 
 fn show(manifest: &Manifest, dir: &Path, args: &TranscriptShowArgs) -> Result<ExitCode, String> {
-    let files = project_files(dir, root_filter(manifest, args.all_projects))?;
+    let files = project_files(dir, root_filter(manifest, args.all_projects).as_deref())?;
     // Resolution reads the files the handle may name; the header counts only the session's own
     // file, and its subagent files under `--subagents`.
     let index = Corpus::read(dir, &files, false)?;
@@ -345,7 +352,7 @@ fn search(
     check_date(&args.since)?;
     let pattern = regex::Regex::new(&args.pattern)
         .map_err(|e| format!("the regular expression does not parse: {e}"))?;
-    let files = project_files(dir, root_filter(manifest, args.all_projects))?;
+    let files = project_files(dir, root_filter(manifest, args.all_projects).as_deref())?;
     let corpus = Corpus::read(dir, &files, args.subagents)?;
     header(&corpus.inventory, args.json);
     let mut hits = 0;

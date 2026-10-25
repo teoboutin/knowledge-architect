@@ -674,7 +674,8 @@ published and thaum needs the command, `argument@transcript-command@arg-6`.
 The transcript directory is `$CLAUDE_CONFIG_DIR/projects/`, or `~/.claude/projects/` where the
 variable is unset. A top-level `.jsonl` file of any project directory belongs to the project when
 the `cwd` of its first chain line is the project's root or a path under it, compared after
-canonicalisation of both. `--all-projects` takes every top-level file. A subagent file is read with
+canonicalisation of both; from a linked worktree, the same path in the repository's main checkout
+counts too, which the transcript review before the merge showed a reviewer's worktree needs. `--all-projects` takes every top-level file. A subagent file is read with
 its parent file, a workflow's agents under `subagents/workflows/` included; a workflow's journal and
 the `tool-results/` directory are not read. The tests point `CLAUDE_CONFIG_DIR` at a fixture directory and never read the machine's own.
 
