@@ -124,6 +124,8 @@ pub(crate) fn transcript_dir() -> Result<PathBuf, String> {
 pub(crate) enum Raw {
     Json(Value),
     Malformed,
+    /// A line of whitespace alone: no line at all, so neither read nor reported.
+    Blank,
 }
 
 /// One `.jsonl` file, read whole.
@@ -142,6 +144,7 @@ impl File {
             .lines()
             .map(|line| match serde_json::from_str::<Value>(line) {
                 Ok(value) if value.is_object() => Raw::Json(value),
+                _ if line.trim().is_empty() => Raw::Blank,
                 _ => Raw::Malformed,
             })
             .collect();
@@ -154,7 +157,7 @@ impl File {
     fn json(&self, index: usize) -> Option<&Value> {
         match &self.lines[index] {
             Raw::Json(value) => Some(value),
-            Raw::Malformed => None,
+            Raw::Malformed | Raw::Blank => None,
         }
     }
 
@@ -173,6 +176,12 @@ fn is_chain(value: &Value) -> bool {
         .is_some_and(|t| CHAIN_TYPES.contains(&t))
 }
 
+/// The kind of an `origin` object: its `kind`, or `(none)` for an `origin` that holds none, which no
+/// known set holds, so it is reported rather than read as no `origin` at all.
+fn origin_kind(origin: Option<&Value>) -> Option<&str> {
+    origin.map(|o| str_field(o, "kind").unwrap_or("(none)"))
+}
+
 fn str_field<'a>(value: &'a Value, key: &str) -> Option<&'a str> {
     value.get(key).and_then(Value::as_str)
 }
@@ -182,8 +191,11 @@ fn first_cwd(path: &Path) -> Result<Option<String>, String> {
     use std::io::BufRead;
     let file =
         std::fs::File::open(path).map_err(|e| format!("cannot read {}: {e}", path.display()))?;
-    for line in std::io::BufReader::new(file).lines() {
+    // Read as bytes and decoded lossily, as `File::read` does, so a line of bytes that are no
+    // UTF-8 is a line that is no JSON in this mode too, not a file that cannot be read.
+    for line in std::io::BufReader::new(file).split(b'\n') {
         let line = line.map_err(|e| format!("cannot read {}: {e}", path.display()))?;
+        let line = String::from_utf8_lossy(&line);
         if let Ok(value) = serde_json::from_str::<Value>(&line) {
             if is_chain(&value) {
                 return Ok(str_field(&value, "cwd").map(str::to_string));
@@ -273,6 +285,7 @@ impl Label {
             Label::Agent => "agent".to_string(),
             Label::Dispatch => "dispatch".to_string(),
             Label::Injected(kind) => format!("injected {kind}"),
+            Label::Tool(name) if name.is_empty() => "tool".to_string(),
             Label::Tool(name) => format!("tool {name}"),
             Label::Unlabelled => "unlabelled".to_string(),
         }
@@ -293,7 +306,7 @@ impl Label {
         }
     }
 
-    /// An owner's or the agent's text, or a dispatch, is never cut.
+    /// An owner's or the agent's text, a dispatch, or a line no row placed is never cut.
     pub(crate) fn never_cut(&self) -> bool {
         matches!(
             self,
@@ -303,6 +316,7 @@ impl Label {
                 | Label::OwnerCommand
                 | Label::Agent
                 | Label::Dispatch
+                | Label::Unlabelled
         )
     }
 
@@ -364,6 +378,7 @@ impl Inventory {
                     self.malformed.push(at);
                     continue;
                 }
+                Raw::Blank => continue,
             };
             if let Some(version) = str_field(value, "version") {
                 self.versions.insert(version.to_string());
@@ -396,8 +411,7 @@ impl Inventory {
                         }
                     }
                     if kind == "user" {
-                        if let Some(origin) = value.get("origin").and_then(|o| str_field(o, "kind"))
-                        {
+                        if let Some(origin) = origin_kind(value.get("origin")) {
                             if !KNOWN_ORIGIN_KINDS.contains(&origin) {
                                 self.note_unknown("origin.kind", origin, at.clone());
                             }
@@ -413,9 +427,7 @@ impl Inventory {
                         self.note_unknown("attachment.type", attachment_type, at.clone());
                     }
                     if attachment_type == "queued_command" {
-                        if let Some(origin) = attachment
-                            .and_then(|a| a.get("origin"))
-                            .and_then(|o| str_field(o, "kind"))
+                        if let Some(origin) = origin_kind(attachment.and_then(|a| a.get("origin")))
                         {
                             if !KNOWN_ORIGIN_KINDS.contains(&origin) {
                                 self.note_unknown("attachment.origin.kind", origin, at.clone());
@@ -454,6 +466,8 @@ pub(crate) struct Session {
     pub(crate) handle: String,
     /// The top-level file, shared by every session cut from it.
     pub(crate) file: usize,
+    /// The session's place among the sessions of its file, from 0.
+    pub(crate) ordinal: usize,
     pub(crate) entries: Vec<Entry>,
     pub(crate) subagents: Vec<Subagent>,
     pub(crate) branches: Vec<String>,
@@ -468,6 +482,9 @@ pub(crate) struct Corpus {
     pub(crate) files: Vec<File>,
     pub(crate) sessions: Vec<Session>,
     pub(crate) inventory: Inventory,
+    /// How many sessions of each `sessionId` were cut so far, over every file read: a handle's
+    /// `#n` counts across files, so one id in two files still gives two handles.
+    ids: HashMap<String, usize>,
 }
 
 impl Corpus {
@@ -478,6 +495,7 @@ impl Corpus {
             files: Vec::new(),
             sessions: Vec::new(),
             inventory: Inventory::default(),
+            ids: HashMap::new(),
         };
         for path in paths {
             let file = File::read(path)?;
@@ -529,9 +547,8 @@ impl Corpus {
         }
         let fallback = file_needs_fallback(file);
         let name = self.name(&file.path);
-        let mut seen_ids: HashMap<String, usize> = HashMap::new();
-        for (session_id, lines) in runs {
-            let n = seen_ids.entry(session_id.clone()).or_insert(0);
+        for (ordinal, (session_id, lines)) in runs.into_iter().enumerate() {
+            let n = self.ids.entry(session_id.clone()).or_insert(0);
             *n += 1;
             let short: String = session_id.chars().take(8).collect();
             let handle = if *n == 1 {
@@ -572,6 +589,7 @@ impl Corpus {
                 session_id,
                 handle,
                 file: index,
+                ordinal,
                 entries,
                 subagents: Vec::new(),
                 branches,
@@ -755,7 +773,7 @@ fn file_needs_fallback(file: &File) -> bool {
                     || value.get("isCompactSummary").is_some()
                     || value.get("origin").is_some())
         }
-        Raw::Malformed => false,
+        Raw::Malformed | Raw::Blank => false,
     })
 }
 
@@ -787,7 +805,9 @@ impl Labelling<'_> {
     /// first row whose condition a line meets gives its label.
     fn label(&mut self, lines: &[usize]) -> Vec<Entry> {
         // The parents of the `local_command` lines, by `uuid` over the run: the command's own
-        // `user` line is printed as the `owner-command` line that follows it.
+        // `user` line is printed as the `owner-command` line that follows it. Only a `user` line
+        // no field places is consumed, so a parent that is a message, the owner's or the agent's,
+        // is never dropped.
         let consumed: HashSet<&str> = lines
             .iter()
             .filter_map(|&i| self.file.json(i))
@@ -805,7 +825,12 @@ impl Labelling<'_> {
                     self.inventory.repeated_uuids += 1;
                     continue;
                 }
-                if consumed.contains(uuid) {
+                if consumed.contains(uuid)
+                    && str_field(value, "type") == Some("user")
+                    && value.get("isMeta").is_none()
+                    && value.get("isCompactSummary").is_none()
+                    && value.get("origin").is_none()
+                {
                     continue;
                 }
             }
@@ -855,7 +880,7 @@ impl Labelling<'_> {
                         continue;
                     }
                     let prompt = text_of(attachment.get("prompt"));
-                    let label = match attachment.get("origin").and_then(|o| str_field(o, "kind")) {
+                    let label = match origin_kind(attachment.get("origin")) {
                         Some("human") => Label::OwnerQueued,
                         Some(kind) if KNOWN_ORIGIN_KINDS.contains(&kind) => {
                             Label::Injected(kind.to_string())
@@ -895,6 +920,26 @@ impl Labelling<'_> {
                     _ => {}
                 },
                 _ => {}
+            }
+        }
+        // A tool result names its call by id: it takes the call's tool name, where the call is in
+        // the same run.
+        let names: HashMap<String, String> = entries
+            .iter()
+            .filter_map(|e| match (&e.label, &e.tool_use_id) {
+                (Label::Tool(name), Some(id)) if !name.is_empty() => {
+                    Some((id.clone(), name.clone()))
+                }
+                _ => None,
+            })
+            .collect();
+        for e in &mut entries {
+            if let (Label::Tool(name), Some(id)) = (&mut e.label, &e.tool_use_id) {
+                if name.is_empty() {
+                    if let Some(called) = names.get(id) {
+                        *name = called.clone();
+                    }
+                }
             }
         }
         entries
@@ -949,7 +994,7 @@ impl Labelling<'_> {
             other => text_of(other),
         };
         let is_meta = value.get("isMeta").and_then(Value::as_bool) == Some(true);
-        let origin = value.get("origin").and_then(|o| str_field(o, "kind"));
+        let origin = origin_kind(value.get("origin"));
         let compact = value.get("isCompactSummary").and_then(Value::as_bool) == Some(true);
         // In a subagent file, a `user` line with no field is text its dispatcher or the workflow
         // harness wrote: the brief that opens the file, or a workflow's task. Measured over every
@@ -1030,12 +1075,18 @@ fn render_answers(result: &Value) -> String {
     {
         let text = str_field(question, "question").unwrap_or("");
         out.push(format!("Q: {text}"));
-        let options: Vec<&str> = question
+        let options: Vec<String> = question
             .get("options")
             .and_then(Value::as_array)
             .into_iter()
             .flatten()
-            .filter_map(|o| str_field(o, "label"))
+            .filter_map(|o| {
+                let label = str_field(o, "label")?;
+                Some(match str_field(o, "description") {
+                    Some(d) if !d.is_empty() => format!("{label} ({d})"),
+                    _ => label.to_string(),
+                })
+            })
             .collect();
         if !options.is_empty() {
             out.push(format!("options: {}", options.join(" | ")));

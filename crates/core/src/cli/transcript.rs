@@ -231,17 +231,24 @@ fn show(manifest: &Manifest, dir: &Path, args: &TranscriptShowArgs) -> Result<Ex
     let chosen = match resolve(&index.sessions, &args.session) {
         Ok(s) => s,
         Err(message) => {
-            outln!("{message}");
+            if args.json {
+                outln!("{}", json!({ "result": "no-session", "message": message }));
+            } else {
+                outln!("{message}");
+            }
             return Ok(ExitCode::from(1));
         }
     };
     let file = index.files[index.sessions[chosen].file].path.clone();
     let handle = index.sessions[chosen].handle.clone();
+    let ordinal = index.sessions[chosen].ordinal;
+    // Cut again from its file alone, the session is found by its place in the file: its handle's
+    // `#n` counts over every file read, which this second read does not see.
     let corpus = Corpus::read(dir, &[file], args.subagents)?;
     let session = corpus
         .sessions
         .iter()
-        .find(|s| s.handle == handle)
+        .find(|s| s.ordinal == ordinal)
         .expect("the session is cut again from its file");
     let mut entries: Vec<&Entry> = session
         .entries
@@ -256,7 +263,12 @@ fn show(manifest: &Manifest, dir: &Path, args: &TranscriptShowArgs) -> Result<Ex
             Some(start) => entries.drain(..start).for_each(drop),
             None => {
                 header(&corpus.inventory, args.json);
-                outln!("no line the owner typed in {handle} contains {text:?}");
+                let message = format!("no line the owner typed in {handle} contains {text:?}");
+                if args.json {
+                    outln!("{}", json!({ "result": "no-line", "message": message }));
+                } else {
+                    outln!("{message}");
+                }
                 return Ok(ExitCode::from(1));
             }
         }
