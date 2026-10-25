@@ -58,9 +58,10 @@ cargo klarch worklist --out <dir> [--seed <ref>]…
 cargo klarch worklist --verify <dir>   check the reports the agents filled
 cargo klarch transcript list [--branch b] [--containing t] [--since d] [--all-projects]
                                        the sessions of Claude Code's transcripts that ran in the project
-cargo klarch transcript show <session> [--from t] [--subagents] [--tools] [--full]
+cargo klarch transcript show <session> [--from t] [--subagents] [--tools] [--full] [--all-projects]
                                        one session's lines, each labelled by its fields
 cargo klarch transcript search <regex> [--role r]… [--tool n] [--tools] [--branch b] [--since d]
+                         [--subagents] [--all-projects]
                                        every line whose text matches
 cargo klarch --version                 the version of the checker that runs
 ```
@@ -434,7 +435,7 @@ agents were given.
 The sessions of Claude Code's transcripts that ran in the project, for the transcript reviewer, the
 assembly of a plan document and any survey of past sessions. It reads only the harness Claude Code
 writes, under `$CLAUDE_CONFIG_DIR/projects/`, or `~/.claude/projects/` where the variable is unset.
-A session belongs to the project when the `cwd` of its first line is the project's root or a path
+A session belongs to the project when the `cwd` of its first chain line is the project's root or a path
 under it, as a worktree under the root is; `--all-projects` reads every project's.
 
 - **A session** is a run of a transcript file cut where its `sessionId` changes or where a new root
@@ -449,9 +450,11 @@ under it, as a worktree under the root is; `--all-projects` reads every project'
 - **`show <session>`** prints the session's lines in order, each with its line number and its label;
   `<session>` is a handle or a prefix of a `sessionId` that names one session. `--from` starts at a
   text the owner typed, `--subagents` adds each subagent's lines, `--tools` the tool calls and their
-  results, and `--full` an injected text whole, which otherwise prints its first 5 lines beyond 40.
-- **`search <regex>`** prints each line whose text matches, with `--role` keeping one role,
-  `--tool <name>` one tool's calls and their results, and `--tools` every tool line.
+  results, and `--full` an injected or a tool text whole, which otherwise prints its first 5 lines
+  beyond 40. A subagent's lines are numbered with its id, as `<id> L<n>`.
+- **`search <regex>`** prints each line whose text matches, as the line of the text where the match
+  starts, with `--role` keeping one role, `--tool <name>` one tool's calls and their results,
+  `--tools` every tool line, and `--subagents` the subagents' lines too.
 
 **Every line is labelled by its fields, never by its text.** The owner's words are the lines
 labelled `owner`, `owner-queued` (typed while the session was busy), `owner-answer` (an answer to a
@@ -469,7 +472,7 @@ report as a finding on the checker in the retrospective.
 **The harness deletes transcripts after 30 days by default**: the setting `cleanupPeriodDays` of
 Claude Code's own settings keeps them longer.
 
-`--json` prints one JSON object per row or line instead, the header first. The output is for a
+Every verb takes `--json`, which prints one JSON object per row or line instead, the header first. The output is for a
 reader and is no contract, text and JSON alike.
 
 ## Registers

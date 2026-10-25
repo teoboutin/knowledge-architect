@@ -1,16 +1,11 @@
 //! The reader of Claude Code's session transcripts: the files a project's sessions wrote, cut into
 //! sessions, each kept line labelled by its fields, and the inventory of what was not recognised.
 //!
-//! The format is the harness's, which its vendor documents as internal and liable to change between
-//! versions, so the reader tolerates what it does not know and counts it, never fails on it and never
-//! drops it in silence. What it knows is the sets of values under the "known" constants below, each
-//! marked as used or ignored on purpose: a value outside them is a gap of this reader, which the
-//! command's header reports.
-//!
-//! Lines are selected and labelled by their fields, never by a substring of their text: a filter on
-//! text once dropped one of the owner's messages from a review. The one text test is the fallback for
-//! a file whose `user` lines carry no field at all, and the prefix that names a skill's body inside a
-//! line its fields already mark as injected.
+//! What the reader does not know it counts, never fails on and never drops in silence, per
+//! `design@core@transcript-format-tolerated-and-reported`: it knows the sets of values under the
+//! "known" constants below, each used or ignored on purpose. Lines are labelled by their fields,
+//! never by a substring of their text, per `design@core@transcript-labels-in-code`, and a file is
+//! cut into sessions per `design@core@transcript-session-split`.
 
 use std::collections::{BTreeMap, BTreeSet, HashMap, HashSet};
 use std::path::{Path, PathBuf};
@@ -257,7 +252,7 @@ pub(crate) fn project_files(dir: &Path, root: Option<&Path>) -> Result<Vec<PathB
     Ok(kept)
 }
 
-/// The role the command gives a kept line, per the spec's mapping table "Line to label".
+/// The role the command gives a kept line, per `design@core@transcript-labels-in-code`.
 #[derive(Clone, Debug, PartialEq, Eq)]
 pub(crate) enum Label {
     Owner,
@@ -528,10 +523,7 @@ impl Corpus {
         for &i in &chain {
             let value = file.json(i).expect("a chain line is JSON");
             let session_id = str_field(value, "sessionId").unwrap_or("").to_string();
-            // A session opens at the first chain line, where the `sessionId` changes, and at a
-            // root that is no compaction. A compaction's boundary has a null parent and stays in
-            // its session; a resumed process's first line has a parent, measured over every
-            // resume on the machine the design was measured on. Each line is judged on its own, so
+            // The cut of `design@core@transcript-session-split`. Each line is judged on its own, so
             // a line written before its parent cuts nothing.
             let root = value.get("parentUuid").is_none_or(Value::is_null)
                 && str_field(value, "subtype") != Some("compact_boundary");
@@ -801,8 +793,8 @@ struct Labelling<'a> {
 }
 
 impl Labelling<'_> {
-    /// The entries of `lines`, in file order, per the spec's mapping table "Line to label": the
-    /// first row whose condition a line meets gives its label.
+    /// The entries of `lines`, in file order: the first row whose condition a line meets gives its
+    /// label, the rows being this function's and `Labelling::user`'s branches, in order.
     fn label(&mut self, lines: &[usize]) -> Vec<Entry> {
         // The parents of the `local_command` lines, by `uuid` over the run: the command's own
         // `user` line is printed as the `owner-command` line that follows it. Only a `user` line
@@ -996,11 +988,14 @@ impl Labelling<'_> {
         let is_meta = value.get("isMeta").and_then(Value::as_bool) == Some(true);
         let origin = origin_kind(value.get("origin"));
         let compact = value.get("isCompactSummary").and_then(Value::as_bool) == Some(true);
-        // In a subagent file, a `user` line with no field is text its dispatcher or the workflow
-        // harness wrote: the brief that opens the file, or a workflow's task. Measured over every
-        // subagent file on the machine the design was measured on, that held for every such line
-        // but one owner's interrupt, which the agent never saw as a message.
-        let label = if self.in_subagent && !is_meta && !compact && value.get("origin").is_none() {
+        // In a subagent file, a `user` line that carries none of the three fields is its
+        // dispatcher's or its workflow's text, as `design@core@transcript-labels-in-code` measures.
+        // The fields are tested by presence, as the consumption above and the fallback test them.
+        let label = if self.in_subagent
+            && value.get("isMeta").is_none()
+            && value.get("isCompactSummary").is_none()
+            && value.get("origin").is_none()
+        {
             Label::Dispatch
         } else if compact {
             Label::Injected("compact-summary".to_string())
@@ -1011,6 +1006,8 @@ impl Labelling<'_> {
                 Label::Injected("unknown".to_string())
             }
         } else if is_meta {
+            // The one text this row reads, for a line its fields already mark injected: it chooses a
+            // kind, never a side.
             if text.starts_with(SKILL_BODY_PREFIX) {
                 Label::Injected("skill".to_string())
             } else {

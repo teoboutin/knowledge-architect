@@ -16,8 +16,8 @@ the repository in a commit of its own, after its harvest and the review before t
   as rewritten, the design home wins, and the disagreement is a defect of this spec.
 - Every name it uses is defined in it, under Names or New names, or exists in the tree.
 - Where the owner's word is awaited, `skill@knowledge-architect-planning@working-a-slice` says what
-  waits: D1, under "Defaults awaiting the owner", is built as written, and the branch merges once
-  the owner has ruled on it.
+  waits: D1 and D2, under "Defaults awaiting the owner", are built as written, and the branch merges
+  once the owner has ruled on them.
 - The discussion ran in one session. The message where it begins is the owner's first message: a
   pasted block whose first line is "Right now, the transcript reviewer needs to assemble the
   transcript by hand." A reviewer finds the session's file by those words, never by a session
@@ -46,7 +46,7 @@ the repository in a commit of its own, after its harvest and the review before t
 | P1 … P6 | the causes of the premortem, under Premortem |
 | AC1, AC2, AC3 | the labels under which the acceptance criteria were put to the owner |
 | K1 … K8 | the labels under which the criteria were shown to the owner, each an item under Criteria |
-| D1 | the default awaiting the owner, under "Defaults awaiting the owner" |
+| D1, D2 | the defaults awaiting the owner, under "Defaults awaiting the owner" |
 
 ## What the work is
 
@@ -232,7 +232,7 @@ and are listed as `bears`. Each entry, with its outcome:
 - `design@agent-skills@design-home-write-loads-recording`: the harvest loads the decision-recording skill.
 - `design@agent-skills@instruction-record-is-minimal`: step 4's rewordings take no head; the harvest rows name the decisions that do.
 - `design@agent-skills@ledger-from-transcript`: rewritten: its re-take.
-- `design@agent-skills@plan-records-the-exchange`: `show` delivers each message whole and in order.
+- `design@agent-skills@plan-records-the-exchange`: `show --full` delivers each message whole and in order.
 - `design@agent-skills@plan-written-in-the-converging-session`: rewritten: its clause on naming the transcript.
 - `design@agent-skills@premortem-as-watch-points`: graded "may change"; by the reversal check its decision stands, the primer question asked about behaviour with no brief edited; its fact that a session sees no subagent's context is a later consequence.
 - `design@agent-skills@restatement-size-test`: step 4 replaces the hand procedure by the command, a pointer no longer than one sentence.
@@ -673,8 +673,8 @@ The transcript directory is `$CLAUDE_CONFIG_DIR/projects/`, or `~/.claude/projec
 variable is unset. A top-level `.jsonl` file of any project directory belongs to the project when
 the `cwd` of its first chain line is the project's root or a path under it, compared after
 canonicalisation of both. `--all-projects` takes every top-level file. A subagent file is read with
-its parent file; a workflow's journal and the `tool-results/` and `workflows/` directories are not
-read. The tests point `CLAUDE_CONFIG_DIR` at a fixture directory and never read the machine's own.
+its parent file, a workflow's agents under `subagents/workflows/` included; a workflow's journal and
+the `tool-results/` directory are not read. The tests point `CLAUDE_CONFIG_DIR` at a fixture directory and never read the machine's own.
 
 The nearest rival, recomputing the directory's name from the root, lost on
 `argument@transcript-command@arg-11`: the rule is internal, its truncation hash is undocumented, an
@@ -749,14 +749,15 @@ dde8ed67 L475 agent  … the matching line, cut to 200 characters …
   a handle names that session; a prefix whose `sessionId` holds several sessions, or that several
   `sessionId` values share, names none, and the run lists the candidates. It resolves among the
   project's files, or every file under `--all-projects`. It prints the kept lines in file order,
-  each with its line number and label; an injected text above 40 lines prints its first 5 unless
+  each with its line number and label; an injected or tool text above 40 lines prints its first 5 unless
   `--full`; an owner's, the agent's or a dispatch text is never cut. `--from` starts at the first
   line labelled `owner` or `owner-queued` whose text contains the text. `--subagents` prints each
   attached subagent file after the session, under a line naming its `agentType` and `description`,
   each line numbered `<agentId's first 8 characters> L<n>`. A tool result stored in
   `tool-results/` prints as the reference its line holds.
-- `search` prints one line per kept line whose text matches the regex, in the `regex` crate's
-  syntax, with the handle, the line number and the label. `tool` lines are searched only under
+- `search` prints one line per kept line whose whole text matches the regex, in the `regex` crate's
+  syntax, a match spanning a line break included, with the handle, the line number, the label and the
+  text's line where the match starts. `tool` lines are searched only under
   `--tools`, or under `--tool <name>`, which keeps the tool calls of that name and their results. A
   tool call's text is its name and its input as compact JSON; a tool result's is its text items
   joined, or its string.
@@ -765,7 +766,8 @@ dde8ed67 L475 agent  … the matching line, cut to 200 characters …
 - Exit codes, per `design@core@exit-code-ladder`: 0 when a verb printed at least one row or line,
   header lines not counted; 1 when `list` or `search` found none, when `show`'s argument names no
   session or more than one, the candidates named, or when `--from` matches no line; 2 when the
-  transcript directory is absent or unreadable, a file cannot be read, or the regex does not parse.
+  transcript directory is absent or unreadable, a file cannot be read, or the regex or the `--since`
+  date does not parse.
 - The cuts at 80, 40, 5 and 200 are defaults of this spec, the owner's to reset; none is a
   measurement.
 
@@ -995,10 +997,14 @@ Fails alone on: `search` over the fixtures, where `show` passes.
 Builds, writing each source under `path@agent-skills@content/` as `path@agent-skills@CLAUDE.md`,
 "Editing an installed skill or agent", says:
 
-- `agent@knowledge-architect-transcript-reviewer@extract-transcripts` rewritten: find the sessions
-  with `{{command}} transcript list --branch <branch>` and `--containing "<opening words>"`; write
-  `{{command}} transcript show <session> --from "<opening words>" --subagents` to a file of the
-  scratch directory and read it in full; what each label means, the owner's words being the four
+- `agent@knowledge-architect-transcript-reviewer@extract-transcripts` rewritten: confirm each
+  session the brief names with `{{command}} transcript list --containing "<opening words>"`; write
+  `{{command}} transcript show <session> --from "<opening words>" --full` to a file of the scratch
+  directory and read it in full, `--full` because a reviewer's report is an injected text and would
+  otherwise be cut; no `--subagents`, since reading a subagent's own lines is an instruction about
+  how the reviewer behaves that no real session asked for, per
+  `design@agent-skills@behaviour-additions-need-real-use`; a file the header names as labelled by
+  its text said so in the report; what each label means, the owner's words being the four
   `owner` labels; an `unlabelled` line read and judged, with the judgement stated; a header that
   names unrecognised lines listed under "Met outside the task". The sentence "You may write your
   extraction script and its output to a scratch directory" becomes the command's output; "The
@@ -1045,12 +1051,21 @@ Fails alone on: the agent-facing-text review of the step's diff.
   the goal's wording changes, for instance to "a command of the tool, or of the checker where every
   project needs it", and its last sentence, which is false at the base of this branch. A goal
   changes only under `skill@knowledge-architect-goal-setting`.
+- **D2**, bearing on `thread@transcript-command@transcript-labels-in-code`: the `dispatch` row, as
+  amended with the code, labels every field-less `user` line of a subagent file `dispatch`. Over
+  every subagent file of the machine measured, such lines were the dispatcher's briefs and a
+  workflow's tasks, and once the owner's interrupt, `[Request interrupted by user]`, which the row
+  then labels `dispatch` rather than as a line of the owner's. No field tells the interrupt apart;
+  only its text does, which `criterion@transcript-command@labels-by-fields` refuses. The transcript
+  reviewer does not read subagent files, so it never meets the line; a survey with `--subagents`
+  does. Default: the row stands as amended; the owner rules whether a narrower row, or a text test
+  for the interrupt alone, is wanted.
 
 ## Harvest
 
 | when | what | where |
 | --- | --- | --- |
-| the commits of step 4 | the decisions of the six threads `thread@transcript-command@transcript-command-in-core`, `thread@transcript-command@transcript-session-split`, `thread@transcript-command@transcript-query-verbs`, `thread@transcript-command@transcript-labels-in-code` (the mapping, and the failure it was learned from), `thread@transcript-command@transcript-format-tolerated-and-reported` and `thread@transcript-command@transcript-directory-resolution`, each judged by the entry tests, each measurement with its command; the member `transcript` of `design@core@the-core-cli-is-a-library-module`; the fifth bullet of `design@core@nothing-of-a-project-is-compiled-in` | `register@core@design` |
+| the commits of step 4 | the decisions of the six threads `thread@transcript-command@transcript-command-in-core`, `thread@transcript-command@transcript-session-split`, `thread@transcript-command@transcript-query-verbs`, `thread@transcript-command@transcript-labels-in-code` (the mapping, and the failure it was learned from), `thread@transcript-command@transcript-format-tolerated-and-reported` and `thread@transcript-command@transcript-directory-resolution`, each judged by the entry tests, each measurement with its command, and the decision that the command reads Claude Code alone, a head of its own split from the first; the member `transcript` of `design@core@the-core-cli-is-a-library-module`; the fifth bullet of `design@core@nothing-of-a-project-is-compiled-in` | `register@core@design` |
 | the same | the rewrite in place of `design@agent-skills@transcript-reviewer-agent` (the extraction rule is the command's), under `skill@knowledge-architect-decision-recording@reversal-check`, citing the core head of the labels; the re-take and the measurement of `design@agent-skills@ledger-from-transcript`; the clause of `design@agent-skills@plan-written-in-the-converging-session` | `register@agent-skills@design` |
 | the same | `thread@transcript-command@unrecognised-entries-reach-upstream`, judged by tests 2 and 4; the rule that a transcript is found by the command's listing, never by a session identifier, stated by the review skill, the planning skill and the transcript reviewer, judged by test 2 | `register@agent-skills@design` |
 | the same | each losing alternative, judged by `skill@knowledge-architect-decision-recording@losing-alternatives` | `register@core@rejected`, `register@agent-skills@rejected` |
