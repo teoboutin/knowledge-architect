@@ -3091,9 +3091,9 @@ workflow. The reader is internal; its argument types are public through `cli::Co
 It serves `goal@knowledge-architect@agents-get-a-complete-workflow`, since without it a session
 that consults a transcript writes its own script, and
 `goal@knowledge-architect@structure-and-workflow-work-together`, under which the tool computes the
-workflow's work lists. The task it takes from sessions is one `goal@xtask@repeated-tasks-are-automated`
-names, a task performed repeatedly by hand; its measure, that no such task is left to be done by
-hand, is met by a command of the core. The nearest rival, a command of the maintenance tool, is
+workflow's work lists. The task it takes from sessions is one the installed agent text asks of every
+project that adopts the workflow, so it is the published checker's to automate, not the maintenance
+tool's, per `goal@xtask@repeated-tasks-are-automated`. The nearest rival, a command of the maintenance tool, is
 never published, so a project that adopts the workflow, such as thaum, would have no copy; a second
 crate or binary would be a second package to publish and pin, which `design@core@single-crate`
 argues against.

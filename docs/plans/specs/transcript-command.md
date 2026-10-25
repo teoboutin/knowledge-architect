@@ -1055,7 +1055,10 @@ Fails alone on: the agent-facing-text review of the step's diff.
   the core's command. Default: the command is built in the core as approved; the owner rules whether
   the goal's wording changes, for instance to "a command of the tool, or of the checker where every
   project needs it", and its last sentence, which is false at the base of this branch. A goal
-  changes only under `skill@knowledge-architect-goal-setting`.
+  changes only under `skill@knowledge-architect-goal-setting`. **Ruled**: the owner, after the review before
+  the merge: "D1 indeed, the xtask goal should only apply to mechanical work that is only local to
+  this project. Not one that is mandated by the installed agent text, which would need to be
+  published in core."; the goal's new wording, "wording approved".
 - **D2**, bearing on `thread@transcript-command@transcript-labels-in-code`: the `dispatch` row, as
   amended with the code, labels every field-less `user` line of a subagent file `dispatch`. Over
   every subagent file of the machine measured, such lines were the dispatcher's briefs and a
