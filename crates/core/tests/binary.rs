@@ -5408,8 +5408,8 @@ fn transcript_sessions_are_cut_at_a_new_id_and_a_root_that_is_no_compaction() {
     assert!(rows[0].starts_with("bbbbbbbb#2 "), "{stdout}");
 }
 
-/// AC2 of `spec@plans@transcript-command`: a cleared session is listed apart, found by its first
-/// owner message, and its `/clear` is the owner's command.
+/// A cleared session is listed apart, found by its first owner message, and its `/clear` is the
+/// owner's command, per `design@core@transcript-session-split`.
 #[test]
 fn transcript_a_cleared_session_is_listed_apart_and_found_by_its_first_owner_message() {
     let (stdout, _, code) = transcript("cleared", "cleared-list", &["list"]);
