@@ -28,7 +28,7 @@ leaves the repository in a commit of its own, after its harvest and the review b
   spec.
 - Every name it uses is defined in it, under Names or New names, or exists in the tree.
 - Where the owner's word is awaited, `skill@knowledge-architect-planning@working-a-slice` says what
-  waits. D1 to D6 are ruled.
+  waits. D1 to D6 are ruled; D7 to D10 await the owner, and the branch merges once the owner has ruled on each.
 - **The work lands as this one spec and a single pull request, on the owner's word**, round 3:
   "This work should land as one spec and a single PR." No commit of the work changes what the
   per-commit gate checks: `worklist` is a command, not a check, and `commits` does not compare a
@@ -1352,6 +1352,23 @@ file. The test plants a phase-2 finding. Response: reopen #report-skeleton-comma
   `design@agent-skills@record-searched-before-the-work`, which its closing condition names. Whether
   the owner's word of round 2, "I think our mechanical tooling is the correct fix", closes it now is
   the owner's: the entry stays open until the owner rules. Ruled, round 8: "d6: it closes".
+- **D7**, #search-occasions: the message of the harvest commit, "[harvest] One record searcher
+  replaces the two, the grounding texts run `worklist`, the split standard is a fragment, and the
+  decisions are recorded", says the owner ruled the removal of the re-dispatch for a new subject,
+  which the owner never ruled; the removal was the session's, and the next repair reversed it.
+  Default: that message is reworded, by the filter-branch procedure of the root CLAUDE.md, so that
+  the owner's rulings it names are the two searchers' replacement and the split standard alone.
+- **D8**, #search-scope: `design@agent-skills@search-reads-the-whole-record` keeps the owner's
+  hedges of round 1. Default: "the owner believed the whole record the safer reading, judged a
+  choice by a cluster's title bad practice here, and believed the bearing is found only from the
+  search's results".
+- **D9**, the rewritten attributions of `issue@core@no-command-lists-the-standing-entries-citing-a-set-of-entries`
+  and `rejected@agent-skills@design-listing-cut-in-groups-of-sixty`. Default: "the owner thought
+  the command worth an issue", and "the owner believed".
+- **D10**, #one-searcher-agent: the clause asking the searcher to return its count of entries
+  graded `bears` and `may-bear`, which no dispatching text reads, was removed by the session, where
+  the admission standard sends the removal of an instruction no agent acts on to the owner. Default:
+  it stays removed.
 
 ## Harvest
 
