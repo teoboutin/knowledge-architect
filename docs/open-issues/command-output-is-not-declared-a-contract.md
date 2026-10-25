@@ -42,6 +42,10 @@ Instances seen:
   consumer's side: the binary computes the list in a function of its own, and a test calls that
   function. It tests what the binary passes, not what the core does with it.
 
+`klarch transcript` declares its text and its `--json` output no contract, as `anchors` and
+`worklist` declare theirs, per `design@core@transcript-query-verbs`: the policy this entry asks for
+decides whether its JSON becomes one.
+
 The README of the core, `path@core@README.md`, states two output contracts: for `check`, the order
 of the summary, the findings and the verdict line; and for a generated file-register index, written
 by `index` and `check --fix`, its bytes, per `design@core@a-file-register-index-is-rows`. Nothing

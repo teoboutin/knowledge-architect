@@ -3556,7 +3556,8 @@ one channel by which a gap of the checker met in a consumer project reaches this
 the consumer's own entry for it is not citable here. The primer question asks about behaviour, on
 the owner's direction: "this one should directly ask a session about what it observed in the
 behavior. No edit of the subagent briefs." A session sees a subagent's brief and its report, not
-its context: asked whether the primer reached the subagents, four received retrospectives answered
+its context, unless it reads the subagent's transcript, which `klarch transcript show --subagents`
+prints: asked whether the primer reached the subagents, four received retrospectives answered
 that it could not be observed, or was assumed, as the issue closed in commit 0a3c1a6 lists, read
 with `git show 0a3c1a6^:crates/agent-skills/docs/open-issues/the-primer-question-cannot-be-answered-for-subagents.md`. The skill never states how many questions there are, so adding one changes no count.
 
