@@ -25,7 +25,7 @@ What the commands print today:
   filter on what an entry cites.
 
 The record search no longer needs it: `klarch worklist --seed` marks each entry that cites a seed,
-per `design@core@worklist-writes-and-verifies-the-reports`. The owner judged the command worth an
+per `design@core@worklist-writes-and-verifies-the-reports`. The owner thought the command worth an
 issue when the search still mapped seeds by hand, and left its design for later. Nothing about the
 command's shape is decided: a new command, a `--citing <ref>` filter repeated on `issues` and
 `tripwires`, or several references accepted by `--guarding`.
