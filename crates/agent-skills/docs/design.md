@@ -1722,7 +1722,8 @@ would drift apart, against `goal@knowledge-architect@agents-get-a-complete-workf
 The planning skill writes the spec or the milestone in the session where the design discussion
 converged. The session
 matters because the discussion's records are that session's: its conversation, and the transcript
-the harness keeps of it, which that session names exactly. A document written from memory in a
+the harness keeps of it, which that session finds with `klarch transcript list`, per
+`design@agent-skills@transcript-found-by-listing`. A document written from memory in a
 later session is written from a summary, and a summary loses the losing arguments and the
 conditions of each closure. Where the harness keeps no transcript, the conversation is the only
 record, and compaction can remove it.
@@ -1737,7 +1738,10 @@ that the transcript keeps the records from before a compaction, which a summary 
 conversation loses. It holds on one observed compaction of one session log, where every user and
 assistant record before the compaction boundary was still in the file;
 `jq -c 'select(.type=="system" and .subtype=="compact_boundary") | input_line_number' <log>` finds
-the boundaries of any log, and a count of the records before each re-takes it. The extraction can be
+the boundaries of any log, and a count of the records before each re-takes it; the column
+`compactions` of `klarch transcript list --all-projects` counts them per session. Over every
+transcript of the machine the transcript command was designed on, on 2026-10-25, the lines before
+the boundary stayed in the file in 7 of 7 compactions. The extraction can be
 wrong, so the transcript reviewer checks every assembled document against the same files. The
 rival, a draft ledger the agent writes to a file every round with the least effort, answers the
 cost of a write per round and not the other two reasons of the rejected alternative it repeats: a
@@ -1896,9 +1900,10 @@ transcript was forgotten or not handled durably. A ruling is a word of the owner
 against its source, per `design@agent-skills@answer-keeps-its-authority`. The reviewer assumes no shape of
 the work: a plan document is one home among the others.
 
-It is an agent, not a line in a skill, because its standard and its extraction rule are fixed, and
-the rule is learned from a failure: a filter on text substrings once dropped one of the owner's
-messages. It serves `goal@knowledge-architect@the-owner-decides`. The durability check serves
+It is an agent, not a line in a skill, because its standard is fixed. Its extraction is the
+checker's: it extracts each session with `transcript show`, which labels every line by its fields,
+per `design@core@transcript-labels-in-code`, so its text states what the labels mean and holds no
+extraction rule of its own; a rule held in the text was applied by a script each session wrote. It serves `goal@knowledge-architect@the-owner-decides`. The durability check serves
 `goal@knowledge-architect@design-is-recorded-with-its-arguments`. The check of rulings has shown
 its worth: in the review of the change that installed the first skills, a reviewer briefed with it
 was the one of six to find a decision recorded narrower than the owner's approval. The milestone
@@ -1909,6 +1914,35 @@ the review's six axes and its finding.
 
 The design this decision did not keep:
 `rejected@agent-skills@transcript-reviewer-reports-every-clause`.
+
+### A transcript is found by the transcript command's listing, never by a session identifier `##transcript-found-by-listing`
+
+The review skill, the planning skill and the transcript reviewer name a session by the opening words
+of the message where its work begins, and find it with `klarch transcript list`: `--branch` lists
+the sessions that worked on a branch, `--containing` the session holding those words in a message the
+owner typed. No installed text finds a transcript by a session identifier. After `/clear`, the
+harness starts a new file under a new `sessionId`, while the process keeps the earlier identifier in
+its paths, measured in the owner's test of it on Claude Code 2.1.310, so a session that derives its
+transcript from the identifier it sees reads the session before the clear. The same reason holds at
+the three texts, which is why it has this home. The listing is computed from the transcripts, per
+`design@core@transcript-query-verbs`.
+
+### An unrecognised transcript line reaches this repository through the command's header, the transcript reviewer's report and the retrospective's item on the checker `##unrecognised-entries-reach-upstream`
+
+The header of `klarch transcript` ends, where it names any line or value it does not recognise, with
+the line asking for each to be reported as a finding on the checker in the retrospective, per
+`design@core@transcript-format-tolerated-and-reported`. The transcript reviewer lists each such line
+under "Met outside the task", so the session receives it, and the retrospective's item on the
+checker, `skill@knowledge-architect-retrospective@what-it-examines`, carries it to the workflow's
+file. A reader of the format the harness documents as internal learns of a change only from the
+sessions of the projects that use it, which `goal@knowledge-architect@the-workflow-improves-through-real-use`
+relies on.
+
+The route is the owner's choice between two shapes neither of which failed a constraint, over a
+standing question of the retrospective, `rejected@agent-skills@retrospective-asks-for-unrecognised-lines`,
+which every retrospective of every project would load and answer though most of their sessions
+never ran the command. Its cost: it relies on the session carrying the header's line, or the
+reviewer's report of it, into its retrospective.
 
 ### A misstated ruling is critical only when it reverses the ruling, or changes what is built or a load-bearing decision `##misstated-ruling-rated-by-what-it-changes`
 

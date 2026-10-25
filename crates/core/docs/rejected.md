@@ -740,3 +740,11 @@ entries rested on their mean size in thaum, 1.6 KB, and on no measurement of rec
 `live`. The entries no cluster holds are of shapes the reference rule admits, issues about code with
 no head among them, so the group grows with the project: 14 entries here at ed9dd60, 55 in thaum at
 its commit edd2cb5d, counted with the scripts the message of the commit "[review] Repairs of the transcript review of one search of the whole record, with the scripts of its measurements" holds.
+
+### A transcript reader that refuses a line type or a value it does not know `##strict-transcript-reader`
+
+`live`. Over every transcript of the machine the reader was designed on, Claude Code 2.1.306 to
+2.1.310, each version added a line type, an attachment type or a key with the feature it shipped,
+and a parser that refused the unknown would have failed on each; a third-party parser,
+claude-code-log, broke the same way on 2.1 versions, in its issue 116. The harness documents the
+format as internal and liable to change between versions.
