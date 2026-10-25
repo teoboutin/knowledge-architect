@@ -67,6 +67,8 @@ the design skill among the candidates.
 **Re-entry:** the standing-state review before every merge: the commits and their messages are in
 the branch's history.
 **Watches until:** 20 commits on the main branch that add a level-three heading to a design home.
+A commit whose added level-three heading lines are all lines it also removes, a relocation, is
+not counted.
 
 ## Guarding `design@agent-skills@in-change-path`: a ruling lost or misstated in an in-change commit message `##ruling-lost-in-change`
 
@@ -153,7 +155,8 @@ is restored as the repair of the instance.
 **Re-entry:** the standing-state review before every merge, and the design-record axis of
 `skill@knowledge-architect-project-audit`.
 **Watches until:** 20 commits on the main branch that change a design home's heads' text, counted
-as commits that add or remove a level-three heading of a design home.
+as commits that add or remove a level-three heading of a design home. A commit whose
+added level-three heading lines are all lines it also removes, a relocation, is not counted.
 
 ## Guarding `design@agent-skills@title-states-the-rule`: a rule title wider than its argument `##rule-title-wider-than-its-argument`
 
@@ -167,7 +170,8 @@ rewritten after the decision.
 instance.
 **Re-entry:** the decision-record review of every change that writes a head.
 **Watches until:** 20 commits on the main branch that add a level-three heading to a design home,
-and one pass of the design-record axis.
+and one pass of the design-record axis. A commit whose
+added level-three heading lines are all lines it also removes, a relocation, is not counted.
 
 ## Guarding `design@agent-skills@one-decision-per-head`: a split that separates a rule from its own exception `##split-rule-from-exception`
 
@@ -181,7 +185,8 @@ audit finds one on the main branch.
 candidates.
 **Re-entry:** the decision-record review of every change that writes a head.
 **Watches until:** 20 commits on the main branch that add a level-three heading to a design home,
-and one pass of the design-record axis.
+and one pass of the design-record axis. A commit whose
+added level-three heading lines are all lines it also removes, a relocation, is not counted.
 
 ## Guarding `design@agent-skills@restatement-size-test`: a directive missed because its restatement became a pointer `##pointer-not-followed`
 
