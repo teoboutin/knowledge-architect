@@ -987,9 +987,9 @@ mode, puts both standards in one text, which lets a session apply the wrong one.
 
 ### A search reads the whole record, every cluster and every residual group, whatever the work `##search-reads-the-whole-record`
 
-The search gives no cluster a lighter reading because the work seems not to touch it. On the owner's
-weighing, the whole record is the safer reading, a choice by a cluster's title is a bad practice,
-and the work's bearing is found from the search's results, not before it. The rival, clusters chosen
+The search gives no cluster a lighter reading because the work seems not to touch it. The owner
+believed the whole record the safer reading, judged a choice by a cluster's
+title bad practice here, and believed the bearing is found only from the search's results. The rival, clusters chosen
 by the work, needs the judgement the work list removes, and rests on every pointer being a
 reference, which `issue@agent-skills@pointers-written-bare-to-clear-a-finding-reach-no-check` shows
 it is not. A lighter pass for the Components a piece of work does not touch waits for a project

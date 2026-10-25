@@ -28,7 +28,7 @@ leaves the repository in a commit of its own, after its harvest and the review b
   spec.
 - Every name it uses is defined in it, under Names or New names, or exists in the tree.
 - Where the owner's word is awaited, `skill@knowledge-architect-planning@working-a-slice` says what
-  waits. D1 to D6 are ruled; D7 to D10 await the owner, and the branch merges once the owner has ruled on each.
+  waits. D1 to D10 are ruled.
 - **The work lands as this one spec and a single pull request, on the owner's word**, round 3:
   "This work should land as one spec and a single PR." No commit of the work changes what the
   per-commit gate checks: `worklist` is a command, not a check, and `commits` does not compare a
@@ -41,7 +41,7 @@ leaves the repository in a commit of its own, after its harvest and the review b
 - It was assembled from one transcript. The discussion begins at the owner's message that opens "I
   want to refactor the way the grounding steps at the beginning of design skill, design audit of
   slices, and other triggers." and converges at the owner's message that ends "keep all 4 proposed
-  AC". The owner's messages are called rounds 0 to 8:
+  AC". The owner's messages are called rounds 0 to 9:
   - rounds 0 to 3, the discussion; the agent's replies to rounds 0, 1 and 2 carry the headings
     "Round 1", "Round 2" and "Round 3" in the transcript, and are called here "the reply to round
     0", "the reply to round 1" and "the reply to round 2";
@@ -52,7 +52,8 @@ leaves the repository in a commit of its own, after its harvest and the review b
   - round 6, the owner's rulings on two review findings, which opens
     "goal@agent-skills@installed-text-leaves-room-to-judge is about cases";
   - round 7, the owner's ruling on D5, "D5 accepted, proceed".
-  - round 8, the owner's ruling on D6, "d6: it closes".
+  - round 8, the owner's ruling on D6, "d6: it closes";
+  - round 9, the owner's rulings on D7 to D10, "agreed on the 4 defaults, proceed to merge".
 
   Find the file by the opening message, not by its name.
 
@@ -1369,6 +1370,8 @@ file. The test plants a phase-2 finding. Response: reopen #report-skeleton-comma
   graded `bears` and `may-bear`, which no dispatching text reads, was removed by the session, where
   the admission standard sends the removal of an instruction no agent acts on to the owner. Default:
   it stays removed.
+
+D7 to D10 ruled, round 9: "agreed on the 4 defaults, proceed to merge".
 
 ## Harvest
 

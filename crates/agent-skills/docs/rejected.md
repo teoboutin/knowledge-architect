@@ -488,7 +488,7 @@ given. A doubt remains that a search at grounding misses what bears on a thread 
 
 ### A listing command of design entries, cut into groups of 60 rows `##design-listing-cut-in-groups-of-sixty`
 
-`live`. It would give even groups. It cuts a subject between two agents, and the owner judged that
+`live`. It would give even groups. It cuts a subject between two agents, and the owner believed that
 a grouping by quantity alone would most likely make an agent read unrelated entries and read a
 subject in part, while a subject's kept and rejected entries have to be read together.
 
