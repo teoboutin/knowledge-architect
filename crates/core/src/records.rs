@@ -177,67 +177,73 @@ impl Record {
     }
 }
 
-/// Every site that references one entity, in document and line order.
+/// Every site that references any entity, by the entity it names, built in one pass over the
+/// model's observations.
 ///
 /// The reference grammar's own resolver decides what is a reference, so a span this reports is
 /// one the `references` family judged, and a span it passes over is one that family called
 /// silent.
-pub(crate) fn inbound(
-    model: &Model,
-    anchors: &Anchors,
-    kind: &Kind,
-    anchor: &str,
-    id: &str,
-) -> Vec<Site> {
-    let mut out = Vec::new();
-    for doc in model.documents() {
-        for l in &doc.observations {
-            let Observation::Span(span) = &l.what else {
-                continue;
-            };
-            // A harness kind's reference names its owner where the table names the anchor, so
-            // one comparison serves both.
-            if let Candidate::Harness {
-                kind: k,
-                owner: a,
-                id: i,
-            } = candidate(span, anchors)
-            {
-                if &k == kind && a == anchor && i == id {
-                    out.push(Site {
-                        file: doc.rel.clone(),
-                        line: l.line,
-                    });
-                }
-                continue;
-            }
-            if let Candidate::Reference {
-                kind: k,
-                anchor: a,
-                id: i,
-            } = candidate(span, anchors)
-            {
-                // A path's id is compared without its trailing slash: `x` and `x/` name one
-                // target, and the slash is a kind claim the check judges.
-                let same = if kind.takes_a_path() {
-                    i.trim_end_matches('/') == id.trim_end_matches('/')
-                } else {
-                    i == id
+///
+/// The key is what a span names: its kind, its anchor, or for a harness kind its owner, which the
+/// table keys where an anchor goes, and its id. A path's id is keyed without its trailing slash:
+/// `x` and `x/` name one target, and the slash is a kind claim the check judges. A planned
+/// citation is keyed under `planned`, and [`Inbound::of`] adds it to the path it will name.
+pub(crate) struct Inbound(BTreeMap<(Kind, String, String), Vec<Site>>);
+
+impl Inbound {
+    pub(crate) fn build(model: &Model, anchors: &Anchors) -> Inbound {
+        let mut by_entity: BTreeMap<(Kind, String, String), Vec<Site>> = BTreeMap::new();
+        for doc in model.documents() {
+            for l in &doc.observations {
+                let Observation::Span(span) = &l.what else {
+                    continue;
                 };
-                // A planned citation of a path is one a conversion edits once the file exists,
-                // so `show` on the path lists it too, per `design@core@planned-path-form`.
-                let kind_matches = &k == kind || (kind.is_path() && k.is_planned());
-                if kind_matches && a == anchor && same {
-                    out.push(Site {
+                let (kind, anchor, id) = match candidate(span, anchors) {
+                    Candidate::Harness { kind, owner, id } => (kind, owner, id),
+                    Candidate::Reference { kind, anchor, id } => {
+                        let id = if kind.takes_a_path() {
+                            id.trim_end_matches('/')
+                        } else {
+                            id
+                        };
+                        (kind, anchor, id)
+                    }
+                    _ => continue,
+                };
+                by_entity
+                    .entry((kind, anchor.to_string(), id.to_string()))
+                    .or_default()
+                    .push(Site {
                         file: doc.rel.clone(),
                         line: l.line,
                     });
-                }
             }
         }
+        Inbound(by_entity)
     }
-    out.sort_by(|a, b| (&a.file, a.line).cmp(&(&b.file, b.line)));
-    out
+
+    /// Every site that references the entity, in document and line order. A path's planned
+    /// citations are among them: a conversion edits them once the file exists, so `show` on the
+    /// path lists them, per `design@core@planned-path-form`.
+    pub(crate) fn of(&self, kind: &Kind, anchor: &str, id: &str) -> Vec<Site> {
+        let id = if kind.takes_a_path() {
+            id.trim_end_matches('/')
+        } else {
+            id
+        };
+        let at = |k: Kind| {
+            self.0
+                .get(&(k, anchor.to_string(), id.to_string()))
+                .cloned()
+                .unwrap_or_default()
+        };
+        let mut out = at(kind.clone());
+        if kind.is_path() {
+            out.extend(at(Kind::planned()));
+        }
+        out.sort_by(|a, b| (&a.file, a.line).cmp(&(&b.file, b.line)));
+        out
+    }
 }
 
 /// The `(anchor, id)` of every entry of kind `cited` that some entry of kind `within` cites
@@ -620,13 +626,8 @@ mod tests {
                     .to_string(),
             ),
         ]);
-        let sites = inbound(
-            &model,
-            &anchors,
-            &Kind::new("design"),
-            "a-project",
-            "a-decision",
-        );
+        let sites =
+            Inbound::build(&model, &anchors).of(&Kind::new("design"), "a-project", "a-decision");
         assert_eq!(
             sites.iter().map(Site::to_string).collect::<Vec<_>>(),
             vec!["README.md:1", "docs/tripwires.md:5"]

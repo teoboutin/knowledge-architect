@@ -1193,9 +1193,7 @@ fn show(manifest: &Manifest, args: &ShowArgs, checker: &[&Path]) -> Result<ExitC
             .into_iter()
             .find(|r| r.anchor == anchor && r.id == id)
     {
-        outln!("{reference}  {}", record.site);
-        outln!();
-        outln!("{}", record.body.trim_end());
+        outln!("{}", record_text(reference, &record));
         found = true;
     }
     if !found {
@@ -1203,29 +1201,54 @@ fn show(manifest: &Manifest, args: &ShowArgs, checker: &[&Path]) -> Result<ExitC
         return Ok(ExitCode::FAILURE);
     }
 
-    let mut inbound = crate::records::inbound(&model, &anchors, &kind, anchor, id);
-    // A component's home of a register is cited through `*` too, and a change of that home's
-    // shape concerns every such citation, so `show` lists them with the named ones.
-    if kind.is_register() && anchors.by_name(anchor).is_some_and(|a| a.is_component) {
-        inbound.extend(crate::records::inbound(
-            &model,
-            &anchors,
-            &kind,
-            crate::entity::EVERY_ANCHOR,
-            id,
-        ));
-        inbound.sort_by(|a, b| (&a.file, a.line).cmp(&(&b.file, b.line)));
-    }
+    let index = crate::records::Inbound::build(&model, &anchors);
     outln!();
-    if inbound.is_empty() {
-        outln!("referenced by nothing");
-    } else {
-        outln!("referenced at:");
-        for site in inbound {
-            outln!("  {site}");
-        }
-    }
+    outln!(
+        "{}",
+        inbound_text(&cited_at(&index, &anchors, &kind, anchor, id))
+    );
     Ok(ExitCode::SUCCESS)
+}
+
+/// A register entry as `show` prints it: its reference and its site, a blank line, its body.
+///
+/// `show` prints it, a blank line and [`inbound_text`]; `worklist --out` writes the same three
+/// into its snapshot, so the snapshot holds what `show` prints rather than a second rendering of
+/// it, per `design@core@one-question-one-command`.
+pub(super) fn record_text(reference: &str, record: &crate::records::Record) -> String {
+    format!("{reference}  {}\n\n{}", record.site, record.body.trim_end())
+}
+
+/// What points at an entity, as `show` prints it: `referenced by nothing`, or `referenced at:`
+/// with one indented site per line.
+pub(super) fn inbound_text(sites: &[crate::entity::Site]) -> String {
+    if sites.is_empty() {
+        return "referenced by nothing".to_string();
+    }
+    let mut out = "referenced at:".to_string();
+    for site in sites {
+        out.push_str(&format!("\n  {site}"));
+    }
+    out
+}
+
+/// Every site that cites an entity, as `show` lists them.
+///
+/// A component's home of a register is cited through `*` too, and a change of that home's shape
+/// concerns every such citation, so the list holds them with the named ones.
+pub(super) fn cited_at(
+    index: &crate::records::Inbound,
+    anchors: &Anchors,
+    kind: &crate::entity::Kind,
+    anchor: &str,
+    id: &str,
+) -> Vec<crate::entity::Site> {
+    let mut sites = index.of(kind, anchor, id);
+    if kind.is_register() && anchors.by_name(anchor).is_some_and(|a| a.is_component) {
+        sites.extend(index.of(kind, crate::entity::EVERY_ANCHOR, id));
+        sites.sort_by(|a, b| (&a.file, a.line).cmp(&(&b.file, b.line)));
+    }
+    sites
 }
 
 /// The section of `text` whose level-two heading is at `line`, up to the next heading of level
