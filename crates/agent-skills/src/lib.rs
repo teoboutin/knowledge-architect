@@ -270,6 +270,30 @@ mod tests {
                 ".claude/skills/knowledge-architect-retrospective/SKILL.md",
             ],
         ),
+        (
+            "finding-outcomes.md",
+            &[
+                ".claude/agents/knowledge-architect-design-record-auditor.md",
+                ".claude/agents/knowledge-architect-tripwire-auditor.md",
+                ".claude/agents/knowledge-architect-workflow-auditor.md",
+                ".claude/skills/knowledge-architect-project-audit/SKILL.md",
+            ],
+        ),
+        (
+            "skill-self-sufficient.md",
+            &[
+                ".claude/agents/knowledge-architect-routing-reviewer.md",
+                ".claude/agents/knowledge-architect-workflow-auditor.md",
+                ".claude/skills/knowledge-architect-agent-configuration/SKILL.md",
+            ],
+        ),
+        (
+            "trigger-test.md",
+            &[
+                ".claude/agents/knowledge-architect-standing-state-reviewer.md",
+                ".claude/skills/knowledge-architect-issue-tracking/SKILL.md",
+            ],
+        ),
     ];
 
     /// Each fragment's first line, a `%%` comment aside, ships in exactly its hosts.

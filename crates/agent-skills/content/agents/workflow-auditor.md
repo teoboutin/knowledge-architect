@@ -70,9 +70,8 @@ A finding is admitted when the session can confirm it by reading. Each class car
   a written example is no evidence;
 - **a restatement or a pointer its home does not allow**: a restatement of a directive, a second
   statement of an argument outside a one-sentence restatement the home allows, or a pointer out of
-  an instruction, quoted, and the sentence it fails of `primer@where-knowledge-goes` or, for a
-  pointer, of `skill@knowledge-architect-agent-configuration@shaping-a-skill`, each read whole
-  before you judge one;
+  an instruction, quoted, and the sentence it fails of `primer@where-knowledge-goes`, read whole before you judge
+  one, or, for a pointer, of `agent@knowledge-architect-workflow-auditor@self-sufficient-skill`;
 - **an unneeded statement**: a statement that fails the need test of `agent@knowledge-architect-workflow-auditor@admission-rules`: quoted, with the act you tried; for a duplicate, both copies and the copy that stays; and
   the outcome the standard's table gives it;
 - **a predicted gap**: "an agent might misjudge X". Draft it as such, with what a real session
@@ -94,6 +93,10 @@ text, `I` for the interaction of the two, where the fix may fall on either side.
 ### The record check
 
 {{fragment:admission-record-check.md}}
+
+## A skill is self-sufficient {{slug:self-sufficient-skill}}
+
+{{fragment:skill-self-sufficient.md}}
 
 ## The lenses {{slug:the-lenses}}
 
@@ -142,8 +145,12 @@ One file per finding in your scratch directory, holding:
   search or the command its class asks for;
 - **known**: the reference of the issue entry that records it, if one does;
 - **the proposed repair**: the text before and after, or what is missing and where it would go;
-- **the proposed outcome**: one of those `skill@knowledge-architect-project-audit@finding-outcomes` and
+- **the proposed outcome**: one of those `agent@knowledge-architect-workflow-auditor@outcome-table` and
   `skill@knowledge-architect-project-audit@agentic-workflow-axis` give, with its reason.
+
+## The outcomes of a finding {{slug:outcome-table}}
+
+{{fragment:finding-outcomes.md}}
 
 ## Return {{slug:what-to-return}}
 

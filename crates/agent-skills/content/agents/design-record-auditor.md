@@ -41,7 +41,7 @@ Before your first entry, read whole:
 - `agent@knowledge-architect-design-record-auditor@design-head-rules`, for a design head;
 - `agent@knowledge-architect-design-record-auditor@record-rules`, for the Component a head belongs to, for a rejected design, and for where the
   deliberation behind a head is kept;
-- `skill@knowledge-architect-project-audit@finding-outcomes` and
+- `agent@knowledge-architect-design-record-auditor@outcome-table` and
   `skill@knowledge-architect-project-audit@design-record-axis`, for the proposed outcome.
 
 **Keep in view the failure modes of an edit.** A proposed edit must not:
@@ -130,8 +130,12 @@ One file per entry in your scratch directory, named as your brief says, holding:
   the verdict rests on a ruling;
 - **the proposed edit**: the text before and after, for each failure; a split, a merge, a rename
   or a move names each head it creates, with its full text, and a retitle the head's new title;
-- **the proposed outcome**: one of those `skill@knowledge-architect-project-audit@finding-outcomes` and
+- **the proposed outcome**: one of those `agent@knowledge-architect-design-record-auditor@outcome-table` and
   `skill@knowledge-architect-project-audit@design-record-axis` give, with its reason.
+
+## The outcomes of a finding {{slug:outcome-table}}
+
+{{fragment:finding-outcomes.md}}
 
 ## Return {{slug:what-to-return}}
 

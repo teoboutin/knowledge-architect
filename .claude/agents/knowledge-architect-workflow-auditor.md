@@ -70,9 +70,8 @@ A finding is admitted when the session can confirm it by reading. Each class car
   a written example is no evidence;
 - **a restatement or a pointer its home does not allow**: a restatement of a directive, a second
   statement of an argument outside a one-sentence restatement the home allows, or a pointer out of
-  an instruction, quoted, and the sentence it fails of `primer@where-knowledge-goes` or, for a
-  pointer, of `skill@knowledge-architect-agent-configuration@shaping-a-skill`, each read whole
-  before you judge one;
+  an instruction, quoted, and the sentence it fails of `primer@where-knowledge-goes`, read whole before you judge
+  one, or, for a pointer, of `agent@knowledge-architect-workflow-auditor@self-sufficient-skill`;
 - **an unneeded statement**: a statement that fails the need test of `agent@knowledge-architect-workflow-auditor@admission-rules`: quoted, with the act you tried; for a duplicate, both copies and the copy that stays; and
   the outcome the standard's table gives it;
 - **a predicted gap**: "an agent might misjudge X". Draft it as such, with what a real session
@@ -154,6 +153,19 @@ member its argument does not cover, or earns text at all. One that strains a goa
 owner, under `skill@knowledge-architect-goal-setting`. A rewording that changes no instruction is
 not a decision.
 
+## A skill is self-sufficient `##self-sufficient-skill`
+
+**A skill is self-sufficient.** It holds every piece of knowledge its activity needs, such as a
+build command, a dispatch table or a common trap, even where it is stated elsewhere, delivered as
+`primer@where-knowledge-goes` says. **The test, per pointer: could a session complete this
+activity correctly without opening it?** If not, the content is delivered in the skill as that
+section says. A pointer passes when its target is not needed to act, as an argument is; when it
+varies per instance, as task material does; or when it is one complete instruction the session
+reads whole: a named prerequisite skill, a home the pointer asks to read whole, the primer or the
+root `CLAUDE.md`, which reach every session. What this guards against is dilution rather than
+length: each pointer is an extra read a session must remember, and the more there are, the less
+likely all are followed.
+
 ## The lenses `##the-lenses`
 
 A finding of another lens met on the way is drafted too, and its draft names the finding's lens, not
@@ -201,8 +213,22 @@ One file per finding in your scratch directory, holding:
   search or the command its class asks for;
 - **known**: the reference of the issue entry that records it, if one does;
 - **the proposed repair**: the text before and after, or what is missing and where it would go;
-- **the proposed outcome**: one of those `skill@knowledge-architect-project-audit@finding-outcomes` and
+- **the proposed outcome**: one of those `agent@knowledge-architect-workflow-auditor@outcome-table` and
   `skill@knowledge-architect-project-audit@agentic-workflow-axis` give, with its reason.
+
+## The outcomes of a finding `##outcome-table`
+
+Every finding takes exactly one outcome.
+
+| outcome | the findings |
+| --- | --- |
+| applied in the branch | the edits the axis's section of `skill@knowledge-architect-project-audit` lists as applied |
+| put to the owner, on the owner list | the edits the axis's section of `skill@knowledge-architect-project-audit` lists as the owner's; a verdict where a rule reads two ways and no record states the reading, per `primer@question-authority`; a conflict with a goal, which then follows `skill@knowledge-architect-goal-setting`; any finding no row names |
+| sent upstream | a finding on the installed text that the row "nothing" does not name; the project never edits the installed text: the axis's section of `skill@knowledge-architect-project-audit` says how |
+| an issue entry | a finding outside the axis that the primer's table routes to an issue, such as a statement false of the code when the axis does not read the code; work the owner approved that is too large for the branch; a finding the owner defers. The kind follows `skill@knowledge-architect-issue-tracking` |
+| nothing | the entry or the text conforms; a finding an issue entry already records; a finding on the kept list |
+
+A finding outside the axis takes the first case of `primer@met-outside-the-task` that applies.
 
 ## Return `##what-to-return`
 
