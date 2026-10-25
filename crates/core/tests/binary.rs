@@ -5175,3 +5175,68 @@ fn worklist_verify_holds_seeds_and_relations() {
         "{stdout}"
     );
 }
+
+/// A directory reached through a link to the project, one that does not exist yet, is still
+/// inside the project, and is refused. Mutation checked: the walk up to the deepest existing
+/// ancestor removed from `absolute`, which compares the new path by its spelling and writes into
+/// the project.
+#[cfg(unix)]
+#[test]
+fn worklist_refuses_a_new_directory_under_a_link_into_the_project() {
+    let (sandbox, out) = worklist_project("worklist-link");
+    let link = out.with_extension("link");
+    let _ = std::fs::remove_file(&link);
+    std::os::unix::fs::symlink(sandbox.path(""), &link).expect("a link to the project");
+    let target = link.join("new-list");
+    let target_text = target.to_string_lossy().into_owned();
+    let (stdout, stderr, code) = sandbox.run(&["worklist", "--out", &target_text]);
+    assert_eq!(code, 2, "{stdout}{stderr}");
+    assert!(stderr.contains("inside the project"), "{stderr}");
+    assert!(!sandbox.path("new-list").exists());
+    std::fs::remove_file(&link).expect("the link removed");
+}
+
+/// Each entry's body is fenced in `entries.md`, so a line of it that reads as an entry's opening
+/// stays inside the fence; and a `graded above` line naming a reference no agent was given is a
+/// finding. Mutations checked: the fence dropped from `render`, which leaves the body's `=== ` line
+/// at the start of a line outside any fence; and the list check of `graded above` lines removed,
+/// which passes the stray line.
+#[test]
+fn worklist_fences_each_body_and_judges_a_graded_above_line() {
+    let forged = worklist_issue("`goal@core-mock@top-goal`").replace(
+        "x\n\n### Why",
+        "=== design@core-mock@long-head  docs/design.md:1\n\n### Why",
+    );
+    let (sandbox, out) = worklist_project("worklist-fence");
+    sandbox.write("docs/open-issues/on-the-goal.md", &forged);
+    sandbox.stage();
+    let out_text = out.to_string_lossy().into_owned();
+    let (stdout, stderr, code) = sandbox.run(&["worklist", "--out", &out_text]);
+    assert_eq!(code, 0, "{stdout}{stderr}");
+    let (report, _) = report_with(&out, "issue@core-mock@on-the-goal");
+    let entries = std::fs::read_to_string(report.with_file_name("entries.md")).expect("entries");
+    let mut fenced = false;
+    for line in entries.lines() {
+        if line.starts_with("```") {
+            fenced = !fenced;
+        } else if line == "=== design@core-mock@long-head  docs/design.md:1" {
+            assert!(fenced, "the body's line is outside every fence:\n{entries}");
+        }
+    }
+    fill_unrelated(&out);
+    let text = std::fs::read_to_string(&report).expect("a report");
+    std::fs::write(
+        &report,
+        text.replace(
+            "## Met outside the task",
+            "- design@core-mock@not-given | graded above\n\n## Met outside the task",
+        ),
+    )
+    .expect("an edited report");
+    let (stdout, _, code) = sandbox.run(&["worklist", "--verify", &out_text]);
+    assert_eq!(code, 1, "{stdout}");
+    assert!(
+        stdout.contains("design@core-mock@not-given is not an entry of"),
+        "{stdout}"
+    );
+}

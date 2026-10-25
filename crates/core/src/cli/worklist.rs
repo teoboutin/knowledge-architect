@@ -190,8 +190,24 @@ fn absolute(dir: &Path) -> Result<PathBuf, String> {
             other => out.push(other),
         }
     }
-    // An existing directory is compared by its real path, so a link into the project is seen.
-    Ok(out.canonicalize().unwrap_or(out))
+    // The deepest existing ancestor is compared by its real path, so a link into the project, the
+    // directory itself or any parent of it, is seen; the segments below it do not exist yet.
+    let mut existing = out.clone();
+    let mut rest: Vec<std::ffi::OsString> = Vec::new();
+    while !existing.exists() {
+        match (existing.file_name(), existing.parent()) {
+            (Some(name), Some(parent)) => {
+                rest.push(name.to_os_string());
+                existing = parent.to_path_buf();
+            }
+            _ => break,
+        }
+    }
+    let mut real = existing.canonicalize().unwrap_or(existing);
+    for name in rest.into_iter().rev() {
+        real.push(name);
+    }
+    Ok(real)
 }
 
 /// Every file of the work list, by path under its directory.
@@ -238,10 +254,13 @@ fn render(graph: &Graph, agents: &[Vec<usize>], seeds: &BTreeSet<usize>) -> Vec<
                     "{agent} {} {reference}{mark}\n",
                     entry.role.word()
                 ));
+                // The body sits in a fence longer than any run of backticks it holds, so neither a
+                // line of it nor a heading of it reads as the start of another entry or cluster.
+                let body = entry.record.body.trim_end();
+                let fence = "`".repeat(longest_backtick_run(body).max(2) + 1);
                 entries.push_str(&format!(
-                    "\n=== {reference}  {}\n\n{}\n",
-                    entry.record.site,
-                    entry.record.body.trim_end()
+                    "\n=== {reference}  {}\n\n{fence}markdown\n{body}\n{fence}\n",
+                    entry.record.site
                 ));
                 let seed_field = if seeds.contains(&i) {
                     " | is a seed".to_string()
@@ -261,6 +280,16 @@ fn render(graph: &Graph, agents: &[Vec<usize>], seeds: &BTreeSet<usize>) -> Vec<
     }
     files.insert(0, (PathBuf::from(AGENTS_FILE), list));
     files
+}
+
+/// The longest run of backticks in `text`.
+fn longest_backtick_run(text: &str) -> usize {
+    let (mut best, mut run) = (0, 0);
+    for c in text.chars() {
+        run = if c == '`' { run + 1 } else { 0 };
+        best = best.max(run);
+    }
+    best
 }
 
 /// One line of `agents.txt`.
@@ -336,6 +365,9 @@ fn verify(dir: &Path) -> Result<ExitCode, String> {
             };
             let (reference, fields) = rest.split_once(" | ").unwrap_or((rest, ""));
             if fields == GRADED_ABOVE {
+                if !listed.contains_key(reference) {
+                    findings.push(format!("{at}  {reference} is not an entry of {agent}"));
+                }
                 continue;
             }
             let Some(parsed) = parse_fields(fields) else {
