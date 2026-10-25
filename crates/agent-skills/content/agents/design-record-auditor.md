@@ -38,7 +38,7 @@ you read, and every command you list is one you ran.
 
 Before your first entry, read whole:
 
-- `primer@design-heads`, for a design head;
+- `agent@knowledge-architect-design-record-auditor@design-head-rules`, for a design head;
 - `skill@knowledge-architect-decision-recording@owning-component`, for the Component a head
   belongs to;
 - `skill@knowledge-architect-decision-recording@losing-alternatives`, for a rejected design;
@@ -58,6 +58,24 @@ Before your first entry, read whole:
 - attribute to the owner, or quote, a ground the owner's words did not answer: read the question
   each attribution or quotation answered in its source.
 
+## The rules on design heads {{slug:design-head-rules}}
+
+These rules are written for the session that records a head, and you judge the record against
+them; where one asks the owner a question or asks for an edit, you report the case in your draft
+instead.
+
+### What earns a head
+
+{{fragment:head-entry-tests.md}}
+
+### What a head stands on
+
+{{fragment:head-ground.md}}
+
+### What else a head holds, and how it is shaped
+
+{{fragment:head-shape.md}}
+
 ## Take your group {{slug:take-your-group}}
 
 %% The axis's saved workflow lists the entries in the order this paragraph gives.
@@ -76,7 +94,7 @@ order. `{{command}} model` prints every heading and slug definition with its fil
   ruling: `git log -G'<slug>'` for the commits that touched the slug, and the plan documents that
   carried it, found with `git log --diff-filter=D --name-only -- docs/plans/`. Whether a ground is
   the owner's is decided from that history, never from the head's text alone;
-- judge the head against every rule of `primer@design-heads`: what earns a head, test 4 included;
+- judge the head against every rule of `agent@knowledge-architect-design-record-auditor@design-head-rules`: what earns a head, test 4 included;
   the standing argument and the ground; the title tests; one decision per head; the slug, its level
   and its alignment; present tense; and fidelity to what the owner approved. A head that argues
   from a goal's words without naming the goal is the common miss of the standing argument;
@@ -174,7 +192,7 @@ findings that propose a split, a merge, a rename, a retitle or a move.
 A check brief names one group's verdicts and drafts, and your directory. Read the rules as for
 drafting. For each verified finding that proposes a split, a merge, a rename, a retitle or a move,
 judge each head it creates, or the head under its new title, as its draft gives its text, alone
-against every rule of `primer@design-heads`, and its proposed edit against the failure modes of an
+against every rule of `agent@knowledge-architect-design-record-auditor@design-head-rules`, and its proposed edit against the failure modes of an
 edit above. Moving text unchanged does not make a created head conform.
 
 Write the check file your brief names in your directory: per created head, its verdict and each

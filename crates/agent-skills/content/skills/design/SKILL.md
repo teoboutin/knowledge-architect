@@ -126,31 +126,25 @@ evidence bring, which nobody knows in advance.
 %% show would land after the work they bear on. The commit that carries the deliberation carries
 %% the rulings, as a plan document would; the rival, the rulings landing in the later commit that
 %% writes the tripwires, splits the deliberation over two commits.
-%% The reread before the in-change grounding: that path runs when a decision is met during an issue
-%% fix or a review repair, late in a session by definition, and its grounding reads heads to judge
-%% the decision. The rival, the reread at recording alone, per
-%% `design@agent-skills@primer-reread-before-recording`, leaves that grounding reading heads under a
-%% primer far back in the session. It rests on a prediction, not on a behaviour seen in a session,
-%% so it is an exception to `design@agent-skills@behaviour-additions-need-real-use`.
 - **The in-change path.** It is open when the decision lands in the
   change under way: its work, where that change began before the
   discussion opened, as an issue fix or a review repair does, or its
   record, whenever the discussion opened, for a decision that no work
   implements and that is not part of any spec, which
   `skill@knowledge-architect-decision-recording@when-recording-happens` records when it is made. No
-  plan document is written. Read `primer@design-heads` again, whole, before grounding. The deliberation goes in the message of the
+  plan document is written. Its grounding applies `skill@knowledge-architect-design@what-earns-a-head`. The deliberation goes in the message of the
   commit that writes the decision's design entry, or, for a decision
   that earns none, of the commit that implements it, or, where neither
   exists, where `skill@knowledge-architect-review@what-review-leaves`
   puts a record carried by a message: every thread with its final state, the
   ground of each closure: the owner's ruling, attributed to the owner with what it
-  reaches, as `primer@design-heads` says, the rivals that lost with
+  reaches, as `skill@knowledge-architect-design@what-earns-a-head` says, the rivals that lost with
   their reasons, every premortem cause with its outcome, and the owner's rulings on acceptance
   criteria. The decision is
   recorded at that landing like any other, under
   `skill@knowledge-architect-decision-recording`:
   `skill@knowledge-architect-decision-recording@reversal-check` decides the Component of a decision
-  that reverses a recorded one, and `primer@design-heads`
+  that reverses a recorded one, and `skill@knowledge-architect-design@what-earns-a-head`
   decides whether any other decision earns a design head at all. Apply both before proposing to the
   owner where a decision lands. Where the premortem runs, nothing of the decision is implemented
   or committed before it has run and the owner has ruled on its acceptance criteria, so the record
@@ -185,7 +179,7 @@ starts here, at loop step 1, the search for standing entries included. After the
 work is **bounded** when all three hold:
 
 - it reverses no recorded decision, as `skill@knowledge-architect-decision-recording@reversal-check` asks;
-- every decision it makes fails the entry tests of `primer@design-heads`, so none earns a design head;
+- every decision it makes fails the entry tests of `skill@knowledge-architect-design@what-earns-a-head`, so none earns a design head;
 - no second defensible shape survives the nearest-rival test of loop step 3. State the strongest
   open reading of the problem beside the bounded one: the design question the bounded framing would
   suppress.
@@ -196,11 +190,19 @@ work proceeds on it unless the owner answers otherwise, a part that cannot be un
 owner's word, per `primer@question-authority`.
 A reply that brings an argument, a new shape or a doubt returns the work to the loop, on the
 in-change path or the full path. The commit that implements bounded work carries the proposal and,
-if one came, the owner's answer, attributed to the owner, as `primer@design-heads` says.
+if one came, the owner's answer, attributed to the owner, as `skill@knowledge-architect-design@what-earns-a-head` says.
 
 Misclassifying costs in both directions: a bounded problem does not need a discussion, and an open
 one needs argument. Territory that looks technical is often not bounded (error handling can turn out
 to be user-communication design).
+
+## What earns a head {{slug:what-earns-a-head}}
+
+{{fragment:head-entry-tests.md}}
+
+### What a head stands on
+
+{{fragment:head-ground.md}}
 
 ## Language {{slug:discussion-language}}
 
@@ -227,7 +229,7 @@ enter freely at any time.
 **Naming.** A thread gets a short content-named slug in the grammar of an
 entry id, `[a-z0-9]+(-[a-z0-9]+)+`, since a decided thread whose
 decision earns a design entry gives that entry its slug, or a slug and a
-stated pair, per `primer@design-heads`. Name the thread by the decision it
+stated pair, per `skill@knowledge-architect-decision-recording@head-shape`. Name the thread by the decision it
 would record if decided, not by the change it proposes: #retention-window,
 not #shorten-retention. A slug is never changed during the discussion, since
 every earlier delta carries it. Before using a slug, check that no entry of
@@ -239,7 +241,7 @@ span may be read by the checker as a reference. In the plan document the
 thread becomes an item, which the plan document cites by its checked form,
 from inside its own plan only, per `skill@knowledge-architect-planning`;
 the plain form stays there only in the harvest row's pair of a thread and
-its entry slug, which `primer@design-heads` states. When the natural name is a
+its entry slug, which `skill@knowledge-architect-decision-recording@head-shape` states. When the natural name is a
 common prose word, choose a two-word slug so references stay unambiguous.
 
 **Granularity.** Every proposal either party made is a thread. A
@@ -443,7 +445,7 @@ choices whose option space genuinely is closed and consequence-free.
    of them the question bears on, and, for each entry graded `may-bear`,
    whether it bears. An entry graded `may change` goes to
    `skill@knowledge-architect-decision-recording@reversal-check`, and to the
-   backstop of `primer@design-heads`, before a proposal that would change it,
+   backstop of `skill@knowledge-architect-design@what-earns-a-head`, before a proposal that would change it,
    and a goal graded so to `skill@knowledge-architect-goal-setting`; one graded `may bring back` is
    proposed again only with a new argument, by the Reopening rule. When a
    thread opens on a subject the work given to the design-entry search

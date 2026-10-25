@@ -142,7 +142,8 @@ too how many of the owner's rulings on the owner list went against the default.
 **The corpus**: every design head of every Component, and every entry of its `rejected`
 home.
 
-**The rules**: every rule of `primer@design-heads` for a head, the questions of
+**The rules**: every rule of `primer@design-heads` and of
+`skill@knowledge-architect-decision-recording@head-shape` for a head, the questions of
 `skill@knowledge-architect-decision-recording@owning-component` for the Component it sits in, and
 every rule of `skill@knowledge-architect-decision-recording@losing-alternatives` for a `rejected`
 entry.

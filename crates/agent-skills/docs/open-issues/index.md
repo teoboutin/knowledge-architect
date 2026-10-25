@@ -1,6 +1,6 @@
 **Generated — do not edit.** `cargo klarch index`
 
-47 entries
+46 entries
 
 | kind | title |
 | --- | --- |
@@ -33,7 +33,6 @@
 | question | [Does the design skill's open-space test leave bounded work almost unreachable?](the-open-space-test-may-admit-every-problem.md) |
 | question | [The planning skill answers every material finding with a default, and states no hold for one that defeats a premise of the owner's ruling](the-planning-skill-answers-every-material-finding-with-a-default.md) |
 | question | [The primer and its head name a guard's issue under two conditions](the-primer-and-its-head-name-a-guard-s-issue-under-two-conditions.md) |
-| question | [The primer's section on design heads says a project's purpose belongs in a head, and its knowledge table sends it to the goals home](the-primer-s-design-head-section-sends-a-project-s-purpose-to-a-head.md) |
 | question | [The primer's paragraph on a divergence between a head and the code reads two ways on the work that goes on meanwhile](the-primer-s-divergence-paragraph-reads-two-ways-on-work-that-goes-on.md) |
 | question | [The decision-recording skill's reason for the `void` marker reads two ways](the-void-marker-s-reason-reads-two-ways.md) |
 | question | [The planning skill forbids "plan" alone as a document's name and uses it alone](the-word-plan-is-banned-alone-and-used-alone.md) |

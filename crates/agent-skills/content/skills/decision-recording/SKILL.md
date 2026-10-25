@@ -1,12 +1,9 @@
 ---
 name: knowledge-architect-decision-recording
-description: MUST use before writing into a design home, whatever the activity, and when a design decision has been made or reversed — a choice about how the project or one of its Components is built, including anything a consumer of it may depend on — in order to decide whether it earns durable text at all (most implementation choices do not) and where that text lands. Covers when recording happens, the reversal check that comes before everything else, which Component owns it, the split between the design home, the rejected designs and history, where a head is written and how a slug is renamed, and how a premortem's causes become tripwires; what earns a head and how a head is shaped are the primer's section on design heads.
+description: MUST use before writing into a design home, whatever the activity, and when a design decision has been made or reversed — a choice about how the project or one of its Components is built, including anything a consumer of it may depend on — in order to decide whether it earns durable text at all (most implementation choices do not) and where that text lands. Covers when recording happens, the reversal check that comes before everything else, which Component owns it, the split between the design home, the rejected designs and history, what earns a head, what a head holds and how it is shaped, where a head is written and how a slug is renamed, and how a premortem's causes become tripwires.
 ---
 
 # Recording a decision
-
-**Read `primer@design-heads` again, whole, before writing or judging a head.** The primer was
-loaded when the session started, and a recording comes late in it.
 
 Scope: turning a decision about **what we build** into durable text. Whether it earns durable text
 at all, when it is written, which Component owns it, what goes in the design home, what stays in
@@ -30,12 +27,12 @@ the **harvest**, and it happens in the change that lands the work.
 
 A decision that no work implements, such as a policy, and that is not part of any spec, is
 recorded when it is made: there is no implementing change to wait for. The second entry test of
-`primer@design-heads` admits it, as a decision that no code and no text of the project states.
+`skill@knowledge-architect-decision-recording@what-earns-a-head` admits it, as a decision that no code and no text of the project states.
 
 **A default awaiting the owner is built as written, per
 `skill@knowledge-architect-planning@working-a-slice`, and enters a design head once the owner rules
 on it.** Until then it is no approved decision, and a head is read against the owner's approval
-before it is written, per `primer@design-heads`.
+before it is written, per `skill@knowledge-architect-decision-recording@head-shape`.
 
 ## Does it reverse something already recorded? {{slug:reversal-check}}
 
@@ -51,23 +48,23 @@ thinking in. Grep the subject's terms across every document that carries decisio
 touches, then `git log -G'<term>'` for the argument behind them. Say in the commit message what you
 searched and what it returned. A search that returned nothing is a finding worth one line there.
 
-**If nothing holds it, carry on to the entry tests of `primer@design-heads`.** If something does, do all of the following, in the same
+**If nothing holds it, carry on to the entry tests of `skill@knowledge-architect-decision-recording@what-earns-a-head`.** If something does, do all of the following, in the same
 change:
 
 - **The Component is the incumbent's.** The test of `skill@knowledge-architect-decision-recording@owning-component` is not asked again. If the incumbent looks misfiled, that is a separate change with its
   own argument.
-- **It earns durable text whatever the entry tests of `primer@design-heads` say.** The
+- **It earns durable text whatever the entry tests of `skill@knowledge-architect-decision-recording@what-earns-a-head` say.** The
   incumbent's head now states something false, so the minimum is rewriting it. The entry tests
   decide whether a _new_ decision earns an entry, not whether a false one may stand.
 - **Rewrite the head in place** (`skill@knowledge-architect-decision-recording@current-design`), and give the new statement its own slug when it is a new
   statement. Keep the old slug only where it still names the same decision. The slug and the
-  title stay aligned with the full scope of the decision, per `primer@design-heads`. A rename is
+  title stay aligned with the full scope of the decision, per `skill@knowledge-architect-decision-recording@head-shape`. A rename is
   cheap, and the checker lists every reference it leaves dangling in the files it reads, per
   `primer@where-knowledge-goes`.
 - **Move the incumbent into the Component's `register@*@rejected`** (`skill@knowledge-architect-decision-recording@losing-alternatives`) with its reason and a
   validity marker, stated as strongly as it was originally made, if it meets one of the tests of `skill@knowledge-architect-decision-recording@losing-alternatives`, and cite it from the new head.
 - **Argue it under `skill@knowledge-architect-design` first**, if it was not: a reversal contradicts
-  a statement of the incumbent, the second case of the backstop of `primer@design-heads`.
+  a statement of the incumbent, the second case of the backstop of `skill@knowledge-architect-decision-recording@what-earns-a-head`.
 - **Delete the tripwires guarding the reversed decision.** `skill@knowledge-architect-issue-tracking` owns that movement.
 - **Repair what pointed at the old behaviour**: skills, subagent definitions, scoped `CLAUDE.md`
   files, generated headers. Grep the behaviour's wording as well as the slug, since a pointer that
@@ -78,6 +75,10 @@ change:
   beside it.
 - **Close the issue entry that asked the question**, in this commit rather than a later one, and
   rewrite whatever half of it survives rather than deleting the whole.
+
+## What earns a head {{slug:what-earns-a-head}}
+
+{{fragment:head-entry-tests.md}}
 
 ## Which Component owns it {{slug:owning-component}}
 
@@ -105,7 +106,7 @@ from an approval that no argument for the decision, no rival and no cost stand b
 default approved in a batch, search for the arguments for and against it, its costs and its rivals,
 and record what the search finds. When the search leaves the rivals equal, put the fork to the
 owner as a tie. The owner's choice is then the head's ground, as a decision that came from the
-owner, per `primer@design-heads`.
+owner, per `skill@knowledge-architect-decision-recording@head-shape`.
 
 ## Three homes, split by function {{slug:three-homes}}
 
@@ -115,7 +116,7 @@ owner, per `primer@design-heads`.
 | a design not kept, and why | the Component's `register@*@rejected`, each entry cited by the heads whose argument covers it | a reader about to propose it must meet it without knowing to look, and a reader of the head meets its citation |
 | the **deliberation**: what was weighed, in which order, what evidence was built, who ruled what | the spec or milestone document while it exists, then history; the commit message when there was no spec | failing to find it costs a re-derivation, not a wrong decision |
 
-**The standing argument**, and what stays out of the head, are `primer@design-heads`.
+**The standing argument** is `primer@design-heads`, and what stays out of the head is `skill@knowledge-architect-decision-recording@head-shape`.
 
 **The deliberation is not copied into the head**, and, where a plan document carries it, not into
 the harvest's commit message either.
@@ -134,6 +135,16 @@ it occurs, so it misses every revision.**
 When a decision was taken with no spec, on the in-change path of `skill@knowledge-architect-design`,
 the deliberation is where that path puts it.
 
+## What a head holds and how it is shaped {{slug:head-shape}}
+
+### What a head stands on
+
+{{fragment:head-ground.md}}
+
+### What else a head holds, and how it is shaped
+
+{{fragment:head-shape.md}}
+
 ## The current design {{slug:current-design}}
 
 In the Component's design home, `register@*@design`: one file, or, for a Component whose design
@@ -142,13 +153,12 @@ subdocument owning its subject, never in the directory's `README.md`, which is t
 index. A new subdocument is linked from that index, `[title](file.md)`, the target relative to the
 README, conventionally one bullet per subdocument.
 
-**What a head holds and how it is shaped is `primer@design-heads`**: read it whole before writing
-a head. The template:
+**What a head holds and how it is shaped is `skill@knowledge-architect-decision-recording@head-shape`.** The template:
 
 ```markdown
 ### <The decision, stated as a sentence> `##<slug>`
 
-<The shape, present tense. Then the standing argument, per the primer's section on design heads.>
+<The shape, present tense. Then the standing argument, per `skill@knowledge-architect-decision-recording@head-shape`.>
 ```
 
 The slug is an identifier. Code comments, tripwires, other documents and `git log -G` all cite it,
@@ -278,9 +288,9 @@ issue instead. The entry's lifecycle is `skill@knowledge-architect-issue-trackin
 
 Every reference you wrote must resolve.
 
-Then re-read each head you wrote: present tense, as if the design had always been so (`primer@design-heads`).
+Then re-read each head you wrote: present tense, as if the design had always been so (`skill@knowledge-architect-decision-recording@head-shape`).
 
-Then apply the tests of `primer@design-heads` again to each decision of the change, and to each
+Then apply the tests of `skill@knowledge-architect-decision-recording@what-earns-a-head` again to each decision of the change, and to each
 head it writes or extends, now that every text of it is written: a site the change itself wrote counts, a skill or a restatement of the project's own
 included. A decision judged while its texts were still being written misses the second site the
 same change adds.
@@ -293,7 +303,7 @@ reports a citing text it made false.
 
 Then, for each attribution of the owner the change writes, read the owner's words beside it, from
 the plan document or the transcript, and check that it keeps their scope and every hedge, as
-`primer@design-heads` asks.
+`skill@knowledge-architect-decision-recording@head-shape` asks.
 
 Then re-read what you wrote against the head you replaced: **rewriting argued text is where
 fidelity gets lost.** If you cannot restate a rejected design as strongly as it was written, you
