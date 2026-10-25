@@ -258,11 +258,12 @@ fails, and gives one verdict as its exit code. It is met while a session needs n
 know whether a branch may merge, and, where the project has continuous integration, it runs the
 same command.
 
-## A task performed repeatedly in the project is a command of the tool `##repeated-tasks-are-automated`
+## A mechanical task performed repeatedly in this repository alone is a command of the tool `##repeated-tasks-are-automated`
 
-A task that sessions perform in this repository more than once, by hand and in the same steps,
-becomes a command of the tool, so it runs the same way each time. It is met while no such task is
-left to be done by hand.
+A task that sessions perform in this repository more than once, by hand and in the same steps, and
+that is local to this repository, becomes a command of the tool, so it runs the same way each time.
+A task the installed agent text asks of every project that adopts the workflow is the checker's to
+automate, not the tool's. It is met while no such task is left to be done by hand.
 ```
 
 ## Finish `##finish-setup`
