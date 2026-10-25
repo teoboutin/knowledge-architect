@@ -5352,8 +5352,17 @@ fn copy_rendered(from: &Path, to: &Path, root: &str) {
         if entry.path().is_dir() {
             copy_rendered(&entry.path(), &target, root);
         } else {
-            let text = std::fs::read_to_string(entry.path()).expect("a fixture file");
-            std::fs::write(&target, text.replace("{{root}}", root)).expect("a fixture copy");
+            // Bytes, not text: a fixture may hold a line that is no UTF-8 on purpose.
+            let bytes = std::fs::read(entry.path()).expect("a fixture file");
+            let mut out = Vec::with_capacity(bytes.len());
+            let mut rest = bytes.as_slice();
+            while let Some(at) = rest.windows(8).position(|w| w == b"{{root}}") {
+                out.extend_from_slice(&rest[..at]);
+                out.extend_from_slice(root.as_bytes());
+                rest = &rest[at + 8..];
+            }
+            out.extend_from_slice(rest);
+            std::fs::write(&target, out).expect("a fixture copy");
         }
     }
 }
@@ -5454,7 +5463,7 @@ fn transcript_each_line_takes_the_label_of_its_fields_and_the_unknown_is_reporte
     // The other rows.
     has("agent 2026-01-03 10:00]\nthe agent speaks");
     has("tool Bash 2026-01-03 10:00]\nBash {\"command\":\"ls\"}");
-    has("file listing");
+    has("tool Bash 2026-01-03 10:00]\nfile listing");
     has("owner-answer");
     has("answer: B");
     has("injected skill");
@@ -5588,5 +5597,206 @@ fn transcript_search_selects_by_role_and_by_tool() {
     assert!(
         !stdout.contains("file listing"),
         "tool lines are searched under --tools:\n{stdout}"
+    );
+}
+
+/// The cuts: a line no row placed, the agent's text and `--full` print whole; an injected text is
+/// cut beyond 40 lines and not at 40.
+#[test]
+fn transcript_an_injected_text_is_cut_beyond_forty_lines_and_nothing_else_is() {
+    let (stdout, _, code) = transcript("extras", "extras-cuts", &["show", "12345678"]);
+    assert_eq!(code, 0, "{stdout}");
+    let has = |needle: &str| assert!(stdout.contains(needle), "missing {needle:?} in:\n{stdout}");
+    has("unplaced 40\n");
+    has("agentline 44\n");
+    has("metalong 4\n(36 lines omitted; --full prints them)");
+    has("metaforty 39\n");
+    assert!(!stdout.contains("metalong 40"), "{stdout}");
+
+    let (stdout, _, _) = transcript("labels", "labels-full", &["show", "eeeeeeee", "--full"]);
+    assert!(stdout.contains("body line 59"), "{stdout}");
+    let (stdout, _, _) = transcript("labels", "labels-cut", &["show", "eeeeeeee"]);
+    assert!(!stdout.contains("body line 59"), "{stdout}");
+}
+
+/// The rows the first fixtures left untested.
+#[test]
+fn transcript_the_remaining_rows_of_the_mapping_hold() {
+    let (stdout, _, code) = transcript("extras", "extras-rows", &["show", "12345678", "--tools"]);
+    assert_eq!(code, 0, "{stdout}");
+    let has = |needle: &str| assert!(stdout.contains(needle), "missing {needle:?} in:\n{stdout}");
+    // A line holding a tool result keeps its own text.
+    has("owner 2026-02-01 10:00]\nwords beside a result");
+    // Questions with no answers are a tool result, not the owner's answer.
+    assert_eq!(stdout.matches("owner-answer").count(), 1, "{stdout}");
+    has("options: A (the first) | B (the second)");
+    has("answer: B");
+    has("annotations:");
+    has("my note");
+    has("injected meta 2026-02-01 10:00]\na queued meta text");
+    has("injected unknown 2026-02-01 10:00]\nan origin with no kind");
+    has("# unrecognised attachment.origin.kind \"(none)\": 1");
+    // A `local_command` line with no `commandRun` consumes nothing, and is reported.
+    has("unlabelled 2026-02-01 10:00]\n<command-name>/foo</command-name>");
+    has("# unrecognised system local_command shape \"no commandRun\": 1");
+    // A `local_command` whose parent is the agent's line drops no line.
+    has("agent 2026-02-01 10:00]\nthe agent before a model switch");
+    has("owner-command 2026-02-01 10:00]\n/model opus");
+    has("# unrecognised user content item \"image2\": 1");
+    has("injected meta 2026-02-01 10:00]\nnotes: Base directory for this skill: inside");
+    has("# unrecognised attachment.type \"dup_thing\": 2, first at -proj/12345678-0000-0000-0000-000000000009.jsonl:17");
+    has("# files read: 1; harness versions: 2.1.310");
+    assert!(
+        !stdout.contains("# not JSON"),
+        "a blank line is no line:\n{stdout}"
+    );
+
+    // A file whose one field is `isCompactSummary` takes no fallback; a line with no parent key
+    // opens a session.
+    let (stdout, _, _) = transcript("extras", "extras-nofallback", &["show", "23456789"]);
+    assert!(
+        stdout.contains("unlabelled 2026-02-02 10:00]\nplain words"),
+        "{stdout}"
+    );
+    assert!(!stdout.contains("no parent key"), "{stdout}");
+    let (stdout, _, _) = transcript("extras", "extras-list", &["list"]);
+    assert!(stdout.contains("23456789#2 "), "{stdout}");
+
+    // A message to a subagent from its dispatcher, through the harness, is injected.
+    let (stdout, _, _) = transcript(
+        "labels",
+        "labels-followup",
+        &["show", "eeeeeeee", "--subagents"],
+    );
+    assert!(
+        stdout.contains("injected peer 2026-01-03 10:00]\na follow-up from the dispatcher"),
+        "{stdout}"
+    );
+
+    // A line no row places is a gap, alone.
+    let (stdout, _, _) = transcript("split", "split-gap", &["show", "bbbbbbbb"]);
+    assert!(stdout.contains("# unlabelled lines: 1"), "{stdout}");
+    assert!(
+        stdout.contains("# each is a gap of this command"),
+        "{stdout}"
+    );
+
+    // A line of bytes that are no UTF-8 is a line that is no JSON, in either mode.
+    let (stdout, _, code) = transcript("places", "places-utf8", &["list"]);
+    assert_eq!(code, 0, "{stdout}");
+    assert!(stdout.contains("# not JSON: -wt/ffffffff"), "{stdout}");
+}
+
+/// One `sessionId` in two files gives two handles; `list` is oldest first; `--since` keeps a session
+/// that ends on the date; subagents go to the session whose call dispatched them, or to the last.
+#[test]
+fn transcript_handles_order_and_placement_hold_across_files() {
+    let (stdout, _, code) = transcript("twofiles", "two-list", &["list"]);
+    assert_eq!(code, 0, "{stdout}");
+    let rows: Vec<&str> = stdout.lines().filter(|l| !l.starts_with('#')).collect();
+    let handles: Vec<&str> = rows.iter().map(|r| r.split(' ').next().unwrap()).collect();
+    assert_eq!(
+        handles,
+        [
+            "b2000000#2",
+            "a1000000",
+            "a1000000#2",
+            "b2000000",
+            "c3000000"
+        ],
+        "{stdout}"
+    );
+    assert!(
+        rows[0].ends_with(
+            "b in its own file, with a first message long enough to be cut at eighty characte…"
+        ),
+        "{stdout}"
+    );
+    assert!(rows[1].contains("subagents 1"), "{stdout}");
+    assert!(rows[2].contains("subagents 1"), "{stdout}");
+    assert!(rows[3].contains("zeta, alpha"), "{stdout}");
+    assert!(rows[3].contains("owner 1"), "{stdout}");
+
+    let (stdout, _, code) = transcript("twofiles", "two-show2", &["show", "b2000000#2"]);
+    assert_eq!(code, 0, "{stdout}");
+    assert!(stdout.contains("b in its own file"), "{stdout}");
+
+    let (stdout, _, _) = transcript("twofiles", "two-sub", &["show", "a1000000", "--subagents"]);
+    assert!(stdout.contains("brief of agent x"), "{stdout}");
+    assert!(!stdout.contains("brief of agent y"), "{stdout}");
+    let (stdout, _, _) = transcript(
+        "twofiles",
+        "two-sub2",
+        &["show", "a1000000#2", "--subagents"],
+    );
+    assert!(stdout.contains("brief of agent y"), "{stdout}");
+
+    let (stdout, _, code) = transcript("twofiles", "two-since", &["list", "--since", "2026-03-04"]);
+    assert_eq!(code, 0, "{stdout}");
+    let rows: Vec<&str> = stdout.lines().filter(|l| !l.starts_with('#')).collect();
+    assert_eq!(rows.len(), 2, "{stdout}");
+    assert!(rows[0].starts_with("b2000000 "), "{stdout}");
+
+    // `--containing` reads what the owner typed, not the agent's lines.
+    let code = transcript(
+        "twofiles",
+        "two-cont",
+        &["list", "--containing", "an agent line only"],
+    )
+    .2;
+    assert_eq!(code, 1);
+    // A session with no kept line prints nothing, a negative answer.
+    assert_eq!(
+        transcript("twofiles", "two-empty", &["show", "c3000000"]).2,
+        1
+    );
+}
+
+/// `--from` starts at the owner's line it names, that line included; the owner count holds the
+/// lines typed mid-turn; `search` reads subagents under `--subagents`, and `--tool` keeps tool lines
+/// alone.
+#[test]
+fn transcript_from_counts_and_search_scopes_hold() {
+    let (stdout, _, code) = transcript(
+        "labels",
+        "from-incl",
+        &["show", "eeeeeeee", "--from", "and my words"],
+    );
+    assert_eq!(code, 0, "{stdout}");
+    assert!(stdout.contains("[L1 owner"), "{stdout}");
+    let (stdout, _, _) = transcript(
+        "labels",
+        "from-late",
+        &["show", "eeeeeeee", "--from", "the last owner word"],
+    );
+    assert!(!stdout.contains("[L1 owner"), "{stdout}");
+    assert!(stdout.contains("the last owner word"), "{stdout}");
+
+    let (stdout, _, _) = transcript("labels", "count", &["list"]);
+    assert!(
+        stdout.contains("owner 3"),
+        "two owner lines and one queued:\n{stdout}"
+    );
+
+    let (stdout, _, code) = transcript(
+        "labels",
+        "search-sub",
+        &["search", "--subagents", "reviewer reports"],
+    );
+    assert_eq!(code, 0, "{stdout}");
+    assert!(stdout.contains("eeeeeeee/f00dcafe L2 agent"), "{stdout}");
+    assert_eq!(
+        transcript("labels", "search-nosub", &["search", "reviewer reports"]).2,
+        1
+    );
+
+    let (stdout, _, _) = transcript(
+        "labels",
+        "search-tool-only",
+        &["search", "--tool", "Bash", "."],
+    );
+    assert!(
+        !stdout.contains(" owner ") && !stdout.contains(" agent "),
+        "{stdout}"
     );
 }

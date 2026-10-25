@@ -36,7 +36,7 @@ the repository in a commit of its own, after its harvest and the review before t
 | line | one JSON object of a `.jsonl` file, with a `type` field |
 | chain line | a line whose `type` is `user`, `assistant`, `attachment` or `system`: these carry `uuid`, `parentUuid`, `sessionId`, `timestamp`, `cwd`, `gitBranch` and `version` |
 | session | a run of chain lines of one top-level file, cut by `thread@transcript-command@transcript-session-split`, with the subagent files attached to it |
-| handle | the name the command gives a session: the first 8 characters of its `sessionId`, with `#2`, `#3` … for the second and later sessions of one `sessionId` |
+| handle | the name the command gives a session: the first 8 characters of its `sessionId`, with `#2`, `#3` … for the second and later sessions of one `sessionId`, counted over every file read |
 | subagent file | `<project dir>/<sessionId>/subagents/agent-<agentId>.jsonl`, or under `subagents/workflows/wf_<id>/` for a workflow's agent, beside `agent-<agentId>.meta.json`, a JSON object whose fields `agentType` (the agent's type, such as `general-purpose`), `description` and `toolUseId` (the id of the `tool_use` item that dispatched it, absent for a workflow's agent) the command reads |
 | a workflow's journal | `subagents/workflows/wf_<id>/journal.jsonl`, whose lines are of the types `launched`, `started` and `result`; the command does not read it |
 | label | the role the command gives a kept line, per the mapping table "Line to label" |
@@ -806,16 +806,16 @@ each item is mapped by the rows of its line's type.
 
 | line | condition | label |
 | --- | --- | --- |
-| `user` | the parent of a `system` `local_command` line, by `uuid` over the session | consumed by that line, not printed |
-| `user` | holds only `tool_result` items, and its `toolUseResult` holds `questions` and `answers` | `owner-answer`: the questions, their options, the answers and any `annotations` |
-| `user` | holds only `tool_result` items, otherwise | `tool`, kept under `--tools` |
+| `user` | the parent of a `system` `local_command` line with a `commandRun`, by `uuid` over the session, with neither `isMeta`, `isCompactSummary` nor `origin` | consumed by that line, not printed |
+| `user` | holds only `tool_result` items, and its `toolUseResult` holds `questions` and `answers` | `owner-answer`: the questions, their options with their descriptions, the answers and any `annotations` |
+| `user` | holds only `tool_result` items, otherwise | `tool`, with the name of the call it answers where the run holds it, kept under `--tools` |
 | `user` | in a subagent file, with neither `isMeta`, `isCompactSummary` nor `origin` | `dispatch` |
 | `user` | `isCompactSummary` true | `injected compact-summary` |
 | `user` | `isMeta` true and an `origin.kind` | `injected` with that kind where the code knows it, else `injected unknown`, counted in the header |
 | `user` | `isMeta` true, no `origin` | `injected skill` when its text opens "Base directory for this skill:", else `injected meta` |
 | `user` | `origin.kind` `human` | `owner` |
 | `user` | `origin.kind` `peer`, `task-notification` or `coordinator` | `injected` with that kind |
-| `user` | `origin.kind` any other value | `injected unknown`, counted in the header |
+| `user` | `origin.kind` any other value, or an `origin` with no `kind` | `injected unknown`, counted in the header |
 | `user` | none of the above | `unlabelled`, counted in the header; the fallback where it runs |
 | `user` item | a content item type other than `text` or `tool_result` | dropped, counted in the header |
 | `assistant` item | `text` | `agent` |
@@ -824,7 +824,7 @@ each item is mapped by the rows of its line's type.
 | `assistant` item | any other type | dropped, counted in the header |
 | `attachment` | `type` `queued_command`, `attachment.origin.kind` `human` | `owner-queued`, its text `attachment.prompt` |
 | `attachment` | `type` `queued_command`, `attachment.origin.kind` `peer`, `task-notification` or `coordinator` | `injected` with that kind |
-| `attachment` | `type` `queued_command`, any other `attachment.origin.kind` | `injected unknown`, counted in the header |
+| `attachment` | `type` `queued_command`, any other `attachment.origin.kind`, or an `attachment.origin` with no `kind` | `injected unknown`, counted in the header |
 | `attachment` | `type` `queued_command`, no `attachment.origin` | `injected meta` where `attachment.isMeta` is true, else `unlabelled`, counted in the header; the fallback where it runs |
 | `attachment` | any other known `type` | dropped |
 | `attachment` | an unknown `type` | dropped, counted in the header |
@@ -835,7 +835,7 @@ each item is mapped by the rows of its line's type.
 | `system` | an unknown subtype | dropped, counted in the header |
 | a known metadata type | | dropped |
 | an unknown top-level `type` | | dropped, counted in the header |
-| no JSON | | counted in the header with its file and line |
+| no JSON | | counted in the header with its file and line; a line of whitespace alone is no line |
 
 The `injected skill` kind reads a text prefix for a line its fields already mark injected, so it
 chooses a kind and never a side: it keeps `criterion@transcript-command@labels-by-fields`.

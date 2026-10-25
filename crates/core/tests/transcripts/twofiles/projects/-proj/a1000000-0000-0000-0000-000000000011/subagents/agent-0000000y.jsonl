@@ -1,0 +1,1 @@
+{"type": "user", "uuid": "sy", "parentUuid": null, "sessionId": "a1000000-0000-0000-0000-000000000011", "timestamp": "2026-03-02T11:00:02.000Z", "cwd": "{{root}}", "gitBranch": "main", "version": "2.1.310", "isSidechain": true, "message": {"role": "user", "content": "brief of agent y"}}
