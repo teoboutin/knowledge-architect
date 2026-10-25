@@ -393,14 +393,14 @@ transcript, or bears on a procedure the branch follows or on another question:
 - `rejected@knowledge-architect@workflow-as-marketplace-plugin`
 - `tripwire@agent-skills@a-shortcut-decision-earns-a-head`
 - `tripwire@agent-skills@agent-text-written-without-the-standard`
-- `tripwire@agent-skills@attribution-loses-the-scope`
+- `attribution-loses-the-scope`
 - `tripwire@agent-skills@head-created-without-deliberation`
 - `tripwire@agent-skills@pipefail-status-misread`
 - `tripwire@agent-skills@record-answered-questions-reach-the-owner`
 - `tripwire@agent-skills@rule-title-wider-than-its-argument`
 - `tripwire@agent-skills@ruling-lost-in-assembly`
 - `tripwire@agent-skills@ruling-lost-in-change`
-- `tripwire@core@checker-source-literals-are-data-purpose`
+- `checker-source-literals-are-data-purpose`
 
 ## Criteria
 

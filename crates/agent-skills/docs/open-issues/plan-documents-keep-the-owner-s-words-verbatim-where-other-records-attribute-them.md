@@ -41,8 +41,7 @@ when work next changes how a plan document keeps the owner's words.
 
 An attribution that loses a hedge records a firmer ruling than the owner gave, against
 `goal@knowledge-architect@the-owner-decides`; the transcript reviewer catches most of them, at a
-review round each. `tripwire@agent-skills@attribution-loses-the-scope` watches the attribution
-rule.
+review round each.
 
 ### What would close it
 
