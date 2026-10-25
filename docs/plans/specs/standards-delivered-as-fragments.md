@@ -1160,12 +1160,12 @@ Fails alone on: a dangling reference, or a head left asserting the old delivery.
 Each is built as written until the owner rules, and the branch merges once the owner has, per
 `primer@question-authority`.
 
-- **D1**, on `thread@standards-delivered-as-fragments@head-rules-delivery`: "The standing argument",
+- **D1**, ruled: accepted by the owner. On `thread@standards-delivered-as-fragments@head-rules-delivery`: "The standing argument",
   `path@agent-skills@content/PRIMER.md`, lines 494-502, stays in the primer, in `head-ground.md`,
   where shape C as approved put it in `head-shape.md`. Ground:
   `argument@standards-delivered-as-fragments@arg-42`. It narrows what leaves the primer, a ruling
   of the owner, so it is the owner's. Default: it stays.
-- **D2**, on `thread@standards-delivered-as-fragments@fragment-migrations`: three hosts of the
+- **D2**, ruled: accepted by the owner. On `thread@standards-delivered-as-fragments@fragment-migrations`: three hosts of the
   round-1 table are dropped. `skill@knowledge-architect-project-audit` from Q5 and Q6: its lines
   150-151 name the rules the design-record auditor applies, and the session applies none of them.
   `skill@knowledge-architect-design` from Q7: round 1 placed its use in "the design skill's
@@ -1173,12 +1173,12 @@ Each is built as written until the owner rules, and the branch merges once the o
   a deliberation is kept. Each would host a fragment its act does not apply whole, against
   `criterion@standards-delivered-as-fragments@host-applies-whole`. It narrows the owner's host
   lists. Default: dropped.
-- **D3**, on `thread@standards-delivered-as-fragments@head-rules-delivery`: the owner's words of
+- **D3**, ruled: the owner declined it; the head does not attribute the split to the owner and stands on its argument. On `thread@standards-delivered-as-fragments@head-rules-delivery`: the owner's words of
   round 3, "I was going to propose the same split and distribution", record the owner's own intent,
   so the rewritten `design@agent-skills@one-home-for-head-rules` attributes the split by act to the
   owner, as test 4 of `primer@design-heads` asks the owner to confirm. Default: attributed to the
   owner, the head standing also on its argument.
-- **D4**, on `thread@standards-delivered-as-fragments@fragment-migrations`: Q2's fragment holds the
+- **D4**, ruled: accepted by the owner. On `thread@standards-delivered-as-fragments@fragment-migrations`: Q2's fragment holds the
   format of `skill@knowledge-architect-retrospective@two-files` alone, not its whole body, found at
   step 4: its other paragraphs ask acts only the retrospective session performs, which AC2 reports
   as false in the intake. It narrows the owner's ruling on Q2. Default: the format alone.
