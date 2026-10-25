@@ -729,6 +729,16 @@ tripwire guards a decision: a `rejected` entry records a design not kept, which 
 a tripwire that names one names the candidate its response would reopen, not what it guards. The
 rival, counting it like a declared register's entry, would list a design not kept as guarded.
 
+### The checker reads no line of a tripwire entry's body, its horizon included, for now `##tripwire-horizon-unchecked`
+
+A tripwire's `**Watches until:**` line is written and read by the sessions and the reviewers that
+the installed workflow sends, and no check of the core reads it. Whether a horizon has passed is an
+event over the history the checker does not judge, and a presence check would read a field of a
+heading entry, the syntax `rejected@core@validity-marker-checked` refused for the `rejected`
+register. The owner kept it out of the checker for now: "not much reason to check yet, we can keep
+this out of the checker". The tripwire axis of the project audit brings every entry to the line,
+and the standing-state reviewer reads each entry written after it.
+
 ### A `rejected` entry that no design entry cites is a finding `##orphan-rejected-entry`
 
 The last phase reports, at its definition site, every `rejected` entry that no entry of a `design`

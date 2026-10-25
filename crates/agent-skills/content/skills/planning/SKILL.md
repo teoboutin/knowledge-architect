@@ -327,7 +327,8 @@ specific criterion that is harder to find.
 
 %% `design@agent-skills@acceptance-criteria-on-the-owners-word`; the label,
 %% `design@agent-skills@ruled-items-labelled`; a recurring criterion,
-%% `design@agent-skills@acceptance-criteria-in-the-document`.
+%% `design@agent-skills@acceptance-criteria-in-the-document`; the conditions a criterion meets,
+%% `design@agent-skills@acceptance-criterion-quality`.
 **An acceptance criterion stands on the owner's word**, since it decides, before the merge, what
 the branch must build. A criterion meets conditions 3 and 4 of the standard below: it names a
 built result under which it fails, and a bound in it carries its basis. The owner rules on

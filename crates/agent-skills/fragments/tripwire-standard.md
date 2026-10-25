@@ -1,3 +1,4 @@
+%% The decisions: `design@agent-skills@tripwire-admission-test`, `design@agent-skills@tripwire-horizon`.
 A tripwire watches one premise of a recorded decision: a failure that would show the decision
 wrong and that nothing else in the project reports. Most causes a premortem names are not that,
 and are not written.

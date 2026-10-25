@@ -93,7 +93,9 @@ of this repository, which holds only the tree.
 
 ### What would close it
 
-A decision on how a tripwire about the shipped skills is re-entered, in this repository's own
-sessions and when its evidence arises in a consumer project, recorded and built. The rule for a
-re-entry point in the installed issue-tracking skill is part of it: the occasion named holds the
-firing evidence.
+A decision on how a tripwire about the shipped skills is re-entered when its evidence arises in a
+consumer project, recorded and built: the retrospective watching the tripwires of this repository,
+the owner's plan above. The rule for a tripwire written here is decided:
+`design@agent-skills@tripwire-admission-test` admits a cause only where its evidence lands where
+tripwires are read, the tree, the history, an audit report or a retrospective file the intake
+receives, so a tripwire whose evidence lives only in a session's transcript is no longer written.

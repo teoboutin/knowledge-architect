@@ -22,6 +22,11 @@ subsection is omitted.
   harness starts then fails a pipeline when any of its commands fails, so a command chained after a
   piped check does not run over a failing verdict. `head` cutting a producer short then exits 141,
   and a `grep` that matches nothing fails its pipeline.
+- `agent-skills`, patch: every tripwire of a project meets the new standard on what earns a
+  tripwire, and carries a fourth line, `**Watches until:**`, naming the occasions after which it
+  leaves unfired. Run the tripwire axis of the project audit,
+  `skill@knowledge-architect-project-audit@tripwire-axis`, which proposes for each entry its
+  horizon, a rewording, or its deletion, every deletion put to the owner.
 
 ### New features
 
@@ -37,6 +42,8 @@ subsection is omitted.
 - `library`, minor: `cli::init`, `cli::InitArgs`, `cli::NewComponentArgs`, `cli::Vcs` and the
   command enum's variants `Init` and `NewComponent`; and the agent-skills crate's `SNIPPETS`, the
   files the setup skill's Rust section shows.
+- `agent-skills`, patch: the project audit gains its tripwire axis, with the agent
+  `agent@knowledge-architect-tripwire-auditor` and the saved workflow `knowledge-architect-tripwire-audit`.
 
 ### Workflow
 
@@ -55,9 +62,20 @@ subsection is omitted.
   the two repairs `check --fix` names when it refuses.
 - `agent-skills`, patch: a pin move whose Migration entries cite an audit axis opens one `todo`
   issue per owed axis, in the root Component, which the audit's commit closes.
-- `agent-skills`, patch: a rewording of a ruled tripwire's text that keeps the cause it watches is
-  the session's, listed under "Decided", and not put to the owner; a clause that watches another
-  cause is a new tripwire, which is.
+- `agent-skills`, patch: a premortem's causes are no longer put to the owner. At the end of the work
+  that implements the decision, the session judges each cause by the tripwire standard, records
+  those that pass, and lists every cause with its outcome in its turn's "Decided" section and in the
+  harvest's or the in-change commit message; the owner overrules by reading. The `T` label is gone.
+  A recorded tripwire's wording and scope are the session's; its removal outside its exits is the
+  owner's.
+- `agent-skills`, patch: a cause becomes a tripwire only where its failure is silent, its evidence
+  lands in the tree, the history, an audit report or a received retrospective file, it is what the
+  decision forbids, and a number in it has a basis; one slip a review repaired fires none.
+- `agent-skills`, patch: the standing-state reviewer asks of each tripwire whether its horizon has
+  passed, and the decision-record reviewer judges each tripwire a branch adds by the standard and
+  looks for every premortem cause's outcome in the branch's messages.
+- `agent-skills`, patch: an acceptance criterion names a built result under which it fails, and
+  its bound carries its basis; the owner still rules on each.
 - `agent-skills`, patch: the retrospective's version line names the main commit the session's tree
   held when its work began; a retrospective intake reads whole the entries its proposals rest on,
   every standing entry returned and every `bears` entry, and lists the rest of a batch's return as

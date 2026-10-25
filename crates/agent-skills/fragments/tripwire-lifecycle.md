@@ -1,3 +1,4 @@
+%% The decisions: `design@agent-skills@tripwire-horizon`, `design@agent-skills@tripwire-recording-authority`.
 A tripwire leaves its home by these exits alone, or on the owner's word; its wording and its scope
 are the session's to change, judged by the standard on what earns a tripwire, and each change is
 listed in the turn's "Decided" section. It leaves when:

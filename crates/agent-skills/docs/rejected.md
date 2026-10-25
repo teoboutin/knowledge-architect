@@ -498,3 +498,12 @@ with no bearing established: one intake of nine files returned 169 distinct entr
 of `show` output, and its session read about 35 whole, the ones its proposals rested on; a later
 intake of 24 files did the same. Reading every one whole spends the session's context on reading
 instead of judging, and neither session could.
+
+### The owner rules on each premortem cause, whether it is recorded as a tripwire `##owner-rules-each-tripwire`
+
+`live`. Whether a risk is worth watching was held a fork no goal or decision ranks, the cost of
+watching against the risk, so the owner ruled on each cause put under a label. The tripwire
+standard ranks a cause by named conditions, so no fork remains, and the measured cost of the
+ruling stood: the owner dropped 23 of 66 ruled causes of this repository, and about 45 of the 64
+tripwires it then held watched a failure caught anyway, a subagent's reading of each entry; the
+owner also spent rulings on the wording and scope of tripwires.

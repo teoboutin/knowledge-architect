@@ -247,6 +247,7 @@ meets it.
 
 ## Recording a premortem's tripwires `##ruled-tripwires`
 
+
 A premortem names causes and puts none to the owner. **At the end of the work that implements the
 decision**, the session judges each surviving cause by the standard below, on the wording the cause
 has then: on the full path of `skill@knowledge-architect-design`, at the harvest; on its in-change
