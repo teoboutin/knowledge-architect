@@ -1371,7 +1371,8 @@ of work on one day met, only at their review before the merge, five standing ent
 before the work had not returned, `issue@core@a-span-with-an-empty-head-is-malformed-against-its-head`,
 `issue@agent-skills@a-premortem-criterion-listed-as-a-default-reads-two-ways`,
 `issue@core@a-plain-hash-item-name-is-read-by-nothing`, `tripwire@agent-skills@ruling-lost-in-assembly`
-and a tripwire on attributions that lose the owner's scope, and each was recorded days before its
+and the tripwire on attributions that the commit "[tripwires] Three tripwires leave, their horizons
+passed unfired" removed, and each was recorded days before its
 search ran, dated with `git log -S"##<slug>"` and `--diff-filter=A`. The work list and its check take
 the assembly of the groups from the agents, and `tripwire@agent-skills@record-search-misses` watches
 what judgement still misses. The designs this decision did not keep:
@@ -1900,10 +1901,7 @@ against its source, per `design@agent-skills@answer-keeps-its-authority`. The re
 the work: a plan document is one home among the others.
 
 It is an agent, not a line in a skill, because its standard is fixed. Its extraction is the
-checker's: it extracts each session with `transcript show`, which labels every line by its fields,
-per `design@core@transcript-labels-in-code`, so its text states what the labels mean and holds no
-extraction rule of its own: a rule held in the text is applied by a script each session writes
-again, and stands in two homes beside the command's. It serves `goal@knowledge-architect@the-owner-decides`. The durability check serves
+checker's, per `design@agent-skills@transcript-extraction-is-the-checker-s`. It serves `goal@knowledge-architect@the-owner-decides`. The durability check serves
 `goal@knowledge-architect@design-is-recorded-with-its-arguments`. The check of rulings has shown
 its worth: in the review of the change that installed the first skills, a reviewer briefed with it
 was the one of six to find a decision recorded narrower than the owner's approval. The milestone
@@ -1914,6 +1912,17 @@ the review's six axes and its finding.
 
 The design this decision did not keep:
 `rejected@agent-skills@transcript-reviewer-reports-every-clause`.
+
+### A session is extracted with the checker's `transcript show`, and no installed text holds an extraction rule of its own `##transcript-extraction-is-the-checker-s`
+
+The transcript reviewer extracts each session with `klarch transcript show --from --full`, and the
+subagent that assembles a plan document extracts as the reviewer's section says; the command labels
+every line by its fields, per `design@core@transcript-labels-in-code`, so the installed texts state
+what the labels mean and no rule for which lines to keep or whose they are. A rule held in the
+reviewer's text, with the command as a helper, is applied by a script each session writes again,
+and stands in two homes beside the command's, against `design@core@one-question-one-command`; a
+fragment the build copies would still leave each session to write the script. It serves
+`goal@knowledge-architect@agents-get-a-complete-workflow`.
 
 ### A transcript is found by the transcript command's listing, never by a session identifier `##transcript-found-by-listing`
 
