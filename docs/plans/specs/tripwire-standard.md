@@ -184,9 +184,9 @@ standing, 0 retired, 1 of 194 stating when it stops being needed. The full table
 
 | decision | change | citing texts, and who updates them |
 | --- | --- | --- |
-| `design@agent-skills@premortem-tripwires-on-the-owners-word` | reversed: moves to `register@agent-skills@rejected` as `owner-rules-each-tripwire` | the `%%` at content/skills/decision-recording/SKILL.md:251 (step 2); design.md:1031, 1608 and 1629, in the bodies of three heads this table rewrites (harvest) |
-| `design@agent-skills@premortem-tripwire-written-at-harvest` | absorbed by the head of #tripwire-recording-authority, which states where and when a tripwire is written, and deleted: on the in-change path the end of the work is no harvest | the `%%` at decision-recording/SKILL.md:252 (step 2); design.md:1020 (harvest) |
-| `design@agent-skills@tripwire-wording-is-the-agents` | absorbed by the head of #tripwire-recording-authority, and deleted | design.md:1631 (harvest); the eight-responses issue lines 34 and 46, which closes at step 5 |
+| `premortem-tripwires-on-the-owners-word` | reversed: moves to `register@agent-skills@rejected` as `rejected@agent-skills@owner-rules-each-tripwire` | the `%%` at content/skills/decision-recording/SKILL.md:251 (step 2); design.md:1031, 1608 and 1629, in the bodies of three heads this table rewrites (harvest) |
+| `premortem-tripwire-written-at-harvest` | absorbed by the head of #tripwire-recording-authority, which states where and when a tripwire is written, and deleted: on the in-change path the end of the work is no harvest | the `%%` at decision-recording/SKILL.md:252 (step 2); design.md:1020 (harvest) |
+| `tripwire-wording-is-the-agents` | absorbed by the head of #tripwire-recording-authority, and deleted | design.md:1631 (harvest); the eight-responses issue lines 34 and 46, which closes at step 5 |
 | `design@agent-skills@decisions-reported-to-the-owner` | rewritten where its body, at design.md:2992, names a rewording of a tripwire that "keeps the cause it watches": a tripwire recorded, dropped or reworded is a "Decided" item | harvest; the same rule in PRIMER.md:234 to 236 and agents/transcript-reviewer.md:20 to 22 (step 2) |
 | `design@agent-skills@acceptance-criteria-on-the-owners-word` | rewritten on its own ground, per #acceptance-criterion-authority | the `%%` at content/skills/design/SKILL.md:595 and planning/SKILL.md:328 (step 2); `issue@agent-skills@a-premortem-criterion-listed-as-a-default-reads-two-ways` line 48 (harvest re-reads it: the head keeps its rule on a criterion proposed after the premortem) |
 | `design@agent-skills@acceptance-criteria-in-the-document` | rewritten: a recurring criterion becomes a tripwire by the standard, not on the owner's word | nothing cites it; step 2 adds a `%%` line citing it at the planning skill's section on acceptance criteria |
@@ -324,8 +324,8 @@ judged by the standard, and its removal outside the lifecycle is the owner's.
 
 Shape: "Decided design", "Who records". Harvest: a head under this slug in `register@agent-skills@design`,
 standing on `argument@tripwire-standard@arg-25` and `argument@tripwire-standard@arg-34`, absorbing
-`design@agent-skills@tripwire-wording-is-the-agents` and `design@agent-skills@premortem-tripwire-written-at-harvest`;
-the reversed `design@agent-skills@premortem-tripwires-on-the-owners-word` moves to `register@agent-skills@rejected`.
+`tripwire-wording-is-the-agents` and `premortem-tripwire-written-at-harvest`;
+the reversed `premortem-tripwires-on-the-owners-word` moves to `register@agent-skills@rejected`.
 
 ### The standard has one home, delivered whole where it is applied `##tripwire-standard-home`
 
@@ -593,7 +593,7 @@ recurrence is kept because it is how such a premise shows false. Bears on #tripw
 
 ### The owner's weighing of a cause stops being a fork once the standard ranks it `##arg-25`
 
-Round 1, the session: `design@agent-skills@premortem-tripwires-on-the-owners-word` stands on "the
+Round 1, the session: `premortem-tripwires-on-the-owners-word` stands on "the
 cost of watching against the risk, which no goal or decision ranks". With the standard recorded, a
 decision ranks it, so per `primer@question-authority` the cause is no longer a fork. And the surveys
 show the cost of the incumbent: the owner dropped 23 of 66 ruled causes, and about 45 of 64 standing
@@ -1006,8 +1006,8 @@ the condition failed, per #removals-grouped-by-condition.
 | census v3 before convergence | #tripwire-admission-test | the session's decision: the owner ranked precision over recall, and step 2 carries the owner's condition on the useful firings (`argument@tripwire-standard@arg-23`) |
 
 Which of these earn a `rejected` entry is the harvest's, per `design@agent-skills@losing-alternatives-filter`.
-The reversed `design@agent-skills@premortem-tripwires-on-the-owners-word` does, as
-`owner-rules-each-tripwire`, on `argument@tripwire-standard@arg-25`: its refutation rests on the
+The reversed `premortem-tripwires-on-the-owners-word` does, as
+`rejected@agent-skills@owner-rules-each-tripwire`, on `argument@tripwire-standard@arg-25`: its refutation rests on the
 surveys, evidence that cost work. The three tests of round 1 and the sub-cases of v2 earn none: what
 refuted them is the census, a lead that decides no shape, and the owner's replacement of them, which
 the deliberation in this spec and the harvest's commit message keep.
@@ -1219,7 +1219,7 @@ writable after another event is a `deferred` issue.
 | --- | --- | --- |
 | #tripwire-admission-test | a head in `register@agent-skills@design`, under the thread's slug | step 6 |
 | #tripwire-horizon | a head in `register@agent-skills@design`, under the thread's slug | step 6 |
-| #tripwire-recording-authority | a head under the thread's slug, absorbing `design@agent-skills@tripwire-wording-is-the-agents` and `design@agent-skills@premortem-tripwire-written-at-harvest`, both deleted; `design@agent-skills@premortem-tripwires-on-the-owners-word` moves to `register@agent-skills@rejected` as `owner-rules-each-tripwire` | step 6 |
+| #tripwire-recording-authority | a head under the thread's slug, absorbing `tripwire-wording-is-the-agents` and `premortem-tripwire-written-at-harvest`, both deleted; `premortem-tripwires-on-the-owners-word` moves to `register@agent-skills@rejected` as `rejected@agent-skills@owner-rules-each-tripwire` | step 6 |
 | #shared-text-fragment | a head under the thread's slug; `design@agent-skills@restatement-size-test` and `design@agent-skills@content-mirrors-the-install-layout` rewritten | step 6 |
 | #tripwire-audit-axis | a head under the thread's slug; `design@agent-skills@design-record-axis` rewritten | step 6 |
 | #tripwire-shape-unchecked | a head of absence in `register@core@design`, attributed to the owner with "for now" | step 6 |

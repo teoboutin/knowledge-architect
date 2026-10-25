@@ -1,12 +1,12 @@
 ---
 kind: todo
 ---
-# The project audit has two axes, and the other axes the owner named have none
+# The project audit has three axes, and the other axes the owner named have none
 
 ## Summary
 
-`skill@knowledge-architect-project-audit` audits a whole project on two axes, the design record and
-the agentic workflow, per `design@agent-skills@audit-is-an-activity`. The other axes the owner named
+`skill@knowledge-architect-project-audit` audits a whole project on three axes, the design record,
+the agentic workflow and the tripwires, per `design@agent-skills@audit-is-an-activity`. The other axes the owner named
 have no section, no agent and no designed outcome: design self-consistency, and the alignment of
 the code with the design and the goals; and the session's additions, standing state as a whole and
 goal coverage. This entry keeps those axes, and the lessons of the audits run by hand before the
@@ -61,9 +61,9 @@ share a subject are given compatible instructions for the verdicts they give.
 
 Additions of the session, for the discussion to judge:
 
-- **standing state as a whole**: every issue and tripwire read against the tree as it stands, for
-  an issue whose diagnosis has gone stale, a tripwire whose decision has changed under it, or a
-  deferred trigger met without anyone noticing; the standing-state reviewer does this only for the
+- **standing state as a whole**, its issue half, since the tripwire axis reads every tripwire,
+  per `design@agent-skills@tripwire-audit-axis`: every issue read against the tree as it stands,
+  for an issue whose diagnosis has gone stale, or a deferred trigger met without anyone noticing; the standing-state reviewer does this only for the
   entries a diff bears on;
 - **the records a rule of the primer binds, read against that rule**: no axis reads the issue and
   tripwire entries against a rule of the primer that binds them. An instance, in thaum at its move

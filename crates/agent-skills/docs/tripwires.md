@@ -541,3 +541,17 @@ only when they share a group of activities.
 **Watches until:** the commit that closes
 `issue@agent-skills@no-check-reports-a-duplicated-workflow-lens-whose-other-agents-found-nothing`,
 whose check then carries it, and which deletes this entry.
+
+## Guarding `design@agent-skills@tripwire-admission-test`: sessions read "silent" too widely, and drop a cause whose failure was silent `##silent-read-too-widely`
+
+The decision rests on the premise that a session can tell, before the work lands, a failure every
+procedure would count as success from one a test, a check, a review or a request would reach.
+
+**Fires when:** an issue is opened on a silent failure of a decision, and the commit message or the
+plan document of the work that recorded that decision lists the cause of that failure as dropped
+under condition 1.
+**Response:** reopen `design@agent-skills@tripwire-admission-test`, on how condition 1 is worded.
+**Re-entry:** the standing-state review: the issue and the commit are in the tree and the history.
+**Watches until:** the fifth premortem recorded on the main branch after the commit that writes this
+line: a plan document's Premortem section, or an in-change commit message listing premortem causes.
+

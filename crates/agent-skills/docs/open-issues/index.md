@@ -11,7 +11,6 @@
 | defect | [Two audit workflows can give two groups one label, list a sample entry twice, and report verdicts as missing](two-audit-workflows-can-collide-group-labels-and-list-a-sample-entry-twice.md) |
 | design | [A handled retrospective file is marked where it lies, and the owner keeps handled files in an archive apart from pending ones](a-handled-retrospective-file-is-marked-where-it-lies.md) |
 | design | [A member recorded directly, as covered by its head's argument, lay beyond that argument](a-member-recorded-directly-lies-beyond-its-head-s-argument.md) |
-| design | [A pointer delivers its directive only when the session fetches the section it names, and a copy filled by substitution would deliver it with no drift](a-pointer-delivers-its-directive-only-when-the-session-fetches-it.md) |
 | design | [A tripwire on agent behaviour under the workflow fires in sessions this project does not see](a-tripwire-on-agent-behaviour-fires-where-this-project-cannot-see.md) |
 | design | [A default the owner approved is attributed to the owner, and an agent has no way to record a decision as its own](an-approved-default-is-attributed-to-the-owner-and-the-agent-records-no-decision-of-its-own.md) |
 | design | [Plan documents keep the owner's words verbatim, where every other durable record attributes them, and sessions slip between the two](plan-documents-keep-the-owner-s-words-verbatim-where-other-records-attribute-them.md) |
@@ -40,8 +39,9 @@
 | question | [The planning skill forbids "plan" alone as a document's name and uses it alone](the-word-plan-is-banned-alone-and-used-alone.md) |
 | question | [Whether a census of a project's own text under a planned instruction is real use, or a run the workflow refuses](whether-a-census-of-real-text-under-a-planned-instruction-is-real-use.md) |
 | question | [Whether a session in Claude Code's default permission mode is asked for permission, or needs an allow rule, to run an installed saved workflow](whether-a-saved-workflow-run-needs-a-permission-rule.md) |
+| todo | [The standards and large blocks of instructions read whole at several places are still delivered by pointers, not yet by fragments](a-pointer-delivers-its-directive-only-when-the-session-fetches-it.md) |
 | todo | [No installed skill says how a new Component is created](a-skill-for-creating-a-component.md) |
-| todo | [The project audit has two axes, and the other axes the owner named have none](audit-axes-beyond-the-design-record.md) |
+| todo | [The project audit has three axes, and the other axes the owner named have none](audit-axes-beyond-the-design-record.md) |
 | todo | [Only the design and setup skills state what they expect of the owner](expectation-sets-for-the-installed-skills.md) |
 | todo | [No check compares an audit pass's count of severe violations left with the previous pass's](no-check-compares-an-audit-pass-s-owner-list-count-with-the-previous-pass-s.md) |
 | todo | [No check reports a lens of the agentic-workflow axis whose second agent found nothing the first did not](no-check-reports-a-duplicated-workflow-lens-whose-other-agents-found-nothing.md) |
