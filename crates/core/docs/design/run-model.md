@@ -104,7 +104,10 @@ that mostly have no per-file scope, and `register@core@tripwire` guards that cho
 resolves no release and fetches nothing, whatever it would have judged. **A writer refuses over an incomplete model**: `index`,
 `new-component` and a writing command of an extension, such as thaum's `rules bump`, run the first
 three phases before touching anything and exit 2 naming the
-phase, since an index generated over such a model lists rows nobody asked for. `init` writes where
+phase, since an index generated over such a model lists rows nobody asked for. `id`, which writes
+nothing, refuses the same way, since its `free` is a finding computed over the table, false where
+an unread file defines the id; `show`, `issues` and `tripwires` answer ungated, since what they
+print exists whatever else the model misses. `init` writes where
 no model exists yet: its guarantee is that it judges every destination before its first write, per
 `design@core@init-asks-no-confirmation`, and it writes the indexes, as `check --fix` does, only
 once the three phases find nothing over what it wrote. `check --fix` writes

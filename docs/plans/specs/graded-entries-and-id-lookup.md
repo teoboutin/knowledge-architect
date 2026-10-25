@@ -1403,6 +1403,17 @@ commit, with the test it fails.
 | D2, D3 | ruled before the merge; D2's ruling is what the rewritten `design@agent-skills@search-relevance-grade` and `design@agent-skills@plan-read-against-the-record` state, and D3's what the rewritten `design@agent-skills@record-searched-before-the-work` states |
 | this spec | deleted in a commit of its own after the review before the merge, cited as `spec@plans@graded-entries-and-id-lookup` |
 
+As harvested, each thread with the entry that records it:
+
+- #graded-entries-assembled and #entry-text-snapshot-at-out →
+  `design@core@worklist-writes-and-verifies-the-reports`;
+- #goals-listed-not-reshown, #may-bear-needs-a-named-doubt and #may-bear-read-on-touch →
+  `design@agent-skills@search-relevance-grade`;
+- #seeds-name-decisions and #one-search-per-question → `design@agent-skills@seeds-name-decisions`;
+- #id-lookup-command → `design@core@id-lookup-command`;
+- #retrospective-asks-for-hand-work → `design@agent-skills@premortem-as-watch-points`;
+- #gather-reads-the-model → `rejected@core@assembly-reads-the-model`.
+
 ## Later consequences
 
 - `issue@core@a-searcher-fills-its-report-by-a-script-of-its-own` stays open: an unmet instance of

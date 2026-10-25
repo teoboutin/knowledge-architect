@@ -423,8 +423,9 @@ review of the work, or by an outcome the owner ruled in an intake. Or once, on t
 no review having reported it.
 **Response:** open a `design` issue naming the review and the work, and reopen
 `design@agent-skills@one-record-searcher`, asking whether the miss came from the size of the
-agent's load, `design@core@clusters-packed-under-a-word-bound`, from its reading, or from a thread or
-a fix on a subject the search's work did not cover, per
+agent's load, `design@core@clusters-packed-under-a-word-bound`, from its reading, from the named
+doubt `design@agent-skills@search-relevance-grade` asks of a `may-bear` grade, or from a thread or a
+fix on a subject the search's work did not cover, per
 `design@agent-skills@record-searched-before-the-work`.
 **Re-entry:** the reviews of every plan document, each retrospective, and the review of the branch
 that carries out an intake's outcomes.
@@ -440,7 +441,8 @@ beside the session's own, which the session keeps, and not a summary it reads in
 **Fires when:** a goal is missed in a design discussion or a retrospective intake where the
 record search graded that goal, in two separate pieces of work, or once in a record that reaches the
 main branch with no review reporting it.
-**Response:** reopen `design@agent-skills@searcher-grades-goals` on how goals reach the session.
+**Response:** reopen `design@agent-skills@searcher-grades-goals` on how goals reach the session,
+and `design@agent-skills@seeds-name-decisions` where the goal missed was one a seed would have named.
 **Re-entry:** the retrospective of that session, and the review of the change.
 **Watches until:** three plan documents deleted at their landing, and three commits that add
 analyses of received retrospective files under docs/retrospective-reports/, on the main branch,
@@ -496,3 +498,19 @@ condition 1.
 **Watches until:** the fifth plan document deleted at its landing on the main branch, and the second
 report file of the tripwire axis added under docs/audit-reports/ on the main branch, both counted
 from the commit that writes this line.
+
+## Guarding `design@agent-skills@search-relevance-grade`: a `may-bear` entry left unread at the design grounding bears on the work `##unread-may-bear-entry-bore`
+
+The reading on touch rests on the premise that the design session reads every `may-bear` entry a
+proposal touches, so that an entry it leaves unread does not bear on the work.
+
+**Fires when:** in two separate pieces of work, the design-conformance review reports an entry that
+the plan document or the in-change commit message lists as not read, and that the work meets: a
+decided shape contradicts or widens it, or the work touches, closes or worsens an issue, or meets a
+trigger or a firing clause. Or once, on the main branch, with no review having reported it.
+**Response:** reopen `design@agent-skills@search-relevance-grade` on the reading on touch, with the
+entries and the reasons the searcher gave them.
+**Re-entry:** the design-conformance review of every plan document, and at the review before the
+merge of an in-change deliberation, whose findings and their outcomes the commit messages record.
+**Watches until:** three plan documents deleted at their landing, on the main branch, counted from
+the commit that writes this line.
