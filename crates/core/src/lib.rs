@@ -243,6 +243,7 @@ mod records;
 mod scan;
 mod source;
 mod survey;
+mod transcript;
 mod walk;
 
 // The role modules: one per kind of consumer.

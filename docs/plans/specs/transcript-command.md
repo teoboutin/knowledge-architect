@@ -122,7 +122,9 @@ transcripts after 30 days, so each figure keeps the count that is its claim and 
   `uuid`, per `argument@transcript-command@arg-13`;
 - every subagent file opens with a `user` line holding the dispatcher's brief, with `isSidechain`
   true, `parentUuid` null and neither `isMeta` nor `origin`; its lines carry the parent's
-  `sessionId`;
+  `sessionId`. Every other `user` line with no field and no `tool_result` in a subagent file is a
+  workflow's task text, `[Workflow harness — computed task]`, or, once, the owner's interrupt;
+  re-taken with `jq` over `subagents/` on `select(.type=="user" and .isMeta==null and .origin==null)`;
 - `user` lines with no field and no `tool_result` in top-level files: the owner's interrupt,
   `[Request interrupted by user]`; the owner's `!` shell command, as `<bash-input>` and
   `<bash-stdout>` texts; the prompt of a session run with `claude -p`, whose `entrypoint` is
@@ -639,10 +641,10 @@ constraint, so the choice was the owner's. Bears on
 ## New names, in one place
 
 ```text
-`planned@core@src/transcript.rs`        the reader: files, sessions, labels, inventory; pub(crate)
-`planned@core@src/cli/transcript.rs`    the three verbs and their output; TranscriptArgs and
+`path@core@src/transcript.rs`        the reader: files, sessions, labels, inventory; pub(crate)
+`path@core@src/cli/transcript.rs`    the three verbs and their output; TranscriptArgs and
                                          TranscriptVerb, public through cli::Command
-`planned@core@tests/transcripts/`       fixture templates, one directory per case, each a
+`path@core@tests/transcripts/`       fixture templates, one directory per case, each a
                                          `projects/` tree whose `cwd` fields hold {{root}}
 `path@core@tests/binary.rs`             the tests: a module of the binary's existing suite
 `path@core@src/cli/mod.rs`              Command::Transcript(TranscriptArgs), beside Command::Worklist
@@ -700,7 +702,7 @@ The nearest rival, one file per session, lost on `argument@transcript-command@ar
 Each kept line takes one label, from the first row of the mapping table "Line to label" whose
 condition it meets, in the table's order. The labels a reader treats as the owner's words are
 `owner`, `owner-answer`, `owner-queued` and `owner-command`; `injected` carries its kind; `agent` is
-the session's own text; `dispatch` is the brief that opens a subagent file; `tool` is a tool call
+the session's own text; `dispatch` is the text a subagent's dispatcher or its workflow wrote; `tool` is a tool call
 or its result, kept only under `--tools`. A `user` line holding only `tool_result` items is a tool
 result, never a message, except the owner's answer to a question tool, `owner-answer`. A line the
 table maps to `unlabelled` is printed whole with that label and counted in the header.
@@ -709,8 +711,9 @@ The fallback: in a file none of whose `user` lines carries `isMeta`, `isCompactS
 `origin`, such as a log written before those fields or a session run with `claude -p`, a line the
 table would map to `unlabelled` is labelled by its text instead: a text that opens with a harness
 tag, `<` then a name of lowercase letters, digits, `-` and `_`, then `>` or a space, is
-`injected`, and any other text is `owner`. The header says the fallback ran. A subagent file is
-judged on its own lines for this condition.
+`injected tag`, and any other text is `owner`. The header names each file the fallback labelled a
+line in. The fallback is a top-level file's: a subagent file's lines with no field are its
+dispatcher's, which the `dispatch` row places.
 
 The nearest rival, the rule kept in the agent's text with the command as a helper, lost on
 `argument@transcript-command@arg-9` and `criterion@transcript-command@one-home-for-the-rule`.
@@ -806,7 +809,7 @@ each item is mapped by the rows of its line's type.
 | `user` | the parent of a `system` `local_command` line, by `uuid` over the session | consumed by that line, not printed |
 | `user` | holds only `tool_result` items, and its `toolUseResult` holds `questions` and `answers` | `owner-answer`: the questions, their options, the answers and any `annotations` |
 | `user` | holds only `tool_result` items, otherwise | `tool`, kept under `--tools` |
-| `user` | `isSidechain` true and `parentUuid` null, in a subagent file | `dispatch` |
+| `user` | in a subagent file, with neither `isMeta`, `isCompactSummary` nor `origin` | `dispatch` |
 | `user` | `isCompactSummary` true | `injected compact-summary` |
 | `user` | `isMeta` true and an `origin.kind` | `injected` with that kind where the code knows it, else `injected unknown`, counted in the header |
 | `user` | `isMeta` true, no `origin` | `injected skill` when its text opens "Base directory for this skill:", else `injected meta` |
@@ -935,15 +938,15 @@ over a fixture whose `user` line with `origin.kind` `human` holds a text opening
 
 ### Step 1: the reader, the labels and `show`
 
-Builds `planned@core@src/transcript.rs` (the files of a project, the sessions, the subagent
+Builds `path@core@src/transcript.rs` (the files of a project, the sessions, the subagent
 attachment, the known sets, the mapping table, the fallback and the inventory), `Command::Transcript`
 with `show` and its options, its header and its `--json`, the dependency on `serde_json` with its
-lock entry, and the fixture templates of `planned@core@tests/transcripts/` the claims need.
+lock entry, and the fixture templates of `path@core@tests/transcripts/` the claims need.
 
-The tests run the binary in a `Sandbox` copy of the mock `core`, through the helpers of
+The tests run the binary in the mock `core` in place, through the helpers of
 `path@core@tests/binary.rs`, with `CLAUDE_CONFIG_DIR` set to a temporary directory into which the
-test writes a fixture template with `{{root}}` replaced by the sandbox's root. The mock gains no
-file. No test reads the machine's transcripts.
+test writes a fixture template with `{{root}}` replaced by the mock's root: the command reads
+nothing of the project but its root, so no copy is needed. The mock gains no file. No test reads the machine's transcripts.
 
 Claims:
 

@@ -5322,3 +5322,271 @@ fn worklist_fences_each_body_and_judges_a_graded_above_line() {
         "{stdout}"
     );
 }
+
+// ---- `transcript` ------------------------------------------------------------------------------
+//
+// The fixtures under `path@core@tests/transcripts/` are Claude Code transcript directories, one per
+// case, whose `cwd` fields hold `{{root}}`. Each test writes its case into a directory of its own,
+// with `{{root}}` replaced by the mock `core`'s root, and runs the binary there with
+// `CLAUDE_CONFIG_DIR` pointed at it, so no test reads the machine's own transcripts. The mock gains
+// no file: `transcript` reads nothing of the project but its root.
+
+/// The case `case` written for the test `tag`, its `{{root}}` replaced; the directory to hand as
+/// `CLAUDE_CONFIG_DIR`.
+fn transcript_case(case: &str, tag: &str) -> PathBuf {
+    let root = project("core").canonicalize().expect("the mock exists");
+    let dir = std::env::temp_dir().join(format!("klarch-transcript-{tag}-{}", std::process::id()));
+    let _ = std::fs::remove_dir_all(&dir);
+    let from = PathBuf::from(env!("CARGO_MANIFEST_DIR"))
+        .join("tests/transcripts")
+        .join(case);
+    copy_rendered(&from, &dir, &root.display().to_string());
+    dir
+}
+
+fn copy_rendered(from: &Path, to: &Path, root: &str) {
+    std::fs::create_dir_all(to).expect("a fixture directory");
+    for entry in std::fs::read_dir(from).expect("a fixture directory") {
+        let entry = entry.expect("an entry");
+        let target = to.join(entry.file_name());
+        if entry.path().is_dir() {
+            copy_rendered(&entry.path(), &target, root);
+        } else {
+            let text = std::fs::read_to_string(entry.path()).expect("a fixture file");
+            std::fs::write(&target, text.replace("{{root}}", root)).expect("a fixture copy");
+        }
+    }
+}
+
+/// One `transcript` run over a case, in the mock `core`.
+fn transcript(case: &str, tag: &str, args: &[&str]) -> (String, String, i32) {
+    let config = transcript_case(case, tag);
+    let mut all = vec!["transcript"];
+    all.extend_from_slice(args);
+    run_with_env(&project("core"), &all, &[("CLAUDE_CONFIG_DIR", &config)])
+}
+
+/// A session opens where the `sessionId` changes and at a root that is no compaction; a compaction
+/// and a resumed process stay inside their session.
+#[test]
+fn transcript_sessions_are_cut_at_a_new_id_and_a_root_that_is_no_compaction() {
+    let (stdout, stderr, code) = transcript("split", "split-list", &["list"]);
+    assert_eq!(code, 0, "{stdout}{stderr}");
+    let rows: Vec<&str> = stdout.lines().filter(|l| !l.starts_with('#')).collect();
+    assert_eq!(rows.len(), 3, "{stdout}");
+    assert!(
+        rows[0].starts_with("aaaaaaaa ") && rows[0].contains("compactions 1"),
+        "{stdout}"
+    );
+    assert!(rows[1].starts_with("bbbbbbbb "), "{stdout}");
+    assert!(
+        rows[2].starts_with("bbbbbbbb#2 ") && rows[2].contains("feature"),
+        "{stdout}"
+    );
+
+    let (stdout, _, code) = transcript("split", "split-show", &["show", "aaaaaaaa"]);
+    assert_eq!(code, 0, "{stdout}");
+    assert!(stdout.contains("first question"), "{stdout}");
+    assert!(stdout.contains("injected compact-boundary"), "{stdout}");
+    assert!(stdout.contains("injected compact-summary"), "{stdout}");
+    assert!(stdout.contains("after the resume"), "{stdout}");
+    assert!(!stdout.contains("another id"), "{stdout}");
+
+    let (stdout, _, code) = transcript("split", "split-branch", &["list", "--branch", "feature"]);
+    assert_eq!(code, 0, "{stdout}");
+    let rows: Vec<&str> = stdout.lines().filter(|l| !l.starts_with('#')).collect();
+    assert_eq!(rows.len(), 1, "{stdout}");
+    assert!(rows[0].starts_with("bbbbbbbb#2 "), "{stdout}");
+}
+
+/// AC2 of `spec@plans@transcript-command`: a cleared session is listed apart, found by its first
+/// owner message, and its `/clear` is the owner's command.
+#[test]
+fn transcript_a_cleared_session_is_listed_apart_and_found_by_its_first_owner_message() {
+    let (stdout, _, code) = transcript("cleared", "cleared-list", &["list"]);
+    assert_eq!(code, 0, "{stdout}");
+    assert_eq!(
+        stdout.lines().filter(|l| !l.starts_with('#')).count(),
+        2,
+        "{stdout}"
+    );
+
+    let (stdout, _, code) = transcript(
+        "cleared",
+        "cleared-containing",
+        &["list", "--containing", "where is my transcript, after"],
+    );
+    assert_eq!(code, 0, "{stdout}");
+    let rows: Vec<&str> = stdout.lines().filter(|l| !l.starts_with('#')).collect();
+    assert_eq!(rows.len(), 1, "{stdout}");
+    assert!(rows[0].starts_with("dddddddd "), "{stdout}");
+
+    let (stdout, _, code) = transcript("cleared", "cleared-show", &["show", "dddddddd"]);
+    assert_eq!(code, 0, "{stdout}");
+    assert!(stdout.contains("owner-command"), "{stdout}");
+    assert!(stdout.contains("\n/clear\n"), "{stdout}");
+    assert!(!stdout.contains("<command-name>"), "{stdout}");
+    assert!(stdout.contains("injected meta"), "{stdout}");
+}
+
+/// The rows of the mapping table "Line to label", AC1 (every unknown value is named in the header,
+/// and its line kept) and AC3 (an owner's message that opens with a harness tag stays the owner's).
+#[test]
+fn transcript_each_line_takes_the_label_of_its_fields_and_the_unknown_is_reported() {
+    let (stdout, stderr, code) = transcript(
+        "labels",
+        "labels-show",
+        &["show", "eeeeeeee", "--tools", "--subagents"],
+    );
+    assert_eq!(code, 0, "{stdout}{stderr}");
+    let has = |needle: &str| assert!(stdout.contains(needle), "missing {needle:?} in:\n{stdout}");
+    // AC3.
+    has("[L1 owner 2026-01-03 10:00]\n<system-reminder>pasted by the owner</system-reminder>");
+    // AC1: the header names each unknown value, with its count.
+    has("# unrecognised type \"mystery\": 1");
+    has("# unrecognised attachment.type \"new_thing\": 1");
+    has("# unrecognised system subtype \"new_sub\": 1");
+    has("# unrecognised assistant content item \"new_item\": 1");
+    has("# unrecognised origin.kind \"robot\": 1");
+    has("# unrecognised attachment.origin.kind \"robot\": 1");
+    has("injected unknown 2026-01-03 10:00]\nfrom a robot");
+    has("injected unknown 2026-01-03 10:00]\nfrom a queued robot");
+    // The other rows.
+    has("agent 2026-01-03 10:00]\nthe agent speaks");
+    has("tool Bash 2026-01-03 10:00]\nBash {\"command\":\"ls\"}");
+    has("file listing");
+    has("owner-answer");
+    has("answer: B");
+    has("injected skill");
+    has("lines omitted; --full prints them");
+    has("injected meta 2026-01-03 10:00]\na meta notice");
+    has("injected peer 2026-01-03 10:00]\na peer report");
+    has("injected task-notification");
+    has("unlabelled 2026-01-03 10:00]\n[Request interrupted by user]");
+    has("owner-queued 2026-01-03 10:00]\ntyped while busy");
+    has("injected peer 2026-01-03 10:00]\na queued report");
+    has("# unlabelled lines: 1");
+    has("# lines skipped for a repeated uuid: 1");
+    has("# not JSON: -proj/eeeeeeee-0000-0000-0000-000000000005.jsonl:");
+    has("# each is a gap of this command");
+    // The subagents: a field-less line of a subagent file is its dispatcher's.
+    has("# subagent eeeeeeee/f00dcafe: general-purpose");
+    has("dispatch 2026-01-03 10:00]\nthe brief of the reviewer");
+    has("the reviewer reports");
+    has("dispatch 2026-01-03 10:00]\n[Workflow harness - computed task] the task");
+    assert!(
+        !stdout.contains("hidden"),
+        "a thinking item is dropped:\n{stdout}"
+    );
+    assert_eq!(stdout.matches("the last owner word").count(), 1, "{stdout}");
+
+    let (stdout, _, _) = transcript("labels", "labels-no-tools", &["show", "eeeeeeee"]);
+    assert!(!stdout.contains("tool Bash"), "{stdout}");
+
+    // AC3, its second half: the owner's words are found.
+    let (stdout, _, code) = transcript(
+        "labels",
+        "labels-containing",
+        &["list", "--containing", "and my words"],
+    );
+    assert_eq!(code, 0, "{stdout}");
+    assert!(stdout.contains("eeeeeeee "), "{stdout}");
+}
+
+/// A project's sessions are its by the `cwd` of their first line, a worktree under the root
+/// included; a log with no field is labelled by its text, and says so.
+#[test]
+fn transcript_a_project_s_sessions_are_found_by_their_cwd() {
+    let (stdout, _, code) = transcript("places", "places-list", &["list"]);
+    assert_eq!(code, 0, "{stdout}");
+    assert!(
+        stdout.contains("ffffffff "),
+        "a worktree under the root:\n{stdout}"
+    );
+    assert!(stdout.contains("88888888 "), "{stdout}");
+    assert!(!stdout.contains("99999999 "), "another project:\n{stdout}");
+
+    let (stdout, _, _) = transcript("places", "places-all", &["list", "--all-projects"]);
+    assert!(stdout.contains("99999999 "), "{stdout}");
+
+    let (stdout, _, code) = transcript("places", "places-show", &["show", "88888888"]);
+    assert_eq!(code, 0, "{stdout}");
+    assert!(stdout.contains("# no line carries a field in"), "{stdout}");
+    assert!(
+        stdout.contains("owner 2026-01-04 12:00]\nan owner's words"),
+        "{stdout}"
+    );
+    assert!(
+        stdout.contains("injected tag 2026-01-04 12:00]\n<task-notification>"),
+        "{stdout}"
+    );
+}
+
+/// The exit codes: a negative answer is 1, an input that cannot be used is 2.
+#[test]
+fn transcript_exit_codes_follow_the_ladder() {
+    let code = |case: &str, tag: &str, args: &[&str]| transcript(case, tag, args).2;
+    assert_eq!(
+        code(
+            "cleared",
+            "exit-from",
+            &["show", "dddddddd", "--from", "nowhere"]
+        ),
+        1
+    );
+    assert_eq!(code("cleared", "exit-handle", &["show", "zzzzzzzz"]), 1);
+    assert_eq!(code("split", "exit-ambiguous", &["show", "bbbb"]), 1);
+    assert_eq!(code("split", "exit-handle-2", &["show", "bbbbbbbb#2"]), 0);
+    assert_eq!(code("labels", "exit-regex", &["search", "("]), 2);
+    assert_eq!(
+        code(
+            "labels",
+            "exit-nomatch",
+            &["search", "nothing matches this"]
+        ),
+        1
+    );
+    assert_eq!(
+        code("labels", "exit-since", &["list", "--since", "yesterday"]),
+        2
+    );
+    assert_eq!(
+        code(
+            "split",
+            "exit-since-none",
+            &["list", "--since", "2027-01-01"]
+        ),
+        1
+    );
+    let (_, stderr, code) = run_with_env(
+        &project("core"),
+        &["transcript", "list"],
+        &[("CLAUDE_CONFIG_DIR", Path::new("/nonexistent/klarch-config"))],
+    );
+    assert_eq!(code, 2, "{stderr}");
+}
+
+/// `search` keeps lines by role and by tool, and a tool's results with its calls.
+#[test]
+fn transcript_search_selects_by_role_and_by_tool() {
+    let (stdout, _, code) =
+        transcript("labels", "search-role", &["search", "--role", "owner", "."]);
+    assert_eq!(code, 0, "{stdout}");
+    assert!(stdout.contains("eeeeeeee L1 owner"), "{stdout}");
+    assert!(!stdout.contains(" agent "), "{stdout}");
+
+    let (stdout, _, code) = transcript("labels", "search-tool", &["search", "--tool", "Bash", "."]);
+    assert_eq!(code, 0, "{stdout}");
+    assert!(stdout.contains("tool Bash"), "{stdout}");
+    assert!(
+        stdout.contains("file listing"),
+        "the call's result:\n{stdout}"
+    );
+    assert!(!stdout.contains("Agent"), "{stdout}");
+
+    let (stdout, _, _) = transcript("labels", "search-plain", &["search", "file listing"]);
+    assert!(
+        !stdout.contains("file listing"),
+        "tool lines are searched under --tools:\n{stdout}"
+    );
+}

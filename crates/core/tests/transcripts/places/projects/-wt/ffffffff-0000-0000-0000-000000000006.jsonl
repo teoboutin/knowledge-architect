@@ -1,0 +1,1 @@
+{"type": "user", "uuid": "f1", "parentUuid": null, "sessionId": "ffffffff-0000-0000-0000-000000000006", "timestamp": "2026-01-04T10:00:00.000Z", "cwd": "{{root}}/.claude/worktrees/w1", "gitBranch": "main", "version": "2.1.310", "isSidechain": false, "message": {"role": "user", "content": "in a worktree"}, "origin": {"kind": "human"}}
