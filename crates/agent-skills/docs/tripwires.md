@@ -136,22 +136,6 @@ if one came, the owner's answer.
 **Watches until:** three commits on the main branch whose message names the bounded path, counted
 from the commit that writes this line.
 
-## Guarding `design@agent-skills@plan-read-against-the-record`: the design-conformance reviewer reports a widening the plan document lists as decided `##design-conformance-findings-needless`
-
-The decision rests on the premise that the reviewer reports departures from the record, and not the
-widenings a plan document makes on purpose, so that its findings are worth the owner's reading.
-
-**Fires when:** in the reviews of two separate plan documents, the design-conformance reviewer
-reports as a finding a widening or a reversal of a head that the document's "What is already
-decided" lists as reversed or rewritten.
-**Response:** open a `design` issue naming the two reviews and their findings, and reopen
-`design@agent-skills@plan-read-against-the-record` on the reviewer's scope.
-**Re-entry:** the standing-state review before every merge, which reads the outcome each review
-commit records for each finding; and the retrospective of the session where the second of those
-reviews ran, which reads that session's record.
-**Watches until:** three plan documents deleted at their landing on the main branch, counted from
-the commit that writes this line.
-
 ## Guarding `design@agent-skills@head-ground-is-the-argument`: the owner's own ground is removed from a head `##owner-intent-stripped`
 
 The decision rests on the premise that the repair of an approval cited as a ground does not remove
@@ -371,23 +355,6 @@ names.
 **Watches until:** three commits on the main branch that add analyses of received retrospective
 files under docs/retrospective-reports/, counted from the commit that writes this line.
 
-## Guarding `design@agent-skills@attribution-replaces-quotation`: an attribution loses the scope the owner's words had `##attribution-loses-the-scope`
-
-The decision rests on the premise that an attribution states what the owner decided and how far it
-reaches as well as the owner's words did.
-
-**Fires when:** an attribution in a durable record misstates a ruling of the owner where the
-owner's words would have shown its scope, and the misstatement is critical under
-`design@agent-skills@misstated-ruling-rated-by-what-it-changes`, in two separate pieces of work, or
-once on the main branch with no review having reported it.
-**Response:** reopen `design@agent-skills@attribution-replaces-quotation` on where verbatim words
-are owed, with the rejected design that quotes the owner in a head whose ground is the owner's,
-`rejected@agent-skills@owner-words-quoted-in-head`, among the candidates.
-**Re-entry:** the transcript review of each change, which reads the owner's words in the transcript
-against the record.
-**Watches until:** ten commits on the main branch whose subject opens with `[review]`, counted from
-the commit that writes this line.
-
 ## Guarding `design@agent-skills@admission-rules-home`: an unneeded addition is made in a session that did not load the agent-configuration skill `##agent-text-written-without-the-standard`
 
 The decision rests on the premise that a session writing agent-facing text loads the
@@ -524,4 +491,3 @@ condition 1.
 **Watches until:** the fifth plan document deleted at its landing on the main branch, and the second
 report file of the tripwire axis added under docs/audit-reports/ on the main branch, both counted
 from the commit that writes this line.
-

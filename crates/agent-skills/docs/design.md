@@ -828,7 +828,7 @@ repository, a paraphrase of the owner in `design@agent-skills@transcript-reviewe
 misstated the owner's request, and a quotation replaced it, in the commit "[review] The last
 transcript review of the small-fixes branch: no ruling misstated, three items given a durable
 outcome, one paraphrase replaced by the owner's words". The transcript reviewer reads the words
-against the record, and `tripwire@agent-skills@attribution-loses-the-scope` watches.
+against the record.
 
 The design this decision did not keep: `rejected@agent-skills@owner-words-quoted-in-head`.
 
@@ -1371,7 +1371,7 @@ of work on one day met, only at their review before the merge, five standing ent
 before the work had not returned, `issue@core@a-span-with-an-empty-head-is-malformed-against-its-head`,
 `issue@agent-skills@a-premortem-criterion-listed-as-a-default-reads-two-ways`,
 `issue@core@a-plain-hash-item-name-is-read-by-nothing`, `tripwire@agent-skills@ruling-lost-in-assembly`
-and `tripwire@agent-skills@attribution-loses-the-scope`, and each was recorded days before its
+and a tripwire on attributions that lose the owner's scope, and each was recorded days before its
 search ran, dated with `git log -S"##<slug>"` and `--diff-filter=A`. The work list and its check take
 the assembly of the groups from the agents, and `tripwire@agent-skills@record-search-misses` watches
 what judgement still misses. The designs this decision did not keep:

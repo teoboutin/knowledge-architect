@@ -47,17 +47,6 @@ extension.
 **Watches until:** the next three commits on the main branch that add an analysis under
 `path@knowledge-architect@docs/retrospective-reports/`.
 
-## Guarding `design@core@checker-source-literals-are-data`: a test constant exists only to hide a fixture's bytes from the check `##checker-source-literals-are-data-purpose`
-
-**Fires when:** a test module of the tool gains a named constant whose only use is to be
-interpolated into a fixture so that its rule-shaped, slug-shaped or path-shaped bytes are not
-spelled at the site. A constant of the module under test, and a constant the tests also read as
-a value or reuse across several sites, are not this.
-**Response:** open an `observation` naming the constant and the fixture.
-**Re-entry:** a review of a change that adds a test module under the checker's own directories.
-**Watches until:** the next five commits on the main branch that change a file under
-`path@core@src/`.
-
 ## Guarding `design@core@phases-gate-the-report`: a way around the whole-report stop `##phases-gate-the-report-two`
 
 The report stops at the first phase that finds anything, and the whole report stops: the
