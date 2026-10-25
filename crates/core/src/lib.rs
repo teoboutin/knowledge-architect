@@ -235,6 +235,7 @@ mod check;
 mod entity;
 mod finding;
 mod git;
+mod graph;
 mod index;
 mod manifest;
 mod model;

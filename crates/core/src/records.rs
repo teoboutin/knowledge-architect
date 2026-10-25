@@ -284,6 +284,70 @@ pub(crate) fn cited_within(
     out
 }
 
+/// One entry, by the three segments of its reference: its kind, its anchor and its id.
+pub(crate) type EntryKey = (Kind, String, String);
+
+/// Every edge among the entries of `kinds`: an entry, and an entry of `kinds` it cites.
+///
+/// A reference counts where the citing entry is written, as [`records`] reads its body: a
+/// heading entry's section, a file entry's file, a Directory entry's README. Prose of a home
+/// outside every entry yields no edge, and neither does an entry's reference to itself. An entry
+/// defined twice is read at its first site, which is the one [`records`] prints.
+pub(crate) fn edges(
+    model: &Model,
+    anchors: &Anchors,
+    entities: &Entities,
+    kinds: &[Kind],
+) -> BTreeSet<(EntryKey, EntryKey)> {
+    let by_path: BTreeMap<&Path, &Document> = model
+        .documents()
+        .iter()
+        .map(|d| (d.rel.as_path(), d))
+        .collect();
+    let mut out = BTreeSet::new();
+    for kind in kinds {
+        for (anchor, id, sites) in entities.of_kind(kind) {
+            let Some(site) = sites.first() else { continue };
+            let Some(doc) = by_path.get(site.file.as_path()) else {
+                continue;
+            };
+            let shape = anchors
+                .by_name(anchor)
+                .and_then(|a| anchors.home(a, kind))
+                .map(|home| home.shape);
+            let (from, to) = match shape {
+                Some(Shape::File) | Some(Shape::Directory) => (1, u32::MAX),
+                _ => section(doc, site.line),
+            };
+            let citing: EntryKey = (kind.clone(), anchor.to_string(), id.to_string());
+            for l in &doc.observations {
+                if l.line < from || l.line > to {
+                    continue;
+                }
+                let Observation::Span(span) = &l.what else {
+                    continue;
+                };
+                let Candidate::Reference {
+                    kind: k,
+                    anchor: a,
+                    id: i,
+                } = candidate(span, anchors)
+                else {
+                    continue;
+                };
+                if !kinds.contains(&k) || !entities.defines(&k, a, i) {
+                    continue;
+                }
+                let cited: EntryKey = (k, a.to_string(), i.to_string());
+                if cited != citing {
+                    out.insert((citing.clone(), cited));
+                }
+            }
+        }
+    }
+    out
+}
+
 /// The inclusive line range of the section holding `line`: the nearest heading at or above it,
 /// through to the next heading at the same level or shallower.
 ///

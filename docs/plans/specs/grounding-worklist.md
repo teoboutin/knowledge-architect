@@ -28,7 +28,7 @@ leaves the repository in a commit of its own, after its harvest and the review b
   spec.
 - Every name it uses is defined in it, under Names or New names, or exists in the tree.
 - Where the owner's word is awaited, `skill@knowledge-architect-planning@working-a-slice` says what
-  waits. D1 to D4 are ruled; D5 awaits the owner, and is built as written.
+  waits. D1 to D5 are ruled.
 - **The work lands as this one spec and a single pull request, on the owner's word**, round 3:
   "This work should land as one spec and a single PR." No commit of the work changes what the
   per-commit gate checks: `worklist` is a command, not a check, and `commits` does not compare a
@@ -50,7 +50,8 @@ leaves the repository in a commit of its own, after its harvest and the review b
   - round 5, the owner's rulings on D1 to D4 and on the bound, which opens "D1 agreed, plan doc sit
     outside the search";
   - round 6, the owner's rulings on two review findings, which opens
-    "goal@agent-skills@installed-text-leaves-room-to-judge is about cases".
+    "goal@agent-skills@installed-text-leaves-room-to-judge is about cases";
+  - round 7, the owner's ruling on D5, "D5 accepted, proceed".
 
   Find the file by the opening message, not by its name.
 
@@ -465,7 +466,7 @@ worklist in a real project needs more agents than the owner accepts for one grou
 the first design discussion in the owner's planned project of about 30 Components, or a
 retrospective that reports the search's cost. Its leads are `argument@grounding-worklist@arg-28`,
 `argument@grounding-worklist@arg-40`, `argument@grounding-worklist@arg-48` and
-`argument@grounding-worklist@arg-65`. Whether they are every lead the owner wants kept is D5.
+`argument@grounding-worklist@arg-65`. Whether they are every lead the owner wants kept is D5, which the owner accepted, round 7.
 Harvest: a new issue of kind `design` in `register@agent-skills@issue`, holding the owner's current
 position, every lead, the cause and the re-entry.
 
@@ -923,11 +924,12 @@ various ways)".
 ```text
 crates/core/src/records.rs                 new: edges(), every (citing entry, cited entry) pair, each read inside the citing entry's section
 crates/core/src/graph.rs                   new module, pub(crate): Unit, Cluster, Agent, clusters(), pack()
-crates/core/src/cli/mod.rs                 Command::Worklist(WorklistArgs), fn worklist; WorklistArgs is pub, as every *Args is
+crates/core/src/cli/mod.rs                 Command::Worklist(WorklistArgs); WorklistArgs is pub, as every *Args is
+crates/core/src/cli/worklist.rs            new module: fn worklist, the writer and --verify
   WorklistArgs { out: Option<PathBuf>, verify: Option<PathBuf>, bound: usize, seeds: Vec<String> }
   flags: --out <DIR> | --verify <DIR>, exactly one; --bound <WORDS>, default 25000; --seed <REF>, repeatable
 files under <DIR>:
-  agents.txt                               one line per agent and entry: <agent> <role> <reference>
+  agents.txt                               one line per agent and entry: <agent> <role> <reference>, then `seed` or `cites-seed` where it applies
   agent-<n>/entries.md                     every entry of the agent, whole, each introduced by its reference
   agent-<n>/report.md                      the skeleton the searcher fills
 crates/agent-skills/content/agents/record-searcher.md   new: knowledge-architect-record-searcher
@@ -1053,8 +1055,9 @@ notice: the residual entries of thaum-engine hold 26,000 words, above the 25,000
         its issues group subdirectories, or have them cite the heads they concern
 ```
 
-`agents.txt` gives each entry's role: `unit`, `goal`, `rejected`, `issue`, `tripwire`, `seed` for a
-seed that is itself an entry of the agent. `entries.md` holds, under one heading per cluster, each
+`agents.txt` gives each entry's role: `unit`, `goal`, `rejected`, `issue` or `tripwire`, then
+`seed` for a seed that is itself an entry of the agent, or `cites-seed` for an entry that cites
+one. `entries.md` holds, under one heading per cluster, each
 entry introduced by one line, `=== <reference>  <file>:<line>`, then its body whole. `report.md`
 lists every entry of the agent, cluster by cluster, one line each, and ends with a section for what
 the searcher met outside the task. An entry with an edge to a seed names the seed. Illustration of a
@@ -1090,7 +1093,7 @@ It exits 2 on `agents.txt` or a `report.md` it cannot parse or cannot find, nami
 
 | role | `bears` relations | the entry bears when the work |
 | --- | --- | --- |
-| `unit`, `goal`, `seed` | `constrains`, `may change` | must respect it; or could contradict, widen, narrow or strain it |
+| `unit`, `goal` | `constrains`, `may change` | must respect it; or could contradict, widen, narrow or strain it |
 | `rejected` | `may bring back` | could propose its design again |
 | `issue` | `touches`, `closes`, `worsens`, `depends on`, `trigger met` | touches its subject; would close it; would make it worse; depends on its answer; would meet its deferred trigger |
 | `tripwire` | `fires` | would meet its firing clause |
@@ -1265,7 +1268,7 @@ file. The test plants a phase-2 finding. Response: reopen #report-skeleton-comma
 
 0. **The reading owed.** Read whole the `may-bear` entries the grounding judged by title, as "What
    is already decided" says, and record each outcome in the message of step 1's first commit.
-1. **The graph, with no command.** Builds `records::edges` and `planned@core@src/graph.rs`: units,
+1. **The graph, with no command.** Builds `records::edges` and `path@core@src/graph.rs`: units,
    clusters, residual groups and the packing, as pure functions of the model and the entity table,
    with unit tests over models written as text, as the tests of `path@core@src/records.rs` are.
    Fails alone on: a membership or a packing the unit tests name. Claims:
@@ -1337,8 +1340,8 @@ file. The test plants a phase-2 finding. Response: reopen #report-skeleton-comma
   D4 accepted."
 - **D5**, #title-tier-for-untouched-components: the issue the harvest opens keeps the leads
   `argument@grounding-worklist@arg-28`, `argument@grounding-worklist@arg-40`,
-  `argument@grounding-worklist@arg-48` and `argument@grounding-worklist@arg-65`, and no other. Built
-  as written; awaiting the owner.
+  `argument@grounding-worklist@arg-48` and `argument@grounding-worklist@arg-65`, and no other.
+  Ruled, round 7: "D5 accepted, proceed".
 
 ## Harvest
 

@@ -4788,3 +4788,390 @@ fn every_path_to_an_entry_s_directory_names_the_entry() {
         "{stdout}"
     );
 }
+
+// ---- `worklist`, per `spec@plans@grounding-worklist` ----
+
+/// The manifest of the worklist project: the root `core-mock`, a Component `widget` whose design
+/// home is a directory, and a location `notes` carrying a declared file register with groups.
+const WORKLIST_MANIFEST: &str = "[project]\nchecker-version = \"fixture\"\nname = \"core-mock\"\n\
+    components = [\"widget\"]\n\n\
+    [locations.notes]\npath = \"notes\"\nregisters = [\"reading\"]\n\n\
+    [registers.reading]\nscope = \"opt-in\"\nshape = \"file\"\ndir = \"readings\"\n\
+    sections = [\"Reading\"]\n\n\
+    [walk]\nskip-dirs = []\nskip-files = []\n\n[agents]\nharness = []\n";
+
+/// The root's design home, one file: a head before any subject, then two subjects. The second
+/// subject's head is long, so that a small bound puts its cluster above it.
+const WORKLIST_DESIGN: &str = "# Design — core-mock\n\n\
+    ### One decision `##one-decision`\n\nA decision under no subject. The design it did not keep is \
+    `rejected@core-mock@other-way`.\n\n\
+    ## First subject\n\n\
+    ### A first head `##first-head`\n\nIt serves `goal@core-mock@fine-goal`.\n\n\
+    ## Second subject\n\n\
+    ### A long head `##long-head`\n\n\
+    one two three four five six seven eight nine ten one two three four five six seven eight nine \
+    ten one two three four five six seven eight nine ten one two three four five six seven eight \
+    nine ten one two three four five six seven eight nine ten one two three four five six seven \
+    eight nine ten one two three four five six seven eight nine ten one two three four five six.\n";
+
+const WORKLIST_GOALS: &str = "# Goals — core-mock\n\n\
+    ## A fine goal `##fine-goal`\n\nIt refines `goal@core-mock@middle-goal`.\n\n\
+    ## A middle goal `##middle-goal`\n\nIt refines `goal@core-mock@top-goal`.\n\n\
+    ## A top goal `##top-goal`\n\nThe top.\n";
+
+const WORKLIST_TRIPWIRES: &str = "# Tripwires — core-mock\n\n\
+    ## Guarding `design@core-mock@first-head`: a premise `##first-premise`\n\n\
+    **Fires when:** x.\n";
+
+fn worklist_issue(cites: &str) -> String {
+    format!(
+        "---\nkind: todo\n---\n# An issue\n\n## Summary\n\nIt names {cites}.\n\n## Details\n\n\
+         ### What\n\nx\n\n### Why it matters\n\nx\n\n### What would close it\n\nx\n"
+    )
+}
+
+/// The worklist project, and a directory outside it for the work list, which does not exist yet.
+fn worklist_project(tag: &str) -> (Sandbox, PathBuf) {
+    let on_goal = worklist_issue("`goal@core-mock@top-goal`");
+    let on_head = worklist_issue("`design@core-mock@first-head`");
+    let sandbox = Sandbox::seeded(
+        tag,
+        "core",
+        &[
+            ("knowledge-architect.toml", WORKLIST_MANIFEST),
+            ("docs/design.md", WORKLIST_DESIGN),
+            ("docs/goals.md", WORKLIST_GOALS),
+            ("docs/tripwires.md", WORKLIST_TRIPWIRES),
+            ("docs/open-issues/on-the-goal.md", &on_goal),
+            ("docs/open-issues/on-the-head.md", &on_head),
+            ("widget/README.md", "# widget\n\nA Component.\n"),
+            ("widget/docs/goals.md", "# Goals — widget\n"),
+            ("widget/docs/rejected.md", "# Rejected — widget\n"),
+            ("widget/docs/tripwires.md", "# Tripwires — widget\n"),
+            (
+                "widget/docs/open-issues/README.md",
+                "# Open issues — widget\n",
+            ),
+            (
+                "widget/docs/design/README.md",
+                "# Design — widget\n\n- [Parts](parts.md)\n",
+            ),
+            (
+                "widget/docs/design/parts.md",
+                "# Parts\n\n## The gears\n\n### Gears turn `##gears-turn`\n\nThey do.\n\n\
+                 ## The springs\n\n### Springs coil `##springs-coil`\n\nThey do.\n",
+            ),
+            ("notes/readings/README.md", "# Readings\n"),
+            (
+                "notes/readings/top-reading.md",
+                "# Top\n\n## Reading\n\nx\n",
+            ),
+            (
+                "notes/readings/loops/loop-reading.md",
+                "# Loop\n\n## Reading\n\nx\n",
+            ),
+        ],
+    );
+    let out = std::env::temp_dir().join(format!("knowledge-{tag}-out-{}", std::process::id()));
+    let _ = std::fs::remove_dir_all(&out);
+    (sandbox, out)
+}
+
+/// Every report of a work list, as cluster name → the references listed under it.
+fn worklist_clusters(out: &Path) -> std::collections::BTreeMap<String, Vec<String>> {
+    let mut clusters = std::collections::BTreeMap::new();
+    let mut agents: Vec<_> = std::fs::read_dir(out)
+        .expect("the work list")
+        .filter_map(|e| e.ok())
+        .filter(|e| e.path().is_dir())
+        .collect();
+    agents.sort_by_key(|e| e.file_name());
+    for agent in agents {
+        let report = std::fs::read_to_string(agent.path().join("report.md")).expect("a report");
+        let mut current: Option<String> = None;
+        for line in report.lines() {
+            if let Some(name) = line.strip_prefix("## Cluster: ") {
+                current = Some(name.to_string());
+                clusters.entry(name.to_string()).or_insert_with(Vec::new);
+            } else if let (Some(name), Some(rest)) = (&current, line.strip_prefix("- ")) {
+                let reference = rest.split(" | ").next().expect("a reference");
+                clusters
+                    .get_mut(name)
+                    .expect("a cluster")
+                    .push(reference.to_string());
+            }
+        }
+    }
+    clusters
+}
+
+/// AC2: the agents' lists together hold every entry of the record, in both shapes of a design
+/// home, under no subject, in a declared file register's groups; a chain of goals is reached
+/// upward from the head that cites its first; and an issue citing only a goal is in its anchor's
+/// residual group. Mutation checked: `upward` in `path@core@src/graph.rs` returning its start
+/// alone, which leaves the middle and top goals in the residual.
+#[test]
+fn worklist_lists_every_entry_of_the_record_once_per_cluster() {
+    let (sandbox, out) = worklist_project("worklist-every-entry");
+    let out_text = out.to_string_lossy().into_owned();
+    let (stdout, stderr, code) = sandbox.run(&["worklist", "--out", &out_text]);
+    assert_eq!(code, 0, "{stdout}{stderr}");
+    let listed: std::collections::BTreeSet<String> =
+        std::fs::read_to_string(out.join("agents.txt"))
+            .expect("agents.txt")
+            .lines()
+            .map(|l| l.split(' ').nth(2).expect("a reference").to_string())
+            .collect();
+    let every: std::collections::BTreeSet<String> = [
+        "design@core-mock@one-decision",
+        "design@core-mock@first-head",
+        "design@core-mock@long-head",
+        "design@widget@gears-turn",
+        "design@widget@springs-coil",
+        "goal@core-mock@fine-goal",
+        "goal@core-mock@middle-goal",
+        "goal@core-mock@top-goal",
+        "rejected@core-mock@other-way",
+        "tripwire@core-mock@first-premise",
+        "issue@core-mock@on-the-goal",
+        "issue@core-mock@on-the-head",
+        "reading@notes@top-reading",
+        "reading@notes@loop-reading",
+    ]
+    .iter()
+    .map(|s| s.to_string())
+    .collect();
+    assert_eq!(listed, every);
+    let clusters = worklist_clusters(&out);
+    assert_eq!(
+        clusters["core-mock :: First subject"],
+        [
+            "design@core-mock@first-head",
+            "goal@core-mock@fine-goal",
+            "goal@core-mock@middle-goal",
+            "goal@core-mock@top-goal",
+            "issue@core-mock@on-the-head",
+            "tripwire@core-mock@first-premise",
+        ]
+    );
+    assert_eq!(
+        clusters["core-mock :: docs/design.md"],
+        [
+            "design@core-mock@one-decision",
+            "rejected@core-mock@other-way"
+        ]
+    );
+    assert_eq!(
+        clusters["widget :: The gears"],
+        ["design@widget@gears-turn"]
+    );
+    assert_eq!(
+        clusters["notes :: notes/readings/loops"],
+        ["reading@notes@loop-reading"]
+    );
+    assert_eq!(
+        clusters["core-mock :: (residual)"],
+        ["issue@core-mock@on-the-goal"]
+    );
+}
+
+/// AC3: a cluster above the bound goes to an agent alone, and the output names it with its
+/// notice. Mutation checked: the partition of groups above the bound removed from `pack`, which
+/// packs the long head's cluster with the others.
+#[test]
+fn worklist_sends_a_cluster_above_the_bound_alone_with_a_notice() {
+    let (sandbox, out) = worklist_project("worklist-above");
+    let out_text = out.to_string_lossy().into_owned();
+    let (stdout, stderr, code) = sandbox.run(&["worklist", "--out", &out_text, "--bound", "60"]);
+    assert_eq!(code, 0, "{stdout}{stderr}");
+    assert!(
+        stdout.contains("notice: the cluster \"core-mock :: Second subject\" holds"),
+        "{stdout}"
+    );
+    let line = stdout
+        .lines()
+        .find(|l| l.contains("Second subject") && l.starts_with("agent-"))
+        .expect("the agent of the long cluster");
+    assert!(!line.contains(';'), "it shares its agent: {line}");
+}
+
+/// AC4: `worklist --out` over a tree that stops before the last phase exits 2 and writes
+/// nothing; the test plants a phase-2 finding, a missing home. Mutation checked: the call of
+/// `complete_working_tree` removed from `write`, which writes the work list.
+#[test]
+fn worklist_refuses_an_incomplete_model_and_writes_nothing() {
+    let (sandbox, out) = worklist_project("worklist-incomplete");
+    std::fs::remove_file(sandbox.path("widget/docs/tripwires.md")).expect("a home to remove");
+    sandbox.stage();
+    let out_text = out.to_string_lossy().into_owned();
+    let (stdout, stderr, code) = sandbox.run(&["worklist", "--out", &out_text]);
+    assert_eq!(code, 2, "{stdout}{stderr}");
+    assert!(stderr.contains("the model is incomplete"), "{stderr}");
+    assert!(!out.exists());
+}
+
+/// The refusals before the first write: a directory inside the project, a directory that holds
+/// a file, and a seed that names no entry. Mutation checked: the inside-the-project test removed
+/// from `write`, which writes into the project.
+#[test]
+fn worklist_refuses_a_directory_it_must_not_write_and_an_unknown_seed() {
+    let (sandbox, out) = worklist_project("worklist-refusals");
+    let (stdout, stderr, code) = sandbox.run(&["worklist", "--out", "inside"]);
+    assert_eq!(code, 2, "{stdout}{stderr}");
+    assert!(stderr.contains("inside the project"), "{stderr}");
+    assert!(!sandbox.path("inside").exists());
+
+    std::fs::create_dir_all(&out).expect("the directory");
+    std::fs::write(out.join("left.txt"), "x").expect("a file in it");
+    let out_text = out.to_string_lossy().into_owned();
+    let (stdout, stderr, code) = sandbox.run(&["worklist", "--out", &out_text]);
+    assert_eq!(code, 2, "{stdout}{stderr}");
+    assert!(stderr.contains("not empty"), "{stderr}");
+    std::fs::remove_dir_all(&out).expect("cleared");
+
+    let (stdout, stderr, code) = sandbox.run(&[
+        "worklist",
+        "--out",
+        &out_text,
+        "--seed",
+        "design@core-mock@no-such-head",
+    ]);
+    assert_eq!(code, 2, "{stdout}{stderr}");
+    assert!(stderr.contains("names no entry"), "{stderr}");
+    assert!(!out.exists());
+}
+
+/// Fill every report of a work list with `unrelated`, a reason given.
+fn fill_unrelated(out: &Path) {
+    for entry in std::fs::read_dir(out).expect("the work list").flatten() {
+        let report = entry.path().join("report.md");
+        if report.exists() {
+            let text = std::fs::read_to_string(&report).expect("a report");
+            std::fs::write(
+                &report,
+                text.replace(
+                    "| grade: | relation: | reason:",
+                    "| grade: unrelated | relation: | reason: none",
+                ),
+            )
+            .expect("a filled report");
+        }
+    }
+}
+
+/// The report holding `reference`, and its text.
+fn report_with(out: &Path, reference: &str) -> (PathBuf, String) {
+    for entry in std::fs::read_dir(out).expect("the work list").flatten() {
+        let report = entry.path().join("report.md");
+        if let Ok(text) = std::fs::read_to_string(&report) {
+            if text.contains(&format!("- {reference} |")) {
+                return (report, text);
+            }
+        }
+    }
+    panic!("no report lists {reference}");
+}
+
+/// AC1: `worklist --verify` exits 0 on complete reports, 1 naming the entry for an entry missing,
+/// one listed twice, a grade outside the set and an entry not in the agent's list, and 2 on a
+/// report it cannot parse. Mutations checked: the count of grades per entry dropped from
+/// `verify`, which passes the duplicate; and the match on the grade's word made to accept any
+/// word, which passes `maybe`.
+#[test]
+fn worklist_verify_names_each_gap_of_a_report() {
+    let (sandbox, out) = worklist_project("worklist-verify");
+    let out_text = out.to_string_lossy().into_owned();
+    let (_, _, code) = sandbox.run(&["worklist", "--out", &out_text]);
+    assert_eq!(code, 0);
+    fill_unrelated(&out);
+    let (stdout, stderr, code) = sandbox.run(&["worklist", "--verify", &out_text]);
+    assert_eq!(code, 0, "{stdout}{stderr}");
+
+    let target = "design@core-mock@first-head";
+    let (path, text) = report_with(&out, target);
+    let line = text
+        .lines()
+        .find(|l| l.starts_with(&format!("- {target} |")))
+        .expect("its line")
+        .to_string();
+    let cases: Vec<(String, &str, i32)> = vec![
+        (text.replace(&format!("{line}\n"), ""), "graded nowhere", 1),
+        (text.replace(&line, &format!("{line}\n{line}")), "graded 2 times", 1),
+        (
+            text.replace(&line, &line.replace("grade: unrelated", "grade: maybe")),
+            "is no grade",
+            1,
+        ),
+        (
+            text.replace(&line, &format!("{line}\n- design@core-mock@not-given | grade: unrelated | relation: | reason: x")),
+            "is not an entry of",
+            1,
+        ),
+        (
+            text.replace("## Met outside the task", "## Something else"),
+            "no section",
+            1,
+        ),
+        (text.replace(&line, &format!("- {target} | nonsense")), "not a line", 2),
+    ];
+    for (edited, expected, want) in cases {
+        std::fs::write(&path, &edited).expect("an edited report");
+        let (stdout, stderr, code) = sandbox.run(&["worklist", "--verify", &out_text]);
+        assert_eq!(code, want, "{expected}: {stdout}{stderr}");
+        assert!(
+            stdout.contains(expected) || stderr.contains(expected),
+            "{expected}: {stdout}{stderr}"
+        );
+    }
+}
+
+/// A seed and the entries that cite it are never graded `unrelated`, and a `bears` grade takes a
+/// relation of its role's set. Mutation checked: the seed test removed from `judge`, which passes
+/// the issue citing the seed graded `unrelated`.
+#[test]
+fn worklist_verify_holds_seeds_and_relations() {
+    let (sandbox, out) = worklist_project("worklist-seeds");
+    let out_text = out.to_string_lossy().into_owned();
+    let (stdout, stderr, code) = sandbox.run(&[
+        "worklist",
+        "--out",
+        &out_text,
+        "--seed",
+        "design@core-mock@first-head",
+    ]);
+    assert_eq!(code, 0, "{stdout}{stderr}");
+    let (_, text) = report_with(&out, "issue@core-mock@on-the-head");
+    assert!(
+        text.contains("- issue@core-mock@on-the-head | cites seed: design@core-mock@first-head |"),
+        "{text}"
+    );
+    fill_unrelated(&out);
+    let (stdout, _, code) = sandbox.run(&["worklist", "--verify", &out_text]);
+    assert_eq!(code, 1, "{stdout}");
+    assert!(
+        stdout.contains("issue@core-mock@on-the-head cites a seed"),
+        "{stdout}"
+    );
+    assert!(
+        stdout.contains("design@core-mock@first-head is a seed"),
+        "{stdout}"
+    );
+
+    let (path, text) = report_with(&out, "issue@core-mock@on-the-head");
+    let text = text
+        .replace(
+            "- issue@core-mock@on-the-head | cites seed: design@core-mock@first-head | grade: unrelated | relation: | reason: none",
+            "- issue@core-mock@on-the-head | cites seed: design@core-mock@first-head | grade: bears | relation: fires | reason: it does",
+        )
+        .replace(
+            "- design@core-mock@first-head | is a seed | grade: unrelated | relation: | reason: none",
+            "- design@core-mock@first-head | is a seed | grade: bears | relation: constrains | reason: the seed",
+        );
+    std::fs::write(&path, text).expect("an edited report");
+    let (stdout, _, code) = sandbox.run(&["worklist", "--verify", &out_text]);
+    assert_eq!(code, 1, "{stdout}");
+    assert!(
+        stdout.contains("`fires` is no relation for the role `issue`"),
+        "{stdout}"
+    );
+}

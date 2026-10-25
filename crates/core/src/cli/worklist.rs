@@ -1,0 +1,482 @@
+//! `worklist`: the work list of a search of the whole record, written as one directory per
+//! agent, and the check of the reports the agents fill there.
+//!
+//! The clusters and the packing are `path@core@src/graph.rs`'s; this module writes them out and
+//! reads them back. The files are for the searcher and for `--verify`, not a contract with any
+//! other reader, per `issue@knowledge-architect@command-output-is-not-declared-a-contract`.
+
+use std::collections::{BTreeMap, BTreeSet};
+use std::path::{Component, Path, PathBuf};
+use std::process::ExitCode;
+
+use super::output::outln;
+use super::WorklistArgs;
+use crate::entity::{Anchors, Candidate, Entities};
+use crate::graph::{self, Graph, Role};
+use crate::Manifest;
+
+/// The file listing every agent's entries, one per line.
+const AGENTS_FILE: &str = "agents.txt";
+/// The file holding an agent's entries whole.
+const ENTRIES_FILE: &str = "entries.md";
+/// The skeleton an agent fills.
+const REPORT_FILE: &str = "report.md";
+/// The section every report ends with.
+const MET_OUTSIDE: &str = "## Met outside the task";
+/// A report line that names an entry graded under an earlier cluster of the same agent.
+const GRADED_ABOVE: &str = "graded above";
+/// The mark of a seed that is itself an entry of the agent, and of an entry that cites a seed.
+const SEED_MARK: &str = "seed";
+const CITES_SEED_MARK: &str = "cites-seed";
+
+pub(super) fn worklist(
+    manifest: &Manifest,
+    args: &WorklistArgs,
+    checker: &[&Path],
+) -> Result<ExitCode, String> {
+    match (&args.out, &args.verify) {
+        (Some(dir), None) => write(manifest, dir, args, checker),
+        (None, Some(dir)) => verify(dir),
+        // clap refuses both and neither, per the arguments' declaration.
+        _ => Err("give exactly one of --out and --verify".to_string()),
+    }
+}
+
+/// Write the work list into `dir`.
+///
+/// Every refusal comes before the first write, so a refused run leaves `dir` as it found it: an
+/// incomplete model, per `design@core@phases-gate-the-report`, a `dir` the walk would read or that
+/// holds anything, and a seed that names no entry of the record.
+fn write(
+    manifest: &Manifest,
+    dir: &Path,
+    args: &WorklistArgs,
+    checker: &[&Path],
+) -> Result<ExitCode, String> {
+    let model = crate::Model::build(manifest, checker).map_err(|e| e.to_string())?;
+    super::complete_working_tree(manifest, &model)?;
+    let dir = absolute(dir)?;
+    let root = manifest
+        .root()
+        .canonicalize()
+        .unwrap_or_else(|_| manifest.root().to_path_buf());
+    if dir.starts_with(&root) || dir.starts_with(manifest.root()) {
+        return Err(format!(
+            "{} is inside the project, whose walk would read the files written there: give a \
+             directory outside {}. Nothing was written.",
+            dir.display(),
+            root.display()
+        ));
+    }
+    if dir.exists() {
+        let empty = std::fs::read_dir(&dir)
+            .map_err(|e| format!("{}: {e}. Nothing was written.", dir.display()))?
+            .next()
+            .is_none();
+        if !empty {
+            return Err(format!(
+                "{} exists and is not empty: give a new or empty directory. Nothing was written.",
+                dir.display()
+            ));
+        }
+    }
+
+    let anchors = Anchors::of(manifest, model.listing());
+    let entities = Entities::build(&model, &anchors);
+    let graph = graph::graph(&model, &anchors, &entities);
+    let index: BTreeMap<String, usize> = graph
+        .entries
+        .iter()
+        .enumerate()
+        .map(|(i, e)| (e.reference(), i))
+        .collect();
+    let mut seeds: BTreeSet<usize> = BTreeSet::new();
+    for seed in &args.seeds {
+        let reference = seed.trim_matches('`');
+        let found = match crate::entity::candidate(reference, &anchors) {
+            Candidate::Reference { .. } => index.get(reference),
+            _ => None,
+        };
+        match found {
+            Some(&i) => {
+                seeds.insert(i);
+            }
+            None => {
+                return Err(format!(
+                    "the seed {reference} names no entry of the record: give the reference of a \
+                     goal, a design entry or another entry `{} show` prints. Nothing was written.",
+                    manifest.command()
+                ))
+            }
+        }
+    }
+
+    let loads: Vec<(usize, (String, String, String))> = graph
+        .groups
+        .iter()
+        .map(|g| (graph.load(g), g.key.clone()))
+        .collect();
+    let packing = graph::pack(&loads, args.bound);
+    let files = render(&graph, &packing.agents, &seeds);
+
+    std::fs::create_dir_all(&dir)
+        .map_err(|e| format!("{}: {e}. Nothing was written.", dir.display()))?;
+    for (rel, text) in &files {
+        let path = dir.join(rel);
+        if let Some(parent) = path.parent() {
+            std::fs::create_dir_all(parent).map_err(|e| format!("{}: {e}", parent.display()))?;
+        }
+        std::fs::write(&path, text).map_err(|e| format!("{}: {e}", path.display()))?;
+    }
+
+    for (n, groups) in packing.agents.iter().enumerate() {
+        let given: BTreeSet<usize> = groups
+            .iter()
+            .flat_map(|&g| graph.groups[g].entries.iter().copied())
+            .collect();
+        let words: usize = given.iter().map(|&i| graph.entries[i].words).sum();
+        let names: Vec<&str> = groups
+            .iter()
+            .map(|&g| graph.groups[g].name.as_str())
+            .collect();
+        outln!("agent-{}  {words} words  {}", n + 1, names.join("; "));
+    }
+    for &g in &packing.above {
+        let group = &graph.groups[g];
+        let load = loads[g].0;
+        if group.residual {
+            outln!(
+                "notice: the residual entries of {} hold {load} words, above the {}-word bound: \
+                 give its issues group subdirectories, or have them cite the heads they concern",
+                group.key.0,
+                args.bound
+            );
+        } else {
+            outln!(
+                "notice: the cluster \"{}\" holds {load} words, above the {}-word bound: split its \
+                 subject into subjects read apart",
+                group.name,
+                args.bound
+            );
+        }
+    }
+    outln!(
+        "{} agents in {}; run `{} worklist --verify {}` on their reports",
+        packing.agents.len(),
+        dir.display(),
+        manifest.command(),
+        dir.display()
+    );
+    Ok(ExitCode::SUCCESS)
+}
+
+/// The directory as an absolute path, its `.` and `..` segments resolved without touching the
+/// filesystem, since it may not exist yet.
+fn absolute(dir: &Path) -> Result<PathBuf, String> {
+    let joined = if dir.is_absolute() {
+        dir.to_path_buf()
+    } else {
+        std::env::current_dir()
+            .map_err(|e| format!("cannot read the working directory: {e}"))?
+            .join(dir)
+    };
+    let mut out = PathBuf::new();
+    for part in joined.components() {
+        match part {
+            Component::ParentDir => {
+                out.pop();
+            }
+            Component::CurDir => {}
+            other => out.push(other),
+        }
+    }
+    // An existing directory is compared by its real path, so a link into the project is seen.
+    Ok(out.canonicalize().unwrap_or(out))
+}
+
+/// Every file of the work list, by path under its directory.
+fn render(graph: &Graph, agents: &[Vec<usize>], seeds: &BTreeSet<usize>) -> Vec<(PathBuf, String)> {
+    let mut list = String::new();
+    let mut files = Vec::new();
+    for (n, groups) in agents.iter().enumerate() {
+        let agent = format!("agent-{}", n + 1);
+        let mut entries = format!("# The entries of {agent}\n");
+        let mut report = format!(
+            "# The report of {agent}\n\n\
+             Grade each entry: `bears` with a relation, `may-bear`, or `unrelated`. A reason is owed\n\
+             for `bears` and `may-bear`.\n"
+        );
+        let mut given: BTreeSet<usize> = BTreeSet::new();
+        for &g in groups {
+            let group = &graph.groups[g];
+            entries.push_str(&format!("\n## Cluster: {}\n", group.name));
+            report.push_str(&format!("\n## Cluster: {}\n\n", group.name));
+            for &i in &group.entries {
+                let entry = &graph.entries[i];
+                let reference = entry.reference();
+                if !given.insert(i) {
+                    entries.push_str(&format!("\n=== {reference}  {GRADED_ABOVE}\n"));
+                    report.push_str(&format!("- {reference} | {GRADED_ABOVE}\n"));
+                    continue;
+                }
+                let cited: Vec<String> = graph
+                    .cites
+                    .get(&i)
+                    .into_iter()
+                    .flatten()
+                    .filter(|c| seeds.contains(c))
+                    .map(|&c| graph.entries[c].reference())
+                    .collect();
+                let mark = if seeds.contains(&i) {
+                    format!(" {SEED_MARK}")
+                } else if !cited.is_empty() {
+                    format!(" {CITES_SEED_MARK}")
+                } else {
+                    String::new()
+                };
+                list.push_str(&format!(
+                    "{agent} {} {reference}{mark}\n",
+                    entry.role.word()
+                ));
+                entries.push_str(&format!(
+                    "\n=== {reference}  {}\n\n{}\n",
+                    entry.record.site,
+                    entry.record.body.trim_end()
+                ));
+                let seed_field = if seeds.contains(&i) {
+                    " | is a seed".to_string()
+                } else if cited.is_empty() {
+                    String::new()
+                } else {
+                    format!(" | cites seed: {}", cited.join(", "))
+                };
+                report.push_str(&format!(
+                    "- {reference}{seed_field} | grade: | relation: | reason:\n"
+                ));
+            }
+        }
+        report.push_str(&format!("\n{MET_OUTSIDE}\n\n"));
+        files.push((PathBuf::from(&agent).join(ENTRIES_FILE), entries));
+        files.push((PathBuf::from(&agent).join(REPORT_FILE), report));
+    }
+    files.insert(0, (PathBuf::from(AGENTS_FILE), list));
+    files
+}
+
+/// One line of `agents.txt`.
+struct Listed {
+    role: Role,
+    seed: bool,
+    cites_seed: bool,
+}
+
+/// The relations a `bears` grade takes for an entry of a role.
+fn relations(role: Role) -> &'static [&'static str] {
+    match role {
+        Role::Unit | Role::Goal => &["constrains", "may change"],
+        Role::Rejected => &["may bring back"],
+        Role::Issue => &["touches", "closes", "worsens", "depends on", "trigger met"],
+        Role::Tripwire => &["fires"],
+    }
+}
+
+/// Check every report of the directory against `agents.txt`.
+///
+/// It reads no model: what each agent was given is what `agents.txt` says, so the check holds
+/// whatever the tree has become since.
+fn verify(dir: &Path) -> Result<ExitCode, String> {
+    let list_path = dir.join(AGENTS_FILE);
+    let text =
+        std::fs::read_to_string(&list_path).map_err(|e| format!("{}: {e}", list_path.display()))?;
+    let mut agents: BTreeMap<String, BTreeMap<String, Listed>> = BTreeMap::new();
+    for (n, line) in text.lines().enumerate() {
+        let parts: Vec<&str> = line.split(' ').collect();
+        let role = parts.get(1).and_then(|w| role_of(w));
+        let (Some(agent), Some(role), Some(reference)) = (parts.first(), role, parts.get(2)) else {
+            return Err(format!(
+                "{}:{}: not a line `<agent> <role> <reference>`",
+                list_path.display(),
+                n + 1
+            ));
+        };
+        let mark = parts.get(3).copied();
+        if parts.len() > 4 || !matches!(mark, None | Some(SEED_MARK) | Some(CITES_SEED_MARK)) {
+            return Err(format!(
+                "{}:{}: not a line `<agent> <role> <reference>`",
+                list_path.display(),
+                n + 1
+            ));
+        }
+        agents.entry(agent.to_string()).or_default().insert(
+            reference.to_string(),
+            Listed {
+                role,
+                seed: mark == Some(SEED_MARK),
+                cites_seed: mark == Some(CITES_SEED_MARK),
+            },
+        );
+    }
+
+    let mut findings: Vec<String> = Vec::new();
+    for (agent, listed) in &agents {
+        let rel = PathBuf::from(agent).join(REPORT_FILE);
+        let path = dir.join(&rel);
+        let report =
+            std::fs::read_to_string(&path).map_err(|e| format!("{}: {e}", path.display()))?;
+        let mut graded: BTreeMap<String, usize> = BTreeMap::new();
+        let mut met_outside = false;
+        for (n, line) in report.lines().enumerate() {
+            let at = format!("{}:{}", rel.display(), n + 1);
+            if line.trim_end() == MET_OUTSIDE {
+                met_outside = true;
+                break;
+            }
+            let Some(rest) = line.strip_prefix("- ") else {
+                continue;
+            };
+            let (reference, fields) = rest.split_once(" | ").unwrap_or((rest, ""));
+            if fields == GRADED_ABOVE {
+                continue;
+            }
+            let Some(parsed) = parse_fields(fields) else {
+                return Err(format!(
+                    "{}/{at}: not a line `- <reference> | grade: <grade> | relation: <relation> \
+                     | reason: <reason>`",
+                    dir.display()
+                ));
+            };
+            *graded.entry(reference.to_string()).or_default() += 1;
+            let Some(entry) = listed.get(reference) else {
+                findings.push(format!("{at}  {reference} is not an entry of {agent}"));
+                continue;
+            };
+            findings.extend(judge(&at, reference, entry, &parsed));
+        }
+        if !met_outside {
+            findings.push(format!(
+                "{}  no section `{MET_OUTSIDE}`: end the report with it, empty where nothing was met",
+                rel.display()
+            ));
+        }
+        for reference in listed.keys() {
+            match graded.get(reference) {
+                None => findings.push(format!(
+                    "{}  {reference} is given to {agent} and graded nowhere",
+                    rel.display()
+                )),
+                Some(&count) if count > 1 => findings.push(format!(
+                    "{}  {reference} is graded {count} times",
+                    rel.display()
+                )),
+                _ => {}
+            }
+        }
+    }
+    for finding in &findings {
+        outln!("{finding}");
+    }
+    if findings.is_empty() {
+        outln!("PASSED: every report grades every entry it was given");
+        Ok(ExitCode::SUCCESS)
+    } else {
+        outln!("FAILED: {} findings above", findings.len());
+        Ok(ExitCode::FAILURE)
+    }
+}
+
+fn role_of(word: &str) -> Option<Role> {
+    [
+        Role::Unit,
+        Role::Goal,
+        Role::Rejected,
+        Role::Issue,
+        Role::Tripwire,
+    ]
+    .into_iter()
+    .find(|r| r.word() == word)
+}
+
+/// The fields of a graded line, after its reference.
+struct Fields {
+    grade: String,
+    relation: String,
+    reason: String,
+}
+
+/// The fields after a line's reference: an optional seed field, then `grade:`, `relation:` and
+/// `reason:`, in that order. The reason is the rest of the line, so it may hold ` | `.
+fn parse_fields(fields: &str) -> Option<Fields> {
+    let mut rest = fields;
+    if rest.starts_with("cites seed: ") || rest.starts_with("is a seed") {
+        rest = rest.split_once(" | ")?.1;
+    }
+    let (grade, rest) = rest.strip_prefix("grade:")?.split_once(" | ")?;
+    let (relation, rest) = rest.strip_prefix("relation:")?.split_once(" | ")?;
+    let reason = rest.strip_prefix("reason:")?;
+    Some(Fields {
+        grade: grade.trim().to_string(),
+        relation: relation.trim().to_string(),
+        reason: reason.trim().to_string(),
+    })
+}
+
+/// Every finding on one graded line.
+fn judge(at: &str, reference: &str, entry: &Listed, fields: &Fields) -> Vec<String> {
+    let mut out = Vec::new();
+    let allowed = relations(entry.role);
+    match fields.grade.as_str() {
+        "bears" => {
+            let given: Vec<&str> = fields
+                .relation
+                .split(',')
+                .map(str::trim)
+                .filter(|r| !r.is_empty())
+                .collect();
+            if given.is_empty() {
+                out.push(format!(
+                    "{at}  {reference} bears with no relation: give one of {}",
+                    allowed.join(", ")
+                ));
+            }
+            for relation in given.iter().filter(|r| !allowed.contains(r)) {
+                out.push(format!(
+                    "{at}  {reference}: `{relation}` is no relation for the role `{}`: give one of {}",
+                    entry.role.word(),
+                    allowed.join(", ")
+                ));
+            }
+        }
+        "may-bear" | "unrelated" => {
+            if !fields.relation.is_empty() {
+                out.push(format!(
+                    "{at}  {reference} is graded `{}` and gives a relation: a relation goes with \
+                     `bears` alone",
+                    fields.grade
+                ));
+            }
+        }
+        "" => out.push(format!(
+            "{at}  {reference} has no grade: give `bears`, `may-bear` or `unrelated`"
+        )),
+        other => out.push(format!(
+            "{at}  {reference}: `{other}` is no grade: give `bears`, `may-bear` or `unrelated`"
+        )),
+    }
+    if matches!(fields.grade.as_str(), "bears" | "may-bear") && fields.reason.is_empty() {
+        out.push(format!(
+            "{at}  {reference} is graded `{}` with no reason",
+            fields.grade
+        ));
+    }
+    if fields.grade == "unrelated" && (entry.seed || entry.cites_seed) {
+        let what = if entry.seed {
+            "is a seed"
+        } else {
+            "cites a seed"
+        };
+        out.push(format!(
+            "{at}  {reference} {what}, so it bears or may bear: grade it `bears` or `may-bear`"
+        ));
+    }
+    out
+}

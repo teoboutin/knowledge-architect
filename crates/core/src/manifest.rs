@@ -59,6 +59,10 @@ pub(crate) const OWNED_PREFIX: &str = "knowledge-architect-";
 /// The name of the built-in issue register, which is the one register that accepts a key.
 pub(crate) const ISSUE_REGISTER: &str = "issue";
 
+/// The built-in heading register of what the project or a Component is for, whose entries refine
+/// one another by citation.
+pub(crate) const GOAL_REGISTER: &str = "goal";
+
 /// The built-in heading register of evidence that would flip a decision, by the name a
 /// reference spells in kind position.
 pub(crate) const TRIPWIRE_REGISTER: &str = "tripwire";
@@ -304,7 +308,7 @@ impl Registers {
         };
         let mut out = vec![
             heading("design", "design", 3),
-            heading("goal", "goals", 2),
+            heading(GOAL_REGISTER, "goals", 2),
             heading(TRIPWIRE_REGISTER, "tripwires", 2),
             heading(REJECTED_REGISTER, "rejected", 3),
             Register {
