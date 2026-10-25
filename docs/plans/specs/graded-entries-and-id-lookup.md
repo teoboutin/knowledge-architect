@@ -23,12 +23,12 @@ The spec is written for a session that did not witness the design discussion tha
   reversed or rewritten, the design home wins, and the disagreement is a defect of this spec.
 - Every name it uses is defined in it, under Names or New names, or exists in the tree.
 - Where the owner's word is awaited, `skill@knowledge-architect-planning@working-a-slice` says what
-  waits. D2 and D3, under "Defaults awaiting the owner", await it; D1 is ruled.
+  waits. D1, D2 and D3, under "Defaults awaiting the owner", are ruled.
 
 It was assembled from one session's transcript. The discussion begins at the owner's message that
 opens "Two more things I would like to mechanically automate for the design skill:". Find the
 session by that message, with `cargo klarch transcript list --containing`, not by a file name. The
-session holds 8 owner messages, the eighth after this spec was first written. Here **round n** is the owner's n-th message and the session's
+session holds 9 owner messages, the eighth and ninth after this spec was first written. Here **round n** is the owner's n-th message and the session's
 reply to it:
 
 - round 1: the owner's request; the reply is the grounding and the record search, interrupted by the
@@ -43,7 +43,9 @@ reply to it:
   premortem and AC1 to AC4;
 - round 6: the owner's objection to AC1 and AC2; the reply corrects its premise;
 - round 7: the owner keeps AC1 to AC4 and says "Proceed";
-- round 8: the owner rules D1, "Agreed on the spec shape, to land in a single PR with the work".
+- round 8: the owner rules D1, "Agreed on the spec shape, to land in a single PR with the work";
+- round 9: after the review of the spec, the owner rules D2, D3 and five questions on its findings,
+  "Agreed on all defaults here, Q1-5 and D2 D3, proceed".
 
 ## How the work is done
 
@@ -90,7 +92,7 @@ Per `skill@knowledge-architect-planning@working-a-slice`, the work of a spec.
   the record search.
 - **AC1 to AC4**: the labels the acceptance criteria were put to the owner under, in the reply to
   round 5, kept in their items.
-- **D1, D2, D3**: the defaults put to the owner, under "Defaults awaiting the owner"; D1 is ruled.
+- **D1, D2, D3**: the defaults put to the owner, under "Defaults awaiting the owner", all ruled.
 
 ## What the work is
 
@@ -1150,8 +1152,8 @@ implementing session adds its row here.
     `thread@graded-entries-and-id-lookup@seeds-name-decisions` on
     `argument@graded-entries-and-id-lookup@arg-4`.
 - **Tripwires in place of AC1 and AC2**, the owner's proposal of round 6. Withdrawn by the owner in
-  round 7, on `argument@graded-entries-and-id-lookup@arg-23` and
-  `argument@graded-entries-and-id-lookup@arg-24`.
+  round 7, on `argument@graded-entries-and-id-lookup@arg-23`, the owner's misreading of the
+  proposals; `argument@graded-entries-and-id-lookup@arg-24` is the session's, and bears on it.
 
 ## Readings
 
@@ -1165,7 +1167,7 @@ as the reply to round 6 read them, to be judged at the harvest by
 
 | cause | thread it stresses | verdict |
 | --- | --- | --- |
-| 1. "the session picks too few `may-bear` entries. One that bore surfaces only at the plan review, after your rulings, which is the rework the search exists to prevent." | `thread@graded-entries-and-id-lookup@may-bear-read-on-touch` | named as a cause for the harvest to judge as a tripwire. It is the owner's proposal of round 6, "tripwires watching future behaviors of grounding on a real worklist and task", which the reply read as "Likely admitted. It would fire when, in two separate pieces of work, a plan review or a merge review finds a `may-bear` entry listed as not read that a decided thread contradicts." The owner's word admits no tripwire alone |
+| 1. "the session picks too few `may-bear` entries. One that bore surfaces only at the plan review, after your rulings, which is the rework the search exists to prevent." | `thread@graded-entries-and-id-lookup@may-bear-read-on-touch` | named as a cause for the harvest to judge as a tripwire. The cause is the session's, named in the reply to round 5; the owner's proposal of round 6, "tripwires watching future behaviors of grounding on a real worklist and task", bears on it, and the reply read the cause as "Likely admitted. It would fire when, in two separate pieces of work, a plan review or a merge review finds a `may-bear` entry listed as not read that a decided thread contradicts." The owner's word admits no tripwire alone |
 | 2. "searchers grade `unrelated` an entry that bore, so recall falls." | `thread@graded-entries-and-id-lookup@may-bear-needs-a-named-doubt` | folded into `tripwire@agent-skills@record-search-misses`; the harvest judges whether its wording or its horizon changes |
 | 3. "a goal the work strains is no longer seeded and gets missed." | `thread@graded-entries-and-id-lookup@seeds-name-decisions` | folded into `tripwire@agent-skills@goal-missed-though-graded`, beside the session's reading of every goals home; the harvest judges whether its wording or its horizon changes |
 | 4. "the session reads text that went stale because it edited an entry between `--out` and `--verify`." | `thread@graded-entries-and-id-lookup@entry-text-snapshot-at-out` | named as a cause for the harvest to judge as a tripwire: "In doubt. A short horizon at most." |
@@ -1365,7 +1367,8 @@ Step 4 before step 5: the harvest records the decisions the built work implement
     branch's diff.
 
   The alternative: the not-read list is recorded, as above, and read by no reviewer; premortem cause
-  1 is then watched only by the tripwire the harvest may write.
+  1 is then watched only by the tripwire the harvest may write. **Ruled**: the owner, round 9,
+  "Agreed on all defaults here, Q1-5 and D2 D3, proceed": the default.
 - **D3**, on `thread@graded-entries-and-id-lookup@seeds-name-decisions`, from the author at the
   review of the spec. The owner approved the seeds rule for step 1 of
   `skill@knowledge-architect-design@discussion-loop`. The design audit, point 2 of
@@ -1376,7 +1379,7 @@ Step 4 before step 5: the harvest records the decisions the built work implement
   default, which widens the owner's ruling: the audit seeds with the decisions alone, for a slice and
   for a spec, as step 1 does. The alternative: the audit keeps its goal seeds, and the inflation
   stays there until a real audit shows it. The intake's seeds, the received files' own citations,
-  are outside both.
+  are outside both. **Ruled**: the owner, round 9, the same words: the default.
 
 ## Harvest
 
