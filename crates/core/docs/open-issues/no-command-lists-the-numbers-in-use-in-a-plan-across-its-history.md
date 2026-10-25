@@ -29,7 +29,8 @@ by searching the plan's history by hand. No command lists the highest number in 
 
 A number reused across a deleted spec makes two items of one plan share a name in its history, which
 no check sees, against `goal@knowledge-architect@structure-and-workflow-work-together`, "the tool
-computes the workflow's work lists".
+computes the workflow's work lists". The search by hand over `git log -p` is a task of the kind
+`goal@knowledge-architect@mechanical-tasks-are-the-tool-s` gives the published checker.
 
 ### What would close it
 
