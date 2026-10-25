@@ -5323,6 +5323,62 @@ fn worklist_fences_each_body_and_judges_a_graded_above_line() {
     );
 }
 
+/// Every `entries.md` of a work list, each under a line naming its agent, in agent order.
+fn worklist_entries_files(out: &Path) -> String {
+    let mut agents: Vec<PathBuf> = std::fs::read_dir(out)
+        .expect("the work list")
+        .flatten()
+        .map(|e| e.path())
+        .filter(|p| p.join("entries.md").exists())
+        .collect();
+    agents.sort_by_key(|p| {
+        let name = p
+            .file_name()
+            .expect("a name")
+            .to_string_lossy()
+            .into_owned();
+        name.trim_start_matches("agent-")
+            .parse::<usize>()
+            .expect("agent-<n>")
+    });
+    let mut all = String::new();
+    for agent in agents {
+        let name = agent
+            .file_name()
+            .expect("a name")
+            .to_string_lossy()
+            .into_owned();
+        all.push_str(&format!("==== {name}/entries.md\n"));
+        all.push_str(&std::fs::read_to_string(agent.join("entries.md")).expect("entries"));
+    }
+    all
+}
+
+/// AC3 of the spec of the graded entries' assembly: the files the searchers read are what the
+/// binary wrote before the snapshot existed, byte for byte, so the snapshot adds nothing to an
+/// agent's load. The reference copy, `path@core@tests/worklist-entries-before-the-snapshot.txt`, was
+/// written by the binary before that change, over this project with this seed and bound. It is a
+/// `.txt` so this repository's check reads none of the mock project's references in it.
+#[test]
+fn worklist_entries_files_are_those_before_the_snapshot() {
+    let (sandbox, out) = worklist_project("worklist-entries-unchanged");
+    let out_text = out.to_string_lossy().into_owned();
+    let (stdout, stderr, code) = sandbox.run(&[
+        "worklist",
+        "--out",
+        &out_text,
+        "--seed",
+        "design@core-mock@first-head",
+        "--bound",
+        "60",
+    ]);
+    assert_eq!(code, 0, "{stdout}{stderr}");
+    let reference = std::path::Path::new(env!("CARGO_MANIFEST_DIR"))
+        .join("tests/worklist-entries-before-the-snapshot.txt");
+    let expected = std::fs::read_to_string(&reference).expect("the reference copy");
+    assert_eq!(worklist_entries_files(&out), expected);
+}
+
 // ---- `transcript` ------------------------------------------------------------------------------
 //
 // The fixtures under `path@core@tests/transcripts/` are Claude Code transcript directories, one per

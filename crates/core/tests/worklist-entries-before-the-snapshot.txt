@@ -1,0 +1,178 @@
+==== agent-1/entries.md
+# The entries of agent-1
+
+## Cluster: core-mock :: (residual)
+
+=== issue@core-mock@on-the-goal  docs/open-issues/on-the-goal.md:1
+
+```markdown
+---
+kind: todo
+---
+# An issue
+
+## Summary
+
+It names `goal@core-mock@top-goal`.
+
+## Details
+
+### What
+
+x
+
+### Why it matters
+
+x
+
+### What would close it
+
+x
+```
+
+## Cluster: widget :: The gears
+
+=== design@widget@gears-turn  widget/docs/design/parts.md:5
+
+```markdown
+### Gears turn `##gears-turn`
+
+They do.
+```
+
+## Cluster: notes :: notes/readings
+
+=== reading@notes@top-reading  notes/readings/top-reading.md:1
+
+```markdown
+# Top
+
+## Reading
+
+x
+```
+==== agent-2/entries.md
+# The entries of agent-2
+
+## Cluster: core-mock :: docs/design.md
+
+=== design@core-mock@one-decision  docs/design.md:3
+
+```markdown
+### One decision `##one-decision`
+
+A decision under no subject. The design it did not keep is `rejected@core-mock@other-way`.
+```
+
+=== rejected@core-mock@other-way  docs/rejected.md:3
+
+```markdown
+### Deciding the other way `##other-way`
+
+`live`. The fixture's rejected design.
+```
+
+## Cluster: widget :: The springs
+
+=== design@widget@springs-coil  widget/docs/design/parts.md:11
+
+```markdown
+### Springs coil `##springs-coil`
+
+They do.
+```
+
+## Cluster: notes :: notes/readings/loops
+
+=== reading@notes@loop-reading  notes/readings/loops/loop-reading.md:1
+
+```markdown
+# Loop
+
+## Reading
+
+x
+```
+==== agent-3/entries.md
+# The entries of agent-3
+
+## Cluster: core-mock :: Second subject
+
+=== design@core-mock@long-head  docs/design.md:15
+
+```markdown
+### A long head `##long-head`
+
+one two three four five six seven eight nine ten one two three four five six seven eight nine ten one two three four five six seven eight nine ten one two three four five six seven eight nine ten one two three four five six seven eight nine ten one two three four five six seven eight nine ten one two three four five six seven eight nine ten one two three four five six.
+```
+==== agent-4/entries.md
+# The entries of agent-4
+
+## Cluster: core-mock :: First subject
+
+=== design@core-mock@first-head  docs/design.md:9
+
+```markdown
+### A first head `##first-head`
+
+It serves `goal@core-mock@fine-goal`.
+```
+
+=== goal@core-mock@fine-goal  docs/goals.md:3
+
+```markdown
+## A fine goal `##fine-goal`
+
+It refines `goal@core-mock@middle-goal`.
+```
+
+=== goal@core-mock@middle-goal  docs/goals.md:7
+
+```markdown
+## A middle goal `##middle-goal`
+
+It refines `goal@core-mock@top-goal`.
+```
+
+=== goal@core-mock@top-goal  docs/goals.md:11
+
+```markdown
+## A top goal `##top-goal`
+
+The top.
+```
+
+=== issue@core-mock@on-the-head  docs/open-issues/on-the-head.md:1
+
+```markdown
+---
+kind: todo
+---
+# An issue
+
+## Summary
+
+It names `design@core-mock@first-head`.
+
+## Details
+
+### What
+
+x
+
+### Why it matters
+
+x
+
+### What would close it
+
+x
+```
+
+=== tripwire@core-mock@first-premise  docs/tripwires.md:3
+
+```markdown
+## Guarding `design@core-mock@first-head`: a premise `##first-premise`
+
+**Fires when:** x.
+```
