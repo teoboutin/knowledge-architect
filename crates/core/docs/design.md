@@ -3187,7 +3187,9 @@ https://code.claude.com/docs/en/sessions. Over the window measured, each version
 keys and none removed or renamed one the labels use; the first version that wrote each line type is
 re-taken with
 `find ~/.claude/projects -name '*.jsonl' -exec jq -r 'select(.version) | "\(.type) \(.attachment.type // .subtype // "") \(.version)"' {} + | sort -u`,
-and the header of `klarch transcript list --all-projects` names any value outside the sets. A strict reader
+and the header of `klarch transcript list --all-projects` names any value outside the sets: before
+this command's first merge, it named three line types, written by Claude Code 2.1.310 in a session
+that used its artifacts, which the window had not held. A strict reader
 would fail on each release that adds a type, `rejected@core@strict-transcript-reader`; a silent
 tolerant one hides a renamed field, against `design@core@a-failed-parse-is-loud`.
 
