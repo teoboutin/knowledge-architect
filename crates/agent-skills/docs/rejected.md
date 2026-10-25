@@ -541,3 +541,11 @@ list of `design@core@worklist-writes-and-verifies-the-reports` gives every agent
 `live`. The five entries two pieces of work missed before their review were each recorded days
 before the search ran, dated with `git log -S"##<slug>"` and `--diff-filter=A`, so a search of what
 changed since would have met none of them.
+
+### A standing question of the retrospective on transcript lines the command did not recognise `##retrospective-asks-for-unrecognised-lines`
+
+`live`. The owner chose the route through the command's header and the transcript reviewer's report,
+which costs nothing in a session that never runs the command, where a standing question is loaded
+and answered by every retrospective of every project. It is kept because a doubt remains: the
+chosen route relies on the session carrying the header's line into its retrospective, and this
+question would not.
