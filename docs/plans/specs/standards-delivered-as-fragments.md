@@ -30,7 +30,8 @@ a commit of its own, after its harvest and the review before the merge.
   of instructions or standards that are large and form one coherent whole." and ends at the owner's
   message "agreed on ac 1 and 2, proceed." It holds 5 owner messages, called rounds 1 to 5 below.
   Find the file by that opening message, not by its name. The reviews of this spec raised three
-  defaults the owner rules on, D1 to D3, under "Defaults awaiting the owner".
+  defaults the owner rules on, D1 to D3, and step 4 a fourth, D4, under "Defaults awaiting the
+  owner".
 - The work starts in the session where the discussion converged, on the branch that holds this
   spec, so it takes no design audit, per `skill@knowledge-architect-planning@working-a-slice`. A
   session other than that one takes the design audit of its point 2 first, with the decisions of
@@ -891,7 +892,11 @@ the headings it needs.
   all four, since it judges a fix by the whole standard, per
   `design@agent-skills@intake-shares-the-admission-standard`, its two pointers, lines 105-106 and
   134, made references to its own section.
-- **Q2**: `retrospective-two-files.md`, the body of `skill@knowledge-architect-retrospective@two-files`.
+- **Q2**: `retrospective-two-files.md`, under D4: the format the intake reads, the table of the two
+  files, what `<subject>` names and where an interaction finding goes, with the `%%` lines on the
+  subject. The rest of `skill@knowledge-architect-retrospective@two-files`, proposing the subject,
+  checking the names, the second file kept free of the project, and where the files go, are the
+  retrospective session's own acts, false in the intake, and stay host text in the retrospective.
 - **Q3**: `retrospective-defect-kinds.md`, the definitions alone, reworded into one sentence of
   definitions: an item is unclear when it could be read two ways, missing when the session could
   not follow the workflow, or could not produce a document the checker accepts, without an
@@ -1173,6 +1178,10 @@ Each is built as written until the owner rules, and the branch merges once the o
   so the rewritten `design@agent-skills@one-home-for-head-rules` attributes the split by act to the
   owner, as test 4 of `primer@design-heads` asks the owner to confirm. Default: attributed to the
   owner, the head standing also on its argument.
+- **D4**, on `thread@standards-delivered-as-fragments@fragment-migrations`: Q2's fragment holds the
+  format of `skill@knowledge-architect-retrospective@two-files` alone, not its whole body, found at
+  step 4: its other paragraphs ask acts only the retrospective session performs, which AC2 reports
+  as false in the intake. It narrows the owner's ruling on Q2. Default: the format alone.
 
 ## Harvest
 

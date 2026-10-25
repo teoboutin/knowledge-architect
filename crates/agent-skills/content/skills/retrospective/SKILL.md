@@ -56,12 +56,12 @@ nothing.
 %% the installed ones, per `goal@knowledge-architect@the-workflow-improves-through-real-use`.
 Then read back over the session: the instructions that were followed, where they were followed with
 difficulty, where they were not followed, and what the owner corrected. Then, for each of the four
-subjects below, list what was **unclear** (it could be read two ways), **missing** (the session
-could not follow the workflow, or could not produce a document the checker accepts, without an
-instruction that does not exist), or **wrong** (following it produced a defect or a correction). A
-decision the session made by its own judgement where no instruction covers it is not missing: the
-installed text leaves that room on purpose, per `primer@room-to-judge`. Each item quotes the instruction, says what happened when it was followed, and what was
-done instead.
+subjects below, list what was unclear, missing or wrong:
+
+{{fragment:retrospective-defect-kinds.md}}
+
+Each item quotes the instruction, says what happened when it was followed, and what was done
+instead.
 
 %% The owner rules on findings one by one, and an id lets a ruling, a fix or a commit cite one
 %% without restating it. An interaction finding has an id in each file because the workflow's file
@@ -120,24 +120,11 @@ End with **proposals**: for each finding that has one, what to change, and where
 
 %% The project's findings never leave the project, so only the workflow's file is held to the rule
 %% that it carries nothing of the project beyond what a finding needs.
-Each finding goes to the file of the project whose text or code must change:
+{{fragment:retrospective-two-files.md}}
 
-| file | holds |
-| --- | --- |
-| `<YYYY-MM-DD>-<project>-<subject>.md` | what the session did and the version it used, the findings on the project's own instructions, and the project's side of an interaction |
-| `<YYYY-MM-DD>-<project>-<subject>-klarch-workflow.md` | what the session did and the version it used, the findings on the installed files and on the checker, the workflow's side of an interaction, and the answers to the standing questions |
-
-%% A date and a project do not tell two retrospectives apart: three were written on one day, two of
-%% them for one project, and a citation by date named three findings. The subject makes the stem
-%% unique, and "klarch-workflow" says whose workflow the file is about, where "workflow" alone could
-%% name the project's own.
-`<subject>` names the session's work in a few words, in lowercase joined by hyphens, such as
-`pin-move`. The session proposes it, and the owner may change it on reading the files. Before
-writing, check that neither name exists in the directory: a file is never overwritten, and two
+The session proposes the subject, and the owner may change it on reading the files. Before writing,
+check that neither name exists in the directory: a file is never overwritten, and two
 retrospectives of one project on one day differ by their subject.
-
-An interaction finding whose fix may fall on either side goes in both files, each written from its
-own side.
 
 **The second file may become public.** It holds nothing of the project beyond what a finding needs
 to be understood: no code, no names of the project's internals, no content of its documents beyond

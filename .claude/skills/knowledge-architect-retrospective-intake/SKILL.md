@@ -24,7 +24,7 @@ with its argument, and the owner rules.
 - **In scope: the project's file of a retrospective**, `<YYYY-MM-DD>-<project>-<subject>.md`, any
   number of them at once. It holds the findings on the project's own instructions (P) and the
   project's side of an interaction finding. What each of the retrospective's two files holds is
-  `skill@knowledge-architect-retrospective@two-files`: read it whole before reading a file.
+  `skill@knowledge-architect-retrospective-intake@report-format`.
 - **For grounding only: the workflow file of the same retrospective**,
   `<YYYY-MM-DD>-<project>-<subject>-klarch-workflow.md`, when it is present. An interaction finding
   has an id in each file, each naming the other; the workflow file gives the other side. Nothing of
@@ -33,6 +33,25 @@ with its argument, and the owner rules.
 
 A finding is cited by its id and its file's stem, in the form
 `skill@knowledge-architect-retrospective@what-it-examines` gives.
+
+## The retrospective's two files and its kinds of defect `##report-format`
+
+Each finding goes to the file of the project whose text or code must change:
+
+| file | holds |
+| --- | --- |
+| `<YYYY-MM-DD>-<project>-<subject>.md` | what the session did and the version it used, the findings on the project's own instructions, and the project's side of an interaction |
+| `<YYYY-MM-DD>-<project>-<subject>-klarch-workflow.md` | what the session did and the version it used, the findings on the installed files and on the checker, the workflow's side of an interaction, and the answers to the standing questions |
+
+`<subject>` names the session's work in a few words, in lowercase joined by hyphens, such as
+`pin-move`. An interaction finding whose fix may fall on either side goes in both files, each
+written from its own side.
+
+An item is **unclear** when it could be read two ways, **missing** when the session could not
+follow the workflow, or could not produce a document the checker accepts, without an instruction
+that does not exist, and **wrong** when following it produced a defect or a correction. A decision
+the session made by its own judgement where no instruction covers it is not missing: the installed
+text leaves that room on purpose, per `primer@room-to-judge`.
 
 ## Ground before judging any finding `##ground-before-judging`
 
@@ -91,8 +110,7 @@ The order is a suggestion; the content is not.
   as argued and lost only when a recorded reason covers it, per the record test of
   `skill@knowledge-architect-design@threads-and-states`.
 - **d. Its kind.**
-  - **a defect of the text**: unclear, missing or wrong, as
-    `skill@knowledge-architect-retrospective@what-it-examines` defines the three, read whole;
+  - **a defect of the text**: unclear, missing or wrong, as `skill@knowledge-architect-retrospective-intake@report-format` defines the three;
   - **a lapse of the session**: the instruction exists, is clear, and was not followed. What
     repairs it is the lapse rule of `skill@knowledge-architect-retrospective-intake@admission-rules`;
   - **about the owner's behaviour under an installed skill**: judged against that skill's

@@ -49,12 +49,16 @@ nothing.
 
 Then read back over the session: the instructions that were followed, where they were followed with
 difficulty, where they were not followed, and what the owner corrected. Then, for each of the four
-subjects below, list what was **unclear** (it could be read two ways), **missing** (the session
-could not follow the workflow, or could not produce a document the checker accepts, without an
-instruction that does not exist), or **wrong** (following it produced a defect or a correction). A
-decision the session made by its own judgement where no instruction covers it is not missing: the
-installed text leaves that room on purpose, per `primer@room-to-judge`. Each item quotes the instruction, says what happened when it was followed, and what was
-done instead.
+subjects below, list what was unclear, missing or wrong:
+
+An item is **unclear** when it could be read two ways, **missing** when the session could not
+follow the workflow, or could not produce a document the checker accepts, without an instruction
+that does not exist, and **wrong** when following it produced a defect or a correction. A decision
+the session made by its own judgement where no instruction covers it is not missing: the installed
+text leaves that room on purpose, per `primer@room-to-judge`.
+
+Each item quotes the instruction, says what happened when it was followed, and what was done
+instead.
 
 **Each finding is named by a letter and a number**, so that a fix, an issue or a commit can cite it
 by its id and the stem of its file (`skill@knowledge-architect-retrospective@two-files`), as "W3 of <date>-<project>-<subject>-klarch-workflow":
@@ -139,12 +143,12 @@ Each finding goes to the file of the project whose text or code must change:
 | `<YYYY-MM-DD>-<project>-<subject>-klarch-workflow.md` | what the session did and the version it used, the findings on the installed files and on the checker, the workflow's side of an interaction, and the answers to the standing questions |
 
 `<subject>` names the session's work in a few words, in lowercase joined by hyphens, such as
-`pin-move`. The session proposes it, and the owner may change it on reading the files. Before
-writing, check that neither name exists in the directory: a file is never overwritten, and two
-retrospectives of one project on one day differ by their subject.
+`pin-move`. An interaction finding whose fix may fall on either side goes in both files, each
+written from its own side.
 
-An interaction finding whose fix may fall on either side goes in both files, each written from its
-own side.
+The session proposes the subject, and the owner may change it on reading the files. Before writing,
+check that neither name exists in the directory: a file is never overwritten, and two
+retrospectives of one project on one day differ by their subject.
 
 **The second file may become public.** It holds nothing of the project beyond what a finding needs
 to be understood: no code, no names of the project's internals, no content of its documents beyond
