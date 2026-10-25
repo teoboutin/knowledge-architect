@@ -53,6 +53,9 @@ cargo klarch install-agent-skills      write the agent files this version ships,
 klarch init [PATH] [--name n] [--component DIR]… [--rust] [--vcs git|none] [--command c]
                                        create a project, overwriting no file that exists
 cargo klarch new-component <DIR>       add a Component: its manifest line, its documents and homes
+cargo klarch worklist --out <dir> [--seed <ref>]…
+                                       the work list of a search of the whole record, one directory per agent
+cargo klarch worklist --verify <dir>   check the reports the agents filled
 cargo klarch --version                 the version of the checker that runs
 ```
 
