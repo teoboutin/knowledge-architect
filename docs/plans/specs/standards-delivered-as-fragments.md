@@ -14,7 +14,7 @@ should be a single spec and PR, done at once". The work does four things:
 - it adds a rule on how a size cost of agent-facing text is weighed, as a fragment hosted in the
   primer and beside the admission standard's shape of a repair;
 - it rewords one sentence of the rules on heads, closing
-  `issue@agent-skills@the-primer-s-design-head-section-sends-a-project-s-purpose-to-a-head`.
+  `the-primer-s-design-head-section-sends-a-project-s-purpose-to-a-head`.
 
 The spec is written for a session that did not witness the discussion. It leaves the repository in
 a commit of its own, after its harvest and the review before the merge.
@@ -65,10 +65,8 @@ a commit of its own, after its harvest and the review before the merge.
   is shaped".
 - **shape C**: the split of the rules on heads that `thread@standards-delivered-as-fragments@head-rules-delivery`
   approved.
-- **the head-shape section**: the section of `skill@knowledge-architect-decision-recording` that
-  step 1 creates, titled "What a head holds and how it is shaped", its slug `head-shape`. Until it
-  exists it is named so here; the commit of step 1 converts each mention of it, and of the other new
-  sections under "New names, in one place", to its reference.
+- **the section on what a head holds and how it is shaped**: `skill@knowledge-architect-decision-recording@head-shape`, titled "What a head holds and how it is shaped",
+  which step 1 creates.
 - **a fragment file** is named by its file name, as `head-shape.md`; its path is under "New names,
   in one place".
 - **AC1, AC2**: the acceptance criteria the owner ruled applied, round 5.
@@ -292,7 +290,7 @@ The discussion's searches returned the entries below as bearing. Each with its o
 - `issue@agent-skills@a-pointer-delivers-its-directive-only-when-the-session-fetches-it`: closes in
   step 6; this work judges its three candidates, Q1, Q2 and Q12, and nine more, with the limit of
   the search stated under "What is outside the work".
-- `issue@agent-skills@the-primer-s-design-head-section-sends-a-project-s-purpose-to-a-head`: closes
+- `the-primer-s-design-head-section-sends-a-project-s-purpose-to-a-head`: closes
   in step 1, by the rewording of `thread@standards-delivered-as-fragments@head-cites-the-goal-it-serves`.
 - `issue@agent-skills@the-claim-check-of-a-commit-message-is-read-at-the-start-and-needed-at-each-commit`:
   evidence for the work's argument; it concerns `primer@verify-before-relying`, which the work does
@@ -750,16 +748,15 @@ crates/agent-skills/fragments/skill-self-sufficient.md   new
 crates/agent-skills/fragments/trigger-test.md            new
 crates/agent-skills/src/lib.rs   each_fragment_has_its_hosts    existing, gains a row per fragment
 crates/agent-skills/src/lib.rs   no_fragment_line_ships_outside_its_hosts   new test
-decision-recording skill   new section, slug what-earns-a-head
-decision-recording skill   new section, slug head-shape: "the head-shape section"
-design skill               new section, slug what-earns-a-head
-decision-record-reviewer   new section, slug head-rules
-design-record-auditor      new section, slug head-rules
+`skill@knowledge-architect-decision-recording@what-earns-a-head`   new section
+`skill@knowledge-architect-decision-recording@head-shape`          new section
+`skill@knowledge-architect-design@what-earns-a-head`               new section
+`agent@knowledge-architect-decision-record-reviewer@design-head-rules`   new section
+`agent@knowledge-architect-design-record-auditor@design-head-rules`      new section
 agent-skills design home   new head, its slug that of `thread@standards-delivered-as-fragments@context-cost-of-agent-text`
 ```
 
-The fragment paths are listed here and named elsewhere by file name. The commit that creates a new
-section converts its mentions in this spec to its reference.
+The fragment paths are listed here and named elsewhere by file name. Each new section is cited by its reference.
 
 ## Decided design
 
@@ -767,8 +764,8 @@ section converts its mentions in this spec to its reference.
 
 **The primer's section** keeps its heading and slug, `primer@design-heads`. Its introduction is
 rewritten to say: this section holds what every session applies, to recognize a decision that may
-need a head and to read a head; the rest of what a head holds, and how a head is shaped, is the
-head-shape section of `skill@knowledge-architect-decision-recording`, which the decision-record
+need a head and to read a head; the rest of what a head holds, and how a head is shaped, is
+`skill@knowledge-architect-decision-recording@head-shape`, which the decision-record
 reviewer and the design-record auditor host too. Its subsections become:
 
 ```markdown
@@ -803,7 +800,7 @@ first.
 "the next section", "this section" and the like, is reworded to name its target, since each host
 places the fragment under another heading. The known ones are listed under "What exists today".
 Where the target is in a fragment the host does not hold, as the backstop's "by the test of one
-decision per head below" in the primer, the phrase names the head-shape section.
+decision per head below" in the primer, the phrase names `skill@knowledge-architect-decision-recording@head-shape`.
 
 **The hosts**, the mapping table "Fragment hosts". **In every host, each fragment it hosts sits
 under a heading of the host's own, and every other pointer of that host to the same block becomes
@@ -818,7 +815,7 @@ rewritten the same way. So:
   The skill's first line, the reread, leaves. "The current design" keeps its location paragraph, its
   template and its paragraph on renaming; its sentence "What a head holds and how it is shaped is
   `primer@design-heads`: read it whole before writing a head" and its template's "per the primer's
-  section on design heads" point to the head-shape section. The reversal check's "carry on to the
+  section on design heads" point to `skill@knowledge-architect-decision-recording@head-shape`. The reversal check's "carry on to the
   entry tests of `primer@design-heads`" points to the skill's own section. The description's clause
   "what earns a head and how a head is shaped are the primer's section on design heads" is
   rewritten to say the skill holds both;
@@ -829,9 +826,9 @@ rewritten the same way. So:
   its lines 129-134, which argues the reread, is deleted; bounded work's "the entry tests of
   `primer@design-heads`" points to it;
 - decision-record-reviewer and design-record-auditor: `## The rules on design heads
-  {{slug:head-rules}}`, with three level-three headings "What earns a head", "What a head stands
+  {{slug:design-head-rules}}`, with three level-three headings "What earns a head", "What a head stands
   on", "What a head holds and how it is shaped", each hosting its fragment. Every pointer of theirs
-  to `primer@design-heads` or to the head-shape section points to that section, the reviewer's
+  to `primer@design-heads` or to `skill@knowledge-architect-decision-recording@head-shape` points to that section, the reviewer's
   lines 15-18 and 68-69 included. Each opens the section with one sentence of its own host text:
   the rules are written for the session that records a head, and the agent judges the record
   against them; where one asks the owner a question or asks for an edit, the agent reports the case
@@ -840,8 +837,8 @@ rewritten the same way. So:
 **The one-sentence restatements**, per `thread@standards-delivered-as-fragments@head-rules-delivery`:
 
 - `path@agent-skills@content/agents/routing-reviewer.md`, line 106: "A head is written as if the
-  design had always been so: present tense, no dates, no account of the change, per" the head-shape
-  section, written as its reference;
+  design had always been so: present tense, no dates, no account of the change, per"
+  `skill@knowledge-architect-decision-recording@head-shape`.
 - `path@agent-skills@content/agents/tripwire-auditor.md`, line 43: "A durable record attributes a
   decision to the owner and never quotes the owner, keeping the scope and the hedges of the owner's
   words, per `primer@design-heads`.";
@@ -910,7 +907,7 @@ the headings it needs.
   hosts the fragment; the rest of the two paragraphs, which restates the skill, leaves.
 - **Q6**: `owning-component.md`. **Q7**: `three-homes.md`, whose sentence "The standing argument,
   and what stays out of the head, are `primer@design-heads`" names `primer@design-heads` for the
-  standing argument, under D1, and the head-shape section for what stays out of the head. In the
+  standing argument, under D1, and `skill@knowledge-architect-decision-recording@head-shape` for what stays out of the head. In the
   design-record auditor, which hosts both, the pointer stays in the fragment as written, since a
   fragment cannot name its host's own section. **Q8**: `reversal-check.md`.
 - **Q9**: `finding-outcomes.md`, whose three mentions of "the axis's section" are reworded to name
@@ -960,11 +957,11 @@ by whether its text hosts the fragment that holds that rule.
 | the section as a whole, for reading a head or telling whether a change bears on one | the host's own section | unchanged |
 | an entry test, the backstop, the routing of a new member, "a choice that turns on what the specification means" | the host's own section | unchanged |
 | the standing argument, the ground, attribution, what the ground means to a later session | the host's own section | unchanged |
-| the deliberation not copied, present tense, intent and not implementation, the list of citing texts, reliance on the checker, any rule of "How a head is shaped" | the host's own section | the head-shape section |
-| every rule on heads | the host's own section | both `primer@design-heads` and the head-shape section |
+| the deliberation not copied, present tense, intent and not implementation, the list of citing texts, reliance on the checker, any rule of "How a head is shaped" | the host's own section | `skill@knowledge-architect-decision-recording@head-shape` |
+| every rule on heads | the host's own section | both `primer@design-heads` and `skill@knowledge-architect-decision-recording@head-shape` |
 | a released section of CHANGELOG.md | none | unchanged: the released sections cite the section as a whole |
 
-A fragment cites the primer and the head-shape section by these rules, as "elsewhere", since it
+A fragment cites the primer and `skill@knowledge-architect-decision-recording@head-shape` by these rules, as "elsewhere", since it
 cannot name the section of the host it lands in.
 
 ## Losing alternatives
@@ -988,7 +985,7 @@ cannot name the section of the host it lands in.
 Judged by the four tests of `skill@knowledge-architect-decision-recording@losing-alternatives`, as
 the skill's text stands:
 
-- **Shapes A and B pass test 1.** The work makes the head-shape section a slug of the installed text,
+- **Shapes A and B pass test 1.** The work makes `skill@knowledge-architect-decision-recording@head-shape` a slug of the installed text,
   an interface whose consumers the Migration entry sends there, and either shape would remove it.
   The harvest writes one `rejected` entry for each, in `register@agent-skills@rejected`, cited by
   the rewritten `design@agent-skills@one-home-for-head-rules`; shape A also moves there as the
@@ -1068,7 +1065,7 @@ rewording of `thread@standards-delivered-as-fragments@head-cites-the-goal-it-ser
 section rewritten, the new sections of decision-recording, design, the decision-record reviewer and
 the design-record auditor, the three one-sentence restatements, the removed rereads, and every
 citation of the installed text re-pointed per the mapping table. Closes
-`issue@agent-skills@the-primer-s-design-head-section-sends-a-project-s-purpose-to-a-head`.
+`the-primer-s-design-head-section-sends-a-project-s-purpose-to-a-head`.
 
 Claims:
 
@@ -1189,7 +1186,7 @@ Each is built as written until the owner rules, and the branch merges once the o
 | `tripwire@agent-skills@head-created-without-deliberation` | its premise reworded to the new delivery | step 6 |
 | `issue@agent-skills@a-pointer-delivers-its-directive-only-when-the-session-fetches-it` | closes | step 6 |
 | the two limits of "What is outside the work" | two `todo` issues of `register@agent-skills@issue`: the workflow's general-purpose repair agents read the admission standard by a pointer; a pointer that applies a whole standard with no "read whole" near it was not searched | step 6 |
-| CHANGELOG.md, `Next release` | Workflow: the rereads of the primer's section are removed, and the rules on heads and the migrated standards are delivered in the texts that apply them; Migration: a project's text that cites `primer@design-heads` for a rule on a head's shape cites the head-shape section instead | step 6 |
+| CHANGELOG.md, `Next release` | Workflow: the rereads of the primer's section are removed, and the rules on heads and the migrated standards are delivered in the texts that apply them; Migration: a project's text that cites `primer@design-heads` for a rule on a head's shape cites `skill@knowledge-architect-decision-recording@head-shape` instead | step 6 |
 
 ## Later consequences
 

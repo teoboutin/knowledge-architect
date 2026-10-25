@@ -414,9 +414,11 @@ content.
 ## Design heads `##design-heads`
 
 A design head is an entry of a design home: a level-three heading that states a decision, and its
-body. Read this section to read a head, to tell in advance whether a change bears on one, and
-before writing or judging one; `skill@knowledge-architect-decision-recording` holds the procedures
-of recording.
+body. This section holds what every session applies: to tell in advance whether a change bears on a
+head or needs one, and to read a head's ground. The rest of what a head holds, and how a head is
+shaped, is `skill@knowledge-architect-decision-recording@head-shape`, which the decision-record
+reviewer and the design-record auditor deliver too; `skill@knowledge-architect-decision-recording`
+holds the procedures of recording.
 
 ### What earns a head
 
@@ -448,7 +450,7 @@ records dozens per unit of work stops being readable and stops being ranked.
    the decision rests on: do they record the owner's intent, or were they an answer to the agent's
    proposal, or a hedged statement ("I think", "maybe"), which is a position to argue under
    `skill@knowledge-architect-design`? The head attributes the decision to the owner, with the
-   owner's answer, as the next section says.
+   owner's answer, as `primer@design-heads` says of attribution.
    With no answer, the decision earns no head by this test.
 
 A choice that turns on what the specification means, or on how the tool behaves, is expensive to
@@ -466,7 +468,8 @@ text is written**, unless it was argued there, under `skill@knowledge-architect-
 a decision met during another task and settled there, by the owner's word or by the session's own
 choice. The design skill's in-change path keeps the deliberation in the commit message, so the task
 needs no plan document and no new session. An addition that answers another question than the
-head's takes a head of its own, by the test of one decision per head below. A member the head's
+head's takes a head of its own, by the test of one decision per head of
+`skill@knowledge-architect-decision-recording@head-shape`. A member the head's
 argument covers is recorded directly, routed as the next paragraph says; where the owner approved
 it, the approval is recorded in the commit, attributed to the owner, not in the head. A change that relocates or rewords
 recorded decisions, a split of a head included, and adds or removes none, is not a decision: it
@@ -483,7 +486,7 @@ before the owner's word; it is no change of the decision, so it owes no reversal
 does not admit, or that the argument does not cover, is a change of the decision, and goes to the
 design skill, as the backstop says.
 
-### What a head holds
+### What a head stands on
 
 **The standing argument** is every premise whose failure would reopen the decision: the goal it
 derives a constraint from and a decision of another Component it depends on, as references; the
@@ -518,94 +521,6 @@ better argument, which the owner approves where the reversal is a fork, per
 reversed by the owner; a defeated premise of those words goes to the owner, as
 `primer@owner-word-premise` says. An argument against it goes to the
 owner as a question about their intent.
-
-**The deliberation is not copied into the head.** Where it is kept, and how a reader finds it,
-is `skill@knowledge-architect-decision-recording@three-homes`.
-
-A head is written **as if the design had always been so**. Present tense, no dates, no "formerly", no
-account of the change. If you find yourself writing "we used to…", that sentence belongs in the
-commit, and so does an opening that motivates a decision by describing the state before it.
-
-**A head carries intent, shape and the standing argument, not implementation.** What the project is
-for, and how it is arranged in order to get there, belongs here. How a particular function does its
-work belongs in a comment at that function. The test: **if changing a piece of code would force a
-change to the design home, it is design; if the design home would be unaffected, it is a comment.**
-
-Never list what cites a head: `cargo klarch show design@<component>@<slug>` computes it.
-
-A decision that relies on the checker of this workflow states that it relies on the checker
-working as intended. It cannot reference the checker's own decisions: a reference resolves only
-against the project that holds it.
-
-### How a head is shaped
-
-Give the decision a **slug anchor**: a short hyphenated name in backticks, prefixed with `##`. It
-goes at the **end of a level-three heading**, the level the design register declares, so that the
-outline reads as decisions under level-two subjects. **Every level-three heading in a design home
-is an entry** and carries a slug: one without is a finding, so a heading that is section text sits
-at level two or four. Nowhere else: a slug at another heading level, in a table cell, at the head
-of a plain line, in the middle of a line or in a file that is not the design home defines nothing.
-Outside a fenced block, `cargo klarch check` reports it as a misplaced definition; a reference to it
-resolves to nothing.
-The slug is an id, unique in the design home.
-
-**When the decision was a thread of a design discussion, its slug is the thread's name**, unless
-that name misdescribes the decision as approved, as a name for the change it proposed does. The
-discussion minted it in the same grammar and checked it for a collision with the Component's
-entries before using it, for that reason. When the name misdescribes the decision, the entry takes
-a slug that names the decision, by the alignment rule below, and the text that keeps the
-deliberation states the pair, `#<thread> → <entry slug>`: the plan document's harvest row, or the
-commit message on the in-change path. `git log --grep` on either name then finds a commit message
-that states the pair, and `git log -G` a plan document's diff that does.
-
-**A list item is not a definition site either**, so a decision written as one bullet among several
-carries no anchor and cannot be cited or found by `git log -G`. This is a constraint on the
-document rather than a gap in the checker: **a decision worth a slug is worth its own level-three
-heading**. When a section of bulleted arguments produces one, break it out of the list.
-
-The statement comes first and the slug last, with no bold and no em dash between them, so that a
-document outline reads as a list of decisions rather than a list of identifiers. The body follows as
-ordinary prose.
-
-**A title states a decision only while it is false of the nearest rival it beat.** A title that the
-losing alternative would make true names a subject, not a decision: "The configuration is read
-once, at start-up" is false of a configuration read again on every request, and "The configuration
-is read with care" is true of nearly any rival.
-
-**A title states the rule that decided, not the list of what it admits today.** When a decision
-admits members (fixes, kinds, verbs, sections, consumers), or picks a mechanism to meet a
-requirement, the title states the property that admits a member, in the argument's own terms, and
-the body names the members built as what the rule admits today. A count or a list in a title goes
-stale at the next member, and every later member then reads as a change of the decision. A set
-closed on purpose keeps its list in the title, with the sentence that argues the closure in the
-body. A title states no more than its argument argues.
-
-**A head holds one decision.** Two statements are one decision when they answer one question and
-lose to the same nearest rival. A rule's exception, its parameter and its delivery belong to its
-head, since none means anything without the rule, unless one loses to a nearest rival of its own. Two statements that lose to different nearest
-rivals, or whose arguments share no premise, are two decisions. Each takes a head of its own when
-it passes an entry test, and a comment at its code when it passes none. A title joined by "and"
-over two decisions shows a bundle. Rewording the title to state both does not make them one. A
-member of a set the title's rule admits is no decision, so a member missing from a title is no
-finding.
-
-**A head written from a decision the owner approved is read against that approval before it is
-written.** The title and the body state the position as the owner saw it, in a plan document's
-thread or in the discussion of the in-change path. A clause that widens it, narrows it, or drops
-part of it can still be false of the nearest rival, and is still not what was approved: it goes to
-the owner, as a change of the decision.
-
-**The slug and the title stay aligned with the full scope of the decision**: the slug is often the
-only part a reader sees, in a citing document or in code, and the title is what a document outline
-shows. A slug or a title that misdescribes its decision misinforms every reader, or undermines the
-decision it names, so rename it even when that means rewriting every reference in the project.
-
-**A head that a change touches is brought to these rules in that change**: its title to the rule it
-argues, each decision it bundles to a head of its own, its ground to its argument. Re-pointing a
-reference in a head, to a renamed entry or a migrated form, does not touch it; adding or removing
-one does. Where bringing it
-to the rule would widen what the owner's words in it approved, as a title moved from the members
-the owner named to the rule, the change goes to the owner as one proposal, as a new member does.
 
 ## The installed skills `##installed-skills`
 

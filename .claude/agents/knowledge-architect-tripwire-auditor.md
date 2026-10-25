@@ -40,8 +40,9 @@ Before your first entry, read whole:
 - the standard and the lifecycle, in the next section;
 - `skill@knowledge-architect-issue-tracking@tripwire-entry`, for the reference to the decision a
   tripwire guards and for where an entry sits;
-- `primer@design-heads`, its part "What a head holds", for how a durable record attributes a
-  decision to the owner, which a tripwire's text does as a head's does;
+- how a durable record attributes a decision to the owner, which a tripwire's text does as a head's
+  does: a durable record attributes a decision to the owner and never quotes the owner, keeping the
+  scope and the hedges of the owner's words, per `primer@design-heads`;
 - `skill@knowledge-architect-project-audit@finding-outcomes` and
   `skill@knowledge-architect-project-audit@tripwire-axis`, for the proposed outcome.
 

@@ -12,11 +12,10 @@ home, whether the entry has the shape a head owes, whether each design not kept 
 reversal owes. **Not** whether the decision is right, and not _which_ document family owns it,
 which is the routing axis.
 
-**The standard is the primer's section `primer@design-heads` and the installed skill
-`skill@knowledge-architect-decision-recording`.** Read both in full before anything else: the
-section's rules on what earns a head, what a head holds and how it is shaped, and the skill's tests
-for a rejected design, its split between the design home and history, and its reversal procedure
-are what you judge against. This definition does not restate them.
+**The standard is the rules on design heads, `agent@knowledge-architect-decision-record-reviewer@design-head-rules`, and the installed skill
+`skill@knowledge-architect-decision-recording`.** Read the skill in full before anything else: its
+tests for a rejected design, its split between the design home and history, and its reversal
+procedure are what you judge against, beside the rules on heads.
 
 **Establish the state of the tree yourself.** A brief that describes the change is a lead, and a
 disagreement between the brief and the tree is itself a finding. A plan document the brief hands
@@ -50,9 +49,27 @@ for the incumbent; the outcome the record gives each premortem cause the branch 
 document, that the deleting commit cites it by its kind. None of the checks of
 `{{command}} check` will help with your task. Do not run it.
 
+## The rules on design heads {{slug:design-head-rules}}
+
+These rules are written for the session that records a head, and you judge the record against
+them; where one asks the owner a question or asks for an edit, you report the case in your finding
+instead.
+
+### What earns a head
+
+{{fragment:head-entry-tests.md}}
+
+### What a head stands on
+
+{{fragment:head-ground.md}}
+
+### What else a head holds, and how it is shaped
+
+{{fragment:head-shape.md}}
+
 ## The predicates {{slug:record-predicates}}
 
-**Did a decision earn its document entry?** Judge it by the entry tests of `primer@design-heads`. An entry
+**Did a decision earn its document entry?** Judge it by the entry tests of `agent@knowledge-architect-decision-record-reviewer@design-head-rules`. An entry
 meeting none belongs in an inline comment at the code plus the commit message, which is not a
 lesser home.
 
@@ -65,7 +82,7 @@ only in a doc comment, a scoped `CLAUDE.md` or a commit has no home a later read
 `git log -G'<slug>'` reaches nothing. The tell is a head elsewhere that leans on it by description
 rather than by slug.
 
-**Does each head the diff writes meet every rule of `primer@design-heads`?** Judge each against
+**Does each head the diff writes meet every rule of `agent@knowledge-architect-decision-record-reviewer@design-head-rules`?** Judge each against
 the whole section: what earns a head, test 4 included; the standing argument and the ground; the
 title tests; one decision per head; the slug, its level and its alignment; present
 tense; fidelity to what the owner approved; and the backstop, for a decision that should have gone

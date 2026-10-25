@@ -128,35 +128,64 @@ mod tests {
         assert!(hosts > 0, "no content file names a fragment");
     }
 
-    /// Each fragment reaches every text whose act applies it whole, and no other, per the hosts the
-    /// owner approved, `design@agent-skills@shared-text-fragment`. A host that loses its
-    /// placeholder still ships and still passes the test above, so this list is what fails: change
-    /// it with the hosts.
+    /// The hosts of each fragment, by install path: every text whose act applies it whole, and no
+    /// other, per `design@agent-skills@shared-text-fragment`. A host that loses its placeholder still
+    /// ships and still passes the test above, so this list is what fails: change it with the hosts.
+    const FRAGMENT_HOSTS: &[(&str, &[&str])] = &[
+        (
+            "tripwire-standard.md",
+            &[
+                ".claude/agents/knowledge-architect-decision-record-reviewer.md",
+                ".claude/agents/knowledge-architect-tripwire-auditor.md",
+                ".claude/skills/knowledge-architect-decision-recording/SKILL.md",
+                ".claude/skills/knowledge-architect-design/SKILL.md",
+                ".claude/skills/knowledge-architect-issue-tracking/SKILL.md",
+                ".claude/skills/knowledge-architect-planning/SKILL.md",
+            ],
+        ),
+        (
+            "tripwire-lifecycle.md",
+            &[
+                ".claude/agents/knowledge-architect-standing-state-reviewer.md",
+                ".claude/agents/knowledge-architect-tripwire-auditor.md",
+                ".claude/skills/knowledge-architect-issue-tracking/SKILL.md",
+            ],
+        ),
+        (
+            "head-entry-tests.md",
+            &[
+                ".claude/agents/knowledge-architect-decision-record-reviewer.md",
+                ".claude/agents/knowledge-architect-design-record-auditor.md",
+                ".claude/knowledge-architect/PRIMER.md",
+                ".claude/skills/knowledge-architect-decision-recording/SKILL.md",
+                ".claude/skills/knowledge-architect-design/SKILL.md",
+            ],
+        ),
+        (
+            "head-ground.md",
+            &[
+                ".claude/agents/knowledge-architect-decision-record-reviewer.md",
+                ".claude/agents/knowledge-architect-design-record-auditor.md",
+                ".claude/knowledge-architect/PRIMER.md",
+                ".claude/skills/knowledge-architect-decision-recording/SKILL.md",
+                ".claude/skills/knowledge-architect-design/SKILL.md",
+            ],
+        ),
+        (
+            "head-shape.md",
+            &[
+                ".claude/agents/knowledge-architect-decision-record-reviewer.md",
+                ".claude/agents/knowledge-architect-design-record-auditor.md",
+                ".claude/skills/knowledge-architect-decision-recording/SKILL.md",
+            ],
+        ),
+    ];
+
+    /// Each fragment's first line, a `%%` comment aside, ships in exactly its hosts.
     #[test]
     fn each_fragment_has_its_hosts() {
-        let hosts: &[(&str, &[&str])] = &[
-            (
-                "tripwire-standard.md",
-                &[
-                    ".claude/agents/knowledge-architect-decision-record-reviewer.md",
-                    ".claude/agents/knowledge-architect-tripwire-auditor.md",
-                    ".claude/skills/knowledge-architect-decision-recording/SKILL.md",
-                    ".claude/skills/knowledge-architect-design/SKILL.md",
-                    ".claude/skills/knowledge-architect-issue-tracking/SKILL.md",
-                    ".claude/skills/knowledge-architect-planning/SKILL.md",
-                ],
-            ),
-            (
-                "tripwire-lifecycle.md",
-                &[
-                    ".claude/agents/knowledge-architect-standing-state-reviewer.md",
-                    ".claude/agents/knowledge-architect-tripwire-auditor.md",
-                    ".claude/skills/knowledge-architect-issue-tracking/SKILL.md",
-                ],
-            ),
-        ];
         let root = std::path::Path::new(env!("CARGO_MANIFEST_DIR"));
-        for (fragment, expected) in hosts {
+        for (fragment, expected) in FRAGMENT_HOSTS {
             let text = std::fs::read_to_string(root.join("fragments").join(fragment))
                 .expect("the fragment is readable");
             let first = text
@@ -170,6 +199,34 @@ mod tests {
                 .collect();
             found.sort();
             assert_eq!(&found, expected, "the hosts of fragments/{fragment}");
+        }
+    }
+
+    /// No line of a fragment ships outside its hosts, so a paragraph a move left behind in a former
+    /// home is found: the test above reads a fragment's first line only. A line is compared when it
+    /// is long enough to be the fragment's own, more than 60 characters trimmed, and holds no build
+    /// placeholder, which ships rendered.
+    #[test]
+    fn no_fragment_line_ships_outside_its_hosts() {
+        let root = std::path::Path::new(env!("CARGO_MANIFEST_DIR"));
+        for (fragment, hosts) in FRAGMENT_HOSTS {
+            let text = std::fs::read_to_string(root.join("fragments").join(fragment))
+                .expect("the fragment is readable");
+            for line in text.lines() {
+                let line = line.trim();
+                if line.starts_with("%%") || line.contains("{{") || line.chars().count() <= 60 {
+                    continue;
+                }
+                for (path, shipped) in FILES {
+                    if hosts.contains(path) {
+                        continue;
+                    }
+                    assert!(
+                        !shipped.lines().any(|l| l.trim() == line),
+                        "{path} ships a line of fragments/{fragment}, which it does not host: `{line}`"
+                    );
+                }
+            }
         }
     }
 

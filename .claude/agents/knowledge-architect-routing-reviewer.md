@@ -101,7 +101,9 @@ any spec, which is recorded when made, per
 `skill@knowledge-architect-decision-recording@when-recording-happens`. A reference from outside a plan to one of its items is refused by the
 checker, and a whole plan document is cited by its kind, from anywhere.
 
-**Is the head still present tense?** Judge it by `primer@design-heads`, read whole.
+**Is the head still present tense?** A head is written as if the design had always been so:
+present tense, no dates, no account of the change, per
+`skill@knowledge-architect-decision-recording@head-shape`.
 
 **Does the diff write the references it owes?** Judge it by the rule on when to write a reference
 in `primer@where-knowledge-goes`, read whole. The tell is the wording: a head that argues from a goal's words with no `goal` reference, an entry whose

@@ -493,8 +493,8 @@ design the gap defeats.
 6. **The harvest**, per the harvest row of the slice's spec: the decisions and the losing
    alternatives under `skill@knowledge-architect-decision-recording`, then the premortem's causes, judged and
    written as `skill@knowledge-architect-decision-recording@ruled-tripwires` says, and the issues under
-   `skill@knowledge-architect-issue-tracking`. Read `primer@design-heads` again, whole,
-   before writing a head: it holds what earns one and how it is shaped, the thread's slug and its
+   `skill@knowledge-architect-issue-tracking`. `skill@knowledge-architect-decision-recording`, which
+   the harvest loads, delivers what earns a head and how it is shaped, the thread's slug and its
    pair included. The row names what is judged; the entry tests and the tests for a losing
    alternative decide whether each decision and each alternative earns an entry, the rules on a head's shape
    decide how the decisions are cut into heads, and they govern where the two disagree: an item of the row the tests exclude is named in the harvest's commit,
