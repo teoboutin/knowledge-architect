@@ -19,7 +19,8 @@ layout, and AGENTS.md as the generic file. The mechanism exists; what each value
 
 ### Why it matters
 
-It extends `design@core@agents-table`, whose list holds one value. A project that works with
+It extends `design@core@agents-table`, whose list holds one value, and a second harness's
+transcripts strain `design@core@transcript-reads-claude-code-alone`. A project that works with
 several providers keeps copies in sync by hand, or serves one provider only, which threatens
 `goal@knowledge-architect@any-project-can-adopt-it`.
 

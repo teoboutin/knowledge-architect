@@ -3104,7 +3104,7 @@ The reader knows one harness's layout and fields, Claude Code's. That is the own
 owner uses no other harness, and another waits for a consumer's request, should one ever come. A
 second harness is `issue@core@configuration-for-several-agent-providers`.
 
-### Each kind of question asked of a project's transcripts is a verb of `transcript`, computed from the transcripts `##transcript-query-verbs`
+### The lists a session reads from a project's transcripts, for the workflow's procedures and for a survey of past sessions, are verbs of `transcript`, computed from the transcripts `##transcript-query-verbs`
 
 Three verbs are built. `list` prints one row per session of the project, oldest first, with its handle, its first and last
 time, its git branches, its count of lines the owner typed, of compactions and of subagents, and its
@@ -3163,7 +3163,7 @@ The rule is learned from a failure: a filter on text substrings once dropped one
 messages from a review, and an owner's message that opens with a pasted tag reads as injected text
 to any tag test. The one text the rows read is the prefix that names a skill's body, inside a line
 its fields already mark injected: it chooses a kind, never a side. The command holds the rule, per
-`design@agent-skills@transcript-reviewer-agent`, with a test over a fixture of each row. The fields
+`design@agent-skills@transcript-extraction-is-the-checker-s`, with a test over a fixture of each row. The fields
 are the harness's, measured over every transcript of the machine the reader was designed on, as
 `design@core@transcript-session-split` says; a field-less `user` line of a subagent file was the
 dispatcher's brief or a workflow's task in every subagent file measured, but one owner's interrupt,
@@ -3175,7 +3175,7 @@ telling it apart and the rule refusing a text test: the owner accepted that row 
 
 The reader knows, and marks as used or ignored on purpose, the top-level types, the `system`
 subtypes, the `attachment.type` values, the content item types and the `origin.kind` values the
-harness wrote over the window it was measured on. A value outside them is counted, never a failure:
+harness writes, as measured. A value outside them is counted, never a failure:
 every verb's header names each with its count and its first file and line, with the count of
 `unlabelled` lines, each line that is no JSON, and the files the tag fallback labelled, and ends,
 where any of the first three is non-zero, with the line asking for it to be reported as a finding
@@ -3185,12 +3185,10 @@ by that route, per `design@agent-skills@unrecognised-entries-reach-upstream`.
 The harness documents the format as internal: "The entry format is internal to Claude Code and
 changes between versions, so scripts that parse these files directly can break on any release", at
 https://code.claude.com/docs/en/sessions. Over the window measured, each version added types or
-keys and none removed or renamed one the labels use; the first version that wrote each line type is
-re-taken with
-`find ~/.claude/projects -name '*.jsonl' -exec jq -r 'select(.version) | "\(.type) \(.attachment.type // .subtype // "") \(.version)"' {} + | sort -u`,
-and the header of `klarch transcript list --all-projects` names any value outside the sets: before
-this command's first merge, it named three line types, written by Claude Code 2.1.310 in a session
-that used its artifacts, which the window had not held. A strict reader
+keys and none removed or renamed one the labels use; each line type, with the versions that wrote
+it, is listed by
+`find ~/.claude/projects -name '*.jsonl' -exec jq -r '"\(.type) \(.attachment.type // .subtype // "") \(.version // "-")"' {} + | sort -u`,
+where a metadata line, which carries no `version`, shows `-`, and the header of `klarch transcript list --all-projects` names any value outside the sets. A strict reader
 would fail on each release that adds a type, `rejected@core@strict-transcript-reader`; a silent
 tolerant one hides a renamed field, against `design@core@a-failed-parse-is-loud`.
 
