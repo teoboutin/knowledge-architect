@@ -260,14 +260,14 @@ that updates it.
 | decision | what changes | referencing texts, and who updates them |
 | --- | --- | --- |
 | `design@agent-skills@one-home-for-head-rules` | its location part is reversed: the rules leave the primer's single section for fragments hosted by act; its centralization part stands. Title rewritten, slug kept | `register@agent-skills@design`, lines 278, 2978, 3236: step 6; the issue on a project's purpose closes in step 1 |
-| `design@agent-skills@primer-reread-before-recording` | leaves: its instruction is removed | `path@agent-skills@content/skills/design/SKILL.md`, line 132, in the `%%` block of lines 129-134, which step 1 deletes with the reread it argues; `register@agent-skills@design`, lines 390, 3018: step 6 |
+| `primer-reread-before-recording` | leaves: its instruction is removed | `path@agent-skills@content/skills/design/SKILL.md`, line 132, in the `%%` block of lines 129-134, which step 1 deletes with the reread it argues; `register@agent-skills@design`, lines 390, 3018: step 6 |
 | `design@agent-skills@new-or-reshaped-head-needs-design` | its paragraph "Three texts deliver it" is rewritten: the backstop is delivered in the primer and, at the act, in decision-recording | `register@agent-skills@design`, lines 343, 1684; `issue@agent-skills@a-tripwire-on-agent-behaviour-fires-where-this-project-cannot-see`, lines 20, 48; `register@agent-skills@tripwire`, lines 48, 64: step 6 reads each |
 | `design@agent-skills@design-home-write-loads-recording` | its reread argument is rewritten: the skill delivers the tests itself | `register@agent-skills@design`, lines 279, 3251; `register@agent-skills@tripwire`, line 52: step 6 |
 | `design@agent-skills@verification-in-primer` | its clause "as … does for the heads" is reworded | `register@agent-skills@design`, line 2971: step 6 |
 | `design@agent-skills@admission-rules-home` | "each judging actor's text points to it" becomes: each judging actor hosts the subsections it applies, as fragments | `register@agent-skills@design`, lines 463, 2098, 2115, 2126, 2622, 2655, 2755, 2844, 3622; `issue@agent-skills@patching-an-installed-skill`, line 77; `register@agent-skills@tripwire`, lines 391, 402: step 6 reads each |
 | `design@agent-skills@additions-review-agent` | "holds no copy of it" becomes: holds it as fragments | `register@agent-skills@tripwire`, line 408: step 6 |
 | `design@agent-skills@intake-shares-the-admission-standard` | "a pointer read whole at its step that shapes a fix" becomes: the fragments at that step | `path@agent-skills@content/skills/retrospective-intake/SKILL.md`, line 136 (a `%%` line), step 3 |
-| `design@agent-skills@shared-text-fragment` | its sentence "the other such blocks migrated later" is rewritten to what is migrated; it names which host lists are the owner's, and lists no host, since the hosts test holds the lists | `path@agent-skills@CLAUDE.md`, line 52; `register@agent-skills@design`, lines 21, 3220; `issue@agent-skills@a-pointer-delivers-its-directive-only-when-the-session-fetches-it`, which closes, `path@agent-skills@src/lib.rs`, line 132: steps 1 to 6 |
+| `design@agent-skills@shared-text-fragment` | its sentence "the other such blocks migrated later" is rewritten to what is migrated; it names which host lists are the owner's, and lists no host, since the hosts test holds the lists | `path@agent-skills@CLAUDE.md`, line 52; `register@agent-skills@design`, lines 21, 3220; `a-pointer-delivers-its-directive-only-when-the-session-fetches-it`, which closes, `path@agent-skills@src/lib.rs`, line 132: steps 1 to 6 |
 | `design@agent-skills@primer-limit` | its member "the rules on design heads" narrows to recognizing a decision and reading a head's ground; it gains the context-cost rule | `path@agent-skills@CLAUDE.md`, line 59; `path@agent-skills@content/PRIMER.md`, line 4 (a `%%` line); `register@agent-skills@design`, lines 1340, 3027, 3131, 3208, 3353; `register@agent-skills@rejected`, line 433; `register@core@design`, line 40; `path@core@src/cli/create.rs`, line 473: step 6 reads each |
 | `design@agent-skills@design-record-axis` | "`primer@design-heads` for a head" cites both homes of the rules | `issue@agent-skills@a-head-in-the-wrong-component-goes-to-the-owner-though-the-record-settles-the-component`, line 25: step 6 |
 | `rejected@agent-skills@head-rules-in-decision-recording` | stays `live`, its reason narrowed to the parts that stay in the primer | `register@agent-skills@design`, line 3211: step 6 |
@@ -288,7 +288,7 @@ and the issues `issue@core@core-heads-bundle-decisions-with-many-citing-sites`,
 
 The discussion's searches returned the entries below as bearing. Each with its outcome.
 
-- `issue@agent-skills@a-pointer-delivers-its-directive-only-when-the-session-fetches-it`: closes in
+- `a-pointer-delivers-its-directive-only-when-the-session-fetches-it`: closes in
   step 6; this work judges its three candidates, Q1, Q2 and Q12, and nine more, with the limit of
   the search stated under "What is outside the work".
 - `the-primer-s-design-head-section-sends-a-project-s-purpose-to-a-head`: closes
@@ -525,7 +525,7 @@ Round 2's reply, the agent, answering the owner's question of round 2, "I believ
 recording skill asks to reread it, doesn't it ?". Its first line: "Read `primer@design-heads` again,
 whole, before writing or judging a head. The primer was loaded when the session started, and a
 recording comes late in it."; the design skill's in-change path and the planning harvest say the
-same; `design@agent-skills@primer-reread-before-recording` records it.
+same; `primer-reread-before-recording` records it.
 
 ### The decision reversed has two parts, and only its location part changes `##arg-12`
 
@@ -974,7 +974,7 @@ cannot name the section of the host it lands in.
 - **Shape A, the section whole in the primer with its rereads**, lost to
   `thread@standards-delivered-as-fragments@head-rules-delivery` on
   `argument@standards-delivered-as-fragments@arg-16`. It is the incumbent, recorded by
-  `design@agent-skills@one-home-for-head-rules` and `design@agent-skills@primer-reread-before-recording`.
+  `design@agent-skills@one-home-for-head-rules` and `primer-reread-before-recording`.
 - **Shape B, one fragment of the whole section, hosted in the primer and every writer and judge**,
   lost to the same thread on `argument@standards-delivered-as-fragments@arg-17`.
 - **Q12 as first recommended, no fragment of the primer's sections**, withdrawn by the agent on
@@ -1187,13 +1187,13 @@ Each is built as written until the owner rules, and the branch merges once the o
 
 | what | where | when |
 | --- | --- | --- |
-| `thread@standards-delivered-as-fragments@head-rules-delivery` | `design@agent-skills@one-home-for-head-rules`, rewritten in place, slug kept: its centralization stated as one file per rule, attributed to the owner, with no quotation of the owner left, per the rules on a head a change touches; its ground per D3. `design@agent-skills@primer-reread-before-recording` leaves. `design@agent-skills@new-or-reshaped-head-needs-design`, `design@agent-skills@design-home-write-loads-recording`, `design@agent-skills@verification-in-primer`, `design@agent-skills@primer-limit`, `design@agent-skills@design-record-axis`, `design@agent-skills@behaviour-additions-need-real-use` rewritten where they state the delivery. `rejected@agent-skills@head-rules-in-decision-recording` narrowed. Two new `rejected` entries, shapes A and B, per "Losing alternatives" | step 6 |
+| `thread@standards-delivered-as-fragments@head-rules-delivery` | `design@agent-skills@one-home-for-head-rules`, rewritten in place, slug kept: its centralization stated as one file per rule, attributed to the owner, with no quotation of the owner left, per the rules on a head a change touches; its ground per D3. `primer-reread-before-recording` leaves. `design@agent-skills@new-or-reshaped-head-needs-design`, `design@agent-skills@design-home-write-loads-recording`, `design@agent-skills@verification-in-primer`, `design@agent-skills@primer-limit`, `design@agent-skills@design-record-axis`, `design@agent-skills@behaviour-additions-need-real-use` rewritten where they state the delivery. `rejected@agent-skills@head-rules-in-decision-recording` narrowed. Two new `rejected` entries, shapes A and B, per "Losing alternatives" | step 6 |
 | `thread@standards-delivered-as-fragments@fragment-migrations` | `design@agent-skills@shared-text-fragment`: the migrated blocks, and which host lists are the owner's, with no host listed; `design@agent-skills@admission-rules-home`, `design@agent-skills@additions-review-agent`, `design@agent-skills@intake-shares-the-admission-standard`, `design@agent-skills@intake-skill-home` rewritten where they state the delivery | step 6 |
 | `thread@standards-delivered-as-fragments@context-cost-of-agent-text` | a new head of `register@agent-skills@design`, under the thread's slug, admitted by entry test 2; its rule attributed to the owner, who proposed it, and its wording and its two locations standing on their arguments, `argument@standards-delivered-as-fragments@arg-31` to `argument@standards-delivered-as-fragments@arg-34`, approved by the owner; citing `design@agent-skills@restatement-size-test` and `design@agent-skills@primer-limit` | step 6 |
 | `thread@standards-delivered-as-fragments@head-cites-the-goal-it-serves` | the fragment's text, and the `%%` line above it that carries its reason; no head | step 1 |
 | the premortem's five causes | every cause with its outcome in the harvest's commit message: causes 1 and 2 by AC2 and AC1, reported there; cause 5 by `tripwire@agent-skills@head-created-without-deliberation`; causes 3 and 4 judged by the tripwire standard, written or dropped with the condition each fails | step 6 |
 | `tripwire@agent-skills@head-created-without-deliberation` | its premise reworded to the new delivery | step 6 |
-| `issue@agent-skills@a-pointer-delivers-its-directive-only-when-the-session-fetches-it` | closes | step 6 |
+| `a-pointer-delivers-its-directive-only-when-the-session-fetches-it` | closes | step 6 |
 | the two limits of "What is outside the work" | two `todo` issues of `register@agent-skills@issue`: the workflow's general-purpose repair agents read the admission standard by a pointer; a pointer that applies a whole standard with no "read whole" near it was not searched | step 6 |
 | CHANGELOG.md, `Next release` | Workflow: the rereads of the primer's section are removed, and the rules on heads and the migrated standards are delivered in the texts that apply them; Migration: a project's text that cites `primer@design-heads` for a rule on a head's shape cites `skill@knowledge-architect-decision-recording@head-shape` instead | step 6 |
 

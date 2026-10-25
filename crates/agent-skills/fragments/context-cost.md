@@ -1,4 +1,4 @@
-%% The rule and its two locations are the owner's; its design head is written at the harvest of this work.
+%% The rule: `design@agent-skills@context-cost-of-agent-text`.
 **The size cost of agent-facing text is counted in the context of the sessions that load it, never
 in the text's length.** A statement a session applies to its act costs that session nothing when
 the text it loads delivers it, since the session holds it either way. A pointer the session must

@@ -42,7 +42,7 @@ The forms and checks as they stand:
   per `design@core@retired-slug-reference-reported`. A plain one is not read: the lints on ids read
   no word with a hash sign before it, per `design@core@plain-word-lint`.
 - The design skill now says the plan document cites its own items by their checked form. One
-  plain `#<thread>` inside a plan document is prescribed: `primer@design-heads` states the pair
+  plain `#<thread>` inside a plan document is prescribed: `skill@knowledge-architect-decision-recording@head-shape` states the pair
   `#<thread> → <entry slug>` in the plan document's harvest row, so a check of the inside case
   admits that pair.
 
