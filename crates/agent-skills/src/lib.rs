@@ -198,6 +198,7 @@ mod tests {
         (
             "three-homes.md",
             &[
+                ".claude/agents/knowledge-architect-decision-record-reviewer.md",
                 ".claude/agents/knowledge-architect-design-record-auditor.md",
                 ".claude/skills/knowledge-architect-decision-recording/SKILL.md",
             ],

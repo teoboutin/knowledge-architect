@@ -11,12 +11,12 @@ thinking in. Grep the subject's terms across every document that carries decisio
 touches, then `git log -G'<term>'` for the argument behind them. Say in the commit message what you
 searched and what it returned. A search that returned nothing is a finding worth one line there.
 
-**If nothing holds it, carry on to the entry tests of `skill@knowledge-architect-decision-recording@what-earns-a-head`.** If something does, do all of the following, in the same
+**If nothing holds it, carry on to the entry tests of `primer@design-heads`.** If something does, do all of the following, in the same
 change:
 
 - **The Component is the incumbent's.** The test of `skill@knowledge-architect-decision-recording@owning-component` is not asked again. If the incumbent looks misfiled, that is a separate change with its
   own argument.
-- **It earns durable text whatever the entry tests of `skill@knowledge-architect-decision-recording@what-earns-a-head` say.** The
+- **It earns durable text whatever the entry tests of `primer@design-heads` say.** The
   incumbent's head now states something false, so the minimum is rewriting it. The entry tests
   decide whether a _new_ decision earns an entry, not whether a false one may stand.
 - **Rewrite the head in place** (`skill@knowledge-architect-decision-recording@current-design`), and give the new statement its own slug when it is a new
@@ -27,7 +27,7 @@ change:
 - **Move the incumbent into the Component's `register@*@rejected`** (`skill@knowledge-architect-decision-recording@losing-alternatives`) with its reason and a
   validity marker, stated as strongly as it was originally made, if it meets one of the tests of `skill@knowledge-architect-decision-recording@losing-alternatives`, and cite it from the new head.
 - **Argue it under `skill@knowledge-architect-design` first**, if it was not: a reversal contradicts
-  a statement of the incumbent, the second case of the backstop of `skill@knowledge-architect-decision-recording@what-earns-a-head`.
+  a statement of the incumbent, the second case of the backstop of `primer@design-heads`.
 - **Delete the tripwires guarding the reversed decision.** `skill@knowledge-architect-issue-tracking` owns that movement.
 - **Repair what pointed at the old behaviour**: skills, subagent definitions, scoped `CLAUDE.md`
   files, generated headers. Grep the behaviour's wording as well as the slug, since a pointer that

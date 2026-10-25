@@ -11,9 +11,9 @@ and the outcome of each that does not. **Not** where a statement belongs among t
 knowledge table, whether a decision earned recording, or whether two instructions contradict:
 other axes judge those.
 
-**The standard is `agent@knowledge-architect-agent-text-reviewer@admission-rules`**, the standard of
-`skill@knowledge-architect-agent-configuration@admission-standard`, which this definition carries
-whole.
+**The standard is `agent@knowledge-architect-agent-text-reviewer@admission-rules`**: the four
+parts of `skill@knowledge-architect-agent-configuration@admission-standard`, with the rule on a
+text's size cost that the standard places after the shape of a repair.
 
 **Establish the state of the tree yourself.** A brief that describes the change is a lead, and a
 disagreement between the brief and the tree is itself a finding.

@@ -11,9 +11,9 @@ and the outcome of each that does not. **Not** where a statement belongs among t
 knowledge table, whether a decision earned recording, or whether two instructions contradict:
 other axes judge those.
 
-**The standard is `agent@knowledge-architect-agent-text-reviewer@admission-rules`**, the standard of
-`skill@knowledge-architect-agent-configuration@admission-standard`, which this definition carries
-whole.
+**The standard is `agent@knowledge-architect-agent-text-reviewer@admission-rules`**: the four
+parts of `skill@knowledge-architect-agent-configuration@admission-standard`, with the rule on a
+text's size cost that the standard places after the shape of a repair.
 
 **Establish the state of the tree yourself.** A brief that describes the change is a lead, and a
 disagreement between the brief and the tree is itself a finding.
@@ -135,7 +135,8 @@ the text it loads delivers it, since the session holds it either way. A pointer 
 follow costs more: the reference resolved, the location found and the target read, each in context
 and in time, and the risk that the session acts from memory instead. A size cost exists only for a
 session that loads a statement its act does not apply: the primer's text, in every session that
-never meets its occasion, or a fragment's copy, in a host whose act does not apply it whole.
+never meets its occasion, or the copy of a text that the build places in several texts, in a text
+whose act does not apply it whole.
 
 ### The record check
 

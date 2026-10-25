@@ -42,6 +42,15 @@ The comment is read by every session that touches the code, which a head is not,
 carries the argument. A reason that fits in one comment at one site, about that site's own code,
 fails test 2.
 
+%% The purpose of the project is its goals home's, per the knowledge table of the primer; the
+%% former sentence, "What the project is for … belongs here", sent the owner's statement of a goal
+%% into a head in the session that built `klarch init`.
+**A head carries the intent it serves, its shape and the standing argument, not implementation.**
+How the project is arranged to reach its goals belongs here, each head citing the goal it derives a
+constraint from; what the project is for is its goals home's. How a particular function does its
+work belongs in a comment at that function. The test: **if changing a piece of code would force a
+change to the design home, it is design; if the design home would be unaffected, it is a comment.**
+
 **The backstop. A decision that creates a head, contradicts a statement of one, its argument
 included, or adds a member the head's argument does not cover, goes to the design skill before its
 text is written**, unless it was argued there, under `skill@knowledge-architect-design`. This is the case of

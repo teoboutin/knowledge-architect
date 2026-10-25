@@ -75,6 +75,10 @@ instead.
 
 ## The rules on the Component, rejected designs and the deliberation {{slug:record-rules}}
 
+These rules are written for the session that records, and you judge the record against them;
+where one asks the owner a question or asks for an edit, you report the case in your draft
+instead.
+
 ### Which Component owns a decision
 
 {{fragment:owning-component.md}}

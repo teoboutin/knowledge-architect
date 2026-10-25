@@ -24,14 +24,14 @@ a commit of its own, after its harvest and the review before the merge.
   spec.
 - Every name it uses is defined in it, under Names or New names, or exists in the tree.
 - Where the owner's word is awaited, `skill@knowledge-architect-planning@working-a-slice` says what
-  waits. No default awaits the owner at the writing of this spec.
+  waits.
 - It was assembled from one transcript, this session's. The discussion begins at the owner's
   message that opens "the last branch introduced "instruction fragments", meant to improve delivery
   of instructions or standards that are large and form one coherent whole." and ends at the owner's
   message "agreed on ac 1 and 2, proceed." It holds 5 owner messages, called rounds 1 to 5 below.
   Find the file by that opening message, not by its name. The reviews of this spec raised three
-  defaults the owner rules on, D1 to D3, and step 4 a fourth, D4, under "Defaults awaiting the
-  owner".
+  defaults the owner rules on, D1 to D3, step 4 a fourth, D4, and the review before the merge D5 to
+  D7, under "Defaults awaiting the owner".
 - The work starts in the session where the discussion converged, on the branch that holds this
   spec, so it takes no design audit, per `skill@knowledge-architect-planning@working-a-slice`. A
   session other than that one takes the design audit of its point 2 first, with the decisions of
@@ -224,8 +224,9 @@ gives 73,830; `wc -w .claude/knowledge-architect/PRIMER.md` gives 8,412.
 - **The shape of an issue entry**, `skill@knowledge-architect-issue-tracking@issue-entry`: the checker
   asserts it, so `path@agent-skills@content/agents/standing-state-reviewer.md`, line 110 keeps its pointer, per Q11.
 - **A pointer in a text that hosts no fragment of its block**, as
-  `path@agent-skills@content/skills/project-audit/SKILL.md`, lines 150-151, 270, 296 and 304, which
-  name rules another actor applies: unchanged.
+  `path@agent-skills@content/skills/project-audit/SKILL.md`, lines 150-151, 270 and 304, which
+  name rules another actor applies: unchanged. Its line 296, on net growth, names a rule of the
+  shape of a repair, which the skill hosts, so it points to the skill's own section.
 
 ## What is already decided
 
@@ -1035,6 +1036,14 @@ Assume the work shipped and failed.
 
 ## Acceptance criteria
 
+AC1 fired at the review before the merge, on D5's citation; it is answered by D5. AC2's observable
+fired on three hosts of `thread@standards-delivered-as-fragments@fragment-migrations`'s fragments,
+the decision-record reviewer, the design-record auditor and the routing reviewer, whose sections on
+rejected designs, a reversal and the Component held the writer's acts with no framing sentence; the
+hosts of `thread@standards-delivered-as-fragments@head-rules-delivery` held none, so the response
+the owner ruled, reopening that thread's host list, is not owed. The three hosts gained the framing
+sentence the rules on heads already had.
+
 ### Every citation of `primer@design-heads` names a rule the section still holds, or is re-pointed `##citations-name-what-the-section-holds`
 
 AC1. Guards `thread@standards-delivered-as-fragments@head-rules-delivery`, its split boundary.
@@ -1182,6 +1191,24 @@ Each is built as written until the owner rules, and the branch merges once the o
   format of `skill@knowledge-architect-retrospective@two-files` alone, not its whole body, found at
   step 4: its other paragraphs ask acts only the retrospective session performs, which AC2 reports
   as false in the intake. It narrows the owner's ruling on Q2. Default: the format alone.
+- **D5**, on `thread@standards-delivered-as-fragments@head-rules-delivery`, from AC1, which fired at
+  the review before the merge: `skill@klarch-development`, this repository's own
+  skill, outside AC1's corpus as worded, cites `primer@design-heads` for the test "if changing a
+  piece of code would force a change to the design home, it is design", which shape C moved into
+  `head-shape.md`, a fragment that skill does not host. The test is how any session tells whether a
+  reason belongs in a head or in a comment, the recognition the primer's half serves. Default, built:
+  the paragraph "A head carries the intent it serves…", with its `%%` lines, moves into
+  `head-entry-tests.md`, after "Otherwise it belongs in an inline comment…", so the primer keeps
+  it. It narrows what leaves the primer, a ruling of the owner.
+- **D6**, on `thread@standards-delivered-as-fragments@fragment-migrations`: the decision-record
+  reviewer hosts `three-homes.md` too. It judges a record by the split between the design home and
+  history, and pointed to the section with "Read the last in full", which the search for candidates
+  missed. It adds a host to a list the owner approved. Default, built: it hosts it.
+- **D7**, on `thread@standards-delivered-as-fragments@context-cost-of-agent-text`: the rule's last
+  clause, "or a fragment's copy, in a host whose act does not apply it whole", uses two words no
+  installed text defines outside the primer's restatement rule. Default, built: "or the copy of a
+  text that the build places in several texts, in a text whose act does not apply it whole". It
+  rewords the text the owner approved.
 
 ## Harvest
 
