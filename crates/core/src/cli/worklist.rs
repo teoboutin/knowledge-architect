@@ -24,6 +24,10 @@ const REPORT_FILE: &str = "report.md";
 /// The show text of every entry of the record, for `--verify` to assemble from; no agent is
 /// given it, so an agent's load is its entries file alone.
 const SHOWN_FILE: &str = "shown.md";
+/// The assembly a passing `--verify` writes: every entry whose highest grade is `bears`.
+const BEARS_FILE: &str = "bears.md";
+/// The assembly a passing `--verify` writes: every entry whose highest grade is `may-bear`.
+const MAY_BEAR_FILE: &str = "may-bear.md";
 /// The section every report ends with.
 const MET_OUTSIDE: &str = "## Met outside the task";
 /// A report line that names an entry graded under an earlier cluster of the same agent.
@@ -343,15 +347,27 @@ fn relations(role: Role) -> &'static [&'static str] {
     }
 }
 
-/// Check every report of the directory against `agents.txt`.
+/// Check every report of the directory against `agents.txt`, and, when every report passes,
+/// assemble the graded entries from the snapshot.
 ///
-/// It reads no model: what each agent was given is what `agents.txt` says, so the check holds
-/// whatever the tree has become since.
+/// It reads no model: what each agent was given is what `agents.txt` says, and each entry's text is
+/// what `--out` wrote into the snapshot, so the check and the assembly hold whatever the tree has
+/// become since. A previous run's assembly is removed before anything is judged, so a run that
+/// fails, or stops on a file it cannot read, leaves none a session could take for this one's.
 fn verify(dir: &Path) -> Result<ExitCode, String> {
+    for name in [BEARS_FILE, MAY_BEAR_FILE] {
+        let path = dir.join(name);
+        if path.exists() {
+            std::fs::remove_file(&path).map_err(|e| format!("{}: {e}", path.display()))?;
+        }
+    }
     let list_path = dir.join(AGENTS_FILE);
     let text =
         std::fs::read_to_string(&list_path).map_err(|e| format!("{}: {e}", list_path.display()))?;
     let mut agents: BTreeMap<String, BTreeMap<String, Listed>> = BTreeMap::new();
+    // The order of `agents.txt`, which the assembly keeps: the map above sorts `agent-10`
+    // before `agent-2`.
+    let mut order: Vec<(String, String)> = Vec::new();
     for (n, line) in text.lines().enumerate() {
         let parts: Vec<&str> = line.split(' ').collect();
         let role = parts.get(1).and_then(|w| role_of(w));
@@ -370,6 +386,7 @@ fn verify(dir: &Path) -> Result<ExitCode, String> {
                 n + 1
             ));
         }
+        order.push((agent.to_string(), reference.to_string()));
         agents.entry(agent.to_string()).or_default().insert(
             reference.to_string(),
             Listed {
@@ -381,6 +398,7 @@ fn verify(dir: &Path) -> Result<ExitCode, String> {
     }
 
     let mut findings: Vec<String> = Vec::new();
+    let mut grades: BTreeMap<(String, String), Fields> = BTreeMap::new();
     for (agent, listed) in &agents {
         let rel = PathBuf::from(agent).join(REPORT_FILE);
         let path = dir.join(&rel);
@@ -417,6 +435,7 @@ fn verify(dir: &Path) -> Result<ExitCode, String> {
                 continue;
             };
             findings.extend(judge(&at, reference, entry, &parsed));
+            grades.insert((agent.clone(), reference.to_string()), parsed);
         }
         if !met_outside {
             findings.push(format!(
@@ -442,12 +461,171 @@ fn verify(dir: &Path) -> Result<ExitCode, String> {
         outln!("{finding}");
     }
     if findings.is_empty() {
+        let (bears, may_bear) = assemble(dir, &order, &agents, &grades)?;
+        outln!(
+            "assembly: {bears} entries in {}, {may_bear} in {}",
+            dir.join(BEARS_FILE).display(),
+            dir.join(MAY_BEAR_FILE).display()
+        );
         outln!("PASSED: every report grades every entry it was given");
         Ok(ExitCode::SUCCESS)
     } else {
         outln!("FAILED: {} findings above", findings.len());
         Ok(ExitCode::FAILURE)
     }
+}
+
+/// Write the assembly from passing reports, and return how many entries each file holds.
+///
+/// Each entry goes under its highest grade over every report that grades it, `bears` above
+/// `may-bear`, once: an entry many agents grade is a goal, which joins every cluster that reaches
+/// it. Above its text, every agent's grade line at that grade or the other bearing one, identical
+/// lines merged into one naming every agent that gave it. A goal is its grade lines and its site
+/// alone, since the session reads every goals home whole. `may-bear.md` opens with a table of
+/// contents, each entry with its reasons, from which the session picks the entries a proposal
+/// touches. A snapshot that cannot be read, or that lacks an entry `agents.txt` lists, writes
+/// nothing: the run could not do its whole job, so it stops with exit 2, per
+/// `design@core@exit-code-ladder`.
+fn assemble(
+    dir: &Path,
+    order: &[(String, String)],
+    agents: &BTreeMap<String, BTreeMap<String, Listed>>,
+    grades: &BTreeMap<(String, String), Fields>,
+) -> Result<(usize, usize), String> {
+    let snapshot = read_snapshot(dir)?;
+    let mut references: Vec<&str> = Vec::new();
+    let mut seen: BTreeSet<&str> = BTreeSet::new();
+    for (_, reference) in order {
+        if seen.insert(reference) {
+            references.push(reference);
+        }
+    }
+    let missing: Vec<&str> = references
+        .iter()
+        .copied()
+        .filter(|r| !snapshot.contains_key(*r))
+        .collect();
+    if !missing.is_empty() {
+        return Err(format!(
+            "the reports pass, but {} lacks {}: run `--out` again into a new directory. No \
+             assembly was written.",
+            dir.join(SHOWN_FILE).display(),
+            missing.join(", ")
+        ));
+    }
+
+    let mut bears = "# The entries graded `bears`\n".to_string();
+    let mut may_bear_contents = String::new();
+    let mut may_bear_entries = String::new();
+    let (mut n_bears, mut n_may_bear) = (0, 0);
+    for reference in references {
+        // Every agent's bearing grade of the entry, in the order of `agents.txt`.
+        let mut lines: Vec<(String, &Fields)> = Vec::new();
+        let mut goal = false;
+        for (agent, r) in order.iter().filter(|(_, r)| r == reference) {
+            goal |= agents
+                .get(agent)
+                .and_then(|l| l.get(r))
+                .is_some_and(|l| l.role == Role::Goal);
+            if let Some(fields) = grades.get(&(agent.clone(), r.clone())) {
+                if matches!(fields.grade.as_str(), "bears" | "may-bear") {
+                    lines.push((agent.clone(), fields));
+                }
+            }
+        }
+        if lines.is_empty() {
+            continue;
+        }
+        let highest_bears = lines.iter().any(|(_, f)| f.grade == "bears");
+        let mut merged: Vec<(String, Vec<String>)> = Vec::new();
+        for (agent, f) in &lines {
+            // The shape of the report's own line, an empty relation written `relation: |`.
+            let relation = if f.relation.is_empty() {
+                String::new()
+            } else {
+                format!(" {}", f.relation)
+            };
+            let line = format!(
+                "grade: {} | relation:{relation} | reason: {}",
+                f.grade, f.reason
+            );
+            match merged.iter_mut().find(|(l, _)| *l == line) {
+                Some((_, who)) => who.push(agent.clone()),
+                None => merged.push((line, vec![agent.clone()])),
+            }
+        }
+        let text = &snapshot[reference];
+        let shown = if goal {
+            text.lines().next().unwrap_or_default().to_string()
+        } else {
+            text.clone()
+        };
+        let mut block = format!("\n=== {reference}\n");
+        for (line, who) in &merged {
+            block.push_str(&format!("{}: {line}\n", who.join(", ")));
+        }
+        block.push_str(&format!("\n{shown}\n"));
+        if highest_bears {
+            bears.push_str(&block);
+            n_bears += 1;
+        } else {
+            let reasons: Vec<&str> = lines.iter().map(|(_, f)| f.reason.as_str()).collect();
+            may_bear_contents.push_str(&format!("- {reference}: {}\n", reasons.join(" / ")));
+            may_bear_entries.push_str(&block);
+            n_may_bear += 1;
+        }
+    }
+    let may_bear = format!(
+        "# The entries graded `may-bear`\n\n## Contents\n\n{may_bear_contents}\n## Entries\n\
+         {may_bear_entries}"
+    );
+    for (name, text) in [(BEARS_FILE, bears), (MAY_BEAR_FILE, may_bear)] {
+        let path = dir.join(name);
+        std::fs::write(&path, text).map_err(|e| format!("{}: {e}", path.display()))?;
+    }
+    Ok((n_bears, n_may_bear))
+}
+
+/// The snapshot `--out` wrote, as each reference with its show text.
+///
+/// An entry is a line `=== <reference>`, a blank line, a fence opening with `text`, and the
+/// show text up to the line that is that fence alone, as `snapshot` writes it.
+fn read_snapshot(dir: &Path) -> Result<BTreeMap<String, String>, String> {
+    let path = dir.join(SHOWN_FILE);
+    let text = std::fs::read_to_string(&path).map_err(|e| {
+        format!(
+            "{}: {e}: the reports pass, but the snapshot `--out` writes cannot be read: run \
+             `--out` again into a new directory. No assembly was written.",
+            path.display()
+        )
+    })?;
+    let mut out = BTreeMap::new();
+    let mut lines = text.lines();
+    while let Some(line) = lines.next() {
+        let Some(reference) = line.strip_prefix("=== ") else {
+            continue;
+        };
+        let fence = lines
+            .find(|l| !l.is_empty())
+            .and_then(|l| l.strip_suffix("text"))
+            .filter(|f| f.len() >= 3 && f.chars().all(|c| c == '`'))
+            .ok_or_else(|| {
+                format!(
+                    "{}: the entry {reference} opens no fence: run `--out` again into a new \
+                     directory. No assembly was written.",
+                    path.display()
+                )
+            })?;
+        let mut body: Vec<&str> = Vec::new();
+        for line in lines.by_ref() {
+            if line == fence {
+                break;
+            }
+            body.push(line);
+        }
+        out.insert(reference.to_string(), body.join("\n"));
+    }
+    Ok(out)
 }
 
 fn role_of(word: &str) -> Option<Role> {
@@ -463,6 +641,7 @@ fn role_of(word: &str) -> Option<Role> {
 }
 
 /// The fields of a graded line, after its reference.
+#[derive(Clone)]
 struct Fields {
     grade: String,
     relation: String,
