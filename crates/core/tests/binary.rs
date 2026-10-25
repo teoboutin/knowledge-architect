@@ -5558,6 +5558,49 @@ fn worklist_verify_assembles_from_the_snapshot_and_refuses_one_that_lacks_an_ent
     assert!(!out.join("bears.md").exists() && !out.join("may-bear.md").exists());
 }
 
+/// AC4 of the spec of the graded entries' assembly: `id` answers a free id with exit 0, lists
+/// every entity defining an id with exit 1, reports an argument outside the grammar with exit 1,
+/// and refuses an incomplete model with exit 2. Mutation checked: the call of
+/// `complete_working_tree` in `id` deleted, which answers `free` over a tree missing a home.
+#[test]
+fn id_answers_free_defined_and_malformed_ids_and_refuses_an_incomplete_model() {
+    let (sandbox, _) = worklist_project("id-lookup");
+    // The design entry `first-head` of the root, and an issue of the same id in `widget`.
+    sandbox.write(
+        "widget/docs/open-issues/first-head.md",
+        &worklist_issue("nothing"),
+    );
+    sandbox.stage();
+    let (stdout, stderr, code) = sandbox.run(&["index"]);
+    assert_eq!(code, 0, "{stdout}{stderr}");
+    sandbox.stage();
+
+    let (stdout, stderr, code) = sandbox.run(&["id", "no-such-thing"]);
+    assert_eq!(code, 0, "{stdout}{stderr}");
+    assert_eq!(stdout, "no-such-thing  free\n");
+
+    let (stdout, stderr, code) = sandbox.run(&["id", "no-such-thing", "first-head", "two"]);
+    assert_eq!(code, 1, "{stdout}{stderr}");
+    assert!(stdout.contains("no-such-thing  free"), "{stdout}");
+    assert!(
+        stdout.contains("design@core-mock@first-head")
+            && stdout.contains("issue@widget@first-head"),
+        "{stdout}"
+    );
+    assert!(
+        stdout.contains("two            not an id: an id matches [a-z0-9]+(-[a-z0-9]+)+"),
+        "{stdout}"
+    );
+
+    // A phase-2 finding: a home every Component carries, deleted and staged.
+    std::fs::remove_file(sandbox.path("widget/docs/goals.md")).expect("a home removed");
+    sandbox.stage();
+    let (stdout, stderr, code) = sandbox.run(&["id", "no-such-thing"]);
+    assert_eq!(code, 2, "{stdout}{stderr}");
+    assert!(!stdout.contains("free"), "{stdout}");
+    assert!(stderr.contains("the model is incomplete"), "{stderr}");
+}
+
 /// Every `entries.md` of a work list, each under a line naming its agent, in agent order.
 fn worklist_entries_files(out: &Path) -> String {
     let mut agents: Vec<PathBuf> = std::fs::read_dir(out)
