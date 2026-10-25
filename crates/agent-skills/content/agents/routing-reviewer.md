@@ -85,8 +85,7 @@ restatement, which is the defect. For an installed skill or agent, the home is i
 since it is shipped to projects whose records it cannot reference.
 
 **Does any pointer have to be followed before a session can act?** Judge each pointer out of an
-instruction by the test of `skill@knowledge-architect-agent-configuration@shaping-a-skill`, read
-whole.
+instruction by the test of `agent@knowledge-architect-routing-reviewer@self-sufficient-skill`.
 
 **Does a decision sit in the right Component?** Judge it by the three questions of `agent@knowledge-architect-routing-reviewer@component-questions`, and by
 its exception
@@ -112,6 +111,10 @@ in `primer@where-knowledge-goes`, read whole. The tell is the wording: a head th
 `Why it matters` describes a decision without naming it. The reverse is a finding too: a
 reference whose entry's change would leave the text unaffected, and a hand-written list of what
 references an entry, which `{{command}} show` computes.
+
+## A skill is self-sufficient {{slug:self-sufficient-skill}}
+
+{{fragment:skill-self-sufficient.md}}
 
 ## Which Component owns a decision {{slug:component-questions}}
 

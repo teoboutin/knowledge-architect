@@ -110,7 +110,7 @@ to name the event, or a bound with its basis, as condition 4 of that standard sa
 what will make someone do this. `cargo klarch issues --kind deferred` lists every such entry. Read
 the trigger of each against the change, all of them, for the reason given above for tripwires. A
 trigger the change meets is a finding: name the issue and what in the change meets the trigger. By
-`skill@knowledge-architect-issue-tracking@trigger-test`, the occasion a trigger names includes the
+`agent@knowledge-architect-standing-state-reviewer@trigger-test-rule`, the occasion a trigger names includes the
 work the issue names, so the repair is that work in this change, or the owner's ruling.
 
 ## A landing plan document's acceptance criteria `##landing-acceptance-criteria`
@@ -140,14 +140,36 @@ is mechanical; whether the third subsection names a closing condition a reader c
 it is the failure: the issue closes in the commit that adds the plan document, per
 `skill@knowledge-architect-planning@spec-or-milestone`.
 
-**Does a trigger the diff writes pass `skill@knowledge-architect-issue-tracking@trigger-test`?** Read
-it whole: it holds the test and the only two repairs of a trigger that fails it.
+**Does a trigger the diff writes pass the test of `agent@knowledge-architect-standing-state-reviewer@trigger-test-rule`?** It holds the test and the only two
+repairs of a trigger that fails it.
 
 **If a closed entry still held something live**, such as an instruction about working in that area
 or an uncertainty that survived the fix, that content is not an open issue and belongs in the home
 the knowledge table of `primer@where-knowledge-goes` gives it, moved there **before** the entry was
 deleted, per
 `skill@knowledge-architect-issue-tracking@movement-instruction`.
+
+## The trigger test `##trigger-test-rule`
+
+A `deferred` entry's trigger and a tripwire's firing evidence answer the same question: what will
+make someone do this. Both are subject to one test.
+
+**A trigger must name an occasion whose own work already includes the work the trigger names.**
+Otherwise it names a tax on a session doing something else. Such a session finishes its own task
+and reports what it met outside it, rather than doing that work. The trigger fires, the session
+correctly declines, and nothing schedules the work.
+
+A trigger passes when it names the change that would make the missing work necessary: whoever makes
+that change is already deciding what the work must do. A size threshold on a document fails it: it
+fires on whoever happened to add the last line, and that is nobody in particular.
+
+**Enforcement does not rescue a failing trigger: it sharpens the failure.** An assertion in the
+checker or in the project's tests fires on the session that crosses the bound, and every commit
+must pass it, so at the bound that session can neither do the work mid-task nor leave the tree
+committable.
+
+**When a trigger fails the test there are two answers, and only two:** name a different occasion,
+one whose own work includes this, or do the work now, in a change of its own.
 
 ## Reporting `##how-to-report`
 

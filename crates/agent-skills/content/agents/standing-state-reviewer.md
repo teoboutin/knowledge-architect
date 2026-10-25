@@ -84,7 +84,7 @@ a slug may be guarded from more than one direction.
 what will make someone do this. `{{command}} issues --kind deferred` lists every such entry. Read
 the trigger of each against the change, all of them, for the reason given above for tripwires. A
 trigger the change meets is a finding: name the issue and what in the change meets the trigger. By
-`skill@knowledge-architect-issue-tracking@trigger-test`, the occasion a trigger names includes the
+`agent@knowledge-architect-standing-state-reviewer@trigger-test-rule`, the occasion a trigger names includes the
 work the issue names, so the repair is that work in this change, or the owner's ruling.
 
 ## A landing plan document's acceptance criteria {{slug:landing-acceptance-criteria}}
@@ -114,14 +114,18 @@ is mechanical; whether the third subsection names a closing condition a reader c
 it is the failure: the issue closes in the commit that adds the plan document, per
 `skill@knowledge-architect-planning@spec-or-milestone`.
 
-**Does a trigger the diff writes pass `skill@knowledge-architect-issue-tracking@trigger-test`?** Read
-it whole: it holds the test and the only two repairs of a trigger that fails it.
+**Does a trigger the diff writes pass the test of `agent@knowledge-architect-standing-state-reviewer@trigger-test-rule`?** It holds the test and the only two
+repairs of a trigger that fails it.
 
 **If a closed entry still held something live**, such as an instruction about working in that area
 or an uncertainty that survived the fix, that content is not an open issue and belongs in the home
 the knowledge table of `primer@where-knowledge-goes` gives it, moved there **before** the entry was
 deleted, per
 `skill@knowledge-architect-issue-tracking@movement-instruction`.
+
+## The trigger test {{slug:trigger-test-rule}}
+
+{{fragment:trigger-test.md}}
 
 ## Reporting {{slug:how-to-report}}
 

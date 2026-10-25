@@ -83,8 +83,7 @@ restatement, which is the defect. For an installed skill or agent, the home is i
 since it is shipped to projects whose records it cannot reference.
 
 **Does any pointer have to be followed before a session can act?** Judge each pointer out of an
-instruction by the test of `skill@knowledge-architect-agent-configuration@shaping-a-skill`, read
-whole.
+instruction by the test of `agent@knowledge-architect-routing-reviewer@self-sufficient-skill`.
 
 **Does a decision sit in the right Component?** Judge it by the three questions of `agent@knowledge-architect-routing-reviewer@component-questions`, and by
 its exception
@@ -110,6 +109,19 @@ in `primer@where-knowledge-goes`, read whole. The tell is the wording: a head th
 `Why it matters` describes a decision without naming it. The reverse is a finding too: a
 reference whose entry's change would leave the text unaffected, and a hand-written list of what
 references an entry, which `cargo klarch show` computes.
+
+## A skill is self-sufficient `##self-sufficient-skill`
+
+**A skill is self-sufficient.** It holds every piece of knowledge its activity needs, such as a
+build command, a dispatch table or a common trap, even where it is stated elsewhere, delivered as
+`primer@where-knowledge-goes` says. **The test, per pointer: could a session complete this
+activity correctly without opening it?** If not, the content is delivered in the skill as that
+section says. A pointer passes when its target is not needed to act, as an argument is; when it
+varies per instance, as task material does; or when it is one complete instruction the session
+reads whole: a named prerequisite skill, a home the pointer asks to read whole, the primer or the
+root `CLAUDE.md`, which reach every session. What this guards against is dilution rather than
+length: each pointer is an extra read a session must remember, and the more there are, the less
+likely all are followed.
 
 ## Which Component owns a decision `##component-questions`
 

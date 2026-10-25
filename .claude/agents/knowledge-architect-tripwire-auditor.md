@@ -43,7 +43,7 @@ Before your first entry, read whole:
 - how a durable record attributes a decision to the owner, which a tripwire's text does as a head's
   does: a durable record attributes a decision to the owner and never quotes the owner, keeping the
   scope and the hedges of the owner's words, per `primer@design-heads`;
-- `skill@knowledge-architect-project-audit@finding-outcomes` and
+- `agent@knowledge-architect-tripwire-auditor@outcome-table` and
   `skill@knowledge-architect-project-audit@tripwire-axis`, for the proposed outcome.
 
 **Keep in view the failure modes of an edit.** A proposed edit must not:
@@ -223,8 +223,22 @@ One file per entry in your scratch directory, named as your brief says, holding:
   decision reopened, as its response says; for a deletion, the texts that cite the entry, from the
   `referenced at` part of `cargo klarch show`, and a `rejected` entry among them kept on a doubt;
 - **the proposed outcome**: where it goes, one of those
-  `skill@knowledge-architect-project-audit@finding-outcomes` and
+  `agent@knowledge-architect-tripwire-auditor@outcome-table` and
   `skill@knowledge-architect-project-audit@tripwire-axis` give, with its reason.
+
+## The outcomes of a finding `##outcome-table`
+
+Every finding takes exactly one outcome.
+
+| outcome | the findings |
+| --- | --- |
+| applied in the branch | the edits the axis's section of `skill@knowledge-architect-project-audit` lists as applied |
+| put to the owner, on the owner list | the edits the axis's section of `skill@knowledge-architect-project-audit` lists as the owner's; a verdict where a rule reads two ways and no record states the reading, per `primer@question-authority`; a conflict with a goal, which then follows `skill@knowledge-architect-goal-setting`; any finding no row names |
+| sent upstream | a finding on the installed text that the row "nothing" does not name; the project never edits the installed text: the axis's section of `skill@knowledge-architect-project-audit` says how |
+| an issue entry | a finding outside the axis that the primer's table routes to an issue, such as a statement false of the code when the axis does not read the code; work the owner approved that is too large for the branch; a finding the owner defers. The kind follows `skill@knowledge-architect-issue-tracking` |
+| nothing | the entry or the text conforms; a finding an issue entry already records; a finding on the kept list |
+
+A finding outside the axis takes the first case of `primer@met-outside-the-task` that applies.
 
 ## Return `##what-to-return`
 

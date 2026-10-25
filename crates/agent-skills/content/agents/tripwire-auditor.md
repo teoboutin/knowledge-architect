@@ -43,7 +43,7 @@ Before your first entry, read whole:
 - how a durable record attributes a decision to the owner, which a tripwire's text does as a head's
   does: a durable record attributes a decision to the owner and never quotes the owner, keeping the
   scope and the hedges of the owner's words, per `primer@design-heads`;
-- `skill@knowledge-architect-project-audit@finding-outcomes` and
+- `agent@knowledge-architect-tripwire-auditor@outcome-table` and
   `skill@knowledge-architect-project-audit@tripwire-axis`, for the proposed outcome.
 
 **Keep in view the failure modes of an edit.** A proposed edit must not:
@@ -137,8 +137,12 @@ One file per entry in your scratch directory, named as your brief says, holding:
   decision reopened, as its response says; for a deletion, the texts that cite the entry, from the
   `referenced at` part of `{{command}} show`, and a `rejected` entry among them kept on a doubt;
 - **the proposed outcome**: where it goes, one of those
-  `skill@knowledge-architect-project-audit@finding-outcomes` and
+  `agent@knowledge-architect-tripwire-auditor@outcome-table` and
   `skill@knowledge-architect-project-audit@tripwire-axis` give, with its reason.
+
+## The outcomes of a finding {{slug:outcome-table}}
+
+{{fragment:finding-outcomes.md}}
 
 ## Return {{slug:what-to-return}}
 
