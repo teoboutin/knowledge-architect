@@ -17,8 +17,8 @@ every file.
 
 ### What
 
-The text, at crates/core/docs/design.md, in the head created by the split of
-`design@core@generated-files-are-pure` in pass 1 of the design-record audit on this repository:
+The text, at `path@core@docs/design/generated-files-and-fixes.md`, in the head created by the
+split of `design@core@generated-files-are-pure` in pass 1 of the design-record audit on this repository:
 "**That last claim is held by two refusals, not by the paths being generated.** `fs::write` follows
 a symlink and writes through it, so a generated path that is one would replace content this
 command never produced; and a destination directory the manifest declares but the tree does not
