@@ -47,11 +47,11 @@ files under docs/retrospective-reports/, counted from the commit that writes thi
 
 ## Guarding `design@agent-skills@new-or-reshaped-head-needs-design`: a head is created, contradicted or given a member its argument does not cover with no deliberation recorded `##head-created-without-deliberation`
 
-The decision rests on the premise that the design skill's description and the backstop of the
-primer's section on design heads, read again at the head of the decision-recording skill loaded
-before any write into a design home per `design@agent-skills@design-home-write-loads-recording`,
-reach a session before it writes a decision that creates a head, contradicts one, or adds a member
-its argument does not cover.
+The decision rests on the premise that the design skill's description and the backstop, which the
+primer hosts and the decision-recording skill, loaded before any write into a design home per
+`design@agent-skills@design-home-write-loads-recording`, hosts again, reach a session before it
+writes a decision that creates a head, contradicts one, or adds a member its argument does not
+cover.
 
 **Fires when:** a commit on the main branch creates a design head, contradicts a statement of one,
 or adds to it a member its argument does not cover, and neither its message nor a plan document

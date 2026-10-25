@@ -72,7 +72,7 @@ Not established: whether every citing site cites one part alone. The sites were 
 
 ### Why it matters
 
-`primer@design-heads` holds that a head holds one decision. A session that reverses or extends one
+`skill@knowledge-architect-decision-recording@head-shape` holds that a head holds one decision. A session that reverses or extends one
 of the bundled decisions cannot cite the decision it changes, since the slug names several, and
 `cargo klarch show` on the slug lists the sites of every bundled decision at once, so the list of
 texts to revisit is wider than the change. A `rejected` entry that the head cites cannot be

@@ -28,6 +28,12 @@ subsection is omitted.
   `skill@knowledge-architect-project-audit@tripwire-axis`, which gives each entry its horizon, a
   rewording or its deletion, applied in the branch and listed in its report; only a removal on the
   doubt's weight goes to the owner.
+- `agent-skills`, patch: the rules on what else a design head holds and how it is shaped leave the
+  primer's section on design heads for the decision-recording skill's new section
+  `skill@knowledge-architect-decision-recording@head-shape`. A project's text that cites
+  `primer@design-heads` for one of them, such as the alignment of a slug, present tense or one
+  decision per head, cites `skill@knowledge-architect-decision-recording@head-shape` instead;
+  `primer@design-heads` keeps what earns a head and what a head stands on.
 
 ### New features
 
@@ -48,6 +54,15 @@ subsection is omitted.
 
 ### Workflow
 
+- `agent-skills`, patch: the standards a session applied by reading a pointed section whole are
+  copied into each text that applies them: the rules on design heads, the admission standard,
+  the retrospective's file format and kinds of defect, the decision-recording skill's rules on the
+  Component, rejected designs, the deliberation and a reversal, the audit's outcomes, the rule that
+  a skill is self-sufficient, and the trigger test. The rereads of the primer's section on design
+  heads are gone; the reviewers and auditors that judge by these standards hold them.
+- `agent-skills`, patch: a size cost of agent-facing text is weighed in the context of the
+  sessions that load it, never by the text's length, a rule the primer and the admission standard
+  state.
 - `agent-skills`, patch: the setup skill names `klarch init` as how a project is created, and
   `new-component` as how a Component is added; its Rust section shows the virtual workspace a
   project gains, and says `init --rust` writes its blocks but the continuous integration workflow.

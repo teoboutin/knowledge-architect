@@ -192,9 +192,26 @@ written in prose escapes no check: it names history, not the tree.
 ### The rules on design heads in one section of the decision-recording skill `##head-rules-in-decision-recording`
 
 `live`. A session reads a head at every grounding and every plan, and nothing loads the skill at
-that moment, while every subagent holds the primer in its initial context, which a probe of two
+that moment, so what earns a head and what a head stands on stay in the primer, while every subagent holds the primer in its initial context, which a probe of two
 subagent types measured in one harness. It is kept here because the probe covers one harness, and
 another agent provider may not load the primer.
+
+### The rules on design heads whole in the primer, read again before a head is written or judged `##head-rules-whole-in-primer`
+
+`live`. The primer is read once at the start of a session and dilutes in a long one, and a reread
+is a pointer the session may skip; the owner judged that an instruction is delivered right before
+the act it shapes. `issue@agent-skills@the-claim-check-of-a-commit-message-is-read-at-the-start-and-needed-at-each-commit`
+records the mechanism in real use for another rule of the primer. It is kept here because reversing
+it would remove the section `skill@knowledge-architect-decision-recording@head-shape`, which other
+projects' texts cite, test 1.
+
+### The rules on design heads as one fragment, hosted by the primer and by every text that writes or judges a head `##head-rules-one-fragment`
+
+`live`. It keeps in every session's primer the shape rules that no act there applies, 1,155 words by
+`wc -w` over `path@agent-skills@fragments/head-shape.md` but its `%%` lines, the size cost
+`design@agent-skills@context-cost-of-agent-text` counts. It is kept here because choosing it would
+remove the section `skill@knowledge-architect-decision-recording@head-shape`, which other projects'
+texts cite, test 1.
 
 ### A directive restated wherever it has to be delivered `##directive-restated-everywhere`
 

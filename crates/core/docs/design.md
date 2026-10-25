@@ -3,7 +3,7 @@
 Recorded intent for this tool: how it is built internally, and why. Present tense, each decision
 carrying a slug anchor, cited from elsewhere with `core` as its component. The designs this
 Component did not keep are `register@core@rejected`, each cited by the heads whose argument covers
-it, and `primer@design-heads` owns the shape.
+it, and `skill@knowledge-architect-decision-recording@head-shape` owns the shape.
 
 **What belongs here:** a decision that does **not** survive deleting this tool. How it works and
 how the pieces inside divide the work belongs here.
@@ -2018,7 +2018,7 @@ hashes and a template's placeholder holding an id are no word, and an id that en
 one. A URL and an HTML comment inside a line hold no word. The value of a frontmatter `name` line is
 the name a skill or an agent is defined by, not a mention, and is not read. Its repair names the
 reference, and adds what to do where the word is meant as an ordinary term: a design entry's slug
-then names a subject, and the entry is renamed to state its decision, as `primer@design-heads` asks
+then names a subject, and the entry is renamed to state its decision, as `skill@knowledge-architect-decision-recording@head-shape` asks
 of a slug; any other entry is renamed so that its slug is not an ordinary word, since, on the
 owner's word, a slug has no reason to be used as an ordinary word, and that is the only way the
 lint reports a wrong use reliably. The owner's ruling covers the slugs of the installed text too,
