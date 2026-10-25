@@ -6,15 +6,6 @@ A head is written **as if the design had always been so**. Present tense, no dat
 account of the change. If you find yourself writing "we used to…", that sentence belongs in the
 commit, and so does an opening that motivates a decision by describing the state before it.
 
-%% The purpose of the project is its goals home's, per the knowledge table of the primer; the
-%% former sentence, "What the project is for … belongs here", sent the owner's statement of a goal
-%% into a head in the session that built `klarch init`, which a review caught before the merge.
-**A head carries the intent it serves, its shape and the standing argument, not implementation.**
-How the project is arranged to reach its goals belongs here, each head citing the goal it derives a
-constraint from; what the project is for is its goals home's. How a particular function does its
-work belongs in a comment at that function. The test: **if changing a piece of code would force a
-change to the design home, it is design; if the design home would be unaffected, it is a comment.**
-
 Never list what cites a head: `{{command}} show design@<component>@<slug>` computes it.
 
 %% Until a reference can name an entry of another project, `issue@core@cross-project-references`.
@@ -83,8 +74,8 @@ only part a reader sees, in a citing document or in code, and the title is what 
 shows. A slug or a title that misdescribes its decision misinforms every reader, or undermines the
 decision it names, so rename it even when that means rewriting every reference in the project.
 
-**A head that a change touches is brought to the rules on design heads in that change**: its title to the rule it
-argues, each decision it bundles to a head of its own, its ground to its argument. Re-pointing a
+**A head that a change touches is brought to the rules on design heads in that change**: its title
+to the rule it argues, each decision it bundles to a head of its own, its ground to its argument. Re-pointing a
 reference in a head, to a renamed entry or a migrated form, does not touch it; adding or removing
 one does. Where bringing it
 to the rule would widen what the owner's words in it approved, as a title moved from the members

@@ -198,20 +198,20 @@ another agent provider may not load the primer.
 
 ### The rules on design heads whole in the primer, read again before a head is written or judged `##head-rules-whole-in-primer`
 
-`live`. The primer is read once at the start of a session and dilutes in a long one, and a reread
-is a pointer the session may skip; the owner judged that an instruction is delivered right before
-the act it shapes. `issue@agent-skills@the-claim-check-of-a-commit-message-is-read-at-the-start-and-needed-at-each-commit`
-records the mechanism in real use for another rule of the primer. It is kept here because reversing
-it would remove the section `skill@knowledge-architect-decision-recording@head-shape`, which other
-projects' texts cite, test 1.
+`live`. The primer is read once at the start of a session and can dilute in a long one, and a
+reread is a pointer the session may skip, where a rule delivered in the text of its act reaches the
+session at the act. `issue@agent-skills@the-claim-check-of-a-commit-message-is-read-at-the-start-and-needed-at-each-commit`
+records the mechanism in real use for another rule of the primer. It is kept here, by test 1,
+because choosing it would remove `skill@knowledge-architect-decision-recording@head-shape`, a
+section of the installed text, an interface that a project's own text cites once it moves its pin.
 
 ### The rules on design heads as one fragment, hosted by the primer and by every text that writes or judges a head `##head-rules-one-fragment`
 
-`live`. It keeps in every session's primer the shape rules that no act there applies, 1,155 words by
+`live`. It keeps in every session's primer the shape rules that no act there applies, measured with
 `wc -w` over `path@agent-skills@fragments/head-shape.md` but its `%%` lines, the size cost
-`design@agent-skills@context-cost-of-agent-text` counts. It is kept here because choosing it would
-remove the section `skill@knowledge-architect-decision-recording@head-shape`, which other projects'
-texts cite, test 1.
+`design@agent-skills@context-cost-of-agent-text` counts. It is kept here, by test 1, because
+choosing it would remove `skill@knowledge-architect-decision-recording@head-shape`, a section of
+the installed text, an interface that a project's own text cites once it moves its pin.
 
 ### A directive restated wherever it has to be delivered `##directive-restated-everywhere`
 

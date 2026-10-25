@@ -33,7 +33,8 @@ subsection is omitted.
   `skill@knowledge-architect-decision-recording@head-shape`. A project's text that cites
   `primer@design-heads` for one of them, such as the alignment of a slug, present tense or one
   decision per head, cites `skill@knowledge-architect-decision-recording@head-shape` instead;
-  `primer@design-heads` keeps what earns a head and what a head stands on.
+  `primer@design-heads` keeps what earns a head, whether a reason belongs in a head or in a comment,
+  and what a head stands on.
 
 ### New features
 
@@ -61,8 +62,8 @@ subsection is omitted.
   a skill is self-sufficient, and the trigger test. The rereads of the primer's section on design
   heads are gone; the reviewers and auditors that judge by these standards hold them.
 - `agent-skills`, patch: a size cost of agent-facing text is weighed in the context of the
-  sessions that load it, never by the text's length, a rule the primer and the admission standard
-  state.
+  sessions that load it, never by the text's length, a rule the primer states, and every text that
+  holds the admission standard's shape of a repair.
 - `agent-skills`, patch: the setup skill names `klarch init` as how a project is created, and
   `new-component` as how a Component is added; its Rust section shows the virtual workspace a
   project gains, and says `init --rust` writes its blocks but the continuous integration workflow.

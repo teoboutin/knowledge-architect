@@ -337,7 +337,8 @@ the text it loads delivers it, since the session holds it either way. A pointer 
 follow costs more: the reference resolved, the location found and the target read, each in context
 and in time, and the risk that the session acts from memory instead. A size cost exists only for a
 session that loads a statement its act does not apply: the primer's text, in every session that
-never meets its occasion, or a fragment's copy, in a host whose act does not apply it whole.
+never meets its occasion, or the copy of a text that the build places in several texts, in a text
+whose act does not apply it whole.
 
 | the statement is about | home | it leaves when |
 | --- | --- | --- |
@@ -423,10 +424,9 @@ content.
 
 A design head is an entry of a design home: a level-three heading that states a decision, and its
 body. This section holds what every session applies: to tell in advance whether a change bears on a
-head or needs one, and to read a head's ground. The rest of what a head holds, and how a head is
-shaped, is `skill@knowledge-architect-decision-recording@head-shape`, which the decision-record
-reviewer and the design-record auditor deliver too; `skill@knowledge-architect-decision-recording`
-holds the procedures of recording.
+head or needs one, and to read a head. The rest of what a head holds, and how a head is
+shaped, is `skill@knowledge-architect-decision-recording@head-shape`;
+`skill@knowledge-architect-decision-recording` holds the procedures of recording.
 
 ### What earns a head
 
@@ -469,6 +469,12 @@ Otherwise it belongs in an **inline comment at the code it explains, plus the co
 The comment is read by every session that touches the code, which a head is not, and the commit
 carries the argument. A reason that fits in one comment at one site, about that site's own code,
 fails test 2.
+
+**A head carries the intent it serves, its shape and the standing argument, not implementation.**
+How the project is arranged to reach its goals belongs here, each head citing the goal it derives a
+constraint from; what the project is for is its goals home's. How a particular function does its
+work belongs in a comment at that function. The test: **if changing a piece of code would force a
+change to the design home, it is design; if the design home would be unaffected, it is a comment.**
 
 **The backstop. A decision that creates a head, contradicts a statement of one, its argument
 included, or adds a member the head's argument does not cover, goes to the design skill before its

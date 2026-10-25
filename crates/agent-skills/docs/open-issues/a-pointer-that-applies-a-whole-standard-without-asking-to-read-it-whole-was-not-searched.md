@@ -7,8 +7,10 @@ kind: todo
 
 The work of `spec@plans@standards-delivered-as-fragments` found the blocks of the installed text
 read whole at several places by searching the lines that hold "whole" or "again" and the pointers
-beside them. A pointer written as "as X says" that applies a whole standard, with no such word near
-it, was not found.
+beside them. A pointer that applies a whole standard with no such word near it, written as "as X
+says" or with another word such as "in full", was not found. The review before the merge of that
+work found one, the decision-record reviewer's pointer to
+`skill@knowledge-architect-decision-recording@three-homes`, "Read the last in full".
 
 ## Details
 

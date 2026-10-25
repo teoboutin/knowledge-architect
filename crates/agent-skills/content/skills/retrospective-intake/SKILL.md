@@ -155,7 +155,8 @@ output, a commit. A verdict without evidence is labelled an assumption.
 
 ## The standard on agent-facing text {{slug:admission-rules}}
 
-The standard of `skill@knowledge-architect-agent-configuration@admission-standard`, whole.
+The four parts of `skill@knowledge-architect-agent-configuration@admission-standard`, with the
+rule on a text's size cost that the standard places after the shape of a repair.
 
 ### The need test
 

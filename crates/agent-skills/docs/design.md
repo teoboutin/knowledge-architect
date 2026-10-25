@@ -53,16 +53,19 @@ The owner proposed it, against the pointer read whole, so that a standard is wri
 delivered whole wherever it applies, which `goal@agent-skills@no-contradiction-in-workflow` asks:
 a pointer costs the session a decision to fetch it, which the owner believed sessions likely to
 skip on the ground that they read the target earlier. The owner ruled that fragments become the main
-delivery for standards and similar large blocks read whole at several places. The blocks migrated
-are the tripwire standard and its lifecycle, the rules on design heads, per
+delivery for standards and similar large blocks read whole at several places. The fragments
+today are the tripwire standard and its lifecycle, the rules on design heads, per
 `design@agent-skills@one-home-for-head-rules`, the admission standard, per
-`design@agent-skills@admission-rules-home`, the size cost of agent-facing text, the retrospective's
-file format and kinds of defect, the decision-recording skill's rules on the Component, rejected
-designs, the deliberation and a reversal, the audit's outcomes, the rule that a skill is
-self-sufficient, and the trigger test. The host lists of the tripwire standard and its lifecycle,
-and of the blocks the owner approved by its list of candidates, are the owner's, so a host added to
-one goes to the owner; the expectation sets stay behind a pointer, since the reader needs one
-skill's set, which varies per finding. The pointer it replaces had left the writer of about 35 tripwires of
+`design@agent-skills@admission-rules-home`, the retrospective's file format and kinds of defect,
+the decision-recording skill's rules on the Component, rejected designs, the deliberation and a
+reversal, the audit's outcomes, the rule that a skill is self-sufficient, and the trigger test; and
+one rule written as a fragment from the start, the size cost of agent-facing text, per
+`design@agent-skills@context-cost-of-agent-text`. The host lists of every fragment but the four of
+the admission standard are the owner's: the owner approved each list, the narrowings included, so
+a host added to one goes to the owner; the admission standard's four follow from the owner's
+approval of its split by subsection, under the rule that a host applies the whole fragment. The
+expectation sets stay behind a pointer, since the reader needs one skill's set, which varies per
+finding. The pointer it replaces had left the writer of about 35 tripwires of
 this repository and thaum without the rule they broke. The snippet pass cannot carry prose: it runs
 last, so a snippet keeps its `%%` lines and its placeholders, and every snippet is written into a
 new project by `klarch init --rust`. A harness hook delivering pointed sections would bind the
@@ -616,7 +619,8 @@ the agentic-workflow axis's auditors and repair steps, a retrospective's proposa
 of received findings. A session writing the text, a skill's move included, reaches it through the
 agent-configuration skill's trigger. The section is four fragments, the need test with the outcomes
 of its failure, evidence and kind, the shape of a repair, and the record check, per
-`design@agent-skills@shared-text-fragment`, and each judging actor's text hosts those it applies
+`design@agent-skills@shared-text-fragment`, with the rule on a text's size cost after the shape of
+a repair, per `design@agent-skills@context-cost-of-agent-text`, and each judging actor's text hosts those it applies
 whole, so the standard reaches it at its act; the repair steps of the agentic-workflow axis's
 saved workflow, general-purpose agents, read it by a pointer, since a prompt of the workflow can
 host no fragment. None restates more than one sentence of it, per
@@ -3191,48 +3195,56 @@ made and reverted within one session reaches no commit, while the owner reads th
 implementation choice is left out because a list of every choice would hide the few the owner could
 have made. The directive sits in the primer since a session of any activity makes such decisions.
 
-### The rules on design heads are three fragments, each hosted where its act applies it, and the primer hosts those every session applies `##one-home-for-head-rules`
+### Each rule on design heads has one home, a fragment hosted by every text whose act applies it, and the primer hosts those every session applies `##one-home-for-head-rules`
 
-What earns a head, what a head stands on, and what else a head holds and how it is shaped are three
+What earns a head, what a head stands on, and what else a head holds and how it is shaped are
 fragments, `path@agent-skills@fragments/head-entry-tests.md`,
 `path@agent-skills@fragments/head-ground.md` and `path@agent-skills@fragments/head-shape.md`, per
 `design@agent-skills@shared-text-fragment`. The primer hosts the first two in `primer@design-heads`:
-every session applies them, to tell during any task whether a decision needs a head or goes to the
-design skill, and to read a head and its ground at every grounding. The third is the decision-recording
-skill's section `skill@knowledge-architect-decision-recording@head-shape`, beside the first two;
-the decision-record reviewer and the design-record auditor host all three, and the design skill
-the first two. The hosts test of `path@agent-skills@src/lib.rs` holds the lists. Every other text
-points to the rules, or restates one sentence of them with its pointer, per
-`design@agent-skills@restatement-size-test`. The fragments are also the home of four rules on heads
-that have no head of their own: present tense, the alignment of the slug and the title, a decision
-worth a slug has its own level-three heading, and fidelity to what the owner approved.
+every session applies them, to tell during any task whether a decision needs a head, goes to the
+design skill or belongs in a comment, and to read a head at every grounding. The third is held by
+the decision-recording skill's section `skill@knowledge-architect-decision-recording@head-shape`,
+beside the first two, and by the texts that judge a head; the hosts test of
+`path@agent-skills@src/lib.rs` holds the lists. The decision-recording skill keeps the procedures
+of writing a head. Every other text points to the rules, or restates one sentence of them with its
+pointer, per `design@agent-skills@restatement-size-test`. The fragments are also the home of four
+rules on heads that have no head of their own: present tense, the alignment of the slug and the
+title, a decision worth a slug has its own level-three heading, and fidelity to what the owner
+approved.
 
 The centralization is the owner's proposal: the rules on what a design head records and how are
-kept consistent with each other and applicable, partial restatements of them are avoided, and each
-is read whole where it is needed. One file per rule keeps that, since the build writes every copy.
+kept consistent with each other and applicable, partial restatements of them are avoided at all
+cost, and they are read whole where they are needed. The owner's proposal put them in a single
+location; the split by act below keeps one home per rule instead, one file the build copies into
+each host, so no copy is written by hand. This serves `goal@agent-skills@no-contradiction-in-workflow`.
 The rival, restating the rules wherever they are delivered, gives partial copies that drift: an
 inventory of the installed text at commit bc22d4d, re-taken by a fresh read-only subagent listing
 each statement of a rule on heads outside its home at that commit, finds about ten texts restating
 parts of the decision-recording skill, with nine inconsistencies between them and it.
 
 The split by act delivers each rule right before the act it shapes: the primer is loaded once at
-the start of a session and dilutes in a long one, a pointer costs a lookup the session may skip,
-and the shape rules are applied only by a writer or a judge of a head. `issue@agent-skills@the-claim-check-of-a-commit-message-is-read-at-the-start-and-needed-at-each-commit`
+the start of a session and can dilute in a long one, a pointer costs a lookup the session may skip,
+and the shape rules are applied only by a writer or a judge of a head.
+`issue@agent-skills@the-claim-check-of-a-commit-message-is-read-at-the-start-and-needed-at-each-commit`
 records that mechanism in real use for another rule of the primer. What stays in the primer stands
-on the owner's earlier arguments: the rules are needed to interpret recorded design and to tell in
-advance what kind of decision may need to enter a design home, and nearly every piece of work adds
-or rewrites recorded design. Every subagent holds the primer in its initial context, which a probe
-measures in one harness, re-taken by dispatching a subagent of each type, with no file read and no
-tool, and asking it to quote a sentence of the primer from its initial context; a subagent that
-cannot reopens this decision. The rival that keeps the whole section in the primer, read again
-before recording, `rejected@agent-skills@head-rules-whole-in-primer`, delivers the rules at the act
-only through a reread the session may skip. The rival that makes the whole section one fragment
-hosted by the primer and by every writer and judge, `rejected@agent-skills@head-rules-one-fragment`,
-keeps in every session's primer the shape rules no act there applies, 1,155 words by `wc -w` over
-head-shape.md but its `%%` lines, the cost `design@agent-skills@context-cost-of-agent-text` counts. The rules in the
-decision-recording skill alone, `rejected@agent-skills@head-rules-in-decision-recording`, leave the
-parts every session applies unread at a grounding.
+on the owner's arguments that the rules are useful to interpret recorded design and to identify in
+advance what kind of decision may need to enter a design home, and that nearly every piece of work
+adds or rewrites recorded design. Reading a head loads no skill, and every subagent holds the
+primer in its initial context, which a probe measures in one harness, re-taken by dispatching a
+subagent of each type, with no file read and no tool, and asking it to quote a sentence of the
+primer from its initial context; a subagent that cannot reopens this decision. The cost is the
+primer's share of the rules, the two fragments it hosts, in every session of every installing
+project, re-taken with `wc -w` over them, which `design@agent-skills@primer-limit` admits for what
+every session applies and no skill delivers at the moment it is needed.
 
+The rival that keeps the whole section in the primer, read again before recording,
+`rejected@agent-skills@head-rules-whole-in-primer`, delivers the rules at the act only through a
+reread the session may skip. The rival that makes the whole section one fragment hosted by the
+primer and by every writer and judge, `rejected@agent-skills@head-rules-one-fragment`, keeps in
+every session's primer the shape rules no act there applies, measured with `wc -w` over
+head-shape.md but its `%%` lines, the cost `design@agent-skills@context-cost-of-agent-text` counts.
+The rules in the decision-recording skill alone, `rejected@agent-skills@head-rules-in-decision-recording`,
+leave the parts every session applies unread at a grounding.
 ### A directive is restated only where the restatement is no longer than a pointer to it `##restatement-size-test`
 
 A directive is restated at its point of delivery only when the restatement is no longer than a
@@ -3272,9 +3284,9 @@ loads a statement its act does not apply. The primer hosts it in `primer@where-k
 beside the restatement rule, and every host of the shape of a repair of
 `skill@knowledge-architect-agent-configuration@admission-standard` hosts it after that fragment.
 
-The rule is the owner's proposal, made when a session counted as a cost the growth of the reviewers
-that host the rules on heads, though they had to read those rules whole anyway, a misattribution
-the owner judged sessions repeat in this project. Its wording and its two locations stand on their
+The rule is the owner's proposal: the owner thinks sessions of this project tend to count as a cost
+the length of a text a session already had to read, and asked for a rule on how a size cost is
+weighed. Its wording and its two locations stand on their
 arguments, which the owner approved. The primer reaches the sessions that weigh where a text goes
 without loading the agent-configuration skill: both misattributions of the session that wrote the
 rule were made with that skill unloaded, one mapping the installed text, one discussing a design,
@@ -3283,8 +3295,8 @@ it in this repository's root `CLAUDE.md` loses because every project that instal
 weighs where its text goes, in its audits, retrospectives and repairs. The rule agrees with
 `design@agent-skills@restatement-size-test`, whose restatement keeps unrelated text out of a
 session's load, and `design@agent-skills@primer-limit` admits it, since every session weighs where
-a text goes. Its cost is the rule's 124 words, by `wc -w` over the fragment's lines but its `%%`
-line, in every session.
+a text goes. Its cost is the rule's length in every session, re-taken with `wc -w` over the
+fragment's lines but its `%%` line.
 
 ### The primer names the plans directory the checker fixes `##plans-directory-in-primer`
 
@@ -3546,8 +3558,8 @@ the owner hands it to an intake. The nearest
 rival, a section of the retrospective that avoids describing twice how the report is read, loses
 on that practice: a session with no session to examine would load the procedure for examining one,
 and every retrospective offer would load the intake. The intake hosts the report's format and the kinds of a defect as fragments the retrospective
-hosts too, and points to the retrospective's expectation sets, so nothing is described twice; the
-goal's measure admits it, since an agent reads another skill only at a step that points to it. A project adds to the intake through a skill
+hosts too, so each is written once, and points to the retrospective's expectation sets and to its
+form for citing a finding; the goal's measure admits it, since an agent reads another skill only at a step that points to it. A project adds to the intake through a skill
 of its own, per `design@agent-skills@overlay-by-separate-skills`.
 
 ### A project's intake analyses only its own retrospective file, reading the workflow file only for the other side of an interaction finding `##intake-takes-the-project-file`
@@ -3650,5 +3662,5 @@ finding differs between an audit and the intake: the intake has a real session b
 finding, as `design@agent-skills@behaviour-additions-need-real-use` asks of an addition, and an
 audit never has one. The worth of a fix and its shape do not differ, since both decide edits to the
 same text at the same cost. The standard's home is the agent-configuration skill, per
-`design@agent-skills@admission-rules-home`, and the intake hosts its four fragments, which the step that shapes a fix and the check of a
+`design@agent-skills@admission-rules-home`, and the intake hosts its four fragments, with the rule on a text's size cost, which the step that shapes a fix and the check of a
 finding's kind point to, before any edit is written.

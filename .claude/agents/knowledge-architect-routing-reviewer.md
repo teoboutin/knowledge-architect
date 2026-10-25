@@ -125,6 +125,10 @@ likely all are followed.
 
 ## Which Component owns a decision `##component-questions`
 
+These rules are written for the session that records, and you judge the record against them;
+where one asks the owner a question or asks for an edit, you report the case in your finding
+instead.
+
 The project is partitioned into Components, which its manifest declares. The project's root is a
 Component too.
 

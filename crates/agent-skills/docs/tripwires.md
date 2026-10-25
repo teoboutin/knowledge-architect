@@ -405,20 +405,6 @@ one-sentence pointer in the primer to the standard.
 **Watches until:** three commits on the main branch that add analyses of received retrospective
 files under docs/retrospective-reports/, counted from the commit that writes this line.
 
-## Guarding `design@agent-skills@additions-review-agent`: the agent-facing-text axis reports findings that need nothing `##agent-text-findings-need-nothing`
-
-The decision rests on the premise that the agent reports statements that fail the need test, and
-not its hard cases, so that a session spends its verification on findings that hold.
-
-**Fires when:** in the reviews of two separate pieces of work, the axis on agent-facing text reports
-findings and every one of them is judged to need nothing, by the session or by the owner.
-**Response:** reopen the need test's readings in
-`skill@knowledge-architect-agent-configuration@admission-standard`, which the agent and the
-need-test lens both apply, and `design@agent-skills@statement-names-an-act` with them.
-**Re-entry:** the outcome step of each review, `skill@knowledge-architect-review@what-review-leaves`.
-**Watches until:** ten commits on the main branch that change a file under
-`path@agent-skills@content/`, counted from the commit that writes this line.
-
 ## Guarding `design@agent-skills@checker-model-in-primer`: a rarer checker rule enters the model section `##rarer-rule-in-the-model`
 
 The decision rests on the premise that the model section holds what a reader needs, and that a rule

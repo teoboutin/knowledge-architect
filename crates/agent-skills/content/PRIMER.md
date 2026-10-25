@@ -420,10 +420,9 @@ content.
 
 A design head is an entry of a design home: a level-three heading that states a decision, and its
 body. This section holds what every session applies: to tell in advance whether a change bears on a
-head or needs one, and to read a head's ground. The rest of what a head holds, and how a head is
-shaped, is `skill@knowledge-architect-decision-recording@head-shape`, which the decision-record
-reviewer and the design-record auditor deliver too; `skill@knowledge-architect-decision-recording`
-holds the procedures of recording.
+head or needs one, and to read a head. The rest of what a head holds, and how a head is
+shaped, is `skill@knowledge-architect-decision-recording@head-shape`;
+`skill@knowledge-architect-decision-recording` holds the procedures of recording.
 
 ### What earns a head
 

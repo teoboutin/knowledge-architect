@@ -48,12 +48,12 @@ thinking in. Grep the subject's terms across every document that carries decisio
 touches, then `git log -G'<term>'` for the argument behind them. Say in the commit message what you
 searched and what it returned. A search that returned nothing is a finding worth one line there.
 
-**If nothing holds it, carry on to the entry tests of `skill@knowledge-architect-decision-recording@what-earns-a-head`.** If something does, do all of the following, in the same
+**If nothing holds it, carry on to the entry tests of `primer@design-heads`.** If something does, do all of the following, in the same
 change:
 
 - **The Component is the incumbent's.** The test of `skill@knowledge-architect-decision-recording@owning-component` is not asked again. If the incumbent looks misfiled, that is a separate change with its
   own argument.
-- **It earns durable text whatever the entry tests of `skill@knowledge-architect-decision-recording@what-earns-a-head` say.** The
+- **It earns durable text whatever the entry tests of `primer@design-heads` say.** The
   incumbent's head now states something false, so the minimum is rewriting it. The entry tests
   decide whether a _new_ decision earns an entry, not whether a false one may stand.
 - **Rewrite the head in place** (`skill@knowledge-architect-decision-recording@current-design`), and give the new statement its own slug when it is a new
@@ -64,7 +64,7 @@ change:
 - **Move the incumbent into the Component's `register@*@rejected`** (`skill@knowledge-architect-decision-recording@losing-alternatives`) with its reason and a
   validity marker, stated as strongly as it was originally made, if it meets one of the tests of `skill@knowledge-architect-decision-recording@losing-alternatives`, and cite it from the new head.
 - **Argue it under `skill@knowledge-architect-design` first**, if it was not: a reversal contradicts
-  a statement of the incumbent, the second case of the backstop of `skill@knowledge-architect-decision-recording@what-earns-a-head`.
+  a statement of the incumbent, the second case of the backstop of `primer@design-heads`.
 - **Delete the tripwires guarding the reversed decision.** `skill@knowledge-architect-issue-tracking` owns that movement.
 - **Repair what pointed at the old behaviour**: skills, subagent definitions, scoped `CLAUDE.md`
   files, generated headers. Grep the behaviour's wording as well as the slug, since a pointer that
@@ -117,6 +117,12 @@ Otherwise it belongs in an **inline comment at the code it explains, plus the co
 The comment is read by every session that touches the code, which a head is not, and the commit
 carries the argument. A reason that fits in one comment at one site, about that site's own code,
 fails test 2.
+
+**A head carries the intent it serves, its shape and the standing argument, not implementation.**
+How the project is arranged to reach its goals belongs here, each head citing the goal it derives a
+constraint from; what the project is for is its goals home's. How a particular function does its
+work belongs in a comment at that function. The test: **if changing a piece of code would force a
+change to the design home, it is design; if the design home would be unaffected, it is a comment.**
 
 **The backstop. A decision that creates a head, contradicts a statement of one, its argument
 included, or adds a member the head's argument does not cover, goes to the design skill before its
@@ -244,12 +250,6 @@ A head is written **as if the design had always been so**. Present tense, no dat
 account of the change. If you find yourself writing "we used to…", that sentence belongs in the
 commit, and so does an opening that motivates a decision by describing the state before it.
 
-**A head carries the intent it serves, its shape and the standing argument, not implementation.**
-How the project is arranged to reach its goals belongs here, each head citing the goal it derives a
-constraint from; what the project is for is its goals home's. How a particular function does its
-work belongs in a comment at that function. The test: **if changing a piece of code would force a
-change to the design home, it is design; if the design home would be unaffected, it is a comment.**
-
 Never list what cites a head: `cargo klarch show design@<component>@<slug>` computes it.
 
 A decision that relies on the checker of this workflow states that it relies on the checker
@@ -317,8 +317,8 @@ only part a reader sees, in a citing document or in code, and the title is what 
 shows. A slug or a title that misdescribes its decision misinforms every reader, or undermines the
 decision it names, so rename it even when that means rewriting every reference in the project.
 
-**A head that a change touches is brought to the rules on design heads in that change**: its title to the rule it
-argues, each decision it bundles to a head of its own, its ground to its argument. Re-pointing a
+**A head that a change touches is brought to the rules on design heads in that change**: its title
+to the rule it argues, each decision it bundles to a head of its own, its ground to its argument. Re-pointing a
 reference in a head, to a renamed entry or a migrated form, does not touch it; adding or removing
 one does. Where bringing it
 to the rule would widen what the owner's words in it approved, as a title moved from the members

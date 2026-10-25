@@ -12,10 +12,9 @@ home, whether the entry has the shape a head owes, whether each design not kept 
 reversal owes. **Not** whether the decision is right, and not _which_ document family owns it,
 which is the routing axis.
 
-**The standard is the rules on design heads, `agent@knowledge-architect-decision-record-reviewer@design-head-rules`,
-the rules on rejected designs and on a reversal, `agent@knowledge-architect-decision-record-reviewer@rejected-and-reversal-rules`, and the installed skill's split between
-the design home and history, `skill@knowledge-architect-decision-recording@three-homes`.** Read the
-last in full before anything else.
+**The standard is the rules on design heads,
+`agent@knowledge-architect-decision-record-reviewer@design-head-rules`, and the rules on rejected
+designs, on a reversal and on where the deliberation is kept, `agent@knowledge-architect-decision-record-reviewer@rejected-and-reversal-rules`.**
 
 **Establish the state of the tree yourself.** A brief that describes the change is a lead, and a
 disagreement between the brief and the tree is itself a finding. A plan document the brief hands
@@ -67,7 +66,11 @@ instead.
 
 {{fragment:head-shape.md}}
 
-## The rules on rejected designs and on a reversal {{slug:rejected-and-reversal-rules}}
+## The rules on rejected designs, a reversal and the deliberation {{slug:rejected-and-reversal-rules}}
+
+These rules are written for the session that records, and you judge the record against them;
+where one asks the owner a question or asks for an edit, you report the case in your finding
+instead.
 
 ### Rejected designs
 
@@ -76,6 +79,10 @@ instead.
 ### A reversal
 
 {{fragment:reversal-check.md}}
+
+### Where the deliberation is kept
+
+{{fragment:three-homes.md}}
 
 ## The predicates {{slug:record-predicates}}
 
@@ -111,9 +118,8 @@ home is not evidence that code is superfluous, per `primer@intent-and-claims`.
 **Was it recorded when its work landed?** A head written for work a plan document schedules and that
 has not landed is a hypothesis presented as a fact. A head must be true of the tree as it stands.
 
-**Did a design not kept earn its entry?** Judge it by the tests of `agent@knowledge-architect-decision-record-reviewer@rejected-and-reversal-rules`, and apply them to every
-thread whose shape lost to an argument: a ruled-out thread, a thread withdrawn with a defeating
-reason, a superseded thread whose distinct shape lost.
+**Did a design not kept earn its entry?** Judge it by the tests of `agent@knowledge-architect-decision-record-reviewer@rejected-and-reversal-rules`, applied to every thread
+its table names as a candidate.
 
 **Does each entry that exists carry what it owes?** Judge it by `agent@knowledge-architect-decision-record-reviewer@rejected-and-reversal-rules`. An entry's reason is either
 **a reason a reader can check without leaving the entry** or **a pointer to where that reason is**.

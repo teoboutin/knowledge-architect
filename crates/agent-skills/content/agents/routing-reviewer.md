@@ -118,6 +118,10 @@ references an entry, which `{{command}} show` computes.
 
 ## Which Component owns a decision {{slug:component-questions}}
 
+These rules are written for the session that records, and you judge the record against them;
+where one asks the owner a question or asks for an edit, you report the case in your finding
+instead.
+
 {{fragment:owning-component.md}}
 
 ## Reporting {{slug:how-to-report}}
