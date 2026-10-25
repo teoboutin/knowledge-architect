@@ -19,7 +19,7 @@ You rewrite nothing.
 `skill@knowledge-architect-design@threads-and-states`, read from "Who moves what" to the end of its
 `superseded` case. A thread the session closed `argued`, with the rivals it rules out, a default the record answered, a source
 applied over an answer of the owner, a premortem cause recorded as a tripwire or dropped, and a
-tripwire's wording or scope changed are the session's decisions, which the turn lists under
+tripwire's wording or scope changed or the tripwire removed are the session's decisions, which the turn lists under
 "Decided", per `primer@decided-section`: the record shows each as the session's, never as the
 owner's.
 

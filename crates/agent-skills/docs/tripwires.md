@@ -427,7 +427,8 @@ a writer needs only for an uncommon shape reaches a session through its finding.
 **Fires when:** a review or an audit finds a rule in `primer@checker-model` that a finding message
 already delivers with its repair, other than one the head keeps there, the explanation of
 `check --fix`'s refusal. A rule that a review of the branch adding it finds, and that the branch
-removes before its merge, does not fire it: that is the review working.
+removes before its merge, does not fire it, on the owner's ruling for this entry, which the rule on
+slips states for every tripwire.
 **Response:** reopen `design@agent-skills@checker-model-in-primer` with the owner, on the scope of
 the owner's ruling that the rarer checker rules are delivered by their findings; the rule found is
 removed from the section as the repair of the instance.
@@ -529,6 +530,7 @@ document lists the cause of that failure as dropped, or the tripwire watching it
 condition 1.
 **Response:** reopen `design@agent-skills@tripwire-admission-test`, on how condition 1 is worded.
 **Re-entry:** the standing-state review: the issue and the commit are in the tree and the history.
-**Watches until:** the fifth plan document deleted at its landing on the main branch after the
-commit that writes this line.
+**Watches until:** the fifth plan document deleted at its landing on the main branch, and the second
+report file of the tripwire axis added under docs/audit-reports/ on the main branch, both counted
+from the commit that writes this line.
 

@@ -20,8 +20,11 @@ discussion that made `design@agent-skills@root-cause-repair`: from one pass to t
 violations left on old text fall, and the severe ones among them, those whose outcome is the owner
 list, fall while above zero. Old text is text the previous pass also read, whose words are
 unchanged since the commit it audited, per `design@agent-skills@convergence-count-scope`; a first
-pass is not counted. It is no tripwire, on the owner's word: it is observed whenever an audit is
-created or changed, a recurring acceptance criterion of that work. Of its two halves:
+pass is not counted. The owner ruled its tripwire removed, judging it, in the owner's view, no
+tripwire but a recurring acceptance criterion of the work that creates or changes an audit. Its
+second half meets the four conditions of the tripwire standard, so the removal rests on the owner's
+word, not on a condition. Of its
+two halves:
 
 - The first already stops the work: under
   `design@agent-skills@audit-passes-repeat-while-the-count-falls`, a pass where the count on old
@@ -52,5 +55,7 @@ by the session that writes the pass's commit, from counts no step compares. It s
 
 ### What would close it
 
-The comparison line written by each of the three saved workflows at a re-check's report step, and
-carried by the stop rule's question to the owner.
+The comparison line written by each of the three saved workflows at a re-check's report step; and a
+pass whose severe count does not fall while above zero put to the owner as a question, as the stop
+rule puts a pass whose total does not fall, since the stop rule alone never reaches the case where
+the total falls and the severe count does not.

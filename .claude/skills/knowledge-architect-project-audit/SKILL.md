@@ -366,7 +366,8 @@ marked as firing has fired.
 to `application` and `applied` to that commit: an auditor per group judges every tripwire whose text
 the application changed, a re-pointed reference alone left out, against the standard, the failure
 modes of an edit and the owner's rulings, with the entry it guards; and every tripwire the
-application deleted, against the ruling that deletes it and what its outcome puts in its place. The
+application deleted, against the outcome or the ruling of the report that deletes it and what its
+outcome puts in its place. The
 session repairs each failure of the report that a reading confirms and folds the repairs into the
 pass's commit, with no uncommitted work in the tree.
 

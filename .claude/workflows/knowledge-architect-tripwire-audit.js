@@ -169,7 +169,7 @@ const cut = (components) => {
 const total = (components) => components.reduce((t, c) => t + c.entries.length, 0)
 
 // The judgement of an application: every tripwire the session's application of a pass changed or
-// deleted, judged after the owner's ruling, as a run of its own; it ends at its report.
+// deleted, judged after the session applies the pass, as a run of its own; it ends at its report.
 if (args.from === 'application') {
   const dir = at(args.scratch, 'application')
   const judging = at(args.worktrees, 'application')

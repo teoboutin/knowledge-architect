@@ -1,4 +1,4 @@
-%% The decisions: `design@agent-skills@tripwire-horizon`, `design@agent-skills@tripwire-judged-by-the-standard-alone`.
+%% The decisions: `design@agent-skills@tripwire-horizon`, `design@agent-skills@tripwire-stands-on-the-standard`.
 A tripwire leaves its home by these exits, or on the owner's word; its wording and its scope are the
 session's to change while it watches the same cause, judged by the standard of
 `skill@knowledge-architect-decision-recording@ruled-tripwires`; each change and each exit is listed
