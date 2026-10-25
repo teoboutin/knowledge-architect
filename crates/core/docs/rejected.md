@@ -700,15 +700,15 @@ stops no pipe: a session that pipes anyway still chains on the filter's status i
 of its chain, they reached at most 342 of this repository's 677 entries at ed9dd60 and 208 of the
 801 of thaum at its commit edd2cb5d,
 since most heads cite another head rather than a goal; followed through the citations between heads
-they merged into one cluster of 466 to 480 entries. The spec of the work that built `klarch worklist`,
-which `git log --diff-filter=D --name-only -- docs/plans/` lists, keeps the counts. It is kept here because a doubt remains: a goal is the owner's own
+they merged into one cluster of 466 to 480 entries. The scripts the message of the commit
+"[review] Repairs of the transcript review of one search of the whole record, with the scripts of its measurements" holds took the counts. It is kept here because a doubt remains: a goal is the owner's own
 grouping, and a project whose heads all cite their goals would reach every entry.
 
 ### Goals bringing into a cluster the issues and tripwires that cite them `##goals-pull-their-citers`
 
 `live`. A goal of the root is cited by heads of many subjects, so each of its citers joined every
 such cluster: the reads rose from 839 to 1323 for 663 entries over this repository at ed9dd60, counted with the
-scripts whose figures the spec of the work that built `klarch worklist` keeps.
+scripts the message of the commit "[review] Repairs of the transcript review of one search of the whole record, with the scripts of its measurements" holds.
 
 ### The record search's agents filled to the bound by first-fit packing `##packing-to-the-bound`
 
@@ -721,7 +721,7 @@ carries a remnant.
 `live`. Clustering reads an edge either way, so the rule buys only acyclicity, which serves a
 transitive membership that merges the clusters. It would fail 287 edges of this repository at ed9dd60 and
 591 of thaum's at edd2cb5d, a design head citing its `rejected` entries and a goal refining another among them, as
-counted for the spec of the work that built `klarch worklist`.
+counted with the scripts the message of the commit "[review] Repairs of the transcript review of one search of the whole record, with the scripts of its measurements" holds.
 
 ### A check failing the tree on a subject whose cluster is above the bound `##split-enforced-by-a-check`
 
@@ -739,4 +739,4 @@ entries rested on their mean size in thaum, 1.6 KB, and on no measurement of rec
 
 `live`. The entries no cluster holds are of shapes the reference rule admits, issues about code with
 no head among them, so the group grows with the project: 14 entries here at ed9dd60, 55 in thaum at
-its commit edd2cb5d, counted for the spec of the work that built `klarch worklist`.
+its commit edd2cb5d, counted with the scripts the message of the commit "[review] Repairs of the transcript review of one search of the whole record, with the scripts of its measurements" holds.

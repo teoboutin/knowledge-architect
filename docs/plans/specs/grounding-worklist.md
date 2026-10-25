@@ -41,7 +41,7 @@ leaves the repository in a commit of its own, after its harvest and the review b
 - It was assembled from one transcript. The discussion begins at the owner's message that opens "I
   want to refactor the way the grounding steps at the beginning of design skill, design audit of
   slices, and other triggers." and converges at the owner's message that ends "keep all 4 proposed
-  AC". The owner's messages are called rounds 0 to 6:
+  AC". The owner's messages are called rounds 0 to 8:
   - rounds 0 to 3, the discussion; the agent's replies to rounds 0, 1 and 2 carry the headings
     "Round 1", "Round 2" and "Round 3" in the transcript, and are called here "the reply to round
     0", "the reply to round 1" and "the reply to round 2";
