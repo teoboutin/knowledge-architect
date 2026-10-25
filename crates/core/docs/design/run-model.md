@@ -157,7 +157,9 @@ carried out safely is the project's rule for that operation, not the finding's t
 | 2    | the command could not run: bad arguments, no project, unreadable input |
 
 This binds the core's commands in every binary that offers them, per
-`design@core@the-core-cli-is-a-library-module`. `path@core@README.md` lists which
+`design@core@the-core-cli-is-a-library-module`. A command that answers several candidates in one
+run, as `id` does, answers one it cannot read as a candidate with 1, a negative answer about it,
+since the run still answers the others. `path@core@README.md` lists which
 outcome of each command maps to which code.
 
 **The third code is what makes the other two mean anything.** A project runs `check` and

@@ -21,29 +21,17 @@ deferred trigger against the change, as it reads every tripwire, and reports a t
 meets as a finding, whose repair is the work the issue names or the owner's ruling. Without it, a
 trigger met by work that does not go through the design skill has no reader at all.
 
-### A fresh reviewer reads every plan document, and every in-change deliberation that left entries unread, against the goals, the design heads and the rejected alternatives of the Components it touches and against the entries left unread `##plan-read-against-the-record`
+### A fresh reviewer reads every plan document against the goals, the design heads and the rejected alternatives of the Components it touches `##plan-read-against-the-record`
 
 At every moment the installed planning skill sends a plan document's reviewers, it sends the
 design-conformance reviewer beside the cold implementer, the code-claims reviewer and the
-transcript reviewer; and at the review before the merge of a branch whose commit message carries an
-in-change deliberation listing entries not read, it reads that message and the branch's diff. It
-reads the document against the goals homes, the design homes and the rejected alternatives of the
-project's root and of every Component the document touches, and reads whole every entry the
-document lists as `may-bear` and not read, issues and tripwires included. It reports a
-contradiction of a goal always, for the owner; a contradiction or a widening of a head that the
-document's "What is already decided" does not list as reversed or rewritten; a rejected alternative
-brought back without a recorded reopening; an acceptance criterion whose observable the record rules
-out; and an entry left unread that the work meets. The second rule keeps it from reporting each
-widening the document makes on purpose. It runs only commands that read.
-
-The entries left unread are the design session's reading on touch, per
-`design@agent-skills@search-relevance-grade`: a `may-bear` entry no proposal touched is listed, not
-read, and the reviewer is its reader. Its rival, the list recorded and read by no reviewer, leaves a
-misjudged entry to surface only after the work, the rework the search before the work exists to
-prevent, per `design@agent-skills@record-searched-before-the-work`; this reviewer already reads the
-record against the document, so the list adds reading and no dispatch on the full path. On the
-in-change path, which has no plan document, the review before the merge dispatches it on the commit
-message that carries the list, one more dispatch where the deliberation left entries unread.
+transcript reviewer. It reads the document against the goals homes, the design homes and the
+rejected alternatives of the project's root and of every Component the document touches. It
+reports a contradiction of a goal always, for the owner; a contradiction or a widening of a head
+that the document's "What is already decided" does not list as reversed or rewritten; a rejected
+alternative brought back without a recorded reopening; and an acceptance criterion whose observable
+the record rules out. The second rule keeps it from reporting each widening the document makes on
+purpose. It runs only commands that read.
 
 The decision serves `goal@knowledge-architect@agents-work-without-drift`, which is met when "a
 departure from the recorded design is caught by a check or a review before it merges". The owner
@@ -67,6 +55,24 @@ or an internal documentation defect is left to the retrospective skill to judge.
 more dispatch at each of those moments; what it buys is a reader of the record that neither the
 author nor the implementing session is, which the two acceptance criteria above show the other
 reviews lacked.
+
+### The `may-bear` entries a design grounding leaves unread reach the design-conformance reviewer, which reads them whole `##unread-entries-reach-the-conformance-review`
+
+The list of `may-bear` entries the session left unread, per
+`design@agent-skills@may-bear-read-on-touch`, is kept where the work's deliberation is: in the plan
+document's "What is already decided", or in the commit message on the in-change path and for
+bounded work. The design-conformance reviewer reads whole every entry the list names, issues and
+tripwires included, and reports one the work meets. At the review before the merge of a branch whose
+commit message carries such a list, it is dispatched on that message and the branch's diff, and
+reads as declared departures the heads the diff rewrites and those the message names as reversed.
+
+The reading on touch leaves those entries to a reader, and this reviewer already reads the record
+against the work, per `design@agent-skills@plan-read-against-the-record`, so on the full path the
+list adds reading and no dispatch. The rival, the list recorded and read by no reviewer, leaves an
+entry the session misjudged to surface only after the work, the rework the search before the work
+exists to prevent, per `design@agent-skills@record-searched-before-the-work`. The cost is one more
+dispatch at the review before the merge of a branch whose grounding left entries unread outside a
+plan document.
 
 ### Before every merge, the transcript reviewer runs alone and last, and not with the other axes `##transcript-review-last-before-merge`
 

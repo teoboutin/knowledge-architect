@@ -48,12 +48,12 @@ decision or a goal whose failure would be seen in real sessions before any check
 `goal@knowledge-architect@mechanical-tasks-are-the-tool-s`. The last question is asked of every
 session, since every session follows the workflow's procedures, where the question that lost in
 `rejected@agent-skills@retrospective-asks-for-unrecognised-lines` met a command most sessions never
-run; its evidence is real use, the owner's report that every design session writes a loop to check
-a slug free, and the scripts with which half the searchers of one search filled their reports. The question on a
-reference or a path written without backticks is the one channel by which a gap of the checker met in a consumer project reaches this repository, since
+run; its evidence is real use, the owner's report that each design session wrote a loop to check a
+slug free before `klarch id` existed, and the scripts with which half the searchers of one search filled their reports. The question on a
+reference or a path written without backticks is the one channel by which a checked form missing from the checker, met in a consumer project, reaches this repository, since
 the consumer's own entry for it is not citable here. The primer question asks about behaviour, on
-the owner's direction: "this one should directly ask a session about what it observed in the
-behavior. No edit of the subagent briefs." A session sees a subagent's brief and its report, not
+the owner's direction that it ask a session directly what it observed of the behaviour, with no edit
+of the subagent briefs. A session sees a subagent's brief and its report, not
 its context, unless it reads the subagent's transcript, which `klarch transcript show --subagents`
 prints: asked whether the primer reached the subagents, four received retrospectives answered
 that it could not be observed, or was assumed, as the issue closed in commit 0a3c1a6 lists, read

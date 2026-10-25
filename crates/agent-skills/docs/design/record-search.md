@@ -54,7 +54,7 @@ small while a goal is small beside the entries of the clusters it joins; re-take
 over the goals homes against the design homes, and goals homes that approach the size of their
 design homes reopen the cost.
 
-### The searcher grades each entry by a grade and a relation of its role, a `may-bear` grade names its doubt, every entry appears once in its report, and the session reads whole the `bears` entries and the `may-bear` entries its proposals touch `##search-relevance-grade`
+### The searcher grades each entry by a grade and a relation of its role, a `may-bear` grade naming its doubt, and every entry appears once in its report `##search-relevance-grade`
 
 The searcher grades each entry `bears`, with a relation of its role; `may-bear`, an entry where an
 element the change makes might conflict with a sentence of the entry, both named in its reason; or
@@ -62,38 +62,52 @@ element the change makes might conflict with a sentence of the entry, both named
 change later, included. The relations: `constrains` and `may change` for a goal, a design entry or
 an entry of a declared register; `may bring back` for a `rejected` entry; `touches`, `closes`,
 `worsens`, `depends on` and `trigger met` for an issue; `fires` for a tripwire. An entry that is a
-seed, or cites one, is never `unrelated`. Every entry of the agent appears once in its report, and
-`klarch worklist --verify` checks it, then assembles the graded entries into `bears.md` and
-`may-bear.md`, per `design@core@worklist-writes-and-verifies-the-reports`. The design skill routes
-each grade to an act: the session reads `bears.md` whole and, from `may-bear.md`, the entries a
-proposal touches, chosen by their reasons, and lists the others as not read, each with the
-searcher's reason, where the review that reads the work against the record reads them, per
-`design@agent-skills@plan-read-against-the-record`; it sends a `may change` entry to the reversal
-check and a `may change` goal to the goal-setting skill, since a goal changes only there, and
-proposes a `may bring back` entry again only with a new argument. A goal is in the assembly as its
-grades alone, since the session reads every goals home whole, per
-`design@agent-skills@searcher-grades-goals`.
+seed, or cites one, is never `unrelated`; where it meets no element of the change, it is
+`may-bear`, its reason naming the seed. Every entry of the agent appears once in its report, and
+`klarch worklist --verify` checks it, per `design@core@worklist-writes-and-verifies-the-reports`.
+The design skill routes each grade to an act: what the session reads is
+`design@agent-skills@may-bear-read-on-touch`; it sends a `may change` entry to the reversal check
+and a `may change` goal to the goal-setting skill, since a goal changes only there, and proposes a
+`may bring back` entry again only with a new argument.
+
+A grade is kept only where it changes what the session does: standing-entry searchers graded a doubt
+anyway, unasked, in 12 of the 41 entries they returned, each wording it differently, and a numeric
+scale would route no act. The owner asked for a ruling per entry on how closely it relates, unsure
+whether yes or no would suffice, and asked that every entry read be listed, which is what the check
+of a report's coverage reads. The doubt is named because the session chooses by it what to read: in
+the search that grounded the discussion that made this rule, over this repository, 80 of the 137
+entries graded `may-bear` alone gave as reason that no bearing was established or that the entry
+shared the subject, a doubt that gave the session nothing to choose by, as the message of the commit
+"[harvest] The graded entries' assembly, `klarch id`, the narrower grounding and the retrospective's
+new question recorded" states. Re-take it over a search's work list with
+`grep -h 'grade: may-bear' <dir>/agent-*/report.md | grep -ciE 'no bearing|not established|share'`;
+a search whose `may-bear` reasons mostly name no element of the work reopens the rule. The design
+this decision did not keep: `rejected@agent-skills@may-bear-on-a-doubt-naming-nothing`.
+
+### The session reads whole the entries graded `bears`, and of those graded `may-bear` the ones its proposals touch, and lists the others for a reviewer `##may-bear-read-on-touch`
+
+At the design grounding the session reads `bears.md` whole, and from `may-bear.md` the entries a
+proposal touches, chosen by their reasons, per `design@core@graded-entries-assembled`; it lists the
+others as not read, each with the searcher's reason, where the design-conformance review reads
+them, per `design@agent-skills@unread-entries-reach-the-conformance-review`. A goal is in the
+assembly by its grades alone, since the grounding reads every goals home whole, per
+`design@agent-skills@searcher-grades-goals`. The design audit of a slice or a spec reads both files
+whole, and each goal they give by its grades alone with `show`.
 
 The session reads whole what it acts on, never a summary of it, per
 `goal@knowledge-architect@the-owner-decides`; the owner asked that it read the reported issues and
 tripwires themselves rather than rely on the subagent's summary. At the design grounding the owner
 ruled that a `may-bear` issue or tripwire is read whole only where a proposal touches it, as any
-other `may-bear` entry, once the list of those not read reaches a reviewer that reads them. A grade
-is kept only where it changes what the session does: standing-entry searchers graded a doubt
-anyway, unasked, in 12 of the 41 entries they returned, each wording it differently, and a numeric
-scale would route no act. The owner asked for a ruling per entry on how closely it relates, unsure
-whether yes or no would suffice, and asked that every entry read be listed, which is what the check
-of a report's coverage reads.
-
-The named doubt and the reading on touch stand on one measurement, of the search that grounded the
-discussion that made them, over this repository: 202 entries graded `bears` or `may-bear`, 576 KB of
-`show` output read in 12 reads, of which about 30 changed a proposal, 6 of them `may-bear`, by the
-session's own judgement; and 80 of the 137 entries graded `may-bear` alone gave as reason that no
-bearing was established or that the entry shared the subject. Re-take it over the reports of a
-search's work list, counting the `may-bear` reasons that name no element of the work. A search whose
-`may-bear` entries mostly change a proposal reopens the reading on touch. The designs this decision
-did not keep: `rejected@agent-skills@design-grounding-reads-every-may-bear-entry-whole` and
-`rejected@agent-skills@may-bear-on-a-doubt-naming-nothing`.
+other `may-bear` entry, once the list of those not read reaches a reviewer that reads them. The
+rival, reading every `may-bear` entry whole, lost to the search that grounded the discussion that
+made this decision, over this repository: 202 entries graded `bears` or `may-bear`, 576 KB of
+`show` output read in 12 reads, of which about 30 changed a proposal, 6 of them `may-bear`; reading
+on touch would have read about 10 of the 137 entries graded `may-bear` alone, those 6 included, by
+the session's own judgement, as the message of the commit "[harvest] The graded entries' assembly, `klarch id`, the narrower grounding and the retrospective's
+new question recorded" states. A search whose `may-bear`
+entries left unread are found by the review to bear reopens it, as
+`tripwire@agent-skills@unread-may-bear-entry-bore` watches. The design this decision did not keep:
+`rejected@agent-skills@design-grounding-reads-every-may-bear-entry-whole`.
 
 At a retrospective intake, a batch of files, the session reads whole every issue and tripwire graded
 `bears` or `may-bear`, and a goal, a design entry or a `rejected` entry graded `may-bear` only where
@@ -106,19 +120,19 @@ files did the same. Both read whole what their proposals rested on, so no outcom
 unread entry. The design it does not keep:
 `rejected@agent-skills@intake-reads-every-may-bear-entry-whole`.
 
-### The record search takes as seeds the decisions the work rests on or may change, never a goal, and a goal a discussion sets is no part of its work `##seeds-name-decisions`
+### The record search takes as seeds the decisions the work rests on or may change, never a goal `##seeds-name-decisions`
 
 The design skill's grounding seeds the search with the decisions read so far that the question rests
 on or may change, and the design audit of a slice or a spec with the decisions its plan documents
-cite; neither seeds a goal. A goal the discussion sets through the goal-setting skill is no part of
-the search's work: only its consequences on the design are. An entry that is or cites a seed is
+cite; neither seeds a goal. An entry that is or cites a seed is
 never graded `unrelated`, per `design@agent-skills@search-relevance-grade`, so a seed that many
-entries cite forces each of them to a doubt the session must read. A goal is such a seed: it reaches
+entries cite forces each of them to a `may-bear` grade at least. A goal is such a seed: it reaches
 every cluster that cites it as context already, per `design@core@goals-join-a-cluster-as-context`,
 and the session reads every goals home whole. In the search that grounded the discussion that made
-this decision, 29 of the 137 entries graded `may-bear` alone carried the mark of one goal seed, and
-the work's goal widened the search to what the goal could lead to later; re-take it with a search's
-`agents.txt`, counting the entries marked as citing a goal seed. The intake's seeds, the design
+this decision, 29 of the 137 entries graded `may-bear` alone carried the mark of one goal seed, as
+the message of the commit "[harvest] The graded entries' assembly, `klarch id`, the narrower grounding and the retrospective's
+new question recorded" states; re-take it over a search's work list with
+`grep -c 'cites seed: goal@' <dir>/agent-*/report.md`. The intake's seeds, the design
 heads and goals its received findings name, are the findings' own citations, and stay. The design
 this decision did not keep: `rejected@agent-skills@goal-seeds`.
 

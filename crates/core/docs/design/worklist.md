@@ -66,43 +66,55 @@ Membership of a cluster reads an edge either way, so a rule that citations run f
 issues would buy acyclicity alone, which serves a transitive membership that merges the clusters.
 The design this decision did not keep: `rejected@core@citation-direction-checked`.
 
-### `worklist --out` writes the agents' entries, the report skeletons and a snapshot of every entry's show text into a directory outside the project, and `worklist --verify` judges the filled reports against the list it wrote, then assembles the graded entries from the snapshot `##worklist-writes-and-verifies-the-reports`
+### `worklist --out` writes the agents' entries and the report skeletons into a directory outside the project, and `worklist --verify` judges the filled reports against the list it wrote `##worklist-writes-and-verifies-the-reports`
 
 `klarch worklist --out <dir>` writes `agents.txt`, one line per agent and entry with its role and
-its seed mark, per agent `entries.md`, its entries whole, and `report.md`, one line per entry to
-grade, and `shown.md`, the snapshot: every entry of the record with the text `show` prints for it,
-its inbound list included, computed by `show`'s own code. No agent is given the snapshot, so an
-agent's load is its entries file alone. `--out` is a writer, so it refuses over an incomplete model,
-per `design@core@phases-gate-the-report`, and it refuses a directory inside the project, whose files
-the walk would read, a directory that holds anything, and a seed that names no entry, writing
-nothing. `klarch worklist --verify <dir>` reads no model: it judges each report against
-`agents.txt`, and reports an entry graded nowhere or twice, a reference no agent was given, a grade
-or a relation outside its role's set, a missing reason, an entry that is or cites a seed graded
-`unrelated`, and a report with no closing section on what was met outside the task. The grades and
-their relations are `design@agent-skills@search-relevance-grade`'s.
-
-When every report passes, `--verify` writes the assembly from the snapshot: `bears.md`, every entry
-whose highest grade over every report is `bears`, and `may-bear.md`, every entry whose highest grade
-is `may-bear`, after a table of contents of their reasons. Above each entry stand every agent's
-bearing grade lines; a goal is its grade lines and its site alone, since the session reads every
-goals home whole, per `design@agent-skills@searcher-grades-goals`. A run that fails, or stops on a
-file it cannot read, leaves no assembly, a previous run's included, and a snapshot missing or lacking
-an entry of the list stops it with exit 2, per `design@core@exit-code-ladder`. The assembly is the
-snapshot's text, so the session reads what the searchers graded, whatever the tree has become since.
+its seed mark, and per agent `entries.md`, its entries whole, and `report.md`, one line per entry
+to grade, and `shown.md`, the snapshot of `design@core@graded-entries-assembled`. It is a writer, so it refuses over an incomplete model, per
+`design@core@phases-gate-the-report`, and it refuses a directory inside the project, whose files the
+walk would read, a directory that holds anything, and a seed that names no entry, writing nothing.
+`klarch worklist --verify <dir>` reads no model: it judges each report against `agents.txt`, and
+reports an entry graded nowhere or twice, a reference no agent was given, a grade or a relation
+outside its role's set, a missing reason, an entry that is or cites a seed graded `unrelated`, and
+a report with no closing section on what was met outside the task. The grades and their relations
+are `design@agent-skills@search-relevance-grade`'s. When every report passes, it assembles the graded
+entries, per `design@core@graded-entries-assembled`.
 
 It serves `goal@core@records-reach-their-reader` and `goal@core@declared-instructions-are-checked`:
 an instruction to grade every entry once is kept by a command, not by a reader. The nearest rival,
 each searcher deriving its group from the listings and writing its report by hand, listed one entry
 under two lists in the discussion that produced the `rejected` register, and only the searcher's own
-correction, appended to its report, showed it. The assembly serves
-`goal@knowledge-architect@mechanical-tasks-are-the-tool-s`: without it, the session reading the
-graded entries runs `show` once per entry, which a session did by a script of its own over 202
-entries, 576 KB, in the discussion that built it. Its rival, an assembly that reads the model again
-when `--verify` runs, either makes `--verify` read a model, which a tree that gained a finding of
-the first three phases since `--out` would then block, or adds a third command step to every
-grounding, for an inbound list current to the minute:
-`rejected@core@assembly-reads-the-model`. The command's output is read by its own `--verify`,
-the searcher and the session, and is no contract with another reader, per
+correction, appended to its report, showed it. The command's output is read by its own `--verify`
+and the searcher, and is no contract with another reader, per
+`issue@knowledge-architect@command-output-is-not-declared-a-contract`.
+
+### A passing `worklist --verify` assembles the graded entries, fenced, from a snapshot `--out` takes of every entry's show text `##graded-entries-assembled`
+
+`klarch worklist --out` writes `shown.md`, the snapshot: every entry of the record with the text
+`show` prints for it, its inbound list included, computed by `show`'s own code. No agent is given
+it, so an agent's load is its entries file alone. When every report passes, `--verify` writes from
+it `bears.md`, every entry whose highest grade over every report is `bears`, and `may-bear.md`,
+every entry whose highest grade is `may-bear`, after a table of contents of their reasons; an entry
+graded `unrelated` by every report is in neither. Above each entry stand every agent's bearing grade
+lines, identical lines merged, then its text, fenced as the snapshot fences it so that a heading of
+the text reads as no section of the file; a goal is its grade lines and its site alone, since the
+design grounding reads every goals home whole, per `design@agent-skills@searcher-grades-goals`, and
+the other readers read a goal with `show`. The entries keep the order of `agents.txt`. A run that
+fails, or stops on a file it cannot read, leaves no assembly, a previous run's included; a snapshot
+missing, cut short or lacking an entry of the list, and a write that fails, stop it with exit 2 and
+no assembly, per `design@core@exit-code-ladder`. `--verify` still reads no model, so the session
+reads what the searchers graded, whatever the tree has become since.
+
+It serves `goal@knowledge-architect@mechanical-tasks-are-the-tool-s` and
+`goal@core@records-reach-their-reader`. The nearest rival, the session running `show` once per
+graded entry, is a script each session writes again: the grounding of the discussion that made this
+decision did so over 202 entries, 576 KB of `show` output, as the message of the commit "[harvest]
+The graded entries' assembly, `klarch id`, the narrower grounding and the retrospective's new
+question recorded" states. Its other rival, an assembly that reads the model when `--verify` runs,
+either makes `--verify` read a model, which a tree that gained a finding of the first three phases
+since `--out` would then block, or adds a third command step to every grounding, for an inbound list
+current to the minute: `rejected@core@gather-reads-the-model`. The files are read by `--verify`, the
+searcher and the session, and are no contract with another reader, per
 `issue@knowledge-architect@command-output-is-not-declared-a-contract`.
 
 ### The groups are packed into the fewest agents first-fit-decreasing gives, spread evenly, under a bound of 25,000 words, a group above it alone `##clusters-packed-under-a-word-bound`

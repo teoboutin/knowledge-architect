@@ -751,7 +751,7 @@ claude-code-log, printed a warning on every line of the new types, its issue 116
 `design@core@transcript-format-tolerated-and-reported`. The harness documents the
 format as internal and liable to change between versions.
 
-### An assembly of the graded entries that reads the model again when `worklist --verify` runs `##assembly-reads-the-model`
+### An assembly of the graded entries that reads the model again when `worklist --verify` runs `##gather-reads-the-model`
 
 `live`. It would have changed the command line, by `--verify` reading a model or by a third mode of
 `worklist`. Reading a model in `--verify` lets a tree that gained a finding of the first three
