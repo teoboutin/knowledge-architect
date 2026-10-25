@@ -21,6 +21,9 @@ const AGENTS_FILE: &str = "agents.txt";
 const ENTRIES_FILE: &str = "entries.md";
 /// The skeleton an agent fills.
 const REPORT_FILE: &str = "report.md";
+/// The show text of every entry of the record, for `--verify` to assemble from; no agent is
+/// given it, so an agent's load is its entries file alone.
+const SHOWN_FILE: &str = "shown.md";
 /// The section every report ends with.
 const MET_OUTSIDE: &str = "## Met outside the task";
 /// A report line that names an entry graded under an earlier cluster of the same agent.
@@ -117,7 +120,11 @@ fn write(
         .map(|g| (graph.load(g), g.key.clone()))
         .collect();
     let packing = graph::pack(&loads, args.bound);
-    let files = render(&graph, &packing.agents, &seeds);
+    let mut files = render(&graph, &packing.agents, &seeds);
+    files.push((
+        PathBuf::from(SHOWN_FILE),
+        snapshot(&graph, &anchors, &model),
+    ));
 
     std::fs::create_dir_all(&dir)
         .map_err(|e| format!("{}: {e}. Nothing was written.", dir.display()))?;
@@ -280,6 +287,33 @@ fn render(graph: &Graph, agents: &[Vec<usize>], seeds: &BTreeSet<usize>) -> Vec<
     }
     files.insert(0, (PathBuf::from(AGENTS_FILE), list));
     files
+}
+
+/// The snapshot: every entry of the record, in the graph's order, as a line `=== <reference>`, a
+/// blank line, and the entry's show text in a fence longer than any run of backticks it holds.
+///
+/// The text is `show`'s own, from [`super::record_text`], [`super::cited_at`] and
+/// [`super::inbound_text`], over one [`crate::records::Inbound`] built for every entry at once.
+/// `--verify` finds an entry by the reference on its `===` line, and reads its text up to the
+/// line that is the fence alone, which no line of the text can be, since the fence is longer
+/// than any run of backticks the text holds.
+fn snapshot(graph: &Graph, anchors: &Anchors, model: &crate::Model) -> String {
+    let index = crate::records::Inbound::build(model, anchors);
+    let mut out = String::new();
+    for entry in &graph.entries {
+        let reference = entry.reference();
+        let (kind, anchor, id) = &entry.key;
+        let text = format!(
+            "{}\n\n{}",
+            super::record_text(&reference, &entry.record),
+            super::inbound_text(&super::cited_at(&index, anchors, kind, anchor, id))
+        );
+        let fence = "`".repeat(longest_backtick_run(&text).max(2) + 1);
+        out.push_str(&format!(
+            "=== {reference}\n\n{fence}text\n{text}\n{fence}\n\n"
+        ));
+    }
+    out
 }
 
 /// The longest run of backticks in `text`.

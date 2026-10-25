@@ -5323,6 +5323,71 @@ fn worklist_fences_each_body_and_judges_a_graded_above_line() {
     );
 }
 
+/// The snapshot of a work list, as each reference with its show text, in the file's order.
+fn worklist_snapshot(out: &Path) -> Vec<(String, String)> {
+    let text = std::fs::read_to_string(out.join("shown.md")).expect("shown.md");
+    let mut entries = Vec::new();
+    let mut lines = text.lines();
+    while let Some(line) = lines.next() {
+        let Some(reference) = line.strip_prefix("=== ") else {
+            continue;
+        };
+        assert_eq!(
+            lines.next(),
+            Some(""),
+            "{reference}: a blank line after its `===` line"
+        );
+        let open = lines.next().expect("a fence");
+        let fence = open.strip_suffix("text").expect("a fence opening `text`");
+        let mut body = Vec::new();
+        for line in lines.by_ref() {
+            if line == fence {
+                break;
+            }
+            body.push(line);
+        }
+        entries.push((reference.to_string(), body.join("\n")));
+    }
+    entries
+}
+
+/// AC2 of the spec of the graded entries' assembly: the snapshot holds, for every entry of the
+/// record, the text `show` prints for it, its inbound list included, over the same tree.
+/// Mutation checked: the inbound list left out of the snapshot's text in `snapshot`.
+#[test]
+fn worklist_snapshot_holds_the_show_text_of_every_entry() {
+    let (sandbox, out) = worklist_project("worklist-snapshot");
+    let out_text = out.to_string_lossy().into_owned();
+    let (stdout, stderr, code) = sandbox.run(&["worklist", "--out", &out_text]);
+    assert_eq!(code, 0, "{stdout}{stderr}");
+    let snapshot = worklist_snapshot(&out);
+    let listed: std::collections::BTreeSet<String> =
+        std::fs::read_to_string(out.join("agents.txt"))
+            .expect("agents.txt")
+            .lines()
+            .map(|l| l.split(' ').nth(2).expect("a reference").to_string())
+            .collect();
+    let held: std::collections::BTreeSet<String> =
+        snapshot.iter().map(|(r, _)| r.clone()).collect();
+    assert_eq!(
+        held, listed,
+        "the snapshot holds every entry the work list lists, once"
+    );
+    assert_eq!(held.len(), snapshot.len(), "no entry twice");
+    for (reference, text) in &snapshot {
+        let (shown, stderr, code) = sandbox.run(&["show", reference]);
+        assert_eq!(code, 0, "{reference}: {shown}{stderr}");
+        assert_eq!(&format!("{text}\n"), &shown, "{reference}");
+    }
+    // The inbound lists are compared, not only the bodies: one entry here is cited.
+    assert!(
+        snapshot
+            .iter()
+            .any(|(_, text)| text.contains("referenced at:")),
+        "no entry of the snapshot is cited"
+    );
+}
+
 /// Every `entries.md` of a work list, each under a line naming its agent, in agent order.
 fn worklist_entries_files(out: &Path) -> String {
     let mut agents: Vec<PathBuf> = std::fs::read_dir(out)
