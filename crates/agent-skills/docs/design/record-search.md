@@ -136,7 +136,7 @@ new question recorded" states; re-take it over a search's work list with
 heads and goals its received findings name, are the findings' own citations, and stay. The design
 this decision did not keep: `rejected@agent-skills@goal-seeds`.
 
-### The record search runs where design is discussed, before the work: at a design discussion's grounding and for each later thread on a new subject, at a retrospective intake's grounding and for each fix on a new subject, and at the design audit of a slice or a spec `##record-searched-before-the-work`
+### The record search runs where design is discussed, before the work `##record-searched-before-the-work`
 
 The installed design skill dispatches the search at its loop step 1, with the question as the work
 and seeds as `design@agent-skills@seeds-name-decisions` says, for a design question and for bounded work alike,
