@@ -575,3 +575,43 @@ owner as a question about their intent.
   retrospective files; an outcome of an analysis in docs/retrospective-reports/ is carried out.
 
 A project's own skills add to these, and never replace them.
+
+## Terms the workflow coins `##coined-terms`
+
+Each term below is one this primer uses; the pointer names the text that holds it whole.
+
+- **installed text**: every file `cargo klarch install-agent-skills` writes, this primer and the
+  skills, agents and saved workflows named `knowledge-architect-*`, which a project never edits, per
+  `skill@knowledge-architect-agent-configuration@installed-files-never-edited`.
+- **agent-facing text**: every text an agent reads as instructions, the installed text and the
+  project's own `CLAUDE.md` files, skills, agents and saved workflows' prompts alike, all held to
+  `skill@knowledge-architect-agent-configuration@admission-standard`.
+- **workflow**: the workflow is the method these texts describe, while a saved workflow is one
+  script the harness runs, as `skill@knowledge-architect-project-audit` runs one per audit axis.
+- **kind**: a reference's kind is its first segment, per `primer@checker-model`; an anchor's kind,
+  which `cargo klarch anchors` prints beside it, says what made it an anchor, such as a Component or a
+  location; an issue's kind is its `kind` field, per `skill@knowledge-architect-issue-tracking@issue-entry`.
+- **the owner**: the person whose word closes a fork, and every question `primer@question-authority`
+  reserves to the owner, per `skill@knowledge-architect-planning@planning-terms`.
+- **spec, milestone, slice**: a spec is the plan document of work done in one branch and one pull
+  request, and a milestone is work across several, each of its slices one branch and one pull
+  request with its own spec, per `skill@knowledge-architect-planning@planning-terms`.
+- **bounded work**: a requested change whose main risk is over-building, which the design skill's
+  grounding finds and builds on one proposal, per `skill@knowledge-architect-design@bounded-work`.
+- **in-change path, full path**: the design skill's two paths, the in-change path keeping the
+  deliberation in the commit message of the change under way and the full path handing it to a plan
+  document, per `skill@knowledge-architect-design@decision-authority`.
+- **thread**: one open question or proposal of a design discussion, the unit that carries a state,
+  per `skill@knowledge-architect-design@discussion-overview`.
+- **premortem**: the step before a design discussion converges that assumes the design shipped and
+  failed and names the most plausible causes, per `skill@knowledge-architect-design@discussion-loop`.
+- **pin**: the version of the checker a project runs, moved only by an explicit edit, per
+  `skill@knowledge-architect-setup@pin-the-checker`.
+- **axis, pass**: an axis is one aspect of the whole project that an audit reads, and a pass is one
+  round of the audit's method over it, per `skill@knowledge-architect-project-audit@audit-terms`.
+- **project file**: the file of a retrospective's findings on the project's own instructions,
+  beside the workflow file of its findings on the installed text and the checker, per
+  `skill@knowledge-architect-retrospective@two-files`.
+- **Migration entry**: an entry of the checker's changelog, under its Migration subsection, naming
+  what a project must change in its own files when its pin crosses that version, read as
+  `skill@knowledge-architect-setup@moving-the-pin` says.

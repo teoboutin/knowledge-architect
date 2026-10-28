@@ -23,10 +23,9 @@ the repository in a commit of its own, after its harvest and the review before t
 - **The owner set a condition on the work**, round 3: the implementation proceeds only if the
   spec's review finds nothing critical. A finding of the review that defeats a shape the owner
   approved goes back to the owner before the work that rests on it starts.
-- **D1 and D2 are scope changes awaiting the owner**, and a scope change does not start before its
-  ruling, per `skill@knowledge-architect-planning@working-a-slice`. Step 1 rests on both and waits
-  for the owner's word. Steps 2 and 3 rest on neither and go on. The branch merges once the owner
-  has ruled on both.
+- **D1 and D2 were scope changes**, and step 1, which rests on both, waited for the owner's ruling,
+  per `skill@knowledge-architect-planning@working-a-slice`. The owner accepted both, round 4: "D1 and
+  D2 accepted."
 - It was assembled from one transcript, extracted with `cargo klarch transcript show`. The
   discussion begins at the owner's message that opens "I was thinking about adding a glossary in
   the primer about the terms knowledge-architect uses", and ends at the owner's message "Agreed on
@@ -35,7 +34,9 @@ the repository in a commit of its own, after its harvest and the review before t
   ledger: "the reply to round 1", headed "Glossary and workflow outline: first round", and "the
   reply to round 2", headed "Glossary and workflow outline: second round". "The table" the owner
   agreed to in round 3 is the checkpoint table of the reply to round 2, whose rows are the threads
-  below with their states. Find the session by its opening message, not by its file's name.
+  below with their states. A fourth owner message, after the spec's review, called round 4, opens
+  "is there an easy way to fix that issue about the test failing on root ?" and rules D1 and D2.
+  Find the session by its opening message, not by its file's name.
 - The work goes on on the spec's branch, `claude/practical-dijkstra-q21x18`: its first commit
   changes nothing the per-commit gate checks.
 
@@ -460,7 +461,7 @@ table with AC1 and AC2". Arguments: `argument@terms-and-fix-grounding@arg-1`,
 `argument@terms-and-fix-grounding@arg-12`. Shape: Decided design, "The terms section and the rule".
 Harvest: a design head of `register@agent-skills@design`, and a member added to
 `design@agent-skills@primer-limit`. The assembly count narrowed which terms the section holds, D1,
-and the spec's review moved where the rule is stated, D2, both awaiting the owner.
+and the spec's review moved where the rule is stated, D2; the owner accepted both, round 4.
 
 ### A central glossary in the primer of every term the workflow coins `##primer-glossary`
 
@@ -664,7 +665,7 @@ crates/agent-skills/README.md
 ### The terms section and the rule
 
 A level-two section, last in the primer, titled "Terms the workflow coins", with the slug
-`coined-terms`. One bullet per term: the term in bold, one sentence that defines it, and a pointer
+`primer@coined-terms`. One bullet per term: the term in bold, one sentence that defines it, and a pointer
 to its one home in another installed text. Its members, per D1, are each coined term the installed
 primer uses and does not define in itself, in its preamble or a section, and each word the workflow
 uses in more than one sense. The census of step 1 fixes the list; the expected members, from "What
@@ -830,7 +831,7 @@ applied by the owner, round 3.
 
 ## Implementation sequence
 
-1. **The terms section and its rule.** Waits for the owner's ruling on D1 and D2. The census of the
+1. **The terms section and its rule.** It waited for the owner's ruling on D1 and D2. The census of the
    installed primer; the section, last in the primer, with the members the census finds and the
    `%%` line of its rule; `cargo klarch install-agent-skills`. Fails alone on: a member missing or
    extra in the census, or a pointer the shipped set does not resolve. Claims: every coined term the
@@ -861,8 +862,8 @@ The gates, `cargo x gates`, run before the branch is pushed.
 
 ## Order rationale
 
-- 1 before 2: the terms section defines words the subsection does not need; 1 waits for the owner,
-  and 2 and 3 do not, so the waiting step comes first in the sequence and the others go on meanwhile.
+- 1 before 2: the terms section defines words the subsection does not need; 1 waited for the
+  owner, and 2 and 3 did not, so 2 and 3 landed first, and 1 after the owner's ruling.
 - 2 before 3: the subsection reaches agents, the outline does not; the step whose failure costs more
   is landed and checked first.
 - 3 before 4: the changelog entry describes what the steps built.
@@ -873,8 +874,8 @@ The gates, `cargo x gates`, run before the branch is pushed.
   holds each coined term the primer uses and does not define in itself, and each word the workflow
   uses in more than one sense, rather than every term two or more installed texts use. The assembly
   count found 39 terms used by two or more texts, `argument@terms-and-fix-grounding@arg-11`, against
-  the 17 the reply to round 2 named. It narrows the rule the owner approved, so it is a scope change;
-  step 1 waits for the owner's ruling.
+  the 17 the reply to round 2 named. It narrows the rule the owner approved, so it was a scope
+  change. Ruled, round 4: "D1 and D2 accepted."
 - **D2**, bears on `thread@terms-and-fix-grounding@term-defined-at-first-load`: the rule on what the
   terms section holds is stated in a `%%` line of the primer's source and in the design head, not in
   the need-test fragment, and it has no clause on other texts. Found at the spec's review: the
@@ -883,8 +884,8 @@ The gates, `cargo x gates`, run before the branch is pushed.
   which `design@agent-skills@restatement-size-test` gives that one home; it is an instruction to
   writers with no real-use evidence argued for it, per `design@agent-skills@behaviour-additions-need-real-use`;
   and the rule on the section has one reader, the maintainer of the installed text, whom the need
-  test sends to a `%%` line. It moves the rule from where the owner approved it, so it is a scope
-  change; step 1 waits for the owner's ruling.
+  test sends to a `%%` line. It moves the rule from where the owner approved it, so it was a scope
+  change. Ruled, round 4: "D1 and D2 accepted."
 
 ## Harvest
 
