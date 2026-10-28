@@ -193,7 +193,7 @@ finding names the copy that stays, the one in the section whose subject it is, o
 across the primer and the root `CLAUDE.md`: two passes that each delete the copy they flagged would
 otherwise delete both.
 
-### A coined term is defined in the text of the activity that coins it, and the primer restates each one it uses in one sentence with its pointer, and separates the senses of each word used in more than one `##term-defined-at-first-load`
+### A coined term is defined in the text of the activity that coins it, and the primer restates in one sentence with its pointer only the ones it uses, and separates the senses of each word used in more than one `##term-defined-at-first-load`
 
 A term the installed text gives a meaning of its own is defined once, in the text of the activity
 that coins it. `primer@coined-terms`, the primer's last section, holds one sentence with a pointer to
@@ -212,15 +212,16 @@ session and every subagent, so a term it uses is defined there, and a term one a
 only by the sessions that load that activity's texts. The section serves
 `goal@agent-skills@no-contradiction-in-workflow`: an entry whose term another text defines restates
 that home in one sentence and points to it, so it says nothing its home does not. A term the primer
-uses and does not define is a defect provable by reading, so the section needs no evidence of real
-use; a rule sending every text to point to a term's home at its first use would be an instruction
+uses and does not define is a defect provable by reading, and so is a word used in more than one
+sense, which lets an instruction that uses it allow two acts while no other text sets its senses
+side by side; so the section needs no evidence of real use; a rule sending every text to point to a term's home at its first use would be an instruction
 to writers with none, and a second home for restatement across texts. The nearest rivals lost to a
 count: a glossary in the primer of every term the workflow coins,
 `rejected@agent-skills@primer-glossary`, and the section holding every term two or more installed
 texts use, `rejected@agent-skills@terms-used-by-two-installed-texts`. At the commit "[plans] The
 spec of the primer's terms section and of the record a session reads before a fix", 39 coined terms
-not defined in the primer were used by two or more of the 27 installed texts, each of them a second
-definition in every session's load under either rival; that commit's spec lists them, and the count
+not defined in the primer were used by two or more of the 27 installed texts, 19 of them not used
+by the primer, each of which either rival would add to every session's load as a second definition; that commit's spec lists them, and the count
 is taken again, per term, by counting the files that
 `grep -liw -- '<term>' knowledge-architect/PRIMER.md skills/knowledge-architect-*/SKILL.md agents/knowledge-architect-*.md workflows/knowledge-architect-*.js`
 lists, run in the agent configuration's directory.

@@ -146,7 +146,7 @@ The nearest rival, the test
 passes it. The cost is
 more heads, not more decisions: the owner's words, "We are not adding content and arguments, only
 slugs and independent heads", and the entry tests still judge each part, so the decisions recorded
-stay few, per `design@agent-skills@recorded-decisions-stay-few`.
+stay few, per `design@agent-skills@a-head-is-owed-by-an-entry-test`.
 
 The design this decision did not keep: `rejected@agent-skills@head-split-by-independent-reversal`.
 
