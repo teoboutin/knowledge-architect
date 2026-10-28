@@ -4,15 +4,15 @@
 
 This spec is the plan of one branch's work on the installed text. The work does three things:
 
-- the primer gains a section that defines, in one sentence each with a pointer to its home, every
-  term the workflow coins that the primer uses, and every word the workflow uses in two senses; the
-  admission standard gains the rule that keeps coined terms defined that way;
-- the primer's `primer@verify-before-relying` gains a paragraph that sends a session about to propose
-  a fix, or any other change to code, to the record of that code: the entries its comments cite, the
-  entries that cite its file, and the heads on its subject in its Component's design and `rejected`
-  homes;
-- the README of the agent-skills crate gains a diagram of the activities and their hand-offs, for
-  human readers.
+- the primer gains a section that defines, in one sentence each with a pointer to its home, each
+  coined term the primer uses and does not define in itself, and each word the workflow uses in
+  more than one sense, under D1 and D2;
+- the primer's `primer@verify-before-relying` gains a subsection that sends a session about to
+  propose a fix, or any other change to code, to the record of that code: the entries its comments
+  cite, the entries that cite its file, and the heads on its subject in its Component's design and
+  `rejected` homes;
+- the README of the agent-skills crate gains a diagram of how the skills hand off to each other,
+  for human readers.
 
 It is written for a session that did not witness the design discussion that produced it. It leaves
 the repository in a commit of its own, after its harvest and the review before the merge.
@@ -20,16 +20,24 @@ the repository in a commit of its own, after its harvest and the review before t
 - Where this spec and a design home disagree on a point "What is already decided" does not list as
   reversed or rewritten, the design home wins, and the disagreement is a defect of this spec.
 - Every name it uses is defined in it, under Names or New names, or exists in the tree.
-- Where the owner's word is awaited, `skill@knowledge-architect-planning@working-a-slice` says what
-  waits: D1 is built as written, and the branch merges once the owner has ruled on it.
+- **The owner set a condition on the work**, round 3: the implementation proceeds only if the
+  spec's review finds nothing critical. A finding of the review that defeats a shape the owner
+  approved goes back to the owner before the work that rests on it starts.
+- **D1 and D2 are scope changes awaiting the owner**, and a scope change does not start before its
+  ruling, per `skill@knowledge-architect-planning@working-a-slice`. Step 1 rests on both and waits
+  for the owner's word. Steps 2 and 3 rest on neither and go on. The branch merges once the owner
+  has ruled on both.
 - It was assembled from one transcript, extracted with `cargo klarch transcript show`. The
   discussion begins at the owner's message that opens "I was thinking about adding a glossary in
   the primer about the terms knowledge-architect uses", and ends at the owner's message "Agreed on
   this table with AC1 and AC2, proceed to  spec and implementation if spec review finds nothing
   critical." It holds 3 owner messages, called rounds 1 to 3, and 2 agent replies that carry the
   ledger: "the reply to round 1", headed "Glossary and workflow outline: first round", and "the
-  reply to round 2", headed "Glossary and workflow outline: second round". Find the session by that
-  opening message, not by its file's name.
+  reply to round 2", headed "Glossary and workflow outline: second round". "The table" the owner
+  agreed to in round 3 is the checkpoint table of the reply to round 2, whose rows are the threads
+  below with their states. Find the session by its opening message, not by its file's name.
+- The work goes on on the spec's branch, `claude/practical-dijkstra-q21x18`: its first commit
+  changes nothing the per-commit gate checks.
 
 ## How the work is done
 
@@ -39,46 +47,65 @@ By `skill@knowledge-architect-planning`, its section on the work of a spec.
 
 - **the installed copies**: the files `cargo klarch install-agent-skills` writes under .claude: the
   primer at .claude/knowledge-architect/PRIMER.md, and the skills, agents and saved workflows whose
-  names begin with `knowledge-architect-`. The source they are rendered from is
+  names begin with `knowledge-architect-`, 27 files in all. The source they are rendered from is
   `path@agent-skills@content/`, with the fragments of `path@agent-skills@fragments/` copied in by
   the build.
-- **the primer**: `path@agent-skills@content/PRIMER.md`, installed as
-  .claude/knowledge-architect/PRIMER.md.
-- **the need-test fragment**: `path@agent-skills@fragments/admission-need-test.md`, hosted by
-  `skill@knowledge-architect-agent-configuration@admission-standard` and by the agents that judge
-  agent-facing text; the hosts test `each_fragment_has_its_hosts` of `path@agent-skills@src/lib.rs`
-  holds the list.
+- **the primer's source** is `path@agent-skills@content/PRIMER.md`; **the installed primer** is
+  .claude/knowledge-architect/PRIMER.md, which holds the source with its fragments copied in.
+  A reading of what the primer uses reads the installed primer, since a session reads that one.
 - **a coined term**: a word or phrase the installed text gives a meaning of its own, which a reader
   who knows only common developer usage would not give it, such as "slice" or "bounded work".
-- **the census**: the reading of step 1, which lists each coined term the primer uses with whether
-  the primer defines it. Its lead is a phrase search over the primer, as the commands in the
-  message of the commit that lands step 1 show; a phrase search misses a phrase split over a line
-  break, so the census reads the primer whole as well.
-- **off-path session**: a session whose task enters no installed skill's trigger that grounds it in
-  the record, such as an investigation of a reported bug.
+- **the census**: the reading of step 1, which lists each coined term the installed primer uses
+  with whether the primer defines it, in its preamble or in a section. Its lead is a phrase search
+  over the installed primer; a phrase search misses a phrase split over a line break, so the census
+  reads the installed primer whole as well. Its list is written in the message of the commit that
+  lands step 1.
+- **the assembly count**: the count made at the assembly of this spec, over the 27 installed copies,
+  of the installed texts that use each of 39 candidate terms, `argument@terms-and-fix-grounding@arg-11`,
+  which gives the command and the list.
+- **off-path session**: a session whose task enters no installed skill's trigger that sends it to
+  the design record, the design and `rejected` homes, before it acts, such as an investigation of a
+  reported bug, which `skill@knowledge-architect-issue-tracking` sends to the issues and the
+  tripwires only.
 
 ## What the work is
 
 What exists at each site the work touches, at the commit this spec is written on:
 
-- **The primer** has 15 level-two sections, from `primer@goals-bind` to `primer@installed-skills`,
-  and 5927 words, counted with `wc -w crates/agent-skills/content/PRIMER.md`. It holds no section
-  of definitions. `primer@checker-model` defines register, home, entry, anchor, location,
-  Component, reference, kind (a reference's), id, plan document and item. The primer uses, without
-  defining them: "installed text" (line 81 and lines 331 and 332), "slice", "full path" (line 446),
-  "bounded work" (line 442), "thread" (line 233), "premortem" (line 235), "pin" (lines 412, 452 and
-  457) and "axis" (line 457). Line numbers are of the source file.
+- **The primer's source** has 15 level-two sections, from `primer@goals-bind` to
+  `primer@installed-skills`, and 5927 words, counted with `wc -w crates/agent-skills/content/PRIMER.md`;
+  the installed primer has 7511, counted with `wc -w .claude/knowledge-architect/PRIMER.md`, its
+  fragments copied in. It holds no section of definitions. Its preamble, before the first section,
+  defines register and home; `primer@checker-model` defines entry, anchor, location, Component,
+  reference, kind (a reference's), id, plan document and item; its knowledge table states what a
+  spec, a milestone and the roadmap are. The installed primer uses, without defining them:
+  "installed text", "agent-facing text", "slice", "bounded work", "full path", "in-change path",
+  "thread" (beyond naming it as an item kind), "premortem", "pin", "axis" and "the owner"; it uses
+  "kind" in two senses, a reference's and an anchor's ("every anchor with its kind and its path").
+  The step 1 census confirms the list.
 - **`primer@verify-before-relying`**, its subsection "Check whether it is already known", names
-  `issues`, `tripwires` and `show` as what a session reads before diagnosing. No other text a
-  session outside the design skill loads names a design home as a place to read before a fix:
-  `skill@knowledge-architect-issue-tracking@read-before-diagnosing` names the issues and the
-  tripwires.
-- **The need-test fragment** holds the bullet "**A definition** passes when an instruction anywhere
-  in the workflow uses the term."
+  `issues`, `tripwires` and `show` as what a session reads before diagnosing; the next subsection is
+  "Precedent is not authority". `skill@knowledge-architect-issue-tracking@read-before-diagnosing`
+  names the issues and the tripwires. `primer@intent-and-claims` asks a session to read a code's
+  comment and the message of the commit that introduced it before removing or reshaping the code as
+  unneeded; it names no design home. The planning skill's design audit reads a plan against the
+  design homes, a reading only planned work gets.
+- **`cargo klarch show path@<anchor>@<file>`** prints the file's text when the walk reads the file,
+  a `.md` or `.rs` file, and "(outside the walk; nothing to print)" otherwise, and in both cases
+  then lists every site that cites the file, under "referenced at:": `fn show` and `inbound_text`
+  of `path@core@src/cli/mod.rs`. Run on `path@core@Cargo.toml`, it prints the second form and one
+  citing site.
+- **The need-test fragment**, `path@agent-skills@fragments/admission-need-test.md`, holds the bullet
+  "**A definition** passes when an instruction anywhere in the workflow uses the term." Its hosts
+  are four: the agent-configuration skill, the retrospective-intake skill, the workflow auditor and
+  the agent-text reviewer, listed in `FRAGMENT_HOSTS` of `path@agent-skills@src/lib.rs`, which the
+  tests `each_fragment_has_its_hosts` and `no_fragment_line_ships_outside_its_hosts` read; the
+  second fails when a fragment line longer than 60 characters ships in a text that is not its host.
 - **`path@agent-skills@README.md`** has 439 lines and the sections "Extending an installed skill",
   "The design skill: what it changes", "What it expects of you", "What the setup skill expects of
   you", "Model requirements", "Grounding in the literature" and "Origin". It holds no map of the
-  skills.
+  skills. Its paragraph before the first section says: "The next section says how a project extends
+  an installed skill. The sections after it describe the design skill, …"
 - **The record search**, `agent@knowledge-architect-record-searcher`, is dispatched by the design
   skill, the planning skill's design audit and the retrospective intake only, per
   `design@agent-skills@record-searched-before-the-work`.
@@ -88,10 +115,11 @@ Outside the work:
 - **Grounding for development work as a whole.** The owner, round 2, plans a goal for it, "but not
   right now". It is set under `skill@knowledge-architect-goal-setting` when the owner states it.
 - **Sending bug fixes through the design skill's grounding**, which dispatches the record search.
-  Parked: `thread@terms-and-fix-grounding@off-path-grounding`, Losing alternatives.
-- **Rewriting every existing installed text so that it points to a term's home at first use.** The
-  rule of `thread@terms-and-fix-grounding@term-defined-at-first-load` applies to new text and to
-  text a change edits, as `design@agent-skills@restatement-size-test` applies its own.
+  Parked, its re-entry the owner's goal on development work: Losing alternatives, and the issue the
+  Harvest opens.
+- **Existing double definitions**: "thread" in both `skill@knowledge-architect-planning@planning-terms`
+  and `skill@knowledge-architect-design@threads-and-states`, and "the owner" in the planning skill.
+  The terms section points to one home for each and changes neither.
 - **How the workflow names the people who rule**: `issue@agent-skills@the-workflow-assumes-one-unnamed-owner`.
   The terms section defines "the owner" as the installed text uses it today.
 - **A skill loaded long ago in a long session.** The owner, round 2: "this happens rarely, so we
@@ -105,24 +133,48 @@ The decisions the design rests on and does not argue again:
   skill delivers. Both primer additions are new members; the harvest adds them to its list.
 - `design@agent-skills@context-cost-of-agent-text`: the size cost of the new text is counted in the
   sessions that load it and do not apply it.
-- `design@agent-skills@restatement-size-test`: a one-sentence restatement carries its pointer.
+- `design@agent-skills@restatement-size-test`: a one-sentence restatement carries its pointer, and
+  its home, `primer@where-knowledge-goes`, decides restatements across texts.
 - `design@agent-skills@one-home-for-head-rules`: a statement goes where the act that applies it
   happens; the split of terms by the texts that use them follows it.
-- `design@agent-skills@behaviour-additions-need-real-use`: the paragraph of
+- `design@agent-skills@behaviour-additions-need-real-use`: the subsection of
   `thread@terms-and-fix-grounding@off-path-grounding` is a behaviour addition, admitted on the
   owner's real-use evidence, `argument@terms-and-fix-grounding@arg-6`.
-- `design@agent-skills@statement-names-an-act`: a definition passes when an instruction uses the
-  term; a duplicate inside one text fails, so a term `primer@checker-model` defines takes no entry.
-- `design@agent-skills@record-searched-before-the-work`: no search before other work. Kept: the
-  paragraph dispatches no searcher.
-- `design@agent-skills@no-routing-table` and `rejected@agent-skills@root-routing-table`: no table
-  of skill hand-offs in agent-facing text; the outline goes to a README.
+- `design@agent-skills@statement-names-an-act`: a duplicate inside one text fails, so a term the
+  primer defines takes no entry. The rule that a definition passes when an instruction uses the term
+  is in the need-test fragment, which the head names through the admission standard.
+- `design@agent-skills@new-or-reshaped-head-needs-design`: a proposed fix that would contradict a
+  head is a decision, and goes to the design skill before its text is written.
+- `design@agent-skills@no-routing-table` and `rejected@agent-skills@root-routing-table`: no table in
+  a project's root `CLAUDE.md` mapping a project skill to the installed skill it adds to. Their
+  argument, that the descriptions and the dispatching skills already deliver each skill, applies to
+  an outline of the installed skills' hand-offs in agent-facing text.
 - `design@agent-skills@shipped-text-cites-no-entry`: the new installed text cites only the shipped
   set's skills, agents and primer sections.
-- `design@agent-skills@shared-text-fragment`: the need-test fragment is edited once and read in
-  each host.
 
-No recorded decision is reversed or rewritten.
+**Recorded decisions the work rewrites**, each in one sentence that the subsection makes false, the
+decision standing; each is rewritten at the harvest, and every text `cargo klarch show` lists as
+citing it is re-read there:
+
+- `design@agent-skills@record-searched-before-the-work`: its sentence "A search before every other
+  piece of work stays parked: its one host would be the primer, …" parks a line in the primer that
+  sends every session to search the record. The subsection sends a session about to change code to
+  read the record of that code, which is no search of the whole record and dispatches no searcher,
+  and it answers the sentence's premise "the evidence for it is one instance" with the owner's
+  instances, `argument@terms-and-fix-grounding@arg-6`. The sentence is narrowed to the search of the
+  whole record, and names the subsection as the reading the evidence admitted. Its tripwire,
+  `tripwire@agent-skills@deferred-trigger-met-by-undesigned-work`, keeps watching the search: the
+  subsection does not read the deferred triggers.
+- `design@agent-skills@design-home-write-loads-recording`: its sentence that a session editing
+  agent-facing text "is the one activity that asks for a search of the design homes before an edit"
+  becomes false; it is reworded to name the subsection's reading beside it.
+- `design@agent-skills@a-head-is-owed-by-an-entry-test`: its sentence "The session that changes
+  local code reads the comment at that code, not a design home it would have to think to search"
+  becomes false of a session that reads the primer; it is reworded so that its argument, that a
+  comment reaches every session that touches the code, still holds.
+- `design@agent-skills@verification-in-primer`: its list of what `primer@verify-before-relying`
+  holds gains the subsection, or the subsection's head names its place there, as the harvest
+  decides under `skill@knowledge-architect-decision-recording`.
 
 The entries the discussion's search graded `bears`, each with its outcome:
 
@@ -135,28 +187,29 @@ The entries the discussion's search graded `bears`, each with its outcome:
   `design@agent-skills@statement-names-an-act`.
 - **Served by the work:** `goal@knowledge-architect@adoption-is-easy`, by the README outline;
   `goal@knowledge-architect@structure-and-workflow-work-together` and `goal@core@records-reach-their-reader`,
-  by the paragraph, which sends a session to `show` and to the homes rather than listing entries by hand.
+  by the subsection, which sends a session to `show` and to the homes rather than listing entries by hand.
 - **Constrain how the terms section and the outline are written, and are respected:**
   `design@agent-skills@restatement-size-test` (one sentence with its pointer, checked by
   `acceptance@terms-and-fix-grounding@terms-entries-restate-nothing-new`),
   `goal@knowledge-architect@documentation-stays-consistent` (same check),
   `design@agent-skills@one-home-for-head-rules`, `design@agent-skills@capabilities-not-structure`
   and `goal@agent-skills@one-skill-per-activity` (the outline is in a README, not agent-facing text),
-  `design@agent-skills@root-cause-repair` (the terms section restates no procedure),
+  `design@agent-skills@root-cause-repair` (no second home of a rule across texts, D2),
   `design@agent-skills@no-routing-table` and `rejected@agent-skills@root-routing-table` (no
   hand-off table in agent-facing text), `design@agent-skills@no-external-handoff` (the README names
   only installed skills), `design@agent-skills@checker-model-in-primer` (the terms section restates
   none of its definitions), `rejected@agent-skills@checker-model-printed-by-binary` (the terms are
-  in the primer, not printed by a command), `design@agent-skills@record-searched-before-the-work`
-  (kept, as above), `design@agent-skills@shared-text-fragment` (the fragment's hosts are read).
+  in the primer, not printed by a command), `design@agent-skills@shared-text-fragment` (under D2 no
+  fragment changes).
+- **Rewritten in one sentence, as above:** `design@agent-skills@record-searched-before-the-work`.
 - **Define a term the terms section points to, and each pointer must agree with it:**
   `design@agent-skills@document-vocabulary`, `design@agent-skills@step-is-no-commit` and
-  `design@agent-skills@spec-and-milestone` (spec, milestone, slice, step);
-  `design@agent-skills@bounded-path-in-design` (bounded work); `design@agent-skills@in-change-path`
-  and `design@agent-skills@design-hands-off-to-planning` (in-change path, full path);
-  `design@core@owned-namespace-check` (installed text); `design@core@harness-kinds` and
-  `design@core@harness-kinds-cited-without-anchor` (the citation forms the pointers use).
-- **Define terms `primer@checker-model` already holds, so the terms section adds no entry for them:**
+  `design@agent-skills@spec-and-milestone` (slice); `design@agent-skills@bounded-path-in-design`
+  (bounded work); `design@agent-skills@in-change-path` and `design@agent-skills@design-hands-off-to-planning`
+  (in-change path, full path); `design@core@owned-namespace-check` (installed text);
+  `design@core@harness-kinds` and `design@core@harness-kinds-cited-without-anchor` (the citation
+  forms the pointers use).
+- **Define terms the primer already holds, so the terms section adds no entry for them:**
   `design@core@rejected-register`, `design@core@registers-are-declared`,
   `design@core@heading-register-two-shapes`, `design@core@a-file-register-is-a-directory-of-entries`,
   `design@core@declarable-directory-register`, `design@core@components-carry-the-same-documents`,
@@ -169,15 +222,17 @@ The entries the discussion's search graded `bears`, each with its outcome:
 - **Fix how the new text is written:** `design@core@declared-command` (commands as `{{command}}`
   in the source); `design@core@section-homes-carry-slugs` (the new level-two section owes a slug,
   which becomes an interface consuming projects cite); `design@agent-skills@design-home-write-loads-recording`
-  (the harvest loads the decision-recording skill); `design@agent-skills@existing-heads-on-touch`
-  (a head the harvest edits is brought to the rules); `design@agent-skills@instruction-record-is-minimal`
-  (only the decisions of the harvest rows are recorded).
+  (the harvest loads the decision-recording skill; also rewritten in one sentence, as above);
+  `design@agent-skills@existing-heads-on-touch` (each head the harvest edits is brought to the
+  rules); `design@agent-skills@instruction-record-is-minimal` (only the decisions of the harvest
+  rows are recorded); `design@agent-skills@new-or-reshaped-head-needs-design` (the subsection routes
+  a fix that would contradict a head to the design skill).
 - **Describe hand-offs the README outline draws, and the outline agrees with each:**
   `design@agent-skills@retro-trigger`, `design@agent-skills@retro-offered-once`,
   `design@agent-skills@project-file-goes-to-an-intake`, `design@agent-skills@intake-skill-home`,
   `design@agent-skills@audit-triggers`, `design@agent-skills@plan-written-in-the-converging-session`,
   `design@agent-skills@undesigned-work-is-an-issue`, `design@agent-skills@roadmap-orders-issues`,
-  `design@agent-skills@design-home-is-built-intent`, `design@agent-skills@new-or-reshaped-head-needs-design`.
+  `design@agent-skills@design-home-is-built-intent`.
 - **Judge the work's own review:** `design@agent-skills@review-judges-additions` and
   `design@agent-skills@additions-review-agent` (the agent-facing-text axis is owed);
   `design@agent-skills@synthetic-evidence-not-built` (no run is built to see whether sessions use the
@@ -185,18 +240,18 @@ The entries the discussion's search graded `bears`, each with its outcome:
 - **Issues the work touches:**
   - `issue@agent-skills@the-workflow-assumes-one-unnamed-owner`: the terms section defines "the
     owner" as the text uses it today; the issue stays open.
-  - `issue@agent-skills@a-pending-ruled-file-is-reached-by-no-installed-search`: the paragraph
+  - `issue@agent-skills@a-pending-ruled-file-is-reached-by-no-installed-search`: the subsection
     names no directory of pending files; the issue stays open, unchanged.
   - `issue@agent-skills@pointers-written-bare-to-clear-a-finding-reach-no-check`: the new text names
-    no project root directory in plain text; the paragraph names homes by their kind.
+    no project root directory in plain text; the subsection names homes by their kind.
   - `issue@core@no-checked-form-cites-a-point-inside-a-section`: the pointers of the terms section
-    name level-two sections only.
-  - `issue@agent-skills@the-word-plan-is-banned-alone-and-used-alone`: the terms section points to
-    `skill@knowledge-architect-planning@planning-terms` and does not settle the issue.
+    name level-two sections, or a whole skill.
+  - `issue@agent-skills@the-word-plan-is-banned-alone-and-used-alone`: the terms section adds no
+    entry for "plan", and does not settle the issue.
   - `issue@agent-skills@shipped-text-citing-an-entry-is-unchecked`: the review of the agent-facing
     text checks by hand that the new text cites no entry.
   - `issue@core@a-home-for-developer-contracts-outside-agent-configuration`: the terms section
-    defines "agent configuration" as the agent-configuration skill states its scope today.
+    defines "agent-facing text" as the admission standard states it today.
   - `issue@agent-skills@the-closing-audit-of-a-move-reaches-no-planning-text`: the README outline
     names the audit's occasions as `skill@knowledge-architect-project-audit` states them, and adds
     no hand-off; the issue stays open.
@@ -210,13 +265,14 @@ The entries the search graded `may-bear` that the grounding read:
 - `issue@agent-skills@the-claim-check-of-a-commit-message-is-read-at-the-start-and-needed-at-each-commit`:
   the same mechanism as P1.
 - `issue@agent-skills@an-issue-s-re-entry-point-is-read-by-no-review`: bears on nothing in the work;
-  the paragraph sends a session to the issues no differently than today.
+  the subsection sends a session to the issues no differently than today.
 - `rejected@agent-skills@separate-bounded-problem-skill`: not brought back; no skill is added.
 - `design@knowledge-architect@binary-bundles-workflow`: uses "installed workflow"; the terms section
   defines "installed text", which that head's subject is.
 
 The entries the search graded `may-bear` that the grounding did not read, each with the searcher's
-reason, for the design-conformance review:
+reason. The spec's design-conformance review read them all, and found that the work meets those
+listed after this list, with their outcomes.
 
 - `design@agent-skills@knowledge-table-home`: not read. The searcher's reason: a glossary entry for "home", "plans", "spec" or "roadmap" and an outline of where records go overlap the primer's knowledge-table rows, which this head says ship in the primer and are refined only by project rows; no contradiction established until the glossary's text exists
 - `design@agent-skills@verification-in-primer`: not read. The searcher's reason: the work's aim, a fresh session unsure what to search, meets the primer's "Check whether it is already known" (`cargo klarch issues`, `tripwires`, `show`) this head argues; an outline of where to search could restate or widen it; cites seed `design@agent-skills@primer-limit`
@@ -319,6 +375,31 @@ reason, for the design-conformance review:
 - `design@core@grammars-not-prefixes`: not read. The searcher's reason: a glossary meant to define every coined term may define "prose"; this head defines what bytes are prose for the checker ("A Rust file is prose only where its grammar says so"), while `primer@working-prose` uses the word for the text contributors read; no glossary entry is drafted yet, so no conflict is established
 - `design@core@installed-binary-version-check`: not read. The searcher's reason: the primer speaks of a project moving "its pin of the checker", a coined term the glossary would define; this head defines the pin as `[project] checker-version`, the exact version every dispatching binary refuses to run against; no definition is drafted, so no conflict is established
 
+Met by the work, found at the spec's review:
+
+- `design@agent-skills@verification-in-primer`: rewritten, as above.
+- `design@agent-skills@a-head-is-owed-by-an-entry-test`: rewritten, as above.
+- `design@agent-skills@standing-state-review-before-every-merge`: its sentence that the search
+  before the work runs only for work through the design skill, a plan or an intake stays true: the
+  subsection is no search. No change.
+- `tripwire@agent-skills@deferred-trigger-met-by-undesigned-work`: not fired; it keeps watching the
+  search, as above. No change.
+- `issue@agent-skills@the-primer-s-divergence-paragraph-reads-two-ways-on-work-that-goes-on`: the
+  subsection routes a fix that would contradict a head to the design skill, per
+  `design@agent-skills@new-or-reshaped-head-needs-design`, not to the divergence bullet, so it adds
+  no case to the issue. The issue stays open.
+- `issue@agent-skills@whether-a-census-of-real-text-under-a-planned-instruction-is-real-use`: the
+  assembly count reads the installed text and runs no agent; D1 rests on it, so its ruling is the
+  owner's, D1. The issue stays open.
+- `goal@knowledge-architect@mechanical-tasks-are-the-tool-s`: the subsection's first two lookups
+  could be one command; no session has met the task in real use yet, so the goal is not unmet.
+  Later consequences names it.
+
+The entries above that the spec, as its review read it, contradicted, widened or touched, left
+unread at the grounding, are one instance under
+`tripwire@agent-skills@unread-may-bear-entry-bore`; the message of the commit that repairs this spec
+records it.
+
 ## Criteria
 
 ### A session outside the design path finds what the record already answers about the code it changes `##off-path-finds-the-record`
@@ -334,57 +415,64 @@ Binding. Derived from `goal@agent-skills@installed-text-leaves-room-to-judge`. M
 
 ### No two installed texts define a term differently `##one-definition-per-term`
 
-Binding. Derived from `goal@agent-skills@no-contradiction-in-workflow`. Met by
-`thread@terms-and-fix-grounding@term-defined-at-first-load`, checked by
-`acceptance@terms-and-fix-grounding@terms-entries-restate-nothing-new`.
+Binding. Derived from `goal@agent-skills@no-contradiction-in-workflow`. Met for the terms section by
+`thread@terms-and-fix-grounding@term-defined-at-first-load`: each entry points to one home and says
+nothing it does not, checked by `acceptance@terms-and-fix-grounding@terms-entries-restate-nothing-new`.
+The double definitions that exist already are outside the work.
 
 ### The primer holds only what every session needs and no skill delivers `##primer-holds-what-every-session-needs`
 
-Binding as a presumption. Derived from `design@agent-skills@primer-limit`. Met: the paragraph
+Binding as a presumption. Derived from `design@agent-skills@primer-limit`. Met: the subsection
 applies to every session that changes code, and no skill delivers it outside the design path; the
-terms section holds only terms the primer uses and words with two senses, per D1.
+terms section holds only terms the primer uses and words with more than one sense, per D1.
 
 ### An instruction about how an agent behaves has real-use evidence and a mechanism `##behaviour-needs-real-use`
 
 Binding as a presumption. Derived from `design@agent-skills@behaviour-additions-need-real-use`. Met
-by the owner's instances in thaum and rootpoint, `argument@terms-and-fix-grounding@arg-6`, and the
-mechanism of `argument@terms-and-fix-grounding@arg-8`. The terms section is no behaviour addition:
-a term used and not defined is a defect provable by reading.
+for the subsection by the owner's instances in thaum and rootpoint,
+`argument@terms-and-fix-grounding@arg-6`, and the mechanism of `argument@terms-and-fix-grounding@arg-8`.
+The terms section is no behaviour addition: a term used and not defined is a defect provable by
+reading. The rule on what the section holds is written for the maintainer of the installed text
+only, per D2.
 
-### The installed text names no project's paths and cites no entry `##no-project-paths`
+### The installed text names no project's paths, cites no entry, and holds in any project `##no-project-paths`
 
 Binding as a presumption. Derived from `design@agent-skills@shipped-text-cites-no-entry` and
 `goal@agent-skills@installed-text-works-anywhere`. Met: both drafts cite only primer and skill
-sections.
+sections, and the subsection names what `show` lists for every file, not the text it prints, which
+it prints only for a file the walk reads.
 
 ### Words loaded by sessions whose work does not use them `##context-cost-weighed`
 
 Weighed. Derived from `design@agent-skills@context-cost-of-agent-text`. Met: about 80 words for the
-paragraph, which most sessions that change code apply, and the terms section, bounded by D1 and
+subsection, which most sessions that change code apply, and the terms section, bounded by D1 and
 checked by `acceptance@terms-and-fix-grounding@terms-census-holds`.
 
 ## Threads
 
-### A coined term is defined once, and the primer's terms section defines each one the primer uses `##term-defined-at-first-load`
+### The primer's terms section defines each coined term the primer uses, with a pointer to its one home `##term-defined-at-first-load`
 
-Proposed by the agent in the reply to round 1, refining the owner's proposal of round 1. Approved.
-Arguments: `argument@terms-and-fix-grounding@arg-1`, `argument@terms-and-fix-grounding@arg-2`,
-`argument@terms-and-fix-grounding@arg-11`. Shape: Decided design, "The terms section and the rule".
+Proposed by the agent in the reply to round 1, refining the owner's proposal of round 1. Approved:
+the owner said of it in round 2, "I think term-defined-at-first-load is a good refinement to my
+initial proposal", and agreed with the table that listed it as approved, round 3: "Agreed on this
+table with AC1 and AC2". Arguments: `argument@terms-and-fix-grounding@arg-1`,
+`argument@terms-and-fix-grounding@arg-2`, `argument@terms-and-fix-grounding@arg-11`,
+`argument@terms-and-fix-grounding@arg-12`. Shape: Decided design, "The terms section and the rule".
 Harvest: a design head of `register@agent-skills@design`, and a member added to
-`design@agent-skills@primer-limit`. The owner's words, round 2: "I think term-defined-at-first-load
-is a good refinement to my initial proposal"; round 3: "Agreed on this table with AC1 and AC2". The
-census of step 1 narrowed which terms the section holds, D1, awaiting the owner.
+`design@agent-skills@primer-limit`. The assembly count narrowed which terms the section holds, D1,
+and the spec's review moved where the rule is stated, D2, both awaiting the owner.
 
 ### A central glossary in the primer of every term the workflow coins `##primer-glossary`
 
 Proposed by the owner, round 1. Superseded by `thread@terms-and-fix-grounding@term-defined-at-first-load`,
-which the owner approved by name, round 2. Arguments: `argument@terms-and-fix-grounding@arg-1`,
-`argument@terms-and-fix-grounding@arg-2`. The owner's words, round 1: "I was thinking about adding a
-glossary in the primer about the terms knowledge-architect uses." / "The practice would certainly
-be better if it was centralized and systematic, so that no term coined by ourselves stays
-undefined." Harvest: judged as a losing alternative.
+which the owner approved with the table, round 3. Arguments: `argument@terms-and-fix-grounding@arg-1`,
+`argument@terms-and-fix-grounding@arg-2`, `argument@terms-and-fix-grounding@arg-12`. The owner's
+words, round 1: "I was thinking about adding a glossary in the primer about the terms
+knowledge-architect uses." / "The practice would certainly be better if it was centralized and
+systematic, so that no term coined by ourselves stays undefined." Harvest: judged as a losing
+alternative.
 
-### The words with two senses, "workflow" and "kind", are defined apart `##workflow-word-senses`
+### The words with more than one sense, "workflow" and "kind", are defined apart `##workflow-word-senses`
 
 Proposed by the agent in the reply to round 1. Superseded by
 `thread@terms-and-fix-grounding@term-defined-at-first-load`, which carries it. Argument:
@@ -399,7 +487,7 @@ to cover this." Arguments: `argument@terms-and-fix-grounding@arg-3`,
 `argument@terms-and-fix-grounding@arg-4`, `argument@terms-and-fix-grounding@arg-7`. Harvest: judged
 as a losing alternative.
 
-### A diagram of the activities and their hand-offs in the agent-skills README, for human readers `##readme-workflow-outline`
+### A diagram of how the skills hand off, in the agent-skills README, for human readers `##readme-workflow-outline`
 
 Proposed by the agent in the reply to round 1, as the rival of
 `thread@terms-and-fix-grounding@workflow-outline`. The owner's words, round 2: "But this
@@ -410,23 +498,20 @@ Harvest: none; it earns no head, as the Harvest says.
 
 ### Before proposing a fix or any other change to code, a session reads the record of that code `##off-path-grounding`
 
-Proposed by the agent in the reply to round 1; its shape in the reply to round 2. Closed `argued` in
-the reply to round 2, and approved with the table, round 3. Arguments:
-`argument@terms-and-fix-grounding@arg-4`, `argument@terms-and-fix-grounding@arg-5`,
-`argument@terms-and-fix-grounding@arg-6`, `argument@terms-and-fix-grounding@arg-8`,
-`argument@terms-and-fix-grounding@arg-9`. The argument that closed it,
-`argument@terms-and-fix-grounding@arg-9`: of the rivals, the same sentence in
-`skill@knowledge-architect-issue-tracking@read-before-diagnosing` is delivered at the diagnosis and
-reaches no change that is not a bug, and the design skill's grounding costs the record search,
-outside the owner's "minimal fix". Shape: Decided design, "The paragraph". Harvest: a design head of
-`register@agent-skills@design`, and a member added to `design@agent-skills@primer-limit`.
+Proposed by the agent in the reply to round 1; its shape in the reply to round 2, where the agent
+closed it on its argument, `argument@terms-and-fix-grounding@arg-9`. Approved by the owner with the
+table, round 3: "Agreed on this table". Arguments: `argument@terms-and-fix-grounding@arg-4`,
+`argument@terms-and-fix-grounding@arg-5`, `argument@terms-and-fix-grounding@arg-6`,
+`argument@terms-and-fix-grounding@arg-8`, `argument@terms-and-fix-grounding@arg-9`. Shape: Decided
+design, "The subsection", where the spec's review repaired its wording on two points the record
+settles. Harvest: as the Harvest's rows say.
 
 ### The knowledge table also answers where to look `##knowledge-table-lookup`
 
 Proposed by the agent in the reply to round 1, as shape (a) of
 `thread@terms-and-fix-grounding@off-path-grounding`. Withdrawn by the agent in the reply to round 2:
-it names no moment and no mechanical route, and the paragraph carries its useful part. Argument:
-`argument@terms-and-fix-grounding@arg-10`. Harvest: none.
+it names no moment and no mechanical route, and the subsection carries its useful part. Argument:
+`argument@terms-and-fix-grounding@arg-10`. Harvest: judged as a losing alternative.
 
 ## Arguments
 
@@ -437,9 +522,13 @@ The reply to round 1, the agent. Bears on `thread@terms-and-fix-grounding@primer
 undefined" would bring in terms only one skill uses: ledger, delta, bucket, owner list, pass, lens,
 cluster, violation left. "A session using those terms has already loaded the skill that defines
 them. In the primer they cost every other session the words, and they add a second definition that
-can drift." `design@agent-skills@one-home-for-head-rules` made the same split.
+can drift." `design@agent-skills@one-home-for-head-rules` made the same split. Corrected at the
+spec's review: of those examples, only "bucket" and "violation left" are used by one installed text;
+"ledger", "delta", "owner list", "lens" and "cluster" are used by several texts of related
+activities. The argument holds of terms a reader meets only inside the texts of one activity, which
+`argument@terms-and-fix-grounding@arg-11` counts.
 
-### The primer uses coined terms it does not define, and two words have two senses `##arg-2`
+### The primer uses coined terms it does not define, and two words have more than one sense `##arg-2`
 
 The reply to round 1, the agent. Bears on `thread@terms-and-fix-grounding@term-defined-at-first-load`,
 `thread@terms-and-fix-grounding@primer-glossary` and `thread@terms-and-fix-grounding@workflow-word-senses`.
@@ -496,7 +585,7 @@ names a design home. "the only grounding texts a session outside the design skil
 issue and tripwire listings, and nothing it loads sends it to the design record before it proposes
 a fix."
 
-### The rivals of the paragraph lose on their moment and on the owner's scope `##arg-9`
+### The rivals of the subsection lose on their moment and on the owner's scope `##arg-9`
 
 The reply to round 2, the agent. Bears on `thread@terms-and-fix-grounding@off-path-grounding`. The
 same sentence in `skill@knowledge-architect-issue-tracking@read-before-diagnosing` loads at the
@@ -512,29 +601,62 @@ The reply to round 2, the agent. Bears on `thread@terms-and-fix-grounding@knowle
 "A generic 'the table also says where to look' names no moment and no mechanical route, and the
 paragraph above carries its useful part."
 
-### The census admits more terms than a two-text count can bound `##arg-11`
+### The assembly count admits more terms than a two-text count can bound `##arg-11`
 
 The assembly, the agent, after the convergence. Bears on
-`thread@terms-and-fix-grounding@term-defined-at-first-load`. A census of the 27 installed copies, the
-primer, 11 skills, 12 agents and 3 saved workflows, finds more than 30 coined terms used by two or more
-of them, among them "owner list" in 10, "brief" in 20 and "axis" in 23; the reply to round 2
-estimated 17 members. A section of every such term grows past the size the reply to round 2 put to
-the owner, which cause P4 names. The rule that bounds it, D1: the section holds each coined term the
-primer uses and each word with two senses, and any other text points to a term's home at its first
-use.
+`thread@terms-and-fix-grounding@term-defined-at-first-load`. The count, over the 27 installed copies,
+of the texts that use each candidate term, a line at a time, so a phrase split over a line break is
+missed and a count can only be low:
+
+```sh
+cd .claude
+for t in 'installed text' 'owner list' 'axis'; do   # each candidate term below
+  n=0
+  for f in knowledge-architect/PRIMER.md skills/knowledge-architect-*/SKILL.md \
+           agents/knowledge-architect-*.md workflows/knowledge-architect-*.js; do
+    grep -qiw -- "$t" "$f" && n=$((n+1))
+  done
+  echo "$t $n"
+done
+```
+
+Of the candidates, 39 are used by two or more installed texts and are not defined in the primer:
+installed text 9, installed files 6, agent configuration 8, agent-facing text 12, saved workflow 6,
+the owner 24, plans directory 5, milestone 13, slice 12, roadmap 4, bounded work 5, in-change path
+6, full path 8, grounding 7, harvest 9, thread 9, ledger 3, material finding 2, design audit 5,
+premortem 8, deliberation 9, converge 3, record search 4, pin 6, retrospective 16, intake 13,
+project file 2, axis 23, owner list 10, lens 3, expectation set 4, cold reader 2, seed 3, cluster
+9, landing 8, harvest row 6, re-entry 9, horizon 10, brief 20. The reply to round 2 named 17 likely
+members: installed text, agent configuration, agent-facing text, workflow and saved workflow,
+kind, the owner, plan document, spec, milestone, slice, step, roadmap, bounded work, in-change path,
+full path, grounding and harvest. A section of every such term grows past the size the reply to round 2 put to the owner,
+which cause P4 names. The bound, D1: the section holds each coined term the primer uses and does
+not define in itself, and each word the workflow uses in more than one sense.
+
+### The terms the owner proposed exist under other names, with another scope `##arg-12`
+
+The reply to round 1, the agent. Bears on `thread@terms-and-fix-grounding@primer-glossary` and
+`thread@terms-and-fix-grounding@term-defined-at-first-load`. The owner's "agent workflow" is the
+root `CLAUDE.md` with the skills, agents, saved workflows and primer in .claude, and "installed
+agent workflow" the part the installer writes. The installed text already has "installed files",
+everything `{{command}} install-agent-skills` writes; "agent configuration", the project's own
+agent-facing text, which "includes scoped CLAUDE.md files outside .claude, which your 'agent
+workflow' leaves out"; and "agent-facing text", the two together. "So the problem is not missing
+words. The words exist, and nothing tells a fresh session which one to use."
 
 ## New names, in one place
 
 ```text
 crates/agent-skills/content/PRIMER.md
-  ## Terms the workflow coins {{slug:coined-terms}}     new level-two section, last in the file;
-                                                        cited by the primer kind with the slug coined-terms
-  the paragraph of the Decided design, "The paragraph"  new, in `primer@verify-before-relying`,
-                                                        after "Check whether it is already known"
-crates/agent-skills/fragments/admission-need-test.md
-  the bullet "**A coined term is defined once**"         new, after the bullet on a definition
+  ## Terms the workflow coins {{slug:coined-terms}}     new level-two section, last in the file,
+                                                        with a %% line above its heading (D2)
+  ### Read the record of code before changing it       new level-three subsection of
+                                                        `primer@verify-before-relying`, between "Check whether
+                                                        it is already known" and "Precedent is not
+                                                        authority"
 crates/agent-skills/README.md
-  ## How the skills hand off to each other               new section, after "Extending an installed skill"
+  ## How the skills hand off to each other              new section, first, before "Extending an
+                                                        installed skill"
 ```
 
 ## Decided design
@@ -543,39 +665,40 @@ crates/agent-skills/README.md
 
 A level-two section, last in the primer, titled "Terms the workflow coins", with the slug
 `coined-terms`. One bullet per term: the term in bold, one sentence that defines it, and a pointer
-to its home where the home is another text. Its members are each coined term the primer uses and
-does not define elsewhere in itself, and each word the workflow uses in two senses, per D1. The
-census of step 1 fixes the list; the expected members, from the reading of "What the work is":
+to its one home in another installed text. Its members, per D1, are each coined term the installed
+primer uses and does not define in itself, in its preamble or a section, and each word the workflow
+uses in more than one sense. The census of step 1 fixes the list; the expected members, from "What
+the work is":
 
 | term | home the pointer names |
 | --- | --- |
-| installed text | `skill@knowledge-architect-agent-configuration@installed-files-never-edited` |
-| agent configuration | `skill@knowledge-architect-agent-configuration` |
+| installed text | `skill@knowledge-architect-agent-configuration`, whose scope paragraph defines the installed files |
 | agent-facing text | `skill@knowledge-architect-agent-configuration@admission-standard` |
-| workflow, saved workflow | none: the sentence separates the senses |
-| kind | `primer@checker-model` for a reference's kind; `skill@knowledge-architect-issue-tracking@issue-entry` for an issue's |
-| the owner | `primer@question-authority` |
-| spec, milestone, slice, step | `skill@knowledge-architect-planning@planning-terms` |
+| workflow | none: the sentence separates the method, the installed text and a saved workflow |
+| kind | none: the sentence separates a reference's kind, defined in `primer@checker-model`, an anchor's, and an issue's, `skill@knowledge-architect-issue-tracking@issue-entry` |
+| the owner | `skill@knowledge-architect-planning@planning-terms` |
+| slice | `skill@knowledge-architect-planning@planning-terms` |
 | bounded work | `skill@knowledge-architect-design@bounded-work` |
 | in-change path, full path | `skill@knowledge-architect-design@decision-authority` |
 | thread | `skill@knowledge-architect-design@threads-and-states` |
 | premortem | `skill@knowledge-architect-design@discussion-loop` |
-| pin | `skill@knowledge-architect-setup` |
-| axis | `skill@knowledge-architect-review@review-axes` for a review's; `skill@knowledge-architect-project-audit` for an audit's |
+| pin | `skill@knowledge-architect-setup@pin-the-checker` |
+| axis | `skill@knowledge-architect-review@review-axes` for a review's; `skill@knowledge-architect-project-audit@audit-terms` for an audit's |
 
 An illustration of the shape, not authority:
 
 ```markdown
 - **installed text**: every file `{{command}} install-agent-skills` writes, this primer and the
   skills, agents and saved workflows named `knowledge-architect-*`, never edited by hand
-  (`skill@knowledge-architect-agent-configuration@installed-files-never-edited`).
+  (`skill@knowledge-architect-agent-configuration`).
 ```
 
-The rule, a bullet of the need-test fragment after the bullet on a definition. It states: a coined
-term is defined once, in the text of the activity that coins it; the primer's section coined-terms holds one
-sentence with its pointer for each coined term the primer uses and each word used in two senses;
-another text that uses a term coined elsewhere points to the term's home at its first use; text a
-change does not edit is brought to the rule when a change edits it.
+**The rule, per D2**: the section's own rule, what it holds, is stated for the maintainer of the
+installed text alone, in a `%%` line above the section's heading, which the build removes, and in
+the design head the harvest writes. It states: the section holds one sentence with its pointer for
+each coined term the primer uses and does not define in itself, and for each word used in more than
+one sense. A term coined and used inside other texts is defined in the text that coins it; a
+restatement of it in another text is governed by `primer@where-knowledge-goes`, as any other.
 
 **The argument.** A term defined where the act that uses it is delivered reaches every reader of
 that act: the primer reaches every session and every subagent, and a skill reaches the sessions of
@@ -583,40 +706,51 @@ its activity, per `design@agent-skills@one-home-for-head-rules`. A term the prim
 every session, so its definition belongs in the primer; a term one activity uses is met only by
 sessions that load that activity's text. **The nearest rival**, the owner's central glossary of
 every coined term, `thread@terms-and-fix-grounding@primer-glossary`, loses on
-`argument@terms-and-fix-grounding@arg-1` and, at the census, on `argument@terms-and-fix-grounding@arg-11`:
-more than 30 terms, each a second definition in every session's load.
+`argument@terms-and-fix-grounding@arg-1` and, at the assembly, on `argument@terms-and-fix-grounding@arg-11`:
+39 terms, each a second definition in every session's load.
 
-### The paragraph
+### The subsection
 
-In `primer@verify-before-relying`, after the subsection "Check whether it is already known", the
-paragraph the owner approved in the reply to round 2, an illustration of the wording:
+In `primer@verify-before-relying`, a level-three subsection between "Check whether it is already
+known" and "Precedent is not authority". An illustration of the wording:
 
 ```markdown
+### Read the record of code before changing it
+
 **Before proposing a fix or any other change to code, read what the project decided about that
 code**: each entry its comments cite; every entry that cites its file, which
-`{{command}} show path@<anchor>@<file>` lists after the file's text; and the heads on its subject in
-the design and `rejected` homes of the Component that holds it, where each head's title states its
-decision. A fix that contradicts a head is a divergence, routed as `primer@intent-and-claims` says.
+`{{command}} show path@<anchor>@<file>` lists; and the heads on its subject in the design and
+`rejected` homes of the Component that holds it, where each head's title states its decision. A fix
+that would contradict a head is a decision that goes to the design skill, per `primer@design-heads`.
 ```
 
+Two points of the wording the owner saw in the reply to round 2 are repaired, each on the record:
+"which `show` lists after the file's text" lost "after the file's text", since `show` prints a
+file's text only for a file the walk reads, and the subsection must hold in a project of any
+language, per `goal@agent-skills@installed-text-works-anywhere`; and "A fix that contradicts a head
+is a divergence, routed as `primer@intent-and-claims` says" became the routing to the design skill,
+since a fix not yet written is a decision, not code in divergence, per
+`design@agent-skills@new-or-reshaped-head-needs-design`.
+
 **The argument.** `argument@terms-and-fix-grounding@arg-6` and `argument@terms-and-fix-grounding@arg-8`.
-The paragraph names the moment the owner found, proposing a fix, and gives two mechanical lookups
-and one by reading. **The nearest rival**, the same sentence in
+The subsection names the moment the owner found, proposing a fix, and gives two lookups the
+checker serves and one by reading. **The nearest rival**, the same sentence in
 `skill@knowledge-architect-issue-tracking@read-before-diagnosing`, loses on its delivery moment,
 `argument@terms-and-fix-grounding@arg-9`.
 
 ### The outline
 
-A section of `path@agent-skills@README.md`, "How the skills hand off to each other", after
-"Extending an installed skill": a text diagram of the activities and their hand-offs, each node
-naming its installed skill, then one line per skill that loads at a moment rather than in sequence
-(issue tracking, decision recording, project audit, agent configuration, setup, goal setting). An
-illustration of the shape:
+A section of `path@agent-skills@README.md`, "How the skills hand off to each other", first, before
+"Extending an installed skill"; the README's opening paragraph is reworded to name it. A text
+diagram of the sequence of the work, each skill node naming its installed skill and each other node
+marked as no skill, then one line per skill that loads at a moment rather than in sequence:
+issue tracking, decision recording, project audit, agent configuration, setup and goal setting. Each
+edge the diagram draws is stated in the skill it starts from. An illustration of the shape:
 
 ```text
-goal-setting ─▶ design ──(full path)──▶ planning ─▶ work ─▶ review ─▶ merge ─▶ retrospective (offered once)
-                  │                                    ▲                              │
-                  └──(in-change / bounded)─────────────┘          on the owner's word: retrospective-intake
+design ──(full path)──▶ planning ─▶ [the work] ─▶ review ─▶ [merge] ─▶ retrospective (offered once)
+  │                                     ▲                                     │
+  └──(in-change path, bounded work)─────┘              on the owner's word: retrospective-intake
 ```
 
 **The argument.** `argument@terms-and-fix-grounding@arg-7`: the skill descriptions route agents,
@@ -634,7 +768,7 @@ The work needs none.
 - `thread@terms-and-fix-grounding@primer-glossary`, superseded by
   `thread@terms-and-fix-grounding@term-defined-at-first-load`: every coined term in the primer costs
   every session the terms only one activity uses, `argument@terms-and-fix-grounding@arg-1`, and the
-  census counts more than 30, `argument@terms-and-fix-grounding@arg-11`.
+  assembly counts 39, `argument@terms-and-fix-grounding@arg-11`.
 - `thread@terms-and-fix-grounding@workflow-word-senses`, superseded by
   `thread@terms-and-fix-grounding@term-defined-at-first-load`, which carries it.
 - `thread@terms-and-fix-grounding@workflow-outline`, withdrawn by the owner: the triggers already
@@ -647,6 +781,7 @@ The work needs none.
   `skill@knowledge-architect-issue-tracking@read-before-diagnosing`, ruled out on its delivery
   moment; bug fixes sent through the design skill's grounding, parked, its re-entry the goal on
   development work the owner will add, `argument@terms-and-fix-grounding@arg-9`.
+- The rule stated in the need-test fragment, the shape the owner approved, which D2 replaces.
 
 ## Readings
 
@@ -656,8 +791,8 @@ The work reads no external specification.
 
 Assume the work shipped and failed.
 
-- **P1**, stresses `thread@terms-and-fix-grounding@off-path-grounding`: the paragraph is read at the
-  session's start and needed at the fix, often much later, the mechanism of
+- **P1**, stresses `thread@terms-and-fix-grounding@off-path-grounding`: the subsection is read at
+  the session's start and needed at the fix, often much later, the mechanism of
   `issue@agent-skills@the-claim-check-of-a-commit-message-is-read-at-the-start-and-needed-at-each-commit`.
   Verdict: named as a cause for the harvest to judge as a tripwire.
 - **P2**, stresses `thread@terms-and-fix-grounding@off-path-grounding`: in a project whose code
@@ -668,92 +803,108 @@ Assume the work shipped and failed.
   word.
 - **P4**, stresses `thread@terms-and-fix-grounding@term-defined-at-first-load`: "used by two texts"
   admits dozens of terms, and the section grows past what sessions read. Verdict: an acceptance
-  criterion, AC1, on the owner's word; the census confirmed the risk,
+  criterion, AC1, on the owner's word; the assembly count confirmed the risk,
   `argument@terms-and-fix-grounding@arg-11`, converted into the bound of D1.
 
 ## Acceptance criteria
 
-### AC1: at landing, every coined term the primer uses is defined in the primer, and each entry of its terms section is used by two or more installed texts `##terms-census-holds`
+### AC1: at landing, a census of the installed copies finds every coined term the primer uses defined in the primer, and each entry of its terms section used by two or more installed texts `##terms-census-holds`
 
-Guards `thread@terms-and-fix-grounding@term-defined-at-first-load`. Judged at step 1 and again on the
-installed copies at the review before the merge. Observable: a census of the installed primer that
-finds a coined term it uses with no definition in it, or an entry of the terms section that only
-one installed text uses, the primer counting as one. Response: the entry is added or removed in the
-branch; a census that cannot settle what counts as coined reopens the thread. Ruled applied by the
-owner, round 3.
+Guards `thread@terms-and-fix-grounding@term-defined-at-first-load`. Judged by the session at step 1,
+and again on the installed copies before the review before the merge, its result in the message of
+the commit that records that review. Observable: a coined term the installed primer uses with no
+definition in it, or an entry of the terms section that only one installed text uses, the primer
+counting as one. Under D1 an entry's term is used by the primer and defined in its home, another
+installed text, so it is used by two; a term only the primer uses is defined in the primer and takes
+no entry. Response: its firing reopens `thread@terms-and-fix-grounding@term-defined-at-first-load`.
+Ruled applied by the owner, round 3.
 
-### AC2: at landing, each entry of the terms section is one sentence with its pointer, and says nothing its home does not `##terms-entries-restate-nothing-new`
+### AC2: at landing, each entry of the terms section that restates a definition held elsewhere is one sentence with its pointer, and says nothing its home does not `##terms-entries-restate-nothing-new`
 
 Guards `thread@terms-and-fix-grounding@term-defined-at-first-load`. Judged by the routing review axis
-at the review before the merge, which reads each entry against its home. Observable: an entry
-longer than one sentence beside its pointer, or one that states what its home does not. Response:
-the entry is cut to its home's statement in the branch; a home that cannot be stated in one sentence
-reopens the thread. Ruled applied by the owner, round 3.
+at the review before the merge, which reads each such entry against its home. Observable: such an
+entry longer than one sentence beside its pointer, or one that states what its home does not.
+Response: its firing reopens `thread@terms-and-fix-grounding@term-defined-at-first-load`. Ruled
+applied by the owner, round 3.
 
 ## Implementation sequence
 
-1. **The terms section.** The census of the primer; the section, last in the primer, with the
-   members the census finds; `cargo klarch install-agent-skills`. Fails alone on: a member missing
-   or extra in the census, or a pointer the shipped set does not resolve. Claims: every coined term
-   the primer uses is defined in it, tested by the census, which is shown to fail by deleting one
-   entry and finding the census lists its term; every pointer resolves within the shipped set,
-   tested by `cargo test -p knowledge-architect` and `cargo klarch check`, shown to fail by a pointer
-   to a section that does not exist.
-2. **The rule.** The bullet in the need-test fragment; the install. Fails alone on: a host whose
-   installed copy does not carry the bullet, or the hosts test failing. Claim: every host of the
-   fragment carries the bullet, tested by `cargo test -p knowledge-architect-agent-skills` and by a
-   search of the installed copies for the bullet's first words, shown to fail before the install
-   runs.
-3. **The paragraph.** The paragraph in `primer@verify-before-relying`; the install. Fails alone on:
-   the command form `show path@<anchor>@<file>` printing no reference list. Claim: the command the
-   paragraph names lists the entries citing a file after its text, tested by running
-   `cargo klarch show path@core@src/check/tree.rs`, whose output ends with its "referenced at" list.
-4. **The outline.** The README section. Fails alone on: a hand-off the diagram draws that a skill
-   does not state. Claim: every edge the diagram draws is stated in the skill it starts from, tested
-   by reading each edge against that skill's text.
-5. **The changelog.** The `Next release` entry, per `design@knowledge-architect@changelog-entries`
-   and `design@knowledge-architect@versioning-policy`, read whole first; `cargo x changelog`.
+1. **The terms section and its rule.** Waits for the owner's ruling on D1 and D2. The census of the
+   installed primer; the section, last in the primer, with the members the census finds and the
+   `%%` line of its rule; `cargo klarch install-agent-skills`. Fails alone on: a member missing or
+   extra in the census, or a pointer the shipped set does not resolve. Claims: every coined term the
+   installed primer uses is defined in it, tested by the census, shown to fail by removing one entry
+   from a scratch copy of the installed primer and finding the census lists its term; every pointer
+   resolves within the shipped set, tested by `cargo test -p knowledge-architect` and
+   `cargo klarch check`, shown to fail by a pointer to a section that does not exist; no line of the
+   section repeats a fragment line, tested by `cargo test -p knowledge-architect-agent-skills`.
+2. **The subsection.** The subsection in `primer@verify-before-relying`; the install. Fails alone on:
+   the installed primer not holding it, or the command it names printing no "referenced at" list.
+   Claims: the installed primer holds the subsection, tested by a search for its heading in
+   .claude/knowledge-architect/PRIMER.md, which finds nothing before the install runs; the command
+   lists the sites citing a file, walked or not, tested by running `cargo klarch show` on
+   `path@core@src/check/tree.rs` and on `path@core@Cargo.toml`, each ending with a "referenced at:"
+   list.
+3. **The outline.** The README section and the reworded opening paragraph. Fails alone on: an edge
+   the diagram draws that the skill it starts from does not state. Claim: each edge is stated in the
+   skill it starts from, tested by quoting, in the commit message, the sentence of that skill that
+   states it; an edge with no such sentence is the failing case, as the edge from goal setting to
+   design was in the first draft.
+4. **The changelog.** The `Next release` entry, per `design@knowledge-architect@changelog-entries`
+   and `design@knowledge-architect@versioning-policy`, read whole first; `cargo x changelog`. Fails
+   alone on: a crate's copy differing from the root changelog. Claim: each crate's copy equals the
+   root's, tested by `every_published_crate_carries_the_root_changelog` of
+   `path@xtask@src/changelog.rs`, which fails before `cargo x changelog` runs.
 
 The gates, `cargo x gates`, run before the branch is pushed.
 
 ## Order rationale
 
-- 1 before 2: the rule's bullet points to the section, which must exist for the shipped set's
-  references to resolve.
-- 2 before 3: the rule is the mechanism of the section; the paragraph is independent of both, and
-  comes after so that a failure of the install in step 3 is the paragraph's alone.
-- 3 before 4: the outline names no primer text; it is last of the text because it reaches no agent.
-- 4 before 5: the changelog entry describes what the steps built.
+- 1 before 2: the terms section defines words the subsection does not need; 1 waits for the owner,
+  and 2 and 3 do not, so the waiting step comes first in the sequence and the others go on meanwhile.
+- 2 before 3: the subsection reaches agents, the outline does not; the step whose failure costs more
+  is landed and checked first.
+- 3 before 4: the changelog entry describes what the steps built.
 
 ## Defaults awaiting the owner
 
 - **D1**, bears on `thread@terms-and-fix-grounding@term-defined-at-first-load`: the terms section
-  holds each coined term the primer uses and each word with two senses, rather than every term two
-  or more installed texts use; a text that uses a term coined elsewhere points to its home at its
-  first use, for new text and text a change edits. The census found more than 30 terms used by two or
-  more texts, `argument@terms-and-fix-grounding@arg-11`, against the 17 the reply to round 2 put to
-  the owner. It narrows the rule the owner approved, so it is a scope change; it is built as
-  written, and the branch merges once the owner has ruled.
+  holds each coined term the primer uses and does not define in itself, and each word the workflow
+  uses in more than one sense, rather than every term two or more installed texts use. The assembly
+  count found 39 terms used by two or more texts, `argument@terms-and-fix-grounding@arg-11`, against
+  the 17 the reply to round 2 named. It narrows the rule the owner approved, so it is a scope change;
+  step 1 waits for the owner's ruling.
+- **D2**, bears on `thread@terms-and-fix-grounding@term-defined-at-first-load`: the rule on what the
+  terms section holds is stated in a `%%` line of the primer's source and in the design head, not in
+  the need-test fragment, and it has no clause on other texts. Found at the spec's review: the
+  fragment's clause "another text that uses a term coined elsewhere points to its home at its first
+  use" would be a second home, beside `primer@where-knowledge-goes`, for restatement across texts,
+  which `design@agent-skills@restatement-size-test` gives that one home; it is an instruction to
+  writers with no real-use evidence argued for it, per `design@agent-skills@behaviour-additions-need-real-use`;
+  and the rule on the section has one reader, the maintainer of the installed text, whom the need
+  test sends to a `%%` line. It moves the rule from where the owner approved it, so it is a scope
+  change; step 1 waits for the owner's ruling.
 
 ## Harvest
 
 | what | where | when |
 | --- | --- | --- |
-| `thread@terms-and-fix-grounding@term-defined-at-first-load`: the rule and the terms section | a design head of `register@agent-skills@design`, in its subdocument on how the installed text changes, citing `design@agent-skills@statement-names-an-act` and `design@agent-skills@one-home-for-head-rules`; its slug and the thread's pair stated in the harvest's commit | the landing |
-| `thread@terms-and-fix-grounding@off-path-grounding`: the paragraph | a design head of `register@agent-skills@design`, in its subdocument on the project's configuration, citing `design@agent-skills@primer-limit`, `design@agent-skills@behaviour-additions-need-real-use` and `design@agent-skills@record-searched-before-the-work` | the landing |
+| `thread@terms-and-fix-grounding@term-defined-at-first-load`: the section and its rule | a design head of `register@agent-skills@design`, in its subdocument on how the installed text changes, its title the rule as built: one home per term, and a one-sentence restatement with its pointer in the primer for each term the primer uses; citing `goal@agent-skills@no-contradiction-in-workflow`, `design@agent-skills@statement-names-an-act` and `design@agent-skills@one-home-for-head-rules`; its slug and the thread's pair stated in the harvest's commit | step 1's landing |
+| `thread@terms-and-fix-grounding@off-path-grounding`: the subsection | judged by the entry tests under `skill@knowledge-architect-decision-recording`: a head of `register@agent-skills@design` citing `goal@knowledge-architect@agents-work-without-drift`, `design@agent-skills@primer-limit` and `design@agent-skills@behaviour-additions-need-real-use` where a test admits one; otherwise its reason stays in the harvest's commit, beside its member line | the landing |
 | the two new primer members | the member list of `design@agent-skills@primer-limit` | the landing |
-| `thread@terms-and-fix-grounding@primer-glossary` and `thread@terms-and-fix-grounding@workflow-outline` | judged by the tests for a losing alternative; an entry of `register@agent-skills@rejected` for each that passes, cited by the head that argues against it | the landing |
-| `thread@terms-and-fix-grounding@readme-workflow-outline` | no head: a choice of human documentation at one site fails the entry tests; the commit message carries its argument | the landing |
-| P1 and P2 | judged by the tripwire standard; a tripwire of `register@agent-skills@tripwire` for each the standard admits | the landing |
-| the changelog entry | CHANGELOG.md, `Next release` | step 5 |
+| the four heads the subsection makes false in one sentence | `design@agent-skills@record-searched-before-the-work`, `design@agent-skills@design-home-write-loads-recording`, `design@agent-skills@a-head-is-owed-by-an-entry-test` and `design@agent-skills@verification-in-primer`, each rewritten in place as "What is already decided" says, and brought to the rules on heads | the landing |
+| the losing alternatives: `thread@terms-and-fix-grounding@primer-glossary`, `thread@terms-and-fix-grounding@workflow-outline`, `thread@terms-and-fix-grounding@knowledge-table-lookup`, the sentence in `skill@knowledge-architect-issue-tracking@read-before-diagnosing`, and, if D2 is ruled as written, the rule in the fragment | judged by the tests for a losing alternative; an entry of `register@agent-skills@rejected` for each that passes, cited by the head that argues against it; each outcome named in the harvest's commit | the landing |
+| the parked rival, bug fixes sent through the design skill's grounding | an issue of kind `deferred` in `register@agent-skills@issue`, its trigger the owner setting the goal on development work | the landing |
+| `thread@terms-and-fix-grounding@readme-workflow-outline` | no head: a choice of human documentation at one site fails the entry tests; the commit message carries its argument | step 3 |
+| P1 and P2 | judged by the tripwire standard; a tripwire of `register@agent-skills@tripwire` for each the standard admits, each outcome named in the harvest's commit | the landing |
+| the changelog entry | CHANGELOG.md, `Next release` | step 4 |
 
 ## Later consequences
 
 - The goal on development work the owner will add may design a grounding for all development work,
-  which would absorb or replace the paragraph.
+  which would absorb or replace the subsection; the deferred issue the Harvest opens re-enters then.
+- The subsection's first two lookups could become one command of the checker, under
+  `goal@knowledge-architect@mechanical-tasks-are-the-tool-s`, once a session meets the task in real
+  use.
 - `issue@agent-skills@the-workflow-assumes-one-unnamed-owner`, when it is designed, changes the
   terms section's line on the owner.
-- Each installed text a later change edits is brought to the rule: a term coined elsewhere gets a
-  pointer to its home at its first use.
-- The parked rival, the design skill's grounding for fixes, re-enters with the goal on development
-  work.
