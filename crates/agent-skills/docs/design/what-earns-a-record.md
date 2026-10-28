@@ -18,6 +18,21 @@ argued it, where it binds as intent at that scale, per `design@agent-skills@loca
 For a decision about the installed text, `design@agent-skills@instruction-record-is-minimal` admits
 one case the four tests do not: one that keeps two parts of the workflow consistent.
 
+The tests keep the decisions recorded few, as long as no critical intent or argument is lost. Every
+grounding reads the design homes whole, and a human overseer reviews them, so each head costs every
+later session and every review. The owner stated the trade-off: more records, which over time bloat
+the design homes and make them harder for human overseers to review and for agents to ground on, or
+fewer, kept to the decisions that bear load, which leave to the agents' judgement what is not argued
+in them. Every session that changes local code reads the comment at that code, where a head reaches
+it through the reading that `design@agent-skills@code-change-reads-its-record` asks for or through a
+citation in the comment. The decision serves
+`goal@knowledge-architect@design-is-recorded-with-its-arguments`: a later session can tell what it
+may change and what a change costs from the head where one is owed, and from the comment where none
+is. The nearest rival of the principle, a head for every decision discussed with the owner, records
+a mechanism carried at one site by its comments, which the owner judged comments carry easily.
+Whether the heads cost a session more than they save is not measured:
+`issue@agent-skills@the-retrospective-counts-no-review-cost`.
+
 Test 2 is
 where the checker's reach ends: a reason that several sites must respect needs a home each site can
 cite, and a comment cannot be cited, while a policy no code and no text states, or an absence, has
@@ -36,9 +51,10 @@ measurement costs as much to take again as a documentation reading to derive aga
 documented-only test 3 fails where the documentation is silent. Test 4 is the owner's: on the
 owner's word, an answer of "yes" or "approved" to the agent's question carries no intent of the
 owner and is no ground for a head, since a ruling that grounds one carries the owner's own intent;
-a hedged word the owner gives in a discussion of the design is no statement of intent either; the
-owner is asked rather than the agent judging, on the owner's suggestion, which the owner judged
-more reliable; and the questions are numbered, at the owner's request, so that the owner answers
+a proposed option under which, as the owner read it, everything the owner says in a discussion of
+the design skills would count as the owner's intent should not hold, on the owner's word; the owner
+is asked rather than the agent judging, on the owner's suggestion, which the owner judged more
+reliable; and the questions are numbered, at the owner's request, so that the owner answers
 each without confusion. The agent's own judgement of the owner's intent, its rival, misread a
 hedged proposal as a ruling twice in the session that made the test. Its other rival, any recorded
 ruling of the owner, admits nearly every head harvested from a discussion, since the workflow asks
@@ -49,24 +65,6 @@ built", admitted nearly every head under a wide reading and almost none under a 
 design homes hold built intent, per `design@agent-skills@design-home-is-built-intent`.
 
 The design this decision did not keep: `rejected@agent-skills@entry-test-for-unbuilt-work`.
-
-### The decisions a design home records stay few, as long as no critical intent or argument is lost `##recorded-decisions-stay-few`
-
-A design home records the decisions the entry tests of
-`design@agent-skills@a-head-is-owed-by-an-entry-test` admit, and no other, so that it stays short
-enough to be read whole. Every grounding reads the design homes whole, and a human overseer reviews
-them, so each head costs every later session and every review. The weighing is the owner's: more
-records bloat the design homes, which grow harder for human overseers to review and for agents to
-ground on, while fewer, kept to the decisions that bear load, leave to the agents' judgement what
-is not argued in them. Every session that changes local code reads the comment at that code, where
-a head reaches it through the reading that `design@agent-skills@code-change-reads-its-record` asks
-for or through a citation in the comment. The principle serves
-`goal@knowledge-architect@design-is-recorded-with-its-arguments`: a later session can tell what it
-may change and what a change costs from the head where one is owed, and from the comment where none
-is. The nearest rival, a head for every decision discussed with the owner, records a mechanism
-carried at one site by its comments, which the owner judged comments carry easily. Whether the
-heads cost a session more than they save is not measured:
-`issue@agent-skills@the-retrospective-counts-no-review-cost`.
 
 ### A design not kept earns an entry by the recording tests, not by having been rejected `##losing-alternatives-filter`
 

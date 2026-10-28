@@ -156,9 +156,10 @@ decision, sent to the design skill by the backstop of `primer@design-heads`, per
 
 It serves `goal@knowledge-architect@agents-work-without-drift`. The evidence of real use that
 `design@agent-skills@behaviour-additions-need-real-use` asks is the owner's, given from memory: in
-thaum and in rootpoint, sessions investigating a bug mostly read the issues and mostly skimmed them,
-and were not told where known design is, which mattered little to the investigation and started to
-matter once they proposed a fix. The mechanism: the only texts such a
+thaum and in rootpoint, where the owner met the problem mostly during bug investigations, a session
+investigating a bug was not really informed of where to look for known design, and looked for the
+issues but mostly skimmed them, which mattered little to the investigation and started to matter
+once it proposed a fix. The mechanism: the only texts such a
 session meets that say what to read, the primer's "Check whether it is already known" and
 `skill@knowledge-architect-issue-tracking@read-before-diagnosing`, name the issue and tripwire
 listings and no design home as a place to read, while the design skill's grounding, which names
