@@ -106,7 +106,7 @@ Per `skill@knowledge-architect-planning@working-a-slice`, the work of a spec.
   - read every disagreement in its context before classing it, as the reply to round 2 did: a
     misbinding is a rewrite that resolves while the text meant another target.
   The scripts were in the session's scratch directory and are not kept, per D6.
-- **thaum**: the one known consumer of the checker, a separate repository whose checkout sits at
+- **thaum**: a consumer of the checker, a separate repository whose checkout sits at
   `path@elsewhere@thaum/` beside this one on the owner's machine.
 - **a misbinding**: an inference that rewrites a span into a reference that resolves, while the
   writer meant something else. The check passes on it, and nothing reports it later.
