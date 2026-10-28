@@ -11,10 +11,46 @@ A bounded problem, a clear requirement whose main risk is over-building, has no 
 the design skill grounds it, and then sends one proposal, which it builds on its default unless the
 owner answers otherwise.
 
-The next section says how a project extends an installed skill. The sections after it describe
-the design skill, `skill@knowledge-architect-design`, which runs design discussions as open,
-argued exchanges instead of narrowing questionnaires, except one, on what the setup skill expects
-of you.
+The first section draws how the installed skills hand off to each other. The next says how a
+project extends an installed skill. The sections after it describe the design skill,
+`skill@knowledge-architect-design`, which runs design discussions as open, argued exchanges instead
+of narrowing questionnaires, except one, on what the setup skill expects of you.
+
+## How the skills hand off to each other
+
+An agent finds each skill by its description, which names the moment it applies; this map is for a
+human reader. A node in brackets is no skill.
+
+```text
+design ──(full path)──▶ planning ──▶ [the work] ──▶ review ──▶ [merge] ──▶ retrospective
+  │                                      ▲                                (offered once)
+  └──(in-change path, bounded work)──────┘                                      │
+                                                    on the owner's word: retrospective-intake
+```
+
+- `skill@knowledge-architect-design` grounds a design question or a requested change whose design
+  is not settled. On its full path it hands off to `skill@knowledge-architect-planning`, which
+  writes a spec or a milestone; on its in-change path, and for bounded work, the work goes on in the
+  change under way.
+- `skill@knowledge-architect-planning` carries the plan document through the work, the review and
+  the harvest, and deletes it when its work lands.
+- `skill@knowledge-architect-review` runs before every merge to the main branch, and whenever an
+  activity's skill says its work is ready.
+- `skill@knowledge-architect-retrospective` is offered once per session, when a branch the session
+  worked on merges, a plan document leaves, or the session ends. Its project file waits until the
+  owner hands it to `skill@knowledge-architect-retrospective-intake`.
+
+The other skills load at a moment, not in that sequence:
+
+- `skill@knowledge-architect-issue-tracking`: before diagnosing a behaviour as a new problem, when
+  something is parked, and when work closes an entry.
+- `skill@knowledge-architect-decision-recording`: before any write into a design home.
+- `skill@knowledge-architect-agent-configuration`: before editing a `CLAUDE.md`, a skill or an
+  agent.
+- `skill@knowledge-architect-goal-setting`: before writing or editing a goals home.
+- `skill@knowledge-architect-setup`: when a project adopts the workflow or moves its pin.
+- `skill@knowledge-architect-project-audit`: when the owner asks to audit one aspect of the whole
+  project, or a pin move crosses a version whose changelog asks for one.
 
 ## Extending an installed skill
 
