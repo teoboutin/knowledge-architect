@@ -172,6 +172,7 @@ often why the work was left undone on purpose.
 
 ### Read the record of code before changing it
 
+%% Per `design@agent-skills@code-change-reads-its-record`.
 **Before proposing a fix or any other change to code, read what the project decided about that
 code**: each entry its comments cite; every entry that cites its file, which
 `{{command}} show path@<anchor>@<file>` lists; and the heads on its subject in the design and
@@ -474,7 +475,7 @@ A project's own skills add to these, and never replace them.
 
 %% The section holds one sentence, with its pointer, for each coined term this primer uses and does
 %% not define in itself, and for each word the workflow uses in more than one sense; a term coined
-%% and used only in other texts is defined in the text that coins it. `spec@plans@terms-and-fix-grounding`.
+%% and used only in other texts is defined in the text that coins it, per `design@agent-skills@term-defined-at-first-load`.
 ## Terms the workflow coins {{slug:coined-terms}}
 
 Each term below is one this primer uses; the pointer names the text that holds it whole.

@@ -567,3 +567,9 @@ the session nothing to choose its reading by.
 `live`. It lost to the same search: 29 of its 137 entries graded `may-bear` alone carried the mark of
 one goal seed, each forced to a doubt because it cited the goal, while the goal already joined every
 cluster that cites it as context.
+
+### A glossary in the primer of every term the workflow coins `##primer-glossary`
+
+`live`. Every session would load the terms only one activity's texts use: 39 terms were used by two
+or more of the 27 installed texts when it was weighed, where the primer uses 18, each a second
+definition beside its home's. The count's command is in `design@agent-skills@term-defined-at-first-load`.

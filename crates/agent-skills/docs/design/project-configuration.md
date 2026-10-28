@@ -87,7 +87,9 @@ them in the primer; the outcomes of something met outside the task,
 `design@agent-skills@branch-commits-judged-at-tip`; the rules on design heads every session applies, what earns a head and what a head stands on,
 `design@agent-skills@one-home-for-head-rules`; and how a size cost of agent-facing text is
 weighed, `design@agent-skills@context-cost-of-agent-text`, since every session weighs where a text
-goes.
+goes; the reading of the record of code before changing it,
+`design@agent-skills@code-change-reads-its-record`; and the terms the primer uses, each restated with
+its pointer, `design@agent-skills@term-defined-at-first-load`.
 
 ### The primer states the checker's model a reader needs, and the rarer checker rules reach a session through their findings `##checker-model-in-primer`
 
@@ -126,7 +128,8 @@ the implementation or a run, the whole path is followed, one case is no conventi
 is reported with the conclusion, a conclusion is re-verified before acting, a transfer names its
 property; a checkable claim is checked before it is written, a commit message's claims are listed
 and checked before the commit, and the same holds for an answer to the owner; what is already
-recorded is checked before diagnosing; precedent is not authority. The design skill's grounding
+recorded is checked before diagnosing; the record of code is read before changing it, per
+`design@agent-skills@code-change-reads-its-record`; precedent is not authority. The design skill's grounding
 reads the section again, and its steps and the planning skill point to it. Each skill's and agent's narrower rule,
 such as a reviewer's "establish the state of the tree yourself", stays where its moment needs it.
 
@@ -139,6 +142,33 @@ not the case. Every session meets claims, so the rules pass
 rule, loses on the five directives no installed text stated in any form: following the whole path,
 a transfer's property, a commit message's claims checked by its writer, precedent, and confidence
 uncorrelated with correctness.
+
+### Before proposing a change to code, a session reads the record of that code, wherever its task came from `##code-change-reads-its-record`
+
+`primer@verify-before-relying`, in its subsection "Read the record of code before changing it",
+sends a session about to propose a fix or any other change to code to what the project decided
+about that code: the entries its comments cite, the entries that cite its file, which
+`klarch show path@<anchor>@<file>` lists for a file of any language, and the heads on its subject
+in the design and `rejected` homes of the Component that holds it. A fix that would contradict a
+head is a decision, sent to the design skill by the backstop of `primer@design-heads`, per
+`design@agent-skills@new-or-reshaped-head-needs-design`.
+
+It serves `goal@knowledge-architect@agents-work-without-drift`. The evidence of real use that
+`design@agent-skills@behaviour-additions-need-real-use` asks is the owner's: in thaum and in
+rootpoint, sessions investigating a bug read the issues and skimmed them, and were not told where
+known design is, which matters once they propose a fix. The mechanism: the only texts such a
+session meets that say what to read, the primer's "Check whether it is already known" and
+`skill@knowledge-architect-issue-tracking@read-before-diagnosing`, name the issue and tripwire
+listings and no design home, while the design skill's grounding, which names them, reaches only
+work that goes through it. Every session that changes code meets the moment and no skill delivers
+the reading outside the design path, so `design@agent-skills@primer-limit` admits it. It is no
+search of the whole record: `design@agent-skills@record-searched-before-the-work` keeps that search
+for the work that goes through the design skill, a plan or an intake.
+
+The nearest rival, the same sentence in the issue-tracking skill's section on diagnosing, loads at
+the diagnosis of a new problem and reaches no change that is not a bug. Sending every fix through
+the design skill's grounding dispatches the record search, beyond the minimal fix the owner asked
+for; its question is `issue@agent-skills@a-fix-is-grounded-by-no-record-search`.
 
 ### The goals are the only statements assumed to come from the owner, and a recorded decision binds as a presumption `##goals-bind`
 

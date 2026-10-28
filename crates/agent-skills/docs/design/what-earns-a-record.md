@@ -23,8 +23,9 @@ grounding reads the design homes whole, and a human overseer reviews them, so ea
 later session and every review; the owner's statement of the trade-off: "more decision records,
 which over time bloat the design docs and make them harder to review by human overseers of the
 agents, as well as harder to ground on for agents, or less decision records, only when load bearing,
-but anything not argued in there has to be judged by the agents." The session that changes local
-code reads the comment at that code, not a design home it would have to think to search. Test 2 is
+but anything not argued in there has to be judged by the agents." Every session that changes local
+code reads the comment at that code, where a head reaches it only through the reading of its
+Component's design home that `design@agent-skills@code-change-reads-its-record` asks for. Test 2 is
 where the checker's reach ends: a reason that several sites must respect needs a home each site can
 cite, and a comment cannot be cited, while a policy no code and no text states, or an absence, has
 none; for agent-facing text, each text that states the instruction is one site, a design head
