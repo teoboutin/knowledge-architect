@@ -150,6 +150,11 @@ subsection is omitted.
 - `agent-skills`, patch: the retrospective asks one more standing question: whether the session or
   a subagent wrote a script, or carried by hand over several steps, a mechanical task the installed
   workflow asks of it.
+- `agent-skills`, patch: before proposing a fix or any other change to code, a session reads the
+  record of that code: the entries its comments cite, the entries that cite its file, listed by
+  `klarch show path@<anchor>@<file>`, and the heads on its subject in its Component's design and
+  `rejected` homes, per the primer's new subsection in `primer@verify-before-relying`. A fix that
+  would contradict a head goes to the design skill.
 
 ## 0.8.0
 
