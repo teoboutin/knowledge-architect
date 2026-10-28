@@ -198,7 +198,9 @@ then judges whether the edit contradicts a head, adds a member its argument does
 records a decision at all. The skill's description
 states the first trigger, and reaches every session.
 `skill@knowledge-architect-agent-configuration@admission-standard` states both, and reaches a
-session editing agent-facing text, which is the one activity that asks for a search of the design homes before an edit.
+session editing agent-facing text, the one activity that asks for a search of the design homes before an edit
+of text; before a change to code, the reading of `design@agent-skills@code-change-reads-its-record` asks for
+the heads on that code's subject.
 
 A session can see both conditions without any standard: the file it is about to edit, and the
 result of that search. A load conditioned on whether an edit contradicts a head or adds a member

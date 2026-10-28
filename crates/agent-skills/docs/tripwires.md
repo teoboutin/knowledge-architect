@@ -468,3 +468,19 @@ the searcher gave them.
 merge of an in-change deliberation, whose findings and their outcomes the commit messages record.
 **Watches until:** three plan documents deleted at their landing, on the main branch, counted from
 the commit that writes this line.
+
+## Guarding `design@agent-skills@code-change-reads-its-record`: a session that held the subsection still proposes a fix past a head of its code's record that it did not read `##fix-proposed-past-an-unread-head`
+
+The decision rests on the premise that a session reads the record of its code at the moment it
+proposes a fix, though the primer that asks for it is read at the session's start, and that the
+titles of a design home lead it to the heads on its code's subject where the code cites none.
+
+**Fires when:** retrospective analyses of two separate pieces of work each report a fix proposed by
+a session whose installed primer held the subsection, that contradicted or missed a head on its
+code's subject which the session had not read; or one such fix reached a main branch with no review
+or retrospective reporting it.
+**Response:** reopen `design@agent-skills@code-change-reads-its-record`, on where and how the
+reading is delivered.
+**Re-entry:** the retrospective intake of each received file, where the analyses are written.
+**Watches until:** six analyses of received retrospective files under docs/retrospective-reports/,
+counted from the commit that writes this line.

@@ -162,7 +162,8 @@ triggers, per `design@agent-skills@standing-state-review-before-every-merge`, wh
 to and never replaces. A search before every other piece of work stays parked: its one host would be
 the primer, which holds only what every session needs, per `design@agent-skills@primer-limit`, the
 evidence for it is one instance, and a line sending every session to search before any work is a
-conformance rule. In thaum, a move of the pinned checker met the trigger of a deferred issue that
+conformance rule. A session about to change code reads the record of that code instead, which is no
+search of the whole record, per `design@agent-skills@code-change-reads-its-record`. In thaum, a move of the pinned checker met the trigger of a deferred issue that
 named that move, and the session read it at no step.
 
 The occasions are those where design is discussed, so that an entry the work bears on costs a

@@ -193,6 +193,35 @@ finding names the copy that stays, the one in the section whose subject it is, o
 across the primer and the root `CLAUDE.md`: two passes that each delete the copy they flagged would
 otherwise delete both.
 
+### A coined term is defined in the text of the activity that coins it, and the primer restates in one sentence, with its pointer, each one the primer uses `##term-defined-at-first-load`
+
+A term the installed text gives a meaning of its own is defined once, in the text of the activity
+that coins it. `primer@coined-terms`, the primer's last section, holds one sentence with a pointer to
+that home for each coined term the primer uses and does not define in itself, and for each word the
+workflow uses in more than one sense, such as "workflow" and "kind". A term used only inside the
+texts of other activities takes no entry: a restatement of it elsewhere is governed by
+`primer@where-knowledge-goes`, as any restatement is, per `design@agent-skills@restatement-size-test`.
+The rule is stated for the maintainer of the installed text alone, in a `%%` line above the
+section's heading, since no installing project edits the primer, per
+`design@agent-skills@statement-names-an-act`.
+
+A term defined where the act that uses it is delivered reaches every reader of that act, the split
+`design@agent-skills@one-home-for-head-rules` makes for the rules on heads: the primer reaches every
+session and every subagent, so a term it uses is defined there, and a term one activity uses is met
+only by the sessions that load that activity's texts. The section serves
+`goal@agent-skills@no-contradiction-in-workflow`: each entry restates its home in one sentence and
+points to it, so it says nothing its home does not. A term the primer uses and does not define is a
+defect provable by reading, so the section needs no evidence of real use, where the clause on other
+texts that the owner first approved, a pointer at a term's first use in any text, would have been an
+instruction to writers with none, and a second home for restatement across texts. The nearest
+rival, the owner's proposal of a glossary in the primer of every term the workflow coins, is
+`rejected@agent-skills@primer-glossary`. A rule that took every term two or more installed texts use
+admitted 39 terms when this head was written, where the section holds 18 in 14 entries, each a
+second definition in every session's load; the count is taken again, per candidate term, by
+counting the files that
+`grep -liw -- '<term>' knowledge-architect/PRIMER.md skills/knowledge-architect-*/SKILL.md agents/knowledge-architect-*.md workflows/knowledge-architect-*.js`
+lists, run in the agent configuration's directory.
+
 ### Every rule on what enters agent-facing text and how a change to it is shaped lives in one section of the agent-configuration skill `##admission-rules-home`
 
 `skill@knowledge-architect-agent-configuration@admission-standard` holds the need test of
