@@ -28,8 +28,9 @@ it through the reading that `design@agent-skills@code-change-reads-its-record` a
 citation in the comment. The decision serves
 `goal@knowledge-architect@design-is-recorded-with-its-arguments`: a later session can tell what it
 may change and what a change costs from the head where one is owed, and from the comment where none
-is. The nearest rival of the principle, a head for every decision discussed with the owner, records
-a mechanism carried at one site by its comments, which the owner judged comments carry easily.
+is. The nearest rival of keeping the recorded decisions few, a head for every decision discussed
+with the owner, records a mechanism carried at one site by its comments, whose intent, on the
+owner's word, local code comments carry easily.
 Whether the heads cost a session more than they save is not measured:
 `issue@agent-skills@the-retrospective-counts-no-review-cost`.
 
@@ -51,8 +52,8 @@ measurement costs as much to take again as a documentation reading to derive aga
 documented-only test 3 fails where the documentation is silent. Test 4 is the owner's: on the
 owner's word, an answer of "yes" or "approved" to the agent's question carries no intent of the
 owner and is no ground for a head, since a ruling that grounds one carries the owner's own intent;
-a proposed option under which, as the owner read it, everything the owner says in a discussion of
-the design skills would count as the owner's intent should not hold, on the owner's word; the owner
+on the owner's word, what the owner says in a discussion of the design skills should not all count
+as the owner's intent, as the owner read a proposed option to make it; the owner
 is asked rather than the agent judging, on the owner's suggestion, which the owner judged more
 reliable; and the questions are numbered, at the owner's request, so that the owner answers
 each without confusion. The agent's own judgement of the owner's intent, its rival, misread a

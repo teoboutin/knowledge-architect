@@ -193,7 +193,7 @@ finding names the copy that stays, the one in the section whose subject it is, o
 across the primer and the root `CLAUDE.md`: two passes that each delete the copy they flagged would
 otherwise delete both.
 
-### A coined term is defined in the text of the activity that coins it, and the primer restates in one sentence with its pointer only the ones it uses, and separates the senses of each word used in more than one `##term-defined-at-first-load`
+### A coined term is defined in the text of the activity that coins it, and the primer restates in one sentence with its pointer each one it uses, and only those, and separates the senses of each word used in more than one `##term-defined-at-first-load`
 
 A term the installed text gives a meaning of its own is defined once, in the text of the activity
 that coins it. `primer@coined-terms`, the primer's last section, holds one sentence with a pointer to
@@ -221,8 +221,10 @@ count: a glossary in the primer of every term the workflow coins,
 texts use, `rejected@agent-skills@terms-used-by-two-installed-texts`. At the commit "[plans] The
 spec of the primer's terms section and of the record a session reads before a fix", 39 coined terms
 not defined in the primer were used by two or more of the 27 installed texts, 19 of them not used
-by the primer, each of which either rival would add to every session's load as a second definition; that commit's spec lists them, and the count
-is taken again, per term, by counting the files that
+by the primer, each of which either rival would add to every session's load as a second definition; the spec as
+the commit "[review] Repairs of the spec's review: the terms rule awaits the owner twice, and the
+subsection holds in any project and routes a contradicting fix to the design skill" left it lists
+them, and the count is taken again, per term, by counting the files that
 `grep -liw -- '<term>' knowledge-architect/PRIMER.md skills/knowledge-architect-*/SKILL.md agents/knowledge-architect-*.md workflows/knowledge-architect-*.js`
 lists, run in the agent configuration's directory.
 
