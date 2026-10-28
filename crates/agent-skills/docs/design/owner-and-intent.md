@@ -95,7 +95,7 @@ without arguing against it.
 
 The owner's argument: "Since the workflow is instructing that "code follow design", anything that is
 not argumented in design records could end up judged "superfluous" and deleted autonomously." Fewer
-heads, per `design@agent-skills@a-head-is-owed-by-an-entry-test`, leaves more intent in comments.
+heads, per `design@agent-skills@recorded-decisions-stay-few`, leaves more intent in comments.
 Without a class of its own, an inline comment reads as a claim about the code, to verify and
 discard; and `skill@knowledge-architect-design@incumbent-evaluation`'s rule on an implementation coincidence applies only while an incumbent
 design is evaluated. A comment is part of the code, so the head prevails over it. The order serves

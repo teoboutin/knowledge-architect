@@ -159,12 +159,13 @@ grounding, with the received files as the work, and again for a proposed fix on 
 did not raise, with the fix as the work, before the proposal goes to the owner. Other work that
 does not go through the design skill sends no search: the standing-state review reads its deferred
 triggers, per `design@agent-skills@standing-state-review-before-every-merge`, which this search adds
-to and never replaces. A search before every other piece of work stays parked: its one host would be
+to and never replaces. A search of the whole record before every other piece of work stays parked: its one host would be
 the primer, which holds only what every session needs, per `design@agent-skills@primer-limit`, the
 evidence for it is one instance, and a line sending every session to search before any work is a
-conformance rule. A session about to change code reads the record of that code instead, which is no
-search of the whole record, per `design@agent-skills@code-change-reads-its-record`. In thaum, a move of the pinned checker met the trigger of a deferred issue that
-named that move, and the session read it at no step.
+conformance rule. In thaum, a move of the pinned checker met the trigger of a deferred issue that
+named that move, and the session read it at no step. A session about to change code reads the record of that code instead, a
+reading narrower than the search, which the owner's instances in thaum and rootpoint admitted, per
+`design@agent-skills@code-change-reads-its-record`.
 
 The occasions are those where design is discussed, so that an entry the work bears on costs a
 ruling before the work rather than rework after it, per

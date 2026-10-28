@@ -171,10 +171,11 @@ often why the work was left undone on purpose.
 
 **Before proposing a fix or any other change to code, read what the project decided about that
 code**: each entry its comments cite; every entry that cites its file, which
-`cargo klarch show path@<anchor>@<file>` lists; and the heads on its subject in the design and
-`rejected` homes of the Component that holds it, where each head's title states its decision. A fix
-written from the code alone can undo a decision whose reason the code does not show. A fix that
-would contradict a head is a decision that goes to the design skill, per `primer@design-heads`.
+`cargo klarch show path@<anchor>@<file>` lists; and the heads on its subject in the design home of
+the Component that holds it, where each head's title states its decision, with the entries on it in
+that Component's `rejected` home. A fix written from the code alone can undo a decision whose reason
+the code does not show. A fix that would contradict a head, or bring back a design the `rejected`
+home records, is a decision that goes to the design skill, per `primer@design-heads`.
 
 ### Precedent is not authority
 
@@ -475,7 +476,8 @@ get wrong and expensive to derive again, and it is visible: the argument quotes 
 or the documentation, or names the measurement.
 
 Otherwise it belongs in an **inline comment at the code it explains, plus the commit message**.
-The comment is read by every session that touches the code, which a head is not, and the commit
+The comment is read by every session that touches the code, which a head is only where the session
+finds it on the code's subject, and the commit
 carries the argument. A reason that fits in one comment at one site, about that site's own code,
 fails test 2.
 
@@ -578,11 +580,11 @@ A project's own skills add to these, and never replace them.
 
 ## Terms the workflow coins `##coined-terms`
 
-Each term below is one this primer uses; the pointer names the text that holds it whole.
+Each term below is one this primer uses; where another text holds a term whole, its pointer names
+that text.
 
-- **installed text**: every file `cargo klarch install-agent-skills` writes, this primer and the
-  skills, agents and saved workflows named `knowledge-architect-*`, which a project never edits, per
-  `skill@knowledge-architect-agent-configuration@installed-files-never-edited`.
+- **installed text**: every file `cargo klarch install-agent-skills` writes, which a project never
+  edits by hand, per `skill@knowledge-architect-agent-configuration`.
 - **agent-facing text**: every text an agent reads as instructions, the installed text and the
   project's own `CLAUDE.md` files, skills, agents and saved workflows' prompts alike, all held to
   `skill@knowledge-architect-agent-configuration@admission-standard`.
@@ -607,11 +609,14 @@ Each term below is one this primer uses; the pointer names the text that holds i
   failed and names the most plausible causes, per `skill@knowledge-architect-design@discussion-loop`.
 - **pin**: the version of the checker a project runs, moved only by an explicit edit, per
   `skill@knowledge-architect-setup@pin-the-checker`.
-- **axis, pass**: an axis is one aspect of the whole project that an audit reads, and a pass is one
-  round of the audit's method over it, per `skill@knowledge-architect-project-audit@audit-terms`.
+- **axis, pass**: a review's axes are the questions of the table of
+  `skill@knowledge-architect-review@review-axes`, each sent to a reviewer of its own; an audit's
+  axis is one aspect of the whole project that an audit reads, and a pass is one round of the
+  audit's method over it, per `skill@knowledge-architect-project-audit@audit-terms`.
 - **project file**: the file of a retrospective's findings on the project's own instructions,
   beside the workflow file of its findings on the installed text and the checker, per
   `skill@knowledge-architect-retrospective@two-files`.
-- **Migration entry**: an entry of the checker's changelog, under its Migration subsection, naming
-  what a project must change in its own files when its pin crosses that version, read as
-  `skill@knowledge-architect-setup@moving-the-pin` says.
+- **Migration entry**: an entry of the checker's changelog that names what a project must change in
+  its own files when its pin crosses that version, per `skill@knowledge-architect-setup@moving-the-pin`.
+- **horizon**: the occasions after which a tripwire that has not fired leaves its home, which its
+  `**Watches until:**` line names, per `skill@knowledge-architect-issue-tracking@tripwire-entry`.

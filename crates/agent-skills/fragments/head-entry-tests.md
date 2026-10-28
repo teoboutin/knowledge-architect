@@ -38,7 +38,8 @@ get wrong and expensive to derive again, and it is visible: the argument quotes 
 or the documentation, or names the measurement.
 
 Otherwise it belongs in an **inline comment at the code it explains, plus the commit message**.
-The comment is read by every session that touches the code, which a head is not, and the commit
+The comment is read by every session that touches the code, which a head is only where the session
+finds it on the code's subject, and the commit
 carries the argument. A reason that fits in one comment at one site, about that site's own code,
 fails test 2.
 

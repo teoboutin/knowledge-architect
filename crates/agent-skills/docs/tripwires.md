@@ -482,5 +482,8 @@ or retrospective reporting it.
 **Response:** reopen `design@agent-skills@code-change-reads-its-record`, on where and how the
 reading is delivered.
 **Re-entry:** the retrospective intake of each received file, where the analyses are written.
-**Watches until:** six analyses of received retrospective files under docs/retrospective-reports/,
-counted from the commit that writes this line.
+**Watches until:** six analyses of received retrospective files under
+`path@knowledge-architect@docs/retrospective-reports/`, counted from the commit that writes this line.
+Its firing evidence comes mostly from the sessions of projects that install the workflow, which this
+project sees only through their retrospective files, per
+`issue@agent-skills@a-tripwire-on-agent-behaviour-fires-where-this-project-cannot-see`.

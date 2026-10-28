@@ -85,7 +85,7 @@ them in the primer; the outcomes of something met outside the task,
 `design@agent-skills@checker-model-in-primer`, the staged check before each commit among them,
 `design@agent-skills@staged-check-before-each-commit`; every commit judged at the branch's tip,
 `design@agent-skills@branch-commits-judged-at-tip`; the rules on design heads every session applies, what earns a head and what a head stands on,
-`design@agent-skills@one-home-for-head-rules`; and how a size cost of agent-facing text is
+`design@agent-skills@one-home-for-head-rules`; how a size cost of agent-facing text is
 weighed, `design@agent-skills@context-cost-of-agent-text`, since every session weighs where a text
 goes; the reading of the record of code before changing it,
 `design@agent-skills@code-change-reads-its-record`; and the terms the primer uses, each restated with
@@ -149,26 +149,28 @@ uncorrelated with correctness.
 sends a session about to propose a fix or any other change to code to what the project decided
 about that code: the entries its comments cite, the entries that cite its file, which
 `klarch show path@<anchor>@<file>` lists for a file of any language, and the heads on its subject
-in the design and `rejected` homes of the Component that holds it. A fix that would contradict a
-head is a decision, sent to the design skill by the backstop of `primer@design-heads`, per
+in the design home of the Component that holds it, with the entries on it in its `rejected` home. A
+fix that would contradict a head, or bring back a design the `rejected` home records, is a
+decision, sent to the design skill by the backstop of `primer@design-heads`, per
 `design@agent-skills@new-or-reshaped-head-needs-design`.
 
 It serves `goal@knowledge-architect@agents-work-without-drift`. The evidence of real use that
-`design@agent-skills@behaviour-additions-need-real-use` asks is the owner's: in thaum and in
-rootpoint, sessions investigating a bug read the issues and skimmed them, and were not told where
-known design is, which matters once they propose a fix. The mechanism: the only texts such a
+`design@agent-skills@behaviour-additions-need-real-use` asks is the owner's, given from memory: in
+thaum and in rootpoint, sessions investigating a bug mostly read the issues and mostly skimmed them,
+and were not told where known design is, which mattered little to the investigation and started to
+matter once they proposed a fix. The mechanism: the only texts such a
 session meets that say what to read, the primer's "Check whether it is already known" and
 `skill@knowledge-architect-issue-tracking@read-before-diagnosing`, name the issue and tripwire
-listings and no design home, while the design skill's grounding, which names them, reaches only
-work that goes through it. Every session that changes code meets the moment and no skill delivers
+listings and no design home as a place to read, while the design skill's grounding, which names
+them, reaches only work that goes through it. Every session that changes code meets the moment and no skill delivers
 the reading outside the design path, so `design@agent-skills@primer-limit` admits it. It is no
 search of the whole record: `design@agent-skills@record-searched-before-the-work` keeps that search
 for the work that goes through the design skill, a plan or an intake.
 
 The nearest rival, the same sentence in the issue-tracking skill's section on diagnosing, loads at
 the diagnosis of a new problem and reaches no change that is not a bug. Sending every fix through
-the design skill's grounding dispatches the record search, beyond the minimal fix the owner asked
-for; its question is `issue@agent-skills@a-fix-is-grounded-by-no-record-search`.
+the design skill's grounding dispatches the record search, beyond the minimal fix the owner said
+would do for now; its question is `issue@agent-skills@a-fix-is-grounded-by-no-record-search`.
 
 ### The goals are the only statements assumed to come from the owner, and a recorded decision binds as a presumption `##goals-bind`
 

@@ -570,6 +570,12 @@ cluster that cites it as context.
 
 ### A glossary in the primer of every term the workflow coins `##primer-glossary`
 
-`live`. Every session would load the terms only one activity's texts use: 39 terms were used by two
-or more of the 27 installed texts when it was weighed, where the primer uses 18, each a second
-definition beside its home's. The count's command is in `design@agent-skills@term-defined-at-first-load`.
+`live`. Every session would load the terms only one activity's texts use, each a second definition
+beside its home's: 39 such terms were counted when it was weighed, by the count and the command of
+`design@agent-skills@term-defined-at-first-load`.
+
+### The primer's terms section holding every coined term two or more installed texts use `##terms-used-by-two-installed-texts`
+
+`live`. The rule admitted the same 39 terms, most of them used only inside the texts of related
+activities, such as an audit's skill, agents and saved workflows, whose readers load those texts;
+the count and its command are in `design@agent-skills@term-defined-at-first-load`.
