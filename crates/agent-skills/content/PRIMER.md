@@ -170,6 +170,15 @@ out whether it is already recorded: `{{command}} issues`, `{{command}} tripwires
 usually says more than a fresh diagnosis: the measurement already taken, what was ruled out, and
 often why the work was left undone on purpose.
 
+### Read the record of code before changing it
+
+**Before proposing a fix or any other change to code, read what the project decided about that
+code**: each entry its comments cite; every entry that cites its file, which
+`{{command}} show path@<anchor>@<file>` lists; and the heads on its subject in the design and
+`rejected` homes of the Component that holds it, where each head's title states its decision. A fix
+written from the code alone can undo a decision whose reason the code does not show. A fix that
+would contradict a head is a decision that goes to the design skill, per `primer@design-heads`.
+
 ### Precedent is not authority
 
 The instructions that apply are the installed ones, the project's root `CLAUDE.md`, its skills,
