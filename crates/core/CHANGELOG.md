@@ -71,6 +71,9 @@ subsection is omitted.
   `cli::TranscriptListArgs`, `cli::TranscriptShowArgs` and `cli::TranscriptSearchArgs`.
 - `agent-skills`, patch: the project audit gains its tripwire axis, with the agent
   `agent@knowledge-architect-tripwire-auditor` and the saved workflow `knowledge-architect-tripwire-audit`.
+- `agent-skills`, patch: the primer's last section, `primer@coined-terms`, defines in one sentence,
+  with a pointer to its home, each coined term the primer uses, and separates the senses of a word
+  the workflow uses in more than one; a project's own text can cite it.
 
 ### Workflow
 
@@ -152,9 +155,10 @@ subsection is omitted.
   workflow asks of it.
 - `agent-skills`, patch: before proposing a fix or any other change to code, a session reads the
   record of that code: the entries its comments cite, the entries that cite its file, listed by
-  `klarch show path@<anchor>@<file>`, and the heads on its subject in its Component's design and
-  `rejected` homes, per the primer's new subsection in `primer@verify-before-relying`. A fix that
-  would contradict a head goes to the design skill.
+  `klarch show path@<anchor>@<file>`, the heads on its subject in its Component's design home, and
+  the entries on it in its `rejected` home, per the primer's new subsection in
+  `primer@verify-before-relying`. A fix that would contradict a head, or bring back a rejected
+  design, goes to the design skill.
 
 ## 0.8.0
 

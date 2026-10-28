@@ -325,7 +325,8 @@ To move to another version:
    CHANGELOG.md. Fetch the new version first, with `cargo fetch` after editing the pin in a Rust
    project, or by the install; then read the file in the source cargo downloaded, under its
    registry directory: `$CARGO_HOME/registry/src/<index>/knowledge-architect-<version>/CHANGELOG.md`.
-   List each Migration entry that cites an axis's section of
+   Its Migration entries name what a project must change in its own files when its pin crosses
+   that version. List each Migration entry that cites an axis's section of
    `skill@knowledge-architect-project-audit`, for step 5.
 3. Run `cargo klarch install-agent-skills`, then follow
    `skill@knowledge-architect-agent-configuration` for what an upgrade owes the project's own

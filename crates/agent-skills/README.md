@@ -50,7 +50,8 @@ The other skills load at a moment, not in that sequence:
 - `skill@knowledge-architect-goal-setting`: before writing or editing a goals home.
 - `skill@knowledge-architect-setup`: when a project adopts the workflow or moves its pin.
 - `skill@knowledge-architect-project-audit`: when the owner asks to audit one aspect of the whole
-  project, or a pin move crosses a version whose changelog asks for one.
+  project, when a pin move crosses a version whose changelog asks for one, and when an adopting
+  project's existing documents have moved into the workflow's homes.
 
 ## Extending an installed skill
 
