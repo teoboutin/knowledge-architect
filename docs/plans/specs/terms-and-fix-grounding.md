@@ -745,7 +745,8 @@ A section of `path@agent-skills@README.md`, "How the skills hand off to each oth
 diagram of the sequence of the work, each skill node naming its installed skill and each other node
 marked as no skill, then one line per skill that loads at a moment rather than in sequence:
 issue tracking, decision recording, project audit, agent configuration, setup and goal setting. Each
-edge the diagram draws is stated in the skill it starts from. An illustration of the shape:
+edge the diagram draws is stated in a skill it joins: the one it starts from, or, for an edge from a
+node that is no skill, the one it leads to. An illustration of the shape:
 
 ```text
 design ──(full path)──▶ planning ─▶ [the work] ─▶ review ─▶ [merge] ─▶ retrospective (offered once)
@@ -846,8 +847,8 @@ applied by the owner, round 3.
    `path@core@src/check/tree.rs` and on `path@core@Cargo.toml`, each ending with a "referenced at:"
    list.
 3. **The outline.** The README section and the reworded opening paragraph. Fails alone on: an edge
-   the diagram draws that the skill it starts from does not state. Claim: each edge is stated in the
-   skill it starts from, tested by quoting, in the commit message, the sentence of that skill that
+   the diagram draws that no skill it joins states. Claim: each edge is stated in a skill it joins,
+   tested by quoting, in the commit message, the sentence of that skill that
    states it; an edge with no such sentence is the failing case, as the edge from goal setting to
    design was in the first draft.
 4. **The changelog.** The `Next release` entry, per `design@knowledge-architect@changelog-entries`
