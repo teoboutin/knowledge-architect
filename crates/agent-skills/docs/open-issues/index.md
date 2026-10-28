@@ -1,6 +1,6 @@
 **Generated — do not edit.** `cargo klarch index`
 
-46 entries
+47 entries
 
 | kind | title |
 | --- | --- |
@@ -50,3 +50,4 @@
 | todo | [The code-claims review axis reads plan documents only, and statements about code elsewhere in a change are checked by no axis](the-code-claims-axis-reads-plan-documents-only.md) |
 | todo | [The design skill's duty to bring back a material finding has no design head](the-material-finding-duty-has-no-head.md) |
 | todo | [The retrospective records no count of what a merged branch cost in review](the-retrospective-counts-no-review-cost.md) |
+| todo | [Two installed skills each define "thread" and "the owner" in their own words](two-texts-define-a-term-in-their-own-words.md) |

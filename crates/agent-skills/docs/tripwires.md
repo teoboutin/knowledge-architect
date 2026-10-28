@@ -487,3 +487,20 @@ reading is delivered.
 Its firing evidence comes mostly from the sessions of projects that install the workflow, which this
 project sees only through their retrospective files, per
 `issue@agent-skills@a-tripwire-on-agent-behaviour-fires-where-this-project-cannot-see`.
+
+## Guarding `design@agent-skills@term-defined-at-first-load`: a coined term the primer comes to use gains no entry in its terms section `##coined-term-without-an-entry`
+
+The decision rests on the premise that the `%%` line above the primer's terms section reaches the
+maintainer who adds a coined term to the primer, though no review reads the primer's diff for terms
+used and not defined.
+
+**Fires when:** in two separate pieces of work after this line, a review, an audit or a
+retrospective finds a coined term the installed primer uses with no definition in it and no entry
+in `primer@coined-terms`, the term added to the primer by that work; or one such term reaches a
+release with no procedure reporting it.
+**Response:** reopen `design@agent-skills@term-defined-at-first-load`, on where its rule is
+delivered.
+**Re-entry:** the agentic-workflow audit, and the retrospective intake of this repository's own
+files.
+**Watches until:** ten commits on the main branch that change
+`path@agent-skills@content/PRIMER.md`, counted from the commit that writes this line.

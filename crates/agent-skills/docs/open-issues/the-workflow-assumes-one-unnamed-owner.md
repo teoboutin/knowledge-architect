@@ -31,6 +31,9 @@ Where the assumption is stated: the expectation set of the design skill, in
 decide what is the owner's"; and `goal@knowledge-architect@the-owner-decides`. What is the owner's
 is the set of questions `primer@question-authority` gives the owner, so a decision on who rules
 inherits that set as the questions a person rules on.
+The primer's `primer@coined-terms` restates the term "the owner" in one sentence, with its pointer
+to `skill@knowledge-architect-planning@planning-terms`, so a decision on who rules changes that
+sentence too.
 
 The suspected mechanism, in one sentence: the workflow models authority as one anonymous role, so
 nothing in its text or its record can say which person ruled.
