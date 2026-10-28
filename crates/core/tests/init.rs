@@ -680,6 +680,30 @@ fn a_failure_after_the_first_write_exits_one() {
     assert_eq!(code, 2, "{out}{err}");
     assert!(!scratch.path("a/knowledge-architect.toml").exists());
 
+    // The cases below make a write fail with a read-only directory, the one failure `init`'s
+    // refusals before the first write cannot see. A process that writes into a read-only
+    // directory anyway, as one running as root does, cannot build them, so they are skipped
+    // there, and the skip is printed so that the run does not read as a pass of them.
+    std::fs::create_dir_all(scratch.path("probe")).unwrap();
+    std::fs::set_permissions(
+        scratch.path("probe"),
+        std::fs::Permissions::from_mode(0o555),
+    )
+    .unwrap();
+    let writes_through = std::fs::write(scratch.path("probe/file"), "").is_ok();
+    std::fs::set_permissions(
+        scratch.path("probe"),
+        std::fs::Permissions::from_mode(0o755),
+    )
+    .unwrap();
+    if writes_through {
+        eprintln!(
+            "skipped: this process writes into a read-only directory, as root does, so a write \
+             failure after the first write cannot be built"
+        );
+        return;
+    }
+
     std::fs::create_dir_all(scratch.path("b/docs")).unwrap();
     std::fs::set_permissions(
         scratch.path("b/docs"),
