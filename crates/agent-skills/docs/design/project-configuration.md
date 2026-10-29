@@ -274,7 +274,7 @@ thaum's reviewers found it contradicted the specification's authority. The desig
 same duty for a closed thread, its material finding, and reaches only a session that has loaded it,
 where a word of the owner can arrive in any session, which is the content test of
 `design@agent-skills@primer-limit`. So the directive sits in the primer: it arrived twice outside a discussion,
-in a review repair and at the fourth entry test of `design@agent-skills@a-head-is-owed-by-an-entry-test`,
+in a review repair and at an entry test on the owner's intent, `rejected@agent-skills@owner-intent-entry-test`,
 the second on a premise the session supplied, that the decision failed the first three tests, when
 the same change had made the second pass. A word acted on past its premise records a decision the
 owner did not make, against `goal@knowledge-architect@the-owner-decides`.

@@ -31,7 +31,7 @@ The ruling came from the owner, after a review found that the shadowing reaches 
 agent had proposed an issue entry for it; the commit that put the ruling into the milestone
 agent-configuration-entities says "The issue opened for the shadowing of the existing kinds was
 never committed: the ruling puts that work in the milestone."
-So under `design@agent-skills@heads-stand-on-argument`, the ruling is a choice at a fork, recorded in
+So under `design@agent-skills@fork-choice-in-weak-form`, the ruling is a choice at a fork, recorded in
 its weak form, where no argument ranked the shapes, and the head stands on the shadowing argument
 where one did; either way the quotation is provenance. Its stated reason is still the forbidden
 one.

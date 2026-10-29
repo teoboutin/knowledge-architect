@@ -224,8 +224,8 @@ defect of the skill (`skill@knowledge-architect-retrospective@what-it-examines`)
   decides only at a fork, or with a reason that survives the challenge. Abandoning silently leaves
   the criteria and the losing arguments unrecorded.
 - **The owner states the project's long-term intent as goals, investing early.** A decision that
-  rests on an intent no goal states can only stand on the owner's word, which the agent cannot
-  weigh, and a later session cannot tell it from an approval.
+  rests on an intent no goal states has no ground the agent can weigh, and a later session cannot
+  tell it from an approval.
 - **The owner is the person who can decide what is the owner's.** A fork, a goal, a contradiction
   no argument resolves, a fact only the owner holds and an action that cannot be undone route to the
   owner, per `primer@question-authority`. If the real authority is not in the conversation, the discussion converges on a verdict nobody present can

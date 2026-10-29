@@ -16,7 +16,7 @@ is phrased, is not recorded. Such proposals can be made without bound, unlike a 
 which costs implementation work. The commit message carries a rewording's argument.
 
 The owner's intent is on record in a goal, drafted under `skill@knowledge-architect-goal-setting`,
-and the owner's choice at a fork in its weak form, per `design@agent-skills@heads-stand-on-argument`;
+and the owner's choice at a fork in its weak form, per `design@agent-skills@fork-choice-in-weak-form`;
 an approval of the agent's proposal is neither.
 Two parts of the workflow are installed texts, or an installed text and the checker it must agree
 with, as the planning skill's sections agree with what the core checks; a decision of this

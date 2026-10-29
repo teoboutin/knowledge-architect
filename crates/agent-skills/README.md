@@ -216,9 +216,9 @@ criteria and the losing arguments unrecorded, which is the state a
 later session is least able to recover from.
 
 **You state the project's long-term intent as goals, investing early.**
-A decision that rests on an intent no goal states can only stand on your
-word, which the assistant cannot weigh, and a later session cannot tell
-it from an approval. Time spent on goals early is what lets the
+A decision that rests on an intent no goal states has no ground the
+assistant can weigh, and a later session cannot tell it from an
+approval. Time spent on goals early is what lets the
 assistant decide more on its own later.
 
 **You are the person who can decide what is yours.** A fork, a goal, a

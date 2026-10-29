@@ -245,7 +245,7 @@ pointer whose target exists under another name, a drifted restatement brought ba
 instruction read two ways reworded to the reading a design head or another instruction states. An
 approval cited as a head's ground is removed in the branch where the head stands on its argument,
 or recorded as the session's choice at a fork, and the owner's pick at a fork cited as a ground is
-recorded in the weak form, per `design@agent-skills@heads-stand-on-argument`, since each repair
+recorded in the weak form, per `design@agent-skills@fork-choice-in-weak-form`, since each repair
 removes a false ground and relaxes nothing. A change that relaxes what the owner's words approved
 or turns it from its direction, per `design@agent-skills@transcript-reviewer-agent`, the removal of
 an entry, but for a tripwire the standard or its lifecycle removes, per
