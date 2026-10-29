@@ -44,7 +44,7 @@ What ties them to this project now:
   paths `PRIMER` and `IMPORT_LINE` of `path@core@src/agents.rs`; all are this project's values;
 - the rows of `SUBSTITUTIONS` are this project's own literals;
 - the build script and `path@xtask@src/skill.rs` include `path@agent-skills@src/render.rs` with
-  `#[path]`, and its functions are `pub(crate)`,
+  `#[path]`, per `design@xtask@view-included-not-exported`, and its functions are `pub(crate)`,
   so the passes are no library a crate outside this repository can call, and a move of the file
   breaks both includes;
 - the install lives in the core, and it is not public API.
