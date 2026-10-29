@@ -454,12 +454,25 @@ shaped, is `skill@knowledge-architect-decision-recording@head-shape`;
 
 ## The installed skills {{slug:installed-skills}}
 
+%% The opening paragraph serves `goal@agent-skills@installed-text-works-anywhere`: two cloud sessions with no
+%% user-level instruction read sections of skills found by `grep` in place of loading them, and wrote into a design
+%% home without the decision-recording skill, so it names that act. The harness lists a plugin's skill beside an
+%% installed one, which its second sentence answers.
+Before acting at a moment this list names, load its skill, with each skill of the project that says
+it adds to it, and follow them whole: a section of one found by a search is not the skill. A skill
+from outside the installed set and the project, which the environment lists for the same activity,
+never takes their place.
+
 - `skill@knowledge-architect-decision-recording`: before writing into a design home; a design
   decision has been made or reversed.
 - `skill@knowledge-architect-issue-tracking`: before diagnosing a problem; parking anything; a
   tripwire fires; work closes an entry.
-- `skill@knowledge-architect-design`: a design question has an open solution space; a requested
-  change whose design is not settled, to ground it and find out whether it is bounded work;
+- `skill@knowledge-architect-design`: a design question has an open solution space; before
+  starting a change the owner asks for or proposes, unless a plan document, an outcome the owner
+  ruled in an audit, an intake or a review, or a design head or a failing test already states what
+  the owner asks for or proposes, or the change decides nothing (a typo, a stale pointer, a
+  rewording), to ground it and find out whether it is bounded work, since a request or a proposal of
+  the owner does not by itself settle a design;
   whether to keep or change an existing design; a bug trend suggests the design is the problem; a
   discussion is reverting to multiple-choice menus, minimal-solution defaults, or approval-seeking
   closers.
@@ -480,8 +493,6 @@ shaped, is `skill@knowledge-architect-decision-recording@head-shape`;
   worked on merges, a plan document leaves, or the session ends.
 - `skill@knowledge-architect-retrospective-intake`: the owner hands the session the project's own
   retrospective files; an outcome of an analysis in docs/retrospective-reports/ is carried out.
-
-A project's own skills add to these, and never replace them.
 
 %% The section holds one sentence, with its pointer, for each coined term this primer uses and does
 %% not define in itself, and for each word the workflow uses in more than one sense; a term coined

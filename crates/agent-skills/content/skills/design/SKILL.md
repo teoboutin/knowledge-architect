@@ -1,6 +1,6 @@
 ---
 name: knowledge-architect-design
-description: MUST use when a design discussion has an open solution space — requirements still being discovered, several defensible shapes, a technical choice with real trade-offs — when evaluating whether to keep or change an existing design or architecture, when a recurring bug trend suggests the design itself is the problem, when a choice about how something is built, or an owner's word that settles one, is met during another task and the decision creates a design head, contradicts a statement of one, or adds a member its argument does not cover, before starting a requested change whose design is not settled, to ground it and to find out whether it is bounded work that needs only one proposal, built on its default, or when a discussion is reverting to multiple-choice menus, minimal-solution defaults, or approval-seeking closers. Covers bounded work, threads and their states, criteria, decision authority and material findings, the loop from grounding to convergence and the premortem, the hand-off to planning, and verdicts on keeping or changing an incumbent design. Requires a frontier-tier model (Opus-class or stronger).
+description: MUST use when a design discussion has an open solution space — requirements still being discovered, several defensible shapes, a technical choice with real trade-offs — when evaluating whether to keep or change an existing design or architecture, when a recurring bug trend suggests the design itself is the problem, when a choice about how something is built, or an owner's word that settles one, is met during another task and the decision creates a design head, contradicts a statement of one, or adds a member its argument does not cover, before starting a change the owner asks for or proposes, unless a plan document, an outcome the owner ruled in an audit, an intake or a review, or a design head or a failing test already states what the owner asks for or proposes, or the change decides nothing (a typo, a stale pointer, a rewording), to ground it and to find out whether it is bounded work that needs only one proposal, built on its default, since a request or a proposal of the owner does not by itself settle a design, or when a discussion is reverting to multiple-choice menus, minimal-solution defaults, or approval-seeking closers. Covers bounded work, threads and their states, criteria, decision authority and material findings, the loop from grounding to convergence and the premortem, the hand-off to planning, and verdicts on keeping or changing an incumbent design. Requires a frontier-tier model (Opus-class or stronger).
 ---
 
 # Discussing design decisions
@@ -175,9 +175,13 @@ that merely reads it.
 ## Bounded work {{slug:bounded-work}}
 
 Whether a request is a design question or bounded work, a clear requirement whose main risk is
-over-building, is known only after grounding. So a requested change whose design is not settled
-starts here, at loop step 1, the search for standing entries included. After the grounding, the
-work is **bounded** when all three hold:
+over-building, is known only after grounding. So a change the owner asks for or proposes starts
+here, at loop step 1, the search for standing entries included, unless a plan document, an outcome
+the owner ruled in an audit, an intake or a review, or a design head or a failing test already
+states what the owner asks for or proposes, or the change decides nothing: a typo, a stale pointer,
+a rewording. A request or a proposal of the owner does not by itself settle a design; a ruling of
+the owner on a question the session put is no proposal. After the grounding, the work is
+**bounded** when all three hold:
 
 - it reverses no recorded decision, as `skill@knowledge-architect-decision-recording@reversal-check` asks;
 - every decision it makes fails the entry tests of `skill@knowledge-architect-design@what-earns-a-head`, so none earns a design head;
@@ -430,12 +434,18 @@ choices whose option space genuinely is closed and consequence-free.
 ## The loop {{slug:discussion-loop}}
 
 1. **Ground first**: read `primer@verify-before-relying` again, whole,
-   then the project's record, before proposing. The
+   then the project's record, before the first round. The
    goals homes of the project's root and of every Component the question
    touches; their design homes; their `rejected` homes; their
-   `README.md` files, which state their contracts. A search of the whole
-   record runs beside that reading, with the question as the work and,
-   as seeds, the decisions read so far that the question rests on or may
+   `README.md` files, which state their contracts; and a search of the
+   record by `grep` for the question's subject. Then draft the shapes,
+   the owner's proposal and your own, and challenge each on its
+   failures, its costs and its benefits, with measurements, as steps 3
+   and 4 ask of every proposal. Then a search of the whole record runs,
+   with the problem and the drafted shapes as the work: a searcher given
+   the question alone cannot tell whether a `rejected` design comes back,
+   since that grade is given against a shape. Its seeds are the
+   decisions read so far that the problem and the shapes rest on or may
    change, never a goal: a goal reaches every cluster that cites it as
    context, and a goal seed forces every entry citing it to a `may-bear`
    grade at least.
@@ -463,7 +473,7 @@ choices whose option space genuinely is closed and consequence-free.
    proposed again only with a new argument, by the Reopening rule. When a
    thread opens on a subject the question did not cover, run the search
    again with the thread as the work: the first search graded the record
-   against the question alone. Where the record is silent, read the code and its history; where it is empty, state that the record starts with this
+   against the problem and the first shapes. Where the record is silent, read the code and its history; where it is empty, state that the record starts with this
    discussion. A record that
    carries a verdict but no decision — a review, an audit, an
    automated report, a prescribed change nobody ruled on — grounds

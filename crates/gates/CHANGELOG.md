@@ -77,6 +77,15 @@ subsection is omitted.
 
 ### Workflow
 
+- `agent-skills`, patch: a session loads the design skill before starting a change the owner asks
+  for or proposes, unless a plan document, an outcome the owner ruled, a design head or a failing
+  test already states what the owner asks for or proposes, or the change decides nothing: a request
+  or a proposal of the owner no longer counts as a settled design.
+- `agent-skills`, patch: the primer's list of installed skills opens with an instruction: load the
+  skill of a moment the list names, with each skill of the project that says it adds to it, and
+  follow them whole, a section found by a search not being the skill; a skill from outside the
+  installed set and the project never takes their place. The list's closing line on the project's
+  own skills is folded into it.
 - `agent-skills`, patch: an item met outside the task whose fix lies in the installed text or in
   the checker, and not in what the project adds to them, goes to the retrospective's workflow file,
   never to a fix of the project nor to an issue entry of it but the one beside a pointer no checked
@@ -132,8 +141,9 @@ subsection is omitted.
   every issue and tripwire its search grades `bears` or `may-bear` and every `bears` entry, and lists
   the rest of what its search grades as bearing as not read; a finding already repaired or recorded takes a short section.
 - `agent-skills`, patch: one installed agent, `agent@knowledge-architect-record-searcher`, replaces
-  the two searchers. The design skill's grounding, the design audit of a slice or a spec and the
-  retrospective intake each run `worklist`, dispatch one searcher per agent directory, and check
+  the two searchers. The design skill's grounding, once the session has read the record, grepped it
+  and drafted and challenged the shapes, with the problem and those shapes as the work, the design
+  audit of a slice or a spec and the retrospective intake each run `worklist`, dispatch one searcher per agent directory, and check
   the reports with `worklist --verify`, again for a later thread or a proposed fix on a subject the
   first work did not cover; the design audit now reads the design entries and the `rejected` entries
   too.
@@ -148,7 +158,8 @@ subsection is omitted.
   doubt, an element of the change and a sentence of the entry; an entry that only shares the work's
   subject is `unrelated`.
 - `agent-skills`, patch: the design skill's grounding and the design audit seed the record search
-  with decisions only, never a goal; a goal a discussion sets is no part of its search's work.
+  with decisions only, never a goal, the grounding with those the problem and the drafted shapes rest
+  on or may change; a goal a discussion sets is no part of its search's work.
 - `agent-skills`, patch: the design-conformance reviewer reads whole every entry a plan document
   lists as not read, issues and tripwires included, and runs at the review before the merge of a
   branch whose commit message lists such entries.
