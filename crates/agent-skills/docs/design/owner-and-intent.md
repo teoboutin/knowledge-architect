@@ -19,18 +19,16 @@ listed here, and an edit that adds one checks it against the list:
 
 | prefix | items | the committed document it reaches |
 | --- | --- | --- |
-| `AC` | acceptance criteria put to the owner | a plan document's Premortem section and its defaults |
 | `D` | a plan document's defaults awaiting the owner | its "Defaults awaiting the owner" |
 | `W` | the findings on the installed workflow: a retrospective's, and a project audit's sent upstream | the workflow's file of the retrospective, whose shape an audit's upstream file takes |
 | `C`, `P` | a retrospective's other findings | the retrospective's files |
 | `F` | a project audit's findings put to the owner | the audit report file of the pass |
-| `Q` | entry test 4's questions, and every label that stays in the conversation | none |
+| `Q` | every label that stays in the conversation | none |
 
 The owner asked for it, from a premortem message that mixed causes, tripwires and findings: the
 owner could not tell how many items there were to rule on, nor what each was about. A ruling given
-in words then matches items by guess. The owner asked before for entry test 4's questions to be
-numbered, per `design@agent-skills@a-head-is-owed-by-an-entry-test`, and judged the pattern
-recurring, to cover everything the owner rules on by name. A label that reaches no document reuses
+in words then matches items by guess. The owner judged the pattern recurring, to cover everything
+the owner rules on by name. A label that reaches no document reuses
 `Q`, on the owner's argument that searching for unique letters would in the end need more letters
 than exist. The structure passes
 `design@agent-skills@capabilities-not-structure`, since the owner named the lack and the label's
@@ -65,14 +63,15 @@ head. Without that, a session that must keep working would build on whichever
 side it met first, and a divergence would close silently in the code's favour, against
 `goal@knowledge-architect@agents-work-without-drift`.
 
-### A divergence between a head and the code goes to the owner only where reversing the head is a fork or its ground is the owner's `##divergence-routed-by-its-authority`
+### A divergence between a head and the code goes to the owner only where reversing the head is a fork `##divergence-routed-by-its-authority`
 
 `primer@intent-and-claims` routes a divergence by the authority that settles it, per
-`design@agent-skills@questions-go-to-their-authority`. Where the head stands, its argument or the
-owner's ground undefeated, the code is the defect: the session fixes it or opens an issue, and the
-work builds on the head. Where the session finds the head's argument defeated, the head's reversal
-goes to the design skill, and to the owner where it is a fork or the head's ground is the owner's;
-the part of the task that rests on the point waits for that answer.
+`design@agent-skills@questions-go-to-their-authority`. Where the head stands, its argument
+undefeated, the code is the defect: the session fixes it or opens an issue, and the work builds on
+the head. Where the session finds the head's argument defeated, the head's reversal goes to the
+design skill, and to the owner where it is a fork; the part of the task that rests on the point
+waits for that answer. A head that records a fork's choice reopens as
+`design@agent-skills@heads-stand-on-argument` says of its weak form.
 
 It serves `goal@knowledge-architect@the-owner-decides`, which gives the session what the argument
 from the record settles. The nearest rival, every divergence holding its part of the task until the
@@ -110,8 +109,8 @@ reopen it, which is the goal it derives a constraint from and a decision of anot
 depends on, as references, the measurement it rests on, with the command that takes it again, and
 the fact that defeated its nearest rival. The deliberation, which is what was weighed, in which
 order, what evidence was built and who ruled what, stays in the spec while the spec exists, and in
-history after that. The owner's words that are a decision's ground are the exception, per
-`design@agent-skills@head-ground-is-the-argument`. A decision taken with no spec carries its deliberation in its commit
+history after that. What the owner brought lands in the head by its kind, per
+`design@agent-skills@heads-stand-on-argument`. A decision taken with no spec carries its deliberation in its commit
 message.
 
 `goal@knowledge-architect@design-is-recorded-with-its-arguments` requires that a later session can
@@ -126,32 +125,52 @@ a `git show` or `git log` command naming a deleted plan document re-takes it, an
 none in a project whose specs are deleted reopens this decision. The cost is accepted: a reader
 without a clone of the repository cannot reach a deliberation.
 
-### A head stands on its argument, and cites the owner only for what came from the owner `##head-ground-is-the-argument`
+### A design head stands on its argument; what the owner brings lands by its kind, and a choice at a fork is recorded in a weak form a new argument reopens `##heads-stand-on-argument`
 
 A head records a decision that was proposed, argued over its costs and rivals and approved, on that
-argument, with its costs and rivals in its body or in the `rejected` entries it cites. An approval is no
-ground, whatever its words: it stays in the deliberation. The owner's words are a ground,
-attributed to the owner per `design@agent-skills@attribution-replaces-quotation`, only where the decision came from the owner: the owner proposed it, chose where the argued rivals
-did not settle it, or stated a premise only the owner can state. A head holding a part of each
-says which part came from the owner. A head that stands on its argument is reversed by a better
-argument, which the owner approves where the reversal is a fork, per
-`design@agent-skills@questions-go-to-their-authority`; one whose ground is the owner's words is reversed by the owner,
-or by a defeated premise of those words.
+argument, with its costs and rivals in its body or in the `rejected` entries it cites. What the
+owner brings lands by its kind, as the head-ground fragment's table states:
 
-The rule is the owner's proposal: a head is recorded on the arguments discussed, with its costs and
-rivals in its body or in the `rejected` entries it cites, not on the ground that the owner ruled, in
-particular where the decision was the agent's position or default and the owner only approved it.
-The owner judged this provenance to matter a lot for agents that weigh any change or addition to
-the design. It serves `goal@knowledge-architect@the-owner-decides`,
-which asks that the record show the owner's decisions. The nearest rival, citing every ruling in its
-head, makes an approved default read as the owner's intent: an audit of the heads added or
-rewritten in the week entry test 4 was added, up to commit bc22d4d, finds about two in five of their
-citations of the owner to be an approval of the agent's position, often a batch word such as "All
-defaults approved", and the citation, deleted, takes no argument with it. The figure is re-taken by
-a fresh read-only audit of those heads at that commit, against the commits and plan documents that
-wrote each citation.
+- a fact only the owner holds, a doubt included, is a premise, attributed as the owner's report and
+  open to challenge;
+- an intent that states an outcome is a goal, drafted under `skill@knowledge-architect-goal-setting`,
+  which the head cites;
+- an argument, one that weighs a cost included, is argued and recorded on its merits;
+- an approval of the session's default, threshold or weighing is no ground;
+- a reading of a source is the source;
+- a choice the argument leaves open is a fork's choice.
 
-The design this decision did not keep: `rejected@agent-skills@head-cites-every-owner-ruling`.
+**A fork's choice is recorded in a weak form.** It names the rivals and the costs that were weighed.
+It is the owner's where the owner picked, against the session's default or with none offered, and
+the session's where the owner approved the session's default. It reopens without the owner on an
+argument or a fact that ranks the shapes, since the question is then no fork, through the design
+skill and reported under "Decided"; an argument or a fact the fork's record already holds reopens
+nothing, which guards a choice from reversals back and forth. A goal changes only through the owner.
+A preference about a mechanism is no case of its own: it is an argument, or a choice at a fork. A
+head written before this rule is read by the same table.
+
+The ground is the owner's argument: going through challenge and discussion selects a decision from
+argument, so what stands on the owner's word is a fact the owner holds or a wider intent, which
+belongs in a goal; and an intent about a mechanism is always settled by an argument or is a fork,
+whose free choice is stated in a weak form a new argument can reopen. The guard against reversals
+back and forth is the agent's addition, which the owner agreed; it is the planning skill's test of
+a material finding, applied to a fork's choice. The owner reported that an approval of a default is
+given without analysing the proposal deeply, and is not to be attributed to the owner long term,
+so an approval at a fork is recorded as the session's choice. It serves
+`goal@knowledge-architect@the-owner-decides`, under which a choice the owner made is recorded as
+the owner's and a decision the owner approved stands on its argument.
+
+The nearest rival, the owner's words as a ground wherever the decision came from the owner, a fork's
+choice reversed by the owner alone, lets an approval stand as the owner's ruling: an audit of the
+heads added or rewritten in the week a fourth entry test for the owner's intent was added, up to
+commit bc22d4d, finds about two in five of their citations of the owner to be an approval of the
+agent's position, often a batch word such as "All defaults approved". The figure is re-taken by a
+fresh read-only audit of those heads at that commit, against the commits and plan documents that
+wrote each citation. Its one benefit, protecting a weighing the owner made and did not state, is
+answered by the table: a weighing the owner states is an argument or a goal.
+
+The designs this decision did not keep: `rejected@agent-skills@head-cites-every-owner-ruling`, and
+`rejected@agent-skills@fork-choice-reversed-only-by-the-owner`.
 
 ### A durable record attributes a decision to the owner, and the owner's words verbatim stay in a plan document or a file that leaves `##attribution-replaces-quotation`
 
@@ -164,13 +183,15 @@ the question it answered, as a quotation is: by its writer, with the owner's wor
 the close of the decision-recording skill,
 `skill@knowledge-architect-decision-recording@before-you-finish`, and by the transcript reviewer,
 the decision-record reviewer and the auditors' verifiers, and it keeps the scope and the hedges of
-the words. A
+the words: a hedge dropped records a firmer ruling than the owner gave, a false attribution, which
+the reading of a ruling by its direction, `design@agent-skills@transcript-reviewer-agent`, does not
+excuse. A
 quotation already in a head is converted when a change touches the head, per
 `design@agent-skills@existing-heads-on-touch`; the reference a rename sets beside a quotation does
 not count, per `design@agent-skills@a-past-sentence-is-rewritten`.
 
-It serves `goal@knowledge-architect@the-owner-decides`, under which a decision the owner made is
-recorded as the owner's: the attribution carries that, and the record shows the owner's decisions.
+It serves `goal@knowledge-architect@the-owner-decides`, under which a choice the owner made is
+recorded as the owner's: the attribution carries that, and the record shows the owner's choices.
 The owner judged verbatim quotations of little value most of the time, as long as the attribution is
 correct, and, as a hedged view, out of place in design heads. A verbatim quotation also costs the checker's syntax: two sessions bent one to get it past
 the checker, one by writing spans of reference kinds still to come as placeholders, in the
@@ -192,14 +213,15 @@ The design this decision did not keep: `rejected@agent-skills@owner-words-quoted
 Before a head is written from an approval that no argument, rival or cost stands behind, such as a
 default approved in a batch, the session searches for the arguments for and against it, its costs
 and its rivals, and records what it finds. Where the rivals come out equal, the fork goes to the
-owner as a tie, and the owner's choice is the ground, as a decision that came from the owner. It is
+owner as a tie, and the owner's choice is recorded as a fork's choice in its weak form, per
+`design@agent-skills@heads-stand-on-argument`. It is
 the decision-recording skill's, `skill@knowledge-architect-decision-recording@unargued-approval`,
 since recording is the last point before a head exists.
 
-The rule is the owner's proposal: "a decision approved without arguments should always go through a
-step of searching for arguments in favor or against, costs and rivals." Without it, a batch approval
+The rule is the owner's proposal: a decision approved with no argument always goes through a search
+for the arguments for and against it, its costs and its rivals. Without it, a batch approval
 of an unargued default gives a head with neither an argument nor, under
-`design@agent-skills@head-ground-is-the-argument`, a ground. The nearest rival, recording the
+`design@agent-skills@heads-stand-on-argument`, a ground. The nearest rival, recording the
 approval as it stands, is that head. The cost is one search per unargued default.
 
 ### A fork closes on the owner's word, and a thread with one shape standing closes on its argument `##owner-rules-at-a-fork`
@@ -207,12 +229,14 @@ approval as it stands, is that head. The cost is one search per unargued default
 `skill@knowledge-architect-design@threads-and-states` closes a thread in the state `argued` when
 one shape stands, each rival out by a named fact or binding constraint, and the session closes the
 rivals `ruled-out`, naming the fact. Both show in the next delta and in the checkpoint, where the
-owner contests or overrules them, and the turn lists them under "Decided", per
+owner contests them with a goal, a fact or an argument, and the turn lists them under "Decided", per
 `design@agent-skills@decisions-reported-to-the-owner`. A fork, two or more shapes that meet every
 binding constraint with no fact defeating either, closes on the owner's word, as every question
 `design@agent-skills@questions-go-to-their-authority` reserves to the owner does. A cost alone makes no fork.
 The discussion stays an exchange: the owner proposes designs, the agent fills and argues them, and
-either side's shape can win.
+either side's shape can win. A reopening of a closed fork decides nothing: a new pick at the same
+fork needs a goal, a fact or an argument, a new weighing the owner states included, since the owner
+changes a decision through one of those, per `design@agent-skills@intent-through-goals-not-overrule`.
 
 It serves `goal@knowledge-architect@agents-work-without-drift`, under which the owner does not
 answer what the record already answers, `goal@knowledge-architect@the-owner-decides`, which
@@ -232,10 +256,34 @@ watches.
 
 The design this decision did not keep: `rejected@agent-skills@every-thread-closed-by-argument`.
 
+### The owner changes a decision through a goal, a fact or an argument, and gives no word that decides against an argument without one `##intent-through-goals-not-overrule`
+
+The owner decides what `primer@question-authority` reserves to the owner, a fork among it, and
+contests any closure, any default and any recorded decision with a goal, a fact or an argument,
+which the session weighs like any other. No word of the owner decides against an argument without
+one: "Stop" ends a discussion and decides nothing, a reopening decides nothing until a goal, a fact
+or an argument backs a new pick, and a bounded default is stopped, or redirected with a reason. The
+design skill's decision authority, its reopening rule and "Who moves what", the expectation set of
+`skill@knowledge-architect-retrospective@expectation-sets` and its restatement in the README, the
+decision-recording skill and the project-audit skill each state it, so the reason has several
+sites. What stays the owner's beside it is what `primer@question-authority` lists: a goal, a fact
+only the owner holds, a contradiction, a fork and an action that cannot be undone.
+
+The ground is the owner's, and so is the goal it serves, `goal@knowledge-architect@the-owner-decides`:
+the owner proposed removing the path by which the owner could overrule any decision for any reason,
+judging it to weaken the agent's challenge of the owner's arguments and to let the owner's preference
+pass as argument without being recorded as the owner's intent, and the owner had never used it.
+Asked for a reason, an overrule always yields a fact, an intent or an argument, each of which lands
+by `design@agent-skills@heads-stand-on-argument`; the agent's three tests, a doubt the owner cannot
+yet state, a wish to stop, and a goal that answers one case wrongly, found no case that needs it. The
+expectation set adds that the owner states the project's long-term intent as goals, investing
+early, on the owner's word, since a decision resting on an unstated intent can only stand on a word
+the agent cannot weigh.
+
 ### A default that holds no fork, on bounded work or settled by the record, is built without waiting for the owner's word `##derived-decision-proceeds-on-default`
 
-The bounded path's one message names its default, which the session builds: the owner's answer
-stops or redirects it, and a part that cannot be undone waits for the owner's word, per
+The bounded path's one message names its default, which the session builds: the owner stops it, or
+redirects it with a goal, a fact or an argument, and a part that cannot be undone waits for the owner's word, per
 `skill@knowledge-architect-design@bounded-work`, and the turn lists it under "Decided", per
 `design@agent-skills@decisions-reported-to-the-owner`. A default whose every premise comes from
 the record, a measurement or a source is the session's decision in the same way: in a plan
@@ -246,7 +294,8 @@ record states, per `skill@knowledge-architect-project-audit@finding-outcomes`.
 
 It serves `goal@knowledge-architect@the-owner-decides`, under which the record settles what such a
 default decides, since it holds no fork, while the owner, told of it in the bounded path's one
-message or in the turn's "Decided" section, overrules it at any time. The nearest rival, the wait
+message or in the turn's "Decided" section, contests it at any time with a goal, a fact or an
+argument. The nearest rival, the wait
 for the owner's word, sends the owner the defaults that, by the owner's report recorded in
 `design@agent-skills@questions-go-to-their-authority`, the recorded design heads should answer. It
 is a delivery of

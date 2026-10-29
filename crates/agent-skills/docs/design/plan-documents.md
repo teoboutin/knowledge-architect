@@ -132,7 +132,7 @@ commit that writes the decision's design entry, or that implements a decision th
 carries what a plan document would: every thread with its final state, the ground of each
 closure, the owner's ruling attributed per `design@agent-skills@attribution-replaces-quotation` or
 the argument of a thread closed `argued`, the rivals that lost with their reasons, every premortem
-cause with its outcome, and the rulings on acceptance criteria. The
+cause with its outcome, and the acceptance criteria. The
 premortem runs when reversal touches any of the four things the skill names: stored data, a
 consumed interface, behaviour users have adapted to, and a decided thread that would reopen. The four never open the in-change path: a decision that is cheap to
 reverse and whose work comes later takes the full path, per
@@ -166,8 +166,8 @@ the discussion.
 
 The planning skill starts where a design discussion has converged on the full path, and writes the
 spec or the milestone. A discussion on the in-change path has no plan document,
-per `design@agent-skills@in-change-path`. The design skill ends at convergence, the premortem and
-the owner's rulings on its acceptance criteria, and writes no plan document of its
+per `design@agent-skills@in-change-path`. The design skill ends at convergence and the premortem,
+its causes named and its acceptance criteria written, and writes no plan document of its
 own. Its decisions are
 recorded when their work lands, per `design@agent-skills@design-home-is-built-intent`. One skill owns the document's shape: two skills describing the sections of one document
 would drift apart, against `goal@knowledge-architect@agents-get-a-complete-workflow`.
@@ -208,7 +208,8 @@ The design this decision did not keep: `rejected@agent-skills@ledger-written-dur
 
 An acceptance criterion, a check on a recorded decision that only the work's built code can apply,
 is written in its own section of the plan document of that work. Each names the decision it guards,
-the step or slice that judges it, the observable that fires it and the response. Every landing reports on
+the step or slice that judges it and the observable that fires it; its firing reopens that decision,
+per `design@agent-skills@criterion-ruled-at-reopening`. Every landing reports on
 the criteria it judges. When the document leaves, a criterion that recurs is judged as a cause by
 the standard, and written as a tripwire where it passes, per
 `design@agent-skills@tripwire-recording-authority`; any other is deleted. A separate file
@@ -218,41 +219,62 @@ the document leaves. The plan document is written in the session that converged,
 `design@agent-skills@plan-written-in-the-converging-session`, so the criteria and the document
 are born together.
 
-### An acceptance criterion stands on the owner's word, since it decides what the branch must build before it merges `##acceptance-criteria-on-the-owners-word`
+### The owner gives no ruling on an acceptance criterion, and a firing opens a design discussion with the owner on the decision it guards `##criterion-ruled-at-reopening`
 
-The owner rules on whether an acceptance criterion is applied, and on the decision its firing
-reopens. The agent words its observable, and lists a rewording in the turn's "Decided" section.
-The design skill asks for the ruling at the premortem. A criterion first proposed later, at the
-assembly, by a review or at an audit, is written marked as awaiting the owner, with its label under
-the plan document's defaults, and is not judged before the ruling; the work goes on without it, and
-the branch that carries it merges once the owner has ruled on it, as any default put to the owner,
-per `design@agent-skills@default-ruled-before-merge`. The label a criterion is put to the owner
-under is `design@agent-skills@ruled-items-labelled`'s.
+No acceptance criterion is put to the owner, wherever it is proposed: at the premortem, at the
+assembly, by a review or at an audit. The standard of `design@agent-skills@criteria-test-silent-premises`
+ranks a criterion, as `design@agent-skills@tripwire-admission-test` ranks a tripwire, so no fork
+remains, and the question is the session's, per `primer@question-authority`; the argument that
+ended the owner's ruling on each tripwire, `design@agent-skills@tripwire-recording-authority`,
+applies. A value a criterion's basis leaves open is a fork among values: the session lists it among
+the plan document's defaults awaiting the owner, so the owner meets it before the merge, per
+`goal@knowledge-architect@design-with-agents-as-counterparts`.
 
-A criterion decides, before the merge, what the branch must build: applying it and not applying it
-both meet every binding constraint and trade the cost of the check against the risk, and no standard
-ranks a criterion's application as `design@agent-skills@tripwire-admission-test` ranks a tripwire's,
-so it is the owner's, per `goal@knowledge-architect@the-owner-decides`. The owner judged it so: acceptance criteria are a point where the owner's ruling is useful, while
-the owner wants more autonomy for agents elsewhere. Both acceptance criteria that reached a plan
-document of this repository against a goal had no ruling: one was proposed at a premortem, one while
-a slice's spec was written. The rival, no ruling and the design-conformance reviewer alone, catches a
-conflict with the record, not a weighing.
+A criterion that fires leaves the plan document as a reopened decision: its firing opens a design
+discussion with the owner on the decision it guards, under `skill@knowledge-architect-design`. In
+that discussion each question goes to its authority, per
+`design@agent-skills@questions-go-to-their-authority`: the measurement says whether the decision
+failed, the argument settles the shape that replaces it where it can, and the owner rules its forks,
+per `goal@knowledge-architect@the-owner-decides`. The part of the work that rests on the guarded
+decision waits for the discussion, and the rest goes on.
 
-### An acceptance criterion names a built result under which it fails, and its bound carries its basis `##acceptance-criterion-quality`
+The ruling a firing would have answered is the owner's at the discussion it opens, the one point
+where the owner's word bears on a criterion, so the reopening is one stopping point where a ruling
+at the premortem and another at the firing were two. The cost: a criterion that costs real work
+enters a plan on the standard alone, and the owner meets that cost by reading the plan document.
+The design this decision did not keep: `rejected@agent-skills@owner-rules-each-criterion`.
 
-A criterion meets conditions 3 and 4 of the tripwire standard, the fragment
-`path@agent-skills@fragments/tripwire-standard.md`: it names a built result under which it fails,
-and a number in it, the threshold the owner sets, is proposed with its basis. The planning skill's
-section on acceptance criteria and step 7 of the design skill host the standard and state these two
-conditions for a criterion. Conditions 1 and 2 do not apply: the landing's own work checks a
-criterion once.
+### An acceptance criterion is admitted only where its failure is silent, its firing shows the decision wrong, and a number in it has a basis `##criteria-test-silent-premises`
 
-The owner judged that criteria are too often of low quality: they carry numerical bounds that are
-not relevant, or are in practice certain to pass; the owner wondered whether this was within the
-scope of the work, and accepted it in the same work. A
-criterion bound to pass checks what the design instructs, which condition 3 removes, and an
-irrelevant bound is a number with no basis, which condition 4 removes, so the two defects are
-answered by the same text that judges a tripwire, delivered where criteria are written.
+A criterion meets conditions 1, 3 and 4 of the tripwire standard, the fragment
+`path@agent-skills@fragments/tripwire-standard.md`: no test, gate or review reports its failure;
+its firing is what the decision says must not happen, a failure of the decision and not of the
+work; and a number in it carries its basis. The planning skill's section on acceptance criteria and
+step 7 of the design skill state the three conditions where criteria are written, and condition 1
+of the standard routes a check of the work being built the same way. Condition 2 does not apply:
+the landing's own work reports on a criterion.
+
+The census of the 61 acceptance criteria of the 39 plan documents deleted from docs/plans/ before
+741f655e, read by the agent of the design discussion that made this decision, found about 49
+completeness checks, which a review already reports, about 5 that failed the silence test, and 3
+that only a measurement of the built result in use could take: a criterion bound to pass, or one a
+review reports, misdirects the attention a criterion should hold. The corpus is listed by
+`git log 741f655e --diff-filter=D --name-only -- docs/plans/`, each document read at its deleting
+commit's parent; the per-criterion verdicts were the agent's judgement, kept in the spec's
+deliberation. The same agent counted about ten past firings, of which one tested a decision. The owner reported that criteria are
+too often of low quality, carrying bounds that are not relevant or certain to pass. The design this
+decision did not keep: `rejected@agent-skills@criteria-as-they-stand`, and removing criteria,
+`rejected@agent-skills@criteria-removed`.
+
+### A check whose firing would show the work unfinished is a claim of the step that builds it `##completeness-check-is-a-step-claim`
+
+A cause that only the built result can check, and whose firing would show the work unfinished
+rather than the decision wrong, is written as a claim of the step that builds it, with its test,
+which the spec-conformity review judges; on the in-change path, the change applies the test. It
+keeps the check the owner did not want lost, and leaves `design@agent-skills@criteria-test-silent-premises`
+its criteria, whose firing reopens a decision. The rival, dropping such checks with the criteria
+that held them, loses a completeness check no review was told to look for. Step 7 of the design
+skill, the planning skill's section on criteria and condition 1 of the tripwire standard route it.
 
 ### A plan document is committed before its reviews, which read that commit `##plan-reviewed-as-a-commit`
 

@@ -611,3 +611,39 @@ skill and run the discussion on work the owner judges bounded would make it a ca
 retrospective intake and the design audit send theirs a shape. It is kept because a doubt remains:
 a work statement holding the shapes may leave an entry that bears on the problem outside them graded
 `unrelated`, which `tripwire@agent-skills@record-search-misses` watches.
+
+### The owner ruling on each acceptance criterion, at the premortem or when a later criterion is proposed `##owner-rules-each-criterion`
+
+`live`. Without a standard that ranked a criterion, its application was a fork between the cost of
+the check and the risk, so the owner ruled on each, and a criterion proposed after the premortem
+waited for that ruling before the merge. Once conditions 1, 3 and 4 of the tripwire standard rank a
+criterion, the ruling answers what the standard answers, and the one point where the owner's word
+bears on a criterion is the discussion its firing opens. It is kept because a doubt remains: a
+criterion that costs real work enters a plan on the standard alone, and the owner meets that cost
+only by reading the plan document.
+
+### Acceptance criteria admitted on conditions 3 and 4 alone, a completeness check included `##criteria-as-they-stand`
+
+`live`. A criterion named a built result under which it fails and gave its bound a basis, and any
+check only the built code could apply was one. The census of the 61 criteria of the plan documents
+deleted from docs/plans/ before 741f655e found about 49 completeness checks, which a review already
+reports, and about 5 that failed the silence test; about one firing in ten tested a decision. A
+criterion bound to pass, or one a review reports, holds the attention a criterion of a decision
+should hold. Evidence that cost work to obtain refuted it.
+
+### Acceptance criteria removed, each cause becoming a tripwire, a claim or nothing `##criteria-removed`
+
+`live`. Removing criteria removes the duplicates the census found, and loses the 3 of the 61 past
+criteria that took a measurement of the built result in use, which no test, gate, review or
+tripwire takes, such as the falling count of an audit's passes that showed a decision wrong and led
+to its redesign. The census that found them cost work to obtain.
+
+### A choice at a fork reversed only by the owner `##fork-choice-reversed-only-by-the-owner`
+
+`live`. A head whose ground was the owner's choice at a fork could be reversed by the owner alone,
+an argument against it going to the owner as a question about their intent. It protected a
+weighing the owner made and did not state; a weighing the owner states is an argument or a goal,
+which the record keeps, and a choice no argument made has nothing a later argument would have to
+defeat. It is kept because a doubt remains: the weak form that replaced it could let sessions
+reverse a choice back and forth, which the guard, a reopening only on what the fork's record does
+not hold, is meant to stop.

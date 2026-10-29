@@ -323,9 +323,10 @@ every plan document and every slice owes is the baseline. A criterion names an o
 the decision it guards; listing "the reviews pass" in every plan document would stand in for the
 specific criterion that is harder to find.
 
-%% `design@agent-skills@acceptance-criteria-on-the-owners-word`; a recurring criterion,
+%% `design@agent-skills@criterion-ruled-at-reopening`; a recurring criterion,
 %% `design@agent-skills@acceptance-criteria-in-the-document`; the conditions a criterion meets,
-%% `design@agent-skills@acceptance-criterion-quality`.
+%% `design@agent-skills@criteria-test-silent-premises`; the step claim,
+%% `design@agent-skills@completeness-check-is-a-step-claim`.
 **An acceptance criterion is admitted only where it meets conditions 1, 3 and 4 of the standard
 below**: its failure is silent, since no test, gate or review would report it; its firing is what
 the decision says must not happen, a failure of the decision and not of the work; and a number in

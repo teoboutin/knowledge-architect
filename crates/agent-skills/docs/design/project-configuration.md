@@ -203,8 +203,8 @@ commit unjudged.
 project implements says, to its text; what the code or a tool does, to a measurement; what follows
 from the goals and the recorded decisions, to the argument from them. The session answers those
 itself, cites the source and tells the owner. The owner answers a goal to set or change, a fact
-only the owner holds, such as an intent, a plan or a weighing the owner made, a contradiction no
-argument resolves, an action that cannot be undone, and a fork: two or more shapes
+only the owner holds, such as a plan or what the owner observed, a contradiction no argument
+resolves, an action that cannot be undone, and a fork: two or more shapes
 that meet every binding constraint with no fact defeating either. A cost alone makes no fork, since
 a shape that fails a goal or loses to a fact is out whatever it would save. The section prevails
 over an installed instruction that sends to the owner a question it gives the session, as a goal
@@ -229,10 +229,9 @@ owner thought that a list keeping only goals, contradictions and irreversible ac
 owner left too large a scope to agents. The fork is the fusion of that list with one that kept scope and weighing with the
 owner too, and keeps with the owner only the weighing no argument settles. A merge is no action that
 cannot be undone, since a revert commit undoes it, and whether agents merge is left to each project,
-as the owner directed. A fact only the owner holds is among the kinds because the primer asks the
-owner such facts, as at the fourth entry test of
-`design@agent-skills@a-head-is-owed-by-an-entry-test`, and a ruling on intent is defined by these
-kinds.
+as the owner directed. A fact only the owner holds is among the kinds because a premise of a head
+can be one, per `design@agent-skills@heads-stand-on-argument`, and a ruling on intent is defined by
+these kinds: an intent is a goal to set, and a weighing the owner makes is the owner's at a fork.
 
 The design this decision did not keep: `rejected@agent-skills@delegated-decision-state`.
 
@@ -244,7 +243,7 @@ measurement or the record answers is recorded as a reading or a fact, with its s
 source leaves the point open and the owner chose, the record says the owner chose among the
 readings the source permits.
 
-It serves `goal@knowledge-architect@the-owner-decides`, under which a decision the owner made is
+It serves `goal@knowledge-architect@the-owner-decides`, under which a choice the owner made is
 recorded as the owner's and every other decision on its own ground. An answer recorded as a ruling
 weighs on every later session as the owner's intent: the owner observed that questioning such
 answers is discouraged, or that they come back to the owner even when the answer is obvious and the
@@ -321,7 +320,7 @@ are such decisions; an implementation choice a commit message records is not. A 
 decisions under the same title, and the dispatching session carries them into its own.
 
 It serves `goal@knowledge-architect@the-owner-decides`, under which the owner is informed of every
-decision and can overrule any of them, and
+decision and can contest any of them with a goal, a fact or an argument, and
 `design@agent-skills@questions-go-to-their-authority` gives the session many of those decisions. The nearest rival, the commit messages and the pull request, loses because a decision
 made and reverted within one session reaches no commit, while the owner reads the turn. An
 implementation choice is left out because a list of every choice would hide the few the owner could
@@ -342,7 +341,7 @@ of writing a head. Every other text points to the rules, or restates one sentenc
 pointer, per `design@agent-skills@restatement-size-test`. The fragments are also the home of four
 rules on heads that have no head of their own: present tense, the alignment of the slug and the
 title, a decision worth a slug has its own level-three heading, and fidelity to what the owner
-approved.
+approved, read by its direction, per `design@agent-skills@transcript-reviewer-agent`.
 
 The centralization is the owner's proposal: the rules on what a design head records and how are
 kept consistent with each other and applicable, partial restatements of them are avoided at all

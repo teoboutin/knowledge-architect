@@ -221,7 +221,8 @@ an agent behaves, the kind `design@agent-skills@behaviour-additions-need-real-us
 miss seen in real use. The misses of a search are in its judgement, not in when it runs: two pieces
 of work on one day met, only at their review before the merge, five standing entries the search
 before the work had not returned, `issue@core@a-span-with-an-empty-head-is-malformed-against-its-head`,
-`issue@agent-skills@a-premortem-criterion-listed-as-a-default-reads-two-ways`,
+the issue on a premortem criterion listed among a plan document's defaults, closed when the owner's
+rulings on criteria left the workflow,
 `issue@core@a-plain-hash-item-name-is-read-by-nothing`, the tripwire on a ruling lost at assembly that
 the commit "[plans] The spec of the graded entries' assembly and of `klarch id` leaves: its work has landed, and every default is ruled" removed, and the tripwire on attributions that the commit "[tripwires] Three
 tripwires leave, their horizons passed unfired" removed, and each was recorded days before its

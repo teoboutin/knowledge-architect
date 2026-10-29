@@ -244,9 +244,13 @@ that moves no word of the owner, a rejected alternative repaired in place, a fac
 pointer whose target exists under another name, a drifted restatement brought back to its home, an
 instruction read two ways reworded to the reading a design head or another instruction states. An
 approval cited as a head's ground is removed in the branch where the head stands on its argument,
-since its repair removes a false ground and widens nothing. A widening of what the owner's words
-approved, the removal of an entry, but for a tripwire the standard or its lifecycle removes, per
-`design@agent-skills@tripwire-stands-on-the-standard`, a ground that is the owner's words, which side of a
+or recorded as the session's choice at a fork, and the owner's pick at a fork cited as a ground is
+recorded in the weak form, per `design@agent-skills@heads-stand-on-argument`, since each repair
+removes a false ground and relaxes nothing. A change that relaxes what the owner's words approved
+or turns it from its direction, per `design@agent-skills@transcript-reviewer-agent`, the removal of
+an entry, but for a tripwire the standard or its lifecycle removes, per
+`design@agent-skills@tripwire-stands-on-the-standard`, an intent of the owner cited as a ground,
+drafted as a goal, which side of a
 contradiction wins where no design head, goal or source settles it, a verdict where a rule reads
 two ways and no record states the reading, a
 provable gap, a head in the wrong Component and a conflict with a goal go to the owner, per
@@ -341,10 +345,10 @@ The design this decision did not keep: `rejected@agent-skills@one-generic-audito
 
 Beside the repair of a head a change touches, `design@agent-skills@existing-heads-on-touch`, a
 project audit brings every head and every rejected alternative to the rules at once, under
-`design@agent-skills@audit-method`, its widenings going to the owner on one list, on the occasions
-of `design@agent-skills@audit-triggers`. Its premise is the owner's: "With the changes we just did
-to decision record conditions and shapes, at the next version pin, projects migrating will need to
-migrate their design home to match them." A repair on touch never reaches a head no change touches.
+`design@agent-skills@audit-method`, a change that relaxes or turns the owner's words going to the
+owner on one list, on the occasions of `design@agent-skills@audit-triggers`. Its premise is the
+owner's: once the conditions and the shapes of the decision records change, a project that moves
+its pin must bring its design home to them. A repair on touch never reaches a head no change touches.
 The rival, the repair on touch alone, leaves a project's record under the old rules after its
 migration.
 

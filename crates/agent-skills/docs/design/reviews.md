@@ -119,7 +119,8 @@ disappears, or a reversal under `skill@knowledge-architect-decision-recording@re
 many re-reviews as it adds, removes or reverses heads. A trigger on any repair that "makes a
 decision" lost: whether a rewording makes one is a judgement, and read wide it re-reviews repairs
 that only reword a head. The rival that sends every axis again at every repair lost on the same
-cost. A narrowing of an approved head that this trigger leaves out still goes to the owner, per
+cost. A relaxation of an approved head, or a turn of its direction, that this trigger leaves out
+still goes to the owner, per
 `skill@knowledge-architect-decision-recording@head-shape`, and the last transcript review checks it against the owner's rulings.
 
 ### Subagents dispatched together each get a scratch directory of their own `##a-scratch-directory-per-subagent`
@@ -168,7 +169,7 @@ definition. The nearest rival, a general-purpose subagent briefed with the axis'
 dispatching session write the procedure into its brief anew, and a procedure rewritten per brief
 drifts; every other review axis with a fixed standard has an agent of its own.
 
-### A transcript reviewer checks that what a work's sessions established has a durable outcome, and that no ruling of the owner is recorded in a state or a scope the owner did not give `##transcript-reviewer-agent`
+### A transcript reviewer checks that what a work's sessions established has a durable outcome, and that no ruling of the owner is recorded reversed, relaxed, turned from its direction or falsely attributed `##transcript-reviewer-agent`
 
 The installed agent `agent@knowledge-architect-transcript-reviewer` reads the transcripts of the
 sessions that produced a piece of work, named as a commit range, and checks two things. First, that
@@ -176,13 +177,26 @@ each decision of the owner, each argument that decided something, each finding o
 each thing met outside the task has a durable outcome: recorded in its home, acted on by a repair or
 an issue, or judged to need nothing with the reason written where the owner reads it. What lives
 only in a conversation is lost when the session ends or is compacted. Second, that no ruling of the
-owner is recorded in a state or a scope the owner did not give. Detail added inside a ruling, and a
-wording better than the one the owner was shown, are not findings. On the owner's word, the
-reviewer's weight is on whether something from the transcript was forgotten or not handled
-durably, and a small addition, even a clearly sane deviation, is no finding. A ruling is a word of the owner on a question
+owner is recorded reversed, relaxed, a check, a claim, a criterion or the scope of the work made
+weaker, turned from its direction, or attributed to the owner where the owner did not decide. A
+refinement within the ruling's direction, stricter, more detailed or reworded, is no finding, and
+"approved", "accepted" and "agreed" approve the idea, not the wording. An attribution still keeps
+the owner's scope and hedges, per `design@agent-skills@attribution-replaces-quotation`: a hedge
+dropped records a decision the owner did not make. On the owner's word, the reviewer's weight is on
+whether something from the transcript was forgotten or not handled durably, and a small addition,
+even a clearly sane deviation, is no finding. A ruling is a word of the owner on a question
 `primer@question-authority` reserves to the owner; an answer on a reading or a fact is checked
 against its source, per `design@agent-skills@answer-keeps-its-authority`. The reviewer assumes no shape of
 the work: a plan document is one home among the others.
+
+The reading by direction is the owner's report: an acceptance or an agreement of the owner is
+rarely about the exact wording, but about the idea and the direction, so a refinement the agent
+later judges relevant is likely acceptable, unless it relaxes a claim or a criterion so that
+unfinished work passes. A check of scope that also reported a clause added within the ruling, "no
+obligation added", made a stricter acceptance criterion a major finding. The same reading applies
+wherever fidelity to an approval is judged, in the rules on heads, the record reviewers and
+auditors, the plan reviews and the retrospective, since `goal@agent-skills@no-contradiction-in-workflow`
+asks that the criteria of the reviews and of the audits agree.
 
 It is an agent, not a line in a skill, because its standard is fixed. Its extraction is the
 checker's, per `design@agent-skills@transcript-extraction-is-the-checker-s`. It serves `goal@knowledge-architect@the-owner-decides`. The durability check serves
@@ -220,21 +234,22 @@ identifier it sees reads the session before the clear. The same reason holds at
 the three texts, which is why it has this home. The listing is computed from the transcripts, per
 `design@core@transcript-query-verbs`.
 
-### A misstated ruling is critical only when it reverses the ruling, or changes what is built or a load-bearing decision `##misstated-ruling-rated-by-what-it-changes`
+### A misstated ruling is critical only when it reverses the ruling, or relaxes it in what is built or a load-bearing decision `##misstated-ruling-rated-by-what-it-changes`
 
-A misstated ruling is critical only when it is reversed, or when its state or scope changes what is
-built or a load-bearing decision. A ruling recorded a little wider, narrower or firmer on a detail
-that is not load-bearing is minor, still goes to the owner, and is no finding of the retrospective
-once caught before the merge. Any other misstated ruling is major. The cut is what the misstatement
-would build: a reversal, or a change of what is built or of a decision others rest on, produces
-wrong work if it merges, where a slip on a detail that bears on nothing built produces none, and is
-repaired once the owner sees it. That such a slip is no critical defect is the owner's weighing,
-from the owner's observation of real sessions: "everytime, it was on details that were small and
-not load bearing in my opinion", "the transcript reviewer is catching those issues reliably IMO. I do not believe any amount of instruction anywhere would help improve
-more than the current situation: LLM agents are trained to take the input they receive from humans
-seriously and follow them closely", and "This kind of findings being flagged by the transcript
-reviewer once in a while (for decisions that are not the most criticals, and with only a small
-deviation from my word, not a complete reversal) is not a critical defect and should not be
-considered as such." The rival, every misstated ruling rated critical, made a reviewer's report of a
-slip read as a critical defect, which the owner ruled it is not; the slip is still repaired, and it
-is no defect of the workflow.
+A misstated ruling is critical only when it is reversed, or relaxed or put in a state that changes
+what is built or a load-bearing decision. A decision attributed to the owner that the owner did not
+make, and a ruling turned from its direction, are major. A ruling recorded a little relaxed, or
+firmer than its hedges, on a detail that is not load-bearing, and an argument or a reading
+attributed to the owner that is not the owner's, are minor, still go to the owner, and are no
+finding of the retrospective once caught before the merge; a refinement within the ruling's
+direction is none at all, per `design@agent-skills@transcript-reviewer-agent`. The cut is what the
+misstatement would build: a reversal, or a change of what is built or of a decision others rest on,
+produces wrong work if it merges, where a slip on a detail that bears on nothing built produces
+none, and is repaired once the owner sees it. That such a slip is no critical defect is the owner's
+weighing, from the owner's observation of real sessions: each slip the owner saw was on a small
+detail the owner judged not load-bearing, the transcript reviewer catches them reliably in the
+owner's view, no instruction would do better since agents are trained to take a human's input
+seriously, and a reviewer flagging such a slip once in a while, short of a reversal, is no critical
+defect. The rival, every misstated ruling rated critical, made a reviewer's report of a slip read as
+a critical defect, which the owner ruled it is not; the slip is still repaired, and it is no defect
+of the workflow.
