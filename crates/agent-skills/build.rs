@@ -40,16 +40,16 @@ use std::path::{Path, PathBuf};
 
 // The comment pass lives in the crate's source so that the crate's tests hold its rules; a build
 // script has no test target of its own.
+//
+// The source view of the file serves xtask alone, so the build leaves it unused.
 #[path = "src/render.rs"]
+#[allow(dead_code)]
 mod render;
-use render::{check_workflow_name, render_fragments, render_slugs, strip_comments};
+use render::{check_workflow_name, render_fragments, render_slugs, strip_comments, SNIPPET};
 
 /// The prefix every installed skill directory, agent file and workflow file carries in the
 /// project.
 const PREFIX: &str = "knowledge-architect-";
-
-/// What opens a snippet placeholder; `}}` closes it.
-const SNIPPET: &str = "{{snippet:";
 
 /// Each placeholder and the literal it ships as. A row exists only for text that must ship
 /// verbatim and that the checker would misread; a sentence that can be rewritten is rewritten.

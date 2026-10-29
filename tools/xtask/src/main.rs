@@ -6,6 +6,7 @@
 
 mod changelog;
 mod gates;
+mod skill;
 
 use clap::{Parser, Subcommand};
 use knowledge_architect_gates::GatesArgs;
@@ -29,12 +30,19 @@ enum Command {
     Gates(GatesArgs),
     /// Write the root CHANGELOG.md into every published crate.
     Changelog,
+    /// Print the source of a shipped skill, agent, saved workflow or the primer, its fragments
+    /// and snippets inlined and its comments kept.
+    Skill {
+        /// The installed name, with or without the installer's prefix, or `primer`.
+        name: String,
+    },
 }
 
 fn main() -> ExitCode {
     match Cli::parse().command {
         Command::Gates(args) => gates::run(&args),
         Command::Changelog => changelog::run(),
+        Command::Skill { name } => skill::run(&name),
     }
 }
 

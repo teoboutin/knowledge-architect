@@ -1,7 +1,8 @@
 # xtask
 
 Workflow automation for this repository. Each subcommand is one workflow: `changelog` writes the
-copies of the root changelog that the published crates ship, and `gates` runs the project's gates
+copies of the root changelog that the published crates ship, `skill` prints the source of one
+shipped text whole, and `gates` runs the project's gates
 (what CI runs) through the published gates library, `path@gates@README.md`, keeps every byte they
 emit, and prints only what needs acting on. The gate list in `path@xtask@src/gates.rs` is the
 primary home of what the gates are, per `design@xtask@gates-list-primary-home`.
@@ -15,7 +16,14 @@ cargo x gates --full              # additionally stream raw output live
 cargo x gates --locked            # pass --locked to every gate that resolves dependencies
 cargo x gates --require-rebased   # add the rebased gate: HEAD must contain origin/main
 cargo x changelog                 # write the root CHANGELOG.md into every published crate
+cargo x skill <name>              # print a shipped skill, agent, saved workflow or `primer` from
+                                  # its source, fragments and snippets inlined, comments kept
 ```
+
+`skill` takes the installed name, with or without the `knowledge-architect-` prefix, and reads the
+files of the checkout it runs in, so it shows an edit at once. Each inlined file sits between
+`%% >>> <dir>/<file>` and `%% <<< <dir>/<file>`, its own comments kept; slug and substitution
+placeholders are printed as written, so every line is found as written in the file to edit.
 
 The gates, in cost order:
 
