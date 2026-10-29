@@ -487,7 +487,7 @@ The design this decision did not keep:
 
 ## 4. This repository's agent configuration
 
-### This repository's retrospective findings, its audits' findings on the installed text, and what its sessions meet outside the task on the installed text or the checker, stay in this repository, never on GitHub `##workflow-findings-stay-here`
+### Every finding on the workflow that this repository's own use of it produces stays in this repository, never on GitHub `##workflow-findings-stay-here`
 
 A retrospective writes one file for the project and one for the workflow, and the workflow's file
 becomes an issue on knowledge-architect's repository where the owner directs it there, per
@@ -514,6 +514,9 @@ goes, in a project that installs the workflow, to the retrospective's workflow f
 `primer@met-outside-the-task` as an item on the project's own text does, for the same reason: the
 workflow file would only carry it back to this repository. The root
 `CLAUDE.md` states this case beside the other, in `instructions@repository-skills`.
+
+The rule is the owner's: the owner chose the rule over the list of the three members above, which
+are what it admits today.
 
 ### Each finding of a workflow file this repository receives, and of its own retrospective project file, gets one of three outcomes the owner rules, in a committed analysis that leaves when its last outcome is carried out `##committed-findings-analysis`
 
