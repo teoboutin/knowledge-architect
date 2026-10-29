@@ -174,6 +174,7 @@ that merely reads it.
 
 ## Bounded work {{slug:bounded-work}}
 
+%% The condition that sends a change here, and its exceptions: `design@agent-skills@settled-means-recorded`.
 Whether a request is a design question or bounded work, a clear requirement whose main risk is
 over-building, is known only after grounding. So a change the owner asks for or proposes starts
 here, at loop step 1, the search for standing entries included, unless a plan document, an outcome

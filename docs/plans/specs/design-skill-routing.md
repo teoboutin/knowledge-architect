@@ -742,8 +742,8 @@ the opening paragraph    crates/agent-skills/content/PRIMER.md, the section on t
 The harvest may write these slugs, each judged by its row: for design heads, the slugs of the
 threads #settled-means-recorded, #search-after-first-challenge and #installed-skill-takes-precedence,
 and `installed-skills-load-whole`; for `rejected` entries, the slugs of the threads
-#design-load-unconditioned and #grounding-split-from-discussion, and `trigger-judges-settled-design`
-and `search-work-is-the-question`. `cargo
+#design-load-unconditioned and #grounding-split-from-discussion, and `rejected@agent-skills@trigger-judges-settled-design`
+and `rejected@agent-skills@search-work-is-the-question`. `cargo
 klarch id` on them finds no design or `rejected` entry of agent-skills holding one. The work adds no
 section, type or command.
 
@@ -972,6 +972,12 @@ that development "can probably not work out at all in the long term if changes a
 grounding in design records"; whether that reaches a full search before every fix is the owner's to
 rule. Built as written until the ruling.
 
+**Ruled**, round 6: "D1: They stay as they are. Actually, my remark was not detailed enough. It was
+about additions and new features, not about fixing bugs that affect recorded design (Unless the bug
+is found to make the design fail, or be inherent to the chosen design, thus unfixable. not sure these
+cases do happen, I do not think I even met those yet)". The clarification goes to
+`issue@agent-skills@a-fix-is-grounded-by-no-record-search`.
+
 ### D2, on #settled-means-recorded: a record settles what the owner asks for, not a shape it does not state
 
 The exceptions read "already states what the owner asks for or proposes", where the shape shown to
@@ -981,6 +987,8 @@ result; `goal@knowledge-architect@design-with-agents-as-counterparts` asks that 
 owner be built before it is grounded and challenged. Raised by the plan review's design-conformance
 axis. It narrows the exception the owner approved, so it is the owner's to rule. Built as written
 until the ruling.
+
+**Ruled**, round 6: "D2 approved, the other wording would have broken the goal as you said".
 
 ### D3, on #installed-skill-takes-precedence: the goal grounds the precedence sentence
 
@@ -993,6 +1001,12 @@ plugin's skill loaded in place of an installed one. The sentence's ground is
 decision conflict, the goal prevails and the conflict goes to the owner, per `primer@goals-bind`.
 Raised by the plan review's design-conformance axis. Built as written until the ruling.
 
+**Ruled**, round 6: "D3 accepted".
+
+The owner also ruled, in round 6, on the goals commit's attributions, which the transcript and
+decision-record axes found to drop hedges: "Q1 the wordings can stay as they are, they are aligned
+with my intent."
+
 ## Harvest
 
 | what | where | when |
@@ -1001,8 +1015,8 @@ Raised by the plan review's design-conformance axis. Built as written until the 
 | #search-after-first-challenge | judged by the entry tests for a head of its own under the thread's slug, in `path@agent-skills@docs/design/record-search.md`, attributed to the owner; the first sentence and the argument's sentence on the first proposal of `design@agent-skills@record-searched-before-the-work`, and the first sentence of `design@agent-skills@seeds-name-decisions`, rewritten | step 5 |
 | #skill-load-rule-in-primer | judged by the entry tests for a head of its own, `installed-skills-load-whole`, in `path@agent-skills@docs/design/project-configuration.md`; named among the members of `design@agent-skills@primer-limit`, and in the argument of `design@agent-skills@no-routing-table` | step 5 |
 | #installed-skill-takes-precedence | judged by the entry tests for a head of its own under the thread's slug, beside the previous one, citing `design@agent-skills@overlay-by-separate-skills` and the goal, with D3's ruling | step 5 |
-| the incumbent trigger, a requested change whose design the session judges not settled | judged for a `rejected` entry, `trigger-judges-settled-design`, cited by the head of #settled-means-recorded, per the reversal of `skill@knowledge-architect-decision-recording@reversal-check` | step 5 |
-| the incumbent work statement, the question alone | judged for a `rejected` entry, `search-work-is-the-question`, cited by the head of #search-after-first-challenge | step 5 |
+| the incumbent trigger, a requested change whose design the session judges not settled | judged for a `rejected` entry, `rejected@agent-skills@trigger-judges-settled-design`, cited by the head of #settled-means-recorded, per the reversal of `skill@knowledge-architect-decision-recording@reversal-check` | step 5 |
+| the incumbent work statement, the question alone | judged for a `rejected` entry, `rejected@agent-skills@search-work-is-the-question`, cited by the head of #search-after-first-challenge | step 5 |
 | #design-load-unconditioned | judged for a `rejected` entry under its thread's slug, on the first reason of Losing alternatives alone, cited by the head of #settled-means-recorded | step 5 |
 | #grounding-split-from-discussion | judged for a `rejected` entry under its thread's slug, cited by the rewritten `design@agent-skills@bounded-path-in-design` | step 5 |
 | the premortem's four causes | judged as tripwires, per `skill@knowledge-architect-decision-recording@ruled-tripwires` | step 5 |
