@@ -238,10 +238,11 @@ failed, the argument settles the shape that replaces it where it can, and the ow
 per `goal@knowledge-architect@the-owner-decides`. The part of the work that rests on the guarded
 decision waits for the discussion, and the rest goes on.
 
-The ruling a firing would have answered is the owner's at the discussion it opens, the one point
-where the owner's word bears on a criterion, so the reopening is one stopping point where a ruling
-at the premortem and another at the firing were two. The cost: a criterion that costs real work
-enters a plan on the standard alone, and the owner meets that cost by reading the plan document.
+The ruling a firing would have answered is the owner's at the discussion it opens, where the
+owner's word bears on whether a criterion's decision stands, besides a value a criterion's basis
+leaves open; the reopening is one stopping point where a ruling at the premortem and another at
+the firing were two. The cost: a criterion that costs real work enters a plan on the standard
+alone, and the owner meets that cost by reading the plan document.
 The design this decision did not keep: `rejected@agent-skills@owner-rules-each-criterion`.
 
 ### An acceptance criterion is admitted only where its failure is silent, its firing shows the decision wrong, and a number in it has a basis `##criteria-test-silent-premises`
@@ -258,11 +259,13 @@ The census of the 61 acceptance criteria of the 39 plan documents deleted from d
 741f655e, read by the agent of the design discussion that made this decision, found about 49
 completeness checks, which a review already reports, about 5 that failed the silence test, and 3
 that only a measurement of the built result in use could take: a criterion bound to pass, or one a
-review reports, misdirects the attention a criterion should hold. The corpus is listed by
+review reports, misdirects the attention a criterion should hold, and an instruction that asks for
+it is one `goal@agent-skills@only-needed-instructions` removes. The corpus is listed by
 `git log 741f655e --diff-filter=D --name-only -- docs/plans/`, each document read at its deleting
 commit's parent; the per-criterion verdicts were the agent's judgement, kept in the spec's
-deliberation. The same agent counted about ten past firings, of which one tested a decision. The owner reported that criteria are
-too often of low quality, carrying bounds that are not relevant or certain to pass. The design this
+deliberation. The same agent counted about ten past firings, of which one tested a decision. The
+owner reported that criteria are too often of low quality, carrying numerical bounds that are not
+relevant, or are in practice certain to pass. The design this
 decision did not keep: `rejected@agent-skills@criteria-as-they-stand`, and removing criteria,
 `rejected@agent-skills@criteria-removed`.
 
@@ -273,7 +276,9 @@ rather than the decision wrong, is written as a claim of the step that builds it
 which the spec-conformity review judges; on the in-change path, the change applies the test. It
 keeps the check the owner did not want lost, and leaves `design@agent-skills@criteria-test-silent-premises`
 its criteria, whose firing reopens a decision. The rival, dropping such checks with the criteria
-that held them, loses a completeness check no review was told to look for. Step 7 of the design
+that held them, loses a completeness check no review was told to look for, against
+`goal@knowledge-architect@agents-work-without-drift`, under which a departure from the recorded
+design is caught by a check or a review before it merges. Step 7 of the design
 skill, the planning skill's section on criteria and condition 1 of the tripwire standard route it.
 
 ### A plan document is committed before its reviews, which read that commit `##plan-reviewed-as-a-commit`

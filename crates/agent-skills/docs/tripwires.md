@@ -64,8 +64,8 @@ having reported it.
 **Response:** reopen `design@agent-skills@bounded-path-in-design` on its three conditions.
 **Re-entry:** the decision-record review before every merge: the commit carries the proposal and,
 if one came, the owner's answer.
-**Watches until:** three commits on the main branch whose message names the bounded path, counted
-from the commit that writes this line.
+**Watches until:** three commits on the main branch that implement work proposed on the bounded
+path, each message carrying the proposal, counted from the commit that writes this line.
 
 ## Guarding `design@agent-skills@title-states-the-rule`: a rule title wider than its argument `##rule-title-wider-than-its-argument`
 
@@ -408,6 +408,25 @@ words a relaxation, with the instances.
 standing-state review, which reads the issue an owner's report of such a weakening opens.
 **Watches until:** the fifth plan document deleted at its landing on the main branch, counted from
 the commit that writes this line.
+
+## Guarding `design@agent-skills@derived-decision-proceeds-on-default`: a decision the record leaves open is classed as settled, and reaches the main branch with no exchange `##open-fork-classed-as-settled`
+
+The decision rests on the premise that a session tells a default the record settles from a choice
+the goals and the record leave open, so that only the first is built and merged on the session's
+word, and the second meets the owner before the merge, per
+`goal@knowledge-architect@design-with-agents-as-counterparts`.
+
+**Fires when:** a decision found on the main branch was a choice between shapes that all met every
+binding constraint, which no goal ranked, and the branch that merged it reported it under "Decided"
+as settled by the record, without putting it to the owner, at instances in two separate pieces of
+work.
+**Response:** reopen `design@agent-skills@derived-decision-proceeds-on-default` and
+`design@agent-skills@questions-go-to-their-authority` on how a session tells a fork from a decision
+the record settles, with the instances.
+**Re-entry:** the retrospective of each session, which reads the turns' "Decided" sections, and the
+standing-state review, which reads the issue the owner's report of such a merge opens.
+**Watches until:** three commits on the main branch that add analyses of received retrospective
+files, counted from the commit that writes this line.
 
 ## Guarding `design@agent-skills@code-change-reads-its-record`: a session that held the subsection still proposes a fix past a head of its code's record that it did not read `##fix-proposed-past-an-unread-head`
 

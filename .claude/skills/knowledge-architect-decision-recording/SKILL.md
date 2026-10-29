@@ -218,7 +218,7 @@ rivals in its body or in the `rejected` entries it cites. What the owner brings 
 
 | what the owner brings | where it lands |
 | --- | --- |
-| a fact only the owner holds, a doubt included | a premise, attributed as the owner's report and open to challenge; it gives way to a measurement, per `primer@owner-word-premise` |
+| a fact only the owner holds, a doubt included | a premise, attributed as the owner's report and open to challenge |
 | an intent an agent cannot derive, which states an outcome | a goal, drafted under `skill@knowledge-architect-goal-setting`, which the head cites |
 | an argument, one that weighs a cost included | argued, and recorded on its merits |
 | an approval of the session's default, threshold or weighing, whatever its words ("approved", "agreed", "all defaults approved", "accepted the cost") | no ground: the session's decision, kept in the deliberation; at a fork, the session's choice, in the weak form below, "the session chose X over Y, which no goal ranks; the owner approved it" |
@@ -230,10 +230,9 @@ A preference about a mechanism is no case of its own: it is an argument, or a ch
 **The weak form.** A fork's choice, the owner's or the session's, names the rivals and the costs
 that were weighed, and reopens without the owner on an argument or a fact that ranks the shapes,
 since the question is then no longer a fork. An argument or a fact that the fork's record
-already holds reopens nothing: this guards a choice from reversals back and forth. A goal still
-changes only through the owner.
+already holds reopens nothing: this guards a choice from reversals back and forth.
 
-**A head written before this rule is read by the same table**: a ground that cites the owner's pick
+**A head whose ground cites the owner's words is read by the same table**: a ground that cites the owner's pick
 at a fork is a fork's choice in the weak form, an approval cited as a ground is no ground, and an
 intent is a goal to draft.
 

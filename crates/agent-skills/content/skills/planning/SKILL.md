@@ -328,9 +328,7 @@ specific criterion that is harder to find.
 %% `design@agent-skills@criteria-test-silent-premises`; the step claim,
 %% `design@agent-skills@completeness-check-is-a-step-claim`.
 **An acceptance criterion is admitted only where it meets conditions 1, 3 and 4 of the standard
-below**: its failure is silent, since no test, gate or review would report it; its firing is what
-the decision says must not happen, a failure of the decision and not of the work; and a number in
-it has a basis. The standard ranks it, so no criterion is put to the owner, wherever it is
+below.** The standard ranks it, so no criterion is put to the owner, wherever it is
 proposed: at the premortem, at the assembly, by a review or at an audit. Its observable is worded
 by the agent, and a rewording is listed in the turn's "Decided" section, per
 `primer@decided-section`.
@@ -339,8 +337,8 @@ by the agent, and a rewording is listed in the turn's "Decided" section, per
 its test, which the spec-conformity review judges. It is no criterion, since a review or a test
 already reports it.
 
-A number in a criterion carries its basis. Where the basis leaves a range of values, the choice
-among them is a fork: the session lists its value under the defaults awaiting the owner, and
+Where the basis of a number in a criterion leaves a range of values, the choice among them is a
+fork: the session lists its value under the defaults awaiting the owner, and
 `primer@design-heads` records the owner's approval of it as the session's choice, and a value the
 owner sets as the owner's.
 

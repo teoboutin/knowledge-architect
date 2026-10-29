@@ -182,9 +182,11 @@ weaker, turned from its direction, or attributed to the owner where the owner di
 refinement within the ruling's direction, stricter, more detailed or reworded, is no finding, and
 "approved", "accepted" and "agreed" approve the idea, not the wording. An attribution still keeps
 the owner's scope and hedges, per `design@agent-skills@attribution-replaces-quotation`: a hedge
-dropped records a decision the owner did not make. On the owner's word, the reviewer's weight is on
-whether something from the transcript was forgotten or not handled durably, and a small addition,
-even a clearly sane deviation, is no finding. A ruling is a word of the owner on a question
+dropped records a firmer ruling than the owner gave, minor on a detail that is not load-bearing
+and major otherwise, per `design@agent-skills@misstated-ruling-rated-by-what-it-changes`. The
+owner argued that the reviewer's weight belongs on whether something from the transcript was
+forgotten or not handled durably, and that a small addition, even a clearly sane deviation, is no
+finding. A ruling is a word of the owner on a question
 `primer@question-authority` reserves to the owner; an answer on a reading or a fact is checked
 against its source, per `design@agent-skills@answer-keeps-its-authority`. The reviewer assumes no shape of
 the work: a plan document is one home among the others.
@@ -240,16 +242,17 @@ A misstated ruling is critical only when it is reversed, or relaxed or put in a 
 what is built or a load-bearing decision. A decision attributed to the owner that the owner did not
 make, and a ruling turned from its direction, are major. A ruling recorded a little relaxed, or
 firmer than its hedges, on a detail that is not load-bearing, and an argument or a reading
-attributed to the owner that is not the owner's, are minor, still go to the owner, and are no
-finding of the retrospective once caught before the merge; a refinement within the ruling's
+attributed to the owner that is not the owner's, are minor and still go to the owner; a minor
+ruling is no finding of the retrospective once caught before the merge; a refinement within the ruling's
 direction is none at all, per `design@agent-skills@transcript-reviewer-agent`. The cut is what the
 misstatement would build: a reversal, or a change of what is built or of a decision others rest on,
 produces wrong work if it merges, where a slip on a detail that bears on nothing built produces
 none, and is repaired once the owner sees it. That such a slip is no critical defect is the owner's
 weighing, from the owner's observation of real sessions: each slip the owner saw was on a small
 detail the owner judged not load-bearing, the transcript reviewer catches them reliably in the
-owner's view, no instruction would do better since agents are trained to take a human's input
-seriously, and a reviewer flagging such a slip once in a while, short of a reversal, is no critical
-defect. The rival, every misstated ruling rated critical, made a reviewer's report of a slip read as
-a critical defect, which the owner ruled it is not; the slip is still repaired, and it is no defect
+owner's view, the owner does not believe any instruction would do better since agents are trained
+to take a human's input seriously, and a reviewer flagging such a slip once in a while, for a
+decision that is not among the most critical and with only a small deviation from the owner's word,
+short of a reversal, is no critical defect. The rival, every misstated ruling rated critical, made
+a reviewer's report of a slip read as a critical defect, which the owner judged it is not; the slip is still repaired, and it is no defect
 of the workflow.

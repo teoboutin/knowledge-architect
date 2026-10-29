@@ -70,7 +70,8 @@ decides nothing against an argument.
   work: state it once with the discriminating fact, name the default
   ("unless you say otherwise, I build the decided shape"), and
   proceed unless the word comes. When the finding defeats a premise of a ruling the owner
-  gave, or is a contradiction with another decided thread that no
+  gave, other than a choice at a fork that it ranks, which reopens in the weak form
+  `primer@design-heads` states, or is a contradiction with another decided thread that no
   argument resolves, it is a contradiction, per
   `primer@owner-word-premise`: the part of the work that rests on it
   is held until the word comes, and the rest proceeds on the default.
@@ -285,7 +286,7 @@ rivals in its body or in the `rejected` entries it cites. What the owner brings 
 
 | what the owner brings | where it lands |
 | --- | --- |
-| a fact only the owner holds, a doubt included | a premise, attributed as the owner's report and open to challenge; it gives way to a measurement, per `primer@owner-word-premise` |
+| a fact only the owner holds, a doubt included | a premise, attributed as the owner's report and open to challenge |
 | an intent an agent cannot derive, which states an outcome | a goal, drafted under `skill@knowledge-architect-goal-setting`, which the head cites |
 | an argument, one that weighs a cost included | argued, and recorded on its merits |
 | an approval of the session's default, threshold or weighing, whatever its words ("approved", "agreed", "all defaults approved", "accepted the cost") | no ground: the session's decision, kept in the deliberation; at a fork, the session's choice, in the weak form below, "the session chose X over Y, which no goal ranks; the owner approved it" |
@@ -297,10 +298,9 @@ A preference about a mechanism is no case of its own: it is an argument, or a ch
 **The weak form.** A fork's choice, the owner's or the session's, names the rivals and the costs
 that were weighed, and reopens without the owner on an argument or a fact that ranks the shapes,
 since the question is then no longer a fork. An argument or a fact that the fork's record
-already holds reopens nothing: this guards a choice from reversals back and forth. A goal still
-changes only through the owner.
+already holds reopens nothing: this guards a choice from reversals back and forth.
 
-**A head written before this rule is read by the same table**: a ground that cites the owner's pick
+**A head whose ground cites the owner's words is read by the same table**: a ground that cites the owner's pick
 at a fork is a fork's choice in the weak form, an approval cited as a ground is no ground, and an
 intent is a goal to draft.
 
@@ -733,9 +733,7 @@ choices whose option space genuinely is closed and consequence-free.
    - **The work unfinished**: it is a claim of the step that builds it, with
      its test, which the spec-conformity review judges.
    - **The decision wrong**: it is an acceptance criterion, admitted only
-     where it meets conditions 1, 3 and 4 of the standard below. Its failure is
-     silent, since no test, gate or review would report it. Its firing is what
-     the decision says must not happen. A number in it has a basis.
+     where it meets conditions 1, 3 and 4 of the standard below.
      `skill@knowledge-architect-planning` writes it into the plan document, or,
      on the in-change path, the change applies it as a test.
    **A cause is named, not ruled.** It is judged by the standard below at the end of the work

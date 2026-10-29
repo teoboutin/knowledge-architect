@@ -8,8 +8,8 @@ A decision earns a head in a design home only when one of the three entry tests 
 `primer@design-heads` passes: reversing it would change an interface others consume, a type or
 a signature crossing a separately built unit, a file format, a document grammar or a command line;
 the same reason must be respected at more than one site, or at none, a name or a path repeated for
-consistency being no reason; its argument turns on the behaviour of something outside the project,
-or an external specification or a tool's behaviour, documented or measured. The owner's intent earns
+consistency being no reason; or its argument turns on the behaviour of something outside the project,
+an external specification or a tool's behaviour, documented or measured. The owner's intent earns
 no head of its own: an intent that states an outcome is drafted as a goal, and an argument the
 owner made earns a head by the three tests, per `design@agent-skills@heads-stand-on-argument`.
 Every other
@@ -49,13 +49,13 @@ every interface others consume, not only a type or a signature: a head about a g
 format or a command binds every adopting project, and under a strict test 1 such a head enforced in
 one module would pass no test. Test 3 counts a tool's behaviour measured as well as documented: a
 measurement costs as much to take again as a documentation reading to derive again, and a
-documented-only test 3 fails where the documentation is silent. A fourth test, the owner's own
-intent confirmed when asked, sent an intent to a head; on the owner's argument, an intent that
-states an outcome is a goal, which a goal-setting draft puts to the owner as the test's question
-did, and a preference about a mechanism is an argument or a choice at a fork, so the test admitted
-nothing a goal, an argument or a fork does not hold. Any recorded ruling of the owner as a test, its
-earlier rival, admits nearly every head harvested from a discussion, since the workflow asks the
-owner to confirm most decisions. Within test 2, "the same statement at more than one site"
+documented-only test 3 fails where the documentation is silent. The rival of a fourth test, the
+owner's own intent confirmed when asked, admits nothing a goal, an argument or a fork does not
+hold: on the owner's argument, an intent that states an outcome is a goal, which a goal-setting
+draft puts to the owner, and a preference about a mechanism is an argument or a choice at a fork.
+Any recorded ruling of the owner as a test, a wider rival, admits nearly every head harvested from
+a discussion, since the workflow asks the owner to confirm most decisions. The design this
+decision did not keep: `rejected@agent-skills@owner-intent-entry-test`. Within test 2, "the same statement at more than one site"
 admits a path repeated for consistency, which on the owner's word has no reason to change, its
 repetition being basic self-consistency. The wider test 2, "constrains work that has not been
 built", admitted nearly every head under a wide reading and almost none under a narrow one, and the

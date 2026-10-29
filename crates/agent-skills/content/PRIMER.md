@@ -56,7 +56,9 @@ decision: a departure from a specification is a scope decision the project state
 from an answer to a reading question.
 
 **A ruling on intent whose premise proves false is a contradiction.** A ruling on intent is a word
-of the owner on a question `primer@question-authority` reserves to the owner. Put the corrected
+of the owner on a question `primer@question-authority` reserves to the owner; a choice at a fork
+that a new argument or fact ranks is none, and reopens in the weak form `primer@design-heads`
+states. Put the corrected
 premise to the owner at the top of the turn, quoting the word it defeats; the part of the work that
 rests on it waits for the answer, and the rest goes on.
 
