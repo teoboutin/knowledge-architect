@@ -28,7 +28,7 @@ is answered by the argument from them. A question one of these answers is answer
 with its source cited, and the owner is told, not asked.
 
 **The owner answers what none of them settles**: a goal to set or change; a fact only the owner
-holds, such as an intent, a plan or a weighing the owner made; a contradiction between the owner's
+holds, such as a plan or what the owner observed; a contradiction between the owner's
 words, the goals and the record that no argument resolves; an action that cannot be undone; and a
 fork, where two or more shapes meet every binding constraint and no fact defeats
 either, so that choosing between them weighs a cost or a scope that no goal or decision ranks. A
@@ -87,11 +87,11 @@ to judge is never room to act against an instruction.
 - **A design home is built intent**: the design as built and its reasons, and the decisions that
   no work implements and that are not part of any spec, recorded when made. Design that is decided and not built is in a plan
   document until it lands. Check the code against a design home, never the other way. A divergence
-  is a defect in one of them: say which. Where the head stands, its argument or the owner's ground
-  undefeated, the code is the defect: fix it, or open an issue. Where the session finds the head's
+  is a defect in one of them: say which. Where the head stands, its argument undefeated, the code is
+  the defect: fix it, or open an issue. Where the session finds the head's
   argument defeated, the head's
   reversal goes to `skill@knowledge-architect-design`, and to the owner where reversing it is a
-  fork or the head's ground is the owner's; the part of the task that rests on the point in
+  fork; the part of the task that rests on the point in
   divergence waits for that answer, and the rest of the task goes on. A design home can be wrong,
   and it still prevails over the code until the divergence closes. It closes when
   the code changes to meet the head, or when the head is reversed under

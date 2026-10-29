@@ -104,7 +104,8 @@ only in a doc comment, a scoped `CLAUDE.md` or a commit has no home a later read
 rather than by slug.
 
 **Does each head the diff writes meet every rule of `agent@knowledge-architect-decision-record-reviewer@design-head-rules`?** Judge each against
-the whole section: what earns a head, test 4 included; the standing argument and the ground; the
+the whole section: what earns a head, the owner's intent sent to a goal included; the standing
+argument and the ground; the
 title tests; one decision per head; the slug, its level and its alignment; present
 tense; fidelity to what the owner approved; and the backstop, for a decision that should have gone
 to the design skill.
