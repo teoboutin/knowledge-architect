@@ -65,16 +65,16 @@ That source is this repository's alone: no adopting project holds content/, its 
 comments. Reading it is a task local to this repository, so it is this tool's, per
 `goal@xtask@repeated-tasks-are-automated`. The rival, a subcommand of the checker,
 `rejected@xtask@source-view-in-the-checker`, would put in the command line of every adopting
-project's checker a command with nothing to read there.
+project's checker a command that either finds no source there or ships this repository's in every
+binary.
 
-### The source view reads placeholders through the build's own readers, included by `#[path]` and exported by no library `##passes-included-not-exported`
+### The source view reaches the build's passes by including their file with `#[path]`, and the agent-skills library exports none of them `##passes-included-not-exported`
 
 `path@xtask@src/skill.rs` includes `path@agent-skills@src/render.rs` with `#[path]`, as
-`path@agent-skills@build.rs` does. The view reads a fragment or a snippet placeholder through
-`fragment_placeholder` and `snippet_placeholder`, the readers the build's passes use, so it inlines
-the lines the build inlines. The library of the agent-skills crate declares the file for its own
-tests alone. The rival, the view exported from that library,
-`rejected@xtask@passes-exported-from-the-library`, would add to the API of a published crate a
+`path@agent-skills@build.rs` does, so the view calls the readers the build's passes call, per
+`design@agent-skills@one-placeholder-reader-per-kind`. The library of the agent-skills crate
+declares the file for its own tests alone. The rival, the view exported from that library,
+`rejected@xtask@source-view-exported-from-the-library`, would add to the API of a published crate a
 function no consumer calls.
 
 The costs: the file's tests also run in this tool's test binary, and each include allows dead code,
