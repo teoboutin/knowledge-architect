@@ -66,14 +66,20 @@ can be false in another's, as two sentences of the first fragments were.
 ### The build's passes and the source view read each kind of placeholder through one reader `##one-placeholder-reader-per-kind`
 
 A fragment placeholder is read by `fragment_placeholder` and a snippet placeholder by
-`snippet_placeholder`, both of `path@agent-skills@src/render.rs`, and every text that reads one
-calls its reader: the fragment pass, `render_fragments`; the snippet pass of
-`path@agent-skills@build.rs`; and the source view, `source_view`, which
-`design@xtask@source-view-in-the-tool` prints. The view then inlines exactly the lines the build
-inlines, so a maintainer reading it reads what ships. The rival, a reading of the grammar written
-again at each site, drifts with no test failing: at the review of the view's first version, a
-mutant of its own reading that also took a tab-indented placeholder, or one followed by a space,
-passed every test, while the build ships both lines as written.
+`snippet_placeholder`, both of `path@agent-skills@src/render.rs`. Every code that decides which
+lines are inlined finds them through its reader: the fragment pass, `render_fragments`; the snippet
+pass of `path@agent-skills@build.rs`; the source view, `source_view`, which
+`design@xtask@source-view-in-the-tool` prints; and the test that finds each fragment's hosts. The
+view then inlines exactly the lines the build inlines, so a maintainer reading it reads what ships.
+The checks that a fragment nests no placeholder, and that a view keeps none, test a prefix alone,
+since they refuse anything that opens like one.
+
+The rival, a reading of the grammar written again at each site, differs from the build's on any
+line no test holds, and a tab before a placeholder or a space after it is such a line: the build
+ships both as written. The test `a_line_the_build_does_not_read_as_a_placeholder_stays_as_written`
+holds those two lines for the fragment pass and the view; a reading of its own in the view, with
+none of those lines tested, passes every other test, as the commit "Repairs of the decision-record
+review of the shared readers: a default awaiting the owner leaves the design home" records.
 
 ### The setup skill's blocks for a Rust project are snippets that a test checks and `klarch init --rust` writes `##rust-templates-one-home`
 
