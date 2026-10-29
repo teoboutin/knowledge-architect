@@ -2,15 +2,16 @@
 //! inlined and its `%%` comments kept.
 //!
 //! The installed copy under .claude is what a session in an adopting project reads, and it holds
-//! no comment of this repository: the build removes them. The source under the agent-skills crate's
+//! no `%%` comment of this repository: the build removes them, per
+//! `design@agent-skills@shipped-text-line-comments`. The source under the agent-skills crate's
 //! content/ holds the comments and names each fragment by a placeholder line. This view joins the
 //! two, so a maintainer reads a skill whole, with the reasons and the citations its comments give,
-//! and still finds each line in the file to edit. It reads the files of the checkout, not the text a
-//! binary embeds, so the view follows an edit with no rebuild.
+//! and still finds each line in the file to edit. It prints the files of the checkout, not the text
+//! a binary embeds. The command builds the agent-skills crate, whose build refuses a source it would
+//! not ship, so a source the build refuses has no view: the build's message names its line.
 //!
-//! It is a subcommand of this tool rather than of the checker: the view is the source of this
-//! repository's shipped text, which no adopting project holds, and the checker's command line is an
-//! interface its consumers depend on.
+//! It is a subcommand of this tool rather than of the checker, per
+//! `design@xtask@source-view-in-the-tool`.
 
 use knowledge_architect::MANIFEST_NAME;
 use knowledge_architect_gates::process::{complain, say};
@@ -18,8 +19,9 @@ use knowledge_architect_gates::project_root;
 use std::path::{Path, PathBuf};
 use std::process::ExitCode;
 
-// The placeholder grammar is the build's own, so the view inlines exactly what the build inlines.
-// Only the source view of the file serves here.
+// The build's own file, so the view reads placeholders through the readers the build's passes
+// use, per `design@xtask@passes-included-not-exported`. The source view and the placeholder
+// constants serve here; the rest of the file is the build's.
 #[path = "../../../crates/agent-skills/src/render.rs"]
 #[allow(dead_code)]
 mod render;
@@ -33,10 +35,17 @@ const PREFIX: &str = "knowledge-architect-";
 /// The file of content/ that `name` names, relative to content/, or why none or several do.
 ///
 /// `name` is a skill, an agent or a saved workflow, by its installed name or by that name without
-/// the installer's prefix, or `primer`.
+/// the installer's prefix, or `primer`. A name that is not one plain path component is refused, so
+/// no name reaches a file outside content/'s three directories.
 fn resolve(content: &Path, name: &str) -> Result<PathBuf, String> {
     if name == "primer" {
         return Ok(PathBuf::from("PRIMER.md"));
+    }
+    if name.is_empty() || name == "." || name == ".." || name.contains(['/', '\\']) {
+        return Err(format!(
+            "`{name}` is no name: a name is one installed name, such as \
+             `knowledge-architect-review`, or `primer`"
+        ));
     }
     let bare = name.strip_prefix(PREFIX).unwrap_or(name);
     let found: Vec<PathBuf> = [
@@ -51,7 +60,8 @@ fn resolve(content: &Path, name: &str) -> Result<PathBuf, String> {
     match found.as_slice() {
         [one] => Ok(one.clone()),
         [] => Err(format!(
-            "no skill, agent or saved workflow is named `{name}` under {CRATE}/content/"
+            "no skill, agent or saved workflow is named `{name}` under {}",
+            content.display()
         )),
         several => Err(format!(
             "`{name}` names several files: {}",
@@ -64,21 +74,34 @@ fn resolve(content: &Path, name: &str) -> Result<PathBuf, String> {
     }
 }
 
-/// Every file directly under `dir`, as its name and its text; none when `dir` is absent.
-fn files(dir: &Path) -> std::io::Result<Vec<(String, String)>> {
+/// Every file directly under `dir`, as its name and its text; none when `dir` is absent. An error
+/// names the file or the directory it met, from `root`.
+fn files(root: &Path, dir: &Path) -> Result<Vec<(String, String)>, String> {
+    let shown = |path: &Path| {
+        path.strip_prefix(root)
+            .unwrap_or(path)
+            .display()
+            .to_string()
+    };
     let mut out = Vec::new();
     if !dir.is_dir() {
         return Ok(out);
     }
-    for entry in std::fs::read_dir(dir)? {
-        let path = entry?.path();
+    let entries =
+        std::fs::read_dir(dir).map_err(|error| format!("{} is unreadable: {error}", shown(dir)))?;
+    for entry in entries {
+        let path = entry
+            .map_err(|error| format!("{} is unreadable: {error}", shown(dir)))?
+            .path();
         if path.is_file() {
             let name = path
                 .file_name()
                 .and_then(|n| n.to_str())
-                .unwrap_or_default()
+                .ok_or_else(|| format!("{} has no UTF-8 name", shown(&path)))?
                 .to_owned();
-            out.push((name, std::fs::read_to_string(&path)?));
+            let text = std::fs::read_to_string(&path)
+                .map_err(|error| format!("{} is unreadable: {error}", shown(&path)))?;
+            out.push((name, text));
         }
     }
     Ok(out)
@@ -97,14 +120,10 @@ fn view(root: &Path, name: &str) -> Result<String, String> {
     let krate = root.join(CRATE);
     let content = krate.join("content");
     let rel = resolve(&content, name)?;
-    let read = |dir: &str| {
-        files(&krate.join(dir)).map_err(|error| format!("{CRATE}/{dir}/ is unreadable: {error}"))
-    };
-    let fragments = read("fragments")?;
-    let snippets = read("snippets")?;
-    let file = content.join(&rel);
-    let text = std::fs::read_to_string(&file)
-        .map_err(|error| format!("{} is unreadable: {error}", file.display()))?;
+    let fragments = files(root, &krate.join("fragments"))?;
+    let snippets = files(root, &krate.join("snippets"))?;
+    let text = std::fs::read_to_string(content.join(&rel))
+        .map_err(|error| format!("{CRATE}/content/{} is unreadable: {error}", rel.display()))?;
     render::source_view(&text, &borrowed(&fragments), &borrowed(&snippets))
         .map_err(|why| format!("{CRATE}/content/{}: {why}", rel.display()))
 }
@@ -169,6 +188,25 @@ mod tests {
         assert!(resolve(&content, "no-such-skill").is_err());
     }
 
+    // The claim: a name that is not one plain path component is refused, so none reaches a file
+    // outside content/'s three directories, though each of these names one that exists.
+    #[test]
+    fn a_name_that_is_a_path_is_refused() {
+        let content = workspace_root().join(CRATE).join("content");
+        for name in [
+            "",
+            ".",
+            "..",
+            "../../../../CLAUDE",
+            "../skills/review/SKILL",
+            "/review",
+            "review/",
+        ] {
+            let refused = resolve(&content, name).expect_err(name);
+            assert!(refused.contains("is no name"), "{name}: {refused}");
+        }
+    }
+
     // The claim: a name that matches two kinds is refused with both, rather than one picked.
     #[test]
     fn a_name_of_two_files_is_refused() {
@@ -200,30 +238,54 @@ mod tests {
             names.push(name.to_str().expect("a UTF-8 name").to_string());
         }
         for (dir, suffix) in [("agents", ".md"), ("workflows", ".js")] {
-            for (name, _) in files(&content.join(dir)).expect("a content directory") {
+            for (name, _) in files(&root, &content.join(dir)).expect("a content directory") {
                 names.push(name.strip_suffix(suffix).unwrap_or(&name).to_string());
             }
         }
         assert!(names.len() > 1, "no shipped text was found");
-        let mut views = String::new();
+        let mut shared = Vec::new();
+        for dir in ["fragments", "snippets"] {
+            for (file, text) in files(&root, &krate.join(dir)).expect("a shared directory") {
+                shared.push((format!("{dir}/{file}"), text));
+            }
+        }
+        let mut inlined = Vec::new();
         for name in &names {
             let text = view(&root, name).unwrap_or_else(|why| panic!("{name}: {why}"));
-            for line in text.lines() {
-                let line = line.trim_start_matches(' ');
+            let mut lines = text.lines();
+            while let Some(line) = lines.next() {
+                let trimmed = line.trim_start_matches(' ');
                 assert!(
-                    !line.starts_with(render::FRAGMENT) && !line.starts_with(render::SNIPPET),
+                    !trimmed.starts_with(render::FRAGMENT) && !trimmed.starts_with(render::SNIPPET),
                     "{name} keeps a placeholder line: {line}"
                 );
-            }
-            views.push_str(&text);
-        }
-        for dir in ["fragments", "snippets"] {
-            for (file, _) in files(&krate.join(dir)).expect("a shared directory") {
-                assert!(
-                    views.contains(&format!("%% >>> {dir}/{file}\n")),
-                    "no view inlines {dir}/{file}"
+                let Some(file) = trimmed.strip_prefix("%% >>> ") else {
+                    continue;
+                };
+                // The lines up to the closing one, their indentation removed, are the file's own.
+                let indent = &line[..line.len() - trimmed.len()];
+                let close = format!("{indent}%% <<< {file}");
+                let mut body = String::new();
+                for inner in lines.by_ref() {
+                    if inner == close {
+                        break;
+                    }
+                    body.push_str(inner.strip_prefix(indent).unwrap_or(inner));
+                    body.push('\n');
+                }
+                let (_, own) = shared
+                    .iter()
+                    .find(|(path, _)| path == file)
+                    .unwrap_or_else(|| panic!("{name} frames {file}, which is no shared file"));
+                assert_eq!(
+                    &body, own,
+                    "{name}: the lines framed as {file} are not its text"
                 );
+                inlined.push(file.to_owned());
             }
+        }
+        for (file, _) in &shared {
+            assert!(inlined.contains(file), "no view inlines {file}");
         }
     }
 }

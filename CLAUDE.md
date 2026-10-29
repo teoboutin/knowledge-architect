@@ -149,12 +149,11 @@ subagent, per
 `skill@knowledge-architect-review`.
 
 **Grounding in what a shipped skill, agent, saved workflow or the primer says, and why, goes
-through `cargo x skill <name>`**, `<name>` its installed name or `primer`. It prints the source
-under `path@agent-skills@content/` with each fragment and snippet inlined between two `%%` lines
-naming its file, and every `%%` comment kept: the installed copy under .claude holds none of the
-comments, which carry the reasons and the citations of the record, and the source file alone
-names each fragment by a placeholder. A check of the text as it ships still reads the installed
-copy.
+through `cargo x skill <name>`**, whose usage is `path@xtask@README.md`: the installed copy of a
+skill, an agent or the primer holds none of the `%%` comments, which carry the reasons and the
+citations of the record, per `design@agent-skills@shipped-text-line-comments`, and the source file
+alone names each fragment by a placeholder. A check of the text as it ships still reads the
+installed copy.
 
 **This repository's own skills and agents take the prefix `klarch-`, the binary's name**, not the
 project's name that `design@agent-skills@project-name-prefix` gives: a name beginning with
