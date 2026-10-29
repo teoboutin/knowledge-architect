@@ -28,8 +28,8 @@ design ──(full path)──▶ planning ──▶ [the work] ──▶ review
                                                     on the owner's word: retrospective-intake
 ```
 
-- `skill@knowledge-architect-design` grounds a design question or a requested change whose design
-  is not settled. On its full path it hands off to `skill@knowledge-architect-planning`, which
+- `skill@knowledge-architect-design` grounds a design question, or a change the owner asks for or
+  proposes that no plan document, ruling of the owner, design head or failing test already states. On its full path it hands off to `skill@knowledge-architect-planning`, which
   writes a spec or a milestone; on its in-change path, and for bounded work, the work goes on in the
   change under way.
 - `skill@knowledge-architect-planning` carries the plan document through the work, the review and
