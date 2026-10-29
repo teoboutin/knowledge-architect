@@ -107,7 +107,7 @@ rather than by slug.
 the whole section: what earns a head, the owner's intent sent to a goal included; the standing
 argument and the ground; the
 title tests; one decision per head; the slug, its level and its alignment; present
-tense; fidelity to what the owner approved; and the backstop, for a decision that should have gone
+tense; fidelity to what the owner approved, read by its direction; and the backstop, for a decision that should have gone
 to the design skill.
 A head that argues from a goal's words without naming the goal is the common miss of the standing
 argument. The owner's ground a head attributes is read in its source, against the question it

@@ -198,8 +198,8 @@ uncommitted work in the tree.
 
 | outcome | the findings |
 | --- | --- |
-| applied in the branch | a rewording; the tense; a missing or wrong reference; an approval cited as a head's ground, removed when the head stands on its argument; a split that touches no word of the owner; a rejected design repaired in place, its reason made checkable or its marker set; a tripwire or an issue made stale by an edit of the audit, repaired in place |
-| put to the owner, on the owner list | a widening of what the owner's words approved, such as a title moved from the members the owner named to the rule; the removal of a head that fails every entry test; the removal of a rejected design that fails every recording test; a ground that is the owner's words; a head in the wrong Component |
+| applied in the branch | a rewording; the tense; a missing or wrong reference; an approval cited as a head's ground, removed when the head stands on its argument, or recorded as the session's choice at a fork; the owner's pick at a fork cited as a ground, recorded in the weak form; a split that touches no word of the owner; a rejected design repaired in place, its reason made checkable or its marker set; a tripwire or an issue made stale by an edit of the audit, repaired in place |
+| put to the owner, on the owner list | a change that relaxes what the owner's words approved, or turns it from its direction, such as a title moved from the members the owner named to a rule that admits others; the removal of a head that fails every entry test; the removal of a rejected design that fails every recording test; an intent of the owner cited as a ground, drafted as a goal; a head in the wrong Component |
 | an issue entry | a head false of the code, kind `defect`; a split or a move the owner approved that is too large for the branch, kind `design` |
 
 A tripwire or an issue is edited only where an edit of the audit makes it stale. An issue whose
