@@ -32,7 +32,9 @@ The three supersessions this repository holds today, each ruled by the owner:
   `design@knowledge-architect@workflow-findings-stay-here`; with it, `skill@klarch-retrospective-intake`
   sets aside two instructions of `skill@knowledge-architect-retrospective-intake`: a workflow
   file's findings are resolved rather than read for grounding only, and the outcome "sent
-  upstream" does not apply;
+  upstream" does not apply; and an item met outside the task whose fix lies in the installed text
+  or in the checker takes the rows of `primer@met-outside-the-task` rather than going to the
+  workflow file;
 - the agentic-workflow axis's findings on the installed text edited at their source, with no
   upstream file, in `instructions@repository-skills`.
 
