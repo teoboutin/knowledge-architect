@@ -280,7 +280,7 @@ owner did not make, against `goal@knowledge-architect@the-owner-decides`.
 
 The design this decision did not keep: `rejected@agent-skills@owner-reading-answer-put-back`.
 
-### Something met outside the task takes the first outcome of the primer's table that applies, routed by its authority, and the turn lists every item `##met-outside-the-task-outcomes`
+### Something met outside the task takes the first outcome of the primer's table that applies, routed by its authority, unless its fix lies in the installed text or in the checker, and the turn lists every item `##met-outside-the-task-outcomes`
 
 `primer@met-outside-the-task` gives four outcomes, the first that applies. An item that bears on
 the work is routed by `primer@question-authority`, per

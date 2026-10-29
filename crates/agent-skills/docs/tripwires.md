@@ -331,22 +331,6 @@ one-sentence pointer in the primer to the standard.
 **Watches until:** three commits on the main branch that add analyses of received retrospective
 files under docs/retrospective-reports/, counted from the commit that writes this line.
 
-## Guarding `design@agent-skills@checker-model-in-primer`: a rarer checker rule enters the model section `##rarer-rule-in-the-model`
-
-The decision rests on the premise that the model section holds what a reader needs, and that a rule
-a writer needs only for an uncommon shape reaches a session through its finding.
-
-**Fires when:** a review or an audit finds a rule in `primer@checker-model` that a finding message
-already delivers with its repair, other than one the head keeps there, the explanation of
-`check --fix`'s refusal. A rule that a review of the branch adding it finds, and that the branch
-removes before its merge, does not fire it, on the owner's ruling for this entry, which the rule on
-slips states for every tripwire.
-**Response:** reopen `design@agent-skills@checker-model-in-primer` with the owner, on the scope of
-the owner's ruling that the rarer checker rules are delivered by their findings; the rule found is
-removed from the section as the repair of the instance.
-**Re-entry:** that review or audit.
-**Watches until:** 10 commits on the main branch that change `path@agent-skills@content/PRIMER.md`.
-
 ## Guarding `design@agent-skills@rejected-citation-direction`: an entry cited only by heads that do not decide its question `##rejected-entry-cited-by-the-wrong-head`
 
 The decision rests on the premise that the head citing a `rejected` entry is the one whose argument

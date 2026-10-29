@@ -143,10 +143,16 @@ An item a session meets outside its task whose fix lies there takes the same rou
 the project's table of outcomes gives it neither a fix nor an issue entry, for the reason above. What
 the project adds to the installed text or to the checker, a skill of its own or a check its own
 build adds, is the project's own text and code, and an item on it takes the table's rows. The
-owner saw sessions spend time and effort deciding where such an item goes, and some open it as an
-issue entry of the project, since the primer's table, which every session holds when it meets such
-an item, named no destination for it: the route was stated only in skills a session loads to run a
-retrospective, an intake or an audit.
+route is stated in the primer because the primer is the one text every session holds when it meets
+such an item, where the retrospective, the intake and the audit reach only a session that runs one
+of them; the owner saw sessions spend time and effort deciding where such an item goes, and some
+open it as an issue entry of the project. The route for such an item is the owner's: the owner
+chose the retrospective's workflow file as its destination, and accepted for now that the item is
+lost when no retrospective follows, as
+`issue@agent-skills@an-item-kept-for-the-retrospective-is-lost-when-no-retrospective-follows`
+records. The issue entry that `primer@where-knowledge-goes` asks for beside a pointer no checked
+form expresses is still opened in the project, since that pointer must sit beside a reference the
+project's checker resolves; the gap it records goes upstream all the same.
 
 ### An analysis of a project's retrospective file is committed with the owner's ruling on each finding, and leaves with its last outcome `##committed-intake-analysis`
 
