@@ -26,7 +26,7 @@ merge.
 
 `goal@agent-skills@installed-text-works-anywhere` asks that the installed text work unchanged in any
 project. A reason that is false in a project leaves its agent unable to judge whether the rule
-applies there, against `goal@agent-skills@installed-text-leaves-room-to-judge`, which gives each
+applies there, against `goal@agent-skills@only-needed-instructions`, which gives each
 instruction its reason so an agent can judge.
 
 ### What would close it

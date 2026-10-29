@@ -25,17 +25,24 @@ and of the audits agree with each other. It is met while no review and no audit 
 instructions a session cannot both obey, or a criterion of a review or an audit that the activity's
 skill does not state. It refines `goal@knowledge-architect@agents-get-a-complete-workflow`.
 
-## An installed text works unchanged in any project that installs it `##installed-text-works-anywhere`
+## An installed text works unchanged in any project that installs it, and in any environment that runs it `##installed-text-works-anywhere`
 
 The installed skills, agents and primer name no project's paths or conventions, and write the
-project's command as the project declares it. It is met while a project of any language and layout
-can follow them without editing them. It refines `goal@knowledge-architect@any-project-can-adopt-it`.
+project's command as the project declares it. They depend on nothing the install does not write: a
+session with no user-level instruction and no plugin reaches each installed skill at its moment, and
+a skill or an instruction the environment adds outside the installed set never replaces an installed
+one for an activity the set covers. It is met while a project of any language and layout can follow
+them without editing them, and while a session is routed through the workflow the same way with or
+without the environment's own instructions. It refines `goal@knowledge-architect@any-project-can-adopt-it`.
 
-## The installed text leaves agents room to judge `##installed-text-leaves-room-to-judge`
+## The installed text holds only the instructions the workflow needs, and leaves to the session's judgement the cases it handles well enough `##only-needed-instructions`
 
-The installed skills and agents give agents capabilities and the reasons for each instruction, and
-impose no structure the work does not need: no fixed sequence, count or mapping between a unit of
-the work and a unit of its record where judgement would serve. It is met while no installed
-instruction fixes such a mapping that another instruction needs to vary, and a review that finds
-one is answered by removing structure rather than by adding a rule. It refines
-`goal@knowledge-architect@agents-work-without-drift`.
+The installed skills and agents state what an agent needs to carry out the workflow as intended,
+with the reason for each instruction. They do not try to cover every case: a case the judgement of
+the session following them handles well enough gets no instruction, since each instruction added
+for a specific case is read by every session that loads the text and can conflict with the
+instructions already there. Nor do they impose structure the work does not need: a fixed sequence,
+count or mapping between a unit of the work and a unit of its record. It is met while each installed
+instruction names an act the workflow needs, and a review that finds an instruction for a case
+judgement handles, or a structure another instruction needs to vary, is answered by removing it
+rather than by adding a rule. It refines `goal@knowledge-architect@agents-work-without-drift`.

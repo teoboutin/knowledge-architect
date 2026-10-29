@@ -52,7 +52,7 @@ rather than a total budget is the owner's preference, stated with a hedge, so th
 rather than the session's judgement dispatches the agents. The table lives in the script, since the agents' entries written by
 hand were a run's largest input and the source of its slips, which the owner judged error
 prone. A fixed count would be a structure another instruction needs to vary, against
-`goal@agent-skills@installed-text-leaves-room-to-judge`.
+`goal@agent-skills@only-needed-instructions`.
 
 Two lenses read beside the corpus. L7 starts from the checker's user documentation, its README for
 the version the project uses and the help of each command, and reports a rule the corpus states
@@ -114,7 +114,7 @@ workflow needs to function as intended. The class of an unneeded statement is in
 the owner ruled that all work that judges or edits agent-facing text follows one standard, per
 `design@agent-skills@admission-rules-home`.
 The nearest rival, every gap a finding to fill, fails
-`goal@agent-skills@installed-text-leaves-room-to-judge`.
+`goal@agent-skills@only-needed-instructions`.
 
 A confirmed finding of two readings is repaired even where both acts it allows are acceptable, as
 `design@agent-skills@audit-outcomes` says. The rival that left it to judgement where no text rules

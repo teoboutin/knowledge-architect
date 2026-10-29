@@ -169,7 +169,7 @@ ruling given there, so that one ruling is given once and cannot differ. The file
 out; the issues it rules are opened and the findings handled now are handled, in the commits their
 routes need; the commit that carries out its last outcome, or a later commit of the same branch,
 deletes it. The skill fixes no order of those commits, per
-`goal@agent-skills@installed-text-leaves-room-to-judge`.
+`goal@agent-skills@only-needed-instructions`.
 
 It takes the shape of the audit's report file, `design@agent-skills@committed-audit-report`, whose
 argument holds here: the commit messages alone keep the outcomes and lose the evidence each ruling

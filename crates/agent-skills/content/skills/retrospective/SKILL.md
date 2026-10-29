@@ -51,7 +51,7 @@ branch itself is not named: a merge that rewrites the branch's commits leaves it
 nothing.
 
 %% A wider "missing" turns every judgement into a request for a rule, against
-%% `goal@agent-skills@installed-text-leaves-room-to-judge`. The scope is wider than the installed
+%% `goal@agent-skills@only-needed-instructions`. The scope is wider than the installed
 %% text because a project's problems may come from its own instructions and their interaction with
 %% the installed ones, per `goal@knowledge-architect@the-workflow-improves-through-real-use`.
 Then read back over the session: the instructions that were followed, where they were followed with

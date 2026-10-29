@@ -27,7 +27,7 @@ loop.
 
 Naming a spec's
 items by a unit of the history, one step to one commit, lost: it fixes the plan onto the
-history, against `goal@agent-skills@installed-text-leaves-room-to-judge`, and a commit the work
+history, against `goal@agent-skills@only-needed-instructions`, and a commit the work
 needs for another reason, such as a fix met outside the task, would then contradict the plan. The
 owner ruled it out: "since it designates something 'real', it rigidifies the workflow and
 'hardcodes' that one step equals one commit. This is likely to cause conflicts with other workflow
