@@ -152,7 +152,10 @@ lost when no retrospective follows, as
 `issue@agent-skills@an-item-kept-for-the-retrospective-is-lost-when-no-retrospective-follows`
 records. The issue entry that `primer@where-knowledge-goes` asks for beside a pointer no checked
 form expresses is still opened in the project, since that pointer must sit beside a reference the
-project's checker resolves; the gap it records goes upstream all the same.
+project's checker resolves; the gap it records goes upstream all the same. The route is a
+paragraph after the primer's table, not a row of it: the table gives an item its first matching
+row, so a row after row 1 would never reach an item that bears on the current work, and the item
+would go upstream only when it does not.
 
 ### An analysis of a project's retrospective file is committed with the owner's ruling on each finding, and leaves with its last outcome `##committed-intake-analysis`
 
