@@ -15,10 +15,9 @@ admits it, such as a reason several installed texts must respect. A rewording, a
 is phrased, is not recorded. Such proposals can be made without bound, unlike a technical decision,
 which costs implementation work. The commit message carries a rewording's argument.
 
-The owner's intent is on record where test 4 of `primer@design-heads` holds, per
-`design@agent-skills@a-head-is-owed-by-an-entry-test`: the owner, asked, confirms that a ruling an
-agent could reverse as a small fix, or an argument the owner wants kept, records the owner's intent;
-an approval of the agent's proposal does not.
+The owner's intent is on record in a goal, drafted under `skill@knowledge-architect-goal-setting`,
+and the owner's choice at a fork in its weak form, per `design@agent-skills@heads-stand-on-argument`;
+an approval of the agent's proposal is neither.
 Two parts of the workflow are installed texts, or an installed text and the checker it must agree
 with, as the planning skill's sections agree with what the core checks; a decision of this
 repository alone is not one, since the installed text names none of this repository's conventions.

@@ -31,9 +31,10 @@ The ruling came from the owner, after a review found that the shadowing reaches 
 agent had proposed an issue entry for it; the commit that put the ruling into the milestone
 agent-configuration-entities says "The issue opened for the shadowing of the existing kinds was
 never committed: the ruling puts that work in the milestone."
-So under `design@agent-skills@head-ground-is-the-argument`, which cites the owner's words only for
-what came from the owner, the quotation is a legitimate ground of provenance. Its stated reason is
-still the forbidden one.
+So under `design@agent-skills@heads-stand-on-argument`, the ruling is a choice at a fork, recorded in
+its weak form, where no argument ranked the shapes, and the head stands on the shadowing argument
+where one did; either way the quotation is provenance. Its stated reason is still the forbidden
+one.
 
 Not established: whether the owner meant the migration cost of today's consumers, a present cost
 that `design@knowledge-architect@capability-cost-before-migration` ranks as the lowest, or a

@@ -640,9 +640,10 @@ choices whose option space genuinely is closed and consequence-free.
      `skill@knowledge-architect-planning` writes it into the plan document, or,
      on the in-change path, the change applies it as a test.
 %% A criterion stands on the standard, not on the owner's word:
-%% `design@agent-skills@acceptance-criteria-on-the-owners-word`. A completeness check that a
-%% review already reports is the step's claim, which keeps the check and drops the duplicate:
-%% `design@agent-skills@acceptance-criterion-quality`.
+%% `design@agent-skills@criterion-ruled-at-reopening`. Its admission:
+%% `design@agent-skills@criteria-test-silent-premises`. A completeness check that a review already
+%% reports is the step's claim, which keeps the check and drops the duplicate:
+%% `design@agent-skills@completeness-check-is-a-step-claim`.
    **A cause is named, not ruled.** It is judged by the standard below at the end of the work
    that implements the decision, on its wording then, as
    `skill@knowledge-architect-decision-recording@ruled-tripwires` says, and

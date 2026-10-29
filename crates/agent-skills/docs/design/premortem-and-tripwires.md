@@ -2,7 +2,7 @@
 
 ## Premortems and tripwires
 
-### The session records or drops each premortem cause by the standard at the end of the work, and the owner overrules by reading it `##tripwire-recording-authority`
+### The session records or drops each premortem cause by the standard at the end of the work, and the owner reads it and contests any outcome `##tripwire-recording-authority`
 
 A premortem names causes and puts none to the owner. At the end of the work that implements the
 decision, the harvest on the full path or the commit that records the decision on the in-change
@@ -17,8 +17,9 @@ written with the head.
 Whether a risk is worth watching trades the cost of watching against the risk. The standard ranks
 it: a cause it admits and one it excludes are each decided by a named condition, so no fork
 remains, and the question is the session's, per `primer@question-authority` and
-`design@agent-skills@owner-rules-at-a-fork`. The owner stays informed of each outcome and overrules
-any of them by reading the work, per `goal@knowledge-architect@the-owner-decides`, and rules only on
+`design@agent-skills@owner-rules-at-a-fork`. The owner stays informed of each outcome and contests
+any of them with a goal, a fact or an argument, per `goal@knowledge-architect@the-owner-decides`,
+and rules only on
 what the goals and the record leave open, per `goal@knowledge-architect@agents-work-without-drift`.
 The rival, the owner ruling on each cause, was measured: of 66 premortem causes the owner ruled on
 in this repository, the owner dropped 23, and about 45 of the 64 tripwires this repository then
@@ -41,7 +42,7 @@ excludes, the commit naming the condition, as it drops a cause at recording, per
 `design@agent-skills@tripwire-recording-authority`; in a project audit the removal is applied in
 the branch and listed in the report, grouped by condition. Each change and each removal is listed
 in the turn's "Decided" section, per `design@agent-skills@decisions-reported-to-the-owner`, and the
-owner overrules by reading it. A removal on the doubt's weight alone is the owner's, since it rests
+owner reads it and contests any of them with a goal, a fact or an argument. A removal on the doubt's weight alone is the owner's, since it rests
 on the owner's own weighing of what the owner would see. A cause the owner proposes, or one derived
 from the owner's words, is judged by the standard like any other: the owner's word alone admits no
 tripwire and keeps none. A ruling of the owner that a tripwire restates, a bound or an exception,
@@ -60,10 +61,11 @@ its clause fire on the decision working, which condition 3 excludes. A ruling on
 tripwire, such as a ruling that a rule a review finds and its own branch removes does not fire the
 tripwire it would match, is a case of the rule on slips, which the
 standard states as the owner's. So a narrowing or a removal of
-a tripwire changes no ruling of the owner, unlike a head, which can record the owner's intent, per
-`design@agent-skills@head-ground-is-the-argument`. The owner rules only on what the goals and the
-record leave open, per `goal@knowledge-architect@agents-work-without-drift`, and is informed of each
-removal and can overrule it, per `goal@knowledge-architect@the-owner-decides`. The owner named the
+a tripwire changes no ruling of the owner, unlike a head, which can record the owner's choice at a
+fork, per `design@agent-skills@heads-stand-on-argument`. The owner rules only on what the goals and
+the record leave open, per `goal@knowledge-architect@agents-work-without-drift`, and is informed of
+each removal and can contest it with a goal, a fact or an argument, per
+`goal@knowledge-architect@the-owner-decides`. The owner named the
 wording and the small changes of scope of tripwires among the rulings a clearer standard should
 let the session's judgement cover. Of the two shapes that meet these goals, the owner chose that
 the session removes a tripwire a condition excludes wherever it is found, over a split that keeps an

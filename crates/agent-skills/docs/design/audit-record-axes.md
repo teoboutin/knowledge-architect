@@ -41,7 +41,7 @@ outcome is applied in the branch, a deletion included, converted, absorbed, remo
 decision gone, horizon passed or fired, per
 `design@agent-skills@tripwire-stands-on-the-standard`, and the report lists the deletions
 grouped by outcome and, for a removal, by the condition failed, so the owner reads them and
-overrules any. A removal where no condition clearly excludes the entry rests on the owner's weight
+contests any with a goal, a fact or an argument. A removal where no condition clearly excludes the entry rests on the owner's weight
 on a doubt that `design@agent-skills@tripwire-admission-test` states, a failure the owner would see
 anyway: those removals go on the owner list as one group, with a default, per
 `design@agent-skills@audit-outcomes`.

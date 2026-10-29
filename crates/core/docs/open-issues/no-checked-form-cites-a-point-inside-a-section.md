@@ -18,8 +18,8 @@ start, and only a reviewer reading by hand found them.
   primer and the root `CLAUDE.md` a slug, and `design@core@harness-kinds-cited-without-anchor`
   cites them, as `skill@<name>@<slug>`. A level-three heading carries no slug, and a numbered point
   of a list carries none.
-- Citations in words in the installed text, for example: "test 4 included" in
-  `agent@knowledge-architect-decision-record-reviewer`; "A load-bearing gap of point 2" in
+- Citations in words in the installed text, for example: "conditions 1, 3 and 4" of the tripwire
+  standard in `skill@knowledge-architect-planning@acceptance-criteria`; "A load-bearing gap of point 2" in
   `skill@knowledge-architect-planning@working-a-slice`; and "loop step" numbers across
   the design skill, citing the steps of `skill@knowledge-architect-design@discussion-loop`.
 - The case, this repository's agent-configuration-entities milestone: three citations in words

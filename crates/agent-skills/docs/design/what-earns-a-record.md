@@ -4,19 +4,19 @@
 
 ### A decision earns a design head only when an entry test passes `##a-head-is-owed-by-an-entry-test`
 
-A decision earns a head in a design home only when one of the four entry tests of
+A decision earns a head in a design home only when one of the three entry tests of
 `primer@design-heads` passes: reversing it would change an interface others consume, a type or
 a signature crossing a separately built unit, a file format, a document grammar or a command line;
 the same reason must be respected at more than one site, or at none, a name or a path repeated for
 consistency being no reason; its argument turns on the behaviour of something outside the project,
-an external specification or a tool's behaviour, documented or measured; or it records the owner's
-own intent, a ruling an agent could reverse as a small fix or an argument the owner wants kept,
-which the owner confirms when asked, since an approval of the agent's proposal or a hedged
-statement is not intent and only the owner can tell. Every other
+or an external specification or a tool's behaviour, documented or measured. The owner's intent earns
+no head of its own: an intent that states an outcome is drafted as a goal, and an argument the
+owner made earns a head by the three tests, per `design@agent-skills@heads-stand-on-argument`.
+Every other
 decision lives in a comment at its code, a `%%` line for the installed text, and in the commit that
 argued it, where it binds as intent at that scale, per `design@agent-skills@local-intent-binds`.
 For a decision about the installed text, `design@agent-skills@instruction-record-is-minimal` admits
-one case the four tests do not: one that keeps two parts of the workflow consistent.
+one case the three tests do not: one that keeps two parts of the workflow consistent.
 
 The tests keep the decisions recorded few, as long as no critical intent or argument is lost. Every
 grounding reads the design homes whole, and a human overseer reviews them, so each head costs every
@@ -49,17 +49,13 @@ every interface others consume, not only a type or a signature: a head about a g
 format or a command binds every adopting project, and under a strict test 1 such a head enforced in
 one module would pass no test. Test 3 counts a tool's behaviour measured as well as documented: a
 measurement costs as much to take again as a documentation reading to derive again, and a
-documented-only test 3 fails where the documentation is silent. Test 4 is the owner's: on the
-owner's word, an answer of "yes" or "approved" to the agent's question carries no intent of the
-owner and is no ground for a head, since a ruling that grounds one carries the owner's own intent;
-on the owner's word, what the owner says in a discussion of the design skills should not all count
-as the owner's intent, as the owner read a proposed option to make it; the owner
-is asked rather than the agent judging, on the owner's suggestion, which the owner judged more
-reliable; and the questions are numbered, at the owner's request, so that the owner answers
-each without confusion. The agent's own judgement of the owner's intent, its rival, misread a
-hedged proposal as a ruling twice in the session that made the test. Its other rival, any recorded
-ruling of the owner, admits nearly every head harvested from a discussion, since the workflow asks
-the owner to confirm most decisions. Within test 2, "the same statement at more than one site"
+documented-only test 3 fails where the documentation is silent. A fourth test, the owner's own
+intent confirmed when asked, sent an intent to a head; on the owner's argument, an intent that
+states an outcome is a goal, which a goal-setting draft puts to the owner as the test's question
+did, and a preference about a mechanism is an argument or a choice at a fork, so the test admitted
+nothing a goal, an argument or a fork does not hold. Any recorded ruling of the owner as a test, its
+earlier rival, admits nearly every head harvested from a discussion, since the workflow asks the
+owner to confirm most decisions. Within test 2, "the same statement at more than one site"
 admits a path repeated for consistency, which on the owner's word has no reason to change, its
 repetition being basic self-consistency. The wider test 2, "constrains work that has not been
 built", admitted nearly every head under a wide reading and almost none under a narrow one, and the

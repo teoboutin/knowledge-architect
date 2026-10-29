@@ -10,10 +10,11 @@ standing entries included. The work is bounded when it reverses no recorded deci
 decision it makes fails the entry tests, per `design@agent-skills@a-head-is-owed-by-an-entry-test`,
 and no second defensible shape survives the nearest-rival test. The skill then sends one message,
 the proposal with its nearest rival, the strongest open reading set aside, the consequences and the
-default, which it builds, per `design@agent-skills@derived-decision-proceeds-on-default`; an
-argument in the reply returns the work to the loop. The commit that implements it carries the
-proposal and, if one came, the owner's answer, attributed, per
-`design@agent-skills@attribution-replaces-quotation`. What sends a session to this grounding is
+default, which it builds, per `design@agent-skills@derived-decision-proceeds-on-default`; the owner
+stops it, or redirects it with a goal, a fact or an argument, per
+`design@agent-skills@intent-through-goals-not-overrule`, and an argument in the reply returns the
+work to the loop. The commit that implements it carries the proposal and, if one came, the owner's
+answer, recorded by what it brings, per `design@agent-skills@heads-stand-on-argument`. What sends a session to this grounding is
 `design@agent-skills@settled-means-recorded`.
 
 The owner argued that whether a task is bounded work, which does not change the project's design,
@@ -93,13 +94,15 @@ specifies what must be proposed, rather than how a proposal is argued and tracke
 this entry.
 
 No bound is set on how much is proposed either: on the number of threads, of proposals, or of
-rounds. The ground is the owner's: the owner ruled that a bound on what and how much the design
-skill may propose must not be added, since it would go against the core idea of the open design
-discussion the skill tries to encourage. Answering a proposed path that would bound a discussion to
-one decision met during a task, the owner argued, as the owner's opinion, that a discussion that
-starts with one decision should be bounded in neither threads nor rounds, since its size depends
-only on what grounding, investigation and experiment bring, which nobody knows in advance. A bound fixed before the discussion decides its size
-before its content. A path chosen by the cost of reversal, or by where the work lands, changes where the
+rounds. A bound fixed before the discussion decides its size before its content, which depends only
+on what grounding, investigation and experiment bring, and nobody knows in advance; the owner argued
+it, answering a proposed path that would bound a discussion to one decision met during a task. Too
+much structure hinders the agent's freedom to carry investigations of various shapes and to
+challenge and refine proposals, against `goal@knowledge-architect@design-with-agents-as-counterparts`,
+whose exchange is open and argued, and `goal@agent-skills@only-needed-instructions`, under which
+the installed text imposes no count the work does not need. The rival, a bound on threads or rounds
+to save tokens and the owner's attention, buys nothing: the owner can end a discussion at any
+point, and bounded work already gets a single proposal. A path chosen by the cost of reversal, or by where the work lands, changes where the
 deliberation is kept, never how large the discussion may grow.
 
 ### A decision met in any activity goes to the design skill only when it creates a head, contradicts one, or adds a member its argument does not cover `##new-or-reshaped-head-needs-design`
@@ -109,7 +112,8 @@ contradicts a statement of one, its argument included, or adds a member the head
 not cover. An addition that answers another question than the head's takes a head of its own, per
 `design@agent-skills@one-decision-per-head`. A member the head's argument covers is recorded
 directly, routed per `design@agent-skills@extension-follows-the-ground`; an approval the owner gave
-it is recorded in the commit, attributed to the owner, not in the head. A change that relocates or rewords recorded decisions, a split of a head included, and adds or
+it is recorded in the commit, as the session's decision, not in the head, per
+`design@agent-skills@heads-stand-on-argument`. A change that relocates or rewords recorded decisions, a split of a head included, and adds or
 removes none, is not a decision and needs no design skill; the routing and fidelity-of-relocation
 review axes judge that it adds or removes none. A choice that earns no durable text stays in a code
 comment and a commit message.
@@ -185,18 +189,18 @@ stay few, per `design@agent-skills@a-head-is-owed-by-an-entry-test`.
 
 The design this decision did not keep: `rejected@agent-skills@head-split-by-independent-reversal`.
 
-### A member that a head's argument covers is recorded directly, and one that the owner's words name goes to the owner `##extension-follows-the-ground`
+### A member that a head's argument covers is recorded directly, and one that the owner's choice at a fork names goes to the owner `##extension-follows-the-ground`
 
 A new member of a head, which the head's rule admits and its body does not name, is routed by the
 head's ground, as `primer@design-heads` states it. Where the part of the head that admits it stands
-on its argument, and the argument covers the member, it is recorded directly. Where that part's
-ground is the owner's words and they state the rule, the member is within the ruling and is
-recorded directly. Where the owner's words name the members, it goes to the owner as one proposal,
-which owes no reversal. A member the rule does not admit, or the argument does not cover, is a
+on its argument, and the argument covers the member, it is recorded directly. Where that part is a
+choice at a fork, per `design@agent-skills@heads-stand-on-argument`, and its words state the rule,
+the member is within the choice and is recorded directly. Where its words name the members and the
+choice was the owner's, it goes to the owner as one proposal, which owes no reversal. A member the rule does not admit, or the argument does not cover, is a
 change of the decision, per `design@agent-skills@new-or-reshaped-head-needs-design`.
 
 The owner approves an argued decision on its argument, so a member the argument covers is within
-what was approved, and a member the owner's own words enumerate is not, per
+what was approved, and a member the owner's own choice enumerates is not, per
 `goal@knowledge-architect@the-owner-decides`. The head shows its ground, so the route is read from
 the head itself. The nearest rival, routing by the scope of the owner's approval, needs that scope
 found in the history of each head, often over several commits. Sending every new member through
@@ -210,8 +214,9 @@ The design this decision did not keep: `rejected@agent-skills@member-routed-by-a
 
 A head that a change touches is brought, in that change, to the rules of `primer@design-heads` and `skill@knowledge-architect-decision-recording@head-shape`:
 its title to the rule it argues, each decision it bundles to a head of its own, its ground to its
-argument. Where that would widen what the owner's words in it approved, as a title moved from the
-members the owner named to the rule, the change goes to the owner as one proposal.
+argument. Where that would relax what the owner's words in it approved, or turn it from its
+direction, as a title moved from the members the owner named to a rule that admits others, the
+change goes to the owner as one proposal, per `design@agent-skills@transcript-reviewer-agent`.
 
 **Re-pointing a reference in a head does not touch it.** The edit states nothing new in the head,
 and a change that re-points references across the record, as a renamed entry or a migrated

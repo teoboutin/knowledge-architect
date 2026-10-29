@@ -385,12 +385,29 @@ procedure would count as success from one a test, a check, a review or a request
 
 **Fires when:** an issue is opened on a silent failure of a decision, and a commit message or a plan
 document lists the cause of that failure as dropped, or the tripwire watching it as removed, under
-condition 1.
+condition 1, or lists the check that would have caught it as a claim of the step that builds it
+rather than an acceptance criterion.
 **Response:** reopen `design@agent-skills@tripwire-admission-test`, on how condition 1 is worded.
 **Re-entry:** the standing-state review: the issue and the commit are in the tree and the history.
 **Watches until:** the fifth plan document deleted at its landing on the main branch, and the second
 report file of the tripwire axis added under docs/audit-reports/ on the main branch, both counted
 from the commit that writes this line.
+
+## Guarding `design@agent-skills@transcript-reviewer-agent`: a relaxation of the owner's ruling passes as a refinement in its direction `##relaxation-passes-as-refinement`
+
+The decision rests on the premise that the transcript reviewer tells a refinement within a ruling's
+direction from a relaxation of it, so that a check, a claim, a criterion or the scope of the work
+made weaker than the owner approved is still reported, while a stricter or more detailed one is not.
+
+**Fires when:** a check, a claim, a criterion or a scope of work found on the main branch is weaker
+than a ruling of the owner approved, and the last transcript review of the branch that merged it
+read the change as a refinement or did not report it, at instances in two separate pieces of work.
+**Response:** reopen `design@agent-skills@transcript-reviewer-agent` on how the reviewer's text
+words a relaxation, with the instances.
+**Re-entry:** the retrospective of each session whose branch the transcript reviewer read, and the
+standing-state review, which reads the issue an owner's report of such a weakening opens.
+**Watches until:** the fifth plan document deleted at its landing on the main branch, counted from
+the commit that writes this line.
 
 ## Guarding `design@agent-skills@code-change-reads-its-record`: a session that held the subsection still proposes a fix past a head of its code's record that it did not read `##fix-proposed-past-an-unread-head`
 
