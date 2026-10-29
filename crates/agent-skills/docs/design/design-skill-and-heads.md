@@ -133,8 +133,6 @@ written, is part of the fragment on what earns a head: the primer hosts it, so i
 session at every reading of a head, and the decision-recording skill, loaded before any write into a
 design home per `design@agent-skills@design-home-write-loads-recording`, hosts it at the moment of
 writing, per `design@agent-skills@one-home-for-head-rules`.
-`tripwire@agent-skills@head-created-without-deliberation` watches whether they reach a session in
-time.
 
 The design this decision did not keep: `rejected@agent-skills@every-decision-through-design-skill`.
 

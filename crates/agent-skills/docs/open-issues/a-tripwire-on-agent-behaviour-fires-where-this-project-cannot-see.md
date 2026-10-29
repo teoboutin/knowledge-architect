@@ -33,7 +33,7 @@ The instances, in `register@agent-skills@tripwire`:
   recorded here as one more instance. The retrospective's standing question on references written without backticks,
   per `design@agent-skills@premortem-as-watch-points`, is the one channel that carries such a gap
   to this repository.
-- The premortem of `design@agent-skills@settled-means-recorded` named two causes of agent behaviour
+- The premortem of the work that built `design@agent-skills@settled-means-recorded` named two causes of agent behaviour
   whose evidence is only in sessions: the paragraph that opens the primer's list of installed skills
   not recalled at the moment it binds, and a plugin's skill loaded in place of an installed one. Both
   were dropped as tripwires, the owner seeing them while carrying work.
@@ -49,8 +49,8 @@ the tripwires whose evidence is in a session's transcript are read by no step of
 standing-state reviewer reads them, and has no transcript. One of them fired on the branch that
 opened this entry, and was judged only because that branch's transcript reviewer raised it as an
 item with no outcome. Its replacement guarding
-`design@agent-skills@new-or-reshaped-head-needs-design` reads its evidence from the commit history,
-which the standing-state reviewer holds.
+`design@agent-skills@new-or-reshaped-head-needs-design` read its evidence from the commit history,
+which the standing-state reviewer holds, and left when its horizon passed unfired.
 
 A session of a consumer project that meets the firing evidence reaches this repository only if its
 owner runs the retrospective and sends the workflow's file as an issue.

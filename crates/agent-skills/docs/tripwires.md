@@ -18,31 +18,6 @@ main branch with no review reporting it.
 **Watches until:** three commits on the main branch that add analyses of received retrospective
 files under docs/retrospective-reports/, counted from the commit that writes this line.
 
-## Guarding `design@agent-skills@new-or-reshaped-head-needs-design`: a head is created, contradicted or given a member its argument does not cover with no deliberation recorded `##head-created-without-deliberation`
-
-The decision rests on the premise that the design skill's description and the backstop, which the
-primer hosts and the decision-recording skill, loaded before any write into a design home per
-`design@agent-skills@design-home-write-loads-recording`, hosts again, reach a session before it
-writes a decision that creates a head, contradicts one, or adds a member its argument does not
-cover.
-
-**Fires when:** a commit on the main branch creates a design head, contradicts a statement of one,
-or adds to it a member its argument does not cover, and neither its message nor a plan document
-carries the deliberation: no thread, no rival, and no record of the owner's ruling where the owner
-ruled; or reviews of two separate branches each report such a commit of their branch. A relocation
-or rewording that adds or removes no decision does not count. The instances that
-`issue@agent-skills@a-member-recorded-directly-lies-beyond-its-head-s-argument` records do not
-count: they are that issue's.
-**Response:** open a `defect` naming the head and the commit, and reopen
-`design@agent-skills@new-or-reshaped-head-needs-design` on where its trigger is delivered; for a
-member beyond the argument, with the rival that sends every decision earning durable text through
-the design skill among the candidates.
-**Re-entry:** the standing-state review before every merge: the commits and their messages are in
-the branch's history.
-**Watches until:** 20 commits on the main branch that add a level-three heading to a design home.
-A commit whose added level-three heading lines are all lines it also removes, a relocation, is
-not counted.
-
 ## Guarding `design@agent-skills@in-change-path`: a ruling lost or misstated in an in-change commit message `##ruling-lost-in-change`
 
 The decision rests on the premise that a commit message records the owner's rulings as the owner
@@ -469,19 +444,20 @@ files.
 **Watches until:** ten commits on the main branch that change
 `path@agent-skills@content/PRIMER.md`, counted from the commit that writes this line.
 
-## Guarding `design@agent-skills@settled-means-recorded`: a proposal of the owner built with no grounding, on an exception read too widely `##owner-proposal-built-ungrounded`
+## Guarding `design@agent-skills@settled-means-recorded`: a proposal of the owner built with no grounding `##owner-proposal-built-ungrounded`
 
-The decision rests on the premise that a session takes as an exception only a record it can look at
-that states what the owner asks for or proposes, or a change that decides nothing, and not a head that
-sits near the subject.
+The decision rests on the premise that a session sent by the condition loads the design skill
+before it builds a change the owner asks for or proposes, and takes as an exception only a record it
+can look at that states what the owner asks for or proposes.
 
 **Fires when:** a commit on the main branch builds a change its message attributes to the owner's
-request or proposal, and neither its message nor a plan document records the design skill's
-grounding, the entries it read and those it left unread, nor names the exception that settled the
-change, in two separate pieces of work, or once with no review reporting it. A change that decides
-nothing does not count.
-**Response:** reopen `design@agent-skills@settled-means-recorded` on its exceptions, with
-`rejected@agent-skills@design-load-unconditioned` among the candidates.
+request or proposal, which no plan document, outcome the owner ruled, design head or failing test
+states and which decides something, and neither its message nor a plan document records the design
+skill's grounding, the entries it read and those it left unread; in two separate pieces of work, or
+once with no review reporting it.
+**Response:** reopen `design@agent-skills@settled-means-recorded` on its exceptions and on how its
+condition reaches a session, with `rejected@agent-skills@design-load-unconditioned` among the
+candidates.
 **Re-entry:** the standing-state review before every merge: the commits and their messages are in
 the branch's history.
 **Watches until:** two release tags on the main branch, counted from the commit that writes this line.

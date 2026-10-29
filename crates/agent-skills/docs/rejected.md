@@ -130,9 +130,9 @@ grounding of every slice. That cannot be derived again in one discussion round.
 decision, to a full discussion whose outcome the head already records; the owner ruled such a change
 does not need one, and every new member through the design skill cost a reversal for an ordinary
 extension, per `design@agent-skills@title-states-the-rule`. It is kept here because a doubt remains:
-`tripwire@agent-skills@head-created-without-deliberation` watches whether a session adds to a head a
-member its argument does not cover, with no deliberation, and this alternative is a candidate if it
-does.
+sessions have added to a head members its argument did not cover, with no deliberation, which
+`issue@agent-skills@a-member-recorded-directly-lies-beyond-its-head-s-argument` records, and this
+alternative is a candidate where that recurs.
 
 ### One agent reading every issue and tripwire of the project for a piece of work `##one-agent-reads-every-standing-entry`
 
@@ -585,7 +585,7 @@ the primer needs; the count and its command are in `design@agent-skills@term-def
 so it fires only in a session that already holds the skill's rule that an owner's proposal is a
 claim to test. The two cloud sessions read for `design@agent-skills@settled-means-recorded` built
 the owner's requests without loading the skill under this trigger; what they judged is not
-observed, since their reasoning is redacted in their transcripts.
+observed, since their reasoning is mostly redacted in their transcripts.
 
 ### The design skill loaded before every change the owner asks for, with no exception `##design-load-unconditioned`
 
