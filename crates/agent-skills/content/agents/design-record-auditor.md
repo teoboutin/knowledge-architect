@@ -116,7 +116,7 @@ order. `{{command}} model` prints every heading and slug definition with its fil
 - judge the head against every rule of `agent@knowledge-architect-design-record-auditor@design-head-rules`: what earns a head, the
   owner's intent sent to a goal included;
   the standing argument and the ground; the title tests; one decision per head; the slug, its level
-  and its alignment; present tense; and fidelity to what the owner approved. A head that argues
+  and its alignment; present tense; and fidelity to what the owner approved, read by its direction. A head that argues
   from a goal's words without naming the goal is the common miss of the standing argument;
 - judge the Component the head sits in by the questions of `agent@knowledge-architect-design-record-auditor@record-rules`. A head those questions place in
   another Component fails, and its draft names the Component they place it in;

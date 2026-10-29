@@ -411,9 +411,7 @@ The owner's explicit word closes a fork; on a thread with one shape
 standing, it confirms the closure on its argument, or contests it with a
 goal, a fact or an argument. A word given during the discussion ("drop
 the polling idea") counts, at a fork or with a reason that survives the
-challenge; no particular phrasing is required. A word that reopens a
-closed thread decides nothing: a new pick at the same fork needs a goal,
-a fact or an argument, a new weighing the owner states included. Their word closes what it names:
+challenge; no particular phrasing is required. Their word closes what it names:
 a word that points at the ledger ("build it as the table says")
 closes the table's contents. A word that requires interpretation — a
 blanket positive ("sounds good", "all fine"), a sentence that may or
@@ -494,9 +492,11 @@ it; **unmet-and-accepted**, which needs the owner's word naming that
 criterion rather than a blanket confirmation; or **unmet**.
 `unmet-and-accepted` is available to a WEIGHED criterion only. A
 binding criterion that is unmet blocks convergence, and no word
-waives it in place: the moves are to change the proposal, or for the
-owner to demote the criterion to weighed — a change to the criterion,
-recorded as one. A criterion derived from a goal is demoted only by
+waives it in place: the moves are to change the proposal, or to demote
+the criterion to weighed — a change to the criterion, recorded as one,
+which a criterion stated in the discussion takes on the owner's word,
+and one derived from a decision only once that decision is reversed. A
+criterion derived from a goal is demoted only by
 changing the goal, under `skill@knowledge-architect-goal-setting`. Were acceptance available to both
 kinds, binding and weighed would differ only in how much ceremony the acceptance takes.
 
@@ -511,7 +511,9 @@ produced one — rather than silently carried.
 
 **Reopening — closed is not frozen.** This rule is the single owner
 of the novelty test. The owner reopens a closed thread by their word
-alone. You reopen one with a new argument or new evidence named, as a
+alone. The reopening decides nothing: a new pick at the same fork needs
+a goal, a fact or an argument, a new weighing the owner states
+included. You reopen one with a new argument or new evidence named, as a
 material finding — the material-findings protocol (`skill@knowledge-architect-design@decision-authority`)
 owns the mechanics.
 The record arbitrates novelty: an alternative counts as

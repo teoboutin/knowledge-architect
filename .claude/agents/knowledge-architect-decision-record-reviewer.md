@@ -239,9 +239,10 @@ finding.
 
 **A head written from a decision the owner approved is read against that approval before it is
 written.** The title and the body state the position as the owner saw it, in a plan document's
-thread or in the discussion of the in-change path. A clause that widens it, narrows it, or drops
-part of it can still be false of the nearest rival, and is still not what was approved: it goes to
-the owner, as a change of the decision.
+thread or in the discussion of the in-change path. The approval is read by its direction: a clause
+that relaxes it, drops part of it or turns it can still be false of the nearest rival, and is still
+not what was approved: it goes to the owner, as a change of the decision. A refinement within its
+direction, stricter, more detailed or reworded, is the head's to state.
 
 **The slug and the title stay aligned with the full scope of the decision**: the slug is often the
 only part a reader sees, in a citing document or in code, and the title is what a document outline
@@ -252,8 +253,9 @@ decision it names, so rename it even when that means rewriting every reference i
 to the rule it argues, each decision it bundles to a head of its own, its ground to its argument. Re-pointing a
 reference in a head, to a renamed entry or a migrated form, does not touch it; adding or removing
 one does. Where bringing it
-to the rule would widen what the owner's words in it approved, as a title moved from the members
-the owner named to the rule, the change goes to the owner as one proposal, as a new member does.
+to the rule would relax or turn what the owner's words in it approved, as a title moved from the
+members the owner named to a rule that admits others, the change goes to the owner as one proposal,
+as a new member does.
 
 ### When a subject is split
 
@@ -455,7 +457,7 @@ rather than by slug.
 the whole section: what earns a head, the owner's intent sent to a goal included; the standing
 argument and the ground; the
 title tests; one decision per head; the slug, its level and its alignment; present
-tense; fidelity to what the owner approved; and the backstop, for a decision that should have gone
+tense; fidelity to what the owner approved, read by its direction; and the backstop, for a decision that should have gone
 to the design skill.
 A head that argues from a goal's words without naming the goal is the common miss of the standing
 argument. The owner's ground a head attributes is read in its source, against the question it

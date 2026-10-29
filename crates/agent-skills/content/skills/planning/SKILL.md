@@ -338,8 +338,10 @@ by the agent, and a rewording is listed in the turn's "Decided" section, per
 its test, which the spec-conformity review judges. It is no criterion, since a review or a test
 already reports it.
 
-A number in a criterion carries its basis. A threshold the agent proposes is the session's, and
-one the owner sets is the owner's choice, as `primer@design-heads` records either.
+A number in a criterion carries its basis. Where the basis leaves a range of values, the choice
+among them is a fork: the session lists its value under the defaults awaiting the owner, and
+`primer@design-heads` records the owner's approval of it as the session's choice, and a value the
+owner sets as the owner's.
 
 - **At each landing**, the messages of the commits that land it report on every criterion judged
   there, one line each, naming it as #<id> beside a citation of the whole plan, since a commit
@@ -412,8 +414,8 @@ design the gap defeats.
      requires, per `primer@branch-commits`, the amended documents land in that change's commit
      instead, and its message carries the audit's subject and list. Earlier audits are found with
      `git log --grep='design audit'`.
-     **An answer that widens or narrows a ruling of the owner, or adds an obligation to one, is a
-     scope change even when it is the one answer the document implies.** It is applied with the
+     **An answer that relaxes a ruling of the owner, or turns it from its direction, is a scope
+     change even when it is the one answer the document implies.** It is applied with the
      others, and also listed in the milestone document as a default awaiting the owner. A premise
      the session supplied to such a default is checked before the owner rules on it, per
      `primer@owner-word-premise`.
@@ -523,8 +525,8 @@ these four:
   reporting one the work meets. A conflict with a goal goes to the owner.
 - `agent@knowledge-architect-transcript-reviewer` reads the discussion's transcripts and checks that
   everything the discussion established that must outlive it is in the document or has another
-  durable outcome, and that no ruling of the owner is recorded wider, narrower or in another state
-  than the owner gave it. Dispatch it on every assembled document, in the batch or alone and last
+  durable outcome, and that no ruling of the owner is recorded reversed, relaxed or turned from its
+  direction. Dispatch it on every assembled document, in the batch or alone and last
   as `skill@knowledge-architect-review@review-axes` says, and name in its brief the sessions the
   assembly read, with the message where the discussion begins in each.
 
@@ -539,13 +541,12 @@ default that `primer@question-authority` gives the owner, a fork among them, is 
 defaults awaiting the owner, with the thread it bears on and a label, `D<n>`, numbered as
 `primer@labelled-items` says. A ruled default stays in that list,
 marked as ruled, with its label, since the sections it was written into cite it by its label. A
-finding that is a gap with one answer is applied in place, except that **a gap whose one answer widens
-or narrows a ruling of the owner, or adds an obligation to one, is a scope change**, as at the
-design audit. A finding that is wrong is dropped, with
-the reproduction that showed it wrong kept in the commit message. A scope change, a clause that
-widens or narrows a ruling or adds an obligation to it, is put to the owner, listed under the
-defaults awaiting the owner. Detail the author added
-inside the scope of a ruling, and a wording better than the one the owner was shown, are no
+finding that is a gap with one answer is applied in place, except that **a gap whose one answer
+relaxes a ruling of the owner, or turns it from its direction, is a scope change**, as at the design
+audit. A finding that is wrong is dropped, with
+the reproduction that showed it wrong kept in the commit message. A scope change is put to the
+owner, listed under the defaults awaiting the owner. A refinement within a ruling's direction,
+stricter, more detailed or reworded, and a wording better than the one the owner was shown, are no
 findings.
 
 **The readiness checks**, applied by the author before dispatch and by the cold implementer after.
