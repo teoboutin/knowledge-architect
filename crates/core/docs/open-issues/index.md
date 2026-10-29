@@ -1,6 +1,6 @@
 **Generated — do not edit.** `cargo klarch index`
 
-42 entries
+43 entries
 
 | kind | title |
 | --- | --- |
@@ -44,5 +44,6 @@
 | todo | [No command lists the texts that cite any of a set of entries, nor names the entry that holds each citation](no-command-lists-the-standing-entries-citing-a-set-of-entries.md) |
 | todo | [References are read in Markdown and Rust files only](references-are-read-in-markdown-and-rust-only.md) |
 | todo | [The documents do not yet render as one linked site](the-documents-do-not-render-as-a-site.md) |
+| todo | [The transcript reader does not know three kinds of line that harness version 2.1.312 writes](the-transcript-reader-does-not-know-three-kinds-of-harness-version-2-1-312.md) |
 | todo | [The walk does not report the untracked files git's per-clone exclude file removes from it](the-walk-does-not-report-what-the-per-clone-exclude-file-removes.md) |
 | todo | [The checker does not read the structure of a project's own skills](tooling-for-project-skills.md) |
