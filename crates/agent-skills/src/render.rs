@@ -277,7 +277,7 @@ pub(crate) fn source_view(
 /// The leading spaces and the file name of `bare`, a line without its line break, if it is a
 /// fragment placeholder: `{{fragment:<file>}}` after spaces alone, closed at the end of the line.
 /// The fragment pass and the source view both read placeholders through it, so the view inlines
-/// the lines the build inlines.
+/// the lines the build inlines, per `design@agent-skills@one-placeholder-reader-per-kind`.
 pub(crate) fn fragment_placeholder(bare: &str) -> Option<(&str, &str)> {
     let trimmed = bare.trim_start_matches(' ');
     let name = trimmed.strip_prefix(FRAGMENT)?.strip_suffix("}}")?;

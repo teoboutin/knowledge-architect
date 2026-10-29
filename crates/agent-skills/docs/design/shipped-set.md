@@ -63,6 +63,18 @@ shipped workflow to one harness, against `goal@agent-skills@installed-text-works
 review of a changed fragment reads it in every host, since a sentence true in one host's context
 can be false in another's, as two sentences of the first fragments were.
 
+### The build's passes and the source view read each kind of placeholder through one reader `##one-placeholder-reader-per-kind`
+
+A fragment placeholder is read by `fragment_placeholder` and a snippet placeholder by
+`snippet_placeholder`, both of `path@agent-skills@src/render.rs`, and every text that reads one
+calls its reader: the fragment pass, `render_fragments`; the snippet pass of
+`path@agent-skills@build.rs`; and the source view, `source_view`, which
+`design@xtask@source-view-in-the-tool` prints. The view then inlines exactly the lines the build
+inlines, so a maintainer reading it reads what ships. The rival, a reading of the grammar written
+again at each site, drifts with no test failing: at the review of the view's first version, a
+mutant of its own reading that also took a tab-indented placeholder, or one followed by a space,
+passed every test, while the build ships both lines as written.
+
 ### The setup skill's blocks for a Rust project are snippets that a test checks and `klarch init --rust` writes `##rust-templates-one-home`
 
 Each block `skill@knowledge-architect-setup@rust-project` shows is a file of

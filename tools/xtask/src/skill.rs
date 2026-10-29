@@ -20,7 +20,8 @@ use std::path::{Path, PathBuf};
 use std::process::ExitCode;
 
 // The build's own file, so the view reads placeholders through the readers the build's passes
-// use, per `design@xtask@passes-included-not-exported`. The source view and the placeholder
+// use, per `design@agent-skills@one-placeholder-reader-per-kind`, included rather than exported
+// per `design@xtask@passes-included-not-exported`. The source view and the placeholder
 // constants serve here; the rest of the file is the build's.
 #[path = "../../../crates/agent-skills/src/render.rs"]
 #[allow(dead_code)]

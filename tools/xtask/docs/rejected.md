@@ -11,8 +11,8 @@ the view reads is this repository's alone. Such a command would either read the 
 checkout, and find none in any other project, or embed every source with its `%%` comments, which
 cite entries no other project holds, in every published binary.
 
-### The source view exported from the agent-skills library `##passes-exported-from-the-library`
+### The source view exported from the agent-skills library `##source-view-exported-from-the-library`
 
-`live`. An export joins the library API of a published crate, a surface whose every change the
-versioning policy classes and the changelog announces to consumers, for a function no consumer
-calls. The `#[path]` include gives the tool the same readers with no such surface.
+`live`. An export joins the library API of a published crate, a surface whose every change
+`design@knowledge-architect@versioning-policy` classes and `design@knowledge-architect@changelog-entries`
+announces to consumers, for a function no consumer calls. The `#[path]` include gives the tool the same readers with no such surface.
