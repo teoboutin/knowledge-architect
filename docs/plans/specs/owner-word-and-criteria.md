@@ -14,7 +14,14 @@ The two goals it reworded are written in the branch's first commit, "[goals] The
 decision through a goal, a fact or an argument, and meets in an exchange what the goals and the
 record leave open". After the plan reviews, the same session put six defaults to the owner, D1 to
 D6, and refined `thread@owner-word-and-criteria@heads-stand-on-argument` on the owner's argument, in
-rounds 12 to 14; "Defaults awaiting the owner" records them.
+rounds 12 to 14; and, after a second plan review, D7 and D8, in rounds 15 and 16. "Defaults
+awaiting the owner" records them.
+
+The work changes the Component `agent-skills`, its installed text and its design record; the goals
+it rests on are the project root's. A marker `L<n>` is a line of the session's transcript file, the
+numbering `cargo klarch transcript show <session> --full` prints, `<session>` being the session that
+`cargo klarch transcript list --containing "About AC2: Actually, I believe there might be a problem"`
+lists.
 
 ## How the work is done
 
@@ -35,7 +42,10 @@ gives the work of a spec its points.
 | a step claim | a claim of a step of a plan document, with the test that could refute it, per `skill@knowledge-architect-planning@cutting-steps-and-slices` |
 | the residual fork | a choice the argument leaves open, which no goal ranks: a true fork, a threshold the owner sets, a local cost the owner accepts with no argument that weighs it |
 | the weak form | a head's record of a choice made at a fork, "the owner chose X over Y, which no goal ranks", which an argument or a fact the fork's record does not hold, and that ranks the shapes, reopens without the owner |
-| D1 to D6 | the defaults the plan reviews raised, in "Defaults awaiting the owner" |
+| D1 to D8 | the defaults the plan reviews raised, in "Defaults awaiting the owner" |
+| the counterparts goal | `goal@knowledge-architect@design-with-agents-as-counterparts` |
+| AC2, AC4, Q3, option C | labels of items the owner ruled on, quoted from the transcript: AC2 an acceptance criterion of the earlier branch, AC4 the convergence criterion of the work that made the agentic-workflow audit axis, Q3 a default of the earlier branch, option C the owner's first option of round 6 |
+| the earlier branch | the branch merged as "The installed workflow loads its skills on its own" |
 | the overrule | the owner's power, in the goal before this branch, to "overrule any of them, at any time and for any reason" |
 
 ## What the work is
@@ -53,7 +63,7 @@ grep -rn -i -E "head's ground|weighing the owner made|ruling on intent|chose whe
 Acceptance criteria:
 
 - **The design skill**:
-  - its overview (line 38) ends at "the owner's rulings on its acceptance criteria";
+  - its overview (lines 38-39) ends at "the owner's rulings on its acceptance criteria";
   - the in-change path's record (lines 140-152) carries "the owner's rulings on acceptance
     criteria", and nothing is committed "before it has run and the owner has ruled on its
     acceptance criteria";
@@ -61,8 +71,10 @@ Acceptance criteria:
     rulings";
   - loop step 7 (lines 620-640) routes "a cause that only the built code can check" to an acceptance
     criterion, and asks the owner, for each one, whether it is applied, under a label `AC<n>`.
-- **The planning skill**, at lines 3, 17-18, 39, 46, 174-178, 217-220, 300-306, 331-338, 348-349
-  ("A number in a criterion is a threshold the owner sets"), 451, 521, 563 and 584:
+- **The planning skill**, at lines 3, 17-18, 39, 46, 174-178, 217-220, 300-306, 312, 331-344,
+  345-346 ("A number in a criterion is a threshold the owner sets"), 352-361 (the firing and leaving
+  rules), 451, 521, 563-564 and 584. Lines 451, 521 and 563 change only where they name the owner's
+  ruling or the response:
   - its terms and the `skill@knowledge-architect-planning@spec-contents` rows (Premortem, Acceptance
     criteria, Defaults awaiting the owner);
   - its section `skill@knowledge-architect-planning@acceptance-criteria` ("An acceptance criterion
@@ -124,9 +136,9 @@ The ground of a head, and how the owner's words are read:
   - the decision-record reviewer (line 109) and the design-record auditor (line 118) judge "fidelity
     to what the owner approved";
   - the transcript reviewer's description (line 3), its section
-    `agent@knowledge-architect-transcript-reviewer@check-recorded-rulings` (lines 104-118), with a
+    `agent@knowledge-architect-transcript-reviewer@check-recorded-rulings` (lines 91-110), with a
     ruling's scope "not wider, not narrower, and with no obligation added that the owner did not
-    rule", and its severities.
+    rule" at 104-106, and its severities in `agent@knowledge-architect-transcript-reviewer@how-to-report` (lines 111-125).
 - **The planning skill**, lines 526-528: the transcript review checks that "no ruling of the owner is
   recorded wider, narrower or in another state".
 - **The retrospective skill**, lines 103-106: "A ruling of the owner recorded a little wider,
@@ -142,6 +154,28 @@ The ground of a head, and how the owner's words are read:
   - `primer@owner-word-premise` (line 58), "A ruling on intent";
   - `primer@intent-and-claims` (line 94), a reversal goes to the owner "where reversing it is a
     fork or the head's ground is the owner's".
+
+**Further sites, found by the second plan review**, each with its target in "Decided design":
+
+- the design skill: loop step 4's routing of an assumption to a criterion (lines 553-556), loop
+  step 8's rulings on criteria (lines 650-653), and the bounded path's "unless the owner answers
+  otherwise" (lines 194-195);
+- the expectation set's "the owner's answer stops or redirects it" (line 177), and the README's
+  lines 12, 141 and 173, and its whole restatement of the set (lines 176-215, "You say why when you
+  reject something" at 190-194);
+- the project-audit skill's outcome table (lines 201-202), "a widening of what the owner's words
+  approved";
+- head-shape.md lines 79-82, "would widen what the owner's words in it approved";
+- `primer@intent-and-claims` line 90, "its argument or the owner's ground undefeated";
+- "test 4 included" in the decision-record reviewer (line 106) and the design-record auditor
+  (line 116);
+- the tripwire standard's six hosts: the design (line 644), planning (365), decision-recording
+  (120) and issue-tracking (194) skills, the decision-record reviewer (146) and the tripwire
+  auditor (71).
+
+The design skill's lines 372 and 383-384, a weighed criterion's cost "the owner rules on" and
+`unmet-and-accepted`, stay: a cost the owner accepts is the owner's choice at a fork, recorded in
+its weak form by the table.
 
 **Outside the work:**
 
@@ -164,8 +198,9 @@ The ground of a head, and how the owner's words are read:
 
 - `design@agent-skills@tripwire-admission-test`: its conditions 1, 3 and 4 become the standard a
   criterion meets.
-- `design@agent-skills@questions-go-to-their-authority`: what the owner answers is unchanged; how
-  the answer is recorded changes. Whether agents merge stays each project's.
+- `design@agent-skills@questions-go-to-their-authority`: what the owner answers is unchanged, but
+  for the list of facts the work rewrites; how the answer is recorded changes. Whether agents merge
+  stays each project's.
 - `design@agent-skills@behaviour-additions-need-real-use`: the evidence is the history of fired
   criteria and the owner's reports in this session.
 - `design@agent-skills@default-ruled-before-merge`: a question put to the owner with a built
@@ -184,7 +219,7 @@ The ground of a head, and how the owner's words are read:
 | `design@agent-skills@acceptance-criterion-quality` | rewritten: conditions 1, 3 and 4 | `thread@owner-word-and-criteria@criteria-test-silent-premises` |
 | `design@agent-skills@acceptance-criteria-in-the-document` | its firing response rewritten: a firing opens a discussion with the owner | `thread@owner-word-and-criteria@criterion-ruled-at-reopening` |
 | `design@agent-skills@design-hands-off-to-planning`, `design@agent-skills@in-change-path` | no rulings on acceptance criteria | `thread@owner-word-and-criteria@criterion-ruled-at-reopening` |
-| `design@agent-skills@ruled-items-labelled` | its `AC` row leaves | `thread@owner-word-and-criteria@criterion-ruled-at-reopening` |
+| `design@agent-skills@ruled-items-labelled` | its `AC` row leaves, and test 4's questions leave its `Q` row | `thread@owner-word-and-criteria@criterion-ruled-at-reopening` |
 | `design@agent-skills@head-ground-is-the-argument` | rewritten: the table, and a fork's choice recorded in its weak form | `thread@owner-word-and-criteria@heads-stand-on-argument` |
 | `design@agent-skills@a-head-is-owed-by-an-entry-test` | test 4 sends an intent to a goal | `thread@owner-word-and-criteria@heads-stand-on-argument` |
 | `design@agent-skills@unargued-approval-is-argued` | the tie's choice is a fork's choice, in its weak form | `thread@owner-word-and-criteria@heads-stand-on-argument` |
@@ -194,7 +229,9 @@ The ground of a head, and how the owner's words are read:
 | `design@agent-skills@owner-rules-at-a-fork` | the owner's word closes a fork, and contests any closure by a goal, a fact or an argument; no overrule | `thread@owner-word-and-criteria@intent-through-goals-not-overrule` |
 | `design@agent-skills@derived-decision-proceeds-on-default`, `design@agent-skills@tripwire-recording-authority`, `design@agent-skills@tripwire-stands-on-the-standard`, `design@agent-skills@tripwire-audit-axis`, `design@agent-skills@decisions-reported-to-the-owner` | "overrules" becomes "contests by a goal, a fact or an argument" | `thread@owner-word-and-criteria@intent-through-goals-not-overrule` |
 | `design@agent-skills@transcript-reviewer-agent`, `design@agent-skills@misstated-ruling-rated-by-what-it-changes`, `design@agent-skills@only-a-head-changing-repair-is-reviewed-again`, `design@agent-skills@one-home-for-head-rules` | a ruling is read by its direction, in every text that judges fidelity to an approval | `thread@owner-word-and-criteria@ruling-read-by-its-direction` |
-| `design@agent-skills@expectation-set-bounds-scope` | unchanged; the README's restatement of the set follows step 2 | `thread@owner-word-and-criteria@intent-through-goals-not-overrule` |
+| `design@agent-skills@questions-go-to-their-authority` | its list "a fact only the owner holds, such as an intent, a plan or a weighing" | `thread@owner-word-and-criteria@heads-stand-on-argument` |
+| `design@agent-skills@bounded-path-in-design` | the owner's answer is recorded by what it brings, and a redirect comes with a goal, a fact or an argument | `thread@owner-word-and-criteria@intent-through-goals-not-overrule` |
+| `design@agent-skills@audit-outcomes` | a widening of the owner's words is read by its direction | `thread@owner-word-and-criteria@ruling-read-by-its-direction` |
 
 **The texts that cite each decision the work reverses or rewrites**, by `cargo klarch show`, this spec
 excluded. Each is read at the step that edits it, or at step 6:
@@ -223,6 +260,12 @@ excluded. Each is read at the step that edits it, or at step 6:
 | `design@agent-skills@misstated-ruling-rated-by-what-it-changes` | `register@agent-skills@tripwire` |
 | `design@agent-skills@only-a-head-changing-repair-is-reviewed-again` | `path@agent-skills@docs/design/reviews.md` |
 | `design@agent-skills@one-home-for-head-rules` | `path@agent-skills@docs/design/design-skill-and-heads.md`, `path@agent-skills@docs/design/how-installed-text-changes.md`, `path@agent-skills@docs/design/project-configuration.md`, `path@agent-skills@docs/design/shipped-set.md`, `path@agent-skills@fragments/head-entry-tests.md`, `path@agent-skills@fragments/head-ground.md`, `path@agent-skills@fragments/head-shape.md` |
+| `design@agent-skills@questions-go-to-their-authority` | `path@agent-skills@docs/design/audit-method.md`, `path@agent-skills@docs/design/owner-and-intent.md`, `path@agent-skills@docs/design/project-configuration.md`, `path@agent-skills@docs/open-issues/a-criterion-derived-from-a-decision-binds-until-the-owner-says-otherwise.md`, `path@agent-skills@docs/open-issues/a-head-in-the-wrong-component-goes-to-the-owner-though-the-record-settles-the-component.md`, `path@agent-skills@docs/open-issues/patching-an-installed-skill.md`, `register@agent-skills@rejected`, `register@agent-skills@tripwire` |
+| `design@agent-skills@bounded-path-in-design` | `path@agent-skills@docs/design/design-skill-and-heads.md`, `path@agent-skills@docs/design/record-search.md`, `path@agent-skills@docs/open-issues/an-issue-s-re-entry-point-is-read-by-no-review.md`, `path@agent-skills@docs/open-issues/the-open-space-test-may-admit-every-problem.md`, `register@agent-skills@tripwire` |
+| `design@agent-skills@audit-outcomes` | `path@agent-skills@docs/design/audit-record-axes.md`, `path@agent-skills@docs/design/audit-workflow-axis.md`, `path@agent-skills@docs/design/how-installed-text-changes.md`, `path@agent-skills@docs/design/retrospective.md`, `path@agent-skills@docs/open-issues/a-head-in-the-wrong-component-goes-to-the-owner-though-the-record-settles-the-component.md`, `path@agent-skills@docs/open-issues/an-upstream-finding-stays-in-every-later-old-text-count.md`, `register@agent-skills@rejected`, `register@knowledge-architect@design` |
+
+`design@agent-skills@expectation-set-bounds-scope` is unchanged: the README restates the expectation
+set, as the head says, and step 2 edits that restatement with the set.
 
 Two mentions of the overrule stay as they are:
 
@@ -238,8 +281,13 @@ Tripwires and issues whose clauses depend on a rewritten head:
   at step 6 against the rewritten head.
 - `tripwire@agent-skills@record-answered-questions-reach-the-owner`: its premise cites the same head
   for the owner's observation. It is reread at step 6 against the rewritten head.
+- `tripwire@agent-skills@silent-read-too-widely`: the work gives condition 1 a new use, routing a
+  check to a criterion or a step claim. At step 6 its firing clause is widened to count a premise
+  check routed to a step claim under condition 1, the reverse failure premortem cause 5 names.
+- `tripwire@agent-skills@a-shortcut-decision-earns-a-head`: its clause "passes an entry test" is
+  reread at step 6 against the three tests that remain.
 - `issue@agent-skills@an-approved-default-is-attributed-to-the-owner-and-the-agent-records-no-decision-of-its-own`
-  closes. Its second case, that
+  closes. Its first case, an approval of a default put as a fork, is answered by D7. Its second case, that
   `skill@knowledge-architect-decision-recording@when-recording-happens` writes a default awaiting
   the owner into a head once the owner rules, stays as it is: the owner's ruling decides when the
   head is written, not what it stands on.
@@ -300,9 +348,9 @@ Graded `bears`, read whole:
 | `design@agent-skills@admission-rules-home` | constrains | every edit S1-S3 make to the planning, design and review skills is written and judged under `skill@knowledge-architect-agent-configuration@admission-standard`, which this head makes the one home. | unchanged: a constraint the steps meet |
 | `design@agent-skills@answer-keeps-its-authority` | constrains, may change | States 'a decision the owner made is recorded as the owner's and every other decision on its own ground'; shape D adds a case of the same kind (an approved default recorded as the session's decision) and could widen this head or need a sibling. | unchanged: the table's row "a reading of a source" applies it |
 | `design@agent-skills@attribution-replaces-quotation` | constrains, may change | an attribution "keeps the scope and the hedges of the words" and is checked by the transcript reviewer; E's lighter reading of the owner's word and D's rule on what is attributed to the owner must respect or change that check. | unchanged: a fork's choice is still attributed, never quoted |
-| `design@agent-skills@audit-outcomes` | constrains, may change | it routes "An approval cited as a head's ground is removed in the branch where the head stands on its argument" and sends "A widening of what the owner's words approved" to the owner, citing `goal@knowledge-architect@the-owner-decides`; D widens what counts as an approval rather than a ground, and E's line between a refinement within a ruling's direction and a relaxation must agree with this head's "edit that changes no ruling of the owner" versus "widening". | unchanged: no step edits the audit's outcomes |
+| `design@agent-skills@audit-outcomes` | constrains, may change | it routes "An approval cited as a head's ground is removed in the branch where the head stands on its argument" and sends "A widening of what the owner's words approved" to the owner, citing `goal@knowledge-architect@the-owner-decides`; D widens what counts as an approval rather than a ground, and E's line between a refinement within a ruling's direction and a relaxation must agree with this head's "edit that changes no ruling of the owner" versus "widening". | rewritten at step 6, per the table of decisions the work rewrites |
 | `design@agent-skills@behaviour-additions-need-real-use` | constrains | S1 and S2 add instructions on how an agent answers a fired criterion and routes a premortem cause (step 7); such an addition is admitted only on evidence from real use, which the work offers as this repository's history of fired criteria and the owner's observation. | unchanged: a constraint the steps meet |
-| `design@agent-skills@bounded-path-in-design` | may change, constrains | shape A sends a decision that earns a head down the bounded path (one message, rival, default, built), while this head admits work as bounded only when "every decision it makes fails the entry tests"; its "the owner's answer, attributed" is what D reshapes | unchanged: shape A's use of it lost; the goal as approved leaves the path as it is |
+| `design@agent-skills@bounded-path-in-design` | may change, constrains | shape A sends a decision that earns a head down the bounded path (one message, rival, default, built), while this head admits work as bounded only when "every decision it makes fails the entry tests"; its "the owner's answer, attributed" is what D reshapes | its clause on the owner's answer rewritten at step 6 |
 | `design@agent-skills@calibration-in-the-run` | may change | an instance of problem (2): "The rerun is the owner's choice: 'With a rerun, as you proposed.'" records an approval of the session's proposal as the owner's choice, which D would recast as the session's decision on its argument | unchanged: no step edits an audit workflow |
 | `design@agent-skills@capabilities-not-structure` | constrains | the installed text imposes no fixed mapping between a unit of the work and a unit of its record, and a contradiction is answered by removing structure; S2's move of completeness checks into step claims and S3's removal are weighed by it, and S1's repair-first rule against 'a rule for one interaction'. | unchanged: a constraint the steps meet |
 | `design@agent-skills@decisions-reported-to-the-owner` | constrains, may change | Cites the seed `design@agent-skills@tripwire-recording-authority` and lists "a premortem cause recorded as a tripwire or dropped" among the Decided items; S2 and S3 reroute premortem causes (to tripwires, claims or nothing) and S1 lets the session answer a firing by a repair, so the list of decisions the Decided section owes may gain or lose a member. | rewritten at step 6, per the table of decisions the work rewrites |
@@ -333,7 +381,7 @@ Graded `bears`, read whole:
 | `design@agent-skills@plan-read-against-the-record` | may change, constrains | The design-conformance reviewer reports 'an acceptance criterion whose observable the record rules out'. S3 removes that object, and S2 narrows it to premises only the built result can test. The head's argument also rests on two acceptance criteria that passed three plan reviews. | unchanged |
 | `design@agent-skills@plan-records-the-exchange` | constrains, may change | records "the owner's rulings verbatim with their round" and says `goal@knowledge-architect@the-owner-decides` "is served only where the rulings are recorded as the owner made them"; shape D changes what is recorded as the owner's ruling (an approved default becomes the session's decision), and shape E governs how the transcript reviewer reads those records | unchanged: a plan document keeps the owner's words verbatim |
 | `design@agent-skills@primer-limit` | constrains | Shape D rewrites the head-ground rule the primer hosts in `primer@design-heads`, and shape A may add primer text on decisions met outside a discussion; every primer statement must pass this head's content test (every session needs it, no skill delivers it). | unchanged: a constraint the steps meet |
-| `design@agent-skills@questions-go-to-their-authority` | constrains | S1 decides who answers a fired criterion (a repair by the session, or a reopening that may reach the owner); the routing of a question by its authority, and "a cost alone makes no fork", bound which firings go to the owner. | unchanged: a constraint the steps meet |
+| `design@agent-skills@questions-go-to-their-authority` | constrains | S1 decides who answers a fired criterion (a repair by the session, or a reopening that may reach the owner); the routing of a question by its authority, and "a cost alone makes no fork", bound which firings go to the owner. | its list rewritten at step 6; the work rests on the rest of it |
 | `design@agent-skills@rejected-citation-direction` | constrains | any rejected entry the work adds for a losing shape is cited by the head whose argument covers it, and names no winner | unchanged: a constraint the steps meet |
 | `design@agent-skills@ruled-items-labelled` | may change | its table gives the prefix `AC` to "acceptance criteria put to the owner", reaching "a plan document's Premortem section and its defaults"; S3 removes that row, S2 narrows which criteria reach the owner and changes what the Premortem section holds | its `AC` row removed at step 6; the labels at step 1 |
 | `design@agent-skills@settled-means-recorded` | constrains, may change | it serves the goal A rewords ("met while no proposal of the owner is built before it has been grounded and challenged"), and states "a ruling of the owner on a question the session put is no proposal", which D's approved-default rule meets | unchanged: the goal's clause on grounding the owner's proposals stays |
@@ -448,7 +496,7 @@ Graded `may-bear`, not read, with the searcher's reason:
 | `issue@core@a-plain-hash-item-name-is-read-by-nothing` | - | its first instance is a wrong slug written as an acceptance criterion's name in a harvest message; S3 removes acceptance items and S2 narrows them, which changes how often such a name is written but establishes no change to the issue's subject, the unchecked plain #<id> | not read |
 | `issue@core@no-checked-form-cites-a-point-inside-a-section` | - | S2 changes the premortem's routing in 'design skill loop step 7'; the entry records that 'loop step' numbers across the design skill cite `skill@knowledge-architect-design@discussion-loop` in words, unchecked. Only a renumbering or a new citation of that step would touch it, which no shape states | not read |
 | `issue@core@no-command-lists-the-numbers-in-use-in-a-plan-across-its-history` | - | the issue counts 'the next criterion id' among the numbers a plan must not reuse; S3 removing acceptance criteria would remove that prefix from what its command lists; the issue's closure is not changed otherwise | not read |
-| `rejected@agent-skills@head-cites-every-owner-ruling` | - | D moves away from it; the doubt is a rival of D that keeps the current fork rule, where an approval at a fork is cited as the owner's ground, a partial form of this rejected design; not drafted. | not read |
+| `rejected@agent-skills@head-cites-every-owner-ruling` | - | D moves away from it; the doubt is a rival of D that keeps the current fork rule, where an approval at a fork is cited as the owner's ground, a partial form of this rejected design; not drafted. | read at the second plan review: not brought back, per "Decided design" |
 | `rejected@agent-skills@member-routed-by-approval-scope` | - | D changes what an owner's approval grounds; this rejected design routes a member by the scope of the owner's approval; D does not propose routing by approval scope, so no bringing back established | not read |
 | `rejected@agent-skills@owner-words-quoted-in-head` | - | its doubt "this is the candidate if a misstated attribution recurs" bears on E's lighter transcript reading, which could let misstated attributions pass; E keeps "attributes to the owner a decision the owner did not make" as a finding, so no bearing established. | not read |
 | `rejected@agent-skills@plain-confirmed-findings-count` | - | It records that "each firing of the plain count, at passes 1 to 3 and at 5, was explained by the same churn, argued by hand", which is the evidence the work cites for a firing that led to a redesign; the work proposes no return of the plain count. | not read |
@@ -459,14 +507,14 @@ Graded `may-bear`, not read, with the searcher's reason:
 | `rejected@core@carrier-dir-replaced-by-components` | - | D; "It loses on the owner's choice to keep both, made on the session's recommendation" is an approved default recorded as the owner's choice, the attribution D would replace with the session's argument; the entry's design is not brought back by the work. | not read |
 | `rejected@core@entry-reachable-by-citing-a-goal` | - | D; "The owner judged that only a design entry should count" attributes the deciding judgement to the owner; whether it was the session's default is not shown. | not read |
 | `rejected@core@init-git-init-anywhere-outside-a-worktree` | - | D; "The owner chose a refusal there over following `cargo init`" is the same fork-choice attribution as `design@core@init-runs-git-init`; not established whether it was the session's default. | not read |
-| `tripwire@agent-skills@a-shortcut-decision-earns-a-head` | - | it guards the premise that bounded work holds no decision passing an entry test; shape A sends head-earning decisions down the bounded path by design, which removes that premise and does what its response asks (reopen `design@agent-skills@bounded-path-in-design` on its three conditions); its firing clause, a review finding such a decision in two pieces of work, is met by no element of the work itself, so no firing is established | not read |
+| `tripwire@agent-skills@a-shortcut-decision-earns-a-head` | - | it guards the premise that bounded work holds no decision passing an entry test; shape A sends head-earning decisions down the bounded path by design, which removes that premise and does what its response asks (reopen `design@agent-skills@bounded-path-in-design` on its three conditions); its firing clause, a review finding such a decision in two pieces of work, is met by no element of the work itself, so no firing is established | read at the second plan review: reread at step 6 |
 | `tripwire@agent-skills@agent-text-written-without-the-standard` | - | the work edits agent-facing text (planning, design, review skills); the tripwire fires on an unneeded addition made in a session that did not load the agent-configuration skill, which this work would meet only by skipping that skill. | not read |
 | `tripwire@agent-skills@coined-term-without-an-entry` | - | S2 may coin or redefine a term the primer uses (an acceptance criterion as a decision's premise test, a step's claim); the tripwire fires when such a term the work adds to the primer has no `primer@coined-terms` entry; no such addition is drafted. | not read |
 | `tripwire@agent-skills@deferred-trigger-met-by-undesigned-work` | - | Shape A moves decisions met during other work into the design skill's bounded path; the tripwire's premise is that "a deferred trigger met by work that bypasses the skill costs little", so A changes which work bypasses the skill; its firing clause, a second recorded instance found at the standing-state review, is not met by the change itself. | not read |
 | `tripwire@agent-skills@owner-proposal-built-ungrounded` | - | guards `design@agent-skills@settled-means-recorded`, which serves the goal clause A rewords; A as drafted keeps "no proposal of the owner built before grounded", so no firing or change established | not read |
 | `tripwire@agent-skills@record-answered-questions-reach-the-owner` | - | its decision, `design@agent-skills@questions-go-to-their-authority`, governs whether criteria go to the owner; the firing clause needs two retrospectives finding a question the record answered put to the owner, which the redesign does not itself meet, so no firing is established | read at the plan review: reread at step 6 against the rewritten head |
 | `tripwire@agent-skills@ruling-lost-in-change` | - | cites the seed `design@agent-skills@misstated-ruling-rated-by-what-it-changes`; its firing clause requires a misstatement "critical under" that seed, which shape E narrows (a refinement within the ruling's direction is no finding), and it guards `design@agent-skills@in-change-path`, which shape A widens to decisions met outside a discussion; the work changes what the clause depends on but would not itself find a ruling lost or misstated in an in-change commit message, so the clause is not met | read at the plan review: reread at step 6 against the rewritten head |
-| `tripwire@agent-skills@silent-read-too-widely` | - | S3 drops or converts causes now criteria; its firing clause, a silent failure whose cause a commit or plan lists as dropped under condition 1, could be met by a cause dropped in the conversion, but the work itself drops no cause yet | not read |
+| `tripwire@agent-skills@silent-read-too-widely` | - | S3 drops or converts causes now criteria; its firing clause, a silent failure whose cause a commit or plan lists as dropped under condition 1, could be met by a cause dropped in the conversion, but the work itself drops no cause yet | read at the second plan review: its clause widened at step 6 |
 | `tripwire@agent-skills@split-rule-from-exception` | - | S1 is a rule with an exception (a firing is repaired; it reopens the decision only where no repair meets both); the tripwire fires on an exception split from its rule in a head a branch writes; no split is drafted, so no firing is established | not read |
 | `tripwire@core@init-cleanup-beyond-the-listed-files` | - | D; its premise names "the refusal of a directory holding files outside every worktree that the owner chose over following `cargo init` exactly", an attribution D could re-ground; its firing clause is not met by the work. | not read |
 
@@ -591,7 +639,7 @@ rounds 6 to 10 were argued from the goal `goal@knowledge-architect@design-with-a
   - round 8 (L2766): "heads-stand-on-argument: I think we are converging. Have you properly challenged my refinement though ? I'm actually a bit surprised that you did not find more to it than the residual case of the true fork (I agree with the proposed handling btw). In particular, is the table of "what you bring" sufficiently exhaustive ? I have no idea for a missing row, but I want to be sure we are not missing a case."
   - round 9 (L2773), on thresholds and costs: "About the two cases for the fork row: agreed on set threshold and accepting a cost, whem set by me they must be marked as such. A threshold set (or proposed and accepted by me) by an agent should not end up attributed to me though."
 - **Closed, round 11 (L2811):** "table approved, you can proceed with the spec then implementation."
-- **Refined after the plan review, rounds 12 to 14:** the last row records a fork's choice in its weak form, with the guard against reversals back and forth, on the owner's argument (`argument@owner-word-and-criteria@arg-48` to `argument@owner-word-and-criteria@arg-51`). The owner's words, round 14: "Agreed on this shape, with the guard against back and forths". See D5.
+- **Refined after the plan review, rounds 12 to 14:** the last row records a fork's choice in its weak form, with the guard against reversals back and forth, on the owner's argument (`argument@owner-word-and-criteria@arg-48` to `argument@owner-word-and-criteria@arg-52`). The owner's words, round 14: "Agreed on this shape, with the guard against back and forths". See D5. After the second plan review, an approval at a fork is recorded as the session's choice, per D7, and a re-pick at an unchanged fork needs a goal, a fact or an argument, per D8; the owner's words, round 16: "agreed on the defaults".
 
 ### The owner changes a decision through a goal, a fact or an argument, never by an overrule that gives none `##intent-through-goals-not-overrule`
 
@@ -675,7 +723,7 @@ rounds 6 to 10 were argued from the goal `goal@knowledge-architect@design-with-a
 - **Round:** 2. **Given by:** the agent (L2095, L2116).
 - **Threads:** `thread@owner-word-and-criteria@criteria-test-silent-premises`, `thread@owner-word-and-criteria@criteria-as-they-stand`, `thread@owner-word-and-criteria@criteria-removed`.
 - **Key words:** "Thirty-two past plan documents held 61 acceptance criteria." "**Exactly 3 of the past 61 criteria would have been kept.**" The three: lints-cost-little (the reference-lints spec: "no test or gate measures runtime"), passes-fall (AC4 of the agentic-workflow axis: "the one that fired and led to a redesign"), passes-converge (the design-record audit: "the same measurement, on another axis"). Of the other 58: "One was withdrawn"; "About 49 become step claims"; "About 5 fail the silence test"; "The rest are completeness checks". "What survives is a measurement of the built result in use, which nothing else in the workflow takes. The per-criterion verdicts are my judgement, not a mechanical count." The list was kept in the session's scratch directory, numbered 1 to 61, the kept ones 22, 39 and 42.
-- **Corpus, as measured at the plan review:** every plan document deleted under docs/plans/ in the history of `741f655e`, the main branch's head when the census ran, read at its deleting commit's parent, its "Acceptance criteria" section split at its level-three headings: `git log 741f655e --diff-filter=D --name-only -- docs/plans/`, the generated `index.md` files and the `README.md` files of specs/ excluded. It gives 32 documents holding 61 criteria; the same command at a later head counts the documents deleted since. The three kept: `lints-cost-little` of the spec defined-ids-outside-references, which the quotation above calls "the reference-lints spec"; `passes-fall` of the spec of the agentic-workflow axis; `passes-converge` of the spec of the design-record audit. The other verdicts are the agent's judgement, as it said, and only their order of magnitude is claimed.
+- **Corpus, as measured at the plan review:** every plan document deleted under docs/plans/ in the history of `741f655e`, the commit the census ran on, read at its deleting commit's parent, its "Acceptance criteria" section split at its level-three headings: `git log 741f655e --diff-filter=D --name-only -- docs/plans/`, the generated `index.md` files excluded. It lists 39 documents, of which 32 hold the section and 24 hold at least one criterion, 61 in all; the same command at a later head counts the documents deleted since. 741f655e reached the main branch in the rebase merge whose head is 4a6f7dc2; the head before that merge, 3cbf5ee2, lists the same 39 documents. The three kept: `lints-cost-little` of the spec defined-ids-outside-references, which the quotation above calls "the reference-lints spec"; `passes-fall` of the spec of the agentic-workflow axis; `passes-converge` of the spec of the design-record audit. The other verdicts are the agent's judgement, as it said, and only their order of magnitude is claimed.
 
 ### The new conditions are the standard whose absence grounded the owner's ruling on each criterion `##arg-13`
 
@@ -913,11 +961,18 @@ rounds 6 to 10 were argued from the goal `goal@knowledge-architect@design-with-a
 - **Threads:** `thread@owner-word-and-criteria@heads-stand-on-argument`.
 - **Key words:** "If any argument can reopen a free choice, two sessions could flip it back and forth on arguments of equal weight." "The guard: a choice reopens only on an argument or a fact that the record of the fork does not already hold, and that ranks the shapes." "That guard is the planning skill's definition of a material finding, applied here, so it adds no new rule."
 
+### Keeping a fork's choice strong protects only an unstated weighing, which belongs in a goal `##arg-52`
+
+- **Round:** 13. **Given by:** the agent (L3230).
+- **Threads:** `thread@owner-word-and-criteria@heads-stand-on-argument`.
+- **Key words:** "I see no stronger argument in the other direction. Keeping a fork choice strong would protect a weighing you made but didn't state, and that case is exactly what the convergence question sends to a goal." The convergence question was dropped at the second plan review; a weighing the owner states lands by the table, as an argument or as a goal.
+
 ## New names, in one place
 
 ```text
 the residual fork        the head rules' fragment head-ground.md, and `thread@owner-word-and-criteria@heads-stand-on-argument`
 the weak form            the same fragment and head
+completeness-check-is-a-step-claim   the slug of the head the harvest writes for the routing half of the thread on admitting a criterion
 ```
 
 The harvest may write the design heads and `rejected` entries its rows name, under the threads'
@@ -936,25 +991,53 @@ This thread holds two decisions, and the harvest gives each a head of its own.
     work;
   - a number in it has a basis.
 
-  The nearest rival is `thread@owner-word-and-criteria@criteria-as-they-stand`. About 49 of the
-  past 61 criteria duplicate a test or a review, by `argument@owner-word-and-criteria@arg-12`.
+  The nearest rival is `thread@owner-word-and-criteria@criteria-as-they-stand`. Of the past 61
+  criteria, about 49 were completeness checks, which a step claim and the spec-conformity review
+  cover, and about 5 failed the silence test, by `argument@owner-word-and-criteria@arg-12`.
 - **Routing a completeness check.** A cause that only the built result can check, and whose firing
   would show the work unfinished, is a claim of the step that builds it. The claim carries its test,
   and the spec-conformity review judges it. The nearest rival is dropping such checks, which
-  `argument@owner-word-and-criteria@arg-10` defeats: the owner's worry was losing them.
+  `argument@owner-word-and-criteria@arg-10` defeats: the owner's worry was losing them. The harvest
+  writes this head under the new slug `completeness-check-is-a-step-claim`.
 
-Loop step 7, the planning skill's section on criteria and the tripwire standard's condition 1 each
-state both decisions.
+**Where both decisions are stated.** Each of these texts states both, or points to their statement:
 
-The planning skill's sentence "A number in a criterion is a threshold the owner sets" becomes: a
-number in a criterion carries its basis. A threshold the agent proposes is the session's, and one
-the owner sets is a fork's choice in its weak form, per D2.
+- loop step 7 of the design skill, and loop step 4's routing of an assumption that only the built
+  code can check (lines 553-556);
+- the planning skill's section on criteria;
+- the tripwire standard's condition 1, a fragment with six hosts: the design, planning,
+  decision-recording and issue-tracking skills, the decision-record reviewer and the tripwire
+  auditor;
+- the standing-state reviewer's lines 90-94, which become: a check that can be applied only once
+  unbuilt work is built lives in the plan document of the work that builds it, as an acceptance
+  criterion where it tests a decision, and otherwise as a claim of the step that builds it.
+
+The decision-recording skill's line 105, "a recurring acceptance criterion", stays: such a
+criterion is the kind the standard keeps.
+
+The planning skill's sentence "A number in a criterion is a threshold the owner sets" (lines
+345-346) becomes: a number in a criterion carries its basis. A threshold the agent proposes is the
+session's, in its weak form, since the goal reserves to the owner a choice between shapes, and a
+value inside the range its basis leaves is a parameter of one shape. One the owner sets is the
+owner's choice in its weak form, per D2.
 
 ### `thread@owner-word-and-criteria@criterion-ruled-at-reopening`
 
-**The owner gives no ruling on a criterion at the premortem.** A firing opens a design discussion
-with the owner on the decision the criterion guards. Each question that discussion meets goes to
-its authority, per D4:
+**The owner gives no ruling on a criterion, at the premortem or later.** This holds wherever a
+criterion is proposed, the assembly, a review and an audit included. So:
+
+- the planning skill's criterion "awaiting the owner" (lines 337-344) leaves;
+- the `AC` label leaves `design@agent-skills@ruled-items-labelled`;
+- `primer@labelled-items`'s example "as an acceptance criterion's into the comment at its test" is
+  dropped, leaving the rule with no example;
+- the in-change path's record carries no rulings on criteria;
+- the design skill's `%%` comment at lines 122-128, and the in-change rule at lines 150-151, keep
+  that nothing is committed before the premortem has run, since a cause can still reopen a thread.
+  They lose the rulings.
+- Loop step 8 (lines 650-653) names the premortem and its causes, with no rulings.
+
+**A firing opens a design discussion with the owner** on the decision the criterion guards, per
+D4. Each question that discussion meets goes to its authority:
 
 - whether the design failed is answered by the measurement;
 - the shape that replaces it is settled by the argument, where an argument settles it;
@@ -962,10 +1045,12 @@ its authority, per D4:
 
 **The work's state after a firing:**
 
-- the criterion leaves the plan document as a reopened decision, as the planning skill already
-  says of a firing, and the discussion carries it;
-- the part of the work that rests on the guarded decision waits for the discussion's outcome;
-- the rest of the work goes on.
+- The criterion leaves the plan document as a reopened decision. The planning skill's other
+  outcome, "an issue entry" (line 352), leaves.
+- Each criterion's field "the response" (lines 312 and 564) becomes the decision its firing
+  reopens.
+- The part of the work that rests on the guarded decision waits for the discussion's outcome.
+- The rest of the work goes on.
 
 On the in-change path, the criterion's test is in the change. A firing there opens the same
 discussion before the change merges.
@@ -1000,7 +1085,8 @@ The goal `goal@knowledge-architect@the-owner-decides` is reworded and written.
 - The owner decides what `primer@question-authority` reserves to the owner, a fork among it.
 - The owner contests any closure by a goal, a fact or an argument.
 - "Stop" ends a discussion and decides nothing against an argument.
-- "The weighing at a fork is theirs" keeps its rule.
+- "The weighing at a fork is theirs" keeps its rule, with one added clause: an argument or a fact
+  that the fork's record does not hold, and that ranks the shapes, is no re-arguing.
 - The `parked` state becomes the agent's own dissent after the owner's ruling at a fork.
 - Loop step 4's "only an explicit decision converts their statement into a directive" becomes:
   only the owner's word at a fork, or an argument that survives the test, does.
@@ -1008,26 +1094,44 @@ The goal `goal@knowledge-architect@the-owner-decides` is reworded and written.
 **"Who moves what" follows.**
 
 - The owner's word closes a fork.
-- On a thread with one shape standing, the owner's word confirms the closure on its argument.
+- On a thread with one shape standing, the owner's word confirms the closure on its argument, or
+  contests it with a goal, a fact or an argument.
+- Its example "drop the polling idea" stays: it closes a fork, or a thread when it comes with a
+  reason that survives the challenge.
 - The rest of the paragraph, on vague words and the checkpoint, is unchanged.
+
+**A re-pick at a fork, per D8.**
+
+- The owner's word reopens a closed thread at any time. The expectation set's item "A closed thread
+  is not frozen" stays, since a reopening opens the exchange the counterparts goal gives the owner,
+  and decides nothing.
+- A new pick at the same fork needs what any change needs: a goal, a fact or an argument. A new
+  weighing the owner states counts.
+
+**A bounded default.** The design skill's "the work proceeds on it unless the owner answers
+otherwise" (lines 194-195) becomes: the owner stops it, or redirects it with a goal, a fact or an
+argument. The same applies to the expectation set's line 177, and to the README's lines 12, 141 and 173,
+which say "answers otherwise" or "stops or redirects it". `primer@met-outside-the-task`'s row 1
+(line 228), "a default the work proceeds on unless the owner answers otherwise", stays: it covers
+only the questions that are the owner's, where the owner's answer decides.
 
 **A criterion derived from a recorded decision** binds until the decision is reversed: by the
 session, where the decision's argument is defeated and no fork stands, or by the owner at a fork.
-This closes
-`issue@agent-skills@a-criterion-derived-from-a-decision-binds-until-the-owner-says-otherwise`.
+Under the new ground rule, an owner's ground is a fork's choice, so this is the rewrite that
+`issue@agent-skills@a-criterion-derived-from-a-decision-binds-until-the-owner-says-otherwise`
+asks for, and closes it.
 
-**The expectation set** in `skill@knowledge-architect-retrospective@expectation-sets`, and its
-restatement in `path@agent-skills@README.md`, change in three places, as the owner approved:
+**The expectation set** in `skill@knowledge-architect-retrospective@expectation-sets` changes in
+three places, as the owner approved:
 
 - "The owner says why when rejecting something" becomes: the owner changes a decision through a
   goal, a fact or an argument, and gives no word that decides against an argument without one.
 - "'Stop, build X' and 'park this' both end the argument at once" becomes: "Stop" ends a
-  discussion; "Build X" decides only at a fork, or with a reason.
+  discussion; "Build X" decides only at a fork, or with a reason that survives the challenge.
 - A new item: the owner states the project's long-term intent as goals, investing early.
 
-**A closed thread is not frozen.** The expectation set's item "The owner's word reopens one at any
-time, and needs no new argument" stays: a reopening opens the exchange the counterparts goal gives
-the owner, and decides nothing.
+Its restatement in `path@agent-skills@README.md`, lines 176-215, follows in the same three places:
+lines 190-194 ("You say why when you reject something"), lines 208-210, and a new item.
 
 **Other skills.** The decision-recording and project-audit skills say "contests by a goal, a fact
 or an argument" where they now say "overrules".
@@ -1045,45 +1149,73 @@ A design head stands on its argument. What the owner brings lands by its kind:
 | a fact only the owner holds, a doubt included | a premise, attributed as the owner's report, open to challenge; it gives way to a measurement, per `primer@owner-word-premise` |
 | an intent an agent cannot derive, which states an outcome | a goal, which the head cites |
 | an argument, one that weighs a cost included | argued, recorded on its merits |
-| an approval of the session's default, threshold or weighing of a cost | no ground: the session's decision on its argument |
+| an approval of the session's default, threshold or weighing of a cost, at a fork included | no ground: the session's decision, or at a fork the session's choice in its weak form, "the session chose X over Y, which no goal ranks; the owner approved it" |
 | a reading of a source | the source |
-| a choice the argument leaves open: a true fork, the owner's pick at one, the session's default included, a threshold the owner sets, a local cost the owner accepts | first, whether a missing goal ranks the shapes, which goes to `skill@knowledge-architect-goal-setting`; otherwise the head records "the owner chose X over Y, which no goal ranks", in its weak form |
+| a choice the argument leaves open, made by the owner: a pick at a true fork against the session's default or with none offered, a threshold the owner sets, a local cost the owner accepts | first, whether a missing goal ranks the shapes, which goes to `skill@knowledge-architect-goal-setting`; otherwise the head records "the owner chose X over Y, which no goal ranks", in its weak form |
 
-**Two consequences of the table:**
+An approval at a fork is recorded as the session's choice, per D7. This answers the first case of
+the closing issue, `issue@agent-skills@an-approved-default-is-attributed-to-the-owner-and-the-agent-records-no-decision-of-its-own`.
+It brings back no part of `rejected@agent-skills@head-cites-every-owner-ruling`: an approval cites
+no ruling of the owner as a ground, and the owner's own pick is cited only at a true fork, in its
+weak form.
+
+**The consequences of the table:**
 
 - **A preference of the owner about a mechanism is no case of its own.** It is an argument or a
   choice at a fork, per D5.
-- **Entry test 4 sends the owner's intent to a goal.** A decision that would earn a head only as
-  the owner's intent is drafted as a goal under `skill@knowledge-architect-goal-setting`, not
-  written as a head. An argument the owner made earns a head by tests 1 to 3, like any other.
-  Test 4's question to the owner, under a label `Q<n>`, becomes the goal-setting skill's draft
-  that the owner rules on. `primer@question-authority`'s "a fact only the owner holds, such as an
-  intent, a plan or a weighing the owner made" and `primer@owner-word-premise`'s "a ruling on
-  intent" stay as they are: the owner still answers an intent, and the table lands it in a goal.
-- **What the ground means to a later session.**
-  - A head that records a fork's choice in its weak form reopens, without the owner, on an argument
-    or a fact that ranks the shapes. Once a fact or argument ranks them, it is no longer a fork.
+- **Entry test 4 stops being an entry test**, which leaves three:
+  - a decision that would earn a head only as the owner's intent is drafted as a goal under
+    `skill@knowledge-architect-goal-setting`, not written as a head;
+  - an argument the owner made earns a head by tests 1 to 3, like any other;
+  - test 4's questions to the owner leave the `Q` row of
+    `design@agent-skills@ruled-items-labelled`;
+  - "test 4 included" in the decision-record reviewer (line 106) and the design-record auditor
+    (line 116) goes.
+- **What the ground means to a later session:**
+  - A head that records a fork's choice in its weak form, the owner's or the session's, reopens,
+    without the owner, on an argument or a fact that ranks the shapes. Once one ranks them, it is no
+    longer a fork.
   - The reopening goes through `skill@knowledge-architect-design`, and is reported to the owner
     under "Decided".
   - The guard against reversals back and forth: an argument or a fact that the record of the fork
     already holds reopens nothing. This is the planning skill's test of a material finding, applied
     to a fork's choice. So the head of a fork's choice names the rivals and the costs that were
     weighed.
-  - Only a goal changes on the owner's word alone.
+  - A goal still changes only through the owner.
+- **A head written before this rule** is read by the same table until the design-record audit
+  re-grounds it:
+  - a ground that cites the owner's pick at a fork is a fork's choice in its weak form;
+  - an approval cited as a ground is no ground;
+  - an intent is a goal to draft.
 
-**The convergence question.** At convergence, for every thread whose closure the owner's word moved,
-the discussion asks whether the closure rests on a fact or an intent not yet recorded. Each such
-fact or intent then lands by the table. This is a decision of its own:
+  So the fragment needs no rule for the time in between.
+- **A new member of a head**, under head-entry-tests.md lines 63-64 and 69-74:
+  - It is recorded directly where the head's argument covers it.
+  - Where the part that admits it is a fork's choice whose words name its members, it goes to the
+    owner as one proposal, as now.
+  - An approval of a member is recorded in the commit, as the session's decision.
+- **The owner's word at other sites is recorded by what it brings**, per the table:
+  - the design skill's line 140 (the in-change record) and line 199 (the bounded path's answer);
+  - `primer@intent-and-claims` lines 90 and 94, where a reversal goes to the owner at a fork only.
+- **`primer@question-authority`'s "a fact only the owner holds, such as an intent, a plan or a
+  weighing the owner made"** (line 31) becomes "a fact only the owner holds, such as a plan or what
+  the owner observed". The same section already gives the owner "a goal to set or change" and a
+  fork, where an intent and a weighing land. `design@agent-skills@questions-go-to-their-authority`,
+  which states the same list, is rewritten with it. `primer@owner-word-premise`'s "a ruling on
+  intent" stays: the owner still answers an intent, and the table lands it in a goal.
 
-- it converts the premortem cause "your preference shapes an argument and isn't recorded as yours"
-  into a clause of the design;
-- its rival, no question, leaves that cause open;
-- it is built at step 3 and takes a head of its own at the harvest.
+**An attribution keeps the scope and the hedges of the owner's words.** This holds in
+`skill@knowledge-architect-decision-recording` lines 143-145, head-ground.md lines 26-27 and the
+tripwire auditor's lines 46-48. Dropping a hedge records a firmer ruling than the owner gave, which
+is a false attribution. The direction reading of
+`thread@owner-word-and-criteria@ruling-read-by-its-direction` governs the work built from a ruling,
+not how the ruling is attributed, so these texts stay.
 
-**Nearest rival** to the table: the owner's words as a ground wherever the decision came from the
-owner, and a fork's choice reversed only by the owner. It lets a quick approval or a preference
-stand as the owner's ruling, the case the closing issue records, and it keeps a choice no argument
-made from yielding to the first argument that ranks it.
+**The nearest rival** to the table: the owner's words as a ground wherever the decision came from
+the owner, and a fork's choice reversed only by the owner. It lets a quick approval stand as the
+owner's ruling, the first case of the closing issue. It also keeps a choice no argument made from
+yielding to the first argument that ranks it. Its one benefit, protecting a weighing the owner made
+and did not state, is defeated by `argument@owner-word-and-criteria@arg-52`.
 
 ### `thread@owner-word-and-criteria@ruling-read-by-its-direction`
 
@@ -1099,29 +1231,42 @@ does one of these:
 stricter, more detailed or reworded. "Approved", "accepted" and "agreed" approve the idea, not the
 wording.
 
-**Severities in the transcript reviewer:**
+**Severities in the transcript reviewer**, in its section `agent@knowledge-architect-transcript-reviewer@how-to-report` (lines 111-125):
 
-- a reversal, and a relaxation that changes what is built or a load-bearing decision, are critical;
-- a false attribution and a turned direction are major;
-- a relaxation on a detail that is not load-bearing is minor.
+- A reversal, and a relaxation that changes what is built or a load-bearing decision, are critical.
+- A false attribution of a decision and a turned direction are major.
+- A relaxation on a detail that is not load-bearing is minor.
+- So are an argument and a reading attributed to the owner that are not the owner's, which change
+  no decision.
+- The existing rules stay: "neither critical nor minor is major", and a minor misstated ruling
+  still goes to the owner.
 
 **Where the reading applies.** It is how the owner's words are read, so it applies wherever fidelity
 to an approval is judged:
 
-- the transcript reviewer;
-- the fragment `path@agent-skills@fragments/head-shape.md` and its three hosts: the
-  decision-recording skill, the decision-record reviewer and the design-record auditor;
-- the planning skill's transcript review (lines 526-528), and its two rules that "widens or
-  narrows a ruling of the owner, or adds an obligation to one" is a scope change (lines 416-418 and
-  544-547), which become: a clause that relaxes a ruling, or turns its direction, is a scope
-  change;
-- the retrospective's defect kind on rulings.
+- the transcript reviewer: its description (line 3), and its section
+  `agent@knowledge-architect-transcript-reviewer@check-recorded-rulings` (lines 91-110), whose scope
+  bullet is at 104-106;
+- the fragment `path@agent-skills@fragments/head-shape.md`, lines 66-70 and 79-82, and its three
+  hosts: the decision-recording skill, the decision-record reviewer and the design-record auditor;
+- "fidelity to what the owner approved", in the decision-record reviewer (line 109) and the
+  design-record auditor (line 118), which becomes "fidelity to what the owner approved, read by its
+  direction";
+- the project-audit skill's outcome table (lines 201-202), "a widening of what the owner's words
+  approved";
+- the planning skill's transcript review (lines 526-528), and its two rules that "widens or narrows
+  a ruling of the owner, or adds an obligation to one" is a scope change (lines 416-418 and 543-548).
+  Both become: a clause that relaxes a ruling, or turns its direction, is a scope change;
+- the retrospective's defect kind (lines 103-106), which becomes: a ruling recorded within its
+  direction, stricter, more detailed or reworded, is no finding.
 
 `goal@agent-skills@no-contradiction-in-workflow` requires the criteria of the reviews and the audits
-to agree.
+to agree. `design@agent-skills@audit-outcomes`, whose "a widening of what the owner's words approved
+… goes to the owner" states the audit's rule, is rewritten with it.
 
 **Nearest rival:** the scope check as it stands, "no obligation added". It made a stricter
-acceptance criterion a major finding on the previous branch.
+acceptance criterion a major finding on the previous branch, the one merged as "The installed
+workflow loads its skills on its own".
 
 ### The owner's goal rulings
 
@@ -1242,6 +1387,7 @@ owner". The owner's words:
 - Round 12, on D5: "What is this specific case ? Is it not resolved if this design heads gets grounded in the goal we added about design discussions ? I do not think this is a ruling, it stands on the argument that too much structure will hinder the ability and freedom of the agent to carry investigations of various shapes, or to freely challenge and refine proposals. This is the kind of proble;s I wanted to fix by preventing defaults to be considered as rulings. This one is recorded as a ruling, but do you have a better argument that goes in the opposite direction ?"
 - Round 13: "I agree on the other defaults. But the cause of D5 is not closed. I do not think your default stands, because I believe that in this case were intent is about a mechanism, as you worded it, is actually always decided by arguments (or it is a real fork, and then either there is a missing  goal that clears it, or a free choice with no strong ruling, the decision stated in a weak form so that a new argument found later can reopen it freely)"
 - Round 14: "Agreed on this shape, with the guard against back and forths"
+- Round 16, on D7 and D8 after the second plan review: "agreed on the defaults"
 
 ## Mapping tables
 
@@ -1299,6 +1445,16 @@ None: the work needs no total function.
 - **Lost to:** D4.
 - **Deciding fact:** the reworded `goal@knowledge-architect@the-owner-decides` keeps the owner's rulings to what the goals and the record leave open, and whether a design failed is answered by a measurement.
 
+### The convergence question (the agent's mitigation of premortem cause 6, withdrawn at the second plan review)
+
+- **Withdrawn by:** the agent, on `design@agent-skills@behaviour-additions-need-real-use`.
+- **Deciding fact:** it is an instruction about how an agent behaves, argued from a predicted failure, with no instance seen in real use; the head admits no addition on a prediction. Cause 6 stays named for the harvest to judge as a tripwire.
+
+### An approval at a fork recorded as the owner's choice (D2's second half as first ruled)
+
+- **Lost to:** D7.
+- **Deciding fact:** the owner reported, in the first case of the closing issue on approved defaults, that an approval of a default is given without analysing it deeply and is not to be attributed to the owner long term; D2's premise, supplied by the agent, missed that report.
+
 ## Readings
 
 None: the work reads no external specification.
@@ -1355,76 +1511,95 @@ rule, `thread@owner-word-and-criteria@criteria-test-silent-premises`.
 
 **How every step is done:**
 
-- Steps 1 to 4 edit the installed source. Each is written under
-  `skill@knowledge-architect-agent-configuration`, as `path@agent-skills@CLAUDE.md` says, and then
-  runs `cargo klarch install-agent-skills`.
-- Each claim is a command over the source. Where the command can fail, it is run on the tree before
-  the step's edit and shown to fail there.
+- Steps 1 to 4, and the `%%` lines step 6 touches, edit the installed source under
+  `path@agent-skills@content/` and `path@agent-skills@fragments/`.
+  - Each edit is written under `skill@knowledge-architect-agent-configuration`, as
+    `path@agent-skills@CLAUDE.md` says.
+  - Each step then runs `cargo klarch install-agent-skills`.
+  - A review of a fragment change names each host's installed copy.
+- Each claim is a command over the source, `path@agent-skills@content/` and
+  `path@agent-skills@fragments/`, unless it names other paths.
+  - Each is run on the tree before the step's edit, and shown to fail there.
+  - Where a phrase is split over a line break, the claim searches a word of it on its own, or a
+    phrase that sits on one line.
 - No step lands a mechanism.
-- The line numbers are those of "What the work is".
+- The line numbers are those of "What the work is" and "Decided design", at the commit that adds
+  this spec.
 
 1. **Acceptance criteria.**
-   - **Sites:**
-     - the design skill: its overview, the in-change path's record and its `%%` comment, and loop
-       step 7;
-     - the planning skill, at every site "What the work is" lists;
-     - the tripwire standard's condition 1;
-     - `primer@labelled-items`'s example;
-     - the decision-recording skill's line 105;
-     - the standing-state reviewer's lines 90-94.
+   - **Sites:** every site "Decided design" names for
+     `thread@owner-word-and-criteria@criteria-test-silent-premises` and
+     `thread@owner-word-and-criteria@criterion-ruled-at-reopening`, in the design skill, the
+     planning skill, the tripwire standard, the primer and the standing-state reviewer.
    - **Claims:**
-     - `grep -rn -E 'AC<n>|AC[0-9]' crates/agent-skills/content crates/agent-skills/fragments`
-       finds no label put to the owner, nor the primer's example;
-     - `grep -rn -i 'rulings on its acceptance criteria\|rulings on acceptance criteria\|threshold the owner sets' crates/agent-skills/content`
-       finds nothing;
-     - `grep -n 'conditions 1, 3 and 4'` finds the planning skill's section on criteria, loop
-       step 7 and the tripwire standard;
-     - `grep -n -i 'claim of the step'` finds the same three texts.
+     - `grep -rn -E 'AC<n>|AC[0-9]' crates/agent-skills/content crates/agent-skills/fragments` finds
+       nothing; today it finds planning 174 and 336 and design 632.
+     - `grep -rn -i -E 'threshold the owner sets|awaiting the owner, its label|an issue entry or a reopened' crates/agent-skills/content`
+       finds nothing.
+     - `grep -n -i 'comment at its test' crates/agent-skills/content/PRIMER.md` finds nothing.
+     - `grep -rn -i -E 'ruled on its acceptance|rulings on its acceptance|rulings on acceptance$' crates/agent-skills/content/skills/design/SKILL.md`
+       finds nothing.
+     - `grep -rln 'conditions 1, 3 and 4' crates/agent-skills/content crates/agent-skills/fragments`
+       lists the planning skill and the tripwire standard.
+     - `grep -rln -i 'claim of the step' crates/agent-skills/content crates/agent-skills/fragments`
+       lists the design skill, the planning skill, the tripwire standard and the standing-state
+       reviewer.
    - **Fails alone on:** the two skills' sections on criteria.
 2. **The overrule.**
-   - **Sites:**
+   - **Sites:** every site "Decided design" names for
+     `thread@owner-word-and-criteria@intent-through-goals-not-overrule`:
      - the design skill's decision authority, "The weighing at a fork is theirs", the `parked`
-       state, "Who moves what", loop step 4 and the sentence on a criterion derived from a decision;
-     - the expectation set, and its restatement in the README of agent-skills, lines 95 and 208-210;
-     - "overrules" in the decision-recording skill (line 111) and the project-audit skill
-       (line 395).
+       state, "Who moves what", loop step 4, the bounded path's lines 194-195 and the sentence on
+       a criterion derived from a decision;
+     - the expectation set, with its line 177;
+     - the README's lines 12, 95, 141, 173 and 176-215;
+     - the decision-recording skill's line 111 and the project-audit skill's line 395.
    - **Claims:**
      - `grep -rn -i overrul crates/agent-skills/content crates/agent-skills/fragments crates/agent-skills/README.md`
-       finds nothing;
-     - `grep -n 'until the owner says otherwise'` over the design skill finds nothing;
-     - `grep -n -i 'goal, a fact or an argument'` finds the expectation set and the README's
-       restatement;
-     - `grep -n -i 'investing early'` finds both;
-     - `grep -n 'and park this'` finds neither.
+       finds nothing.
+     - `grep -n 'says otherwise' crates/agent-skills/content/skills/design/SKILL.md` finds nothing.
+     - `grep -rn -i -E 'answers otherwise|stops or redirects|stop or redirect' crates/agent-skills/content/skills crates/agent-skills/README.md`
+       finds no line without "goal, a fact or an argument" beside it.
+     - `grep -n -i 'goal, a fact or an argument'` over the retrospective skill and the README finds
+       each.
+     - `grep -n -i 'investing early'` over the same two files finds each.
+     - `grep -rn 'park this' crates/agent-skills/content/skills/retrospective/SKILL.md crates/agent-skills/README.md`
+       finds nothing.
    - **Fails alone on:** the design skill's decision authority.
 3. **Heads stand on argument.**
-   - **Sites:**
-     - the fragments head-entry-tests.md (test 4, and the member routing of lines 64 and 69-74)
-       and head-ground.md (the table, the weak form of a fork's choice and its guard, what the
-       ground means to a later session);
-     - the convergence question, in the design skill's loop step 6;
+   - **Sites:** every site "Decided design" names for
+     `thread@owner-word-and-criteria@heads-stand-on-argument`:
+     - the fragments head-entry-tests.md (test 4 removed, the member routing) and head-ground.md
+       (the table, the weak form and its guard, the reading of an older head, and what the ground
+       means to a later session);
      - `skill@knowledge-architect-decision-recording@unargued-approval`;
      - the design skill's lines 140 and 199;
-     - `primer@intent-and-claims` line 94.
+     - the primer's lines 31, 90 and 94;
+     - "test 4 included" in the decision-record reviewer and the design-record auditor.
    - **Claims:**
-     - `grep -rn -E 'the owner chose where the argued rivals|owner.s choice is then the head.s ground|reversed by the owner' crates/agent-skills/content crates/agent-skills/fragments`
-       finds nothing;
-     - `grep -n -i 'which no goal ranks'` finds head-ground.md;
-     - `grep -n -i 'already holds reopens nothing'` finds head-ground.md;
-     - `grep -n -i 'fact or an intent not yet recorded'` finds the design skill.
+     - `grep -rn -E 'the owner chose where the argued rivals|owner.s choice is then the head.s ground|reversed by the owner|test 4 included|such as an intent, a plan' crates/agent-skills/content crates/agent-skills/fragments`
+       finds nothing.
+     - `grep -n -i 'which no goal ranks' crates/agent-skills/fragments/head-ground.md` finds the
+       owner's and the session's forms.
+     - `grep -n -i 'already holds reopens nothing' crates/agent-skills/fragments/head-ground.md`
+       finds the guard.
    - **Fails alone on:** the primer's section on heads.
 4. **A ruling read by its direction.**
-   - **Sites:**
-     - the transcript reviewer's description, its section on recorded rulings and its severities;
-     - head-shape.md lines 66-70;
-     - the decision-record reviewer's line 109;
-     - the design-record auditor's line 118;
-     - the planning skill's lines 416-418, 526-528 and 544-547;
+   - **Sites:** every site "Decided design" names for
+     `thread@owner-word-and-criteria@ruling-read-by-its-direction`:
+     - the transcript reviewer;
+     - head-shape.md;
+     - the decision-record reviewer's line 109 and the design-record auditor's line 118;
+     - the project-audit skill's lines 201-202;
+     - the planning skill's lines 416-418, 526-528 and 543-548;
      - the retrospective skill's lines 103-106.
    - **Claims:**
-     - `grep -rn -E 'no obligation added|wider, narrower|widens it, narrows it' crates/agent-skills/content crates/agent-skills/fragments`
-       finds nothing;
-     - `grep -rn -i 'within its direction'` finds the transcript reviewer and head-shape.md.
+     - `grep -rn -E 'no obligation added|wider, narrower|widens it, narrows it|widens or narrows|or adds an obligation|a widening of what the owner|widen what the owner' crates/agent-skills/content crates/agent-skills/fragments`
+       finds nothing.
+     - `grep -rln -i 'read by its direction\|within its direction' crates/agent-skills/content crates/agent-skills/fragments`
+       lists the transcript reviewer, head-shape.md, the decision-record reviewer, the
+       design-record auditor, the project-audit skill, the planning skill and the retrospective
+       skill.
    - **Fails alone on:** the transcript reviewer's text.
 5. **Changelog.**
    - **Content:**
@@ -1432,14 +1607,19 @@ rule, `thread@owner-word-and-criteria@criteria-test-silent-premises`.
      - a Migration entry citing `skill@knowledge-architect-project-audit@design-record-axis`, which
        re-grounds a head that cites the owner's words;
      - then `cargo x changelog`.
-   - **Claim:** `cargo test --workspace` passes, whose test fails while a crate's copy of the
-     changelog differs.
+   - **Claim:** `cargo test --workspace` passes. Its test `every_published_crate_carries_the_root_changelog`
+     fails while a crate's copy of the changelog differs.
    - **Fails alone on:** the changelog copies.
 6. **The harvest**, per its rows.
-   - **Claims:**
-     - `cargo klarch check` passes;
-     - `cargo klarch show` on each head the harvest rows name lists no citing text that still
-       states what the head no longer says, which the decision-record review judges.
+   - **Procedure:**
+     - It writes the design homes, the `rejected` homes and the tripwires.
+     - A head it renames is cited by `%%` lines of the installed source: the planning skill's lines
+       327 and 330, the design skill's line 623, and line 1 of the fragments tripwire-lifecycle.md
+       and head-*.md. Those lines are edited to the new slug in the same commit, followed by
+       `cargo klarch install-agent-skills`.
+     - The citers of the reworded `goal@knowledge-architect@the-owner-decides` that no row names
+       are read for a clause that still argues from the overrule.
+   - **Claim:** `cargo klarch check` passes. It reports a reference to a renamed or removed head.
    - **Fails alone on:** the design homes.
 
 ## Order rationale
@@ -1452,7 +1632,8 @@ rule, `thread@owner-word-and-criteria@criteria-test-silent-premises`.
 
 ## Defaults awaiting the owner
 
-The plan reviews raised six defaults, put to the owner in one message, round 12. All are ruled.
+The first plan review raised six defaults, put to the owner in one message, round 12; the second
+raised two more, round 15. All are ruled.
 
 - **D1, the first commit's attribution of the owner's wish for autonomy.** The message is reworded
   to keep the owner's scope: "especially once a spec written from a design discussion holds it".
@@ -1461,7 +1642,8 @@ The plan reviews raised six defaults, put to the owner in one message, round 12.
 - **D2, an approval that matches two rows of the table.**
   - A threshold or a cost-weighing the agent proposed, which the owner approved, stays the
     session's.
-  - At a true fork, the owner's pick, the session's default included, is the owner's choice.
+  - At a true fork, the owner's pick, the session's default included, is the owner's choice. This
+    half is superseded by D7.
 
   Ruled, round 13. Bears on `thread@owner-word-and-criteria@heads-stand-on-argument`.
 - **D3, the exchange.** A question put to the owner with a built default, which the merge waits on,
@@ -1478,32 +1660,44 @@ The plan reviews raised six defaults, put to the owner in one message, round 12.
   by an argument or is a fork, and that a fork's choice is recorded in a weak form a later argument
   can reopen. The owner agreed the refined shape and its guard in round 14 (see
   `argument@owner-word-and-criteria@arg-48` to
-  `argument@owner-word-and-criteria@arg-51`). Bears on
+  `argument@owner-word-and-criteria@arg-52`). Bears on
   `thread@owner-word-and-criteria@heads-stand-on-argument`.
 - **D6, the goal and the head rule.** The reworded `goal@knowledge-architect@the-owner-decides`
   states "a decision the owner approved stands on its argument" as an outcome, and keeps it. The
   rule's home is the head the harvest rewrites from `design@agent-skills@head-ground-is-the-argument`,
-  which cites the goal. Ruled, round 13. Bears on
+  which cites the goal. The default as put said "The fragment cites the goal"; the session moved
+  the pointer to the head, since installed text cites no entry of the project, per
+  `primer@where-knowledge-goes`. Ruled, round 13. Bears on
   `thread@owner-word-and-criteria@heads-stand-on-argument`.
+- **D7, an approval of the session's default at a true fork.** It is recorded as the session's
+  choice in its weak form, "the session chose X over Y, which no goal ranks; the owner approved
+  it". Only the owner's own pick, against the session's default or with none offered, is recorded
+  as the owner's choice. This supersedes D2's second half, whose premise, supplied by the agent,
+  missed the first case of the issue the work closes. Ruled, round 16 ("agreed on the defaults").
+  Bears on `thread@owner-word-and-criteria@heads-stand-on-argument`.
+- **D8, a re-pick at an unchanged fork.** A reopening opens the exchange and decides nothing. A new
+  pick at the same fork needs a goal, a fact or an argument, a new weighing the owner states
+  included. Ruled, round 16. Bears on
+  `thread@owner-word-and-criteria@intent-through-goals-not-overrule`.
 
 ## Harvest
 
 | what | where | when |
 | --- | --- | --- |
 | `thread@owner-word-and-criteria@criteria-test-silent-premises`, admission | `design@agent-skills@acceptance-criterion-quality` rewritten under the thread's slug, its title stating conditions 1, 3 and 4 | step 6 |
-| `thread@owner-word-and-criteria@criteria-test-silent-premises`, routing | a new head: a completeness check is a claim of the step that builds it | step 6 |
+| `thread@owner-word-and-criteria@criteria-test-silent-premises`, routing | a new head under the slug `completeness-check-is-a-step-claim` | step 6 |
 | `thread@owner-word-and-criteria@criterion-ruled-at-reopening` | `design@agent-skills@acceptance-criteria-on-the-owners-word` reversed into a head under the thread's slug, with D4's routing; the reversed decision judged for a `rejected` entry; `design@agent-skills@acceptance-criteria-in-the-document`, `design@agent-skills@design-hands-off-to-planning`, `design@agent-skills@in-change-path` and `design@agent-skills@ruled-items-labelled` rewritten | step 6 |
-| `thread@owner-word-and-criteria@heads-stand-on-argument` | `design@agent-skills@head-ground-is-the-argument` rewritten under the thread's slug, with the weak form and its guard; `design@agent-skills@a-head-is-owed-by-an-entry-test` on test 4; `design@agent-skills@unargued-approval-is-argued`, `design@agent-skills@extension-follows-the-ground` and `design@agent-skills@divergence-routed-by-its-authority` rewritten; `design@agent-skills@structure-the-flow` re-grounded on its argument, `goal@agent-skills@only-needed-instructions` and `goal@knowledge-architect@design-with-agents-as-counterparts` | step 6 |
-| the convergence question | a new head, citing the premortem cause it converts | step 6 |
-| `thread@owner-word-and-criteria@intent-through-goals-not-overrule` | `design@agent-skills@owner-rules-at-a-fork`, `design@agent-skills@derived-decision-proceeds-on-default`, `design@agent-skills@tripwire-recording-authority`, `design@agent-skills@tripwire-stands-on-the-standard`, `design@agent-skills@tripwire-audit-axis` and `design@agent-skills@decisions-reported-to-the-owner` rewritten; a head under the thread's slug judged by the entry tests | step 6 |
-| `thread@owner-word-and-criteria@ruling-read-by-its-direction` | `design@agent-skills@transcript-reviewer-agent`, `design@agent-skills@misstated-ruling-rated-by-what-it-changes`, `design@agent-skills@only-a-head-changing-repair-is-reviewed-again` and `design@agent-skills@one-home-for-head-rules` rewritten; `tripwire@agent-skills@ruling-lost-in-change` and `tripwire@agent-skills@record-answered-questions-reach-the-owner` reread against them | step 6 |
+| `thread@owner-word-and-criteria@heads-stand-on-argument` | `design@agent-skills@head-ground-is-the-argument` rewritten under the thread's slug, with the table, D7, the weak form and its guard; `design@agent-skills@a-head-is-owed-by-an-entry-test` with three tests; `design@agent-skills@unargued-approval-is-argued`, `design@agent-skills@extension-follows-the-ground`, `design@agent-skills@divergence-routed-by-its-authority` and `design@agent-skills@questions-go-to-their-authority` rewritten; `design@agent-skills@structure-the-flow` re-grounded on its argument, `goal@agent-skills@only-needed-instructions` and `goal@knowledge-architect@design-with-agents-as-counterparts`; `tripwire@agent-skills@a-shortcut-decision-earns-a-head` reread | step 6 |
+| `thread@owner-word-and-criteria@intent-through-goals-not-overrule` | `design@agent-skills@owner-rules-at-a-fork` with D8, `design@agent-skills@derived-decision-proceeds-on-default`, `design@agent-skills@tripwire-recording-authority`, `design@agent-skills@tripwire-stands-on-the-standard`, `design@agent-skills@tripwire-audit-axis`, `design@agent-skills@decisions-reported-to-the-owner` and `design@agent-skills@bounded-path-in-design` rewritten; a head under the thread's slug judged by the entry tests | step 6 |
+| `thread@owner-word-and-criteria@ruling-read-by-its-direction` | `design@agent-skills@transcript-reviewer-agent`, `design@agent-skills@misstated-ruling-rated-by-what-it-changes`, `design@agent-skills@only-a-head-changing-repair-is-reviewed-again`, `design@agent-skills@one-home-for-head-rules` and `design@agent-skills@audit-outcomes` rewritten; `tripwire@agent-skills@ruling-lost-in-change` and `tripwire@agent-skills@record-answered-questions-reach-the-owner` reread against them | step 6 |
+| `thread@owner-word-and-criteria@criteria-test-silent-premises`, its use of condition 1 | `tripwire@agent-skills@silent-read-too-widely`, its firing clause widened | step 6 |
 | `thread@owner-word-and-criteria@exchange-for-what-the-record-leaves-open` | the goal, written; no head | done |
 | the losing alternatives | judged for `rejected` entries by the tests of `skill@knowledge-architect-decision-recording@losing-alternatives` | step 6 |
-| the three issues that close | `issue@agent-skills@an-approved-default-is-attributed-to-the-owner-and-the-agent-records-no-decision-of-its-own`, `issue@agent-skills@a-premortem-criterion-listed-as-a-default-reads-two-ways` and `issue@agent-skills@a-criterion-derived-from-a-decision-binds-until-the-owner-says-otherwise` deleted | steps 2 and 6 |
-| the premortem's causes | judged as tripwires | step 6 |
+| the three issues that close | `issue@agent-skills@an-approved-default-is-attributed-to-the-owner-and-the-agent-records-no-decision-of-its-own` and `issue@agent-skills@a-premortem-criterion-listed-as-a-default-reads-two-ways` deleted at step 6, `issue@agent-skills@a-criterion-derived-from-a-decision-binds-until-the-owner-says-otherwise` at step 2 | steps 2 and 6 |
+| the premortem's causes | judged as tripwires, cause 6 included | step 6 |
 
 ## Later consequences
 
-- The design-record audit's next pass re-grounds the heads that cite the owner's words. The
-  searchers named about a dozen in the core alone.
+- The design-record audit's next pass re-grounds the heads that cite the owner's words, in every
+  Component; the searchers of the second search named several in the core.
 - The owner's next design session is on what a proper goal is.
