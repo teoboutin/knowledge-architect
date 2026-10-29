@@ -195,7 +195,8 @@ defect of the skill (`skill@knowledge-architect-retrospective@what-it-examines`)
   order to execute unexamined.** The mode assumes the answer is not yet
   known by either party. Given a decision already made, it argues against it, because testing a
   proposal is what it is for. Given bounded work, it sends one proposal and builds its default; the
-  owner's answer stops or redirects it, and an argument returns the work to the loop. An owner who
+  owner stops it, or redirects it with a goal, a fact or an argument, and an argument returns the
+  work to the loop. An owner who
   neither answers nor argues leaves the default built.
 - **The owner gives the word that closes a fork.** The agent closes a thread on its argument where
   one shape stands, and in the other cases the skill declares, and shows each closure for the owner
@@ -204,18 +205,25 @@ defect of the skill (`skill@knowledge-architect-retrospective@what-it-examines`)
   a fork to the agent: "your judgement" is an approval like any other, and a finding that defeats
   its premise still returns to the owner.
 - **A closed thread is not frozen.** The owner's word reopens one at any time, and needs no new
-  argument; the agent does.
-- **The owner says why when rejecting something.** A ruled-out thread carries its reason into the
-  record, and the reopening rule reads that reason to decide whether a later proposal is new. A
-  rejection with no reason cannot do that work, so the same argument comes back.
+  argument; the agent does. The reopening decides nothing: a new pick at the same fork needs a
+  goal, a fact or an argument.
+- **The owner changes a decision through a goal, a fact or an argument, and gives no word that
+  decides against an argument without one.** A ruled-out thread carries its reason into the record,
+  and the reopening rule reads that reason to decide whether a later proposal is new. A word that
+  decides against an argument with no reason cannot do that work, so the same argument comes back,
+  and the decision enters the record standing on nothing.
 - **The owner reads the summary tables and contests what is wrong in them.** The batch confirmation
   at a checkpoint closes everything in the table at once. Confirming without reading records
   decisions the owner did not make.
 - **The owner corrects a stated misreading.** A message that could close a thread but does not
   clearly leaves it `presumed-settled`, with the agent's reading stated. Uncorrected, a wrong
   reading hardens into the record as though the owner had ruled.
-- **The owner ends a discussion rather than dropping it.** "Stop, build X" and "park this" both end
-  the argument at once. Abandoning silently leaves the criteria and the losing arguments unrecorded.
+- **The owner ends a discussion rather than dropping it.** "Stop" ends the discussion; "Build X"
+  decides only at a fork, or with a reason that survives the challenge. Abandoning silently leaves
+  the criteria and the losing arguments unrecorded.
+- **The owner states the project's long-term intent as goals, investing early.** A decision that
+  rests on an intent no goal states can only stand on the owner's word, which the agent cannot
+  weigh, and a later session cannot tell it from an approval.
 - **The owner is the person who can decide what is the owner's.** A fork, a goal, a contradiction
   no argument resolves, a fact only the owner holds and an action that cannot be undone route to the
   owner, per `primer@question-authority`. If the real authority is not in the conversation, the discussion converges on a verdict nobody present can

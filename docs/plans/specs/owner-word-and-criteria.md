@@ -103,7 +103,7 @@ The overrule:
   - loop step 4 (line 543): "only an explicit decision converts their statement into a directive";
   - `skill@knowledge-architect-design@threads-and-states` (line 377): a criterion derived from a
     recorded decision binds "until the owner says otherwise",
-    `issue@agent-skills@a-criterion-derived-from-a-decision-binds-until-the-owner-says-otherwise`.
+    `a-criterion-derived-from-a-decision-binds-until-the-owner-says-otherwise`.
 - **The decision-recording skill**, line 111: "No cause is put to the owner, who overrules by
   reading the work".
 - **The project-audit skill**, line 395: the owner "overrules any of them".
@@ -260,7 +260,7 @@ excluded. Each is read at the step that edits it, or at step 6:
 | `design@agent-skills@misstated-ruling-rated-by-what-it-changes` | `register@agent-skills@tripwire` |
 | `design@agent-skills@only-a-head-changing-repair-is-reviewed-again` | `path@agent-skills@docs/design/reviews.md` |
 | `design@agent-skills@one-home-for-head-rules` | `path@agent-skills@docs/design/design-skill-and-heads.md`, `path@agent-skills@docs/design/how-installed-text-changes.md`, `path@agent-skills@docs/design/project-configuration.md`, `path@agent-skills@docs/design/shipped-set.md`, `path@agent-skills@fragments/head-entry-tests.md`, `path@agent-skills@fragments/head-ground.md`, `path@agent-skills@fragments/head-shape.md` |
-| `design@agent-skills@questions-go-to-their-authority` | `path@agent-skills@docs/design/audit-method.md`, `path@agent-skills@docs/design/owner-and-intent.md`, `path@agent-skills@docs/design/project-configuration.md`, `path@agent-skills@docs/open-issues/a-criterion-derived-from-a-decision-binds-until-the-owner-says-otherwise.md`, `path@agent-skills@docs/open-issues/a-head-in-the-wrong-component-goes-to-the-owner-though-the-record-settles-the-component.md`, `path@agent-skills@docs/open-issues/patching-an-installed-skill.md`, `register@agent-skills@rejected`, `register@agent-skills@tripwire` |
+| `design@agent-skills@questions-go-to-their-authority` | `path@agent-skills@docs/design/audit-method.md`, `path@agent-skills@docs/design/owner-and-intent.md`, `path@agent-skills@docs/design/project-configuration.md`, the issue `a-criterion-derived-from-a-decision-binds-until-the-owner-says-otherwise`, closed at step 2, `path@agent-skills@docs/open-issues/a-head-in-the-wrong-component-goes-to-the-owner-though-the-record-settles-the-component.md`, `path@agent-skills@docs/open-issues/patching-an-installed-skill.md`, `register@agent-skills@rejected`, `register@agent-skills@tripwire` |
 | `design@agent-skills@bounded-path-in-design` | `path@agent-skills@docs/design/design-skill-and-heads.md`, `path@agent-skills@docs/design/record-search.md`, `path@agent-skills@docs/open-issues/an-issue-s-re-entry-point-is-read-by-no-review.md`, `path@agent-skills@docs/open-issues/the-open-space-test-may-admit-every-problem.md`, `register@agent-skills@tripwire` |
 | `design@agent-skills@audit-outcomes` | `path@agent-skills@docs/design/audit-record-axes.md`, `path@agent-skills@docs/design/audit-workflow-axis.md`, `path@agent-skills@docs/design/how-installed-text-changes.md`, `path@agent-skills@docs/design/retrospective.md`, `path@agent-skills@docs/open-issues/a-head-in-the-wrong-component-goes-to-the-owner-though-the-record-settles-the-component.md`, `path@agent-skills@docs/open-issues/an-upstream-finding-stays-in-every-later-old-text-count.md`, `register@agent-skills@rejected`, `register@knowledge-architect@design` |
 
@@ -293,7 +293,7 @@ Tripwires and issues whose clauses depend on a rewritten head:
   head is written, not what it stands on.
 - `issue@agent-skills@a-premortem-criterion-listed-as-a-default-reads-two-ways` closes, since no
   criterion awaits the owner.
-- `issue@agent-skills@a-criterion-derived-from-a-decision-binds-until-the-owner-says-otherwise`
+- `a-criterion-derived-from-a-decision-binds-until-the-owner-says-otherwise`
   closes at step 2, which rewrites the sentence the way its "What would close it" says.
 
 **Each entry the discussion's two searches graded**, with its outcome. The first search, on
@@ -418,7 +418,7 @@ Graded `bears`, read whole:
 | `goal@knowledge-architect@the-owner-decides` | constrains | S1 changes whether a fired criterion reopens a decision, which may reach the owner, or is repaired by the session; the goal reserves to the owner only what the goals and the record leave open and keeps the owner informed of the rest. | reworded and written in the branch's first commit |
 | `goal@knowledge-architect@the-owner-s-word-is-verified` | constrains | Shape E sets how strictly a reviewer reads the owner's word against the record; this goal binds how the owner's word is taken and checked in every activity. | unchanged: a constraint the steps meet |
 | `goal@knowledge-architect@the-workflow-improves-through-real-use` | - | The goal forbids a mock task built "to accept a piece of work"; S2 keeps criteria for premises only the built result can test, which for an agent-behaviour premise could ask for such a run, but the drafted shapes say nothing of how a criterion is tested, so no bearing is established. | unchanged: a constraint the steps meet |
-| `issue@agent-skills@a-criterion-derived-from-a-decision-binds-until-the-owner-says-otherwise` | touches | Who may lift a criterion derived from a decision, the owner or the session: the work's question of owner's say versus agent autonomy, and the joined discussion on acceptance criteria, decide the same thing. | closed at step 2 |
+| `a-criterion-derived-from-a-decision-binds-until-the-owner-says-otherwise` | touches | Who may lift a criterion derived from a decision, the owner or the session: the work's question of owner's say versus agent autonomy, and the joined discussion on acceptance criteria, decide the same thing. | closed at step 2 |
 | `issue@agent-skills@a-member-recorded-directly-lies-beyond-its-head-s-argument` | touches | it reopens `design@agent-skills@extension-follows-the-ground`, whose premise (owner approves on the argument) D rests on, and A changes how a decision met outside a discussion is routed, the act this issue records going wrong | stays open: the work neither meets its closing condition nor changes its subject |
 | `issue@agent-skills@a-premortem-criterion-listed-as-a-default-reads-two-ways` | touches, closes | cites seed `design@agent-skills@acceptance-criteria-on-the-owners-word`; its subject is how a premortem criterion awaiting the owner is judged; S3 would close it and S2 changes which criteria reach the owner | closed at step 6 |
 | `issue@agent-skills@a-tripwire-on-agent-behaviour-fires-where-this-project-cannot-see` | touches | S3 turns premortem causes into tripwires, and S2 changes the premortem's routing (loop step 7); this issue records premortem causes of agent behaviour whose evidence lands only in sessions, and how they were dropped or rerouted | stays open: the work neither meets its closing condition nor changes its subject |
@@ -1118,7 +1118,7 @@ only the questions that are the owner's, where the owner's answer decides.
 **A criterion derived from a recorded decision** binds until the decision is reversed: by the
 session, where the decision's argument is defeated and no fork stands, or by the owner at a fork.
 Under the new ground rule, an owner's ground is a fork's choice, so this is the rewrite that
-`issue@agent-skills@a-criterion-derived-from-a-decision-binds-until-the-owner-says-otherwise`
+`a-criterion-derived-from-a-decision-binds-until-the-owner-says-otherwise`
 asks for, and closes it.
 
 **The expectation set** in `skill@knowledge-architect-retrospective@expectation-sets` changes in
@@ -1693,7 +1693,7 @@ raised two more, round 15. All are ruled.
 | `thread@owner-word-and-criteria@criteria-test-silent-premises`, its use of condition 1 | `tripwire@agent-skills@silent-read-too-widely`, its firing clause widened | step 6 |
 | `thread@owner-word-and-criteria@exchange-for-what-the-record-leaves-open` | the goal, written; no head | done |
 | the losing alternatives | judged for `rejected` entries by the tests of `skill@knowledge-architect-decision-recording@losing-alternatives` | step 6 |
-| the three issues that close | `issue@agent-skills@an-approved-default-is-attributed-to-the-owner-and-the-agent-records-no-decision-of-its-own` and `issue@agent-skills@a-premortem-criterion-listed-as-a-default-reads-two-ways` deleted at step 6, `issue@agent-skills@a-criterion-derived-from-a-decision-binds-until-the-owner-says-otherwise` at step 2 | steps 2 and 6 |
+| the three issues that close | `issue@agent-skills@an-approved-default-is-attributed-to-the-owner-and-the-agent-records-no-decision-of-its-own` and `issue@agent-skills@a-premortem-criterion-listed-as-a-default-reads-two-ways` deleted at step 6, `a-criterion-derived-from-a-decision-binds-until-the-owner-says-otherwise` at step 2 | steps 2 and 6 |
 | the premortem's causes | judged as tripwires, cause 6 included | step 6 |
 
 ## Later consequences

@@ -1,10 +1,9 @@
 **Generated — do not edit.** `cargo klarch index`
 
-48 entries
+47 entries
 
 | kind | title |
 | --- | --- |
-| defect | [A criterion derived from a decision binds until the owner says otherwise](a-criterion-derived-from-a-decision-binds-until-the-owner-says-otherwise.md) |
 | defect | [An acceptance criterion from the premortem, listed among the defaults awaiting the owner, is both judged and not judged before the ruling](a-premortem-criterion-listed-as-a-default-reads-two-ways.md) |
 | defect | [A saved workflow's `//` comments ship to every installing project, though the standard sends maintainer-only text to a comment the build removes](a-saved-workflow-s-comments-ship-to-every-project.md) |
 | defect | [A spec worked without its design audit, as the rule allows, missed a critical gap an audit would have listed](a-spec-worked-without-its-design-audit-missed-a-critical-gap.md) |

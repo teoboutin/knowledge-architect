@@ -220,7 +220,9 @@ and are not written.
    request names it. A failure that fails a test or a check, stops the work that meets it, or
    arrives as a request for what the decision refused reaches the decision without a tripwire.
    Where a script could compute the firing, write that check instead. A check of the work being
-   built is that work's acceptance criterion; one that can be written only after another event,
+   built is no tripwire: it is that work's acceptance criterion where its firing would show a
+   decision wrong and it meets conditions 1, 3 and 4, and otherwise a claim of the step that builds
+   it. A check that can be written only after another event,
    such as the end of a migration, is a `deferred` issue whose trigger is that event.
 2. **The evidence lands where tripwires are read.** It is in the tree, the history, an audit
    report, or a retrospective file the intake receives. Evidence that exists only in a session's
