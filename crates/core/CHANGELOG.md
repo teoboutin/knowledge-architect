@@ -35,6 +35,14 @@ subsection is omitted.
   decision per head, cites `skill@knowledge-architect-decision-recording@head-shape` instead;
   `primer@design-heads` keeps what earns a head, whether a reason belongs in a head or in a comment,
   and what a head stands on.
+- `agent-skills`, patch: a head that cites the owner's words as its ground is read by the new rule
+  on what a head stands on: an approval is no ground, a pick at a fork is recorded in a weak form,
+  and an intent is drafted as a goal. Run the design-record axis of the project audit,
+  `skill@knowledge-architect-project-audit@design-record-axis`, which re-grounds each such head in
+  the branch, and puts each intent on the owner list as a goal to draft.
+- `agent-skills`, patch: a plan document under way whose acceptance criteria await the owner's
+  ruling drops the ruling and their `AC` labels; a criterion whose failure a test, a gate or a review
+  would report becomes a claim of the step that builds it.
 - `agent-skills`, patch: a project whose own text cites `knowledge-architect-standing-entry-searcher`
   or `knowledge-architect-design-entry-searcher` by its reference rewrites the citation to
   `agent@knowledge-architect-record-searcher`, which replaces both.
@@ -124,7 +132,8 @@ subsection is omitted.
 - `agent-skills`, patch: a premortem's causes are no longer put to the owner. At the end of the work
   that implements the decision, the session judges each cause by the tripwire standard, records
   those that pass, and lists every cause with its outcome in its turn's "Decided" section and in the
-  harvest's or the in-change commit message; the owner overrules by reading. The `T` label is gone.
+  harvest's or the in-change commit message; the owner reads it and contests an outcome with a goal,
+  a fact or an argument. The `T` label is gone.
   A recorded tripwire's wording, scope and removal are the session's under the standard, listed in
   "Decided"; a removal on the doubt's weight alone is the owner's. The owner's word admits and keeps
   no tripwire the standard refuses.
@@ -134,8 +143,29 @@ subsection is omitted.
 - `agent-skills`, patch: the standing-state reviewer asks of each tripwire whether its horizon has
   passed, and the decision-record reviewer judges each tripwire a branch adds by the standard and
   looks for every premortem cause's outcome in the branch's messages.
-- `agent-skills`, patch: an acceptance criterion names a built result under which it fails, and
-  its bound carries its basis; the owner still rules on each.
+- `agent-skills`, patch: an acceptance criterion is admitted only where its failure is silent, its
+  firing would show the decision it guards wrong, and a number in it has a basis; a check whose
+  firing would show the work unfinished is a claim of the step that builds it. No criterion is put
+  to the owner, and the `AC` label is gone; a value a criterion's basis leaves open is listed among
+  the defaults awaiting the owner. A criterion that fires opens a design discussion with the owner
+  on the decision it guards, where the measurement, the argument and the owner's forks each answer
+  their part.
+- `agent-skills`, patch: the owner changes a decision through a goal, a fact or an argument; no word
+  decides against an argument without one. The design skill's owner decides a fork and contests any
+  closure, "Stop" ends a discussion and decides nothing, a reopening decides nothing until a goal, a
+  fact or an argument backs a new pick, and a bounded default is stopped, or redirected with a
+  reason. The expectation set says the same, and adds that the owner states the project's long-term
+  intent as goals.
+- `agent-skills`, patch: a design head stands on its argument, and what the owner brings lands by
+  its kind: a fact as a premise, an intent as a goal, an argument on its merits, an approval as no
+  ground. A choice at a fork is recorded in a weak form, the session's when the owner approved its
+  default and the owner's when the owner picked, and reopens without the owner on an argument or a
+  fact that ranks the shapes and that the fork's record does not hold. Entry test 4 is gone: the
+  owner's intent is drafted as a goal, and its `Q` questions with it.
+- `agent-skills`, patch: the transcript reviewer reports a ruling of the owner only where the record
+  reverses it, relaxes it, turns its direction or attributes to the owner what the owner did not
+  decide; a refinement in its direction is no finding. The rules on heads, the record reviewers and
+  auditors, the plan reviews and the retrospective read an approval the same way.
 - `agent-skills`, patch: the retrospective's version line names the main commit the session's tree
   held when its work began; a retrospective intake reads whole the entries its proposals rest on,
   every issue and tripwire its search grades `bears` or `may-bear` and every `bears` entry, and lists
