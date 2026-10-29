@@ -7,8 +7,8 @@
 //! content/ holds the comments and names each fragment by a placeholder line. This view joins the
 //! two, so a maintainer reads a skill whole, with the reasons and the citations its comments give,
 //! and still finds each line in the file to edit. It prints the files of the checkout, not the text
-//! a binary embeds. The command builds the agent-skills crate, whose build refuses a source it would
-//! not ship, so a source the build refuses has no view: the build's message names its line.
+//! a binary embeds. The command builds the agent-skills crate, whose build refuses a source it
+//! would not ship, so a source the build refuses has no view: the build's message names its line.
 //!
 //! It is a subcommand of this tool rather than of the checker, per
 //! `design@xtask@source-view-in-the-tool`.
@@ -21,7 +21,8 @@ use std::process::ExitCode;
 
 // The build's own file, so the view reads placeholders through the readers the build's passes
 // use, per `design@agent-skills@one-placeholder-reader-per-kind`. It is included rather than
-// exported from the agent-skills library, per `design@xtask@view-included-not-exported`. The source view and the placeholder
+// exported from the agent-skills library, per
+// `design@xtask@view-included-not-exported`. The source view and the placeholder
 // constants serve here; the rest of the file is the build's.
 #[path = "../../../crates/agent-skills/src/render.rs"]
 #[allow(dead_code)]
