@@ -67,3 +67,18 @@ comments. Reading it is a task local to this repository, so it is this tool's, p
 `rejected@xtask@source-view-in-the-checker`, would put in the command line of every adopting
 project's checker a command that either finds no source there or ships this repository's in every
 binary.
+
+### The source view reaches the build's readers by including their file with `#[path]`, and the agent-skills library exports no view `##view-included-not-exported`
+
+`path@xtask@src/skill.rs` includes `path@agent-skills@src/render.rs` with `#[path]`, as
+`path@agent-skills@build.rs` does, so the view calls the readers of
+`design@agent-skills@one-placeholder-reader-per-kind`. The library of the agent-skills crate
+declares the file for its own tests alone. The owner chose the include over exporting the view from
+that library, `rejected@xtask@view-exported-from-the-library`, expecting the split of the crate into
+a bundling utility that publishes the bundling method and the skills themselves,
+`issue@knowledge-architect@the-skill-bundling-passes-are-tied-to-this-project-s-skills`, to change
+how the view reaches the passes.
+
+The costs: the file's tests also run in this tool's test binary, and each include allows dead code,
+since each uses part of the file. The crate's own test build allows none, so an item that no unit
+uses still warns there.
