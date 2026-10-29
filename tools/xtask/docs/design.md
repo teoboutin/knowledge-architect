@@ -5,7 +5,8 @@ copies of the root changelog the published crates ship, per
 `design@knowledge-architect@the-changelog-ships-in-every-crate`; `skill`, which prints the source
 of one shipped text with its fragments and snippets inlined and its comments kept; and `gates`,
 which runs this repository's gate list through the published gates library,
-`register@gates@design`. A workflow belongs here when it is a repository operation a session runs often and gets wrong by hand.
+`register@gates@design`. A workflow belongs here when it is a repository operation a session runs
+often and gets wrong by hand.
 
 How its arguments parse is not a decision of this tool's: it parses through clap and tests its
 declaration, as `design@core@arguments-parse-through-clap` argues for the checker's binaries.
@@ -16,8 +17,8 @@ A subcommand is one module owning everything it is, plus one variant in `path@xt
 command enum. Code is shared only when every subcommand needs it. What that admits today: the gates
 library's output helper `complain`, which `design@gates@one-spawn-helper` keeps in its process
 module; its `project_root`; and the core's `MANIFEST_NAME`. Adding a workflow adds its module and
-its variant and edits nothing else. This is what keeps later workflows independent of each other and
-of `gates`.
+its variant and edits no other module of this tool. This is what keeps later workflows independent
+of each other and of `gates`.
 
 ### The gate list lives here, and CI runs it `##gates-list-primary-home`
 
@@ -51,3 +52,31 @@ job's step times re-take it, `gh run view <run id> --json jobs --jq '.jobs[].ste
 where the `gates` step holds every gate. A
 commit before the tip that does not compile passes CI, and is found only by whoever builds it
 later.
+
+### The source view of the shipped text is a command of this tool, not of the checker `##source-view-in-the-tool`
+
+`cargo x skill <name>` prints one shipped skill, agent, saved workflow or the primer from its source
+under `path@agent-skills@content/`, with its fragments and snippets inlined and its `%%` comments
+kept, the comments the build removes from every installed copy, per
+`design@agent-skills@shipped-text-line-comments`. Its usage is `path@xtask@README.md`, and a session
+of this repository grounds in a shipped text through it, per `instructions@repository-skills`.
+
+That source is this repository's alone: no adopting project holds content/, its fragments or its
+comments. Reading it is a task local to this repository, so it is this tool's, per
+`goal@xtask@repeated-tasks-are-automated`. The rival, a subcommand of the checker,
+`rejected@xtask@source-view-in-the-checker`, would put in the command line of every adopting
+project's checker a command with nothing to read there.
+
+### The source view reads placeholders through the build's own readers, included by `#[path]` and exported by no library `##passes-included-not-exported`
+
+`path@xtask@src/skill.rs` includes `path@agent-skills@src/render.rs` with `#[path]`, as
+`path@agent-skills@build.rs` does. The view reads a fragment or a snippet placeholder through
+`fragment_placeholder` and `snippet_placeholder`, the readers the build's passes use, so it inlines
+the lines the build inlines. The library of the agent-skills crate declares the file for its own
+tests alone. The rival, the view exported from that library,
+`rejected@xtask@passes-exported-from-the-library`, would add to the API of a published crate a
+function no consumer calls.
+
+The costs: the file's tests also run in this tool's test binary, and each include allows dead code,
+since each uses part of the file. The crate's own test build allows none, so an item that no unit
+uses still warns there.

@@ -45,7 +45,9 @@ use std::path::{Path, PathBuf};
 #[path = "src/render.rs"]
 #[allow(dead_code)]
 mod render;
-use render::{check_workflow_name, render_fragments, render_slugs, strip_comments, SNIPPET};
+use render::{
+    check_workflow_name, render_fragments, render_slugs, snippet_placeholder, strip_comments,
+};
 
 /// The prefix every installed skill directory, agent file and workflow file carries in the
 /// project.
@@ -197,10 +199,7 @@ impl Snippets {
         let mut rendered = String::with_capacity(text.len());
         for line in text.split_inclusive('\n') {
             let bare = line.trim_end_matches(['\n', '\r']);
-            let Some(name) = bare
-                .strip_prefix(SNIPPET)
-                .and_then(|rest| rest.strip_suffix("}}"))
-            else {
+            let Some(name) = snippet_placeholder(bare) else {
                 rendered.push_str(line);
                 continue;
             };

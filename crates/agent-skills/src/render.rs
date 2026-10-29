@@ -178,11 +178,7 @@ pub(crate) fn render_fragments<'a>(
     let mut used = Vec::new();
     for (n, line) in text.split_inclusive('\n').enumerate() {
         let bare = line.trim_end_matches(['\n', '\r']);
-        let trimmed = bare.trim_start_matches(' ');
-        let Some(name) = trimmed
-            .strip_prefix(FRAGMENT)
-            .and_then(|rest| rest.strip_suffix("}}"))
-        else {
+        let Some((indent, name)) = fragment_placeholder(bare) else {
             rendered.push_str(line);
             continue;
         };
@@ -212,7 +208,6 @@ pub(crate) fn render_fragments<'a>(
                 .contains("{{"),
             "{own}: a fragment holds no build placeholder but the install's `{{{{command}}}}`"
         );
-        let indent = &bare[..bare.len() - trimmed.len()];
         for part in body
             .strip_suffix('\n')
             .unwrap_or(&body)
@@ -240,7 +235,7 @@ pub(crate) fn render_fragments<'a>(
 /// a placeholder by the grammar the build reads, a fragment's after any leading spaces and a
 /// snippet's at the start of the line, and a fragment and its two framing lines carry the
 /// placeholder's indentation, as `render_fragments` indents the fragment. It checks nothing else
-/// the build checks: a text the build refuses still has a view.
+/// the build checks.
 pub(crate) fn source_view(
     text: &str,
     fragments: &[(&str, &str)],
@@ -249,15 +244,9 @@ pub(crate) fn source_view(
     let mut view = String::with_capacity(text.len());
     for (n, line) in text.split_inclusive('\n').enumerate() {
         let bare = line.trim_end_matches(['\n', '\r']);
-        let trimmed = bare.trim_start_matches(' ');
-        let (dir, indent, name, files) = if let Some(name) = placeholder(FRAGMENT, trimmed) {
-            (
-                "fragments",
-                &bare[..bare.len() - trimmed.len()],
-                name,
-                fragments,
-            )
-        } else if let Some(name) = placeholder(SNIPPET, bare) {
+        let (dir, indent, name, files) = if let Some((indent, name)) = fragment_placeholder(bare) {
+            ("fragments", indent, name, fragments)
+        } else if let Some(name) = snippet_placeholder(bare) {
             ("snippets", "", name, snippets)
         } else {
             view.push_str(line);
@@ -285,9 +274,21 @@ pub(crate) fn source_view(
     Ok(view)
 }
 
-/// The name `line` holds as a placeholder opened by `open`, if it is one.
-fn placeholder<'a>(open: &str, line: &'a str) -> Option<&'a str> {
-    line.strip_prefix(open)?.strip_suffix("}}")
+/// The leading spaces and the file name of `bare`, a line without its line break, if it is a
+/// fragment placeholder: `{{fragment:<file>}}` after spaces alone, closed at the end of the line.
+/// The fragment pass and the source view both read placeholders through it, so the view inlines
+/// the lines the build inlines.
+pub(crate) fn fragment_placeholder(bare: &str) -> Option<(&str, &str)> {
+    let trimmed = bare.trim_start_matches(' ');
+    let name = trimmed.strip_prefix(FRAGMENT)?.strip_suffix("}}")?;
+    Some((&bare[..bare.len() - trimmed.len()], name))
+}
+
+/// The file name of `bare`, a line without its line break, if it is a snippet placeholder:
+/// `{{snippet:<file>}}` alone on the line, from its first character. The build's snippet pass
+/// and the source view both read placeholders through it.
+pub(crate) fn snippet_placeholder(bare: &str) -> Option<&str> {
+    bare.strip_prefix(SNIPPET)?.strip_suffix("}}")
 }
 
 /// What opens a saved workflow's declaration; its `name` key follows inside the object.
@@ -761,8 +762,12 @@ mod tests {
     }
 
     fn view(text: &str) -> Result<String, String> {
-        let fragments = [("f.md", "%% why\none\n\n- two\n")];
-        let snippets = [("s.rs", "fn main() {}\n")];
+        let fragments = [
+            ("f.md", "%% why\none\n\n- two\n"),
+            ("g.md", "other"),
+            ("e.md", ""),
+        ];
+        let snippets = [("s.rs", "fn main() {}\n"), ("t.rs", "fn other() {}\n")];
         super::source_view(text, &fragments, &snippets)
     }
 
@@ -801,12 +806,61 @@ mod tests {
     #[test]
     fn the_view_refuses_a_placeholder_naming_no_file() {
         assert_eq!(
-            view("a\n  {{fragment:g.md}}\n"),
-            Err("line 2: names fragments/g.md, which does not exist".to_string())
+            view("a\n  {{fragment:x.md}}\n"),
+            Err("line 2: names fragments/x.md, which does not exist".to_string())
         );
         assert_eq!(
-            view("{{snippet:t.rs}}\n"),
-            Err("line 1: names snippets/t.rs, which does not exist".to_string())
+            view("{{snippet:x.rs}}\n"),
+            Err("line 1: names snippets/x.rs, which does not exist".to_string())
         );
+    }
+
+    // The claim: each placeholder inlines the file it names, not another of the same kind.
+    #[test]
+    fn the_view_inlines_the_file_each_placeholder_names() {
+        let text = view("{{fragment:g.md}}\n{{snippet:t.rs}}\n").expect("a view");
+        assert_eq!(
+            text,
+            "%% >>> fragments/g.md\nother\n%% <<< fragments/g.md\n%% >>> snippets/t.rs\nfn other() {}\n%% <<< snippets/t.rs\n"
+        );
+    }
+
+    // The claim: a file with no final line break still ends before the closing line, and an
+    // empty file leaves the two framing lines alone, with no blank line between them.
+    #[test]
+    fn the_view_closes_a_file_with_no_final_line_break_or_no_text() {
+        let text = view("{{fragment:g.md}}\n{{fragment:e.md}}\nb\n").expect("a view");
+        assert_eq!(
+            text,
+            "%% >>> fragments/g.md\nother\n%% <<< fragments/g.md\n%% >>> fragments/e.md\n%% <<< fragments/e.md\nb\n"
+        );
+    }
+
+    // The claim: the closing line keeps the placeholder line's own line break, none on a last
+    // line that has none, `\r\n` on a CRLF line.
+    #[test]
+    fn the_closing_line_keeps_the_placeholder_s_line_break() {
+        let last = view("a\n{{fragment:g.md}}").expect("a view");
+        assert_eq!(
+            last,
+            "a\n%% >>> fragments/g.md\nother\n%% <<< fragments/g.md"
+        );
+        let crlf = view("a\r\n{{fragment:g.md}}\r\nb\r\n").expect("a view");
+        assert_eq!(
+            crlf,
+            "a\r\n%% >>> fragments/g.md\nother\n%% <<< fragments/g.md\r\nb\r\n"
+        );
+    }
+
+    // The claim: a line the build keeps as written, a placeholder indented by a tab or followed
+    // by a space, the view keeps as written too.
+    #[test]
+    fn a_line_the_build_does_not_read_as_a_placeholder_stays_as_written() {
+        let text =
+            "\t{{fragment:f.md}}\n{{fragment:f.md}} \n {{snippet:s.rs}}\n{{snippet:s.rs}} \n";
+        assert_eq!(view(text).expect("a view"), text);
+        let shared = [("f.md", "one\n")];
+        let (built, _) = fragments("\t{{fragment:f.md}}\n{{fragment:f.md}} \n", &shared);
+        assert_eq!(built, "\t{{fragment:f.md}}\n{{fragment:f.md}} \n");
     }
 }
