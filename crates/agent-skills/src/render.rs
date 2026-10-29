@@ -286,7 +286,8 @@ pub(crate) fn fragment_placeholder(bare: &str) -> Option<(&str, &str)> {
 
 /// The file name of `bare`, a line without its line break, if it is a snippet placeholder:
 /// `{{snippet:<file>}}` alone on the line, from its first character. The build's snippet pass
-/// and the source view both read placeholders through it.
+/// and the source view both read placeholders through it, per
+/// `design@agent-skills@one-placeholder-reader-per-kind`.
 pub(crate) fn snippet_placeholder(bare: &str) -> Option<&str> {
     bare.strip_prefix(SNIPPET)?.strip_suffix("}}")
 }

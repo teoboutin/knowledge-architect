@@ -101,7 +101,7 @@ mod tests {
             let text = std::fs::read_to_string(root.join("content").join(&source))
                 .unwrap_or_else(|e| panic!("{path} maps to content/{source}, unreadable: {e}"));
             for line in text.lines() {
-                if !line.trim_start().starts_with(crate::render::FRAGMENT) {
+                if crate::render::fragment_placeholder(line).is_none() {
                     continue;
                 }
                 hosts += 1;
