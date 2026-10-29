@@ -16,7 +16,7 @@ The repository is a virtual workspace with Components:
 | `core` | crates/core | package `knowledge-architect`: the checker library and the binary `klarch` |
 | `agent-skills` | crates/agent-skills | package `knowledge-architect-agent-skills`: the text the checker installs into a project |
 | `gates` | crates/gates | package `knowledge-architect-gates`: the library that runs a project's merge gates |
-| `xtask` | tools/xtask | the maintenance tool, `cargo x gates` and `cargo x changelog`; never published |
+| `xtask` | tools/xtask | the maintenance tool, `cargo x gates`, `cargo x changelog` and `cargo x skill`; never published |
 
 ## Language, tone and style `##language-and-style`
 
@@ -147,6 +147,14 @@ session finds which applies there. An axis of a review named by an agent, instal
 project's own, is dispatched as that agent, and any other axis as a fresh general-purpose
 subagent, per
 `skill@knowledge-architect-review`.
+
+**Grounding in what a shipped skill, agent, saved workflow or the primer says, and why, goes
+through `cargo x skill <name>`**, `<name>` its installed name or `primer`. It prints the source
+under `path@agent-skills@content/` with each fragment and snippet inlined between two `%%` lines
+naming its file, and every `%%` comment kept: the installed copy under .claude holds none of the
+comments, which carry the reasons and the citations of the record, and the source file alone
+names each fragment by a placeholder. A check of the text as it ships still reads the installed
+copy.
 
 **This repository's own skills and agents take the prefix `klarch-`, the binary's name**, not the
 project's name that `design@agent-skills@project-name-prefix` gives: a name beginning with
