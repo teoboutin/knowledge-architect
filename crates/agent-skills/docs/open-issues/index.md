@@ -1,9 +1,10 @@
 **Generated — do not edit.** `cargo klarch index`
 
-47 entries
+48 entries
 
 | kind | title |
 | --- | --- |
+| defect | [Commit bc22d4d, cited as the corpus of a measurement in six places, names no object in this repository](a-commit-cited-as-a-measurement-s-corpus-names-no-object.md) |
 | defect | [A saved workflow's `//` comments ship to every installing project, though the standard sends maintainer-only text to a comment the build removes](a-saved-workflow-s-comments-ship-to-every-project.md) |
 | defect | [A spec worked without its design audit, as the rule allows, missed a critical gap an audit would have listed](a-spec-worked-without-its-design-audit-missed-a-critical-gap.md) |
 | defect | [In an adopting project, a finding sent upstream is counted again as a violation left on old text at every later pass](an-upstream-finding-stays-in-every-later-old-text-count.md) |
