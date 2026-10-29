@@ -32,9 +32,11 @@ gives the work of a spec its points.
 | loop step 1 | the first numbered step of `skill@knowledge-architect-design@discussion-loop`, "Ground first" |
 | the search | the record search: `cargo klarch worklist` and the agents of `agent@knowledge-architect-record-searcher` |
 | the work statement | what the dispatching session gives each searcher as "the work" |
-| the condition | the sentence of #settled-means-recorded, stated in Decided design |
+| the condition | the rule of #settled-means-recorded, whose four points Decided design states; each host writes them as one sentence in its own grammar |
+| a ruled outcome | an outcome the owner has ruled for an item of an audit report, of a retrospective analysis or of a review, or a default of a plan document the owner has ruled |
+| a proposal of the owner | a shape the owner brings for how something is built, as the task or during another task; a ruling, the owner's answer to a question the session put, is not one |
 | the opening paragraph | the paragraph of #skill-load-rule-in-primer and #installed-skill-takes-precedence that opens the list |
-| a cloud session | a Claude Code session run in the cloud, where no user-level `CLAUDE.md`, setting or plugin of the owner's machine is present |
+| a cloud session | a Claude Code session run in the cloud, where the owner's user-level `CLAUDE.md` is absent; the two read listed the designing-together plugin's skill and held no trace of the superpowers plugin |
 
 ## What the work is
 
@@ -50,25 +52,44 @@ gives the work of a spec its points.
   at loop step 1, the search for standing entries included."
 - **Loop step 1** reads the goals, design and `rejected` homes and the READMEs, and says "A search of
   the whole record runs beside that reading, with the question as the work and, as seeds, the
-  decisions read so far that the question rests on or may change, never a goal". No proposal is
-  drafted before the search.
+  decisions read so far that the question rests on or may change, never a goal". It opens with
+  "read `primer@verify-before-relying` again, whole, then the project's record, before proposing", and
+  it runs the search again for a new thread because "the first search graded the record against the
+  question alone". No proposal is drafted before the search.
 - **`path@agent-skills@README.md`** restates the design skill's moment: "grounds a design question
   or a requested change whose design is not settled".
 - **This repository's root `CLAUDE.md`**, in `instructions@repository-skills`, says "Read the
-  matching skill before doing that kind of work."
+  matching skill before doing that kind of work." It covers this repository's own skills too, such
+  as `skill@klarch-development` and `skill@klarch-release`, which the list does not name.
+- **Five more shipped texts name the design skill's moment or its input**, each judged unchanged:
+  - the retrospective intake's route, "a decision, or one whose design is not settled:
+    `skill@knowledge-architect-design`": an intake's fix is a ruled outcome once the owner rules it,
+    and "not settled" there means the ruling did not state a shape, which is the condition's
+    meaning;
+  - the design skill's expectation set in the retrospective skill, and the README's section on the
+    design skill: "a design question, or a requested change for the skill to ground", which the
+    condition keeps;
+  - the setup skill, which starts the move of an adopting project's documents under the design skill
+    "as a requested change", which the condition keeps;
+  - the primer's coined term "bounded work: a requested change whose main risk is over-building",
+    which the condition does not change.
+- **CHANGELOG.md's `Next release` section** already holds Workflow entries that announce the record
+  searcher dispatched at the design skill's grounding and its seeds, added since the last release.
 
 **What the discussion established about the failure.** These facts were read from the two cloud
 sessions' transcript files, which the owner supplied, by a script over their JSON lines.
 
-- Both sessions' harness listed every installed skill with its whole description. Neither held the
-  superpowers plugin: 0 matches of "superpowers" in either file.
+- Both sessions' harness listed every installed skill with its whole description, and the
+  designing-together plugin's skill beside the design skill; neither session invoked either. Neither
+  held the superpowers plugin: 0 matches of "superpowers" in either file.
 - PR 24's session invoked no skill through the harness's Skill tool. It read sections of four
   skills with `grep` and `sed`, and the review skill whole with `cat`. It wrote into a design home
   without reading the decision-recording skill, and grepped the design skill once, during its
   review.
 - PR 25's session invoked four skills at their events. The design skill was never invoked. The
   decision-recording skill was invoked at the review repair, after the decision it records had been
-  agreed, and before any head was written.
+  agreed, and before any head was written; the session had already edited the preamble of
+  `register@xtask@design`, before that load.
 - On the owner's machine, the superpowers plugin's session-start hook and the owner's user-level
   `CLAUDE.md` gave every request to build something a load of the design skill. This is an
   assumption from the hook's text and the file's text; it was not measured in a session.
@@ -79,7 +100,10 @@ sessions' transcript files, which the owner supplied, by a script over their JSO
   `issue@agent-skills@a-fix-is-grounded-by-no-record-search`, whose trigger is the owner's future
   goal on development work. This is default D1.
 - The owner's environment: uninstalling the superpowers plugin, and the user-level `CLAUDE.md`. They
-  are the owner's files, outside the repository. The owner keeps the designing-together plugin.
+  are the owner's files, outside the repository. The owner keeps the designing-together plugin:
+  "It is the fallback I use when I work in projects that are not using the full knowledge-architect
+  workflow, it is pretty much a lighter version of the design skill." So sessions of this repository
+  keep listing it beside the design skill, which #installed-skill-takes-precedence answers.
 - The bounded path's three conditions, and whether it is ever reached. That question stays in
   `issue@agent-skills@the-open-space-test-may-admit-every-problem`.
 - How a tripwire on agent behaviour reaches this repository from a consumer's sessions. That stays in
@@ -97,8 +121,19 @@ sessions' transcript files, which the owner supplied, by a script over their JSO
   which the opening paragraph respects.
 - `design@agent-skills@primer-limit`: the primer holds what every session needs and no skill
   delivers at its moment. The opening paragraph is a new member, which its argument covers.
-- `design@agent-skills@restatement-size-test`: the condition is restated in three texts, one
-  sentence each.
+- `design@agent-skills@restatement-size-test`: the condition is restated in three agent-facing
+  texts, one sentence each, and `path@agent-skills@README.md` names it in one sentence.
+- `design@agent-skills@overlay-by-separate-skills`: a project skill loads beside an installed one,
+  never in its place. #installed-skill-takes-precedence keeps it.
+- `design@agent-skills@new-or-reshaped-head-needs-design` and
+  `design@agent-skills@extension-follows-the-ground`, read as follows. The first routes a decision
+  met during another task, which the session itself makes or the owner settles by a ruling, and its
+  "only when" holds for those. The condition routes a proposal of the owner, the task itself or a
+  shape the owner brings during another task. A proposal that is a member a head's argument covers
+  goes through the grounding, ends on the bounded path in one message, and is then recorded directly,
+  as the second head says: the grounding adds no discussion and no reversal, which are the costs the
+  second head argues against. PR 24's instance, a member recorded directly with no grounding, is
+  that case.
 - `design@agent-skills@behaviour-additions-need-real-use` and
   `design@agent-skills@synthetic-evidence-not-built`: the evidence is the two cloud sessions, and no
   run is built to test the new text.
@@ -107,23 +142,36 @@ sessions' transcript files, which the owner supplied, by a script over their JSO
 
 **The decisions the work rewrites**, each with every text `cargo klarch show` lists as citing it:
 
-- `design@agent-skills@bounded-path-in-design`. Its last sentence, "The skill's description reaches
-  a session before it starts a requested change whose design is not settled", becomes the condition.
-  Citing texts: `path@agent-skills@docs/design/record-search.md`, which cites it for the search's
-  occasions, judged at step 5 and unchanged; `issue@agent-skills@an-issue-s-re-entry-point-is-read-by-no-review`
+- `design@agent-skills@bounded-path-in-design`. The last sentence of its first paragraph, "The
+  skill's description reaches a session before it starts a requested change whose design is not
+  settled", becomes a pointer to the head the harvest writes for #settled-means-recorded, a decision
+  of its own. Citing texts: one sentence of `design@agent-skills@record-searched-before-the-work`,
+  which cites it for the search's occasions, judged at step 5 with that head; `issue@agent-skills@an-issue-s-re-entry-point-is-read-by-no-review`
   and `issue@agent-skills@the-open-space-test-may-admit-every-problem`, which cite the bounded path,
   not its trigger, judged at step 5 and unchanged; and three lines of
   `register@agent-skills@tripwire`, the tripwires
   `tripwire@agent-skills@deferred-trigger-met-by-undesigned-work` and
   `tripwire@agent-skills@a-shortcut-decision-earns-a-head`, read at the review before the merge by the standing-state axis.
 - `design@agent-skills@record-searched-before-the-work`. Its first sentence, "with the question as
-  the work", becomes the order of #search-after-first-challenge. Citing texts: two lines of
+  the work", becomes a pointer to the head the harvest writes for #search-after-first-challenge,
+  and the sentence of its argument "A search at grounding puts the record in view before the first
+  proposal, so before any ruling" becomes "before the first round". Citing texts: one line of
   `path@agent-skills@docs/design/project-configuration.md` and two of
   `path@agent-skills@docs/design/reviews.md`, which cite where the search runs, not its work
   statement, judged at step 5; `issue@agent-skills@a-fix-is-grounded-by-no-record-search` and
   `issue@agent-skills@a-pending-ruled-file-is-reached-by-no-installed-search`, unchanged in subject,
   judged at step 5; and two lines of `register@agent-skills@tripwire`, read by the
   standing-state axis.
+- `design@agent-skills@seeds-name-decisions`. Its first sentence, "the decisions read so far that the
+  question rests on or may change", becomes the decisions the problem and the drafted shapes rest on
+  or may change. Citing texts: one sentence of `design@agent-skills@record-searched-before-the-work`,
+  judged at step 5 with it, and one line of `register@agent-skills@tripwire`, the tripwire on goal
+  seeds, read by the standing-state axis.
+- `design@agent-skills@no-routing-table`. Its argument says two mechanisms "already deliver a
+  project skill at its moment", the description among them. PR 24's session shows a description
+  alone did not deliver its skill. The opening paragraph maps no project skill to an installed one,
+  so the head's decision, no table, stands; the harvest names the opening paragraph in its argument
+  as what makes the description route hold.
 
 **Each entry the search graded**, with its outcome. The search ran with the seeds
 `design@agent-skills@bounded-path-in-design`, `design@agent-skills@new-or-reshaped-head-needs-design`
@@ -136,12 +184,12 @@ Graded `bears`:
 | entry | outcome |
 | --- | --- |
 | `design@agent-skills@primer-limit` | its argument admits the opening paragraph; the harvest names it among the members |
-| `design@agent-skills@code-change-reads-its-record` | unchanged: a fix keeps its reading of its code's record (D1) |
+| `design@agent-skills@code-change-reads-its-record` | unchanged: a fix the owner asks for without a shape keeps its reading of its code's record (D1) |
 | `design@agent-skills@owner-word-holds-as-far-as-its-premise` | unchanged; the condition sends an owner's proposal to the skill that checks its premises |
 | `design@agent-skills@one-home-for-head-rules` | unchanged: the backstop is not edited |
 | `design@agent-skills@restatement-size-test` | bounds the three restatements of the condition to one sentence each |
 | `design@agent-skills@context-cost-of-agent-text` | the opening paragraph is read by every session, which applies it at each of its moments |
-| `design@agent-skills@no-routing-table` | unchanged: the opening paragraph maps no project skill to an installed one, it says how a skill that adds to one is loaded |
+| `design@agent-skills@no-routing-table` | its decision stands; its argument names the opening paragraph, at the harvest |
 | `goal@agent-skills@only-needed-instructions` | met: each addition answers a failure read in a real session or a gap anyone can see by reading |
 | `goal@agent-skills@installed-text-works-anywhere` | the goal the work meets |
 | `goal@agent-skills@no-contradiction-in-workflow` | AC1 and AC2 check the restatements agree |
@@ -159,12 +207,12 @@ Graded `bears`:
 | `goal@agent-skills@one-skill-per-activity` | served: the activity is carried out from its skill |
 | `design@agent-skills@bounded-path-in-design` | rewritten at step 5 |
 | `design@agent-skills@frontier-tier-only` | the description keeps its frontier-tier sentence |
-| `design@agent-skills@new-or-reshaped-head-needs-design` | unchanged: its three delivering texts stay; the description keeps the backstop's moment |
+| `design@agent-skills@new-or-reshaped-head-needs-design` | unchanged, read as "The decisions the design rests on" says: its "only when" routes decisions met during another task, and the condition routes a proposal of the owner; the description keeps the backstop's moment |
 | `design@agent-skills@one-decision-per-head` | the harvest cuts the heads by it |
 | `design@agent-skills@existing-heads-on-touch` | the two rewritten heads are brought to the rules in the same change |
 | `design@agent-skills@design-home-write-loads-recording` | rests on it, unchanged |
 | `design@agent-skills@outcome-over-display` | met: the failure corrupted what was built and recorded, not a display |
-| `rejected@agent-skills@every-decision-through-design-skill` | not brought back: the condition excludes plan steps, fixes that restore a recorded result, and changes that decide nothing |
+| `rejected@agent-skills@every-decision-through-design-skill` | not brought back: it sends every decision that earns durable text to a full discussion; the condition sends a proposal of the owner to the grounding, which on the bounded path ends in one message, and a decision the session makes during another task stays with the backstop |
 | `rejected@agent-skills@separate-bounded-problem-skill` | not brought back; #grounding-split-from-discussion lost on another fact |
 | `issue@agent-skills@a-tripwire-on-agent-behaviour-fires-where-this-project-cannot-see` | the premortem's causes 2 and 3 are of its class; judged at the harvest |
 | `issue@agent-skills@an-issue-s-re-entry-point-is-read-by-no-review` | more work goes through the skill, which narrows its gap; it stays open |
@@ -174,10 +222,10 @@ Graded `bears`:
 | `goal@knowledge-architect@the-workflow-improves-through-real-use` | followed: the evidence is the two real sessions |
 | `issue@agent-skills@a-pending-ruled-file-is-reached-by-no-installed-search` | the condition names a ruled outcome; a session finds it where it is kept, unchanged |
 | `design@agent-skills@instruction-record-is-minimal` | the wording's reasons go in the commits; the harvest records the decisions |
-| `design@agent-skills@behaviour-additions-need-real-use` | met by the two cloud sessions |
+| `design@agent-skills@behaviour-additions-need-real-use` | met by the two cloud sessions for the condition and the opening paragraph's first sentence; for its second, the ground is the goal `goal@agent-skills@installed-text-works-anywhere`, which binds outright, and the owner's report of a plugin changing session behaviour, #arg-12 (D3) |
 | `design@agent-skills@synthetic-evidence-not-built` | no run is built |
 | `design@agent-skills@capabilities-not-structure` | the opening paragraph answers a default that was wrong in both sessions read |
-| `design@agent-skills@statement-names-an-act` | the root `CLAUDE.md` sentence duplicating the opening paragraph is deleted at step 4 |
+| `design@agent-skills@statement-names-an-act` | the root `CLAUDE.md` sentence on reading the matching skill stays: it names this repository's own skills, which the opening paragraph does not |
 | `design@agent-skills@term-defined-at-first-load` | the opening paragraph coins no term |
 | `design@agent-skills@admission-rules-home` | the edits are written under the agent-configuration skill |
 | `design@core@section-homes-carry-slugs` | no section is added or renamed |
@@ -191,7 +239,7 @@ Graded `bears`:
 | `design@agent-skills@shared-text-fragment` | the condition is three one-sentence restatements, not a fragment: a fragment cannot sit in a frontmatter line |
 | `design@agent-skills@shipped-text-cites-no-entry` | the new shipped text cites no entry |
 | `design@agent-skills@no-external-handoff` | the opening paragraph names no outside skill |
-| `design@agent-skills@workflow-axis-finding-standard` | the precedence gap is a provable gap of two listed skills; the load failure has real-use evidence |
+| `design@agent-skills@workflow-axis-finding-standard` | the load failure has real-use evidence; the precedence sentence answers which skill a session loads, a choice, not a provable gap, and stands on the goal (D3) |
 | `design@agent-skills@root-cause-repair` | the repair is at its cause, the trigger's condition, and adds one paragraph only where no removal closes the cause |
 | `design@agent-skills@repairs-read-against-the-record` | this section is that reading |
 
@@ -285,7 +333,8 @@ Satisfied by #settled-means-recorded and #search-after-first-challenge.
 ### One record search per requested change `##one-search-per-requested-change`
 
 Weighed. Source: the cost measured in round 1, about 1.05M subagent tokens for the search of that
-session, summed from its 10 agents' completion reports. Unmet and accepted, on the owner's word in
+session, summed from the `subagent_tokens` of its 10 agents' completion notifications in the
+session's transcript. Unmet and accepted, on the owner's word in
 round 4: "About the record search cost: I think this is right."
 
 ## Threads
@@ -359,7 +408,9 @@ word against the displayed table. Shape: Decided design. Harvest: judged for a h
 Proposed by the owner in round 3. Moved by `argument@design-skill-routing@arg-20`,
 `argument@design-skill-routing@arg-25`, `argument@design-skill-routing@arg-26`,
 `argument@design-skill-routing@arg-27` and `argument@design-skill-routing@arg-28`. Final state:
-approved. The owner's words in round 4: "search-after-first-challenge looks right." Shape: Decided
+approved. Presumed settled in round 4 on the owner's "search-after-first-challenge looks right.",
+shown approved in the round 4 checkpoint, and closed by the round 5 word against that table: "AC1 and
+AC2 both accepted, proceed with the spec then implementation on the same branch". Shape: Decided
 design. Harvest: rewrites `design@agent-skills@record-searched-before-the-work`.
 
 ## Arguments
@@ -397,7 +448,8 @@ Round 1, the agent, labelled an assumption. Threads: #skill-load-rule-in-primer,
 #plugin-skill-displaces-design. "its session-start hook injects 'If you think there is even a 1%
 chance a skill might apply … you MUST invoke' and ''Let's build X' → brainstorming first'. Your
 `~/.claude/CLAUDE.md` then sends brainstorming to `knowledge-architect-design`. Together, the two
-give every request to build something a trigger with no condition."
+give every request to build something a trigger with no condition." Corrected at the plan review:
+the hook's text reads "you ABSOLUTELY MUST invoke the skill".
 
 ### The two PRs built the owner's proposals with no grounding recorded `##arg-5`
 
@@ -405,6 +457,9 @@ Round 1, the agent. Thread: #settled-means-recorded. "PR 24, `56b05c03`: adds an
 primer as a member 'covered by the argument' of a head. It records no grounding and no `may-bear`
 list". "PR 25, `c92e26db`: puts the command in xtask rather than in the checker 'on the owner's
 agreement', with no rival argued." "The cost moved to the review instead of disappearing."
+Corrected at the plan review: the message of `c92e26db` gives one clause against the rival, "no
+adopting project holds the source, and the checker's command line is an interface its consumers
+depend on", and records no grounding.
 
 ### An unconditioned load searches a plan's step a second time `##arg-6`
 
@@ -412,6 +467,9 @@ Round 1, the agent. Thread: #design-load-unconditioned. "A plan's step is alread
 design audit of `skill@knowledge-architect-planning@working-a-slice`, so the rival pays a second
 search of about 1M tokens for a design that is already recorded. You also set aside 'every fix
 through the design skill's grounding', per `issue@agent-skills@a-fix-is-grounded-by-no-record-search`."
+Corrected at the plan review: the design audit searches a spec or a slice whole, not a step, and a
+spec whose work starts in the session that converged gets no audit; its search is the one at the
+discussion's grounding.
 
 ### The fault is local to one trigger `##arg-7`
 
@@ -496,7 +554,8 @@ exists as a sequence. What a split into two skills changes is which text loads, 
 grounding is exactly what decides it. How often it decides 'no discussion' has never been observed.
 No commit on main in this repository or in rootpoint names the bounded path as taken." "That zero
 cannot tell 'bounded work never occurs' apart from 'sessions built bounded work without loading the
-skill'".
+skill'". Corrected at the plan review: rootpoint's main holds two commits put to the owner as bounded
+work, 8bdeced and d20eac7; the grep missed their wording.
 
 ### The split saves about 5k words against about 1M tokens of search `##arg-17`
 
@@ -548,6 +607,7 @@ and `sed`". PR 25: the design skill "Never invoked"; the decision-recording skil
 placement was agreed at line 155; the skill was invoked at line 533, at the review". Limits:
 "Thinking is redacted in all but 9 of 160 thinking blocks", and "This repository is a special case.
 The PR 24 session was editing the primer".
+Its line numbers count the transcript files' lines from 0: from 1, they are 240, 156 and 534.
 
 ### A section found by a search took the place of the skill `##arg-23`
 
@@ -679,7 +739,13 @@ the owner answered this default: it is D1.
 the opening paragraph    crates/agent-skills/content/PRIMER.md, the section on the installed skills, before the first bullet
 ```
 
-No other new name: the work changes text, and adds no section, slug, type or command.
+The harvest may write these slugs, each judged by its row: for design heads, the slugs of the
+threads #settled-means-recorded, #search-after-first-challenge and #installed-skill-takes-precedence,
+and `installed-skills-load-whole`; for `rejected` entries, the slugs of the threads
+#design-load-unconditioned and #grounding-split-from-discussion, and `trigger-judges-settled-design`
+and `search-work-is-the-question`. `cargo
+klarch id` on them finds no design or `rejected` entry of agent-skills holding one. The work adds no
+section, type or command.
 
 ## Decided design
 
@@ -691,27 +757,40 @@ three:
 
 - a change the owner asks for or proposes goes to the design skill before it starts;
 - except where a plan document, a ruled outcome, or a design head or a test the code fails already
-  states what the change must produce;
+  states what the owner asks for or proposes: a test states a result, so it settles a request for
+  that result, not a shape the owner proposes to reach it (D2);
 - or where the change decides nothing: a typo, a stale pointer, a rewording;
 - a request or a proposal of the owner does not by itself settle a design.
 
-Illustration of the shape, for the description's clause, not authority:
+Illustration of the shape, for the description's clause, not authority. The description keeps
+its purpose, "to ground it and to find out whether it is bounded work that needs only one proposal,
+built on its default":
 
 ```text
 before starting a change the owner asks for or proposes, unless a plan document, a ruled outcome, or
-a design head or test the code fails already states what the change must produce, or the change
-decides nothing (a typo, a stale pointer, a rewording): a request or a proposal of the owner does
-not by itself settle a design
+a design head or a failing test already states what the owner asks for or proposes, or the change
+decides nothing (a typo, a stale pointer, a rewording), to ground it and to find out whether it is
+bounded work that needs only one proposal, built on its default: a request or a proposal of the
+owner does not by itself settle a design
 ```
+
+**Scope.** The condition routes a proposal of the owner, whether it is the task or a shape brought
+during another task. A ruling of the owner on a question the session put is no proposal, and the
+backstop's moment in the description, "an owner's word that settles one", names such a ruling; a
+decision the session makes during another task stays with the backstop, as "What is already
+decided" reads `design@agent-skills@new-or-reshaped-head-needs-design`.
 
 **Argument.** Whether a design is settled is what the skill's grounding finds out, per
 `design@agent-skills@bounded-path-in-design`. A trigger that asks it before the load fires only in a
 session that already holds the skill's rule that an owner's proposal is a claim to test. Every
 exception is a record a session can look at. Both cloud sessions built the owner's proposals without
-the skill.
+the skill. It serves `goal@knowledge-architect@design-with-agents-as-counterparts`, met while "no
+proposal of the owner is built before it has been grounded and challenged", and
+`goal@agent-skills@installed-text-works-anywhere`.
 
-**Nearest rival** #design-load-unconditioned. **Fact that defeated it:** a plan's step is already
-searched at the planning skill's design audit, so the rival pays a second search of about 1M tokens.
+**Nearest rival** #design-load-unconditioned. **Fact that defeated it:** the work of a plan document
+was searched before it starts, at the grounding of the discussion that converged on it, or at its
+design audit when its work starts later, so the rival pays a second search of about 1M tokens.
 
 ### #skill-load-rule-in-primer and #installed-skill-takes-precedence
 
@@ -728,23 +807,35 @@ activity, never takes their place.
 a design home without the decision-recording skill; event-shaped triggers did not suffice. The
 primer is the one text every session holds, per `design@agent-skills@primer-limit`. **Nearest
 rival:** fixing the design skill's trigger alone. **Fact that defeated it:** the decision-recording
-skill, whose trigger is an event, was skipped in PR 24 and late in PR 25.
+skill, whose trigger is an event, was skipped in PR 24 and late in PR 25. A plain directive, this
+repository's "Read the matching skill before doing that kind of work.", was present in both
+sessions and did not suffice (#arg-15). The opening paragraph differs from it in two ways: it names
+the act both sessions took instead, a section found by a search read in place of the skill, and it
+sits at the list every session reads for the moments. Whether that suffices shows only in real
+sessions, per `design@agent-skills@synthetic-evidence-not-built`; premortem cause 2 names the risk.
 
 **Argument, second sentence.** The goal `goal@agent-skills@installed-text-works-anywhere` binds that
-no skill the environment adds replaces an installed one, and the harness lists the designing-together
-plugin's skill beside the design skill, both descriptions opening with one sentence. A project's
-skill that adds to an installed one is kept, as the primer's "A project's own skills add to these,
-and never replace them" already says. **Nearest rival:** "its skill is the one loaded". **Fact that
+no skill the environment adds replaces an installed one. The harness listed the designing-together
+plugin's skill beside the design skill in both cloud sessions and in this one, both descriptions
+opening with one sentence, and the owner keeps that plugin. The owner reported the superpowers
+plugin changing session behaviour "in hard to control ways" (#arg-12). Which listed skill a session
+loads is a choice, so the sentence is an instruction about behaviour, whose ground is the goal (D3).
+A project's skill that adds to an installed one is kept, as the primer's "A project's own skills add
+to these, and never replace them" and `design@agent-skills@overlay-by-separate-skills` already say. **Nearest rival:** "its skill is the one loaded". **Fact that
 defeated it:** it would shut out `thaum-planning`, `thaum-review` and `skill@klarch-retrospective-intake`,
 which load together with an installed skill.
 
 ### #search-after-first-challenge
 
-**Shape.** Loop step 1 orders the grounding: read the homes it names and grep the record; draft the
-shapes, the owner's proposal and the agent's own, and challenge each on its failures, costs and
-benefits, with measurements; then dispatch the search, with the problem and the drafted shapes as
-the work and, as seeds, the decisions the shapes rest on or may change; then read its result and
-write the first round. Nothing reaches the owner before the search's result is read.
+**Shape.** Loop step 1 orders the grounding: re-read `primer@verify-before-relying` whole, as the
+step opens today; read the homes it names and grep the record; draft the shapes, the owner's proposal
+and the agent's own, and challenge each on its failures, costs and benefits, with measurements; then
+dispatch the search, with the problem and the drafted shapes as the work and, as seeds, the decisions
+the problem and the shapes rest on or may change; then read its result and write the first round.
+Nothing reaches the owner before the search's result is read. The step's "before proposing" becomes
+"before the first round", and the reason it gives for a new thread's search becomes "the first
+search graded the record against the problem and the first shapes". The order is the owner's
+proposal (#arg-20).
 
 **Argument.** The relation `may bring back` is graded only against a shape. The two other occasions
 of the search already send one: the intake sends the received files, the planning audit sends the
@@ -757,14 +848,18 @@ None: the work needs no total function.
 
 ## Losing alternatives
 
-- **#design-load-unconditioned** lost to #settled-means-recorded: a plan's step is already searched
-  at the planning skill's design audit, and the owner set aside a full search of every fix, per
-  `issue@agent-skills@a-fix-is-grounded-by-no-record-search`.
+- **#design-load-unconditioned** lost to #settled-means-recorded: the work of a plan document was
+  searched at its discussion's grounding or at its design audit. The owner's earlier set-aside of a
+  full search before every fix, per `issue@agent-skills@a-fix-is-grounded-by-no-record-search`, was
+  argued too, and stays open as D1, so a `rejected` entry carries the first reason alone.
 - **#grounding-split-from-discussion**, withdrawn by the owner, lost to keeping one skill with
-  #settled-means-recorded: the split saves about 5k words of the skill's 9196, against about 1M
-  tokens of a search grounding runs anyway, and puts the discussion behind a second load, the failure
+  #settled-means-recorded: the split saves about half of the skill's 9196 words, an estimate from
+  the sections the bounded path applies, against about 1M tokens of a search grounding runs anyway, and puts the discussion behind a second load, the failure
   under discussion. It reopens on retrospectives showing sessions load the skill and misuse the
-  discussion on work the owner judges bounded.
+  discussion on work the owner judges bounded. #arg-16's "never been observed" was wrong: rootpoint's
+  main holds two commits taken on the bounded path, 8bdeced and d20eac7, both of 2026-10-26, by
+  `git log main --oneline -i --grep='as bounded work'`. Neither #arg-17 nor #arg-18 rests on that
+  count.
 - **#plugin-skill-displaces-design**, superseded, under #installed-skill-takes-precedence: the
   owner's statement became the goal `goal@agent-skills@installed-text-works-anywhere`, which makes
   the gap required work, and the gap is visible by reading two descriptions.
@@ -790,8 +885,9 @@ says.
    `issue@agent-skills@the-claim-check-of-a-commit-message-is-read-at-the-start-and-needed-at-each-commit`
    records for another primer rule.
 3. **Stresses #installed-skill-takes-precedence.** In a project where the designing-together plugin
-   is installed, a session still loads it for a design question. The evidence appears only in
-   sessions, which the owner sees.
+   is installed, a session still loads it for a design question. Its condition held in both cloud
+   sessions read, which listed the plugin. The evidence appears only in sessions, which the owner
+   sees.
 4. **Stresses #search-after-first-challenge.** A work statement holding only the shapes leaves an
    entry bearing on the problem outside them graded `unrelated`, found at the review.
    `tripwire@agent-skills@record-search-misses` already watches misses of the search.
@@ -803,43 +899,59 @@ The two acceptance criteria below, AC1 and AC2, were put to the owner after the 
 ### AC1: the three texts that state the condition state the same exceptions `##condition-stated-alike`
 
 Guards #settled-means-recorded. Judged at the review before the merge. Fires when the description,
-the list's design entry and bounded work's paragraph do not all state the same exceptions: a plan
-document, a ruled outcome, a head or a failing test that states the result, and a change that
-decides nothing. Response: the decision that `design@agent-skills@bounded-path-in-design` records
+the list's design entry and bounded work's paragraph do not all state the condition's four points:
+a change the owner asks for or proposes goes to the design skill; the same exceptions, a plan
+document, a ruled outcome, a head or a failing test that states what the owner asks for or proposes,
+and a change that decides nothing; and a request or a proposal of the owner does not by itself
+settle a design. Response: the decision that `design@agent-skills@bounded-path-in-design` records
 reopens. The owner's ruling, round 5: "AC1 and AC2 both accepted".
 
 ### AC2: loop step 1 and its head state the same order `##search-order-stated-alike`
 
 Guards #search-after-first-challenge. Judged at the review before the merge. Fires when loop step 1
 of the installed design skill and `design@agent-skills@record-searched-before-the-work` do not both
-state the order: the homes read and grepped, then the shapes drafted and challenged, then the search
-with the problem and the shapes as the work, then the first round. Response: #search-after-first-challenge
+state the order: `primer@verify-before-relying` re-read, the homes read and grepped, then the
+shapes drafted and challenged, then the search with the problem and the shapes as the work, then the
+first round. Response: #search-after-first-challenge
 reopens. The owner's ruling, round 5: "AC1 and AC2 both accepted".
 
 ## Implementation sequence
 
-Each step edits the source under `path@agent-skills@content/`, written under
-`skill@knowledge-architect-agent-configuration` as `path@agent-skills@CLAUDE.md` says, and runs
-`cargo klarch install-agent-skills`. No step lands a mechanism, so the first step measures nothing.
+Steps 1 to 3 edit the source under `path@agent-skills@content/`, written under
+`skill@knowledge-architect-agent-configuration` as `path@agent-skills@CLAUDE.md` says, and run
+`cargo klarch install-agent-skills`; step 4 edits the README and the changelog, and step 5 the
+design homes. No step lands a mechanism, so the first step measures nothing. Each claim's test is a
+command over the source; it is shown to fail against a wrong implementation by running it on the
+tree before the step's edit, where the old text makes it fail.
 
-1. **The primer.** The opening paragraph; the list's design entry states the condition. Claims: the
-   paragraph is the list's first line of text; `grep -rn "design is not settled"` over
-   `path@agent-skills@content/` no longer finds the primer. Fails alone on: the installed primer's
-   list.
+1. **The primer.** The opening paragraph; the list's design entry states the condition. Claims:
+   the first line of text after the list's heading is the opening paragraph, by
+   `awk` over `path@agent-skills@content/PRIMER.md` printing the first non-blank line after the
+   heading; `grep -n "design is not settled"` on the primer finds nothing, where before the edit it
+   finds the list's entry. Fails alone on: the installed primer's list.
 2. **The design skill's trigger.** The description and bounded work's paragraph state the condition.
-   Claims: a reading of the three texts finds the four exceptions in each (AC1); the description keeps
-   "Requires a frontier-tier model (Opus-class or stronger)", per
-   `design@agent-skills@frontier-tier-only`. Fails alone on: the harness listing of the installed
-   copy.
-3. **Loop step 1.** The order of #search-after-first-challenge. Claim: a reading of the step finds
-   the order of AC2, and its seeds name the decisions the shapes rest on or may change. Fails alone
-   on: the installed step's text.
-4. **The texts that restate the moved text.** `path@agent-skills@README.md` restates the condition;
-   this repository's root `CLAUDE.md` loses the sentence "Read the matching skill before doing that
-   kind of work.", a duplicate of the opening paragraph's first sentence, the primer's copy staying,
-   per `design@agent-skills@statement-names-an-act`; the Workflow entry of CHANGELOG.md's `Next
-   release` section, then `cargo x changelog`. Claim: `cargo x gates` passes.
-5. **The harvest**, per its rows below, before the review before the merge.
+   Claims: `grep -c "asks for or proposes"` finds the phrase on the description's line and in
+   bounded work's paragraph, where before the edit it finds neither; a reading of the three texts finds
+   the four points of AC1 in each; the description keeps "Requires a frontier-tier model (Opus-class
+   or stronger)", per `design@agent-skills@frontier-tier-only`. Fails alone on: the harness listing of
+   the installed copy.
+3. **Loop step 1.** The order of #search-after-first-challenge. Claims: `grep -c "the problem and the
+   drafted shapes"` finds the step's search sentence, where before the edit it finds nothing; a
+   reading of the step finds the order of AC2, the step's opening re-read of
+   `primer@verify-before-relying` kept, and its seeds naming the decisions the problem and the shapes
+   rest on or may change. Fails alone on: the installed step's text.
+4. **The README and the changelog.** `path@agent-skills@README.md` names the condition in one
+   sentence; the changelog's `Next release` section gets a Workflow entry for the condition and the
+   opening paragraph, and the existing entries that announce the searcher at the design skill's
+   grounding and its seeds are edited for the order and the seeds, per
+   `design@knowledge-architect@changelog-entries`; then `cargo x changelog`. The root `CLAUDE.md`
+   keeps its sentence on reading the matching skill. Claims: `grep -n "design is not settled"` on the
+   README finds nothing, where before the edit it finds one line; `cargo x gates` passes, its test
+   gate holding each crate's changelog copy equal to the root's. Fails alone on: the README's line and
+   the changelog copies.
+5. **The harvest**, per its rows below, before the review before the merge. Claim: `cargo klarch
+   check` passes with every new head and `rejected` entry citing what its argument rests on. Fails
+   alone on: the design homes and the `rejected` home of agent-skills.
 
 ## Order rationale
 
@@ -853,24 +965,48 @@ Each step edits the source under `path@agent-skills@content/`, written under
 
 ### D1, on #settled-means-recorded: fixes stay as they are
 
-A fix that restores what a head or a failing test states keeps the reading of its code's record,
-with no full search; `issue@agent-skills@a-fix-is-grounded-by-no-record-search` stays parked. The
-owner said in round 4 that development "can probably not work out at all in the long term if changes
-are ever made without grounding in design records"; whether that reaches a full search before every
-fix is the owner's to rule. Built as written until the ruling.
+A fix the owner asks for without a shape of its own, which restores what a head or a failing test
+states, keeps the reading of its code's record, with no full search;
+`issue@agent-skills@a-fix-is-grounded-by-no-record-search` stays parked. The owner said in round 4
+that development "can probably not work out at all in the long term if changes are ever made without
+grounding in design records"; whether that reaches a full search before every fix is the owner's to
+rule. Built as written until the ruling.
+
+### D2, on #settled-means-recorded: a record settles what the owner asks for, not a shape it does not state
+
+The exceptions read "already states what the owner asks for or proposes", where the shape shown to
+the owner read "already states what the change must produce". Under the shown wording, a shape the
+owner proposes to make a failing test pass was built unchallenged, since the test states the
+result; `goal@knowledge-architect@design-with-agents-as-counterparts` asks that no proposal of the
+owner be built before it is grounded and challenged. Raised by the plan review's design-conformance
+axis. It narrows the exception the owner approved, so it is the owner's to rule. Built as written
+until the ruling.
+
+### D3, on #installed-skill-takes-precedence: the goal grounds the precedence sentence
+
+The sentence is an instruction about which listed skill a session loads, a behaviour, and
+`design@agent-skills@behaviour-additions-need-real-use` admits such an instruction on evidence from
+real use. The evidence is the owner's report of a plugin changing behaviour (#arg-12) and the
+listings of both cloud sessions, which held the designing-together plugin; no session read showed a
+plugin's skill loaded in place of an installed one. The sentence's ground is
+`goal@agent-skills@installed-text-works-anywhere`, which binds outright; where the goal and that
+decision conflict, the goal prevails and the conflict goes to the owner, per `primer@goals-bind`.
+Raised by the plan review's design-conformance axis. Built as written until the ruling.
 
 ## Harvest
 
 | what | where | when |
 | --- | --- | --- |
-| #settled-means-recorded | `design@agent-skills@bounded-path-in-design`, its delivery sentence rewritten | step 5 |
-| #search-after-first-challenge | `design@agent-skills@record-searched-before-the-work`, its first sentence rewritten | step 5 |
-| #skill-load-rule-in-primer | judged by the entry tests for a head of its own, `installed-skills-load-whole`, in `path@agent-skills@docs/design/project-configuration.md`; named among the members of `design@agent-skills@primer-limit` | step 5 |
-| #installed-skill-takes-precedence | judged by the entry tests for a head of its own under the thread's slug, beside the previous one | step 5 |
-| #design-load-unconditioned | judged for a `rejected` entry under its thread's slug, cited by the rewritten `design@agent-skills@bounded-path-in-design` | step 5 |
+| #settled-means-recorded | a head of its own under the thread's slug, in `path@agent-skills@docs/design/design-skill-and-heads.md`, citing the two goals its argument names; `design@agent-skills@bounded-path-in-design`'s delivery sentence points to it | step 5 |
+| #search-after-first-challenge | judged by the entry tests for a head of its own under the thread's slug, in `path@agent-skills@docs/design/record-search.md`, attributed to the owner; the first sentence and the argument's sentence on the first proposal of `design@agent-skills@record-searched-before-the-work`, and the first sentence of `design@agent-skills@seeds-name-decisions`, rewritten | step 5 |
+| #skill-load-rule-in-primer | judged by the entry tests for a head of its own, `installed-skills-load-whole`, in `path@agent-skills@docs/design/project-configuration.md`; named among the members of `design@agent-skills@primer-limit`, and in the argument of `design@agent-skills@no-routing-table` | step 5 |
+| #installed-skill-takes-precedence | judged by the entry tests for a head of its own under the thread's slug, beside the previous one, citing `design@agent-skills@overlay-by-separate-skills` and the goal, with D3's ruling | step 5 |
+| the incumbent trigger, a requested change whose design the session judges not settled | judged for a `rejected` entry, `trigger-judges-settled-design`, cited by the head of #settled-means-recorded, per the reversal of `skill@knowledge-architect-decision-recording@reversal-check` | step 5 |
+| the incumbent work statement, the question alone | judged for a `rejected` entry, `search-work-is-the-question`, cited by the head of #search-after-first-challenge | step 5 |
+| #design-load-unconditioned | judged for a `rejected` entry under its thread's slug, on the first reason of Losing alternatives alone, cited by the head of #settled-means-recorded | step 5 |
 | #grounding-split-from-discussion | judged for a `rejected` entry under its thread's slug, cited by the rewritten `design@agent-skills@bounded-path-in-design` | step 5 |
 | the premortem's four causes | judged as tripwires, per `skill@knowledge-architect-decision-recording@ruled-tripwires` | step 5 |
-| AC1 and AC2 | reported in the landing commits | the review before the merge |
+| AC1 and AC2 | reported in the message of the commit that records the review before the merge, which judges them | the review before the merge |
 
 ## Later consequences
 
