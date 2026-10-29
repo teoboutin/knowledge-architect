@@ -74,7 +74,7 @@ presumption, `design@agent-skills@goals-bind`; the routing of a question by its 
 skill that routes them reaches only the sessions that load it; the owner's word bound by its premise,
 `design@agent-skills@owner-word-holds-as-far-as-its-premise`; the labels and an answer's authority,
 `design@agent-skills@ruled-items-labelled` and `design@agent-skills@answer-keeps-its-authority`; the
-room to judge, which states `goal@agent-skills@installed-text-leaves-room-to-judge`, since every
+room to judge, which states `goal@agent-skills@only-needed-instructions`, since every
 session meets a situation no instruction covers; built intent
 and a reason at the code, `design@agent-skills@design-home-is-built-intent` and
 `design@agent-skills@local-intent-binds`; the verification rules,

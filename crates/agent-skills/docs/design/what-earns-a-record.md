@@ -136,7 +136,7 @@ split. A cluster above the bound is read whole by one agent, and thaum's state-m
 seen to read whole. The citations between heads give no split point, since most subjects are one
 connected group of heads beside a few that cite nothing of theirs, measured over this repository at
 ed9dd60 and over thaum by the scripts the message of the commit "[review] Repairs of the transcript review of one search of the whole record, with the scripts of its measurements" holds, so the second test
-stays a judgement. On `goal@agent-skills@installed-text-leaves-room-to-judge`, the owner's reading is
+stays a judgement. On `goal@agent-skills@only-needed-instructions`, the owner's reading is
 that the goal covers a choice where either shape leaves the workflow working, and the split is what
 keeps it working. The delivery to a judge by a pointer loses to the fragment by
 `design@agent-skills@shared-text-fragment`. The design this decision did not keep:

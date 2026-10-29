@@ -40,7 +40,7 @@ most of the development. It aims for fewer review rounds, less re-derivation of 
 fewer decisions reversed by accident. Each instruction says what it asks plainly enough to
 follow without guessing what it means, and no two parts contradict each other. What no instruction
 covers is left to the agent's judgement on purpose, per
-`goal@agent-skills@installed-text-leaves-room-to-judge`. Writing the code itself is left to each project.
+`goal@agent-skills@only-needed-instructions`. Writing the code itself is left to each project.
 
 ## A mechanical task the workflow asks of a session is done by the tool `##mechanical-tasks-are-the-tool-s`
 
@@ -88,6 +88,18 @@ follows. A contradiction it finds that no source or argument resolves goes to th
 part of the work that rests on it waits for the owner's answer; the rest goes on. This holds in
 every activity, not only in a design discussion. It is met while no work is built on a word of the
 owner whose premise a check would have shown false.
+
+## The owner designs with agents as counterparts, and spends their attention on the design itself `##design-with-agents-as-counterparts`
+
+The owner and the agent both propose, and each challenges and refines the other's proposals on
+their failures, their costs and their benefits, grounded in the record and backed by the
+measurements the agent takes. Every proposal for a decision that earns a design head, the agent's
+own and its refinements of the owner's included, reaches the owner in an open, argued exchange,
+where the owner can challenge it, add arguments or facts, or change the direction of the design; a
+report alone is not that exchange. The agent carries the investigation, the measurements and the
+tracking of what is open, so the owner's attention goes to the design. It is met while no proposal
+of the owner is built before it has been grounded and challenged, and no decision that earns a head
+reaches the main branch before the owner has met it in that exchange.
 
 ## Any project can adopt it, and a new project is the primary target `##any-project-can-adopt-it`
 

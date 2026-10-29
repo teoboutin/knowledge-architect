@@ -125,7 +125,7 @@ A structure an instruction imposes on the work has the same cost as a rule added
 fixed sequence, count or mapping between a unit of the work and a unit of its record meets another
 instruction that needs that unit to vary, and the session is left with two instructions it cannot
 both obey, and less room to work on its own. So the installed text imposes no structure the work
-does not need, per `goal@agent-skills@installed-text-leaves-room-to-judge`, which gives this
+does not need, per `goal@agent-skills@only-needed-instructions`, which gives this
 argument a goal's weight, and a contradiction a structure causes is answered by removing structure
 rather than by adding a rule. An instance: a plan whose steps are its commits meets the primer's
 instruction that a fix met outside the task takes a commit of its own, which is why a spec's steps
@@ -167,7 +167,7 @@ and an existing one leaves by that section's outcome table: deleted where it car
 instruction, moved to a `%%` comment of the installed source where only the source's maintainer
 reads it, and put to the owner where it is an instruction no agent performs. A reason passes when
 it states a mechanism or a failure prevented, as
-`goal@agent-skills@installed-text-leaves-room-to-judge` asks the reasons of each instruction; a
+`goal@agent-skills@only-needed-instructions` asks the reasons of each instruction; a
 second reason that names no other mechanism, a duplicate inside one text, a lead, an emphasis and a
 remark about the text fail, since a loaded text is read whole and they add no act. A statement
 about state outside the project is suspect, and is written only where an act needs it.
