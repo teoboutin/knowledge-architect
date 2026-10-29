@@ -13,8 +13,8 @@ the proposal with its nearest rival, the strongest open reading set aside, the c
 default, which it builds, per `design@agent-skills@derived-decision-proceeds-on-default`; an
 argument in the reply returns the work to the loop. The commit that implements it carries the
 proposal and, if one came, the owner's answer, attributed, per
-`design@agent-skills@attribution-replaces-quotation`. The skill's
-description reaches a session before it starts a requested change whose design is not settled.
+`design@agent-skills@attribution-replaces-quotation`. What sends a session to this grounding is
+`design@agent-skills@settled-means-recorded`.
 
 The owner argued that whether a task is bounded work, which does not change the project's design,
 cannot be determined without going through the design skill's grounding steps. The
@@ -24,7 +24,43 @@ bounded problems, would repeat the grounding to classify at all; it is in the re
 alternatives. A bounded path names no skill outside the installed set, per
 `design@agent-skills@no-external-handoff`.
 
-The design this decision did not keep: `rejected@agent-skills@separate-bounded-problem-skill`.
+The designs this decision did not keep: `rejected@agent-skills@separate-bounded-problem-skill`, and
+`rejected@agent-skills@grounding-split-from-discussion`, which puts the grounding and the discussion
+in two skills.
+
+### A change the owner asks for or proposes goes to the design skill unless a record the session can see already states it `##settled-means-recorded`
+
+The design skill's description, the primer's entry for it and the skill's section on bounded work
+send a session to the skill before it starts a change the owner asks for or proposes, unless a plan
+document, an outcome the owner ruled in an audit, an intake or a review, or a design head or a
+failing test already states what the owner asks for or proposes, or the change decides nothing: a
+typo, a stale pointer, a rewording. A request or a proposal of the owner does not by itself settle a
+design, and a ruling of the owner on a question the session put is no proposal. A decision a
+session makes during another task is routed by `design@agent-skills@new-or-reshaped-head-needs-design`.
+A proposal of the owner that is a member a head's argument covers goes through the grounding, ends
+on the bounded path in one message, and is recorded directly, per
+`design@agent-skills@extension-follows-the-ground`.
+
+Whether a design is settled is what the grounding finds out, per
+`design@agent-skills@bounded-path-in-design`. A trigger that asks a session to judge it before the
+load fires only in a session that already holds the skill's rule that an owner's proposal is a claim
+to test, the argument `design@agent-skills@design-home-write-loads-recording` makes for another
+load. Each exception is a record the session can look at. A record settles what the owner asks for
+or proposes, not merely the result a change must produce: a failing test states a result, and a
+shape the owner proposes to reach it is still challenged. It serves
+`goal@knowledge-architect@design-with-agents-as-counterparts`, met while no proposal of the owner is
+built before it has been grounded and challenged, and `goal@agent-skills@installed-text-works-anywhere`.
+
+The evidence is real use. The cloud sessions behind this repository's pull requests 24 and 25 held
+no user-level instruction, and their harness listed the design skill's description whole; neither
+loaded the skill before building the owner's request, and one recorded a member of a head with no
+grounding. The owner supplied their transcript files, read by a script, as the message of the
+commit "[harvest] The design skill's trigger, the search after the first challenge and the
+precedence of installed skills are recorded" states. The rival that judged the condition in the
+session, `rejected@agent-skills@trigger-judges-settled-design`, is that behaviour. The rival that
+loads the skill for every requested change, `rejected@agent-skills@design-load-unconditioned`, pays
+a second record search for the work of a plan document, which was searched at the grounding of the
+discussion that converged on it or at its design audit.
 
 ### The design skill is written for frontier-tier models only `##frontier-tier-only`
 

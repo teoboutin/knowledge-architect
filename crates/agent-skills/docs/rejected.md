@@ -580,3 +580,34 @@ text uses, when it was weighed, by the count and the command of
 `live`. Of the 39 coined terms two or more installed texts used when it was weighed, 19 were not
 used by the primer, each of them a second definition in every session's load that no sentence of
 the primer needs; the count and its command are in `design@agent-skills@term-defined-at-first-load`.
+
+### A trigger that sends a requested change to the design skill when the session judges its design not settled `##trigger-judges-settled-design`
+
+`live`. The session judges before the load what the skill's grounding finds out, and it read an
+owner's proposal as settled: the two cloud sessions read for `design@agent-skills@settled-means-recorded`
+built the owner's requests without loading the skill, under this trigger.
+
+### The design skill loaded before every change the owner asks for, with no exception `##design-load-unconditioned`
+
+`live`. The work of a plan document was searched before it starts, at the grounding of the
+discussion that converged on it or at its design audit, so the load pays a second record search, about
+1M subagent tokens in the search that grounded the decision, for a design already recorded. It is
+kept because a doubt remains: a session may read the exceptions of
+`design@agent-skills@settled-means-recorded` too widely and build a proposal ungrounded, and this
+alternative is a candidate if it does.
+
+### The design skill split into a grounding skill and a discussion skill `##grounding-split-from-discussion`
+
+`live`. The owner proposed it and withdrew it on the argument. The grounding decides whether a
+discussion is needed, so the split puts the discussion behind a second load, the failure of a skill
+not loaded; and it saves about half of the skill's words, by an estimate of the sections the
+bounded path applies, against a record search the grounding runs anyway. It is kept because a doubt
+remains, `issue@agent-skills@the-open-space-test-may-admit-every-problem`: sessions that load the
+skill and run the discussion on work the owner judges bounded would make it a candidate.
+
+### The design skill's record search given the question alone as its work `##search-work-is-the-question`
+
+`live`. A searcher grades `may bring back` against a shape, and a question gives it none, where the
+retrospective intake and the design audit send theirs a shape. It is kept because a doubt remains:
+a work statement holding the shapes may leave an entry that bears on the problem outside them graded
+`unrelated`, which `tripwire@agent-skills@record-search-misses` watches.

@@ -122,8 +122,8 @@ unread entry. The design it does not keep:
 
 ### The record search takes as seeds the decisions the work rests on or may change, never a goal `##seeds-name-decisions`
 
-The design skill's grounding seeds the search with the decisions read so far that the question rests
-on or may change, and the design audit of a slice or a spec with the decisions its plan documents
+The design skill's grounding seeds the search with the decisions read so far that the problem and
+the drafted shapes rest on or may change, and the design audit of a slice or a spec with the decisions its plan documents
 cite; neither seeds a goal. An entry that is or cites a seed is
 never graded `unrelated`, per `design@agent-skills@search-relevance-grade`, so a seed that many
 entries cite forces each of them to a `may-bear` grade at least. A goal is such a seed: it reaches
@@ -138,8 +138,9 @@ this decision did not keep: `rejected@agent-skills@goal-seeds`.
 
 ### The record search runs where design is discussed, before the work `##record-searched-before-the-work`
 
-The installed design skill dispatches the search at its loop step 1, with the question as the work
-and seeds as `design@agent-skills@seeds-name-decisions` says, for a design question and for bounded work alike,
+The installed design skill dispatches the search at its loop step 1, once the session has read the
+homes the step names, grepped the record, and drafted and challenged the shapes, with the problem and
+those shapes as the work and seeds as `design@agent-skills@seeds-name-decisions` says, for a design question and for bounded work alike,
 per `design@agent-skills@bounded-path-in-design`, and again for a thread that opens on a subject the
 first work did not cover, with the thread as the work: the first search read the whole record but
 graded it against the first work, so an entry that bears only on the new subject may stand graded
@@ -170,9 +171,14 @@ reading narrower than the search, which the owner's instances in thaum and rootp
 The occasions are those where design is discussed, so that an entry the work bears on costs a
 ruling before the work rather than rework after it, per
 `goal@knowledge-architect@agents-work-without-drift`. A search at grounding puts the record in view
-before the first proposal, so before any ruling, where a reading at the checkpoint comes after the
+before the first round, so before any ruling, where a reading at the checkpoint comes after the
 owner has ruled most threads, as `rejected@agent-skills@conformance-reader-at-the-checkpoint`
-records. The evidence is real use, per `design@agent-skills@behaviour-additions-need-real-use`:
+records. The search comes after the first challenge, on the owner's proposal, so that its work holds
+the shapes: a searcher grades `may bring back` against a shape, and the retrospective intake and the
+design audit already send theirs one, where a question alone, `rejected@agent-skills@search-work-is-the-question`,
+gives it none. The nearest rival, a search before the challenge and another after it, doubles a cost of
+about 1M subagent tokens per search, and a thread on a new subject already gets a search of its own.
+The evidence is real use, per `design@agent-skills@behaviour-additions-need-real-use`:
 
 - for the design entries, the owner reported them missed in part many times, and in one case the
   owner approved a proposal contradicting a head the session had not read, caught only at the

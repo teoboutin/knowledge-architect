@@ -88,7 +88,9 @@ them in the primer; the outcomes of something met outside the task,
 `design@agent-skills@one-home-for-head-rules`; how a size cost of agent-facing text is
 weighed, `design@agent-skills@context-cost-of-agent-text`, since every session weighs where a text
 goes; the reading of the record of code before changing it,
-`design@agent-skills@code-change-reads-its-record`; and the terms the primer uses, each restated with
+`design@agent-skills@code-change-reads-its-record`; the paragraph that opens the list of installed
+skills, on loading each skill whole at its moment, whose second sentence is
+`design@agent-skills@installed-skill-takes-precedence`; and the terms the primer uses, each restated with
 its pointer, `design@agent-skills@term-defined-at-first-load`.
 
 ### The primer states the checker's model a reader needs, and the rarer checker rules reach a session through their findings `##checker-model-in-primer`
@@ -444,7 +446,11 @@ Two mechanisms already deliver a project skill at its moment: the harness lists 
 its description every session, and the description begins with MUST and names its symptom, per
 `skill@knowledge-architect-agent-configuration@shaping-a-skill`; and an axis a project adds to a
 review is owed through the skill of an activity whose work the review reads, per
-`skill@knowledge-architect-review@review-axes`. A table restates both, and its "adds to" is a fixed
+`skill@knowledge-architect-review@review-axes`. A description did not deliver its skill in two cloud
+sessions read for `design@agent-skills@settled-means-recorded`, so the primer's list of installed
+skills opens with the instruction to load the skill of a moment the list names, with each skill of
+the project that says it adds to it, whole; it maps no project skill to an installed one. A table
+restates both, and its "adds to" is a fixed
 mapping between a project skill and an installed one, which each new kind of link between them
 must vary, against `design@agent-skills@capabilities-not-structure`. The fact that defeated it: in
 this repository's first agentic-workflow audit, no row of the table delivered anything the
@@ -464,6 +470,25 @@ name as an installed one would load beside it, not replace it. Where a project s
 contradict an installed one, the installed text is wrong for that project, and the owner reports
 it. A project that needs to change one instruction has no means yet:
 `issue@agent-skills@patching-an-installed-skill`.
+
+### For an activity the installed set covers, no skill from outside the installed set and the project takes the place of its installed skill `##installed-skill-takes-precedence`
+
+The paragraph that opens the primer's list of installed skills says that a skill from outside the
+installed set and the project, which the environment lists for the same activity, never takes the
+place of the installed skill and of the project's skills that add to it. A project's own skill loads
+beside the installed one, per `design@agent-skills@overlay-by-separate-skills`. The instruction names
+no outside skill, per `design@agent-skills@no-external-handoff`.
+
+The ground is `goal@agent-skills@installed-text-works-anywhere`: no skill the environment adds
+replaces an installed one for an activity the set covers. The harness lists a plugin's skill beside
+the installed ones: both cloud sessions read for `design@agent-skills@settled-means-recorded` listed
+a plugin's design-discussion skill beside `skill@knowledge-architect-design`, the two descriptions
+opening with one sentence. Which listed skill a session loads is a behaviour, and no session read
+showed a plugin's skill loaded in place of an installed one; the owner ruled that the goal grounds
+the instruction where that evidence of real use falls short of what
+`design@agent-skills@behaviour-additions-need-real-use` asks. The nearest rival, the installed skill
+as the one skill loaded, shuts out a project skill that loads together with an installed one, as
+three project skills of two projects do.
 
 ### A project's own files in the installer's directories carry its name as a prefix `##project-name-prefix`
 

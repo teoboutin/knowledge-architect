@@ -24,6 +24,11 @@ tokens, summed from the agents' completion reports. The owner plans a goal on de
 whole, beyond the design, the plan and the review the installed skills cover, and stated it is not
 for now. Not established: how often a fix meets an entry outside the record of its code.
 
+Later, the owner stated that a remark of theirs, that development cannot work in the long term if
+changes are made without grounding in design records, concerns additions and new features, not the
+fix of a bug that affects recorded design; the exception the owner named, a bug found to make a
+design fail or to be inherent to it, the owner has not met.
+
 ### Why it matters
 
 A fix that meets a head outside its code's record, or a standing entry a diagnosis did not list, is
