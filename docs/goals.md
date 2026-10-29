@@ -68,15 +68,16 @@ nothing cited is missing and that the declared structure holds. Its commands lis
 entries a review must read. Development driven by agents changes code faster than review alone can
 follow, so the reviews need these tools to keep up.
 
-## The owner decides what the goals and the record leave open, is informed of every other decision, and can overrule any of them `##the-owner-decides`
+## The owner decides what the goals and the record leave open, and is informed of every other decision `##the-owner-decides`
 
-The owner states the project's intent in its goals. Agents decide what the argument from the goals,
-the record and the sources the project follows settles, and record each such decision on that
-ground. What that leaves open is the owner's: a choice between shapes that all survive the
-argument, a contradiction no argument resolves, a goal to set or change, a fact only the owner
-holds, such as an intent, a plan or a weighing the owner made, and an action that cannot be undone,
-such as a publication. A decision the owner made is recorded as the owner's. The owner
-is informed of every decision, and can overrule any of them, at any time and for any reason. It is
+The owner states the project's intent in its goals and brings the facts only the owner holds.
+Agents decide what the argument from the goals, the record and the sources the project follows
+settles, and record each such decision on that ground. What that leaves open is the owner's: a
+choice between shapes that all survive the argument, which no goal ranks, a contradiction no
+argument resolves, a goal to set or change, a fact only the owner holds, and an action that cannot
+be undone, such as a publication. The owner changes a decision through a goal, a fact or an
+argument, which the agents weigh like any other, and never by a word that gives none. A choice the
+owner made is recorded as the owner's; a decision the owner approved stands on its argument. It is
 met while the owner rules only on what is theirs, and learns of every other decision from the
 record and the reports.
 
@@ -93,13 +94,15 @@ owner whose premise a check would have shown false.
 
 The owner and the agent both propose, and each challenges and refines the other's proposals on
 their failures, their costs and their benefits, grounded in the record and backed by the
-measurements the agent takes. Every proposal for a decision that earns a design head, the agent's
-own and its refinements of the owner's included, reaches the owner in an open, argued exchange,
-where the owner can challenge it, add arguments or facts, or change the direction of the design; a
-report alone is not that exchange. The agent carries the investigation, the measurements and the
-tracking of what is open, so the owner's attention goes to the design. It is met while no proposal
-of the owner is built before it has been grounded and challenged, and no decision that earns a head
-reaches the main branch before the owner has met it in that exchange.
+measurements the agent takes. A design discussion is an open, argued exchange where the owner can
+challenge any proposal, the agent's own and its refinements of the owner's included, add arguments
+or facts, or change the direction of the design; a report alone is not that exchange. Outside a
+discussion, the agent decides what the goals and the record settle, and the owner learns of it in
+the report and can open the exchange on it. The agent carries the investigation, the measurements
+and the tracking of what is open, so the owner's attention goes to the design. It is met while no
+proposal of the owner is built before it has been grounded and challenged, and no decision the
+goals and the record leave open reaches the main branch before the owner has met it in that
+exchange.
 
 ## Any project can adopt it, and a new project is the primary target `##any-project-can-adopt-it`
 
