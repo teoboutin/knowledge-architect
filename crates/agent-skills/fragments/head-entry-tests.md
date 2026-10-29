@@ -20,18 +20,13 @@ records dozens per unit of work stops being readable and stops being ranked.
 %% `design@agent-skills@shipped-text-line-comments`.
 3. **its argument turns on the behaviour of something outside the project**: an external
    specification the project implements (a standard, a protocol, a rule set), or an external tool's
-   behaviour, read in its documentation or measured; or
-%% The `Q` label: `design@agent-skills@ruled-items-labelled`.
-4. **the owner confirms that it records the owner's own intent**: a ruling the owner gave that an
-   agent could judge superfluous and reverse as a small fix, or an argument the owner made and wants
-   kept so as not to restate it. The agent does not judge this. When a decision would earn a head
-   by this test alone, ask the owner, one question per decision, each under a label, `Q<n>`,
-   numbered as `primer@labelled-items` says, several in one message, each quoting the owner's words
-   the decision rests on: do they record the owner's intent, or were they an answer to the agent's
-   proposal, or a hedged statement ("I think", "maybe"), which is a position to argue under
-   `skill@knowledge-architect-design`? The head attributes the decision to the owner, with the
-   owner's answer, as `primer@design-heads` says of attribution.
-   With no answer, the decision earns no head by this test.
+   behaviour, read in its documentation or measured.
+
+%% The owner's intent lands in a goal, not in a head: `design@agent-skills@a-head-is-owed-by-an-entry-test`.
+**The owner's intent earns no head of its own.** A decision that would earn a head only as the
+owner's intent states an outcome, which is drafted as a goal under
+`skill@knowledge-architect-goal-setting`; an argument the owner made earns a head by the tests
+above, like any other.
 
 A choice that turns on what the specification means, or on how the tool behaves, is expensive to
 get wrong and expensive to derive again, and it is visible: the argument quotes the specification
@@ -61,17 +56,17 @@ needs no plan document and no new session. An addition that answers another ques
 head's takes a head of its own, by the test of one decision per head of
 `skill@knowledge-architect-decision-recording@head-shape`. A member the head's
 argument covers is recorded directly, routed as the next paragraph says; where the owner approved
-it, the approval is recorded in the commit, attributed to the owner, not in the head. A change that relocates or rewords
+it, the approval is recorded in the commit, as the session's decision, not in the head. A change that relocates or rewords
 recorded decisions, a split of a head included, and adds or removes none, is not a decision: it
 needs no design skill, and the routing and fidelity-of-relocation review axes judge that it adds or
 removes none.
 
 **A new member of a head is routed by the head's ground.** A member is what a head's rule admits
 and its body does not yet name. Where the part of the head that admits it stands on its argument,
-and the argument covers the member, it is recorded directly. Where that part's ground is the
-owner's words and they state the rule, the member is within the ruling and is recorded directly,
-the ground attributed to the owner as before. Where the owner's words name the members, it goes to the owner as one
-proposal: one message stating the rule, the member and a default, and nothing of it is written
+and the argument covers the member, it is recorded directly. Where that part is a fork's choice and
+its words state the rule, the member is within the choice and is recorded directly, the choice
+attributed as before. Where its words name the members and the choice was the owner's, it goes to
+the owner as one proposal: one message stating the rule, the member and a default, and nothing of it is written
 before the owner's word; it is no change of the decision, so it owes no reversal. A member the rule
 does not admit, or that the argument does not cover, is a change of the decision, and goes to the
 design skill, as the backstop says.

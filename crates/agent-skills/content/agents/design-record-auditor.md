@@ -113,7 +113,8 @@ order. `{{command}} model` prints every heading and slug definition with its fil
   ruling: `git log -G'<slug>'` for the commits that touched the slug, and the plan documents that
   carried it, found with `git log --diff-filter=D --name-only -- docs/plans/`. Whether a ground is
   the owner's is decided from that history, never from the head's text alone;
-- judge the head against every rule of `agent@knowledge-architect-design-record-auditor@design-head-rules`: what earns a head, test 4 included;
+- judge the head against every rule of `agent@knowledge-architect-design-record-auditor@design-head-rules`: what earns a head, the
+  owner's intent sent to a goal included;
   the standing argument and the ground; the title tests; one decision per head; the slug, its level
   and its alignment; present tense; and fidelity to what the owner approved. A head that argues
   from a goal's words without naming the goal is the common miss of the standing argument;

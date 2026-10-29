@@ -143,8 +143,8 @@ evidence bring, which nobody knows in advance.
   that earns none, of the commit that implements it, or, where neither
   exists, where `skill@knowledge-architect-review@what-review-leaves`
   puts a record carried by a message: every thread with its final state, the
-  ground of each closure: the owner's ruling, attributed to the owner with what it
-  reaches, as `skill@knowledge-architect-design@what-earns-a-head` says, the rivals that lost with
+  ground of each closure: its argument, or the owner's word recorded by what it brings, as
+  `skill@knowledge-architect-design@what-earns-a-head` says, the rivals that lost with
   their reasons, every premortem cause with its outcome, its acceptance criteria, and the
   `may-bear` entries the grounding did not read, each with the searcher's
   reason, which the review before the merge reads. The decision is
@@ -202,7 +202,7 @@ work proceeds on it unless the owner stops it, or redirects it with a goal, a fa
 a part that cannot be undone waiting for the owner's word, per `primer@question-authority`.
 A reply that brings an argument, a new shape or a doubt returns the work to the loop, on the
 in-change path or the full path. The commit that implements bounded work carries the proposal and,
-if one came, the owner's answer, attributed to the owner, as `skill@knowledge-architect-design@what-earns-a-head` says,
+if one came, the owner's answer, recorded by what it brings, as `skill@knowledge-architect-design@what-earns-a-head` says,
 and the `may-bear` entries the grounding did not read, each with the searcher's reason, which the
 review before the merge reads.
 
