@@ -325,6 +325,12 @@ the work can build on, a contradiction or an action that cannot be undone, holds
 per `design@agent-skills@owner-word-holds-as-far-as-its-premise` and
 `goal@knowledge-architect@the-owner-s-word-is-verified`.
 
+Such a question, with its built default and the merge waiting on the owner's ruling, is the
+exchange `goal@knowledge-architect@design-with-agents-as-counterparts` asks the owner to meet a
+decision the goals and the record leave open in: the owner reads the proposal, its rival and its
+consequences, and can challenge it, add an argument or a fact, or change its direction before it
+reaches the main branch, where a report alone, read after the merge, gives no such point.
+
 The timing is the owner's: the work goes on with no interruption, and the owner's approval is asked
 at the merge at the latest. Two rivals lost. The work waiting for each answer of the owner
 interrupts the work, which the owner does not want, and makes a default no default. A branch
