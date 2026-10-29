@@ -262,8 +262,8 @@ that only a measurement of the built result in use could take: a criterion bound
 review reports, misdirects the attention a criterion should hold, and an instruction that asks for
 it is one `goal@agent-skills@only-needed-instructions` removes. The corpus is listed by
 `git log 741f655e --diff-filter=D --name-only -- docs/plans/`, each document read at its deleting
-commit's parent; the per-criterion verdicts were the agent's judgement, kept in the spec's
-deliberation. The same agent counted about ten past firings, of which one tested a decision. The
+commit's parent; the per-criterion verdicts were the agent's judgement, kept in no record, so only
+their order of magnitude is claimed. The same agent counted about ten past firings, of which one tested a decision. The
 owner reported that criteria are too often of low quality, carrying numerical bounds that are not
 relevant, or are in practice certain to pass. The design this
 decision did not keep: `rejected@agent-skills@criteria-as-they-stand`, and removing criteria,
