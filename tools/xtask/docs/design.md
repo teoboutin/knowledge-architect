@@ -73,9 +73,10 @@ binary.
 `path@xtask@src/skill.rs` includes `path@agent-skills@src/render.rs` with `#[path]`, as
 `path@agent-skills@build.rs` does, so the view calls the readers of
 `design@agent-skills@one-placeholder-reader-per-kind`. The library of the agent-skills crate
-declares the file for its own tests alone. The owner chose the include over exporting the view from
-that library, `rejected@xtask@view-exported-from-the-library`, expecting the split of the crate into
-a bundling utility that publishes the bundling method and the skills themselves,
+declares the file for its own tests alone. The rival, the view exported from that library,
+`rejected@xtask@source-view-exported-from-the-library`, would add to the API of a published crate a
+function no consumer calls. The owner expects the split of the crate into a bundling utility that
+publishes the bundling method and the skills themselves,
 `issue@knowledge-architect@the-skill-bundling-passes-are-tied-to-this-project-s-skills`, to change
 how the view reaches the passes.
 

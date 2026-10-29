@@ -63,6 +63,8 @@ decision of this project is strained by the split, and no goal of this project a
 
 ### What would close it
 
-A design discussion under `skill@knowledge-architect-design` that settles the shape of the split,
-then the split built: a utility crate that another crate's `build.rs` can call with its own prefix,
-layout and substitutions, and this project's skills built with that crate.
+The owner plans to state the goal of the reuse when the work on the split starts, under
+`skill@knowledge-architect-goal-setting`. Then a design discussion under
+`skill@knowledge-architect-design` that settles the shape of the split, then the split built: a
+utility crate that another crate's `build.rs` can call with its own prefix, layout and
+substitutions, and this project's skills built with that crate.

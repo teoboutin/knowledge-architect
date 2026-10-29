@@ -69,8 +69,9 @@ A fragment placeholder is read by `fragment_placeholder` and a snippet placehold
 `snippet_placeholder`, both of `path@agent-skills@src/render.rs`. Every code that decides which
 lines are inlined finds them through its reader: the fragment pass, `render_fragments`; the snippet
 pass of `path@agent-skills@build.rs`; the source view, `source_view`, which
-`design@xtask@source-view-in-the-tool` prints; and the test `every_host_ships_each_fragment_it_names`
-of `path@agent-skills@src/lib.rs`, which finds each fragment's hosts. The view then inlines exactly the lines the build inlines, so a maintainer reading it reads what ships.
+`design@xtask@source-view-in-the-tool` prints; and the test
+`every_host_ships_each_fragment_it_names` of `path@agent-skills@src/lib.rs`, which finds each
+fragment's hosts. The view then inlines exactly the lines the build inlines, so a maintainer reading it reads what ships.
 The checks that a fragment nests no placeholder, and that a view keeps none, test a prefix alone,
 since they refuse anything that opens like one.
 
