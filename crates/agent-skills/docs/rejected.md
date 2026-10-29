@@ -234,7 +234,9 @@ better.
 
 `live`. An audit of the heads added or rewritten in the week entry test 4 was added, up to commit
 bc22d4d, found about two in five of their citations of the owner to be an approval of the agent's
-position, often a batch word, which made an approved default read as the owner's intent.
+position, often a batch word, which made an approved default read as the owner's intent, and the
+citation, deleted, took no argument with it. The figure is re-taken by a fresh read-only audit of
+those heads at that commit, against the commits and plan documents that wrote each citation.
 
 ### A new member routed by the scope of the owner's approval, found in the history of each head `##member-routed-by-approval-scope`
 
@@ -648,8 +650,8 @@ to its redesign. The census that found them cost work to obtain.
 an argument against it going to the owner as a question about their intent. It protected a
 weighing the owner made and did not state; a weighing the owner states is an argument or a goal,
 which the record keeps, and a choice no argument made has nothing a later argument would have to
-defeat. It is kept because a doubt remains: the weak form that replaced it could let sessions
-reverse a choice back and forth, which the guard, a reopening only on what the fork's record does
+defeat. It is kept because a doubt remains: a choice that reopens on a new argument could be
+reversed back and forth by sessions, which a guard, a reopening only on what the fork's record does
 not hold, is meant to stop.
 
 ### A fourth entry test, the owner's own intent confirmed when asked `##owner-intent-entry-test`

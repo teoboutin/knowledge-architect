@@ -418,13 +418,29 @@ word, and the second meets the owner before the merge, per
 
 **Fires when:** a decision found on the main branch was a choice between shapes that all met every
 binding constraint, which no goal ranked, and the branch that merged it reported it under "Decided"
-as settled by the record, without putting it to the owner, at instances in two separate pieces of
-work.
+as settled by the record, without putting it to the owner, once on the main branch, since no
+procedure reports such a decision before the merge.
 **Response:** reopen `design@agent-skills@derived-decision-proceeds-on-default` and
 `design@agent-skills@questions-go-to-their-authority` on how a session tells a fork from a decision
 the record settles, with the instances.
 **Re-entry:** the retrospective of each session, which reads the turns' "Decided" sections, and the
 standing-state review, which reads the issue the owner's report of such a merge opens.
+**Watches until:** three commits on the main branch that add analyses of received retrospective
+files, counted from the commit that writes this line.
+
+## Guarding `design@agent-skills@heads-stand-on-argument`: a fact the owner reported is recorded as an unattributed premise `##owner-fact-recorded-unattributed`
+
+The decision rests on the premise that a session records a fact the owner reported as the owner's
+report, so that a later session can tell it was the owner's to check with the owner, and does not
+take it for a premise the session established.
+
+**Fires when:** a head on the main branch states, with no attribution, a premise that the record of
+its deliberation, a plan document or a commit message, shows the owner reported, once on the main
+branch, since no review reads a premise the head does not attribute.
+**Response:** reopen `design@agent-skills@heads-stand-on-argument` on how the head-ground fragment
+words the row of a fact the owner holds, with the instance.
+**Re-entry:** the retrospective of each session, and the design-record axis of the project audit,
+whose auditor reads the history of a head's ground.
 **Watches until:** three commits on the main branch that add analyses of received retrospective
 files, counted from the commit that writes this line.
 

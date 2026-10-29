@@ -19,8 +19,7 @@ The citations, found by `grep -rn bc22d4d crates/agent-skills/docs`:
 `register@agent-skills@rejected`, two heads of `path@agent-skills@docs/design/design-skill-and-heads.md`,
 and a head of `path@agent-skills@docs/design/project-configuration.md`. The commit likely predates a
 rewrite of history, such as a rebase merge that gave the branch's commits new SHAs; that is an
-assumption, not established. `git log --all --format=%h` lists 1029 commits, none starting with
-`bc22d4`.
+assumption, not established. No commit `git log --all --format=%h` lists starts with `bc22d4`.
 
 ### Why it matters
 

@@ -8,8 +8,8 @@ rival. A constraint from a goal binds outright, where one from a decision is a p
 reference is what tells a reader which. **The test: if this premise turned false, would the
 decision have to be argued again? If yes, it is in the head.** If no, it is deliberation.
 
-%% The table, the weak form and its guard: the owner's argument that an intent about a mechanism
-%% is always settled by an argument or is a fork, `design@agent-skills@heads-stand-on-argument`.
+%% The table: `design@agent-skills@heads-stand-on-argument`. The weak form and its guard:
+%% `design@agent-skills@fork-choice-in-weak-form`.
 **A head stands on its argument.** Most decisions are proposed, argued over their costs and rivals,
 and approved by the owner. The head records such a decision on that argument, with its costs and
 rivals in its body or in the `rejected` entries it cites. What the owner brings lands by its kind:

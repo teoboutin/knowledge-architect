@@ -28,7 +28,7 @@ listed here, and an edit that adds one checks it against the list:
 The owner asked for it, from a premortem message that mixed causes, tripwires and findings: the
 owner could not tell how many items there were to rule on, nor what each was about. A ruling given
 in words then matches items by guess. The owner had asked before for the questions of an entry test
-on the owner's intent, since removed, to be numbered, and judged the pattern recurring, to cover
+on the owner's intent, `rejected@agent-skills@owner-intent-entry-test`, to be numbered, and judged the pattern recurring, to cover
 everything the owner rules on by name. A label that reaches no document reuses
 `Q`, on the owner's argument that searching for unique letters would in the end need more letters
 than exist. The structure passes
@@ -155,10 +155,10 @@ under which a choice the owner made is recorded as the owner's and a decision th
 stands on its argument.
 
 The nearest rival, the owner's words as a ground wherever the decision came from the owner, admits
-an approval of a default put at a fork as "the owner chose where the argued rivals did not settle
-it": the owner reported that such an approval is given without analysing the proposal deeply, and
-is not to be attributed to the owner long term. Its wider form, citing every ruling of the owner,
-is `rejected@agent-skills@head-cites-every-owner-ruling`, which an audit measured.
+an approval of a default put at a fork as the owner's choice, which
+`design@agent-skills@fork-choice-in-weak-form` records as the session's on the owner's report. Its
+wider form, citing every ruling of the owner, is `rejected@agent-skills@head-cites-every-owner-ruling`,
+which an audit measured.
 
 ### A choice at a fork is recorded in a weak form, the owner's where the owner picked and the session's where the owner approved its default, and reopens on an argument the fork's record does not hold `##fork-choice-in-weak-form`
 
@@ -174,12 +174,15 @@ or is a fork, whose free choice is stated with no strong ruling, so that a new a
 can reopen it freely. The guard against reversals back and forth is the planning skill's test of a
 material finding, applied to a fork's choice: two sessions could otherwise flip a choice on
 arguments of equal weight, each costing a rebuild. An approval at a fork is the session's choice
-on the owner's report above, per `design@agent-skills@heads-stand-on-argument`. It serves
+on the owner's report: an approval of a default is given without analysing the proposal deeply, and
+is not to be attributed to the owner long term. It serves
 `goal@knowledge-architect@agents-work-without-drift`, under which the owner rules only on what the
 goals and the record leave open.
 
 The nearest rival, a fork's choice reversed by the owner alone, protects a weighing the owner made
 and did not state; a weighing the owner states is an argument or a goal, which the record keeps.
+The rival of its second half, an approval at a fork recorded as the owner's choice, attributes to
+the owner a weighing the owner did not make.
 The design this decision did not keep: `rejected@agent-skills@fork-choice-reversed-only-by-the-owner`.
 
 ### A durable record attributes a decision to the owner, and the owner's words verbatim stay in a plan document or a file that leaves `##attribution-replaces-quotation`
@@ -278,10 +281,10 @@ decision-recording skill and the project-audit skill each state it, so the reaso
 sites. What stays the owner's beside it is what `primer@question-authority` lists: a goal, a fact
 only the owner holds, a contradiction, a fork and an action that cannot be undone.
 
-It serves `goal@knowledge-architect@the-owner-decides`, which the owner reworded to state it. Its
+It serves `goal@knowledge-architect@the-owner-decides`, which states it. Its
 argument is the owner's proposal: the overrule weakens the agent's challenge of the owner's
 arguments, and lets the owner's preference pass as argument without being recorded as the owner's
-intent; the owner judged it pretty much useless, and probably problematic, and reported thinking
+intent; the owner judged it of little use, and probably problematic, and reported thinking
 the path was never used. Asked for a reason, an overrule always yields a fact, an intent or an
 argument, each of which lands by `design@agent-skills@heads-stand-on-argument`, and three cases, a
 doubt the owner cannot yet state, a wish to stop, and a goal that answers one case wrongly, need
