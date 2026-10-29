@@ -29,7 +29,8 @@ design ──(full path)──▶ planning ──▶ [the work] ──▶ review
 ```
 
 - `skill@knowledge-architect-design` grounds a design question, or a change the owner asks for or
-  proposes that no plan document, ruling of the owner, design head or failing test already states. On its full path it hands off to `skill@knowledge-architect-planning`, which
+  proposes, unless a plan document, an outcome the owner ruled in an audit, an intake or a review, or
+  a design head or a failing test already states it, or the change decides nothing. On its full path it hands off to `skill@knowledge-architect-planning`, which
   writes a spec or a milestone; on its in-change path, and for bounded work, the work goes on in the
   change under way.
 - `skill@knowledge-architect-planning` carries the plan document through the work, the review and

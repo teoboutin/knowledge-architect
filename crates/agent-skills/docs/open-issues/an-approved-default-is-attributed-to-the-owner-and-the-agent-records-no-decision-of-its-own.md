@@ -36,8 +36,7 @@ session that worked six slices of a milestone in one branch:
 
 The texts the question touches: `design@agent-skills@head-ground-is-the-argument`,
 `design@agent-skills@unargued-approval-is-argued`, `design@agent-skills@owner-rules-at-a-fork`,
-`design@agent-skills@default-ruled-before-merge`, `rejected@agent-skills@delegated-decision-state`,
-and `tripwire@agent-skills@owner-intent-stripped`, which guards the first.
+`design@agent-skills@default-ruled-before-merge` and `rejected@agent-skills@delegated-decision-state`.
 
 The suspected mechanism, in one sentence: every decision a session cannot settle on the record goes
 to the owner, and the owner's quick approval then becomes the head's ground.

@@ -24,10 +24,11 @@ tokens, summed from the agents' completion reports. The owner plans a goal on de
 whole, beyond the design, the plan and the review the installed skills cover, and stated it is not
 for now. Not established: how often a fix meets an entry outside the record of its code.
 
-Later, the owner stated that a remark of theirs, that development cannot work in the long term if
-changes are made without grounding in design records, concerns additions and new features, not the
-fix of a bug that affects recorded design; the exception the owner named, a bug found to make a
-design fail or to be inherent to it, the owner has not met.
+Later, the owner stated that a remark of theirs, that development can probably not work in the long
+term if changes are made without grounding in design records, concerns additions and new features,
+not the fix of a bug that affects recorded design. The owner named an exception, a bug found to make
+the design fail or to be inherent to it and so unfixable, which the remark would cover, and was not
+sure such cases occur, not thinking they had met one.
 
 ### Why it matters
 

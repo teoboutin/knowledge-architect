@@ -909,7 +909,8 @@ reopens. The owner's ruling, round 5: "AC1 and AC2 both accepted".
 ### AC2: loop step 1 and its head state the same order `##search-order-stated-alike`
 
 Guards #search-after-first-challenge. Judged at the review before the merge. Fires when loop step 1
-of the installed design skill and `design@agent-skills@record-searched-before-the-work` do not both
+of the installed design skill and the head that records the order, the one the harvest writes for
+#search-after-first-challenge, do not both
 state the order: `primer@verify-before-relying` re-read, the homes read and grepped, then the
 shapes drafted and challenged, then the search with the problem and the shapes as the work, then the
 first round. Response: #search-after-first-challenge

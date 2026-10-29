@@ -120,6 +120,22 @@ files did the same. Both read whole what their proposals rested on, so no outcom
 unread entry. The design it does not keep:
 `rejected@agent-skills@intake-reads-every-may-bear-entry-whole`.
 
+### The design skill's record search runs after the first challenge, with the problem and the drafted shapes as its work `##search-after-first-challenge`
+
+Loop step 1 of the installed design skill orders the grounding: the session re-reads
+`primer@verify-before-relying` whole, reads the homes the step names and greps the record, drafts
+the shapes, the owner's proposal if one was made and its own, and challenges each; then it
+dispatches the search, with the problem and those shapes as the work; then it reads the search's
+result and writes the first round. The order is the owner's proposal, so that the costly search gets
+the most precise work.
+
+A searcher grades `may bring back` against a shape, and a question alone gives it none,
+`rejected@agent-skills@search-work-is-the-question`; the retrospective intake and the design audit
+already send theirs one, the received files and the plan document. The nearest rival, a search
+before the challenge and another after it, doubles the cost of the search, which
+`issue@agent-skills@a-fix-is-grounded-by-no-record-search` measures, and a thread on a new subject
+already gets a search of its own, per `design@agent-skills@record-searched-before-the-work`.
+
 ### The record search takes as seeds the decisions the work rests on or may change, never a goal `##seeds-name-decisions`
 
 The design skill's grounding seeds the search with the decisions read so far that the problem and
@@ -138,9 +154,9 @@ this decision did not keep: `rejected@agent-skills@goal-seeds`.
 
 ### The record search runs where design is discussed, before the work `##record-searched-before-the-work`
 
-The installed design skill dispatches the search at its loop step 1, once the session has read the
-homes the step names, grepped the record, and drafted and challenged the shapes, with the problem and
-those shapes as the work and seeds as `design@agent-skills@seeds-name-decisions` says, for a design question and for bounded work alike,
+The installed design skill dispatches the search at its loop step 1, after the first challenge, as
+`design@agent-skills@search-after-first-challenge` orders it, with the problem and the drafted shapes
+as the work and seeds as `design@agent-skills@seeds-name-decisions` says, for a design question and for bounded work alike,
 per `design@agent-skills@bounded-path-in-design`, and again for a thread that opens on a subject the
 first work did not cover, with the thread as the work: the first search read the whole record but
 graded it against the first work, so an entry that bears only on the new subject may stand graded
@@ -173,12 +189,7 @@ ruling before the work rather than rework after it, per
 `goal@knowledge-architect@agents-work-without-drift`. A search at grounding puts the record in view
 before the first round, so before any ruling, where a reading at the checkpoint comes after the
 owner has ruled most threads, as `rejected@agent-skills@conformance-reader-at-the-checkpoint`
-records. The search comes after the first challenge, on the owner's proposal, so that its work holds
-the shapes: a searcher grades `may bring back` against a shape, and the retrospective intake and the
-design audit already send theirs one, where a question alone, `rejected@agent-skills@search-work-is-the-question`,
-gives it none. The nearest rival, a search before the challenge and another after it, doubles a cost of
-about 1M subagent tokens per search, and a thread on a new subject already gets a search of its own.
-The evidence is real use, per `design@agent-skills@behaviour-additions-need-real-use`:
+records. The evidence is real use, per `design@agent-skills@behaviour-additions-need-real-use`:
 
 - for the design entries, the owner reported them missed in part many times, and in one case the
   owner approved a proposal contradicting a head the session had not read, caught only at the
