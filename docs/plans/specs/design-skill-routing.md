@@ -899,20 +899,20 @@ The two acceptance criteria below, AC1 and AC2, were put to the owner after the 
 ### AC1: the three texts that state the condition state the same exceptions `##condition-stated-alike`
 
 Guards #settled-means-recorded. Judged at the review before the merge. Fires when the description,
-the list's design entry and bounded work's paragraph do not all state the condition's four points:
-a change the owner asks for or proposes goes to the design skill; the same exceptions, a plan
-document, a ruled outcome, a head or a failing test that states what the owner asks for or proposes,
-and a change that decides nothing; and a request or a proposal of the owner does not by itself
-settle a design. Response: the decision that `design@agent-skills@bounded-path-in-design` records
-reopens. The owner's ruling, round 5: "AC1 and AC2 both accepted".
+the list's design entry and bounded work's paragraph do not all state the same exceptions: a plan
+document, a ruled outcome, a head or a failing test that states what the owner asks for or proposes
+(the wording of D2), and a change that decides nothing. Response: the decision that
+`design@agent-skills@bounded-path-in-design` records reopens. The owner's ruling, round 5: "AC1 and
+AC2 both accepted". The session checks, beside it, two points it added after the owner's acceptance:
+that the three texts send a change the owner asks for or proposes to the design skill, and that they
+say a request or a proposal of the owner does not by itself settle a design.
 
 ### AC2: loop step 1 and its head state the same order `##search-order-stated-alike`
 
 Guards #search-after-first-challenge. Judged at the review before the merge. Fires when loop step 1
 of the installed design skill and `design@agent-skills@record-searched-before-the-work` do not both
-state the order: `primer@verify-before-relying` re-read, the homes read and grepped, then the
-shapes drafted and challenged, then the search with the problem and the shapes as the work, then the
-first round. Response: #search-after-first-challenge
+state the order: the homes read and grepped, then the shapes drafted and challenged, then the search
+with the problem and the shapes as the work, then the first round. Response: #search-after-first-challenge
 reopens. The owner's ruling, round 5: "AC1 and AC2 both accepted".
 
 ## Implementation sequence
@@ -1024,9 +1024,8 @@ with my intent."
 
 ## Later consequences
 
-- The owner uninstalls the superpowers plugin once this lands, as the owner asked, "We should fill
-  the gaps before that though"; the owner's later sessions then show the installed workflow's real
-  behaviour.
+- The owner plans to uninstall the superpowers plugin once this branch merges, as the owner ruled
+  in round 7; the owner's later sessions then show the installed workflow's real behaviour.
 - `design@agent-skills@owner-rules-at-a-fork` grounds the discussion's form on "the owner's intent";
   the next change that touches it can cite `goal@knowledge-architect@design-with-agents-as-counterparts`.
 - D1's question stays in `issue@agent-skills@a-fix-is-grounded-by-no-record-search` until the owner

@@ -598,7 +598,7 @@ alternative is a candidate if it does.
 
 ### The design skill split into a grounding skill and a discussion skill `##grounding-split-from-discussion`
 
-`live`. The owner proposed it and withdrew it on the argument. The grounding decides whether a
+`live`. The owner raised it as a view to consider, uncertain, and withdrew it on the argument. The grounding decides whether a
 discussion is needed, so the split puts the discussion behind a second load, the failure of a skill
 not loaded; and what it saves, the words of the discussion's sections in a session the bounded path
 ends, is small beside the record search the grounding runs anyway. It is kept because a doubt
