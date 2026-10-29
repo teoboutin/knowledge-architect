@@ -96,7 +96,7 @@ this entry.
 No bound is set on how much is proposed either: on the number of threads, of proposals, or of
 rounds. A bound fixed before the discussion decides its size before its content, which depends only
 on what grounding, investigation and experiment bring, and nobody knows in advance; the owner argued
-it, answering a proposed path that would bound a discussion to one decision met during a task. Too
+it, as the owner's opinion, answering a proposed path that would bound a discussion to one decision met during a task. Too
 much structure hinders the agent's freedom to carry investigations of various shapes and to
 challenge and refine proposals, against `goal@knowledge-architect@design-with-agents-as-counterparts`,
 whose exchange is open and argued, and `goal@agent-skills@only-needed-instructions`, under which

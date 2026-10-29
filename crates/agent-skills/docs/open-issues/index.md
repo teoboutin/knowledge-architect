@@ -1,6 +1,6 @@
 **Generated — do not edit.** `cargo klarch index`
 
-45 entries
+47 entries
 
 | kind | title |
 | --- | --- |
@@ -9,6 +9,7 @@
 | defect | [In an adopting project, a finding sent upstream is counted again as a violation left on old text at every later pass](an-upstream-finding-stays-in-every-later-old-text-count.md) |
 | defect | [Two audit workflows can give two groups one label, list a sample entry twice, and report verdicts as missing](two-audit-workflows-can-collide-group-labels-and-list-a-sample-entry-twice.md) |
 | deferred | [A fix that does not go through the design skill is grounded by no search of the whole record](a-fix-is-grounded-by-no-record-search.md) |
+| design | [A built default awaiting the owner enters a design head only once the owner rules, where the owner wants agents more autonomous](a-built-default-awaiting-the-owner-enters-a-head-only-once-the-owner-rules.md) |
 | design | [A handled retrospective file is marked where it lies, and the owner keeps handled files in an archive apart from pending ones](a-handled-retrospective-file-is-marked-where-it-lies.md) |
 | design | [A lighter pass of the record search for the Components a piece of work does not touch](a-lighter-pass-for-untouched-components.md) |
 | design | [A member recorded directly, as covered by its head's argument, lay beyond that argument](a-member-recorded-directly-lies-beyond-its-head-s-argument.md) |
@@ -48,4 +49,5 @@
 | todo | [The code-claims review axis reads plan documents only, and statements about code elsewhere in a change are checked by no axis](the-code-claims-axis-reads-plan-documents-only.md) |
 | todo | [The design skill's duty to bring back a material finding has no design head](the-material-finding-duty-has-no-head.md) |
 | todo | [The retrospective records no count of what a merged branch cost in review](the-retrospective-counts-no-review-cost.md) |
+| todo | [This repository's design heads that cite the owner's words await a pass of the design-record axis under the rule on what a head stands on](this-repository-s-heads-await-the-design-record-axis.md) |
 | todo | [Two installed skills each define "thread" and "the owner" in their own words](two-texts-define-a-term-in-their-own-words.md) |

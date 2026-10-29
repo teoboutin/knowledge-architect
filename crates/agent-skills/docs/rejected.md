@@ -617,10 +617,14 @@ a work statement holding the shapes may leave an entry that bears on the problem
 `live`. Without a standard that ranked a criterion, its application was a fork between the cost of
 the check and the risk, so the owner ruled on each, and a criterion proposed after the premortem
 waited for that ruling before the merge. Once conditions 1, 3 and 4 of the tripwire standard rank a
-criterion, the ruling answers what the standard answers, and the one point where the owner's word
-bears on a criterion is the discussion its firing opens. It is kept because a doubt remains: a
-criterion that costs real work enters a plan on the standard alone, and the owner meets that cost
-only by reading the plan document.
+criterion, the ruling answers what the standard answers, and the owner's word bears on whether a
+criterion's decision stands at the discussion its firing opens. Its argument was that a criterion
+decides what the branch must build before it merges, and that the two criteria that had reached a
+plan document of this repository against a goal had no ruling, one proposed at a premortem and one
+while a slice's spec was written; its rival, no ruling and the design-conformance reviewer alone,
+catches a conflict with the record, not a weighing, which the standard now ranks. It is kept
+because a doubt remains: a criterion that costs real work enters a plan on the standard alone, and
+the owner meets that cost only by reading the plan document.
 
 ### Acceptance criteria admitted on conditions 3 and 4 alone, a completeness check included `##criteria-as-they-stand`
 
@@ -647,3 +651,13 @@ which the record keeps, and a choice no argument made has nothing a later argume
 defeat. It is kept because a doubt remains: the weak form that replaced it could let sessions
 reverse a choice back and forth, which the guard, a reopening only on what the fork's record does
 not hold, is meant to stop.
+
+### A fourth entry test, the owner's own intent confirmed when asked `##owner-intent-entry-test`
+
+`live`. A decision earned a head when the owner, asked under a label, confirmed that a ruling an
+agent could reverse as a small fix, or an argument the owner wanted kept, recorded the owner's
+intent. An intent that states an outcome is a goal, which a goal-setting draft puts to the owner as
+the test's question did, and a preference about a mechanism is an argument or a choice at a fork,
+so the test admitted nothing a goal, an argument or a fork does not hold. It is kept because a
+doubt remains: intents moved into goals could swell the goals homes with local preferences, until
+goals stop reading as what the project is for.

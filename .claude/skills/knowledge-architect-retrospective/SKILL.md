@@ -94,8 +94,9 @@ finding gets one id in each file, each naming the other, since the two files may
   script. Each is also a finding on the checker, in the workflow's file.
 
 **A ruling of the owner recorded a little relaxed, or firmer than its hedges, on a detail that is
-not load-bearing, and caught by the transcript reviewer before the merge, is no finding**, and a
-refinement within the ruling's direction is none at all. The
+not load-bearing, or an argument or a reading attributed to the owner that is not the owner's,
+caught by the transcript reviewer before the merge, is no finding**, and a refinement within the
+ruling's direction is none at all. The
 reviewer exists to catch that expected rate. A misstated ruling that changed what was
 built, or reached the main branch, is one.
 

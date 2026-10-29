@@ -347,8 +347,9 @@ Beside the repair of a head a change touches, `design@agent-skills@existing-head
 project audit brings every head and every rejected alternative to the rules at once, under
 `design@agent-skills@audit-method`, a change that relaxes or turns the owner's words going to the
 owner on one list, on the occasions of `design@agent-skills@audit-triggers`. Its premise is the
-owner's: once the conditions and the shapes of the decision records change, a project that moves
-its pin must bring its design home to them. A repair on touch never reaches a head no change touches.
+owner's: with the changes then made to the conditions and the shapes of decision records, the
+owner predicted that projects migrating at the next pin would need to bring their design homes to
+them, a need each later change of those rules renews. A repair on touch never reaches a head no change touches.
 The rival, the repair on touch alone, leaves a project's record under the old rules after its
 migration.
 

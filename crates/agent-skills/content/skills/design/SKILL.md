@@ -73,7 +73,8 @@ decides nothing against an argument.
   work: state it once with the discriminating fact, name the default
   ("unless you say otherwise, I build the decided shape"), and
   proceed unless the word comes. When the finding defeats a premise of a ruling the owner
-  gave, or is a contradiction with another decided thread that no
+  gave, other than a choice at a fork that it ranks, which reopens in the weak form
+  `primer@design-heads` states, or is a contradiction with another decided thread that no
   argument resolves, it is a contradiction, per
   `primer@owner-word-premise`: the part of the work that rests on it
   is held until the word comes, and the rest proceeds on the default.
@@ -634,9 +635,7 @@ choices whose option space genuinely is closed and consequence-free.
    - **The work unfinished**: it is a claim of the step that builds it, with
      its test, which the spec-conformity review judges.
    - **The decision wrong**: it is an acceptance criterion, admitted only
-     where it meets conditions 1, 3 and 4 of the standard below. Its failure is
-     silent, since no test, gate or review would report it. Its firing is what
-     the decision says must not happen. A number in it has a basis.
+     where it meets conditions 1, 3 and 4 of the standard below.
      `skill@knowledge-architect-planning` writes it into the plan document, or,
      on the in-change path, the change applies it as a test.
 %% A criterion stands on the standard, not on the owner's word:
