@@ -57,8 +57,8 @@ tripwire axis applied: every tripwire kept has a horizon, and 20 leave" lists. A
 as the explanation of `check --fix`'s refusal that `design@agent-skills@checker-model-in-primer`
 keeps in the primer, lives in that head, and a narrowing of the tripwire that dropped it would make
 its clause fire on the decision working, which condition 3 excludes. A ruling on what fires one
-tripwire, such as the owner's that a rule a review finds and its own branch removes does not fire
-`tripwire@agent-skills@rarer-rule-in-the-model`, is a case of the rule on slips, which the
+tripwire, such as a ruling that a rule a review finds and its own branch removes does not fire the
+tripwire it would match, is a case of the rule on slips, which the
 standard states as the owner's. So a narrowing or a removal of
 a tripwire changes no ruling of the owner, unlike a head, which can record the owner's intent, per
 `design@agent-skills@head-ground-is-the-argument`. The owner rules only on what the goals and the

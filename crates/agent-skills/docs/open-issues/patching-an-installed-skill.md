@@ -9,7 +9,7 @@ An installed skill is compared byte for byte with the version the project pins, 
 cannot edit it. A project adds to it through a skill of its own, and the installed
 agent-configuration skill says such an addition "never contradicts" the installed text. A project
 whose need is to change or remove one instruction of an installed skill has no sanctioned means.
-This repository already sets three installed instructions aside in its root CLAUDE.md, so the need
+This repository already sets installed instructions aside in its root CLAUDE.md, in three cases, so the need
 is met here, not only in an adopting project.
 
 ## Details

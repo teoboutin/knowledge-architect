@@ -487,7 +487,7 @@ The design this decision did not keep:
 
 ## 4. This repository's agent configuration
 
-### This repository's retrospective findings, and its audits' findings on the installed text, stay in this repository, never on GitHub `##workflow-findings-stay-here`
+### This repository's retrospective findings, its audits' findings on the installed text, and what its sessions meet outside the task on the installed text or the checker, stay in this repository, never on GitHub `##workflow-findings-stay-here`
 
 A retrospective writes one file for the project and one for the workflow, and the workflow's file
 becomes an issue on knowledge-architect's repository where the owner directs it there, per

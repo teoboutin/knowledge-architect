@@ -15,8 +15,10 @@ no file. The owner accepted that loss for now and plans to rethink this part of 
 ### What
 
 The item is listed in the turn's "Met outside the task" section, as "kept for the retrospective's
-workflow file", and in nothing durable. The retrospective is the only text that writes the
-workflow's file, and `skill@knowledge-architect-retrospective@when-offered` bounds when it runs:
+workflow file", and in nothing durable. Of the texts that write a workflow's file, the
+retrospective is the only one a session runs on its own work: the project audit writes its own
+file for its own findings, and the intake adds only a finding of a project file it analyses.
+`skill@knowledge-architect-retrospective@when-offered` bounds when the retrospective runs:
 
 1. the owner declines the offer: "A declined retrospective is not offered again in that session";
 2. the retrospective already ran earlier in the session: it is offered "once per session, at the
@@ -25,7 +27,10 @@ workflow's file, and `skill@knowledge-architect-retrospective@when-offered` boun
 3. the session ends without any of the three moments, such as a session the owner leaves without
    saying it is ending.
 
-In each case the item survives only in the transcript. The intake's outcome of
+In each case the item survives only in the transcript. A fourth case is not established: a
+retrospective that runs may still miss the item, since
+`skill@knowledge-architect-retrospective@what-it-examines` reads back over the session's
+instructions and does not name the items its turns listed as kept for its file. The intake's outcome of
 `design@agent-skills@installed-fix-goes-upstream`, adding a finding to a workflow file not yet
 sent, does not reach it: that outcome is for a finding of a project file under analysis.
 
