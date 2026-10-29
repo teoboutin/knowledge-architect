@@ -105,8 +105,7 @@ made this decision, over this repository: 202 entries graded `bears` or `may-bea
 on touch would have read about 10 of the 137 entries graded `may-bear` alone, those 6 included, by
 the session's own judgement, as the message of the commit "[harvest] The graded entries' assembly, `klarch id`, the narrower grounding and the retrospective's
 new question recorded" states. A search whose `may-bear`
-entries left unread are found by the review to bear reopens it, as
-`tripwire@agent-skills@unread-may-bear-entry-bore` watches. The design this decision did not keep:
+entries left unread are found by the review to bear reopens it. The design this decision did not keep:
 `rejected@agent-skills@design-grounding-reads-every-may-bear-entry-whole`.
 
 At a retrospective intake, a batch of files, the session reads whole every issue and tripwire graded

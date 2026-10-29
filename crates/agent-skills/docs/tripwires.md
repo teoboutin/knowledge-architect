@@ -392,22 +392,6 @@ condition 1.
 report file of the tripwire axis added under docs/audit-reports/ on the main branch, both counted
 from the commit that writes this line.
 
-## Guarding `design@agent-skills@may-bear-read-on-touch`: a `may-bear` entry left unread at the design grounding bears on the work `##unread-may-bear-entry-bore`
-
-The reading on touch rests on the premise that the design session reads every `may-bear` entry a
-proposal touches, so that an entry it leaves unread does not bear on the work.
-
-**Fires when:** in two separate pieces of work, the design-conformance review reports an entry that
-the plan document or the in-change commit message lists as not read, and that the work meets: a
-decided shape contradicts or widens it, or the work touches, closes or worsens an issue, or meets a
-trigger or a firing clause. Or once, on the main branch, with no review having reported it.
-**Response:** reopen `design@agent-skills@may-bear-read-on-touch`, with the entries and the reasons
-the searcher gave them.
-**Re-entry:** the design-conformance review of every plan document, and at the review before the
-merge of an in-change deliberation, whose findings and their outcomes the commit messages record.
-**Watches until:** three plan documents deleted at their landing, on the main branch, counted from
-the commit that writes this line.
-
 ## Guarding `design@agent-skills@code-change-reads-its-record`: a session that held the subsection still proposes a fix past a head of its code's record that it did not read `##fix-proposed-past-an-unread-head`
 
 The decision rests on the premise that a session reads the record of its code at the moment it
