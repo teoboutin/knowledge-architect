@@ -108,7 +108,8 @@ one.
 Component that owns that decision, so the decision's head exists before the tripwire that names it,
 and **lists every cause with its outcome**, a dropped one with the condition it fails, in its turn's
 "Decided" section and in the record of the work: the harvest's commit message, or the in-change
-commit message. No cause is put to the owner, who overrules by reading the work.
+commit message. No cause is put to the owner, who reads the work and contests any outcome with a
+goal, a fact or an argument.
 
 **A recorded tripwire's wording, scope and removal are the session's**, judged by the standard
 below and listed under "Decided": it is reworded while it watches the same cause, and removed when a

@@ -14,8 +14,8 @@ each landing.
 **Not covered here**, each named where it lives:
 
 - **The design discussion** that produces the converged design:
-  `skill@knowledge-architect-design`. On its full path, it ends at convergence, the premortem, its
-  causes named, and the owner's rulings on its acceptance criteria, and hands off to this skill; its
+  `skill@knowledge-architect-design`. On its full path, it ends at convergence and the premortem,
+  its causes named and its acceptance criteria written, and hands off to this skill; its
   in-change path writes no plan document.
 - **Writing the code** of a step, its claims and its tests: the project's own development
   procedure. This workflow installs none.
@@ -43,7 +43,7 @@ each landing.
 | **converged** | convergence holds, as loop step 6 of `skill@knowledge-architect-design@discussion-loop` defines it |
 | **thread** | one proposal of the discussion, carrying a state; a thread closed `approved` or `argued` is a decision |
 | **criterion** | what proposals were judged against: **binding** rules a proposal out, **weighed** makes failing it a cost the owner rules on |
-| **acceptance criterion** | a check on a decision of the plan, a thread closed `approved` or `argued`, that only the work's built code can apply |
+| **acceptance criterion** | a check on a decision of the plan, a thread closed `approved` or `argued`, that only the work's built code can apply, and whose firing would show the decision wrong |
 | **material** | a finding made after a thread closed that defeats a reason the closure gave, a premise it rested on, or a criterion it claimed to meet. A material finding is presented once, with a default named; presenting it reopens the thread, which closes again on its argument or, at a fork, on the owner's word, per `skill@knowledge-architect-design@decision-authority` |
 | **audit** | the reading of a slice's entry, or of a spec, against the tree and the design homes before its work is implemented |
 | **harvest** | the recording of what a landing established into the project's durable homes |
@@ -171,11 +171,11 @@ so in one line rather than being omitted, so a reader can tell an empty section 
 | Mapping tables | one table per total function the code will need, over its whole domain: which existing thing becomes which new thing. Empty when the work needs none |
 | Losing alternatives | every ruled-out thread, every thread withdrawn with its defeating reason, and every superseded thread under the thread that absorbed it, each with the thread it lost to and the fact that decided it |
 | Readings | where the work reads an external specification the project implements: each reading it makes, and where it is recorded. Empty for work that reads none |
-| Premortem | each cause, the thread it stresses, and its verdict: survives into a named claim, criterion or guard; converted into a named clause of the design; named as a cause for the harvest to judge as a tripwire; becomes an acceptance criterion, on the owner's word; or fired and the thread reopened. Each acceptance criterion carries the label it was put to the owner under, `AC<n>` |
+| Premortem | each cause, the thread it stresses, and its verdict: survives into a named claim, criterion or guard; converted into a named clause of the design; named as a cause for the harvest to judge as a tripwire; becomes an acceptance criterion; becomes a claim of the step that builds it; or fired and the thread reopened |
 | Acceptance criteria | one item per criterion, ``### <criterion> `##<id>` ``, as `skill@knowledge-architect-planning@acceptance-criteria` says |
 | Implementation sequence | in a spec, its steps; in a milestone document, its slices, each linked to its spec, whose own steps it holds (`skill@knowledge-architect-planning@cutting-steps-and-slices`). Concise: what each builds and what it fails alone on, and, in a spec, each step's Claims, as a slice's entry states them |
 | Order rationale | one sentence per pair of adjacent steps or slices |
-| Defaults awaiting the owner | each default a reviewer's finding or the author's judgement produced that `primer@question-authority` gives the owner, labelled `D<n>`, with the thread it bears on, marked as ruled once the owner rules; and the label of each acceptance criterion awaiting the owner's word |
+| Defaults awaiting the owner | each default a reviewer's finding or the author's judgement produced that `primer@question-authority` gives the owner, labelled `D<n>`, with the thread it bears on, marked as ruled once the owner rules |
 | Harvest | what lands where and when. In a spec, its rows; in a milestone, each slice's row in that slice's spec, and the row of the milestone document itself in it |
 | Later consequences | what each later piece of work adds or replaces, so a later reader knows what was deliberately left |
 
@@ -308,8 +308,7 @@ document names:
 
 - the decision it guards, as a reference to its thread;
 - the step or the slice that judges it;
-- the observable that fires it;
-- the response.
+- the observable that fires it.
 
 **A check proposed before the work has a plan document is a lead, not a criterion.** It stays in
 the work's `todo` or `deferred` issue, among its leads, and the design session judges it: it
@@ -324,33 +323,33 @@ every plan document and every slice owes is the baseline. A criterion names an o
 the decision it guards; listing "the reviews pass" in every plan document would stand in for the
 specific criterion that is harder to find.
 
-%% `design@agent-skills@acceptance-criteria-on-the-owners-word`; the label,
-%% `design@agent-skills@ruled-items-labelled`; a recurring criterion,
+%% `design@agent-skills@acceptance-criteria-on-the-owners-word`; a recurring criterion,
 %% `design@agent-skills@acceptance-criteria-in-the-document`; the conditions a criterion meets,
 %% `design@agent-skills@acceptance-criterion-quality`.
-**An acceptance criterion stands on the owner's word**, since it decides, before the merge, what
-the branch must build. A criterion meets conditions 3 and 4 of the standard below: it names a
-built result under which it fails, and a bound in it carries its basis. The owner rules on
-whether it is applied and on the decision its firing reopens; its observable is worded by the agent,
-and a rewording is listed in the turn's "Decided" section, per `primer@decided-section`. It is put to the owner under a label,
-`AC<n>`, numbered as `primer@labelled-items` says, so the owner's ruling in the transcript finds it.
-A criterion first proposed after the premortem, at the assembly, by a review or at an audit, is
-written as an item of the acceptance criteria section marked as awaiting the owner, its label at the
-head of the item's text, and its label is listed under the defaults awaiting the owner. It is not
-judged before the ruling, and the work goes on without it; the branch that carries it merges once
-the owner has ruled on it, per `primer@question-authority`. One the owner declines is deleted with
-the document. A criterion that gains its slug keeps its label beside it, in
-the item's text.
+**An acceptance criterion is admitted only where it meets conditions 1, 3 and 4 of the standard
+below**: its failure is silent, since no test, gate or review would report it; its firing is what
+the decision says must not happen, a failure of the decision and not of the work; and a number in
+it has a basis. The standard ranks it, so no criterion is put to the owner, wherever it is
+proposed: at the premortem, at the assembly, by a review or at an audit. Its observable is worded
+by the agent, and a rewording is listed in the turn's "Decided" section, per
+`primer@decided-section`.
 
-A number in a criterion is a threshold the owner sets, proposed with its basis. Until the owner has
-set it, it is written as a default marked as the owner's to reset.
+**A check whose firing would show the work unfinished is a claim of the step that builds it**, with
+its test, which the spec-conformity review judges. It is no criterion, since a review or a test
+already reports it.
+
+A number in a criterion carries its basis. A threshold the agent proposes is the session's, and
+one the owner sets is the owner's choice, as `primer@design-heads` records either.
 
 - **At each landing**, the messages of the commits that land it report on every criterion judged
   there, one line each, naming it as #<id> beside a citation of the whole plan, since a commit
-  message cites a plan only whole: the decision guarded, fired or not, the evidence, the response
-  taken.
-- **A criterion that fires** leaves the document at once, as an issue entry or a reopened decision,
-  under `skill@knowledge-architect-issue-tracking`. A criterion is judged by its observable,
+  message cites a plan only whole: the decision guarded, fired or not, and the evidence.
+- **A criterion that fires** leaves the document at once, as a reopened decision: its firing opens
+  a design discussion with the owner on the decision it guards, under
+  `skill@knowledge-architect-design`. There, the measurement says whether the decision failed, the
+  argument settles the shape that replaces it where it can, and the owner rules its forks. The part
+  of the work that rests on that decision waits for the discussion, and the rest goes on. A
+  criterion is judged by its observable,
   wherever the observation was made: one that a later review or test shows firing after a landing
   reported it as not fired is reported as fired in the next landing commit, which names the earlier
   report as superseded.
@@ -560,8 +559,8 @@ This list is their one home; the reviewer reads it here.
 - every premise a later step or change ends is stated with its guard;
 - every statement about the code names the file and the function, and its truth is the code-claims
   reviewer's to establish;
-- every acceptance criterion names the decision it guards, the step or slice judging it, the observable that
-  fires it and the response;
+- every acceptance criterion names the decision it guards, the step or slice judging it and the
+  observable that fires it;
 - every thread maps to a section and to a harvest home;
 - every text referencing a decision the work reverses or rewrites is named, with the step, slice or
   harvest that judges or updates it;

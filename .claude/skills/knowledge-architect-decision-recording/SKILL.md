@@ -461,7 +461,8 @@ one.
 Component that owns that decision, so the decision's head exists before the tripwire that names it,
 and **lists every cause with its outcome**, a dropped one with the condition it fails, in its turn's
 "Decided" section and in the record of the work: the harvest's commit message, or the in-change
-commit message. No cause is put to the owner, who overrules by reading the work.
+commit message. No cause is put to the owner, who reads the work and contests any outcome with a
+goal, a fact or an argument.
 
 **A recorded tripwire's wording, scope and removal are the session's**, judged by the standard
 below and listed under "Decided": it is reworded while it watches the same cause, and removed when a
@@ -481,7 +482,9 @@ and are not written.
    request names it. A failure that fails a test or a check, stops the work that meets it, or
    arrives as a request for what the decision refused reaches the decision without a tripwire.
    Where a script could compute the firing, write that check instead. A check of the work being
-   built is that work's acceptance criterion; one that can be written only after another event,
+   built is no tripwire: it is that work's acceptance criterion where its firing would show a
+   decision wrong and it meets conditions 1, 3 and 4, and otherwise a claim of the step that builds
+   it. A check that can be written only after another event,
    such as the end of a migration, is a `deferred` issue whose trigger is that event.
 2. **The evidence lands where tripwires are read.** It is in the tree, the history, an audit
    report, or a retrospective file the intake receives. Evidence that exists only in a session's

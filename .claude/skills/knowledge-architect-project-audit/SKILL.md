@@ -423,7 +423,7 @@ pass's commit, with no uncommitted work in the tree.
 `skill@knowledge-architect-decision-recording@ruled-tripwires` gives a recorded tripwire's removal
 to the session, and the report lists the deletions grouped: one group per outcome, the removals in
 one group per condition failed, each entry with the words it turns on. The owner reads the report
-and overrules any of them. The removals on the doubt's weight rest on the owner's own weighing of
+and contests any of them with a goal, a fact or an argument. The removals on the doubt's weight rest on the owner's own weighing of
 what the owner would see, and go on the owner list as one group, under its label, with one default
 and the entries it excepts; the owner rules on the group and names any entry ruled otherwise.
 A text that cites a deleted entry is repaired in the commit that deletes it, and, for a horizon

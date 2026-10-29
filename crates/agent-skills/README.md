@@ -9,7 +9,7 @@ A project depends on `knowledge-architect`, never on this crate directly: cargo 
 
 A bounded problem, a clear requirement whose main risk is over-building, has no skill of its own:
 the design skill grounds it, and then sends one proposal, which it builds on its default unless the
-owner answers otherwise.
+owner stops it, or redirects it with a goal, a fact or an argument.
 
 The first section draws how the installed skills hand off to each other. The next says how a
 project extends an installed skill. The sections after it describe the design skill,
@@ -92,7 +92,7 @@ about an existing architecture — the assistant:
   table holds), and the assistant announces the three cases it closes
   itself — a thread whose rivals all lost to a named fact, closed
   `argued`, withdrawing its own defeated proposals, and parking either
-  its own overruled dissent or an observation a bug hunt raised for a
+  its own dissent after your ruling at a fork or an observation a bug hunt raised for a
   later discussion; a summary table makes the standing state, and every
   closure the assistant made, contestable at a glance;
 - pushes back and expects push-back — the exchange is symmetric until
@@ -138,8 +138,8 @@ work is bounded. If it reverses no recorded decision, earns no design
 head, and has no second defensible shape, it sends you one message: the
 proposal, its nearest rival and why it loses, the strongest open reading
 it set aside, the consequences, and its default, which it then builds;
-your answer stops or redirects it, and an argument in your reply turns it
-into a discussion.
+you stop it, or redirect it with a goal, a fact or an argument, and an
+argument in your reply turns it into a discussion.
 
 It also carries a discipline for questioning incumbent
 designs: fresh-discussion trend framing (a new session when the
@@ -170,8 +170,8 @@ not a task order to execute unexamined.** The mode assumes
 the answer is not yet known by either party. Give it a decision you
 have already made and it will argue against it, because testing a
 proposal is what it is for. Give it bounded work and it sends one
-proposal and builds its default; you stop or redirect it, or answer with
-an argument, which turns the work into a discussion.
+proposal and builds its default; you stop it, or redirect it with a goal,
+a fact or an argument, which turns the work into a discussion.
 
 **You give the word that closes a fork.**
 The assistant closes a thread itself where one shape stands, each rival
@@ -185,13 +185,17 @@ premise still returns to you.
 **A closed thread is not frozen.** Your word reopens one at any time,
 and you need no new argument to use it — the assistant does. If a
 decision starts to look wrong later in the discussion, say so. Nothing
-about having been recorded makes it final.
+about having been recorded makes it final. Reopening decides nothing,
+though: picking the other shape at the same fork needs a goal, a fact
+or an argument, a new weighing you state included.
 
-**You say why when you reject something.** Ruled-out threads carry
-their reasons into the record, and the reopening rule reads those
-reasons to decide whether a later proposal is genuinely new. A
-rejection with no recorded reason cannot do that work, so the same
-argument comes back and has to be defeated again.
+**You change a decision through a goal, a fact or an argument, and
+give no word that decides against an argument without one.** Ruled-out
+threads carry their reasons into the record, and the reopening rule
+reads those reasons to decide whether a later proposal is genuinely
+new. A word that decides against an argument with no reason cannot do
+that work, so the same argument comes back and has to be defeated
+again, and the decision enters the record standing on nothing.
 
 **You read the summary tables and contest what is wrong in them.** The
 batch confirmation at a checkpoint closes everything in the table at
@@ -205,11 +209,17 @@ and states its reading rather than closing. That mechanism only works
 if wrong readings get corrected; uncorrected, they harden into the
 record as though you had ruled.
 
-**You end a discussion rather than dropping it.** "Stop, build X" and
-"park this, I want to think" are both handled and both end the
-argument immediately. Abandoning silently leaves the criteria and the
-losing arguments unrecorded, which is the state a later session is
-least able to recover from.
+**You end a discussion rather than dropping it.** "Stop" ends the
+discussion immediately; "Build X" decides only at a fork, or with a
+reason that survives the challenge. Abandoning silently leaves the
+criteria and the losing arguments unrecorded, which is the state a
+later session is least able to recover from.
+
+**You state the project's long-term intent as goals, investing early.**
+A decision that rests on an intent no goal states can only stand on your
+word, which the assistant cannot weigh, and a later session cannot tell
+it from an approval. Time spent on goals early is what lets the
+assistant decide more on its own later.
 
 **You are the person who can decide what is yours.** A fork, a goal, a
 contradiction no argument resolves, a fact only you hold and an action

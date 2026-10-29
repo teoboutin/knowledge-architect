@@ -67,7 +67,7 @@ rests on it waits for the answer, and the rest goes on.
 next number of its prefix in the record the label reaches, from 1, and that number is never reused
 there.** That record is a plan document, a milestone's documents counting as one; a file; or the
 commit messages of one branch, counting as one. A label carried later with its item into another
-record, as an acceptance criterion's into the comment at its test, keeps its number, and that record numbers nothing.
+record keeps its number, and that record numbers nothing.
 A label that reaches none is numbered within the message that puts it to the owner, wherever the
 item's ruling is kept.
 

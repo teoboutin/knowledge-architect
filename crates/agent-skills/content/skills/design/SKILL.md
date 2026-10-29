@@ -35,15 +35,20 @@ which the discussion grounds against and the harvest records into.
 A metaphor that names a defined concept, such as a tripwire, is vocabulary
 once defined, per `primer@working-prose`.
 
-**This skill ends at convergence**, and, where the premortem runs, the premortem, its causes named,
-and the owner's rulings on its acceptance criteria.
+**This skill ends at convergence**, and, where the premortem runs, the premortem, its causes named
+and its acceptance criteria written.
 
 ## Decision authority {{slug:decision-authority}}
 
 The owner decides what `primer@question-authority` reserves to the
-owner, a fork among it, and can overrule any decision of the
-discussion. Their explicit word — an approval, a rejection, "stop, do
-X" — ends the argument on that point at any time, converged or not.
+owner, a fork among it, and contests any closure with a goal, a fact or
+an argument, which you weigh like any other. Their explicit word at a
+fork — an approval, a rejection, "do X" — ends the argument on that
+point at any time, converged or not. "Stop" ends the discussion, and
+decides nothing against an argument.
+%% The owner has no word that decides against an argument without one: the owner changes a
+%% decision through a goal, a fact or an argument, per `goal@knowledge-architect@the-owner-decides`;
+%% `design@agent-skills@owner-rules-at-a-fork`.
 
 - **Never assume the decision saw all its consequences.** A decision
   can be given before the implications, feasibility, and interactions
@@ -107,7 +112,9 @@ X" — ends the argument on that point at any time, converged or not.
 - **The weighing at a fork is theirs.** How much a risk matters, which
   trade-off wins between shapes that both survive the argument, what is
   good enough — that belongs to the owner, and
-  re-arguing it after their informed ruling is not rigor. When you
+  re-arguing it after their informed ruling is not rigor. An argument
+  or a fact that the fork's record does not hold, and that ranks the
+  shapes, is no re-arguing: the fork is gone. When you
   comply while still disagreeing, record the disagreement as a parked
   thread (a declared exception to closure by the owner's word — see Who moves what), and note the
   acknowledged consequence on the ledger, so that the plan document, or
@@ -119,13 +126,12 @@ bounds what is proposed, how many threads are opened, or how many rounds
 the discussion takes: that depends on what grounding, investigation and
 evidence bring, which nobody knows in advance.
 
-%% Nothing is committed before the premortem's rulings: a premortem can surface a material finding
+%% Nothing is committed before the premortem has run: a premortem can surface a material finding
 %% that reopens a thread, and work committed before it would then be undone, against the fewer
 %% decisions reversed by accident that `goal@knowledge-architect@agents-get-a-complete-workflow`
-%% asks for; and the rulings that `goal@knowledge-architect@the-owner-decides` asks the record to
-%% show would land after the work they bear on. The commit that carries the deliberation carries
-%% the rulings, as a plan document would; the rival, the rulings landing in the later commit that
-%% writes the tripwires, splits the deliberation over two commits.
+%% asks for. The commit that carries the deliberation carries the premortem's causes and criteria,
+%% as a plan document would; the rival, the premortem landing in the later commit that writes the
+%% tripwires, splits the deliberation over two commits.
 - **The in-change path.** It is open when the decision lands in the
   change under way: its work, where that change began before the
   discussion opened, as an issue fix or a review repair does, or its
@@ -139,8 +145,8 @@ evidence bring, which nobody knows in advance.
   puts a record carried by a message: every thread with its final state, the
   ground of each closure: the owner's ruling, attributed to the owner with what it
   reaches, as `skill@knowledge-architect-design@what-earns-a-head` says, the rivals that lost with
-  their reasons, every premortem cause with its outcome, the owner's rulings on acceptance
-  criteria, and the `may-bear` entries the grounding did not read, each with the searcher's
+  their reasons, every premortem cause with its outcome, its acceptance criteria, and the
+  `may-bear` entries the grounding did not read, each with the searcher's
   reason, which the review before the merge reads. The decision is
   recorded at that landing like any other, under
   `skill@knowledge-architect-decision-recording`:
@@ -148,8 +154,8 @@ evidence bring, which nobody knows in advance.
   that reverses a recorded one, and `skill@knowledge-architect-design@what-earns-a-head`
   decides whether any other decision earns a design head at all. Apply both before proposing to the
   owner where a decision lands. Where the premortem runs, nothing of the decision is implemented
-  or committed before it has run and the owner has ruled on its acceptance criteria, so the record
-  that carries the deliberation carries those rulings.
+  or committed before it has run, so the record that carries the deliberation carries its causes
+  and its criteria.
 - **The full path.** Otherwise, and whenever a discussion converges on
   work that no longer lands in the change under way (it needs a branch
   of its own, several pull requests, or nobody has started it): the
@@ -192,8 +198,8 @@ the owner on a question the session put is no proposal. After the grounding, the
 
 Then send **one message**: what the grounding found, the proposal, its nearest rival and the fact
 that defeats it, the consequences the owner must know, and the default, which you then build: the
-work proceeds on it unless the owner answers otherwise, a part that cannot be undone waiting for the
-owner's word, per `primer@question-authority`.
+work proceeds on it unless the owner stops it, or redirects it with a goal, a fact or an argument,
+a part that cannot be undone waiting for the owner's word, per `primer@question-authority`.
 A reply that brings an argument, a new shape or a doubt returns the work to the loop, on the
 in-change path or the full path. The commit that implements bounded work carries the proposal and,
 if one came, the owner's answer, attributed to the owner, as `skill@knowledge-architect-design@what-earns-a-head` says,
@@ -301,9 +307,13 @@ confirmation over the whole ledger — never a per-item ratification
 questionnaire.
 
 **Who moves what.** You may move threads freely between the open states of a thread.
-The owner's explicit word moves a thread into a closed state — a word
-given during the discussion ("drop the polling idea") counts;
-no particular phrasing is required. Their word closes what it names:
+The owner's explicit word closes a fork; on a thread with one shape
+standing, it confirms the closure on its argument, or contests it with a
+goal, a fact or an argument. A word given during the discussion ("drop
+the polling idea") counts, at a fork or with a reason that survives the
+challenge; no particular phrasing is required. A word that reopens a
+closed thread decides nothing: a new pick at the same fork needs a goal,
+a fact or an argument, a new weighing the owner states included. Their word closes what it names:
 a word that points at the ledger ("build it as the table says")
 closes the table's contents. A word that requires interpretation — a
 blanket positive ("sounds good", "all fine"), a sentence that may or
@@ -345,8 +355,7 @@ Closure by you, not the owner, exists in exactly three declared cases:
   record; `withdrawn` marks one its own proposer gave up on. When the
   withdrawal follows defeat by argument or evidence, record the
   defeating reason — the Reopening record test reads it.
-- `parked` — your own overruled dissent after the owner's explicit
-  ruling on the point (`skill@knowledge-architect-design@decision-authority`), and the observation
+- `parked` — your own dissent after the owner's ruling at a fork (`skill@knowledge-architect-design@decision-authority`), and the observation
   recorded during a bug hunt for a later discussion (`skill@knowledge-architect-design@incumbent-evaluation`).
   Every parked thread names the evidence that would reopen it, as a
   cause, AND its re-entry point: the event or checkpoint at which it is
@@ -375,8 +384,9 @@ decisions, and the directives and contracts of its `CLAUDE.md` and
 `README.md` files. A criterion derived
 from a goal is binding: the goals are the owner's intent. A criterion
 derived from a recorded decision is binding as a stated presumption until
-the owner says otherwise, because a decision binds only as a presumption
-that a better argument may rebut, per `primer@goals-bind`.
+the decision is reversed: by you, where its argument is defeated and no
+fork stands, or by the owner at a fork, because a decision binds only as
+a presumption that a better argument may rebut, per `primer@goals-bind`.
 
 Each criterion carries a satisfaction line, and this is what the owner
 reads at convergence: **met**, naming the decided threads that meet
@@ -540,8 +550,8 @@ choices whose option space genuinely is closed and consequence-free.
    it, owes the same slots — why it should work, what it costs, what
    it enables or rules out later — and gets tested with the same
    rigor. The owner's proposal is a claim to test, not a directive to
-   follow — only an explicit decision converts their statement into a
-   directive (see `skill@knowledge-architect-design@decision-authority`). Fill its missing slots, test
+   follow — only their word at a fork, or an argument that survives the
+   test, converts their statement into a directive (see `skill@knowledge-architect-design@decision-authority`). Fill its missing slots, test
    it against the criteria, and when a shape exists that meets a
    named criterion theirs fails, propose it against theirs even when
    theirs would work; filling and testing their proposal is your job,
@@ -553,7 +563,7 @@ choices whose option space genuinely is closed and consequence-free.
    `primer@verify-before-relying` asks of every claim — and a thread may close over assumed
    claims only if each assumption is named as a cause on that
    closure, or, where only the built code can check it, as an acceptance
-   criterion, as step 7 splits them. In the other direction, reverse when the opposing
+   criterion or a claim of the step that builds it, as step 7 splits them. In the other direction, reverse when the opposing
    argument explains something your position cannot, or survives an
    objection your position fails — not merely because the owner
    insists. "Both have merits" with no synthesis proposal is a
@@ -617,29 +627,32 @@ choices whose option space genuinely is closed and consequence-free.
    and the discussion continues.
 
    If the design holds against the premortem, what survives is named as causes,
-   except a cause that only the built code can check: that is an acceptance
-   criterion, which `skill@knowledge-architect-planning` writes into the plan document,
-   or which, on the in-change path, the change applies as a test.
-%% A criterion on the owner's word: `design@agent-skills@acceptance-criteria-on-the-owners-word`.
-%% The labels: `design@agent-skills@ruled-items-labelled`.
+   except a cause that only the built code can check. Its firing would show
+   either the work unfinished or the decision wrong:
+   - **The work unfinished**: it is a claim of the step that builds it, with
+     its test, which the spec-conformity review judges.
+   - **The decision wrong**: it is an acceptance criterion, admitted only
+     where it meets conditions 1, 3 and 4 of the standard below. Its failure is
+     silent, since no test, gate or review would report it. Its firing is what
+     the decision says must not happen. A number in it has a basis.
+     `skill@knowledge-architect-planning` writes it into the plan document, or,
+     on the in-change path, the change applies it as a test.
+%% A criterion stands on the standard, not on the owner's word:
+%% `design@agent-skills@acceptance-criteria-on-the-owners-word`. A completeness check that a
+%% review already reports is the step's claim, which keeps the check and drops the duplicate:
+%% `design@agent-skills@acceptance-criterion-quality`.
    **A cause is named, not ruled.** It is judged by the standard below at the end of the work
    that implements the decision, on its wording then, as
    `skill@knowledge-architect-decision-recording@ruled-tripwires` says, and
    no cause is put to the owner.
 
-   Ask the owner, for each acceptance criterion, whether it is applied,
-   naming the decision its firing reopens. Put each under a label,
-   `AC<n>`, numbered as `primer@labelled-items` says, so that the owner
-   rules on each by its label. The criterion's item or, on the in-change
-   path, the comment at its test, keeps that label in its text, so the
-   ruling in the transcript is found from either. Some may be out of
-   scope of the project, and the owner is the only judge of that. A
-   criterion meets conditions 3 and 4 of the standard below: it names a
-   built result under which it fails, and a bound in it carries its
-   basis, per `skill@knowledge-architect-planning@acceptance-criteria`. The owner's word rules on whether a criterion is applied, not
-   on the wording of its observable, which you may reword when it is
-   written, on a review finding or at a later change, listing each change
-   in the turn's "Decided" section, per `primer@decided-section`.
+   **No acceptance criterion is put to the owner.** The standard ranks it, as
+   it ranks a cause. A criterion names the decision its firing reopens. Its
+   firing opens a design discussion with the owner on that decision, per
+   `skill@knowledge-architect-planning@acceptance-criteria`. You may reword its
+   observable when it is written, on a review finding or at a later change,
+   listing each change in the turn's "Decided" section, per
+   `primer@decided-section`.
 
    {{fragment:tripwire-standard.md}}
 
@@ -649,8 +662,7 @@ choices whose option space genuinely is closed and consequence-free.
    message that carries the deliberation.
    The ledger, the criteria table, the arguments and the facts they
    depended on, the designs as they were presented to the owner, the
-   premortem, its causes and the owner's rulings on its acceptance
-   criteria live in this
+   premortem, its causes and its acceptance criteria live in this
    conversation and in the harness's transcript of it. The planning
    skill assembles them from the transcript into its plan documents,
    before the session ends, for the reason

@@ -91,7 +91,8 @@ work the issue names, so the repair is that work in this change, or the owner's 
 
 **An acceptance criterion is the same check for unbuilt work.** A check that can only be applied once
 unbuilt work is built is not a tripwire, so it lives in the plan document of the work that builds
-it, in its acceptance criteria section, per `skill@knowledge-architect-planning`.
+it: as an acceptance criterion where it tests a decision, and otherwise as a claim of the step that
+builds it, per `skill@knowledge-architect-planning`.
 
 When the diff lands a spec or a slice of a milestone, read the criteria that the plan document says
 that landing judges, and confirm that the messages of the range report on **every one, including
