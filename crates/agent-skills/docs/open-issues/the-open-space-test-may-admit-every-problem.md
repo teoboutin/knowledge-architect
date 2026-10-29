@@ -21,6 +21,16 @@ design skill. The bounded path, `design@agent-skills@bounded-path-in-design`, is
 a session that grounds a requested change and names a second shape for work the owner sees as
 bounded.
 
+A count over the commit messages of two main branches, taken on 2026-10-29: in rootpoint, two
+commits say their proposal was "put to the owner as bounded work", 8bdeced and d20eac7, both of
+2026-10-26; in this repository, none does. The command is
+`git log main --oneline -i --grep='as bounded work'` in each. In the same branches, 60 commits here
+and 7 in rootpoint name the in-change path, by `git log main --oneline -i --grep='in-change path'`.
+A zero does not tell "bounded work never occurred" from "a session built bounded work without
+loading the design skill": the cloud sessions of this repository's pull requests 24 and 25 built
+the owner's requests without loading it, as the spec of the branch that reworded the design
+skill's trigger records.
+
 ### Why it matters
 
 `design@agent-skills@bounded-path-in-design` exists so that bounded work costs one proposal, built on
