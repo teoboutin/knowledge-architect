@@ -77,6 +77,9 @@ subsection is omitted.
 
 ### Workflow
 
+- `agent-skills`, patch: an item met outside the task whose fix lies in the installed text or in
+  the checker, and not in what the project adds to them, goes to the retrospective's workflow file,
+  never to a fix or an issue entry of the project, as the primer's section on it now says.
 - `agent-skills`, patch: the goal on repeated tasks that the setup skill proposes for a maintenance
   tool takes only the mechanical tasks local to the project: a task the installed text asks of every
   project is the checker's to automate.

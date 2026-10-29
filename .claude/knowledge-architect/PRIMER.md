@@ -226,10 +226,16 @@ Something met while doing other work takes the first of these that applies:
 | 3 | its `Why it matters` and its `What would close it` can be written | open an issue entry (`skill@knowledge-architect-issue-tracking`) |
 | 4 | none of the above | name it, with why it is dropped |
 
+**An item whose fix lies in the installed text or in the checker**, not in what the project adds to
+them, such as a skill of its own or a check its own build of the checker adds, is never fixed in
+the project nor opened as its issue entry: the project edits neither, and its issue entry could
+never close. It goes to the workflow's file of `skill@knowledge-architect-retrospective`, whether
+or not row 1 also takes it for the current work.
+
 **A turn that met anything outside its task ends with a section titled "Met outside the task"**,
 listing every item with its outcome: fixed (with the commit), decided (with its ground, also
-listed under "Decided"), issue opened (with its id), waiting for the owner's ruling, or dropped (with
-the reason). A mention inside other prose does not count.
+listed under "Decided"), issue opened (with its id), kept for the retrospective's workflow file, waiting for the
+owner's ruling, or dropped (with the reason). A mention inside other prose does not count.
 A subagent that edits nothing reports each item at the end of its report, under a heading "Met
 outside the task", and the session that dispatched it routes each item by this table.
 

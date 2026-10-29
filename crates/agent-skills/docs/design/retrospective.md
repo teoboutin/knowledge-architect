@@ -138,6 +138,16 @@ no change, it is dropped. The audit sends its findings on the installed text ups
 reason, per `design@agent-skills@audit-outcomes`. The action, an edit of the workflow file or of
 the issue that carries it, is the owner's.
 
+An item a session meets outside its task whose fix lies there takes the same route, per
+`primer@met-outside-the-task`: it goes to the workflow's file of the session's retrospective, and
+the project's table of outcomes gives it neither a fix nor an issue entry, for the reason above. What
+the project adds to the installed text or to the checker, a skill of its own or a check its own
+build adds, is the project's own text and code, and an item on it takes the table's rows. The
+owner saw sessions spend time and effort deciding where such an item goes, and some open it as an
+issue entry of the project, since the primer's table, which every session holds when it meets such
+an item, named no destination for it: the route was stated only in skills a session loads to run a
+retrospective, an intake or an audit.
+
 ### An analysis of a project's retrospective file is committed with the owner's ruling on each finding, and leaves with its last outcome `##committed-intake-analysis`
 
 The analysis is one file per analysed file in docs/retrospective-reports/ at the project's root,

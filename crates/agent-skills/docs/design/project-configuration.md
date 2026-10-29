@@ -291,7 +291,9 @@ that rests on it, as a contradiction does wherever it is met, per
 `goal@knowledge-architect@the-owner-s-word-is-verified`, and as `primer@owner-word-premise` and the
 design skill's material finding say. A fix checkable from the diff alone lands in a commit of its
 own; an item whose `Why it matters` and `What would close it` can be written is opened as an
-issue; any other is named, with why it is dropped. A turn that met anything ends with a section
+issue; any other is named, with why it is dropped. An item whose fix lies in the installed text or
+in the checker goes to the retrospective's workflow file instead of a fix or an issue entry, per
+`design@agent-skills@installed-fix-goes-upstream`. A turn that met anything ends with a section
 listing every item and its outcome, and a subagent that edits nothing reports each item to the
 session that dispatched it, which routes it.
 

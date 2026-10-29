@@ -508,6 +508,13 @@ the project that publishes it, as the owner stated of this repository's use of t
 own text: the owner did not want the installed files to cater too much to that use. So the root
 `CLAUDE.md` states this case, in `instructions@repository-skills`.
 
+An item a session meets outside its task whose fix lies in the installed text or in the checker
+goes, in a project that installs the workflow, to the retrospective's workflow file, per
+`design@agent-skills@installed-fix-goes-upstream`. Here it takes the rows of
+`primer@met-outside-the-task` as an item on the project's own text does, for the same reason: the
+workflow file would only carry it back to this repository. The root
+`CLAUDE.md` states this case beside the other, in `instructions@repository-skills`.
+
 ### Each finding of a workflow file this repository receives, and of its own retrospective project file, gets one of three outcomes the owner rules, in a committed analysis that leaves when its last outcome is carried out `##committed-findings-analysis`
 
 A workflow file that this repository receives, written by a retrospective or by a project audit's

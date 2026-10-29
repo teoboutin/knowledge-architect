@@ -155,7 +155,10 @@ unshipped, per `design@core@owned-namespace-check`, and the install deletes it.
 
 **The findings of both files of `skill@knowledge-architect-retrospective`, and those of the
 agentic-workflow axis of `skill@knowledge-architect-project-audit` on the installed text, are handled
-here as `design@knowledge-architect@workflow-findings-stay-here` says, read whole.** Each repair of
+here as `design@knowledge-architect@workflow-findings-stay-here` says, read whole.** **So is an
+item met outside the task whose fix lies in the installed text or in the checker**: here both are
+this project's own, so it takes the rows of `primer@met-outside-the-task`, never the workflow's
+file, per that head. Each repair of
 an audit's finding on the installed text, its proposal and its check included, is written as
 `path@agent-skills@CLAUDE.md`, "Editing an installed skill or agent", says, read whole, per that
 head. The
