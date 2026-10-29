@@ -196,7 +196,8 @@ of a scope".
 
 No goal binds the audit to a harness: `grep -il 'harness\|provider\|claude code'` over every goals
 home returns nothing, and `goal@agent-skills@installed-text-works-anywhere` names a project's
-language and layout. A second provider stays a design target, per
+language and layout, and the user-level instructions and plugins of a session's environment, not
+its harness. A second provider stays a design target, per
 `issue@core@configuration-for-several-agent-providers`, and the dispatch by hand keeps it open. The
 rival of a skill written for the Workflow tool alone fails in every other harness, for a gain the
 dispatch by hand already gives. The owner's weighing of the dependency: "After all, I use only
