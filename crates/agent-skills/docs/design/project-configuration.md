@@ -442,20 +442,17 @@ fixes the path, a declared one could name no other.
 ### A project skill reaches a session through its own description and through the skill of the activity it serves, with no table mapping it to an installed skill `##no-routing-table`
 
 A project's root `CLAUDE.md` carries no table of which project skill adds to which installed one.
-Two mechanisms already deliver a project skill at its moment: the harness lists every skill with
+Two mechanisms deliver a project skill at its moment: the harness lists every skill with
 its description every session, and the description begins with MUST and names its symptom, per
 `skill@knowledge-architect-agent-configuration@shaping-a-skill`; and an axis a project adds to a
 review is owed through the skill of an activity whose work the review reads, per
-`skill@knowledge-architect-review@review-axes`. A description did not deliver its skill in two cloud
-sessions read for `design@agent-skills@settled-means-recorded`, so the primer's list of installed
-skills opens with the instruction to load the skill of a moment the list names, with each skill of
-the project that says it adds to it, whole; it maps no project skill to an installed one. A table
-restates both, and its "adds to" is a fixed
+`skill@knowledge-architect-review@review-axes`. A table restates both, and its "adds to" is a fixed
 mapping between a project skill and an installed one, which each new kind of link between them
 must vary, against `design@agent-skills@capabilities-not-structure`. The fact that defeated it: in
 this repository's first agentic-workflow audit, no row of the table delivered anything the
 description or the dispatching skill did not, and every finding on the routing side turned on
-whether a row was owed. After an install that changes the installed files, each project skill and
+whether a row was owed. The paragraph that opens the primer's list of installed skills maps no
+project skill to an installed one, so it is no table. After an install that changes the installed files, each project skill and
 agent is read against the installed text that changed, not against a row.
 
 The design this decision did not keep: `rejected@agent-skills@root-routing-table`.
@@ -471,7 +468,7 @@ contradict an installed one, the installed text is wrong for that project, and t
 it. A project that needs to change one instruction has no means yet:
 `issue@agent-skills@patching-an-installed-skill`.
 
-### For an activity the installed set covers, no skill from outside the installed set and the project takes the place of its installed skill `##installed-skill-takes-precedence`
+### For an activity the installed set covers, its installed skill loads with the project's skills that add to it, and no skill from outside both takes their place `##installed-skill-takes-precedence`
 
 The paragraph that opens the primer's list of installed skills says that a skill from outside the
 installed set and the project, which the environment lists for the same activity, never takes the
@@ -486,9 +483,9 @@ a plugin's design-discussion skill beside `skill@knowledge-architect-design`, th
 opening with one sentence. Which listed skill a session loads is a behaviour, and no session read
 showed a plugin's skill loaded in place of an installed one; the owner ruled that the goal grounds
 the instruction where that evidence of real use falls short of what
-`design@agent-skills@behaviour-additions-need-real-use` asks. The nearest rival, the installed skill
-as the one skill loaded, shuts out a project skill that loads together with an installed one, as
-three project skills of two projects do.
+`design@agent-skills@behaviour-additions-need-real-use` asks, an exception that head names. The
+nearest rival, the installed skill as the one skill loaded, shuts out a project skill whose
+description says it loads together with an installed one.
 
 ### A project's own files in the installer's directories carry its name as a prefix `##project-name-prefix`
 

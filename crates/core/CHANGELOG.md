@@ -78,8 +78,8 @@ subsection is omitted.
 ### Workflow
 
 - `agent-skills`, patch: a session loads the design skill before starting a change the owner asks
-  for or proposes, unless a plan document, an outcome the owner ruled, a design head or a failing
-  test already states what the owner asks for or proposes, or the change decides nothing: a request
+  for or proposes, unless a plan document, an outcome the owner ruled in an audit, an intake or a
+  review, a design head or a failing test already states what the owner asks for or proposes, or the change decides nothing: a request
   or a proposal of the owner no longer counts as a settled design.
 - `agent-skills`, patch: the primer's list of installed skills opens with an instruction: load the
   skill of a moment the list names, with each skill of the project that says it adds to it, and

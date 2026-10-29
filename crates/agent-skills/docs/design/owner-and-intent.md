@@ -215,8 +215,9 @@ The discussion stays an exchange: the owner proposes designs, the agent fills an
 either side's shape can win.
 
 It serves `goal@knowledge-architect@agents-work-without-drift`, under which the owner does not
-answer what the record already answers, and `goal@knowledge-architect@the-owner-decides`, which
-keeps a fork with the owner. The discussion form is the owner's intent: the owner observed that,
+answer what the record already answers, `goal@knowledge-architect@the-owner-decides`, which
+keeps a fork with the owner, and `goal@knowledge-architect@design-with-agents-as-counterparts`, whose
+exchange this is. The discussion form is the owner's intent: the owner observed that,
 most of the time, the owner's rough designs end up a better direction than the agent's proposals,
 the agent mostly refining them, arguing the smaller items under them and measuring their cost,
 though not always, the better design coming at times from the agent or from a fusion of both; and the owner

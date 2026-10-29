@@ -33,6 +33,10 @@ The instances, in `register@agent-skills@tripwire`:
   recorded here as one more instance. The retrospective's standing question on references written without backticks,
   per `design@agent-skills@premortem-as-watch-points`, is the one channel that carries such a gap
   to this repository.
+- The premortem of `design@agent-skills@settled-means-recorded` named two causes of agent behaviour
+  whose evidence is only in sessions: the paragraph that opens the primer's list of installed skills
+  not recalled at the moment it binds, and a plugin's skill loaded in place of an installed one. Both
+  were dropped as tripwires, the owner seeing them while carrying work.
 
 After those repairs, the re-entry point each tripwire of this Component names is one of these
 occasions of this repository, read in the `**Re-entry:**` line of each entry of

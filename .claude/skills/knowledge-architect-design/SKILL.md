@@ -533,9 +533,9 @@ choices whose option space genuinely is closed and consequence-free.
    touches; their design homes; their `rejected` homes; their
    `README.md` files, which state their contracts; and a search of the
    record by `grep` for the question's subject. Then draft the shapes,
-   the owner's proposal and your own, and challenge each on its
-   failures, its costs and its benefits, with measurements, as steps 3
-   and 4 ask of every proposal. Then a search of the whole record runs,
+   the owner's proposal if one was made and your own, and challenge
+   each on its failures, its costs and its benefits, with measurements,
+   in the slots step 4 gives every proposal. Then a search of the whole record runs,
    with the problem and the drafted shapes as the work: a searcher given
    the question alone cannot tell whether a `rejected` design comes back,
    since that grade is given against a shape. Its seeds are the

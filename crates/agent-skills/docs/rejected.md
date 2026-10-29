@@ -234,9 +234,7 @@ better.
 
 `live`. An audit of the heads added or rewritten in the week entry test 4 was added, up to commit
 bc22d4d, found about two in five of their citations of the owner to be an approval of the agent's
-position, often a batch word, which made an approved default read as the owner's intent. It is kept
-here because a doubt remains: `tripwire@agent-skills@owner-intent-stripped` watches whether the
-correction removes the owner's own words, and this alternative is the candidate if it does.
+position, often a batch word, which made an approved default read as the owner's intent.
 
 ### A new member routed by the scope of the owner's approval, found in the history of each head `##member-routed-by-approval-scope`
 
@@ -583,15 +581,17 @@ the primer needs; the count and its command are in `design@agent-skills@term-def
 
 ### A trigger that sends a requested change to the design skill when the session judges its design not settled `##trigger-judges-settled-design`
 
-`live`. The session judges before the load what the skill's grounding finds out, and it read an
-owner's proposal as settled: the two cloud sessions read for `design@agent-skills@settled-means-recorded`
-built the owner's requests without loading the skill, under this trigger.
+`live`. The trigger asks a session to judge, before the load, what the skill's grounding finds out,
+so it fires only in a session that already holds the skill's rule that an owner's proposal is a
+claim to test. The two cloud sessions read for `design@agent-skills@settled-means-recorded` built
+the owner's requests without loading the skill under this trigger; what they judged is not
+observed, since their reasoning is redacted in their transcripts.
 
 ### The design skill loaded before every change the owner asks for, with no exception `##design-load-unconditioned`
 
 `live`. The work of a plan document was searched before it starts, at the grounding of the
-discussion that converged on it or at its design audit, so the load pays a second record search, about
-1M subagent tokens in the search that grounded the decision, for a design already recorded. It is
+discussion that converged on it or at its design audit, so the load pays a second record search, whose
+cost `issue@agent-skills@a-fix-is-grounded-by-no-record-search` measures, for a design already recorded. It is
 kept because a doubt remains: a session may read the exceptions of
 `design@agent-skills@settled-means-recorded` too widely and build a proposal ungrounded, and this
 alternative is a candidate if it does.
@@ -600,8 +600,8 @@ alternative is a candidate if it does.
 
 `live`. The owner proposed it and withdrew it on the argument. The grounding decides whether a
 discussion is needed, so the split puts the discussion behind a second load, the failure of a skill
-not loaded; and it saves about half of the skill's words, by an estimate of the sections the
-bounded path applies, against a record search the grounding runs anyway. It is kept because a doubt
+not loaded; and what it saves, the words of the discussion's sections in a session the bounded path
+ends, is small beside the record search the grounding runs anyway. It is kept because a doubt
 remains, `issue@agent-skills@the-open-space-test-may-admit-every-problem`: sessions that load the
 skill and run the discussion on work the owner judges bounded would make it a candidate.
 

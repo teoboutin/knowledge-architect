@@ -28,8 +28,7 @@ commits say their proposal was "put to the owner as bounded work", 8bdeced and d
 and 7 in rootpoint name the in-change path, by `git log main --oneline -i --grep='in-change path'`.
 A zero does not tell "bounded work never occurred" from "a session built bounded work without
 loading the design skill": the cloud sessions of this repository's pull requests 24 and 25 built
-the owner's requests without loading it, as the spec of the branch that reworded the design
-skill's trigger records.
+the owner's requests without loading it, as `design@agent-skills@settled-means-recorded` records.
 
 ### Why it matters
 
