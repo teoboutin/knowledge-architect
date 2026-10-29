@@ -1,5 +1,7 @@
-//! The passes of the shipped text that the build script and this crate's tests share: the build
-//! script includes this file with `#[path]`, and it has no test target of its own.
+//! The passes of the shipped text that the build script, this crate's tests and the `skill`
+//! subcommand of xtask share: the build script and xtask include this file with `#[path]`, since a
+//! build script has no test target of its own and the source view serves this repository alone,
+//! so the published library does not carry it.
 //!
 //! - **The comment pass.** A line whose first two characters are `%%` is a comment for this
 //!   repository's maintainers, per `design@agent-skills@shipped-text-line-comments`.
@@ -11,6 +13,9 @@
 //! - **The fragment pass.** A line that is a fragment placeholder, `{{fragment:<file>}}`, is replaced
 //!   with a file of shared text from fragments/, so one text applied whole at several places has
 //!   one home and every host ships it, per `design@agent-skills@content-mirrors-the-install-layout`.
+//! - **The source view.** A file of content/ with its fragments and snippets inlined and every
+//!   comment and placeholder but theirs kept, for a maintainer who edits the source and reads it
+//!   whole. It ships nothing.
 
 use std::path::Path;
 
@@ -22,6 +27,9 @@ pub(crate) const SLUG: &str = "{{slug:";
 
 /// What opens a fragment placeholder; `}}` closes it.
 pub(crate) const FRAGMENT: &str = "{{fragment:";
+
+/// What opens a snippet placeholder; `}}` closes it.
+pub(crate) const SNIPPET: &str = "{{snippet:";
 
 /// Whether a line is inside a fenced block, read as CommonMark reads one.
 ///
@@ -219,6 +227,67 @@ pub(crate) fn render_fragments<'a>(
         used.push(name);
     }
     (rendered, used)
+}
+
+/// `text`, a file of content/, with each fragment and snippet placeholder line replaced by the
+/// file it names, framed by two `%%` lines naming that file, `%% >>> fragments/<file>` before it
+/// and `%% <<< fragments/<file>` after it, or `snippets/<file>`; or the line and the file name of
+/// the first placeholder naming none of them.
+///
+/// It is the source a maintainer edits, read whole: every `%%` line, the host's and the
+/// fragment's, and every other placeholder, a section slug's and a substitution's, stay as
+/// written, so each sentence of the view is found as written in the file it comes from. A line is
+/// a placeholder by the grammar the build reads, a fragment's after any leading spaces and a
+/// snippet's at the start of the line, and a fragment and its two framing lines carry the
+/// placeholder's indentation, as `render_fragments` indents the fragment. It checks nothing else
+/// the build checks: a text the build refuses still has a view.
+pub(crate) fn source_view(
+    text: &str,
+    fragments: &[(&str, &str)],
+    snippets: &[(&str, &str)],
+) -> Result<String, String> {
+    let mut view = String::with_capacity(text.len());
+    for (n, line) in text.split_inclusive('\n').enumerate() {
+        let bare = line.trim_end_matches(['\n', '\r']);
+        let trimmed = bare.trim_start_matches(' ');
+        let (dir, indent, name, files) = if let Some(name) = placeholder(FRAGMENT, trimmed) {
+            (
+                "fragments",
+                &bare[..bare.len() - trimmed.len()],
+                name,
+                fragments,
+            )
+        } else if let Some(name) = placeholder(SNIPPET, bare) {
+            ("snippets", "", name, snippets)
+        } else {
+            view.push_str(line);
+            continue;
+        };
+        let Some(&(_, inlined)) = files.iter().find(|(n, _)| *n == name) else {
+            return Err(format!(
+                "line {}: names {dir}/{name}, which does not exist",
+                n + 1
+            ));
+        };
+        view.push_str(&format!("{indent}%% >>> {dir}/{name}\n"));
+        for part in inlined.split_inclusive('\n') {
+            if !part.trim().is_empty() {
+                view.push_str(indent);
+            }
+            view.push_str(part);
+        }
+        if !inlined.is_empty() && !inlined.ends_with('\n') {
+            view.push('\n');
+        }
+        view.push_str(&format!("{indent}%% <<< {dir}/{name}"));
+        view.push_str(&line[bare.len()..]);
+    }
+    Ok(view)
+}
+
+/// The name `line` holds as a placeholder opened by `open`, if it is one.
+fn placeholder<'a>(open: &str, line: &'a str) -> Option<&'a str> {
+    line.strip_prefix(open)?.strip_suffix("}}")
 }
 
 /// What opens a saved workflow's declaration; its `name` key follows inside the object.
@@ -689,5 +758,55 @@ mod tests {
     #[should_panic(expected = "w.js: a saved workflow opens with")]
     fn a_workflow_with_no_declaration_fails() {
         named("return 1\n");
+    }
+
+    fn view(text: &str) -> Result<String, String> {
+        let fragments = [("f.md", "%% why\none\n\n- two\n")];
+        let snippets = [("s.rs", "fn main() {}\n")];
+        super::source_view(text, &fragments, &snippets)
+    }
+
+    // The claim: a fragment is inlined with its own `%%` lines kept, framed by two lines naming
+    // its file, all indented to the placeholder, a blank line left blank.
+    #[test]
+    fn the_view_inlines_a_fragment_with_its_comments_and_names_it() {
+        let text = view("1. Step\n   {{fragment:f.md}}\nend\n").expect("a view");
+        assert_eq!(
+            text,
+            "1. Step\n   %% >>> fragments/f.md\n   %% why\n   one\n\n   - two\n   %% <<< fragments/f.md\nend\n"
+        );
+    }
+
+    // The claim: a snippet is inlined at its line, framed the same way, and a snippet placeholder
+    // with leading spaces is not one, as the build reads it.
+    #[test]
+    fn the_view_inlines_a_snippet_and_names_it() {
+        let text = view("```rust\n{{snippet:s.rs}}\n```\n  {{snippet:s.rs}}\n").expect("a view");
+        assert_eq!(
+            text,
+            "```rust\n%% >>> snippets/s.rs\nfn main() {}\n%% <<< snippets/s.rs\n```\n  {{snippet:s.rs}}\n"
+        );
+    }
+
+    // The claim: the host's comments, its slug placeholders and its substitution placeholders stay
+    // as written, and a text with no placeholder line is its own view.
+    #[test]
+    fn the_view_keeps_the_host_s_comments_and_other_placeholders() {
+        let text =
+            "%% why\n## A section {{slug:a-section}}\nSee {{primer-import}} and {{command}}.\n";
+        assert_eq!(view(text).expect("a view"), text);
+    }
+
+    // The claim: a placeholder naming no file is refused with its line, for either kind.
+    #[test]
+    fn the_view_refuses_a_placeholder_naming_no_file() {
+        assert_eq!(
+            view("a\n  {{fragment:g.md}}\n"),
+            Err("line 2: names fragments/g.md, which does not exist".to_string())
+        );
+        assert_eq!(
+            view("{{snippet:t.rs}}\n"),
+            Err("line 1: names snippets/t.rs, which does not exist".to_string())
+        );
     }
 }

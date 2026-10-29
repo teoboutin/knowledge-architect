@@ -2,9 +2,10 @@
 
 Workflow automation for this repository. One subcommand per workflow: `changelog`, which writes the
 copies of the root changelog the published crates ship, per
-`design@knowledge-architect@the-changelog-ships-in-every-crate`, and `gates`, which runs this
-repository's gate list through the published gates library, `register@gates@design`. A workflow
-belongs here when it is a repository operation a session runs often and gets wrong by hand.
+`design@knowledge-architect@the-changelog-ships-in-every-crate`; `skill`, which prints the source
+of one shipped text with its fragments and snippets inlined and its comments kept; and `gates`,
+which runs this repository's gate list through the published gates library,
+`register@gates@design`. A workflow belongs here when it is a repository operation a session runs often and gets wrong by hand.
 
 How its arguments parse is not a decision of this tool's: it parses through clap and tests its
 declaration, as `design@core@arguments-parse-through-clap` argues for the checker's binaries.
