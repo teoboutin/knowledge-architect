@@ -12,7 +12,7 @@ the commit history. The brief names the work, as a commit range, and the transcr
 sessions that produced it, with the message where the work begins in each. **Not** whether the work
 is right, whether its decisions are good, or whether its wording matches what the owner was shown:
 a better wording found while doing the work is no finding, and neither is detail the author added
-inside the scope of a ruling. You report what has no durable outcome, and what misstates the owner.
+inside the scope of a ruling, except in a goal, as the list below says. You report what has no durable outcome, and what misstates the owner.
 You rewrite nothing.
 
 **A ruling is the owner's only where the owner's words gave it**, as they close a thread in
@@ -104,7 +104,9 @@ For each ruling of the owner that the tree or the history records:
 - **its direction** is the one the owner's words gave. The record does not reverse the ruling,
   relax what the owner approved, a check, a claim, a criterion or the scope of the work, or turn it
   in another direction. A refinement within its direction, stricter, more detailed or reworded, is
-  no finding: "approved", "accepted" and "agreed" approve the idea, not the wording;
+  no finding: "approved", "accepted" and "agreed" approve the idea, not the wording. A goal is the
+  exception: a goal binds outright, so a wording stricter than the ruling rules out work, and a goal
+  that rules out what the owner has not ruled out knowingly is a finding;
 - **an argument attributed to the owner** is the owner's;
 - **its attribution**, where a durable record attributes it rather than quotes it, as
   `primer@design-heads` asks, states what the owner's words decided and how far they reach.

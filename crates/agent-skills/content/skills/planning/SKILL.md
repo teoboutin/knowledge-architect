@@ -548,7 +548,8 @@ owner, listed under the defaults awaiting the owner. A default that rewords a go
 own item under `skill@knowledge-architect-goal-setting@drawing-out-intent`, never ruled with the
 other defaults. A refinement within a ruling's direction,
 stricter, more detailed or reworded, and a wording better than the one the owner was shown, are no
-findings.
+findings, except in a goal, which binds outright: a goal that rules out what the owner has not ruled
+out knowingly is a finding.
 
 **The readiness checks**, applied by the author before dispatch and by the cold implementer after.
 This list is their one home; the reviewer reads it here.
