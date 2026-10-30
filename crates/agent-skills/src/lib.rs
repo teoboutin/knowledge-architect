@@ -181,7 +181,10 @@ mod tests {
         ),
         (
             "goal-standard.md",
-            &[".claude/skills/knowledge-architect-goal-setting/SKILL.md"],
+            &[
+                ".claude/agents/knowledge-architect-goal-reviewer.md",
+                ".claude/skills/knowledge-architect-goal-setting/SKILL.md",
+            ],
         ),
         (
             "subject-split.md",
