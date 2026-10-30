@@ -32,8 +32,8 @@ owner list for some moves and not others.
 
 ### Why it matters
 
-`goal@knowledge-architect@agents-work-without-drift` asks for an owner ruling only on what the
-goals and the record leave open. Each misfiled head an audit finds is one more question the owner
+`goal@knowledge-architect@the-owner-decides` counts a question the record answered, put to the
+owner, as the goal unmet. Each misfiled head an audit finds is one more question the owner
 answers that the record already answers. The head also contradicts itself: its first rule applies
 the move, and its list of owner outcomes holds it.
 

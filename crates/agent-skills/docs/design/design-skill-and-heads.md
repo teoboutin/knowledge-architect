@@ -51,8 +51,8 @@ load. Each exception is a record the session can look at, or a change it can see
 A record settles what the owner asks for
 or proposes, not merely the result a change must produce: a failing test states a result, and a
 shape the owner proposes to reach it is still challenged. It serves
-`goal@knowledge-architect@design-with-agents-as-counterparts`, met while no proposal of the owner is
-built before it has been grounded and challenged, and `goal@agent-skills@installed-text-works-anywhere`.
+`goal@knowledge-architect@design-with-agents-as-counterparts`, met while the installed text has the agent
+ground and challenge every proposal of the owner that decides something before it is built, and `goal@agent-skills@installed-text-works-anywhere`.
 
 The evidence is real use. The cloud sessions behind this repository's pull requests 24 and 25 held
 no user-level instruction, and their harness listed the design skill's description whole; neither
@@ -201,7 +201,7 @@ change of the decision, per `design@agent-skills@new-or-reshaped-head-needs-desi
 
 The owner approves an argued decision on its argument, so a member the argument covers is within
 what was approved, and a member the owner's own choice enumerates is not, per
-`goal@knowledge-architect@the-owner-decides`. The head shows its ground, so the route is read from
+`design@agent-skills@heads-stand-on-argument`. The head shows its ground, so the route is read from
 the head itself. The nearest rival, routing by the scope of the owner's approval, needs that scope
 found in the history of each head, often over several commits. Sending every new member through
 the design skill costs a reversal for an ordinary extension, which

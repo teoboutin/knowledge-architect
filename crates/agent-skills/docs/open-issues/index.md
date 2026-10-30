@@ -8,7 +8,7 @@
 | defect | [A saved workflow's `//` comments ship to every installing project, though the standard sends maintainer-only text to a comment the build removes](a-saved-workflow-s-comments-ship-to-every-project.md) |
 | defect | [A spec worked without its design audit, as the rule allows, missed a critical gap an audit would have listed](a-spec-worked-without-its-design-audit-missed-a-critical-gap.md) |
 | defect | [In an adopting project, a finding sent upstream is counted again as a violation left on old text at every later pass](an-upstream-finding-stays-in-every-later-old-text-count.md) |
-| defect | [The retrospective intake puts to the owner a finding whose outcome the argument settles](the-retrospective-intake-puts-to-the-owner-a-finding-the-argument-settles.md) |
+| defect | [Texts of the workflow and of this repository send the owner more than the closed list of what is the owner's](texts-send-the-owner-more-than-the-closed-list.md) |
 | defect | [Two audit workflows can give two groups one label, list a sample entry twice, and report verdicts as missing](two-audit-workflows-can-collide-group-labels-and-list-a-sample-entry-twice.md) |
 | deferred | [A fix that does not go through the design skill is grounded by no search of the whole record](a-fix-is-grounded-by-no-record-search.md) |
 | design | [A built default awaiting the owner enters a design head only once the owner rules, where the owner wants agents more autonomous](a-built-default-awaiting-the-owner-enters-a-head-only-once-the-owner-rules.md) |

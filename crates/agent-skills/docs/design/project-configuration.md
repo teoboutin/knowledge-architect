@@ -211,9 +211,8 @@ over an installed instruction that sends to the owner a question it gives the se
 prevails over a decision. Which further actions a project reserves to its owner is the project's
 to state.
 
-It serves `goal@knowledge-architect@the-owner-decides`, which gives the owner what the goals and
-the record leave open, and `goal@knowledge-architect@agents-work-without-drift`, which asks that the
-owner not answer what the record already answers. A workflow whose only authority is the owner
+It serves `goal@knowledge-architect@the-owner-decides`, which gives the owner what the argument
+leaves open and counts a question the record answered, put to the owner, as the goal unmet. A workflow whose only authority is the owner
 sends every question to the owner, and records every answer as a ruling. In thaum, which implements a published rules text, at least three of
 the eleven questions one session put to the owner were answered by the rules, and in this
 repository the owner reported many defaults put back to the owner that, the owner believes, the
@@ -243,8 +242,8 @@ measurement or the record answers is recorded as a reading or a fact, with its s
 source leaves the point open and the owner chose, the record says the owner chose among the
 readings the source permits.
 
-It serves `goal@knowledge-architect@the-owner-decides`, under which a choice the owner made is
-recorded as the owner's and every other decision on its own ground. An answer recorded as a ruling
+It serves `goal@knowledge-architect@the-owner-decides`, which sends to the owner only what the
+argument leaves open, so every other decision is recorded on its own ground. An answer recorded as a ruling
 weighs on every later session as the owner's intent: the owner observed that questioning such
 answers is discouraged, or that they come back to the owner even when the answer is obvious and the
 owner may not hold it. The nearest rival, leaving
@@ -320,7 +319,7 @@ are such decisions; an implementation choice a commit message records is not. A 
 decisions under the same title, and the dispatching session carries them into its own.
 
 It serves `goal@knowledge-architect@the-owner-decides`, under which the owner is informed of every
-decision and can contest any of them with a goal, a fact or an argument, and
+decision that earns a text, a line of the "Decided" section included, and can contest any of them with a goal, a fact or an argument, and
 `design@agent-skills@questions-go-to-their-authority` gives the session many of those decisions. The nearest rival, the commit messages and the pull request, loses because a decision
 made and reverted within one session reaches no commit, while the owner reads the turn. An
 implementation choice is left out because a list of every choice would hide the few the owner could

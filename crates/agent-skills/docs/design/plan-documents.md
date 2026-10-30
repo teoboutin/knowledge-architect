@@ -377,8 +377,8 @@ with its slice specs, which share the record by the rule of
 `design@agent-skills@milestone-split-by-lifetime`; the owner extended it to milestones: "Milestones are
 created through the design skill too after all." `design@agent-skills@standing-argument-in-head`
 names the plan document as the home of the deliberation while it exists, and
-`goal@knowledge-architect@the-owner-decides` is served only where the rulings are recorded as the
-owner made them. On the in-change path, the commit message carries the same record, for the same
+`goal@knowledge-architect@design-is-recorded-with-its-arguments` is served only where the rulings are
+recorded as the owner made them. On the in-change path, the commit message carries the same record, for the same
 reason, per `design@agent-skills@in-change-path`. The rival, a plan document recording each thread's
 final state and resolution, leaves the rulings and the arguments to memory. The cost is a longer plan
 document to write and to read.

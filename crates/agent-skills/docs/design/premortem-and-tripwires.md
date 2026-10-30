@@ -20,7 +20,7 @@ remains, and the question is the session's, per `primer@question-authority` and
 `design@agent-skills@owner-rules-at-a-fork`. The owner stays informed of each outcome and contests
 any of them with a goal, a fact or an argument, per `goal@knowledge-architect@the-owner-decides`,
 and rules only on
-what the goals and the record leave open, per `goal@knowledge-architect@agents-work-without-drift`.
+what the argument leaves open.
 The rival, the owner ruling on each cause, was measured: of 66 premortem causes the owner ruled on
 in this repository, the owner dropped 23, and about 45 of the 64 tripwires this repository then
 held watched a failure that a review, a test, the checker or the owner caught anyway, by a
@@ -62,8 +62,8 @@ tripwire, such as a ruling that a rule a review finds and its own branch removes
 tripwire it would match, is a case of the rule on slips, which the
 standard states as the owner's. So a narrowing or a removal of
 a tripwire changes no ruling of the owner, unlike a head, which can record the owner's choice at a
-fork, per `design@agent-skills@heads-stand-on-argument`. The owner rules only on what the goals and
-the record leave open, per `goal@knowledge-architect@agents-work-without-drift`, and is informed of
+fork, per `design@agent-skills@heads-stand-on-argument`. The owner rules only on what the argument
+leaves open, per `goal@knowledge-architect@the-owner-decides`, and is informed of
 each removal and can contest it with a goal, a fact or an argument, per
 `goal@knowledge-architect@the-owner-decides`. The owner named the
 wording and the small changes of scope of tripwires among the rulings a clearer standard should
