@@ -544,7 +544,9 @@ finding that is a gap with one answer is applied in place, except that **a gap w
 relaxes a ruling of the owner, or turns it from its direction, is a scope change**, as at the design
 audit. A finding that is wrong is dropped, with
 the reproduction that showed it wrong kept in the commit message. A scope change is put to the
-owner, listed under the defaults awaiting the owner. A refinement within a ruling's direction,
+owner, listed under the defaults awaiting the owner. A default that rewords a goal is drafted as its
+own item under `skill@knowledge-architect-goal-setting@drawing-out-intent`, never ruled with the
+other defaults. A refinement within a ruling's direction,
 stricter, more detailed or reworded, and a wording better than the one the owner was shown, are no
 findings.
 

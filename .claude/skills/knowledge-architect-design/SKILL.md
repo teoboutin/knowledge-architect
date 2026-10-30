@@ -422,7 +422,8 @@ the batch confirmation at the next checkpoint — promote or correct
 it. A displayed checkpoint table changes this: a positive word given
 against the table IS the batch confirmation and closes what the table
 holds, because the table is what makes an otherwise vague word
-specific. Do not solicit closures: a yes/no question inviting assent to one
+specific. A goal's wording is never closed so: it is drafted as its own
+item under `skill@knowledge-architect-goal-setting@drawing-out-intent`. Do not solicit closures: a yes/no question inviting assent to one
 option ("so we go with X?") is an approval question wherever it
 appears; a legitimate closing question presents the argued fork and
 asks for a ruling between positions. The checkpoint's batch

@@ -1,6 +1,6 @@
 ---
 name: knowledge-architect-goal-setting
-description: MUST use when a Component has no goal, when the owner states a new purpose or abandons one, when a recorded decision conflicts with a goal, and before writing or editing any goals home. Covers what a goal is and how it differs from a decision, how the owner's intent is drawn out and written as a draft the owner rules on goal by goal, the shape of a goal entry, how a Component's goal names the project goal it refines, where each goal sits, and why a goal leaves only on the owner's word.
+description: MUST use when a Component has no goal, when the owner states a new purpose or abandons one, when a recorded decision conflicts with a goal, when the owner asks to review the whole goal set or a pin move crosses a version whose Migration entry names that review, and before writing or editing any goals home. Covers what a goal is and how it differs from a decision, the standard a proper goal meets, how the owner's intent is drawn out and written as a draft the goal reviewer reads before the owner rules on it goal by goal, the review of the whole goal set, the shape of a goal entry, how a Component's goal names the project goal it refines, where each goal sits, and why a goal leaves only on the owner's word.
 ---
 
 # Setting goals
@@ -83,10 +83,35 @@ and it leaves only on the owner's word.
 3. **Write a draft that goes into the goals home verbatim if it is approved**.
    **Mark each goal with its source**: "the owner's statement", or "proposed from <the document or
    the code it was read from>". The source mark is not written to the goals home.
-4. **Ask the owner to read the draft in full, and to rule on each goal by its slug**: approved, or
+%% The reviewer is fresh because the drafter is anchored on its own reading, and a draft's excess
+%% reach went unnoticed by the drafter and the owner alike in real projects. It reads every relevant
+%% statement of the owner, not only those the drafter drew on, so a statement the drafter left out
+%% still reaches the check of a part dropped. The whole batch is read at once, and again on any
+%% rewording, since one goal's wording can change its relation to a sibling.
+4. **Dispatch `agent@knowledge-architect-goal-reviewer` in its draft mode**, fresh, never a fork:
+   its brief is the whole batch of new and reworded goals, every relevant statement of the owner,
+   verbatim, whether or not the draft drew on it, and the project. Repair each `settled` finding.
+%% The block turns a goal's reach into cases the owner judges by intent; a prose goal is easy to
+%% approve without seeing what it rules out. The owner's statements stay out of the display: an
+%% intent spread over several statements is carried by the distilled goal, not by a quotation.
+5. **Show the owner the draft, each goal with its boundary block**: for each universal or exclusion,
+   at least one case it rules out and one it admits, and each sibling goal it touches with the
+   relation, a conflict named as such; and each `intent` finding of the reviewer, with the case on
+   which the readings differ. Put each `contradiction` at the top of the draft, quoting both sides:
+   a statement of the owner that conflicts with a goal or with another statement, or a part of the
+   statements the draft drops. Resolve none alone; a goal resting on one is not written before the
+   owner's answer. The block and the reviewer's report are not written to the goals home.
+6. **Ask the owner to read the draft in full, and to rule on each goal by its slug**: approved, or
    dropped. A goal with no ruling is neither written nor dropped: ask again for it by its slug. A
-   goal the owner rewords is shown again in its new wording before it is written.
-5. Write the approved goals, exactly as approved, and the home's head, and nothing else.
+   goal the owner rewords is reviewed again, with the whole batch, and shown again in its new
+   wording before it is written.
+7. Write the approved goals, exactly as approved, and the home's head, and nothing else.
+
+%% A goal reworded as a default of a plan was approved in one word with the plan's other defaults,
+%% and set the goal against another; a review caught it only after the ruling.
+**A goal's wording proposed in another activity**, a plan's default, a review's repair, an audit's
+item or a goal a design discussion sets, is drafted here as its own item, with its boundary block,
+and the owner's word on a batch of other items never covers it.
 
 %% A goal is intent about where the project should get to, so it constrains work from the moment it is
 %% written, met or not. The `todo` issue lists the gap between an unmet goal and the tree as
@@ -101,6 +126,8 @@ no plan document schedules the work that would, open a `todo` issue for that wor
 - **The owner states a new purpose, abandons one, or rewords one.** A goal is added or reworded
   through `skill@knowledge-architect-goal-setting@drawing-out-intent`. When one is removed, every reference to it dangles, and `{{command}} check` lists each
   one: each is a text that derived something from the goal, and is read again.
+- **The owner asks to review the whole goal set, or a pin move crosses a version whose Migration
+  entry names that review**: `skill@knowledge-architect-goal-setting@whole-set-review`.
 - **A decision conflicts with a goal**, and the primer's rule, `primer@goals-bind`, sends the conflict to the owner. The
   goal prevails until the owner rules; if the ruling changes the goal, it changes through `skill@knowledge-architect-goal-setting@drawing-out-intent`.
 
@@ -108,3 +135,15 @@ The goals of one round of rulings are written in one commit, whose message recor
 attributed to the owner, as `primer@design-heads` says. A
 goal's removal and the repair of every reference it leaves dangling are one commit, so the commit
 passes the check.
+
+%% Every goal edit is the owner's, so an audit's split between edits applied in its branch and items
+%% put to the owner has nothing to split, and the draft review of each finding re-checks it; this
+%% follows goal-setting's methodology, a fresh reviewer and goals ruled one by one, not the audit's.
+## Reviewing the whole goal set {{slug:whole-set-review}}
+
+Run on the owner's request, and at a pin move across a version whose Migration entry names this
+section, as `skill@knowledge-architect-setup@moving-the-pin` says. Dispatch
+`agent@knowledge-architect-goal-reviewer` in its whole-set mode, fresh, with the project as its
+brief. Each finding becomes a draft that `skill@knowledge-architect-goal-setting@drawing-out-intent`
+takes, its draft-mode review included, so the owner rules on every rewording, retitling, split,
+removal or addition goal by goal. A goal the review finds conforming needs no ruling.

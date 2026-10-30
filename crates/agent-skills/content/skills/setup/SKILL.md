@@ -339,7 +339,8 @@ To move to another version:
    registry directory: `$CARGO_HOME/registry/src/<index>/knowledge-architect-<version>/CHANGELOG.md`.
    Its Migration entries name what a project must change in its own files when its pin crosses
    that version. List each Migration entry that cites an axis's section of
-   `skill@knowledge-architect-project-audit`, for step 5.
+   `skill@knowledge-architect-project-audit`, or the review of the whole goal set,
+   `skill@knowledge-architect-goal-setting@whole-set-review`, for step 5.
 3. Run `{{command}} install-agent-skills`, then follow
    `skill@knowledge-architect-agent-configuration` for what an upgrade owes the project's own
    configuration.
@@ -347,10 +348,11 @@ To move to another version:
    project's tests, and commit the pin, the installed files and the repairs together, ordered on
    the branch as `primer@branch-commits` says. A new version can change what a command prints,
    which only the tests see.
-5. For each axis that step 2 listed, run it under `skill@knowledge-architect-project-audit`, in a
+5. For each axis that step 2 listed, run it under `skill@knowledge-architect-project-audit`, and
+   for the review of the whole goal set, run it under `skill@knowledge-architect-goal-setting`, each in a
    branch of its own started from the main branch once the pin move has merged into it, so that
    the audit's range holds the audit's work alone. The pin move's branch opens one `todo` issue per
-   axis listed, in the root Component, which the audit's commit closes, so the owed audit is held by
+   axis or review listed, in the root Component, which the audit's commit closes, so the owed audit is held by
    a register until it runs. Such a Migration entry changes the rules the project's
    existing record must meet, and the audit brings that record to them.
 

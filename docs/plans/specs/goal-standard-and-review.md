@@ -751,7 +751,7 @@ owner intends, and its home is a design head, by the entry test on an interface 
 | --- | --- | --- |
 | `path@agent-skills@fragments/goal-standard.md` | the standard's fragment | new |
 | `path@agent-skills@content/agents/goal-reviewer.md` | the reviewer agent's source, installed as the agent `agent@knowledge-architect-goal-reviewer` | new |
-| the section `whole-set-review` | goal-setting's source | new |
+| the section `skill@knowledge-architect-goal-setting@whole-set-review` | goal-setting's source | new |
 | `skill@knowledge-architect-goal-setting@goal-or-not` | goal-setting's source | existing; hosts the fragment |
 | `skill@knowledge-architect-goal-setting@drawing-out-intent` | goal-setting's source | existing; gains the dispatch and the block |
 | `skill@knowledge-architect-goal-setting@when-it-runs-again` | goal-setting's source | existing; names the whole-set review |
@@ -852,7 +852,7 @@ named by its brief:
   resolves alone: **(a)** a statement of the owner that conflicts with an existing goal or with
   another statement of the owner; **(b)** a draft that drops or turns around part of what the
   owner's statements say, without showing it.
-- **whole set**: dispatched by the section `whole-set-review`. Its brief: every goals home. It
+- **whole set**: dispatched by the section `skill@knowledge-architect-goal-setting@whole-set-review`. Its brief: every goals home. It
   reports every goal that fails a rule it can judge without the owner's statements, rules 1, 2 and
   4 to 8, and every conflict between two goals; rule 3 waits for the draft each finding becomes.
 - **merge**: dispatched by the review row. Its brief: the branch's range. It reports every goal the
@@ -910,7 +910,7 @@ block, and the owner's word on a batch of other items never covers it. The plann
 
 ### The whole-set review
 
-A section of goal-setting titled "Reviewing the whole goal set", its slug `whole-set-review`. Its occasions: the owner's request, and a pin move
+A section of goal-setting titled "Reviewing the whole goal set", its slug `skill@knowledge-architect-goal-setting@whole-set-review`. Its occasions: the owner's request, and a pin move
 across a version whose Migration entry names the section. Setup is no occasion, per D1. The session
 dispatches the reviewer in its whole-set mode, and each finding becomes a draft that
 `skill@knowledge-architect-goal-setting@drawing-out-intent` takes, its draft-mode review included, which is the re-check.
@@ -1047,13 +1047,13 @@ Fails alone on: the check's installed-file and harness-name findings.
 
 Builds, in goal-setting: the dispatch and the block in `skill@knowledge-architect-goal-setting@drawing-out-intent`, the re-run on any
 rewording and on the whole batch, the contradictions (a) and (b) held for the owner, the ruling
-alone; the section `whole-set-review`, named in `skill@knowledge-architect-goal-setting@when-it-runs-again`, and the frontmatter description's new
+alone; the section `skill@knowledge-architect-goal-setting@whole-set-review`, named in `skill@knowledge-architect-goal-setting@when-it-runs-again`, and the frontmatter description's new
 occasion. In the review skill: the row of `skill@knowledge-architect-review@review-axes` and the sentence in
 `skill@knowledge-architect-review@what-review-leaves`. In the planning skill: the sentence in
 `skill@knowledge-architect-planning@plan-reviews`. In the design skill: the sentence in
 `skill@knowledge-architect-design@threads-and-states`. In setup: steps 2 and 5 of
 `skill@knowledge-architect-setup@moving-the-pin`. In the primer: the goal-setting line of
-`primer@installed-skills`. Install. Once the section exists, the spec's bare `whole-set-review`
+`primer@installed-skills`. Install. Once the section exists, the spec's bare `skill@knowledge-architect-goal-setting@whole-set-review`
 becomes a reference to that section of goal-setting.
 
 Claims:
@@ -1084,7 +1084,7 @@ read whole, in the wording the table of rewritten decisions gives it, which the 
 into the head: under Workflow, the reviewer before every goal ruling, the
 boundary block, the review row, the ruling alone and the whole-set review; under Migration, the
 standard as a change of the rules recorded goals must meet, citing
-the new section `whole-set-review`; each a patch on the surface
+`skill@knowledge-architect-goal-setting@whole-set-review`; each a patch on the surface
 `agent-skills`. Then `cargo x changelog`, and the changelog reviewer's two citing lines read against
 that wording.
 

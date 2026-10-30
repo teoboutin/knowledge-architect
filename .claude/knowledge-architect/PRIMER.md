@@ -594,7 +594,9 @@ never takes their place.
 - `skill@knowledge-architect-setup`: the project adopts the workflow, or moves its pin of the
   checker to another version.
 - `skill@knowledge-architect-goal-setting`: before writing or editing any goals home; a Component
-  has no goal; the owner states or abandons a purpose; a decision conflicts with a goal.
+  has no goal; the owner states or abandons a purpose; a decision conflicts with a goal; the owner
+  asks to review the whole goal set, or a pin move crosses a version whose Migration entry names
+  that review.
 - `skill@knowledge-architect-project-audit`: the owner asks to audit one aspect of the whole
   project; a pin move crosses a version whose Migration entry cites an audit axis; an adopting
   project's existing documents have moved.
