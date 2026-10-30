@@ -22,8 +22,7 @@ the repository in a commit of its own, after its harvest and the review before t
   not list as reversed or rewritten, the design home wins, and the disagreement is a defect of this
   spec.
 - Every name it uses is defined in it, under Names or New names, or exists in the tree.
-- One default awaits the owner, D1. It is built as written until the owner rules, and the branch
-  merges once the owner has, per `skill@knowledge-architect-planning@working-a-slice`.
+- No default awaits the owner: D1 is ruled.
 - The spec and its work share one branch: no step changes what
   `cargo klarch commits` checks in a tree, so `primer@branch-commits` does not ask the spec to merge
   first.
@@ -932,8 +931,8 @@ Fails alone on: the changelog copy test.
 - **D1** (#goal-set-review): setup is no occasion of the whole-set review. The owner approved shape A
   with "after setup" among its occasions. At setup each Component's batch is reviewed in draft mode
   against every goals home written before it, so every pair of goals is checked by the end of setup,
-  and a whole-set review then adds a dispatch that checks nothing new. Default: dropped. Dropping it
-  relaxes what the owner approved, so it waits for the owner's word.
+  and a whole-set review then adds a dispatch that checks nothing new. Default: dropped. **Ruled:**
+  the owner, after the spec's first commit: "D1 approved, drop it".
 
 ## Harvest
 
