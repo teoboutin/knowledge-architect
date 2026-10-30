@@ -1,6 +1,6 @@
 **Generated — do not edit.** `cargo klarch index`
 
-44 entries
+45 entries
 
 | kind | title |
 | --- | --- |
@@ -17,6 +17,7 @@
 | defect | [The finding on an escaped path that resolves names the first anchor that holds it, not the deepest](the-escape-finding-names-the-first-anchor-not-the-one-that-holds-the-target.md) |
 | defect | [The head on `index` credits the missing-directory refusal with a claim that the refusal does not hold](the-missing-directory-refusal-does-not-hold-the-no-loss-claim.md) |
 | defect | [The core's tests read the machine's git configuration, so a machine setting can fail a correct tree](the-tests-read-the-machine-s-git-configuration.md) |
+| defect | [The transcript list previews a pasted-content tag instead of the owner's words, when the first message is pasted](the-transcript-list-previews-a-pasted-content-tag-instead-of-the-owner-s-words.md) |
 | deferred | [Nothing checks that a component states a goal](a-component-states-at-least-one-goal.md) |
 | deferred | [Developer contracts sit in scoped CLAUDE.md files, which reach agents unreliably and are not required without a harness](a-home-for-developer-contracts-outside-agent-configuration.md) |
 | deferred | [A submodule is a project of its own, or nothing, and the tool has no model for either](a-submodule-is-a-project-of-its-own.md) |
