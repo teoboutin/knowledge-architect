@@ -14,9 +14,9 @@ universal, or does the goal reach wider than the owner's intent?
 
 ### What
 
-Found in the design discussion on goals, which put the question to the owner as Q4. The owner chose
-to record it as a question for the whole-set review of this repository's goals rather than to rule
-on the wording then, and then brought that review onto the spec's own branch.
+Found in the design discussion on goals, which put the question to the owner as Q4. It is recorded
+as a question for the whole-set review of this repository's goals, the session's default the owner
+accepted, rather than ruled on then; the owner then brought that review onto the spec's own branch.
 
 ### Why it matters
 

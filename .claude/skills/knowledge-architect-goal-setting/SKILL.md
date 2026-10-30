@@ -96,7 +96,8 @@ and it leaves only on the owner's word.
    the code it was read from>". The source mark is not written to the goals home.
 4. **Dispatch `agent@knowledge-architect-goal-reviewer` in its draft mode**, fresh, never a fork:
    its brief is the whole batch of new and reworded goals, every relevant statement of the owner,
-   verbatim, whether or not the draft drew on it, and the project. Repair each `settled` finding.
+   verbatim, whether or not the draft drew on it, and the project. Repair each `settled` finding,
+   and dispatch it again on the repaired batch, so that the version shown is a version reviewed.
 5. **Show the owner the draft, each goal with its boundary block**: for each universal or exclusion,
    at least one case it rules out and one it admits, and each sibling goal it touches with the
    relation, a conflict named as such; and each `intent` finding of the reviewer, with the case on

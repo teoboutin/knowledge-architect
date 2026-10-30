@@ -90,7 +90,8 @@ and it leaves only on the owner's word.
 %% rewording, since one goal's wording can change its relation to a sibling.
 4. **Dispatch `agent@knowledge-architect-goal-reviewer` in its draft mode**, fresh, never a fork:
    its brief is the whole batch of new and reworded goals, every relevant statement of the owner,
-   verbatim, whether or not the draft drew on it, and the project. Repair each `settled` finding.
+   verbatim, whether or not the draft drew on it, and the project. Repair each `settled` finding,
+   and dispatch it again on the repaired batch, so that the version shown is a version reviewed.
 %% The block turns a goal's reach into cases the owner judges by intent; a prose goal is easy to
 %% approve without seeing what it rules out. The owner's statements stay out of the display: an
 %% intent spread over several statements is carried by the distilled goal, not by a quotation.
