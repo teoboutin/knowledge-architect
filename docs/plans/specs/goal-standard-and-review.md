@@ -318,9 +318,10 @@ enters a goals home, and rule 2's qualifiers add about one line to a goal, as R2
 
 ### Each activity is carried out from its own skill `##c-one-skill-per-activity`
 
-Binding, from `goal@agent-skills@one-skill-per-activity`. Met on the session's reading, D3: the
-whole-set review edits nothing, and each of its findings becomes a draft of goal-setting, so it is
-part of setting goals, not of the audit activity, which brings what fails into line by its own edits.
+Binding, from `goal@agent-skills@one-skill-per-activity`. Met, on the owner's ruling of D3 and the
+owner's argument #arg-48: an activity is its methodology, so the whole-set review, which follows
+goal-setting's, a fresh reviewer and a draft ruled goal by goal, and none of the audit's, passes,
+verifiers and report files, is part of setting goals.
 
 ## Threads
 
@@ -329,8 +330,8 @@ part of setting goals, not of the audit activity, which brings what fails into l
 Proposed by the session in round 1 with seven rules; rule 8 is #exclusion-names-its-rival's, joined
 to the fragment at assembly since the reviewer applies it. Approved in round 2, rule 3 reopened by
 the session's material finding in round 2 on the owner's argument #arg-34, and closed in round 3.
-State: `approved`. Arguments: #arg-1, #arg-2, #arg-3, #arg-4, #arg-5, #arg-6, #arg-10, #arg-11, #arg-14, #arg-15, #arg-16, #arg-17, #arg-18, #arg-34,
-#arg-41. Its shape is "Decided design", the standard; its harvest is a head in the goals design home.
+State: `approved`, rules 1 and 6 awaiting D2. Arguments: #arg-1, #arg-2, #arg-3, #arg-4, #arg-5, #arg-6, #arg-10, #arg-11, #arg-14, #arg-15, #arg-16, #arg-17, #arg-18, #arg-34,
+#arg-41, #arg-47, #arg-49. Its shape is "Decided design", the standard; its harvest is a head in the goals design home.
 
 The owner, round 2: "Agreed on goal-standard and the delivery method as a fragment in skill and
 reviewer." The owner, round 3: "After these refinements,  agree with the whole table, you can
@@ -383,7 +384,7 @@ The owner, round 2: "goal-edit-ruled-alone agreed"
 
 Proposed by the session in round 1 as a fork, shape A its default and shape B a fourth audit axis.
 The session chose shape A, its default, and the owner approved it in round 2; state `approved`. Arguments: #arg-7, #arg-8, #arg-27,
-#arg-28, #arg-29, #arg-39, #arg-46. Its shape is "Decided design", the whole-set review; its harvest
+#arg-28, #arg-29, #arg-39, #arg-46, #arg-48. Its shape is "Decided design", the whole-set review; its harvest
 is a head in the goals design home, recorded in the weak form as the session's choice the owner
 approved, per `design@agent-skills@fork-choice-in-weak-form`, and the rewrites of
 `design@agent-skills@audit-is-an-activity` and `design@knowledge-architect@changelog-entries`.
@@ -686,6 +687,31 @@ reviewer runs again on the whole batch, since one rewording can change a sibling
 Round 2, the session; bears on #goal-set-review. "No rule for splitting the set is added before
 evidence shows it is needed (`goal@agent-skills@only-needed-instructions`)."
 
+### A published Component's features are mechanisms, their outcome is a goal, and a goal stays general `##arg-47`
+
+Round 6, the owner, on Q5 (D2); bears on #goal-standard. "Whenever the project is published, the
+features provided by the public API are always mechanisms, but the outcome (in a general way) they
+provide is probably a goal. From the other side, goals are not meant to state the exact API, so the
+described outcome has to stay "vague". Are you sure that your proposed default holds in all these
+sort of cases ?"
+
+### An activity is its methodology, not the scope of what it reads `##arg-48`
+
+Round 6, the owner, on Q6 (D3); bears on #goal-set-review. "for audits, the activity is the whole
+methodology, not the fact that it is a project wide audit. If two activities do not follow the same
+methodologies, they are not the same, even if they share part of the name, and should not be
+bundled in the same skill."
+
+### No wording of rule 1 decides every case, since the level of a goal is the owner's intent `##arg-49`
+
+Round 6, the session; bears on #goal-standard. The first default of D2 admitted, by its clause on a
+tool provided, `goal@knowledge-architect@mechanical-tasks-are-the-tool-s`'s "the published checker
+offers a command" as an outcome without asking whether a command, rather than another kind, is what
+the session needs. Rule 1 keeps the test alone, applied at the user's level: the kind of thing
+provided is part of the outcome only where another kind would not reach the user's end, as a check
+and a reviewer's memory do not in `goal@core@declared-instructions-are-checked`; an exact form never
+is; and where the test leaves the level open, the reviewer asks the owner.
+
 ## New names, in one place
 
 | name | file | status |
@@ -712,10 +738,14 @@ section's opening, "A goal is met or unmet. A decision is won or lost.", and its
 the step may reword it, keeping each rule's meaning, and the reviewers judge the fidelity.
 
 > **A goal is proper when all of these hold.**
-> 1. **It states an outcome**: what the Component is for, and for whom. It never states a
->    mechanism: a sentence is one when, changed, the Component would reach the same end another way.
->    A tool, a check or a command is an outcome where it is what the Component provides. The argument
->    that a design follows from a goal goes in that design's head, which cites it.
+> 1. **It states an outcome**: what the Component is for, and for whom, at the level at which its
+>    user would judge it met. It never states a mechanism: a sentence is one when, changed, the
+>    Component would still reach the same end for its user another way. The kind of thing the
+>    Component provides, such as a check, a command or a library API, is part of the outcome only
+>    where another kind would not reach that end; its exact form, a command's name or an API's
+>    signature, is a decision. Where the test does not tell which, the level is a question of intent
+>    for the owner. The argument that a design follows from a goal goes in that design's head,
+>    which cites it.
 > 2. **It has one reading.** Every term has one meaning in the project; a word the project already
 >    uses in another sense is defined or replaced. Every "every", "no", "all" and "not in scope"
 >    names the set it ranges over.
@@ -737,7 +767,10 @@ the step may reword it, keeping each rule's meaning, and the reviewers judge the
 Rule 4's test is the head standard's rule on an exception, not the independent-reversal test
 `rejected@agent-skills@head-split-by-independent-reversal` records. Each rule's cases go in a `%%` comment beside it, as "Mapping tables" lists them, naming the
 project, so the installed text names none, per `goal@agent-skills@installed-text-works-anywhere`.
-Rules 1 and 6 are written as D2's default, awaiting the owner.
+Rules 1 and 6 are written as D2's default, awaiting the owner. Rule 1 does not decide every case
+by itself, and is not meant to: the level of generality at which a goal states what its user gets
+is the owner's intent, so where its test leaves the level open, the reviewer reports an `intent`
+finding, per #arg-49.
 
 **The nearest rival** of the fragment is the standard written in goal-setting alone, with the
 reviewer briefed to read it: it puts the reviewer's standard behind a read the brief must ask for,
@@ -1039,7 +1072,10 @@ Fails alone on: the changelog copy test.
   against every goals home written before it, so every pair of goals is checked by the end of setup,
   and a whole-set review then adds a dispatch that checks nothing new. Default: dropped. **Ruled:**
   the owner, after the spec's first commit: "D1 approved, drop it".
-- **D2** (#goal-standard): rules 1 and 6 as "The standard" writes them. As approved, rule 1 said a
+- **D2** (#goal-standard): rules 1 and 6 as "The standard" writes them, rule 1 in its second
+  default, after the owner's argument #arg-47 defeated the first, whose clause "a tool, a check or
+  a command is an outcome where it is what the Component provides" admitted a goal naming any
+  command, the exact form #arg-47 keeps out. As approved, rule 1 said a
   goal "never states a mechanism, a tool, a check or a derivation", and rule 6 "never the tool that
   checks it". Read so, they rule out three goals of this repository the owner adopted,
   `goal@core@declared-instructions-are-checked`, `goal@core@documents-stay-current` and
@@ -1049,7 +1085,8 @@ Fails alone on: the changelog copy test.
   last clause. It narrows what the owner approved, so it waits for the owner's word.
 - **D3** (#goal-set-review): `goal@agent-skills@one-skill-per-activity` is met with the whole-set
   review inside goal-setting, on the reading #c-one-skill-per-activity states. A conflict with a
-  goal goes to the owner, so the reading waits for the owner's word.
+  goal goes to the owner, so the reading waits for the owner's word. **Ruled:** the owner, after the
+  spec's repairs: "Q6 no conflict here." with #arg-48.
 
 ## Harvest
 
