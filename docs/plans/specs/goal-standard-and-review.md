@@ -6,7 +6,7 @@ This spec plans the work that makes a goal follow a standard, and makes that sta
 
 - **A standard**: what a proper goal is, in eight rules, written once as a fragment that the
   goal-setting skill and a new reviewer agent both host.
-- **A reviewer**: a fresh installed agent, `knowledge-architect-goal-reviewer`, which reads every
+- **A reviewer**: a fresh installed agent, `agent@knowledge-architect-goal-reviewer`, which reads every
   version of a goal draft before the owner rules on it, given every relevant statement of the
   owner, and which also serves a row of the review table and a review of the whole goal set.
 - **A draft the owner can judge by intent**: each drafted goal is shown with its boundary block,
@@ -750,7 +750,7 @@ owner intends, and its home is a design head, by the entry test on an interface 
 | name | file | status |
 | --- | --- | --- |
 | `path@agent-skills@fragments/goal-standard.md` | the standard's fragment | new |
-| `planned@agent-skills@content/agents/goal-reviewer.md` | the reviewer agent's source, installed as the agent `knowledge-architect-goal-reviewer` | new |
+| `path@agent-skills@content/agents/goal-reviewer.md` | the reviewer agent's source, installed as the agent `agent@knowledge-architect-goal-reviewer` | new |
 | the section `whole-set-review` | goal-setting's source | new |
 | `skill@knowledge-architect-goal-setting@goal-or-not` | goal-setting's source | existing; hosts the fragment |
 | `skill@knowledge-architect-goal-setting@drawing-out-intent` | goal-setting's source | existing; gains the dispatch and the block |
@@ -758,8 +758,8 @@ owner intends, and its home is a design head, by the entry test on an interface 
 | `FRAGMENT_HOSTS` | `path@agent-skills@src/lib.rs` | existing; gains one row |
 
 The agent's sections, each a level-two heading with its slug placeholder, per
-`design@core@section-homes-carry-slugs`: its section the-goal-standard (the fragment), `the-modes`,
-`what-to-report`. The names are the session's default and may change at step 2.
+`design@core@section-homes-carry-slugs`: its section `agent@knowledge-architect-goal-reviewer@the-goal-standard` (the fragment), `agent@knowledge-architect-goal-reviewer@the-modes`,
+`agent@knowledge-architect-goal-reviewer@what-to-report`. The names are the session's default and may change at step 2.
 
 ## Decided design
 
@@ -838,7 +838,7 @@ statements beside each goal lost to #arg-34 and #arg-35.
 
 ### The reviewer
 
-`knowledge-architect-goal-reviewer`, read-only, hosts the fragment, and runs in three modes, each
+`agent@knowledge-architect-goal-reviewer`, read-only, hosts the fragment, and runs in three modes, each
 named by its brief:
 
 - **draft**: dispatched by `skill@knowledge-architect-goal-setting@drawing-out-intent` before the draft is shown, and again on every
@@ -1024,8 +1024,8 @@ Fails alone on: the fragment-host tests and the build.
 
 ### Step 2: the reviewer agent
 
-Builds `planned@agent-skills@content/agents/goal-reviewer.md`: its frontmatter, read-only rules, the
-fragment hosted in its section the-goal-standard, its three modes, its dispatch and its report, as
+Builds `path@agent-skills@content/agents/goal-reviewer.md`: its frontmatter, read-only rules, the
+fragment hosted in its section `agent@knowledge-architect-goal-reviewer@the-goal-standard`, its three modes, its dispatch and its report, as
 "The reviewer" says; `FRAGMENT_HOSTS`' row gains the agent's install path, inserted before the
 skill's, since `each_fragment_has_its_hosts` compares the row with a sorted list; install. In the
 commit that lands it, the spec's bare backticked name of the agent becomes its agent reference, and
@@ -1034,7 +1034,8 @@ the spec's two planned references become path references.
 Claims:
 
 - The agent installs under the owned namespace and its name passes the harness rules:
-  `cargo klarch check` passes; shown to fail by a frontmatter `name` that differs from the file.
+  `cargo klarch check` passes, every reference to the agent resolving against its installed copy;
+  shown to fail by the agent's absence, under which the check reports each reference to it.
 - One dispatch of the new agent sees its tools granted, the harness mechanics
   `design@agent-skills@synthetic-evidence-not-built` admits; no judgement of its report. The harness
   registers an agent type when a session starts, so the dispatch runs from a session started after
