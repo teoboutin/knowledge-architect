@@ -339,7 +339,7 @@ Proposed by the session in round 1 with seven rules; rule 8 is #exclusion-names-
 to the fragment at assembly since the reviewer applies it. Approved in round 2, rule 3 reopened by
 the session's material finding in round 2 on the owner's argument #arg-34, and closed in round 3.
 State: `approved`, rules 1 and 6 awaiting D2. Arguments: #arg-1, #arg-2, #arg-3, #arg-4, #arg-5, #arg-6, #arg-10, #arg-11, #arg-14, #arg-15, #arg-16, #arg-17, #arg-18, #arg-34,
-#arg-41, #arg-47, #arg-49. Its shape is "Decided design", the standard; its harvest is a head in the goals design home.
+#arg-41, #arg-47, #arg-49, #arg-51, #arg-52. Its shape is "Decided design", the standard; its harvest is a head in the goals design home.
 
 The owner, round 2: "Agreed on goal-standard and the delivery method as a fragment in skill and
 reviewer." The owner, round 3: "After these refinements,  agree with the whole table, you can
@@ -729,6 +729,24 @@ addition that is needed to pass the standard. I think that any work in the proje
 hard time getting done properly without bringing these goals into conformance." On Q6, the same
 round: "my argument should either be recorded, or used to reword the goal".
 
+### The goals are not assumed right, and a kind of interface the owner intends is a goal `##arg-51`
+
+Round 8, the owner, on D2; bears on #goal-standard. "is it a defect of the standard, or of the
+current goals ? We should not assume the goals are right, since we are planning to bring them to
+conformance after the work. Is the shape of a public API truly not something that would belong in a
+tool ? If a CLI API is what I intend to provide, then it should be stated as a goal"
+
+### The defect is the standard's: its list contradicted the outcome test, which is read against the owner's intent `##arg-52`
+
+Round 8, the session; bears on #goal-standard. Rule 1 as approved, "never states a mechanism, a
+tool, a check or a derivation", contradicted the outcome test of goal-setting, "would the Component
+be for something else, or reach the same end another way", whose "end" is what the owner intends:
+an owner who intends a command line makes a Component without one for something else. The second
+default kept the contradiction by judging the end from the user's side. The goals that met the
+first rule are evidence that the rule bites, not that they are right; step 6 judges them. The exact
+form of an interface fails the test, since renaming a command leaves the Component for what the
+owner intends, and its home is a design head, by the entry test on an interface others consume.
+
 ## New names, in one place
 
 | name | file | status |
@@ -755,14 +773,14 @@ section's opening, "A goal is met or unmet. A decision is won or lost.", and its
 the step may reword it, keeping each rule's meaning, and the reviewers judge the fidelity.
 
 > **A goal is proper when all of these hold.**
-> 1. **It states an outcome**: what the Component is for, and for whom, at the level at which its
->    user would judge it met. It never states a mechanism: a sentence is one when, changed, the
->    Component would still reach the same end for its user another way. The kind of thing the
->    Component provides, such as a check, a command or a library API, is part of the outcome only
->    where another kind would not reach that end; its exact form, a command's name or an API's
->    signature, is a decision. Where the test does not tell which, the level is a question of intent
->    for the owner. The argument that a design follows from a goal goes in that design's head,
->    which cites it.
+> 1. **It states an outcome the owner intends**: what the Component is for, and for whom. A
+>    sentence is a mechanism when, changed, the Component would still be for what the owner intends,
+>    and an outcome when the change would make it for something else. So the kind of interface the
+>    Component provides, a command line, a library API or a check, is an outcome where the owner
+>    intends to provide that kind, and the drafter asks the owner where the statements do not say.
+>    Its exact form, a command's name, a flag or a signature, is a decision: an interface others
+>    consume earns a design head. The argument that a design follows from a goal goes in that
+>    design's head, which cites it.
 > 2. **It has one reading.** Every term has one meaning in the project; a word the project already
 >    uses in another sense is defined or replaced. Every "every", "no", "all" and "not in scope"
 >    names the set it ranges over.
@@ -784,10 +802,10 @@ the step may reword it, keeping each rule's meaning, and the reviewers judge the
 Rule 4's test is the head standard's rule on an exception, not the independent-reversal test
 `rejected@agent-skills@head-split-by-independent-reversal` records. Each rule's cases go in a `%%` comment beside it, as "Mapping tables" lists them, naming the
 project, so the installed text names none, per `goal@agent-skills@installed-text-works-anywhere`.
-Rules 1 and 6 are written as D2's default, awaiting the owner. Rule 1 does not decide every case
-by itself, and is not meant to: the level of generality at which a goal states what its user gets
-is the owner's intent, so where its test leaves the level open, the reviewer reports an `intent`
-finding, per #arg-49.
+Rules 1 and 6 are written as D2's default, awaiting the owner. Rule 1's test is the outcome test
+goal-setting states today, read against the owner's intent, per #arg-52: where the statements do not
+say whether a kind of interface is intended, the reviewer reports an `intent` finding. Whether the
+goals this repository holds today pass it is step 6's question, never an argument for the rule.
 
 **The nearest rival** of the fragment is the standard written in goal-setting alone, with the
 reviewer briefed to read it: it puts the reviewer's standard behind a read the brief must ask for,
@@ -1113,10 +1131,12 @@ Fails alone on: the reviewer's report, the owner's rulings and the check.
   against every goals home written before it, so every pair of goals is checked by the end of setup,
   and a whole-set review then adds a dispatch that checks nothing new. Default: dropped. **Ruled:**
   the owner, after the spec's first commit: "D1 approved, drop it".
-- **D2** (#goal-standard): rules 1 and 6 as "The standard" writes them, rule 1 in its second
-  default, after the owner's argument #arg-47 defeated the first, whose clause "a tool, a check or
-  a command is an outcome where it is what the Component provides" admitted a goal naming any
-  command, the exact form #arg-47 keeps out. As approved, rule 1 said a
+- **D2** (#goal-standard): rules 1 and 6 as "The standard" writes them, rule 1 in its third
+  default. The first, "a tool, a check or a command is an outcome where it is what the Component
+  provides", admitted a goal naming any command, the exact form #arg-47 keeps out. The second
+  judged the kind of interface by whether another kind would reach the user's end, which #arg-51
+  defeats: the owner's intent to provide a kind of interface makes it an outcome, whatever another
+  kind could do. The third reads the outcome test against the owner's intent, #arg-52. As approved, rule 1 said a
   goal "never states a mechanism, a tool, a check or a derivation", and rule 6 "never the tool that
   checks it". Read so, they rule out three goals of this repository the owner adopted,
   `goal@core@declared-instructions-are-checked`, `goal@core@documents-stay-current` and
