@@ -24,8 +24,7 @@ the repository in a commit of its own, after its harvest and the review before t
   not list as reversed or rewritten, the design home wins, and the disagreement is a defect of this
   spec.
 - Every name it uses is defined in it, under Names or New names, or exists in the tree.
-- Two defaults await the owner, D2 and D3; D1 is ruled. Each is built as written until the owner
-  rules, and the branch merges once the owner has, per `skill@knowledge-architect-planning@working-a-slice`.
+- No default awaits the owner: D1, D2 and D3 are ruled.
 - The spec and its work share one branch: no step changes what
   `cargo klarch commits` checks in a tree, so `primer@branch-commits` does not ask the spec to merge
   first.
@@ -338,7 +337,7 @@ verifiers and report files, is part of setting goals.
 Proposed by the session in round 1 with seven rules; rule 8 is #exclusion-names-its-rival's, joined
 to the fragment at assembly since the reviewer applies it. Approved in round 2, rule 3 reopened by
 the session's material finding in round 2 on the owner's argument #arg-34, and closed in round 3.
-State: `approved`, rules 1 and 6 awaiting D2. Arguments: #arg-1, #arg-2, #arg-3, #arg-4, #arg-5, #arg-6, #arg-10, #arg-11, #arg-14, #arg-15, #arg-16, #arg-17, #arg-18, #arg-34,
+State: `approved`, rules 1 and 6 by D2. Arguments: #arg-1, #arg-2, #arg-3, #arg-4, #arg-5, #arg-6, #arg-10, #arg-11, #arg-14, #arg-15, #arg-16, #arg-17, #arg-18, #arg-34,
 #arg-41, #arg-47, #arg-49, #arg-51, #arg-52. Its shape is "Decided design", the standard; its harvest is a head in the goals design home.
 
 The owner, round 2: "Agreed on goal-standard and the delivery method as a fragment in skill and
@@ -802,7 +801,7 @@ the step may reword it, keeping each rule's meaning, and the reviewers judge the
 Rule 4's test is the head standard's rule on an exception, not the independent-reversal test
 `rejected@agent-skills@head-split-by-independent-reversal` records. Each rule's cases go in a `%%` comment beside it, as "Mapping tables" lists them, naming the
 project, so the installed text names none, per `goal@agent-skills@installed-text-works-anywhere`.
-Rules 1 and 6 are written as D2's default, awaiting the owner. Rule 1's test is the outcome test
+Rules 1 and 6 are written as D2, which the owner ruled. Rule 1's test is the outcome test
 goal-setting states today, read against the owner's intent, per #arg-52: where the statements do not
 say whether a kind of interface is intended, the reviewer reports an `intent` finding. Whether the
 goals this repository holds today pass it is step 6's question, never an argument for the rule.
@@ -1103,7 +1102,7 @@ the owner by its slug. Every edit the rulings call for is made: a rewording, a r
 removal, an addition. Each removed or renamed goal's references are repaired in the same commit, per
 `skill@knowledge-architect-goal-setting@when-it-runs-again`; a head whose ground a reworded goal
 changes is read against it. It runs from a session started after step 2's install, so the reviewer
-is a registered agent type, and after D2 is ruled, since rules 1 and 6 are D2's.
+is a registered agent type, D2 being ruled.
 
 Claims:
 
@@ -1136,7 +1135,8 @@ Fails alone on: the reviewer's report, the owner's rulings and the check.
   provides", admitted a goal naming any command, the exact form #arg-47 keeps out. The second
   judged the kind of interface by whether another kind would reach the user's end, which #arg-51
   defeats: the owner's intent to provide a kind of interface makes it an outcome, whatever another
-  kind could do. The third reads the outcome test against the owner's intent, #arg-52. As approved, rule 1 said a
+  kind could do. The third reads the outcome test against the owner's intent, #arg-52. **Ruled:** the
+  owner, on the third default: "D2 approved, go ahead". As approved, rule 1 said a
   goal "never states a mechanism, a tool, a check or a derivation", and rule 6 "never the tool that
   checks it". Read so, they rule out three goals of this repository the owner adopted,
   `goal@core@declared-instructions-are-checked`, `goal@core@documents-stay-current` and
