@@ -219,9 +219,8 @@ session read each whole:
   the rejected entry's ruling, given for decisions that bind as a presumption, did not weigh. The
   harvest's rewrite of `design@agent-skills@transcript-reviewer-agent` cites it.
 - `issue@agent-skills@a-built-default-awaiting-the-owner-enters-a-head-only-once-the-owner-rules`:
-  D1 is its case, a built default relaxing an approval; the owner ruled D1 before any work, so no
-  head is written ahead of a ruling. D2 is the same case and waits likewise: no head records it
-  before the owner's word.
+  D1 and D2 are its case, each a default relaxing an approval; the owner ruled both before any
+  work, so no head is written ahead of a ruling.
 
 **Entries graded `may-bear` that the grounding did not read**, each with the searcher's reason:
 
