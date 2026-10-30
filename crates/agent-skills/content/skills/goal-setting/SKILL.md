@@ -18,10 +18,9 @@ That is why an agent never edits a goal outside this skill.
 
 ## A goal, and what is not one {{slug:goal-or-not}}
 
-**A goal is met or unmet. A decision is won or lost.** A goal states an outcome: what the project or
-the Component is for, and for whom. It never states a mechanism. The test, for each sentence: if it
-changed, would the Component be for something else (a goal), or would it reach the same end another
-way (a decision, which belongs in the design home)?
+**A goal is met or unmet. A decision is won or lost.**
+
+{{fragment:goal-standard.md}}
 
 A goal stays in its home **while it is met**. One removed when it is achieved stops being checked,
 and can stop being met without anyone noticing. **A goal leaves only when the owner abandons it**,

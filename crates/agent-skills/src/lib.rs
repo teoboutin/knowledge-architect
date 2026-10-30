@@ -180,6 +180,10 @@ mod tests {
             ],
         ),
         (
+            "goal-standard.md",
+            &[".claude/skills/knowledge-architect-goal-setting/SKILL.md"],
+        ),
+        (
             "subject-split.md",
             &[
                 ".claude/agents/knowledge-architect-decision-record-reviewer.md",
