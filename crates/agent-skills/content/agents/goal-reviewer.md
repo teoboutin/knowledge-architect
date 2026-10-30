@@ -45,8 +45,8 @@ carries.
   each sibling goal it touches, with the relation.
 - **Whole set.** The brief gives the project. Read every goals home whole. Report every goal that
   fails a rule you can judge without the owner's statements, rules 1, 2 and 4 to 8, and every
-  conflict between two goals. Rule 3 needs the owner's statements, so it waits for the draft each
-  finding becomes.
+  conflict between two goals. Rule 3 needs the owner's statements, so give, for every goal, the
+  material of its boundary block, as in draft mode: the owner judges rule 3 on it.
 - **Merge.** The brief gives a commit range. Read every goal the range adds or changes, and every
   goals home at the range's end. Report each such goal that fails rules 1, 2 or 4 to 8, or that
   conflicts with a goal of the tree; and each goal the range adds, rewords or removes whose ruling
@@ -62,7 +62,7 @@ List the goals under their slugs, in the order of their homes. Under each, every
   or a kind of interface is meant; give the case on which the readings differ;
 - `contradiction`: (a) or (b), held for the owner; quote both sides.
 
-A goal with no finding is listed as conforming. In draft mode, end each goal with its boundary
-block's material. List what you met outside your task under a heading "Met outside the task", for
+A goal with no finding is listed as conforming. In draft and whole-set mode, end each goal with its
+boundary block's material. List what you met outside your task under a heading "Met outside the task", for
 the dispatcher to route, per `primer@met-outside-the-task`. End the report with one line asking the
 dispatcher to save it whole.
