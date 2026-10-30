@@ -41,8 +41,12 @@ judges by them.
    other; a qualifier, a domain or a measure belongs to the goal it qualifies.
 5. **It contradicts no other goal of the project.** No state of the project meets one goal only by
    failing another. Where two outcomes compete, a goal states which ranks first.
-6. **What shows it met stays checkable**: an observable of the project as it stands, never a plan
-   document or anything that leaves.
+6. **What shows it met is in what the project builds**: an observable of the tree as it stands, in
+   the instructions, the checks, the code and the documents that work toward the outcome, never a
+   plan document or anything that leaves. Evidence from the project's use, such as a review's
+   finding, a retrospective's finding or what the owner observes in sessions, is not the measure: it
+   shows the goal unmet in practice where what is built fails it, and leads to a change of what is
+   built.
 7. **A refinement neither widens nor contradicts the goal it refines.**
 8. **A statement of what the Component is not for is a goal only when it names the design it
    excludes**, one that another goal would otherwise argue for. A property of smallness with no
