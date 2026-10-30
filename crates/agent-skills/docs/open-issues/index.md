@@ -1,6 +1,6 @@
 **Generated — do not edit.** `cargo klarch index`
 
-49 entries
+48 entries
 
 | kind | title |
 | --- | --- |
@@ -52,4 +52,3 @@
 | todo | [The retrospective records no count of what a merged branch cost in review](the-retrospective-counts-no-review-cost.md) |
 | todo | [This repository's design heads that cite the owner's words await a pass of the design-record axis under the rule on what a head stands on](this-repository-s-heads-await-the-design-record-axis.md) |
 | todo | [Two installed skills each define "thread" and "the owner" in their own words](two-texts-define-a-term-in-their-own-words.md) |
-| todo | [What makes a proper goal has no design beyond the goal-setting skill's shape of an entry](what-a-proper-goal-is-has-no-design.md) |
