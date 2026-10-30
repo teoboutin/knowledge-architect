@@ -24,7 +24,8 @@ the repository in a commit of its own, after its harvest and the review before t
   not list as reversed or rewritten, the design home wins, and the disagreement is a defect of this
   spec.
 - Every name it uses is defined in it, under Names or New names, or exists in the tree.
-- No default awaits the owner: D1, D2 and D3 are ruled.
+- One default awaits the owner, D4; D1, D2 and D3 are ruled. D4 is built as written until the owner
+  rules, and the branch merges once the owner has.
 - The spec and its work share one branch: no step changes what
   `cargo klarch commits` checks in a tree, so `primer@branch-commits` does not ask the spec to merge
   first.
@@ -771,6 +772,14 @@ usage of the project, because in a standard project, the feasability is limited.
 between observation of usage (not in the tree) and of what is built has to be defined, and both
 should enter the goal standard." Rule 6 is rewritten so.
 
+### Rules 4 and 6 weigh less in a goal review, since neither changes what an agent does `##arg-55`
+
+Round 11, the owner, after batch 1; bears on #goal-standard, #goal-reviewer-agent. "I think maybe we
+can have these two rules have less weight in the review. in particular, for convergence of the
+goal review, maybe those should not be counted. Rule 4 in particular has much less weight, it does
+not change what agents will do in the project, and I think that having zero overlap is probably
+impossible, since goals do interract with each others on some aspects."
+
 ## New names, in one place
 
 | name | file | status |
@@ -1198,6 +1207,12 @@ Fails alone on: the reviewer's report, the owner's rulings and the check.
   review inside goal-setting, on the reading #c-one-skill-per-activity states. A conflict with a
   goal goes to the owner, so the reading waits for the owner's word. **Ruled:** the owner, after the
   spec's repairs: "Q6 no conflict here." with #arg-48.
+- **D4** (#goal-standard, #goal-reviewer-agent): rules 4 and 6 weigh less, on the owner's argument
+  #arg-55. Rule 4 asks only that one goal not conflate two intents; two goals may share an aspect,
+  a finding of rule 5 only where they cannot both be met. The reviewer tags a rule 4 or rule 6
+  finding `minor`, since neither changes what an agent does, and goal-setting counts a batch's
+  findings apart from the minor ones. The owner put it as "maybe", so the shape is the session's
+  default, built and awaiting the owner's word.
 
 ## Harvest
 

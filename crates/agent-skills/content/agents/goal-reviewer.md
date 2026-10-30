@@ -62,7 +62,9 @@ List the goals under their slugs, in the order of their homes. Under each, every
   or a kind of interface is meant; give the case on which the readings differ;
 - `contradiction`: (a) or (b), held for the owner; quote both sides.
 
-A goal with no finding is listed as conforming. In draft and whole-set mode, end each goal with its
+Give each finding its rule. A finding of rule 4 or of rule 6 is also tagged `minor`: neither
+changes what an agent does in the project, so the dispatcher counts it apart. A goal with no
+finding is listed as conforming. In draft and whole-set mode, end each goal with its
 boundary block's material. List what you met outside your task under a heading "Met outside the task", for
 the dispatcher to route, per `primer@met-outside-the-task`. End the report with one line asking the
 dispatcher to save it whole.

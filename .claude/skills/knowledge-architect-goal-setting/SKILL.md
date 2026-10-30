@@ -38,7 +38,9 @@ judges by them.
    statements, the generalisation and the cases it rules out are shown to the owner before the
    ruling.
 4. **It holds one intent.** Two statements are two goals when each means something without the
-   other; a qualifier, a domain or a measure belongs to the goal it qualifies.
+   other; a qualifier, a domain or a measure belongs to the goal it qualifies. Two goals may share
+   an aspect: a goal that touches what another states breaks no rule, and is a finding of rule 5
+   only where the two cannot both be met.
 5. **It contradicts no other goal of the project.** No state of the project meets one goal only by
    failing another. Where two outcomes compete, a goal states which ranks first.
 6. **What shows it met is in what the project builds**: an observable of the tree as it stands, in
@@ -102,6 +104,8 @@ and it leaves only on the owner's word.
    its brief is the whole batch of new and reworded goals, every relevant statement of the owner,
    verbatim, whether or not the draft drew on it, and the project. Repair each `settled` finding,
    and dispatch it again on the repaired batch, so that the version shown is a version reviewed.
+   Count a batch's findings apart from its `minor` ones, those of rules 4 and 6, which change no
+   act of an agent.
 5. **Show the owner the draft, each goal with its boundary block**: for each universal or exclusion,
    at least one case it rules out and one it admits, from the project's existing or planned work,
    or, where none exists yet, from the uses the owner's statements describe; and each sibling goal it touches with the
