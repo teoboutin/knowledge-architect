@@ -40,7 +40,8 @@ carries.
     showing it to the owner.
 
   Give, for each goal, the material of its boundary block: for each universal or exclusion, at
-  least one case it rules out and one it admits, from the project's existing or planned work; and
+  least one case it rules out and one it admits, from the project's existing or planned work, or,
+  where none exists yet, from the uses the owner's statements describe; and
   each sibling goal it touches, with the relation.
 - **Whole set.** The brief gives the project. Read every goals home whole. Report every goal that
   fails a rule you can judge without the owner's statements, rules 1, 2 and 4 to 8, and every

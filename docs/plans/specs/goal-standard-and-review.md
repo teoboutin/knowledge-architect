@@ -53,7 +53,7 @@ whole, as `path@agent-skills@CLAUDE.md` says in "Editing an installed skill or a
 | R1 to R9 | the changes of an existing goal in rootpoint's history, in its repository at /home/teo/dev/rootpoint, listed in "What the work is" |
 | Q1 to Q8 | the questions the session put to the owner, in the conversation: Q5 is D2, Q6 is D3, Q7 whether this repository's goals are brought into conformance on this branch (#arg-50), Q8 how a whole-set review checks rule 3; and Q1, what the owner read rootpoint's goal drafts for, intent or reach (#arg-33); Q2, whether a project's goal set stays in the tens of goals (#arg-39); Q3, whether the owner accepts by name the cost #c-owner-attention weighs; Q4, the outcome of `goal@knowledge-architect@rust-projects-come-first` |
 | D5, D8 | two defaults of thaum's milestone driven-testing, in its repository at /home/teo/dev/games/thaum: D5 reworded a goal and was approved with the milestone's other defaults (thaum commit a62e2296); D8 restored a qualifier whose absence D5's wording carried, which set the goal against another (thaum commit 1186dac0); the qualifier had been dropped earlier by a goal-setting draft the owner approved (thaum commit 04bed4a6) |
-| boundary block | per drafted goal, the cases it rules out and the cases it admits, from the project's existing or planned work, and the sibling goals it touches, each with its relation; shown to the owner, never written to a goals home |
+| boundary block | per drafted goal, the cases it rules out and the cases it admits, from the project's existing or planned work or the uses the owner's statements describe, and the sibling goals it touches, each with its relation; shown to the owner, never written to a goals home |
 
 ## What the work is
 
@@ -160,6 +160,7 @@ two ways under rule 2 and which holds two intents under rule 4, for which the ow
 | `design@agent-skills@audit-is-an-activity` | a review of the whole goal set runs inside goal-setting: its argument, two standards in one text, does not reach one standard serving a draft and a whole set | `issue@agent-skills@audit-axes-beyond-the-design-record`, line 9; unaffected, since its goal-coverage axis stays open; the harvest |
 | `design@knowledge-architect@changelog-entries` | a Migration entry for a change of the rules recorded content must meet cites the section that brings that content to them, an audit axis's or the goal-setting skill's whole-set review | `agent@klarch-changelog-reviewer`, lines 23 and 42, `path@knowledge-architect@CHANGELOG.md` line 5, `path@knowledge-architect@CLAUDE.md` line 202, `path@agent-skills@docs/design/audit-method.md` line 328, `path@agent-skills@docs/design/audit-record-axes.md` line 50, `path@core@docs/design/reference-lints.md` line 161, `register@knowledge-architect@design`, lines 154, 172 and 243, `issue@knowledge-architect@a-mechanical-changelog-check` line 9, `issue@knowledge-architect@the-released-changelog-section-rule-has-no-argument` line 26, `register@xtask@rejected`; step 5 writes the Migration entry from the wording in this table and reads the changelog reviewer's two lines against it, the harvest rewrites the head to the same wording and reads the rest |
 | `design@agent-skills@audit-triggers` | a version that changes the rules recorded content must meet names, in its Migration entry, the section that brings that content to them, an audit axis's or the whole-set review, and `skill@knowledge-architect-setup@moving-the-pin` runs either in a branch of its own once the pin move has merged | `tripwire@agent-skills@axis-not-run-at-a-pin-move` at `register@agent-skills@tripwire` lines 113, 123 and 124; `path@agent-skills@docs/design/audit-method.md` line 349, `path@agent-skills@docs/design/audit-record-axes.md` line 51, `path@agent-skills@docs/design/design-skill-and-heads.md` line 229, `path@agent-skills@docs/design/premortem-and-tripwires.md` line 133, `issue@agent-skills@the-closing-audit-of-a-move-reaches-no-planning-text` line 34 and `register@knowledge-architect@design` line 196, each read by the harvest against the rewritten head; step 3 edits setup's pin-move steps, the harvest widens the tripwire's clause to the whole-set review |
+| `design@agent-skills@misstated-ruling-rated-by-what-it-changes` | "a refinement within the ruling's direction is none at all" gains the exception for a goal, and the scale rates it: a goal recorded stricter than the owner ruled out knowingly changes what is built, since a goal rules work out, so it is major | `path@agent-skills@docs/design/reviews.md` line 186, and `register@agent-skills@tripwire` lines 29 and 244, read by the harvest against the rewritten head |
 | `design@agent-skills@transcript-reviewer-agent` | "the same reading applies wherever fidelity to an approval is judged" gains its exception: a goal's wording that rules out what the owner has not ruled out knowingly is a finding, since a goal binds outright; the case is new against `rejected@agent-skills@transcript-reviewer-reports-every-clause` on that fact, #arg-24, and the owner approved the narrowing in round 3, by the word given against the table of the session's round-2 reply, which listed it under #goal-reviewer-agent | six lines of `register@agent-skills@design`: `path@agent-skills@docs/design/audit-method.md` line 250, `path@agent-skills@docs/design/design-skill-and-heads.md` line 219, `path@agent-skills@docs/design/owner-and-intent.md` lines 200 and 215, `path@agent-skills@docs/design/project-configuration.md` line 344, `path@agent-skills@docs/design/reviews.md` line 247; and two of `register@agent-skills@tripwire`, lines 396 and 405; the harvest reads each against the exception |
 
 **Entries the discussion's search graded `bears`**, 94, each with its outcome:
@@ -212,7 +213,8 @@ two ways under rule 2 and which holds two intents under rule 4, for which the ow
   section, per the rewritten `design@knowledge-architect@changelog-entries`.
 
 Three entries listed as not read in the spec's first commit were found by its design-conformance
-review to bear, which `design@agent-skills@may-bear-read-on-touch` says reopens the search; the
+review to bear, which by `design@agent-skills@may-bear-read-on-touch` reopens that decision, as an
+issue entry records for its design discussion; the
 session read each whole:
 
 - `tripwire@agent-skills@axis-not-run-at-a-pin-move`: the pin move now runs the whole-set review
@@ -228,8 +230,8 @@ session read each whole:
 **Entries graded `may-bear` that the grounding did not read**, each with the searcher's reason:
 
 - `design@agent-skills@knowledge-table-home`: #exclusion-names-its-rival (when an exclusion statement is a goal, and where it goes when it is not) may need a primer row; no conflict established
-- `design@agent-skills@goals-required`: the reviewer on every goal draft adds a step to setup's goal step and contradicts nothing in it
-- `goal@knowledge-architect@adoption-is-easy`: a review step at the first goal draft could add a step an adopter follows; no conflict established
+- `design@agent-skills@goals-required`: the reviewer on every goal draft adds a step to setup's goal step and contradicts nothing in it — read whole after the second design-conformance review: it binds step 6, which keeps every Component with at least one goal
+- `goal@knowledge-architect@adoption-is-easy`: a review step at the first goal draft could add a step an adopter follows; no conflict established — read whole after the second design-conformance review found it borne on by step 6: a goal step 6 reviews, so any change to it goes through goal-setting at that step, per `design@agent-skills@search-relevance-grade`
 - `goal@knowledge-architect@rust-projects-come-first`: its "every check and tool" is an unqualified universal of the kind rule 3 refuses; the searcher's reason, that the work edits no goal, no longer holds since step 6 reviews this goal, and "What the work is" names it
 - `rejected@agent-skills@head-rules-whole-in-primer`: placing the standard whole in the primer is the same shape for goals; bears by analogy only
 - `issue@agent-skills@a-head-in-the-wrong-component-goes-to-the-owner-though-the-record-settles-the-component`: a goal in the wrong Component is a goal to change and so the owner's; the issue names heads only
@@ -244,8 +246,8 @@ session read each whole:
 - `issue@agent-skills@the-closing-audit-of-a-move-reaches-no-planning-text`: a goals axis could join a move's closing audit; none is added
 - `tripwire@agent-skills@verifier-refutes-a-true-finding`, `tripwire@agent-skills@verifiers-wave-findings-through`: count passes of an axis; none is added
 - `design@core@orphan-rejected-entry`: an exclusion goal and a head of absence for a design lost to a goal; no bearing established
-- `goal@core@declared-instructions-are-checked`: parts of the standard could be checks; the work proposes skill text and a reviewer only
-- `goal@knowledge-architect@structure-and-workflow-work-together`: a whole-set reading may ask for a listing command; no need established
+- `goal@core@declared-instructions-are-checked`: parts of the standard could be checks; the work proposes skill text and a reviewer only — read whole after the second design-conformance review found it borne on by step 6: a goal step 6 reviews, so any change to it goes through goal-setting at that step, per `design@agent-skills@search-relevance-grade`
+- `goal@knowledge-architect@structure-and-workflow-work-together`: a whole-set reading may ask for a listing command; no need established — read whole after the second design-conformance review found it borne on by step 6: a goal step 6 reviews, so any change to it goes through goal-setting at that step, per `design@agent-skills@search-relevance-grade`
 - `rejected@core@entry-reachable-by-citing-a-goal`, `rejected@core@goal-citing-a-rejected-entry`: an exclusion goal could cite the rejected designs it excludes; not proposed
 - `issue@agent-skills@the-design-record-auditor-s-return-names-two-verdict-vocabularies`: a reviewer modelled on that auditor could copy its two vocabularies; no return format is stated yet
 - `issue@agent-skills@the-workflow-assumes-one-unnamed-owner`: with several contributors, whose words a goal must not exceed is that issue's question
@@ -265,9 +267,9 @@ session read each whole:
 - `design@agent-skills@tripwire-recording-authority`, `design@agent-skills@tripwire-stands-on-the-standard`, `design@agent-skills@tripwire-admission-test`, `design@agent-skills@tripwire-horizon`: the harvest's judgement of the premortem's causes
 - `design@agent-skills@plan-reviewed-as-a-commit`: the reviewer reads a draft before the ruling, uncommitted; whether it is a review-skill reviewer is not established
 - `issue@agent-skills@plan-documents-keep-the-owner-s-words-verbatim-where-other-records-attribute-them`: the reviewer reads the owner's words, which the brief carries
-- `goal@knowledge-architect@mechanical-tasks-are-the-tool-s`: gathering every goal may be several steps; not established
+- `goal@knowledge-architect@mechanical-tasks-are-the-tool-s`: gathering every goal may be several steps; not established — read whole after the second design-conformance review found it borne on by step 6: a goal step 6 reviews, so any change to it goes through goal-setting at that step, per `design@agent-skills@search-relevance-grade`
 - `design@core@backticked-bare-id`, `design@core@plain-word-lint`: bear on the names chosen for slugs and the agent
-- `issue@core@no-checked-form-cites-a-point-inside-a-section`: the standard's numbered rules cited in words are checked by nothing
+- `issue@core@no-checked-form-cites-a-point-inside-a-section`: the standard's numbered rules cited in words are checked by nothing — read whole after the second design-conformance review: worsened, since the reviewer's modes cite rules by number; the harvest adds that instance to the issue
 - `design@agent-skills@premortem-as-watch-points`: the work could add a standing retrospective question; none proposed
 - `design@agent-skills@standing-argument-in-head`, `design@agent-skills@unargued-approval-is-argued`, `tripwire@agent-skills@owner-fact-recorded-unattributed`: cite a seed; no element meets them
 - `design@agent-skills@searcher-grades-goals`, `design@agent-skills@search-relevance-grade`: the boundary block stays out of the goal entries, so the goals homes' size is unchanged
@@ -821,7 +823,8 @@ wider than the owner's statement", lost to #arg-41.
 Step 3 of `skill@knowledge-architect-goal-setting@drawing-out-intent` writes, per goal, beside its source mark:
 
 - **its boundary block**: for each universal or exclusion, at least one case it rules out and one
-  it admits, from the project's existing or planned work; each sibling goal it touches, with the
+  it admits, from the project's existing or planned work, or, where none exists yet, from the uses the owner's
+  statements describe; each sibling goal it touches, with the
   relation, a conflict named as such;
 - **the reviewer's findings that are questions of intent**, each with the case on which the
   readings differ.
@@ -1050,8 +1053,8 @@ Claims:
   shown to fail by the agent's absence, under which the check reports each reference to it.
 - One dispatch of the new agent sees its tools granted, the harness mechanics
   `design@agent-skills@synthetic-evidence-not-built` admits; no judgement of its report. The harness
-  registers an agent type when a session starts, so the dispatch runs from a session started after
-  the install, such as the one that reviews the branch.
+  listed the agent as a type in the session that installed it, before step 4, so the dispatch may
+  run there.
 
 Fails alone on: the check's installed-file and harness-name findings.
 
@@ -1111,12 +1114,14 @@ whole-set review of every goals home of this repository: the reviewer in its who
 each finding drafted through the skill's drawing out of intent, the reviewer in its draft mode on
 each version, with every relevant statement of the owner, #arg-48 among them, and each goal ruled by
 the owner by its slug. Every edit the rulings call for is made: a rewording, a retitling, a split, a
-removal, an addition. Each removed or renamed goal's references are repaired in the same commit, as
+removal, an addition, every Component keeping at least one goal, per `design@agent-skills@goals-required`.
+Each removed or renamed goal's references are repaired in the same commit, as
 `skill@knowledge-architect-goal-setting@when-it-runs-again` says of a removal and the check reports of either; a head whose ground a reworded goal
-changes is read against it. It runs from a session started after step 2's install, so the reviewer
-is a registered agent type. The session that builds steps 1 to 5 pushes them and tells the owner;
-the owner starts the session of step 6, which grounds on this spec and the branch's commit messages.
-The review before the merge names both sessions' transcripts, each by its opening message. Step 6's
+changes is read against it. It runs where the reviewer is a registered agent type: the harness of the session that installed it
+listed it as an agent type before step 4, so it may run in that session. Where step 6 runs in another session, the session that builds steps 1 to 5 pushes them and tells
+the owner, the owner starts the session of step 6, which grounds on this spec and the branch's
+commit messages, and the review before the merge names both sessions' transcripts, each by its
+opening message. Step 6's
 edits are this repository's own goals, a change internal to this repository, so they owe no
 changelog entry, per `design@knowledge-architect@versioning-policy`.
 
@@ -1183,6 +1188,7 @@ At the landing, under `skill@knowledge-architect-decision-recording`, read whole
 | the premortem's causes | `register@agent-skills@tripwire`, where the standard admits each | each with its horizon |
 | `issue@agent-skills@an-upgrade-re-reads-no-root-restatement` | its own file | the goal reviewer as a second instance of its fourth case |
 | #goal-set-review | `path@agent-skills@docs/design/audit-method.md`; `register@agent-skills@tripwire` | `design@agent-skills@audit-triggers` rewritten to name the whole-set review; `tripwire@agent-skills@axis-not-run-at-a-pin-move` widened to it |
+| #goal-reviewer-agent | `path@agent-skills@docs/design/reviews.md`; `register@core@issue` | `design@agent-skills@misstated-ruling-rated-by-what-it-changes` rewritten with the exception and its rating; `issue@core@no-checked-form-cites-a-point-inside-a-section` gains the reviewer's citations of rules by number as an instance |
 | #goal-standard | `path@agent-skills@docs/design/shipped-set.md` | the new fragment added to the list of fragments in `design@agent-skills@shared-text-fragment`, and its host list as the owner ruled it |
 
 ## Later consequences

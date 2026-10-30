@@ -99,7 +99,8 @@ and it leaves only on the owner's word.
    verbatim, whether or not the draft drew on it, and the project. Repair each `settled` finding,
    and dispatch it again on the repaired batch, so that the version shown is a version reviewed.
 5. **Show the owner the draft, each goal with its boundary block**: for each universal or exclusion,
-   at least one case it rules out and one it admits, and each sibling goal it touches with the
+   at least one case it rules out and one it admits, from the project's existing or planned work,
+   or, where none exists yet, from the uses the owner's statements describe; and each sibling goal it touches with the
    relation, a conflict named as such; and each `intent` finding of the reviewer, with the case on
    which the readings differ. Put each `contradiction` at the top of the draft, quoting both sides:
    a statement of the owner that conflicts with a goal or with another statement, or a part of the
