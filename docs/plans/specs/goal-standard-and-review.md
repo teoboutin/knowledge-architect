@@ -52,7 +52,7 @@ whole, as `path@agent-skills@CLAUDE.md` says in "Editing an installed skill or a
 | the goals design home | `path@agent-skills@docs/design/goals.md`, the subdocument of `register@agent-skills@design` on goals |
 | R1 to R9 | the changes of an existing goal in rootpoint's history, in its repository at /home/teo/dev/rootpoint, listed in "What the work is" |
 | Q1 to Q8 | the questions the session put to the owner, in the conversation: Q5 is D2, Q6 is D3, Q7 whether this repository's goals are brought into conformance on this branch (#arg-50), Q8 how a whole-set review checks rule 3; and Q1, what the owner read rootpoint's goal drafts for, intent or reach (#arg-33); Q2, whether a project's goal set stays in the tens of goals (#arg-39); Q3, whether the owner accepts by name the cost #c-owner-attention weighs; Q4, the outcome of `goal@knowledge-architect@rust-projects-come-first` |
-| D5, D8 | two defaults of thaum's milestone driven-testing, in its repository at /home/teo/dev/games/thaum: D5 reworded a goal and was approved with the milestone's other defaults (thaum commit a62e2296); D8 repaired the conflict D5 had made with another goal (thaum commit 1186dac0) |
+| D5, D8 | two defaults of thaum's milestone driven-testing, in its repository at /home/teo/dev/games/thaum: D5 reworded a goal and was approved with the milestone's other defaults (thaum commit a62e2296); D8 restored a qualifier whose absence D5's wording carried, which set the goal against another (thaum commit 1186dac0); the qualifier had been dropped earlier by a goal-setting draft the owner approved (thaum commit 04bed4a6) |
 | boundary block | per drafted goal, the cases it rules out and the cases it admits, from the project's existing or planned work, and the sibling goals it touches, each with its relation; shown to the owner, never written to a goals home |
 
 ## What the work is
@@ -74,9 +74,10 @@ whole, as `path@agent-skills@CLAUDE.md` says in "Editing an installed skill or a
 
 Excess reach is R1, R2, R4 and R9, and three of them, R1, R2 and R9, also conflict with a sibling
 goal. Reviews or the session caught 4 (R1, R6, R7, R8), the owner 3 (R2, R3, R9), and a design
-discussion 2 (R4, R5). The goal-setting step caught none. In thaum, D5 reworded the fuzzing
-goal as a milestone default, approved among the others, and its dropped qualifier set it against
-the goal `coverage-before-speed`, which D8 repaired; thaum commit 85f2b26c replaced "learning agent",
+discussion 2 (R4, R5). The goal-setting step caught none. In thaum, a goal-setting draft the owner
+approved dropped a qualifier of the fuzzing goal; D5 then reworded that goal as a milestone default,
+approved among the others, still without the qualifier, which set it against the goal
+`coverage-before-speed`, and D8 restored it; thaum commit 85f2b26c replaced "learning agent",
 a term the project used in another sense.
 
 **What exists today at each site:**
@@ -218,7 +219,7 @@ session read each whole:
   too; the harvest widens its clause, as the table of rewritten decisions says.
 - `rejected@agent-skills@transcript-reviewer-reports-every-clause`: step 4's exception reports, for
   a goal only, a clause inside a ruling; the case is new on #arg-24, a goal binding outright, which
-  the rejected entry's ruling, given for decisions that bind as a presumption, did not weigh. The
+  which the rejected entry's ruling did not weigh. The
   harvest's rewrite of `design@agent-skills@transcript-reviewer-agent` cites it.
 - `issue@agent-skills@a-built-default-awaiting-the-owner-enters-a-head-only-once-the-owner-rules`:
   D1 and D2 are its case, each a default relaxing an approval; the owner ruled both before any
@@ -559,7 +560,7 @@ repository's or rootpoint's next goal change."
 Round 1, the session; bears on #goal-reviewer-agent. "a goal binds outright, so a stricter goal
 rules out work, where a stricter acceptance criterion only adds a check." It is the fact that makes
 the case new against `rejected@agent-skills@transcript-reviewer-reports-every-clause`, whose ruling
-was given for decisions that bind as a presumption.
+did not weigh a statement that binds outright.
 
 ### A goal edit can be made inside another activity, as thaum's D5 was `##arg-25`
 
@@ -577,7 +578,7 @@ but only after your approval, which then costs a second ruling, as D8 did."
 Round 1, the session; bears on #goal-set-review. "every goal edit is yours anyway, so an audit's
 split between edits applied in the branch and items put to you has nothing to split. A goal set
 fits one agent's context. And per-draft review already re-checks each repair." The counts it
-rested on, rootpoint 26, thaum 8 and this repository 27 goals, the last recounted at assembly where round 1 had said 23, are re-taken by counting the
+rested on, rootpoint 28, thaum 8 and this repository 27 goals, recounted at assembly where round 1 had said 26 and 23, are re-taken by counting the
 level-two headings of every goals home `cargo klarch anchors` lists in each project.
 
 ### Shape A narrows two heads whose arguments rest on two standards `##arg-28`
@@ -743,7 +744,7 @@ tool ? If a CLI API is what I intend to provide, then it should be stated as a g
 
 Round 8, the session; bears on #goal-standard. Rule 1 as approved, "never states a mechanism, a
 tool, a check or a derivation", contradicted the outcome test of goal-setting, "would the Component
-be for something else, or reach the same end another way", whose "end" is what the owner intends:
+be for something else (a goal), or would it reach the same end another way (a decision, …)", whose "end" is what the owner intends:
 an owner who intends a command line makes a Component without one for something else. The second
 default kept the contradiction by judging the end from the user's side. The goals that met the
 first rule are evidence that the rule bites, not that they are right; step 6 judges them. The exact
@@ -951,11 +952,11 @@ The `%%` comment beside each rule of the fragment, its cases:
 
 | rule | cases |
 | --- | --- |
-| 1 outcome | thaum's library goal, "The stream shape that meets this is …"; thaum's "100x" ratio, 0c8c25bd, and its mechanisms, a62e2296 |
+| 1 outcome | thaum's library goal, "The stream shape that meets this is …"; thaum's fuzzing goal, "whole games as a lower-rate second arm", removed by 0c8c25bd, and its mechanisms, a62e2296 |
 | 2 one reading | R7, "every view it shows"; thaum 85f2b26c, "learning agent" |
 | 3 ruled out knowingly | R1, R4, R9 |
 | 4 one intent | R2, the concurrency sentence inside rootpoint's `minimal-content-set` |
-| 5 no contradiction | R1, R2, R9; thaum D5 against `coverage-before-speed`, repaired by D8 |
+| 5 no contradiction | R1, R2, R9; thaum's fuzzing goal against `coverage-before-speed`, its qualifier dropped by thaum 04bed4a6, kept absent by D5 and restored by D8 |
 | 6 checkable measure | R6, a measure naming a milestone's list |
 | 7 refinement | no case observed; the rule follows from #arg-4 |
 | 8 exclusion | rootpoint's `minimal-content-set`, whose concurrency sentence named its design and whose smallness part did not |
@@ -1110,8 +1111,8 @@ whole-set review of every goals home of this repository: the reviewer in its who
 each finding drafted through the skill's drawing out of intent, the reviewer in its draft mode on
 each version, with every relevant statement of the owner, #arg-48 among them, and each goal ruled by
 the owner by its slug. Every edit the rulings call for is made: a rewording, a retitling, a split, a
-removal, an addition. Each removed or renamed goal's references are repaired in the same commit, per
-`skill@knowledge-architect-goal-setting@when-it-runs-again`; a head whose ground a reworded goal
+removal, an addition. Each removed or renamed goal's references are repaired in the same commit, as
+`skill@knowledge-architect-goal-setting@when-it-runs-again` says of a removal and the check reports of either; a head whose ground a reworded goal
 changes is read against it. It runs from a session started after step 2's install, so the reviewer
 is a registered agent type. The session that builds steps 1 to 5 pushes them and tells the owner;
 the owner starts the session of step 6, which grounds on this spec and the branch's commit messages.

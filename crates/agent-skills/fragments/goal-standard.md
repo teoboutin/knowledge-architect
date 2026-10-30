@@ -6,7 +6,8 @@ judges by them.
 %% Rule 1 reads goal-setting's outcome test against the owner's intent: an absolute list of things a
 %% goal never names ruled out a kind of interface the owner intends to provide, such as a command
 %% line, while an exact form, a command's name, is a decision. Cases: thaum's library goal stated "the
-%% stream shape that meets this"; thaum's fuzzing goal stated a "100x" ratio and two mechanisms.
+%% stream shape that meets this"; thaum's fuzzing goal stated "a lower-rate second arm" and two
+%% mechanisms.
 1. **It states an outcome the owner intends**: what the Component is for, and for whom. A sentence
    is a mechanism when, changed, the Component would still be for what the owner intends, and an
    outcome when the change would make it for something else. So the kind of interface the Component
