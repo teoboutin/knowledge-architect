@@ -46,6 +46,14 @@ subsection is omitted.
 - `agent-skills`, patch: a project whose own text cites `knowledge-architect-standing-entry-searcher`
   or `knowledge-architect-design-entry-searcher` by its reference rewrites the citation to
   `agent@knowledge-architect-record-searcher`, which replaces both.
+- `agent-skills`, patch: every goal of a project meets the goal standard of eight rules the
+  goal-setting skill now states: one outcome the owner intends, one reading, nothing ruled out that
+  the owner has not ruled out knowingly, one intent, no contradiction with another goal, a measure
+  that stays checkable, a refinement that neither widens nor contradicts its parent, and an
+  exclusion only where it names the design it excludes. Run the review of the whole goal set,
+  `skill@knowledge-architect-goal-setting@whole-set-review`, which puts every goal to the owner with
+  its boundary block, each finding drafted and ruled goal by goal; the pin move runs it in a branch
+  of its own, as it runs an audit axis.
 
 ### New features
 
@@ -82,6 +90,8 @@ subsection is omitted.
 - `agent-skills`, patch: the primer's last section, `primer@coined-terms`, defines in one sentence,
   with a pointer to its home, each coined term the primer uses, and separates the senses of a word
   the workflow uses in more than one; a project's own text can cite it.
+- `agent-skills`, patch: the agent `agent@knowledge-architect-goal-reviewer` judges goals against
+  the goal standard, in a draft, a whole-set and a merge mode.
 
 ### Workflow
 
@@ -204,6 +214,19 @@ subsection is omitted.
   the entries on it in its `rejected` home, per the primer's new subsection in
   `primer@verify-before-relying`. A fix that would contradict a head, or bring back a rejected
   design, goes to the design skill.
+- `agent-skills`, patch: goal-setting dispatches the goal reviewer before every ruling of the owner,
+  on the whole batch of new and reworded goals with every relevant statement of the owner, again on
+  every rewording and on every repaired draft; the owner sees each goal with its boundary block, the
+  cases it rules out and admits and the sibling goals it touches, and each contradiction between the
+  owner's statements and a goal at the top of the draft.
+- `agent-skills`, patch: a goal's wording proposed in another activity, a plan's default, a review's
+  repair, an audit's item or a design discussion's goal, is ruled as its own item under
+  goal-setting, never by a word given on a batch of other items.
+- `agent-skills`, patch: the review before a merge owes the goals axis, the goal reviewer in its
+  merge mode, when the diff adds, rewords or removes a goal.
+- `agent-skills`, patch: a goal's wording that rules out what the owner has not ruled out knowingly
+  is a finding of the transcript reviewer, of a plan review and of the retrospective, though a
+  stricter refinement of any other ruling stays none.
 
 ## 0.8.0
 
