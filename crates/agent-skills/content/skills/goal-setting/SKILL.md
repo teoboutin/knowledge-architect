@@ -148,4 +148,10 @@ section, as `skill@knowledge-architect-setup@moving-the-pin` says. Dispatch
 `agent@knowledge-architect-goal-reviewer` in its whole-set mode, fresh, with the project as its
 brief. Each finding becomes a draft that `skill@knowledge-architect-goal-setting@drawing-out-intent`
 takes, its draft-mode review included, so the owner rules on every rewording, retitling, split,
-removal or addition goal by goal. A goal the review finds conforming needs no ruling.
+removal or addition goal by goal.
+%% Rule 3 turns on what the owner ruled out knowingly, which the reviewer cannot judge without the
+%% owner's statements; the excess reach of a goal approved without a reading of its reach is the
+%% defect the standard was written for, so every goal is shown with its block once.
+**Every goal is put to the owner with its boundary block**, a goal with no other finding included,
+for a ruling: kept as it stands, or reworded through
+`skill@knowledge-architect-goal-setting@drawing-out-intent`, since only the owner judges rule 3.

@@ -51,7 +51,7 @@ whole, as `path@agent-skills@CLAUDE.md` says in "Editing an installed skill or a
 | `FRAGMENT_HOSTS` | the table of each fragment and its hosts' install paths in `path@agent-skills@src/lib.rs`, held by the tests `each_fragment_has_its_hosts` and `no_fragment_line_ships_outside_its_hosts` |
 | the goals design home | `path@agent-skills@docs/design/goals.md`, the subdocument of `register@agent-skills@design` on goals |
 | R1 to R9 | the changes of an existing goal in rootpoint's history, in its repository at /home/teo/dev/rootpoint, listed in "What the work is" |
-| Q1 to Q8 | the questions the session put to the owner, in the conversation: Q5 is D2, Q6 is D3, Q7 whether this repository's goals are brought into conformance on this branch (#arg-50), Q8 how a whole-set review checks rule 3; and Q1, what the owner read rootpoint's goal drafts for, intent or reach (#arg-33); Q2, whether a project's goal set stays in the tens of goals (#arg-39); Q3, whether the owner accepts by name the cost #c-owner-attention weighs; Q4, the outcome of `goal@knowledge-architect@rust-projects-come-first` |
+| Q1 to Q8 | the questions the session put to the owner, in the conversation: Q5 is D2, Q6 is D3, Q7 whether this repository's goals are brought into conformance on this branch (#arg-50), Q8 how a whole-set review checks rule 3, ruled for every goal's block; and Q1, what the owner read rootpoint's goal drafts for, intent or reach (#arg-33); Q2, whether a project's goal set stays in the tens of goals (#arg-39); Q3, whether the owner accepts by name the cost #c-owner-attention weighs; Q4, the outcome of `goal@knowledge-architect@rust-projects-come-first` |
 | D5, D8 | two defaults of thaum's milestone driven-testing, in its repository at /home/teo/dev/games/thaum: D5 reworded a goal and was approved with the milestone's other defaults (thaum commit a62e2296); D8 restored a qualifier whose absence D5's wording carried, which set the goal against another (thaum commit 1186dac0); the qualifier had been dropped earlier by a goal-setting draft the owner approved (thaum commit 04bed4a6) |
 | boundary block | per drafted goal, the cases it rules out and the cases it admits, from the project's existing or planned work or the uses the owner's statements describe, and the sibling goals it touches, each with its relation; shown to the owner, never written to a goals home |
 
@@ -395,7 +395,7 @@ The owner, round 2: "goal-edit-ruled-alone agreed"
 
 Proposed by the session in round 1 as a fork, shape A its default and shape B a fourth audit axis.
 The session chose shape A, its default, and the owner approved it in round 2; state `approved`. Arguments: #arg-7, #arg-8, #arg-27,
-#arg-28, #arg-29, #arg-39, #arg-46, #arg-48. Its shape is "Decided design", the whole-set review; its harvest
+#arg-28, #arg-29, #arg-39, #arg-46, #arg-48, #arg-53. Its shape is "Decided design", the whole-set review; its harvest
 is a head in the goals design home, recorded in the weak form as the session's choice the owner
 approved, per `design@agent-skills@fork-choice-in-weak-form`, and the rewrites of
 `design@agent-skills@audit-is-an-activity` and `design@knowledge-architect@changelog-entries`.
@@ -753,6 +753,13 @@ first rule are evidence that the rule bites, not that they are right; step 6 jud
 form of an interface fails the test, since renaming a command leaves the Component for what the
 owner intends, and its home is a design head, by the entry test on an interface others consume.
 
+### Rule 3 is judged by the owner on every goal's boundary block, at a review of the whole set `##arg-53`
+
+Round 9, the session, on Q8; bears on #goal-set-review. Whole-set mode holds no statement of the
+owner, so it cannot judge rule 3, and a goal whose one defect is its reach, as rootpoint's "one
+human-readable text file" was, would pass as conforming. Every goal is shown with its block, a cost
+of one block per goal, 27 in this repository. The owner agreed on that shape.
+
 ## New names, in one place
 
 | name | file | status |
@@ -863,7 +870,8 @@ named by its brief:
   owner's statements say, without showing it.
 - **whole set**: dispatched by the section `skill@knowledge-architect-goal-setting@whole-set-review`. Its brief: every goals home. It
   reports every goal that fails a rule it can judge without the owner's statements, rules 1, 2 and
-  4 to 8, and every conflict between two goals; rule 3 waits for the draft each finding becomes.
+  4 to 8, and every conflict between two goals, and gives every goal's boundary block material, on
+  which the owner judges rule 3, per Q8.
 - **merge**: dispatched by the review row. Its brief: the branch's range. It reports every goal the
   diff adds or changes that fails a rule it can judge without the owner's statements, rules 1, 2
   and 4 to 8, or that conflicts with a goal of the tree, and every goal edit whose ruling no commit
@@ -923,7 +931,9 @@ block, and the owner's word on a batch of other items never covers it. The plann
 A section of goal-setting titled "Reviewing the whole goal set", its slug `skill@knowledge-architect-goal-setting@whole-set-review`. Its occasions: the owner's request, and a pin move
 across a version whose Migration entry names the section. Setup is no occasion, per D1. The session
 dispatches the reviewer in its whole-set mode, and each finding becomes a draft that
-`skill@knowledge-architect-goal-setting@drawing-out-intent` takes, its draft-mode review included, which is the re-check.
+`skill@knowledge-architect-goal-setting@drawing-out-intent` takes, its draft-mode review included, which is the re-check. On the owner's word to Q8, every
+goal is put to the owner with its boundary block, a goal with no other finding included, for a
+ruling: kept, or reworded; only the owner judges rule 3 (#arg-53).
 `skill@knowledge-architect-goal-setting@when-it-runs-again` names the section among the occasions the skill runs on.
 The occasion reaches the sessions that meet it by three edits: goal-setting's frontmatter
 description and the primer's line for goal-setting under `primer@installed-skills` each gain "the
@@ -1127,8 +1137,8 @@ changelog entry, per `design@knowledge-architect@versioning-policy`.
 
 Claims:
 
-- Every goal of this repository passes the reviewer's whole-set mode, or carries the owner's ruling
-  that it stands as it is: the reviewer's last report on the set, with each remaining finding ruled.
+- Every goal of this repository carries the owner's ruling at this review, kept or reworded, on its
+  boundary block and findings: the reviewer's last report on the set, with each goal ruled.
 - `issue@knowledge-architect@the-goal-that-rust-projects-come-first-states-a-universal-the-owner-has-not-ruled-on-knowingly`
   closes with the owner's ruling on that goal.
 - `cargo klarch check` passes after every goal removal or rename.
