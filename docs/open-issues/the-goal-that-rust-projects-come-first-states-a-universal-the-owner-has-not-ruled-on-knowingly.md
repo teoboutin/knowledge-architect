@@ -15,8 +15,8 @@ universal, or does the goal reach wider than the owner's intent?
 ### What
 
 Found in the design discussion on goals, which put the question to the owner as Q4. The owner chose
-to record it as a question for the whole-set review of this repository's goals, which that spec
-plans, rather than to rule on the wording then.
+to record it as a question for the whole-set review of this repository's goals rather than to rule
+on the wording then, and then brought that review onto the spec's own branch.
 
 ### Why it matters
 
@@ -25,6 +25,6 @@ out designs the owner would have admitted, against `goal@knowledge-architect@age
 
 ### What would close it
 
-A whole-set review of this repository's goals, once the work of that spec lands, whose finding on
-this goal the owner rules on under `skill@knowledge-architect-goal-setting`: the goal kept as it
-stands, or reworded.
+The whole-set review of this repository's goals that step 6 of that spec runs on its branch, on the
+owner's word, whose finding on this goal the owner rules on under
+`skill@knowledge-architect-goal-setting`: the goal kept as it stands, or reworded.

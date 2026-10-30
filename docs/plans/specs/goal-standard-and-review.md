@@ -14,6 +14,8 @@ This spec plans the work that makes a goal follow a standard, and makes that sta
 - **A goal wording is ruled on alone**, never inside a batch approval of other items.
 - **A review of the whole goal set** is an occasion of the goal-setting skill, not a fourth axis
   of the project audit.
+- **This repository's goals brought into conformance** with the standard, on this branch, by
+  step 6, on the owner's word.
 
 It is written for a session that did not witness the design discussion that produced it. It leaves
 the repository in a commit of its own, after its harvest and the review before the merge.
@@ -108,14 +110,20 @@ a term the project used in another sense.
   description and the primer's line for goal-setting under `primer@installed-skills` name the
   occasions the skill loads on.
 
+**Inside the work, on the owner's word to Q7 (#arg-50):** this repository's own goals are brought
+into conformance with the standard on this branch, by step 6, a whole-set review whose every
+finding is drafted and ruled goal by goal, rewordings, retitlings, splits, removals and additions
+included. Two findings are known in advance: `goal@knowledge-architect@rust-projects-come-first`,
+whose "every check and tool" is a universal under rule 3, which
+`issue@knowledge-architect@the-goal-that-rust-projects-come-first-states-a-universal-the-owner-has-not-ruled-on-knowingly`
+records and step 6 closes; and `goal@agent-skills@one-skill-per-activity`, whose "activity" reads
+two ways under rule 2 and which holds two intents under rule 4, for which the owner's argument
+#arg-48 is among the statements step 6 gives the reviewer.
+
 **Outside the work:**
 
 - The goals of rootpoint and thaum. Their repair is each project's goal-setting, run as the
   whole-set review once a release ships this work.
-- This repository's own goals, including `goal@knowledge-architect@rust-projects-come-first`, whose
-  "every check and tool" is a universal under rule 3. On the owner's word to Q4, a `question` issue
-  of `register@knowledge-architect@issue` records it for the whole-set review of this repository's
-  goals.
 - The goal-coverage axis of `issue@agent-skills@audit-axes-beyond-the-design-record`, which reads
   each goal against the heads that serve it: another question than a goal's own quality.
 - An expectation set for goal-setting, `issue@agent-skills@expectation-sets-for-the-installed-skills`:
@@ -712,6 +720,15 @@ provided is part of the outcome only where another kind would not reach the user
 and a reviewer's memory do not in `goal@core@declared-instructions-are-checked`; an exact form never
 is; and where the test leaves the level open, the reviewer asks the owner.
 
+### This repository's goals are brought into conformance on this branch, since other work would have a hard time without it `##arg-50`
+
+Round 7, the owner, on Q7; bears on #goal-set-review, #goal-standard. "since we are changing the
+goal standard, I think that once the work is done, we should apply the standard to bring the goals
+into conformance, on the same branch. This includes any rewording, retitling, split, removal, or
+addition that is needed to pass the standard. I think that any work in the project would have a
+hard time getting done properly without bringing these goals into conformance." On Q6, the same
+round: "my argument should either be recorded, or used to reword the goal".
+
 ## New names, in one place
 
 | name | file | status |
@@ -1058,12 +1075,36 @@ Claims: the copies match, by the test `cargo x changelog` keeps; `cargo x gates`
 
 Fails alone on: the changelog copy test.
 
+### Step 6: this repository's goals brought into conformance
+
+Builds, under `skill@knowledge-architect-goal-setting`, read whole as installed by step 3, the
+whole-set review of every goals home of this repository: the reviewer in its whole-set mode, then
+each finding drafted through the skill's drawing out of intent, the reviewer in its draft mode on
+each version, with every relevant statement of the owner, #arg-48 among them, and each goal ruled by
+the owner by its slug. Every edit the rulings call for is made: a rewording, a retitling, a split, a
+removal, an addition. Each removed or renamed goal's references are repaired in the same commit, per
+`skill@knowledge-architect-goal-setting@when-it-runs-again`; a head whose ground a reworded goal
+changes is read against it. It runs from a session started after step 2's install, so the reviewer
+is a registered agent type, and after D2 is ruled, since rules 1 and 6 are D2's.
+
+Claims:
+
+- Every goal of this repository passes the reviewer's whole-set mode, or carries the owner's ruling
+  that it stands as it is: the reviewer's last report on the set, with each remaining finding ruled.
+- `issue@knowledge-architect@the-goal-that-rust-projects-come-first-states-a-universal-the-owner-has-not-ruled-on-knowingly`
+  closes with the owner's ruling on that goal.
+- `cargo klarch check` passes after every goal removal or rename.
+
+Fails alone on: the reviewer's report, the owner's rulings and the check.
+
 ## Order rationale
 
 - The fragment comes first so that the agent of step 2 hosts a fragment that exists.
 - The agent comes before the procedure, so that the references step 3 writes to it resolve.
 - The procedure comes before the exception, since the exception routes a finding to the procedure.
-- The changelog comes last, since it names what steps 1 to 4 built.
+- The changelog follows the procedure, since it names what steps 1 to 4 built.
+- The goals are brought into conformance last, since they are reviewed by the installed procedure,
+  the reviewer and the standard the earlier steps land.
 
 ## Defaults awaiting the owner
 
@@ -1099,10 +1140,11 @@ At the landing, under `skill@knowledge-architect-decision-recording`, read whole
 | #goal-reviewer-agent | the goals design home; `path@agent-skills@docs/design/reviews.md` | a head on the reviewer, its modes and its findings (a) and (b); `design@agent-skills@transcript-reviewer-agent` rewritten with the exception for goals |
 | #goal-review-before-merge | `path@agent-skills@docs/design/reviews.md` | a head on the row |
 | #goal-edit-ruled-alone | the goals design home | a head on the ruling alone |
-| #goal-set-review | the goals design home; `path@agent-skills@docs/design/audit-method.md`; `register@knowledge-architect@design` | a head in the weak form; `design@agent-skills@audit-is-an-activity` and `design@knowledge-architect@changelog-entries` rewritten; `design@agent-skills@goals-change-through-goal-setting` rewritten with the occasion |
+| #goal-set-review | the goals design home; `path@agent-skills@docs/design/audit-method.md`; `register@knowledge-architect@design` | a head in the weak form, carrying the owner's argument #arg-48 that an activity is its methodology, whatever step 6 rules on the goal that states it; `design@agent-skills@audit-is-an-activity` and `design@knowledge-architect@changelog-entries` rewritten; `design@agent-skills@goals-change-through-goal-setting` rewritten with the occasion |
 | #exclusion-names-its-rival | the standard's head | rule 8 and its argument |
 | #goal-reading-in-use | the standard's head, or the commit message | the absence, by entry test 2 if a reason must be respected at no site |
 | the losing alternatives | `register@agent-skills@rejected`, where `skill@knowledge-architect-decision-recording` admits each | each with the head that cites it |
+| step 6's goal edits | the goals homes, under goal-setting | written at step 6, each in the commit of its round of rulings; no harvest row |
 | the premortem's causes | `register@agent-skills@tripwire`, where the standard admits each | each with its horizon |
 | `issue@agent-skills@an-upgrade-re-reads-no-root-restatement` | its own file | the goal reviewer as a second instance of its fourth case |
 | #goal-set-review | `path@agent-skills@docs/design/audit-method.md`; `register@agent-skills@tripwire` | `design@agent-skills@audit-triggers` rewritten to name the whole-set review; `tripwire@agent-skills@axis-not-run-at-a-pin-move` widened to it |
@@ -1112,6 +1154,7 @@ At the landing, under `skill@knowledge-architect-decision-recording`, read whole
 
 - rootpoint and thaum each run the whole-set review when they move their pin across the release, per
   its Migration entry; rootpoint's `minimal-content-set` is expected to split under rules 4 and 8.
-- This repository's goals are reviewed on the owner's request, `goal@knowledge-architect@rust-projects-come-first` among the
-  first findings expected.
+- A design head whose ground cites a goal that step 6 rewords, splits or removes is read again at
+  that step; one that needs more than a re-pointed reference is a decision of its own, routed to
+  `skill@knowledge-architect-design`.
 - A set past what one agent reads, if premortem cause 3 fires, reopens #goal-set-review.
