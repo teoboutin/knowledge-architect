@@ -1,0 +1,30 @@
+---
+kind: question
+---
+# The goal that Rust projects come first states a universal that no ruling shows the owner chose knowingly
+
+## Summary
+
+`goal@knowledge-architect@rust-projects-come-first` says a Rust project gets "every check and tool
+the project offers". The goal standard that `spec@plans@goal-standard-and-review` plans asks, in its
+rule 3, that a goal rule out nothing the owner has not ruled out knowingly. Did the owner choose that
+universal, or does the goal reach wider than the owner's intent?
+
+## Details
+
+### What
+
+Found in the design discussion on goals, which put the question to the owner as Q4. The owner chose
+to record it as a question for the whole-set review of this repository's goals, which that spec
+plans, rather than to rule on the wording then.
+
+### Why it matters
+
+A goal binds outright, per `primer@goals-bind`, so a universal wider than the owner's intent rules
+out designs the owner would have admitted, against `goal@knowledge-architect@agents-work-without-drift`.
+
+### What would close it
+
+A whole-set review of this repository's goals, once the work of that spec lands, whose finding on
+this goal the owner rules on under `skill@knowledge-architect-goal-setting`: the goal kept as it
+stands, or reworded.
