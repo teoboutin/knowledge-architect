@@ -18,10 +18,36 @@ That is why an agent never edits a goal outside this skill.
 
 ## A goal, and what is not one `##goal-or-not`
 
-**A goal is met or unmet. A decision is won or lost.** A goal states an outcome: what the project or
-the Component is for, and for whom. It never states a mechanism. The test, for each sentence: if it
-changed, would the Component be for something else (a goal), or would it reach the same end another
-way (a decision, which belongs in the design home)?
+**A goal is met or unmet. A decision is won or lost.**
+
+**A goal is proper when all of these hold.** The drafter writes to them, and the goal reviewer
+judges by them.
+
+1. **It states an outcome the owner intends**: what the Component is for, and for whom. A sentence
+   is a mechanism when, changed, the Component would still be for what the owner intends, and an
+   outcome when the change would make it for something else. So the kind of interface the Component
+   provides, a command line, a library API or a check, is an outcome where the owner intends to
+   provide that kind, and the drafter asks the owner where the statements do not say. Its exact
+   form, a command's name, a flag or a signature, is a decision: an interface others consume earns a
+   design head. The argument that a design follows from a goal goes in that design's head, which
+   cites it.
+2. **It has one reading.** Every term has one meaning in the project; a word the project already
+   uses in another sense is defined or replaced. Every "every", "no", "all" and "not in scope" names
+   the set it ranges over.
+3. **It rules out nothing the owner has not ruled out knowingly.** Where it generalises the owner's
+   statements, the generalisation and the cases it rules out are shown to the owner before the
+   ruling.
+4. **It holds one intent.** Two statements are two goals when each means something without the
+   other; a qualifier, a domain or a measure belongs to the goal it qualifies.
+5. **It contradicts no other goal of the project.** No state of the project meets one goal only by
+   failing another. Where two outcomes compete, a goal states which ranks first.
+6. **What shows it met stays checkable**: an observable of the project as it stands, never a plan
+   document or anything that leaves.
+7. **A refinement neither widens nor contradicts the goal it refines.**
+8. **A statement of what the Component is not for is a goal only when it names the design it
+   excludes**, one that another goal would otherwise argue for. A property of smallness with no
+   named design is no goal: it is the owner's scope control, exercised by what the owner asks for,
+   or a quality argument a design head makes against its own rival.
 
 A goal stays in its home **while it is met**. One removed when it is achieved stops being checked,
 and can stop being met without anyone noticing. **A goal leaves only when the owner abandons it**,

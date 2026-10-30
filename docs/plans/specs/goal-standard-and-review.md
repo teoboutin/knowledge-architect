@@ -749,7 +749,7 @@ owner intends, and its home is a design head, by the entry test on an interface 
 
 | name | file | status |
 | --- | --- | --- |
-| `planned@agent-skills@fragments/goal-standard.md` | the standard's fragment | new |
+| `path@agent-skills@fragments/goal-standard.md` | the standard's fragment | new |
 | `planned@agent-skills@content/agents/goal-reviewer.md` | the reviewer agent's source, installed as the agent `knowledge-architect-goal-reviewer` | new |
 | the section `whole-set-review` | goal-setting's source | new |
 | `skill@knowledge-architect-goal-setting@goal-or-not` | goal-setting's source | existing; hosts the fragment |
@@ -1007,7 +1007,7 @@ review of this repository's goals after the landing is real work the owner may a
 
 ### Step 1: the fragment, hosted by goal-setting
 
-Builds `planned@agent-skills@fragments/goal-standard.md` with the eight rules and their `%%` cases;
+Builds `path@agent-skills@fragments/goal-standard.md` with the eight rules and their `%%` cases;
 goal-setting's `skill@knowledge-architect-goal-setting@goal-or-not` hosts it, its outcome test moved into the fragment's rule 1;
 `FRAGMENT_HOSTS` gains the row naming the installed goal-setting skill; the fragment and its
 placeholder land in one commit, since the build refuses a fragment no host names;
