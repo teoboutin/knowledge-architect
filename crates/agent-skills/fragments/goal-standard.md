@@ -34,7 +34,9 @@ judges by them.
 %% other standing", which splits a rule from its exception. Case: rootpoint's sentence on concurrent
 %% editing, inside its goal on content kinds.
 4. **It holds one intent.** Two statements are two goals when each means something without the
-   other; a qualifier, a domain or a measure belongs to the goal it qualifies.
+   other; a qualifier, a domain or a measure belongs to the goal it qualifies. Two goals may share
+   an aspect: a goal that touches what another states breaks no rule, and is a finding of rule 5
+   only where the two cannot both be met.
 %% Cases: rootpoint's three goals whose excess reach conflicted with a sibling goal; thaum's
 %% rewording of its fuzzing goal that dropped a qualifier and set it against its goal of rules
 %% coverage before speed.

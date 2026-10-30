@@ -92,6 +92,8 @@ and it leaves only on the owner's word.
    its brief is the whole batch of new and reworded goals, every relevant statement of the owner,
    verbatim, whether or not the draft drew on it, and the project. Repair each `settled` finding,
    and dispatch it again on the repaired batch, so that the version shown is a version reviewed.
+   Count a batch's findings apart from its `minor` ones, those of rules 4 and 6, which change no
+   act of an agent.
 %% The block turns a goal's reach into cases the owner judges by intent; a prose goal is easy to
 %% approve without seeing what it rules out. The owner's statements stay out of the display: an
 %% intent spread over several statements is carried by the distilled goal, not by a quotation.

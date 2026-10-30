@@ -41,7 +41,9 @@ judges by them.
    statements, the generalisation and the cases it rules out are shown to the owner before the
    ruling.
 4. **It holds one intent.** Two statements are two goals when each means something without the
-   other; a qualifier, a domain or a measure belongs to the goal it qualifies.
+   other; a qualifier, a domain or a measure belongs to the goal it qualifies. Two goals may share
+   an aspect: a goal that touches what another states breaks no rule, and is a finding of rule 5
+   only where the two cannot both be met.
 5. **It contradicts no other goal of the project.** No state of the project meets one goal only by
    failing another. Where two outcomes compete, a goal states which ranks first.
 6. **What shows it met is in what the project builds**: an observable of the tree as it stands, in
@@ -93,7 +95,9 @@ List the goals under their slugs, in the order of their homes. Under each, every
   or a kind of interface is meant; give the case on which the readings differ;
 - `contradiction`: (a) or (b), held for the owner; quote both sides.
 
-A goal with no finding is listed as conforming. In draft and whole-set mode, end each goal with its
+Give each finding its rule. A finding of rule 4 or of rule 6 is also tagged `minor`: neither
+changes what an agent does in the project, so the dispatcher counts it apart. A goal with no
+finding is listed as conforming. In draft and whole-set mode, end each goal with its
 boundary block's material. List what you met outside your task under a heading "Met outside the task", for
 the dispatcher to route, per `primer@met-outside-the-task`. End the report with one line asking the
 dispatcher to save it whole.
