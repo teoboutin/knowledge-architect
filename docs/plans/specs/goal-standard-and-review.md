@@ -342,7 +342,7 @@ Proposed by the session in round 1 with seven rules; rule 8 is #exclusion-names-
 to the fragment at assembly since the reviewer applies it. Approved in round 2, rule 3 reopened by
 the session's material finding in round 2 on the owner's argument #arg-34, and closed in round 3.
 State: `approved`, rules 1 and 6 by D2. Arguments: #arg-1, #arg-2, #arg-3, #arg-4, #arg-5, #arg-6, #arg-10, #arg-11, #arg-14, #arg-15, #arg-16, #arg-17, #arg-18, #arg-34,
-#arg-41, #arg-47, #arg-49, #arg-51, #arg-52. Its shape is "Decided design", the standard; its harvest is a head in the goals design home.
+#arg-41, #arg-47, #arg-49, #arg-51, #arg-52, #arg-54. Its shape is "Decided design", the standard; its harvest is a head in the goals design home.
 
 The owner, round 2: "Agreed on goal-standard and the delivery method as a fragment in skill and
 reviewer." The owner, round 3: "After these refinements,  agree with the whole table, you can
@@ -760,6 +760,17 @@ owner, so it cannot judge rule 3, and a goal whose one defect is its reach, as r
 human-readable text file" was, would pass as conforming. Every goal is shown with its block, a cost
 of one block per goal, 27 in this repository. The owner agreed on that shape.
 
+### A goal is met on what the project builds, and evidence from use shows it unmet in practice `##arg-54`
+
+Round 10, the owner, on Q14; bears on #goal-standard. "the observables for these should be of a
+different nature. Instead, it should be about how the workflow and the checker are built: the
+instructions must work toward preventing these events. The goals should not observe results of using
+the project IMO." … "The usage observables are not worthless though. They are findings that show
+that the goal is not met in practice. But I think it is problematic to have goals mainly observe
+usage of the project, because in a standard project, the feasability is limited." … "a separation
+between observation of usage (not in the tree) and of what is built has to be defined, and both
+should enter the goal standard." Rule 6 is rewritten so.
+
 ## New names, in one place
 
 | name | file | status |
@@ -804,8 +815,12 @@ the step may reword it, keeping each rule's meaning, and the reviewers judge the
 >    other; a qualifier, a domain or a measure belongs to the goal it qualifies.
 > 5. **It contradicts no other goal of the project.** No state of the project meets one goal only
 >    by failing another. Where two outcomes compete, a goal states which ranks first.
-> 6. **What shows it met stays checkable**: an observable of the project as it stands, never a plan
->    document or anything that leaves.
+> 6. **What shows it met is in what the project builds**: an observable of the tree as it stands,
+>    in the instructions, the checks, the code and the documents that work toward the outcome, never
+>    a plan document or anything that leaves. Evidence from the project's use, such as a review's
+>    finding, a retrospective's finding or what the owner observes in sessions, is not the measure:
+>    it shows the goal unmet in practice where what is built fails it, and leads to a change of what
+>    is built.
 > 7. **A refinement neither widens nor contradicts the goal it refines.**
 > 8. **A statement of what the Component is not for is a goal only when it names the design it
 >    excludes**, one that another goal would otherwise argue for. A property of smallness with no

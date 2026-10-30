@@ -41,8 +41,15 @@ judges by them.
 5. **It contradicts no other goal of the project.** No state of the project meets one goal only by
    failing another. Where two outcomes compete, a goal states which ranks first.
 %% Case: a rootpoint measure naming the list of a milestone, which left when the milestone landed.
-6. **What shows it met stays checkable**: an observable of the project as it stands, never a plan
-   document or anything that leaves.
+%% The measure is what the project builds, since a measure on use is out of reach in most projects,
+%% where the project is not used on itself; evidence from use keeps the role of showing the goal
+%% unmet in practice.
+6. **What shows it met is in what the project builds**: an observable of the tree as it stands, in
+   the instructions, the checks, the code and the documents that work toward the outcome, never a
+   plan document or anything that leaves. Evidence from the project's use, such as a review's
+   finding, a retrospective's finding or what the owner observes in sessions, is not the measure: it
+   shows the goal unmet in practice where what is built fails it, and leads to a change of what is
+   built.
 7. **A refinement neither widens nor contradicts the goal it refines.**
 %% Case: rootpoint's goal on content kinds, whose sentence on concurrent editing named the design it
 %% excluded, which another goal would have argued for, and whose part on staying small named none.
