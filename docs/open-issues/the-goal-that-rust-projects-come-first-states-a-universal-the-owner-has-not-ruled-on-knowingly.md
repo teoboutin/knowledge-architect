@@ -21,7 +21,8 @@ accepted, rather than ruled on then; the owner then brought that review onto the
 ### Why it matters
 
 A goal binds outright, per `primer@goals-bind`, so a universal wider than the owner's intent rules
-out designs the owner would have admitted, against `goal@knowledge-architect@agents-work-without-drift`.
+out designs the owner would have admitted, against `goal@knowledge-architect@the-owner-decides`, under which the owner
+states the project's intent in its goals.
 
 ### What would close it
 

@@ -1158,6 +1158,11 @@ Claims:
   closes with the owner's ruling on that goal.
 - `cargo klarch check` passes after every goal removal or rename.
 
+The commit of each batch of rulings repairs every text that cites a goal it rewords and that the
+rewording makes false; batch 1's also rewrites `design@knowledge-architect@committed-findings-analysis`
+so the owner rules only on what the closed list of `goal@knowledge-architect@the-owner-decides`
+holds, on the owner's word to Q32.
+
 Fails alone on: the reviewer's report, the owner's rulings and the check.
 
 ## Order rationale

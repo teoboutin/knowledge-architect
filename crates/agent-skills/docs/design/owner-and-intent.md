@@ -151,7 +151,7 @@ or addition to the design. Its table is the owner's argument: going through chal
 discussion makes the decision likely to have been selected from argument, so nothing or nearly
 nothing in a head stands on the owner's word, and what does is a fact the owner holds or a wider
 intent, which probably belongs in a goal. It serves `goal@knowledge-architect@the-owner-decides`,
-under which a choice the owner made is recorded as the owner's and a decision the owner approved
+under which the owner decides only what the argument leaves open, so a decision the owner approved
 stands on its argument.
 
 The nearest rival, the owner's words as a ground wherever the decision came from the owner, admits
@@ -176,8 +176,8 @@ material finding, applied to a fork's choice: two sessions could otherwise flip 
 arguments of equal weight, each costing a rebuild. An approval at a fork is the session's choice
 on the owner's report: an approval of a default is given without analysing the proposal deeply, and
 is not to be attributed to the owner long term. It serves
-`goal@knowledge-architect@agents-work-without-drift`, under which the owner rules only on what the
-goals and the record leave open.
+`goal@knowledge-architect@the-owner-decides`, under which the owner rules only on what the argument
+leaves open.
 
 The nearest rival, a fork's choice reversed by the owner alone, protects a weighing the owner made
 and did not state; a weighing the owner states is an argument or a goal, which the record keeps.
@@ -202,8 +202,8 @@ quotation already in a head is converted when a change touches the head, per
 `design@agent-skills@existing-heads-on-touch`; the reference a rename sets beside a quotation does
 not count, per `design@agent-skills@a-past-sentence-is-rewritten`.
 
-It serves `goal@knowledge-architect@the-owner-decides`, under which a choice the owner made is
-recorded as the owner's: the attribution carries that, and the record shows the owner's choices.
+It serves `goal@knowledge-architect@design-is-recorded-with-its-arguments`: the attribution records a choice
+the owner made as the owner's, and the record shows the owner's choices.
 The owner judged verbatim quotations of little value most of the time, as long as the attribution is
 correct, and, as a hedged view, out of place in design heads. A verbatim quotation also costs the checker's syntax: two sessions bent one to get it past
 the checker, one by writing spans of reference kinds still to come as placeholders, in the
@@ -250,9 +250,8 @@ either side's shape can win. A reopening of a closed fork decides nothing: a new
 fork needs a goal, a fact or an argument, a new weighing the owner states included, since the owner
 changes a decision through one of those, per `design@agent-skills@intent-through-goals-not-overrule`.
 
-It serves `goal@knowledge-architect@agents-work-without-drift`, under which the owner does not
-answer what the record already answers, `goal@knowledge-architect@the-owner-decides`, which
-keeps a fork with the owner, and `goal@knowledge-architect@design-with-agents-as-counterparts`, whose
+It serves `goal@knowledge-architect@the-owner-decides`, under which the owner does not answer what
+the record already answers and which keeps a fork with the owner, and `goal@knowledge-architect@design-with-agents-as-counterparts`, whose
 exchange this is. The discussion form rests on a fact the owner reported: most of the time, the
 owner's rough designs end up a better direction than the agent's proposals, the agent mostly
 refining them, arguing the smaller items under them and measuring their cost, though not always,

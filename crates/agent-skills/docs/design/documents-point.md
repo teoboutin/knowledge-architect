@@ -49,8 +49,7 @@ messages. Retargeting it to the new name would make it false, and plain text wou
 the check, per `design@agent-skills@plain-text-is-no-repair`. A verbatim quotation of the
 owner that names a renamed entry is left as it is, with a reference to the current entry beside
 it, since rewriting it at a rename, with no change to what it decides, risks misstating the owner,
-the risk `design@agent-skills@attribution-replaces-quotation` names, against
-`goal@knowledge-architect@the-owner-decides`.
+the risk `design@agent-skills@attribution-replaces-quotation` names.
 In a released section of CHANGELOG.md, a reference to a deleted skill or agent goes back to the
 bare name instead, per `design@agent-skills@plain-text-is-no-repair`. In a record of a deliberation,
 an entry its tree does not hold is named by its bare slug instead, and a skill or an agent by its

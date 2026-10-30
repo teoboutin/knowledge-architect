@@ -33,8 +33,8 @@ alternative brought back without a recorded reopening; and an acceptance criteri
 the record rules out. The second rule keeps it from reporting each widening the document makes on
 purpose. It runs only commands that read.
 
-The decision serves `goal@knowledge-architect@agents-work-without-drift`, which is met when "a
-departure from the recorded design is caught by a check or a review before it merges". The owner
+The decision serves `goal@knowledge-architect@agents-work-without-drift`, which is met while "a
+departure from the recorded design is caught before it merges". The owner
 named the lack: "nothing seems to be reviewing a plan document against recorded goals and design."
 The other reviewers read the document against itself, against the code, or against the discussion.
 The design audit reads design homes, but not goals, and it is run by the session that implements the
@@ -201,7 +201,8 @@ auditors, the plan reviews and the retrospective, since `goal@agent-skills@no-co
 asks that the criteria of the reviews and of the audits agree.
 
 It is an agent, not a line in a skill, because its standard is fixed. Its extraction is the
-checker's, per `design@agent-skills@transcript-extraction-is-the-checker-s`. It serves `goal@knowledge-architect@the-owner-decides`. The durability check serves
+checker's, per `design@agent-skills@transcript-extraction-is-the-checker-s`. It serves `goal@knowledge-architect@the-owner-decides`, whose forks are the owner's, so a ruling
+misrecorded decides in the owner's place. The durability check serves
 `goal@knowledge-architect@design-is-recorded-with-its-arguments`. The check of rulings has shown
 its worth: in the review of the change that installed the first skills, a reviewer briefed with it
 was the one of six to find a decision recorded narrower than the owner's approval. The milestone

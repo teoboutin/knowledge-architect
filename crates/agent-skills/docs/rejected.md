@@ -33,8 +33,8 @@ cannot be derived again in one discussion round, and the rule it defeats is the 
 `live`. The owner chose to keep the discussion an exchange in which the agent does not make every
 choice, judging that the owner's rough designs most of the time, though not always, end up the
 better direction, and that the exchange drives a design's quality; the fork rule keeps that exchange
-where two shapes survive. A doubt remains that keeping forks with the owner's word reaches
-`goal@knowledge-architect@agents-work-without-drift`, and this is the candidate if forks put to the
+where two shapes survive. A doubt remains that keeping forks with the owner's word strains
+`goal@knowledge-architect@owner-attention-on-what-is-theirs`, and this is the candidate if forks put to the
 owner prove to be what keeps the owner answering what the record could settle.
 
 ### Quoting the owner's words verbatim in a head whose ground is the owner's `##owner-words-quoted-in-head`
@@ -268,7 +268,7 @@ the old rules after its migration. It costs the owner one proposal per head, at 
 already edits it, where a project audit puts every item of its owner list to the owner at once: the
 first audit on this repository put 72 items to the owner over three passes. It is kept because a
 doubt remains on that cost to the owner's reading time, which
-`goal@knowledge-architect@the-owner-decides` spends, and it is the candidate if a project's owner
+`goal@knowledge-architect@owner-attention-on-what-is-theirs` spends, and it is the candidate if a project's owner
 finds an audit's lists too long to read.
 
 ### One generic auditor agent, briefed to read the axis's section of the skill `##one-generic-auditor-agent`

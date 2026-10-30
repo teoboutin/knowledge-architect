@@ -518,7 +518,7 @@ workflow file would only carry it back to this repository. The root
 The rule is the owner's: the owner chose the rule over the list of the three members above, which
 are what it admits today.
 
-### Each finding of a workflow file this repository receives, and of its own retrospective project file, gets one of three outcomes the owner rules, in a committed analysis that leaves when its last outcome is carried out `##committed-findings-analysis`
+### Each finding of a workflow file this repository receives, and of its own retrospective project file, gets one of three outcomes, in a committed analysis that leaves when its last outcome is carried out `##committed-findings-analysis`
 
 A workflow file that this repository receives, written by a retrospective or by a project audit's
 agentic-workflow axis, from its own sessions or from a project that uses the workflow, and the
@@ -526,14 +526,16 @@ project file of this repository's own retrospective, are each analysed finding b
 `skill@knowledge-architect-retrospective-intake`, with what `skill@klarch-retrospective-intake`
 adds, in a file of `path@knowledge-architect@docs/retrospective-reports/` named by the received
 file's stem, the home and the life `design@agent-skills@committed-intake-analysis` gives every
-project's analysis of its own file. Each finding gets one of three outcomes, ruled by the owner:
-handled now, opened as an issue, or no change with the reason, per
-`goal@knowledge-architect@the-workflow-improves-through-real-use`, under which the owner decides
-what real use changes in the workflow. The installed intake's fourth outcome, sent upstream, does
+project's analysis of its own file. Each finding gets one of three outcomes: handled now, opened as
+an issue, or no change with the reason. The session decides and reports the outcome the argument
+from the goals and the record settles, and the owner rules on an outcome only where
+`goal@knowledge-architect@the-owner-decides` gives the owner its question, since what real use
+changes in the workflow is decided as that goal says, per
+`goal@knowledge-architect@the-workflow-improves-through-real-use`. The installed intake's fourth outcome, sent upstream, does
 not apply, since this repository is the upstream, per
 `design@knowledge-architect@workflow-findings-stay-here`. A finding handled now that grows into a
-design discussion has its outcome rewritten, on the owner's word, to name the plan document or the
-issue that carries it, so the file still leaves.
+design discussion has its outcome rewritten to name the plan document or the issue that carries
+it, so the file still leaves.
 
 The file is the record of the rulings, so every finding of a received file reaches an outcome that
 history keeps, per `goal@knowledge-architect@the-workflow-improves-through-real-use`. Its nearest
