@@ -36,6 +36,11 @@ applying the list admits what the argument would leave out.
 
 Re-entry point: the next change to the tests for a losing alternative, or the owner's word.
 
+A further instance: W2 of the retrospective of the session that reduced the grounding's reading,
+2026-10-25. At its harvest, two rivals of command-line decisions passed test 1 by its letter and
+were recorded, one refuted by an argument any reader rebuilds in one round; tests 3 and 4 would have
+excluded both.
+
 ### Why it matters
 
 `rejected@agent-skills@every-losing-thread-recorded` is `live`, with the owner's judgement that the

@@ -37,6 +37,13 @@ records that must attribute.
 Re-entry point: a design discussion under `skill@knowledge-architect-design`, on the owner's word or
 when work next changes how a plan document keeps the owner's words.
 
+A further instance, at a larger count: W1 of the retrospective of the session that wrote the
+tripwire standard, 2026-10-25. The harvest copied the owner's verbatim words from the spec's threads
+into five new heads and three touched heads, and seven commit messages quoted the owner; three
+reviewers caught them before the merge, and the repair rewrote the branch. The shape it proposes:
+one sentence at the harvest step of the planning skill, that a thread's verbatim words become an
+attribution in the head and in the harvest's commit message, pointing to `primer@design-heads`.
+
 ### Why it matters
 
 An attribution that loses a hedge records a firmer ruling than the owner gave, against

@@ -37,6 +37,10 @@ earlier commit, and the merge predicate. A session runs each by hand, step by st
 Found by the whole-set review of this repository's goals on the branch that brought them to the
 goal standard, whose reviewers reported it in every layout round.
 
+A further instance: P2 of the retrospective of the session of the intake deciding by authority,
+2026-10-31: four rewords of branch messages in one session, each with a new script and the two
+checks.
+
 ### Why it matters
 
 Each procedure is run by hand at each reword, each repair folded and each merge, and a step missed

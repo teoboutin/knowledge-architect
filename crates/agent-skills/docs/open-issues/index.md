@@ -1,6 +1,6 @@
 **Generated — do not edit.** `cargo klarch index`
 
-50 entries
+53 entries
 
 | kind | title |
 | --- | --- |
@@ -24,6 +24,7 @@
 | design | [The reading on touch of `may-bear` entries met its reopening condition, at both plan reviews of one spec](the-reading-on-touch-of-may-bear-entries-met-its-reopening-condition.md) |
 | design | [The workflow assumes one owner, unnamed, which a project with several contributors does not have](the-workflow-assumes-one-unnamed-owner.md) |
 | question | [A head in the wrong Component goes to the owner, though the record settles the Component](a-head-in-the-wrong-component-goes-to-the-owner-though-the-record-settles-the-component.md) |
+| question | [Does a head carry the magnitude of the measurement it rests on?](a-head-s-measurement-says-nothing-of-its-magnitude.md) |
 | question | [A pending audit report or retrospective analysis is outstanding work that no installed search of what is already known reads](a-pending-ruled-file-is-reached-by-no-installed-search.md) |
 | question | [A reviewer that queues long work reports nothing until it is asked](a-reviewer-s-running-time-is-unbounded.md) |
 | question | [An issue's re-entry point is read by no review, for a design issue or any kind that carries one](an-issue-s-re-entry-point-is-read-by-no-review.md) |
@@ -36,11 +37,13 @@
 | question | [The planning skill answers every material finding with a default, and states no hold for one that defeats a premise of the owner's ruling](the-planning-skill-answers-every-material-finding-with-a-default.md) |
 | question | [The primer and its head name a guard's issue under two conditions](the-primer-and-its-head-name-a-guard-s-issue-under-two-conditions.md) |
 | question | [The primer's paragraph on a divergence between a head and the code reads two ways on the work that goes on meanwhile](the-primer-s-divergence-paragraph-reads-two-ways-on-work-that-goes-on.md) |
+| question | [Does a reversal keep the incumbent's Component when the successor decides another Component's interface?](the-reversal-rule-fixes-the-component-when-the-successor-decides-another-s-interface.md) |
 | question | [The decision-recording skill's reason for the `void` marker reads two ways](the-void-marker-s-reason-reads-two-ways.md) |
 | question | [The planning skill forbids "plan" alone as a document's name and uses it alone](the-word-plan-is-banned-alone-and-used-alone.md) |
 | question | [Whether a census of a project's own text under a planned instruction is real use, or a run the workflow refuses](whether-a-census-of-real-text-under-a-planned-instruction-is-real-use.md) |
 | question | [Whether a session in Claude Code's default permission mode is asked for permission, or needs an allow rule, to run an installed saved workflow](whether-a-saved-workflow-run-needs-a-permission-rule.md) |
 | todo | [A pointer that applies a whole standard, with no instruction to read it whole, was not searched for fragments](a-pointer-that-applies-a-whole-standard-without-asking-to-read-it-whole-was-not-searched.md) |
+| todo | [A reviewer has no write tool, so the dispatcher saves each report by hand](a-reviewer-cannot-save-its-own-report.md) |
 | todo | [No installed skill says how a new Component is created](a-skill-for-creating-a-component.md) |
 | todo | [The project audit has three axes, and the other axes the owner named have none](audit-axes-beyond-the-design-record.md) |
 | todo | [Only the design and setup skills state what they expect of the owner](expectation-sets-for-the-installed-skills.md) |

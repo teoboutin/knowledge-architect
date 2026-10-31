@@ -30,6 +30,11 @@ Found by the routing axis of the review of the intake of seven retrospective fil
 report it as a finding: the primer's row and the root's line on thaum's figures place such a figure
 where it is.
 
+A further instance: P2 of the retrospective of the session that built `klarch worklist`,
+2026-10-25. The session put thaum's agent counts in a core head, an agent-skills head and a new
+issue, which disagreed, 8 or 9 agents against 11; the issue attributed the figure to `worklist`,
+which cannot run on thaum, whose manifest holds an extension's tables and pins 0.8.0.
+
 ### Why it matters
 
 `primer@where-knowledge-goes` gives every durable statement one home. A writer who meets two rows

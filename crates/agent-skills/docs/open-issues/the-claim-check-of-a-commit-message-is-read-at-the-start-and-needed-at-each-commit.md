@@ -28,6 +28,17 @@ report the rule acted on as if absent, in three projects.
   ruling on each", under `path@knowledge-architect@docs/retrospective-reports/`.
 - `primer@checker-model` asks for `cargo klarch check --staged` "after staging and before each
   commit", the one command every session runs at that moment; it judges the tree, not the claims.
+- Further instances, in the intake of seventeen retrospective files of 2026-10-25 to 2026-10-31: six of this repository's eight workflow files of sessions of
+  2026-10-25 to 2026-10-31 report the lapse, those of the design-home split, the graded entries and
+  `klarch id`, `klarch worklist`, `klarch transcript`, the tripwire standard and the primer's terms
+  section; three of them include a false answer to the owner. The analyses are in the commit
+  "[intake] The analyses of seventeen received retrospective files, every outcome decided by the
+  session".
+- A candidate the retrospective of the session that built `klarch transcript` proposes: `cargo
+  klarch commits`, which the primer asks for after each commit, prints one line naming what it did
+  not judge, a count, a search, a quotation or an attribution in a message, with a pointer to
+  `primer@verify-before-relying`. `path@core@README.md` keeps the verdict as the last line a
+  person reads, so such a line goes above it.
 
 The suspected mechanism, in one sentence: an instruction read once at the start of a long session
 is not recalled at the moment it binds, which recurs at every commit.
@@ -46,6 +57,8 @@ point of delivery is repaired by moving where the instruction is delivered.
 
 The discussion picks a delivery at the commit, or rules that none is worth its cost: a line printed
 by `check --staged` on its verdict, which changes `design@core@phases-gate-the-report`'s summary; a
-sentence of the primer beside the staged check, read at the start as now; a project's commit hook,
+sentence of the primer beside the staged check, read at the start as now; a line printed by
+`commits` above its verdict, after the commit, where an amend still repairs the message, which
+changes `design@core@a-commit-message-is-a-document`'s summary; a project's commit hook,
 which the installed text cannot rely on. Then the retrospectives of a release show whether the
 count falls.
