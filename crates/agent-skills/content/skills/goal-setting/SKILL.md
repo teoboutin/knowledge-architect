@@ -51,7 +51,7 @@ It is met while <what the project builds that shows it>.
 %% any Component from anywhere, per `design@core@an-entity-belongs-to-its-anchor`, so serving a goal
 %% does not require moving it. The rival, each goal in the smallest scope serving it, promotes goals
 %% into the root documents, and leaves a goal with no Component responsible for it, against
-%% `goal@knowledge-architect@the-owner-decides`. A published Component serves the consumers whose
+%% `goal@knowledge-architect@agents-work-without-drift`. A published Component serves the consumers whose
 %% provision the root's goals state, so its goals refine a root goal; this is an encouragement, not a
 %% rule.
 **Where a goal goes.** A goal is written in the goals home of the Component whose responsibility it

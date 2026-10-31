@@ -254,7 +254,7 @@ list to the published library knowledge-architect-gates.
 %% The two goals are the owner's proposal: "I would also recommend setting these two goals (with
 %% those wordings) in the project setting-up skill". Their wording follows the owner's ruling on the
 %% same two goals of the workflow's own repository at its review of the whole goal set, brought to the
-%% goal standard there; the owner asked that this template follow.
+%% goal standard there; the session proposed that this template follow, and the owner approved.
 %% The second goal's scope, mechanical work local to the project and not a task the installed text
 %% asks of every project, is the owner's ruling: a goal with such an ambiguous reading should not be
 %% recommended.

@@ -95,7 +95,7 @@ assembly by its grades alone, since the grounding reads every goals home whole, 
 whole, and each goal they give by its grades alone with `show`.
 
 The session reads whole what it acts on, never a summary of it, per
-`goal@knowledge-architect@the-owner-decides`; the owner asked that it read the reported issues and
+`goal@knowledge-architect@agents-work-without-drift`; the owner asked that it read the reported issues and
 tripwires themselves rather than rely on the subagent's summary. At the design grounding the owner
 ruled that a `may-bear` issue or tripwire is read whole only where a proposal touches it, as any
 other `may-bear` entry, once the list of those not read reaches a reviewer that reads them. The
