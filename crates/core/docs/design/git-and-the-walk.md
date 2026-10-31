@@ -61,39 +61,49 @@ file, which git offers no way to pin, and that is what
 `issue@core@the-walk-does-not-report-what-the-per-clone-exclude-file-removes` reports the files it
 alone removes from the walk.
 
-### Git answers about the repository the project's directory lies in, through the index the caller's environment names `##repository-variables-dropped`
+### Git answers about the repository the project's directory lies in, whatever the caller's environment names `##repository-variables-dropped`
 
 Every invocation removes from its environment the variables that point git at another
 repository's files, `GIT_DIR`, `GIT_WORK_TREE`, `GIT_COMMON_DIR`, `GIT_OBJECT_DIRECTORY` and
 `GIT_ALTERNATE_OBJECT_DIRECTORIES`, the members of `git rev-parse --local-env-vars` that select a
-repository, its work tree or its object store. It keeps `GIT_INDEX_FILE` and the list's other
-members, the configuration among them. So git finds the repository from the project's directory, as
-`design@core@git-supplies-the-walk` reads it, and a run judges the project's own tree, which
-`goal@core@documents-stay-current` needs of a verdict; with `GIT_DIR` naming another repository,
-the walk was that repository's index.
+repository, its work tree or its object store. It keeps the list's other members, the
+configuration among them, and `GIT_INDEX_FILE`, per `design@core@index-file-variable-kept`. So git
+finds the repository from the project's directory, as `design@core@git-supplies-the-walk` reads it,
+and a run judges the project's own tree, which `goal@core@documents-stay-current` needs of a
+verdict: with `GIT_DIR` naming another repository, the walk would be that repository's index.
 
-**`GIT_INDEX_FILE` is the index `git commit` records**, so `check --staged`, which judges the tree
-the next commit records per `design@core@staged-tree-source`, reads the index it names. A
+Honouring a repository variable while refusing one whose git directory differs from the one the
+project's directory finds gives this head's result wherever it runs, and refuses the runs where
+this head reads the project's own repository. The session chose this head over honouring the
+variables where the search from the project's directory finds no repository, which no goal ranks:
+that rival keeps checkable a project whose repository git finds only through these variables, with
+no `.git` at or above its directory, which is outside a worktree to the checker here, exit 2 per
+`design@core@failed-git-is-exit-two`; and it lets a stray `GIT_DIR` in a shell outside every
+repository point the walk at another repository.
+
+### `GIT_INDEX_FILE` is the index every command reads, so a pre-commit hook judges the tree its commit records `##index-file-variable-kept`
+
+Every git invocation keeps `GIT_INDEX_FILE`: it is the index `git commit` records, so
+`check --staged`, which judges the tree the next commit records per
+`design@core@staged-tree-source`, reads the index it names, and every other command uses the same
+index, so a `check` run where the variable is set lists what `git ls-files` lists there. A
 pre-commit hook gets it, measured with git 2.53.0 by a hook printing `env | grep '^GIT_'`:
 `.git/index`, relative, for a commit of what is staged; the absolute path of `.git/index.lock` for
 `commit -a`, and of a `.git/next-index-<pid>.lock` for `commit <paths>`, each holding the tree the
-commit records while `.git/index` still holds what was staged before. A relative value resolves
-against the top of the work tree, not git's working directory, measured with
-`GIT_INDEX_FILE=.git/index git ls-files` from a subdirectory, so a project in a subdirectory of its
-repository reads the same index. In a linked worktree the hook also gets `GIT_DIR`, naming that
-worktree's own git directory, which the search from the project's directory finds again. Every
-other command reads the same index, so a `check` run where the variable is set lists what
-`git ls-files` lists there. `init` alone refuses it, since a repository it creates owns no index
-the variable can name, per `design@core@init-runs-git-init`.
+commit records while `.git/index` still holds what was staged before; in a linked worktree, the
+absolute path of that worktree's index or its lock, beside a `GIT_DIR` naming the worktree's git
+directory, which `design@core@repository-variables-dropped` removes and the search from the
+project's directory finds again. A relative value resolves against the top of the work tree, not
+git's working directory, measured with `GIT_INDEX_FILE=.git/index git ls-files` from a
+subdirectory, so a project in a subdirectory of its repository reads the same index. Git 2.36, the
+floor of `design@core@git-floor-for-commit-trees`, was not measured.
 
-Dropping `GIT_INDEX_FILE` too, `rejected@core@every-git-variable-dropped`, lost to that
-measurement. Refusing to run with any of the variables set leaves a hook unable to run the
-checker, the hook git gives `GIT_INDEX_FILE` to every time. Honouring a repository variable while
-refusing one whose git directory differs from the one the project's directory finds gives this
-head's result wherever it runs, and refuses the runs where this head reads the project's own
-repository. The cost: a project whose repository git can find only through these variables, with
-no `.git` at or above its directory, is outside a worktree to the checker, exit 2 per
-`design@core@failed-git-is-exit-two`.
+Dropping the variable with the others, `rejected@core@every-git-variable-dropped`, lost to that
+measurement. Refusing to run with it set leaves a pre-commit hook unable to run the checker at all,
+since git gives the hook the variable every time, against the owner's intent that a project can
+run the check from its pre-commit hook, drafted as a goal of this Component that awaits the owner's
+ruling. `init` alone refuses it: `init` belongs to no commit, and with the variable set git would
+list and stage the project it writes through an index no commit of that project records.
 
 ### A listed path is read as git's bytes, never decoded `##a-path-is-bytes`
 

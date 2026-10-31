@@ -941,17 +941,26 @@ fn refused(path: &str) -> Option<&'static str> {
     None
 }
 
-/// Where `path`, the path of an escaped reference with no line suffix or fragment, resolves in
+/// Where `path`, the path of an escaped reference, its line suffix or fragment ignored, resolves in
 /// this tree: read from the root, from each anchor's directory, then from the directory of `rel`,
-/// the document that writes it, a `.` and a `..` followed as written; a leading `/` reads from the
-/// root alone. The first that the listing holds is the target, as a project-relative path.
+/// the document that writes it, a `.` and a `..` followed as written; a path opening with `.` or
+/// `..` is read from the document first, and a leading `/` from the root alone. The first that the
+/// listing holds is the target, as a project-relative path.
 fn resolved_here(path: &str, rel: &Path, anchors: &Anchors, inputs: &Inputs) -> Option<PathBuf> {
     let (bare, _) = without_suffix(path);
     let segments: Vec<&str> = bare.split('/').filter(|s| !s.is_empty()).collect();
-    let mut bases: Vec<&Path> = vec![Path::new("")];
+    // A path opening with `.` or `..` is read from its document first, as a relative markdown
+    // path is, so the form names the file its writer meant, where another anchor's directory
+    // would reach another one.
+    let document = rel.parent().unwrap_or(Path::new(""));
+    let dotted = matches!(segments.first(), Some(&".") | Some(&".."));
+    let mut bases: Vec<&Path> = if dotted { vec![document] } else { Vec::new() };
+    bases.push(Path::new(""));
     if !bare.starts_with('/') {
         bases.extend(anchors.all().iter().map(|a| a.path.as_path()));
-        bases.push(rel.parent().unwrap_or(Path::new("")));
+        if !dotted {
+            bases.push(document);
+        }
     }
     bases.into_iter().find_map(|base| {
         let mut at = base.to_path_buf();
@@ -1008,20 +1017,28 @@ fn path(
                     out.push(home_finding(rel, line, span, &keeper.name, &r.name, suffix));
                     return;
                 }
-                // The form names the deepest anchor that holds the target, per
-                // `design@core@every-path-names-its-anchor`; an anchor's own directory is named
-                // from the anchor above it.
-                let mut owner = anchors.owning(&target);
-                if owner.path == target {
-                    owner = anchors.owning(target.parent().unwrap_or(Path::new("")));
-                }
-                let under = target.strip_prefix(&owner.path).unwrap_or(&target);
-                let slash = if inputs.directories.contains(&target) {
-                    "/"
-                } else {
-                    ""
+                // A plan document is cited by its kind, never by a path.
+                let form = match plan_document(anchors, &target) {
+                    Some(form) => form,
+                    None => {
+                        // The deepest anchor that holds the target and carries the `path` kind,
+                        // per `design@core@every-path-names-its-anchor`: a plan anchor carries
+                        // none, and an anchor's own directory is named from the anchor above it.
+                        let mut owner = anchors.owning(&target);
+                        while owner.is_plan()
+                            || (owner.path == target && !target.as_os_str().is_empty())
+                        {
+                            owner = anchors.owning(owner.path.parent().unwrap_or(Path::new("")));
+                        }
+                        let under = target.strip_prefix(&owner.path).unwrap_or(&target);
+                        let slash = if inputs.directories.contains(&target) {
+                            "/"
+                        } else {
+                            ""
+                        };
+                        format!("path@{}@{}{slash}", owner.name, under.display())
+                    }
                 };
-                let form = format!("path@{}@{}{slash}", owner.name, under.display());
                 out.push(Finding::at(
                     rel,
                     line,
@@ -2809,6 +2826,19 @@ mod tests {
         assert!(
             !found[0].contains("a-project"),
             "the root named: {found:#?}"
+        );
+        // A directory is named with its trailing slash, and an anchor's own directory from the
+        // anchor above it.
+        let (found, _) = checked(
+            &m,
+            "See `path@elsewhere@parts/a-part/notes/real`.\n",
+            &tree(),
+        );
+        assert!(found[0].contains("`path@a-part@notes/real/`"), "{found:#?}");
+        let (found, _) = checked(&m, "See `path@elsewhere@parts/a-part/`.\n", &tree());
+        assert!(
+            found[0].contains("`path@a-project@parts/a-part/`"),
+            "{found:#?}"
         );
     }
 

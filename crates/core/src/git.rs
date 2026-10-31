@@ -158,8 +158,8 @@ impl Invocation {
         // environment names, so a variable that points git at another repository's files is
         // removed. `GIT_INDEX_FILE` is kept: it names the index `git commit` records, and a
         // pre-commit hook gets it, as `.git/index` or as a lock file of the commit's own, so
-        // `check --staged` in a hook judges the tree the commit records. The decision is
-        // `design@core@repository-variables-dropped`.
+        // `check --staged` in a hook judges the tree the commit records. The decisions are
+        // `design@core@repository-variables-dropped` and `design@core@index-file-variable-kept`.
         for variable in REPOSITORY_VARIABLES {
             command.env_remove(variable);
         }

@@ -138,14 +138,15 @@ pub fn init(
         super::refuse_a_foreign_build(&root, libraries, packages)?;
     }
     // Every invocation keeps `GIT_INDEX_FILE`, since a pre-commit hook gets it for the index its
-    // commit records, per `design@core@repository-variables-dropped`. `init` belongs to no commit:
-    // a repository it creates has no index the variable can name, so git would read and stage
-    // through another one, and `init` refuses it. The variables that select another repository
-    // are removed from every invocation, `init`'s included.
+    // commit records, per `design@core@index-file-variable-kept`. `init` belongs to no commit:
+    // with the variable set, git would list and stage the project it writes through an index no
+    // commit of that project records, so `init` refuses it, whether or not it creates a
+    // repository. The variables that select another repository are removed from every
+    // invocation, `init`'s included.
     if std::env::var_os("GIT_INDEX_FILE").is_some() {
         return Err(format!(
-            "GIT_INDEX_FILE is set, so git would stage into another index than {}'s: run `init` \
-             without it. Nothing was written.",
+            "GIT_INDEX_FILE is set, so git would stage the project at {} into an index no commit \
+             of it records: run `init` without it. Nothing was written.",
             root.display()
         ));
     }
@@ -675,8 +676,15 @@ pub(super) fn new_component(
     // no part of the staged tree, so the index of each of its registers differs between the two
     // trees, and the refusal of `--fix` that ends the run keeps such a file from a partial commit,
     // per `design@core@fix-refusal-mixed-state`. Its own message speaks of a partial commit the
-    // user did not make; this line says what happened and which command finishes the run.
-    if crate::git::index_differs_from_head(root).unwrap_or(false) {
+    // user did not make; this line says what happened and which command finishes the run. It is
+    // printed where the refusal compares the two trees, as `staged_generated` answers it: where no
+    // staged tree is there to commit, the fix runs and writes the indexes.
+    let refused = crate::git::index_differs_from_head(root).unwrap_or(false)
+        && matches!(
+            super::history::staged_generated(root, checker, extensions),
+            Ok(Some(_))
+        );
+    if refused {
         outln!(
             "note: git's index holds staged changes, which the new Component is no part of, so the \
              run stops before the indexes of its registers, as `check --fix` does over a partial \

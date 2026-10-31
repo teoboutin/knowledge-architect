@@ -43,7 +43,7 @@ each landing.
 | **thread** | one open question or proposal of a design discussion, the unit that carries a state, as `skill@knowledge-architect-design@discussion-overview` defines it; a thread closed `approved` or `argued` is a decision |
 | **criterion** | what proposals were judged against: **binding** rules a proposal out, **weighed** makes failing it a cost the owner rules on |
 | **acceptance criterion** | a check on a decision of the plan document, a thread closed `approved` or `argued`, that only the work's built code can apply, and whose firing would show the decision wrong |
-| **material** | a finding made after a thread closed that defeats a reason the closure gave, a premise it rested on, or a criterion it claimed to meet. A material finding is presented once, with a default named or with the part of the work that rests on it held; presenting it reopens the thread, which closes again on its argument or, at a fork, on the owner's word, per `skill@knowledge-architect-design@decision-authority` |
+| **material** | a finding made after a thread closed that defeats a reason the closure gave, a premise it rested on, or a criterion it claimed to meet, as `skill@knowledge-architect-design@decision-authority` defines it, which says how one is answered |
 | **audit** | the reading of a slice's entry, or of a spec, against the tree and the design homes before its work is implemented |
 | **harvest** | the recording of what a landing established into the project's durable homes |
 
@@ -133,7 +133,7 @@ docs/plans/
 - The milestone document links each slice's spec as a navigation row, `[<slice title>](<slice>.md)`.
   The checker resolves a relative link only in a `README.md` or an `index.md`.
 - **The plans directory holds plan documents and nothing else**, except its `README.md` files and
-  generated indexes, which keep its homes in the tree while no plan is open. A document with
+  generated indexes, which keep its homes in the tree while no plan document is open. A document with
   another lifetime, such as a record of how far a subject is implemented or a survey that outlives
   its work, has its own home. If none fits, ask the owner before writing it anywhere.
 - **A plan document is cited by its kind**, never by its path: `spec@plans@<id>`,
@@ -577,8 +577,8 @@ these four:
 
 **What their findings become.** Check each finding against the tree, or against the transcript,
 before acting on it. A material finding is answered as
-`skill@knowledge-architect-design@decision-authority` says, with a default or with the part of the
-work that rests on it held, and the answer is written into the sections it touches. **A default the record, a measurement or a source settles is the session's decision**: it
+`skill@knowledge-architect-design@decision-authority` says, read whole, and the answer is written
+into the sections it touches. **A default the record, a measurement or a source settles is the session's decision**: it
 is written into the sections it touches with its ground, takes no label, is not listed under the
 defaults awaiting the owner, and is reported in the turn's "Decided" section, per
 `primer@decided-section`, where the owner can contest it. A

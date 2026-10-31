@@ -182,9 +182,9 @@ names both repairs.
 
 Only `defect` carries the cold-reader standard as a mandatory checklist, each item answered, and
 only because that checklist is already written and already shared with the commit messages of
-fixes. The other kinds carry its items as far as they exist, and required fields, not a
-template: a template imposed on a kind that cannot fill it produces empty headings, and empty
-headings teach readers to skim the entries where the checklist does matter.
+fixes. The other kinds carry required fields, not a template: a template imposed on a kind that
+cannot fill it produces empty headings, and empty headings teach readers to skim the entries where
+the checklist does matter.
 
 ## The trigger test {{slug:trigger-test}}
 

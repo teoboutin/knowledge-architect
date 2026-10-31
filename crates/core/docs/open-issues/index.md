@@ -20,7 +20,7 @@
 | deferred | [A project cannot reference an entry of another project](cross-project-references.md) |
 | deferred | [`init --rust` cannot add the maintenance crate to an existing Cargo workspace or package](init-rust-into-an-existing-cargo-workspace.md) |
 | design | [A plan item named as a plain `#<id>`, inside its plan or outside it, is read by no check](a-plain-hash-item-name-is-read-by-nothing.md) |
-| design | [Three core heads bundle decisions that lose to different rivals, and each has many citing sites](core-heads-bundle-decisions-with-many-citing-sites.md) |
+| design | [Core heads bundle decisions that lose to different rivals, and each has many citing sites](core-heads-bundle-decisions-with-many-citing-sites.md) |
 | design | [No checked form cites a level-three subsection or a numbered point inside a section of a skill, an agent or the primer](no-checked-form-cites-a-point-inside-a-section.md) |
 | design | [A command the owner ran with the `!` prefix is unlabelled in a transcript](owner-shell-commands-are-unlabelled.md) |
 | observation | [A lint written twice on one line of a message is reported once or twice, by which tree holds it](a-message-lint-is-deduplicated-in-one-tree-only.md) |

@@ -165,7 +165,9 @@ per `design@core@fix-with-staged`.
 
 **Where the project's part of the index differs from HEAD, and a generated file `--fix` would
 write differs from the one the tree git's index would commit needs, `--fix` writes no generated
-file.** It names each such path, a path the staged tree does not need included, with the two
+file.** It names each such path, a path the staged tree does not need included: a commit that
+stages such a file by its path, without the entries that make the staged tree need it, records an
+index whose rows name files the commit lacks, and that tree fails. It names them with the two
 repairs: `index --staged` then `check --staged`, to commit the staged changes, and `index`,
 to fix the working tree as a whole. `--fix` cannot lose unstaged content, since it writes only
 generated and installed files; the hazard is a wrong commit, since the `index.md` it writes

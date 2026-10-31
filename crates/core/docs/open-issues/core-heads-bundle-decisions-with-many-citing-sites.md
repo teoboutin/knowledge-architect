@@ -1,14 +1,15 @@
 ---
 kind: design
 ---
-# Three core heads bundle decisions that lose to different rivals, and each has many citing sites
+# Core heads bundle decisions that lose to different rivals, and each has many citing sites
 
 ## Summary
 
-Three heads of `register@core@design` each hold two or more decisions whose nearest rivals
+Five heads of `register@core@design` each hold two or more decisions whose nearest rivals
 differ, against `design@agent-skills@one-decision-per-head`. The first run of the design-record
-axis on this repository found them, and left them unsplit because each split must first read every
-site that cites the head, 25 to 33 sites per head, to re-point each one to the part it cites.
+axis on this repository found three, and a branch's review two more; each was left unsplit because
+a split must first read every site that cites the head, 7 to 33 sites per head, to re-point each
+one to the part it cites.
 
 ## Details
 
@@ -60,10 +61,22 @@ into the present tense and left its bundle, so that head is a change's touched h
 `design@agent-skills@existing-heads-on-touch`. A fourth head the run found bundled has since been
 split, with every site that cited it re-pointed.
 
+Two more, found by the decision-record reviewer of the review before the merge of the branch
+`pre-release-fixes`, which touched both and left both bundled; counts taken on that branch:
+
+- `design@core@reserved-anchors`, 10 citing sites. Its title is joined by "and" over the escape
+  anchor and the generic anchor `*`, whose arguments share no premise, and its body holds a third
+  statement with a rival of its own: a file of another project written with that project's name
+  as its first segment, against a repair that names the local anchor alone.
+- `design@core@init-runs-git-init`, 7 citing sites. Its title states where `init` creates a
+  repository; its body also holds the restriction of `--vcs` to `git` and `none`, against cargo's
+  five values, and the rule that git is asked about PATH before the first write, each with a rival
+  of its own.
+
 **Suspected mechanism**: each head grew by appending a bold paragraph for a decision argued later
 in the same subject, and a citing site then cited the head for whichever paragraph it needed.
 
-**The re-entry point**: the next change that touches one of the three heads, in a branch other than
+**The re-entry point**: the next change that touches one of the five heads, in a branch other than
 the one that opened this entry, which `design@agent-skills@existing-heads-on-touch` brings to the
 rules on heads; or the next run of the design-record axis of
 `skill@knowledge-architect-project-audit`.
@@ -81,7 +94,7 @@ against `goal@knowledge-architect@design-is-recorded-with-its-arguments`.
 
 ### What would close it
 
-Each of the three splits applied: one head per decision, its text moved unchanged except the minimum
+Each of the five splits applied: one head per decision, its text moved unchanged except the minimum
 to read alone, and every site `cargo klarch show` lists for the head read and re-pointed to the head
 of the part it cites, the sites outside `path@core@docs/` included. A head whose split the owner
 rules out instead closes its part of this entry with that ruling, recorded in the closing commit.

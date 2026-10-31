@@ -38,7 +38,7 @@ Git is asked about the repository the project's directory lies in, whatever `GIT
 `GIT_WORK_TREE` or a variable like them names in the environment, and through the index
 `GIT_INDEX_FILE` names where it is set. So `check --staged` runs as a pre-commit hook and judges
 the tree the commit records, `git commit -a` included, per
-`design@core@repository-variables-dropped`.
+`design@core@repository-variables-dropped` and `design@core@index-file-variable-kept`.
 
 ```sh
 cargo klarch check                     every check, over one walk, in four phases
@@ -274,14 +274,14 @@ per `design@core@index-staged-write`.
 It generates each file from the tree git's index would commit, which is HEAD's tree with the
 staged changes, and sets the staged entry of each one whose bytes differ. No working-tree file
 changes: after it, `check --staged` passes on what will be committed, and the working tree keeps
-the rows of the working tree for a later commit. Each generated file whose working copy differs
-from what it staged is named, with `index`, which writes the working tree's.
+the rows of the working tree for a later commit. Each generated file whose working copy is out of
+date for the working tree is named, with `index`, which rewrites it.
 
 ```
 $ cargo klarch index --staged
 docs/plans/specs/index.md                already current
 docs/open-issues/index.md                staged
-docs/open-issues/index.md                the working copy differs from the staged file: `cargo klarch index` writes the working tree's
+docs/open-issues/index.md                the working copy is out of date for the working tree: `cargo klarch index` rewrites it
 ```
 
 It refuses with exit 2, having staged nothing, when phases 1 to 3 of the staged tree find
@@ -366,8 +366,8 @@ klarch init my-project --rust       # also the maintenance crate, its workspace 
   files is refused unless `--vcs git` or `--vcs none` decides, since an accidental run would leave
   its files untracked beside the project's, where `git clean` deletes both. Git is asked about
   PATH before anything is written, so a git that cannot answer, such as one refusing a repository
-  owned by another user, refuses the run, and so does `GIT_INDEX_FILE` set, which would name an
-  index the new repository does not own.
+  owned by another user, refuses the run, and so does `GIT_INDEX_FILE` set, through which git
+  would stage the new project into an index no commit of it records.
 - **It ends as `check --fix` does**: it installs the agent files, writes the indexes once the first
   three phases find nothing, and runs the check, whose verdict is its exit code. Under `--vcs none`
   outside a worktree it installs the agent files and stops before the indexes, and says so.
@@ -387,9 +387,9 @@ the Component's documents and register homes, and ends as `init` does. A manifes
 `\r\n` line breaks keeps them. It runs behind the gate of
 the first three phases, so over a tree they find incomplete it refuses, writing nothing. A
 register declared `opt-in` is not guessed: name the Component in its `components`, and the check
-reports the home. Where git's index holds staged changes, the run stops before the indexes of the
-new Component's registers, as `check --fix` stops over a partial commit, exit 1, and says so:
-`index` writes them.
+reports the home. Where git's index holds staged changes over a staged tree the refusal of
+`check --fix` compares, the run stops before the indexes of the new Component's registers, as that
+refusal does over a partial commit, exit 1, and says so: `index` writes them.
 
 ## `model`
 
