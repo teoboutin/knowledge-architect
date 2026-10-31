@@ -120,7 +120,7 @@ changes between versions, so scripts that parse these files directly can break o
 https://code.claude.com/docs/en/sessions. Over the window measured, each version added types or
 keys and none removed or renamed one the labels use; each line type, with the versions that wrote
 it, is listed by
-`find ~/.claude/projects \( \( -mindepth 2 -maxdepth 2 -name '*.jsonl' \) -o \( -path '*/subagents/*' -name 'agent-*.jsonl' \) \) -exec jq -r '"\(.type) \(.attachment.type // .subtype // "") \(.version // "-")"' {} + | sort -u`,
+`{ find ~/.claude/projects -mindepth 2 -maxdepth 2 -name '*.jsonl'; find ~/.claude/projects -path '*/subagents/*' -name 'agent-*.jsonl'; } | xargs -d '\n' jq -r '"\(.type) \(.attachment.type // .subtype // "") \(.version // "-")"' | sort -u`,
 over the files the reader reads, where a metadata line, which carries no `version`, shows `-`, and the header of `klarch transcript list --all-projects` names any value outside the sets. A strict reader
 would fail on each release that adds a type, `rejected@core@strict-transcript-reader`; a silent
 tolerant one hides a renamed field, against `design@core@a-failed-parse-is-loud`.
