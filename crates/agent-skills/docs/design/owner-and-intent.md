@@ -300,8 +300,9 @@ redirects it with a goal, a fact or an argument, and a part that cannot be undon
 the record, a measurement or a source is the session's decision in the same way: in a plan
 review's findings, written into the plan document with its ground and no label, per
 `skill@knowledge-architect-planning@plan-reviews`; in a review's items, per
-`skill@knowledge-architect-review@what-review-leaves`; and in an audit's rule read two ways that a
-record states, per `skill@knowledge-architect-project-audit@finding-outcomes`.
+`skill@knowledge-architect-review@what-review-leaves`; in an audit's rule read two ways that a
+record states, per `skill@knowledge-architect-project-audit@finding-outcomes`; and in an intake's
+outcomes, per `design@agent-skills@intake-outcome-authority`.
 
 It serves `goal@knowledge-architect@the-owner-decides`, under which the record settles what such a
 default decides, since it holds no fork, while the owner, told of it in the bounded path's one
