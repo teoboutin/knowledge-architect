@@ -27,6 +27,11 @@ successor that decides another Component's interface goes to that Component, and
 leaves its home in the same change. The rival: keep the rule and move the successor in a separate
 change, which leaves it in the wrong Component for one commit.
 
+Not established: whether the argument reaches every reversal. The rule asks every reversal to do
+its work in the same change, and its reason in the fragment, two homes for one question, is given
+for the order of the search, which comes before any commit; so "no commit holds two homes" may hold
+of every reversal, and the question may be what the rule's reason is rather than this case alone.
+
 ### Why it matters
 
 The rule's reason does not reach the case, so a session either follows it into a misfiled head or

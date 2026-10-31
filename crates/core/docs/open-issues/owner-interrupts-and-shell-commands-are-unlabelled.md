@@ -22,8 +22,9 @@ Instances:
   2.1.310.
 - C1 of the retrospective of the intake deciding by authority, 2026-10-31: the header's
   "unlabelled lines: 3" every run, with nothing recording them.
-- the intake of seventeen retrospective files of 2026-10-25 to 2026-10-31: `cargo klarch transcript list --all-projects` on the owner's machine reported 10 unlabelled
-  lines, 3 of this repository: 7 `[Request interrupted by user]`, 1 `[Request interrupted by user
+- the intake of seventeen retrospective files of 2026-10-25 to 2026-10-31: `cargo klarch transcript
+  list --all-projects` on the owner's machine reported 10 unlabelled lines across all projects, 3 of
+  them in this repository's sessions; the 10 are: 7 `[Request interrupted by user]`, 1 `[Request interrupted by user
   for tool use]`, and one `<bash-input>` line with its `<bash-stdout>` line. A `jq` read of each
   found no field that differs from a typed message's.
 
@@ -45,8 +46,8 @@ previews.
 
 ### Re-entry point
 
-The next change to `path@core@src/transcript.rs`'s labels, or the next retrospective file that
-reports an owner's act the transcript reviewer missed.
+The next change to the labels of `path@core@src/transcript.rs`, whose work decides which lines a
+label places, or the owner's word.
 
 ### What would close it
 

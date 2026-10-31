@@ -541,8 +541,8 @@ slug last:
 history counts them from the commit that wrote the line: commits on the main branch that change a
 named path or the guarded head's text, release tags, audit reports of an axis, plan documents
 deleted at their landing, or one event the tree shows, such as the first issue a consumer of an
-interface opens; never an occasion that only a session's transcript holds. A commit every line of
-which it adds is a line it removes, a relocation, is no occasion, since it exercises no decision.
+interface opens; never an occasion that only a session's transcript holds. A relocation, a commit
+whose added lines are exactly the lines it removes, is no occasion, since it exercises no decision.
 Its length is the writer's judgement, short for a cause kept on a doubt, and no count is kept in the
 entry.
 `standing` is for a guarantee whose failure stays silent and permanent, with the reason in the

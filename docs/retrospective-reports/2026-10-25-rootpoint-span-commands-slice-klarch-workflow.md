@@ -38,10 +38,13 @@
 - **f.** Rival: keep the stop and narrow the primer. It loses: the primer's rule has a head, and the
   stop's own reason does not reach a fork. Rival: no change. It loses: the contradiction leaves a
   session no move satisfying both.
-- **g.** The installed text at its source. The **Load-bearing** bullet keeps a material gap and a gap
-  that needs a ruling the document marks as the owner's; its first sub-bullet, a choice among shapes
-  put to the owner in one message with a default, becomes a sort of its own, built on its default.
-  Instructions: one moved and reworded, 0 net.
+- **g.** The installed text at its source. A new sort, a choice between shapes that defeats no
+  decided design, is put to the owner with a default, built, and merged once the owner rules. The
+  **Load-bearing** bullet keeps a material gap and a gap that needs a ruling the document marks as
+  the owner's. The paragraph on putting a choice to the owner in one message, with its `Q<n>`
+  labels, moves after the sorts, and both sorts use it; the stop's reason names the ruling the
+  documents reserve to the owner beside the decided design a gap defeats. Instructions: +1, the new
+  sort.
 - **Default**: handle now.
 - **Outcome**: decided by the session: handle now. Ground: a contradiction between two installed
   instructions is repaired, per `goal@agent-skills@no-contradiction-in-workflow`, toward the side a

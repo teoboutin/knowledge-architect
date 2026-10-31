@@ -25,7 +25,9 @@
 - **c.** No record. `design@agent-skills@tripwire-horizon` counts occasions by a command over the
   history, and states nothing on how complete the history is.
 - **d.** Missing, with a default behaviour that is systematically wrong in one case: in a shallow
-  clone, a horizon count finds no commit to start from and reports nothing, silently. The version
+  clone, `git log -S` on a `Watches until` line names the clone's boundary commit, measured in a
+  clone of depth 3 by the self-consistency reviewer of this intake's branch, so a horizon count
+  starts there and comes out too low, with no error. The version
   line fails loudly, and the session repaired it by judgement.
 - **e.** The installed text: the two agents that count horizons. The fix serves
   `goal@agent-skills@installed-text-works-anywhere`.
@@ -33,9 +35,14 @@
   auditors the saved audit workflows dispatch. Rival: a sentence after the version-line bullet. The
   failure there is loud and the session recovered by judgement. Rival: the primer. Every session
   would load it for an occasion few meet, per `design@agent-skills@primer-limit`.
-- **g.** The installed text at its source: one clause in each agent's horizon count, to run
-  `git rev-parse --is-shallow-repository` and, where it prints `true`, `git fetch --unshallow` before
-  counting. +2 instructions, 0 removed.
+- **g.** The installed text at its source: one fragment hosted by both agents, after each agent's
+  horizon count: in a shallow clone, where `git rev-parse --is-shallow-repository` prints `true`,
+  report each horizon not countable for that reason, and that `git fetch --unshallow` in the
+  dispatcher's checkout makes it countable. The agent reports rather than fetches: the tripwire
+  auditor runs only commands that read the project, per
+  `design@agent-skills@audit-agent-per-axis`, and a fetch writes to the repository and needs a
+  reachable remote. The review before the merge found both points against the first build, which
+  fetched. +1 instruction, delivered by two hosts, 0 removed.
 - **Default**: handle now.
 - **Outcome**: decided by the session: handle now. Ground: a count that a shallow clone empties
   without a sign is a default systematically wrong, which the evidence of one real session shows, per

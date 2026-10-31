@@ -1,13 +1,15 @@
 ---
 kind: todo
 ---
-# A reviewer has no write tool, so the dispatcher saves each report by hand
+# No reviewer writes its own report file, so the dispatcher saves each report by hand
 
 ## Summary
 
 `skill@knowledge-architect-review@what-review-leaves` asks the dispatcher to save each reviewer's
-report whole. Every installed reviewer agent's tools are `Read, Grep, Glob, Bash`, so the report
-arrives as a message and the dispatcher writes it out, token by token.
+report whole. No installed reviewer agent is told to write its report to a file, so the report
+arrives as a message and the dispatcher writes it out, token by token. The tools allow it: the
+reviewers' tools are `Read, Grep, Glob, Bash`, the same as the auditor agents', which write their
+drafts through the shell to the scratch directory their brief names.
 
 ## Details
 

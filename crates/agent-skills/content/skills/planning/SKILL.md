@@ -373,7 +373,7 @@ built as they write it until the owner rules on it, and its branch merges once t
 `primer@question-authority`. A scope change listed there does not start
 before its ruling. A load-bearing gap of point 2 is not such a default, even where the message
 that puts it to the owner names one: it stops the slice, the whole of which rests on the decided
-design the gap defeats.
+design the gap defeats or on the ruling the documents reserve to the owner.
 
 1. **Ground**: the Component's `CLAUDE.md`, its design home, its `rejected` home; then the
    milestone document entire, then the slice's spec. The issues and the tripwires, of every anchor,
@@ -423,16 +423,17 @@ design the gap defeats.
      implementation sequence and the order rationale, and moves into its spec the design it takes
      from other slices, so that each shape keeps one home. It changes a sequence the owner ruled on, so it is a scope
      change, listed and ruled as above.
-   - **A choice between shapes.** The gap is a choice between two or more shapes, neither of which
-     the document rules out, and it defeats no decided design: the rest of the slice does not rest
-     on it. It is put to the owner as a default awaiting the owner, built as written, and the
-     branch merges once the owner rules, per `primer@question-authority`.
+   - **A choice between shapes.** The gap is a choice between two or more shapes, none of which the
+     document rules out, and it defeats no decided design: the rest of the slice does not rest on
+     it. It is put to the owner in the form of the paragraph after these sorts, as a default
+     awaiting the owner, built as written, and the branch merges once the owner rules, per
+     `primer@question-authority`.
    - **Load-bearing.** The gap is material, or needs a ruling the document marks as the owner's.
      Record it in the slice's spec as open at the audit, with the discriminating fact, stop the
      slice, and open a design session with the owner under `skill@knowledge-architect-design`.
      - A gap whose ruling the document marks as the owner's, and whose shapes can be stated in
-       full, each with its consequence, takes the form of the next paragraph, and waits for the
-       ruling.
+       full, each with its consequence, takes the form of the paragraph after these sorts, and waits
+       for the ruling.
      - A gap that defeats a reason, a premise or a criterion a thread closed `approved` or `argued` rests on needs the
        full session. Its converged design goes into the milestone's documents by the rule of `skill@knowledge-architect-planning@spec-contents`,
        and owes the reviews of `skill@knowledge-architect-planning@plan-reviews`.

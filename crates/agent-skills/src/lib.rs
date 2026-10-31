@@ -144,6 +144,13 @@ mod tests {
             ],
         ),
         (
+            "shallow-history.md",
+            &[
+                ".claude/agents/knowledge-architect-standing-state-reviewer.md",
+                ".claude/agents/knowledge-architect-tripwire-auditor.md",
+            ],
+        ),
+        (
             "tripwire-lifecycle.md",
             &[
                 ".claude/agents/knowledge-architect-standing-state-reviewer.md",

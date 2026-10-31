@@ -220,9 +220,7 @@ the installed text, an interface that a project's own text cites once it moves i
 `live`. An inventory of the installed text at commit bc22d4d found about ten texts restating parts
 of the decision-recording skill, with nine inconsistencies between them and it; it is re-taken by a
 fresh read-only subagent listing each statement of a rule on heads outside its home at that commit.
-It is kept here because a doubt remains: `tripwire@agent-skills@pointer-not-followed` watches
-whether a session misses a directive whose restatement became a pointer, and this rule is the
-candidate if it does.
+It is kept here by test 3: its refutation is that inventory, a measurement that cost work.
 
 ### Splitting a head where reversing one part leaves the other standing `##head-split-by-independent-reversal`
 

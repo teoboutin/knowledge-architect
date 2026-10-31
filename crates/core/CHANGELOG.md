@@ -156,9 +156,10 @@ subsection is omitted.
   decision forbids, and a number in it has a basis; one slip a review repaired fires none.
 - `agent-skills`, patch: the standing-state reviewer asks of each tripwire whether its horizon has
   passed, and the decision-record reviewer judges each tripwire a branch adds by the standard and
-  looks for every premortem cause's outcome in the branch's messages. A commit that only relocates
-  lines is no occasion of a horizon. In a shallow clone, the standing-state reviewer and the
-  tripwire auditor run `git fetch --unshallow` before counting a horizon.
+  looks for every premortem cause's outcome in the branch's messages. A relocation, a commit whose
+  added lines are exactly the lines it removes, is no occasion of a horizon. In a shallow clone, the
+  standing-state reviewer and the tripwire auditor report each horizon they could not count, and
+  that `git fetch --unshallow` in the dispatcher's checkout makes it countable.
 - `agent-skills`, patch: an acceptance criterion is admitted only where its failure is silent, its
   firing would show the decision it guards wrong, and a number in it has a basis; a check whose
   firing would show the work unfinished is a claim of the step that builds it. No criterion is put
