@@ -249,9 +249,27 @@ fn collect(
             "string_literal" | "raw_string_literal"
                 if literals == Literals::Prose && !in_binding =>
             {
-                if let Some(content) = named_child(child, "string_content") {
-                    let at = content.start_position().row as u32 + 1;
-                    for (i, line) in src[content.byte_range()].split('\n').enumerate() {
+                // **The literal is read whole.** The grammar splits it into a `string_content`
+                // on each side of every `escape_sequence`, so the text is rebuilt from both:
+                // an escape reads as a space, or as the line breaks its source spans, as a
+                // line continuation does, so every later part keeps its line.
+                let mut text = String::new();
+                let mut at = None;
+                let mut parts = child.walk();
+                for part in child.named_children(&mut parts) {
+                    let source = &src[part.byte_range()];
+                    match part.kind() {
+                        "string_content" => text.push_str(source),
+                        "escape_sequence" if source.contains('\n') => {
+                            text.extend(source.chars().filter(|c| *c == '\n'))
+                        }
+                        "escape_sequence" => text.push(' '),
+                        _ => continue,
+                    }
+                    at.get_or_insert(part.start_position().row as u32 + 1);
+                }
+                if let Some(at) = at {
+                    for (i, line) in text.split('\n').enumerate() {
                         comments.push(CommentLine {
                             comment: false,
                             first: at + i as u32,
@@ -490,6 +508,7 @@ mod tests {
             "string_literal",
             "raw_string_literal",
             "string_content",
+            "escape_sequence",
             "line_comment",
             "block_comment",
             "doc_comment",
@@ -577,6 +596,44 @@ mod tests {
         assert_eq!(p.prose[0].lines, vec![1]);
         assert!(p.prose[0].text.contains(TOKEN));
         assert_eq!(p.scope_at(3).map(|s| s.name.as_str()), Some("f"));
+    }
+
+    /// The claim: an unbound literal is prose whole, its text after an escape included, each
+    /// escape read as a space, or as the line breaks it spans, so a later line keeps its number.
+    #[test]
+    fn an_unbound_literal_is_read_whole_across_its_escapes() {
+        const SRC: &str = r#"fn f() {
+    g("x\n`design@a@after-newline` too");
+    g("say \"`design@a@after-quote`\" here");
+    g("joined \
+       `design@a@after-continuation`");
+    g("last `design@a@on-line-six`");
+}
+"#;
+        let p = parse(SRC);
+        // The file line of the prose line that holds the span.
+        let line_of = |span: &str| {
+            p.prose.iter().find_map(|r| {
+                r.text
+                    .split('\n')
+                    .position(|l| l.contains(span))
+                    .map(|i| r.lines[i])
+            })
+        };
+        assert_eq!(
+            line_of("`design@a@after-newline`"),
+            Some(2),
+            "{:?}",
+            p.prose
+        );
+        assert_eq!(line_of("`design@a@after-quote`"), Some(3), "{:?}", p.prose);
+        assert_eq!(
+            line_of("`design@a@after-continuation`"),
+            Some(5),
+            "{:?}",
+            p.prose
+        );
+        assert_eq!(line_of("`design@a@on-line-six`"), Some(6), "{:?}", p.prose);
     }
 
     /// A name is code, and an extension that reads names finds them here, as the rules

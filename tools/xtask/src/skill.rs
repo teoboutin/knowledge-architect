@@ -45,8 +45,8 @@ fn resolve(content: &Path, name: &str) -> Result<PathBuf, String> {
     }
     if name.is_empty() || name == "." || name == ".." || name.contains(['/', '\\']) {
         return Err(format!(
-            "`{name}` is no name: a name is one installed name, such as \
-             `knowledge-architect-review`, or `primer`"
+            "`{name}` is no name: a name is the installed name of one skill, agent or saved \
+             workflow, its prefix optional, or `primer`"
         ));
     }
     let bare = name.strip_prefix(PREFIX).unwrap_or(name);
