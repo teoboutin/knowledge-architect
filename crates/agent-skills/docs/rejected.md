@@ -679,3 +679,12 @@ items put to the owner has nothing to split, and the owner argued that an activi
 methodology, goal-setting's for goals. Its machinery is sized for hundreds of entries, while the
 owner reported, unsure, that a project's root goals stay in the tens and that one agent reads at
 least 100 goals. It stays the design to reach for if a goal set grows past what one agent reads.
+
+### The owner's ruling owed on every finding of a retrospective intake `##owner-rules-each-intake-finding`
+
+`live`. At the intakes of this repository, 305 of the 368 `Outcome` lines of the 60 analyses
+deleted from docs/retrospective-reports/ up to commit 6f75bc98 began with an approval word, by a
+heuristic grep over each analysis read with `git show <commit>^:<path>`: about 5 rulings in 6
+recorded nothing the analysis did not already hold. The owner's substantive additions keep their
+moment, since the analysis is read before the merge.
+

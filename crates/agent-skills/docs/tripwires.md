@@ -517,3 +517,19 @@ found in a goals home of this repository or reported by a received retrospective
 **Re-entry:** a commit that rewords or removes a goal, and the next review of the whole goal set.
 **Watches until:** five commits on the main branch that change a goals home, counted from the
 commit that writes this line.
+
+## Guarding `design@agent-skills@audit-net-growth`: an intake's repairs, held for no word of the owner, add instructions that interact `##intake-repairs-interact-unheld`
+
+The decision holds a set of repairs for the owner's word on its growth in a project audit only, on
+the premise that an intake's findings, bounded by real use, do not grow the text into rules that
+interact, as the audit's unbounded passes did. Kept on a doubt.
+
+**Fires when:** a pass of the agentic-workflow axis of an audit reports two instructions that leave
+no move satisfying both, or a narrow rule where judgement decides, one of which an intake's repair
+added, found in the audit's report file of that pass.
+**Response:** reopen `design@agent-skills@audit-net-growth` on whether an intake's repairs wait for
+the owner's word on their growth.
+**Re-entry:** the session's verification of each pass of the agentic-workflow axis.
+**Watches until:** two audit reports of the agentic-workflow axis, counted from the commit that
+writes this line.
+

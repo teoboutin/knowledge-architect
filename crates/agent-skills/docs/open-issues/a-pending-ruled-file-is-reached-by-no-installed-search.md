@@ -29,8 +29,9 @@ agentic-workflow audit ran:
   `skill@knowledge-architect-project-audit@record-of-an-audit` says, and it leaves when "the commit
   that carries out its last outcome, or a later commit of the same branch, deletes it". Read on the
   branch that shipped the intake, after that commit: the row "the analysis of a retrospective's
-  project file, and the owner's ruling on each of its findings" gives docs/retrospective-reports/
-  the same life. The analysis is committed before any outcome is carried out, as
+  project file, the outcome of each of its findings, and the owner's ruling on each one the owner
+  holds" gives docs/retrospective-reports/ the same life. The analysis is committed as soon as it
+  is written, its outcomes carried out after it, as
   `skill@knowledge-architect-retrospective-intake@after-the-ruling` says, and its findings handled
   now are handled "on the same branch or on the branches that follow it", as
   `skill@knowledge-architect-retrospective-intake@analysis-and-ruling` says.

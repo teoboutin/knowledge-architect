@@ -70,11 +70,9 @@ Once the analyses leave, every received file the intake analysed is dealt with, 
 owner keeps it:
 
 - **A file written by a session of this repository**, its workflow file or its project file, and
-  **a workflow file from another project** are marked, as the installed intake marks a project file:
-  a line at its head saying that it was analysed and every outcome carried out, and that
+  **a workflow file from another project** are marked and moved, as the installed intake marks
+  and moves a project file in `skill@knowledge-architect-retrospective-intake@after-the-ruling`: a
+  line at its head saying that it was analysed and every outcome carried out, and that
   `git log -- docs/retrospective-reports/<stem>.md` in this repository finds the analysis.
 - **Another project's own file, read for grounding**, is not marked: its findings are that
   project's, for its own intake.
-
-Where the owner keeps handled files apart from pending ones, the shape is the owner's, per
-`issue@agent-skills@a-handled-retrospective-file-is-marked-where-it-lies`.

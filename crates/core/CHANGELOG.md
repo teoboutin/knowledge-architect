@@ -237,6 +237,17 @@ subsection is omitted.
 - `agent-skills`, patch: a goal's wording that rules out what the owner has not ruled out knowingly
   is a finding of the transcript reviewer, of a plan review and of the retrospective, though a
   stricter refinement of any other ruling stays none.
+- `agent-skills`, patch: the retrospective intake decides each finding's outcome that the goals,
+  the record, the code or the sources settle, and puts to the owner only a goal, a fact only the
+  owner holds, a fork, a contradiction or a publication. Its analysis keeps one section per finding,
+  each `Outcome` line saying who holds it, and is committed as soon as it is written; the work
+  proceeds on defaults, and the branch merges once every owner item is ruled. A handled file is
+  marked and moved where the owner's instructions name a place, never deleted.
+- `agent-skills`, patch: the admission standard's fragments route nothing to the owner. A set of
+  repairs that adds instructions is reported to the owner with its net count, and only a project
+  audit's pass waits for the owner's word on that growth; a provable gap is filled from the fact it
+  names; an instruction no agent performs is deleted where the record settles that its act is no
+  longer wanted, and otherwise goes to the owner.
 
 ## 0.8.0
 

@@ -4,7 +4,8 @@ This directory holds the analyses of the files of findings this repository recei
 files of retrospectives and of project audits, from this repository or from a project that uses
 the workflow, and this repository's own retrospective project files. One file per received file,
 named by its stem. Each analysis checks every finding of that file against the tree, the
-registers, the goals and the design, proposes an action, and records the owner's ruling on it. The
+registers, the goals and the design, proposes an action, and records its outcome: the session's decision with its ground, or the
+owner's ruling where the outcome is the owner's. The
 decision is `design@knowledge-architect@committed-findings-analysis`, and the procedure is
 `skill@knowledge-architect-retrospective-intake`, with what `skill@klarch-retrospective-intake`
 adds.
