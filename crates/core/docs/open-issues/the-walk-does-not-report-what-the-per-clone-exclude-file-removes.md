@@ -36,9 +36,10 @@ the walk is.
 
 The check runs at every `check`, in every project.
 
-Related, other causes of a walk that differs between machines, each with its own entry:
-`issue@core@git-environment-variables-redirect-the-walk` and
-`issue@core@the-tests-read-the-machine-s-git-configuration`.
+Related: another cause of a walk that differs between machines,
+`issue@core@the-tests-read-the-machine-s-git-configuration`; and the variables of the environment
+that point git at another repository, which every invocation removes, per
+`design@core@repository-variables-dropped`.
 
 ### Why it matters
 

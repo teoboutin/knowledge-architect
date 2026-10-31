@@ -3782,6 +3782,112 @@ fn check_staged_judges_the_index_and_not_the_working_tree() {
     );
 }
 
+/// The claim: `check --staged` run as a pre-commit hook judges the index the commit records, which
+/// git names by `GIT_INDEX_FILE`: `.git/index` for a commit of what is staged, a lock file of its
+/// own for `commit -a`, which leaves `.git/index` holding what was staged before. Per
+/// `design@core@repository-variables-dropped`.
+#[test]
+fn check_staged_as_a_pre_commit_hook_judges_the_index_the_commit_records() {
+    let sandbox = Sandbox::new("staged-hook", "dirhome");
+    commit_all(&sandbox, "the base");
+    let hooks = sandbox.path("hooks");
+    std::fs::create_dir_all(&hooks).expect("the hooks directory");
+    let hook = hooks.join("pre-commit");
+    std::fs::write(
+        &hook,
+        format!(
+            "#!/bin/sh\nexec '{}' check --staged\n",
+            env!("CARGO_BIN_EXE_klarch")
+        ),
+    )
+    .expect("the hook");
+    use std::os::unix::fs::PermissionsExt;
+    std::fs::set_permissions(&hook, std::fs::Permissions::from_mode(0o755)).expect("executable");
+    // The hooks directory is named on the command line, so a machine's own `core.hooksPath`
+    // decides nothing here. It lies outside the walk only once ignored; it is ignored before
+    // the hook runs, as an untracked file the walk would read.
+    std::fs::write(sandbox.path(".git/info/exclude"), "hooks/\n").expect("the exclude file");
+    let commit = |args: &[&str]| {
+        let mut all = vec!["-c", "core.hooksPath=hooks", "commit", "-q"];
+        all.extend_from_slice(args);
+        let out = sandbox.git_command(&all).output().expect("git runs");
+        let text = format!(
+            "{}{}",
+            String::from_utf8_lossy(&out.stdout),
+            String::from_utf8_lossy(&out.stderr)
+        );
+        (out.status.success(), text)
+    };
+    let readme = std::fs::read_to_string(sandbox.path("README.md")).expect("the README");
+    let dangling = format!("{readme}\nIt leans on `design@dirhome@no-such-entry` too.\n");
+
+    // A plain commit of a staged dangling reference: the hook reads `.git/index`.
+    sandbox.write("README.md", &dangling);
+    sandbox.git(&["add", "README.md"]);
+    let (passed, out) = commit(&["-m", "staged"]);
+    assert!(!passed, "the hook refuses the staged tree: {out}");
+    assert!(out.contains("no-such-entry"), "{out}");
+
+    // `commit -a` of a sound working tree over that index: the hook reads the lock file, which
+    // holds the working tree's README, so the commit is made.
+    sandbox.write("README.md", &format!("{readme}\nOne more sentence.\n"));
+    let (passed, out) = commit(&["-a", "-m", "sound"]);
+    assert!(
+        passed,
+        "the hook passes the tree `commit -a` records: {out}"
+    );
+
+    // `commit -a` of a dangling reference over a sound index: `.git/index` passes, and the hook
+    // must refuse the tree the commit records all the same.
+    sandbox.write("README.md", &dangling);
+    let (passed, out) = commit(&["-a", "-m", "unstaged"]);
+    assert!(
+        !passed,
+        "the hook refuses the tree `commit -a` records: {out}"
+    );
+    assert!(out.contains("no-such-entry"), "{out}");
+}
+
+/// The claim: a `GIT_DIR` naming another repository in the caller's environment changes nothing:
+/// the checker asks git about the repository the project's directory lies in. Per
+/// `design@core@repository-variables-dropped`.
+#[test]
+fn a_git_dir_in_the_environment_does_not_redirect_the_walk() {
+    let sandbox = Sandbox::new("git-dir-env", "dirhome");
+    let other =
+        std::env::temp_dir().join(format!("knowledge-git-dir-other-{}", std::process::id()));
+    let _ = std::fs::remove_dir_all(&other);
+    std::fs::create_dir_all(&other).expect("the other directory");
+    for args in [&["init", "-q"][..], &["add", "f"][..]] {
+        if args[0] == "add" {
+            std::fs::write(other.join("f"), "x\n").expect("a file of the other repository");
+        }
+        let out = Command::new("git")
+            .args(args)
+            .current_dir(&other)
+            .output()
+            .expect("git runs");
+        assert!(
+            out.status.success(),
+            "{}",
+            String::from_utf8_lossy(&out.stderr)
+        );
+    }
+    let (out, stderr, code) = sandbox.run(&["check"]);
+    assert_eq!(code, 0, "the project passes: {out}{stderr}");
+    for variable in ["GIT_DIR", "GIT_COMMON_DIR"] {
+        let (out, stderr, code) =
+            run_with_env(&sandbox.dir, &["check"], &[(variable, &other.join(".git"))]);
+        assert_eq!(
+            code, 0,
+            "{variable} names another repository: {out}{stderr}"
+        );
+    }
+    let (out, stderr, code) = run_with_env(&sandbox.dir, &["check"], &[("GIT_WORK_TREE", &other)]);
+    assert_eq!(code, 0, "GIT_WORK_TREE names another tree: {out}{stderr}");
+    let _ = std::fs::remove_dir_all(&other);
+}
+
 /// The claim: `check --staged` compares the staged installed files against the shipped set, as
 /// `check` does on disk, and prints the `checker source:` line `check` prints.
 #[test]

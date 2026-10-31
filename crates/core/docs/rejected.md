@@ -41,6 +41,14 @@ output had to give the child a regular file: `cargo x gates` and the test helper
 checker binaries; the runner's side, now the gates library's, is its own entry,
 `rejected@gates@streams-through-one-file`. The merge is guarded either way by the range check of `design@core@a-commit-message-is-a-document`.
 
+### Every git variable of the caller's environment removed, `GIT_INDEX_FILE` included `##every-git-variable-dropped`
+
+`live`. Git would then always find the repository and its index from the project's directory. It
+lost to a measurement with git 2.53.0, a pre-commit hook printing `env | grep '^GIT_'`: under
+`commit -a` and `commit <paths>`, `GIT_INDEX_FILE` names a lock file holding the tree the commit
+records, while `.git/index` still holds what was staged before, so `check --staged` run from the
+hook would judge another tree than the commit's.
+
 ### A `commit` subcommand that runs the checks and then `git commit` `##commit-subcommand`
 
 `live`. It would judge the tree and the message at the moment of committing. It loses on three

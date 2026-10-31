@@ -73,6 +73,18 @@ pub(crate) fn init_repository(dir: &Path) -> io::Result<()> {
     git(dir).args(["init", "-q"]).output().map(|_| ())
 }
 
+/// The variables that make git read another repository's files than the one it finds from its
+/// working directory, removed from every invocation. They are the members of
+/// `git rev-parse --local-env-vars` that select a repository, its work tree or its object store;
+/// that list's other members, the configuration and the index among them, are kept.
+const REPOSITORY_VARIABLES: [&str; 5] = [
+    "GIT_DIR",
+    "GIT_WORK_TREE",
+    "GIT_COMMON_DIR",
+    "GIT_OBJECT_DIRECTORY",
+    "GIT_ALTERNATE_OBJECT_DIRECTORIES",
+];
+
 /// A git invocation rooted at `root`, with nothing asked yet.
 pub(crate) fn git(root: &Path) -> Invocation {
     Invocation {
@@ -141,7 +153,17 @@ impl Invocation {
             // the check that reports what it removes. The decision is
             // `design@core@per-user-ignore-file-pinned`.
             .args(["-c", "core.excludesFile=/dev/null"])
-            .args(&self.args)
+            .args(&self.args);
+        // **The repository is the one the project's directory lies in**, whatever the caller's
+        // environment names, so a variable that points git at another repository's files is
+        // removed. `GIT_INDEX_FILE` is kept: it names the index `git commit` records, and a
+        // pre-commit hook gets it, as `.git/index` or as a lock file of the commit's own, so
+        // `check --staged` in a hook judges the tree the commit records. The decision is
+        // `design@core@repository-variables-dropped`.
+        for variable in REPOSITORY_VARIABLES {
+            command.env_remove(variable);
+        }
+        command
             .envs(self.env.iter().map(|(k, v)| (k, v)))
             .stdout(Stdio::piped())
             .stderr(Stdio::piped())
