@@ -45,6 +45,16 @@ re-entry point to `design` only. That retrospective proposed either answer: the 
 allows a re-entry point on `design` only, a `deferred` entry carrying its trigger instead, or the
 reviewer reads every re-entry clause of every entry.
 
+A second real instance, in this repository on 2026-10-31, in the branch that closed the open issues
+on `klarch transcript`: the `design` entry it narrowed and renamed, now
+`issue@core@owner-shell-commands-are-unlabelled`, named as its re-entry point "the next change to
+the labels" of the transcript reader. The branch was that change, left the entry's question open,
+and wrote the same occasion back into the renamed entry. No design discussion ran, so no searcher
+read it. The standing-state reviewer caught it because the change rewrote the entry, which its
+reading of every entry a change opens or closes reaches; it applied the trigger test to the
+re-entry point, saying this entry leaves its scope there undecided. An entry whose re-entry point a
+change meets without rewriting it would have been read by no review.
+
 ### Why it matters
 
 `design@agent-skills@standing-state-review-before-every-merge` makes the standing-state review the reader,
