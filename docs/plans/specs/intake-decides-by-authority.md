@@ -23,18 +23,22 @@ a commit of its own, after its harvest and the review before the merge.
 - Where this spec and a design home disagree on a point "What is already decided" does not list as
   reversed or rewritten, the design home wins, and the disagreement is a defect of this spec.
 - Every name it uses is defined under Names or New names, or exists in the tree.
-- No default awaits the owner: the section "Defaults awaiting the owner" is empty. Where one is
-  added later, `skill@knowledge-architect-planning@working-a-slice` says what waits.
+- One default awaits the owner, `D1`, under "Defaults awaiting the owner". What waits on it is
+  stated there, per `skill@knowledge-architect-planning@working-a-slice`.
 - **The work and the spec are one branch**, the branch named after `spec@plans@intake-decides-by-authority`, on the owner's word,
-  round 4. The work starts in the session where the discussion converged, so the design audit of
-  `skill@knowledge-architect-planning@working-a-slice` point 2 does not run unless other commits
-  land on the main branch before the work starts.
+  round 4. The design audit of `skill@knowledge-architect-planning@working-a-slice` point 2 runs
+  when the work does not start in the session where the discussion converged, or when commits
+  other than this branch's have landed on the main branch since the spec was written. The work
+  starts in the session where the discussion converged; a session that resumes it checks the
+  second condition with `git log 6f75bc98..origin/main`.
 - It was assembled from one transcript, found by the owner's message that opens "Over the last
   few merged branches, work has been done to shift most of the owner rulings toward goal records".
   The discussion holds 4 owner messages, called rounds 1 to 4 below, and 3 agent replies, one after
   each of rounds 1 to 3, with the headings "Round 1", "Round 2" and "Round 3"; each is called here
   "the reply to round <n>". The discussion ends at the owner's message "agreed on the table.
-  Proceed, with the work carried as one spec and one branch".
+  Proceed, with the work carried as one spec and one branch". During the reviews of this spec, the
+  owner sent a fifth message, called round 5, which opens "About the fragments shared between
+  intake and audits".
 
 ## How the work is done
 
@@ -57,6 +61,8 @@ a commit of its own, after its harvest and the review before the merge.
 | the evidence fragment | `path@agent-skills@fragments/admission-evidence.md` |
 | the need-test fragment | `path@agent-skills@fragments/admission-need-test.md` |
 | the audit | `skill@knowledge-architect-project-audit`, source `path@agent-skills@content/skills/project-audit/SKILL.md` |
+| shape B | the name the discussion gave to `thread@intake-decides-by-authority@intake-ruling-timing`'s shape: the analysis committed at once, the work proceeding on defaults, the branch merging once every owner item is ruled |
+| Q1 | the question of the reply to round 1: whether `tripwire@agent-skills@record-answered-questions-reach-the-owner` had fired, that is, whether a retrospective reported a question put to the owner that the record answered |
 | H3 | the shape of `thread@intake-decides-by-authority@handled-file-archive`: mark always, move where the owner's instructions name a place, never delete |
 
 ## What the work is
@@ -69,7 +75,14 @@ What exists today, read at the main commit `6f75bc98`:
   none." Its section `skill@knowledge-architect-retrospective-intake@analysis-and-ruling` asks the
   owner to rule by writing each `Outcome` line, and, "Before committing, list every section whose
   `Outcome` line is still pending, and ask the owner for those." Its outcome "sent upstream" asks
-  the owner whether the workflow file was sent, and treats every edit of it as the owner's. Its
+  the owner whether the workflow file was sent; the head `design@agent-skills@installed-fix-goes-upstream`
+  says "The action, an edit of the workflow file or of the issue that carries it, is the owner's".
+  For a standing entry the file may meet, it says "Whether it fired, and its response, are the
+  owner's to rule; the analysis proposes the judgement and its evidence". Its point 3 of
+  `skill@knowledge-architect-retrospective-intake@ground-before-judging` searches again for a fix
+  "before the proposal goes to the owner", and its route g of
+  `skill@knowledge-architect-retrospective-intake@what-to-establish` reads "an issue only, when the
+  work is not to be done in this session". Its
   section `skill@knowledge-architect-retrospective-intake@after-the-ruling` says "Each section's
   `Outcome` line holds the owner's choice and the owner's words, verbatim. The analysis is
   committed … once every `Outcome` line holds the owner's ruling, and before any outcome is carried
@@ -99,6 +112,10 @@ What exists today, read at the main commit `6f75bc98`:
   states the net growth of the pass's repairs in the project first, where they add more
   instructions than they remove, as `skill@knowledge-architect-project-audit@repair-shape` says":
   the hold itself is the fragment's sentence.
+- **`design@agent-skills@audit-outcomes`** says an unneeded statement "takes the outcome of the table
+  of `skill@knowledge-architect-agent-configuration@admission-standard`: … put to the owner where
+  it is an instruction no agent performs; a review applies the same table, so the two judge one
+  statement alike", and sends a provable gap to the owner.
 - **This repository**: `design@knowledge-architect@committed-findings-analysis` already states that
   the session decides what the argument settles; this repository's intake says "Read the installed
   intake whole and follow it", so a session follows the installed "decides nothing". The root
@@ -109,10 +126,12 @@ What exists today, read at the main commit `6f75bc98`:
 **Outside the work:**
 
 - the rest of the audit's owner list, which sends the owner the removal of an entry, a head in the
-  wrong Component and "any finding no case names": the audit's own work, recorded by
+  wrong Component, "any finding no row names", a provable gap's fill and an instruction no agent
+  performs, and the primer's row for docs/audit-reports/, "the owner's ruling on each of its
+  items": the audit's own work, recorded by
   `issue@agent-skills@texts-send-the-owner-more-than-the-closed-list` and
   `issue@agent-skills@a-head-in-the-wrong-component-goes-to-the-owner-though-the-record-settles-the-component`.
-  The audit stays consistent after this work, since it keeps its own gates;
+  The audit's behaviour does not change in this work: the fragments keep its gates, scoped to it;
 - when a built default awaiting the owner enters a head,
   `issue@agent-skills@a-built-default-awaiting-the-owner-enters-a-head-only-once-the-owner-rules`;
 - the real-use gate, "the owner naming what the session would have lacked without it", which is a
@@ -122,13 +141,12 @@ What exists today, read at the main commit `6f75bc98`:
 
 **The decisions the design rests on**, not argued again:
 `design@agent-skills@questions-go-to-their-authority`,
-`design@agent-skills@derived-decision-proceeds-on-default`,
 `design@agent-skills@default-ruled-before-merge`, `design@agent-skills@owner-rules-at-a-fork`,
 `design@agent-skills@tripwire-recording-authority`, `design@agent-skills@criterion-ruled-at-reopening`,
 `design@agent-skills@heads-stand-on-argument`, `design@agent-skills@answer-keeps-its-authority`,
 `design@agent-skills@attribution-replaces-quotation`, `design@agent-skills@retrospective-destination`,
 `design@agent-skills@project-file-goes-to-an-intake`, `design@agent-skills@shared-text-fragment`,
-`design@agent-skills@admission-rules-home`, `design@agent-skills@shipped-text-cites-no-entry`,
+`design@agent-skills@shipped-text-cites-no-entry`,
 `design@agent-skills@capabilities-not-structure`, `design@agent-skills@goals-change-through-goal-setting`,
 `design@agent-skills@goal-edit-ruled-alone`, `design@knowledge-architect@workflow-findings-stay-here`,
 `design@knowledge-architect@a-record-rides-on-a-commit-that-changes-a-file`, and
@@ -137,19 +155,21 @@ What exists today, read at the main commit `6f75bc98`:
 **The decisions the work rewrites**, with every text `cargo klarch show` lists as citing each, and
 where each is judged or updated:
 
-| decision | what changes | citing texts, and who updates them |
+| decision | what changes | citing texts `cargo klarch show` lists, and who updates them |
 | --- | --- | --- |
-| `design@agent-skills@intake-skill-home` | "puts each finding to the owner" becomes the session deciding by authority | the intake's `%%` comment and the retrospective skill: step 2 |
-| `design@agent-skills@committed-intake-analysis` | committed at once; the owner's ruling only on owner items; the branch merges after them | the intake's `%%` comment, `issue@agent-skills@pointers-written-bare-to-clear-a-finding-reach-no-check`, which keeps its pointer beside the plain path, and `design@knowledge-architect@committed-findings-analysis`: steps 2 and 3 |
-| `design@agent-skills@installed-fix-goes-upstream` | "The action, an edit of the workflow file or of the issue that carries it, is the owner's" narrows to a publication | the primer, the intake, `issue@agent-skills@an-item-kept-for-the-retrospective-is-lost-when-no-retrospective-follows`, which needs no edit: step 2 |
-| `design@agent-skills@intake-shares-the-admission-standard` | "and the owner's ruling on every finding" leaves | the intake's `%%` comment: step 2 |
-| `design@agent-skills@received-file-marked` | H3 | `issue@agent-skills@a-handled-retrospective-file-is-marked-where-it-lies`, closed: step 2 |
-| `design@agent-skills@audit-net-growth` | growth counted and reported by every actor; the hold stays the audit's | the audit's design file: step 1 |
-| `design@agent-skills@behaviour-additions-need-real-use` | a provable gap's fill goes to the owner in an audit only | its citing heads and issues need no edit, since none restates the owner gate: step 1 checks each |
-| `design@agent-skills@statement-names-an-act` | an instruction no agent performs goes to the owner in an audit; elsewhere it is routed by authority | its citing heads: step 1 checks each |
-| `design@agent-skills@record-searched-before-the-work` | "before the proposal goes to the owner" becomes "before the outcome is decided or put to the owner" | step 2 |
-| `design@agent-skills@derived-decision-proceeds-on-default` | its list of deliveries gains the intake | step 2 |
-| `design@knowledge-architect@committed-findings-analysis` | "The file is the record of the rulings" becomes the record of the outcomes and their grounds | the root `CLAUDE.md` row, the README of docs/retrospective-reports/, this repository's intake: step 3 |
+| `design@agent-skills@intake-skill-home` | "puts each finding to the owner" becomes the session deciding by authority | the retrospective skill's sentence and `%%` comment, the intake's `%%` comment: step 2; `design@agent-skills@project-file-goes-to-an-intake`: checked in step 2, no change, since it says only that the intake analyses each finding |
+| `design@agent-skills@committed-intake-analysis` | committed at once; the owner's ruling only on owner items; the branch merges after them | the intake's `%%` comment: step 2; `issue@agent-skills@pointers-written-bare-to-clear-a-finding-reach-no-check`, which keeps its pointer beside the plain path: no change; `design@knowledge-architect@committed-findings-analysis`: step 3 |
+| `design@agent-skills@installed-fix-goes-upstream` | "The action, an edit of the workflow file or of the issue that carries it, is the owner's" narrows to a publication | the primer's paragraph on an item met outside the task and the intake: step 2, the primer checked, no change, since it names the route and not who edits; `design@agent-skills@met-outside-the-task-outcomes`, `design@agent-skills@intake-takes-the-project-file`, `design@knowledge-architect@workflow-findings-stay-here` and `issue@agent-skills@an-item-kept-for-the-retrospective-is-lost-when-no-retrospective-follows`: checked in step 2, no change, since none says who edits |
+| `design@agent-skills@intake-shares-the-admission-standard` | "and the owner's ruling on every finding" leaves; "The worth of a fix and its shape do not differ" gains the one difference, the hold on growth that the audit keeps, on `argument@intake-decides-by-authority@arg-30` | the intake's `%%` comment: step 2 |
+| `design@agent-skills@received-file-marked` | H3 | `issue@agent-skills@a-handled-retrospective-file-is-marked-where-it-lies`, closed in step 3, since this repository's intake cites it until then; `issue@agent-skills@pointers-written-bare-to-clear-a-finding-reach-no-check`: no change |
+| `design@agent-skills@admission-rules-home` | the fragments hold the standard; who decides an outcome is each activity's text, per `primer@question-authority` | its citers: checked in step 1 |
+| `design@agent-skills@audit-net-growth` | every actor counts and reports the growth; the hold is the audit's own text, on `argument@intake-decides-by-authority@arg-30` | none cites it: step 1 |
+| `design@agent-skills@behaviour-additions-need-real-use` | a provable gap's fill goes to the owner in an audit; elsewhere it takes its authority's outcome | `issue@agent-skills@texts-send-the-owner-more-than-the-closed-list`: step 3; `design@agent-skills@audit-outcomes`: step 1; the other citers, the agent-skills heads on the audit, the configuration, the record search and the retrospective, two issues and `tripwire@agent-skills@agent-text-written-without-the-standard`: checked in step 1, each kept unless it restates the gate |
+| `design@agent-skills@statement-names-an-act` | an instruction no agent performs goes on the owner list in an audit; elsewhere it is routed by authority | `design@agent-skills@audit-outcomes`: step 1; the other citers, heads of the audit and of how installed text changes, `issue@agent-skills@a-saved-workflow-s-comments-ship-to-every-project` and the tripwire beside it: checked in step 1 |
+| `design@agent-skills@audit-outcomes` | "a review applies the same table, so the two judge one statement alike" becomes: the two apply one table, whose rows name the audit's owner list | its citers: checked in step 1; `issue@agent-skills@texts-send-the-owner-more-than-the-closed-list`: step 3 |
+| `design@agent-skills@record-searched-before-the-work` | "before the proposal goes to the owner" becomes "before the outcome is decided or put to the owner" | `tripwire@agent-skills@record-search-misses`, whose clause "an outcome the owner ruled in an intake" becomes "an outcome of an intake": step 2; its other citers, heads of the configuration and the reviews, two issues and the tripwire on the record search's occasions: checked in step 2 |
+| `design@agent-skills@derived-decision-proceeds-on-default` | its list of deliveries gains the intake | `design@agent-skills@settled-means-recorded`'s design file and the tripwires that guard it, `tripwire@agent-skills@record-answered-questions-reach-the-owner` among them: checked in step 2, no change, since each guards the routing the list delivers |
+| `design@knowledge-architect@committed-findings-analysis` | "The file is the record of the rulings" becomes the record of the outcomes and their grounds | the root `CLAUDE.md` row, the README of docs/retrospective-reports/, this repository's intake, `issue@agent-skills@a-pending-ruled-file-is-reached-by-no-installed-search` and `issue@agent-skills@texts-send-the-owner-more-than-the-closed-list`: step 3 |
 
 **The entries the search graded**, 80 `bears` and 73 `may-bear`, `cargo klarch worklist --verify`
 passing. Each `bears` entry and its outcome:
@@ -195,9 +215,9 @@ passing. Each `bears` entry and its outcome:
 - `rejected@agent-skills@owner-rules-each-tripwire`: not brought back; a finding on a tripwire is
   the session's under `design@agent-skills@tripwire-stands-on-the-standard`.
 - Issues: `issue@agent-skills@texts-send-the-owner-more-than-the-closed-list` stays open for the
-  audit, its intake items and its three gates marked done, and its attribution of the owner's
+  audit, its intake items marked done, its audit items kept, and its attribution of the owner's
   ruling reworded (step 3);
-  `issue@agent-skills@a-handled-retrospective-file-is-marked-where-it-lies` closes (step 2);
+  `issue@agent-skills@a-handled-retrospective-file-is-marked-where-it-lies` closes (step 3);
   `issue@agent-skills@a-pending-ruled-file-is-reached-by-no-installed-search` stays, its premise that
   an analysis is committed before any outcome reworded in step 3;
   `issue@agent-skills@patching-an-installed-skill` stays: this repository's intake still sets aside
@@ -221,8 +241,11 @@ The `may-bear` entries read, with their outcome:
 - `design@agent-skills@criterion-ruled-at-reopening`: a precedent of the shape; no change.
 - `tripwire@agent-skills@expectation-set-closes-a-contradiction`: its exposure widens, since the
   session now closes such a finding; no change, its re-entry still holds.
+- `design@agent-skills@received-file-marked`: rewritten by the work, as the table above says.
+- `tripwire@agent-skills@record-search-misses`: its clause reworded in step 2, as the table above
+  says.
 
-The 70 `may-bear` entries not read, each with the searcher's reason, as the search gave them:
+The 68 `may-bear` entries not read, each with the searcher's reason, as the search gave them:
 
 - `design@agent-skills@primer-limit`, `design@agent-skills@verification-in-primer`,
   `design@agent-skills@code-change-reads-its-record`, `design@agent-skills@context-cost-of-agent-text`,
@@ -245,8 +268,6 @@ The 70 `may-bear` entries not read, each with the searcher's reason, as the sear
   `tripwire@core@checker-source-literals-are-data-whole-source-scope`,
   `tripwire@core@init-cleanup-beyond-the-listed-files`: each re-enters at an intake or counts
   analyses; an analysis per received file stays.
-- `tripwire@agent-skills@record-search-misses`: its clause counts "an outcome the owner ruled in an
-  intake"; under the work most outcomes are the session's.
 - `goal@knowledge-architect@structure-and-workflow-work-together`,
   `goal@knowledge-architect@records-live-beside-the-code`: the analysis keeps its home.
 - `design@agent-skills@audit-method`, `design@agent-skills@audit-passes-repeat-while-the-count-falls`,
@@ -376,14 +397,16 @@ Proposed by the session in the reply to round 1. State: `argued`. Argument: `arg
 "Decided design". Harvest: `design@agent-skills@installed-fix-goes-upstream`. The owner, round 2:
 "upstream-edit-authority agreed".
 
-### The three gates leave the shared fragments; growth is counted and reported; the audit keeps its gates in its own text `##admission-gates-in-intake`
+### The three gates apply in a project audit only, and every other actor counts and reports growth and routes the rest by authority `##admission-gates-in-intake`
 
 Proposed by the session in the reply to round 1 as a deferral; reopened by the owner's arguments
 in round 2, reshaped by the owner's argument in round 3. State: `argued`. Arguments: `argument@intake-decides-by-authority@arg-12`,
-`argument@intake-decides-by-authority@arg-17`, `argument@intake-decides-by-authority@arg-18`, `argument@intake-decides-by-authority@arg-19`, `argument@intake-decides-by-authority@arg-21`, `argument@intake-decides-by-authority@arg-24`, `argument@intake-decides-by-authority@arg-27`, `argument@intake-decides-by-authority@arg-30`, `argument@intake-decides-by-authority@arg-31`.
-Shape: "Decided design". Harvest: `design@agent-skills@audit-net-growth`,
-`design@agent-skills@behaviour-additions-need-real-use`, `design@agent-skills@statement-names-an-act`,
-`design@agent-skills@intake-shares-the-admission-standard`. The owner, round 2: "About net growth,
+`argument@intake-decides-by-authority@arg-17`, `argument@intake-decides-by-authority@arg-18`, `argument@intake-decides-by-authority@arg-19`, `argument@intake-decides-by-authority@arg-21`, `argument@intake-decides-by-authority@arg-24`,
+`argument@intake-decides-by-authority@arg-27`, `argument@intake-decides-by-authority@arg-30`, `argument@intake-decides-by-authority@arg-31`. Shape: "Decided design", "The three
+gates", as `thread@intake-decides-by-authority@fragment-holds-no-routing` places the text. Harvest:
+`design@agent-skills@audit-net-growth`, `design@agent-skills@behaviour-additions-need-real-use`,
+`design@agent-skills@statement-names-an-act`, `design@agent-skills@intake-shares-the-admission-standard`.
+The owner, round 2: "About net growth,
 I think that only informing me of it and recording it is fine. It should not hold the change. This
 has to be handled with our design I believe, or what we are changing will simply not be able to
 function. The provable gap fill does not need for my word either. The other rules, from
@@ -395,11 +418,27 @@ reports, while the retrospective is bounded by what sessions actually end up doi
 real use. I don't think the retro intake can lead to unbounded growth the same way the audit can."
 The routing of "an instruction no agent performs" is the session's reading of round 2, shown to
 the owner as `presumed-settled` at the checkpoint and confirmed by the owner's word on the table,
-round 4.
+round 4. The gates leave every actor but the audit, `skill@knowledge-architect-agent-configuration`
+and the agent-text review included, by the session's reading of `argument@intake-decides-by-authority@arg-30`: a session writing
+text and a review judge findings bounded by the work or its diff, as an intake's are by real use,
+where an audit's lenses read the whole corpus. The design-conformance review of this spec found
+that the audit's gates, kept by the owner's argument of round 3, are not among the closed list's
+kinds as written: `D1`.
 
-### The work carries the intake activity whole, with the three gates in every host, and the audit's own list waits for its branch `##intake-change-scope`
+### A shared fragment states the standard and no routing to the owner, and each activity's own skill states who decides its outcomes `##fragment-holds-no-routing`
 
-Proposed by the session in the reply to round 1. State: `argued`, once the audit kept its gates
+Proposed by the owner in round 5, as two shapes; the session's choice between them in this spec's
+review round. State: `argued`. Arguments: `argument@intake-decides-by-authority@arg-33`, `argument@intake-decides-by-authority@arg-34`. Shape: "Decided
+design", "The three gates". Harvest: `design@agent-skills@admission-rules-home`,
+`design@agent-skills@audit-net-growth`. The owner, round 5: "About the fragments shared between
+intake and audits: Maybe we should stop using fragments for these. The fragments should not need to
+be made aware of where they are inserted, or the whole mechanic loses its purpose. Either that, or a
+truly shared part is extracted, and the rest belong to its own skill". The thread supersedes the
+shape the reply to round 3 gave the fragments, scoping each gate to the audit inside the fragment.
+
+### The work carries the intake activity whole and the three fragments with their heads, and the audit's own list waits for its branch `##intake-change-scope`
+
+Proposed by the session in the reply to round 1. State: `argued`, once the audit kept its behaviour
 and no fork remained (`argument@intake-decides-by-authority@arg-32`). Arguments: `argument@intake-decides-by-authority@arg-14`, `argument@intake-decides-by-authority@arg-20`, `argument@intake-decides-by-authority@arg-23`, `argument@intake-decides-by-authority@arg-28`.
 Shape: the implementation sequence. Harvest: none; the scope leaves with the spec. The owner, round
 2: "About my ruling "each text … in a change of its own", I do not remember ruling that. I think
@@ -517,7 +556,7 @@ or intent I hold". Bears on `thread@intake-decides-by-authority@intake-outcome-a
 Round 2, the owner: "One detail of context: an intake happens on its own branch. The "fits on this
 branch" condition might end up feeling weird due to that." Bears on `thread@intake-decides-by-authority@intake-now-or-issue`.
 
-### Growth is reported and recorded, never held `##arg-17`
+### Growth at the intake is reported and recorded, not held `##arg-17`
 
 Round 2, the owner: "only informing me of it and recording it is fine. It should not hold the
 change. This has to be handled with our design I believe, or what we are changing will simply not
@@ -614,6 +653,20 @@ rejected entry stays true of the audit and says nothing about the intake." Bears
 The reply to round 3, the session: "the audit activity is not touched in behaviour, so
 `thread@intake-decides-by-authority@intake-change-scope` has no fork left." Bears on `thread@intake-decides-by-authority@intake-change-scope`.
 
+### A fragment unaware of its hosts `##arg-33`
+
+Round 5, the owner: "The fragments should not need to be made aware of where they are inserted, or
+the whole mechanic loses its purpose. Either that, or a truly shared part is extracted, and the
+rest belong to its own skill". Bears on `thread@intake-decides-by-authority@fragment-holds-no-routing`.
+
+### The shared part is the standard; the routing is each activity's `##arg-34`
+
+This spec's review round, the session: `design@agent-skills@shared-text-fragment` already says "A
+text is a host only where its act applies the whole fragment"; a fragment whose owner routing
+differs by host breaks that, so the routing leaves it. Stopping the fragments, the owner's first
+shape, loses on that head's own argument: a pointer costs a session the decision to fetch it, and a
+hand copy drifts. Bears on `thread@intake-decides-by-authority@fragment-holds-no-routing`.
+
 ## New names, in one place
 
 ```text
@@ -631,13 +684,17 @@ one sentence, per `design@agent-skills@restatement-size-test`; an owner item is 
 list's kinds. The intake names the cases it meets most, as examples of the primer's kinds, not as
 a second list: a goal to set or change, which goes to `skill@knowledge-architect-goal-setting`; the
 real-use gate, a fact only the owner holds; two fixes that both survive with no goal ranking them;
-a publication, under `thread@intake-decides-by-authority@upstream-edit-authority`.
+a publication, under `thread@intake-decides-by-authority@upstream-edit-authority`. A standing entry
+the file may meet, a tripwire that may have fired, a deferred trigger, a design issue's re-entry,
+is judged by the session too: whether it fired, and its response, are what the tripwire's standard
+and its entry settle, per `design@agent-skills@tripwire-stands-on-the-standard`.
 
 Each section keeps every bullet of `skill@knowledge-architect-retrospective-intake@what-to-establish`
 and its `Default` line. Its `Outcome` line holds one of:
 
 - `decided by the session: <outcome>. Ground: <the argument, with its references>`;
-- `for the owner (<kind>)`, pending, then the owner's choice and words verbatim once given.
+- `for the owner (<kind>)`, pending; once the owner rules, the line keeps that prefix and adds the
+  owner's choice and words verbatim.
 
 An illustration of the shape, not authority:
 
@@ -649,8 +706,14 @@ An illustration of the shape, not authority:
 
 The summary in the conversation keeps one line per section, and each says who holds the outcome,
 "decided" or "for you", so the owner sees every finding and its kind and can add a fact or an intent
-to any line, decided ones included, before the merge. A question tool is still not the way to
-collect a ruling. The proposal to rule by writing in the file stays, for owner items.
+to any line, decided ones included, before the merge. The owner writes such an addition in the
+section, or gives it in the conversation, where the session copies it into the section verbatim.
+The session then weighs it like any other goal, fact or argument: it decides the outcome again, and
+rewrites the `Outcome` line with the new ground, or makes the section an owner item where the
+addition opens a question of the closed list. The message of the commit that writes the analysis,
+and of each commit that changes an outcome, lists each outcome the session decided, one line each.
+A question tool is still not the way to collect a ruling. The proposal to rule by writing in the
+file stays, for owner items.
 
 Rival, ruled out: a batch confirmation of every default (`argument@intake-decides-by-authority@arg-5`). Rival, ruled out: today's text
 with the primer prevailing (`argument@intake-decides-by-authority@arg-6`).
@@ -660,8 +723,10 @@ with the primer prevailing (`argument@intake-decides-by-authority@arg-6`).
 "Handle now": the finding's work lands in the intake's branch, its design settled by the record, or
 settled there through the design skill's in-change path. "Open an issue": the work needs a branch
 of its own, the design skill's full path. A finding handled now that grows into a full path has its
-`Outcome` rewritten to name the plan document or the issue that carries it, as the intake already
-says. The session decides which. Rival, ruled out: each choice put to the owner as a fork; a rule
+`Outcome` rewritten, by the session, to name the plan document or the issue that carries it; the
+intake's "on the owner's word" on that rewriting leaves. The session decides which. Route g of
+`skill@knowledge-architect-retrospective-intake@what-to-establish`, "an issue only, when the work is
+not to be done in this session", becomes "an issue only, when the work needs a branch of its own". Rival, ruled out: each choice put to the owner as a fork; a rule
 ranks it, as in the review and the audit (`argument@intake-decides-by-authority@arg-9`). A row of the roadmap stays the owner's, per
 `design@agent-skills@roadmap-order-is-the-owners`.
 
@@ -681,28 +746,38 @@ wait for every ruling before the commit (`argument@intake-decides-by-authority@a
 Adding a finding to the retrospective's workflow file not yet sent is the session's: the file stays
 on the machine and the owner reads it whole before it leaves, per
 `design@agent-skills@retrospective-destination`. Editing the issue that carries it, posting a
-comment, or opening a new issue is a publication, and the owner's. The intake no longer asks the
-owner whether the file was sent where the session can tell: an issue on the workflow's repository
-found with `gh` shows it was. Rival, ruled out: both edits the owner's (`argument@intake-decides-by-authority@arg-11`).
+comment, or opening a new issue is a publication, and the owner's. The intake asks the owner whether
+the file was sent only where the session cannot tell: an issue on the workflow's repository whose
+title or body names the file's stem, found with `gh issue list --repo <that repository> --search
+"<stem>"`, shows it was sent; where none is found or `gh` fails, the session asks. Rival, ruled out: both edits the owner's (`argument@intake-decides-by-authority@arg-11`).
 
 ### The three gates
 
-- The repair fragment: each repair counts the instructions it adds and removes; where the
-  repairs applied together add more than they remove, the net figure is told to the owner and
-  recorded, in the analysis, the report or the commit message that applies them. It holds no
-  repair.
-- The evidence fragment: a provable gap is admitted on reading; its fill takes the outcome its
-  authority gives, per `primer@question-authority`.
-- The need-test fragment, the row of an instruction no agent performs: routed by
-  `primer@question-authority`: deleted where nothing recorded ties it to a goal or to a ruling of
-  the owner; otherwise a contradiction or a fork, which goes to the owner.
-- The audit's own text gains the hold the fragment loses: in the agentic-workflow axis, the owner
-  rules on the net growth of a pass's repairs before any of them is applied. Its owner list keeps a
-  provable gap and an instruction no agent performs, as it already states. The argument is the
-  owner's, `argument@intake-decides-by-authority@arg-30`: an audit's lenses read the whole corpus and report findings with little
-  bound, where an intake's findings come from what real sessions did.
+The fragments keep the shared standard, and no routing to the owner, per
+`thread@intake-decides-by-authority@fragment-holds-no-routing`:
+
+- The repair fragment: each repair counts the instructions it adds and removes, and the net figure
+  of the repairs applied together is stated in the record that applies them, the analysis, the
+  audit's report or the commit message. The sentence "the owner is told so first, with the net
+  figure, and rules on that growth before any of them is applied" leaves it.
+- The evidence fragment: a provable gap is admitted on reading, and its fill adds an instruction.
+  "so it goes to the owner" leaves it.
+- The need-test fragment, the row of an instruction no agent performs: its outcome is "a decision,
+  since deleting it changes what agents are told", with no route named; the clause "put to the
+  owner … on an audit's owner list, as a default awaiting the owner in a plan document, or as a
+  question in the turn elsewhere" leaves it.
+
+Each activity states who decides those outcomes, in its own text:
+
+- the audit, in its agentic-workflow axis: the owner rules on the net growth of a pass's repairs
+  before any of them is applied, a sentence written beside its line on the owner list's net
+  growth; its outcome table keeps a provable gap and an instruction no agent performs on its owner
+  list, as it already states. The audit's gates are `D1`.
+- the intake, `skill@knowledge-architect-agent-configuration`, the agent-text reviewer and the
+  retrospective: nothing beyond `primer@question-authority`, which routes each outcome. The intake
+  states it, per its first subsection above; the others already apply the primer.
 - `rejected@agent-skills@unbounded-repair-growth` stays, true of the audit; the head
-  `design@agent-skills@audit-net-growth` names it for the audit's hold.
+  `design@agent-skills@audit-net-growth` names it for the audit's hold, on `argument@intake-decides-by-authority@arg-30`.
 
 ### What becomes of a handled file
 
@@ -733,6 +808,11 @@ None: the work maps no domain onto another.
   `argument@intake-decides-by-authority@arg-30`.
 - **The whole audit activity in this branch**, lost to `thread@intake-decides-by-authority@intake-change-scope` on `argument@intake-decides-by-authority@arg-28` and
   `argument@intake-decides-by-authority@arg-32`.
+- **Fragments stopped for these rules**, the owner's first shape of round 5, lost to
+  `thread@intake-decides-by-authority@fragment-holds-no-routing` on `argument@intake-decides-by-authority@arg-34`.
+- **Each gate scoped to the audit inside the fragment**, the shape of the reply to round 3,
+  superseded by `thread@intake-decides-by-authority@fragment-holds-no-routing` on
+  `argument@intake-decides-by-authority@arg-33`.
 - **H1, the mark alone**, and **H2, a fixed archive directory**, lost to `thread@intake-decides-by-authority@handled-file-archive` on
   `argument@intake-decides-by-authority@arg-29`.
 
@@ -748,8 +828,8 @@ None: the work reads no external specification.
 | # | cause | thread stressed | verdict |
 | --- | --- | --- | --- |
 | 1 | a session classes a fork as settled and decides it, so a choice that was the owner's never reaches the owner | `thread@intake-decides-by-authority@intake-outcome-authority` | named as a cause for the harvest to judge; `tripwire@agent-skills@open-fork-classed-as-settled` already guards that premise, and the harvest folds it there or drops it |
-| 2 | an analysis committed at once merges with an owner item still pending | `thread@intake-decides-by-authority@intake-ruling-timing` | a claim of step 2, with its check |
-| 3 | intake repairs, no longer held, add rules that a later agentic-workflow audit pass finds interacting | `thread@intake-decides-by-authority@admission-gates-in-intake` | named as a cause for the harvest to judge as a tripwire, with a short horizon |
+| 2 | an analysis committed at once merges with an owner item still pending | `thread@intake-decides-by-authority@intake-ruling-timing` | a claim of step 2, with its check. The ground of the reply to round 3: a script can find a pending `Outcome` line in docs/retrospective-reports/ at the merge, so the failure is not silent and is no tripwire |
+| 3 | intake repairs, no longer held, add rules that a later agentic-workflow audit pass finds interacting | `thread@intake-decides-by-authority@admission-gates-in-intake` | named as a cause for the harvest to judge as a tripwire. The ground of the reply to round 3: the event is named, its evidence lands in an audit report, and it is what the decision says must not happen; proposed horizon, the next two passes of that axis |
 | 4 | the owner stops reading the decided lines, and the substantive interventions disappear | `criterion@intake-decides-by-authority@report-keeps-its-shape` | named as a cause; the provisional judgement drops it, since its evidence is only what the owner would have written, which the owner sees |
 | 5 | a session takes a retrospective's narrative for the owner's naming of what a session lacked, and admits an addition about behaviour on it | `thread@intake-decides-by-authority@intake-outcome-authority` | named as a cause; the provisional judgement drops it, since the agent-text review axis judges the evidence of every added statement |
 
@@ -759,58 +839,74 @@ None: no cause meets conditions 1, 3 and 4 of the standard on code only the buil
 
 ## Implementation sequence
 
-### Step 1: the three gates leave the shared fragments, and the audit keeps them in its own text
+### Step 1: the fragments keep the standard, and each activity states who decides
 
 **Builds**: the edits of the three fragments of "Decided design", "The three gates"; the hold on
 growth written into the audit's agentic-workflow axis, beside its sentence on the owner list's net
-growth; the heads `design@agent-skills@audit-net-growth`,
-`design@agent-skills@behaviour-additions-need-real-use` and `design@agent-skills@statement-names-an-act`
-rewritten in place, each brought to the rules on heads, per
-`design@agent-skills@existing-heads-on-touch`.
+growth, and that sentence's pointer to `skill@knowledge-architect-project-audit@repair-shape`
+kept for the count; the heads `design@agent-skills@audit-net-growth`,
+`design@agent-skills@behaviour-additions-need-real-use`, `design@agent-skills@statement-names-an-act`,
+`design@agent-skills@audit-outcomes` and `design@agent-skills@admission-rules-home` rewritten in
+place, each brought to the rules on heads, per `design@agent-skills@existing-heads-on-touch`;
+`design@agent-skills@admission-rules-home` gains that the standard is the fragments', and who
+decides an outcome is each activity's, per `primer@question-authority` and the activity's text.
 
 **Claims**:
 
-- No shared fragment sends a growth, a provable gap's fill or an unperformed instruction to the
-  owner. Test: reading each of the three fragments whole; a search for "rules on that growth",
-  "goes to the owner" and "put to the owner" over `path@agent-skills@fragments/` returns no gate.
-  Shown to fail on the main commit, where it returns the three sentences.
-- The audit's text states the hold on growth and the two owner-list cases on its own. Test: reading
-  the agentic-workflow axis's section of the audit and its outcome table.
+- No fragment of `path@agent-skills@fragments/` names an actor or a route to the owner for a growth,
+  a provable gap's fill or an instruction no agent performs. Test: reading the three fragments
+  whole, and a search over `path@agent-skills@fragments/` for "growth", "provable gap" and "no
+  agent performs", matched across a line break, each hit read. Shown to fail on the main commit,
+  where the three hits name the owner.
+- The audit's own text states the hold on growth, and its owner list the other two. Test: reading
+  `skill@knowledge-architect-project-audit@repair-shape`'s axis section and its outcome table.
+- Each citer the table of "What is already decided" marks "checked in step 1" restates no gate the
+  step removes, or is reworded. Test: reading each, listed in the step's commit message with its
+  outcome.
 - The fragments' host lists are unchanged. Test: `each_fragment_has_its_hosts` of
   `path@agent-skills@src/lib.rs` passes unchanged.
 - `cargo x gates` passes.
 
-**Fails alone on**: a reader of the audit who finds no hold on growth, or a host of a fragment that
-still sends a gate to the owner.
+**Fails alone on**: a reader of the audit who finds no hold on growth, or a fragment that names an
+activity or the owner for one of the three outcomes.
 
 ### Step 2: the intake decides by authority, and its analysis keeps its shape
 
-**Builds**: the intake's text, every section the "Decided design" subsections on who decides, now
-or later, timing, the workflow file and a handled file change: its scope, its description, its item
-h, `skill@knowledge-architect-retrospective-intake@analysis-and-ruling` and
-`skill@knowledge-architect-retrospective-intake@after-the-ruling`, with their `%%` comments; the
-installed retrospective's sentence on the intake; the primer's row for the analysis, which becomes
-"the analysis of a retrospective's project file, the outcome of each finding and the owner's ruling
-on each owner item"; the heads `design@agent-skills@intake-skill-home`,
+**Builds**: the intake's text, every passage the "Decided design" subsections change: its scope and
+its `%%` comment; its description; point 3 of
+`skill@knowledge-architect-retrospective-intake@ground-before-judging`; route g and item h of
+`skill@knowledge-architect-retrospective-intake@what-to-establish`;
+`skill@knowledge-architect-retrospective-intake@analysis-and-ruling`, its heading, its sentence on a
+standing entry, its outcome "sent upstream" and its ruling paragraph; and
+`skill@knowledge-architect-retrospective-intake@after-the-ruling`; with their `%%` comments. Also:
+the installed retrospective's sentence on the intake; the primer's row for the analysis, which
+becomes "the analysis of a retrospective's project file, the outcome of each finding and the
+owner's ruling on each owner item"; the heads `design@agent-skills@intake-skill-home`,
 `design@agent-skills@committed-intake-analysis`, `design@agent-skills@installed-fix-goes-upstream`,
 `design@agent-skills@intake-shares-the-admission-standard`, `design@agent-skills@received-file-marked`,
 `design@agent-skills@record-searched-before-the-work` and
-`design@agent-skills@derived-decision-proceeds-on-default` rewritten in place; and the closure of
-`issue@agent-skills@a-handled-retrospective-file-is-marked-where-it-lies`.
+`design@agent-skills@derived-decision-proceeds-on-default` rewritten in place; and the clause of
+`tripwire@agent-skills@record-search-misses`.
 
 **Claims**:
 
 - No installed text says the intake decides nothing or puts each finding to the owner. Test: a
-  search for "decides nothing" and "puts each finding to the owner" over
-  `path@agent-skills@content/`, matched across a line break. Shown to fail on the main commit.
+  search for "This skill decides nothing" in the intake, and for "puts each finding to the owner"
+  and "owner's ruling on each of its findings" over `path@agent-skills@content/`, matched across a
+  line break. Shown to fail on the main commit. The phrase "decides nothing" alone also matches
+  the primer, the audit, the design skill and the retrospective, which say it of other things.
 - The intake asks, before the merge of the branch that holds an analysis, for every `Outcome` line
-  still pending, and the branch merges only once none is. This is the check of premortem cause 2.
-  Test: reading `skill@knowledge-architect-retrospective-intake@after-the-ruling`.
+  still pending, and the branch merges only once none is: premortem cause 2. Test: reading
+  `skill@knowledge-architect-retrospective-intake@after-the-ruling`, and running the check it names,
+  a search for `for the owner` lines with no ruling over docs/retrospective-reports/, on a tree
+  holding a pending line and on one holding none.
 - The analysis keeps one section per finding with its bullets, its `Default` and its `Outcome`
   lines, and the summary's line per section says who holds the outcome. Test: reading
   `skill@knowledge-architect-retrospective-intake@analysis-and-ruling`.
 - The installed text names no directory for handled files. Test: reading
   `skill@knowledge-architect-retrospective-intake@after-the-ruling`.
+- Each citer the table of "What is already decided" marks "checked in step 2" is read, and listed
+  in the step's commit message with its outcome.
 - `cargo x gates` passes, and `cargo klarch install-agent-skills` writes the new text into
   `.claude/`.
 
@@ -821,20 +917,23 @@ the record settles, or that merges with an owner item pending.
 
 **Builds**: `design@knowledge-architect@committed-findings-analysis` rewritten in place; this
 repository's intake, its section on what becomes of received files pointing to the installed rule
-on a handled file; the root `CLAUDE.md` row for the analysis; the README of
-`path@knowledge-architect@docs/retrospective-reports/`; the rewording of
-`issue@agent-skills@texts-send-the-owner-more-than-the-closed-list`, its intake items and its three
-gates marked done and its attribution of the owner's ruling brought to the owner's words of round
-2; the premise of `issue@agent-skills@a-pending-ruled-file-is-reached-by-no-installed-search`
-reworded; a CHANGELOG.md entry under `Next release`, Workflow, surface agent-skills, patch, then
+on a handled file, and its citation of the closing issue removed; the closure of
+`issue@agent-skills@a-handled-retrospective-file-is-marked-where-it-lies`; the root `CLAUDE.md`
+row for the analysis; the README of `path@knowledge-architect@docs/retrospective-reports/`; the
+rewording of `issue@agent-skills@texts-send-the-owner-more-than-the-closed-list`, its intake items
+marked done, its audit items kept, its restatement of the provable-gap gate brought to the new
+fragment, and its attribution of the owner's ruling brought to the owner's words of round 2; the
+premise of `issue@agent-skills@a-pending-ruled-file-is-reached-by-no-installed-search` reworded; a
+CHANGELOG.md entry under `Next release`, Workflow, surface agent-skills, patch, then
 `cargo x changelog`.
 
 **Claims**:
 
-- No text of this repository says the analysis records the owner's ruling on every finding. Test: a
-  search for "owner's ruling on each" and "records the owner's ruling" over the root `CLAUDE.md`,
-  `path@knowledge-architect@docs/retrospective-reports/README.md`, `register@knowledge-architect@design`
-  and this repository's intake.
+- No text of this repository says the analysis records the owner's ruling on every finding. Test:
+  reading the root `CLAUDE.md` row, `path@knowledge-architect@docs/retrospective-reports/README.md`,
+  `design@knowledge-architect@committed-findings-analysis` and this repository's intake; a search
+  for "the owner's ruling on each" over them is a lead only, since the new primer row keeps "the
+  owner's ruling on each owner item".
 - `cargo x gates` passes.
 
 **Fails alone on**: a reader of this repository's records who finds the old ruling on every
@@ -844,20 +943,39 @@ finding.
 
 Step 1 before step 2: the intake hosts the three fragments, and its text written after them
 describes a standard that is already in place. Step 2 before step 3: this repository's texts follow
-the installed intake, and restate nothing of it.
+the installed intake, and restate nothing of it; the issue it cites closes once its citation is
+removed, in step 3.
 
 ## Defaults awaiting the owner
 
-None.
+### D1: the audit's three gates, and the closed list
+
+Bears on `thread@intake-decides-by-authority@admission-gates-in-intake`. The design-conformance
+review of this spec found that the audit keeps sending to the owner a growth of instructions, a
+provable gap's fill and an instruction no agent performs, while `goal@knowledge-architect@the-owner-decides`
+sends the owner "these and nothing else", and the record now settles the last two elsewhere. The
+owner's argument of round 3, `argument@intake-decides-by-authority@arg-30`, keeps the hold on growth in the audit. A word of the
+owner against a goal is a contradiction, per `primer@owner-word-premise`.
+
+**Default:** the audit's gates on growth and on a provable gap's fill are the closed list's "choice
+… where choosing weighs a cost or a scope that no goal or decision ranks": an audit's repairs are not
+bounded by real use, so the growth they bring is a cost the owner weighs, which
+`goal@agent-skills@only-needed-instructions` does not rank, since it judges each instruction and
+not the sum. The gate on an instruction no agent performs adds nothing, so it is no such weighing:
+it stays on the audit's owner list as today, and on
+`issue@agent-skills@texts-send-the-owner-more-than-the-closed-list` for the audit's own work.
+
+**What waits:** the ground written into `design@agent-skills@audit-net-growth` and the issue's
+wording on the audit's gates. The rest of the work proceeds; the branch merges once the owner rules.
 
 ## Harvest
 
 | what | where | when |
 | --- | --- | --- |
 | the decisions of the threads | rewritten in place in the heads listed in "What is already decided", in the steps that land them, per `design@agent-skills@design-home-is-built-intent` | steps 1 to 3 |
-| the losing alternatives | judged by the tests of `skill@knowledge-architect-decision-recording@losing-alternatives`; each that earns one, a `rejected` entry of agent-skills cited by its head | the last commit of step 3 |
+| the losing alternatives, `thread@intake-decides-by-authority@fragment-holds-no-routing`'s first shape included | judged by the tests of `skill@knowledge-architect-decision-recording@losing-alternatives`; each that earns one, a `rejected` entry of agent-skills cited by its head | the last commit of step 3 |
 | premortem causes 1, 3, 4, 5 | judged by the tripwire standard, as `skill@knowledge-architect-decision-recording@ruled-tripwires` says, on their wording then | the last commit of step 3 |
-| the issues | `issue@agent-skills@a-handled-retrospective-file-is-marked-where-it-lies` closed; `issue@agent-skills@texts-send-the-owner-more-than-the-closed-list` and `issue@agent-skills@a-pending-ruled-file-is-reached-by-no-installed-search` reworded | steps 2 and 3 |
+| the issues | `issue@agent-skills@a-handled-retrospective-file-is-marked-where-it-lies` closed; `issue@agent-skills@texts-send-the-owner-more-than-the-closed-list` and `issue@agent-skills@a-pending-ruled-file-is-reached-by-no-installed-search` reworded | step 3 |
 
 ## Later consequences
 
