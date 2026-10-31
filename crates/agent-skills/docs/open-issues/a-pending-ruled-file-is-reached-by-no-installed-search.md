@@ -28,12 +28,11 @@ agentic-workflow audit ran:
   owner's ruling on each of its items": its home is one file per pass in docs/audit-reports/, as
   `skill@knowledge-architect-project-audit@record-of-an-audit` says, and it leaves when "the commit
   that carries out its last outcome, or a later commit of the same branch, deletes it". Read on the
-  branch that shipped the intake, after that commit: the row "the analysis of a retrospective's
-  project file, the outcome of each of its findings, and the owner's ruling on each one the owner
-  holds" gives docs/retrospective-reports/ the same life. The analysis is committed as soon as it
-  is written, its outcomes carried out after it, as
-  `skill@knowledge-architect-retrospective-intake@after-the-ruling` says, and its findings handled
-  now are handled "on the same branch or on the branches that follow it", as
+  branch that shipped the intake, after that commit: the row for the analysis of a retrospective's
+  project file gives docs/retrospective-reports/ the same life. The analysis is committed as soon as
+  it is written, its outcomes carried out after it, as
+  `skill@knowledge-architect-retrospective-intake@after-the-ruling` says now, and an issue it opens
+  for work that needs a branch of its own is carried out on a later branch, as
   `skill@knowledge-architect-retrospective-intake@analysis-and-ruling` says.
 - `primer@verify-before-relying`, its subsection "Check whether it is already known": before
   diagnosing, `cargo klarch issues`, `cargo klarch tripwires` and `cargo klarch show`.

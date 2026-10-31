@@ -90,8 +90,8 @@ unprompted or asked for by the owner, with the owner naming what the session wou
 without it, and one sentence stating the mechanism that produced the need. A gap that only
 predicts what an agent would do is no edit: it is an issue entry stating what a real session would
 have to show. A provable gap is an input an act needs that no text supplies and judgement cannot
-derive, a fact fixed elsewhere such as a format the checker enforces, a name or a path; that fact
-determines its fill.
+derive, a fact fixed elsewhere such as a format the checker enforces, a name or a path; its fill
+adds an instruction, which that fact determines.
 
 **A lapse is not repaired by adding text.** An instruction that exists, is clear, and was not
 followed stays as it is. Where the lapse recurs at one point of delivery, because the instruction

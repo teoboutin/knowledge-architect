@@ -122,8 +122,8 @@ The order is a suggestion; the content is not.
     in scope**, and is never closed by citing an expectation set;
   - **an observation**: a use that went well, or a behaviour not reproduced. It needs no action.
 - **e. Its scope.** The goal it serves or threatens, from the project's goals homes,
-  `register@*@goal`; a finding on the installed text or on the checker has its scope there, and no
-  goal of the project's. The
+  `register@*@goal`; a finding on the installed text or on the checker has its scope in the
+  installed text or the checker, and no goal of the project's. The
   owner of the fix: the Component or the location that owns the blamed text; or the installed
   text, which the project never edits, per
   `skill@knowledge-architect-agent-configuration@installed-files-never-edited`; or the checker.
@@ -224,8 +224,8 @@ unprompted or asked for by the owner, with the owner naming what the session wou
 without it, and one sentence stating the mechanism that produced the need. A gap that only
 predicts what an agent would do is no edit: it is an issue entry stating what a real session would
 have to show. A provable gap is an input an act needs that no text supplies and judgement cannot
-derive, a fact fixed elsewhere such as a format the checker enforces, a name or a path; that fact
-determines its fill.
+derive, a fact fixed elsewhere such as a format the checker enforces, a name or a path; its fill
+adds an instruction, which that fact determines.
 
 **A lapse is not repaired by adding text.** An instruction that exists, is clear, and was not
 followed stays as it is. Where the lapse recurs at one point of delivery, because the instruction
@@ -326,9 +326,9 @@ Write the analysis in docs/retrospective-reports/ at the project's root, as `<st
   and entries are written in the checked forms, since the file is checked like any other.
 
 Then give the owner the full path of each file, and in the conversation one line per section: its
-ids, the proposal in a few words, and who holds the outcome, "decided: <outcome>" or "for you:
+ids, its kind of item d, the proposal in a few words, and who holds the outcome, "decided: <outcome>" or "for you:
 <kind>, default <outcome>", or, for a section that points to a cluster, the file that analyses it.
-The owner sees every finding and its kind, and can add a fact, an argument or an intent to any
+The owner can add a fact, an argument or an intent to any
 section, a decided one included, in the file or in the conversation, where the session copies it
 into the section verbatim. The session weighs it as any other, decides the outcome again with the
 new ground, or makes the section an owner item where the addition opens a question that is the
@@ -338,8 +338,8 @@ lands in the record as written; a ruling given in the conversation is copied in 
 outcomes**:
 
 - **handle now**: the finding's work lands in the branch of the intake, its design settled, or
-  settled there under `skill@knowledge-architect-design`; it is handled once decided, on that
-  branch or on the branches that follow it, under the skill its route names. It needs no issue
+  settled there on the in-change path of `skill@knowledge-architect-design`; it is handled once
+  decided, on that branch, under the skill its route names. It needs no issue
   entry, and the proposal does not suggest one;
 - **open an issue**: the work needs a branch of its own; name its anchor and its kind;
 - **sent upstream**: the fix lies in the installed text or in the checker. Ask the owner whether
@@ -369,8 +369,8 @@ The analysis is committed as soon as it is written, under the project's own bran
 items pending; the message lists each outcome the session decided, one line each, and the message of
 a later commit each outcome it decides or changes. The work proceeds on every default, a decided
 outcome and an owner item's alike, except a part that rests on a goal to change, a contradiction or
-an action that cannot be undone, which waits for the owner's word. An owner's ruling lands as an
-edit of the section's `Outcome` line. An owner item's outcome is carried out only once it is ruled.
+an action that cannot be undone, which waits for the owner's word. An owner item's outcome counts as
+carried out only once it is ruled, so the analysis cannot leave while one is pending.
 **Before the branch that holds the analysis merges, list every `Outcome` line still pending**, with
 `grep -rn -E 'Outcome.*for the owner \(.*\): pending' docs/retrospective-reports/`, and ask the
 owner for those; the branch merges once none is pending.

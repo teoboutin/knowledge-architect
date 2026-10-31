@@ -75,31 +75,33 @@ to such a text is one that binds its writer at that time.
 
 It refines `goal@knowledge-architect@agents-get-a-complete-workflow`.
 
-## An installed text works unchanged in any project that installs it, a project that holds none of knowledge-architect's record included `##installed-text-works-anywhere`
+## An installed text works unchanged in any project that installs it, a project that holds none of knowledge-architect's goals and record included `##installed-text-works-anywhere`
 
-A project other than knowledge-architect that installs the workflow holds none of knowledge-architect's
-record: none of the goals, design heads, rejected designs, tripwires or issues of its Components,
-none of the reasons recorded beside its code and its agent-facing text, the `%%` comments of the
-installed text's source included, and none of its commit messages. It is not expected to hold many
-goals or design heads of its own about its agent-facing text: knowledge-architect carries most of
-what concerns that text, in the instructions the installed text gives, and the project adds what
-its own activities need. Where it holds many, this goal holds all the same.
+A project other than knowledge-architect that installs the workflow holds, in its repository, none
+of knowledge-architect's goals and record: none of the goals, design heads, rejected designs,
+tripwires or issues of its Components, none of the reasons recorded beside its code and its
+agent-facing text, the `%%` comments of the installed text's source included, and none of its
+commit messages. It is not expected to hold many goals or design heads of its own about its
+agent-facing text: knowledge-architect carries most of what concerns that text, in the instructions
+the installed text gives, and the project adds what its own activities need. Where it holds many,
+this goal holds all the same.
 
 The installed skills, agent definitions, saved workflows and primer work unchanged in every project
-that installs them:
+that installs them, of any language and of any layout its manifest declares:
 
 - they name no path or convention particular to one adopting project, and write the command the
   project declares for running the checker, or the checker's default where it declares none;
 - each of their instructions can be followed, and gives the result it intends, with what that
-  project holds: the installed text, the project's own instructions, goals and records, its code
-  and its measurements, the sources it follows, and its owner;
-- that holds where the project's own goals and records say nothing about an instruction's subject.
+  project holds: the installed text, the project's own instructions, goals and record, its code and
+  its measurements, the sources it follows, knowledge-architect's published documentation among
+  them, and its owner;
+- that holds where the project's own goals and record say nothing about an instruction's subject.
 
 It is met while the installed text names no such path or convention, writes that command, and holds
-no instruction whose act needs anything of knowledge-architect's record to be carried out; and while
-each instruction whose subject a project's own goals and records can leave unsettled says what it
-does in that case, unless the session's judgement handles the case well enough, as
-`goal@agent-skills@only-needed-instructions` puts it.
+no instruction that needs any of knowledge-architect's goals and record to be followed or to give
+the result it intends; and while each instruction whose subject a project's own goals and record
+can leave unsettled says what it does in that case, unless the session's judgement handles the case
+well enough, as `goal@agent-skills@only-needed-instructions` puts it.
 
 It refines `goal@knowledge-architect@any-project-can-adopt-it`.
 

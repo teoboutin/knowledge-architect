@@ -486,24 +486,6 @@ candidates.
 the branch's history.
 **Watches until:** two release tags on the main branch, counted from the commit that writes this line.
 
-## Guarding `design@agent-skills@goal-reviewer-agent`: a goal the reviewer read passes with a defect the goal standard names `##reviewed-goal-passes-a-defect`
-
-The decision rests on the premise that a draft read by the goal reviewer before the owner rules
-reaches the owner with its readings, its excess reach and its conflicts shown, so a goal written
-after such a review holds no defect a rule of the standard names. The failure is silent: the goal
-is approved, written and checked, and only a later rewording shows the defect.
-
-**Fires when:** in two separate pieces of work, a goal written or reworded after a draft-mode
-review is reworded again for a defect a rule of the goal standard names, a reading, a reach the
-owner did not rule out knowingly, a conflict or a measure, as the rewording's commit message or a
-received retrospective file states.
-**Response:** reopen `design@agent-skills@goal-reviewer-agent`, and with it `design@agent-skills@goal-draft-shows-reach`.
-**Evidence when written:** one piece of work: `goal@knowledge-architect@the-owner-decides`, written after six draft-mode versions in the batch-1 commit of the branch that built the reviewer, "[goals] Step 6, batch 1: the owner and agents cluster of the root's goals meets the goal standard", was reworded at that branch's third layout round for a rule-2 defect, its record defining the record with no commit message while saying a decision is reported "in the record, a commit message included".
-**Re-entry:** a commit that rewords a goal, and the retrospective of a session that ran
-goal-setting.
-**Watches until:** ten commits on the main branch that change a goals home, counted from the commit
-that writes this line.
-
 ## Guarding `design@agent-skills@goal-standard-rules`: an exclusion still rules a design out after no goal argues for that design `##exclusion-outlives-its-rival`
 
 Rule 8 admits a goal's exclusion only where another goal would otherwise argue for the design it

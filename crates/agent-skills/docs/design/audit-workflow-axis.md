@@ -230,18 +230,20 @@ the owner rules on that growth before any repair of a pass is applied, as
 `skill@knowledge-architect-project-audit@agentic-workflow-axis` says, and only there: an audit's
 lenses read the whole corpus, so the findings of a pass have no bound, where the findings of a
 piece of work, a retrospective intake's or a review's, are bounded by real use or by the work's
-diff. The bound is the owner's argument, and the growth of a sum of instructions is a cost no goal
+diff. That the intake's findings are bounded by real use, and the audit's are not, is the owner's
+argument, given as the owner's view; its extension to a review and to a session writing text is
+the session's reading of it, and the hold in every activity is
+`rejected@agent-skills@growth-held-in-every-activity`. The growth of a sum of instructions is a cost no goal
 ranks, since `goal@agent-skills@only-needed-instructions` judges each instruction. The standard
 holds the count and the report, and the audit's own text the hold, since a fragment names none of
-its hosts, per `design@agent-skills@admission-rules-home`. Each pass of the agentic-workflow axis also gives the corpus's word count before and after in its
+its hosts that routes differently by host, per `design@agent-skills@admission-rules-home`. Each pass of the agentic-workflow axis also gives the corpus's word count before and after in its
 commit message, for monitoring.
 
-The metric is the owner's: "I don't think word count is the correct metric here ... It should
-probably apply to "more instructions" rather than more words. Though monitoring net word count
-change produced by this process is still interesting, and should at least be done and recorded in
-commit messages of audit repairs." A bound on words loses on the owner's argument: "Repairing a
-sentence to make intent clearer may need adding words locally, and this should not need my ruling.
-The net growth is hard to account for before the fact, too." An instruction is countable from a
+The metric is the owner's choice: the owner judged instructions, not words, the measure of growth,
+and asked that the net word count still be monitored and recorded in the commit messages of audit
+repairs. A bound on words loses on the owner's argument that making a sentence's intent clearer may
+add words locally and should need no ruling, and that a net growth in words is hard to account for
+before the edit. An instruction is countable from a
 proposal before the edit. No bound at all loses on the axis's first passes, whose repairs turned
 most findings into added rules that the next pass found interacting, per
 `design@agent-skills@root-cause-repair`.

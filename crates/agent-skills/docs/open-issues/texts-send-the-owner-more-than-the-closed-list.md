@@ -16,8 +16,9 @@ the goals and the record can settle.
 
 Found by the goal reviewer's draft-mode reviews of the first batch of goals on the branch of the
 goal standard's spec, deleted by "[plans] The goal-standard spec leaves: its work has landed". The owner ruled that the closed list stands, and
-that the texts come into line in work apart from the session that found them, one whole activity at
-a time, so that no activity is left half changed. The texts left:
+that the texts come into line in work apart from the session that found them; the owner thought
+each change should take one whole activity at once, so that no activity is left half changed, not
+one change per text. The texts left:
 
 - `design@agent-skills@audit-outcomes` and the audit's outcome tables, which send the owner the
   removal of an entry, a head in the wrong Component, and any finding no row names;

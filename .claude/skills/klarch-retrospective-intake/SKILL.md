@@ -66,8 +66,7 @@ needs it, as "the project's design home". The directory's README,
 
 ## What becomes of the received files `##received-files-after`
 
-Once the analyses leave, every received file the intake analysed is dealt with, in the place the
-owner keeps it:
+Once the analyses leave, every received file the intake analysed is dealt with:
 
 - **A file written by a session of this repository**, its workflow file or its project file, and
   **a workflow file from another project** are marked and moved, as the installed intake marks
