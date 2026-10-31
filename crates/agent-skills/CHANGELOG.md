@@ -77,6 +77,9 @@ subsection is omitted.
   `git commit -a` included. `init` refuses `GIT_INDEX_FILE` alone.
 - `cli`, minor: `klarch index --staged` names each generated file whose working copy differs from
   what it staged, with `index` as the command that writes the working tree's.
+- `cli`, minor: `klarch commits` names, for a generated file two or more commits of the range
+  fail on, the repair that reaches each: regenerate it at each and fold each regeneration into its
+  commit.
 - `cli`, minor: `klarch new-component <DIR>` adds a Component to a project: its line in
   `[project] components`, keeping every other byte of the manifest, and its documents and homes.
 - `cli`, minor: `klarch worklist --out <dir>` writes the work list of a search of the whole

@@ -51,22 +51,22 @@ pub(crate) fn check(
     findings
 }
 
+/// What this family says of a generated file that differs from what it would be generated as.
+const MISSING: &str = "the generated file is missing";
+const OUT_OF_DATE: &str = "the generated file is out of date";
+
+/// Whether `finding` is one this family raised on a generated file, missing or out of date.
+pub(crate) fn is_generated_finding(finding: &Finding) -> bool {
+    finding.what == MISSING || finding.what == OUT_OF_DATE
+}
+
 fn compare(path: &Path, expected: &str, inputs: &Inputs, action: &str, out: &mut Vec<Finding>) {
     let committed = inputs.committed.get(path).map(String::as_str);
     match committed {
-        None => out.push(Finding::in_file(
-            path,
-            "the generated file is missing",
-            action,
-        )),
+        None => out.push(Finding::in_file(path, MISSING, action)),
         Some(current) if current != expected => {
             let line = first_difference(current, expected);
-            out.push(Finding::at(
-                path,
-                line,
-                "the generated file is out of date".to_string(),
-                action,
-            ));
+            out.push(Finding::at(path, line, OUT_OF_DATE, action));
         }
         Some(_) => {}
     }
