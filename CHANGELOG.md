@@ -79,8 +79,8 @@ subsection is omitted.
   `GIT_ALTERNATE_OBJECT_DIRECTORIES` names, through the index `GIT_INDEX_FILE` names, so
   `check --staged` runs as a pre-commit hook and judges the tree the commit records,
   `git commit -a` included. `init` refuses `GIT_INDEX_FILE` alone.
-- `cli`, minor: `klarch index --staged` names each generated file whose working copy differs from
-  what it staged, with `index` as the command that writes the working tree's.
+- `cli`, minor: `klarch index --staged` names each generated file whose working copy is out of
+  date for the working tree, with `index` as the command that rewrites it.
 - `cli`, minor: `klarch commits` names, for a generated file two or more commits of the range
   fail on, the repair that reaches each: regenerate it at each and fold each regeneration into its
   commit.

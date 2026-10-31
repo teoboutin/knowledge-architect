@@ -123,11 +123,10 @@ another system would leave a project the check cannot run in.
 Git is asked about PATH before the first write, whatever `--vcs` says, since the check the run
 ends with reads the tree through git: a git that cannot answer refuses the run, and so does a
 failure other than "not a git repository", such as a repository refused as another user's, which
-would otherwise read as outside every repository. `GIT_INDEX_FILE` refuses it too: every
-invocation keeps the variable as the index the next commit records, per
-`design@core@repository-variables-dropped`, and a repository `init` creates owns no index the
-variable can name, so git would stage and list through another repository's. The variables that
-select another repository are removed from `init`'s invocations as from every other. Inside a worktree no repository is needed: a project in a subdirectory of a repository passes the
+would otherwise read as outside every repository. `GIT_INDEX_FILE` set refuses it too, per
+`design@core@index-file-variable-kept`, and the variables that select another repository are
+removed from `init`'s invocations as from every other, per
+`design@core@repository-variables-dropped`. Inside a worktree no repository is needed: a project in a subdirectory of a repository passes the
 check, measured by copying a passing project into a subdirectory of another repository and running
 `klarch check` there, exit 0. A repository `--vcs git` creates there is nested in the outer one,
 whose check reports it in phase 2 until an ignore rule or `[walk] skip-dirs` names it, as that

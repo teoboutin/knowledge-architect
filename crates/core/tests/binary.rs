@@ -1735,6 +1735,21 @@ fn commits_names_the_repair_of_a_generated_file_several_commits_fail_on() {
     let (stdout, stderr, code) = history.run(&["commits", "HEAD~1..HEAD"]);
     assert_eq!(code, 1, "{stdout}{stderr}");
     assert!(!stdout.contains("fold"), "one failing commit: {stdout}");
+
+    // Two commits failing on a hand-written file get no such line: `index` is no repair there.
+    history.write(index, &listing);
+    let fixed = history.commit("The index is regenerated\n");
+    let readme = std::fs::read_to_string(history.dir.join("README.md")).expect("the README");
+    history.write(
+        "README.md",
+        &format!("{readme}\nIt leans on `design@tiny@no-such-decision`.\n"),
+    );
+    raw("The README leans on nothing");
+    history.write("notes.txt", "three\n");
+    raw("The note a third time");
+    let (stdout, stderr, code) = history.run(&["commits", &format!("{fixed}..HEAD")]);
+    assert_eq!(code, 1, "{stdout}{stderr}");
+    assert!(!stdout.contains("fold"), "a hand-written file: {stdout}");
 }
 
 #[test]
@@ -3822,8 +3837,9 @@ fn check_staged_judges_the_index_and_not_the_working_tree() {
 
 /// The claim: `check --staged` run as a pre-commit hook judges the index the commit records, which
 /// git names by `GIT_INDEX_FILE`: `.git/index` for a commit of what is staged, a lock file of its
-/// own for `commit -a`, which leaves `.git/index` holding what was staged before. Per
-/// `design@core@repository-variables-dropped`.
+/// own for `commit -a` and for `commit <paths>`, which leave `.git/index` holding what was staged
+/// before; and the same in a linked worktree, whose hook git also gives `GIT_DIR`. Per
+/// `design@core@index-file-variable-kept`.
 #[test]
 fn check_staged_as_a_pre_commit_hook_judges_the_index_the_commit_records() {
     let sandbox = Sandbox::new("staged-hook", "dirhome");
@@ -3845,10 +3861,15 @@ fn check_staged_as_a_pre_commit_hook_judges_the_index_the_commit_records() {
     // decides nothing here. It lies outside the walk only once ignored; it is ignored before
     // the hook runs, as an untracked file the walk would read.
     std::fs::write(sandbox.path(".git/info/exclude"), "hooks/\n").expect("the exclude file");
-    let commit = |args: &[&str]| {
-        let mut all = vec!["-c", "core.hooksPath=hooks", "commit", "-q"];
+    let hooks_path = format!("core.hooksPath={}", hooks.display());
+    let commit_in = |dir: &Path, args: &[&str]| {
+        let mut all = vec!["-c", hooks_path.as_str(), "commit", "-q"];
         all.extend_from_slice(args);
-        let out = sandbox.git_command(&all).output().expect("git runs");
+        let out = sandbox
+            .git_command(&all)
+            .current_dir(dir)
+            .output()
+            .expect("git runs");
         let text = format!(
             "{}{}",
             String::from_utf8_lossy(&out.stdout),
@@ -3856,6 +3877,7 @@ fn check_staged_as_a_pre_commit_hook_judges_the_index_the_commit_records() {
         );
         (out.status.success(), text)
     };
+    let commit = |args: &[&str]| commit_in(&sandbox.dir, args);
     let readme = std::fs::read_to_string(sandbox.path("README.md")).expect("the README");
     let dangling = format!("{readme}\nIt leans on `design@dirhome@no-such-entry` too.\n");
 
@@ -3884,6 +3906,90 @@ fn check_staged_as_a_pre_commit_hook_judges_the_index_the_commit_records() {
         "the hook refuses the tree `commit -a` records: {out}"
     );
     assert!(out.contains("no-such-entry"), "{out}");
+
+    // `commit <paths>` reads a lock file of its own too: the dangling README named, refused;
+    // a sound one named, over the same index, passed.
+    let (passed, out) = commit(&["-m", "named", "README.md"]);
+    assert!(
+        !passed,
+        "the hook refuses the tree `commit <paths>` records: {out}"
+    );
+    assert!(out.contains("no-such-entry"), "{out}");
+    sandbox.write("README.md", &format!("{readme}\nA named sentence.\n"));
+    let (passed, out) = commit(&["-m", "named", "README.md"]);
+    assert!(
+        passed,
+        "the hook passes the tree `commit <paths>` records: {out}"
+    );
+
+    // A plain commit of a sound staged README passes.
+    sandbox.write("README.md", &format!("{readme}\nA staged sentence.\n"));
+    sandbox.git(&["add", "README.md"]);
+    let (passed, out) = commit(&["-m", "staged, sound"]);
+    assert!(passed, "the hook passes the staged tree: {out}");
+
+    // A linked worktree, whose hook git also gives `GIT_DIR`: each form refuses a failing tree
+    // and passes a sound one. The guard removes the worktree whatever the assertions do.
+    struct Linked<'a>(&'a Sandbox, PathBuf);
+    impl Drop for Linked<'_> {
+        fn drop(&mut self) {
+            let path = self.1.to_string_lossy().into_owned();
+            let _ = self
+                .0
+                .git_command(&["worktree", "remove", "--force", &path])
+                .output();
+            let _ = std::fs::remove_dir_all(&self.1);
+        }
+    }
+    let linked = Linked(
+        &sandbox,
+        std::env::temp_dir().join(format!("knowledge-staged-hook-wt-{}", std::process::id())),
+    );
+    let _ = std::fs::remove_dir_all(&linked.1);
+    sandbox.git(&[
+        "worktree",
+        "add",
+        "-q",
+        "--detach",
+        &linked.1.to_string_lossy(),
+    ]);
+    let readme_at = linked.1.join("README.md");
+    let stage = |dir: &Path| {
+        let out = sandbox
+            .git_command(&["add", "README.md"])
+            .current_dir(dir)
+            .output()
+            .expect("git runs");
+        assert!(
+            out.status.success(),
+            "{}",
+            String::from_utf8_lossy(&out.stderr)
+        );
+    };
+    for (n, form) in [&["-a"][..], &["--", "README.md"][..], &[][..]]
+        .iter()
+        .enumerate()
+    {
+        let run = |subject: &str| {
+            let mut args = vec!["-m", subject];
+            args.extend_from_slice(form);
+            commit_in(&linked.1, &args)
+        };
+        std::fs::write(&readme_at, &dangling).expect("the linked README");
+        if form.is_empty() {
+            stage(&linked.1);
+        }
+        let (passed, out) = run("linked, failing");
+        assert!(!passed, "{form:?} in a linked worktree refuses: {out}");
+        assert!(out.contains("no-such-entry"), "{out}");
+        std::fs::write(&readme_at, format!("{readme}\nLinked sentence {n}.\n"))
+            .expect("the linked README");
+        if form.is_empty() {
+            stage(&linked.1);
+        }
+        let (passed, out) = run("linked, sound");
+        assert!(passed, "{form:?} in a linked worktree passes: {out}");
+    }
 }
 
 /// The claim: a `GIT_DIR` naming another repository in the caller's environment changes nothing:
@@ -3943,6 +4049,45 @@ fn a_root_missing_a_required_document_is_told_only_to_create_it() {
     let repair = out.lines().nth(at + 1).expect("the repair line");
     assert!(repair.contains("create it"), "{repair}");
     assert!(!repair.contains("stop listing"), "{repair}");
+}
+
+/// The claim, per `design@core@reserved-anchors`: an escape whose target is a plan document is told
+/// the plan document's own form, never a `path` the next run refuses; and a path opening with `..`
+/// is read from its document first, so the form names the file its writer meant.
+#[test]
+fn an_escape_resolving_here_names_a_form_the_next_run_accepts() {
+    let sandbox = Sandbox::new("escape-forms", "dirhome");
+    let cases = [
+        (
+            "docs/plans/milestones/a-milestone/",
+            "`milestone@plans@a-milestone`",
+        ),
+        (
+            "docs/plans/milestones/a-milestone/README.md",
+            "`milestone@plans@a-milestone`",
+        ),
+        (
+            "docs/plans/milestones/a-milestone/a-step.md",
+            "`spec@a-milestone@a-step`",
+        ),
+        ("docs/plans/specs/a-spec.md", "`spec@plans@a-spec`"),
+        ("../README.md", "`path@dirhome@README.md`"),
+    ];
+    let text: String = cases
+        .iter()
+        .map(|(path, _)| format!("See `path@elsewhere@{path}`.\n\n"))
+        .collect();
+    sandbox.write("docs/probe.md", &format!("# Probe\n\n{text}"));
+    sandbox.stage();
+    let (out, stderr, code) = sandbox.run(&["check"]);
+    assert_eq!(code, 1, "{out}{stderr}");
+    for (path, form) in cases {
+        let line = out
+            .lines()
+            .find(|l| l.contains(&format!("`path@elsewhere@{path}`")))
+            .unwrap_or_else(|| panic!("a finding on {path}: {out}"));
+        assert!(line.contains(form), "{path}: {line}");
+    }
 }
 
 /// The claim: `check --staged` compares the staged installed files against the shipped set, as
@@ -4101,12 +4246,13 @@ fn changed_lines(before: &[String], after: &[String]) -> Vec<String> {
 const STAGED_ENTRY: &str = "---\nkind: todo\n---\n# An entry staged for this commit\n\n## Summary\n\nStaged.\n\n## Details\n\n### What\n\nStaged.\n\n### Why it matters\n\nIt is.\n\n### What would close it\n\nA commit.\n";
 const WORKING_ENTRY: &str = "---\nkind: todo\n---\n# An entry left for a later commit\n\n## Summary\n\nUnstaged.\n\n## Details\n\n### What\n\nUnstaged.\n\n### Why it matters\n\nIt is.\n\n### What would close it\n\nA later commit.\n";
 
-/// The claim: `index --staged` names each generated file whose working copy differs from what it
-/// staged, with the command that writes the working tree's, and names no other. The case is an
+/// The claim: `index --staged` names each generated file whose working copy is out of date for
+/// the working tree, with the command that rewrites it, and names no other. The case named is an
 /// entry removed with `git rm`, after which the working copy of the register's index still lists
-/// it.
+/// it; the case not named is the partial commit the command serves, where the working copy holds
+/// the working tree's rows and the staged file the staged tree's.
 #[test]
-fn index_staged_names_a_working_copy_that_differs_from_what_it_staged() {
+fn index_staged_names_a_working_copy_out_of_date_for_the_working_tree() {
     let sandbox = Sandbox::new("index-staged-stale", "dirhome");
     commit_all(&sandbox, "the base");
     sandbox.git(&["rm", "-q", "docs/open-issues/an-ungrouped-entry.md"]);
@@ -4116,7 +4262,7 @@ fn index_staged_names_a_working_copy_that_differs_from_what_it_staged() {
         .lines()
         .find(|l| l.starts_with("docs/open-issues/index.md") && l.contains("working copy"))
         .unwrap_or_else(|| panic!("a line on the working copy: {out}"));
-    assert!(line.contains("index`"), "{line}");
+    assert!(line.contains("index` rewrites it"), "{line}");
     assert_eq!(
         out.lines().filter(|l| l.contains("working copy")).count(),
         1,
@@ -4128,6 +4274,29 @@ fn index_staged_names_a_working_copy_that_differs_from_what_it_staged() {
     let (out, stderr, code) = sandbox.run(&["index", "--staged"]);
     assert_eq!(code, 0, "{out}{stderr}");
     assert!(!out.contains("working copy"), "{out}");
+
+    // A partial commit: one new entry staged, another left in the working tree, whose index
+    // lists both. The working copy is current for the working tree, so nothing is named.
+    commit_all(&sandbox, "the entry leaves");
+    sandbox.write("docs/open-issues/staged-entry.md", STAGED_ENTRY);
+    sandbox.write("docs/open-issues/working-entry.md", WORKING_ENTRY);
+    let (out, stderr, code) = sandbox.run(&["index"]);
+    assert_eq!(code, 0, "{out}{stderr}");
+    sandbox.git(&["add", "docs/open-issues/staged-entry.md"]);
+    let (out, stderr, code) = sandbox.run(&["index", "--staged"]);
+    assert_eq!(code, 0, "{out}{stderr}");
+    assert!(out.lines().any(|l| l.ends_with(" staged")), "{out}");
+    assert!(!out.contains("working copy"), "a partial commit: {out}");
+
+    // A working copy that cannot be read is out of date as well.
+    std::fs::remove_file(sandbox.path("docs/plans/specs/index.md")).expect("the specs index");
+    let (out, stderr, code) = sandbox.run(&["index", "--staged"]);
+    assert_eq!(code, 0, "{out}{stderr}");
+    assert!(
+        out.lines()
+            .any(|l| l.starts_with("docs/plans/specs/index.md") && l.contains("working copy")),
+        "a deleted copy: {out}"
+    );
 }
 
 /// The claim of `design@core@index-staged-write`: `index --staged` changes exactly the staged entries of
@@ -5209,15 +5378,33 @@ fn worklist_prints_each_cluster_with_its_load() {
         line.ends_with(&format!("core-mock :: Second subject ({words} words)")),
         "{line}"
     );
+    // On an agent of several clusters, each cluster's own load is below the agent's, and the
+    // loads together reach it, since an entry two clusters share is counted in each.
+    let mut several = 0;
     for line in stdout.lines().filter(|l| l.starts_with("agent-")) {
+        let agent: usize = line
+            .split("  ")
+            .nth(1)
+            .and_then(|w| w.strip_suffix(" words"))
+            .and_then(|w| w.parse().ok())
+            .expect("the agent's load");
         let clusters = line.splitn(3, "  ").nth(2).expect("the clusters");
-        for cluster in clusters.split("; ") {
-            assert!(
-                cluster.ends_with(" words)"),
-                "a cluster with no load: {line}"
-            );
+        let loads: Vec<usize> = clusters
+            .split("; ")
+            .map(|c| {
+                c.rsplit_once(" (")
+                    .and_then(|(_, l)| l.strip_suffix(" words)"))
+                    .and_then(|l| l.parse().ok())
+                    .unwrap_or_else(|| panic!("a cluster with no load: {line}"))
+            })
+            .collect();
+        if loads.len() > 1 {
+            several += 1;
+            assert!(loads.iter().all(|l| *l < agent), "{line}");
+            assert!(loads.iter().sum::<usize>() >= agent, "{line}");
         }
     }
+    assert!(several > 0, "no agent holds several clusters: {stdout}");
 }
 
 /// AC4: `worklist --out` over a tree that stops before the last phase exits 2 and writes

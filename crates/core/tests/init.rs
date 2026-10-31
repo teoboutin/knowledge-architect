@@ -370,6 +370,35 @@ fn new_component_over_staged_changes_says_why_it_stops_and_how_to_finish() {
     assert_eq!(klarch(&p, &["index"]).2, 0);
     let (out, err, code) = klarch(&p, &["check"]);
     assert_eq!(code, 0, "{out}{err}");
+
+    // Where no staged tree is there to commit, here one that stops at phase 2 for a required
+    // document it lacks, the fix writes the indexes, and no note says otherwise.
+    git(&p, &["add", "-A"]);
+    git(
+        &p,
+        &[
+            "-c",
+            "user.name=fixture",
+            "-c",
+            "user.email=fixture@example.invalid",
+            "-c",
+            "commit.gpgsign=false",
+            "commit",
+            "-qm",
+            "c",
+        ],
+    );
+    git(&p, &["rm", "-q", "--cached", "README.md"]);
+    let (out, err, code) = klarch(&p, &["new-component", "d"]);
+    assert!(
+        !format!("{out}{err}").contains("staged changes"),
+        "{out}{err}"
+    );
+    assert!(p.join("d/docs/open-issues/index.md").exists(), "{out}{err}");
+    assert_eq!(
+        code, 0,
+        "the working tree still holds the README: {out}{err}"
+    );
 }
 
 /// A manifest's comments survive `new-component` byte for byte, in their order, per

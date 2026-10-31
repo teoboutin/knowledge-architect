@@ -892,6 +892,26 @@ fn untracked_note(
 /// **Whether a generated file is current is not this command's question.**
 /// The `generated` check of `cargo klarch check` is the gate, and it names the first line at which
 /// the committed file and the regenerated one disagree.
+/// The generated files `index` would write for the working tree, or `None` where its model stops
+/// before the last phase or a file cannot be generated, where `index` would refuse.
+pub(super) fn working_generated(
+    manifest: &Manifest,
+    checker: &[&Path],
+    extensions: &mut [Box<dyn Extension>],
+) -> Option<Vec<(std::path::PathBuf, String)>> {
+    let model = crate::Model::build(manifest, checker).ok()?;
+    let gathered = Gathered::over(manifest, &model).ok()?;
+    crate::check::foundation(&model, manifest, &gathered.inputs()).ok()?;
+    generated_list(
+        manifest,
+        &model,
+        &gathered.inputs(),
+        Tree::Checkout(manifest.root()),
+        extensions,
+    )
+    .ok()
+}
+
 fn index(
     manifest: &Manifest,
     checker: &[&Path],
