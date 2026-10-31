@@ -9,8 +9,9 @@ description: MUST use when a design discussion has an open solution space — re
 
 Design by open, argued exchange: both parties propose, push back with
 arguments, and converge through rounds.
-**The owner** is the person whose word closes the questions
-`skill@knowledge-architect-design@decision-authority` gives the owner. A **decided thread** is one
+**The owner** is the person whose word closes a fork, and every question
+`primer@question-authority` reserves to the owner, as
+`skill@knowledge-architect-planning@planning-terms` defines the term. A **decided thread** is one
 closed `approved` or `argued`.
 
 - a **thread** is one open question or proposal, the unit that carries state (below).

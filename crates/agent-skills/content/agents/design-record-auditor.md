@@ -156,7 +156,7 @@ Write `return.md` in your scratch directory, in exactly this shape:
 Group: <its label>, <n> entries judged, plus <m> of the sample.
 Scratch directory: <path>
 
-- <entry>: <verdict>; proposed outcome <outcome>
+- <entry>: <verdict, as its draft gives it: `conforms`, or each rule it fails>; proposed outcome <outcome>
 
 Commands run:
 - <each command, with its arguments>

@@ -161,7 +161,7 @@ const cut = (components) => {
   let p = 0
   for (const g of out) {
     if (!g.packed) continue
-    g.label = g.components.length === 1 ? g.components[0] + '-1' : 'packed-' + ++p
+    g.label = g.components.length === 1 ? g.components[0] + '-1' : 'packed+' + ++p
     delete g.packed
   }
   return out
@@ -348,7 +348,7 @@ if (!args.from) {
     'Your group: ' + g.label + ', ' + g.entries.length + ' entries, in this order:',
     g.entries.map((e, i) => (i + 1) + '. ' + show(e)).join('\n'),
     'The calibration sample, which you judge exactly as your own:',
-    sample.map((e) => '- ' + show(e)).join('\n'),
+    sample.filter((e) => !g.entries.some((y) => id(y) === id(e))).map((e) => '- ' + show(e)).join('\n'),
     'Scratch directory: ' + at(args.scratch, g.label) + '. Name each draft <nn>-<id>.md: nn its ' +
       'position, two digits, the sample following your group in its order; id the entry\'s id.',
     args.kept ? 'Kept list, for this re-check: ' + at(args.scratch, g.label, 'kept.md') : '',

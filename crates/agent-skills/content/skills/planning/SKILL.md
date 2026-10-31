@@ -41,10 +41,10 @@ each landing.
 | **transcript** | the harness's log of a session, on disk. It keeps the records from before a compaction |
 | **assembly** | writing a plan document from the discussion's transcript (`skill@knowledge-architect-planning@spec-contents`) |
 | **converged** | convergence holds, as loop step 6 of `skill@knowledge-architect-design@discussion-loop` defines it |
-| **thread** | one proposal of the discussion, carrying a state; a thread closed `approved` or `argued` is a decision |
+| **thread** | one open question or proposal of a design discussion, the unit that carries a state, as `skill@knowledge-architect-design@discussion-overview` defines it; a thread closed `approved` or `argued` is a decision |
 | **criterion** | what proposals were judged against: **binding** rules a proposal out, **weighed** makes failing it a cost the owner rules on |
-| **acceptance criterion** | a check on a decision of the plan, a thread closed `approved` or `argued`, that only the work's built code can apply, and whose firing would show the decision wrong |
-| **material** | a finding made after a thread closed that defeats a reason the closure gave, a premise it rested on, or a criterion it claimed to meet. A material finding is presented once, with a default named; presenting it reopens the thread, which closes again on its argument or, at a fork, on the owner's word, per `skill@knowledge-architect-design@decision-authority` |
+| **acceptance criterion** | a check on a decision of the plan document, a thread closed `approved` or `argued`, that only the work's built code can apply, and whose firing would show the decision wrong |
+| **material** | a finding made after a thread closed that defeats a reason the closure gave, a premise it rested on, or a criterion it claimed to meet. A material finding is presented once, with a default named or with the part of the work that rests on it held; presenting it reopens the thread, which closes again on its argument or, at a fork, on the owner's word, per `skill@knowledge-architect-design@decision-authority` |
 | **audit** | the reading of a slice's entry, or of a spec, against the tree and the design homes before its work is implemented |
 | **harvest** | the recording of what a landing established into the project's durable homes |
 
@@ -226,12 +226,12 @@ sections is an item, and a slug anywhere else in a plan document defines nothing
 - An id is in the grammar `[a-z0-9]+(-[a-z0-9]+)+`. A thread keeps the slug the discussion minted.
   An argument is numbered `arg-1`, `arg-2`, …, in order of appearance and never reused, in one sequence
   across a milestone's README and its slice specs, which share one namespace.
-- An item is cited `<kind>@<plan>@<id>`, where the plan is a spec's id, or the milestone's name for
-  an item of the milestone document or of any of its slice specs, and only from inside its own plan: the spec file, or the milestone's directory. From anywhere
-  else, a commit message and a design head included, the plan is cited whole, and an item is named
+- An item is cited `<kind>@<anchor>@<id>`, where the anchor is a spec's id, or the milestone's name for
+  an item of the milestone document or of any of its slice specs, and only from inside its own plan document, a milestone's documents counting as one: the spec file, or the milestone's directory. From anywhere
+  else, a commit message and a design head included, the plan document is cited whole, and an item is named
   in plain text with a hash sign, as #<id>. A slice is named the same way.
 
-**A path the plan's work will create** is cited `planned@<anchor>@<path>`, under the rules of a
+**A path the plan document's work will create** is cited `planned@<anchor>@<path>`, under the rules of a
 `path` reference: the anchor that will hold it, a trailing `/` for a directory. The form is legal
 in the plans directory only. `{{command}} check` reports it once the target exists, and the commit
 that creates the file converts it to `path@<anchor>@<path>` in the same change.
@@ -343,8 +343,8 @@ fork: the session lists its value under the defaults awaiting the owner, and
 owner sets as the owner's.
 
 - **At each landing**, the messages of the commits that land it report on every criterion judged
-  there, one line each, naming it as #<id> beside a citation of the whole plan, since a commit
-  message cites a plan only whole: the decision guarded, fired or not, and the evidence.
+  there, one line each, naming it as #<id> beside a citation of the whole plan document, since a commit
+  message cites a plan document only whole: the decision guarded, fired or not, and the evidence.
 - **A criterion that fires** leaves the document at once, as a reopened decision: its firing opens
   a design discussion with the owner on the decision it guards, under
   `skill@knowledge-architect-design`. There, the measurement says whether the decision failed, the
@@ -539,8 +539,9 @@ these four:
 
 %% The `D` label of a default: `design@agent-skills@ruled-items-labelled`.
 **What their findings become.** Check each finding against the tree, or against the transcript,
-before acting on it. A material finding is answered with a default, written into the sections it
-touches. **A default the record, a measurement or a source settles is the session's decision**: it
+before acting on it. A material finding is answered as
+`skill@knowledge-architect-design@decision-authority` says, with a default or with the part of the
+work that rests on it held, and the answer is written into the sections it touches. **A default the record, a measurement or a source settles is the session's decision**: it
 is written into the sections it touches with its ground, takes no label, is not listed under the
 defaults awaiting the owner, and is reported in the turn's "Decided" section, per
 `primer@decided-section`, where the owner can contest it. A
@@ -615,7 +616,7 @@ deletion, does two things in one commit:
   leaving document's harvested design entries, since the leaving document no longer exists. For a
   milestone, its next slice's audit reads the issue.
 
-A milestone's own documents are one plan: where a slice spec that leaves is cited by its milestone
+A milestone's own documents count as one plan document: where a slice spec that leaves is cited by its milestone
 document or its sibling specs, they re-point or remove the citation with no
 `question` issue, since the next slice's audit already reads the milestone against what landed.
 

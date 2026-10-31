@@ -367,8 +367,9 @@ citation is one act: `cargo klarch check` reports an entry that no design entry 
 
 - `live`: the reason still holds.
 - `void`: the reason no longer holds. **Mark it; never delete it.** The design may still be wrong,
-  but _this_ argument no longer supports that, and the marker prevents reopening a settled question
-  on a dead argument.
+  but _this_ argument no longer supports that: proposing the design again needs no new argument
+  against this reason, and the marker keeps a later session from ruling the design out again on
+  the dead argument.
 
 **A reason defeated in part**, as when a design the entry never weighed solves the problem its
 reason called unsolved, is narrowed to what still holds, and the entry stays `live` for its own
@@ -491,7 +492,7 @@ Write `return.md` in your scratch directory, in exactly this shape:
 Group: <its label>, <n> entries judged, plus <m> of the sample.
 Scratch directory: <path>
 
-- <entry>: <verdict>; proposed outcome <outcome>
+- <entry>: <verdict, as its draft gives it: `conforms`, or each rule it fails>; proposed outcome <outcome>
 
 Commands run:
 - <each command, with its arguments>

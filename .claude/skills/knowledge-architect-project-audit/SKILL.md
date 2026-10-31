@@ -124,7 +124,9 @@ point 2 says. A span the checker would refuse is quoted in words, since the file
 any other, and an entry the pass removes, renames or creates is named as
 `primer@where-knowledge-goes` says. The file and every commit
 message of the audit name a commit of the audit's branch by its subject, never by its SHA, since a
-rebase merge gives the branch's commits new SHAs. The file is committed once every `Outcome` line
+SHA of the branch may name nothing once the branch reaches the main branch: a history edit of the
+branch, such as the fold `primer@branch-commits` asks for, or a rebase or a squash at the merge,
+gives its commits new SHAs. The file is committed once every `Outcome` line
 holds the owner's ruling, or, at the audit's stop, the issue entry point 4 gives an item the owner
 does not rule on, before any edit of the pass is applied; the commit that carries out its last
 outcome, or a later commit of the same branch, deletes it, and its message names it by its path.
