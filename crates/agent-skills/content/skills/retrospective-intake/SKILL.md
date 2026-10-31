@@ -1,13 +1,13 @@
 ---
 name: knowledge-architect-retrospective-intake
-description: MUST use when the owner hands this session one or more of the project's own retrospective files to act on — a `<YYYY-MM-DD>-<project>-<subject>.md` file, the findings of a retrospective on the project's own instructions — or asks what to do with the findings of such a file; and while an outcome of an analysis in docs/retrospective-reports/ is carried out, for what the analysis owes until it leaves. It runs on the owner's word. Covers checking each finding against the text as it stands, against the registers and the history, against the goals and the design, looking for a better fix than the one proposed, writing the analysis to a file, offering the owner an outcome per finding, and the life of the analysis after the ruling. Not for running a retrospective, nor for the retrospective's workflow file, which goes to the workflow's repository, nor for the work an outcome rules, which its route's skill covers.
+description: MUST use when the owner hands this session one or more of the project's own retrospective files to act on — a `<YYYY-MM-DD>-<project>-<subject>.md` file, the findings of a retrospective on the project's own instructions — or asks what to do with the findings of such a file; and while an outcome of an analysis in docs/retrospective-reports/ is carried out, for what the analysis owes until it leaves. It runs on the owner's word. Covers checking each finding against the text as it stands, against the registers and the history, against the goals and the design, looking for a better fix than the one proposed, writing the analysis to a file, deciding each finding's outcome or putting it to the owner where it is the owner's, and the life of the analysis until it leaves. Not for running a retrospective, nor for the retrospective's workflow file, which goes to the workflow's repository, nor for the work an outcome rules, which its route's skill covers.
 ---
 
 # Retrospective intake
 
 %% The intake is an activity of its own, per `design@agent-skills@intake-skill-home`.
-Scope: the analysis of the findings of the project's own retrospective files, the owner's ruling
-on each, and the life of the analysis file until it leaves.
+Scope: the analysis of the findings of the project's own retrospective files, the outcome of each,
+and the life of the analysis file until it leaves.
 
 Not covered here:
 - **running a retrospective**, and sending its workflow file to the workflow's repository:
@@ -17,9 +17,13 @@ Not covered here:
   item g of `skill@knowledge-architect-retrospective-intake@what-to-establish` names for it. What
   the analysis file owes meanwhile is `skill@knowledge-architect-retrospective-intake@after-the-ruling`.
 
-%% The sentence carries no ground on the owner's ruling that it needs none.
-**This skill decides nothing.** It establishes the facts about each finding, proposes an action
-with its argument, and the owner rules.
+%% The session decides by authority, per `design@agent-skills@intake-outcome-authority`.
+**The session decides each finding's outcome as `primer@question-authority` routes it**: it
+establishes the facts, argues the action, and decides what the goals, the record, the code and the
+sources settle. The owner rules on the rest: most often a goal the finding would change, which goes
+to `skill@knowledge-architect-goal-setting`; a fact only the owner holds, such as what a session
+would have lacked without an addition about how an agent behaves; two fixes that both survive with
+nothing ranking them; and a publication, as the outcome "sent upstream" says.
 
 ## What it takes {{slug:what-it-takes}}
 
@@ -56,7 +60,7 @@ A finding is cited by its id and its file's stem, in the form
    received together. Dispatch it as the description of `agent@knowledge-architect-record-searcher`
    says, with the files' paths and their subjects as the work, and as the seeds the design heads and
    goals the findings name, or none. A proposed fix on a subject the files did not raise sends the
-   search again, with the fix as the work, before the proposal goes to the owner.
+   search again, with the fix as the work, before its outcome is decided or put to the owner.
 %% The searcher is `design@agent-skills@one-record-searcher`, its clusters
 %% `design@core@cluster-rooted-at-a-subject`, and the reading of a `may-bear` entry at an intake
 %% `design@agent-skills@search-relevance-grade`.
@@ -117,7 +121,9 @@ The order is a suggestion; the content is not.
 %% contradiction by a set is watched by
 %% `tripwire@agent-skills@expectation-set-closes-a-contradiction`.
   - **an observation**: a use that went well, or a behaviour not reproduced. It needs no action.
-- **e. Its scope.** The goal it serves or threatens, from the goals homes, `register@*@goal`. The
+- **e. Its scope.** The goal it serves or threatens, from the project's goals homes,
+  `register@*@goal`; a finding on the installed text or on the checker has its scope there, and no
+  goal of the project's. The
   owner of the fix: the Component or the location that owns the blamed text; or the installed
   text, which the project never edits, per
   `skill@knowledge-architect-agent-configuration@installed-files-never-edited`; or the checker.
@@ -141,10 +147,11 @@ The order is a suggestion; the content is not.
     `skill@knowledge-architect-agent-configuration`;
   - a decision, or one whose design is not settled: `skill@knowledge-architect-design`;
   - a change to the project's code: the project's own development procedure;
-  - an issue only, when the work is not to be done in this session;
+  - an issue only, when the work needs a branch of its own;
   - a fix in the installed text or in the checker: sent upstream;
   - nothing.
-- **h. The proposal.** The action, its argument, and the default outcome
+- **h. The proposal.** The action, its argument, its default outcome, and who holds it: the
+  session, or the owner, with the kind of question that makes it the owner's
   (`skill@knowledge-architect-retrospective-intake@analysis-and-ruling`).
 
 **Every verdict carries its evidence**: a quotation with its file and line, a command and its
@@ -185,7 +192,7 @@ verdict a proposal rests on. No subagent replays the reported session or builds 
 behaviour.
 %% No synthetic evidence is built, per `design@agent-skills@synthetic-evidence-not-built`.
 
-## The analysis file and the owner's ruling {{slug:analysis-and-ruling}}
+## The analysis file and who holds each outcome {{slug:analysis-and-ruling}}
 
 Write the analysis in docs/retrospective-reports/ at the project's root, as `<stem>.md`, where
 `<stem>` is the received file's stem.
@@ -197,69 +204,89 @@ Write the analysis in docs/retrospective-reports/ at the project's root, as `<st
   the content of each item is too long to read in a cell. A finding that item b shows repaired, or
   item c shows recorded, takes only the bullets that establish it.
 - **Every section ends with a `Default` line and an `Outcome` line**, whatever it proposes, no
-  change included, the latter left pending: a finding, a noted item, and a judgement on a standing
-  entry. A standing entry the file may meet gets a section of its own: a tripwire that may have
-  fired, a deferred trigger, a design issue's re-entry. Whether it fired, and its response, are the
-  owner's to rule; the analysis proposes the judgement and its evidence.
-  A section that points to a cluster analysed in another file has neither line: the ruling is given
-  where the cluster is analysed, once, so that it cannot be given twice and differ.
+  change included: a finding, a noted item, and a judgement on a standing entry. A standing entry
+  the file may meet gets a section of its own: a tripwire that may have fired, a deferred trigger, a
+  design issue's re-entry; whether it fired, and its response, are what its entry and the tripwire
+  standard settle. The `Outcome` line holds one of:
+  - `decided by the session: <outcome>. Ground: <the argument, with its references>`;
+  - `for the owner (<the kind of question>): pending`, then, once the owner rules,
+    `for the owner (<the kind of question>): <the choice>. The owner: "<the words, verbatim>"`.
+
+  A section that points to a cluster analysed in another file has neither line: the outcome is
+  given where the cluster is analysed, once, so that it cannot be given twice and differ.
 - **A span the checker would refuse is quoted in words**, and an entry an outcome removes, renames
   or creates is named as `primer@where-knowledge-goes` says. A finding about a refused form tempts a
   quotation of that form, and the analysis then fails the check it reports on. The project's paths
   and entries are written in the checked forms, since the file is checked like any other.
 
-Then give the owner the full path of each file, and in the conversation one line per section:
-its ids, the proposal in a few words, and the default outcome, or, for a section that points to a
-cluster, the file that analyses it. **Propose that the owner rules by
-writing each `Outcome` line in the file**: with many findings, a ruling written beside its
-evidence is easier to give than one in the conversation, and it lands in the record as written. A
-ruling given in the conversation instead, such as "now: P1, P5; issue: P3; no change as proposed
-for the rest", is copied into the `Outcome` lines verbatim. Before committing, list every section
-whose `Outcome` line is still pending, and ask the owner for those. **Four outcomes**:
+Then give the owner the full path of each file, and in the conversation one line per section: its
+ids, the proposal in a few words, and who holds the outcome, "decided: <outcome>" or "for you:
+<kind>, default <outcome>", or, for a section that points to a cluster, the file that analyses it.
+The owner sees every finding and its kind, and can add a fact, an argument or an intent to any
+section, a decided one included, in the file or in the conversation, where the session copies it
+into the section verbatim. The session weighs it as any other, decides the outcome again with the
+new ground, or makes the section an owner item where the addition opens a question that is the
+owner's. **For an owner item, propose that the owner rules by writing its `Outcome` line in the
+file**: a ruling written beside its evidence is easier to give than one in the conversation, and it
+lands in the record as written; a ruling given in the conversation is copied in verbatim. **Four
+outcomes**:
 
-- **handle now**: the finding is handled after the ruling, on the same branch or on the branches
-  that follow it, under the skill its route names. It needs no issue entry, and the proposal does
-  not suggest one;
-- **open an issue**: name its anchor and its kind;
+- **handle now**: the finding's work lands in the branch of the intake, its design settled, or
+  settled there under `skill@knowledge-architect-design`; it is handled once decided, on that
+  branch or on the branches that follow it, under the skill its route names. It needs no issue
+  entry, and the proposal does not suggest one;
+- **open an issue**: the work needs a branch of its own; name its anchor and its kind;
 %% The outcome is `design@agent-skills@installed-fix-goes-upstream`.
 - **sent upstream**: the fix lies in the installed text or in the checker. Ask the owner whether
-  the workflow file of the same retrospective was sent, and how:
-  - not sent yet: add the finding to it, as a W finding for the installed text or a C finding for
-    the checker, with the next number of its letter in that file, the two ids each naming the
-    other, as an interaction finding's do;
-  - sent as an issue on the workflow's repository, which
-    `skill@knowledge-architect-retrospective@what-becomes-of-files` names: edit the issue's body
-    with `gh issue edit <n> --repo <that repository> --body-file <file>`, and post a one-line
-    comment naming the added finding with `gh issue comment <n> --repo <that repository>`, so that
-    those who follow the issue see it;
-  - sent with no issue, or an issue that cannot be edited: open a new issue for the finding, as the
-    retrospective opens one.
-
-  Nothing leaves the machine before the owner has read it. Where `gh` is absent or fails, give the
-  owner the text and the address. The outcome is carried out once the owner has sent it, which the
-  message of the commit that carries out the analysis's last outcome says;
+  the workflow file of the same retrospective was sent, and how, a fact only the owner holds:
+  - not sent yet: the outcome is the session's; add the finding to the file, as a W finding for the
+    installed text or a C finding for the checker, with the next number of its letter in that
+    file, the two ids each naming the other, as an interaction finding's do. The owner reads the
+    whole file before it leaves;
+  - sent: the outcome is `for the owner (an action that cannot be undone)`. Write the text: for an
+    issue on the workflow's repository, which
+    `skill@knowledge-architect-retrospective@what-becomes-of-files` names, the edit of its body and
+    a one-line comment naming the added finding, so that those who follow the issue see it; for a
+    file sent with no issue, or an issue that cannot be edited, a new issue for the finding, as the
+    retrospective opens one. Run `gh issue edit <n> --repo <that repository> --body-file <file>`,
+    `gh issue comment <n> --repo <that repository>` or the new issue's command only on the owner's
+    word. Where `gh` is absent or fails, give the owner the text and the address. The outcome is
+    carried out once it is sent, which the message of the commit that carries out the analysis's
+    last outcome says;
 - **no change, with the reason**: a lapse, already repaired, out of scope, or an observation.
 
-A question tool is not the way to collect the ruling: it shows a label, not the evidence and the
+A question tool is not the way to collect a ruling: it shows a label, not the evidence and the
 rival fix the ruling depends on.
 
-## After the ruling {{slug:after-the-ruling}}
+## After the analysis is written {{slug:after-the-ruling}}
 
-Each section's `Outcome` line holds the owner's choice and the owner's words, verbatim. The
-analysis is committed, under the project's own branch rules, once every `Outcome` line holds the
-owner's ruling, and before any outcome is carried out. The issues it rules are opened, and the
-findings handled now are handled, in the commits their routes need. The commit that carries out its
-last outcome, or a later commit of the same branch, deletes it, and its message names the analysis
-by its path. History keeps it: `git log -- docs/retrospective-reports/` lists every analysis.
-Then mark each received project file the analysis carried out: a line at its head saying that it
-was analysed and every outcome carried out, and that `git log -- docs/retrospective-reports/<stem>.md`
-in the project finds the analysis. A file the owner keeps is then not handed to an intake again.
-%% The analysis is committed and leaves with its last outcome per
+The analysis is committed as soon as it is written, under the project's own branch rules, owner
+items pending; the message lists each outcome the session decided, one line each, and the message of
+a later commit each outcome it decides or changes. The work proceeds on every default, a decided
+outcome and an owner item's alike, except a part that rests on a goal to change, a contradiction or
+an action that cannot be undone, which waits for the owner's word. An owner's ruling lands as an
+edit of the section's `Outcome` line. An owner item's outcome is carried out only once it is ruled.
+**Before the branch that holds the analysis merges, list every `Outcome` line still pending**, with
+`grep -rn -E 'Outcome.*for the owner \(.*\): pending' docs/retrospective-reports/`, and ask the
+owner for those; the branch merges once none is pending.
+
+The issues the outcomes open are opened, and the findings handled now are handled, in the commits
+their routes need. The commit that carries out the last outcome, or a later commit of the same
+branch, deletes the analysis, and its message names it by its path. History keeps it:
+`git log -- docs/retrospective-reports/` lists every analysis.
+%% The analysis is committed at once and leaves with its last outcome per
 %% `design@agent-skills@committed-intake-analysis`.
 
+%% A handled file is marked and moved per `design@agent-skills@received-file-marked`.
+Then mark each received project file the analysis carried out: a line at its head saying that it
+was analysed and every outcome carried out, and that `git log -- docs/retrospective-reports/<stem>.md`
+in the project finds the analysis. Where the owner's instructions name a place for handled files,
+move it there; otherwise leave it where it lies. Never delete one. A marked file is not handed to an
+intake again.
+
 A finding handled now can turn out to need a design discussion and a plan. Its `Outcome` line is
-then rewritten, on the owner's word, to name the plan document or the issue that now carries it,
-so the analysis can still leave.
+then rewritten to name the plan document or the issue that now carries it, so the analysis can
+still leave.
 
 A file whose cluster other files point to leaves after them, or the commit that deletes it rewrites
 the pointing sections, since their references would dangle.

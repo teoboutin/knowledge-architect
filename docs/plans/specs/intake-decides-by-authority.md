@@ -978,7 +978,7 @@ owner's ruling on each owner item"; the heads `design@agent-skills@intake-skill-
   the primer, the audit, the design skill and the retrospective, which say it of other things.
 - The intake asks, before the merge of the branch that holds an analysis, for every `Outcome` line
   still pending, and the branch merges only once none is: premortem cause 2. The intake names the
-  check, `grep -rn -E 'Outcome:\*\* for the owner \(.*\): pending' docs/retrospective-reports/`.
+  check, `grep -rn -E 'Outcome.*for the owner \(.*\): pending' docs/retrospective-reports/`.
   Test: reading `skill@knowledge-architect-retrospective-intake@after-the-ruling`, and running that
   command over two files written in a scratch directory, one holding a pending line in the form of
   "New names" and one holding only ruled and decided lines: one hit, then none.

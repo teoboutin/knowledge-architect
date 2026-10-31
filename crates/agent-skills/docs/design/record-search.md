@@ -172,7 +172,7 @@ it, so the search cannot return it, and the audit reads it in the milestone docu
 grounding, point 1 of `skill@knowledge-architect-planning@working-a-slice`, reads no issues and no
 tripwires, since the audit's search covers every anchor. The retrospective intake sends it at its
 grounding, with the received files as the work, and again for a proposed fix on a subject the files
-did not raise, with the fix as the work, before the proposal goes to the owner. Other work that
+did not raise, with the fix as the work, before its outcome is decided or put to the owner. Other work that
 does not go through the design skill sends no search: the standing-state review reads its deferred
 triggers, per `design@agent-skills@standing-state-review-before-every-merge`, which this search adds
 to and never replaces. A search of the whole record before every other piece of work stays parked: its one host would be

@@ -81,8 +81,8 @@ defeated it.
 ### The intake of a retrospective's findings is an activity with an installed skill of its own, apart from the retrospective `##intake-skill-home`
 
 `skill@knowledge-architect-retrospective-intake` analyses a project's own retrospective files
-finding by finding, writes the analysis, and puts each finding to the owner with its evidence and a
-default outcome. The retrospective writes the files; the intake takes them later, on the owner's
+finding by finding, writes the analysis, and decides each finding's outcome as
+`design@agent-skills@intake-outcome-authority` says. The retrospective writes the files; the intake takes them later, on the owner's
 word. `goal@agent-skills@one-skill-per-activity` names the intake among the workflow's activities.
 
 The two produce different artifacts, two files outside the project and an analysis inside it,
@@ -135,8 +135,10 @@ finding: handled now, it has
 nothing the project can edit; as an issue, it sits in the project's register, where it cannot
 close and which the upstream cannot cite, per `design@agent-skills@premortem-as-watch-points`; as
 no change, it is dropped. The audit sends its findings on the installed text upstream for the same
-reason, per `design@agent-skills@audit-outcomes`. The action, an edit of the workflow file or of
-the issue that carries it, is the owner's.
+reason, per `design@agent-skills@audit-outcomes`. Adding a finding to a workflow file not yet sent
+is the session's, since the file stays on the machine and the owner reads it whole before it leaves;
+editing the issue that carries it, or opening a new one, is a publication, the owner's, per
+`goal@knowledge-architect@the-owner-decides`.
 
 An item a session meets outside its task whose fix lies there takes the same route, per
 `primer@met-outside-the-task`: it goes to the workflow's file of the session's retrospective, and
@@ -157,17 +159,45 @@ paragraph after the primer's table, not a row of it: the table gives an item its
 row, so a row after row 1 would never reach an item that bears on the current work, and the item
 would go upstream only when it does not.
 
-### An analysis of a project's retrospective file is committed with the owner's ruling on each finding, and leaves with its last outcome `##committed-intake-analysis`
+### The intake's session decides each finding's outcome by authority, and puts to the owner only what the owner holds `##intake-outcome-authority`
+
+The session decides each outcome as `primer@question-authority` routes it, per
+`design@agent-skills@questions-go-to-their-authority`: what the goals, the record, the code and
+the sources settle is the session's, recorded in the finding's `Outcome` line with its ground; a goal
+to change, a fact only the owner holds, a fork, a contradiction no argument resolves and a
+publication are the owner's, each an owner item whose line stays pending until the owner rules.
+"Handle now" or "an issue" is the session's by the rule the review and the audit apply: the
+finding's work lands in the intake's branch, or needs a branch of its own. It serves
+`goal@knowledge-architect@the-owner-decides`, under which a question the record answered, put to the
+owner, shows the goal unmet: at the intakes of this repository, about 5 rulings in 6 approved the
+session's default, 305 of 368 `Outcome` lines of the 60 analyses deleted up to commit 6f75bc98 began
+with an approval word, each analysis found with `git log --diff-filter=D --name-only --
+docs/retrospective-reports/` and read with `git show <commit>^:<path>`. The nearest rival, a batch
+confirmation of every default, keeps the question with the owner, and a word that hands judgement
+over is no ground, per `rejected@agent-skills@delegated-decision-state`.
+
+The analysis keeps its shape, one section per finding with its evidence and its `Default` and
+`Outcome` lines, and the summary in the conversation says of each line who holds it, so that the
+owner sees every finding and its kind and can bring a fact, an argument or an intent to any of them
+before the merge: the owner's report of what the intake must keep. The session weighs such an
+addition as any other, per `design@agent-skills@intent-through-goals-not-overrule`.
+
+### An analysis of a project's retrospective file is committed at once, its owner items ruled before the branch merges, and leaves with its last outcome `##committed-intake-analysis`
 
 The analysis is one file per analysed file in docs/retrospective-reports/ at the project's root,
 which no checked form names, per
 `issue@agent-skills@pointers-written-bare-to-clear-a-finding-reach-no-check`,
 named by the analysed file's stem, a row of the primer's knowledge table, per
-`design@agent-skills@knowledge-table-home`. Each finding's section ends with a default and the
-owner's ruling, except a section that points to a cluster analysed in another file, which takes the
-ruling given there, so that one ruling is given once and cannot differ. The file is committed once every ruling is in it, before any outcome is carried
-out; the issues it rules are opened and the findings handled now are handled, in the commits their
-routes need; the commit that carries out its last outcome, or a later commit of the same branch,
+`design@agent-skills@knowledge-table-home`. Each finding's section ends with a default and its
+outcome, the session's decision or the owner's ruling, except a section that points to a cluster
+analysed in another file, which takes the outcome given there, so that one outcome is given once and
+cannot differ. The file is committed as soon as it is written, the owner items pending; the work
+proceeds on every default but a part that rests on a goal to change, a contradiction or an action
+that cannot be undone; an owner item's outcome is carried out once it is ruled; and the branch that
+holds the analysis merges once no `Outcome` line is pending, per
+`design@agent-skills@default-ruled-before-merge`, whose rival, the wait for every ruling, interrupts
+the work and makes a default no default. The issues its outcomes open are opened and the findings
+handled now are handled, in the commits their routes need; the commit that carries out its last outcome, or a later commit of the same branch,
 deletes it. The skill fixes no order of those commits, per
 `goal@agent-skills@only-needed-instructions`.
 
@@ -176,12 +206,17 @@ argument holds here: the commit messages alone keep the outcomes and lose the ev
 was given on. A home each project chooses loses too: the skill could name no path, and the primer's
 last row, to ask the owner, would fire at the first intake of every project.
 
-### An intake marks the received project file it analysed once the analysis leaves `##received-file-marked`
+### An intake marks the received project file it analysed once the analysis leaves, and moves it where the owner's instructions name a place `##received-file-marked`
 
 Once every outcome of an analysis is carried out and the analysis leaves, the installed intake
 writes a line at the head of the received project file: that it was analysed, that every outcome
-was carried out, and the `git log` command that finds the analysis. The file stays where the owner
-keeps it. The rule is the owner's. A directory of received files can hold files an earlier intake
+was carried out, and the `git log` command that finds the analysis. It then moves the file where
+the owner's instructions name a place for handled files, and otherwise leaves it where it lies; it
+never deletes one. The mark is the owner's rule; the move answers the owner's practice of keeping
+handled files apart from pending ones, which a mark alone leaves among them. The installed text
+names no directory, since the retrospective writes its files where the owner directs, and a fixed
+one would be a convention of one setup, against `goal@agent-skills@installed-text-works-anywhere`;
+where the owner keeps them is a fact the owner's own instructions hold. A directory of received files can hold files an earlier intake
 analysed, which only the history of docs/retrospective-reports/ at the project's root tells apart, a
 path no checked form names, per
 `issue@agent-skills@pointers-written-bare-to-clear-a-finding-reach-no-check`; a marked file is not
@@ -212,13 +247,14 @@ fix, and by its lapse rule where it judges a finding's kind: the need test, the 
 addition needs and the kind of a gap, the lapse rule, the repair by cause with its instruction
 count and net growth, and the record check. This repository's intake of received files, which
 follows the installed one, judges by the same standard. What admits a finding is the intake's own: a real
-session behind each finding, and the owner's ruling on every finding.
+session behind each finding.
 
 The direction is the owner's: the owner judged it important, as the owner's view, that the intake
 analyse findings and repairs on the same standard as the workflow. The evidence that admits a
 finding differs between an audit and the intake: the intake has a real session behind each
 finding, as `design@agent-skills@behaviour-additions-need-real-use` asks of an addition, and an
 audit never has one. The worth of a fix and its shape do not differ, since both decide edits to the
-same text at the same cost. The standard's home is the agent-configuration skill, per
+same text at the same cost; who rules on their growth does, per
+`design@agent-skills@audit-net-growth`, since an intake's findings are bounded by real use. The standard's home is the agent-configuration skill, per
 `design@agent-skills@admission-rules-home`, and the intake hosts its four fragments, with the rule on a text's size cost, which the step that shapes a fix and the check of a
 finding's kind point to, before any edit is written.

@@ -312,7 +312,7 @@ of its judgement.
 reports passed `klarch worklist --verify`, an entry is found that the work bore on and that the
 search graded `unrelated`: a head contradicted, a `rejected` entry brought back without a recorded
 reopening, an issue or a tripwire met, found by the design-conformance review or the standing-state
-review of the work, or by an outcome the owner ruled in an intake. Or once, on the main branch, with
+review of the work, or by an outcome of an intake. Or once, on the main branch, with
 no review having reported it.
 **Response:** open a `design` issue naming the review and the work, and reopen
 `design@agent-skills@one-record-searcher`, asking whether the miss came from the size of the
