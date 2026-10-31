@@ -1,6 +1,6 @@
 ---
 name: knowledge-architect-goal-setting
-description: MUST use when a Component has no goal, when the owner states a new purpose or abandons one, when a recorded decision conflicts with a goal, when the owner asks to review the whole goal set or a pin move crosses a version whose Migration entry names that review, and before writing or editing any goals home. Covers what a goal is and how it differs from a decision, the standard a proper goal meets, how the owner's intent is drawn out and written as a draft the goal reviewer reads before the owner rules on it goal by goal, the review of the whole goal set, the shape of a goal entry, how a Component's goal names the project goal it refines, where each goal sits, and why a goal leaves only on the owner's word.
+description: MUST use when a Component has no goal, when the owner states a new purpose or abandons one, when a recorded decision conflicts with a goal, when the owner asks to review the whole goal set or a pin move crosses a version whose Migration entry names that review, and before writing or editing any goals home. Covers what a goal is and how it differs from a decision, the standard a proper goal meets, how the owner's intent is drawn out and written as a draft the goal reviewer reads before the owner rules on it, in the conversation for three goals or fewer and in the working tree for more, the review of the whole goal set, the shape of a goal entry, how a Component's goal names the project goal it refines, where each goal sits, and why a goal leaves only on the owner's word.
 ---
 
 # Setting goals
@@ -103,26 +103,35 @@ and it leaves only on the owner's word.
    documentation, or from the code and content when the documentation does not say enough.
 3. **Write a draft that goes into the goals home verbatim if it is approved**.
    **Mark each goal with its source**: "the owner's statement", or "proposed from <the document or
-   the code it was read from>". The source mark is not written to the goals home.
+   the code it was read from>". The source mark is not written to the goals home. A batch of three
+   goals or fewer is drafted in the message. A batch of more is written in the goals homes of the
+   working tree, uncommitted, and its source marks go in a record kept as
+   `skill@knowledge-architect-goal-setting@whole-set-review` keeps one, in
+   `docs/goal-reviews/<YYYY-MM-DD>-<subject>.md`.
 4. **Dispatch `agent@knowledge-architect-goal-reviewer` in its draft mode**, fresh, never a fork:
    its brief is the whole batch of new and reworded goals, every relevant statement of the owner,
    verbatim, whether or not the draft drew on it, and the project. Repair each `settled` finding,
    and dispatch it again on the repaired batch, so that the version shown is a version reviewed.
    Count a batch's findings apart from its `minor` ones, those of rules 4 and 6, which change no
    act of an agent.
-5. **Show the owner the draft, each goal with its boundary block**: for each universal or exclusion,
+5. **Show the owner the draft, each goal with its boundary block**, in the message, or, for a batch
+   of more than three goals, in the tree and the record: for each universal or exclusion,
    at least one case it rules out and one it admits, from the project's existing or planned work,
    or, where none exists yet, from the uses the owner's statements describe; and each sibling goal it touches with the
    relation, a conflict named as such; and each `intent` finding of the reviewer, with the case on
    which the readings differ. Put each `contradiction` at the top of the draft, quoting both sides:
    a statement of the owner that conflicts with a goal or with another statement, or a part of the
    statements the draft drops. Resolve none alone; a goal resting on one is not written before the
-   owner's answer. The block and the reviewer's report are not written to the goals home.
-6. **Ask the owner to read the draft in full, and to rule on each goal by its slug**: approved, or
-   dropped. A goal with no ruling is neither written nor dropped: ask again for it by its slug. A
+   owner's answer. The block and the reviewer's report are not written to the goals home; for a batch
+   of more than three goals they are written in the record.
+6. **Ask the owner to read the draft in full, and to rule on it**: for three goals or fewer, on each
+   goal by its slug, approved or dropped; for more, on the batch as the tree holds it, the owner
+   naming each goal dropped or reworded. A goal with no ruling is neither written nor dropped: ask
+   again for it by its slug. A
    goal the owner rewords is reviewed again, with the whole batch, and shown again in its new
    wording before it is written.
-7. Write the approved goals, exactly as approved, and the home's head, and nothing else.
+7. Write the approved goals, exactly as approved, and the home's head, and nothing else; for a batch
+   drafted in the tree, commit the goals as the tree holds them.
 
 **A goal's wording proposed in another activity**, a plan's default, a review's repair, an audit's
 item or a goal a design discussion sets, is drafted here as its own item, with its boundary block,
@@ -176,7 +185,8 @@ the owner answers between two rounds.
    in every round.
 
 **Every goal is then put to the owner with its boundary block**, a goal with no other finding
-included, for a ruling by its slug: kept as it stands, or as the rounds reworded it, as
-`skill@knowledge-architect-goal-setting@drawing-out-intent` says in its steps 6 and 7, since only
+included, for a ruling: kept as it stands, or as the rounds reworded it, as
+`skill@knowledge-architect-goal-setting@drawing-out-intent` says in its steps 6 and 7, the blocks
+in the record and the goals in the tree, since only
 the owner judges rule 3. The commit that writes the goals the owner ruled last, or a later commit of
 the same branch, deletes the record and names it by its path.

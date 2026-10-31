@@ -1,6 +1,6 @@
 ---
 name: knowledge-architect-goal-setting
-description: MUST use when a Component has no goal, when the owner states a new purpose or abandons one, when a recorded decision conflicts with a goal, when the owner asks to review the whole goal set or a pin move crosses a version whose Migration entry names that review, and before writing or editing any goals home. Covers what a goal is and how it differs from a decision, the standard a proper goal meets, how the owner's intent is drawn out and written as a draft the goal reviewer reads before the owner rules on it goal by goal, the review of the whole goal set, the shape of a goal entry, how a Component's goal names the project goal it refines, where each goal sits, and why a goal leaves only on the owner's word.
+description: MUST use when a Component has no goal, when the owner states a new purpose or abandons one, when a recorded decision conflicts with a goal, when the owner asks to review the whole goal set or a pin move crosses a version whose Migration entry names that review, and before writing or editing any goals home. Covers what a goal is and how it differs from a decision, the standard a proper goal meets, how the owner's intent is drawn out and written as a draft the goal reviewer reads before the owner rules on it, in the conversation for three goals or fewer and in the working tree for more, the review of the whole goal set, the shape of a goal entry, how a Component's goal names the project goal it refines, where each goal sits, and why a goal leaves only on the owner's word.
 ---
 
 # Setting goals
@@ -81,7 +81,10 @@ and it leaves only on the owner's word.
 %% with the wording. Drafting and letting the owner correct accepts a goal by the owner's silence,
 %% which is not the owner's word; for the same reason a goal with no ruling is not written. It is not
 %% dropped either, since a goal with no ruling may still be the owner's intent, and dropping it
-%% silently can discard it.
+%% silently can discard it. A batch of more than three goals is shown in the tree because the owner
+%% reads a diff more readily than a long message, and ruling slug by slug on many goals in a message
+%% costs the owner more than it checks; the owner's word on the batch as the tree holds it is still
+%% an explicit word, not silence.
 1. **Ask the owner to state their intent** for the Component, and any goals they already have, in
    their own words. Three questions help: what is it for, and for whom; what would show that it
    fails at that; what is it explicitly not for.
@@ -89,7 +92,11 @@ and it leaves only on the owner's word.
    documentation, or from the code and content when the documentation does not say enough.
 3. **Write a draft that goes into the goals home verbatim if it is approved**.
    **Mark each goal with its source**: "the owner's statement", or "proposed from <the document or
-   the code it was read from>". The source mark is not written to the goals home.
+   the code it was read from>". The source mark is not written to the goals home. A batch of three
+   goals or fewer is drafted in the message. A batch of more is written in the goals homes of the
+   working tree, uncommitted, and its source marks go in a record kept as
+   `skill@knowledge-architect-goal-setting@whole-set-review` keeps one, in
+   `docs/goal-reviews/<YYYY-MM-DD>-<subject>.md`.
 %% The reviewer is fresh because the drafter is anchored on its own reading, and a draft's excess
 %% reach went unnoticed by the drafter and the owner alike in real projects. It reads every relevant
 %% statement of the owner, not only those the drafter drew on, so a statement the drafter left out
@@ -104,19 +111,24 @@ and it leaves only on the owner's word.
 %% The block turns a goal's reach into cases the owner judges by intent; a prose goal is easy to
 %% approve without seeing what it rules out. The owner's statements stay out of the display: an
 %% intent spread over several statements is carried by the distilled goal, not by a quotation.
-5. **Show the owner the draft, each goal with its boundary block**: for each universal or exclusion,
+5. **Show the owner the draft, each goal with its boundary block**, in the message, or, for a batch
+   of more than three goals, in the tree and the record: for each universal or exclusion,
    at least one case it rules out and one it admits, from the project's existing or planned work,
    or, where none exists yet, from the uses the owner's statements describe; and each sibling goal it touches with the
    relation, a conflict named as such; and each `intent` finding of the reviewer, with the case on
    which the readings differ. Put each `contradiction` at the top of the draft, quoting both sides:
    a statement of the owner that conflicts with a goal or with another statement, or a part of the
    statements the draft drops. Resolve none alone; a goal resting on one is not written before the
-   owner's answer. The block and the reviewer's report are not written to the goals home.
-6. **Ask the owner to read the draft in full, and to rule on each goal by its slug**: approved, or
-   dropped. A goal with no ruling is neither written nor dropped: ask again for it by its slug. A
+   owner's answer. The block and the reviewer's report are not written to the goals home; for a batch
+   of more than three goals they are written in the record.
+6. **Ask the owner to read the draft in full, and to rule on it**: for three goals or fewer, on each
+   goal by its slug, approved or dropped; for more, on the batch as the tree holds it, the owner
+   naming each goal dropped or reworded. A goal with no ruling is neither written nor dropped: ask
+   again for it by its slug. A
    goal the owner rewords is reviewed again, with the whole batch, and shown again in its new
    wording before it is written.
-7. Write the approved goals, exactly as approved, and the home's head, and nothing else.
+7. Write the approved goals, exactly as approved, and the home's head, and nothing else; for a batch
+   drafted in the tree, commit the goals as the tree holds them.
 
 %% A goal reworded as a default of a plan was approved in one word with the plan's other defaults,
 %% and set the goal against another; a review caught it only after the ruling.
@@ -192,7 +204,8 @@ the owner answers between two rounds.
 %% owner's statements; the excess reach of a goal approved without a reading of its reach is the
 %% defect the standard was written for, so every goal is shown with its block once.
 **Every goal is then put to the owner with its boundary block**, a goal with no other finding
-included, for a ruling by its slug: kept as it stands, or as the rounds reworded it, as
-`skill@knowledge-architect-goal-setting@drawing-out-intent` says in its steps 6 and 7, since only
+included, for a ruling: kept as it stands, or as the rounds reworded it, as
+`skill@knowledge-architect-goal-setting@drawing-out-intent` says in its steps 6 and 7, the blocks
+in the record and the goals in the tree, since only
 the owner judges rule 3. The commit that writes the goals the owner ruled last, or a later commit of
 the same branch, deletes the record and names it by its path.
