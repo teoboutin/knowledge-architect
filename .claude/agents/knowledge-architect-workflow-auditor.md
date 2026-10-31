@@ -73,7 +73,7 @@ A finding is admitted when the session can confirm it by reading. Each class car
   an instruction, quoted, and the sentence it fails of `primer@where-knowledge-goes`, read whole before you judge
   one, or, for a pointer, of `agent@knowledge-architect-workflow-auditor@self-sufficient-skill`;
 - **an unneeded statement**: a statement that fails the need test of `agent@knowledge-architect-workflow-auditor@admission-rules`: quoted, with the act you tried; for a duplicate, both copies and the copy that stays; and
-  the outcome the standard's table gives it;
+  the outcome the standard's table and the audit's outcome table give it;
 - **a predicted gap**: "an agent might misjudge X". Draft it as such, with what a real session
   would have to show; it is never repaired by an edit.
 
@@ -132,7 +132,7 @@ minimal.
 | it carries no instruction: narration, a remark about the text, outside state no act uses, a duplicate whose twin stays, a lead or an emphasis whose statements carry every act | deleted in the branch: by the session, which applies an audit's outcomes, or as a review's repair |
 | it is maintainer-only, in installed text | moved to a comment of the workflow's source |
 | it is maintainer-only, in a project's own text, and longer than one sentence | cut to one sentence |
-| it is an instruction whose act no agent performs | put to the owner, since deleting it changes what agents are told: on an audit's owner list, as a default awaiting the owner in a plan document, or as a question in the turn elsewhere |
+| it is an instruction whose act no agent performs | a decision, since deleting it changes what agents are told, and whether its act is still wanted is the intent of whoever wrote it, which the project's record may not hold |
 | a suspect statement that passes | no finding; a suspect statement found false is a factual error |
 
 In a project that installs the workflow, a finding on installed text, of any row, is sent upstream,

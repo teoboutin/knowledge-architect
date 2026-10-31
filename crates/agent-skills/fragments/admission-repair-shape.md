@@ -16,5 +16,5 @@ these closes the cause. **An instruction** is a sentence that tells an agent to 
 an act at a moment; a rewording that makes an existing instruction's intent clearer adds none,
 whatever its length. Each repair counts the instructions it adds and removes, and names the nearest
 rival to itself and the fact that decides between them. **When the repairs applied together add
-more instructions than they remove, the owner is told so first, with the net figure**, and rules on
-that growth before any of them is applied.
+more instructions than they remove, the owner is told the net figure**, and the record that applies
+them states it.

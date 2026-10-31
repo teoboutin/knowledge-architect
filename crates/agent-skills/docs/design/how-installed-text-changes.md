@@ -38,8 +38,9 @@ provable gap, divergent verdicts that a review standard and an audit standard gi
 of the project, or a statement that fails the need test of `design@agent-skills@statement-names-an-act`. A
 provable gap predicts no behaviour: it is an input that an act needs, that no text
 supplies and that judgement cannot derive, since it is a fact fixed elsewhere, such as a format the
-checker enforces, a name or a path. So a reading admits its fill, and the fill, which adds an
-instruction, goes to the owner, per `design@agent-skills@audit-outcomes`. The rule is scoped to an
+checker enforces, a name or a path. So a reading admits its fill, and the fact the gap names
+determines the fill, so the session writes it in every activity, per
+`primer@question-authority`. The rule is scoped to an
 addition about how an agent behaves because its argument is that a predicted behaviour is
 unreliable evidence, and a fact that no text gives is no prediction. A finding that predicts a
 behaviour is parked as an issue, which states what a real session would have to show. Published
@@ -165,7 +166,11 @@ Every statement of agent-facing text, installed or a project's own, passes the n
 following the workflow that would differ without it. A statement that names none is not written,
 and an existing one leaves by that section's outcome table: deleted where it carries no
 instruction, moved to a `%%` comment of the installed source where only the source's maintainer
-reads it, and put to the owner where it is an instruction no agent performs. A reason passes when
+reads it, and, where it is an instruction no agent performs, deleted where the project's record
+settles that its act is no longer wanted and otherwise put to the owner: whether the act is still
+wanted is the intent of whoever wrote it, a fact only the owner holds, which a project that installs
+the workflow seldom records about its agent-facing text, per
+`goal@agent-skills@installed-text-works-anywhere`. A reason passes when
 it states a mechanism or a failure prevented; a
 second reason that names no other mechanism, a duplicate inside one text, a lead, an emphasis and a
 remark about the text fail, since a loaded text is read whole and they add no act. A statement
@@ -242,7 +247,11 @@ of its failure, evidence and kind, the shape of a repair, and the record check, 
 a repair, per `design@agent-skills@context-cost-of-agent-text`, and each judging actor's text hosts those it applies
 whole, so the standard reaches it at its act; the repair steps of the agentic-workflow axis's
 saved workflow, general-purpose agents, read it by a pointer, since a prompt of the workflow can
-host no fragment. None restates more than one sentence of it, per
+host no fragment. The standard holds what each outcome is; who decides it is each activity's
+own text, by `primer@question-authority`, so no fragment names an activity or routes an outcome to
+the owner: a host applies a fragment whole, per `design@agent-skills@shared-text-fragment`, and a
+routing that differed by host would make the fragment aware of where it is inserted, which the
+owner judged defeats the mechanism. None restates more than one sentence of it, per
 `design@agent-skills@restatement-size-test`.
 
 The centralization is the owner's proposal, made so that the audit, the reviewers, an intake of

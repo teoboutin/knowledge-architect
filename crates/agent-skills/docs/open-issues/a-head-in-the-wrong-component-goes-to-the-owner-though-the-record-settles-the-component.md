@@ -14,7 +14,7 @@ record answers. Should the move of such a head be applied in the audit's branch 
 ### What
 
 `design@agent-skills@audit-outcomes` sends to the owner "a head in the wrong Component", in the
-same sentence as "which side of a contradiction wins" and "a provable gap". Its first rule says
+same sentence as "which side of a contradiction wins". Its first rule says
 "An edit that changes no ruling of the owner is applied in the audit's branch", and a move of a
 misfiled head changes no ruling of the owner. The same sentence cites
 `design@agent-skills@questions-go-to-their-authority`, which gives the session what the record
