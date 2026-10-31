@@ -34,6 +34,11 @@ judges its own addition covered, and nothing before the review reads that judgem
 
 Re-entry point: the design discussion this entry asks for.
 
+A further instance: W2 of the retrospective of the session that edited the primer's section on
+something met outside the task, 2026-10-29. The session added to a head a route that can itself
+lose the finding the head's argument says the other outcomes lose, and recorded it directly; the
+decision-record reviewer found it, and the deliberation was carried into a later commit.
+
 ### Why it matters
 
 A member beyond the argument enters a head with no deliberation, against

@@ -53,6 +53,12 @@ The misplaced definition:
 Reported by the L7 lens of the fifth pass of the agentic-workflow audit, as an item met outside
 its axis, for the retired form; and by the retrospective named above, for the misplaced definition.
 
+A further instance of the misplaced definition: C3 of the retrospective of the intake deciding by
+authority, 2026-10-31. A spec cited its items in prose in their definition form, a hash pair and
+the id; the check reported 54 findings, each saying the definition is written outside the item
+sections, "move it there, or delete it", and none naming the checked form `argument@<plan>@<id>`.
+The session rewrote them by a script.
+
 ### Why it matters
 
 `design@core@an-unresolved-reference-is-reported` gives each finding the repair it needs, and

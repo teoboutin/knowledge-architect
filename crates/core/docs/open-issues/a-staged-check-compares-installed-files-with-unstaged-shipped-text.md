@@ -37,6 +37,11 @@ Ruled out: the commits themselves. `commits` judges each commit's tree with the 
 passed all three. Assumption, not established: a project that pins a published checker never
 meets this, since its binary's shipped text does not move with its working tree.
 
+A further instance: P2 of the project file and C1 of the workflow file of the retrospective of the
+session that reduced the grounding's reading, 2026-10-25. With installed-text sources edited and
+installed, a commit of the Rust changes alone failed `check --staged` on seven installed files; the
+session folded the code and the text repairs into one commit.
+
 ### Why it matters
 
 `design@core@staged-check-semantics` states that `check --staged` applies `check`'s rules "as on a
@@ -52,4 +57,6 @@ A change in which `check --staged`, in a project whose checker is built from its
 the staged installed files with the staged shipped text, or reports that it cannot, with a
 regression test that runs the reproduction above in a mock project; or a decision, recorded in
 `design@core@staged-check-semantics`, that this case is accepted and how a session commits one
-pair at a time.
+pair at a time; or, the smaller repair that retrospective proposes, the finding's message names that
+the shipped text compared is the binary's own, built from the working tree, so a partial commit
+stages each source with its installed copy.

@@ -23,6 +23,10 @@ tree with a clause the owner had not ruled in knowingly.
   instruction", and the branch of the spec of the retrospective intake deciding by authority removed the clause on the
   owner's word that it was wrong and missed when the owner read the drafts: a reach the owner had not
   ruled out knowingly, which rule 3 of the goal standard names.
+- The re-review loop, met in the same session: three draft-mode reviews of one batch each found new
+  defects, until the owner stopped the loop. `skill@knowledge-architect-goal-setting` reviews again
+  a goal the owner rewords, with the whole batch, and states no stop;
+  `design@agent-skills@whole-set-rounds` stops the review of the whole goal set only.
 
 The suspected mechanism, in one sentence: the reviewer reports a clause under the rule its wording
 breaks most visibly, and a reach shown as a minor measure finding does not reach the owner as a
@@ -40,4 +44,5 @@ authority, against `goal@knowledge-architect@the-owner-decides`.
 
 A discussion that keeps `design@agent-skills@goal-reviewer-agent` and
 `design@agent-skills@goal-draft-shows-reach` with the reason, or changes how a draft shows each
-clause's reach to the owner.
+clause's reach to the owner; and that decides whether goal-setting's review of a reworded goal
+ends, and on what.
