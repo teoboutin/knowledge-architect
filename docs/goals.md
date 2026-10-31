@@ -284,12 +284,13 @@ the owner with its grounding and its consequences already established.
 
 ## Any project can adopt it, and a new project is the primary target `##any-project-can-adopt-it`
 
-Nothing particular to one adopting project is compiled into the published crates; the tree the
-checker is built from is no adopting project. A project declares in its manifest the structure
-particular to it, and the installed text names no path or convention particular to one adopting
-project. Every entry is cited in one readable grammar, the same in every project, so what an agent
-learns in one project applies in the next. A project pins the version it uses, and moves to a new
-one when it chooses.
+Nothing particular to one adopting project is compiled into the published crates, the tree they are
+built from aside. For every other statement of the goals, this repository is a project that adopts,
+installs and follows the workflow and uses the checker. A project declares in its manifest the
+structure particular to it, and the installed text names no path or convention particular to one
+adopting project. Every entry is cited in one readable grammar, the same in every project, so what
+an agent learns in one project applies in the next. A project pins the version it uses, and moves to
+a new one when it chooses.
 
 The target is projects developed mostly by AI agents. Among them, a new project, which adopts the
 checker and the workflow from its first commit, is the primary target. An existing project can adopt
@@ -351,8 +352,8 @@ whether to originate an edit, to choose between shapes, to accept a piece of wor
 a text runs as written.
 
 The retrospective, and the observations of real sessions by the owner of the project they ran in,
-collect what was unclear, missing or wrong. What changes in the workflow is decided by
-knowledge-architect's owner, per `goal@knowledge-architect@the-owner-decides`.
+collect what was unclear, missing or wrong. Where `goal@knowledge-architect@the-owner-decides` gives
+a change in the workflow to an owner, that owner is knowledge-architect's.
 
 It is met while the installed text:
 
