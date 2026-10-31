@@ -63,9 +63,8 @@ tripwire it would match, is a case of the rule on slips, which the
 standard states as the owner's. So a narrowing or a removal of
 a tripwire changes no ruling of the owner, unlike a head, which can record the owner's choice at a
 fork, per `design@agent-skills@heads-stand-on-argument`. The owner rules only on what the argument
-leaves open, per `goal@knowledge-architect@the-owner-decides`, and is informed of
-each removal and can contest it with a goal, a fact or an argument, per
-`goal@knowledge-architect@the-owner-decides`. The owner named the
+leaves open, and is informed of each removal and can contest it with a goal, a fact or an
+argument, per `goal@knowledge-architect@the-owner-decides`. The owner named the
 wording and the small changes of scope of tripwires among the rulings a clearer standard should
 let the session's judgement cover. Of the two shapes that meet these goals, the owner chose that
 the session removes a tripwire a condition excludes wherever it is found, over a split that keeps an
