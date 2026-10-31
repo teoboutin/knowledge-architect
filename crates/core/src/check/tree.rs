@@ -91,13 +91,22 @@ pub(crate) fn check(model: &Model, manifest: &Manifest, inputs: &Inputs) -> Vec<
             for name in manifest.required_documents() {
                 let path = anchor.path.join(name);
                 if !inputs.present.contains(&path) {
-                    out.push(Finding::in_file(
-                        &path,
-                        format!("the component `{}` carries no {name}", anchor.name),
+                    // The root is no member of `[project] components`, so the repair that
+                    // stops listing a Component cannot be carried out there.
+                    let repair = if anchor.is_root() {
+                        "create it; every component carries the same documents, the project's \
+                         root included"
+                            .to_string()
+                    } else {
                         format!(
                             "create it, or stop listing the component in {MANIFEST_NAME} \
                              [project]; every component carries the same documents"
-                        ),
+                        )
+                    };
+                    out.push(Finding::in_file(
+                        &path,
+                        format!("the component `{}` carries no {name}", anchor.name),
+                        repair,
                     ));
                 } else if inputs.directories.contains(&path) {
                     // A directory wearing the document's name satisfies a presence test and is

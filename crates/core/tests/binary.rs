@@ -3888,6 +3888,25 @@ fn a_git_dir_in_the_environment_does_not_redirect_the_walk() {
     let _ = std::fs::remove_dir_all(&other);
 }
 
+/// The claim: a required document missing at the root Component names the one repair that
+/// applies, creating it: the root is no member of `[project] components`, so the repair a listed
+/// Component's finding names, to stop listing it, cannot be carried out there.
+#[test]
+fn a_root_missing_a_required_document_is_told_only_to_create_it() {
+    let sandbox = Sandbox::new("root-readme", "dirhome");
+    std::fs::remove_file(sandbox.path("README.md")).expect("the root README");
+    sandbox.stage();
+    let (out, stderr, code) = sandbox.run(&["check"]);
+    assert_eq!(code, 1, "{out}{stderr}");
+    let at = out
+        .lines()
+        .position(|l| l.starts_with("README.md  "))
+        .unwrap_or_else(|| panic!("a finding on README.md: {out}"));
+    let repair = out.lines().nth(at + 1).expect("the repair line");
+    assert!(repair.contains("create it"), "{repair}");
+    assert!(!repair.contains("stop listing"), "{repair}");
+}
+
 /// The claim: `check --staged` compares the staged installed files against the shipped set, as
 /// `check` does on disk, and prints the `checker source:` line `check` prints.
 #[test]
