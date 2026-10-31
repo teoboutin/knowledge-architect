@@ -334,6 +334,44 @@ fn comment_lines(text: &str) -> Vec<String> {
         .collect()
 }
 
+/// The claim: over a project whose git index holds staged changes, `new-component` writes the
+/// Component and says why it stops before the indexes of its registers, which the refusal of
+/// `check --fix` keeps from a partial commit, per `design@core@fix-refusal-mixed-state`, and names
+/// the command that finishes the run; after it the check passes.
+#[test]
+fn new_component_over_staged_changes_says_why_it_stops_and_how_to_finish() {
+    let scratch = Scratch::new("staged-component");
+    assert_eq!(klarch(&scratch.dir, &["init", "p"]).2, 0);
+    let p = scratch.path("p");
+    git(&p, &["add", "-A"]);
+    git(
+        &p,
+        &[
+            "-c",
+            "user.name=fixture",
+            "-c",
+            "user.email=fixture@example.invalid",
+            "-c",
+            "commit.gpgsign=false",
+            "commit",
+            "-qm",
+            "p",
+        ],
+    );
+    let readme = std::fs::read_to_string(p.join("README.md")).unwrap();
+    std::fs::write(p.join("README.md"), format!("{readme}\nMore.\n")).unwrap();
+    git(&p, &["add", "README.md"]);
+    let (out, err, code) = klarch(&p, &["new-component", "c"]);
+    assert_eq!(code, 1, "{out}{err}");
+    assert!(p.join("c/README.md").exists(), "the Component is written");
+    let said = format!("{out}{err}");
+    assert!(said.contains("staged changes"), "{said}");
+    assert!(said.contains("klarch index` writes them"), "{said}");
+    assert_eq!(klarch(&p, &["index"]).2, 0);
+    let (out, err, code) = klarch(&p, &["check"]);
+    assert_eq!(code, 0, "{out}{err}");
+}
+
 /// A manifest's comments survive `new-component` byte for byte, in their order, per
 /// `design@core@component-manifest-edit`.
 #[test]

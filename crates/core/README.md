@@ -387,7 +387,9 @@ the Component's documents and register homes, and ends as `init` does. A manifes
 `\r\n` line breaks keeps them. It runs behind the gate of
 the first three phases, so over a tree they find incomplete it refuses, writing nothing. A
 register declared `opt-in` is not guessed: name the Component in its `components`, and the check
-reports the home.
+reports the home. Where git's index holds staged changes, the run stops before the indexes of the
+new Component's registers, as `check --fix` stops over a partial commit, exit 1, and says so:
+`index` writes them.
 
 ## `model`
 
