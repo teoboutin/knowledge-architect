@@ -64,18 +64,22 @@ by no other. Those criteria are:
 - the reasons recorded beside the code and the agent-facing text, and in the messages of the commits
   that made them;
 - the goals, the design homes, the rejected designs, the tripwires and the issues;
-- the external specifications that any of these make binding.
+- the external specifications that any of these make binding;
+- the plan documents the work answers, and the owner's statements and rulings it carries out, as far
+  as each binds the writer.
 
 The criteria of the reviews and of the audits agree with each other.
 
 It is met while each criterion that a review or an audit the installed text owes or offers applies
 to such a text is one that binds its writer at that time.
 
+It refines `goal@knowledge-architect@agents-get-a-complete-workflow`.
+
 ## An installed text works unchanged in any project that installs it `##installed-text-works-anywhere`
 
 The installed skills, agent definitions, saved workflows and primer name no path or convention
-particular to one adopting project, and write the command by which the project runs the checker, as
-its manifest declares it, or `klarch` where it declares none.
+particular to one adopting project, and write the command the project declares for running the
+checker, or the checker's default where it declares none.
 
 It is met while they name none, and write that command, so that a project of any language and of any
 layout its manifest declares can follow them without editing them.
@@ -90,12 +94,14 @@ may rely on the harness's own mechanisms. In any environment that loads it:
 - a session with no user-level instruction and no plugin reaches each installed skill at its moment;
 - a skill or an instruction the environment adds, outside the installed set and the project, the
   harness's own included, never takes the place of an installed skill or instruction for an activity
-  the set covers.
+  the set covers, unless an installed instruction itself defers to it.
 
 It is met while the installed text routes a session to each installed skill at its moment, and no
 installed text lets a skill or an instruction the environment adds take the place of an installed
 one for the same activity. A session routed otherwise because of its environment's own instructions
 shows the goal unmet in practice.
+
+It refines `goal@knowledge-architect@agents-get-a-complete-workflow`.
 
 ## The installed text holds only the instructions the workflow needs, and leaves to the session's judgement the cases it handles well enough `##only-needed-instructions`
 
@@ -115,4 +121,4 @@ another instruction needs to vary. A review that finds an instruction for a case
 or a structure another instruction needs to vary, shows the goal unmet in practice; it is answered
 by removing that instruction or that structure rather than by adding a rule.
 
-It refines `goal@knowledge-architect@agents-work-without-drift`.
+It refines `goal@knowledge-architect@agents-get-a-complete-workflow`.
