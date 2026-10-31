@@ -14,6 +14,10 @@ subsection is omitted.
   whole, its text after an escape such as `\n`, `\"` or a line continuation included, so a
   reference or a lint there is reported as anywhere in prose. A finding it brings is repaired as
   the finding says.
+- `checks`, minor: a `path@elsewhere@<path>` whose path names a file of this tree relative to
+  the document that writes it is reported, as one read from the root or an anchor's directory is;
+  the finding names the reference at the deepest anchor that holds the target, and the repair is
+  to write it so.
 - `library`, minor: a binary that dispatches the core's command enum, as the setup skill's
   maintenance crate and the crate documentation's extension example do, hands `Command::Init` to
   `cli::init` before `cli::locate`, with the libraries and packages it gives
