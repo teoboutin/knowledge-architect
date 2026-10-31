@@ -156,7 +156,9 @@ subsection is omitted.
   decision forbids, and a number in it has a basis; one slip a review repaired fires none.
 - `agent-skills`, patch: the standing-state reviewer asks of each tripwire whether its horizon has
   passed, and the decision-record reviewer judges each tripwire a branch adds by the standard and
-  looks for every premortem cause's outcome in the branch's messages.
+  looks for every premortem cause's outcome in the branch's messages. A commit that only relocates
+  lines is no occasion of a horizon. In a shallow clone, the standing-state reviewer and the
+  tripwire auditor run `git fetch --unshallow` before counting a horizon.
 - `agent-skills`, patch: an acceptance criterion is admitted only where its failure is silent, its
   firing would show the decision it guards wrong, and a number in it has a basis; a check whose
   firing would show the work unfinished is a claim of the step that builds it. No criterion is put
@@ -249,6 +251,13 @@ subsection is omitted.
   audit's pass waits for the owner's word on that growth; a provable gap is filled from the fact it
   names; an instruction no agent performs is deleted where the record settles that its act is no
   longer wanted, and otherwise goes to the owner.
+- `agent-skills`, patch: the design audit of a slice no longer stops the slice at a choice between
+  shapes that the plan documents leave open and that defeats no decided design: the choice is put
+  to the owner with a default, built, and the branch merges once the owner rules.
+- `agent-skills`, patch: the review before a merge sends the decision-recording axis when a decision
+  about how the project is built was made, reversed or harvested, whether or not it earned an
+  entry, or a tripwire was added, and not for a change that only relocates or rewords recorded
+  decisions.
 
 ## 0.8.0
 

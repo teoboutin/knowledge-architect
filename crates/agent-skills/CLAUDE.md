@@ -53,7 +53,8 @@ which each host names by a placeholder line, `{{fragment:<file>}}`, per
 fragment cites no entry, as content/ does, and the build refuses one holding a heading slug,
 another fragment, or a build placeholder but `{{command}}`. A review of a change to a fragment
 names each host's installed copy in the brief of the agent-facing-text axis, since a sentence true
-in one host's context can be false in another's.
+in one host's context can be false in another's; `FRAGMENT_HOSTS` in `path@agent-skills@src/lib.rs`
+lists each fragment's hosts, and its test fails while the list and the placeholders differ.
 
 **The primer is the part of every installing project's root `CLAUDE.md` that is the same in every
 project**, per `design@agent-skills@primer-limit`.

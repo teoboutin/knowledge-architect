@@ -423,24 +423,31 @@ design the gap defeats.
      implementation sequence and the order rationale, and moves into its spec the design it takes
      from other slices, so that each shape keeps one home. It changes a sequence the owner ruled on, so it is a scope
      change, listed and ruled as above.
-   - **Load-bearing.** The gap is material, or is a choice between two shapes neither of which the
-     document rules out, or needs a ruling the document marks as the owner's. Record it in the
-     slice's spec as open at the audit, with the discriminating fact, stop the slice, and open a
-     design session with the owner under `skill@knowledge-architect-design`.
-     - A choice among shapes that can be stated in full, each with its consequence, is put to the
-       owner in one message, with a default; several such gaps go in one question, each under a
-       label, `Q<n>`, since each is written in place as a thread with its slug. The slice's
-       documents exist, so the ruling is not left to a commit message as the in-change path would
-       leave it: it is written in place in the
-       milestone's documents by the rule of `skill@knowledge-architect-planning@spec-contents`, as a thread with the owner's words verbatim, like
-       the audit's other answers, and the audit's commit lists it among its gaps. It is no
-       converged design session, so it owes no new review of
-       `skill@knowledge-architect-planning@plan-reviews`.
+   - **A choice between shapes.** The gap is a choice between two or more shapes, neither of which
+     the document rules out, and it defeats no decided design: the rest of the slice does not rest
+     on it. It is put to the owner as a default awaiting the owner, built as written, and the
+     branch merges once the owner rules, per `primer@question-authority`.
+   - **Load-bearing.** The gap is material, or needs a ruling the document marks as the owner's.
+     Record it in the slice's spec as open at the audit, with the discriminating fact, stop the
+     slice, and open a design session with the owner under `skill@knowledge-architect-design`.
+     - A gap whose ruling the document marks as the owner's, and whose shapes can be stated in
+       full, each with its consequence, takes the form of the next paragraph, and waits for the
+       ruling.
      - A gap that defeats a reason, a premise or a criterion a thread closed `approved` or `argued` rests on needs the
        full session. Its converged design goes into the milestone's documents by the rule of `skill@knowledge-architect-planning@spec-contents`,
        and owes the reviews of `skill@knowledge-architect-planning@plan-reviews`.
 
      The slice resumes from the ruling or the converged design.
+
+   A choice among shapes that can be stated in full, each with its consequence, is put to the owner
+   in one message, with a default; several such gaps go in one question, each under a label,
+   `Q<n>`, since each is written in place as a thread with its slug. The slice's documents exist, so
+   the ruling is not left to a commit message as the in-change path would leave it: it is written in
+   place in the milestone's documents by the rule of
+   `skill@knowledge-architect-planning@spec-contents`, as a thread with the owner's words verbatim,
+   like the audit's other answers, and the audit's commit lists it among its gaps. It is no
+   converged design session, so it owes no new review of
+   `skill@knowledge-architect-planning@plan-reviews`.
 3. **Claims, tests, implementation, gates, commits**, per the project's development procedure. The
    commits name each claim of the spec with its test and its outcome, how the test was shown to fail
    against a wrong implementation, and of any claim whose test cannot yet do so, why not. A claim

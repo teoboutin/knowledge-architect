@@ -112,7 +112,9 @@ where it admitted none of the 25 found anyway, which is the rule on slips' secon
 A tripwire carries a fourth line, `**Watches until:**`, naming the first occasions that exercise its
 decision, counted by a command over the history from the commit that wrote the line: commits that
 change a named path or the guarded head, release tags, audit reports of an axis, plan documents
-deleted at their landing, or one event the tree shows. Its length is the writer's judgement;
+deleted at their landing, or one event the tree shows. A commit that only relocates lines, every
+line it adds being one it removes, is no occasion: it exercises no decision, and a command counting
+changed paths or added headings would otherwise count it. Its length is the writer's judgement;
 `standing` is for a guarantee whose failure stays silent and permanent, with its reason. The
 standing-state reviewer, which reads every tripwire at every merge, asks whether the horizon has
 passed as it asks whether the tripwire fired, per

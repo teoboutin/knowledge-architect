@@ -55,16 +55,21 @@ Analysed with P1 of 2026-10-25-knowledge-architect-design-home-split, in
   two readings as it is. `design@agent-skills@new-or-reshaped-head-needs-design` already says a
   change that only relocates or rewords recorded decisions "is not a decision".
 - **d.** Unclear: two readings, one of them the primer's.
-- **e.** The installed text. It narrows nothing the reviewer judges: the decision-record reviewer
-  judges the design homes and the `rejected` entries only.
-- **f.** Rival: send the axis on every branch. It loses: a branch that changes no design home and no
-  `rejected` entry gives the reviewer nothing to judge.
+- **e.** The installed text. The decision-record reviewer judges which decisions earned an entry,
+  a decision that earned none included, and each tripwire a diff adds, so the proposed wording, a
+  design head or a `rejected` entry written, would drop both from the condition.
+- **f.** Rival: send the axis on every branch. It loses: a branch that makes no decision about how
+  the project is built and adds no tripwire gives the reviewer nothing to judge. The proposed
+  wording loses to a wording that keeps what the reviewer judges.
 - **g.** The installed text at its source. 0 instructions added.
-- **h.** Reword the condition as proposed.
+- **h.** Reword the condition: a decision about how the project is built was made, reversed or
+  harvested, whether or not it earned an entry, or a tripwire was added; a change that only
+  relocates or rewords recorded decisions makes none.
 - **Default**: handle now.
-- **Outcome**: decided by the session: handle now. Ground: a confirmed case of two readings is
-  repaired, per `rejected@agent-skills@two-readings-left-to-judgement`, and the reviewer's scope
-  fixes which reading is meant.
+- **Outcome**: decided by the session: handle now, with the wording of item h rather than the
+  file's. Ground: a confirmed case of two readings is repaired, per
+  `rejected@agent-skills@two-readings-left-to-judgement`, and the reviewer's scope, read while
+  carrying the outcome out, fixes which reading is meant.
 
 ## C1, with C2 of the graded-entries file, C1 of the primer-terms file and C1 of the met-outside file: the transcript reader does not know some lines
 
