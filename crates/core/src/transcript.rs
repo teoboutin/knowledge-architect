@@ -34,15 +34,21 @@ const KNOWN_METADATA_TYPES: &[&str] = &[
     "artifact-autoreact-ledger",
     "artifact-comment-monitor",
     "frame-link",
+    "bridge-session",
+    "tools-used",
 ];
 
-/// The `system` subtypes: `local_command` and `compact_boundary` are used, the others ignored.
+/// The `system` subtypes: `local_command`, `compact_boundary` and `model_refusal_no_fallback` are
+/// used, the others ignored.
 const KNOWN_SYSTEM_SUBTYPES: &[&str] = &[
     "turn_duration",
     "compact_boundary",
     "scheduled_task_fire",
     "informational",
     "local_command",
+    "model_refusal_no_fallback",
+    "bridge_status",
+    "stop_hook_summary",
 ];
 
 /// The `attachment.type` values: `queued_command` is used, the others ignored on purpose.
@@ -77,6 +83,7 @@ const KNOWN_ATTACHMENT_TYPES: &[&str] = &[
     "invoked_skills",
     "hook_system_message",
     "thinking_drop",
+    "task_reminder",
 ];
 
 /// The `origin.kind` values: `human` is the owner, the others are injected.
@@ -278,10 +285,12 @@ pub(crate) enum Label {
     OwnerAnswer,
     OwnerQueued,
     OwnerCommand,
+    /// The owner interrupted the session's turn: a `user` line with `interruptedMessageId`.
+    OwnerInterrupt,
     Agent,
     Dispatch,
     /// Injected text, with its kind: a known `origin.kind`, `unknown`, `skill`, `meta`,
-    /// `compact-summary` or `compact-boundary`.
+    /// `compact-summary`, `compact-boundary` or `model-refusal`.
     Injected(String),
     /// A tool call or its result, with the tool's name where it is known.
     Tool(String),
@@ -296,6 +305,7 @@ impl Label {
             Label::OwnerAnswer => "owner-answer".to_string(),
             Label::OwnerQueued => "owner-queued".to_string(),
             Label::OwnerCommand => "owner-command".to_string(),
+            Label::OwnerInterrupt => "owner-interrupt".to_string(),
             Label::Agent => "agent".to_string(),
             Label::Dispatch => "dispatch".to_string(),
             Label::Injected(kind) => format!("injected {kind}"),
@@ -312,6 +322,7 @@ impl Label {
             Label::OwnerAnswer => "owner-answer",
             Label::OwnerQueued => "owner-queued",
             Label::OwnerCommand => "owner-command",
+            Label::OwnerInterrupt => "owner-interrupt",
             Label::Agent => "agent",
             Label::Dispatch => "dispatch",
             Label::Injected(_) => "injected",
@@ -328,6 +339,7 @@ impl Label {
                 | Label::OwnerAnswer
                 | Label::OwnerQueued
                 | Label::OwnerCommand
+                | Label::OwnerInterrupt
                 | Label::Agent
                 | Label::Dispatch
                 | Label::Unlabelled
@@ -401,6 +413,7 @@ impl Inventory {
     /// value outside a set is reported whatever session it sits in.
     fn survey(&mut self, file: &File, name: &str) {
         self.files += 1;
+        let echoes = command_echoes(file);
         for (i, raw) in file.lines.iter().enumerate() {
             let at = format!("{name}:{}", i + 1);
             let value = match raw {
@@ -481,7 +494,10 @@ impl Inventory {
                     let subtype = str_field(value, "subtype").unwrap_or("(none)");
                     if !KNOWN_SYSTEM_SUBTYPES.contains(&subtype) {
                         self.note_unknown("system subtype", subtype, at.clone());
-                    } else if subtype == "local_command" && value.get("commandRun").is_none() {
+                    } else if subtype == "local_command"
+                        && value.get("commandRun").is_none()
+                        && !str_field(value, "uuid").is_some_and(|u| echoes.contains(u))
+                    {
                         self.note_unknown("system local_command shape", "no commandRun", at);
                     }
                 }
@@ -490,6 +506,23 @@ impl Inventory {
             }
         }
     }
+}
+
+/// The `uuid`s of the `local_command` lines a command line with `commandRun` names as its parent.
+///
+/// A command such as `/remote-control`, at harness versions 2.1.310 and 2.1.314, writes its echo as
+/// a `local_command` line with no `commandRun`, then the line that carries it, whose `parentUuid` is
+/// the echo's: the second prints the command, so the echo is ignored on purpose. A `local_command`
+/// line with no `commandRun` that no such line names is still reported, since a release that
+/// dropped the field would print no command at all.
+fn command_echoes(file: &File) -> HashSet<&str> {
+    (0..file.lines.len())
+        .filter_map(|i| file.json(i))
+        .filter(|v| {
+            str_field(v, "subtype") == Some("local_command") && v.get("commandRun").is_some()
+        })
+        .filter_map(|v| str_field(v, "parentUuid"))
+        .collect()
 }
 
 /// An attached subagent file.
@@ -946,6 +979,14 @@ impl Labelling<'_> {
                             entries.push(entry(Label::OwnerCommand, text, None));
                         }
                     }
+                    Some("model_refusal_no_fallback") => {
+                        let category = str_field(value, "apiRefusalCategory").unwrap_or("unknown");
+                        entries.push(entry(
+                            Label::Injected("model-refusal".to_string()),
+                            format!("model refusal, category {category}"),
+                            None,
+                        ));
+                    }
                     Some("compact_boundary") => {
                         let trigger = value
                             .get("compactMetadata")
@@ -1039,7 +1080,15 @@ impl Labelling<'_> {
         // In a subagent file, a `user` line that carries none of the three fields is its
         // dispatcher's or its workflow's text, as `design@core@transcript-labels-in-code` measures.
         // The fields are tested by presence, as the consumption above and the fallback test them.
-        let label = if self.in_subagent
+        let fieldless = value.get("isMeta").is_none()
+            && value.get("isCompactSummary").is_none()
+            && value.get("origin").is_none();
+        // An interrupt carries `interruptedMessageId`, which no other `user` line carried over every
+        // transcript measured, harness versions 2.1.306 to 2.1.316: the field places it, in a
+        // subagent file too, where it would otherwise read as the dispatcher's.
+        let label = if fieldless && value.get("interruptedMessageId").is_some() {
+            Label::OwnerInterrupt
+        } else if self.in_subagent
             && value.get("isMeta").is_none()
             && value.get("isCompactSummary").is_none()
             && value.get("origin").is_none()
