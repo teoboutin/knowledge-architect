@@ -171,7 +171,9 @@ reads it, and, where it is an instruction no agent performs, a decision, which
 longer wanted, and otherwise put to the owner, since whether the act is still wanted is the intent of whoever wrote it, a fact only the owner holds, which a project that installs
 the workflow seldom records about its agent-facing text, per
 `goal@agent-skills@installed-text-works-anywhere`. A reason passes when
-it states a mechanism or a failure prevented; a
+it states a mechanism or a failure prevented, and is written where the act needs it, not beside
+every instruction: the owner argued that most instructions are followed without their reason, and
+that a reason given everywhere no longer marks the instructions it weighs and dilutes them. A
 second reason that names no other mechanism, a duplicate inside one text, a lead, an emphasis and a
 remark about the text fail, since a loaded text is read whole and they add no act. A statement
 about state outside the project is suspect, and is written only where an act needs it.

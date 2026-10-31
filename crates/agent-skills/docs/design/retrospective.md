@@ -182,8 +182,8 @@ git log 6f75bc98 --diff-filter=D --name-only --format='C %H' -- docs/retrospecti
   | grep -ciE '^(approved|accepted)'    # and without the last grep, wc -l for the 356
 ```
 
-The rulings that brought an argument, a fact, an intent or a new shape keep their moment, since the
-analysis is read before the merge. The nearest rival, a batch
+About 25 of the other lines, by a reading of each, brought an argument, a fact, an intent or a new
+shape; those keep their moment, since the analysis is read before the merge. The nearest rival, a batch
 confirmation of every default, keeps the question with the owner, and a word that hands judgement
 over is no ground, per `rejected@agent-skills@delegated-decision-state`. The incumbent, the owner's
 ruling owed on every finding, is `rejected@agent-skills@owner-rules-each-intake-finding`.
