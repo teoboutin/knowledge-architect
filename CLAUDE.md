@@ -86,6 +86,7 @@ An issue entry keeps its magnitudes, per the cold-reader standard of
 ```sh
 ls docs/retrospective-reports/    # the retrospective analyses whose outcomes are not all carried out
 ls docs/audit-reports/            # the audit report files whose outcomes are not all carried out
+ls docs/goal-reviews/             # the records of goal-set reviews whose goals are not all ruled
 ```
 
 ## Verify mechanically `##verify-mechanically`

@@ -156,7 +156,7 @@ two ways under rule 2 and which holds two intents under rule 4, for which the ow
 
 | decision | the change | its citers, and who updates them |
 | --- | --- | --- |
-| `design@agent-skills@goal-entry-shape` | its "never states a mechanism" test becomes rule 1 of the standard; the head keeps the entry's shape and points to the standard's head | cited by nothing; the harvest |
+| `design@agent-skills@goal-entry-shape` | its "never states a mechanism" test becomes rule 1 of the standard; the head keeps the entry's shape and points to the standard's head; reversed at step 7, on the owner's argument #arg-56: the body has no length bound and may hold a list | cited by goal-setting's entry-shape comment, which step 7 rewrites with it; the harvest points it to the standard's head |
 | `design@agent-skills@goals-change-through-goal-setting` | its list of occasions gains the whole-set review, and the reviewer runs before every ruling | `path@core@docs/design/run-model.md` line 24 cites it for "no goal, which is the owner's to state"; unaffected; the harvest reads it |
 | `design@agent-skills@audit-is-an-activity` | a review of the whole goal set runs inside goal-setting: its argument, two standards in one text, does not reach one standard serving a draft and a whole set | `issue@agent-skills@audit-axes-beyond-the-design-record`, line 9; unaffected, since its goal-coverage axis stays open; the harvest |
 | `design@knowledge-architect@changelog-entries` | a Migration entry for a change of the rules recorded content must meet cites the section that brings that content to them, an audit axis's or the goal-setting skill's whole-set review | `agent@klarch-changelog-reviewer`, lines 23 and 42, `path@knowledge-architect@CHANGELOG.md` line 5, `path@knowledge-architect@CLAUDE.md` line 202, `path@agent-skills@docs/design/audit-method.md` line 328, `path@agent-skills@docs/design/audit-record-axes.md` line 50, `path@core@docs/design/reference-lints.md` line 161, `register@knowledge-architect@design`, lines 154, 172 and 243, `issue@knowledge-architect@a-mechanical-changelog-check` line 9, `issue@knowledge-architect@the-released-changelog-section-rule-has-no-argument` line 26, `register@xtask@rejected`; step 5 writes the Migration entry from the wording in this table and reads the changelog reviewer's two lines against it, the harvest rewrites the head to the same wording and reads the rest |
@@ -323,10 +323,11 @@ boundary block adds one line per case and per sibling goal touched to each draft
 illustration under "The draft" shows. The owner's answer to Q1, #arg-38, argues the cost buys the
 attention that was missing.
 
-### A goals home stays short `##c-goals-stay-short`
+### A goal's body is as long as the standard needs `##c-goal-body-as-the-standard-needs`
 
-Binding as a presumption, from `design@agent-skills@goal-entry-shape`. Met: the boundary block never
-enters a goals home, and rule 2's qualifiers add one or two lines to a goal: R2 added one, R9 two.
+Binding as a presumption, from `design@agent-skills@goal-entry-shape` as step 7 rewrites it, on the
+owner's argument #arg-56. Met: the boundary block never enters a goals home, and a goal's body
+holds what the standard asks of it, in sentences or in a list, with no sentence bound.
 
 ### Each activity is carried out from its own skill `##c-one-skill-per-activity`
 
@@ -422,6 +423,39 @@ absence, which entry test 2 admits only if the harvest finds a reason that must 
 site; otherwise the commit message.
 
 The owner, round 2: "goal-reading-in-use accepted"
+
+### A goal's body has no sentence bound, and may hold a list `##goal-body-unbounded`
+
+Proposed by the owner after step 6's rounds. State: `approved`, on the session's proposal of its
+shape, the owner's "defaults for Q49 to Q51, go ahead". Arguments: #arg-56, #arg-58. Its shape is
+"Decided design", the body of a goal; built at step 7, which rewrites
+`design@agent-skills@goal-entry-shape` in the same commit, in-change.
+
+The owner: "The goal setting skill says "in two to four sentences". This is a hard cap, and a low one
+at that, and I do not like this at all. The new standard clearly requires more than four sentences to
+properly describe everything importtant, and I think you have been going to great lengths to meet
+this cap by writing convoluted sentences. This probably also makes it harder to serve the rules of no
+contradictions and no ambiguity. And I think leaving a bit of freedom in the form could help for
+clarity. I'm fairly certain some goals would be more readable with some things described in a bullet
+list."
+
+### The whole-set review runs in rounds: one reviewer per set and one on the whole set, the owner answering between rounds, over a committed record `##whole-set-rounds`
+
+Proposed by the owner after step 6's rounds, refining #goal-set-review; the session added the
+whole-set reviewer in every round, the record's boundary blocks and the count under one brief. State:
+`approved`, on the defaults of Q49 (the record committed under docs/), Q50 (the stop at a fifth of the
+first round's count) and Q51 (the skill first, the goals' new layout after): "defaults for Q49 to
+Q51, go ahead". Arguments: #arg-57, #arg-59. Its shape is "Decided design", the whole-set review;
+built at step 7; its harvest is a head in the goals design home on the rounds and the record.
+
+The owner: "IMO, the correct method for this from what we observed: 1. split the goal list in
+smaller sets (the batches you proposed) 2. have subagents review them: one per set, plus one on the
+full set. 3. apply the edits on the tree, with the owner answering on defaults. What we did today
+clearly showed that without me answering between each round, things can't really work out 4. edit
+one document that tracks the reasonning behind changes and what I say, that reviewers also get to
+consult (the goal default report) 5. back to step 2 on updated goals and report 6. the process stops
+when I am satisfied and says so, or when findings of last rounds were low enough. but this needs a
+criteria. Maybe 5 to 10 times less then first round ?"
 
 ## Arguments
 
@@ -527,7 +561,7 @@ judge of a goal apply it."
 ### The standard's cost is a longer goal, mildly `##arg-18`
 
 Round 1, the session; bears on #goal-standard. "A goal drafted under the standard may be longer,
-since rules 2 and 3 add qualifiers. That weighs against c-goals-stay-short, mildly: the R2 and R9
+since rules 2 and 3 add qualifiers. That weighs against a criterion that goals stay short, since reversed by #arg-56, mildly: the R2 and R9
 rewords each added about one line." Measured at assembly: R2 adds one line, R9 two.
 
 ### The boundary block turns reach into cases the owner judges by intent `##arg-19`
@@ -780,6 +814,35 @@ goal review, maybe those should not be counted. Rule 4 in particular has much le
 not change what agents will do in the project, and I think that having zero overlap is probably
 impossible, since goals do interract with each others on some aspects."
 
+### The four-sentence cap packs a goal into long sentences, against the standard's one reading `##arg-56`
+
+After step 6, the owner; bears on #goal-body-unbounded. Quoted whole under that thread: "The new
+standard clearly requires more than four sentences to properly describe everything importtant, and
+I think you have been going to great lengths to meet this cap by writing convoluted sentences."
+
+### Without the owner's answers between rounds, the rounds do not converge `##arg-57`
+
+After step 6, the owner; bears on #whole-set-rounds. "What we did today clearly showed that without
+me answering between each round, things can't really work out". The session's grounds: lockstep
+rounds 1 and 2 counted 91 then 88 findings; round 2's (b) findings were the session's round-1
+defaults departing from the owner's approved words; round 3 found a round-2 default resting on a
+false premise.
+
+### The drafts broke the cap and ran long `##arg-58`
+
+After step 6, the session; bears on #goal-body-unbounded. On the 31 drafts of step 6, as
+`path@knowledge-architect@docs/goal-reviews/2026-10-31-goal-standard.md` quotes them: 9 goals held
+more than four sentences, the median sentence ran 32 words, and 51 of 129 sentences ran over 40
+words. A session that argues from a goal applies it whole, so a longer goal costs it nothing.
+
+### Counts fell only once the briefs named the open questions, and the whole-set reviewer found what the sets missed `##arg-59`
+
+After step 6, the session; bears on #whole-set-rounds. The counts stayed flat until lockstep round 3,
+whose briefs asked each reviewer not to report again a question already open; so the count of the
+stop rule keeps one brief from the first round. The first whole-set round found two conflicts
+between goals of different homes that no set's reviewer reported, so the whole-set reviewer runs in
+every round.
+
 ## New names, in one place
 
 | name | file | status |
@@ -791,6 +854,7 @@ impossible, since goals do interract with each others on some aspects."
 | `skill@knowledge-architect-goal-setting@drawing-out-intent` | goal-setting's source | existing; gains the dispatch and the block |
 | `skill@knowledge-architect-goal-setting@when-it-runs-again` | goal-setting's source | existing; names the whole-set review |
 | `FRAGMENT_HOSTS` | `path@agent-skills@src/lib.rs` | existing; gains one row |
+| docs/goal-reviews/, one record per whole-set review | the project's root; a row of the primer's knowledge table | new, step 7 |
 
 The agent's sections, each a level-two heading with its slug placeholder, per
 `design@core@section-homes-carry-slugs`: its section `agent@knowledge-architect-goal-reviewer@the-goal-standard` (the fragment), `agent@knowledge-architect-goal-reviewer@the-modes`,
@@ -983,6 +1047,33 @@ goal's wording that rules out what the owner has not ruled out knowingly is a fi
 to `skill@knowledge-architect-goal-setting@drawing-out-intent`. The fragment on a head's shape is unchanged: it governs a head's title and body,
 never a goal.
 
+### The body of a goal
+
+On #goal-body-unbounded: a goal's body has no sentence bound; it holds what the standard asks of
+it, in short sentences, and a list where it names the members of a set; its measure opens "It is
+met while". `design@agent-skills@goal-entry-shape` is rewritten to say so. The nearest rival, a soft
+bound such as "as short as the standard allows", lost: no reviewer can apply it, and it keeps the
+pressure #arg-58 measured.
+
+### The whole-set review in rounds
+
+On #whole-set-rounds, `skill@knowledge-architect-goal-setting@whole-set-review` holds six steps: the
+goals split into sets; per round, one reviewer per set in draft mode and one in whole-set mode,
+dispatched together, every brief naming the record; the repairs and defaults written in the working
+tree, and every intent and contradiction finding, with each default that departs from the owner's
+approved words, put to the owner in one message, the next round waiting for the answer; the record
+in `docs/goal-reviews/<YYYY-MM-DD>-<subject>.md`, committed each round apart from the drafts, which
+stay uncommitted until ruled; the next round; and the stop, on the owner's word or once a round's
+count of findings that are not `minor`, every reviewer together and under one brief, falls to a
+fifth of the first round's. Every goal is then put to the owner with its boundary block, ruled by its
+slug, and the commit that writes the goals ruled last deletes the record. The reviewer reads a
+record its brief names, reports again an open question only where the text changed it, and ends
+with its counts per rule and tag. The primer's knowledge table gains the record's row.
+
+The nearest rivals: the session's scratch space for the record, which a later session loses and
+where the owner's words are not kept, per Q49; a tenth for the stop, the owner's own upper figure,
+which the first rounds of step 6 reached only at the second whole-set round, per Q50.
+
 ## Mapping tables
 
 The `%%` comment beside each rule of the fragment, its cases:
@@ -1174,6 +1265,26 @@ holds, on the owner's word to Q32.
 
 Fails alone on: the reviewer's report, the owner's rulings and the check.
 
+### Step 7: the goal's body unbounded, the review in rounds, and the goals laid out again
+
+Builds #goal-body-unbounded and #whole-set-rounds: goal-setting's
+`skill@knowledge-architect-goal-setting@goal-entry-shape` and
+`skill@knowledge-architect-goal-setting@whole-set-review`, the reviewer's reading of a record and its
+counts, the primer's row for docs/goal-reviews/, `design@agent-skills@goal-entry-shape` rewritten,
+and the changelog's entries on the whole-set review; then the review of this repository's goals in
+rounds, under the installed section, laying out every goal again without the bound, its content as
+the owner approved it, and each goal ruled by its slug.
+
+Claims:
+
+- The installed goal-setting skill states no sentence bound, and its whole-set review holds the six
+  steps of "The whole-set review in rounds": read in the installed copy.
+- Every goal's new layout carries the owner's ruling, and each round's reviewers report no change of
+  reading against the content the record quotes: the record and the commit of the ruled goals.
+- The record leaves with the commit that writes the goals ruled last.
+
+Fails alone on: the check, the installed copies, and the owner's rulings.
+
 ## Order rationale
 
 - The fragment comes first so that the agent of step 2 hosts a fragment that exists.
@@ -1182,6 +1293,8 @@ Fails alone on: the reviewer's report, the owner's rulings and the check.
 - The changelog follows the procedure, since it names what steps 1 to 4 built.
 - The goals are brought into conformance last, since they are reviewed by the installed procedure,
   the reviewer and the standard the earlier steps land.
+- Step 7 follows step 6, since its argument rests on what step 6's rounds measured; within it, the
+  skill's change comes before the goals' new layout, which it governs, per Q51.
 
 ## Defaults awaiting the owner
 
@@ -1225,6 +1338,7 @@ At the landing, under `skill@knowledge-architect-decision-recording`, read whole
 | #goal-reviewer-agent | the goals design home; `path@agent-skills@docs/design/reviews.md` | a head on the reviewer, its modes and its findings (a) and (b); `design@agent-skills@transcript-reviewer-agent` rewritten with the exception for goals |
 | #goal-review-before-merge | `path@agent-skills@docs/design/reviews.md` | a head on the row |
 | #goal-edit-ruled-alone | the goals design home | a head on the ruling alone |
+| #whole-set-rounds | the goals design home | a head on the rounds, the owner's answer between them, the record in docs/goal-reviews/ and the stop at a fifth, its rivals as "The whole-set review in rounds" states them |
 | #goal-set-review | the goals design home; `path@agent-skills@docs/design/audit-method.md`; `register@knowledge-architect@design` | a head in the weak form, carrying the owner's argument #arg-48 that an activity is its methodology, whatever step 6 rules on the goal that states it; `design@agent-skills@audit-is-an-activity` and `design@knowledge-architect@changelog-entries` rewritten; `design@agent-skills@goals-change-through-goal-setting` rewritten with the occasion |
 | #exclusion-names-its-rival | the standard's head | rule 8 and its argument |
 | #goal-reading-in-use | the standard's head, or the commit message | the absence, by entry test 2 if a reason must be respected at no site |
