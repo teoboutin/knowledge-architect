@@ -47,6 +47,43 @@ mod tests {
         );
     }
 
+    /// Every shipped skill and agent declares, as the `name` of its frontmatter, the name it is
+    /// installed under: its directory's for a skill, its file's stem for an agent. The harness
+    /// identifies a skill or an agent by that field, so one that differs is dispatched under
+    /// neither name, and the check raises no finding of its own on an installed copy.
+    #[test]
+    fn every_shipped_skill_and_agent_names_itself_as_installed() {
+        let mut seen = 0;
+        for (path, text) in FILES {
+            let installed = if let Some(rest) = path.strip_prefix(".claude/skills/") {
+                match rest.strip_suffix("/SKILL.md") {
+                    Some(name) => name,
+                    None => continue,
+                }
+            } else if let Some(rest) = path.strip_prefix(".claude/agents/") {
+                match rest.strip_suffix(".md") {
+                    Some(name) => name,
+                    None => continue,
+                }
+            } else {
+                continue;
+            };
+            let mut lines = text.lines();
+            assert_eq!(
+                lines.next(),
+                Some("---"),
+                "{path} opens with no frontmatter"
+            );
+            let declared = lines
+                .take_while(|l| *l != "---")
+                .find_map(|l| l.strip_prefix("name:"))
+                .map(str::trim);
+            assert_eq!(declared, Some(installed), "the frontmatter name of {path}");
+            seen += 1;
+        }
+        assert!(seen > 0, "no shipped skill or agent was read");
+    }
+
     /// No shipped file holds a `%%` line: the build removes each comment line, and refuses one it
     /// would ship, per `design@agent-skills@shipped-text-line-comments`. The rules of the pass
     /// itself are held by the tests of `render`.

@@ -1,12 +1,11 @@
 **Generated — do not edit.** `cargo klarch index`
 
-46 entries
+45 entries
 
 | kind | title |
 | --- | --- |
 | defect | [A heading-shaped line that markdown reads as no heading still defines an entry](a-heading-line-markdown-renders-as-no-heading-defines-an-entry.md) |
 | defect | [A reference whose id carries a line suffix or a fragment is told to define its entry or repair its pointer, not to drop the suffix](a-reference-with-a-line-or-fragment-suffix-names-a-wrong-repair.md) |
-| defect | [A shipped agent's frontmatter `name` is not checked against its file](a-shipped-agent-s-frontmatter-name-is-not-checked-against-its-file.md) |
 | defect | [A finding on a slug written in a retired or a misplaced form names a repair blind to what the slug resolves to](a-slug-finding-names-a-repair-blind-to-what-the-slug-resolves-to.md) |
 | defect | [A backticked span whose head shortens a kind's name, as `arg@<plan>@<id>` for `argument`, passes the check silent](a-span-whose-head-shortens-a-kind-passes-the-check-silent.md) |
 | defect | [A backticked span with an empty head and a slash is reported as malformed, which the candidate rule says is silent](a-span-with-an-empty-head-is-malformed-against-its-head.md) |
