@@ -358,10 +358,19 @@ Defaults put to the owner, Q72 to Q80, in the session's message of this round:
   owner with its boundary block, since the count no longer falls and half of the last findings sit on
   wording the rounds wrote.
 
-## Open questions
+## The owner's answers to round 3 and the ruling
 
-- The new layout of every goal, which the owner rules on by its slug, each goal with its boundary
-  block, once the rounds stop.
+On Q72 to Q80: "agreed on the defaults, stop here". The rounds stop on the owner's word, Q80.
+
+On the goals, the owner, 2026-10-31: "no need to show me all the goals in the conversation, since
+they are in the tree. Actually, I think any volume bigger than 2 or 3 goals should just go through
+the tree rather than the conversation. This is more efficient and convenient for the both of us. I
+reviewed the current tree, we can go with that. Ruling by slug for each one would also be rather
+inconvenient for me here."
+
+So every goal of the five goals homes is ruled as the working tree holds it at this commit, the
+owner having read them in the tree; no goal was shown in the conversation with its boundary block,
+on the owner's word. The commit that writes them deletes this record.
 
 ## The goals as the owner approved their content
 
