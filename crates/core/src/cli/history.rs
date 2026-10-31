@@ -14,7 +14,7 @@
 //! tree git's index would commit the same way, per `design@core@staged-tree-source`.
 
 use super::output::outln;
-use std::collections::{HashMap, HashSet};
+use std::collections::{BTreeMap, BTreeSet, HashMap, HashSet};
 use std::path::{Path, PathBuf};
 use std::process::ExitCode;
 
@@ -899,6 +899,8 @@ pub(super) fn commits(
     let mut summary: Vec<(String, Outcome)> = Vec::new();
     let mut findings: Vec<Finding> = Vec::new();
     let mut previous: Option<(String, Assembly, Entities)> = None;
+    // Each generated file a commit's tree fails on, with the commits that fail on it.
+    let mut generated: BTreeMap<PathBuf, usize> = BTreeMap::new();
 
     for sha in &shas {
         let short = &sha[..7.min(sha.len())];
@@ -935,6 +937,15 @@ pub(super) fn commits(
         let trouble = tree.trouble.len();
         let mut causes = Vec::new();
         if trouble > 0 {
+            for path in tree
+                .trouble
+                .iter()
+                .filter(|f| crate::check::generated::is_generated_finding(f))
+                .map(|f| f.file.clone())
+                .collect::<BTreeSet<_>>()
+            {
+                *generated.entry(path).or_default() += 1;
+            }
             // **Every commit of the range must pass under the tip checker**, so the tree's own
             // findings are the run's, each named by the commit and by the file inside it.
             findings.extend(tree.trouble.iter().cloned().map(|mut f| {
@@ -1058,6 +1069,17 @@ pub(super) fn commits(
             Outcome::Passed => outln!("  {short} passed"),
             Outcome::Failed { why } => outln!("  {short} failed: {why}"),
         }
+    }
+    // **A generated file several commits fail on is one repair**, which a finding per commit does
+    // not show: `index` at the tip rewrites the last commit's file alone. The line names the repair
+    // and no cause, per `design@core@finding-names-the-repair`: a branch that changes the
+    // generator and an early commit that left the file stale need the same one.
+    for (path, count) in generated.iter().filter(|(_, n)| **n > 1) {
+        outln!(
+            "  {}: {count} commits fail on this generated file; regenerate it at each of them and \
+             fold each regeneration into its commit",
+            path.display()
+        );
     }
     if !findings.is_empty() {
         outln!();

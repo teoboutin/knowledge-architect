@@ -1699,6 +1699,44 @@ fn the_fixture_project_is_one_the_checks_find_nothing_wrong_with() {
     assert!(stdout.contains("PASSED: no findings"), "{stdout}");
 }
 
+/// The claim: where two or more commits of the range fail on one generated file, `commits` prints
+/// one line naming the file and the repair that reaches every one of them, regenerating it at
+/// each and folding each regeneration into its commit, since `index` at the tip repairs the last
+/// alone; a file one commit fails on gets no such line. Per `design@core@finding-names-the-repair`,
+/// the line names no cause.
+#[test]
+fn commits_names_the_repair_of_a_generated_file_several_commits_fail_on() {
+    let history = History::new("commits-generated");
+    tiny_project(&history, false);
+    let base = history.commit("The project is created\n");
+    // Committed by hand, so no index is regenerated: every commit holds the stale listing.
+    let raw = |subject: &str| {
+        history.git(&["-c", "core.excludesFile=/dev/null", "add", "-A"]);
+        history.git(&["commit", "-q", "-m", subject]);
+    };
+    let index = "docs/open-issues/index.md";
+    let listing = std::fs::read_to_string(history.dir.join(index)).expect("the index");
+    history.write(
+        index,
+        &format!("{listing}| todo | A row no entry backs |\n"),
+    );
+    raw("The index gains a row");
+    history.write("notes.txt", "one\n");
+    raw("A note");
+    history.write("notes.txt", "two\n");
+    raw("The note again");
+    let (stdout, stderr, code) = history.run(&["commits", &format!("{base}..HEAD")]);
+    assert_eq!(code, 1, "{stdout}{stderr}");
+    let line = stdout
+        .lines()
+        .find(|l| l.contains(index) && l.contains("3 commits"))
+        .unwrap_or_else(|| panic!("a line naming the file and its commits: {stdout}"));
+    assert!(line.contains("fold"), "{line}");
+    let (stdout, stderr, code) = history.run(&["commits", "HEAD~1..HEAD"]);
+    assert_eq!(code, 1, "{stdout}{stderr}");
+    assert!(!stdout.contains("fold"), "one failing commit: {stdout}");
+}
+
 #[test]
 fn a_message_naming_nothing_that_exists_fails_and_names_the_commit_and_the_line() {
     let history = History::new("commit-dangling");

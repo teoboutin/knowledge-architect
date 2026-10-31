@@ -701,6 +701,14 @@ commits in origin/main..HEAD: 2 commits, 1 passed, 1 failed
   <sha> failed: its tree fails 1 finding(s); its message carries 2 finding(s)
 ```
 
+A generated file that two or more commits of the range fail on gets one more line in the block,
+naming the file and the repair that reaches each of them, since `index` at the tip rewrites the
+last commit's file alone:
+
+```
+  docs/open-issues/index.md: 3 commits fail on this generated file; regenerate it at each of them and fold each regeneration into its commit
+```
+
 The checker that judges every commit is the one built from the working tree, so a branch
 that makes it stricter puts that change in its first commit or is squashed before review. A
 message's references resolve against its commit's tree **or its first parent's**, which is what

@@ -45,8 +45,8 @@ the first run of the design-record axis counted 20, 23, 26 and 31 for the four h
     own tree alone;
   - "`check` reads no range of history", against `check` judging the branch's messages.
 
-  `issue@core@a-contract-change-fails-every-earlier-commit-unexplained` cites the head for the
-  third decision, and `issue@core@a-message-lint-is-deduplicated-in-one-tree-only` for the fourth.
+  `issue@core@a-message-lint-is-deduplicated-in-one-tree-only` cites the head for the fourth
+  decision.
 - `design@core@owned-namespace-check`, 33 citing sites. Its title is joined by "and" over two
   decisions whose arguments share no premise:
   - the installed agent files are committed, so that a session started from a fresh clone has
