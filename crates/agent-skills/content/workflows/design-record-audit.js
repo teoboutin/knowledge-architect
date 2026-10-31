@@ -143,7 +143,7 @@ const cut = (components) => {
   let p = 0
   for (const g of out) {
     if (!g.packed) continue
-    g.label = g.components.length === 1 ? g.components[0] + '-1' : 'packed-' + ++p
+    g.label = g.components.length === 1 ? g.components[0] + '-1' : 'packed+' + ++p
     delete g.packed
   }
   return out
@@ -222,11 +222,16 @@ if (args.from === 'application') {
   const failing = judged.filter((x) => x && x.r).reduce((t, x) => t + x.r.judged.filter((j) => j.verdict === 'fails').length, 0)
   log('judge: ' + jgroups.length + ' groups, ' + failing + ' entries failing' +
     (jgaps.length ? '; entries missing from a return: ' + jgaps.join('; ') : ''))
+  // The judges' verdicts reach the report as the script holds them: a judge writes a file for a
+  // failing entry and returns every verdict, so a report read from the files alone would take each
+  // conforming entry for one nobody judged.
+  const verdicts = judged.filter((x) => x && x.r).map((x) => ({ group: x.g.label, judged: x.r.judged }))
   phase('report')
   const jreport = await agent(lines([
     'You write the report of the judgement of an application of one pass of the design-record ' +
       'axis, for the session that repairs it. Quote; do not summarise evidence. You edit nothing in ' +
       'the project.',
+    'Every verdict the judges returned, per group: ' + JSON.stringify(verdicts),
     'Read every file under ' + dir + ' that the judges wrote.',
     'Write ' + at(dir, 'report.md') + ': per failing entry, the rule or the failure mode of an edit ' +
       'it fails, the words quoted, the tripwire or issue it leaves false, and the repair the judge ' +
@@ -316,7 +321,7 @@ if (!args.from) {
     'Your group: ' + g.label + ', ' + g.entries.length + ' entries, in this order:',
     g.entries.map((e, i) => (i + 1) + '. ' + show(e)).join('\n'),
     'The calibration sample, which you judge exactly as your own:',
-    sample.map((e) => '- ' + show(e)).join('\n'),
+    sample.filter((e) => !g.entries.some((y) => id(y) === id(e))).map((e) => '- ' + show(e)).join('\n'),
     'Scratch directory: ' + at(args.scratch, g.label) + '. Name each draft <nn>-<slug>.md: nn its ' +
       'position, two digits, the sample following your group in its order; slug the entry\'s slug.',
     args.kept ? 'Kept list, for this re-check: ' + at(args.scratch, g.label, 'kept.md') : '',

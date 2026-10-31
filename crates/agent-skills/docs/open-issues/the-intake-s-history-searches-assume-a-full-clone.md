@@ -44,5 +44,5 @@ and may judge a finding repaired or still standing wrongly, against
 
 A retrospective file that reports an intake run in a shallow clone, or a session that met the
 silent result, and then a sentence in check b with its own wording, through
-`skill@knowledge-architect-agent-configuration`; or this entry closed if no intake runs shallow
-by the next release.
+`skill@knowledge-architect-agent-configuration`. An occasion with no shallow intake closes nothing:
+the intakes seen run where no clone is shallow, so their count is no evidence that none will.
