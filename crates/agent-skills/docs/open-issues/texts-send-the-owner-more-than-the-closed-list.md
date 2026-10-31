@@ -15,8 +15,8 @@ record can settle.
 
 ### What
 
-Found by the goal reviewer's draft-mode reviews of the first batch of goals on the branch of
-`spec@plans@goal-standard-and-review`. The owner ruled that the closed list stands and that each
+Found by the goal reviewer's draft-mode reviews of the first batch of goals on the branch of the
+goal standard's spec, deleted by "[plans] The goal-standard spec leaves: its work has landed". The owner ruled that the closed list stands and that each
 text comes into line in a change of its own. The texts:
 
 - `skill@knowledge-architect-retrospective-intake`, which offers the owner an outcome for every

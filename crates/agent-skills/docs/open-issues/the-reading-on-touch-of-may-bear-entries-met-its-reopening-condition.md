@@ -7,7 +7,8 @@ kind: design
 
 `design@agent-skills@may-bear-read-on-touch` has the grounding read whole only the `may-bear`
 entries a proposal touches, and says: "A search whose `may-bear` entries left unread are found by
-the review to bear reopens it." At both plan reviews of `spec@plans@goal-standard-and-review`, its
+the review to bear reopens it." At both plan reviews of the goal standard's spec, deleted by "[plans] The goal-standard spec
+leaves: its work has landed", its
 design-conformance reviewer found entries the grounding had left unread that the work bears on.
 
 ## Details
