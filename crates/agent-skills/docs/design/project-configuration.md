@@ -5,12 +5,13 @@
 ### The setup sets `pipefail` in the shell of the `claude` harness, beside the primer's rule against chaining on a piped verdict `##harness-shell-fails-on-a-pipe`
 
 `skill@knowledge-architect-setup@harness-shell` writes `"env": {"SHELLOPTS": "pipefail"}` into the
-file `settings.json` of a project's checked-in `.claude` directory, for the `claude` harness, and a project that moves its
-pin adds it, per the Migration entry of the version that ships it. Every shell the harness starts
-then fails a pipeline when any command of it fails, so a command chained after a piped verdict does
-not run over a failing check. The primer's rule against that chain stays, for `;`, for any other
-shell, and because a filter drops lines in any shell, per `goal@agent-skills@installed-text-works-anywhere`:
-the option is bash's, and the setting the `claude` harness's. The setup delivers the setting, as
+file `settings.json` of a project's checked-in `.claude` directory, for the `claude` harness, and a
+project that moves its pin adds it, per the Migration entry of the version that ships it. Every
+shell the harness starts then fails a pipeline when any command of it fails, so a command chained
+after a piped verdict does not run over a failing check. The primer's rule against that chain stays,
+for `;`, for any other shell, and because a filter drops lines in any shell, per
+`goal@agent-skills@installed-text-works-in-any-environment`: the option is bash's, and the setting
+the `claude` harness's. The setup delivers the setting, as
 `goal@knowledge-architect@setup-brings-quality-tools` asks of the tools a project gets at its
 adoption.
 
@@ -319,11 +320,13 @@ are such decisions; an implementation choice a commit message records is not. A 
 decisions under the same title, and the dispatching session carries them into its own.
 
 It serves `goal@knowledge-architect@the-owner-decides`, under which the owner is informed of every
-decision that earns a text, a line of the "Decided" section included, and can contest any of them with a goal, a fact or an argument, and
-`design@agent-skills@questions-go-to-their-authority` gives the session many of those decisions. The nearest rival, the commit messages and the pull request, loses because a decision
-made and reverted within one session reaches no commit, while the owner reads the turn. An
-implementation choice is left out because a list of every choice would hide the few the owner could
-have made. The directive sits in the primer since a session of any activity makes such decisions.
+decision that earns durable text or a line of the "Decided" section, and can contest any of them
+with a goal, a fact or an argument, and `design@agent-skills@questions-go-to-their-authority` gives
+the session many of those decisions. The nearest rival, the commit messages and the pull request,
+loses because a decision made and reverted within one session reaches no commit, while the owner
+reads the turn. An implementation choice is left out because a list of every choice would hide the
+few the owner could have made. The directive sits in the primer since a session of any activity
+makes such decisions.
 
 ### Each rule on design heads has one home, a fragment hosted by every text whose act applies it, and the primer hosts those every session applies `##one-home-for-head-rules`
 
@@ -474,13 +477,14 @@ place of the installed skill and of the project's skills that add to it. A proje
 beside the installed one, per `design@agent-skills@overlay-by-separate-skills`. The instruction names
 no outside skill, per `design@agent-skills@no-external-handoff`.
 
-The ground is `goal@agent-skills@installed-text-works-anywhere`: no skill the environment adds
-replaces an installed one for an activity the set covers. The harness lists a plugin's skill beside
-the installed ones: both cloud sessions read for `design@agent-skills@settled-means-recorded` listed
-a plugin's design-discussion skill beside `skill@knowledge-architect-design`, the two descriptions
-opening with one sentence. Which listed skill a session loads is a behaviour, and no session read
-showed a plugin's skill loaded in place of an installed one; the owner ruled that the goal grounds
-the instruction where that evidence of real use falls short of what
+The ground is `goal@agent-skills@installed-text-works-in-any-environment`: no skill or instruction
+the environment adds, the harness's own included, takes the place of an installed one for an
+activity the set covers. The harness lists a plugin's skill beside the installed ones: both cloud
+sessions read for `design@agent-skills@settled-means-recorded` listed a plugin's design-discussion
+skill beside `skill@knowledge-architect-design`, the two descriptions opening with one sentence.
+Which listed skill a session loads is a behaviour, and no session read showed a plugin's skill
+loaded in place of an installed one; the owner ruled that the goal grounds the instruction where
+that evidence of real use falls short of what
 `design@agent-skills@behaviour-additions-need-real-use` asks, an exception that head names. The
 nearest rival, the installed skill as the one skill loaded, shuts out a project skill whose
 description says it loads together with an installed one.

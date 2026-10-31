@@ -173,11 +173,11 @@ unreadable-input errors to 2 rather than to the code it uses for a negative answ
 
 ### A parse that cannot be trusted is reported, never silent `##a-failed-parse-is-loud`
 
-A file the walk cannot read, a source the grammar cannot parse, and a source nested deeper than
-the walk goes all produce a finding naming the file. Silence would remove every citation in it
-from the walk while the run reported success, which is indistinguishable from a clean file,
-against `goal@core@declared-instructions-are-checked`: a tree that passes the check conforms to all
-of it.
+A file the walk cannot read, a source the grammar cannot parse, and a source nested deeper than the
+walk goes all produce a finding naming the file. Silence would remove every citation in it from the
+walk while the run reported success, which is indistinguishable from a clean file, against
+`goal@core@document-rules-are-checked`: a tree that passes the checker conforms, in the texts the
+checker reads, to every rule it holds.
 
 **A file outside the walk is held to the same, for the question an extension asks of it.** An
 extension may assert that no unwalked file says something, as thaum's rules extension does of a rule
@@ -201,8 +201,9 @@ aborts the whole run with no file named and no finding printed.
 The rules over documents are compiled in and the manifest declares nothing about them, so
 conformance of a document means the same thing in every tree this tool checks. There is no flag, no
 list and no severity: a rule either holds over a document or the run fails. The constraint derives
-from `goal@core@declared-instructions-are-checked`: a tree that passes the check conforms to all of
-it, and no project can hold part of it back.
+from `goal@core@document-rules-are-checked`: a tree that passes the checker conforms to every rule
+the core compiles in, and no project holds back any of them beyond the paths its manifest leaves out
+of the walk and the rules a declaration of its manifest switches off.
 
 **A declared register adds obligations and removes none**, which is what keeps
 `design@core@registers-are-declared` inside this head rather than an exception to it. Declaring one

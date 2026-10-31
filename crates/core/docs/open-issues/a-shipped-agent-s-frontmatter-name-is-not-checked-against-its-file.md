@@ -23,7 +23,7 @@ adds the goal reviewer agent: with the shipped agent's frontmatter `name` change
 
 An installed agent the harness registers under another name than its file's is dispatched by
 neither: a reference `agent@<file name>` resolves, while the harness knows no agent of that type,
-against `goal@agent-skills@installed-text-works-anywhere`.
+against `goal@agent-skills@installed-text-works-in-any-environment`.
 
 ### What would close it
 

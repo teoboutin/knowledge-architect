@@ -34,27 +34,26 @@ the record rules out. The second rule keeps it from reporting each widening the 
 purpose. It runs only commands that read.
 
 The decision serves `goal@knowledge-architect@agents-work-without-drift`, which is met while "a
-departure from the recorded design is caught before it merges". The owner
-named the lack: "nothing seems to be reviewing a plan document against recorded goals and design."
-The other reviewers read the document against itself, against the code, or against the discussion.
-The design audit reads design homes, but not goals, and it is run by the session that implements the
-work, which may be the document's author, and skipped for a spec worked in the session that
-converged. Two acceptance criteria that
+departure from that recorded design, or a rejected design brought back without that procedure, is
+caught before it merges". The owner named the lack: "nothing seems to be reviewing a plan document
+against recorded goals and design." The other reviewers read the document against itself, against
+the code, or against the discussion. The design audit reads design homes, but not goals, and it is
+run by the session that implements the work, which may be the document's author, and skipped for a
+spec worked in the session that converged. Two acceptance criteria that
 `goal@knowledge-architect@the-workflow-improves-through-real-use` rules out each passed a plan
 document's three reviews in this repository. The deleted spec synthetic-evidence-and-plan-reviews
-holds both, as its instances 1 and 2, and `git log --diff-filter=D --name-only -- docs/plans/`
-finds it. The decision's nearest rival, the decision-record reviewer
-extended to plan documents, judges the record a diff writes and holds a plan's items as not
-decisions yet, so it would carry two questions with two yardsticks. The cold implementer, the other
-rival, asks whether the document can be acted on, and a document that contradicts a goal can. The
-reviewer depends on a record worded wide enough. The owner's words state where a miss then belongs:
-"this is always dependent on the project being diligent in its goals and design records. Everything
-in the workflow is, after all. Project owners still have to watch agent behavior and interrupt them
-if they find them acting differently than their intent. Whether this is a published workflow defect
-or an internal documentation defect is left to the retrospective skill to judge." Its cost is one
-more dispatch at each of those moments; what it buys is a reader of the record that neither the
-author nor the implementing session is, which the two acceptance criteria above show the other
-reviews lacked.
+holds both, as its instances 1 and 2, and `git log --diff-filter=D --name-only -- docs/plans/` finds
+it. The decision's nearest rival, the decision-record reviewer extended to plan documents, judges
+the record a diff writes and holds a plan's items as not decisions yet, so it would carry two
+questions with two yardsticks. The cold implementer, the other rival, asks whether the document can
+be acted on, and a document that contradicts a goal can. The reviewer depends on a record worded
+wide enough. The owner's words state where a miss then belongs: "this is always dependent on the
+project being diligent in its goals and design records. Everything in the workflow is, after all.
+Project owners still have to watch agent behavior and interrupt them if they find them acting
+differently than their intent. Whether this is a published workflow defect or an internal
+documentation defect is left to the retrospective skill to judge." Its cost is one more dispatch at
+each of those moments; what it buys is a reader of the record that neither the author nor the
+implementing session is, which the two acceptance criteria above show the other reviews lacked.
 
 ### The `may-bear` entries a design grounding leaves unread reach the design-conformance reviewer, which reads them whole `##unread-entries-reach-the-conformance-review`
 
@@ -191,13 +190,13 @@ finding. A ruling is a word of the owner on a question
 against its source, per `design@agent-skills@answer-keeps-its-authority`. The reviewer assumes no shape of
 the work: a plan document is one home among the others.
 
-The reading by direction is the owner's report: an acceptance or an agreement of the owner is
-rarely about the exact wording, but about the idea and the direction, so a refinement the agent
-later judges relevant is likely acceptable, unless it relaxes a claim or a criterion so that
-unfinished work passes. A check of scope that also reported a clause added within the ruling, "no
-obligation added", made a stricter acceptance criterion a major finding. The same reading applies
-wherever fidelity to an approval is judged, in the rules on heads, the record reviewers and
-auditors, the plan reviews and the retrospective, since `goal@agent-skills@no-contradiction-in-workflow`
+The reading by direction is the owner's report: an acceptance or an agreement of the owner is rarely
+about the exact wording, but about the idea and the direction, so a refinement the agent later
+judges relevant is likely acceptable, unless it relaxes a claim or a criterion so that unfinished
+work passes. A check of scope that also reported a clause added within the ruling, "no obligation
+added", made a stricter acceptance criterion a major finding. The same reading applies wherever
+fidelity to an approval is judged, in the rules on heads, the record reviewers and auditors, the
+plan reviews and the retrospective, since `goal@agent-skills@reviews-judge-by-the-writer-s-criteria`
 asks that the criteria of the reviews and of the audits agree.
 
 It is an agent, not a line in a skill, because its standard is fixed. Its extraction is the

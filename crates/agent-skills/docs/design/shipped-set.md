@@ -58,8 +58,9 @@ expectation sets stay behind a pointer, since the reader needs one skill's set, 
 finding. The pointer it replaces had left the writer of about 35 tripwires of
 this repository and thaum without the rule they broke. The snippet pass cannot carry prose: it runs
 last, so a snippet keeps its `%%` lines and its placeholders, and every snippet is written into a
-new project by `klarch init --rust`. A harness hook delivering pointed sections would bind the
-shipped workflow to one harness, against `goal@agent-skills@installed-text-works-anywhere`. A
+new project by `klarch init --rust`. A harness hook delivering pointed sections would make the
+shipped workflow depend on a hook one harness runs, which an environment of another harness lacks,
+against `goal@agent-skills@installed-text-works-in-any-environment`. A
 review of a changed fragment reads it in every host, since a sentence true in one host's context
 can be false in another's, as two sentences of the first fragments were.
 
@@ -177,9 +178,10 @@ copies, judge that, until a mechanical check exists, which
 
 An installed skill or agent hands off only to another skill or agent of the set its version ships,
 or to the project's own skills. It never names a plugin or a skill from outside the set. A skill
-outside the set may be absent in the project, or present at a version that contradicts the
-installed one, and either breaks `goal@knowledge-architect@agents-get-a-complete-workflow`, under
-which no two parts of the workflow contradict each other.
+outside the set may be absent in the project, or present at a version that contradicts the installed
+one, and either breaks `goal@agent-skills@installed-text-works-in-any-environment`, under which the
+installed text depends on no skill outside the installed set and the project, and
+`goal@agent-skills@no-contradiction-in-workflow`.
 
 The set is written across several changes before a version is released, so a skill may name a
 member of the set by its installed name before that member lands. No release ships a name its set

@@ -194,16 +194,17 @@ The rival of one workflow auditing every axis at once lost on the owner's
 words: "it audits all axes of the project at once and produces a single report, which is too large
 of a scope".
 
-No goal binds the audit to a harness: `grep -il 'harness\|provider\|claude code'` over every goals
-home returns nothing, and `goal@agent-skills@installed-text-works-anywhere` names a project's
-language and layout, and the user-level instructions and plugins of a session's environment, not
-its harness. A second provider stays a design target, per
+No goal binds the audit to one harness: `goal@agent-skills@installed-text-works-anywhere` names a
+project's paths, conventions and command, and
+`goal@agent-skills@installed-text-works-in-any-environment` lets the installed text rely on the
+harness's own mechanisms while no skill or instruction the environment adds takes the place of an
+installed one. A second provider stays a design target, per
 `issue@core@configuration-for-several-agent-providers`, and the dispatch by hand keeps it open. The
 rival of a skill written for the Workflow tool alone fails in every other harness, for a gain the
 dispatch by hand already gives. The owner's weighing of the dependency: "After all, I use only
 Claude Code personally... I'm not really expecting anyone to start using this, outside of myself in
-more projects than thaum." The cost of shipping them: each saved workflow is listed in every
-session of every project that installs the workflow, one that never audits included.
+more projects than thaum." The cost of shipping them: each saved workflow is listed in every session
+of every project that installs the workflow, one that never audits included.
 
 The designs this decision did not keep: `rejected@agent-skills@manual-fallback-file-per-axis` and
 `rejected@agent-skills@workflow-script-inline-in-skill`.
@@ -277,14 +278,14 @@ holds no branch for the project that publishes the workflow, which edits the ins
 source by its own instructions.
 
 No outcome leaves a confirmed finding to judgement.
-`goal@knowledge-architect@agents-get-a-complete-workflow` asks that "Each instruction says what it
-asks plainly enough to follow without guessing what it means", so an instruction that a reading
-confirms is read two ways is repaired, even where every act it allows is acceptable. What no
+`goal@knowledge-architect@agents-get-a-complete-workflow` asks that "Each installed instruction says
+what it asks plainly enough to follow without guessing what it means", so an instruction that a
+reading confirms is read two ways is repaired, even where every act it allows is acceptable. What no
 instruction covers is left to judgement on purpose, and is no finding. The rival outcome, a finding
 of two readings left to judgement where no text rules either act out, leaves such an instruction
 standing against that goal. Its cost stands: each repair writes new text, which
-`design@agent-skills@convergence-count-scope` counts apart and `design@agent-skills@repair-proposals-audited`
-reads before the repair lands.
+`design@agent-skills@convergence-count-scope` counts apart and
+`design@agent-skills@repair-proposals-audited` reads before the repair lands.
 
 Most findings of the design-record axis are text edits, so they are applied at once: the owner
 thinks the goal for that axis is usually immediate application, with little reason to delay since

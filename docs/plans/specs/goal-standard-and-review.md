@@ -118,7 +118,7 @@ into conformance with the standard on this branch, by step 6, a whole-set review
 finding is drafted and ruled goal by goal, rewordings, retitlings, splits, removals and additions
 included. Two findings are known in advance: `goal@knowledge-architect@rust-projects-come-first`,
 whose "every check and tool" is a universal under rule 3, which
-`issue@knowledge-architect@the-goal-that-rust-projects-come-first-states-a-universal-the-owner-has-not-ruled-on-knowingly`
+`the-goal-that-rust-projects-come-first-states-a-universal-the-owner-has-not-ruled-on-knowingly`
 records and step 6 closes; and `goal@agent-skills@one-skill-per-activity`, whose "activity" reads
 two ways under rule 2 and which holds two intents under rule 4, for which the owner's argument
 #arg-48 is among the statements step 6 gives the reviewer.
@@ -247,7 +247,7 @@ session read each whole:
 - `issue@agent-skills@the-closing-audit-of-a-move-reaches-no-planning-text`: a goals axis could join a move's closing audit; none is added
 - `tripwire@agent-skills@verifier-refutes-a-true-finding`, `tripwire@agent-skills@verifiers-wave-findings-through`: count passes of an axis; none is added
 - `design@core@orphan-rejected-entry`: an exclusion goal and a head of absence for a design lost to a goal; no bearing established
-- `goal@core@declared-instructions-are-checked`: parts of the standard could be checks; the work proposes skill text and a reviewer only — read whole after the second design-conformance review found it borne on by step 6: a goal step 6 reviews, so any change to it goes through goal-setting at that step, per `design@agent-skills@search-relevance-grade`
+- `goal@core@document-rules-are-checked`: parts of the standard could be checks; the work proposes skill text and a reviewer only — read whole after the second design-conformance review found it borne on by step 6: a goal step 6 reviews, so any change to it goes through goal-setting at that step, per `design@agent-skills@search-relevance-grade`
 - `goal@knowledge-architect@structure-and-workflow-work-together`: a whole-set reading may ask for a listing command; no need established — read whole after the second design-conformance review found it borne on by step 6: a goal step 6 reviews, so any change to it goes through goal-setting at that step, per `design@agent-skills@search-relevance-grade`
 - `rejected@core@entry-reachable-by-citing-a-goal`, `rejected@core@goal-citing-a-rejected-entry`: an exclusion goal could cite the rejected designs it excludes; not proposed
 - `issue@agent-skills@the-design-record-auditor-s-return-names-two-verdict-vocabularies`: a reviewer modelled on that auditor could copy its two vocabularies; no return format is stated yet
@@ -758,7 +758,7 @@ tool provided, `goal@knowledge-architect@mechanical-tasks-are-the-tool-s`'s "the
 offers a command" as an outcome without asking whether a command, rather than another kind, is what
 the session needs. Rule 1 keeps the test alone, applied at the user's level: the kind of thing
 provided is part of the outcome only where another kind would not reach the user's end, as a check
-and a reviewer's memory do not in `goal@core@declared-instructions-are-checked`; an exact form never
+and a reviewer's memory do not in `goal@core@document-rules-are-checked`; an exact form never
 is; and where the test leaves the level open, the reviewer asks the owner.
 
 ### This repository's goals are brought into conformance on this branch, since other work would have a hard time without it `##arg-50`
@@ -830,10 +830,11 @@ false premise.
 
 ### The drafts broke the cap and ran long `##arg-58`
 
-After step 6, the session; bears on #goal-body-unbounded. On the 31 drafts of step 6, as
-`path@knowledge-architect@docs/goal-reviews/2026-10-31-goal-standard.md` quotes them: 9 goals held
-more than four sentences, the median sentence ran 32 words, and 51 of 129 sentences ran over 40
-words. A session that argues from a goal applies it whole, so a longer goal costs it nothing.
+After step 6, the session; bears on #goal-body-unbounded. On the 31 drafts of step 6, as the record
+of step 7's review quotes them, `path@elsewhere@docs/goal-reviews/2026-10-31-goal-standard.md`,
+which the commit writing the ruled goals deletes: 9 goals held more than four sentences, the median
+sentence ran 32 words, and 51 of 129 sentences ran over 40 words. A session that argues from a goal
+applies it whole, so a longer goal costs it nothing.
 
 ### Counts fell only once the briefs named the open questions, and the whole-set reviewer found what the sets missed `##arg-59`
 
@@ -1254,7 +1255,7 @@ Claims:
 
 - Every goal of this repository carries the owner's ruling at this review, kept or reworded, on its
   boundary block and findings: the reviewer's last report on the set, with each goal ruled.
-- `issue@knowledge-architect@the-goal-that-rust-projects-come-first-states-a-universal-the-owner-has-not-ruled-on-knowingly`
+- `the-goal-that-rust-projects-come-first-states-a-universal-the-owner-has-not-ruled-on-knowingly`
   closes with the owner's ruling on that goal.
 - `cargo klarch check` passes after every goal removal or rename.
 
@@ -1312,7 +1313,7 @@ Fails alone on: the check, the installed copies, and the owner's rulings.
   owner, on the third default: "D2 approved, go ahead". As approved, rule 1 said a
   goal "never states a mechanism, a tool, a check or a derivation", and rule 6 "never the tool that
   checks it". Read so, they rule out three goals of this repository the owner adopted,
-  `goal@core@declared-instructions-are-checked`, `goal@core@documents-stay-current` and
+  `goal@core@document-rules-are-checked`, `goal@core@documents-stay-current` and
   `goal@knowledge-architect@mechanical-tasks-are-the-tool-s`, for which the tool is what the
   Component provides, and rule 1 had dropped the outcome test those goals pass. As ruled, rule 1
   is written as "The standard" gives it, and rule 6 drops its last clause.

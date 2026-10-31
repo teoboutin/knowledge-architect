@@ -50,13 +50,13 @@ it. Analysed at the intake of 2026-10-24.
 
 ### Why it matters
 
-`goal@knowledge-architect@structure-and-workflow-work-together` states that "the tool computes the
-workflow's work lists: what a reversed decision touches, and which issues and tripwires a change
-must re-read". For a change that touches several decisions, the tool computes the second list one
-entry at a time and by file and line, and the agent turns that into entries. That costs one call
-per entry and a hand mapping, and a mapping done by hand can drop an entry. The scripts that
-mapping took are a task of the kind `goal@knowledge-architect@mechanical-tasks-are-the-tool-s`
-gives the published checker.
+`goal@knowledge-architect@structure-and-workflow-work-together` states that "The checker computes
+two lists the workflow asks a session to read": what a reversed decision touches, and which issues
+and tripwires a change must read again. For a change that touches several decisions, the tool
+computes the second list one entry at a time and by file and line, and the agent turns that into
+entries. That costs one call per entry and a hand mapping, and a mapping done by hand can drop an
+entry. The scripts that mapping took are a task of the kind
+`goal@knowledge-architect@mechanical-tasks-are-the-tool-s` gives the published checker.
 
 ### What would close it
 

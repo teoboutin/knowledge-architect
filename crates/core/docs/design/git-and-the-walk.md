@@ -81,12 +81,11 @@ with git's own reason.
 
 **No `git`, or no worktree, is exit 2 with the reason.** Never an empty walk: a project reported as
 holding no document is a run that checked nothing and said so as a clean verdict, against
-`goal@core@declared-instructions-are-checked`: a tree that passes the check conforms to all of it.
-**Every invocation a verdict depends on fails that way** —
+`goal@core@document-rules-are-checked`: a tree that passes the checker conforms, in the texts the
+checker reads, to every rule it holds. **Every invocation a verdict depends on fails that way** —
 the listing, the tracked-and-ignored listing and the `check-ignore` batch — carrying git's own
-stderr, whatever the reason. The one invocation that degrades instead is `last_changed`, which
-fills a listing's convenience column and moves no verdict: where git answers nothing the column
-shows `-`.
+stderr, whatever the reason. The one invocation that degrades instead is `last_changed`, which fills
+a listing's convenience column and moves no verdict: where git answers nothing the column shows `-`.
 
 ### A symlink and a gitlink are read as no document, and each is a phase-2 finding naming it `##links-are-no-documents`
 

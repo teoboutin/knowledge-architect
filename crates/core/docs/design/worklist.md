@@ -80,7 +80,7 @@ a report with no closing section on what was met outside the task. The grades an
 are `design@agent-skills@search-relevance-grade`'s. When every report passes, it assembles the graded
 entries, per `design@core@graded-entries-assembled`.
 
-It serves `goal@core@records-reach-their-reader` and `goal@core@declared-instructions-are-checked`:
+It serves `goal@core@records-reach-their-reader` and `goal@core@document-rules-are-checked`:
 an instruction to grade every entry once is kept by a command, not by a reader. The nearest rival,
 each searcher deriving its group from the listings and writing its report by hand, listed one entry
 under two lists in the discussion that produced the `rejected` register, and only the searcher's own

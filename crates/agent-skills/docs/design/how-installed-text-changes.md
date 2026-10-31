@@ -248,13 +248,13 @@ host no fragment. None restates more than one sentence of it, per
 
 The centralization is the owner's proposal, made so that the audit, the reviewers, an intake of
 received findings and the installed skills cannot produce an addition that another of them would
-refuse or reshape, the agreement `goal@agent-skills@no-contradiction-in-workflow` asks of the
-reviews and the audits. The home in the agent-configuration skill is the owner's proposal too, and it
-stands on the argument below. Maintaining the configuration is the activity whose skill governs what
-enters it, per `goal@agent-skills@one-skill-per-activity` and the knowledge table's row "how to
-perform an activity → the owning skill"; the audit, the reviews and an intake judge that text and
-do not own its standard. Where the section lives does not decide when it is read: each actor's
-copy of a fragment is read at that actor's own moment.
+refuse or reshape, the agreement `goal@agent-skills@reviews-judge-by-the-writer-s-criteria` asks of
+the reviews and the audits. The home in the agent-configuration skill is the owner's proposal too,
+and it stands on the argument below. Maintaining the configuration is the activity whose skill
+governs what enters it, per `goal@agent-skills@one-skill-per-activity` and the knowledge table's row
+"how to perform an activity → the owning skill"; the audit, the reviews and an intake judge that
+text and do not own its standard. Where the section lives does not decide when it is read: each
+actor's copy of a fragment is read at that actor's own moment.
 
 The nearest rival, the standard kept in the audit skill with the agent-configuration skill pointing
 to it, loses on that row; under it, the writer of a project's configuration, the most frequent producer,

@@ -45,11 +45,11 @@ Related, other causes of a walk that differs between machines, each with its own
 `design@core@git-supplies-the-walk` makes git's listing the walk, and
 `design@core@per-user-ignore-file-pinned` pins the per-user ignore file so that the walked set is a
 property of the commit rather than of the machine. The per-clone exclude file is the one ignore
-source left that is not the commit's: a document it removes is out of every check on that clone,
-and the summary block's `walk: n file(s)` line differs from CI's count for the same commit with no
-finding. This threatens `goal@core@documents-stay-current`, met while the check passes on the
-main branch and on every commit of a branch that merges: a pass on one clone can judge fewer
-documents than the same commit holds.
+source left that is not the commit's: a document it removes is out of every check on that clone, and
+the summary block's `walk: n file(s)` line differs from CI's count for the same commit with no
+finding. This threatens `goal@core@documents-stay-current`, met while the checker's verdict fails on
+a tree where any of its three conditions fails: a pass on one clone can judge fewer documents than
+the same commit holds.
 
 ### What would close it
 

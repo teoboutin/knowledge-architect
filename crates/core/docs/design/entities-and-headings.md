@@ -197,12 +197,13 @@ needs: `path` and `planned` against the tree, per `design@core@every-path-names-
 `design@core@planned-path-form`, and `register` against the anchors, per
 `design@core@register-home-reference`.
 
-**A reference that resolves to nothing is recorded and reported, never dropped.** The scanner
-could require a resolvable shape and see nothing without one, which needs no finding and no
-migration. It would also mean every pointer written in an older form stops being checked with
-nothing saying so. A silent false negative passes a tree that does not conform, against
-`goal@core@declared-instructions-are-checked`: a tree that passes the check conforms to all of it.
-The candidate rule that bounds this is `design@core@at-span-candidate-rule`.
+**A reference that resolves to nothing is recorded and reported, never dropped.** The scanner could
+require a resolvable shape and see nothing without one, which needs no finding and no migration. It
+would also mean every pointer written in an older form stops being checked with nothing saying so. A
+silent false negative passes a tree that does not conform, against
+`goal@core@document-rules-are-checked`: a tree that passes the checker conforms to the reference
+grammar in the texts the checker reads. The candidate rule that bounds this is
+`design@core@at-span-candidate-rule`.
 
 ### `id` answers whether an id is free with every entity the table defines under it, of every kind and every anchor, and leaves to its reader which collision matters `##id-lookup-command`
 

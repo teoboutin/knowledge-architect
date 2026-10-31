@@ -13,10 +13,11 @@ whether the workflow lowers the cost of a change has no measurement.
 
 ### What
 
-`goal@knowledge-architect@agents-get-a-complete-workflow` promises "fewer review rounds, less
-re-derivation of past arguments, and fewer decisions reversed by accident". No instrument counts
-any of them. The retrospective, `path@agent-skills@content/skills/retrospective/SKILL.md`, asks
-standing questions and writes two files, and none of its sections asks for a count.
+`goal@knowledge-architect@agents-get-a-complete-workflow` counts "A review round, an argument
+derived again, or a decision reversed by accident, that the workflow would have spared" as showing
+the goal unmet in practice. No instrument counts any of them. The retrospective,
+`path@agent-skills@content/skills/retrospective/SKILL.md`, asks standing questions and writes two
+files, and none of its sections asks for a count.
 
 The three numbers, as the owner approved them in an evaluation, keep or change, of the project's
 direction:
@@ -63,12 +64,13 @@ Two retrospectives of this repository carried the counts, unasked, analysed at t
 
 ### Why it matters
 
-Without the counts, `goal@knowledge-architect@agents-get-a-complete-workflow` cannot be shown met
-or unmet, and a proposal to add or cut workflow text, which
-`design@agent-skills@capabilities-not-structure` weighs, is argued from intuition. The counts are
-also the evidence `goal@knowledge-architect@the-workflow-improves-through-real-use` names: real
-sessions as the test of the workflow. The count of drift corrections would also measure the
-supervision `goal@knowledge-architect@agents-work-without-drift` saves.
+Without the counts, no session sees the review rounds, the arguments derived again and the reversals
+by accident that show `goal@knowledge-architect@agents-get-a-complete-workflow` unmet in practice,
+and a proposal to add or cut workflow text, which `design@agent-skills@capabilities-not-structure`
+weighs, is argued from intuition. The counts are also the evidence
+`goal@knowledge-architect@the-workflow-improves-through-real-use` names: real sessions as the test
+of the workflow. The count of drift corrections would also measure the supervision
+`goal@knowledge-architect@agents-work-without-drift` saves.
 
 ### What would close it
 
