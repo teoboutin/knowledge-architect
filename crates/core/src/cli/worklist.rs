@@ -146,9 +146,11 @@ fn write(
             .flat_map(|&g| graph.groups[g].entries.iter().copied())
             .collect();
         let words: usize = given.iter().map(|&i| graph.entries[i].words).sum();
-        let names: Vec<&str> = groups
+        // Each cluster carries its own load, the number a split of its subject is judged by
+        // against the bound; the agent's load counts an entry two of its clusters share once.
+        let names: Vec<String> = groups
             .iter()
-            .map(|&g| graph.groups[g].name.as_str())
+            .map(|&g| format!("{} ({} words)", graph.groups[g].name, loads[g].0))
             .collect();
         outln!("agent-{}  {words} words  {}", n + 1, names.join("; "));
     }

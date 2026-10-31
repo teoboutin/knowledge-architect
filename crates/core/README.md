@@ -426,7 +426,7 @@ directory outside the project:
 - `shown.md`, the **snapshot**: every entry of the record as `show` prints it, its inbound list
   included, each after a line `=== <reference>` and in a fence; no agent is given it.
 
-It prints one line per agent with its load and clusters, and a **notice** for each cluster or
+It prints one line per agent with its load and its clusters, each with its own load, and a **notice** for each cluster or
 residual group above the bound, 25,000 words by default, which goes to an agent alone: a subject
 named so is split into subjects read apart. It refuses, writing nothing, a tree that stops before
 the last phase of `check`, a directory inside the project or not empty, and a seed that names no

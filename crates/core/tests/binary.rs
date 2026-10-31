@@ -5149,6 +5149,39 @@ fn worklist_sends_a_cluster_above_the_bound_alone_with_a_notice() {
     assert!(!line.contains(';'), "it shares its agent: {line}");
 }
 
+/// The claim: each agent's line names every cluster it holds with that cluster's own load, the
+/// one number a split of a subject is judged by; a cluster alone on its agent carries the agent's
+/// load.
+#[test]
+fn worklist_prints_each_cluster_with_its_load() {
+    let (sandbox, out) = worklist_project("worklist-loads");
+    let out_text = out.to_string_lossy().into_owned();
+    let (stdout, stderr, code) = sandbox.run(&["worklist", "--out", &out_text, "--bound", "60"]);
+    assert_eq!(code, 0, "{stdout}{stderr}");
+    let line = stdout
+        .lines()
+        .find(|l| l.contains("Second subject") && l.starts_with("agent-"))
+        .expect("the agent of the long cluster");
+    let words = line
+        .split("  ")
+        .nth(1)
+        .and_then(|w| w.strip_suffix(" words"))
+        .expect("the agent's load");
+    assert!(
+        line.ends_with(&format!("core-mock :: Second subject ({words} words)")),
+        "{line}"
+    );
+    for line in stdout.lines().filter(|l| l.starts_with("agent-")) {
+        let clusters = line.splitn(3, "  ").nth(2).expect("the clusters");
+        for cluster in clusters.split("; ") {
+            assert!(
+                cluster.ends_with(" words)"),
+                "a cluster with no load: {line}"
+            );
+        }
+    }
+}
+
 /// AC4: `worklist --out` over a tree that stops before the last phase exits 2 and writes
 /// nothing; the test plants a phase-2 finding, a missing home. Mutation checked: the call of
 /// `complete_working_tree` removed from `write`, which writes the work list.
