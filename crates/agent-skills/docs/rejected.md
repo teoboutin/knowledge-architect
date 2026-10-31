@@ -676,6 +676,6 @@ session that argues from a goal applies it whole, so a longer goal costs it noth
 
 `live`. Every goal edit is the owner's, so the audit's split between edits applied in its branch and
 items put to the owner has nothing to split, and the owner argued that an activity is its
-methodology, goal-setting's for goals. Its machinery is sized for hundreds of entries, while one
-agent reads a project's goal set. It stays the design to reach for if a goal set grows past what one
-agent reads.
+methodology, goal-setting's for goals. Its machinery is sized for hundreds of entries, while the
+owner reported, unsure, that a project's root goals stay in the tens and that one agent reads at
+least 100 goals. It stays the design to reach for if a goal set grows past what one agent reads.

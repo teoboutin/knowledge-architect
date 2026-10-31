@@ -22,7 +22,8 @@ A session that argues from a goal applies the goal whole, so the words it reads 
 nothing, by the primer's rule on the size cost of agent-facing text; a goal pressed into few
 sentences carries its sets and its measure in long ones, and long sentences read two ways, against
 the goal standard's rule of one reading. The owner made this argument: the standard needs more than
-four sentences to state what matters, and a list makes some goals more readable. The measurement
+four sentences to state what matters, the bound probably makes one reading harder to keep, and the
+owner was fairly certain that a list makes some goals more readable. The measurement
 behind it was taken on the drafts of this repository's 31 goals written under a bound of two to four
 sentences, as the review record added by the commit "[agent-skills] A goal's body has no sentence
 bound, and the whole-set review runs in rounds the owner answers" holds them: 9 goals broke the
@@ -74,13 +75,15 @@ others consume makes a head. Rule 3 allows the distillation goal-setting is for,
 each statement it is drawn from: the defect it prevents is a generalisation the owner never saw as
 one, so the rival "no wider than the owner's statement" forbids what the skill exists to do. Rule 6
 measures a goal on what the project builds, and evidence from use shows it unmet in practice, on the
-owner's argument that use is out of reach as a measure in most projects. Rule 8 admits an exclusion
+owner's argument that in most projects a measure on use has limited feasibility. Rule 8 admits an
+exclusion
 only where another goal would otherwise argue for the design it names: a property of smallness with
 no named design is the owner's scope control, exercised by what the owner asks for, or a quality
 argument a head makes against its own rival. Rule 4 asks only that one goal not conflate two
 intents, and two goals may share an aspect; a finding of rule 4 or of rule 6 is tagged `minor` and
-counted apart, on the owner's argument that neither changes what an agent does in the project, and
-that no overlap at all between goals is out of reach. Rule 4's test is the head standard's rule on
+counted apart, as the owner proposed; for rule 4, on the owner's argument that it does not change
+what an agent does in the project, and that no overlap at all between goals is probably out of
+reach. Rule 4's test is the head standard's rule on
 an exception, not the test of reversing one part alone, which splits a rule from its exception, per
 `rejected@agent-skills@head-split-by-independent-reversal`.
 
@@ -125,10 +128,10 @@ reviewed. In whole-set mode it reads every goals home and gives every goal's bou
 material, on which the owner judges rule 3. In merge mode it is the goals axis of the review before
 a merge, per `design@agent-skills@goals-axis-in-the-review-before-a-merge`. Its findings are tagged
 `settled`, which the drafter repairs; `intent`, a question only the owner answers; or
-`contradiction`, and a finding of rule 4 or 6 is also tagged `minor`, per
-`design@agent-skills@goal-standard-rules`: a statement of the owner that conflicts with a goal or
-with another statement, or a part of the statements a draft drops or turns around without showing
-it, which the drafter never resolves alone. Each mode's own checks fire only on the input its brief
+`contradiction`: a statement of the owner that conflicts with a goal or with another statement, or a
+part of the statements a draft drops or turns around without showing it, which the drafter never
+resolves alone. A finding of rule 4 or 6 is also tagged `minor`, per
+`design@agent-skills@goal-standard-rules`. Each mode's own checks fire only on the input its brief
 carries, so one fragment serves three modes.
 
 It is fresh, never a fork, because the drafter is anchored on its own reading: in rootpoint and
@@ -186,8 +189,10 @@ round reviewed. The owner then rules on the goals as the tree holds them, per
 `design@agent-skills@goal-batch-ruled-in-the-tree`. The primer's knowledge table carries the
 record's row for every project.
 
-The owner proposed the procedure from what this repository's own review of its 31 goals showed, and
-its record is in the history of that review's branch,
+The owner proposed the procedure's six steps from what this repository's own review of its 31
+goals showed. The session added the whole-set reviewer in every round, the boundary blocks in the
+record, the open questions named in every brief from the first round on, and the rule that the
+round meeting the stop writes no repair. The record of that review is in the history of its branch,
 `git log --diff-filter=D --name-only -- docs/goal-reviews/`. Rounds the session ran on its own
 defaults, with no answer of the owner between them, did not converge, 91 then 88 findings, and set
 defaults against the owner's approved words, which only a later round caught. The counts fell only
@@ -208,12 +213,16 @@ tenth only at their last; the owner approved it. It serves
 
 A batch of three goals or fewer is drafted in the message and ruled by slug. A larger batch is
 written in the goals homes of the working tree, uncommitted, its source marks, its boundary blocks
-and the reviewer's findings in a record of `path@knowledge-architect@docs/goal-reviews/`, and the owner rules
+and the reviewer's findings in a record of `path@knowledge-architect@docs/goal-reviews/`, and the
+owner rules
 on the batch as the tree holds it, naming each goal dropped or reworded; the goals are committed as
-the tree holds them. The owner argued that a larger batch is read more readily in the tree, and that
-ruling on each goal by slug costs the owner more than it checks; the owner's word on the batch is
-still an explicit word, so no goal is accepted by silence. The threshold reads the owner's "two or
-three" at its upper bound. The rival, a tree draft still ruled slug by slug, keeps the cost the
+the tree holds them. The owner argued that a larger batch is read more readily in the tree, and
+found ruling by slug inconvenient for the 31 goals of this repository's review; the session
+generalised it, ruling on each goal by slug costing the owner more than it checks for any larger
+batch; the owner's word on the batch is
+still an explicit word, so no goal is accepted by silence. The threshold is the session's reading of
+the owner's bound of two or three goals, at its upper end. The rival, a tree draft still ruled slug
+by slug, keeps the cost the
 owner named and adds nothing that a goal named on the ruling does not give. It serves
 `goal@knowledge-architect@owner-attention-on-what-is-theirs`, and is stated in
 `skill@knowledge-architect-goal-setting@drawing-out-intent`,

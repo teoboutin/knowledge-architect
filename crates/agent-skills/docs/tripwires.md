@@ -340,6 +340,11 @@ and `design@agent-skills@seeds-name-decisions` where the goal missed was one a s
 **Watches until:** three plan documents deleted at their landing, and three commits that add
 analyses of received retrospective files under docs/retrospective-reports/, on the main branch,
 counted from the commit that writes this line.
+**Evidence:** one piece of work, reported by its review: the plan document of the goal standard
+listed as not read five goals the record search had graded `may-bear` and its work bears on, which
+its second design-conformance review found, in the commit "[review] Repairs of the goal-standard
+spec's second design-conformance review: step 6 keeps every Component with a goal, and a boundary
+block draws on the owner's statements where no work exists".
 
 ## Guarding `design@agent-skills@harness-shell-fails-on-a-pipe`: a chained command runs over a failing piped check in a project with the option `##piped-chain-runs-under-pipefail`
 
