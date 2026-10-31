@@ -46,11 +46,131 @@ On Q49, the record committed under docs/, Q50, the stop at a fifth of the first 
 Q51, the skill's change first and the goals' new layout after it: "defaults for Q49 to Q51, go
 ahead".
 
+## Layout round 1
+
+The first round under the round procedure: the goals laid out again without the sentence bound, one
+reviewer per set in draft mode and one in whole-set mode, each brief naming this record. The count of
+the stop rule is the findings that are not `minor`, every reviewer together: 41, so the review stops
+on that rule once a round counts 8 or fewer.
+
+| reviewer | findings | not minor | contradiction |
+| --- | --- | --- | --- |
+| set 1, the owner and agents | 5 | 5 | 0 |
+| set 2, the workflow | 8 | 6 | 1 (b) |
+| set 3, adoption | 10 | 6 | 0 |
+| set 4, core | 10 | 9 | 0 |
+| set 5, gates and xtask | 6 | 5 | 0 |
+| whole set | 10 | 10 | 0 |
+| total | 49 | 41 | 1 |
+
+The reports, as the session condensed them, every finding kept:
+
+Set 1, layout round 1: 5 findings (5 not minor): rule 2 5; settled 5, intent 0, contradiction 0. Two on a layout difference. Conforming: `goal@knowledge-architect@the-owner-decides`, `goal@knowledge-architect@owner-attention-on-what-is-theirs`, `goal@knowledge-architect@the-workflow-improves-through-real-use`.
+drift: B1 settled r2 (layout) "and none of its rejected designs is brought back" as a list item under "as it stands until a change reverses": keep three nouns, rejected designs in a sentence of its own. B2 settled r2 "that record" includes the goals and leaves out tripwires and issues, against `goal@knowledge-architect@the-owner-decides`' definition: "the recorded design".
+mechanical: B3 settled r2 (layout) "may ask" reads as a permission: keep the condition "Where the installed text asks".
+word-verified: B4 settled r2 "the record" used outside its definition's reach (this goal does not cite `goal@knowledge-architect@the-owner-decides`).
+counterparts: B5 settled r2 same as B4.
+Met outside: HEAD's goals homes predate the rounds, so a diff against HEAD is not layout only (for the commit message).
+
+Set 2, layout round 1: 8 findings (6 not minor): rule 2 5, rule 3 2, rule 6 2 (minor); contradiction (b) 1, intent 5, settled 2 (minor). Conforming: `goal@knowledge-architect@agents-get-a-complete-workflow`, `records-live-beside-the-code`, `goal@agent-skills@one-skill-per-activity`, `goal@agent-skills@only-needed-instructions`.
+design-is-recorded: L1 intent r2 "and with the alternatives" fixes the third-item reading of an apposition (measure the same). L2 intent r2/r3 "the evidence that would flip a recorded decision" names no set, vs the tripwire standard (a premortem cause a check reports); approved text has the same words.
+structure: L3 intent r2 "Neither the structure nor the workflow" fixes the reading (the approved "Neither" right after the two lists).
+`goal@knowledge-architect@documentation-stays-consistent`: L4 (b) r3 the bullet split drops "in the texts the checker reads" from the rules guarantee: restore. L5 minor r6 the listing commands unmeasured (same gap approved).
+no-contradiction: L6 intent r2 "the session takes the move" states the session's act; approved "leaves the session the move" a property of the text; "between two instructions" vs "between the two": restore.
+reviews-judge: L7 intent r2 the bullet narrows "they make binding" to the goals ... issues; in the run-on sentence "they" could take in the installed text and CLAUDE.md files. L8 minor r6 agree sentence unmeasured.
+
+Set 3, layout round 1: 10 findings (6 not minor): rule 2 6, rule 6 4 (minor); settled 5 (4 minor), intent 5, contradiction 0. Layout changed 1 reading (D1).
+any-project: A1 intent r2 "comes first" over what (rank of known work vs target only; `goal@knowledge-architect@the-owner-decides` keeps the order). A2 minor r6 three statements unmeasured.
+rust-first: R1 intent r2 "built for Rust first": time order or rank. R2 intent r2 "a check, a tool or a library API": exhaustive or examples (shipped snippets). R3 minor r6 "not given up" unmeasured.
+adoption: D1 intent r2 (layout) "each of them does so in plain words and with examples" attaches to all four; approved attached to the last two or all four; the body supports all four.
+setup: S1 minor r6 open set vs the four measured.
+installed-anywhere: W1 settled r2 "the project's command": the checker's or the gates command: "the command by which the project runs the checker, as its manifest declares it".
+environment: E1 intent r2 "depends on nothing outside": any dependency (gh, git) or skills and instructions. E2 minor r6 the first clause unmeasured.
+Met outside: retrospective and intake skills depend on gh and GitHub; a defect only under E1's wide reading.
+
+Set 4, layout round 1: 10 findings (9 not minor): rule 1 3, rule 2 6, rule 6 1 (minor); settled 7 (1 minor), intent 3, contradiction 0. Layout dropped nothing; findings C1 and C10 are splits that read less clearly. Conforming: `goal@core@documents-stay-current`, `goal@core@records-reach-their-reader`. Introduction unchanged.
+declared: C1 settled r2 (layout) "These stand beside ... / conforms to all of it": name the set. C2 settled r2 the slug's "instructions" (cited from 9 heads and issues); approved text; owner to see.
+relocation: C3 settled r1 "Every reference ... names its anchor ... So:" is the mechanism (anchors.md:49, `design@core@every-path-names-its-anchor`). C4 intent r2/r3 references of the form path@<parent-anchor>@<dir>/, and a path to a home that outgrows one file (paths-and-links.md:160-162): inside "no document that cites what moved" or not; none to a Component directory in the tree.
+render: C5 intent r1 mdbook outcome or mechanism (the issue reads it decided). C6 settled r1 the argument sentence to a head. C7 settled r2 "once it is released" (crates published). C8 intent r2 whose documents (the issue: a project's). C9 minor r6 hosting.
+projects-add: C10 settled r2 (layout) "Its checker binary" after a sentence ending on "its contract": "The project's checker binary".
+Met outside: the render issue's wording follows the ruling on C8 and C7.
+
+Set 5, layout round 1: 6 findings (5 not minor): rule 2 4, rule 6 1 (minor), rule 7 1; settled 4 (1 minor), intent 2, contradiction 0. Layout changed 3 readings.
+gates: G1 settled r2 heading "writing only its list" vs body "and the call that runs it" (same split approved). G2 intent r7 "runs" as a universal vs the parent's "is led to" (known).
+one-command: O1 settled r2 (layout) the rebase check made a member of the list: "every gate of the list" has an exception; state it in the universal. O2 intent r2 (layout) "By default" now scopes the run-all clause only; the verdict holds under every flag (wider than one reading; matches the tool). O3 minor r6 run-all and verdict unmeasured.
+repeated: R1 settled r2 (layout) the list after "when it:" can read as any one condition: mark it "all of these".
+Met outside: the reword, the fixup fold and the merge predicate have no xtask command and no issue (searched).
+
+Whole set, layout round 1: 10 findings (10 not minor): rule 2 9, rule 7 1; settled 5, intent 5, contradiction 0. Five from the new layout (W1, W3, W4, W9's layout part none; W1, W3, W4 and the rebase membership).
+W1 settled r2 (layout) drift's fourth bullet "and none of its rejected designs is brought back". W3 settled r2 (layout) "may ask". W4 settled r2 (layout) the rules bullet lost "in the texts the checker reads". W5 settled r2 "the record": its definition in `goal@knowledge-architect@the-owner-decides` reaches goals that use it otherwise (drift's "that record" includes goals) and misses goals that use it so (word-verified, counterparts); doc-consistent "the whole record"; the intro "the record of design". W6 intent r2 "the owner" and "the project" in `goal@knowledge-architect@the-owner-decides`: an adopting project's owner (met clause) or knowledge-architect's (the citing goals). W7 intent r2 "once it is released" (versions released; or leaving 0.x); bears on `goal@knowledge-architect@adoption-is-easy`'s site. W8 intent r2 "every reference" of the render pass: whose documents. W9 settled r2 "agents" for agent definitions and for sessions (one-skill; installed-anywhere and only-needed write "agents"; no-contradiction "the agent definitions"). W10 intent r7 `goal@gates@gates-from-a-list`'s universal "runs", made stronger by the split "It writes no gate logic". Unnumbered intent r2: the rebase check made a member of the list (matches gates.rs:61).
+
+### Outcomes
+
+Repaired, the layout's own changes of reading:
+
+- `goal@knowledge-architect@agents-work-without-drift`: the list holds three nouns, and "What they build brings back none of
+  its rejected designs" stands after it; "that recorded design" in place of "that record".
+- `goal@knowledge-architect@mechanical-tasks-are-the-tool-s`: the condition "Where the installed text asks" restored in place of
+  "may ask".
+- `goal@knowledge-architect@documentation-stays-consistent`: "in the texts the checker reads" restored on the rules guarantee,
+  the (b) finding.
+- `goal@agent-skills@no-contradiction-in-workflow`: the approved "A precedence an installed text states between the two
+  leaves the session the move the prevailing one asks" restored.
+- `goal@core@declared-instructions-are-checked`: "conforms to what its manifest states and to the rules the core
+  compiles in" in place of "all of it".
+- `goal@core@projects-add-their-own-checks`: "The project's checker binary".
+- `goal@gates@gates-from-a-list`: one sentence again, "writing only that list and the call that runs it, which
+  holds no gate logic".
+- `goal@xtask@repeated-tasks-are-automated`: "when it meets all of these".
+- `goal@agent-skills@one-skill-per-activity`, `goal@agent-skills@installed-text-works-anywhere`, `goal@agent-skills@only-needed-instructions`: "agent
+  definitions" for the installed agents, "agent" kept for a session.
+
+Defaults put to the owner, Q52 to Q64, in the session's message of this round; each answer is
+written below once given.
+
+- Q52, `goal@knowledge-architect@the-owner-decides`: "In a project that follows the workflow, this one included, its owner
+  states ..."; the definition of the record reaches "this goal and the other goals of this home".
+- Q53, `goal@knowledge-architect@rust-projects-come-first`: "built for Rust first" read as a rank, Rust winning where serving
+  two languages competes; text unchanged.
+- Q54, `goal@knowledge-architect@rust-projects-come-first`: "such as a check, a tool or a library API", so the list gives
+  examples.
+- Q55, `goal@knowledge-architect@adoption-is-easy`: "each of them does so in plain words and with examples" covers all four
+  places, as the body's sentence says.
+- Q56, `goal@knowledge-architect@any-project-can-adopt-it`: "is the primary target" in place of "comes first", as the title
+  says; the order of known work stays the owner's.
+- Q57, `goal@knowledge-architect@design-is-recorded-with-its-arguments`: the lost alternatives are a third item of what a head
+  records; "the evidence that would flip a recorded decision" read as the evidence a tripwire
+  records under the installed standard; text unchanged on the second.
+- Q58, `goal@knowledge-architect@structure-and-workflow-work-together`: "Neither the structure nor the workflow is designed
+  without the other".
+- Q59, `reviews-judge-by-the-writer-s-criteria`: "the external specifications that any of these make
+  binding", the binding texts included.
+- Q60, `goal@xtask@one-command-runs-every-gate`: the rebase check is a member of the list, run only when asked;
+  "By default" governs the run-all clause only, the verdict holding under every flag, as the tool does.
+- Q61, `installed-text-works-in-any-environment`: "depends on no skill or instruction outside the
+  installed set and the project; it may rely on the harness's own mechanisms", so a tool such as `gh`
+  is no dependency the goal counts.
+- Q62, `goal@agent-skills@installed-text-works-anywhere`: "the command by which the project runs the checker, as its
+  manifest declares it", in place of the approved "the project's command as the project declares it".
+- Q63, `goal@core@relocation-is-one-manifest-edit`: a reference of the primer's form for an anchor's own
+  directory, cited from the anchor above, is covered by the goal; the form is the defect, kept for the
+  workflow's file; text unchanged.
+- Q64, `goal@core@declared-instructions-are-checked`: the slug becomes `document-rules-are-checked`, with every
+  reference re-pointed, in the commit that writes the ruled goals.
+
+Already answered, and not put again: the questions the owner closed with "I agree with the defaults
+and the current goals", among them the render goal's mechanisms, its argument sentence, "once it is
+released" read as met and its documents being knowledge-architect's; the anchor sentence of
+`goal@core@relocation-is-one-manifest-edit`; and whether "runs" binds every adopting Rust project.
+
+Minor findings left as they stand: the measures that do not cover a sentence of their body (rule 6),
+and the goals that hold more than one intent (rule 4).
+
 ## Open questions
 
-- The new layout of every goal, which the next rounds review and the owner rules on by its slug,
-  each goal with its boundary block. The content stands as the owner approved it: a new layout
-  changes no reading, which each round's reviewers check.
+- Q52 to Q64, above.
+- The new layout of every goal, which the owner rules on by its slug, each goal with its boundary
+  block, once the rounds stop.
 
 ## The goals as the owner approved their content
 
