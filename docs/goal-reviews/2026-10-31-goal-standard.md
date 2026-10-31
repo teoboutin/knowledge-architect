@@ -166,6 +166,92 @@ released" read as met and its documents being knowledge-architect's; the anchor 
 Minor findings left as they stand: the measures that do not cover a sentence of their body (rule 6),
 and the goals that hold more than one intent (rule 4).
 
+## Layout round 2
+
+| reviewer | findings | not minor | contradiction |
+| --- | --- | --- | --- |
+| set 1, the owner and agents | 3 | 3 | 1 (b) |
+| set 2, the workflow | 3 | 3 | 0 |
+| set 3, adoption | 4 | 4 | 0 |
+| set 4, core | 2 | 2 | 0 |
+| set 5, gates and xtask | 2 | 2 | 0 |
+| whole set | 6 | 6 | 0 |
+| total | 20 | 20 | 1 |
+
+The count falls from 41 to 20; the stop rule asks 8 or fewer.
+
+The reports, as the session condensed them, every finding kept:
+
+Set 1, layout round 2: 3 findings (3 not minor): rule 2 2, rule 3 1; settled 2, contradiction (b) 1. Six goals conform.
+drift: 1 (b) r3 (round 1's repair) "What they build brings back none of its rejected designs" lost the reversal qualifier (a rejected design reopened through the design skill, chosen and built). 2 settled r2 "that recorded design" now leaves the rejected designs out of what a departure is. 3 settled r2 "Its goals" right after "before it merges": "That project's goals".
+
+Set 2, layout round 2: 3 findings (3 not minor): rule 2 3; settled 2, intent 1. Six goals conform.
+records-live: F1 settled r2 "a record of the project" vs the record's definition, which since Q52 reaches this home (an intake's analysis is none of its members): "a file of the project it runs in". F2 settled r2 (layout) "the history of its commits" after the split: "the repository's commits".
+reviews-judge: F3 intent r2/r3 "the reasons recorded beside the code": does it include a reason only in the message of the commit that introduced the code (the primer's reason recorded at the code)? Default: the wide reading, the commit message named.
+
+Set 3, layout round 2: 4 findings (4 not minor): rule 2 4; settled 2, intent 2. Conforming: `goal@knowledge-architect@rust-projects-come-first`, `goal@knowledge-architect@setup-brings-quality-tools`.
+any-project: settled r2 (layout) the split gives two targets with no relation: "Among them, a new project ... is the primary target".
+adoption: intent r2 "the installed skills, taken together, and the rendered site state the whole": each alone, or jointly (same words approved).
+installed-anywhere: settled r2 the Q62 wording misses the default command `klarch` where the manifest declares none (`design@core@declared-command`): "or `klarch` where it declares none".
+environment: intent r2 a harness's own built-in instruction: "an instruction the environment adds" or a mechanism the text may rely on (same words approved).
+
+Set 4, layout round 2: 2 findings (2 not minor): rule 2 2; settled 2. Conforming: the introduction and 5 goals.
+declared: F1 settled r2 "No project can hold part of it back": round 1's repair removed the antecedent of "it"; name the set. F2 settled r2 the reference grammar: a third member of the measure with no exception, unnamed in the body: name it in the body as the measure does.
+Met outside: the render issue's summary still says "a project's documents" (row 2, with the goals commit).
+
+Set 5, layout round 2: 2 findings (2 not minor): rule 2 2; settled 2. Conforming: `goal@xtask@one-command-runs-every-gate`, `goal@xtask@repeated-tasks-are-automated`.
+gates: 1 settled r2 round 1's G1, not repaired: the heading "writing only its list of gates" vs the body's list and call. 2 settled r2 (round 1's repair) "which holds no gate logic": the call or the list.
+Remark, not counted: one-command states the rebase exception twice (first sentence and sixth bullet).
+Met outside: the reword, the fixup fold and the merge predicate have no command and no issue entry, still unrouted.
+
+Whole set, layout round 2: 6 findings (6 not minor): rule 2 6; settled 3, intent 3.
+drift: intent r2 "by a check or by a review step": "check" in three senses across homes (the checker's run, a checker rule, an agent's verification step); the primer's "Read the record of code before changing it" counts or not.
+`goal@knowledge-architect@documentation-stays-consistent`: intent r2 "an audit that reads the whole record on one aspect": since Q52 the record excludes goals, READMEs, code and agent-facing text, while the audit reads one aspect of the whole project (the agentic-workflow axis reads the installed text).
+any-project: settled r2 "Every record is cited in one readable grammar": the countable "record" against the defined "the record" (goals outside it): "every entry".
+declared: settled r2 "No project can hold part of it back": the only singular antecedent is now the manifest's statements; name both sets.
+repeated: settled r2 "its klarch- skills and agents": "agent definitions". intent r2 "mechanical task" here lacks the root's "result follows from the tree" (the merge predicate depends on GitHub's state).
+Met outside: after the layout commit, `goal@knowledge-architect@the-owner-s-word-is-verified` counts only the premises stated by the commits recording a ruling on the current text; the goals commit names the earlier rulings.
+
+### Outcomes
+
+Repaired:
+
+- `goal@knowledge-architect@agents-work-without-drift`: the rejected designs sentence keeps the reversal qualifier, "unless a
+  change reopens one through the workflow's procedure", the (b) finding, which round 1's own repair
+  had made; a departure is "from that recorded design, or a rejected design brought back without
+  that procedure"; "That project's goals".
+- records-live-beside-the-code: "a document of the project it runs in", since "record" has a defined
+  sense in this home since Q52; "the history of the repository's commits".
+- `goal@knowledge-architect@any-project-can-adopt-it`: "Every entry is cited in one readable grammar"; "Among them, a new
+  project ... is the primary target".
+- `goal@agent-skills@installed-text-works-anywhere`: "or `klarch` where it declares none", the default command
+  `design@core@declared-command` gives, which Q62's wording missed.
+- `goal@core@declared-instructions-are-checked`: the body names the reference grammar beside the manifest's
+  statements and the core's rules, and "No project can hold back any part of these three", the
+  exceptions following.
+- `goal@gates@gates-from-a-list`: "that call holds no gate logic".
+- `goal@xtask@one-command-runs-every-gate`: the rebase exception stated once.
+- `goal@xtask@repeated-tasks-are-automated`: "agent definitions".
+
+Defaults put to the owner, Q65 to Q71, in the session's message of this round:
+
+- Q65, `goal@gates@gates-from-a-list`: the heading becomes "A Rust project gets its merge gates by writing only
+  its list of gates and the call that runs them", matching the body; the heading is the owner's
+  wording.
+- Q66, `goal@knowledge-architect@adoption-is-easy`: the installed skills taken together state the whole of adopting it, and so
+  does the rendered site, each on its own.
+- Q67, installed-text-works-in-any-environment: an instruction the harness itself gives counts among
+  those the environment adds, "the harness's own included", so an installed instruction prevails
+  over it for an activity the set covers.
+- Q68, reviews-judge-by-the-writer-s-criteria: the reasons include those "in the messages of the
+  commits that made them", the primer's reason recorded at the code.
+- Q69, `goal@knowledge-architect@agents-work-without-drift`: "by the checker or by a step the installed text owes an agent or a
+  reviewer", so an agent's own reading of the record before a change counts.
+- Q70, `goal@knowledge-architect@documentation-stays-consistent`: the offered audit "reads the whole project on one aspect",
+  since "the whole record" no longer reaches the installed text under the definition of Q52.
+- Q71, `goal@xtask@repeated-tasks-are-automated`: a task whose result depends on state outside the tree, such as
+  the merge predicate, is covered as written; text unchanged.
+
 ## Open questions
 
 - The new layout of every goal, which the owner rules on by its slug, each goal with its boundary
