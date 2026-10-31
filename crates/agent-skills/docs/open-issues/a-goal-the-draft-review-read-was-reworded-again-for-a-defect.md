@@ -20,7 +20,7 @@ tree with a clause the owner had not ruled in knowingly.
 - The second: `goal@agent-skills@only-needed-instructions`. The draft-mode review recorded in
   `git show 0d2668e8^:docs/goal-reviews/2026-10-31-review-before-merge.md` flagged its reason
   requirement only as unmeasured, rule 6, minor; the goal was written with "with the reason for each
-  instruction", and the branch of `spec@plans@intake-decides-by-authority` removed the clause on the
+  instruction", and the branch of the spec of the retrospective intake deciding by authority removed the clause on the
   owner's word that it was wrong and missed when the owner read the drafts: a reach the owner had not
   ruled out knowingly, which rule 3 of the goal standard names.
 

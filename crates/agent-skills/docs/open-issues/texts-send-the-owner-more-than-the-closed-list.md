@@ -27,7 +27,7 @@ necessarily one change per text. The texts left:
 
 The retrospective intake's texts, and the admission standard's routing of a growth of instructions,
 a provable gap's fill and an instruction no agent performs, were brought into line by the work of
-`spec@plans@intake-decides-by-authority`. The audit keeps its hold on a pass's net growth, a cost no
+the spec of the retrospective intake deciding by authority. The audit keeps its hold on a pass's net growth, a cost no
 goal ranks, per `design@agent-skills@audit-net-growth`, and its owner-list case of an instruction no
 agent performs, where the record does not settle whether its act is still wanted, a fact only the
 owner holds.
