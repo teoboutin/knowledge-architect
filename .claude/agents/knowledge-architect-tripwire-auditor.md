@@ -127,8 +127,10 @@ slug last:
 history counts them from the commit that wrote the line: commits on the main branch that change a
 named path or the guarded head's text, release tags, audit reports of an axis, plan documents
 deleted at their landing, or one event the tree shows, such as the first issue a consumer of an
-interface opens; never an occasion that only a session's transcript holds. Its length is the
-writer's judgement, short for a cause kept on a doubt, and no count is kept in the entry.
+interface opens; never an occasion that only a session's transcript holds. A commit every line of
+which it adds is a line it removes, a relocation, is no occasion, since it exercises no decision.
+Its length is the writer's judgement, short for a cause kept on a doubt, and no count is kept in the
+entry.
 `standing` is for a guarantee whose failure stays silent and permanent, with the reason in the
 entry.
 
@@ -188,7 +190,9 @@ are consecutive in that listing.
   implies over the tree and the history, and quote the evidence. Is its decision gone: the guarded
   reference dangles, or the head was reversed. Has its horizon passed: find the commit that wrote
   its `Watches until` line with `git log -S`, count the occasions since with the command the line
-  implies, and list both. An entry with no horizon line has none to pass.
+  implies, and list both; in a shallow clone, where `git rev-parse --is-shallow-repository` prints
+  `true`, run `git fetch --unshallow` first, since the count otherwise finds nothing without a
+  sign. An entry with no horizon line has none to pass.
 - **Then judge it against the standard**, condition by condition, then the slip, then the shape of
   the entry and its four lines. For each condition it fails, quote the words of the condition and
   of the entry. Condition 1: name the test, the check, the gate or the review procedure that counts

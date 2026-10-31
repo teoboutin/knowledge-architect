@@ -38,7 +38,7 @@ rather than a diff (`skill@knowledge-architect-project-audit`).
 | routing of knowledge | `agent@knowledge-architect-routing-reviewer` | a durable statement was added or moved |
 | agent-facing text | `agent@knowledge-architect-agent-text-reviewer` | the diff adds to or changes agent-facing text, installed or the project's own |
 | goals | `agent@knowledge-architect-goal-reviewer`, in its merge mode | the diff adds, rewords or removes a goal |
-| decision recording | `agent@knowledge-architect-decision-record-reviewer`. If a plan document was written, hand it to this reviewer too | a decision was made, reversed or harvested |
+| decision recording | `agent@knowledge-architect-decision-record-reviewer`. If a plan document was written, hand it to this reviewer too | a decision about how the project is built was made, reversed or harvested, whether or not it earned an entry, or a tripwire was added; a change that only relocates or rewords recorded decisions makes none |
 | standing state | `agent@knowledge-architect-standing-state-reviewer` | at the review before a merge, since it is the standing re-entry point of every tripwire and every deferred trigger |
 | cold implementer | `agent@knowledge-architect-cold-implementer-reviewer`: can a session that did not see the discussion act on the plan document | a spec or a milestone was written under `skill@knowledge-architect-planning`, or a decided shape in one revised; that skill names the moment |
 | code claims | `agent@knowledge-architect-code-claims-reviewer`: is every statement the plan document makes about existing code true of the tree | the same moment |

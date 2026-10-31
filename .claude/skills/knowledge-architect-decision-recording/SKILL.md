@@ -337,8 +337,9 @@ as a new member does.
 
 ## The current design `##current-design`
 
-In the Component's design home, `register@*@design`: one file, or, for a Component whose design
-has outgrown one file, a directory. In the directory shape the decision goes in the
+In the Component's design home, `register@*@design`: one file, or a directory once the file is too
+long for a session to read whole in one pass. The directory shape changes no cluster of the record
+search, which a split of subjects below changes. In the directory shape the decision goes in the
 subdocument owning its subject, never in the directory's `README.md`, which is the head and the
 index. A new subdocument is linked from that index, `[title](file.md)`, the target relative to the
 README, conventionally one bullet per subdocument.
@@ -540,8 +541,10 @@ slug last:
 history counts them from the commit that wrote the line: commits on the main branch that change a
 named path or the guarded head's text, release tags, audit reports of an axis, plan documents
 deleted at their landing, or one event the tree shows, such as the first issue a consumer of an
-interface opens; never an occasion that only a session's transcript holds. Its length is the
-writer's judgement, short for a cause kept on a doubt, and no count is kept in the entry.
+interface opens; never an occasion that only a session's transcript holds. A commit every line of
+which it adds is a line it removes, a relocation, is no occasion, since it exercises no decision.
+Its length is the writer's judgement, short for a cause kept on a doubt, and no count is kept in the
+entry.
 `standing` is for a guarantee whose failure stays silent and permanent, with the reason in the
 entry.
 
