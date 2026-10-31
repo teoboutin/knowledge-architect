@@ -233,7 +233,8 @@ Repaired:
 - `goal@xtask@one-command-runs-every-gate`: the rebase exception stated once.
 - `goal@xtask@repeated-tasks-are-automated`: "agent definitions".
 
-Defaults put to the owner, Q65 to Q71, in the session's message of this round:
+Defaults put to the owner, Q65 to Q71, in the session's message of this round. The owner's answer,
+2026-10-31: "agreed on the defaults".
 
 - Q65, `goal@gates@gates-from-a-list`: the heading becomes "A Rust project gets its merge gates by writing only
   its list of gates and the call that runs them", matching the body; the heading is the owner's
