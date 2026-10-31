@@ -61,16 +61,20 @@ on the owner's word.
 
 ## The shape of a goal entry `##goal-entry-shape`
 
-A level-two heading stating the goal as a sentence, its slug at the end, then one short paragraph:
-what the goal means, and **what would show it is met**. The paragraph stays short because a goals
-home is read whenever a decision is argued from one. Every level-two heading of a goals home is a
+A level-two heading stating the goal as a sentence, its slug at the end, then the body: what the
+goal means, and **what would show it is met**. The body holds what the goal standard asks of it, at
+the length that takes: short sentences, and a list where it names the members of a set, such as the
+cases of a closed list or the activities a goal covers. Every level-two heading of a goals home is a
 goal and carries a slug: the head that says what the home holds is prose under the level-one title,
 never a level-two section.
 
 ```markdown
 ## <The goal, stated as a sentence> `##<slug>`
 
-<What it means, in two to four sentences, and what would show it is met.>
+<What it means: the outcome, for whom, and the set each of its words ranges over, in sentences or
+in a list.>
+
+It is met while <what the project builds that shows it>.
 ```
 
 **Where a goal goes.** A goal is written in the goals home of the Component whose responsibility it
@@ -147,11 +151,32 @@ passes the check.
 ## Reviewing the whole goal set `##whole-set-review`
 
 Run on the owner's request, and at a pin move across a version whose Migration entry names this
-section, as `skill@knowledge-architect-setup@moving-the-pin` says. Dispatch
-`agent@knowledge-architect-goal-reviewer` in its whole-set mode, fresh, with the project as its
-brief. Each finding becomes a draft that `skill@knowledge-architect-goal-setting@drawing-out-intent`
-takes, its draft-mode review included, so the owner rules on every rewording, retitling, split,
-removal or addition goal by goal.
-**Every goal is put to the owner with its boundary block**, a goal with no other finding included,
-for a ruling: kept as it stands, or reworded through
-`skill@knowledge-architect-goal-setting@drawing-out-intent`, since only the owner judges rule 3.
+section, as `skill@knowledge-architect-setup@moving-the-pin` says. The review runs in rounds, and
+the owner answers between two rounds.
+
+1. **Split the goals into sets**, each a cluster of goals on one subject that touch each other.
+2. **Dispatch, in one message, one `agent@knowledge-architect-goal-reviewer` per set in its draft
+   mode and one in its whole-set mode**, each fresh, over the goals as the tree holds them. Each
+   set's brief names its goals; every brief names the review's record, below, which the reviewer
+   reads whole, and asks it to report again a question the record holds as open only where the
+   goal's text changed it.
+3. **Write the repairs in the goals homes of the working tree**: each `settled` finding's, and the
+   session's default for each other finding. Put to the owner, in one message for the round, each
+   `intent` and `contradiction` finding with its default and the case on which the readings differ,
+   and each default that departs from words the owner approved. The next round starts once the
+   owner has answered.
+4. **Keep the review's record** in one file, `docs/goal-reviews/<YYYY-MM-DD>-<subject>.md` at the
+   project's root: for each round, the findings counted per reviewer, rule and tag, each finding's
+   outcome, each default with its ground, each question put to the owner with the owner's answer
+   verbatim, and each goal's boundary block; and the list of questions still open. Commit it at each
+   round, apart from the drafts, which stay uncommitted until the owner rules on them.
+5. **Run the next round** from step 2, over the goals and the record as step 3 left them.
+6. **Stop** when the owner says so, or when a round's count falls to a fifth of the first round's:
+   the findings that are not `minor`, of every reviewer of the round, counted under the same brief
+   in every round.
+
+**Every goal is then put to the owner with its boundary block**, a goal with no other finding
+included, for a ruling by its slug: kept as it stands, or as the rounds reworded it, as
+`skill@knowledge-architect-goal-setting@drawing-out-intent` says in its steps 6 and 7, since only
+the owner judges rule 3. The commit that writes the goals the owner ruled last, or a later commit of
+the same branch, deletes the record and names it by its path.

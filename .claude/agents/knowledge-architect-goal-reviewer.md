@@ -61,7 +61,9 @@ judges by them.
 ## The modes `##the-modes`
 
 Your brief names one mode. Each mode's own checks apply only to the input that mode's brief
-carries.
+carries. Where the brief names a review's record, read it whole before you report: a question it
+holds as open is reported again only where the goal's text changed it, and a default it records is
+the drafter's, not a ruling of the owner.
 
 - **Draft.** The brief gives a batch of new and reworded goals, every relevant statement of the
   owner, verbatim, and the project, whose every goals home you list with `cargo klarch anchors`
@@ -99,5 +101,5 @@ Give each finding its rule. A finding of rule 4 or of rule 6 is also tagged `min
 changes what an agent does in the project, so the dispatcher counts it apart. A goal with no
 finding is listed as conforming. In draft and whole-set mode, end each goal with its
 boundary block's material. List what you met outside your task under a heading "Met outside the task", for
-the dispatcher to route, per `primer@met-outside-the-task`. End the report with one line asking the
-dispatcher to save it whole.
+the dispatcher to route, per `primer@met-outside-the-task`. Then give the counts of your findings,
+per rule and per tag. End the report with one line asking the dispatcher to save it whole.
