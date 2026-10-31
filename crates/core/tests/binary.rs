@@ -3929,6 +3929,53 @@ fn check_staged_as_a_pre_commit_hook_judges_the_index_the_commit_records() {
     let (passed, out) = commit(&["-m", "staged, sound"]);
     assert!(passed, "the hook passes the staged tree: {out}");
 
+    // The variants the goal admits beside `-m` and `-q`: a message from `-F`, one from the
+    // editor, a run without `-q`, and `--` before the paths, each refused over a failing tree
+    // and passed over a sound one.
+    let message = hooks.join("message.txt");
+    std::fs::write(&message, "from a file\n").expect("the message file");
+    let editor = hooks.join("editor.sh");
+    std::fs::write(&editor, "#!/bin/sh\necho 'from the editor' > \"$1\"\n").expect("the editor");
+    std::fs::set_permissions(&editor, std::fs::Permissions::from_mode(0o755)).expect("executable");
+    let loud = |args: &[&str]| {
+        let mut all = vec!["-c", hooks_path.as_str(), "commit"];
+        all.extend_from_slice(args);
+        let out = sandbox
+            .git_command(&all)
+            .env("GIT_EDITOR", &editor)
+            .output()
+            .expect("git runs");
+        let text = format!(
+            "{}{}",
+            String::from_utf8_lossy(&out.stdout),
+            String::from_utf8_lossy(&out.stderr)
+        );
+        (out.status.success(), text)
+    };
+    let message_path = message.to_string_lossy().into_owned();
+    let variants: [&[&str]; 4] = [
+        &["-F", &message_path],
+        &[],
+        &["-m", "loud"],
+        &["-m", "separated", "--", "README.md"],
+    ];
+    for (n, variant) in variants.iter().enumerate() {
+        let named = variant.contains(&"--");
+        sandbox.write("README.md", &dangling);
+        if !named {
+            sandbox.git(&["add", "README.md"]);
+        }
+        let (passed, out) = loud(variant);
+        assert!(!passed, "{variant:?} refuses a failing tree: {out}");
+        assert!(out.contains("no-such-entry"), "{out}");
+        sandbox.write("README.md", &format!("{readme}\nVariant sentence {n}.\n"));
+        if !named {
+            sandbox.git(&["add", "README.md"]);
+        }
+        let (passed, out) = loud(variant);
+        assert!(passed, "{variant:?} passes a sound tree: {out}");
+    }
+
     // A linked worktree, whose hook git also gives `GIT_DIR`: each form refuses a failing tree
     // and passes a sound one. The guard removes the worktree whatever the assertions do.
     struct Linked<'a>(&'a Sandbox, PathBuf);
