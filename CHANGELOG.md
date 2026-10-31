@@ -95,15 +95,15 @@ subsection is omitted.
   `bears.md` and those graded `may-bear` into `may-bear.md`.
 - `cli`, minor: `klarch id <id>…` says whether each id is free, or lists every entity the project
   defines under it; it refuses an incomplete model.
+- `cli`, minor: `klarch transcript list`, `show` and `search` read the session transcripts Claude
+  Code writes: the project's sessions, cut where a new session starts, `/clear` included, each line
+  labelled by its fields as the owner's, injected, the agent's, a dispatch or a tool's, and a header
+  naming every line and value the command does not recognise. The core's README says how.
 - `library`, minor: `cli::init`, `cli::InitArgs`, `cli::NewComponentArgs`, `cli::Vcs` and the
   command enum's variants `Init` and `NewComponent`; and the agent-skills crate's `SNIPPETS`, the
   files the setup skill's Rust section shows.
 - `library`, minor: `cli::Command::Worklist` and `cli::WorklistArgs`.
 - `library`, minor: `cli::Command::Id` and `cli::IdArgs`.
-- `cli`, minor: `klarch transcript list`, `show` and `search` read the session transcripts Claude
-  Code writes: the project's sessions, cut where a new session starts, `/clear` included, each line
-  labelled by its fields as the owner's, injected, the agent's, a dispatch or a tool's, and a header
-  naming every line and value the command does not recognise. The core's README says how.
 - `library`, minor: `cli::Command::Transcript`, `cli::TranscriptArgs`, `cli::TranscriptVerb`,
   `cli::TranscriptListArgs`, `cli::TranscriptShowArgs` and `cli::TranscriptSearchArgs`.
 - `agent-skills`, patch: the project audit gains its tripwire axis, with the agent
