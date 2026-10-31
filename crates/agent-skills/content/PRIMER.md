@@ -457,13 +457,14 @@ shaped, is `skill@knowledge-architect-decision-recording@head-shape`;
 
 ## The installed skills {{slug:installed-skills}}
 
-%% The opening paragraph serves `goal@agent-skills@installed-text-works-anywhere`. Of two cloud sessions with no
-%% user-level instruction, one read sections of skills found by `grep` in place of loading them and wrote into a
-%% design home without the decision-recording skill, and the other loaded that skill only after the decision it
-%% records: an event-shaped trigger was skipped too, so fixing the design skill's trigger alone does not suffice.
-%% A plain directive to read the matching skill was present in both and did not suffice; the paragraph names the act
-%% they took instead. The harness lists a plugin's skill beside an installed one, which its second sentence answers,
-%% per `design@agent-skills@installed-skill-takes-precedence`.
+%% The opening paragraph serves `goal@agent-skills@installed-text-works-in-any-environment`. Of two
+%% cloud sessions with no user-level instruction, one read sections of skills found by `grep` in
+%% place of loading them and wrote into a design home without the decision-recording skill, and the
+%% other loaded that skill only after the decision it records: an event-shaped trigger was skipped
+%% too, so fixing the design skill's trigger alone does not suffice. A plain directive to read the
+%% matching skill was present in both and did not suffice; the paragraph names the act they took
+%% instead. The harness lists a plugin's skill beside an installed one, which its second sentence
+%% answers, per `design@agent-skills@installed-skill-takes-precedence`.
 Before acting at a moment this list names, load its skill, with each skill of the project that says
 it adds to it, and follow them whole: a section of one found by a search is not the skill. A skill
 from outside the installed set and the project, which the environment lists for the same activity,

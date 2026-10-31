@@ -20,15 +20,14 @@ holds the plans directory, which is not a component's document but the anchor `p
 That is not an exception to `design@core@nothing-of-a-project-is-compiled-in`: the document list and
 the five built-in component registers in `manifest.rs` belong to no project, they are what the word
 _component_ means here. A project adds to that set, per
-`design@core@a-component-carries-what-a-project-attaches`, and removes nothing from it but the
-agent document, below: a project
-free to declare its own set would be conformant with whatever
-it declared, which is the same as being checked against nothing, against
-`goal@core@declared-instructions-are-checked`: a tree that passes the check conforms to all of it,
-and no project can hold part of it back. The one declaration that changes
-the set is the agent harness, and it removes only the agent document. The flaw this leaves, that a
-developer's contracts lose their required home in a project without agents, is
-`issue@core@a-home-for-developer-contracts-outside-agent-configuration`.
+`design@core@a-component-carries-what-a-project-attaches`, and removes nothing from it but the agent
+document, below: a project free to declare its own set would be conformant with whatever it
+declared, which is the same as being checked against nothing, against
+`goal@core@document-rules-are-checked`: a tree that passes the checker conforms to the rules the
+core compiles in, and no project holds back any of them beyond what a declaration of its manifest
+switches off. The one declaration that changes the set is the agent harness, and it removes only the
+agent document. The flaw this leaves, that a developer's contracts lose their required home in a
+project without agents, is `issue@core@a-home-for-developer-contracts-outside-agent-configuration`.
 
 **A directory that carries outstanding state without being a component is a location**, per
 `design@core@anchors-are-components-and-locations`.

@@ -45,10 +45,11 @@ project's root as its working directory. Ruled out: the per-user ignore file, wh
 ### Why it matters
 
 `design@core@git-supplies-the-walk` makes git's listing of the project the walk; under these
-variables the listing can be another repository's or another index's, so a check run where they
-are set can judge the wrong tree, and can pass or fail regardless of
-the project. It strains `goal@core@documents-stay-current`, whose test is the check passing on the
-project's own commits.
+variables the listing can be another repository's or another index's, so a check run where they are
+set can judge the wrong tree, and can pass or fail regardless of the project. It strains
+`goal@core@documents-stay-current`, met while the checker's verdict fails on a tree where a
+reference, an entry's shape or a generated listing fails: here the verdict can pass on a tree it
+never read.
 
 ### What would close it
 

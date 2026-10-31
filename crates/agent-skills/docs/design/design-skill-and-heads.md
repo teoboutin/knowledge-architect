@@ -47,12 +47,12 @@ Whether a design is settled is what the grounding finds out, per
 `design@agent-skills@bounded-path-in-design`. A trigger that asks a session to judge it before the
 load fires only in a session that already holds the skill's rule that an owner's proposal is a claim
 to test, the argument `design@agent-skills@design-home-write-loads-recording` makes for another
-load. Each exception is a record the session can look at, or a change it can see decides nothing.
-A record settles what the owner asks for
-or proposes, not merely the result a change must produce: a failing test states a result, and a
-shape the owner proposes to reach it is still challenged. It serves
-`goal@knowledge-architect@design-with-agents-as-counterparts`, met while the installed text has the agent
-ground and challenge every proposal of the owner that decides something before it is built, and `goal@agent-skills@installed-text-works-anywhere`.
+load. Each exception is a record the session can look at, or a change it can see decides nothing. A
+record settles what the owner asks for or proposes, not merely the result a change must produce: a
+failing test states a result, and a shape the owner proposes to reach it is still challenged. It
+serves `goal@knowledge-architect@design-with-agents-as-counterparts`, met while the installed text
+has the agent ground and challenge every proposal of the owner that decides something before it is
+built, and `goal@agent-skills@installed-text-works-in-any-environment`.
 
 The evidence is real use. The cloud sessions behind this repository's pull requests 24 and 25 held
 no user-level instruction, and their harness listed the design skill's description whole; neither
@@ -150,16 +150,16 @@ body. A title states no more than its argument argues.
 
 A count or a list in a title goes stale at the next member, and every later member then reads as a
 change of the decision, with its reversal, its slug rename and its tripwire rename, against
-`goal@knowledge-architect@agents-get-a-complete-workflow`, which aims for fewer decisions reversed
-by accident. The nearest rival, the instance in the title, has that cost: an audit of this
-repository's design heads at commit bc22d4d, reading every head and its history, finds the instance
-stated as the rule in 27 of its 189 heads, and its history holds rewrites of such heads that a
-member the argument already admitted forced. The figure is re-taken by a fresh read-only audit of
-the heads at that commit against this rule. A review repair that moves a member
-into a title makes the defect: "the title now states it". The opposite defect, a title
-wider than its argument, caused reversals too, which the last sentence of the rule guards. A title
-stating a rule alone would let a session add members the owner never saw, so it holds only with the
-routing of `design@agent-skills@extension-follows-the-ground`.
+`goal@knowledge-architect@agents-get-a-complete-workflow`, under which a decision reversed by
+accident that the workflow would have spared shows the goal unmet. The nearest rival, the instance
+in the title, has that cost: an audit of this repository's design heads at commit bc22d4d, reading
+every head and its history, finds the instance stated as the rule in 27 of its 189 heads, and its
+history holds rewrites of such heads that a member the argument already admitted forced. The figure
+is re-taken by a fresh read-only audit of the heads at that commit against this rule. A review
+repair that moves a member into a title makes the defect: "the title now states it". The opposite
+defect, a title wider than its argument, caused reversals too, which the last sentence of the rule
+guards. A title stating a rule alone would let a session add members the owner never saw, so it
+holds only with the routing of `design@agent-skills@extension-follows-the-ground`.
 
 The design this decision did not keep: `rejected@agent-skills@title-states-built-instance`.
 

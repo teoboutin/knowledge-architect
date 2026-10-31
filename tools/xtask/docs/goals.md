@@ -1,21 +1,42 @@
 # Goals — xtask
 
-What this tool is for. A goal is met or unmet, where a decision about how the tool is built is
-won or lost and lives in `register@xtask@design`. A goal stays here while it is met, and leaves
-only when the owner abandons it. This tool serves the project rather than its consumers, so its
-goals need not refine a goal of `register@knowledge-architect@goal`.
+What this tool is for. A goal is met or unmet, where a decision about how the tool is built is won
+or lost and lives in `register@xtask@design`. A goal stays here while it is met, and leaves only
+when the owner abandons it. This tool serves the project rather than its consumers, so its goals
+need not refine a goal of `register@knowledge-architect@goal`.
 
-## Every check the project owes before a merge runs from one command `##one-command-runs-every-gate`
+## Every gate the project owes before a merge runs from one command `##one-command-runs-every-gate`
 
-One command runs every check a branch must pass before it merges: formatting, the document check,
-the commit messages, the linter and the tests. It runs them all when one fails, and gives one
-verdict as its exit code. It is met while a session needs no other command to know whether a branch
-may merge, and the continuous integration runs the same command.
+One command runs every gate of the project's list, the rebase check only when asked. The gates
+include:
 
-## A mechanical task performed repeatedly in this repository alone is a command of the tool `##repeated-tasks-are-automated`
+- formatting;
+- the document check;
+- the commit messages;
+- the linter;
+- the tests;
+- the rebase check.
 
-A task that sessions perform in this repository more than once, by hand and in the same steps, and
-that is local to this repository, becomes a command of the tool, so it runs the same way each time.
-A task the installed agent text asks of every project that adopts the workflow is the published
-checker's, per `goal@knowledge-architect@mechanical-tasks-are-the-tool-s`. It is met while no such task is left to be done by hand.
-None exists today.
+By default it runs every gate of the list but the rebase check, all of them when one fails. It gives
+one verdict as its exit code, on the working tree and the branch's commits, which says whether the
+gates let the branch merge.
+
+It is met while the command's list holds each of these gates, and the continuous integration runs
+the same command.
+
+## A mechanical task this repository's own instructions ask repeatedly is a command of the tool `##repeated-tasks-are-automated`
+
+A task becomes a command of the tool, so it runs the same way each time, when it meets all of these:
+
+- needs no judgement, and takes several steps;
+- is local to this repository: one its own instructions ask, or the procedure they fix for one the
+  installed text asks;
+- comes at a recurring moment, such as each commit, each reword or each merge.
+
+A task the installed text asks of every project that adopts the workflow, whose result follows from
+the tree and the workflow's rules, with no procedure of this repository's own, is the published
+checker's, per `goal@knowledge-architect@mechanical-tasks-are-the-tool-s`.
+
+It is met while each such task that this repository's root and scoped `CLAUDE.md` files and its
+`klarch-` skills and agent definitions ask, or whose procedure they fix, has a command of the tool.
+Such a task left to be done by hand shows the goal unmet in practice.

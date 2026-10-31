@@ -28,7 +28,7 @@ change of what a Component carries reaches `init` with no edit to it, per
 
 ### `init` follows `cargo init` wherever no argument departs from it `##init-follows-cargo-init`
 
-Rust is the language the project serves first, per
+Rust is the language knowledge-architect serves first, per
 `goal@knowledge-architect@rust-projects-come-first`, and `cargo init` is the command its users
 already type to start a project. The owner holds that following `cargo init`'s usage as far as
 possible is probably best, so a user's habits carry over to `init`: a choice about

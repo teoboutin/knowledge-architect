@@ -32,7 +32,7 @@ the branch.
 ### Why it matters
 
 `design@core@branch-shas-are-refused` exists so that the rule against such citations is kept by
-running `commits`, per `goal@core@declared-instructions-are-checked`. A check that lets the
+running `commits`, per `goal@core@document-rules-are-checked`. A check that lets the
 violation through at the moment a session runs it, and catches it only after the push, turns a cheap
 amend into a history edit of a pushed branch. Until this is done, every project with the option on
 must run the after-commit check over the whole branch, as this repository's root CLAUDE.md says.

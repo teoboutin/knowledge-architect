@@ -142,25 +142,25 @@ has not started when its discussion opens, takes the full path too, even when on
 builds it. Decided and unbuilt intent then has one home, the plan document, per
 `design@agent-skills@design-home-is-built-intent`.
 
-A plan document exists to carry a decision from convergence to a landing that comes later, and to
-be reviewed before its work is built. A decision met during a change begun before the discussion
-lands in work already under way, so neither applies, and requiring a spec would make every
-decision met during a task cost a plan document, which is what
+A plan document exists to carry a decision from convergence to a landing that comes later, and to be
+reviewed before its work is built. A decision met during a change begun before the discussion lands
+in work already under way, so neither applies, and requiring a spec would make every decision met
+during a task cost a plan document, which is what
 `design@agent-skills@new-or-reshaped-head-needs-design` must not cost to be followed. A requested
 change whose work has not started has all of that work ahead of it, and its plan can be reviewed
 before any of it is built. The move of an adopting project's existing documents starts as such a
 change, and it is planned work under the planning skill, per
 `design@agent-skills@adopting-existing-docs`. The cost is a spec, its plan reviews, its harvest and
 its deletion for every requested change that is not bounded, including one the converging session
-builds in one pull request, which strains the "fewer review rounds" of
-`goal@knowledge-architect@agents-get-a-complete-workflow`. Widening the existing short path, rather
-than adding a path for one decision met during a task, is the owner's proposal, on the owner's
-argument, given as the owner's opinion, that a discussion that starts with one decision should be
-bounded in neither threads nor rounds, since its size depends on what grounding, investigation and
-experiment bring, which nobody knows in advance. The separate path bounded the discussion to one thread, against
-`design@agent-skills@structure-the-flow`. The cost is a long commit message when a discussion
-inside a task grows to several threads; its length is not bounded, since a bound on it would bound
-the discussion.
+builds in one pull request, each review round of which the workflow could have spared counting
+against `goal@knowledge-architect@agents-get-a-complete-workflow`. Widening the existing short path,
+rather than adding a path for one decision met during a task, is the owner's proposal, on the
+owner's argument, given as the owner's opinion, that a discussion that starts with one decision
+should be bounded in neither threads nor rounds, since its size depends on what grounding,
+investigation and experiment bring, which nobody knows in advance. The separate path bounded the
+discussion to one thread, against `design@agent-skills@structure-the-flow`. The cost is a long
+commit message when a discussion inside a task grows to several threads; its length is not bounded,
+since a bound on it would bound the discussion.
 
 ### The planning skill writes the plan document, and the design skill writes none `##design-hands-off-to-planning`
 
@@ -329,16 +329,16 @@ that changes what the per-commit gate checks is the one this exception meets.
 ### Undesigned work is an issue `##undesigned-work-is-an-issue`
 
 Work that is known but not designed is a `todo` or `deferred` issue in the owning anchor, with its
-leads in the entry. The plan document that schedules it closes the issue in the commit that adds
-the document. `goal@knowledge-architect@structure-and-workflow-work-together` asks for one place for
-what is open: the issue register holds the work, and the roadmap only orders it, per
-`design@agent-skills@roadmap-orders-issues`.
+leads in the entry. The plan document that schedules it closes the issue in the commit that adds the
+document. `goal@knowledge-architect@structure-and-workflow-work-together` asks for one home for what
+is outstanding, in the anchor it belongs to: the issue register holds the work, and the roadmap only
+orders it, per `design@agent-skills@roadmap-orders-issues`.
 
 ### The roadmap holds only the order of known work, and every row is a checked reference `##roadmap-orders-issues`
 
 A row of the roadmap cites an issue entry or a whole plan document, in the order the owner wants the
 work done, and an unordered section may follow. The work stays in the issue register and the plans
-directory, so what is open is still listed in one place, per
+directory, so what is outstanding still has its one home, per
 `goal@knowledge-architect@structure-and-workflow-work-together`; the roadmap adds only the order. A
 row dangles when its issue closes or its plan document leaves, and the check reports it, so the
 order cannot drift from the work unnoticed. The commit that adds a plan document rewrites the row
@@ -360,10 +360,10 @@ leaves, need no word, per `design@agent-skills@roadmap-orders-issues`.
 
 ### No record of landed work is kept `##no-progress-record`
 
-No installed skill asks for a file recording what has landed. History lists every plan document
-that left, and each landing commit says where its results live; releases are in the changelog. A
-progress file would be a third document about the same work, with a lifetime of its own, against
-the one place for what is open of `goal@knowledge-architect@structure-and-workflow-work-together`.
+No installed skill asks for a file recording what has landed. History lists every plan document that
+left, and each landing commit says where its results live; releases are in the changelog. A progress
+file would be a third document about the same work, with a lifetime of its own, against the one home
+for what is outstanding of `goal@knowledge-architect@structure-and-workflow-work-together`.
 
 ### A plan document records the whole discussion `##plan-records-the-exchange`
 

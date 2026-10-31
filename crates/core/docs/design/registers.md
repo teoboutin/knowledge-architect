@@ -61,7 +61,7 @@ head states, delete it and name the design and its reason beside that instructio
 `skill@knowledge-architect-decision-recording@losing-alternatives` admits since no head cites it. It is raised over a tree in
 `path@core@src/check/references.rs`, not over a commit message, which holds no design entry.
 
-It serves `goal@core@declared-instructions-are-checked`: a head cites the designs its argument
+It serves `goal@core@document-rules-are-checked`: a head cites the designs its argument
 covers, per `design@agent-skills@rejected-citation-direction`, and this check is what makes every
 `rejected` entry reachable from the text a design session reads, the head, rather than only from
 `show`. Only a citation from a design entry counts, on the owner's judgement; a citation counts by
@@ -126,14 +126,14 @@ The design this decision did not keep: `rejected@core@instance-options-at-root`.
 ### A declaration that is wrong is a phase-1 finding, and absent from the configuration `##a-wrong-declaration-is-a-finding`
 
 A declaration that is wrong is a finding rather than a load failure, and it is absent from the
-configuration. A manifest that will not load reports nothing at all, and nothing at all is what
-a session reads as conformance, against `goal@core@declared-instructions-are-checked`: a tree that
-passes the check conforms to all of it. So `Manifest::parse` resolves the declaration into a
-configuration and a list of complaints, each in the shape a finding takes, and every complaint
-is the first phase of a run, per `design@core@phases-gate-the-report`. What a complaint is
-about is not in the configuration: a refused register is no register, a refused anchor is no
-anchor, a refused row is not in its list, so nothing acts on it and its consequences are never
-reported as defects of the tree. An extension's tables follow the same rule, per
+configuration. A manifest that will not load reports nothing at all, and nothing at all is what a
+session reads as conformance, against `goal@core@document-rules-are-checked`: a tree that passes the
+checker conforms to what its manifest states. So `Manifest::parse` resolves the declaration into a
+configuration and a list of complaints, each in the shape a finding takes, and every complaint is
+the first phase of a run, per `design@core@phases-gate-the-report`. What a complaint is about is not
+in the configuration: a refused register is no register, a refused anchor is no anchor, a refused
+row is not in its list, so nothing acts on it and its consequences are never reported as defects of
+the tree. An extension's tables follow the same rule, per
 `design@core@an-extension-claims-its-manifest-tables`: its complaints are phase-1 findings, and a
 run that holds one stops before the extension reads anything.
 

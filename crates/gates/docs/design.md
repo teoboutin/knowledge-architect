@@ -26,15 +26,15 @@ The designs this decision did not keep: `rejected@gates@gates-command-of-the-che
 
 ### A project holds its gate list, and the library offers a recommended one `##a-project-holds-its-gate-list`
 
-The library runs the gates it is given and decides none of them, so a project writes only its
-list, per `goal@gates@gates-from-a-list`. `rust_project` builds the
-recommended list of a Rust project that uses the checker, in cost order: the rebase check behind
-its flag, formatting, the document check, the commit messages of the branch, clippy, and the
-tests. It takes how the project runs its checker, a package and the arguments before the
-checker's command, and the main branch as git names it. A project adds, removes or reorders gates
-in the list it receives, so a Rust project's list is the recommended one with its own edits, per
-`goal@gates@gates-from-a-list`. The library depends on nothing of the checker: the root finder takes the
-marker file's name from the caller.
+The library runs the gates it is given and decides none of them, so a project writes no gate logic
+beyond its list and the call that runs it, per `goal@gates@gates-from-a-list`. `rust_project` builds
+the recommended list of a Rust project that uses the checker, in cost order: the rebase check behind
+its flag, formatting, the document check, the commit messages of the branch, clippy, and the tests.
+It takes how the project runs its checker, a package and the arguments before the checker's command,
+and the main branch as git names it. A project adds, removes or reorders gates in the list it
+receives, so a Rust project's list is the recommended one with its own edits, per
+`goal@gates@gates-from-a-list`. The library depends on nothing of the checker: the root finder takes
+the marker file's name from the caller.
 
 ### The library owns the gates' flags `##the-library-owns-the-flags`
 

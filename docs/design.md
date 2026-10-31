@@ -493,9 +493,10 @@ A retrospective writes one file for the project and one for the workflow, and th
 becomes an issue on knowledge-architect's repository where the owner directs it there, per
 `design@agent-skills@retrospective-destination`. Here the project is that repository, so the owner
 directs the findings of both files to this repository: each is handled, opened as an entry in its
-own issue registers, or closed with no change and the reason. An issue on GitHub would be a second
-place for what is open, beside the registers, against
-`goal@knowledge-architect@structure-and-workflow-work-together`.
+own issue registers, or closed with no change and the reason. An issue on GitHub would be an entry
+in an external tracker beside the registers, against
+`goal@knowledge-architect@records-live-beside-the-code`, and a second home for what is outstanding,
+against `goal@knowledge-architect@structure-and-workflow-work-together`.
 
 A project audit sends its findings on the installed text upstream, in a file of the shape of the
 retrospective's workflow file, per `design@agent-skills@audit-outcomes`. Here the upstream is this

@@ -128,11 +128,12 @@ the discussion takes: that depends on what grounding, investigation and
 evidence bring, which nobody knows in advance.
 
 %% Nothing is committed before the premortem has run: a premortem can surface a material finding
-%% that reopens a thread, and work committed before it would then be undone, against the fewer
-%% decisions reversed by accident that `goal@knowledge-architect@agents-get-a-complete-workflow`
-%% asks for. The commit that carries the deliberation carries the premortem's causes and criteria,
-%% as a plan document would; the rival, the premortem landing in the later commit that writes the
-%% tripwires, splits the deliberation over two commits.
+%% that reopens a thread, and work committed before it would then be undone, against
+%% `goal@knowledge-architect@agents-get-a-complete-workflow`, under which a decision reversed by
+%% accident that the workflow would have spared shows the goal unmet. The commit that carries the
+%% deliberation carries the premortem's causes and criteria, as a plan document would; the rival,
+%% the premortem landing in the later commit that writes the tripwires, splits the deliberation over
+%% two commits.
 - **The in-change path.** It is open when the decision lands in the
   change under way: its work, where that change began before the
   discussion opened, as an issue fix or a review repair does, or its
