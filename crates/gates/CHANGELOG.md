@@ -70,6 +70,11 @@ subsection is omitted.
   `--vcs` decides whether `git init` runs, and `--rust` adds the maintenance crate, its workspace
   and its cargo aliases. The core's README says
   what it refuses.
+- `cli`, patch: every command asks git about the repository the project's directory lies in,
+  whatever `GIT_DIR`, `GIT_WORK_TREE`, `GIT_COMMON_DIR`, `GIT_OBJECT_DIRECTORY` or
+  `GIT_ALTERNATE_OBJECT_DIRECTORIES` names, through the index `GIT_INDEX_FILE` names, so
+  `check --staged` runs as a pre-commit hook and judges the tree the commit records,
+  `git commit -a` included. `init` refuses `GIT_INDEX_FILE` alone.
 - `cli`, minor: `klarch new-component <DIR>` adds a Component to a project: its line in
   `[project] components`, keeping every other byte of the manifest, and its documents and homes.
 - `cli`, minor: `klarch worklist --out <dir>` writes the work list of a search of the whole

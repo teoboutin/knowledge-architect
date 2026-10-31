@@ -570,20 +570,35 @@ fn the_git_rule_holds_at_its_edges() {
     assert_eq!(code, 2, "{out}{err}");
     assert!(!scratch.path("host/owned").exists());
 
+    // An index named by the caller is refused; a variable selecting another repository is
+    // removed, so `init` creates the new directory's own repository and leaves host's alone.
+    let (out, err, code) = klarch_env(
+        &scratch.dir,
+        &["init", "indexed"],
+        &[(
+            "GIT_INDEX_FILE",
+            scratch.path("host/.git/index").to_str().unwrap(),
+        )],
+    );
+    assert_eq!(code, 2, "{out}{err}");
+    assert!(!scratch.path("indexed").exists());
     for (variable, value) in [
         ("GIT_DIR", "host/.git"),
         ("GIT_WORK_TREE", "host"),
-        ("GIT_INDEX_FILE", "host/.git/index"),
         ("GIT_COMMON_DIR", "host/.git"),
         ("GIT_OBJECT_DIRECTORY", "host/.git/objects"),
     ] {
+        let dir = format!("hooked-{}", variable.to_lowercase().replace('_', "-"));
         let (out, err, code) = klarch_env(
             &scratch.dir,
-            &["init", "hooked"],
+            &["init", &dir],
             &[(variable, scratch.path(value).to_str().unwrap())],
         );
-        assert_eq!(code, 2, "{variable}: {out}{err}");
-        assert!(!scratch.path("hooked").exists(), "{variable}");
+        assert_eq!(code, 0, "{variable}: {out}{err}");
+        assert!(
+            repo(&dir),
+            "{variable}: the new directory gets its own repository"
+        );
     }
 }
 

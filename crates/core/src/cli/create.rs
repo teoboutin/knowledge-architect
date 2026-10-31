@@ -137,24 +137,17 @@ pub fn init(
     if root.is_dir() {
         super::refuse_a_foreign_build(&root, libraries, packages)?;
     }
-    // With one of these set, git can answer from another repository's files than PATH's, and
-    // `git init` re-initialise another one; a pre-commit hook gets `GIT_INDEX_FILE`, measured
-    // with git 2.43.0. Every other command reads them too, per
-    // `issue@core@git-environment-variables-redirect-the-walk`.
-    for variable in [
-        "GIT_DIR",
-        "GIT_WORK_TREE",
-        "GIT_INDEX_FILE",
-        "GIT_COMMON_DIR",
-        "GIT_OBJECT_DIRECTORY",
-    ] {
-        if std::env::var_os(variable).is_some() {
-            return Err(format!(
-                "{variable} is set, so git would answer about another repository than {}'s: \
-                 run `init` without it. Nothing was written.",
-                root.display()
-            ));
-        }
+    // Every invocation keeps `GIT_INDEX_FILE`, since a pre-commit hook gets it for the index its
+    // commit records, per `design@core@repository-variables-dropped`. `init` belongs to no commit:
+    // a repository it creates has no index the variable can name, so git would read and stage
+    // through another one, and `init` refuses it. The variables that select another repository
+    // are removed from every invocation, `init`'s included.
+    if std::env::var_os("GIT_INDEX_FILE").is_some() {
+        return Err(format!(
+            "GIT_INDEX_FILE is set, so git would stage into another index than {}'s: run `init` \
+             without it. Nothing was written.",
+            root.display()
+        ));
     }
     let run_git = git_rule(&root, args.vcs)?;
     if !run_git {
