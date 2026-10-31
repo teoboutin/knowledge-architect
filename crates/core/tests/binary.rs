@@ -4063,6 +4063,35 @@ fn changed_lines(before: &[String], after: &[String]) -> Vec<String> {
 const STAGED_ENTRY: &str = "---\nkind: todo\n---\n# An entry staged for this commit\n\n## Summary\n\nStaged.\n\n## Details\n\n### What\n\nStaged.\n\n### Why it matters\n\nIt is.\n\n### What would close it\n\nA commit.\n";
 const WORKING_ENTRY: &str = "---\nkind: todo\n---\n# An entry left for a later commit\n\n## Summary\n\nUnstaged.\n\n## Details\n\n### What\n\nUnstaged.\n\n### Why it matters\n\nIt is.\n\n### What would close it\n\nA later commit.\n";
 
+/// The claim: `index --staged` names each generated file whose working copy differs from what it
+/// staged, with the command that writes the working tree's, and names no other. The case is an
+/// entry removed with `git rm`, after which the working copy of the register's index still lists
+/// it.
+#[test]
+fn index_staged_names_a_working_copy_that_differs_from_what_it_staged() {
+    let sandbox = Sandbox::new("index-staged-stale", "dirhome");
+    commit_all(&sandbox, "the base");
+    sandbox.git(&["rm", "-q", "docs/open-issues/an-ungrouped-entry.md"]);
+    let (out, stderr, code) = sandbox.run(&["index", "--staged"]);
+    assert_eq!(code, 0, "{out}{stderr}");
+    let line = out
+        .lines()
+        .find(|l| l.starts_with("docs/open-issues/index.md") && l.contains("working copy"))
+        .unwrap_or_else(|| panic!("a line on the working copy: {out}"));
+    assert!(line.contains("index`"), "{line}");
+    assert_eq!(
+        out.lines().filter(|l| l.contains("working copy")).count(),
+        1,
+        "no other file is named: {out}"
+    );
+    // After `index`, the working copy matches, and a second run names nothing.
+    let (out, stderr, code) = sandbox.run(&["index"]);
+    assert_eq!(code, 0, "{out}{stderr}");
+    let (out, stderr, code) = sandbox.run(&["index", "--staged"]);
+    assert_eq!(code, 0, "{out}{stderr}");
+    assert!(!out.contains("working copy"), "{out}");
+}
+
 /// The claim of `design@core@index-staged-write`: `index --staged` changes exactly the staged entries of
 /// the generated files whose staged bytes differ, a missing one included, and no working-tree
 /// file. After it the staged tree passes, while the working tree still needs its own index.
@@ -4083,7 +4112,7 @@ fn index_staged_stages_the_generated_files_and_touches_no_working_file() {
     let (out, stderr, code) = sandbox.run(&["index", "--staged"]);
     assert_eq!(code, 0, "{out}{stderr}");
     assert!(out.contains("docs/open-issues/index.md"), "{out}");
-    assert!(out.contains("staged"), "{out}");
+    assert!(out.lines().any(|l| l.ends_with(" staged")), "{out}");
     let changed: Vec<String> = changed_lines(&index_before, &index_lines(&sandbox))
         .into_iter()
         .map(|l| l.split('\t').nth(1).unwrap_or_default().to_string())
@@ -4106,7 +4135,7 @@ fn index_staged_stages_the_generated_files_and_touches_no_working_file() {
     let (out, stderr, code) = sandbox.run(&["index", "--staged"]);
     assert_eq!(code, 0, "{out}{stderr}");
     assert!(
-        !out.contains(" staged"),
+        !out.lines().any(|l| l.ends_with(" staged")),
         "a second run stages nothing: {out}"
     );
 }
