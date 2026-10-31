@@ -255,7 +255,7 @@ turns it from its direction, per `design@agent-skills@transcript-reviewer-agent`
 entry, but for a tripwire the standard or its lifecycle removes, per
 `design@agent-skills@tripwire-stands-on-the-standard`, an intent of the owner cited as a ground,
 drafted as a goal, which side of a contradiction wins where no design head, goal or source settles
-it, a verdict where a rule reads two ways and no record states the reading, a provable gap, a head
+it, a verdict where a rule reads two ways and no record states the reading, a head
 in the wrong Component and a conflict with a goal go to the owner, per
 `goal@knowledge-architect@the-owner-decides` and
 `design@agent-skills@questions-go-to-their-authority`; any finding no case names goes there too. In
@@ -266,8 +266,10 @@ project's own text and is sent upstream on the installed text. An unneeded state
 `design@agent-skills@statement-names-an-act`, takes the outcome of the table of
 `skill@knowledge-architect-agent-configuration@admission-standard`: deleted in the branch where it
 carries no instruction, moved to a `%%` comment of the installed source where only its maintainer
-reads it, and put to the owner where it is an instruction no agent performs; a review applies the
-same table, so the two judge one statement alike. Work too large for the branch and a finding the
+reads it, and, where it is an instruction no agent performs, deleted where the record settles
+that its act is no longer wanted and otherwise put to the owner; a review applies the same table,
+so the two judge one statement alike. A provable gap is filled in the branch, from the fact it
+names, per `design@agent-skills@behaviour-additions-need-real-use`. Work too large for the branch and a finding the
 owner defers each become an issue. A finding outside the axis takes the first case of
 `primer@met-outside-the-task` that applies. A finding that an issue entry already records, or that
 is on the kept list, takes no action.

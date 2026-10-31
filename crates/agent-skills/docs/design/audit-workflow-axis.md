@@ -219,14 +219,21 @@ sort dropped a finding and left a ruling of the owner off the next pass's kept l
 The designs this decision did not keep: `rejected@agent-skills@one-repair-per-finding` and
 `rejected@agent-skills@workflow-repair-steps-reused`.
 
-### A set of repairs that adds more instructions than it removes goes to the owner first, with its net count, and the word count is recorded beside it `##audit-net-growth`
+### A set of repairs that adds more instructions than it removes is reported to the owner with its net count, and an audit's pass waits for the owner's word on that growth `##audit-net-growth`
 
 An instruction is a sentence that tells an agent to do, or not to do, an act at a moment; a
 rewording that makes an existing instruction's intent clearer adds none, whatever its length. Each
 repair proposal counts the instructions it adds and removes. When the repairs to be applied together
-add more than they remove, the owner is told so first, with the net figure, and rules on that growth
-before any of them is applied, as `skill@knowledge-architect-agent-configuration@admission-standard` says.
-Each pass of the agentic-workflow axis also gives the corpus's word count before and after in its
+add more than they remove, the owner is told the net figure, and the record that applies them states
+it, as `skill@knowledge-architect-agent-configuration@admission-standard` says. In a project audit,
+the owner rules on that growth before any repair of a pass is applied, as
+`skill@knowledge-architect-project-audit@agentic-workflow-axis` says, and only there: an audit's
+lenses read the whole corpus, so the findings of a pass have no bound, where the findings of a
+piece of work, a retrospective intake's or a review's, are bounded by real use or by the work's
+diff. The bound is the owner's argument, and the growth of a sum of instructions is a cost no goal
+ranks, since `goal@agent-skills@only-needed-instructions` judges each instruction. The standard
+holds the count and the report, and the audit's own text the hold, since a fragment names none of
+its hosts, per `design@agent-skills@admission-rules-home`. Each pass of the agentic-workflow axis also gives the corpus's word count before and after in its
 commit message, for monitoring.
 
 The metric is the owner's: "I don't think word count is the correct metric here ... It should

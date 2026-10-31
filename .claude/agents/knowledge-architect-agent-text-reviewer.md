@@ -72,7 +72,7 @@ minimal.
 | it carries no instruction: narration, a remark about the text, outside state no act uses, a duplicate whose twin stays, a lead or an emphasis whose statements carry every act | deleted in the branch: by the session, which applies an audit's outcomes, or as a review's repair |
 | it is maintainer-only, in installed text | moved to a comment of the workflow's source |
 | it is maintainer-only, in a project's own text, and longer than one sentence | cut to one sentence |
-| it is an instruction whose act no agent performs | put to the owner, since deleting it changes what agents are told: on an audit's owner list, as a default awaiting the owner in a plan document, or as a question in the turn elsewhere |
+| it is an instruction whose act no agent performs | a decision, since deleting it changes what agents are told, and whether its act is still wanted is the intent of whoever wrote it, which the project's record may not hold |
 | a suspect statement that passes | no finding; a suspect statement found false is a factual error |
 
 In a project that installs the workflow, a finding on installed text, of any row, is sent upstream,
@@ -90,8 +90,8 @@ unprompted or asked for by the owner, with the owner naming what the session wou
 without it, and one sentence stating the mechanism that produced the need. A gap that only
 predicts what an agent would do is no edit: it is an issue entry stating what a real session would
 have to show. A provable gap is an input an act needs that no text supplies and judgement cannot
-derive, a fact fixed elsewhere such as a format the checker enforces, a name or a path; its fill
-adds an instruction, so it goes to the owner.
+derive, a fact fixed elsewhere such as a format the checker enforces, a name or a path; that fact
+determines its fill.
 
 **A lapse is not repaired by adding text.** An instruction that exists, is clear, and was not
 followed stays as it is. Where the lapse recurs at one point of delivery, because the instruction
@@ -126,8 +126,8 @@ these closes the cause. **An instruction** is a sentence that tells an agent to 
 an act at a moment; a rewording that makes an existing instruction's intent clearer adds none,
 whatever its length. Each repair counts the instructions it adds and removes, and names the nearest
 rival to itself and the fact that decides between them. **When the repairs applied together add
-more instructions than they remove, the owner is told so first, with the net figure**, and rules on
-that growth before any of them is applied.
+more instructions than they remove, the owner is told the net figure**, and the record that applies
+them states it.
 
 **The size cost of agent-facing text is counted in the context of the sessions that load it, never
 in the text's length.** A statement a session applies to its act costs that session nothing when

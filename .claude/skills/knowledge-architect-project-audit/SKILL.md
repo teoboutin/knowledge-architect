@@ -291,7 +291,10 @@ finding marked known or kept, and a predicted gap, take instead the outcome
 cross-check proposes each cause's outcome, and the session decides it. An item of the owner list is
 one cause, with the ids of its findings, the repair, its count and a default. The owner list states
 the net growth of the pass's repairs in the project first, where they add more instructions than
-they remove, as `skill@knowledge-architect-project-audit@repair-shape` says. Each pass's commit
+they remove, as `skill@knowledge-architect-project-audit@repair-shape` says, and the owner rules on
+that growth before any repair of the pass is applied: an audit's lenses read the whole corpus, so
+the findings of a pass, unlike those of a piece of work, have no bound, and the growth of their sum
+is a cost no rule ranks. Each pass's commit
 message also gives the corpus's word count before and after the pass, `wc -w` over the corpus's
 files.
 
@@ -299,8 +302,8 @@ files.
 
 | outcome | the findings |
 | --- | --- |
-| applied in the branch | a contradiction that a design head, a goal or a source settles, repaired to the side it settles; a rewording that changes no instruction, a two-reading instruction among them where a design head or another instruction states the reading meant; a broken trigger whose target exists under another name; a pointer added to a restatement without one, or to a project text that repeats an installed one; a factual error; a restatement whose content drifted from its home, brought back to it, becoming a pointer when it is longer than one sentence, since the repair edits what it says; an unneeded statement that carries no instruction, deleted, or that is maintainer-only, moved to a comment of the source, as the table of `skill@knowledge-architect-agent-configuration@admission-standard` gives |
-| put to the owner, on the owner list | which side of a contradiction wins where no design head, goal or source settles it, a loop with no exit among them; which standard wins, for divergent verdicts; a broken trigger or a two-reading instruction whose repair changes what agents are told, which a two-reading instruction is when nothing recorded states the reading meant; a provable gap, since filling it adds an instruction; an unneeded statement that is an instruction whose act no agent performs |
+| applied in the branch | a contradiction that a design head, a goal or a source settles, repaired to the side it settles; a rewording that changes no instruction, a two-reading instruction among them where a design head or another instruction states the reading meant; a broken trigger whose target exists under another name; a pointer added to a restatement without one, or to a project text that repeats an installed one; a factual error; a provable gap, filled from the fact it names; a restatement whose content drifted from its home, brought back to it, becoming a pointer when it is longer than one sentence, since the repair edits what it says; an unneeded statement that carries no instruction, deleted, that is an instruction whose act no agent performs and that the record settles is no longer wanted, deleted, or that is maintainer-only, moved to a comment of the source, as the table of `skill@knowledge-architect-agent-configuration@admission-standard` gives |
+| put to the owner, on the owner list | which side of a contradiction wins where no design head, goal or source settles it, a loop with no exit among them; which standard wins, for divergent verdicts; a broken trigger or a two-reading instruction whose repair changes what agents are told, which a two-reading instruction is when nothing recorded states the reading meant; an unneeded statement that is an instruction whose act no agent performs, unless the record settles that its act is no longer wanted, since whether it is still wanted is the intent of whoever wrote it |
 | an issue entry | a predicted gap; a finding the owner defers |
 
 **Sent upstream**: every finding whose outcome is sent upstream, over every pass of the audit, a
@@ -330,8 +333,8 @@ these closes the cause. **An instruction** is a sentence that tells an agent to 
 an act at a moment; a rewording that makes an existing instruction's intent clearer adds none,
 whatever its length. Each repair counts the instructions it adds and removes, and names the nearest
 rival to itself and the fact that decides between them. **When the repairs applied together add
-more instructions than they remove, the owner is told so first, with the net figure**, and rules on
-that growth before any of them is applied.
+more instructions than they remove, the owner is told the net figure**, and the record that applies
+them states it.
 
 **The size cost of agent-facing text is counted in the context of the sessions that load it, never
 in the text's length.** A statement a session applies to its act costs that session nothing when
