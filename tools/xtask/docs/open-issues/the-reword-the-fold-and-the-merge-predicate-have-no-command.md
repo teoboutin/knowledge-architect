@@ -17,11 +17,11 @@ earlier commit, and the merge predicate. A session runs each by hand, step by st
 
 `path@knowledge-architect@CLAUDE.md`, `instructions@git-workflow`:
 
-- **The reword**, point 2: write a script that reads a message on stdin, run `git filter-branch -f
-  --msg-filter '<script>' origin/main..HEAD` with a clean tree, check that `git diff <old-head>
-  HEAD` is empty and that `git range-diff` marks with `!` each commit meant to change and no other,
-  then delete the backup refs under `refs/original/`. The new wording is judgement; the steps around
-  it are not.
+- **The reword**, point 2: write a script that reads a message on stdin, run
+  `git filter-branch -f --msg-filter '<script>' origin/main..HEAD` with a clean tree, check that
+  `git diff <old-head> HEAD` is empty and that `git range-diff` marks with `!` each commit meant to
+  change and no other, then delete the backup refs under `refs/original/`. The new wording is
+  judgement; the steps around it are not.
 - **The fold of a repair**, point 2: `git commit --fixup=<commit>`, then
   `GIT_SEQUENCE_EDITOR=true git rebase -i --autosquash --keep-base origin/main` with a clean tree,
   then check that `git diff <old-head> HEAD` is empty and that the branch holds one commit fewer.

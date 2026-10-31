@@ -44,15 +44,16 @@ Each crate under crates/ declares `include` in its Cargo.toml, listing its sourc
 its README, its license files and its CHANGELOG.md, and nothing else. Cargo adds the file `readme`
 names, its CRATES-IO.md, whatever `include` says, per
 `design@knowledge-architect@crates-io-page-file`, and the three files it generates for every
-package, `.cargo_vcs_info.json`, `Cargo.lock` and `Cargo.toml.orig`; `cargo package --list -p
-<crate>` re-takes it, and the release procedure runs it. A new directory is shipped only once it is
-listed, so the test fixtures and the design documents never reach a package, and their growth cannot
-push a package past the crates.io size limit. The cost is accepted: `cargo test` cannot run from a
-downloaded package. The license files sit at the root and as copies in each directory under crates/,
-because an `include` path cannot reach outside the package directory, and the changelog ships the
-same way, per `design@knowledge-architect@the-changelog-ships-in-every-crate`. tools/xtask is never
-published, so it carries none of these copies. This keeps what a project receives to what it uses,
-per `goal@knowledge-architect@any-project-can-adopt-it`.
+package, `.cargo_vcs_info.json`, `Cargo.lock` and `Cargo.toml.orig`;
+`cargo package --list -p <crate>` re-takes it, and the release procedure runs it. A new directory is
+shipped only once it is listed, so the test fixtures and the design documents never reach a package,
+and their growth cannot push a package past the crates.io size limit. The cost is accepted:
+`cargo test` cannot run from a downloaded package. The license files sit at the root and as copies
+in each directory under crates/, because an `include` path cannot reach outside the package
+directory, and the changelog ships the same way, per
+`design@knowledge-architect@the-changelog-ships-in-every-crate`. tools/xtask is never published, so
+it carries none of these copies. This keeps what a project receives to what it uses, per
+`goal@knowledge-architect@any-project-can-adopt-it`.
 
 ### Each published crate ships the root changelog, written by `cargo x changelog` `##the-changelog-ships-in-every-crate`
 
@@ -431,8 +432,8 @@ that commit by its subject. `commits` refuses such a citation, per
 
 **A commit that changes no file does not reach main.** GitHub's rebase merge drops it: a pull
 request of eight commits, two of them made with `--allow-empty` to record the owner's rulings, gave
-main the other six. A pull request holding an empty commit re-takes it: `gh api
-repos/teoboutin/knowledge-architect/pulls/<n>/commits --jq length` against the commits main
+main the other six. A pull request holding an empty commit re-takes it:
+`gh api repos/teoboutin/knowledge-architect/pulls/<n>/commits --jq length` against the commits main
 received. So a record carried by a message alone rides on a commit that changes a file.
 
 ### Every component builds under one pinned toolchain `##toolchain-is-pinned`

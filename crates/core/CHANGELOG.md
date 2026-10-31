@@ -48,8 +48,7 @@ subsection is omitted.
   `agent@knowledge-architect-record-searcher`, which replaces both.
 - `agent-skills`, patch: every goal of a project meets the goal standard of eight rules the
   goal-setting skill now states: one outcome the owner intends, one reading, nothing ruled out that
-  the owner has not ruled out knowingly, one intent, no contradiction with another goal, a measure
-  that stays checkable, a refinement that neither widens nor contradicts its parent, and an
+  the owner has not ruled out knowingly, one intent, no contradiction with another goal, a measure in what the project builds, a refinement that neither widens nor contradicts its parent, and an
   exclusion only where it names the design it excludes. Run the review of the whole goal set,
   `skill@knowledge-architect-goal-setting@whole-set-review`: it runs in rounds, each with one goal
   reviewer per set of goals and one on the whole set, the owner answering between rounds, its record

@@ -28,8 +28,7 @@ be: `klarch init --rust` and the gates library, `knowledge-architect-gates`, ser
 
 ### Why it matters
 
-`goal@knowledge-architect@adoption-is-easy` is met while the installed skills and the core's README
-state the whole of adopting it, and `goal@knowledge-architect@rust-projects-come-first` is met only
+`goal@knowledge-architect@adoption-is-easy` is met while the installed skills taken together, and the rendered site, state the whole of adopting it, and `goal@knowledge-architect@rust-projects-come-first` is met only
 while the core's README and the setup skill state what a project in another language adopts. A
 project in another language that relies on a reference in its source being checked finds out only
 when a reference goes stale unreported.

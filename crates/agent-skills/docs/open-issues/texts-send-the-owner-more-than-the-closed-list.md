@@ -27,6 +27,12 @@ text comes into line in a change of its own. The texts:
   the wrong Component, a provable gap, and any finding no case names;
 - `design@agent-skills@behaviour-additions-need-real-use`, under which the fill of a provable gap
   goes to the owner.
+- the primer's knowledge table, whose rows for docs/audit-reports/ and docs/retrospective-reports/
+  say "the owner's ruling on each" item or finding;
+- this repository's root `CLAUDE.md`, whose row for the analysis of a received file says "the
+  owner's ruling on each", and `path@knowledge-architect@docs/retrospective-reports/README.md`,
+  which "records the owner's ruling on it", both against the rewritten
+  `design@knowledge-architect@committed-findings-analysis`.
 
 `issue@agent-skills@a-head-in-the-wrong-component-goes-to-the-owner-though-the-record-settles-the-component`
 records one of these cases on its own.

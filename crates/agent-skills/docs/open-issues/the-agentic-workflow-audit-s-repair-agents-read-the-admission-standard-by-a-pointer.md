@@ -26,8 +26,7 @@ reach them.
 
 `design@agent-skills@context-cost-of-agent-text` counts the pointer as a cost: each agent spends the
 lookup, and may shape a repair from memory instead. A repair shaped against another reading of the
-standard than the auditors' and the session's is the disagreement
-`goal@agent-skills@no-contradiction-in-workflow` asks to avoid.
+standard than the auditors' and the session's is the disagreement `goal@agent-skills@reviews-judge-by-the-writer-s-criteria` asks to avoid.
 
 ### What would close it
 

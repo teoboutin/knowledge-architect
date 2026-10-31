@@ -49,7 +49,7 @@ are the tripwire standard and its lifecycle, the rules on design heads, per
 `design@agent-skills@admission-rules-home`, the retrospective's file format and kinds of defect, the
 decision-recording skill's rules on the Component, rejected designs, the deliberation and a
 reversal, the audit's outcomes, the rule that a skill is self-sufficient, and the trigger test; the
-goal standard, per `design@agent-skills@goal-standard-eight-rules`, hosted by the goal-setting skill
+goal standard, per `design@agent-skills@goal-standard-rules`, hosted by the goal-setting skill
 and the goal reviewer; and one rule written as a fragment from the start, the size cost of
 agent-facing text, per `design@agent-skills@context-cost-of-agent-text`. The host lists of every
 fragment but the four of the admission standard are the owner's: the owner approved each list, the
