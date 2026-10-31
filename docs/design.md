@@ -3,13 +3,12 @@
 Recorded intent for the project as a whole: how the repository is laid out, how its parts are
 versioned and released, and how work reaches main. Present tense, each decision carrying a slug,
 cited as `design@knowledge-architect@<slug>`. The designs the project did not keep are
-`register@knowledge-architect@rejected`, each cited by the heads whose argument covers it. The goals these decisions serve are
-`register@knowledge-architect@goal`.
+`register@knowledge-architect@rejected`, each cited by the heads whose argument covers it. The goals
+these decisions serve are `register@knowledge-architect@goal`.
 
-**What belongs here:** a decision that survives deleting any one component. How the checker works
-is `register@core@design`; how the gates run is `register@gates@design`, and this repository's own gates
-`register@xtask@design`; how the agent
-skills are shaped is `register@agent-skills@design`.
+**What belongs here:** a decision that survives deleting any one component. How the checker works is
+`register@core@design`; how the gates run is `register@gates@design`, and this repository's own
+gates `register@xtask@design`; how the agent skills are shaped is `register@agent-skills@design`.
 
 ## 1. Layout and packaging
 
@@ -45,15 +44,15 @@ Each crate under crates/ declares `include` in its Cargo.toml, listing its sourc
 its README, its license files and its CHANGELOG.md, and nothing else. Cargo adds the file `readme`
 names, its CRATES-IO.md, whatever `include` says, per
 `design@knowledge-architect@crates-io-page-file`, and the three files it generates for every
-package, `.cargo_vcs_info.json`, `Cargo.lock` and `Cargo.toml.orig`; `cargo package --list -p <crate>` re-takes it, and
-the release procedure runs it. A new directory is shipped only once it is listed, so the test
-fixtures and the design documents never reach a package, and their growth cannot push a package past
-the crates.io size limit. The cost is accepted: `cargo test` cannot run from a downloaded package.
-The license files sit at the root and as copies in each directory under crates/, because an
-`include` path cannot reach outside the package directory, and the changelog ships the same way, per
-`design@knowledge-architect@the-changelog-ships-in-every-crate`. tools/xtask is never published, so
-it carries none of these copies. This keeps what a project receives to what it uses, per
-`goal@knowledge-architect@any-project-can-adopt-it`.
+package, `.cargo_vcs_info.json`, `Cargo.lock` and `Cargo.toml.orig`; `cargo package --list -p
+<crate>` re-takes it, and the release procedure runs it. A new directory is shipped only once it is
+listed, so the test fixtures and the design documents never reach a package, and their growth cannot
+push a package past the crates.io size limit. The cost is accepted: `cargo test` cannot run from a
+downloaded package. The license files sit at the root and as copies in each directory under crates/,
+because an `include` path cannot reach outside the package directory, and the changelog ships the
+same way, per `design@knowledge-architect@the-changelog-ships-in-every-crate`. tools/xtask is never
+published, so it carries none of these copies. This keeps what a project receives to what it uses,
+per `goal@knowledge-architect@any-project-can-adopt-it`.
 
 ### Each published crate ships the root changelog, written by `cargo x changelog` `##the-changelog-ships-in-every-crate`
 
@@ -64,9 +63,10 @@ with no address outside the crate. `cargo x changelog` writes the copies, one co
 copy, as the owner proposed: "I'd also provide a `cargo x` subcommand that updates all changelog
 copies at once". The test `every_published_crate_carries_the_root_changelog` in
 `path@xtask@src/changelog.rs` fails while one differs or a crate's `include` stops listing it, so a
-branch that writes an entry copies it before it can pass the gates. The walk skips the copies, by three `skip-files` rows of the manifest: the
-root file is checked, and they are identical to it. One changelog for every crate, rather than one
-per crate, keeps one file to write and gives each crate the whole history.
+branch that writes an entry copies it before it can pass the gates. The walk skips the copies, by
+three `skip-files` rows of the manifest: the root file is checked, and they are identical to it. One
+changelog for every crate, rather than one per crate, keeps one file to write and gives each crate
+the whole history.
 
 **The copies are committed, because cargo packages nothing else.** Measured on cargo 1.98.0: a copy
 that `include` lists and git ignores makes `cargo package --list -p <crate>` exit 101, "files in the
@@ -191,9 +191,7 @@ tests, and sits under the subsection of that test:
   consumer whose extension tests the checker over its own fixture projects otherwise meets the
   change as failing tests. A check made looser is an entry, a patch, naming the check that
   reports less: a consumer whose tests pin findings of the core's own checks must change them.
-  An entry for a change of the rules a project's recorded content must meet cites
-  the audit axis that brings that content to them, as a reference to the axis's section of the
-  audit skill, so the move of the pin runs it, per `design@agent-skills@audit-triggers`.
+  An entry for a change of the rules a project's recorded content must meet cites the section that brings that content to them, an audit axis's section of the audit skill or the goal-setting skill's review of the whole goal set, as a reference, so the move of the pin runs it, per `design@agent-skills@audit-triggers`.
 - **New features**: something a consumer can start using, in one line; the documentation carries
   the detail.
 - **Workflow**: a change to the installed skills that a person watching agent sessions would
@@ -218,16 +216,18 @@ pruned at any time. A released section's content never changes; its structure ma
 
 **A skill's or an agent's name in a released section is structure.** Writing a bare name there as
 its reference, `skill@<name>` or `agent@<name>`, changes no statement of the section, in the owner's
-view; older sections allow structural changes, on the owner's word. So does writing it back as the bare name once the skill or the agent is deleted, since the
-reference then names nothing and the section's content cannot change. Why the bare name is no
-evasion is `design@agent-skills@plain-text-is-no-repair`, and the lint that reports a bare name
+view; older sections allow structural changes, on the owner's word. So does writing it back as the
+bare name once the skill or the agent is deleted, since the reference then names nothing and the
+section's content cannot change. Why the bare name is no evasion is
+`design@agent-skills@plain-text-is-no-repair`, and the lint that reports a bare name
 `design@core@backticked-bare-id`.
 
 **So is a defined id written alone or as a word, or a reference written without its backticks.**
-Writing it as its reference is the same structural change, so the lints on ids, `design@core@backticked-bare-id`,
-`design@core@plain-word-lint` and `design@core@reference-shape-outside-span`, read a released
-section as any other, past or future. Each finding
-they give in a released section is ruled by the owner case by case, on the owner's word.
+Writing it as its reference is the same structural change, so the lints on ids,
+`design@core@backticked-bare-id`, `design@core@plain-word-lint` and
+`design@core@reference-shape-outside-span`, read a released section as any other, past or future.
+Each finding they give in a released section is ruled by the owner case by case, on the owner's
+word.
 
 ### The branch that makes a change writes its changelog entries `##the-branch-writes-its-changelog-entries`
 
@@ -250,10 +250,11 @@ and no other axis reads an entry's claims about the checker's behaviour.
 Breaking changes are allowed, and expected, while the shape of the tool and of its workflow
 converges. The project leaves 0.x only on the owner's word, and not before the open issues recorded
 from the discussion that designed it are implemented, or at least argued thoroughly: both are
-required. The condition and the list are the owner's: "take (A) for 1.0", on the principle the
-owner stated in the discussion that designed the project, that it stays at 0.x until the open
-issues of that discussion are implemented, or at least argued thoroughly. Whether the tool and its workflow have converged is a weighing, and the weighing is the
-owner's, per `goal@knowledge-architect@the-owner-decides`. The open issues are
+required. The condition and the list are the owner's: "take (A) for 1.0", on the principle the owner
+stated in the discussion that designed the project, that it stays at 0.x until the open issues of
+that discussion are implemented, or at least argued thoroughly. Whether the tool and its workflow
+have converged is a weighing, and the weighing is the owner's, per
+`goal@knowledge-architect@the-owner-decides`. The open issues are
 `issue@core@tooling-for-project-skills`, `issue@core@configuration-for-several-agent-providers`,
 `issue@core@a-component-states-at-least-one-goal`, `issue@core@cross-project-references`,
 `issue@core@a-home-for-developer-contracts-outside-agent-configuration`,
@@ -328,13 +329,13 @@ token for a crates.io token through `rust-lang/crates-io-auth-action`. crates.io
 Trusted Publishing states that the token expires after 30 minutes, and the action revokes it when
 the job ends. Each crate also has "Require trusted publishing for all new versions" turned on, under
 which crates.io rejects a publish with an API token; the crate's `trustpub_only` field in
-`https://crates.io/api/v1/crates/<crate>` re-reads it. So no stored credential can publish a
-version of these crates. The nearest rival, an API token held in a repository secret, runs the same job with
+`https://crates.io/api/v1/crates/<crate>` re-reads it. So no stored credential can publish a version
+of these crates. The nearest rival, an API token held in a repository secret, runs the same job with
 a credential that lives until it is revoked or expires, readable by any workflow of the repository
-that names the secret. Trusted Publishing covers every publish such a token covers, except the
-first version of a crate: crates.io's documentation states that the initial publish requires an
-API token. A new crate's first version is therefore outside what the release workflow can publish,
-and the release skill stops a release that would need it.
+that names the secret. Trusted Publishing covers every publish such a token covers, except the first
+version of a crate: crates.io's documentation states that the initial publish requires an API token.
+A new crate's first version is therefore outside what the release workflow can publish, and the
+release skill stops a release that would need it.
 
 ### A publish that stopped part-way is completed by re-running the job, which skips a version crates.io already holds `##partial-publish-rerun`
 
@@ -395,14 +396,15 @@ The rule binds a checkout that holds work, and a scratch worktree is outside it,
 
 A worktree made only for temporary testing, such as the one a mutation check of
 `skill@klarch-development@discriminating-tests` runs in, is outside every rule that the root
-`CLAUDE.md` restates in `instructions@git-workflow`, whichever head is its home: it holds a copy of work committed
-or kept elsewhere, records nothing durable, and is removed once the test is done, so no operation in
-it can lose content and nothing in it reaches the main branch. The scope is the owner's: the owner
-ruled that the Git rules do not apply in a scratch worktree, which is meant for temporary testing and
-not for durable work, over a second exception in the rule on losing content that admitted only the
-revert of a mutation by `git checkout -- <path>`. The case that the rule of `design@knowledge-architect@no-operation-loses-content`
-alone would refuse is several mutations reverted in one worktree, whose rival, one worktree per
-mutation, keeps the rule's letter at the cost of a full build per mutation.
+`CLAUDE.md` restates in `instructions@git-workflow`, whichever head is its home: it holds a copy of
+work committed or kept elsewhere, records nothing durable, and is removed once the test is done, so
+no operation in it can lose content and nothing in it reaches the main branch. The scope is the
+owner's: the owner ruled that the Git rules do not apply in a scratch worktree, which is meant for
+temporary testing and not for durable work, over a second exception in the rule on losing content
+that admitted only the revert of a mutation by `git checkout -- <path>`. The case that the rule of
+`design@knowledge-architect@no-operation-loses-content` alone would refuse is several mutations
+reverted in one worktree, whose rival, one worktree per mutation, keeps the rule's letter at the
+cost of a full build per mutation.
 
 ### A commit is pushed only after the commits check passed on it `##push-after-the-commits-check`
 
@@ -427,12 +429,11 @@ that commit by its subject. `commits` refuses such a citation, per
 
 ### A record carried by a commit message rides on a commit that changes a file `##a-record-rides-on-a-commit-that-changes-a-file`
 
-**A commit that changes no file does not reach main.** GitHub's rebase merge drops it: a pull request
-of eight commits, two of them made with `--allow-empty` to record the owner's rulings, gave main
-the other six. A pull request holding an empty commit re-takes it:
-`gh api repos/teoboutin/knowledge-architect/pulls/<n>/commits --jq length` against the commits
-main received. So a record carried by a message alone rides on a commit that changes
-a file.
+**A commit that changes no file does not reach main.** GitHub's rebase merge drops it: a pull
+request of eight commits, two of them made with `--allow-empty` to record the owner's rulings, gave
+main the other six. A pull request holding an empty commit re-takes it: `gh api
+repos/teoboutin/knowledge-architect/pulls/<n>/commits --jq length` against the commits main
+received. So a record carried by a message alone rides on a commit that changes a file.
 
 ### Every component builds under one pinned toolchain `##toolchain-is-pinned`
 
@@ -475,12 +476,12 @@ build compiles and what its binary prints:
 
 The nearest rival is a separate `CARGO_TARGET_DIR` per checkout. It is an instruction, and nothing
 checks that a session followed it: thaum's rejected alternatives list three runs of another
-checkout's build, from two review checkouts and one probe, and thaum's own issue on the second
-says whether that reviewer set the directory is not established. The tie is the prevention, and it
-holds whatever target directory the session sets. The separate directory stays an instruction of the review skill,
-for the rebuilds it saves and for the build lock two checkouts would otherwise wait on. `design@core@a-foreign-build-is-refused` stays the detector. The cost is
-a rebuild at each switch between checkouts that share a target directory. A single checkout pays
-nothing.
+checkout's build, from two review checkouts and one probe, and thaum's own issue on the second says
+whether that reviewer set the directory is not established. The tie is the prevention, and it holds
+whatever target directory the session sets. The separate directory stays an instruction of the
+review skill, for the rebuilds it saves and for the build lock two checkouts would otherwise wait
+on. `design@core@a-foreign-build-is-refused` stays the detector. The cost is a rebuild at each
+switch between checkouts that share a target directory. A single checkout pays nothing.
 
 The design this decision did not keep:
 `rejected@knowledge-architect@build-tied-to-cargo-manifest-dir`.
@@ -503,8 +504,8 @@ retrospective's workflow file, per `design@agent-skills@audit-outcomes`. Here th
 repository, so such a finding is edited at its source, under `path@agent-skills@content/`, with the
 outcomes of a finding on the project's own text, and no upstream file is written: the file would
 only carry the findings back to the session that found them. Each repair of such a finding, its
-proposal and its check included, is an edit of the installed text, so it passes the standard that `path@agent-skills@CLAUDE.md` sends every such edit
-through. The installed text holds no branch for
+proposal and its check included, is an edit of the installed text, so it passes the standard that
+`path@agent-skills@CLAUDE.md` sends every such edit through. The installed text holds no branch for
 the project that publishes it, as the owner stated of this repository's use of the workflow for its
 own text: the owner did not want the installed files to cater too much to that use. So the root
 `CLAUDE.md` states this case, in `instructions@repository-skills`.
@@ -532,11 +533,11 @@ an issue, or no change with the reason. The session decides and reports the outc
 from the goals and the record settles, and the owner rules on an outcome only where
 `goal@knowledge-architect@the-owner-decides` gives the owner its question, since what real use
 changes in the workflow is decided as that goal says, per
-`goal@knowledge-architect@the-workflow-improves-through-real-use`. The installed intake's fourth outcome, sent upstream, does
-not apply, since this repository is the upstream, per
+`goal@knowledge-architect@the-workflow-improves-through-real-use`. The installed intake's fourth
+outcome, sent upstream, does not apply, since this repository is the upstream, per
 `design@knowledge-architect@workflow-findings-stay-here`. A finding handled now that grows into a
-design discussion has its outcome rewritten to name the plan document or the issue that carries
-it, so the file still leaves.
+design discussion has its outcome rewritten to name the plan document or the issue that carries it,
+so the file still leaves.
 
 The file is the record of the rulings, so every finding of a received file reaches an outcome that
 history keeps, per `goal@knowledge-architect@the-workflow-improves-through-real-use`. Its nearest

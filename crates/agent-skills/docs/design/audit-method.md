@@ -7,15 +7,18 @@
 A project audit reads every entry or text of a corpus on one axis and brings what fails into line,
 under `skill@knowledge-architect-project-audit`, which holds the method, the outcomes and one
 section per axis; a repair of agent-facing text is judged by the standard of
-`design@agent-skills@admission-rules-home`. Its artifact is a repaired
-record across the project, where a review's is a verdict on one branch, so the two hold different
-standards: what a diff owes, and what the whole record owes. The nearest rival, a whole-project
-mode of the review skill, would hold both standards in one text. A skill per axis would restate the
-method in each, against `goal@agent-skills@one-skill-per-activity`, while the method is generic
-and each axis gives only its corpus, its dispatch and its outcomes, per
-`design@agent-skills@audit-method`. Every review reads a diff, so without an audit a drift between
-two heads no branch touches is read by no step of the workflow, against
-`goal@knowledge-architect@documentation-stays-consistent`.
+`design@agent-skills@admission-rules-home`. Its artifact is a repaired record across the project,
+where a review's is a verdict on one branch, so the two hold different standards: what a diff owes,
+and what the whole record owes. The nearest rival, a whole-project mode of the review skill, would
+hold both standards in one text. A skill per axis would restate the method in each, against
+`goal@agent-skills@one-skill-per-activity`, while the method is generic and each axis gives only its
+corpus, its dispatch and its outcomes, per `design@agent-skills@audit-method`. Every review reads a
+diff, so without an audit a drift between two heads no branch touches is read by no step of the
+workflow, against `goal@knowledge-architect@documentation-stays-consistent`. The goals are the
+exception: their review of the whole set reads the whole project on one aspect and runs inside
+goal-setting, since its methodology is goal-setting's and an activity is its methodology, per
+`design@agent-skills@goal-set-review-in-goal-setting`; the argument above, two standards in one
+text, does not reach one standard that serves a draft and a whole set.
 
 ### An audit's method holds for every axis, each axis giving its own dispatch `##audit-method`
 
@@ -114,18 +117,18 @@ drafts with their reasons, the run's counts, each finding or cause with its quot
 verdicts, its edit before and after, its check and a proposed outcome, the overlap map, a draft of
 the owner list, and what the run did not decide.
 
-After the run the session verifies the report, as the axis's section of the audit skill says,
-since the owner list goes out under its responsibility: the report whole, every finding the report
-marks as plausible or as bearing on a ruling of the owner or on a tripwire, against its draft, and
-a sample of the refuted drafts, with what the axis adds: every repair proposal in full for the
+After the run the session verifies the report, as the axis's section of the audit skill says, since
+the owner list goes out under its responsibility: the report whole, every finding the report marks
+as plausible or as bearing on a ruling of the owner or on a tripwire, against its draft, and a
+sample of the refuted drafts, with what the axis adds: every repair proposal in full for the
 agentic-workflow axis; the calibration's readings, every check and a sample of the conforming drafts
-for the design-record axis. The samples are the session's to choose, on the owner's word that
-leaves the sample to judgement. The owner list, the owner's word and the application follow. The run ends at
-its report, and the application is the session's, per
+for the design-record axis. The samples are the session's to choose, on the owner's word that leaves
+the sample to judgement. The owner list, the owner's word and the application follow. The run ends
+at its report, and the application is the session's, per
 `design@agent-skills@apply-stays-with-the-session`. The design-record axis then runs its workflow
 once more on the application, in the mode `application`, per
-`design@agent-skills@application-judged-by-diff`: the owner's ruling and the session's
-application sit between the two runs, so no single run can hold both.
+`design@agent-skills@application-judged-by-diff`: the owner's ruling and the session's application
+sit between the two runs, so no single run can hold both.
 
 The shape is the owner's: the main power of a saved workflow is to organize several complex steps
 into one complete result, such as a report, as ready as possible for the main session to discuss
@@ -226,10 +229,11 @@ does not see a file the branch deleted.
 
 The proposal is the owner's: "I think it might be a good thing for the audit report to be kept in
 history, committed somewhere (maybe docs/audit-reports) and deleted once acted upon, just like retro
-intake reports.", and so is its scope, every axis: "every axis for the report". A working file of the session is lost with its scratch directory, and the evidence of a pass, its
-drafts and their quoted texts, was needed after the pass, to classify its findings again as on old
-or new text. The nearest rival, the commit messages alone, keeps the outcomes and loses the
-evidence, and a commit that records rulings and changes no file is dropped by GitHub's rebase merge, as
+intake reports.", and so is its scope, every axis: "every axis for the report". A working file of
+the session is lost with its scratch directory, and the evidence of a pass, its drafts and their
+quoted texts, was needed after the pass, to classify its findings again as on old or new text. The
+nearest rival, the commit messages alone, keeps the outcomes and loses the evidence, and a commit
+that records rulings and changes no file is dropped by GitHub's rebase merge, as
 `design@knowledge-architect@a-record-rides-on-a-commit-that-changes-a-file` measured. History grows
 by the report's size at each pass, and the tree by nothing once the file leaves.
 
@@ -238,32 +242,34 @@ The design this decision did not keep: `rejected@agent-skills@commit-messages-as
 ### Every finding of an audit takes exactly one outcome of its axis's table, and none is left to judgement `##audit-outcomes`
 
 Every finding takes exactly one outcome, from the generic table of
-`skill@knowledge-architect-project-audit@finding-outcomes` as its axis's section fills it: applied in the
-branch, put to the owner, sent upstream, an issue entry, or nothing. An edit that changes no
+`skill@knowledge-architect-project-audit@finding-outcomes` as its axis's section fills it: applied
+in the branch, put to the owner, sent upstream, an issue entry, or nothing. An edit that changes no
 ruling of the owner is applied in the audit's branch: a rewording, a tense, a reference, a split
 that moves no word of the owner, a rejected alternative repaired in place, a factual error, a
 pointer whose target exists under another name, a drifted restatement brought back to its home, an
 instruction read two ways reworded to the reading a design head or another instruction states. An
-approval cited as a head's ground is removed in the branch where the head stands on its argument,
-or recorded as the session's choice at a fork, and the owner's pick at a fork cited as a ground is
+approval cited as a head's ground is removed in the branch where the head stands on its argument, or
+recorded as the session's choice at a fork, and the owner's pick at a fork cited as a ground is
 recorded in the weak form, per `design@agent-skills@fork-choice-in-weak-form`, since each repair
-removes a false ground and relaxes nothing. A change that relaxes what the owner's words approved
-or turns it from its direction, per `design@agent-skills@transcript-reviewer-agent`, the removal of
-an entry, but for a tripwire the standard or its lifecycle removes, per
+removes a false ground and relaxes nothing. A change that relaxes what the owner's words approved or
+turns it from its direction, per `design@agent-skills@transcript-reviewer-agent`, the removal of an
+entry, but for a tripwire the standard or its lifecycle removes, per
 `design@agent-skills@tripwire-stands-on-the-standard`, an intent of the owner cited as a ground,
-drafted as a goal, which side of a
-contradiction wins where no design head, goal or source settles it, a verdict where a rule reads
-two ways and no record states the reading, a
-provable gap, a head in the wrong Component and a conflict with a goal go to the owner, per
-`goal@knowledge-architect@the-owner-decides` and `design@agent-skills@questions-go-to-their-authority`; any finding no case names goes there too. In the
-agentic-workflow axis, an instruction read two ways goes to the owner where nothing recorded states
-the reading meant, and is applied where a design head or another instruction states it. A predicted gap, per `design@agent-skills@behaviour-additions-need-real-use`, becomes an issue on the project's own text and is sent upstream on the installed text. An unneeded statement, per
+drafted as a goal, which side of a contradiction wins where no design head, goal or source settles
+it, a verdict where a rule reads two ways and no record states the reading, a provable gap, a head
+in the wrong Component and a conflict with a goal go to the owner, per
+`goal@knowledge-architect@the-owner-decides` and
+`design@agent-skills@questions-go-to-their-authority`; any finding no case names goes there too. In
+the agentic-workflow axis, an instruction read two ways goes to the owner where nothing recorded
+states the reading meant, and is applied where a design head or another instruction states it. A
+predicted gap, per `design@agent-skills@behaviour-additions-need-real-use`, becomes an issue on the
+project's own text and is sent upstream on the installed text. An unneeded statement, per
 `design@agent-skills@statement-names-an-act`, takes the outcome of the table of
 `skill@knowledge-architect-agent-configuration@admission-standard`: deleted in the branch where it
 carries no instruction, moved to a `%%` comment of the installed source where only its maintainer
 reads it, and put to the owner where it is an instruction no agent performs; a review applies the
-same table, so the two judge one statement alike. Work too large for the branch and a finding the owner
-defers each become an issue. A finding outside the axis takes the first case of
+same table, so the two judge one statement alike. Work too large for the branch and a finding the
+owner defers each become an issue. A finding outside the axis takes the first case of
 `primer@met-outside-the-task` that applies. A finding that an issue entry already records, or that
 is on the kept list, takes no action.
 
@@ -296,13 +302,13 @@ project's goals, for example.
 
 The verifier is the axis's own auditor under a verify brief, per
 `design@agent-skills@audit-agent-per-axis`, in its auditor's worktree. It checks every quotation
-against the tree, a quotation or an attribution of the owner against the question it answered, and that what a draft
-describes exists. It marks known a draft whose finding an issue entry records, and kept a draft on
-the kept list. It marks a finding that a ruling's premise has proved false as bearing on that
-ruling, and leaves it to the session. Its verdict per draft is verified, refuted or plausible, with
-a reason, and a refuted draft is kept with its reason, for the session's sample. It reads the kept
-list, the issues listing and the record of the audit's earlier passes, their commit messages and
-their report files, so it can make the refutations that rest on the audit's history.
+against the tree, a quotation or an attribution of the owner against the question it answered, and
+that what a draft describes exists. It marks known a draft whose finding an issue entry records, and
+kept a draft on the kept list. It marks a finding that a ruling's premise has proved false as
+bearing on that ruling, and leaves it to the session. Its verdict per draft is verified, refuted or
+plausible, with a reason, and a refuted draft is kept with its reason, for the session's sample. It
+reads the kept list, the issues listing and the record of the audit's earlier passes, their commit
+messages and their report files, so it can make the refutations that rest on the audit's history.
 
 In the agentic-workflow axis, each auditor's drafts go to its verifier as soon as the auditor
 returns, and the verifier splits a finding of the interaction of the installed text and the
@@ -325,12 +331,15 @@ before the session's verification, per `design@agent-skills@one-run-pass`.
 ### An audit runs on an occasion whose own work needs the record read under the rules, never on a period `##audit-triggers`
 
 The owner's request is the main occasion. A version that changes the rules recorded content must
-meet cites the axis that brings a project's record to them in its Migration entry, per
+meet cites the section that brings a project's record to them in its Migration entry, an audit
+axis's or the goal-setting skill's review of the whole goal set,
+`skill@knowledge-architect-goal-setting@whole-set-review`, per
 `design@knowledge-architect@changelog-entries`, and `skill@knowledge-architect-setup@moving-the-pin`
-runs it after the pin's commit; `skill@knowledge-architect-setup@existing-documentation` runs the
-design-record axis at the end of the work that moves a project's documents into the homes. Each
-occasion is one whose own work needs the record read under the rules. The rival, a periodic audit,
-has no evidence for a period, and `design@agent-skills@behaviour-additions-need-real-use` asks for one.
+runs either in a branch of its own once the pin move has merged;
+`skill@knowledge-architect-setup@existing-documentation` runs the design-record axis at the end of
+the work that moves a project's documents into the homes. Each occasion is one whose own work needs
+the record read under the rules. The rival, a periodic audit, has no evidence for a period, and
+`design@agent-skills@behaviour-additions-need-real-use` asks for one.
 
 ### Each audit axis has an installed agent of its own, which carries the axis's standard `##audit-agent-per-axis`
 
@@ -348,10 +357,10 @@ Beside the repair of a head a change touches, `design@agent-skills@existing-head
 project audit brings every head and every rejected alternative to the rules at once, under
 `design@agent-skills@audit-method`, a change that relaxes or turns the owner's words going to the
 owner on one list, on the occasions of `design@agent-skills@audit-triggers`. Its premise is the
-owner's: with the changes then made to the conditions and the shapes of decision records, the
-owner predicted that projects migrating at the next pin would need to bring their design homes to
-them, a need each later change of those rules renews. A repair on touch never reaches a head no change touches.
-The rival, the repair on touch alone, leaves a project's record under the old rules after its
-migration.
+owner's: with the changes then made to the conditions and the shapes of decision records, the owner
+predicted that projects migrating at the next pin would need to bring their design homes to them, a
+need each later change of those rules renews. A repair on touch never reaches a head no change
+touches. The rival, the repair on touch alone, leaves a project's record under the old rules after
+its migration.
 
 The design this decision did not keep: `rejected@agent-skills@head-repaired-only-when-touched`.
