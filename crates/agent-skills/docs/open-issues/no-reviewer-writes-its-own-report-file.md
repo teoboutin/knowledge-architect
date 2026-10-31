@@ -19,6 +19,10 @@ Instance: the retrospective of the session that reduced the grounding's reading,
 sixteen reports arrived as messages, and the session saved condensed copies rather than whole ones,
 against the instruction, since writing each whole meant restating it.
 
+A further instance: the review before the merge of the intake of seventeen retrospective files of
+2026-10-25 to 2026-10-31. Eight reports arrived as messages, each asking to be saved whole; the
+dispatcher saved condensed copies of the first seven, and the transcript reviewer reported it.
+
 ### Why it matters
 
 A condensed copy loses what the record of the review needs, and the save follows from the report

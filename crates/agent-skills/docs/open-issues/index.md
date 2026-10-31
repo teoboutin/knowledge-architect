@@ -1,6 +1,6 @@
 **Generated — do not edit.** `cargo klarch index`
 
-53 entries
+54 entries
 
 | kind | title |
 | --- | --- |
@@ -33,6 +33,7 @@
 | question | [The audit that ends the move of an adopting project's documents is stated where the move's sessions do not read](the-closing-audit-of-a-move-reaches-no-planning-text.md) |
 | question | [The issue-tracking skill gives the cold-reader standard to `defect` alone in one place and to every entry in another](the-cold-reader-standard-s-scope-reads-two-ways.md) |
 | question | [The design-record auditor's return names two verdict vocabularies](the-design-record-auditor-s-return-names-two-verdict-vocabularies.md) |
+| question | [The retrospective intake's searches of the history assume a full clone](the-intake-s-history-searches-assume-a-full-clone.md) |
 | question | [Does the design skill's open-space test leave bounded work almost unreachable?](the-open-space-test-may-admit-every-problem.md) |
 | question | [The planning skill answers every material finding with a default, and states no hold for one that defeats a premise of the owner's ruling](the-planning-skill-answers-every-material-finding-with-a-default.md) |
 | question | [The primer and its head name a guard's issue under two conditions](the-primer-and-its-head-name-a-guard-s-issue-under-two-conditions.md) |
