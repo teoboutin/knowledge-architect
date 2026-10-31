@@ -743,7 +743,15 @@ pub(super) fn index_staged(
         }
     }
     let mut stale = Vec::new();
+    // **A working copy that differs from what was staged is named.** No working-tree file is
+    // written, per `design@core@index-staged-write`, so after an entry removed with `git rm` the
+    // working copy still lists it, and a session that edits the register next works from it. A
+    // copy that cannot be read differs as well.
+    let mut differing = Vec::new();
     for (rel, text) in generated {
+        if std::fs::read_to_string(root.join(&rel)).ok().as_ref() != Some(&text) {
+            differing.push(rel.clone());
+        }
         if assembly.committed.get(&rel) == Some(&text) {
             outln!("{:<40} already current", rel.display());
         } else {
@@ -753,6 +761,14 @@ pub(super) fn index_staged(
     crate::git::stage_generated(root, &stale).map_err(|e| format!("{e}. Nothing was staged."))?;
     for (rel, _) in &stale {
         outln!("{:<40} staged", rel.display());
+    }
+    for rel in &differing {
+        outln!(
+            "{:<40} the working copy differs from the staged file: `{} index` writes the \
+             working tree's",
+            rel.display(),
+            manifest.command()
+        );
     }
     Ok(ExitCode::SUCCESS)
 }

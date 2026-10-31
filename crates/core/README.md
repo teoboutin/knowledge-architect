@@ -274,12 +274,14 @@ per `design@core@index-staged-write`.
 It generates each file from the tree git's index would commit, which is HEAD's tree with the
 staged changes, and sets the staged entry of each one whose bytes differ. No working-tree file
 changes: after it, `check --staged` passes on what will be committed, and the working tree keeps
-the rows of the working tree for a later commit.
+the rows of the working tree for a later commit. Each generated file whose working copy differs
+from what it staged is named, with `index`, which writes the working tree's.
 
 ```
 $ cargo klarch index --staged
 docs/plans/specs/index.md                already current
 docs/open-issues/index.md                staged
+docs/open-issues/index.md                the working copy differs from the staged file: `cargo klarch index` writes the working tree's
 ```
 
 It refuses with exit 2, having staged nothing, when phases 1 to 3 of the staged tree find

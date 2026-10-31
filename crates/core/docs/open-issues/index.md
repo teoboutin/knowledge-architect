@@ -1,6 +1,6 @@
 **Generated — do not edit.** `cargo klarch index`
 
-47 entries
+46 entries
 
 | kind | title |
 | --- | --- |
@@ -39,7 +39,6 @@
 | todo | [An extension cannot see which register, anchor or entry a document belongs to](an-extension-cannot-see-which-register-a-document-belongs-to.md) |
 | todo | [`commits` sees a citation of a branch commit by SHA only when the cited commit is in the range it judges](branch-sha-citations-are-judged-within-the-range-only.md) |
 | todo | [The findings' texts are not audited against the rule that a cause is named only where the repair depends on it](finding-texts-are-not-audited-for-a-needless-cause.md) |
-| todo | [`index --staged` gives no sign when the working copy of a file it staged now differs](index-staged-leaves-the-working-copy-stale-silently.md) |
 | todo | [The installed-file findings sit in phase 2, where the core's placement rule puts them in phase 4](installed-file-findings-belong-in-phase-four.md) |
 | todo | [No command counts a tripwire's horizon](no-command-counts-a-tripwire-s-horizon.md) |
 | todo | [No command lists the item and label numbers in use in a plan, its deleted documents included](no-command-lists-the-numbers-in-use-in-a-plan-across-its-history.md) |
