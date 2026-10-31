@@ -162,7 +162,7 @@ where each is judged or updated:
 | `design@agent-skills@committed-intake-analysis` | committed at once; the owner's ruling only on owner items; the branch merges after them | the intake's `%%` comment: step 2; `issue@agent-skills@pointers-written-bare-to-clear-a-finding-reach-no-check`, which keeps its pointer beside the plain path: no change; `design@knowledge-architect@committed-findings-analysis`: step 3 |
 | `design@agent-skills@installed-fix-goes-upstream` | "The action, an edit of the workflow file or of the issue that carries it, is the owner's" narrows to a publication | the primer's paragraph on an item met outside the task and the intake: step 2, the primer checked, no change, since it names the route and not who edits; `design@agent-skills@met-outside-the-task-outcomes`, `design@agent-skills@intake-takes-the-project-file`, `design@knowledge-architect@workflow-findings-stay-here` and `issue@agent-skills@an-item-kept-for-the-retrospective-is-lost-when-no-retrospective-follows`: checked in step 2, no change, since none says who edits |
 | `design@agent-skills@intake-shares-the-admission-standard` | "and the owner's ruling on every finding" leaves; "The worth of a fix and its shape do not differ" gains the one difference, the hold on growth that the audit keeps, on `argument@intake-decides-by-authority@arg-30` | the intake's `%%` comment: step 2 |
-| `design@agent-skills@received-file-marked` | H3 | `issue@agent-skills@a-handled-retrospective-file-is-marked-where-it-lies`, closed in step 3, since this repository's intake cites it until then; `issue@agent-skills@pointers-written-bare-to-clear-a-finding-reach-no-check`: no change |
+| `design@agent-skills@received-file-marked` | H3 | `a-handled-retrospective-file-is-marked-where-it-lies`, closed in step 3, since this repository's intake cites it until then; `issue@agent-skills@pointers-written-bare-to-clear-a-finding-reach-no-check`: no change |
 | `design@agent-skills@admission-rules-home` | the fragments hold the standard; who decides an outcome is each activity's text, per `primer@question-authority` | the four fragments' `%%` lines: no change; the heads `design@agent-skills@audit-method`, the agentic-workflow axis's heads, `design@agent-skills@context-cost-of-agent-text`, `design@agent-skills@intake-shares-the-admission-standard`, the reviews' heads and `design@agent-skills@shared-text-fragment`, `issue@agent-skills@patching-an-installed-skill`, `issue@agent-skills@the-agentic-workflow-audit-s-repair-agents-read-the-admission-standard-by-a-pointer` and the two tripwires on the standard: checked in step 1, each listed by `cargo klarch show design@agent-skills@admission-rules-home` |
 | `design@agent-skills@audit-net-growth` | every actor counts the growth and tells the owner the net figure; the hold is the audit's own text, on `argument@intake-decides-by-authority@arg-30` | none cites it: step 1 |
 | `design@agent-skills@behaviour-additions-need-real-use` | a provable gap's fill takes the outcome its authority gives, in every activity, the audit included: the fact the gap names determines it | `issue@agent-skills@texts-send-the-owner-more-than-the-closed-list`: step 3; `design@agent-skills@audit-outcomes`: step 1; the other citers, the agent-skills heads on the audit, the configuration, the record search and the retrospective, two issues and `tripwire@agent-skills@agent-text-written-without-the-standard`: checked in step 1, each kept unless it restates the gate |
@@ -218,7 +218,7 @@ passing. Each `bears` entry and its outcome:
 - Issues: `issue@agent-skills@texts-send-the-owner-more-than-the-closed-list` stays open for the
   audit, its intake items marked done, its audit items kept, and its attribution of the owner's
   ruling reworded (step 3);
-  `issue@agent-skills@a-handled-retrospective-file-is-marked-where-it-lies` closes (step 3);
+  `a-handled-retrospective-file-is-marked-where-it-lies` closes (step 3);
   `issue@agent-skills@a-pending-ruled-file-is-reached-by-no-installed-search` stays, its premise that
   an analysis is committed before any outcome reworded in step 3;
   `issue@agent-skills@patching-an-installed-skill` stays: this repository's intake still sets aside
@@ -1000,7 +1000,7 @@ the record settles, or that merges with an owner item pending.
 **Builds**: `design@knowledge-architect@committed-findings-analysis` rewritten in place; this
 repository's intake, its section on what becomes of received files pointing to the installed rule
 on a handled file, and its citation of the closing issue removed; the closure of
-`issue@agent-skills@a-handled-retrospective-file-is-marked-where-it-lies`; the root `CLAUDE.md`
+`a-handled-retrospective-file-is-marked-where-it-lies`; the root `CLAUDE.md`
 row for the analysis; the README of `path@knowledge-architect@docs/retrospective-reports/`; the
 rewording of `issue@agent-skills@texts-send-the-owner-more-than-the-closed-list`: its intake items,
 its provable-gap items and its knowledge-table row for the analysis removed from its list, since
@@ -1054,7 +1054,7 @@ the owner.
 | the decisions of the threads | rewritten in place in the heads listed in "What is already decided", in the steps that land them, per `design@agent-skills@design-home-is-built-intent` | steps 1 to 3 |
 | the losing alternatives, `thread@intake-decides-by-authority@fragment-holds-no-routing`'s first shape included | judged by the tests of `skill@knowledge-architect-decision-recording@losing-alternatives`; each that earns one, a `rejected` entry of agent-skills cited by its head | the last commit of step 3 |
 | premortem causes 1, 3, 4, 5 | judged by the tripwire standard, as `skill@knowledge-architect-decision-recording@ruled-tripwires` says, on their wording then | the last commit of step 3 |
-| the issues | `issue@agent-skills@a-handled-retrospective-file-is-marked-where-it-lies` closed; `issue@agent-skills@texts-send-the-owner-more-than-the-closed-list` and `issue@agent-skills@a-pending-ruled-file-is-reached-by-no-installed-search` reworded | step 3 |
+| the issues | `a-handled-retrospective-file-is-marked-where-it-lies` closed; `issue@agent-skills@texts-send-the-owner-more-than-the-closed-list` and `issue@agent-skills@a-pending-ruled-file-is-reached-by-no-installed-search` reworded | step 3 |
 
 ## Later consequences
 

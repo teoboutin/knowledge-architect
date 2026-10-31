@@ -39,6 +39,13 @@ prevailing over the planning sentence. The owner judged, in the discussion of W4
 routing is what the owner wants, on the reading that a question with no sensible default holds its
 part, which the primer and the design skill already state.
 
+A further instance, in a plan review: the design-conformance review of
+`spec@plans@intake-decides-by-authority` found that the audit's gates, kept by a word of the owner,
+conflicted with `goal@knowledge-architect@the-owner-decides`. The session answered it as a material
+finding with a default, `D1`, and wrote the work that rested on it as built; the second reading of
+the same review found that a conflict between a word of the owner and a goal holds its part, per
+`primer@goals-bind`, and the part was held until the owner ruled.
+
 ### Why it matters
 
 Two installed instructions that answer one moment differently leave a session to pick one, against

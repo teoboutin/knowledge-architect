@@ -6,33 +6,30 @@ kind: defect
 ## Summary
 
 `goal@knowledge-architect@the-owner-decides` gives the owner a closed list of what the workflow
-sends to the owner, "and nothing else". Several texts send the owner more: an outcome for every
-finding of an intake, the fill of a provable gap, the removal of an entry, a head in the wrong
-Component, and any audit finding no case names, each of which the argument from the goals and the
-record can settle.
+sends to the owner, "and nothing else". The project audit sends the owner more: the removal of an
+entry, a head in the wrong Component, and any finding no row names, each of which the argument from
+the goals and the record can settle.
 
 ## Details
 
 ### What
 
 Found by the goal reviewer's draft-mode reviews of the first batch of goals on the branch of the
-goal standard's spec, deleted by "[plans] The goal-standard spec leaves: its work has landed". The owner ruled that the closed list stands and that each
-text comes into line in a change of its own. The texts:
+goal standard's spec, deleted by "[plans] The goal-standard spec leaves: its work has landed". The owner ruled that the closed list stands, and
+that the texts come into line in work apart from the session that found them, one whole activity at
+a time, so that no activity is left half changed. The texts left:
 
-- `skill@knowledge-architect-retrospective-intake`, which offers the owner an outcome for every
-  finding, a typo's included;
-- `skill@klarch-retrospective-intake`, which adds to it in this repository, and whose head,
-  `design@knowledge-architect@committed-findings-analysis`, already states the closed list;
-- `design@agent-skills@audit-outcomes`, which sends the owner the removal of an entry, a head in
-  the wrong Component, a provable gap, and any finding no case names;
-- `design@agent-skills@behaviour-additions-need-real-use`, under which the fill of a provable gap
-  goes to the owner.
-- the primer's knowledge table, whose rows for docs/audit-reports/ and docs/retrospective-reports/
-  say "the owner's ruling on each" item or finding;
-- this repository's root `CLAUDE.md`, whose row for the analysis of a received file says "the
-  owner's ruling on each", and `path@knowledge-architect@docs/retrospective-reports/README.md`,
-  which "records the owner's ruling on it", both against the rewritten
-  `design@knowledge-architect@committed-findings-analysis`.
+- `design@agent-skills@audit-outcomes` and the audit's outcome tables, which send the owner the
+  removal of an entry, a head in the wrong Component, and any finding no row names;
+- the primer's knowledge table, whose row for docs/audit-reports/ says "the owner's ruling on each
+  of its items".
+
+The retrospective intake's texts, and the admission standard's routing of a growth of instructions,
+a provable gap's fill and an instruction no agent performs, were brought into line by the work of
+`spec@plans@intake-decides-by-authority`. The audit keeps its hold on a pass's net growth, a cost no
+goal ranks, per `design@agent-skills@audit-net-growth`, and its owner-list case of an instruction no
+agent performs, where the record does not settle whether its act is still wanted, a fact only the
+owner holds.
 
 `issue@agent-skills@a-head-in-the-wrong-component-goes-to-the-owner-though-the-record-settles-the-component`
 records one of these cases on its own.

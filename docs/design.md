@@ -532,7 +532,8 @@ file's stem, the home and the life `design@agent-skills@committed-intake-analysi
 project's analysis of its own file. Each finding gets one of three outcomes: handled now, opened as
 an issue, or no change with the reason. The session decides and reports the outcome the argument
 from the goals and the record settles, and the owner rules on an outcome only where
-`goal@knowledge-architect@the-owner-decides` gives the owner its question, since what real use
+`goal@knowledge-architect@the-owner-decides` gives the owner its question, as the installed intake
+does in every project, per `design@agent-skills@intake-outcome-authority`, since what real use
 changes in the workflow is decided as that goal says, per
 `goal@knowledge-architect@the-workflow-improves-through-real-use`. The installed intake's fourth
 outcome, sent upstream, does not apply, since this repository is the upstream, per
@@ -540,8 +541,8 @@ outcome, sent upstream, does not apply, since this repository is the upstream, p
 design discussion has its outcome rewritten to name the plan document or the issue that carries it,
 so the file still leaves.
 
-The file is the record of the rulings, so every finding of a received file reaches an outcome that
-history keeps, per `goal@knowledge-architect@the-workflow-improves-through-real-use`. Its nearest
+The file is the record of the outcomes, each with its ground, the session's decision or the owner's
+ruling, so every finding of a received file reaches an outcome that history keeps, per `goal@knowledge-architect@the-workflow-improves-through-real-use`. Its nearest
 rival, the ledger of outcomes in the message of the commit that handles the first finding, fails
 on a file whose findings all end in no change: that commit changes no file, and the rebase merge
 drops a commit that changes no file, per

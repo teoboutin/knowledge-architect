@@ -174,7 +174,8 @@ session's default, 305 of 368 `Outcome` lines of the 60 analyses deleted up to c
 with an approval word, each analysis found with `git log --diff-filter=D --name-only --
 docs/retrospective-reports/` and read with `git show <commit>^:<path>`. The nearest rival, a batch
 confirmation of every default, keeps the question with the owner, and a word that hands judgement
-over is no ground, per `rejected@agent-skills@delegated-decision-state`.
+over is no ground, per `rejected@agent-skills@delegated-decision-state`. The incumbent, the owner's
+ruling owed on every finding, is `rejected@agent-skills@owner-rules-each-intake-finding`.
 
 The analysis keeps its shape, one section per finding with its evidence and its `Default` and
 `Outcome` lines, and the summary in the conversation says of each line who holds it, so that the
