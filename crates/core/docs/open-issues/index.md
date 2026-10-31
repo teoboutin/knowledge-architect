@@ -1,6 +1,6 @@
 **Generated — do not edit.** `cargo klarch index`
 
-45 entries
+44 entries
 
 | kind | title |
 | --- | --- |
@@ -48,4 +48,3 @@
 | todo | [The graded entries carry a shared entry's grade once per agent](the-graded-entries-repeat-a-shared-entry-s-grade-per-agent.md) |
 | todo | [The walk does not report the untracked files git's per-clone exclude file removes from it](the-walk-does-not-report-what-the-per-clone-exclude-file-removes.md) |
 | todo | [The checker does not read the structure of a project's own skills](tooling-for-project-skills.md) |
-| todo | [`worklist` prints each agent's load and never a group's](worklist-prints-no-group-s-load.md) |

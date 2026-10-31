@@ -82,7 +82,8 @@ subsection is omitted.
 - `cli`, minor: `klarch worklist --out <dir>` writes the work list of a search of the whole
   record: every entry grouped into clusters rooted at a design home's subjects or a declared
   register's groups, packed into agents under a bound in words, with each agent's entries and the
-  report it fills, and a snapshot of every entry as `show` prints it; `klarch worklist --verify
+  report it fills, and a snapshot of every entry as `show` prints it, and prints each agent's
+  clusters with their loads; `klarch worklist --verify
   <dir>` checks the filled reports and, when they pass, assembles the entries graded `bears` into
   `bears.md` and those graded `may-bear` into `may-bear.md`.
 - `cli`, minor: `klarch id <id>…` says whether each id is free, or lists every entity the project
