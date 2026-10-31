@@ -111,9 +111,11 @@ subsection is omitted.
   the checker, and not in what the project adds to them, goes to the retrospective's workflow file,
   never to a fix of the project nor to an issue entry of it but the one beside a pointer no checked
   form expresses, as the primer's section on it now says.
-- `agent-skills`, patch: the goal on repeated tasks that the setup skill proposes for a maintenance
-  tool takes only the mechanical tasks local to the project: a task the installed text asks of every
-  project is the checker's to automate.
+- `agent-skills`, patch: the two goals the setup skill proposes for a maintenance tool meet the goal
+  standard. The goal on one command names the gates of the project's list, the rebase check run only
+  when asked; the goal on repeated tasks takes the mechanical tasks of several steps that the
+  project's own instructions ask at a recurring moment, or whose procedure they fix, while a task the
+  installed text asks of every project, with no procedure of the project's own, is the checker's.
 - `agent-skills`, patch: the transcript reviewer, and the subagent that assembles a plan document,
   extract a session with `klarch transcript show` instead of writing a script, and find each session
   with `klarch transcript list`, never by a session identifier; a reviewer lists under "Met outside
