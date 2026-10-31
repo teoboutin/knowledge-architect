@@ -465,7 +465,8 @@ under it, as a worktree under the root is; `--all-projects` reads every project'
   branches, its count of lines the owner typed, of compactions and of subagents, and its first
   message from the owner. `--branch` keeps the sessions that worked on a branch, `--containing` the
   sessions holding a text the owner typed, and `--since <YYYY-MM-DD>` those whose last line is on or
-  after the date, in UTC.
+  after the date, in UTC. In the text `--containing` and `--from` take, a space matches any
+  whitespace of the owner's line but a line break, a non-breaking space included.
 - **`show <session>`** prints the session's lines in order, each with its line number and its label;
   `<session>` is a handle or a prefix of a `sessionId` that names one session. `--from` starts at a
   text the owner typed, `--subagents` adds each subagent's lines, `--tools` the tool calls and their

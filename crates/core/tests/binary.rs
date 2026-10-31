@@ -6460,6 +6460,9 @@ fn transcript_the_kinds_of_later_harness_versions_are_classed() {
     has("owner-interrupt 2026-04-01 10:00]\n[Request interrupted by user]");
     has("injected model-refusal 2026-04-01 10:00]\nmodel refusal, category some_category");
     has("owner-command 2026-04-01 10:00]\n/remote-control\n");
+    // The field places an interrupt only on a line no other field places.
+    has("injected meta 2026-04-01 10:00]\na meta line that names an interrupt");
+    has("injected model-refusal 2026-04-01 10:00]\nmodel refusal, category unknown");
     assert_eq!(stdout.matches("remote-control").count(), 1, "{stdout}");
     assert!(!stdout.contains("# unrecognised"), "{stdout}");
     assert!(!stdout.contains("# unlabelled"), "{stdout}");
@@ -6467,7 +6470,7 @@ fn transcript_the_kinds_of_later_harness_versions_are_classed() {
 
     // An interrupt is the owner's act, not a line the owner typed: the count holds two messages.
     let (stdout, _, _) = transcript("kinds", "kinds-list", &["list"]);
-    assert!(stdout.contains("owner 2 "), "{stdout}");
+    assert!(stdout.contains("owner 3 "), "{stdout}");
     let (stdout, _, code) = transcript(
         "kinds",
         "kinds-role",
@@ -6481,6 +6484,16 @@ fn transcript_the_kinds_of_later_harness_versions_are_classed() {
     assert!(stdout.contains("[0000000k L1 dispatch"), "{stdout}");
     assert!(
         stdout.contains("[0000000k L2 owner-interrupt 2026-04-01 10:01]"),
+        "{stdout}"
+    );
+    // A null id is no id: the line stays the dispatcher's.
+    assert!(stdout.contains("[0000000k L3 dispatch"), "{stdout}");
+
+    // A `local_command` line with no `commandRun` is an echo only where a line that carries one
+    // names it as its parent: two in a row are both reported.
+    let (stdout, _, _) = transcript("kinds", "kinds-echoes", &["show", "abcdef02"]);
+    assert!(
+        stdout.contains("# unrecognised system local_command shape \"no commandRun\": 2"),
         "{stdout}"
     );
 }
@@ -6526,6 +6539,14 @@ fn transcript_the_owner_s_words_match_across_a_non_breaking_space() {
     )
     .2;
     assert_eq!(code, 0);
+    // A line break is no space.
+    let code = transcript(
+        "kinds",
+        "kinds-nbsp-break",
+        &["list", "--containing", "one line"],
+    )
+    .2;
+    assert_eq!(code, 1);
 }
 
 /// The request to report a gap names what it covers, so a file labelled by its text, which is no

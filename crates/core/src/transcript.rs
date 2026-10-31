@@ -48,6 +48,9 @@ const KNOWN_SYSTEM_SUBTYPES: &[&str] = &[
     "local_command",
     "model_refusal_no_fallback",
     "bridge_status",
+    // Classed on the lines its issue quoted, of a cloud session of harness 2.1.312, with no file of
+    // the machine the reader was measured on holding one: a hook's report, with no message of the
+    // owner or of the session, which is an assumption over those lines alone.
     "stop_hook_summary",
 ];
 
@@ -83,6 +86,9 @@ const KNOWN_ATTACHMENT_TYPES: &[&str] = &[
     "invoked_skills",
     "hook_system_message",
     "thinking_drop",
+    // Classed on the one line its issue quoted, of a cloud session of harness 2.1.312, with no file
+    // of the machine the reader was measured on holding one: a reminder the harness injects, with
+    // no message of the owner or of the session, which is an assumption over that line alone.
     "task_reminder",
 ];
 
@@ -1077,22 +1083,24 @@ impl Labelling<'_> {
         let is_meta = value.get("isMeta").and_then(Value::as_bool) == Some(true);
         let origin = origin_kind(value.get("origin"));
         let compact = value.get("isCompactSummary").and_then(Value::as_bool) == Some(true);
-        // In a subagent file, a `user` line that carries none of the three fields is its
-        // dispatcher's or its workflow's text, as `design@core@transcript-labels-in-code` measures.
         // The fields are tested by presence, as the consumption above and the fallback test them.
         let fieldless = value.get("isMeta").is_none()
             && value.get("isCompactSummary").is_none()
             && value.get("origin").is_none();
-        // An interrupt carries `interruptedMessageId`, which no other `user` line carried over every
-        // transcript measured, harness versions 2.1.306 to 2.1.316: the field places it, in a
-        // subagent file too, where it would otherwise read as the dispatcher's.
-        let label = if fieldless && value.get("interruptedMessageId").is_some() {
+        // An interrupt is placed by its `interruptedMessageId`, as
+        // `design@core@transcript-labels-in-code` measures, and this row comes first so that one in a
+        // subagent file is the owner's, not read as the dispatcher's text by the row after it.
+        // A null value is no id: the harness writes null for a field it leaves empty.
+        let interrupt = value
+            .get("interruptedMessageId")
+            .and_then(Value::as_str)
+            .is_some();
+        let label = if fieldless && interrupt {
             Label::OwnerInterrupt
-        } else if self.in_subagent
-            && value.get("isMeta").is_none()
-            && value.get("isCompactSummary").is_none()
-            && value.get("origin").is_none()
-        {
+        } else if self.in_subagent && fieldless {
+            // In a subagent file, a `user` line that carries none of the three fields is its
+            // dispatcher's or its workflow's text, as `design@core@transcript-labels-in-code`
+            // measures.
             Label::Dispatch
         } else if compact {
             Label::Injected("compact-summary".to_string())
