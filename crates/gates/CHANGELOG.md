@@ -54,7 +54,8 @@ subsection is omitted.
   `skill@knowledge-architect-goal-setting@whole-set-review`: it runs in rounds, each with one goal
   reviewer per set of goals and one on the whole set, the owner answering between rounds, its record
   committed in docs/goal-reviews/, until the owner stops it or the count falls to a fifth of the first
-  round's; then it puts every goal to the owner with its boundary block, ruled goal by goal. The pin
+  round's; then it puts every goal to the owner with its boundary block, the goals in the tree and
+  the blocks in the record, ruled on the batch. The pin
   move runs it in a branch of its own, as it runs an audit axis.
 
 ### New features
@@ -221,6 +222,10 @@ subsection is omitted.
   every rewording and on every repaired draft; the owner sees each goal with its boundary block, the
   cases it rules out and admits and the sibling goals it touches, and each contradiction between the
   owner's statements and a goal at the top of the draft.
+- `agent-skills`, patch: a goal-setting batch of more than three goals is drafted in the goals homes
+  of the working tree, its boundary blocks and the reviewer's findings in a record under
+  docs/goal-reviews/, and the owner rules on the batch as the tree holds it, naming each goal dropped
+  or reworded; three goals or fewer are shown in the message and ruled by slug.
 - `agent-skills`, patch: a goal's body has no bound of two to four sentences any more: it holds what
   the goal standard asks of it, in short sentences, and a list where it names the members of a set.
 - `agent-skills`, patch: a goal's wording proposed in another activity, a plan's default, a review's

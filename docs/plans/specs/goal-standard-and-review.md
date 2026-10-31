@@ -457,6 +457,21 @@ consult (the goal default report) 5. back to step 2 on updated goals and report 
 when I am satisfied and says so, or when findings of last rounds were low enough. but this needs a
 criteria. Maybe 5 to 10 times less then first round ?"
 
+### A batch of more than three goals is drafted and ruled in the tree, not in the conversation `##goals-ruled-in-the-tree`
+
+Proposed by the owner at the end of step 7's rounds. State: `approved`, the owner's own proposal,
+the session's shape built as its default: more than three goals, the drafts in the goals homes of
+the working tree, uncommitted, the source marks, the boundary blocks and the reviewer's findings in
+a record under docs/goal-reviews/, and a ruling on the batch naming each goal dropped or reworded.
+Built in the commit that changes `skill@knowledge-architect-goal-setting@drawing-out-intent`, with
+its deliberation in its message.
+
+The owner: "no need to show me all the goals in the conversation, since they are in the tree.
+Actually, I think any volume bigger than 2 or 3 goals should just go through the tree rather than
+the conversation. This is more efficient and convenient for the both of us. I reviewed the current
+tree, we can go with that. Ruling by slug for each one would also be rather inconvenient for me
+here."
+
 ## Arguments
 
 ### The drafted wording reaches wider than the intent, or reads two ways, and neither party notices `##arg-1`
@@ -1066,8 +1081,8 @@ approved words, put to the owner in one message, the next round waiting for the 
 in `docs/goal-reviews/<YYYY-MM-DD>-<subject>.md`, committed each round apart from the drafts, which
 stay uncommitted until ruled; the next round; and the stop, on the owner's word or once a round's
 count of findings that are not `minor`, every reviewer together and under one brief, falls to a
-fifth of the first round's. Every goal is then put to the owner with its boundary block, ruled by its
-slug, and the commit that writes the goals ruled last deletes the record. The reviewer reads a
+fifth of the first round's. Every goal is then put to the owner with its boundary block, the goals in the tree and the blocks in
+the record, ruled on the batch per #goals-ruled-in-the-tree, and the commit that writes the goals ruled last deletes the record. The reviewer reads a
 record its brief names, reports again an open question only where the text changed it, and ends
 with its counts per rule and tag. The primer's knowledge table gains the record's row.
 
