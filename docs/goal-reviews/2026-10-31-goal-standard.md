@@ -253,6 +253,111 @@ Defaults put to the owner, Q65 to Q71, in the session's message of this round. T
 - Q71, `goal@xtask@repeated-tasks-are-automated`: a task whose result depends on state outside the tree, such as
   the merge predicate, is covered as written; text unchanged.
 
+## Layout round 3
+
+| reviewer | findings | not minor | contradiction |
+| --- | --- | --- | --- |
+| set 1, the owner and agents | 3 | 3 | 0 |
+| set 2, the workflow | 3 | 3 | 0 |
+| set 3, adoption | 1 | 1 | 0 |
+| set 4, core | 2 | 2 | 0 |
+| set 5, gates and xtask | 1 | 1 | 0 |
+| whole set | 9 | 9 | 0 |
+| total | 19 | 19 | 0 |
+
+The count goes 41, 20, 19: it no longer falls. Of round 3's findings, these sit on wording that rounds
+1 and 2 or the new layout wrote: the drift goal's last sentence, the reference grammar's exception,
+"it reads" in records-reach, "Among them" in setup, the gates goal's call, "them all" in
+one-command, and "these records" in records-live.
+
+The reports, as the session condensed them, every finding kept:
+
+Set 1, layout round 3: 3 findings (3 not minor): rule 2 3; settled 3. Four goals conform.
+drift: settled r2 (round 2's repair) the last sentence's "A departure" may leave out a rejected design brought back: name both.
+`goal@knowledge-architect@the-owner-decides`: settled r2 the record's definition holds no commit message, yet "reported in the record, a commit message included" (same two sentences approved): "in the record, in a commit message, or in that section".
+counterparts: settled r2 (layout) the commas around the third item can widen "that the owner rules on before the merge" to the whole list: drop them.
+Met outside: the definition of the record against design-is-recorded's split also bears on reviews-judge (Q68).
+
+Set 2, layout round 3: 3 findings (3 not minor): rule 2 3; settled 1, intent 2. Six goals conform.
+structure: 1 intent r2 "each kind of record" in the measure: the defined record's members (Q52) or any file the installed text has a session write (plan documents, goal-review records, retrospective files); the same question Q70 answered for "the whole record".
+records-live: 2 settled r2 (layout) "these records live" brings the count noun back beside the defined "record": "these live in its repository".
+only-needed: 3 intent r2 "a fixed sequence, count or mapping between a unit of the work and a unit of its record": the qualifier on mapping only, or on all three (the removed "two to four sentences" bound is a count outside the qualifier).
+
+Set 3, layout round 3: 1 finding (1 not minor): rule 2 1; settled 1. Five goals conform.
+setup: settled r2 (layout) "They come in recommended shapes ... Among them are these four": "them" can mean the shapes; name the tools and keep the shapes on the setting up.
+Met outside: installed-text-works-in-any-environment's second bullet breaks short ("the harness's own included, never"): a rewrap.
+
+Set 4, layout round 3: 2 findings (2 not minor): rule 2 2; settled 2. The introduction and four goals conform.
+declared: F1 settled r2 (round 2's repair) the body's exception covers all three sets, the measure gives the grammar none; under harness = [] the four harness kinds do not exist (`design@core@harness-kinds`): give the grammar the exception in the measure.
+records-reach: F2 settled r2 (layout) "every text of the tree it reads" after "a session reading a decision" and "a reversal": "the checker reads".
+
+Set 5, layout round 3: 1 finding (1 not minor): rule 2 1 (rule 3 bears on it); intent 1. Conforming: `goal@xtask@one-command-runs-every-gate`, `goal@xtask@repeated-tasks-are-automated`.
+gates: F1 intent r2/r3 "writing only that list and the call" (body, and Q65's heading) rules out this repository's own wrapper code in tools/xtask/src/gates.rs (current_dir, project_root, two abort messages), which the measure and the approved "no gate logic beyond" allow; Q65's premise, that this repository's binary meets the heading, was not checked; and the measure's "beyond its list and the call" still gives the call a share of gate logic.
+Met outside: the reword, fold and merge predicate have no command and no issue (searched); `design@gates@a-project-holds-its-gate-list` says "a project writes only its list", stale against the goal (row 2 with the goals commit, after F1).
+
+Whole set, layout round 3: 9 findings (9 not minor): rule 2 8, rule 7 1 by primary rule; settled 5, intent 4.
+F1 intent r2/r5 the record's "reasons recorded beside its code and its agent-facing text": with or without commit messages (`goal@knowledge-architect@the-owner-decides` "a commit message included"; design-is-recorded's two places; Q68's addition in reviews-judge; the primer's reason recorded at the code).
+F2 settled r2 structure's "each kind of record" against the defined "the record", which leaves out the goals.
+F3 intent r7 records-reach's whole-project list against its parent's per-change list (cargo klarch tripwires --guarding selects).
+F4 settled r2 records-live: round 2 repaired one half of the retrospective sentence only; the title's countable "records".
+F5 settled r2/r7 repeated-tasks: "is the published checker's, per mechanical-tasks" claims tasks the root does not take (a result depending on a forge's state).
+F6 settled r2 `goal@knowledge-architect@adoption-is-easy`'s heading "Adopting the project": "the project" also means an adopting project since Q52; the heading is the owner's.
+F7 intent r2 real-use's "the owner's observations": whose owner, and who decides a change to the installed text.
+F8 intent r2/r5 environment: the owner's user-level CLAUDE.md is an instruction the environment adds and a word of the owner.
+F9 settled r2 one-command: "By default it runs them all" with the rebase check on the list and run only when asked.
+Met outside: `design@core@the-regime-has-no-opt-out` ("no declaration exempts a document") against "the paths its manifest exempts" (skip-files): checked, the head speaks of documents read and the walk skips the paths; the goal's word "exempts" invites the misreading. The core intro's claim on code drift: the owner agreed it (Q15).
+
+### Outcomes
+
+Repaired:
+
+- `goal@knowledge-architect@agents-work-without-drift`: "A departure, or a rejected design brought back, that reaches a
+  project's main branch".
+- `goal@knowledge-architect@the-owner-decides`: "reported in the record, in a commit message, or in that section".
+- `goal@knowledge-architect@design-with-agents-as-counterparts`: the approved commas restored around the list of exchanges.
+- records-live-beside-the-code: "these live in its repository beside the code".
+- `goal@knowledge-architect@setup-brings-quality-tools`: "in recommended shapes that work well with the checker. Among these
+  tools are four".
+- `goal@core@declared-instructions-are-checked`: the measure gives the reference grammar the same exception,
+  "save what a declaration switches off"; "the paths its manifest leaves out of the walk", which is
+  what `design@core@the-regime-has-no-opt-out` allows, since the head speaks of the documents the
+  checker reads.
+- `goal@core@records-reach-their-reader`: "every text of the tree the checker reads".
+- `goal@xtask@one-command-runs-every-gate`: "By default it runs every gate of the list but the rebase check, all
+  of them when one fails".
+- `goal@xtask@repeated-tasks-are-automated`: the checker's share is a task "whose result follows from the tree and
+  the workflow's rules", the set the root goal takes.
+
+Held for the owner, a contradiction: Q65's default rested on a premise the session supplied and did
+not check, that this repository's binary writes only its list and its call. tools/xtask/src/gates.rs
+also finds the root and prints two error messages. The default returns to the approved words, "by
+writing no gate logic beyond its list of gates and the call that runs them", in the heading and the
+body, as Q72.
+
+Defaults put to the owner, Q72 to Q80, in the session's message of this round:
+
+- Q72, `goal@gates@gates-from-a-list`: as above.
+- Q73, `goal@knowledge-architect@the-owner-decides`: the definition holds "the record, in the singular", so a countable
+  "record" keeps its common sense; and its reasons include those "in the messages of the commits
+  that made them", as Q68 read them in reviews-judge.
+- Q74, `goal@core@records-reach-their-reader`: the first listing, every text citing an entry, gives the issues and
+  tripwires a change of that entry must read again, so the whole-project list refines its parent's
+  per-change list; text unchanged.
+- Q75, `goal@knowledge-architect@the-workflow-improves-through-real-use`: the observations are those "by the owner of the
+  project they ran in", and a change in the workflow is decided by knowledge-architect's owner.
+- Q76, installed-text-works-in-any-environment: an instruction in the owner's user-level file is one
+  the environment adds; the owner's word reaches the installed text through the project, its
+  `CLAUDE.md` and its skills; text unchanged.
+- Q77, `goal@knowledge-architect@structure-and-workflow-work-together`: "each kind of record" reads in the common sense, any
+  kind of record the installed text asks a session to write; text unchanged.
+- Q78, `goal@agent-skills@only-needed-instructions`: "between a unit of the work and a unit of its record" qualifies all
+  three, the sequence, the count and the mapping; text unchanged.
+- Q79, `goal@knowledge-architect@adoption-is-easy`: the heading becomes "Adopting knowledge-architect is easy", since "the
+  project" also names an adopting project in this home; the heading is the owner's wording.
+- Q80, the review itself: the session proposes to stop the rounds here and put every goal to the
+  owner with its boundary block, since the count no longer falls and half of the last findings sit on
+  wording the rounds wrote.
+
 ## Open questions
 
 - The new layout of every goal, which the owner rules on by its slug, each goal with its boundary
