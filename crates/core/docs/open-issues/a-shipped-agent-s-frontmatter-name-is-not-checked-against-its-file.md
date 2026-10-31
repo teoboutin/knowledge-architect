@@ -15,7 +15,8 @@ installs and passes.
 
 ### What
 
-Measured on 2026-10-30 in this repository, in the step of `spec@plans@goal-standard-and-review` that
+Measured on 2026-10-30 in this repository, in the step of the goal standard's spec, deleted by "[plans] The goal-standard spec
+leaves: its work has landed", that
 adds the goal reviewer agent: with the shipped agent's frontmatter `name` changed by one letter,
 `cargo klarch install-agent-skills` then `cargo klarch check` exited 0. The mutation was reverted.
 
