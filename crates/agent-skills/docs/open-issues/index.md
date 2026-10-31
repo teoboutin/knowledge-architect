@@ -1,6 +1,6 @@
 **Generated — do not edit.** `cargo klarch index`
 
-49 entries
+50 entries
 
 | kind | title |
 | --- | --- |
@@ -12,6 +12,7 @@
 | defect | [Two audit workflows can give two groups one label, list a sample entry twice, and report verdicts as missing](two-audit-workflows-can-collide-group-labels-and-list-a-sample-entry-twice.md) |
 | deferred | [A fix that does not go through the design skill is grounded by no search of the whole record](a-fix-is-grounded-by-no-record-search.md) |
 | design | [A built default awaiting the owner enters a design head only once the owner rules, where the owner wants agents more autonomous](a-built-default-awaiting-the-owner-enters-a-head-only-once-the-owner-rules.md) |
+| design | [A goal the draft-mode review read was reworded again for a defect the goal standard names, twice](a-goal-the-draft-review-read-was-reworded-again-for-a-defect.md) |
 | design | [A lighter pass of the record search for the Components a piece of work does not touch](a-lighter-pass-for-untouched-components.md) |
 | design | [A member recorded directly, as covered by its head's argument, lay beyond that argument](a-member-recorded-directly-lies-beyond-its-head-s-argument.md) |
 | design | [A tripwire on agent behaviour under the workflow fires in sessions this project does not see](a-tripwire-on-agent-behaviour-fires-where-this-project-cannot-see.md) |

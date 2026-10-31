@@ -491,7 +491,7 @@ opened on the goal-standard branch." Bears on `thread@intake-decides-by-authorit
 The reply to round 1, the session. Every analysis deleted from docs/retrospective-reports/, 60
 files, read with `git show <commit>^:<path>` after
 `git log --diff-filter=D --name-only -- docs/retrospective-reports/`, its `Outcome` lines extracted
-with `grep -i -E '^\s*(- )?\**Outcome\**:?'`: 368 lines, 305 beginning with an approval word, 63
+with `grep -i -E '^\s*(- )?\**Outcome\**:?'`: 368 lines, of which 356 are `Outcome` lines and 12 are wrapped prose, 305 of the 356 beginning with "approved" or "accepted", 63
 others, about 25 of them bringing an argument, a fact, an intent or a new shape. The grep is a
 heuristic, so the figures are approximate. "about 5 rulings in 6 recorded nothing the analysis did
 not already hold." Bears on `thread@intake-decides-by-authority@intake-outcome-authority` and `criterion@intake-decides-by-authority@interventions-keep-a-moment`.
@@ -931,8 +931,8 @@ decides an outcome is each activity's, per `primer@question-authority` and the a
 
 **Claims**:
 
-- No fragment of `path@agent-skills@fragments/` names an activity, or routes to the owner a growth,
-  a provable gap's fill or an instruction no agent performs. Test: reading the three fragments
+- No fragment of `path@agent-skills@fragments/` routes to the owner a growth, a provable gap's fill
+  or an instruction no agent performs. Test: reading the three fragments
   whole, and a search over `path@agent-skills@fragments/` for "growth", "provable gap" and "no
   agent performs", matched across a line break, each hit read. Shown to fail on the main commit,
   where its hits in the repair, evidence and need-test fragments name the owner.

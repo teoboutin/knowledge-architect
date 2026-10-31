@@ -155,8 +155,7 @@ only, and where the owner directs**:
 %% and waits for the owner to start it per `design@agent-skills@intake-skill-home`.
 - **The project's file**: it stays where the files went until the owner hands it to an intake,
   usually in a later session and with other files, under
-  `skill@knowledge-architect-retrospective-intake`, which analyses each finding with its evidence,
-  decides its outcome where the record settles it, and puts the rest to the owner.
+  `skill@knowledge-architect-retrospective-intake`.
 - **The workflow's file**: it becomes an issue on the repository of knowledge-architect,
   <https://github.com/teoboutin/knowledge-architect>, opened with
   `gh issue create --repo teoboutin/knowledge-architect --title "<title>" --body-file <file>`.

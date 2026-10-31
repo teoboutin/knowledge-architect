@@ -169,10 +169,21 @@ publication are the owner's, each an owner item whose line stays pending until t
 "Handle now" or "an issue" is the session's by the rule the review and the audit apply: the
 finding's work lands in the intake's branch, or needs a branch of its own. It serves
 `goal@knowledge-architect@the-owner-decides`, under which a question the record answered, put to the
-owner, shows the goal unmet: at the intakes of this repository, about 5 rulings in 6 approved the
-session's default, 305 of 368 `Outcome` lines of the 60 analyses deleted up to commit 6f75bc98 began
-with an approval word, each analysis found with `git log --diff-filter=D --name-only --
-docs/retrospective-reports/` and read with `git show <commit>^:<path>`. The nearest rival, a batch
+owner, shows the goal unmet: at the intakes of this repository, about 6 rulings in 7 approved the
+session's default. Of the 356 `Outcome` lines of the 60 analyses deleted from
+`path@knowledge-architect@docs/retrospective-reports/` up to commit 6f75bc98, 305 begin with
+"approved" or "accepted", taken again with:
+
+```sh
+git log 6f75bc98 --diff-filter=D --name-only --format='C %H' -- docs/retrospective-reports/ \
+  | awk '/^C /{c=$2;next} NF{print c,$1}' | grep -v README \
+  | while read c p; do git show "$c^:$p"; done \
+  | grep -E '^\s*[-*]?\s*\*\*Outcome' | sed -E 's/.*\*\*Outcome:?\*\*:? *//' \
+  | grep -ciE '^(approved|accepted)'    # and without the last grep, wc -l for the 356
+```
+
+The rulings that brought an argument, a fact, an intent or a new shape keep their moment, since the
+analysis is read before the merge. The nearest rival, a batch
 confirmation of every default, keeps the question with the owner, and a word that hands judgement
 over is no ground, per `rejected@agent-skills@delegated-decision-state`. The incumbent, the owner's
 ruling owed on every finding, is `rejected@agent-skills@owner-rules-each-intake-finding`.
@@ -180,7 +191,8 @@ ruling owed on every finding, is `rejected@agent-skills@owner-rules-each-intake-
 The analysis keeps its shape, one section per finding with its evidence and its `Default` and
 `Outcome` lines, and the summary in the conversation says of each line who holds it, so that the
 owner sees every finding and its kind and can bring a fact, an argument or an intent to any of them
-before the merge: the owner's report of what the intake must keep. The session weighs such an
+before the merge, as `goal@knowledge-architect@the-owner-decides` asks of every decision the agents
+make. The session weighs such an
 addition as any other, per `design@agent-skills@intent-through-goals-not-overrule`.
 
 ### An analysis of a project's retrospective file is committed at once, its owner items ruled before the branch merges, and leaves with its last outcome `##committed-intake-analysis`
@@ -194,7 +206,8 @@ outcome, the session's decision or the owner's ruling, except a section that poi
 analysed in another file, which takes the outcome given there, so that one outcome is given once and
 cannot differ. The file is committed as soon as it is written, the owner items pending; the work
 proceeds on every default but a part that rests on a goal to change, a contradiction or an action
-that cannot be undone; an owner item's outcome is carried out once it is ruled; and the branch that
+that cannot be undone; an owner item's outcome counts as carried out only once it is ruled, so the analysis cannot leave
+while one is pending; and the branch that
 holds the analysis merges once no `Outcome` line is pending, per
 `design@agent-skills@default-ruled-before-merge`, whose rival, the wait for every ruling, interrupts
 the work and makes a default no default. The issues its outcomes open are opened and the findings
@@ -214,14 +227,16 @@ writes a line at the head of the received project file: that it was analysed, th
 was carried out, and the `git log` command that finds the analysis. It then moves the file where
 the owner's instructions name a place for handled files, and otherwise leaves it where it lies; it
 never deletes one. The mark is the owner's rule; the move answers the owner's practice of keeping
-handled files apart from pending ones, which a mark alone leaves among them. The installed text
+handled files apart from pending ones: a marked file left among pending ones can still be handed to
+an intake, since only the owner's directory tells a session which files are handed to it. A deleted
+file loses the other side of an interaction finding, which a later intake reads. The installed text
 names no directory, since the retrospective writes its files where the owner directs, and a fixed
 one would be a convention of one setup, against `goal@agent-skills@installed-text-works-anywhere`;
 where the owner keeps them is a fact the owner's own instructions hold. A directory of received files can hold files an earlier intake
 analysed, which only the history of docs/retrospective-reports/ at the project's root tells apart, a
 path no checked form names, per
-`issue@agent-skills@pointers-written-bare-to-clear-a-finding-reach-no-check`; a marked file is not
-handed to an intake again.
+`issue@agent-skills@pointers-written-bare-to-clear-a-finding-reach-no-check`; the mark tells it
+apart where the file stays among them.
 
 ### A retrospective's project file names the project's main commit, which its workflow file names only where the project builds the checker from source `##version-line-names-the-main-commit`
 
@@ -250,8 +265,7 @@ count and net growth, and the record check. This repository's intake of received
 follows the installed one, judges by the same standard. What admits a finding is the intake's own: a real
 session behind each finding.
 
-The direction is the owner's: the owner judged it important, as the owner's view, that the intake
-analyse findings and repairs on the same standard as the workflow. The evidence that admits a
+The evidence that admits a
 finding differs between an audit and the intake: the intake has a real session behind each
 finding, as `design@agent-skills@behaviour-additions-need-real-use` asks of an addition, and an
 audit never has one. The worth of a fix and its shape do not differ, since both decide edits to the

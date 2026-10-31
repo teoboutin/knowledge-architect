@@ -243,7 +243,8 @@ subsection is omitted.
   each `Outcome` line saying who holds it, and is committed as soon as it is written; the work
   proceeds on defaults, and the branch merges once every owner item is ruled. A handled file is
   marked and moved where the owner's instructions name a place, never deleted.
-- `agent-skills`, patch: the admission standard's fragments route nothing to the owner. A set of
+- `agent-skills`, patch: the admission standard's fragments no longer send to the owner a growth
+  of instructions, a provable gap's fill or an instruction no agent performs. A set of
   repairs that adds instructions is reported to the owner with its net count, and only a project
   audit's pass waits for the owner's word on that growth; a provable gap is filled from the fact it
   names; an instruction no agent performs is deleted where the record settles that its act is no

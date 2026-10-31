@@ -682,9 +682,15 @@ least 100 goals. It stays the design to reach for if a goal set grows past what 
 
 ### The owner's ruling owed on every finding of a retrospective intake `##owner-rules-each-intake-finding`
 
-`live`. At the intakes of this repository, 305 of the 368 `Outcome` lines of the 60 analyses
-deleted from docs/retrospective-reports/ up to commit 6f75bc98 began with an approval word, by a
-heuristic grep over each analysis read with `git show <commit>^:<path>`: about 5 rulings in 6
-recorded nothing the analysis did not already hold. The owner's substantive additions keep their
-moment, since the analysis is read before the merge.
+`live`. Refuted by measurement: at this repository's intakes, about 6 rulings in 7 approved the
+session's default, by the count and the command `design@agent-skills@intake-outcome-authority`
+holds.
+
+### Every set of repairs that adds instructions held for the owner's word on its growth, an intake's and a review's included `##growth-held-in-every-activity`
+
+`live`. A piece of work's findings are bounded by real use or by its diff, where an audit's lenses
+read the whole corpus; the owner held that only the audit's findings lead to unbounded growth. It is
+kept here because a doubt remains that the bound holds without the hold, which
+`tripwire@agent-skills@intake-repairs-interact-unheld` watches; this design is the candidate if it
+fires.
 

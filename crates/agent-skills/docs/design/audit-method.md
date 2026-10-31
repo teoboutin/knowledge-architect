@@ -266,9 +266,10 @@ project's own text and is sent upstream on the installed text. An unneeded state
 `design@agent-skills@statement-names-an-act`, takes the outcome of the table of
 `skill@knowledge-architect-agent-configuration@admission-standard`: deleted in the branch where it
 carries no instruction, moved to a `%%` comment of the installed source where only its maintainer
-reads it, and, where it is an instruction no agent performs, deleted where the record settles
-that its act is no longer wanted and otherwise put to the owner; a review applies the same table,
-so the two judge one statement alike. A provable gap is filled in the branch, from the fact it
+reads it, and, where it is an instruction no agent performs, a decision, which the audit's
+outcome table routes: deleted where the record settles that its act is no longer wanted, and
+otherwise put to the owner. A review applies the same table, so the two judge one statement alike,
+and routes the decision by `primer@question-authority` to the same two outcomes. A provable gap is filled in the branch, from the fact it
 names, per `design@agent-skills@behaviour-additions-need-real-use`. Work too large for the branch and a finding the
 owner defers each become an issue. A finding outside the axis takes the first case of
 `primer@met-outside-the-task` that applies. A finding that an issue entry already records, or that

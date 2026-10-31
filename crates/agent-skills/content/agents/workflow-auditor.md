@@ -73,7 +73,8 @@ A finding is admitted when the session can confirm it by reading. Each class car
   an instruction, quoted, and the sentence it fails of `primer@where-knowledge-goes`, read whole before you judge
   one, or, for a pointer, of `agent@knowledge-architect-workflow-auditor@self-sufficient-skill`;
 - **an unneeded statement**: a statement that fails the need test of `agent@knowledge-architect-workflow-auditor@admission-rules`: quoted, with the act you tried; for a duplicate, both copies and the copy that stays; and
-  the outcome the standard's table and the audit's outcome table give it;
+  the outcome the standard's table and the outcome table of
+  `skill@knowledge-architect-project-audit@agentic-workflow-axis` give it;
 - **a predicted gap**: "an agent might misjudge X". Draft it as such, with what a real session
   would have to show; it is never repaired by an edit.
 
