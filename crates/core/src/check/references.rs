@@ -941,6 +941,35 @@ fn refused(path: &str) -> Option<&'static str> {
     None
 }
 
+/// Where `path`, the path of an escaped reference with no line suffix or fragment, resolves in
+/// this tree: read from the root, from each anchor's directory, then from the directory of `rel`,
+/// the document that writes it, a `.` and a `..` followed as written; a leading `/` reads from the
+/// root alone. The first that the listing holds is the target, as a project-relative path.
+fn resolved_here(path: &str, rel: &Path, anchors: &Anchors, inputs: &Inputs) -> Option<PathBuf> {
+    let (bare, _) = without_suffix(path);
+    let segments: Vec<&str> = bare.split('/').filter(|s| !s.is_empty()).collect();
+    let mut bases: Vec<&Path> = vec![Path::new("")];
+    if !bare.starts_with('/') {
+        bases.extend(anchors.all().iter().map(|a| a.path.as_path()));
+        bases.push(rel.parent().unwrap_or(Path::new("")));
+    }
+    bases.into_iter().find_map(|base| {
+        let mut at = base.to_path_buf();
+        for segment in &segments {
+            match *segment {
+                "." => {}
+                ".." => {
+                    if !at.pop() {
+                        return None;
+                    }
+                }
+                name => at.push(name),
+            }
+        }
+        (!at.as_os_str().is_empty() && inputs.present.contains(&at)).then_some(at)
+    })
+}
+
 /// A `path` reference, resolved against the survey under its anchor.
 #[allow(clippy::too_many_arguments)]
 fn path(
@@ -963,30 +992,45 @@ fn path(
             // spell anything. The one assertion is that it stays honest: a target that
             // resolves here is a real reference wearing the escape, which would otherwise
             // be the cheap way to silence the unanchored finding.
-            let resolving = anchors
-                .all()
-                .iter()
-                .find(|a| inputs.present.contains(&a.path.join(trimmed)));
-            if let Some(a) = resolving {
+            //
+            // The target is read from every place the unanchored lint reads a path from, the
+            // document's own directory included, or a file named relative to its document would
+            // be silenced here and reported bare.
+            if let Some(target) = resolved_here(trimmed, rel, anchors, inputs) {
                 // A home is named by its own kind, so the repair names that form rather than
                 // a `path` the next run would report.
-                let (bare, suffix) = without_suffix(trimmed);
-                if let Some(form) = entry_at(anchors, Path::new(bare.trim_end_matches('/'))) {
+                let (_, suffix) = without_suffix(trimmed);
+                if let Some(form) = entry_at(anchors, &target) {
                     out.push(entry_finding(rel, line, span, &form));
                     return;
                 }
-                if let Some((keeper, r)) = anchors.home_target(Path::new(bare)) {
+                if let Some((keeper, r)) = anchors.home_target(&target) {
                     out.push(home_finding(rel, line, span, &keeper.name, &r.name, suffix));
                     return;
                 }
+                // The form names the deepest anchor that holds the target, per
+                // `design@core@every-path-names-its-anchor`; an anchor's own directory is named
+                // from the anchor above it.
+                let mut owner = anchors.owning(&target);
+                if owner.path == target {
+                    owner = anchors.owning(target.parent().unwrap_or(Path::new("")));
+                }
+                let under = target.strip_prefix(&owner.path).unwrap_or(&target);
+                let slash = if inputs.directories.contains(&target) {
+                    "/"
+                } else {
+                    ""
+                };
+                let form = format!("path@{}@{}{slash}", owner.name, under.display());
                 out.push(Finding::at(
                     rel,
                     line,
-                    format!("`{span}` resolves in this tree, beside `{}`", a.name),
-                    "the escape anchor is for a path this tree does not hold: anchor the \
-                     reference at the anchor that holds it, or, for a file of another project, \
-                     begin the path with that project's name, as \
-                     `path@elsewhere@<project>/<path>`",
+                    format!("`{span}` resolves in this tree, as `{form}`"),
+                    format!(
+                        "the escape anchor is for a path this tree does not hold: write \
+                         `{form}`, or, for a file of another project, begin the path with that \
+                         project's name, as `path@elsewhere@<project>/<path>`"
+                    ),
                 ));
             }
         }
@@ -2726,6 +2770,45 @@ mod tests {
         assert!(
             found[0].contains("as `path@elsewhere@<project>/<path>`"),
             "{found:#?}"
+        );
+    }
+
+    /// The claim, per `design@core@reserved-anchors`: the escape's target is read from every place
+    /// the unanchored lint reads a path from, the document's own directory included, so a file
+    /// named relative to its document is no silence under the escape; and the finding names the
+    /// form at the deepest anchor that holds the target, per
+    /// `design@core@every-path-names-its-anchor`, never the root a path written from it reaches
+    /// first.
+    #[test]
+    fn an_escape_resolving_here_names_the_form_at_the_deepest_anchor() {
+        let m = manifest();
+        let (found, _) = checked_docs(
+            &m,
+            vec![(
+                "parts/a-part/notes/doc.md",
+                "See `path@elsewhere@real/a.md`.\n",
+            )],
+            &tree(),
+        );
+        assert_eq!(found.len(), 1, "relative to its document: {found:#?}");
+        assert!(found[0].contains("resolves in this tree"), "{found:#?}");
+        assert!(
+            found[0].contains("`path@a-part@notes/real/a.md`"),
+            "{found:#?}"
+        );
+        let (found, _) = checked(
+            &m,
+            "See `path@elsewhere@parts/a-part/notes/real/a.md`.\n",
+            &tree(),
+        );
+        assert_eq!(found.len(), 1, "{found:#?}");
+        assert!(
+            found[0].contains("`path@a-part@notes/real/a.md`"),
+            "{found:#?}"
+        );
+        assert!(
+            !found[0].contains("a-project"),
+            "the root named: {found:#?}"
         );
     }
 

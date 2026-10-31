@@ -103,8 +103,10 @@ path deliberately not resolvable here: a surveyed engine's layout, a deleted fil
 entry discusses, a hypothetical location. It is scanned and counted like any reference, so a
 typo'd escape is still a registered pointer; it is exempt from the existence, kind and shape
 assertions, because a foreign layout may spell anything. One assertion runs against it: a
-target that DOES resolve here, beside any anchor, is a finding — without it, the escape is the
-cheap way to silence the unanchored finding on a real path.
+target that DOES resolve here, read from every place the unanchored finding reads a path from, the
+root, an anchor's directory or the document's own, is a finding — without it, the escape is the
+cheap way to silence the unanchored finding on a real path. The finding names the form at the
+deepest anchor that holds the target, per `design@core@every-path-names-its-anchor`.
 
 **A file of another project is written with that project's name as its first segment**, as
 `path@elsewhere@<project>/<path>`, and the refusal's repair names that form. A foreign file often
