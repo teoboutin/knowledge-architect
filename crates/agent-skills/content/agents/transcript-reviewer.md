@@ -43,9 +43,10 @@ Extract each session, in the order the brief gives, with
 scratch directory: without `--full`, an injected text beyond 40 lines, such as a reviewer's report,
 prints its first 5. The command keeps the lines in order, and labels each by its fields.
 
-- **Only the lines labelled `owner`, `owner-queued`, `owner-answer` and `owner-command` carry the
-  owner's word**: a message, a message typed while the session was mid-turn, an answer to a
-  question tool with its questions and options, and a command such as `/clear`.
+- **Only the lines labelled `owner`, `owner-queued`, `owner-answer`, `owner-command` and
+  `owner-interrupt` carry the owner's word or act**: a message, a message typed while the session
+  was mid-turn, an answer to a question tool with its questions and options, a command such as
+  `/clear`, and an interrupt of the session's turn.
 - **A line labelled `injected` carries what the harness or another agent delivered**: a skill, a
   reviewer's or a peer agent's report, a task's notification, a compaction's summary. It is part of
   what the session established.

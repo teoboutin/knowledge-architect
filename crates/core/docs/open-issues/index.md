@@ -1,6 +1,6 @@
 **Generated — do not edit.** `cargo klarch index`
 
-56 entries
+50 entries
 
 | kind | title |
 | --- | --- |
@@ -16,11 +16,8 @@
 | defect | [A git variable in the environment, such as `GIT_DIR` or `GIT_INDEX_FILE`, makes every command read another repository's files](git-environment-variables-redirect-the-walk.md) |
 | defect | [The escape anchor silences a path that resolves relative to its own document, which the unanchored-path lint reports](the-escape-anchor-silences-a-path-relative-to-its-document.md) |
 | defect | [The finding on an escaped path that resolves names the first anchor that holds it, not the deepest](the-escape-finding-names-the-first-anchor-not-the-one-that-holds-the-target.md) |
-| defect | [The transcript header's request to report each gap reads as covering the designed text fallback](the-gap-request-reads-as-covering-the-text-fallback.md) |
 | defect | [The head on `index` credits the missing-directory refusal with a claim that the refusal does not hold](the-missing-directory-refusal-does-not-hold-the-no-loss-claim.md) |
 | defect | [The core's tests read the machine's git configuration, so a machine setting can fail a correct tree](the-tests-read-the-machine-s-git-configuration.md) |
-| defect | [The transcript list previews a pasted-content tag instead of the owner's words, when the first message is pasted](the-transcript-list-previews-a-pasted-content-tag-instead-of-the-owner-s-words.md) |
-| defect | [`transcript list --containing` and `show --from` do not match across a non-breaking space](the-transcript-search-does-not-match-across-a-non-breaking-space.md) |
 | deferred | [Nothing checks that a component states a goal](a-component-states-at-least-one-goal.md) |
 | deferred | [Developer contracts sit in scoped CLAUDE.md files, which reach agents unreliably and are not required without a harness](a-home-for-developer-contracts-outside-agent-configuration.md) |
 | deferred | [A submodule is a project of its own, or nothing, and the tool has no model for either](a-submodule-is-a-project-of-its-own.md) |
@@ -31,7 +28,7 @@
 | design | [A plan item named as a plain `#<id>`, inside its plan or outside it, is read by no check](a-plain-hash-item-name-is-read-by-nothing.md) |
 | design | [Three core heads bundle decisions that lose to different rivals, and each has many citing sites](core-heads-bundle-decisions-with-many-citing-sites.md) |
 | design | [No checked form cites a level-three subsection or a numbered point inside a section of a skill, an agent or the primer](no-checked-form-cites-a-point-inside-a-section.md) |
-| design | [An owner's interrupt and a command the owner ran with the `!` prefix are unlabelled in a transcript](owner-interrupts-and-shell-commands-are-unlabelled.md) |
+| design | [A command the owner ran with the `!` prefix is unlabelled in a transcript](owner-shell-commands-are-unlabelled.md) |
 | observation | [A lint written twice on one line of a message is reported once or twice, by which tree holds it](a-message-lint-is-deduplicated-in-one-tree-only.md) |
 | observation | [Plain `check` under a sparse checkout reports every file outside the cone as an unstaged deletion](check-under-a-sparse-checkout-reports-every-file-outside-the-cone.md) |
 | observation | [`index --staged` clears the assume-unchanged bit of the entry it stages, and maybe its skip-worktree bit](index-staged-clears-an-entrys-flags.md) |
@@ -54,9 +51,6 @@
 | todo | [`show` on a register home in the directory shape prints its path and not its subdocuments](show-lists-no-subdocument-of-a-directory-home.md) |
 | todo | [The documents do not yet render as one linked site](the-documents-do-not-render-as-a-site.md) |
 | todo | [The graded entries carry a shared entry's grade once per agent](the-graded-entries-repeat-a-shared-entry-s-grade-per-agent.md) |
-| todo | [The transcript reader does not know the `system` subtype `model_refusal_no_fallback`](the-transcript-reader-does-not-know-a-model-refusal-line.md) |
-| todo | [The transcript reader does not know the lines a session under `/remote-control` writes, harness version 2.1.310](the-transcript-reader-does-not-know-the-lines-remote-control-writes.md) |
-| todo | [The transcript reader does not know three kinds of line that harness version 2.1.312 writes](the-transcript-reader-does-not-know-three-kinds-of-harness-version-2-1-312.md) |
 | todo | [The walk does not report the untracked files git's per-clone exclude file removes from it](the-walk-does-not-report-what-the-per-clone-exclude-file-removes.md) |
 | todo | [The checker does not read the structure of a project's own skills](tooling-for-project-skills.md) |
 | todo | [`worklist` prints each agent's load and never a group's](worklist-prints-no-group-s-load.md) |

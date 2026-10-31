@@ -74,13 +74,15 @@ sessions would read as one with nothing reporting it.
 ### Every kept line of a transcript is labelled by its fields, never by a substring of its text `##transcript-labels-in-code`
 
 Each kept line takes the label of the first row of the mapping it meets, over `type`, `isMeta`,
-`isCompactSummary`, `origin.kind`, `toolUseResult`, `attachment.type`, `attachment.origin.kind`,
-the `system` subtypes, and whether the line sits in a subagent file. The owner's words are the lines labelled `owner`,
-`owner-queued`, `owner-answer` (an answer to a question tool) and `owner-command` (a command such
-as `/clear`, read from its `local_command` line's `commandRun`); `injected` carries the kind of what
-the harness or another agent delivered; `agent` is the session's text; `dispatch` is a field-less
-`user` line of a subagent file, the text its dispatcher or its workflow wrote, but for the one case
-below; `tool` is a tool call
+`isCompactSummary`, `origin.kind`, `interruptedMessageId`, `toolUseResult`, `attachment.type`,
+`attachment.origin.kind`, the `system` subtypes, and whether the line sits in a subagent file. The
+owner's words are the lines labelled `owner`, `owner-queued`, `owner-answer` (an answer to a
+question tool) and `owner-command` (a command such as `/clear`, read from its `local_command`
+line's `commandRun`); `owner-interrupt` is the owner's interrupt of a turn, an act of the owner and
+no words, placed by its `interruptedMessageId`; `injected` carries the kind of what the harness or
+another agent delivered, a model's refusal of a turn included; `agent` is the session's text; `dispatch` is a field-less
+`user` line of a subagent file that carries no `interruptedMessageId`, the text its dispatcher or
+its workflow wrote, but for the one case below; `tool` is a tool call
 or its result; a line no row places is `unlabelled`, printed and counted. A top-level file none of
 whose `user` lines carries a field, such as one of a session run with `claude -p`, is labelled by a
 leading harness tag instead, and the header says so.
@@ -94,8 +96,13 @@ are the harness's, measured over every transcript of the machine the reader was 
 `design@core@transcript-session-split` says; a field-less `user` line of a subagent file was the
 dispatcher's brief or a workflow's task in every subagent file measured, but one owner's interrupt,
 re-taken with
-`find ~/.claude/projects -path '*subagents*' -name 'agent-*.jsonl' -exec jq -r 'select(.type=="user" and .isMeta==null and .origin==null and .isCompactSummary==null and ((.message.content|type)=="string" or ([.message.content[] | select(.type=="tool_result")] | length) == 0)) | .message.content | if type=="string" then .[:40] else ([.[] | .text? // empty] | join(" "))[:40] end' {} + | sort | uniq -c`. That interrupt reads as `dispatch`: no field
-tells it apart, and the rule refuses a text test.
+`find ~/.claude/projects -path '*subagents*' -name 'agent-*.jsonl' -exec jq -r 'select(.type=="user" and .isMeta==null and .origin==null and .isCompactSummary==null and ((.message.content|type)=="string" or ([.message.content[] | select(.type=="tool_result")] | length) == 0)) | .message.content | if type=="string" then .[:40] else ([.[] | .text? // empty] | join(" "))[:40] end' {} + | sort | uniq -c`. That interrupt carries no
+`interruptedMessageId` and reads as `dispatch`: no field tells it apart, and the rule refuses a text
+test. Every other interrupt measured carries that field, and no other `user` line does, over
+Claude Code 2.1.306 to 2.1.316 on 2026-10-31: the lines that carry it are re-taken with
+`find ~/.claude/projects -name '*.jsonl' -exec jq -r 'select(.type=="user" and .interruptedMessageId != null) | .message.content | if type=="string" then .[:45] else ([.[] | .text? // empty] | join(" "))[:45] end' {} + | sort | uniq -c`,
+and the interrupts that do not with
+`find ~/.claude/projects -name '*.jsonl' -exec jq -r 'select(.type=="user" and .interruptedMessageId == null) | .message.content | if type=="string" then . else ([.[] | .text? // empty] | join(" ")) end | select(startswith("[Request interrupted"))' {} + | sort | uniq -c`.
 
 ### The transcript reader tolerates every line it does not know, and every run reports each one `##transcript-format-tolerated-and-reported`
 
@@ -113,7 +120,7 @@ changes between versions, so scripts that parse these files directly can break o
 https://code.claude.com/docs/en/sessions. Over the window measured, each version added types or
 keys and none removed or renamed one the labels use; each line type, with the versions that wrote
 it, is listed by
-`find ~/.claude/projects \( \( -mindepth 2 -maxdepth 2 -name '*.jsonl' \) -o \( -path '*/subagents/*' -name 'agent-*.jsonl' \) \) -exec jq -r '"\(.type) \(.attachment.type // .subtype // "") \(.version // "-")"' {} + | sort -u`,
+`{ find ~/.claude/projects -mindepth 2 -maxdepth 2 -name '*.jsonl'; find ~/.claude/projects -path '*/subagents/*' -name 'agent-*.jsonl'; } | xargs -d '\n' jq -r '"\(.type) \(.attachment.type // .subtype // "") \(.version // "-")"' | sort -u`,
 over the files the reader reads, where a metadata line, which carries no `version`, shows `-`, and the header of `klarch transcript list --all-projects` names any value outside the sets. A strict reader
 would fail on each release that adds a type, `rejected@core@strict-transcript-reader`; a silent
 tolerant one hides a renamed field, against `design@core@a-failed-parse-is-loud`.

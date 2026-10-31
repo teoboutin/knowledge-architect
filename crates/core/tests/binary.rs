@@ -5948,7 +5948,7 @@ fn transcript_each_line_takes_the_label_of_its_fields_and_the_unknown_is_reporte
     has("# unlabelled lines: 1");
     has("# lines skipped for a repeated uuid: 1");
     has("# not JSON: -proj/eeeeeeee-0000-0000-0000-000000000005.jsonl:");
-    has("# each is a gap of this command");
+    has("is a gap of this command");
     // The subagents: a field-less line of a subagent file is its dispatcher's.
     has("# subagent eeeeeeee/f00dcafe: general-purpose");
     has("dispatch 2026-01-03 10:00]\nthe brief of the reviewer");
@@ -6150,10 +6150,7 @@ fn transcript_the_remaining_rows_of_the_mapping_hold() {
     // A line no row places is a gap, alone.
     let (stdout, _, _) = transcript("split", "split-gap", &["show", "bbbbbbbb"]);
     assert!(stdout.contains("# unlabelled lines: 1"), "{stdout}");
-    assert!(
-        stdout.contains("# each is a gap of this command"),
-        "{stdout}"
-    );
+    assert!(stdout.contains("is a gap of this command"), "{stdout}");
 
     // A line of bytes that are no UTF-8 is a line that is no JSON, in either mode.
     let (stdout, _, code) = transcript("places", "places-utf8", &["list"]);
@@ -6360,12 +6357,12 @@ fn transcript_shapes_rows_and_output_forms_hold() {
     let (stdout, _, _) = transcript("twofiles", "adv-gap-type", &["list"]);
     assert!(
         stdout.contains("# unrecognised type \"brand-new-type\"")
-            && stdout.contains("# each is a gap"),
+            && stdout.contains("is a gap of this command"),
         "{stdout}"
     );
     let (stdout, _, _) = transcript("places", "adv-gap-json", &["show", "ffffffff"]);
     assert!(
-        stdout.contains("# not JSON") && stdout.contains("# each is a gap"),
+        stdout.contains("# not JSON") && stdout.contains("is a gap of this command"),
         "{stdout}"
     );
     let (stdout, _, _) = transcript("labels", "adv-files", &["show", "eeeeeeee"]);
@@ -6449,4 +6446,121 @@ fn transcript_a_linked_worktree_reads_the_sessions_of_its_main_checkout() {
         "a session of the main checkout:\n{stdout}"
     );
     assert!(!stdout.contains("99999999 "), "another project:\n{stdout}");
+}
+
+/// The kinds of line harness versions 2.1.310 to 2.1.316 added, each classed: an interrupt placed by
+/// its `interruptedMessageId`, a refusal shown, the `/remote-control` echo and the metadata, status
+/// and reminder lines ignored, so the header names none of them and asks for no report.
+#[test]
+fn transcript_the_kinds_of_later_harness_versions_are_classed() {
+    let (stdout, stderr, code) =
+        transcript("kinds", "kinds-show", &["show", "abcdef01", "--tools"]);
+    assert_eq!(code, 0, "{stdout}{stderr}");
+    let has = |needle: &str| assert!(stdout.contains(needle), "missing {needle:?} in:\n{stdout}");
+    has("owner-interrupt 2026-04-01 10:00]\n[Request interrupted by user]");
+    has("injected model-refusal 2026-04-01 10:00]\nmodel refusal, category some_category");
+    has("owner-command 2026-04-01 10:00]\n/remote-control\n");
+    // The field places an interrupt only on a line no other field places.
+    has("injected meta 2026-04-01 10:00]\na meta line that names an interrupt");
+    has("injected model-refusal 2026-04-01 10:00]\nmodel refusal, category unknown");
+    assert_eq!(stdout.matches("remote-control").count(), 1, "{stdout}");
+    assert!(!stdout.contains("# unrecognised"), "{stdout}");
+    assert!(!stdout.contains("# unlabelled"), "{stdout}");
+    assert!(!stdout.contains("gap"), "{stdout}");
+
+    // An interrupt is the owner's act, not a line the owner typed: the count holds two messages.
+    let (stdout, _, _) = transcript("kinds", "kinds-list", &["list"]);
+    assert!(stdout.contains("owner 3 "), "{stdout}");
+    let (stdout, _, code) = transcript(
+        "kinds",
+        "kinds-role",
+        &["search", "--role", "owner-interrupt", "."],
+    );
+    assert_eq!(code, 0, "{stdout}");
+    assert!(stdout.contains("abcdef01 L5 owner-interrupt"), "{stdout}");
+
+    // In a subagent file, the field places an interrupt before the row of the dispatcher's text.
+    let (stdout, _, _) = transcript("kinds", "kinds-sub", &["show", "abcdef01", "--subagents"]);
+    assert!(stdout.contains("[0000000k L1 dispatch"), "{stdout}");
+    assert!(
+        stdout.contains("[0000000k L2 owner-interrupt 2026-04-01 10:01]"),
+        "{stdout}"
+    );
+    // A null id is no id: the line stays the dispatcher's.
+    assert!(stdout.contains("[0000000k L3 dispatch"), "{stdout}");
+
+    // A `local_command` line with no `commandRun` is an echo only where a line that carries one
+    // names it as its parent: two in a row are both reported.
+    let (stdout, _, _) = transcript("kinds", "kinds-echoes", &["show", "abcdef02"]);
+    assert!(
+        stdout.contains("# unrecognised system local_command shape \"no commandRun\": 2"),
+        "{stdout}"
+    );
+}
+
+/// `list` previews the words inside a pasted-content tag, never the tag.
+#[test]
+fn transcript_the_list_previews_the_words_inside_a_pasted_content_tag() {
+    let (stdout, _, code) = transcript("kinds", "kinds-preview", &["list"]);
+    assert_eq!(code, 0, "{stdout}");
+    let row = stdout
+        .lines()
+        .find(|l| l.starts_with("abcdef01 "))
+        .expect("the session's row");
+    assert!(
+        row.ends_with("please run\u{a0}the pasted plan now"),
+        "{row}"
+    );
+    assert!(!row.contains("pasted_content"), "{row}");
+}
+
+/// `--containing` and `--from` match a non-breaking space in the owner's words with a typed space,
+/// and the other way round.
+#[test]
+fn transcript_the_owner_s_words_match_across_a_non_breaking_space() {
+    let (stdout, _, code) = transcript(
+        "kinds",
+        "kinds-nbsp-list",
+        &["list", "--containing", "please run the pasted"],
+    );
+    assert_eq!(code, 0, "{stdout}");
+    assert!(stdout.contains("abcdef01 "), "{stdout}");
+    let (stdout, _, code) = transcript(
+        "kinds",
+        "kinds-nbsp-from",
+        &["show", "abcdef01", "--from", "a second message"],
+    );
+    assert_eq!(code, 0, "{stdout}");
+    assert!(!stdout.contains("[L1 owner"), "{stdout}");
+    let code = transcript(
+        "labels",
+        "labels-nbsp-typed",
+        &["list", "--containing", "and\u{a0}my words"],
+    )
+    .2;
+    assert_eq!(code, 0);
+    // A line break is no space.
+    let code = transcript(
+        "kinds",
+        "kinds-nbsp-break",
+        &["list", "--containing", "one line"],
+    )
+    .2;
+    assert_eq!(code, 1);
+}
+
+/// The request to report a gap names what it covers, so a file labelled by its text, which is no
+/// gap, reads as outside it; and a run with nothing but that fallback asks for no report.
+#[test]
+fn transcript_the_gap_request_names_what_it_covers() {
+    let (stdout, _, _) = transcript("labels", "gap-words", &["show", "eeeeeeee"]);
+    assert!(
+        stdout.contains(
+            "# each unrecognised value, unlabelled line and line that is no JSON above is a gap"
+        ),
+        "{stdout}"
+    );
+    let (stdout, _, _) = transcript("places", "gap-fallback", &["show", "88888888"]);
+    assert!(stdout.contains("# no line carries a field in"), "{stdout}");
+    assert!(!stdout.contains("gap"), "{stdout}");
 }
