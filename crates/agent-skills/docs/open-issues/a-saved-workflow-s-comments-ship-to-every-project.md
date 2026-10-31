@@ -34,6 +34,13 @@ some serve the agent that reads a workflow to dispatch its steps by hand, which
 `skill@knowledge-architect-project-audit@audit-method` asks of a session whose harness does not
 list the workflow.
 
+A constraint on the first closing shape below, reported by the agent-facing-text reviewer of the
+review before the merge of the branch `pre-release-fixes`, read in the text and not run: a `%%`
+line in a saved workflow's source is no JavaScript, so the source no longer passes the parse check
+`path@agent-skills@CLAUDE.md` asks for, `node --check` on the body wrapped in an async function.
+That shape then needs the check run on the installed copy, which the build has stripped, or the
+`%%` lines kept where the parser reads a comment, such as inside a `/* */` block.
+
 ### Why it matters
 
 `design@agent-skills@statement-names-an-act` keeps maintainer-only text out of what an installing project

@@ -102,8 +102,12 @@ absolute path of that worktree's index or its lock, beside a `GIT_DIR` naming th
 directory, which `design@core@repository-variables-dropped` removes and the search from the
 project's directory finds again. A relative value resolves against the top of the work tree, not
 git's working directory, measured with `GIT_INDEX_FILE=.git/index git ls-files` from a
-subdirectory, so a project in a subdirectory of its repository reads the same index. Git 2.36, the
-floor of `design@core@git-floor-for-commit-trees`, was not measured.
+subdirectory, so a project in a subdirectory of its repository reads the same index. A plain
+commit that concludes a resolved merge gets `.git/index`, as a commit of what is staged does. And
+`index --staged`, run from the hook of `commit -a`, stages into the lock file the variable names,
+and the commit records what it staged, measured with git 2.53.0 by a hook running
+`index --staged` then `check --staged` over an entry staged without its index. Git 2.36, the floor
+of `design@core@git-floor-for-commit-trees`, was not measured.
 
 Dropping the variable with the others, `rejected@core@every-git-variable-dropped`, lost to that
 measurement. Refusing to run with it set leaves a pre-commit hook unable to run the checker at all,
