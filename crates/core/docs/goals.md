@@ -92,3 +92,18 @@ It is met while an extension needs no change to the core and uses only its publi
 
 It refines `goal@knowledge-architect@agents-work-without-drift`: a project's own checks guard its
 own design intent.
+
+## The checker judges a commit's tree from the git pre-commit hook `##checks-a-commit-from-its-hook`
+
+It refines `goal@knowledge-architect@documentation-stays-consistent`.
+
+A project can run the checker from its git pre-commit hook, the hook git runs before it records a
+commit, to judge the tree that commit records, before the commit exists. The commits this covers
+are those of `git commit`, `git commit -a` and `git commit <paths>`, the paths with or without
+`--` before them, given its message by `-m`, by `-F` or in the editor, with or without `-q`, and
+with no other option. Each is covered in the repository's main worktree and in a linked one. A
+project here is one with a `.git` at or above its directory.
+
+It is met while the core's tests show, for each of the three forms, in a main worktree and in a
+linked one, a commit whose tree fails, which the hook refuses, and one whose tree conforms, which
+git records.

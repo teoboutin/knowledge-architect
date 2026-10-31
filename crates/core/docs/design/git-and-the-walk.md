@@ -78,9 +78,13 @@ with git 2.53.0 by a pre-commit hook printing `env | grep '^GIT_'`, which the se
 project's directory finds again. Honouring a repository
 variable while refusing one whose git directory differs from the one the project's directory finds
 gives this head's result wherever it runs, and refuses the runs where this head reads the project's
-own repository. A project whose repository git finds only through these variables, with no `.git`
-at or above its directory, is outside a worktree to the checker, exit 2 per
-`design@core@failed-git-is-exit-two`.
+own repository. The session chose this head over honouring the variables where the search from
+the project's directory finds no repository, which no goal ranks; the owner approved it. That rival
+keeps checkable a project whose repository git finds only through these variables, with no `.git`
+at or above its directory, which is outside a worktree to the checker here, exit 2 per
+`design@core@failed-git-is-exit-two`, and it lets a stray `GIT_DIR` in a shell outside every
+repository point the walk at another repository. The project
+`goal@core@checks-a-commit-from-its-hook` covers is one with a `.git` at or above its directory.
 
 ### `GIT_INDEX_FILE` is the index every command reads, so a pre-commit hook judges the tree its commit records `##index-file-variable-kept`
 
@@ -101,8 +105,8 @@ floor of `design@core@git-floor-for-commit-trees`, was not measured.
 
 Dropping the variable with the others, `rejected@core@every-git-variable-dropped`, lost to that
 measurement. Refusing to run with it set leaves a pre-commit hook unable to run the checker at all,
-since git gives the hook the variable every time, against the owner's intent that a project can
-run the check from its pre-commit hook. `init` alone refuses it: `init` belongs to no commit, and with the variable set git would
+since git gives the hook the variable every time, against `goal@core@checks-a-commit-from-its-hook`.
+`init` alone refuses it: `init` belongs to no commit, and with the variable set git would
 list and stage the project it writes through an index no commit of that project records.
 
 ### A listed path is read as git's bytes, never decoded `##a-path-is-bytes`
