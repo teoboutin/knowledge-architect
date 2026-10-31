@@ -79,7 +79,9 @@ project's directory finds again. Honouring a repository
 variable while refusing one whose git directory differs from the one the project's directory finds
 gives this head's result wherever it runs, and refuses the runs where this head reads the project's
 own repository. The session chose this head over honouring the variables where the search from
-the project's directory finds no repository, which no goal ranks; the owner approved it. That rival
+the project's directory finds no repository, which no goal ranks, since on the owner's reading
+`goal@knowledge-architect@any-project-can-adopt-it` does not cover a project git finds that way;
+the owner approved it. That rival
 keeps checkable a project whose repository git finds only through these variables, with no `.git`
 at or above its directory, which is outside a worktree to the checker here, exit 2 per
 `design@core@failed-git-is-exit-two`, and it lets a stray `GIT_DIR` in a shell outside every
