@@ -69,6 +69,11 @@ to this source: the first sentence of its scope, the prefix rule of
 named with the installer's prefix, and
 `skill@knowledge-architect-agent-configuration@installed-files-never-edited`.
 
+**Argue each edit from the side of a project other than knowledge-architect that installs the
+text**, per `goal@agent-skills@installed-text-works-anywhere`: the edited instruction must be
+followed, and give the result it intends, with none of this repository's record, its `%%` comments
+included, and where that project's own goals and records say nothing on its subject.
+
 For the design skill, a finding about an intermediate table rather than the outcome is
 not worth text (`design@agent-skills@outcome-over-display`). A rewording needs no design entry
 (`design@agent-skills@instruction-record-is-minimal`).
