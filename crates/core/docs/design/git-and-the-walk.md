@@ -74,7 +74,8 @@ verdict: with `GIT_DIR` naming another repository, the walk would be that reposi
 
 Refusing to run with one of them set leaves the pre-commit hook of a linked worktree unable to
 run the checker: git gives that hook a `GIT_DIR` naming the worktree's own git directory, measured
-with git 2.53.0, which the search from the project's directory finds again. Honouring a repository
+with git 2.53.0 by a pre-commit hook printing `env | grep '^GIT_'`, which the search from the
+project's directory finds again. Honouring a repository
 variable while refusing one whose git directory differs from the one the project's directory finds
 gives this head's result wherever it runs, and refuses the runs where this head reads the project's
 own repository. A project whose repository git finds only through these variables, with no `.git`
