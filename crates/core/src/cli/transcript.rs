@@ -86,7 +86,7 @@ pub struct TranscriptSearchArgs {
     #[arg(value_name = "REGEX")]
     pub pattern: String,
     /// Keep lines of this role, repeatable: owner, owner-answer, owner-queued, owner-command,
-    /// agent, dispatch, injected, tool, unlabelled.
+    /// owner-interrupt, agent, dispatch, injected, tool, unlabelled.
     #[arg(
         long = "role",
         value_name = "ROLE",
@@ -95,6 +95,7 @@ pub struct TranscriptSearchArgs {
             "owner-answer",
             "owner-queued",
             "owner-command",
+            "owner-interrupt",
             "agent",
             "dispatch",
             "injected",
@@ -193,7 +194,7 @@ fn list(manifest: &Manifest, dir: &Path, args: &TranscriptListArgs) -> Result<Ex
             args.containing.as_ref().is_none_or(|text| {
                 s.entries
                     .iter()
-                    .any(|e| e.label.owner_typed() && e.text.contains(text.as_str()))
+                    .any(|e| e.label.owner_typed() && contains_words(&e.text, text))
             })
         })
         .collect();
@@ -205,7 +206,7 @@ fn list(manifest: &Manifest, dir: &Path, args: &TranscriptListArgs) -> Result<Ex
             .entries
             .iter()
             .find(|e| e.label.owner_typed())
-            .map(|e| one_line(&e.text, LIST_EXCERPT))
+            .map(|e| one_line(&without_paste_tags(&e.text), LIST_EXCERPT))
             .unwrap_or_default();
         if args.json {
             outln!(
@@ -279,7 +280,7 @@ fn show(manifest: &Manifest, dir: &Path, args: &TranscriptShowArgs) -> Result<Ex
     if let Some(text) = &args.from {
         match entries
             .iter()
-            .position(|e| e.label.owner_typed() && e.text.contains(text.as_str()))
+            .position(|e| e.label.owner_typed() && contains_words(&e.text, text))
         {
             Some(start) => entries.drain(..start).for_each(drop),
             None => {
@@ -502,8 +503,10 @@ fn header(inventory: &Inventory, json: bool) {
         ));
     }
     if inventory.has_gap() {
-        let gap = "each is a gap of this command: report it as a finding on the checker in the \
-                   retrospective";
+        // The fallback lines above are no gap, so the request names what it covers.
+        let gap =
+            "each unrecognised value, unlabelled line and line that is no JSON above is a gap \
+                   of this command: report it as a finding on the checker in the retrospective";
         lines.push((json!({"header": "gap", "text": gap}), format!("# {gap}")));
     }
     for (object, text) in lines {
@@ -568,6 +571,32 @@ fn short(id: &str) -> String {
     id.chars().take(8).collect()
 }
 
+/// Whether `text` contains `words`, every whitespace character but a line break read as a space on
+/// both sides: a message can hold a non-breaking space where the words searched for hold a typed one.
+fn contains_words(text: &str, words: &str) -> bool {
+    let spaced = |s: &str| -> String {
+        s.chars()
+            .map(|c| {
+                if c.is_whitespace() && c != '\n' && c != '\r' {
+                    ' '
+                } else {
+                    c
+                }
+            })
+            .collect()
+    };
+    spaced(text).contains(&spaced(words))
+}
+
+/// The text with the harness's pasted-content tags removed, `<pasted_content id="…">` and its
+/// closing tag, which carries the id too: the owner's words of a pasted message are inside them.
+fn without_paste_tags(text: &str) -> String {
+    static TAG: std::sync::LazyLock<regex::Regex> = std::sync::LazyLock::new(|| {
+        regex::Regex::new(r"</?pasted_content(?:\s[^>]*)?>").expect("the pattern parses")
+    });
+    TAG.replace_all(text, "").into_owned()
+}
+
 /// The first non-empty line of a text, cut to `max` characters.
 fn one_line(text: &str, max: usize) -> String {
     cut(
@@ -583,5 +612,16 @@ fn cut(text: &str, max: usize) -> String {
         let mut s: String = text.chars().take(max).collect();
         s.push('…');
         s
+    }
+}
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    #[test]
+    fn a_paste_on_one_line_previews_its_words_alone() {
+        let text = "<pasted_content id=\"ab12\">short words</pasted_content id=\"ab12\">";
+        assert_eq!(one_line(&without_paste_tags(text), 80), "short words");
     }
 }
