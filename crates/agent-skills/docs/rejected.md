@@ -664,3 +664,18 @@ the test's question did, and a preference about a mechanism is an argument or a 
 so the test admitted nothing a goal, an argument or a fork does not hold. It is kept because a
 doubt remains: intents moved into goals could swell the goals homes with local preferences, until
 goals stop reading as what the project is for.
+
+### A goal's body bound to two to four sentences `##goal-body-in-two-to-four-sentences`
+
+`live`. The bound did not keep goals short: on the drafts of this repository's 31 goals brought to
+the goal standard under it, 9 goals broke it, and 51 of their 129 sentences ran over 40 words,
+carrying the sets and the measures the standard asks for in long sentences that read two ways. A
+session that argues from a goal applies it whole, so a longer goal costs it nothing.
+
+### The review of the whole goal set as a fourth axis of the project audit, with a saved workflow of its own `##goal-set-review-as-an-audit-axis`
+
+`live`. Every goal edit is the owner's, so the audit's split between edits applied in its branch and
+items put to the owner has nothing to split, and the owner argued that an activity is its
+methodology, goal-setting's for goals. Its machinery is sized for hundreds of entries, while one
+agent reads a project's goal set. It stays the design to reach for if a goal set grows past what one
+agent reads.

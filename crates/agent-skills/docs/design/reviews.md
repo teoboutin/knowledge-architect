@@ -4,15 +4,15 @@
 
 ### The standing-state review runs before every merge, and reads every tripwire and every deferred trigger `##standing-state-review-before-every-merge`
 
-The installed review skill sends the standing-state reviewer before every merge to the
-main branch, whatever the change. That reviewer is the standing re-entry point of every tripwire
-home and of every deferred trigger, and asks of each tripwire whether it fired and whether its
-horizon passed, per `design@agent-skills@tripwire-horizon`, as the installed issue-tracking skill states: it runs for every
-change, where the search before the work runs only for work that goes through the design skill, a
-plan or a retrospective intake, per
-`design@agent-skills@record-searched-before-the-work`. A re-entry point that depends on whether a change looked
-related to a tripwire is one that a change touching the guarded decision indirectly skips: the
-reviewer reads every entry of every home, not the subset the diff seems to concern. This serves
+The installed review skill sends the standing-state reviewer before every merge to the main branch,
+whatever the change. That reviewer is the standing re-entry point of every tripwire home and of
+every deferred trigger, and asks of each tripwire whether it fired and whether its horizon passed,
+per `design@agent-skills@tripwire-horizon`, as the installed issue-tracking skill states: it runs
+for every change, where the search before the work runs only for work that goes through the design
+skill, a plan or a retrospective intake, per `design@agent-skills@record-searched-before-the-work`.
+A re-entry point that depends on whether a change looked related to a tripwire is one that a change
+touching the guarded decision indirectly skips: the reviewer reads every entry of every home, not
+the subset the diff seems to concern. This serves
 `goal@knowledge-architect@documentation-stays-consistent`.
 
 A deferred issue's trigger answers the question a tripwire's firing clause answers, what will make
@@ -75,20 +75,20 @@ plan document.
 
 ### Before every merge, the transcript reviewer runs alone and last, and not with the other axes `##transcript-review-last-before-merge`
 
-The installed review skill sends the transcript reviewer before every merge to the main branch
-once, after every other axis has run and its repairs are committed, and not also in their batch, over the whole branch and the
-transcripts of every session that worked on it. The findings of the other axes reach the session as
-messages of its transcript, so only a reviewer reading it after their repairs can tell whether each
-was acted on durably, per `goal@knowledge-architect@design-is-recorded-with-its-arguments`. A
-transcript reviewer sent in their batch as well would read the transcript before the owner answers
-the items the batch raises, and an answer of the owner given after its extraction reads to it as
-missing, as `skill@knowledge-architect-review@review-axes` says: its findings would report as
-missing what the last transcript review then finds answered. Its own repairs land as
-`design@agent-skills@transcript-review-repairs-are-additional-commits` says.
-An additional commit that adds, removes or reverses a design head is reviewed by the
-decision-record axis at least, and the review ends with that review's repairs; any other is reviewed
-by no axis again, so the review ends, per
-`design@agent-skills@only-a-head-changing-repair-is-reviewed-again`.
+The installed review skill sends the transcript reviewer before every merge to the main branch once,
+after every other axis has run and its repairs are committed, and not also in their batch, over the
+whole branch and the transcripts of every session that worked on it. The findings of the other axes
+reach the session as messages of its transcript, so only a reviewer reading it after their repairs
+can tell whether each was acted on durably, per
+`goal@knowledge-architect@design-is-recorded-with-its-arguments`. A transcript reviewer sent in
+their batch as well would read the transcript before the owner answers the items the batch raises,
+and an answer of the owner given after its extraction reads to it as missing, as
+`skill@knowledge-architect-review@review-axes` says: its findings would report as missing what the
+last transcript review then finds answered. Its own repairs land as
+`design@agent-skills@transcript-review-repairs-are-additional-commits` says. An additional commit
+that adds, removes or reverses a design head is reviewed by the decision-record axis at least, and
+the review ends with that review's repairs; any other is reviewed by no axis again, so the review
+ends, per `design@agent-skills@only-a-head-changing-repair-is-reviewed-again`.
 
 ### The last transcript review's repairs land as additional commits, as many as their kinds need `##transcript-review-repairs-are-additional-commits`
 
@@ -105,22 +105,23 @@ A repair that would leave an earlier commit failing is folded, per
 The installed review skill sends the decision-record axis at every repair commit that adds, removes
 or reverses a design head, whether it answers the transcript reviewer or any other axis. A repair
 made before the last transcript review is reviewed before it; a repair of the last transcript review
-is reviewed after it, and the review ends with the repairs of that decision-record review. Any other repair is reviewed
-by no axis again: a rewording, and an argument, a mention or a reference added inside an existing
-head, included. One made before the last transcript review is still read by it, as every commit of
-the branch is. Without the record review, a head added, removed or reversed in answer to a review
-reaches the main branch with no review of its record, against
+is reviewed after it, and the review ends with the repairs of that decision-record review. Any other
+repair is reviewed by no axis again: a rewording, and an argument, a mention or a reference added
+inside an existing head, included. One made before the last transcript review is still read by it,
+as every commit of the branch is. Without the record review, a head added, removed or reversed in
+answer to a review reaches the main branch with no review of its record, against
 `goal@knowledge-architect@design-is-recorded-with-its-arguments`: the last transcript review judges
 fidelity to the owner's rulings and not the record.
 
-The trigger is a whole head, which the diff shows: a heading with a slug that appears or
-disappears, or a reversal under `skill@knowledge-architect-decision-recording@reversal-check`. Each round of repairs then adds at most as
-many re-reviews as it adds, removes or reverses heads. A trigger on any repair that "makes a
-decision" lost: whether a rewording makes one is a judgement, and read wide it re-reviews repairs
-that only reword a head. The rival that sends every axis again at every repair lost on the same
-cost. A relaxation of an approved head, or a turn of its direction, that this trigger leaves out
-still goes to the owner, per
-`skill@knowledge-architect-decision-recording@head-shape`, and the last transcript review checks it against the owner's rulings.
+The trigger is a whole head, which the diff shows: a heading with a slug that appears or disappears,
+or a reversal under `skill@knowledge-architect-decision-recording@reversal-check`. Each round of
+repairs then adds at most as many re-reviews as it adds, removes or reverses heads. A trigger on any
+repair that "makes a decision" lost: whether a rewording makes one is a judgement, and read wide it
+re-reviews repairs that only reword a head. The rival that sends every axis again at every repair
+lost on the same cost. A relaxation of an approved head, or a turn of its direction, that this
+trigger leaves out still goes to the owner, per
+`skill@knowledge-architect-decision-recording@head-shape`, and the last transcript review checks it
+against the owner's rulings.
 
 ### Subagents dispatched together each get a scratch directory of their own `##a-scratch-directory-per-subagent`
 
@@ -142,14 +143,14 @@ be obeyed together with the task.
 ### Every review whose diff adds to or changes agent-facing text owes an axis that judges each statement against the standard on that text `##review-judges-additions`
 
 A row of `skill@knowledge-architect-review@review-axes` holds the axis on agent-facing text,
-applicable to every diff that adds to or changes it, installed or a project's own, whatever
-activity produced the diff. It judges each added or changed statement against
+applicable to every diff that adds to or changes it, installed or a project's own, whatever activity
+produced the diff. It judges each added or changed statement against
 `skill@knowledge-architect-agent-configuration@admission-standard`, the standard every writer and
 judge of that text applies, per `design@agent-skills@admission-rules-home`. No other axis judges
 whether a statement is needed: the routing axis judges where it goes, and the reviewer agents leave
-style aside. In the thaum session that wrote the statement the owner judged useless, five review axes passed
-over it, by the message of thaum's commit that added it. The owner holds the review of a diff the cheaper place to catch such a statement,
-against the cost of an audit.
+style aside. In the thaum session that wrote the statement the owner judged useless, five review
+axes passed over it, by the message of thaum's commit that added it. The owner holds the review of a
+diff the cheaper place to catch such a statement, against the cost of an audit.
 
 The row sits in the review skill's table rather than among the axes the
 agent-configuration skill adds to the reviews of its own activity: agent-facing text is also
@@ -181,14 +182,14 @@ weaker, turned from its direction, or attributed to the owner where the owner di
 refinement within the ruling's direction, stricter, more detailed or reworded, is no finding, and
 "approved", "accepted" and "agreed" approve the idea, not the wording. An attribution still keeps
 the owner's scope and hedges, per `design@agent-skills@attribution-replaces-quotation`: a hedge
-dropped records a firmer ruling than the owner gave, minor on a detail that is not load-bearing
-and major otherwise, per `design@agent-skills@misstated-ruling-rated-by-what-it-changes`. The
-owner argued that the reviewer's weight belongs on whether something from the transcript was
-forgotten or not handled durably, and that a small addition, even a clearly sane deviation, is no
-finding. A ruling is a word of the owner on a question
-`primer@question-authority` reserves to the owner; an answer on a reading or a fact is checked
-against its source, per `design@agent-skills@answer-keeps-its-authority`. The reviewer assumes no shape of
-the work: a plan document is one home among the others.
+dropped records a firmer ruling than the owner gave, minor on a detail that is not load-bearing and
+major otherwise, per `design@agent-skills@misstated-ruling-rated-by-what-it-changes`. The owner
+argued that the reviewer's weight belongs on whether something from the transcript was forgotten or
+not handled durably, and that a small addition, even a clearly sane deviation, is no finding. A
+ruling is a word of the owner on a question `primer@question-authority` reserves to the owner; an
+answer on a reading or a fact is checked against its source, per
+`design@agent-skills@answer-keeps-its-authority`. The reviewer assumes no shape of the work: a plan
+document is one home among the others.
 
 The reading by direction is the owner's report: an acceptance or an agreement of the owner is rarely
 about the exact wording, but about the idea and the direction, so a refinement the agent later
@@ -196,19 +197,25 @@ judges relevant is likely acceptable, unless it relaxes a claim or a criterion s
 work passes. A check of scope that also reported a clause added within the ruling, "no obligation
 added", made a stricter acceptance criterion a major finding. The same reading applies wherever
 fidelity to an approval is judged, in the rules on heads, the record reviewers and auditors, the
-plan reviews and the retrospective, since `goal@agent-skills@reviews-judge-by-the-writer-s-criteria`
-asks that the criteria of the reviews and of the audits agree.
+plan reviews and the retrospective, with one exception: a goal's wording that rules out what the
+owner has not ruled out knowingly is a finding, since a goal binds outright and rules work out, so a
+wording stricter than the ruling is no refinement there; the transcript reviewer, the planning
+skill's plan reviews and the retrospective each state it, and the case is new against
+`rejected@agent-skills@transcript-reviewer-reports-every-clause` on that fact. The reading holds in
+all of them, since `goal@agent-skills@reviews-judge-by-the-writer-s-criteria` asks that the criteria
+of the reviews and of the audits agree.
 
 It is an agent, not a line in a skill, because its standard is fixed. Its extraction is the
-checker's, per `design@agent-skills@transcript-extraction-is-the-checker-s`. It serves `goal@knowledge-architect@the-owner-decides`, whose forks are the owner's, so a ruling
-misrecorded decides in the owner's place. The durability check serves
-`goal@knowledge-architect@design-is-recorded-with-its-arguments`. The check of rulings has shown
-its worth: in the review of the change that installed the first skills, a reviewer briefed with it
-was the one of six to find a decision recorded narrower than the owner's approval. The milestone
-document of the v0.1 extraction holds that count, in its section on session B of step 5, and
-`git log --diff-filter=D --name-only -- docs/plans/` finds it; the message of the commit "[review]
-Six reviewers read PR 1: the hand-off rule, the shipped text and the record are corrected" records
-the review's six axes and its finding.
+checker's, per `design@agent-skills@transcript-extraction-is-the-checker-s`. It serves
+`goal@knowledge-architect@the-owner-decides`, whose forks are the owner's, so a ruling misrecorded
+decides in the owner's place. The durability check serves
+`goal@knowledge-architect@design-is-recorded-with-its-arguments`. The check of rulings has shown its
+worth: in the review of the change that installed the first skills, a reviewer briefed with it was
+the one of six to find a decision recorded narrower than the owner's approval. The milestone
+document of the v0.1 extraction holds that count, in its section on session B of step 5, and `git
+log --diff-filter=D --name-only -- docs/plans/` finds it; the message of the commit "[review] Six
+reviewers read PR 1: the hand-off rule, the shipped text and the record are corrected" records the
+review's six axes and its finding.
 
 The design this decision did not keep:
 `rejected@agent-skills@transcript-reviewer-reports-every-clause`.
@@ -228,12 +235,12 @@ fragment the build copies would still leave each session to write the script. It
 
 The review skill, the planning skill and the transcript reviewer name a session by the opening words
 of the message where its work begins, and find it with `klarch transcript list`: `--branch` lists
-the sessions that worked on a branch, `--containing` the session holding those words in a message the
-owner typed. No installed text finds a transcript by a session identifier. After `/clear`, the
+the sessions that worked on a branch, `--containing` the session holding those words in a message
+the owner typed. No installed text finds a transcript by a session identifier. After `/clear`, the
 process keeps the earlier identifier in its paths while the harness writes a new file, as
 `design@core@transcript-session-split` measures, so a session that derives its transcript from the
-identifier it sees reads the session before the clear. The same reason holds at
-the three texts, which is why it has this home. The listing is computed from the transcripts, per
+identifier it sees reads the session before the clear. The same reason holds at the three texts,
+which is why it has this home. The listing is computed from the transcripts, per
 `design@core@transcript-query-verbs`.
 
 ### A misstated ruling is critical only when it reverses the ruling, or relaxes it in what is built or a load-bearing decision `##misstated-ruling-rated-by-what-it-changes`
@@ -242,17 +249,31 @@ A misstated ruling is critical only when it is reversed, or relaxed or put in a 
 what is built or a load-bearing decision. A decision attributed to the owner that the owner did not
 make, and a ruling turned from its direction, are major. A ruling recorded a little relaxed, or
 firmer than its hedges, on a detail that is not load-bearing, and an argument or a reading
-attributed to the owner that is not the owner's, are minor and still go to the owner; a minor
-ruling is no finding of the retrospective once caught before the merge; a refinement within the ruling's
-direction is none at all, per `design@agent-skills@transcript-reviewer-agent`. The cut is what the
-misstatement would build: a reversal, or a change of what is built or of a decision others rest on,
-produces wrong work if it merges, where a slip on a detail that bears on nothing built produces
-none, and is repaired once the owner sees it. That such a slip is no critical defect is the owner's
-weighing, from the owner's observation of real sessions: each slip the owner saw was on a small
-detail the owner judged not load-bearing, the transcript reviewer catches them reliably in the
-owner's view, the owner does not believe any instruction would do better since agents are trained
-to take a human's input seriously, and a reviewer flagging such a slip once in a while, for a
-decision that is not among the most critical and with only a small deviation from the owner's word,
-short of a reversal, is no critical defect. The rival, every misstated ruling rated critical, made
-a reviewer's report of a slip read as a critical defect, which the owner judged it is not; the slip is still repaired, and it is no defect
+attributed to the owner that is not the owner's, are minor and still go to the owner; a minor ruling
+is no finding of the retrospective once caught before the merge; a refinement within the ruling's
+direction is none at all, per `design@agent-skills@transcript-reviewer-agent`, except in a goal: a
+goal recorded stricter than what the owner ruled out knowingly changes what is built, since a goal
+rules work out, so it is major. The cut is what the misstatement would build: a reversal, or a
+change of what is built or of a decision others rest on, produces wrong work if it merges, where a
+slip on a detail that bears on nothing built produces none, and is repaired once the owner sees it.
+That such a slip is no critical defect is the owner's weighing, from the owner's observation of real
+sessions: each slip the owner saw was on a small detail the owner judged not load-bearing, the
+transcript reviewer catches them reliably in the owner's view, the owner does not believe any
+instruction would do better since agents are trained to take a human's input seriously, and a
+reviewer flagging such a slip once in a while, for a decision that is not among the most critical
+and with only a small deviation from the owner's word, short of a reversal, is no critical defect.
+The rival, every misstated ruling rated critical, made a reviewer's report of a slip read as a
+critical defect, which the owner judged it is not; the slip is still repaired, and it is no defect
 of the workflow.
+
+### The review before a merge owes the goals axis, the goal reviewer in its merge mode, when the diff adds, rewords or removes a goal `##goals-axis-in-the-review-before-a-merge`
+
+A row of `skill@knowledge-architect-review@review-axes` sends
+`agent@knowledge-architect-goal-reviewer` in its merge mode at a branch whose diff changes a goals
+home. It reads every goal the range adds or changes against the goal standard's rules that need no
+statement of the owner, and against every goal of the tree, and reports each goal edit whose ruling
+by the owner no commit message of the range records. A goal edit can be made inside another
+activity: in thaum, a goal reworded as a plan's default reached the goals home inside a batch of
+other defaults. The rival, no row, leaves such an edit to be read by no step before it merges,
+against `goal@knowledge-architect@the-owner-decides`. Per `design@agent-skills@goal-reviewer-agent`,
+the agent is the same one goal-setting dispatches.

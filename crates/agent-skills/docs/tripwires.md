@@ -110,17 +110,17 @@ directive restated wherever it is delivered, among the candidates.
 **Re-entry:** the retrospective of each session, and the review of every change.
 **Watches until:** 12 retrospective analyses, each a file added under docs/retrospective-reports/.
 
-## Guarding `design@agent-skills@audit-triggers`: a pin moves across a version whose changelog cites an axis, and the axis is not run `##axis-not-run-at-a-pin-move`
+## Guarding `design@agent-skills@audit-triggers`: a pin moves across a version whose changelog cites an axis or the review of the whole goal set, and it is not run `##axis-not-run-at-a-pin-move`
 
-The decision rests on the premise that the move of a pin reads the Migration entries of the
-versions crossed and runs the axis they cite. It watches agent behaviour in a consumer project,
-which this project cannot see, per
+The decision rests on the premise that the move of a pin reads the Migration entries of the versions
+crossed and runs the axis or the review of the whole goal set they cite. It watches agent behaviour
+in a consumer project, which this project cannot see, per
 `issue@agent-skills@a-tripwire-on-agent-behaviour-fires-where-this-project-cannot-see`.
 
-**Fires when:** in two separate pin moves, received retrospective files show a pin moved across
-such a version with the axis not run. An axis that the owner chose to replace or to scope at the
-move is not counted, since the owner's request is the main occasion of an audit, per
-`design@agent-skills@audit-triggers`.
+**Fires when:** in two separate pin moves, received retrospective files show a pin moved across such
+a version with the axis or the review not run. An axis or a review that the owner chose to replace
+or to scope at the move is not counted, since the owner's request is the main occasion of an audit,
+per `design@agent-skills@audit-triggers`.
 **Response:** reopen `design@agent-skills@audit-triggers`.
 **Re-entry:** the retrospective of a session that moved a pin.
 **Watches until:** three commits on the main branch that add analyses of received retrospective
@@ -497,3 +497,35 @@ candidates.
 **Re-entry:** the standing-state review before every merge: the commits and their messages are in
 the branch's history.
 **Watches until:** two release tags on the main branch, counted from the commit that writes this line.
+
+## Guarding `design@agent-skills@goal-reviewer-agent`: a goal the reviewer read passes with a defect the goal standard names `##reviewed-goal-passes-a-defect`
+
+The decision rests on the premise that a draft read by the goal reviewer before the owner rules
+reaches the owner with its readings, its excess reach and its conflicts shown, so a goal written
+after such a review holds no defect a rule of the standard names. The failure is silent: the goal
+is approved, written and checked, and only a later rewording shows the defect.
+
+**Fires when:** in two separate pieces of work, a goal written or reworded after a draft-mode
+review is reworded again for a defect a rule of the goal standard names, a reading, a reach the
+owner did not rule out knowingly, a conflict or a measure, as the rewording's commit message or a
+received retrospective file states.
+**Response:** reopen `design@agent-skills@goal-reviewer-agent`, and with it
+`design@agent-skills@goal-draft-shows-reach`.
+**Re-entry:** a commit that rewords a goal, and the retrospective of a session that ran
+goal-setting.
+**Watches until:** ten commits on the main branch that change a goals home, counted from the commit
+that writes this line.
+
+## Guarding `design@agent-skills@goal-standard-eight-rules`: an exclusion still rules a design out after no goal argues for that design `##exclusion-outlives-its-rival`
+
+Rule 8 admits a goal's exclusion only where another goal would otherwise argue for the design it
+names. Once that other goal is reworded or removed so that nothing argues for the design, the
+exclusion still binds outright and rules the design out with no argument behind it, and no check
+or review reads the pair again unless a whole-set review runs. Kept on a doubt.
+
+**Fires when:** a goal's exclusion names a design that no goal of the project argues for any longer,
+found in a goals home of this repository or reported by a received retrospective file.
+**Response:** reopen `design@agent-skills@goal-standard-eight-rules` on rule 8.
+**Re-entry:** a commit that rewords or removes a goal, and the next review of the whole goal set.
+**Watches until:** five commits on the main branch that change a goals home, counted from the
+commit that writes this line.

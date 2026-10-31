@@ -20,8 +20,7 @@ start, and only a reviewer reading by hand found them.
   of a list carries none.
 - Citations in words in the installed text, for example: "conditions 1, 3 and 4" of the tripwire
   standard in `skill@knowledge-architect-planning@acceptance-criteria`; "A load-bearing gap of point 2" in
-  `skill@knowledge-architect-planning@working-a-slice`; and "loop step" numbers across
-  the design skill, citing the steps of `skill@knowledge-architect-design@discussion-loop`.
+  `skill@knowledge-architect-planning@working-a-slice`; and "loop step" numbers across the design skill, citing the steps of `skill@knowledge-architect-design@discussion-loop`; and the goal standard's rules cited by number, "rule 3" and "rules 4 and 6", in `agent@knowledge-architect-goal-reviewer@the-modes` and `agent@knowledge-architect-goal-reviewer@what-to-report`.
 - The case, this repository's agent-configuration-entities milestone: three citations in words
   went stale or were wrong from the start; a fidelity reviewer reading by hand found them.
 - The core's rejected design on register entries at level three,
