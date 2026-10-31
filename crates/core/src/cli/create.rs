@@ -671,6 +671,19 @@ pub(super) fn new_component(
         eprintln!("error: {e}");
         return Ok(ExitCode::FAILURE);
     }
+    // **A run over staged changes stops before the indexes, and says why.** The new Component is
+    // no part of the staged tree, so the index of each of its registers differs between the two
+    // trees, and the refusal of `--fix` that ends the run keeps such a file from a partial commit,
+    // per `design@core@fix-refusal-mixed-state`. Its own message speaks of a partial commit the
+    // user did not make; this line says what happened and which command finishes the run.
+    if crate::git::index_differs_from_head(root).unwrap_or(false) {
+        outln!(
+            "note: git's index holds staged changes, which the new Component is no part of, so the \
+             run stops before the indexes of its registers, as `check --fix` does over a partial \
+             commit: `{} index` writes them",
+            parsed.command()
+        );
+    }
     finish(&parsed, checker, extensions)
 }
 
