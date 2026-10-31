@@ -3839,7 +3839,8 @@ fn check_staged_judges_the_index_and_not_the_working_tree() {
 /// git names by `GIT_INDEX_FILE`: `.git/index` for a commit of what is staged, a lock file of its
 /// own for `commit -a` and for `commit <paths>`, which leave `.git/index` holding what was staged
 /// before; and the same in a linked worktree, whose hook git also gives `GIT_DIR`. Per
-/// `design@core@index-file-variable-kept`.
+/// `design@core@index-file-variable-kept`; it is the measure of
+/// `goal@core@checks-a-commit-from-its-hook`.
 #[test]
 fn check_staged_as_a_pre_commit_hook_judges_the_index_the_commit_records() {
     let sandbox = Sandbox::new("staged-hook", "dirhome");
