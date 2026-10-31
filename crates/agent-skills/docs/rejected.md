@@ -689,7 +689,9 @@ holds.
 ### Every set of repairs that adds instructions held for the owner's word on its growth, an intake's and a review's included `##growth-held-in-every-activity`
 
 `live`. A piece of work's findings are bounded by real use or by its diff, where an audit's lenses
-read the whole corpus; the owner held that only the audit's findings lead to unbounded growth. It is
+read the whole corpus; the owner's view is that an intake cannot lead to unbounded growth the way
+an audit can, and its extension to a review and to a session writing text is the session's
+reading. It is
 kept here because a doubt remains that the bound holds without the hold, which
 `tripwire@agent-skills@intake-repairs-interact-unheld` watches; this design is the candidate if it
 fires.
