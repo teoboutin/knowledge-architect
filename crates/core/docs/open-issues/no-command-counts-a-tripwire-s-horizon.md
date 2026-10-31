@@ -18,13 +18,17 @@ Instances:
 
 - the retrospective of the session that reduced the grounding's reading, 2026-10-25: the
   standing-state reviewer counted 41 tripwires so;
-- C2 of the retrospective of the session that edited the primer's section on something met outside
-  the task, 2026-10-29: the same count, done in a shallow clone, found nothing until the reviewer
-  cloned again.
+- C2 and W1 of the retrospective of the session that edited the primer's section on something met
+  outside the task, 2026-10-29: the same count by hand, done first in a shallow clone, where the
+  commits that wrote the lines were absent; the reviewer cloned again, and the full count found a
+  horizon passing at the merge, ten commits changing the primer's source. In a clone of depth 3,
+  `git log -S` on a `Watches until` line names the clone's boundary commit, so a count there comes
+  out too low, with no error.
 
 The shapes, per `skill@knowledge-architect-issue-tracking@tripwire-entry`: commits on the main
 branch that change a named path or the guarded head's text, release tags, audit reports of an axis,
-plan documents deleted at their landing; a horizon in free words stays the reviewer's to count.
+plan documents deleted at their landing, a relocation, a commit whose added lines are exactly the
+lines it removes, counting as none; a horizon in free words stays the reviewer's to count.
 `design@core@tripwire-horizon-unchecked` keeps the line out of the checks on the owner's choice; it
 does not say whether a command that only counts, and judges nothing, is covered.
 
@@ -38,4 +42,5 @@ every merge.
 
 A discussion that settles whether a counting command stands against
 `design@core@tripwire-horizon-unchecked`, then either the command, printing per tripwire the writing
-commit and the occasions of each shape it recognises, or this entry closed on that head.
+commit and the occasions of each shape it recognises, less the relocations, and refusing to count
+in a shallow clone; or this entry closed on that head.

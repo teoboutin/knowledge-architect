@@ -97,19 +97,6 @@ candidates.
 and one pass of the design-record axis. A commit whose
 added level-three heading lines are all lines it also removes, a relocation, is not counted.
 
-## Guarding `design@agent-skills@restatement-size-test`: a directive missed because its restatement became a pointer `##pointer-not-followed`
-
-The decision rests on the premise that a session follows a pointer to a directive's home at the
-moment it needs the directive.
-
-**Fires when:** reviews or retrospectives of two separate pieces of work each find a directive
-broken where its restatement had been replaced by a pointer under the decision, or one such break
-reaches the main branch with no review or retrospective reporting it.
-**Response:** reopen `design@agent-skills@restatement-size-test`, with the rule it replaced, a
-directive restated wherever it is delivered, among the candidates.
-**Re-entry:** the retrospective of each session, and the review of every change.
-**Watches until:** 12 retrospective analyses, each a file added under docs/retrospective-reports/.
-
 ## Guarding `design@agent-skills@audit-triggers`: a pin moves across a version whose changelog cites an axis or the review of the whole goal set, and it is not run `##axis-not-run-at-a-pin-move`
 
 The decision rests on the premise that the move of a pin reads the Migration entries of the versions
@@ -236,23 +223,6 @@ one group to one misreading of one rule that the calibration did not catch.
 **Re-entry:** the session's verification of each report of the design-record axis.
 **Watches until:** 3 passes of the design-record axis, each counted by its report file.
 
-## Guarding `design@agent-skills@questions-go-to-their-authority`: questions the record answers still reach the owner `##record-answered-questions-reach-the-owner`
-
-The decision rests on the premise that routing a question by its authority, stated in the primer
-every session reads and delivered where a skill writes a default, per
-`design@agent-skills@derived-decision-proceeds-on-default`, overcomes the weight agents give to the
-owner's word, which `design@agent-skills@misstated-ruling-rated-by-what-it-changes` records the owner
-observing in agents.
-
-**Fires when:** the retrospectives of two separate pieces of work each find a question put to the
-owner that a goal, a design head or a source's text answered.
-**Response:** reopen `design@agent-skills@questions-go-to-their-authority` and
-`design@agent-skills@derived-decision-proceeds-on-default` on how the routing is delivered, for
-example at the points where a skill puts a finding to the owner rather than a default.
-**Re-entry:** the retrospective of each session, with the limit
-`issue@agent-skills@a-tripwire-on-agent-behaviour-fires-where-this-project-cannot-see` names.
-**Watches until:** 15 retrospective analyses, each a file added under docs/retrospective-reports/.
-
 ## Guarding `design@agent-skills@owner-word-holds-as-far-as-its-premise`: a deliberate departure from a specification is overridden as a reading `##departure-overridden-as-a-reading`
 
 The decision rests on the premise that a project states its departures from a specification it
@@ -346,29 +316,6 @@ its second design-conformance review found, in the commit "[review] Repairs of t
 spec's second design-conformance review: step 6 keeps every Component with a goal, and a boundary
 block draws on the owner's statements where no work exists".
 
-## Guarding `design@agent-skills@harness-shell-fails-on-a-pipe`: a chained command runs over a failing piped check in a project with the option `##piped-chain-runs-under-pipefail`
-
-The decision rests on the premise that the option reaches every shell the harness starts.
-
-**Fires when:** a retrospective reports a command chained on a piped verdict that ran over a failing
-check, in a project whose harness settings set the option.
-**Response:** reopen `design@agent-skills@harness-shell-fails-on-a-pipe` on how the option reaches
-the shell.
-**Re-entry:** each retrospective intake.
-**Watches until:** 10 retrospective analyses, each a file added under docs/retrospective-reports/.
-
-## Guarding `design@agent-skills@harness-shell-fails-on-a-pipe`: a session misreads a status the option produced `##pipefail-status-misread`
-
-The decision rests on the premise that the statuses the option adds, 141 after `head` and 1 after a
-`grep` that matched nothing, fail safe.
-
-**Fires when:** a retrospective reports a session that read such a status as a failure of the
-command before the pipe, and acted on it.
-**Response:** reopen `design@agent-skills@harness-shell-fails-on-a-pipe` on what the setup tells a
-session of the statuses.
-**Re-entry:** each retrospective intake.
-**Watches until:** 8 retrospective analyses, each a file added under docs/retrospective-reports/.
-
 ## Guarding `design@agent-skills@workflow-axis-lenses`: in a pass, one agent of each duplicated lens alone reports every confirmed finding of that lens `##duplicate-auditors-add-nothing`
 
 The decision rests on the premise that a second agent on one lens finds what the others of that lens
@@ -448,25 +395,6 @@ words the row of a fact the owner holds, with the instance.
 whose auditor reads the history of a head's ground.
 **Watches until:** three commits on the main branch that add analyses of received retrospective
 files, counted from the commit that writes this line.
-
-## Guarding `design@agent-skills@code-change-reads-its-record`: a session that held the subsection still proposes a fix past a head of its code's record that it did not read `##fix-proposed-past-an-unread-head`
-
-The decision rests on the premise that a session reads the record of its code at the moment it
-proposes a fix, though the primer that asks for it is read at the session's start, and that the
-titles of a design home lead it to the heads on its code's subject where the code cites none.
-
-**Fires when:** retrospective analyses of two separate pieces of work each report a fix proposed by
-a session whose installed primer held the subsection, that contradicted or missed a head on its
-code's subject which the session had not read; or one such fix reached a main branch with no review
-or retrospective reporting it.
-**Response:** reopen `design@agent-skills@code-change-reads-its-record`, on where and how the
-reading is delivered.
-**Re-entry:** the retrospective intake of each received file, where the analyses are written.
-**Watches until:** six analyses of received retrospective files under
-`path@knowledge-architect@docs/retrospective-reports/`, counted from the commit that writes this line.
-Its firing evidence comes mostly from the sessions of projects that install the workflow, which this
-project sees only through their retrospective files, per
-`issue@agent-skills@a-tripwire-on-agent-behaviour-fires-where-this-project-cannot-see`.
 
 ## Guarding `design@agent-skills@settled-means-recorded`: a proposal of the owner built with no grounding `##owner-proposal-built-ungrounded`
 

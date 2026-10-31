@@ -37,8 +37,9 @@ report the rule acted on as if absent, in three projects.
 - A candidate the retrospective of the session that built `klarch transcript` proposes: `cargo
   klarch commits`, which the primer asks for after each commit, prints one line naming what it did
   not judge, a count, a search, a quotation or an attribution in a message, with a pointer to
-  `primer@verify-before-relying`. `path@core@README.md` keeps the verdict as the last line a
-  person reads, so such a line goes above it.
+  `primer@verify-before-relying`. The file places the line after the verdict;
+  `path@core@README.md` keeps the verdict as the last line a person reads, so such a line goes
+  above it.
 
 The suspected mechanism, in one sentence: an instruction read once at the start of a long session
 is not recalled at the moment it binds, which recurs at every commit.

@@ -37,17 +37,20 @@ bound and 3 above it sent alone, with the scripts the message of the commit
 "[review] Repairs of the transcript review of one search of the whole record, with the scripts of its measurements" holds, since the core binary refuses thaum's manifest, which holds the tables of
 thaum's own extension.
 
-Re-entry point: this repository's intake of a retrospective file from the owner's planned project
-of about 30 Components, or of any retrospective file that reports the search's cost.
+Re-entry point: the design discussion of
+`issue@core@the-graded-entries-repeat-a-shared-entry-s-grade-per-agent`, or any other change to how
+the record search clusters, packs or assembles the record, whose work weighs the search's cost; the
+first piece of work in the owner's planned project of about 30 Components; or the owner's word.
 
-The re-entry point is met by W4 of the retrospective of the intake deciding by authority,
-2026-10-31, which reports the search's cost: its `bears.md` of 80 entries, about 35,000 words, was
+An intake of a retrospective file that reports the search's cost is no re-entry point, since an
+intake's own work does not include this discussion. The cost measured so far: W4 of the
+retrospective of the intake deciding by authority, 2026-10-31: its `bears.md` of 80 entries, about 35,000 words, was
 the session's largest read. The intake of seventeen retrospective files of 2026-10-25 to 2026-10-31,
 at main `v0.8.0-224-g7e3784aa`, ran the search over 12 agents; its `bears.md` held 200 entries in
 83,788 words and its `may-bear.md` 164 entries in 57,415 words, by `wc -w`, more than that session
-could read whole beside its own work. The discussion this entry asks for is left to a branch of its
-own; `issue@core@the-graded-entries-repeat-a-shared-entry-s-grade-per-agent` holds the part of the
-cost that repeated grade lines make.
+could read whole beside its own work.
+`issue@core@the-graded-entries-repeat-a-shared-entry-s-grade-per-agent` holds the part of the cost
+that repeated grade lines make.
 
 ### Why it matters
 

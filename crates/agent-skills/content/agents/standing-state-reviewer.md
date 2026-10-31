@@ -66,13 +66,16 @@ define; that listing is what tells you which exist, rather than a count written 
 not homes: open every tripwires home as well, since an empty one does not appear in it. The `guarding` column names every reference
 each entry carries to a decision, a goal or a declared register's entry.
 
+%% The relocation sentence restates the member of `design@agent-skills@tripwire-horizon`, since this agent hosts
+%% no fragment that holds it and counts every horizon at every merge.
 **Read every entry in every one of those homes, not the subset whose subject the diff touches.**
 For each: has it fired, and has its horizon passed? Its `**Watches until:**` line names occasions a
 command over the history counts: find the commit that wrote the line, with `git log -S` on it, and
-count the occasions since. In a shallow clone, where `git rev-parse --is-shallow-repository` prints
-`true`, run `git fetch --unshallow` before counting: the commits the count starts from are absent,
-and it finds nothing without a sign. An entry with no such line has no horizon to pass until an
-audit or a change writes one.
+count the occasions since. A relocation, a commit whose added lines are exactly the lines it removes,
+is no occasion, as `skill@knowledge-architect-issue-tracking@tripwire-entry` says. An entry with no
+such line has no horizon to pass until an audit or a change writes one.
+
+{{fragment:shallow-history.md}}
 
 A diff that cannot have fired a tripwire is a normal outcome and is reported as one.
 

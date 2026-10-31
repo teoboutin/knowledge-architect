@@ -21,8 +21,9 @@ section "The standing answers".
   not see them. The intake-authority file reports the header's "unlabelled lines: 3" with no record.
   The proposal: two label rows, matched by the line's text where no field places it.
 - **b.** Still applies. On this machine at the analysed commit, `cargo klarch transcript list
-  --all-projects` reports 10 unlabelled lines, 3 of them this repository's: interrupts, one interrupt
-  for tool use, and one `<bash-input>` line with its `<bash-stdout>` line. No field of those lines
+  --all-projects` reports 10 unlabelled lines across all projects, 3 of them in this repository's
+  sessions; the 10 are 7 interrupts, one interrupt for tool use, and one `<bash-input>` line with its
+  `<bash-stdout>` line. No field of those lines
   tells them apart from a typed message.
 - **c.** No issue. `design@core@transcript-labels-in-code` places a line "never by a substring of its
   text", and a line no row places is `unlabelled`.

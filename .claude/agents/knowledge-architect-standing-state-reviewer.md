@@ -68,10 +68,14 @@ each entry carries to a decision, a goal or a declared register's entry.
 **Read every entry in every one of those homes, not the subset whose subject the diff touches.**
 For each: has it fired, and has its horizon passed? Its `**Watches until:**` line names occasions a
 command over the history counts: find the commit that wrote the line, with `git log -S` on it, and
-count the occasions since. In a shallow clone, where `git rev-parse --is-shallow-repository` prints
-`true`, run `git fetch --unshallow` before counting: the commits the count starts from are absent,
-and it finds nothing without a sign. An entry with no such line has no horizon to pass until an
-audit or a change writes one.
+count the occasions since. A relocation, a commit whose added lines are exactly the lines it removes,
+is no occasion, as `skill@knowledge-architect-issue-tracking@tripwire-entry` says. An entry with no
+such line has no horizon to pass until an audit or a change writes one.
+
+In a shallow clone, where `git rev-parse --is-shallow-repository` prints `true`, a count over the
+history starts from the clone's boundary commit and comes out too low, with no error: report each
+horizon you could not count for that reason, and that `git fetch --unshallow` in the dispatcher's
+checkout makes it countable.
 
 A diff that cannot have fired a tripwire is a normal outcome and is reported as one.
 
