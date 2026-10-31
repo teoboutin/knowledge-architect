@@ -343,10 +343,14 @@ Binding, from `goal@knowledge-architect@design-with-agents-as-counterparts`. Met
 Binding, from `goal@agent-skills@only-needed-instructions`: a ruling owed on every finding is a
 fixed mapping. Met by `thread@intake-decides-by-authority@intake-outcome-authority` and `thread@intake-decides-by-authority@intake-ruling-timing`.
 
-### The installed text names nothing of one project `##installed-text-anywhere`
+### The installed text works in a project that holds none of knowledge-architect's record `##installed-text-anywhere`
 
-Binding, from `goal@agent-skills@installed-text-works-anywhere`. Met by `thread@intake-decides-by-authority@handled-file-archive`,
-whose H3 names no directory.
+Binding, from `goal@agent-skills@installed-text-works-anywhere`, reworded on this branch on the
+owner's word. Met by `thread@intake-decides-by-authority@handled-file-archive`, whose H3 names no
+directory, and by `thread@intake-decides-by-authority@admission-gates-in-intake`, whose shape (a′)
+routes by what a consumer holds. Step 2 also brings the intake's item e, a finding's scope taken
+"from the goals homes", to a consumer: a finding on the installed text has its scope in the
+installed text, since the consumer holds no goal of knowledge-architect.
 
 ### Nothing leaves the machine before the owner has read it `##nothing-leaves-unread`
 
@@ -837,8 +841,9 @@ Who decides, by `primer@question-authority`, the same in every project, on `argu
 - `agent@knowledge-architect-workflow-auditor` drafts "the outcome the standard's table gives it" for
   an unneeded statement; its line becomes "the outcome the standard's table and the audit's
   outcome table give it".
-- Each installed text states its reason in its own words, so a consumer's session needs none of
-  this project's goals to follow it.
+- Each installed instruction can be followed with what a consumer holds, per
+  `goal@agent-skills@installed-text-works-anywhere`: its reason is written into the installed text
+  only where following it needs that reason.
 - `rejected@agent-skills@unbounded-repair-growth` stays, true of the audit; the head
   `design@agent-skills@audit-net-growth` names it for the audit's hold, on `argument@intake-decides-by-authority@arg-30`.
 

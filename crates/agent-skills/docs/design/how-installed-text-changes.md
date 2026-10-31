@@ -166,8 +166,7 @@ following the workflow that would differ without it. A statement that names none
 and an existing one leaves by that section's outcome table: deleted where it carries no
 instruction, moved to a `%%` comment of the installed source where only the source's maintainer
 reads it, and put to the owner where it is an instruction no agent performs. A reason passes when
-it states a mechanism or a failure prevented, as
-`goal@agent-skills@only-needed-instructions` asks the reasons of each instruction; a
+it states a mechanism or a failure prevented; a
 second reason that names no other mechanism, a duplicate inside one text, a lead, an emphasis and a
 remark about the text fail, since a loaded text is read whole and they add no act. A statement
 about state outside the project is suspect, and is written only where an act needs it.
