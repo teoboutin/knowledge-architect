@@ -571,7 +571,7 @@ fn short(id: &str) -> String {
     id.chars().take(8).collect()
 }
 
-/// Whether `text` contains `words`, every whitespace character but a line break read as a space on
+/// Whether `text` contains `words`, every whitespace character but `\n` and `\r` read as a space on
 /// both sides: a message can hold a non-breaking space where the words searched for hold a typed one.
 fn contains_words(text: &str, words: &str) -> bool {
     let spaced = |s: &str| -> String {
@@ -590,9 +590,11 @@ fn contains_words(text: &str, words: &str) -> bool {
 
 /// The text with the harness's pasted-content tags removed, `<pasted_content id="…">` and its
 /// closing tag, which carries the id too: the owner's words of a pasted message are inside them.
+/// A tag with no `id`, as the owner may type when writing about the tag, is the owner's text and
+/// stays.
 fn without_paste_tags(text: &str) -> String {
     static TAG: std::sync::LazyLock<regex::Regex> = std::sync::LazyLock::new(|| {
-        regex::Regex::new(r"</?pasted_content(?:\s[^>]*)?>").expect("the pattern parses")
+        regex::Regex::new(r#"</?pasted_content\s+id="[^"]*">"#).expect("the pattern parses")
     });
     TAG.replace_all(text, "").into_owned()
 }
@@ -623,5 +625,11 @@ mod tests {
     fn a_paste_on_one_line_previews_its_words_alone() {
         let text = "<pasted_content id=\"ab12\">short words</pasted_content id=\"ab12\">";
         assert_eq!(one_line(&without_paste_tags(text), 80), "short words");
+    }
+
+    #[test]
+    fn a_paste_tag_with_no_id_is_the_owner_s_text() {
+        let text = "strip the <pasted_content> tag and </pasted_content> from it";
+        assert_eq!(without_paste_tags(text), text);
     }
 }
