@@ -125,8 +125,8 @@ Repaired, the layout's own changes of reading:
 - `goal@agent-skills@one-skill-per-activity`, `goal@agent-skills@installed-text-works-anywhere`, `goal@agent-skills@only-needed-instructions`: "agent
   definitions" for the installed agents, "agent" kept for a session.
 
-Defaults put to the owner, Q52 to Q64, in the session's message of this round; each answer is
-written below once given.
+Defaults put to the owner, Q52 to Q64, in the session's message of this round. The owner's answer,
+2026-10-31: "I agree with those new defaults".
 
 - Q52, `goal@knowledge-architect@the-owner-decides`: "In a project that follows the workflow, this one included, its owner
   states ..."; the definition of the record reaches "this goal and the other goals of this home".
@@ -168,7 +168,6 @@ and the goals that hold more than one intent (rule 4).
 
 ## Open questions
 
-- Q52 to Q64, above.
 - The new layout of every goal, which the owner rules on by its slug, each goal with its boundary
   block, once the rounds stop.
 
