@@ -212,10 +212,10 @@ decides in the owner's place. The durability check serves
 `goal@knowledge-architect@design-is-recorded-with-its-arguments`. The check of rulings has shown its
 worth: in the review of the change that installed the first skills, a reviewer briefed with it was
 the one of six to find a decision recorded narrower than the owner's approval. The milestone
-document of the v0.1 extraction holds that count, in its section on session B of step 5, and `git
-log --diff-filter=D --name-only -- docs/plans/` finds it; the message of the commit "[review] Six
-reviewers read PR 1: the hand-off rule, the shipped text and the record are corrected" records the
-review's six axes and its finding.
+document of the v0.1 extraction holds that count, in its section on session B of step 5, and
+`git log --diff-filter=D --name-only -- docs/plans/` finds it; the message of the commit "[review]
+Six reviewers read PR 1: the hand-off rule, the shipped text and the record are corrected" records
+the review's six axes and its finding.
 
 The design this decision did not keep:
 `rejected@agent-skills@transcript-reviewer-reports-every-clause`.
@@ -251,9 +251,7 @@ make, and a ruling turned from its direction, are major. A ruling recorded a lit
 firmer than its hedges, on a detail that is not load-bearing, and an argument or a reading
 attributed to the owner that is not the owner's, are minor and still go to the owner; a minor ruling
 is no finding of the retrospective once caught before the merge; a refinement within the ruling's
-direction is none at all, per `design@agent-skills@transcript-reviewer-agent`, except in a goal: a
-goal recorded stricter than what the owner ruled out knowingly changes what is built, since a goal
-rules work out, so it is major. The cut is what the misstatement would build: a reversal, or a
+direction is none at all, per `design@agent-skills@transcript-reviewer-agent`, except in a goal: a goal recorded stricter than what the owner ruled out knowingly is major: it rules out work the owner did not rule out, a change of the ruling's direction short of a reversal, and it reaches no work before the owner's next ruling on that goal shows it. The cut is what the misstatement would build: a reversal, or a
 change of what is built or of a decision others rest on, produces wrong work if it merges, where a
 slip on a detail that bears on nothing built produces none, and is repaired once the owner sees it.
 That such a slip is no critical defect is the owner's weighing, from the owner's observation of real
@@ -268,9 +266,7 @@ of the workflow.
 
 ### The review before a merge owes the goals axis, the goal reviewer in its merge mode, when the diff adds, rewords or removes a goal `##goals-axis-in-the-review-before-a-merge`
 
-A row of `skill@knowledge-architect-review@review-axes` sends
-`agent@knowledge-architect-goal-reviewer` in its merge mode at a branch whose diff changes a goals
-home. It reads every goal the range adds or changes against the goal standard's rules that need no
+A row of `skill@knowledge-architect-review@review-axes` sends `agent@knowledge-architect-goal-reviewer` in its merge mode at a branch whose diff adds, rewords or removes a goal; an edit to a goals home's head alone changes no goal, so it owes none. It reads every goal the range adds or changes against the goal standard's rules that need no
 statement of the owner, and against every goal of the tree, and reports each goal edit whose ruling
 by the owner no commit message of the range records. A goal edit can be made inside another
 activity: in thaum, a goal reworded as a plan's default reached the goals home inside a batch of

@@ -374,7 +374,7 @@ To move to another version:
    for the review of the whole goal set, run it under `skill@knowledge-architect-goal-setting`, each in a
    branch of its own started from the main branch once the pin move has merged into it, so that
    the audit's range holds the audit's work alone. The pin move's branch opens one `todo` issue per
-   axis or review listed, in the root Component, which the audit's commit closes, so the owed audit is held by
+   axis or review listed, in the root Component, which the commit of that audit or review closes, so the owed audit or review is held by
    a register until it runs. Such a Migration entry changes the rules the project's
    existing record must meet, and the audit brings that record to them.
 

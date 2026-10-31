@@ -397,7 +397,7 @@ from the commit that writes this line.
 
 The decision rests on the premise that the transcript reviewer tells a refinement within a ruling's
 direction from a relaxation of it, so that a check, a claim, a criterion or the scope of the work
-made weaker than the owner approved is still reported, while a stricter or more detailed one is not.
+made weaker than the owner approved is still reported, while a stricter or more detailed one is not, except in a goal, whose stricter wording is a finding.
 
 **Fires when:** a check, a claim, a criterion or a scope of work found on the main branch is weaker
 than a ruling of the owner approved, and the last transcript review of the branch that merged it
@@ -463,23 +463,6 @@ Its firing evidence comes mostly from the sessions of projects that install the 
 project sees only through their retrospective files, per
 `issue@agent-skills@a-tripwire-on-agent-behaviour-fires-where-this-project-cannot-see`.
 
-## Guarding `design@agent-skills@term-defined-at-first-load`: a coined term the primer comes to use gains no entry in its terms section `##coined-term-without-an-entry`
-
-The decision rests on the premise that the `%%` line above the primer's terms section reaches the
-maintainer who adds a coined term to the primer, though no review reads the primer's diff for terms
-used and not defined.
-
-**Fires when:** in two separate pieces of work after this line, a review, an audit or a
-retrospective finds a coined term the installed primer uses with no definition in it and no entry
-in `primer@coined-terms`, the term added to the primer by that work; or one such term reaches a
-release with no procedure reporting it.
-**Response:** reopen `design@agent-skills@term-defined-at-first-load`, on where its rule is
-delivered.
-**Re-entry:** the agentic-workflow audit, and the retrospective intake of this repository's own
-files.
-**Watches until:** ten commits on the main branch that change
-`path@agent-skills@content/PRIMER.md`, counted from the commit that writes this line.
-
 ## Guarding `design@agent-skills@settled-means-recorded`: a proposal of the owner built with no grounding `##owner-proposal-built-ungrounded`
 
 The decision rests on the premise that a session sent by the condition loads the design skill
@@ -509,14 +492,14 @@ is approved, written and checked, and only a later rewording shows the defect.
 review is reworded again for a defect a rule of the goal standard names, a reading, a reach the
 owner did not rule out knowingly, a conflict or a measure, as the rewording's commit message or a
 received retrospective file states.
-**Response:** reopen `design@agent-skills@goal-reviewer-agent`, and with it
-`design@agent-skills@goal-draft-shows-reach`.
+**Response:** reopen `design@agent-skills@goal-reviewer-agent`, and with it `design@agent-skills@goal-draft-shows-reach`.
+**Evidence when written:** one piece of work: `goal@knowledge-architect@the-owner-decides`, written after six draft-mode versions in the batch-1 commit of the branch that built the reviewer, "[goals] Step 6, batch 1: the owner and agents cluster of the root's goals meets the goal standard", was reworded at that branch's third layout round for a rule-2 defect, its record defining the record with no commit message while saying a decision is reported "in the record, a commit message included".
 **Re-entry:** a commit that rewords a goal, and the retrospective of a session that ran
 goal-setting.
 **Watches until:** ten commits on the main branch that change a goals home, counted from the commit
 that writes this line.
 
-## Guarding `design@agent-skills@goal-standard-eight-rules`: an exclusion still rules a design out after no goal argues for that design `##exclusion-outlives-its-rival`
+## Guarding `design@agent-skills@goal-standard-rules`: an exclusion still rules a design out after no goal argues for that design `##exclusion-outlives-its-rival`
 
 Rule 8 admits a goal's exclusion only where another goal would otherwise argue for the design it
 names. Once that other goal is reworded or removed so that nothing argues for the design, the
@@ -525,7 +508,7 @@ or review reads the pair again unless a whole-set review runs. Kept on a doubt.
 
 **Fires when:** a goal's exclusion names a design that no goal of the project argues for any longer,
 found in a goals home of this repository or reported by a received retrospective file.
-**Response:** reopen `design@agent-skills@goal-standard-eight-rules` on rule 8.
+**Response:** reopen `design@agent-skills@goal-standard-rules` on rule 8.
 **Re-entry:** a commit that rewords or removes a goal, and the next review of the whole goal set.
 **Watches until:** five commits on the main branch that change a goals home, counted from the
 commit that writes this line.

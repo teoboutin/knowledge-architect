@@ -57,8 +57,7 @@ workflow lists the entries in the order its agent's section
 saved workflow the harness does not list, `skill@knowledge-architect-project-audit@audit-method`,
 dispatches the script's steps by hand, and those steps dispatch the workflow auditor's type too. A
 second instance of this case: the review of the whole goal set, which step 5 runs under
-goal-setting, dispatches `agent@knowledge-architect-goal-reviewer`, an agent type the version that
-adds the review also adds. One observation bears on the saved workflow, not on an agent: the session
+goal-setting, dispatches `agent@knowledge-architect-goal-reviewer`, an agent type the version that adds the review also adds; its closing occasion is a pin move across such a version that runs the review. One observation bears on the saved workflow, not on an agent: the session
 that ran the fourth pass saw the new workflow listed right after its install, per the message of the
 commit "[audit] Pass 4 of the agentic-workflow axis, run through the saved workflow: 36 findings
 confirmed, 23 causes repaired". That pass's F94 deleted a sentence asking a session to reload the

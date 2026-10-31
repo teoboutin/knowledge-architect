@@ -24,8 +24,7 @@ the repository in a commit of its own, after its harvest and the review before t
   not list as reversed or rewritten, the design home wins, and the disagreement is a defect of this
   spec.
 - Every name it uses is defined in it, under Names or New names, or exists in the tree.
-- One default awaits the owner, D4; D1, D2 and D3 are ruled. D4 is built as written until the owner
-  rules, and the branch merges once the owner has.
+- D1, D2, D3 and D4 are ruled.
 - The spec and its work share one branch: no step changes what
   `cargo klarch commits` checks in a tree, so `primer@branch-commits` does not ask the spec to merge
   first.
@@ -259,7 +258,7 @@ session read each whole:
 - `design@core@nothing-of-a-project-is-compiled-in`: cites a seed for what `init` writes; the work changes no `init`
 - `issue@agent-skills@the-claim-check-of-a-commit-message-is-read-at-the-start-and-needed-at-each-commit`: its mechanism bears on where an instruction applied mid-session is delivered
 - `design@agent-skills@a-reference-claims-a-revisit`: no row for a goal citing the goal it refines or ranks against; no shape says goals cite each other beyond rule 7's existing reference
-- `design@agent-skills@term-defined-at-first-load`, `tripwire@agent-skills@coined-term-without-an-entry`: only if the primer uses a term the standard coins; it does not
+- `design@agent-skills@term-defined-at-first-load`, `coined-term-without-an-entry`: only if the primer uses a term the standard coins; it does not
 - `rejected@agent-skills@admission-standard-in-primer`: the standard is not placed in the primer
 - `issue@agent-skills@a-pending-ruled-file-is-reached-by-no-installed-search`: bears on audit report files; shape A writes none
 - `issue@agent-skills@a-saved-workflow-s-comments-ship-to-every-project`: bears on a new saved workflow; none is added
@@ -333,8 +332,7 @@ holds what the standard asks of it, in sentences or in a list, with no sentence 
 
 Binding, from `goal@agent-skills@one-skill-per-activity`. Met, on the owner's ruling of D3 and the
 owner's argument #arg-48: an activity is its methodology, so the whole-set review, which follows
-goal-setting's, a fresh reviewer and a draft ruled goal by goal, and none of the audit's, passes,
-verifiers and report files, is part of setting goals.
+goal-setting's, is part of setting goals. Since step 7, the whole-set review shares means with the audit, rounds of fresh reviewers, a committed record and a stop on a count; on the owner's word to Q83, its methodology stays goal-setting's, since no edit lands from the review itself and the owner rules on every goal before it is written.
 
 ## Threads
 
@@ -471,6 +469,15 @@ Actually, I think any volume bigger than 2 or 3 goals should just go through the
 the conversation. This is more efficient and convenient for the both of us. I reviewed the current
 tree, we can go with that. Ruling by slug for each one would also be rather inconvenient for me
 here."
+
+### The review before the merge's questions: the boundary blocks, D4, the methodology and six goals `##review-questions-q81-to-q84`
+
+Raised by the review before the merge of this branch; state `approved`, on the session's defaults.
+Q81: no boundary block existed when the owner ruled on the goals, so the blocks are written in a
+record of docs/goal-reviews/ for the owner to read in the tree; Q82: D4 approved as built, its
+count sentence in goal-setting's drawing out of intent deleted; Q83: the whole-set review stays in goal-setting, its
+methodology goal-setting's, as #c-one-skill-per-activity now says; Q84: six goals reworded in the
+tree, and the two split goals given a parent. The owner: "agreed on defaults".
 
 ## Arguments
 
@@ -1252,9 +1259,7 @@ Fails alone on: the changelog copy test.
 
 Builds, under `skill@knowledge-architect-goal-setting`, read whole as installed by step 3, the
 whole-set review of every goals home of this repository: the reviewer in its whole-set mode, then
-each finding drafted through the skill's drawing out of intent, the reviewer in its draft mode on
-each version, with every relevant statement of the owner, #arg-48 among them, and each goal ruled by
-the owner by its slug. Every edit the rulings call for is made: a rewording, a retitling, a split, a
+each finding drafted through the skill's drawing out of intent, the reviewer in its draft mode on each version, with every relevant statement of the owner, #arg-48 among them, and every goal ruled by the owner, as step 7's rounds and #goals-ruled-in-the-tree came to shape it. Every edit the rulings call for is made: a rewording, a retitling, a split, a
 removal, an addition, every Component keeping at least one goal, per `design@agent-skills@goals-required`.
 Each removed or renamed goal's references are repaired in the same commit, as
 `skill@knowledge-architect-goal-setting@when-it-runs-again` says of a removal and the check reports of either; a head whose ground a reworded goal
@@ -1288,15 +1293,13 @@ Builds #goal-body-unbounded and #whole-set-rounds: goal-setting's
 `skill@knowledge-architect-goal-setting@whole-set-review`, the reviewer's reading of a record and its
 counts, the primer's row for docs/goal-reviews/, `design@agent-skills@goal-entry-shape` rewritten,
 and the changelog's entries on the whole-set review; then the review of this repository's goals in
-rounds, under the installed section, laying out every goal again without the bound, its content as
-the owner approved it, and each goal ruled by its slug.
+rounds, under the installed section, laying out every goal again without the bound, its content as the owner approved it, and the goals ruled on the batch as the tree holds them, per #goals-ruled-in-the-tree.
 
 Claims:
 
 - The installed goal-setting skill states no sentence bound, and its whole-set review holds the six
   steps of "The whole-set review in rounds": read in the installed copy.
-- Every goal's new layout carries the owner's ruling, and each round's reviewers report no change of
-  reading against the content the record quotes: the record and the commit of the ruled goals.
+- Every goal's new layout carries the owner's ruling, each with its boundary block once Q81 brought them: the record and the commit of the ruled goals. The rounds stopped on the owner's word to Q80, so the last round's findings went to the owner beside the goals rather than being reviewed again.
 - The record leaves with the commit that writes the goals ruled last.
 
 Fails alone on: the check, the installed copies, and the owner's rulings.
@@ -1340,8 +1343,7 @@ Fails alone on: the check, the installed copies, and the owner's rulings.
   #arg-55. Rule 4 asks only that one goal not conflate two intents; two goals may share an aspect,
   a finding of rule 5 only where they cannot both be met. The reviewer tags a rule 4 or rule 6
   finding `minor`, since neither changes what an agent does, and goal-setting counts a batch's
-  findings apart from the minor ones. The owner put it as "maybe", so the shape is the session's
-  default, built and awaiting the owner's word.
+  findings apart from the minor ones. The owner put it as "maybe", so the shape is the session's default, built. **Ruled:** the owner, on Q82, approved D4 as built, with the session's default to delete goal-setting's instruction to count a batch's findings apart from the minor ones, which no act used: "agreed on defaults".
 
 ## Harvest
 

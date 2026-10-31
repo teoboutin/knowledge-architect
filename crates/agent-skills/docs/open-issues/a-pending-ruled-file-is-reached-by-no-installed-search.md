@@ -11,7 +11,8 @@ pass of a project audit, and docs/retrospective-reports/, for each analysis of a
 project file. While such a file stays, it holds ruled outcomes no commit has carried out. The
 installed places a session reads for what is already known name the issue and tripwire listings
 only. A design could then be discussed, or a slice audited, past a ruled outcome of a pending file.
-This is a prediction: no real session has shown it. The moment is narrow for an audit report, which
+A third such home is docs/goal-reviews/, for the record of a goal-setting batch of more than three
+goals, whose rulings the owner gives on goals the working tree holds uncommitted. This is a prediction: no real session has shown it. The moment is narrow for an audit report, which
 normally leaves on the audit's own branch, and is the normal case for an analysis, which stays on
 the main branch across branches until its last outcome is carried out.
 

@@ -142,7 +142,7 @@ message where the work begins as one the owner typed.
 - nothing, where the finding is judged to need nothing, with the reason.
 
 A repair that rewords a goal is drafted as its own item under
-`skill@knowledge-architect-goal-setting@drawing-out-intent`, never ruled with other items.
+`skill@knowledge-architect-goal-setting@drawing-out-intent`, never ruled inside a batch of items that are not goals.
 
 **A finding that makes several claims gets an outcome for each claim**: repaired, opened as an
 issue, or judged to need nothing, with the reason. A claim left without an outcome of its own is
