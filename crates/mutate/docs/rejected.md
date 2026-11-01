@@ -34,7 +34,7 @@ catches the wrong implementation that claim names: a function with one tested br
 untested ones can read as covered, and a mutation the author wrote cannot be expressed at all. It is
 also an external install that a project's build does not pin. Running it over a branch's changed
 code, as a source of leads beside the hand mutation, is another question, which this entry does not
-cover and which the development procedure, not this crate, answers.
+cover.
 
 ### Shipping thaum's sweep of invariant-check sites with the run and the restore `##sweep-shipped`
 
