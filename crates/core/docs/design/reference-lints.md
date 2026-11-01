@@ -61,7 +61,7 @@ otherwise have to rewrite its own notation to pass. What the silence costs is a 
 entry has since left the tree and whose word is no anchor: it names nothing here, so it is not
 reported. Re-take it as the path lint's census is re-taken, counting this lint's findings; a
 census in which the silence hides a pointer the migration missed reopens it. Reporting every such
-shape is `rejected@core@retired-slug-reference-always-reported`. This serves `goal@knowledge-architect@any-project-can-adopt-it`.
+shape is `rejected@core@retired-slug-reference-always-reported`. This serves `goal@knowledge-architect@every-target-project-can-adopt-it`.
 
 **The interpretation register's old entry numbers are not read.** They were thaum's own, and a
 lint naming them would belong to thaum's extension rather than to the core. Keeping that lint permanently is
@@ -139,7 +139,7 @@ section belongs to a skill or to an agent.
 
 The nearest rival, an anchor the tool constructs for the agent configuration with three segments
 everywhere, lost: every name for it stutters or names a provider, and it carries nothing. It is
-`rejected@core@agent-configuration-anchor`. Serves `goal@knowledge-architect@any-project-can-adopt-it`:
+`rejected@core@agent-configuration-anchor`. Serves `goal@knowledge-architect@every-target-project-can-adopt-it`:
 one grammar, the same in every project, with a global namespace naming no anchor.
 
 The design this decision did not keep: `rejected@core@section-kind`.

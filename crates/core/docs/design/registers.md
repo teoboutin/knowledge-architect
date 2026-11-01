@@ -265,7 +265,7 @@ entry's files is `design@core@entry-anchor-path-kind`.
 
 **It is declared because a project can hold records whose subjects are directories**, as a game's
 design split by subject: one subject per directory, several files each, every entry cited
-`<kind>@<subject>@<id>`, which `goal@knowledge-architect@any-project-can-adopt-it` asks the manifest
+`<kind>@<subject>@<id>`, which `goal@knowledge-architect@every-target-project-can-adopt-it` asks the manifest
 to express without anything of the project compiled in. Adding a subject is creating a directory,
 not a manifest edit, and moving the home is one manifest edit, per
 `goal@core@relocation-is-one-manifest-edit`. A location declared per subject costs a manifest row

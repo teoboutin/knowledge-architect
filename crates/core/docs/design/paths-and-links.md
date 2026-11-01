@@ -40,7 +40,7 @@ over a foreign project carrying the required structure, counting the findings un
 census in which the silence hides a real pointer of this tree reopens it. The census that decided
 it is in the commit that rewrote this head, found with
 `git log --grep='only where it names something of this project'`. Reporting every path-shaped span
-is `rejected@core@every-path-shaped-span-reported`. This serves `goal@knowledge-architect@any-project-can-adopt-it`
+is `rejected@core@every-path-shaped-span-reported`. This serves `goal@knowledge-architect@every-target-project-can-adopt-it`
 and `goal@knowledge-architect@adoption-is-easy`.
 
 **A line suffix or a fragment keeps a span path-shaped, after a file with an extension.** A
@@ -162,7 +162,7 @@ hash sign before it stays silent under `design@core@retired-slug-reference-repor
 **The kind exists because a home has two shapes**, per `design@core@heading-register-two-shapes`.
 A `path` names one of them, so a home that outgrows one file dangles every `path` to it, against
 `goal@core@relocation-is-one-manifest-edit`, and a text that must hold in every project names both
-shapes, per `goal@agent-skills@installed-text-works-anywhere`. This reference names the register and lets the manifest and the tree say which shape it is.
+shapes, per `goal@agent-skills@installed-text-works-in-every-target-project`. This reference names the register and lets the manifest and the tree say which shape it is.
 The nearest rival is a `path` that resolves to either shape; it loses on
 `design@core@trailing-slash-claims-directory`, since a path claims its target's kind, and a path
 that matches either shape asserts no claim and puts a special case into path resolution.

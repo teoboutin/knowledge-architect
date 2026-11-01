@@ -53,7 +53,7 @@ in each directory under crates/, because an `include` path cannot reach outside 
 directory, and the changelog ships the same way, per
 `design@knowledge-architect@the-changelog-ships-in-every-crate`. tools/xtask is never published, so
 it carries none of these copies. This keeps what a project receives to what it uses, per
-`goal@knowledge-architect@any-project-can-adopt-it`.
+`goal@knowledge-architect@every-target-project-can-adopt-it`.
 
 ### Each published crate ships the root changelog, written by `cargo x changelog` `##the-changelog-ships-in-every-crate`
 
@@ -101,7 +101,7 @@ project holds the version it pinned, whatever another project on the same machin
 the installed files match is checked like any other part of the tree, per
 `design@core@owned-namespace-check`, rather than warned about. A project installs one thing, with
 one command, and a later provider's layout is a target the same command writes, which serves
-`goal@knowledge-architect@any-project-can-adopt-it`.
+`goal@knowledge-architect@every-target-project-can-adopt-it`.
 
 The design this decision did not keep:
 `rejected@knowledge-architect@workflow-as-marketplace-plugin`.
@@ -116,7 +116,7 @@ therefore never runs a checker whose installed skills describe another version's
 binary of another version than its manifest pins refuses to run, per
 `design@core@installed-binary-version-check`, which
 is what lets a project pin one version and move when it chooses, per
-`goal@knowledge-architect@any-project-can-adopt-it`. The gates library is in the same lockstep: the
+`goal@knowledge-architect@every-target-project-can-adopt-it`. The gates library is in the same lockstep: the
 setup skill that recommends it is the same version's, so a project pins one version for all of
 it. The cost accepted: a fix to the gates alone is released as a version of every crate.
 
@@ -177,12 +177,12 @@ A version stricter than a patch never reaches a project through a plain `cargo u
 project can therefore tell from the version alone whether moving to it may make a check stricter,
 refuse its layout or its manifest, or break its extension's build. The Migration entries of every
 version crossed, a patch's included, say what else it must change, per
-`goal@knowledge-architect@any-project-can-adopt-it`.
+`goal@knowledge-architect@every-target-project-can-adopt-it`.
 
 ### The changelog records what a consumer must plan for: one entry per change that passes a test `##changelog-entries`
 
 An entry of CHANGELOG.md is written for a consumer planning a move to the version, per
-`goal@knowledge-architect@any-project-can-adopt-it`. It exists when the change passes one of three
+`goal@knowledge-architect@every-target-project-can-adopt-it`. It exists when the change passes one of three
 tests, and sits under the subsection of that test:
 
 - **Migration**: one entry per thing a consumer must change in its own files, saying what.

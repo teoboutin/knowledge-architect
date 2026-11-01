@@ -58,7 +58,7 @@ by the check, so that an upgrade either applies it again or reports that it no l
 `design@agent-skills@overlay-by-separate-skills` lets a project add, never contradict. A project
 whose need is a contradiction is left two moves: report it to this repository, or declare
 `harness = []` and lose the installed workflow, the checks of `design@core@owned-namespace-check`
-and the overlay rule with it. That threatens `goal@knowledge-architect@any-project-can-adopt-it`.
+and the overlay rule with it. That threatens `goal@knowledge-architect@every-target-project-can-adopt-it`.
 This repository's own three supersessions stand against the agent-configuration skill's "never
 contradicts it" as written, which the first run of the agentic-workflow axis reported. The
 retrospective asks about the need at every session, per

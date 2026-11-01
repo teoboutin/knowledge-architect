@@ -17,14 +17,15 @@ include:
 - the tests;
 - the rebase check.
 
-By default it runs every gate of the list but the rebase check, all of them when one fails. It gives
-one verdict as its exit code, on the working tree and the branch's commits, which says whether the
-gates let the branch merge.
+By default it runs every gate of the list but the rebase check, all of them when one fails, and its
+exit code says whether the gates it ran pass. Run with the rebase check, its exit code is the one
+verdict, on the working tree and the branch's commits, which says whether the gates let the branch
+merge.
 
 It is met while the command's list holds each of these gates, and the continuous integration runs
 the same command.
 
-## A mechanical task this repository's own instructions ask repeatedly is a command of the tool `##repeated-tasks-are-automated`
+## The local part of a mechanical task this repository's own instructions ask repeatedly is a command of the tool `##repeated-tasks-are-automated`
 
 A task becomes a command of the tool, so it runs the same way each time, when it meets all of these:
 
@@ -33,9 +34,11 @@ A task becomes a command of the tool, so it runs the same way each time, when it
   installed text asks;
 - comes at a recurring moment, such as each commit, each reword or each merge.
 
-A task the installed text asks of every project that adopts the workflow, whose result follows from
-the tree and the workflow's rules, with no procedure of this repository's own, is the published
-checker's, per `goal@knowledge-architect@mechanical-tasks-are-the-tool-s`.
+A task of the set that `goal@knowledge-architect@mechanical-tasks-are-the-tool-s` names, with no
+procedure of this repository's own, is a published crate of knowledge-architect's. The part of a
+task's procedure that the owner has taken in as generic is not local once it is shipped, per
+`goal@knowledge-architect@generic-tools-and-procedures-are-shipped`; until then the local command
+stays, and the rest of the task is the tool's where it meets these conditions.
 
 It is met while each such task that this repository's root and scoped `CLAUDE.md` files and its
 `klarch-` skills and agent definitions ask, or whose procedure they fix, has a command of the tool.

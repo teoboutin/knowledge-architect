@@ -13,7 +13,7 @@ to 3 find nothing, and runs the check, whose verdict is the run's. Outside every
 the check read git's listing, per `design@core@failed-git-is-exit-two`, and the install reads none.
 No directory of audit reports or of retrospective analyses, and no roadmap, is written: each is
 created when first needed. A project created from nothing is the target
-`goal@knowledge-architect@any-project-can-adopt-it` puts first, and its creation is where a person
+`goal@knowledge-architect@every-target-project-can-adopt-it` puts first, and its creation is where a person
 or an agent starts, per `goal@knowledge-architect@adoption-is-easy`: without the command, every
 file `klarch init` lists as `wrote` but the installed ones and the manifest is written by hand
 before the first check passes.
@@ -28,8 +28,8 @@ change of what a Component carries reaches `init` with no edit to it, per
 
 ### `init` follows `cargo init` wherever no argument departs from it `##init-follows-cargo-init`
 
-Rust is the language knowledge-architect serves first, per
-`goal@knowledge-architect@rust-projects-come-first`, and `cargo init` is the command its users
+Rust is the language of every project knowledge-architect serves, per
+`goal@knowledge-architect@serves-one-kind-of-project`, and `cargo init` is the command its users
 already type to start a project. The owner holds that following `cargo init`'s usage as far as
 possible is probably best, so a user's habits carry over to `init`: a choice about
 `init` that `cargo init` already makes is made the same way unless an argument departs from it. The

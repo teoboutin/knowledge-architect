@@ -181,7 +181,7 @@ compared at all; and two versions whose skill text is identical are not told apa
 manifest covers all three; one more place to
 edit when the pin moves cannot drift silently, since a binary differing from it refuses at its
 first command. Optional, the key would leave unprotected the project that never wrote it, which is
-the forgotten pin it exists for. This serves `goal@knowledge-architect@any-project-can-adopt-it`:
+the forgotten pin it exists for. This serves `goal@knowledge-architect@every-target-project-can-adopt-it`:
 a project pins the version it uses, and moves when it chooses.
 
 **The working tree only.** `commits` reads a historical tree's key, so a tree without it stops in

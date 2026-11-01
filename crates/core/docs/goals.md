@@ -44,19 +44,24 @@ rule the manifest declares, and to the reference grammar, save what a declaratio
 
 It refines `goal@knowledge-architect@documentation-stays-consistent`.
 
-## Relocating or refactoring what exists costs at most one manifest edit, and no edit to a document that cites it `##relocation-is-one-manifest-edit`
+## Moving a Component or a location, moving a declared register's home within the anchors that carry it, or turning a register's home from one file into a directory, costs at most one edit of the checker's manifest, and no edit to a reference to what moved `##relocation-is-one-manifest-edit`
 
 Every reference to what the manifest places names its anchor, and each anchor's directory is
-declared once, in the manifest. So:
+declared once, in the checker's manifest. So:
 
 - moving a Component or a location changes the manifest;
+- moving a declared register's home changes its declaration, and moves it in every anchor that
+  carries the register;
 - refactoring a register's home from one file to a directory changes no file outside the home and no
   manifest line;
-- neither changes a document that cites what moved.
+- none of these changes a reference to what moved, as the measure names those references.
 
 Renaming a Component's directory renames its anchor, which its basename names, and is no move.
 
-It is met while such a move or change of shape leaves no reference to repair.
+It is met while such a move or change of shape leaves no reference to repair among those that name
+the moved Component or location, or a register, its home or one of its entries, the anchor-relative
+`path` references under a moved Component or location included. A `path` reference to a file inside
+a register's home is outside this goal.
 
 It refines `goal@knowledge-architect@documentation-stays-consistent`.
 
@@ -98,11 +103,11 @@ own design intent.
 It refines `goal@knowledge-architect@documentation-stays-consistent`.
 
 A project can run the checker from its git pre-commit hook, the hook git runs before it records a
-commit, to judge the tree that commit records, before the commit exists. The commits this covers
-are those of `git commit`, `git commit -a` and `git commit <paths>`, the paths with or without
-`--` before them, given its message by `-m`, by `-F` or in the editor, with or without `-q`, and
-with no other option of `git commit`. Each is covered in the repository's main worktree and in a linked one. A
-project here is one with a `.git` at or above its directory.
+commit, to judge the tree that commit records, before the commit exists. The commits this covers are
+those of `git commit`, `git commit -a` and `git commit <paths>`, the paths with or without `--`
+before them, given its message by `-m`, by `-F` or in the editor, with or without `-q`, and with no
+other option of `git commit`. Each is covered in the repository's main worktree and in a linked one.
+A target project is covered here when a `.git` is at or above its directory.
 
 It is met while the core's tests show, for each of the three forms, in a main worktree and in a
 linked one, a commit whose tree fails, which the hook refuses, and one whose tree conforms, which
