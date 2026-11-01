@@ -68,7 +68,7 @@ slice. This milestone adds:
 | cargo-mutants | the external mutation tool for Rust, which generates its own mutants; its option `--in-diff FILE` restricts it to mutants in changed code |
 | the goal standard | `path@agent-skills@fragments/goal-standard.md`, hosted by `skill@knowledge-architect-goal-setting@goal-or-not` and `agent@knowledge-architect-goal-reviewer@the-goal-standard` |
 | rule 6 | rule 6 of the goal standard, "What shows it met is in what the project builds" |
-| the new clause | the sentence #goal-standard-measure adds to rule 6, worded in `spec@development-and-components@goal-standard-clause` |
+| the new clause | the sentence #goal-standard-measure adds to rule 6, written by slice 0 into rule 6 of `path@agent-skills@fragments/goal-standard.md` |
 | the code-quality goal | `goal@knowledge-architect@the-workflow-leads-to-better-code`, named `code-has-one-responsibility-per-unit-and-is-testable` before slice 0 reworded and renamed it |
 | the development skill | the installed skill slice 2 ships, `knowledge-architect-development` |
 | the component skill | the installed skill slice 3 ships, default name `knowledge-architect-component-creation` |
@@ -669,7 +669,7 @@ on the checkpoint of the reply to R6, which listed the thread in its bucket.
   it applies to the project itself, not to the shipped skills and has to be observed in target
   projects. overall, I would like to keep this goal's wording relatively vague." R7: "Agreed on the
   table." The wording itself is the owner's to rule, at slice 0, under goal-setting.
-- **Shape:** `spec@development-and-components@goal-standard-clause`. **Harvest:** the goal in
+- **Shape:** slice 0, landed. **Harvest:** the goal in
   `register@knowledge-architect@goal`, slice 0.
 
 ### Rule 6 gains a clause: an outcome judged only in use is measured by what the project builds to pursue it and to learn from its use whether it is met `##goal-standard-measure`
@@ -686,7 +686,7 @@ on the checkpoint of the reply to R6, which listed the thread in its bucket.
   receive feedback form real use, and collect it in the project, much like we do with retrospectives.
   I think that this is the better reading of both, because it has a systematic method of checking it
   (though hard to implement in practice)."
-- **Shape:** `spec@development-and-components@goal-standard-clause`. **Harvest:** the rewrite of
+- **Shape:** slice 0, landed. **Harvest:** the rewrite of
   `design@agent-skills@goal-standard-rules`, slice 0.
 
 ### The retrospective asks a standing question on whether an installed rule about code or tests proved too hard or too strict `##retrospective-code-rules-question`
@@ -853,7 +853,7 @@ on the checkpoint of the reply to R6, which listed the thread in its bucket.
 - **Refined in slice 0:** the session refined "also tagged `intent`" to "tagged `intent` instead of
   `minor`", since `minor` marks a finding that changes no agent's act; recorded as the session's
   decision in the slice 0 commit.
-- **Shape:** `spec@development-and-components@goal-standard-clause`. **Harvest:** the rewrite of
+- **Shape:** slice 0, landed. **Harvest:** the rewrite of
   `design@agent-skills@goal-reviewer-agent` and `design@agent-skills@goal-standard-rules`, slice 0.
 
 ### The mutation command is a separately published crate, a dependency of the maintenance crate, run as `cargo x mutate` `##mutation-command-host`
@@ -903,7 +903,7 @@ on the checkpoint of the reply to R6, which listed the thread in its bucket.
   `argument@development-and-components@arg-79`.
 - **Closed by:** R6: "Q4: right, we are not changing how those are being delivered, there is no
   point handling it, change the re entry."
-- **Shape:** `spec@development-and-components@goal-standard-clause`. **Harvest:** the re-entry of
+- **Shape:** slice 0, landed. **Harvest:** the re-entry of
   `issue@agent-skills@heads-argued-from-another-harness`, slice 0.
 - **Outcome at slice 0:** the issue's re-entry reads "The next design discussion on the audit's
   saved workflows, or one that changes how the shipped fragments are delivered, or a design-record
@@ -1398,7 +1398,7 @@ history, per `argument@development-and-components@arg-80`.
 
 ## Implementation sequence
 
-0. [The goal standard and the reworded goal](goal-standard-clause.md): the new clause of rule 6, the
+0. The goal standard and the reworded goal, landed: the new clause of rule 6, the
    `intent` tag, the goal reworded and renamed, the re-entry of the harness issue. Fails alone on
    the reviewer's tag of a property-list measure, and on the reworded goal.
 1. [The mutation crate](mutation-crate.md): the published crate `knowledge-architect-mutate`, `cargo x
