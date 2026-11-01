@@ -140,10 +140,13 @@ No run is built to observe an agent following the new text, per
 Thread: `thread@development-and-components@code-shape-axis`.
 
 **Shape.** An installed read-only agent that judges each unit the diff writes or edits against the
-default shape of the reworded goal: one responsibility, read as one reason to change; the logic pure,
+default shape the skill states, which `goal@knowledge-architect@the-workflow-leads-to-better-code`
+asks for and does not list: one responsibility, read as one reason to change; the logic pure,
 the side effects in a thin layer that decides nothing a logic test should cover; the logic tested
 without the side effects where the change adds or changes logic; and a departure argued, where the
-review reports it. A finding of two reasons to change names two concrete changes someone could
+review reports it: in code the change writes, the writer restructures it or argues it at the code;
+in an existing unit the change edits, only the lines the change writes are weighed, and the rest of
+the unit is a lead, never an obligation, on the owner's approval of Q6 during slice 0. A finding of two reasons to change names two concrete changes someone could
 plausibly ask for, shows that each would touch the unit independently, and shows that they are
 entangled. Fragmentation is a finding too: a split that buys nothing, such as a function with one
 caller, no test of its own and a name that says no more than its body.

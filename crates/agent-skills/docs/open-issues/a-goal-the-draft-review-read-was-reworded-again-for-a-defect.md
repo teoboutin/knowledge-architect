@@ -40,6 +40,14 @@ or when work next changes the goal reviewer's definition.
 A goal binds outright, so a clause the owner did not intend rules work out with the owner's
 authority, against `goal@knowledge-architect@the-owner-decides`.
 
+- A third instance of the loop, in this repository's branch that planned the installed development
+  skill: one batch of reworded goals went through five draft-mode reviews, with 8, 10, 6, 6 and 6
+  findings, each round's repairs or the owner's answers bringing new findings, until the session
+  showed the owner a version that the last review had not read. The same branch tagged `intent`,
+  instead of `minor`, a rule-6 finding on a goal judged only in use whose measure is a list of
+  properties, per `design@agent-skills@goal-reviewer-agent`, which answers the first part of the
+  mechanism above for that case.
+
 ### What would close it
 
 A discussion that keeps `design@agent-skills@goal-reviewer-agent` and

@@ -5,8 +5,9 @@ kind: todo
 
 ## Summary
 
-`goal@knowledge-architect@projects-are-split-into-components` judges a Component's one purpose by
-what the head of its goals home states, which its goals serve. The heads of the goals homes of gates,
+`goal@knowledge-architect@projects-are-split-into-components` asks that each Component holding Rust
+code in its own files serve one purpose, and a Component's purpose is read in the head of its goals
+home, which its goals serve. The heads of the goals homes of gates,
 agent-skills and xtask say only what the home holds ("What this component is for", "What this tool is
 for"), and state no purpose. The core's head states one, the checker's report of drift, which leaves
 `goal@core@documents-render-as-a-linked-site` outside it.

@@ -51,7 +51,12 @@ judges by them.
    plan document or anything that leaves. Evidence from the project's use, such as a review's
    finding, a retrospective's finding or what the owner observes in sessions, is not the measure: it
    shows the goal unmet in practice where what is built fails it, and leads to a change of what is
-   built.
+   built. Where the outcome is judged only in use, the observable is what the project builds to
+   pursue it and to learn from its use whether it is met, such as a test of a tool under the
+   conditions of its use, a route by which its users' reports reach the project, or, for
+   instructions to agents, a review that weighs them and a retrospective that asks how they fared.
+   A list of the properties the outcome is taken to consist of is no such observable, since it
+   narrows the outcome to what was foreseen before any use.
 7. **A refinement neither widens nor contradicts the goal it refines.**
 8. **A statement of what the Component is not for is a goal only when it names the design it
    excludes**, one that another goal would otherwise argue for. A property of smallness with no
@@ -98,7 +103,10 @@ List the goals under their slugs, in the order of their homes. Under each, every
 - `contradiction`: (a) or (b), held for the owner; quote both sides.
 
 Give each finding its rule. A finding of rule 4 or of rule 6 is also tagged `minor`: neither
-changes what an agent does in the project, so the dispatcher counts it apart. A goal with no
+changes what an agent does in the project, so the dispatcher counts it apart. A finding that a goal
+judged only in use is measured by a list of the properties its outcome is taken to consist of is
+tagged `intent` instead of `minor`: every agent then works to that list at its widest reading, so
+the owner rules on the cases it rules out. A goal with no
 finding is listed as conforming. In draft and whole-set mode, end each goal with its
 boundary block's material. List what you met outside your task under a heading "Met outside the task", for
 the dispatcher to route, per `primer@met-outside-the-task`. Then give the counts of your findings,

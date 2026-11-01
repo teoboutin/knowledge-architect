@@ -48,5 +48,5 @@ kept on a ground that still holds, or reversed; each `rejected` entry kept on a 
 
 ### Re-entry
 
-The next design discussion on the audit's saved workflows or on the shipped fragments, or a
-design-record audit pass, whichever comes first.
+The next design discussion on the audit's saved workflows, or one that changes how the shipped
+fragments are delivered, or a design-record audit pass, whichever comes first.

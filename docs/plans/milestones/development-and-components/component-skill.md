@@ -6,8 +6,12 @@
    `knowledge-architect-component-creation`, source
    `planned@agent-skills@content/skills/component-creation/`; the audit checks the name against
    `design@agent-skills@naming-rule`. It holds:
-   - the four properties of `goal@knowledge-architect@projects-are-split-into-components`, with "one
-     reason to change" as the test for a Component as for a unit;
+   - the default criteria `goal@knowledge-architect@projects-are-split-into-components` asks for and
+     does not list: one purpose, an interface with a reason to change on its own, its own tests, and
+     decisions of its own with a design of them, from the owner's R3 notes and the owner's answer
+     during slice 0, with "one reason to change" as the test for a Component as for a unit;
+   - the intermediate Component, which holds no Rust code of its own, groups nested Components, and
+     holds the design and the documents several of them share but the rest of the project does not;
    - the split signals of #component-split-signals;
    - the crate mapping by publication status of #component-crate-mapping;
    - the shapes: one crate; a module-directory Component; nested Components for layers; the shared
@@ -121,9 +125,11 @@ crates.
 
 Thread: `thread@development-and-components@pure-output-layer`.
 
-**Shape.** A Component's logic returns data, a struct, and a separate layer prints it or serialises
-it in a format a machine reads. This is the two-layer property of the reworded goal, at the scale of
-a Component.
+**Shape.** A Component's logic returns data, a struct, and a separate layer of code prints it or
+serialises it in a format a machine reads. Both layers sit in the Component that defines the struct.
+A Component of its own holds the output side only where that side takes decisions of its own, as a
+graphical interface that decides a layout does: a Component that takes no decision has no design of
+its own, on the owner's word during slice 0.
 
 **Argument.** "Same rule, two scales" (`argument@development-and-components@arg-35`); the owner:
 "Separating pure logic from non pure routines with side effects is very good for long term health of

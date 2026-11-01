@@ -6,6 +6,22 @@ class is `design@knowledge-architect@changelog-entries`. Inside a subsection, en
 surface, in the order `checks`, `cli`, `manifest`, `library`, `agent-skills`, `gates`; an empty
 subsection is omitted.
 
+## Next release
+
+### Migration
+
+- `agent-skills`, patch: rule 6 of the goal standard, which goal-setting and the goal reviewer apply,
+  measures a goal whose outcome is judged only in use by what the project builds to pursue it and to
+  learn from its use whether it is met, and never by a list of the properties the outcome is taken to
+  consist of. A goal measured by such a list is brought to the rule by
+  `skill@knowledge-architect-goal-setting@whole-set-review`.
+
+### Workflow
+
+- `agent-skills`, patch: the goal reviewer tags `intent`, instead of `minor`, a finding that a goal
+  judged only in use is measured by a list of the properties of its outcome, so the owner is asked
+  whether the cases that list rules out are meant.
+
 ## 0.9.0
 
 ### Migration

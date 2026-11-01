@@ -8,11 +8,11 @@ as the milestone document's "How the work is done" says.
 1. **The new clause of rule 6** in `path@agent-skills@fragments/goal-standard.md`, in its first
    reading, worded as #goal-standard-measure's decided design below, with its `%%` lines.
 2. **The `intent` tag** in `agent@knowledge-architect-goal-reviewer@what-to-report`: a finding under the new clause, a goal judged only in use measured by a list of
-   the properties its outcome is taken to consist of, is tagged `intent` as well as its rule, per
+   the properties its outcome is taken to consist of, is tagged `intent` instead of `minor`, beside its rule, per
    #rule-6-finding-weight.
 3. **The heads rewritten in place** under `skill@knowledge-architect-decision-recording`:
    `design@agent-skills@goal-standard-rules` and `design@agent-skills@goal-reviewer-agent`.
-4. **The code-quality goal reworded and renamed** toward the slug `the-workflow-leads-to-better-code`,
+4. **The code-quality goal reworded and renamed** as `goal@knowledge-architect@the-workflow-leads-to-better-code`,
    under `skill@knowledge-architect-goal-setting`: a draft in the conversation, the goal reviewer in
    draft mode reading the new fragment from disk, then the owner's ruling. Every reference to the old
    slug is re-pointed, this milestone's documents included.
@@ -117,7 +117,7 @@ Thread: `thread@development-and-components@rule-6-finding-weight`.
 
 **Shape.** In the goal reviewer's report, a finding under the new clause, a goal judged only in use
 whose measure is a list of the properties its outcome is taken to consist of, carries the tag
-`intent` beside its rule and its `minor` tag. Other rule-6 findings keep `minor` alone.
+`intent` beside its rule, instead of `minor`: such a list binds every agent at its widest reading, which is no minor finding. Other rule-6 findings keep `minor`.
 
 **Argument.** `design@agent-skills@goal-standard-rules` tags every rule-6 finding `minor`, so the
 narrowing of the code-quality goal would have reached the owner as a minor note, which is the
@@ -128,18 +128,18 @@ mechanism `issue@agent-skills@a-goal-the-draft-review-read-was-reworded-again-fo
 **Nearest rival and the fact that defeated it.** Leaving the tag `minor` alone: it is the issue's
 recorded mechanism, whose re-entry this work meets.
 
-### The code-quality goal reworded, toward the slug the-workflow-leads-to-better-code
+### The code-quality goal reworded, as `goal@knowledge-architect@the-workflow-leads-to-better-code`
 
 Thread: `thread@development-and-components@code-quality-goal-wording`.
 
 **Shape.** The direction the owner approved: a vague intent, better code from the workflow in target
 projects; its observable the mechanism under the new clause, the default shape the installed text
 states, a review that weighs it, and the retrospective's question of
-#retrospective-code-rules-question; the two-layer testability property kept as the most concrete;
-the three properties a default shape the review weighs, not requirements of each edited unit; a
-departure argued when the review reports it, not at every edited unit; the instructions growing from
+#retrospective-code-rules-question; the three properties a default shape the review weighs, stated by the development skill and by no
+goal (Q7), not requirements of each edited unit; the force of that shape left to the development
+skill (Q6); the instructions growing from
 real use (`argument@development-and-components@arg-18`). The slug moves toward
-`the-workflow-leads-to-better-code`. The wording is drafted under goal-setting and is the owner's to
+`goal@knowledge-architect@the-workflow-leads-to-better-code`. The wording is drafted under goal-setting and is the owner's to
 rule.
 
 **Argument.** The departure clause leaves a one-line fix in a 300-line function two compliant moves,

@@ -51,7 +51,14 @@ judges by them.
    plan document or anything that leaves. Evidence from the project's use, such as a review's
    finding, a retrospective's finding or what the owner observes in sessions, is not the measure: it
    shows the goal unmet in practice where what is built fails it, and leads to a change of what is
-   built.
+   built. Where the outcome is judged only in use, the observable is what the project builds to
+   pursue it and to learn from its use whether it is met, such as a test of a tool under the
+   conditions of its use, a route by which its users' reports reach the project, or, for
+   instructions to agents, a review that weighs them and a retrospective that asks how they fared.
+   A list of the properties the outcome is taken to consist of is no such observable, since it
+   narrows the outcome to what was foreseen before any use.
+%% Case: knowledge-architect's goal on the quality of the code the workflow leads to, whose measure
+%% listed three properties and bound every unit a change edits to state why it departed from them.
 7. **A refinement neither widens nor contradicts the goal it refines.**
 %% Case: rootpoint's goal on content kinds, whose sentence on concurrent editing named the design it
 %% excluded, which another goal would have argued for, and whose part on staying small named none.
