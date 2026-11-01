@@ -76,9 +76,11 @@ fn a_project_written_by_init_rust_builds_and_checks() {
     let mut text = std::fs::read_to_string(&manifest).expect("init wrote Cargo.toml");
     text.push_str(&format!(
         "\n[patch.crates-io]\nknowledge-architect = {{ path = {:?} }}\n\
-         knowledge-architect-gates = {{ path = {:?} }}\n",
+         knowledge-architect-gates = {{ path = {:?} }}\n\
+         knowledge-architect-mutate = {{ path = {:?} }}\n",
         workspace.join("crates/core"),
         workspace.join("crates/gates"),
+        workspace.join("crates/mutate"),
     ));
     std::fs::write(&manifest, text).expect("the patch is written");
 
@@ -94,6 +96,20 @@ fn a_project_written_by_init_rust_builds_and_checks() {
         help.status.success(),
         "{}",
         String::from_utf8_lossy(&help.stderr)
+    );
+    // The `mutate` command reaches the mutation library: with no mode it prints the modes and
+    // exits 2, as clap does for a missing subcommand.
+    let mutate = cargo(&root, &["x", "mutate"]);
+    assert_eq!(
+        mutate.status.code(),
+        Some(2),
+        "{}",
+        String::from_utf8_lossy(&mutate.stderr)
+    );
+    assert!(
+        String::from_utf8_lossy(&mutate.stderr).contains("restore"),
+        "{}",
+        String::from_utf8_lossy(&mutate.stderr)
     );
     let check = cargo(&root, &["klarch", "check"]);
     let out = String::from_utf8_lossy(&check.stdout);

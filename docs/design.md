@@ -38,6 +38,24 @@ together, at one version.
 
 The design this decision did not keep: `rejected@knowledge-architect@single-published-package`.
 
+### The hand mutation is a published crate of its own, which a project's maintenance crate depends on, and no crate of the checker or the gates links `##mutation-command-host`
+
+The hand mutation is the package `knowledge-architect-mutate`, the Component `mutate`, in
+crates/mutate. A project's maintenance crate depends on it, pinned exactly at the checker's version
+like its other two dependencies, and exposes it as `cargo x mutate`; this repository's xtask does
+the same. The crate takes the project's root from its caller, so it links neither the checker nor
+the gates library, and neither of them links it.
+
+The maintenance crate holds the project's repeated tasks beside its gates, per
+`design@agent-skills@xtask-pins-checker`, and every Rust target project has one. The gates library
+runs a project's merge gates, per `design@gates@gates-crate`, and a mutation is no gate: hosted
+there, every user of the gates would build the mutation code, `rejected@knowledge-architect@gates-library-hosts-the-mutation`.
+The checker's binary is no host either, since it would make the document checker run cargo and the
+tests, `rejected@gates@gates-command-of-the-checker`. A crate of its own was the owner's proposal,
+argued on these two facts. It serves `goal@knowledge-architect@generic-tools-and-procedures-are-shipped`,
+whose generic part ships as a published crate, and costs one more crate in the publish order, after
+the gates library and before the core, per `design@knowledge-architect@partial-publish-rerun`.
+
 ### Each published crate ships a whitelist of files `##package-include-whitelist`
 
 Each crate under crates/ declares `include` in its Cargo.toml, listing its sources, its Cargo.toml,
@@ -65,7 +83,7 @@ copy, as the owner proposed: "I'd also provide a `cargo x` subcommand that updat
 copies at once". The test `every_published_crate_carries_the_root_changelog` in
 `path@xtask@src/changelog.rs` fails while one differs or a crate's `include` stops listing it, so a
 branch that writes an entry copies it before it can pass the gates. The walk skips the copies, by
-three `skip-files` rows of the manifest: the root file is checked, and they are identical to it. One
+one `skip-files` row of the manifest per copy: the root file is checked, and they are identical to it. One
 changelog for every crate, rather than one per crate, keeps one file to write and gives each crate
 the whole history.
 
@@ -115,9 +133,10 @@ therefore never runs a checker whose installed skills describe another version's
 binary of another version than its manifest pins refuses to run, per
 `design@core@installed-binary-version-check`, which
 is what lets a project pin one version and move when it chooses, per
-`goal@knowledge-architect@every-target-project-can-adopt-it`. The gates library is in the same lockstep: the
-setup skill that recommends it is the same version's, so a project pins one version for all of
-it. The cost accepted: a fix to the gates alone is released as a version of every crate.
+`goal@knowledge-architect@every-target-project-can-adopt-it`. The gates library and the mutation library are in
+the same lockstep: the setup skill that recommends them is the same version's, so a project pins
+one version for all of it. The cost accepted: a fix to one library alone is released as a version
+of every crate.
 
 ### A version's bump is the class of what it changes in a consuming project, mapped onto Cargo's two positions under 0.x `##versioning-policy`
 
@@ -172,7 +191,8 @@ a looser check is a patch.
   `design@knowledge-architect@changelog-entries`.
 
 A version stricter than a patch never reaches a project through a plain `cargo update` while at
-0.x, and a release that changes only skill text publishes all three crates with identical code. A
+0.x, and a release that changes only skill text publishes every published crate with identical
+code. A
 project can therefore tell from the version alone whether moving to it may make a check stricter,
 refuse its layout or its manifest, or break its extension's build. The Migration entries of every
 version crossed, a patch's included, say what else it must change, per
@@ -199,7 +219,7 @@ tests, and sits under the subsection of that test:
   A rewording or a clarification is not one.
 
 Each entry carries the surface it touches, one of checks, cli, manifest, library, agent-skills,
-gates, since the version number alone cannot say which, and the bump class
+gates, mutate, since the version number alone cannot say which, and the bump class
 `design@knowledge-architect@versioning-policy` gives it. **A change with no entry is at most a
 patch**: every minor or major change passes the migration or the new-feature test. So the
 release's bump is the highest class among its entries, a patch at least, and a review of the
@@ -314,7 +334,7 @@ That the approval is the owner's alone is an instruction of `skill@klarch-releas
 
 ### Every version after a crate's first is published by the release workflow, with a token crates.io issues to its run `##publish-credential`
 
-Each of the three crates names, on crates.io, a trusted publisher: this repository, the workflow
+Each published crate names, on crates.io, a trusted publisher: this repository, the workflow
 file release.yml and the environment `release`. The publish job exchanges the run's OpenID Connect
 token for a crates.io token through `rust-lang/crates-io-auth-action`. crates.io's documentation of
 Trusted Publishing states that the token expires after 30 minutes, and the action revokes it when

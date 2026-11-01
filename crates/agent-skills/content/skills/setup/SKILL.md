@@ -62,13 +62,13 @@ them.
   `"<version>"` accepts every later version below the next breaking one. `Cargo.lock` records the
   exact version, and `--locked` turns any change to it into a failure. A dependency alone builds
   no executable for the project: `cargo run -p` runs only the project's own packages, which is why
-  the crate serves the checker's commands itself. A Rust project that is one package with no
-  workspace gains one, through a `[workspace]` table in its `Cargo.toml` whose `members` names the
-  maintenance crate: this is the shape to recommend, since it keeps the gates of "In a Rust
-  project". The alternative is a local install, as the next point says, which leaves the project
-  with no maintenance crate and no `cargo x gates`, so the project builds its own gates command,
-  per `skill@knowledge-architect-setup@setup-gates`. The first changes the project's build, so the owner rules between the two.
-- **Any other project**, and a Rust project that runs a local install, installs the binary into a
+  the crate serves the checker's commands itself. **Every Rust project has the maintenance crate**:
+  knowledge-architect asks it of every target project, so that its commands run as
+  `cargo x <command>` in each of them. A Rust project that is one package with no workspace gains
+  one, through a `[workspace]` table in its `Cargo.toml` whose `members` names the maintenance
+  crate. A Rust project that runs the checker from a local install adds the crate, and drops the
+  install once `cargo klarch` runs.
+- **A project with no Rust** installs the binary into a
   directory of its own, ignored by git:
   `cargo install --locked --root <dir> knowledge-architect --version =<version>`. The binary is
   `<dir>/bin/klarch`. A plain `cargo install` is machine-wide, and two projects on one machine
@@ -349,10 +349,10 @@ Setting up stops at a conformant structure, the goals, and that issue.
 
 To move to another version:
 
-1. Edit the pin: both versions in the maintenance crate's `Cargo.toml`, the checker's and the
-   gates library's, which move together, or the version of the local install; and
-   `[project] checker-version` in the manifest, which moves with them. Nothing compares the gates
-   library's version, so it is edited in the same change.
+1. Edit the pin: the three versions in the maintenance crate's `Cargo.toml`, the checker's, the
+   gates library's and the mutation library's, which move together, or, in a project with no Rust,
+   the version of the local install; and `[project] checker-version` in the manifest, which moves
+   with them. Nothing compares the two libraries' versions, so they are edited in the same change.
 2. Read the changelog of every version crossed. Any version but a patch may make a check
    stricter, a version may make one looser, and either changes what a test that pins findings
    sees; a major version may ask for a change to the project's layout. Each published crate ships its
@@ -388,7 +388,8 @@ A Rust project gets its gates and its pinned checker from one maintenance crate,
 workspace that is never
 published. The shapes below are illustrations, to adapt. `klarch init --rust` writes each of them
 but the continuous integration workflow into a project with no `Cargo.toml`, with `xtask/` as the
-directory and `cargo klarch` as the declared command.
+directory and `cargo klarch` as the declared command; it refuses a project that has one, which
+writes them by hand.
 
 **The workspace.** A project with no `Cargo.toml` gets a virtual workspace at its root, whose
 members name the crate:
@@ -397,8 +398,8 @@ members name the crate:
 {{snippet:workspace-cargo.toml}}
 ```
 
-**The crate.** It depends on the checker and on the gates library, both pinned exactly to the
-version the project uses, and on clap:
+**The crate.** It depends on the checker, the gates library and the mutation library, all three
+pinned exactly to the version the project uses, and on clap:
 
 ```toml
 {{snippet:xtask-cargo.toml}}
@@ -437,8 +438,10 @@ such a build compiling. The cost is
 a rebuild at each switch between checkouts that share a target directory, and nothing in a single
 checkout. The refusal in the main below stays, and detects a binary built before the tie.
 
-**Its main**: a `gates` command over the recommended list of the gates library, and a `klarch`
-command carrying the checker's own commands. **Every binary that dispatches a command of the
+**Its main**: a `gates` command over the recommended list of the gates library, a `klarch`
+command carrying the checker's own commands, and a `mutate` command carrying the mutation library's
+two modes, which apply one mutation, run a command against it and restore the file, as
+`cargo x mutate`. **Every binary that dispatches a command of the
 checker calls `cli::refuse_another_version` before it dispatches any command but `init`**, which
 it hands to `cli::init` before it locates a project, as the `klarch` arm below does;
 without the call, that binary enforces no pin. Where the `cargo klarch` alias runs an extension's

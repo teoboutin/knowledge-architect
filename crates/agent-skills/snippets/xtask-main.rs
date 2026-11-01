@@ -23,6 +23,11 @@ enum Command {
         #[command(subcommand)]
         command: cli::Command,
     },
+    /// Apply one mutation you write, run a command against it, and put the file back.
+    Mutate {
+        #[command(subcommand)]
+        command: knowledge_architect_mutate::MutateCommand,
+    },
 }
 
 fn main() -> ExitCode {
@@ -62,6 +67,14 @@ fn main() -> ExitCode {
                 eprintln!("error: {e}");
                 ExitCode::from(2)
             })
+        }
+        Command::Mutate { command } => {
+            let cwd = std::env::current_dir().expect("a working directory");
+            let Some(root) = project_root(&cwd, knowledge_architect::MANIFEST_NAME) else {
+                eprintln!("xtask: not inside the project");
+                return ExitCode::from(2);
+            };
+            knowledge_architect_mutate::run(&root, &command)
         }
     }
 }

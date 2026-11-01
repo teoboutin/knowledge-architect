@@ -1,4 +1,4 @@
-# The publish of one version of the three crates to crates.io.
+# The publish of one version of every published crate to crates.io.
 #
 # A version tag pushed to a commit on main starts it, and the owner's approval of the `release`
 # environment is the owner's word to publish. The decisions are
@@ -36,7 +36,7 @@ jobs:
 
       - name: the tag is the version of every published crate
         run: |
-          for c in knowledge-architect-agent-skills knowledge-architect-gates knowledge-architect; do
+          for c in knowledge-architect-agent-skills knowledge-architect-gates knowledge-architect-mutate knowledge-architect; do
             v=$(cargo metadata --no-deps --format-version 1 --locked \
               | jq -r --arg c "$c" '.packages[] | select(.name == $c) | .version')
             test "v$v" = "$GITHUB_REF_NAME" || { echo "::error::$c is $v, the tag is $GITHUB_REF_NAME"; exit 1; }
@@ -67,7 +67,7 @@ jobs:
           CARGO_REGISTRY_TOKEN: ${{ steps.auth.outputs.token }}
         run: |
           v=${GITHUB_REF_NAME#v}
-          for c in knowledge-architect-agent-skills knowledge-architect-gates knowledge-architect; do
+          for c in knowledge-architect-agent-skills knowledge-architect-gates knowledge-architect-mutate knowledge-architect; do
             if curl -sf -A 'knowledge-architect release workflow' "https://crates.io/api/v1/crates/$c/$v" >/dev/null; then
               echo "$c $v is already on crates.io"
               continue

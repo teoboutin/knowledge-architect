@@ -39,3 +39,10 @@ copy and printed the first copy's directory. Cargo does not track a variable it 
 `live`. Refuted by a run on cargo 1.98.0: a git-ignored copy that `include` lists makes
 `cargo package --list` exit 101 as an uncommitted change, and an absent one is left out of the
 package with no error.
+
+### The gates library as the host of the hand mutation `##gates-library-hosts-the-mutation`
+
+`live`. The gates library would have carried the mutation's run and restore, which a maintenance
+crate already depends on. Every project that runs its gates through the library would then build
+the mutation code, which no gate uses, and the library would hold a tool that judges nothing about
+a branch's merge, against the purpose `design@gates@gates-crate` gives it.

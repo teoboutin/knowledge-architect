@@ -522,26 +522,24 @@ skill moves it with the pin.
 
 ### A project runs its pinned checker from inside the project, never from a machine-wide install `##pinned-binary-runs-inside-the-project`
 
-A dependency builds no executable for the project, so a Rust project
-runs the pinned version through its maintenance crate, per
-`design@agent-skills@xtask-pins-checker`, and any other project installs it into a directory of its
-own with `cargo install --locked --root`. A Rust project that is one package with no workspace
-gains a workspace for that crate, which keeps the gates `goal@knowledge-architect@setup-brings-quality-tools`
-asks for, or installs the binary as any other project does and builds its own gates, on its
-owner's ruling, since the first changes the project's build. A machine-wide install would give two projects on one machine one
-version, which is what bundling the workflow into the checker avoids, per
-`design@knowledge-architect@binary-bundles-workflow`. A project with an extension runs its own
+A dependency builds no executable for the project, so a Rust project runs the pinned version
+through its maintenance crate, per `design@agent-skills@xtask-pins-checker`, which every Rust target
+project carries, per `design@agent-skills@maintenance-crate-ask`; a Rust project that is one package
+with no workspace gains a workspace for that crate. A project with no Rust installs the binary into
+a directory of its own with `cargo install --locked --root`. A machine-wide install would give two
+projects on one machine one version, which is what bundling the workflow into the checker avoids,
+per `design@knowledge-architect@binary-bundles-workflow`. A project with an extension runs its own
 binary under a name of its own, per `design@core@declared-command`. The binary that runs
 `klarch init` is the one exception: it runs before any pin exists, from whatever install its user
 keeps, and writes its own version as the pin, per `design@core@init-command`.
 
-### The setup skill recommends one gates command, run by the published gates library where the project has a maintenance crate `##gates-convention`
+### The setup skill recommends one gates command, a command of the maintenance crate run by the published gates library `##gates-convention`
 
 One command runs every check a project owes before a merge, runs them all when one fails, and exits
 non-zero when any fails, so a verdict is one exit code and nothing is read through a pipe. In a Rust
-project with a maintenance crate it is a command of that crate, per `design@agent-skills@xtask-pins-checker`, run by
-the published gates library, per `design@gates@gates-crate`, so every adopting project with a maintenance crate runs
-the gates refined in this repository and in thaum. The gates a project owes are its own list, per
+project it is a command of the maintenance crate, per `design@agent-skills@xtask-pins-checker`, run
+by the published gates library, per `design@gates@gates-crate`, so every adopting project runs the
+gates refined in this repository and in thaum. The gates a project owes are its own list, per
 `design@gates@a-project-holds-its-gate-list`.
 
 ### The primer asks for `check --staged` after staging and before each commit `##staged-check-before-each-commit`
@@ -577,18 +575,33 @@ commit, named what a session does instead: "the recommended action would be to r
 accept running on staged changes)". The rival, the skills naming only the working-tree forms, leaves
 that action undelivered.
 
-### In a Rust project with a maintenance crate, that one crate pins the checker and runs the gates `##xtask-pins-checker`
+### A Rust project's maintenance crate pins the checker and the libraries, and runs the gates and the project's other repeated tasks `##xtask-pins-checker`
 
-The maintenance crate of a Rust project depends on the checker and on the gates library, both
-pinned exactly, at the version `[project] checker-version` declares, per
-`design@core@installed-binary-version-check`, and serves two cargo aliases: `cargo x` for its own commands, the gates among them,
-and `cargo klarch` for the checker's commands, which it carries under a command of its own through
-the core's library, per `design@core@the-core-cli-is-a-library-module`. The gates run through the
-published library, per `design@gates@gates-crate`, and the checker they run is the one this crate
-pins. One crate does what a crate for the checker and a crate for the gates would otherwise do,
-and gives the project's other repeated tasks a place, per
+The maintenance crate of a Rust project depends on the checker, the gates library and the mutation
+library, all pinned exactly, at the version `[project] checker-version` declares, per
+`design@core@installed-binary-version-check`, and serves two cargo aliases: `cargo x` for its own
+commands, the gates and the hand mutation among them, and `cargo klarch` for the checker's commands,
+which it carries under a command of its own through the core's library, per
+`design@core@the-core-cli-is-a-library-module`. The gates run through the published library, per
+`design@gates@gates-crate`, and the checker they run is the one this crate pins; the hand mutation
+runs through its own, per `design@knowledge-architect@mutation-command-host`. One crate does what a
+crate per tool would otherwise do, and gives the project's other repeated tasks a place, per
 `goal@knowledge-architect@setup-brings-quality-tools`. The cost accepted: building the gates builds
-the checker, which the check gate needs anyway.
+the checker, which the check gate needs anyway, and the mutation library.
+
+### Every Rust target project has a maintenance crate whose commands run as `cargo x <command>` `##maintenance-crate-ask`
+
+knowledge-architect asks every Rust target project to carry the maintenance crate of
+`design@agent-skills@xtask-pins-checker`, so that a command of the installed text, such as
+`cargo x gates` or `cargo x mutate`, names one invocation in every project. The ask is on the owner's word, given
+when a command of the installed development procedure needed a name in every Rust project; adding an
+ask is the owner's, per `goal@knowledge-architect@serves-one-kind-of-project`,
+which also makes how an ask is met, the command's name, a design decision of knowledge-architect.
+The setup skill states it, and offers a Rust project no local install of the checker, which would
+leave it with no maintenance crate and a gates command of its own:
+`rejected@agent-skills@rust-project-on-a-local-install`. A project with a Cargo workspace or
+package of its own writes the crate by hand from the setup skill's blocks, since `klarch init --rust`
+refuses one, per `design@core@rust-scaffold`.
 
 ### The setup skill proposes a short CRATES-IO.md for a crate the project publishes `##setup-default-crates-io-page`
 

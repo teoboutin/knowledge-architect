@@ -32,7 +32,7 @@ earlier commit, and the merge predicate. A session runs each by hand, step by st
   succeeded, then `gh pr merge --rebase --delete-branch` and `git pull --ff-only`. Its result
   depends on GitHub's state as well as the tree.
 
-`path@xtask@src/` holds the commands `gates`, `changelog` and `skill`, and none of these.
+`path@xtask@src/` holds the commands `gates`, `changelog`, `skill` and `mutate`, and none of these.
 
 Found by the whole-set review of this repository's goals on the branch that brought them to the
 goal standard, whose reviewers reported it in every layout round.

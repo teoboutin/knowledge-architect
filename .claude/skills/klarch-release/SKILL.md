@@ -5,10 +5,10 @@ description: MUST use when the owner asks to publish a version of knowledge-arch
 
 # Release
 
-Scope: publishing one version of the three published crates, `knowledge-architect-agent-skills`,
-`knowledge-architect-gates` and `knowledge-architect`, from main. xtask is never published. The
-versioning policy is `design@knowledge-architect@versioning-policy`, and the three crates share one
-version, per `design@knowledge-architect@version-lockstep`.
+Scope: publishing one version of the four published crates, `knowledge-architect-agent-skills`,
+`knowledge-architect-gates`, `knowledge-architect-mutate` and `knowledge-architect`, from main. xtask
+is never published. The versioning policy is `design@knowledge-architect@versioning-policy`, and the
+four crates share one version, per `design@knowledge-architect@version-lockstep`.
 
 **Everything that can be undone comes before the publish, which cannot.** A merge to main is
 repaired by a later commit; a version on crates.io can be yanked and never deleted. So the release
@@ -74,13 +74,16 @@ On a branch of its own, `release-<version>`, under the Git rules of the root `CL
 
    Each name must be a shipped skill (`content/skills/<name>/`) or a shipped agent
    (`content/agents/<name>.md`) or a shipped saved workflow (`content/workflows/<name>.js`), each
-   installed as `knowledge-architect-<name>`, or one of the three crates. Every document the shipped text relies on in a project, such as the knowledge
+   installed as `knowledge-architect-<name>`, or one of the four crates. Every document the shipped text relies on in a project, such as the knowledge
    table, is written by an installed skill.
 6. **crates.io.** For each crate, the API answers 404 for a first release, or shows the crate owned
    by the owner's account; in both cases the version itself must be absent. A 404 means a crate's
    first version, which the release workflow cannot publish, per
-   `design@knowledge-architect@publish-credential`: stop the release there, and put to the owner
-   how that version is published:
+   `design@knowledge-architect@publish-credential`: stop the release there. The owner publishes
+   that version by hand with an API token, after the merge and on the owner's word, as
+   `knowledge-architect-mutate`'s first version is, then turns on the trusted publisher and
+   "Require trusted publishing for all new versions" for the crate; until then the workflow's
+   `publish` job cannot upload it:
 
    ```sh
    curl -s -A 'knowledge-architect release check' https://crates.io/api/v1/crates/<crate>/<version>
@@ -131,7 +134,7 @@ On a branch of its own, `release-<version>`, under the Git rules of the root `CL
 
 ## When the publish fails `##failed-publish`
 
-The `publish` job uploads the crates one by one: agent-skills, gates, then the core, and skips a
+The `publish` job uploads the crates one by one: agent-skills, gates, mutate, then the core, and skips a
 crate whose version crates.io already holds. A crate it uploaded stays published.
 
 - **The `verify` job failed, the owner declined, or nothing was uploaded**: delete the tag, with
@@ -142,7 +145,7 @@ crate whose version crates.io already holds. A crate it uploaded stays published
   same tag, per `design@knowledge-architect@partial-publish-rerun`; where the re-run waits for an
   approval, the owner gives it as at step 12. If that cannot succeed without a change to the
   code, the uploaded crates keep the version, and the next release is the next patch version for
-  all three, per `design@knowledge-architect@version-lockstep`; the uploaded version is yanked only
+  all four, per `design@knowledge-architect@version-lockstep`; the uploaded version is yanked only
   if it is broken.
 - **In either case**, main's README status line is wrong until a repair lands, through a branch and a
   pull request like any other change.

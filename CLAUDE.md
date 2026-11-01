@@ -16,7 +16,8 @@ The repository is a virtual workspace with Components:
 | `core` | crates/core | package `knowledge-architect`: the checker library and the binary `klarch` |
 | `agent-skills` | crates/agent-skills | package `knowledge-architect-agent-skills`: the text the checker installs into a project |
 | `gates` | crates/gates | package `knowledge-architect-gates`: the library that runs a project's merge gates |
-| `xtask` | tools/xtask | the maintenance tool, `cargo x gates`, `cargo x changelog` and `cargo x skill`; never published |
+| `mutate` | crates/mutate | package `knowledge-architect-mutate`: the library of the hand mutation, `cargo x mutate` |
+| `xtask` | tools/xtask | the maintenance tool, `cargo x gates`, `cargo x changelog`, `cargo x skill` and `cargo x mutate`; never published |
 
 ## Language, tone and style `##language-and-style`
 

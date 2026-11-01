@@ -25,6 +25,7 @@ components = [
     "crates/core",
     "crates/agent-skills",
     "crates/gates",
+    "crates/mutate",
     "tools/xtask",
 ]
 
@@ -46,6 +47,7 @@ skip-files = [
     "crates/agent-skills/CHANGELOG.md",
     "crates/core/CHANGELOG.md",
     "crates/gates/CHANGELOG.md",
+    "crates/mutate/CHANGELOG.md",
 ]
 
 # Paths skipped by location, each one another project rather than a part of this one.
