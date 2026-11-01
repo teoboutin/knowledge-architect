@@ -39,8 +39,11 @@ The suspected mechanism, in one sentence: the reviewer reports a clause under th
 breaks most visibly, and a reach shown as a minor measure finding does not reach the owner as a
 question of intent.
 
-Re-entry point: a design discussion under `skill@knowledge-architect-design`, on the owner's word
-or when work next changes the goal reviewer's definition.
+Re-entry point: a design discussion under `skill@knowledge-architect-design`, on the owner's word,
+or at the next goal-setting batch whose draft-mode reviews run more than three rounds. The branch
+that tagged a property-list measure `intent` answered the first part of "What would close it" for
+that case; whether goal-setting's review of a reworded goal ends, and on what, stays open, on the
+owner's word.
 
 ### Why it matters
 
