@@ -16,7 +16,9 @@
    repository's build tie, `KNOWLEDGE_ARCHITECT_CHECKOUT`, in place of thaum's `THAUM_CHECKOUT`, per
    `design@knowledge-architect@a-build-is-tied-to-its-checkout`, as every crate here does. The crate
    holds a library, which a project's maintenance crate calls; every Rust target project has one,
-   per #maintenance-crate-ask.
+   per #maintenance-crate-ask. The thaum-specific parts are replaced as the design audit settled,
+   under "Decided design": the caller passes the project's root, and the record lives in the git
+   directory. The crate depends on neither the checker nor the gates library.
 3. **`cargo x mutate`** in this repository's maintenance crate, `path@knowledge-architect@tools/xtask/`,
    depending on the mutation crate directly, not through the gates library, per
    #mutation-command-host.
@@ -49,17 +51,32 @@
      `a_project_written_by_init_rust_builds_and_checks` writes gains the mutation crate, since the
      test builds offline; the comment above that test states a threshold of 60 seconds on the
      owner's workstation, a premise whose guard is that test;
-   - `path@xtask@examples/setup_snippet.rs`, which compiles the snippet's main.
+   - `path@xtask@examples/setup_snippet.rs`, which compiles the snippet's main;
+   - the new crate's `CRATES-IO.md`, named by `readme` in its Cargo.toml, per
+     `design@knowledge-architect@crates-io-page-file`, and its copies of `LICENSE-MIT` and
+     `LICENSE-APACHE`, in its `include`, per `design@knowledge-architect@package-include-whitelist`;
+   - the surface list of `design@knowledge-architect@changelog-entries` and of the head of
+     CHANGELOG.md, which gains `mutate`, the new crate's library, as `gates` is the gates library's;
+     the head is rewritten at the harvest, with
+     `design@knowledge-architect@the-changelog-ships-in-every-crate`, whose body counts "three
+     `skip-files` rows";
+   - the publish order of the release workflow and of `skill@klarch-release`: the mutation crate
+     depends on no crate of this repository, so it is published after the gates library and before
+     the core, per `design@knowledge-architect@partial-publish-rerun`;
+   - `issue@xtask@the-reword-the-fold-and-the-merge-predicate-have-no-command`, whose list of the
+     commands under `path@xtask@src/` gains `mutate`.
 
 8. **The maintenance crate as an ask of every Rust target project**, per #maintenance-crate-ask:
    the setup skill, `skill@knowledge-architect-setup`, states it among the asks, gives the
    maintenance crate as the one shape for a Rust project, and no longer offers a Rust project the
-   local install that leaves it with no maintenance crate and no `cargo x gates`; a project installed
-   that way brings itself into conformance, as the target-project goal says. A Migration entry in
+   local install that leaves it with no maintenance crate and no `cargo x gates`, there and in its
+   pin-move steps, which name "the version of the local install"; a project installed that way
+   brings itself into conformance, as the target-project goal says. A Migration entry in
    `Next release` tells a consumer what to add. The heads
    `design@agent-skills@pinned-binary-runs-inside-the-project`, which admits that local install on
    the owner's ruling, and `design@agent-skills@xtask-pins-checker`, which speaks of "a Rust project
-   with a maintenance crate", are rewritten under `skill@knowledge-architect-decision-recording`, and
+   with a maintenance crate", are rewritten, and `design@gates@gates-crate`, which calls the
+   maintenance binary "conventionally a crate named xtask", is reread, under `skill@knowledge-architect-decision-recording`, and
    every text `cargo klarch show` lists for them is reread. The setup skill's case of a project with
    no Rust is outside this ask. `issue@knowledge-architect@the-target-project-and-its-asks-are-stated-to-no-adopter`
    gains the ask among those it lists.
@@ -168,9 +185,11 @@ first use.
   per `design@knowledge-architect@publish-credential`; the release skill stops a release that would
   need the first, and the owner's word publishes it.
 - **Until the first version is published, the setup snippet pins no version absent from
-  crates.io.** Either the snippet's dependency lands with the release that publishes the crate, or
-  the `[patch.crates-io]` of the scaffold test covers it in the tree; the audit settles which, and the
-  test `a_project_written_by_init_rust_builds_and_checks` is the guard.
+  crates.io.** The snippet's dependency lands in this slice: it pins the checker's own version, as
+  its two other dependencies do, so no consumer meets it before the release that publishes all four
+  crates at that version, and in the tree the `[patch.crates-io]` of the scaffold test covers it.
+  The test `a_project_written_by_init_rust_builds_and_checks` is the guard, and the release skill
+  stops the release until the first version is published by hand.
 
 ## Decided design
 
@@ -195,8 +214,39 @@ The tool's exit code is a total function of the run's outcome, the three outcome
 | the tool acted, and something is owed on the tree: no verdict reached, the target left mutated, or a record still standing | 1 |
 | the run never started: a bad argument, no project found, or a precondition that refused before anything was written | 2 |
 
-The audit reads the table against `design@core@exit-code-ladder` and
-`issue@gates@a-run-that-could-not-start-exits-one`.
+The audit read the table against `design@core@exit-code-ladder`, which binds the core's commands
+alone: the table keeps the ladder's line between 2 and the rest, for the ladder's reason, a caller
+told "never ran" from "ran", and gives 1 its own meaning, something owed on the tree, since a
+verdict is no exit code here. A refused pattern claims the record directory and removes it, which
+touches no file of the working tree, since the record lives in the git directory. The maintenance
+crate's `mutate` arm exits 2 when no project lies above the working directory.
+`issue@gates@a-run-that-could-not-start-exits-one` is about the gates and stays open.
+
+**Settled at the design audit**, each the one answer the decisions it names leave:
+
+- **The root is the caller's.** `run` takes the project's root from the maintenance crate, which
+  finds it with the gates library's `project_root` and the checker's manifest name, as its gates arm
+  does. The mutation crate then links neither the checker nor the gates library, per
+  #mutation-command-host, and `design@core@installed-binary-version-check` asks no version check of
+  it.
+- **The record lives in the git directory**, at the path `git rev-parse --git-path
+  knowledge-architect-mutate` names. A target project is a git repository, per
+  `goal@knowledge-architect@serves-one-kind-of-project`. There the record survives a `cargo clean`
+  and a `git clean`, as `design@knowledge-architect@no-operation-loses-content` requires of the only
+  copy of a pre-image; no project writes an ignore rule for it; the checker's walk, which lists
+  untracked files that no ignore rule covers, per `design@core@git-supplies-the-walk`, never reads
+  it; and each worktree gets its own. thaum's `path@elsewhere@~/dev/games/thaum/tools/mutate/local/` would need each project to pick
+  and ignore a directory.
+- **A run's liveness is read portably**: `/proc` on Linux, `kill -0` on another Unix; where neither
+  answers, the owner reads as gone, which permits the restore. The goal the spec named,
+  `goal@agent-skills@installed-text-works-in-any-environment`, ranges over the harness's
+  configurations, not over operating systems, so it does not decide this.
+- **The caller's command runs in the caller's environment**: `RUSTC_BOOTSTRAP` is not scrubbed.
+  `design@gates@gates-scrub-rustc-bootstrap` guards a verdict of the gates; here the verdict compares
+  the baseline and the mutant under one environment, so a variable both inherit changes neither
+  side of the comparison.
+- **The messages name `cargo x mutate`**, the invocation #maintenance-crate-ask gives every Rust
+  target project.
 
 **Argument.** The value is a mutation the session writes itself, applied safely over uncommitted
 work; cargo-mutants chooses its own (`argument@development-and-components@arg-21`,
@@ -232,8 +282,11 @@ agent's first default: the purpose of `design@gates@gates-crate`.
 
 - **Heads:** in the new Component's design home, the shape above and each of thaum's heads the audit
   carries over; in `register@knowledge-architect@design`, the fourth published crate, and
-  `design@knowledge-architect@publish-credential` and `design@knowledge-architect@versioning-policy`
-  rewritten in place where they count the published crates.
+  `design@knowledge-architect@publish-credential`, `design@knowledge-architect@versioning-policy`,
+  `design@knowledge-architect@the-changelog-ships-in-every-crate` and
+  `design@knowledge-architect@changelog-entries` rewritten in place where they count or list the
+  published crates, each stating the rule that admits a crate rather than a count, per
+  `design@agent-skills@title-states-the-rule`.
 - **thaum's records of the tool:** what becomes of them is decided here, as "Audit subjects" says.
 - **Goals:** the new Component's, on the owner's ruling.
 - **The ask:** `design@agent-skills@pinned-binary-runs-inside-the-project` and
