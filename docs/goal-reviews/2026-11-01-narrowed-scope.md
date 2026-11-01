@@ -589,6 +589,109 @@ The not-minor counts are 79, 46 and 49. Each round's repairs and answers opened 
 count has not fallen toward the stop rule's 15. The stop rule also stops the rounds on the owner's
 word.
 
+## The owner's answers to round 3
+
+The owner, 2026-11-01, verbatim:
+
+> Q32: I am considering leaving it open. I think that further design of the workflow of the checker might very well find that other reaquirements are important. Also, it is kind of the goal that when I learn of a new quality tool, I want to have it adopted in my other projects, and this would go through knowledge-architect requiring it.
+> agreed on the other defaults
+
+Outcomes:
+
+- Q30, Q31, Q33 to Q45: the defaults stand.
+- Q32: the set of what knowledge-architect asks is open. A design decision may add to it, and a
+  quality tool knowledge-architect takes in may become an ask, so that every target project adopts
+  it. Each ask is stated in the installed text, which the setup skill and the READMEs restate; the
+  installed text relies on the asks as it states them. Q43's default keeps drift's exception to the
+  four conditions and what the scope goal itself states and asks, so an ask added by a design
+  decision ranks as that decision.
+
+## Round 4
+
+The same six reviewers under the same briefs.
+
+| reviewer | findings | not minor | contradiction |
+| --- | --- | --- | --- |
+| set A, scope and adoption | 10 | 9 | 0 |
+| set B, workflow coverage and tooling | 13 | 10 | 1 (b) |
+| set C, code quality and Components | 8 | 8 | 0 |
+| set D, the record and the checker | 4 | 4 | 0 |
+| set E, the owner and agents | 7 | 7 | 2 (a) |
+| whole set | 13 | 12 | 0 |
+| total | 55 | 50 | 3 |
+
+The not-minor counts across the rounds are 79, 46, 49 and 50. No repair is written yet: the owner
+is asked whether the rounds stop here.
+
+The findings the session can settle, condensed:
+
+- drift's exception, now that the set of asks is open, reads as covering an ask a decision adds (D4-1,
+  whole F1): name the asks the scope goal lists;
+- "Each ask is stated in the installed text" reads as a definition, and the measure misses the listed
+  asks (A F1, whole F5); "a design decision" names no owner, against one invocation everywhere (A F2,
+  whole F4); "judges a branch ready to merge" claims more than the gates judge (A F3, E F3);
+- the owner's rulings that hold a merge are not bound to the branch (E F1); "the owner" has two
+  referents (E F4); an exclusion that names no design (whole F6, rule 8);
+- "code it builds and ships" leaves maintenance tools and unreleased code out of the Component goal
+  (C P1, whole F8); the parent names only the code goal as covered shape (C P3); the closed list of
+  units (C C3);
+- "generic part" still has two tests in the title and the practice clause (whole F-G, B4-8); a
+  generic activity defined whole or by part (B4-1); "moves its pin" reaches only the checker (B4-9);
+- an offered shape against "no instruction assumes" a pull request (B4-2); the mechanical-tasks
+  measure met by a function no command calls (B4-7);
+- `goal@agent-skills@only-needed-instructions`: its measure still says "names" (B4-5, whole F10);
+- titles wider than their bodies: `goal@agent-skills@installed-text-works-in-any-environment` (A F7,
+  whole F9, B met outside); `goal@xtask@repeated-tasks-are-automated`'s "is not local" (B4-11, whole
+  F13); `goal@gates@gates-from-a-list` refines a parent that asks nothing (A F8, whole F12), and its
+  measure of taken-in behaviours (A F9); `goal@knowledge-architect@setup-brings-quality-tools`' "useful" names no judge
+  (A F10);
+- a register's home moved to another anchor (D4-3);
+- the record's table misses rows and holds a stale one (B met outside);
+- minor: A F6, B4-4, B4-10, B4-12, whole F7.
+
+The findings that are the owner's, each with the session's default:
+
+- **Q46** (A F4). A quality tool that knowledge-architect takes in "may become" an ask. Default:
+  "becomes an ask", as your Q32 answer says.
+- **Q47** (A F5). "Built first for its owner's projects" against "a new one is served first".
+  Default: a motive, no rank; "built for its owner's own projects".
+- **Q48** (D4-2). Is using the installed workflow never asked? Default: never asked, so the checker
+  used alone stays a supported state whatever asks are added.
+- **Q49** (D4-4). The hook covers a project with a `.git` at or above it; a repository reached
+  through `GIT_DIR` follows the git ask too. Default: the git ask states a `.git` at or above the
+  project.
+- **Q50** (E F2). Is the merge itself "an action that cannot be undone"? Default: no; only an
+  action of the branch's work, such as a publication, waits for the owner's word, and a merge waits
+  only where the project reserves it.
+- **Q51** (E F5, contradiction). Your "Merge conditions stay unified to "cargo x gates" passes"
+  against the review and your rulings the goals owe before a merge. Default: the gates passing is
+  necessary, not sufficient; "unified" means the same command in every target project.
+- **Q52** (E F6, contradiction). Your Q36 approval rested on the premise that the judgement of a
+  generic part is a choice no goal ranks; the definition ranks it wherever it answers. Default: the
+  definition is the test; your choice is whether knowledge-architect takes in a part the test finds
+  generic, and when.
+- **Q53** (E F7). Does each report of a tool carry the session's investigation? Default: yes,
+  which part of it the session finds generic and whether knowledge-architect already ships it.
+- **Q54** (C C1). You wrote "testability"; the draft says "tested". Default: "testable", the logic
+  shaped so it can be tested without the side effects, and tested where the change adds logic.
+- **Q55** (C C2). Does property 3 reach test code? Default: no; tests are under properties 1 and 2
+  only.
+- **Q56** (C P2). What shows a Component holds two purposes? Default: a goal that has a reason to
+  change on its own, apart from the others, as your Q12 words put it.
+- **Q57** (C P4). "A target project with one purpose and one Component needs no split" was never
+  shown to you. Default: keep it.
+- **Q58** (C P5). Does a Component that holds only a thin side-effect layer need its own tests?
+  Default: no, as Q10 says of a thin `main`.
+- **Q59** (whole F3). Rebasing as a named mechanical task. Default: named, its conflict-free form
+  and its check that every commit carried over.
+- **Q60** (B4-3, contradiction). You wrote "how to test properly"; the draft says "so that a test
+  discriminates". Default: "how to test properly: what to test, and so that a test discriminates".
+- **Q61** (whole F11, B4-6). Which items of the activity lists are acts. Default: each item names a
+  step that the activity's skill holds; what the step says beyond what judgement handles follows
+  `goal@agent-skills@only-needed-instructions`.
+- **Q62** (B4-13). In the real-use goal, does "follows it" mean installed the workflow? Default:
+  yes, whether or not the project follows every ask yet.
+
 ## Questions still open
 
-Q30 to Q45.
+Q46 to Q62, and whether the rounds stop.
