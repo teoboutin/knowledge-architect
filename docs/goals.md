@@ -527,14 +527,16 @@ It refines `goal@knowledge-architect@agents-get-a-complete-workflow`.
 
 ## The workflow leads a target project to be split into Components, each with one purpose `##projects-are-split-into-components`
 
-A Component is what the checker's manifest declares: a directory, or the project's root. A target
+A Component is what the checker's manifest declares: a directory, or the project's root. A
+Component's own files are those that no Component nested under its directory contains. A target
 project whose Components that hold Rust code in their own files each serve one purpose keeps each
 Component's goals and design small enough to read whole, and lets a session ground in one design and
-change one part of the project at a time. A Component whose own files hold no Rust code is outside
-that rule: the project's root, which is the whole project being split, and an intermediate Component
-that groups nested Components and holds the design and the documents several of them share but the
-rest of the project does not. What makes a split good is learned from use, so this goal fixes no
-rule of splitting: the installed text gives default criteria for placing work in Components and for
+change one part of the project at a time. The project's root, which is the whole project being
+split, is outside that, whatever its own files hold; so is an intermediate Component whose own files
+hold no Rust code, which groups nested Components and holds the design and the documents several of
+them share but the rest of the project does not. One purpose per Component is the direction that the
+default criteria pursue, not a rule a Component fails alone: what makes a split good is learned from
+use, so this goal fixes no rule of splitting: the installed text gives default criteria for placing work in Components and for
 splitting them, as guidelines, and real use corrects them. A target project with one purpose and one
 Component needs no split.
 
