@@ -31,6 +31,6 @@ each with the files restored byte for byte; the mutant read back before the comm
 killed while its mutation is applied, and the files written back from what the crate kept; a
 restore that refuses to overwrite a file edited during the run; a red base refused; a mutant that
 fails its build probe reported as unbuildable; a verdict with no probe saying what it cannot tell;
-and a mutation of several files applied and restored as one.
+and a mutation of several files applied and restored.
 
 It refines `goal@knowledge-architect@generic-tools-and-procedures-are-shipped`.

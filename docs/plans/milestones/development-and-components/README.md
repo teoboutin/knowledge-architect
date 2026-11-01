@@ -576,7 +576,8 @@ on the checkpoint of the reply to R6, which listed the thread in its bucket.
 ### The generic `run` and `restore` of thaum's mutation tool ship as a command; `sweep` stays thaum's `##mutation-command`
 
 - **Proposed:** the agent, reply to R1, from thaum (Q1, then Q3).
-- **States:** new (reply to R1); in discussion (reply to R2); approved R3, `run` and `restore` only;
+- **States:** new (reply to R1); in discussion (reply to R2); approved R3, `run` and `restore` only, the recorded list ruled out of the Component's goal by the
+  owner at slice 1;
   its host split out to #mutation-command-host, reply to R5.
 - **Arguments:** `argument@development-and-components@arg-2`, `argument@development-and-components@arg-7`,
   `argument@development-and-components@arg-15`, `argument@development-and-components@arg-21`,

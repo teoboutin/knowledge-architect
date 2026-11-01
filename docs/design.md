@@ -53,8 +53,11 @@ there, every user of the gates would build the mutation code, `rejected@knowledg
 The checker's binary is no host either, since it would make the document checker run cargo and the
 tests, `rejected@gates@gates-command-of-the-checker`. A crate of its own was the owner's proposal,
 argued on these two facts. It serves `goal@knowledge-architect@generic-tools-and-procedures-are-shipped`,
-whose generic part ships as a published crate, and costs one more crate in the publish order, after
-the gates library and before the core, per `design@knowledge-architect@partial-publish-rerun`.
+whose generic part ships as a published crate. The hand mutation judges nothing about the project
+by itself: it runs a step of the development procedure over a mutation a session writes, so it is
+no quality tool in the sense of `goal@knowledge-architect@serves-one-kind-of-project`, and no ask;
+the setup skill offers it within the maintenance crate's shape. It costs one more crate in the
+publish order, after the gates library and before the core, per `design@knowledge-architect@partial-publish-rerun`.
 
 ### Each published crate ships a whitelist of files `##package-include-whitelist`
 

@@ -30,6 +30,8 @@ conditions or the asks; and no design head names the command and its merge invoc
   - the setup skill's template goals for the maintenance tool keep the wording this repository's own
     `goal@xtask@one-command-runs-every-gate` and `goal@xtask@repeated-tasks-are-automated` had before
     their rewording, though its comment says they follow those goals;
+  - the setup skill's case of a project with no Rust, which installs the checker locally, serves no
+    target project, since a target project's shipped code is Rust;
   - `init --vcs none`, per `design@core@init-runs-git-init`, writes a project that is no git
     repository, a state the git ask rules out unless it helps the project into conformance;
   - `primer@question-authority` sends the owner no new ask, which
