@@ -8,7 +8,7 @@ The core checks what every project carries: the walk, the parse, the entity tabl
 registers, generated indexes and commit messages. A subject that belongs to one project, such as
 thaum's verification of rule quotes against a pinned corpus, is an **extension**: a set of checks, the
 manifest tables they read, and the files they generate. Each of its checks is listed and counted
-like a check of the core. This is what `goal@knowledge-architect@any-project-can-adopt-it`
+like a check of the core. This is what `goal@knowledge-architect@every-target-project-can-adopt-it`
 requires: the core is published for other projects, and nothing of thaum's subject is compiled
 into it. A binary registers its extensions at
 compile time. The core's own binary registers none, and a project that needs an extension builds a
@@ -70,7 +70,7 @@ names, the inert lines and the fences. It scans a second time and keys what it f
 in the model it was given.
 
 This is what keeps the core free of any one project's subject, which
-`goal@knowledge-architect@any-project-can-adopt-it` requires. A model generic over an extension's
+`goal@knowledge-architect@every-target-project-can-adopt-it` requires. A model generic over an extension's
 observation type would carry a type parameter into every check signature for the same data, and
 a type-erased slot per document would hold it inside the core with no type checking; both are
 `rejected@core@model-generic-over-extension` and `rejected@core@type-erased-document-slot`.
@@ -139,7 +139,7 @@ The design this decision did not keep: `rejected@core@inputs-struct-literal`.
 The library has three kinds of consumer: a binary that registers an extension, the extension, and
 the extension's tests. **Testing an extension over a mock project is part of what the library
 publishes**, because a project that adopts the tool with a subject of its own, per
-`goal@knowledge-architect@any-project-can-adopt-it`, has to test that subject as the core tests
+`goal@knowledge-architect@every-target-project-can-adopt-it`, has to test that subject as the core tests
 its own. `design@core@a-foreign-build-is-refused` already requires every extension binary to test
 the refusal in its own suite.
 

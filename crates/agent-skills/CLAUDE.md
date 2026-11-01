@@ -71,7 +71,7 @@ named with the installer's prefix, and
 `skill@knowledge-architect-agent-configuration@installed-files-never-edited`.
 
 **Argue each edit from the side of a project other than knowledge-architect that installs the
-text**, per `goal@agent-skills@installed-text-works-anywhere`: the edited instruction must be
+text**, per `goal@agent-skills@installed-text-works-in-every-target-project`: the edited instruction must be
 followed, and give the result it intends, with none of this repository's record, its `%%` comments
 included, and where that project's own goals and records say nothing on its subject.
 

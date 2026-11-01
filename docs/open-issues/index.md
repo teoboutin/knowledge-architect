@@ -1,6 +1,6 @@
 **Generated — do not edit.** `cargo klarch index`
 
-8 entries
+13 entries
 
 | kind | title |
 | --- | --- |
@@ -10,5 +10,10 @@
 | question | [CI does not run on a draft pull request, and no record says why](ci-does-not-run-on-a-draft-and-no-record-says-why.md) |
 | question | [Does the quick-fixes spec still hold now that the lints on ids are built?](path-quickfixes-read-against-the-lints-on-ids.md) |
 | todo | [CHANGELOG.md's shape is checked by a reviewer only, and no model of it exists](a-mechanical-changelog-check.md) |
-| todo | [No document tells a project in another language than Rust what its reduced mode lacks](the-reduced-mode-outside-rust-is-not-documented.md) |
+| todo | [Installed instructions assume pull requests and continuous integration](installed-text-assumes-pull-requests-and-ci.md) |
+| todo | [No published crate offers the history tasks the workflow asks of a session](no-published-command-rewrites-a-branch-s-history.md) |
+| todo | [Nothing has a session report the tools and procedures it set up or changed](the-retrospective-asks-for-no-tool-a-session-set-up.md) |
 | todo | [The passes that build and bundle installable agent text are tied to this project's own skills, so no other project can reuse them](the-skill-bundling-passes-are-tied-to-this-project-s-skills.md) |
+| todo | [The four conditions of a target project and what knowledge-architect asks of one are stated to no adopter](the-target-project-and-its-asks-are-stated-to-no-adopter.md) |
+| todo | [The installed set has no skill for developing, for work on a branch under a linear history, or for releasing](the-workflow-has-no-skill-for-developing-branch-work-or-releasing.md) |
+| todo | [The goals homes of gates, agent-skills and xtask state no purpose in their head](three-goals-homes-state-no-purpose.md) |

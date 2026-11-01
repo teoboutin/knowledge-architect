@@ -26,7 +26,7 @@ subdirectories, per `design@core@groups-are-subdirectories`, and the top of its 
 register by the anchor that carries it. A cluster is a unit with the `rejected` entries its entries
 cite, the issues and tripwires that cite them, and the goals of `design@core@goals-join-a-cluster-as-context`.
 
-It serves `goal@agent-skills@installed-text-works-anywhere`, since every unit comes from what the
+It serves `goal@agent-skills@installed-text-works-in-every-target-project`, since every unit comes from what the
 manifest declares and the tree holds. A subject groups what the work reads together: the owner
 chose that grouping for design entries, since a subject's kept and rejected entries have to be read
 together, and a standing entry joins the cluster of the heads it cites, since it is judged beside

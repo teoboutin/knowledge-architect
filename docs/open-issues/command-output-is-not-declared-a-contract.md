@@ -70,7 +70,7 @@ yet official."
 such change is classed by the nearest reading, and two changes of one kind already took two classes
 in one release. Under 0.x a patch and a minor are different numbers, so the class decides whether a
 consumer's plain `cargo update` reaches the change, which
-`goal@knowledge-architect@any-project-can-adopt-it` relies on. A consumer that parses a report has
+`goal@knowledge-architect@every-target-project-can-adopt-it` relies on. A consumer that parses a report has
 no statement telling it not to.
 
 ### What would close it

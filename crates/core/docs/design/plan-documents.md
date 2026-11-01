@@ -21,7 +21,7 @@ every citation of a plan unchecked and every plan document unlisted.
 A component gets its register homes at paths the tool fixes, and a built-in register refuses a
 `dir` key, so a declared plans directory would be the only declared path in that family. The tool
 fixing it costs a project whose plans sit elsewhere one move, and a skill written against the fixed
-path works in every project, per `goal@agent-skills@installed-text-works-anywhere`. A fixed path is the tool's convention, not a project compiled in, per
+path works in every project, per `goal@agent-skills@installed-text-works-in-every-target-project`. A fixed path is the tool's convention, not a project compiled in, per
 `design@core@nothing-of-a-project-is-compiled-in`.
 
 ### A project has one plans directory, in its root component `##plans-at-root`

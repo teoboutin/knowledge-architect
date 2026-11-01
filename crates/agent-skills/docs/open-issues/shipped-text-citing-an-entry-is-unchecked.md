@@ -47,7 +47,7 @@ teaches every installing project the grammar, not a repair.
 
 `design@agent-skills@shipped-text-cites-no-entry` rests on the reviews and the release's hand check.
 A reference to an entry that they miss ships, and in every installing project it dangles where the
-project cannot repair it, against `goal@knowledge-architect@any-project-can-adopt-it`, because the
+project cannot repair it, against `goal@knowledge-architect@every-target-project-can-adopt-it`, because the
 file is the installer's and the check compares its bytes.
 
 The same mechanism is needed by the crates.io pages, each crate's CRATES-IO.md, per

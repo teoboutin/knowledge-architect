@@ -14,8 +14,10 @@ what creating one involves beyond the documents the check reports missing.
 ### What
 
 A skill for creating a Component: when a directory earns being one, what it carries from its first
-commit, how its goals are stated, and which decisions of the root Component it inherits. The owner
-has not converged on what a new Component requires.
+commit, how its goals are stated, and which decisions of the root Component it inherits.
+`goal@knowledge-architect@projects-are-split-into-components` states the four properties a Component
+that holds Rust code is led toward; how a Component maps to Cargo packages, and how the installed
+text leads a session there, are left to a design discussion the owner asked for.
 
 ### Why it matters
 

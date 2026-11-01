@@ -43,7 +43,7 @@ nothing in its text or its record can say which person ruled.
 `goal@knowledge-architect@the-owner-decides` promises that the owner decides the forks and sees each
 decision reported.
 With several contributors, a ruling recorded as the owner's cannot be traced to the person who gave
-it, and `goal@knowledge-architect@any-project-can-adopt-it` does not hold for such a project.
+it, and `goal@knowledge-architect@every-target-project-can-adopt-it` does not hold for such a project.
 
 ### Re-entry
 

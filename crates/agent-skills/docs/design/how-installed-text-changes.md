@@ -170,7 +170,7 @@ reads it, and, where it is an instruction no agent performs, a decision, which
 `primer@question-authority` routes: deleted where the project's record settles that its act is no
 longer wanted, and otherwise put to the owner, since whether the act is still wanted is the intent of whoever wrote it, a fact only the owner holds, which a project that installs
 the workflow seldom records about its agent-facing text, per
-`goal@agent-skills@installed-text-works-anywhere`. A reason passes when
+`goal@agent-skills@installed-text-works-in-every-target-project`. A reason passes when
 it states a mechanism or a failure prevented, and is written where the act needs it, not beside
 every instruction: the owner argued that most instructions are followed without their reason, and
 that a reason given everywhere no longer marks the instructions it weighs and dilutes them. A

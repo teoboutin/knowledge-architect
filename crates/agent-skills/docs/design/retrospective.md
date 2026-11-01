@@ -231,7 +231,7 @@ handled files apart from pending ones: a marked file left among pending ones can
 an intake, since only the owner's directory tells a session which files are handed to it. A deleted
 file loses the other side of an interaction finding, which a later intake reads. The installed text
 names no directory, since the retrospective writes its files where the owner directs, and a fixed
-one would be a convention of one setup, against `goal@agent-skills@installed-text-works-anywhere`;
+one would be a convention of one setup, against `goal@agent-skills@installed-text-works-in-every-target-project`;
 where the owner keeps them is a fact the owner's own instructions hold. A directory of received files can hold files an earlier intake
 analysed, which only the history of docs/retrospective-reports/ at the project's root tells apart, a
 path no checked form names, per

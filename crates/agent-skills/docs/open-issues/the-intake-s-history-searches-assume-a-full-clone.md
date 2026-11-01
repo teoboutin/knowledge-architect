@@ -38,7 +38,7 @@ to report, and the intake is a session that can run `git fetch --unshallow` itse
 
 An intake that dates a finding from the boundary commit reads the blamed text at the wrong version,
 and may judge a finding repaired or still standing wrongly, against
-`goal@agent-skills@installed-text-works-anywhere`.
+`goal@agent-skills@installed-text-works-in-every-target-project`.
 
 ### What would close it
 

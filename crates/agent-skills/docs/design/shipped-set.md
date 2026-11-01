@@ -145,7 +145,7 @@ The design this decision did not keep:
 
 The text under content/, with the snippets the build inlines, is read in every project that installs
 it, so it names no Component and no convention of this repository, per
-`goal@agent-skills@installed-text-works-anywhere`. The one name it holds on purpose is the
+`goal@agent-skills@installed-text-works-in-every-target-project`. The one name it holds on purpose is the
 workflow's own upstream repository, where a retrospective's findings on the workflow go, per
 `design@agent-skills@retrospective-destination`. It cites no entry: a reference to an entry resolves
 only against the tree it stands in, and no tree but this one holds this repository's entries. A path

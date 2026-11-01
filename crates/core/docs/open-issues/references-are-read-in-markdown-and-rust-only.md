@@ -29,11 +29,14 @@ audit found one such pointer already broken, a prompt naming a point the section
 
 ### Why it matters
 
-`goal@knowledge-architect@any-project-can-adopt-it` targets projects whatever their language.
-The installed skills tell an agent to name an issue in the comment at the code that exists because
-of it, so that closing the issue dangles the comment. In a project that is not written in Rust that
-instruction produces references nothing reads, and the skills have to tell the agent to grep
-instead.
+Every target project's code is Rust, per `goal@knowledge-architect@serves-one-kind-of-project`, but
+it holds files in other languages that a reference can sit in: the installed saved workflows, which
+are JavaScript in every target project that installs the workflow, and the glue its targets need,
+such as the JavaScript and the HTML of a web target. The installed skills tell an agent to name an
+issue in the comment at the code that exists because of it, so that closing the issue dangles the
+comment. In such a file that instruction produces references nothing reads, and the skills have to
+tell the agent to grep instead. A project in another language is no target project, so it is no
+case of this entry.
 
 ### What would close it
 

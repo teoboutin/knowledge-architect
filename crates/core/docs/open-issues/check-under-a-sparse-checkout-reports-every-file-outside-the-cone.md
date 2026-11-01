@@ -31,7 +31,7 @@ is not established.
 `design@core@git-supplies-the-walk` keeps a tracked path the working tree does not hold in the walk
 and reports it, so that a working-tree state takes no live document out of every check. A sparse
 checkout is a working-tree state a user chose, and under it plain `check` cannot pass at all,
-which `goal@knowledge-architect@any-project-can-adopt-it` strains for a project worked on that
+which `goal@knowledge-architect@every-target-project-can-adopt-it` strains for a project worked on that
 way. Whether the head meant to cover a skip-worktree entry is not established.
 
 ### What would close it

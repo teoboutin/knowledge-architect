@@ -10,7 +10,7 @@ directory a project root. So one binary checks any project, and every mock proje
 `path@core@tests/projects/`, with no special case in the code. A path that must not be
 checked is declared there, in one place, with its reason beside it.
 
-The constraint derives from `goal@knowledge-architect@any-project-can-adopt-it`. A list
+The constraint derives from `goal@knowledge-architect@every-target-project-can-adopt-it`. A list
 compiled in for one project is a list every other project is checked against. It also keeps the
 tests honest: a mock runs the same code path as a real tree, so a test over a mock tests the
 code that checks the real tree.
