@@ -55,7 +55,9 @@ And, during the same turn:
 | `goal@knowledge-architect@design-with-agents-as-counterparts` | unchanged since round 1, which restored `goal@knowledge-architect@owner-attention-on-what-is-theirs` | |
 | `goal@agent-skills@one-skill-per-activity` | the code exception removed; developing, branch work and releasing listed | proposed, follows from the third point |
 | `goal@agent-skills@installed-text-works-anywhere` | reworded and renamed `installed-text-works-in-every-target-project`: "of any language" removed, may rely on what every target project holds | proposed, follows from the first point |
-| `goal@gates@gates-from-a-list` | "A Rust project" becomes "A target project" | proposed, one reading of the term |
+| `goal@gates@gates-from-a-list` | "A Rust project" becomes "A target project"; running gates through the library is an ask (Q15, Q32) | proposed, one reading of the term; the owner's answer to Q15 |
+| `goal@core@relocation-is-one-manifest-edit` | the title names its body's set (Q28, Q44) | proposed, round 2 C P9 and round 3 D F3 |
+| `goal@core@checks-a-commit-from-its-hook` | "A target project is covered here when a `.git` is at or above its directory" | proposed, round 2 D C-1 and whole F3 |
 | the root goals home's head | rewritten for the new scope | proposed |
 | `goal@knowledge-architect@rust-projects-come-first` | removed, absorbed by `serves-one-kind-of-project` | the owner's statement |
 | `goal@knowledge-architect@owner-attention-on-what-is-theirs` | kept as at HEAD since round 1, as the default of Q5 | the owner's statement names it; round 1 found that no other goal holds its outcome |
@@ -443,6 +445,150 @@ its outcome:
 - **Q29.** Default: in `goal@gates@gates-from-a-list`, "gate logic" covers every behaviour of the
   gate command that would serve another target project, such as thaum's merge-ready mode.
 
+## The owner's answers to round 2
+
+The owner, 2026-11-01, verbatim:
+
+> On Q8: yes, is meant to is better. The thing is that for now, only this project publishes, but I plan to have rootpoint publish, and I have other planned projects.
+> Nothing should be removed/limited by arguements from what the current the current list needs or does.
+> Also, the definition of a target project should not be limited by what existing ones currently do. A target project is one that is Rust, linear history, with agentic driven development and which chose to use knowledge-architect. Other aspects are asked by knowledge-architect, expected to be followed, and the target projects have to get into conformance over time so that everything works out properly.
+> How does that reshape the default list, before I answer on it ?
+
+The session proposed the reshaped definition and defaults: the four conditions; what
+knowledge-architect asks of a target project, with conformance over time; no limit or removal argued
+from what a current target project does; Q17 and Q18 as requirements; a generic activity defined by
+its procedure alone, with no count of projects; Q15 reversed to "runs"; the generic part as what
+would serve target projects in general. The owner, verbatim:
+
+> approved, and defaults OK including the Q15 reversal.
+> With this definition, it is now possible to have everything consistent together I think, which was not possible under the previous reading. Shaping the target consumer definition to all of the existing consumers was an absurd endeavor.
+
+Outcomes, written in the drafts:
+
+- `serves-one-kind-of-project`: the four conditions; a list of what knowledge-architect asks (git
+  and the `claude` harness, Q18; one command with one merge invocation in every target project,
+  Q17, with the merge condition of round 2); conformance over time; no limit or removal argued from a
+  current target project. The measure states the conditions and what is asked.
+- `every-target-project-can-adopt-it` and `installed-text-works-in-every-target-project`: the
+  installed text may rely on what knowledge-architect asks of every target project.
+- `goal@knowledge-architect@agents-get-a-complete-workflow`: a generic activity is one whose
+  procedure does not depend on what the project builds (Q8, Q19).
+- `generic-tools-and-procedures-are-shipped`, `goal@xtask@repeated-tasks-are-automated` and
+  `goal@gates@gates-from-a-list`: the generic part is what would serve target projects in general.
+- `goal@gates@gates-from-a-list`: a target project runs its gates through the library (Q15
+  reversed); thaum's move to it is its conformance work.
+- Q20 to Q29: the defaults stand as round 2 wrote them.
+
+## Round 3
+
+The same six reviewers under the same briefs.
+
+| reviewer | findings | not minor | contradiction |
+| --- | --- | --- | --- |
+| set A, scope and adoption | 8 | 7 | 0 |
+| set B, workflow coverage and tooling | 9 | 8 | 1 (a) |
+| set C, code quality and Components | 8 | 8 | 0 |
+| set D, the record and the checker | 4 | 4 | 0 |
+| set E, the owner and agents | 5 | 5 | 0 |
+| whole set | 20 | 17 | 0 |
+| total | 54 | 49 | 1 |
+
+49 is above the stop rule's 15, and not below round 2's 46. The findings, condensed, with their
+outcomes:
+
+- **Two regressions of the session's round-3 rewrite** (whole F1, F8): the admission of glue,
+  installed files, CI configuration and scripts was dropped from the scope goal, and "or are meant
+  to" from the definition of a generic activity. Both restored. Repaired, Q30.
+- **Ownership against the definition** (whole F2, B F4): Q31.
+- **"Among what it asks" is an open set** (whole F3, D F1, A G1, whole F16): Q32.
+- **The guarantee in a target project that does not follow an ask; building for that state;
+  `harness = []` and "used alone"** (A F1, I1, whole F4, F7, D F2, D met outside): Q33.
+- **The reach of "nothing is limited or removed"** (A F2, whole F5, F6): Q34, Q45.
+- **"Generic" has two tests; the CI and pull-request procedure is claimed twice** (B F1, whole F9,
+  F10): Q35.
+- **Who judges a generic part** (B F3 contradiction (a), E F5, A G2): Q36.
+- **The grain of "names" in `goal@agent-skills@only-needed-instructions`** (B F10, whole F11): Q37.
+  **Its rank against shipping generic procedures** (whole F12): Q38.
+- **Which code the three properties cover; existing code** (C C2, C3): Q39, Q40. **The measure's
+  last "each"** (C C1): the measure names both. Repaired.
+- **Components: "code", the closed list of interfaces, an argued departure, "what a Component
+  holds", "purpose" in two senses** (C P1 to P4, whole F13, F14): "code it builds and ships"; Q41;
+  Q42; "the four properties"; a purpose is what a goals home states as a whole. Repaired or Q41, Q42.
+- **The drift exception reaches an open set** (D F1): Q43. **The relocation title's premise** (D F3,
+  C R1): Q44.
+- **The owner's part points to two goals of three** (E F1, whole F15): the third added. Repaired.
+- **The merge conditions: "the condition", the owner's rulings, the list read as closed** (E F2, F3,
+  F4): "every condition", "the owner's ruling on each choice and goal left open", the contradiction
+  hold and irreversible actions named, "among them". Repaired.
+- **"Chose to use"** (A E1): "its owner has decided to use knowledge-architect, from the moment of
+  that decision". Repaired.
+- **"Any environment" now that the harness is asked** (A V1): "any configuration of the `claude`
+  harness". Repaired.
+- **Titles narrower or wider than their bodies** (B F6, F7, F8): the mechanical-tasks title names the
+  library function; xtask's title names the local part; its range reads "of a session". Repaired.
+- **xtask's default verdict** (B F9, whole F17): the default's exit code covers the gates it ran; the
+  run with the rebase check gives the merge verdict. Repaired.
+- **The record's table has no rows for the two core goals** (D F4): added. Repaired.
+- **Minor** (A F3, B F5, whole F18, F19, F20): no change, except F20, met by tying the measure to
+  what the owner has taken in.
+
+The record's consequence of Q18 is corrected by Q33's default: `harness = []` serves a target project
+that uses the checker without the workflow, as well as the checker's mock projects.
+
+## Questions put to the owner after round 3
+
+- **Q30.** Default: "the code it builds and ships is Rust, apart from the glue its targets need, such
+  as the JavaScript and the HTML of a web target, or shaders"; installed files, CI configuration and
+  scripts beside the code are no code it ships. Case: rootpoint's `web/index.html`.
+- **Q31.** Default: ownership is no condition; the goal says knowledge-architect is "built first" for
+  your projects. A stranger's conforming project is a target project, and its reports would go to
+  knowledge-architect's owner, as the workflow file does today.
+- **Q32.** Default: what knowledge-architect asks is a closed list in the scope goal: git and the
+  `claude` harness; the gates through the library from one command; one merge invocation everywhere.
+  How an ask is met, such as the command's name, is a design decision.
+- **Q33.** Default: the guarantee covers a target project as far as it follows the asks; nothing is
+  built only for a state that does not follow one, other than what helps a project into conformance.
+  Using the installed workflow is not asked, so the checker used alone in a target project, with
+  `harness = []`, stays supported (Q16).
+- **Q34.** Default: "nothing is limited or removed on what a current project needs" covers the
+  definition and what knowledge-architect covers (activities, checks, tools); it does not override
+  the economy of instructions, the real-use admission of an instruction, or your order of work.
+- **Q35.** Default: one test of "generic", the activity's: a procedure that does not depend on what
+  the project builds, serving each target project that carries out its activity or is meant to. The
+  generic part of a CI or pull-request procedure, such as this repository's merge predicate, can
+  ship as an offered shape; whether and how a project runs CI and pull requests stays its own.
+- **Q36.** Your Q20 approval made the judgement of a generic part yours; `goal@knowledge-architect@the-owner-decides` sends
+  the owner only a closed list. Default: the judgement is a choice of scope, which that list already
+  holds ("a choice … that weighs a cost or a scope that no goal ranks"); the goal says so, and the
+  measure ranges over what you have taken in.
+- **Q37.** Default: `goal@agent-skills@only-needed-instructions` keeps an instruction whose act a goal's text states;
+  a category or an example a goal names keeps none.
+- **Q38.** Default: a generic procedure that sessions' judgement already carries out ships in the
+  form `goal@agent-skills@only-needed-instructions` admits; the shipping goal does not force an instruction.
+- **Q39.** Default: the three properties cover all of the project's Rust code, its tests and its
+  maintenance tools included; a test helper that mixes the layers states why.
+- **Q40.** Default: they apply to the code a change writes and to each unit it edits; an edited unit
+  left mixing the layers is a departure to argue.
+- **Q41.** Default: a Component's public interface is open: "such as a library API, a command line,
+  a user interface or a network protocol". Cases: rootpoint's app crate, thaum's server.
+- **Q42.** Default: a Component may depart from the four properties, such as by holding a second
+  purpose, when a design head of its own argues it.
+- **Q43.** Default: drift never ranks over the four conditions and what the scope goal itself states
+  and asks; an ask stated elsewhere ranks as the decision it is.
+- **Q44.** Your Q28 approval rested on the premise, supplied by the session, that the new title named
+  its body's set; it did not, and a design head reads the goal as covering a move of a register's
+  home. Default: "Moving a Component, a location or a register's home, or turning a register's home
+  from one file into a directory, costs at most one edit of the checker's manifest", the body naming
+  the move of a home.
+- **Q45.** Default: the setup skill leads to the tools "useful to target projects", no longer only
+  those "proven" in current ones.
+
+## The count
+
+The not-minor counts are 79, 46 and 49. Each round's repairs and answers opened new readings, so the
+count has not fallen toward the stop rule's 15. The stop rule also stops the rounds on the owner's
+word.
+
 ## Questions still open
 
-Q17 to Q29.
+Q30 to Q45.
