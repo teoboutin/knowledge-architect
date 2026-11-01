@@ -197,13 +197,15 @@ The rival of one workflow auditing every axis at once lost on the owner's
 words: "it audits all axes of the project at once and produces a single report, which is too large
 of a scope".
 
-No goal binds the audit to one harness: the goals that name a harness speak of the harness that loads the installed text and of a manifest's list of harnesses, never of one harness; `goal@agent-skills@installed-text-works-in-every-target-project` names a project's paths, conventions and command, and
-`goal@agent-skills@installed-text-works-in-any-environment` lets the installed text rely on the
-harness's own mechanisms while no skill or instruction the environment adds takes the place of an
-installed one. A second provider stays a design target, per
-`issue@core@configuration-for-several-agent-providers`, and the dispatch by hand keeps it open. The
-rival of a skill written for the Workflow tool alone fails in every other harness, for a gain the
-dispatch by hand already gives. The owner's weighing of the dependency: "After all, I use only
+`goal@knowledge-architect@serves-one-kind-of-project` asks every target project's agents to run
+under `claude`, and a second provider waits for a change of that ask, per
+`issue@core@configuration-for-several-agent-providers`; the defeat of the rival below, a skill
+written for the Workflow tool alone, was argued before that ask, on its failing in every other
+harness, and is to be argued again, per `issue@agent-skills@heads-argued-from-another-harness`.
+`goal@agent-skills@installed-text-works-in-every-target-project` names a project's paths,
+conventions and command, and `goal@agent-skills@installed-text-works-in-any-environment` lets the
+installed text rely on the harness's own mechanisms while no skill or instruction the configuration
+adds takes the place of an installed one. The owner's weighing of the dependency: "After all, I use only
 Claude Code personally... I'm not really expecting anyone to start using this, outside of myself in
 more projects than thaum." The cost of shipping them: each saved workflow is listed in every session
 of every project that installs the workflow, one that never audits included.

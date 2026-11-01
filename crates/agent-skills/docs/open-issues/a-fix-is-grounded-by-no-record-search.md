@@ -39,6 +39,6 @@ through the design skill, a plan or an intake.
 
 ### Trigger
 
-The design of the work the goal on development work asks of a session changing code, once the
-owner has stated that goal: that design decides whether a fix dispatches the search, and with which
-seeds.
+The design of the developing skill that `goal@knowledge-architect@agents-get-a-complete-workflow`
+asks, per `issue@knowledge-architect@the-workflow-has-no-skill-for-developing-branch-work-or-releasing`:
+that design decides whether a fix dispatches the search, and with which seeds.

@@ -380,9 +380,9 @@ To move to another version:
 
 ## In a Rust project {{slug:rust-project}}
 
-%% The section is for Rust because the project is focused on Rust, the language whose comments the
-%% checker reads; another language gets a section of its own when a project needs one. It serves
-%% `goal@knowledge-architect@setup-brings-quality-tools`.
+%% The section is for Rust because every target project is a Rust project, per
+%% `goal@knowledge-architect@serves-one-kind-of-project`, and Rust is the language whose comments the
+%% checker reads. It serves `goal@knowledge-architect@setup-brings-quality-tools`.
 A Rust project gets its gates and its pinned checker from one maintenance crate, a package named
 `xtask` in a directory of its own, `<xtask-dir>/`, such as `xtask/` at the root, a member of its
 workspace that is never

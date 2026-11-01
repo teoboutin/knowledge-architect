@@ -31,7 +31,7 @@ the marker, the identifier prefix and the number grammar declared rather than co
 
 ### Why it matters
 
-`goal@knowledge-architect@every-target-project-can-adopt-it` serves any project. A
+`goal@knowledge-architect@every-target-project-can-adopt-it` serves every target project. A
 project that needs a verbatim-citation check and finds one only inside thaum's extension has to copy
 it, and two copies drift.
 

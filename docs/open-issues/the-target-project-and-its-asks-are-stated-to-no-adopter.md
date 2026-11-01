@@ -24,6 +24,19 @@ merge invocation.
   `cargo x gates --require-rebased`, thaum on `cargo --locked x gates --merge-ready`, rootpoint on
   bare `cargo x gates`.
 
+- Texts still offer what the asks rule out, or route a new ask otherwise:
+  - the setup skill offers a local install that "leaves the project with no maintenance crate and no
+    `cargo x gates`, so the project builds its own gates command", and
+    `design@agent-skills@pinned-binary-runs-inside-the-project` admits it on the owner's ruling;
+    the gates ask rules out a gate runner of a project's own;
+  - the setup skill's template goals for the maintenance tool keep the wording this repository's own
+    `goal@xtask@one-command-runs-every-gate` and `goal@xtask@repeated-tasks-are-automated` had before
+    their rewording, though its comment says they follow those goals;
+  - `init --vcs none`, per `design@core@init-runs-git-init`, writes a project that is no git
+    repository, a state the git ask rules out unless it helps the project into conformance;
+  - `primer@question-authority` sends the owner no new ask, which
+    `goal@knowledge-architect@the-owner-decides` now sends whatever the argument settles.
+
 ### Why it matters
 
 The goal is unmet while these are stated nowhere: an adopter cannot tell whether a project is served,
@@ -34,4 +47,5 @@ rely on the asks only as the installed text states them, relies on none.
 
 The installed text states each ask; the setup skill and every published crate's README state the
 four conditions, the asks and the limit of the guarantee; a design head of knowledge-architect names
-the command and its merge invocation, reached through `skill@knowledge-architect-design`.
+the command and its merge invocation, reached through `skill@knowledge-architect-design`; and each
+text listed above is brought to the asks, a head among them through the same skill.

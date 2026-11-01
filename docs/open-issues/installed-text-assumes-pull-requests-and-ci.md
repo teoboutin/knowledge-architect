@@ -14,14 +14,19 @@ installed text still assumes both in several places.
 
 ### What
 
-- The installed primer's coined terms and the planning skill define a spec as "the plan document of
-  work done in one branch and one pull request", and a slice the same way.
+- The installed primer's coined terms define a spec as "the plan document of work done in one branch
+  and one pull request", and the planning skill's terms as work done "in one branch and one PR", a
+  slice the same way. The decision is `design@agent-skills@document-vocabulary`, and
+  `design@agent-skills@plan-landing-is-not-tied-to-its-work` argues in pull requests too: both are
+  read again with the installed text.
 - The design skill speaks of "several pull requests" for a milestone.
 - The setup skill recommends continuous integration "on every pull request that is ready", and its
   gates section says the continuous integration runs the same command.
 
-A search of the installed text for "pull request" and "continuous integration" lists every site;
-these are the ones found while the goals were reviewed, not a full census (assumption).
+A search of the installed text for "pull request", "PR", "CI" and "continuous integration", across
+line breaks, since wrapped prose splits "pull request" over two lines, lists every site; the review
+skill's paragraph on a project that squashes a branch holds one more. These are the sites found
+while the goals were reviewed, not a full census (assumption).
 
 ### Why it matters
 
