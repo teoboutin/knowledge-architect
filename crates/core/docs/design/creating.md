@@ -153,7 +153,8 @@ reads, or in the installer's namespace, whose files every install deletes, is re
 documents and the home of every register it carries, through the code `init` uses, and ends as
 `init` ends. A register declared `opt-in` is not guessed: the user names the Component in its
 `components`, and the check reports the home. What a Component owes beyond its files, its goals and
-the decisions it inherits, is no command's to write: `issue@agent-skills@a-skill-for-creating-a-component`.
+the decisions it inherits, is no command's to write: the component skill states it, which
+`milestone@plans@development-and-components` builds at its slice 3.
 
 ### The manifest is edited with a format-preserving editor, and parsed before it is written `##component-manifest-edit`
 

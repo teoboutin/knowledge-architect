@@ -64,7 +64,7 @@ List the goals under their slugs, in the order of their homes. Under each, every
   or a kind of interface is meant; give the case on which the readings differ;
 - `contradiction`: (a) or (b), held for the owner; quote both sides.
 
-Give each finding its rule. A finding of rule 4 or of rule 6 is also tagged `minor`: neither
+Give each finding its rule. A finding of rule 4, or of rule 6 other than the case below, is also tagged `minor`: neither
 changes what an agent does in the project, so the dispatcher counts it apart. A finding that a goal
 judged only in use is measured by a list of the properties its outcome is taken to consist of is
 tagged `intent` instead of `minor`: every agent then works to that list at its widest reading, so

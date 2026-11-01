@@ -16,13 +16,19 @@ as the milestone document's "How the work is done" says.
    under `skill@knowledge-architect-goal-setting`: a draft in the conversation, the goal reviewer in
    draft mode reading the new fragment from disk, then the owner's ruling. Every reference to the old
    slug is re-pointed, this milestone's documents included.
-5. **`issue@agent-skills@a-goal-the-draft-review-read-was-reworded-again-for-a-defect`** updated or
+5. **`goal@knowledge-architect@projects-are-split-into-components` reworded** on the model of item
+   4, on the owner's proposal during slice 0, under `skill@knowledge-architect-goal-setting`: it
+   fixes no rule of splitting, ranges over Components that hold Rust code in their own files, and
+   admits an intermediate Component that holds no Rust code and the design its nested Components
+   share, as the owner ruled; and the sentence of `goal@knowledge-architect@agents-get-a-complete-workflow`
+   on what is covered points to both reworded goals.
+6. **`issue@agent-skills@a-goal-the-draft-review-read-was-reworded-again-for-a-defect`** updated or
    closed, per #rule-6-finding-weight, by `skill@knowledge-architect-issue-tracking`.
-6. **The re-entry of `issue@agent-skills@heads-argued-from-another-harness`** becomes, as written
+7. **The re-entry of `issue@agent-skills@heads-argued-from-another-harness`** becomes, as written
    in the issue: "The next design discussion on the audit's saved workflows, or one that changes how
    the shipped fragments are delivered, or a design-record audit pass, whichever comes first.", per
    #harness-argued-heads-scope.
-7. **`cargo klarch install-agent-skills`** run, the CHANGELOG.md entries written in `Next release`,
+8. **`cargo klarch install-agent-skills`** run, the CHANGELOG.md entries written in `Next release`,
    and `cargo x changelog` run.
 
 ## Claims
@@ -175,6 +181,15 @@ instances, four heads and three `rejected` entries: the owner's R6, "there is no
 - **Goals:** the reworded goal in `register@knowledge-architect@goal`, on the owner's ruling.
 - **Rejected:** the second reading of the new clause, if
   `design@agent-skills@losing-alternatives-filter` admits it, in `register@agent-skills@rejected`.
+  Judged: test 4 holds, since a doubt remains that the kept reading, the mechanism, meets every
+  goal, which premortem cause 5 states; written as
+  `rejected@agent-skills@goal-measured-by-evidence-from-use`, cited by
+  `design@agent-skills@goal-standard-rules` where its argument meets that rival.
 - **Issues:** `issue@agent-skills@a-goal-the-draft-review-read-was-reworded-again-for-a-defect`
   updated or closed; `issue@agent-skills@heads-argued-from-another-harness` re-entry changed.
-- **Tripwires:** premortem cause 5 of the milestone document, judged by the tripwire standard.
+- **Tripwires:** premortem cause 5 of the milestone document, judged by the tripwire standard:
+  dropped. No condition clearly excludes it, and a cause in doubt may be dropped where the owner
+  would see the failure anyway, per the doubt clause of
+  `skill@knowledge-architect-decision-recording@ruled-tripwires`: the owner rules every goal with
+  its boundary block before it is written, per `design@agent-skills@goal-draft-shows-reach`, so a
+  goal whose measure is a vacuous mechanism reaches the owner's reading.

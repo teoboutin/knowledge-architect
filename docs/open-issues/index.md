@@ -15,4 +15,4 @@
 | todo | [Nothing has a session report the tools and procedures it set up or changed](the-retrospective-asks-for-no-tool-a-session-set-up.md) |
 | todo | [The passes that build and bundle installable agent text are tied to this project's own skills, so no other project can reuse them](the-skill-bundling-passes-are-tied-to-this-project-s-skills.md) |
 | todo | [The four conditions of a target project and what knowledge-architect asks of one are stated to no adopter](the-target-project-and-its-asks-are-stated-to-no-adopter.md) |
-| todo | [The installed set has no skill for developing, for work on a branch under a linear history, or for releasing](the-workflow-has-no-skill-for-developing-branch-work-or-releasing.md) |
+| todo | [The installed set has no skill for work on a branch under a linear history, or for releasing](the-workflow-has-no-skill-for-branch-work-or-releasing.md) |

@@ -1,5 +1,5 @@
 %% Delivered as a fragment: `design@agent-skills@shared-text-fragment`. Each rule's cases below were
-%% read in the goal histories of rootpoint and thaum.
+%% read in the goal histories of rootpoint, thaum and knowledge-architect.
 **A goal is proper when all of these hold.** The drafter writes to them, and the goal reviewer
 judges by them.
 
