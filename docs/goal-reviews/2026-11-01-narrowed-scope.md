@@ -57,12 +57,14 @@ And, during the same turn:
 | `goal@agent-skills@installed-text-works-anywhere` | reworded and renamed `installed-text-works-in-every-target-project`: "of any language" removed, may rely on what every target project holds | proposed, follows from the first point |
 | `goal@gates@gates-from-a-list` | "A Rust project" becomes "A target project"; running gates through the library is an ask (Q15, Q32) | proposed, one reading of the term; the owner's answer to Q15 |
 | `goal@core@relocation-is-one-manifest-edit` | the title names its body's set (Q28, Q44) | proposed, round 2 C P9 and round 3 D F3 |
+| `goal@agent-skills@installed-text-works-in-any-environment` | "any environment" becomes "any configuration of the `claude` harness", title and body (rounds 3 and 4) | proposed, follows from the harness ask |
+| `goal@xtask@one-command-runs-every-gate` | the default run's exit code covers the gates it ran; the run with the rebase check gives the merge verdict (round 3) | proposed |
 | `goal@core@checks-a-commit-from-its-hook` | "A target project is covered here when a `.git` is at or above its directory" | proposed, round 2 D C-1 and whole F3 |
 | the root goals home's head | rewritten for the new scope | proposed |
 | `goal@knowledge-architect@rust-projects-come-first` | removed, absorbed by `serves-one-kind-of-project` | the owner's statement |
 | `goal@knowledge-architect@owner-attention-on-what-is-theirs` | kept as at HEAD since round 1, as the default of Q5 | the owner's statement names it; round 1 found that no other goal holds its outcome |
 | `goal@agent-skills@only-needed-instructions` | adds: an instruction a goal asks for is needed (round 1, Q14) | proposed |
-| `goal@xtask@repeated-tasks-are-automated` | "the published checker's" becomes "a published crate's"; a task whose procedure would serve another target project is not local (round 1) | proposed, follows from the batch |
+| `goal@xtask@repeated-tasks-are-automated` | "a published crate of knowledge-architect's"; the part of a task the owner has taken in as generic is not local, the rest is the tool's (rounds 1 to 4) | proposed, follows from the batch |
 | `goal@knowledge-architect@the-workflow-improves-through-real-use` | "a contribution submitted" becomes "work meant to merge into that project's main branch" (round 1) | proposed, follows from the exclusion of pull requests |
 
 ## Consequences of the rulings
@@ -692,6 +694,218 @@ The findings that are the owner's, each with the session's default:
 - **Q62** (B4-13). In the real-use goal, does "follows it" mean installed the workflow? Default:
   yes, whether or not the project follows every ask yet.
 
+## The owner's answers to round 4
+
+The owner, 2026-11-01, verbatim, on the choice between stopping now (A), one final round that stops
+on the owner's word (B), and rounds until the stop rule (C):
+
+> B, defaults ok
+
+Outcomes: every settled finding of round 4 is repaired in the drafts, and the defaults of Q46 to Q62
+are written. Round 5 is the last: it stops on the owner's word whatever its count, writes no repair,
+and its findings go to the owner beside each goal for the ruling.
+
+## Round 5, the last
+
+The same six reviewers under the same briefs, each also asked for every goal's boundary block. On
+the owner's choice of option B, the round stops the review whatever its count and writes no repair.
+
+| reviewer | findings | not minor | contradiction |
+| --- | --- | --- | --- |
+| set A, scope and adoption | 11 | 10 | 0 |
+| set B, workflow coverage and tooling | 13 | 11 | 0 |
+| set C, code quality and Components | 8 | 7 | 0 |
+| set D, the record and the checker | 3 | 3 | 0 |
+| set E, the owner and agents | 12 | 11 | 0 |
+| whole set | 13 | 11 | 0 |
+| total | 60 | 53 | 0 |
+
+The not-minor counts across the five rounds are 79, 46, 49, 50 and 53.
+
+## The goals put to the owner for the ruling
+
+Each goal as the working tree holds it, with the round-5 findings on it and its boundary block. A
+`settled` finding has a repair the standard decides; an `intent` finding has the session's default.
+The minor findings are listed last.
+
+### `serves-one-kind-of-project` (new)
+
+- Settled: the review, the rulings and the contradiction hold among the merge conditions apply where
+  the project installs the workflow (A S3, E S-3); a quality tool taken in becomes an ask only
+  outside the installed workflow (A S2, E S-5); "the order of known work, which is
+  knowledge-architect's owner's" (E S-4); the example "a gate runner of a project's own" names what
+  knowledge-architect would build for it (whole R5-6).
+- Intent, with defaults:
+  - a taken-in quality tool becomes an ask, but a CI or pull-request shape ships only as an offered
+    shape (A S1, whole R5-3);
+  - "quality tool" means a tool run mechanically, such as a gate or a check (A S2);
+  - in a project that uses the checker alone, the owner's part is the same, the goals it points to
+    measuring the installed text where it is installed (E S-1);
+  - a project may reserve to its owner actions, such as a merge or a publication, never an activity
+    the definition gives to agents (E S-2);
+  - adding an ask that binds every target project is a choice of scope sent to knowledge-architect's
+    owner (E S-6).
+- Boundary: admits rootpoint's web glue and a stranger's conforming project, rules out a Python
+  project with one Rust module; admits the owner fixing a typo by hand, rules out persons writing
+  the code; admits thaum while its gate runner and merge invocation still differ, as conformance
+  work, rules out keeping two invocations as the end state; admits the checker used alone with
+  `harness = []`, rules out an ask that a project install the skills; admits a release skill while
+  only this repository publishes, rules out dropping a check because thaum does not need it.
+  Siblings: every goal reads "target project" from it; `goal@knowledge-architect@agents-work-without-drift`
+  ranks below its conditions and listed asks.
+
+### `every-target-project-can-adopt-it` (rewords and renames `goal@knowledge-architect@any-project-can-adopt-it`)
+
+- No finding.
+- Boundary: rules out the installed text naming thaum's maintenance layout, admits it naming Cargo
+  and the gate invocation; rules out weakening a check for an existing project's cost of conforming.
+  Refined by `installed-text-works-in-every-target-project`.
+
+### `goal@knowledge-architect@agents-get-a-complete-workflow` (reworded)
+
+- Settled: "how to test properly: what to test, and so that a test discriminates", Q60's wording
+  (B5-1); "Each part of an item after its colon names a step that the skill of the item's activity
+  holds", the list above (B5-2, whole R5-2); "offered shape" is defined once and cited (B5-4); the
+  example of `goal@agent-skills@only-needed-instructions` names no item of an activity list
+  (B5-10, whole R5-2).
+- Intent, with default: Rust idiom leaves the list of what is particular and becomes an exclusion of
+  its own, an installed instruction on Rust idiom; a mechanical gate, such as a clippy lint set, may
+  ship once taken in (B5-3, whole R5-4).
+- Boundary: admits developing, branch work, releasing for projects meant to release, rules out a
+  skill on a game's domain; rules out the installed spec defined by "one pull request", admits an
+  offered weekly CI run on main. Refined by eight goals of the agent-skills home and the root.
+
+### `goal@agent-skills@one-skill-per-activity` (reworded)
+
+- Intent, with default: the CI and pull-request workflow is no activity this goal counts; its
+  generic part ships only as an offered shape (B5-12).
+- Boundary: admits a development skill and a branch-work skill replacing the local ones, rules out
+  one skill for developing and reviewing.
+
+### `goal@knowledge-architect@mechanical-tasks-are-the-tool-s` (reworded)
+
+- Settled: "the project's maintenance command" becomes "the maintenance binary from which the project
+  runs its gates" (B5-6, whole R5-8).
+- Boundary: admits a conflict-free rebase with its check and a reword with a given message, rules
+  out writing the message and a rebase that resolves conflicts.
+
+### `generic-tools-and-procedures-are-shipped` (new)
+
+- Settled: "once knowledge-architect's owner takes it in" (B5-7, E G-1); "about more than keeping a
+  project's documents" (E G-2); "states the procedure of a part, beyond a restatement the primer
+  admits" (whole R5-9).
+- Intent, with defaults:
+  - a local copy stays until the shipped part lands, an issue entry covering the interim (B5-8);
+  - the body says "sets up or changes" (B5-9);
+  - the no-limit clause of the scope goal does not bind the owner's choice whether to take a part in
+    (E G-3);
+  - `goal@knowledge-architect@agents-get-a-complete-workflow` covers the generic part the owner has
+    taken in (E G-4).
+- Boundary: admits thaum's `--merge-ready` and this repository's merge predicate as offered shape,
+  rules out thaum's Comprehensive Rules adoption; rules out a session shipping a part on its own
+  judgement; rules out `skill@klarch-development` staying local once its part ships.
+
+### `code-has-one-responsibility-per-unit-and-is-testable` (new)
+
+- Settled: "the Rust of its tests and of its maintenance tools" (C C1); the goal states that the
+  side-effect layer, which takes no decision a test of the logic should cover, needs no tests of its
+  own (C P3).
+- Intent, with default: "tested where a change adds or changes logic" (C C2).
+- Boundary: rules out an xtask command that reads files and decides in one function, unargued;
+  admits a thin `main` with no test; rules out guidance on lifetimes.
+
+### `projects-are-split-into-components` (new)
+
+- Settled: "Components whose own files, those no other Component's directory contains, hold Rust
+  code" (C P1); the thin-layer exception defined and pointed at the code goal's statement (C P3,
+  whole R5-5); "leads a session toward" for "promotes" (C P4); "the Rust of maintenance tools" (C P6).
+- Intent, with default: a goal that does not refine the purpose its goals home states shows a second
+  purpose (C P2, option (b)).
+- Boundary: admits xtask and an app crate, rules out this repository's root; rules out one crate
+  holding a rendering backend and a network server, unargued; admits a one-crate tool unsplit.
+
+### `goal@knowledge-architect@setup-brings-quality-tools` (reworded)
+
+- Settled: "the tools whose generic part knowledge-architect's owner has taken in" (A Q1).
+- Boundary: rules out the setup skill requiring CI, admits an offered shape.
+
+### `goal@gates@gates-from-a-list` (reworded)
+
+- Settled: the merge verdict is an item without condition (A G2, whole R5-7).
+- Intent, with default: gate logic is each listed item and each behaviour that would serve target
+  projects in general (A G1, Q29).
+- Boundary: admits this repository's xtask, rules out thaum's own runner as its conformance work.
+
+### `installed-text-works-in-every-target-project` (rewords and renames `goal@agent-skills@installed-text-works-anywhere`)
+
+- Settled: "as far as it follows what knowledge-architect asks" (A I1).
+- Boundary: rules out an instruction that hard-codes `crates/`, admits one relying on the gate
+  invocation.
+
+### `goal@agent-skills@installed-text-works-in-any-environment` (reworded)
+
+- Settled: "environment" left in its second bullet and its measure becomes "configuration" (A E1).
+- Boundary: rules out a plugin's brainstorming skill taking the design skill's place.
+
+### `goal@agent-skills@only-needed-instructions` (reworded)
+
+- Settled: its example is replaced, B5-10 above.
+- Boundary: keeps the two-layer instruction; rules out an instruction on reading a file before
+  editing it.
+
+### `goal@knowledge-architect@agents-work-without-drift` (reworded)
+
+- Settled: an ask that a quality tool taken in brings ranks, like one a design decision adds, as the
+  decision that states it (D5-1, whole R5-1).
+- Boundary: rules out drift arguing for merge-commit support; admits drift ranking over
+  `generic-tools-and-procedures-are-shipped`.
+
+### `goal@core@relocation-is-one-manifest-edit` (title reworded)
+
+- Settled: "Moving a Component or a location, or moving a register's home within its anchor"
+  (whole R5-12).
+- Intent, with defaults: the home is a declared register's, moved for every anchor that carries it,
+  since a built-in register refuses `dir` (D5-2); the goal names the reference forms it covers, a
+  home's and its entries', and leaves `path` references into a home outside (D5-3).
+- Boundary: admits moving the core from its directory under crates to one under libs, rules out renaming a Component's directory.
+
+### `goal@knowledge-architect@records-live-beside-the-code`, `goal@knowledge-architect@adoption-is-easy` (unchanged)
+
+- Settled: one recipient, "knowledge-architect's owner" (A R1, whole R5-13); "adopting
+  knowledge-architect in a target project" (A A1).
+
+### `goal@xtask@repeated-tasks-are-automated` (reworded)
+
+- Settled: it cites the set of `goal@knowledge-architect@mechanical-tasks-are-the-tool-s` instead of
+  restating it (B5-11); the interim of B5-8.
+
+### The root goals home's head
+
+- Settled: the second purpose holds the generic part "that knowledge-architect's owner takes in"
+  (E H-1).
+
+### Goals with no finding
+
+`goal@knowledge-architect@design-is-recorded-with-its-arguments`,
+`goal@knowledge-architect@structure-and-workflow-work-together`,
+`goal@knowledge-architect@documentation-stays-consistent`,
+`goal@knowledge-architect@the-owner-decides`, `goal@knowledge-architect@the-owner-s-word-is-verified`,
+`goal@knowledge-architect@design-with-agents-as-counterparts`,
+`goal@knowledge-architect@owner-attention-on-what-is-theirs`,
+`goal@knowledge-architect@the-workflow-improves-through-real-use`,
+`goal@agent-skills@no-contradiction-in-workflow`,
+`goal@agent-skills@reviews-judge-by-the-writer-s-criteria`, `goal@xtask@one-command-runs-every-gate`,
+and the core's `goal@core@documents-stay-current`, `goal@core@document-rules-are-checked`,
+`goal@core@records-reach-their-reader`, `goal@core@documents-render-as-a-linked-site`,
+`goal@core@projects-add-their-own-checks`, `goal@core@checks-a-commit-from-its-hook`; and the removal
+of `goal@knowledge-architect@rust-projects-come-first`.
+
+### Minor findings
+
+The scope goal's measure "states each ask", and its merge conditions as a paragraph of their own;
+the setup goal's measure; the shipping goal's no-text shipping; the workflow goal's measure of
+steps; the Component goal's measure of departures; xtask's one-command measure.
+
 ## Questions still open
 
-Q46 to Q62, and whether the rounds stop.
+The owner's ruling on the batch.
