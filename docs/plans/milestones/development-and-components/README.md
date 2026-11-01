@@ -16,8 +16,8 @@ settles. It is written for a session that did not witness the discussion.
   reversed or rewritten, the design home wins.
 - Every name it uses is defined under Names or "New names, in one place", or exists in the tree.
 - Where the owner's word is awaited, `skill@knowledge-architect-planning@working-a-slice` says what
-  waits. Q5, D1 and D2 await the owner when this document is written, as "Defaults awaiting the
-  owner" says; the branch that adds this document merges once the owner rules on them.
+  waits. No default awaits the owner: Q1 to Q9, D1 and D2 are ruled, as "Defaults awaiting the
+  owner" says.
 
 The discussion ran in one session of Claude Code, with no compaction. That session is found by its
 opening message, the owner's "I have just reworked the goals of the project, in particular with the
@@ -81,13 +81,13 @@ slice. This milestone adds:
 | Q2 | the question whether a declared path is a design head or a manifest key, ruled R7; see "Defaults awaiting the owner" |
 | Q3 | the question whether the generic `run` and `restore` ship as a command of a published crate, ruled R3; see "Defaults awaiting the owner" |
 | Q4 | the question whether the harness issue is handled in this milestone, ruled R6; see "Defaults awaiting the owner" |
-| Q5 | the question whether slice 0's design audit reuses the discussion's record search, awaiting the owner; see "Defaults awaiting the owner" |
+| Q5 | the question whether slice 0's design audit reuses the discussion's record search, ruled during slice 0; see "Defaults awaiting the owner" |
 | Q6 | the question of the force of the default shape on code a change writes or edits, ruled during slice 0; see "Defaults awaiting the owner" |
 | Q7 | the question of which text states the content of the default shape, ruled during slice 0; see "Defaults awaiting the owner" |
 | Q8 | the question whether a lint the setup ships is an installed rule about code, ruled during slice 0; see "Defaults awaiting the owner" |
 | Q9 | the question of which text states that a Component takes decisions of its own, ruled during slice 0; see "Defaults awaiting the owner" |
-| D1 | the default on whether cargo-mutants is an ask of every target project, awaiting the owner; see "Defaults awaiting the owner" |
-| D2 | the default on how the development skill names the mutation command in a Rust project with no maintenance crate, awaiting the owner; see "Defaults awaiting the owner" |
+| D1 | the default on whether cargo-mutants is an ask of every target project, ruled at the plan's review; see "Defaults awaiting the owner" |
+| D2 | the default on how the development skill names the mutation command in a Rust project with no maintenance crate, ruled at the plan's review by a new ask, #maintenance-crate-ask; see "Defaults awaiting the owner" |
 
 ## What the work is
 
@@ -919,6 +919,20 @@ on the checkpoint of the reply to R6, which listed the thread in its bucket.
   `register@agent-skills@design` for the recommendation the installed text makes, citing
   `design@knowledge-architect@no-component-directory-named-after-the-project`, slice 3.
 
+### Every Rust target project has a maintenance crate whose commands run as `cargo x <command>` `##maintenance-crate-ask`
+
+- **Proposed:** the owner, after the plan's review, ruling D2 against its default.
+- **States:** approved at its proposal; an ask of knowledge-architect, which
+  `goal@knowledge-architect@serves-one-kind-of-project` gives to knowledge-architect's owner.
+- **Arguments:** the owner's ruling; and `goal@knowledge-architect@serves-one-kind-of-project`:
+  "Nothing in knowledge-architect is built only to serve a state that does not follow an ask", which
+  removes D2's fallback, a binary installed into a project with no maintenance crate.
+- **Closed by:** the owner: "D2 the xtask maintenance crate with the shape of `cargo x <command>`
+  should become a required ask from this project to consumer Rust projects."
+- **Shape:** `spec@development-and-components@mutation-crate`, Builds item 8. **Harvest:**
+  `design@agent-skills@pinned-binary-runs-inside-the-project` and
+  `design@agent-skills@xtask-pins-checker` rewritten in place, slice 1.
+
 ## Arguments
 
 Each argument's round, who gave it, the threads it bears on, and its key words. Text in quotation
@@ -1288,7 +1302,7 @@ the new clause of rule 6                          crates/agent-skills/fragments/
 goal `goal@knowledge-architect@the-workflow-leads-to-better-code` (default   docs/goals.md, replacing code-has-one-responsibility-         0
   slug; the owner rules the wording)                per-unit-and-is-testable
 Component mutate, package knowledge-architect-    crates/mutate/ (its Cargo.toml, src/lib.rs, src/main.rs,     1
-  mutate                                            a binary per D2's default, README.md,
+  mutate                                            a library, README.md,
                                                     CLAUDE.md, CRATES-IO.md, docs/)
 subcommand mutate of the maintenance crate,       tools/xtask/src/main.rs, and a module of its own              1
   cargo x mutate run, cargo x mutate restore
@@ -1318,8 +1332,7 @@ Each slice's spec holds the decided design of the threads it builds. One shape c
 **the mutation command that the development skill names is the one slice 1 builds**, so slice 2
 writes `cargo x mutate run` and `restore` as the maintenance crate exposes them once slice 1 has
 merged, and the setup skill's maintenance-crate snippet, which slice 1 extends, is what a target
-project copies. A Rust project with no maintenance crate runs the crate's own binary instead,
-installed into a directory of the project, per D2's default.
+project copies. Every Rust target project has a maintenance crate, per #maintenance-crate-ask.
 
 ## Mapping tables
 
@@ -1405,9 +1418,8 @@ history, per `argument@development-and-components@arg-80`.
 
 ## Defaults awaiting the owner
 
-Three are open: Q5, D1 and D2. The discussion put four labelled questions to the owner, and the
-owner ruled each; slice 0 put five more, Q5 to Q9, of which the owner ruled four; the plan's review
-found two more defaults, D1 and D2:
+None is open. The discussion put four labelled questions to the owner, and the owner ruled each;
+slice 0 put five more, Q5 to Q9, and the plan's review found two more defaults, D1 and D2, all ruled:
 
 - **Q1, ruled R3:** taking in thaum's mutation tool, the owner's scope choice per
   `goal@knowledge-architect@generic-tools-and-procedures-are-shipped`. The owner asked back in R2,
@@ -1420,11 +1432,12 @@ found two more defaults, D1 and D2:
 - **Q4, ruled R6:** "Q4: right, we are not changing how those are being delivered, there is no point
   handling it, change the re entry." It bears on #harness-argued-heads-scope.
 
-- **Q5, awaiting the owner:** slice 0's design audit reuses the record search the discussion ran,
-  which graded the record against slice 0's shapes, instead of dispatching a new one, since nothing
-  had landed on the main branch since. This departs from point 2 of
-  `skill@knowledge-architect-planning@working-a-slice`. Built as written; the branch merges once the
-  owner rules. It bears on #goal-standard-measure and #rule-6-finding-weight.
+- **Q5, ruled after the plan's review:** slice 0's design audit reused the record search the
+  discussion ran, instead of dispatching a new one, a departure from point 2 of
+  `skill@knowledge-architect-planning@working-a-slice` for this slice alone. The owner: "Q5 there is
+  no need for a further design audit of slice 0. The design was very small, and most of the work was
+  goals." It bears on #goal-standard-measure and #rule-6-finding-weight. Every later slice's audit
+  dispatches its search as the skill says.
 - **Q6, ruled during slice 0:** where the review reports a departure from the default shape in code a
   change writes, the writer restructures it or argues it at the code; in an existing unit the change
   edits, only the lines the change writes are weighed. Left to the development skill, not the goal.
@@ -1443,16 +1456,18 @@ found two more defaults, D1 and D2:
   `goal@knowledge-architect@setup-brings-quality-tools` make a quality tool that the project takes
   in an ask, which the setup gives in its recommended shape. Default: cargo-mutants is not taken in
   as a quality tool and is no ask; the development skill names the diff sweep as a step a project
-  may run, with no setup shape. Built as written; the branch merges once the owner rules. It bears on
-  #diff-mutation-sweep.
-- **D2, awaiting the owner:** what the development skill tells a Rust project that has no
+  may run, with no setup shape. Ruled: "D1 agreed." It bears on #diff-mutation-sweep.
+- **D2, ruled after the plan's review, against the default:** what the development skill tells a Rust project that has no
   maintenance crate, which the setup skill allows with its local install. Default: the skill names
   the command as `cargo x mutate` where the project has a maintenance crate, and otherwise as the
   mutation crate's own binary installed into a directory of the project with
   `cargo install --locked --root`, as `design@agent-skills@pinned-binary-runs-inside-the-project`
-  does for the checker; slice 1 therefore gives the crate a binary as well as a library. Built as
-  written; the branch merges once the owner rules. It bears on #mutation-command and
-  #mutation-command-host.
+  does for the checker; slice 1 therefore gives the crate a binary as well as a library. The owner
+  ruled otherwise, by a new ask: "D2 the xtask maintenance crate with the shape of `cargo x
+  <command>` should become a required ask from this project to consumer Rust projects." So no Rust
+  target project lacks a maintenance crate, the default's fallback serves no state that follows the
+  asks, and the crate holds a library alone; the ask is #maintenance-crate-ask. It bears on
+  #mutation-command and #mutation-command-host.
 
 The owner's words on Q6 to Q9, verbatim: "Agreed on all three defaults here. The current wording
 factors them in, right ? If yes, we can go with those.", then "Right, I wanted to write all four

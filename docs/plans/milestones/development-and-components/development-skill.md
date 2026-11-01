@@ -10,9 +10,8 @@
      `CLAUDE.md` (`argument@development-and-components@arg-64`);
    - **claims with tests that discriminate**: every added test names its claim, and a test of logic
      carries a recorded mutation (#test-economy); the mutation is run with the command
-     `spec@development-and-components@mutation-crate` builds, named per D2's default: `cargo x mutate`
-     where the project has a maintenance crate, and otherwise the mutation crate's own binary installed
-     into a directory of the project with `cargo install --locked --root`;
+     `spec@development-and-components@mutation-crate` builds, `cargo x mutate`, which every Rust
+     target project has, per #maintenance-crate-ask;
    - **implement**: a design decision met while building is routed by the backstop of
      `primer@design-heads`;
    - **gate**: the project's one gates command;
