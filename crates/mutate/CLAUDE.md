@@ -34,11 +34,8 @@ record reporting itself present has its pre-image, on a write order nothing obse
 
 ## There is no automatic discharge of a record
 
-A forward `git apply --check` is no proof that a mutation has gone: a patch applies wherever its
-text can be placed, at any offset, so a command that duplicated the region passes it while the
-mutant sits at the site. Discharging is the caller's word, `--discard`, which writes no file:
-`design@mutate@discard-is-the-callers-word`. The test
-`a_duplicated_region_does_not_discharge_the_record` in `path@mutate@tests/modes.rs` is the guard.
+The decision is `design@mutate@discard-is-the-callers-word`; the test
+`a_duplicated_region_does_not_discharge_the_record` in `path@mutate@tests/modes.rs` guards it.
 
 ## The record is claimed by creating its directory
 
@@ -50,6 +47,13 @@ beside them is what makes `restore` refuse while its owner is alive.
 
 `target_is_mutable` refuses a symlink before the run, and `unwind` checks again before writing,
 because the command in between can replace the path, and `fs::write` follows a symlink.
+
+## Mutating this crate with `cargo x mutate`
+
+This repository's xtask links the crate, so each `cargo x` call over a mutated source of it
+rebuilds xtask before it runs, and a run of several mutations costs a build of xtask per mutation.
+A mutant that removes a refusal of a FIFO target makes the test that builds one block on its read:
+a test under mutation that never returns is a catch, ended by killing it.
 
 ## The tests re-enter their own executable
 

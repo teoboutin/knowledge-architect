@@ -83,7 +83,7 @@ On a branch of its own, `release-<version>`, under the Git rules of the root `CL
    its merge. After the merge and before the tag of step 11, the owner publishes that crate's
    version by hand from main with an API token, on the owner's word, then turns on its trusted
    publisher and "Require trusted publishing for all new versions"; the workflow's `publish` job
-   then skips it as already published, and uploads the rest:
+   then skips it as already published, and uploads the rest. The check of each crate:
 
    ```sh
    curl -s -A 'knowledge-architect release check' https://crates.io/api/v1/crates/<crate>/<version>

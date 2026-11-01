@@ -1045,3 +1045,30 @@ fn a_record_over_an_unmutated_file_is_cleared_by_restore() {
     assert!(out.contains("already held its pre-image"), "{out}");
     assert!(!s.record().exists(), "{out}");
 }
+
+// The claim: the patch form records its patch, so a restore that refuses a changed file prints the
+// reverse of the caller's own patch.
+#[test]
+fn a_patch_run_records_its_patch_for_the_reverse() {
+    let s = Sandbox::new("patch-record");
+    s.write(FILE, BODY);
+    s.write(
+        "m.diff",
+        "--- a/src/f.rs\n+++ b/src/f.rs\n@@ -1,5 +1,4 @@\n line1\n line2\n-SITE\n line4\n line5\n",
+    );
+    let (_, out, code) = s.run_coded(&[
+        "run",
+        "--file",
+        FILE,
+        "--patch",
+        "m.diff",
+        "--no-baseline",
+        "--",
+        "sh",
+        "-c",
+        "printf 'edited\\n' >> src/f.rs",
+    ]);
+    assert_eq!(code, 1, "{out}");
+    assert!(out.contains("git apply -R"), "{out}");
+    assert!(s.record().join("mutation.patch").is_file(), "{out}");
+}
