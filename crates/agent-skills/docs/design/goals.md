@@ -75,7 +75,16 @@ others consume makes a head. Rule 3 allows the distillation goal-setting is for,
 each statement it is drawn from: the defect it prevents is a generalisation the owner never saw as
 one, so the rival "no wider than the owner's statement" forbids what the skill exists to do. Rule 6
 measures a goal on what the project builds, and evidence from use shows it unmet in practice, on the
-owner's argument that in most projects a measure on use has limited feasibility. Rule 8 admits an
+owner's argument that in most projects a measure on use has limited feasibility. For an outcome
+judged only in use, such as the quality of the code agents write, what the project builds is the
+mechanism that pursues the outcome and learns from its use whether it is met, never a list of the
+properties the outcome is taken to consist of: a drafter held to one reading turns such an outcome
+into the most specific observable it can find, and the list then binds every agent to what was
+foreseen before any use. The case is this repository's goal on the quality of that code, whose
+measure listed three properties and bound every edited unit to state why it departed from them; the
+owner judged it at risk of working against its own title. The rival, evidence from use itself as the
+measure where it can be gathered, lost on the premise above, and the owner chose the mechanism as
+the reading that gives a systematic check. Rule 8 admits an
 exclusion
 only where another goal would otherwise argue for the design it names: a property of smallness with
 no named design is the owner's scope control, exercised by what the owner asks for, or a quality
@@ -131,7 +140,11 @@ a merge, per `design@agent-skills@goals-axis-in-the-review-before-a-merge`. Its 
 `contradiction`: a statement of the owner that conflicts with a goal or with another statement, or a
 part of the statements a draft drops or turns around without showing it, which the drafter never
 resolves alone. A finding of rule 4 or 6 is also tagged `minor`, per
-`design@agent-skills@goal-standard-rules`. Each mode's own checks fire only on the input its brief
+`design@agent-skills@goal-standard-rules`, except a finding that a goal judged only in use is
+measured by a list of the properties of its outcome, which is tagged `intent` instead: tagged
+`minor`, a reach the owner had not ruled out knowingly reached the tree twice, as
+`issue@agent-skills@a-goal-the-draft-review-read-was-reworded-again-for-a-defect` records, and such
+a list is that kind of reach. Each mode's own checks fire only on the input its brief
 carries, so one fragment serves three modes.
 
 It is fresh, never a fork, because the drafter is anchored on its own reading: in rootpoint and

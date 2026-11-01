@@ -37,7 +37,6 @@ documents exist, empty, as `klarch new-component` writes them per
 
 The skill, designed with the owner and installed, naming `new-component` as its first act, and the
 setup skill pointing at it for a Component added after setup; and the installed text meeting the
-measure of `goal@knowledge-architect@projects-are-split-into-components`: it states the four
-properties, leads a session to place new work by them and to split an existing Component that
-holds two purposes, and requires a departure to be argued in a head of the Component's own design
-home.
+measure of `goal@knowledge-architect@projects-are-split-into-components`: it states default
+criteria for placing work in Components and for splitting them, and leads a session to apply them
+whenever it places new work, and wherever it finds an existing Component that holds two purposes.

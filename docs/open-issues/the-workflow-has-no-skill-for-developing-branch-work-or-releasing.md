@@ -16,9 +16,9 @@ none of the three. This repository keeps its own procedures for them locally: `s
 ### What
 
 - Developing: the steps the goal lists (where to ground, what to be careful of, how to test properly,
-  when code is reviewed during development, on which axes, and how it is repaired), and the three
-  properties of `goal@knowledge-architect@code-has-one-responsibility-per-unit-and-is-testable` as the
-  default shape of a change, with a review that judges each.
+  when code is reviewed during development, on which axes, and how it is repaired), and the default
+  shape of code with a review that weighs it, which
+  `goal@knowledge-architect@the-workflow-leads-to-better-code` asks for.
 - Branch work: rebasing, rewording a commit's message, folding a repair, with no content lost, and
   merging once the conditions of `goal@knowledge-architect@serves-one-kind-of-project` hold.
 - Releasing: the generic steps and guidelines, the versioning and publishing policy staying with each

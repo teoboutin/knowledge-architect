@@ -48,7 +48,12 @@ judges by them.
    plan document or anything that leaves. Evidence from the project's use, such as a review's
    finding, a retrospective's finding or what the owner observes in sessions, is not the measure: it
    shows the goal unmet in practice where what is built fails it, and leads to a change of what is
-   built.
+   built. Where the outcome is judged only in use, the observable is what the project builds to
+   pursue it and to learn from its use whether it is met, such as a test of a tool under the
+   conditions of its use, a route by which its users' reports reach the project, or, for
+   instructions to agents, a review that weighs them and a retrospective that asks how they fared.
+   A list of the properties the outcome is taken to consist of is no such observable, since it
+   narrows the outcome to what was foreseen before any use.
 7. **A refinement neither widens nor contradicts the goal it refines.**
 8. **A statement of what the Component is not for is a goal only when it names the design it
    excludes**, one that another goal would otherwise argue for. A property of smallness with no

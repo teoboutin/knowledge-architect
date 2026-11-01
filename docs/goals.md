@@ -110,9 +110,10 @@ activity holds. What the step says, beyond what the session's judgement handles,
 
 No installed instruction teaches how to write Rust idiomatically, such as its error types or its
 lifetimes, whatever the test of a generic part finds; a mechanical gate on it, such as a set of
-lints, may ship once taken in. The shape of the code and of the project's Components, which
-`goal@knowledge-architect@code-has-one-responsibility-per-unit-and-is-testable` and
-`goal@knowledge-architect@projects-are-split-into-components` state, is covered.
+lints, may ship once taken in. The default shape of the code, which `goal@knowledge-architect@the-workflow-leads-to-better-code`
+asks the installed text to give, and the default criteria for placing work in Components and for
+splitting them, which `goal@knowledge-architect@projects-are-split-into-components` asks it to give,
+are covered.
 
 What is particular to one project stays in that project, beside the installed text:
 
@@ -500,67 +501,55 @@ It is met while:
 A part the owner has taken in and knowledge-architect ships, found held again in one target project
 only, shows the goal unmet in practice.
 
-## The workflow leads agents to write code of better quality, whose units each have one responsibility and whose logic is testable apart from its side effects `##code-has-one-responsibility-per-unit-and-is-testable`
+## The workflow leads agents to write better Rust code in a target project `##the-workflow-leads-to-better-code`
 
-In a target project, the installed text about developing aims at better code quality overall. What
-it requires are three properties of the project's Rust code, the Rust of its tests and of its
-maintenance tools included, the third property excepting the tests:
+In a target project, the installed rules and guidelines about code or tests aim at Rust code of
+better quality, the Rust of the project's tests and of its maintenance tools included. What makes
+code better is hard to define before use, and a rule or a guideline too strict to follow leads
+agents to act against what it was meant for. So this goal defines no quality: the installed text
+gives a default shape for the code a change writes, as a guideline, not a rule every unit a change
+edits must meet, and real use corrects it.
 
-- each unit, such as a function, a type, a trait or a module, has one responsibility;
-- the code is written in two layers: the logic, as pure code, and a layer that carries out its side
-  effects, such as reading or writing files, running a process, or reading the clock, the network or
-  a display, and that takes no decision a test of the logic should cover. That layer needs no tests
-  of its own;
-- the logic is testable without the side effects, and is tested where a change adds or changes
-  logic.
+It is met while:
 
-Any other instruction toward code quality is admitted as
-`goal@agent-skills@only-needed-instructions` admits one.
+- the installed text states a default shape for the code a change writes, and has a review of code
+  weigh each branch's changes to Rust code against it, at the latest at the review before the branch
+  merges;
+- the installed retrospective skill asks whether an installed rule or guideline about code or tests
+  proved too hard or too strict to follow in the session's Rust work, or was followed against the
+  change's interest, so that those rules and guidelines change with real use, per
+  `goal@knowledge-architect@the-workflow-improves-through-real-use`.
 
-The installed text states them as the default shape of a change, for the code the change writes
-and for each unit it edits. A change that departs from them, or that leaves an edited unit departing
-from them, states why at the code, or in a design head the code cites. The review of code during
-development judges each property, and whether each departure is argued. The goal covers the shape of
-the code, not how to write Rust idiomatically.
-
-It is met while the installed text about developing requires each of the three properties as the
-default shape of a change, for the code the change writes and for each unit it edits, requires that
-each departure be argued at the code or in a design head the code cites, and holds a review of
-code that judges each property and whether each departure is argued.
+Code that a project's owner judges worse for following the installed rules and guidelines about
+code or tests shows the goal unmet in practice.
 
 It refines `goal@knowledge-architect@agents-get-a-complete-workflow`.
 
-## The workflow leads a target project to be split into Components that each function as one coherent whole with one purpose `##projects-are-split-into-components`
+## The workflow leads a target project to be split into Components, each with one purpose `##projects-are-split-into-components`
 
-A Component is what the checker's manifest declares: a directory, or the project's root. The
-installed text leads a session toward a target project whose Components that hold Rust code in
-their own files, those that no Component nested under their directory contains, the Rust of
-maintenance tools and code not yet released included, each:
-
-- function as one coherent whole that achieves one purpose, which the head of its goals home states
-  and its goals serve. A goal of the Component that does not serve that purpose shows a second
-  purpose;
-- have their own public interface, such as a library API, a command line, a user interface or a
-  network protocol, with a reason to change on its own;
-- have their own tests, a Component that holds only a layer of side effects excepted, as
-  `goal@knowledge-architect@code-has-one-responsibility-per-unit-and-is-testable` excepts that
-  layer;
-- can carry a coherent design in their own documents.
-
-A Component's goals home and design home then stay small enough to read whole, its code stays
-focused, and a change to the structure of the code touches few Components. A Component whose own
-files hold no Rust code, such as a project's root over a workspace, is outside these four. How a
-Component maps to Cargo packages, such as one crate per Component, is a design decision.
-
-The installed text leads a session to place each piece of work by these properties, new work and
-the split of an existing Component that holds two purposes alike. A Component that departs from
-them, such as one that holds a second purpose, states why in a head of its own design home. How the
-installed text leads there is a design decision. A target project with one purpose and one
+A Component is what the checker's manifest declares: a directory, or the project's root. A target
+project whose Components that hold Rust code in their own files each serve one purpose keeps each
+Component's goals and design small enough to read whole, and lets a session ground in one design and
+change one part of the project at a time. A Component whose own files hold no Rust code is outside
+that rule: the project's root, which is the whole project being split, and an intermediate Component
+that groups nested Components and holds the design and the documents several of them share but the
+rest of the project does not. What makes a split good is learned from use, so this goal fixes no
+rule of splitting: the installed text gives default criteria for placing work in Components and for
+splitting them, as guidelines, and real use corrects them. A target project with one purpose and one
 Component needs no split.
 
-It is met while the installed text states the four properties, leads a session to place new work
-by them and to split an existing Component that holds two purposes, and requires that a Component
-that departs from them state why in a head of its own design home.
+It is met while:
+
+- the installed text states default criteria for placing work in Components and for splitting them,
+  and leads a session to apply them whenever it places new work, and wherever it finds an existing
+  Component that holds two purposes;
+- the installed retrospective skill asks whether an installed rule or guideline about splitting a
+  project into Components proved too hard or too strict to follow, or was followed against the
+  project's interest, so that those rules and guidelines change with real use, per
+  `goal@knowledge-architect@the-workflow-improves-through-real-use`.
+
+A split that a project's owner judges worse for following the installed rules and guidelines about
+splitting a project into Components shows the goal unmet in practice.
 
 It refines `goal@knowledge-architect@agents-get-a-complete-workflow`.
 
