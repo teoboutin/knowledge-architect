@@ -18,8 +18,8 @@ Why it exists, and what it aims for, is `register@knowledge-architect@goal`.
 ## Status
 
 The version is 0.9.0, published on crates.io. The project stays at
-0.x, with breaking changes allowed, until the owner's word, given only once its first design
-discussion's open issues are settled, per `design@knowledge-architect@stays-at-zero-x`.
+0.x, with breaking changes allowed, until its owner asks to leave it, per
+`design@knowledge-architect@stays-at-zero-x`.
 
 ## Using the checker
 

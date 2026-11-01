@@ -10,8 +10,8 @@ project as a whole, `register@knowledge-architect@goal`.
 A target project runs every gate of its list through this library, as
 `goal@knowledge-architect@serves-one-kind-of-project` asks of it, writing no gate logic beyond that
 list and the call that runs it. Gate logic is each item below. A behaviour of a gate command whose
-generic part the owner has not yet taken in, or has declined, may stay in a project's binary until
-it is taken in. These come with the library:
+generic part knowledge-architect's owner has not yet taken in, or has declined, may stay in a
+project's binary until it is taken in. These come with the library:
 
 - the runner;
 - the complete logs;
