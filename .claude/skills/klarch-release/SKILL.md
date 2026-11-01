@@ -94,7 +94,7 @@ On a branch of its own, `release-<version>`, under the Git rules of the root `CL
    the lists; the release does not wait for it.
 8. **The dry run.** `cargo publish --workspace --dry-run` passes, skips xtask, and orders
    agent-skills before the core, which depends on it. Its warning "ignoring test `<name>`"
-   for each file `crates/core/tests/<name>.rs` is expected: the whitelist keeps the tests out.
+   for each file `<name>.rs` of `path@core@tests/` is expected: the whitelist keeps the tests out.
 9. **The gates and the review.** `cargo x gates --require-rebased`, then the push, and the review
    under `skill@knowledge-architect-review`. Its axes include
    `agent@klarch-changelog-reviewer`, dispatched on `v<previous>..<commit under review>`, the head's commit at the dispatch: every change of the range
