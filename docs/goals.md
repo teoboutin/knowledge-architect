@@ -126,14 +126,15 @@ What is particular to one project stays in that project, beside the installed te
   contributor, continuous integration on pull requests spends limited minutes, and a pull request
   brings little value.
 
-Each installed instruction says what it asks plainly enough to follow without guessing what it
+Each installed instruction says what it requires plainly enough to follow without guessing what it
 means. No two instructions are ones a session cannot both obey, as
 `goal@agent-skills@no-contradiction-in-workflow` states. What no instruction covers is left to the
 agent's judgement on purpose, per `goal@agent-skills@only-needed-instructions`.
 
 It is met while the installed text holds:
 
-- a skill for each generic activity, as `goal@agent-skills@one-skill-per-activity` measures, and in
+- a skill for each activity whose generic part knowledge-architect's owner has taken in, as
+  `goal@agent-skills@one-skill-per-activity` measures, and in
   it each step the list above names for that activity;
 - each instruction with one reading;
 - no two instructions a session cannot both obey, as
@@ -144,23 +145,27 @@ It is met while the installed text holds:
 A review round, an argument derived again, or a decision reversed by accident, that the workflow
 would have spared, shows the goal unmet in practice.
 
-## A mechanical task the workflow asks of a session is done by a command or a library function of a published crate of knowledge-architect `##mechanical-tasks-are-the-tool-s`
+## A mechanical task the workflow requires of a session is done by a command or a library function of a published crate of knowledge-architect `##mechanical-tasks-are-the-tool-s`
 
-Where the installed text asks a session for a task whose result follows, with no judgement, from the
-tree, the repository's history, the workflow's rules and what the session gives it, and that takes
-several steps or a script the session would write, a published crate of knowledge-architect offers a
-command that does it, or a library function that the installed text has the project's maintenance
-binary call, the binary from which the project runs its gates, per `goal@gates@gates-from-a-list`,
-so every session gets the same result without building it again. Rewriting a branch's history holds
-such tasks: rebasing it onto a moved main branch where no conflict arises, with the check that every
-commit carried over; applying a message the session wrote to a commit that is not the newest; and
-folding a repair into the commit it repairs, with the check that no content was lost. When such a
-command or function is built follows the order of known work, which is knowledge-architect's
-owner's, per `goal@knowledge-architect@the-owner-decides`.
+Where the installed text requires of a session a task whose result follows, with no judgement, from
+the tree, the repository's history, the workflow's rules and what the session gives it, and that
+takes several steps or a script the session would write, a published crate of knowledge-architect
+offers a command that does it, or a library function that the installed text has the project's
+maintenance binary call, the binary from which the project runs its gates, per
+`goal@gates@gates-from-a-list`, so every session gets the same result without building it again.
+Rewriting a branch's history holds such tasks: rebasing it onto a moved main branch where no
+conflict arises, with the check that every commit carried over; applying a message the session wrote
+to a commit that is not the newest; and folding a repair into the commit it repairs, with the check
+that no content was lost. Those three count as taken in; any other such task is owed a command
+once knowledge-architect's owner takes its generic part in, per
+`goal@knowledge-architect@generic-tools-and-procedures-are-shipped`. When such a command or
+function is built follows the order of known work, which is knowledge-architect's owner's, per
+`goal@knowledge-architect@the-owner-decides`.
 
-It is met while each such task the installed text asks of a session has such a command, or such a
-function that the installed text has that maintenance binary call, of a published crate of
-knowledge-architect. A task found in real use with none shows the goal unmet in practice.
+It is met while each such task the installed text requires of a session, and whose generic part
+knowledge-architect's owner has taken in, has such a command, or such a function that the installed
+text has that maintenance binary call, of a published crate of knowledge-architect. A task taken in
+and found in real use with none shows the goal unmet in practice.
 
 It refines `goal@knowledge-architect@agents-get-a-complete-workflow`.
 
@@ -173,14 +178,14 @@ The workflow writes into the structure, and the structure gives the workflow wha
 - one such home each, in the anchor it belongs to, for what is outstanding and for the evidence that
   would flip a recorded decision.
 
-The checker computes two lists the workflow asks a session to read:
+The checker computes two lists the workflow requires a session to read:
 
 - what a reversed decision touches;
 - which issues and tripwires a change must read again.
 
 Neither the structure nor the workflow is designed without the other.
 
-It is met while each kind of record the installed text asks a session to write has a home the
+It is met while each kind of record the installed text requires a session to write has a home the
 installed text gives it, the manifest declaring each such home that is a register's, and those two
 lists are computed by the checker.
 
@@ -226,7 +231,7 @@ It is met while:
 Development driven by agents changes code faster than review alone can follow, so the reviews need
 these tools to keep up.
 
-## The owner decides what the argument from the goals, the record, the code and the sources leaves open, and every action that cannot be undone, and is informed of every decision the agents make that earns durable text or a line of a turn's Decided section `##the-owner-decides`
+## The owner decides what the argument from the goals, the record, the code and the sources leaves open, every action that cannot be undone, and, as knowledge-architect's owner, each change of an ask and the taking in of a generic part, and is informed of every decision the agents make that earns durable text or a line of a turn's Decided section `##the-owner-decides`
 
 In a project that follows the workflow, this one included, its owner states the project's intent in
 its goals and brings the facts only the owner holds. The record, in the singular, in this goal and
@@ -235,8 +240,8 @@ rejected designs, its tripwires, its issues, and the reasons recorded beside its
 agent-facing text and in the messages of the commits that made them.
 
 Agents decide, by argument, what these settle: the goals, the record, the code and its measurements,
-and the sources the project follows. They report each such decision that earns durable text, as
-below.
+and the sources the project follows, save the items the list below sends whatever the argument
+settles. They report each such decision that earns durable text, as below.
 
 The workflow sends to the owner, for a ruling or an approval, these and nothing else:
 
@@ -246,8 +251,12 @@ The workflow sends to the owner, for a ruling or an approval, these and nothing 
 - a goal to set or change;
 - a fact only the owner holds;
 - whatever the argument settles, an action that cannot be undone, such as a publication;
-- whatever the argument settles, an ask of knowledge-architect that binds every target project, per
-  `goal@knowledge-architect@serves-one-kind-of-project`.
+- to knowledge-architect's owner, whatever the argument settles, each addition, tightening or
+  removal of an ask of knowledge-architect that binds every target project, per
+  `goal@knowledge-architect@serves-one-kind-of-project`;
+- to knowledge-architect's owner, whatever the argument settles, whether knowledge-architect takes
+  in a generic part, and when, per
+  `goal@knowledge-architect@generic-tools-and-procedures-are-shipped`.
 
 A project may reserve further actions to its owner. A proposal on what the argument settles, which
 the agent puts before the owner for challenge inside an exchange, as
@@ -255,7 +264,9 @@ the agent puts before the owner for challenge inside an exchange, as
 
 The owner changes a decision the argument settled through a goal, a fact or an argument, which the
 agents weigh like any other, and never by a word that gives none. A choice at a fork is the owner's
-to make by a bare pick.
+to make by a bare pick, and so is an item the list above sends whatever the argument settles: the
+project's owner's for an action that cannot be undone, knowledge-architect's owner's for a
+change of an ask and for taking in a generic part.
 
 Each decision the agents make that earns durable text, such as a design head, a `rejected` entry, an
 issue, a tripwire, a commit message or a comment, or that earns a line of a turn's "Decided"
@@ -270,7 +281,8 @@ It is met while the installed text:
 - has the session report each such decision so.
 
 A question put to the owner for a ruling that the goals, the record, the code and its measurements,
-or the sources answered, or such a decision reported nowhere, shows the goal unmet in practice.
+or the sources answered, other than an item the list sends whatever the argument settles, or such a
+decision reported nowhere, shows the goal unmet in practice.
 
 ## Agents verify the owner's word before acting on it, and build nothing on a contradiction `##the-owner-s-word-is-verified`
 
@@ -289,7 +301,7 @@ proved false still binds the rest.
 It is met while the installed text:
 
 - requires that check before an act on a word of the owner, in every activity of the workflow;
-- asks for a goal's premises to be checked when the goal is written or reworded, and when work meets
+- requires a goal's premises to be checked when the goal is written or reworded, and when work meets
   evidence against one;
 - holds the work that rests on a contradiction.
 
@@ -360,14 +372,15 @@ what follows. A target project is a project that holds all of these:
 knowledge-architect asks more of a target project, and every target project is expected to follow
 what it asks. The set of what it asks is open. An ask that binds every target project is added by a
 design decision of knowledge-architect, or by taking in a quality tool, which then becomes an ask so
-that every target project adopts it; either way, adding it goes to knowledge-architect's owner,
-whatever the argument settles, per `goal@knowledge-architect@the-owner-decides`. A quality tool, in
-every goal of knowledge-architect, is a tool that judges the project's quality mechanically, such as
-a gate or a check; a tool that serves efficiency, such as a command that rewrites history, becomes
-no ask; a procedure of the installed workflow is none, and a shape of continuous integration or of
-pull requests becomes no ask, but ships only as an offered shape. Using the installed workflow is
-never asked: a target project may use the checker alone. The installed text states each ask, those
-listed here included. What it asks includes:
+that every target project adopts it; either way, adding it, and tightening or removing it, goes to
+knowledge-architect's owner, whatever the argument settles, per
+`goal@knowledge-architect@the-owner-decides`. A quality tool, in every goal of knowledge-architect,
+is a tool that judges the project's quality mechanically, such as a gate or a check; a tool that
+serves efficiency, such as a command that rewrites history, becomes no ask; a procedure of the
+installed workflow is none, and a shape of continuous integration or of pull requests becomes no
+ask, but ships only as an offered shape. Using the installed workflow is never asked: a target
+project may use the checker alone. The installed text states each ask, those listed here included.
+What it asks includes:
 
 - the project is a git repository, with its `.git` at or above the project's directory, and its
   agents run under the `claude` harness;
@@ -383,7 +396,9 @@ choice and goal left open that the branch builds or holds as a default, per
 `goal@knowledge-architect@design-with-agents-as-counterparts`, and the answer to a contradiction the
 branch's work rests on, per `goal@knowledge-architect@the-owner-s-word-is-verified`; and, in every
 target project, the word of the project's owner on each action of the branch's work that cannot be
-undone, such as a publication, and on the merge where the project reserves it. A project may reserve
+undone, such as a publication, and on the merge where the project reserves it; and, where the
+branch adds, tightens or removes an ask of knowledge-architect or takes in a generic part, the word
+of knowledge-architect's owner on it. A project may reserve
 to its owner actions, such as a merge, never the work the definition above gives to agents: its
 code, its documents, its records and its reviews.
 
@@ -419,8 +434,8 @@ commits, not an instruction for a project whose development persons drive. A def
 outside a target project is no defect of knowledge-architect, and what exists only for such a
 project may be removed.
 
-It is met while the installed text states each ask, and the setup skill and the
-README of each published crate state the four conditions and every ask the installed text states,
+It is met while the installed text states each ask, and the setup skill and the README of each
+published crate state the four conditions and every ask the installed text states,
 and say that knowledge-architect guarantees nothing outside the four conditions, and nothing where
 an ask is not followed.
 
@@ -430,11 +445,10 @@ Nothing particular to one target project is compiled into the published crates, 
 built from aside. For every other statement of the goals, this repository is a target project that
 adopts, installs and follows the workflow and uses the checker. A project declares in its manifest
 the structure particular to it. The installed text names no path or convention particular to one
-target project, and may rely on what knowledge-architect asks of every target project, as
-the installed text states it, per
-`goal@knowledge-architect@serves-one-kind-of-project`. Every entry is cited in one readable grammar,
-the same in every project, so what an agent learns in one project applies in the next. A project
-pins the version it uses, and moves to a new one when it chooses.
+target project, and may rely on what knowledge-architect asks of every target project, as the
+installed text states it, per `goal@knowledge-architect@serves-one-kind-of-project`. Every entry is
+cited in one readable grammar, the same in every project, so what an agent learns in one project
+applies in the next. A project pins the version it uses, and moves to a new one when it chooses.
 
 A new target project, which adopts the checker and the workflow from its first commit, is served
 first. An existing target project can adopt them too, by bringing its documents into

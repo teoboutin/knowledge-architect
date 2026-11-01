@@ -44,7 +44,7 @@ rule the manifest declares, and to the reference grammar, save what a declaratio
 
 It refines `goal@knowledge-architect@documentation-stays-consistent`.
 
-## Moving a Component or a location, moving a declared register's home within the anchors that carry it, or turning a register's home from one file into a directory, costs at most one edit of the checker's manifest, and no edit to a reference to what moved `##relocation-is-one-manifest-edit`
+## Moving a Component or a location, moving a declared register's home within the anchors that carry it, or turning a register's home from one file into a directory, costs at most one edit of the checker's manifest, and no edit to a reference of the set its measure names `##relocation-is-one-manifest-edit`
 
 Every reference to what the manifest places names its anchor, and each anchor's directory is
 declared once, in the checker's manifest. So:

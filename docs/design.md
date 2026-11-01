@@ -245,22 +245,13 @@ reports, refuses or accepts, rather than at every merge, because a release branc
 before anything is published. The release review is where every entry is read against the range,
 and no other axis reads an entry's claims about the checker's behaviour.
 
-### The project stays at 0.x until the owner's word, given once its first design discussion's open issues are settled `##stays-at-zero-x`
+### The project stays at 0.x until the owner asks to leave it `##stays-at-zero-x`
 
 Breaking changes are allowed, and expected, while the shape of the tool and of its workflow
-converges. The project leaves 0.x only on the owner's word, and not before the open issues recorded
-from the discussion that designed it are implemented, or at least argued thoroughly: both are
-required. The condition and the list are the owner's: "take (A) for 1.0", on the principle the owner
-stated in the discussion that designed the project, that it stays at 0.x until the open issues of
-that discussion are implemented, or at least argued thoroughly. Whether the tool and its workflow
-have converged is a weighing, and the weighing is the owner's, per
-`goal@knowledge-architect@the-owner-decides`. The open issues are
-`issue@core@tooling-for-project-skills`, `issue@core@configuration-for-several-agent-providers`,
-`issue@core@a-component-states-at-least-one-goal`, `issue@core@cross-project-references`,
-`issue@core@a-home-for-developer-contracts-outside-agent-configuration`,
-`issue@agent-skills@shipped-text-citing-an-entry-is-unchecked`,
-`issue@agent-skills@patching-an-installed-skill` and
-`issue@agent-skills@a-skill-for-creating-a-component`.
+converges. The project leaves 0.x when the owner asks for it, and on nothing else: no open issue,
+plan document or other pending work gates the move. Whether the tool and its workflow have
+converged is a weighing, and the weighing is the owner's, per
+`goal@knowledge-architect@the-owner-decides`.
 
 ### A change's cost is first what a consumer could no longer do, and a migration is the lowest cost `##capability-cost-before-migration`
 
