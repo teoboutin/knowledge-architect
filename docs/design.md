@@ -41,8 +41,8 @@ The design this decision did not keep: `rejected@knowledge-architect@single-publ
 ### The hand mutation is a published crate of its own, which a project's maintenance crate depends on, and no crate of the checker or the gates links `##mutation-command-host`
 
 The hand mutation is the package `knowledge-architect-mutate`, the Component `mutate`, in
-crates/mutate. A project's maintenance crate depends on it, pinned exactly at the checker's version
-like its other two dependencies, and exposes it as `cargo x mutate`; this repository's xtask does
+crates/mutate. A project's maintenance crate depends on it, pinned as
+`design@agent-skills@xtask-pins-checker` says, and exposes it as `cargo x mutate`; this repository's xtask does
 the same. The crate takes the project's root from its caller, so it links neither the checker nor
 the gates library, and neither of them links it.
 

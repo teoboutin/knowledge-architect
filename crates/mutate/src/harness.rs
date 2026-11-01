@@ -127,10 +127,10 @@ fn split_lines(s: &str) -> (Vec<&str>, bool) {
 /// The hunk carries [`CONTEXT`] lines either side. A plain `git apply -R` matches all of them, so
 /// an edit anywhere inside the hunk makes it refuse; `git apply -R -C1` narrows the match to one
 /// line either side and recovers an edit two or more lines from the mutation. Neither reverses an
-/// edit adjacent to the mutated line or on it. Measured in this design's probe.
+/// edit adjacent to the mutated line or on it, as `design@mutate@restore-by-comparison` records.
 ///
-/// `path` is the repository-relative path the `a/` and `b/` headers name, so the patch applies
-/// with `git apply` run from the repository root.
+/// `path` is the path relative to the project's root that the `a/` and `b/` headers name, so the
+/// patch applies with `git apply` run from the project's root.
 pub fn single_hunk_diff(pre: &str, post: &str, path: &str) -> Option<String> {
     if pre == post {
         return None;
@@ -241,7 +241,7 @@ pub enum RestoreVerdict {
     FileChanged,
 }
 
-/// Which of the three states the target is in. The whole of `no-content-loss` rests here: the
+/// Which of the three states the target is in. The guarantee that a restore loses no content rests here: the
 /// only branch that writes is the one where the file is exactly what this harness produced.
 pub fn restore_verdict(current: &str, recorded_mutant: &str, recorded_pre: &str) -> RestoreVerdict {
     if current == recorded_mutant {
@@ -261,7 +261,7 @@ pub struct Record {
 
 /// A record read back from disk.
 pub struct Recorded {
-    /// Repository-relative path of the mutated file.
+    /// The mutated file's path, relative to the project's root.
     pub target: String,
     pub pre_image: String,
     pub mutant: String,
@@ -392,11 +392,11 @@ fn process_is_alive(pid: u32) -> bool {
         .is_ok_and(|s| s.success())
 }
 
-/// Whether `file` names a location this harness may mutate: inside the repository, and reached
+/// Whether `file` names a location this harness may mutate: inside the project, and reached
 /// without following a symlink.
 ///
 /// Both halves are about the restore rather than about tidiness. An absolute path escapes the
-/// repository entirely — `Path::join` discards `root` when its argument is absolute — and the
+/// project entirely — `Path::join` discards `root` when its argument is absolute — and the
 /// generated patch's `a/`/`b/` headers are then meaningless, so the fallback leg is dead. A
 /// symlink is worse: `fs::write` follows it, so the restore writes the pre-image through the link
 /// and over whatever sits at the far end, which has included the record's own files.
@@ -404,20 +404,38 @@ pub fn target_is_mutable(root: &Path, file: &str) -> Result<PathBuf, String> {
     let rel = Path::new(file);
     if rel.is_absolute() {
         return Err(format!(
-            "{file} is an absolute path; --file is relative to the repository"
+            "{file} is an absolute path; --file is relative to the project's root"
         ));
     }
     if rel.components().any(|c| c.as_os_str() == "..") {
         return Err(format!(
-            "{file} leaves the repository; --file may not contain `..`"
+            "{file} leaves the project; --file may not contain `..`"
         ));
+    }
+    // The record lives in the git directory, so a target there could hide the record from the
+    // recovery that has to find it.
+    if rel.components().any(|c| c.as_os_str() == ".git") {
+        return Err(format!(
+            "{file} is inside the git directory; --file names a file of the working tree"
+        ));
+    }
+    // Every component is checked, not the last alone: a symlinked directory on the way would
+    // take the mutation, and the restore, out of the project.
+    let mut walked = root.to_path_buf();
+    for component in rel.components() {
+        walked.push(component);
+        if fs::symlink_metadata(&walked).is_ok_and(|m| m.file_type().is_symlink()) {
+            return Err(format!(
+                "{file} goes through a symlink; a restore would write through it and out of the \
+                 project"
+            ));
+        }
     }
     let target = root.join(rel);
     match fs::symlink_metadata(&target) {
-        Ok(m) if m.file_type().is_symlink() => Err(format!(
-            "{file} is a symlink; a restore would write through it and over its target"
-        )),
-        Ok(_) => Ok(target),
+        Ok(m) if m.is_file() => Ok(target),
+        // A FIFO or a device would block the read, or take a write that no restore undoes.
+        Ok(_) => Err(format!("{file} is not a regular file")),
         Err(e) => Err(format!("cannot stat {file}: {e}")),
     }
 }

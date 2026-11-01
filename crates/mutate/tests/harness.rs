@@ -448,15 +448,26 @@ fn the_record_lives_in_the_git_directory() {
         .expect("running git init");
     assert!(init.success());
     let record = record_dir(&dir).expect("git names the path");
+    // The record does not exist yet, so its parent, which does, is what is compared.
+    let parent = record.parent().expect("a parent");
     assert_eq!(
-        record
-            .canonicalize()
-            .unwrap_or(record.clone())
-            .parent()
-            .map(Path::to_path_buf),
-        Some(dir.join(".git").canonicalize().expect("the git directory")),
+        parent.canonicalize().expect("the parent exists"),
+        dir.join(".git").canonicalize().expect("the git directory"),
         "found {record:?}"
     );
     assert!(record.ends_with("knowledge-architect-mutate"));
+    fs::remove_dir_all(&dir).ok();
+}
+
+// The claim: completeness is checked per file: a record with its manifest and pre-image but no
+// mutant does not read as present.
+#[test]
+fn a_record_without_its_mutant_does_not_read_as_present() {
+    let dir = temp_dir("nomutant");
+    let record = Record::at(dir.join("current"));
+    record.claim().expect("claiming");
+    fs::write(record.dir.join("manifest"), "f.rs").expect("manifest");
+    fs::write(record.dir.join("pre-image"), "pre").expect("pre-image");
+    assert!(!record.exists());
     fs::remove_dir_all(&dir).ok();
 }

@@ -15,7 +15,9 @@ with its record standing.
 
 The decision is `design@mutate@restore-by-comparison`; this is what enforces it. `restore_verdict`
 returns `Safe` only when the file equals the mutant the run wrote, and that is the one path on which
-`unwind` writes the pre-image back. `AlreadyRestored` and `FileChanged` write nothing. A write added
+`unwind` writes the pre-image over content. Its other write is to a target the command deleted,
+where nothing is there to lose, and a dangling symlink there is refused. `AlreadyRestored` and
+`FileChanged` write nothing. A write added
 to either, or a wider `Safe`, removes the property that makes a run over uncommitted work safe.
 
 ## The stale-binary trap

@@ -472,7 +472,8 @@ enum Command {
         #[command(subcommand)]
         command: cli::Command,
     },
-    /// Apply one mutation you write, run a command against it, and put the file back.
+    /// The hand mutation: apply one mutation you write and run a command against it, or restore
+    /// a run that was killed.
     Mutate {
         #[command(subcommand)]
         command: knowledge_architect_mutate::MutateCommand,

@@ -6,9 +6,9 @@ and `void` markers, and the tests an entry passes.
 
 ### A forward `git apply --check` as proof that a mutation is gone `##forward-apply-check-proof`
 
-`live`. Proposed as a convenience, in thaum where the tool was built: when a restore refuses and the
-caller unwinds the mutation with the `git apply -R` the tool offers, the record can never be
-discharged, so the tool would notice that the mutation had gone by applying its own patch forward.
+`live`. Adopted first as a convenience, in thaum where the tool was built: when a restore refuses and
+the caller unwinds the mutation with the `git apply -R` the tool offers, the record can never be
+discharged, so the tool tried to notice that the mutation had gone by applying its own patch forward.
 Refuted by reproduction: **`git apply` places a hunk at any offset**, so a command that duplicated
 the pre-mutation region satisfied the forward check while the mutant sat untouched at its site. The
 tool reported the record cleared, deleted the pre-image, its only copy, and exited 0 with the
@@ -23,7 +23,8 @@ pay a full cold build of the workspace, on the mid-work case the tool exists for
 dispatching an agent into an isolated worktree and reading `git status`, `git rev-parse HEAD` and
 `ls -d target` inside it. Build cost is the whole of the reason: that a worktree cannot see
 uncommitted work is not, since a tool can copy the modified files in. A shape that removed the cost
-reopens the entry: `tripwire@mutate@restore-by-comparison`.
+reopens the entry: `tripwire@mutate@restore-by-comparison`. The worktrees an isolated reviewer runs
+in are outside this entry: they hold committed work and discard their mutations with the worktree.
 
 ### cargo-mutants instead of a tool that applies the caller's mutation `##cargo-mutants-instrument`
 
@@ -33,7 +34,7 @@ catches the wrong implementation that claim names: a function with one tested br
 untested ones can read as covered, and a mutation the author wrote cannot be expressed at all. It is
 also an external install that a project's build does not pin. Running it over a branch's changed
 code, as a source of leads beside the hand mutation, is another question, which this entry does not
-cover.
+cover and which the development procedure, not this crate, answers.
 
 ### Shipping thaum's sweep of invariant-check sites with the run and the restore `##sweep-shipped`
 

@@ -1,8 +1,8 @@
 //! The hand mutation: apply one mutation the caller writes, run a command against it, and put the
 //! file back, over a working tree that may hold uncommitted work.
 //!
-//! A project's maintenance binary exposes it as `cargo x mutate`: it flattens [`MutateCommand`]
-//! into its own command line and hands the parsed value to [`run`] with the project's root, which
+//! A project's maintenance binary exposes it as `cargo x mutate`: it carries [`MutateCommand`]
+//! as a subcommand of its own command line and hands the parsed value to [`run`] with the project's root, which
 //! it finds itself. What each mode does and what a caller must respect is the crate's README; why
 //! the tool is shaped this way is its design home.
 //!
@@ -151,6 +151,18 @@ mod tests {
                 "t", "run", "--file", "f", "--patch", "p", "--with", "b", "--", "true",
             ],
             &["t", "run", "--file", "f", "--replace", "a", "--with", "b"],
+            // A command with no `--` before it: without `last`, this is accepted and runs.
+            &[
+                "t",
+                "run",
+                "--file",
+                "f",
+                "--replace",
+                "a",
+                "--with",
+                "b",
+                "true",
+            ],
             &["t", "run", "--replace", "a", "--with", "b", "--", "true"],
             &["t"],
         ];
@@ -179,6 +191,7 @@ mod tests {
             "--",
             "cargo",
             "test",
+            "-q",
         ]);
         let MutateCommand::Run(args) = cli.command else {
             panic!("`run` parses as the run mode");
@@ -187,12 +200,28 @@ mod tests {
         assert_eq!(args.with.as_deref(), Some("b"));
         assert!(args.no_baseline);
         assert_eq!(args.build.as_deref(), Some("cargo build"));
-        assert_eq!(args.command, ["cargo", "test"]);
+        assert_eq!(args.file, "f");
+        assert!(args.patch.is_none());
+        // A flag after `--` belongs to the command, not to this declaration.
+        assert_eq!(args.command, ["cargo", "test", "-q"]);
+
+        let cli = Cli::parse_from(["t", "run", "--file", "f", "--patch", "p.diff", "--", "true"]);
+        let MutateCommand::Run(args) = cli.command else {
+            panic!("`run` parses as the run mode");
+        };
+        assert_eq!(args.patch.as_deref(), Some(std::path::Path::new("p.diff")));
+        assert!(args.replace.is_none() && args.with.is_none());
+        assert!(!args.no_baseline, "the baseline runs by default");
+        assert!(args.build.is_none());
 
         let cli = Cli::parse_from(["t", "restore", "--discard"]);
         let MutateCommand::Restore(args) = cli.command else {
             panic!("`restore` parses as the restore mode");
         };
         assert!(args.discard);
+        let MutateCommand::Restore(args) = Cli::parse_from(["t", "restore"]).command else {
+            panic!("`restore` parses as the restore mode");
+        };
+        assert!(!args.discard);
     }
 }

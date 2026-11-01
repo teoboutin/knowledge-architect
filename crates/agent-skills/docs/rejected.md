@@ -705,7 +705,6 @@ kept here because a doubt remains that the bound holds without the hold, which
 `tripwire@agent-skills@intake-repairs-interact-unheld` watches; this design is the candidate if it
 fires.
 
-
 ### A Rust project that runs the checker from a local install and builds its own gates `##rust-project-on-a-local-install`
 
 `live`. The setup skill offered a Rust project that is one package with no workspace the choice of
@@ -713,6 +712,5 @@ installing the binary into a directory of its own, as a project with no Rust doe
 own gates command, so that its build gained no workspace. Such a project has no `cargo x`, so a
 command of the installed text has no name there, and its gates run outside the gates library, which
 knowledge-architect asks every target project to run its gates through, per
-`goal@knowledge-architect@serves-one-kind-of-project`. On the owner's word, the maintenance crate is
-an ask of every Rust target project instead, and the cost the alternative avoided, a workspace in a
-one-package project, is accepted.
+`goal@knowledge-architect@serves-one-kind-of-project`. The cost it avoided, a workspace in a
+one-package project, is accepted by `design@agent-skills@maintenance-crate-ask`.

@@ -57,6 +57,12 @@ pub(crate) fn run_hand_mutation(root: &Path, args: &RunArgs) -> ExitCode {
         _ => unreachable!("the `form` argument group admits no other combination"),
     };
 
+    // An empty probe names no command; refused before anything is claimed, as a bad argument.
+    if build.as_deref().is_some_and(|b| build_parts(b).is_empty()) {
+        complain!("--build was given an empty command");
+        return ExitCode::from(2);
+    }
+
     let target = match target_is_mutable(root, &file) {
         Ok(t) => t,
         Err(e) => {
@@ -115,8 +121,22 @@ pub(crate) fn run_hand_mutation(root: &Path, args: &RunArgs) -> ExitCode {
             };
             // Learn the mutant by applying the patch to a scratch copy, so the record is
             // complete before the real file is touched. `git apply` refusing here is the
-            // patch form's `mutation-shown`: a patch whose context moved never reaches the tree.
+            // patch form's assertion that the mutation is the one described: a patch whose context moved
+            // never reaches the tree.
+            if let Some(other) = patch_paths(&text).into_iter().find(|p| p != &file) {
+                complain!(
+                    "the patch names {other}, which is not {file}; a mutation changes the one \
+                     file --file names"
+                );
+                let _ = record.clear();
+                return ExitCode::from(2);
+            }
             match apply_to_scratch(&pre_image, &file, &text) {
+                Ok(m) if m == pre_image => {
+                    complain!("the patch does not change {file}; the run would measure the unmutated tree");
+                    let _ = record.clear();
+                    return ExitCode::from(2);
+                }
                 Ok(m) => (m, Some(text)),
                 Err(e) => {
                     complain!("the patch does not apply to {file}:\n{e}");
@@ -128,8 +148,7 @@ pub(crate) fn run_hand_mutation(root: &Path, args: &RunArgs) -> ExitCode {
     };
 
     // Every verdict below is an exit code of the caller's command, so over a base that already
-    // fails, each mutation reads as caught. The sweep runs a baseline for the same reason, and
-    // the reason does not change because the caller chose the command.
+    // fails, each mutation reads as caught, whatever command the caller chose.
     if baseline {
         say!("baseline: running the command over the unmutated tree");
         match run_command(root, &command) {
@@ -150,17 +169,39 @@ pub(crate) fn run_hand_mutation(root: &Path, args: &RunArgs) -> ExitCode {
         }
     }
 
+    // The baseline can run for minutes, and an editor or a formatter may save the file meanwhile.
+    // The mutant was planned from the content read before it, so writing it now would replace
+    // that save; the run refuses instead, having written nothing.
+    if baseline && fs::read_to_string(&target).ok().as_deref() != Some(pre_image.as_str()) {
+        complain!(
+            "{file} changed while the baseline ran; nothing was written. Run again over the file as \
+             it is now."
+        );
+        let _ = record.clear();
+        return ExitCode::from(2);
+    }
+
     if let Err(e) = record.write(&file, &pre_image, &mutant, patch_text.as_deref()) {
         complain!("cannot write the recovery record: {e}");
         let _ = record.clear();
         return ExitCode::from(2);
     }
     if let Err(e) = fs::write(&target, &mutant) {
-        // Nothing reached the target, so the record protects nothing and holding it would block
-        // every later run. A read-only target arrives here.
         complain!("cannot write the mutant: {e}");
-        let _ = record.clear();
-        return ExitCode::from(2);
+        // A write that fails before opening the file, as on a read-only target, leaves it as it
+        // was, and the record then protects nothing and would block every later run. A write that
+        // fails after the open has truncated the file, and the record holds the only copy of its
+        // content, so it stays.
+        if fs::read_to_string(&target).ok().as_deref() == Some(pre_image.as_str()) {
+            let _ = record.clear();
+            return ExitCode::from(2);
+        }
+        complain!(
+            "{file} no longer holds its content; its pre-image is at {}/pre-image, and \
+             `cargo x mutate restore` writes it back",
+            record.dir.display()
+        );
+        return ExitCode::FAILURE;
     }
 
     // The mutation is shown present by reading back what the run will actually compile, not by
@@ -191,21 +232,19 @@ pub(crate) fn run_hand_mutation(root: &Path, args: &RunArgs) -> ExitCode {
     }
 
     // A mutant that does not build makes the command fail for a reason that is not a test
-    // noticing anything, and reported as `caught` it overstates coverage at exactly the sites
-    // the sweep defers to this mode — checks in expression position, which do not compile by
-    // construction. The sweep separates the two with `cargo test --no-run`; here the caller
-    // names the equivalent probe, because the command is theirs.
-    let build_probe: Option<bool> = build.as_deref().map(|b| {
-        let parts: Vec<String> = b.split_whitespace().map(String::from).collect();
-        if parts.is_empty() {
-            complain!("--build was given an empty command; treating the mutant as unbuildable");
-            return false;
-        }
+    // noticing anything, and reported as `caught` it overstates coverage. A probe such as
+    // `cargo test --no-run` separates the two; the caller names it, because the command is
+    // theirs, and the tool cannot know which build the command implies.
+    // A probe that could not be spawned reached no verdict on the build, so the run reaches
+    // none either: it is no catch and no proof the mutant is unbuildable.
+    let build_probe: Option<Option<bool>> = build.as_deref().map(|b| {
         say!("build probe: {b}");
-        run_command(root, &parts).unwrap_or(false)
+        run_command(root, &build_parts(b))
     });
 
-    let verdict: Option<String> = if build_probe == Some(false) {
+    let verdict: Option<String> = if build_probe == Some(None) {
+        None
+    } else if build_probe == Some(Some(false)) {
         Some("unmutatable here (the mutant does not build); owed a different mutation".to_string())
     } else {
         say!("running: {}", command.join(" "));
@@ -234,7 +273,12 @@ pub(crate) fn run_hand_mutation(root: &Path, args: &RunArgs) -> ExitCode {
     }
 }
 
-/// Runs one command from the repository root. `None` when it could not be spawned at all, which
+/// The probe's words: `--build` runs with no shell, split on whitespace.
+fn build_parts(build: &str) -> Vec<String> {
+    build.split_whitespace().map(String::from).collect()
+}
+
+/// Runs one command from the project's root. `None` when it could not be spawned at all, which
 /// is not a verdict about the mutation and must not be reported as one.
 fn run_command(root: &Path, command: &[String]) -> Option<bool> {
     match Command::new(&command[0])
@@ -266,6 +310,16 @@ fn unwind(root: &Path, record: &Record, target: &Path, file: &str) -> bool {
         // because there is nothing there to remove, and refusing would strand the record and
         // block every later run.
         Err(e) if e.kind() == std::io::ErrorKind::NotFound => {
+            // A dangling symlink reads as not found, and `fs::write` would follow it out of the
+            // project.
+            if fs::symlink_metadata(target).is_ok_and(|m| m.file_type().is_symlink()) {
+                complain!(
+                    "{file} is now a dangling symlink; refusing to write through it. The pre-image \
+                     is at {}/pre-image.",
+                    record.dir.display()
+                );
+                return false;
+            }
             match fs::write(target, &recorded.pre_image) {
                 Ok(()) => {
                     let _ = record.clear();
@@ -337,7 +391,7 @@ fn unwind(root: &Path, record: &Record, target: &Path, file: &str) -> bool {
                 // A reverse matches the hunk's three context lines, so an edit within them makes
                 // it refuse. `-C1` narrows that to one line either side and recovers an edit two
                 // or more lines away; an edit adjacent to the mutation, or on it, reverses under
-                // neither. Both are measured in this design's probe.
+                // neither, as `design@mutate@restore-by-comparison` records the measurement.
                 complain!(
                     "To reverse just the mutation, keeping your edit:\n  \
                      git apply -R {shown}\n\
@@ -422,8 +476,42 @@ pub(crate) fn restore_record(root: &Path, discard: bool) -> ExitCode {
 /// is known before the real file is touched.
 fn apply_to_scratch(pre_image: &str, rel_path: &str, patch: &str) -> Result<String, String> {
     let dir = env::temp_dir().join(format!("mutate-apply-{}", std::process::id()));
+    let result = apply_in(&dir, pre_image, rel_path, patch);
     let _ = fs::remove_dir_all(&dir);
-    fs::create_dir_all(&dir).map_err(|e| e.to_string())?;
+    result
+}
+
+/// The paths a patch names in its `---`, `+++` and `diff --git` lines, without their `a/` and `b/`
+/// prefixes, `/dev/null` left out.
+fn patch_paths(patch: &str) -> Vec<String> {
+    let mut paths = Vec::new();
+    for line in patch.lines() {
+        let names: Vec<&str> = if let Some(rest) = line.strip_prefix("diff --git ") {
+            rest.split_whitespace().collect()
+        } else if let Some(rest) = line.strip_prefix("--- ").or(line.strip_prefix("+++ ")) {
+            rest.split('\t').next().into_iter().collect()
+        } else {
+            continue;
+        };
+        for name in names {
+            let name = name.trim();
+            if name == "/dev/null" {
+                continue;
+            }
+            let name = name
+                .strip_prefix("a/")
+                .or(name.strip_prefix("b/"))
+                .unwrap_or(name);
+            paths.push(name.to_string());
+        }
+    }
+    paths
+}
+
+/// The body of [`apply_to_scratch`], whose caller removes `dir` on every path.
+fn apply_in(dir: &Path, pre_image: &str, rel_path: &str, patch: &str) -> Result<String, String> {
+    let _ = fs::remove_dir_all(dir);
+    fs::create_dir_all(dir).map_err(|e| e.to_string())?;
 
     let staged = dir.join(rel_path);
     if let Some(parent) = staged.parent() {
@@ -434,7 +522,7 @@ fn apply_to_scratch(pre_image: &str, rel_path: &str, patch: &str) -> Result<Stri
 
     let init = Command::new("git")
         .args(["init", "-q", "."])
-        .current_dir(&dir)
+        .current_dir(dir)
         .output()
         .map_err(|e| e.to_string())?;
     if !init.status.success() {
@@ -442,17 +530,15 @@ fn apply_to_scratch(pre_image: &str, rel_path: &str, patch: &str) -> Result<Stri
     }
     let out = Command::new("git")
         .args(["apply", "m.patch"])
-        .current_dir(&dir)
+        .current_dir(dir)
         .output()
         .map_err(|e| e.to_string())?;
     if !out.status.success() {
         let e = String::from_utf8_lossy(&out.stderr).into_owned();
-        let _ = fs::remove_dir_all(&dir);
+        let _ = fs::remove_dir_all(dir);
         return Err(e);
     }
     let mutant = fs::read_to_string(&staged).map_err(|e| e.to_string())?;
-    let _ = fs::remove_dir_all(&dir);
+    let _ = fs::remove_dir_all(dir);
     Ok(mutant)
 }
-
-// ---- the invariant-check sweep ----

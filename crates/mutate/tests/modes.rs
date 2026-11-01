@@ -784,3 +784,264 @@ fn outside_a_repository_the_run_exits_two() {
     );
     assert_eq!(s.read(FILE), BODY);
 }
+
+// The claim: the `--patch` form applies a mutation that is not one substitution, runs the command
+// over it and restores the file.
+#[test]
+fn a_patch_mutation_runs_and_restores() {
+    let s = Sandbox::new("patch");
+    s.write(FILE, BODY);
+    s.write(
+        "m.diff",
+        "--- a/src/f.rs\n+++ b/src/f.rs\n@@ -1,5 +1,4 @@\n line1\n line2\n-SITE\n line4\n line5\n",
+    );
+    let (_, out, code) = s.run_coded(&[
+        "run",
+        "--file",
+        FILE,
+        "--patch",
+        "m.diff",
+        "--no-baseline",
+        "--",
+        "sh",
+        "-c",
+        "! grep -q SITE src/f.rs",
+    ]);
+    assert_eq!(code, 0, "{out}");
+    assert!(out.contains("mutation applied to src/f.rs"), "{out}");
+    assert!(
+        out.contains("SURVIVED"),
+        "the command saw the line deleted: {out}"
+    );
+    assert_eq!(s.read(FILE), BODY);
+}
+
+// The claim: a build probe that cannot be spawned reaches no verdict, exits 1 and restores the
+// file; an empty probe is a bad argument, refused with 2 before anything is claimed.
+#[test]
+fn a_probe_that_cannot_run_gives_no_verdict_and_an_empty_one_never_starts() {
+    let s = Sandbox::new("probe-odd");
+    s.write(FILE, BODY);
+    let (_, out, code) = s.run_coded(&[
+        "run",
+        "--file",
+        FILE,
+        "--replace",
+        "SITE",
+        "--with",
+        "MUT",
+        "--no-baseline",
+        "--build",
+        "no-such-program-for-a-probe",
+        "--",
+        "true",
+    ]);
+    assert_eq!(code, 1, "{out}");
+    assert!(!out.contains("unmutatable"), "{out}");
+    assert!(!out.contains("SURVIVED"), "{out}");
+    assert_eq!(s.read(FILE), BODY);
+
+    let (_, out, code) = s.run_coded(&[
+        "run",
+        "--file",
+        FILE,
+        "--replace",
+        "SITE",
+        "--with",
+        "MUT",
+        "--build",
+        " ",
+        "--",
+        "true",
+    ]);
+    assert_eq!(code, 2, "{out}");
+    assert!(!out.contains("mutation applied"), "{out}");
+    assert!(!s.record().exists(), "{out}");
+}
+
+// ---- the claims of the review's repairs ----
+
+const RUN_MUT: [&str; 7] = ["run", "--file", FILE, "--replace", "SITE", "--with", "MUT"];
+
+fn args<'a>(rest: &[&'a str]) -> Vec<&'a str> {
+    RUN_MUT
+        .iter()
+        .copied()
+        .chain(rest.iter().copied())
+        .collect()
+}
+
+// The claim: an edit saved while the baseline runs is kept: the run refuses with 2 and writes
+// nothing.
+#[test]
+fn an_edit_saved_during_the_baseline_is_kept() {
+    let s = Sandbox::new("baseline-edit");
+    s.write(FILE, BODY);
+    let script = "if [ ! -e done ]; then printf 'saved\\n' >> src/f.rs; touch done; fi";
+    let (_, out, code) = s.run_coded(&args(&["--", "sh", "-c", script]));
+    assert_eq!(code, 2, "{out}");
+    assert_eq!(s.read(FILE), format!("{BODY}saved\n"), "{out}");
+    assert!(!s.record().exists(), "{out}");
+}
+
+// The claim: a patch that names another file than `--file`, or that changes nothing, is refused
+// with 2 before the baseline runs.
+#[test]
+fn a_patch_naming_another_file_or_changing_nothing_is_refused() {
+    let s = Sandbox::new("patch-odd");
+    s.write(FILE, BODY);
+    s.write(
+        "other.diff",
+        "--- a/src/f.rs\n+++ b/src/f.rs\n@@ -1,5 +1,4 @@\n line1\n line2\n-SITE\n line4\n line5\n\
+         --- /dev/null\n+++ b/src/g.rs\n@@ -0,0 +1 @@\n+new\n",
+    );
+    s.write(
+        "empty.diff",
+        "diff --git a/src/f.rs b/src/f.rs\nold mode 100644\nnew mode 100755\n",
+    );
+    for patch in ["other.diff", "empty.diff"] {
+        let (_, out, code) = s.run_coded(&[
+            "run",
+            "--file",
+            FILE,
+            "--patch",
+            patch,
+            "--",
+            "sh",
+            "-c",
+            "touch ran",
+        ]);
+        assert_eq!(code, 2, "{patch}: {out}");
+        assert!(
+            !s.root.join("ran").exists(),
+            "{patch}: the baseline ran: {out}"
+        );
+        assert!(!s.root.join("src/g.rs").exists(), "{patch}: {out}");
+        assert_eq!(s.read(FILE), BODY);
+    }
+}
+
+// The claim: a target reached through a symlinked directory, inside the git directory, or that
+// is no regular file, is refused with 2.
+#[test]
+fn a_target_through_a_symlink_in_git_or_not_a_file_is_refused() {
+    let s = Sandbox::new("odd-targets");
+    s.write("real/f.rs", BODY);
+    std::os::unix::fs::symlink(s.root.join("real"), s.root.join("link")).expect("linking");
+    let fifo = Command::new("mkfifo")
+        .arg(s.root.join("pipe"))
+        .status()
+        .expect("mkfifo runs");
+    assert!(fifo.success());
+    for (file, says) in [
+        ("link/f.rs", "symlink"),
+        (".git/HEAD", "git directory"),
+        ("pipe", "not a regular file"),
+    ] {
+        let (_, out, code) = s.run_coded(&[
+            "run",
+            "--file",
+            file,
+            "--replace",
+            "SITE",
+            "--with",
+            "MUT",
+            "--",
+            "true",
+        ]);
+        assert_eq!(code, 2, "{file}: {out}");
+        assert!(out.contains(says), "{file}: {out}");
+    }
+    assert_eq!(s.read("real/f.rs"), BODY);
+}
+
+// The claim: the restore writes through no symlink the command left at the target, dangling or
+// not, and exits 1 with the record standing.
+#[test]
+fn the_restore_writes_through_no_symlink_the_command_left() {
+    let s = Sandbox::new("symlink-left");
+    s.write(FILE, BODY);
+    // The link points at a copy of the mutant, so the comparison alone would read it as safe.
+    let to_copy = "cp src/f.rs copy.rs && rm src/f.rs && ln -s ../copy.rs src/f.rs";
+    let (_, out, code) = s.run_coded(&args(&["--no-baseline", "--", "sh", "-c", to_copy]));
+    assert_eq!(code, 1, "{out}");
+    assert!(
+        s.read("copy.rs").contains("MUT"),
+        "nothing was written through the link"
+    );
+    assert!(s.record().join("pre-image").is_file());
+
+    let t = Sandbox::new("dangling-left");
+    t.write(FILE, BODY);
+    let dangling = "rm src/f.rs && ln -s ../far.rs src/f.rs";
+    let (_, out, code) = t.run_coded(&args(&["--no-baseline", "--", "sh", "-c", dangling]));
+    assert_eq!(code, 1, "{out}");
+    assert!(
+        !t.root.join("far.rs").exists(),
+        "nothing was written through the link"
+    );
+    assert!(t.record().join("pre-image").is_file());
+}
+
+// The claim: a failing command under a passing probe reads `caught`, with no caveat; a command
+// that cannot be spawned reaches no verdict and exits 1 over a restored file.
+#[test]
+fn a_probe_makes_a_failure_a_catch_and_an_unspawnable_command_no_verdict() {
+    let s = Sandbox::new("verdicts");
+    s.write(FILE, BODY);
+    let (_, out, code) = s.run_coded(&args(&["--no-baseline", "--build", "true", "--", "false"]));
+    assert_eq!(code, 0, "{out}");
+    assert!(
+        out.contains("src/f.rs: caught\n") || out.ends_with("src/f.rs: caught"),
+        "{out}"
+    );
+    assert!(!out.contains("no --build probe"), "{out}");
+
+    let (_, out, code) = s.run_coded(&args(&["--no-baseline", "--", "no-such-program-to-run"]));
+    assert_eq!(code, 1, "{out}");
+    assert!(
+        !out.contains("caught") && !out.contains("SURVIVED"),
+        "{out}"
+    );
+    assert_eq!(s.read(FILE), BODY);
+}
+
+// The claim: every refusal before the target is written leaves no record behind: an unspawnable
+// baseline, an unreadable target, a read-only target.
+#[test]
+fn a_refusal_before_the_write_leaves_no_record() {
+    use std::os::unix::fs::PermissionsExt;
+    let s = Sandbox::new("refusals");
+    s.write(FILE, BODY);
+    let (_, out, code) = s.run_coded(&args(&["--", "no-such-program-to-run"]));
+    assert_eq!(code, 2, "{out}");
+    assert!(!s.record().exists(), "unspawnable baseline: {out}");
+
+    for mode in [0o000, 0o444] {
+        fs::set_permissions(s.root.join(FILE), fs::Permissions::from_mode(mode)).expect("chmod");
+        let (_, out, code) = s.run_coded(&args(&["--no-baseline", "--", "true"]));
+        fs::set_permissions(s.root.join(FILE), fs::Permissions::from_mode(0o644)).expect("chmod");
+        assert_eq!(code, 2, "mode {mode:o}: {out}");
+        assert!(!s.record().exists(), "mode {mode:o}: {out}");
+        assert_eq!(s.read(FILE), BODY);
+    }
+}
+
+// The claim: a record whose target already holds the pre-image, as a kill between the record and
+// the write leaves, is cleared by `restore`, which exits 0.
+#[test]
+fn a_record_over_an_unmutated_file_is_cleared_by_restore() {
+    let s = Sandbox::new("already");
+    s.write(FILE, BODY);
+    knowledge_architect_mutate::Record::at(s.record())
+        .claim()
+        .expect("claiming");
+    knowledge_architect_mutate::Record::at(s.record())
+        .write(FILE, BODY, "mutant\n", None)
+        .expect("writing the record");
+    fs::write(s.record().join("owner-pid"), "0").expect("no live owner");
+    let (_, out, code) = s.run_coded(&["restore"]);
+    assert_eq!(code, 0, "{out}");
+    assert!(out.contains("already held its pre-image"), "{out}");
+    assert!(!s.record().exists(), "{out}");
+}
