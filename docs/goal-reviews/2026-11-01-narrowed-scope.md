@@ -906,6 +906,90 @@ The scope goal's measure "states each ask", and its merge conditions as a paragr
 the setup goal's measure; the shipping goal's no-text shipping; the workflow goal's measure of
 steps; the Component goal's measure of departures; xtask's one-command measure.
 
+## The owner's answer to the ruling sheet
+
+The session offered three options: approve the goals as the tree held them, with the round-5
+findings kept in an issue (1); approve with the round-5 repairs and defaults applied, followed by one
+more review that writes no repair before the final ruling (2); or name goals to drop or reword (3).
+The owner, 2026-11-01, verbatim:
+
+> go for option 2
+
+Outcomes: every settled finding of round 5 is repaired, and every intent finding is written as its
+default, both as the ruling sheet above lists them. Round 6 reviews the batch as they leave it,
+writes no repair, and its findings go to the owner beside the goals for the final ruling.
+
+## Round 6, the confirming review
+
+The same six reviewers under the same briefs, writing no repair.
+
+| reviewer | findings | not minor | contradiction |
+| --- | --- | --- | --- |
+| set A, scope and adoption | 6 | 6 | 0 |
+| set B, workflow coverage and tooling | 7 | 6 | 0 |
+| set C, code quality and Components | 7 | 5 | 0 |
+| set D, the record and the checker | 5 | 5 | 0 |
+| set E, the owner and agents | 7 | 6 | 0 |
+| whole set | 9 | 9 | 0 |
+| total | 41 | 37 | 0 |
+
+The not-minor counts across the six rounds are 79, 46, 49, 50, 53 and 37.
+
+### The intent findings, with the session's defaults
+
+- **Q63** (E F3, whole F5). Your approval of the round-5 default "adding an ask is a choice of scope
+  the owner makes, as `goal@knowledge-architect@the-owner-decides` sends such a choice" rested on a
+  premise the session supplied: that goal sends the owner only a choice no goal or decision ranks,
+  "and nothing else". Default: every new ask that binds every target project goes to the owner, and
+  `goal@knowledge-architect@the-owner-decides` lists it among what it sends. The rival: an ask goes
+  to the owner only where no goal or decision ranks it, agents deciding the rest.
+- **Q64** (A F3). Default: a quality tool is one that judges the project's quality mechanically,
+  such as a gate or a check; a tool that serves efficiency, such as a history command, becomes no
+  ask.
+- **Q65** (A F5, whole F7). Default: gate logic is the listed items and the behaviours the owner has
+  taken in; a generic behaviour not yet taken in may stay in a project's binary until it is taken in
+  or declined.
+- **Q66** (D D1). Default: `goal@knowledge-architect@agents-work-without-drift` ranges over a target
+  project that adopts both the workflow and the checker.
+- **Q67** (C P6-4). Default: a Component that departs from the four properties states why in a head of
+  its own design home.
+
+### The settled findings
+
+- The workflow goal's title, the root head, its measure and
+  `goal@agent-skills@one-skill-per-activity` still cover every generic activity; they range over the
+  activities whose generic part the owner has taken in, the listed ones counting as taken in (B F1,
+  F3, E F4, D H1, whole F1). "reviewing: the procedure by which a review is dispatched" (whole F2).
+  The head says "set up or change" (D H2).
+- The scope goal: the owner's part with the round-5 qualifier written whole, the pointed goals'
+  measures applying where the installed text is installed (A F1, E F1, whole F4); "that command, in
+  its invocation for a merge, passes" (A F2); "never the work the definition gives to agents: its
+  code, its documents, its records and its reviews" (E F5); the reservation example without "or a
+  publication" (E F6); the scope goal's list of where the argument from current projects counts names
+  the owner's choice to take a part in (B F7); "a project that follows the workflow" read as one that
+  has installed it (E F2).
+- `goal@agent-skills@only-needed-instructions` ranges over the goals whose measure is the installed
+  text, so xtask's CI measure makes no installed instruction needed (B F4).
+- `goal@knowledge-architect@mechanical-tasks-are-the-tool-s`: the clause on the maintenance binary
+  rewritten, the term taken from `goal@gates@gates-from-a-list`; "knowledge-architect's owner's"
+  (B F5, F6, A met outside, whole F3).
+- The setup goal's tools are the scope goal's quality tools, its asks, in recommended shapes (A F4).
+- `goal@knowledge-architect@adoption-is-easy`: "ask knowledge-architect's owner" (A F6).
+- The code goal states the default shape directly, without the unused word "promote" (C C6-1).
+- The Component goal: "Components that hold Rust code in their own files, those no Component nested
+  under their directory contains" (C P6-1, P6-2, whole F8); the purpose is what the head of its goals
+  home states, and a goal that does not serve it shows a second purpose (C P6-3). Consequence: the
+  goals homes of gates, agent-skills and xtask state no purpose in their heads, and the core's head
+  leaves `goal@core@documents-render-as-a-linked-site` outside its purpose, so those Components start
+  unmet on this goal.
+- The relocation goal: "within the anchors that carry it" in the title; its title and bullets limited
+  to the references its measure names, "none" for "neither", and the references a Component's move
+  covers named (D R1, R2, whole F9).
+- "Ask" as a term: the goals that use "asks for" of an instruction say "requires" (whole F6).
+- The record's batch row for the drift goal, stale since round 1, is corrected here.
+- Minor: the code goal's measure scope (C C6-2), the Component goal's measure (C P6-5), releasing
+  names no step (B F2), the scope goal's merge paragraph in its measure (E F7).
+
 ## Questions still open
 
-The owner's ruling on the batch.
+The owner's ruling on the batch, and Q63 to Q67.
