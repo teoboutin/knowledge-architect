@@ -76,7 +76,8 @@ No run is built to observe an agent following the new text, per
 - **The installed skill, the three agents and the widened code-claims reviewer install, and each
   level-two heading carries a slug.** Test: `cargo klarch install-agent-skills`, then
   `cargo klarch check`, and the core's test that holds the shipped set to
-  `design@core@section-homes-carry-slugs`. Shown to fail: a heading of the new skill without its
+  `design@core@section-homes-carry-slugs`, `the_shipped_set_cites_only_sections_it_defines` in
+  `path@core@src/agents.rs`. Shown to fail: a heading of the new skill without its
   slug, as a recorded mutation of the source.
 - **The installed skill states no pull request, no continuous integration and no scoped
   `CLAUDE.md`, and restates no rule of the primer beyond one sentence with its pointer.** Test: a
@@ -122,6 +123,10 @@ No run is built to observe an agent following the new text, per
 - The reworded goal of slice 0, and `goal@knowledge-architect@agents-get-a-complete-workflow`.
 - cargo-mutants' book, chapters "Testing code changed in a diff" and "Limitations", for the diff
   sweep and its caveat on the cargo configuration file, read at the audit since the discussion read them once.
+- Whether the diff sweep builds and passes its baseline in the tree copy cargo-mutants makes, where
+  the project ties every build to its checkout, as this repository does by
+  `design@core@a-foreign-build-is-refused`: settled by a run of `cargo mutants --in-diff <diff>` in a
+  scratch worktree, which the plan's code-claims review could not take without a run.
 
 ## Fails alone on
 
