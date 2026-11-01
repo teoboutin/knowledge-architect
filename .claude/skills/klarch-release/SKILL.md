@@ -87,7 +87,7 @@ On a branch of its own, `release-<version>`, under the Git rules of the root `CL
    ```
 7. **The package lists.** `cargo package --list -p <crate>` for each crate. Each lists its sources,
    its Cargo.toml, its README, its CRATES-IO.md, its licence files and its CHANGELOG.md, and agent-skills also its
-   build script, content/ and snippets/, beside the three files Cargo generates for every package,
+   build script, content/, snippets/ and fragments/, beside the three files Cargo generates for every package,
    `.cargo_vcs_info.json`, `Cargo.lock` and `Cargo.toml.orig`, per
    `design@knowledge-architect@package-include-whitelist`. Compare each
    list with these, and report to the owner every file the step does not name. The owner may read
