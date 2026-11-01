@@ -15,8 +15,8 @@
    lists replaced: the record directory and the lookup of the project root. The crate carries this
    repository's build tie, `KNOWLEDGE_ARCHITECT_CHECKOUT`, in place of thaum's `THAUM_CHECKOUT`, per
    `design@knowledge-architect@a-build-is-tied-to-its-checkout`, as every crate here does. The crate
-   holds a library and a binary, per D2's default in the milestone document, so a Rust project with
-   no maintenance crate installs the binary into a directory of its own.
+   holds a library, which a project's maintenance crate calls; every Rust target project has one,
+   per #maintenance-crate-ask.
 3. **`cargo x mutate`** in this repository's maintenance crate, `path@knowledge-architect@tools/xtask/`,
    depending on the mutation crate directly, not through the gates library, per
    #mutation-command-host.
@@ -50,6 +50,19 @@
      test builds offline; the comment above that test states a threshold of 60 seconds on the
      owner's workstation, a premise whose guard is that test;
    - `path@xtask@examples/setup_snippet.rs`, which compiles the snippet's main.
+
+8. **The maintenance crate as an ask of every Rust target project**, per #maintenance-crate-ask:
+   the setup skill, `skill@knowledge-architect-setup`, states it among the asks, gives the
+   maintenance crate as the one shape for a Rust project, and no longer offers a Rust project the
+   local install that leaves it with no maintenance crate and no `cargo x gates`; a project installed
+   that way brings itself into conformance, as the target-project goal says. A Migration entry in
+   `Next release` tells a consumer what to add. The heads
+   `design@agent-skills@pinned-binary-runs-inside-the-project`, which admits that local install on
+   the owner's ruling, and `design@agent-skills@xtask-pins-checker`, which speaks of "a Rust project
+   with a maintenance crate", are rewritten under `skill@knowledge-architect-decision-recording`, and
+   every text `cargo klarch show` lists for them is reread. The setup skill's case of a project with
+   no Rust is outside this ask. `issue@knowledge-architect@the-target-project-and-its-asks-are-stated-to-no-adopter`
+   gains the ask among those it lists.
 
 The local development skill's worktree procedure is replaced by the command at slice 2, not here.
 
@@ -220,6 +233,9 @@ agent's first default: the purpose of `design@gates@gates-crate`.
   rewritten in place where they count the published crates.
 - **thaum's records of the tool:** what becomes of them is decided here, as "Audit subjects" says.
 - **Goals:** the new Component's, on the owner's ruling.
+- **The ask:** `design@agent-skills@pinned-binary-runs-inside-the-project` and
+  `design@agent-skills@xtask-pins-checker` rewritten for #maintenance-crate-ask, the owner's ask
+  attributed to the owner.
 - **Rejected:** `sweep` shipped, and the gates library as host, each where
   `design@agent-skills@losing-alternatives-filter` admits it.
 - **Tripwires:** none from the premortem: cause 8 is this slice's claim.
