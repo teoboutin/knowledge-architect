@@ -105,7 +105,7 @@ mod tests {
         let root = workspace_root();
         let text = std::fs::read(root.join(CHANGELOG)).expect("the root changelog");
         let copies = copies(&root).expect("crates/ is readable");
-        assert_eq!(copies.len(), 3, "{copies:?}");
+        assert_eq!(copies.len(), 4, "{copies:?}");
         for copy in copies {
             let manifest = copy.with_file_name("Cargo.toml");
             let manifest: toml::Table = std::fs::read_to_string(&manifest)

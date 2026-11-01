@@ -197,6 +197,13 @@ dependencies = [
 ]
 
 [[package]]
+name = "knowledge-architect-mutate"
+version = "0.9.0"
+dependencies = [
+ "clap",
+]
+
+[[package]]
 name = "memchr"
 version = "2.8.3"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -479,6 +486,7 @@ dependencies = [
  "clap",
  "knowledge-architect",
  "knowledge-architect-gates",
+ "knowledge-architect-mutate",
  "serde_json",
  "toml",
 ]

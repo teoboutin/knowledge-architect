@@ -10,8 +10,9 @@ repository's are `design@xtask@gates-list-primary-home`.
 
 ### The gates runner is a published library, and a project keeps a small binary of its own `##gates-crate`
 
-The runner is the package knowledge-architect-gates. A project's maintenance binary, conventionally
-a crate named xtask run through a cargo alias, hands it the project root, its gate list and the
+The runner is the package knowledge-architect-gates. A project's maintenance crate, a crate named
+xtask run through a cargo alias, which every Rust target project has, per
+`design@agent-skills@maintenance-crate-ask`, hands it the project root, its gate list and the
 flags it parsed. The runner is, almost line for line, the gates code thaum holds at its commit e98e296, as a comparison of
 `git -C <thaum checkout> show e98e296:tools/xtask/src/gates.rs` with this crate shows, and it serves
 `goal@knowledge-architect@setup-brings-quality-tools` and `goal@gates@gates-from-a-list`: a project

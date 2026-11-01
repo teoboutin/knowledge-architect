@@ -1,0 +1,16 @@
+[package]
+name = "knowledge-architect-mutate"
+readme = "CRATES-IO.md"
+description = "One hand-written mutation applied, a command run against it, and the file restored, over uncommitted work."
+version.workspace = true
+edition.workspace = true
+license.workspace = true
+repository.workspace = true
+keywords.workspace = true
+# What the published package ships, as a whitelist.
+include = ["/src/**", "/Cargo.toml", "/README.md", "/LICENSE-MIT", "/LICENSE-APACHE", "/CHANGELOG.md"]
+
+[dependencies]
+# The modes' flags derive clap's `Subcommand` and `Args`, so a project's maintenance binary carries
+# them under a command of its own.
+clap = { version = "4", features = ["derive"] }

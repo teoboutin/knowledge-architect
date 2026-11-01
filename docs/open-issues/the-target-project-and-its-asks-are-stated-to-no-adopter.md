@@ -16,7 +16,9 @@ merge invocation.
 
 ### What
 
-- The installed text states none of the asks; the goal requires it to state each one.
+- The installed text states one ask, the maintenance crate of every Rust target project, per
+  `design@agent-skills@maintenance-crate-ask`, in the setup skill, and none of the others; the goal
+  requires it to state each one.
 - The setup skill and the README of each published crate state neither the four conditions nor the
   asks, nor that nothing is guaranteed outside the conditions or where an ask is not followed.
 - The goal makes the name of the one command and its invocation for a merge a design decision of
@@ -25,10 +27,6 @@ merge invocation.
   bare `cargo x gates`.
 
 - Texts still offer what the asks rule out, or route a new ask otherwise:
-  - the setup skill offers a local install that "leaves the project with no maintenance crate and no
-    `cargo x gates`, so the project builds its own gates command", and
-    `design@agent-skills@pinned-binary-runs-inside-the-project` admits it on the owner's ruling;
-    the gates ask rules out a gate runner of a project's own;
   - the setup skill's template goals for the maintenance tool keep the wording this repository's own
     `goal@xtask@one-command-runs-every-gate` and `goal@xtask@repeated-tasks-are-automated` had before
     their rewording, though its comment says they follow those goals;

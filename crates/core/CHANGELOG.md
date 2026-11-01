@@ -3,8 +3,8 @@
 One section per released version, and one working section above them, `Next release`, which the
 release renames to its version. Which change gets an entry, under which subsection, and with which
 class is `design@knowledge-architect@changelog-entries`. Inside a subsection, entries are sorted by
-surface, in the order `checks`, `cli`, `manifest`, `library`, `agent-skills`, `gates`; an empty
-subsection is omitted.
+surface, in the order `checks`, `cli`, `manifest`, `library`, `agent-skills`, `gates`, `mutate`;
+an empty subsection is omitted.
 
 ## Next release
 
@@ -15,6 +15,19 @@ subsection is omitted.
   learn from its use whether it is met, and never by a list of the properties the outcome is taken to
   consist of. A goal measured by such a list is brought to the rule by
   `skill@knowledge-architect-goal-setting@whole-set-review`.
+- `agent-skills`, patch: knowledge-architect asks every Rust target project to carry the maintenance
+  crate, whose commands run as `cargo x <command>`, and the setup skill no longer offers a Rust
+  project a local install of the checker. A Rust project that runs the checker from a local install
+  adds the crate, as `skill@knowledge-architect-setup@rust-project` shows, and drops the install. A
+  maintenance crate adds the dependency `knowledge-architect-mutate`, pinned exactly at the
+  checker's version like its other two, and the `mutate` command of that section's main.
+
+### New features
+
+- `mutate`, minor: the published crate `knowledge-architect-mutate`, the hand mutation: `run`
+  applies one mutation the caller writes, runs a command against it and restores the file, over
+  uncommitted work, and `restore` unwinds a run that was killed. A maintenance crate carries it as
+  `cargo x mutate`.
 
 ### Workflow
 

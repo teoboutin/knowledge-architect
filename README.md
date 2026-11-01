@@ -46,7 +46,8 @@ In this repository, the checker built from the checkout runs as `cargo klarch <s
 | crates/core | the checker: package `knowledge-architect`, binary `klarch` |
 | crates/agent-skills | the text the checker installs into a project |
 | crates/gates | the library that runs a project's merge gates, `cargo x gates` here |
-| tools/xtask | this repository's gates, `cargo x gates` |
+| crates/mutate | the library of the hand mutation, which applies one mutation, runs a command against it and restores the file, `cargo x mutate` here |
+| tools/xtask | this repository's gates, `cargo x gates`, and its other repeated tasks |
 | docs/ | the project's goals, design decisions, rejected designs, tripwires and open issues, the plan documents of docs/plans/, and the retrospective analyses whose outcomes are not all carried out |
 
 ## License

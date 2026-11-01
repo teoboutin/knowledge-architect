@@ -2,7 +2,7 @@
 
 ## Builds
 
-1. **The Component `mutate`**, directory `planned@knowledge-architect@crates/mutate/`, package
+1. **The Component `mutate`**, directory `path@knowledge-architect@crates/mutate/`, package
    `knowledge-architect-mutate`, a workspace member and the fourth published crate, created with
    `cargo klarch new-component` and carrying the documents every Component carries. Its goals are
    drafted under `skill@knowledge-architect-goal-setting` and ruled by the owner at this slice.
@@ -128,11 +128,11 @@ first use.
 - `design@core@exit-code-ladder` and `issue@gates@a-run-that-could-not-start-exits-one`, for the
   table of exit codes.
 - thaum's `rejected` entries of the tool, in
-  `path@elsewhere@~/dev/games/thaum/tools/mutate/docs/rejected.md`: `forward-apply-check-proof`,
-  `worktree-holds-the-mutation` and `cargo-mutants-instrument`; its tripwire guarding
-  `restore-by-comparison`, in `path@elsewhere@~/dev/games/thaum/tools/mutate/docs/tripwires.md`; its
+  `path@elsewhere@~/dev/games/thaum/tools/mutate/docs/rejected.md`: `rejected@mutate@forward-apply-check-proof`,
+  `rejected@mutate@worktree-holds-the-mutation` and `rejected@mutate@cargo-mutants-instrument`; its tripwire guarding
+  `design@mutate@restore-by-comparison`, in `path@elsewhere@~/dev/games/thaum/tools/mutate/docs/tripwires.md`; its
   open issue `path@elsewhere@~/dev/games/thaum/tools/mutate/docs/open-issues/hard-kill-orphans-the-command.md`,
-  which the kill-and-restore claim exercises; its head `discard-is-the-callers-word`; and thaum's
+  which the kill-and-restore claim exercises; its head `design@mutate@discard-is-the-callers-word`; and thaum's
   root heads `root-by-the-checkers-manifest-name` and the one whose slug is that of
   `design@knowledge-architect@a-build-is-tied-to-its-checkout`, in
   `path@elsewhere@~/dev/games/thaum/docs/design.md`.
@@ -149,8 +149,8 @@ first use.
   `goal@knowledge-architect@generic-tools-and-procedures-are-shipped`.
 - `path@elsewhere@~/dev/games/thaum/tools/mutate/`, whole: its src/lib.rs, src/main.rs, README.md, CLAUDE.md and
   tests/, and its design home, `path@elsewhere@~/dev/games/thaum/tools/mutate/docs/design.md`, whose heads, among them
-  `report-not-gate`, `restore-by-comparison`, `record-survives-the-run` and
-  `one-command-owns-the-interval`, are thaum's record: each is read and either carried into the new
+  `design@mutate@report-not-gate`, `design@mutate@restore-by-comparison`, `design@mutate@record-survives-the-run` and
+  `design@mutate@one-command-owns-the-interval`, are thaum's record: each is read and either carried into the new
   Component's design home with its argument, or left out with the reason.
 - The thaum-specific parts, verified in thaum's tree when this document was written:
   `record_dir` returns `path@elsewhere@~/dev/games/thaum/tools/mutate/local/current/`; `project_root` finds the root by
@@ -295,5 +295,5 @@ agent's first default: the purpose of `design@gates@gates-crate`.
 - **Rejected:** `sweep` shipped, and the gates library as host, each where
   `design@agent-skills@losing-alternatives-filter` admits it.
 - **Tripwires:** none from the premortem: cause 8 is this slice's claim.
-- **Plan document:** `planned@knowledge-architect@crates/mutate/` becomes a `path` reference in the
+- **Plan document:** `path@knowledge-architect@crates/mutate/` becomes a `path` reference in the
   commit that creates it, in every document of this milestone.

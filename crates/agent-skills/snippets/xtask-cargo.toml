@@ -8,3 +8,4 @@ publish = false
 clap = { version = "4", features = ["derive"] }
 knowledge-architect = "=<version>"
 knowledge-architect-gates = "=<version>"
+knowledge-architect-mutate = "=<version>"
