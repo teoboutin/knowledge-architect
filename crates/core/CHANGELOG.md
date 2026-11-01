@@ -18,6 +18,12 @@ subsection is omitted.
   the document that writes it is reported, as one read from the root or an anchor's directory is;
   the finding names the reference at the deepest anchor that holds the target, and the repair is
   to write it so.
+- `cli`, major: every command asks git about the repository the project's directory lies in, and
+  no longer honours `GIT_DIR`, `GIT_WORK_TREE`, `GIT_COMMON_DIR`, `GIT_OBJECT_DIRECTORY` or
+  `GIT_ALTERNATE_OBJECT_DIRECTORIES`. A project whose repository git finds only through these
+  variables, with no `.git` at or above its directory, now gets exit 2, "not a git repository", from
+  every command. Give it a `.git` that git finds from its directory, such as a `.git` file naming
+  the git directory, `gitdir: <path>`.
 - `library`, minor: a binary that dispatches the core's command enum, as the setup skill's
   maintenance crate and the crate documentation's extension example do, hands `Command::Init` to
   `cli::init` before `cli::locate`, with the libraries and packages it gives
@@ -74,11 +80,10 @@ subsection is omitted.
   `--vcs` decides whether `git init` runs, and `--rust` adds the maintenance crate, its workspace
   and its cargo aliases. The core's README says
   what it refuses.
-- `cli`, patch: every command asks git about the repository the project's directory lies in,
-  whatever `GIT_DIR`, `GIT_WORK_TREE`, `GIT_COMMON_DIR`, `GIT_OBJECT_DIRECTORY` or
-  `GIT_ALTERNATE_OBJECT_DIRECTORIES` names, through the index `GIT_INDEX_FILE` names, so
-  `check --staged` runs as a pre-commit hook and judges the tree the commit records,
-  `git commit -a` included. `init` refuses `GIT_INDEX_FILE` alone.
+- `cli`, patch: `check --staged` run as a pre-commit hook judges the tree the commit records also in
+  a linked worktree whose project lies in a subdirectory of its repository, `git commit -a`
+  included, and a stray `GIT_DIR` no longer points the walk at another repository. `init` refuses
+  `GIT_INDEX_FILE` alone.
 - `cli`, minor: `klarch index --staged` names each generated file whose working copy is out of
   date for the working tree, with `index` as the command that rewrites it.
 - `cli`, minor: `klarch commits` names, for a generated file two or more commits of the range
@@ -278,6 +283,8 @@ subsection is omitted.
   about how the project is built was made, reversed or harvested, whether or not it earned an
   entry, or a tripwire was added, and not for a change that only relocates or rewords recorded
   decisions.
+- `agent-skills`, patch: a `rejected` entry whose reason another design defeats in part stays
+  `live`, its reason narrowed to what still holds, and the head of that other design cites it.
 
 ## 0.8.0
 

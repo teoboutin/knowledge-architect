@@ -414,20 +414,6 @@ candidates.
 the branch's history.
 **Watches until:** two release tags on the main branch, counted from the commit that writes this line.
 
-## Guarding `design@agent-skills@goal-standard-rules`: an exclusion still rules a design out after no goal argues for that design `##exclusion-outlives-its-rival`
-
-Rule 8 admits a goal's exclusion only where another goal would otherwise argue for the design it
-names. Once that other goal is reworded or removed so that nothing argues for the design, the
-exclusion still binds outright and rules the design out with no argument behind it, and no check
-or review reads the pair again unless a whole-set review runs. Kept on a doubt.
-
-**Fires when:** a goal's exclusion names a design that no goal of the project argues for any longer,
-found in a goals home of this repository or reported by a received retrospective file.
-**Response:** reopen `design@agent-skills@goal-standard-rules` on rule 8.
-**Re-entry:** a commit that rewords or removes a goal, and the next review of the whole goal set.
-**Watches until:** five commits on the main branch that change a goals home, counted from the
-commit that writes this line.
-
 ## Guarding `design@agent-skills@audit-net-growth`: an intake's repairs, held for no word of the owner, add instructions that interact `##intake-repairs-interact-unheld`
 
 The decision holds a set of repairs for the owner's word on its growth in a project audit only, on
