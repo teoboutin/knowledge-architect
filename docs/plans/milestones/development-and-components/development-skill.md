@@ -35,17 +35,26 @@
    `planned@agent-skills@content/agents/spec-first-reviewer.md`, judging #spec-first-axis; and
    `knowledge-architect-adversarial-reviewer`, default name, source
    `planned@agent-skills@content/agents/adversarial-reviewer.md`, the adversarial axis scoped per
-   #adversarial-scoping; the audit checks each name against `design@agent-skills@naming-rule`.
+   #adversarial-scoping; the audit checks each name against `design@agent-skills@naming-rule`. The
+   default shape the skill states and the code-shape reviewer applies whole is one shared fragment,
+   `planned@agent-skills@fragments/default-code-shape.md`, hosted by both, per
+   `design@agent-skills@shared-text-fragment`, so the reviewer applies the standard it reads rather
+   than a pointer to a skill it may read in part.
 3. **`agent@knowledge-architect-code-claims-reviewer` widened** to every statement a diff writes about
    code, and to the completeness of the documentation of a public interface others consume
    (#code-claims-scope, #api-doc-completeness).
-4. **The review skill's axis table** gains the rows the development skill adds, with their conditions
-   and their cadence, in `skill@knowledge-architect-review@review-axes`, or in the development skill's
-   own table that the review skill's sentence on an activity's added axes already reaches; the audit
-   chooses the one that keeps each row in one home.
+4. **The review axes for code**, each row in one home, as the design audit settled: the two
+   read-only axes that run in the review before the merge, code shape and code claims, are rows of
+   `skill@knowledge-architect-review@review-axes`, since a diff of any activity can write code or a
+   statement about code, the reason `design@agent-skills@review-judges-additions` gives for the
+   agent-facing-text row; the two axes run at development checkpoints, adversarial and spec-first,
+   are rows of the development skill's own table, which the review skill's sentence on an
+   activity's added axes reaches.
 5. **The setup's linter ask** gains `missing_docs`, `clippy::missing_errors_doc` and
-   `clippy::missing_panics_doc` for a published crate, in `skill@knowledge-architect-setup`, and in a
-   snippet where one carries the workspace's lints, per `design@agent-skills@rust-templates-one-home`.
+   `clippy::missing_panics_doc` for a published crate, in `skill@knowledge-architect-setup`. No
+   snippet carries the workspace's lints, so the ask is stated in the skill's text, as the linter
+   ask is today. Whether this repository adopts the three lints in this slice is D3, awaiting the
+   owner.
 6. **The retrospective's standing question** of #retrospective-code-rules-question, both its
    clauses, in `skill@knowledge-architect-retrospective@what-it-examines`, watching the two goals
    slice 0 rewords.
@@ -57,16 +66,26 @@
    worktree procedure replaced by `cargo x mutate`. `design@knowledge-architect@scratch-worktree-outside-git-rules`
    and the texts citing it rewritten where they name that procedure.
 9. **Issues**, under `skill@knowledge-architect-issue-tracking`:
+   - reworded: `issue@knowledge-architect@the-workflow-has-no-skill-for-branch-work-or-releasing`,
+     whose Summary says the installed set holds none of the three activities;
    - none closed here: the issues whose work this slice builds were closed when the milestone scheduled them,
      `a-fix-is-grounded-by-no-record-search`, `the-code-claims-axis-reads-plan-documents-only` and `a-reviewer-s-running-time-is-unbounded`, and the developing part of
      `issue@knowledge-architect@the-workflow-has-no-skill-for-branch-work-or-releasing` left
      that entry, which stays open for branch work and releasing;
    - opened: a `todo` for improving performance as an activity of its own (#performance-review-axis); a
-     `todo` for #use-feedback-collection; a `deferred` for #upstream-co-development;
+     `todo` for #use-feedback-collection; a `deferred` for #upstream-co-development, whose premise on
+     the patched build's version is read against `design@core@installed-binary-version-check` and
+     `design@agent-skills@exact-pin` and cites them;
    - kept open, its other options intact:
      `issue@agent-skills@the-claim-check-of-a-commit-message-is-read-at-the-start-and-needed-at-each-commit`.
 10. **`cargo klarch install-agent-skills`**, the CHANGELOG.md entries in `Next release`, and
-    `cargo x changelog`.
+    `cargo x changelog`. A Migration entry tells a project with a development skill of its own, as
+    thaum has, to cut it to an overlay that only adds, since the installed skill now covers the
+    activity, per `design@agent-skills@overlay-by-separate-skills`.
+11. **Names in the plan documents**: the commit that creates the skill and each agent rewrites the
+    plan documents' bare and plain names of it as skill and agent references, which
+    `design@core@backticked-bare-id` and `design@core@plain-word-lint` would otherwise report; no
+    section slug of the new texts is an ordinary word.
 
 ## Claims
 
@@ -93,9 +112,8 @@ No run is built to observe an agent following the new text, per
 - **Every row the review owes for code names its agent, its condition and its moment, in one home.**
   Test: a reading of the review skill and the development skill together. Shown to fail: the review
   skill today names no axis for code.
-- **The setup's lints are named where the setup skill asks for a linter, and a snippet that carries
-  them builds.** Test: the snippet test of `design@agent-skills@rust-templates-one-home`, if a snippet
-  carries them. Shown to fail: a lint name misspelt in the snippet, as a recorded mutation.
+- **The setup's lints are named where the setup skill asks for a linter.** Test: a reading of the
+  installed setup skill, recorded in the commit; no snippet carries lints, so no build tests them.
 - **`skill@klarch-development` only adds to the installed skill.** Test: a reading of both, each
   instruction of the local one checked against the installed one for a contradiction. Shown to fail:
   the local skill today holds the manual worktree procedure, which the installed skill replaces.
@@ -326,7 +344,7 @@ Thread: `thread@development-and-components@retrospective-code-rules-question`.
 wording in the reply to R3, the second from the Components goal slice 0 reworded: "Did an installed
 rule or guideline about code or tests prove too hard or too strict to follow in this session's Rust
 work, or get followed against the change's interest? And did one about splitting the project into
-Components, against the project's interest?" A lint the setup ships counts as an installed rule
+Components prove too hard or too strict to follow, or get followed against the project's interest?" A lint the setup ships counts as an installed rule
 about code (Q8). It names the goals it watches, per `design@agent-skills@premortem-as-watch-points`:
 `goal@knowledge-architect@the-workflow-leads-to-better-code` and
 `goal@knowledge-architect@projects-are-split-into-components`. This slice writes both clauses.
