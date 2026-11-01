@@ -48,7 +48,7 @@ And, during the same turn:
 | `generic-tools-and-procedures-are-shipped` (root) | new | the owner's statement, second point; the measure proposed from the owner's second design consideration |
 | `goal@knowledge-architect@agents-get-a-complete-workflow` | reworded, slug kept | the owner's statement, third point |
 | `goal@knowledge-architect@mechanical-tasks-are-the-tool-s` | reworded, slug kept: "the checker" becomes "a published crate"; history rewriting named | proposed from the owner's fourth design consideration and second point |
-| `code-is-single-purpose-and-testable` (root) | new | the owner's statement, fourth point, its first intent |
+| `code-has-one-responsibility-per-unit-and-is-testable` (root), named `code-is-single-purpose-and-testable` until round 2 | new | the owner's statement, fourth point, its first intent |
 | `projects-are-split-into-components` (root) | new | the owner's statement, fourth point, its second intent; the reasons from the third design consideration |
 | `goal@knowledge-architect@setup-brings-quality-tools` | reworded: continuous integration and the branch for another language removed | proposed from the third point ("Except CI and PR workflow") and the first point |
 | `goal@knowledge-architect@agents-work-without-drift` | the exception list drops `goal@knowledge-architect@owner-attention-on-what-is-theirs`, adds the scope goal | proposed, follows from the removals |
@@ -315,6 +315,134 @@ Each with the session's default, which the drafts hold.
 - **Q16.** Default: in `goal@knowledge-architect@documentation-stays-consistent`, "used alone" means
   a target project that runs the checker without the workflow, and the guarantees hold there.
 
+## The owner's answers to round 1
+
+The owner, 2026-11-01, verbatim:
+
+> Q12: I think a component should be one crate. But I want to leave that to a design discussion about how we promote splitting components, where we will also properly describe the shape of a component. The main idea will be that one component needs to function as one coherent whole that achives a purpose, has its own public API with a reason to change on its own, has its own tests, and can carry a coherent design in its docs. I think one crate is probably the best shape, but for a project published on crates.io for example, this might lead to many small crates, and I'm not certain whether this would be good practice or not, and convenient to publish or not.
+> Q15 I agree on the default, but I plan to have thaum move to use the published gates anyway. If it still lacks features that thaum would need, we should implement them here. In particular, I was thinking generalizing the --merge-ready flag that thaum uses, which would apply to any target project I think.
+> Agreed on all the other defaults
+
+Outcomes:
+
+- Q1 to Q11, Q13, Q14, Q16: the defaults stand.
+- Q12: `projects-are-split-into-components` is reworded. It states the four properties the owner
+  names as the main idea of a Component, and leaves the mapping of a Component to Cargo packages to
+  a design discussion, with the owner's doubt on publishing many small crates as its premise. The
+  owner's lean towards one crate per Component is a premise of that discussion, not a goal. The
+  rewording is reviewed in round 2 and shown again.
+- Q15: the default stands. The owner's plan, thaum moving to the published gates library and the
+  library gaining what thaum needs, such as a general form of thaum's `--merge-ready` flag, is work
+  that `generic-tools-and-procedures-are-shipped` and
+  `goal@gates@gates-from-a-list` serve. It gets a `todo` issue in the commit that writes the goals.
+
+## Round 2
+
+The same six reviewers under the same briefs, each naming this record and asked to report again an
+answered question or a repaired finding only where the text still fails it.
+
+| reviewer | findings | not minor | contradiction |
+| --- | --- | --- | --- |
+| set A, scope and adoption | 6 | 6 | 0 |
+| set B, workflow coverage and tooling | 11 | 9 | 1 (b) |
+| set C, code quality and Components | 13 | 13 | 0 |
+| set D, the record and the checker | 3 | 3 | 0 |
+| set E, the owner and agents | 1 | 1 | 0 |
+| whole set | 15 | 14 | 0 |
+| total | 49 | 46 | 1 |
+
+46 is above the stop rule's 15, so the round writes its repairs. The findings, condensed, each with
+its outcome:
+
+- **The merge condition reads as all a merge needs** (E F1): "only once", beside every other
+  condition the goals owe before a merge, the owner's rulings and reserved actions named. Repaired.
+- **"The same command" may or may not cover its flags** (A F4, B F11, whole F1): Q17.
+- **"What every target project holds" is wider than the conditions; git and the harness are not
+  among them** (whole F2): Q18.
+- **"Its code is Rust" excludes every project that installs the workflow, whose saved workflows are
+  JavaScript** (A F2): "the code it builds and ships", with installed files, CI configuration and
+  scripts beside the code admitted. Repaired.
+- **The range sentence applies to the scope goal itself** (A F3): "Every other goal". Repaired.
+- **"Primary target" uses "target" in a second sense** (whole F6): "served first". Repaired.
+- **The head states drift's rank without its exceptions** (D H-1): "the first ranks above the
+  second". Repaired. **", whole" reads two ways** (D D-1): "any part of". Repaired.
+- **The hook goal redefines "project"** (D C-1, whole F3): "A target project is covered here when".
+  Repaired.
+- **CI is in two places that disagree** (A F1, B F1): the workflow goal keeps whether and how a
+  project runs CI and pull requests with the project, and lets the installed text offer a shape.
+  Repaired.
+- **The measure of `goal@knowledge-architect@agents-get-a-complete-workflow` is narrower than its
+  body, and "that goal" has no antecedent** (B F2 minor, whole F8): "a skill for each generic
+  activity". Repaired. **Two intents carried over from HEAD** (B F3, minor): no change.
+- **Releasing is generic only if "carries out" includes what a project is meant to do; only this
+  repository publishes today** (whole F7): Q19, a premise of Q8 that a measurement defeats.
+- **"Published crate" without "of knowledge-architect"** (whole F10): added to the title and to
+  `goal@xtask@repeated-tasks-are-automated`. Repaired. **A command or a library function** (B F4,
+  whole F11): Q21.
+- **The report of tools filters what the owner asked to see** (B F6, contradiction (b)): Q20.
+- **The title of `generic-tools-and-procedures-are-shipped` ships the whole tool, its body the
+  generic part; "generic" has two tests** (B F5, whole F9): the title names the generic part, which
+  the body defines, and the head follows. Repaired.
+- **`goal@agent-skills@only-needed-instructions`: the new sentence has two readings, no range, and
+  its measure still removes what it keeps** (B F7, F9, C C1, whole F15, F16): an instruction or a
+  structure that a goal's text names, every Component's goals included, and the measure exempts it.
+  Repaired. **The admission rule of real use** (whole F14): an installed text that fails a goal is a
+  defect provable by reading. Repaired.
+- **The title of `goal@agent-skills@one-skill-per-activity` ranges over every activity** (B F8):
+  "every generic activity of a target project". Repaired.
+- **xtask's restatement leaves out what the session gives** (B F10): added. Repaired.
+- **"Overall"** (C C2): Q22. **A departure argued in a design head** (C C3): Q23. **"Purpose" at two
+  scales** (C C4): the slug becomes `code-has-one-responsibility-per-unit-and-is-testable`.
+  Repaired.
+- **Components** (C P1 to P8, whole F12, F13): the primer's definition; the four properties range
+  over Components that hold code; a command line is a public interface; "one purpose" is what the
+  goals home states; the goal states the outcome and leaves how it leads to a design; existing
+  Components are covered; the cost argument leaves the goal. Q24 to Q27.
+- **`goal@core@relocation-is-one-manifest-edit`'s title reaches past its body** (C P9): the title
+  names its body's set. Default, Q28.
+- **"Gate logic" is a closed list of four** (A F6): every behaviour of the gate command that would
+  serve another target project, such as a merge-ready mode. Default, Q29.
+- **Stale boundary blocks** (A F5, B and whole met outside): the blocks above quote round 0 texts;
+  the next round's reviewers derive them from the text.
+
+## Questions put to the owner after round 2
+
+- **Q17.** "One command, the same in every target project." Today the merge invocations differ:
+  thaum `cargo --locked x gates --merge-ready`, this repository `cargo x gates --require-rebased`,
+  rootpoint `cargo x gates`. Default: a target project has one command that runs every gate and
+  judges merge readiness; making that command and its merge invocation the same everywhere is a goal
+  knowledge-architect works toward, not a condition of the definition, so no current project falls
+  outside the scope.
+- **Q18.** Default: git and the `claude` harness are conditions of a target project; GitHub is not.
+  Consequence: `harness = []` keeps its ground in the checker's mock projects only.
+- **Q19.** Your Q8 approval rested on releasing being carried out by more than one target project.
+  Measured: only this repository publishes; rootpoint's `Cargo.toml` says "Nothing is published
+  yet", and thaum publishes nothing. Default: a generic activity is one more than one target project
+  carries out or is meant to, so releasing stays covered.
+- **Q20.** You asked that the retrospective ask for "any procedure or tooling that was put in place
+  by the session". Default: every such tool and procedure is reported to you, and you judge whether
+  it has a generic part; the session does not filter.
+- **Q21.** Default: a mechanical task is done by a command of a published crate, or by a library
+  function a project's own maintenance command calls, such as one in the gates library.
+- **Q22.** Default: the installed text asks for the three properties; "overall" is the aim, and any
+  other instruction toward code quality is admitted only as `goal@agent-skills@only-needed-instructions` admits one.
+- **Q23.** Default: a departure argued in a design head that the code cites meets the goal.
+- **Q24.** Default: the four properties range over Components that hold code; a project's root
+  without code is outside them; a command line counts as a public interface (xtask, an app crate).
+- **Q25.** Default: the goal states the outcome only, Components with the four properties and work
+  placed by them; how the installed text leads there, such as a default when work is designed, is
+  left to the design discussion you asked for.
+- **Q26.** Default: the goal covers splitting an existing Component that holds two purposes, not only
+  placing new work.
+- **Q27.** Default: "one purpose" is what a Component's goals home states, which its goals refine; a
+  Component may hold several goals.
+- **Q28.** Default: the title of `goal@core@relocation-is-one-manifest-edit` becomes "Moving a
+  Component or a location, or reshaping a register's home, costs at most one manifest edit, and no
+  edit to a document that cites it", the set its body names. A split of a Component, which re-cites
+  what moves, is outside it.
+- **Q29.** Default: in `goal@gates@gates-from-a-list`, "gate logic" covers every behaviour of the
+  gate command that would serve another target project, such as thaum's merge-ready mode.
+
 ## Questions still open
 
-Q1 to Q16.
+Q17 to Q29.
