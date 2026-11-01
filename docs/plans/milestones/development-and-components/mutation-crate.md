@@ -8,11 +8,15 @@
    drafted under `skill@knowledge-architect-goal-setting` and ruled by the owner at this slice.
 2. **Its code**, taken from the generic `run` and `restore` of thaum's mutation tool: the library
    `path@elsewhere@~/dev/games/thaum/tools/mutate/src/lib.rs` and, from
-   `path@elsewhere@~/dev/games/thaum/tools/mutate/src/main.rs`, `run_hand_mutation`, `unwind`,
-   `restore_record` and `apply_to_scratch`, with their tests, and the behaviour its README states
-   under "The hand mutation". Without `sweep`, without the `THAUM_CHECKOUT` tie, and with the
-   thaum-specific parts the audit lists replaced: the record directory and the lookup of the project
-   root.
+   `path@elsewhere@~/dev/games/thaum/tools/mutate/src/main.rs`, the functions `run_hand_mutation`,
+   `run_command` (which thaum's `sweep` shares), `unwind`, `restore_record` and `apply_to_scratch`,
+   and the types `Form`, `RunArgs` and `RestoreArgs`, with their tests, and the behaviour its README
+   states under "The hand mutation". Without `sweep`, and with the thaum-specific parts the audit
+   lists replaced: the record directory and the lookup of the project root. The crate carries this
+   repository's build tie, `KNOWLEDGE_ARCHITECT_CHECKOUT`, in place of thaum's `THAUM_CHECKOUT`, per
+   `design@knowledge-architect@a-build-is-tied-to-its-checkout`, as every crate here does. The crate
+   holds a library and a binary, per D2's default in the milestone document, so a Rust project with
+   no maintenance crate installs the binary into a directory of its own.
 3. **`cargo x mutate`** in this repository's maintenance crate, `path@knowledge-architect@tools/xtask/`,
    depending on the mutation crate directly, not through the gates library, per
    #mutation-command-host.
@@ -21,45 +25,98 @@
    tested as `design@agent-skills@rust-templates-one-home` says; `cargo klarch install-agent-skills`
    run.
 5. **`skill@klarch-release`** lists the fourth crate in its package lists, version rules and publish
-   order; the first version of the crate is published by hand with an API token, per
-   `design@knowledge-architect@publish-credential`, which the slice rewrites.
+   order, and states that the crate's first version is published by hand with an API token, per
+   `design@knowledge-architect@publish-credential`, which the slice rewrites. **Publishing that first
+   version is no part of this slice's landing**: it cannot be undone, so it happens at the release,
+   after the merge and on the owner's word, per `design@knowledge-architect@publish-after-merge`.
 6. **The CHANGELOG.md entries** in `Next release`, and `cargo x changelog`, which writes the copy the
    new crate ships too, per `design@knowledge-architect@the-changelog-ships-in-every-crate`.
+7. **Every other site a fourth published crate reaches:**
+   - `path@knowledge-architect@.github/workflows/release.yml`: the comment at its head, which names
+     the three crates, and the crate lists of its steps "the tag is the version of every published
+     crate" and "publish", whose order is the publish order;
+   - `path@xtask@src/changelog.rs`, test `every_published_crate_carries_the_root_changelog`, which
+     asserts three copies; the new crate's Cargo.toml lists `/CHANGELOG.md` in `include`, per
+     `design@knowledge-architect@package-include-whitelist`;
+   - `skip-files` in `path@knowledge-architect@knowledge-architect.toml`, which lists each crate's
+     copy of CHANGELOG.md;
+   - the Component table of the root `path@knowledge-architect@CLAUDE.md` and the crate table of the
+     root `path@knowledge-architect@README.md`;
+   - `design@knowledge-architect@versioning-policy`, which says a release "publishes all three
+     crates", and `design@knowledge-architect@publish-credential`, which says "Each of the three
+     crates", both rewritten at the harvest;
+   - `path@xtask@tests/scaffold.rs`: the `[patch.crates-io]` that its test
+     `a_project_written_by_init_rust_builds_and_checks` writes gains the mutation crate, since the
+     test builds offline; the comment above that test states a threshold of 60 seconds on the
+     owner's workstation, a premise whose guard is that test;
+   - `path@xtask@examples/setup_snippet.rs`, which compiles the snippet's main.
 
 The local development skill's worktree procedure is replaced by the command at slice 2, not here.
 
 ## Claims
 
 Each claim's test is a test of the mutation crate, shown to fail by a recorded mutation of the code
-it guards, run with the procedure `skill@klarch-development@discriminating-tests` gives today, then,
-once the command exists, with `cargo x mutate run` on a second claim as its first use.
+it guards. The slice's first claims are shown with the manual procedure of
+`skill@klarch-development@discriminating-tests`, lines 79 to 120 of its installed copy, the worktree
+procedure; the claims written after the command builds are shown with `cargo x mutate run`, as its
+first use.
 
 - **A run killed mid-mutation is restored by `restore`, and no content is lost**, per
   `design@knowledge-architect@no-operation-loses-content` and premortem cause 8. Test: start a run
   whose command blocks, kill it, run `restore`, and compare the file byte for byte with its
   pre-image, uncommitted edits elsewhere in the file included. Mutation: write the record after the
   target instead of before.
-- **A pattern that does not occur exactly once is refused, before any file is written.** Test: a
-  pattern with zero and with two occurrences; the target is unchanged and the exit code says nothing
-  started. Mutation: accept the first occurrence.
-- **A red baseline is refused.** Test: a command that fails over the unmutated tree; no mutation is
-  applied. Mutation: skip the baseline.
+- **A pattern that does not occur exactly once is refused, and leaves the target untouched.** Test:
+  a pattern with zero and with two occurrences; the target is unchanged, the record directory the run
+  claimed is removed, and the exit code is 2. Mutation: accept the first occurrence.
+- **A red baseline is refused.** The baseline runs by default, and `--no-baseline` skips it. Test: a
+  command that fails over the unmutated tree; no mutation is applied. Mutation: skip the baseline.
 - **A mutant that fails the `--build` probe is told apart from a caught one.** Test: a mutation that
-  does not compile, with a probe; the verdict is "unmutatable here", not "caught". Mutation: read the
+  does not compile, with a probe; the verdict is "unmutatable here", thaum's verdict when the
+  `--build` probe fails, which says the mutant does not build and a different mutation is owed, not
+  "caught". Mutation: read the
   probe's failure as a catch.
 - **`restore` refuses a file changed since the mutation, and writes nothing.** Test: edit the file
   after the run applies the mutation and before the restore; the file keeps the edit, and the tool
-  prints the reverse patch. Mutation: restore by writing the pre-image without the comparison.
+  prints the `git apply -R` commands of the record's patch, where the record holds one. Mutation: restore by writing the pre-image without the comparison.
 - **The mutation is shown present before the command runs.** Test: the read-back line names the file
   and the first changed line. Mutation: print the line before writing the file.
 - **`cargo x mutate` reaches the crate's `run` and `restore`.** Test: a test of the maintenance crate
   that runs the subcommand on a scratch project. Mutation: a subcommand that does nothing.
-- **The setup snippet builds and runs the subcommand.** Test: the existing test that builds a project
-  `klarch init --rust` wrote, extended to call `cargo x mutate` with no argument. Shown to fail: the
-  snippet before the edit has no such subcommand.
+- **The setup snippet builds and runs the subcommand.** Test: the existing test
+  `a_project_written_by_init_rust_builds_and_checks` in `path@xtask@tests/scaffold.rs`, which builds
+  a project `klarch init --rust` wrote, extended to call `cargo x mutate` with no argument, which
+  prints the help and exits 2, as thaum's tool does. Shown to fail: the snippet before the edit has no
+  such subcommand.
+- **Every outcome maps to one exit code**, by the table under "Decided design". Test: a test per
+  row, among the claims above. Shown to fail: a run that never started exiting 1, as a recorded
+  mutation.
 
 ## Audit subjects
 
+- `design@knowledge-architect@a-build-is-tied-to-its-checkout`, for the crate's build tie.
+- `design@core@exit-code-ladder` and `issue@gates@a-run-that-could-not-start-exits-one`, for the
+  table of exit codes.
+- thaum's `rejected` entries of the tool, in
+  `path@elsewhere@~/dev/games/thaum/tools/mutate/docs/rejected.md`: `forward-apply-check-proof`,
+  `worktree-holds-the-mutation` and `cargo-mutants-instrument`; its tripwire guarding
+  `restore-by-comparison`, in `path@elsewhere@~/dev/games/thaum/tools/mutate/docs/tripwires.md`; its
+  open issue `path@elsewhere@~/dev/games/thaum/tools/mutate/docs/open-issues/hard-kill-orphans-the-command.md`,
+  which the kill-and-restore claim exercises; its head `discard-is-the-callers-word`; and thaum's
+  root heads `root-by-the-checkers-manifest-name` and the one whose slug is that of
+  `design@knowledge-architect@a-build-is-tied-to-its-checkout`, in
+  `path@elsewhere@~/dev/games/thaum/docs/design.md`.
+- The liveness check of a recorded run, which reads `/proc` and holds on Linux only, against
+  `goal@agent-skills@installed-text-works-in-any-environment`.
+- `project_root` of the gates library, in `path@gates@src/process.rs`, as the lookup of the project
+  root.
+- The print rule of the maintenance crate, `say` and `complain`, in `path@xtask@CLAUDE.md`, for
+  `cargo x mutate`.
+- `design@gates@gates-scrub-rustc-bootstrap`, for the baseline and the probe the tool spawns.
+- What becomes of thaum's records of the tool once the tool moves here: decided at this slice's
+  harvest; thaum keeps its own copy until the crate ships, per the sentence "Until a part taken in
+  ships, the project's own copy of it stays" of
+  `goal@knowledge-architect@generic-tools-and-procedures-are-shipped`.
 - `path@elsewhere@~/dev/games/thaum/tools/mutate/`, whole: its src/lib.rs, src/main.rs, README.md, CLAUDE.md and
   tests/, and its design home, `path@elsewhere@~/dev/games/thaum/tools/mutate/docs/design.md`, whose heads, among them
   `report-not-gate`, `restore-by-comparison`, `record-survives-the-run` and
@@ -94,6 +151,10 @@ once the command exists, with `cargo x mutate run` on a second claim as its firs
 - **The crate's first version is published by hand**, and every later one by the release workflow,
   per `design@knowledge-architect@publish-credential`; the release skill stops a release that would
   need the first, and the owner's word publishes it.
+- **Until the first version is published, the setup snippet pins no version absent from
+  crates.io.** Either the snippet's dependency lands with the release that publishes the crate, or
+  the `[patch.crates-io]` of the scaffold test covers it in the tree; the audit settles which, and the
+  test `a_project_written_by_init_rust_builds_and_checks` is the guard.
 
 ## Decided design
 
@@ -106,11 +167,26 @@ Thread: `thread@development-and-components@mutation-command`.
 probe; a read-back line; a byte-for-byte restore only when the file is the mutant the tool wrote;
 a record on disk before the target is touched, so a killed run is recovered by `restore`. The
 verdict is the exit code of the command after `--`, and the tool's own exit code is no verdict.
+The baseline runs by default, and `--no-baseline` skips it. On a changed file, `restore` writes
+nothing and prints the `git apply -R` commands of the record's patch, where the record holds one. A
+refused pattern leaves the target untouched: the record directory the run claimed is removed.
+
+The tool's exit code is a total function of the run's outcome, the three outcomes of thaum's README:
+
+| outcome | exit code |
+| --- | --- |
+| the run completed, whatever the verdict | 0 |
+| the tool acted, and something is owed on the tree: no verdict reached, the target left mutated, or a record still standing | 1 |
+| the run never started: a bad argument, no project found, or a precondition that refused before anything was written | 2 |
+
+The audit reads the table against `design@core@exit-code-ladder` and
+`issue@gates@a-run-that-could-not-start-exits-one`.
 
 **Argument.** The value is a mutation the session writes itself, applied safely over uncommitted
 work; cargo-mutants chooses its own (`argument@development-and-components@arg-21`,
 `argument@development-and-components@arg-37`). It replaces about 40 lines of manual procedure in the
-local development skill (`argument@development-and-components@arg-23`), which serves
+local development skill, lines 79 to 120 of the installed copy of `skill@klarch-development`, the
+worktree procedure (`argument@development-and-components@arg-23`), which serves
 `goal@knowledge-architect@mechanical-tasks-are-the-tool-s`.
 
 **Nearest rival and the fact that defeated it.** The manual worktree procedure kept in the installed
@@ -140,7 +216,9 @@ agent's first default: the purpose of `design@gates@gates-crate`.
 
 - **Heads:** in the new Component's design home, the shape above and each of thaum's heads the audit
   carries over; in `register@knowledge-architect@design`, the fourth published crate, and
-  `design@knowledge-architect@publish-credential` rewritten in place.
+  `design@knowledge-architect@publish-credential` and `design@knowledge-architect@versioning-policy`
+  rewritten in place where they count the published crates.
+- **thaum's records of the tool:** what becomes of them is decided here, as "Audit subjects" says.
 - **Goals:** the new Component's, on the owner's ruling.
 - **Rejected:** `sweep` shipped, and the gates library as host, each where
   `design@agent-skills@losing-alternatives-filter` admits it.

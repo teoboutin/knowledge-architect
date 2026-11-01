@@ -8,10 +8,18 @@
    a thread `presumed-settled`. The grounding before the first round, the reading of the homes and the
    drafting and challenge of the shapes, stays where it is.
 2. **The heads rewritten in place** under `skill@knowledge-architect-decision-recording`:
-   `design@agent-skills@search-after-first-challenge`, and
+   `design@agent-skills@search-after-first-challenge`;
    `design@agent-skills@record-searched-before-the-work` where it states when the design skill
-   dispatches the search; each text citing them reread, as the milestone document's "What is already
-   decided" lists.
+   dispatches the search; and `design@agent-skills@bounded-path-in-design`, which classifies bounded
+   work only after the grounding, "its search for standing entries included": a delayed search delays
+   the classification, so no one-message bounded proposal is sent before the search has run. Each
+   text citing them reread, as the milestone document's "What is already decided" lists; for
+   `design@agent-skills@bounded-path-in-design`, `design@agent-skills@settled-means-recorded`,
+   `design@agent-skills@record-searched-before-the-work`,
+   `issue@agent-skills@an-issue-s-re-entry-point-is-read-by-no-review`,
+   `issue@agent-skills@the-open-space-test-may-admit-every-problem`,
+   `tripwire@agent-skills@deferred-trigger-met-by-undesigned-work` and
+   `tripwire@agent-skills@a-shortcut-decision-earns-a-head`.
 3. **Any other text of the design skill that states the order**, among them the threads and states
    section, `skill@knowledge-architect-design@threads-and-states`, where `presumed-settled` is defined,
    read and aligned.
@@ -28,7 +36,7 @@ No run is built to observe a discussion under the new step, per
   design skill still orders the search after the first challenge.** Test: a reading of the installed
   skill whole, recorded in the commit; a phrase search is a lead only. Shown to fail: the same
   reading of the skill today finds the search ordered after the first challenge.
-- **The two heads and the skill state the same order.** Test: the decision-record axis and the
+- **The three heads and the skill state the same order.** Test: the decision-record axis and the
   self-consistency axis of the review. Shown to fail: the heads today state the old order.
 
 ## Audit subjects
@@ -88,9 +96,9 @@ rulings-already-given cost above. A search before and after the challenge: it do
 
 ## Harvest
 
-- **Heads:** `design@agent-skills@search-after-first-challenge` and
-  `design@agent-skills@record-searched-before-the-work` rewritten in place, in
-  `register@agent-skills@design`.
+- **Heads:** `design@agent-skills@search-after-first-challenge`,
+  `design@agent-skills@record-searched-before-the-work` and `design@agent-skills@bounded-path-in-design`
+  rewritten in place, in `register@agent-skills@design`.
 - **Rejected:** the search after a few rounds with threads closing before it, where
   `design@agent-skills@losing-alternatives-filter` admits it; the current order moves there under
   the reversal check of `skill@knowledge-architect-decision-recording`.

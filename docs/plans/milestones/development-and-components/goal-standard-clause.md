@@ -18,8 +18,10 @@ as the milestone document's "How the work is done" says.
    slug is re-pointed, this milestone's documents included.
 5. **`issue@agent-skills@a-goal-the-draft-review-read-was-reworded-again-for-a-defect`** updated or
    closed, per #rule-6-finding-weight, by `skill@knowledge-architect-issue-tracking`.
-6. **The re-entry of `issue@agent-skills@heads-argued-from-another-harness`** becomes "the next
-   design discussion that changes how fragments are delivered", per #harness-argued-heads-scope.
+6. **The re-entry of `issue@agent-skills@heads-argued-from-another-harness`** becomes, as written
+   in the issue: "The next design discussion on the audit's saved workflows, or one that changes how
+   the shipped fragments are delivered, or a design-record audit pass, whichever comes first.", per
+   #harness-argued-heads-scope.
 7. **`cargo klarch install-agent-skills`** run, the CHANGELOG.md entries written in `Next release`,
    and `cargo x changelog` run.
 
@@ -35,9 +37,10 @@ as the milestone document's "How the work is done" says.
   `minor` only. No run of the reviewer is built to observe it, per
   `design@agent-skills@synthetic-evidence-not-built`; the goal reviewer's draft-mode run on the
   reworded goal, item 4, is the work's own use of it.
-- **No reference to the old slug of the goal remains.** Test: `cargo klarch check` passes, and a
-  search over the tree for the old slug returns only the lines that name the renamed entry by
-  its old slug beside its new reference. Shown to fail: the
+- **No reference to the old slug of the goal remains.** Test: `cargo klarch check` passes, and
+  every line a search over the tree for the old slug returns either names the renamed entry by its
+  old slug beside its new reference, or lies inside a quotation of the deliberation, such as
+  `argument@development-and-components@arg-1`, which quotes the old slug bare. Shown to fail: the
   check before the re-pointing reports every dangling reference.
 - **The two heads state the clause and the tag.** Test: the decision-record axis of the review
   before the merge. Shown to fail: the heads before the edit say rule 6's findings are `minor` only.
@@ -111,7 +114,7 @@ method of checking it". An issue on the goal standard instead of a fix now lost 
 written under the old standard "gets pushed back toward the list" (`argument@development-and-components@arg-31`),
 and the owner agreed "to fix in in this branch", R4.
 
-### A finding under the new clause is also tagged intent
+### A finding under the new clause is tagged intent instead of minor
 
 Thread: `thread@development-and-components@rule-6-finding-weight`.
 
@@ -154,14 +157,16 @@ like it applies to the project itself, not to the shipped skills" (R3).
 
 Thread: `thread@development-and-components@harness-argued-heads-scope`.
 
-**Shape.** `issue@agent-skills@heads-argued-from-another-harness` stays open; its re-entry becomes
-"the next design discussion that changes how fragments are delivered".
+**Shape.** `issue@agent-skills@heads-argued-from-another-harness` stays open; its re-entry becomes,
+as written in the issue: "The next design discussion on the audit's saved workflows, or one that
+changes how the shipped fragments are delivered, or a design-record audit pass, whichever comes
+first."
 
 **Argument.** The work adds a fragment and edits one, and changes no delivery of fragments; the owner
 ruled Q4 in R6.
 
-**Nearest rival and the fact that defeated it.** Arguing the issue's five heads again in this
-milestone: the owner's R6, "there is no point handling it".
+**Nearest rival and the fact that defeated it.** Arguing again in this milestone the issue's seven
+instances, four heads and three `rejected` entries: the owner's R6, "there is no point handling it".
 
 ## Harvest
 
