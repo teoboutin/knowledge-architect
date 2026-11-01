@@ -90,7 +90,9 @@ only where another goal would otherwise argue for the design it names: a propert
 no named design is the owner's scope control, exercised by what the owner asks for, or a quality
 argument a head makes against its own rival. Rule 4 asks only that one goal not conflate two
 intents, and two goals may share an aspect; a finding of rule 4 or of rule 6 is tagged `minor` and
-counted apart, as the owner proposed; for rule 4, on the owner's argument that it does not change
+counted apart, as the owner proposed, except a rule-6 finding that a goal judged only in use is
+measured by a list of the properties of its outcome, tagged `intent` instead, per
+`design@agent-skills@goal-reviewer-agent`; for rule 4, on the owner's argument that it does not change
 what an agent does in the project, and that no overlap at all between goals is probably out of
 reach. Rule 4's test is the head standard's rule on
 an exception, not the test of reversing one part alone, which splits a rule from its exception, per

@@ -21,14 +21,22 @@
    - the basename rule of #component-basename-collision, documenting the checker's refusal;
    - the procedure: `klarch new-component`, the goals through `skill@knowledge-architect-goal-setting`,
      and a pointer to `skill@knowledge-architect-setup` for declaring the Component, restating none of
-     it.
+     it;
+   - the guideline that a Component departing from the default criteria states why in a head of its
+     own design home. Slice 0 took it out of the goal, on the owner's word that the rules of splitting
+     go to the design record and the skill.
 
    Its description triggers at a design discussion, in development, at setup and at a project audit,
    per #component-skill-delivery.
 2. **The shared fragment "when to split"**, `planned@agent-skills@fragments/when-to-split.md`: the
    signals and a pointer to the component skill, hosted by the design skill and the development
-   skill, per `design@agent-skills@shared-text-fragment`.
+   skill, per `design@agent-skills@shared-text-fragment`. It joins `FRAGMENT_HOSTS` in
+   `path@agent-skills@src/lib.rs`, with both hosts, whose test checks the list against the
+   placeholders.
 3. **The primer's list of installed skills** gains the component skill, at its moments.
+   The retrospective's clause on splitting a project into Components, which the second "met while"
+   item of `goal@knowledge-architect@projects-are-split-into-components` asks for, is written by
+   slice 2, per #retrospective-code-rules-question; this slice writes none.
 4. **`issue@agent-skills@a-skill-for-creating-a-component`** closed.
 5. **`cargo klarch install-agent-skills`**, the CHANGELOG.md entries in `Next release`, and
    `cargo x changelog`.
@@ -126,14 +134,18 @@ crates.
 Thread: `thread@development-and-components@pure-output-layer`.
 
 **Shape.** A Component's logic returns data, a struct, and a separate layer of code prints it or
-serialises it in a format a machine reads. Both layers sit in the Component that defines the struct.
+serialises it in a format a machine reads. By default, both layers sit in the Component that defines
+the struct.
 A Component of its own holds the output side only where that side takes decisions of its own, as a
 graphical interface that decides a layout does: a Component that takes no decision has no design of
 its own, on the owner's word during slice 0.
 
-**Argument.** "Same rule, two scales" (`argument@development-and-components@arg-35`); the owner:
-"Separating pure logic from non pure routines with side effects is very good for long term health of
-a project" (R3). No rival was offered.
+**Argument.** The owner's R3 note: "Separating pure logic from non pure routines with side effects is
+very good for long term health of a project, I have noticed." The owner's answer during slice 0,
+verbatim in the milestone document's thread item `thread@development-and-components@pure-output-layer`:
+the printing "should probably" be a function in the crate or Component that returns or defines the
+struct, or a Component would take no decision and have no design record, which a Component
+requires. No rival was offered.
 
 ### The shared test Component
 
@@ -208,8 +220,14 @@ above, for the project's own name.
   #component-skill-delivery; #component-crate-mapping with #component-split-signals,
   #pure-output-layer and #shared-test-component, as heads or as one head where the test of one
   decision per head allows; #component-naming, citing
-  `design@knowledge-architect@no-component-directory-named-after-the-project`. #component-basename-collision
-  earns no head: `design@core@anchor-collisions-refused` and the code hold it.
+  `design@knowledge-architect@no-component-directory-named-after-the-project`. In
+  `register@core@design`, under its anchors subject, a head for #component-basename-collision
+  recording that two anchors never share a name, on the owner's R6 argument "Two components with the
+  same basename are either the same one, or they do not have a specific enough name." and the
+  reference rule that a reference names its anchor by one word; entry test 1 of
+  `primer@design-heads`, what the manifest accepts, admits it. `design@core@anchor-collisions-refused`
+  refuses two anchors at one path, not two of one name, and no head states the refusal by name:
+  only `resolve_anchors` in `path@core@src/manifest.rs` and its test hold it.
 - **Rejected:** planning as the place of the component instructions, where
   `design@agent-skills@losing-alternatives-filter` admits it.
 - **Tripwires:** premortem cause 6 of the milestone document, judged by the tripwire standard, and

@@ -4,7 +4,7 @@
 
 This is the milestone document of the work that ships the workflow's development activity to every
 target project. After it lands, the installed text holds a development skill ported from
-`skill@klarch-development` and from thaum's development skill, two new review agents and a widened
+`skill@klarch-development` and from thaum's development skill, three new review agents and a widened
 code-claims reviewer, a mutation command in a published crate, a skill for creating or splitting a
 Component, a goal standard that admits an outcome judged only in use, the code-quality goal
 reworded under that standard, and a design skill whose record search may wait until the scope
@@ -16,8 +16,8 @@ settles. It is written for a session that did not witness the discussion.
   reversed or rewritten, the design home wins.
 - Every name it uses is defined under Names or "New names, in one place", or exists in the tree.
 - Where the owner's word is awaited, `skill@knowledge-architect-planning@working-a-slice` says what
-  waits. No default awaits the owner when this document is written: see "Defaults awaiting the
-  owner".
+  waits. Q5, D1 and D2 await the owner when this document is written, as "Defaults awaiting the
+  owner" says; the branch that adds this document merges once the owner rules on them.
 
 The discussion ran in one session of Claude Code, with no compaction. That session is found by its
 opening message, the owner's "I have just reworked the goals of the project, in particular with the
@@ -69,7 +69,7 @@ slice. This milestone adds:
 | the goal standard | `path@agent-skills@fragments/goal-standard.md`, hosted by `skill@knowledge-architect-goal-setting@goal-or-not` and `agent@knowledge-architect-goal-reviewer@the-goal-standard` |
 | rule 6 | rule 6 of the goal standard, "What shows it met is in what the project builds" |
 | the new clause | the sentence #goal-standard-measure adds to rule 6, worded in `spec@development-and-components@goal-standard-clause` |
-| the code-quality goal | `code-has-one-responsibility-per-unit-and-is-testable`, now `goal@knowledge-architect@the-workflow-leads-to-better-code`,, which slice 0 rewords and renames |
+| the code-quality goal | `goal@knowledge-architect@the-workflow-leads-to-better-code`, named `code-has-one-responsibility-per-unit-and-is-testable` before slice 0 reworded and renamed it |
 | the development skill | the installed skill slice 2 ships, `knowledge-architect-development` |
 | the component skill | the installed skill slice 3 ships, default name `knowledge-architect-component-creation` |
 | the fragment "when to split" | the shared fragment slice 3 adds, hosted by the design skill and the development skill |
@@ -77,7 +77,17 @@ slice. This milestone adds:
 | the maintenance crate | a project's crate that holds its repeated tasks, run as `cargo x`; here `path@knowledge-architect@tools/xtask/`, per `design@agent-skills@xtask-pins-checker` |
 | a declared path | a code path a target project declares performance-critical in one of its design heads, with the command that measures it, per #performance-opt-in |
 | the search | the record search of `agent@knowledge-architect-record-searcher`, which the design skill dispatches at its loop step 1 |
-| Q1 to Q4 | the four labelled questions the discussion put to the owner, all ruled; see "Defaults awaiting the owner" |
+| Q1 | the question whether thaum's mutation tool is taken in, ruled R3; see "Defaults awaiting the owner" |
+| Q2 | the question whether a declared path is a design head or a manifest key, ruled R7; see "Defaults awaiting the owner" |
+| Q3 | the question whether the generic `run` and `restore` ship as a command of a published crate, ruled R3; see "Defaults awaiting the owner" |
+| Q4 | the question whether the harness issue is handled in this milestone, ruled R6; see "Defaults awaiting the owner" |
+| Q5 | the question whether slice 0's design audit reuses the discussion's record search, awaiting the owner; see "Defaults awaiting the owner" |
+| Q6 | the question of the force of the default shape on code a change writes or edits, ruled during slice 0; see "Defaults awaiting the owner" |
+| Q7 | the question of which text states the content of the default shape, ruled during slice 0; see "Defaults awaiting the owner" |
+| Q8 | the question whether a lint the setup ships is an installed rule about code, ruled during slice 0; see "Defaults awaiting the owner" |
+| Q9 | the question of which text states that a Component takes decisions of its own, ruled during slice 0; see "Defaults awaiting the owner" |
+| D1 | the default on whether cargo-mutants is an ask of every target project, awaiting the owner; see "Defaults awaiting the owner" |
+| D2 | the default on how the development skill names the mutation command in a Rust project with no maintenance crate, awaiting the owner; see "Defaults awaiting the owner" |
 
 ## What the work is
 
@@ -88,15 +98,15 @@ slice. This milestone adds:
 | `skill@klarch-development` | this repository's own development skill, 235 lines: grounding, the loop, claims and tests that discriminate with a manual scratch-worktree mutation procedure, one review axis (adversarial), the gate, incompleteness recorded, comment species. Nothing installed covers the activity |
 | thaum's development and review skills | the same procedure with refinements: each adversarial reviewer scoped to one subsystem, claim family or boundary; the reviewer picks its tests and runs the wider suite before reporting a survivor; a rules-first axis for its external specification; `cargo mutate run` and `restore`; bench runs before and after work that could change performance |
 | thaum's mutation tool | `run`, `restore` and `sweep`; thaum-specific parts: the `THAUM_CHECKOUT` build tie in lib.rs, `sweep`, the record directory `path@elsewhere@~/dev/games/thaum/tools/mutate/local/current/` that `record_dir` returns, and `project_root`, which finds the root by the checker's manifest through the knowledge-architect crate |
-| rule 6 of the goal standard | the measure is "an observable of the tree as it stands"; evidence from use "is not the measure"; nothing says how an outcome judged only in use is measured |
-| `agent@knowledge-architect-goal-reviewer@what-to-report` | "A finding of rule 4 or of rule 6 is also tagged `minor`" |
-| the code-quality goal | requires three properties of every unit a change writes or edits, a departure argued at the code or in a head, and a review that judges each property; met while the installed text "holds a review of code that judges each property and whether each departure is argued" |
+| rule 6 of the goal standard | the measure is "an observable of the tree as it stands"; evidence from use "is not the measure"; where the outcome is judged only in use, the observable is what the project builds to pursue it and to learn from its use whether it is met, and a list of the properties the outcome is taken to consist of is no such observable: slice 0 added that clause |
+| `agent@knowledge-architect-goal-reviewer@what-to-report` | "A finding of rule 4 or of rule 6 is also tagged `minor`", except a finding that a goal judged only in use is measured by a list of the properties of its outcome, which "is tagged `intent` instead of `minor`": slice 0 added the exception |
+| the code-quality goal | `goal@knowledge-architect@the-workflow-leads-to-better-code` defines no quality: met while the installed text "states a default shape for the code a change writes, and has a review of code weigh each branch's changes to Rust code against it, at the latest at the review before the branch merges", and while the installed retrospective skill asks whether a rule or guideline about code or tests proved too hard or too strict; slice 0 reworded and renamed it, from a goal that required three properties of every unit a change writes or edits |
 | `agent@knowledge-architect-code-claims-reviewer` | reads plan documents only |
 | `skill@knowledge-architect-review@review-axes` | no axis for code: the adversarial axis is `skill@klarch-development`'s own |
 | `skill@knowledge-architect-setup` | recommends a gates command whose gates include "the linter, where the project has one"; names no lint |
 | `skill@knowledge-architect-retrospective@what-it-examines` | its standing questions hold none on the rules about code |
 | `skill@knowledge-architect-design@discussion-loop`, step 1 | dispatches the search after the first challenge, per `design@agent-skills@search-after-first-challenge` |
-| Components | `goal@knowledge-architect@projects-are-split-into-components` asks the installed text for default criteria for placing work in Components and for splitting them; no installed text says how to create or split a Component beyond declaring it, in `skill@knowledge-architect-setup@components-and-locations`; `issue@agent-skills@a-skill-for-creating-a-component` holds the question |
+| Components | `goal@knowledge-architect@projects-are-split-into-components` asks the installed text for default criteria for placing work in Components and for splitting them, as guidelines, and asks the installed retrospective skill whether a rule or guideline about splitting proved too hard or too strict, as slice 0 reworded it; no installed text says how to create or split a Component beyond declaring it, in `skill@knowledge-architect-setup@components-and-locations`; `issue@agent-skills@a-skill-for-creating-a-component` holds the question |
 
 **After**, the work as five slices, in order: the goal standard and the reworded goal; the mutation
 crate; the development skill and its axes; the component skill; the search timing. The slices are
@@ -129,8 +139,7 @@ listed under "Implementation sequence".
 #upstream-tool-loop; `rejected@gates@gates-command-of-the-checker`, which keeps the mutation command
 out of the checker's binary; `design@gates@gates-crate`, whose purpose keeps it out of the gates
 library; `design@knowledge-architect@no-operation-loses-content`, which bounds the mutation tool;
-`design@agent-skills@settled-means-recorded`, which sends new features and additions through the
-design skill's grounding and its search, so that #fix-grounding needs none per fix; `design@agent-skills@shared-text-fragment`, the mechanism of the fragment
+`design@agent-skills@settled-means-recorded`, which sends a change the owner asks for or proposes to the design skill, and its search, unless a record the session can see states it, so that #fix-grounding needs no search per fix; `design@agent-skills@shared-text-fragment`, the mechanism of the fragment
 "when to split"; `design@agent-skills@naming-rule`, which names the new skills;
 `design@core@anchor-collisions-refused` and the refusal of two anchors with one name in
 `resolve_anchors` of `path@core@src/manifest.rs`, which #component-basename-collision documents;
@@ -145,14 +154,16 @@ that judges or updates each:
 
 | entry | change | slice | citing texts, and what happens to each |
 | --- | --- | --- | --- |
-| `design@agent-skills@goal-standard-rules` | rule 6 gains the new clause, which adds to its rule and reverses nothing; a finding under the new clause is also tagged `intent` | 0 | `design@agent-skills@goal-entry-shape`, `design@agent-skills@goal-reviewer-agent`, `design@agent-skills@shared-text-fragment`: reread at slice 0, the second rewritten there |
+| `design@agent-skills@goal-standard-rules` | rule 6 gains the new clause, which adds to its rule and reverses nothing; a finding under the new clause is tagged `intent` instead of `minor` | 0 | `design@agent-skills@goal-entry-shape`, `design@agent-skills@goal-reviewer-agent`, `design@agent-skills@shared-text-fragment`: reread at slice 0, the second rewritten there |
 | `design@agent-skills@goal-reviewer-agent` | the `intent` tag of #rule-6-finding-weight | 0 | `skill@knowledge-architect-goal-setting@drawing-out-intent`, reread at slice 0; `design@agent-skills@goals-axis-in-the-review-before-a-merge`, reread at slice 0; `issue@agent-skills@a-goal-the-draft-review-read-was-reworded-again-for-a-defect`, updated or closed at slice 0 |
-| `code-has-one-responsibility-per-unit-and-is-testable`, now `goal@knowledge-architect@the-workflow-leads-to-better-code`, | reworded and renamed toward the slug `goal@knowledge-architect@the-workflow-leads-to-better-code`, under `skill@knowledge-architect-goal-setting` | 0 | `goal@knowledge-architect@agents-get-a-complete-workflow` and `goal@knowledge-architect@projects-are-split-into-components`, in `register@knowledge-architect@goal`, and `issue@knowledge-architect@the-workflow-has-no-skill-for-developing-branch-work-or-releasing`: each reference re-pointed at slice 0, and each sentence that leans on the old body reread there; this milestone's own documents, re-pointed at slice 0 |
-| `design@knowledge-architect@publish-credential` | "Each of the three crates" becomes four; the mutation crate's first version is published with an API token, outside the release workflow | 1 | cited by no entry; `skill@klarch-release`, whose scope names the three published crates, gains the fourth at slice 1 |
+| `goal@knowledge-architect@the-workflow-leads-to-better-code`, named `code-has-one-responsibility-per-unit-and-is-testable` before slice 0 | reworded and renamed under `skill@knowledge-architect-goal-setting` | 0 | `goal@knowledge-architect@agents-get-a-complete-workflow` and `goal@knowledge-architect@projects-are-split-into-components`, in `register@knowledge-architect@goal`, and `issue@knowledge-architect@the-workflow-has-no-skill-for-developing-branch-work-or-releasing`: each reference re-pointed at slice 0, and each sentence that leans on the old body reread there; this milestone's own documents, re-pointed at slice 0 |
+| `goal@knowledge-architect@projects-are-split-into-components` | reworded at slice 0 on the owner's word: the default criteria are guidelines that real use corrects, a Component with no Rust code of its own is outside the rule of one purpose, and the installed retrospective skill asks whether a rule or guideline about splitting proved too hard or too strict | 0 | `goal@knowledge-architect@agents-get-a-complete-workflow`, in `register@knowledge-architect@goal`, `issue@agent-skills@a-skill-for-creating-a-component` and `issue@knowledge-architect@four-goals-homes-state-no-purpose-their-goals-serve`: reread at slice 3, which builds what the goal's first "met while" item asks, and closes the first issue; the retrospective clause of its second item is written at slice 2, per #retrospective-code-rules-question |
+| `design@knowledge-architect@publish-credential` | "Each of the three crates" becomes four; the mutation crate's first version is published with an API token, outside the release workflow | 1 | `design@knowledge-architect@owner-word-mechanism`, which states that the trusted publisher of each crate names the environment `release`, and the comment at the head of `path@knowledge-architect@.github/workflows/release.yml`, which names "the three crates": each reread at slice 1 and updated where the fourth crate makes it false; `skill@klarch-release`, whose scope names the three published crates, gains the fourth at slice 1 |
 | `design@knowledge-architect@scratch-worktree-outside-git-rules` | its example, the worktree mutation procedure of `skill@klarch-development`, is replaced by `cargo x mutate` | 2 | `instructions@git-workflow`, in the root `CLAUDE.md`, `design@knowledge-architect@git-flow` and `design@knowledge-architect@no-operation-loses-content`: reread at slice 2, each sentence naming the worktree procedure rewritten |
 | `design@agent-skills@plan-read-against-the-record` | it places the code-claims reviewer among the reviewers of a plan document; #code-claims-scope also sends it on a diff's statements about code | 2 | `skill@knowledge-architect-planning@plan-reviews`, `design@agent-skills@record-searched-before-the-work`, `design@agent-skills@unread-entries-reach-the-conformance-review`, `issue@agent-skills@audit-axes-beyond-the-design-record`: reread at slice 2; `issue@agent-skills@the-code-claims-axis-reads-plan-documents-only`: closed at slice 2 |
 | `design@agent-skills@code-change-reads-its-record` | its last sentence leaves the question of a search per fix to an open issue; #fix-grounding answers it | 2 | the primer's subsection "Read the record of code before changing it", `design@agent-skills@design-home-write-loads-recording`, `design@agent-skills@primer-limit`, `design@agent-skills@verification-in-primer`, `design@agent-skills@record-searched-before-the-work`, `design@agent-skills@a-head-is-owed-by-an-entry-test`: reread at slice 2; `issue@agent-skills@a-fix-is-grounded-by-no-record-search`: closed at slice 2 |
 | `design@agent-skills@search-after-first-challenge` | the search may wait until the scope settles, and no thread closes before it has run | 4 | `design@agent-skills@record-searched-before-the-work`, rewritten at slice 4 |
+| `design@agent-skills@bounded-path-in-design` | it classifies bounded work only after the grounding, "its search for standing entries included": a delayed search delays the classification, so no one-message bounded proposal is sent before the search has run | 4 | `design@agent-skills@settled-means-recorded`, `design@agent-skills@record-searched-before-the-work`, `issue@agent-skills@an-issue-s-re-entry-point-is-read-by-no-review`, `issue@agent-skills@the-open-space-test-may-admit-every-problem`, `tripwire@agent-skills@deferred-trigger-met-by-undesigned-work`, `tripwire@agent-skills@a-shortcut-decision-earns-a-head`: reread at slice 4 |
 | `design@agent-skills@record-searched-before-the-work` | its sentence on when the design skill dispatches the search follows #search-timing; its "Other work that does not go through the design skill sends no search" stands, per #fix-grounding | 4 | `design@agent-skills@code-change-reads-its-record`, `design@agent-skills@search-after-first-challenge`, `design@agent-skills@standing-state-review-before-every-merge`, `design@agent-skills@unread-entries-reach-the-conformance-review`, `issue@agent-skills@a-pending-ruled-file-is-reached-by-no-installed-search`, `tripwire@agent-skills@deferred-trigger-met-by-undesigned-work`, `tripwire@agent-skills@record-search-misses`: reread at slice 4; `issue@agent-skills@a-fix-is-grounded-by-no-record-search`: closed at slice 2 |
 
 **The entries the discussion's search graded `bears`**, 136, with their outcome. The search ran
@@ -171,7 +182,7 @@ during the reply to R5, with 18 searchers over the whole record; every report pa
 | `goal@knowledge-architect@adoption-is-easy` | constrains; read whole at grounding |
 | `goal@knowledge-architect@agents-get-a-complete-workflow` | constrains; slice 2 delivers its developing activity, and the source of criterion #no-pr-or-ci-assumed |
 | `goal@knowledge-architect@agents-work-without-drift` | constrains; read whole at grounding |
-| `code-has-one-responsibility-per-unit-and-is-testable`, now `goal@knowledge-architect@the-workflow-leads-to-better-code`, | reworded and renamed at slice 0, per #code-quality-goal-wording; the source of criterion #code-shape-is-reviewed |
+| `goal@knowledge-architect@the-workflow-leads-to-better-code`, named `code-has-one-responsibility-per-unit-and-is-testable` before slice 0 | reworded and renamed at slice 0, per #code-quality-goal-wording; the source of criterion #code-shape-is-reviewed |
 | `goal@knowledge-architect@design-is-recorded-with-its-arguments` | constrains; read whole at grounding |
 | `goal@knowledge-architect@design-with-agents-as-counterparts` | constrains #search-timing; read whole at grounding |
 | `goal@knowledge-architect@documentation-stays-consistent` | constrains; read whole at grounding |
@@ -179,8 +190,8 @@ during the reply to R5, with 18 searchers over the whole record; every report pa
 | `goal@knowledge-architect@generic-tools-and-procedures-are-shipped` | constrains, and may change at slice 2: the generic part of `skill@klarch-development` and of thaum's mutation tool is taken in (Q1, Q3), and the local copies go once it ships |
 | `goal@knowledge-architect@mechanical-tasks-are-the-tool-s` | constrains; the source of criterion #mechanical-step-is-a-command |
 | `goal@knowledge-architect@owner-attention-on-what-is-theirs` | constrains; read whole at grounding |
-| `goal@knowledge-architect@projects-are-split-into-components` | constrains; slice 3 delivers how the installed text leads there |
-| `goal@knowledge-architect@serves-one-kind-of-project` | constrains slice 1 and slice 2: the lints and cargo-mutants are asks of every target project |
+| `goal@knowledge-architect@projects-are-split-into-components` | constrains; slice 3 delivers how the installed text leads there, and slice 2 writes its retrospective clause, per #retrospective-code-rules-question |
+| `goal@knowledge-architect@serves-one-kind-of-project` | constrains slice 1 and slice 2: the lints of #api-doc-completeness are an ask of every target project, which the owner approved with that thread in the checkpoint table of the reply to R6, by R7; cargo-mutants per D1 |
 | `goal@knowledge-architect@setup-brings-quality-tools` | constrains slice 1 and slice 2: the mutation command and the lints are quality tools the setup brings |
 | `goal@knowledge-architect@structure-and-workflow-work-together` | constrains; read whole at grounding |
 | `goal@knowledge-architect@the-owner-decides` | constrains; read whole at grounding |
@@ -215,7 +226,7 @@ during the reply to R5, with 18 searchers over the whole record; every report pa
 | `issue@knowledge-architect@four-goals-homes-state-no-purpose-their-goals-serve` | touched by slice 3's creation procedure, which writes a Component's goals through goal-setting; reread at slice 3's audit |
 | `issue@knowledge-architect@the-retrospective-asks-for-no-tool-a-session-set-up` | touched by #retrospective-code-rules-question and #upstream-tool-loop; reread at slice 2's audit |
 | `issue@knowledge-architect@the-workflow-has-no-skill-for-developing-branch-work-or-releasing` | its developing part is closed by slice 2; branch work and releasing stay open |
-| `design@agent-skills@bounded-path-in-design` | reread at slice 4: bounded work is classified after a grounding whose search may now wait |
+| `design@agent-skills@bounded-path-in-design` | rewritten at slice 4: bounded work is classified after a grounding whose search may now wait, so a delayed search delays the classification (#search-timing) |
 | `design@agent-skills@settled-means-recorded` | constrains slice 2: a change that decides something goes to the design skill before the development skill builds it (`argument@development-and-components@arg-58`) |
 | `design@agent-skills@new-or-reshaped-head-needs-design` | constrains slice 2's implement step, which routes a decision met while building by the backstop |
 | `design@agent-skills@existing-heads-on-touch` | constrains every slice's harvest: a head the change touches is brought to the rules on heads |
@@ -285,7 +296,7 @@ during the reply to R5, with 18 searchers over the whole record; every report pa
 | `design@core@anchor-collisions-refused` | constrains #component-basename-collision and nested Components; the refusal of two anchors with one name is in `resolve_anchors` (`argument@development-and-components@arg-75`) |
 | `design@knowledge-architect@no-operation-loses-content` | constrains slice 1: no run loses uncommitted content (claims of `spec@development-and-components@mutation-crate`) |
 | `design@knowledge-architect@scratch-worktree-outside-git-rules` | rewritten at slice 2, when its example, the worktree procedure of `skill@klarch-development`, is replaced by `cargo x mutate` |
-| `issue@agent-skills@no-reviewer-writes-its-own-report-file` | touched by slice 2's two new reviewer agents; stays open |
+| `issue@agent-skills@no-reviewer-writes-its-own-report-file` | touched by slice 2's three new reviewer agents; stays open |
 | `design@agent-skills@goal-entry-shape` | constrains slice 0's reworded goal |
 | `design@agent-skills@goals-change-through-goal-setting` | constrains slice 0: the goal is reworded under goal-setting only |
 | `design@agent-skills@goal-standard-rules` | rewritten at slice 0, per #goal-standard-measure and #rule-6-finding-weight |
@@ -442,6 +453,15 @@ design-conformance review:
 - `design@agent-skills@tripwire-horizon`: not read. any tripwire the discussion's premortem writes needs a `**Watches until:**` line counted by a command, per "Every tripwire names the occasions after which, unfired, it leaves"; no thread changes the lifecycle itself, so no relation beyond the recording procedure is established.
 - `tripwire@agent-skills@silent-read-too-widely`: not read. thread 1 has each claim carried by a test; the firing clause counts a check "listed as a claim of the step that builds it rather than an acceptance criterion"; it fires only together with an issue on a silent failure, which the work does not open, so no firing is established.
 
+**Entries the plan's review found missing**, with their outcome:
+
+| entry | outcome |
+| --- | --- |
+| `design@knowledge-architect@changelog-reviewed-at-the-release` | rested on: the widened code-claims reviewer of #code-claims-scope leaves the entries of CHANGELOG.md to the release's review |
+| `goal@agent-skills@reviews-judge-by-the-writer-s-criteria` | constrains #spec-first-axis: the reviewer judges the code only against what binds its writer, the specification as the project follows it |
+| `tripwire@agent-skills@departure-overridden-as-a-reading` | constrains #spec-first-axis: the reviewer reads the departures from the specification the project states, and applies no text of the specification over them |
+| `design@core@exit-code-ladder` | constrains slice 1: the mutation crate's outcome-to-exit-code mapping is read against it at that slice's audit |
+
 ## Criteria
 
 The criteria of the checkpoint the agent proposed in the reply to R6, which the owner's "Agreed on
@@ -449,9 +469,10 @@ the table." of R7 closed with the rest of the checkpoint.
 
 ### A review judges the shape of code `##code-shape-is-reviewed`
 
-Binding, from the code-quality goal, until slice 0 rewords it: the goal is met while the installed
-text "holds a review of code that judges each property and whether each departure is argued". Met
-by #code-shape-axis and #test-economy.
+Binding, from `goal@knowledge-architect@the-workflow-leads-to-better-code`, whose first "met while"
+item asks that the installed text "has a review of code weigh each branch's changes to Rust code
+against it, at the latest at the review before the branch merges". Met by #code-shape-axis and
+#review-cadence.
 
 ### The installed text works in a project that values neither performance nor an external specification `##works-without-performance-or-spec`
 
@@ -515,7 +536,7 @@ on the checkpoint of the reply to R6, which listed the thread in its bucket.
   lots of tests on a whim".
 - **States:** new (reply to R1); in discussion (reply to R2); approved R3.
 - **Arguments:** `argument@development-and-components@arg-4`, `argument@development-and-components@arg-15`,
-  `argument@development-and-components@arg-20`.
+  `argument@development-and-components@arg-20`, `argument@development-and-components@arg-82`.
 - **Closed by:** R2: "test-economy: this is a good idea." R3: "test-economy agreed on refinements".
 - **Shape:** `spec@development-and-components@development-skill`. **Harvest:** with the head of
   #code-shape-axis, or a head of its own where decision-recording's test of one decision per head
@@ -528,7 +549,7 @@ on the checkpoint of the reply to R6, which listed the thread in its bucket.
   running time.
 - **Arguments:** `argument@development-and-components@arg-2`, `argument@development-and-components@arg-5`,
   `argument@development-and-components@arg-65`, `argument@development-and-components@arg-70`,
-  `argument@development-and-components@arg-78`.
+  `argument@development-and-components@arg-78`, `argument@development-and-components@arg-83`.
 - **Closed by:** R2: "adversarial-scoping agreed". R6: "the fix I mentionned was sending multiple
   adversarial on a smaller, scoped set of the changes, plus the instruction to run partial tests. In
   practice, until now, this has proven to be enough of a fix, by sufficiently reducing the time
@@ -542,7 +563,8 @@ on the checkpoint of the reply to R6, which listed the thread in its bucket.
 - **Proposed:** the agent, reply to R1, generalising thaum's rules-first axis.
 - **States:** new (reply to R1); approved R2; an installed agent, reply to R5.
 - **Arguments:** `argument@development-and-components@arg-2`, `argument@development-and-components@arg-6`,
-  `argument@development-and-components@arg-57`, `argument@development-and-components@arg-68`.
+  `argument@development-and-components@arg-57`, `argument@development-and-components@arg-68`,
+  `argument@development-and-components@arg-84`.
 - **Closed by:** R2: "spec-first-axis good idea too".
 - **Shape:** `spec@development-and-components@development-skill`. **Harvest:** a head in
   `register@agent-skills@design`, slice 2.
@@ -601,7 +623,8 @@ on the checkpoint of the reply to R6, which listed the thread in its bucket.
 - **States:** new (reply to R1); approved R2; Q2's default, a design head, carried in the checkpoint
   and approved R7.
 - **Arguments:** `argument@development-and-components@arg-2`, `argument@development-and-components@arg-9`,
-  `argument@development-and-components@arg-17`.
+  `argument@development-and-components@arg-17`, `argument@development-and-components@arg-84`,
+  `argument@development-and-components@arg-85`.
 - **Closed by:** R2: "performance-opt-in: good idea, I think this is the correct solution, for
   performance non-regression, review is not needed, a benchmark procedure is better." R7: "Agreed on
   the table."
@@ -670,6 +693,11 @@ on the checkpoint of the reply to R6, which listed the thread in its bucket.
   `argument@development-and-components@arg-69`.
 - **Closed by:** R4: "retrospective-code-rules-question: agreed on that question, it looks wide
   enough to detect problems, and narrow enough to be understood and answerable."
+- **Widened in slice 0:** the question gains a second clause, on rules or guidelines about splitting
+  the project into Components, since slice 0 reworded
+  `goal@knowledge-architect@projects-are-split-into-components` to ask the retrospective it; and a
+  lint the setup ships counts as an installed rule about code (Q8). Its wording is in
+  `spec@development-and-components@development-skill`; slice 2 writes both clauses.
 - **Shape:** `spec@development-and-components@development-skill`. **Harvest:** the rewrite of
   `design@agent-skills@premortem-as-watch-points`, whose list of standing questions it joins, slice 2.
 
@@ -682,12 +710,6 @@ on the checkpoint of the reply to R6, which listed the thread in its bucket.
   `argument@development-and-components@arg-41`, `argument@development-and-components@arg-46`,
   `argument@development-and-components@arg-57`.
 - **Closed by:** R4: "component-crate-mapping, component-split-signals, pure-output-layer: agreed."
-  Narrowed on the owner's word during slice 0, after version 3 of the goal draft: "About this
-  component split, in the case of a returned struct and the printer function: I think the component
-  split is too strict here. The pirnt function should probably be a function in the crate/component
-  that returns or defines the struct. Or we would have a component that takes no decision, thus has
-  no design record, and this is also something that a component requires IMO: its own decisions and
-  design."
   R5: "component-crate-mapping agreed on the table."
 - **Shape:** `spec@development-and-components@component-skill`. **Harvest:** a head in
   `register@agent-skills@design`, slice 3; closes `issue@agent-skills@a-skill-for-creating-a-component`.
@@ -698,22 +720,17 @@ on the checkpoint of the reply to R6, which listed the thread in its bucket.
 - **States:** new (reply to R3); approved R4.
 - **Arguments:** `argument@development-and-components@arg-29`, `argument@development-and-components@arg-34`.
 - **Closed by:** R4: "component-crate-mapping, component-split-signals, pure-output-layer: agreed."
-  Narrowed on the owner's word during slice 0, after version 3 of the goal draft: "About this
-  component split, in the case of a returned struct and the printer function: I think the component
-  split is too strict here. The pirnt function should probably be a function in the crate/component
-  that returns or defines the struct. Or we would have a component that takes no decision, thus has
-  no design record, and this is also something that a component requires IMO: its own decisions and
-  design."
 - **Shape:** `spec@development-and-components@component-skill`. **Harvest:** with the head of
   #component-crate-mapping or of its own, slice 3.
 
-### A Component's logic and the code that prints or serialises its data are two layers of one Component, split into two Components only where the output side takes decisions of its own `##pure-output-layer`
+### A Component's logic and the code that prints or serialises its data are by default two layers of one Component, split into two Components only where the output side takes decisions of its own `##pure-output-layer`
 
 - **Proposed:** the agent, reply to R3, from the owner's R3 note on pure functions and output.
 - **States:** new (reply to R3); approved R4.
 - **Arguments:** `argument@development-and-components@arg-29`, `argument@development-and-components@arg-35`.
 - **Closed by:** R4: "component-crate-mapping, component-split-signals, pure-output-layer: agreed."
-  Narrowed on the owner's word during slice 0, after version 3 of the goal draft: "About this
+  Narrowed during slice 0, after version 3 of the goal draft, on the owner's word that the printing
+  stays by default in the Component that returns or defines the struct ("should probably"): "About this
   component split, in the case of a returned struct and the printer function: I think the component
   split is too strict here. The pirnt function should probably be a function in the crate/component
   that returns or defines the struct. Or we would have a component that takes no decision, thus has
@@ -798,8 +815,9 @@ on the checkpoint of the reply to R6, which listed the thread in its bucket.
   `argument@development-and-components@arg-62`, `argument@development-and-components@arg-63`.
 - **Closed by:** R6: "search-timing: agreed on your synthesis."
 - **Shape:** `spec@development-and-components@search-timing`. **Harvest:** the rewrite of
-  `design@agent-skills@search-after-first-challenge` and of
-  `design@agent-skills@record-searched-before-the-work`, slice 4.
+  `design@agent-skills@search-after-first-challenge`, of
+  `design@agent-skills@record-searched-before-the-work` and of
+  `design@agent-skills@bounded-path-in-design`, slice 4.
 
 ### A fix runs no record search; the development skill's grounding reads the record of the code it changes `##fix-grounding`
 
@@ -821,13 +839,16 @@ on the checkpoint of the reply to R6, which listed the thread in its bucket.
 - **Shape:** `spec@development-and-components@development-skill`. **Harvest:** a `%%` line beside the
   sentence; the issue stays open for its other options, slice 2.
 
-### A rule-6 finding under the new clause is also tagged intent `##rule-6-finding-weight`
+### A rule-6 finding under the new clause is tagged intent instead of minor `##rule-6-finding-weight`
 
 - **Proposed:** the agent, reply to R5, from the re-entry of
   `issue@agent-skills@a-goal-the-draft-review-read-was-reworded-again-for-a-defect`.
 - **States:** new (reply to R5); approved R6.
 - **Arguments:** `argument@development-and-components@arg-60`.
 - **Closed by:** R6: "rule-6-finding-weight agreed".
+- **Refined in slice 0:** the session refined "also tagged `intent`" to "tagged `intent` instead of
+  `minor`", since `minor` marks a finding that changes no agent's act; recorded as the session's
+  decision in the slice 0 commit.
 - **Shape:** `spec@development-and-components@goal-standard-clause`. **Harvest:** the rewrite of
   `design@agent-skills@goal-reviewer-agent` and `design@agent-skills@goal-standard-rules`, slice 0.
 
@@ -861,8 +882,14 @@ on the checkpoint of the reply to R6, which listed the thread in its bucket.
   quite bad practice, I see no reason to pick another fix than simply forbidding it and documenting
   that."
 - **Shape:** `spec@development-and-components@component-skill`. **Harvest:** a statement of the
-  component skill; no new head, since `design@core@anchor-collisions-refused` and the code hold the
-  rule, slice 3.
+  component skill, and a head in `register@core@design`, under its anchors subject, recording that
+  two anchors never share a name, slice 3. `design@core@anchor-collisions-refused` refuses two
+  anchors at one path, not two anchors of one name, and no head states the refusal by name: only
+  `resolve_anchors` in `path@core@src/manifest.rs` and its test hold it. Entry test 1 of
+  `primer@design-heads`, an interface others consume, admits the head, since it decides what the
+  manifest accepts. Its argument: the owner's R6, "Two components with the same basename are either
+  the same one, or they do not have a specific enough name.", and the reference rule that a
+  reference names its anchor by one word, so two anchors of one name would make it name two.
 
 ### Out of this milestone: the fragments are not delivered differently, so the re-entry of the harness issue narrows `##harness-argued-heads-scope`
 
@@ -873,8 +900,11 @@ on the checkpoint of the reply to R6, which listed the thread in its bucket.
 - **Closed by:** R6: "Q4: right, we are not changing how those are being delivered, there is no
   point handling it, change the re entry."
 - **Shape:** `spec@development-and-components@goal-standard-clause`. **Harvest:** the re-entry of
-  `issue@agent-skills@heads-argued-from-another-harness` becomes "the next design discussion that
-  changes how fragments are delivered", slice 0.
+  `issue@agent-skills@heads-argued-from-another-harness`, slice 0.
+- **Outcome at slice 0:** the issue's re-entry reads "The next design discussion on the audit's
+  saved workflows, or one that changes how the shipped fragments are delivered, or a design-record
+  audit pass, whichever comes first.", which keeps the two other occasions of the earlier re-entry
+  beside the narrowed one that `argument@development-and-components@arg-79` words.
 
 ### A Component's directory is named by what it does, never after the project, and its package name carries the project prefix `##component-naming`
 
@@ -895,6 +925,9 @@ Each argument's round, who gave it, the threads it bears on, and its key words. 
 marks is verbatim; the rest is a summary written at assembly. A reference that a quotation holds is
 kept as the quotation wrote it, except where noted; a bare path in a quotation is written as a
 reference to the file it names, or in words where it names a kind of file in any project.
+Arguments `argument@development-and-components@arg-82` to `argument@development-and-components@arg-85`
+were added at the plan's review and belong to R1; they follow `argument@development-and-components@arg-81`
+since a number is never reused.
 
 ### The code-quality goal asks for a review of code that the local development skill does not hold `##arg-1`
 
@@ -1150,7 +1183,7 @@ reference to the file it names, or in words where it names a kind of file in any
 
 ### The constraints on the development skill `##arg-64`
 
-**The agent, in its reply to R5.** Threads: #code-shape-axis, #test-economy, #adversarial-scoping, #spec-first-axis, #code-claims-scope, #fix-grounding. Words: no PR or CI wording (`issue@agent-skills@installed-text-assumes-pull-requests-and-ci`); no reference to scoped `CLAUDE.md` (`issue@core@a-home-for-developer-contracts-outside-agent-configuration`); do not restate the guard-reference rule (`issue@agent-skills@the-primer-and-its-head-name-a-guard-s-issue-under-two-conditions`); each new behaviour instruction names real-use evidence (`design@agent-skills@behaviour-additions-need-real-use`; table: ported steps -> `skill@klarch-development` and thaum; adversarial scoping, spec-first -> thaum; code shape, test economy -> owner's reports in this discussion; code claims -> the issue's two cases); `skill@klarch-development` and thaum-development become overlays that may only add (`issue@agent-skills@patching-an-installed-skill`).
+**The agent, in its reply to R5.** Threads: #code-shape-axis, #test-economy, #adversarial-scoping, #spec-first-axis, #code-claims-scope, #fix-grounding. Words: no PR or CI wording (`issue@agent-skills@installed-text-assumes-pull-requests-and-ci`); no reference to scoped `CLAUDE.md` (`issue@core@a-home-for-developer-contracts-outside-agent-configuration`); do not restate the guard-reference rule (`issue@agent-skills@the-primer-and-its-head-name-a-guard-s-issue-under-two-conditions`); each new behaviour instruction names real-use evidence (`design@agent-skills@behaviour-additions-need-real-use`; table: ported steps -> `skill@klarch-development` and thaum, and the owner's R1 on the discrimination step (`argument@development-and-components@arg-82`); adversarial scoping, spec-first -> thaum, and for adversarial scoping the owner's R1 (`argument@development-and-components@arg-83`); code shape, test economy -> owner's reports in this discussion, test economy among them the owner's R1 (`argument@development-and-components@arg-82`); code claims -> the issue's two cases); `skill@klarch-development` and thaum-development become overlays that may only add (`issue@agent-skills@patching-an-installed-skill`).
 
 ### The adversarial axis shipping ends the premise of the running-time issue `##arg-65`
 
@@ -1216,9 +1249,36 @@ reference to the file it names, or in words where it names a kind of file in any
 
 **The agent, in its reply to R6.** Threads: #code-quality-goal-wording, #mutation-command-host, #component-skill-delivery, #search-timing. Words: no acceptance criterion: "each cause is either a step claim (cause 8) or evidence that arrives only through retrospectives or history." Proposed slices (one branch each): 1 goal-standard clause, rule-6 weight, goal reworded; 2 mutation crate and `cargo x mutate`; 3 installed development skill (port, axis agents, code-claims widening, cadence, retrospective question); 4 component skill, fragment, naming rule; 5 design skill search timing.
 
+Slices 1 to 5 of this proposal are slices 0 to 4 of the implementation sequence.
+
 ### The goal standard and the reworded goal land first, as slice 0 `##arg-81`
 
-**The owner, R7.** Threads: #goal-standard-measure, #code-quality-goal-wording. Words: "The goal standard and reworded goal should be done quickly, merged with the milestone plan (or maybe applied before reviewing the plan), as a 'slice 0'. If we apply it after the milestone plan, the plans won't be aligned with current goals, and review might end up giving conflicting resluts I fear. The other slices of the milestone are good"
+**The owner, R7.** Threads: #goal-standard-measure, #code-quality-goal-wording. Words: "The goal standard and reworded goal should be done quickly, merged with the milestone plan (or maybe applied before reviewing the plan), as a "slice 0". If we apply it after the milestone plan, the plans won't be aligned with current goals ,and review might end up giving conflicting resluts I fear. The other slices of the milestone are good"
+
+### Showing that tests discriminate costs time and keeps the test suite clean `##arg-82`
+
+**The owner, R1.** Threads: #test-economy, and the discrimination step the development skill ports
+from `skill@klarch-development`. Words: "In particular showing that tests discriminates. This often
+costs times during development, but it leads to overall much better quality of the test suite,
+because agents tend to add lots of tests on a whim, which pollute the test suite for little to no
+gain."
+
+### The adversarial axis is the most important one `##arg-83`
+
+**The owner, R1.** Threads: #adversarial-scoping. Words: "The adversarial axis is the most important
+one IMO, and works really well".
+
+### Coverage of the external specification comes before performance `##arg-84`
+
+**The owner, R1.** Threads: #performance-opt-in, #spec-first-axis. Words: "I have never focused on
+performance reviews, because in thaum, for initial development, I rank coverage of the external spec
+to come first, optimisations being added later (there is no point optimizing a non finished engine),
+and here because it is less critical, everything already runs quite fast for the use cases."
+
+### Performance is opt in per project, for the code paths where it is critical `##arg-85`
+
+**The owner, R1.** Threads: #performance-opt-in. Words: "So it should be opt in per project, for code
+paths where it is actually critical, or a si;milar strategy."
 
 ## New names, in one place
 
@@ -1227,14 +1287,17 @@ name                                              file                          
 the new clause of rule 6                          crates/agent-skills/fragments/goal-standard.md                0
 goal `goal@knowledge-architect@the-workflow-leads-to-better-code` (default   docs/goals.md, replacing code-has-one-responsibility-         0
   slug; the owner rules the wording)                per-unit-and-is-testable
-Component mutate, package knowledge-architect-    crates/mutate/ (its Cargo.toml, src/lib.rs, src/main.rs or     1
-  mutate                                            the library alone, as slice 1's audit decides, README.md,
+Component mutate, package knowledge-architect-    crates/mutate/ (its Cargo.toml, src/lib.rs, src/main.rs,     1
+  mutate                                            a binary per D2's default, README.md,
                                                     CLAUDE.md, CRATES-IO.md, docs/)
 subcommand mutate of the maintenance crate,       tools/xtask/src/main.rs, and a module of its own              1
   cargo x mutate run, cargo x mutate restore
 skill knowledge-architect-development             crates/agent-skills/content/skills/development/SKILL.md      2
 agent knowledge-architect-code-shape-reviewer     crates/agent-skills/content/agents/code-shape-reviewer.md     2
 agent knowledge-architect-spec-first-reviewer     crates/agent-skills/content/agents/spec-first-reviewer.md     2
+agent knowledge-architect-adversarial-reviewer    crates/agent-skills/content/agents/adversarial-reviewer.md    2
+  (default name; the audit checks it against
+  the naming rule)
 the standing question on rules about code         crates/agent-skills/content/skills/retrospective/SKILL.md     2
 skill knowledge-architect-component-creation      crates/agent-skills/content/skills/component-creation/        3
   (default name; the audit checks it against        SKILL.md
@@ -1255,7 +1318,8 @@ Each slice's spec holds the decided design of the threads it builds. One shape c
 **the mutation command that the development skill names is the one slice 1 builds**, so slice 2
 writes `cargo x mutate run` and `restore` as the maintenance crate exposes them once slice 1 has
 merged, and the setup skill's maintenance-crate snippet, which slice 1 extends, is what a target
-project copies.
+project copies. A Rust project with no maintenance crate runs the crate's own binary instead,
+installed into a directory of the project, per D2's default.
 
 ## Mapping tables
 
@@ -1319,8 +1383,8 @@ history, per `argument@development-and-components@arg-80`.
 1. [The mutation crate](mutation-crate.md): the published crate `knowledge-architect-mutate`, `cargo x
    mutate` here, the setup snippet, the release procedure. Fails alone on a run that does not
    restore, or a refusal that does not refuse.
-2. [The development skill](development-skill.md): the installed skill, the code-shape and spec-first
-   agents, the widened code-claims reviewer, the review cadence, the lints, the retrospective's
+2. [The development skill](development-skill.md): the installed skill, the code-shape, spec-first and
+   adversarial agents, the widened code-claims reviewer, the review cadence, the lints, the retrospective's
    question, the local skill cut down. Fails alone on a missing or contradicting instruction of the
    installed skill, or an agent that does not install.
 3. [The component skill](component-skill.md): the installed skill for creating or splitting a
@@ -1341,8 +1405,9 @@ history, per `argument@development-and-components@arg-80`.
 
 ## Defaults awaiting the owner
 
-One is open, Q5. The discussion put four labelled questions to the owner, and the owner ruled each;
-slice 0 put five more, Q5 to Q9, of which the owner ruled four:
+Three are open: Q5, D1 and D2. The discussion put four labelled questions to the owner, and the
+owner ruled each; slice 0 put five more, Q5 to Q9, of which the owner ruled four; the plan's review
+found two more defaults, D1 and D2:
 
 - **Q1, ruled R3:** taking in thaum's mutation tool, the owner's scope choice per
   `goal@knowledge-architect@generic-tools-and-procedures-are-shipped`. The owner asked back in R2,
@@ -1372,6 +1437,22 @@ slice 0 put five more, Q5 to Q9, of which the owner ruled four:
 - **Q9, ruled during slice 0:** a Component takes decisions of its own and carries a design of them,
   stated by the component skill, not the goal. It bears on #component-crate-mapping and
   #pure-output-layer.
+
+- **D1, awaiting the owner:** whether cargo-mutants is an ask of every target project.
+  `goal@knowledge-architect@serves-one-kind-of-project` and
+  `goal@knowledge-architect@setup-brings-quality-tools` make a quality tool that the project takes
+  in an ask, which the setup gives in its recommended shape. Default: cargo-mutants is not taken in
+  as a quality tool and is no ask; the development skill names the diff sweep as a step a project
+  may run, with no setup shape. Built as written; the branch merges once the owner rules. It bears on
+  #diff-mutation-sweep.
+- **D2, awaiting the owner:** what the development skill tells a Rust project that has no
+  maintenance crate, which the setup skill allows with its local install. Default: the skill names
+  the command as `cargo x mutate` where the project has a maintenance crate, and otherwise as the
+  mutation crate's own binary installed into a directory of the project with
+  `cargo install --locked --root`, as `design@agent-skills@pinned-binary-runs-inside-the-project`
+  does for the checker; slice 1 therefore gives the crate a binary as well as a library. Built as
+  written; the branch merges once the owner rules. It bears on #mutation-command and
+  #mutation-command-host.
 
 The owner's words on Q6 to Q9, verbatim: "Agreed on all three defaults here. The current wording
 factors them in, right ? If yes, we can go with those.", then "Right, I wanted to write all four

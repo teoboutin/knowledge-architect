@@ -9,8 +9,10 @@
      of code before changing it" says, and no search per fix (#fix-grounding); it names no scoped
      `CLAUDE.md` (`argument@development-and-components@arg-64`);
    - **claims with tests that discriminate**: every added test names its claim, and a test of logic
-     carries a recorded mutation (#test-economy); the mutation is run with `cargo x mutate`, built by
-     `spec@development-and-components@mutation-crate`;
+     carries a recorded mutation (#test-economy); the mutation is run with the command
+     `spec@development-and-components@mutation-crate` builds, named per D2's default: `cargo x mutate`
+     where the project has a maintenance crate, and otherwise the mutation crate's own binary installed
+     into a directory of the project with `cargo install --locked --root`;
    - **implement**: a design decision met while building is routed by the backstop of
      `primer@design-heads`;
    - **gate**: the project's one gates command;
@@ -28,10 +30,13 @@
 
    It states no pull request and no continuous integration (criterion #no-pr-or-ci-assumed). Each new
    instruction names its real-use evidence in its `%%` lines (`argument@development-and-components@arg-64`).
-2. **Two new installed agents**: `knowledge-architect-code-shape-reviewer`, source
+2. **Three new installed agents**: `knowledge-architect-code-shape-reviewer`, source
    `planned@agent-skills@content/agents/code-shape-reviewer.md`, judging #code-shape-axis with
-   #test-economy; and `knowledge-architect-spec-first-reviewer`, source
-   `planned@agent-skills@content/agents/spec-first-reviewer.md`, judging #spec-first-axis.
+   #test-economy; `knowledge-architect-spec-first-reviewer`, source
+   `planned@agent-skills@content/agents/spec-first-reviewer.md`, judging #spec-first-axis; and
+   `knowledge-architect-adversarial-reviewer`, default name, source
+   `planned@agent-skills@content/agents/adversarial-reviewer.md`, the adversarial axis scoped per
+   #adversarial-scoping; the audit checks each name against `design@agent-skills@naming-rule`.
 3. **`agent@knowledge-architect-code-claims-reviewer` widened** to every statement a diff writes about
    code, and to the completeness of the documentation of a public interface others consume
    (#code-claims-scope, #api-doc-completeness).
@@ -42,8 +47,9 @@
 5. **The setup's linter ask** gains `missing_docs`, `clippy::missing_errors_doc` and
    `clippy::missing_panics_doc` for a published crate, in `skill@knowledge-architect-setup`, and in a
    snippet where one carries the workspace's lints, per `design@agent-skills@rust-templates-one-home`.
-6. **The retrospective's standing question** of #retrospective-code-rules-question, in
-   `skill@knowledge-architect-retrospective@what-it-examines`, watching the goal slice 0 rewords.
+6. **The retrospective's standing question** of #retrospective-code-rules-question, both its
+   clauses, in `skill@knowledge-architect-retrospective@what-it-examines`, watching the two goals
+   slice 0 rewords.
 7. **The primer's list of installed skills** gains the development skill, at its moment, per
    `design@agent-skills@installed-skill-takes-precedence`.
 8. **`skill@klarch-development` cut** to what is particular to this repository, an overlay that only
@@ -69,7 +75,7 @@
 No run is built to observe an agent following the new text, per
 `design@agent-skills@synthetic-evidence-not-built`. The claims are of the text and of the install.
 
-- **The installed skill, the two agents and the widened code-claims reviewer install, and each
+- **The installed skill, the three agents and the widened code-claims reviewer install, and each
   level-two heading carries a slug.** Test: `cargo klarch install-agent-skills`, then
   `cargo klarch check`, and the core's test that holds the shipped set to
   `design@core@section-homes-carry-slugs`. Shown to fail: a heading of the new skill without its
@@ -77,8 +83,9 @@ No run is built to observe an agent following the new text, per
 - **The installed skill states no pull request, no continuous integration and no scoped
   `CLAUDE.md`, and restates no rule of the primer beyond one sentence with its pointer.** Test: a
   reading of the installed skill whole, recorded in the commit; a phrase search is a lead only.
-  Shown to fail: the same reading of `skill@klarch-development` today finds each of
-  `instructions@git-workflow`, a scoped `CLAUDE.md` and the guard-reference rule restated.
+  Shown to fail: the same reading of `skill@klarch-development` today finds the guard-reference
+  rule restated and a scoped `CLAUDE.md` named, beside a pointer to `instructions@git-workflow`,
+  which it does not restate.
 - **The installed skill and the new agents cite no entry of this repository**, per
   `design@agent-skills@shipped-text-cites-no-entry`. Test: a search of their sources for a reference
   whose anchor is a Component of this repository, every hit read; no check catches one, as
@@ -101,9 +108,6 @@ No run is built to observe an agent following the new text, per
 - `skill@knowledge-architect-review` whole, `skill@knowledge-architect-setup@rust-project` and
   `skill@knowledge-architect-setup@setup-gates`, `skill@knowledge-architect-retrospective@what-it-examines`,
   `agent@knowledge-architect-code-claims-reviewer`.
-- The adversarial axis: the local skill dispatches it as a fresh subagent briefed by its own row.
-  Whether it becomes an installed agent too is read against `design@agent-skills@additions-review-agent`
-  and `rejected@agent-skills@one-generic-auditor-agent`; the discussion did not decide it.
 - The heads and issues "What is already decided" sends to slice 2's audit, among them
   `design@agent-skills@plan-read-against-the-record`, `design@agent-skills@code-change-reads-its-record`,
   `design@knowledge-architect@scratch-worktree-outside-git-rules`,
@@ -114,6 +118,9 @@ No run is built to observe an agent following the new text, per
   `issue@agent-skills@the-primer-and-its-head-name-a-guard-s-issue-under-two-conditions`,
   `issue@core@a-home-for-developer-contracts-outside-agent-configuration`.
 - `design@agent-skills@naming-rule` for the skill's and the agents' names.
+- `goal@agent-skills@reviews-judge-by-the-writer-s-criteria` and
+  `tripwire@agent-skills@departure-overridden-as-a-reading`, for the spec-first reviewer's reading of
+  the departures a project states.
 - The reworded goal of slice 0, and `goal@knowledge-architect@agents-get-a-complete-workflow`.
 - cargo-mutants' book, chapters "Testing code changed in a diff" and "Limitations", for the diff
   sweep and its caveat on the cargo configuration file, read at the audit since the discussion read them once.
@@ -173,7 +180,7 @@ or a test of logic with no recorded discrimination check:
 | --- | --- | --- |
 | pure logic | a named mutation | does it map to a claim |
 | golden or snapshot | mutate the code that produces the output; it fails, but that tells little | does another golden test already cover the same claim |
-| heavy mocks | mutate the logic under test, never the mock; a test that only checks a pass-through to the mock tests the side-effect layer | that is usually the finding: the goal says the side-effect layer needs no tests |
+| heavy mocks | mutate the logic under test, never the mock; a test that only checks a pass-through to the mock tests the side-effect layer | that is usually the finding: the skill's default shape keeps side effects in a layer that takes no decision a test of the logic should cover, and such a layer needs no test of its own (Q7: the default shape is the skill's) |
 | nondeterministic or external | none is reliable | the session's judgement |
 
 **Argument.** Agents "add lots of tests on a whim" (R1); whether a mutation applies depends on
@@ -188,7 +195,9 @@ diff (`argument@development-and-components@arg-4`).
 
 Thread: `thread@development-and-components@adversarial-scoping`.
 
-**Shape.** Several adversarial reviewers may be dispatched, each scoped to one subsystem, claim
+**Shape.** The adversarial axis is an installed agent, as a review axis with a fixed standard is, per
+`design@agent-skills@additions-review-agent` and `rejected@agent-skills@one-generic-auditor-agent`.
+Several adversarial reviewers may be dispatched, each scoped to one subsystem, claim
 family or boundary; scopes may overlap, and the dispatcher justifies a gap. Each reviewer chooses its
 own mutations, picks the tests that matter for each, runs them, and runs the wider suite before
 reporting a survivor. No cap on their running time.
@@ -206,8 +215,15 @@ words above.
 Thread: `thread@development-and-components@spec-first-axis`.
 
 **Shape.** An installed read-only agent that works out what an external specification the project
-implements requires, before reading the code, then compares. It runs at development checkpoints
-where the project implements such a specification and the diff changes how.
+implements requires, before reading the code, then compares. It reads the departures from the
+specification that the project states, in its decisions and its goals, and judges the code only
+against what binds the writer: the specification as the project follows it. It runs at development
+checkpoints where the project implements such a specification and the diff changes how.
+
+**Ground of the departures.** `goal@agent-skills@reviews-judge-by-the-writer-s-criteria`: a review
+judges a text by the criteria that bind its writer; and
+`tripwire@agent-skills@departure-overridden-as-a-reading`, which fires on a session applying a
+source's text over a departure the owner gave.
 
 **Argument.** The generic form of thaum's rules-first axis (`argument@development-and-components@arg-2`);
 a project with no specification never triggers it, which meets criterion
@@ -222,7 +238,8 @@ Threads: `thread@development-and-components@code-claims-scope` and
 `thread@development-and-components@api-doc-completeness`.
 
 **Shape.** The reviewer reads every statement a diff writes about code, doc comments, READMEs, issue
-entries and heads, against the tree, as well as plan documents. Where the diff changes a public
+entries and heads, against the tree, as well as plan documents, except the entries of CHANGELOG.md,
+which the release's review reads, per `design@knowledge-architect@changelog-reviewed-at-the-release`. Where the diff changes a public
 interface others consume, it also asks of each public item the diff adds or changes whether its
 documentation states what a caller must respect: invariants, argument expectations, errors, panics,
 what it does not do. The presence of documentation is the lints `missing_docs`,
@@ -286,8 +303,9 @@ Thread: `thread@development-and-components@diff-mutation-sweep`.
 **Shape.** A project may opt in to a step that runs `cargo mutants --in-diff` over the branch's
 changed code before the adversarial review, and gives its survivors to the adversarial reviewers as
 leads. The skill states two caveats from cargo-mutants' book: a diff touching only test code produces
-no mutants, and cargo-mutants ignores rust flags set in the cargo configuration file, `path@knowledge-architect@.cargo/config.toml` in this repository, so a project that sets
-flags there gets mutants built differently from its gates.
+no mutants, and cargo-mutants ignores rust flags set in a project's cargo configuration file ("Limitations"
+chapter of its book), so a project that sets flags there runs the sweep with builds that differ from
+its gates.
 
 **Argument.** cargo-mutants and the mutation command do different jobs: a sweep for survivors in
 changed code, against a mutation the session writes (`argument@development-and-components@arg-21`).
@@ -301,10 +319,14 @@ command: it offers no mutation the session writes itself.
 
 Thread: `thread@development-and-components@retrospective-code-rules-question`.
 
-**Shape.** The retrospective always asks, worded as the agent proposed in the reply to R3: "Did an
-installed rule about code or tests prove too hard or too strict to follow in this session's Rust
-work, or get followed against the change's interest?" It names the reworded goal it watches, per
-`design@agent-skills@premortem-as-watch-points`.
+**Shape.** The retrospective always asks one question with two clauses, the first from the agent's
+wording in the reply to R3, the second from the Components goal slice 0 reworded: "Did an installed
+rule or guideline about code or tests prove too hard or too strict to follow in this session's Rust
+work, or get followed against the change's interest? And did one about splitting the project into
+Components, against the project's interest?" A lint the setup ships counts as an installed rule
+about code (Q8). It names the goals it watches, per `design@agent-skills@premortem-as-watch-points`:
+`goal@knowledge-architect@the-workflow-leads-to-better-code` and
+`goal@knowledge-architect@projects-are-split-into-components`. This slice writes both clauses.
 
 **Argument.** It is the "learn from use" half of the reworded goal's mechanism, and fits
 `goal@knowledge-architect@the-workflow-improves-through-real-use` (`argument@development-and-components@arg-28`,
@@ -336,9 +358,10 @@ same head sends such a fix to the workflow's file only.
 Thread: `thread@development-and-components@fix-grounding`.
 
 **Shape.** The development skill's grounding step is the reading of
-`design@agent-skills@code-change-reads-its-record`: the record of the code being changed. A fix
-dispatches no record search. New features and additions go through the design skill's grounding and
-its search, per `design@agent-skills@settled-means-recorded`.
+`design@agent-skills@code-change-reads-its-record`: a fix reads the record of the code it changes,
+and dispatches no record search. A change the owner asks for or proposes goes to the design skill,
+and through its grounding and its search, unless a record the session can see states it, per
+`design@agent-skills@settled-means-recorded`.
 
 **Argument.** The issue records the owner's statement that grounding in the design record concerns
 additions and new features, not bug fixes; the issue's search took 10 agents, and this discussion's
@@ -366,7 +389,7 @@ The review axes the development skill dispatches, over every axis it names:
 
 | axis | dispatched as | moment | condition |
 | --- | --- | --- | --- |
-| adversarial | as the audit decides, per "Audit subjects" | development checkpoints | any change to the code |
+| adversarial | `knowledge-architect-adversarial-reviewer`, per #adversarial-scoping | development checkpoints | any change to the code |
 | spec-first | `knowledge-architect-spec-first-reviewer` | development checkpoints | the project implements an external specification and the diff changes how |
 | code shape, with test economy | `knowledge-architect-code-shape-reviewer` | the review before the merge | the diff writes or edits code |
 | code claims | `agent@knowledge-architect-code-claims-reviewer` | the review before the merge, and the plan-document moments as today | the diff writes statements about code; its completeness reading where the diff changes a public interface others consume |
