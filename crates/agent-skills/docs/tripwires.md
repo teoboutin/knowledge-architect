@@ -332,22 +332,6 @@ rather than an acceptance criterion.
 report file of the tripwire axis added under docs/audit-reports/ on the main branch, both counted
 from the commit that writes this line.
 
-## Guarding `design@agent-skills@transcript-reviewer-agent`: a relaxation of the owner's ruling passes as a refinement in its direction `##relaxation-passes-as-refinement`
-
-The decision rests on the premise that the transcript reviewer tells a refinement within a ruling's
-direction from a relaxation of it, so that a check, a claim, a criterion or the scope of the work
-made weaker than the owner approved is still reported, while a stricter or more detailed one is not, except in a goal, whose stricter wording is a finding.
-
-**Fires when:** a check, a claim, a criterion or a scope of work found on the main branch is weaker
-than a ruling of the owner approved, and the last transcript review of the branch that merged it
-read the change as a refinement or did not report it, at instances in two separate pieces of work.
-**Response:** reopen `design@agent-skills@transcript-reviewer-agent` on how the reviewer's text
-words a relaxation, with the instances.
-**Re-entry:** the retrospective of each session whose branch the transcript reviewer read, and the
-standing-state review, which reads the issue an owner's report of such a weakening opens.
-**Watches until:** the fifth plan document deleted at its landing on the main branch, counted from
-the commit that writes this line.
-
 ## Guarding `design@agent-skills@derived-decision-proceeds-on-default`: a decision the record leaves open is classed as settled, and reaches the main branch with no exchange `##open-fork-classed-as-settled`
 
 The decision rests on the premise that a session tells a default the record settles from a choice

@@ -10,7 +10,7 @@
      `CLAUDE.md` (`argument@development-and-components@arg-64`);
    - **claims with tests that discriminate**: every added test names its claim, and a test of logic
      carries a recorded mutation (#test-economy); the mutation is run with the command
-     `spec@development-and-components@mutation-crate` builds, `cargo x mutate`, which every Rust
+     slice 1 built, `cargo x mutate`, which every Rust
      target project has, per #maintenance-crate-ask;
    - **implement**: a design decision met while building is routed by the backstop of
      `primer@design-heads`;

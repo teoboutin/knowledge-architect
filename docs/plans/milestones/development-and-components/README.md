@@ -160,7 +160,7 @@ that judges or updates each:
 | `goal@knowledge-architect@projects-are-split-into-components` | reworded at slice 0 on the owner's word: the default criteria are guidelines that real use corrects, a Component with no Rust code of its own is outside the rule of one purpose, and the installed retrospective skill asks whether a rule or guideline about splitting proved too hard or too strict | 0 | `goal@knowledge-architect@agents-get-a-complete-workflow`, in `register@knowledge-architect@goal`, and `issue@knowledge-architect@four-goals-homes-state-no-purpose-their-goals-serve`: reread at slice 3, which builds what the goal's first "met while" item asks; `a-skill-for-creating-a-component`, closed when this milestone scheduled it, carried by #component-crate-mapping; the retrospective clause of its second item is written at slice 2, per #retrospective-code-rules-question |
 | `design@knowledge-architect@publish-credential` | "Each of the three crates" becomes four; the mutation crate's first version is published with an API token, outside the release workflow | 1 | `design@knowledge-architect@owner-word-mechanism`, which states that the trusted publisher of each crate names the environment `release`, and the comment at the head of `path@knowledge-architect@.github/workflows/release.yml`, which names "the three crates": each reread at slice 1 and updated where the fourth crate makes it false; `skill@klarch-release`, whose scope names the three published crates, gains the fourth at slice 1 |
 | `design@knowledge-architect@versioning-policy` | its sentence "a release that changes only skill text publishes all three crates" counts the published crates, which the mutation crate makes four | 1, at the harvest | `skill@klarch-release`, whose versioning sentence names "the three crates": updated at slice 1 with `design@knowledge-architect@publish-credential`'s row above; `agent@klarch-changelog-reviewer`, `instructions@git-workflow` and `instructions@release-status` in the root `CLAUDE.md`, `design@knowledge-architect@changelog-entries`, `design@core@api-facade`, `design@core@ne-minimal`, `issue@core@manifest-table-exposes-the-toml-crate`, `issue@knowledge-architect@command-output-is-not-declared-a-contract` and `rejected@xtask@source-view-exported-from-the-library`: each cites its bump table, which does not change, so none is touched; this milestone's own documents name it as the class of each change |
-| `design@agent-skills@pinned-binary-runs-inside-the-project` | it admits, on its owner's ruling, a Rust project that installs the checker as any other project does and builds its own gates, with no maintenance crate; #maintenance-crate-ask makes the maintenance crate an ask of every Rust target project, so that admission goes | 1 | `issue@knowledge-architect@the-target-project-and-its-asks-are-stated-to-no-adopter`, whose list states that this head admits the local install: updated at slice 1, which also adds the ask to that list, per `spec@development-and-components@mutation-crate` Builds item 8; this milestone's own documents, which name it as rewritten at slice 1 |
+| `design@agent-skills@pinned-binary-runs-inside-the-project` | it admits, on its owner's ruling, a Rust project that installs the checker as any other project does and builds its own gates, with no maintenance crate; #maintenance-crate-ask makes the maintenance crate an ask of every Rust target project, so that admission goes | 1 | `issue@knowledge-architect@the-target-project-and-its-asks-are-stated-to-no-adopter`, whose list states that this head admits the local install: updated at slice 1, which also adds the ask to that list, per slice 1's spec, Builds item 8, now landed; this milestone's own documents, which name it as rewritten at slice 1 |
 | `design@agent-skills@xtask-pins-checker` | it speaks of "a Rust project with a maintenance crate", and every Rust target project now has one, per #maintenance-crate-ask | 1 | `design@agent-skills@pinned-binary-runs-inside-the-project`, rewritten at slice 1 in the row above; `design@agent-skills@gates-convention`, whose title and body say "where the project has a maintenance crate", and `design@core@rust-scaffold`: reread at slice 1, each sentence that the ask makes false rewritten; this milestone's own documents, which name it as rewritten at slice 1 |
 | `design@knowledge-architect@scratch-worktree-outside-git-rules` | its example, the worktree mutation procedure of `skill@klarch-development`, is replaced by `cargo x mutate` | 2 | `instructions@git-workflow`, in the root `CLAUDE.md`, `design@knowledge-architect@git-flow` and `design@knowledge-architect@no-operation-loses-content`: reread at slice 2, each sentence naming the worktree procedure rewritten |
 | `design@agent-skills@plan-read-against-the-record` | it places the code-claims reviewer among the reviewers of a plan document; #code-claims-scope also sends it on a diff's statements about code | 2 | `skill@knowledge-architect-planning@plan-reviews`, `design@agent-skills@record-searched-before-the-work`, `design@agent-skills@unread-entries-reach-the-conformance-review`, `issue@agent-skills@audit-axes-beyond-the-design-record`: reread at slice 2; `the-code-claims-axis-reads-plan-documents-only`, closed when this milestone scheduled it: carried by #code-claims-scope, built at slice 2 |
@@ -298,7 +298,7 @@ during the reply to R5, with 18 searchers over the whole record; every report pa
 | `design@core@component-command` | constrains slice 3's procedure, which runs `klarch new-component` |
 | `design@core@components-carry-the-same-documents` | constrains slice 3's shapes: each Component carries the same documents |
 | `design@core@anchor-collisions-refused` | constrains #component-basename-collision and nested Components; the refusal of two anchors with one name is in `resolve_anchors` (`argument@development-and-components@arg-75`) |
-| `design@knowledge-architect@no-operation-loses-content` | constrains slice 1: no run loses uncommitted content (claims of `spec@development-and-components@mutation-crate`) |
+| `design@knowledge-architect@no-operation-loses-content` | constrains slice 1: no run loses uncommitted content (claims of slice 1's spec, now landed) |
 | `design@knowledge-architect@scratch-worktree-outside-git-rules` | rewritten at slice 2, when its example, the worktree procedure of `skill@klarch-development`, is replaced by `cargo x mutate` |
 | `issue@agent-skills@no-reviewer-writes-its-own-report-file` | touched by slice 2's three new reviewer agents; stays open |
 | `design@agent-skills@goal-entry-shape` | constrains slice 0's reworded goal |
@@ -586,7 +586,7 @@ on the checkpoint of the reply to R6, which listed the thread in its bucket.
 - **Closed by:** R3: "mutation-command: I see, sot the main value  lies in allowing to write our own
   mutation on the go, or use a list of recorded ones, right ? Instead of cargo-mutants which chooses
   them itself automatically ? In that case, I think it is quite worth it to generalize it."
-- **Shape:** `spec@development-and-components@mutation-crate`. **Harvest:** heads in the new
+- **Shape:** slice 1's spec, landed. **Harvest:** heads in the new
   Component's design home, `mutate`, slice 1.
 
 ### The code-claims reviewer reads every statement a diff writes about code, and the completeness of a public interface's documentation `##code-claims-scope`
@@ -870,7 +870,7 @@ on the checkpoint of the reply to R6, which listed the thread in its bucket.
   crate. It would either be pulled by the xtask crate of consumer projects, or pulled in directly by
   the gates crate, and as you say, available by cargo x mutate like in thaum." R7: "Agreed on the
   table."
-- **Shape:** `spec@development-and-components@mutation-crate`. **Harvest:** a head in
+- **Shape:** slice 1's spec, landed. **Harvest:** a head in
   `register@knowledge-architect@design` for the fourth published crate, and the rewrite of
   `design@knowledge-architect@publish-credential`, slice 1.
 
@@ -938,7 +938,7 @@ on the checkpoint of the reply to R6, which listed the thread in its bucket.
   maintenance crate; it serves the state that does not follow the ask.
 - **Closed by:** the owner: "D2 the xtask maintenance crate with the shape of `cargo x <command>`
   should become a required ask from this project to consumer Rust projects."
-- **Shape:** `spec@development-and-components@mutation-crate`, Builds item 8. **Harvest:**
+- **Shape:** slice 1's spec, Builds item 8, landed. **Harvest:**
   `design@agent-skills@pinned-binary-runs-inside-the-project` and
   `design@agent-skills@xtask-pins-checker` rewritten in place, slice 1.
 
@@ -1390,7 +1390,7 @@ of the slice named, not ruled by the owner now.
 | 5 | The "mechanism" observable becomes vacuous ("a review exists"), so a goal can never be shown unmet. #rule-6-finding-weight partly guards this | #goal-standard-measure | judged at slice 0's harvest by the tripwire standard: dropped. No condition clearly excludes it, and the doubt clause of `skill@knowledge-architect-decision-recording@ruled-tripwires` lets a cause in doubt be dropped where the owner would see the failure anyway: the owner rules every goal with its boundary block before it is written, per `design@agent-skills@goal-draft-shows-reach`, so a goal whose measure is a vacuous mechanism reaches the owner's reading. The doubt is kept in `rejected@agent-skills@goal-measured-by-evidence-from-use` |
 | 6 | A project of about 30 Components multiplies record clusters and search agents. The worklist's agent count measures it; `issue@agent-skills@a-lighter-pass-for-untouched-components` already holds this | #component-crate-mapping | named as a cause for slice 3's harvest to judge; an entry already holds it, so the harvest folds it there or drops it |
 | 7 | A change touches a declared path and records no figures. A script over the history could compute this, so it is a check to write later, not a tripwire | #performance-opt-in | named as a cause for slice 2's harvest to judge; the discussion judged it a check, which condition 1 sends to a script |
-| 8 | A run killed mid-mutation loses uncommitted content | #mutation-command | a claim of the step that builds the tool, with its test: kill the run, then restore; in `spec@development-and-components@mutation-crate` |
+| 8 | A run killed mid-mutation loses uncommitted content | #mutation-command | a claim of the step that builds the tool, with its test: kill the run, then restore; in slice 1's spec, landed |
 
 ## Acceptance criteria
 
@@ -1402,7 +1402,7 @@ history, per `argument@development-and-components@arg-80`.
 0. The goal standard and the reworded goal, landed: the new clause of rule 6, the
    `intent` tag, the goal reworded and renamed, the re-entry of the harness issue. Fails alone on
    the reviewer's tag of a property-list measure, and on the reworded goal.
-1. [The mutation crate](mutation-crate.md): the published crate `knowledge-architect-mutate`, `cargo x
+1. The mutation crate, landed: the published crate `knowledge-architect-mutate`, `cargo x
    mutate` here, the setup snippet, the release procedure. Fails alone on a run that does not
    restore, or a refusal that does not refuse.
 2. [The development skill](development-skill.md): the installed skill, the code-shape, spec-first and
