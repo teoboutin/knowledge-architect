@@ -1,6 +1,6 @@
 **Generated — do not edit.** `cargo klarch index`
 
-47 entries
+48 entries
 
 | kind | title |
 | --- | --- |
@@ -41,6 +41,7 @@
 | todo | [No installed skill says how a new Component is created](a-skill-for-creating-a-component.md) |
 | todo | [The project audit has three axes, and the other axes the owner named have none](audit-axes-beyond-the-design-record.md) |
 | todo | [Only the design and setup skills state what they expect of the owner](expectation-sets-for-the-installed-skills.md) |
+| todo | [Installed instructions assume pull requests and continuous integration](installed-text-assumes-pull-requests-and-ci.md) |
 | todo | [No check compares an audit pass's count of severe violations left with the previous pass's](no-check-compares-an-audit-pass-s-owner-list-count-with-the-previous-pass-s.md) |
 | todo | [No check reports a lens of the agentic-workflow axis whose second agent found nothing the first did not](no-check-reports-a-duplicated-workflow-lens-whose-other-agents-found-nothing.md) |
 | todo | [No reviewer writes its own report file, so the dispatcher saves each report by hand](no-reviewer-writes-its-own-report-file.md) |

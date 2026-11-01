@@ -20,7 +20,11 @@ that holds Rust code is led toward; how a Component maps to Cargo packages, and 
 text leads a session there, are left to a design discussion the owner asked for. The owner leans
 towards one crate per Component, and doubts it for a project published on crates.io, where it may
 mean many small crates, both as good practice and as convenient to publish; both are premises of
-that discussion.
+that discussion. A project split into many Components can meet two directories of one basename,
+which would name two anchors alike, since a Component is named by its basename. Whether the checker
+refuses two anchors of one name is not established: `design@core@anchor-collisions-refused` refuses
+two anchors at one path, not two of one name. The discussion establishes it, and decides how such
+Components are named.
 
 ### Why it matters
 
