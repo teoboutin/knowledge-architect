@@ -131,8 +131,10 @@ the most precise work.
 A searcher grades `may bring back` against a shape, and a question alone gives it none,
 `rejected@agent-skills@search-work-is-the-question`; the retrospective intake and the design audit
 already send theirs one, the received files and the plan document. The nearest rival, a search
-before the challenge and another after it, doubles the cost of the search, which
-`issue@agent-skills@a-fix-is-grounded-by-no-record-search` measures, and a thread on a new subject
+before the challenge and another after it, doubles the cost of the search, which one measurement
+gives: at the grounding of the spec "The primer defines the terms it uses, and sends a session about to
+change code to the record of that code", the search took 10 agents and about 1.07M subagent tokens,
+summed from the agents' completion reports. A thread on a new subject
 already gets a search of its own, per `design@agent-skills@record-searched-before-the-work`.
 
 ### The record search takes as seeds the decisions the work rests on or may change, never a goal `##seeds-name-decisions`

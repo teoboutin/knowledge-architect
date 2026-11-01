@@ -296,26 +296,12 @@ that carries out an intake's outcomes.
 **Watches until:** three plan documents deleted at their landing and three commits that add
 analyses of received retrospective files under docs/retrospective-reports/, on the main branch,
 both counted from the commit that writes this line, the first that guards the record searcher.
-
-## Guarding `design@agent-skills@searcher-grades-goals`: a goal is missed where the searcher graded the goals `##goal-missed-though-graded`
-
-The decision rests on the premise that the searcher's grades of the goals are a second reading
-beside the session's own, which the session keeps, and not a summary it reads instead.
-
-**Fires when:** a goal is missed in a design discussion or a retrospective intake where the
-record search graded that goal, in two separate pieces of work, or once in a record that reaches the
-main branch with no review reporting it.
-**Response:** reopen `design@agent-skills@searcher-grades-goals` on how goals reach the session,
-and `design@agent-skills@seeds-name-decisions` where the goal missed was one a seed would have named.
-**Re-entry:** the retrospective of that session, and the review of the change.
-**Watches until:** three plan documents deleted at their landing, and three commits that add
-analyses of received retrospective files under docs/retrospective-reports/, on the main branch,
-counted from the commit that writes this line.
-**Evidence:** one piece of work, reported by its review: the plan document of the goal standard
-listed as not read five goals the record search had graded `may-bear` and its work bears on, which
-its second design-conformance review found, in the commit "[review] Repairs of the goal-standard
-spec's second design-conformance review: step 6 keeps every Component with a goal, and a boundary
-block draws on the owner's statements where no work exists".
+**Evidence:** one discussion, reported by its review: the search of the discussion of
+`milestone@plans@development-and-components` graded `design@knowledge-architect@changelog-reviewed-at-the-release`
+neither `bears` nor `may-bear`, and the milestone's design-conformance review found that the
+widened code-claims reviewer the milestone designs rests on it, in the commit "[review] Repairs of
+the plan documents' reviews: slice 1's sites of a fourth crate, the retrospective's two clauses, D1
+and D2 awaiting the owner".
 
 ## Guarding `design@agent-skills@workflow-axis-lenses`: in a pass, one agent of each duplicated lens alone reports every confirmed finding of that lens `##duplicate-auditors-add-nothing`
 
@@ -429,4 +415,3 @@ the owner's word on their growth.
 **Re-entry:** the session's verification of each pass of the agentic-workflow axis.
 **Watches until:** two audit reports of the agentic-workflow axis, counted from the commit that
 writes this line.
-

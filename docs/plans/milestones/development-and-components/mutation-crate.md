@@ -142,6 +142,9 @@ first use.
   found, against `design@knowledge-architect@no-operation-loses-content`.
 - `design@gates@gates-crate`, `rejected@gates@gates-command-of-the-checker`,
   `design@agent-skills@xtask-pins-checker`, `design@agent-skills@pinned-binary-runs-inside-the-project`.
+- `issue@core@init-rust-into-an-existing-cargo-workspace`, for #maintenance-crate-ask: a Rust
+  project with an existing workspace or package that adds the maintenance crate the ask requires
+  meets the refusal of `klarch init --rust` that the issue records.
 - `design@knowledge-architect@publish-credential`, `design@knowledge-architect@version-lockstep`,
   `design@knowledge-architect@publish-after-merge`, `skill@klarch-release`, and the release
   workflow's package list.

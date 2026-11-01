@@ -50,6 +50,9 @@ No run is built to observe a discussion under the new step, per
 - `issue@agent-skills@the-reading-on-touch-of-may-bear-entries-met-its-reopening-condition`, whose
   case this slice answers in part, and
   `issue@agent-skills@a-pending-ruled-file-is-reached-by-no-installed-search`.
+- `issue@agent-skills@a-goal-the-search-graded-was-missed-in-two-pieces-of-work`, whose re-entry
+  point is this audit: it reopens `design@agent-skills@searcher-grades-goals` and
+  `design@agent-skills@seeds-name-decisions`.
 - `rejected@agent-skills@conformance-reader-at-the-checkpoint`,
   `rejected@agent-skills@delta-search-at-convergence` and
   `tripwire@agent-skills@record-search-misses`.

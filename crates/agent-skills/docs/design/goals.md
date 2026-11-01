@@ -49,7 +49,7 @@ outcome the owner intends; it has one reading; it rules out nothing the owner ha
 knowingly; it holds one intent; it contradicts no other goal; what shows it met is in what the
 project builds; a refinement neither widens nor contradicts the goal it refines; and a statement of
 what a Component is not for is a goal only when it names the design it excludes. Each rule's case,
-read in the goal histories of rootpoint and thaum, is a `%%` comment beside it, except rule 7's, of
+read in the goal histories of rootpoint, thaum and this repository, is a `%%` comment beside it, except rule 7's, of
 which no case was observed: it follows from the rule of no contradiction. The drafter writes to it
 and the reviewer judges by it: goal-setting hosts it in
 `skill@knowledge-architect-goal-setting@goal-or-not`, and the goal reviewer in
@@ -80,21 +80,15 @@ judged only in use, such as the quality of the code agents write, what the proje
 mechanism that pursues the outcome and learns from its use whether it is met, never a list of the
 properties the outcome is taken to consist of: a drafter held to one reading turns such an outcome
 into the most specific observable it can find, and the list then binds every agent to what was
-foreseen before any use. The case is this repository's goal on the quality of that code, whose
-measure listed three properties and bound every edited unit to state why it departed from them; the
-owner judged it at risk of working against its own title. The rival, evidence from use itself as the
-measure where it can be gathered, lost on the premise above, and the owner chose the mechanism as
-the reading that gives a systematic check. Rule 8 admits an
+foreseen before any use. The rival, evidence from use itself as the
+measure where it can be gathered, `rejected@agent-skills@goal-measured-by-evidence-from-use`, lost
+on the premise above, and the owner chose the mechanism as the reading that gives a systematic
+check. Rule 8 admits an
 exclusion
 only where another goal would otherwise argue for the design it names: a property of smallness with
 no named design is the owner's scope control, exercised by what the owner asks for, or a quality
 argument a head makes against its own rival. Rule 4 asks only that one goal not conflate two
-intents, and two goals may share an aspect; a finding of rule 4 or of rule 6 is tagged `minor` and
-counted apart, as the owner proposed, except a rule-6 finding that a goal judged only in use is
-measured by a list of the properties of its outcome, tagged `intent` instead, per
-`design@agent-skills@goal-reviewer-agent`; for rule 4, on the owner's argument that it does not change
-what an agent does in the project, and that no overlap at all between goals is probably out of
-reach. Rule 4's test is the head standard's rule on
+intents, and two goals may share an aspect. Rule 4's test is the head standard's rule on
 an exception, not the test of reversing one part alone, which splits a rule from its exception, per
 `rejected@agent-skills@head-split-by-independent-reversal`.
 
@@ -141,12 +135,18 @@ a merge, per `design@agent-skills@goals-axis-in-the-review-before-a-merge`. Its 
 `settled`, which the drafter repairs; `intent`, a question only the owner answers; or
 `contradiction`: a statement of the owner that conflicts with a goal or with another statement, or a
 part of the statements a draft drops or turns around without showing it, which the drafter never
-resolves alone. A finding of rule 4 or 6 is also tagged `minor`, per
-`design@agent-skills@goal-standard-rules`, except a finding that a goal judged only in use is
-measured by a list of the properties of its outcome, which is tagged `intent` instead: tagged
-`minor`, a reach the owner had not ruled out knowingly reached the tree twice, as
-`issue@agent-skills@a-goal-the-draft-review-read-was-reworded-again-for-a-defect` records, and such
-a list is that kind of reach. Each mode's own checks fire only on the input its brief
+resolves alone. A finding of rule 4, or of rule 6 other than the case below, of the rules of
+`design@agent-skills@goal-standard-rules`, is also tagged `minor` and counted apart. For rule 4,
+the ground is the owner's argument that such a finding does not change what an agent does in the
+project, and that no overlap at all between goals is probably out of reach. For rule 6, the owner
+chose to count its findings apart rather than weigh them as the other rules' findings, which no goal
+ranks. That a finding changes no agent's act does not hold for a goal judged only in use that is
+measured by a list of the properties of its outcome, since the list binds every agent at its widest
+reading: such a finding is tagged `intent` instead. Tagged `minor`, a reach the owner had not ruled
+out knowingly reached the tree once, as
+`issue@agent-skills@a-goal-the-draft-review-read-was-reworded-again-for-a-defect` records, by the
+mechanism that issue states: a reach shown as a minor measure finding does not reach the owner as a
+question of intent. Such a list is that kind of reach. Each mode's own checks fire only on the input its brief
 carries, so one fragment serves three modes.
 
 It is fresh, never a fork, because the drafter is anchored on its own reading: in rootpoint and

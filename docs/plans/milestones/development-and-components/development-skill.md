@@ -57,11 +57,10 @@
    worktree procedure replaced by `cargo x mutate`. `design@knowledge-architect@scratch-worktree-outside-git-rules`
    and the texts citing it rewritten where they name that procedure.
 9. **Issues**, under `skill@knowledge-architect-issue-tracking`:
-   - closed: the developing part of
-     `issue@knowledge-architect@the-workflow-has-no-skill-for-developing-branch-work-or-releasing`, which
-     stays open for branch work and releasing; `issue@agent-skills@a-fix-is-grounded-by-no-record-search`;
-     `issue@agent-skills@the-code-claims-axis-reads-plan-documents-only`;
-     `issue@agent-skills@a-reviewer-s-running-time-is-unbounded`;
+   - none closed here: the issues whose work this slice builds were closed when the milestone scheduled them,
+     `a-fix-is-grounded-by-no-record-search`, `the-code-claims-axis-reads-plan-documents-only` and `a-reviewer-s-running-time-is-unbounded`, and the developing part of
+     `issue@knowledge-architect@the-workflow-has-no-skill-for-branch-work-or-releasing` left
+     that entry, which stays open for branch work and releasing;
    - opened: a `todo` for improving performance as an activity of its own (#performance-review-axis); a
      `todo` for #use-feedback-collection; a `deferred` for #upstream-co-development;
    - kept open, its other options intact:
@@ -245,7 +244,7 @@ what it does not do. The presence of documentation is the lints `missing_docs`,
 `clippy::missing_errors_doc` and `clippy::missing_panics_doc`, in the setup's linter ask for a
 published crate.
 
-**Argument.** It closes `issue@agent-skills@the-code-claims-axis-reads-plan-documents-only`, which
+**Argument.** It answers `the-code-claims-axis-reads-plan-documents-only`, an issue closed when this milestone scheduled it, which
 records a thaum case where an improvised reviewer for this question produced "the review's most
 consequential findings" (`argument@development-and-components@arg-8`); completeness "matters mostly
 for documentation of public facing code/API" (R2); the reading of content uses the same method, at

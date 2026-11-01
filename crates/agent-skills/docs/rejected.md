@@ -591,8 +591,10 @@ observed, since their reasoning is mostly redacted in their transcripts.
 ### The design skill loaded before every change the owner asks for, with no exception `##design-load-unconditioned`
 
 `live`. The work of a plan document was searched before it starts, at the grounding of the
-discussion that converged on it or at its design audit, so the load pays a second record search, whose
-cost `issue@agent-skills@a-fix-is-grounded-by-no-record-search` measures, for a design already recorded. It is
+discussion that converged on it or at its design audit, so the load pays a second record search for a design already recorded; one measurement of a search's cost:
+at the grounding of the spec "The primer defines the terms it uses, and sends a session about to
+change code to the record of that code", the search took 10 agents and about 1.07M subagent tokens,
+summed from the agents' completion reports. It is
 kept because a doubt remains: a session may read the exceptions of
 `design@agent-skills@settled-means-recorded` too widely and build a proposal ungrounded, and this
 alternative is a candidate if it does.
@@ -669,6 +671,15 @@ goals stop reading as what the project is for.
 the goal standard under it, 9 goals broke it, and 51 of their 129 sentences ran over 40 words,
 carrying the sets and the measures the standard asks for in long sentences that read two ways. A
 session that argues from a goal applies it whole, so a longer goal costs it nothing.
+
+### A goal judged only in use measured by the evidence from its use, where that evidence can be gathered `##goal-measured-by-evidence-from-use`
+
+`live`. It would reverse the premise of rule 6 of the goal standard, the owner's argument that in
+most projects a measure on use has limited feasibility, so a goal is measured on what the project
+builds; and the owner chose the mechanism the project builds to pursue the outcome and learn from
+its use as the reading that gives a systematic check. It is kept because a doubt remains that the
+mechanism meets every goal: a mechanism can become vacuous, such as "a review exists", so that a
+goal measured by it can never be shown unmet.
 
 ### The review of the whole goal set as a fourth axis of the project audit, with a saved workflow of its own `##goal-set-review-as-an-audit-axis`
 

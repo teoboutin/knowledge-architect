@@ -22,6 +22,9 @@
    - the procedure: `klarch new-component`, the goals through `skill@knowledge-architect-goal-setting`,
      and a pointer to `skill@knowledge-architect-setup` for declaring the Component, restating none of
      it;
+   - where a Component's purpose is written: the head of its goals home, as the purpose its goals
+     serve, which `issue@knowledge-architect@four-goals-homes-state-no-purpose-their-goals-serve`
+     finds missing in four homes of this repository;
    - the guideline that a Component departing from the default criteria states why in a head of its
      own design home. Slice 0 took it out of the goal, on the owner's word that the rules of splitting
      go to the design record and the skill.
@@ -37,7 +40,7 @@
    The retrospective's clause on splitting a project into Components, which the second "met while"
    item of `goal@knowledge-architect@projects-are-split-into-components` asks for, is written by
    slice 2, per #retrospective-code-rules-question; this slice writes none.
-4. **`issue@agent-skills@a-skill-for-creating-a-component`** closed.
+4. **No issue closed here:** `a-skill-for-creating-a-component` was closed when this milestone scheduled it.
 5. **`cargo klarch install-agent-skills`**, the CHANGELOG.md entries in `Next release`, and
    `cargo x changelog`.
 
@@ -73,7 +76,8 @@ No run is built to observe an agent following the new text, per
 - `design@agent-skills@shared-text-fragment`, `design@agent-skills@naming-rule`,
   `design@agent-skills@adopting-existing-docs` and `design@agent-skills@audit-triggers`, for the
   triggers at setup and at an audit.
-- `issue@agent-skills@a-skill-for-creating-a-component` whole, and
+- `a-skill-for-creating-a-component` whole, closed when this milestone scheduled it, read in the parent of the commit that deleted it, which
+  `git log --diff-filter=D -- crates/agent-skills/docs/open-issues/a-skill-for-creating-a-component.md` finds; and
   `issue@knowledge-architect@command-output-is-not-declared-a-contract`, the issue the owner recalled
   for #pure-output-layer.
 - `issue@knowledge-architect@four-goals-homes-state-no-purpose-their-goals-serve`,
@@ -232,4 +236,4 @@ above, for the project's own name.
   `design@agent-skills@losing-alternatives-filter` admits it.
 - **Tripwires:** premortem cause 6 of the milestone document, judged by the tripwire standard, and
   folded into `issue@agent-skills@a-lighter-pass-for-untouched-components` or dropped.
-- **Issues:** `issue@agent-skills@a-skill-for-creating-a-component` closed.
+- **Issues:** none closed; `a-skill-for-creating-a-component` was closed when this milestone scheduled it.

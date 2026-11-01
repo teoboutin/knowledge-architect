@@ -27,6 +27,13 @@ tree with a clause the owner had not ruled in knowingly.
   defects, until the owner stopped the loop. `skill@knowledge-architect-goal-setting` reviews again
   a goal the owner rewords, with the whole batch, and states no stop;
   `design@agent-skills@whole-set-rounds` stops the review of the whole goal set only.
+- A third instance of the loop, in this repository's branch that planned the installed development
+  skill: one batch of reworded goals went through five draft-mode reviews, with 8, 10, 6, 6 and 6
+  findings, each round's repairs or the owner's answers bringing new findings, until the session
+  showed the owner a version that the last review had not read. The same branch tagged `intent`,
+  instead of `minor`, a rule-6 finding on a goal judged only in use whose measure is a list of
+  properties, per `design@agent-skills@goal-reviewer-agent`, which answers the first part of the
+  mechanism below for that case.
 
 The suspected mechanism, in one sentence: the reviewer reports a clause under the rule its wording
 breaks most visibly, and a reach shown as a minor measure finding does not reach the owner as a
@@ -39,14 +46,6 @@ or when work next changes the goal reviewer's definition.
 
 A goal binds outright, so a clause the owner did not intend rules work out with the owner's
 authority, against `goal@knowledge-architect@the-owner-decides`.
-
-- A third instance of the loop, in this repository's branch that planned the installed development
-  skill: one batch of reworded goals went through five draft-mode reviews, with 8, 10, 6, 6 and 6
-  findings, each round's repairs or the owner's answers bringing new findings, until the session
-  showed the owner a version that the last review had not read. The same branch tagged `intent`,
-  instead of `minor`, a rule-6 finding on a goal judged only in use whose measure is a list of
-  properties, per `design@agent-skills@goal-reviewer-agent`, which answers the first part of the
-  mechanism above for that case.
 
 ### What would close it
 
