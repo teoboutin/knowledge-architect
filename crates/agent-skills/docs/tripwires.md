@@ -32,8 +32,9 @@ review, and the misstatement is critical under
 one approved thread takes the full path.
 **Re-entry:** the retrospective of each session that wrote such a commit message: it reads the
 session's own record against the message.
-**Watches until:** 10 commits on the main branch whose message names the in-change path and that
-add a heading to a design home.
+**Watches until:** 10 commits on the main branch whose message carries the deliberation of a
+discussion on the in-change path and that add a heading to a design home; a message that only names
+the path as its subject is no occasion.
 
 ## Guarding `design@agent-skills@record-searched-before-the-work`: a deferred trigger met by work that bypasses the design skill and found only at the review `##deferred-trigger-met-by-undesigned-work`
 
