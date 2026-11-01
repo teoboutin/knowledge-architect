@@ -1,6 +1,6 @@
 **Generated — do not edit.** `cargo klarch index`
 
-45 entries
+46 entries
 
 | kind | title |
 | --- | --- |
@@ -34,6 +34,7 @@
 | question | [The primer and its head name a guard's issue under two conditions](the-primer-and-its-head-name-a-guard-s-issue-under-two-conditions.md) |
 | question | [The primer's paragraph on a divergence between a head and the code reads two ways on the work that goes on meanwhile](the-primer-s-divergence-paragraph-reads-two-ways-on-work-that-goes-on.md) |
 | question | [Does a reversal keep the incumbent's Component when the successor decides another Component's interface?](the-reversal-rule-fixes-the-component-when-the-successor-decides-another-s-interface.md) |
+| question | [The set of what a finding sends upstream names the installed text and the checker, and no published library](the-upstream-set-omits-the-published-libraries.md) |
 | question | [Whether a census of a project's own text under a planned instruction is real use, or a run the workflow refuses](whether-a-census-of-real-text-under-a-planned-instruction-is-real-use.md) |
 | question | [Whether a session in Claude Code's default permission mode is asked for permission, or needs an allow rule, to run an installed saved workflow](whether-a-saved-workflow-run-needs-a-permission-rule.md) |
 | todo | [A pointer that applies a whole standard, with no instruction to read it whole, was not searched for fragments](a-pointer-that-applies-a-whole-standard-without-asking-to-read-it-whole-was-not-searched.md) |
