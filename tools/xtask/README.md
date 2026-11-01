@@ -2,7 +2,8 @@
 
 Workflow automation for this repository. Each subcommand is one workflow: `changelog` writes the
 copies of the root changelog that the published crates ship, `skill` prints the source of one
-shipped text whole, and `gates` runs the project's gates
+shipped text whole, `mutate` runs the published hand mutation, `path@mutate@README.md`, over this
+repository, and `gates` runs the project's gates
 (what CI runs) through the published gates library, `path@gates@README.md`, keeps every byte they
 emit, and prints only what needs acting on. The gate list in `path@xtask@src/gates.rs` is the
 primary home of what the gates are, per `design@xtask@gates-list-primary-home`.
@@ -18,6 +19,9 @@ cargo x gates --require-rebased   # add the rebased gate: HEAD must contain orig
 cargo x changelog                 # write the root CHANGELOG.md into every published crate
 cargo x skill <name>              # print a shipped skill, agent, saved workflow or `primer` from
                                   # its source, fragments and snippets inlined, comments kept
+cargo x mutate run --file <F> --replace <OLD> --with <NEW> -- <command>
+                                  # apply one mutation, run the command, restore the file
+cargo x mutate restore            # unwind a run that was killed
 ```
 
 `skill` takes the installed name, with or without the `knowledge-architect-` prefix, and reads the

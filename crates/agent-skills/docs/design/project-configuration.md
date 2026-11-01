@@ -538,8 +538,9 @@ keeps, and writes its own version as the pin, per `design@core@init-command`.
 One command runs every check a project owes before a merge, runs them all when one fails, and exits
 non-zero when any fails, so a verdict is one exit code and nothing is read through a pipe. In a Rust
 project it is a command of the maintenance crate, per `design@agent-skills@xtask-pins-checker`, run
-by the published gates library, per `design@gates@gates-crate`, so every adopting project runs the
-gates refined in this repository and in thaum. The gates a project owes are its own list, per
+by the published gates library, per `design@gates@gates-crate`; every Rust target project has that
+crate, per `design@agent-skills@maintenance-crate-ask`, so every adopting project runs the gates
+refined in this repository and in thaum. The gates a project owes are its own list, per
 `design@gates@a-project-holds-its-gate-list`.
 
 ### The primer asks for `check --staged` after staging and before each commit `##staged-check-before-each-commit`
@@ -593,9 +594,8 @@ the checker, which the check gate needs anyway, and the mutation library.
 
 knowledge-architect asks every Rust target project to carry the maintenance crate of
 `design@agent-skills@xtask-pins-checker`, so that a command of the installed text, such as
-`cargo x gates` or `cargo x mutate`, names one invocation in every project. The ask is on the owner's word, given
-when a command of the installed development procedure needed a name in every Rust project; adding an
-ask is the owner's, per `goal@knowledge-architect@serves-one-kind-of-project`,
+`cargo x gates` or `cargo x mutate`, names one invocation in every project. The ask is on the
+owner's word; adding an ask is the owner's, per `goal@knowledge-architect@serves-one-kind-of-project`,
 which also makes how an ask is met, the command's name, a design decision of knowledge-architect.
 The setup skill states it, and offers a Rust project no local install of the checker, which would
 leave it with no maintenance crate and a gates command of its own:

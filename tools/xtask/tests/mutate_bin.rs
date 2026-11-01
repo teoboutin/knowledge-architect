@@ -72,12 +72,40 @@ fn the_subcommand_reaches_run_and_restore() {
     std::fs::remove_dir_all(&project).ok();
 }
 
-// The claim: outside a project the subcommand never starts, and exits 2.
+// The claim: outside a project the subcommand never starts, and exits 2, even inside a git
+// repository, where the library alone would run.
 #[test]
 fn outside_a_project_the_subcommand_exits_two() {
-    let dir = std::env::temp_dir().join(format!("xtask-mutate-bin-none-{}", std::process::id()));
-    std::fs::create_dir_all(&dir).expect("a directory");
+    let dir = scratch_project("none");
+    std::fs::remove_file(dir.join("knowledge-architect.toml")).expect("the marker removed");
     let (out, text) = xtask(&dir, &["restore"]);
     assert_eq!(out.status.code(), Some(2), "{text}");
+    assert!(text.contains("not inside the project"), "{text}");
     std::fs::remove_dir_all(&dir).ok();
+}
+
+// The claim: from a subdirectory, `--file` is relative to the project's root, which the
+// subcommand finds above the working directory.
+#[test]
+fn from_a_subdirectory_the_file_is_relative_to_the_root() {
+    let project = scratch_project("subdir");
+    let sub = project.join("sub");
+    std::fs::create_dir_all(&sub).expect("a subdirectory");
+    let (out, text) = xtask(
+        &sub,
+        &[
+            "run",
+            "--file",
+            "f.txt",
+            "--replace",
+            "SITE",
+            "--with",
+            "MUT",
+            "--",
+            "true",
+        ],
+    );
+    assert_eq!(out.status.code(), Some(0), "{text}");
+    assert!(text.contains("mutation applied to f.txt"), "{text}");
+    std::fs::remove_dir_all(&project).ok();
 }

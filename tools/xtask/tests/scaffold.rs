@@ -35,6 +35,12 @@ impl Drop for Scratch {
 /// cargo set for this test's own build, which would describe this workspace rather than the
 /// scaffold. The toolchain this test runs under is kept, through rustup's own variable.
 fn cargo(dir: &Path, args: &[&str]) -> std::process::Output {
+    cargo_into(dir, &dir.join("target"), args)
+}
+
+/// The same, building into `target`: a command run from a subdirectory of the scaffold builds
+/// into the scaffold's own `target/`, which its `.gitignore` covers, or the check walks the build.
+fn cargo_into(dir: &Path, target: &Path, args: &[&str]) -> std::process::Output {
     let mut command = Command::new(std::env::var_os("CARGO").unwrap_or("cargo".into()));
     for (key, _) in std::env::vars_os() {
         let key = key.to_string_lossy();
@@ -46,7 +52,7 @@ fn cargo(dir: &Path, args: &[&str]) -> std::process::Output {
         .args(args)
         .current_dir(dir)
         .env("CARGO_NET_OFFLINE", "true")
-        .env("CARGO_TARGET_DIR", dir.join("target"))
+        .env("CARGO_TARGET_DIR", target)
         .output()
         .expect("cargo runs")
 }
@@ -97,7 +103,7 @@ fn a_project_written_by_init_rust_builds_and_checks() {
         "{}",
         String::from_utf8_lossy(&help.stderr)
     );
-    // The `mutate` command reaches the mutation library: with no mode it prints the modes and
+    // The `mutate` command carries the mutation library's modes: with none it prints them and
     // exits 2, as clap does for a missing subcommand.
     let mutate = cargo(&root, &["x", "mutate"]);
     assert_eq!(
@@ -110,6 +116,17 @@ fn a_project_written_by_init_rust_builds_and_checks() {
         String::from_utf8_lossy(&mutate.stderr).contains("restore"),
         "{}",
         String::from_utf8_lossy(&mutate.stderr)
+    );
+    // And it reaches the library's `run`: from a subdirectory, `restore` finds the project's root
+    // and reports no record.
+    let sub = root.join("xtask");
+    let restore = cargo_into(&sub, &root.join("target"), &["x", "mutate", "restore"]);
+    assert!(
+        restore.status.success()
+            && String::from_utf8_lossy(&restore.stdout).contains("no mutation record"),
+        "{}{}",
+        String::from_utf8_lossy(&restore.stdout),
+        String::from_utf8_lossy(&restore.stderr)
     );
     let check = cargo(&root, &["klarch", "check"]);
     let out = String::from_utf8_lossy(&check.stdout);

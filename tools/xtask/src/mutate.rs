@@ -1,7 +1,7 @@
 //! The `mutate` subcommand: the published mutation library, run over this repository.
 //!
-//! What its modes do is the library's, `register@mutate@design`; this module finds the root and
-//! hands it over.
+//! What its modes do is `path@mutate@README.md`, and why they are shaped so is
+//! `register@mutate@design`; this module finds the root and hands it over.
 
 use knowledge_architect::MANIFEST_NAME;
 use knowledge_architect_gates::{process::complain, project_root};

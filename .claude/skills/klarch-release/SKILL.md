@@ -28,7 +28,7 @@ On a branch of its own, `release-<version>`, under the Git rules of the root `CL
    - `[workspace.package] version` in the root Cargo.toml;
    - the exact pin `knowledge-architect-agent-skills = { …, version = "=<version>" }` in
      crates/core/Cargo.toml;
-   - Cargo.lock, which any cargo command rewrites for the four workspace packages;
+   - Cargo.lock, which any cargo command rewrites for the five workspace packages;
    - the status line: the opening sentence of `## Status` in the root README.md. Change the
      number, and any other part of the sentence the release makes false.
 
@@ -79,11 +79,11 @@ On a branch of its own, `release-<version>`, under the Git rules of the root `CL
 6. **crates.io.** For each crate, the API answers 404 for a first release, or shows the crate owned
    by the owner's account; in both cases the version itself must be absent. A 404 means a crate's
    first version, which the release workflow cannot publish, per
-   `design@knowledge-architect@publish-credential`: stop the release there. The owner publishes
-   that version by hand with an API token, after the merge and on the owner's word, as
-   `knowledge-architect-mutate`'s first version is, then turns on the trusted publisher and
-   "Require trusted publishing for all new versions" for the crate; until then the workflow's
-   `publish` job cannot upload it:
+   `design@knowledge-architect@publish-credential`: tell the owner, and carry the release on to
+   its merge. After the merge and before the tag of step 11, the owner publishes that crate's
+   version by hand from main with an API token, on the owner's word, then turns on its trusted
+   publisher and "Require trusted publishing for all new versions"; the workflow's `publish` job
+   then skips it as already published, and uploads the rest:
 
    ```sh
    curl -s -A 'knowledge-architect release check' https://crates.io/api/v1/crates/<crate>/<version>
@@ -97,7 +97,8 @@ On a branch of its own, `release-<version>`, under the Git rules of the root `CL
    the lists; the release does not wait for it.
 8. **The dry run.** `cargo publish --workspace --dry-run` passes, skips xtask, and orders
    agent-skills before the core, which depends on it. Its warning "ignoring test `<name>`"
-   for each file `<name>.rs` of `path@core@tests/` is expected: the whitelist keeps the tests out.
+   for each file `<name>.rs` of `path@core@tests/` and of `path@mutate@tests/` is expected: the
+   whitelist keeps the tests out.
 9. **The gates and the review.** `cargo x gates --require-rebased`, then the push, and the review
    under `skill@knowledge-architect-review`. Its axes include
    `agent@klarch-changelog-reviewer`, dispatched on `v<previous>..<commit under review>`, the head's commit at the dispatch: every change of the range
