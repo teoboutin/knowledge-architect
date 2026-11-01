@@ -59,9 +59,11 @@ fragment. The expectation sets stay behind a pointer, since the reader needs one
 varies per finding. The pointer it replaces had left the writer of about 35 tripwires of this
 repository and thaum without the rule they broke. The snippet pass cannot carry prose: it runs last,
 so a snippet keeps its `%%` lines and its placeholders, and every snippet is written into a new
-project by `klarch init --rust`. A harness hook delivering pointed sections would make the shipped
-workflow depend on a hook one harness runs, which an environment of another harness lacks, against
-`goal@agent-skills@installed-text-works-in-any-environment`. A review of a changed fragment reads it
+project by `klarch init --rust`. A harness hook delivering pointed sections was defeated on its making
+the shipped workflow depend on a hook one harness runs, which an environment of another harness
+lacks; since `goal@agent-skills@installed-text-works-in-any-environment` covers configurations of
+the `claude` harness only, that defeat is to be argued again, per
+`issue@agent-skills@heads-argued-from-another-harness`. A review of a changed fragment reads it
 in every host, since a sentence true in one host's context can be false in another's, as two
 sentences of the first fragments were.
 

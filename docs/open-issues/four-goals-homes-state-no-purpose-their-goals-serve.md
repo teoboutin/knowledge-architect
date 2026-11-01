@@ -1,7 +1,7 @@
 ---
 kind: todo
 ---
-# The goals homes of gates, agent-skills and xtask state no purpose in their head
+# Four goals homes state no purpose that every goal of their Component serves
 
 ## Summary
 

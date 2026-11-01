@@ -1,6 +1,6 @@
 **Generated — do not edit.** `cargo klarch index`
 
-46 entries
+47 entries
 
 | kind | title |
 | --- | --- |
@@ -16,6 +16,7 @@
 | design | [A member recorded directly, as covered by its head's argument, lay beyond that argument](a-member-recorded-directly-lies-beyond-its-head-s-argument.md) |
 | design | [A tripwire on agent behaviour under the workflow fires in sessions this project does not see](a-tripwire-on-agent-behaviour-fires-where-this-project-cannot-see.md) |
 | design | [An item met outside the task and kept for the retrospective's workflow file is lost when no retrospective follows](an-item-kept-for-the-retrospective-is-lost-when-no-retrospective-follows.md) |
+| design | [Decisions argued from a second agent harness, which the scope goal now asks against](heads-argued-from-another-harness.md) |
 | design | [Plan documents keep the owner's words verbatim, where every other durable record attributes them, and sessions slip between the two](plan-documents-keep-the-owner-s-words-verbatim-where-other-records-attribute-them.md) |
 | design | [Pointers written as bare plain text to clear a finding reach no check, and the rule against them is reopened](pointers-written-bare-to-clear-a-finding-reach-no-check.md) |
 | design | [The claim check of a commit message is read at the session's start and needed at each commit](the-claim-check-of-a-commit-message-is-read-at-the-start-and-needed-at-each-commit.md) |

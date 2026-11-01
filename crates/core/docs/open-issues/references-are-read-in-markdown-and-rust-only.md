@@ -7,18 +7,19 @@ kind: todo
 
 The walk parses two file kinds, Markdown and Rust source. A reference written in a comment of any
 other language is never read: it is not checked, `show` does not list it, and a deleted or renamed
-entry leaves it dangling with no finding. A project whose code is in another language gets the
-document checks and none of the code-comment checks.
+entry leaves it dangling with no finding. A target project's files in another language, the
+installed saved workflows and the glue its targets need, get the document checks and none of the
+code-comment checks.
 
 ## Details
 
 ### What
 
 `LIVE_SUFFIXES` in `path@core@src/walk.rs` lists the suffixes the walk reads, `md` and `rs`. The
-Rust grammar is what tells the reader which byte ranges of a source file are prose. A project in
-Python, TypeScript, Go or any other language would need, for each language, a way to find its
-comments, and a way for the manifest to say which source files are read. Nothing about the shape is
-decided.
+Rust grammar is what tells the reader which byte ranges of a source file are prose. Each further
+language a target project holds files in, such as the JavaScript of the saved workflows or of a web
+target, its HTML, or a shader language, would need a way to find its comments, and a way for the
+manifest to say which of those files are read. Nothing about the shape is decided.
 
 The installed saved workflows are JavaScript, so they are not read either. Their prompts name a
 skill section in words, inside string literals: the agentic-workflow audit's `SECTION` constant

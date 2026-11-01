@@ -27,7 +27,7 @@ declared, which is the same as being checked against nothing, against
 core compiles in, and no project holds back any of them beyond what a declaration of its manifest
 switches off. The one declaration that changes the set is the agent harness, and it removes only the
 agent document. The flaw this leaves, that a developer's contracts lose their required home in a
-project without agents, is `issue@core@a-home-for-developer-contracts-outside-agent-configuration`.
+target project that uses the checker alone and declares no harness, is `issue@core@a-home-for-developer-contracts-outside-agent-configuration`.
 
 **A directory that carries outstanding state without being a component is a location**, per
 `design@core@anchors-are-components-and-locations`.

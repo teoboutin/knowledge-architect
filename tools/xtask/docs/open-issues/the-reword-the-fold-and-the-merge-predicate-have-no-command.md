@@ -49,6 +49,8 @@ loses a check: a reword whose pattern misses leaves the diff empty all the same,
 
 ### What would close it
 
-A command of the tool for each of the three, or for those the owner orders first, per the order of
-known work of `goal@knowledge-architect@the-owner-decides`. A command that runs the reword's or the
+A command of the tool for the merge predicate, and for the reword and the fold until a published
+crate ships them, per `issue@knowledge-architect@no-published-command-rewrites-a-branch-s-history`,
+when the tool's command calls the published one and keeps only this repository's part; each in the
+order of known work of `goal@knowledge-architect@the-owner-decides`. A command that runs the reword's or the
 fold's checks without running the history edit itself also meets the goal for the checks.

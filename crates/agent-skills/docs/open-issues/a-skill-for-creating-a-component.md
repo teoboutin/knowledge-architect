@@ -17,7 +17,10 @@ A skill for creating a Component: when a directory earns being one, what it carr
 commit, how its goals are stated, and which decisions of the root Component it inherits.
 `goal@knowledge-architect@projects-are-split-into-components` states the four properties a Component
 that holds Rust code is led toward; how a Component maps to Cargo packages, and how the installed
-text leads a session there, are left to a design discussion the owner asked for.
+text leads a session there, are left to a design discussion the owner asked for. The owner leans
+towards one crate per Component, and doubts it for a project published on crates.io, where it may
+mean many small crates, both as good practice and as convenient to publish; both are premises of
+that discussion.
 
 ### Why it matters
 
@@ -29,4 +32,8 @@ documents exist, empty, as `klarch new-component` writes them per
 ### What would close it
 
 The skill, designed with the owner and installed, naming `new-component` as its first act, and the
-setup skill pointing at it for a Component added after setup.
+setup skill pointing at it for a Component added after setup; and the installed text meeting the
+measure of `goal@knowledge-architect@projects-are-split-into-components`: it states the four
+properties, leads a session to place new work by them and to split an existing Component that
+holds two purposes, and requires a departure to be argued in a head of the Component's own design
+home.

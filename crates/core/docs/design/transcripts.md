@@ -25,9 +25,10 @@ argues against.
 
 ### The transcript command reads Claude Code's transcripts, and no other harness's `##transcript-reads-claude-code-alone`
 
-The reader knows one harness's layout and fields, Claude Code's. That is the owner's word: the
-owner uses no other harness, and another waits for a consumer's request, should one ever come. A
-second harness is `issue@core@configuration-for-several-agent-providers`.
+The reader knows one harness's layout and fields, Claude Code's.
+`goal@knowledge-architect@serves-one-kind-of-project` asks every target project's agents to run
+under `claude`, and a second harness waits for a change of that ask, per
+`issue@core@configuration-for-several-agent-providers`.
 
 ### The lists a session reads from a project's transcripts, for the workflow's procedures and for a survey of past sessions, are verbs of `transcript`, computed from the transcripts `##transcript-query-verbs`
 

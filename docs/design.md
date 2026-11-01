@@ -100,8 +100,7 @@ project's pinned checker describes, per `design@knowledge-architect@version-lock
 project holds the version it pinned, whatever another project on the same machine uses. Whether
 the installed files match is checked like any other part of the tree, per
 `design@core@owned-namespace-check`, rather than warned about. A project installs one thing, with
-one command, and a later provider's layout is a target the same command writes, which serves
-`goal@knowledge-architect@every-target-project-can-adopt-it`.
+one command, which serves `goal@knowledge-architect@every-target-project-can-adopt-it`.
 
 The design this decision did not keep:
 `rejected@knowledge-architect@workflow-as-marketplace-plugin`.
