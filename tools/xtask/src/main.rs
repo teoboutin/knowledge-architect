@@ -6,6 +6,7 @@
 
 mod changelog;
 mod gates;
+mod mutate;
 mod skill;
 
 use clap::{Parser, Subcommand};
@@ -36,6 +37,11 @@ enum Command {
         /// The installed name, with or without the installer's prefix, or `primer`.
         name: String,
     },
+    /// Apply one mutation you write, run a command against it, and put the file back.
+    Mutate {
+        #[command(subcommand)]
+        command: knowledge_architect_mutate::MutateCommand,
+    },
 }
 
 fn main() -> ExitCode {
@@ -43,6 +49,7 @@ fn main() -> ExitCode {
         Command::Gates(args) => gates::run(&args),
         Command::Changelog => changelog::run(),
         Command::Skill { name } => skill::run(&name),
+        Command::Mutate { command } => mutate::run(&command),
     }
 }
 
