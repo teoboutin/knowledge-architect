@@ -712,5 +712,5 @@ installing the binary into a directory of its own, as a project with no Rust doe
 own gates command, so that its build gained no workspace. Such a project has no `cargo x`, so a
 command of the installed text has no name there, and its gates run outside the gates library, which
 knowledge-architect asks every target project to run its gates through, per
-`goal@knowledge-architect@serves-one-kind-of-project`. The cost it avoided, a workspace in a
-one-package project, is accepted by `design@agent-skills@maintenance-crate-ask`.
+`goal@knowledge-architect@serves-one-kind-of-project`. The cost it avoided is a workspace in a
+one-package project, which `design@agent-skills@maintenance-crate-ask` accepts.

@@ -32,8 +32,8 @@ each step to a session.
 `run` takes the one file `--file` names; a `--patch` that names any other path is refused with 2,
 before the baseline. The record, its comparison and its restore are per file, and a patch whose
 other hunks the run would drop gives a verdict about a mutant that is not the one the caller wrote.
-The goal admits a mutation of several files, so this is the current limit of the tool, not its
-scope: `issue@mutate@a-mutation-of-several-files`.
+`goal@mutate@a-named-mutation-is-checked-safely` admits a mutation of several files, so this is the
+current limit of the tool, not its scope: `issue@mutate@a-mutation-of-several-files`.
 
 ### The apply, the run and the restore are one command `##one-command-owns-the-interval`
 
@@ -71,7 +71,8 @@ because no answer about a subject is the tool's to give.
 
 A mutant that does not compile makes the command fail for a reason that is no test noticing. With
 `--build`, a probe that fails reads `unmutatable here`; without one, a failing command reads
-`caught` with the words that it cannot tell the two apart. The probe is the caller's, because the
+`caught` with the words that it cannot tell the two apart, as
+`goal@mutate@a-named-mutation-is-checked-safely` asks. The probe is the caller's, because the
 command is: the tool cannot know which build a command implies. The probe is not run over the
 unmutated tree, so a probe that always fails reads every mutant as unbuildable, which the printed
 verdict shows the caller.
@@ -80,9 +81,9 @@ verdict shows the caller.
 
 Over a base on which the command already fails, every mutation reads as caught, so the baseline is
 the default and `--no-baseline` the caller's word that the failure is expected and understood. An
-opt-in baseline would leave the default run open to that false catch. The file is read again after
-the baseline, and a change made meanwhile refuses the run before the mutant is written, since the
-mutant was planned from the content read before.
+opt-in baseline would leave the default run open to that false catch, which
+`goal@mutate@a-named-mutation-is-checked-safely` rules out unless the session skipped the
+baseline.
 
 ### The caller's command runs in the caller's environment `##caller-environment-kept`
 
@@ -125,7 +126,9 @@ clears a record over a live mutation, and the record is the only copy of the pre
 The pre-image, the mutant and the patch are written, complete, before the target is written. A hard
 kill at any later instant leaves the original recoverable by `restore`, and a record that reports
 itself present always carries its pre-image. A write of the mutant that fails after the file was
-opened has truncated it, so the record stays unless the file still holds its pre-image.
+opened has truncated it, so the record stays unless the file still holds its pre-image. This is
+where `goal@mutate@a-named-mutation-is-checked-safely` asks the content to be kept when the crate
+cannot put it back.
 
 ### The recovery record lives in the git directory `##record-lives-in-the-git-directory`
 

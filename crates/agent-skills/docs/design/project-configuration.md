@@ -599,7 +599,8 @@ owner's word; adding an ask is the owner's, per `goal@knowledge-architect@serves
 which also makes how an ask is met, the command's name, a design decision of knowledge-architect.
 The setup skill states it, and offers a Rust project no local install of the checker, which would
 leave it with no maintenance crate and a gates command of its own:
-`rejected@agent-skills@rust-project-on-a-local-install`. A project with a Cargo workspace or
+`rejected@agent-skills@rust-project-on-a-local-install`. The cost accepted, on the owner's word: a
+Rust project that is one package gains a workspace for the crate. A project with a Cargo workspace or
 package of its own writes the crate by hand from the setup skill's blocks, since `klarch init --rust`
 refuses one, per `design@core@rust-scaffold`.
 
