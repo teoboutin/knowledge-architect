@@ -399,3 +399,37 @@ the owner's word on their growth.
 **Re-entry:** the session's verification of each pass of the agentic-workflow axis.
 **Watches until:** two audit reports of the agentic-workflow axis, counted from the commit that
 writes this line.
+
+## Guarding `design@agent-skills@default-code-shape`: a shape finding leads a session to split code that gains nothing from the split `##shape-findings-fragment-code`
+
+The decision rests on the premise that the fragmentation clause of the default shape holds a
+session back from splitting code to answer a finding of one reason to change. Each procedure counts
+such a split as success: the tests pass, the review reports nothing left, and only a reader of the
+result sees the cost.
+
+**Fires when:** an analysis of a retrospective workflow file received under `path@knowledge-architect@docs/retrospective-reports/`
+reports, in answer to the standing question on rules about code, a split made to satisfy the default
+shape that bought nothing, a function with one caller, no test of its own and a name that says no
+more than its body, in two separate pieces of work.
+**Response:** reopen `design@agent-skills@default-code-shape` on how the fragmentation clause is
+worded and delivered, with the instances.
+**Re-entry:** the intake of a retrospective workflow file, `skill@klarch-retrospective-intake`, and
+the standing-state review.
+**Watches until:** three commits on the main branch that add analyses of received retrospective
+workflow files, counted from the commit that writes this line.
+
+## Guarding `design@agent-skills@test-economy`: a test of logic is called golden or integration to skip its mutation evidence `##logic-tests-relabelled`
+
+The decision rests on the premise that a writer classes a test by what it exercises, so mutation
+evidence, owed by a test of logic, is not skipped by naming the test another kind. A relabelled test
+passes every procedure, the code-shape reviewer's included where the label looks plausible.
+
+**Fires when:** an analysis of a retrospective workflow file received under `path@knowledge-architect@docs/retrospective-reports/`,
+or a review's finding on the main branch, reports a test of pure logic classed as golden, mocked or
+external and carrying no recorded mutation, in two separate pieces of work.
+**Response:** reopen `design@agent-skills@test-economy` on how a test's kind is decided, with the
+instances.
+**Re-entry:** the intake of a retrospective workflow file, `skill@klarch-retrospective-intake`, and
+the standing-state review.
+**Watches until:** three commits on the main branch that add analyses of received retrospective
+workflow files, counted from the commit that writes this line.

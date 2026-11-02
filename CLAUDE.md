@@ -76,7 +76,8 @@ An issue entry keeps its magnitudes, per the cold-reader standard of
 
 - A figure in the core's documents measured in another project, thaum, names thaum as its source.
 - **Before touching the code of a Component, ground first, per
-  `skill@klarch-development@ground-before-editing`.**
+  `skill@knowledge-architect-development@ground-before-editing` and
+  `skill@klarch-development@ground-in-this-repository`.**
 - **No run is built to observe how an agent follows the workflow's instructions**, whether to
   originate an edit, choose a shape, accept a piece of work or check that a text runs as written;
   the harness's mechanics, such as one dispatch of a new agent to see that its tools are granted,
@@ -180,8 +181,8 @@ design home of the checker, and here the checker's rules are decided in that hom
 Linear history, no merge commits, and no direct push to main. This section is a restatement. Its home is
 `design@knowledge-architect@git-flow`, except where a point or one of its bullets names another; the
 commands and procedures that carry those rules out are this file's own. **A scratch worktree made
-only for temporary testing is outside every rule of this section**, such as the one
-`skill@klarch-development@discriminating-tests` runs mutations in, per
+only for temporary testing is outside every rule of this section**, such as the one an
+adversarial reviewer runs mutations in, per
 `design@knowledge-architect@scratch-worktree-outside-git-rules`.
 
 1. **All work happens on a branch.**

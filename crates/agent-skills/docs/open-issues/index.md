@@ -1,6 +1,6 @@
 **Generated — do not edit.** `cargo klarch index`
 
-46 entries
+48 entries
 
 | kind | title |
 | --- | --- |
@@ -9,6 +9,7 @@
 | defect | [A spec worked without its design audit, as the rule allows, missed a critical gap an audit would have listed](a-spec-worked-without-its-design-audit-missed-a-critical-gap.md) |
 | defect | [In an adopting project, a finding sent upstream is counted again as a violation left on old text at every later pass](an-upstream-finding-stays-in-every-later-old-text-count.md) |
 | defect | [Texts of the workflow and of this repository send the owner more than the closed list of what is the owner's](texts-send-the-owner-more-than-the-closed-list.md) |
+| deferred | [A project cannot use an unreleased change to a shipped tool through a Cargo patch](co-development-through-a-cargo-patch.md) |
 | design | [A built default awaiting the owner enters a design head only once the owner rules, where the owner wants agents more autonomous](a-built-default-awaiting-the-owner-enters-a-head-only-once-the-owner-rules.md) |
 | design | [A goal the draft-mode review read was reworded again for a defect the goal standard names, twice](a-goal-the-draft-review-read-was-reworded-again-for-a-defect.md) |
 | design | [A goal the record search graded was missed by the work in two separate pieces of work](a-goal-the-search-graded-was-missed-in-two-pieces-of-work.md) |
@@ -40,6 +41,7 @@
 | todo | [A pointer that applies a whole standard, with no instruction to read it whole, was not searched for fragments](a-pointer-that-applies-a-whole-standard-without-asking-to-read-it-whole-was-not-searched.md) |
 | todo | [The project audit has three axes, and the other axes the owner named have none](audit-axes-beyond-the-design-record.md) |
 | todo | [Only the design and setup skills state what they expect of the owner](expectation-sets-for-the-installed-skills.md) |
+| todo | [Improving performance has no installed activity, nor a benchmark procedure](improving-performance-has-no-activity.md) |
 | todo | [Installed instructions assume pull requests and continuous integration](installed-text-assumes-pull-requests-and-ci.md) |
 | todo | [No check compares an audit pass's count of severe violations left with the previous pass's](no-check-compares-an-audit-pass-s-owner-list-count-with-the-previous-pass-s.md) |
 | todo | [No check reports a lens of the agentic-workflow axis whose second agent found nothing the first did not](no-check-reports-a-duplicated-workflow-lens-whose-other-agents-found-nothing.md) |

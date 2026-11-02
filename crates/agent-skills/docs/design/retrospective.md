@@ -37,15 +37,22 @@ from interrupting work.
 Every retrospective asks whether the session needed to change an installed skill or agent, whether the
 session or one of its subagents acted as if a rule of the primer were absent, whether a project
 skill's addition was missed, whether the session needed to write a reference or a path without
-backticks because no checked form expresses it, and whether the session or a subagent wrote a script
-or carried by hand over several steps a mechanical task the installed workflow asks of it. Real use
+backticks because no checked form expresses it, whether the session or a subagent wrote a script
+or carried by hand over several steps a mechanical task the installed workflow asks of it, and
+whether an installed rule about code or about splitting into Components proved too hard or too
+strict, or was followed against the work's interest. Real use
 is the test of the workflow, per
 `goal@knowledge-architect@the-workflow-improves-through-real-use`, and each question watches a
 decision or a goal whose failure would be seen in real sessions before any check could see it:
 `design@agent-skills@overlay-by-separate-skills`, the primer's delivery by an import line in
 `design@core@owned-namespace-check`, `design@agent-skills@no-routing-table`,
-`design@agent-skills@plain-text-is-no-repair`, and
-`goal@knowledge-architect@mechanical-tasks-are-the-tool-s`. The last question is asked of every
+`design@agent-skills@plain-text-is-no-repair`,
+`goal@knowledge-architect@mechanical-tasks-are-the-tool-s`, and, for the question whether a rule or
+guideline about code or tests, or about splitting the project into Components, proved too hard or
+too strict or was followed against the work's interest,
+`goal@knowledge-architect@the-workflow-leads-to-better-code` and
+`goal@knowledge-architect@projects-are-split-into-components`, whose learning from use it is; a lint
+the setup ships counts as such a rule, on the owner's ruling. The last question is asked of every
 session, since every session follows the workflow's procedures, where the question that lost in
 `rejected@agent-skills@retrospective-asks-for-unrecognised-lines` met a command most sessions never
 run; its evidence is real use, the owner's report that each design session wrote a loop to check a

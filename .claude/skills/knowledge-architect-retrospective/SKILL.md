@@ -92,6 +92,12 @@ finding gets one id in each file, each naming the other, since the two files may
   task the installed workflow asks of it, whose result follows from the tree and the workflow's
   rules with no judgement? For each: the task, the instruction that asks it, and the steps or the
   script. Each is also a finding on the checker, in the workflow's file.
+- Did an installed rule or guideline about code or tests, a lint the setup skill ships included,
+  prove too hard or too strict to follow in this session's Rust work, or get followed against the
+  change's interest? And did one about splitting the project into Components prove too hard or too
+  strict to follow, or get followed against the project's interest? For each: the rule, the code or
+  the split, and what following it cost. Each is a finding on the installed text, in the workflow's
+  file.
 
 **A ruling of the owner recorded a little relaxed, or firmer than its hedges, on a detail that is
 not load-bearing, or an argument or a reading attributed to the owner that is not the owner's,

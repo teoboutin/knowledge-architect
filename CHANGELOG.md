@@ -21,6 +21,13 @@ an empty subsection is omitted.
   adds the crate, as `skill@knowledge-architect-setup@rust-project` shows, and drops the install. A
   maintenance crate adds the dependency `knowledge-architect-mutate`, pinned exactly at the
   checker's version like its other two, and the `mutate` command of that section's main.
+- `agent-skills`, patch: the setup skill asks a crate the project publishes to warn on
+  `missing_docs`, `clippy::missing_errors_doc` and `clippy::missing_panics_doc`, which the clippy gate
+  turns into failures: a project adds the `[lints]` tables `skill@knowledge-architect-setup@rust-project`
+  shows to each published crate, and writes the documentation they report.
+- `agent-skills`, patch: `skill@knowledge-architect-development` now covers developing a project's
+  Rust code; a project with a development skill of its own cuts it to what is particular to it, an
+  overlay that only adds to the installed one.
 
 ### New features
 
@@ -31,6 +38,18 @@ an empty subsection is omitted.
 
 ### Workflow
 
+- `agent-skills`, patch: a development skill, `skill@knowledge-architect-development`: claims with
+  tests shown to discriminate by `cargo x mutate`, a default shape of code, the gate, the commit's
+  claim check, the review axes for code, the conditional performance step on a declared path, and an
+  optional diff mutation sweep with cargo-mutants.
+- `agent-skills`, patch: three review agents, `agent@knowledge-architect-adversarial-reviewer` and
+  `agent@knowledge-architect-spec-first-reviewer`, dispatched at development checkpoints, and
+  `agent@knowledge-architect-code-shape-reviewer`, in the review before a merge, which also sends
+  `agent@knowledge-architect-code-claims-reviewer` on a diff's statements about code and on the
+  documentation of a changed public interface.
+- `agent-skills`, patch: the retrospective asks whether a rule about code or tests, or about
+  splitting the project into Components, proved too hard or too strict, or was followed against the
+  work's interest.
 - `agent-skills`, patch: the goal reviewer tags `intent`, instead of `minor`, a finding that a goal
   judged only in use is measured by a list of the properties of its outcome, so the owner is asked
   whether the cases that list rules out are meant.

@@ -1,193 +1,37 @@
 ---
 name: klarch-development
-description: MUST use before starting or iterating on any change to this repository's Rust source — the crates under crates/ and the maintenance tool under tools/ — covering grounding in the Component's own documents, specifying a unit of work as claims with tests that discriminate, showing a test discriminates, the gate, when a piece of code is ready for review and which axes to send, and which comment species a sentence belongs in. Not for the installed text under crates/agent-skills/content/, the CI workflow, or the agent configuration.
+description: MUST use, together with `skill@knowledge-architect-development`, which it adds to, before starting or iterating on any change to this repository's Rust source — the crates under crates/ and the maintenance tool under tools/. Covers what this repository adds to the installed procedure - the Component documents its grounding reads, the gate and the tests that must never run it, the branch placement of a change to the core, the build tie in a worktree, the cargo-configuration trap, and a shipped tool improved here. Not for the installed text under crates/agent-skills/content/, the CI workflow, or the agent configuration.
 ---
 
-# Development
+# Development in this repository
 
-Scope: writing this repository's Rust source, from grounding to the commit: the crates under
-`path@knowledge-architect@crates/`, and the maintenance tool under `path@knowledge-architect@tools/`.
-One activity, and the facets below are its parts rather than separate scopes. Where a section reads
-_the crate_, read _the crate or the tool_: all of them are workspace members, so the gate of `skill@klarch-development@development-gate` sees all
-of them.
+Scope: writing this repository's Rust source, the crates under `path@knowledge-architect@crates/`
+and the maintenance tool under `path@knowledge-architect@tools/`. It adds to
+`skill@knowledge-architect-development`, which holds the procedure: read that skill whole first.
 
-**Not the installed text, the CI workflow, or the agent configuration.** The gate of `skill@klarch-development@development-gate` compiles and
+**Not the installed text, the CI workflow, or the agent configuration.** The gate compiles and
 tests Rust. It passes over a workflow file without seeing it, so a session that follows this skill
 for one of those gets a green gate on an unverified change.
 
 - The installed text, at its source under `path@agent-skills@content/`, follows
-  `path@agent-skills@CLAUDE.md`, section "Editing an installed skill or agent", read whole: it
-  says which skill it is written under.
+  `path@agent-skills@CLAUDE.md`, section "Editing an installed skill or agent", read whole.
 - This repository's own agent configuration is `skill@knowledge-architect-agent-configuration`.
 - A release is `skill@klarch-release`.
 
-Not covered here either: **reviewing** (`skill@knowledge-architect-review`), **recording a
-decision** (`skill@knowledge-architect-decision-recording`), and **parking anything**
-(`skill@knowledge-architect-issue-tracking`).
+## Ground before editing `##ground-in-this-repository`
 
-## Ground before editing `##ground-before-editing`
+Beside what the installed skill's grounding reads, read the Component's own files: its
+`CLAUDE.md`, for the invariants and traps that hold of the code as it stands; its issues and its
+tripwires, for what is outstanding and what would reopen a decision. A behaviour that looks like a
+new defect is checked with the two listings `instructions@verify-before-relying` adds.
 
-Read the Component's own files first:
-- its `CLAUDE.md`, for the invariants and traps that hold of the code as it stands;
-- its design home, for the recorded intent;
-- its `register@*@rejected`, for the designs already not kept;
-- its `register@*@issue` and `register@*@tripwire`, for what is outstanding and what
-  would reopen a decision.
-
-Then read the root's design home, `register@knowledge-architect@design`: it holds what binds
-every Component, so its heads bind a change inside one Component too.
-
-A behaviour that looks like a new defect is often recorded: check it as
-`primer@verify-before-relying` says, in its subsection "Check whether it is already known", with the
-two listings this repository adds in `instructions@verify-before-relying`.
-
-`primer@intent-and-claims` and `primer@verify-before-relying` govern how to read all of them, read
-whole: intent is authority, and a divergence between a design document and the code is a defect in one of them, never licence to
-follow the code.
-
-## The loop `##development-loop`
-
-1. **Claims.** Take the unit of work's claims, each with the test that could refute it.
-2. **Write the tests, and show that they discriminate** (`skill@klarch-development@discriminating-tests`).
-3. **Implement.** A design decision met while building is routed by the backstop of
-   `primer@design-heads`, at the moment it is met.
-4. **Gate** (`skill@klarch-development@development-gate`).
-5. **Commit.** The commit contract is `instructions@git-workflow`.
-6. **Review** (`skill@klarch-development@code-review-axes`), at any checkpoint where a coherent piece works, not only at the end. It follows
-   the commit because a reviewer working on its own copy of the tree sees committed content only,
-   so uncommitted work is reviewed by nobody. A repair the review asks for lands as
-   `skill@knowledge-architect-review@what-review-leaves` says.
-
-## Claims, and tests that discriminate `##discriminating-tests`
-
-**A unit of work is a list of claims, each with the test that could refute it.** A part with no
-claim is cost with no information. Where the work is a slice of a milestone or a step of a spec, the
-Claims its plan document gives it present them, under `skill@knowledge-architect-planning`;
-otherwise the session writes them, and this procedure does not depend on a plan document existing.
-
-**Every claim's test must be shown to fail against a plausible wrong implementation.** A test
-written first can still be written to the implementation its author already has in mind. It then
-passes on its first run, and nothing was ever at risk. Two ways to show it:
-
-- **Observed failing before its code exists.** Available when the answer is not yet known.
-- **A recorded mutation check.** When the trap is known before either the test or the code is
-  written, both come out right on the first run. Introducing the wrong implementation on purpose to
-  watch a red bar is theatre. Changing the code afterwards, running the test, and recording whether
-  it caught the change is the same evidence, obtained honestly. **Name the mutation, not just the
-  outcome.**
-
-**A mutation runs in a scratch worktree by default.** Reverting a hand-made mutation in the live
-tree with a restore can lose uncommitted work. Where the live tree is used
-anyway, the file is staged before the mutation, per `instructions@git-workflow`, so the revert
-does not depend on a restore: it undoes the edit, and `git diff -- <path>` shows it matches the
-staged copy. The worktree starts at HEAD, and the session's uncommitted work is
-brought into it, because the test under check is usually not committed yet. From the main tree's
-root, with `<name>` unique to the session so that no two sessions share a worktree:
-
-```sh
-git add --intent-to-add <each new file>              # new files then appear in the diff; nothing is lost
-git worktree add --detach .claude/worktrees/<name> HEAD
-git diff HEAD --binary | git -C .claude/worktrees/<name> apply --index
-git -C .claude/worktrees/<name> commit -qm "scratch: the work under check"
-```
-
-Then, inside the worktree, run the commands below with `export CARGO_TARGET_DIR="$PWD/target"`.
-Every build here is tied to its checkout
-(`design@knowledge-architect@a-build-is-tied-to-its-checkout`), so a build directory shared with
-the main tree would not run the other's build, but each checkout would rebuild at every switch.
-`<package>` is the package name, such as
-`knowledge-architect-gates`, not the Component's:
-
-```sh
-cargo test -p <package>                # the baseline: it passes over the unmutated work
-# apply the mutation, then
-git diff --quiet && { echo "NOT APPLIED"; exit 1; }   # an empty diff tested nothing: stop
-git diff                               # shows the mutation alone
-cargo test -p <package> --no-run       # it compiles, or it proves nothing
-cargo test -p <package> --no-fail-fast # the test under check fails: caught; it passes: SURVIVED
-```
-
-**A mutation of the cargo configuration runs in a worktree outside the main tree**, such as one
-under the session's scratchpad directory. Cargo merges the configuration of every parent directory
-field by field, so in a nested worktree the main tree's `path@knowledge-architect@.cargo/config.toml` restores a field the
-mutation removed, and the mutant survives a test that would catch it.
-
-Several mutations run in one worktree, one after another: each is reverted with
-`git checkout -- <path>` before the next is applied. The worktree is outside the Git rules of
-`instructions@git-workflow`, which say so.
-
-Finally, from the main tree's root, `git worktree remove --force .claude/worktrees/<name>`. The
-force is needed because the worktree holds the mutation, and it removes that worktree alone.
-
-Each of the three test runs carries a claim, so leaving one out weakens the check rather than
-shortening it.
-- **The baseline:** over a red base, every mutation reads as caught. It must run with the work
-  under check, or it passes over a tree that lacks the new test.
-- **The compile:** a mutant that does not compile also reads as caught, and the sites this check
-  most often sends you to are the ones that do not compile.
-- **The test run:** its verdict is the result, read from the output for the test under check,
-  never from the exit code. Without `--no-fail-fast`, cargo stops at the first target with a
-  failure, so another target's test under check never runs. Cargo exits nonzero when `--test`
-  names no test target, and zero when a filter matches no test, and neither run tested anything.
-  A test binary that aborts, with no result line, catches the mutation in the test its message
-  names, and the tests after it did not run.
-
-**A recorded check that does not show the mutation applied establishes nothing.** It quotes the
-`-` and `+` lines `git diff` printed, the file and the function or type that holds them, and the
-verdict, naming the failing test for a catch.
-
-A claim already settled by a probe beforehand enters as a regression guard, and is recorded as
-such.
-
-### Unreachable states, and which of them earn a test
-
-A guard, a refusal or an `expect` often stands against a state nothing can currently produce.
-
-- **The language or a format makes it unreachable**, and stays so for the life of the project: a
-  type that cannot hold the value, or a format the parser guarantees. No test: the state would have
-  to be constructed, and the result asserts something about the construction rather than about
-  the code. **Name the guarantee.** A justification phrased as a property of the current code,
-  rather than of the language or the format, makes it the second or third kind.
-- **A validated boundary makes it unreachable.** Whatever checks untrusted input refuses every state
-  that would reach the code, such as the manifest's validation of a declaration. There is no state
-  to construct and run, so what is tested is **the refusal**, and the mutation is deleting it.
-- **Only the current implementation makes it unreachable.** It stops being unreachable at whichever
-  unit of work populates that region, and anything shipped under it has no coverage at the moment it
-  starts mattering. **Test it**, constructing the state where the boundary accepts one.
-
-**The operational test is to ask the boundary.** If it refuses every state that reaches the code,
-the guard is the second kind, and the refusal is what carries the claim. If it accepts such a
-state, the guard is the third kind, whatever an argument about normal use says.
-
-**A mutation set chosen by the author of the tests is not enough.** The author mutates _the thing
-the claim is about_, and the survivors are adjacent to it, where an independent reviewer looks. So the
-adversarial review of `skill@klarch-development@code-review-axes` chooses its own mutations.
-
-## The review axes for code `##code-review-axes`
-
-**Dispatch when a coherent piece of code compiles, passes its tests, and does what its claims say**,
-and a defect found after the next piece is built on it would mean unbuilding both. That is the
-moment in this activity's terms; the list of such moments is open. Merging to main
-is not on this list, because it belongs to every activity, and
-`skill@knowledge-architect-review@review-axes` says what its review owes.
-
-**How to dispatch is `skill@knowledge-architect-review`**: the invariants that make a finding worth
-acting on, how to write a brief, and where findings land. Read it before sending anything.
-
-The axis this activity adds:
-
-| axis | what it does | when |
-| --- | --- | --- |
-| adversarial | chooses its own mutations, in its own worktree, and tries to reach a panic, a wrong verdict of the check, or a false finding from an accepted input | for any change to the code |
-
-Several adversarial reviewers may be dispatched, with different angles of attack.
-
-## The gate `##development-gate`
+## The gate here `##gate-in-this-repository`
 
 **`cargo x gates` runs every gate in one command**, and the gate list's home is
 `design@xtask@gates-list-primary-home`. How the gates are run, the checks owed before and after
 each commit, and the repair of a failing one are `instructions@verify-mechanically` and
 `primer@checker-model`, read whole.
+
 **A change to the core under which a tree that passed before can fail**, such as a stricter check
 of a commit's tree, a change of the manifest format or a change of what a generated file holds,
 **is placed on the branch as `primer@branch-commits` says**, read whole.
@@ -195,41 +39,30 @@ of a commit's tree, a change of the manifest format or a change of what a genera
 **No test may run the gates over this repository**, since the test gate would run the suite that is
 running it: `path@gates@CLAUDE.md` and `path@xtask@CLAUDE.md`.
 
-## Incompleteness is recorded, never encoded `##incompleteness-recorded`
+## A mutation or a review in another checkout `##other-checkouts`
 
-Every unit of work is wrong about everything later work builds. A guard, a refusal or a special case
-added to mark work as unbuilt singles out one incompleteness among many and gives it a mechanism.
-Within a single session that mechanism is indistinguishable from a decision, and it is _harder_ to
-remove than a note: deleting a refusal looks like relaxing a guarantee, so the session that
-finishes the work needs an argument it does not have.
+Every build here is tied to its checkout, per
+`design@knowledge-architect@a-build-is-tied-to-its-checkout`, so a reviewer's worktree builds into a
+target directory of its own, `export CARGO_TARGET_DIR="$PWD/target"` inside it: a build directory
+shared with the main tree would rebuild at each switch.
 
-Unbuilt work belongs in a plan document or in the issue registers, whose entries leave. Code says
-what is true. A statement in code that is false, such as a doc comment claiming a capability the
-crate lacks, is corrected, which is a different thing from enforcing the lack.
+**A mutation of the cargo configuration runs in a worktree outside the main tree**, such as one
+under the session's scratch directory. Cargo merges the configuration of every parent directory
+field by field, so in a worktree nested in the main tree the main tree's
+`path@knowledge-architect@.cargo/config.toml` restores a field the mutation removed, and the mutant
+survives a test that would catch it.
 
-## Comments: two species, two audiences `##comment-species`
+A mutation of `path@mutate@src/` with `cargo x mutate` rebuilds xtask at each run, since xtask links
+the mutation library: `path@mutate@CLAUDE.md` says what that costs.
 
-Neither carries the history of a change: that lives in the commit message.
+## A shipped tool found insufficient here `##shipped-tool-here`
 
-- **A doc comment addresses the caller.** What someone using the type or function must respect: the
-  invariants it maintains, what it expects of its arguments and of the object's state, what it does
-  not do, and the pitfalls of using it. It does not explain the implementation: a reader who never
-  opens the body must get everything they need from it. For a published crate's library API, the
-  crate-level documentation of its lib.rs is the description docs.rs renders.
-- **An inline comment addresses the next developer of this code.** What the code is supposed to do
-  and why it is shaped that way, so the original intent can be recovered when it later turns out to
-  be wrong. **Give the domain of validity explicitly**: the cases the code is expected to handle,
-  and why it holds for them. Write the current intent, not the episode. A past-tense reference
-  earns its place only where a reader would otherwise re-introduce the defect, and then it names
-  the mechanism, not the fix. **A guard, a workaround, a
-  stub or a test that exists because of an open issue names it**, `issue@<anchor>@<id>`, so that
-  closing the entry dangles the comment, and `cargo klarch check` sends the closing session here to
-  remove what the entry justified, per `design@agent-skills@a-reference-claims-a-revisit`. A
-  comment is prose, so the reference is checked. A string literal bound to a name is not; in the
-  checker's own source, every string literal is data, bound or not, per
-  `design@core@checker-source-literals-are-data`.
+This repository maintains the shipped tools, so it fixes one at its source rather than building a
+tool of its own beside it, and a finding about one stays here, per
+`design@knowledge-architect@workflow-findings-stay-here`.
 
-**Where a comment ends and a document begins** is `primer@design-heads`: its entry tests decide
-whether a decision earns a design head at all, and a decision that fails them lives in a comment at
-its code and in its commit; if changing a piece of code would force a change to the design home, it
-is design, and if the design home would be unaffected, it is a comment.
+## Comments in the checker's source `##checker-source-comments`
+
+In the checker's own source, every string literal is data, bound or not, per
+`design@core@checker-source-literals-are-data`, so a reference written in one is checked by nobody;
+a comment is prose, and its reference is checked.
