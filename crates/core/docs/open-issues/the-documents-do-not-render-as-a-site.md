@@ -27,3 +27,18 @@ reader follows a reference by searching for its entry, not by a link.
 
 The pass and the build, run over this repository's own documents, producing a site in which every
 reference is a working link.
+
+### Leads from the design of the Component split
+
+The design discussion that planned `milestone@plans@component-split` placed this work, and decided
+nothing of how it is built:
+
+- **A Component of its own, `render`**, a published crate in crates/render, created by this work,
+  after the milestone has landed. It depends on the milestone's `model` Component alone, plus
+  mdbook: the milestone separates the resolution of a reference from the lints that report a
+  broken one, so the pass that rewrites each reference into a link reads the resolution with no
+  check attached.
+- **It is a Component of its own because it decides a layout**: the page tree, each link's target,
+  and the book's summary. Its mdbook dependency also stays out of every crate an extension builds.
+- The milestone's acceptance criterion on the dependency graph of `model`'s consumers includes this
+  crate once it exists.

@@ -31,3 +31,29 @@ catches. The goal is unmet while the tasks have no command.
 
 The three tasks ship in a published crate, with tests over a scratch repository, and the installed
 branch-work skill names them.
+
+### Leads from the design of the Component split
+
+The design discussion that planned `milestone@plans@component-split` placed this work, and decided
+nothing of how it is built:
+
+- **A Component of its own, `rewrite`**, a published crate in crates/rewrite, created by this work,
+  after the milestone has landed. It depends on the milestone's `git` Component alone: the
+  rewriting commands share one purpose and one design, so they are one crate, one module per
+  command. Its commands are subcommands of `klarch`, their arguments parsed in the milestone's `cli`
+  Component, with a typed API in the crate.
+- **The source is a port of the owner's Python tool, `git-history-tools`**, kept in a checkout
+  beside this repository. Its five commands are `list-large-paths`, `prune-dead-paths`,
+  `squash-scattered`, `move-commits` and `split-by-path`; each reports by default and rewrites only
+  with `--apply`. Its foundation is a byte-safe model of a git invocation (its `common/gitcmd.py`,
+  which pins `gc.auto=0` on every command that writes an object or moves a ref) and a reader of
+  tracked files and commit contents; its `common/rebase.py` drives `git rebase --interactive` with
+  a scripted todo.
+- **The port needs a write side in the `git` Component**: object writes and ref moves, beside the
+  readers the milestone moves there. The milestone's premortem names the cause to watch: a write
+  may need an environment that the git heads say every invocation drops or keeps, such as a
+  temporary `GIT_INDEX_FILE`.
+- **The three tasks above are taken in already**, by `goal@knowledge-architect@mechanical-tasks-are-the-tool-s`.
+  The port's other commands are a generic part whose taking in is the owner's word, at the port,
+  per `goal@knowledge-architect@the-owner-decides`.
+- Every command it ships is bound by `design@knowledge-architect@no-operation-loses-content`.

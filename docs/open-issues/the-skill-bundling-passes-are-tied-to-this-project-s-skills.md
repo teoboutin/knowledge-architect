@@ -68,3 +68,19 @@ The owner plans to state the goal of the reuse when the work on the split starts
 `skill@knowledge-architect-design` that settles the shape of the split, then the split built: a
 utility crate that another crate's `build.rs` can call with its own prefix, layout and
 substitutions, and this project's skills built with that crate.
+
+### Leads from the design of the Component split
+
+The design discussion that planned `milestone@plans@component-split` placed this work in the split,
+and decided nothing of how it is built:
+
+- **A Component of its own, `bundle`**, a published crate in crates/bundle, created by this work,
+  after the milestone has landed. It holds the build passes of `path@agent-skills@build.rs` and
+  `path@agent-skills@src/render.rs`, and the generic part of the install: rendering a text for a
+  project, writing it under a prefix, and deleting the owned files a version does not ship. The
+  prefix, the layout and the substitutions are its parameters.
+- **agent-skills keeps the content** (content/, fragments/, snippets/, `FILES`, `SNIPPETS`) and
+  depends on `bundle` as a build-dependency.
+- **The checker keeps the comparison** of the installed copies, as a check family of the last
+  phase, and the command `install-agent-skills`, which calls the install of `bundle`.
+- On the owner's word in that discussion, the goal of the Component is written when it is created.
