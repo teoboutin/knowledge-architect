@@ -53,6 +53,7 @@ A split that would show any of these is probably cut in the wrong place:
 - it would create a dependency cycle;
 - every change you expect to make crosses the new boundary.
 
+%% Stated here alone, so no head: the owner's note that layers become nested Components.
 Where many Components would sit beside one another, nested Components under an intermediate
 Component carry the layering.
 
