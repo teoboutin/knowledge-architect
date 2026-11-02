@@ -34,6 +34,11 @@ tree with a clause the owner had not ruled in knowingly.
   instead of `minor`, a rule-6 finding on a goal judged only in use whose measure is a list of
   properties, per `design@agent-skills@goal-reviewer-agent`, which answers the first part of the
   mechanism below for that case.
+- A fourth instance, in the work of `spec@component-split@git-out`: the one goal of a new
+  Component went through five draft-mode reviews, each round's repairs or the owner's answers
+  bringing new findings, and the owner was twice shown a version no review had read, once at the
+  owner's request. A merge-mode review then found that the approved wording used "references" and
+  "subject" in senses the project already gives them.
 
 The suspected mechanism, in one sentence: the reviewer reports a clause under the rule its wording
 breaks most visibly, and a reach shown as a minor measure finding does not reach the owner as a

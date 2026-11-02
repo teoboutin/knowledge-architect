@@ -362,12 +362,9 @@ fn mode_and_path(line: &[u8]) -> Option<Entry> {
 
 /// The files git both tracks and ignores.
 ///
-/// Each is a finding, because the two states contradict each other and the contradiction is
-/// silent. The file is read by the walk, since `--cached` ignores the ignore rules; and it is
-/// asserted like any other target, since `git check-ignore` skips paths the index holds. So a
-/// reader of the ignore rules concludes the file is out of the project while every check reads
-/// it, and deleting the file from the index flips both answers at once. The repair is to untrack
-/// the file, or to narrow the rule that covers it.
+/// The two states contradict each other silently: `--cached` lists such a file whatever the
+/// ignore rules say, and `git check-ignore` skips paths the index holds, so a reader of the
+/// ignore rules concludes the file is out of the tree while every listing holds it.
 pub fn tracked_and_ignored(root: &Path) -> io::Result<Vec<PathBuf>> {
     git(root)
         .args([
@@ -385,8 +382,8 @@ pub fn tracked_and_ignored(root: &Path) -> io::Result<Vec<PathBuf>> {
 /// The trailing slash is the reference's own kind claim, and git needs it: a `dir/` pattern
 /// matches a path git can tell is a directory, and a target that does not exist yet — which is
 /// the whole point of exempting generated paths — is a directory only if the spelling says so.
-/// Asking by the claim rather than by what is on disk is what makes the verdict identical on a
-/// fresh clone and a built tree, per `design@core@ignored-targets-are-not-asserted`.
+/// Asking by the claim rather than by what is on disk is what makes the answer identical on a
+/// fresh clone and a built tree.
 pub fn ignore_query(target: &Path, claims_dir: bool) -> String {
     let mut out = target.to_string_lossy().into_owned();
     if claims_dir && !out.ends_with('/') {

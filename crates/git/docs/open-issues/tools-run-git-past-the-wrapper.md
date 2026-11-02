@@ -35,7 +35,7 @@ The goal asks that the library's interface hold each operation in git's terms th
 from several invocations, so these sites' operations are owed to the library, while a tool "can"
 use it and need not move.
 
-Two items of the library's interface serve the checker rather than git: `component_dir` and
+Two items of the library's interface may serve the checker rather than git: `component_dir` and
 `CRATE_DIR` in `path@git@src/lib.rs` exist for the checker's reading of its own source's literals
 as data and for its refusal of a build from another checkout; and `stage_generated` names its files
 by the checker's word, though it stages any contents a caller gives. The goal's library knows
@@ -51,5 +51,7 @@ for every invocation, per `design@git@repository-variables-dropped`, reaches non
 
 The public interface of the library carries what these sites need, each addition argued against
 the design heads of `register@git@design`; each site either moves onto it or is left with the
-reason it stays, in a comment at the site; and the two items above are renamed, or moved out of
-the library's interface, as their design decides.
+reason it stays, in a comment at the site; and the two items above are renamed, moved out of
+the library's interface, or kept with the argument that they fit the goal, as their design
+decides: the owner ruled that an item shaped for its first caller, `component_dir` and `CRATE_DIR`
+among them, knows nothing of a project's documents.
