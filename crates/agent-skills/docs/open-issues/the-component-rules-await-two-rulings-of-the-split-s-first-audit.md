@@ -5,8 +5,8 @@ kind: todo
 
 ## Summary
 
-At the design audit of `spec@component-split@git-out`, the owner ruled two points of the installed
-rules for Components: an intermediate Component exists where several Components share design the
+At the design audit of the slice that created the git Component, the owner ruled two points of the
+installed rules for Components: an intermediate Component exists where several Components share design the
 rest of the project does not, never for a count of Components; and the dependencies that span
 several Components are the root design home's, while a rule that one crate depends on no other may
 be that crate's. The installed text still states both points as before.
