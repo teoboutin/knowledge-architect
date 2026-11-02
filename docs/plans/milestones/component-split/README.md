@@ -20,7 +20,7 @@ milestone, on the owner's word.
   defect of the plan document.
 - Every name it uses is defined under Names or New names, or exists in the tree.
 - Where the owner's word is awaited, `skill@knowledge-architect-planning@working-a-slice` says what
-  waits: D3 below; D1 and D2 are ruled.
+  waits. Its defaults, D1, D2 and D3, are ruled.
 
 ## How the work is done
 
@@ -648,8 +648,9 @@ commit records it.
 
 Proposed by the session, R4 (#arg-69, #arg-70), as shape B; replaced by B′ after the record search
 (#arg-81, #arg-82). Final state: approved. The owner, R5: "installed-text-check-home: agreed on phase
-4". Reopened at the plan's second review on a finding that defeats part of its premise, #arg-69:
-D3 holds the narrowing and awaits the owner. Arguments: #arg-50, #arg-68 to #arg-70, #arg-81, #arg-82, #arg-103, #arg-115. Shape:
+4". Reopened at the plan's second review on a finding against part of its premise, #arg-69, and
+closed again by the owner's answer at D3, which leaves only a root CLAUDE.md outside the walk in
+phase 2. Arguments: #arg-50, #arg-68 to #arg-70, #arg-81, #arg-82, #arg-103, #arg-115. Shape:
 `spec@component-split@check-renamed`. Harvest: `design@core@phases-gate-the-report`,
 `design@core@owned-namespace-check` and `design@core@fix-before-the-checks` rewritten; the issue
 `installed-file-findings-belong-in-phase-four` was closed by the commit that added this
@@ -1400,9 +1401,8 @@ docs/ are split by subject, each slice moving what its new Component holds.
   with `testing` unpublished**, the session's default at D2, lost to the owner's choice there; it
   is the import path extension writers use, an interface others consume, so the harvest of
   #integrated-tests judges it by the tests for a losing alternative.
-- **The installed-file check moved to the last phase whole**, the first shape of
-  #installed-text-check-home, narrowed at D3, if the owner rules so: a missing installed file and a
-  root CLAUDE.md outside the walk report what the model could not read.
+- **A missing shipped file kept in phase 2**, the session's default at D3, lost to the owner's
+  reading that the model is built just right over a missing installed text.
 
 ## Readings
 
@@ -1485,20 +1485,23 @@ fire by a scratch dependency of `query` on `check`, which the command lists. The
   harness is still `check`'s module, and `cli` keeps re-exporting it under today's path, so a
   release cut between #cli-on-top and #integrated-tests changes no import and a consumer migrates
   once.
-- **D3, on #installed-text-check-home, awaiting the owner**: the plan's second review found that
-  the move to the last phase rests on #arg-69, "A stale installed skill still defines its entities,
-  so the model built over it is complete", which holds of an installed file that differs and of one
-  the version does not ship, not of one that is missing: by
-  `design@core@installed-entities-from-the-tree`, the model then lacks the entities that file
-  defines, and every reference to them is reported as unresolved in the last phase, beside the
-  install finding. The same family also reports a root CLAUDE.md the walk keeps out, which is what
-  the model could not read. The default narrows the move: a differing installed file, an unshipped
-  file of the namespace and a root CLAUDE.md that does not import the primer go to the last phase;
-  a missing shipped file and a root CLAUDE.md outside the walk stay in phase 2, by the core's own
-  placement rule, so the writers still refuse over them, and `tripwire@core@phases-gate-the-report-two`
-  keeps its premise. The rival is the move as ruled, whole, which reports the missing file's
-  dangling references beside its install finding in one run. The narrowing turns the ruling's
-  scope, so it is the owner's; built as the default until the owner rules.
+- **D3, on #installed-text-check-home, ruled**: every finding of `check::agents` on the installed
+  files, a missing shipped file included, and the finding on a root CLAUDE.md that does not import
+  the primer, go to the last phase, in `check`; `model` depends on nothing of `agent-skills`. The one
+  finding that stays in phase 2, in `model`'s foundation, is a root CLAUDE.md the walk keeps out,
+  which needs only the manifest's harness, until
+  `issue@core@the-walk-may-exclude-a-file-the-model-requires` replaces it. The plan's second review
+  found that #arg-69 holds of a differing file and not of a missing one, whose entities the model
+  then lacks, and the session proposed to keep a missing file in phase 2. The owner answered on the
+  fact: a missing installed text is no problem for the scanner, the model is built just right in
+  that case, and checking that every skill is installed is the checker's, maybe the bundler's. It
+  holds of the code: `Model::build` builds over a missing file, and the references to its entities
+  are reported as unresolved in the last phase, beside the install finding, which is premortem C5's
+  case; a writer over that model writes over the tree as it is, so
+  `tripwire@core@phases-gate-the-report-two`'s premise holds. The owner gave a rule, that the walk
+  refuses to exclude a file the model requires, and left to the session whether to build it in the
+  split; the session left it to that issue, since it is a stricter check that owes a Migration
+  entry, and the split's slices relocate behaviour.
 - **D1, on #cost-per-crate, ruled**: the fixed cost of each new crate is accepted, and each crate is
   created by the slice that builds it, `bundle`, `render` and `rewrite` by their own work. The owner,
   after the plan documents were committed: "D1 the costs are accepted".
