@@ -68,8 +68,8 @@ change:
 - **Move the incumbent into the `register@*@rejected` of the successor's Component** (`skill@knowledge-architect-decision-recording@losing-alternatives`) with its reason and a
   validity marker, stated as strongly as it was originally made, if it meets one of the tests of `skill@knowledge-architect-decision-recording@losing-alternatives`, and cite it from the new head.
   Where that Component is another, the `rejected` entries the incumbent's head cited move with it
-  wherever the successor's argument covers them; one it does not cover, and no other head cites,
-  leaves its home.
+  wherever the successor's argument covers them; one it does not cover, that no other head cites
+  and for which no head of absence is written, leaves its home.
 - **Argue it under `skill@knowledge-architect-design` first**, if it was not: a reversal contradicts
   a statement of the incumbent, the second case of the backstop of `primer@design-heads`.
 - **Delete the tripwires guarding the reversed decision.** `skill@knowledge-architect-issue-tracking` owns that movement.
@@ -156,8 +156,8 @@ design skill, as the backstop says.
 The project is partitioned into Components, which its manifest declares. The project's root is a
 Component too.
 
-1. Does the decision shape the layout of the project: which Components exist, or how they depend on
-   each other, constraining more than one of them? One Component depending on another constrains
+1. Does the decision shape the layout of the project: which Components exist, how they depend on
+   each other, constraining more than one of them, or how several of them are shaped or packaged? One Component depending on another constrains
    both: the second gains a consumer of its interface and cannot depend on the first. Then it
    belongs in the root Component's design home.
 2. Does it shape how every Component is implemented, or every Component of a kind: a design
@@ -166,8 +166,9 @@ Component too.
    without moving, such as being published or holding a binary.
 3. Does it shape how the code of each of several Components is written, and not every one: a design
    principle they follow, neither stated for a kind nor about their shape, packaging or layout? Then
-   it belongs in the design home of the lowest Component enclosing them all: the intermediate
-   Component that groups them, whose own files hold no Rust code, or the root.
+   it belongs in the design home of the lowest intermediate Component enclosing them all, a
+   Component whose own files hold no Rust code, or in the root Component's where none encloses them
+   all.
 4. Does it shape how a single Component is implemented, or its own interface, a rule that it does
    not depend on another Component included? Then it belongs in that Component's design home.
 

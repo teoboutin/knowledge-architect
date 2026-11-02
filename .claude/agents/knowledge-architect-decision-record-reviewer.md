@@ -403,8 +403,8 @@ change:
 - **Move the incumbent into the `register@*@rejected` of the successor's Component** (`skill@knowledge-architect-decision-recording@losing-alternatives`) with its reason and a
   validity marker, stated as strongly as it was originally made, if it meets one of the tests of `skill@knowledge-architect-decision-recording@losing-alternatives`, and cite it from the new head.
   Where that Component is another, the `rejected` entries the incumbent's head cited move with it
-  wherever the successor's argument covers them; one it does not cover, and no other head cites,
-  leaves its home.
+  wherever the successor's argument covers them; one it does not cover, that no other head cites
+  and for which no head of absence is written, leaves its home.
 - **Argue it under `skill@knowledge-architect-design` first**, if it was not: a reversal contradicts
   a statement of the incumbent, the second case of the backstop of `primer@design-heads`.
 - **Delete the tripwires guarding the reversed decision.** `skill@knowledge-architect-issue-tracking` owns that movement.

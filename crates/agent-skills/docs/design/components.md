@@ -7,12 +7,14 @@
 `skill@knowledge-architect-component-creation` holds the default criteria of a Component, the
 signals against a split, the mapping to crates, the shapes, the naming and the procedure of a
 creation or a split. Its description names the moments a Component is created or split, and the
-primer's list of installed skills names them too. Today they are four: new work that may belong to
+primer's list of installed skills names them too. Today they are five: new work that may belong to
 no existing Component, met in a design discussion; a second reason to change found while adding
-code, met in development; an adopting project's crates mapped to Components, at setup; and a
+code, met in development; an adopting project's crates mapped to Components, at setup; a
 Component found holding two purposes at an audit, which today is the design-record axis's finding on
 the Component a head sits in, since no axis reads a Component's purposes, per
-`issue@agent-skills@audit-axes-beyond-the-design-record`. The fragment
+`issue@agent-skills@audit-axes-beyond-the-design-record`; and a purpose the owner states for several
+Components together, met in goal-setting, whose skill points to the creation, since that purpose is
+the occasion of an intermediate Component, per `design@agent-skills@intermediate-component-occasion`. The fragment
 `path@agent-skills@fragments/when-to-split.md` states the occasion and the signals, and sends the
 session to the skill; the design skill and the development skill host it, the two activities in
 which the first two moments are met, per `design@agent-skills@shared-text-fragment`. The setup skill
@@ -89,7 +91,7 @@ reading of the third signal, against the changes of the history alone, lost on i
 use: the session that applied it counted past commits only, and kept in one Component two parts that
 the goals predicted would change apart, as new consumers of one part needing nothing of the other.
 
-### An intermediate Component groups Components that serve a purpose of their own, and a decision binding several Components goes to the lowest Component enclosing them all `##intermediate-component-occasion`
+### An intermediate Component groups Components that serve a purpose of their own, and holds the decisions on how the code of several of them is written `##intermediate-component-occasion`
 
 An intermediate Component groups the Components nested under its directory that together serve a
 purpose the rest of the project does not serve: its goals home states that purpose, and their goals
@@ -98,11 +100,11 @@ Components share a principle. Its own files hold no Rust code, per
 `goal@knowledge-architect@projects-are-split-into-components`, so it is no crate, and each Component
 nested under it that holds Rust code is a crate, per `design@agent-skills@component-crate-mapping`.
 A decision that shapes how the code of several Components is written goes to the design home of the
-lowest Component enclosing them all, an intermediate Component or the root. Two decisions binding
-several Components are the root's whatever encloses them: a decision on their shape, packaging or
-layout, as which Components exist and how they depend on each other, per
-`design@agent-skills@dependency-decision-home`, so that the layout is read in one place, the owner's
-condition; and a principle stated for every Component of a kind, a property a Component has whatever
+lowest intermediate Component enclosing them all, or to the root's where none encloses them all.
+Two decisions binding several Components are the root's whatever encloses them: a decision on their
+shape, packaging or layout, as which Components exist and how they depend on each other, per
+`design@agent-skills@dependency-decision-home`, on the owner's argument that the layout is then read
+in one place, at the cost of loading it on sessions outside the Components it binds; and a principle stated for every Component of a kind, a property a Component has whatever
 part of the project it belongs to and can gain or lose without moving, such as being published,
 since a Component anywhere in the tree can gain it. The component-creation skill states the
 occasion, point 3 of the decision-recording skill's rule on the owning Component places the
@@ -134,8 +136,10 @@ The rivals lost:
   refused.
 - **An intermediate Component made from a split**, a Component split into several becoming theirs.
   The tree would follow the project's history rather than its purposes, the same dependence on order.
-- **An intermediate Component as a declared set of Components rather than a directory.** The owner
-  keeps each Component tied to the filesystem tree.
+- **An intermediate Component as a declared set of Components rather than a directory.**
+  `goal@knowledge-architect@projects-are-split-into-components` defines a Component as what the
+  checker's manifest declares, a directory or the project's root, and the owner keeps each
+  Component tied to the filesystem tree.
 - **Grouping by a count of Components beside one another.** A count gives the group no design to
   hold, while the group still owes every document and register home a Component carries, per
   `design@core@components-carry-the-same-documents`. A directory the manifest does not declare
@@ -152,12 +156,15 @@ The rivals lost:
 A reading of a Component's design home, before a change or in a discussion, includes the design
 homes of the intermediate Components enclosing it, as it includes the root's. The primer's section
 on the project's documents states it, in one paragraph. Without it, the design an intermediate
-Component holds binds code that no reading reaches: none of the texts that list the design homes a
-reading names, the primer's subsection on the record of code, the development skill's grounding,
-the design skill's loop step 1, the planning skill's grounding of a slice and the design-conformance
-reviewer, names an intermediate Component's. The development skill reads the root's because its
-heads bind every Component or several of them, and an intermediate Component's heads bind its nested
-Components the same way, per `design@agent-skills@intermediate-component-occasion`.
+Component holds binds code that no reading reaches: the texts that list the design homes a reading
+names, the primer's subsection on the record of code, the development skill's grounding, the design
+skill's loop step 1, the planning skill's grounding of a slice and the design-conformance reviewer,
+name the design home of the Component touched, and some the root's, and none of them would otherwise
+name an intermediate Component's. An intermediate Component's heads bind the Components nested under
+it as the root's bind the Components they concern, per
+`design@agent-skills@intermediate-component-occasion`. The development skill, which names the
+root's beside the Component's, restates the binding in one sentence with its pointer to the primer,
+as `primer@where-knowledge-goes` admits.
 
 The session chose one paragraph of the primer over a clause in each of those five texts, which no
 goal ranks; the owner approved it. The five clauses state one fact five times, and a sixth list
@@ -182,8 +189,8 @@ The rivals lost:
   against the reason of `goal@knowledge-architect@projects-are-split-into-components`, that each
   Component's design stays small enough to read whole.
 - **The lowest Component enclosing every Component the decision constrains.** It keeps the root
-  smaller, and moves every dependency decision among a group into the intermediate Component made
-  for it, with the references to them. The owner chose the root over it, which no goal ranks, so that
+  smaller, and moves every dependency decision among a group into the intermediate Component that
+  encloses it, with the references to them. The owner chose the root over it, which no goal ranks, so that
   every constraint crossing Components stays in one place, where the project's whole dependency
   constraints can be read.
 
