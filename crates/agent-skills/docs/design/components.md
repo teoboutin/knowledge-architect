@@ -39,38 +39,47 @@ decision: whether a Component exists is a decision about how the project is buil
 
 A split creates one crate for each Component it cuts out that holds Rust code in its own files, and
 a Component is never a module directory inside a crate, `rejected@agent-skills@module-directory-component`.
-That shape rested on two rules of Cargo that `path@agent-skills@docs/grounding/crate-boundaries.md`
-reads in the Cargo Book, a crate published on crates.io cannot depend on a crate given only by a
-path, a dev-dependency excepted, and the resolver refuses a dependency cycle outside
-dev-dependencies, and neither rule argues it. A part that a crate of its own would set in a cycle
-with the rest of its crate is a split that `design@agent-skills@component-split-signals` calls cut
-in the wrong place: its parts belong in one crate, or the split belongs on another axis. A
-publication the project would not make for one part alone is the cost that
-`design@agent-skills@split-cost-by-publication` weighs as low, and the owner reports that the rules,
-applied to this repository before any revision, proposed a number of crates the owner judged sane,
-and that this repository needed no Component as a module. Every Component that holds Rust code then
-has one shape, a crate, which the owner argued leaves a session one shape fewer to weigh in a split
-and to search for in a project, against no measured gain of the module shape. "One reason to
-change" is the test for a Component as for a function, so the criteria of
-`goal@knowledge-architect@projects-are-split-into-components` and the default code shape of
+The shape that admits a module directory rests on two rules of Cargo that
+`path@agent-skills@docs/grounding/crate-boundaries.md` reads in the Cargo Book, a crate published on
+crates.io cannot depend on a crate given only by a path, a dev-dependency excepted, and the resolver
+refuses a dependency cycle outside dev-dependencies, and neither rule argues it:
+
+- **A cycle.** A cycle that a split creates runs among the parts it cuts out: where a crate X is
+  split, a part depending on another crate Y means X depended on Y, and Y depending on a part means
+  Y depended on X, so a cycle through Y existed before the split and Cargo refused it. A split whose
+  parts would depend on each other is, by `design@agent-skills@component-split-signals`, probably
+  cut in the wrong place: its parts belong in one crate, or the split belongs on another axis, the
+  owner's argument.
+- **A publication.** A publication the project would not make for one part alone is the cost that
+  `design@agent-skills@split-cost-by-publication` weighs as low. The owner reports that the rules,
+  applied to this repository, proposed a number of crates the owner judged sane, with no Component
+  as a module.
+
+Every Component that holds Rust code has one shape, a crate, which the owner argued leaves a session
+one shape fewer to weigh in a split and to search for in a project, against no measured gain of the
+module shape. "One reason to change" is the test for a Component as for a function, so the criteria
+of `goal@knowledge-architect@projects-are-split-into-components` and the default code shape of
 `design@agent-skills@default-code-shape` read the same way at two scales.
 
-### The cost of the crate a split creates is weighed by whether the project publishes, and its use by others weighs only for the split `##split-cost-by-publication`
+### The cost of the crate a split creates is weighed by whether the project publishes `##split-cost-by-publication`
 
 For a project that never publishes, the crate a split creates costs nothing, and its boundary is the
 stronger isolation. For a project that publishes, or plans to, the owner argued that, if Rust
 practice accepts many small published crates, more crates can probably be counted a low cost; the
 session reported that the practice does accept them. The cost is a publication of every crate a
-published crate depends on, a release in dependency order and a version bump for each crate. How
-usable a crate would be alone for others weighs in one direction only: a crate others could use
-alone argues for the split, and a crate no one would use alone argues nothing against it. The owner
-argued that the weight is little more than a lead, and should push in one direction only; read both
-ways, the session added, it would keep a Component inside another on a ground no criterion of
-`goal@knowledge-architect@projects-are-split-into-components` asks. The owner chose to call the
-weight minor over a weight equal to the default criteria, which no goal ranks. The skill reads the
-publication status from the project's record, asks the owner where the record states none, and
-weighs the project's policy without setting it, per
+published crate depends on, a release in dependency order and a version bump for each crate. The
+skill reads the publication status from the project's record, asks the owner where the record
+states none, and weighs the project's policy without setting it, per
 `goal@knowledge-architect@agents-get-a-complete-workflow`.
+
+### Whether others could use a crate alone weighs for a split only, as a minor weight `##crate-use-weighs-only-for-a-split`
+
+A crate others could use alone argues for the split, and a crate no one would use alone argues
+nothing against it. The owner argued that the weight is little more than a lead, and should push in
+one direction only; read both ways, the session added, it would keep a Component inside another on
+a ground no criterion of `goal@knowledge-architect@projects-are-split-into-components` asks. The
+owner chose to call the weight minor over a weight equal to the default criteria, which no goal
+ranks.
 
 ### A split is weighed against what it costs between its parts `##component-split-signals`
 
@@ -88,21 +97,22 @@ reading of the third signal, against the changes of the history alone, lost on i
 use: the session that applied it counted past commits only, and kept in one Component two parts that
 the goals predicted would change apart, as new consumers of one part needing nothing of the other.
 
-### A principle that each of several Components follows, and not every Component, is held by an intermediate Component that groups them, which holds no code `##intermediate-component-occasion`
+### A principle that each of several Components follows as one part of the project, and neither every Component nor every Component of a kind, is held by an intermediate Component that groups them `##intermediate-component-occasion`
 
 An intermediate Component groups the Components nested under its directory and holds the design they
-share and the rest of the project does not: a decision that shapes how each of them is implemented
-and not how every Component is. Its own files hold no Rust code, per
-`goal@knowledge-architect@projects-are-split-into-components`, so it is no crate, and each Component
-nested under it that holds Rust code is a crate, per `design@agent-skills@component-crate-mapping`.
-Where several Components share such a principle and none groups them, creating one is a creation
-`skill@knowledge-architect-component-creation` decides. A decision about one Component's interface
-that the others consume is that Component's, and a decision about how Components depend on each
-other is placed by `design@agent-skills@dependency-decision-home`: neither makes an intermediate
-Component. The component-creation skill states the occasion, point 3 of the decision-recording
-skill's rule on the owning Component sends such a decision there, and the primer states that a
-Component is bound by the design of every Component enclosing it, so that a reading of a Component's
-design home includes the design homes above it.
+share as one part of the project: a decision that shapes how each of them is implemented and not how
+every Component, nor every Component of a kind the project names, such as every crate it publishes,
+is. Its own files hold no Rust code, per `goal@knowledge-architect@projects-are-split-into-components`,
+so it is no crate, and each Component nested under it that holds Rust code is a crate, per
+`design@agent-skills@component-crate-mapping`. Where several Components share such a principle and
+none groups them, the session proposes creating one under
+`skill@knowledge-architect-component-creation`, and asks the owner where the principle goes until one
+is created. A decision about one Component's interface that the others consume is that Component's,
+and a decision about how Components depend on each other is placed by
+`design@agent-skills@dependency-decision-home`: neither makes an intermediate Component. The
+component-creation skill states the occasion, and point 3 of the decision-recording skill's rule on
+the owning Component sends such a decision there. How a reading reaches the intermediate's design is
+`design@agent-skills@enclosing-design-read-at-grounding`.
 
 The goal defines the intermediate Component by what it holds, and the owner proposed it as the one
 occasion of grouping. The rivals lost:
@@ -113,39 +123,60 @@ occasion of grouping. The rivals lost:
   groups Components with no document, and moving a Component into it is one manifest edit, per
   `goal@core@relocation-is-one-manifest-edit`.
 - **The principle in the root's design home, its scope stated.** Every change to code reads the
-  root's design home, per `skill@knowledge-architect-development@ground-before-editing`, so the principle would
-  be loaded by every session working outside the Components it binds, against the reason of the goal
-  above, that each Component's design stays small enough to read whole.
+  root's design home, per `skill@knowledge-architect-development@ground-before-editing`, so the
+  principle would be loaded by every session working outside the Components it binds, against the
+  reason of `goal@knowledge-architect@projects-are-split-into-components`, that each Component's
+  design stays small enough to read whole. A principle stated for every Component of a kind is no
+  such case: it binds every Component of that kind wherever it sits, a Component created later
+  included, so grouping its present members would bind the layout to the kind; it stays the root's,
+  as this repository's rules for every crate it publishes are.
 - **An intermediate Component made at a session's judgement, the principle placed elsewhere
   meanwhile.** No point of the rule on the owning Component gives the principle a home until one is
-  made.
+  made, so the owner places it meanwhile.
 - **An intermediate Component that is a crate whose nested Components are its modules.** Its crate
   root holds Rust code, a public interface, a dependency list and a version, which the goal's
   definition excludes; and every dependency of one nested Component reaches every consumer of the
-  crate. The owner chose to keep the goal as it stands.
+  crate, the fact `rejected@knowledge-architect@git-module-made-public` lost on. The owner chose to
+  keep the goal as it stands.
 - **A dependency decision counted as shared design.** Every pair of dependent Components would call
   for an intermediate Component of its own, the owner's argument.
 
-The binding is stated once, in the primer's section on the project's documents, rather than in each
-of the five texts that list the design homes a reading names: a sixth list written later would miss
-a fact that five copies state. It costs one paragraph of the primer in every session, which the
-owner accepted against the five copies.
+### That a Component is bound by the design of every intermediate Component enclosing it is stated once, in the primer, for every reading of a design home `##enclosing-design-read-at-grounding`
 
-### A decision about how Components depend on each other is the root's where it constrains more than one of them, and a rule that one Component does not depend on another is that Component's `##dependency-decision-home`
+A reading of a Component's design home, before a change or in a discussion, includes the design
+homes of the intermediate Components enclosing it, as it includes the root's. The primer's section
+on the project's documents states it, in one paragraph. Without it, the design an intermediate
+Component holds binds code that no reading reaches: the texts that list the design homes a reading
+names, the primer's subsection on the record of code, the development skill's grounding, the design
+skill's loop step 1, the planning skill's review of a plan and the design-conformance reviewer, name
+the root's and that of the Component touched. The development skill reads the root's because its
+heads bind every Component, and an intermediate Component's heads bind its nested Components the
+same way, per `design@agent-skills@intermediate-component-occasion`.
+
+The session chose one paragraph of the primer over a clause in each of those five texts, which no
+goal ranks; the owner approved it. The five clauses state one fact five times, and a sixth list
+written later would miss it; the paragraph costs a place in every session's load, which
+`design@agent-skills@primer-limit` admits for what every reading of a design home meets.
+
+### A decision about how Components depend on each other belongs to the one Component it constrains, or to the root where it constrains more than one `##dependency-decision-home`
 
 Which Components exist, and a decision that constrains the code of more than one Component, such as
-one depending on another, are the root's design home's. A rule that one Component does not depend
-on another constrains that Component's code alone, and is that Component's. Points 1 and 4 of the
+one depending on another, are the root's design home's. A rule that one Component does not depend on
+another constrains that Component's code alone, and is that Component's. Points 1 and 4 of the
 decision-recording skill's rule on the owning Component state it, and the component-creation skill
-restates it in one sentence. The test is what the decision constrains: a dependency of one Component
-on another gives the second a consumer of its interface and bars it from depending on the first,
-while a rule against a dependency leaves the other Component free, the owner's argument.
+restates it in one sentence. The test is what the decision constrains: a dependency of one
+Component on another gives the second a consumer of its interface and bars it from depending on the
+first, while a rule against a dependency leaves the other Component free, the owner's argument. The
+owner's lead left the rule against a dependency one that may be its Component's; the rival that
+would have kept it in the root lost, below, so it is that Component's.
 
 The rivals lost:
 
 - **Every decision about dependencies in the root's design home.** A rule that binds one Component
   alone would be loaded by every session that reads the root's design home, per
-  `skill@knowledge-architect-development@ground-before-editing`, outside the Component it binds.
+  `skill@knowledge-architect-development@ground-before-editing`, outside the Component it binds,
+  against the reason of `goal@knowledge-architect@projects-are-split-into-components`, that each
+  Component's design stays small enough to read whole.
 - **The lowest Component enclosing every Component the decision constrains.** It keeps the root
   smaller, and moves every dependency decision among a group into the intermediate Component made
   for it, with the references to them. The owner chose the root over it, which no goal ranks, so that

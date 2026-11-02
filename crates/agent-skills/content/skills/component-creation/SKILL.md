@@ -56,12 +56,13 @@ and a change to one command alone differs from the others only in subject and ap
 **An intermediate Component** groups the Components nested under its directory, and holds the
 design and the documents they share and the rest of the project does not. Its own files hold no
 Rust code, so it is no crate: each Component nested under it that holds Rust code is a crate of its
-own. A decision is design they share when it shapes how each of them is implemented and not how
-every Component of the project is: it belongs in the design home of the intermediate Component that
-groups them, and where none groups them, creating one is a creation this skill's procedure decides.
-A decision about one Component's interface that the others consume is that Component's, and a
-decision about how Components depend on each other is not design they share: neither makes an
-intermediate Component.
+own. A decision is design they share when it shapes how each of them is implemented, as one part of
+the project, and not how every Component, or every Component of a kind the project names, such as
+every crate it publishes, is: it belongs in the design home of the intermediate Component that
+groups them, and where none groups them, creating one is a creation this skill's procedure decides,
+as `skill@knowledge-architect-decision-recording@owning-component` says. A decision about one
+Component's interface that the others consume is that Component's, and a decision about how
+Components depend on each other is not design they share: neither makes an intermediate Component.
 
 Which Components exist, and a decision about how they depend on each other that constrains more than
 one of them, belong in the root's design home; a rule that one Component does not depend on another
@@ -83,7 +84,8 @@ A split that would show any of these is probably cut in the wrong place:
 
 %% The mapping is `design@agent-skills@component-crate-mapping`, and the shape it does not keep,
 %% `rejected@agent-skills@module-directory-component`; the weighing of the cost is
-%% `design@agent-skills@split-cost-by-publication`; the Cargo facts are read in
+%% `design@agent-skills@split-cost-by-publication` and `design@agent-skills@crate-use-weighs-only-for-a-split`;
+%% the Cargo facts are read in
 %% `path@agent-skills@docs/grounding/crate-boundaries.md`.
 **A Component that holds Rust code in its own files is one crate**, so a split creates one crate for
 each Component it cuts out. What that crate costs depends on whether the project publishes:

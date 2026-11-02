@@ -85,9 +85,9 @@ since it is shipped to projects whose records it cannot reference.
 **Does any pointer have to be followed before a session can act?** Judge each pointer out of an
 instruction by the test of `agent@knowledge-architect-routing-reviewer@self-sufficient-skill`.
 
-**Does a decision sit in the right Component?** Judge it by the three questions of `agent@knowledge-architect-routing-reviewer@component-questions`, and by
-its exception
-for a reversal, per `skill@knowledge-architect-decision-recording@reversal-check`.
+**Does a decision sit in the right Component?** Judge it by the questions of `agent@knowledge-architect-routing-reviewer@component-questions`, and,
+for a reversal, by `skill@knowledge-architect-decision-recording@reversal-check`, which sends the
+successor to the Component those questions give it.
 
 The failure this catches is one-directional in practice: a decision about one Component filed at the
 project level reads as binding on all of them. Check that direction first.
@@ -133,14 +133,18 @@ The project is partitioned into Components, which its manifest declares. The pro
 Component too.
 
 1. Does the decision shape the layout of the project: which Components exist, or how they depend on
-   each other, constraining more than one of them? Then it belongs in the root Component's design
-   home.
-2. Does it shape how every Component is implemented: a design principle every Component follows?
-   Then it belongs in the root Component's design home.
-3. Does it shape how each of several Components is implemented, and not every one: a design
-   principle they follow? Then it belongs in the design home of the intermediate Component that
-   groups them, a Component that holds no code of its own; where none groups them, whether to
-   create one is decided under `skill@knowledge-architect-component-creation`.
+   each other, constraining more than one of them? One Component depending on another constrains
+   both: the second gains a consumer of its interface and cannot depend on the first. Then it
+   belongs in the root Component's design home.
+2. Does it shape how every Component is implemented, or every Component of a kind the project
+   names, such as every crate it publishes: a design principle each of them follows? Then it belongs
+   in the root Component's design home.
+3. Does it shape how each of several Components is implemented, and not every one nor every one of a
+   kind: a design principle they follow as one part of the project? Then it belongs in the design
+   home of the intermediate Component that groups them, a Component whose own files hold no Rust
+   code. Where none groups them, propose creating one under
+   `skill@knowledge-architect-component-creation`; until one is created, ask the owner where it
+   goes.
 4. Does it shape how a single Component is implemented, or its own interface, a rule that it does
    not depend on another Component included? Then it belongs in that Component's design home.
 

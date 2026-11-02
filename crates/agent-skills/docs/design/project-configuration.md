@@ -90,7 +90,7 @@ them in the primer; the outcomes of something met outside the task,
 weighed, `design@agent-skills@context-cost-of-agent-text`, since every session weighs where a text
 goes; the reading of the record of code before changing it,
 `design@agent-skills@code-change-reads-its-record`; the binding of a Component by the design of
-every Component enclosing it, `design@agent-skills@intermediate-component-occasion`, since every
+every intermediate Component enclosing it, `design@agent-skills@enclosing-design-read-at-grounding`, since every
 reading of a design home, in any activity, meets it; the paragraph that opens the list of installed
 skills, on loading each skill whole at its moment, whose second sentence is
 `design@agent-skills@installed-skill-takes-precedence`; and the terms the primer uses, each restated with

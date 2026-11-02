@@ -18,14 +18,17 @@ change:
 %% Stated by this fragment alone, so no head. Its rival, the successor kept in the incumbent's
 %% Component, prevents two homes no better, since the incumbent leaves its home in the same change
 %% either way, and it leaves misfiled until a later change a successor whose subject is another
-%% Component's, such as a layout decision replacing a head one Component held. The owner chose to
-%% settle it with the revision of the rules on Components.
+%% Component's: a layout decision replacing a head one Component held, or, as in W1 of the
+%% retrospective of the session that built `klarch worklist`, two heads of the skills Component on
+%% grouping the record by hand replaced by a decision on what a checker command writes. The owner
+%% chose to settle it with the revision of the rules on Components.
 - **The Component is the one `skill@knowledge-architect-decision-recording@owning-component` gives
   the successor**, whether or not it is the incumbent's. Where it is another Component, the
   successor is written there as a new head, and the incumbent's head is removed from its home in
   this change, so no commit holds two homes for one question.
 - **It earns durable text whatever the entry tests of `primer@design-heads` say.** The
-  incumbent's head now states something false, so the minimum is rewriting it. The entry tests
+  incumbent's head now states something false, so the minimum is rewriting it, or removing it where
+  the successor goes to another Component. The entry tests
   decide whether a _new_ decision earns an entry, not whether a false one may stand.
 - **Rewrite the head in place** where the Component is the incumbent's (`skill@knowledge-architect-decision-recording@current-design`), and give the new statement its own slug when it is a new
   statement. Keep the old slug only where it still names the same decision. The slug and the
@@ -34,6 +37,8 @@ change:
   `primer@where-knowledge-goes`.
 - **Move the incumbent into the `register@*@rejected` of the successor's Component** (`skill@knowledge-architect-decision-recording@losing-alternatives`) with its reason and a
   validity marker, stated as strongly as it was originally made, if it meets one of the tests of `skill@knowledge-architect-decision-recording@losing-alternatives`, and cite it from the new head.
+  Where that Component is another, the `rejected` entries the incumbent's head cited move with it
+  wherever the successor's argument covers them.
 - **Argue it under `skill@knowledge-architect-design` first**, if it was not: a reversal contradicts
   a statement of the incumbent, the second case of the backstop of `primer@design-heads`.
 - **Delete the tripwires guarding the reversed decision.** `skill@knowledge-architect-issue-tracking` owns that movement.

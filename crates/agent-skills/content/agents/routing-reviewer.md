@@ -87,9 +87,9 @@ since it is shipped to projects whose records it cannot reference.
 **Does any pointer have to be followed before a session can act?** Judge each pointer out of an
 instruction by the test of `agent@knowledge-architect-routing-reviewer@self-sufficient-skill`.
 
-**Does a decision sit in the right Component?** Judge it by the three questions of `agent@knowledge-architect-routing-reviewer@component-questions`, and by
-its exception
-for a reversal, per `skill@knowledge-architect-decision-recording@reversal-check`.
+**Does a decision sit in the right Component?** Judge it by the questions of `agent@knowledge-architect-routing-reviewer@component-questions`, and,
+for a reversal, by `skill@knowledge-architect-decision-recording@reversal-check`, which sends the
+successor to the Component those questions give it.
 
 The failure this catches is one-directional in practice: a decision about one Component filed at the
 project level reads as binding on all of them. Check that direction first.
