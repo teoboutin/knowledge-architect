@@ -283,9 +283,9 @@ path the tree does not hold) and `plans` are reserved.
 %% `design@agent-skills@enclosing-design-read-at-grounding`.
 **A Component is bound by the design of the root and of every intermediate Component that encloses
 it.** An intermediate Component, whose own files hold no Rust code, holds the design that the
-Components nested under its directory share, as the root's design binds every Component; so a
-reading of a Component's design home, before a change or in a discussion, includes the design homes
-of the intermediate Components enclosing it.
+Components nested under its directory share, as the root's design binds the Components its
+decisions concern; so a reading of a Component's design home, before a change or in a discussion,
+includes the design homes of the intermediate Components enclosing it.
 
 **A register's entries**:
 

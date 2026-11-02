@@ -67,13 +67,14 @@ an empty subsection is omitted.
   second reason to change, and the setup skill points to it for
   the criteria and the naming. A project with a skill of its own for this activity reads it against
   the installed one.
-- `agent-skills`, patch: the decision-recording skill sends a design principle that several
-  Components follow, and neither every one nor every one of a kind the project names, to the
-  intermediate Component that groups them, and a
+- `agent-skills`, patch: the decision-recording skill sends a principle on how the code of several
+  Components is written, which they follow as one part of the project, to the intermediate Component
+  that groups them, and a principle stated for a kind of Component, a decision on their shape,
+  packaging or layout, or a principle whose Components cross an existing group, to the root; and a
   reversal's successor to the Component its rule on the owning Component gives it, the incumbent
   leaving its own home in the same change, where the successor stayed in the incumbent's Component.
-  The primer states that a Component is bound by the design of every Component enclosing it, so a
-  reading of its design home includes theirs.
+  The primer states that a Component is bound by the design of the root and of every intermediate
+  Component enclosing it, so a reading of its design home includes theirs.
 - `agent-skills`, patch: the design skill's search of the record may wait until a discussion's scope
   settles, and runs before any thread closes: until then a word of the owner that would close a
   thread leaves it presumed settled, and once the search has run the thread closes on that word,
