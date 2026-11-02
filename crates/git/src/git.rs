@@ -380,8 +380,8 @@ pub fn tracked_and_ignored(root: &Path) -> io::Result<Vec<PathBuf>> {
 /// How one path target is spelled when git is asked whether the ignore rules cover it.
 ///
 /// The trailing slash is the reference's own kind claim, and git needs it: a `dir/` pattern
-/// matches a path git can tell is a directory, and a target that does not exist yet — which is
-/// the whole point of exempting generated paths — is a directory only if the spelling says so.
+/// matches a path git can tell is a directory, and a path that does not exist yet is a directory
+/// only if the spelling says so.
 /// Asking by the claim rather than by what is on disk is what makes the answer identical on a
 /// fresh clone and a built tree.
 pub fn ignore_query(target: &Path, claims_dir: bool) -> String {
@@ -496,9 +496,6 @@ pub fn rev_list(root: &Path, range: &str) -> io::Result<Vec<String>> {
 /// Where `root` sits in the repository's main working tree, when `root` lies in a linked worktree:
 /// the same path relative to the main working tree's top, or `None` in the main working tree, in a
 /// repository whose common directory is not a `.git` directory, or where git cannot say.
-///
-/// A session that ran in the main checkout belongs to the project a review reads from a linked
-/// worktree of it, per `design@core@transcript-directory-resolution`.
 pub fn main_worktree_path(root: &Path) -> Option<PathBuf> {
     let ask = |what: &str| {
         let out = git(root)

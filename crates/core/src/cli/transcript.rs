@@ -146,7 +146,8 @@ pub(super) fn transcript(manifest: &Manifest, args: &TranscriptArgs) -> Result<E
 }
 
 /// The roots whose sessions are the project's: its own, and, from a linked worktree, the same path
-/// in the main checkout, where the sessions of the work under review ran; `None` for every project.
+/// in the main checkout, where the sessions of the work under review ran, per
+/// `design@core@transcript-directory-resolution`; `None` for every project.
 fn root_filter(manifest: &Manifest, all_projects: bool) -> Option<Vec<std::path::PathBuf>> {
     if all_projects {
         return None;

@@ -60,4 +60,5 @@ configuration a test does not mean to read: the identity as `Sandbox::git_comman
 least `commit.gpgsign=false`, `core.hooksPath=/dev/null` and `core.excludesFile=/dev/null`, or a
 `GIT_CONFIG_GLOBAL` pointing at an empty file with `GIT_CONFIG_NOSYSTEM=1`. The two probes above
 then pass, run as a test or by hand, and the core's `path@core@CLAUDE.md` states the contract for
-every helper.
+every helper. The unit tests of `path@git@src/git.rs`, which build repositories of their own, are
+held to the same function or to one of the git crate's, and `path@git@CLAUDE.md` states it.

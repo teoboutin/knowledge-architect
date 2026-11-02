@@ -538,7 +538,9 @@ reason "core would become misleading".
 Proposed by the session, R1 (#arg-5 to #arg-7), from the owner's plan, R1 (#arg-2). Final state:
 approved, by the owner's word against the table, R3: "For the split: I agree with your table now."
 and R6: "Agreed on the table." Arguments: #arg-2, #arg-5, #arg-6, #arg-7, #arg-19, #arg-97, #arg-114.
-Shape: `spec@component-split@git-out`. Harvest: the `git` Component's design home.
+Shape: `spec@component-split@git-out`. Harvest: the `git` Component's design home, and the head
+of the crate's separation, `design@knowledge-architect@git-crate`, in the root's, since the core's
+dependency on it spans two Components.
 
 ### `bundle` is placed as a Component of its own, the generic build and install machinery of shipped agent text, created by its own work `##bundle-crate`
 
