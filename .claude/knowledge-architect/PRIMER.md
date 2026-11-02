@@ -588,6 +588,8 @@ never takes their place.
   closers.
 - `skill@knowledge-architect-planning`: a design discussion converged on its full path; a slice of a
   milestone starts or lands; the work of a spec starts or lands; before editing the roadmap.
+- `skill@knowledge-architect-development`: before starting or iterating on a change to the
+  project's Rust code.
 - `skill@knowledge-architect-review`: before merging to the main branch, or when an
   activity's skill says its work is ready.
 - `skill@knowledge-architect-agent-configuration`: before editing a `CLAUDE.md`, a skill or an

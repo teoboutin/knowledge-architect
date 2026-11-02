@@ -70,7 +70,7 @@ slice. This milestone adds:
 | rule 6 | rule 6 of the goal standard, "What shows it met is in what the project builds" |
 | the new clause | the sentence #goal-standard-measure adds to rule 6, written by slice 0 into rule 6 of `path@agent-skills@fragments/goal-standard.md` |
 | the code-quality goal | `goal@knowledge-architect@the-workflow-leads-to-better-code`, named `code-has-one-responsibility-per-unit-and-is-testable` before slice 0 reworded and renamed it |
-| the development skill | the installed skill slice 2 ships, `knowledge-architect-development` |
+| the development skill | the installed skill slice 2 ships, `skill@knowledge-architect-development` |
 | the component skill | the installed skill slice 3 ships, default name `knowledge-architect-component-creation` |
 | the fragment "when to split" | the shared fragment slice 3 adds, hosted by the design skill and the development skill |
 | the mutation crate | the published crate slice 1 adds: Component `mutate`, package `knowledge-architect-mutate` |
@@ -1316,10 +1316,10 @@ Component mutate, package knowledge-architect-    crates/mutate/ (its Cargo.toml
                                                     docs/)
 subcommand mutate of the maintenance crate,       tools/xtask/src/main.rs, and a module of its own              1
   cargo x mutate run, cargo x mutate restore
-skill knowledge-architect-development             crates/agent-skills/content/skills/development/SKILL.md      2
-agent knowledge-architect-code-shape-reviewer     crates/agent-skills/content/agents/code-shape-reviewer.md     2
-agent knowledge-architect-spec-first-reviewer     crates/agent-skills/content/agents/spec-first-reviewer.md     2
-agent knowledge-architect-adversarial-reviewer    crates/agent-skills/content/agents/adversarial-reviewer.md    2
+`skill@knowledge-architect-development`           crates/agent-skills/content/skills/development/SKILL.md      2
+`agent@knowledge-architect-code-shape-reviewer`    crates/agent-skills/content/agents/code-shape-reviewer.md     2
+`agent@knowledge-architect-spec-first-reviewer`    crates/agent-skills/content/agents/spec-first-reviewer.md     2
+`agent@knowledge-architect-adversarial-reviewer`   crates/agent-skills/content/agents/adversarial-reviewer.md    2
   (default name; the audit checks it against
   the naming rule)
 the standing question on rules about code         crates/agent-skills/content/skills/retrospective/SKILL.md     2

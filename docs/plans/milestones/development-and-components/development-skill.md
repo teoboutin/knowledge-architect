@@ -2,8 +2,8 @@
 
 ## Builds
 
-1. **The installed skill `knowledge-architect-development`**, source
-   `planned@agent-skills@content/skills/development/`, ported from `skill@klarch-development` with
+1. **The installed skill `skill@knowledge-architect-development`**, source
+   `path@agent-skills@content/skills/development/`, ported from `skill@klarch-development` with
    thaum's refinements, cutting this repository's particulars. Its parts:
    - **ground before editing**: the record of the code being changed, as the primer's "Read the record
      of code before changing it" says, and no search per fix (#fix-grounding); it names no scoped
@@ -29,15 +29,15 @@
 
    It states no pull request and no continuous integration (criterion #no-pr-or-ci-assumed). Each new
    instruction names its real-use evidence in its `%%` lines (`argument@development-and-components@arg-64`).
-2. **Three new installed agents**: `knowledge-architect-code-shape-reviewer`, source
-   `planned@agent-skills@content/agents/code-shape-reviewer.md`, judging #code-shape-axis with
-   #test-economy; `knowledge-architect-spec-first-reviewer`, source
-   `planned@agent-skills@content/agents/spec-first-reviewer.md`, judging #spec-first-axis; and
-   `knowledge-architect-adversarial-reviewer`, default name, source
-   `planned@agent-skills@content/agents/adversarial-reviewer.md`, the adversarial axis scoped per
+2. **Three new installed agents**: `agent@knowledge-architect-code-shape-reviewer`, source
+   `path@agent-skills@content/agents/code-shape-reviewer.md`, judging #code-shape-axis with
+   #test-economy; `agent@knowledge-architect-spec-first-reviewer`, source
+   `path@agent-skills@content/agents/spec-first-reviewer.md`, judging #spec-first-axis; and
+   `agent@knowledge-architect-adversarial-reviewer`, default name, source
+   `path@agent-skills@content/agents/adversarial-reviewer.md`, the adversarial axis scoped per
    #adversarial-scoping; the audit checks each name against `design@agent-skills@naming-rule`. The
    default shape the skill states and the code-shape reviewer applies whole is one shared fragment,
-   `planned@agent-skills@fragments/default-code-shape.md`, hosted by both, per
+   `path@agent-skills@fragments/default-code-shape.md`, hosted by both, per
    `design@agent-skills@shared-text-fragment`, so the reviewer applies the standard it reads rather
    than a pointer to a skill it may read in part.
 3. **`agent@knowledge-architect-code-claims-reviewer` widened** to every statement a diff writes about
@@ -410,9 +410,9 @@ The review axes the development skill dispatches, over every axis it names:
 
 | axis | dispatched as | moment | condition |
 | --- | --- | --- | --- |
-| adversarial | `knowledge-architect-adversarial-reviewer`, per #adversarial-scoping | development checkpoints | any change to the code |
-| spec-first | `knowledge-architect-spec-first-reviewer` | development checkpoints | the project implements an external specification and the diff changes how |
-| code shape, with test economy | `knowledge-architect-code-shape-reviewer` | the review before the merge | the diff writes or edits code |
+| adversarial | `agent@knowledge-architect-adversarial-reviewer`, per #adversarial-scoping | development checkpoints | any change to the code |
+| spec-first | `agent@knowledge-architect-spec-first-reviewer` | development checkpoints | the project implements an external specification and the diff changes how |
+| code shape, with test economy | `agent@knowledge-architect-code-shape-reviewer` | the review before the merge | the diff writes or edits code |
 | code claims | `agent@knowledge-architect-code-claims-reviewer` | the review before the merge, and the plan-document moments as today | the diff writes statements about code; its completeness reading where the diff changes a public interface others consume |
 | diff mutation sweep | cargo-mutants, no reviewer | before the adversarial review | the project opted in |
 
