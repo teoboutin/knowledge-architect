@@ -717,7 +717,7 @@ on the checkpoint of the reply to R6, which listed the thread in its bucket.
   `argument@development-and-components@arg-57`.
 - **Closed by:** R4: "component-crate-mapping, component-split-signals, pure-output-layer: agreed."
   R5: "component-crate-mapping agreed on the table."
-- **Shape:** `spec@development-and-components@component-skill`. **Harvest:** a head in
+- **Shape:** slice 3's spec. **Harvest:** a head in
   `register@agent-skills@design`, slice 3. This thread carries `a-skill-for-creating-a-component`, closed when this milestone scheduled it.
 
 ### Signals against a split: many new dependencies, a cycle, every expected change crossing the boundary; nested Components carry the layering `##component-split-signals`
@@ -726,7 +726,7 @@ on the checkpoint of the reply to R6, which listed the thread in its bucket.
 - **States:** new (reply to R3); approved R4.
 - **Arguments:** `argument@development-and-components@arg-29`, `argument@development-and-components@arg-34`.
 - **Closed by:** R4: "component-crate-mapping, component-split-signals, pure-output-layer: agreed."
-- **Shape:** `spec@development-and-components@component-skill`. **Harvest:** with the head of
+- **Shape:** slice 3's spec. **Harvest:** with the head of
   #component-crate-mapping or of its own, slice 3.
 
 ### A Component's logic and the code that prints or serialises its data are by default two layers of one Component, split into two Components only where the output side takes decisions of its own `##pure-output-layer`
@@ -742,7 +742,7 @@ on the checkpoint of the reply to R6, which listed the thread in its bucket.
   that returns or defines the struct. Or we would have a component that takes no decision, thus has
   no design record, and this is also something that a component requires IMO: its own decisions and
   design."
-- **Shape:** `spec@development-and-components@component-skill`. **Harvest:** a shape of the
+- **Shape:** slice 3's spec. **Harvest:** a shape of the
   component skill, with its head, slice 3.
 - **Outcome at slice 3:** no head, for the same reason as #component-naming's; its reasons are `%%`
   lines at the skill.
@@ -775,7 +775,7 @@ on the checkpoint of the reply to R6, which listed the thread in its bucket.
   even dev only. In additiom, this also applies more generally, whenever several crates might share
   testing mecanisms and fixtures, without depending on each other (though maybe that is the same
   case, generalized)." R7: "Agreed on the table."
-- **Shape:** `spec@development-and-components@component-skill`. **Harvest:** a shape of the
+- **Shape:** slice 3's spec. **Harvest:** a shape of the
   component skill, slice 3.
 
 ### The Component instructions are a new component skill, with a "when to split" fragment in the design and development skills, triggered at setup and at an audit too, and nothing in planning `##component-skill-delivery`
@@ -787,7 +787,7 @@ on the checkpoint of the reply to R6, which listed the thread in its bucket.
 - **Arguments:** `argument@development-and-components@arg-42`, `argument@development-and-components@arg-48`,
   `argument@development-and-components@arg-56`.
 - **Closed by:** R7: "Agreed on the table."
-- **Shape:** `spec@development-and-components@component-skill`. **Harvest:** a head in
+- **Shape:** slice 3's spec. **Harvest:** a head in
   `register@agent-skills@design`, slice 3.
 
 ### Co-development of a shipped tool through a Cargo `[patch]` waits for a first real need, as a deferred issue `##upstream-co-development`
@@ -889,7 +889,7 @@ on the checkpoint of the reply to R6, which listed the thread in its bucket.
   there be value in supporting multiple components with same basename ? I would consider this to be
   quite bad practice, I see no reason to pick another fix than simply forbidding it and documenting
   that."
-- **Shape:** `spec@development-and-components@component-skill`. **Harvest:** a statement of the
+- **Shape:** slice 3's spec. **Harvest:** a statement of the
   component skill, and a head in `register@core@design`, under its anchors subject, recording that
   two anchors never share a name, slice 3. `design@core@anchor-collisions-refused` refuses two
   anchors at one path, not two anchors of one name, and no head states the refusal by name: only
@@ -923,7 +923,7 @@ on the checkpoint of the reply to R6, which listed the thread in its bucket.
   project name from components/crate basename directories, but always prefix in crate names in
   Cargo.toml, can also be recommended. It simplifies anchors in component citation, which is quite
   nice." R7: "Agreed on the table."
-- **Shape:** `spec@development-and-components@component-skill`. **Harvest:** a head in
+- **Shape:** slice 3's spec. **Harvest:** a head in
   `register@agent-skills@design` for the recommendation the installed text makes, citing
   `design@knowledge-architect@no-component-directory-named-after-the-project`, slice 3.
 - **Outcome at slice 3:** no head. The recommendation is stated by the component skill alone and
@@ -1414,8 +1414,8 @@ history, per `argument@development-and-components@arg-80`.
    adversarial agents, the widened code-claims reviewer, the review cadence, the lints, the retrospective's
    question, the local skill cut down. Fails alone on a missing or contradicting instruction of the
    installed skill, or an agent that does not install.
-3. [The component skill](component-skill.md): the installed skill for creating or splitting a
-   Component and its fragment "when to split". Fails alone on the skill or the fragment.
+3. The component skill, landed: the installed skill for creating or splitting a Component and its
+   fragment "when to split". Fails alone on the skill or the fragment.
 4. [The search timing](search-timing.md): the design skill's loop step 1. Fails alone on the step.
 
 ## Order rationale
