@@ -144,7 +144,7 @@ What exists today, read at the branch that adds this document:
   `transcript.rs` import nothing of the crate outside their tests.
 - **The commands are one enum**, `cli::Command` in `path@core@src/cli/mod.rs`, which a binary that
   registers extensions flattens, per `design@core@the-core-cli-is-a-library-module`.
-- **Every git invocation of the core's library code is in `path@core@src/git.rs`**, per
+- **Every git invocation of the core's library code is in `path@elsewhere@crates/core/src/git.rs`**, per
   `design@core@git-is-asked-through-one-module`; a unit test of `path@core@src/source/rs.rs` and
   the tests of `path@core@tests/init.rs` run git themselves, and so do `gates`, in
   `path@gates@src/gates.rs`, and `mutate`, in `path@mutate@src/harness.rs` and `path@mutate@src/run.rs`.
@@ -1339,7 +1339,7 @@ docs/ are split by subject, each slice moving what its new Component holds.
 
 | today | goes to | slice |
 | --- | --- | --- |
-| `path@core@src/git.rs` | `git` | #git-out |
+| `path@elsewhere@crates/core/src/git.rs` | `git` | #git-out |
 | `path@core@src/manifest.rs`, `path@core@src/walk.rs`, `path@core@src/survey.rs`, `path@core@src/scan.rs`, `path@core@src/source/`, `path@core@src/document.rs`, `path@core@src/entity.rs`, `path@core@src/records.rs`, `path@core@src/model.rs`, `path@core@src/index.rs`, `path@core@src/finding.rs` | `model` | #model-out |
 | `path@core@src/check/tree.rs` | `model`: phase 2 | #model-out |
 | `path@core@src/check/mod.rs` | `model`: `foundation`, with the installed-file check still in phase 2 until #check-renamed; `check`: phase 4, `Report`, `run_with` | #model-out |

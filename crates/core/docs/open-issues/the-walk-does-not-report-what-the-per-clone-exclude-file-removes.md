@@ -15,7 +15,7 @@ reports which files it removed. The missing work is that check. Until it exists,
 
 ### What
 
-`git::entries` in `path@core@src/git.rs` lists the untracked part of the walk with
+`git::entries` in `path@git@src/git.rs` lists the untracked part of the walk with
 `git ls-files -z --others --exclude-standard`. `--exclude-standard` applies three sources of
 ignore rules: the tree's own `.gitignore` files, `core.excludesFile`, and the per-clone exclude
 file `.git/info/exclude`. Every git invocation already pins `core.excludesFile` to the null
@@ -57,6 +57,6 @@ the same commit holds.
 The check above, written with a test that adds a line to a sandbox's `.git/info/exclude` and
 asserts the report names the file it removes; and the sentence of
 `design@core@per-user-ignore-file-pinned` that names this entry, and the comment in
-`Invocation::run` of `path@core@src/git.rs` on what still decides the walk, repointed to the check;
+`Invocation::run` of `path@git@src/git.rs` on what still decides the walk, repointed to the check;
 the commit that writes it narrows `tripwire@core@walked-count-differs-between-machines` to the
 cause no check reports, two git versions that walk one commit differently.

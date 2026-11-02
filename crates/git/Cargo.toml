@@ -1,0 +1,12 @@
+[package]
+name = "knowledge-architect-git"
+readme = "CRATES-IO.md"
+description = "Asks git what knowledge-architect reads: the walk's listing, the ignore rules, and the trees and blobs of a commit or of the index."
+version.workspace = true
+edition.workspace = true
+license.workspace = true
+repository.workspace = true
+keywords.workspace = true
+# What the published package ships, as a whitelist: a new directory is shipped only once it is
+# listed here.
+include = ["/src/**", "/Cargo.toml", "/README.md", "/LICENSE-MIT", "/LICENSE-APACHE", "/CHANGELOG.md"]

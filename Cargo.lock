@@ -175,6 +175,7 @@ version = "0.9.0"
 dependencies = [
  "clap",
  "knowledge-architect-agent-skills",
+ "knowledge-architect-git",
  "pulldown-cmark",
  "regex",
  "serde",
@@ -195,6 +196,10 @@ version = "0.9.0"
 dependencies = [
  "clap",
 ]
+
+[[package]]
+name = "knowledge-architect-git"
+version = "0.9.0"
 
 [[package]]
 name = "knowledge-architect-mutate"

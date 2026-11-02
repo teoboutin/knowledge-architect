@@ -25,14 +25,19 @@ fn main() -> ExitCode {
     // Parsed before the project is located, so `--help` answers from anywhere. clap exits 2 on
     // a parse failure, which is already the could-not-run code.
     let cli = Cli::parse();
-    // The one path compiled in: the core's own Component, whose fixtures are read as data,
-    // per `design@core@checker-source-literals-are-data`.
+    // The paths compiled in: the core's own Component and the git crate's, whose fixtures are
+    // read as data, per `design@core@checker-source-literals-are-data`.
     let dir = knowledge_architect::component_dir();
-    let dirs: Vec<&Path> = vec![dir.as_path()];
-    // The library and the binary are one crate, so its one entry covers both. The crate of
-    // installed text is linked too, so a stale copy of it is refused as well.
+    let git_dir = knowledge_architect_git::component_dir();
+    let dirs: Vec<&Path> = vec![dir.as_path(), git_dir.as_path()];
+    // The library and the binary are one crate, so its one entry covers both. The git crate and
+    // the crate of installed text are linked too, so a stale copy of either is refused as well.
     let libraries = [
         knowledge_architect::cli::this_library(),
+        knowledge_architect::cli::Library {
+            crate_dir: std::path::PathBuf::from(knowledge_architect_git::CRATE_DIR),
+            package: knowledge_architect_git::PACKAGE,
+        },
         knowledge_architect::cli::Library {
             crate_dir: std::path::PathBuf::from(knowledge_architect_agent_skills::CRATE_DIR),
             package: knowledge_architect_agent_skills::PACKAGE,
@@ -40,6 +45,7 @@ fn main() -> ExitCode {
     ];
     let packages = [
         env!("CARGO_PKG_NAME"),
+        knowledge_architect_git::PACKAGE,
         knowledge_architect_agent_skills::PACKAGE,
     ];
     // `init` makes the project the other commands locate, so it is dispatched first, per

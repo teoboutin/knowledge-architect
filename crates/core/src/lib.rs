@@ -234,7 +234,6 @@ mod build_origin;
 mod check;
 mod entity;
 mod finding;
-mod git;
 mod graph;
 mod index;
 mod manifest;
@@ -245,6 +244,11 @@ mod source;
 mod survey;
 mod transcript;
 mod walk;
+
+// Every git invocation is the `git` crate's, per `design@core@git-is-asked-through-one-module`.
+// Named `git` here, so the modules that ask it read `crate::git::...` as when it was a module of
+// this crate.
+use knowledge_architect_git as git;
 
 // The role modules: one per kind of consumer.
 pub mod cli;

@@ -182,7 +182,8 @@ project says is out of it, so a finding computed from that model is unreliable.
 
 ### Everything git answers goes through one module `##git-is-asked-through-one-module`
 
-`path@core@src/git.rs` owns the listing, the tracked-and-ignored listing, the one `check-ignore` batch, the last-change dates, and
+`path@git@src/git.rs` owns the listing, the tracked-and-ignored listing, the one `check-ignore`
+batch, the last-change dates, and
 every read of history — `rev-list`, `rev-parse`, a commit's file list, its blobs and its message —
 so the set of things this tool asks git is auditable in one read and a check keeps spawning
 nothing.
@@ -206,7 +207,7 @@ where the working tree passes and what is committed does not.
   meets repository-relative paths and its siblings' changes; under `--raw` only `--no-abbrev`
   gives whole blob ids; and `diff.ignoreSubmodules` or a `.gitmodules` entry's `ignore` key drops a
   staged gitlink unless `--ignore-submodules=none` overrides it. The full invocation is at
-  `snapshot_entries` in `path@core@src/git.rs`.
+  `snapshot_entries` in `path@git@src/git.rs`.
 - **An unmerged index is refused**, exit 2 naming each path once: a conflicted merge or rebase has
   no tree to commit. `git write-tree` is not used, since it writes objects into the repository and
   fails there too.

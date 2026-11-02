@@ -288,9 +288,10 @@ fn the_core_binary_passes_over_a_project_that_declares_only_what_the_core_reads(
     assert!(out.ends_with("PASSED: no findings\n"), "{out}");
 }
 
-/// The core binary compiles in its own Component's directory, so the core's fixtures are read as
-/// data, per `design@core@checker-source-literals-are-data`. Over this checkout the summary
-/// names that directory and counts the core's walked Rust files, whatever the run finds.
+/// The core binary compiles in the directory of each Component whose library it links and whose
+/// source is the checker's, the core's and the git crate's, so their fixtures are read as data,
+/// per `design@core@checker-source-literals-are-data`. Over this checkout the summary names both
+/// directories and counts their walked Rust files, whatever the run finds.
 #[test]
 fn the_core_binary_names_its_own_directory_and_counts_the_files_under_it() {
     let checkout = Path::new(env!("CARGO_MANIFEST_DIR"))
@@ -309,16 +310,20 @@ fn the_core_binary_names_its_own_directory_and_counts_the_files_under_it() {
         .output()
         .expect("git lists the checkout");
     let listing = String::from_utf8_lossy(&listing.stdout).into_owned();
-    let core = listing
-        .lines()
-        .filter(|l| {
-            l.starts_with("crates/core/") && l.ends_with(".rs") && !l.contains("/tests/projects/")
-        })
-        .count();
-    assert!(core > 0);
+    let count = |dir: &str| {
+        listing
+            .lines()
+            .filter(|l| l.starts_with(dir) && l.ends_with(".rs") && !l.contains("/tests/projects/"))
+            .count()
+    };
+    let (core, git) = (count("crates/core/"), count("crates/git/"));
+    assert!(core > 0 && git > 0);
     assert_eq!(
         line,
-        format!("checker source: crates/core, {core} file(s) with string literals read as data")
+        format!(
+            "checker source: crates/core, crates/git, {} file(s) with string literals read as data",
+            core + git
+        )
     );
 }
 
@@ -1454,7 +1459,7 @@ fn a_tree_holding_the_tool_at_another_path_than_the_binarys_is_refused() {
         assert!(
             // The profile of the clean is the binary's, which is this test's.
             stderr.contains(&format!(
-                "cargo clean{} -p knowledge-architect -p knowledge-architect-agent-skills`",
+                "cargo clean{} -p knowledge-architect -p knowledge-architect-git -p knowledge-architect-agent-skills`",
                 if cfg!(debug_assertions) {
                     ""
                 } else {
@@ -1465,6 +1470,27 @@ fn a_tree_holding_the_tool_at_another_path_than_the_binarys_is_refused() {
         );
         assert!(out.is_empty(), "nothing ran: {out}");
     }
+}
+
+/// The claim: the refusal covers every library the binary links, the git crate's included, so a
+/// tree holding the git crate at another path than the binary was built from is refused too.
+#[test]
+fn a_tree_holding_the_git_crate_at_another_path_than_the_binarys_is_refused() {
+    let sandbox = Sandbox::seeded(
+        "foreign-git",
+        "minimal",
+        &[(
+            "crates/git/Cargo.toml",
+            "[package]\nname = \"knowledge-architect-git\"\n",
+        )],
+    );
+    let (out, stderr, code) = sandbox.run(&["check"]);
+    assert_eq!(code, 2, "{out}{stderr}");
+    assert!(
+        stderr.contains("its `knowledge-architect-git` was compiled at"),
+        "{stderr}"
+    );
+    assert!(out.is_empty(), "nothing ran: {out}");
 }
 
 /// The claim: a name holding a line break is one finding, on one line, and the file is read by
