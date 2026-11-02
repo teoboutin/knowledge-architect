@@ -455,28 +455,18 @@ checker, using the library only for `MANIFEST_NAME`, does not.
 **The gates.** `rust_project` gives, in cost order: `rebased` behind `--require-rebased`, `fmt`,
 `check`, `commits` over the branch's own commits, `clippy` with warnings denied, and `test`. Add
 a gate the project owes by pushing a `Gate` to that list, with the distiller that shows its failure;
-remove one only on the owner's word.
-
-%% The three lints are `design@agent-skills@api-doc-completeness`, on the owner's approval: that a
-%% public item is documented is a lint, and what its documentation says is the code-claims axis's.
-**A crate the project publishes warns on three lints**, which the clippy gate, denying warnings,
-turns into failures: `missing_docs`, `clippy::missing_errors_doc` and `clippy::missing_panics_doc`,
-declared in its `Cargo.toml`:
-
-```toml
-[lints.rust]
-missing_docs = "warn"
-
-[lints.clippy]
-missing_errors_doc = "warn"
-missing_panics_doc = "warn"
-```
-
-The gate then fails while a public item of the crate lacks its documentation, or a function that
-returns an error or can panic does not say when. Pass the main branch as git names it, such as `origin/main`.
+remove one only on the owner's word. Pass the main branch as git names it, such as `origin/main`.
 The tool writes every gate's complete output under `target/gates/`, refuses to write its report
 into a pipe outside GitHub Actions, and exits non-zero when any gate fails: read a run in the terminal, or redirect it to
 a file.
+
+%% The three lints are `design@agent-skills@documentation-presence-is-linted`: that a public item
+%% is documented is a lint's, and what its documentation says is the code-claims axis's.
+**A crate the project publishes warns on three lints**, which the clippy gate, denying warnings,
+turns into failures: `missing_docs` in its `Cargo.toml`'s `[lints.rust]` table, and
+`missing_errors_doc` and `missing_panics_doc` in its `[lints.clippy]` table, each at `"warn"`. They
+apply to every target of the crate: a binary, an example or an integration test then needs its own
+crate-level documentation too.
 
 **A project with an extension** depends on the crate that holds its extension instead of the
 checker alone, and its `klarch` command registers the extension, as that crate's documentation

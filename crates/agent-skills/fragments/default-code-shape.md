@@ -1,7 +1,5 @@
-%% The default shape and its force are `design@agent-skills@default-code-shape`; the code-quality goal
-%% asks for a shape and lists none, `goal@knowledge-architect@the-workflow-leads-to-better-code`, and
-%% the owner ruled that the development skill states it (Q7) and how far it binds (Q6). Test economy
-%% is `design@agent-skills@test-economy`. One fragment, hosted by the development skill and the
+%% The default shape and its force are `design@agent-skills@default-code-shape`; test economy is
+%% `design@agent-skills@test-economy`. One fragment, hosted by the development skill and the
 %% code-shape reviewer, per `design@agent-skills@shared-text-fragment`.
 **The default shape of the code a change writes or edits** holds four properties:
 
@@ -21,9 +19,10 @@ restructures it, or argues it in a comment at the code. In an existing unit the 
 the lines the change writes are weighed; the rest of the unit is a lead, never an obligation.
 
 **Every test the change adds names its claim**, whatever its kind: a test with no claim is cost with
-no information. Evidence that it discriminates is owed by kind:
+no information. **A test of logic carries a recorded mutation**; for a test of another kind the
+writer picks the evidence, and the table says what each form tells:
 
-| test kind | evidence that it discriminates | the economy question |
+| test kind | what a mutation tells | the economy question |
 | --- | --- | --- |
 | pure logic | a recorded mutation, named | does it map to a claim |
 | golden or snapshot | a mutation of the code that produces the output: it fails, which tells little | does another golden test already cover the same claim |

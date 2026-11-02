@@ -18,8 +18,9 @@ A patched build of the checker carries the version of the branch it was built fr
 refuses a project whose pin it does not satisfy, per `design@agent-skills@exact-pin`, and accepts a
 binary only when its version equals the core library's, per
 `design@core@installed-binary-version-check`: so a patched build runs only where the project's
-`checker-version` names the branch's version, which no release of it may hold yet. Whether the
-sentinel or a pre-release version would serve is not established.
+`checker-version` names the branch's version, which no release of it may hold yet. Neither escape
+serves: a pin with a pre-release suffix is refused by the manifest's parse, and the sentinel
+`"self"` is accepted only by a binary built from the tree that holds the pin.
 
 ### Why it matters
 
@@ -28,5 +29,6 @@ improvement reaches the shipped tool only when the next release lands.
 
 ### Trigger
 
-A consumer needs a change to a shipped tool before the next release, and building it as a tool of
-its own is not enough: that need is the work of designing the co-development path.
+The intake here of a received retrospective workflow file whose finding reports that a consumer
+needed a change to a shipped tool before the next release, and that a tool of its own did not serve:
+deciding that finding's outcome is the work of designing the co-development path.

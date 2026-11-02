@@ -52,8 +52,8 @@ guideline about code or tests, or about splitting the project into Components, p
 too strict or was followed against the work's interest,
 `goal@knowledge-architect@the-workflow-leads-to-better-code` and
 `goal@knowledge-architect@projects-are-split-into-components`, whose learning from use it is; a lint
-the setup ships counts as such a rule, on the owner's ruling. The last question is asked of every
-session, since every session follows the workflow's procedures, where the question that lost in
+the setup ships counts as such a rule, the session's reading, which the owner approved. The question
+on a mechanical task is asked of every session, since every session follows the workflow's procedures, where the question that lost in
 `rejected@agent-skills@retrospective-asks-for-unrecognised-lines` met a command most sessions never
 run; its evidence is real use, the owner's report that each design session wrote a loop to check a
 slug free before `klarch id` existed, and the scripts with which half the searchers of one search filled their reports. The question on a

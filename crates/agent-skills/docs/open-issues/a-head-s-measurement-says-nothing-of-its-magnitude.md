@@ -26,8 +26,7 @@ found figures stale at the commit or not reproduced by the named command. The ro
 The proposal: one sentence in the installed rule, that a magnitude over a corpus that changes stays
 in the commit that took it, and the head keeps the claim, the command and the direction that would
 reopen the decision; this repository's paragraph then cut to its own exceptions. The rival: a
-sentence in this repository's development skill, at its commit step, leaving other projects to
-their own rule.
+sentence at the commit step of a development skill, leaving other projects to their own rule.
 
 ### Why it matters
 

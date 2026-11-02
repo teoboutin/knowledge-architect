@@ -46,6 +46,8 @@ The other skills load at a moment, not in that sequence:
 - `skill@knowledge-architect-issue-tracking`: before diagnosing a behaviour as a new problem, when
   something is parked, and when work closes an entry.
 - `skill@knowledge-architect-decision-recording`: before any write into a design home.
+- `skill@knowledge-architect-development`: before a change to the project's Rust code, the step
+  "[the work]" names for code.
 - `skill@knowledge-architect-agent-configuration`: before editing a `CLAUDE.md`, a skill or an
   agent.
 - `skill@knowledge-architect-goal-setting`: before writing or editing a goals home.

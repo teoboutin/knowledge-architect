@@ -38,9 +38,10 @@ restructures it, or argues it in a comment at the code. In an existing unit the 
 the lines the change writes are weighed; the rest of the unit is a lead, never an obligation.
 
 **Every test the change adds names its claim**, whatever its kind: a test with no claim is cost with
-no information. Evidence that it discriminates is owed by kind:
+no information. **A test of logic carries a recorded mutation**; for a test of another kind the
+writer picks the evidence, and the table says what each form tells:
 
-| test kind | evidence that it discriminates | the economy question |
+| test kind | what a mutation tells | the economy question |
 | --- | --- | --- |
 | pure logic | a recorded mutation, named | does it map to a claim |
 | golden or snapshot | a mutation of the code that produces the output: it fails, which tells little | does another golden test already cover the same claim |
@@ -49,17 +50,18 @@ no information. Evidence that it discriminates is owed by kind:
 
 ## What to read `##what-the-reviewer-reads`
 
-Read the diff of the range whole, and each unit it writes or edits whole. For a unit the range
-edits, weigh only the lines it writes; what the rest of the unit does is context. For each test the
-range adds, read its name, its comment and the commit message that records it: the claim it names,
-and the evidence that it discriminates, a recorded mutation for a test of logic.
+Read the diff of the range whole, and each unit it writes or edits whole. For each test the range
+adds, read its name, its comment and the commit message that records it: the claim it names, and
+the evidence that it discriminates. Where a commit touches a code path a design head of the project
+declares performance-critical, read that its message records the measurement before and after;
+judge no speed by reading the code.
 
 ## Reporting `##how-to-report-shape`
 
 Return a numbered list. Each finding names the unit, the property of the standard it departs from,
 the evidence, and whether a comment at the code argues the departure; a departure argued there is
-no finding unless the argument is false of the code. A finding of two reasons to change names both
-concrete changes. A test finding names the test and what is missing: its claim, or the evidence its
-kind owes. **If nothing departs, say so plainly.** Do not report style preferences.
+no finding unless the argument is false of the code. A test finding names the test and what is
+missing: its claim, or, for a test of logic, its recorded mutation. A performance finding names the
+commit and the missing figures. **If nothing departs, say so plainly.** Do not report style preferences.
 List what you met outside your axis under a heading "Met outside the task", for the dispatcher to
 route, per `primer@met-outside-the-task`; do not review it.

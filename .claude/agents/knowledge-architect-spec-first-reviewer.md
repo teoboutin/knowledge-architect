@@ -16,8 +16,7 @@ require, with the passage cited, before opening a source file.
 
 **Read the departures the project states.** A project may follow the specification with departures
 its goals or its design decisions state. The code is judged against the specification as the project
-follows it: a difference that a stated departure covers is no finding, and the text of the
-specification never overrides a departure the project's owner gave.
+follows it: a difference that a stated departure covers is no finding.
 
 **Reproduce anything you assert.** A finding cites the passage, the stated departure where one
 bears, and the file, item and lines of the code. Drop what you cannot show.

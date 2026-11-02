@@ -21,7 +21,10 @@ code before changing it" says: the entries its comments cite, every entry that c
 the heads on its subject in the design home of the Component that holds it, with its `rejected`
 entries. Read the root's design home too: its heads bind every Component. A fix reads this record
 and dispatches no search of the whole record. A behaviour that looks like a new defect is checked
-as the primer's "Check whether it is already known" says.
+as the primer's "Check whether it is already known" says. How to read all of it is
+`primer@intent-and-claims` and `primer@verify-before-relying`, read whole: intent is authority, and
+a divergence between a design document and the code is a defect in one of them, never licence to
+follow the code.
 
 ## The loop `##development-loop`
 
@@ -35,7 +38,8 @@ as the primer's "Check whether it is already known" says.
    writing it".
 6. **Review** (`skill@knowledge-architect-development@code-review-axes`), at any checkpoint where a
    coherent piece works, not only at the end. It follows the commit because a reviewer working on
-   its own copy of the tree sees committed content only.
+   its own copy of the tree sees committed content only, so uncommitted work is reviewed by nobody.
+   A repair the review asks for lands as `skill@knowledge-architect-review@what-review-leaves` says.
 
 ## Claims, and tests that discriminate `##discriminating-tests`
 
@@ -60,21 +64,25 @@ command shows both, and runs safely over uncommitted work:
 
 ```sh
 cargo x mutate run --file <F> --replace <OLD> --with <NEW> \
-  --build "cargo test -p <package> --no-run" -- cargo test -p <package> <test> --exact
+  --build "cargo test -p <package> --no-run" -- cargo test -p <package> <module>::<test> -- --exact
 cargo x mutate run --file <F> --patch <P.diff> --build "<probe>" -- <command>
 cargo x mutate restore        # after a run that was killed
 ```
 
-- **The verdict is the exit code of the command after `--`**, printed as `caught` or `SURVIVED`,
-  never the exit code of `cargo x mutate run`, which is 0 for any completed run.
+- **The verdict is the exit code of the command after `--`**, printed as `caught` or `SURVIVED`, or
+  `unmutatable here` where the build probe failed and a different mutation is owed. It is never the
+  exit code of `cargo x mutate run`, which is 0 for any completed run, 1 when something is owed on
+  the tree, so look at it and run `cargo x mutate restore`, and 2 when the run never started.
 - **The line `mutation applied to <file>, first changed line <n>` shows the mutation present.** A
   verdict without it is about code nobody mutated.
-- **Pass `--build`** whenever the mutant might not compile: without a probe, a mutant that does not
-  build reads as `caught`.
+- **Pass `--build`**: without a probe, a mutant that does not build reads as `caught`, and the sites
+  a mutation check most often sends you to are the ones that do not compile. Leaving it off weakens
+  the check rather than shortening it.
 - **The baseline runs by default** and refuses a command that already fails, since over a red base
   every mutation reads as `caught`; `--no-baseline` skips it only for a failure that is expected.
-- **The command names the test under check, with its module path and `--exact`.** A filter that
-  matches no test runs nothing, cargo exits 0, and the mutation reads as `SURVIVED`.
+- **The command names the test under check by its module path, with `-- --exact` after it.** A
+  filter that matches no test runs nothing, cargo exits 0, and the mutation reads as `SURVIVED`;
+  `--exact` before the second `--` is refused by cargo, so the baseline refuses the run.
 - **A wrong implementation that spans several files** is beyond one run; the claim then records why
   its test cannot be shown to discriminate.
 
@@ -103,9 +111,10 @@ restructures it, or argues it in a comment at the code. In an existing unit the 
 the lines the change writes are weighed; the rest of the unit is a lead, never an obligation.
 
 **Every test the change adds names its claim**, whatever its kind: a test with no claim is cost with
-no information. Evidence that it discriminates is owed by kind:
+no information. **A test of logic carries a recorded mutation**; for a test of another kind the
+writer picks the evidence, and the table says what each form tells:
 
-| test kind | evidence that it discriminates | the economy question |
+| test kind | what a mutation tells | the economy question |
 | --- | --- | --- |
 | pure logic | a recorded mutation, named | does it map to a claim |
 | golden or snapshot | a mutation of the code that produces the output: it fails, which tells little | does another golden test already cover the same claim |
@@ -121,12 +130,14 @@ A guard, a refusal or an `expect` often stands against a state nothing can curre
   and the result asserts something about the construction. **Name the guarantee.** A justification
   phrased as a property of the current code makes it one of the next two kinds.
 - **A validated boundary makes it unreachable**: whatever checks untrusted input refuses every state
-  that would reach the code. What is tested is **the refusal**, and the mutation is deleting it.
+  that would reach the code. There is no state to construct and run, so what is tested is **the
+  refusal**, and the mutation is deleting it.
 - **Only the current implementation makes it unreachable.** It stops being so at whichever unit of
-  work populates that region. **Test it**, constructing the state where the boundary accepts one.
+  work populates that region, and anything shipped under it has no coverage at the moment it starts
+  mattering. **Test it**, constructing the state where the boundary accepts one.
 
 **The operational test is to ask the boundary.** If it refuses every state that reaches the code,
-the guard is the second kind. If it accepts such a state, the guard is the third kind, whatever an
+the guard is the second kind, and the refusal is what carries the claim. If it accepts such a state, the guard is the third kind, whatever an
 argument about normal use says.
 
 **A mutation set the author of the tests chose is not enough.** The author mutates the thing the
@@ -169,8 +180,8 @@ Measure: cargo x bench measure step
 ```
 
 A change that touches a declared path measures before and after with that command, and its commit
-message records both figures. No review judges speed by reading code. A project that declares no
-path pays nothing.
+message records both figures. The review checks that the figures are recorded, and judges no speed
+by reading code.
 
 ## The gate `##development-gate`
 
@@ -197,20 +208,22 @@ Neither carries the history of a change: that lives in the commit message.
 
 - **A doc comment addresses the caller**: what someone using the type or function must respect, the
   invariants it keeps, what it expects of its arguments and of the object's state, what it does not
-  do, its errors and its panics. It does not explain the implementation: a reader who never opens
-  the body gets everything they need from it.
+  do, its errors and its panics, and the pitfalls of using it. It does not explain the
+  implementation: a reader who never opens the body must get everything they need from it.
 - **An inline comment addresses the next developer of this code**: what the code is meant to do and
   why it is shaped that way, so the intent can be recovered when it turns out wrong. **Give the
   domain of validity explicitly**: the cases the code handles, and why it holds for them. Write the
-  current intent, not the episode. A guard, a workaround, a stub or a test that exists because of an
-  issue names it, as `primer@where-knowledge-goes` says.
+  current intent, not the episode. A past-tense reference earns its place only where a reader would
+  otherwise re-introduce the defect, and then it names the mechanism, not the fix. What a comment
+  must reference is `primer@where-knowledge-goes`.
 
 **Where a comment ends and a document begins** is `primer@design-heads`: if changing the code would
 force a change to the design home, it is design; otherwise it is a comment.
 
 ## A shipped tool found insufficient `##local-tool-improvement`
 
-Where a tool knowledge-architect ships falls short of the work, the project may build the
+Where a tool knowledge-architect ships, which the project does not maintain, falls short of the
+work, the project may build the
 improvement as a tool of its own beside the shipped one, never a patch of the shipped one, and
 reports it in the workflow file of `skill@knowledge-architect-retrospective`. The project's own tool
 stays until the improvement ships.

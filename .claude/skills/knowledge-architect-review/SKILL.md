@@ -9,7 +9,7 @@ Scope: sending independent reviewers at work you produced, whatever kind of work
 sub-activity, required as a prerequisite by every activity that produces something reviewable.
 
 **When to dispatch is the activity's**, because the moment differs and so does the vocabulary that
-names it: the project's development procedure says when a piece of code is ready,
+names it: `skill@knowledge-architect-development` says when a piece of code is ready,
 `skill@knowledge-architect-planning` says when a plan document is, and
 `skill@knowledge-architect-agent-configuration` says when a configuration change is. Read your
 activity's skill for its moment. The one moment that belongs to no activity is **before merging
@@ -20,10 +20,12 @@ Not covered here: **being** any of the reviewers (the record reviewers
 `agent@knowledge-architect-routing-reviewer`, `agent@knowledge-architect-decision-record-reviewer`
 and `agent@knowledge-architect-standing-state-reviewer`; the plan-document reviewers
 `agent@knowledge-architect-cold-implementer-reviewer`,
-`agent@knowledge-architect-code-claims-reviewer` and
-`agent@knowledge-architect-design-conformance-reviewer`, which also reads a commit message listing
+`agent@knowledge-architect-code-claims-reviewer`, which also reads a branch's statements about
+code, and `agent@knowledge-architect-design-conformance-reviewer`, which also reads a commit message listing
 entries a grounding left unread; and
-`agent@knowledge-architect-transcript-reviewer`), **recording**
+`agent@knowledge-architect-transcript-reviewer`; and the code reviewers
+`agent@knowledge-architect-code-shape-reviewer`, `agent@knowledge-architect-adversarial-reviewer` and
+`agent@knowledge-architect-spec-first-reviewer`), **recording**
 what a review changes (`skill@knowledge-architect-decision-recording`,
 `skill@knowledge-architect-issue-tracking`), and **auditing** one aspect of the whole project
 rather than a diff (`skill@knowledge-architect-project-audit`).

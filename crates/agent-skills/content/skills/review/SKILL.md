@@ -9,7 +9,7 @@ Scope: sending independent reviewers at work you produced, whatever kind of work
 sub-activity, required as a prerequisite by every activity that produces something reviewable.
 
 **When to dispatch is the activity's**, because the moment differs and so does the vocabulary that
-names it: the project's development procedure says when a piece of code is ready,
+names it: `skill@knowledge-architect-development` says when a piece of code is ready,
 `skill@knowledge-architect-planning` says when a plan document is, and
 `skill@knowledge-architect-agent-configuration` says when a configuration change is. Read your
 activity's skill for its moment. The one moment that belongs to no activity is **before merging
@@ -20,10 +20,12 @@ Not covered here: **being** any of the reviewers (the record reviewers
 `agent@knowledge-architect-routing-reviewer`, `agent@knowledge-architect-decision-record-reviewer`
 and `agent@knowledge-architect-standing-state-reviewer`; the plan-document reviewers
 `agent@knowledge-architect-cold-implementer-reviewer`,
-`agent@knowledge-architect-code-claims-reviewer` and
-`agent@knowledge-architect-design-conformance-reviewer`, which also reads a commit message listing
+`agent@knowledge-architect-code-claims-reviewer`, which also reads a branch's statements about
+code, and `agent@knowledge-architect-design-conformance-reviewer`, which also reads a commit message listing
 entries a grounding left unread; and
-`agent@knowledge-architect-transcript-reviewer`), **recording**
+`agent@knowledge-architect-transcript-reviewer`; and the code reviewers
+`agent@knowledge-architect-code-shape-reviewer`, `agent@knowledge-architect-adversarial-reviewer` and
+`agent@knowledge-architect-spec-first-reviewer`), **recording**
 what a review changes (`skill@knowledge-architect-decision-recording`,
 `skill@knowledge-architect-issue-tracking`), and **auditing** one aspect of the whole project
 rather than a diff (`skill@knowledge-architect-project-audit`).
@@ -39,10 +41,10 @@ rather than a diff (`skill@knowledge-architect-project-audit`).
 | agent-facing text | `agent@knowledge-architect-agent-text-reviewer` | the diff adds to or changes agent-facing text, installed or the project's own |
 | goals | `agent@knowledge-architect-goal-reviewer`, in its merge mode | the diff adds, rewords or removes a goal |
 | decision recording | `agent@knowledge-architect-decision-record-reviewer`. If a plan document was written, hand it to this reviewer too | a decision about how the project is built was made, reversed or harvested, whether or not it earned an entry, or a tripwire was added; a change that only relocates or rewords recorded decisions makes none |
-%% The two code rows run once per branch, before the transcript reviewer, per
-%% `design@agent-skills@review-cadence`; the checkpoint axes for code are the development skill's.
 | standing state | `agent@knowledge-architect-standing-state-reviewer` | at the review before a merge, since it is the standing re-entry point of every tripwire and every deferred trigger |
 | cold implementer | `agent@knowledge-architect-cold-implementer-reviewer`: can a session that did not see the discussion act on the plan document | a spec or a milestone was written under `skill@knowledge-architect-planning`, or a decided shape in one revised; that skill names the moment |
+%% The two code rows run once per branch, before the transcript reviewer, per
+%% `design@agent-skills@review-cadence`; the checkpoint axes for code are the development skill's.
 | code claims | `agent@knowledge-architect-code-claims-reviewer`: is every statement the plan document, or the diff, makes about existing code true of the tree, and does the documentation of each public item a changed public interface adds or changes state what a caller must respect | the same moment; and at the review before a merge, where the diff writes a statement about code or changes a public interface others consume |
 | code shape | `agent@knowledge-architect-code-shape-reviewer`: does each unit of code the diff writes or edits keep the default shape, and does each test it adds name its claim and carry the evidence its kind owes | at the review before a merge, where the diff writes or edits code |
 | design conformance | `agent@knowledge-architect-design-conformance-reviewer`: does the plan document fit the project's goals, design heads and rejected designs, and the entries it lists as not read | the same moment; and at the review before the merge of a branch whose commit message lists entries a design grounding left unread, an in-change deliberation's or bounded work's, on that message and the branch's diff |

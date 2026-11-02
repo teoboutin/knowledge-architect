@@ -5,8 +5,8 @@ kind: todo
 
 ## Summary
 
-Rule 6 of the goal standard measures a goal whose outcome is judged only in use by what the project
-builds to pursue it and to learn from its use whether it is met. The setup skill asks a target
+Rule 6 of the goal standard, `design@agent-skills@goal-standard-rules`, measures a goal whose outcome
+is judged only in use by what the project builds to pursue it and to learn from its use whether it is met. The setup skill asks a target
 project for nothing that collects feedback from its users, so such a project has, by default, no
 route by which that use reaches it.
 

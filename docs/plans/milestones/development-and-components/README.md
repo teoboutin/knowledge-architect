@@ -16,8 +16,8 @@ settles. It is written for a session that did not witness the discussion.
   reversed or rewritten, the design home wins.
 - Every name it uses is defined under Names or "New names, in one place", or exists in the tree.
 - Where the owner's word is awaited, `skill@knowledge-architect-planning@working-a-slice` says what
-  waits. Q1 to Q9, D1 and D2 are ruled; D3, found at slice 2's design audit, awaits the owner, as
-  "Defaults awaiting the owner" says.
+  waits. No default awaits the owner: Q1 to Q9 and D1 to D3 are ruled, as "Defaults awaiting the
+  owner" says.
 
 The discussion ran in one session of Claude Code, with no compaction. That session is found by its
 opening message, the owner's "I have just reworked the goals of the project, in particular with the
@@ -88,7 +88,7 @@ slice. This milestone adds:
 | Q9 | the question of which text states that a Component takes decisions of its own, ruled during slice 0; see "Defaults awaiting the owner" |
 | D1 | the default on whether cargo-mutants is an ask of every target project, ruled at the plan's review; see "Defaults awaiting the owner" |
 | D2 | the default on how the development skill names the mutation command in a Rust project with no maintenance crate, ruled at the plan's review by a new ask, #maintenance-crate-ask; see "Defaults awaiting the owner" |
-| D3 | the default on whether this repository adopts slice 2's three lints in that slice, open; see "Defaults awaiting the owner" |
+| D3 | the default on whether this repository adopts slice 2's three lints in that slice, ruled at slice 2; see "Defaults awaiting the owner" |
 
 ## What the work is
 
@@ -1384,13 +1384,13 @@ of the slice named, not ruled by the owner now.
 
 | # | cause | thread | verdict |
 | --- | --- | --- | --- |
-| 1 | Sessions act on shape findings by splitting code that gained nothing from it. Each procedure counts it as success; the evidence would arrive through #retrospective-code-rules-question | #code-shape-axis | named as a cause for slice 2's harvest to judge as a tripwire; condition 2 is in doubt, since the evidence arises in target projects, per `issue@agent-skills@a-tripwire-on-agent-behaviour-fires-where-this-project-cannot-see` |
-| 2 | Sessions call logic tests "golden" or "integration" tests to skip mutation evidence | #test-economy | named as a cause for slice 2's harvest to judge, with the same doubt on condition 2 |
-| 3 | Shape findings arrive only before the merge, after later work was built on the code, so they cost rework. The counts of `issue@agent-skills@the-retrospective-counts-no-review-cost` would show it | #review-cadence | named as a cause for slice 2's harvest to judge |
+| 1 | Sessions act on shape findings by splitting code that gained nothing from it. Each procedure counts it as success; the evidence would arrive through #retrospective-code-rules-question | #code-shape-axis | judged at slice 2's harvest: kept briefly on the doubt on condition 2, per `issue@agent-skills@a-tripwire-on-agent-behaviour-fires-where-this-project-cannot-see`, as `tripwire@agent-skills@shape-findings-fragment-code` |
+| 2 | Sessions call logic tests "golden" or "integration" tests to skip mutation evidence | #test-economy | judged at slice 2's harvest: kept briefly on the same doubt, as `tripwire@agent-skills@logic-tests-relabelled` |
+| 3 | Shape findings arrive only before the merge, after later work was built on the code, so they cost rework. The counts of `issue@agent-skills@the-retrospective-counts-no-review-cost` would show it | #review-cadence | judged at slice 2's harvest: dropped on condition 2, since the rework reaches no record until `issue@agent-skills@the-retrospective-counts-no-review-cost` builds its instrument, which holds the doubt |
 | 4 | A long discussion keeps many threads `presumed-settled`, and a late search reopens several of them. The cost is visible in the discussion itself, so it is probably not silent | #search-timing | named as a cause for slice 4's harvest to judge; the discussion judged condition 1 probably unmet |
 | 5 | The "mechanism" observable becomes vacuous ("a review exists"), so a goal can never be shown unmet. #rule-6-finding-weight partly guards this | #goal-standard-measure | judged at slice 0's harvest by the tripwire standard: dropped. No condition clearly excludes it, and the doubt clause of `skill@knowledge-architect-decision-recording@ruled-tripwires` lets a cause in doubt be dropped where the owner would see the failure anyway: the owner rules every goal with its boundary block before it is written, per `design@agent-skills@goal-draft-shows-reach`, so a goal whose measure is a vacuous mechanism reaches the owner's reading. The doubt is kept in `rejected@agent-skills@goal-measured-by-evidence-from-use` |
 | 6 | A project of about 30 Components multiplies record clusters and search agents. The worklist's agent count measures it; `issue@agent-skills@a-lighter-pass-for-untouched-components` already holds this | #component-crate-mapping | named as a cause for slice 3's harvest to judge; an entry already holds it, so the harvest folds it there or drops it |
-| 7 | A change touches a declared path and records no figures. A script over the history could compute this, so it is a check to write later, not a tripwire | #performance-opt-in | named as a cause for slice 2's harvest to judge; the discussion judged it a check, which condition 1 sends to a script |
+| 7 | A change touches a declared path and records no figures. A script over the history could compute this, so it is a check to write later, not a tripwire | #performance-opt-in | judged at slice 2's harvest: a check, which condition 1 sends to a script, written once a project declares a path: `issue@agent-skills@the-figures-of-a-declared-path-are-checked-by-nothing` |
 | 8 | A run killed mid-mutation loses uncommitted content | #mutation-command | a claim of the step that builds the tool, with its test: kill the run, then restore; in slice 1's spec, landed |
 
 ## Acceptance criteria
@@ -1428,7 +1428,7 @@ history, per `argument@development-and-components@arg-80`.
 
 ## Defaults awaiting the owner
 
-One is open, D3. The discussion put four labelled questions to the owner, and the owner ruled each;
+None is open. The discussion put four labelled questions to the owner, and the owner ruled each;
 slice 0 put five more, Q5 to Q9, and the plan's review found two more defaults, D1 and D2, all ruled:
 
 - **Q1, ruled R3:** taking in thaum's mutation tool, the owner's scope choice per
@@ -1479,7 +1479,7 @@ slice 0 put five more, Q5 to Q9, and the plan's review found two more defaults, 
   asks, and the crate holds a library alone; the ask is #maintenance-crate-ask. It bears on
   #mutation-command and #mutation-command-host.
 
-- **D3, open, found at slice 2's design audit:** whether this repository adopts, in slice 2, the
+- **D3, ruled at slice 2, for the default:** whether this repository adopts, in slice 2, the
   three lints slice 2 adds to the setup's linter ask for a published crate. Measured at the audit on
   the owner's workstation, with `RUSTFLAGS="-W missing_docs" cargo clippy -p <crate> --lib -- -W
   clippy::missing_errors_doc -W clippy::missing_panics_doc`, counting the distinct warnings: the
@@ -1488,7 +1488,8 @@ slice 0 put five more, Q5 to Q9, and the plan's review found two more defaults, 
   2 opens a `todo` issue for this repository's conformance, which a target project brings itself
   into over time, per `goal@knowledge-architect@serves-one-kind-of-project`. No goal ranks the two;
   A widens the slice, B leaves this repository outside an ask it ships until the issue closes. It
-  bears on #api-doc-completeness.
+  bears on #api-doc-completeness. The owner chose B: "Later, by an issue"; the issue is
+  `issue@knowledge-architect@this-repository-warns-on-none-of-the-documentation-lints`.
 
 The owner's words on Q6 to Q9, verbatim: "Agreed on all three defaults here. The current wording
 factors them in, right ? If yes, we can go with those.", then "Right, I wanted to write all four
@@ -1505,13 +1506,12 @@ premortem's table.
 
 ## Later consequences
 
-- **Improving performance as an activity of its own**, with the benchmark procedure: a `todo` issue
-  slice 2 opens, per #performance-review-axis.
-- **A target project collects feedback from real use** where a goal is judged in use: a `todo` issue
-  slice 2 opens, per #use-feedback-collection; the setup skill would be the one to ask it.
-- **Co-development of a shipped tool through a Cargo `[patch]`**: a `deferred` issue slice 2 opens,
-  per #upstream-co-development, with its unverified premise that a patched build's version must match
-  the consumer's `checker-version` pin.
+- **Improving performance as an activity of its own**, with the benchmark procedure:
+  `issue@agent-skills@improving-performance-has-no-activity`, opened at slice 2.
+- **A target project collects feedback from real use** where a goal is judged in use:
+  `issue@agent-skills@a-target-project-collects-no-feedback-from-use`, opened at slice 2.
+- **Co-development of a shipped tool through a Cargo `[patch]`**:
+  `issue@agent-skills@co-development-through-a-cargo-patch`, opened at slice 2.
 - **Branch work and releasing**, the other two activities of
   `issue@knowledge-architect@the-workflow-has-no-skill-for-branch-work-or-releasing`, which
   stays open for them after slice 2.
