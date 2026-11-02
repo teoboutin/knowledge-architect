@@ -1,9 +1,10 @@
 # knowledge-architect-git
 
-Every question the checker of knowledge-architect asks git, as a library. A project that uses
-knowledge-architect names the package `knowledge-architect` alone, which depends on this one, and
-never names this crate. A Rust program can depend on it directly to ask git the same questions
-with the same environment; its interface is at <https://docs.rs/knowledge-architect-git>.
+A library that wraps git for the tools of knowledge-architect: the checker of a project's documents
+asks git through it today. A project that uses knowledge-architect names the package
+`knowledge-architect` alone, which depends on this one, and never names this crate. A Rust program
+can depend on it directly to run git with the same environment; its interface is at
+<https://docs.rs/knowledge-architect-git>.
 
 ## What it asks
 
