@@ -20,7 +20,7 @@ milestone, on the owner's word.
   defect of the plan document.
 - Every name it uses is defined under Names or New names, or exists in the tree.
 - Where the owner's word is awaited, `skill@knowledge-architect-planning@working-a-slice` says what
-  waits: D2 below; D1 is ruled.
+  waits. Its defaults, D1 and D2, are ruled.
 
 ## How the work is done
 
@@ -489,8 +489,8 @@ Binding as a presumption, from `design@knowledge-architect@package-include-white
 ### The fixed cost of each new crate `##cost-per-crate`
 
 Weighed. Each new crate name owes the obligations listed under "How the work is done", and a first
-publish by hand. Nine new published names: `git`, `model`, `check`, `query`, `transcript`, `create`,
-and later `bundle`, `render`, `rewrite`; `testing` publishes nothing under D2's default.
+publish by hand. Ten new published names: `git`, `model`, `check`, `query`, `transcript`, `create`,
+`testing`, and later `bundle`, `render`, `rewrite`.
 Unmet-and-accepted, on the owner's word naming it: D1.
 
 ### Re-pointing the references to the renamed anchor `##rename-cost`
@@ -583,7 +583,7 @@ Components. The session's first routing of the successor to the root, #arg-98, i
 decided the question `issue@agent-skills@the-reversal-rule-fixes-the-component-when-the-successor-decides-another-s-interface`
 holds open.
 
-### `testing` is a shared test Component holding this repository's fixtures and integrated tests, which no package ships; where the harness an extension's tests need is published is D2 `##testing-crate`
+### `testing` is a shared test Component, a published crate an extension's tests depend on for the harness, holding this repository's fixtures and integrated tests where no package ships them; `cli` re-exports nothing of it `##testing-crate`
 
 Proposed by the owner, R2 (#arg-37 to #arg-41), against the session's R1 cut (#arg-18); shaped by
 the session, R2 (#arg-55 to #arg-57), and R4 (#arg-83, #arg-84, #arg-87, #arg-88). Final state:
@@ -594,8 +594,9 @@ mock testing in one crate here might be meaningfull, to avoid duplication of moc
 multiple crates that need them, or crates reaching into mock projects of others." Arguments:
 #arg-18, #arg-37 to #arg-41, #arg-55 to #arg-57, #arg-62, #arg-83, #arg-84, #arg-87, #arg-88,
 #arg-101, #arg-102, #arg-108, #arg-110, #arg-118. The plan's review found that the approved shape,
-`testing` publishing the harness while `cli` re-exports it, makes a dependency cycle; the thread is
-reopened on that finding, and D2 holds its default and its rival. Shape:
+`testing` publishing the harness while `cli` re-exports it, makes a dependency cycle; the thread was
+reopened on that finding and closed by the owner's choice at D2, between the two shapes that
+remove the cycle. Shape:
 `spec@component-split@integrated-tests`. Harvest: the `testing` Component's design home;
 `design@core@api-facade`, rewritten.
 
@@ -1317,7 +1318,7 @@ docs/ are split by subject, each slice moving what its new Component holds.
 | `path@core@src/cli/create.rs` | `create` | #consumers-out |
 | `path@core@src/lib.rs` | each crate's own facade | each slice |
 | `path@core@src/mock_projects.rs` | `testing` | #integrated-tests |
-| `path@core@src/testing.rs` | `check`: the harness, a role module, which `cli` re-exports, per D2 | #cli-on-top for the re-export |
+| `path@core@src/testing.rs` | `testing`'s library, the harness, per D2; until then `check`'s role module, which `cli` re-exports | #integrated-tests; #cli-on-top for the interim re-export |
 | `path@core@tests/binary.rs` | `cli` | #cli-on-top |
 | `path@core@tests/init.rs` | `create` | #consumers-out |
 | `path@core@tests/extension_api.rs`, `path@core@tests/projects/` | `testing` | #integrated-tests |
@@ -1424,17 +1425,23 @@ fire by a scratch dependency of `query` on `check`, which the command lists. The
 
 ## Defaults awaiting the owner
 
-- **D2, on #testing-crate, awaiting the owner**: the harness an extension's tests need stays a role
-  module of `check`, re-exported by `cli` under today's path, and `testing` is a Component no crate
-  depends on and no package ships: this repository's fixtures and its integrated tests. The plan's
-  review found that the approved shape, `testing` publishing the harness while `cli` re-exports it,
-  makes a cycle: `cli` would depend on `testing`, whose integrated tests use `cli`, against
-  `design@agent-skills@shared-test-component`. The rival that also survives: `testing` publishes
-  the harness and depends on `cli`, and `cli` does not re-export it, so an extension's tests import
-  the harness from `knowledge-architect-testing`, a migration. The default costs no consumer a
-  change and publishes one crate fewer; the rival gives the harness and the fixtures one home, as
-  the owner's remark "It could be published as its own crate too, though" (#arg-40) allows. Built
-  as the default until the owner rules.
+- **D2, on #testing-crate, ruled**: `testing` is a published crate whose library holds the harness
+  an extension's tests need, and which an extension's tests depend on separately; `cli` does not
+  re-export it and does not depend on it; `testing` depends on `check` and `model` for the harness,
+  and on `cli` for its integrated tests alone; its `tests/` holds this repository's fixtures and
+  integrated tests, which its package does not ship. The plan's review found that the approved
+  shape, `testing` publishing the harness while `cli` re-exports it, makes a cycle: `cli` would
+  depend on `testing`, whose integrated tests use `cli`, against
+  `design@agent-skills@shared-test-component`. Two shapes remove it: the harness kept a role module
+  of `check` that `cli` re-exports, with `testing` unpublished, which spares consumers a change of
+  import and one first publish; and this one, which gives the harness and the fixtures one home.
+  The session proposed the first; the owner chose the second, which no goal ranks: "consumers
+  should pull testing separately, I believe. It seems more natural to me." An extension's tests
+  change one import, from `knowledge_architect::testing` to the `knowledge-architect-testing`
+  crate, at #integrated-tests, with a Migration entry of the changelog. Until that slice, the
+  harness is still `check`'s module, and `cli` keeps re-exporting it under today's path, so a
+  release cut between #cli-on-top and #integrated-tests changes no import and a consumer migrates
+  once.
 - **D1, on #cost-per-crate, ruled**: the fixed cost of each new crate is accepted, and each crate is
   created by the slice that builds it, `bundle`, `render` and `rewrite` by their own work. The owner,
   after the plan documents were committed: "D1 the costs are accepted".

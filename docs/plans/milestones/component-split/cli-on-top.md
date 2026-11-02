@@ -9,8 +9,9 @@ The fourth slice of `milestone@plans@component-split`. It leaves when it lands.
   milestone document says. `cli` holds the binary `klarch`, the command enum and the clap
   declarations of every klarch command, those of `worklist` and `transcript` included, the
   dispatch, the location of the project, and the calls of the refusals of a foreign build and of an
-  unsatisfied pin. It re-exports the extension API and, per D2 of the milestone document, the test
-  harness, under the paths an extension uses today.
+  unsatisfied pin. It re-exports the extension API under the path an extension uses today, and,
+  until #integrated-tests moves the harness into its own crate, the harness too, per D2 of the
+  milestone document.
 - The refusal of a foreign build, `path@core@src/build_origin.rs`, in `check`'s public API, taking
   the list of crates the binary links; `cli` calls it before every command, and `create` will call
   it for `init`'s PATH.
@@ -59,6 +60,10 @@ An extension that no longer compiles against `knowledge-architect`, or a refused
 starts work before it is refused.
 
 ## Premises that expire
+
+- `cli`'s re-export of the harness is an interim one, which #integrated-tests removes; that slice's
+  claim that an extension's tests reach the harness through `knowledge-architect-testing` alone
+  guards it.
 
 `query`, `transcript` and `create` are still modules of `check` until #consumers-out: their
 parsing moves to `cli` here, and their logic there; #consumers-out's claim that every moved command

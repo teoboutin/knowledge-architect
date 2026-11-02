@@ -4,13 +4,16 @@ The sixth and last slice of `milestone@plans@component-split`. It leaves when it
 
 ## Builds
 
-Under D2's default, as the milestone document states it; the owner's ruling on D2 may change the
-first two bullets, and the slice is built on the ruling it has.
+As D2 of the milestone document rules it:
 
-- The Component `testing`, crates/testing, a crate no other crate depends on and no package ships
-  (`publish = false`), depending on `cli`, `check` and `model`. Its `tests/` holds this
-  repository's mock projects and its integrated tests. The harness an extension's tests need stays
-  `check`'s role module `testing`, which `cli` re-exports.
+- The Component `testing`, crates/testing, package `knowledge-architect-testing`, published. Its
+  library holds the harness an extension's tests need, what `path@core@src/testing.rs` exposes
+  today: `foundation`, `run_with`, `Phase`, `Report`, `Stop`, `Structure`, `CHECKS`. It depends
+  on `check` and `model` for the harness, and on `cli` as a dev-dependency for its integrated tests;
+  no crate depends on it. Its `tests/` holds this repository's mock projects and its integrated
+  tests, which its `include` does not ship.
+- `cli`'s interim re-export of the harness, and `check`'s role module `testing`, removed; a
+  Migration entry of the changelog names the new import of an extension's tests.
 - The 36 mock tests of `path@core@src/mock_projects.rs`, and the integrated tests of
   `path@core@tests/extension_api.rs`, rewritten to drive the crates through their public API, as
   an extension's test does. A test whose claim no consumer could observe becomes a unit test over a
@@ -36,10 +39,13 @@ first two bullets, and the slice is built on the ruling it has.
   another crate than the code, so the compiler refuses a private item; an item an integrated test
   needs and cannot reach shows an item a consumer needs, and is opened as a `todo` under the role
   module its use belongs to. `tripwire@core@private-item-needed` is unchanged.
-- **No package ships a fixture.** Test: `cargo package --list -p knowledge-architect-testing`
-  refuses, since the crate is not published, and `cargo package --list` of every published crate
-  lists no file under a directory named tests/projects; shown to fail by a recorded `include` row naming
-  one.
+- **No package ships a fixture.** Test: `cargo package --list` of every published crate,
+  `knowledge-architect-testing` included, lists no file under a directory named tests/projects;
+  shown to fail by a recorded `include` row naming one.
+- **An extension's tests reach the harness through `knowledge-architect-testing` alone.** Test:
+  the integrated tests of `path@core@tests/extension_api.rs`, moved, import the harness from that
+  crate, and `cli` exposes no `testing` path; shown to fail by a recorded re-export left in `cli`,
+  which `cargo tree -p knowledge-architect` then shows as a dependency on `knowledge-architect-testing`.
 - **Every claim the 36 mock tests made is still tested.** Test: the slice's commit lists each old
   test with the test that now carries its claim; a claim with no successor refutes it.
 
@@ -78,16 +84,17 @@ and one home for the fixtures keeps crates from duplicating them or reaching int
 (#arg-37, #arg-41); the harness is published because extensions are supported (#arg-40). The
 fixtures stay unshipped (#arg-87). The scope is the integrated test, so the 437 unit tests stay
 where they are (#arg-83, #arg-107, #arg-108). What an integrated test cannot observe is hidden from
-consumers too (#arg-101). Where the harness is published is D2. The nearest rival, the mock tests
+consumers too (#arg-101). The harness is published by `testing` itself, which an extension's tests
+depend on separately, by the owner's choice at D2. The nearest rival, the mock tests
 kept as a unit-test module, is a losing alternative of the milestone document.
 
 ## Implementation sequence
 
-1. Create `testing` with no test: the mechanism alone.
+1. Create `testing` with the harness and no test: the mechanism alone.
 2. Move the fixtures and rewrite the mock tests, the two that inject a state last.
 3. Rewrite `design@core@api-facade` and `design@core@inputs-are-gathered`; extend the layout head.
 4. The report on #a1-no-check-below-the-tools, the judgement of C4 and C8; the harvest; the
-   deletion of this spec, and of the milestone document once D2 is ruled.
+   deletion of this spec, and of the milestone document.
 
 ## Harvest
 
