@@ -35,7 +35,7 @@ discussion, most of which create no Component. Placing it in the planning skill 
 decision: whether a Component exists is a decision about how the project is built, which
 `primer@design-heads` places in the design record, not a choice of how work is cut into branches.
 
-### One Component is one crate by default, weighed by whether the project publishes, and a Component may be a module directory where a crate would force a publication, or a cycle that no reopened decision of the project removes `##component-crate-mapping`
+### One Component is one crate by default, weighed by whether the project publishes, and a Component may be a module directory where a crate would force a publication, or a cycle that no reversible decision of the project causes `##component-crate-mapping`
 
 The default holds more strongly for a project that never publishes, since a crate boundary is the
 stronger isolation and more crates cost it nothing. For a project that publishes, or plans to, the
@@ -62,10 +62,10 @@ refuses a dependency cycle outside dev-dependencies. Its nearest rival, a crate 
 always, would force a publication of an internal part, or a cycle Cargo refuses. A cycle that comes
 only from a decision of the project's record, such as where a binary lives, is no such rule: the
 skill sends the session to reopen that decision under `skill@knowledge-architect-design` first, and
-the exception holds for that cycle only once the reopened decision stands, since the decision can be
-reversed and its reversal gives the Component a crate of its own, where the exception applied to
-every cycle would keep a decision whose premise may have failed by folding a Component into a
-module.
+the exception holds only for a cycle that Cargo's rules force whatever the project decides, since
+the decision can be reversed and its reversal gives the Component a crate of its own, where the
+exception applied to every cycle would keep a decision whose premise may have failed by folding a
+Component into a module.
 
 ### A split is weighed against what it costs between its parts `##component-split-signals`
 

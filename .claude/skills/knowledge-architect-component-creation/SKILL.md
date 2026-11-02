@@ -77,10 +77,10 @@ the project's policy on publishing; it never sets it.
 publication or a dependency cycle: a crate published on crates.io cannot depend on a crate given
 only by a path, except as a dev-dependency, and Cargo refuses a dependency cycle outside
 dev-dependencies. **Where the cycle comes only from a decision of the project's record**, such as
-where a binary lives, that decision is reopened first under `skill@knowledge-architect-design`, and
-the exception holds for that cycle only once the reopened decision stands. The module's directory is
-the Component's directory, and carries its documents; whether the published crate ships them is the
-project's packaging choice.
+where a binary lives, that decision is reopened first under `skill@knowledge-architect-design`: the
+exception holds only for a cycle that Cargo's rules force whatever the project decides. The module's
+directory is the Component's directory, and carries its documents; whether the published crate ships
+them is the project's packaging choice.
 
 ## Shapes beside one crate `##component-shapes`
 
