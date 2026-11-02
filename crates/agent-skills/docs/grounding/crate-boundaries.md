@@ -1,7 +1,8 @@
 # Crate boundaries: Cargo's rules and one project's testing crate
 
-Findings established outside this project that `design@agent-skills@component-crate-mapping` and
-`design@agent-skills@shared-test-component` lean on. Each is read again at the source it names.
+Findings established outside this project that `design@agent-skills@component-crate-mapping`,
+`design@agent-skills@split-cost-by-publication` and `design@agent-skills@shared-test-component` lean
+on. Each is read again at the source it names.
 
 ## Cargo's rules, read in the Cargo Book
 

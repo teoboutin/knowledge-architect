@@ -39,11 +39,19 @@ each command or subcommand in a module of its own: the test of two changes is ap
 Component, not to each command, since a change of their shared design touches every one of them,
 and a change to one command alone differs from the others only in subject and application.
 
-**An intermediate Component** holds no Rust code in its own files. It groups nested Components and
-holds the design and the documents several of them share but the rest of the project does not.
-Which Components exist and how they depend on each other is a decision about the layout, which
-belongs in the root's design home, as
-`skill@knowledge-architect-decision-recording@owning-component` says.
+**An intermediate Component** groups the Components nested under its directory, and holds the
+design and the documents they share and the rest of the project does not. Its own files hold no
+Rust code, so it is no crate: each Component nested under it that holds Rust code is a crate of its
+own. A decision is design they share when it shapes how each of them is implemented and not how
+every Component of the project is: it belongs in the design home of the intermediate Component that
+groups them, and where none groups them, creating one is a creation this skill's procedure decides.
+A decision about one Component's interface that the others consume is that Component's, and a
+decision about how Components depend on each other is not design they share: neither makes an
+intermediate Component.
+
+Which Components exist, and a decision about how they depend on each other that constrains more than
+one of them, belong in the root's design home; a rule that one Component does not depend on another
+is that Component's, as `skill@knowledge-architect-decision-recording@owning-component` says.
 
 A project with one purpose and one Component needs no split.
 
@@ -56,31 +64,19 @@ A split that would show any of these is probably cut in the wrong place:
 - every change you expect to make crosses the new boundary, counting
   the changes the goals already predict, not only those of the history.
 
-Where many Components would sit beside one another, nested Components under an intermediate
-Component carry the layering.
-
 ## Components and crates `##component-crates`
 
-**One Component is one crate by default.** How strong that default is depends on whether the
-project publishes:
+**A Component that holds Rust code in its own files is one crate**, so a split creates one crate for
+each Component it cuts out. What that crate costs depends on whether the project publishes:
 
-| the project | one Component per crate | the cost of more crates |
-| --- | --- | --- |
-| publishes, or plans to | the default | a low cost, since Rust practice accepts many small published crates: each crate is released in dependency order and bumped on its own. A minor weight, a lead in one direction: a crate that others could use alone is an argument for the split; a crate no one would use alone is no argument against it |
-| never publishes | a stronger default: the crate boundary is the stronger isolation | none |
+| the project | the cost of the crate a split creates |
+| --- | --- |
+| publishes, or plans to | a low cost, since Rust practice accepts many small published crates: every crate a published crate depends on is published too, since crates.io refuses a dependency given only by a path, a dev-dependency excepted, and each is released in dependency order and bumped on its own. A minor weight, in one direction: a crate that others could use alone is an argument for the split; a crate no one would use alone is no argument against it |
+| never publishes | none, and the crate boundary is the stronger isolation |
 
 Read whether the project publishes from its record, its goals and its design. Where the record says
 neither, it is a plan only the owner holds: ask, as `primer@question-authority` says. This weighs
 the project's policy on publishing; it never sets it.
-
-**A Component may be a module directory inside a crate** where a crate of its own would force a
-publication or a dependency cycle: a crate published on crates.io cannot depend on a crate given
-only by a path, except as a dev-dependency, and Cargo refuses a dependency cycle outside
-dev-dependencies. **Where the cycle comes only from a decision of the project's record**, such as
-where a binary lives, that decision is reopened first under `skill@knowledge-architect-design`: the
-exception holds only for a cycle that Cargo's rules force whatever the project decides. The module's
-directory is the Component's directory, and carries its documents; whether the published crate ships
-them is the project's packaging choice.
 
 ## Shapes beside one crate `##component-shapes`
 

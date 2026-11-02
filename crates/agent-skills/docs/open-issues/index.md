@@ -1,6 +1,6 @@
 **Generated — do not edit.** `cargo klarch index`
 
-54 entries
+52 entries
 
 | kind | title |
 | --- | --- |
@@ -35,7 +35,6 @@
 | question | [Does the design skill's open-space test leave bounded work almost unreachable?](the-open-space-test-may-admit-every-problem.md) |
 | question | [The primer and its head name a guard's issue under two conditions](the-primer-and-its-head-name-a-guard-s-issue-under-two-conditions.md) |
 | question | [The primer's paragraph on a divergence between a head and the code reads two ways on the work that goes on meanwhile](the-primer-s-divergence-paragraph-reads-two-ways-on-work-that-goes-on.md) |
-| question | [Does a reversal keep the incumbent's Component when the successor decides another Component's interface?](the-reversal-rule-fixes-the-component-when-the-successor-decides-another-s-interface.md) |
 | question | [The set of what a finding sends upstream names the installed text and the checker, and no published library](the-upstream-set-omits-the-published-libraries.md) |
 | question | [Whether a census of a project's own text under a planned instruction is real use, or a run the workflow refuses](whether-a-census-of-real-text-under-a-planned-instruction-is-real-use.md) |
 | question | [Whether a session in Claude Code's default permission mode is asked for permission, or needs an allow rule, to run an installed saved workflow](whether-a-saved-workflow-run-needs-a-permission-rule.md) |
@@ -53,7 +52,6 @@
 | todo | [Nothing checks mechanically that the shipped text cites no entry of this repository](shipped-text-citing-an-entry-is-unchecked.md) |
 | todo | [The agent-configuration skill names no place for an instruction local to one machine and never committed](the-agent-configuration-skill-names-no-place-for-a-local-uncommitted-instruction.md) |
 | todo | [The agentic-workflow audit's cluster, merge and repair agents read the admission standard by a pointer](the-agentic-workflow-audit-s-repair-agents-read-the-admission-standard-by-a-pointer.md) |
-| todo | [The rules for splitting a project into Components disagree with each other on the intermediate Component, and the owner's leads at the Component split's first audit propose a revision](the-component-rules-await-two-rulings-of-the-split-s-first-audit.md) |
 | todo | [The goal standard lets a goal name a part of the project as it is built, or cite an entry other than a goal](the-goal-standard-lets-a-goal-name-what-is-built-or-cite-an-entry.md) |
 | todo | [The design skill's duty to bring back a material finding has no design head](the-material-finding-duty-has-no-head.md) |
 | todo | [The retrospective records no count of what a merged branch cost in review](the-retrospective-counts-no-review-cost.md) |

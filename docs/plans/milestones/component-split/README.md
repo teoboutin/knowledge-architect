@@ -322,10 +322,11 @@ the tree does not hold. Those that bear on the split, with their outcome:
   `issue@agent-skills@the-upstream-set-omits-the-published-libraries`,
   `issue@agent-skills@shipped-text-citing-an-entry-is-unchecked`: each new crate adds one more site
   these issues count; none is closed or decided here;
-- `issue@agent-skills@the-reversal-rule-fixes-the-component-when-the-successor-decides-another-s-interface`:
-  the milestone follows the installed rule, "The Component is the incumbent's", and leaves the
-  issue's question open: the successor of `design@core@single-crate` is written in the incumbent's
-  Component, `check`, at #cli-on-top;
+- `the-reversal-rule-fixes-the-component-when-the-successor-decides-another-s-interface`, an issue of agent-skills, closed by the design discussion that revised the rules on
+  Components: a reversal's successor goes to the Component that the rule on the owning Component
+  gives it, so the successor of `design@core@single-crate`, a decision about which Components exist
+  and how they depend on each other, is written in the root's design home at #cli-on-top, and
+  `design@core@single-crate` leaves the core's design home in the same change;
 - `design@mutate@report-not-gate`: its clause naming "the core's commands" is rewritten at
   #cli-on-top, per the table above;
 - `design@xtask@one-module-per-subcommand`, `design@xtask@view-included-not-exported`,
@@ -610,10 +611,11 @@ implements the interface, potentially pulling rendering logic from another crate
 decision, which is quite old, made for reasons that no longer apply identically, and can be
 reversed." Arguments: #arg-15, #arg-20, #arg-21, #arg-32, #arg-33, #arg-96, #arg-98. Shape:
 `spec@component-split@cli-on-top`. Harvest: the successor of `design@core@single-crate` in the
-incumbent's Component, `check`, by the installed rule, in the change that reverses it; the `cli`
-Component's design home for its own heads. The session's first routing of the successor to the root, #arg-98, is withdrawn: it
-decided the question `issue@agent-skills@the-reversal-rule-fixes-the-component-when-the-successor-decides-another-s-interface`
-holds open.
+root's design home, in the change that reverses it, per point 1 of
+`skill@knowledge-architect-decision-recording@owning-component` and the reversal rule as the design
+discussion on the rules for Components revised them; the `cli` Component's design home for its own
+heads. The session's first routing of the successor to the root, #arg-98, withdrawn at the plan's
+review under the reversal rule as it stood, is the routing that rule now gives.
 
 ### `testing` is a shared test Component, a published crate an extension's tests depend on for the harness, holding this repository's fixtures and integrated tests where no package ships them; `cli` re-exports nothing of it `##testing-crate`
 
@@ -698,9 +700,12 @@ own". The shape can be either of: the intermediate component is not a crate, eac
 crate (recommended for isolation/independence). Or the other way, if crate count cost is too high,
 the intermediate one is a crate, the other components are modules of it. I think this is the right
 shape, with the right amount of leeway to organize the layout conveniently." Shape: the head of
-absence of #no-intermediate-component, argued from the definition. Harvest: the revision of
-`skill@knowledge-architect-component-creation`, by its own work,
-`issue@agent-skills@the-component-rules-await-two-rulings-of-the-split-s-first-audit`.
+absence of #no-intermediate-component, argued from the definition. Outcome: the design discussion
+on the rules for Components kept the lead's definition and its first shape, ruled out its second,
+an intermediate Component that is a crate whose nested Components are modules, on the owner's
+choice to keep the goal as it stands, and dropped the module-directory Component on the owner's
+proposal; recorded in `design@agent-skills@intermediate-component-occasion` and
+`design@agent-skills@component-crate-mapping`, with `rejected@agent-skills@module-directory-component`.
 
 ### The dependencies that span several Components are the root design home's; a rule that one crate depends on no other may be that crate's `##dependency-layout-home`
 
@@ -716,9 +721,11 @@ their own container component. A decision that one specific crate should not dep
 this can belong to the individual crate. Since it does not bear on the design of the other crate
 (because it rules out the dependency, it creates less constraints for the other)." Shape: the
 harvest rows of #model-crate and #query-crate stand, each a rule that its crate depends on no crate
-of the checks, which the lead admits in that crate's home. Harvest: the same revision as #intermediate-by-shared-design, for
-`skill@knowledge-architect-decision-recording@owning-component` and the component-creation skill's
-sentence on the layout.
+of the checks, which the lead admits in that crate's home. Outcome: the design discussion on the
+rules for Components kept the lead, the test being what the decision constrains, and the owner chose
+the root over the lowest Component enclosing the Components a decision constrains; recorded in
+`design@agent-skills@dependency-decision-home`, stated by points 1 and 4 of
+`skill@knowledge-architect-decision-recording@owning-component`.
 
 ### The record worklist is a Component of its own `##worklist-crate`
 
@@ -1227,9 +1234,9 @@ R4, the session. Threads: #git-crate (Decided).
 
 R4, the session. Threads: #cli-crate (Decided).
 
-"The successor of `design@core@single-crate` is recorded in the root design home. The component-creation skill puts layout decisions there. That also sidesteps the case `issue@agent-skills@the-reversal-rule-fixes-the-component-when-the-successor-decides-another-s-interface` asks about."
+"The successor of `design@core@single-crate` is recorded in the root design home. The component-creation skill puts layout decisions there. That also sidesteps the case `the-reversal-rule-fixes-the-component-when-the-successor-decides-another-s-interface` asks about."
 
-Withdrawn at the plan's review: the successor goes to the incumbent's Component by the installed rule; see #cli-crate.
+Withdrawn at the plan's review: the successor went to the incumbent's Component by the installed rule as it stood; the rule as the design discussion on the rules for Components revised it gives the root again; see #cli-crate.
 
 ### Command-parsing-home I think your synthesis is right `##arg-100`
 
@@ -1569,6 +1576,7 @@ fire by a scratch dependency of `query` on `check`, which the command lists. The
 | the reversed decisions and the losing alternatives above | judged by `skill@knowledge-architect-decision-recording@losing-alternatives` | at the landing of the slice that decides each |
 | C4, C8 | judged by `skill@knowledge-architect-decision-recording@ruled-tripwires` | at the milestone's last landing; C5 at #check-renamed |
 | #a1-no-check-below-the-tools | reported at #consumers-out and at the last landing | as `skill@knowledge-architect-planning@acceptance-criteria` says |
+| the part of each slice's decisions that says which Components exist, or how they depend on each other where it constrains more than one of them | the root's design home, per point 1 of `skill@knowledge-architect-decision-recording@owning-component`, where it earns a head; a rule that one Component does not depend on another, in that Component's | at the landing of the slice that decides each |
 
 ## Later consequences
 
