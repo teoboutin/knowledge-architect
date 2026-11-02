@@ -23,6 +23,7 @@ carries no decision; each decision is one level-three head below it.
 - [How documents point at each other](documents-point.md): where a reference is written, and how a dangling one is repaired
 - [Plan documents](plan-documents.md): specs, milestones and the roadmap, how a plan document is written, reviewed and leaves, and the in-change path
 - [Reviews](reviews.md): the review before a merge, its axes, and the transcript review
+- [Components](components.md): the activity of creating or splitting a Component, how Components map to crates, and the signals and shapes of a split
 - [Development](development.md): the developing activity's skill, the default shape of code, test economy, performance, the diff sweep, and a shipped tool improved locally
 - [The audit method](audit-method.md): what an audit is, how a pass runs, and what it leaves
 - [The design-record and tripwire axes](audit-record-axes.md): the two axes that re-apply the record's rules entry by entry

@@ -109,9 +109,9 @@ installed files carry it.
 
 A **Component** is a directory the manifest names under `[project] components`, by its path; its
 name is the basename of that path, and the project's root is a Component named by
-`[project] name`. Propose the Components to the owner: one per unit that has its own goals and its
-own design, such as a published package, a service, or a maintenance tool. A directory named after
-its role, not after its package, avoids a Component whose name equals the project's.
+`[project] name`. Propose the Components to the owner, mapping the project's existing crates to
+Components by `skill@knowledge-architect-component-creation`, which holds the criteria, the shapes
+and the naming.
 `{{command}} new-component <dir>` adds one: its line in `[project] components`, its documents and
 its register homes.
 

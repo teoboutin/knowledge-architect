@@ -71,7 +71,7 @@ slice. This milestone adds:
 | the new clause | the sentence #goal-standard-measure adds to rule 6, written by slice 0 into rule 6 of `path@agent-skills@fragments/goal-standard.md` |
 | the code-quality goal | `goal@knowledge-architect@the-workflow-leads-to-better-code`, named `code-has-one-responsibility-per-unit-and-is-testable` before slice 0 reworded and renamed it |
 | the development skill | the installed skill slice 2 ships, `skill@knowledge-architect-development` |
-| the component skill | the installed skill slice 3 ships, default name `knowledge-architect-component-creation` |
+| the component skill | the installed skill slice 3 ships, `skill@knowledge-architect-component-creation` |
 | the fragment "when to split" | the shared fragment slice 3 adds, hosted by the design skill and the development skill |
 | the mutation crate | the published crate slice 1 adds: Component `mutate`, package `knowledge-architect-mutate` |
 | the maintenance crate | a project's crate that holds its repeated tasks, run as `cargo x`; here `path@knowledge-architect@tools/xtask/`, per `design@agent-skills@xtask-pins-checker` |
@@ -1323,10 +1323,9 @@ subcommand mutate of the maintenance crate,       tools/xtask/src/main.rs, and a
   (default name; the audit checks it against
   the naming rule)
 the standing question on rules about code         crates/agent-skills/content/skills/retrospective/SKILL.md     2
-skill knowledge-architect-component-creation      crates/agent-skills/content/skills/component-creation/        3
-  (default name; the audit checks it against        SKILL.md
-  the naming rule)
-fragment when-to-split                            crates/agent-skills/fragments/when-to-split.md               3
+`skill@knowledge-architect-component-creation`    crates/agent-skills/content/skills/component-creation/        3
+                                                    SKILL.md
+the fragment "when to split"                      crates/agent-skills/fragments/when-to-split.md               3
 ```
 
 Existing, kept: `agent@knowledge-architect-code-claims-reviewer`, widened at slice 2;
@@ -1389,7 +1388,7 @@ of the slice named, not ruled by the owner now.
 | 3 | Shape findings arrive only before the merge, after later work was built on the code, so they cost rework. The counts of `issue@agent-skills@the-retrospective-counts-no-review-cost` would show it | #review-cadence | judged at slice 2's harvest: dropped on condition 2, since the rework reaches no record until `issue@agent-skills@the-retrospective-counts-no-review-cost` builds its instrument, which holds the doubt |
 | 4 | A long discussion keeps many threads `presumed-settled`, and a late search reopens several of them. The cost is visible in the discussion itself, so it is probably not silent | #search-timing | named as a cause for slice 4's harvest to judge; the discussion judged condition 1 probably unmet |
 | 5 | The "mechanism" observable becomes vacuous ("a review exists"), so a goal can never be shown unmet. #rule-6-finding-weight partly guards this | #goal-standard-measure | judged at slice 0's harvest by the tripwire standard: dropped. No condition clearly excludes it, and the doubt clause of `skill@knowledge-architect-decision-recording@ruled-tripwires` lets a cause in doubt be dropped where the owner would see the failure anyway: the owner rules every goal with its boundary block before it is written, per `design@agent-skills@goal-draft-shows-reach`, so a goal whose measure is a vacuous mechanism reaches the owner's reading. The doubt is kept in `rejected@agent-skills@goal-measured-by-evidence-from-use` |
-| 6 | A project of about 30 Components multiplies record clusters and search agents. The worklist's agent count measures it; `issue@agent-skills@a-lighter-pass-for-untouched-components` already holds this | #component-crate-mapping | named as a cause for slice 3's harvest to judge; an entry already holds it, so the harvest folds it there or drops it |
+| 6 | A project of about 30 Components multiplies record clusters and search agents. The worklist's agent count measures it; `issue@agent-skills@a-lighter-pass-for-untouched-components` already holds this | #component-crate-mapping | judged at slice 3's harvest: dropped on condition 2, since the agent count a worklist gives lands in the dispatching session's transcript alone; `issue@agent-skills@a-lighter-pass-for-untouched-components` already holds the project of about 30 Components and the lighter pass that would answer it, so nothing is folded |
 | 7 | A change touches a declared path and records no figures. A script over the history could compute this, so it is a check to write later, not a tripwire | #performance-opt-in | judged at slice 2's harvest: a check, which condition 1 sends to a script, written once a project declares a path: `issue@agent-skills@no-mechanical-check-reads-a-declared-path-s-figures` |
 | 8 | A run killed mid-mutation loses uncommitted content | #mutation-command | a claim of the step that builds the tool, with its test: kill the run, then restore; in slice 1's spec, landed |
 

@@ -51,7 +51,10 @@ decision-recording skill's rules on the Component, rejected designs, the deliber
 reversal, the audit's outcomes, the rule that a skill is self-sufficient, and the trigger test; the
 goal standard, per `design@agent-skills@goal-standard-rules`, hosted by the goal-setting skill
 and the goal reviewer; and one rule written as a fragment from the start, the size cost of
-agent-facing text, per `design@agent-skills@context-cost-of-agent-text`. The host lists of every
+agent-facing text, per `design@agent-skills@context-cost-of-agent-text`; the default shape of code,
+per `design@agent-skills@default-code-shape`; and a block smaller than a standard, placed in the
+design and development skills by the owner's proposal, the occasion and the signals of a
+Component's creation or split, per `design@agent-skills@component-skill-delivery`. The host lists of every
 fragment but the four of the admission standard are the owner's: the owner approved each list, the
 narrowings included, so a host added to one goes to the owner; the admission standard's four follow
 from the owner's approval of its split by subsection, under the rule that a host applies the whole

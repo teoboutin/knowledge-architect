@@ -123,6 +123,16 @@ writer picks the evidence, and the table says what each form tells:
 | heavy mocks | a mutation of the logic under test, never of the mock | a test that only checks a pass-through to the mock tests the side-effect layer, which needs no test of its own: that is usually the finding |
 | nondeterministic or external | none is reliable | the writer's judgement |
 
+### A Component with a second reason to change
+
+**A Component may need creating or splitting** when work you are placing belongs to no existing
+Component, or when the code you add gives a Component a second reason to change: two concrete
+changes someone could plausibly ask for, each touching it independently. Before placing the work,
+load `skill@knowledge-architect-component-creation`, which holds the default criteria, the shapes and
+the procedure. A split is probably cut in the wrong place where it needs many new dependencies,
+would create a dependency cycle, or would have every expected change cross the new boundary. A
+creation or a split is a design decision, never a step taken while writing code.
+
 ### Unreachable states, and which of them earn a test
 
 A guard, a refusal or an `expect` often stands against a state nothing can currently produce.

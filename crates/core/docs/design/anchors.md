@@ -119,6 +119,19 @@ for the last two. The owner, on the question:
 name (components, custom locations...). I'd rather make this decision early to avoid painful
 migrations."
 
+### No two anchors the manifest resolves share a name `##anchor-names-unique`
+
+A reference names its anchor by one word, so two anchors of one name would make every reference to
+either name both, and `goal@core@documents-stay-current` asks that each resolve. The resolution of
+the manifest, `resolve_anchors` in `path@core@src/manifest.rs`, refuses the later, in the order of
+`design@core@anchor-collisions-refused`, of two candidates that share a name, whatever their kinds: the project, a Component, a location or the anchor `plans`.
+The refused anchor is no anchor, per `design@core@a-wrong-declaration-is-a-finding`, and the
+finding's repair is to rename or move one. Supporting two of one name, by qualifying the word with a
+path, is refused on the owner's argument that two Components of one basename are one Component, or
+are not named specifically enough, so the support would serve no project the workflow leads to. The
+anchors of a directory register's entries are read off the tree later, and this head says nothing of
+them.
+
 ### A Component carries every register the workflow needs, and any register the project attaches to it `##a-component-carries-what-a-project-attaches`
 
 Every Component carries the component registers, the built-in ones and those declared with
