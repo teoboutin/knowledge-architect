@@ -137,7 +137,7 @@ from `cargo init`, per `design@core@init-follows-cargo-init`, is the refusal of 
 files, chosen by the owner over following `cargo init` exactly: after `cargo init` in such a
 directory, `git status --short` lists the files that were there as untracked beside the new ones, so the cleanup of a mistaken run is
 not `git clean`, which deletes both. Whether PATH is inside a worktree is asked through
-`path@git@src/git.rs`, per `design@git@git-is-asked-through-one-module`.
+`path@git@src/git.rs`, per `design@core@checker-asks-git-through-the-crate`.
 
 The designs this decision did not keep: `rejected@core@init-git-init-anywhere-outside-a-worktree`
 and `rejected@core@init-refused-outside-a-repository-root`.

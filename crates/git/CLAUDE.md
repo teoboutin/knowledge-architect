@@ -8,12 +8,15 @@ The library that wraps git for the tools of knowledge-architect. What it is for 
 never a `Command::new("git")` anywhere else in this crate or in the checker's library code. `run`
 is where the environment of every invocation is set, the per-user ignore file pinned and the
 repository variables dropped; a child spawned past it reads another environment, per
-`design@git@git-is-asked-through-one-module`.
+`design@git@git-is-asked-through-one-module` and, for the checker,
+`design@core@checker-asks-git-through-the-crate`.
 
 **Every function a verdict depends on returns an `Err` on any failure of git, never an empty
 answer**, per `design@git@failed-git-is-an-error`: a listing that comes back empty reads as a
-project with no documents.
+project with no documents. `rev_parse` breaks it today, per
+`issue@git@rev-parse-answers-none-for-every-git-failure`.
 
 **Every item public here is the library's interface**: `path@git@src/lib.rs` re-exports it, and
-`#![warn(unreachable_pub)]` refuses any other. An item is made public because a tool that calls
-this library needs it, never for a test of this crate, per `design@core@api-facade`.
+`#![warn(unreachable_pub)]` makes any other a warning the clippy gate refuses. An item is made
+public because a tool that calls this library needs it, never for a test of this crate, as the
+core's facade is shaped, per `design@core@api-facade`.

@@ -1,17 +1,19 @@
 # Design — git
 
-How the `git` crate asks git what the checker reads, and why. Each level-three heading is one
+How the `git` crate wraps git, and why. Each level-three heading is one
 decision with its standing argument.
 
 ## Asking git
 
-### Everything git answers goes through one module `##git-is-asked-through-one-module`
+### Every git invocation of the library goes through one module `##git-is-asked-through-one-module`
 
 `path@git@src/git.rs`, the one module of the `git` crate, owns the listing, the
 tracked-and-ignored listing, the one `check-ignore` batch, the last-change dates, and every read of
-history: `rev-list`, `rev-parse`, a commit's file list, its blobs and its message. The checker's
-library spawns no git of its own, so the set of things the checker asks git is auditable in one
-read and a check keeps spawning nothing.
+history: `rev-list`, `rev-parse`, a commit's file list, its blobs and its message. Every one of them
+is an `Invocation`, run by `Invocation::run`, so the set of things the library asks git is
+auditable in one read, and the environment `run` sets reaches every invocation. It serves
+`goal@git@a-pure-wrapper-over-git`. That the checker's library asks git through this crate alone
+is the checker's decision, `design@core@checker-asks-git-through-the-crate`.
 
 ### Every git invocation runs with the per-user ignore file pointed at the null device `##per-user-ignore-file-pinned`
 
@@ -21,7 +23,7 @@ there would otherwise take an untracked live document out of every check on one 
 another. What still decides the walk beside the tree's own ignore files is git's per-clone exclude
 file, which git offers no way to pin, and that is what
 `tripwire@core@walked-count-differs-between-machines` is left guarding, until the check of
-`issue@git@the-walk-does-not-report-what-the-per-clone-exclude-file-removes` reports the files it
+`issue@core@the-walk-does-not-report-what-the-per-clone-exclude-file-removes` reports the files it
 alone removes from the walk.
 
 ### Git answers about the repository the project's directory lies in, whatever the caller's environment names `##repository-variables-dropped`
@@ -46,7 +48,7 @@ the project's directory finds no repository, which the ask of
 `goal@knowledge-architect@serves-one-kind-of-project` that a target project's `.git` sit at or above
 its directory ranks. That rival
 keeps checkable a project whose repository git finds only through these variables, with no `.git`
-at or above its directory, which is outside a worktree to the checker here, exit 2 per
+at or above its directory, which is outside a worktree to the checker here, an error per
 `design@git@failed-git-is-an-error`, and it lets a stray `GIT_DIR` in a shell outside every
 repository point the walk at another repository. The project
 `goal@core@checks-a-commit-from-its-hook` covers is one with a `.git` at or above its directory.
@@ -91,7 +93,7 @@ reports the failed read the run stays green. That is the failure
 **Reading a commit's tree needs git 2.36.** `cat-file --batch -z` takes its requests
 NUL-terminated, and a tracked filename may hold a newline: under the newline-terminated input
 such a name is two requests, git answers both, and every later answer is paired with the wrong
-path while the map still comes back full. An older git refuses the flag loudly, which is exit 2
+path while the map still comes back full. An older git refuses the flag loudly, which is an error
 with git's own reason.
 
 ### A git invocation a verdict depends on that fails is an error carrying git's reason, never an empty answer `##failed-git-is-an-error`

@@ -1,6 +1,6 @@
 **Generated — do not edit.** `cargo klarch index`
 
-40 entries
+42 entries
 
 | kind | title |
 | --- | --- |
@@ -30,6 +30,7 @@
 | question | [A project's own saved workflow can declare the name of an installed one, and nothing reports it](a-project-workflow-can-declare-an-installed-workflow-s-name.md) |
 | question | [A reference to an anchor's own directory breaks when the anchor moves, which the relocation goal says no move does](a-reference-to-an-anchor-s-own-directory-breaks-when-the-anchor-moves.md) |
 | question | [An extension reads its manifest table as a `toml::Value`, so the core's toml version is part of the public API](manifest-table-exposes-the-toml-crate.md) |
+| todo | [A register home that `new-component` writes says "No entry yet." after its first entry lands, and nothing reports it](a-new-register-home-still-says-no-entry-yet-after-its-first-entry.md) |
 | todo | [A record searcher fills its report by a script or a whole rewrite of its own](a-searcher-fills-its-report-by-a-script-of-its-own.md) |
 | todo | [An extension cannot see which register, anchor or entry a document belongs to](an-extension-cannot-see-which-register-a-document-belongs-to.md) |
 | todo | [`commits` sees a citation of a branch commit by SHA only when the cited commit is in the range it judges](branch-sha-citations-are-judged-within-the-range-only.md) |
@@ -42,5 +43,6 @@
 | todo | [`show` on a register home in the directory shape prints its path and not its subdocuments](show-lists-no-subdocument-of-a-directory-home.md) |
 | todo | [The documents do not yet render as one linked site](the-documents-do-not-render-as-a-site.md) |
 | todo | [The graded entries carry a shared entry's grade once per agent](the-graded-entries-repeat-a-shared-entry-s-grade-per-agent.md) |
+| todo | [The walk does not report the untracked files git's per-clone exclude file removes from it](the-walk-does-not-report-what-the-per-clone-exclude-file-removes.md) |
 | todo | [A row of `\[walk\]` may keep out a file the model requires, and only one such case is reported](the-walk-may-exclude-a-file-the-model-requires.md) |
 | todo | [The checker does not read the structure of a project's own skills](tooling-for-project-skills.md) |

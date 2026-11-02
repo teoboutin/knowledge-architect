@@ -89,6 +89,17 @@ that judge what the tree holds against what the project declares. The run stops 
 every phase-2 finding, per `design@core@phases-gate-the-report`: the model holds a file the
 project says is out of it, so a finding computed from that model is unreliable.
 
+### The checker's library asks git only through the `git` crate `##checker-asks-git-through-the-crate`
+
+The checker's library code starts no git process of its own: every question it asks git is a
+function of the `git` crate, called by the code that gathers what a run reads or prints a
+listing, never by a check, per `design@core@model-then-checks`. So the set of things the checker
+asks git is the crate's, auditable in one read per `design@git@git-is-asked-through-one-module`,
+and the environment the crate sets, `design@git@repository-variables-dropped` and
+`design@git@index-file-variable-kept`, reaches every question the checker's verdict depends on,
+which `goal@core@documents-stay-current` needs. A test of the checker may run git itself to build
+its fixture.
+
 ### `check --staged` judges the tree git's index would commit, and plain `check` the working tree `##staged-tree-source`
 
 `cargo klarch check` judges the working tree as git lists it, untracked files included, and prints

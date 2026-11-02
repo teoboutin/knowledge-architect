@@ -44,7 +44,7 @@ In this repository, the checker built from the checkout runs as `cargo klarch <s
 | path | what it holds |
 | --- | --- |
 | crates/core | the checker: package `knowledge-architect`, binary `klarch` |
-| crates/git | every git invocation of the checker, as the library `knowledge-architect-git` |
+| crates/git | the library that wraps git for the tools of knowledge-architect, `knowledge-architect-git` |
 | crates/agent-skills | the text the checker installs into a project |
 | crates/gates | the library that runs a project's merge gates, `cargo x gates` here |
 | crates/mutate | the library of the hand mutation, which applies one mutation, runs a command against it and restores the file, `cargo x mutate` here |

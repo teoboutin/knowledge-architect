@@ -46,3 +46,9 @@ package with no error.
 crate already depends on. Every project that runs its gates through the library would then build
 the mutation code, which no gate uses, and the library would hold a tool that judges nothing about
 a branch's merge, against the purpose `design@gates@gates-crate` gives it.
+
+### The checker's git module made public, for the other tools that need git `##git-module-made-public`
+
+`live`. A tool that needs git would depend on the whole checker to reach it, and build the
+checker's parsers, tree-sitter, pulldown-cmark and toml_edit, which no question to git needs; the
+module's interface would change with every release of the checker.

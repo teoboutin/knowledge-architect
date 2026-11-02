@@ -4,17 +4,22 @@
 //! revisions of a range, and the trees, blobs and messages of a commit or of the tree git's index
 //! would commit.
 //!
-//! Every function runs `git` as a child process, with the project root as its working directory.
-//! It needs `git` 2.36 or newer on the path, and a project inside a git worktree, whose `.git`
-//! sits at or above the directory it is given. Whatever the caller's environment names, every
-//! invocation runs with the per-user ignore file pointed at the null device and without the
-//! variables that would point git at another repository, and keeps `GIT_INDEX_FILE`, so a
-//! pre-commit hook reads the index its commit records.
+//! Every function that asks git runs it as a child process, with the directory it is given as its
+//! working directory; [`ignore_query`] and [`object_name`] only build an argument. Every question
+//! but [`inside_work_tree`] and [`init_repository`] needs that directory inside a git worktree,
+//! whose `.git` sits at or above it, and [`blobs`] and [`blob_bytes`] need `git` 2.36 or newer.
+//! Whatever the caller's environment names, every invocation runs with the per-user ignore file
+//! pointed at the null device and without the variables that would point git at another
+//! repository, and keeps `GIT_INDEX_FILE`, so a pre-commit hook reads the index its commit
+//! records.
 //!
-//! A failure is an `Err` carrying what was run and git's own reason, never an empty answer: a
-//! listing that came back empty because git failed would read as a project with no documents.
-//! The one exception is [`last_changed`], whose dates fill a convenience column and degrade to
-//! no date.
+//! A failure of an invocation whose answer a verdict depends on, such as a listing, is an `Err`
+//! carrying what was run and git's own reason, never an empty answer: a listing that came back
+//! empty because git failed would read as a project with no documents. Two functions answer
+//! nothing where git cannot say, since no verdict depends on them: [`last_changed`], whose dates
+//! fill a convenience column, and [`main_worktree_path`]. [`rev_parse`] answers `None` for every
+//! failure, against its contract, as `issue@git@rev-parse-answers-none-for-every-git-failure`
+//! records.
 //!
 //! ```no_run
 //! use std::path::Path;
@@ -25,8 +30,8 @@
 //! # Ok::<(), std::io::Error>(())
 //! ```
 
-// A `pub` item no consumer can reach is refused, so an item is public only through the
-// re-exports below.
+// A `pub` item no consumer can reach is warned of, and refused by the clippy gate's `-D warnings`,
+// so an item is public only through the re-exports below.
 #![warn(unreachable_pub)]
 
 // Read so that cargo rebuilds this crate when the checkout building it changes, per

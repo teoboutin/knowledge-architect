@@ -245,9 +245,9 @@ mod survey;
 mod transcript;
 mod walk;
 
-// Every git invocation is the `git` crate's, per `design@git@git-is-asked-through-one-module`.
-// Named `git` here, so the modules that ask it read `crate::git::...` as when it was a module of
-// this crate.
+// Every git invocation is the `git` crate's, per
+// `design@core@checker-asks-git-through-the-crate`. Named `git` here, so the modules that ask it
+// read `crate::git::...` as when it was a module of this crate.
 use knowledge_architect_git as git;
 
 // The role modules: one per kind of consumer.

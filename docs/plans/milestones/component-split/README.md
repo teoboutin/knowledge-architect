@@ -312,7 +312,7 @@ the tree does not hold. Those that bear on the split, with their outcome:
   `issue@core@a-forked-subagent-s-first-line-is-an-unrecognised-type`,
   `issue@core@a-staged-check-compares-installed-files-with-unstaged-shipped-text`,
   `issue@core@check-under-a-sparse-checkout-reports-every-file-outside-the-cone`,
-  `issue@git@the-walk-does-not-report-what-the-per-clone-exclude-file-removes`,
+  `issue@core@the-walk-does-not-report-what-the-per-clone-exclude-file-removes`,
   `issue@core@the-tests-read-the-machine-s-git-configuration`,
   `issue@core@the-graded-entries-repeat-a-shared-entry-s-grade-per-agent`,
   `issue@core@a-component-states-at-least-one-goal`;
@@ -639,8 +639,9 @@ remove the cycle. Shape:
 Proposed by the session, R1 (#arg-17). Final state: approved, by the owner's word against the
 table, R3 and R6, and argued again at the design audit of #git-out under the definition of an
 intermediate Component the owner ruled to prevail, #intermediate-by-shared-design. Arguments:
-#arg-17. Shape: "Decided design" below. Harvest: a head of absence
-in the root design home, "no intermediate Component groups the Components", written at #git-out.
+#arg-17. Shape: "Decided design" below. Harvest: a head of absence in the root design home, "no
+intermediate Component groups the checker's Components or the installed text's", written at
+#git-out.
 
 ### The core is renamed `check` `##core-renamed-check`
 
