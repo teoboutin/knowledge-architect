@@ -707,7 +707,8 @@ their shape, packaging or layout does too. The owner then raised the case of two
 sets of Components cross, which no two directories hold, refused the session's default of sending
 the second to the root since it made the layout depend on the order the principles were met in, and
 chose an intermediate Component made from a purpose its Components serve together, stated in its
-goals home, a decision binding several Components going to the lowest Component enclosing them all,
+goals home, a decision on the code of several Components going to the lowest intermediate Component
+enclosing them all, or to the root,
 over no intermediate Component at all. It ruled out the lead's second shape, an intermediate Component that is a
 crate whose nested Components are modules, since its crate root holds Rust code and an interface
 and every dependency of one module reaches every consumer of the crate, the owner choosing to keep

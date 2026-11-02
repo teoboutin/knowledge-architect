@@ -1,6 +1,6 @@
 ---
 name: knowledge-architect-component-creation
-description: MUST use when new work may belong to no existing Component, when code being added gives a Component a second reason to change, when an adopting project's crates are mapped to Components at setup, and when an audit finds a Component holding two purposes or a head sitting in a Component that does not own its subject — creating a Component or splitting one. Covers the default criteria of a Component, the intermediate Component, the signals against a split, how Components map to crates, the shapes a Component can take, how a Component is named, and the procedure of a creation or a split. Not for the design discussion that decides it, the declaration in the manifest, or the goals, which their own skills cover.
+description: MUST use when new work may belong to no existing Component, when code being added gives a Component a second reason to change, when an adopting project's crates are mapped to Components at setup, when an audit finds a Component holding two purposes or a head sitting in a Component that does not own its subject, and when the owner states a purpose that several Components serve together — creating a Component or splitting one. Covers the default criteria of a Component, the intermediate Component, the signals against a split, how Components map to crates, the shapes a Component can take, how a Component is named, and the procedure of a creation or a split. Not for the design discussion that decides it, the declaration in the manifest, or the goals, which their own skills cover.
 ---
 
 # Creating or splitting a Component
@@ -45,8 +45,8 @@ purpose, and their goals refine it, as `skill@knowledge-architect-goal-setting` 
 with that purpose, under the owner's ruling of goals, never because the Components share a
 principle. Its own files hold no Rust code, so it is no crate: each Component nested under it that
 holds Rust code is a crate of its own. A decision that shapes how the code of several Components is
-written belongs in the design home of the lowest Component enclosing them all, an intermediate
-Component or the root, as `skill@knowledge-architect-decision-recording@owning-component` says; a
+written belongs in the design home of the lowest intermediate Component enclosing them all, or in
+the root's where none encloses them all, as `skill@knowledge-architect-decision-recording@owning-component` says; a
 principle stated for every Component of a kind, such as every crate the project publishes, and a
 decision about their shape, packaging or layout, are the root's.
 

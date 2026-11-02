@@ -99,7 +99,8 @@ which the check reports.
 An intermediate Component, which `skill@knowledge-architect-component-creation@component-criteria`
 defines, states the purpose that the Components nested under it serve together, and a goal of each
 of them refines a goal of that intermediate Component, naming it, as a Component's goal names the
-root goal it refines.
+root goal it refines. A purpose the owner states for several Components together is the occasion to
+create one, under `skill@knowledge-architect-component-creation`.
 
 The head of the goals home says what it holds: a goal is met or unmet, it stays while it is met,
 and it leaves only on the owner's word. It also states the purpose every goal of its Component

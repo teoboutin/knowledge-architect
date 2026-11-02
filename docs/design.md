@@ -59,11 +59,7 @@ that serve a purpose of their own, stated in its goals home and refined by their
 `design@agent-skills@intermediate-component-occasion`. Every goal of these Components refines a goal
 of the root's goals home directly, or none, so no purpose is stated for a group of them. A decision
 binding several of them goes to their lowest enclosing Component, the root, which holds the rules
-this repository states for every crate it publishes as rules for a kind. Each grouping that was
-weighed shares design that one of its members already holds, or shares none: a group of the
-checker's crates shares the design of the checker's model, which the crate holding the model holds;
-the installed text grouped with the crate that installs it shares nothing that crate does not hold.
-It serves `goal@knowledge-architect@projects-are-split-into-components`. A purpose the owner states
+this repository states for every crate it publishes as rules for a kind. It serves `goal@knowledge-architect@projects-are-split-into-components`. A purpose the owner states
 for a group of these Components reopens it.
 
 ### The hand mutation is a published crate of its own, which a project's maintenance crate depends on, and no crate of the checker or the gates links `##mutation-command-host`
