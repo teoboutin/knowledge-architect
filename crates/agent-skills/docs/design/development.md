@@ -26,10 +26,12 @@ reports in code a change writes is restructured or argued in a comment at the co
 change edits, only the lines the change writes are weighed.
 
 `goal@knowledge-architect@the-workflow-leads-to-better-code` asks for a default shape and a review
-that weighs a branch against it, and lists no property. The session chose that the development skill,
-not a goal, states the shape, and that it binds the lines a change writes, over a goal that lists
-the properties and over a shape binding every unit a change touches, which no goal ranks; the owner
-approved it. "One reason to change" is the reading of one
+that weighs a branch against it, and lists no property. The shape binds the lines a change writes,
+not every unit it touches: a rule over the whole unit would leave a one-line fix in a long function
+only two moves, both against the change's interest, restructuring the function or departing from the
+rule, and the owner reported that rules too strict make agents take misaligned actions. That the
+development skill, not a goal, states the shape is the session's choice over a goal listing the
+properties, which no goal ranks; the owner approved it. "One reason to change" is the reading of one
 responsibility that a test can apply: the reading "does one thing" leads to code where everything is
 a function, which the fragmentation clause names as a departure too.
 
@@ -57,7 +59,7 @@ design head rather than a manifest key is the session's choice, which no goal ra
 only if sessions miss the step in real use; the owner approved it. Improving performance as an
 activity of its own is `issue@agent-skills@improving-performance-has-no-activity`, and the check that
 a change to a declared path records its figures is
-`issue@agent-skills@the-figures-of-a-declared-path-are-checked-by-nothing`.
+`issue@agent-skills@no-mechanical-check-reads-a-declared-path-s-figures`.
 
 ### A diff mutation sweep with cargo-mutants is an optional step, whose survivors are leads for the adversarial review `##diff-mutation-sweep`
 

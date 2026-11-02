@@ -307,17 +307,18 @@ the time a reviewer takes enough to fix its running time, with no cap that might
 more; whether scoped reviewers still run unbounded in real use is what a retrospective would report.
 The rival, a cap on a reviewer's time, would stop the reviewer at an arbitrary point of its attack.
 
-### The adversarial and spec-first axes run at development checkpoints, and the code-shape and code-claims axes once per branch, before the transcript reviewer `##review-cadence`
+### An axis for code whose late finding would unbuild work runs at each development checkpoint, and the others once per branch, before the transcript reviewer `##review-cadence`
 
-The adversarial and spec-first axes run at each development checkpoint, where a defect found late
-would unbuild work. The code-shape and code-claims axes read only, and run once per branch, in the
+The adversarial and spec-first axes run at each development checkpoint, since a defect they find
+late, in the code's behaviour, would unbuild work built on it. The code-shape and code-claims axes
+judge what can be reworded or reshaped without unbuilding, and run once per branch, in the
 review before the merge and before the transcript reviewer, per
 `design@agent-skills@transcript-review-last-before-merge`. Every axis at every checkpoint would
 multiply the dispatches, against the efficiency `goal@knowledge-architect@agents-get-a-complete-workflow`
 asks of the workflow; the instrument that would show whether two more per branch are too many is
 `issue@agent-skills@the-retrospective-counts-no-review-cost`.
 
-### The read-only code axes are rows of the review skill's table, and the checkpoint axes rows of the development skill's `##code-axes-rows-home`
+### A code axis dispatched once per branch is a row of the review skill's table, and one dispatched at checkpoints a row of the development skill's `##code-axes-rows-home`
 
 A diff of any activity can write code or a statement about code, a plan's harvest or an issue's
 closure among them, and the review before the merge reaches each, so the code-shape and code-claims
@@ -339,10 +340,9 @@ and a thaum case where an improvised reviewer for this question produced the rev
 consequential findings showed the gap; that the documentation exists is the lints' of
 `design@agent-skills@documentation-presence-is-linted`.
 
-### The review owes no security axis: the adversarial axis attacks what an accepted input reaches `##no-security-axis`
+### The review owes no security axis: the adversarial axis attacks accepted inputs, and `unsafe` code is a lint gate's `##no-security-axis`
 
 No installed agent reviews security as an axis of its own. The adversarial reviewer already tries to
-reach a panic, a wrong result or a lost input from an accepted input, which is how a security defect
-in a target project's code shows, and a security reviewer with no threat model of the project has no
-standard to judge against, per `rejected@agent-skills@one-generic-auditor-agent`. No lint gate on
-`unsafe` code ships with the setup.
+reach a panic, a wrong result or a lost input from an accepted input, and code marked `unsafe` is a
+lint gate's to refuse, not a reviewer's to judge. The lint gate is not shipped yet:
+`issue@agent-skills@no-lint-on-unsafe-code-ships-with-the-setup`.

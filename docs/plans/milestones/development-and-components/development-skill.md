@@ -53,8 +53,8 @@
 5. **The setup's linter ask** gains `missing_docs`, `clippy::missing_errors_doc` and
    `clippy::missing_panics_doc` for a published crate, in `skill@knowledge-architect-setup`. No
    snippet carries the workspace's lints, so the ask is stated in the skill's text, as the linter
-   ask is today. Whether this repository adopts the three lints in this slice is D3, awaiting the
-   owner.
+   ask is today. Whether this repository adopts the three lints in this slice is D3, ruled for a
+   later issue.
 6. **The retrospective's standing question** of #retrospective-code-rules-question, both its
    clauses, in `skill@knowledge-architect-retrospective@what-it-examines`, watching the two goals
    slice 0 rewords.
@@ -426,7 +426,7 @@ performance review axis and the briefed general-purpose reviewers are in the mil
 
 - **Heads** in `register@agent-skills@design`, under `skill@knowledge-architect-decision-recording`:
   one per decision the entry tests admit among #code-shape-axis, #test-economy, #adversarial-scoping,
-  #spec-first-axis, #code-claims-scope with #api-doc-completeness, #performance-opt-in,
+  #spec-first-axis, #code-claims-scope, and #api-doc-completeness → `design@agent-skills@documentation-presence-is-linted`, #performance-opt-in,
   #review-cadence, #diff-mutation-sweep, #upstream-tool-loop; rewritten in place:
   `design@agent-skills@code-change-reads-its-record` (#fix-grounding),
   `design@agent-skills@plan-read-against-the-record` where it places the code-claims reviewer,
