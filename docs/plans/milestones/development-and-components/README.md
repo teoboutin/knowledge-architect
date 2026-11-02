@@ -16,8 +16,8 @@ settles. It is written for a session that did not witness the discussion.
   reversed or rewritten, the design home wins.
 - Every name it uses is defined under Names or "New names, in one place", or exists in the tree.
 - Where the owner's word is awaited, `skill@knowledge-architect-planning@working-a-slice` says what
-  waits. No default awaits the owner: Q1 to Q9, D1 and D2 are ruled, as "Defaults awaiting the
-  owner" says.
+  waits. Q1 to Q9, D1 and D2 are ruled; D3, found at slice 2's design audit, awaits the owner, as
+  "Defaults awaiting the owner" says.
 
 The discussion ran in one session of Claude Code, with no compaction. That session is found by its
 opening message, the owner's "I have just reworked the goals of the project, in particular with the
@@ -70,7 +70,7 @@ slice. This milestone adds:
 | rule 6 | rule 6 of the goal standard, "What shows it met is in what the project builds" |
 | the new clause | the sentence #goal-standard-measure adds to rule 6, written by slice 0 into rule 6 of `path@agent-skills@fragments/goal-standard.md` |
 | the code-quality goal | `goal@knowledge-architect@the-workflow-leads-to-better-code`, named `code-has-one-responsibility-per-unit-and-is-testable` before slice 0 reworded and renamed it |
-| the development skill | the installed skill slice 2 ships, `knowledge-architect-development` |
+| the development skill | the installed skill slice 2 ships, `skill@knowledge-architect-development` |
 | the component skill | the installed skill slice 3 ships, default name `knowledge-architect-component-creation` |
 | the fragment "when to split" | the shared fragment slice 3 adds, hosted by the design skill and the development skill |
 | the mutation crate | the published crate slice 1 adds: Component `mutate`, package `knowledge-architect-mutate` |
@@ -88,6 +88,7 @@ slice. This milestone adds:
 | Q9 | the question of which text states that a Component takes decisions of its own, ruled during slice 0; see "Defaults awaiting the owner" |
 | D1 | the default on whether cargo-mutants is an ask of every target project, ruled at the plan's review; see "Defaults awaiting the owner" |
 | D2 | the default on how the development skill names the mutation command in a Rust project with no maintenance crate, ruled at the plan's review by a new ask, #maintenance-crate-ask; see "Defaults awaiting the owner" |
+| D3 | the default on whether this repository adopts slice 2's three lints in that slice, open; see "Defaults awaiting the owner" |
 
 ## What the work is
 
@@ -1315,10 +1316,10 @@ Component mutate, package knowledge-architect-    crates/mutate/ (its Cargo.toml
                                                     docs/)
 subcommand mutate of the maintenance crate,       tools/xtask/src/main.rs, and a module of its own              1
   cargo x mutate run, cargo x mutate restore
-skill knowledge-architect-development             crates/agent-skills/content/skills/development/SKILL.md      2
-agent knowledge-architect-code-shape-reviewer     crates/agent-skills/content/agents/code-shape-reviewer.md     2
-agent knowledge-architect-spec-first-reviewer     crates/agent-skills/content/agents/spec-first-reviewer.md     2
-agent knowledge-architect-adversarial-reviewer    crates/agent-skills/content/agents/adversarial-reviewer.md    2
+`skill@knowledge-architect-development`           crates/agent-skills/content/skills/development/SKILL.md      2
+`agent@knowledge-architect-code-shape-reviewer`    crates/agent-skills/content/agents/code-shape-reviewer.md     2
+`agent@knowledge-architect-spec-first-reviewer`    crates/agent-skills/content/agents/spec-first-reviewer.md     2
+`agent@knowledge-architect-adversarial-reviewer`   crates/agent-skills/content/agents/adversarial-reviewer.md    2
   (default name; the audit checks it against
   the naming rule)
 the standing question on rules about code         crates/agent-skills/content/skills/retrospective/SKILL.md     2
@@ -1427,7 +1428,7 @@ history, per `argument@development-and-components@arg-80`.
 
 ## Defaults awaiting the owner
 
-None is open. The discussion put four labelled questions to the owner, and the owner ruled each;
+One is open, D3. The discussion put four labelled questions to the owner, and the owner ruled each;
 slice 0 put five more, Q5 to Q9, and the plan's review found two more defaults, D1 and D2, all ruled:
 
 - **Q1, ruled R3:** taking in thaum's mutation tool, the owner's scope choice per
@@ -1477,6 +1478,17 @@ slice 0 put five more, Q5 to Q9, and the plan's review found two more defaults, 
   target project lacks a maintenance crate, the default's fallback serves no state that follows the
   asks, and the crate holds a library alone; the ask is #maintenance-crate-ask. It bears on
   #mutation-command and #mutation-command-host.
+
+- **D3, open, found at slice 2's design audit:** whether this repository adopts, in slice 2, the
+  three lints slice 2 adds to the setup's linter ask for a published crate. Measured at the audit on
+  the owner's workstation, with `RUSTFLAGS="-W missing_docs" cargo clippy -p <crate> --lib -- -W
+  clippy::missing_errors_doc -W clippy::missing_panics_doc`, counting the distinct warnings: the
+  core 70, the gates library 2, the mutation library 12, agent-skills 0. Shape A: slice 2 declares
+  the lints in the workspace and documents every item, 84 at the audit. Shape B, the default: slice
+  2 opens a `todo` issue for this repository's conformance, which a target project brings itself
+  into over time, per `goal@knowledge-architect@serves-one-kind-of-project`. No goal ranks the two;
+  A widens the slice, B leaves this repository outside an ask it ships until the issue closes. It
+  bears on #api-doc-completeness.
 
 The owner's words on Q6 to Q9, verbatim: "Agreed on all three defaults here. The current wording
 factors them in, right ? If yes, we can go with those.", then "Right, I wanted to write all four

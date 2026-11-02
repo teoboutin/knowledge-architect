@@ -170,6 +170,13 @@ mod tests {
     /// ships and still passes the test above, so this list is what fails: change it with the hosts.
     const FRAGMENT_HOSTS: &[(&str, &[&str])] = &[
         (
+            "default-code-shape.md",
+            &[
+                ".claude/agents/knowledge-architect-code-shape-reviewer.md",
+                ".claude/skills/knowledge-architect-development/SKILL.md",
+            ],
+        ),
+        (
             "tripwire-standard.md",
             &[
                 ".claude/agents/knowledge-architect-decision-record-reviewer.md",

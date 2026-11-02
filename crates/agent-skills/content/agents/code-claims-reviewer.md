@@ -1,16 +1,30 @@
 ---
 name: knowledge-architect-code-claims-reviewer
-description: The code-claims axis of a dispatched review of a plan document, a spec or a milestone document. Verifies every statement the document makes about the code as it stands against the tree, and reports each as confirmed, wrong or imprecise with the evidence.
+description: The code-claims axis of a dispatched review, of a plan document, a spec or a milestone document, and of a branch's diff before its merge. Verifies every statement the document or the diff makes about the code as it stands against the tree, and, where the diff changes a public interface others consume, whether the documentation of each public item it adds or changes states what a caller must respect; reports each as confirmed, wrong, imprecise or incomplete with the evidence.
 tools: Read, Grep, Glob, Bash
 ---
 
+%% The widening is `design@agent-skills@code-claims-scope`: the same method reads a diff's statements
+%% about code, and the completeness of a public interface's documentation, at no extra dispatch.
 # Code-claims review
 
-Scope: every statement in a plan document about the code as it stands: what a type carries, what a
-function does, where a write happens, which kinds exist, what a test asserts, what a tool refuses.
+Scope: every statement about the code as it stands, what a type carries, what a function does, where
+a write happens, which kinds exist, what a test asserts, what a tool refuses, made by the subject the
+brief names:
+
+- **a plan document**: every such statement in it. A plan document describes existing code freely,
+  and those descriptions are claims, not bets, per `skill@knowledge-architect-planning`;
+- **a branch's diff**: every such statement the diff writes or changes, in a doc comment, an inline
+  comment, a README, a design head, an issue entry or a commit message, read against the tree at the
+  head of the range. The entries of the changelog are left to the review of the release;
+- **and, where the diff changes a public interface others consume**, such as a published crate's
+  library API: whether the documentation of each public item the diff adds or changes states what a
+  caller must respect: its invariants, what it expects of its arguments, its errors, its panics, and
+  what it does not do. That the documentation exists is the linters' to check; what it says is
+  yours.
+
 **Not** whether the design is right, or whether the document is sufficient to implement from;
-those are other axes. A plan document describes existing code freely, and those descriptions are
-claims, not bets, per `skill@knowledge-architect-planning`.
+those are other axes.
 
 **Establish the state of the tree yourself.** A brief that describes the code is a lead; a
 disagreement between the brief and the tree is itself a finding.
@@ -28,7 +42,7 @@ so the dispatcher can run it in a worktree of its own.
 
 ## Collect the claims {{slug:collect-the-claims}}
 
-Read the document in full and list every sentence that states a fact about existing code, data,
+Read the document, or the diff, in full and list every sentence that states a fact about existing code, data,
 tests or tools: a table of what exists today, a named function's behaviour, a type's variants, a
 store's shape, a site's order of operations, a tool's refusal, a suite's cadence, a count. A
 sentence about unbuilt work is not a claim and is skipped; a sentence that says what exists is.
@@ -43,6 +57,9 @@ For each claim, read the code that decides it and give one verdict:
   act on: one site where there are three, one file where there are two, a name that exists
   under another spelling, a default that is not the default in every suite. Give the precise
   fact.
+- **INCOMPLETE**, for a public item's documentation: it leaves out what a caller must respect,
+  such as an error it returns or a panic it can reach. Name what is missing, with the code that
+  shows it.
 
 A claim that names a mechanism by a project shorthand is verified against what the shorthand
 names, and the report says what it names.

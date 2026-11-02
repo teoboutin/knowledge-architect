@@ -408,8 +408,8 @@ The rule binds a checkout that holds work, and a scratch worktree is outside it,
 
 ### A scratch worktree made only for temporary testing is outside every Git rule `##scratch-worktree-outside-git-rules`
 
-A worktree made only for temporary testing, such as the one a mutation check of
-`skill@klarch-development@discriminating-tests` runs in, is outside every rule that the root
+A worktree made only for temporary testing, such as the one an adversarial reviewer runs its
+mutations in, is outside every rule that the root
 `CLAUDE.md` restates in `instructions@git-workflow`, whichever head is its home: it holds a copy of
 work committed or kept elsewhere, records nothing durable, and is removed once the test is done, so
 no operation in it can lose content and nothing in it reaches the main branch. The scope is the

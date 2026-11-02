@@ -533,7 +533,23 @@ fn main() -> ExitCode {
 **The gates.** `rust_project` gives, in cost order: `rebased` behind `--require-rebased`, `fmt`,
 `check`, `commits` over the branch's own commits, `clippy` with warnings denied, and `test`. Add
 a gate the project owes by pushing a `Gate` to that list, with the distiller that shows its failure;
-remove one only on the owner's word. Pass the main branch as git names it, such as `origin/main`.
+remove one only on the owner's word.
+
+**A crate the project publishes warns on three lints**, which the clippy gate, denying warnings,
+turns into failures: `missing_docs`, `clippy::missing_errors_doc` and `clippy::missing_panics_doc`,
+declared in its `Cargo.toml`:
+
+```toml
+[lints.rust]
+missing_docs = "warn"
+
+[lints.clippy]
+missing_errors_doc = "warn"
+missing_panics_doc = "warn"
+```
+
+The gate then fails while a public item of the crate lacks its documentation, or a function that
+returns an error or can panic does not say when. Pass the main branch as git names it, such as `origin/main`.
 The tool writes every gate's complete output under `target/gates/`, refuses to write its report
 into a pipe outside GitHub Actions, and exits non-zero when any gate fails: read a run in the terminal, or redirect it to
 a file.

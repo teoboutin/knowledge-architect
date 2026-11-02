@@ -8,8 +8,8 @@ kind: todo
 `goal@knowledge-architect@agents-get-a-complete-workflow` lists developing, working on a branch under
 a linear history, and releasing among the activities the workflow covers, and
 `goal@agent-skills@one-skill-per-activity` asks one installed skill each. The installed set holds
-none of the three. Developing is scheduled by `milestone@plans@development-and-components`, which
-ships an installed development skill. Branch work and releasing are not scheduled. This repository
+one of the three, `skill@knowledge-architect-development`. Branch work and releasing are not
+scheduled. This repository
 keeps its own procedures for them locally: `skill@klarch-release`, and the section `## Git` of its
 root `CLAUDE.md`.
 
