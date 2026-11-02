@@ -213,8 +213,10 @@ Outside this work, each with what owns it:
   across the new boundaries;
 - the git heads that move whole to `git`: `design@core@per-user-ignore-file-pinned`,
   `design@core@repository-variables-dropped`, `design@core@index-file-variable-kept`,
-  `design@core@a-path-is-bytes`, `design@core@git-floor-for-commit-trees`,
-  `design@core@failed-git-is-exit-two`;
+  `design@core@a-path-is-bytes`, `design@core@git-floor-for-commit-trees`; and
+  `design@core@failed-git-is-exit-two`, moved with its exit-code clause stated as the crate's error
+  contract beside a citation of `design@core@exit-code-ladder`, as `spec@component-split@git-out`
+  says;
 - `design@gates@the-library-owns-the-flags` and `rejected@gates@gates-command-of-the-checker`: `cli`
   flattens no command of `gates`, and `gates` keeps its flags;
 - `design@core@exit-code-ladder`, `design@core@binary-name`, `design@core@one-question-one-command`,
