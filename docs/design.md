@@ -39,6 +39,19 @@ one included. All of them are published together, at one version, per
 
 The design this decision did not keep: `rejected@knowledge-architect@single-published-package`.
 
+### No intermediate Component groups the checker's Components or the installed text's `##no-intermediate-component`
+
+The Components of the checker and of the text it installs sit beside one another under crates/,
+with no intermediate Component above any group of them. An intermediate Component holds the design
+that several nested Components share and the rest of the project does not, and holds no code of
+its own, per `skill@knowledge-architect-component-creation@component-criteria`; a group with no
+such design gives one nothing to hold. Every grouping of these Components shares design that one of
+its members already holds, or shares none: the checker with the commands that read its model, its
+rendering and its project creation share the design of the model, which the Component holding the
+model holds; the installed text with the machinery that builds and installs it shares nothing the
+machinery does not hold. It serves `goal@knowledge-architect@projects-are-split-into-components`.
+A design several of these Components come to share, which none of them holds, reopens it.
+
 ### The hand mutation is a published crate of its own, which a project's maintenance crate depends on, and no crate of the checker or the gates links `##mutation-command-host`
 
 The hand mutation is the package `knowledge-architect-mutate`, the Component `mutate`, in
