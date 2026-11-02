@@ -138,8 +138,7 @@ The argument: a searcher grades `may bring back` against a shape, and a question
 `rejected@agent-skills@search-work-is-the-question`, so the search gets the most precise work once
 the shapes stop moving. In the discussion that designed the development skill and the component
 skill, the owner reported that the scope shifted and expanded at least twice before the search; the
-search then graded the record against the seventeen shapes drafted by then rather than the first
-three, and a search at the first challenge would have needed one more search for each new subject.
+search then graded the record against the seventeen shapes drafted by then, and a search at the first challenge would have needed one more search for each new subject.
 The owner argued, as a practice that may become the usual one, that it allows a freer discussion of
 the design, which the record then confronts. The cost, proposals that reach the owner before the
 search, strains `goal@knowledge-architect@owner-attention-on-what-is-theirs`; each round's statement
