@@ -60,7 +60,7 @@ CLAUDE.md that does not import the shipped primer with a line holding exactly an
 required document, so a run stops before references while one stands, per
 `design@core@phases-gate-the-report`. A command that writes a generated file refuses while one
 stands, as over any phase-2 finding; `spec@component-split@check-renamed`
-moves them to the last phase, where the core's placement rule puts them. Only `check` compares: `commits` does not, because
+records why the last phase would fit them better. Only `check` compares: `commits` does not, because
 the running binary ships its own version's text, and an older commit's installed set would fail
 against it with no repair a commit already in history can take. The comparison is of bytes: the
 binary holds the text, so a digest would add a dependency and nothing else. The installed files are
