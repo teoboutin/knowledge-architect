@@ -39,8 +39,8 @@ an empty subsection is omitted.
 ### Workflow
 
 - `agent-skills`, patch: a development skill, `skill@knowledge-architect-development`: claims with
-  tests shown to discriminate by `cargo x mutate`, a default shape of code, the gate, the commit's
-  claim check, the review axes for code, the conditional performance step on a declared path, and an
+  tests shown to discriminate by `cargo x mutate`, a default shape of code, in which an integrated
+  test drives the project through its public API, the gate, the commit's claim check, the review axes for code, the conditional performance step on a declared path, and an
   optional diff mutation sweep with cargo-mutants.
 - `agent-skills`, patch: three review agents, `agent@knowledge-architect-adversarial-reviewer` and
   `agent@knowledge-architect-spec-first-reviewer`, dispatched at development checkpoints, and
@@ -49,8 +49,9 @@ an empty subsection is omitted.
   documentation of a changed public interface.
 - `agent-skills`, patch: a skill for creating or splitting a Component,
   `skill@knowledge-architect-component-creation`: the default criteria of a Component, the signals
-  against a split, how Components map to crates, the shapes, the naming, and the procedure of a
-  creation or a split. The design and development skills send a session to it where work belongs to
+  against a split, how Components map to crates, the shapes, among them a top-level binary crate and
+  a shared test Component of integrated tests, the naming, and the procedure of a creation or a
+  split. The design and development skills send a session to it where work belongs to
   no Component or a Component gains a second reason to change, and the setup skill points to it for
   the criteria and the naming. A project with a skill of its own for this activity reads it against
   the installed one.

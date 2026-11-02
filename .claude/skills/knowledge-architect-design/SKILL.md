@@ -885,8 +885,9 @@ Component, or when the code you add gives a Component a second reason to change:
 changes someone could plausibly ask for, each touching it independently. Before placing the work,
 load `skill@knowledge-architect-component-creation`, which holds the default criteria, the shapes and
 the procedure. A split is probably cut in the wrong place where it needs many new dependencies,
-would create a dependency cycle, or would have every expected change cross the new boundary. A
-creation or a split is a design decision, never a step taken while writing code.
+would create a dependency cycle, or would have every expected change cross the new boundary,
+counting the changes the goals already predict. A creation or a split is a design decision, never
+a step taken while writing code.
 
 ## Keep-or-change (evaluating an incumbent design) `##incumbent-evaluation`
 

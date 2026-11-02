@@ -20,7 +20,9 @@ text cannot hold what is particular to each project.
 
 The installed text states one default shape of code: one responsibility per unit, read as one
 reason to change; no fragmentation; the logic pure and its side effects in a thin layer that decides
-nothing a test of the logic should cover; and the logic tested without the side effects. It is a
+nothing a test of the logic should cover; the logic tested without the side effects; and an
+integrated test that drives the project through its public API, per
+`design@agent-skills@integrated-test-through-public-api`. It is a
 fragment, `path@agent-skills@fragments/default-code-shape.md`, hosted by the development skill and
 the code-shape reviewer, so the reviewer applies the standard it reads. A departure the review
 reports in code a change writes is restructured or argued in a comment at the code; in a unit the
@@ -42,10 +44,33 @@ A test that maps to no claim is cost with no information: the owner reported tha
 on a whim, which the claim each test names exposes. Mutation evidence is owed by a test of logic, a
 named and recorded mutation; for a golden test, a test with heavy mocks or a nondeterministic one
 the writer picks the evidence, since whether a mutation means anything depends on a plausible wrong
-implementation in the logic the test exercises. The rule and its table are in
+implementation in the logic the test exercises. A test's kind is decided by what it exercises, so a
+test of logic run in a mock environment, or through the public API as an integrated test, owes its
+mutation all the same. The rule and its table are in
 `path@agent-skills@fragments/default-code-shape.md`, which `design@agent-skills@default-code-shape`
 places, and the code-shape reviewer judges them, per `design@agent-skills@code-shape-axis`: a
 separate axis would read the same diff again.
+
+### An integrated test drives the project through its public API, as a consumer would, and what it cannot observe there is fixed in the API or belongs to a unit test `##integrated-test-through-public-api`
+
+An integrated test, in a mock environment or not, uses only what a consumer of the project could
+use. Where it cannot observe what it needs in what the public API returns, the API hides it from
+consumers too, and the API is what is fixed; where what it would observe has no effect a consumer
+could see, the claim is a unit test's. Code that no integrated test can reach and no consumer can
+observe is suspect, and its comment and the commit that added it are read before any of it is
+removed, per `design@agent-skills@local-intent-binds`. The statement is a property of the default
+shape of `design@agent-skills@default-code-shape`, a guideline per
+`goal@knowledge-architect@the-workflow-leads-to-better-code`, and the component-creation skill
+defines the integrated test in the same words, for the tests a shared test Component holds.
+
+The owner argued that testing through the public API drives the improvement of that API, shows
+where it lacks, benefits its consumers, such as those who write extensions, and shows code that is
+unreachable or has no effect a consumer could observe, a sign of a defect in the design or of dead
+code. The owner scoped it to the integrated test, and to no mock environment in particular, since
+not every project uses mocks or serves other projects. Its nearest rival, every test through the
+public API, is `rejected@core@unit-tests-moved-under-tests`: as its measurement shows, a unit test
+often runs over private functions, which such a move makes public or whose tests it drops, so the
+guideline leaves a unit test where it is.
 
 ### A change to a code path a project declares performance-critical measures before and after, and no review judges speed by reading `##performance-opt-in`
 
