@@ -68,9 +68,10 @@ an empty subsection is omitted.
   the criteria and the naming. A project with a skill of its own for this activity reads it against
   the installed one.
 - `agent-skills`, patch: the decision-recording skill sends a principle on how the code of several
-  Components is written, which they follow as one part of the project, to the intermediate Component
-  that groups them, and a principle stated for a kind of Component, a decision on their shape,
-  packaging or layout, or a principle whose Components cross an existing group, to the root; and a
+  Components is written to the lowest Component enclosing them all, and a principle stated for a kind
+  of Component, or a decision on their shape, packaging or layout, to the root; an intermediate
+  Component groups Components that serve a purpose of their own, which its goals home states and
+  their goals refine, as the goal-setting skill now says; and a
   reversal's successor to the Component its rule on the owning Component gives it, the incumbent
   leaving its own home in the same change, where the successor stayed in the incumbent's Component.
   The primer states that a Component is bound by the design of the root and of every intermediate
