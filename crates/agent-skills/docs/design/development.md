@@ -64,14 +64,15 @@ guideline per `goal@knowledge-architect@the-workflow-leads-to-better-code`, and 
 component-creation skill defines the integrated test in the same words, for the tests a shared test
 Component holds.
 
-The owner argued that testing through the public API drives the improvement of that API, shows
-where it lacks, benefits its consumers, such as those who write extensions, and shows code that is
-unreachable or has no effect a consumer could observe, a sign of a defect in the design or of dead
-code. The owner scoped it to the integrated test, and to no mock environment in particular, since
-not every project uses mocks or serves other projects. Its nearest rival, every test through the
-public API, is `rejected@core@unit-tests-moved-under-tests`: as its measurement shows, a unit test
-often runs over private functions, which such a move makes public or whose tests it drops, so the
-guideline leaves a unit test where it is.
+The owner argued that testing through the public API drives the improvement of that API, shows where
+it lacks, benefits its consumers, such as those who write extensions, and shows code that is
+unreachable or has effects a consumer cannot observe, which a unit test inside the crate cannot test
+either, probably a sign of a defect in the design or of dead code. The owner scoped it to the
+integrated test, and to no mock environment in particular, since not every project uses mocks or
+serves other projects. Its nearest rival, every test through the public API, is
+`rejected@core@unit-tests-moved-under-tests`: as its measurement shows, a unit test often runs over
+private functions, which such a move makes public or whose tests it drops, so the guideline leaves a
+unit test where it is.
 
 ### A change to a code path a project declares performance-critical measures before and after, and no review judges speed by reading `##performance-opt-in`
 

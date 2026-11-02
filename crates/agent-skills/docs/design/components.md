@@ -94,11 +94,12 @@ A.
 thaum's testing crate has this shape, as `path@agent-skills@docs/grounding/crate-boundaries.md`
 records. The owner's argument is that it centralises the tooling for integrated testing, such as
 fixtures and oracles, so that crates neither duplicate fixtures nor reach into another's; that
-integrated tests moved out of the unit tests, and out of the crates, test the public API rather
-than the internals; and that it avoids a dependency cycle even among dev-dependencies, since such a
-cycle leaves unclear which crate is responsible for what. A condition that the crates share their
-testing tools without depending on each other nearly always fails where a crate's own unit tests
-use the fixtures; keeping the fixtures out of every unit test is what makes the shape reachable.
+integrated tests moved out of the unit tests, and sometimes out of the crates, test the public API
+rather than the internals; and that it avoids a dependency cycle even among dev-dependencies, since
+such a cycle leaves unclear which crate is responsible for what. A condition that the crates share
+their testing tools without depending on each other nearly always fails where a crate's own unit
+tests use the fixtures; keeping the fixtures out of every unit test is what makes the shape
+reachable.
 
 Its nearest rival, a dev-dependency from A back onto B, is admitted by Cargo and fails in A's unit
 tests, which link two copies of A whose types do not match, as the same grounding file reads in the
