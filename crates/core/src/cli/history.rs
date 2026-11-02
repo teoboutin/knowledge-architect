@@ -1237,7 +1237,7 @@ mod tests {
         let listing: Vec<PathBuf> = crate::git::snapshot_entries(&repo, Source::Index)
             .expect("the snapshot")
             .into_iter()
-            .map(|e| e.rel)
+            .map(|e| e.entry().rel)
             .collect();
         let snapshot = Snapshot::new(&repo, Source::Index, listing, Default::default());
         assert!(snapshot.object_id(Path::new(MANIFEST_NAME)).is_some());

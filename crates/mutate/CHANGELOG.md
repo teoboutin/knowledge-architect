@@ -31,6 +31,10 @@ an empty subsection is omitted.
 
 ### New features
 
+- `library`, minor: the published crate `knowledge-architect-git`, every question the checker
+  asks git, as a library: the walk's listing, the ignore batch, the dates of a listing's last change,
+  and the trees, blobs and messages of a commit or of the index. The checker depends on it, so a
+  project that names `knowledge-architect` gets it with no change.
 - `mutate`, minor: the published crate `knowledge-architect-mutate`, the hand mutation: `run`
   applies one mutation the caller writes, runs a command against it and restores the file, over
   uncommitted work, and `restore` unwinds a run that was killed. A maintenance crate carries it as

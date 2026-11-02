@@ -13,9 +13,9 @@ so that the string literals of the tool's own source are read as data, per
 directory and package name are compiled in too, so a binary built from another checkout of the
 tool is refused, per `design@core@a-foreign-build-is-refused`.
 
-**`git` 2.36 or newer is a hard dependency, and every invocation lives in
-`path@core@src/git.rs`.** The floor is `cat-file --batch -z`, which `commits`
-reads a commit's tree with. The walk is `git ls-files` from the project root, the
+**`git` 2.36 or newer is a hard dependency, and every invocation lives in the `git` crate,
+`path@git@src/git.rs`, which the core names `crate::git`.** The floor is `cat-file --batch -z`,
+which `commits` reads a commit's tree with. The walk is `git ls-files` from the project root, the
 ignore question a path reference asks is one `git check-ignore` batch per run, and a listing's
 last-change column is one `git log`. A check may spawn nothing, so each of those is taken by the
 caller and handed in. A tree with no `git`, or a project outside a worktree, is exit 2 with the

@@ -27,6 +27,7 @@ components = [
     "crates/gates",
     "crates/mutate",
     "tools/xtask",
+    "crates/git",
 ]
 
 # This repository's own agent configuration carries an issue register, for defects of the
@@ -47,6 +48,7 @@ skip-files = [
     "crates/agent-skills/CHANGELOG.md",
     "crates/core/CHANGELOG.md",
     "crates/gates/CHANGELOG.md",
+    "crates/git/CHANGELOG.md",
     "crates/mutate/CHANGELOG.md",
 ]
 

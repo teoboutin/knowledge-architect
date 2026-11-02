@@ -7,7 +7,7 @@ The first slice of `milestone@plans@component-split`. It leaves when it lands.
 - The Component `git`, crates/git, package `knowledge-architect-git`, with its documents and its
   register homes; its goals are drafted under `skill@knowledge-architect-goal-setting` and put to
   the owner, and the slice merges once the owner has ruled on them.
-- `path@core@src/git.rs` moved into it whole. Its public API, through a facade in its lib.rs, is
+- `path@elsewhere@crates/core/src/git.rs` moved into it whole, as `path@git@src/git.rs`. Its public API, through a facade in its lib.rs, is
   every item the core calls today, counted with
   `grep -rn 'git::' crates/core/src --include=*.rs | grep -v 'src/git.rs'`: the builder
   `git` and the type `Invocation` with its methods; `inside_work_tree`, `ignores`,
@@ -33,7 +33,7 @@ The first slice of `milestone@plans@component-split`. It leaves when it lands.
   links") and `design@core@checker-source-literals-are-data` ("The core is one crate whose directory
   is its Component"); the sentences of `design@core@staged-tree-source`,
   `design@core@index-staged-write` and `design@core@init-runs-git-init` naming
-  `path@core@src/git.rs` are re-pointed only, which touches no head; and the count "publishes four
+  `path@elsewhere@crates/core/src/git.rs` are re-pointed only, which touches no head; and the count "publishes four
   crates" of `issue@knowledge-architect@this-repository-warns-on-none-of-the-documentation-lints`.
 - The head of absence of #no-intermediate-component, in the root design home: no intermediate
   Component groups the Components. **It waits for the owner's ruling on Q1 of this slice's design
@@ -59,20 +59,29 @@ intermediate trees do not compile.
 
 - **Every git invocation of the core's library code goes through the `git` crate.** Test:
   `git grep -n 'Command::new("git")' crates/core/src` lists none outside a `#[cfg(test)]` module;
-  today it lists `path@core@src/git.rs` and one test of `path@core@src/source/rs.rs`. Shown to fail by a recorded
+  today it lists `path@elsewhere@crates/core/src/git.rs` and one test of `path@core@src/source/rs.rs`. Shown to fail by a recorded
   mutation that adds a `Command::new("git")` call to a module of the core's library.
 - **The environment every invocation runs with is unchanged**: `core.excludesFile` at the null
   device, the repository variables dropped and `GIT_INDEX_FILE` kept. Test: the test of the
   per-user ignore file in `path@core@tests/binary.rs` and the tests of those heads, moved with the
   code; shown to discriminate by a recorded mutation that drops the pin of `core.excludesFile`,
   which that test fails on.
-- **The core's tests and the binary's tests pass with no change but their import paths.** Test:
-  `cargo test --workspace`; a diff of the test files limited to `use` lines shows the claim, and a
-  recorded mutation of a moved function's behaviour fails a test of the core.
+- **The core's tests and the binary's tests pass with no change but what the crate boundary
+  forces.** Test: `cargo test --workspace`, and a recorded mutation of a moved function's
+  behaviour fails a test of the core. The core names the crate `crate::git`, so no import path
+  changes. The diff of the test files is three changes, each forced: a unit test of the core reads a
+  snapshot entry's path through `SnapshotEntry::entry`, since the field is the crate's; and the two
+  binary tests that assert what the binary prints about its linked crates name the `git` crate,
+  which the binary now lists, per `design@core@checker-source-literals-are-data` and
+  `design@core@a-foreign-build-is-refused`.
+- **A tree holding the `git` crate at another path than the binary's is refused**, as one holding
+  the core is. Test: a binary test over a copy declaring `knowledge-architect-git` under
+  crates/git, shown to fail by a recorded mutation that lists the installed-text crate in its
+  place.
 
 ## Audit subjects
 
-`path@core@src/git.rs`; `design@core@git-is-asked-through-one-module`, rewritten here to name the
+`path@git@src/git.rs`; `design@core@git-is-asked-through-one-module`, rewritten here to name the
 crate; the git heads the milestone document lists as moving whole, with
 `rejected@core@every-git-variable-dropped`, which `design@core@index-file-variable-kept` cites;
 `design@core@git-supplies-the-walk`, `design@core@links-are-no-documents` and

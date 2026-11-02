@@ -133,7 +133,7 @@ hand edit of a generated file or moving the unstaged file away.
   replace the entries under a directory.
 - It stages every entry in one locked write, so the index changes for all of them or for none: a
   held lock is exit 2 with the index as it was. How, and what a refused run can leave in the object
-  store, is the doc comment of `stage_generated` in `path@core@src/git.rs`.
+  store, is the doc comment of `stage_generated` in `path@git@src/git.rs`.
 
 It writes into git, where `design@core@safe-fix-definition` refuses a fix that touches git. That
 test is the one `--fix` applies before a fix, and `--fix` never applies this one, per

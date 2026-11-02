@@ -1,19 +1,19 @@
-//! Every git invocation the core makes, in one place.
+//! Every git invocation the checker makes, in one module.
 //!
-//! **Git is the walk.** What this tool reads is what `git ls-files` reports from the manifest's
+//! **Git is the walk.** What the checker reads is what `git ls-files` reports from the manifest's
 //! directory, so a nested `.gitignore` is honoured, every pattern git honours is honoured, and no
 //! ignore rule can take a file git tracks out of the walk. The hand-rolled matcher this replaced could do
 //! none of the three, per `design@core@git-supplies-the-walk`.
 //!
 //! **One module owns the process boundary.** A check is a pure function over the model and may
 //! spawn nothing, so every call here is made by the caller that builds the model or prints a
-//! listing. Keeping them together is what makes the set of things this tool asks git auditable
-//! in one read.
+//! listing. Keeping them together is what makes the set of things the checker asks git
+//! auditable in one read.
 //!
-//! **A git failure is exit 2 with the reason, never an empty walk.** No `git` on the path and a
-//! directory that is not inside a worktree both produce an error naming what was run and where.
-//! Silence would report a project with no documents as a clean one, which is the failure class
-//! this tool exists to prevent.
+//! **A git failure is an error carrying git's reason, never an empty answer.** No `git` on the
+//! path and a directory that is not inside a worktree both produce an error naming what was run
+//! and where. Silence would report a project with no documents as a clean one, which is the
+//! failure class the checker exists to prevent.
 //!
 //! Every invocation runs with the project root as its working directory and asks for `-z`
 //! output, so the paths that come back are project-relative and hold no escaping.
@@ -29,7 +29,7 @@ use std::process::{Command, Stdio};
 /// A builder rather than a function per call so that a new question — a revision list, a tree
 /// listing, a commit message — is one more method chain here rather than one more place that
 /// knows how to spawn a process and how to read its failure.
-pub(crate) struct Invocation {
+pub struct Invocation {
     root: PathBuf,
     args: Vec<OsString>,
     stdin: Option<Vec<u8>>,
@@ -47,7 +47,7 @@ pub(crate) struct Invocation {
 /// failure that answers the question: git exits 128 on every fatal error, a repository it refuses
 /// as owned by another user included, and that one is `Err`, since the directory may well lie
 /// inside a working tree. The message is read in the C locale, which git does not translate.
-pub(crate) fn inside_work_tree(dir: &Path) -> io::Result<bool> {
+pub fn inside_work_tree(dir: &Path) -> io::Result<bool> {
     match git(dir)
         .args(["rev-parse", "--is-inside-work-tree"])
         .env("LC_ALL", "C")
@@ -60,7 +60,7 @@ pub(crate) fn inside_work_tree(dir: &Path) -> io::Result<bool> {
 }
 
 /// Whether git ignores `path`, relative to `root`, by the rules of the repository `root` lies in.
-pub(crate) fn ignores(root: &Path, path: &str) -> io::Result<bool> {
+pub fn ignores(root: &Path, path: &str) -> io::Result<bool> {
     git(root)
         .args(["check-ignore", "-q", path])
         .accept(1)
@@ -69,7 +69,7 @@ pub(crate) fn ignores(root: &Path, path: &str) -> io::Result<bool> {
 }
 
 /// Create a repository at `dir`, an existing directory, as `init` does where its git rule asks.
-pub(crate) fn init_repository(dir: &Path) -> io::Result<()> {
+pub fn init_repository(dir: &Path) -> io::Result<()> {
     git(dir).args(["init", "-q"]).output().map(|_| ())
 }
 
@@ -86,7 +86,7 @@ const REPOSITORY_VARIABLES: [&str; 5] = [
 ];
 
 /// A git invocation rooted at `root`, with nothing asked yet.
-pub(crate) fn git(root: &Path) -> Invocation {
+pub fn git(root: &Path) -> Invocation {
     Invocation {
         root: root.to_path_buf(),
         args: Vec::new(),
@@ -97,7 +97,7 @@ pub(crate) fn git(root: &Path) -> Invocation {
 }
 
 impl Invocation {
-    pub(crate) fn args<I, S>(mut self, args: I) -> Self
+    pub fn args<I, S>(mut self, args: I) -> Self
     where
         I: IntoIterator<Item = S>,
         S: AsRef<OsStr>,
@@ -119,7 +119,7 @@ impl Invocation {
     }
 
     /// Also treat this exit code as an answer.
-    pub(crate) fn accept(mut self, code: i32) -> Self {
+    pub fn accept(mut self, code: i32) -> Self {
         self.accept.push(code);
         self
     }
@@ -127,8 +127,9 @@ impl Invocation {
     /// Run it, and give back stdout.
     ///
     /// The two failures a caller must be able to tell apart from an empty answer are named in
-    /// the error: git is not there, or git refused. Both reach the binary as exit 2.
-    pub(crate) fn output(self) -> io::Result<Vec<u8>> {
+    /// the error: git is not there, or git refused. Both are an `Err`, which the checker's
+    /// commands report as exit 2.
+    pub fn output(self) -> io::Result<Vec<u8>> {
         self.run().map(|(_, stdout)| stdout)
     }
 
@@ -295,15 +296,20 @@ fn nul_strings(bytes: &[u8]) -> Vec<String> {
 /// repository, under which the listing never descends.
 #[derive(Clone, Copy, Debug, PartialEq, Eq)]
 pub enum EntryKind {
+    /// A regular file, the one kind a walk reads as a document.
     File,
+    /// A symlink, mode `120000`.
     Symlink,
+    /// A submodule's gitlink, mode `160000`.
     Gitlink,
 }
 
 /// One entry of a listing: its project-relative path and what it is.
 #[derive(Clone, Debug, PartialEq, Eq)]
 pub struct Entry {
+    /// The path relative to the directory git was asked from.
     pub rel: PathBuf,
+    /// What git records at that path.
     pub kind: EntryKind,
 }
 
@@ -321,7 +327,7 @@ pub struct Entry {
 ///
 /// The second list is the untracked part, `--others`, so a report can say which of its files
 /// git does not track. A file staged and never committed is tracked, and is not in it.
-pub(crate) fn entries(root: &Path) -> io::Result<(Vec<Entry>, Vec<PathBuf>)> {
+pub fn entries(root: &Path) -> io::Result<(Vec<Entry>, Vec<PathBuf>)> {
     let staged = git(root)
         .args(["ls-files", "-z", "-s", "--cached"])
         .output()?;
@@ -371,7 +377,7 @@ fn mode_and_path(line: &[u8]) -> Option<Entry> {
 /// reader of the ignore rules concludes the file is out of the project while every check reads
 /// it, and deleting the file from the index flips both answers at once. The repair is to untrack
 /// the file, or to narrow the rule that covers it.
-pub(crate) fn tracked_and_ignored(root: &Path) -> io::Result<Vec<PathBuf>> {
+pub fn tracked_and_ignored(root: &Path) -> io::Result<Vec<PathBuf>> {
     git(root)
         .args([
             "ls-files",
@@ -390,7 +396,7 @@ pub(crate) fn tracked_and_ignored(root: &Path) -> io::Result<Vec<PathBuf>> {
 /// the whole point of exempting generated paths — is a directory only if the spelling says so.
 /// Asking by the claim rather than by what is on disk is what makes the verdict identical on a
 /// fresh clone and a built tree, per `design@core@ignored-targets-are-not-asserted`.
-pub(crate) fn ignore_query(target: &Path, claims_dir: bool) -> String {
+pub fn ignore_query(target: &Path, claims_dir: bool) -> String {
     let mut out = target.to_string_lossy().into_owned();
     if claims_dir && !out.ends_with('/') {
         out.push('/');
@@ -403,7 +409,7 @@ pub(crate) fn ignore_query(target: &Path, claims_dir: bool) -> String {
 /// One process per run rather than one per reference: a project with a thousand path references
 /// would otherwise spawn a thousand. `check-ignore` exits 1 when nothing matched, which is an
 /// answer, and the empty input is answered without spawning anything at all.
-pub(crate) fn ignored(root: &Path, queries: &[String]) -> io::Result<HashSet<String>> {
+pub fn ignored(root: &Path, queries: &[String]) -> io::Result<HashSet<String>> {
     let wanted: Vec<&String> = queries.iter().filter(|q| !q.is_empty()).collect();
     if wanted.is_empty() {
         return Ok(HashSet::new());
@@ -430,7 +436,7 @@ pub(crate) fn ignored(root: &Path, queries: &[String]) -> io::Result<HashSet<Str
 /// empty map is what a tree with no history produces, and the caller prints a placeholder
 /// rather than failing — this column is convenience, and the hard git dependency belongs to the
 /// walk rather than to a listing.
-pub(crate) fn last_changed(root: &Path, dirs: &[PathBuf]) -> BTreeMap<PathBuf, String> {
+pub fn last_changed(root: &Path, dirs: &[PathBuf]) -> BTreeMap<PathBuf, String> {
     if dirs.is_empty() {
         return BTreeMap::new();
     }
@@ -487,7 +493,7 @@ fn is_date(line: &str) -> bool {
 /// rebase across a clock skew produces one — then lands before the commit it descends from.
 /// The per-commit check reuses the previous model as the next commit's parent tree, so an
 /// order that is not the parent chain would resolve a message against the wrong tree.
-pub(crate) fn rev_list(root: &Path, range: &str) -> io::Result<Vec<String>> {
+pub fn rev_list(root: &Path, range: &str) -> io::Result<Vec<String>> {
     let out = git(root)
         .args(["rev-list", "--reverse", "--topo-order", range])
         .output()?;
@@ -505,7 +511,7 @@ pub(crate) fn rev_list(root: &Path, range: &str) -> io::Result<Vec<String>> {
 ///
 /// A session that ran in the main checkout belongs to the project a review reads from a linked
 /// worktree of it, per `design@core@transcript-directory-resolution`.
-pub(crate) fn main_worktree_path(root: &Path) -> Option<PathBuf> {
+pub fn main_worktree_path(root: &Path) -> Option<PathBuf> {
     let ask = |what: &str| {
         let out = git(root)
             .args(["rev-parse", "--path-format=absolute", what])
@@ -533,7 +539,7 @@ pub(crate) fn main_worktree_path(root: &Path) -> Option<PathBuf> {
 /// A missing revision is an answer rather than a failure here: the caller asks whether HEAD is
 /// in a range and whether a commit has a first parent, and a root commit having none is
 /// ordinary. Every other git failure still reaches the caller as an error.
-pub(crate) fn rev_parse(root: &Path, expression: &str) -> Option<String> {
+pub fn rev_parse(root: &Path, expression: &str) -> Option<String> {
     let out = git(root)
         .args(["rev-parse", "--verify", "--quiet", expression])
         .accept(1)
@@ -548,7 +554,7 @@ pub(crate) fn rev_parse(root: &Path, expression: &str) -> Option<String> {
 /// A snapshot is read from git objects alone, never from the working tree, so two runs over one
 /// snapshot read the same bytes whatever the working tree holds.
 #[derive(Clone, Copy, Debug, PartialEq, Eq)]
-pub(crate) enum Source<'a> {
+pub enum Source<'a> {
     /// The tree `git commit` would record now, absent a pathspec or `-a`.
     Index,
     /// The tree of the commit this names.
@@ -558,7 +564,7 @@ pub(crate) enum Source<'a> {
 /// One entry of a snapshot's listing: the path and kind a walk reads, and the mode and blob id
 /// the snapshot records for it.
 #[derive(Clone, Debug, PartialEq, Eq)]
-pub(crate) struct SnapshotEntry {
+pub struct SnapshotEntry {
     pub(crate) rel: PathBuf,
     pub(crate) kind: EntryKind,
     pub(crate) mode: String,
@@ -566,7 +572,8 @@ pub(crate) struct SnapshotEntry {
 }
 
 impl SnapshotEntry {
-    pub(crate) fn entry(&self) -> Entry {
+    /// The path and the kind, as a walk reads an entry of the live listing.
+    pub fn entry(&self) -> Entry {
         Entry {
             rel: self.rel.clone(),
             kind: self.kind,
@@ -590,7 +597,7 @@ impl SnapshotEntry {
 /// intent-to-add entry out, and compares against the empty tree where HEAD does not exist yet.
 /// The caller asks [`unmerged`] first: an unmerged path has no blob to commit, and a `U` row
 /// here is an error.
-pub(crate) fn snapshot_entries(root: &Path, source: Source) -> io::Result<Vec<SnapshotEntry>> {
+pub fn snapshot_entries(root: &Path, source: Source) -> io::Result<Vec<SnapshotEntry>> {
     let base = match source {
         Source::Commit(sha) => Some(sha.to_string()),
         Source::Index => rev_parse(root, "HEAD"),
@@ -716,7 +723,7 @@ fn kind_of(mode: &[u8]) -> EntryKind {
 /// anywhere in the repository answers yes; `--ignore-submodules=none`, since without it the
 /// configuration can hide a staged gitlink. Before the first commit, the index is compared with
 /// the empty tree.
-pub(crate) fn index_differs_from_head(root: &Path) -> io::Result<bool> {
+pub fn index_differs_from_head(root: &Path) -> io::Result<bool> {
     let code = git(root)
         .args([
             "diff",
@@ -735,7 +742,7 @@ pub(crate) fn index_differs_from_head(root: &Path) -> io::Result<bool> {
 ///
 /// A conflicted merge or rebase leaves them, and the index then has no tree to commit: git
 /// refuses `commit` and `write-tree` alike. `ls-files -u` prints one line per stage.
-pub(crate) fn unmerged(root: &Path) -> io::Result<Vec<PathBuf>> {
+pub fn unmerged(root: &Path) -> io::Result<Vec<PathBuf>> {
     let listed = git(root).args(["ls-files", "-u", "-z"]).output()?;
     let mut out: Vec<PathBuf> = nul_separated(&listed)
         .into_iter()
@@ -762,7 +769,7 @@ pub(crate) fn unmerged(root: &Path) -> io::Result<Vec<PathBuf>> {
 /// symlink or a gitlink, whose mode the text would be put under, and a directory, whose entries
 /// `--index-info` would replace. It asks the index itself rather than a listing a walk row can
 /// filter.
-pub(crate) fn stage_generated(root: &Path, files: &[(PathBuf, String)]) -> io::Result<()> {
+pub fn stage_generated(root: &Path, files: &[(PathBuf, String)]) -> io::Result<()> {
     if files.is_empty() {
         return Ok(());
     }
@@ -830,7 +837,7 @@ pub(crate) fn stage_generated(root: &Path, files: &[(PathBuf, String)]) -> io::R
 /// `<rev>:./<path>` resolves relative to the working directory, where `<rev>:<path>` resolves
 /// from the repository root. The first is what a project-relative path needs. `:./<path>` names
 /// the index's stage-0 blob the same way.
-pub(crate) fn object_name(source: Source, rel: &Path) -> String {
+pub fn object_name(source: Source, rel: &Path) -> String {
     match source {
         Source::Commit(sha) => format!("{sha}:./{}", rel.display()),
         Source::Index => format!(":./{}", rel.display()),
@@ -872,7 +879,7 @@ mod object_naming {
 /// `Model::build` keeps an unreadable file as an empty document: a lossy decoding produces
 /// text nobody wrote. The caller sees the absence and reports it. [`blob_bytes`] answers the
 /// bytes whatever they are.
-pub(crate) fn blobs(
+pub fn blobs(
     root: &Path,
     source: Source,
     paths: &[PathBuf],
@@ -885,7 +892,7 @@ pub(crate) fn blobs(
 
 /// The bytes of many blobs of one snapshot, in one process, as [`blobs`] reads them and
 /// with no decoding. A path the snapshot does not hold contributes no entry.
-pub(crate) fn blob_bytes(
+pub fn blob_bytes(
     root: &Path,
     source: Source,
     paths: &[PathBuf],
@@ -905,7 +912,7 @@ pub(crate) fn blob_bytes(
     // the newline-terminated input that name becomes two requests, git answers both, and every
     // later answer is paired with the wrong path — silently, because the map still comes back
     // full. `-z` on `cat-file --batch` needs git 2.36 or newer, and an older git refuses the
-    // flag loudly, which is the failure this module already turns into exit 2, per
+    // flag loudly, which this module already returns as an error carrying git's reason, per
     // `design@core@git-floor-for-commit-trees`.
     let raw = git(root)
         .args(["cat-file", "--batch", "-z"])
@@ -954,7 +961,7 @@ fn read_batch(raw: &[u8], paths: &[PathBuf]) -> BTreeMap<PathBuf, Vec<u8>> {
 }
 
 /// One commit's message, subject line and body, exactly as it was written.
-pub(crate) fn commit_message(root: &Path, sha: &str) -> io::Result<String> {
+pub fn commit_message(root: &Path, sha: &str) -> io::Result<String> {
     let out = git(root).args(["log", "-1", "--format=%B", sha]).output()?;
     Ok(String::from_utf8_lossy(&out).into_owned())
 }

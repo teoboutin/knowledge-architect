@@ -34,4 +34,4 @@ correct in. A lost assume-unchanged bit only makes git compare the file again, w
 
 The skip-worktree case reproduced or ruled out. If it reproduces, `git::stage_generated` keeps an
 entry's skip-worktree bit, by setting it again after the write or by refusing such an entry, with a
-test in `path@core@src/git.rs` reading `git ls-files -v` before and after.
+test in `path@git@src/git.rs` reading `git ls-files -v` before and after.
