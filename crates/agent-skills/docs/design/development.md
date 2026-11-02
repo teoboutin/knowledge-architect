@@ -54,14 +54,15 @@ separate axis would read the same diff again.
 ### An integrated test drives the project through its public API, as a consumer would, and what it cannot observe there is fixed in the API or belongs to a unit test `##integrated-test-through-public-api`
 
 An integrated test, in a mock environment or not, uses only what a consumer of the project could
-use. Where it cannot observe what it needs in what the public API returns, the API hides it from
-consumers too, and the API is what is fixed; where what it would observe has no effect a consumer
-could see, the claim is a unit test's. Code that no integrated test can reach and no consumer can
-observe is suspect, and its comment and the commit that added it are read before any of it is
-removed, per `design@agent-skills@local-intent-binds`. The statement is a property of the default
-shape of `design@agent-skills@default-code-shape`, a guideline per
-`goal@knowledge-architect@the-workflow-leads-to-better-code`, and the component-creation skill
-defines the integrated test in the same words, for the tests a shared test Component holds.
+use. Where what it needs has an effect a consumer could see and it cannot observe it in what the
+public API returns, the API hides it from consumers too, and the API is what is fixed; where what it
+would observe has no effect a consumer could see, the claim is a unit test's. Code that no
+integrated test can reach and no consumer can observe is suspect, and its comment and the commit
+that added it are read before any of it is removed, per `design@agent-skills@local-intent-binds`.
+The statement is a property of the default shape of `design@agent-skills@default-code-shape`, a
+guideline per `goal@knowledge-architect@the-workflow-leads-to-better-code`, and the
+component-creation skill defines the integrated test in the same words, for the tests a shared test
+Component holds.
 
 The owner argued that testing through the public API drives the improvement of that API, shows
 where it lacks, benefits its consumers, such as those who write extensions, and shows code that is

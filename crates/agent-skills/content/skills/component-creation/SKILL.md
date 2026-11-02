@@ -39,15 +39,16 @@ Component that holds Rust code in its own files, by default:
   Component that takes no decision has no design to record, which is the sign it is a part of
   another Component.
 
+Such a Component is, for example, a published package, a service or a maintenance tool. The root,
+which is the whole project, and an intermediate Component are outside these criteria.
+
 %% Stated here alone, so no head: the owner's argument that commands sharing their design and their
 %% purpose change together, and differ only in subject and application; its rival, the test of two
 %% changes applied to each command, passes for every command and splits a design that changes as one.
-**Commands, subcommands or functions that share one purpose and one design are one Component**, with
-one module each: the test of two changes is applied to the Component, not to each command, since
-it passes for every command taken alone.
-
-Such a Component is, for example, a published package, a service or a maintenance tool. The root,
-which is the whole project, and an intermediate Component are outside these criteria.
+**Commands, subcommands or functions that share one purpose and one design are one Component**,
+each command or subcommand in a module of its own: the test of two changes is applied to the
+Component, not to each command, since a change of their shared design touches every one of them,
+and a change to one command alone differs from the others only in subject and application.
 
 **An intermediate Component** holds no Rust code in its own files. It groups nested Components and
 holds the design and the documents several of them share but the rest of the project does not.
@@ -88,14 +89,13 @@ neither, it is a plan only the owner holds: ask, as `primer@question-authority` 
 the project's policy on publishing; it never sets it.
 
 **A Component may be a module directory inside a crate** where a crate of its own would force a
-publication or a dependency cycle: a crate published on crates.io cannot depend on a crate given only
-by a path, except as a dev-dependency, and Cargo refuses a dependency cycle outside
-dev-dependencies. **Where the publication or the cycle comes only from a decision of the project's
-record**, such as where a binary lives, that decision is reopened first under
-`skill@knowledge-architect-design`: the exception holds only where Cargo's rules force the
-publication or the cycle whatever the project decides. The module's directory is the Component's
-directory, and carries its documents; whether the published crate ships them is the project's
-packaging choice.
+publication or a dependency cycle: a crate published on crates.io cannot depend on a crate given
+only by a path, except as a dev-dependency, and Cargo refuses a dependency cycle outside
+dev-dependencies. **Where the cycle comes only from a decision of the project's record**, such as
+where a binary lives, that decision is reopened first under `skill@knowledge-architect-design`, and
+the exception holds for that cycle only once the reopened decision stands. The module's directory is
+the Component's directory, and carries its documents; whether the published crate ships them is the
+project's packaging choice.
 
 ## Shapes beside one crate {{slug:component-shapes}}
 
@@ -104,24 +104,34 @@ packaging choice.
   tests, never the reverse, and holds the integrated tests that cross them, tests that drive the
   project through its public API as a consumer would, as
   `skill@knowledge-architect-development@discriminating-tests` says, with their fixtures and
-  oracles. The tested
-  Components' own unit tests use none of those fixtures, so no Component dev-depends on the shared
-  test Component. It serves, among others, a crate A whose tests need a crate B that already
-  depends on A. A cycle is avoided even among dev-dependencies, since it leaves unclear which crate
-  is responsible for what; and a dev-dependency from A back onto B builds A twice in A's unit tests,
-  where the types of the two copies do not match and the errors read as mismatched types.
+  oracles. The tested Components' own unit tests use none of those fixtures, so no Component
+  dev-depends on the shared test Component. It serves, among others, a crate A whose tests need a
+  crate B that already depends on A. A cycle is avoided even among dev-dependencies, since it leaves
+  unclear which crate is responsible for what; and a dev-dependency from A back onto B builds A
+  twice in A's unit tests, where the types of the two copies do not match and the errors read as
+  mismatched types.
 %% Stated here alone, so no head: the owner's argument that the mocking tools must be published
 %% because the project supports writing extensions, whether as a module or as a crate of their own.
 - **A Component that supports extensions publishes the tools an extension's tests need**, its test
   harness, as a module of that Component or as a crate of its own, the project's choice. The
   fixtures of the shared test Component stay outside every published package.
-%% The top-level binary crate is `design@agent-skills@top-level-binary-crate`.
+%% Stated here alone, so no head until a second text states it: the owner's argument that grouping
+%% the parsing, with the checks applied at parsing, is the convenient shape, and the logic is pulled
+%% from below; the session's, that the interface's decisions then have one home, the parser's
+%% library stays out of the domain crates' interface, and a frontend that is no command line gets
+%% a typed API. The rival, the binary inside a domain crate, puts the interface's decisions in that
+%% crate's design.
 - **A top-level binary crate**: where several Components contribute commands to one binary, the
   binary and its interface sit in a crate above them, which parses the arguments, applies the
   checks that can be made while parsing, and calls the logic the Components expose as a typed API.
-  A command's arguments are parsed in the lowest crate that every binary offering the command
-  depends on, so a library whose commands are flattened into each adopting project's own binary
-  keeps its own parsing.
+%% Stated here alone, so no head until a second text states it: parsed anywhere else, a library
+%% flattened into binaries no shared crate sits above would have each binary declare its flags
+%% again.
+%% The rival, each Component parsing its own commands and the binary flattening them, restates the
+%% interface's decisions in each domain crate.
+- **A command's arguments are parsed in the crate nearest the binaries among those that every
+  binary offering the command depends on**, so a library whose commands are flattened into each
+  adopting project's own binary keeps its own parsing.
 %% Stated here alone, so no head: the owner observed that separating pure logic from routines with
 %% side effects is very good for a project's long-term health, and narrowed it on the owner's word
 %% that the printing should probably stay in the Component that returns or defines the data, since

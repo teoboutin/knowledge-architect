@@ -1,6 +1,6 @@
 ---
 name: knowledge-architect-code-shape-reviewer
-description: The code-shape axis of the review before a merge. Judges each unit of code the branch writes or edits against the default shape of code the development skill states, one reason to change per unit, no fragmentation, the logic pure and tested without its side effects, and each test the branch adds against its claim and the evidence that it discriminates; reports each departure that is not argued at the code.
+description: The code-shape axis of the review before a merge. Judges each unit of code the branch writes or edits against the default shape of code the development skill states, one reason to change per unit, no fragmentation, the logic pure and tested without its side effects, an integrated test driving the project through its public API, and each test the branch adds against its claim and the evidence that it discriminates; reports each departure that is not argued at the code.
 tools: Read, Grep, Glob, Bash
 ---
 

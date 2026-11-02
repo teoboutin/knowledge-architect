@@ -1,6 +1,6 @@
 ---
 name: knowledge-architect-code-shape-reviewer
-description: The code-shape axis of the review before a merge. Judges each unit of code the branch writes or edits against the default shape of code the development skill states, one reason to change per unit, no fragmentation, the logic pure and tested without its side effects, and each test the branch adds against its claim and the evidence that it discriminates; reports each departure that is not argued at the code.
+description: The code-shape axis of the review before a merge. Judges each unit of code the branch writes or edits against the default shape of code the development skill states, one reason to change per unit, no fragmentation, the logic pure and tested without its side effects, an integrated test driving the project through its public API, and each test the branch adds against its claim and the evidence that it discriminates; reports each departure that is not argued at the code.
 tools: Read, Grep, Glob, Bash
 ---
 
@@ -33,11 +33,12 @@ decide it. Drop what you cannot show.
   should cover: input and output, the file system, the clock, the network, a process.
 - **The logic tested without the side effects**, where the change adds or changes logic.
 - **An integrated test drives the project through its public API, as a consumer would**, in a mock
-  environment or not. Where it cannot observe what it needs in what that API returns, the API hides
-  it from consumers too, and the API is what is fixed; where what it would observe has no effect a
-  consumer could see, the claim is a unit test's, and an integrated test is the wrong place for it.
-  Code that no integrated test can reach and no consumer can observe is suspect: read its comment
-  and the commit that added it before removing any of it.
+  environment or not. Where what it needs has an effect a consumer could see and it cannot observe
+  it in what that API returns, the API hides it from consumers too, and the API is what is fixed;
+  where what it would observe has no effect a consumer could see, the claim is a unit test's, and
+  an integrated test is the wrong place for it. Code that no integrated test can reach and no
+  consumer can observe is suspect: before removing any of it, read its record as
+  `primer@intent-and-claims` says.
 
 **A departure is argued, where a review reports one.** In code the change writes, the writer
 restructures it, or argues it in a comment at the code. In an existing unit the change edits, only
@@ -52,11 +53,11 @@ writer picks the evidence, and the table says what each form tells:
 | pure logic | a recorded mutation, named | does it map to a claim |
 | golden or snapshot | a mutation of the code that produces the output: it fails, which tells little | does another golden test already cover the same claim |
 | heavy mocks | a mutation of the logic under test, never of the mock | a test that only checks a pass-through to the mock tests the side-effect layer, which needs no test of its own: that is usually the finding |
-| integrated, through the public API | a mutation of the logic it drives, owed as by a test of logic where its claim is one of logic | does it observe the claim in what the API returns, or reach for an internal |
+| integrated, through the public API | a mutation of the logic it drives | does it observe the claim in what the API returns, or reach for an internal |
 | nondeterministic or external | none is reliable | the writer's judgement |
 
-A test's kind is decided by what it exercises: "integrated" names how a test drives the code, and
-exempts no test of logic from its mutation.
+An integrated test also has the kind of what it exercises: an integrated test of logic owes the
+recorded mutation of a test of logic, and the integrated row adds its economy question.
 
 ## What to read `##what-the-reviewer-reads`
 
