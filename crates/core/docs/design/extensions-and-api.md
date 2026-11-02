@@ -232,8 +232,8 @@ The library, imported as `knowledge_architect`, and the binary are two targets o
 library already depends on clap, because its commands are a library module per
 `design@core@the-core-cli-is-a-library-module`, so a separate binary crate would save its users no
 dependency and would add a second package name to publish and to pin. The foreign-build refusal of
-`design@core@a-foreign-build-is-refused` lists this one crate for both, beside the crate of
-installed text it links.
+`design@core@a-foreign-build-is-refused` lists this one crate for both, beside the `git` crate and
+the crate of installed text it links.
 
 ### The binary is named `klarch` `##binary-name`
 

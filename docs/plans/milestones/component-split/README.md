@@ -232,7 +232,7 @@ Outside this work, each with what owns it:
 | head | done by | citing files today |
 | --- | --- | --- |
 | `design@core@single-crate` | #cli-on-top, reversed, its successor in the incumbent's Component | `path@core@docs/design/transcripts.md` |
-| `design@knowledge-architect@two-crates` | #git-out, in a form each later slice keeps true, under a new slug, since "two" turns false | none |
+| `design@knowledge-architect@installed-text-crate` | #git-out, rewritten in a form each later slice keeps true, under this slug, since the head's earlier slug said two crates | none |
 | `design@core@the-core-cli-is-a-library-module` | #cli-on-top, moved to `cli` under a new slug, since it no longer names the core | `path@agent-skills@docs/design/project-configuration.md`, `path@core@docs/design/extensions-and-api.md`, `path@core@docs/design/run-model.md`, `path@core@docs/design/transcripts.md`, `path@core@README.md`, `path@core@src/cli/create.rs`, `path@core@src/cli/mod.rs`, `path@core@src/main.rs`, `path@core@tests/binary.rs` |
 | `design@core@arguments-parse-through-clap` | #cli-on-top | `path@core@docs/design/creating.md`, `path@core@docs/design/generated-files-and-fixes.md`, `path@core@docs/design/run-model.md`, `path@core@docs/open-issues/manifest-table-exposes-the-toml-crate.md`, `path@core@src/cli/mod.rs`, `path@core@src/main.rs`, `register@xtask@design` |
 | `design@core@transcript-command-in-core` | #consumers-out, moved to `transcript` under a new slug | none |
@@ -255,10 +255,10 @@ Outside this work, each with what owns it:
 | `design@core@exit-code-ladder` | #cli-on-top, which moves it to `cli`: it binds every command `cli` offers | as `cargo klarch show` lists it at that slice |
 | `design@core@an-extension-plugs-in-through-phased-hooks` | #model-out | `path@core@docs/design/generated-files-and-fixes.md`, `path@core@docs/design/plan-documents.md`, `path@core@docs/design/run-model.md`, `path@core@docs/open-issues/citation-regime-over-any-pinned-text.md`, `path@core@README.md`, `path@core@src/check/mod.rs`, `path@core@src/check/tree.rs`, `path@core@src/cli/mod.rs`, `path@core@src/extension.rs`, `spec@plans@path-quickfixes` |
 
-`design@knowledge-architect@two-crates` turns false at #git-out, which adds a crate: "A user names
+The head on the installed text's crate turned false at #git-out, which adds a crate: "A user names
 only `knowledge-architect`, and cargo fetches the other. The two are published together". #git-out
-rewrites it in a form the later slices keep true: the installed text lives in its own crate, which
-the crate holding the installed-file check depends on by path and by exact version, a user names
+rewrote it, as `design@knowledge-architect@installed-text-crate`, in a form the later slices keep
+true: the installed text lives in its own crate, which the crate holding the installed-file check depends on by path and by exact version, a user names
 only `knowledge-architect`, cargo fetches every other crate, and all are published together at one
 version. The bundling work rewrites it again. `design@core@transcript-command-in-core` is rewritten
 at #consumers-out: its argument from `design@core@single-crate` falls with that head. Each row's

@@ -40,7 +40,7 @@ The first slice of `milestone@plans@component-split`. It leaves when it lands.
   audit**, which asks whether the component-creation skill's sentence on layering through
   intermediate Components needs a revision, and its title is narrowed to "the new Components", the
   scope #arg-17 argues, per `design@agent-skills@title-states-the-rule`, once Q1 is ruled.
-- `design@knowledge-architect@two-crates` rewritten in the form the milestone document states,
+- `design@knowledge-architect@installed-text-crate` rewritten in the form the milestone document states,
   under a new slug, its old slug kept beside the new reference in the commit that renames it, and
   citing `rejected@knowledge-architect@single-published-package`, which no other head cites.
 - The publish order: `git` before the core, in both crate lists of
@@ -117,7 +117,7 @@ puts the checker's parsers into the rewriting crate's build.
 2. Move into `git`'s homes the heads the milestone document lists as moving whole, with
    `design@git@git-is-asked-through-one-module` rewritten, `rejected@git@every-git-variable-dropped`,
    and the two issues above.
-3. The head of absence, `design@knowledge-architect@two-crates` and the publish order.
+3. The head of absence, `design@knowledge-architect@installed-text-crate` and the publish order.
 4. The harvest.
 
 ## Harvest
@@ -126,4 +126,4 @@ puts the checker's parsers into the rewriting crate's build.
 | --- | --- |
 | #git-crate | `git`'s design home: the moved heads, `design@git@git-is-asked-through-one-module` rewritten to name the crate |
 | #no-intermediate-component | its head of absence in `register@knowledge-architect@design` |
-| the milestone's table | `design@knowledge-architect@two-crates`, rewritten and renamed; `design@knowledge-architect@partial-publish-rerun`, for the publish order |
+| the milestone's table | `design@knowledge-architect@installed-text-crate`, rewritten and renamed; `design@knowledge-architect@partial-publish-rerun`, for the publish order |

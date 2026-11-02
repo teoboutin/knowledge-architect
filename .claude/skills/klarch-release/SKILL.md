@@ -5,10 +5,11 @@ description: MUST use when the owner asks to publish a version of knowledge-arch
 
 # Release
 
-Scope: publishing one version of the four published crates, `knowledge-architect-agent-skills`,
-`knowledge-architect-gates`, `knowledge-architect-mutate` and `knowledge-architect`, from main. xtask
-is never published. The versioning policy is `design@knowledge-architect@versioning-policy`, and the
-four crates share one version, per `design@knowledge-architect@version-lockstep`.
+Scope: publishing one version of the published crates, `knowledge-architect-git`,
+`knowledge-architect-agent-skills`, `knowledge-architect-gates`, `knowledge-architect-mutate` and
+`knowledge-architect`, from main. xtask is never published. The versioning policy is
+`design@knowledge-architect@versioning-policy`, and every published crate shares one version, per
+`design@knowledge-architect@version-lockstep`.
 
 **Everything that can be undone comes before the publish, which cannot.** A merge to main is
 repaired by a later commit; a version on crates.io can be yanked and never deleted. So the release
@@ -24,11 +25,11 @@ which step 9 dispatches.
 
 On a branch of its own, `release-<version>`, under the Git rules of the root `CLAUDE.md`:
 
-1. **The version.** Choose it under the versioning policy, and set it at its four sites:
+1. **The version.** Choose it under the versioning policy, and set it at every site:
    - `[workspace.package] version` in the root Cargo.toml;
-   - the exact pin `knowledge-architect-agent-skills = { …, version = "=<version>" }` in
-     crates/core/Cargo.toml;
-   - Cargo.lock, which any cargo command rewrites for the five workspace packages;
+   - the exact pins `knowledge-architect-agent-skills = { …, version = "=<version>" }` and
+     `knowledge-architect-git = { …, version = "=<version>" }` in crates/core/Cargo.toml;
+   - Cargo.lock, which any cargo command rewrites for every workspace package;
    - the status line: the opening sentence of `## Status` in the root README.md. Change the
      number, and any other part of the sentence the release makes false.
 
@@ -74,7 +75,7 @@ On a branch of its own, `release-<version>`, under the Git rules of the root `CL
 
    Each name must be a shipped skill (`content/skills/<name>/`) or a shipped agent
    (`content/agents/<name>.md`) or a shipped saved workflow (`content/workflows/<name>.js`), each
-   installed as `knowledge-architect-<name>`, or one of the four crates. Every document the shipped text relies on in a project, such as the knowledge
+   installed as `knowledge-architect-<name>`, or one of the published crates. Every document the shipped text relies on in a project, such as the knowledge
    table, is written by an installed skill.
 6. **crates.io.** For each crate, the API answers 404 for a first release, or shows the crate owned
    by the owner's account; in both cases the version itself must be absent. A 404 means a crate's
@@ -96,7 +97,7 @@ On a branch of its own, `release-<version>`, under the Git rules of the root `CL
    list with these, and report to the owner every file the step does not name. The owner may read
    the lists; the release does not wait for it.
 8. **The dry run.** `cargo publish --workspace --dry-run` passes, skips xtask, and orders
-   agent-skills before the core, which depends on it. Its warning "ignoring test `<name>`"
+   the git crate and agent-skills before the core, which depends on both. Its warning "ignoring test `<name>`"
    for each file `<name>.rs` of `path@core@tests/` and of `path@mutate@tests/` is expected: the
    whitelist keeps the tests out.
 9. **The gates and the review.** `cargo x gates --require-rebased`, then the push, and the review
@@ -135,7 +136,7 @@ On a branch of its own, `release-<version>`, under the Git rules of the root `CL
 
 ## When the publish fails `##failed-publish`
 
-The `publish` job uploads the crates one by one: agent-skills, gates, mutate, then the core, and skips a
+The `publish` job uploads the crates one by one: git, agent-skills, gates, mutate, then the core, and skips a
 crate whose version crates.io already holds. A crate it uploaded stays published.
 
 - **The `verify` job failed, the owner declined, or nothing was uploaded**: delete the tag, with
@@ -146,7 +147,7 @@ crate whose version crates.io already holds. A crate it uploaded stays published
   same tag, per `design@knowledge-architect@partial-publish-rerun`; where the re-run waits for an
   approval, the owner gives it as at step 12. If that cannot succeed without a change to the
   code, the uploaded crates keep the version, and the next release is the next patch version for
-  all four, per `design@knowledge-architect@version-lockstep`; the uploaded version is yanked only
+  every published crate, per `design@knowledge-architect@version-lockstep`; the uploaded version is yanked only
   if it is broken.
 - **In either case**, main's README status line is wrong until a repair lands, through a branch and a
   pull request like any other change.

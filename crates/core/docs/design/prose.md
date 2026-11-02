@@ -73,11 +73,13 @@ be interpolated makes the tests harder to read than the code they test. Comments
 because the test modules point at decisions and paths for real, and those pointers stay checked.
 
 **The directories are compiled in, never declared.** A binary's source spans several
-Components: the core's, and the Component of each extension the binary registers. Each library exports
+Components: the core's, the `git` crate's, and the Component of each extension the binary
+registers. Each library exports
 the directory of the Component it belongs to, evaluated at build time, and the binary hands the
 list of its libraries' directories to the walk. The core is one crate whose directory is its
 Component, so the core library exports its own `CARGO_MANIFEST_DIR`, and the core's binary and
-tests sit inside it. An extension whose library crate sits below its Component's directory exports
+tests sit inside it; the `git` crate, a Component of its own, exports its own directory the same
+way. An extension whose library crate sits below its Component's directory exports
 that Component's directory instead, or the binary and tests beside the library would sit outside
 it: a binary sees only the libraries it depends on. A binary run
 through a cargo alias over `cargo run` is built from the checkout on every invocation, so each
