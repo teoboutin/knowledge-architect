@@ -1,7 +1,8 @@
-//! Every question the checker of knowledge-architect asks git, as a library: the listing a walk
-//! reads, the ignore rules a path reference is asked against, the dates of a listing's last
-//! change, the revisions of a range, and the trees, blobs and messages of a commit or of the
-//! tree git's index would commit.
+//! A library that wraps git for the tools of knowledge-architect: a command to run git with, and
+//! the readings the checker of a project's documents asks for today, the listing a walk reads,
+//! the ignore rules a path reference is asked against, the dates of a listing's last change, the
+//! revisions of a range, and the trees, blobs and messages of a commit or of the tree git's index
+//! would commit.
 //!
 //! Every function runs `git` as a child process, with the project root as its working directory.
 //! It needs `git` 2.36 or newer on the path, and a project inside a git worktree, whose `.git`
