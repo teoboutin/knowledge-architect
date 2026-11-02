@@ -19,7 +19,8 @@ first to `skill@knowledge-architect-design`, as the primer's list of installed s
 Before changing code, read what the project decided about it, as the primer's "Read the record of
 code before changing it" says: the entries its comments cite, every entry that cites its file, and
 the heads on its subject in the design home of the Component that holds it, with its `rejected`
-entries. Read the root's design home too: its heads bind every Component. A fix reads this record
+entries.
+Read the root's design home too: its heads bind every Component. A fix reads this record
 and dispatches no search of the whole record. A behaviour that looks like a new defect is checked
 as the primer's "Check whether it is already known" says. How to read all of it is
 `primer@intent-and-claims` and `primer@verify-before-relying`, read whole: intent is authority, and
@@ -75,7 +76,8 @@ cargo x mutate restore        # after a run that was killed
   the tree, so look at it and run `cargo x mutate restore`, and 2 when the run never started.
 - **The line `mutation applied to <file>, first changed line <n>` shows the mutation present.** A
   verdict without it is about code nobody mutated.
-- **Pass `--build`**: without a probe, a mutant that does not build reads as `caught`, and the sites
+- **Pass `--build`**, one command split on whitespace and run with no shell, so a probe needing
+  `&&`, a pipe or quoting runs as words: without a probe, a mutant that does not build reads as `caught`, and the sites
   a mutation check most often sends you to are the ones that do not compile. Leaving it off weakens
   the check rather than shortening it.
 - **The baseline runs by default** and refuses a command that already fails, since over a red base
@@ -164,8 +166,9 @@ to find. The scopes may overlap; a gap between them is the dispatcher's to justi
 **An optional diff mutation sweep**, where the project runs it: before the adversarial review,
 `cargo mutants --in-diff <diff>` over the branch's changed code, its survivors given to the
 adversarial reviewers as leads, never as findings. It costs one build and one test run per mutant. A
-diff that touches only test code yields no mutant, and cargo-mutants ignores the rust flags set in
-a cargo configuration file, so a project that sets flags there runs the sweep with builds that
+diff that touches only test code yields no mutant; a diff whose new side differs from the tree
+swept is refused, so it is taken from committed work, `git diff <base> HEAD`; and cargo-mutants
+ignores the rust flags set in a cargo configuration file, so a project that sets flags there runs the sweep with builds that
 differ from its gates. It replaces no recorded mutation check: it chooses its own mutants.
 
 ## Performance on a declared path `##declared-performance-paths`

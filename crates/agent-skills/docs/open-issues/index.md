@@ -1,6 +1,6 @@
 **Generated — do not edit.** `cargo klarch index`
 
-51 entries
+52 entries
 
 | kind | title |
 | --- | --- |
@@ -25,6 +25,7 @@
 | design | [The first test for a losing alternative admits every rival of a head that earned its place as an interface](the-first-test-for-a-losing-alternative-admits-every-rival-of-an-interface-head.md) |
 | design | [The reading on touch of `may-bear` entries met its reopening condition, at both plan reviews of one spec](the-reading-on-touch-of-may-bear-entries-met-its-reopening-condition.md) |
 | design | [The workflow assumes one owner, unnamed, which a project with several contributors does not have](the-workflow-assumes-one-unnamed-owner.md) |
+| question | [May a `%%` line of the installed text's source copy the argument of the head it cites?](a-comment-line-may-copy-the-argument-of-the-head-it-cites.md) |
 | question | [A head in the wrong Component goes to the owner, though the record settles the Component](a-head-in-the-wrong-component-goes-to-the-owner-though-the-record-settles-the-component.md) |
 | question | [Does a head carry the magnitude of the measurement it rests on?](a-head-s-measurement-says-nothing-of-its-magnitude.md) |
 | question | [A pending audit report or retrospective analysis is outstanding work that no installed search of what is already known reads](a-pending-ruled-file-is-reached-by-no-installed-search.md) |
