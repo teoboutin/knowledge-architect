@@ -35,21 +35,23 @@ discussion, most of which create no Component. Placing it in the planning skill 
 decision: whether a Component exists is a decision about how the project is built, which
 `primer@design-heads` places in the design record, not a choice of how work is cut into branches.
 
-### One Component is one crate by default, weighed by whether the project publishes, and a Component may be a module directory where Cargo's rules, not a decision of the project, make a crate of its own force a publication or a cycle `##component-crate-mapping`
+### One Component is one crate by default, weighed by whether the project publishes, and a Component may be a module directory where a crate would force a publication, or a cycle that no reopened decision of the project removes `##component-crate-mapping`
 
 The default holds more strongly for a project that never publishes, since a crate boundary is the
 stronger isolation and more crates cost it nothing. For a project that publishes, or plans to, the
-owner argued that, if Rust practice accepts many small published crates, more crates can probably
-be counted a low cost; the session reported that the practice does accept them. The cost is a
-release in dependency order and a version bump for each crate. How usable a crate would be alone
-for others weighs in one direction only: a crate others could use alone argues for the split, and a
-crate no one would use alone argues nothing against it, on the owner's argument that the weight is
-mostly a lead, and that read both ways it would keep a Component inside another on a ground no
-criterion of `goal@knowledge-architect@projects-are-split-into-components` asks. The owner chose
-to call the weight minor over a weight equal to the default criteria, which no goal ranks. The skill
-reads the publication status from the project's record, asks the owner where the record states
-none, and weighs the project's policy without setting it, per `goal@knowledge-architect@agents-get-a-complete-workflow`. "One reason to
-change" is the test for a Component as for a function, so the criteria of
+owner argued that, if Rust practice accepts many small published crates, more crates can probably be
+counted a low cost; the session reported that the practice does accept them. The cost is a release
+in dependency order and a version bump for each crate. How usable a crate would be alone for others
+weighs in one direction only: a crate others could use alone argues for the split, and a crate no
+one would use alone argues nothing against it. The owner argued that the weight is little more than
+a lead, and should push in one direction only; read both ways, the session added, it would keep a
+Component inside another on a ground no criterion of
+`goal@knowledge-architect@projects-are-split-into-components` asks. The owner chose to call the
+weight minor over a weight equal to the default criteria, which no goal ranks. The skill reads the
+publication status from the project's record, asks the owner where the record states none, and
+weighs the project's policy without setting it, per
+`goal@knowledge-architect@agents-get-a-complete-workflow`. "One reason to change" is the test for a
+Component as for a function, so the criteria of
 `goal@knowledge-architect@projects-are-split-into-components` and the default code shape of
 `design@agent-skills@default-code-shape` read the same way at two scales.
 
@@ -57,12 +59,13 @@ The exception, a module directory inside a crate, rests on two rules of Cargo th
 `path@agent-skills@docs/grounding/crate-boundaries.md` reads in the Cargo Book: a crate published on
 crates.io cannot depend on a crate given only by a path, a dev-dependency excepted, and the resolver
 refuses a dependency cycle outside dev-dependencies. Its nearest rival, a crate for every Component
-always, would force a publication of an internal part, or a cycle Cargo refuses. A publication or a
-cycle that comes only from a decision of the project's record, such as where a binary lives, is no
-such rule: the skill sends the session to reopen that decision under
-`skill@knowledge-architect-design` first, since the decision can be reversed and its reversal gives
-the Component a crate of its own, where the exception applied to every cycle would keep a decision
-whose premise may have failed by folding a Component into a module.
+always, would force a publication of an internal part, or a cycle Cargo refuses. A cycle that comes
+only from a decision of the project's record, such as where a binary lives, is no such rule: the
+skill sends the session to reopen that decision under `skill@knowledge-architect-design` first, and
+the exception holds for that cycle only once the reopened decision stands, since the decision can be
+reversed and its reversal gives the Component a crate of its own, where the exception applied to
+every cycle would keep a decision whose premise may have failed by folding a Component into a
+module.
 
 ### A split is weighed against what it costs between its parts `##component-split-signals`
 
@@ -86,7 +89,8 @@ The skill offers it as a shape, not a rule: a Component that holds the integrate
 several Components, with their fixtures and oracles, and depends on them. An integrated test drives
 the project through its public API, per `design@agent-skills@integrated-test-through-public-api`.
 The tested Components' own unit tests use none of its fixtures, so no Component dev-depends on it
-from below; a crate A whose tests need a crate B that already depends on A is one case of it.
+from below. It serves, among others, a crate A whose tests need a crate B that already depends on
+A.
 thaum's testing crate has this shape, as `path@agent-skills@docs/grounding/crate-boundaries.md`
 records. The owner's argument is that it centralises the tooling for integrated testing, such as
 fixtures and oracles, so that crates neither duplicate fixtures nor reach into another's; that
@@ -99,24 +103,3 @@ use the fixtures; keeping the fixtures out of every unit test is what makes the 
 Its nearest rival, a dev-dependency from A back onto B, is admitted by Cargo and fails in A's unit
 tests, which link two copies of A whose types do not match, as the same grounding file reads in the
 Cargo Book and measures. Helpers behind a feature of A serve A's own tests and no test that needs B.
-
-### A binary that several Components contribute commands to sits in a top-level crate above them, and a command's arguments are parsed in the lowest crate every binary offering it depends on `##top-level-binary-crate`
-
-The top-level crate holds the binary and its interface: it parses the arguments, applies the checks
-that can be made while parsing, and calls the logic the Components expose as a typed API. The owner
-argued that grouping the parsing, with the checks that can be applied at parsing, is the more
-convenient shape, while the application logic is pulled from the crates below. The session added
-that parsing in one crate gives the decisions about the whole interface one home, such as an exit
-code or a flag shared across commands; keeps the parser's library out of the domain crates'
-interface; and gives a frontend that is no command line a typed API to call. A library whose
-commands are flattened into each adopting project's own binary has no shared crate above it, so it
-keeps its own parsing: parsed anywhere else, each binary would declare its flags again, and the
-copies would drift. `skill@knowledge-architect-component-creation` states the shape, per
-`goal@knowledge-architect@projects-are-split-into-components`.
-
-Two rivals lost. The binary inside one of the domain crates makes that crate's design hold the
-interface's decisions beside its own domain, and makes every other contributing crate depend on it
-or below it, a cycle that comes from the decision alone. Each Component parsing its own commands,
-the binary flattening them, restates the interface's decisions in each domain crate and puts the
-parser's library in each one's interface; it stays the shape of a library flattened into binaries
-that no shared crate sits above.

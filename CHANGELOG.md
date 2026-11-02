@@ -40,8 +40,9 @@ an empty subsection is omitted.
 
 - `agent-skills`, patch: a development skill, `skill@knowledge-architect-development`: claims with
   tests shown to discriminate by `cargo x mutate`, a default shape of code, in which an integrated
-  test drives the project through its public API, the gate, the commit's claim check, the review axes for code, the conditional performance step on a declared path, and an
-  optional diff mutation sweep with cargo-mutants.
+  test drives the project through its public API, the gate, the commit's claim check, the review
+  axes for code, the conditional performance step on a declared path, and an optional diff
+  mutation sweep with cargo-mutants.
 - `agent-skills`, patch: three review agents, `agent@knowledge-architect-adversarial-reviewer` and
   `agent@knowledge-architect-spec-first-reviewer`, dispatched at development checkpoints, and
   `agent@knowledge-architect-code-shape-reviewer`, in the review before a merge, which also sends
