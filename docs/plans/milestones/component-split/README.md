@@ -10,9 +10,9 @@ landed and every default it lists is ruled.
 It comes from one design discussion, held in one session, which began at the owner's message "New
 rules relative to how components and code in projects following knowledge-architect should be split
 have just been added." The discussion applied `skill@knowledge-architect-component-creation` to this
-repository, compared the result with the owner's own plan, and revised the skill;
-`spec@plans@component-rules-revision` holds that revision, which the roadmap orders before this
-milestone, on the owner's word.
+repository, compared the result with the owner's own plan, and revised the skill; that revision,
+planned in a spec of its own which the roadmap ordered before this milestone on the owner's word,
+has landed in the installed text and in `register@agent-skills@design`.
 
 - Written for a session that did not witness the discussion.
 - Where this document or a slice's spec and a design home disagree on a point "What is already
@@ -74,10 +74,12 @@ This repository adds:
   a crate to the compiled lists of the checker's own directories, or renames the core, can make an
   earlier commit of its branch fail under the tip's checker. Each slice's audit states whether its
   first change does, and orders its commits so;
-- **the milestone's slices start once `spec@plans@component-rules-revision` has landed**, as the
-  roadmap orders them: they cite the code-shape fragment and the agent-skills head that spec
-  writes. A slice's audit checks it, with `cargo klarch show spec@plans@component-rules-revision`
-  refusing a spec that has left.
+- **the revised rules for splitting a project into Components have landed before any slice**, as
+  the roadmap ordered: the slices cite the code-shape fragment and
+  `design@agent-skills@integrated-test-through-public-api`, and `spec@component-split@cli-on-top`
+  writes the two heads of `register@agent-skills@design` that the component-creation skill's
+  comment lines owe once a second text states the top-level binary crate and where a command is
+  parsed.
 
 ## Names
 
@@ -87,7 +89,7 @@ This repository adds:
   and the checkpoint of R5, which the owner's words "I agree with your table now" (R3) and "Agreed
   on the table" (R6) answer; each thread's item says which.
 - **hard point 1 to 4**: the four places where the session found the component-creation skill hard
-  to apply, R1, which `spec@plans@component-rules-revision` revises.
+  to apply, R1, which the revision of the component-creation skill revises.
 - **finding 1 to 10**: the ten numbered findings the session drew from the discussion's search of
   the whole record, R4.
 - **B′**: the shape of #installed-text-check-home that won: the installed-file check moved to
@@ -119,8 +121,8 @@ This repository adds:
 - **the mock tests**: the 36 `#[test]` functions of `path@core@src/mock_projects.rs`, a
   `#[cfg(test)]` module that runs the core over the mock projects of `path@core@tests/projects/`.
 - **an integrated test**: a test that drives the project through its public API, as a consumer
-  would, as the code-shape fragment, `path@agent-skills@fragments/default-code-shape.md`, defines it
-  once `spec@plans@component-rules-revision` has landed.
+  would, as the code-shape fragment, `path@agent-skills@fragments/default-code-shape.md`, defines it,
+  per `design@agent-skills@integrated-test-through-public-api`.
 - **P1, P2**: the two shapes of #command-parsing-home. P1: the `cli` Component parses every klarch
   command, the domain crates expose a typed API with no clap in it. P2: each domain crate derives
   clap's types for its own commands, and `cli` flattens them.
@@ -185,8 +187,7 @@ Outside this work, each with what owns it:
   of this discussion, in the roadmap's order;
 - `gates` and `mutate`, unchanged: moving them onto the `git` crate is possible and not required
   (#arg-19); `xtask` changes only to follow the moves, as "How the work is done" says;
-- the revision of the component-creation skill and the code-shape fragment:
-  `spec@plans@component-rules-revision`;
+- the revision of the component-creation skill and the code-shape fragment, which has landed;
 - the first publication of each new crate, which the release workflow cannot do, per
   `design@knowledge-architect@publish-credential`: the release after the milestone, on the owner's
   word.
@@ -228,16 +229,16 @@ Outside this work, each with what owns it:
 
 | head | done by | citing files today |
 | --- | --- | --- |
-| `design@core@single-crate` | #cli-on-top, reversed, its successor in the incumbent's Component | `path@core@docs/design/transcripts.md`, `spec@plans@component-rules-revision` |
+| `design@core@single-crate` | #cli-on-top, reversed, its successor in the incumbent's Component | `path@core@docs/design/transcripts.md` |
 | `design@knowledge-architect@two-crates` | #git-out, in a form each later slice keeps true, under a new slug, since "two" turns false | none |
 | `design@core@the-core-cli-is-a-library-module` | #cli-on-top, moved to `cli` under a new slug, since it no longer names the core | `path@agent-skills@docs/design/project-configuration.md`, `path@core@docs/design/extensions-and-api.md`, `path@core@docs/design/run-model.md`, `path@core@docs/design/transcripts.md`, `path@core@README.md`, `path@core@src/cli/create.rs`, `path@core@src/cli/mod.rs`, `path@core@src/main.rs`, `path@core@tests/binary.rs` |
-| `design@core@arguments-parse-through-clap` | #cli-on-top | `path@core@docs/design/creating.md`, `path@core@docs/design/generated-files-and-fixes.md`, `path@core@docs/design/run-model.md`, `path@core@docs/open-issues/manifest-table-exposes-the-toml-crate.md`, `path@core@src/cli/mod.rs`, `path@core@src/main.rs`, `spec@plans@component-rules-revision`, `register@xtask@design` |
+| `design@core@arguments-parse-through-clap` | #cli-on-top | `path@core@docs/design/creating.md`, `path@core@docs/design/generated-files-and-fixes.md`, `path@core@docs/design/run-model.md`, `path@core@docs/open-issues/manifest-table-exposes-the-toml-crate.md`, `path@core@src/cli/mod.rs`, `path@core@src/main.rs`, `register@xtask@design` |
 | `design@core@transcript-command-in-core` | #consumers-out, moved to `transcript` under a new slug | none |
-| `design@core@api-facade` | #integrated-tests; each slice writes its crate's facade | `path@core@CLAUDE.md`, `path@core@docs/design/transcripts.md`, `path@core@docs/open-issues/an-extension-cannot-see-which-register-a-document-belongs-to.md`, `path@core@docs/open-issues/manifest-table-exposes-the-toml-crate.md`, `register@core@tripwire`, `path@core@src/lib.rs`, `spec@plans@component-rules-revision` |
+| `design@core@api-facade` | #integrated-tests; each slice writes its crate's facade | `path@core@CLAUDE.md`, `path@core@docs/design/transcripts.md`, `path@core@docs/open-issues/an-extension-cannot-see-which-register-a-document-belongs-to.md`, `path@core@docs/open-issues/manifest-table-exposes-the-toml-crate.md`, `register@core@tripwire`, `path@core@src/lib.rs` |
 | `design@core@phases-gate-the-report` | #model-out (the foundation), #check-renamed (the phase table) | `path@agent-skills@docs/open-issues/audit-axes-beyond-the-design-record.md`, `path@agent-skills@docs/open-issues/the-claim-check-of-a-commit-message-is-read-at-the-start-and-needed-at-each-commit.md`, `path@core@CLAUDE.md`, `path@core@docs/design/agent-configuration.md`, `path@core@docs/design/creating.md`, `path@core@docs/design/entities-and-headings.md`, `path@core@docs/design/extensions-and-api.md`, `path@core@docs/design/generated-files-and-fixes.md`, `path@core@docs/design/git-and-the-walk.md`, `path@core@docs/design/registers.md`, `path@core@docs/design/run-model.md`, `path@core@docs/design/worklist.md`, `register@core@tripwire`, `path@core@README.md`, `path@core@src/cli/create.rs`, `path@core@src/cli/mod.rs`, `path@core@src/cli/worklist.rs`, `spec@plans@path-quickfixes` |
 | `design@core@owned-namespace-check` | #check-renamed, split as its issue says | `path@knowledge-architect@CLAUDE.md`, `path@agent-skills@docs/design/project-configuration.md`, `register@agent-skills@design`, `path@agent-skills@docs/design/retrospective.md`, `path@agent-skills@docs/design/shipped-set.md`, `path@agent-skills@docs/open-issues/patching-an-installed-skill.md`, `path@core@docs/design/agent-configuration.md`, `path@core@docs/design/creating.md`, `path@core@docs/design/generated-files-and-fixes.md`, `path@core@docs/design/git-and-the-walk.md`, `path@core@docs/design/run-model.md`, `path@core@docs/open-issues/a-project-workflow-can-declare-an-installed-workflow-s-name.md`, `path@core@docs/open-issues/core-heads-bundle-decisions-with-many-citing-sites.md`, `register@core@rejected`, `path@core@README.md`, `path@core@src/agents.rs`, `path@core@src/check/agents.rs`, `path@core@src/check/mod.rs`, `path@core@src/cli/history.rs`, `path@core@src/cli/mod.rs`, `path@core@src/manifest.rs`, `path@core@src/mock_projects.rs`, `path@core@src/survey.rs`, `path@core@src/walk.rs`, `path@core@tests/binary.rs`, `register@knowledge-architect@design`, `path@knowledge-architect@docs/open-issues/the-skill-bundling-passes-are-tied-to-this-project-s-skills.md`, `spec@plans@path-quickfixes` |
 | `design@core@fix-before-the-checks` | #check-renamed | `path@core@docs/design/run-model.md`, `path@core@README.md`, `path@core@src/cli/mod.rs`, `path@core@tests/binary.rs`, `spec@plans@path-quickfixes` |
-| `design@core@model-then-checks` | #model-out | `path@core@docs/design/extensions-and-api.md`, `path@core@src/check/references.rs`, `path@core@src/cli/gathered.rs`, `path@core@src/extension.rs`, `spec@plans@component-rules-revision`, `spec@plans@path-quickfixes` |
+| `design@core@model-then-checks` | #model-out | `path@core@docs/design/extensions-and-api.md`, `path@core@src/check/references.rs`, `path@core@src/cli/gathered.rs`, `path@core@src/extension.rs`, `spec@plans@path-quickfixes` |
 | `design@core@git-is-asked-through-one-module` | #git-out | `path@core@CLAUDE.md`, `path@core@docs/design/creating.md` |
 | `design@core@inputs-are-gathered` | #model-out, for the two gatherings; #integrated-tests, for its sentence on the mock tests | `register@core@rejected` |
 | `design@core@checker-source-literals-are-data` | each slice that adds a crate; #cli-on-top for the list the binary hands over | `path@agent-config@skills/klarch-development/SKILL.md`, `path@core@CLAUDE.md`, `path@core@docs/design/prose.md`, `path@core@docs/design/run-model.md`, `register@core@rejected`, `register@core@tripwire`, `path@core@README.md`, `path@core@src/check/references.rs`, `path@core@src/check/registers.rs`, `path@core@src/cli/history.rs`, `path@core@src/cli/mod.rs`, `path@core@src/entity.rs`, `path@core@src/graph.rs`, `path@core@src/index.rs`, `path@core@src/lib.rs`, `path@core@src/main.rs`, `path@core@src/model.rs`, `path@core@src/records.rs`, `path@core@src/scan.rs`, `path@core@src/source/mod.rs`, `path@core@src/source/rs.rs`, `path@core@tests/binary.rs` |
@@ -262,7 +263,7 @@ at #consumers-out: its argument from `design@core@single-crate` falls with that 
 slice writes the rewrite into its harvest.
 
 **The discussion's record search** graded 193 entries `bears` and 110 `may-bear`, for this milestone
-and `spec@plans@component-rules-revision` together, counted in the files its check assembled, which
+and the spec of the revision of the rules together, counted in the files its check assembled, which
 the tree does not hold. Those that bear on the split, with their outcome:
 
 - the heads above, rested on or rewritten;
@@ -294,7 +295,7 @@ the tree does not hold. Those that bear on the split, with their outcome:
   `tripwire@core@private-item-needed`: the facades of `model` and `check` meet them; nothing is
   decided here on them, and the tripwire is unchanged: an item an integrated test of this
   repository cannot reach is opened as a `todo`, by the guideline of
-  `spec@plans@component-rules-revision`;
+  `design@agent-skills@integrated-test-through-public-api`;
 - the issues whose code moves, re-anchored by the slice that moves their files:
   `issue@core@a-reference-with-a-line-or-fragment-suffix-names-a-wrong-repair`,
   `issue@core@a-slug-finding-names-a-repair-blind-to-what-the-slug-resolves-to`,
@@ -384,8 +385,8 @@ outcome:
 - `rejected@core@sentinels-accepted-everywhere`: its doubt is the subject of #integrated-tests, where
   the fixtures move out of the core's compiled directory; that slice's audit reads it.
 
-The entries the search graded `may-bear` that no sentence above or in
-`spec@plans@component-rules-revision` names, each with its outcome:
+The entries the search graded `may-bear` that no sentence above or in the spec of the revision of
+the rules names, each with its outcome:
 
 - `design@agent-skills@checker-model-in-primer`: not read; the searcher's reason, "cites the seed version-lockstep, which the work keeps ('every crate keeps one version'); the head also names the core test the_primer_s_model_section_names_every_kind_and_reserved_word as a drift bound, and the testing (cut)"
 - `design@agent-skills@branch-commits-judged-at-tip`: not read; the searcher's reason, "renaming core to check and moving heads into new Components re-anchors every design@core@... reference, which the tip's checker requires of every tree; the head's sentence 'a change that sets what the tip's checker (cut)"
@@ -477,7 +478,7 @@ The entries the search graded `may-bear` that no sentence above or in
 - `design@knowledge-architect@a-record-rides-on-a-commit-that-changes-a-file`: not read; the searcher's reason, "rewrite's prune and squash drop or merge commits; a record carried by a message alone 'rides on a commit that changes a file', which such an operation could lose; the work states no behaviour of"
 
 The two `may-bear` entries read are `design@agent-skills@subject-split-standard` and
-`design@agent-skills@losing-shape-test`, whose outcomes `spec@plans@component-rules-revision` gives.
+`design@agent-skills@losing-shape-test`, whose outcomes the spec of the revision of the rules gave.
 
 ## Criteria
 
@@ -662,8 +663,10 @@ Proposed by the owner, R2 (#arg-35); challenged at the owner's request, R3 (#arg
 session, R4 (#arg-71 to #arg-78). Final state: approved. The owner, R5: "command-parsing-home I
 think your synthesis is right." Arguments: #arg-35, #arg-53, #arg-61, #arg-71 to #arg-78, #arg-100,
 #arg-113. Shape: `spec@component-split@cli-on-top`. Harvest: the rule is stated by the installed
-component-creation skill and by a head of `cli`, so it takes a head of agent-skills, which
-`spec@plans@component-rules-revision` harvests, and `cli`'s head on its own parsing cites it, with
+component-creation skill alone today, in two comment lines that keep its two parts, the top-level
+binary crate and the parsing in the crate nearest the binaries, without a head; the slice whose
+`cli` head states them is their second text, and writes the two heads of
+`register@agent-skills@design`, which `cli`'s head on its own parsing cites, with
 `design@core@arguments-parse-through-clap` rewritten.
 
 ### The record worklist is a Component of its own `##worklist-crate`
@@ -674,8 +677,8 @@ Proposed by the session, R1 (#arg-9, #arg-10). Final state: superseded by #query
 ## Arguments
 
 The arguments of the discussion that bear on this milestone's threads, numbered as the
-discussion's extraction numbered them, so this document and `spec@plans@component-rules-revision`
-name one argument by one number. Each quotes its key words verbatim. An argument's Threads line is
+discussion's extraction numbered them, so this document and the spec of the revision of the rules
+named one argument by one number. Each quotes its key words verbatim. An argument's Threads line is
 the extraction's reading of the threads named when it was made; a thread's Arguments line, written
 at assembly, lists every argument that moved it, so the two lists need not match.
 
@@ -1217,7 +1220,7 @@ R5, the owner. Threads: #core-renamed-check.
 
 R5, the session. Threads: #test-through-public-api.
 
-"Your clarification of #test-through-public-api settles the conflict with `rejected@core@unit-tests-moved-under-tests`. The rule applies to integrated tests over mock projects, not to unit tests." (the restated guideline is the shape of #test-through-public-api in `spec@plans@component-rules-revision`)
+"Your clarification of #test-through-public-api settles the conflict with `rejected@core@unit-tests-moved-under-tests`. The rule applies to integrated tests over mock projects, not to unit tests." (the restated guideline is `design@agent-skills@integrated-test-through-public-api`)
 
 ### This doesn't touch the 437 unit tests `##arg-108`
 
@@ -1422,8 +1425,8 @@ Assume the split shipped and failed:
 | C5: in phase 4, a stale install shows reference findings beside the install finding, and a session repairs the references instead of running the install | #installed-text-check-home | named as a cause, judged at the harvest of #check-renamed; `--fix` repairs the installed files first |
 | C8: an extension writer needs a helper that lives in `testing`'s tests, which no package ships | #testing-crate | named as a cause; `tripwire@core@private-item-needed` already watches a consumer needing an item it cannot reach |
 
-C6 and C7 of the discussion stress the threads of `spec@plans@component-rules-revision`, which holds
-them.
+C6 and C7 of the discussion stressed the threads of the spec of the revision of the rules, whose
+harvest dropped both as tripwires.
 
 ## Acceptance criteria
 
