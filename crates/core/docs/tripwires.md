@@ -132,8 +132,8 @@ the release that ships `init`.
 
 The walk is a `git` invocation, so what is checked depends on the git installed and on the
 per-clone configuration it reads. The design answers the two loud cases: no binary and no
-worktree are exit 2, per `design@core@failed-git-is-exit-two`. It pins the per-user ignore file
-away, per `design@core@per-user-ignore-file-pinned`. This guards the quiet case that remains: two
+worktree are exit 2, per `design@git@failed-git-is-an-error`. It pins the per-user ignore file
+away, per `design@git@per-user-ignore-file-pinned`. This guards the quiet case that remains: two
 machines running the same commit and reading a different set of files, with both runs green.
 
 **Fires when:** the walked-file count CI prints for a commit differs from the count a local run
@@ -142,5 +142,5 @@ prints for the same commit. Both are the `walk: n file(s)` line of the summary b
 **Response:** open a `defect` naming both counts and the two git versions.
 **Re-entry:** each time CI's output is read against a local run, and at any change to the walk.
 **Watches until:** the third release tag after the commit that closes
-`issue@core@the-walk-does-not-report-what-the-per-clone-exclude-file-removes`, whose check then
+`issue@git@the-walk-does-not-report-what-the-per-clone-exclude-file-removes`, whose check then
 reports the per-clone exclude file, and which narrows this entry to two git versions.

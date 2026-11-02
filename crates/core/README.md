@@ -32,13 +32,13 @@ empty walk. `commits` reads a commit's tree through `cat-file --batch -z`, which
 version floor comes from. `check --staged` reads the tree git's index would commit the same way:
 HEAD's tree with the staged changes, a file added with `git add -N` left out, as `git commit`
 leaves it out. The decisions are `design@core@git-supplies-the-walk`,
-`design@core@failed-git-is-exit-two`, `design@core@git-floor-for-commit-trees` and
+`design@git@failed-git-is-an-error`, `design@git@git-floor-for-commit-trees` and
 `design@core@staged-tree-source`.
 Git is asked about the repository the project's directory lies in, whatever `GIT_DIR`,
 `GIT_WORK_TREE` or a variable like them names in the environment, and through the index
 `GIT_INDEX_FILE` names where it is set. So `check --staged` runs as a pre-commit hook and judges
 the tree the commit records, `git commit -a` included, per
-`design@core@repository-variables-dropped` and `design@core@index-file-variable-kept`.
+`design@git@repository-variables-dropped` and `design@git@index-file-variable-kept`.
 
 ```sh
 cargo klarch check                     every check, over one walk, in four phases

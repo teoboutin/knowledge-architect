@@ -138,7 +138,7 @@ pub fn init(
         super::refuse_a_foreign_build(&root, libraries, packages)?;
     }
     // Every invocation keeps `GIT_INDEX_FILE`, since a pre-commit hook gets it for the index its
-    // commit records, per `design@core@index-file-variable-kept`. `init` belongs to no commit:
+    // commit records, per `design@git@index-file-variable-kept`. `init` belongs to no commit:
     // with the variable set, git would list and stage the project it writes through an index no
     // commit of that project records, so `init` refuses it, whether or not it creates a
     // repository. The variables that select another repository are removed from every
@@ -227,7 +227,7 @@ pub fn init(
 /// The last part of a run that wrote: the installed set and the indexes, through the code
 /// `check --fix` runs, then the check, whose verdict is the run's.
 ///
-/// Outside every worktree the walk cannot run, per `design@core@failed-git-is-exit-two`, so
+/// Outside every worktree the walk cannot run, per `design@git@failed-git-is-an-error`, so
 /// nothing more is done: the run said what it wrote, and says what comes next.
 fn finish(
     manifest: &Manifest,
@@ -243,7 +243,7 @@ fn finish(
     };
     if !inside {
         // The walk is git's listing, so outside a worktree no index is written and no check
-        // runs, per `design@core@failed-git-is-exit-two`. The install reads no listing, so the
+        // runs, per `design@git@failed-git-is-an-error`. The install reads no listing, so the
         // agent files are written here all the same: a session started in the project finds them.
         if manifest.serves_claude() {
             let shipped = crate::agents::shipped(manifest);

@@ -150,9 +150,9 @@ impl Invocation {
             // another. What still decides the walk is the tree's own ignore files and git's
             // per-clone exclude file, which git offers no way to pin, and that is what
             // `tripwire@core@walked-count-differs-between-machines` guards until
-            // `issue@core@the-walk-does-not-report-what-the-per-clone-exclude-file-removes` adds
+            // `issue@git@the-walk-does-not-report-what-the-per-clone-exclude-file-removes` adds
             // the check that reports what it removes. The decision is
-            // `design@core@per-user-ignore-file-pinned`.
+            // `design@git@per-user-ignore-file-pinned`.
             .args(["-c", "core.excludesFile=/dev/null"])
             .args(&self.args);
         // **The repository is the one the project's directory lies in**, whatever the caller's
@@ -160,7 +160,7 @@ impl Invocation {
         // removed. `GIT_INDEX_FILE` is kept: it names the index `git commit` records, and a
         // pre-commit hook gets it, as `.git/index` or as a lock file of the commit's own, so
         // `check --staged` in a hook judges the tree the commit records. The decisions are
-        // `design@core@repository-variables-dropped` and `design@core@index-file-variable-kept`.
+        // `design@git@repository-variables-dropped` and `design@git@index-file-variable-kept`.
         for variable in REPOSITORY_VARIABLES {
             command.env_remove(variable);
         }
@@ -255,7 +255,7 @@ fn nul_separated(bytes: &[u8]) -> Vec<&[u8]> {
 
 /// The same, read as project-relative paths.
 ///
-/// **A path is bytes, not text**, per `design@core@a-path-is-bytes`. A filename holding a byte
+/// **A path is bytes, not text**, per `design@git@a-path-is-bytes`. A filename holding a byte
 /// sequence that is not UTF-8 is legal on this platform and git reports it as it is under `-z`; decoding it lossily would
 /// substitute a replacement character and produce a path nothing on disk answers to. The file
 /// would then read as unreadable — or, where nothing reports that, leave every check while the
@@ -913,7 +913,7 @@ pub fn blob_bytes(
     // later answer is paired with the wrong path — silently, because the map still comes back
     // full. `-z` on `cat-file --batch` needs git 2.36 or newer, and an older git refuses the
     // flag loudly, which this module already returns as an error carrying git's reason, per
-    // `design@core@git-floor-for-commit-trees`.
+    // `design@git@git-floor-for-commit-trees`.
     let raw = git(root)
         .args(["cat-file", "--batch", "-z"])
         .stdin(stdin)
