@@ -714,3 +714,20 @@ command of the installed text has no name there, and its gates run outside the g
 knowledge-architect asks every target project to run its gates through, per
 `goal@knowledge-architect@serves-one-kind-of-project`. The cost it avoided is a workspace in a
 one-package project, which `design@agent-skills@maintenance-crate-ask` accepts.
+
+### The design skill's record search run right after the first challenge `##search-after-the-first-challenge`
+
+`live`. The search ran at loop step 1 once the first shapes were drafted and challenged, before the
+first round, so its grades were taken against those shapes alone. In the discussion of
+`milestone@plans@development-and-components` the scope shifted and widened at least twice before the
+search, on the owner's report, so a search at the first challenge would have graded the record
+against shapes the discussion later replaced, and needed one search more for each new subject. A
+doubt remains that a search held until the scope settles leaves the owner reading proposals that
+the record would have changed, a cost to the owner's attention.
+
+### A record search run before the design challenge and again after it `##search-before-and-after-the-challenge`
+
+`live`. It would grade the record against the question first and against the drafted shapes after,
+which doubles the cost of the search: at the grounding of the spec "The primer defines the terms it
+uses, and sends a session about to change code to the record of that code", one search took 10
+agents and about 1.07M subagent tokens, summed from the agents' completion reports.

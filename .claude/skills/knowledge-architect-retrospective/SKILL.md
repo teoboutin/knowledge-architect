@@ -208,7 +208,8 @@ defect of the skill (`skill@knowledge-architect-retrospective@what-it-examines`)
   neither answers nor argues leaves the default built.
 - **The owner gives the word that closes a fork.** The agent closes a thread on its argument where
   one shape stands, and in the other cases the skill declares, and shows each closure for the owner
-  to contest; a thread at a fork stays open until the owner's word. An owner who neither rules on a
+  to contest; a thread at a fork stays open until the owner's word, and no thread closes before the
+  record search has run, a word given before it leaving the thread `presumed-settled`. An owner who neither rules on a
   fork nor contests leaves the fork open, and the discussion cannot converge. There is no way to hand
   a fork to the agent: "your judgement" is an approval like any other, and a finding that defeats
   its premise still returns to the owner.
@@ -221,7 +222,7 @@ defect of the skill (`skill@knowledge-architect-retrospective@what-it-examines`)
   decides against an argument with no reason cannot do that work, so the same argument comes back,
   and the decision enters the record standing on nothing.
 - **The owner reads the summary tables and contests what is wrong in them.** The batch confirmation
-  at a checkpoint closes everything in the table at once. Confirming without reading records
+  at a checkpoint closes everything in the table at once, once the record search has run. Confirming without reading records
   decisions the owner did not make.
 - **The owner corrects a stated misreading.** A message that could close a thread but does not
   clearly leaves it `presumed-settled`, with the agent's reading stated. Uncorrected, a wrong

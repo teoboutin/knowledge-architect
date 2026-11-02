@@ -94,7 +94,8 @@ about an existing architecture — the assistant:
   explicit word closes a fork, where two shapes both survive the
   argument (an interpreted word only marks a presumption, except
   against a checkpoint table, where a positive word closes what the
-  table holds), and the assistant announces the three cases it closes
+  table holds), no thread closing before the search of the record has
+  run, and the assistant announces the three cases it closes
   itself — a thread whose rivals all lost to a named fact, closed
   `argued`, withdrawing its own defeated proposals, and parking either
   its own dissent after your ruling at a fork or an observation a bug hunt raised for a
@@ -182,7 +183,8 @@ a fact or an argument, which turns the work into a discussion.
 The assistant closes a thread itself where one shape stands, each rival
 out by a named fact, and shows each such closure for you to contest; a
 fork, two shapes that both survive the argument, stays open until your
-word. Leaving a fork unruled leaves it open, and the discussion cannot
+word, and no thread closes before the search of the record has run: a
+word you give before it leaves the thread presumed settled. Leaving a fork unruled leaves it open, and the discussion cannot
 converge. There is no way to hand a fork to the assistant: saying "your
 judgement" is an approval like any other, and a finding that defeats its
 premise still returns to you.
@@ -204,7 +206,7 @@ again, and the decision enters the record standing on nothing.
 
 **You read the summary tables and contest what is wrong in them.** The
 batch confirmation at a checkpoint closes everything in the table at
-once, by design — it exists so you are not asked to ratify twenty
+once, once the search of the record has run, by design — it exists so you are not asked to ratify twenty
 items one at a time. Confirming without reading records decisions you
 did not make.
 
@@ -262,9 +264,9 @@ One assumption is about the project rather than about you:
 
 **Design intent is discoverable, or the project is new.** The skill
 grounds itself before proposing, by reading the goals, the design
-homes, the rejected designs, the README files, the open issues
-and the tripwires, with subagents that search the design and rejected
-entries and the open issues and tripwires beside its own reading, or failing those the code and its history. A
+homes, the rejected designs and the README files, and before any
+thread closes, with subagents that search the design and rejected
+entries and the open issues and tripwires, or failing those the code and its history. A
 greenfield project is handled explicitly. Intent that exists only in
 someone's memory is not reachable, and proposals will contradict
 decisions already made without either party noticing.

@@ -49,7 +49,13 @@ grades a design entry; the session still reads every goals home itself, at the d
 grounding and at the intake's. The decision is the owner's: the owner saw design sessions miss a
 goal twice, although the goals homes are small enough to be read whole, and ruled that both
 readings stay. How a session misses a goal it is told to read is not established; the owner did not
-know. The nearest rival, the session's reading alone, is the reading those sessions had. The cost is
+know. The nearest rival, the session's reading alone, is the reading those sessions had. The design
+skill's round after the search names, for each goal the search graded `bears` or `may-bear`, the
+threads it constrains or that it constrains none, so that the grade reaches the session's judgement
+of each shape: in two pieces of work a goal the search had graded, recorded with an outcome that
+named no thread, was missing from the shape it constrained, and the design-conformance review found
+it after the plan document was written. Seeding a goal stays refused, per
+`design@agent-skills@seeds-name-decisions`. The cost is
 small while a goal is small beside the entries of the clusters it joins; re-take it with `wc -c`
 over the goals homes against the design homes, and goals homes that approach the size of their
 design homes reopen the cost.
@@ -86,8 +92,8 @@ this decision did not keep: `rejected@agent-skills@may-bear-on-a-doubt-naming-no
 
 ### The session reads whole the entries graded `bears`, and of those graded `may-bear` the ones its proposals touch, and lists the others for a reviewer `##may-bear-read-on-touch`
 
-At the design grounding the session reads `bears.md` whole, and from `may-bear.md` the entries a
-proposal touches, chosen by their reasons, per `design@core@graded-entries-assembled`; it lists the
+At the design grounding, once its search has run, the session reads `bears.md` whole, and from
+`may-bear.md` the entries a proposal touches, chosen by their reasons, per `design@core@graded-entries-assembled`; it lists the
 others as not read, each with the searcher's reason, where the design-conformance review reads
 them, per `design@agent-skills@unread-entries-reach-the-conformance-review`. A goal is in the
 assembly by its grades alone, since the grounding reads every goals home whole, per
@@ -105,7 +111,11 @@ made this decision, over this repository: 202 entries graded `bears` or `may-bea
 on touch would have read about 10 of the 137 entries graded `may-bear` alone, those 6 included, by
 the session's own judgement, as the message of the commit "[harvest] The graded entries' assembly, `klarch id`, the narrower grounding and the retrospective's
 new question recorded" states. A search whose `may-bear`
-entries left unread are found by the review to bear reopens it. The design this decision did not keep:
+entries left unread are found by the review to bear reopens it. A reason graded against a scope that
+widened after the search does not stand in for the reading of the new subject: the search waits
+until the scope settles, per `design@agent-skills@search-before-any-thread-closes`, and a thread on a
+new subject after it gets a search of its own, per `design@agent-skills@record-searched-before-the-work`.
+The design this decision did not keep:
 `rejected@agent-skills@design-grounding-reads-every-may-bear-entry-whole`.
 
 At a retrospective intake, a batch of files, the session reads whole every issue and tripwire graded
@@ -119,23 +129,45 @@ files did the same. Both read whole what their proposals rested on, so no outcom
 unread entry. The design it does not keep:
 `rejected@agent-skills@intake-reads-every-may-bear-entry-whole`.
 
-### The design skill's record search runs after the first challenge, with the problem and the drafted shapes as its work `##search-after-first-challenge`
+### The design skill's record search may wait until the scope settles, and no thread closes before it has run `##search-before-any-thread-closes`
 
-Loop step 1 of the installed design skill orders the grounding: the session re-reads
+Loop step 1 of the installed design skill grounds a discussion: the session re-reads
 `primer@verify-before-relying` whole, reads the homes the step names and greps the record, drafts
-the shapes, the owner's proposal if one was made and its own, and challenges each; then it
-dispatches the search, with the problem and those shapes as the work; then it reads the search's
-result and writes the first round. The order is the owner's proposal, so that the costly search gets
-the most precise work.
+the shapes, the owner's proposal if one was made and its own, and challenges each, before the first
+round. The search of the whole record, with the problem and the shapes drafted by then as its work,
+is part of that grounding, which is complete only once it has run; it may wait until the scope
+settles, a moment the session judges with no count of rounds, and runs at the latest before any
+thread closes. Until then a word of the owner that would close a thread leaves it `presumed-settled`,
+every closed state waits, each round states the grounding it rests on and that the search has not
+run, and convergence is not proposed. After it, a thread held only for it closes on the word already
+given, and an entry the search returns on such a thread is routed as `primer@owner-word-premise` and
+`primer@question-authority` route it, with no rule of the design skill's own. It stays the
+discussion's one search of the whole record, never a pass over what changed since the first rounds,
+per `rejected@agent-skills@delta-search-at-convergence`.
 
-A searcher grades `may bring back` against a shape, and a question alone gives it none,
-`rejected@agent-skills@search-work-is-the-question`; the retrospective intake and the design audit
-already send theirs one, the received files and the plan document. The nearest rival, a search
-before the challenge and another after it, doubles the cost of the search, which one measurement
-gives: at the grounding of the spec "The primer defines the terms it uses, and sends a session about to
-change code to the record of that code", the search took 10 agents and about 1.07M subagent tokens,
-summed from the agents' completion reports. A thread on a new subject
-already gets a search of its own, per `design@agent-skills@record-searched-before-the-work`.
+The argument: a searcher grades `may bring back` against a shape, and a question alone gives it none,
+`rejected@agent-skills@search-work-is-the-question`, so the search gets the most precise work once
+the shapes stop moving. In the discussion of `milestone@plans@development-and-components`, which the
+owner reported shifted and expanded at least twice before its search, the search graded the record
+against the shapes the discussion had drafted by then, many more than its first ones, and a search
+at the first challenge would have needed one more search for each new subject. The owner argued, as
+a practice that may become the usual one, that a discussion first held freely and then confronted
+with the record discusses the design more freely. Against waiting stands the cost
+`rejected@agent-skills@conformance-reader-at-the-checkpoint` records, a reading that comes after the
+owner has ruled reads rulings already given: in that discussion several threads closed before the
+search, and one was approved while it restated premises a recorded issue already held. Holding every
+closure until the search keeps the free discussion and the more precise grades, and removes that
+cost, since no ruling precedes the record. It serves `goal@knowledge-architect@the-owner-s-word-is-verified`,
+since an early word of the owner is checked against the record before anything rests on it. It
+strains `goal@knowledge-architect@owner-attention-on-what-is-theirs`, since a proposal can reach the
+owner before the search, which the round's statement of its grounding and the closure rule bound.
+
+The rivals: the order of the first challenge, `rejected@agent-skills@search-after-the-first-challenge`,
+whose grades go stale when the scope widens after it; the owner's plain proposal, a search after a
+few rounds with threads closing meanwhile, which is the reading the conformance reader's entry
+records; and a search before the challenge and another after it,
+`rejected@agent-skills@search-before-and-after-the-challenge`. A thread on a new subject after the
+search gets a search of its own, per `design@agent-skills@record-searched-before-the-work`.
 
 ### The record search takes as seeds the decisions the work rests on or may change, never a goal `##seeds-name-decisions`
 
@@ -155,9 +187,9 @@ this decision did not keep: `rejected@agent-skills@goal-seeds`.
 
 ### The record search runs where design is discussed, before the work `##record-searched-before-the-work`
 
-The installed design skill dispatches the search at its loop step 1, after the first challenge, as
-`design@agent-skills@search-after-first-challenge` orders it, with the problem and the drafted shapes
-as the work and seeds as `design@agent-skills@seeds-name-decisions` says, for a design question and for bounded work alike,
+The installed design skill dispatches the search at its loop step 1, once the scope settles and
+before any thread closes, as `design@agent-skills@search-before-any-thread-closes` orders it, with
+the problem and the shapes drafted by then as the work and seeds as `design@agent-skills@seeds-name-decisions` says, for a design question and for bounded work alike,
 per `design@agent-skills@bounded-path-in-design`, and again for a thread that opens on a subject the
 first work did not cover, with the thread as the work: the first search read the whole record but
 graded it against the first work, so an entry that bears only on the new subject may stand graded
@@ -188,8 +220,8 @@ reading narrower than the search, which the owner's instances in thaum and rootp
 The occasions are those where design is discussed, so that an entry the work bears on costs a
 ruling before the work rather than rework after it, per
 `goal@knowledge-architect@agents-work-without-drift`. A search at grounding puts the record in view
-before the first round, so before any ruling, where a reading at the checkpoint comes after the
-owner has ruled most threads, as `rejected@agent-skills@conformance-reader-at-the-checkpoint`
+before any ruling, since no thread closes before it runs, where a reading at the checkpoint comes
+after the owner has ruled most threads, as `rejected@agent-skills@conformance-reader-at-the-checkpoint`
 records. The evidence is real use, per `design@agent-skills@behaviour-additions-need-real-use`:
 
 - for the design entries, the owner reported them missed in part many times, and in one case the
