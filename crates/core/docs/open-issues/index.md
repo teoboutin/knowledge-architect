@@ -1,6 +1,6 @@
 **Generated — do not edit.** `cargo klarch index`
 
-41 entries
+42 entries
 
 | kind | title |
 | --- | --- |
@@ -44,4 +44,5 @@
 | todo | [The documents do not yet render as one linked site](the-documents-do-not-render-as-a-site.md) |
 | todo | [The graded entries carry a shared entry's grade once per agent](the-graded-entries-repeat-a-shared-entry-s-grade-per-agent.md) |
 | todo | [The walk does not report the untracked files git's per-clone exclude file removes from it](the-walk-does-not-report-what-the-per-clone-exclude-file-removes.md) |
+| todo | [A row of `\[walk\]` may keep out a file the model requires, and only one such case is reported](the-walk-may-exclude-a-file-the-model-requires.md) |
 | todo | [The checker does not read the structure of a project's own skills](tooling-for-project-skills.md) |

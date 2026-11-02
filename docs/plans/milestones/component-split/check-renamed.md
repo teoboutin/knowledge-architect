@@ -1,11 +1,10 @@
-# The core is renamed `check`, and the installed-file findings that judge no part of the model move to phase 4
+# The core is renamed `check`, and the installed-file findings move to phase 4
 
 The third slice of `milestone@plans@component-split`. It leaves when it lands.
 
 ## Builds
 
-As D3 of the milestone document's default states it; the owner's ruling on D3 may move the two
-findings it keeps in phase 2 to the last phase too, and the slice is built on the ruling it has.
+As D3 of the milestone document rules it.
 
 - crates/core renamed crates/check, the Component `core` renamed `check` in the manifest, every
   reference naming the anchor `core` re-pointed, the citations the checker does not read included,
@@ -14,16 +13,14 @@ findings it keeps in phase 2 to the last phase too, and the slice is built on th
 - The goals of `register@core@goal`, each sent to the Component that holds its subject, and each
   rewording of a goal that names "the core" drafted under `skill@knowledge-architect-goal-setting`;
   the owner rules on them before the slice merges.
-- The family of `check::agents` split by what each finding reports. To `check`, as a check family
-  of the last phase, beside `generated`, `registers` and `references`: an installed file whose bytes
-  differ from the shipped text, a file of the installer's namespace this version does not ship, a
-  deletion of one awaiting staging, and a root CLAUDE.md that does not import the shipped primer.
-  Kept in phase 2, in `model`'s foundation: a shipped file missing from the tree, whose entities
-  the model then lacks, per `design@core@installed-entities-from-the-tree`, and a root CLAUDE.md
-  the walk keeps out, which the model could not read. `model` no longer depends on `agent-skills`
-  for the comparison: the shipped list it needs, the install paths, it takes as data.
-- `index` and `index --staged` no longer refused by an installed file that differs, or by an
-  unshipped one.
+- The family of `check::agents` moved to `check`, as a check family of the last phase, beside
+  `generated`, `registers` and `references`: a shipped file missing from the tree, an installed
+  file whose bytes differ from the shipped text, a file of the installer's namespace this version
+  does not ship, a deletion of one awaiting staging, and a root CLAUDE.md that does not import the
+  shipped primer. Kept in phase 2, in `model`'s foundation, from the manifest's harness alone: a root
+  CLAUDE.md the walk keeps out, until `issue@core@the-walk-may-exclude-a-file-the-model-requires`
+  replaces it. `model` depends on nothing of `agent-skills`.
+- `index` and `index --staged` no longer refused by a stale install.
 - `design@knowledge-architect@no-component-directory-named-after-the-project` rewritten for its
   instance: crates/check for the package `knowledge-architect` until #cli-on-top.
 
@@ -38,12 +35,17 @@ findings it keeps in phase 2 to the last phase too, and the slice is built on th
   `check_fix_installs_a_differing_installed_file` of `path@core@tests/binary.rs` builds its copy:
   the finding is listed in the last phase, and a reference finding of the same tree is listed with
   it; shown to discriminate by a recorded mutation that puts the family back in phase 2.
-- **A missing shipped file still stops the run in phase 2.** Test: a binary test over a copy with
-  one installed file deleted and the deletion staged: the run stops in phase 2 and names it; shown
-  to discriminate by a recorded mutation that moves that finding to the last phase.
-- **`index` and `index --staged` write over a differing installed file.** Test: two binary tests
-  over the edited copy, one per command, each exits 0 and writes the index, into the working tree
-  or into git's index; shown to fail by the first claim's mutation.
+- **A missing shipped file is a phase-4 finding, and the references to its entities are reported
+  beside it.** Test: a binary test over a copy with one installed skill deleted and the deletion
+  staged, whose documents cite that skill: the install finding and the unresolved reference are
+  both listed in the last phase; shown to discriminate by a recorded mutation that puts the family
+  back in phase 2.
+- **A root CLAUDE.md the walk keeps out still stops the run in phase 2.** Test: the existing test
+  of `check::agents` on it, moved with the finding; shown to fail by a recorded mutation that moves
+  it to the last phase.
+- **`index` and `index --staged` write over a stale install.** Test: two binary tests over the
+  edited copy, one per command, each exits 0 and writes the index, into the working tree or into
+  git's index; shown to fail by the first claim's mutation.
 - **`check --fix` still repairs the installed files first.** Test: the existing test of
   `design@core@fix-before-the-checks` passes; shown to fail by a recorded mutation that runs the
   repair after the gate.
@@ -61,7 +63,8 @@ project.
 `design@core@phases-gate-the-report`, `design@core@owned-namespace-check`,
 `design@core@fix-before-the-checks`, `design@core@staged-check-semantics`,
 `design@core@installed-entities-from-the-tree`; `tripwire@core@phases-gate-the-report-two`, whose
-premise, no writer over an incomplete model, the finding kept in phase 2 for a missing file keeps;
+premise, no writer over a model that could not read the tree, the move keeps, per D3;
+`issue@core@the-walk-may-exclude-a-file-the-model-requires`;
 the closed issue `installed-file-findings-belong-in-phase-four`, read in history: the commit that
 deleted it is
 `git log --diff-filter=D --format=%h -- crates/core/docs/open-issues/installed-file-findings-belong-in-phase-four.md`,
@@ -100,10 +103,11 @@ which holds the installed copies for definitions only, per
 `installed-file-findings-belong-in-phase-four`, #arg-81); a stale installed skill still defines its
 entities, so the model built over it is complete (#arg-69). The owner had judged the move correct
 and not worth doing at the time; the split moves the code anyway (#arg-81, #arg-82), and the owner
-ruled again, R5: "installed-text-check-home: agreed on phase 4" (#arg-103). The plan's second review
-found that #arg-69 does not hold of a shipped file that is missing, whose entities the model then
-lacks, nor of a root CLAUDE.md the walk keeps out: each reports what the model could not read, so
-the placement rule keeps them in phase 2. That narrowing is D3's, awaiting the owner.
+ruled again, R5: "installed-text-check-home: agreed on phase 4" (#arg-103). Over a missing shipped
+file the model is still built, of the tree as it is, and the references to its entities are
+reported as unresolved in the last phase, beside the install finding, per D3. A root CLAUDE.md the
+walk keeps out is what the model could not read, so it stays in phase 2 until the walk refuses the
+row that keeps it out.
 
 What the move still changes in use: `check --fix` already repairs the installed files before the
 gate, per `design@core@fix-before-the-checks`, so an ordinary upgrade needs no second run; an
@@ -111,9 +115,9 @@ upgrade that removes a shipped file leaves the deletion of its installed copy aw
 which no fix stages, and phase 2 then stops the run before the generated files. In the last phase
 that run reaches them. The head's sentence on the two runs is rewritten with the order.
 
-The rivals, the check kept in the foundation (A) or moved to `check` and kept in phase 2 (B), are
-losing alternatives of the milestone document, and so is the move whole, if D3 is ruled as its
-default.
+The rivals, the check kept in the foundation (A) or moved to `check` and kept in phase 2 (B), and
+a missing shipped file kept in phase 2, D3's default, are losing alternatives of the milestone
+document.
 
 ## Implementation sequence
 

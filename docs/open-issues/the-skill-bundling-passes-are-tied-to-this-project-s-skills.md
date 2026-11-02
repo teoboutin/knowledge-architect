@@ -83,5 +83,7 @@ these are leads for this work's own design session:
   depends on `bundle` as a build-dependency.
 - **The checker keeps the comparison** of the installed copies, as a check family of the last
   phase, which the milestone's slice `spec@component-split@check-renamed` builds, and the command
-  `install-agent-skills`, which would call the install of `bundle`.
+  `install-agent-skills`, which would call the install of `bundle`. The owner's lead, at the
+  milestone's D3: the logic that verifies every shipped text is installed may belong to `bundle`
+  rather than to the checker.
 - On the owner's word in that discussion, the goal of the Component is written when it is created.
