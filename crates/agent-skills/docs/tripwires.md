@@ -425,8 +425,8 @@ evidence, owed by a test of logic, is not skipped by naming the test another kin
 passes every procedure, the code-shape reviewer's included where the label looks plausible.
 
 **Fires when:** an analysis of a retrospective workflow file received under `path@knowledge-architect@docs/retrospective-reports/`,
-or a review's finding on the main branch, reports a test of pure logic classed as golden, mocked or
-external and carrying no recorded mutation, in two separate pieces of work.
+or a review's finding on the main branch, reports a test of pure logic classed as golden, mocked,
+integrated or external and carrying no recorded mutation, in two separate pieces of work.
 **Response:** reopen `design@agent-skills@test-economy` on how a test's kind is decided, with the
 instances.
 **Re-entry:** the intake of a retrospective workflow file, `skill@klarch-retrospective-intake`, and

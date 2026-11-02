@@ -25,8 +25,15 @@ Component that holds Rust code in its own files, by default:
   Component as for a function, read the same way, as two concrete changes someone could plausibly
   ask for, each touching it independently;
 - **has its own tests**;
-- **takes decisions of its own**, so it has a design of its own. A Component that takes no decision
-  has no design to record, which is the sign it is a part of another Component.
+- **takes decisions of its own about one main domain**, what its decisions are about, such as the
+  layout of a rendered site or the command line, with small side domains allowed, so it has a
+  design of its own. One domain can span several subjects of the Component's design home. A
+  Component that takes no decision has no design to record, which is the sign it is a part of
+  another Component.
+
+**Commands, subcommands or functions that share one purpose and one design are one Component**, with
+one module each: the test of two changes is applied to the Component, not to each command, since
+it passes for every command taken alone.
 
 Such a Component is, for example, a published package, a service or a maintenance tool. The root,
 which is the whole project, and an intermediate Component are outside these criteria.
@@ -45,7 +52,8 @@ A split that would show any of these is probably cut in the wrong place:
 
 - it needs many new dependencies between the parts;
 - it would create a dependency cycle;
-- every change you expect to make crosses the new boundary.
+- every change you expect to make crosses the new boundary, counting
+  the changes the goals already predict, not only those of the history.
 
 Where many Components would sit beside one another, nested Components under an intermediate
 Component carry the layering.
@@ -57,7 +65,7 @@ project publishes:
 
 | the project | one Component per crate | the cost of more crates |
 | --- | --- | --- |
-| publishes, or plans to | the default | a low cost, since Rust practice accepts many small published crates: each crate is released in dependency order and bumped on its own; weigh it against how usable each crate is alone for others |
+| publishes, or plans to | the default | a low cost, since Rust practice accepts many small published crates: each crate is released in dependency order and bumped on its own. A minor weight, a lead in one direction: a crate that others could use alone is an argument for the split; a crate no one would use alone is no argument against it |
 | never publishes | a stronger default: the crate boundary is the stronger isolation | none |
 
 Read whether the project publishes from its record, its goals and its design. Where the record says
@@ -67,18 +75,34 @@ the project's policy on publishing; it never sets it.
 **A Component may be a module directory inside a crate** where a crate of its own would force a
 publication or a dependency cycle: a crate published on crates.io cannot depend on a crate given only
 by a path, except as a dev-dependency, and Cargo refuses a dependency cycle outside
-dev-dependencies. The module's directory is the Component's directory, and carries its documents;
-whether the published crate ships them is the project's packaging choice.
+dev-dependencies. **Where the publication or the cycle comes only from a decision of the project's
+record**, such as where a binary lives, that decision is reopened first under
+`skill@knowledge-architect-design`: the exception holds only where Cargo's rules force the
+publication or the cycle whatever the project decides. The module's directory is the Component's
+directory, and carries its documents; whether the published crate ships them is the project's
+packaging choice.
 
 ## Shapes beside one crate `##component-shapes`
 
 - **A shared test Component**, offered, not required: a Component that depends on the Components it
-  tests, never the reverse, and holds the tests that cross them with their fixtures and oracles. It
-  applies where several crates share testing tools and fixtures without depending on each other;
-  one case of it is a crate A whose tests need a crate B that already depends on A. A cycle is
-  avoided even among dev-dependencies, since it leaves unclear which crate is responsible for what;
-  and a dev-dependency from A back onto B builds A twice in A's unit tests, where the types of the
-  two copies do not match and the errors read as mismatched types.
+  tests, never the reverse, and holds the integrated tests that cross them, tests that drive the
+  project through its public API as a consumer would, as
+  `skill@knowledge-architect-development@discriminating-tests` says, with their fixtures and
+  oracles. The tested
+  Components' own unit tests use none of those fixtures, so no Component dev-depends on the shared
+  test Component. It serves, among others, a crate A whose tests need a crate B that already
+  depends on A. A cycle is avoided even among dev-dependencies, since it leaves unclear which crate
+  is responsible for what; and a dev-dependency from A back onto B builds A twice in A's unit tests,
+  where the types of the two copies do not match and the errors read as mismatched types.
+- **A Component that supports extensions publishes the tools an extension's tests need**, its test
+  harness, as a module of that Component or as a crate of its own, the project's choice. The
+  fixtures of the shared test Component stay outside every published package.
+- **A top-level binary crate**: where several Components contribute commands to one binary, the
+  binary and its interface sit in a crate above them, which parses the arguments, applies the
+  checks that can be made while parsing, and calls the logic the Components expose as a typed API.
+  A command's arguments are parsed in the lowest crate that every binary offering the command
+  depends on, so a library whose commands are flattened into each adopting project's own binary
+  keeps its own parsing.
 - **The pure and output layers.** The default code shape of
   `skill@knowledge-architect-development@discriminating-tests` keeps logic and side effects in two
   layers; at the scale of a Component, both sit by default in the Component that returns or defines
