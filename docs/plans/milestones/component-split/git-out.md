@@ -18,14 +18,42 @@ The first slice of `milestone@plans@component-split`. It leaves when it lands.
   the types `Entry` and `EntryKind`. `Entry` and `EntryKind` keep their public path for an
   extension, `extension::Entry` and `extension::EntryKind`, which `path@core@src/extension.rs`
   re-exports.
-- The core depends on `git`; nothing else changes in the core's behaviour.
+- The core depends on `git` by path and by exact version, `=` the workspace's, as it depends on
+  `agent-skills`, per `design@knowledge-architect@version-lockstep`: a caret requirement would let
+  a consumer resolve a `git` of another patch than the core's. Nothing else changes in the core's
+  behaviour.
+- `design@core@failed-git-is-exit-two` moved to `git` with its exit-code clause reworded: a library
+  sets no exit code, so the head states the crate's contract, every invocation a verdict depends on
+  fails as an error carrying git's stderr and never as an empty answer, `last_changed` alone
+  degrading, and cites `design@core@exit-code-ladder` for the code 2 the core's commands give that
+  error. The decision is unchanged; its exit code was always the ladder's.
+- The sentences that name the moved file or the crates a binary links, which `cargo klarch check`
+  does not report when they turn false, rewritten where they name the list:
+  `design@core@single-crate` ("lists this one crate for both, beside the crate of installed text it
+  links") and `design@core@checker-source-literals-are-data` ("The core is one crate whose directory
+  is its Component"); the sentences of `design@core@staged-tree-source`,
+  `design@core@index-staged-write` and `design@core@init-runs-git-init` naming
+  `path@core@src/git.rs` are re-pointed only, which touches no head; and the count "publishes four
+  crates" of `issue@knowledge-architect@this-repository-warns-on-none-of-the-documentation-lints`.
 - The head of absence of #no-intermediate-component, in the root design home: no intermediate
-  Component groups the Components.
+  Component groups the Components. **It waits for the owner's ruling on Q1 of this slice's design
+  audit**, which asks whether the component-creation skill's sentence on layering through
+  intermediate Components needs a revision, and its title is narrowed to "the new Components", the
+  scope #arg-17 argues, per `design@agent-skills@title-states-the-rule`, once Q1 is ruled.
 - `design@knowledge-architect@two-crates` rewritten in the form the milestone document states,
-  under a new slug, its old slug kept beside the new reference in the commit that renames it.
-- The publish order: `git` before the core, in `path@knowledge-architect@.github/workflows/release.yml`
+  under a new slug, its old slug kept beside the new reference in the commit that renames it, and
+  citing `rejected@knowledge-architect@single-published-package`, which no other head cites.
+- The publish order: `git` before the core, in both crate lists of
+  `path@knowledge-architect@.github/workflows/release.yml`, the verify job's and the publish job's,
   and in `design@knowledge-architect@partial-publish-rerun`, found with the search the milestone
   document's "How the work is done" names.
+- A `New features` entry of CHANGELOG.md, surface `library`, the closed list's surface for a
+  library API: the crate `knowledge-architect-git`, a minor.
+
+**The first change** sets nothing stricter for an earlier tree: adding crates/git to the compiled
+lists of `design@core@checker-source-literals-are-data` and `design@core@a-foreign-build-is-refused`
+exempts or compares a directory no earlier tree holds. Step 1 still lands as one commit, since its
+intermediate trees do not compile.
 
 ## Claims
 
