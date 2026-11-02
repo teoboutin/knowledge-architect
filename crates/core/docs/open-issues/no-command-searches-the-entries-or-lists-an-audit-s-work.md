@@ -14,12 +14,12 @@ commands that read the model, in the design discussion of `milestone@plans@compo
 
 ### What
 
-- **A search of the entries by a list of keywords, reporting the closest matches**: the owner's
-  words, "a command to perform searches in existing entries by list of keywords and report closest
-  matches (more efficient than grepping the project, a true search algorithm)".
-- **Mechanical work lists for the audit's method**, "such as design record": the lists an audit
-  axis builds before its agents judge, which a command could compute from the entity table, as
-  `klarch worklist` computes the record search's.
+- **A search of the entries by a list of keywords, reporting the closest matches**: the owner
+  asked for a search algorithm, more efficient than a grep of the project, that ranks the entries
+  by how closely they match the keywords.
+- **Mechanical work lists for the audit's method**, the design-record axis's first among them: the
+  lists an audit axis builds before its agents judge, which a command could compute from the entity
+  table, as `klarch worklist` computes the record search's.
 
 Both read the model and run no check, so the milestone places them in its `query` Component. Neither
 is designed: which keywords, which measure of closeness, and which axis's lists, are open.

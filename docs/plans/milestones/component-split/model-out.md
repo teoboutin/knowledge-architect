@@ -11,10 +11,11 @@ The second slice of `milestone@plans@component-split`. It leaves when it lands.
   #check-renamed moves it; `complete_working_tree`, the gate the writers and `worklist` call; the
   resolver, cut from the lints of `path@core@src/check/references.rs`, returning a
   `model::resolve::Outcome`, a target or the cause of its failure, which the lints turn into
-  findings; the phase-1 contribution, the trait `model::extension::Contribution`, which `check`'s
-  `Extension` builds on.
+  findings; the phase-1 contribution as data, the struct `model::extension::Contribution`, which
+  `check` computes from each extension's `Extension::tables` and `Extension::resolve`, whose
+  signatures do not change, so no extension changes. A mapping table from each failure arm of the
+  six resolver functions to a cause of `Outcome` is written at this slice's audit, before the cut.
 - `model`'s facade, one file, with `#![warn(unreachable_pub)]`.
-- The root's layout head extended with `model`.
 
 ## Claims
 
@@ -31,8 +32,11 @@ The second slice of `milestone@plans@component-split`. It leaves when it lands.
   public item; `unreachable_pub` warns on any other, and the clippy gate denies warnings; shown to
   fail by a recorded `pub` item outside the facade, which the gate refuses.
 - **An extension's tables, declared paths and generated files reach phase 1 unchanged.** Test:
-  `path@core@tests/extension_api.rs` passes; shown to discriminate by a recorded mutation that drops
-  the claimed tables from the contribution, which its test of an unclaimed table fails on.
+  `path@core@tests/extension_api.rs` passes with no change, and the tests of claimed tables do:
+  `a_table_no_extension_claims_is_a_complaint` and `a_claimed_table_the_manifest_leaves_out_is_a_complaint`
+  in `path@core@src/extension.rs`, and `the_core_binary_refuses_a_table_no_extension_of_it_claims`
+  in `path@core@tests/binary.rs`; shown to discriminate by a recorded mutation that drops the claimed
+  tables from the contribution, which the last of these fails on.
 - **Every git invocation of the core and of `model` goes through `git`**: the claim of #git-out,
   taken again over both crates.
 
@@ -61,8 +65,10 @@ A finding of phases 1 to 3, or a reference finding, that differs from the tree's
 
 - The mock tests of `path@core@src/mock_projects.rs` read internals this slice moves into `model`.
   Until #integrated-tests, each runs where its internals are: those over the model as a unit-test
-  module of `model`, those over the checks as one of the core. #integrated-tests ends it; the claim
-  of that slice that no unit test uses a mock project guards it.
+  module of `model`, those over the checks as one of the core. Those in `model` reach the mock
+  projects of the core's directory by a path relative to `model`'s, the one crate reaching another's
+  fixtures in the milestone, for four slices. #integrated-tests ends it; the claim of that slice that
+  no unit test loads a mock project guards it.
 - The installed-file check stays in phase 2 until #check-renamed, so for this slice it stays in the
   foundation, in `model`, and `model` depends on `agent-skills` for the shipped text it compares.
   The claim of #check-renamed that `model` no longer depends on `agent-skills` guards it.
@@ -76,8 +82,9 @@ trusted, not whether the content conforms (#arg-68). The resolver is cut from th
 site renderer needs the resolution with no finding attached (#arg-44). The boundary is crossed by 44
 of the 99 commits that touched either side, not by every change (#arg-45), and the goals predict
 more consumers (#arg-30, #arg-46). An extension's phase-1 contribution sits in `model` because phase
-1 does (#arg-93). `complete_working_tree` sits in `model` because `worklist` calls it, and `query`
-must reach it with no check (the plan's review, premortem C2).
+1 does (#arg-93); it is data rather than a trait so that an extension's code does not change.
+`complete_working_tree` sits in `model` because `worklist` calls it, and `query` must reach it with
+no check (the plan's review, premortem C2).
 
 The nearest rival, the model kept inside the checker (#arg-16), is a losing alternative of the
 milestone document.
@@ -87,7 +94,7 @@ milestone document.
 1. Cut the resolver from the lints inside the core, with no crate boundary: the mechanism alone.
 2. Create `model` and move the files and the foundation, behind the facade.
 3. Split `Extension` into the phase-1 contribution and the rest.
-4. Move the heads, issues and tripwires whose subject is the model; extend the layout head.
+4. Move the heads, issues and tripwires whose subject is the model.
 5. The harvest.
 
 ## Harvest

@@ -19,9 +19,10 @@ The first slice of `milestone@plans@component-split`. It leaves when it lands.
   extension, `extension::Entry` and `extension::EntryKind`, which `path@core@src/extension.rs`
   re-exports.
 - The core depends on `git`; nothing else changes in the core's behaviour.
-- The root design home's head on the layout, written here: which Components exist, `git` among
-  them, and that no intermediate Component groups them. Each later slice extends it.
-- `design@knowledge-architect@two-crates` rewritten in the form the milestone document states.
+- The head of absence of #no-intermediate-component, in the root design home: no intermediate
+  Component groups the Components.
+- `design@knowledge-architect@two-crates` rewritten in the form the milestone document states,
+  under a new slug, its old slug kept beside the new reference in the commit that renames it.
 - The publish order: `git` before the core, in `path@knowledge-architect@.github/workflows/release.yml`
   and in `design@knowledge-architect@partial-publish-rerun`, found with the search the milestone
   document's "How the work is done" names.
@@ -79,11 +80,13 @@ puts the checker's parsers into the rewriting crate's build.
 2. Move into `git`'s homes the heads the milestone document lists as moving whole, with
    `design@core@git-is-asked-through-one-module` rewritten, `rejected@core@every-git-variable-dropped`,
    and the two issues above.
-3. The layout head, `design@knowledge-architect@two-crates` and the publish order.
+3. The head of absence, `design@knowledge-architect@two-crates` and the publish order.
 4. The harvest.
 
 ## Harvest
 
 | what | where |
 | --- | --- |
-| #git-crate | `git`'s design home: the moved heads, `design@core@git-is-asked-through-one-module` rewritten to name the crate; the root's layout head, written |
+| #git-crate | `git`'s design home: the moved heads, `design@core@git-is-asked-through-one-module` rewritten to name the crate |
+| #no-intermediate-component | its head of absence in `register@knowledge-architect@design` |
+| the milestone's table | `design@knowledge-architect@two-crates`, rewritten and renamed; `design@knowledge-architect@partial-publish-rerun`, for the publish order |

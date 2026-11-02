@@ -18,8 +18,9 @@ As D2 of the milestone document rules it:
   `path@core@tests/extension_api.rs`, rewritten to drive the crates through their public API, as
   an extension's test does. A test whose claim no consumer could observe becomes a unit test over a
   model built in memory, per `design@core@model-then-checks`. `mock_projects.rs` holds 5 struct
-  literals of `Inputs`, two of them in the shared helpers `findings_with` and `phase_two`, which 11
-  tests reach; two literals inject a state, an empty map of committed files: each of those becomes
+  literals of `Inputs`, two of them in the shared helpers `findings_with`, which 17 tests reach,
+  through `findings` and `one` too, and `phase_two`, which 1 test reaches, counted by matching each
+  `#[test]` body for `findings_with(`, `findings()`, `one("` and `phase_two()`; two literals inject a state, an empty map of committed files: each of those becomes
   a mock project whose tree holds no committed generated file, or a unit test.
 - `design@core@api-facade` rewritten: its sentence "A test that needs a private item is a unit-test
   module inside the crate" gives way to the guideline of the code-shape fragment; its bullet
@@ -28,7 +29,6 @@ As D2 of the milestone document rules it:
   rewritten with it.
 - `design@core@inputs-are-gathered` rewritten for its sentence on the mock tests that assemble
   `Inputs` by hand, which this slice ends.
-- The root's layout head extended with `testing`.
 
 ## Claims
 
@@ -56,12 +56,34 @@ states injected by hand, in the vocabulary of the existing ones.
 
 ## Audit subjects
 
-`design@core@api-facade`, `design@core@inputs-are-gathered`, `design@core@checked-sentinel-values`,
-which accepts `"fixture"` strictly inside the core's compiled directory or a directory the binary
-names as its own source, and `rejected@core@sentinels-accepted-everywhere`, whose doubt this move
-meets: the binary's tests stay in `cli`, the one package where `CARGO_BIN_EXE_klarch` is set, and
-run over the mock projects, which move to `testing`; how they keep reaching them, and keep
-`"fixture"` accepted there, is decided at this audit;
+`design@core@api-facade`, `design@core@inputs-are-gathered`; `design@core@checked-sentinel-values`
+and `design@core@checker-source-literals-are-data`, with every `rejected` entry they cite.
+
+**A load-bearing point this audit opens a design session on, before any code:** where the tests of
+`cli`, the binary's and `path@core@tests/extension_api.rs`'s, find their fixtures once the mock
+projects move to `testing`. Its constraints, each from the record:
+
+- the binary's tests stay in `cli`, the one package where `CARGO_BIN_EXE_klarch` is set;
+- `"fixture"` is accepted only strictly inside the core's compiled directory or a directory the
+  binary names as its own source, per `design@core@checked-sentinel-values`, and a binary names only
+  the libraries it links, per `design@core@checker-source-literals-are-data`; `cli`'s binary links
+  nothing of `testing`, per D2;
+- no dependency cycle, dev-dependencies included, per `design@agent-skills@shared-test-component`;
+  `testing` dev-depends on `cli`;
+- one home for the fixtures, no crate reaching into another's, the argument of the same head;
+- the ways around these that the record holds are each a live `rejected` entry:
+  `rejected@core@exempt-directory-manifest-row`, `rejected@core@run-time-checker-directory-discovery`,
+  `rejected@core@literals-as-data-in-every-crate`, `rejected@core@fixture-marker-macro` and
+  `rejected@core@sentinels-accepted-everywhere`.
+
+Its shapes, which the session measures before putting the fork to the owner: the binary's tests
+moved into `testing`, driving `cli`'s library in process, if an in-process run reaches every claim
+they hold, its exit code and its printed report included; the binary's fixtures kept in `cli`'s own
+`tests/`, a second home; or a rewrite of the sentinel's rule, which reopens its head.
+
+`design@knowledge-architect@package-include-whitelist`; `rejected@core@inputs-struct-literal`,
+`rejected@core@doc-hidden-test-items`, `rejected@core@testing-feature-for-test-items`,
+`rejected@core@unit-tests-moved-under-tests`; `tripwire@core@private-item-needed`;
 `design@knowledge-architect@package-include-whitelist`; `rejected@core@inputs-struct-literal`,
 `rejected@core@doc-hidden-test-items`, `rejected@core@testing-feature-for-test-items`,
 `rejected@core@unit-tests-moved-under-tests`; `tripwire@core@private-item-needed`;
@@ -75,7 +97,9 @@ A claim of the old mock tests no test makes any more, or a fixture in a package.
 
 ## Premises that expire
 
-None: this slice ends the premises of #model-out and #consumers-out on where the mock tests run.
+None: this slice ends the premises of #model-out and #consumers-out on where the mock tests run,
+and of #cli-on-top on its interim re-export of the harness and on where its tests find their
+fixtures.
 
 ## Decided design
 
@@ -92,7 +116,7 @@ kept as a unit-test module, is a losing alternative of the milestone document.
 
 1. Create `testing` with the harness and no test: the mechanism alone.
 2. Move the fixtures and rewrite the mock tests, the two that inject a state last.
-3. Rewrite `design@core@api-facade` and `design@core@inputs-are-gathered`; extend the layout head.
+3. Rewrite `design@core@api-facade` and `design@core@inputs-are-gathered`.
 4. The report on #a1-no-check-below-the-tools, the judgement of C4 and C8; the harvest; the
    deletion of this spec, and of the milestone document.
 
@@ -101,3 +125,4 @@ kept as a unit-test module, is a losing alternative of the milestone document.
 | what | where |
 | --- | --- |
 | #testing-crate | `testing`'s design home; `design@core@api-facade` and `design@core@inputs-are-gathered` rewritten |
+| the harness kept in `check` and re-exported by `cli`, D2's losing shape | judged by `skill@knowledge-architect-decision-recording@losing-alternatives`; it changed the import path extension writers use, an interface others consume |

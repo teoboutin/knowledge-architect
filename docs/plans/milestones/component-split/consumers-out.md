@@ -13,7 +13,7 @@ The fifth slice of `milestone@plans@component-split`. It leaves when it lands.
   `check`'s `fix_then_check` and refusal of a foreign build, and `model`'s `complete_working_tree`;
   `cli` locates the project and hands it in, so `create` calls no `locate`.
 - `cli` dispatching each command to its crate; the goals of the three Components drafted and put to
-  the owner as the milestone document says; the root's layout head extended with them.
+  the owner as the milestone document says.
 
 ## Claims
 
@@ -35,7 +35,8 @@ The fifth slice of `milestone@plans@component-split`. It leaves when it lands.
 `path@core@docs/design/worklist.md`, `path@core@docs/design/transcripts.md` and
 `path@core@docs/design/creating.md`; `design@core@anchors-listing-command`,
 `design@core@one-question-one-command`; `design@core@transcript-directory-resolution`;
-`design@agent-skills@rust-templates-one-home`, whose test moves with `init --rust`;
+`design@agent-skills@rust-templates-one-home`, whose test, `path@xtask@tests/scaffold.rs`, stays in
+xtask and calls `init` through `cli`'s re-export of `cli::init` and `InitArgs`;
 `issue@core@a-forked-subagent-s-first-line-is-an-unrecognised-type`,
 `issue@core@the-graded-entries-repeat-a-shared-entry-s-grade-per-agent`,
 `issue@core@show-lists-no-subdocument-of-a-directory-home`,
@@ -75,12 +76,12 @@ ground of `design@core@single-crate`, which #cli-on-top reversed.
 1. `transcript`, which depends on nothing of the checker: the mechanism of a crate leaving `check`.
 2. `query`.
 3. `create`.
-4. The report on #a1-no-check-below-the-tools; the layout head; the harvest.
+4. The report on #a1-no-check-below-the-tools; the harvest.
 
 ## Harvest
 
 | what | where |
 | --- | --- |
 | #query-crate | `query`'s design home: the worklist heads and those of the commands it holds |
-| #transcript-crate | `transcript`'s design home: the transcript heads, `design@core@transcript-command-in-core` rewritten |
+| #transcript-crate | `transcript`'s design home: the transcript heads, `design@core@transcript-command-in-core` rewritten under a new slug |
 | #create-crate | `create`'s design home: the heads of creating |

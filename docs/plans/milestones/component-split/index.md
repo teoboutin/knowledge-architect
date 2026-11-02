@@ -4,7 +4,7 @@
 
 | title |
 | --- |
-| [The core is renamed `check`, and the installed-file check moves to phase 4](check-renamed.md) |
+| [The core is renamed `check`, and the installed-file findings that judge no part of the model move to phase 4](check-renamed.md) |
 | [The binary, the parsing and the interface become the top-level `cli` crate](cli-on-top.md) |
 | [The commands over the model, the transcript reader and the project creator leave the checker](consumers-out.md) |
 | [The git invocation layer and the readers of git's objects become the `git` crate](git-out.md) |
