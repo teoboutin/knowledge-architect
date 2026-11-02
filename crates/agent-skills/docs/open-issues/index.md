@@ -1,6 +1,6 @@
 **Generated — do not edit.** `cargo klarch index`
 
-50 entries
+51 entries
 
 | kind | title |
 | --- | --- |
@@ -10,7 +10,7 @@
 | defect | [In an adopting project, a finding sent upstream is counted again as a violation left on old text at every later pass](an-upstream-finding-stays-in-every-later-old-text-count.md) |
 | defect | [Texts of the workflow and of this repository send the owner more than the closed list of what is the owner's](texts-send-the-owner-more-than-the-closed-list.md) |
 | deferred | [A project cannot use an unreleased change to a shipped tool through a Cargo patch](co-development-through-a-cargo-patch.md) |
-| deferred | [Nothing checks that a change to a declared performance path records its figures](the-figures-of-a-declared-path-are-checked-by-nothing.md) |
+| deferred | [No mechanical check reads that a change to a declared performance path records its figures](no-mechanical-check-reads-a-declared-path-s-figures.md) |
 | design | [A built default awaiting the owner enters a design head only once the owner rules, where the owner wants agents more autonomous](a-built-default-awaiting-the-owner-enters-a-head-only-once-the-owner-rules.md) |
 | design | [A goal the draft-mode review read was reworded again for a defect the goal standard names, twice](a-goal-the-draft-review-read-was-reworded-again-for-a-defect.md) |
 | design | [A goal the record search graded was missed by the work in two separate pieces of work](a-goal-the-search-graded-was-missed-in-two-pieces-of-work.md) |
@@ -47,6 +47,7 @@
 | todo | [Installed instructions assume pull requests and continuous integration](installed-text-assumes-pull-requests-and-ci.md) |
 | todo | [No check compares an audit pass's count of severe violations left with the previous pass's](no-check-compares-an-audit-pass-s-owner-list-count-with-the-previous-pass-s.md) |
 | todo | [No check reports a lens of the agentic-workflow axis whose second agent found nothing the first did not](no-check-reports-a-duplicated-workflow-lens-whose-other-agents-found-nothing.md) |
+| todo | [No lint on `unsafe` code ships with the setup, which the decision against a security axis assumes](no-lint-on-unsafe-code-ships-with-the-setup.md) |
 | todo | [No reviewer writes its own report file, so the dispatcher saves each report by hand](no-reviewer-writes-its-own-report-file.md) |
 | todo | [A project cannot change one instruction of an installed skill](patching-an-installed-skill.md) |
 | todo | [Nothing checks mechanically that the shipped text cites no entry of this repository](shipped-text-citing-an-entry-is-unchecked.md) |

@@ -127,8 +127,8 @@ adversarial review chooses its own mutations.
 
 ## The review axes for code {{slug:code-review-axes}}
 
-%% The cadence is `design@agent-skills@review-cadence`: the checkpoint axes here, the read-only code
-%% axes in the review skill's table, once per branch.
+%% The cadence is `design@agent-skills@review-cadence`, and where each row sits
+%% `design@agent-skills@code-axes-rows-home`.
 **Dispatch when a coherent piece of code compiles, passes its tests, and does what its claims say**,
 and a defect found after the next piece is built on it would mean unbuilding both. How to dispatch is
 `skill@knowledge-architect-review`: read it before sending anything. The review before a merge owes

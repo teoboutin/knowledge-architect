@@ -1,13 +1,13 @@
 ---
 kind: deferred
 ---
-# Nothing checks that a change to a declared performance path records its figures
+# No mechanical check reads that a change to a declared performance path records its figures
 
 ## Summary
 
 `design@agent-skills@performance-opt-in` has a change that touches a code path a project declares
 performance-critical record its measurement before and after in its commit message, and the
-code-shape reviewer read that it does. A commit that records no figure passes every gate, and a
+code-shape reviewer reads that it does. A commit that records no figure passes every gate, and a
 reviewer may miss it.
 
 ## Details
