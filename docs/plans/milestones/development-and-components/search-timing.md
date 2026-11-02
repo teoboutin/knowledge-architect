@@ -70,11 +70,11 @@
    - `design@agent-skills@owner-rules-at-a-fork`, which closes a fork on the owner's word and a thread
      with one shape standing on its argument, both now after the search;
    - `design@agent-skills@may-bear-read-on-touch`, whose reading happens when the search runs, which
-     answers `issue@agent-skills@the-reading-on-touch-of-may-bear-entries-met-its-reopening-condition`:
-     the scope has settled when the search runs, and a thread on a new subject after it gets a search
-     of its own; the issue closes at the harvest;
-   - `design@agent-skills@searcher-grades-goals`, which gains the outcome naming the threads a graded
-     goal constrains, with the issue's two instances as its evidence.
+     narrows the second case of
+     `issue@agent-skills@the-reading-on-touch-of-may-bear-entries-met-its-reopening-condition`; the
+     issue stays open with both cases;
+   - the goals named per thread, whose reason, with the issue's two instances as its evidence, is a
+     `%%` line beside the instruction, since one text states it.
 
    Each text citing them is reread, as the milestone document's "What is already decided" lists; for
    `design@agent-skills@bounded-path-in-design`, `design@agent-skills@settled-means-recorded`,
@@ -184,6 +184,6 @@ rulings-already-given cost above. A search before and after the challenge: it do
   verdict goes under "Decided".
 - **Issues:** `a-goal-the-search-graded-was-missed-in-two-pieces-of-work` closes, as Builds 1 says;
   `issue@agent-skills@the-reading-on-touch-of-may-bear-entries-met-its-reopening-condition` stays
-  open, narrowed to its case with no widened scope.
+  open with both its cases, the second narrowed.
 - **Plan document:** this slice's spec leaves last, and with it the milestone document, as its
   harvest row says.

@@ -105,10 +105,7 @@ made this decision, over this repository: 202 entries graded `bears` or `may-bea
 on touch would have read about 10 of the 137 entries graded `may-bear` alone, those 6 included, by
 the session's own judgement, as the message of the commit "[harvest] The graded entries' assembly, `klarch id`, the narrower grounding and the retrospective's
 new question recorded" states. A search whose `may-bear`
-entries left unread are found by the review to bear reopens this decision. A reason graded against a
-scope that widened after the search does not stand in for the reading of the new subject: the search
-waits until the scope settles, per `design@agent-skills@search-waits-until-the-scope-settles`, and a thread on a
-new subject after it gets a search of its own, per `design@agent-skills@record-searched-before-the-work`.
+entries left unread are found by the review to bear reopens this decision.
 The design this decision did not keep:
 `rejected@agent-skills@design-grounding-reads-every-may-bear-entry-whole`.
 
@@ -123,7 +120,7 @@ files did the same. Both read whole what their proposals rested on, so no outcom
 unread entry. The design it does not keep:
 `rejected@agent-skills@intake-reads-every-may-bear-entry-whole`.
 
-### The design skill's record search may wait until the scope settles, and is the grounding's last part `##search-waits-until-the-scope-settles`
+### The design skill's record search may wait until the scope settles `##search-waits-until-the-scope-settles`
 
 Loop step 1 of the installed design skill grounds a discussion: the session re-reads
 `primer@verify-before-relying` whole, reads the homes the step names and greps the record, drafts
@@ -176,8 +173,7 @@ search keeps that cost out, since no ruling precedes the record. It serves
 against the record before anything rests on it, and `goal@knowledge-architect@design-with-agents-as-counterparts`,
 since every proposal is grounded in the record and challenged before it is built. Its nearest rival
 is the owner's plain proposal, a search after a few rounds, during which, on the session's reading,
-threads close, which carries that cost; it takes no entry of its own, since its refutation is that argument, which a
-reader derives again in one round.
+threads close, which carries that cost.
 
 ### The record search takes as seeds the decisions the work rests on or may change, never a goal `##seeds-name-decisions`
 

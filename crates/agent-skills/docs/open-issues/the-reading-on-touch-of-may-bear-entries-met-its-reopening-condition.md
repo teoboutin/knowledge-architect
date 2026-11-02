@@ -29,11 +29,12 @@ whole, listing the rest with the searcher's reasons.
 
 The head now says "reopens this decision", which settles the reading of "it".
 
-The second case is answered: the design skill's search waits until the scope settles, per
-`design@agent-skills@search-waits-until-the-scope-settles`, and a thread on a new subject after it
-gets a search of its own, so a reason graded against a scope that widened before the search no
-longer stands. The first case is not: the three entries the first review found were left unread
-with no widened scope, the reading on touch itself missing them.
+Both cases stay. The second is narrowed: the design skill's search now waits until the scope
+settles, per `design@agent-skills@search-waits-until-the-scope-settles`, which makes a widening after
+it less likely, but a work widened after the search still leaves reasons graded against the work as
+first drafted, as the six entries show; a thread on a new subject after the search already got a
+search of its own when they were missed. The first is untouched: the three entries the first review
+found were left unread with no widened scope, the reading on touch itself missing them.
 
 ### Why it matters
 
@@ -45,6 +46,5 @@ case the decision's argument, measured on one search over this repository, did n
 ### What would close it
 
 A design discussion on the decision, under `skill@knowledge-architect-design`, opened on the owner's
-word, that keeps the reading on touch with a stated answer to the first case, entries left unread
-with no widened scope that a review finds bearing, or changes it; or the owner's word that one
-spec's reviews do not reopen it.
+word, that keeps the reading on touch with a stated answer to both cases, or changes it; or the
+owner's word that one spec's two reviews do not reopen it.
