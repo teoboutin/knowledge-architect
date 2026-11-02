@@ -13,7 +13,7 @@ for no longer matches the path the listing gave.
 
 ### What
 
-Reproduced by the adversarial reviewer of the work of `spec@component-split@git-out`, with git
+Reproduced by the adversarial reviewer of the work that created the git Component, with git
 2.53.0, through a probe crate depending on the public API alone:
 
 - `object_name` builds the request with `rel.display()`. For a tracked `re\xffad.md`, which

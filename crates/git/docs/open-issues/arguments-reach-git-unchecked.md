@@ -12,7 +12,7 @@ before it, and `blob_bytes` answers a directory with the tree object's bytes.
 
 ### What
 
-Reproduced by the adversarial reviewer of the work of `spec@component-split@git-out`, with git
+Reproduced by the adversarial reviewer of the work that created the git Component, with git
 2.53.0:
 
 - `ignores(root, "--stdin")` answers `Ok(false)`: git reads its empty standard input and exits 1,

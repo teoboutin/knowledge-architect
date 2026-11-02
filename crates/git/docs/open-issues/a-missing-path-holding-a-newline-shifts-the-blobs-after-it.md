@@ -13,7 +13,7 @@ it.
 
 ### What
 
-Reproduced by the adversarial reviewer of the work of `spec@component-split@git-out`, with git
+Reproduced by the adversarial reviewer of the work that created the git Component, with git
 2.53.0: a commit holding `x.md` with the bytes `XX` and `y.md` with `YY`, asked
 `blob_bytes(root, Source::Commit("HEAD"), ["a\nb.md", "x.md", "y.md"])`, answers one entry,
 `("y.md", "XX")`: `x.md` is lost and `y.md` carries `x.md`'s bytes.

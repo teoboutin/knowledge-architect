@@ -12,7 +12,7 @@ new Component. The sentence stays when the first entry lands, and no check reads
 
 ### What
 
-Seen in the work of `spec@component-split@git-out`: the git Component's issue home,
+Seen in the work that created the git Component: the git Component's issue home,
 crates/git/docs/open-issues/README.md, still said "One file per outstanding item of git. No entry
 yet." over four entries, until the review before its merge found it. The sentence is written for
 every register `home_text` knows: goal, design, rejected, tripwire, issue, spec, milestone and any

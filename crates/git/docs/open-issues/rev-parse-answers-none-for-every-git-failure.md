@@ -33,8 +33,8 @@ Callers outside the tests, found with `git grep -n 'rev_parse(' crates/`:
 
 Not established: a reproduction. Each caller runs after other invocations on the same repository
 succeeded, so a failure here needs git to fail between two calls; no test makes it fail. Read from
-the code by the goal reviewer of the `git` Component's draft goals, during the work of
-`spec@component-split@git-out`; the effect on the index's snapshot was read from
+the code by the goal reviewer of the `git` Component's draft goals, during the work that created
+the git Component; the effect on the index's snapshot was read from
 `snapshot_entries` and its `git diff --cached` reproduced by the code-claims reviewer of that
 work's review, in a repository with two files committed and a third staged, where the diff lists
 the staged file alone.

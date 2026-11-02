@@ -34,8 +34,8 @@ project into Components, 19 agents. One wrote a script of its own, `grades.py`, 
 report. Nine said that the harness refused an edit of their report; eight of them returned the filled
 report as text, which the dispatching session wrote into the files by a script of its own.
 
-Another: the search at the design audit of `spec@component-split@git-out`, 19 agents. Read in
-their reports: at least twelve rewrote `report.md` whole from a heredoc, and one of them said in
+Another: the search at the design audit of the slice that created the git Component, 19 agents.
+Read in their reports: at least twelve rewrote `report.md` whole from a heredoc, and one of them said in
 its report that this was a further instance of this entry; the others filled it by the edit tool.
 The check `worklist --verify` passed on the second run, after two agents repaired a line each.
 

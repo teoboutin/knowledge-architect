@@ -215,8 +215,7 @@ Outside this work, each with what owns it:
   `design@git@repository-variables-dropped`, `design@git@index-file-variable-kept`,
   `design@git@a-path-is-bytes`, `design@git@git-floor-for-commit-trees`; and
   `design@git@failed-git-is-an-error`, moved with its exit-code clause stated as the crate's error
-  contract beside a citation of `design@core@exit-code-ladder`, as `spec@component-split@git-out`
-  says;
+  contract beside a citation of `design@core@exit-code-ladder`, as #git-out wrote it;
 - `design@gates@the-library-owns-the-flags` and `rejected@gates@gates-command-of-the-checker`: `cli`
   flattens no command of `gates`, and `gates` keeps its flags;
 - `design@core@exit-code-ladder`, `design@core@binary-name`, `design@core@one-question-one-command`,
@@ -538,7 +537,7 @@ reason "core would become misleading".
 Proposed by the session, R1 (#arg-5 to #arg-7), from the owner's plan, R1 (#arg-2). Final state:
 approved, by the owner's word against the table, R3: "For the split: I agree with your table now."
 and R6: "Agreed on the table." Arguments: #arg-2, #arg-5, #arg-6, #arg-7, #arg-19, #arg-97, #arg-114.
-Shape: `spec@component-split@git-out`. Harvest: the `git` Component's design home, and the head
+Shape: landed at #git-out. Harvest: the `git` Component's design home, and the head
 of the crate's separation, `design@knowledge-architect@git-crate`, in the root's, since the core's
 dependency on it spans two Components.
 
@@ -1490,8 +1489,8 @@ fire by a scratch dependency of `query` on `check`, which the command lists. The
 
 ## Implementation sequence
 
-1. [The git invocation layer and the readers of git's objects become the `git` crate](git-out.md),
-   `spec@component-split@git-out`.
+1. The git invocation layer and the readers of git's objects become the `git` crate, #git-out:
+   landed, its spec deleted with it.
 2. [The model, the scan, phases 1 to 3 and the resolver become the `model` crate](model-out.md),
    `spec@component-split@model-out`.
 3. [The core is renamed `check`, and the installed-file check moves to phase 4](check-renamed.md),
