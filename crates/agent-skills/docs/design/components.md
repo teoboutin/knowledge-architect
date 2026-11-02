@@ -26,8 +26,7 @@ move of the record, is apart from a design discussion's and from the setup's, so
 activity the owner has taken in, and its list of activities grows with the workflow. The owner
 proposed a skill of its own with a fragment in the design skill, on the argument that not every design
 discussion needs the procedure, since creating a Component should be occasional; the session
-extended the proposal to the development skill and to the four moments, and the owner approved the
-extension. The skill decides nothing itself: the decision to create or split goes through
+extended the proposal to the development skill and to the four moments. The skill decides nothing itself: the decision to create or split goes through
 `skill@knowledge-architect-design`, and the skill points to the setup and goal-setting skills for
 the declaration and the goals.
 
@@ -56,7 +55,7 @@ crates.io cannot depend on a crate given only by a path, a dev-dependency except
 refuses a dependency cycle outside dev-dependencies. Its nearest rival, a crate for every Component
 always, would force a publication of an internal part, or a cycle Cargo refuses.
 
-### A split is weighed against what it costs between its parts, and nested Components carry the layering `##component-split-signals`
+### A split is weighed against what it costs between its parts `##component-split-signals`
 
 The skill and the fragment state the same signals, which a session judges: a split that needs many
 new dependencies between its parts, creates a dependency cycle, or has every expected change cross
