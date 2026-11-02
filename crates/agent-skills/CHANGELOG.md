@@ -31,8 +31,9 @@ an empty subsection is omitted.
 - `agent-skills`, patch: a decision about how Components depend on each other belongs in the root's
   design home only where it constrains more than one of them, and a rule that one Component does not
   depend on another belongs in that Component's. A head of the root's design home that only rules
-  out a dependency of one Component is moved to that Component's design home by
-  `skill@knowledge-architect-project-audit@design-record-axis`.
+  out a dependency of one Component is a head in the wrong Component, which
+  `skill@knowledge-architect-project-audit@design-record-axis` finds.
+
 ### New features
 
 - `library`, minor: the published crate `knowledge-architect-git`, every question the checker
@@ -59,14 +60,16 @@ an empty subsection is omitted.
 - `agent-skills`, patch: a skill for creating or splitting a Component,
   `skill@knowledge-architect-component-creation`: the default criteria of a Component, the
   intermediate Component, which holds the design that the Components nested under it share and no
-  code of its own, the signals against a split, the mapping of every Component that holds Rust code
-  to one crate, the shapes, among them a top-level binary crate and a shared test Component of
-  integrated tests, the naming, and the procedure of a creation or a split. The design and development skills send a session to it where work belongs to
-  no Component or a Component gains a second reason to change, and the setup skill points to it for
+  Rust code of its own, the signals against a split, the mapping of every Component that holds Rust
+  code to one crate, the shapes, among them a top-level binary crate and a shared test Component of
+  integrated tests, the naming, and the procedure of a creation or a split. The design and
+  development skills send a session to it where work belongs to no Component or a Component gains a
+  second reason to change, and the setup skill points to it for
   the criteria and the naming. A project with a skill of its own for this activity reads it against
   the installed one.
 - `agent-skills`, patch: the decision-recording skill sends a design principle that several
-  Components follow, and not every one, to the intermediate Component that groups them, and a
+  Components follow, and neither every one nor every one of a kind the project names, to the
+  intermediate Component that groups them, and a
   reversal's successor to the Component its rule on the owning Component gives it, the incumbent
   leaving its own home in the same change, where the successor stayed in the incumbent's Component.
   The primer states that a Component is bound by the design of every Component enclosing it, so a

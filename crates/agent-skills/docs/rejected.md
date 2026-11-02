@@ -735,9 +735,11 @@ agents and about 1.07M subagent tokens, summed from the agents' completion repor
 ### A Component as a module directory inside a crate, where a crate of its own would force a publication or a dependency cycle `##module-directory-component`
 
 `live`. A cycle that Cargo would refuse between a part and the rest of its crate marks a split the
-signals against a split call cut in the wrong place, so this ground admitted as a module a split the
+signals against a split call probably cut in the wrong place, so this ground admitted as a module a split the
 same skill advised against. A publication of a part the project would not publish alone is the cost
 `design@agent-skills@split-cost-by-publication` weighs as low. Admitting the shape gave every
 Component that holds Rust code two shapes to weigh in a split and to search for, and no Component of
-this repository, of thaum or of rootpoint had the module shape when it was dropped. A split whose
-crate count the owner judges excessive under the remaining shape argues it again.
+this repository, of thaum or of rootpoint had the module shape: every Component their manifests
+declare holds a Cargo.toml of its own, read in each project's knowledge-architect.toml beside its
+directories. A split whose crate count the owner judges excessive under the remaining shape argues
+it again.

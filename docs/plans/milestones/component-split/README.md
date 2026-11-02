@@ -104,9 +104,6 @@ This repository adds:
 - **the writers**: the commands that write files over a model the foundation must pass first:
   `index`, `index --staged`, `check --fix`, `new-component` and `init`.
 - **A1**: the acceptance criterion #a1-no-check-below-the-tools.
-- **the installed rule of the reversal**: `skill@knowledge-architect-decision-recording@reversal-check`,
-  whose rule "The Component is the incumbent's" keeps the successor of a reversed head in the
-  incumbent's Component.
 - **the foundation**: `check::foundation` in `path@core@src/check/mod.rs`, which runs phases 1 to 3
   of a run: the manifest's complaints, `check::tree` and `check::agents` (phase 2), and the entity
   table's definition findings (phase 3). `cli::complete_working_tree` in `path@core@src/cli/mod.rs`
@@ -230,11 +227,11 @@ Outside this work, each with what owns it:
 
 | head | done by | citing files today |
 | --- | --- | --- |
-| `design@core@single-crate` | #cli-on-top, reversed, its successor in the incumbent's Component | `path@core@docs/design/transcripts.md` |
+| `design@core@single-crate` | #cli-on-top, reversed, its successor in the root's design home and the head leaving the core's in the same change | `path@core@docs/design/transcripts.md` |
 | `design@knowledge-architect@installed-text-crate` | #git-out, rewritten in a form each later slice keeps true, under this slug, since the head's earlier slug said two crates | none |
 | `design@core@the-core-cli-is-a-library-module` | #cli-on-top, moved to `cli` under a new slug, since it no longer names the core | `path@agent-skills@docs/design/project-configuration.md`, `path@core@docs/design/extensions-and-api.md`, `path@core@docs/design/run-model.md`, `path@core@docs/design/transcripts.md`, `path@core@README.md`, `path@core@src/cli/create.rs`, `path@core@src/cli/mod.rs`, `path@core@src/main.rs`, `path@core@tests/binary.rs` |
 | `design@core@arguments-parse-through-clap` | #cli-on-top | `path@core@docs/design/creating.md`, `path@core@docs/design/generated-files-and-fixes.md`, `path@core@docs/design/run-model.md`, `path@core@docs/open-issues/manifest-table-exposes-the-toml-crate.md`, `path@core@src/cli/mod.rs`, `path@core@src/main.rs`, `register@xtask@design` |
-| `design@core@transcript-command-in-core` | #consumers-out, moved to `transcript` under a new slug | none |
+| `design@core@transcript-command-in-core` | #consumers-out, its successor under a new slug in `transcript`, the part saying that the reader is a crate of its own that `cli` depends on in the root's design home | none |
 | `design@core@api-facade` | #integrated-tests; each slice writes its crate's facade | `path@core@CLAUDE.md`, `path@core@docs/design/transcripts.md`, `path@core@docs/open-issues/an-extension-cannot-see-which-register-a-document-belongs-to.md`, `path@core@docs/open-issues/manifest-table-exposes-the-toml-crate.md`, `register@core@tripwire`, `path@core@src/lib.rs` |
 | `design@core@phases-gate-the-report` | #model-out (the foundation), #check-renamed (the phase table) | `path@agent-skills@docs/open-issues/audit-axes-beyond-the-design-record.md`, `path@agent-skills@docs/open-issues/the-claim-check-of-a-commit-message-is-read-at-the-start-and-needed-at-each-commit.md`, `path@core@CLAUDE.md`, `path@core@docs/design/agent-configuration.md`, `path@core@docs/design/creating.md`, `path@core@docs/design/entities-and-headings.md`, `path@core@docs/design/extensions-and-api.md`, `path@core@docs/design/generated-files-and-fixes.md`, `path@core@docs/design/git-and-the-walk.md`, `path@core@docs/design/registers.md`, `path@core@docs/design/run-model.md`, `path@core@docs/design/worklist.md`, `register@core@tripwire`, `path@core@README.md`, `path@core@src/cli/create.rs`, `path@core@src/cli/mod.rs`, `path@core@src/cli/worklist.rs`, `spec@plans@path-quickfixes` |
 | `design@core@owned-namespace-check` | #check-renamed, split as its issue says | `path@knowledge-architect@CLAUDE.md`, `path@agent-skills@docs/design/project-configuration.md`, `register@agent-skills@design`, `path@agent-skills@docs/design/retrospective.md`, `path@agent-skills@docs/design/shipped-set.md`, `path@agent-skills@docs/open-issues/patching-an-installed-skill.md`, `path@core@docs/design/agent-configuration.md`, `path@core@docs/design/creating.md`, `path@core@docs/design/generated-files-and-fixes.md`, `path@core@docs/design/git-and-the-walk.md`, `path@core@docs/design/run-model.md`, `path@core@docs/open-issues/a-project-workflow-can-declare-an-installed-workflow-s-name.md`, `path@core@docs/open-issues/core-heads-bundle-decisions-with-many-citing-sites.md`, `register@core@rejected`, `path@core@README.md`, `path@core@src/agents.rs`, `path@core@src/check/agents.rs`, `path@core@src/check/mod.rs`, `path@core@src/cli/history.rs`, `path@core@src/cli/mod.rs`, `path@core@src/manifest.rs`, `path@core@src/mock_projects.rs`, `path@core@src/survey.rs`, `path@core@src/walk.rs`, `path@core@tests/binary.rs`, `register@knowledge-architect@design`, `path@knowledge-architect@docs/open-issues/the-skill-bundling-passes-are-tied-to-this-project-s-skills.md`, `spec@plans@path-quickfixes` |
@@ -701,10 +698,12 @@ crate (recommended for isolation/independence). Or the other way, if crate count
 the intermediate one is a crate, the other components are modules of it. I think this is the right
 shape, with the right amount of leeway to organize the layout conveniently." Shape: the head of
 absence of #no-intermediate-component, argued from the definition. Outcome: the design discussion
-on the rules for Components kept the lead's definition and its first shape, ruled out its second,
-an intermediate Component that is a crate whose nested Components are modules, on the owner's
-choice to keep the goal as it stands, and dropped the module-directory Component on the owner's
-proposal; recorded in `design@agent-skills@intermediate-component-occasion` and
+on the rules for Components kept the lead's definition and its first shape, made precise as a
+principle several Components follow as one part of the project, and neither every Component nor
+every Component of a kind; it ruled out the lead's second shape, an intermediate Component that is a
+crate whose nested Components are modules, since its crate root holds Rust code and an interface
+and every dependency of one module reaches every consumer of the crate, the owner choosing to keep
+the goal as it stands; and it dropped the module-directory Component on the owner's proposal; recorded in `design@agent-skills@intermediate-component-occasion` and
 `design@agent-skills@component-crate-mapping`, with `rejected@agent-skills@module-directory-component`.
 
 ### The dependencies that span several Components are the root design home's; a rule that one crate depends on no other may be that crate's `##dependency-layout-home`
@@ -722,8 +721,10 @@ this can belong to the individual crate. Since it does not bear on the design of
 (because it rules out the dependency, it creates less constraints for the other)." Shape: the
 harvest rows of #model-crate and #query-crate stand, each a rule that its crate depends on no crate
 of the checks, which the lead admits in that crate's home. Outcome: the design discussion on the
-rules for Components kept the lead, the test being what the decision constrains, and the owner chose
-the root over the lowest Component enclosing the Components a decision constrains; recorded in
+rules for Components kept the lead, the test being what the decision constrains, and settled its
+"may" as "is": a rule that one Component does not depend on another is that Component's, since its
+rival, the rule in the root, would be loaded by every session reading the root's design home. The
+owner chose the root over the lowest Component enclosing the Components a decision constrains; recorded in
 `design@agent-skills@dependency-decision-home`, stated by points 1 and 4 of
 `skill@knowledge-architect-decision-recording@owning-component`.
 
