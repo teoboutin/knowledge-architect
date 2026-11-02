@@ -10,7 +10,7 @@ The first slice of `milestone@plans@component-split`. It leaves when it lands.
 - `path@elsewhere@crates/core/src/git.rs` moved into it whole, as `path@git@src/git.rs`. Its public API, through a facade in its lib.rs, is
   every item the core calls today, counted with
   `grep -rn 'git::' crates/core/src --include=*.rs | grep -v 'src/git.rs'`: the builder
-  `git` and the type `Invocation` with its methods; `inside_work_tree`, `ignores`,
+  `git` and the type `Invocation` with the methods the core calls, `args`, `accept` and `output`; `inside_work_tree`, `ignores`,
   `init_repository`; the listings `entries`, `tracked_and_ignored`, `unmerged`,
   `index_differs_from_head`; the ignore batch `ignore_query` and `ignored`; `last_changed`,
   `rev_list`, `rev_parse`, `main_worktree_path`; the snapshot readers `Source`, `SnapshotEntry`,
@@ -68,7 +68,8 @@ intermediate trees do not compile.
 - **The core's tests and the binary's tests pass with no change but what the crate boundary
   forces.** Test: `cargo test --workspace`, and a recorded mutation of a moved function's
   behaviour fails a test of the core. The core names the crate `crate::git`, so no import path
-  changes. The diff of the test files is three changes, each forced: a unit test of the core reads a
+  changes. Beside the new test of the next claim and the references re-pointed in their comments,
+the diff of the test files is three changes, each forced: a unit test of the core reads a
   snapshot entry's path through `SnapshotEntry::entry`, since the field is the crate's; and the two
   binary tests that assert what the binary prints about its linked crates name the `git` crate,
   which the binary now lists, per `design@core@checker-source-literals-are-data` and
@@ -86,8 +87,9 @@ crate; the git heads the milestone document lists as moving whole, with
 `design@core@git-supplies-the-walk`, `design@core@links-are-no-documents` and
 `design@core@staged-tree-source`, which stay with the walk and the snapshot's assembly, and
 `tripwire@core@walked-count-differs-between-machines`, which stays with the walk;
-`issue@git@index-staged-clears-an-entrys-flags` and
-`issue@git@the-walk-does-not-report-what-the-per-clone-exclude-file-removes`, re-anchored;
+`issue@git@index-staged-clears-an-entrys-flags`, re-anchored, and
+`issue@core@the-walk-does-not-report-what-the-per-clone-exclude-file-removes`, which stays with
+the walk, since the check it asks for runs at the walk;
 `path@xtask@tests/checkout.rs`, which asserts the checkout tie of every target.
 
 ## Fails alone on
@@ -115,7 +117,7 @@ puts the checker's parsers into the rewriting crate's build.
 1. Create the Component and move the module behind its facade, the core depending on it.
 2. Move into `git`'s homes the heads the milestone document lists as moving whole, with
    `design@git@git-is-asked-through-one-module` rewritten, `rejected@git@every-git-variable-dropped`,
-   and the two issues above.
+   and the first of the two issues above.
 3. The head of absence, `design@knowledge-architect@installed-text-crate` and the publish order.
 4. The harvest.
 

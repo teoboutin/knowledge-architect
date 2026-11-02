@@ -25,13 +25,14 @@ and crates/cli. The cost: a reference says `core` where cargo says `-p knowledge
 The design this decision did not keep:
 `rejected@knowledge-architect@crate-directory-named-after-project`.
 
-### The installed text lives in its own crate, which the checker depends on `##installed-text-crate`
+### The installed text lives in its own crate, which the crate holding the installed-file check depends on `##installed-text-crate`
 
 The skills, subagent definitions and primer that the checker installs are a separate package,
-`knowledge-architect-agent-skills`, in crates/agent-skills. The checker depends on it by path and by
-exact version. A package ships only the files under its own directory, so text embedded with
-`include_str!` must sit inside a package; giving the text a crate of its own keeps it a component
-of its own, with its own design home, rather than a part of the core.
+`knowledge-architect-agent-skills`, in crates/agent-skills. The crate holding the check of the
+installed files depends on it by path and by exact version. A package ships only the files under
+its own directory, so text embedded with `include_str!` must sit inside a package; giving the text
+a crate of its own keeps it a component of its own, with its own design home, rather than a part
+of the checker.
 
 A user names only `knowledge-architect`, and cargo fetches every other crate it depends on, this
 one included. All of them are published together, at one version, per
@@ -39,17 +40,27 @@ one included. All of them are published together, at one version, per
 
 The design this decision did not keep: `rejected@knowledge-architect@single-published-package`.
 
+### Git is wrapped by a crate of its own, which the checker depends on, rather than by a module of the checker `##git-crate`
+
+Every git invocation of the checker's library is a function of `knowledge-architect-git`, in
+crates/git, which the checker depends on by path and by exact version, per
+`design@knowledge-architect@version-lockstep`. The crate's interface changes for reasons of its
+own: a git question or a git version that another tool needs and the checker does not. It takes
+decisions of its own, `register@git@design`. And a tool that rewrites a branch's history depends
+on it alone. It serves `goal@git@a-pure-wrapper-over-git`. The nearest rival, the checker's git
+module made public, puts the checker's own dependencies into the build of every tool that needs
+git: `rejected@knowledge-architect@git-module-made-public`.
+
 ### No intermediate Component groups the checker's Components or the installed text's `##no-intermediate-component`
 
 The Components of the checker and of the text it installs sit beside one another under crates/,
 with no intermediate Component above any group of them. An intermediate Component holds the design
 that several nested Components share and the rest of the project does not, and holds no code of
 its own, per `skill@knowledge-architect-component-creation@component-criteria`; a group with no
-such design gives one nothing to hold. Every grouping of these Components shares design that one of
-its members already holds, or shares none: the checker with the commands that read its model, its
-rendering and its project creation share the design of the model, which the Component holding the
-model holds; the installed text with the machinery that builds and installs it shares nothing the
-machinery does not hold. It serves `goal@knowledge-architect@projects-are-split-into-components`.
+such design gives one nothing to hold. Each grouping of these Components that was weighed shares
+design that one of its members already holds, or shares none: a group of the checker's crates
+shares the design of the checker's model, which the crate holding the model holds; the installed
+text grouped with the crate that installs it shares nothing that crate does not hold. It serves `goal@knowledge-architect@projects-are-split-into-components`.
 A design several of these Components come to share, which none of them holds, reopens it.
 
 ### The hand mutation is a published crate of its own, which a project's maintenance crate depends on, and no crate of the checker or the gates links `##mutation-command-host`

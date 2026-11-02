@@ -1,22 +1,12 @@
-//! Every git invocation the checker makes, in one module.
+//! Every git invocation of the library, in one module, per
+//! `design@git@git-is-asked-through-one-module`.
 //!
-//! **Git is the walk.** What the checker reads is what `git ls-files` reports from the manifest's
-//! directory, so a nested `.gitignore` is honoured, every pattern git honours is honoured, and no
-//! ignore rule can take a file git tracks out of the walk. The hand-rolled matcher this replaced could do
-//! none of the three, per `design@core@git-supplies-the-walk`.
+//! **A git failure is an error carrying git's reason, never an empty answer**, for every
+//! invocation a caller's verdict depends on, per `design@git@failed-git-is-an-error`.
 //!
-//! **One module owns the process boundary.** A check is a pure function over the model and may
-//! spawn nothing, so every call here is made by the caller that builds the model or prints a
-//! listing. Keeping them together is what makes the set of things the checker asks git
-//! auditable in one read.
-//!
-//! **A git failure is an error carrying git's reason, never an empty answer.** No `git` on the
-//! path and a directory that is not inside a worktree both produce an error naming what was run
-//! and where. Silence would report a project with no documents as a clean one, which is the
-//! failure class the checker exists to prevent.
-//!
-//! Every invocation runs with the project root as its working directory and asks for `-z`
-//! output, so the paths that come back are project-relative and hold no escaping.
+//! Every invocation runs with the directory it is given as its working directory, and every
+//! listing asks for `-z` output, so the paths it returns are relative to that directory and hold
+//! no escaping, per `design@git@a-path-is-bytes`.
 
 use std::collections::{BTreeMap, HashSet};
 use std::ffi::{OsStr, OsString};
@@ -97,6 +87,7 @@ pub fn git(root: &Path) -> Invocation {
 }
 
 impl Invocation {
+    /// Add arguments after the ones every invocation carries, in order.
     pub fn args<I, S>(mut self, args: I) -> Self
     where
         I: IntoIterator<Item = S>,
@@ -127,8 +118,7 @@ impl Invocation {
     /// Run it, and give back stdout.
     ///
     /// The two failures a caller must be able to tell apart from an empty answer are named in
-    /// the error: git is not there, or git refused. Both are an `Err`, which the checker's
-    /// commands report as exit 2.
+    /// the error: git is not there, or git refused. Both are an `Err`.
     pub fn output(self) -> io::Result<Vec<u8>> {
         self.run().map(|(_, stdout)| stdout)
     }
@@ -150,7 +140,7 @@ impl Invocation {
             // another. What still decides the walk is the tree's own ignore files and git's
             // per-clone exclude file, which git offers no way to pin, and that is what
             // `tripwire@core@walked-count-differs-between-machines` guards until
-            // `issue@git@the-walk-does-not-report-what-the-per-clone-exclude-file-removes` adds
+            // `issue@core@the-walk-does-not-report-what-the-per-clone-exclude-file-removes` adds
             // the check that reports what it removes. The decision is
             // `design@git@per-user-ignore-file-pinned`.
             .args(["-c", "core.excludesFile=/dev/null"])
@@ -296,7 +286,8 @@ fn nul_strings(bytes: &[u8]) -> Vec<String> {
 /// repository, under which the listing never descends.
 #[derive(Clone, Copy, Debug, PartialEq, Eq)]
 pub enum EntryKind {
-    /// A regular file, the one kind a walk reads as a document.
+    /// Every entry whose mode marks neither a symlink nor a gitlink, a regular file most often;
+    /// an untracked entry that is no symlink, a nested repository's directory included.
     File,
     /// A symlink, mode `120000`.
     Symlink,
@@ -323,7 +314,7 @@ pub struct Entry {
 /// This is the walk's source. `--cached` is unaffected by the ignore rules, which is why a
 /// tracked file cannot leave the walk however the ignore rules are written; `--exclude-standard`
 /// applies them to `--others` alone, which is where build output and on-demand directories are
-/// dropped. Every remaining exclusion is the manifest's, and `walk::live_files` applies it.
+/// dropped. Any other exclusion is the caller's to apply.
 ///
 /// The second list is the untracked part, `--others`, so a report can say which of its files
 /// git does not track. A file staged and never committed is tracked, and is not in it.
@@ -538,7 +529,8 @@ pub fn main_worktree_path(root: &Path) -> Option<PathBuf> {
 ///
 /// A missing revision is an answer rather than a failure here: the caller asks whether HEAD is
 /// in a range and whether a commit has a first parent, and a root commit having none is
-/// ordinary. Every other git failure still reaches the caller as an error.
+/// ordinary. Every other git failure answers `None` too, which its contract does not intend, per
+/// `issue@git@rev-parse-answers-none-for-every-git-failure`.
 pub fn rev_parse(root: &Path, expression: &str) -> Option<String> {
     let out = git(root)
         .args(["rev-parse", "--verify", "--quiet", expression])
@@ -561,8 +553,9 @@ pub enum Source<'a> {
     Commit(&'a str),
 }
 
-/// One entry of a snapshot's listing: the path and kind a walk reads, and the mode and blob id
-/// the snapshot records for it.
+/// One entry of a snapshot's listing, whose path and kind [`SnapshotEntry::entry`] gives. The
+/// mode and the blob id the snapshot records for it stay inside the crate, which no caller has
+/// needed.
 #[derive(Clone, Debug, PartialEq, Eq)]
 pub struct SnapshotEntry {
     pub(crate) rel: PathBuf,
@@ -873,10 +866,9 @@ mod object_naming {
 /// **One `cat-file --batch`, not one process per file.** A tree of a thousand documents would
 /// otherwise spawn a thousand processes at every commit in the range. A path the tree does not
 /// hold contributes no entry rather than failing: the caller derives its request list from a
-/// listing, and a race between the two is not worth an exit 2.
+/// listing, and a race between the two is not worth a failure.
 ///
-/// A blob whose bytes are not UTF-8 contributes no entry either, for the reason
-/// `Model::build` keeps an unreadable file as an empty document: a lossy decoding produces
+/// A blob whose bytes are not UTF-8 contributes no entry either: a lossy decoding produces
 /// text nobody wrote. The caller sees the absence and reports it. [`blob_bytes`] answers the
 /// bytes whatever they are.
 pub fn blobs(
@@ -1038,6 +1030,22 @@ mod tests {
         let e = entries(&dir).expect_err("not a worktree").to_string();
         assert!(e.contains("ls-files"), "{e}");
         assert!(e.to_lowercase().contains("not a git repository"), "{e}");
+        let _ = std::fs::remove_dir_all(&dir);
+    }
+
+    /// The claim: in the main working tree there is no other checkout to point at, so the answer
+    /// is `None`, in its top and in a directory below it, and never the directory itself.
+    #[test]
+    fn the_main_working_tree_has_no_main_worktree_path() {
+        let dir = std::env::temp_dir().join(format!(
+            "knowledge-git-main-worktree-{}",
+            std::process::id()
+        ));
+        let _ = std::fs::remove_dir_all(&dir);
+        std::fs::create_dir_all(dir.join("sub")).expect("a temporary directory");
+        init_repository(&dir).expect("git init");
+        assert_eq!(main_worktree_path(&dir), None);
+        assert_eq!(main_worktree_path(&dir.join("sub")), None);
         let _ = std::fs::remove_dir_all(&dir);
     }
 

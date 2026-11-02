@@ -293,7 +293,7 @@ fn the_core_binary_passes_over_a_project_that_declares_only_what_the_core_reads(
 /// per `design@core@checker-source-literals-are-data`. Over this checkout the summary names both
 /// directories and counts their walked Rust files, whatever the run finds.
 #[test]
-fn the_core_binary_names_its_own_directory_and_counts_the_files_under_it() {
+fn the_core_binary_names_the_checker_s_directories_and_counts_the_files_under_them() {
     let checkout = Path::new(env!("CARGO_MANIFEST_DIR"))
         .ancestors()
         .nth(2)

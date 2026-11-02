@@ -22,13 +22,16 @@ can depend on it directly to run git with the same environment; its interface is
 
 ## What it needs and guarantees
 
-- **`git` 2.36 or newer on the path**: a commit's tree is read with `cat-file --batch -z`.
-- **A project inside a git worktree**, whose `.git` sits at or above the directory it is given.
+- **`git` 2.36 or newer on the path** to read blobs: they are read with `cat-file --batch -z`.
+- **A project inside a git worktree**, whose `.git` sits at or above the directory it is given,
+  for every question but whether a directory is inside one and the creation of a repository.
 - **Every invocation runs from the directory it is given**, with the per-user ignore file pointed at
   the null device, without the variables that point git at another repository, and with
   `GIT_INDEX_FILE` kept, so a pre-commit hook reads the index its commit records.
-- **A failure is an `Err` carrying what was run and git's reason, never an empty answer.** The one
-  exception is the dates of a listing's last change, which degrade to no date.
-- **A path is git's bytes**, never decoded.
+- **A failure of an invocation a verdict depends on, such as a listing, is an `Err` carrying
+  what was run and git's reason, never an empty answer.** The dates of a listing's last change
+  and the main worktree's path answer nothing where git cannot say, since no verdict depends on
+  them.
+- **A path in a listing is git's bytes**, never decoded.
 
 Why it is shaped this way is `register@git@design`.
