@@ -101,5 +101,5 @@ milestone document.
 
 | what | where |
 | --- | --- |
-| #model-crate | `model`'s design home: the moved heads; `design@core@model-then-checks` and `design@core@an-extension-plugs-in-through-phased-hooks` rewritten for the two crates; `design@core@phases-gate-the-report` rewritten for the crate that runs phases 1 to 3; `design@core@inputs-are-gathered` rewritten for the two gatherings, one in each crate |
+| #model-crate | `model`'s design home: the moved heads; `design@core@model-then-checks` and `design@core@an-extension-plugs-in-through-phased-hooks` rewritten for the two crates, the part saying that `check` depends on `model` in the root's design home, per the milestone document's harvest; `design@core@phases-gate-the-report` rewritten for the crate that runs phases 1 to 3; `design@core@inputs-are-gathered` rewritten for the two gatherings, one in each crate |
 | premortem C1 | its claim above |

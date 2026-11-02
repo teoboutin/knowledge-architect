@@ -22,8 +22,10 @@ The fourth slice of `milestone@plans@component-split`. It leaves when it lands.
   and `path@core@tests/extension_api.rs` moved to `cli` too, since it drives `cli`'s entry; both run
   over the mock projects of the core's directory, which `cli`'s binary links, so `"fixture"` stays
   accepted for them. `check` dev-depends on nothing above it.
-- The successor of `design@core@single-crate`, in the incumbent's Component, `check`, in this
-  slice's change, by the installed rule of the reversal.
+- The successor of `design@core@single-crate`, in the root's design home, in this slice's change: a
+  decision about which Components exist and how they depend on each other, per point 1 of
+  `skill@knowledge-architect-decision-recording@owning-component`, where the reversal rule sends a
+  successor; `design@core@single-crate` leaves the design home of `check` in the same change.
 
 ## Claims
 
@@ -50,9 +52,9 @@ The fourth slice of `milestone@plans@component-split`. It leaves when it lands.
 core's" is rewritten; `design@mutate@report-not-gate`, whose clause on the core's commands is
 rewritten; `design@knowledge-architect@no-component-directory-named-after-the-project`;
 `rejected@gates@gates-command-of-the-checker`; `design@agent-skills@xtask-pins-checker` and the
-setup snippets, whose dependency line stays; `issue@knowledge-architect@command-output-is-not-declared-a-contract`;
-`issue@agent-skills@the-reversal-rule-fixes-the-component-when-the-successor-decides-another-s-interface`,
-which this slice leaves open. Each reference naming the anchor `core` here names the entry as this
+setup snippets, whose dependency line stays; `issue@knowledge-architect@command-output-is-not-declared-a-contract`.
+The issue `the-reversal-rule-fixes-the-component-when-the-successor-decides-another-s-interface`,
+closed by the revision of the rules on Components, gave this slice its successor's Component. Each reference naming the anchor `core` here names the entry as this
 document is written; #check-renamed re-points them.
 
 ## Fails alone on
@@ -98,13 +100,13 @@ alternative of the milestone document.
    mechanism alone.
 2. Create `cli`, move the binary, the enum and the declarations; rename the packages.
 3. Move the binary's tests.
-4. The reversal's successor in `check`, and the heads rewritten.
+4. The reversal's successor in the root's design home, and the heads rewritten.
 5. The harvest.
 
 ## Harvest
 
 | what | where |
 | --- | --- |
-| #cli-crate | the successor of `design@core@single-crate` in `check`'s design home, and the reversed decision judged for the `rejected` home by `skill@knowledge-architect-decision-recording@reversal-check`; `cli`'s design home: `design@core@the-core-cli-is-a-library-module` under a new slug, `design@core@exit-code-ladder`, `design@core@a-foreign-build-is-refused`'s list, `design@core@installed-binary-version-check`, `design@core@checker-source-literals-are-data`'s list of directories, `design@core@nothing-of-a-project-is-compiled-in`'s list, moved or rewritten for `cli`; `design@gates@the-library-owns-the-flags`, `design@mutate@report-not-gate` and `design@knowledge-architect@no-component-directory-named-after-the-project`, each clause rewritten |
+| #cli-crate | the successor of `design@core@single-crate` in the root's design home, and the reversed decision judged for the `rejected` home by `skill@knowledge-architect-decision-recording@reversal-check`; `cli`'s design home: `design@core@the-core-cli-is-a-library-module` under a new slug, `design@core@exit-code-ladder`, `design@core@a-foreign-build-is-refused`'s list, `design@core@installed-binary-version-check`, `design@core@checker-source-literals-are-data`'s list of directories, `design@core@nothing-of-a-project-is-compiled-in`'s list, moved or rewritten for `cli`; `design@gates@the-library-owns-the-flags`, `design@mutate@report-not-gate` and `design@knowledge-architect@no-component-directory-named-after-the-project`, each clause rewritten |
 | #command-parsing-home | `cli`'s head on its parsing, and the two heads of `register@agent-skills@design` on the top-level binary crate and on the crate nearest the binaries that parses a command, which the component-creation skill states alone today in two comment lines, `cli`'s head citing them, and `design@core@arguments-parse-through-clap` rewritten; P2 judged as a losing alternative |
 | premortem C3 | its claim above |

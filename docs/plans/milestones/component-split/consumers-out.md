@@ -83,5 +83,5 @@ ground of `design@core@single-crate`, which #cli-on-top reversed.
 | what | where |
 | --- | --- |
 | #query-crate | `query`'s design home: the worklist heads and those of the commands it holds |
-| #transcript-crate | `transcript`'s design home: the transcript heads, `design@core@transcript-command-in-core` rewritten under a new slug |
+| #transcript-crate | `transcript`'s design home: the transcript heads, and the successor of `design@core@transcript-command-in-core` under a new slug, its part saying that the reader is a crate of its own that `cli` depends on in the root's design home, per the milestone document's harvest |
 | #create-crate | `create`'s design home: the heads of creating |

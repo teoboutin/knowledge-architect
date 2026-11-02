@@ -372,9 +372,10 @@ meets it.
 ### A reversal
 
 **Ask this first, because the answer decides everything else the recording does.** A decision routed by what it
-_is_ lands in the Component that fits its subject. A decision that reverses a recorded one belongs
-where the incumbent already lives, whatever the subject test would say. Get the order wrong and the
-tree ends with two homes for one question, the old one still asserting what the new one denies.
+_is_ lands in the Component that fits its subject. A decision that reverses a recorded one lands
+there too, and the incumbent leaves its home in the same change. Get the order wrong, routing the
+new decision before searching for the one it replaces, and the tree ends with two homes for one
+question, the old one still asserting what the new one denies.
 
 **Search for the statement you are about to replace, not for a slug.** The slug you would look for
 is the one you have not written yet, and the incumbent's own name is rarely the words you are
@@ -386,17 +387,19 @@ searched and what it returned. A search that returned nothing is a finding worth
 **If nothing holds it, carry on to the entry tests of `primer@design-heads`.** If something does, do all of the following, in the same
 change:
 
-- **The Component is the incumbent's.** The test of `skill@knowledge-architect-decision-recording@owning-component` is not asked again. If the incumbent looks misfiled, that is a separate change with its
-  own argument.
+- **The Component is the one `skill@knowledge-architect-decision-recording@owning-component` gives
+  the successor**, whether or not it is the incumbent's. Where it is another Component, the
+  successor is written there as a new head, and the incumbent's head is removed from its home in
+  this change, so no commit holds two homes for one question.
 - **It earns durable text whatever the entry tests of `primer@design-heads` say.** The
   incumbent's head now states something false, so the minimum is rewriting it. The entry tests
   decide whether a _new_ decision earns an entry, not whether a false one may stand.
-- **Rewrite the head in place** (`skill@knowledge-architect-decision-recording@current-design`), and give the new statement its own slug when it is a new
+- **Rewrite the head in place** where the Component is the incumbent's (`skill@knowledge-architect-decision-recording@current-design`), and give the new statement its own slug when it is a new
   statement. Keep the old slug only where it still names the same decision. The slug and the
   title stay aligned with the full scope of the decision, per `skill@knowledge-architect-decision-recording@head-shape`. A rename is
   cheap, and the checker lists every reference it leaves dangling in the files it reads, per
   `primer@where-knowledge-goes`.
-- **Move the incumbent into the Component's `register@*@rejected`** (`skill@knowledge-architect-decision-recording@losing-alternatives`) with its reason and a
+- **Move the incumbent into the `register@*@rejected` of the successor's Component** (`skill@knowledge-architect-decision-recording@losing-alternatives`) with its reason and a
   validity marker, stated as strongly as it was originally made, if it meets one of the tests of `skill@knowledge-architect-decision-recording@losing-alternatives`, and cite it from the new head.
 - **Argue it under `skill@knowledge-architect-design` first**, if it was not: a reversal contradicts
   a statement of the incumbent, the second case of the backstop of `primer@design-heads`.
