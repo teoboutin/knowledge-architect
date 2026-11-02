@@ -14,6 +14,7 @@ The repository is a virtual workspace with Components:
 | --- | --- | --- |
 | `knowledge-architect` | the root | the project itself |
 | `core` | crates/core | package `knowledge-architect`: the checker library and the binary `klarch` |
+| `git` | crates/git | package `knowledge-architect-git`: every git invocation of the checker, the walk's listing and the readers of git's objects |
 | `agent-skills` | crates/agent-skills | package `knowledge-architect-agent-skills`: the text the checker installs into a project |
 | `gates` | crates/gates | package `knowledge-architect-gates`: the library that runs a project's merge gates |
 | `mutate` | crates/mutate | package `knowledge-architect-mutate`: the library of the hand mutation, `cargo x mutate` |

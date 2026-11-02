@@ -25,7 +25,7 @@ and crates/cli. The cost: a reference says `core` where cargo says `-p knowledge
 The design this decision did not keep:
 `rejected@knowledge-architect@crate-directory-named-after-project`.
 
-### The installed text lives in its own crate, which the checker depends on `##two-crates`
+### The installed text lives in its own crate, which the checker depends on `##installed-text-crate`
 
 The skills, subagent definitions and primer that the checker installs are a separate package,
 `knowledge-architect-agent-skills`, in crates/agent-skills. The checker depends on it by path and by
@@ -33,8 +33,9 @@ exact version. A package ships only the files under its own directory, so text e
 `include_str!` must sit inside a package; giving the text a crate of its own keeps it a component
 of its own, with its own design home, rather than a part of the core.
 
-A user names only `knowledge-architect`, and cargo fetches the other. The two are published
-together, at one version.
+A user names only `knowledge-architect`, and cargo fetches every other crate it depends on, this
+one included. All of them are published together, at one version, per
+`design@knowledge-architect@version-lockstep`.
 
 The design this decision did not keep: `rejected@knowledge-architect@single-published-package`.
 
@@ -353,11 +354,11 @@ release skill stops a release that would need it.
 
 ### A publish that stopped part-way is completed by re-running the job, which skips a version crates.io already holds `##partial-publish-rerun`
 
-The publish job publishes the crates one at a time, agent-skills before the core, which depends on
-it, and skips a crate when crates.io's API already returns the version. A re-run of the failed job
-runs on the same commit and tag, so it publishes only what is missing, and a release that stopped
-part-way completes with no change to the code and no new tag. The nearest rival, one
-`cargo publish --workspace`, cannot be re-run that way: its `--help` under the pinned toolchain
+The publish job publishes the crates one at a time, each before the crates that depend on it, the
+`git` crate and agent-skills before the core, and skips a crate when crates.io's API already
+returns the version. A re-run of the failed job runs on the same commit and tag, so it publishes
+only what is missing, and a release that stopped part-way completes with no change to the code
+and no new tag. The nearest rival, one `cargo publish --workspace`, cannot be re-run that way: its `--help` under the pinned toolchain
 lists no option that skips a version crates.io already holds, and `--exclude` names crates, which
 a re-run cannot change.
 
