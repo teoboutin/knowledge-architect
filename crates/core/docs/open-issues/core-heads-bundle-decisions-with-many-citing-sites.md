@@ -5,7 +5,8 @@ kind: design
 
 ## Summary
 
-Five heads of `register@core@design` each hold two or more decisions whose nearest rivals
+Four heads of `register@core@design` each hold, and a fifth that
+`spec@component-split@check-renamed` schedules held, two or more decisions whose nearest rivals
 differ, against `design@agent-skills@one-decision-per-head`. The first run of the design-record
 axis on this repository found three, and a branch's review two more; each was left unsplit because
 a split must first read every site that cites the head, 7 to 33 sites per head, to re-point each
@@ -48,13 +49,8 @@ the first run of the design-record axis counted 20, 23, 26 and 31 for the four h
 
   `issue@core@a-message-lint-is-deduplicated-in-one-tree-only` cites the head for the fourth
   decision.
-- `design@core@owned-namespace-check`, 33 citing sites. Its title is joined by "and" over two
-  decisions whose arguments share no premise:
-  - the installed agent files are committed, so that a session started from a fresh clone has
-    them, which serves `goal@knowledge-architect@agents-get-a-complete-workflow`; its rival is
-    installing on demand;
-  - the installed files are checked byte for byte in a namespace the installer owns, ownership
-    decided by a name; its rivals are a record of installed files and a digest.
+A third head the run found bundled, `design@core@owned-namespace-check`, is split by
+`spec@component-split@check-renamed`, which schedules it, so it is listed there and not here.
 
 The second pass of that run reworded a sentence of `design@core@a-commit-message-is-a-document`
 into the present tense and left its bundle, so that head is a change's touched head left short of
@@ -76,7 +72,7 @@ Two more, found by the decision-record reviewer of the review before the merge o
 **Suspected mechanism**: each head grew by appending a bold paragraph for a decision argued later
 in the same subject, and a citing site then cited the head for whichever paragraph it needed.
 
-**The re-entry point**: the next change that touches one of the five heads, in a branch other than
+**The re-entry point**: the next change that touches one of the four heads, in a branch other than
 the one that opened this entry, which `design@agent-skills@existing-heads-on-touch` brings to the
 rules on heads; or the next run of the design-record axis of
 `skill@knowledge-architect-project-audit`.
@@ -94,7 +90,7 @@ against `goal@knowledge-architect@design-is-recorded-with-its-arguments`.
 
 ### What would close it
 
-Each of the five splits applied: one head per decision, its text moved unchanged except the minimum
+Each of the four splits applied: one head per decision, its text moved unchanged except the minimum
 to read alone, and every site `cargo klarch show` lists for the head read and re-pointed to the head
 of the part it cites, the sites outside `path@core@docs/` included. A head whose split the owner
 rules out instead closes its part of this entry with that ruling, recorded in the closing commit.

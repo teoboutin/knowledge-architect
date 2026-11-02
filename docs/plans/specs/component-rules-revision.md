@@ -122,13 +122,8 @@ Outside this work:
 | `design@agent-skills@component-crate-mapping` | #usable-alone-one-direction, #cycle-from-a-reversible-decision | the component-creation skill's `%%` line in `skill@knowledge-architect-component-creation@component-crates`, edited by step 2; `path@agent-skills@docs/grounding/crate-boundaries.md`, read at step 2 and left unchanged, since it records Cargo's rules |
 | `design@agent-skills@component-split-signals` | #expected-changes-from-goals | the skill's `%%` line in `skill@knowledge-architect-component-creation@split-signals`, step 1 |
 | `design@agent-skills@shared-test-component` | #test-component-public-api | the skill's `%%` line in `skill@knowledge-architect-component-creation@component-shapes`, step 3; `path@agent-skills@docs/grounding/crate-boundaries.md`, read at step 3 |
-| `design@agent-skills@default-code-shape` | #test-through-public-api | the four design-home citations `cargo klarch show` lists, the fragment's own `%%` line, and `tripwire@agent-skills@shape-findings-fragment-code`, which cites it twice, read at step 4; the tripwire is unchanged in scope |
-
-`design@agent-skills@test-economy` is read at step 4 and not rewritten: a test's kind, and the
-mutation evidence it owes, are decided by what it exercises, and an integrated test names how it
-drives the code, so an integrated test of a claim of logic owes the recorded mutation a test of
-logic owes. `tripwire@agent-skills@logic-tests-relabelled`, whose title already names "integration",
-watches a test of logic called another kind to skip its mutation; the premortem names it.
+| `design@agent-skills@default-code-shape` | #test-through-public-api, for the property it lists, which cites the new head | its design-home citations in `path@agent-skills@docs/design/components.md`, `path@agent-skills@docs/design/development.md`, `path@agent-skills@docs/design/reviews.md` and `path@agent-skills@docs/design/shipped-set.md`, the fragment's own `%%` line, and `tripwire@agent-skills@shape-findings-fragment-code`, which cites it twice, read at step 4; the tripwire is unchanged in scope |
+| `design@agent-skills@test-economy` | #test-through-public-api | its sentence "for a golden test, a test with heavy mocks or a nondeterministic one the writer picks the evidence" gains that a test's kind is decided by what it exercises, so a test of logic run in a mock environment, or through the public API, owes its mutation; citing texts: `agent@knowledge-architect-code-shape-reviewer`'s source, `path@agent-skills@docs/design/reviews.md`, the fragment, and `tripwire@agent-skills@logic-tests-relabelled`, which cites it twice, read at step 4; the harvest judges whether the tripwire's firing clause, which names golden, mocked or external, names the integrated test |
 
 **The discussion's record search** graded 193 entries `bears` and 110 `may-bear`, for this spec and
 the milestone together, counted in the files its check assembled, which the tree does not hold. The entries that bear on this spec, with their outcome:
@@ -151,7 +146,7 @@ the milestone together, counted in the files its check assembled, which the tree
   `goal@knowledge-architect@generic-tools-and-procedures-are-shipped`: the text names no convention
   of this repository; "a crate that supports extensions publishes its test tools" is a default shape
   of the skill, no ask;
-- the four rewritten heads above, `design@agent-skills@test-economy`, and the decisions listed above
+- the five rewritten heads above and the decisions listed above
   as rested on;
 - `design@agent-skills@restatement-size-test` and `rejected@agent-skills@directive-restated-everywhere`:
   the fragment on when to split keeps one sentence of the signals, beside its pointer, and step 1
@@ -252,9 +247,10 @@ provided by other crates)". R5: "command-parsing-home I think your synthesis is 
 #arg-23, #arg-34, #arg-35, #arg-53, #arg-61, #arg-71, #arg-72, #arg-73, #arg-74, #arg-75, #arg-78,
 #arg-100. Shape: "Decided design". The thread holds two decisions, cut at the harvest: that
 commands sharing one purpose and one design are one Component, stated by the skill alone, takes a
-`%%` line; that a top-level binary crate parses each command in the lowest crate every binary
-offering it depends on is stated by the skill and by a head of the milestone's `cli` Component, so
-it takes a head of agent-skills, which `cli`'s head cites.
+`%%` line, since the `query` head the milestone harvests cites the skill rather than restating the
+rule; that a top-level binary crate holds a binary's interface, and parses each command in the
+lowest crate every binary offering it depends on, is stated by the skill and by a head of the
+milestone's `cli` Component, so it takes a head of agent-skills, which `cli`'s head cites.
 
 ### Being usable alone argues for a split, and not being usable alone argues nothing `##usable-alone-one-direction`
 
@@ -316,7 +312,9 @@ Arguments: #arg-37, #arg-39, #arg-57, #arg-62, #arg-63, #arg-79, #arg-83, #arg-8
 The arguments of the discussion that bear on this spec's threads, numbered as the discussion's
 extraction numbered them, so this spec and `milestone@plans@component-split` name one argument by
 one number; an argument that bears on neither document's threads alone appears in both. Each
-quotes its key words verbatim.
+quotes its key words verbatim. An argument's Threads line is the extraction's reading of the threads
+named when it was made; a thread's Arguments line, written at assembly, lists every argument that
+moved it, so the two lists need not match.
 
 ### A new register kind or a new reference form touches both, so almost every expected change would cross the (cut) `##arg-16`
 
@@ -739,7 +737,8 @@ for the rest it restates the interface's decisions in each domain crate (#arg-74
 **Shape.** The table row for a publishing project ends: "a crate that others could use alone is an
 argument for the split; a crate no one would use alone is no argument against it", and calls the
 weight minor, a lead: the owner's words, "This weight should be considered minor. It is mostly a
-lead" (#arg-36).
+lead" (#arg-36). The owner chose a minor weight over a weight equal to the default criteria, which
+no goal ranks.
 
 **Argument.** The owner's (#arg-36): it is a lead, and only in one direction. Read both ways, the
 row would keep a Component inside another on the ground that no one outside would use it, which no
@@ -868,9 +867,9 @@ the retrospective's standing question already watches.
    #commands-sharing-a-purpose and the domain criterion; `skill@knowledge-architect-component-creation@split-signals` the third signal's wording;
    the fragment on when to split its sentence. Claims: the installed copies of the skill, the design
    skill and the development skill state the same three signals; test: each installed copy, read
-   after `cargo klarch install-agent-skills`, holds the new wording of the third signal, and none the
-   old, `grep -n 'crosses the new boundary' .claude/skills/knowledge-architect-*/SKILL.md`; shown to
-   fail on the copies before the install. "Domain" is defined in the sentence that first uses it;
+   after `cargo klarch install-agent-skills`, holds the new clause of the third signal,
+   `grep -c 'the changes the goals already predict' .claude/skills/knowledge-architect-component-creation/SKILL.md .claude/skills/knowledge-architect-design/SKILL.md .claude/skills/knowledge-architect-development/SKILL.md`
+   counting one in each file; shown to fail on the copies before the install, which count none. "Domain" is defined in the sentence that first uses it;
    test: the first sentence of the installed skill holding the word defines it, read. Fails alone on:
    a host of the fragment that states the old signal.
 2. **The crates.** `skill@knowledge-architect-component-creation@component-crates`: the usable-alone row and the cycle sentence. Claims: the
@@ -879,10 +878,13 @@ the retrospective's standing question already watches.
    against how usable each crate is alone" is gone, `grep -n 'how usable' .claude/skills/knowledge-architect-component-creation/SKILL.md`;
    shown to fail on the copy before the install. Fails alone on: the row still read both ways.
 3. **The shapes.** `skill@knowledge-architect-component-creation@component-shapes`: the shared test Component's bullet and the top-level binary
-   crate's bullet. Claims: the bullets name no crate of this repository, and the condition "without
-   depending on each other" is gone; test: `grep -n 'without depending on each other\|knowledge-architect-' `
-   over the installed section lists neither, the skill's own name aside; shown to fail on the copy
-   before the install. Fails alone on: the condition left.
+   crate's bullet. The bullet of the shared test Component defines "integrated test" in the sentence
+   that first uses it, in the words of the code-shape fragment. Claims: the bullets name no crate of
+   this repository, and the condition "without depending on each other" is gone; test: the
+   installed section, read, names no package of this repository, and
+   `grep -n 'without depending on each other' .claude/skills/knowledge-architect-component-creation/SKILL.md`
+   lists nothing; shown to fail on the copy before the install, which lists the condition. Fails
+   alone on: the condition left.
 4. **The code-shape fragment.** The integrated-test property and its table row. Claim: both hosts'
    installed copies hold it; test: `grep -ln 'integrated, through the public API' .claude/skills/knowledge-architect-development/SKILL.md .claude/agents/knowledge-architect-code-shape-reviewer.md`
    lists both files; shown to fail before the install. Fails alone on: the reviewer's copy without
@@ -907,9 +909,10 @@ None.
 | #cycle-from-a-reversible-decision, #usable-alone-one-direction | `design@agent-skills@component-crate-mapping`, rewritten in place | at the landing |
 | #expected-changes-from-goals | `design@agent-skills@component-split-signals`, rewritten | at the landing |
 | #test-component-public-api | `design@agent-skills@shared-test-component`, rewritten | at the landing |
-| #test-through-public-api | `design@agent-skills@default-code-shape`, rewritten | at the landing |
-| #commands-sharing-a-purpose, its first decision; #one-main-subject-per-component; the publication of the test tools, the second decision of #test-component-public-api | `%%` lines at their instructions, no head | at the landing |
-| #commands-sharing-a-purpose, its second decision: a command's arguments are parsed in the lowest crate every binary offering it depends on | a new head of `register@agent-skills@design`, in its subdocument on Components, which the `cli` head of `milestone@plans@component-split` cites | at the landing |
+| #test-through-public-api | a new head of `register@agent-skills@design`, in its subdocument on developing, for the guideline: it answers how an integrated test reaches the code, and loses to its own rival, every test through the public API; `design@agent-skills@default-code-shape` cites it for the property it lists, and `design@agent-skills@test-economy` is rewritten as the table above says | at the landing |
+| #commands-sharing-a-purpose, its first decision; #one-main-subject-per-component; the publication of the test tools, the second decision of #test-component-public-api, which the `testing` head the milestone harvests does not restate, since that head records this repository's choice of a crate, not the rule | `%%` lines at their instructions, no head | at the landing |
+| #commands-sharing-a-purpose, its second decision: a top-level binary crate holds a binary's interface, and a command's arguments are parsed in the lowest crate every binary offering it depends on | a new head of `register@agent-skills@design`, in its subdocument on Components, which the `cli` head of `milestone@plans@component-split` cites; its rivals, the binary inside a domain crate and P2, are each judged as a losing alternative | at the landing |
+| #cycle-from-a-reversible-decision | the title of `design@agent-skills@component-crate-mapping` narrowed: the module-directory exception holds where a crate of its own would force a publication or a cycle that no reversible decision causes | at the landing |
 | the losing alternatives | judged by `skill@knowledge-architect-decision-recording@losing-alternatives`; those that fail stay in this spec's history | at the landing |
 | the premortem's causes | judged by `skill@knowledge-architect-decision-recording@ruled-tripwires` | at the landing |
 | a CHANGELOG.md entry under Workflow, if a session watching would observe a new act | `Next release` | at the landing |
