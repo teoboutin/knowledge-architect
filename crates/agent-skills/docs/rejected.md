@@ -718,8 +718,8 @@ one-package project, which `design@agent-skills@maintenance-crate-ask` accepts.
 ### The design skill's record search run right after the first challenge `##search-after-the-first-challenge`
 
 `live`. The search ran at loop step 1 once the first shapes were drafted and challenged, before the
-first round, so its grades were taken against those shapes alone. In the discussion of
-`milestone@plans@development-and-components` the scope shifted and widened at least twice before the
+first round, so its grades were taken against those shapes alone. In the discussion that designed
+the development skill and the component skill, the scope shifted and widened at least twice before the
 search, on the owner's report, so a search at the first challenge would have graded the record
 against shapes the discussion later replaced, and needed one search more for each new subject. A
 doubt remains that a search held until the scope settles leaves the owner reading proposals that
