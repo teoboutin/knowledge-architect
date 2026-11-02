@@ -141,14 +141,9 @@ Component too.
    property a Component has whatever part of the project it belongs to, and can gain or lose
    without moving, such as being published or holding a binary.
 3. Does it shape how the code of each of several Components is written, and not every one: a design
-   principle they follow as one part of the project, neither stated for a kind nor about their
-   shape, packaging or layout? Then it belongs in the design home of the intermediate Component that
-   groups them, a Component whose own files hold no Rust code. The sets of Components that
-   intermediate Components group are each nested in, or apart from, every other such set, since a
-   Component sits under one directory; a principle whose Components cross the set of an existing
-   intermediate Component belongs in the root Component's design home, naming them. Where none
-   groups them, propose creating one under `skill@knowledge-architect-component-creation`; until
-   one is created, ask the owner where it goes.
+   principle they follow, neither stated for a kind nor about their shape, packaging or layout? Then
+   it belongs in the design home of the lowest Component enclosing them all: the intermediate
+   Component that groups them, whose own files hold no Rust code, or the root.
 4. Does it shape how a single Component is implemented, or its own interface, a rule that it does
    not depend on another Component included? Then it belongs in that Component's design home.
 

@@ -39,19 +39,16 @@ each command or subcommand in a module of its own: the test of two changes is ap
 Component, not to each command, since a change of their shared design touches every one of them,
 and a change to one command alone differs from the others only in subject and application.
 
-**An intermediate Component** groups the Components nested under its directory, and holds the
-design and the documents they share and the rest of the project does not. Its own files hold no
-Rust code, so it is no crate: each Component nested under it that holds Rust code is a crate of its
-own. A decision is design they share when it shapes how the code of each of them is written, as one
-part of the project: not a principle stated for every Component of a kind, such as every crate the
-project publishes, and not a decision about their shape, packaging or layout, which are the root's.
-It belongs in the design home of the intermediate Component that groups them; where none groups
-them, creating one is a creation this skill's procedure decides, and where their set crosses the set
-an existing intermediate Component groups, it belongs in the root's design home, as
-`skill@knowledge-architect-decision-recording@owning-component` says, since a Component sits under
-one directory. A decision about one Component's interface that the others consume is that
-Component's, and a decision about how Components depend on each other is not design they share:
-neither makes an intermediate Component.
+**An intermediate Component** groups the Components nested under its directory that together serve
+a purpose of their own, which the rest of the project does not serve: its goals home states that
+purpose, and their goals refine it, as `skill@knowledge-architect-goal-setting` says. It is created
+with that purpose, under the owner's ruling of goals, never because the Components share a
+principle. Its own files hold no Rust code, so it is no crate: each Component nested under it that
+holds Rust code is a crate of its own. A decision that shapes how the code of several Components is
+written belongs in the design home of the lowest Component enclosing them all, an intermediate
+Component or the root, as `skill@knowledge-architect-decision-recording@owning-component` says; a
+principle stated for every Component of a kind, such as every crate the project publishes, and a
+decision about their shape, packaging or layout, are the root's.
 
 Which Components exist, and a decision about how they depend on each other that constrains more than
 one of them, belong in the root's design home; a rule that one Component does not depend on another

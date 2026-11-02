@@ -89,67 +89,63 @@ reading of the third signal, against the changes of the history alone, lost on i
 use: the session that applied it counted past commits only, and kept in one Component two parts that
 the goals predicted would change apart, as new consumers of one part needing nothing of the other.
 
-### A principle on how the code of several Components is written, which they follow as one part of the project, is held by an intermediate Component that groups them `##intermediate-component-occasion`
+### An intermediate Component groups Components that serve a purpose of their own, and a decision binding several Components goes to the lowest Component enclosing them all `##intermediate-component-occasion`
 
-An intermediate Component groups the Components nested under its directory and holds the design they
-share as one part of the project: a decision that shapes how the code of each of them is written. Its
-own files hold no Rust code, per `goal@knowledge-architect@projects-are-split-into-components`, so it
-is no crate, and each Component nested under it that holds Rust code is a crate, per
-`design@agent-skills@component-crate-mapping`. Three decisions shared by several Components are the
-root's instead:
-
-- **A decision about their shape, packaging or layout**, as which Components exist and how they
-  depend on each other are, per `design@agent-skills@dependency-decision-home`, so that the layout
-  is read in one place; the owner's condition.
-- **A principle stated for every Component of a kind**: a property a Component has whatever part of
-  the project it belongs to, and can gain or lose without moving, such as being published. Grouping
-  the present members of a kind would bind the layout to the kind, every Component that gains it
-  moving under the group.
-- **A principle whose Components cross the set an existing intermediate Component groups.** A
-  Component sits under one directory, so the sets intermediate Components group are each nested in,
-  or apart from, every other; of two principles whose sets cross, at most one is held by an
-  intermediate Component, and where both groupings survive the default criteria the choice is the
-  owner's, under `skill@knowledge-architect-component-creation`. The owner raised the case.
-
-In these three cases the root's design home is loaded by sessions working outside the Components a
-decision binds, the cost an intermediate Component avoids; the session chose that cost over a layout
-bound to a kind or to one of two crossing groupings, which no goal ranks, and the owner approved it.
-
-Where several Components share a principle the rule sends to an intermediate Component and none
-groups them, the session proposes creating one under `skill@knowledge-architect-component-creation`,
-and asks the owner where the principle goes until one is created. A decision about one Component's
-interface that the others consume is that Component's. The component-creation skill states the
-occasion, and point 3 of the decision-recording skill's rule on the owning Component sends such a
-decision there. How a reading reaches the intermediate's design is
+An intermediate Component groups the Components nested under its directory that together serve a
+purpose the rest of the project does not serve: its goals home states that purpose, and their goals
+refine it. It is created with that purpose, under the owner's ruling of goals, never because the
+Components share a principle. Its own files hold no Rust code, per
+`goal@knowledge-architect@projects-are-split-into-components`, so it is no crate, and each Component
+nested under it that holds Rust code is a crate, per `design@agent-skills@component-crate-mapping`.
+A decision that shapes how the code of several Components is written goes to the design home of the
+lowest Component enclosing them all, an intermediate Component or the root. Two decisions binding
+several Components are the root's whatever encloses them: a decision on their shape, packaging or
+layout, as which Components exist and how they depend on each other, per
+`design@agent-skills@dependency-decision-home`, so that the layout is read in one place, the owner's
+condition; and a principle stated for every Component of a kind, a property a Component has whatever
+part of the project it belongs to and can gain or lose without moving, such as being published,
+since a Component anywhere in the tree can gain it. The component-creation skill states the
+occasion, point 3 of the decision-recording skill's rule on the owning Component places the
+decision, and the goal-setting skill has a nested Component's goal refine its intermediate
+Component's. How a reading reaches the intermediate's design is
 `design@agent-skills@enclosing-design-read-at-grounding`.
 
-The goal defines the intermediate Component by what it holds, and the owner proposed it as the one
-occasion of grouping. The rivals lost:
+The goals are the top of a Component, from which its design derives, and goals can be made to form a
+tree, the owner's argument; the directories follow that tree, so every set of Components has one
+lowest enclosing Component, and the same goals and the same decisions give the same homes, in
+whatever order they were met. Its costs: a decision in the lowest enclosing Component is loaded by
+the sessions of the other Components it encloses; and a change of purposes moves Components under or
+out of an intermediate Component, and with them the decisions whose lowest enclosing Component
+changes.
 
+The rivals lost:
+
+- **No intermediate Component, every decision binding several Components in the root's design
+  home.** It holds one shape fewer, and every principle shared by a subset is loaded by every
+  session, since every change to code reads the root's design home, per
+  `skill@knowledge-architect-development@ground-before-editing`, against the reason of
+  `goal@knowledge-architect@projects-are-split-into-components`, that each Component's design stays
+  small enough to read whole. The owner chose the intermediate Component by purpose over it, which
+  no goal ranks, to be judged when a project first needs one.
+- **An intermediate Component made where several Components share a principle**, whether the
+  principle whose set crosses an existing group goes to the root or the first principle met takes
+  the group. Principles need not form a tree, so two of them can name crossing sets that no two
+  directories hold, and the layout would depend on the order in which they were met, which the owner
+  refused.
+- **An intermediate Component made from a split**, a Component split into several becoming theirs.
+  The tree would follow the project's history rather than its purposes, the same dependence on order.
+- **An intermediate Component as a declared set of Components rather than a directory.** The owner
+  keeps each Component tied to the filesystem tree.
 - **Grouping by a count of Components beside one another.** A count gives the group no design to
   hold, while the group still owes every document and register home a Component carries, per
   `design@core@components-carry-the-same-documents`. A directory the manifest does not declare
   groups Components with no document, and moving a Component into it is one manifest edit, per
   `goal@core@relocation-is-one-manifest-edit`.
-- **Every principle shared by a subset in the root's design home, its scope stated.** Every change
-  to code reads the root's design home, per
-  `skill@knowledge-architect-development@ground-before-editing`, so such a principle is loaded by
-  every session working outside the Components it binds, against the reason of
-  `goal@knowledge-architect@projects-are-split-into-components`, that each Component's design stays
-  small enough to read whole. The three cases above keep that cost where an intermediate Component
-  would bind the layout.
-- **A shared principle left in the home of one member, or in the root's, at a session's judgement,
-  an intermediate Component made only when a session sees fit.** The principle then sits in a home
-  that no point of the rule on the owning Component gives it, unseen by every other member's
-  reading. The rule gives it the intermediate Component as its home, so a session proposes the
-  creation, and the owner places it only while the creation is pending.
 - **An intermediate Component that is a crate whose nested Components are its modules.** Its crate
   root holds Rust code, a public interface, a dependency list and a version, which the goal's
   definition excludes; and every dependency of one nested Component reaches every consumer of the
   crate, the fact `rejected@knowledge-architect@git-module-made-public` lost on. The owner chose to
   keep the goal as it stands.
-- **A dependency decision counted as shared design.** Every pair of dependent Components would call
-  for an intermediate Component of its own, the owner's argument.
 
 ### That a Component is bound by the design of every intermediate Component enclosing it is stated once, in the primer, for every reading of a design home `##enclosing-design-read-at-grounding`
 

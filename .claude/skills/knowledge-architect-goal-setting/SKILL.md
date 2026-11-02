@@ -96,6 +96,11 @@ body: `goal@<root anchor>@<slug>`. Then `cargo klarch show goal@<root anchor>@<s
 Component goal that refines it, and removing the root goal leaves each of those references dangling,
 which the check reports.
 
+An intermediate Component, which `skill@knowledge-architect-component-creation@component-criteria`
+defines, states the purpose that the Components nested under it serve together, and a goal of each
+of them refines a goal of that intermediate Component, naming it, as a Component's goal names the
+root goal it refines.
+
 The head of the goals home says what it holds: a goal is met or unmet, it stays while it is met,
 and it leaves only on the owner's word. It also states the purpose every goal of its Component
 serves, which the owner rules like a goal; the root's states the project's.

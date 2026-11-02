@@ -54,16 +54,17 @@ git: `rejected@knowledge-architect@git-module-made-public`.
 ### No intermediate Component groups the checker's Components or the installed text's `##no-intermediate-component`
 
 The Components of the checker and of the text it installs sit beside one another under crates/,
-with no intermediate Component above any group of them. An intermediate Component holds the design
-on how the code of several nested Components is written that they share as one part of the project,
-and its own files hold no Rust code, per `design@agent-skills@intermediate-component-occasion`; a
-group with no such design gives one nothing to hold. The rules this repository states for every
-crate it publishes are rules for a kind, which stay in the root's design home. Each grouping of these Components that was weighed shares
-design that one of its members already holds, or shares none: a group of the checker's crates
-shares the design of the checker's model, which the crate holding the model holds; the installed
-text grouped with the crate that installs it shares nothing that crate does not hold. It serves `goal@knowledge-architect@projects-are-split-into-components`.
-A principle on how the code of several of these Components is written, which they come to share as
-one part of the project and none of them holds, reopens it.
+with no intermediate Component above any group of them. An intermediate Component groups Components
+that serve a purpose of their own, stated in its goals home and refined by their goals, per
+`design@agent-skills@intermediate-component-occasion`. Every goal of these Components refines a goal
+of the root's goals home directly, or none, so no purpose is stated for a group of them. A decision
+binding several of them goes to their lowest enclosing Component, the root, which holds the rules
+this repository states for every crate it publishes as rules for a kind. Each grouping that was
+weighed shares design that one of its members already holds, or shares none: a group of the
+checker's crates shares the design of the checker's model, which the crate holding the model holds;
+the installed text grouped with the crate that installs it shares nothing that crate does not hold.
+It serves `goal@knowledge-architect@projects-are-split-into-components`. A purpose the owner states
+for a group of these Components reopens it.
 
 ### The hand mutation is a published crate of its own, which a project's maintenance crate depends on, and no crate of the checker or the gates links `##mutation-command-host`
 
