@@ -79,9 +79,10 @@ whether the published crate ships them is the project's packaging choice.
   avoided even among dev-dependencies, since it leaves unclear which crate is responsible for what;
   and a dev-dependency from A back onto B builds A twice in A's unit tests, where the types of the
   two copies do not match and the errors read as mismatched types.
-- **The pure and output layers.** The development skill's default code shape keeps logic and side
-  effects in two layers; at the scale of a Component, both layers sit by default in the Component
-  that returns or defines the data. The output side is a Component of its own only where it takes
+- **The pure and output layers.** The default code shape of
+  `skill@knowledge-architect-development@discriminating-tests` keeps logic and side effects in two
+  layers; at the scale of a Component, both sit by default in the Component that returns or defines
+  the data. The output side is a Component of its own only where it takes
   decisions of its own, as a graphical interface that decides a layout does.
 
 ## Naming `##component-naming`

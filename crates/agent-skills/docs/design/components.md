@@ -24,8 +24,8 @@ a Component holding two purposes. The activity's methodology, a cut of a boundar
 move of the record, is apart from a design discussion's and from the setup's, so
 `goal@agent-skills@one-skill-per-activity` gives it a skill of its own: that goal counts every
 activity the owner has taken in, and its list of activities grows with the workflow. The owner
-proposed a skill of its own with a fragment in the design skill, on the argument that creating a
-Component is occasional and most design discussions need none of its procedure; the session
+proposed a skill of its own with a fragment in the design skill, on the argument that not every design
+discussion needs the procedure, since creating a Component should be occasional; the session
 extended the proposal to the development skill and to the four moments, and the owner approved the
 extension. The skill decides nothing itself: the decision to create or split goes through
 `skill@knowledge-architect-design`, and the skill points to the setup and goal-setting skills for
@@ -40,9 +40,10 @@ decision: whether a Component exists is a decision about how the project is buil
 
 The default holds more strongly for a project that never publishes, since a crate boundary is the
 stronger isolation and more crates cost it nothing. For a project that publishes, or plans to, the
-owner argued that more crates are a low cost, since Rust practice accepts many small published
-crates, to be weighed against how usable each crate is alone for others; the cost is a release in
-dependency order and a version bump for each crate. The skill reads the publication status from the
+owner argued that, if Rust practice accepts many small published crates, more crates can probably
+be counted a low cost, weighed against how usable each crate would be for others; the session
+reported that the practice does accept them. The cost is a release in dependency order and a
+version bump for each crate. The skill reads the publication status from the
 project's record, asks the owner where the record states none, and weighs the project's policy
 without setting it, per `goal@knowledge-architect@agents-get-a-complete-workflow`. "One reason to
 change" is the test for a Component as for a function, so the criteria of
@@ -74,8 +75,9 @@ Components, with their fixtures and oracles, and depends on them. Its condition 
 crates share testing tools and fixtures without depending on each other; a crate A whose tests need
 a crate B that already depends on A is one case of it. thaum's testing crate has this shape, as
 `path@agent-skills@docs/grounding/crate-boundaries.md` records. The owner's argument is that it
-centralises the tooling, which improves the tests, and that it avoids a dependency cycle even among
-dev-dependencies, since such a cycle leaves unclear which crate is responsible for what.
+centralises the tooling for integrated testing, such as fixtures and oracles, and that it avoids a
+dependency cycle even among dev-dependencies, since such a cycle leaves unclear which crate is
+responsible for what.
 
 Its nearest rival, a dev-dependency from A back onto B, is admitted by Cargo and fails in A's unit
 tests, which link two copies of A whose types do not match, as the same grounding file reads in the

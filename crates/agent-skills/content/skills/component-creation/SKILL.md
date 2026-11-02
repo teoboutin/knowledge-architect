@@ -92,9 +92,10 @@ whether the published crate ships them is the project's packaging choice.
 %% side effects is very good for a project's long-term health, and narrowed it on the owner's word
 %% that the printing should probably stay in the Component that returns or defines the data, since
 %% an output Component that takes no decision would have no design of its own. No rival was offered.
-- **The pure and output layers.** The development skill's default code shape keeps logic and side
-  effects in two layers; at the scale of a Component, both layers sit by default in the Component
-  that returns or defines the data. The output side is a Component of its own only where it takes
+- **The pure and output layers.** The default code shape of
+  `skill@knowledge-architect-development@discriminating-tests` keeps logic and side effects in two
+  layers; at the scale of a Component, both sit by default in the Component that returns or defines
+  the data. The output side is a Component of its own only where it takes
   decisions of its own, as a graphical interface that decides a layout does.
 
 ## Naming {{slug:component-naming}}

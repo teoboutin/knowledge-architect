@@ -128,8 +128,9 @@ the manifest, `resolve_anchors` in `path@core@src/manifest.rs`, refuses the late
 kinds: the project, a Component or a location. A declared anchor named `plans` is refused before
 this check, per `design@core@plans-is-a-reserved-anchor`. The refused anchor is no anchor, per `design@core@a-wrong-declaration-is-a-finding`, and the
 finding's repair is to rename or move one. Supporting two of one name, by qualifying the word with a
-path, is refused on the owner's argument that two Components of one basename are one Component, or
-are not named specifically enough, so the support would serve no project the workflow leads to. The
+path, is refused on the owner's argument that two Components of one basename are either one Component
+or not named specifically enough, which the owner judged bad practice; the session concludes that
+the support would serve no project the workflow leads to. The
 anchors of a directory register's entries are read off the tree later, and this head says nothing of
 them.
 

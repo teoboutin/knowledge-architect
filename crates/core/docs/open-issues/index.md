@@ -1,9 +1,10 @@
 **Generated — do not edit.** `cargo klarch index`
 
-40 entries
+41 entries
 
 | kind | title |
 | --- | --- |
+| defect | [A forked subagent's transcript opens with a line of type `fork-context-ref`, which `klarch transcript` counts as unrecognised](a-forked-subagent-s-first-line-is-an-unrecognised-type.md) |
 | defect | [A heading-shaped line that markdown reads as no heading still defines an entry](a-heading-line-markdown-renders-as-no-heading-defines-an-entry.md) |
 | defect | [A reference whose id carries a line suffix or a fragment is told to define its entry or repair its pointer, not to drop the suffix](a-reference-with-a-line-or-fragment-suffix-names-a-wrong-repair.md) |
 | defect | [A finding on a slug written in a retired or a misplaced form names a repair blind to what the slug resolves to](a-slug-finding-names-a-repair-blind-to-what-the-slug-resolves-to.md) |

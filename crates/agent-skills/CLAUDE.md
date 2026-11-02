@@ -54,7 +54,8 @@ fragment cites no entry, as content/ does, and the build refuses one holding a h
 another fragment, or a build placeholder but `{{command}}`. A review of a change to a fragment
 names each host's installed copy in the brief of the agent-facing-text axis, since a sentence true
 in one host's context can be false in another's; `FRAGMENT_HOSTS` in `path@agent-skills@src/lib.rs`
-lists each fragment's hosts, and its test fails while the list and the placeholders differ.
+lists each fragment's hosts, and its tests fail while a fragment has no row, or ships in other texts
+than its row names.
 
 **The primer is the part of every installing project's root `CLAUDE.md` that is the same in every
 project**, per `design@agent-skills@primer-limit`.
