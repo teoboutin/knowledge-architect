@@ -42,9 +42,10 @@ Component that holds Rust code in its own files, by default:
 Such a Component is, for example, a published package, a service or a maintenance tool. The root,
 which is the whole project, and an intermediate Component are outside these criteria.
 
-%% Stated here alone, so no head: the owner's argument that commands sharing their design and their
-%% purpose change together, and differ only in subject and application; its rival, the test of two
-%% changes applied to each command, passes for every command and splits a design that changes as one.
+%% Stated here alone, so no head: the owner's argument that subcommands sharing most of their design
+%% and one purpose differ only in subject and application, and the session's, that they change
+%% together where that design changes; its rival, the test of two changes applied to each command,
+%% passes for every command and splits a design that changes as one.
 **Commands, subcommands or functions that share one purpose and one design are one Component**,
 each command or subcommand in a module of its own: the test of two changes is applied to the
 Component, not to each command, since a change of their shared design touches every one of them,
@@ -116,8 +117,8 @@ them is the project's packaging choice.
   harness, as a module of that Component or as a crate of its own, the project's choice. The
   fixtures of the shared test Component stay outside every published package.
 %% Stated here alone, so no head until a second text states it: the owner's argument that grouping
-%% the parsing, with the checks applied at parsing, is the convenient shape, and the logic is pulled
-%% from below; the session's, that the interface's decisions then have one home, the parser's
+%% the parsing, with the checks applied at parsing, is more convenient, and the logic is mostly
+%% pulled from below; the session's, that the interface's decisions then have one home, the parser's
 %% library stays out of the domain crates' interface, and a frontend that is no command line gets
 %% a typed API. The rival, the binary inside a domain crate, puts the interface's decisions in that
 %% crate's design.
