@@ -45,6 +45,17 @@ statement added.
 - **the module-directory exception**: the paragraph of `skill@knowledge-architect-component-creation@component-crates` that opens "A Component
   may be a module directory inside a crate".
 - **the shared test Component**: the first bullet of `skill@knowledge-architect-component-creation@component-shapes`.
+- **R1 to R6**: the six rounds of the discussion, each one message of the owner and the reply; the
+  owner's words quoted in this document carry their round.
+- **hard point 1 to 4**: the four places where the session found the component-creation skill hard
+  to apply, R1: the module-directory exception, the test of two changes applied to commands, the
+  usable-alone weight, and the shared test Component; threads 1, 2, 3 and 6 below revise them.
+- **the table, the checkpoint**: the session's tables of threads, which the owner's words "I agree
+  with your table now" (R3) and "Agreed on the table" (R6) answer; each thread's item says which.
+- **P1, P2**: the two shapes of where a command's arguments are parsed, argued in
+  `milestone@plans@component-split`. P1: the top-level crate parses every command, and the domain
+  crates expose a typed API with no clap in it. P2: each domain crate derives clap's types for its
+  own commands, and the binary flattens them.
 
 ## What the work is
 
@@ -111,15 +122,16 @@ Outside this work:
 | `design@agent-skills@component-crate-mapping` | #usable-alone-one-direction, #cycle-from-a-reversible-decision | the component-creation skill's `%%` line in `skill@knowledge-architect-component-creation@component-crates`, edited by step 2; `path@agent-skills@docs/grounding/crate-boundaries.md`, read at step 2 and left unchanged, since it records Cargo's rules |
 | `design@agent-skills@component-split-signals` | #expected-changes-from-goals | the skill's `%%` line in `skill@knowledge-architect-component-creation@split-signals`, step 1 |
 | `design@agent-skills@shared-test-component` | #test-component-public-api | the skill's `%%` line in `skill@knowledge-architect-component-creation@component-shapes`, step 3; `path@agent-skills@docs/grounding/crate-boundaries.md`, read at step 3 |
-| `design@agent-skills@default-code-shape` | #test-through-public-api | the five design-home citations and two tripwires `cargo klarch show` lists, read at step 4; `tripwire@agent-skills@shape-findings-fragment-code` is unchanged in scope |
+| `design@agent-skills@default-code-shape` | #test-through-public-api | the four design-home citations `cargo klarch show` lists, the fragment's own `%%` line, and `tripwire@agent-skills@shape-findings-fragment-code`, which cites it twice, read at step 4; the tripwire is unchanged in scope |
 
-`design@agent-skills@test-economy` is read at step 4 and not rewritten: an integrated test is a test
-of another kind than pure logic, whose evidence the writer picks, as its table already says.
-`tripwire@agent-skills@logic-tests-relabelled` watches exactly the case where a test of logic is
-called another kind to skip its mutation; the premortem names it.
+`design@agent-skills@test-economy` is read at step 4 and not rewritten: a test's kind, and the
+mutation evidence it owes, are decided by what it exercises, and an integrated test names how it
+drives the code, so an integrated test of a claim of logic owes the recorded mutation a test of
+logic owes. `tripwire@agent-skills@logic-tests-relabelled`, whose title already names "integration",
+watches a test of logic called another kind to skip its mutation; the premortem names it.
 
 **The discussion's record search** graded 193 entries `bears` and 110 `may-bear`, for this spec and
-the milestone together. The entries that bear on this spec, with their outcome:
+the milestone together, counted in the files its check assembled, which the tree does not hold. The entries that bear on this spec, with their outcome:
 
 - the goals of agent-skills, `goal@agent-skills@no-contradiction-in-workflow`,
   `goal@agent-skills@one-skill-per-activity`, `goal@agent-skills@only-needed-instructions`,
@@ -164,8 +176,13 @@ the milestone together. The entries that bear on this spec, with their outcome:
   `tripwire@agent-skills@shape-findings-fragment-code`, `tripwire@agent-skills@logic-tests-relabelled`:
   none fires on this work; the last is a cause of the premortem.
 
-Every other entry the search graded bears on the milestone's work, which lists it, or on nothing in
-this spec.
+Every other entry the search graded `bears` or `may-bear` is listed, with its outcome, in
+`milestone@plans@component-split`; none of them bears on this spec beyond what it lists there. The
+two `may-bear` entries read whole are `design@agent-skills@subject-split-standard`, which bears, as
+#one-main-subject-per-component says, and `design@agent-skills@losing-shape-test`, which governs the
+harvest of a shape rejected with nothing built in its place and meets nothing here.
+`design@agent-skills@audit-net-growth` bears: the landing commit counts the instructions the steps
+add and remove, and the owner is told the net figure, as the admission standard says.
 
 ## Criteria
 
@@ -217,7 +234,7 @@ you proposed, which pulls the logic from the others and implements the interface
 pulling rendering logic from another crate if that applies (such as a project with a gui). Though
 the difficulty here mostly came from our own recorded decision, which is quite old, made for
 reasons that no longer apply identically, and can be reversed." R3: "1. Agreed". Arguments:
-#arg-22, #arg-32, #arg-33, #arg-52, #arg-60. Shape: "Decided design", the same title. Harvest:
+#arg-20, #arg-22, #arg-32, #arg-33, #arg-52, #arg-60. Shape: "Decided design", the same title. Harvest:
 `design@agent-skills@component-crate-mapping`, rewritten.
 
 ### Commands or functions that share one purpose and one design are one Component, one module each, and a top-level binary crate holds the interface and pulls its logic from below `##commands-sharing-a-purpose`
@@ -232,8 +249,12 @@ application. Same for the subcommands of  the cli binary: grouping the parsing l
 meaningfull verification that can be applied at parsing, is more convenient, while the application
 logic should be mostly pulled from other crates (or assembled from high level logic that is
 provided by other crates)". R5: "command-parsing-home I think your synthesis is right." Arguments:
-#arg-23, #arg-34, #arg-35, #arg-53, #arg-61, #arg-71, #arg-72, #arg-78, #arg-100. Shape: "Decided
-design". Harvest: a `%%` line in the component-creation skill, since one text states it; no head.
+#arg-23, #arg-34, #arg-35, #arg-53, #arg-61, #arg-71, #arg-72, #arg-73, #arg-74, #arg-75, #arg-78,
+#arg-100. Shape: "Decided design". The thread holds two decisions, cut at the harvest: that
+commands sharing one purpose and one design are one Component, stated by the skill alone, takes a
+`%%` line; that a top-level binary crate parses each command in the lowest crate every binary
+offering it depends on is stated by the skill and by a head of the milestone's `cli` Component, so
+it takes a head of agent-skills, which `cli`'s head cites.
 
 ### Being usable alone argues for a split, and not being usable alone argues nothing `##usable-alone-one-direction`
 
@@ -248,7 +269,7 @@ direction if the crate would not be." R3: "3. agreed". Arguments: #arg-24, #arg-
 
 Proposed by the session, R2 (#arg-59), from the owner's argument on the model's future consumers
 (#arg-28, #arg-30). Final state: approved, by the owner's word against the checkpoint, R6: "Agreed
-on the table." Arguments: #arg-28, #arg-30, #arg-59. Shape: "Decided design". Harvest:
+on the table." Arguments: #arg-16, #arg-28, #arg-30, #arg-45, #arg-59. Shape: "Decided design". Harvest:
 `design@agent-skills@component-split-signals`, rewritten.
 
 ### A Component takes decisions about one main domain, with small side domains allowed, the word "domain" defined where the skill first uses it `##one-main-subject-per-component`
@@ -303,7 +324,7 @@ R1, the session. Threads: [model apart from checks] #model-crate.
 
 "A new register kind or a new reference form touches both, so almost every expected change would cross the boundary. That is the third signal against a split." (retracted in #arg-45)
 
-### The entry argued that a separate binary crate "would save its users no dependency `##arg-20`
+### The premise of the one-crate decision, that a separate binary crate saves its users no dependency, fails once the commands span crates `##arg-20`
 
 R1, the session. Threads: #cli-crate (reversal).
 
@@ -411,6 +432,8 @@ R2, the session. Threads: #model-crate.
 
 "My claim that "every change crosses the boundary" was overstated." / "So 44 of the 99 commits that touch either side touch both. More than half stay on one side. Some of the "both" commits are explained by fact 2, since resolution currently sits in `check/`."
 
+"Fact 2" is the second fact the session listed in R2: the resolver and the lints are one function today.
+
 ### The skill's module-directory exception should say that a cycle caused by a decision that can be reversed (cut) `##arg-52`
 
 R2, the session. Threads: #cycle-from-a-reversible-decision.
@@ -453,7 +476,7 @@ R2, the session. Threads: #expected-changes-from-goals.
 
 "The skill weighs the split between the model and its consumers by today's consumers, when the goals already announce new ones. A signal like "every change crosses the boundary" should be read against the changes the goals predict, not only against past commits."
 
-### 1 `##arg-60`
+### The owner agrees with hard points 1, 3 and 4 `##arg-60`
 
 R3, the owner. Threads: #cycle-from-a-reversible-decision, #usable-alone-one-direction, #test-component-public-api.
 
@@ -539,37 +562,39 @@ R4, the session. Threads: #test-through-public-api.
 
 ### The testing crate moves the 36 mock-based tests `##arg-83`
 
-R4 (L756), the session. Threads: #test-through-public-api, #testing-crate.
+R4, the session. Threads: #test-through-public-api, #testing-crate.
 
 finding 2: "#testing-crate moves the 36 mock-based tests. That doesn't bring back the rejected entry, which was about moving all unit tests." / "The guideline must be an order of preference" / "As a rule to move every test, it is the rejected design."
 
 ### 5 of the 36 build 'Inputs' by hand `##arg-84`
 
-R4 (L756), the session. Threads: #testing-crate, #test-through-public-api.
+R4, the session. Threads: #testing-crate, #test-through-public-api.
 
 "5 of the 36 build `Inputs` by hand." / "Through the public API, each needs a mock project whose tree really has that state. Making `Inputs` constructible would bring back `rejected@core@inputs-struct-literal`. Default: rewrite the 5 over mock projects."
 
+Made precise at the plan's review: 5 struct literals of `Inputs`, two of them in shared helpers, which 11 tests reach; two of the five inject a state, an empty map of committed files.
+
 ### The entry binds the "unreachable code is a sign of dead code" half `##arg-85`
 
-R4 (L756), the session. Threads: #test-through-public-api.
+R4, the session. Threads: #test-through-public-api.
 
 "`design@agent-skills@local-intent-binds` binds the "unreachable code is a sign of dead code" half" / "The guideline says the code is suspect, not that it may be deleted."
 
 ### The entry loses the sentence "A test that needs a private item is a unit-test module inside the crate `##arg-86`
 
-R4 (L756), the session. Threads: #test-through-public-api.
+R4, the session. Threads: #test-through-public-api.
 
 "`design@core@api-facade` loses the sentence "A test that needs a private item is a unit-test module inside the crate"" / "It is rewritten to the preference order."
 
 ### The entry defines a subject as "the heads a piece of work reads together, one part of the Component", and (cut) `##arg-92`
 
-R4 (L756), the session. Threads: #one-main-subject-per-component.
+R4, the session. Threads: #one-main-subject-per-component.
 
 finding 6: "`design@agent-skills@subject-split-standard` defines a subject as "the heads a piece of work reads together, one part of the Component", and a Component holds several. "One main subject per Component" would collide with that."
 
-### The entry `##arg-99`
+### This session is the real use the skill revisions rest on `##arg-99`
 
-R4 (L756), the session. Threads: skill-revision threads, #test-through-public-api (Criteria).
+R4, the session. Threads: skill-revision threads, #test-through-public-api (Criteria).
 
 "`goal@knowledge-architect@the-workflow-improves-through-real-use` ... this session is the real use, and #usable-alone-one-direction is a wording that allows two readings, provable by reading" / "`goal@knowledge-architect@the-workflow-leads-to-better-code`: a guideline, not a rule"
 
@@ -601,13 +626,15 @@ ruling, no argument: "one-main-subject-per-component: agreed on the domain word.
 
 R5, the session. Threads: #test-through-public-api.
 
-"Your clarification of #test-through-public-api settles the conflict with `rejected@core@unit-tests-moved-under-tests`. The rule applies to integrated tests over mock projects, not to unit tests." (restated guideline quoted in section 2, L771)
+"Your clarification of #test-through-public-api settles the conflict with `rejected@core@unit-tests-moved-under-tests`. The rule applies to integrated tests over mock projects, not to unit tests." (the restated guideline is the shape of #test-through-public-api in `spec@plans@component-rules-revision`)
 
 ### This doesn't touch the 437 unit tests `##arg-108`
 
 R5, the session. Threads: #test-through-public-api, #testing-crate.
 
 "This doesn't touch the 437 unit tests. The 5 mock tests that build `Inputs` by hand each go one of two ways: the state they inject becomes a real mock tree, such as one with no committed file, or the claim becomes a unit test over an in-memory model, which `design@core@model-then-checks` already provides for."
+
+Made precise at the plan's review: see the note of #arg-84.
 
 ### When an integrated test is blocked by a missing observation, the entry fires, and its response already (cut) `##arg-109`
 
@@ -701,15 +728,18 @@ home, keeps the parser's library out of the domain crates' interface, and gives 
 command line a typed API (#arg-73 to #arg-75); a library flattened into binaries no shared crate sits
 above must keep its parsing, or each binary declares it again (#arg-71).
 
-**Nearest rival and the fact that defeated it.** Each Component parsing its own commands, the
-binary flattening them: it serves the libraries flattened into adopting projects' binaries, which the
-shape keeps, and for the rest it restates the interface's decisions in each domain crate (#arg-74).
+**Nearest rival and the fact that defeated it.** For the first decision, the test of two changes
+applied to each command: it passes for every command and so splits a design that changes as one
+(#arg-23). For the second, each Component parsing its own commands and the binary flattening them,
+P2: it serves the libraries flattened into adopting projects' binaries, which the shape keeps, and
+for the rest it restates the interface's decisions in each domain crate (#arg-74).
 
 ### Being usable alone argues for a split, and not being usable alone argues nothing
 
 **Shape.** The table row for a publishing project ends: "a crate that others could use alone is an
-argument for the split; a crate no one would use alone is no argument against it". The weight stays
-minor, as the row's "a low cost" says.
+argument for the split; a crate no one would use alone is no argument against it", and calls the
+weight minor, a lead: the owner's words, "This weight should be considered minor. It is mostly a
+lead" (#arg-36).
 
 **Argument.** The owner's (#arg-36): it is a lead, and only in one direction. Read both ways, the
 row would keep a Component inside another on the ground that no one outside would use it, which no
@@ -751,9 +781,11 @@ collides with the defined term.
 
 **Shape.** The shared test Component's bullet states: it holds the integrated tests that cross the
 Components it depends on, with their fixtures; the tested Components' unit tests use none of those
-fixtures, so no Component dev-depends on it from below; a Component that supports extensions
-publishes the tools an extension's tests need, its harness, and its own fixtures stay outside the
-package. The double-build warning stays.
+fixtures, so no Component dev-depends on it from below. The double-build warning stays. A second
+decision, stated by the skill alone and so carried by a `%%` line: a Component that supports
+extensions publishes the tools an extension's tests need, its harness; whether the harness is a
+module of that Component or a crate of its own is the project's to choose, and the fixtures of the
+shared test Component stay outside every package.
 
 **Argument.** The owner's (#arg-37, #arg-41): integrated tests out of unit tests and out of the
 crates make them test the public API, and one home for the fixtures keeps crates from duplicating
@@ -772,8 +804,14 @@ a mock environment or not. Where it cannot observe what it needs in what that AP
 hides it from consumers too, and the API is what is fixed; where what it would observe has no effect
 a consumer could see, the claim is a unit test's, and an integrated test is the wrong place for it.
 Code no integrated test can reach and no consumer can observe is suspect, and its comment and the
-commit that added it are read before anything is removed. The test-kind table gains a row, an
-integrated test, whose evidence the writer picks, as for the other kinds that are not pure logic.
+commit that added it are read before anything is removed. The test-kind table gains a row:
+
+| test kind | what a mutation tells | the economy question |
+| --- | --- | --- |
+| integrated, through the public API | a mutation of the logic it drives, which it owes as a test of logic owes where its claim is one of logic | does it observe the claim through what the API returns, or reach for an internal |
+
+A test's kind is still decided by what it exercises; "integrated" names how it drives the code, so
+it exempts no test of logic from its mutation.
 
 **Argument.** The owner's (#arg-62, #arg-63, #arg-101, #arg-102, #arg-124): the test drives the API's
 improvement, shows where it lacks, benefits its consumers, and shows code with no observable effect.
@@ -781,10 +819,11 @@ The scope is the integrated test (#arg-107): a guideline that moved every unit t
 is `rejected@core@unit-tests-moved-under-tests` (#arg-83). The reading before removal is
 `design@agent-skills@local-intent-binds` (#arg-85).
 
-**Nearest rival and the fact that defeated it.** "Test through the public API where possible", for
-every test (#arg-62's first wording): it is the rejected design, whose measurement shows most unit
-tests run over private functions. The wording "over a mock project" (R5) lost to the owner's R6: not
-every project uses mocks, and not every project serves others.
+**Nearest rival and the fact that defeated it.** The session's reading of the owner's first
+phrasing, R3, "testing through public API when possible", as applying to every test: it is the
+rejected design, whose measurement shows most unit tests run over private functions; the owner then
+scoped the phrasing to the integrated test, R5. The wording "over a mock project" (R5) lost to the
+owner's R6: not every project uses mocks, and not every project serves others.
 
 ## Mapping tables
 
@@ -800,8 +839,9 @@ Empty: the work needs no total function over a domain.
 - The usable-alone weight read both ways, lost to #usable-alone-one-direction.
 - "One main subject", lost to #one-main-subject-per-component: the word collides with
   `design@agent-skills@subject-split-standard`.
-- Testing every unit through the public API, lost to #test-through-public-api on
-  `rejected@core@unit-tests-moved-under-tests`.
+- The session's reading of the guideline as testing every unit through the public API, lost to
+  #test-through-public-api on `rejected@core@unit-tests-moved-under-tests`; the owner's own phrasing
+  was scoped to the integrated test, R5.
 - "An integrated test over a mock project", lost to #test-through-public-api on the owner's R6.
 
 ## Readings
@@ -814,7 +854,7 @@ Empty: the work reads no external specification.
 | --- | --- | --- |
 | C6 of the discussion: in a target project, sessions read "one purpose" or "one domain" broadly and merge functions that change apart into one crate | #commands-sharing-a-purpose, #one-main-subject-per-component | named as a cause; `design@agent-skills@premortem-as-watch-points` already asks whether a splitting rule was followed against the work's interest, so no tripwire |
 | C7 of the discussion: sessions widen a public API to serve an integrated test, for an effect no consumer observes, instead of moving the claim to a unit test | #test-through-public-api | converted into a clause of the design: the second branch of the guideline; the code-shape reviewer, which hosts the fragment, reports it |
-| a test of logic is called integrated to skip its recorded mutation | #test-through-public-api | named as a cause; `tripwire@agent-skills@logic-tests-relabelled` already watches a test of logic classed as another kind, and the harvest judges whether its clause names the new kind |
+| a test of logic is called integrated to skip its recorded mutation | #test-through-public-api | converted into a clause of the design: the new row says an integrated test of a claim of logic owes its mutation; `tripwire@agent-skills@logic-tests-relabelled` already watches the case, and the harvest judges whether its firing clause, which names golden, mocked or external, names the new row |
 | the fragment on when to split and the skill's signals drift, one revised and not the other | #expected-changes-from-goals | a claim of step 1, checked by reading both installed copies |
 
 ## Acceptance criteria
@@ -827,16 +867,26 @@ the retrospective's standing question already watches.
 1. **The signals and the criteria.** `skill@knowledge-architect-component-creation@component-criteria` gains the sentence of
    #commands-sharing-a-purpose and the domain criterion; `skill@knowledge-architect-component-creation@split-signals` the third signal's wording;
    the fragment on when to split its sentence. Claims: the installed copies of the skill, the design
-   skill and the development skill state the same three signals; "domain" is defined in the
-   sentence that first uses it. Fails alone on: a host of the fragment that states the old signal.
-2. **The crates.** `skill@knowledge-architect-component-creation@component-crates`: the usable-alone row and the cycle sentence. Claim: the
-   module-directory exception names the case of a cycle a decision makes. Fails alone on: the row
-   still read both ways.
+   skill and the development skill state the same three signals; test: each installed copy, read
+   after `cargo klarch install-agent-skills`, holds the new wording of the third signal, and none the
+   old, `grep -n 'crosses the new boundary' .claude/skills/knowledge-architect-*/SKILL.md`; shown to
+   fail on the copies before the install. "Domain" is defined in the sentence that first uses it;
+   test: the first sentence of the installed skill holding the word defines it, read. Fails alone on:
+   a host of the fragment that states the old signal.
+2. **The crates.** `skill@knowledge-architect-component-creation@component-crates`: the usable-alone row and the cycle sentence. Claims: the
+   module-directory exception names the case of a cycle a decision makes, and the row weighs in one
+   direction; test: the installed section, read, holds both sentences, and the old "weigh it
+   against how usable each crate is alone" is gone, `grep -n 'how usable' .claude/skills/knowledge-architect-component-creation/SKILL.md`;
+   shown to fail on the copy before the install. Fails alone on: the row still read both ways.
 3. **The shapes.** `skill@knowledge-architect-component-creation@component-shapes`: the shared test Component's bullet and the top-level binary
-   crate's bullet. Claim: the bullet names no crate of this repository. Fails alone on: the
-   condition "without depending on each other" left.
+   crate's bullet. Claims: the bullets name no crate of this repository, and the condition "without
+   depending on each other" is gone; test: `grep -n 'without depending on each other\|knowledge-architect-' `
+   over the installed section lists neither, the skill's own name aside; shown to fail on the copy
+   before the install. Fails alone on: the condition left.
 4. **The code-shape fragment.** The integrated-test property and its table row. Claim: both hosts'
-   installed copies hold it. Fails alone on: the reviewer's copy without the property.
+   installed copies hold it; test: `grep -ln 'integrated, through the public API' .claude/skills/knowledge-architect-development/SKILL.md .claude/agents/knowledge-architect-code-shape-reviewer.md`
+   lists both files; shown to fail before the install. Fails alone on: the reviewer's copy without
+   the property.
 5. **The harvest.**
 
 ## Order rationale
@@ -858,10 +908,12 @@ None.
 | #expected-changes-from-goals | `design@agent-skills@component-split-signals`, rewritten | at the landing |
 | #test-component-public-api | `design@agent-skills@shared-test-component`, rewritten | at the landing |
 | #test-through-public-api | `design@agent-skills@default-code-shape`, rewritten | at the landing |
-| #commands-sharing-a-purpose, #one-main-subject-per-component | `%%` lines at their instructions, no head | at the landing |
+| #commands-sharing-a-purpose, its first decision; #one-main-subject-per-component; the publication of the test tools, the second decision of #test-component-public-api | `%%` lines at their instructions, no head | at the landing |
+| #commands-sharing-a-purpose, its second decision: a command's arguments are parsed in the lowest crate every binary offering it depends on | a new head of `register@agent-skills@design`, in its subdocument on Components, which the `cli` head of `milestone@plans@component-split` cites | at the landing |
 | the losing alternatives | judged by `skill@knowledge-architect-decision-recording@losing-alternatives`; those that fail stay in this spec's history | at the landing |
 | the premortem's causes | judged by `skill@knowledge-architect-decision-recording@ruled-tripwires` | at the landing |
 | a CHANGELOG.md entry under Workflow, if a session watching would observe a new act | `Next release` | at the landing |
+| the net count of instructions the steps add and remove | the landing commit's message, and the owner told | at the landing |
 
 ## Later consequences
 

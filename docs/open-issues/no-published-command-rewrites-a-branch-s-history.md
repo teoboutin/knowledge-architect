@@ -34,8 +34,8 @@ branch-work skill names them.
 
 ### Leads from the design of the Component split
 
-The design discussion that planned `milestone@plans@component-split` placed this work, and decided
-nothing of how it is built:
+The design discussion that planned `milestone@plans@component-split` placed this work. These are
+leads for this work's own design session:
 
 - **A Component of its own, `rewrite`**, a published crate in crates/rewrite, created by this work,
   after the milestone has landed. It depends on the milestone's `git` Component alone: the
@@ -45,9 +45,9 @@ nothing of how it is built:
 - **The source is a port of the owner's Python tool, `git-history-tools`**, kept in a checkout
   beside this repository. Its five commands are `list-large-paths`, `prune-dead-paths`,
   `squash-scattered`, `move-commits` and `split-by-path`; each reports by default and rewrites only
-  with `--apply`. Its foundation is a byte-safe model of a git invocation (its `common/gitcmd.py`,
+  with `--apply`. Its foundation is a byte-safe model of a git invocation (its module common/gitcmd.py, under src/git_history_tools/ of its checkout,
   which pins `gc.auto=0` on every command that writes an object or moves a ref) and a reader of
-  tracked files and commit contents; its `common/rebase.py` drives `git rebase --interactive` with
+  tracked files and commit contents; its module common/rebase.py drives `git rebase --interactive` with
   a scripted todo.
 - **The port needs a write side in the `git` Component**: object writes and ref moves, beside the
   readers the milestone moves there. The milestone's premortem names the cause to watch: a write

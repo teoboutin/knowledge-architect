@@ -30,8 +30,8 @@ reference is a working link.
 
 ### Leads from the design of the Component split
 
-The design discussion that planned `milestone@plans@component-split` placed this work, and decided
-nothing of how it is built:
+The design discussion that planned `milestone@plans@component-split` placed this work. These are
+leads for this work's own design session:
 
 - **A Component of its own, `render`**, a published crate in crates/render, created by this work,
   after the milestone has landed. It depends on the milestone's `model` Component alone, plus
@@ -40,5 +40,6 @@ nothing of how it is built:
   check attached.
 - **It is a Component of its own because it decides a layout**: the page tree, each link's target,
   and the book's summary. Its mdbook dependency also stays out of every crate an extension builds.
-- The milestone's acceptance criterion on the dependency graph of `model`'s consumers includes this
-  crate once it exists.
+- The premise that the renderer needs no check is this work's to keep: its design session judges
+  it, as the milestone's acceptance criterion judges it for the commands over the model, and
+  `cargo tree -p knowledge-architect-render` listing no `knowledge-architect-check` would check it.

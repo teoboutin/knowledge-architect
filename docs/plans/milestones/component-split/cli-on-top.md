@@ -5,27 +5,37 @@ The fourth slice of `milestone@plans@component-split`. It leaves when it lands.
 ## Builds
 
 - The Component `cli`, crates/cli, taking the package name `knowledge-architect` from `check`,
-  which becomes `knowledge-architect-check`. `cli` holds the binary `klarch`, the command enum and
-  its clap declaration, the dispatch, the location of the project, the refusal of a foreign build
-  and of an unsatisfied pin, and re-exports the extension API and the test harness under the paths
-  an extension uses today.
+  which becomes `knowledge-architect-check`; its goals drafted and put to the owner as the
+  milestone document says. `cli` holds the binary `klarch`, the command enum and the clap
+  declarations of every klarch command, those of `worklist` and `transcript` included, the
+  dispatch, the location of the project, and the calls of the refusals of a foreign build and of an
+  unsatisfied pin. It re-exports the extension API and, per D2 of the milestone document, the test
+  harness, under the paths an extension uses today.
+- The refusal of a foreign build, `path@core@src/build_origin.rs`, in `check`'s public API, taking
+  the list of crates the binary links; `cli` calls it before every command, and `create` will call
+  it for `init`'s PATH.
 - Each command's logic behind a typed API of the crate that holds it, with no clap type in it; a
   combination of arguments the domain refuses is a type that cannot be built, and `cli`'s
   declaration refuses it while parsing, per #command-parsing-home.
-- `path@core@tests/binary.rs` moved to `cli`.
+- `path@core@tests/binary.rs` moved to `cli`, the one package where `CARGO_BIN_EXE_klarch` is set.
+- The successor of `design@core@single-crate`, in the incumbent's Component, `check`, in this
+  slice's change, by the installed rule of the reversal; the root's layout head extended with
+  `cli`.
 
 ## Claims
 
 - **An extension written against the published `knowledge-architect` compiles with no change to its
-  imports.** Test: `path@core@tests/extension_api.rs`, moved to `cli` or run against it, compiles
-  unchanged; shown to discriminate by removing one re-export, which fails it.
+  imports.** Test: `path@core@tests/extension_api.rs`, which stays in `check` until
+  #integrated-tests and runs against `cli`'s re-exports, compiles unchanged; shown to discriminate
+  by removing one re-export, which fails it.
 - **Every refusal by a domain's options is exit 2 before any work**: premortem C3. Test: one binary
   test per refused combination asserts exit 2 and an untouched tree; a recorded mutation that drops
   one `conflicts_with` fails one.
 - **`check`'s public API holds no clap type.** Test: `cargo tree -p knowledge-architect-check`
-  lists no `clap`; refuted by any.
+  lists no `clap`; shown to fail before the declarations move, when it lists it.
 - **The binary's declaration is tested**, per `design@core@arguments-parse-through-clap`: the
-  `debug_assert` test and the refusal of an unknown argument, moved to `cli`.
+  `debug_assert` test and the refusal of an unknown argument, moved to `cli`; shown to fail by a
+  recorded malformed declaration, which `debug_assert` refuses.
 
 ## Audit subjects
 
@@ -34,10 +44,14 @@ The fourth slice of `milestone@plans@component-split`. It leaves when it lands.
 `design@core@exit-code-ladder`, `design@core@binary-name`, `design@core@a-foreign-build-is-refused`,
 `design@core@installed-binary-version-check`, `design@core@checker-source-literals-are-data`,
 `design@core@nothing-of-a-project-is-compiled-in`, `design@core@declared-command`;
-`design@gates@the-library-owns-the-flags`, which stays; `rejected@gates@gates-command-of-the-checker`;
-`design@agent-skills@xtask-pins-checker` and the setup snippets, whose dependency line stays;
-`issue@knowledge-architect@command-output-is-not-declared-a-contract`. Each reference naming the anchor
-`core` here names the head as this document is written; #check-renamed re-points them.
+`design@gates@the-library-owns-the-flags`, whose rule stays and whose clause "as it is of the
+core's" is rewritten; `design@mutate@report-not-gate`, whose clause on the core's commands is
+rewritten; `design@knowledge-architect@no-component-directory-named-after-the-project`;
+`rejected@gates@gates-command-of-the-checker`; `design@agent-skills@xtask-pins-checker` and the
+setup snippets, whose dependency line stays; `issue@knowledge-architect@command-output-is-not-declared-a-contract`;
+`issue@agent-skills@the-reversal-rule-fixes-the-component-when-the-successor-decides-another-s-interface`,
+which this slice leaves open. Each reference naming the anchor `core` here names the entry as this
+document is written; #check-renamed re-points them.
 
 ## Fails alone on
 
@@ -46,8 +60,9 @@ starts work before it is refused.
 
 ## Premises that expire
 
-`query`, `transcript` and `create` are still modules of `check` until #consumers-out; their parsing
-moves to `cli` here, and their logic there.
+`query`, `transcript` and `create` are still modules of `check` until #consumers-out: their
+parsing moves to `cli` here, and their logic there; #consumers-out's claim that every moved command
+gives the same output guards it.
 
 ## Decided design
 
@@ -57,8 +72,7 @@ a separate binary crate saves its users no dependency; that premise fails once t
 crates (#arg-20). The owner: the binary as a top-level crate that "pulls the logic from the others
 and implements the interface" (#arg-32), and the old decision can be reversed (#arg-33). `cli` keeps
 the package name, so an extension's imports and the setup snippets' dependency line stay (#arg-21,
-#arg-96). The successor head is a layout decision, recorded in the root design home (#arg-98). `cli`
-flattens no command of `gates` (#arg-96).
+#arg-96). `cli` flattens no command of `gates` (#arg-96).
 
 **Where parsing lives.** P1 for klarch's commands: both kinds of binary that offer them, `klarch`
 and an extension's own binary, depend on `cli`, so each command keeps one spelling (#arg-72); a
@@ -71,16 +85,17 @@ alternative of the milestone document.
 
 ## Implementation sequence
 
-1. The typed APIs of `check`'s commands, inside the crate, the clap declarations still beside them:
-   the mechanism alone.
+1. The typed APIs of the commands, inside the crate, the clap declarations still beside them: the
+   mechanism alone.
 2. Create `cli`, move the binary, the enum and the declarations; rename the packages.
 3. Move the binary's tests.
-4. The harvest.
+4. The reversal's successor in `check`, and the heads rewritten; the layout head extended.
+5. The harvest.
 
 ## Harvest
 
 | what | where |
 | --- | --- |
-| #cli-crate | `cli`'s design home: the moved heads; `design@core@single-crate` reversed, its successor recorded at the milestone's layout head and the reversed decision judged for the `rejected` home by `skill@knowledge-architect-decision-recording@reversal-check`; `design@core@the-core-cli-is-a-library-module` rewritten |
-| #command-parsing-home | `cli`'s design home, with `design@core@arguments-parse-through-clap` rewritten; P2 judged as a losing alternative |
+| #cli-crate | the successor of `design@core@single-crate` in `check`'s design home, and the reversed decision judged for the `rejected` home by `skill@knowledge-architect-decision-recording@reversal-check`; `cli`'s design home: `design@core@the-core-cli-is-a-library-module`, `design@core@exit-code-ladder`, `design@core@a-foreign-build-is-refused`'s list, `design@core@installed-binary-version-check`, `design@core@checker-source-literals-are-data`'s list of directories, `design@core@nothing-of-a-project-is-compiled-in`'s list, moved or rewritten for `cli`; `design@gates@the-library-owns-the-flags`, `design@mutate@report-not-gate` and `design@knowledge-architect@no-component-directory-named-after-the-project`, each clause rewritten |
+| #command-parsing-home | `cli`'s head on its parsing, citing the agent-skills head that `spec@plans@component-rules-revision` harvests for the rule, and `design@core@arguments-parse-through-clap` rewritten; P2 judged as a losing alternative |
 | premortem C3 | its claim above |

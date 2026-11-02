@@ -49,10 +49,10 @@ What ties them to this project now:
   breaks both includes;
 - the install lives in the core, and it is not public API.
 
-The owner has not designed the split. What it must decide includes: which crate holds the passes
-and which holds the install, whether a consuming project calls the passes from its own `build.rs`,
-how the prefix, the layout and the substitutions become parameters, and whether the checker's
-check of the installed copies becomes part of the utility.
+The owner has not designed the split. What it must decide includes: whether a consuming project
+calls the passes from its own `build.rs`, and how the prefix, the layout and the substitutions
+become parameters. Which crate holds the passes and the install, and that the checker keeps its
+check of the installed copies, are leads of the Component split, below.
 
 ### Why it matters
 
@@ -71,16 +71,17 @@ substitutions, and this project's skills built with that crate.
 
 ### Leads from the design of the Component split
 
-The design discussion that planned `milestone@plans@component-split` placed this work in the split,
-and decided nothing of how it is built:
+The design discussion that planned `milestone@plans@component-split` placed this work in the split.
+On the owner's word, it planned the placement alone, "not even how it will be implemented", so
+these are leads for this work's own design session:
 
 - **A Component of its own, `bundle`**, a published crate in crates/bundle, created by this work,
   after the milestone has landed. It holds the build passes of `path@agent-skills@build.rs` and
   `path@agent-skills@src/render.rs`, and the generic part of the install: rendering a text for a
-  project, writing it under a prefix, and deleting the owned files a version does not ship. The
-  prefix, the layout and the substitutions are its parameters.
+  project, writing it under a prefix, and deleting the owned files a version does not ship.
 - **agent-skills keeps the content** (content/, fragments/, snippets/, `FILES`, `SNIPPETS`) and
   depends on `bundle` as a build-dependency.
 - **The checker keeps the comparison** of the installed copies, as a check family of the last
-  phase, and the command `install-agent-skills`, which calls the install of `bundle`.
+  phase, which the milestone's slice `spec@component-split@check-renamed` builds, and the command
+  `install-agent-skills`, which would call the install of `bundle`.
 - On the owner's word in that discussion, the goal of the Component is written when it is created.
