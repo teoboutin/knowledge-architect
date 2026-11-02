@@ -699,8 +699,11 @@ the intermediate one is a crate, the other components are modules of it. I think
 shape, with the right amount of leeway to organize the layout conveniently." Shape: the head of
 absence of #no-intermediate-component, argued from the definition. Outcome: the design discussion
 on the rules for Components kept the lead's definition and its first shape, made precise as a
-principle several Components follow as one part of the project, and neither every Component nor
-every Component of a kind; it ruled out the lead's second shape, an intermediate Component that is a
+principle on how the code of several Components is written, which they follow as one part of the
+project; the review before the merge added, on the session's default the owner approved, that a
+principle stated for a kind of Component stays in the root, and the owner added that a decision on
+their shape, packaging or layout does too, and raised the case of two crossing sets, which the
+session's default sends to the root; it ruled out the lead's second shape, an intermediate Component that is a
 crate whose nested Components are modules, since its crate root holds Rust code and an interface
 and every dependency of one module reaches every consumer of the crate, the owner choosing to keep
 the goal as it stands; and it dropped the module-directory Component on the owner's proposal; recorded in `design@agent-skills@intermediate-component-occasion` and

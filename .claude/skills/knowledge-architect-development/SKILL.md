@@ -20,7 +20,8 @@ Before changing code, read what the project decided about it, as the primer's "R
 code before changing it" says: the entries its comments cite, every entry that cites its file, and
 the heads on its subject in the design home of the Component that holds it, with its `rejected`
 entries.
-Read the root's design home too: its heads bind every Component. A fix reads this record
+Read the root's design home too, since its heads bind every Component or several of them, and
+those of the intermediate Components enclosing this one, per `primer@checker-model`. A fix reads this record
 and dispatches no search of the whole record. A behaviour that looks like a new defect is checked
 as the primer's "Check whether it is already known" says. How to read all of it is
 `primer@intent-and-claims` and `primer@verify-before-relying`, read whole: intent is authority, and

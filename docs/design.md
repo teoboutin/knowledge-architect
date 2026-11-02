@@ -55,13 +55,15 @@ git: `rejected@knowledge-architect@git-module-made-public`.
 
 The Components of the checker and of the text it installs sit beside one another under crates/,
 with no intermediate Component above any group of them. An intermediate Component holds the design
-that several nested Components share and the rest of the project does not, and holds no code of
-its own, per `skill@knowledge-architect-component-creation@component-criteria`; a group with no
-such design gives one nothing to hold. Each grouping of these Components that was weighed shares
+on how the code of several nested Components is written that they share as one part of the project,
+and its own files hold no Rust code, per `design@agent-skills@intermediate-component-occasion`; a
+group with no such design gives one nothing to hold. The rules this repository states for every
+crate it publishes are rules for a kind, which stay in the root's design home. Each grouping of these Components that was weighed shares
 design that one of its members already holds, or shares none: a group of the checker's crates
 shares the design of the checker's model, which the crate holding the model holds; the installed
 text grouped with the crate that installs it shares nothing that crate does not hold. It serves `goal@knowledge-architect@projects-are-split-into-components`.
-A design several of these Components come to share, which none of them holds, reopens it.
+A principle on how the code of several of these Components is written, which they come to share as
+one part of the project and none of them holds, reopens it.
 
 ### The hand mutation is a published crate of its own, which a project's maintenance crate depends on, and no crate of the checker or the gates links `##mutation-command-host`
 

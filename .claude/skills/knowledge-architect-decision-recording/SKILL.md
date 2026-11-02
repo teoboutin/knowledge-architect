@@ -57,8 +57,8 @@ change:
   successor is written there as a new head, and the incumbent's head is removed from its home in
   this change, so no commit holds two homes for one question.
 - **It earns durable text whatever the entry tests of `primer@design-heads` say.** The
-  incumbent's head now states something false, so the minimum is rewriting it, or removing it where
-  the successor goes to another Component. The entry tests
+  incumbent's head now states something false, so the minimum is rewriting it, or replacing it by
+  the successor's head where the successor goes to another Component. The entry tests
   decide whether a _new_ decision earns an entry, not whether a false one may stand.
 - **Rewrite the head in place** where the Component is the incumbent's (`skill@knowledge-architect-decision-recording@current-design`), and give the new statement its own slug when it is a new
   statement. Keep the old slug only where it still names the same decision. The slug and the
@@ -68,7 +68,8 @@ change:
 - **Move the incumbent into the `register@*@rejected` of the successor's Component** (`skill@knowledge-architect-decision-recording@losing-alternatives`) with its reason and a
   validity marker, stated as strongly as it was originally made, if it meets one of the tests of `skill@knowledge-architect-decision-recording@losing-alternatives`, and cite it from the new head.
   Where that Component is another, the `rejected` entries the incumbent's head cited move with it
-  wherever the successor's argument covers them.
+  wherever the successor's argument covers them; one it does not cover, and no other head cites,
+  leaves its home.
 - **Argue it under `skill@knowledge-architect-design` first**, if it was not: a reversal contradicts
   a statement of the incumbent, the second case of the backstop of `primer@design-heads`.
 - **Delete the tripwires guarding the reversed decision.** `skill@knowledge-architect-issue-tracking` owns that movement.
@@ -159,15 +160,19 @@ Component too.
    each other, constraining more than one of them? One Component depending on another constrains
    both: the second gains a consumer of its interface and cannot depend on the first. Then it
    belongs in the root Component's design home.
-2. Does it shape how every Component is implemented, or every Component of a kind the project
-   names, such as every crate it publishes: a design principle each of them follows? Then it belongs
-   in the root Component's design home.
-3. Does it shape how each of several Components is implemented, and not every one nor every one of a
-   kind: a design principle they follow as one part of the project? Then it belongs in the design
-   home of the intermediate Component that groups them, a Component whose own files hold no Rust
-   code. Where none groups them, propose creating one under
-   `skill@knowledge-architect-component-creation`; until one is created, ask the owner where it
-   goes.
+2. Does it shape how every Component is implemented, or every Component of a kind: a design
+   principle each of them follows? Then it belongs in the root Component's design home. A kind is a
+   property a Component has whatever part of the project it belongs to, and can gain or lose
+   without moving, such as being published or holding a binary.
+3. Does it shape how the code of each of several Components is written, and not every one: a design
+   principle they follow as one part of the project, neither stated for a kind nor about their
+   shape, packaging or layout? Then it belongs in the design home of the intermediate Component that
+   groups them, a Component whose own files hold no Rust code. The sets of Components that
+   intermediate Components group are each nested in, or apart from, every other such set, since a
+   Component sits under one directory; a principle whose Components cross the set of an existing
+   intermediate Component belongs in the root Component's design home, naming them. Where none
+   groups them, propose creating one under `skill@knowledge-architect-component-creation`; until
+   one is created, ask the owner where it goes.
 4. Does it shape how a single Component is implemented, or its own interface, a rule that it does
    not depend on another Component included? Then it belongs in that Component's design home.
 
