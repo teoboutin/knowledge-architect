@@ -23,8 +23,9 @@ that cites a measurement taken in thaum fits both rows. Which home is meant?
 - `instructions@verify-before-relying`: "A figure in the core's documents measured in another
   project, thaum, names thaum as its source."
 - `design@agent-skills@application-judged-by-diff` states counts measured in a pass of the
-  design-record axis in thaum. No grounding directory exists under the docs of any Component, and the
-  design homes cite thaum's measurements in several heads.
+  design-record axis in thaum. The one grounding directory, `path@agent-skills@docs/grounding/`,
+  holds Cargo's rules and the layout of thaum's testing crate, and none of thaum's measurements;
+  the design homes cite thaum's measurements in several heads.
 
 Found by the routing axis of the review of the intake of seven retrospective files, which did not
 report it as a finding: the primer's row and the root's line on thaum's figures place such a figure
