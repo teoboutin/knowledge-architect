@@ -639,7 +639,8 @@ remove the cycle. Shape:
 
 Proposed by the session, R1 (#arg-17). Final state: approved, by the owner's word against the
 table, R3 and R6, and argued again at the design audit of #git-out under the definition of an
-intermediate Component the owner ruled to prevail, #intermediate-by-shared-design. Arguments:
+intermediate Component by the design it holds, the definition the owner's lead
+#intermediate-by-shared-design keeps. Arguments:
 #arg-17. Shape: "Decided design" below. Harvest: a head of absence in the root design home, "no
 intermediate Component groups the checker's Components or the installed text's", written at
 #git-out.
@@ -681,8 +682,10 @@ binary crate and the parsing in the crate nearest the binaries, without a head; 
 
 Put to the owner as Q1 of the design audit of #git-out, which found the skill's "Where many
 Components would sit beside one another, nested Components under an intermediate Component carry
-the layering" against #no-intermediate-component. Final state: approved, by the owner's ruling at
-that audit: "Q1: the definition that comes later takes precedence. Both instructions should be
+the layering" against #no-intermediate-component. Final state: a lead of the owner, not a
+ruling: on the owner's later word, the answer at that audit is a proposal to argue, test and
+possibly reject, which a design discussion on the revision of the Component rules argues against
+its rivals. The owner's answer at that audit: "Q1: the definition that comes later takes precedence. Both instructions should be
 revised to align. The first "Where many Components would sit beside one another, nested Components
 under an intermediate Component carry the layering." should be removed. It was from an initial
 proposal of mine. The second instruction came from me too, later, after more brainstorming and
@@ -703,15 +706,17 @@ absence of #no-intermediate-component, argued from the definition. Harvest: the 
 
 Put to the owner as Q2 of the design audit of #git-out, which found the skill's "Which Components
 exist and how they depend on each other is a decision about the layout, which belongs in the root's
-design home" against the harvest rows of #model-crate and #query-crate. Final state: approved, by
-the owner's ruling at that audit: "Q2: I would say this belongs to root design. It spans multiple
+design home" against the harvest rows of #model-crate and #query-crate. Final state: a lead of
+the owner, not a ruling: on the owner's later word, the answer at that audit is a proposal to
+argue, test and possibly reject, which the same design discussion as #intermediate-by-shared-design
+argues against its rivals. The owner's answer at that audit: "Q2: I would say this belongs to root design. It spans multiple
 components of the project. It should not be considered spanning a subset of them, or this will
 conflict with my answer to q1, and would require every pair of dependent in-project crates to have
 their own container component. A decision that one specific crate should not depend on another one,
 this can belong to the individual crate. Since it does not bear on the design of the other crate
 (because it rules out the dependency, it creates less constraints for the other)." Shape: the
 harvest rows of #model-crate and #query-crate stand, each a rule that its crate depends on no crate
-of the checks, which the ruling admits in that crate's home. Harvest: the same revision as #intermediate-by-shared-design, for
+of the checks, which the lead admits in that crate's home. Harvest: the same revision as #intermediate-by-shared-design, for
 `skill@knowledge-architect-decision-recording@owning-component` and the component-creation skill's
 sentence on the layout.
 

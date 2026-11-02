@@ -53,7 +53,7 @@
 | todo | [Nothing checks mechanically that the shipped text cites no entry of this repository](shipped-text-citing-an-entry-is-unchecked.md) |
 | todo | [The agent-configuration skill names no place for an instruction local to one machine and never committed](the-agent-configuration-skill-names-no-place-for-a-local-uncommitted-instruction.md) |
 | todo | [The agentic-workflow audit's cluster, merge and repair agents read the admission standard by a pointer](the-agentic-workflow-audit-s-repair-agents-read-the-admission-standard-by-a-pointer.md) |
-| todo | [The rules for splitting a project into Components still state two points the owner ruled otherwise at the Component split's first audit](the-component-rules-await-two-rulings-of-the-split-s-first-audit.md) |
+| todo | [The rules for splitting a project into Components disagree with each other on the intermediate Component, and the owner's leads at the Component split's first audit propose a revision](the-component-rules-await-two-rulings-of-the-split-s-first-audit.md) |
 | todo | [The goal standard lets a goal name a part of the project as it is built, or cite an entry other than a goal](the-goal-standard-lets-a-goal-name-what-is-built-or-cite-an-entry.md) |
 | todo | [The design skill's duty to bring back a material finding has no design head](the-material-finding-duty-has-no-head.md) |
 | todo | [The retrospective records no count of what a merged branch cost in review](the-retrospective-counts-no-review-cost.md) |
