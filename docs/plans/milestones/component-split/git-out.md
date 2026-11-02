@@ -36,10 +36,9 @@ The first slice of `milestone@plans@component-split`. It leaves when it lands.
   `path@elsewhere@crates/core/src/git.rs` are re-pointed only, which touches no head; and the count "publishes four
   crates" of `issue@knowledge-architect@this-repository-warns-on-none-of-the-documentation-lints`.
 - The head of absence of #no-intermediate-component, in the root design home: no intermediate
-  Component groups the Components. **It waits for the owner's ruling on Q1 of this slice's design
-  audit**, which asks whether the component-creation skill's sentence on layering through
-  intermediate Components needs a revision, and its title is narrowed to "the new Components", the
-  scope #arg-17 argues, per `design@agent-skills@title-states-the-rule`, once Q1 is ruled.
+  Component groups the checker's Components or the installed text's, the scope #arg-17 argues, per
+  `design@agent-skills@title-states-the-rule`, argued from the definition the owner ruled to
+  prevail at this slice's design audit, #intermediate-by-shared-design.
 - `design@knowledge-architect@installed-text-crate` rewritten in the form the milestone document states,
   under a new slug, its old slug kept beside the new reference in the commit that renames it, and
   citing `rejected@knowledge-architect@single-published-package`, which no other head cites.

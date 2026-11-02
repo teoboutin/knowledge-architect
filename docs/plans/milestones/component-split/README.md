@@ -637,7 +637,9 @@ remove the cycle. Shape:
 ### No intermediate Component groups the new Components `##no-intermediate-component`
 
 Proposed by the session, R1 (#arg-17). Final state: approved, by the owner's word against the
-table, R3 and R6. Arguments: #arg-17. Shape: "Decided design" below. Harvest: a head of absence
+table, R3 and R6, and argued again at the design audit of #git-out under the definition of an
+intermediate Component the owner ruled to prevail, #intermediate-by-shared-design. Arguments:
+#arg-17. Shape: "Decided design" below. Harvest: a head of absence
 in the root design home, "no intermediate Component groups the Components", written at #git-out.
 
 ### The core is renamed `check` `##core-renamed-check`
@@ -670,6 +672,44 @@ binary crate and the parsing in the crate nearest the binaries, without a head; 
 `cli` head states them is their second text, and writes the two heads of
 `register@agent-skills@design`, which `cli`'s head on its own parsing cites, with
 `design@core@arguments-parse-through-clap` rewritten.
+
+### An intermediate Component exists where several Components share design the rest of the project does not; the component-creation skill's sentence on layering by count goes `##intermediate-by-shared-design`
+
+Put to the owner as Q1 of the design audit of #git-out, which found the skill's "Where many
+Components would sit beside one another, nested Components under an intermediate Component carry
+the layering" against #no-intermediate-component. Final state: approved, by the owner's ruling at
+that audit: "Q1: the definition that comes later takes precedence. Both instructions should be
+revised to align. The first "Where many Components would sit beside one another, nested Components
+under an intermediate Component carry the layering." should be removed. It was from an initial
+proposal of mine. The second instruction came from me too, later, after more brainstorming and
+thought "An intermediate Component holds no Rust code in its own files. It groups nested Components
+and holds the design and the documents several of them share but the rest of the project does
+not." I think the second one should win here. It is a better shape. The first one should then be
+along the line of "when several components share design that is not true of the whole project,
+they are grouped under an intermediate component, holding the shared design and no code of its
+own". The shape can be either of: the intermediate component is not a crate, each nested one is a
+crate (recommended for isolation/independence). Or the other way, if crate count cost is too high,
+the intermediate one is a crate, the other components are modules of it. I think this is the right
+shape, with the right amount of leeway to organize the layout conveniently." Shape: the head of
+absence of #no-intermediate-component, argued from the definition. Harvest: the revision of
+`skill@knowledge-architect-component-creation`, by its own work,
+`issue@agent-skills@the-component-rules-await-two-rulings-of-the-split-s-first-audit`.
+
+### The dependencies that span several Components are the root design home's; a rule that one crate depends on no other is that crate's `##dependency-layout-home`
+
+Put to the owner as Q2 of the design audit of #git-out, which found the skill's "Which Components
+exist and how they depend on each other is a decision about the layout, which belongs in the root's
+design home" against the harvest rows of #model-crate and #query-crate. Final state: approved, by
+the owner's ruling at that audit: "Q2: I would say this belongs to root design. It spans multiple
+components of the project. It should not be considered spanning a subset of them, or this will
+conflict with my answer to q1, and would require every pair of dependent in-project crates to have
+their own container component. A decision that one specific crate should not depend on another one,
+this can belong to the individual crate. Since it does not bear on the design of the other crate
+(because it rules out the dependency, it creates less constraints for the other)." Shape: the
+harvest rows of #model-crate and #query-crate stand, each a rule that its crate depends on no crate
+of the checks. Harvest: the same revision as #intermediate-by-shared-design, for
+`skill@knowledge-architect-decision-recording@owning-component` and the component-creation skill's
+sentence on the layout.
 
 ### The record worklist is a Component of its own `##worklist-crate`
 
