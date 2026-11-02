@@ -275,7 +275,7 @@ other defaults. The rival, no row, leaves such an edit to be read by no step bef
 against `goal@knowledge-architect@the-owner-decides`. Per `design@agent-skills@goal-reviewer-agent`,
 the agent is the same one goal-setting dispatches.
 
-### The shape of the code a branch writes is judged by an installed reviewer, once per branch, against the default shape `##code-shape-axis`
+### The shape of the code a branch writes is judged by an installed reviewer against the default shape `##code-shape-axis`
 
 `agent@knowledge-architect-code-shape-reviewer` judges each unit of code a branch writes or edits
 against the default shape of `design@agent-skills@default-code-shape`, and each test it adds by
@@ -294,7 +294,8 @@ at development checkpoints where the change touches how the project implements i
 reads the code first reads the specification through it. It judges the code against the
 specification as the project follows it, per `goal@agent-skills@reviews-judge-by-the-writer-s-criteria`.
 A project with no specification never dispatches it, so it costs such a project nothing. It is the
-generic form of thaum's rules-first axis.
+generic form of thaum's rules-first axis. A general-purpose reviewer briefed with the procedure would
+judge unevenly, per `rejected@agent-skills@one-generic-auditor-agent`, so it is an installed agent.
 
 ### Adversarial reviewers are scoped to one subsystem, family of claims or boundary each, pick their tests, and run the wider suite before reporting a survivor `##adversarial-scoping`
 
@@ -306,16 +307,25 @@ the time a reviewer takes enough to fix its running time, with no cap that might
 more; whether scoped reviewers still run unbounded in real use is what a retrospective would report.
 The rival, a cap on a reviewer's time, would stop the reviewer at an arbitrary point of its attack.
 
-### The checkpoint axes for code run at development checkpoints, and the read-only code axes once per branch before the transcript reviewer `##review-cadence`
+### The adversarial and spec-first axes run at development checkpoints, and the code-shape and code-claims axes once per branch, before the transcript reviewer `##review-cadence`
 
 The adversarial and spec-first axes run at each development checkpoint, where a defect found late
-would unbuild work; they are rows of the development skill's table. The code-shape and code-claims
-axes read only, and run once per branch, in the review before the merge and before the transcript
-reviewer, per `design@agent-skills@transcript-review-last-before-merge`; they are rows of the review
-skill's table, since a diff of any activity can write code or a statement about it, the reason
-`design@agent-skills@review-judges-additions` gives for the agent-facing-text row. Every axis at
-every checkpoint would multiply the dispatches the owner asked to keep few; the instrument that would
-show whether two more per branch are too many is `issue@agent-skills@the-retrospective-counts-no-review-cost`.
+would unbuild work. The code-shape and code-claims axes read only, and run once per branch, in the
+review before the merge and before the transcript reviewer, per
+`design@agent-skills@transcript-review-last-before-merge`. Every axis at every checkpoint would
+multiply the dispatches, against the efficiency `goal@knowledge-architect@agents-get-a-complete-workflow`
+asks of the workflow; the instrument that would show whether two more per branch are too many is
+`issue@agent-skills@the-retrospective-counts-no-review-cost`.
+
+### The read-only code axes are rows of the review skill's table, and the checkpoint axes rows of the development skill's `##code-axes-rows-home`
+
+A diff of any activity can write code or a statement about code, a plan's harvest or an issue's
+closure among them, and the review before the merge reaches each, so the code-shape and code-claims
+rows sit in `skill@knowledge-architect-review@review-axes`, for the reason
+`design@agent-skills@review-judges-additions` gives for the agent-facing-text row. The adversarial
+and spec-first axes are dispatched at moments only the development activity names, so they are rows
+of `skill@knowledge-architect-development@code-review-axes`, which the review skill's sentence on an
+activity's added axes reaches. Each row has one home.
 
 ### The code-claims reviewer reads every statement a diff writes about code, and the completeness of a changed public interface's documentation `##code-claims-scope`
 
@@ -327,4 +337,12 @@ public interface others consume, it asks of each public item the diff adds or ch
 documentation states what a caller must respect. The same method reads both, at no extra dispatch,
 and a thaum case where an improvised reviewer for this question produced the review's most
 consequential findings showed the gap; that the documentation exists is the lints' of
-`design@agent-skills@api-doc-completeness`.
+`design@agent-skills@documentation-presence-is-linted`.
+
+### The review owes no security axis: the adversarial axis attacks what an accepted input reaches `##no-security-axis`
+
+No installed agent reviews security as an axis of its own. The adversarial reviewer already tries to
+reach a panic, a wrong result or a lost input from an accepted input, which is how a security defect
+in a target project's code shows, and a security reviewer with no threat model of the project has no
+standard to judge against, per `rejected@agent-skills@one-generic-auditor-agent`. No lint gate on
+`unsafe` code ships with the setup.

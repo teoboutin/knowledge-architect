@@ -23,7 +23,7 @@ for one of those gets a green gate on an unverified change.
 Beside what the installed skill's grounding reads, read the Component's own files: its
 `CLAUDE.md`, for the invariants and traps that hold of the code as it stands; its issues and its
 tripwires, for what is outstanding and what would reopen a decision. A behaviour that looks like a
-new defect is checked with the two listings `instructions@verify-before-relying` adds.
+new defect is checked with the three listings `instructions@verify-before-relying` adds.
 
 ## The gate here `##gate-in-this-repository`
 
@@ -57,8 +57,9 @@ the mutation library: `path@mutate@CLAUDE.md` says what that costs.
 
 ## A shipped tool found insufficient here `##shipped-tool-here`
 
-This repository maintains the shipped tools, so it fixes one at its source rather than building a
-tool of its own beside it, and a finding about one stays here, per
+The installed skill's section on a shipped tool found insufficient covers a tool the project does
+not maintain. This repository maintains every shipped tool, so a shortfall of one is fixed at its
+source, and a finding about it stays here, per
 `design@knowledge-architect@workflow-findings-stay-here`.
 
 ## Comments in the checker's source `##checker-source-comments`

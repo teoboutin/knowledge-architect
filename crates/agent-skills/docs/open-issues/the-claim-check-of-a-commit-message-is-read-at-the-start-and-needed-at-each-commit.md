@@ -7,7 +7,8 @@ kind: design
 
 `primer@verify-before-relying` asks that every factual claim of a commit message be listed and
 checked before the commit. The primer is read at the session's start; the act happens at each
-commit, and no text read at a commit restates it. Eleven of the twelve workflow files of one intake
+commit, and only the development skill's commit step restates it, for a commit of Rust code: a
+commit made outside that skill meets no text that restates it. Eleven of the twelve workflow files of one intake
 report the rule acted on as if absent, in three projects.
 
 ## Details

@@ -19,16 +19,24 @@ to it. For each mutation, pick the tests that bear on what you try to break and 
 than the whole suite. **Before reporting a mutation as surviving, run the wider suite** of the
 package: a survivor claimed against a narrow run can be caught by a test outside it.
 
-**Run each mutation with `cargo x mutate run`, with `--build`**, as
-`skill@knowledge-architect-development@discriminating-tests` says, and quote the
+**Run each mutation with `cargo x mutate run`, with `--build`**, and quote the
 `mutation applied to <file>` line in the report: a mutation applied by hand shows neither that it
 reached the code that ran nor that a mutant which never compiled was told apart from a caught one.
+
+```sh
+cargo x mutate run --file <F> --replace <OLD> --with <NEW> \
+  --build "cargo test -p <package> --no-run" -- cargo test -p <package> <module>::<test> -- --exact
+```
+
+The verdict is the exit code of the command after `--`, printed as `caught`, `SURVIVED` or
+`unmutatable here`; the tool's own exit code is no verdict. A filter that matches no test runs
+nothing and reads as `SURVIVED`, so name the test by its module path, with `-- --exact`.
 
 **Try to reach a failure from an accepted input**: a panic, a wrong result, a lost or overwritten
 input, an exit code that misstates the outcome. An input the code refuses is no finding; an input
 it accepts and mishandles is.
 
-**You do not edit the live tree**, and you leave your worktree as you found it.
+You leave your worktree as you found it.
 
 ## Reporting {{slug:how-to-report-adversarial}}
 

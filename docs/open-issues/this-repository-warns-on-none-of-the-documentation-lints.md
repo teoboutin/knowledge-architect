@@ -7,7 +7,7 @@ kind: todo
 
 The setup skill asks a crate a target project publishes to warn on `missing_docs`,
 `clippy::missing_errors_doc` and `clippy::missing_panics_doc`, per
-`design@agent-skills@api-doc-completeness`. This repository publishes four crates and declares none
+`design@agent-skills@documentation-presence-is-linted`. This repository publishes four crates and declares none
 of the three, so it does not follow an ask it ships.
 
 ## Details

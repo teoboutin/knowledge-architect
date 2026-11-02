@@ -166,8 +166,9 @@ once it proposed a fix. The mechanism: the only texts such a
 session meets that say what to read, the primer's "Check whether it is already known" and
 `skill@knowledge-architect-issue-tracking@read-before-diagnosing`, name the issue and tripwire
 listings and no design home as a place to read, while the design skill's grounding, which names
-them, reaches only work that goes through it. Every session that changes code meets the moment and no skill delivers
-the reading outside the design path, so `design@agent-skills@primer-limit` admits it. It is no
+them, reaches only work that goes through it. Every session that changes code meets the moment,
+code changed outside the development skill included, such as a plan's harvest or an issue's
+closure, so `design@agent-skills@primer-limit` admits it, and the development skill points to it. It is no
 search of the whole record: `design@agent-skills@record-searched-before-the-work` keeps that search
 for the work that goes through the design skill, a plan or an intake.
 
@@ -176,7 +177,8 @@ the diagnosis of a new problem and reaches no change that is not a bug. Sending 
 the design skill's grounding dispatches the record search, beyond the minimal fix the owner said
 would do for now. A fix runs no search of the whole record: `skill@knowledge-architect-development`
 grounds it in this reading alone. The owner stated that grounding in the design record concerns
-additions and new features, not fixes, and the search costs a dispatch of many agents; a change the
+additions and new features, not fixes, with an exception the owner was not sure occurs, a bug found
+to make the design fail or to be inherent to it, and the search costs a dispatch of many agents; a change the
 owner asks for or proposes goes through the design skill and its search, unless a record states it,
 per `design@agent-skills@settled-means-recorded`.
 

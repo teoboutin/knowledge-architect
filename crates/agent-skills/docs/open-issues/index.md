@@ -1,6 +1,6 @@
 **Generated — do not edit.** `cargo klarch index`
 
-48 entries
+50 entries
 
 | kind | title |
 | --- | --- |
@@ -10,6 +10,7 @@
 | defect | [In an adopting project, a finding sent upstream is counted again as a violation left on old text at every later pass](an-upstream-finding-stays-in-every-later-old-text-count.md) |
 | defect | [Texts of the workflow and of this repository send the owner more than the closed list of what is the owner's](texts-send-the-owner-more-than-the-closed-list.md) |
 | deferred | [A project cannot use an unreleased change to a shipped tool through a Cargo patch](co-development-through-a-cargo-patch.md) |
+| deferred | [Nothing checks that a change to a declared performance path records its figures](the-figures-of-a-declared-path-are-checked-by-nothing.md) |
 | design | [A built default awaiting the owner enters a design head only once the owner rules, where the owner wants agents more autonomous](a-built-default-awaiting-the-owner-enters-a-head-only-once-the-owner-rules.md) |
 | design | [A goal the draft-mode review read was reworded again for a defect the goal standard names, twice](a-goal-the-draft-review-read-was-reworded-again-for-a-defect.md) |
 | design | [A goal the record search graded was missed by the work in two separate pieces of work](a-goal-the-search-graded-was-missed-in-two-pieces-of-work.md) |
@@ -39,6 +40,7 @@
 | question | [Whether a census of a project's own text under a planned instruction is real use, or a run the workflow refuses](whether-a-census-of-real-text-under-a-planned-instruction-is-real-use.md) |
 | question | [Whether a session in Claude Code's default permission mode is asked for permission, or needs an allow rule, to run an installed saved workflow](whether-a-saved-workflow-run-needs-a-permission-rule.md) |
 | todo | [A pointer that applies a whole standard, with no instruction to read it whole, was not searched for fragments](a-pointer-that-applies-a-whole-standard-without-asking-to-read-it-whole-was-not-searched.md) |
+| todo | [A target project whose goal is judged in use collects no feedback from that use](a-target-project-collects-no-feedback-from-use.md) |
 | todo | [The project audit has three axes, and the other axes the owner named have none](audit-axes-beyond-the-design-record.md) |
 | todo | [Only the design and setup skills state what they expect of the owner](expectation-sets-for-the-installed-skills.md) |
 | todo | [Improving performance has no installed activity, nor a benchmark procedure](improving-performance-has-no-activity.md) |
