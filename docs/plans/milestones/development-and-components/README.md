@@ -530,7 +530,7 @@ on the checkpoint of the reply to R6, which listed the thread in its bucket.
 - **Closed by:** R2: "code-shape-axis: overall I agree." R3: "code-shape-axis: I agree with the one
   reason to change rule, this is much more testable and lenient, and this is the actual benefit of
   the principle I believe."
-- **Shape:** `spec@development-and-components@development-skill`. **Harvest:** a head in
+- **Shape:** slice 2's spec, landed. **Harvest:** a head in
   `register@agent-skills@design`, slug its thread's, slice 2.
 - **Relations:** absorbs the owner's "overall quality" axis and #test-economy; constrained by the
   reworded goal of #code-quality-goal-wording.
@@ -543,7 +543,7 @@ on the checkpoint of the reply to R6, which listed the thread in its bucket.
 - **Arguments:** `argument@development-and-components@arg-4`, `argument@development-and-components@arg-15`,
   `argument@development-and-components@arg-20`, `argument@development-and-components@arg-82`.
 - **Closed by:** R2: "test-economy: this is a good idea." R3: "test-economy agreed on refinements".
-- **Shape:** `spec@development-and-components@development-skill`. **Harvest:** with the head of
+- **Shape:** slice 2's spec, landed. **Harvest:** with the head of
   #code-shape-axis, or a head of its own where decision-recording's test of one decision per head
   says so, slice 2.
 
@@ -560,7 +560,7 @@ on the checkpoint of the reply to R6, which listed the thread in its bucket.
   practice, until now, this has proven to be enough of a fix, by sufficiently reducing the time
   adversarial reviewers take to report, without adding constraints or a cap that might prevent them
   from finding more."
-- **Shape:** `spec@development-and-components@development-skill`. **Harvest:** a head in
+- **Shape:** slice 2's spec, landed. **Harvest:** a head in
   `register@agent-skills@design`, slice 2. This thread carries `a-reviewer-s-running-time-is-unbounded`, closed when this milestone scheduled it.
 
 ### A spec-first axis, an installed agent, works out what an external specification requires before reading the code, where the project implements one and the diff changes how `##spec-first-axis`
@@ -571,7 +571,7 @@ on the checkpoint of the reply to R6, which listed the thread in its bucket.
   `argument@development-and-components@arg-57`, `argument@development-and-components@arg-68`,
   `argument@development-and-components@arg-84`.
 - **Closed by:** R2: "spec-first-axis good idea too".
-- **Shape:** `spec@development-and-components@development-skill`. **Harvest:** a head in
+- **Shape:** slice 2's spec, landed. **Harvest:** a head in
   `register@agent-skills@design`, slice 2.
 
 ### The generic `run` and `restore` of thaum's mutation tool ship as a command; `sweep` stays thaum's `##mutation-command`
@@ -598,7 +598,7 @@ on the checkpoint of the reply to R6, which listed the thread in its bucket.
 - **Arguments:** `argument@development-and-components@arg-8`, `argument@development-and-components@arg-16`,
   `argument@development-and-components@arg-24`.
 - **Closed by:** R3: "api-doc-completeness agreed to fold into widened code-claim agent".
-- **Shape:** `spec@development-and-components@development-skill`. **Harvest:** a head in
+- **Shape:** slice 2's spec, landed. **Harvest:** a head in
   `register@agent-skills@design`, slice 2. This thread carries
   `the-code-claims-axis-reads-plan-documents-only`, closed when this milestone scheduled it.
 
@@ -608,7 +608,7 @@ on the checkpoint of the reply to R6, which listed the thread in its bucket.
 - **States:** new (reply to R2); approved R3.
 - **Arguments:** `argument@development-and-components@arg-16`, `argument@development-and-components@arg-24`.
 - **Closed by:** R3: "api-doc-completeness agreed to fold into widened code-claim agent".
-- **Shape:** `spec@development-and-components@development-skill`. **Harvest:** with the head of
+- **Shape:** slice 2's spec, landed. **Harvest:** with the head of
   #code-claims-scope; the lints in the setup skill, slice 2.
 
 ### An optional step runs cargo-mutants over the branch's changed code before the adversarial review, and gives its survivors to the reviewer as leads `##diff-mutation-sweep`
@@ -618,7 +618,7 @@ on the checkpoint of the reply to R6, which listed the thread in its bucket.
 - **Arguments:** `argument@development-and-components@arg-21`, `argument@development-and-components@arg-22`,
   `argument@development-and-components@arg-26`.
 - **Closed by:** R3: "diff-mutation-sweep is quite worth it too."
-- **Shape:** `spec@development-and-components@development-skill`, with the caveat that cargo-mutants
+- **Shape:** slice 2's spec, landed,, with the caveat that cargo-mutants
   ignores rust flags set in the cargo configuration file, `path@knowledge-architect@.cargo/config.toml` in this repository. **Harvest:** with the head of #review-cadence or
   of its own, slice 2.
 
@@ -634,7 +634,7 @@ on the checkpoint of the reply to R6, which listed the thread in its bucket.
 - **Closed by:** R2: "performance-opt-in: good idea, I think this is the correct solution, for
   performance non-regression, review is not needed, a benchmark procedure is better." R7: "Agreed on
   the table."
-- **Shape:** `spec@development-and-components@development-skill`. **Harvest:** a head in
+- **Shape:** slice 2's spec, landed. **Harvest:** a head in
   `register@agent-skills@design`, slice 2; judged against
   `issue@agent-skills@a-head-s-measurement-says-nothing-of-its-magnitude`.
 
@@ -644,7 +644,7 @@ on the checkpoint of the reply to R6, which listed the thread in its bucket.
 - **States:** new (reply to R1); approved R2.
 - **Arguments:** `argument@development-and-components@arg-10`.
 - **Closed by:** R2: "review-cadence agreed".
-- **Shape:** `spec@development-and-components@development-skill`. **Harvest:** a head in
+- **Shape:** slice 2's spec, landed. **Harvest:** a head in
   `register@agent-skills@design`, slice 2.
 
 ### No performance review axis: improving performance is a task of its own, withdrawn `##performance-review-axis`
@@ -703,8 +703,8 @@ on the checkpoint of the reply to R6, which listed the thread in its bucket.
   the project into Components, since slice 0 reworded
   `goal@knowledge-architect@projects-are-split-into-components` to ask the retrospective it; and a
   lint the setup ships counts as an installed rule about code (Q8). Its wording is in
-  `spec@development-and-components@development-skill`; slice 2 writes both clauses.
-- **Shape:** `spec@development-and-components@development-skill`. **Harvest:** the rewrite of
+  slice 2's spec, landed; slice 2 writes both clauses.
+- **Shape:** slice 2's spec, landed. **Harvest:** the rewrite of
   `design@agent-skills@premortem-as-watch-points`, whose list of standing questions it joins, slice 2.
 
 ### One Component is one crate by default, weighed by whether the project publishes, and a Component may be a module directory where a crate would force publication or a cycle `##component-crate-mapping`
@@ -758,7 +758,7 @@ on the checkpoint of the reply to R6, which listed the thread in its bucket.
   doing that. For now, there is no such need, hence whhy the details can wait. Point 1. can be
   applied by any project without further support provided by knowledge-architect after all." R5:
   "upstream-tool-loop agreed."
-- **Shape:** `spec@development-and-components@development-skill`. **Harvest:** a head in
+- **Shape:** slice 2's spec, landed. **Harvest:** a head in
   `register@agent-skills@design` citing `design@agent-skills@installed-fix-goes-upstream`, slice 2.
 
 ### A test Component may depend on the Components it tests, never the reverse, where several crates share test tooling and fixtures `##shared-test-component`
@@ -796,7 +796,7 @@ on the checkpoint of the reply to R6, which listed the thread in its bucket.
 - **Arguments:** `argument@development-and-components@arg-38`, `argument@development-and-components@arg-44`,
   `argument@development-and-components@arg-49`.
 - **Closed by:** R5: "upstream-tool-loop agreed." R7: "Agreed on the table."
-- **Shape:** `spec@development-and-components@development-skill`. **Harvest:** a `deferred` issue in
+- **Shape:** slice 2's spec, landed. **Harvest:** a `deferred` issue in
   `register@agent-skills@issue`, trigger "a consumer needs a change to a shipped tool before the next
   release", with its unverified premise on the checker's pin, opened at slice 2.
 
@@ -831,7 +831,7 @@ on the checkpoint of the reply to R6, which listed the thread in its bucket.
 - **States:** new (reply to R5); approved R6.
 - **Arguments:** `argument@development-and-components@arg-58`.
 - **Closed by:** R6: "fix-grounding agreed".
-- **Shape:** `spec@development-and-components@development-skill`. **Harvest:** the rewrite of
+- **Shape:** slice 2's spec, landed. **Harvest:** the rewrite of
   `design@agent-skills@code-change-reads-its-record`, slice 2. This thread carries
   `a-fix-is-grounded-by-no-record-search`, closed when this milestone scheduled it.
 
@@ -842,7 +842,7 @@ on the checkpoint of the reply to R6, which listed the thread in its bucket.
 - **States:** new (reply to R5); approved R6.
 - **Arguments:** `argument@development-and-components@arg-59`.
 - **Closed by:** R6: "commit-claim-check agreed".
-- **Shape:** `spec@development-and-components@development-skill`. **Harvest:** a `%%` line beside the
+- **Shape:** slice 2's spec, landed. **Harvest:** a `%%` line beside the
   sentence; the issue stays open for its other options, slice 2.
 
 ### A rule-6 finding under the new clause is tagged intent instead of minor `##rule-6-finding-weight`
@@ -1346,7 +1346,7 @@ project copies. Every Rust target project has a maintenance crate, per #maintena
 
 ## Mapping tables
 
-None at the milestone's level. `spec@development-and-components@development-skill` holds the table
+None at the milestone's level. slice 2's spec, landed, held the table
 of the review axes the development skill dispatches.
 
 ## Losing alternatives
@@ -1406,7 +1406,7 @@ history, per `argument@development-and-components@arg-80`.
 1. The mutation crate, landed: the published crate `knowledge-architect-mutate`, `cargo x
    mutate` here, the setup snippet, the release procedure. Fails alone on a run that does not
    restore, or a refusal that does not refuse.
-2. [The development skill](development-skill.md): the installed skill, the code-shape, spec-first and
+2. The development skill, landed: the installed skill, the code-shape, spec-first and
    adversarial agents, the widened code-claims reviewer, the review cadence, the lints, the retrospective's
    question, the local skill cut down. Fails alone on a missing or contradicting instruction of the
    installed skill, or an agent that does not install.
