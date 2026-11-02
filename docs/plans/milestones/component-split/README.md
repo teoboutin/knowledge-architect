@@ -661,11 +661,13 @@ phase 2. Arguments: #arg-50, #arg-68 to #arg-70, #arg-81, #arg-82, #arg-103, #ar
 `installed-file-findings-belong-in-phase-four` was closed by the commit that added this
 document.
 
-### The arguments of a command are parsed in the lowest crate that every binary offering the command depends on: `cli` for klarch, the crate itself for `gates` and `mutate` `##command-parsing-home`
+### The arguments of a command are parsed in the crate nearest the binaries among those that every binary offering the command depends on: `cli` for klarch, the crate itself for `gates` and `mutate` `##command-parsing-home`
 
 Proposed by the owner, R2 (#arg-35); challenged at the owner's request, R3 (#arg-61), by the
 session, R4 (#arg-71 to #arg-78). Final state: approved. The owner, R5: "command-parsing-home I
-think your synthesis is right." Arguments: #arg-35, #arg-53, #arg-61, #arg-71 to #arg-78, #arg-100,
+think your synthesis is right." Its title said "the lowest crate", the word of #arg-78, which read
+literally points away from the binaries its own examples name; put to the owner as Q3 of the design audit of
+#git-out, the owner ruled it a wording defect: "Q3 agreed it is a wording defect." Arguments: #arg-35, #arg-53, #arg-61, #arg-71 to #arg-78, #arg-100,
 #arg-113. Shape: `spec@component-split@cli-on-top`. Harvest: the rule is stated by the installed
 component-creation skill alone today, in two comment lines that keep its two parts, the top-level
 binary crate and the parsing in the crate nearest the binaries, without a head; the slice whose
