@@ -1,6 +1,6 @@
 **Generated — do not edit.** `cargo klarch index`
 
-42 entries
+40 entries
 
 | kind | title |
 | --- | --- |
@@ -26,7 +26,6 @@
 | design | [A command the owner ran with the `!` prefix is unlabelled in a transcript](owner-shell-commands-are-unlabelled.md) |
 | observation | [A lint written twice on one line of a message is reported once or twice, by which tree holds it](a-message-lint-is-deduplicated-in-one-tree-only.md) |
 | observation | [Plain `check` under a sparse checkout reports every file outside the cone as an unstaged deletion](check-under-a-sparse-checkout-reports-every-file-outside-the-cone.md) |
-| observation | [`index --staged` clears the assume-unchanged bit of the entry it stages, and maybe its skip-worktree bit](index-staged-clears-an-entrys-flags.md) |
 | question | [The refusal of a kind's name as an anchor quotes a reason the root forbids](a-kind-name-refusal-quotes-a-future-migration-reason.md) |
 | question | [A project's own saved workflow can declare the name of an installed one, and nothing reports it](a-project-workflow-can-declare-an-installed-workflow-s-name.md) |
 | question | [A reference to an anchor's own directory breaks when the anchor moves, which the relocation goal says no move does](a-reference-to-an-anchor-s-own-directory-breaks-when-the-anchor-moves.md) |
@@ -43,6 +42,5 @@
 | todo | [`show` on a register home in the directory shape prints its path and not its subdocuments](show-lists-no-subdocument-of-a-directory-home.md) |
 | todo | [The documents do not yet render as one linked site](the-documents-do-not-render-as-a-site.md) |
 | todo | [The graded entries carry a shared entry's grade once per agent](the-graded-entries-repeat-a-shared-entry-s-grade-per-agent.md) |
-| todo | [The walk does not report the untracked files git's per-clone exclude file removes from it](the-walk-does-not-report-what-the-per-clone-exclude-file-removes.md) |
 | todo | [A row of `\[walk\]` may keep out a file the model requires, and only one such case is reported](the-walk-may-exclude-a-file-the-model-requires.md) |
 | todo | [The checker does not read the structure of a project's own skills](tooling-for-project-skills.md) |

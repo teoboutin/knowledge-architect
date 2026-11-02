@@ -10,7 +10,7 @@ each Component it lists and the plans directory owe, then ends as
 `check --fix` does, through its code: it installs the shipped set, writes the indexes once phases 1
 to 3 find nothing, and runs the check, whose verdict is the run's. Outside every git worktree, under
 `--vcs none`, it installs the shipped set and stops there, saying what comes next: the indexes and
-the check read git's listing, per `design@core@failed-git-is-exit-two`, and the install reads none.
+the check read git's listing, per `design@git@failed-git-is-an-error`, and the install reads none.
 No directory of audit reports or of retrospective analyses, and no roadmap, is written: each is
 created when first needed. A project created from nothing is the target
 `goal@knowledge-architect@every-target-project-can-adopt-it` puts first, and its creation is where a person
@@ -124,20 +124,20 @@ Git is asked about PATH before the first write, whatever `--vcs` says, since the
 ends with reads the tree through git: a git that cannot answer refuses the run, and so does a
 failure other than "not a git repository", such as a repository refused as another user's, which
 would otherwise read as outside every repository. `GIT_INDEX_FILE` set refuses it too, per
-`design@core@index-file-variable-kept`, and the variables that select another repository are
+`design@git@index-file-variable-kept`, and the variables that select another repository are
 removed from `init`'s invocations as from every other, per
-`design@core@repository-variables-dropped`. Inside a worktree no repository is needed: a project in a subdirectory of a repository passes the
+`design@git@repository-variables-dropped`. Inside a worktree no repository is needed: a project in a subdirectory of a repository passes the
 check, measured by copying a passing project into a subdirectory of another repository and running
 `klarch check` there, exit 0. A repository `--vcs git` creates there is nested in the outer one,
 whose check reports it in phase 2 until an ignore rule or `[walk] skip-dirs` names it, as that
 finding says. Outside one, the checker cannot run without a repository, per
-`design@core@failed-git-is-exit-two`, and `cargo init` creates one: cargo 1.98.0 creates `.git` and
+`design@git@failed-git-is-an-error`, and `cargo init` creates one: cargo 1.98.0 creates `.git` and
 `.gitignore` in a directory outside every repository and none in a subdirectory of one. A departure
 from `cargo init`, per `design@core@init-follows-cargo-init`, is the refusal of a directory holding
 files, chosen by the owner over following `cargo init` exactly: after `cargo init` in such a
 directory, `git status --short` lists the files that were there as untracked beside the new ones, so the cleanup of a mistaken run is
 not `git clean`, which deletes both. Whether PATH is inside a worktree is asked through
-`path@git@src/git.rs`, per `design@core@git-is-asked-through-one-module`.
+`path@git@src/git.rs`, per `design@git@git-is-asked-through-one-module`.
 
 The designs this decision did not keep: `rejected@core@init-git-init-anywhere-outside-a-worktree`
 and `rejected@core@init-refused-outside-a-repository-root`.

@@ -145,7 +145,7 @@ What exists today, read at the branch that adds this document:
 - **The commands are one enum**, `cli::Command` in `path@core@src/cli/mod.rs`, which a binary that
   registers extensions flattens, per `design@core@the-core-cli-is-a-library-module`.
 - **Every git invocation of the core's library code is in `path@elsewhere@crates/core/src/git.rs`**, per
-  `design@core@git-is-asked-through-one-module`; a unit test of `path@core@src/source/rs.rs` and
+  `design@git@git-is-asked-through-one-module`; a unit test of `path@core@src/source/rs.rs` and
   the tests of `path@core@tests/init.rs` run git themselves, and so do `gates`, in
   `path@gates@src/gates.rs`, and `mutate`, in `path@mutate@src/harness.rs` and `path@mutate@src/run.rs`.
 - **`id`, `worklist` and the writers run the foundation**, through `complete_working_tree` or
@@ -211,10 +211,10 @@ Outside this work, each with what owns it:
   `design@core@one-list-of-generated-files`, `design@core@anchors-listing-command`,
   `design@core@id-lookup-command`, `design@core@worklist-writes-and-verifies-the-reports`: each holds
   across the new boundaries;
-- the git heads that move whole to `git`: `design@core@per-user-ignore-file-pinned`,
-  `design@core@repository-variables-dropped`, `design@core@index-file-variable-kept`,
-  `design@core@a-path-is-bytes`, `design@core@git-floor-for-commit-trees`; and
-  `design@core@failed-git-is-exit-two`, moved with its exit-code clause stated as the crate's error
+- the git heads that move whole to `git`: `design@git@per-user-ignore-file-pinned`,
+  `design@git@repository-variables-dropped`, `design@git@index-file-variable-kept`,
+  `design@git@a-path-is-bytes`, `design@git@git-floor-for-commit-trees`; and
+  `design@git@failed-git-is-an-error`, moved with its exit-code clause stated as the crate's error
   contract beside a citation of `design@core@exit-code-ladder`, as `spec@component-split@git-out`
   says;
 - `design@gates@the-library-owns-the-flags` and `rejected@gates@gates-command-of-the-checker`: `cli`
@@ -241,7 +241,7 @@ Outside this work, each with what owns it:
 | `design@core@owned-namespace-check` | #check-renamed, split as its issue says | `path@knowledge-architect@CLAUDE.md`, `path@agent-skills@docs/design/project-configuration.md`, `register@agent-skills@design`, `path@agent-skills@docs/design/retrospective.md`, `path@agent-skills@docs/design/shipped-set.md`, `path@agent-skills@docs/open-issues/patching-an-installed-skill.md`, `path@core@docs/design/agent-configuration.md`, `path@core@docs/design/creating.md`, `path@core@docs/design/generated-files-and-fixes.md`, `path@core@docs/design/git-and-the-walk.md`, `path@core@docs/design/run-model.md`, `path@core@docs/open-issues/a-project-workflow-can-declare-an-installed-workflow-s-name.md`, `path@core@docs/open-issues/core-heads-bundle-decisions-with-many-citing-sites.md`, `register@core@rejected`, `path@core@README.md`, `path@core@src/agents.rs`, `path@core@src/check/agents.rs`, `path@core@src/check/mod.rs`, `path@core@src/cli/history.rs`, `path@core@src/cli/mod.rs`, `path@core@src/manifest.rs`, `path@core@src/mock_projects.rs`, `path@core@src/survey.rs`, `path@core@src/walk.rs`, `path@core@tests/binary.rs`, `register@knowledge-architect@design`, `path@knowledge-architect@docs/open-issues/the-skill-bundling-passes-are-tied-to-this-project-s-skills.md`, `spec@plans@path-quickfixes` |
 | `design@core@fix-before-the-checks` | #check-renamed | `path@core@docs/design/run-model.md`, `path@core@README.md`, `path@core@src/cli/mod.rs`, `path@core@tests/binary.rs`, `spec@plans@path-quickfixes` |
 | `design@core@model-then-checks` | #model-out | `path@core@docs/design/extensions-and-api.md`, `path@core@src/check/references.rs`, `path@core@src/cli/gathered.rs`, `path@core@src/extension.rs`, `spec@plans@path-quickfixes` |
-| `design@core@git-is-asked-through-one-module` | #git-out | `path@core@CLAUDE.md`, `path@core@docs/design/creating.md` |
+| `design@git@git-is-asked-through-one-module` | #git-out | `path@core@CLAUDE.md`, `path@core@docs/design/creating.md` |
 | `design@core@inputs-are-gathered` | #model-out, for the two gatherings; #integrated-tests, for its sentence on the mock tests | `register@core@rejected` |
 | `design@core@checker-source-literals-are-data` | each slice that adds a crate; #cli-on-top for the list the binary hands over | `path@agent-config@skills/klarch-development/SKILL.md`, `path@core@CLAUDE.md`, `path@core@docs/design/prose.md`, `path@core@docs/design/run-model.md`, `register@core@rejected`, `register@core@tripwire`, `path@core@README.md`, `path@core@src/check/references.rs`, `path@core@src/check/registers.rs`, `path@core@src/cli/history.rs`, `path@core@src/cli/mod.rs`, `path@core@src/entity.rs`, `path@core@src/graph.rs`, `path@core@src/index.rs`, `path@core@src/lib.rs`, `path@core@src/main.rs`, `path@core@src/model.rs`, `path@core@src/records.rs`, `path@core@src/scan.rs`, `path@core@src/source/mod.rs`, `path@core@src/source/rs.rs`, `path@core@tests/binary.rs` |
 | `design@core@a-foreign-build-is-refused` | each slice that adds a crate; #cli-on-top | `path@agent-skills@src/lib.rs`, `path@core@CLAUDE.md`, `path@core@docs/design/extensions-and-api.md`, `path@core@docs/design/prose.md`, `path@core@docs/design/run-model.md`, `path@core@src/build_origin.rs`, `path@core@src/cli/mod.rs`, `path@core@src/main.rs`, `register@knowledge-architect@design` |
@@ -305,14 +305,14 @@ the tree does not hold. Those that bear on the split, with their outcome:
   `issue@core@a-span-whose-head-shortens-a-kind-passes-the-check-silent`,
   `issue@core@a-span-with-an-empty-head-is-malformed-against-its-head`,
   `issue@core@a-heading-line-markdown-renders-as-no-heading-defines-an-entry`,
-  `issue@core@index-staged-clears-an-entrys-flags`,
+  `issue@git@index-staged-clears-an-entrys-flags`,
   `issue@core@the-missing-directory-refusal-does-not-hold-the-no-loss-claim`,
   `issue@core@show-lists-no-subdocument-of-a-directory-home`,
   `issue@core@no-command-lists-the-standing-entries-citing-a-set-of-entries`,
   `issue@core@a-forked-subagent-s-first-line-is-an-unrecognised-type`,
   `issue@core@a-staged-check-compares-installed-files-with-unstaged-shipped-text`,
   `issue@core@check-under-a-sparse-checkout-reports-every-file-outside-the-cone`,
-  `issue@core@the-walk-does-not-report-what-the-per-clone-exclude-file-removes`,
+  `issue@git@the-walk-does-not-report-what-the-per-clone-exclude-file-removes`,
   `issue@core@the-tests-read-the-machine-s-git-configuration`,
   `issue@core@the-graded-entries-repeat-a-shared-entry-s-grade-per-agent`,
   `issue@core@a-component-states-at-least-one-goal`;
@@ -451,7 +451,7 @@ the rules names, each with its outcome:
 - `design@core@record-is-every-register-entry`: not read; the searcher's reason, "worklist moves to query and reference resolution is separated from the reference lints in model; the head says 'the edges are the references the checker resolves', so worklist must take edges from model's resolution; no (cut)"
 - `design@core@graded-entries-assembled`: not read; the searcher's reason, "The snapshot is 'computed by show's own code'; the draft keeps show and worklist together in query, so this seems to hold; no conflict"
 - `design@core@tracked-and-ignored-is-a-finding`: not read; the searcher's reason, "cites the seed phases-gate-the-report; the model crate takes phases 1 to 3, check::tree included, and 'the run stops there, as for every phase-2 finding' must still gate check's phase 4; no conflict"
-- `rejected@core@every-git-variable-dropped`: not read; the searcher's reason, "the git crate's Invocation builder and its later history-rewriting write side could reach for a clean environment; the entry lost on GIT_INDEX_FILE under a hook; no proposal of it is"
+- `rejected@git@every-git-variable-dropped`: not read; the searcher's reason, "the git crate's Invocation builder and its later history-rewriting write side could reach for a clean environment; the entry lost on GIT_INDEX_FILE under a hook; no proposal of it is"
 - `design@core@a-placed-name-reads-as-nothing-else`: not read; the searcher's reason, "new Component names such as check or testing would make a later milestone or spec of that name a phase-2 finding; no current placed name is known to"
 - `design@core@init-asks-no-confirmation`: not read; the searcher's reason, "cites the seed design@core@arguments-parse-through-clap ('The checker's binaries run blind'); the open question of the cli crate, whether argument parsing lives in each domain crate or in cli, could reach that ground, (cut)"
 - `design@core@component-manifest-edit`: not read; the searcher's reason, "new-component 'parses the edited text with Manifest::parse'; the draft moves the manifest into model and the command into create, which needs Manifest::parse exposed across crates; no conflict with the head's rule (cut)"

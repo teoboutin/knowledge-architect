@@ -19,7 +19,7 @@ reports which files it removed. The missing work is that check. Until it exists,
 `git ls-files -z --others --exclude-standard`. `--exclude-standard` applies three sources of
 ignore rules: the tree's own `.gitignore` files, `core.excludesFile`, and the per-clone exclude
 file `.git/info/exclude`. Every git invocation already pins `core.excludesFile` to the null
-device, per `design@core@per-user-ignore-file-pinned`. The per-clone exclude file stays, since it
+device, per `design@git@per-user-ignore-file-pinned`. The per-clone exclude file stays, since it
 lives in the clone and git has no option to ignore it.
 
 The check to write: at the walk, list the untracked files that the per-clone exclude file alone
@@ -39,12 +39,12 @@ The check runs at every `check`, in every project.
 Related: another cause of a walk that differs between machines,
 `issue@core@the-tests-read-the-machine-s-git-configuration`; and the variables of the environment
 that point git at another repository, which every invocation removes, per
-`design@core@repository-variables-dropped`.
+`design@git@repository-variables-dropped`.
 
 ### Why it matters
 
 `design@core@git-supplies-the-walk` makes git's listing the walk, and
-`design@core@per-user-ignore-file-pinned` pins the per-user ignore file so that the walked set is a
+`design@git@per-user-ignore-file-pinned` pins the per-user ignore file so that the walked set is a
 property of the commit rather than of the machine. The per-clone exclude file is the one ignore
 source left that is not the commit's: a document it removes is out of every check on that clone, and
 the summary block's `walk: n file(s)` line differs from CI's count for the same commit with no
@@ -56,7 +56,7 @@ the same commit holds.
 
 The check above, written with a test that adds a line to a sandbox's `.git/info/exclude` and
 asserts the report names the file it removes; and the sentence of
-`design@core@per-user-ignore-file-pinned` that names this entry, and the comment in
+`design@git@per-user-ignore-file-pinned` that names this entry, and the comment in
 `Invocation::run` of `path@git@src/git.rs` on what still decides the walk, repointed to the check;
 the commit that writes it narrows `tripwire@core@walked-count-differs-between-machines` to the
 cause no check reports, two git versions that walk one commit differently.

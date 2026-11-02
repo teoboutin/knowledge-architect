@@ -20,8 +20,8 @@ ignore question a path reference asks is one `git check-ignore` batch per run, a
 last-change column is one `git log`. A check may spawn nothing, so each of those is taken by the
 caller and handed in. A tree with no `git`, or a project outside a worktree, is exit 2 with the
 reason; an empty walk is never an answer. The decisions are `design@core@git-supplies-the-walk`,
-`design@core@git-floor-for-commit-trees`, `design@core@failed-git-is-exit-two` and
-`design@core@git-is-asked-through-one-module`.
+`design@git@git-floor-for-commit-trees`, `design@git@failed-git-is-an-error` and
+`design@git@git-is-asked-through-one-module`.
 `check --staged`, `index --staged`, the comparison of `check --fix` and `commits` read a snapshot
 instead, from git objects, through
 `git::snapshot_entries` and the same `cat-file` batch: HEAD's tree overlaid with the index's

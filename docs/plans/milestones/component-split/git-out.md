@@ -22,7 +22,7 @@ The first slice of `milestone@plans@component-split`. It leaves when it lands.
   `agent-skills`, per `design@knowledge-architect@version-lockstep`: a caret requirement would let
   a consumer resolve a `git` of another patch than the core's. Nothing else changes in the core's
   behaviour.
-- `design@core@failed-git-is-exit-two` moved to `git` with its exit-code clause reworded: a library
+- `design@git@failed-git-is-an-error` moved to `git` with its exit-code clause reworded: a library
   sets no exit code, so the head states the crate's contract, every invocation a verdict depends on
   fails as an error carrying git's stderr and never as an empty answer, `last_changed` alone
   degrading, and cites `design@core@exit-code-ladder` for the code 2 the core's commands give that
@@ -81,14 +81,14 @@ intermediate trees do not compile.
 
 ## Audit subjects
 
-`path@git@src/git.rs`; `design@core@git-is-asked-through-one-module`, rewritten here to name the
+`path@git@src/git.rs`; `design@git@git-is-asked-through-one-module`, rewritten here to name the
 crate; the git heads the milestone document lists as moving whole, with
-`rejected@core@every-git-variable-dropped`, which `design@core@index-file-variable-kept` cites;
+`rejected@git@every-git-variable-dropped`, which `design@git@index-file-variable-kept` cites;
 `design@core@git-supplies-the-walk`, `design@core@links-are-no-documents` and
 `design@core@staged-tree-source`, which stay with the walk and the snapshot's assembly, and
 `tripwire@core@walked-count-differs-between-machines`, which stays with the walk;
-`issue@core@index-staged-clears-an-entrys-flags` and
-`issue@core@the-walk-does-not-report-what-the-per-clone-exclude-file-removes`, re-anchored;
+`issue@git@index-staged-clears-an-entrys-flags` and
+`issue@git@the-walk-does-not-report-what-the-per-clone-exclude-file-removes`, re-anchored;
 `path@xtask@tests/checkout.rs`, which asserts the checkout tie of every target.
 
 ## Fails alone on
@@ -115,7 +115,7 @@ puts the checker's parsers into the rewriting crate's build.
 
 1. Create the Component and move the module behind its facade, the core depending on it.
 2. Move into `git`'s homes the heads the milestone document lists as moving whole, with
-   `design@core@git-is-asked-through-one-module` rewritten, `rejected@core@every-git-variable-dropped`,
+   `design@git@git-is-asked-through-one-module` rewritten, `rejected@git@every-git-variable-dropped`,
    and the two issues above.
 3. The head of absence, `design@knowledge-architect@two-crates` and the publish order.
 4. The harvest.
@@ -124,6 +124,6 @@ puts the checker's parsers into the rewriting crate's build.
 
 | what | where |
 | --- | --- |
-| #git-crate | `git`'s design home: the moved heads, `design@core@git-is-asked-through-one-module` rewritten to name the crate |
+| #git-crate | `git`'s design home: the moved heads, `design@git@git-is-asked-through-one-module` rewritten to name the crate |
 | #no-intermediate-component | its head of absence in `register@knowledge-architect@design` |
 | the milestone's table | `design@knowledge-architect@two-crates`, rewritten and renamed; `design@knowledge-architect@partial-publish-rerun`, for the publish order |
