@@ -1,8 +1,8 @@
 # Design — mutate
 
 How the hand mutation is built, and why. It serves the check that a test discriminates, performed
-over work that is not committed yet, which this repository's development procedure,
-`skill@klarch-development@discriminating-tests`, asks of every claim.
+over work that is not committed yet, which the installed development procedure,
+`skill@knowledge-architect-development@discriminating-tests`, asks of every claim.
 Where the crate sits in the project, and who depends on it, is the root's
 `design@knowledge-architect@mutation-command-host`.
 

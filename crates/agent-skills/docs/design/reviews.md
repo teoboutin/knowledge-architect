@@ -24,8 +24,9 @@ trigger met by work that does not go through the design skill has no reader at a
 ### A fresh reviewer reads every plan document against the goals, the design heads and the rejected alternatives of the Components it touches `##plan-read-against-the-record`
 
 At every moment the installed planning skill sends a plan document's reviewers, it sends the
-design-conformance reviewer beside the cold implementer, the code-claims reviewer and the
-transcript reviewer. It reads the document against the goals homes, the design homes and the
+design-conformance reviewer beside the cold implementer, the code-claims reviewer, which also reads
+a branch's diff before its merge, per `design@agent-skills@code-claims-scope`, and the transcript
+reviewer. It reads the document against the goals homes, the design homes and the
 rejected alternatives of the project's root and of every Component the document touches. It
 reports a contradiction of a goal always, for the owner; a contradiction or a widening of a head
 that the document's "What is already decided" does not list as reversed or rewritten; a rejected
@@ -273,3 +274,57 @@ activity: in thaum, a goal reworded as a plan's default reached the goals home i
 other defaults. The rival, no row, leaves such an edit to be read by no step before it merges,
 against `goal@knowledge-architect@the-owner-decides`. Per `design@agent-skills@goal-reviewer-agent`,
 the agent is the same one goal-setting dispatches.
+
+### The shape of the code a branch writes is judged by an installed reviewer, once per branch, against the default shape `##code-shape-axis`
+
+`agent@knowledge-architect-code-shape-reviewer` judges each unit of code a branch writes or edits
+against the default shape of `design@agent-skills@default-code-shape`, and each test it adds by
+`design@agent-skills@test-economy`, in the review before the merge.
+`goal@knowledge-architect@the-workflow-leads-to-better-code` asks for a review that weighs a branch
+against the shape. A general quality reviewer has no standard to judge against, and a
+general-purpose reviewer briefed with the standard judges unevenly, per
+`rejected@agent-skills@one-generic-auditor-agent`, so the axis is an installed agent, per
+`design@agent-skills@additions-review-agent`.
+
+### Where a project implements an external specification, an installed reviewer works out what it requires before reading the code `##spec-first-axis`
+
+`agent@knowledge-architect-spec-first-reviewer` finds what the specification requires for a
+change's claims, reads the departures from it the project states, and only then compares the code,
+at development checkpoints where the change touches how the project implements it. A reviewer that
+reads the code first reads the specification through it. It judges the code against the
+specification as the project follows it, per `goal@agent-skills@reviews-judge-by-the-writer-s-criteria`.
+A project with no specification never dispatches it, so it costs such a project nothing. It is the
+generic form of thaum's rules-first axis.
+
+### Adversarial reviewers are scoped to one subsystem, family of claims or boundary each, pick their tests, and run the wider suite before reporting a survivor `##adversarial-scoping`
+
+`agent@knowledge-architect-adversarial-reviewer` chooses its own mutations within the scope its
+brief names, runs the tests that bear on each, and runs the package's wider suite before it reports
+a mutation as surviving; several may be dispatched, their scopes overlapping, a gap the dispatcher's
+to justify. It has no cap on its running time. The owner reported, from thaum, that scoping reduced
+the time a reviewer takes enough to fix its running time, with no cap that might stop it finding
+more; whether scoped reviewers still run unbounded in real use is what a retrospective would report.
+The rival, a cap on a reviewer's time, would stop the reviewer at an arbitrary point of its attack.
+
+### The checkpoint axes for code run at development checkpoints, and the read-only code axes once per branch before the transcript reviewer `##review-cadence`
+
+The adversarial and spec-first axes run at each development checkpoint, where a defect found late
+would unbuild work; they are rows of the development skill's table. The code-shape and code-claims
+axes read only, and run once per branch, in the review before the merge and before the transcript
+reviewer, per `design@agent-skills@transcript-review-last-before-merge`; they are rows of the review
+skill's table, since a diff of any activity can write code or a statement about it, the reason
+`design@agent-skills@review-judges-additions` gives for the agent-facing-text row. Every axis at
+every checkpoint would multiply the dispatches the owner asked to keep few; the instrument that would
+show whether two more per branch are too many is `issue@agent-skills@the-retrospective-counts-no-review-cost`.
+
+### The code-claims reviewer reads every statement a diff writes about code, and the completeness of a changed public interface's documentation `##code-claims-scope`
+
+`agent@knowledge-architect-code-claims-reviewer` reads, beside a plan document's statements, every
+statement about code a branch's diff writes, a doc comment, a README, a design head, an issue entry,
+a commit message, against the tree, except the changelog's entries, which the release's review
+reads, per `design@knowledge-architect@changelog-reviewed-at-the-release`. Where the diff changes a
+public interface others consume, it asks of each public item the diff adds or changes whether its
+documentation states what a caller must respect. The same method reads both, at no extra dispatch,
+and a thaum case where an improvised reviewer for this question produced the review's most
+consequential findings showed the gap; that the documentation exists is the lints' of
+`design@agent-skills@api-doc-completeness`.

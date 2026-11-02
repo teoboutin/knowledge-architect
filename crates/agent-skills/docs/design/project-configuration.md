@@ -174,10 +174,11 @@ for the work that goes through the design skill, a plan or an intake.
 The nearest rival, the same sentence in the issue-tracking skill's section on diagnosing, loads at
 the diagnosis of a new problem and reaches no change that is not a bug. Sending every fix through
 the design skill's grounding dispatches the record search, beyond the minimal fix the owner said
-would do for now. Whether a fix dispatches the search is decided by
-`milestone@plans@development-and-components`, in its thread on the grounding of a fix, which its
-slice 2 builds: a fix runs no search, and the development skill's grounding reads the record of the
-code it changes.
+would do for now. A fix runs no search of the whole record: `skill@knowledge-architect-development`
+grounds it in this reading alone. The owner stated that grounding in the design record concerns
+additions and new features, not fixes, and the search costs a dispatch of many agents; a change the
+owner asks for or proposes goes through the design skill and its search, unless a record states it,
+per `design@agent-skills@settled-means-recorded`.
 
 ### The goals are the only statements assumed to come from the owner, and a recorded decision binds as a presumption `##goals-bind`
 
