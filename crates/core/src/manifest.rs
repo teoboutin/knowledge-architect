@@ -1165,8 +1165,8 @@ impl Candidate {
 /// one, or the later one in that order, is the one refused:
 ///
 /// - **a name no reference can spell, or a reserved one, or one an accepted anchor already
-///   has**: every pointer at it would miss or read as the other. `plans` is reserved for the
-///   anchor the tool constructs.
+///   has**: every pointer at it would miss or read as the other, the last per
+///   `design@core@anchor-names-unique`. `plans` is reserved for the anchor the tool constructs.
 /// - **the root's path, spelled by a component or a location**: the root is a component, which
 ///   carries the component registers and every register attached to it with `components`.
 /// - **a component inside a location**: it nests a full register set inside a partial one.
@@ -2315,6 +2315,7 @@ pub(crate) mod tests {
         assert_eq!(m.locations()["papers"].registers, vec!["issue".to_string()]);
     }
 
+    // The refusal is `design@core@anchor-names-unique`.
     #[test]
     fn two_anchors_sharing_a_name_keep_the_first_declared() {
         let m = declaring("\"a/widget\", \"b/widget\"");

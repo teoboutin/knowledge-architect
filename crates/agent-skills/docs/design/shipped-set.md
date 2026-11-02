@@ -30,7 +30,7 @@ namespace, since an install path outside it would write a file the project owns.
 
 ### A text several installed texts apply whole is one file the build copies into each of them `##shared-text-fragment`
 
-A standard, or a similar large block of coherent instructions, that several installed texts apply
+A standard, or another block of coherent instructions, that several installed texts apply
 whole is a file of `path@agent-skills@fragments/`, and each text that applies it names it by a line
 `{{fragment:<file>}}`, indented to sit where the host needs it. The build copies it there after the
 host's comment and slug passes, so that their failures name the host's own lines, removing the
@@ -52,9 +52,13 @@ reversal, the audit's outcomes, the rule that a skill is self-sufficient, and th
 goal standard, per `design@agent-skills@goal-standard-rules`, hosted by the goal-setting skill
 and the goal reviewer; and one rule written as a fragment from the start, the size cost of
 agent-facing text, per `design@agent-skills@context-cost-of-agent-text`; the default shape of code,
-per `design@agent-skills@default-code-shape`; and a block smaller than a standard, placed in the
-design and development skills by the owner's proposal, the occasion and the signals of a
-Component's creation or split, per `design@agent-skills@component-skill-delivery`. The host lists of every
+per `design@agent-skills@default-code-shape`; the rule on when a subject of a design home splits;
+the warning that a shallow history miscounts a tripwire's horizon; and a block smaller than a
+standard, the occasion and the signals of a Component's creation or split, per
+`design@agent-skills@component-skill-delivery`. The owner proposed that small block as a fragment of
+the design skill, on the same ground, since a session that needs the occasion needs it whole and
+would skip a pointer to it; the session extended it to the development skill, which the owner
+approved. The host lists of every
 fragment but the four of the admission standard are the owner's: the owner approved each list, the
 narrowings included, so a host added to one goes to the owner; the admission standard's four follow
 from the owner's approval of its split by subsection, under the rule that a host applies the whole

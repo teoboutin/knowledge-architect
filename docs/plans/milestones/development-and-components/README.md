@@ -744,6 +744,8 @@ on the checkpoint of the reply to R6, which listed the thread in its bucket.
   design."
 - **Shape:** `spec@development-and-components@component-skill`. **Harvest:** a shape of the
   component skill, with its head, slice 3.
+- **Outcome at slice 3:** no head, for the same reason as #component-naming's; its reasons are `%%`
+  lines at the skill.
 
 ### A session may build an improvement to a shipped tool as a tool of the project's own beside it, and report it in the workflow's file `##upstream-tool-loop`
 
@@ -924,6 +926,9 @@ on the checkpoint of the reply to R6, which listed the thread in its bucket.
 - **Shape:** `spec@development-and-components@component-skill`. **Harvest:** a head in
   `register@agent-skills@design` for the recommendation the installed text makes, citing
   `design@knowledge-architect@no-component-directory-named-after-the-project`, slice 3.
+- **Outcome at slice 3:** no head. The recommendation is stated by the component skill alone and
+  turns on nothing outside the project, so it fails the entry tests of `primer@design-heads`, which
+  govern a harvest row; its reasons are `%%` lines at the skill.
 
 ### Every Rust target project has a maintenance crate whose commands run as `cargo x <command>` `##maintenance-crate-ask`
 

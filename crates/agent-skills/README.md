@@ -48,6 +48,9 @@ The other skills load at a moment, not in that sequence:
 - `skill@knowledge-architect-decision-recording`: before any write into a design home.
 - `skill@knowledge-architect-development`: before a change to the project's Rust code, the step
   "[the work]" names for code.
+- `skill@knowledge-architect-component-creation`: when work may belong to no Component, a Component
+  gains a second reason to change, an adopting project's crates are mapped to Components, or an audit
+  finds a Component holding two purposes.
 - `skill@knowledge-architect-agent-configuration`: before editing a `CLAUDE.md`, a skill or an
   agent.
 - `skill@knowledge-architect-goal-setting`: before writing or editing a goals home.
