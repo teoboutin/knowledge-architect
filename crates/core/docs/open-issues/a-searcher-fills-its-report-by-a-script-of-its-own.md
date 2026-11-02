@@ -27,9 +27,15 @@ to grade. Read in the reports the agents returned:
 
 The report's line shape is `- <reference> | grade: | relation: | reason:`, with a seed field
 between the reference and the grade where the entry is or cites a seed, per
-`design@core@worklist-writes-and-verifies-the-reports`. The harness's edit tool replaces one exact
-string per call, so filling a report of 90 lines by it costs 90 calls. Not established: whether
-another harness offers a cheaper edit.
+`design@core@worklist-writes-and-verifies-the-reports`.
+
+A further instance: the search at the design audit of the spec revising the rules for splitting a
+project into Components, 19 agents. One wrote a script of its own, `grades.py`, and said so in its
+report. Nine said that the harness refused an edit of their report; eight of them returned the filled
+report as text, which the dispatching session wrote into the files by a script of its own.
+
+The harness's edit tool replaces one exact string per call, so filling a report of 90 lines by it
+costs 90 calls. Not established: whether another harness offers a cheaper edit.
 
 ### Why it matters
 
