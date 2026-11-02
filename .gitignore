@@ -2,3 +2,6 @@ target/
 
 # Worktrees made on demand for isolated work and reviews.
 .claude/worktrees
+
+# The owner's local instructions for Claude Code, loaded at launch and never committed.
+CLAUDE.local.md
