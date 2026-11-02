@@ -846,6 +846,16 @@ homes, under `skill@knowledge-architect-issue-tracking`. A decision that no
 work implements and that is not part of any spec is recorded when it is made, per
 `skill@knowledge-architect-decision-recording@when-recording-happens`.
 
+## Work that may need a Component of its own `##when-to-split`
+
+**A Component may need creating or splitting** when work you are placing belongs to no existing
+Component, or when the code you add gives a Component a second reason to change: two concrete
+changes someone could plausibly ask for, each touching it independently. Before placing the work,
+load `skill@knowledge-architect-component-creation`, which holds the default criteria, the shapes and
+the procedure. A split is probably cut in the wrong place where it needs many new dependencies,
+would create a dependency cycle, or would have every expected change cross the new boundary. A
+creation or a split is a design decision, never a step taken while writing code.
+
 ## Keep-or-change (evaluating an incumbent design) `##incumbent-evaluation`
 
 A recurring bug trend, a refactor proposal, a questioned pillar: run

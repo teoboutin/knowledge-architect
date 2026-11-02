@@ -47,6 +47,13 @@ an empty subsection is omitted.
   `agent@knowledge-architect-code-shape-reviewer`, in the review before a merge, which also sends
   `agent@knowledge-architect-code-claims-reviewer` on a diff's statements about code and on the
   documentation of a changed public interface.
+- `agent-skills`, patch: a skill for creating or splitting a Component,
+  `skill@knowledge-architect-component-creation`: the default criteria of a Component, the signals
+  against a split, how Components map to crates, the shapes, the naming, and the procedure of a
+  creation or a split. The design and development skills send a session to it where work belongs to
+  no Component or a Component gains a second reason to change, and the setup skill points to it for
+  the criteria and the naming. A project with a skill of its own for this activity reads it against
+  the installed one.
 - `agent-skills`, patch: the retrospective asks whether a rule about code or tests, or about
   splitting the project into Components, proved too hard or too strict, or was followed against the
   work's interest.

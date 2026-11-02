@@ -177,6 +177,13 @@ mod tests {
             ],
         ),
         (
+            "when-to-split.md",
+            &[
+                ".claude/skills/knowledge-architect-design/SKILL.md",
+                ".claude/skills/knowledge-architect-development/SKILL.md",
+            ],
+        ),
+        (
             "tripwire-standard.md",
             &[
                 ".claude/agents/knowledge-architect-decision-record-reviewer.md",

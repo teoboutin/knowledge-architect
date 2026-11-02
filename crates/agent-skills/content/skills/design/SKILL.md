@@ -690,6 +690,10 @@ homes, under `skill@knowledge-architect-issue-tracking`. A decision that no
 work implements and that is not part of any spec is recorded when it is made, per
 `skill@knowledge-architect-decision-recording@when-recording-happens`.
 
+## Work that may need a Component of its own {{slug:when-to-split}}
+
+{{fragment:when-to-split.md}}
+
 ## Keep-or-change (evaluating an incumbent design) {{slug:incumbent-evaluation}}
 
 A recurring bug trend, a refactor proposal, a questioned pillar: run

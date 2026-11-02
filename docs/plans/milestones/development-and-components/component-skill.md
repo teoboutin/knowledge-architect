@@ -2,9 +2,9 @@
 
 ## Builds
 
-1. **The installed skill for creating or splitting a Component**, named
-   `knowledge-architect-component-creation`, source
-   `planned@agent-skills@content/skills/component-creation/`. The name meets
+1. **The installed skill for creating or splitting a Component**,
+   `skill@knowledge-architect-component-creation`, source
+   `path@agent-skills@content/skills/component-creation/`. The name meets
    `design@agent-skills@naming-rule`: an activity noun in two words, "creation" covering a split,
    which creates the Components it cuts out; the rival "component-splitting" names half the
    activity. It holds, in prose, with no `Cargo.toml` block, since a block in a skill alone is
@@ -71,7 +71,7 @@
    is a finding of the design-record axis on the Component a head sits in, the one axis that reads
    which Component owns what; the axes that would read a Component's purposes are unbuilt, per
    `issue@agent-skills@audit-axes-beyond-the-design-record`, which stays open.
-2. **The shared fragment "when to split"**, `planned@agent-skills@fragments/when-to-split.md`: the
+2. **The shared fragment "when to split"**, `path@agent-skills@fragments/when-to-split.md`: the
    signals, which a session judges, and a pointer to the component skill, hosted by the design
    skill and the development skill, per `design@agent-skills@shared-text-fragment`. It joins
    `FRAGMENT_HOSTS` in `path@agent-skills@src/lib.rs`, with both hosts, whose test checks the list
@@ -101,7 +101,7 @@
    copy, per `issue@core@a-staged-check-compares-installed-files-with-unstaged-shipped-text`.
 9. **The plan documents' names** of the new skill and fragment become references in the commit that
    creates them: each planned path becomes a path reference, per `design@core@planned-path-form`,
-   and the bare skill name `knowledge-architect-component-creation` becomes a skill reference.
+   and the bare skill name becomes a skill reference.
 
 ## Claims
 

@@ -8,7 +8,8 @@
 to the commit and the reviews it owes: the reading of the record of the code changed, claims with
 tests shown to discriminate by `cargo x mutate`, the default shape of the code, the gate, the
 commit's claim check, the review axes for code and their cadence, the conditional performance step,
-the optional diff mutation sweep, and the comment species. It holds the generic part of this
+the optional diff mutation sweep, the comment species, and the occasion of a Component's creation
+or split, which sends it to `skill@knowledge-architect-component-creation`. It holds the generic part of this
 repository's own development procedure and of thaum's, which the owner took in, per
 `goal@knowledge-architect@generic-tools-and-procedures-are-shipped`, and it delivers the developing
 activity of `goal@knowledge-architect@agents-get-a-complete-workflow`. A project's own development

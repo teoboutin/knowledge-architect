@@ -106,6 +106,10 @@ by a probe beforehand enters as a regression guard, and is recorded as such.
 
 {{fragment:default-code-shape.md}}
 
+### A Component with a second reason to change
+
+{{fragment:when-to-split.md}}
+
 ### Unreachable states, and which of them earn a test
 
 A guard, a refusal or an `expect` often stands against a state nothing can currently produce.

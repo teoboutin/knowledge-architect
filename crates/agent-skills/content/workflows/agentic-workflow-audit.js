@@ -22,7 +22,7 @@ const LENSES = [
   { id: 'L1', name: 'contradiction', count: 3 },
   {
     id: 'L2', name: 'activity walk', groups: [
-      'design, planning, decision recording and issue tracking',
+      'design, component creation, planning, decision recording and issue tracking',
       'development, review and merge',
       'audit and retrospective',
       'setup, pin move, goal setting and agent configuration',
