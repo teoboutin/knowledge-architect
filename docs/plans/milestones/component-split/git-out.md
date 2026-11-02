@@ -125,6 +125,6 @@ puts the checker's parsers into the rewriting crate's build.
 
 | what | where |
 | --- | --- |
-| #git-crate | `git`'s design home: the moved heads, `design@git@git-is-asked-through-one-module` rewritten to name the crate |
+| #git-crate | `git`'s design home: the moved heads, `design@git@git-is-asked-through-one-module` rewritten to name the crate; the root's: `design@knowledge-architect@git-crate` and its rival, `rejected@knowledge-architect@git-module-made-public` |
 | #no-intermediate-component | its head of absence in `register@knowledge-architect@design` |
 | the milestone's table | `design@knowledge-architect@installed-text-crate`, rewritten and renamed; `design@knowledge-architect@partial-publish-rerun`, for the publish order |
