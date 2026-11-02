@@ -101,7 +101,8 @@ Outside this work:
 - `design@agent-skills@shared-text-fragment`: a fragment's host list is the owner's; the work adds
   none.
 - `design@agent-skills@behaviour-additions-need-real-use`: the evidence of every addition is this
-  session, in which the owner applied the skill to this repository and named what it lacked; the
+  session, in which the session applied the skill to this repository at the owner's request, and
+  the session and the owner named what it lacked; the
   wording of #usable-alone-one-direction allows two acts, a defect provable by reading.
 - `design@agent-skills@capabilities-not-structure`, `design@agent-skills@statement-names-an-act`,
   `design@agent-skills@admission-rules-home`, `design@agent-skills@instruction-record-is-minimal`:
@@ -305,7 +306,8 @@ use mocks. The important point is that the integrated test drives the project th
 as a consumer would. It is often associated with a mocking environment, but not necessarily."
 Arguments: #arg-37, #arg-39, #arg-57, #arg-62, #arg-63, #arg-79, #arg-83, #arg-84, #arg-85,
 #arg-86, #arg-101, #arg-102, #arg-107, #arg-108, #arg-109, #arg-117, #arg-123, #arg-124. Shape:
-"Decided design". Harvest: `design@agent-skills@default-code-shape`, rewritten.
+"Decided design". Harvest: a new head of agent-skills, which `design@agent-skills@default-code-shape`
+cites, and `design@agent-skills@test-economy` rewritten, as the harvest table says.
 
 ## Arguments
 
@@ -570,7 +572,7 @@ R4, the session. Threads: #testing-crate, #test-through-public-api.
 
 "5 of the 36 build `Inputs` by hand." / "Through the public API, each needs a mock project whose tree really has that state. Making `Inputs` constructible would bring back `rejected@core@inputs-struct-literal`. Default: rewrite the 5 over mock projects."
 
-Made precise at the plan's review: 5 struct literals of `Inputs`, two of them in shared helpers, which 11 tests reach; two of the five inject a state, an empty map of committed files.
+Made precise at the plan's reviews: 5 struct literals of `Inputs`, two of them in the shared helpers `findings_with`, which 17 tests reach, and `phase_two`, which 1 test reaches; two of the five inject a state, an empty map of committed files.
 
 ### The entry binds the "unreachable code is a sign of dead code" half `##arg-85`
 

@@ -1107,7 +1107,7 @@ R4, the session. Threads: #testing-crate, #test-through-public-api.
 
 "5 of the 36 build `Inputs` by hand." / "Through the public API, each needs a mock project whose tree really has that state. Making `Inputs` constructible would bring back `rejected@core@inputs-struct-literal`. Default: rewrite the 5 over mock projects."
 
-Made precise at the plan's review: 5 struct literals of `Inputs`, two of them in shared helpers, which 11 tests reach; two of the five inject a state, an empty map of committed files.
+Made precise at the plan's reviews: 5 struct literals of `Inputs`, two of them in the shared helpers `findings_with`, which 17 tests reach, and `phase_two`, which 1 test reaches; two of the five inject a state, an empty map of committed files.
 
 ### The entry says "the test fixtures and the design documents never reach a package `##arg-87`
 

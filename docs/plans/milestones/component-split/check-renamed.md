@@ -131,7 +131,7 @@ document.
 
 | what | where |
 | --- | --- |
-| #installed-text-check-home | `design@core@phases-gate-the-report`'s table, `design@core@fix-before-the-checks`'s order and its sentence on the two runs, and `design@core@owned-namespace-check` split in two, the committed files and the byte check, each rewritten in `check`'s home; the issue `installed-file-findings-belong-in-phase-four` was closed by the commit that added the milestone |
+| #installed-text-check-home | `design@core@phases-gate-the-report`'s table, `design@core@fix-before-the-checks`'s order and its sentence on the two runs, and `design@core@owned-namespace-check` split in two, each rewritten in `check`'s home with the rival its argument covers: the installed files are committed, against installing them on demand; and they are checked byte for byte in a namespace the installer owns, ownership decided by a name, against a record of installed files and a digest; the issue `installed-file-findings-belong-in-phase-four` was closed by the commit that added the milestone |
 | #core-renamed-check | no head; the commit records the session's weighing and the owner's approval |
 | the milestone's table | `design@knowledge-architect@no-component-directory-named-after-the-project`, its instance rewritten |
 | premortem C5 | judged by `skill@knowledge-architect-decision-recording@ruled-tripwires` |
