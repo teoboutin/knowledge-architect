@@ -71,7 +71,8 @@ Component goal that refines it, and removing the root goal leaves each of those 
 which the check reports.
 
 The head of the goals home says what it holds: a goal is met or unmet, it stays while it is met,
-and it leaves only on the owner's word.
+and it leaves only on the owner's word. It also states the purpose every goal of its Component
+serves, which the owner rules like a goal; the root's states the project's.
 
 ## Drawing out the owner's intent {{slug:drawing-out-intent}}
 

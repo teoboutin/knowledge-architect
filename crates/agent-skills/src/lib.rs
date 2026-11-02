@@ -370,6 +370,32 @@ mod tests {
         ),
     ];
 
+    /// Every fragment has its row in the list above: the tests below loop over the rows, so a
+    /// fragment with none would gain or lose hosts with no test failing.
+    #[test]
+    fn every_fragment_has_a_row_of_hosts() {
+        let root = std::path::Path::new(env!("CARGO_MANIFEST_DIR"));
+        let mut on_disk: Vec<String> = std::fs::read_dir(root.join("fragments"))
+            .expect("the fragments directory is readable")
+            .map(|e| {
+                e.expect("a fragment entry is readable")
+                    .file_name()
+                    .into_string()
+                    .expect("a fragment's name is UTF-8")
+            })
+            .collect();
+        on_disk.sort();
+        let mut listed: Vec<String> = FRAGMENT_HOSTS
+            .iter()
+            .map(|(f, _)| (*f).to_string())
+            .collect();
+        listed.sort();
+        assert_eq!(
+            listed, on_disk,
+            "the fragments of FRAGMENT_HOSTS and of fragments/"
+        );
+    }
+
     /// Each fragment's first line, a `%%` comment aside, ships in exactly its hosts.
     #[test]
     fn each_fragment_has_its_hosts() {
