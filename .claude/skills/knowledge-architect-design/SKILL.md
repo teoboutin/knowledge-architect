@@ -45,9 +45,7 @@ The owner decides what `primer@question-authority` reserves to the
 owner, a fork among it, and contests any closure with a goal, a fact or
 an argument, which you weigh like any other. Their explicit word at a
 fork — an approval, a rejection, "do X" — ends the argument on that
-point at any time, converged or not; before the record search has run,
-it holds the thread `presumed-settled` rather than closing it, as
-`skill@knowledge-architect-design@threads-and-states` says. "Stop" ends the discussion, and
+point at any time, converged or not. "Stop" ends the discussion, and
 decides nothing against an argument.
 
 - **Never assume the decision saw all its consequences.** A decision
@@ -61,7 +59,7 @@ decides nothing against an argument.
   `primer@question-authority` route it: a word of the owner on a
   reading or a fact gives way to its source, and the owner is told; a
   ruling on intent whose premise the entry defeats is a contradiction,
-  put to the owner; a pick at a fork reopens in the weak form
+  put to the owner; a pick at a fork changes only in the weak form
   `primer@design-heads` states, only where the entry ranks the shapes;
   an entry that defeats nothing lets the thread close on the word
   already given.
@@ -419,7 +417,6 @@ confirmation over the whole ledger — never a per-item ratification
 questionnaire.
 
 **Who moves what.** You may move threads freely between the open states of a thread.
-Every closure below waits for the record search of loop step 1, as the next paragraph says.
 The owner's explicit word closes a fork; on a thread with one shape
 standing, it confirms the closure on its argument, or contests it with a
 goal, a fact or an argument. A word given during the discussion ("drop
@@ -532,8 +529,8 @@ time the owner's arguments again depend on an unclear word's
 presumption, its evidence refreshes, and one the owner's arguments have
 not depended on for two rounds is re-surfaced — in the next delta, or
 as a standalone note when no recent round produced one — rather than
-silently carried. A word held for the search is re-surfaced when the
-search has run, as "Who moves what" says.
+silently carried. A word held for the search settles when the search
+has run, as "Who moves what" says.
 
 **Reopening — closed is not frozen.** This rule is the single owner
 of the novelty test. The owner reopens a closed thread by their word
@@ -573,7 +570,8 @@ choices whose option space genuinely is closed and consequence-free.
 ## The loop `##discussion-loop`
 
 1. **Ground first**: read `primer@verify-before-relying` again, whole,
-   then the project's record, before the first round. The
+   then the project's record: its homes before the first round, and its
+   search when this step says. The
    goals homes of the project's root and of every Component the question
    touches; their design homes; their `rejected` homes; their
    `README.md` files, which state their contracts; and a search of the
@@ -593,9 +591,7 @@ choices whose option space genuinely is closed and consequence-free.
    are. The search may wait until the scope settles, after the first
    rounds, which you judge, with no count of rounds; it runs at the
    latest before any thread closes, and the grounding is complete only
-   once it has run. Until then no thread closes, as "Who moves what" in
-   `skill@knowledge-architect-design@threads-and-states` says, and each
-   round states the grounding it rests on, the homes read and the grep,
+   once it has run. Until then each round states the grounding it rests on, the homes read and the grep,
    and that the search has not run. It is the discussion's one search of
    the whole record, with the shapes drafted by then as its work, never
    a pass over what changed since the first rounds. The search is
@@ -607,7 +603,8 @@ choices whose option space genuinely is closed and consequence-free.
    proposal touches, chosen from its table of contents; run
    `cargo klarch show <kind>@<anchor>@<id>` on each other entry the
    question bears on, and read it whole: never act on an entry from the
-   reason the search gave. The round after the search states which of
+   reason the search gave.
+   The round after the search states which of
    these were read and run, which entries the search graded `bears` or
    `may-bear`, which of them the question bears on, for each goal
    graded `bears` or `may-bear` the threads it constrains or that it

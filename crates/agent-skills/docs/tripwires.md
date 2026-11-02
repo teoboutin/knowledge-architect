@@ -296,8 +296,8 @@ that carries out an intake's outcomes.
 **Watches until:** three plan documents deleted at their landing and three commits that add
 analyses of received retrospective files under docs/retrospective-reports/, on the main branch,
 both counted from the commit that writes this line, the first that guards the record searcher.
-**Evidence:** one discussion, reported by its review: the search of the discussion of
-`milestone@plans@development-and-components` graded `design@knowledge-architect@changelog-reviewed-at-the-release`
+**Evidence:** one discussion, reported by its review: the search of the discussion that designed the
+development skill and the component skill graded `design@knowledge-architect@changelog-reviewed-at-the-release`
 neither `bears` nor `may-bear`, and the milestone's design-conformance review found that the
 widened code-claims reviewer the milestone designs rests on it, in the commit "[review] Repairs of
 the plan documents' reviews: slice 1's sites of a fourth crate, the retrospective's two clauses, D1
