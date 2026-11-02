@@ -1,6 +1,6 @@
 **Generated — do not edit.** `cargo klarch index`
 
-51 entries
+52 entries
 
 | kind | title |
 | --- | --- |
@@ -51,6 +51,7 @@
 | todo | [No reviewer writes its own report file, so the dispatcher saves each report by hand](no-reviewer-writes-its-own-report-file.md) |
 | todo | [A project cannot change one instruction of an installed skill](patching-an-installed-skill.md) |
 | todo | [Nothing checks mechanically that the shipped text cites no entry of this repository](shipped-text-citing-an-entry-is-unchecked.md) |
+| todo | [The agent-configuration skill names no place for an instruction local to one machine and never committed](the-agent-configuration-skill-names-no-place-for-a-local-uncommitted-instruction.md) |
 | todo | [The agentic-workflow audit's cluster, merge and repair agents read the admission standard by a pointer](the-agentic-workflow-audit-s-repair-agents-read-the-admission-standard-by-a-pointer.md) |
 | todo | [The design skill's duty to bring back a material finding has no design head](the-material-finding-duty-has-no-head.md) |
 | todo | [The retrospective records no count of what a merged branch cost in review](the-retrospective-counts-no-review-cost.md) |
