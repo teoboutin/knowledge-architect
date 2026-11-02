@@ -44,9 +44,9 @@ A test that maps to no claim is cost with no information: the owner reported tha
 on a whim, which the claim each test names exposes. Mutation evidence is owed by a test of logic, a
 named and recorded mutation; for a golden test, a test with heavy mocks or a nondeterministic one
 the writer picks the evidence, since whether a mutation means anything depends on a plausible wrong
-implementation in the logic the test exercises. A test's kind is decided by what it exercises, so a
-test of logic run in a mock environment, or through the public API as an integrated test, owes its
-mutation all the same. The rule and its table are in
+implementation in the logic the test exercises. An integrated test also has the kind of what it
+exercises, so a test of logic run in a mock environment, or through the public API as an integrated
+test, owes its mutation all the same. The rule and its table are in
 `path@agent-skills@fragments/default-code-shape.md`, which `design@agent-skills@default-code-shape`
 places, and the code-shape reviewer judges them, per `design@agent-skills@code-shape-axis`: a
 separate axis would read the same diff again.
