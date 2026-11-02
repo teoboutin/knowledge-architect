@@ -3,28 +3,90 @@
 ## Builds
 
 1. **Loop step 1 of `skill@knowledge-architect-design@discussion-loop`**, in
-   `path@agent-skills@content/skills/design/SKILL.md`, per #search-timing: the search may wait until the
-   scope settles; no thread closes before it has run; until then, a positive word of the owner leaves
-   a thread `presumed-settled`. The grounding before the first round, the reading of the homes and the
-   drafting and challenge of the shapes, stays where it is.
-2. **The heads rewritten in place** under `skill@knowledge-architect-decision-recording`:
-   `design@agent-skills@search-after-first-challenge`;
-   `design@agent-skills@record-searched-before-the-work` where it states when the design skill
-   dispatches the search; and `design@agent-skills@bounded-path-in-design`, which classifies bounded
-   work only after the grounding, "its search for standing entries included": a delayed search delays
-   the classification, so no one-message bounded proposal is sent before the search has run. Each
-   text citing them reread, as the milestone document's "What is already decided" lists; for
+   `path@agent-skills@content/skills/design/SKILL.md`, per `thread@development-and-components@search-timing`:
+   - the reading of the homes and the grep, the drafting and the challenge of the shapes, stay before
+     the first round;
+   - the search of the whole record stays part of step 1 and of the grounding, which is complete only
+     once it has run; it may run after the first rounds, once the scope settles, which the session
+     judges, with no count of rounds, and at the latest before any thread closes, so on the in-change
+     path and for bounded work too;
+   - it stays the discussion's one search of the whole record, never a pass over what changed since,
+     per `rejected@agent-skills@delta-search-at-convergence`, and a thread that opens on a new subject
+     after it gets a search of its own, as today;
+   - a round before the search states the grounding it rests on, the homes read and the grep, and
+     that the search has not run;
+   - the list the first round states today is stated in the round after the search, and it names,
+     for each goal graded `bears` or `may-bear`, the threads it constrains, or that it constrains none,
+     per `issue@agent-skills@a-goal-the-search-graded-was-missed-in-two-pieces-of-work`, which closes
+     at the harvest.
+2. **`skill@knowledge-architect-design@threads-and-states`**: a word of the owner given before the
+   search, explicit or not, at a fork, against a displayed table or at a checkpoint, leaves its
+   thread `presumed-settled`, and no thread closes in any closed state before the search has run. Once
+   it has run, a thread held only for it closes on the owner's earlier word with no second question;
+   an entry the search returned that bears on it is routed in
+   `skill@knowledge-architect-design@decision-authority`, beside the material findings, as
+   `primer@owner-word-premise` and `primer@question-authority` route it, with no rule of its own: a
+   word on a reading or a fact gives way to its source, the owner told; a ruling on intent whose
+   premise the entry defeats is a contradiction, put to the owner; a pick at a fork reopens in the
+   weak form, only where the entry ranks the shapes; and an entry that defeats nothing lets the
+   thread close on the word given. `design@agent-skills@owner-word-holds-as-far-as-its-premise`,
+   which describes the design skill's duty "for a closed thread", is reread and reworded where it no
+   longer covers the case. The rule stands inside "Who moves what", the span of the section the transcript
+   reviewer reads as where a word of the owner closes a thread, and step 1 points to it. The
+   definition of `presumed-settled` is rewritten once, in one sense covering both cases, a word that
+   would close the thread but cannot yet, because it is unclear or because the search has not run, so
+   `primer@coined-terms` needs no sentence for a second sense; a word held for the search is
+   re-surfaced when the search has run, not by the two-round rule. A goal's wording is still never
+   closed by such a word.
+3. **`skill@knowledge-architect-design@bounded-work`**: the one message is sent after the search, since
+   the grounding that classifies the work includes it; its words "at loop step 1, the search for
+   standing entries included" stay true. **`skill@knowledge-architect-design@decision-authority`**,
+   the convergence step, whose batch word promotes the `presumed-settled` bucket only after the search,
+   and any other sentence of the design skill that states the order, read and aligned. No section slug
+   is renamed, and the loop keeps its numbering, since several texts cite its steps by number.
+4. **Texts outside the design skill that state the moment or the meaning**, read and aligned: the
+   design skill's expectation set in `skill@knowledge-architect-retrospective`, which says the owner's
+   word closes a fork and defines `presumed-settled`; the description of
+   `agent@knowledge-architect-record-searcher`; the primer's line for the design skill, which stays
+   true under the grounding's definition of point 1; and the agent-skills README, whose description of
+   the design skill grounds it before proposing and whose restatement of the design skill's
+   expectation set closes a fork on the owner's word, kept equal to the retrospective's set.
+5. **The heads rewritten in place** under `skill@knowledge-architect-decision-recording`, each standing
+   on the argument of `argument@development-and-components@arg-61` and
+   `argument@development-and-components@arg-62` and on the owner's argument of
+   `argument@development-and-components@arg-52`, attributed with its hedge, never on the owner's
+   approval:
+   - `design@agent-skills@search-after-first-challenge`, renamed, since its slug states the order
+     reversed, with its old slug named bare beside the new reference in the plan documents and the pair
+     in the harvest's commit; it keeps citing `rejected@agent-skills@search-work-is-the-question`, and
+     cites `goal@knowledge-architect@the-owner-s-word-is-verified` and
+     `goal@knowledge-architect@owner-attention-on-what-is-theirs`, whose measure the pre-search rounds
+     strain and the closure rule bounds;
+   - `design@agent-skills@record-searched-before-the-work`, where it states when the design skill
+     dispatches the search and where its second paragraph says a search at grounding comes before the
+     first round: what keeps `rejected@agent-skills@conformance-reader-at-the-checkpoint` out is that
+     no thread closes before the search;
+   - `design@agent-skills@bounded-path-in-design`, whose words stay true under point 1;
+   - `design@agent-skills@owner-rules-at-a-fork`, which closes a fork on the owner's word and a thread
+     with one shape standing on its argument, both now after the search;
+   - `design@agent-skills@may-bear-read-on-touch`, whose reading happens when the search runs, which
+     answers `issue@agent-skills@the-reading-on-touch-of-may-bear-entries-met-its-reopening-condition`:
+     the scope has settled when the search runs, and a thread on a new subject after it gets a search
+     of its own; the issue closes at the harvest;
+   - `design@agent-skills@searcher-grades-goals`, which gains the outcome naming the threads a graded
+     goal constrains, with the issue's two instances as its evidence.
+
+   Each text citing them is reread, as the milestone document's "What is already decided" lists; for
    `design@agent-skills@bounded-path-in-design`, `design@agent-skills@settled-means-recorded`,
    `design@agent-skills@record-searched-before-the-work`,
    `issue@agent-skills@an-issue-s-re-entry-point-is-read-by-no-review`,
    `issue@agent-skills@the-open-space-test-may-admit-every-problem`,
+   `rejected@agent-skills@grounding-split-from-discussion`, which it keeps citing,
    `tripwire@agent-skills@deferred-trigger-met-by-undesigned-work` and
    `tripwire@agent-skills@a-shortcut-decision-earns-a-head`.
-3. **Any other text of the design skill that states the order**, among them the threads and states
-   section, `skill@knowledge-architect-design@threads-and-states`, where `presumed-settled` is defined,
-   read and aligned.
-4. **`cargo klarch install-agent-skills`**, the CHANGELOG.md entries in `Next release`, and
-   `cargo x changelog`.
+6. **`cargo klarch install-agent-skills`**, the CHANGELOG.md entry in `Next release` under Workflow,
+   `agent-skills`, patch, and `cargo x changelog`. The commit counts the instructions it adds and
+   removes in installed text, and states the net figure if it grows.
 
 ## Claims
 
@@ -32,11 +94,14 @@ No run is built to observe a discussion under the new step, per
 `design@agent-skills@synthetic-evidence-not-built`.
 
 - **The installed design skill states that the search may wait, that no thread closes before it has
-  run, and that a positive word before it leaves a thread `presumed-settled`; and no sentence of the
-  design skill still orders the search after the first challenge.** Test: a reading of the installed
-  skill whole, recorded in the commit; a phrase search is a lead only. Shown to fail: the same
-  reading of the skill today finds the search ordered after the first challenge.
-- **The three heads and the skill state the same order.** Test: the decision-record axis and the
+  run, and that a word of the owner before it leaves a thread `presumed-settled`; and no installed
+  text still orders the search after the first challenge, closes a thread on a word given before the
+  search, or sends a bounded proposal before it.** Test: a reading of the installed design skill
+  whole, and of the retrospective's expectation set of the design skill and the record searcher's
+  description, recorded in the commit; a phrase search is a lead only. Shown to fail: the same
+  reading today finds the search ordered after the first challenge, and a fork closed on the owner's
+  word with no condition.
+- **The rewritten heads and the skill state the same order.** Test: the decision-record axis and the
   self-consistency axis of the review. Shown to fail: the heads today state the old order.
 
 ## Audit subjects
@@ -62,7 +127,8 @@ No run is built to observe a discussion under the new step, per
 
 - A thread that a session closes before the search has run, which the transcript reviewer or a
   retrospective reports.
-- A sentence of the design skill that still orders the search after the first challenge.
+- A sentence of an installed text that still orders the search after the first challenge, or closes
+  a thread on a word given before the search.
 
 ## Premises that expire
 
@@ -86,8 +152,9 @@ against 17 drafted shapes, not the first three, and a first-round search would h
 searches for each new subject (`argument@development-and-components@arg-61`); the owner's R5: "It
 allows freer discussion of the design, which will then be confronted to the current records."
 (`argument@development-and-components@arg-52`). Against: a reader after the owner has ruled "reads
-rulings already given", `rejected@agent-skills@conformance-reader-at-the-checkpoint`, and seven
-threads closed before the search in this discussion (`argument@development-and-components@arg-62`).
+rulings already given", `rejected@agent-skills@conformance-reader-at-the-checkpoint`, and threads
+closed before the search in this discussion, whose two counts in the milestone document differ, six
+and seven (`argument@development-and-components@arg-62`).
 The synthesis keeps the free discussion and the more precise grades, and removes the cost of rulings
 already given, since no thread closes before the search.
 
@@ -99,12 +166,23 @@ rulings-already-given cost above. A search before and after the challenge: it do
 
 ## Harvest
 
-- **Heads:** `design@agent-skills@search-after-first-challenge`,
-  `design@agent-skills@record-searched-before-the-work` and `design@agent-skills@bounded-path-in-design`
-  rewritten in place, in `register@agent-skills@design`.
-- **Rejected:** the search after a few rounds with threads closing before it, where
-  `design@agent-skills@losing-alternatives-filter` admits it; the current order moves there under
-  the reversal check of `skill@knowledge-architect-decision-recording`.
-- **Tripwires:** premortem cause 4 of the milestone document, judged by the tripwire standard.
+- **Heads:** the six of Builds 5, rewritten in place in `register@agent-skills@design`, one decision
+  in the renamed head: the search may wait and no thread closes before it answer one question, when
+  the search runs, against the three rivals below, so `design@agent-skills@one-decision-per-head`
+  gives them one head. The heads attribute the owner's words and quote none.
+- **Rejected:** the current order, after the first challenge, moves there under the reversal check of
+  `skill@knowledge-architect-decision-recording`, where `design@agent-skills@losing-alternatives-filter`
+  admits it; the owner's plain proposal, a search after a few rounds with threads closing before it,
+  is the design `rejected@agent-skills@conformance-reader-at-the-checkpoint` records, which the
+  renamed head cites, so it takes no entry of its own; a search before and after the challenge, where
+  the filter admits it. A new entry names no winner and is cited by the renamed head.
+- **Tripwires:** premortem cause 4 of the milestone document, judged by the tripwire standard: the
+  milestone judged condition 1 probably unmet, since a reopened thread shows in the delta the owner
+  reads; and its evidence lands in transcripts alone on the in-change path and for bounded work, per
+  `issue@agent-skills@a-tripwire-on-agent-behaviour-fires-where-this-project-cannot-see`. The verdict
+  goes under "Decided".
+- **Issues:** `issue@agent-skills@a-goal-the-search-graded-was-missed-in-two-pieces-of-work` and
+  `issue@agent-skills@the-reading-on-touch-of-may-bear-entries-met-its-reopening-condition` close,
+  as Builds 1 and 5 say.
 - **Plan document:** this slice's spec leaves last, and with it the milestone document, as its
   harvest row says.
