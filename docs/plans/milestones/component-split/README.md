@@ -698,7 +698,7 @@ absence of #no-intermediate-component, argued from the definition. Harvest: the 
 `skill@knowledge-architect-component-creation`, by its own work,
 `issue@agent-skills@the-component-rules-await-two-rulings-of-the-split-s-first-audit`.
 
-### The dependencies that span several Components are the root design home's; a rule that one crate depends on no other is that crate's `##dependency-layout-home`
+### The dependencies that span several Components are the root design home's; a rule that one crate depends on no other may be that crate's `##dependency-layout-home`
 
 Put to the owner as Q2 of the design audit of #git-out, which found the skill's "Which Components
 exist and how they depend on each other is a decision about the layout, which belongs in the root's
@@ -710,7 +710,7 @@ their own container component. A decision that one specific crate should not dep
 this can belong to the individual crate. Since it does not bear on the design of the other crate
 (because it rules out the dependency, it creates less constraints for the other)." Shape: the
 harvest rows of #model-crate and #query-crate stand, each a rule that its crate depends on no crate
-of the checks. Harvest: the same revision as #intermediate-by-shared-design, for
+of the checks, which the ruling admits in that crate's home. Harvest: the same revision as #intermediate-by-shared-design, for
 `skill@knowledge-architect-decision-recording@owning-component` and the component-creation skill's
 sentence on the layout.
 

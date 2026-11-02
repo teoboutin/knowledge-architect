@@ -8,8 +8,8 @@ kind: todo
 At the design audit of `spec@component-split@git-out`, the owner ruled two points of the installed
 rules for Components: an intermediate Component exists where several Components share design the
 rest of the project does not, never for a count of Components; and the dependencies that span
-several Components are the root design home's, while a rule that one crate depends on no other is
-that crate's. The installed text still states both points as before.
+several Components are the root design home's, while a rule that one crate depends on no other may
+be that crate's. The installed text still states both points as before.
 
 ## Details
 
@@ -31,7 +31,7 @@ against them:
   and how they depend on each other is a decision about the layout, which belongs in the root's
   design home", and point 1 of `skill@knowledge-architect-decision-recording@owning-component` says
   the same. The owner ruled that this holds of the dependencies that span several Components, and
-  that a decision that one crate does not depend on another belongs to that crate.
+  that a decision that one crate does not depend on another may belong to that crate.
 
 Not established: how the second shape of the first ruling, Components as modules of an
 intermediate crate for the cost of the crate count, sits beside
