@@ -14,12 +14,16 @@ project's documents, a tool offering git history rewriting utilities, a gate tha
 question, or a test that builds a repository as its fixture. Through the library, such a tool both
 reads what a repository holds and has git write, so no tool needs a wrapper of git of its own.
 
-The library wraps git alone: it models git's operations that are basic or reusable, and no
-procedure of several operations aimed at one subject or one use, such as a fold of a repair into
-an earlier commit followed by a check of the tree it leaves, which the tool that offers the
-procedure composes from those operations. It knows nothing of a project's documents or of the
-workflow, and depends on no part of knowledge-architect that does.
+The library wraps git alone: it models operations on a repository, each stated in git's own terms,
+such as the paths, objects, commits, refs and index it reads or writes, however many git commands
+one takes, such as rewording a commit's message, or folding a fixup commit into the commit it
+fixes. A step that decides for the matter a tool works on, such as which commits to fold or what a
+check of the result must find, is the tool's, composed from those operations, however many tools
+share it. It knows nothing of a project's documents or of the workflow, and depends on no part of
+knowledge-architect that does.
 
 It is met while the library's public interface lets each such tool run every git invocation it
-needs and read what a repository holds, and its dependencies hold no part of knowledge-architect
-that knows a project's documents or the workflow.
+needs and read what a repository holds, holds each operation in git's terms that a tool composes
+from several invocations, has no function that reads a project's documents or decides for the
+matter a tool works on, and its dependencies hold no part of knowledge-architect that knows a
+project's documents or the workflow.

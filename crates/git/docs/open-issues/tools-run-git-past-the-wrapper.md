@@ -31,8 +31,15 @@ The code outside the crate that starts git itself, found with
 The gates library's `rebased` gate runs `git merge-base --is-ancestor` as a gate's command line,
 through its own spawn helper, in `path@gates@src/gates.rs`.
 
-The goal says a tool "can" use the library, so none of these breaks it; what the goal asks is that
-each could.
+The goal asks that the library's interface hold each operation in git's terms that a tool composes
+from several invocations, so these sites' operations are owed to the library, while a tool "can"
+use it and need not move.
+
+Two items of the library's interface serve the checker rather than git: `component_dir` and
+`CRATE_DIR` in `path@git@src/lib.rs` exist for the checker's reading of its own source's literals
+as data and for its refusal of a build from another checkout; and `stage_generated` names its files
+by the checker's word, though it stages any contents a caller gives. The goal's library knows
+nothing of the workflow.
 
 ### Why it matters
 
@@ -43,5 +50,6 @@ for every invocation, per `design@git@repository-variables-dropped`, reaches non
 ### What would close it
 
 The public interface of the library carries what these sites need, each addition argued against
-the design heads of `register@git@design`; and each site either moves onto it or is left with the
-reason it stays, in a comment at the site.
+the design heads of `register@git@design`; each site either moves onto it or is left with the
+reason it stays, in a comment at the site; and the two items above are renamed, or moved out of
+the library's interface, as their design decides.
