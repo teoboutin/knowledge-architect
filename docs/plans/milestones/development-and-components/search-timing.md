@@ -17,7 +17,7 @@
      that the search has not run;
    - the list the first round states today is stated in the round after the search, and it names,
      for each goal graded `bears` or `may-bear`, the threads it constrains, or that it constrains none,
-     per `issue@agent-skills@a-goal-the-search-graded-was-missed-in-two-pieces-of-work`, which closes
+     per `a-goal-the-search-graded-was-missed-in-two-pieces-of-work`, which closes
      at the harvest.
 2. **`skill@knowledge-architect-design@threads-and-states`**: a word of the owner given before the
    search, explicit or not, at a fork, against a displayed table or at a checkpoint, leaves its
@@ -56,7 +56,7 @@
    `argument@development-and-components@arg-62` and on the owner's argument of
    `argument@development-and-components@arg-52`, attributed with its hedge, never on the owner's
    approval:
-   - `design@agent-skills@search-after-first-challenge`, renamed, since its slug states the order
+   - `search-after-first-challenge`, now `design@agent-skills@search-before-any-thread-closes`, renamed, since its slug states the order
      reversed, with its old slug named bare beside the new reference in the plan documents and the pair
      in the harvest's commit; it keeps citing `rejected@agent-skills@search-work-is-the-question`, and
      cites `goal@knowledge-architect@the-owner-s-word-is-verified` and
@@ -70,7 +70,7 @@
    - `design@agent-skills@owner-rules-at-a-fork`, which closes a fork on the owner's word and a thread
      with one shape standing on its argument, both now after the search;
    - `design@agent-skills@may-bear-read-on-touch`, whose reading happens when the search runs, which
-     answers `issue@agent-skills@the-reading-on-touch-of-may-bear-entries-met-its-reopening-condition`:
+     answers `the-reading-on-touch-of-may-bear-entries-met-its-reopening-condition`:
      the scope has settled when the search runs, and a thread on a new subject after it gets a search
      of its own; the issue closes at the harvest;
    - `design@agent-skills@searcher-grades-goals`, which gains the outcome naming the threads a graded
@@ -109,13 +109,13 @@ No run is built to observe a discussion under the new step, per
 - `skill@knowledge-architect-design` whole, in particular
   `skill@knowledge-architect-design@discussion-loop`, `skill@knowledge-architect-design@threads-and-states`,
   `skill@knowledge-architect-design@decision-authority` and `skill@knowledge-architect-design@bounded-work`.
-- `design@agent-skills@search-after-first-challenge`, `design@agent-skills@record-searched-before-the-work`,
+- `search-after-first-challenge`, now `design@agent-skills@search-before-any-thread-closes`, `design@agent-skills@record-searched-before-the-work`,
   `design@agent-skills@bounded-path-in-design`, `design@agent-skills@seeds-name-decisions`,
   `design@agent-skills@structure-the-flow`.
-- `issue@agent-skills@the-reading-on-touch-of-may-bear-entries-met-its-reopening-condition`, whose
+- `the-reading-on-touch-of-may-bear-entries-met-its-reopening-condition`, whose
   case this slice answers in part, and
   `issue@agent-skills@a-pending-ruled-file-is-reached-by-no-installed-search`.
-- `issue@agent-skills@a-goal-the-search-graded-was-missed-in-two-pieces-of-work`, whose re-entry
+- `a-goal-the-search-graded-was-missed-in-two-pieces-of-work`, whose re-entry
   point is this audit: it reopens `design@agent-skills@searcher-grades-goals` and
   `design@agent-skills@seeds-name-decisions`.
 - `rejected@agent-skills@conformance-reader-at-the-checkpoint`,
@@ -159,8 +159,8 @@ The synthesis keeps the free discussion and the more precise grades, and removes
 already given, since no thread closes before the search.
 
 **Nearest rival and the fact that defeated it.** The current order, after the first challenge,
-`design@agent-skills@search-after-first-challenge`: a scope that widens after the search makes its
-grades stale, as `issue@agent-skills@the-reading-on-touch-of-may-bear-entries-met-its-reopening-condition`
+`search-after-first-challenge`, now `design@agent-skills@search-before-any-thread-closes`: a scope that widens after the search makes its
+grades stale, as `the-reading-on-touch-of-may-bear-entries-met-its-reopening-condition`
 records. The owner's plain proposal, a search after a few rounds with threads closing meanwhile: the
 rulings-already-given cost above. A search before and after the challenge: it doubles the search.
 
@@ -181,8 +181,8 @@ rulings-already-given cost above. A search before and after the challenge: it do
   reads; and its evidence lands in transcripts alone on the in-change path and for bounded work, per
   `issue@agent-skills@a-tripwire-on-agent-behaviour-fires-where-this-project-cannot-see`. The verdict
   goes under "Decided".
-- **Issues:** `issue@agent-skills@a-goal-the-search-graded-was-missed-in-two-pieces-of-work` and
-  `issue@agent-skills@the-reading-on-touch-of-may-bear-entries-met-its-reopening-condition` close,
+- **Issues:** `a-goal-the-search-graded-was-missed-in-two-pieces-of-work` and
+  `the-reading-on-touch-of-may-bear-entries-met-its-reopening-condition` close,
   as Builds 1 and 5 say.
 - **Plan document:** this slice's spec leaves last, and with it the milestone document, as its
   harvest row says.

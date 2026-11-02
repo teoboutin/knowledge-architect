@@ -245,6 +245,9 @@ owner contests them with a goal, a fact or an argument, and the turn lists them 
 `design@agent-skills@decisions-reported-to-the-owner`. A fork, two or more shapes that meet every
 binding constraint with no fact defeating either, closes on the owner's word, as every question
 `design@agent-skills@questions-go-to-their-authority` reserves to the owner does. A cost alone makes no fork.
+Either closure waits for the design skill's record search, per
+`design@agent-skills@search-before-any-thread-closes`: before it, the owner's word or the
+argument leaves the thread `presumed-settled`, and it closes once the search has run.
 The discussion stays an exchange: the owner proposes designs, the agent fills and argues them, and
 either side's shape can win. A reopening of a closed fork decides nothing: a new pick at the same
 fork needs a goal, a fact or an argument, a new weighing the owner states included, since the owner

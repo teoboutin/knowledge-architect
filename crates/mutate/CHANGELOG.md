@@ -54,6 +54,11 @@ an empty subsection is omitted.
   no Component or a Component gains a second reason to change, and the setup skill points to it for
   the criteria and the naming. A project with a skill of its own for this activity reads it against
   the installed one.
+- `agent-skills`, patch: the design skill's search of the record may wait until a discussion's scope
+  settles, and runs before any thread closes: until then a word of the owner that would close a
+  thread leaves it presumed settled, and once the search has run the thread closes on that word,
+  an entry the search returns being routed as the primer routes a premise. The round after the
+  search names, for each goal the search graded, the threads it constrains.
 - `agent-skills`, patch: the retrospective asks whether a rule about code or tests, or about
   splitting the project into Components, proved too hard or too strict, or was followed against the
   work's interest.

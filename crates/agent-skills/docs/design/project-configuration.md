@@ -277,7 +277,8 @@ hold derives from `goal@knowledge-architect@the-owner-s-word-is-verified`. The s
 rival, putting the owner's answer back to the owner with the source's reading as the default, is
 what thaum built first: it still asked, offered an option the specification forbids, and two of
 thaum's reviewers found it contradicted the specification's authority. The design skill holds the
-same duty for a closed thread, its material finding, and reaches only a session that has loaded it,
+same duty for a closed thread, its material finding, and for a thread held for its record search,
+the routing of an entry the search returns, and reaches only a session that has loaded it,
 where a word of the owner can arrive in any session, which is the content test of
 `design@agent-skills@primer-limit`. So the directive sits in the primer: it arrived twice outside a discussion,
 in a review repair and at an entry test on the owner's intent, `rejected@agent-skills@owner-intent-entry-test`,

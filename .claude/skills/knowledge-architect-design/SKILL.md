@@ -45,7 +45,9 @@ The owner decides what `primer@question-authority` reserves to the
 owner, a fork among it, and contests any closure with a goal, a fact or
 an argument, which you weigh like any other. Their explicit word at a
 fork — an approval, a rejection, "do X" — ends the argument on that
-point at any time, converged or not. "Stop" ends the discussion, and
+point at any time, converged or not; before the record search has run,
+it holds the thread `presumed-settled` rather than closing it, as
+`skill@knowledge-architect-design@threads-and-states` says. "Stop" ends the discussion, and
 decides nothing against an argument.
 
 - **Never assume the decision saw all its consequences.** A decision
@@ -54,6 +56,15 @@ decides nothing against an argument.
   discussion. Verifying what the choice entails remains your job
   after the decision is given: check it against the other decided
   threads, the named criteria, and the system as you know it.
+- **An entry the record search returns on a thread held for it**
+  is routed as `primer@owner-word-premise` and
+  `primer@question-authority` route it: a word of the owner on a
+  reading or a fact gives way to its source, and the owner is told; a
+  ruling on intent whose premise the entry defeats is a contradiction,
+  put to the owner; a pick at a fork reopens in the weak form
+  `primer@design-heads` states, only where the entry ranks the shapes;
+  an entry that defeats nothing lets the thread close on the word
+  already given.
 - **Material findings come back exactly once.** Material is one
   test, and it is answered by naming rather than by judging: the
   information arrived after the thread closed, AND you can name the
@@ -408,6 +419,7 @@ confirmation over the whole ledger — never a per-item ratification
 questionnaire.
 
 **Who moves what.** You may move threads freely between the open states of a thread.
+Every closure below waits for the record search of loop step 1, as the next paragraph says.
 The owner's explicit word closes a fork; on a thread with one shape
 standing, it confirms the closure on its argument, or contests it with a
 goal, a fact or an argument. A word given during the discussion ("drop
@@ -431,6 +443,16 @@ asks for a ruling between positions. The checkpoint's batch
 confirmation is not this pattern. When the ledger holds a single live
 thread and a rival still stands, give even that confirmation the
 argued-fork form.
+
+**No thread closes before the record search of loop step 1 has run**,
+in any closed state, by the owner's word or by yours. Until then, a
+word of the owner that would close a thread, an explicit word at a
+fork, a positive word against a displayed table or the batch
+confirmation included, leaves it `presumed-settled`: say so in the
+delta. Once the search has run, each thread held only for it closes
+on the word already given, with no second question, unless an entry
+the search returned bears on it, which
+`skill@knowledge-architect-design@decision-authority` routes.
 
 When no rival stands — the alternatives are recorded `ruled-out`, and
 raising one again would be a stall and inventing one would be padding
@@ -502,14 +524,16 @@ criterion derived from a goal is demoted only by
 changing the goal, under `skill@knowledge-architect-goal-setting`. Were acceptance available to both
 kinds, binding and weighed would differ only in how much ceremony the acceptance takes.
 
-**`presumed-settled`** is a labeled claim about the owner: they are
-continuing the discussion in a way that assumes this thread's
-resolution. It is deliberately an open thread state — a presumption never
-counts toward convergence. Each time the owner's arguments again
-depend on the presumption, its evidence refreshes. A presumption the
-owner's arguments have not depended on for two rounds is re-surfaced —
-in the next delta, or as a standalone note when no recent round
-produced one — rather than silently carried.
+**`presumed-settled`** is a labeled claim about the owner: a word of
+theirs would close this thread, but cannot yet, because it is unclear
+or because the record search has not run. It is deliberately an open
+thread state — a presumption never counts toward convergence. Each
+time the owner's arguments again depend on an unclear word's
+presumption, its evidence refreshes, and one the owner's arguments have
+not depended on for two rounds is re-surfaced — in the next delta, or
+as a standalone note when no recent round produced one — rather than
+silently carried. A word held for the search is re-surfaced when the
+search has run, as "Who moves what" says.
 
 **Reopening — closed is not frozen.** This rule is the single owner
 of the novelty test. The owner reopens a closed thread by their word
@@ -566,7 +590,16 @@ choices whose option space genuinely is closed and consequence-free.
    grade at least.
    A goal the discussion sets through `skill@knowledge-architect-goal-setting`
    is no part of the search's work; only its consequences on the design
-   are. The search is dispatched as the description of
+   are. The search may wait until the scope settles, after the first
+   rounds, which you judge, with no count of rounds; it runs at the
+   latest before any thread closes, and the grounding is complete only
+   once it has run. Until then no thread closes, as "Who moves what" in
+   `skill@knowledge-architect-design@threads-and-states` says, and each
+   round states the grounding it rests on, the homes read and the grep,
+   and that the search has not run. It is the discussion's one search of
+   the whole record, with the shapes drafted by then as its work, never
+   a pass over what changed since the first rounds. The search is
+   dispatched as the description of
    `agent@knowledge-architect-record-searcher` says. Then read whole
    `bears.md`, every entry the search grades `bears` with every reference
    to it, a goal there by its grades alone since its home is read above,
@@ -574,11 +607,12 @@ choices whose option space genuinely is closed and consequence-free.
    proposal touches, chosen from its table of contents; run
    `cargo klarch show <kind>@<anchor>@<id>` on each other entry the
    question bears on, and read it whole: never act on an entry from the
-   reason the search gave. The first round states which of these were
-   read and run, which entries the search graded `bears` or `may-bear`,
-   which of them the question bears on, for each `may-bear` entry read
-   whether it bears, and the `may-bear` entries not read, each with the
-   searcher's reason. That list reaches the review that reads the work
+   reason the search gave. The round after the search states which of
+   these were read and run, which entries the search graded `bears` or
+   `may-bear`, which of them the question bears on, for each goal
+   graded `bears` or `may-bear` the threads it constrains or that it
+   constrains none, for each `may-bear` entry read whether it bears, and
+   the `may-bear` entries not read, each with the searcher's reason. That list reaches the review that reads the work
    against the record, in the record each path keeps: the plan document's
    "What is already decided" on the full path, and the commit message on
    the in-change path and for bounded work. An entry graded `may change` goes to
@@ -586,9 +620,9 @@ choices whose option space genuinely is closed and consequence-free.
    backstop of `skill@knowledge-architect-design@what-earns-a-head`, before a proposal that would change it,
    and a goal graded so to `skill@knowledge-architect-goal-setting`; one graded `may bring back` is
    proposed again only with a new argument, by the Reopening rule. When a
-   thread opens on a subject the question did not cover, run the search
-   again with the thread as the work: the first search graded the record
-   against the problem and the first shapes. Where the record is silent, read the code and its history; where it is empty, state that the record starts with this
+   thread opens, after the search, on a subject its work did not cover,
+   run the search again with the thread as the work: the search graded
+   the record against the problem and the shapes it was given. Where the record is silent, read the code and its history; where it is empty, state that the record starts with this
    discussion. A record that
    carries a verdict but no decision — a review, an audit, an
    automated report, a prescribed change nobody ruled on — grounds
@@ -711,7 +745,8 @@ choices whose option space genuinely is closed and consequence-free.
    convergence, name the last new argument or probe you brought and
    what it produced.
 
-   Convergence is PROPOSED, never requested: show the checkpoint
+   Convergence is PROPOSED, never requested, and only once the record
+   search of step 1 has run, since no thread closes before it: show the checkpoint
    table, with the `presumed-settled` bucket in view — the batch word
    promotes that bucket, and convergence holds when it
    lands in a round that introduces no new thread, reopening, or
