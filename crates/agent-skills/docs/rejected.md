@@ -747,16 +747,11 @@ it again.
 ### A stop on no blocking finding over all the wording of a goal review `##goal-review-stop-over-all-wording`
 
 `live`. Each round's repairs write new wording, in which the next round finds defects at least as
-readily as in old text: 30 of 38 findings of an audit pass sat on text the branch had written, as
-`design@agent-skills@convergence-count-scope` records, and this repository's review of its goals
-counted 91 then 88 findings over rounds that rewrote goals, as `design@agent-skills@whole-set-rounds`
-records. A count over all the wording measures how much a round rewrote more than what is left.
+readily as in old text, by the measurement `design@agent-skills@convergence-count-scope` records.
 
-### A goal's measure kept in a layer apart that agents revise `##goal-measure-revised-apart`
+### Every "every", "no", "all" and "not in scope" of a goal naming the set it ranges over, wherever it stands `##goal-universal-names-its-set`
 
-`live`. OKR key results and Gilb's scale and meter keep a measure apart from its stable objective
-and replace it without changing the objective, as `path@agent-skills@docs/grounding/goal-standard.md`
-reads them. Here the goals are the only statements assumed to come from the owner, per
-`primer@goals-bind`, so a measure agents revise moves what shows a goal met out of the owner's
-statements.
-
+`live`. Asking a goal's every universal to name its set added a scope at each repair, so the goals
+narrowed round after round to the shape that admits the owner's intent and nothing more, on the
+owner's report. It is kept because a doubt remains that a goal read for ambiguity alone can be too
+wide to constrain the work toward it.

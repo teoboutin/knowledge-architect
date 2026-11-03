@@ -34,7 +34,9 @@ it.
 
 1. **It states an outcome the owner intends, which keeps its meaning in the project emptied of its
    design and its code.** Read the goal as if every design head, document and line of code under it
-   were removed: each word still means what it meant. A goal may define what the project provides
+   were removed: each word still means what it meant. A sentence is a mechanism when, changed, the
+   Component would still be for what the owner intends, and an outcome when the change would make it
+   for something else. A goal may define what the project provides
    and then name it, as "the project provides a command that checks its documents"; it names no
    part whose existence comes from a design choice. A Component's goal may name its own Component
    and the Components that enclose it. The kind of interface the Component provides, a command line,
@@ -72,7 +74,7 @@ it.
    not the measure: it shows the goal unmet in practice where what is built fails it, and leads to a
    change of what is built.
 7. **A refinement neither widens nor contradicts the goal it refines, and a goal cites only goals
-   of its own Component or of one enclosing it.** A goals home, its goals and its head alike, cites
+   and registers of its own Component or of one enclosing it.** A goals home, its goals and its head alike, cites
    no entry other than a goal, and no register's home other than one of its own Component or of one
    enclosing it; the checker reports any other reference there. A goal holds what it needs in its
    own words.
@@ -115,7 +117,7 @@ the drafter's, not a ruling of the owner.
 ## Report `##what-to-report`
 
 List the goals under their slugs, in the order of their homes. Under each, every finding, with its
-rule, its quotation of the goal's words, a route tag and a grade.
+rule, a route tag and a grade.
 
 The route says who answers it:
 
@@ -133,6 +135,7 @@ The grade says what the finding changes in an agent's act, and the dispatcher's 
 | a sentence states a mechanism as the outcome, naming no built part | 1 | `asks` | `intent` |
 | a term with two meanings in the project | 2 | `blocks` | `settled` |
 | a universal in what the goal requires or rules out that names no set | 2 | `asks` | `intent` |
+| any other wording that two agents in one situation would read in two directions | 2 | `asks` | `intent` |
 | a case the goal requires or rules out that the owner's statements do not cover | 3 | `asks` | `intent` |
 | two intents in one goal | 4 | `minor` | `settled` |
 | one goal rules out what another requires | 5 | `blocks` | `contradiction` |
@@ -145,7 +148,7 @@ The grade says what the finding changes in an agent's act, and the dispatcher's 
 | a statement of the owner in conflict, or a part of the statements dropped, (a) or (b) | none | `blocks` | `contradiction` |
 
 A case the goal only admits is no finding, and a goal that the project does not meet yet is none:
-list such cases in the boundary block's material. A finding on a goal's reach never proposes a
+in draft and whole-set mode, list such cases in the boundary block's material. A finding on a goal's reach never proposes a
 narrower wording: it lists the cases, and the owner rules on them. A goal with no finding is listed
 as conforming. In draft and whole-set mode, end each goal with its boundary block's material. List
 what you met outside your task under a heading "Met outside the task", for the dispatcher to route,

@@ -447,5 +447,5 @@ stating it.
 the instance.
 **Re-entry:** the standing-state review, and the review of the whole goal set.
 **Watches until:** three commits on the main branch that change a goals home of this repository,
-counted from the commit that writes this line.
+counted from the first commit on the main branch whose goals homes hold a "for instance" case.
 

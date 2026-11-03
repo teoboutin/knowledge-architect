@@ -3,8 +3,9 @@
 Findings established outside this project that the design of the goal standard leans on: the rules of
 `skill@knowledge-architect-goal-setting@goal-or-not`, argued in
 `design@agent-skills@goal-standard-rules`, and the way `agent@knowledge-architect-goal-reviewer`
-grades its findings and stops, argued in `design@agent-skills@goal-reviewer-agent` and
-`design@agent-skills@whole-set-rounds`. Each finding names its source and how it was read:
+grades its findings, and the way goal-setting stops its reviews, argued in
+`design@agent-skills@goal-finding-grades`, `design@agent-skills@goal-review-stops-on-old-wording`
+and `design@agent-skills@whole-set-rounds`. Each finding names its source and how it was read:
 
 - **read**: the passage was read in the primary text;
 - **secondary**: it was read in a summary or a quotation, not in the primary text;
@@ -14,11 +15,9 @@ grades its findings and stops, argued in `design@agent-skills@goal-reviewer-agen
 A finding read secondary or assumed is a lead, and is read at its source before an argument rests on
 it alone.
 
-**The revision of the standard that these findings bear on rests first on the owner's observation**
-of this project's goals and reviews: review passes narrowed goals until they ruled out cases the
-owner never ruled out, and the review of the whole goal set did not converge. On the owner's word,
-the proposals of the discussion that made that revision weighed more than these findings, and a
-finding changed one of them only by an argument the owner weighed.
+**The revision of the standard rests first on this project's own record**, argued in the heads
+above. On the owner's word, the proposals of the discussion that made that revision weighed more
+than these findings, and a finding changed one of them only by an argument the owner weighed.
 
 ## The questions
 
@@ -156,8 +155,9 @@ move what the project builds, never shaped so that the tree as it stands meets i
 - **Divergence under a boundary condition.** RE'01 (read): goals G1 to Gn are divergent when a
   non-trivial condition B, possible in the domain, makes them jointly inconsistent, while every proper
   subset stays consistent. Logical conflict is the special case. A divergence is two outcomes that
-  compete under a condition, which the second sentence of rule 5 covers: "Where two outcomes compete,
-  a goal states which ranks first". So a divergence is a question for the owner, with its condition.
+  compete under a condition, which rule 5's ranking sentence covers: "Where two outcomes compete,
+  including two that can both be met except under a condition the project or its use makes
+  possible, a goal states which ranks first". So a divergence is a question for the owner, with its condition.
 - **Graded contributions.** The NFR framework grades how a design or a goal contributes to another:
   make, help, hurt, break (L. Chung, B. Nixon, E. Yu, J. Mylopoulos, *Non-Functional Requirements in
   Software Engineering*, 2000, secondary). A "hurt" is a trade-off that a design weighs, argued in its

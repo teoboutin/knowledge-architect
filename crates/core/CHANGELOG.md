@@ -13,9 +13,9 @@ an empty subsection is omitted.
 - `checks`, minor: a goals home, its goals and its head alike, cites only a goal or a register's home
   of its own Component or of a Component that encloses it, the root included; every other reference
   written there is a finding, a goal or a register's home of a nested or a sibling Component, a design
-  head, an issue, a path and a skill or an agent among them. A project rewrites each such sentence so
-  it names no entry, or cites a goal of its own or an enclosing Component instead, never by removing
-  the backticks.
+  head, an issue, a path and a skill or an agent among them. A project brings each goal that cites
+  such an entry to the rule through `skill@knowledge-architect-goal-setting@whole-set-review`, its
+  owner ruling each rewording, and never by removing the backticks.
 - `agent-skills`, patch: the goal standard, which goal-setting and the goal reviewer apply, asks a
   goal to keep its meaning in the project emptied of its design and its code, so it names no part
   that exists by a design choice; reads a goal in three layers, what it requires, admits and rules

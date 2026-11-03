@@ -30,8 +30,7 @@ on the owner's word.
 
 %% The body has no length bound because a session that argues from a goal applies it whole, so its
 %% words cost that session nothing, while a goal pressed into few sentences packs its sets and its
-%% measure into long ones and reads two ways; per `design@agent-skills@goal-entry-shape`. The cases
-%% carry the reading the owner ruled on, which the boundary block alone would leave in the record.
+%% measure into long ones and reads two ways; the cases, per `design@agent-skills@goal-entry-shape`.
 A level-two heading stating the goal as a sentence, its slug at the end, then the body: what the
 goal means, **what would show it is met**, and, for each layer the goal has, one or more "for
 instance" cases: what it requires, what it admits, what it rules out. A layer the goal does not have
@@ -64,8 +63,7 @@ It is met while <what the project builds that shows it>.
 %% rule.
 **Where a goal goes.** A goal is written in the goals home of the Component whose responsibility it
 is to fulfil it, even when other Components' decisions serve it too: any goal can be referenced from
-anywhere but a goals home, which cites only goals of its own Component or of one enclosing it, as
-rule 7 says. The root's goals state what the project provides to its consumers. A published Component
+anywhere but a goals home, as rule 7 says. The root's goals state what the project provides to its consumers. A published Component
 serves those consumers, so its goals are encouraged to be sub-goals: more specific than a root
 goal, perhaps not stated by it, and still to be fulfilled. A Component that serves only the
 project, such as a maintenance tool, serves every root goal at once, and its goals need not refine
@@ -104,8 +102,7 @@ serves, which the owner rules like a goal; the root's states the project's.
    their own words. Three questions help: what is it for, and for whom; what would show that it
    fails at that; what is it explicitly not for.
 2. **Refine the wording** of what the owner stated. **Propose further goals** from the existing
-   documentation, or from the code and content when the documentation does not say enough. A
-   proposed goal states where the project should get to, not what it holds today.
+   documentation, or from the code and content when the documentation does not say enough.
 3. **Write a draft that goes into the goals home verbatim if it is approved**.
    **Mark each goal with its source**: "the owner's statement", or "proposed from <the document or
    the code it was read from>". The source mark is not written to the goals home. A batch of three
@@ -114,33 +111,36 @@ serves, which the owner rules like a goal; the root's states the project's.
    `skill@knowledge-architect-goal-setting@whole-set-review` keeps one, in
    `docs/goal-reviews/<YYYY-MM-DD>-<subject>.md`.
 %% Per `design@agent-skills@goal-reviewer-agent`. The whole batch is read at once, and again on any
-%% rewording, since one goal's wording can change its relation to a sibling. The stop counts old
-%% wording because each round's repairs write new wording, in which the next round finds defects at
-%% least as readily, per `design@agent-skills@convergence-count-scope`.
+%% rewording, since one goal's wording can change its relation to a sibling. The stop is
+%% `design@agent-skills@goal-review-stops-on-old-wording`.
 4. **Dispatch `agent@knowledge-architect-goal-reviewer` in its draft mode**, fresh, never a fork:
    its brief is the whole batch of new and reworded goals, every relevant statement of the owner,
    verbatim, whether or not the draft drew on it, and the project. Repair each `settled` finding,
    keeping a goal's wording where a finding is `intent` or `contradiction`: a narrower wording is
    drafted only on the owner's word, with what the narrowing rules out. Dispatch the reviewer again
-   on the repaired batch, so that the version shown is a version reviewed. From the second round,
-   sort each finding by the words it quotes: on old wording, the words the previous round read and
-   no repair changed since, or on new wording. **Stop when a round, from the second on, reports no
+   on the repaired batch, so that the version shown is a version reviewed. Keep the version each
+   round read, in the conversation for a batch of three goals or fewer and in the record for a
+   larger one, and from the second round sort each finding by the words it quotes against it: on
+   old wording, the words the previous round read and no repair changed since, or on new wording. **Stop when a round, from the second on, reports no
    `blocks` finding tagged `settled` on old wording.** The findings of the round that stops go to the
    owner beside the goals, unrepaired.
 %% Per `design@agent-skills@goal-draft-shows-reach`.
 5. **Show the owner the draft, each goal with its boundary block**, in the message, or, for a batch
    of more than three goals, in the tree and the record: what the goal asks of future work, the
    part the project does not hold yet; for each layer the goal has, requires, admits and rules out,
-   at least one case, and the cases it reaches that the owner may not intend, from the project's
+   at least one case, and the cases it reaches in its requires and rules-out layers that the owner
+   may not intend, from the project's
    existing or planned work, or, where none exists yet, from the uses the owner's statements
    describe; each sibling goal it touches with the relation, a conflict named as such; and each
    `intent` finding of the reviewer, with the case on which the readings differ. Put each `contradiction` at the top of the draft, quoting both sides:
-   a statement of the owner that conflicts with a goal or with another statement, or a part of the
-   statements the draft drops. Resolve none alone; a goal resting on one is not written before the
-   owner's answer. The block and the reviewer's report are not written to the goals home; for a
-   batch of more than three goals they are written in the record.
+   a statement of the owner that conflicts with a goal or with another statement, a part of the
+   statements the draft drops, or a goal ruling out what another requires. Resolve none alone; a goal
+   resting on one is not written before the owner's answer. The block and the reviewer's report are
+   not written to the goals home, but the cases of the block the owner keeps are written in the
+   goal, as "The shape of a goal entry" says; for a batch of more than three goals the block and the
+   report are written in the record.
 6. **Ask the owner to read the draft in full, and to rule on it**: for three goals or fewer, on each
-   goal by its slug, approved or dropped; for more, on the batch as the tree holds it, the owner
+   goal by its slug and its cases, approved or dropped; for more, on the batch as the tree holds it, the owner
    naming each goal dropped or reworded. A goal with no ruling is neither written nor dropped: ask
    again for it by its slug. A
    goal the owner rewords is reviewed again, with the whole batch, and shown again in its new

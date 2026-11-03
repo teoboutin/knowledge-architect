@@ -58,7 +58,7 @@ the drafter's, not a ruling of the owner.
 ## Report {{slug:what-to-report}}
 
 List the goals under their slugs, in the order of their homes. Under each, every finding, with its
-rule, its quotation of the goal's words, a route tag and a grade.
+rule, a route tag and a grade.
 
 The route says who answers it:
 
@@ -76,6 +76,7 @@ The grade says what the finding changes in an agent's act, and the dispatcher's 
 | a sentence states a mechanism as the outcome, naming no built part | 1 | `asks` | `intent` |
 | a term with two meanings in the project | 2 | `blocks` | `settled` |
 | a universal in what the goal requires or rules out that names no set | 2 | `asks` | `intent` |
+| any other wording that two agents in one situation would read in two directions | 2 | `asks` | `intent` |
 | a case the goal requires or rules out that the owner's statements do not cover | 3 | `asks` | `intent` |
 | two intents in one goal | 4 | `minor` | `settled` |
 | one goal rules out what another requires | 5 | `blocks` | `contradiction` |
@@ -88,7 +89,7 @@ The grade says what the finding changes in an agent's act, and the dispatcher's 
 | a statement of the owner in conflict, or a part of the statements dropped, (a) or (b) | none | `blocks` | `contradiction` |
 
 A case the goal only admits is no finding, and a goal that the project does not meet yet is none:
-list such cases in the boundary block's material. A finding on a goal's reach never proposes a
+in draft and whole-set mode, list such cases in the boundary block's material. A finding on a goal's reach never proposes a
 narrower wording: it lists the cases, and the owner rules on them. A goal with no finding is listed
 as conforming. In draft and whole-set mode, end each goal with its boundary block's material. List
 what you met outside your task under a heading "Met outside the task", for the dispatcher to route,
