@@ -297,3 +297,11 @@ The design of goals can probably stay this way overall, lets not bring more relo
 The session drafted `goals-state-the-owner-s-intent` in the agent-skills goals home, refining
 `goal@knowledge-architect@the-owner-decides`. It is new wording in round 2. The goal design heads
 that argue the standard cite it in the commit that writes the ruled goals.
+
+## Round 2
+
+Dispatched: one goal reviewer per set in draft mode and one in whole-set mode. Each reads the goals
+as round 1's repairs left them in the working tree, copied into a worktree detached at the commit
+that adds this section. The wording round 1 read is the goals homes as that commit holds them,
+which round 1's repairs have not touched in any commit. The new goal
+`goals-state-the-owner-s-intent` belongs to set 3, as a goal of the agent-skills goals home.
