@@ -274,6 +274,31 @@ xtask heads, drafted by the session; the never-ranks list of
 `goal@knowledge-architect@agents-work-without-drift`, which omits
 `goal@knowledge-architect@the-owner-s-word-is-verified`; every `intent` finding left as it was.
 
+### Questions Q14 to Q17, put with round 1's batch
+
+Each was put with its default, and the owner agreed to every default:
+
+- Q14, the purposes of the trimmed heads of agent-skills, gates, mutate and xtask, drafted by the
+  session as the tree holds them; default: those wordings.
+- Q15, the parent of the relocation goal; default: it refines
+  `goal@knowledge-architect@agents-work-without-drift`, the rival being to drop the refinement line.
+- Q16, four drafting choices: (a) the sentence on the supervision `goal@knowledge-architect@agents-work-without-drift` saves,
+  measured by no goal, removed with nothing in its place; (b) no retrospective question in
+  `goal@knowledge-architect@generic-tools-and-procedures-are-shipped`; (c) the retrospective question added to
+  `goal@agent-skills@only-needed-instructions`; (d) the mutate verdict stating the cases it tells
+  apart; default: keep all four.
+- Q17, the never-ranks list of `goal@knowledge-architect@agents-work-without-drift`, which omits
+  `goal@knowledge-architect@the-owner-s-word-is-verified`; default: add it. Round 1's repairs did not
+  apply it; round 2's do.
+
+The defaults of Q9 to Q11 are those the drafting brief applied, as round 1's repairs state: Q9, the
+published Rust crates and their READMEs and a skill per activity kept as outcomes, the setup named
+"the workflow's setup", continuous integration named by where the merge verdict is taken, the
+rendered site removed from the root's goals; Q10, the retrospective's question stated once in
+`goal@knowledge-architect@the-workflow-improves-through-real-use`, and a line citing it in the
+measure of each goal judged in use whose measure lists properties of the text; Q11, the four
+contradictions resolved as the owner's answer states.
+
 ### The owner's ruling on round 1's batch, and a goal added before round 2
 
 The owner agreed to every default of Q14 to Q17, and found the wordings in the tree good. The
@@ -306,3 +331,87 @@ as round 1's repairs left them in the working tree, copied into a worktree detac
 that adds this section. The wording round 1 read is the goals homes as that commit holds them,
 which round 1's repairs have not touched in any commit. The new goal on the owner's intent belongs
 to set 3, as a goal of the agent-skills goals home.
+
+### Counts
+
+| reviewer | findings | `blocks` | `asks` | `minor` | `settled` | `intent` | `contradiction` | `blocks` and `asks` on old wording |
+| --- | --- | --- | --- | --- | --- | --- | --- | --- |
+| set 1, draft | 3 | 0 | 2 | 1 | 1 | 2 | 0 | 0 |
+| set 2, draft | 8 | 0 | 3 | 5 | 5 | 3 | 0 | 1 |
+| set 3, draft | 11 | 3 | 7 | 1 | 2 | 7 | 2 | 1 |
+| set 4, draft | 13 | 3 | 5 | 5 | 8 | 5 | 0 | 2 |
+| set 5, draft | 6 | 2 | 1 | 3 | 5 | 1 | 0 | 0 |
+| whole set | 30 | 5 | 10 | 15 | 20 | 10 | 0 | 2 |
+| all | 71 | 13 | 28 | 30 | 41 | 28 | 2 | 6 |
+
+The count for the stop, `blocks` and `asks` on the wording round 1 read: 6, below a fifth of round
+1's 136. Three `blocks` findings tagged `settled` stand on that wording, so the draft-mode stop of
+step 4 is not met: "the agent definitions those skills dispatch" in
+`goal@agent-skills@one-skill-per-activity`; "switches off the checks of the installed text" in
+`goal@core@document-rules-are-checked`; the slug of `goal@core@relocation-is-one-manifest-edit`,
+which names the manifest.
+
+### Findings, by subject
+
+Most of round 2's findings are on wording round 1's repairs wrote, and several reviewers found the
+same words.
+
+- The new goal on the owner's intent: it drops two outcomes of the owner's statements, goals that
+  agents act on without changing them, drafted to be unmet, and a standard that converges (set 3,
+  `blocks`, `contradiction`); "that standard" has no antecedent, so a narrowing change of the
+  installed standard would meet it (set 3, `asks`); `goal@knowledge-architect@agents-work-without-drift`'s never-ranks list
+  does not name it (set 3, whole set, `asks`); its sentence on what shows a goal met is a second
+  intent (set 3, whole set, `minor`).
+- `goal@knowledge-architect@the-owner-decides`: "that the owner could have made" names no set (set 1,
+  whole set, `asks`); "at the end of the turn that made it" fixes the place of a report (set 1,
+  `asks`); the half on knowledge-architect's owner is a second intent (set 1, whole set, `minor`).
+- `goal@knowledge-architect@serves-one-kind-of-project`: Q13's sentence reads as a fifth condition,
+  an ask, or a description, and the merge condition now owes a review to a project with no workflow
+  (set 2, whole set, `asks`); "nothing is built for it" names no design (whole set, `asks`).
+- The retrospective's question: the lines in each goal's measure need the installed retrospective to
+  ask about goals another project does not hold, which
+  `goal@agent-skills@installed-text-works-in-every-target-project` rules out (whole set, `asks`);
+  "each goal judged in use" names no owner of the goals (set 3, `asks`); which goals are judged in use
+  is unsettled, `goal@agent-skills@reviews-judge-by-the-writer-s-criteria` and
+  `goal@agent-skills@no-contradiction-in-workflow` among them (set 3, whole set, `asks`); a defect
+  provable by reading against a goal judged in use (whole set, `asks`); whether a "for instance" case
+  makes an instruction needed (set 3, `asks`).
+- The interval of a project's own copy: "at its own bump" in `goal@gates@gates-from-a-list`, where
+  the project's versioning policy gives "bump" another sense (set 5, `blocks`); whether a project that
+  considers the shipped part and keeps its copy is admitted, whether the copy may stay past the
+  release, and when this repository, which builds the checker it runs, ships a part (set 2, `asks`);
+  a measure that a copy which stays meets forever (whole set, `minor`).
+- Narrowings or new senses that repairs wrote: "the record" in the title of
+  `goal@knowledge-architect@records-live-beside-the-code` against its list (set 4, `blocks`); "entry
+  of the record" and "the shape the project declares" in `goal@core@documents-stay-current`, which
+  leave goals and the built-in kinds out (set 4, whole set, `asks`); "everything outstanding" in
+  `goal@core@records-reach-their-reader` (set 4, `asks`); "its record ... that bear on the work" in
+  `goal@knowledge-architect@agents-work-without-drift` (whole set, `asks`); "the decisions the workflow records in an entry of
+  its own" in `goal@knowledge-architect@design-is-recorded-with-its-arguments` (set 4, `asks`); the
+  circular measure of `goal@knowledge-architect@structure-and-workflow-work-together` (set 3,
+  `asks`); the xtask head's "not a target project" (set 5, whole set, `blocks`); the gates head's "no
+  gate logic of its own" (set 5, `asks`).
+- Built parts still named: the listings the checker generates (whole set, `blocks`; set 4, `asks`);
+  a retrospective's two files (whole set, `blocks`); the three on old wording above.
+- `goal@core@relocation-is-one-manifest-edit`: whether "happens on a change of purpose" restricts
+  when a project relocates or bounds the cost promise (set 4, whole set, `asks`); "a few" unbounded in
+  the measure (whole set, `minor`).
+- `goal@knowledge-architect@mechanical-tasks-are-the-tool-s`: "owed a command" against "a command or
+  a library function" (set 2, whole set, `asks`, old wording).
+- `minor` findings on old wording that round 1 left unrepaired, though the record said every
+  `settled` finding was repaired: measures narrower than their bodies in
+  `goal@knowledge-architect@documentation-stays-consistent`, `goal@core@projects-add-their-own-checks`,
+  `goal@core@checks-a-commit-from-its-hook`, `goal@core@documents-render-as-a-linked-site`,
+  `goal@xtask@repeated-tasks-are-automated`, `goal@gates@gates-from-a-list`; second intents in
+  `goal@knowledge-architect@design-is-recorded-with-its-arguments`, `goal@knowledge-architect@serves-one-kind-of-project`,
+  `goal@knowledge-architect@every-target-project-can-adopt-it`,
+  `goal@knowledge-architect@agents-get-a-complete-workflow`,
+  `goal@knowledge-architect@the-workflow-improves-through-real-use` and
+  `goal@agent-skills@reviews-judge-by-the-writer-s-criteria`; the definition of a quality tool held in
+  one goal, which three use (set 2, `minor`).
+
+Met outside the goals: `design@core@agents-table`'s declaration of no agent harness serves a
+project with no agent configuration, which the reworded scope goal may exclude (whole set); the
+installed retrospective asks no question per goal yet (sets 1, 3, whole set); the root head uses
+"the record" and "the workflow" in a second sense elsewhere, the head's own "record of design" and
+the primer's "the workflow is the method" (sets 3, 4).
