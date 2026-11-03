@@ -127,8 +127,8 @@ What is particular to one project stays in that project, beside the installed te
   brings little value.
 
 Each installed instruction says what it requires plainly enough to follow without guessing what it
-means. No two instructions are ones a session cannot both obey. What no instruction covers is left to the
-agent's judgement on purpose.
+means. No two instructions are ones a session cannot both obey. What no instruction covers is left
+to the agent's judgement on purpose.
 
 It is met while the installed text holds:
 
@@ -148,7 +148,8 @@ Where the installed text requires of a session a task whose result follows, with
 the tree, the repository's history, the workflow's rules and what the session gives it, and that
 takes several steps or a script the session would write, a published crate of knowledge-architect
 offers a command that does it, or a library function that the installed text has the project's
-maintenance binary call, the binary from which the project runs its gates, so every session gets the same result without building it again.
+maintenance binary call, the binary from which the project runs its gates, so every session gets
+the same result without building it again.
 Rewriting a branch's history holds such tasks: rebasing it onto a moved main branch where no
 conflict arises, with the check that every commit carried over; applying a message the session wrote
 to a commit that is not the newest; and folding a repair into the commit it repairs, with the check
@@ -478,8 +479,8 @@ it serves gets it when it installs the workflow, moves its pin, or updates its d
 crate. What is particular to one project stays in it, declared or configured beside what
 knowledge-architect ships. So knowledge-architect is about more than keeping a project's documents:
 it holds the generic part of each such tool and procedure that its owner takes in. Where the part is
-a procedure that the session's judgement already carries out well enough, it ships. Until a part taken in ships, the project's own
-copy of it stays.
+a procedure that the session's judgement already carries out well enough, it ships. Until a part
+taken in ships, the project's own copy of it stays.
 
 It is met while:
 
