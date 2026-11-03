@@ -41,10 +41,11 @@ the drafter's, not a ruling of the owner.
   - **(b)** a draft that drops, or turns around, part of what the owner's statements say, without
     showing it to the owner.
 
-  Give, for each goal, the material of its boundary block: for each universal or exclusion, at
-  least one case it rules out and one it admits, from the project's existing or planned work, or,
-  where none exists yet, from the uses the owner's statements describe; and
-  each sibling goal it touches, with the relation.
+  Give, for each goal, the material of its boundary block: what the goal asks of future work; for
+  each layer the goal has, requires, admits and rules out, at least one case, and the cases it
+  reaches in its requires and rules-out layers that the owner may not intend, from the project's
+  existing or planned work, or, where none exists yet, from the uses the owner's statements
+  describe; and each sibling goal it touches, with the relation.
 - **Whole set.** The brief gives the project. Read every goals home whole. Report every goal that
   fails a rule you can judge without the owner's statements, rules 1, 2 and 4 to 8, and every
   conflict between two goals. Rule 3 needs the owner's statements, so give, for every goal, the
@@ -56,20 +57,40 @@ the drafter's, not a ruling of the owner.
 
 ## Report {{slug:what-to-report}}
 
-List the goals under their slugs, in the order of their homes. Under each, every finding, tagged:
+List the goals under their slugs, in the order of their homes. Under each, every finding, with its
+rule, its quotation of the goal's words, a route tag and a grade.
 
-- `settled`: the standard decides it, and the drafter repairs it; name the rule and the repair it
-  implies;
-- `intent`: a question only the owner answers, such as whether a generalisation, a case ruled out
-  or a kind of interface is meant; give the case on which the readings differ;
-- `contradiction`: (a) or (b), held for the owner; quote both sides.
+The route says who answers it:
 
-Give each finding its rule. A finding of rule 4, or of rule 6 other than the case below, is also tagged `minor`: neither
-changes what an agent does in the project, so the dispatcher counts it apart. A finding that a goal
-judged only in use is measured by a list of the properties its outcome is taken to consist of is
-tagged `intent` instead of `minor`: every agent then works to that list at its widest reading, so
-the owner rules on the cases it rules out. A goal with no
-finding is listed as conforming. In draft and whole-set mode, end each goal with its
-boundary block's material. List what you met outside your task under a heading "Met outside the task", for
-the dispatcher to route, per `primer@met-outside-the-task`. Then give the counts of your findings,
-per rule and per tag. End the report with one line asking the dispatcher to save it whole.
+- `settled`: the standard decides it, and the drafter repairs it; name the repair it implies;
+- `intent`: a question only the owner answers, such as whether a case the goal reaches is meant;
+  give the case on which the readings differ;
+- `contradiction`: (a) or (b), or a goal ruling out what another requires, held for the owner;
+  quote both sides.
+
+The grade says what the finding changes in an agent's act, and the dispatcher's stops count by it:
+
+| finding | rule | grade | route |
+| --- | --- | --- | --- |
+| the goal names a part whose existence comes from a design choice | 1 | `blocks` | `settled` |
+| a sentence states a mechanism as the outcome, naming no built part | 1 | `asks` | `intent` |
+| a term with two meanings in the project | 2 | `blocks` | `settled` |
+| a universal in what the goal requires or rules out that names no set | 2 | `asks` | `intent` |
+| a case the goal requires or rules out that the owner's statements do not cover | 3 | `asks` | `intent` |
+| two intents in one goal | 4 | `minor` | `settled` |
+| one goal rules out what another requires | 5 | `blocks` | `contradiction` |
+| two outcomes compete with no rank, or compete only under a condition | 5 | `asks` | `intent` |
+| a measure that is a plan document or anything that leaves | 6 | `blocks` | `settled` |
+| an outcome judged only in use measured by a list of the properties it is taken to consist of | 6 | `asks` | `intent` |
+| any other wording of a measure | 6 | `minor` | `settled` |
+| a refinement that widens or contradicts the goal it refines, or a citation rule 7 refuses | 7 | `blocks` | `settled` |
+| an exclusion that names no design another goal would argue for | 8 | `asks` | `intent` |
+| a statement of the owner in conflict, or a part of the statements dropped, (a) or (b) | none | `blocks` | `contradiction` |
+
+A case the goal only admits is no finding, and a goal that the project does not meet yet is none:
+list such cases in the boundary block's material. A finding on a goal's reach never proposes a
+narrower wording: it lists the cases, and the owner rules on them. A goal with no finding is listed
+as conforming. In draft and whole-set mode, end each goal with its boundary block's material. List
+what you met outside your task under a heading "Met outside the task", for the dispatcher to route,
+per `primer@met-outside-the-task`. Then give the counts of your findings, per rule, per route and per
+grade. End the report with one line asking the dispatcher to save it whole.

@@ -16,11 +16,15 @@ an empty subsection is omitted.
   head, an issue, a path and a skill or an agent among them. A project rewrites each such sentence so
   it names no entry, or cites a goal of its own or an enclosing Component instead, never by removing
   the backticks.
-- `agent-skills`, patch: rule 6 of the goal standard, which goal-setting and the goal reviewer apply,
-  measures a goal whose outcome is judged only in use by what the project builds to pursue it and to
-  learn from its use whether it is met, and never by a list of the properties the outcome is taken to
-  consist of. A goal measured by such a list is brought to the rule by
-  `skill@knowledge-architect-goal-setting@whole-set-review`.
+- `agent-skills`, patch: the goal standard, which goal-setting and the goal reviewer apply, asks a
+  goal to keep its meaning in the project emptied of its design and its code, so it names no part
+  that exists by a design choice; reads a goal in three layers, what it requires, admits and rules
+  out, where only ruling out what another goal requires is a contradiction; judges ambiguity, never
+  breadth; measures an outcome that depends on what the project does not control by what the project
+  builds to pursue it and to learn from its use, never by a list of the properties the outcome is
+  taken to consist of; and has a goals home cite only goals and registers of its own Component or of
+  one enclosing it. A goal's body carries "for instance" cases for each layer it has. A project's
+  goals are brought to the standard by `skill@knowledge-architect-goal-setting@whole-set-review`.
 - `agent-skills`, patch: knowledge-architect asks every Rust target project to carry the maintenance
   crate, whose commands run as `cargo x <command>`, and the setup skill no longer offers a Rust
   project a local install of the checker. A Rust project that runs the checker from a local install
@@ -53,6 +57,10 @@ an empty subsection is omitted.
 
 ### Workflow
 
+- `agent-skills`, patch: the goal reviewer grades each finding `blocks`, `asks` or `minor` beside its
+  route, and puts a goal's reach to the owner instead of proposing a narrower wording; goal-setting's
+  draft-mode review stops when a round leaves no repairable `blocks` finding on wording the previous
+  round read, and its review of the whole goal set counts `blocks` and `asks` findings on that wording.
 - `agent-skills`, patch: a development skill, `skill@knowledge-architect-development`: claims with
   tests shown to discriminate by `cargo x mutate`, a default shape of code, in which an integrated
   test drives the project through its public API, the gate, the commit's claim check, the review

@@ -23,42 +23,61 @@ That is why an agent never edits a goal outside this skill.
 **A goal is proper when all of these hold.** The drafter writes to them, and the goal reviewer
 judges by them.
 
-1. **It states an outcome the owner intends**: what the Component is for, and for whom. A sentence
-   is a mechanism when, changed, the Component would still be for what the owner intends, and an
-   outcome when the change would make it for something else. So the kind of interface the Component
-   provides, a command line, a library API or a check, is an outcome where the owner intends to
-   provide that kind, and the drafter asks the owner where the statements do not say. Its exact
-   form, a command's name, a flag or a signature, is a decision: an interface others consume earns a
-   design head. The argument that a design follows from a goal goes in that design's head, which
-   cites it.
+**A goal is read in three layers**: what it **requires**, what it **admits**, and what it **rules
+out**. What it admits, it neither asks for nor forbids. A goal states a direction: what it asks
+agents to move the project toward. It is drafted to move what the project builds, so a new or
+reworded goal is expected to be unmet, and is never shaped so that the project as it stands meets
+it.
+
+1. **It states an outcome the owner intends, which keeps its meaning in the project emptied of its
+   design and its code.** Read the goal as if every design head, document and line of code under it
+   were removed: each word still means what it meant. A goal may define what the project provides
+   and then name it, as "the project provides a command that checks its documents"; it names no
+   part whose existence comes from a design choice. A Component's goal may name its own Component
+   and the Components that enclose it. The kind of interface the Component provides, a command line,
+   a library API or a check, is an outcome where the owner intends to provide that kind, and the
+   drafter asks the owner where the statements do not say. Its exact form, a command's name, a flag
+   or a signature, is a decision: an interface others consume earns a design head. The argument
+   that a design follows from a goal goes in that design's head, which cites it.
 2. **It has one reading.** Every term has one meaning in the project; a word the project already
-   uses in another sense is defined or replaced. Every "every", "no", "all" and "not in scope" names
-   the set it ranges over.
-3. **It rules out nothing the owner has not ruled out knowingly.** Where it generalises the owner's
-   statements, the generalisation and the cases it rules out are shown to the owner before the
-   ruling.
+   uses in another sense is defined or replaced. A goal reads two ways when two agents in the same
+   situation, reading it, would move in different directions. A goal that admits many shapes in one
+   direction reads one way: breadth is no defect. Every "every", "no", "all" and "not in scope" in
+   what a goal requires or rules out names the set it ranges over.
+3. **It requires nothing, and rules out nothing, the owner has not required or ruled out
+   knowingly.** Where it generalises the owner's statements, what the generalisation requires and
+   rules out is shown to the owner before the ruling. What it admits needs no ruling.
 4. **It holds one intent.** Two statements are two goals when each means something without the
    other; a qualifier, a domain or a measure belongs to the goal it qualifies. Two goals may share
    an aspect: a goal that touches what another states breaks no rule, and is a finding of rule 5
    only where the two cannot both be met.
 5. **It contradicts no other goal of the project.** No state of the project meets one goal only by
-   failing another. Where two outcomes compete, a goal states which ranks first.
-6. **What shows it met is in what the project builds**: an observable of the tree as it stands, in
-   the instructions, the checks, the code and the documents that work toward the outcome, never a
-   plan document or anything that leaves. Evidence from the project's use, such as a review's
-   finding, a retrospective's finding or what the owner observes in sessions, is not the measure: it
-   shows the goal unmet in practice where what is built fails it, and leads to a change of what is
-   built. Where the outcome is judged only in use, the observable is what the project builds to
-   pursue it and to learn from its use whether it is met, such as a test of a tool under the
-   conditions of its use, a route by which its users' reports reach the project, or, for
-   instructions to agents, a review that weighs them and a retrospective that asks how they fared.
-   A list of the properties the outcome is taken to consist of is no such observable, since it
-   narrows the outcome to what was foreseen before any use.
-7. **A refinement neither widens nor contradicts the goal it refines.**
+   failing another: a goal that rules out what another requires contradicts it. A goal that rules
+   out what another only admits does not, and the exclusion holds. Where two outcomes compete,
+   including two that can both be met except under a condition the project or its use makes
+   possible, a goal states which ranks first.
+6. **What shows it met is in what the project builds**, never a plan document or anything that
+   leaves. **Ask whether the outcome depends on anything the project does not control, such as its
+   users, their data or their environment.** If not, what shows it met is a check or a test over
+   what the project builds or produces. If so, the outcome is judged only in use, and what shows it
+   met is what the project builds to pursue it and to learn from its use whether it is met, such as
+   a test of a tool under the conditions of its use, a route by which its users' reports reach the
+   project, or, for instructions to agents, a review that weighs them and a retrospective that asks
+   how they fared. A list of the properties the outcome is taken to consist of is no such
+   observable, since it narrows the outcome to what was foreseen before any use. Evidence from use,
+   such as a review's finding, a retrospective's finding or what the owner observes in sessions, is
+   not the measure: it shows the goal unmet in practice where what is built fails it, and leads to a
+   change of what is built.
+7. **A refinement neither widens nor contradicts the goal it refines, and a goal cites only goals
+   of its own Component or of one enclosing it.** A goals home, its goals and its head alike, cites
+   no entry other than a goal, and no register's home other than one of its own Component or of one
+   enclosing it; the checker reports any other reference there. A goal holds what it needs in its
+   own words.
 8. **A statement of what the Component is not for is a goal only when it names the design it
-   excludes**, one that another goal would otherwise argue for. A property of smallness with no
-   named design is no goal: it is the owner's scope control, exercised by what the owner asks for,
-   or a quality argument a design head makes against its own rival.
+   excludes**, one that another goal would otherwise argue for, described in words that keep their
+   meaning under rule 1. A property of smallness with no named design is no goal: it is the owner's
+   scope control, exercised by what the owner asks for, or a quality argument a design head makes
+   against its own rival.
 
 A goal stays in its home **while it is met**. One removed when it is achieved stops being checked,
 and can stop being met without anyone noticing. **A goal leaves only when the owner abandons it**,
@@ -67,8 +86,12 @@ on the owner's word.
 ## The shape of a goal entry `##goal-entry-shape`
 
 A level-two heading stating the goal as a sentence, its slug at the end, then the body: what the
-goal means, and **what would show it is met**. The body holds what the goal standard asks of it, at
-the length that takes: short sentences, and a list where it names the members of a set, such as the
+goal means, **what would show it is met**, and, for each layer the goal has, one or more "for
+instance" cases: what it requires, what it admits, what it rules out. A layer the goal does not have
+is omitted. The cases written are those of the boundary block the owner's ruling kept, each in words
+that keep their meaning under rule 1. A case shows a reading and binds nothing: what the goal
+requires is its sentences, not the cases. The body holds what the goal standard asks of it, at the
+length that takes: short sentences, and a list where it names the members of a set, such as the
 cases of a closed list or the activities a goal covers. Every level-two heading of a goals home is a
 goal and carries a slug: the head that says what the home holds is prose under the level-one title,
 never a level-two section.
@@ -76,15 +99,19 @@ never a level-two section.
 ```markdown
 ## <The goal, stated as a sentence> `##<slug>`
 
-<What it means: the outcome, for whom, and the set each of its words ranges over, in sentences or
-in a list.>
+<What it means: the outcome, for whom, in the direction it states, in sentences or in a list.>
 
 It is met while <what the project builds that shows it>.
+
+- Requires, for instance: <a case>.
+- Admits, for instance: <a case>.
+- Rules out, for instance: <a case>.
 ```
 
 **Where a goal goes.** A goal is written in the goals home of the Component whose responsibility it
 is to fulfil it, even when other Components' decisions serve it too: any goal can be referenced from
-anywhere. The root's goals state what the project provides to its consumers. A published Component
+anywhere but a goals home, which cites only goals of its own Component or of one enclosing it, as
+rule 7 says. The root's goals state what the project provides to its consumers. A published Component
 serves those consumers, so its goals are encouraged to be sub-goals: more specific than a root
 goal, perhaps not stated by it, and still to be fulfilled. A Component that serves only the
 project, such as a maintenance tool, serves every root goal at once, and its goals need not refine
@@ -112,7 +139,8 @@ serves, which the owner rules like a goal; the root's states the project's.
    their own words. Three questions help: what is it for, and for whom; what would show that it
    fails at that; what is it explicitly not for.
 2. **Refine the wording** of what the owner stated. **Propose further goals** from the existing
-   documentation, or from the code and content when the documentation does not say enough.
+   documentation, or from the code and content when the documentation does not say enough. A
+   proposed goal states where the project should get to, not what it holds today.
 3. **Write a draft that goes into the goals home verbatim if it is approved**.
    **Mark each goal with its source**: "the owner's statement", or "proposed from <the document or
    the code it was read from>". The source mark is not written to the goals home. A batch of three
@@ -123,13 +151,20 @@ serves, which the owner rules like a goal; the root's states the project's.
 4. **Dispatch `agent@knowledge-architect-goal-reviewer` in its draft mode**, fresh, never a fork:
    its brief is the whole batch of new and reworded goals, every relevant statement of the owner,
    verbatim, whether or not the draft drew on it, and the project. Repair each `settled` finding,
-   and dispatch it again on the repaired batch, so that the version shown is a version reviewed.
+   keeping a goal's wording where a finding is `intent` or `contradiction`: a narrower wording is
+   drafted only on the owner's word, with what the narrowing rules out. Dispatch the reviewer again
+   on the repaired batch, so that the version shown is a version reviewed. From the second round,
+   sort each finding by the words it quotes: on old wording, the words the previous round read and
+   no repair changed since, or on new wording. **Stop when a round, from the second on, reports no
+   `blocks` finding tagged `settled` on old wording.** The findings of the round that stops go to the
+   owner beside the goals, unrepaired.
 5. **Show the owner the draft, each goal with its boundary block**, in the message, or, for a batch
-   of more than three goals, in the tree and the record: for each universal or exclusion,
-   at least one case it rules out and one it admits, from the project's existing or planned work,
-   or, where none exists yet, from the uses the owner's statements describe; and each sibling goal it touches with the
-   relation, a conflict named as such; and each `intent` finding of the reviewer, with the case on
-   which the readings differ. Put each `contradiction` at the top of the draft, quoting both sides:
+   of more than three goals, in the tree and the record: what the goal asks of future work, the
+   part the project does not hold yet; for each layer the goal has, requires, admits and rules out,
+   at least one case, and the cases it reaches that the owner may not intend, from the project's
+   existing or planned work, or, where none exists yet, from the uses the owner's statements
+   describe; each sibling goal it touches with the relation, a conflict named as such; and each
+   `intent` finding of the reviewer, with the case on which the readings differ. Put each `contradiction` at the top of the draft, quoting both sides:
    a statement of the owner that conflicts with a goal or with another statement, or a part of the
    statements the draft drops. Resolve none alone; a goal resting on one is not written before the
    owner's answer. The block and the reviewer's report are not written to the goals home; for a
@@ -177,20 +212,23 @@ passes the check.
    goal's text changed it. A set's brief carries the owner's statements and answers through the
    record.
 3. **Write the repairs in the goals homes of the working tree**: each `settled` finding's, and the
-   session's default for each other finding. Put to the owner, in one message for the round, each
+   session's default for each other finding, which keeps a goal's wording on a finding of its
+   reach. Put to the owner, in one message for the round, each
    `intent` and `contradiction` finding with its default and the case on which the readings differ,
    and each default that departs from words the owner approved. The next round starts once the
    owner has answered.
 4. **Keep the review's record** in one file, `docs/goal-reviews/<YYYY-MM-DD>-<subject>.md` at the
-   project's root: for each round, the findings counted per reviewer, rule and tag, each finding's
+   project's root: for each round, the findings counted per reviewer, rule, grade, route tag and old
+   or new wording, each finding's
    outcome, each default with its ground, each question put to the owner with the owner's answer
    verbatim, and each goal's boundary block; and the list of questions still open. Commit it at each
    round, apart from the drafts, which stay uncommitted until the owner rules on them.
 5. **Run the next round** from step 2, over the goals and the record as step 3 left them.
-6. **Stop** when the owner says so, or when a round's count falls to a fifth of the first round's:
-   the findings that are not `minor`, of every reviewer of the round, counted under the same brief
-   in every round. The round that meets the stop writes no repair: its findings go to the owner
-   beside the goals, so that the goals the owner reads are the goals a round reviewed.
+6. **Stop** when the owner says so, or when a round's count, from the second round on, falls to a
+   fifth of the first round's: the `blocks` and `asks` findings of every reviewer of the round,
+   counted under the same brief in every round, over all wording in the first round and over old
+   wording in each later one. The round that meets the stop writes no repair: its findings go to the
+   owner beside the goals, so that the goals the owner reads are the goals a round reviewed.
 
 **Every goal is then put to the owner with its boundary block**, a goal with no other finding
 included, for a ruling: kept as it stands, or as the rounds reworded it, as

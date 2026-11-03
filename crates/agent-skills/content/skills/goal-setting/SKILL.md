@@ -30,10 +30,15 @@ on the owner's word.
 
 %% The body has no length bound because a session that argues from a goal applies it whole, so its
 %% words cost that session nothing, while a goal pressed into few sentences packs its sets and its
-%% measure into long ones and reads two ways; per `design@agent-skills@goal-entry-shape`.
+%% measure into long ones and reads two ways; per `design@agent-skills@goal-entry-shape`. The cases
+%% carry the reading the owner ruled on, which the boundary block alone would leave in the record.
 A level-two heading stating the goal as a sentence, its slug at the end, then the body: what the
-goal means, and **what would show it is met**. The body holds what the goal standard asks of it, at
-the length that takes: short sentences, and a list where it names the members of a set, such as the
+goal means, **what would show it is met**, and, for each layer the goal has, one or more "for
+instance" cases: what it requires, what it admits, what it rules out. A layer the goal does not have
+is omitted. The cases written are those of the boundary block the owner's ruling kept, each in words
+that keep their meaning under rule 1. A case shows a reading and binds nothing: what the goal
+requires is its sentences, not the cases. The body holds what the goal standard asks of it, at the
+length that takes: short sentences, and a list where it names the members of a set, such as the
 cases of a closed list or the activities a goal covers. Every level-two heading of a goals home is a
 goal and carries a slug: the head that says what the home holds is prose under the level-one title,
 never a level-two section.
@@ -41,22 +46,26 @@ never a level-two section.
 ```markdown
 ## <The goal, stated as a sentence> `##<slug>`
 
-<What it means: the outcome, for whom, and the set each of its words ranges over, in sentences or
-in a list.>
+<What it means: the outcome, for whom, in the direction it states, in sentences or in a list.>
 
 It is met while <what the project builds that shows it>.
+
+- Requires, for instance: <a case>.
+- Admits, for instance: <a case>.
+- Rules out, for instance: <a case>.
 ```
 
 %% A goal sits in the Component responsible for fulfilling it because a reference reaches a goal of
-%% any Component from anywhere, per `design@core@an-entity-belongs-to-its-anchor`, so serving a goal
-%% does not require moving it. The rival, each goal in the smallest scope serving it, promotes goals
+%% any Component from anywhere but a goals home, per `design@core@an-entity-belongs-to-its-anchor`
+%% and `design@core@goals-home-cites-upward-only`, so serving a goal does not require moving it. The rival, each goal in the smallest scope serving it, promotes goals
 %% into the root documents, and leaves a goal with no Component responsible for it, against
 %% `goal@knowledge-architect@agents-work-without-drift`. A published Component serves the consumers whose
 %% provision the root's goals state, so its goals refine a root goal; this is an encouragement, not a
 %% rule.
 **Where a goal goes.** A goal is written in the goals home of the Component whose responsibility it
 is to fulfil it, even when other Components' decisions serve it too: any goal can be referenced from
-anywhere. The root's goals state what the project provides to its consumers. A published Component
+anywhere but a goals home, which cites only goals of its own Component or of one enclosing it, as
+rule 7 says. The root's goals state what the project provides to its consumers. A published Component
 serves those consumers, so its goals are encouraged to be sub-goals: more specific than a root
 goal, perhaps not stated by it, and still to be fulfilled. A Component that serves only the
 project, such as a maintenance tool, serves every root goal at once, and its goals need not refine
@@ -95,7 +104,8 @@ serves, which the owner rules like a goal; the root's states the project's.
    their own words. Three questions help: what is it for, and for whom; what would show that it
    fails at that; what is it explicitly not for.
 2. **Refine the wording** of what the owner stated. **Propose further goals** from the existing
-   documentation, or from the code and content when the documentation does not say enough.
+   documentation, or from the code and content when the documentation does not say enough. A
+   proposed goal states where the project should get to, not what it holds today.
 3. **Write a draft that goes into the goals home verbatim if it is approved**.
    **Mark each goal with its source**: "the owner's statement", or "proposed from <the document or
    the code it was read from>". The source mark is not written to the goals home. A batch of three
@@ -104,18 +114,27 @@ serves, which the owner rules like a goal; the root's states the project's.
    `skill@knowledge-architect-goal-setting@whole-set-review` keeps one, in
    `docs/goal-reviews/<YYYY-MM-DD>-<subject>.md`.
 %% Per `design@agent-skills@goal-reviewer-agent`. The whole batch is read at once, and again on any
-%% rewording, since one goal's wording can change its relation to a sibling.
+%% rewording, since one goal's wording can change its relation to a sibling. The stop counts old
+%% wording because each round's repairs write new wording, in which the next round finds defects at
+%% least as readily, per `design@agent-skills@convergence-count-scope`.
 4. **Dispatch `agent@knowledge-architect-goal-reviewer` in its draft mode**, fresh, never a fork:
    its brief is the whole batch of new and reworded goals, every relevant statement of the owner,
    verbatim, whether or not the draft drew on it, and the project. Repair each `settled` finding,
-   and dispatch it again on the repaired batch, so that the version shown is a version reviewed.
+   keeping a goal's wording where a finding is `intent` or `contradiction`: a narrower wording is
+   drafted only on the owner's word, with what the narrowing rules out. Dispatch the reviewer again
+   on the repaired batch, so that the version shown is a version reviewed. From the second round,
+   sort each finding by the words it quotes: on old wording, the words the previous round read and
+   no repair changed since, or on new wording. **Stop when a round, from the second on, reports no
+   `blocks` finding tagged `settled` on old wording.** The findings of the round that stops go to the
+   owner beside the goals, unrepaired.
 %% Per `design@agent-skills@goal-draft-shows-reach`.
 5. **Show the owner the draft, each goal with its boundary block**, in the message, or, for a batch
-   of more than three goals, in the tree and the record: for each universal or exclusion,
-   at least one case it rules out and one it admits, from the project's existing or planned work,
-   or, where none exists yet, from the uses the owner's statements describe; and each sibling goal it touches with the
-   relation, a conflict named as such; and each `intent` finding of the reviewer, with the case on
-   which the readings differ. Put each `contradiction` at the top of the draft, quoting both sides:
+   of more than three goals, in the tree and the record: what the goal asks of future work, the
+   part the project does not hold yet; for each layer the goal has, requires, admits and rules out,
+   at least one case, and the cases it reaches that the owner may not intend, from the project's
+   existing or planned work, or, where none exists yet, from the uses the owner's statements
+   describe; each sibling goal it touches with the relation, a conflict named as such; and each
+   `intent` finding of the reviewer, with the case on which the readings differ. Put each `contradiction` at the top of the draft, quoting both sides:
    a statement of the owner that conflicts with a goal or with another statement, or a part of the
    statements the draft drops. Resolve none alone; a goal resting on one is not written before the
    owner's answer. The block and the reviewer's report are not written to the goals home; for a
@@ -170,20 +189,23 @@ passes the check.
    goal's text changed it. A set's brief carries the owner's statements and answers through the
    record.
 3. **Write the repairs in the goals homes of the working tree**: each `settled` finding's, and the
-   session's default for each other finding. Put to the owner, in one message for the round, each
+   session's default for each other finding, which keeps a goal's wording on a finding of its
+   reach. Put to the owner, in one message for the round, each
    `intent` and `contradiction` finding with its default and the case on which the readings differ,
    and each default that departs from words the owner approved. The next round starts once the
    owner has answered.
 4. **Keep the review's record** in one file, `docs/goal-reviews/<YYYY-MM-DD>-<subject>.md` at the
-   project's root: for each round, the findings counted per reviewer, rule and tag, each finding's
+   project's root: for each round, the findings counted per reviewer, rule, grade, route tag and old
+   or new wording, each finding's
    outcome, each default with its ground, each question put to the owner with the owner's answer
    verbatim, and each goal's boundary block; and the list of questions still open. Commit it at each
    round, apart from the drafts, which stay uncommitted until the owner rules on them.
 5. **Run the next round** from step 2, over the goals and the record as step 3 left them.
-6. **Stop** when the owner says so, or when a round's count falls to a fifth of the first round's:
-   the findings that are not `minor`, of every reviewer of the round, counted under the same brief
-   in every round. The round that meets the stop writes no repair: its findings go to the owner
-   beside the goals, so that the goals the owner reads are the goals a round reviewed.
+6. **Stop** when the owner says so, or when a round's count, from the second round on, falls to a
+   fifth of the first round's: the `blocks` and `asks` findings of every reviewer of the round,
+   counted under the same brief in every round, over all wording in the first round and over old
+   wording in each later one. The round that meets the stop writes no repair: its findings go to the
+   owner beside the goals, so that the goals the owner reads are the goals a round reviewed.
 
 %% Rule 3 turns on what the owner ruled out knowingly, which the reviewer cannot judge without the
 %% owner's statements; the excess reach of a goal approved without a reading of its reach is the
