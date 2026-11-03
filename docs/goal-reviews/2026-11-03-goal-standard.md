@@ -1,9 +1,8 @@
 # Review of the whole goal set under the revised goal standard
 
 The record of `skill@knowledge-architect-goal-setting@whole-set-review` over this repository's
-goals, after the revision of the goal standard. No round has run yet. This file holds, until the
-first round, what the review must read and do, which the owner ruled while the standard was
-revised.
+goals, after the revision of the goal standard: what the review must read and do, which the owner
+ruled while the standard was revised, then each round.
 
 ## Before the first round
 
@@ -120,3 +119,91 @@ Also, maybe keeping one line of examples for each of Requires/Admits/Rules out i
 
 Dispatched: one goal reviewer per set in draft mode and one in whole-set mode, over the goals as the
 tree holds them at the commit that adds this section.
+
+### Counts
+
+| reviewer | findings | `blocks` | `asks` | `minor` | `settled` | `intent` | `contradiction` |
+| --- | --- | --- | --- | --- | --- | --- | --- |
+| set 1, draft | 17 | 1 | 14 | 2 | 3 | 14 | 0 |
+| set 2, draft | 17 | 5 | 8 | 4 | 8 | 8 | 1 |
+| set 3, draft | 34 | 12 | 16 | 6 | 17 | 16 | 1 |
+| set 4, draft | 26 | 10 | 9 | 7 | 16 | 9 | 1 |
+| set 5, draft | 17 | 6 | 8 | 3 | 8 | 8 | 1 |
+| whole set | 54 | 23 | 24 | 7 | 29 | 24 | 1 |
+| all | 165 | 57 | 79 | 29 | 81 | 79 | 5 |
+
+The first round's count for the stop, `blocks` and `asks` over all wording: 136. Many findings of
+the set reviewers and the whole-set reviewer are on the same words of the same goal.
+
+### Findings, by reviewer
+
+The reports, each in substance, the session's condensation of the reports the reviewers returned:
+
+#### set 1 (owner's part): 17 findings; rule1 3, rule2 7, rule3 1, rule4 2, rule6 4; settled 3, intent 14; blocks 1, asks 14, minor 2.
+`goal@knowledge-architect@the-owner-decides`:
+ 1 R1 blocks settled: names built parts ("Decided" section, `rejected` entry, design head, tripwire) - restate what owner is informed of in own words.
+ 2 R1 asks intent: measure over "the installed text" - kind of interface intended? case: files written into project vs plugin. (applies to most goals; count once)
+ 3 R2 asks intent: does code count as durable text (iterator vs loop choice).
+ 4 R2 asks intent: "the record" excludes plan documents and goal-review records: is a fork ruled in a spec settled?
+ 5 R2 asks intent: domain "project that follows the workflow" vs serves-one-kind's "same in checker-alone project".
+ 6 R4 minor settled: reservations to knowledge-architect's owner are own intent (dupe in serves-one-kind and generic-tools).
+ 7 R6 asks intent: judged in use; measure lists installed-text properties; no learning route (retrospective has no question on misrouted questions/unreported decisions).
+ 8 R3 asks intent: rule-outs against de-narrow: "these and nothing else" rules out asking approval of large refactor; "never by a word that gives none" rules out overturning naming by bare preference.
+ block: asks of future work: routing of ask changes/taking in a generic part not in installed text (grep lead); route for misrouted questions. Requires/Admits/Rules out cases; siblings.
+`goal@knowledge-architect@the-owner-s-word-is-verified`: 1 R1 asks intent: premises "in commit messages that record a ruling" is mechanism (premise in goal-review record?); 2 R2 asks intent: "still binds the rest" two readings; 3 R4 minor: hold on contradiction is own intent; 4 R6 asks intent: in use, property list, no route. Cases: hold reaches every contradiction; premise check on "go on"; `goal@knowledge-architect@agents-work-without-drift` never-ranks-over list omits this goal.
+`goal@knowledge-architect@design-with-agents-as-counterparts`: 1 R2 asks: "choice left open" wider than `goal@knowledge-architect@the-owner-decides`' fork (private fn name) -> merge needs ruling?; 2 R2 asks: no domain (checker-alone?); 3 R6 asks: in use, no unmet sentence, no route. Case: "every proposal of the owner that decides something" challenged even for plain instruction.
+`goal@knowledge-architect@owner-attention-on-what-is-theirs`: 1 R2 asks: no domain; 2 R6 asks: property list, no route. Case: closed list rules out asking owner to read a retrospective file.
+Met outside: `goal@knowledge-architect@agents-work-without-drift` "supervision measured by the-owner-decides" has no measure; its never-ranks list omits `goal@knowledge-architect@the-owner-s-word-is-verified`; "installed text" question once for all; serves-one-kind gives domain of three; grep: no installed instruction routes ask changes/generic part to k-a's owner (lead).
+
+#### set 2 (scope and adoption): 17 findings; settled 8, intent 8, contradiction 1; blocks 5, asks 8, minor 4; stop count 13.
+`goal@knowledge-architect@serves-one-kind-of-project`: F1 R1 blocks settled "the gates library" (l.384, 410) -> define by function. F2 R1 asks intent: kinds named (setup skill, README of each published crate/package, API docs, rendered site, published crate) across set - intended kinds? crate vs package. F3 (a) blocks contradiction: measure requires asks listed in setup skill vs owner's D3 statement. F4 R2 asks: "AI agents drive ... occasional edit" boundary (a third of commits by a person?). F5 R4 minor: four intents (definition+asks; merge conditions l.388-400; no-limiting-coverage l.413-420; exclusion l.427-432). F6 R6 minor: merge conditions/coverage/exclusions unmeasured. Block: future work per issue target-project-and-asks; cases owner may not intend: setup skill's no-Rust binary install (SKILL.md:71) ruled out; init --vcs none; publication word before merge for CI-after-merge publishing; quality tool taken in => ask; claude ask rules out other harnesses.
+`goal@knowledge-architect@every-target-project-can-adopt-it`: F7 R2 asks: "tree they are built from aside" two readings (compile docs/goal-reviews path?). F8 R4 minor: three separate intents (this repo is a target project; one grammar; pin). F9 R6 asks: existing project adoption judged in use; measure property of text; no route. Cases: pin only by explicit edit rules out tracking latest; this repo bound by every goal.
+`goal@knowledge-architect@adoption-is-easy`: F10 R1 asks: "the rendered site" depends on lower Component goal. F11 R6 asks: property list, no learning route. Cases: site must carry whole adoption; examples in every library API doc incl. git.
+`goal@knowledge-architect@setup-brings-quality-tools`: F12 R2 asks: boundary of "quality tool" (is hand mutation a quality tool -> ask?). Case: lints taken in become binding ask.
+`goal@knowledge-architect@generic-tools-and-procedures-are-shipped`: F13 R5 asks: "it ships." vs `goal@agent-skills@only-needed-instructions`; rank or form in root's words (rule 7 forbids restoring citation). F14 R1 blocks: "beyond a restatement the primer admits". F15 R6 blocks: measure "or an issue entry records the work" rests on something that leaves -> "or its project's own copy stays". F16 R6 minor: third bullet ranges over this repository only. Case: reporting duty reaches every tool in projects owned by others.
+`goal@knowledge-architect@mechanical-tasks-are-the-tool-s`: F17 R1 blocks: "the project's maintenance binary" (`design@agent-skills@maintenance-crate-ask` decision) -> "a library function that a target project's own tooling calls". Case: two-step tasks.
+Met outside: "the checker" used by root goals (l.24,49,211,378,411,443,457), defined by none; setup skill template goals.
+
+#### set 3 (workflow): 34 findings; rule1 11 (10 blocks, 1 asks), rule2 11 (1 blocks, 10 asks), rule4 3, rule5 1, rule6 8 (5 asks, 3 minor); settled 17, intent 16, contradiction 1; blocks 12, asks 16, minor 6.
+`goal@knowledge-architect@agents-work-without-drift`: 1 R1 blocks ("the checker", "the installed text" undefined at root; design heads, tripwires, issues) - counted once for set; 2 R6 asks (in use, no learning route; departure merges unasked); 3 R6 minor (supervision measured by `goal@knowledge-architect@the-owner-decides`). Cases: ranks first over every Component goal; "never ranks over what serves-one-kind states" covers its exclusions too.
+`goal@knowledge-architect@agents-get-a-complete-workflow`: 4 R1 asks (root requires "a skill per activity" = lower Component's interface?); 5 R1 blocks ("project audit's method"); 6 R2 asks (no set for "no two instructions": installed vs project CLAUDE.md); 7 R4 minor (plainness/contradiction/judgement sentences restate agent-skills goals); 8 R2 asks (Rust idiom vs default shape: typed error per module); 9 R2 asks (deleted sentence: full test-design method vs what judgement doesn't handle); 10 R6 asks. Cases: "whatever the test of a generic part finds" rules out an idiom guide owner would take in; releasing skill installed everywhere; reviewing procedure relying on PR.
+structure-and-workflow: 11 R1 blocks (knowledge table, design head, anchor, issues/tripwires, manifest); 12 R6 minor. Cases: a project's own register with no workflow step (glossary); checker features for checker-alone use.
+`goal@knowledge-architect@the-workflow-leads-to-better-code`: 13 R1 blocks ("the installed retrospective skill") -> name the retrospective activity. Case: one-line fix gets a code review.
+projects-are-split: 14 R1 blocks (manifest definition; retrospective skill). Case: criteria applied mid unrelated task.
+`goal@knowledge-architect@the-workflow-improves-through-real-use`: 15 R2 blocks ("admits" used in another sense than the standard's layer -> replace verb); 16 R2 asks ("fails a goal ... defect provable by reading" for in-use goals); 17 R2 asks (mock-task exclusion vs census issue; agent tools dispatch); 18 R4 minor (owner sentence qualifies `goal@knowledge-architect@the-owner-decides`); 19 R6 minor (no measure that evidence changes text: intake). Cases: dry run of a saved workflow; replay of a recorded session.
+`goal@agent-skills@one-skill-per-activity`: 20 R2 asks (sub-activity undefined; decision recording); 21 R1 blocks (primer's list); 22 R6 asks. Cases: loading a skill on own judgement; skills installed for unused activities.
+`goal@agent-skills@no-contradiction-in-workflow`: 23 R1 blocks (saved workflows, primer); 24 R2 asks (body vs measure sets).
+reviews-judge: 25 R1 blocks; 26 R2 asks (code under development skill); 27 R4 minor.
+installed-text-every-project: 28 R1 blocks (%% comments, declared checker command, manifest layout); 29 R6 asks. Case: fallback for every instruction.
+installed-text-any-environment: 30 R2 asks (harness's own text: relied on vs must not replace); 31 R6 asks. Case: owner's user-level CLAUDE.md can't replace an installed skill.
+`goal@agent-skills@only-needed-instructions`: 32 R5 blocks contradiction (vs generic-tools "it ships."); 33 R1 blocks; 34 R2 asks ("act a goal's text states" for goals measured by tests: hook setup?).
+Met outside: "admits"/"admission" other sense in serves-one-kind l.416, generic-tools l.494; goals homes' heads "A goal stays here while it is met" vs "a new goal is expected to be unmet"; agent-skills head no purpose (issue).
+
+#### set 4 (documents and checker): 26 findings; rule1 11, rule2 3, rule4 1, rule6 9, rule7 1, contradiction 1; settled 16, intent 9, contradiction 1; blocks 10, asks 9, minor 7.
+`goal@knowledge-architect@design-is-recorded-with-its-arguments`: R1 blocks (design head, rejected designs it cites, issue, tripwire) -> state kinds by content; R6 asks (in use, list measure, no unmet sentence); R2 asks (which no-head decisions need comment+commit reason: dozens per unit); R4 minor (outstanding tracking second intent). Cases: every trivial choice; a head of absence must name alternatives.
+`goal@knowledge-architect@records-live-beside-the-code`: R1 blocks (knowledge table, project's own rows, retrospective's workflow file/project files, intake); R2 asks ("the project's own decisions": Decided-line decisions in repo?). Cases: PR-thread decisions copied; Decided lines copied.
+`goal@knowledge-architect@documentation-stays-consistent`: R1 blocks ("compiled in or declared in the manifest", declaration switches off); R1 asks ("in the texts the checker reads" - saved workflows unchecked; direction?); R6 asks (reviews/audits in use); R6 minor (listing guarantee has no measure line).
+core `goal@core@documents-stay-current`: R1 blocks (register declares shape, generated listing); R6 minor (no test named).
+core `goal@core@document-rules-are-checked`: R1 blocks (core compiles in, manifest, walk, empty list of harnesses); R6 minor.
+core `goal@core@relocation-is-one-manifest-edit`: contradiction (a) blocks vs owner's Q2 statement; R1 blocks (manifest, declared register's home, anchors, path references, basename); R7 blocks (refines `goal@knowledge-architect@documentation-stays-consistent` but parent states no cost - may fall).
+core `goal@core@records-reach-their-reader`: R6 asks (in use, completeness measure); R1 asks (two listings = mechanism; filtered listing meets parent).
+core `goal@core@documents-render-as-a-linked-site`: R1 blocks (preprocessing pass, mdbook; design argument belongs in head); R6 minor (hosted outside build). Not met yet (no book config).
+core `goal@core@projects-add-their-own-checks`: R1 blocks ("project's checker binary", same subcommands); R6 minor (measure omits body). "no change to the core" admitted (own Component).
+core `goal@core@checks-a-commit-from-its-hook`: R1 asks (commit forms list is mechanism; --fixup outside; owner ruled exclusion at 00ce06f7 before de-narrow direction); R6 minor (measure vs body sets).
+git `goal@git@a-pure-wrapper-over-git`: R2 asks (fixture-building sequences / mutate init+apply: library's or tool's?).
+Met outside: no root goal defines "the checker"; built-parts issue lists "no change to the core" which rule 1 admits; issue anchor-own-directory "What would close it" first option (exception) ruled out by owner's "not with an exception"; "every component states at least one goal" in no goal.
+
+#### set 5 (tools): 17 findings; rule1 8, rule2 3, rule3 1, rule5 1, rule6 4; settled 8, intent 8, contradiction 1; blocks 6, asks 8, minor 3; stop count 14.
+`goal@gates@gates-from-a-list`: G1 R1 blocks ("a project's binary", "a maintenance binary"); G2 R1 asks (distilled failures/complete logs are mechanisms?); G3 R2 asks ("a gate command": the one command vs a gate's command); G4 R5 blocks contradiction (taken-in-not-shipped interval: no own copy vs root "Until a part taken in ships, the project's own copy of it stays"; owner ruling af5cd491 only declined case); G5 R6 minor (no test).
+mutate `goal@mutate@a-named-mutation-is-checked-safely`: M1 R1 blocks (`cargo x` command in measure); M2 R1 blocks (baseline/skip and build probe restate heads; causes are the outcome); M3 R1 asks ("kept where the crate's recovery reads it" presupposes automatic recovery); M4 R3 asks (several files required or admitted; 5656d472 vs 8be31725); M5 R6 asks (losing nothing judged in use; property list; no route). Case: "never chooses or generates" rules out a helper proposing mutations from a diff.
+xtask `goal@xtask@one-command-runs-every-gate`: X1 R1 blocks ("the continuous integration runs the same command" - CI a design choice); X2 R1 asks (library defaults restated); X3 R2 asks ("on the working tree" vs root "on the branch's head"); X4 R6 minor.
+xtask `goal@xtask@repeated-tasks-are-automated`: R1 R1 blocks (`klarch-` prefix); R2 R2 asks ("needs no judgement" whole vs per part); R3 R6 minor (measure narrower than body). Cases: merge predicate command runs gh pr merge; `skill@klarch-release` steps incl publish owed a command.
+Met outside: built-parts issue's grep misses binary (gates), baseline/probe (mutate), CI (xtask); mutate issue/head hang on M4; gates/xtask heads no purpose (issue exists).
+
+#### whole-set reviewer: 54 findings; settled 29, intent 24, contradiction 1; blocks 23, asks 24, minor 7. Rule7 citations all admitted. Conforming 8 goals.
+Root: `goal@knowledge-architect@agents-work-without-drift` F1 R1 blocks (design heads, tripwires, issues), F2 R6 minor ("supervision measured by `goal@knowledge-architect@the-owner-decides`" - no such measure), F3 R6 asks (in use), F54 R2 asks (rank of an ask a quality tool brings). design-is-recorded F4 R1 blocks, F5 R6 asks. `goal@knowledge-architect@agents-get-a-complete-workflow` F6 R4 minor (instruction plainness/no-two-contradict/judgement paragraph dup of agent-skills goals; "particular to one project" paragraph), F7 R1 blocks ("project audit's method"), F8 R2 asks (Rust idiom vs default shape: typed error enum), F9 R6 asks; case: "how to test properly" required regardless of judgement after deletion. mechanical-tasks F10 R1 blocks (maintenance binary), F11 R1 asks (published crates: intended kind of interface? across 5 goals). structure-and-workflow F12 R1 blocks (knowledge table, issues/tripwires, manifest), F13 R6 minor. records-live F14 R1 blocks. `goal@knowledge-architect@documentation-stays-consistent` F15 R1 blocks, F16 R6 asks. `goal@knowledge-architect@the-owner-decides` F17 R1 blocks, F18 R2 asks (k-a owner items in other target projects: route upstream?), F19 R4 minor, F20 R7 minor ("the record" term defined here used by two other goals), F21 R6 asks. the-owner-s-word F22 R1 asks, F23 R6 asks. design-with-agents F24 R6 asks. owner-attention F25 R6 asks. serves-one-kind F26 R1 blocks (gates library), F27 R4 minor (six intents), F28 R6 asks (D3 vs measure). every-target F29 R1 blocks (manifest), F30 R4 minor. generic-tools F31 R5 blocks contradiction (vs `goal@agent-skills@only-needed-instructions`; cross-home), F32 R6 blocks (issue entry measure), F33 R1 blocks (primer). better-code conforming. projects-are-split F34 R1 blocks (manifest definition of Component). `goal@knowledge-architect@adoption-is-easy` F35 R1 asks (rendered site), F36 R6 asks. real-use conforming (case: dry run of a skill on scratch project ruled out). setup-brings conforming.
+core: `goal@core@documents-stay-current` F37 R1 asks (core's vocabulary manifest/registers/anchors/listings: intended interface?). document-rules F38 R1 blocks. relocation F39 R1 blocks (reshape per owner). records-reach conforming. documents-render F40 R1 blocks (mdbook), F41 R2 asks ("hosted once released" - crates already published). projects-add F42 R1 asks (checker binary). checks-a-commit conforming (options left out: owner's).
+agent-skills: one-skill F43 R1 blocks (primer's list), F44 R2 asks (sub-activity). no-contradiction conforming. reviews-judge F45 R1 blocks (register names). installed-text-every-project F46 R1 blocks (%% comments), F47 R1 asks (declared checker command). any-environment F48 R6 asks. only-needed F31.
+git F49 R2 asks (can vs measure requires). gates conforming. mutate F50 R1 blocks (cargo x), F51 R1 asks (baseline/probe). xtask one-command F52 R1 blocks (CI); repeated F53 R1 blocks (klarch-).
+Cross-home conflicts: only F31.
+Met outside: record head stale ("No round has run yet"); checks-a-commit refinement line first.
