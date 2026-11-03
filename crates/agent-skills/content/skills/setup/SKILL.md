@@ -252,9 +252,13 @@ filtered through a pipe. In a Rust project, the shape is the maintenance crate o
 list to the published library knowledge-architect-gates.
 
 %% The two goals are the owner's proposal: "I would also recommend setting these two goals (with
-%% those wordings) in the project setting-up skill". Their wording follows the owner's ruling on the
-%% same two goals of the workflow's own repository at its review of the whole goal set, brought to the
-%% goal standard there; the session proposed that this template follow, and the owner approved.
+%% those wordings) in the project setting-up skill". Their wording adapts to a target project the
+%% two goals the owner ruled for this repository's maintenance tool at the review of the whole goal
+%% set under the revised goal standard, `goal@xtask@one-command-runs-every-gate` and
+%% `goal@xtask@repeated-tasks-are-automated`: the sentences that name knowledge-architect's own
+%% goals and crates are restated for a project that installs the workflow, the linter and the
+%% rebase check are named where the project has them, and the cases are adapted to such a project.
+%% The session proposed that this template follow those goals, and the owner approved.
 %% The second goal's scope, mechanical work local to the project and not a task the installed text
 %% asks of every project, is the owner's ruling: a goal with such an ambiguous reading should not be
 %% recommended.
@@ -272,31 +276,46 @@ when asked. The gates include:
 - the document check;
 - the commit messages;
 - the linter, where the project has one;
-- the tests.
+- the tests;
+- the rebase check, where the project requires a branch to contain the main branch before it merges.
 
-By default it runs every gate of the list but the rebase check, all of them when one fails. It gives
-one verdict as its exit code, on the working tree and the branch's commits, which says whether the
-gates let the branch merge.
+By default it runs every gate of the list but the rebase check, all of them when one fails, and its
+exit code says whether the gates it ran pass. Run with the rebase check, its exit code is the one
+verdict, on the working tree and the branch's commits, which says whether the gates let the branch
+merge.
 
-It is met while the command's list holds each of these gates, and, where the project has continuous
-integration, the continuous integration runs the same command.
+It is met while the command's list holds each of these gates, and wherever the verdict on whether
+the gates let a branch merge is taken, it is this one command.
 
-## A mechanical task this repository's own instructions ask repeatedly is a command of the tool `##repeated-tasks-are-automated`
+- Requires, for instance: the check that decides whether a branch may merge takes the verdict on
+  whether the gates let it merge from this command, not from a list of gates of its own.
+- Admits, for instance: a session running one gate by hand where that is cheaper.
+- Rules out, for instance: a verdict on whether the gates let a branch merge taken from another list
+  of gates than the command's.
+
+## The local part of a mechanical task this repository's own instructions require repeatedly is a command of the tool `##repeated-tasks-are-automated`
 
 A task becomes a command of the tool, so it runs the same way each time, when it meets all of these:
 
-- it needs no judgement, and takes several steps;
-- it is local to this repository: one its own instructions ask, or the procedure they fix for one
-  the installed text asks;
-- it comes at a recurring moment, such as each commit, each reword or each merge.
+- needs no judgement, and takes several steps;
+- is local to this repository: one its own instructions require, or the procedure they fix for one
+  the installed text requires;
+- comes at a recurring moment, such as each commit, each reword or each merge.
 
-A task the installed text asks of every project that adopts the workflow, whose result follows from
-the tree and the workflow's rules, with no procedure of this repository's own, is the checker's to
-automate, not the tool's.
+A task the installed text requires of every project that adopts the workflow, with no procedure of
+this repository's own, is the workflow's to automate, not the tool's. The part of a task's
+procedure that the workflow ships is not local once it ships; until then the local command stays,
+and the rest of the task is the tool's where it meets these conditions.
 
-It is met while each such task that this repository's root and scoped `CLAUDE.md` files and its own
-skills and agent definitions ask, or whose procedure they fix, has a command of the tool. Such a task
-left to be done by hand shows the goal unmet in practice.
+It is met while each such task that this repository's own instructions require, or whose procedure
+they fix, has a command of the tool. Such a task left to be done by hand shows the goal unmet in
+practice.
+
+- Requires, for instance: the check, at each history edit of a branch, that the edit lost no
+  content, where this repository's instructions fix how it is checked, is a command of the tool.
+- Admits, for instance: a command of the tool for a task done once.
+- Rules out, for instance: the checks that each merge repeats, which this repository's instructions
+  fix, left to a session to type one by one.
 ```
 
 ## Finish {{slug:finish-setup}}

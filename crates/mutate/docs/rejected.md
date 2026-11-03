@@ -23,7 +23,7 @@ pay a full cold build of the workspace, on the mid-work case the tool exists for
 dispatching an agent into an isolated worktree and reading `git status`, `git rev-parse HEAD` and
 `ls -d target` inside it. Build cost is the whole of the reason: that a worktree cannot see
 uncommitted work is not, since a tool can copy the modified files in. A shape that removed the cost
-reopens the entry: `tripwire@mutate@restore-by-comparison`. The worktrees an isolated reviewer runs
+reopens the entry. The worktrees an isolated reviewer runs
 in are outside this entry: they hold committed work and discard their mutations with the worktree.
 
 ### cargo-mutants instead of a tool that applies the caller's mutation `##cargo-mutants-instrument`

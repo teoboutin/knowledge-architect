@@ -83,10 +83,9 @@ it.
    change of what is built.
 %% The citation rule is `design@core@goals-home-cites-upward-only`, which the checker enforces.
 7. **A refinement neither widens nor contradicts the goal it refines, and a goal cites only goals
-   and registers of its own Component or of one enclosing it.** A goals home, its goals and its head alike, cites
-   no entry other than a goal, and no register's home other than one of its own Component or of one
-   enclosing it; the checker reports any other reference there. A goal holds what it needs in its
-   own words.
+   and registers of its own Component, or, in a location's goals home, of that location, or of a
+   Component enclosing it.** This holds for the home's head too, and the checker reports any other
+   reference there. A goal holds what it needs in its own words.
 %% Case: rootpoint's goal on content kinds, whose sentence on concurrent editing named the design it
 %% excluded, which another goal would have argued for, and whose part on staying small named none.
 8. **A statement of what the Component is not for is a goal only when it names the design it

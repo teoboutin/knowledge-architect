@@ -343,7 +343,9 @@ fn goals_home_owner<'a>(rel: &Path, anchors: &'a Anchors) -> Option<&'a entity::
 /// which names no anchor and is refused whatever it names. An anchor is accepted where it is the
 /// home's own, or a Component whose directory holds the home's anchor, the root's empty path
 /// included; `*`, `elsewhere` and a name nothing declares name no such Component. A reference that
-/// resolves to nothing is reported apart, as its repair, so this judges the anchor as written.
+/// resolves to nothing is reported apart, as its repair, so this judges the anchor as written,
+/// except a `path` or a `planned` reference, which `judge_part` does not resolve in a goals home
+/// and which gets this finding alone.
 fn goals_home_citation(
     rel: &Path,
     line: u32,
@@ -371,9 +373,10 @@ fn goals_home_citation(
 
 /// The repair a finding names in a goals home, the citation check's and an id lint's alike, so
 /// that no finding there sends a writer to a reference the citation check refuses.
-const GOALS_HOME_REPAIR: &str = "cite a goal of this Component or of one enclosing it, or rewrite \
-     the sentence so it names no entry, a goal's rewording going through its project's goal-setting; \
-     a goal holds whatever it needs in its own words. Never keep the span with its backticks removed";
+const GOALS_HOME_REPAIR: &str = "cite a goal of the home's own anchor or of a Component enclosing \
+     it, or rewrite the sentence so it names no entry, a goal's rewording going through its \
+     project's goal-setting; a goal holds whatever it needs in its own words. Never keep the span \
+     with its backticks removed";
 
 /// Whether a reference of `kind` naming `anchor` may stand in the goals home `owner` keeps: a goal
 /// or a register's home of `owner` itself, or of a Component whose directory holds `owner`, the
@@ -4294,8 +4297,8 @@ mod tests {
 
     /// C7 of the spec: an id lint's finding in a goals home names the citation check's repair,
     /// and never the reference form that check refuses there. Mutation checked: the goals-home
-    /// arm of `id_lint`, `if admitted.is_empty() && !forms.is_empty() {` replaced by `if false {`,
-    /// caught, the bare id then raising no finding at all.
+    /// arm of `id_lint`, `if admitted.is_empty() && defined {` replaced by `if false {`, caught,
+    /// the bare id then raising no finding at all.
     #[test]
     fn an_id_lint_in_a_goals_home_names_the_goals_home_repair() {
         let mut all: Vec<(&str, String)> = defined()

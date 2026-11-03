@@ -60,7 +60,8 @@ records the instance.
 
 It strains `design@core@api-facade`, whose membership leaves an extension nothing to ask these
 questions with. `goal@core@projects-add-their-own-checks` is met "while an extension needs no
-change to the core and uses only its public, documented API". An extension that has to guess membership from paths
+change to the core and uses only its public API, documented with its contract and its examples".
+An extension that has to guess membership from paths
 quietly breaks where the manifest says something else, and with it
 `goal@core@relocation-needs-only-goal-changes` for any project that runs one.
 

@@ -69,6 +69,8 @@ The route says who answers it:
 - `contradiction`: (a) or (b), or a goal ruling out what another requires, held for the owner;
   quote both sides.
 
+%% Each grade's meaning and its reason, the rows of rules 4 and 6 included, are
+%% `design@agent-skills@goal-finding-grades`.
 The grade says what the finding changes in an agent's act, and the dispatcher's stops count by it:
 
 | finding | rule | grade | route |
@@ -85,14 +87,16 @@ The grade says what the finding changes in an agent's act, and the dispatcher's 
 | a measure that is a plan document or anything that leaves | 6 | `blocks` | `settled` |
 | an outcome judged only in use measured by a list of the properties it is taken to consist of | 6 | `asks` | `intent` |
 | any other wording of a measure | 6 | `minor` | `settled` |
-| a refinement that widens or contradicts the goal it refines, or a citation rule 7 refuses | 7 | `blocks` | `settled` |
+| a refinement that contradicts the goal it refines | 7 | `blocks` | `contradiction` |
+| a refinement that widens the goal it refines | 7 | `asks` | `intent` |
+| a citation rule 7 refuses | 7 | `blocks` | `settled` |
 | an exclusion that names no design another goal would argue for | 8 | `asks` | `intent` |
 | a statement of the owner in conflict, or a part of the statements dropped, (a) or (b) | none | `blocks` | `contradiction` |
 
-A case the goal only admits is no finding, and a goal that the project does not meet yet is none:
-in draft and whole-set mode, list such cases in the boundary block's material. A finding on a goal's reach never proposes a
-narrower wording: it lists the cases, and the owner rules on them. A goal with no finding is listed
-as conforming. In draft and whole-set mode, end each goal with its boundary block's material. List
-what you met outside your task under a heading "Met outside the task", for the dispatcher to route,
-per `primer@met-outside-the-task`. Then give the counts of your findings, per rule, per route and per
-grade. End the report with one line asking the dispatcher to save it whole.
+A case the goal only admits is no finding, and a goal that the project does not meet yet is none.
+A finding on a goal's reach never proposes a narrower wording: it lists the cases, and the owner
+rules on them. A goal with no finding is listed as conforming. In draft and whole-set mode, end each
+goal with its boundary block's material. List what you met outside your task under a heading "Met
+outside the task", for the dispatcher to route, per `primer@met-outside-the-task`. Then give the
+counts of your findings, per rule, per route and per grade. End the report with one line asking the
+dispatcher to save it whole.

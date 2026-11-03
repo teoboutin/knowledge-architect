@@ -342,8 +342,9 @@ outcome:
   library, and `cli` flattens no command of it;
 - `goal@xtask@repeated-tasks-are-automated`, `issue@xtask@the-reword-the-fold-and-the-merge-predicate-have-no-command`:
   the rewriting ships in a published crate, by its own work, after this milestone;
-- `issue@knowledge-architect@four-goals-homes-state-no-purpose-their-goals-serve`: each new
-  Component's goals home states its purpose, in the goals each slice drafts for the owner;
+- `goal@knowledge-architect@projects-are-split-into-components`,
+  `issue@core@the-core-s-purpose-leaves-the-rendered-site-outside-it`: each new Component's goals
+  home states its purpose, in the goals each slice drafts for the owner;
 - `design@agent-skills@content-mirrors-the-install-layout`, `design@agent-skills@one-placeholder-reader-per-kind`,
   `design@agent-skills@saved-workflow-name-is-its-file-stem`, `design@agent-skills@shipped-text-line-comments`,
   `design@xtask@source-view-in-the-tool`, `issue@agent-skills@a-saved-workflow-s-comments-ship-to-every-project`:

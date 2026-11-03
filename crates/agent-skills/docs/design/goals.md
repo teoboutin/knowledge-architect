@@ -280,18 +280,25 @@ is probably out of reach. Rule 6's wording of a measure: the owner chose to coun
 rather than weigh them as the other rules' findings, which no goal ranks. That a finding changes no
 agent's act does not hold for a goal judged only in use that is measured by a list of the properties
 of its outcome, since the list binds every agent at its widest reading: such a finding is `asks`,
-routed `intent`. Tagged `minor`, such a reach reached the tree once, since a reach shown as a minor
-measure finding does not reach the owner as a question of intent.
+routed `intent`. Tagged `minor`, such a reach reaches the tree, since a reach shown as a minor
+measure finding does not reach the owner as a question of intent: the draft-mode review recorded in
+`git show 0d2668e8^:docs/goal-reviews/2026-10-31-review-before-merge.md` flagged the reason
+requirement of `goal@agent-skills@only-needed-instructions` only as unmeasured, rule 6, `minor`; the
+goal was written with that requirement, and a later branch removed it on the owner's word that it
+was wrong and missed when the owner read the drafts.
 
 ### A goal review stops at its first round, from the second on, with no blocking finding left on the wording the previous round read `##goal-review-stops-on-old-wording`
 
 A goal review in rounds, in draft mode and over the whole goal set alike, stops when a round from the
 second on reports no `blocks` finding on old wording, the words the previous round read and no repair
-changed since, whatever the finding's route, or when the owner says so. Where a round's `blocks`
-findings on old wording are no fewer than the previous round's, the session puts the stop to the
-owner instead of running another round. The findings of the round that stops go to the owner beside
-the goals, unrepaired. The version each round read is kept in the conversation for a batch of three
-goals or fewer and in the record for a larger one. It serves
+changed since, whatever the finding's route, or when the owner says so. From the third round on,
+where a round's `blocks` findings on old wording are no fewer than the previous round's, the session
+puts the stop to the owner instead of running another round. The findings of the round that stops go
+to the owner beside the goals, unrepaired. Where the owner stops the rounds after a round's repairs,
+the owner's stop prevails: the session tells the owner that those repairs are unreviewed, and the
+goals axis of the review before the merge, `agent@knowledge-architect-goal-reviewer` in its merge
+mode, reads them. The version each round read is kept in the conversation for a batch of three goals
+or fewer and in the record for a larger one. It serves
 `goal@agent-skills@goals-state-the-owner-s-intent`, whose review stops after a few rounds, and
 `goal@knowledge-architect@owner-attention-on-what-is-theirs`.
 
@@ -302,26 +309,54 @@ goals or fewer and in the record for a larger one. It serves
   wording to be clean does not stop.
 - **It counts `blocks` findings alone**, the grade that changes what an agent builds, per
   `design@agent-skills@goal-finding-grades`; an `asks` finding goes to the owner beside the goals.
-  The owner leaned to a stop that asks `blocks` findings to reach zero, and that review reached it:
-  its `blocks` findings on old wording went from 3 at round 2 to 1 at round 3, a repair settled by
-  the record.
-- **It counts every route.** A `blocks` finding routed `intent` or `contradiction` goes to the owner,
-  and once the owner answers, its wording is new wording, so it does not hold the stop. Where no
-  answer comes between rounds, as in a draft-mode batch, the count does not fall, and the stop goes
-  to the owner.
+  The owner leaned to a stop that probably asks `blocks` findings to reach zero, and said that use
+  would show whether zero is reachable. In the same review, the `blocks` findings on old wording
+  went from 3 at round 2 to 1 at round 3, and the owner stopped the rounds by word after round 3's
+  repairs, so that review does not show zero reached.
+- **One round with no `blocks` finding is weak evidence that none remain.** The grounding,
+  `path@agent-skills@docs/grounding/goal-standard.md`, supports a stop that counts only the findings
+  that change what is built, set in advance, and adds that, if the rate of one inspection pass
+  transferred to goal reviews, which is an assumption, one round with no blocking finding is weak
+  evidence that none remain. The stop does not claim that no defect remains: it ends the rounds, the
+  owner rules with the last round's findings beside the goals, and the goals axis of the review
+  before the merge reads the goals again before they reach the main branch, the second reading
+  that a stop on several rounds with no `blocks` finding would buy with more rounds.
+- **It counts every route.** A `blocks` finding routed `intent` or `contradiction` goes to the
+  owner. While no repair changes its wording, as when the owner's answer keeps the wording, it
+  stays on old wording and keeps the count from falling, so the stop goes to the owner, who holds
+  its answer. A stop that counted the `settled` findings alone would end a review with a blocking
+  question of the owner's still open.
 - **The stop goes to the owner when the count does not fall**, which gives the owner's intent that a
   review of goals stops after a few rounds a mechanism with no fixed count of rounds, which nothing
-  measured would set.
+  measured would set. The comparison applies from the third round, since the first round sorts no
+  wording, so the second round has no earlier count on old wording to compare with.
+- **The owner's stop after a round's repairs prevails over another round**, since the rule admits
+  the owner's word as a stop, and a further round run against it would override the owner. The
+  repairs are named as unreviewed so that the owner rules knowing it, and the merge mode reads the
+  goals a branch adds or changes, so no repair reaches the main branch unread.
 - **One rule serves both modes**, since both review goals by the same reviewer in rounds whose
   repairs write new wording; two stops for one kind of review gave the session two rules to apply to
   one moment.
 
-The draft-mode review once had no stop: one batch of reworded goals went through five draft-mode
-reviews, with 8, 10, 6, 6 and 6 findings, each round's repairs or the owner's answers bringing new
-findings. The rivals: a stop on no `blocks` finding over all wording,
-`rejected@agent-skills@goal-review-stop-over-all-wording`, held open by the wording each round
-writes; and a stop of the whole-set review at a fifth of the first round's count,
-`rejected@agent-skills@goal-review-stop-at-a-fifth`.
+A draft-mode review with no stop does not end. One batch of reworded goals went through five
+draft-mode reviews, with 8, 10, 6, 6 and 6 findings, each round's repairs or the owner's answers
+bringing new findings; and the one goal of a new Component went through five draft-mode reviews,
+the owner twice shown a version no review had read. The owner reported, of the review of the whole
+goal set, that its non-convergence came in part from the corrections of earlier rounds, which had
+unforeseen effects applied together, and that a review of one goal or a few converged more reliably,
+which the one goal reviewed five times in draft mode does not support. The rivals: a stop on no
+`blocks` finding over all wording, `rejected@agent-skills@goal-review-stop-over-all-wording`, held
+open by the wording each round writes; and a stop of the whole-set review at a fifth of the first
+round's count, `rejected@agent-skills@goal-review-stop-at-a-fifth`.
+
+The corpora of these measurements are in the history. The five-round cases are recorded in the
+closed issue that
+`git log --diff-filter=D -- crates/agent-skills/docs/open-issues/a-goal-the-draft-review-read-was-reworded-again-for-a-defect.md`
+finds. The counts of the review of the whole goal set are in its record, which
+`git log --diff-filter=D --name-only -- docs/goal-reviews/` lists as
+`path@elsewhere@docs/goal-reviews/2026-11-03-goal-standard.md`; the goals it ruled are those of
+the commit "The goals the owner ruled at the end of the review of the whole goal set, under the
+revised standard".
 
 ### A goal's wording proposed in another activity is ruled as its own item, never inside a batch approval of other items `##goal-edit-ruled-alone`
 
