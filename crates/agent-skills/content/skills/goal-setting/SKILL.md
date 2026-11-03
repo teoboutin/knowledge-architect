@@ -126,9 +126,11 @@ defines its own words, and its goals may use the root's. The head restates no ru
    on the repaired batch, so that the version shown is a version reviewed. Keep the version each
    round read, in the conversation for a batch of three goals or fewer and in the record for a
    larger one, and from the second round sort each finding by the words it quotes against it: on
-   old wording, the words the previous round read and no repair changed since, or on new wording. **Stop when a round, from the second on, reports no
-   `blocks` finding tagged `settled` on old wording.** The findings of the round that stops go to the
-   owner beside the goals, unrepaired.
+   old wording, the words the previous round read and no repair changed since, or on new wording.
+   **Stop when a round, from the second on, reports no `blocks` finding on old wording, whatever
+   its route, or when the owner says so.** Where a round's `blocks` findings on old wording are no
+   fewer than the previous round's, put the stop to the owner instead of running another round. The
+   findings of the round that stops go to the owner beside the goals, unrepaired.
 %% Per `design@agent-skills@goal-draft-shows-reach`.
 5. **Show the owner the draft, each goal with its boundary block**, in the message, or, for a batch
    of more than three goals, in the tree and the record: what the goal asks of future work, the
@@ -206,10 +208,9 @@ passes the check.
    verbatim, and each goal's boundary block; and the list of questions still open. Commit it at each
    round, apart from the drafts, which stay uncommitted until the owner rules on them.
 5. **Run the next round** from step 2, over the goals and the record as step 3 left them.
-6. **Stop** when the owner says so, or when a round's count, from the second round on, falls to a
-   fifth of the first round's: the `blocks` and `asks` findings of every reviewer of the round,
-   counted under the same brief in every round, over all wording in the first round and over old
-   wording in each later one. The round that meets the stop writes no repair: its findings go to the
+6. **Stop** by the rule of step 4 of
+   `skill@knowledge-architect-goal-setting@drawing-out-intent`, over the `blocks` findings of every
+   reviewer of the round. The round that meets the stop writes no repair: its findings go to the
    owner beside the goals, so that the goals the owner reads are the goals a round reviewed.
 
 %% Rule 3 turns on what the owner ruled out knowingly, which the reviewer cannot judge without the

@@ -279,27 +279,44 @@ of its outcome, since the list binds every agent at its widest reading: such a f
 routed `intent`. Tagged `minor`, such a reach reached the tree once, since a reach shown as a minor
 measure finding does not reach the owner as a question of intent.
 
-### A goal review counts the blocking findings left on the wording the previous round read, from its second round `##goal-review-stops-on-old-wording`
+### A goal review stops at its first round, from the second on, with no blocking finding left on the wording the previous round read `##goal-review-stops-on-old-wording`
 
-The draft-mode review stops, in goal-setting, when a round from the second on reports no `blocks`
-finding tagged `settled` on old wording, the words the previous round read and no repair changed
-since, kept in the conversation for a batch of three goals or fewer and in the record for a larger
-one; the findings of that round go to the owner unrepaired. The whole-set review counts on old
-wording too, per `design@agent-skills@whole-set-rounds`. The count reads old wording because each
-round's repairs write new wording, in which the next round finds defects at least as readily, per
-`design@agent-skills@convergence-count-scope`. The draft-mode stop counts the `settled` findings,
-which a round's repairs answer: an `intent` or `contradiction` finding stays open until the owner
-answers, which no round of the reviewer does.
+A goal review in rounds, in draft mode and over the whole goal set alike, stops when a round from the
+second on reports no `blocks` finding on old wording, the words the previous round read and no repair
+changed since, whatever the finding's route, or when the owner says so. Where a round's `blocks`
+findings on old wording are no fewer than the previous round's, the session puts the stop to the
+owner instead of running another round. The findings of the round that stops go to the owner beside
+the goals, unrepaired. The version each round read is kept in the conversation for a batch of three
+goals or fewer and in the record for a larger one. It serves
+`goal@knowledge-architect@owner-attention-on-what-is-theirs`.
 
-The draft-mode review had no stop: one batch of reworded goals went through five draft-mode
+- **It counts old wording** because each round's repairs write new wording, in which the next round
+  finds defects at least as readily, per `design@agent-skills@convergence-count-scope`. In this
+  repository's review of the whole goal set after the standard's revision, 25 of round 3's 28
+  `blocks` and `asks` findings were on wording round 2's repairs wrote; a stop that waits for new
+  wording to be clean does not stop.
+- **It counts `blocks` findings alone**, the grade that changes what an agent builds, per
+  `design@agent-skills@goal-finding-grades`; an `asks` finding goes to the owner beside the goals.
+  The owner leaned to a stop that asks `blocks` findings to reach zero, and that review reached it:
+  its `blocks` findings on old wording went from 3 at round 2 to 1 at round 3, a repair settled by
+  the record.
+- **It counts every route.** A `blocks` finding routed `intent` or `contradiction` goes to the owner,
+  and once the owner answers, its wording is new wording, so it does not hold the stop. Where no
+  answer comes between rounds, as in a draft-mode batch, the count does not fall, and the stop goes
+  to the owner.
+- **The stop goes to the owner when the count does not fall**, which gives the owner's intent that a
+  review of goals stops after a few rounds a mechanism with no fixed count of rounds, which nothing
+  measured would set.
+- **One rule serves both modes**, since both review goals by the same reviewer in rounds whose
+  repairs write new wording; two stops for one kind of review gave the session two rules to apply to
+  one moment.
+
+The draft-mode review once had no stop: one batch of reworded goals went through five draft-mode
 reviews, with 8, 10, 6, 6 and 6 findings, each round's repairs or the owner's answers bringing new
-findings; and the one goal of a new Component went through five draft-mode reviews, the owner twice
-shown a version no review had read. The owner reported, of the review of the whole goal set, that
-its non-convergence came in part from the corrections of earlier rounds, which had unforeseen
-effects applied together, and that a review of one goal or a few converged more reliably, which the
-one goal reviewed five times in draft mode does not support. The rival, a stop on no `blocks` finding over all wording,
-`rejected@agent-skills@goal-review-stop-over-all-wording`, is held open by the wording each round
-writes.
+findings. The rivals: a stop on no `blocks` finding over all wording,
+`rejected@agent-skills@goal-review-stop-over-all-wording`, held open by the wording each round
+writes; and a stop of the whole-set review at a fifth of the first round's count,
+`rejected@agent-skills@goal-review-stop-at-a-fifth`.
 
 ### A goal's wording proposed in another activity is ruled as its own item, never inside a batch approval of other items `##goal-edit-ruled-alone`
 
@@ -329,7 +346,7 @@ from the review itself: the owner rules on every goal before it is written, wher
 its settled repairs in its own branch. So that goal rules out the rival, a fourth axis of the
 project audit with its saved workflow, `rejected@agent-skills@goal-set-review-as-an-audit-axis`.
 
-### The review of the whole goal set runs in rounds the owner answers, over a record committed in docs/goal-reviews/, and stops on the owner's word or at a fifth of the first round's count `##whole-set-rounds`
+### The review of the whole goal set runs in rounds the owner answers, over a record committed in docs/goal-reviews/ `##whole-set-rounds`
 
 Each round dispatches together one goal reviewer per set of goals that touch each other, in draft
 mode, and one in whole-set mode; the sets give each reviewer a cluster to read against every rule,
@@ -339,14 +356,11 @@ the owner in one message, the next round waiting for the answer. The record, one
 `docs/goal-reviews/<YYYY-MM-DD>-<subject>.md`, holds each round's counts per reviewer, rule,
 grade, route and old or new wording, outcomes and defaults, the
 owner's answers verbatim and the boundary blocks; it is committed each round, every brief names it,
-and the commit that writes the goals the owner ruled last deletes it. The rounds stop on the owner's
-word, or once a round's count of `blocks` and `asks` findings, every reviewer together and under one
-brief, over all wording in the first round and over old wording in each later one, falls to a fifth
-of the first round's, the grades of `design@agent-skills@goal-finding-grades`; the round that meets
-the stop writes no repair,
-and its findings go to the owner beside the goals, so the goals the owner reads are the goals a
-round reviewed. The owner then rules on the goals as the tree holds them, per
-`design@agent-skills@goal-batch-ruled-in-the-tree`. The primer's knowledge table carries the
+and the commit that writes the goals the owner ruled last deletes it. The rounds stop by the rule of
+`design@agent-skills@goal-review-stops-on-old-wording`, over the `blocks` findings of every reviewer
+of the round; the round that meets the stop writes no repair, and its findings go to the owner beside
+the goals, so the goals the owner reads are the goals a round reviewed. The owner then rules on the
+goals as the tree holds them, per `design@agent-skills@goal-batch-ruled-in-the-tree`. The primer's knowledge table carries the
 record's row for every project.
 
 The owner proposed the procedure's six steps from what this repository's own review of its 31
@@ -363,14 +377,8 @@ space, the nearest rival, is lost to the next session. It is not the ledger
 `rejected@agent-skills@ledger-written-during-discussion` rejects: a stale ledger of a discussion is
 corroborated by the conversation alone, while each round's reviewers read this record against the
 tree and report an open question it misstates, and the owner answers it each round. The set
-reviewers found most of the findings, and the whole-set reviewer the conflicts across homes. The
-session chose a fifth over a tenth, which no goal ranks, since the rounds of that review reached a
-tenth only at their last; the owner approved it, on that count, findings that are not `minor` over
-all wording. The count is now of `blocks` and `asks` findings over old wording after the first round,
-per `design@agent-skills@goal-review-stops-on-old-wording`, and the fifth stays as the session's
-default for it until the owner rules after observing a review under it; the owner leans to a stop
-that probably asks `blocks` findings to reach zero, which use will show reachable or not. It serves
-`goal@knowledge-architect@the-owner-decides` and
+reviewers found most of the findings, and the whole-set reviewer the conflicts across homes. It
+serves `goal@knowledge-architect@the-owner-decides` and
 `goal@knowledge-architect@owner-attention-on-what-is-theirs`.
 
 ### A goal-setting batch of more than three goals is drafted and ruled in the tree, three or fewer in the conversation `##goal-batch-ruled-in-the-tree`
