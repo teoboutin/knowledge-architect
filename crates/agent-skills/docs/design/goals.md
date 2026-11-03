@@ -204,7 +204,7 @@ for a case the routing already decides, against `goal@agent-skills@only-needed-i
 
 Goal-setting shows the owner each drafted goal with its boundary block: what the goal asks of
 future work; for each layer it has, requires, admits and rules out, at least one case, and the cases
-it reaches in its requires and rules-out layers that the owner may not intend; each sibling goal it
+it reaches that the owner may not intend, those it only admits shown for information; each sibling goal it
 touches with the relation, a conflict named as such; and each question of intent the reviewer
 raised, with the case on which the readings differ. A contradiction is put at the top of the draft.
 The block is not written to the goals home; the cases of it the owner's ruling keeps are, per
@@ -226,7 +226,9 @@ quotation beside it carries little of it and can misstate it.
 ### A finding on a goal's reach lists its cases and asks the owner, and a goal is narrowed only on the owner's word `##reach-finding-asks-not-narrows`
 
 The goal reviewer reports the cases a goal reaches in what it requires or rules out that the owner's
-statements do not cover, and puts them to the owner; a case it only admits is no finding. The drafter
+statements do not cover, and puts them to the owner. A case it only admits is no finding and holds no review open, and
+is still shown to the owner in the boundary block, since the owner asked to see the full list of what
+a goal admits that may not be the owner's intent. The drafter
 keeps the wording by default, and drafts a narrower one only on the owner's word, showing what the
 narrowing rules out. The owner argued that once a wording is approved, what it rules out becomes the
 owner's word for every later agent, noticed or not, and that a goal's reach is worth showing because

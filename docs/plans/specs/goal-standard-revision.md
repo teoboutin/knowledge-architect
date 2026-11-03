@@ -1051,8 +1051,18 @@ round 6:
   lean that blocks should probably required to reach 0. Practical use will tell us if that is
   achievable." The fifth stays as the session's default, awaiting the owner's ruling after step 5.
 - **D2**, #goal-cites-goals-upward-only: how a consumer brings a goal the check refuses to the rule.
-  The owner: "through a whole set review". Ruled: the Migration entry and the finding's repair send
-  the rewording through goal-setting.
+  The owner: "through a whole set review". Put again as Q7, since the finding's text met outside a
+  migration said goal-setting, the owner, round 7: "since the goal standard changed, I think a whole
+  set review should probably be owed at next migration in any case. But the citation fix needed at
+  the bump time itself can be done through the normal goal setting process if it covers only a few
+  goals. Whole set reviews are often scheduled as their own work after the bump in consumer
+  projects." Ruled: the finding's repair and the `checks` Migration entry send the rewording through
+  goal-setting, its draft mode for a few goals, and the standard's Migration entry names the review
+  of the whole goal set.
+- **Q6**, #reach-finding-asks-not-narrows: the admitted reach no text showed. The owner, round 7:
+  "Q6 agreed on default, such findings have to be shown to me, and they stay non blocking." Ruled:
+  the boundary block shows the cases a goal only admits, for information, and they hold no review
+  open.
 - **D3**, #goal-cites-goals-upward-only: whether the setup skill lists the check as an ask. The
   owner: "i think asks from checks do not need listing in setup skill, because the checks themselves
   report the ask to consumers already." Ruled: nothing is listed; the argument bears on the measure

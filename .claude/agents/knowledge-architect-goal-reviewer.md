@@ -102,7 +102,8 @@ the drafter's, not a ruling of the owner.
 
   Give, for each goal, the material of its boundary block: what the goal asks of future work; for
   each layer the goal has, requires, admits and rules out, at least one case, and the cases it
-  reaches in its requires and rules-out layers that the owner may not intend, from the project's
+  reaches that the owner may not intend, those it only admits listed for information, from the
+  project's
   existing or planned work, or, where none exists yet, from the uses the owner's statements
   describe; and each sibling goal it touches, with the relation.
 - **Whole set.** The brief gives the project. Read every goals home whole. Report every goal that

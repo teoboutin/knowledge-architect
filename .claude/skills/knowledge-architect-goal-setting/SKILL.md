@@ -162,8 +162,8 @@ serves, which the owner rules like a goal; the root's states the project's.
 5. **Show the owner the draft, each goal with its boundary block**, in the message, or, for a batch
    of more than three goals, in the tree and the record: what the goal asks of future work, the
    part the project does not hold yet; for each layer the goal has, requires, admits and rules out,
-   at least one case, and the cases it reaches in its requires and rules-out layers that the owner
-   may not intend, from the project's
+   at least one case, and the cases it reaches that the owner may not intend, those it only admits
+   shown for information, since they hold no review open, from the project's
    existing or planned work, or, where none exists yet, from the uses the owner's statements
    describe; each sibling goal it touches with the relation, a conflict named as such; and each
    `intent` finding of the reviewer, with the case on which the readings differ. Put each `contradiction` at the top of the draft, quoting both sides:
