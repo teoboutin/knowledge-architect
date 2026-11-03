@@ -415,3 +415,49 @@ project with no agent configuration, which the reworded scope goal may exclude (
 installed retrospective asks no question per goal yet (sets 1, 3, whole set); the root head uses
 "the record" and "the workflow" in a second sense elsewhere, the head's own "record of design" and
 the primer's "the workflow is the method" (sets 3, 4).
+
+### Questions put to the owner after round 2, and the owner's answer
+
+Each with its default:
+
+- Q18, the new goal on the owner's intent: add that a goal is drafted to move what the project
+  builds, so agents work in its direction without changing it, a new goal expected to be unmet, and
+  that a review of a goal set stops after a few rounds at a small number of findings; "these
+  properties" in place of "that standard"; the goal joins the never-ranks list of
+  `goal@knowledge-architect@agents-work-without-drift`; its sentence on what shows a goal met stays.
+- Q19, the per-goal retrospective lines: removed, and stated once in
+  `goal@knowledge-architect@the-workflow-improves-through-real-use`: the retrospective collects the
+  cases where the installed text failed the session, and knowledge-architect's intake of them judges
+  each against its goals judged in use.
+- Q20, Q13 in `goal@knowledge-architect@serves-one-kind-of-project`: using both the workflow and the
+  checker becomes an ask, so a project that uses the checker alone is a target project that does not
+  follow an ask; the merge condition stays; an issue is opened on `design@core@agents-table`'s
+  declaration of no agent harness.
+- Q21, `goal@knowledge-architect@the-owner-decides`: (a) "that the owner could have made" reads as a
+  choice the owner could have ruled, an implementation choice a commit message records excluded; (b)
+  a decision is reported where the owner reads it, the three places as cases.
+- Q22, the interval of a project's own copy: (a) a project that considers the shipped part at its own
+  move and keeps its copy is admitted, "found held again" being a copy written after that move; (b)
+  the gates measure ends the admitted copy at the project's own move; (c) for this repository, which
+  runs the checker it builds, a part ships when it merges into main.
+- Q23, `goal@core@relocation-is-one-manifest-edit`: "happens on a change of purpose, or where it
+  breaks no check" restricts when a project relocates; the slug is renamed to
+  `relocation-needs-only-goal-changes`, every reference repaired.
+- Q24, the narrowings round 1's repairs wrote, each de-narrowed: `goal@core@documents-stay-current`
+  ranges over the entries of its goals and its record and the shape each kind requires;
+  `goal@core@records-reach-their-reader` over everything the project records as outstanding;
+  `goal@knowledge-architect@records-live-beside-the-code` over the whole record;
+  `goal@knowledge-architect@agents-work-without-drift` reads the parts of the goals and record that
+  bear on the work; `goal@knowledge-architect@design-is-recorded-with-its-arguments` gives an entry
+  of its own to each decision whose argument a later session would otherwise derive again;
+  `goal@knowledge-architect@structure-and-workflow-work-together` declares to the checker each home
+  whose entries other records cite.
+- Q25, `goal@knowledge-architect@mechanical-tasks-are-the-tool-s`: every such task is owed a command
+  or a library function.
+- Q26, the `minor` findings that would split a goal: left as they are.
+
+The owner's answer, verbatim:
+
+```text
+I agree on all the proposed defaults here. Apply it, then start round 3, so we see what we can reach.
+```
