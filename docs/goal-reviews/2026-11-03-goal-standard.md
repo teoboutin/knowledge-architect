@@ -207,3 +207,69 @@ agent-skills: one-skill F43 R1 blocks (primer's list), F44 R2 asks (sub-activity
 git F49 R2 asks (can vs measure requires). gates conforming. mutate F50 R1 blocks (cargo x), F51 R1 asks (baseline/probe). xtask one-command F52 R1 blocks (CI); repeated F53 R1 blocks (klarch-).
 Cross-home conflicts: only F31.
 Met outside: record head stale ("No round has run yet"); checks-a-commit refinement line first.
+
+### Questions put to the owner, and the owner's answers
+
+Q8, the words the root goals use and do not define; Q9, the kinds of interface that are outcomes; Q10,
+goals judged in use with no learning route; Q11, four contradictions, (a) shipping a procedure
+judgement handles, (b) the interval between taking a part in and shipping it, (c) the owner's D3
+against the scope goal's measure, (d) the relocation goal; Q12, the goals homes' heads; Q13, the
+other findings, the reach of the owner's goals over a project that uses the checker alone among them.
+
+The owner's answer, verbatim:
+
+```text
+Q8 agreed on this shape. It should probably be recommended in the skill itself: definitions in a separate paragraph of a goal home, not per goals, because they will often be shared among most goals . Unless the definition is the outcome of a specific goal, such as  the retrospective below. Actually, maybe each such definition should be a goal in itself. Components can have their owns. Whichever shape, they should stay general and few. The skeleton test still applies.
+
+Q9 agreed on default
+
+Q10 agreed, centralise in the real use goal.
+
+Q1 a agreed 
+b "taken in" replaced by in a released version of knowledge architect . This is when a consumer should consider following us. At its own bump, actually.
+c agreed
+D agreed
+
+Q12. Are these heads necessary ? They are restatements of the goal setting skill, and they drift.
+
+Q13: for checker only project: our target project use both the workflow and the checker. The checker only mode is kept as an exception to serve one kind of project, stated there. Nothing is done to cater to it. Consumers use it at their own risk.
+```
+
+"Q1" in the answer is Q11, answering its items (a) to (d).
+
+### Round 1's repairs
+
+Two drafters wrote the repairs into the tree, one for the root goals home and one for the six
+Component goals homes, under one brief: every finding routed `settled` repaired as its implied
+repair says, the owner's answers Q8 to Q13 applied, an `intent` finding's wording kept unless an
+answer changes it, and "for instance" cases written for each layer of each goal. The session wrote
+the root head's definitions paragraph, and trimmed each Component head to its purpose, per its
+default on Q12.
+
+Choices the drafters made, kept in the tree and put to the owner with the batch:
+
+- `goal@core@relocation-is-one-manifest-edit` refines `goal@knowledge-architect@agents-work-without-drift`
+  instead of `goal@knowledge-architect@documentation-stays-consistent`, answering the whole-set
+  finding that the parent states no cost; the rival is to drop the refinement line.
+- In `goal@knowledge-architect@serves-one-kind-of-project`, Q13's sentence follows the four
+  conditions and is no fifth one, and the merge condition loses its qualifier "where the project
+  uses the installed workflow".
+- The false sentence "The supervision it saves is measured by" the owner-decides goal leaves
+  `goal@knowledge-architect@agents-work-without-drift`, with no measure in its place.
+- `goal@knowledge-architect@the-owner-decides` no longer defines "the record", which the root head
+  now defines.
+- The Q10 question is added to `goal@agent-skills@only-needed-instructions`, which no finding named,
+  and to no goal whose measure is a test of a tool or a property provable by reading:
+  `goal@agent-skills@no-contradiction-in-workflow`, `goal@core@records-reach-their-reader`, mutate,
+  xtask and `goal@knowledge-architect@generic-tools-and-procedures-are-shipped`.
+- Rule 1 repairs that no finding named: "issue and tripwire" in
+  `goal@core@records-reach-their-reader`, "the project audit's method" in
+  `goal@agent-skills@one-skill-per-activity`, and "plan documents" in
+  `goal@agent-skills@reviews-judge-by-the-writer-s-criteria`.
+- `goal@mutate@a-named-mutation-is-checked-safely` states the causes a verdict tells apart in place
+  of the baseline skip and the build probe.
+
+Left for the owner, as the findings route them: the purposes of the agent-skills, gates, mutate and
+xtask heads, drafted by the session; the never-ranks list of
+`goal@knowledge-architect@agents-work-without-drift`, which omits
+`goal@knowledge-architect@the-owner-s-word-is-verified`; every `intent` finding left as it was.
