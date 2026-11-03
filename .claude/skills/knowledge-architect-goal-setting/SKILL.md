@@ -81,9 +81,9 @@ it.
    scope control, exercised by what the owner asks for, or a quality argument a design head makes
    against its own rival.
 
-A goal stays in its home **while it is met**. One removed when it is achieved stops being checked,
-and can stop being met without anyone noticing. **A goal leaves only when the owner abandons it**,
-on the owner's word.
+A goal stays in its home, **met or not yet met**. One removed when it is achieved stops being
+checked, and can stop being met without anyone noticing. **A goal leaves only when the owner
+abandons it**, on the owner's word.
 
 ## The shape of a goal entry `##goal-entry-shape`
 
@@ -130,9 +130,11 @@ of them refines a goal of that intermediate Component, naming it, as a Component
 root goal it refines. A purpose the owner states for several Components together is the occasion to
 create one, under `skill@knowledge-architect-component-creation`.
 
-The head of the goals home says what it holds: a goal is met or unmet, it stays while it is met,
-and it leaves only on the owner's word. It also states the purpose every goal of its Component
-serves, which the owner rules like a goal; the root's states the project's.
+The head of the goals home states the purpose every goal of its Component serves, which the owner
+rules like a goal; the root's states the project's. It also holds the definitions its goals share:
+a few general words for what several goals name, each passing rule 1, in a paragraph of their own.
+A definition that is the outcome of one goal is stated in that goal instead. A Component's head
+defines its own words, and its goals may use the root's. The head restates no rule of this skill.
 
 ## Drawing out the owner's intent `##drawing-out-intent`
 
