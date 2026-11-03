@@ -44,7 +44,7 @@ What the rounds owe, beyond the procedure:
 - **The model goals** for a goal judged in use, on the owner's report:
   `goal@knowledge-architect@the-workflow-leads-to-better-code` and
   `goal@knowledge-architect@projects-are-split-into-components`.
-- **Entries the review reads**: `issue@agent-skills@goals-name-built-parts-until-the-whole-set-review`,
+- **Entries the review reads**: `goals-name-built-parts-until-the-whole-set-review`,
   which the commit writing the goals ruled last closes;
   `issue@knowledge-architect@four-goals-homes-state-no-purpose-their-goals-serve`;
   `issue@mutate@a-mutation-of-several-files`, `design@mutate@one-file-per-run` and
@@ -628,4 +628,293 @@ round 2 with three `blocks` findings standing. The owner's answer, verbatim:
 
 ```text
 Agreed on this proposal for the stop rule.
+```
+
+## The ruling
+
+The rounds stopped on the owner's word after round 3's repairs. Every goal is put to the owner as the
+tree holds it. Each boundary block below is the whole-set reviewer's of round 3, over the wording
+round 3 read; round 3's repairs change a block where Q27 to Q38 change its goal.
+
+### Questions still open
+
+- Whether a retrospective's pending findings on the project's own instructions are "what is
+  outstanding", and so record (round 3, whole set, `asks`); Q27 settles the list, not this case.
+- The `intent` findings each round kept as worded, which the rounds' sections name, and the rule-4
+  `minor` findings Q26 left.
+
+### Boundary blocks
+
+#### docs/goals.md, `goal@knowledge-architect@agents-work-without-drift`
+
+- Asks of future work: catching departures before a merge.
+- Requires: a change that contradicts a recorded decision is caught by the checker or by a review.
+- Admits: a reversal through the workflow's procedure.
+- Rules out: a Component goal ranked above it.
+- Cases the owner may not intend: it ranks above `goal@knowledge-architect@generic-tools-and-procedures-are-shipped` and above every Component goal not in the never-ranks list, for instance the mutate and gates goals.
+- Siblings: ranks over `goal@knowledge-architect@the-owner-s-word-is-verified`, `goal@knowledge-architect@the-owner-decides`, `goal@knowledge-architect@design-with-agents-as-counterparts` and `goal@knowledge-architect@owner-attention-on-what-is-theirs` (exempted), and over serves-one-kind's asks (exempted). Refined by core `goal@core@relocation-needs-only-goal-changes` and `goal@core@projects-add-their-own-checks`.
+
+#### docs/goals.md, `goal@knowledge-architect@design-is-recorded-with-its-arguments`
+
+- Asks of future work: an entry of its own for each decision whose argument would otherwise be derived again.
+- Requires: a recorded decision names its losing alternative.
+- Admits: a decision and its designs not kept in separate documents.
+- Rules out: a conclusion recorded without its argument.
+- Cases the owner may not intend: "any other decision has its reason in the message of the commit that made it, and beside the code or the agent-facing text it shapes" reaches every trivial implementation choice, such as a loop rather than an iterator, and asks a comment beside the code for each one.
+- Siblings: `goal@knowledge-architect@structure-and-workflow-work-together` names the same set by other words, "each decision the workflow records in an entry of its own". The two descriptions differ but do not conflict. `goal@knowledge-architect@records-live-beside-the-code`.
+
+#### docs/goals.md, `goal@knowledge-architect@agents-get-a-complete-workflow`
+
+- Requires: the development skill says how to make a test discriminate.
+- Admits: the release skill installed in a project that never releases.
+- Rules out: Rust-idiom instructions, and an installed instruction outside an offered shape that assumes a pull request.
+- Cases the owner may not intend: agent-skills `goal@agent-skills@one-skill-per-activity` counts two more activities as taken in, "maintaining the agent configuration" and "the intake of a retrospective's findings". The root list does not name them. This is no widening, since the root list "grows with the workflow".
+- Siblings: refined by `goal@knowledge-architect@mechanical-tasks-are-the-tool-s`, `goal@knowledge-architect@the-workflow-leads-to-better-code`, `goal@knowledge-architect@projects-are-split-into-components` and most agent-skills goals.
+
+#### docs/goals.md, `goal@knowledge-architect@mechanical-tasks-are-the-tool-s`
+
+- Requires: a command that folds a fixup with its no-loss check.
+- Admits: a task offered both as a command and as a library function.
+- Rules out: each session writing its own reword script.
+- Cases the owner may not intend: every multi-step deterministic task taken in is owed a command or a function, and the merge predicate is among them.
+- Siblings: xtask `goal@xtask@repeated-tasks-are-automated` (agrees), `goal@knowledge-architect@generic-tools-and-procedures-are-shipped`.
+
+#### docs/goals.md, `goal@knowledge-architect@structure-and-workflow-work-together`
+
+- Requires: the checker lists what a change to a decision touches.
+- Admits: a project's own kind of record.
+- Rules out: a kind of record written with no home.
+- Siblings: refined by core `goal@core@records-reach-their-reader`.
+  - The parent's second list is "which outstanding items … a change must read again". The core's is "everything the project records as outstanding": wider, with the filtered listing only admitted (round 1's question).
+  - The parent's set of decisions differs in words from that of `goal@knowledge-architect@design-is-recorded-with-its-arguments`.
+
+#### docs/goals.md, `goal@knowledge-architect@records-live-beside-the-code`
+
+- Requires: an outstanding defect kept in a file of the repository.
+- Admits: a pull request's discussion kept on the hosting service, with its decisions recorded in the repository.
+- Rules out: a decision held only in an external tracker.
+- Siblings: the head's definition of "the record"; `goal@knowledge-architect@the-workflow-improves-through-real-use`, which sends the workflow findings to knowledge-architect's owner (agrees).
+
+#### docs/goals.md, `goal@knowledge-architect@documentation-stays-consistent`
+
+- Requires: the check reports a dangling reference.
+- Admits: a rule the project declares.
+- Rules out: a merge with no review.
+- Siblings: refined by core `goal@core@documents-stay-current`, `goal@core@document-rules-are-checked` and `goal@core@checks-a-commit-from-its-hook`.
+
+#### docs/goals.md, `goal@knowledge-architect@the-owner-decides`
+
+- Requires: the order of known work goes to the owner.
+- Admits: a merge reserved to the owner; a report in the record, in a commit message, or at the end of the turn.
+- Rules out: a question to the owner that a measurement answers.
+- Cases the owner may not intend: "these and nothing else" (round 1's question, held).
+- Siblings: refined by agent-skills `goal@agent-skills@goals-state-the-owner-s-intent`. Cited by serves-one-kind and generic-tools for asks and for taking in a part.
+
+#### docs/goals.md, `goal@knowledge-architect@the-owner-s-word-is-verified`
+
+- Requires: an agent says a premise is false before it builds on it.
+- Admits: a premise checked by a measurement.
+- Rules out: work built on an unresolved contradiction.
+- Siblings: exempted in the never-ranks list of `goal@knowledge-architect@agents-work-without-drift` (Q17 applied); a merge condition of serves-one-kind.
+
+#### docs/goals.md, `goal@knowledge-architect@design-with-agents-as-counterparts`
+
+- Requires: the agent challenges the owner's design before it builds it.
+- Admits: a bare pick.
+- Rules out: an open choice reaching main before the owner meets it.
+- Siblings: a merge condition of serves-one-kind.
+
+#### docs/goals.md, `goal@knowledge-architect@owner-attention-on-what-is-theirs`
+
+- Requires: measurements taken before a proposal is put to the owner.
+- Admits: the owner reading a transcript by choice.
+- Rules out: a proposal whose consequences the owner must work out.
+
+#### docs/goals.md, `goal@knowledge-architect@serves-one-kind-of-project`
+
+- Asks of future work: the setup and the READMEs state the four conditions and the asks; nothing built for a state that follows no ask.
+- Requires: the setup states linear history.
+- Admits: JavaScript glue for a web target.
+- Rules out: a checker mode for another language.
+- Cases the owner may not intend: `design@core@agents-table`'s `harness = []`, which every core mock project but `unsound` uses, may count as built only for the checker-alone state (the issue opened per Q20).
+- Siblings: refined by gates `goal@gates@gates-from-a-list`; cited by `goal@knowledge-architect@the-owner-decides`, `goal@knowledge-architect@agents-get-a-complete-workflow`, `goal@knowledge-architect@every-target-project-can-adopt-it`, `goal@knowledge-architect@setup-brings-quality-tools` and agent-skills `goal@agent-skills@installed-text-works-in-every-target-project`.
+
+#### docs/goals.md, `goal@knowledge-architect@every-target-project-can-adopt-it`
+
+- Requires: one reference form in every project.
+- Admits: conformance reached over several branches.
+- Rules out: a pin that moves with no edit.
+- Siblings: core `goal@core@relocation-needs-only-goal-changes` (F7 below); core `goal@core@document-rules-are-checked` admits "save what a declaration switches off" after "the reference grammar". That admission meets this goal's "the checker enforces one reference grammar in every project", and the exclusion holds.
+
+#### docs/goals.md, `goal@knowledge-architect@generic-tools-and-procedures-are-shipped`
+
+- Requires: a gate one project built and the owner took in ships in a released version.
+- Admits: a copy kept until the project's move; a copy kept after the project considered the shipped part (Q22a).
+- Rules out: a skill of this repository that restates a shipped procedure.
+- Cases the owner may not intend: "which runs the checker it builds" is given as the reason why a part ships at merge, also for parts that are not the checker (a skill, the gates library).
+- Siblings: gates `goal@gates@gates-from-a-list` rules out a copy kept past the move, which this goal only admits. That is no conflict under rule 5, and the gates exclusion holds, per Q22b. Also serves-one-kind (F4).
+
+#### docs/goals.md, `goal@knowledge-architect@the-workflow-leads-to-better-code`
+
+- Requires: a code review against the default shape before a merge.
+- Admits: a departure with its reason stated.
+- Rules out: a fixed quality definition.
+
+#### docs/goals.md, `goal@knowledge-architect@projects-are-split-into-components`
+
+- Requires: the criteria applied when new work is placed.
+- Admits: a single-purpose project kept as one Component.
+- Rules out: a split rule a Component fails alone.
+- Siblings: core `goal@core@relocation-needs-only-goal-changes`. A move that the placement criteria call for, with no change of goals, is ruled out there unless it breaks no check.
+
+#### docs/goals.md, `goal@knowledge-architect@adoption-is-easy`
+
+- Requires: each README states with an example what an adopter does.
+- Admits: an adopter who reads the source by choice.
+- Rules out: an adoption step stated only in source.
+
+#### docs/goals.md, `goal@knowledge-architect@the-workflow-improves-through-real-use`
+
+- Asks of future work: this repository's own intake instructions judge each case against the goals judged in use.
+- Requires: a retrospective records an installed instruction that failed the session.
+- Admits: an instruction added on a defect found by reading.
+- Rules out: a mock project.
+- Siblings: the learning route that Q19 centralised for every goal judged in use; `goal@knowledge-architect@records-live-beside-the-code`.
+
+#### docs/goals.md, `goal@knowledge-architect@setup-brings-quality-tools`
+
+- Requires: the setup gives the commit-message check.
+- Admits: a project's own extra tool.
+- Rules out: a project that designs its own gate runner.
+- Siblings: refined by gates.
+
+#### crates/core/docs/goals.md, `goal@core@documents-stay-current`
+
+- Requires: a merging commit that deletes an entry still cited fails.
+- Admits: a dangling pointer in an unread text.
+- Rules out: a hand-edited generated listing.
+
+#### crates/core/docs/goals.md, `goal@core@document-rules-are-checked`
+
+- Requires: an entry missing a required part fails.
+- Admits: a path outside the check.
+- Rules out: a rule held back with no declaration.
+- Siblings: `goal@knowledge-architect@every-target-project-can-adopt-it` (see that goal).
+
+#### crates/core/docs/goals.md, `goal@core@relocation-needs-only-goal-changes`
+
+- Requires: a moved Component passes after its declaration changes.
+- Admits: a rename by one search and replace. "a few mechanical edits" is not bounded, and the admits case reads it as few operations, not few sites.
+- Rules out: a move for tidiness that needs references rewritten by judgement.
+- Siblings: refines `goal@knowledge-architect@agents-work-without-drift` (Q15); `goal@knowledge-architect@projects-are-split-into-components`.
+
+#### crates/core/docs/goals.md, `goal@core@records-reach-their-reader`
+
+- Requires: the listing for a decision names a code comment that cites it.
+- Admits: a filtered listing.
+- Rules out: a list of outstanding items kept by hand.
+
+#### crates/core/docs/goals.md, `goal@core@documents-render-as-a-linked-site`
+
+- Requires: a reference rendered as a link.
+- Admits: any rendering tool.
+- Rules out: a resolved reference rendered as plain text.
+- Not met yet.
+
+#### crates/core/docs/goals.md, `goal@core@projects-add-their-own-checks`
+
+- Requires: a project's naming check in the same report as the built-in ones.
+- Admits: an extension one project uses.
+- Rules out: an extension that needs a change to the core.
+
+#### crates/core/docs/goals.md, `goal@core@checks-a-commit-from-its-hook`
+
+- Requires: `git commit -a -m` in a linked worktree, on a failing tree, is refused.
+- Admits: `--amend` also judged.
+- Rules out: a conforming covered commit refused.
+- Cases the owner may not intend: options left out of coverage (the owner's earlier ruling).
+
+#### crates/agent-skills/docs/goals.md, `goal@agent-skills@one-skill-per-activity`
+
+- Requires: a review carried out from the review skill.
+- Admits: a skill for an activity the project never carries out.
+- Rules out: a bundled skill; a skill loaded with no pointer.
+- "sub-activity" stays undefined (round 1's question, held).
+
+#### crates/agent-skills/docs/goals.md, `goal@agent-skills@no-contradiction-in-workflow`
+
+- Admits: conflicting instructions that never meet.
+- Rules out: opposite outcomes of one finding with no precedence.
+
+#### crates/agent-skills/docs/goals.md, `goal@agent-skills@reviews-judge-by-the-writer-s-criteria`
+
+- Requires: a commit message judged by the rules binding its writer.
+- Admits: a text written outside any skill.
+- Rules out: a reviewer's own preference.
+
+#### crates/agent-skills/docs/goals.md, `goal@agent-skills@installed-text-works-in-every-target-project`
+
+- Requires: the checker run the way the project says.
+- Admits: silence where judgement handles the case.
+- Rules out: a path only this repository holds.
+- Siblings: agrees with Q19's split; the retrospective in another project needs none of knowledge-architect's goals.
+
+#### crates/agent-skills/docs/goals.md, `goal@agent-skills@installed-text-works-in-any-environment`
+
+- Requires: the review skill reached with no user-level instruction.
+- Admits: the harness's dispatch mechanism.
+- Rules out: a plugin's skill taking the installed skill's place.
+
+#### crates/agent-skills/docs/goals.md, `goal@agent-skills@only-needed-instructions`
+
+- Requires: an instruction a goal states stays.
+- Admits: an instruction for a case judgement handles poorly.
+- Rules out: a fixed count of reviewers.
+- Siblings: removing the per-goal retrospective lines from the measures removes acts that this goal counts as needed.
+
+#### crates/agent-skills/docs/goals.md, `goal@agent-skills@goals-state-the-owner-s-intent`
+
+- Requires: "every user" kept.
+- Admits: a wider goal shown to the owner.
+- Rules out: a goal reworded to name the module that meets it.
+- Siblings: refines `goal@knowledge-architect@the-owner-decides`; exempted by `goal@knowledge-architect@agents-work-without-drift` (F1).
+
+#### crates/gates/docs/goals.md, `goal@gates@gates-from-a-list`
+
+- Requires: no project code for logs or distilled failures.
+- Admits: a behaviour kept until the project's move.
+- Rules out: a project's own runner, and a copy kept past the move. The second is an exclusion over what generic-tools admits; it holds, per Q22b.
+
+#### crates/mutate/docs/goals.md, `goal@mutate@a-named-mutation-is-checked-safely`
+
+- Requires: uncommitted edits restored byte for byte.
+- Admits: any test command.
+- Rules out: the crate proposing a mutation from the diff.
+- Cases the owner may not intend: several files are required by the measure (round 1's M4, held).
+
+#### tools/xtask/docs/goals.md, `goal@xtask@one-command-runs-every-gate`
+
+- Requires: the merge check runs this command.
+- Admits: one gate run by hand.
+- Rules out: another list of gates.
+
+#### tools/xtask/docs/goals.md, `goal@xtask@repeated-tasks-are-automated`
+
+- Requires: the reword no-loss check is a command.
+- Admits: a command for a one-off task.
+- Rules out: the merge-predicate checks typed one by one.
+
+#### crates/git/docs/goals.md, `goal@git@a-pure-wrapper-over-git`
+
+- Requires: folding a fixup as one operation.
+- Admits: a tool that runs git itself.
+- Rules out: a library function that chooses which commits to fold.
+
+### The owner's ruling
+
+The owner ruled on every goal as the tree holds it, the open question's default with it. The
+owner's words, verbatim:
+
+```text
+agreed on current goals, proceed
 ```

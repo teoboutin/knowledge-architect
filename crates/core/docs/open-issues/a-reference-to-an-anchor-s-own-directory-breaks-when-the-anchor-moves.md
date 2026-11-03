@@ -5,7 +5,7 @@ kind: question
 
 ## Summary
 
-`goal@core@relocation-is-one-manifest-edit` is met while moving a Component or a location leaves
+`goal@core@relocation-needs-only-goal-changes` is met while moving a Component or a location leaves
 no reference to repair among those that name the moved Component or location, "the anchor-relative
 `path` references under a moved Component or location included". `design@core@every-path-names-its-anchor` gives an anchor's own directory
 no spelling under its own name, so it is named from an ancestor, as `path@<parent-anchor>@<dir>/`,

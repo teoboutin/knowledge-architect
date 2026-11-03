@@ -72,7 +72,7 @@ and `git show <that commit>^:crates/core/docs/open-issues/installed-file-finding
 prints it; `issue@core@a-staged-check-compares-installed-files-with-unstaged-shipped-text`;
 `design@core@owned-namespace-check`, which this slice splits, the split
 `issue@core@core-heads-bundle-decisions-with-many-citing-sites` no longer lists; `register@core@goal`;
-`goal@core@relocation-is-one-manifest-edit`; `spec@plans@path-quickfixes`, on hold, which plans a
+`goal@core@relocation-needs-only-goal-changes`; `spec@plans@path-quickfixes`, on hold, which plans a
 rewrite of `design@core@fix-before-the-checks` too: whichever lands second reads the other's.
 
 ## Fails alone on
@@ -90,9 +90,9 @@ rewrite of that head ends it.
 ## Decided design
 
 **The rename.** With `model` out, "core" no longer says which crate it is. The session weighed the
-rename's cost, the references outside `goal@core@relocation-is-one-manifest-edit`'s guarantee,
-against a descriptive name, and proposed it; the owner approved it, R5, with the reason "core would
-become misleading" (#arg-95, #arg-106).
+rename's cost, the references outside the guarantee of `relocation-is-one-manifest-edit`, now
+`goal@core@relocation-needs-only-goal-changes`, against a descriptive name, and proposed it; the
+owner approved it, R5, with the reason "core would become misleading" (#arg-95, #arg-106).
 
 **Phase 4, and what stays in phase 2.** The core's placement rule puts a finding before the last
 phase only when another check reads it, or when it reports what the model could not read. No check

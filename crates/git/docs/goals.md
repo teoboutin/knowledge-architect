@@ -1,10 +1,7 @@
 # Goals — git
 
-What this component is for. A goal is met or unmet; a decision about how the component is built
-lives in `register@git@design`. A goal stays here while it is met, and leaves only when the owner
-abandons it. This component is published, so its goals are encouraged to refine a goal of the
-project as a whole, `register@knowledge-architect@goal`. Every goal here serves one purpose: one
-library wraps git for every tool of knowledge-architect that needs to interact with git.
+Every goal here serves one purpose: one library wraps git for every tool of knowledge-architect that
+needs to interact with git.
 
 ## Every tool of knowledge-architect that needs to interact with git can do so through one library that wraps git alone `##a-pure-wrapper-over-git`
 
@@ -27,3 +24,8 @@ needs and read what a repository holds, holds each operation in git's terms that
 from several invocations, has no function that reads a project's documents or decides for the
 matter a tool works on, and its dependencies hold no part of knowledge-architect that knows a
 project's documents or the workflow.
+
+- Requires, for instance: the library offers folding a fixup commit into the commit it fixes as one
+  operation.
+- Admits, for instance: a tool that runs git itself, past the library.
+- Rules out, for instance: a function of the library that chooses which commits a tool folds.

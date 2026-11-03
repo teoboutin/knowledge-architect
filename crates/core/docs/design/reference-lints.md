@@ -124,7 +124,7 @@ section belongs to a skill or to an agent.
   directory or a file of the harness's layout, unique by name, and a project has one primer and
   one root CLAUDE.md. An anchor would carry no information, the argument
   `design@core@plans-is-a-reserved-anchor` makes for `plans`. A reference to a harness kind still serves
-  `goal@core@relocation-is-one-manifest-edit`, which binds a reference to what the manifest
+  `goal@core@relocation-needs-only-goal-changes`, which binds a reference to what the manifest
   places: nothing a harness kind names moves with a manifest edit.
 - **The rejected design "A register reference with no anchor"**,
   `rejected@core@register-reference-without-anchor`, lost on two reasons. Its first, that the tool cannot

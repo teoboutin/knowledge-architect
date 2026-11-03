@@ -87,8 +87,10 @@ which `rejected@agent-skills@one-generic-auditor-agent` records as uneven.
 
 The goals bind outright and are the only statements assumed to come from the owner, per
 `goal@knowledge-architect@the-owner-decides`, and agents work toward them over a long time, per
-`goal@knowledge-architect@agents-work-without-drift`. So a goal must not require or rule out what
-the owner never did, since every later agent applies it at its widest reading, and must not change
+`goal@knowledge-architect@agents-work-without-drift`. The standard serves
+`goal@agent-skills@goals-state-the-owner-s-intent`, which states the outcome its rules pursue: a goal
+at the breadth the owner gave it, that keeps its meaning while the work moves toward it. So a goal
+must not require or rule out what the owner never did, since every later agent applies it at its widest reading, and must not change
 as the design under it changes, since only the owner changes it. In rootpoint's goal history, 9
 changes over 7 commits, which `git log --follow -p -- docs/goals.md` in rootpoint lists, the drafting
 step caught no defect: reviews or the session caught 4, the owner 3, a design discussion 2; in 3 of
@@ -164,7 +166,8 @@ and that a reworded goal left unmet may even help, since a review is when the ow
 notices a misworded goal: a drafter
 that shapes a goal so the tree meets it states the project as it is, and the goal drives nothing.
 Google re:Work's guide to objectives, read in `path@agent-skills@docs/grounding/goal-standard.md`,
-counts objectives always fully met as not ambitious enough.
+counts objectives always fully met as not ambitious enough. It derives from
+`goal@agent-skills@goals-state-the-owner-s-intent`.
 
 ### What shows a goal met is sorted by whether its outcome depends on what the project does not control `##goal-met-in-tree-or-in-use`
 
@@ -233,7 +236,8 @@ keeps the wording by default, and drafts a narrower one only on the owner's word
 narrowing rules out. The owner argued that once a wording is approved, what it rules out becomes the
 owner's word for every later agent, noticed or not, and that a goal's reach is worth showing because
 it surfaces effects wider than the owner intended. The rival, a narrower wording as the default
-repair, rules out cases the owner never ruled out, which the next round reports as a new reach.
+repair, rules out cases the owner never ruled out, which the next round reports as a new reach. It
+derives from `goal@agent-skills@goals-state-the-owner-s-intent`.
 
 ### A fresh goal reviewer reads every version of a goal draft before the owner rules, in a draft, a whole-set and a merge mode `##goal-reviewer-agent`
 
@@ -288,6 +292,7 @@ findings on old wording are no fewer than the previous round's, the session puts
 owner instead of running another round. The findings of the round that stops go to the owner beside
 the goals, unrepaired. The version each round read is kept in the conversation for a batch of three
 goals or fewer and in the record for a larger one. It serves
+`goal@agent-skills@goals-state-the-owner-s-intent`, whose review stops after a few rounds, and
 `goal@knowledge-architect@owner-attention-on-what-is-theirs`.
 
 - **It counts old wording** because each round's repairs write new wording, in which the next round

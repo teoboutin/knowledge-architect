@@ -62,7 +62,7 @@ It strains `design@core@api-facade`, whose membership leaves an extension nothin
 questions with. `goal@core@projects-add-their-own-checks` is met "while an extension needs no
 change to the core and uses only its public, documented API". An extension that has to guess membership from paths
 quietly breaks where the manifest says something else, and with it
-`goal@core@relocation-is-one-manifest-edit` for any project that runs one.
+`goal@core@relocation-needs-only-goal-changes` for any project that runs one.
 
 ### What would close it
 

@@ -1,31 +1,31 @@
 ---
 kind: todo
 ---
-# Four goals homes state no purpose that every goal of their Component serves
+# The core's goals home states a purpose that leaves its goal on a rendered site outside it
 
 ## Summary
 
 `goal@knowledge-architect@projects-are-split-into-components` asks that each Component holding Rust
-code in its own files serve one purpose. The head of a Component's goals home is where that purpose
-would be stated, as the purpose its goals serve. The heads of the goals homes of gates,
-agent-skills and xtask say only what the home holds ("What this component is for", "What this tool is
-for"), and state no purpose. The core's head states one, the checker's report of drift, which leaves
-`goal@core@documents-render-as-a-linked-site` outside it.
+code in its own files serve one purpose, which the head of its goals home states. Every head now
+states one, on the owner's ruling in the review of the whole goal set. The core's head says the
+checker "exists mostly for" `goal@knowledge-architect@agents-work-without-drift`, which leaves
+`goal@core@documents-render-as-a-linked-site` outside it, and no root goal now names a rendered
+site.
 
 ## Details
 
 ### What
 
-A head that states each Component's purpose, written under `skill@knowledge-architect-goal-setting`,
-and for the core either a purpose that covers the rendered site or a design head of its own that
-argues the second purpose.
+A core head whose purpose covers the rendered site, or the site's goal placed in a Component whose
+purpose covers it, or a design head of the core that argues the second purpose; each written under
+`skill@knowledge-architect-goal-setting`.
 
 ### Why it matters
 
-Until a head states the purpose, the goal cannot be judged for these Components, and for the core it
-reads as a second purpose.
+Until the core's purpose covers every goal of its home, the one-purpose test cannot be judged for
+the core, and the site's goal reads as a second purpose.
 
 ### What would close it
 
-Each of the four heads states its Component's purpose, approved by the owner, or a Component that
-departs argues it in a head of its own design home.
+The core's head, or the site goal's placement, ruled by the owner so that the core's goals serve
+one stated purpose; or a design head of the core that argues the departure.

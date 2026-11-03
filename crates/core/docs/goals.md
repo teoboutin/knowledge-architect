@@ -3,104 +3,143 @@
 What the core checker is for, as its share of the project's goals,
 `register@knowledge-architect@goal`. The checker exists mostly for
 `goal@knowledge-architect@agents-work-without-drift`: it reports where the documents and the code
-drift from the recorded design, and it makes keeping that design current cheap. A goal is met or
-unmet, where a decision about how the checker is built is won or lost and lives in
-`register@core@design`. A goal stays here while it is met, and leaves only when the owner abandons
-it.
+drift from the recorded design, and it makes keeping that design current cheap.
 
-## In a project whose gates run the checker on each commit, references, register entries and generated listings stay correct at every commit `##documents-stay-current`
+## In a project whose gates run the checker on each commit, its references, its goals and the entries of its record, and the texts the checker generates stay correct at every commit `##documents-stay-current`
 
-In a project whose gates run the checker on each commit, these hold on the main branch and on every
-commit of a branch that merges:
+A reference is a pointer by which one text names a goal, an entry of the record, a file, a
+directory or a section of a text. A generated text is one the checker writes into the project's tree
+from its documents, such as a listing of the entries of one kind of record. In a project whose gates
+run the checker on each commit, these hold on the main branch and on every commit of a branch that
+merges:
 
 - every reference in the texts the checker reads resolves;
-- every register entry has the shape its register declares;
-- every generated listing matches what regenerating it writes.
+- every goal has the shape a goal requires, and every entry of the record the shape its kind of
+  record requires;
+- every text the checker generates matches what generating it again writes.
 
 It is met while the checker's verdict fails on a tree where any of these fails, and on a range for
 each commit where any fails.
 
 It refines `goal@knowledge-architect@documentation-stays-consistent`.
 
-## The rules a project's documents must meet, compiled in or declared in its manifest, are enforced by the checker `##document-rules-are-checked`
+- Requires, for instance: a commit of a merging branch that deletes an entry another text still
+  names fails the checker's verdict.
+- Admits, for instance: a pointer that resolves to nothing in a text the checker does not read.
+- Rules out, for instance: a generated listing edited by hand so that it differs from what
+  generating it writes, at a commit of a branch that merges.
 
-A project states in its manifest what it records, where each kind of record lives, and the kinds and
-the anchors by which one record points at another, in the reference grammar every project shares.
-These stand beside the rules the core compiles in.
+## The rules a project's documents must meet, those the checker holds for every project and those the project declares, are enforced by the checker `##document-rules-are-checked`
 
-A tree that passes the checker conforms to what its manifest states, to the rules the core compiles
-in and to the reference grammar, in the texts the checker reads. No project can hold back any part
-of these three, beyond:
+A project declares to the checker what it records, where each kind of record lives, and the kinds
+and the places by which one record points at another, in the reference grammar every project
+shares. These stand beside the rules the checker holds for every project.
 
-- the paths its manifest leaves out of the walk;
-- the rules a declaration of its manifest switches off, as an empty list of harnesses switches off
-  the checks of the installed text.
+A tree that passes the checker conforms to what the project declares, to the rules the checker
+holds for every project and to the reference grammar, in the texts the checker reads. No project
+can hold back any part of these three, beyond:
+
+- the paths it declares outside the check;
+- the rules a declaration of the project switches off.
 
 Conformance is established by running the checker, not by a reviewer remembering the rules.
 
 It is met while a tree, and each commit of a range, that the checker passes conform, in the texts
-the checker reads, to every rule the core compiles in that no declaration switches off, to every
-rule the manifest declares, and to the reference grammar, save what a declaration switches off.
+the checker reads, to every rule the checker holds for every project that no declaration switches
+off, to every rule the project declares, and to the reference grammar, save what a declaration
+switches off.
 
 It refines `goal@knowledge-architect@documentation-stays-consistent`.
 
-## Moving a Component or a location, moving a declared register's home within the anchors that carry it, or turning a register's home from one file into a directory, costs at most one edit of the checker's manifest, and no edit to a reference of the set its measure names `##relocation-is-one-manifest-edit`
+- Requires, for instance: an entry of a kind the project declares, missing a part that kind
+  requires, fails the check.
+- Admits, for instance: a document under a path the project declares outside the check, which
+  breaks every rule.
+- Rules out, for instance: a project holding back a rule the checker holds for every project with
+  no declaration that switches it off.
 
-Every reference to what the manifest places names its anchor, and each anchor's directory is
-declared once, in the checker's manifest. So:
+## A relocation of part of a project's documents needs no manual work beyond the change of goals its change of purpose calls for, and a few mechanical edits `##relocation-needs-only-goal-changes`
 
-- moving a Component or a location changes the manifest;
-- moving a declared register's home changes its declaration, and moves it in every anchor that
-  carries the register;
-- refactoring a register's home from one file to a directory changes no file outside the home and no
-  manifest line;
-- none of these changes a reference to what moved, as the measure names those references.
+A project relocates part of its documents when it moves a Component, or another directory that
+holds its records, moves the place where a kind of record lives, or turns that place from one file
+into a directory. A project relocates only on a change of purpose of the part it moves, which the
+goals carry and which justifies the move, or where the relocation, with mechanical edits alone,
+breaks no check. Either way, changing the goals that the change of purpose calls for is the only
+manual work it needs, beside a few mechanical edits, such as a new name replaced wherever the old
+one is cited. An existing project that brings its documents into conformance when it adopts the
+workflow makes no relocation under this goal.
 
-Renaming a Component's directory renames its anchor, which its basename names, and is no move.
+It is met while:
 
-It is met while such a move or change of shape leaves no reference to repair among those that name
-the moved Component or location, or a register, its home or one of its entries, the anchor-relative
-`path` references under a moved Component or location included. A `path` reference to a file inside
-a register's home is outside this goal.
+- each such relocation, once the goals carry its change of purpose, passes the check after no
+  other edit than that change of the goals and a few mechanical edits;
+- the installed text has a session relocate part of a project's documents only on those two
+  occasions.
 
-It refines `goal@knowledge-architect@documentation-stays-consistent`.
+It refines `goal@knowledge-architect@agents-work-without-drift`.
 
-## A recorded decision or an outstanding issue is delivered to whoever needs it, through checked references `##records-reach-their-reader`
+- Requires, for instance: a Component moved to another directory, with no change of purpose,
+  passes the check after the project's declaration of where it lives changes.
+- Admits, for instance: a Component renamed, its old name replaced wherever it is cited by one
+  search and replace.
+- Admits, for instance: an existing project that moves its decision records into the home the
+  workflow gives them, when it adopts the workflow.
+- Rules out, for instance: a Component moved for tidiness, with no change of purpose, after which a
+  session must rewrite references one by one, by judgement, for the check to pass.
+
+## A recorded decision, or what is outstanding, is delivered to whoever needs it, through checked references `##records-reach-their-reader`
 
 The checker gives two listings, so a session reading a decision meets what stands against it, and a
 reversal comes with the list of what it touches:
 
 - for any entry, every text of the tree the checker reads that references the entry;
-- every standing issue and tripwire of the project.
+- everything the project records as outstanding, and every piece of evidence it records that would
+  flip a recorded decision.
 
 It is met while the first listing holds every reference in the texts of the tree the checker reads,
-and the second every standing issue and tripwire, both computed from the tree, never kept by hand.
+and the second everything the project records as outstanding and every such piece of evidence,
+both computed from the tree, never kept by hand.
 
 It refines `goal@knowledge-architect@structure-and-workflow-work-together`.
 
+- Requires, for instance: the listing for a decision names a code comment that cites it.
+- Admits, for instance: a listing filtered to one kind of text, beside the whole one.
+- Rules out, for instance: a list of what is outstanding kept by hand.
+
 ## The documents render as one linked site `##documents-render-as-a-linked-site`
 
-A preprocessing pass rewrites every reference into a link and an mdbook build renders the result,
-hosted with the project once it is released. Dense cross-referencing is what makes the rendered site
-worth reading, so every citeable thing having one reference form serves this goal directly.
+knowledge-architect's documents render as one site, each reference rendered as a link to its
+target, hosted with the project once it is released.
 
 It is met while a build renders knowledge-architect's Markdown documents that the checker reads into
-one hosted site, each reference that resolves rendered as a link to its target.
+one site, each reference that resolves rendered as a link to its target, and while what
+knowledge-architect builds publishes that site with the project, such as a step of its release that
+publishes it.
+
+- Requires, for instance: a reference to a decision, in a goal's text, renders as a link to that
+  decision.
+- Admits, for instance: a site built by any rendering tool.
+- Rules out, for instance: a resolved reference rendered as plain text.
 
 ## A project adds checks of its own through a documented extension API `##projects-add-their-own-checks`
 
 A project whose conventions the built-in checks do not cover writes its own checks as an extension,
-against a library API documented with its contract and its examples. The project's checker binary
-runs them in the same subcommands, with the same report, as the built-in ones.
+against a library API documented with its contract and its examples. The checker the project runs
+with its extension runs them in the same commands, with the same report, as the built-in ones.
 
-It is met while an extension needs no change to the core and uses only its public, documented API.
+It is met while an extension needs no change to the core and uses only its public API, documented
+with its contract and its examples, and while the checker run with an extension runs its checks in
+the same commands, with the same report, as the built-in ones.
 
 It refines `goal@knowledge-architect@agents-work-without-drift`: a project's own checks guard its
 own design intent.
 
-## The checker judges a commit's tree from the git pre-commit hook `##checks-a-commit-from-its-hook`
+- Requires, for instance: a project's check of its own naming convention reports in the same
+  report as a built-in finding.
+- Admits, for instance: an extension that only one project uses.
+- Rules out, for instance: an extension that needs a change to the core to run.
 
-It refines `goal@knowledge-architect@documentation-stays-consistent`.
+## The checker judges a commit's tree from the git pre-commit hook `##checks-a-commit-from-its-hook`
 
 A project can run the checker from its git pre-commit hook, the hook git runs before it records a
 commit, to judge the tree that commit records, before the commit exists. The commits this covers are
@@ -109,6 +148,14 @@ before them, given its message by `-m`, by `-F` or in the editor, with or withou
 other option of `git commit`. Each is covered in the repository's main worktree and in a linked one.
 A target project is covered here when a `.git` is at or above its directory.
 
-It is met while the core's tests show, for each of the three forms, in a main worktree and in a
-linked one, a commit whose tree fails, which the hook refuses, and one whose tree conforms, which
-git records.
+It is met while the core's tests show, for each of the three forms, `git commit <paths>` both with
+and without `--` before its paths, with each of the three ways of giving its message, with and without `-q`, in a main worktree
+and in a linked one, a commit whose tree fails, which the hook refuses, and one whose tree
+conforms, which git records.
+
+It refines `goal@knowledge-architect@documentation-stays-consistent`.
+
+- Requires, for instance: `git commit -a -m` in a linked worktree, on a tree that fails, is refused
+  by the hook.
+- Admits, for instance: a hook that also judges a commit made with `--amend`.
+- Rules out, for instance: a hook that refuses a covered commit whose tree conforms.
