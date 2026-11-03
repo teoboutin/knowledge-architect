@@ -103,17 +103,19 @@ A decision that shapes how the code of several Components is written goes to the
 lowest intermediate Component enclosing them all, or to the root's where none encloses them all.
 Two decisions binding several Components are the root's whatever encloses them: a decision on their
 shape, packaging or layout, as which Components exist and how they depend on each other, per
-`design@agent-skills@dependency-decision-home`, on the owner's argument that the layout is then read
-in one place, at the cost of loading it on sessions outside the Components it binds; and a principle stated for every Component of a kind, a property a Component has whatever
-part of the project it belongs to and can gain or lose without moving, such as being published,
+`design@agent-skills@dependency-decision-home`, on the owner's condition, which the session argued
+by extending the owner's argument for dependency decisions, that the layout is then read in one
+place, at the cost of loading it on sessions outside the Components it binds; and a principle stated
+for every Component of a kind, a property a Component has whatever part of the project it belongs to and can gain or lose without moving, such as being published,
 since a Component anywhere in the tree can gain it. The component-creation skill states the
 occasion, point 3 of the decision-recording skill's rule on the owning Component places the
 decision, and the goal-setting skill has a nested Component's goal refine its intermediate
 Component's. How a reading reaches the intermediate's design is
 `design@agent-skills@enclosing-design-read-at-grounding`.
 
-The goals are the top of a Component, from which its design derives, and goals can be made to form a
-tree, the owner's argument; the directories follow that tree, so every set of Components has one
+The goals are the top of a Component, from which its design derives, the owner's argument; goals can
+be made to form a tree, where principles cannot, the session's argument, which the owner adopted; the
+directories follow that tree, so every set of Components has one
 lowest enclosing Component, and the same goals and the same decisions give the same homes, in
 whatever order they were met. Its costs: a decision in the lowest enclosing Component is loaded by
 the sessions of the other Components it encloses; and a change of purposes moves Components under or
