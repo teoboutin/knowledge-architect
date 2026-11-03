@@ -273,3 +273,27 @@ Left for the owner, as the findings route them: the purposes of the agent-skills
 xtask heads, drafted by the session; the never-ranks list of
 `goal@knowledge-architect@agents-work-without-drift`, which omits
 `goal@knowledge-architect@the-owner-s-word-is-verified`; every `intent` finding left as it was.
+
+### The owner's ruling on round 1's batch, and a goal added before round 2
+
+The owner agreed to every default of Q14 to Q17, and found the wordings in the tree good. The
+owner's words, verbatim:
+
+```text
+Agreed on those defaults, the current goals in the tree all look quite fine, I believe the wordings are quite good.
+```
+
+The owner then asked why the goal design of agent-skills held so many heads on how goals are set
+up, most from this session, and whether they should stand on argument; the owner had read the
+design subdocument on goals, which shares the basename of the goals home. The owner agreed to add a
+goal stating the outcome the goal standard serves, so that a change to the standard that strains it
+goes to the owner, and kept the goal design heads as they are, with no relocation in this branch:
+
+```text
+I agree with adding the goal about goal shapes.
+The design of goals can probably stay this way overall, lets not bring more relocation/migration work in scope today.
+```
+
+The session drafted `goals-state-the-owner-s-intent` in the agent-skills goals home, refining
+`goal@knowledge-architect@the-owner-decides`. It is new wording in round 2. The goal design heads
+that argue the standard cite it in the commit that writes the ruled goals.
