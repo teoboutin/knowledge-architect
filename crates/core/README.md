@@ -130,6 +130,9 @@ a defined id written outside its reference form: a reference-shaped token outsid
 `design@core@plain-word-lint`. An id several entries define gets one finding listing each
 reference, and a quotation, between double quotes or on a blockquote line, is read by none of the
 three, per `design@core@quotation-read-by-no-id-lint`.
+In a goals home, its goals and its head alike, `references` refuses every reference that is not a
+goal or a register's home of the home's own Component or of a Component that encloses it, per
+`design@core@goals-home-cites-upward-only`.
 The directory of an anchor other than the root has no spelling under its own name, so a reference
 names it from the anchor above it, as `path@<parent-anchor>@<dir>/`, per
 `design@core@every-path-names-its-anchor`. An illustration of a form writes its id as a placeholder
