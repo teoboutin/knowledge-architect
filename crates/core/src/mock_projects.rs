@@ -427,8 +427,10 @@ mod planted {
         // the root reaching inside `plans`.
         // And an item of a plan cited from outside it, which the scoped resolution refuses, and
         // a `rejected` entry no design entry cites, which the orphan check reports. Then, in
-        // notes/ids.md, a defined id written outside its reference form, once per lint.
-        ("references", 27, "is referenced"),
+        // notes/ids.md, a defined id written outside its reference form, once per lint. And, in
+        // docs/goals.md, a design head cited from a goals home, which resolves and is refused
+        // there, per `design@core@goals-home-cites-upward-only`.
+        ("references", 28, "is referenced"),
         // One defect per shape assertion over what is there: a missing index, an undeclared
         // kind, a missing owed subsection, an undeclared group, a file of another suffix, and
         // frontmatter that does not parse.

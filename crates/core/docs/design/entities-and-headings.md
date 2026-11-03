@@ -204,6 +204,38 @@ silent false negative passes a tree that does not conform, against
 `goal@core@document-rules-are-checked`: a tree that passes the checker conforms to the reference grammar in the texts the checker reads, save what a declaration switches off. The candidate rule that bounds this is
 `design@core@at-span-candidate-rule`.
 
+### A goals home cites only a goal or a register's home of its own Component or of one enclosing it, and every other reference there is refused `##goals-home-cites-upward-only`
+
+In a goals home, its goals and its head alike, a reference resolves only where it is a `goal` or a
+`register` reference whose anchor is the home's own or a Component whose directory holds the
+home's anchor, the root included. Every other reference there is refused with a finding of its
+own, beside any finding its resolution gives: a goal or a register's home of a nested or a sibling
+Component, every other kind, `design`, `issue`, `rejected`, `tripwire` and `path` among them, and
+every harness reference, which names a skill, an agent or a section. The finding names the repair:
+a goal of the home's own or an enclosing Component, or the sentence rewritten so it names no entry,
+never the span with its backticks removed, per `design@agent-skills@plain-text-is-no-repair`. Every
+other document cites in whatever direction its subject asks.
+
+A goal is the owner's statement and changes only through the owner, per
+`goal@knowledge-architect@the-owner-decides`, while agents write, move and close design heads,
+issues and skill sections on their own. A goal that cites one of them is touched when it moves, and
+a goal tied to a nested Component is tied to a shape of the project: the nested Component can be
+split or replaced while the purpose above it stays. A goal refines a goal of its own Component or of
+one enclosing it, so the citations of refinement point that way, as a nested Component's goal
+refines its intermediate Component's, per `design@agent-skills@intermediate-component-occasion`. A
+goals home's head is held to the same rule: the owner ruled that no design head is cited anywhere in
+a goals home, since the lifecycle of goals that a head states rests on what the goal-setting skill
+says, and a consumer's goals home cites none of this project's heads either.
+
+The rule is a check, not a rule the goal reviewer applies alone, since it is mechanical, per
+`goal@knowledge-architect@mechanical-tasks-are-the-tool-s`, and the same in every project, per
+`design@core@the-regime-has-no-opt-out`. Its nearest rival, the one-way rule over every citation,
+`rejected@core@citation-direction-checked`, covered every document for an acyclicity that only the
+record search's clusters would use, and would fail every goal that refines another. This rule
+covers goals homes alone, admits a refinement, and stands on the stability of goals, which that
+entry's reason does not reach. The owner's reading, which the owner gave as a belief, is that most
+of that entry's argument was that the rule was unneeded for the design then settled. It is the one exception to `design@core@no-citation-direction-rule`.
+
 ### `id` answers whether an id is free with every entity the table defines under it, of every kind and every anchor, and leaves to its reader which collision matters `##id-lookup-command`
 
 `klarch id <id>...` prints, for each argument in order, `free` where the entity table defines

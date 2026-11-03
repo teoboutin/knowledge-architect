@@ -3,3 +3,5 @@
 ## Carry one defect per assertion, so a check that stops firing is visible `##planted-goal`
 
 The one goal of this mock project.
+
+Its decision is `design@planted@twice-defined`, a citation a goals home refuses.

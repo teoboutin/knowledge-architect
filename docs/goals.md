@@ -16,7 +16,7 @@ the workflow are designed to work together.
 A goal is met or unmet. A decision about how the project is built is won or lost, and lives in the
 design home. **A goal stays in this document while it is met.** A goal removed when it is achieved
 stops being checked, and can stop being met without anyone noticing. A goal leaves only when it is
-abandoned, on the owner's word, per `design@agent-skills@goal-lifecycle`. The goals are the owner's
+abandoned, on the owner's word. The goals are the owner's
 intent: an agent may propose wording, and the owner decides it.
 
 ## Agents work productively and autonomously without drifting from the design recorded in their project `##agents-work-without-drift`
@@ -84,7 +84,7 @@ builds; that part is its generic part. The workflow covers the generic part of e
 knowledge-architect's owner has taken in, per
 `goal@knowledge-architect@generic-tools-and-procedures-are-shipped`. An activity that only some
 target projects carry out, such as releasing, is covered for those that carry it out or are meant
-to. The activities include these, among those `goal@agent-skills@one-skill-per-activity` lists, a
+to. The activities include these, a
 list that grows with the workflow:
 
 - setting up a project;
@@ -105,8 +105,7 @@ list that grows with the workflow:
 - the retrospective.
 
 Each part of an item of the list above, after its colon, names a step that the skill of the item's
-activity holds. What the step says, beyond what the session's judgement handles, follows
-`goal@agent-skills@only-needed-instructions`.
+activity holds.
 
 No installed instruction teaches how to write Rust idiomatically, such as its error types or its
 lifetimes, whatever the test of a generic part finds; a mechanical gate on it, such as a set of
@@ -128,18 +127,15 @@ What is particular to one project stays in that project, beside the installed te
   brings little value.
 
 Each installed instruction says what it requires plainly enough to follow without guessing what it
-means. No two instructions are ones a session cannot both obey, as
-`goal@agent-skills@no-contradiction-in-workflow` states. What no instruction covers is left to the
-agent's judgement on purpose, per `goal@agent-skills@only-needed-instructions`.
+means. No two instructions are ones a session cannot both obey. What no instruction covers is left to the
+agent's judgement on purpose.
 
 It is met while the installed text holds:
 
-- a skill for each activity whose generic part knowledge-architect's owner has taken in, as
-  `goal@agent-skills@one-skill-per-activity` measures, and in
+- a skill for each activity whose generic part knowledge-architect's owner has taken in, and in
   it each step the list above names for that activity;
 - each instruction with one reading;
-- no two instructions a session cannot both obey, as
-  `goal@agent-skills@no-contradiction-in-workflow` measures;
+- no two instructions a session cannot both obey;
 - no instruction outside an offered shape that requires or assumes continuous integration or a pull
   request.
 
@@ -152,8 +148,7 @@ Where the installed text requires of a session a task whose result follows, with
 the tree, the repository's history, the workflow's rules and what the session gives it, and that
 takes several steps or a script the session would write, a published crate of knowledge-architect
 offers a command that does it, or a library function that the installed text has the project's
-maintenance binary call, the binary from which the project runs its gates, per
-`goal@gates@gates-from-a-list`, so every session gets the same result without building it again.
+maintenance binary call, the binary from which the project runs its gates, so every session gets the same result without building it again.
 Rewriting a branch's history holds such tasks: rebasing it onto a moved main branch where no
 conflict arises, with the check that every commit carried over; applying a message the session wrote
 to a commit that is not the newest; and folding a repair into the commit it repairs, with the check
@@ -417,7 +412,7 @@ for another harness.
 The definition of a target project, and what knowledge-architect covers, its activities, its checks
 and its tools, are not limited, and nothing of them is removed, on the argument that a current
 target project does not need it or does otherwise. That argument still counts for the economy of
-the installed text, per `goal@agent-skills@only-needed-instructions`, for the admission of an
+the installed text, for the admission of an
 instruction, per `goal@knowledge-architect@the-workflow-improves-through-real-use`, for the
 choice of knowledge-architect's owner whether to take in a generic part, per
 `goal@knowledge-architect@generic-tools-and-procedures-are-shipped`, and for the order of known
@@ -483,8 +478,7 @@ it serves gets it when it installs the workflow, moves its pin, or updates its d
 crate. What is particular to one project stays in it, declared or configured beside what
 knowledge-architect ships. So knowledge-architect is about more than keeping a project's documents:
 it holds the generic part of each such tool and procedure that its owner takes in. Where the part is
-a procedure that the session's judgement already carries out well enough, it ships in the form
-`goal@agent-skills@only-needed-instructions` admits. Until a part taken in ships, the project's own
+a procedure that the session's judgement already carries out well enough, it ships. Until a part taken in ships, the project's own
 copy of it stays.
 
 It is met while:

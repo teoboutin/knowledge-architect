@@ -8,7 +8,7 @@ project as a whole, `register@knowledge-architect@goal`.
 ## Every activity of a target project whose generic part knowledge-architect's owner has taken in has one installed skill `##one-skill-per-activity`
 
 An activity is the scope over which a complete set of procedures makes sense, a sub-activity
-included, as `skill@knowledge-architect-agent-configuration@where-text-goes` uses the term. Two
+included. Two
 tasks whose methodologies differ, their steps taken as a whole, are two activities, even where they
 share part of a name, and are not bundled in one skill. Where the two tests disagree, the
 methodologies decide.

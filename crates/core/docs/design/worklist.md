@@ -60,10 +60,12 @@ tripwires guarding a single-site instruction, each a shape the reference rule ad
 `rejected@agent-skills@one-search-agent-per-anchor`, whose reason was that an anchor bounds nothing.
 The design this decision did not keep: `rejected@core@one-residual-group`.
 
-### No rule on the direction of a citation is checked `##no-citation-direction-rule`
+### No rule on the direction of a citation is checked outside a goals home `##no-citation-direction-rule`
 
 Membership of a cluster reads an edge either way, so a rule that citations run from goals down to
 issues would buy acyclicity alone, which serves a transitive membership that merges the clusters.
+A goals home is the one place a direction is checked, for a reason of its own, the stability of a
+goal, per `design@core@goals-home-cites-upward-only`.
 The design this decision did not keep: `rejected@core@citation-direction-checked`.
 
 ### `worklist --out` writes the agents' entries and the report skeletons into a directory outside the project, and `worklist --verify` judges the filled reports against the list it wrote `##worklist-writes-and-verifies-the-reports`

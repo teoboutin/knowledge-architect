@@ -10,6 +10,12 @@ an empty subsection is omitted.
 
 ### Migration
 
+- `checks`, minor: a goals home, its goals and its head alike, cites only a goal or a register's home
+  of its own Component or of a Component that encloses it, the root included; every other reference
+  written there is a finding, a goal or a register's home of a nested or a sibling Component, a design
+  head, an issue, a path and a skill or an agent among them. A project rewrites each such sentence so
+  it names no entry, or cites a goal of its own or an enclosing Component instead, never by removing
+  the backticks.
 - `agent-skills`, patch: rule 6 of the goal standard, which goal-setting and the goal reviewer apply,
   measures a goal whose outcome is judged only in use by what the project builds to pursue it and to
   learn from its use whether it is met, and never by a list of the properties the outcome is taken to
