@@ -88,7 +88,7 @@ adds the set a word ranges over, rule 3 an exception, rule 6 the most specific o
 narrowing repair of a rule-3 finding rules out cases the owner never ruled out, which is a new rule-3
 finding at the next round. The root goals home holds 19 goals in 6215 words at main's commit, taken
 with `git show 59ac0c32:docs/goals.md | wc -w` and `grep -c '^## '`.
-`issue@agent-skills@a-goal-the-draft-review-read-was-reworded-again-for-a-defect` records two goals
+`a-goal-the-draft-review-read-was-reworded-again-for-a-defect` records two goals
 that reached the tree with a defect the standard names, and three instances of the draft-mode loop,
 one batch reviewed five times with 8, 10, 6, 6 and 6 findings. `design@agent-skills@whole-set-rounds`
 records the non-convergence of the review of the whole goal set: 91 then 88 findings.
@@ -228,9 +228,9 @@ Graded `bears`, with their outcome:
   intermediate Component's, which the upward citation rule admits.
 - `design@core@a-commit-message-is-a-document` and `design@agent-skills@branch-commits-judged-at-tip`:
   they place step 1 first on the branch.
-- `issue@agent-skills@the-goal-standard-lets-a-goal-name-what-is-built-or-cite-an-entry`: closed by
+- `the-goal-standard-lets-a-goal-name-what-is-built-or-cite-an-entry`: closed by
   the work, at the harvest.
-- `issue@agent-skills@a-goal-the-draft-review-read-was-reworded-again-for-a-defect`: closed by the
+- `a-goal-the-draft-review-read-was-reworded-again-for-a-defect`: closed by the
   work, at the harvest: the reach is shown by layer, and both reviews stop.
 - `issue@agent-skills@pointers-written-bare-to-clear-a-finding-reach-no-check`: worsens unless the new
   finding names its repair: step 1's claims C4 and C7.
@@ -1047,7 +1047,7 @@ None. Q1 to Q5 are ruled, round 5.
 | step 4 | #goal-carries-reading-examples | `design@agent-skills@goal-entry-shape` and `design@agent-skills@goal-draft-shows-reach`, rewritten |
 | step 4 | the losing alternatives, the separate layer of measures among them with its argument from `primer@goals-bind` | judged under `skill@knowledge-architect-decision-recording` for `register@agent-skills@rejected` |
 | step 4 | P1, P2, P3, P4 and P6 | judged as tripwires of `register@agent-skills@tripwire` |
-| step 4 | `issue@agent-skills@the-goal-standard-lets-a-goal-name-what-is-built-or-cite-an-entry` and `issue@agent-skills@a-goal-the-draft-review-read-was-reworded-again-for-a-defect` | closed |
+| step 4 | `the-goal-standard-lets-a-goal-name-what-is-built-or-cite-an-entry` and `a-goal-the-draft-review-read-was-reworded-again-for-a-defect` | closed |
 | step 4 | the summary of `issue@agent-skills@a-target-project-collects-no-feedback-from-use` | rewritten to the new rule 6 |
 | step 1 and step 2 | #goal-standard-rereview-here | the Migration entries in `path@knowledge-architect@CHANGELOG.md` |
 
