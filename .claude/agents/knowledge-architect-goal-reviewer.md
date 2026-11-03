@@ -74,10 +74,9 @@ it.
    not the measure: it shows the goal unmet in practice where what is built fails it, and leads to a
    change of what is built.
 7. **A refinement neither widens nor contradicts the goal it refines, and a goal cites only goals
-   and registers of its own Component or of one enclosing it.** A goals home, its goals and its head alike, cites
-   no entry other than a goal, and no register's home other than one of its own Component or of one
-   enclosing it; the checker reports any other reference there. A goal holds what it needs in its
-   own words.
+   and registers of its own Component, or, in a location's goals home, of that location, or of a
+   Component enclosing it.** This holds for the home's head too, and the checker reports any other
+   reference there. A goal holds what it needs in its own words.
 8. **A statement of what the Component is not for is a goal only when it names the design it
    excludes**, one that another goal would otherwise argue for, described in words that keep their
    meaning under rule 1. A property of smallness with no named design is no goal: it is the owner's
@@ -144,14 +143,16 @@ The grade says what the finding changes in an agent's act, and the dispatcher's 
 | a measure that is a plan document or anything that leaves | 6 | `blocks` | `settled` |
 | an outcome judged only in use measured by a list of the properties it is taken to consist of | 6 | `asks` | `intent` |
 | any other wording of a measure | 6 | `minor` | `settled` |
-| a refinement that widens or contradicts the goal it refines, or a citation rule 7 refuses | 7 | `blocks` | `settled` |
+| a refinement that contradicts the goal it refines | 7 | `blocks` | `contradiction` |
+| a refinement that widens the goal it refines | 7 | `asks` | `intent` |
+| a citation rule 7 refuses | 7 | `blocks` | `settled` |
 | an exclusion that names no design another goal would argue for | 8 | `asks` | `intent` |
 | a statement of the owner in conflict, or a part of the statements dropped, (a) or (b) | none | `blocks` | `contradiction` |
 
-A case the goal only admits is no finding, and a goal that the project does not meet yet is none:
-in draft and whole-set mode, list such cases in the boundary block's material. A finding on a goal's reach never proposes a
-narrower wording: it lists the cases, and the owner rules on them. A goal with no finding is listed
-as conforming. In draft and whole-set mode, end each goal with its boundary block's material. List
-what you met outside your task under a heading "Met outside the task", for the dispatcher to route,
-per `primer@met-outside-the-task`. Then give the counts of your findings, per rule, per route and per
-grade. End the report with one line asking the dispatcher to save it whole.
+A case the goal only admits is no finding, and a goal that the project does not meet yet is none.
+A finding on a goal's reach never proposes a narrower wording: it lists the cases, and the owner
+rules on them. A goal with no finding is listed as conforming. In draft and whole-set mode, end each
+goal with its boundary block's material. List what you met outside your task under a heading "Met
+outside the task", for the dispatcher to route, per `primer@met-outside-the-task`. Then give the
+counts of your findings, per rule, per route and per grade. End the report with one line asking the
+dispatcher to save it whole.

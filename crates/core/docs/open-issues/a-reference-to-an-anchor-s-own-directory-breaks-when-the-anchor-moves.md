@@ -26,16 +26,13 @@ old location after a move, and must be repaired.
 
 ### Why it matters
 
-A recorded decision conflicts with a goal, so per `primer@goals-bind` the goal prevails and the
-conflict goes to the owner. Until it is answered, a session moving an anchor meets a broken
-reference that the goal says cannot exist, and a session judging the head against the goal finds
-the head in defect.
+A recorded decision conflicts with a goal, so per `primer@goals-bind` the goal prevails. The owner
+ruled that the goal admits no exception, so until the checker gains a spelling that survives a move,
+a session moving an anchor meets a broken reference beyond a mechanical edit, and a session judging
+the head against the goal finds the head in defect.
 
 ### What would close it
 
-The owner's answer, under `skill@knowledge-architect-goal-setting`, to one of:
-
-- the goal admits the exception the head states, a reference naming an anchor's own directory being
-  a reference to a location;
-- the checker gains a spelling of an anchor's own directory under its own name, and the head and the
-  primer's form change with it, under `skill@knowledge-architect-design`.
+The checker gains a spelling of an anchor's own directory under its own name, and the head and the
+primer's form change with it, under `skill@knowledge-architect-design`. The owner ruled that the
+goal admits no exception for a reference naming an anchor's own directory.

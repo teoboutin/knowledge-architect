@@ -204,7 +204,7 @@ silent false negative passes a tree that does not conform, against
 `goal@core@document-rules-are-checked`: a tree that passes the checker conforms to the reference grammar in the texts the checker reads, save what a declaration switches off. The candidate rule that bounds this is
 `design@core@at-span-candidate-rule`.
 
-### A goals home cites only a goal or a register's home of its own Component or of one enclosing it, and every other reference there is refused `##goals-home-cites-upward-only`
+### A goals home cites only a goal or a register's home of its own anchor or of a Component enclosing it, and every other reference there is refused `##goals-home-cites-upward-only`
 
 In a goals home, its goals and its head alike, a reference is refused unless it is a `goal` or a
 `register` reference whose anchor is the home's own or a Component whose directory holds the
@@ -215,9 +215,13 @@ Component, every other kind, `design`, `issue`, `rejected`, `tripwire` and `path
 every harness reference, which names a skill, an agent or a section. The finding names the repair:
 a goal of the home's own or an enclosing Component, or the sentence rewritten so it names no entry,
 never the span with its backticks removed, per `design@agent-skills@plain-text-is-no-repair`. Every
-other finding of the reference check that would name a reference form in a goals home names this
-repair instead: an id written outside its reference form, an unanchored path, a retired slug form,
-a reference written without backticks and an anchor in the kind position. Every
+other finding of the reference check that would name a reference form refused in a goals home
+names this repair instead. Five findings do: an unanchored path, a retired slug form and an anchor
+in the kind position name it always; an id written outside its reference form names it where no
+form the citation check admits there names the id, and otherwise offers that admitted form; a
+reference written without backticks names it where its form is refused there, and otherwise asks
+for the backticks. The findings that still name a refused form there are a defect of the code
+against this rule, `issue@core@some-findings-in-a-goals-home-name-a-form-refused-there`. Every
 other document cites in whatever direction its subject asks.
 
 A goal is the owner's statement and changes only through the owner, per

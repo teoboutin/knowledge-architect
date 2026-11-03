@@ -9,13 +9,13 @@ drift from the recorded design, and it makes keeping that design current cheap.
 
 A reference is a pointer by which one text names a goal, an entry of the record, a file, a
 directory or a section of a text. A generated text is one the checker writes into the project's tree
-from its documents, such as a listing of the entries of one kind of record. In a project whose gates
+from its documents, such as a listing of the entries of one kind. In a project whose gates
 run the checker on each commit, these hold on the main branch and on every commit of a branch that
 merges:
 
 - every reference in the texts the checker reads resolves;
 - every goal has the shape a goal requires, and every entry of the record the shape its kind of
-  record requires;
+  entry requires;
 - every text the checker generates matches what generating it again writes.
 
 It is met while the checker's verdict fails on a tree where any of these fails, and on a range for
@@ -31,8 +31,8 @@ It refines `goal@knowledge-architect@documentation-stays-consistent`.
 
 ## The rules a project's documents must meet, those the checker holds for every project and those the project declares, are enforced by the checker `##document-rules-are-checked`
 
-A project declares to the checker what it records, where each kind of record lives, and the kinds
-and the places by which one record points at another, in the reference grammar every project
+A project declares to the checker what it records, where each kind of entry lives, and the kinds
+and the places by which one entry points at another, in the reference grammar every project
 shares. These stand beside the rules the checker holds for every project.
 
 A tree that passes the checker conforms to what the project declares, to the rules the checker
@@ -61,7 +61,7 @@ It refines `goal@knowledge-architect@documentation-stays-consistent`.
 ## A relocation of part of a project's documents needs no manual work beyond the change of goals its change of purpose calls for, and a few mechanical edits `##relocation-needs-only-goal-changes`
 
 A project relocates part of its documents when it moves a Component, or another directory that
-holds its records, moves the place where a kind of record lives, or turns that place from one file
+holds its entries, moves the place where a kind of entry lives, or turns that place from one file
 into a directory. A project relocates only on a change of purpose of the part it moves, which the
 goals carry and which justifies the move, or where the relocation, with mechanical edits alone,
 breaks no check. Either way, changing the goals that the change of purpose calls for is the only
@@ -116,8 +116,8 @@ one site, each reference that resolves rendered as a link to its target, and whi
 knowledge-architect builds publishes that site with the project, such as a step of its release that
 publishes it.
 
-- Requires, for instance: a reference to a decision, in a goal's text, renders as a link to that
-  decision.
+- Requires, for instance: a reference to a decision, in a design head's text, renders as a link
+  to that decision.
 - Admits, for instance: a site built by any rendering tool.
 - Rules out, for instance: a resolved reference rendered as plain text.
 

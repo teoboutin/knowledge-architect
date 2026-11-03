@@ -13,7 +13,7 @@ projects set up or change and that knowledge-architect's owner takes in, per
 `goal@knowledge-architect@generic-tools-and-procedures-are-shipped`. The documentation structure and
 the workflow are designed to work together.
 
-The goals of this home use these words in these senses:
+These words hold in these senses for the goals of this home and of every Component:
 
 - **the checker**: a command knowledge-architect provides that checks a project's documents against
   its code and against each other, and reports where they disagree;
@@ -83,7 +83,7 @@ It is met while the installed text requires each of these to be recorded in the 
 text gives it:
 
 - each decision whose reason one comment at one site cannot carry, in an entry of its own, carrying
-  its standing argument, naming its rivals in its body or in the records of the designs not kept
+  its standing argument, naming its rivals in its body or in the entries of the designs not kept
   that it cites;
 - for any other decision whose reason the code or the agent-facing text it shapes does not show, a
   reason beside that code or that text, and in its commit message;
@@ -212,14 +212,14 @@ The checker computes two lists the workflow requires a session to read:
 
 Neither the structure nor the workflow is designed without the other.
 
-It is met while each kind of record the installed text requires a session to write has a home the
+It is met while each kind of entry the installed text requires a session to write has a home the
 installed text gives it, each such home whose entries any document of the project cites is declared
 to the checker, and those two lists are computed by the checker.
 
 - Requires, for instance: the checker lists what a change to a recorded decision touches.
-- Admits, for instance: a project that keeps a kind of record of its own beside those the workflow
+- Admits, for instance: a project that keeps a kind of entry of its own beside those the workflow
   writes.
-- Rules out, for instance: a kind of record the installed text has a session write with no home the
+- Rules out, for instance: a kind of entry the installed text has a session write with no home the
   installed text gives it.
 
 ## The project's record lives in its repository, beside the code `##records-live-beside-the-code`
@@ -229,7 +229,7 @@ decisions with their arguments, the designs it did not keep, what it has outstan
 that would flip a decision, and the reasons recorded beside its code and its agent-facing text.
 
 The record lives in the homes the installed text gives each kind of it, and in those the project
-gives its own kinds of record. They are files an agent reads and edits like any other, and the
+gives its own kinds of entry. They are files an agent reads and edits like any other, and the
 history of the repository's commits, rather than entries in an external tracker it would need a
 separate tool to reach.
 
@@ -240,7 +240,7 @@ is a document of that project.
 
 It is met while every home that the installed text gives a kind of the project's record is a file
 or a directory of the repository, or its commit history, and the installed text has a session give
-each of the project's own kinds of record a home in the repository.
+each of the project's own kinds of entry a home in the repository.
 
 - Requires, for instance: a defect the project has outstanding is recorded in a file of the
   repository.
@@ -429,7 +429,7 @@ what follows. A target project is a project that holds all of these:
 - the code it builds and ships is Rust, built by Cargo, apart from the glue its targets need, such
   as the JavaScript and the HTML of a web target, or shaders. Files the workflow installs, the
   configuration of a continuous integration, and scripts kept beside the code are no code it ships;
-- AI agents drive its development: its code, its documents, its records and its reviews. An edit
+- AI agents drive its development: its code, its documents, its entries and its reviews. An edit
   that a person makes now and then, the project's owner or an outside contributor, leaves it a
   target project. The part of the project's owner is what
   `goal@knowledge-architect@the-owner-decides`,
@@ -470,7 +470,7 @@ the project's owner on each action of the branch's work that cannot be undone, s
 publication, and on the merge where the project reserves it; and, where the branch adds, tightens
 or removes an ask of knowledge-architect or takes in a generic part, the word of
 knowledge-architect's owner on it. A project may reserve to its owner actions, such as a merge,
-never the work the definition above gives to agents: its code, its documents, its records and its
+never the work the definition above gives to agents: its code, its documents, its entries and its
 reviews.
 
 How an ask is met in every target project, such as the name of the command and its invocation for a

@@ -5,10 +5,11 @@ kind: todo
 
 ## Summary
 
-`goal@mutate@a-named-mutation-is-checked-safely` admits a mutation of several files of the project,
-such as a wrong implementation that spans a trait's declaration and its implementation in two
-modules. The crate applies a mutation to the one file `--file` names, and refuses a `--patch` that
-names any other file, per `design@mutate@one-file-per-run`, so the goal is unmet for that case.
+`goal@mutate@a-named-mutation-is-checked-safely` is met only while the crate's tests show, among
+the rest, "a mutation of several files applied and restored", such as a wrong implementation that
+spans a trait's declaration and its implementation in two modules. The crate applies a mutation to
+the one file `--file` names, and refuses a `--patch` that names any other file, per
+`design@mutate@one-file-per-run`, so the goal is unmet.
 
 ## Details
 

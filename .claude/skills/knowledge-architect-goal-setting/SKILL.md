@@ -71,10 +71,9 @@ it.
    not the measure: it shows the goal unmet in practice where what is built fails it, and leads to a
    change of what is built.
 7. **A refinement neither widens nor contradicts the goal it refines, and a goal cites only goals
-   and registers of its own Component or of one enclosing it.** A goals home, its goals and its head alike, cites
-   no entry other than a goal, and no register's home other than one of its own Component or of one
-   enclosing it; the checker reports any other reference there. A goal holds what it needs in its
-   own words.
+   and registers of its own Component, or, in a location's goals home, of that location, or of a
+   Component enclosing it.** This holds for the home's head too, and the checker reports any other
+   reference there. A goal holds what it needs in its own words.
 8. **A statement of what the Component is not for is a goal only when it names the design it
    excludes**, one that another goal would otherwise argue for, described in words that keep their
    meaning under rule 1. A property of smallness with no named design is no goal: it is the owner's
@@ -160,9 +159,12 @@ defines its own words, and its goals may use the root's. The head restates no ru
    larger one, and from the second round sort each finding by the words it quotes against it: on
    old wording, the words the previous round read and no repair changed since, or on new wording.
    **Stop when a round, from the second on, reports no `blocks` finding on old wording, whatever
-   its route, or when the owner says so.** Where a round's `blocks` findings on old wording are no
-   fewer than the previous round's, put the stop to the owner instead of running another round. The
-   findings of the round that stops go to the owner beside the goals, unrepaired.
+   its route, or when the owner says so.** From the third round on, where a round's `blocks`
+   findings on old wording are no fewer than the previous round's, put the stop to the owner instead
+   of running another round. The findings of the round that stops go to the owner beside the goals,
+   unrepaired. Where the owner stops the rounds after a round's repairs, the owner's stop prevails:
+   tell the owner that those repairs are unreviewed, and the goals axis of the review before the
+   merge, `agent@knowledge-architect-goal-reviewer` in its merge mode, reads them.
 5. **Show the owner the draft, each goal with its boundary block**, in the message, or, for a batch
    of more than three goals, in the tree and the record: what the goal asks of future work, the
    part the project does not hold yet; for each layer the goal has, requires, admits and rules out,

@@ -390,8 +390,10 @@ the head of the decision it supports, the issue entry it characterises, the trip
 threshold it is, or else the commit message that took it.
 
 **A reference is written wherever the text would have to be revisited if the entry it names
-changed**, but in a goals home, which cites only goals and registers of its own Component or of one
-enclosing it, a goal stating in its own words what it needs: a design head names the goal it derives from, a decision of another Component it
+changed**, but in a goals home, which cites only goals and registers of its own Component, or, in a
+location's goals home, of that location, or of a Component enclosing it, per rule 7 of
+`skill@knowledge-architect-goal-setting@goal-or-not`,
+a goal stating in its own words what it needs: a design head names the goal it derives from, a decision of another Component it
 depends on, and the `rejected` entries its argument covers; an issue names the decision it strains and the goal it threatens, when it does
 directly; a guard, a
 workaround, a stub or a test that exists because of an issue names it in the comment at the site; a

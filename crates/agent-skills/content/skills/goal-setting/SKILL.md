@@ -86,8 +86,9 @@ root goal it refines. A purpose the owner states for several Components together
 create one, under `skill@knowledge-architect-component-creation`.
 
 %% The head restates no rule of this skill, since a restatement there drifted from the skill and an
-%% agent that edits a goal loads the skill anyway; the definitions are shared there because most
-%% goals of a home use them, on the owner's word.
+%% agent that edits a goal loads the skill anyway. The definitions are shared there because most
+%% goals of a home use them: the session chose a paragraph of definitions in the head over a goal
+%% per definition, which no goal ranks; the owner approved it.
 The head of the goals home states the purpose every goal of its Component serves, which the owner
 rules like a goal; the root's states the project's. It also holds the definitions its goals share:
 a few general words for what several goals name, each passing rule 1, in a paragraph of their own.
@@ -128,9 +129,12 @@ defines its own words, and its goals may use the root's. The head restates no ru
    larger one, and from the second round sort each finding by the words it quotes against it: on
    old wording, the words the previous round read and no repair changed since, or on new wording.
    **Stop when a round, from the second on, reports no `blocks` finding on old wording, whatever
-   its route, or when the owner says so.** Where a round's `blocks` findings on old wording are no
-   fewer than the previous round's, put the stop to the owner instead of running another round. The
-   findings of the round that stops go to the owner beside the goals, unrepaired.
+   its route, or when the owner says so.** From the third round on, where a round's `blocks`
+   findings on old wording are no fewer than the previous round's, put the stop to the owner instead
+   of running another round. The findings of the round that stops go to the owner beside the goals,
+   unrepaired. Where the owner stops the rounds after a round's repairs, the owner's stop prevails:
+   tell the owner that those repairs are unreviewed, and the goals axis of the review before the
+   merge, `agent@knowledge-architect-goal-reviewer` in its merge mode, reads them.
 %% Per `design@agent-skills@goal-draft-shows-reach`.
 5. **Show the owner the draft, each goal with its boundary block**, in the message, or, for a batch
    of more than three goals, in the tree and the record: what the goal asks of future work, the
@@ -187,7 +191,8 @@ passes the check.
 ## Reviewing the whole goal set {{slug:whole-set-review}}
 
 %% Per `design@agent-skills@whole-set-rounds`, for the sets, the whole-set reviewer in every round,
-%% the owner's answer between rounds, the committed record and the stop.
+%% the owner's answer between rounds and the committed record; the stop is
+%% `design@agent-skills@goal-review-stops-on-old-wording`.
 1. **Split the goals into sets**, each a cluster of goals on one subject that touch each other.
 2. **Dispatch, in one message, one `agent@knowledge-architect-goal-reviewer` per set in its draft
    mode and one in its whole-set mode**, each fresh, over the goals as the tree holds them. Each

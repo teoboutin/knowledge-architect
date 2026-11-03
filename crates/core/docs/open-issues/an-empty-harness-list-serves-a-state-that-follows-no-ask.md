@@ -22,8 +22,16 @@ open.
 The head's sentence "The empty list serves a target project that uses the checker alone, which that
 goal admits" contradicts the goal as the owner ruled it. The empty list has two users: a project
 that uses the checker alone, and the checker's mock projects, every one of which but `unsound`
-declares `harness = []`, per the core's CLAUDE.md. Its other references are listed by
+declares `harness = []`, per `path@core@CLAUDE.md`. Its other references are listed by
 `cargo klarch show design@core@agents-table`.
+
+Two other texts argue from the same premise, a target project that uses the checker alone and
+declares no harness:
+
+- `path@core@docs/design/anchors.md`, whose sentence on the flaw that the empty list leaves names "a
+  target project that uses the checker alone and declares no harness";
+- `issue@core@a-home-for-developer-contracts-outside-agent-configuration`, whose "Why it matters"
+  says "a target project that uses the checker alone declares that empty list all the same".
 
 ### Why it matters
 
