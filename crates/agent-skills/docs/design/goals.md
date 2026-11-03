@@ -159,7 +159,7 @@ its exception, per `rejected@agent-skills@head-split-by-independent-reversal`.
 ### A new or reworded goal is drafted to move what the project builds, and is expected to be unmet `##goal-drafted-to-move-the-tree`
 
 A drafter never shapes a goal so that the project as it stands meets it, and the boundary block
-states what the goal asks of future work. The owner argued that a new goal being unmet is the point,
+states what the goal asks of future work. The owner argued that a new goal being unmet is the point, most of the time,
 and that a reworded goal left unmet may even help, since a review is when the owner most likely
 notices a misworded goal: a drafter
 that shapes a goal so the tree meets it states the project as it is, and the goal drives nothing.
@@ -292,10 +292,10 @@ answers, which no round of the reviewer does.
 The draft-mode review had no stop: one batch of reworded goals went through five draft-mode
 reviews, with 8, 10, 6, 6 and 6 findings, each round's repairs or the owner's answers bringing new
 findings; and the one goal of a new Component went through five draft-mode reviews, the owner twice
-shown a version no review had read. The owner reported that the non-convergence came in part from
-the corrections of earlier rounds, which had unforeseen effects applied together, and that a review
-of one goal or a few converged more reliably, which the one goal reviewed five times does not
-support. The rival, a stop on no `blocks` finding over all wording,
+shown a version no review had read. The owner reported, of the review of the whole goal set, that
+its non-convergence came in part from the corrections of earlier rounds, which had unforeseen
+effects applied together, and that a review of one goal or a few converged more reliably, which the
+one goal reviewed five times in draft mode does not support. The rival, a stop on no `blocks` finding over all wording,
 `rejected@agent-skills@goal-review-stop-over-all-wording`, is held open by the wording each round
 writes.
 

@@ -11,6 +11,8 @@ What the rounds owe, beyond the procedure:
 
 - **The branch merges only after rounds of this review.** The owner: "merge can only happen after we
   fix this under multiple rounds of the whole set review."
+- **The rounds de-narrow the goals.** The owner: "The goal whole set review will then bring the goals
+  into shape after the work, and de-narrow them when relevant."
 - **Two goals whose meaning the mechanical edit changed**, by deleting a citation:
   - `goal@knowledge-architect@generic-tools-and-procedures-are-shipped`, whose sentence "Where the
     part is a procedure that the session's judgement already carries out well enough, it ships."
