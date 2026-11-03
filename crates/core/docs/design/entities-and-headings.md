@@ -206,14 +206,18 @@ silent false negative passes a tree that does not conform, against
 
 ### A goals home cites only a goal or a register's home of its own Component or of one enclosing it, and every other reference there is refused `##goals-home-cites-upward-only`
 
-In a goals home, its goals and its head alike, a reference resolves only where it is a `goal` or a
+In a goals home, its goals and its head alike, a reference is refused unless it is a `goal` or a
 `register` reference whose anchor is the home's own or a Component whose directory holds the
-home's anchor, the root included. Every other reference there is refused with a finding of its
-own, beside any finding its resolution gives: a goal or a register's home of a nested or a sibling
+home's anchor, the root included. A refused reference gets a finding of its own, beside any finding
+its resolution gives, except a `path` or a `planned` reference, which is judged by this finding
+alone, since its own repairs name forms refused here: a goal or a register's home of a nested or a sibling
 Component, every other kind, `design`, `issue`, `rejected`, `tripwire` and `path` among them, and
 every harness reference, which names a skill, an agent or a section. The finding names the repair:
 a goal of the home's own or an enclosing Component, or the sentence rewritten so it names no entry,
 never the span with its backticks removed, per `design@agent-skills@plain-text-is-no-repair`. Every
+other finding of the reference check that would name a reference form in a goals home names this
+repair instead: an id written outside its reference form, an unanchored path, a retired slug form,
+a reference written without backticks and an anchor in the kind position. Every
 other document cites in whatever direction its subject asks.
 
 A goal is the owner's statement and changes only through the owner, per

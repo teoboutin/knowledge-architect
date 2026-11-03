@@ -181,7 +181,10 @@ pub(crate) fn judge_part(
                                 anchors,
                             ));
                         }
-                        if kind.is_path() {
+                        if goals_of.is_some() && (kind.is_path() || kind.is_planned()) {
+                            // Refused by the citation check above, whatever it names: its own
+                            // repairs would send the writer to another form refused here.
+                        } else if kind.is_path() {
                             path(
                                 &mut out, &doc.rel, l.line, span, anchor, id, anchors, inputs,
                             );
@@ -219,10 +222,13 @@ pub(crate) fn judge_part(
                         &doc.rel,
                         l.line,
                         format!("`{span}` opens with `{head}`, an anchor, where the kind goes"),
-                        format!(
-                            "prefix the kind, one of {}: a path is written `path@{head}@<path>`",
-                            anchors.kinds_listed()
-                        ),
+                        match goals_of {
+                            Some(_) => GOALS_HOME_REPAIR.to_string(),
+                            None => format!(
+                                "prefix the kind, one of {}: a path is written `path@{head}@<path>`",
+                                anchors.kinds_listed()
+                            ),
+                        },
                     )),
                     Candidate::NotOne => {}
                 },
@@ -251,6 +257,15 @@ pub(crate) fn judge_part(
                     } else {
                         ""
                     };
+                    if goals_of.is_some() {
+                        out.push(Finding::at(
+                            &doc.rel,
+                            l.line,
+                            format!("`{span}` is shaped like a path and names no anchor"),
+                            GOALS_HOME_REPAIR,
+                        ));
+                        continue;
+                    }
                     out.push(Finding::at(
                         &doc.rel,
                         l.line,
@@ -291,8 +306,12 @@ pub(crate) fn judge_part(
                         &doc.rel,
                         l.line,
                         format!("`{span}` is the retired slug reference form"),
-                        "write `design@<component>@<slug>`; the form with a `#` is no longer read \
-                     as a reference",
+                        if goals_of.is_some() {
+                            GOALS_HOME_REPAIR
+                        } else {
+                            "write `design@<component>@<slug>`; the form with a `#` is no longer \
+                             read as a reference"
+                        },
                     ))
                 }
                 // Markdown documents only: in Rust prose a markdown link is rustdoc's
@@ -343,7 +362,7 @@ fn goals_home_citation(
         line,
         format!(
             "`{span}` is cited in the goals home of `{}`, which cites only a goal or a register's \
-             home of its own Component or of a Component that encloses it",
+             home of its own anchor or of a Component that encloses it",
             owner.name
         ),
         GOALS_HOME_REPAIR,
@@ -421,24 +440,22 @@ fn id_lint(rel: &Path, line: u32, what: &Observation, tables: &[IdTable]) -> Opt
     // In a goals home only the forms the citation check admits there are offered, and where none
     // is, the finding names the citation check's repair, per
     // `design@core@goals-home-cites-upward-only`.
+    // A commit message, the one document judged against two tables, is in no goals home, so the
+    // first table's anchors decide for every document that can be.
+    let goals_home = tables
+        .first()
+        .and_then(|t| goals_home_owner(rel, t.anchors).map(|o| (o, t.anchors)));
     let in_goals_home = |id: &str, how: IdForm| {
-        let forms = defined_forms(id, tables, rel);
-        let owner = tables
-            .first()
-            .and_then(|t| goals_home_owner(rel, t.anchors).map(|o| (o, t.anchors)));
-        let Some((owner, anchors)) = owner else {
-            return id_finding(rel, line, id, &forms, how);
+        let pairs = defined_pairs(id, tables, rel);
+        let Some((owner, anchors)) = goals_home else {
+            return id_finding(rel, line, id, &render_forms(id, pairs), how);
         };
-        let admitted: Vec<String> = forms
-            .iter()
-            .filter(|f| {
-                let mut parts = f.splitn(3, '@');
-                let (kind, anchor) = (parts.next().unwrap_or(""), parts.next().unwrap_or(""));
-                admitted_in_goals_home(owner, kind, anchor, anchors)
-            })
-            .cloned()
+        let defined = !pairs.is_empty();
+        let admitted: Vec<(String, String)> = pairs
+            .into_iter()
+            .filter(|(kind, anchor)| admitted_in_goals_home(owner, kind, anchor, anchors))
             .collect();
-        if admitted.is_empty() && !forms.is_empty() {
+        if admitted.is_empty() && defined {
             return Some(Finding::at(
                 rel,
                 line,
@@ -446,7 +463,7 @@ fn id_lint(rel: &Path, line: u32, what: &Observation, tables: &[IdTable]) -> Opt
                 GOALS_HOME_REPAIR,
             ));
         }
-        id_finding(rel, line, id, &admitted, how)
+        id_finding(rel, line, id, &render_forms(id, admitted), how)
     };
     match what {
         Observation::BareName(id) => in_goals_home(id, IdForm::Bare),
@@ -457,15 +474,32 @@ fn id_lint(rel: &Path, line: u32, what: &Observation, tables: &[IdTable]) -> Opt
         Observation::UnquotedReference {
             token,
             beside_issue: false,
-        } if tables.iter().any(|t| written_reference(token, t.anchors)) => Some(Finding::at(
-            rel,
-            line,
-            format!("`{token}` is a reference written without backticks"),
-            format!(
-                "write it in backticks, as `{token}`, so the check reads it; where it names \
-                 nothing of this project, rewrite the sentence"
-            ),
-        )),
+        } if tables.iter().any(|t| written_reference(token, t.anchors)) => {
+            // In a goals home, backticks only turn a form the citation check refuses into its
+            // finding, so the lint names that check's repair instead.
+            let refused = goals_home.is_some_and(|(owner, anchors)| {
+                match entity::candidate(token, anchors) {
+                    Candidate::Reference { kind, anchor, .. } => {
+                        !admitted_in_goals_home(owner, kind.name(), anchor, anchors)
+                    }
+                    _ => true,
+                }
+            });
+            let repair = if refused {
+                GOALS_HOME_REPAIR.to_string()
+            } else {
+                format!(
+                    "write it in backticks, as `{token}`, so the check reads it; where it names \
+                     nothing of this project, rewrite the sentence"
+                )
+            };
+            Some(Finding::at(
+                rel,
+                line,
+                format!("`{token}` is a reference written without backticks"),
+                repair,
+            ))
+        }
         _ => None,
     }
 }
@@ -473,8 +507,28 @@ fn id_lint(rel: &Path, line: u32, what: &Observation, tables: &[IdTable]) -> Opt
 /// The reference of every entity the tables define with this id that `rel` may cite: an item of
 /// a plan only from inside that plan, as its reference resolves, per
 /// `design@core@plan-item-scope`.
-fn defined_forms(id: &str, tables: &[IdTable], rel: &Path) -> Vec<String> {
-    let mut forms: Vec<String> = tables
+/// Each form `id` is written as, rendered `<kind>@<anchor>@<id>`, or `<kind>@<id>` for a harness
+/// kind, sorted and with no repeat.
+fn render_forms(id: &str, pairs: Vec<(String, String)>) -> Vec<String> {
+    let mut forms: Vec<String> = pairs
+        .into_iter()
+        .map(|(kind, anchor)| {
+            if anchor.is_empty() {
+                format!("{kind}@{id}")
+            } else {
+                format!("{kind}@{anchor}@{id}")
+            }
+        })
+        .collect();
+    forms.sort();
+    forms.dedup();
+    forms
+}
+
+/// The kind and the anchor of each entity that defines `id` and that a reference from `rel` would
+/// resolve to.
+fn defined_pairs(id: &str, tables: &[IdTable], rel: &Path) -> Vec<(String, String)> {
+    tables
         .iter()
         .flat_map(|t| {
             t.ids
@@ -488,17 +542,8 @@ fn defined_forms(id: &str, tables: &[IdTable], rel: &Path) -> Vec<String> {
                             == Resolution::Resolved
                 })
         })
-        .map(|(kind, anchor)| {
-            if anchor.is_empty() {
-                format!("{kind}@{id}")
-            } else {
-                format!("{kind}@{anchor}@{id}")
-            }
-        })
-        .collect();
-    forms.sort();
-    forms.dedup();
-    forms
+        .map(|(kind, anchor)| (kind.name().to_string(), anchor.to_string()))
+        .collect()
 }
 
 /// The finding on an id written outside its reference form, or `None` where no entity this
@@ -2394,7 +2439,7 @@ mod tests {
     /// The claim: an item's id written outside its reference form is reported inside its own
     /// plan, with the item's reference, and is silent outside it, where no document may cite the
     /// item, per `design@core@plan-item-scope`. Mutation checked: dropping the resolution test of
-    /// `defined_forms` reports the plain word in notes/prose.md.
+    /// `defined_pairs` reports the plain word in notes/prose.md.
     #[test]
     fn an_item_id_written_plain_is_reported_inside_its_plan_alone() {
         let m = manifest();
@@ -4150,9 +4195,9 @@ mod tests {
     }
 
     /// C2 of the spec: a goal or a register's home of a nested or a sibling Component, and every
-    /// other kind, is refused in a goals home. Mutation checked: the kind test dropped,
-    /// `kind.name() == GOAL_REGISTER || kind.is_register()` replaced by `true`, caught on the
-    /// design and path spans.
+    /// other kind, is refused in a goals home. Mutation checked: the kind test of
+    /// `admitted_in_goals_home` dropped, `(kind == GOAL_REGISTER || kind == entity::REGISTER_KIND)`
+    /// replaced by `true`, caught on the design and path spans.
     #[test]
     fn a_goals_home_refuses_a_lower_or_sibling_component_and_every_other_kind() {
         let found = goals_home_findings(vec![
@@ -4197,7 +4242,9 @@ mod tests {
     }
 
     /// C4 of the spec: the finding names the span and the repair, and its repair never says to
-    /// write the span without its backticks.
+    /// write the span without its backticks. Mutation checked: the last clause of
+    /// `GOALS_HOME_REPAIR`, "Never keep the span with its backticks removed", cut to "Keep the
+    /// span", caught.
     #[test]
     fn the_goals_home_finding_names_the_repair_and_never_the_bare_span() {
         let found = goals_home_findings(vec![(
@@ -4272,5 +4319,134 @@ mod tests {
             "{lint:#?}"
         );
         assert!(!lint[0].contains("write `design@"), "{lint:#?}");
+    }
+
+    /// C2 of the spec, its harness half: a skill, an agent or a section of the primer cited in a
+    /// goals home is refused. Mutation checked: the harness arm of `judge_part` made to skip,
+    /// `if let Some(home_owner) = goals_of {` replaced by
+    /// `if let Some(home_owner) = goals_of.filter(|_| false) {`, caught.
+    #[test]
+    fn a_goals_home_refuses_a_harness_reference() {
+        let found = goals_home_findings(vec![(
+            "docs/goals.md",
+            "# Goals\n\n## The root goal `##root-goal`\n\nIt leans on `skill@a-skill`.\n",
+        )]);
+        assert_eq!(found.len(), 1, "{found:#?}");
+        assert!(found[0].contains("`skill@a-skill`"), "{found:#?}");
+    }
+
+    /// A manifest with a location carrying `goal`, and a second location nested in it carrying
+    /// it too: the anchors a goals home may belong to beside a Component.
+    fn located_goals_manifest() -> Manifest {
+        let text =
+            "[project]\nchecker-version = \"fixture\"\nname = \"a-project\"\ncomponents = []\n\n\
+             [walk]\nskip-dirs = []\nskip-files = []\n\n\
+             [locations.notes]\npath = \"notes\"\nregisters = [\"goal\"]\n\n\
+             [locations.sub]\npath = \"notes/sub\"\nregisters = [\"goal\"]\n";
+        Manifest::parse(std::path::Path::new("/nowhere"), text).expect("a declaration")
+    }
+
+    /// A location's goals home cites its own goals and the root's, and refuses an enclosing
+    /// location's, since a location is no Component. Mutations checked, both caught: the own-name
+    /// arm of `admitted_in_goals_home` dropped, `a.name == owner.name || (a.is_component &&` replaced
+    /// by `(a.is_component &&`; and its Component test dropped, `(a.is_component &&
+    /// owner.path.starts_with(&a.path))` replaced by `(owner.path.starts_with(&a.path))`.
+    #[test]
+    fn a_location_s_goals_home_cites_its_own_goals_and_no_enclosing_location_s() {
+        let docs = vec![
+            ("docs/goals.md", "# Goals\n\n## The root goal `##root-goal`\n\nIt.\n"),
+            ("notes/goals.md", "# Goals\n\n## The notes goal `##notes-goal`\n\nIt.\n"),
+            (
+                "notes/sub/goals.md",
+                "# Goals\n\n## The sub goal `##sub-goal`\n\nIt refines `goal@a-project@root-goal`, \
+                 beside `goal@sub@sub-goal` and `goal@notes@notes-goal`.\n",
+            ),
+        ];
+        let (found, _) = checked_docs(&located_goals_manifest(), docs, &[]);
+        let found: Vec<&String> = found
+            .iter()
+            .filter(|f| f.contains("is cited in the goals home"))
+            .collect();
+        assert_eq!(found.len(), 1, "{found:#?}");
+        assert!(found[0].contains("`goal@notes@notes-goal`"), "{found:#?}");
+    }
+
+    /// An id two entries define, one a goal the goals home may cite and one an entry it may not,
+    /// is offered in the admitted form alone. Mutation checked: `id_lint` offering every form,
+    /// `id_finding(rel, line, id, &render_forms(id, admitted), how)` replaced by
+    /// `id_finding(rel, line, id, &render_forms(id, defined_pairs(id, tables, rel)), how)`, caught.
+    #[test]
+    fn an_id_both_admitted_and_refused_is_offered_in_its_admitted_form() {
+        let mut all: Vec<(&str, String)> = defined()
+            .into_iter()
+            .filter(|(p, _)| *p != "docs/goals.md" && *p != "docs/design.md")
+            .collect();
+        all.push((
+            "docs/design.md",
+            "# Design\n\n### The shared decision `##shared-id`\n\nIt.\n".to_string(),
+        ));
+        all.push((
+            "docs/goals.md",
+            "# Goals\n\n## The root goal `##shared-id`\n\nIt.\n\n## Another `##other-goal`\n\n\
+             It leans on `shared-id`.\n"
+                .to_string(),
+        ));
+        let borrowed: Vec<(&str, &str)> = all.iter().map(|(p, t)| (*p, t.as_str())).collect();
+        let (found, _) = checked_docs(&nested_manifest(), borrowed, &[]);
+        let lint: Vec<&String> = found.iter().filter(|f| f.contains("`shared-id`")).collect();
+        assert_eq!(lint.len(), 1, "{found:#?}");
+        assert!(lint[0].contains("`goal@a-project@shared-id`"), "{lint:#?}");
+        assert!(!lint[0].contains("design@a-project@shared-id"), "{lint:#?}");
+    }
+
+    /// In a goals home, every lint that would name a reference form names the citation check's
+    /// repair instead: an unanchored path, a retired slug form, a reference written without
+    /// backticks and an anchor in the kind position; and a `path` reference gets the citation
+    /// finding alone. Mutations checked, each caught: the goals-home arm of each lint made
+    /// false, the unanchored path's `if goals_of.is_some() {`, the unquoted reference's
+    /// `let repair = if refused {`, the retired form's `if goals_of.is_some() {`, the anchor in
+    /// the kind position's `Some(_) => GOALS_HOME_REPAIR.to_string(),` given the old repair, and
+    /// the skip of a `path` reference's resolution, `if goals_of.is_some() && (kind.is_path() ||
+    /// kind.is_planned()) {`.
+    #[test]
+    fn no_lint_in_a_goals_home_names_a_form_the_citation_check_refuses() {
+        let found = {
+            let mut all: Vec<(&str, String)> = defined()
+                .into_iter()
+                .filter(|(p, _)| *p != "docs/goals.md")
+                .collect();
+            all.push((
+                "docs/goals.md",
+                "# Goals\n\n## The root goal `##root-goal`\n\nA path: `docs/design.md`.\n\n\
+                 A retired form: `a-project#a-decision`.\n\n\
+                 Unquoted: design@a-project@a-decision in prose.\n\n\
+                 Anchor first: `a-project@docs/design.md`.\n\n\
+                 A path reference: `path@a-project@docs/goals.md`.\n"
+                    .to_string(),
+            ));
+            let borrowed: Vec<(&str, &str)> = all.iter().map(|(p, t)| (*p, t.as_str())).collect();
+            let present = vec![
+                "docs".to_string(),
+                "docs/design.md".to_string(),
+                "docs/goals.md".to_string(),
+            ];
+            checked_docs(&nested_manifest(), borrowed, &present).0
+        };
+        let in_home: Vec<&String> = found
+            .iter()
+            .filter(|f| f.starts_with("docs/goals.md"))
+            .collect();
+        assert_eq!(in_home.len(), 5, "{in_home:#?}");
+        for f in &in_home {
+            assert!(
+                f.contains("rewrite the sentence so it names no entry"),
+                "{f}"
+            );
+            assert!(!f.contains("write `path@"), "{f}");
+            assert!(!f.contains("write `design@"), "{f}");
+            assert!(!f.contains("write `register@"), "{f}");
+            assert!(!f.contains("prefix the kind"), "{f}");
+            assert!(!f.contains("write it in backticks"), "{f}");
+        }
     }
 }
