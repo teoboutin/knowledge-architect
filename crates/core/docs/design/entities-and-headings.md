@@ -227,9 +227,10 @@ a goal tied to a nested Component is tied to a shape of the project: the nested 
 split or replaced while the purpose above it stays. A goal refines a goal of its own Component or of
 one enclosing it, so the citations of refinement point that way, as a nested Component's goal
 refines its intermediate Component's, per `design@agent-skills@intermediate-component-occasion`. A
-goals home's head is held to the same rule, on the owner's argument that nothing argues for citing a
-design head anywhere in a goals home: the lifecycle of goals that a head states rests on what the
-goal-setting skill says, and a consumer's goals home cites none of this project's heads either.
+goals home's head is held to the same rule, on the owner's argument, given as the owner's view, that
+a design head is cited nowhere in a goals home: no argument stood for the root goals home's citation
+of the head on the lifecycle of goals, whose lifecycle rests on what the goal-setting skill says, and
+a consumer's goals home cites none of this project's heads either.
 
 The rule is a check, not a rule the goal reviewer applies alone, since it is mechanical, per
 `goal@knowledge-architect@mechanical-tasks-are-the-tool-s`, and the same in every project, per
