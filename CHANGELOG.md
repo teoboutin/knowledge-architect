@@ -63,8 +63,9 @@ an empty subsection is omitted.
 
 - `agent-skills`, patch: the goal reviewer grades each finding `blocks`, `asks` or `minor` beside its
   route, and puts a goal's reach to the owner instead of proposing a narrower wording; goal-setting's
-  draft-mode review stops when a round leaves no repairable `blocks` finding on wording the previous
-  round read, and its review of the whole goal set counts `blocks` and `asks` findings on that wording.
+  reviews in rounds, a draft batch and the whole goal set alike, stop when a round leaves no `blocks`
+  finding on wording the previous round read, or put the stop to the owner when that count does not
+  fall; the whole-set review no longer stops at a fifth of its first round's count.
 - `agent-skills`, patch: a development skill, `skill@knowledge-architect-development`: claims with
   tests shown to discriminate by `cargo x mutate`, a default shape of code, in which an integrated
   test drives the project through its public API, the gate, the commit's claim check, the review

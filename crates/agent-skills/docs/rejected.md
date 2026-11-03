@@ -749,6 +749,14 @@ it again.
 `live`. Each round's repairs write new wording, in which the next round finds defects at least as
 readily as in old text, by the measurement `design@agent-skills@convergence-count-scope` records.
 
+### A stop of the review of the whole goal set when its count of blocking and asking findings falls to a fifth of the first round's `##goal-review-stop-at-a-fifth`
+
+`live`. In this repository's review of the whole goal set after the standard's revision, the count
+of `blocks` and `asks` findings went from 136 over all wording at round 1 to 6 over old wording at
+round 2, under the fifth, 27, while three `blocks` findings stood on old wording; a fifth of the first
+round's count depends on the state of the set the review starts from, and so bounds nothing that
+stays. The stop counts `blocks` findings on old wording instead.
+
 ### Every "every", "no", "all" and "not in scope" of a goal naming the set it ranges over, wherever it stands `##goal-universal-names-its-set`
 
 `live`. Asking a goal's every universal to name its set added a scope at each repair, so the goals

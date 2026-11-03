@@ -572,3 +572,60 @@ finding on a defect provable by reading against a goal judged in use has no outc
 quotation in `milestone@plans@component-split`, and an argument of its plan, rewritten by the slug
 rename (set 4), repaired by keeping the old slug with the new reference beside it; the issue on an anchor's own directory quotes
 the old relocation measure (set 4).
+
+### Questions put to the owner after round 3, and the owner's answer
+
+Each with its default, put with the `settled` repairs the session makes and the default to stop the
+rounds after them:
+
+- Q27, the root head's definition of "the record": the list closes the set.
+- Q28, `goal@knowledge-architect@the-owner-decides`: the durable text that records a decision is its
+  report.
+- Q29, the never-ranks item naming the agent-skills goal in words: dropped; the bullet reads "the
+  owner's authority, exchange and attention that [the three goals] give, as the goals that refine
+  them state it".
+- Q30, the core's relocation goal: (a) the change of purpose is the moved part's, and justifies the
+  move; (b) bringing an existing project's documents into conformance at adoption is no relocation
+  under it; (c) a measure item, the installed text has a session relocate only on those occasions.
+- Q31, `goal@knowledge-architect@design-is-recorded-with-its-arguments`: an entry of its own where a
+  comment at one site cannot carry the reason; any other decision whose reason the code does not show
+  has it beside the code and in the commit message.
+- Q32, `goal@agent-skills@one-skill-per-activity`: the installed set, not each skill, holds the
+  instructions a session gives another agent.
+- Q33, the agent-skills goal on the owner's intent: (a) "a review of a goal set" covers every review
+  of goals in rounds; (b) the measure, a stop on the count of findings, a review the owner stopped by
+  word for not converging showing the goal unmet; (c) the stop stays in this goal.
+- Q34, `goal@knowledge-architect@the-workflow-improves-through-real-use`: "failed what it is for in
+  the session".
+- Q35, the copy interval: (a) a fix to a kept copy is maintenance, admitted; (b) in
+  `goal@gates@gates-from-a-list`, writing a taken-in behaviour before a release ships it is admitted,
+  the copy goes at the project's move, and at the merge in this repository.
+- Q36, `goal@knowledge-architect@mechanical-tasks-are-the-tool-s`: taking in is the owner's own act.
+- Q37, `goal@core@documents-stay-current`: a reference names a goal, an entry of the record, a file,
+  a directory or a section of a text.
+- Q38, `goal@knowledge-architect@structure-and-workflow-work-together`: any document of the project
+  counts as a citing record.
+
+The owner's answer, verbatim:
+
+```text
+Agreed on the default, and to stop after this edit.
+In conclusion, what would you propose for the stop rule ? Can you remind me the current one ?
+```
+
+The rounds stop on the owner's word after round 3's repairs, which no round reviews.
+
+### The stop rule, after observing this review
+
+The owner asked what the session would propose for the stop rule, and was reminded of the two rules
+in force: draft mode stopping when a round from the second on reports no `blocks` finding tagged
+`settled` on old wording; the whole-set review stopping on the owner's word or when its count of
+`blocks` and `asks` findings, over old wording after the first round, falls to a fifth of the first
+round's. The session proposed one rule for both modes: stop when a round from the second on reports
+no `blocks` finding on old wording, whatever its route, or on the owner's word; put the stop to the
+owner when that count does not fall from the previous round's; the fifth dropped, since it fired at
+round 2 with three `blocks` findings standing. The owner's answer, verbatim:
+
+```text
+Agreed on this proposal for the stop rule.
+```
