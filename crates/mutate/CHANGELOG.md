@@ -25,8 +25,10 @@ an empty subsection is omitted.
   breadth; measures an outcome that depends on what the project does not control by what the project
   builds to pursue it and to learn from its use, never by a list of the properties the outcome is
   taken to consist of; and has a goals home cite only goals and registers of its own Component or of
-  one enclosing it. A goal's body carries "for instance" cases for each layer it has. A project's
-  goals are brought to the standard by `skill@knowledge-architect-goal-setting@whole-set-review`.
+  one enclosing it. A goal's body carries "for instance" cases for each layer it has. A goals home's
+  head states its Component's purpose and the few definitions its goals share, and restates no rule
+  of goal-setting. A project's goals are brought to the standard by
+  `skill@knowledge-architect-goal-setting@whole-set-review`.
 - `agent-skills`, patch: knowledge-architect asks every Rust target project to carry the maintenance
   crate, whose commands run as `cargo x <command>`, and the setup skill no longer offers a Rust
   project a local install of the checker. A Rust project that runs the checker from a local install

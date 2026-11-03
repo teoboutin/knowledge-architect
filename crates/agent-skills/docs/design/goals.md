@@ -2,13 +2,13 @@
 
 ## Goals
 
-### A goal stays while it is met, and leaves only on the owner's word `##goal-lifecycle`
+### A goal stays in its home, met or not yet met, and leaves only on the owner's word `##goal-lifecycle`
 
-A goal is met or unmet, and stays in its goals home while it is met. The rule and its reason are the
-owner's, in the root goals home as the owner adopted it: "A goal removed when it is achieved stops
-being checked, and can stop being met without anyone noticing. A goal leaves only when it is
-abandoned, on the owner's word." A goal leaves only when the owner abandons it, per
-`goal@knowledge-architect@the-owner-decides`.
+A goal is met or unmet, and stays in its goals home whether it is met or not yet met. The rule
+and its reason are the owner's: a goal removed when it is achieved stops being checked, and can
+stop being met without anyone noticing, so a goal leaves only when the owner abandons it, per
+`goal@knowledge-architect@the-owner-decides`. A goal drafted to move what the project builds is
+expected to be unmet when it is written, per `design@agent-skills@goal-drafted-to-move-the-tree`.
 
 ### A goal entry states an outcome and what would show it met, in a body with no bound on its length `##goal-entry-shape`
 
