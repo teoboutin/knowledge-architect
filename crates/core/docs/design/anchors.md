@@ -45,7 +45,7 @@ documentation, where a component's is source code.
 
 **A location exists so that a directory outside every component can be cited.** Naming the
 directory gives every entry in it a reference and makes relocating it one manifest edit, which
-`goal@core@relocation-is-one-manifest-edit` asks and `design@core@every-path-names-its-anchor`
+`goal@core@relocation-needs-only-goal-changes` asks and `design@core@every-path-names-its-anchor`
 buys everywhere else. What a location is instead of
 is `rejected@core@additional-trackers-file-list`.
 

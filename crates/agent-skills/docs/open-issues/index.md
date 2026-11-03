@@ -1,6 +1,6 @@
 **Generated — do not edit.** `cargo klarch index`
 
-51 entries
+50 entries
 
 | kind | title |
 | --- | --- |
@@ -41,7 +41,6 @@
 | todo | [A target project whose goal is judged in use collects no feedback from that use](a-target-project-collects-no-feedback-from-use.md) |
 | todo | [The project audit has three axes, and the other axes the owner named have none](audit-axes-beyond-the-design-record.md) |
 | todo | [Only the design and setup skills state what they expect of the owner](expectation-sets-for-the-installed-skills.md) |
-| todo | [Goals of this repository still name parts of the project as it is built, until the review of the whole goal set brings them to the standard](goals-name-built-parts-until-the-whole-set-review.md) |
 | todo | [Improving performance has no installed activity, nor a benchmark procedure](improving-performance-has-no-activity.md) |
 | todo | [Installed instructions assume pull requests and continuous integration](installed-text-assumes-pull-requests-and-ci.md) |
 | todo | [No check compares an audit pass's count of severe violations left with the previous pass's](no-check-compares-an-audit-pass-s-owner-list-count-with-the-previous-pass-s.md) |

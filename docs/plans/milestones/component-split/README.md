@@ -196,7 +196,7 @@ Outside this work, each with what owns it:
 - `goal@knowledge-architect@projects-are-split-into-components`,
   `goal@knowledge-architect@mechanical-tasks-are-the-tool-s`,
   `goal@core@documents-render-as-a-linked-site`, `goal@core@projects-add-their-own-checks`,
-  `goal@core@relocation-is-one-manifest-edit`, `goal@core@records-reach-their-reader`,
+  `goal@core@relocation-needs-only-goal-changes`, `goal@core@records-reach-their-reader`,
   `goal@core@document-rules-are-checked`, `goal@core@documents-stay-current`,
   `goal@core@checks-a-commit-from-its-hook`: the criteria below;
 - `design@knowledge-architect@version-lockstep`: every crate keeps one version;
@@ -1038,7 +1038,7 @@ R2, the session. Threads: #installed-text-check-home.
 
 R2, the session. Threads: #core-renamed-check.
 
-"Renaming `core` to `check` moves every head and reference that names the anchor `core`. Per `goal@core@relocation-is-one-manifest-edit` that should cost one manifest edit, but the old slugs in commit messages stay as they are."
+"Renaming `core` to `check` moves every head and reference that names the anchor `core`. Per `relocation-is-one-manifest-edit` that should cost one manifest edit, but the old slugs in commit messages stay as they are." The goal it names is now `goal@core@relocation-needs-only-goal-changes`, reworded.
 
 ### Its "two concrete changes" test, applied to one subcommand at a time, passes every time `##arg-53`
 

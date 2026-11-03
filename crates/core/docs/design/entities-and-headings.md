@@ -242,7 +242,7 @@ entry's reason does not reach, since its reason names the clusters' acyclicity a
 exception to `design@core@no-citation-direction-rule`, and to the relocation that
 `design@core@every-path-names-its-anchor` says edits no document: a move that changes which
 Components enclose a goals home turns its citations of the former enclosing Component into
-findings, which strains `goal@core@relocation-is-one-manifest-edit`.
+findings, which strains `goal@core@relocation-needs-only-goal-changes`.
 
 ### `id` answers whether an id is free with every entity the table defines under it, of every kind and every anchor, and leaves to its reader which collision matters `##id-lookup-command`
 

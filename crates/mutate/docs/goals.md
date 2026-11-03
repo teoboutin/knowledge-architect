@@ -1,10 +1,7 @@
 # Goals — mutate
 
-What the hand mutation, the package `knowledge-architect-mutate` called the crate below, is for is
-the goal below. A goal is met or unmet, where a decision about how the crate is built is won or lost
-and lives in `register@mutate@design`. A goal stays here while it is met, and leaves only when the
-owner abandons it. This Component is published, so its goals are encouraged to refine a goal of
-`register@knowledge-architect@goal`.
+The hand mutation, the package `knowledge-architect-mutate`, called the crate below, lets a session
+check that a test catches a wrong implementation the session names.
 
 ## A session checks that its test catches a wrong implementation the session names, over uncommitted work, and the crate's own writes lose nothing of the mutated files `##a-named-mutation-is-checked-safely`
 
@@ -19,18 +16,22 @@ without writing over content it did not write, or the run was interrupted, that 
 where the crate's recovery reads it, and the crate writes it back only over the mutant the crate
 itself wrote, or where the file is gone. What the session's command writes is the session's.
 
-A verdict is given only about the mutant read back from the files before the command ran. Where the
-crate cannot tell the command noticing the mutant from a base on which the command already fails,
-it refuses the run, unless the session skipped that baseline; where it cannot tell it from a mutant
-that does not build, it says so when the session gave no build probe, and reports a mutant whose
-probe fails as unbuildable when it gave one.
+A verdict is given only about the mutant read back from the files before the command ran. The
+verdict tells the command noticing the mutant apart from a base on which the command already fails,
+unless the session waived that, and from a mutant that does not build; where it cannot tell them
+apart, the crate refuses the run or says so in the verdict.
 
-It is met while the setup skill gives a Rust target project a `cargo x` command that runs the
-crate, and the crate's tests show, over uncommitted files: a caught verdict and a survived one,
-each with the files restored byte for byte; the mutant read back before the command runs; a run
-killed while its mutation is applied, and the files written back from what the crate kept; a
-restore that refuses to overwrite a file edited during the run; a red base refused; a mutant that
-fails its build probe reported as unbuildable; a verdict with no probe saying what it cannot tell;
-and a mutation of several files applied and restored.
+It is met while the workflow's setup gives a Rust target project a command that runs the crate, and
+the crate's tests show, over uncommitted files: a caught verdict and a survived one, each with the
+files restored byte for byte; the mutant read back before the command runs; a run killed while its
+mutation is applied, and the files written back from what the crate kept; a restore that refuses to
+overwrite a file edited during the run; a base on which the command already fails refused, or
+reported as such in the verdict; a mutant that does not build reported as such; a verdict that says
+what it cannot tell; and a mutation of several files applied and restored.
 
 It refines `goal@knowledge-architect@generic-tools-and-procedures-are-shipped`.
+
+- Requires, for instance: a file with uncommitted edits holds those edits, byte for byte, after a
+  run that mutated it.
+- Admits, for instance: a test command that runs one test, or the whole suite.
+- Rules out, for instance: the crate proposing a mutation from the session's diff.

@@ -268,7 +268,7 @@ design split by subject: one subject per directory, several files each, every en
 `<kind>@<subject>@<id>`, which `goal@knowledge-architect@every-target-project-can-adopt-it` asks the manifest
 to express without anything of the project compiled in. Adding a subject is creating a directory,
 not a manifest edit, and moving the home is one manifest edit, per
-`goal@core@relocation-is-one-manifest-edit`. A location declared per subject costs a manifest row
+`goal@core@relocation-needs-only-goal-changes`. A location declared per subject costs a manifest row
 per subject. The rival that makes each subdirectory of a location an anchor, with no Directory
 register, is `rejected@core@subdirectory-anchors-location`.
 

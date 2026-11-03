@@ -72,7 +72,7 @@ file moves. The id is everything after the second `@`, so a path may itself hold
 sits inside another anchor is refused with the right anchor named. What this buys is the
 same property `design@core@an-entity-belongs-to-its-anchor` buys for every entity: relocating an
 anchor edits its one line of the project's `knowledge-architect.toml` and no document, which
-`goal@core@relocation-is-one-manifest-edit` asks, save a goals home whose enclosing Components the
+`goal@core@relocation-needs-only-goal-changes` asks, save a goals home whose enclosing Components the
 move changes, per `design@core@goals-home-cites-upward-only`, and one fixed-string grep per anchor is an
 anchor's complete inbound-reference list. An anchor's own directory is the one target with no
 spelling under its own name, so it is named from an ancestor — a reference that names a
@@ -162,7 +162,7 @@ hash sign before it stays silent under `design@core@retired-slug-reference-repor
 
 **The kind exists because a home has two shapes**, per `design@core@heading-register-two-shapes`.
 A `path` names one of them, so a home that outgrows one file dangles every `path` to it, against
-`goal@core@relocation-is-one-manifest-edit`, and a text that must hold in every project names both
+`goal@core@relocation-needs-only-goal-changes`, and a text that must hold in every project names both
 shapes, per `goal@agent-skills@installed-text-works-in-every-target-project`. This reference names the register and lets the manifest and the tree say which shape it is.
 The nearest rival is a `path` that resolves to either shape; it loses on
 `design@core@trailing-slash-claims-directory`, since a path claims its target's kind, and a path
@@ -201,7 +201,7 @@ whose repair names the entry's reference, `<register>@<parent>@<id>`, per
 
 **Both forms legal** loses to this finding: a writer keeps writing the `path`, and a home that
 changes shape then dangles every one of them, which `design@core@register-home-reference` exists to
-prevent, against `goal@core@relocation-is-one-manifest-edit`. The finding repairs nothing by itself:
+prevent, against `goal@core@relocation-needs-only-goal-changes`. The finding repairs nothing by itself:
 no fix of `check --fix` respells it.
 
 The design this decision did not keep: `rejected@core@path-to-home-beside-register-form`.
