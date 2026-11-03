@@ -19,7 +19,7 @@ What the rounds owe, beyond the procedure:
   - `goal@knowledge-architect@agents-get-a-complete-workflow`, which lost the sentence "What the step
     says, beyond what the session's judgement handles, follows
     `goal@agent-skills@only-needed-instructions`."
-- **`goal@core@relocation-is-one-manifest-edit` changes shape, with no exception.** The owner: "the
+- **The core's relocation goal changes shape, with no exception.** The owner: "the
   relocation goal should be updated, but not with an exception. Under our new constraints on goals,
   relocation can only happen if there is a change of purpose of the component that justifies it, or
   if it does not break the checker (a relocation with no intermediate component would never break
@@ -185,7 +185,7 @@ Met outside: "admits"/"admission" other sense in serves-one-kind l.416, generic-
 `goal@knowledge-architect@documentation-stays-consistent`: R1 blocks ("compiled in or declared in the manifest", declaration switches off); R1 asks ("in the texts the checker reads" - saved workflows unchecked; direction?); R6 asks (reviews/audits in use); R6 minor (listing guarantee has no measure line).
 core `goal@core@documents-stay-current`: R1 blocks (register declares shape, generated listing); R6 minor (no test named).
 core `goal@core@document-rules-are-checked`: R1 blocks (core compiles in, manifest, walk, empty list of harnesses); R6 minor.
-core `goal@core@relocation-is-one-manifest-edit`: contradiction (a) blocks vs owner's Q2 statement; R1 blocks (manifest, declared register's home, anchors, path references, basename); R7 blocks (refines `goal@knowledge-architect@documentation-stays-consistent` but parent states no cost - may fall).
+core the core's relocation goal: contradiction (a) blocks vs owner's Q2 statement; R1 blocks (manifest, declared register's home, anchors, path references, basename); R7 blocks (refines `goal@knowledge-architect@documentation-stays-consistent` but parent states no cost - may fall).
 core `goal@core@records-reach-their-reader`: R6 asks (in use, completeness measure); R1 asks (two listings = mechanism; filtered listing meets parent).
 core `goal@core@documents-render-as-a-linked-site`: R1 blocks (preprocessing pass, mdbook; design argument belongs in head); R6 minor (hosted outside build). Not met yet (no book config).
 core `goal@core@projects-add-their-own-checks`: R1 blocks ("project's checker binary", same subcommands); R6 minor (measure omits body). "no change to the core" admitted (own Component).
@@ -248,7 +248,7 @@ default on Q12.
 
 Choices the drafters made, kept in the tree and put to the owner with the batch:
 
-- `goal@core@relocation-is-one-manifest-edit` refines `goal@knowledge-architect@agents-work-without-drift`
+- the core's relocation goal refines `goal@knowledge-architect@agents-work-without-drift`
   instead of `goal@knowledge-architect@documentation-stays-consistent`, answering the whole-set
   finding that the parent states no cost; the rival is to drop the refinement line.
 - In `goal@knowledge-architect@serves-one-kind-of-project`, Q13's sentence follows the four
@@ -348,7 +348,7 @@ The count for the stop, `blocks` and `asks` on the wording round 1 read: 6, belo
 1's 136. Three `blocks` findings tagged `settled` stand on that wording, so the draft-mode stop of
 step 4 is not met: "the agent definitions those skills dispatch" in
 `goal@agent-skills@one-skill-per-activity`; "switches off the checks of the installed text" in
-`goal@core@document-rules-are-checked`; the slug of `goal@core@relocation-is-one-manifest-edit`,
+`goal@core@document-rules-are-checked`; the slug of the core's relocation goal,
 which names the manifest.
 
 ### Findings, by subject
@@ -393,7 +393,7 @@ same words.
   gate logic of its own" (set 5, `asks`).
 - Built parts still named: the listings the checker generates (whole set, `blocks`; set 4, `asks`);
   a retrospective's two files (whole set, `blocks`); the three on old wording above.
-- `goal@core@relocation-is-one-manifest-edit`: whether "happens on a change of purpose" restricts
+- the core's relocation goal: whether "happens on a change of purpose" restricts
   when a project relocates or bounds the cost promise (set 4, whole set, `asks`); "a few" unbounded in
   the measure (whole set, `minor`).
 - `goal@knowledge-architect@mechanical-tasks-are-the-tool-s`: "owed a command" against "a command or
@@ -440,9 +440,9 @@ Each with its default:
   move and keeps its copy is admitted, "found held again" being a copy written after that move; (b)
   the gates measure ends the admitted copy at the project's own move; (c) for this repository, which
   runs the checker it builds, a part ships when it merges into main.
-- Q23, `goal@core@relocation-is-one-manifest-edit`: "happens on a change of purpose, or where it
+- Q23, the core's relocation goal: "happens on a change of purpose, or where it
   breaks no check" restricts when a project relocates; the slug is renamed to
-  `relocation-needs-only-goal-changes`, every reference repaired.
+  "relocation-needs-only-goal-changes", every reference repaired.
 - Q24, the narrowings round 1's repairs wrote, each de-narrowed: `goal@core@documents-stay-current`
   ranges over the entries of its goals and its record and the shape each kind requires;
   `goal@core@records-reach-their-reader` over everything the project records as outstanding;
@@ -461,3 +461,35 @@ The owner's answer, verbatim:
 ```text
 I agree on all the proposed defaults here. Apply it, then start round 3, so we see what we can reach.
 ```
+
+### Round 2's repairs
+
+Two drafters wrote the repairs into the tree under one brief: every default of Q18 to Q26, Q17's
+default, and every round-2 finding routed `settled`, but the rule-4 `minor` findings, which Q26
+leaves. The session renamed the core's relocation goal's slug to
+"relocation-needs-only-goal-changes" in every file that cites it, changed the root head's "what it
+keeps beside its goals" to "what it keeps other than its goals", and opened an issue in the core on
+the empty list of agent harnesses, per Q20; both ride with the goals' commit.
+
+Choices the drafters made, put to the owner with the batch:
+
+- the never-ranks list of `goal@knowledge-architect@agents-work-without-drift` names the new
+  agent-skills goal in words, since a root goal cites only root goals;
+- Q19's measure is in two parts: the installed retrospective collects the cases, and
+  knowledge-architect's own instructions for taking them in judge each against its goals judged in
+  use;
+- `goal@knowledge-architect@serves-one-kind-of-project`'s measure gains three items, for the merge
+  conditions, what is built only for a state that does not follow an ask, and the rule against
+  limits;
+- `goal@core@documents-stay-current` defines a generated text, which the checker writes into the
+  project's tree from its documents, rather than dropping it; `goal@agent-skills@one-skill-per-activity`
+  states the agent definitions by outcome, as the instructions a session gives another agent;
+- the relocation goal counts the mechanical edits in "breaks no check";
+- the new goal on the owner's intent has its measure gain the stop of a review of a goal set.
+
+## Round 3
+
+Dispatched: one goal reviewer per set in draft mode and one in whole-set mode, as in round 2, over
+the goals as round 2's repairs left them in the working tree, copied into a worktree detached at the
+commit that adds this section. The wording round 2 read is the snapshot the drafters took before
+their repairs, outside the tree.
