@@ -227,9 +227,9 @@ a goal tied to a nested Component is tied to a shape of the project: the nested 
 split or replaced while the purpose above it stays. A goal refines a goal of its own Component or of
 one enclosing it, so the citations of refinement point that way, as a nested Component's goal
 refines its intermediate Component's, per `design@agent-skills@intermediate-component-occasion`. A
-goals home's head is held to the same rule: the owner ruled that no design head is cited anywhere in
-a goals home, since the lifecycle of goals that a head states rests on what the goal-setting skill
-says, and a consumer's goals home cites none of this project's heads either.
+goals home's head is held to the same rule, on the owner's argument that nothing argues for citing a
+design head anywhere in a goals home: the lifecycle of goals that a head states rests on what the
+goal-setting skill says, and a consumer's goals home cites none of this project's heads either.
 
 The rule is a check, not a rule the goal reviewer applies alone, since it is mechanical, per
 `goal@knowledge-architect@mechanical-tasks-are-the-tool-s`, and the same in every project, per
@@ -237,8 +237,11 @@ The rule is a check, not a rule the goal reviewer applies alone, since it is mec
 `rejected@core@citation-direction-checked`, covered every document for an acyclicity that only the
 record search's clusters would use, and would fail every goal that refines another. This rule
 covers goals homes alone, admits a refinement, and stands on the stability of goals, which that
-entry's reason does not reach. The owner's reading, which the owner gave as a belief, is that most
-of that entry's argument was that the rule was unneeded for the design then settled. It is the one exception to `design@core@no-citation-direction-rule`.
+entry's reason does not reach, since its reason names the clusters' acyclicity alone. It is the one
+exception to `design@core@no-citation-direction-rule`, and to the relocation that
+`design@core@every-path-names-its-anchor` says edits no document: a move that changes which
+Components enclose a goals home turns its citations of the former enclosing Component into
+findings, which strains `goal@core@relocation-is-one-manifest-edit`.
 
 ### `id` answers whether an id is free with every entity the table defines under it, of every kind and every anchor, and leaves to its reader which collision matters `##id-lookup-command`
 

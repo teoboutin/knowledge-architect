@@ -75,7 +75,8 @@ else, a commit message included, it is refused before its id is looked up, and t
 the document to cite whole: the spec, the milestone, or the slice spec that defines the item, with
 the item named beside it as `#<id>`, the label `skill@knowledge-architect-planning@spec-contents`
 gives an item outside its plan. A
-whole plan may be cited from anywhere, so a dependency between plans is carried by the document,
+whole plan may be cited from anywhere but a goals home, per
+`design@core@goals-home-cites-upward-only`, so a dependency between plans is carried by the document,
 and retiring a plan asks no other plan to be redesigned item by item. The premise is that a
 whole-document citation carries every dependency between plans that matters while few plans are
 open at once.

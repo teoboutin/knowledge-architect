@@ -100,7 +100,7 @@ inside the plan, so that nothing outside it can cite the shape as settled. A des
 on unbuilt work is a finding, except a decision that no work implements and that is not part of
 any spec, which is recorded when made, per
 `skill@knowledge-architect-decision-recording@when-recording-happens`. A reference from outside a plan to one of its items is refused by the
-checker, and a whole plan document is cited by its kind, from anywhere.
+checker, and a whole plan document is cited by its kind, from anywhere but a goals home.
 
 **Is the head still present tense?** A head is written as if the design had always been so:
 present tense, no dates, no account of the change, per

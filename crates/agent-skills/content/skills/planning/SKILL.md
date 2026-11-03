@@ -140,7 +140,7 @@ docs/plans/
   its work, has its own home. If none fits, ask the owner before writing it anywhere.
 - **A plan document is cited by its kind**, never by its path: `spec@plans@<id>`,
   `milestone@plans@<id>`, `spec@<milestone>@<slice>`. A `path` citation of one is refused. A whole
-  plan document may be cited from anywhere, and its citations dangle when it leaves (`skill@knowledge-architect-planning@plan-document-leaves`).
+  plan document may be cited from anywhere but a goals home, and its citations dangle when it leaves (`skill@knowledge-architect-planning@plan-document-leaves`).
 - **A plan document defines items, and no design entry** (`skill@knowledge-architect-planning@spec-contents`). A plan's name is the anchor of its
   items, so it is not the name of a Component, of a location or of a reserved anchor, `plans`,
   `elsewhere` or `*`, and one name is not used under both homes.

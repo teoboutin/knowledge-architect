@@ -169,7 +169,7 @@ numbering is kept, so these stay true, per `issue@core@no-checked-form-cites-a-p
 - `design@agent-skills@goals-change-through-goal-setting` and `design@agent-skills@goal-edit-ruled-alone`:
   the mechanical edit changes goals outside goal-setting, with no draft and no review; the owner,
   round 4, quoted under #goal-standard-rereview-here. Two of its deletions change what a goal asks,
-  at main's lines 108 and 487; the owner, round 5, on Q1: "Q1 default, merge can only happen after
+  at main's lines 108 and 486; the owner, round 5, on Q1: "Q1 default, merge can only happen after
   we fix this under multiple rounds of the whole set review."
 
 **The decisions the work reverses or rewrites, with every text that references them:**
@@ -725,6 +725,11 @@ happen at a relocation, in addition  to a few mechanical edits tolerated. But th
 should change shape, under the whole set review." Bears on #goal-cites-goals-upward-only,
 #goal-standard-rereview-here.
 
+### Asks reported by a check need no listing `##arg-35`
+
+Round 6, the owner, quoted under "Defaults awaiting the owner", D3. Bears on
+#goal-cites-goals-upward-only and step 5.
+
 ## New names, in one place
 
 ```text
@@ -885,11 +890,11 @@ The lines are main's commit's, the line where the deleted words begin.
 | site | deleted |
 | --- | --- |
 | root, line 19 | ", per `design@agent-skills@goal-lifecycle`" |
-| root, line 87 | " among those `goal@agent-skills@one-skill-per-activity` lists," with the comma before it |
+| root, line 87 | ", among those `goal@agent-skills@one-skill-per-activity` lists", leaving "include these, a list" |
 | root, line 108 | the sentence "What the step says, beyond what the session's judgement handles, follows `goal@agent-skills@only-needed-instructions`." |
 | root, line 131 | ", as `goal@agent-skills@no-contradiction-in-workflow` states" |
 | root, line 133 | ", per `goal@agent-skills@only-needed-instructions`" |
-| root, line 137 | " as `goal@agent-skills@one-skill-per-activity` measures," with the comma before "as", leaving "taken in, and in it" |
+| root, line 137 | " as\n  `goal@agent-skills@one-skill-per-activity` measures,", leaving "taken in, and in it" |
 | root, line 141 | ", as `goal@agent-skills@no-contradiction-in-workflow` measures" |
 | root, line 155 | ", per `goal@gates@gates-from-a-list`" |
 | root, line 420 | ", per `goal@agent-skills@only-needed-instructions`" |
@@ -1009,7 +1014,9 @@ Fails alone on: the reviewer's grades disagreeing with the skill's stops.
 
 The harvest rows below; then the review of `skill@knowledge-architect-review`, which is the review
 before the merge, as `skill@knowledge-architect-planning@working-a-slice` point 6 says, with its
-repairs; then this spec's deletion in a commit of its own. The branch does not merge.
+repairs; then the record of step 5's review, `path@knowledge-architect@docs/goal-reviews/2026-11-03-goal-standard.md`,
+which carries what step 5 must read and do once this spec has left; then this spec's deletion in a
+commit of its own. The branch does not merge.
 
 ### Step 5: rounds of the review of the whole goal set
 
@@ -1018,7 +1025,9 @@ standard, in as many rounds as its stop takes, with the owner's ruling on every 
 goal to the standard, the two the mechanical edit left changed in meaning among them. It reshapes
 `goal@core@relocation-is-one-manifest-edit`, on the owner's word of round 5 on Q2, #arg-34: a
 relocation is a change of purpose, which the goals carry, or a move that leaves the checker passing,
-with a few mechanical edits tolerated. It reads `issue@knowledge-architect@four-goals-homes-state-no-purpose-their-goals-serve`,
+with a few mechanical edits tolerated. It closes
+`issue@agent-skills@goals-name-built-parts-until-the-whole-set-review` in the commit that writes the
+goals the owner ruled last. Its record holds the rest of what it reads. It reads `issue@knowledge-architect@four-goals-homes-state-no-purpose-their-goals-serve`,
 `issue@mutate@a-mutation-of-several-files`, `design@mutate@one-file-per-run`,
 `issue@git@tools-run-git-past-the-wrapper` and the three issues the search graded as touching the
 goals. Then the review before the merge of the whole branch, on every axis
@@ -1034,20 +1043,34 @@ goals. Then the review before the merge of the whole branch, on every axis
 
 ## Defaults awaiting the owner
 
-None. Q1 to Q5 are ruled, round 5.
+Q1 to Q5 are ruled, round 5. Put to the owner after the review before the merge, and ruled in
+round 6:
+
+- **D1**, #review-stops-on-blocking-zero: the whole-set stop's fifth, argued on the old count,
+  applied to the new count. The owner: "we will observe the whole set review and decide after. I
+  lean that blocks should probably required to reach 0. Practical use will tell us if that is
+  achievable." The fifth stays as the session's default, awaiting the owner's ruling after step 5.
+- **D2**, #goal-cites-goals-upward-only: how a consumer brings a goal the check refuses to the rule.
+  The owner: "through a whole set review". Ruled: the Migration entry and the finding's repair send
+  the rewording through goal-setting.
+- **D3**, #goal-cites-goals-upward-only: whether the setup skill lists the check as an ask. The
+  owner: "i think asks from checks do not need listing in setup skill, because the checks themselves
+  report the ask to consumers already." Ruled: nothing is listed; the argument bears on the measure
+  of `goal@knowledge-architect@serves-one-kind-of-project`, which step 5 reviews.
 
 ## Harvest
 
 | when | what | where |
 | --- | --- | --- |
 | step 1 | #goal-cites-goals-upward-only → `design@core@goals-home-cites-upward-only`, and the narrowing of `design@core@no-citation-direction-rule` | `register@core@design`, done |
-| step 4 | #goal-outcome-survives-empty-skeleton, #goal-one-meaning-any-breadth, #requires-admits-rules-out, #goal-drafted-to-move-the-tree, #goal-met-in-tree-or-in-use, rule 7 citing the core head | `design@agent-skills@goal-standard-rules`, rewritten, citing the grounding document |
-| step 4 | #reach-finding-asks-not-narrows, #goal-finding-grades, the draft-mode stop of #review-stops-on-blocking-zero | `design@agent-skills@goal-reviewer-agent`, rewritten, citing the grounding document |
-| step 4 | the whole-set stop of #review-stops-on-blocking-zero, with the argument from `design@agent-skills@convergence-count-scope` | `design@agent-skills@whole-set-rounds`, rewritten, citing the grounding document |
-| step 4 | #goal-carries-reading-examples | `design@agent-skills@goal-entry-shape` and `design@agent-skills@goal-draft-shows-reach`, rewritten |
-| step 4 | the losing alternatives, the separate layer of measures among them with its argument from `primer@goals-bind` | judged under `skill@knowledge-architect-decision-recording` for `register@agent-skills@rejected` |
+| step 4 | the hosting of the standard, and rule 7 citing the core head | `design@agent-skills@goal-standard-rules`, rewritten, citing the grounding document |
+| step 4 | #goal-outcome-survives-empty-skeleton, #goal-one-meaning-any-breadth, #requires-admits-rules-out, #goal-drafted-to-move-the-tree, #goal-met-in-tree-or-in-use, and rules 4 and 8 | one head each, under the thread's slug where it has one: `design@agent-skills@goal-outcome-survives-empty-skeleton`, `design@agent-skills@goal-one-meaning-any-breadth`, `design@agent-skills@requires-admits-rules-out`, `design@agent-skills@goal-drafted-to-move-the-tree`, `design@agent-skills@goal-met-in-tree-or-in-use`, `design@agent-skills@goal-holds-one-intent`, `design@agent-skills@goal-exclusion-names-its-design` |
+| step 4 | #goal-finding-grades, #reach-finding-asks-not-narrows | `design@agent-skills@goal-finding-grades`, `design@agent-skills@reach-finding-asks-not-narrows`; `design@agent-skills@goal-reviewer-agent` keeps the reviewer's modes |
+| step 4 | #review-stops-on-blocking-zero → `design@agent-skills@goal-review-stops-on-old-wording`, since the thread's slug names a stop on zero, and the whole-set stop in `design@agent-skills@whole-set-rounds` | both, citing the grounding document |
+| step 4 | #goal-carries-reading-examples | `design@agent-skills@goal-carries-reading-examples`; `design@agent-skills@goal-entry-shape` and `design@agent-skills@goal-draft-shows-reach` rewritten, and `design@agent-skills@goal-owner-statements-go-to-the-reviewer` split from the latter |
+| step 4 | the losing alternatives and the statements the rewrite replaced | judged under `skill@knowledge-architect-decision-recording`: `rejected@agent-skills@goal-review-stop-over-all-wording` and `rejected@agent-skills@goal-universal-names-its-set` |
 | step 4 | P1, P2, P3, P4 and P6 | judged as tripwires of `register@agent-skills@tripwire` |
-| step 4 | `the-goal-standard-lets-a-goal-name-what-is-built-or-cite-an-entry` and `a-goal-the-draft-review-read-was-reworded-again-for-a-defect` | closed |
+| step 4 | `the-goal-standard-lets-a-goal-name-what-is-built-or-cite-an-entry` and `a-goal-the-draft-review-read-was-reworded-again-for-a-defect` | closed; the first's whole-set half restored as `issue@agent-skills@goals-name-built-parts-until-the-whole-set-review`, closed at step 5 |
 | step 4 | the summary of `issue@agent-skills@a-target-project-collects-no-feedback-from-use` | rewritten to the new rule 6 |
 | step 1 and step 2 | #goal-standard-rereview-here | the Migration entries in `path@knowledge-architect@CHANGELOG.md` |
 

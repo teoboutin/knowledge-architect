@@ -12,15 +12,17 @@ agents to move the project toward. It is drafted to move what the project builds
 reworded goal is expected to be unmet, and is never shaped so that the project as it stands meets
 it.
 
-%% Rule 1's skeleton test: a goal that names a part as built binds the part, so a redesign rewrites
-%% goals only the owner may change. Rule 1 also reads goal-setting's outcome test against the
-%% owner's intent: a kind of interface the owner intends to provide is an outcome, an exact form a
-%% decision. Cases: thaum's library goal stated "the stream shape that meets this"; thaum's fuzzing
-%% goal stated "a lower-rate second arm" and two mechanisms; knowledge-architect's goals named "the
-%% rules the core compiles in" and "an mdbook build".
+%% Rule 1's skeleton test and its outcome test, per `design@agent-skills@goal-standard-rules`. Its
+%% kind of interface is no absolute list of what a goal never names, since such a list ruled out a
+%% kind of interface the owner intended to provide, such as a command line. Cases: thaum's library
+%% goal stated "the stream shape that meets this"; thaum's fuzzing goal stated "a lower-rate second
+%% arm" and two mechanisms; knowledge-architect's goals named "the rules the core compiles in" and
+%% "an mdbook build".
 1. **It states an outcome the owner intends, which keeps its meaning in the project emptied of its
    design and its code.** Read the goal as if every design head, document and line of code under it
-   were removed: each word still means what it meant. A goal may define what the project provides
+   were removed: each word still means what it meant. A sentence is a mechanism when, changed, the
+   Component would still be for what the owner intends, and an outcome when the change would make it
+   for something else. A goal may define what the project provides
    and then name it, as "the project provides a command that checks its documents"; it names no
    part whose existence comes from a design choice. A Component's goal may name its own Component
    and the Components that enclose it. The kind of interface the Component provides, a command line,
@@ -64,7 +66,9 @@ it.
 %% The measure is what the project builds, since a measure on use is out of reach in most projects,
 %% where the project is not used on itself; evidence from use keeps the role of showing the goal
 %% unmet in practice. The test of what the project does not control is KAOS's sort by who can
-%% enforce a goal.
+%% enforce a goal. Case: knowledge-architect's goal on the quality of the code the workflow leads
+%% to, whose measure listed three properties and bound every unit a change edits to state why it
+%% departed from them.
 6. **What shows it met is in what the project builds**, never a plan document or anything that
    leaves. **Ask whether the outcome depends on anything the project does not control, such as its
    users, their data or their environment.** If not, what shows it met is a check or a test over
@@ -77,11 +81,9 @@ it.
    such as a review's finding, a retrospective's finding or what the owner observes in sessions, is
    not the measure: it shows the goal unmet in practice where what is built fails it, and leads to a
    change of what is built.
-%% The citation rule is `design@core@goals-home-cites-upward-only`, which the checker enforces: a goal
-%% tied to an entry agents move, or to a lower Component that can be split or replaced, changes when
-%% they do.
+%% The citation rule is `design@core@goals-home-cites-upward-only`, which the checker enforces.
 7. **A refinement neither widens nor contradicts the goal it refines, and a goal cites only goals
-   of its own Component or of one enclosing it.** A goals home, its goals and its head alike, cites
+   and registers of its own Component or of one enclosing it.** A goals home, its goals and its head alike, cites
    no entry other than a goal, and no register's home other than one of its own Component or of one
    enclosing it; the checker reports any other reference there. A goal holds what it needs in its
    own words.

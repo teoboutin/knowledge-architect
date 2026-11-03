@@ -372,8 +372,8 @@ fn goals_home_citation(
 /// The repair a finding names in a goals home, the citation check's and an id lint's alike, so
 /// that no finding there sends a writer to a reference the citation check refuses.
 const GOALS_HOME_REPAIR: &str = "cite a goal of this Component or of one enclosing it, or rewrite \
-     the sentence so it names no entry; a goal holds whatever it needs in its own words. Never keep \
-     the span with its backticks removed";
+     the sentence so it names no entry, a goal's rewording going through its project's goal-setting; \
+     a goal holds whatever it needs in its own words. Never keep the span with its backticks removed";
 
 /// Whether a reference of `kind` naming `anchor` may stand in the goals home `owner` keeps: a goal
 /// or a register's home of `owner` itself, or of a Component whose directory holds `owner`, the

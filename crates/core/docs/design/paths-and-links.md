@@ -72,7 +72,8 @@ file moves. The id is everything after the second `@`, so a path may itself hold
 sits inside another anchor is refused with the right anchor named. What this buys is the
 same property `design@core@an-entity-belongs-to-its-anchor` buys for every entity: relocating an
 anchor edits its one line of the project's `knowledge-architect.toml` and no document, which
-`goal@core@relocation-is-one-manifest-edit` asks, and one fixed-string grep per anchor is an
+`goal@core@relocation-is-one-manifest-edit` asks, save a goals home whose enclosing Components the
+move changes, per `design@core@goals-home-cites-upward-only`, and one fixed-string grep per anchor is an
 anchor's complete inbound-reference list. An anchor's own directory is the one target with no
 spelling under its own name, so it is named from an ancestor — a reference that names a
 location, which a move is expected to break.
