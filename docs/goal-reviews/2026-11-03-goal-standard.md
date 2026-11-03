@@ -493,3 +493,82 @@ Dispatched: one goal reviewer per set in draft mode and one in whole-set mode, a
 the goals as round 2's repairs left them in the working tree, copied into a worktree detached at the
 commit that adds this section. The wording round 2 read is the snapshot the drafters took before
 their repairs, outside the tree.
+
+### Counts
+
+| reviewer | findings | `blocks` | `asks` | `minor` | `settled` | `intent` | `contradiction` | `blocks` and `asks` on old wording |
+| --- | --- | --- | --- | --- | --- | --- | --- | --- |
+| set 1, draft | 3 | 0 | 2 | 1 | 1 | 2 | 0 | 0 |
+| set 2, draft | 6 | 0 | 2 | 4 | 4 | 2 | 0 | 1 |
+| set 3, draft | 8 | 0 | 7 | 1 | 1 | 7 | 0 | 0 |
+| set 4, draft | 11 | 1 | 6 | 4 | 5 | 6 | 0 | 1 |
+| set 5, draft | 5 | 1 | 3 | 1 | 2 | 3 | 0 | 1 |
+| whole set | 11 | 1 | 5 | 5 | 6 | 5 | 0 | 0 |
+| all | 44 | 3 | 25 | 16 | 19 | 25 | 0 | 3 |
+
+Over the three rounds, all findings went 165, 71, 44; `blocks` 57, 13, 3; the count for the stop
+136, 6, 3. One `blocks` finding tagged `settled` stands on the wording round 2 read: "the gates", in
+the gates goals home's head, names the Component and the merge checks both. Most of round 3's
+findings are `asks` on wording round 2's repairs wrote.
+
+### Findings, by subject
+
+- The root head's "the record ... what it keeps other than its goals: ...": the list reads as
+  examples or as the whole set, which decides whether a plan document or a retrospective's pending
+  findings are record (sets 1, 3, 4, whole set, `asks`).
+- `goal@knowledge-architect@the-owner-decides`: whether the durable text that records an
+  implementation choice is itself its report (set 1, `asks`); the measure covers the first of the two
+  sentences only (set 1, `minor`).
+- The never-ranks item naming the agent-skills goal on the owner's intent in words: it reads against
+  the case that rules out a Component goal ranked above the drift goal, and against the owner's
+  statement that a goal never cites a lower Component's goal (sets 1, 3, whole set, `asks`).
+- `goal@knowledge-architect@serves-one-kind-of-project`'s new measure: "every condition above"
+  against the four conditions; the exception for a state helped into conformance reaching a project
+  that is not a target project, and "or repaired" dropped; the four uses of the argument from current
+  need that the body keeps (set 2, whole set, `minor`).
+- `goal@knowledge-architect@generic-tools-and-procedures-are-shipped`: whether a fix to a kept copy
+  after the move is a copy "written" then (set 2, `asks`); no measure item for considering at the
+  move (set 2, `minor`).
+- `goal@knowledge-architect@mechanical-tasks-are-the-tool-s`: whether a task the installed text
+  requires is taken in by that alone (set 2, `asks`, old wording).
+- `goal@knowledge-architect@design-is-recorded-with-its-arguments`: two readings of "would otherwise
+  have to derive again", and "any other decision" reaching every implementation choice, with a
+  reason in two places (set 4, `asks`).
+- `goal@knowledge-architect@records-live-beside-the-code`: whether a retrospective's pending
+  project-file findings are outstanding, so record (whole set, `asks`); its measure over the project's
+  own homes ranges over what an adopter chooses (set 4, `minor`).
+- `goal@knowledge-architect@structure-and-workflow-work-together`: which documents count as "other
+  records" citing a home (set 3, `asks`).
+- `goal@knowledge-architect@the-workflow-improves-through-real-use`: whether "failed the session"
+  means the session's task or what a goal judged in use intends (set 3, `asks`).
+- `goal@agent-skills@one-skill-per-activity`: whether the instructions a session gives another agent
+  sit in the installed set or in each skill (set 3, whole set, `asks`); the measure does not carry
+  them (set 3, `minor`).
+- The agent-skills goal on the owner's intent: whether "a review of a goal set" covers a draft-mode
+  batch (set 3, `asks`); "a few rounds" as a property of the text, though convergence is judged in use
+  (set 3, whole set, `asks`); the stop is a second intent, placed there by an approved default (whole
+  set, `minor`).
+- `goal@core@documents-stay-current`: "the shape its kind requires", where "kind" also names an
+  issue's `kind` field (set 4, whole set, `blocks`); whether a pointer to a section or a directory is
+  "a file" (set 4, `asks`, old wording).
+- The core's relocation goal: whose change of purpose permits a move, the owner's words saying "of
+  the component that justifies it" (set 4, `asks`); its cases read as the checker's obligations where
+  its body restricts the project's moves (set 4, `asks`); bringing an existing project's documents
+  into conformance at adoption, which the root's adoption goal needs and the "only" rules out (whole
+  set, `asks`, a conflict between two homes); no measure for the restriction, and two intents (set 4,
+  whole set, `minor`).
+- `goal@core@documents-render-as-a-linked-site`: the hosting has no measure (set 4, whole set,
+  `minor`); `goal@core@checks-a-commit-from-its-hook`: the measure owes `git commit -a` with paths,
+  which git refuses (set 4, `minor`).
+- `goal@gates@gates-from-a-list`: the head and the title rule out writing a taken-in behaviour before
+  a release ships it, which the body admits; this repository never moves to a released version;
+  "until" against "considers following" (set 5, `asks`); "the gates" in the head (set 5, `blocks`,
+  old wording).
+- `goal@xtask@one-command-runs-every-gate`: the measure ranges over the whole merge verdict, the body
+  over the gates' part (set 5, `minor`).
+
+Met outside the goals: the record holds no list of questions still open (whole set); round 2's
+finding on a defect provable by reading against a goal judged in use has no outcome (whole set); the
+quotation in `milestone@plans@component-split`, and an argument of its plan, rewritten by the slug
+rename (set 4), repaired by keeping the old slug with the new reference beside it; the issue on an anchor's own directory quotes
+the old relocation measure (set 4).
