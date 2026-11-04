@@ -4,7 +4,7 @@
 //! It holds what a tool over a project's documents needs. A tool builds a [`Model`], asks
 //! [`foundation::complete_working_tree`] whether it can be trusted, and reads it. The checks of a
 //! document's content are the package `knowledge-architect`, which depends on this one; a project
-//! that runs the checker names that package alone.
+//! that only runs the checker names that package alone.
 //!
 //! The gate judges what the manifest declares against what the tool hands it. A manifest table
 //! belongs to an extension, so a tool over a project with one calls [`extension::contribute`] before

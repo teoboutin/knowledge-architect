@@ -51,7 +51,7 @@ This repository adds:
   the slice is built on the drafts, and its branch merges once the owner has ruled on them, per
   `primer@question-authority`. #check-renamed sends each goal of `register@check@goal` to the Component that holds its subject where that Component exists, and drafts the rewording of each that names "the core", such as
   `goal@check@checks-a-commit-from-its-hook`, whose measure names "the core's tests", and
-  `goal@check@projects-add-their-own-checks`, which names "no change to the core";
+  `goal@check@projects-add-their-own-checks`, which named the core;
 - each slice moves the design heads, `rejected` entries, issues and tripwires whose subject its new
   Component holds, per `skill@knowledge-architect-component-creation@creation-procedure` point 4,
   and re-points every reference `cargo klarch check` then reports;
@@ -506,7 +506,7 @@ Binding, from `goal@knowledge-architect@documents-render-as-a-linked-site`, whic
 from the model alone is the owner's argument, #arg-26. Met by #model-crate, which separates the
 resolver from the lints, and #render-crate.
 
-### An extension needs no change to any crate of knowledge-architect, builds against published versions of them, and uses only their public, documented APIs `##extension-api-stays-public`
+### An extension needs no change to any crate of knowledge-architect and can be built against published versions of them `##extension-api-stays-public`
 
 Binding, from `goal@check@projects-add-their-own-checks`. Met by #cli-crate, which keeps the package
 name and re-exports the extension API, #model-crate's phase-1 contribution, and #testing-crate.
