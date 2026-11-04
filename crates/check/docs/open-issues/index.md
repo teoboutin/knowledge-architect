@@ -1,6 +1,6 @@
 **Generated — do not edit.** `cargo klarch index`
 
-42 entries
+41 entries
 
 | kind | title |
 | --- | --- |
@@ -42,7 +42,6 @@
 | todo | [`show` on a register home in the directory shape prints its path and not its subdocuments](show-lists-no-subdocument-of-a-directory-home.md) |
 | todo | [Several behaviours around the installed files have no test that fails when they change](tests-around-the-installed-files-let-mutations-survive.md) |
 | todo | [Texts that cite the relocation goal still state its old measure, one manifest edit](texts-citing-the-relocation-goal-state-its-old-measure.md) |
-| todo | [`check`'s goals home states a purpose that leaves its goal on a rendered site outside it](the-core-s-purpose-leaves-the-rendered-site-outside-it.md) |
 | todo | [The graded entries carry a shared entry's grade once per agent](the-graded-entries-repeat-a-shared-entry-s-grade-per-agent.md) |
 | todo | [The checker does not read the structure of a project's own skills](tooling-for-project-skills.md) |
 | todo | [Two refusals of a foreign build and of the `"self"` pin have no test that fails when they are removed](two-refusals-of-the-build-and-the-pin-have-no-discriminating-test.md) |

@@ -102,6 +102,24 @@ It refines `goal@knowledge-architect@agents-get-a-complete-workflow`.
 - Rules out, for instance: a reviewer judging a document by a style the reviewer prefers and no
   criterion states.
 
+## A review judges whether what bears on the work reaches it and is followed `##reviews-judge-what-no-tool-can`
+
+The review the installed text owes before a merge asks, of the work it reads, two questions of meaning: whether each recorded item that bears on the work is
+cited where it bears, and whether the work departs from the goals, the decisions and the reasons
+recorded beside the code that bear on it. The
+checker and the commands that list the recorded items carry the mechanical part, and passing them answers neither.
+
+It is met while the installed text owes that review, both questions named, before every merge into the main
+branch, and asks in its retrospective how it fared.
+
+It refines `goal@knowledge-architect@records-reach-their-reader` and
+`goal@knowledge-architect@documentation-stays-consistent`.
+
+- Requires, for instance: a reviewer reports code that departs from a recorded decision, every reference of
+  it resolving.
+- Admits, for instance: a reviewer that starts from a listing of what cites an entry.
+- Rules out, for instance: a review passed because the check passed.
+
 ## An installed text works unchanged in every target project that installs it, one that holds none of knowledge-architect's goals and record included `##installed-text-works-in-every-target-project`
 
 A target project other than knowledge-architect that installs the workflow holds, in its repository,

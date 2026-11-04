@@ -1,6 +1,6 @@
 **Generated — do not edit.** `cargo klarch index`
 
-52 entries
+53 entries
 
 | kind | title |
 | --- | --- |
@@ -55,4 +55,5 @@
 | todo | [The agentic-workflow audit's cluster, merge and repair agents read the admission standard by a pointer](the-agentic-workflow-audit-s-repair-agents-read-the-admission-standard-by-a-pointer.md) |
 | todo | [The design skill's duty to bring back a material finding has no design head](the-material-finding-duty-has-no-head.md) |
 | todo | [The retrospective records no count of what a merged branch cost in review](the-retrospective-counts-no-review-cost.md) |
+| todo | [The installed review does not name the two questions the goals now ask of it](the-review-does-not-ask-whether-items-are-cited-where-they-bear.md) |
 | todo | [This repository's design heads that cite the owner's words await a pass of the design-record axis under the rule on what a head stands on](this-repository-s-heads-await-the-design-record-axis.md) |

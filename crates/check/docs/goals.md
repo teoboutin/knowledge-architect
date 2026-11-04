@@ -1,9 +1,8 @@
-# Goals — the core checker
+# Goals — check
 
-What the core checker is for, as its share of the project's goals,
-`register@knowledge-architect@goal`. The checker exists mostly for
-`goal@knowledge-architect@agents-work-without-drift`: it reports where the documents and the code
-drift from the recorded design, and it makes keeping that design current cheap.
+Every goal here serves one purpose: the checker reports each breach of the rules it holds for a project's documents, and keeps what it
+generates current, so that keeping them correct is cheap. These goals
+are this Component's share of the project's goals, `register@knowledge-architect@goal`.
 
 ## In a project whose gates run the checker on each commit, its references, its goals and the entries of its record, and the texts the checker generates stay correct at every commit `##documents-stay-current`
 
@@ -13,7 +12,7 @@ from its documents, such as a listing of the entries of one kind. In a project w
 run the checker on each commit, these hold on the main branch and on every commit of a branch that
 merges:
 
-- every reference in the texts the checker reads resolves;
+- every reference in the texts the checker reads resolves, with one reading;
 - every goal has the shape a goal requires, and every entry of the record the shape its kind of
   entry requires;
 - every text the checker generates matches what generating it again writes.
@@ -86,25 +85,6 @@ It refines `goal@knowledge-architect@agents-work-without-drift`.
   workflow gives them, when it adopts the workflow.
 - Rules out, for instance: a Component moved for tidiness, with no change of purpose, after which a
   session must rewrite references one by one, by judgement, for the check to pass.
-
-## A recorded decision, or what is outstanding, is delivered to whoever needs it, through checked references `##records-reach-their-reader`
-
-The checker gives two listings, so a session reading a decision meets what stands against it, and a
-reversal comes with the list of what it touches:
-
-- for any entry, every text of the tree the checker reads that references the entry;
-- everything the project records as outstanding, and every piece of evidence it records that would
-  flip a recorded decision.
-
-It is met while the first listing holds every reference in the texts of the tree the checker reads,
-and the second everything the project records as outstanding and every such piece of evidence,
-both computed from the tree, never kept by hand.
-
-It refines `goal@knowledge-architect@structure-and-workflow-work-together`.
-
-- Requires, for instance: the listing for a decision names a code comment that cites it.
-- Admits, for instance: a listing filtered to one kind of text, beside the whole one.
-- Rules out, for instance: a list of what is outstanding kept by hand.
 
 ## A project adds checks of its own through a documented extension API `##projects-add-their-own-checks`
 

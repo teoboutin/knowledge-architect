@@ -110,5 +110,5 @@ reads that block, is no heading.
   agent, whatever anchor holds its file.
 
 The finding on an unslugged heading names the repair, and the setup skill states the requirement,
-so an adopting project meets it in the documentation. Serves `goal@check@records-reach-their-reader`:
+so an adopting project meets it in the documentation. Serves `goal@knowledge-architect@records-reach-their-reader`:
 `show` on a section lists every text that cites it.
