@@ -24,7 +24,7 @@ census in which the silence hides a pointer the migration missed reopens it. Rep
 shape is `rejected@check@retired-slug-reference-always-reported`. This serves `goal@knowledge-architect@every-target-project-can-adopt-it`.
 
 **The interpretation register's old entry numbers are not read.** They were thaum's own, and a
-lint naming them would belong to thaum's extension rather than to the core. Keeping that lint permanently is
+lint naming them would belong to thaum's extension rather than to `check`. Keeping that lint permanently is
 `rejected@check@permanent-interpretation-number-form`.
 
 ### A reference-shaped token outside backticks is a finding in every prose region the checker reads `##reference-shape-outside-span`

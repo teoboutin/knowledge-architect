@@ -19,8 +19,8 @@ per `design@model@components-carry-the-same-documents`, so a directory named `kn
 would collide with the root: a run over a scratch project
 laid out that way stopped in phase 1, reporting that the name "names 2 anchors". So a published
 crate may sit in a directory named by what it does rather than by its package, crates/check for the
-package knowledge-architect, and a future split of `check` follows the same rule, as crates/check
-and crates/cli. The cost: a reference says `core` where cargo says `-p knowledge-architect`.
+package knowledge-architect. The cost: a reference says `check` where cargo says
+`-p knowledge-architect`.
 
 The design this decision did not keep:
 `rejected@knowledge-architect@crate-directory-named-after-project`.
@@ -58,10 +58,10 @@ phases 1 to 3 and the resolver, and `check` depends on it by path and by exact v
 `design@knowledge-architect@version-lockstep`. A tool over the record needs the model and at most
 phases 1 to 3, never the last phase: the writers run them and no check, and `show` runs no phase and
 reads the resolver. Phases 1 to 3 say whether the model can be trusted, not whether the content
-conforms, the installed-file check apart while it stays in phase 2. Every check can be argued to bear on the
+conforms. Every check can be argued to bear on the
 answers a tool reads, and the line between them is how far: a slug defined twice makes the entity table
 wrong, so it is the model's, where a reference to something missing or a bare id has little effect on
-them, so it is a check. The boundary is crossed by some changes and not by all: of the commits that changed `check`'s
+them, so it is a check. The boundary is crossed by some changes and not by all: of the commits that changed the checker's
 source, some touched the model's files alone and some the checks alone, as the command in the
 milestone document that the commit "[review] Repairs of the review of the plan documents of the
 Component split and of the rules that cut it" writes takes again. It serves
@@ -407,7 +407,7 @@ release skill stops a release that would need it.
 ### A publish that stopped part-way is completed by re-running the job, which skips a version crates.io already holds `##partial-publish-rerun`
 
 The publish job publishes the crates one at a time, each before the crates that depend on it, the
-`git` crate and agent-skills before the `model` crate, and that before `check`, and skips a crate when crates.io's API already
+`git` crate before the `model` crate, and that and agent-skills before `check`, and skips a crate when crates.io's API already
 returns the version. A re-run of the failed job runs on the same commit and tag, so it publishes
 only what is missing, and a release that stopped part-way completes with no change to the code
 and no new tag. The nearest rival, one `cargo publish --workspace`, cannot be re-run that way: its `--help` under the pinned toolchain

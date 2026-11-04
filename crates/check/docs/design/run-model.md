@@ -46,7 +46,7 @@ Five things are compiled in, and none of them describes a project:
 `check` gathers what the last phase alone reads and runs the checks, per `design@knowledge-architect@model-crate`.
 A check never reads a file, spawns a process, or knows how the walk works. Anything a check cannot
 fetch for itself is resolved by the caller and handed in: the generated files as committed, the
-per-instance `register.toml` files, one listing of what exists and which of those paths are
+per-instance `register.toml` files, the shipped text, one listing of what exists and which of those paths are
 directories, the files the walk does not cover, and git's answer for every path spelling a
 reference in the run could ask about. An extension's checks read, besides these, what the extension's
 own preparation read for the tree, per `design@check@an-extension-plugs-in-through-phased-hooks`.
@@ -91,9 +91,9 @@ the last is `check`'s:
 | phase | produced by | what it reports |
 | ----- | ----------- | --------------- |
 | 1 | `Manifest::parse`, and each extension's resolution of its tables | a declaration the tool refused, which is then absent from the configuration |
-| 2 | `tree` of `path@model@src/tree.rs`, over `check`'s declared paths, the paths each extension declares and every document's parse, and the installed-file check, over the installed agent configuration | a file the walk could not read or refused, a tracked-and-ignored file, an anchor or a register home that is not there, a declared path that does not exist, a home a walk row keeps out, an installed agent file missing, differing or unshipped, a root CLAUDE.md that does not import a shipped primer, a heading markdown reads and the checker does not, per `design@model@headings-open-with-hash-marks` |
+| 2 | `tree` of `path@model@src/tree.rs`, over `check`'s declared paths, the paths each extension declares and every document's parse | a file the walk could not read or refused, a tracked-and-ignored file, an anchor or a register home that is not there, a declared path that does not exist, a home a walk row keeps out, a root CLAUDE.md a walk row keeps out, a heading markdown reads and the checker does not, per `design@model@headings-open-with-hash-marks` |
 | 3 | `Entities::build` | a slug or an entry id where none may sit, or defined twice; a level-two heading of a section home with no slug; a skill's or an agent's name a reference cannot spell, or that its frontmatter contradicts |
-| 4 | every check, `check`'s and each extension's | everything computed over a complete model |
+| 4 | every check, `check`'s and each extension's | everything computed over a complete model, an installed agent file missing, differing or unshipped and a root CLAUDE.md that does not import a shipped primer included: no check reads those, the installed bytes come from the survey, and the model is right about the tree over a stale copy and over a missing one |
 
 A finding is classified by **the place it is produced**, never by a label at its site, so a
 finding added to a building step is gated because of where it is raised, and nothing in the
@@ -133,7 +133,8 @@ model, the model the table, and every check consumes the table. A future check w
 another check reads would be a second chain, and nothing prevents one: such a check is a phase,
 not a check of the last one, and it goes before its consumers. A tripwire names the event.
 
-The design this decision did not keep: `rejected@check@per-document-phase-gate`.
+The designs this decision did not keep: `rejected@check@per-document-phase-gate` and
+`rejected@check@installed-files-before-the-last-phase`.
 
 ### A finding names a cause only where the repair depends on which cause holds `##finding-names-the-repair`
 

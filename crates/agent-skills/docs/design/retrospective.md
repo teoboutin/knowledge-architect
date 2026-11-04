@@ -45,7 +45,7 @@ is the test of the workflow, per
 `goal@knowledge-architect@the-workflow-improves-through-real-use`, and each question watches a
 decision or a goal whose failure would be seen in real sessions before any check could see it:
 `design@agent-skills@overlay-by-separate-skills`, the primer's delivery by an import line in
-`design@check@owned-namespace-check`, `design@agent-skills@no-routing-table`,
+`design@check@primer-import-line`, `design@agent-skills@no-routing-table`,
 `design@agent-skills@plain-text-is-no-repair`,
 `goal@knowledge-architect@mechanical-tasks-are-the-tool-s`, and, for the question whether a rule or
 guideline about code or tests, or about splitting the project into Components, proved too hard or

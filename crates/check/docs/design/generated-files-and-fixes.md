@@ -62,8 +62,7 @@ it.
 
 `cargo klarch index --staged` generates each file from the tree git's index would commit, per
 `design@check@staged-tree-source`, and sets the staged entry of each whose staged bytes differ, or
-that the index lacks, leaving the working-tree file as it is. After it, `check --staged` passes on
-what will be committed, and plain `check` judges the working tree as before. It serves a commit
+that the index lacks, leaving the working-tree file as it is. After it, `check --staged` finds no generated file out of date in what will be committed, and plain `check` judges the working tree as before. It serves a commit
 of part of the working tree when an unstaged change touches the same register: the `index.md` that
 commit needs then differs from what `index` writes, and without this command the repairs are a
 hand edit of a generated file or moving the unstaged file away.
@@ -179,11 +178,8 @@ both trees, and after the gate, whose model the comparison reads; the generated 
 written, from the list `index` reads, after every destination is checked; the full check runs. The
 installed files' bytes do not depend on the model, so they are repaired before the gate, while a
 generated file is never written over an incomplete model, per `design@check@phases-gate-the-report`.
-An upgrade that removes a shipped file takes two runs: the deletion is unstaged, phase 2 reports
-it, and staging it touches git. The rival, `--fix` treating the deletions its own install just made
-as done, adds a special case to the phase gate. The cost of two runs is small by the owner's
-weighing: the owner judged deleting or renaming a skill rare, and several invocations to handle it
-not much of a problem. A failed
+An upgrade that removes a shipped file leaves one thing to do: the deletion is unstaged, the last phase
+reports it after the generated files are written, and staging it touches git, which no fix does. A failed
 write exits 2 with nothing written, and 1 after any write, since 2 promises an untouched tree. The check stays the only verifier: `--fix` only writes
 before it verifies, so the rejected design of an `index` that prints a diff and a `--write`
 that applies it, a second command answering whether a file is current in its own format,

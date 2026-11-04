@@ -99,8 +99,8 @@ On a branch of its own, `release-<version>`, under the Git rules of the root `CL
    list with these, and report to the owner every file the step does not name. The owner may read
    the lists; the release does not wait for it.
 8. **The dry run.** `cargo publish --workspace --dry-run` passes, skips xtask, and orders
-   the git crate and agent-skills before the model crate, which depends on both, and the model
-   crate before the core. Its warning "ignoring test `<name>`"
+   the git crate before the model crate, which depends on it, and that and agent-skills before
+   `check`. Its warning "ignoring test `<name>`"
    for each file `<name>.rs` of `path@check@tests/` and of `path@mutate@tests/` is expected: the
    whitelist keeps the tests out.
 9. **The gates and the review.** `cargo x gates --require-rebased`, then the push, and the review
