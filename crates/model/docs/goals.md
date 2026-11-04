@@ -26,9 +26,9 @@ knowledge-architect that makes one.
 
 ## A tool can tell whether what the library read of a project is right `##a-tool-knows-the-read-is-right`
 
-What a project declares, or what its tree holds, can leave what the library read wrong or incomplete:
-a declaration that cannot be honoured, a file that cannot be read, a home that is missing, one entry
-defined twice. An answer computed over it is unreliable. The library answers whether what it read is
+What a project declares, or what its tree holds, can leave what the library read wrong or incomplete,
+such as a declaration that cannot be honoured, a file that cannot be read, a home that is missing, or
+one entry defined twice. An answer computed over it is unreliable. The library answers whether what it read is
 right, and names what is wrong.
 
 It is met while the library's public interface answers that question, and a test over a project
