@@ -74,7 +74,7 @@ source, some touched the model's files alone and some the checks alone, as the c
 milestone document that the commit "[review] Repairs of the review of the plan documents of the
 Component split and of the rules that cut it" writes takes again. It serves
 `goal@model@a-tool-reads-the-documents-with-no-check`, `goal@model@a-tool-knows-the-read-is-right` and
-`goal@check@documents-render-as-a-linked-site`. The nearest rival
+`goal@knowledge-architect@documents-render-as-a-linked-site`. The nearest rival
 is `rejected@knowledge-architect@model-inside-the-checker`.
 
 ### Git is wrapped by a crate of its own, which the checker depends on, rather than by a module of the checker `##git-crate`

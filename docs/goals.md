@@ -769,3 +769,18 @@ included, so that a target project set up by following it designs none of them i
   workflow's setup gives.
 - Rules out, for instance: a target project set up by following the workflow's setup that has to
   design its own runner of the gates.
+
+## The documents render as one linked site `##documents-render-as-a-linked-site`
+
+knowledge-architect's documents render as one site, each reference rendered as a link to its
+target, hosted with the project once it is released.
+
+It is met while a build renders knowledge-architect's Markdown documents that the checker reads into
+one site, each reference that resolves rendered as a link to its target, and while what
+knowledge-architect builds publishes that site with the project, such as a step of its release that
+publishes it.
+
+- Requires, for instance: a reference to a decision, in a design head's text, renders as a link
+  to that decision.
+- Admits, for instance: a site built by any rendering tool.
+- Rules out, for instance: a resolved reference rendered as plain text.

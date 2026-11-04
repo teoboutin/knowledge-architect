@@ -9,7 +9,7 @@ kind: todo
 code in its own files serve one purpose, which the head of its goals home states. Every head now
 states one, on the owner's ruling in the review of the whole goal set. `check`'s head says the
 checker "exists mostly for" `goal@knowledge-architect@agents-work-without-drift`, which leaves
-`goal@check@documents-render-as-a-linked-site` outside it, and no root goal now names a rendered
+`goal@knowledge-architect@documents-render-as-a-linked-site` outside it, and no root goal now names a rendered
 site.
 
 ## Details

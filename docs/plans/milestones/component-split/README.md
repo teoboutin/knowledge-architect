@@ -182,7 +182,7 @@ Outside this work, each with what owns it:
 
 - `bundle`, `render` and `rewrite`, placed here and created by their own work:
   `issue@knowledge-architect@the-skill-bundling-passes-are-tied-to-this-project-s-skills`,
-  `issue@check@the-documents-do-not-render-as-a-site` and
+  `issue@knowledge-architect@the-documents-do-not-render-as-a-site` and
   `issue@knowledge-architect@no-published-command-rewrites-a-branch-s-history`, each with the leads
   of this discussion, in the roadmap's order;
 - `gates` and `mutate`, unchanged: moving them onto the `git` crate is possible and not required
@@ -198,7 +198,7 @@ Outside this work, each with what owns it:
 
 - `goal@knowledge-architect@projects-are-split-into-components`,
   `goal@knowledge-architect@mechanical-tasks-are-the-tool-s`,
-  `goal@check@documents-render-as-a-linked-site`, `goal@check@projects-add-their-own-checks`,
+  `goal@knowledge-architect@documents-render-as-a-linked-site`, `goal@check@projects-add-their-own-checks`,
   `goal@check@relocation-needs-only-goal-changes`, `goal@check@records-reach-their-reader`,
   `goal@check@document-rules-are-checked`, `goal@check@documents-stay-current`,
   `goal@check@checks-a-commit-from-its-hook`: the criteria below;
@@ -504,11 +504,11 @@ that they need no check is the owner's argument, #arg-29 and #arg-30. Met by #mo
 
 ### The documents can render as one linked site from the model alone `##render-from-the-model`
 
-Binding, from `goal@check@documents-render-as-a-linked-site`, which asks the site; that it renders
+Binding, from `goal@knowledge-architect@documents-render-as-a-linked-site`, which asks the site; that it renders
 from the model alone is the owner's argument, #arg-26. Met by #model-crate, which separates the
 resolver from the lints, and #render-crate.
 
-### An extension needs no change to the checker and uses only its public, documented API `##extension-api-stays-public`
+### An extension needs no change to any crate of knowledge-architect and uses only their public, documented APIs `##extension-api-stays-public`
 
 Binding, from `goal@check@projects-add-their-own-checks`. Met by #cli-crate, which keeps the package
 name and re-exports the extension API, #model-crate's phase-1 contribution, and #testing-crate.
@@ -593,7 +593,7 @@ documents. tools that are not querying the documents go in a crate for the subje
 Proposed by the session, R1 (#arg-11, #arg-12), from the owner's plan, R1 (#arg-3). Final state:
 approved. The owner, R3: "And I agree render is out of it. It has a different purposes, and takes
 decisions about a different subject". Arguments: #arg-3, #arg-11, #arg-12, #arg-49, #arg-65. Shape:
-"Decided design" below. Harvest: the leads of `issue@check@the-documents-do-not-render-as-a-site`.
+"Decided design" below. Harvest: the leads of `issue@knowledge-architect@the-documents-do-not-render-as-a-site`.
 
 ### `transcript` is a Component of its own, the reader of the agent harness's transcripts, depending on `git` `##transcript-crate`
 

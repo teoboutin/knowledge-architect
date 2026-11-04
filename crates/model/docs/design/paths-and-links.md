@@ -78,7 +78,7 @@ rival word, `home`, matched the documents' phrase "design home" better and cost 
 an anchor name. A kind's name is refused for every anchor, per
 `design@model@kind-names-refused-as-anchors`, and for a declared register, per
 `design@model@registers-are-declared`. The cost the form keeps: a reader outside the tool does not
-see the file a reference names, which `issue@check@the-documents-do-not-render-as-a-site` would turn
+see the file a reference names, which `issue@knowledge-architect@the-documents-do-not-render-as-a-site` would turn
 into a link.
 
 The designs this decision did not keep: `rejected@model@home-kind-word` and

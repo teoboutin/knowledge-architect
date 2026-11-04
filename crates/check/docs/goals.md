@@ -106,29 +106,14 @@ It refines `goal@knowledge-architect@structure-and-workflow-work-together`.
 - Admits, for instance: a listing filtered to one kind of text, beside the whole one.
 - Rules out, for instance: a list of what is outstanding kept by hand.
 
-## The documents render as one linked site `##documents-render-as-a-linked-site`
-
-knowledge-architect's documents render as one site, each reference rendered as a link to its
-target, hosted with the project once it is released.
-
-It is met while a build renders knowledge-architect's Markdown documents that the checker reads into
-one site, each reference that resolves rendered as a link to its target, and while what
-knowledge-architect builds publishes that site with the project, such as a step of its release that
-publishes it.
-
-- Requires, for instance: a reference to a decision, in a design head's text, renders as a link
-  to that decision.
-- Admits, for instance: a site built by any rendering tool.
-- Rules out, for instance: a resolved reference rendered as plain text.
-
 ## A project adds checks of its own through a documented extension API `##projects-add-their-own-checks`
 
 A project whose conventions the built-in checks do not cover writes its own checks as an extension,
 against a library API documented with its contract and its examples. The checker the project runs
 with its extension runs them in the same commands, with the same report, as the built-in ones.
 
-It is met while an extension needs no change to the core and uses only its public API, documented
-with its contract and its examples, and while the checker run with an extension runs its checks in
+It is met while an extension needs no change to any crate of knowledge-architect and uses only
+their public APIs, documented with their contract and their examples, and while the checker run with an extension runs its checks in
 the same commands, with the same report, as the built-in ones.
 
 It refines `goal@knowledge-architect@agents-work-without-drift`: a project's own checks guard its
@@ -137,7 +122,7 @@ own design intent.
 - Requires, for instance: a project's check of its own naming convention reports in the same
   report as a built-in finding.
 - Admits, for instance: an extension that only one project uses.
-- Rules out, for instance: an extension that needs a change to the core to run.
+- Rules out, for instance: an extension that needs a change to a crate of knowledge-architect to run.
 
 ## The checker judges a commit's tree from the git pre-commit hook `##checks-a-commit-from-its-hook`
 
@@ -148,7 +133,7 @@ before them, given its message by `-m`, by `-F` or in the editor, with or withou
 other option of `git commit`. Each is covered in the repository's main worktree and in a linked one.
 A target project is covered here when a `.git` is at or above its directory.
 
-It is met while the core's tests show, for each of the three forms, `git commit <paths>` both with
+It is met while the checker's tests show, for each of the three forms, `git commit <paths>` both with
 and without `--` before its paths, with each of the three ways of giving its message, with and without `-q`, in a main worktree
 and in a linked one, a commit whose tree fails, which the hook refuses, and one whose tree
 conforms, which git records.
