@@ -1,6 +1,6 @@
 **Generated — do not edit.** `cargo klarch index`
 
-51 entries
+52 entries
 
 | kind | title |
 | --- | --- |
@@ -29,6 +29,7 @@
 | question | [A pending audit report or retrospective analysis is outstanding work that no installed search of what is already known reads](a-pending-ruled-file-is-reached-by-no-installed-search.md) |
 | question | [An issue's re-entry point is read by no review, for a design issue or any kind that carries one](an-issue-s-re-entry-point-is-read-by-no-review.md) |
 | question | [After a version upgrade, nothing re-reads a project's restatements of installed directives, a project skill whose activity an installed skill now covers, or the session's own copy of the new text, nor the agent types it adds](an-upgrade-re-reads-no-root-restatement.md) |
+| question | [Several goal-design heads may argue only a rule the goal standard's fragment states, and repeat its reasons](goal-design-heads-may-repeat-the-fragment-s-reasons.md) |
 | question | [The audit that ends the move of an adopting project's documents is stated where the move's sessions do not read](the-closing-audit-of-a-move-reaches-no-planning-text.md) |
 | question | [The retrospective intake's searches of the history assume a full clone](the-intake-s-history-searches-assume-a-full-clone.md) |
 | question | [Does the design skill's open-space test leave bounded work almost unreachable?](the-open-space-test-may-admit-every-problem.md) |
