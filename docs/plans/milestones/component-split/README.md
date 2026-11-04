@@ -568,7 +568,7 @@ word against the checkpoint, R6: "Agreed on the table." The owner, R4: "check::f
 to 3 are basically checking that the model is right and can be properly scanned, not checking the
 content. It probably belongs with the model and scanner, not the checks." Arguments: #arg-16,
 #arg-26 to #arg-30, #arg-42 to #arg-47, #arg-68, #arg-93, #arg-110, #arg-111, #arg-112. Shape:
-`spec@component-split@model-out`. Harvest: the `model` Component's design home.
+landed at #model-out. Harvest: the `model` Component's design home.
 
 ### `query` holds the commands that read the model and run no check: show, issues, tripwires, anchors, id and worklist, and later the keyword search and the audit's work lists `##query-crate`
 
@@ -1539,8 +1539,8 @@ fire by a scratch dependency of `query` on `check`, which the command lists. The
 
 1. The git invocation layer and the readers of git's objects become the `git` crate, #git-out:
    landed, its spec deleted with it.
-2. [The model, the scan, phases 1 to 3 and the resolver become the `model` crate](model-out.md),
-   `spec@component-split@model-out`.
+2. The model, the scan, phases 1 to 3 and the resolver become the `model` crate, #model-out: landed,
+   its spec deleted with it.
 3. [The core is renamed `check`, and the installed-file check moves to phase 4](check-renamed.md),
    `spec@component-split@check-renamed`.
 4. [The binary, the parsing and the interface become the top-level `cli` crate](cli-on-top.md),
