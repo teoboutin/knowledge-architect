@@ -9,7 +9,7 @@ The owner's view, stated at the slice that renamed the core and left for a later
 depend on all or nearly all of the other crates, every crate but one that depends on it, such as `cli`: it reports where a
 project breaks a rule, on how citations are done for example, and it may need `query` for that. It could also report that an
 item cannot be rendered, or that rendering requires a further constraint on the model, better implemented from `render`. The
-owner holds this last part as a lead only, and names a gate that runs `render` as a better rival there.
+owner holds this last part as a lead only, and says a gate that runs `render` might be a better rival there.
 
 ## Details
 
