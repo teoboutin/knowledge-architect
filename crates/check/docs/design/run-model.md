@@ -110,7 +110,8 @@ read it; an installed copy defines entities and nothing the rest of the model ne
 references are then reported as unresolved, beside the finding that names the install. An installed copy
 raises no finding of phase 3, per `design@model@installed-entities-from-the-tree`, and a session reads the
 installed files from the disk rather than through a tool over the model, so no tool needs to refuse a stale
-install.
+install. `id` answers over the tree as it is, so its `free` for a section of a missing copy holds until the
+install writes the copy, which `check` reports meanwhile.
 
 **An extension prepares its tree when the last phase is reached**, so a run that stops earlier
 resolves no release and fetches nothing, whatever it would have judged. **A writer refuses over an incomplete model**: `index`,

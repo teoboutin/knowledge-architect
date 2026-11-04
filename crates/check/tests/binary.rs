@@ -2958,6 +2958,7 @@ fn a_stray_file_in_the_installers_namespace_fails_the_check_and_the_install_remo
     let (out, _, code) = sandbox.run(&["check"]);
     assert_eq!(code, 1, "{out}");
     assert!(out.contains("the deletion is not staged"), "{out}");
+    assert!(out.contains("→ stage the deletion"), "{out}");
     sandbox.stage();
     let (out, stderr, code) = sandbox.run(&["check"]);
     assert_eq!(code, 0, "{out}{stderr}");
