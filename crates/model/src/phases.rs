@@ -126,7 +126,7 @@ pub fn foundation(model: &Model, manifest: &Manifest, inputs: &TreeInputs) -> Re
 }
 
 /// What a run reads from the working tree for phases 1 to 3 and the resolver, gathered once for
-/// every caller, per `design@core@inputs-are-gathered`.
+/// every caller, per `design@model@tree-inputs-gathered-here`.
 ///
 /// A phase and the resolver are pure over the model, so the files and the git answers they read
 /// are fetched here by the caller, per `design@core@model-then-checks`.

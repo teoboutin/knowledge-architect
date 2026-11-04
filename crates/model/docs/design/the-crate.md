@@ -8,8 +8,9 @@
 file, and every other module is private. So the surface is read in one file, and moving an item between
 files changes no public path, which `rejected@core@module-tree-as-public-api` refuses to give up.
 `unreachable_pub` refuses a `pub` item no role module names, and a unit test refuses a `pub mod <name>;`
-and a glob, on which the lint is silent. Nothing is public for a test: a test that needs a private item
-is a unit test of this crate.
+and a glob, on which the lint is silent. A method of a named type is public through its type, and the
+facade does not list it. Nothing is public for a test: a test that needs a private item is a unit test
+of this crate.
 
 ### The resolver says what a reference names or why it names nothing, with no finding attached `##resolver-outcome`
 
@@ -22,17 +23,17 @@ candidate of an anchored kind to the function of its kind, and `harness` takes o
 ### The words of a cause are the resolver's, so a tool that links no check prints them `##cause-words-in-the-resolver`
 
 A cause's two texts, what is wrong and what repairs it, per `design@core@finding-names-the-repair`, are
-`Cause::texts`. A tool that prints a refusal, as `show` does, needs them, and it may not link the
-checks, per `design@model@no-check-below-the-model`. The nearest rival is
+`Cause::texts`. `show` prints them, and a tool over the documents needs them and no check, per
+`design@knowledge-architect@model-crate`. The nearest rival is
 `rejected@model@cause-words-in-the-lints`.
 
-### What phases 1 to 3 and the resolver read is one struct, gathered here, the ignore batch included `##tree-inputs-gathered-here`
+### What a tool reads of the working tree for phases 1 to 3 and the resolver is gathered in `model`, the ignore batch included `##tree-inputs-gathered-here`
 
-`TreeInputs` holds what they read, and `Gathered` reads it from the working tree: one survey, the two
-git batches and the shipped text. The resolver reads the ignore answers, so a tool that links no check
-needs the batch here, or it reads a target the rules cover as absent, against
-`design@model@ignored-targets-are-not-asserted`. The nearest rival is
-`rejected@model@ignore-batch-in-the-checks`.
+`Gathered` reads it from the working tree: one survey, the two git batches and the shipped text. The
+resolver reads the ignore answers, so a tool that links no check needs the batch here, or it reads a
+target the rules cover as absent, against `design@model@ignored-targets-are-not-asserted`. A run over a
+tree git holds gathers its own in the core, per `design@core@staged-tree-source`, since no working tree
+holds what it reads. The nearest rival is `rejected@model@ignore-batch-in-the-checks`.
 
 ### An extension's phase-1 contribution reaches the model as data `##contribution-is-data`
 
