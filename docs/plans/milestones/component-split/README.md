@@ -667,7 +667,7 @@ intermediate Component groups the checker's Components or the installed text's",
 
 Proposed by the session, R1 and R2 (#arg-21, #arg-51), and R4 (#arg-95). Final state: approved. The
 owner, R5: "core-renamed-check agreed to rename, core would become misleading". Arguments: #arg-21,
-#arg-51, #arg-95, #arg-106. Shape: `spec@component-split@check-renamed`. Harvest: no head; the
+#arg-51, #arg-95, #arg-106. Shape: landed at #check-renamed. Harvest: no head; the
 commit records it.
 
 ### The installed-file check is a check family of the last phase, in `check` `##installed-text-check-home`
@@ -676,8 +676,7 @@ Proposed by the session, R4 (#arg-69, #arg-70), as shape B; replaced by B′ aft
 (#arg-81, #arg-82). Final state: approved. The owner, R5: "installed-text-check-home: agreed on phase
 4". Reopened at the plan's second review on a finding against part of its premise, #arg-69, and
 closed again by the owner's answer at D3, which leaves only a root CLAUDE.md outside the walk in
-phase 2. Arguments: #arg-50, #arg-68 to #arg-70, #arg-81, #arg-82, #arg-103, #arg-115. Shape:
-`spec@component-split@check-renamed`. Harvest: `design@check@phases-gate-the-report`,
+phase 2. Arguments: #arg-50, #arg-68 to #arg-70, #arg-81, #arg-82, #arg-103, #arg-115. Shape: landed at #check-renamed. Harvest: `design@check@phases-gate-the-report`,
 `design@check@owned-namespace-check` and `design@check@fix-before-the-checks` rewritten; the issue
 `installed-file-findings-belong-in-phase-four` was closed by the commit that added this
 document.
@@ -1538,8 +1537,8 @@ fire by a scratch dependency of `query` on `check`, which the command lists. The
    landed, its spec deleted with it.
 2. The model, the scan, phases 1 to 3 and the resolver become the `model` crate, #model-out: landed,
    its spec deleted with it.
-3. [The core is renamed `check`, and the installed-file check moves to phase 4](check-renamed.md),
-   `spec@component-split@check-renamed`.
+3. The core is renamed `check`, and the installed-file check moves to phase 4, #check-renamed: landed,
+   its spec deleted with it.
 4. [The binary, the parsing and the interface become the top-level `cli` crate](cli-on-top.md),
    `spec@component-split@cli-on-top`.
 5. [The commands over the model, the transcript reader and the project creator leave the checker](consumers-out.md),
