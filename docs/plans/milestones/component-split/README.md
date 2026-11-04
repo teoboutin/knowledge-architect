@@ -20,7 +20,7 @@ has landed in the installed text and in `register@agent-skills@design`.
   defect of the plan document.
 - Every name it uses is defined under Names or New names, or exists in the tree.
 - Where the owner's word is awaited, `skill@knowledge-architect-planning@working-a-slice` says what
-  waits. Its defaults D1, D2 and D3 are ruled; D4 awaits the owner.
+  waits. Its defaults, D1, D2, D3 and D4, are ruled.
 
 ## How the work is done
 
@@ -581,7 +581,13 @@ extension's dump hook, so it needs the extensions, and in `query` it would make 
 the keyword search and the audit's work lists, are recorded in
 `issue@core@no-command-searches-the-entries-or-lists-an-audit-s-work`. Arguments: #arg-9, #arg-10,
 #arg-29, #arg-30, #arg-31, #arg-48, #arg-64, #arg-112. Shape: `spec@component-split@consumers-out`.
-Harvest: the `query` Component's design home. Absorbs #worklist-crate.
+Harvest: the `query` Component's design home. Absorbs #worklist-crate. The owner's lead for the goals of
+`query`, at the goals of #model-out, which #consumers-out drafts from: "there is no mechanical task that
+agents perform, but an action asked of an agent could be made more efficient by making it mechanical, or
+by having a helper command that performs complex logic to yield better result. The keyword search enters
+the second case here. And this should be ground for taking in a command. Overall, this would be the goal
+of query: improve efficiency of agents by providing power tools that query content of the scanned
+documents. tools that are not querying the documents go in a crate for the subject (such as rewrite)".
 
 ### `render` is placed as a Component of its own, depending on `model` alone, created by its own work `##render-crate`
 
@@ -648,7 +654,11 @@ remove the cycle. Shape:
 ### No intermediate Component groups the new Components `##no-intermediate-component`
 
 Proposed by the session, R1 (#arg-17). Final state: approved, by the owner's word against the
-table, R3 and R6, and argued again at the design audit of #git-out under the definition of an
+table, R3 and R6; asked again at the goals of #model-out, whether the Components split from the core
+serve a purpose of their own, the owner: "I don't think I have a shared purpose below the root here.
+Maybe it would be cleaner in the future to move an few of root goals that are about the model, tools,
+and checker, into an intermediate level. If root goals become too bloated by goals related to these. But
+this can wait for now."; and argued again at the design audit of #git-out under the definition of an
 intermediate Component by the design it holds, and argued again under the rules on Components as
 revised after that audit, where an intermediate Component groups Components that serve a purpose of
 their own: no purpose is stated for a group of these Components. Arguments:
@@ -1593,7 +1603,7 @@ fire by a scratch dependency of `query` on `check`, which the command lists. The
   created by the slice that builds it, `bundle`, `render` and `rewrite` by their own work. The owner,
   after the plan documents were committed: "D1 the costs are accepted".
 
-- **D4, on #model-crate, awaiting the owner**: `model`'s facade publishes the entity table and the
+- **D4, on #model-crate, ruled**: `model`'s facade publishes the entity table and the
   anchors, `Entities` and `Anchors` among them, and the records over them, under `model::table`, and
   the core's facade adds none of them: `extension` offers what it offers today, so the direction the
   owner chose in `issue@core@an-extension-cannot-see-which-register-a-document-belongs-to`, a narrow
@@ -1615,7 +1625,8 @@ fire by a scratch dependency of `query` on `check`, which the command lists. The
   The session's default is this shape, with a `library` entry of the changelog stating the widening,
   and the issue and `tripwire@core@private-item-needed` reworded to say what the crate now publishes.
   The two sentences of the owner's direction relax for a consumer who adds the dependency, so this is
-  a scope change the owner rules.
+  a scope change the owner rules. The owner, at the merge of #model-out: "Q1 agreed. This makes much
+  more sense with the model as its own crate."
 
 ## Harvest
 

@@ -9,7 +9,10 @@ file, and every other module is private. So the surface is read in one file, and
 files changes no public path, which `rejected@core@module-tree-as-public-api` refuses to give up.
 `unreachable_pub` refuses a `pub` item no role module names, and a unit test refuses a `pub mod <name>;`
 and a glob, on which the lint is silent. A method of a named type is public through its type, and the
-facade does not list it. Nothing is public for a test: a test that needs a private item is a unit test
+facade does not list it. The entity table and the anchors are public here, since the tools over the
+documents and the checks each need them across a crate boundary, on the session's choice over a second set
+of types no less nameable, which the owner approved; the narrow view an extension is to get is the core's,
+per `issue@core@an-extension-cannot-see-which-register-a-document-belongs-to`. Nothing is public for a test: a test that needs a private item is a unit test
 of this crate.
 
 ### The resolver says what a reference names or why it names nothing, with no finding attached `##resolver-outcome`

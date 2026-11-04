@@ -12,7 +12,7 @@ The fifth slice of `milestone@plans@component-split`. It leaves when it lands.
   `model`, `git` and `agent-skills`: `init`, `new-component`, `init --rust`. It calls
   `check`'s `fix_then_check` and refusal of a foreign build, and `model`'s `complete_working_tree`;
   `cli` locates the project and hands it in, so `create` calls no `locate`.
-- `cli` dispatching each command to its crate; the goals of the three Components drafted and put to
+- `cli` dispatching each command to its crate; the goals of the three Components, those of `query` from the owner's lead in the thread #query-crate, drafted and put to
   the owner as the milestone document says.
 
 ## Claims
