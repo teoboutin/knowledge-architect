@@ -65,7 +65,8 @@ so it is a check. The boundary is crossed by some changes and not by all: of the
 source, some touched the model's files alone and some the checks alone, as the command in the
 milestone document that the commit "[review] Repairs of the review of the plan documents of the
 Component split and of the rules that cut it" writes takes again. It serves
-`goal@knowledge-architect@mechanical-tasks-are-the-tool-s` and `goal@core@documents-render-as-a-linked-site`. The nearest rival
+`goal@model@a-tool-reads-the-documents-with-no-check`, `goal@model@a-tool-knows-the-read-is-right` and
+`goal@core@documents-render-as-a-linked-site`. The nearest rival
 is `rejected@knowledge-architect@model-inside-the-checker`.
 
 ### Git is wrapped by a crate of its own, which the checker depends on, rather than by a module of the checker `##git-crate`

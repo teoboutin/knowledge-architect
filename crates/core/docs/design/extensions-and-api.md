@@ -168,8 +168,8 @@ re-export:
   its fields expose `Entry` and `Outside`, so those are public although no consumer names them.
 - **A `pub` item no consumer can reach is refused.** lib.rs carries `#![warn(unreachable_pub)]`,
   and the clippy gate runs with `-D warnings`, so an item is public only through the facade.
-- **A value only the core produces is read, not built.** `Report`, `Snapshot` and `Outside`
-  have public read-only methods and no public constructor. A value a consumer starts from, such
+- **A value only the core produces is read, not built.** `Report` and `Snapshot` have public read-only
+  methods and no public constructor; `Outside`'s is `model`'s, whose variants a reader matches. A value a consumer starts from, such
   as a `Manifest`, a `Model` or a `Finding`, keeps its public constructors.
 - **Nothing becomes public for the core's own tests.** A test that needs a private item is a
   unit-test module inside the crate, as `path@core@src/mock_projects.rs` is.
