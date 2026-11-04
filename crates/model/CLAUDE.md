@@ -17,7 +17,7 @@ last-change column is one `git log`. A check may spawn nothing, so each of those
 caller and handed in. A tree with no `git`, or a project outside a worktree, is exit 2 with the
 reason; an empty walk is never an answer. The decisions are `design@model@git-supplies-the-walk`,
 `design@git@git-floor-for-commit-trees`, `design@git@failed-git-is-an-error` and
-`design@core@checker-asks-git-through-the-crate`: read them whole before changing how this crate
+`design@knowledge-architect@checker-asks-git-through-the-crate`: read them whole before changing how this crate
 asks git.
 
 **A new finding about what the model could not read — a home, a file, a declaration — goes in `tree` or

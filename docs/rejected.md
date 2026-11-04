@@ -52,3 +52,8 @@ a branch's merge, against the purpose `design@gates@gates-crate` gives it.
 `live`. A tool that needs git would depend on the whole checker to reach it, and build the
 checker's parsers, tree-sitter, pulldown-cmark and toml_edit, which no question to git needs; the
 module's interface would change with every release of the checker.
+
+### The model left inside the checker `##model-inside-the-checker`
+
+`live`. A tool over the record would then link every check, and a renderer of the site would read the
+resolution through the lints, with a finding attached. It would change an interface others consume.

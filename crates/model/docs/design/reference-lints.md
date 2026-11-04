@@ -103,7 +103,7 @@ reads that block, is no heading.
   This is the fragility I mentionned at the beginning with using paragrap numbers."
 - **An installed copy defines its sections and raises no finding.** It is never the project's to
   repair, and under `commits` a commit holding an earlier version's set is judged by a later
-  checker. The shipped set is held to the rule where it is written, by a test of the core over the
+  checker. The shipped set is held to the rule where it is written, by a test of the checker over the
   shipped text, which also requires every reference of a harness kind in it to resolve within the
   set.
 - **A project skill's or agent's slug at a level-two heading defines a section** of that skill or

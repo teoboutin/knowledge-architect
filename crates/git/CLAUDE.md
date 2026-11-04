@@ -9,7 +9,7 @@ never a `Command::new("git")` anywhere else in this crate or in the checker's li
 is where the environment of every invocation is set, the per-user ignore file pinned and the
 repository variables dropped; a child spawned past it reads another environment, per
 `design@git@git-is-asked-through-one-module` and, for the checker,
-`design@core@checker-asks-git-through-the-crate`.
+`design@knowledge-architect@checker-asks-git-through-the-crate`.
 
 **Every function a verdict depends on returns an `Err` on any failure of git, never an empty
 answer**, per `design@git@failed-git-is-an-error`: a listing that comes back empty reads as a

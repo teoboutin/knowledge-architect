@@ -270,3 +270,8 @@ an issue would ever be checked. A rename to a second segment costs no capability
 is cited from inside its own plan only, so no lint outside it would meet the word. It loses because
 it adds an exception to the grammar every project's documents follow, justified by nothing but the
 item's scope, while numbering the items `arg-1`, `arg-2` costs no capability.
+
+### The phase-1 contribution as a second trait `##contribution-as-a-trait`
+
+`live`. Phase 1 would call an extension's code, so a test of it would need an extension, and a tool
+with no extension would name a trait it implements nowhere. It would change an interface others consume.
