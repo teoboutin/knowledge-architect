@@ -138,6 +138,6 @@ directory is the one place every target project has, since a target project is a
 repository, per `goal@knowledge-architect@serves-one-kind-of-project`, where neither `cargo clean`
 nor `git clean` reaches the only copy of a pre-image. No project writes an ignore rule for it, the
 checker's walk, which lists untracked files that no ignore rule covers, per
-`design@core@git-supplies-the-walk`, never reads it, and each worktree of a repository gets its
+`design@model@git-supplies-the-walk`, never reads it, and each worktree of a repository gets its
 own. A directory of the working tree, as thaum's tool keeps under its own directory, would ask every
 project to choose and ignore one, and `target/` would lose the record to a routine `cargo clean`.

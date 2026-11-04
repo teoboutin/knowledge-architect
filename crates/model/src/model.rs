@@ -89,7 +89,7 @@ pub struct Model {
     checker_sources: Vec<PathBuf>,
     /// The markdown files of the installer's namespace, parsed and scanned like a document, and
     /// walked by no check: they define the entities of the installed skills, agents and primer,
-    /// per `design@core@installed-entities-from-the-tree`, and no reference in them is read. A file the caller could not read as text is left out: `check::agents` judges the
+    /// per `design@model@installed-entities-from-the-tree`, and no reference in them is read. A file the caller could not read as text is left out: `shipped` judges the
     /// bytes, and reports it.
     installed: Vec<Document>,
 }
@@ -170,7 +170,7 @@ impl Model {
         let untracked: HashSet<PathBuf> = untracked.into_iter().collect();
         let listing: Vec<PathBuf> = entries.iter().map(|e| e.rel.clone()).collect();
         // A symlink or a gitlink is not a document: the walk reads through neither, and
-        // `check::tree` names each as what it is.
+        // `tree` names each as what it is.
         let files: Vec<PathBuf> = entries
             .iter()
             .filter(|e| e.kind == crate::git::EntryKind::File)
@@ -376,7 +376,7 @@ impl Model {
 
     /// Add a document the caller could not read, empty and carrying the reason.
     ///
-    /// The way `build` keeps an unreadable file: in the model, so that `check::tree` reports
+    /// The way `build` keeps an unreadable file: in the model, so that `tree` reports
     /// it and the run stops there, rather than absent, which is the silence the walk exists
     /// against. `commits` uses it for a tree entry whose blob is not text.
     pub fn push_unreadable(&mut self, rel: PathBuf, trouble: String) {
@@ -603,7 +603,7 @@ mod tests {
     #[test]
     fn a_stated_checker_directory_reads_its_rust_literals_as_data() {
         // Unbound on purpose: a literal BOUND to a name is data in either mode, per
-        // `design@core@grammars-not-prefixes`, so a fixture written that way would pass
+        // `design@model@grammars-not-prefixes`, so a fixture written that way would pass
         // whichever mode the model chose.
         let source = "fn f() {\n    report(\"see `design@a-component@a-slug`\");\n}\n";
         let docs = vec![

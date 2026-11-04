@@ -62,7 +62,7 @@ struct Row {
 
 /// The index of one file-register instance, byte for byte as `check::generated` compares it.
 ///
-/// The shape is a contract, not a rendering choice: `design@core@a-file-register-index-is-rows`
+/// The shape is a contract, not a rendering choice: `design@model@a-file-register-index-is-rows`
 /// states it, and a generator that disagreed with the committed bytes would fail the gate on
 /// every entry edit.
 ///
@@ -138,7 +138,7 @@ pub(crate) fn directory_register_index(
     render(rows, &["id"], command)
 }
 
-/// The bytes of an index over its rows, per `design@core@a-file-register-index-is-rows`.
+/// The bytes of an index over its rows, per `design@model@a-file-register-index-is-rows`.
 fn render(mut rows: Vec<Row>, keys: &[&str], command: &str) -> String {
     rows.sort_by(|a, b| {
         (&a.group, a.values.first(), &a.id).cmp(&(&b.group, b.values.first(), &b.id))

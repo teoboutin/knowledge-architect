@@ -9,7 +9,7 @@ The walk is git's listing with the standard ignore rules, which include the per-
 `.git/info/exclude`. Git offers no way to pin that file, so a line in it takes an untracked
 document out of every check on one clone and not on another, with both runs green. No check
 reports which files it removed. The missing work is that check. Until it exists,
-`tripwire@core@walked-count-differs-between-machines` watches the symptom.
+`tripwire@model@walked-count-differs-between-machines` watches the symptom.
 
 ## Details
 
@@ -43,7 +43,7 @@ that point git at another repository, which every invocation removes, per
 
 ### Why it matters
 
-`design@core@git-supplies-the-walk` makes git's listing the walk, and
+`design@model@git-supplies-the-walk` makes git's listing the walk, and
 `design@git@per-user-ignore-file-pinned` pins the per-user ignore file so that the walked set is a
 property of the commit rather than of the machine. The per-clone exclude file is the one ignore
 source left that is not the commit's: a document it removes is out of every check on that clone, and
@@ -58,5 +58,5 @@ The check above, written with a test that adds a line to a sandbox's `.git/info/
 asserts the report names the file it removes; and the sentence of
 `design@git@per-user-ignore-file-pinned` that names this entry, and the comment in
 `Invocation::run` of `path@git@src/git.rs` on what still decides the walk, repointed to the check;
-the commit that writes it narrows `tripwire@core@walked-count-differs-between-machines` to the
+the commit that writes it narrows `tripwire@model@walked-count-differs-between-machines` to the
 cause no check reports, two git versions that walk one commit differently.

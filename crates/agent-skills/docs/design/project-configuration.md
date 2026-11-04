@@ -121,7 +121,7 @@ where its finding message does not name its repair. One rule stands in the secti
 word, which asked for a short explanation in the primer: `check --fix`'s refusal and the two repairs
 it names, which sessions of an adopting project routed around in real use. The owner accepted its
 placement in this section, over that ruling. The rulings are recorded in
-`issue@core@a-reference-with-a-line-or-fragment-suffix-names-a-wrong-repair`. A rule a writer of
+`issue@model@a-reference-with-a-line-or-fragment-suffix-names-a-wrong-repair`. A rule a writer of
 every `path` reference needs stays in `primer@where-knowledge-goes`.
 
 The design this decision did not keep: `rejected@agent-skills@checker-model-printed-by-binary`.
@@ -443,7 +443,7 @@ fragment's lines but its `%%` line.
 
 ### The primer names the plans directory the checker fixes `##plans-directory-in-primer`
 
-The plans directory is docs/plans/ in every project, per `design@core@plans-dir-fixed`, so the
+The plans directory is docs/plans/ in every project, per `design@model@plans-dir-fixed`, so the
 primer's row for unbuilt work names it, and the installed skills name it in plain text. A project's
 own row for it would only repeat the primer's, and is removed, per
 `design@agent-skills@knowledge-table-home`. A row each project declared lost: once the checker

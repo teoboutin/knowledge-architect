@@ -67,7 +67,7 @@ pub struct Prose {
     /// Whether this run may carry a decision's anchor and a document's structure.
     ///
     /// Markdown only. A slug definition inside a doc comment would move a decision's home into
-    /// a source file, which `design@core@an-entity-belongs-to-its-anchor` places in a component's design
+    /// a source file, which `design@model@an-entity-belongs-to-its-anchor` places in a component's design
     /// document.
     pub structural: bool,
     /// Byte ranges in `text` that are inline code spans.
@@ -211,7 +211,7 @@ pub struct Parsed {
     /// thematic break is not one. `Some(Err)` where a block is opened and closed and holds a
     /// line the accepted subset does not: a block opened and closed by a line holding only
     /// `---`, holding `key: value` lines with scalar values and nothing else. **The subset is
-    /// refused loudly outside itself**, per `design@core@a-failed-parse-is-loud`, because a
+    /// refused loudly outside itself**, per `design@model@a-failed-parse-is-loud`, because a
     /// frontmatter line nobody can parse is metadata nobody checks.
     ///
     /// The block's lines are prose. Marking them as a fence keeps a value out of the

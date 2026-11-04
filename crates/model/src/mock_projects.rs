@@ -404,9 +404,9 @@ mod unsound {
         assert!(one_of(&found, "does not ship it")
             .starts_with(".claude/agents/knowledge-architect-planted.md"));
         // The plans layout, each phase 2 because its anchors and entries are read off the
-        // tree: one file outside both homes, per `design@core@plans-split-dirs`; a directory
+        // tree: one file outside both homes, per `design@model@plans-split-dirs`; a directory
         // with no README, a stray file and two options files in milestones/; and four names
-        // `design@core@a-placed-name-reads-as-nothing-else` refuses.
+        // `design@model@a-placed-name-reads-as-nothing-else` refuses.
         assert!(one_of(&found, "sits in the plans directory").starts_with("docs/plans/stray.md"));
         assert!(one_of(&found, "holds no README.md, so it is no milestone")
             .starts_with("docs/plans/milestones/no-readme"));
@@ -442,7 +442,7 @@ mod unsound {
         )
         .starts_with("docs/plans/milestones/the-widget.md"));
         // A setext heading, which markdown reads and the scanner does not, per
-        // `design@core@headings-open-with-hash-marks`.
+        // `design@model@headings-open-with-hash-marks`.
         assert!(one_of(&found, "markdown reads a heading here").starts_with("notes/structure.md:7"));
         assert_eq!(found.len(), 17, "{found:#?}");
     }
@@ -502,7 +502,7 @@ mod unsound {
             .collect();
         assert_eq!(twice.len(), 2, "{all:#?}");
         // An id of one segment, reported where it is defined, per
-        // `design@core@two-segment-ids`.
+        // `design@model@two-segment-ids`.
         let lonely = one_of(&all, "`##lonely` is an id of one segment");
         assert!(lonely.starts_with("docs/design/planted.md:"), "{lonely}");
         assert_eq!(all.len(), 13, "{all:#?}");

@@ -14,7 +14,7 @@
 //! them; `spec` and `milestone` are the plan documents, carried by the plan anchors,
 //! which the tool constructs at [`PLANS_DIR`]. `[registers.<name>]` declares further ones, and
 //! `[locations.<name>]` names a directory that carries a subset of them. The argument is
-//! `design@core@registers-are-declared`.
+//! `design@model@registers-are-declared`.
 
 use std::collections::BTreeMap;
 use std::path::{Path, PathBuf};
@@ -35,7 +35,7 @@ pub const MANIFEST_NAME: &str = "knowledge-architect.toml";
 /// which is the same as being checked against nothing.
 ///
 /// The register homes are not in this list. Each is a register's own storage, in whichever
-/// shape that register accepts, and `check::tree` asserts them from the register list. So no
+/// shape that register accepts, and `tree` asserts them from the register list. So no
 /// document of this list lies under `docs/`, where the component registers keep their homes.
 pub(crate) const COMPONENT_DOCUMENTS: [&str; 2] = ["README.md", "CLAUDE.md"];
 
@@ -90,7 +90,7 @@ pub const SPECS_HOME: &str = "specs";
 pub const MILESTONES_HOME: &str = "milestones";
 
 /// The `dir` of a register whose home is its carrier's own directory rather than a directory
-/// under it, per `design@core@home-at-the-carrier-path`.
+/// under it, per `design@model@home-at-the-carrier-path`.
 pub const CARRIER_DIR: &str = ".";
 
 /// The item register of a plan's threads.
@@ -220,7 +220,7 @@ pub struct Register {
     /// Directory shape: the registers each entry carries, at the entry's own directory.
     pub carries: Vec<String>,
     /// An `opt-in` register: the Components, by name, that carry it under their `docs/`, per
-    /// `design@core@a-component-carries-what-a-project-attaches`.
+    /// `design@model@a-component-carries-what-a-project-attaches`.
     pub components: Vec<String>,
     /// Whether this register is one of those the tool compiles in.
     pub built_in: bool,
@@ -334,7 +334,7 @@ impl Registers {
         // list, which `Anchor::sections_of` gives at a milestone anchor.
         out.push(plan(SPEC_REGISTER, Shape::File, SPECS_HOME, None));
         // A milestone is the built-in Directory register: each entry carries the slice specs
-        // and the four item registers, per `design@core@milestone-entries-are-directories`.
+        // and the four item registers, per `design@model@milestone-entries-are-directories`.
         out.push(Register {
             carries: std::iter::once(SPEC_REGISTER)
                 .chain(ITEM_REGISTERS.iter().map(|(name, _, _)| *name))
@@ -643,7 +643,7 @@ impl Manifest {
     /// Read a manifest from a known root.
     ///
     /// The ignore rules are not read here and are not this tool's to parse: git answers what it
-    /// ignores, per `design@core@git-supplies-the-walk`.
+    /// ignores, per `design@model@git-supplies-the-walk`.
     pub fn load(root: &Path) -> Result<Self, String> {
         let path = root.join(MANIFEST_NAME);
         let text =
@@ -996,7 +996,7 @@ fn resolve_registers(registers: &mut Registers, complaints: &mut Vec<Finding>) {
 }
 
 /// What a Directory register's entries carry is one register a location could carry: an `opt-in`
-/// register of the heading or file shape, per `design@core@declarable-directory-register`.
+/// register of the heading or file shape, per `design@model@declarable-directory-register`.
 ///
 /// A component-scoped register is carried by every component already, a plan register by the
 /// plan anchors alone, and a Directory register carried by an entry would nest anchors inside
@@ -1029,7 +1029,7 @@ fn resolve_carries(registers: &mut Registers, complaints: &mut Vec<Finding>) {
         });
         // Each register an entry carries keeps its home at the entry's own directory, so a
         // second one would make that directory answer for two registers, the case
-        // `design@core@anchor-collisions-refused` refuses for every other anchor. The first one
+        // `design@model@anchor-collisions-refused` refuses for every other anchor. The first one
         // named stays.
         if register.carries.len() > 1 {
             for extra in register.carries.split_off(1) {
@@ -1048,7 +1048,7 @@ fn resolve_carries(registers: &mut Registers, complaints: &mut Vec<Finding>) {
 }
 
 /// The Components an `opt-in` register names carry it, each under its own `docs/`, per
-/// `design@core@a-component-carries-what-a-project-attaches`.
+/// `design@model@a-component-carries-what-a-project-attaches`.
 ///
 /// A name that is no declared Component carries nothing and is reported. A Component keeps the
 /// homes of the registers it carries under one `docs/`, so a home there at its `docs/` itself, at
@@ -1154,7 +1154,7 @@ impl Candidate {
 /// every document under its path, per `design@core@every-path-names-its-anchor`, so an
 /// anchor inside another's directory is the ordinary case — thaum's two locations
 /// both sit inside the root component. What that rule cannot absorb is refused here, per
-/// `design@core@anchor-collisions-refused`, and **the refused anchor is not an
+/// `design@model@anchor-collisions-refused`, and **the refused anchor is not an
 /// anchor**: it owns nothing, carries nothing and is asserted against nothing, so the
 /// consequences of the declaration are not reported as defects of the tree.
 ///
@@ -1166,7 +1166,7 @@ impl Candidate {
 ///
 /// - **a name no reference can spell, or a reserved one, or one an accepted anchor already
 ///   has**: every pointer at it would miss or read as the other, the last per
-///   `design@core@anchor-names-unique`. `plans` is reserved for the anchor the tool constructs.
+///   `design@model@anchor-names-unique`. `plans` is reserved for the anchor the tool constructs.
 /// - **the root's path, spelled by a component or a location**: the root is a component, which
 ///   carries the component registers and every register attached to it with `components`.
 /// - **a component inside a location**: it nests a full register set inside a partial one.
@@ -1276,7 +1276,7 @@ fn resolve_anchors(
         });
         // A register at the location's own path makes the location its home, so any other
         // register's home would sit inside it: one path, two meanings, per
-        // `design@core@home-at-the-carrier-path`. The first such register named keeps the
+        // `design@model@home-at-the-carrier-path`. The first such register named keeps the
         // location, and the others leave the row.
         let at_path = decl.registers.iter().find(|r| {
             registers
@@ -2167,7 +2167,7 @@ pub(crate) mod tests {
 
     /// The claim: every kind name is refused as the name of a Component, a location or the
     /// project, and a harness kind's name as a register's, per
-    /// `design@core@kind-names-refused-as-anchors`. Mutation checked: deleting the anchor
+    /// `design@model@kind-names-refused-as-anchors`. Mutation checked: deleting the anchor
     /// refusal accepts the component `parts/design`.
     #[test]
     fn a_kind_name_is_refused_for_every_anchor_and_a_harness_kind_for_a_register() {
@@ -2228,7 +2228,7 @@ pub(crate) mod tests {
 
     #[test]
     fn a_register_named_planned_is_refused_as_a_reserved_kind() {
-        // The claim, per `design@core@planned-path-form`: `planned` is a kind of the tree, so a
+        // The claim, per `design@model@planned-path-form`: `planned` is a kind of the tree, so a
         // register of that name would never be reached by a reference.
         let m = declaring_full(
             "",
@@ -2250,7 +2250,7 @@ pub(crate) mod tests {
 
     #[test]
     fn a_register_named_register_is_refused_as_a_reserved_kind() {
-        // The claim, per `design@core@registers-are-declared`: `register` is the kind naming a
+        // The claim, per `design@model@registers-are-declared`: `register` is the kind naming a
         // register's home, so a register of that name would never be reached by a reference.
         // Mutation checked: `REGISTER_KIND` removed from the refusal, which declares it.
         let m = declaring_full(
@@ -2273,7 +2273,7 @@ pub(crate) mod tests {
 
     #[test]
     fn a_location_named_register_is_refused_as_a_kind_name() {
-        // The claim, per `design@core@kind-names-refused-as-anchors`: `register` is a kind's
+        // The claim, per `design@model@kind-names-refused-as-anchors`: `register` is a kind's
         // name, so an anchor of that name would be shadowed in a reference's head.
         let m = declaring_full(
             "",
@@ -2315,7 +2315,7 @@ pub(crate) mod tests {
         assert_eq!(m.locations()["papers"].registers, vec!["issue".to_string()]);
     }
 
-    // The refusal is `design@core@anchor-names-unique`.
+    // The refusal is `design@model@anchor-names-unique`.
     #[test]
     fn two_anchors_sharing_a_name_keep_the_first_declared() {
         let m = declaring("\"a/widget\", \"b/widget\"");
@@ -2664,7 +2664,7 @@ pub(crate) mod tests {
 
     /// The claim: a declared Directory register names what its entries carry, an `opt-in`
     /// register of the heading or file shape, and every other name is a complaint that leaves the
-    /// list, per `design@core@declarable-directory-register`; the built-in `milestone` carries the
+    /// list, per `design@model@declarable-directory-register`; the built-in `milestone` carries the
     /// slice specs and the four item registers.
     #[test]
     fn a_directory_register_carries_only_what_a_location_could_carry() {
@@ -2772,7 +2772,7 @@ pub(crate) mod tests {
 
     /// The claim: a register declared at its carrier's own path, `dir = "."`, is opt-in, and a
     /// location carrying one carries nothing else, so no other home sits inside it, per
-    /// `design@core@home-at-the-carrier-path`: AC2 of the discussion that made the shape
+    /// `design@model@home-at-the-carrier-path`: AC2 of the discussion that made the shape
     /// declarable.
     #[test]
     fn a_register_at_its_carrier_s_path_is_opt_in_and_alone_at_its_location() {
@@ -2823,7 +2823,7 @@ pub(crate) mod tests {
     /// The claim: an `opt-in` register names the Components that carry it, each at its own
     /// `docs/<dir>/`, and a name that is no Component, or a home that would give a directory of a
     /// Component two meanings, is a complaint that leaves that Component out, per
-    /// `design@core@a-component-carries-what-a-project-attaches`.
+    /// `design@model@a-component-carries-what-a-project-attaches`.
     #[test]
     fn an_opt_in_register_is_carried_by_the_components_it_names() {
         let declaring = |registers: &str| {

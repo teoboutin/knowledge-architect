@@ -8,7 +8,7 @@
 //! what git tracks plus what it neither tracks nor ignores. Build output and on-demand
 //! directories are therefore absent whether or not the checking machine has built anything, so
 //! the same commit surveys the same on a fresh clone and on a working tree — which is what
-//! `design@core@ignored-targets-are-not-asserted` rests on.
+//! `design@model@ignored-targets-are-not-asserted` rests on.
 
 use std::collections::HashSet;
 use std::path::PathBuf;
@@ -25,7 +25,7 @@ pub struct Survey {
     /// The subset of `present` that is directories.
     ///
     /// Directories are recorded in their own set beside the presence listing, so the kind a
-    /// reference claims, per `design@core@trailing-slash-claims-directory`, is asserted as a fact
+    /// reference claims, per `design@model@trailing-slash-claims-directory`, is asserted as a fact
     /// in both directions rather than inferred from what happens to exist.
     ///
     /// Derived from the listing's own ancestors: git names files, and a directory exists
@@ -36,7 +36,7 @@ pub struct Survey {
     ///
     /// Every such file is listed, so the assertion that an unwalked file names nothing has no
     /// file it silently skips; the states are [`Outside`]'s, and the argument is
-    /// `design@core@a-failed-parse-is-loud`.
+    /// `design@model@a-failed-parse-is-loud`.
     pub outside: Vec<(PathBuf, Outside)>,
     /// The files the walk refuses by name, per `walk::refused`. Read by nothing, in `outside`
     /// no more than in the model, and reported once each by the caller's checks.
@@ -45,7 +45,7 @@ pub struct Survey {
     /// nothing and reported once.
     pub links: Vec<Entry>,
     /// The files of the installer's namespace, each with what reading it gave. They are outside
-    /// the walk, and their bytes are judged by `check::agents` alone, per
+    /// the walk, and their bytes are judged by `shipped` alone, per
     /// `design@core@owned-namespace-check`.
     pub installed: Vec<(PathBuf, Outside)>,
 }

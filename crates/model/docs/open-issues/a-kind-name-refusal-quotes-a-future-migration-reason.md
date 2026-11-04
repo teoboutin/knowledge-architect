@@ -5,7 +5,7 @@ kind: question
 
 ## Summary
 
-`design@core@kind-names-refused-as-anchors` refuses every kind's name for an anchor, and
+`design@model@kind-names-refused-as-anchors` refuses every kind's name for an anchor, and
 quotes the owner's ruling as its ground. The ruling's reason is a future migration, the kind of
 reason `design@knowledge-architect@no-future-breaking-cost-argument` says argues against nothing.
 The head also carries an argument of its own, the shadowing of a reference's head, so the question

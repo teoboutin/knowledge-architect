@@ -55,7 +55,7 @@ It is met while <what the project builds that shows it>.
 ```
 
 %% A goal sits in the Component responsible for fulfilling it because a reference reaches a goal of
-%% any Component from anywhere but a goals home, per `design@core@an-entity-belongs-to-its-anchor`
+%% any Component from anywhere but a goals home, per `design@model@an-entity-belongs-to-its-anchor`
 %% and `design@core@goals-home-cites-upward-only`, so serving a goal does not require moving it. The rival, each goal in the smallest scope serving it, promotes goals
 %% into the root documents, and leaves a goal with no Component responsible for it, against
 %% `goal@knowledge-architect@agents-work-without-drift`. A published Component serves the consumers whose

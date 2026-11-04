@@ -30,11 +30,11 @@ parser opened and the scanner's heading and slug observations:
 | `---`, `kind: todo`, a blank line, `## In yaml` with a slug `yaml-entry`, `---` | none | the same at line 4 |
 
 The opposite direction, a heading markdown reads and the scanner does not, is reported in phase 2
-per `design@core@headings-open-with-hash-marks`.
+per `design@model@headings-open-with-hash-marks`.
 
 ### Why it matters
 
-`design@core@an-entry-is-a-heading-at-the-register-level` rests on the scanner reading headings as
+`design@model@an-entry-is-a-heading-at-the-register-level` rests on the scanner reading headings as
 markdown does. An entry defined on a line that a renderer shows as raw HTML or as metadata is one
 a reader of the rendered document cannot find, against
 `goal@knowledge-architect@documentation-stays-consistent`.
@@ -43,5 +43,5 @@ a reader of the rendered document cannot find, against
 
 Every heading the scanner reads in a markdown document opens a section of the parse, or is
 reported in phase 2: for instance by reporting a `HEADING` line at which no section starts, with a
-test for each of the three inputs above. `design@core@headings-open-with-hash-marks` then states
+test for each of the three inputs above. `design@model@headings-open-with-hash-marks` then states
 both directions.

@@ -15,7 +15,7 @@ gates `register@xtask@design`; how the agent skills are shaped is `register@agen
 ### No Component's directory is named after the project, and a published crate's directory may differ from its package's name `##no-component-directory-named-after-the-project`
 
 A Component is named by the basename of its directory, and the project root by the project's name,
-per `design@core@components-carry-the-same-documents`, so a directory named `knowledge-architect`
+per `design@model@components-carry-the-same-documents`, so a directory named `knowledge-architect`
 would collide with the root: a run over a scratch project
 laid out that way stopped in phase 1, reporting that the name "names 2 anchors". So a published
 crate may sit in a directory named by what it does rather than by its package, crates/core for the

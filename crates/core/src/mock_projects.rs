@@ -277,7 +277,7 @@ mod planted {
         );
     }
 
-    /// `design@core@plan-document-kinds`: a plan document is cited by its kind, so each `path`
+    /// `design@model@plan-document-kinds`: a plan document is cited by its kind, so each `path`
     /// citation of one is refused with the kind form that resolves, from any anchor; and a
     /// pointer from the root at a file of `plans` that is no plan document reaches inside it.
     #[test]

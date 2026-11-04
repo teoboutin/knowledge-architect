@@ -8,30 +8,6 @@ Entry shape and the movement instruction between the two files are
 `skill@knowledge-architect-issue-tracking`. The standing re-entry point is the standing-state
 review, which re-reads every tracker file.
 
-## Guarding `design@core@planned-path-form`'s scope: a planned file named outside the plans directory `##planned-path-outside-plans`
-
-**Fires when:** `check` reports a `path@elsewhere@<path>` reference outside the plans directory
-whose target now resolves, in a sentence that said the file was to be created.
-**Response:** reopen the scope of `design@core@planned-path-form`, with every document as the
-candidate.
-**Re-entry:** the standing-state review of every dispatched review, and the commit that creates
-the file, which fails `check` on that reference.
-**Watches until:** the next two release tags.
-
-## Guarding `design@core@at-span-candidate-rule`: a span meant as a reference passes the check unreported `##candidate-rule-silence`
-
-**Fires when:** a review, or a session reading a document, finds a backticked span that was
-meant as a reference and for which `cargo klarch check` reported nothing — a typo inside the
-kind, an unmigrated span whose head is neither a kind nor an anchor, or a shape the tokenizer
-does not record. `cargo klarch model` filtered on the file shows whether the span was recorded as
-a `span` observation at all.
-**Response:** reopen `design@core@at-span-candidate-rule` on the shape found, with the rule widened
-to it, under a false-positive census over the tree for the widened class, among the candidates; or,
-where the decision is not reopened in the same change, open a `defect` naming the span.
-**Re-entry:** the review of the migration that follows a grammar change.
-**Watches until:** standing: a span the scanner leaves silent is reported by no later run, and the
-class stays after each shape found is repaired, so its failure stays silent and permanent.
-
 ## Guarding `design@core@checker-source-literals-are-data`: a literal of the tool's non-test source cites a rule `##checker-source-literals-are-data-whole-source-scope`
 
 **Fires when:** a review finds a string literal in the tool's non-test source that cites a rule:
@@ -73,7 +49,7 @@ extension's, reads another check's findings, or stores its output for another ch
 phase to consume.
 **Response:** open a `design` issue proposing the new phase and its place in the order; the
 producing check is a phase, not a check of the last one, and it goes before its consumers in
-`check::foundation`.
+`foundation` of `path@model@src/phases.rs`.
 **Re-entry:** the standing-state review on every dispatched review; any new module under the
 check directory; and any new check of an extension.
 **Watches until:** the next ten commits on the main branch that change a file under
@@ -83,7 +59,6 @@ check directory; and any new check of an extension.
 
 The decision rests on the premise that the role modules publish every item a consumer of the
 library, a binary, an extension or the extension's tests, needs.
-
 
 **Fires when:** a consumer of the library, thaum's rules extension first, needs an item that is
 private behind the facade, and no public item replaces it. An example still unmet: the records
@@ -128,19 +103,3 @@ refuses outside every worktree whatever the directory holds.
 **Watches until:** the third release tag after the commit that writes this line, the first of them
 the release that ships `init`.
 
-## Guarding `design@core@git-supplies-the-walk`: two machines walk a different set of files for one commit `##walked-count-differs-between-machines`
-
-The walk is a `git` invocation, so what is checked depends on the git installed and on the
-per-clone configuration it reads. The design answers the two loud cases: no binary and no
-worktree are exit 2, per `design@git@failed-git-is-an-error`. It pins the per-user ignore file
-away, per `design@git@per-user-ignore-file-pinned`. This guards the quiet case that remains: two
-machines running the same commit and reading a different set of files, with both runs green.
-
-**Fires when:** the walked-file count CI prints for a commit differs from the count a local run
-prints for the same commit. Both are the `walk: n file(s)` line of the summary block, which every
-`cargo klarch check` prints on a stop as on a pass.
-**Response:** open a `defect` naming both counts and the two git versions.
-**Re-entry:** each time CI's output is read against a local run, and at any change to the walk.
-**Watches until:** the third release tag after the commit that closes
-`issue@core@the-walk-does-not-report-what-the-per-clone-exclude-file-removes`, whose check then
-reports the per-clone exclude file, and which narrows this entry to two git versions.

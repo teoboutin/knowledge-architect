@@ -561,7 +561,7 @@ fn list_anchors(manifest: &Manifest, checker: &[&Path]) -> Result<ExitCode, Stri
             if register.shape == Shape::Heading && listed(&home.file) {
                 held.push(home.file.display().to_string());
             }
-            // A home is held where `check` finds it, `check::tree::heading_home` and its kin: a
+            // A home is held where `check` finds it, `heading_home` of phase 2 and its kin: a
             // register's directory, of any shape, is its home with or without its README, whose
             // absence `check` reports apart.
             let dir_held = match register.shape {
@@ -951,7 +951,7 @@ fn index(
 /// extension's, then one index per file-register instance.
 ///
 /// One function for `index`, `index --staged` and `check --fix`, so the three generate the same
-/// files from one tree, per `design@core@one-list-of-generated-files`. `tree` is the tree each
+/// files from one tree, per `design@model@one-list-of-generated-files`. `tree` is the tree each
 /// extension is prepared over: the checkout, or the staged snapshot. Every generated file comes in
 /// one call, so a flag choosing between them buys nothing and cannot be given an invalid
 /// combination. `inputs` answers which instance directories are there, and an instance without one
@@ -1123,7 +1123,7 @@ fn show(manifest: &Manifest, args: &ShowArgs, checker: &[&Path]) -> Result<ExitC
         if kind.is_planned() {
             // A planned path is valid while it is absent, so it resolves either way, and what is
             // worth printing is the plans that cite it: the sites a conversion will edit, per
-            // `design@core@planned-path-form`. A reference the check refuses resolves to nothing
+            // `design@model@planned-path-form`. A reference the check refuses resolves to nothing
             // here either. The listing holds no ignored file, so an absent target and an
             // ignored one read the same.
             if let Err(cause) = crate::model::resolve::planned_target(anchor, id, &anchors) {
@@ -1589,7 +1589,7 @@ fn counts(report: &Report, tree: Option<&str>) -> String {
         .collect();
     let _ = write!(out, "\nchecked: {}", checked.join(", "));
     // Not a check: every check read this walk. Git supplies it, per
-    // `design@core@git-supplies-the-walk`, so the count is what a reader compares between CI and
+    // `design@model@git-supplies-the-walk`, so the count is what a reader compares between CI and
     // a local run. It prints on a failing run as readily as a passing one.
     let _ = write!(out, "\nwalk: {} file(s)", report.structure.walked);
     if let Some(tree) = tree {

@@ -1,4 +1,4 @@
-# Core design: Anchors and Components
+# Model design: Anchors and Components
 
 ## Anchors and Components
 
@@ -13,14 +13,14 @@ agent harness (per `design@core@agents-table`), and the home of every `component
 — `design`, `goal`, `tripwire`, `rejected` and `issue`, and any the manifest declares at that
 scope. No document of the compiled list lies under `docs/`, where those homes are. The root also
 holds the plans directory, which is not a component's document but the anchor `plans`, per
-`design@core@plan-register`. A component that does not carry one it owes is a finding, raised by
+`design@model@plan-register`. A component that does not carry one it owes is a finding, raised by
 `path@model@src/tree.rs`.
 
 **Which components exist is declared, and what every component carries at least is compiled in.**
 That is not an exception to `design@core@nothing-of-a-project-is-compiled-in`: the document list and
 the five built-in component registers in `manifest.rs` belong to no project, they are what the word
 _component_ means here. A project adds to that set, per
-`design@core@a-component-carries-what-a-project-attaches`, and removes nothing from it but the agent
+`design@model@a-component-carries-what-a-project-attaches`, and removes nothing from it but the agent
 document, below: a project free to declare its own set would be conformant with whatever it
 declared, which is the same as being checked against nothing, against
 `goal@core@document-rules-are-checked`: a tree that passes the checker conforms to the rules the
@@ -30,7 +30,7 @@ agent document. The flaw this leaves, that a developer's contracts lose their re
 target project that uses the checker alone and declares no harness, is `issue@core@a-home-for-developer-contracts-outside-agent-configuration`.
 
 **A directory that carries outstanding state without being a component is a location**, per
-`design@core@anchors-are-components-and-locations`.
+`design@model@anchors-are-components-and-locations`.
 
 ### An anchor is a component or a location, and a location carries the registers it declares or the tool gives it `##anchors-are-components-and-locations`
 
@@ -40,37 +40,37 @@ spec anchor is a file, and no plan anchor carries the `path` kind. What separate
 owes the compiled documents, every `component`-scoped register and every `opt-in` register the
 project attaches to it, with its homes under `<component>/docs/`. A **location** owes the homes of the registers its `[locations.<name>]`
 row declares and nothing else, with its homes directly under its own path, or at it for a register
-declared there, per `design@core@home-at-the-carrier-path` — a location's directory is already
+declared there, per `design@model@home-at-the-carrier-path` — a location's directory is already
 documentation, where a component's is source code.
 
 **A location exists so that a directory outside every component can be cited.** Naming the
 directory gives every entry in it a reference and makes relocating it one manifest edit, which
 `goal@core@relocation-needs-only-goal-changes` asks and `design@core@every-path-names-its-anchor`
 buys everywhere else. What a location is instead of
-is `rejected@core@additional-trackers-file-list`.
+is `rejected@model@additional-trackers-file-list`.
 
 **A location's own registers are the only ones it carries**, and a skill or an agent of the
 project's own under one, such as this repository's under `agent-config`, is a section home of a
-harness kind, which no anchor carries, per `design@core@harness-kinds`.
+harness kind, which no anchor carries, per `design@model@harness-kinds`.
 
 **Three kinds of location are constructed by the tool rather than declared**, and each is a location
 in every respect but the one its layout fixes:
 
 - **`plans`**, at docs/plans/ of the root, carrying `spec` and `milestone`, per
-  `design@core@plan-register`. It is judged against the declared anchors like a location, first
+  `design@model@plan-register`. It is judged against the declared anchors like a location, first
   among the anchors of its depth, so a declaration that collides with it is the one refused and
   its complaint names a declaration the project can change. It owes a `README.md` beside its two
   homes.
 - **One anchor per entry of a Directory register**: each directory of a Directory register's
   home holding a file `README.md`, named by its basename, per
-  `design@core@declarable-directory-register`. Each register it carries has its home at the
-  anchor's own path. A directory whose name `design@core@a-placed-name-reads-as-nothing-else`
+  `design@model@declarable-directory-register`. Each register it carries has its home at the
+  anchor's own path. A directory whose name `design@model@a-placed-name-reads-as-nothing-else`
   refuses is no anchor. A milestone is one: its `spec` register's slice specs sit beside the
   milestone document and are cited `spec@<milestone>@<slice>`, unique only inside the milestone,
-  per `design@core@plan-document-kinds`; it carries the four item registers, per
-  `design@core@plan-items-by-section`, and no `path` kind.
+  per `design@model@plan-document-kinds`; it carries the four item registers, per
+  `design@model@plan-items-by-section`, and no `path` kind.
 - **One anchor per spec**: each spec file of specs/, grouped or not, named by its id, per
-  `design@core@spec-file-is-an-anchor`. It owns its own file, carries the four item registers,
+  `design@model@spec-file-is-an-anchor`. It owns its own file, carries the four item registers,
   and carries no `path` kind. A spec whose name is refused, or that a milestone holds, is no
   anchor, and a directory is never a spec.
 
@@ -86,7 +86,7 @@ name check is their collision check, and it is a phase-2 finding.
 A location inside a component is the ordinary case, and the deepest anchor wins, so a document
 under a location belongs to it and not to the component holding it. Four declarations take that rule away. Each is a complaint of the manifest's
 resolution, and **the refused anchor is no anchor**: it owns nothing, carries nothing and is
-asserted against nothing, per `design@core@a-wrong-declaration-is-a-finding`. Candidates are taken
+asserted against nothing, per `design@model@a-wrong-declaration-is-a-finding`. Candidates are taken
 shallowest first, a component before a location at equal depth, then components in declaration
 order and locations in name order, so of two that collide the deeper or the later one in that
 order is the one refused:
@@ -113,7 +113,7 @@ shapes above.
 A reference's head is read as a kind before it is read as an anchor, so an anchor named `design`, `path` or `skill` would be shadowed there, and the old form
 written with it would be misread. Every kind's name, the harness kinds' whatever the harness and
 every declared register's included, is refused for a Component, a location, the project, a
-plan and an entry of a directory register, per `design@core@a-placed-name-reads-as-nothing-else`
+plan and an entry of a directory register, per `design@model@a-placed-name-reads-as-nothing-else`
 for the last two. The owner, on the question:
 "My ruling on this is that all kind names should be refused for anything that can be an anchor
 name (components, custom locations...). I'd rather make this decision early to avoid painful
@@ -124,9 +124,9 @@ migrations."
 A reference names its anchor by one word, so two anchors of one name would make every reference to
 either name both, and `goal@core@documents-stay-current` asks that each resolve. The resolution of
 the manifest, `resolve_anchors` in `path@model@src/manifest.rs`, refuses the later, in the order of
-`design@core@anchor-collisions-refused`, of two candidates that share a name, whatever their
+`design@model@anchor-collisions-refused`, of two candidates that share a name, whatever their
 kinds: the project, a Component or a location. A declared anchor named `plans` is refused before
-this check, per `design@core@plans-is-a-reserved-anchor`. The refused anchor is no anchor, per `design@core@a-wrong-declaration-is-a-finding`, and the
+this check, per `design@model@plans-is-a-reserved-anchor`. The refused anchor is no anchor, per `design@model@a-wrong-declaration-is-a-finding`, and the
 finding's repair is to rename or move one. Supporting two of one name, by qualifying the word with a
 path, is refused on the owner's argument that two Components of one basename are either one Component
 or not named specifically enough, which the owner judged bad practice; the session concludes that
@@ -138,7 +138,7 @@ them.
 
 Every Component carries the component registers, the built-in ones and those declared with
 `scope = "component"`, which the workflow needs in every Component, per
-`design@core@components-carry-the-same-documents`. An `opt-in` register names the Components that
+`design@model@components-carry-the-same-documents`. An `opt-in` register names the Components that
 carry it besides, in its own table, `components = [<component>, …]`, the root's name included, and
 each keeps its home under its own `docs/`, as `<component>/docs/<dir>/`. A name that is no
 Component, and a home that would give a directory of the Component two meanings, its `docs/` itself
@@ -152,11 +152,11 @@ owner's word that such a project is still supposed, in most cases, to have peopl
 workflow, without which the checker has little use. Which registers can be attached is the
 session's argued limit within that intent: a register the project declares, since a built-in
 component register is carried by every Component already and a plan register belongs to the plans
-layout, per `design@core@plan-register`. A register attached adds obligations and removes none, per
+layout, per `design@model@plan-register`. A register attached adds obligations and removes none, per
 `design@core@the-regime-has-no-opt-out`. Against a location carrying the register at its own path,
-per `design@core@home-at-the-carrier-path`, attaching costs one key, invents no anchor name, and
+per `design@model@home-at-the-carrier-path`, attaching costs one key, invents no anchor name, and
 cites what the register holds under the Component's name. The rival, a Component's register list
-fixed by the word _component_, is `rejected@core@component-register-list-fixed`.
+fixed by the word _component_, is `rejected@model@component-register-list-fixed`.
 
 **The list is the register's**, beside its `scope`, because a Component is declared by its path in
 `[project] components` and has no table of its own: a table per Component would declare the

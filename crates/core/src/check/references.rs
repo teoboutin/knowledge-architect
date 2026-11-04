@@ -1,7 +1,7 @@
 //! Every reference is judged against what the resolver says of it, and every relative markdown link
 //! is a navigation row that resolves beside its file.
 //!
-//! The resolver is `check::resolve`, which says what a reference names or why it names nothing.
+//! The resolver is `model::resolve`, which says what a reference names or why it names nothing.
 //! This module turns each cause into a finding at its site, and adds the lints over what the
 //! reference form leaves out.
 //!
@@ -11,7 +11,7 @@
 //! the grammar retired, `` `<word>#<word>` ``, is reported as what it was when its id is an entry
 //! of this project or its word is an anchor or a kind, so a pointer the migration missed or
 //! copied out of the commit history is a finding rather than silence.
-//! The candidate rule is `design@core@at-span-candidate-rule`, and the retired-form lint
+//! The candidate rule is `design@model@at-span-candidate-rule`, and the retired-form lint
 //! `design@core@retired-slug-reference-reported`. A span that names nothing here is another
 //! tool's notation, and is silent.
 //!
@@ -27,7 +27,7 @@
 //! rather than over a span, and over a tree only, since a commit message holds no design entry.
 //!
 //! **The definition-site findings are not this family's.** Misplaced, malformed and duplicate
-//! definitions are found while the table is built, and `check::foundation` reports them: where a
+//! definitions are found while the table is built, and `model`'s `foundation` reports them: where a
 //! definition may sit is a question about a register's shape.
 
 use crate::model::declared::{GOAL_REGISTER, REJECTED_REGISTER};
@@ -495,7 +495,7 @@ fn id_lint(rel: &Path, line: u32, what: &Observation, tables: &[IdTable]) -> Opt
 
 /// The reference of every entity the tables define with this id that `rel` may cite: an item of
 /// a plan only from inside that plan, as its reference resolves, per
-/// `design@core@plan-item-scope`.
+/// `design@model@plan-item-scope`.
 /// Each form `id` is written as, rendered `<kind>@<anchor>@<id>`, or `<kind>@<id>` for a harness
 /// kind, sorted and with no repeat.
 fn render_forms(id: &str, pairs: Vec<(String, String)>) -> Vec<String> {
@@ -1335,7 +1335,7 @@ mod tests {
 
     /// The claim: an item's id written outside its reference form is reported inside its own
     /// plan, with the item's reference, and is silent outside it, where no document may cite the
-    /// item, per `design@core@plan-item-scope`. Mutation checked: dropping the resolution test of
+    /// item, per `design@model@plan-item-scope`. Mutation checked: dropping the resolution test of
     /// `defined_pairs` reports the plain word in notes/prose.md.
     #[test]
     fn an_item_id_written_plain_is_reported_inside_its_plan_alone() {
@@ -1803,7 +1803,7 @@ mod tests {
         );
     }
 
-    /// The claim, per `design@core@reserved-anchors`: the escape's target is read from every place
+    /// The claim, per `design@model@reserved-anchors`: the escape's target is read from every place
     /// the unanchored lint reads a path from, the document's own directory included, so a file
     /// named relative to its document is no silence under the escape; and the finding names the
     /// form at the deepest anchor that holds the target, per
@@ -1910,7 +1910,7 @@ mod tests {
     #[test]
     fn a_path_only_a_location_carries_resolves_in_no_component() {
         // The generic form claims every component's own copy, per
-        // `design@core@reserved-anchors`, so a copy a declared location alone holds does not
+        // `design@model@reserved-anchors`, so a copy a declared location alone holds does not
         // satisfy it. Mutation checked: with the filter back to `constructed.is_none()`, the
         // location's copy satisfies the reference and nothing is reported.
         let text = "[project]\nchecker-version = \"fixture\"\nname = \"a-project\"\ncomponents = [\"parts/a-part\"]\n\n\
@@ -2085,7 +2085,7 @@ mod tests {
         }
     }
 
-    // --- the planned kind, per `design@core@planned-path-form` ----------------------------
+    // --- the planned kind, per `design@model@planned-path-form` ----------------------------
 
     /// A spec file of the plans directory, where a planned path is legal.
     const IN_PLANS: &str = "docs/plans/specs/a-spec.md";
@@ -2871,7 +2871,7 @@ mod tests {
         }
     }
 
-    /// The claim, per `design@core@path-to-a-home-is-reported`: the README of a heading register's
+    /// The claim, per `design@model@path-to-a-home-is-reported`: the README of a heading register's
     /// directory is its home's head, and the README and index of a file or directory register's
     /// directory are files inside the home, which stay `path` references; so are a subdocument
     /// and an entry. Mutation checked, and caught: the `readme` comparison of `home_target` applied to

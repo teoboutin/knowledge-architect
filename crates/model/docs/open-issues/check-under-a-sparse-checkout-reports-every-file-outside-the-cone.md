@@ -28,7 +28,7 @@ is not established.
 
 ### Why it matters
 
-`design@core@git-supplies-the-walk` keeps a tracked path the working tree does not hold in the walk
+`design@model@git-supplies-the-walk` keeps a tracked path the working tree does not hold in the walk
 and reports it, so that a working-tree state takes no live document out of every check. A sparse
 checkout is a working-tree state a user chose, and under it plain `check` cannot pass at all,
 which `goal@knowledge-architect@every-target-project-can-adopt-it` strains for a project worked on that
@@ -38,5 +38,5 @@ way. Whether the head meant to cover a skip-worktree entry is not established.
 
 A ruling on what plain `check` judges under a sparse checkout: the files on disk, the index's
 blobs for the skip-worktree entries, or a refusal naming the sparse checkout. Then the head
-`design@core@git-supplies-the-walk` states it, and a test in `path@core@tests/binary.rs` builds a
+`design@model@git-supplies-the-walk` states it, and a test in `path@core@tests/binary.rs` builds a
 sparse checkout and asserts the chosen verdict.

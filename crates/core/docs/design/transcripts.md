@@ -124,7 +124,7 @@ it, is listed by
 `{ find ~/.claude/projects -mindepth 2 -maxdepth 2 -name '*.jsonl'; find ~/.claude/projects -path '*/subagents/*' -name 'agent-*.jsonl'; } | xargs -d '\n' jq -r '"\(.type) \(.attachment.type // .subtype // "") \(.version // "-")"' | sort -u`,
 over the files the reader reads, where a metadata line, which carries no `version`, shows `-`, and the header of `klarch transcript list --all-projects` names any value outside the sets. A strict reader
 would fail on each release that adds a type, `rejected@core@strict-transcript-reader`; a silent
-tolerant one hides a renamed field, against `design@core@a-failed-parse-is-loud`.
+tolerant one hides a renamed field, against `design@model@a-failed-parse-is-loud`.
 
 ### A project's transcripts are the files whose first line ran in the project's root or under it `##transcript-directory-resolution`
 

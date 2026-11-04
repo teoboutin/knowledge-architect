@@ -41,7 +41,7 @@ What ties them to this project now:
 
 - the installer's prefix, in three constants: `PREFIX` of `path@agent-skills@build.rs`,
   `OWNED_PREFIX` of `path@model@src/manifest.rs` and `PREFIX` of `path@xtask@src/skill.rs`; and the
-  paths `PRIMER` and `IMPORT_LINE` of `path@core@src/agents.rs`; all are this project's values;
+  paths `PRIMER` and `IMPORT_LINE` of `path@model@src/shipped.rs`; all are this project's values;
 - the rows of `SUBSTITUTIONS` are this project's own literals;
 - the build script and `path@xtask@src/skill.rs` include `path@agent-skills@src/render.rs` with
   `#[path]`, per `design@xtask@view-included-not-exported`, and its functions are `pub(crate)`,

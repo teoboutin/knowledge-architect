@@ -28,7 +28,7 @@ declares `harness = []`, per `path@core@CLAUDE.md`. Its other references are lis
 Two other texts argue from the same premise, a target project that uses the checker alone and
 declares no harness:
 
-- `path@core@docs/design/anchors.md`, whose sentence on the flaw that the empty list leaves names "a
+- `path@model@docs/design/anchors.md`, whose sentence on the flaw that the empty list leaves names "a
   target project that uses the checker alone and declares no harness";
 - `issue@core@a-home-for-developer-contracts-outside-agent-configuration`, whose "Why it matters"
   says "a target project that uses the checker alone declares that empty list all the same".

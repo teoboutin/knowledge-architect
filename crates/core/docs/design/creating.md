@@ -117,7 +117,7 @@ The rule over PATH and `--vcs <git|none>`:
 
 `--vcs` is `cargo init`'s flag, per `design@core@init-follows-cargo-init`, restricted to `git` and
 `none` of the five values cargo 1.98.0 takes, `git`, `hg`, `pijul`, `fossil` and `none`: the
-checker reads every tree through git, per `design@core@git-supplies-the-walk`, so a repository of
+checker reads every tree through git, per `design@model@git-supplies-the-walk`, so a repository of
 another system would leave a project the check cannot run in.
 
 Git is asked about PATH before the first write, whatever `--vcs` says, since the check the run

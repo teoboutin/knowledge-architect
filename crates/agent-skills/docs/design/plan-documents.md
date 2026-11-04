@@ -6,7 +6,7 @@
 
 A plan document is a spec, a milestone document or the spec of a slice, kept in the plans
 directory, docs/plans/ at the project's root, whose path the checker fixes, per
-`design@core@plans-dir-fixed`. The directory is named plans rather than planned: in common English,
+`design@model@plans-dir-fixed`. The directory is named plans rather than planned: in common English,
 planned work is intended or scheduled work, designed or not, which is the roadmap's content. A spec is the plan document of work done in one branch and one PR. A milestone is work across
 several PRs with design sessions between them; its plan documents are its milestone document and
 one spec per slice. A slice is a part of a milestone that is one branch and one PR, with its own
@@ -68,7 +68,7 @@ The design this decision did not keep: `rejected@agent-skills@spec-plus-detailed
 ### A milestone is a directory, its head a README, each slice a spec `##milestone-is-a-directory`
 
 A milestone's plan documents are one directory under milestones/ in the plans directory, which the
-checker makes an anchor named by its basename, per `design@core@plan-document-kinds`: the milestone
+checker makes an anchor named by its basename, per `design@model@plan-document-kinds`: the milestone
 document is its `README.md`, a generated `index.md` lists the slices, and each slice's spec is a file
 beside it, cited `spec@<milestone>@<slice>`. The head is a README because the checker
 resolves a relative link only in a `README.md` or an `index.md`, per
@@ -393,7 +393,7 @@ declines to track, and an identifier needs none.
 
 ### A leaving plan's citations are removed, and each citing plan gets a question `##retiring-plan-opens-issue`
 
-A whole plan document may be cited from another plan, per `design@core@plan-item-scope`. When it
+A whole plan document may be cited from another plan, per `design@model@plan-item-scope`. When it
 leaves, the session that meets the dangling citation, the one deleting it or the one rebasing the
 citing plan onto the deletion, removes the citation and opens a `question` issue on the citing
 plan: does it still hold now that the leaving plan is built, accounting for deviations or other
@@ -401,7 +401,7 @@ unplanned happenings? The issue cites
 the citing plan, so it cannot outlive it, and its `Why it matters` cites what the leaving plan
 harvested, since that plan no longer exists. It is a `question` rather than a `todo` because the
 reading may find nothing to change. For a milestone, its next slice's audit reads it. A milestone's
-own documents are one plan, per `design@core@plan-item-scope`, so its milestone document and its
+own documents are one plan, per `design@model@plan-item-scope`, so its milestone document and its
 sibling slice specs re-point a citation of a leaving slice with no question: that audit already
 reads the milestone against what landed. The retiring
 session revisits nothing itself: a revisit at that moment would redesign the citing plan at a time

@@ -61,7 +61,7 @@ placeholder, which the checker reads as no reference, and this repository's own 
 `issue@agent-skills@a-pending-ruled-file-is-reached-by-no-installed-search` writes the installing
 project's paths bare at five sites. A
 candidate for the discussion: a reserved anchor for every installing project's root, which changes
-`design@core@reserved-anchors` and `design@core@nothing-of-a-project-is-compiled-in`. Reported by the
+`design@model@reserved-anchors` and `design@core@nothing-of-a-project-is-compiled-in`. Reported by the
 retrospective of the intake of 2026-10-19, analysed at the intake of 2026-10-24.
 
 ### Why it matters

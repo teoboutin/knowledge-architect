@@ -18,14 +18,14 @@ code that checks the real tree.
 Five things are compiled in, and none of them describes a project:
 
 - **What the word _component_ means**: the documents a component carries and the five built-in
-  component registers, per `design@core@components-carry-the-same-documents`, and the starting text
+  component registers, per `design@model@components-carry-the-same-documents`, and the starting text
   `init` and `new-component` write in each document and home: a title and a line on what it
   holds, or that it holds no entry yet, with no entry, no reference and no link, so it passes every check in any project, and no
   goal, which is the owner's to state, per `design@agent-skills@goals-change-through-goal-setting`;
   the root CLAUDE.md is its title and the primer's import line, since what every root would say
   alike is the primer's, per `design@agent-skills@primer-limit`.
 - **Where plan documents live**: the anchor `plans` at docs/plans/ of the root and its two
-  registers, per `design@core@plans-dir-fixed`. It is the tool's convention for a kind of
+  registers, per `design@model@plans-dir-fixed`. It is the tool's convention for a kind of
   document every project has, not a fact about one project.
 - **The directory of each Component of the tool's own source**, so that its string literals are
   read as data, per `design@core@checker-source-literals-are-data`.
@@ -87,7 +87,7 @@ phases, each of the first three building one input of the next:
 | phase | produced by | what it reports |
 | ----- | ----------- | --------------- |
 | 1 | `Manifest::parse`, and each extension's resolution of its tables | a declaration the tool refused, which is then absent from the configuration |
-| 2 | `check::tree`, over the core's declared paths, the paths each extension declares and every document's parse, and `check::agents`, over the installed agent configuration | a file the walk could not read or refused, a tracked-and-ignored file, an anchor or a register home that is not there, a declared path that does not exist, a home a walk row keeps out, an installed agent file missing, differing or unshipped, a root CLAUDE.md that does not import a shipped primer, a heading markdown reads and the checker does not, per `design@core@headings-open-with-hash-marks` |
+| 2 | phase 2, over the core's declared paths, the paths each extension declares and every document's parse, and the installed-file check, over the installed agent configuration | a file the walk could not read or refused, a tracked-and-ignored file, an anchor or a register home that is not there, a declared path that does not exist, a home a walk row keeps out, an installed agent file missing, differing or unshipped, a root CLAUDE.md that does not import a shipped primer, a heading markdown reads and the checker does not, per `design@model@headings-open-with-hash-marks` |
 | 3 | `Entities::build` | a slug or an entry id where none may sit, or defined twice; a level-two heading of a section home with no slug; a skill's or an agent's name a reference cannot spell, or that its frontmatter contradicts |
 | 4 | every check, the core's and each extension's | everything computed over a complete model |
 
@@ -171,31 +171,6 @@ clap supplies 2 for a parse failure, per `design@core@arguments-parse-through-cl
 the boundary costs nothing at the parse. What the ladder costs is that a command routes its own
 unreadable-input errors to 2 rather than to the code it uses for a negative answer.
 
-### A parse that cannot be trusted is reported, never silent `##a-failed-parse-is-loud`
-
-A file the walk cannot read, a source the grammar cannot parse, and a source nested deeper than the
-walk goes all produce a finding naming the file. Silence would remove every citation in it from the
-walk while the run reported success, which is indistinguishable from a clean file, against
-`goal@core@document-rules-are-checked`: a tree that passes the checker conforms, in the texts the
-checker reads, to every rule it holds.
-
-**A file outside the walk is held to the same, for the question an extension asks of it.** An
-extension may assert that no unwalked file says something, as thaum's rules extension does of a rule
-number. Its bytes are handed over decoded lossily when they are not UTF-8: the question is
-whether an ASCII token appears, and a lossy decoding keeps every ASCII byte, where a walked
-document read lossily would be text nobody wrote. **A binary file is handed to no check**, by
-git's own test, a NUL byte in its first 8000 bytes, in `check` and in `commits` alike: its bytes
-are no prose anybody wrote a claim in, and a number in them, such as a PDF's page size, is data.
-Every other state is a phase-2 finding naming the file, each with its own repair: a path git
-lists and the working tree does not hold, a directory where git lists one entry, and a file whose
-bytes cannot be had at all. A symlink and a gitlink are no file to read, and are reported as
-links.
-
-The rival, a read or a parse that fails in silence, fails in two ways. Under it, one byte of
-Windows-1252, such as a pasted em dash, puts a document read strictly outside the walk and outside
-the inverse assertion, so a fabricated quote in it is read by nothing. And unbounded recursion
-aborts the whole run with no file named and no finding printed.
-
 ### Every rule over a document is enforced, and no declaration exempts a document from one `##the-regime-has-no-opt-out`
 
 The rules over documents are compiled in and the manifest declares nothing about them, so
@@ -205,7 +180,7 @@ from `goal@core@document-rules-are-checked`: a tree that passes the checker conf
 the core compiles in, and no project holds back any of them beyond the paths its manifest leaves out of the walk, which the checker does not read, and the agent configuration's documents an empty list of harnesses removes, which the third paragraph below says are documents a Component carries, not rules over the documents it has.
 
 **A declared register adds obligations and removes none**, which is what keeps
-`design@core@registers-are-declared` inside this head rather than an exception to it. Declaring one
+`design@model@registers-are-declared` inside this head rather than an exception to it. Declaring one
 gives a project a kind, a shape and a home to be checked against; it cannot loosen the eleven built
 in, and it cannot exempt a document from anything. A manifest that declares no register is checked
 exactly as it was.

@@ -179,7 +179,7 @@ pub(crate) fn check(model: &Model, manifest: &Manifest, inputs: &TreeInputs) -> 
                  cannot be checked",
                 "remove the row of [walk] that keeps it out",
             )),
-            // A missing root CLAUDE.md is the required-documents finding of `check::tree`.
+            // A missing root CLAUDE.md is the required-documents finding of `tree`.
             None => {}
         }
     }
@@ -497,7 +497,7 @@ mod shipped_text_tests {
         out
     }
 
-    /// The claim, per `design@core@section-homes-carry-slugs`: every level-two
+    /// The claim, per `design@model@section-homes-carry-slugs`: every level-two
     /// heading of each shipped skill, agent and the primer carries a slug unique within its file,
     /// and every reference of a harness kind in the shipped text resolves within the shipped set,
     /// citing no project's own root CLAUDE.md. The set is judged here because no installing

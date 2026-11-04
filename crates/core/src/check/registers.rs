@@ -16,12 +16,12 @@
 //! entry beside a hand-written `README.md`, a generated `index.md` and an optional
 //! `register.toml`; the entries' frontmatter, title, sections and owed subsections are asserted
 //! here, per `design@core@a-file-register-is-a-directory-of-entries` and
-//! `design@core@frontmatter-subset`. A Directory register, the milestones home, owes the same two
+//! `design@model@frontmatter-subset`. A Directory register, the milestones home, owes the same two
 //! navigation files, and each of its entries is a directory whose README is asserted as a File
 //! entry is.
 //!
 //! **Whether what is there exists is not this check's question.** An anchor or a home that is
-//! not there is `check::tree`'s finding, phase 2, and a definition sitting where none may is
+//! not there is a finding of phase 2, and a definition sitting where none may is
 //! the entity table's, phase 3; both stop the run before this check reads anything. What is
 //! asserted here is the shape of what the earlier phases found present.
 
@@ -77,7 +77,7 @@ pub(crate) fn check_under(
         ..Counts::default()
     };
 
-    // Whether an anchor and its homes EXIST is `check::tree`'s question, judged before this
+    // Whether an anchor and its homes EXIST is phase 2's question, judged before this
     // phase runs; what is asserted here is the shape of what is there.
     for anchor in anchors.all() {
         for name in &anchor.registers {
@@ -135,7 +135,7 @@ fn heading_home(
         ));
     }
     // The directory shape with its head present is the one shape with something to assert
-    // beyond existence; `check::tree` has already reported a missing head.
+    // beyond existence; phase 2 has already reported a missing head.
     let dir_home = inputs.directories.contains(&home.dir);
     let headed =
         inputs.present.contains(&home.readme) && !inputs.directories.contains(&home.readme);
@@ -188,7 +188,7 @@ fn file_home(
     anchors: &Anchors,
     inputs: &Inputs,
 ) -> usize {
-    // A missing directory is `check::tree`'s finding; there is no shape to assert in one.
+    // A missing directory is phase 2's finding; there is no shape to assert in one.
     if !inputs.directories.contains(&home.dir) {
         return 0;
     }
@@ -217,7 +217,7 @@ fn file_home(
 /// A Directory register: its two navigation files, and each entry's README as an entry.
 ///
 /// Its entries are the entry anchors directly under its home. What else the home holds, and
-/// which directories are entries, is phase 2's, in `check::tree`; what is asserted here
+/// which directories are entries, is phase 2's, in phase 2; what is asserted here
 /// is the same shape a File home owes, over the README of each entry. Returns how many entries
 /// were judged.
 fn directory_home(

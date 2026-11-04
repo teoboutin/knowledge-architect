@@ -22,7 +22,7 @@ design homes. Nothing about the shape is decided.
 
 ### Why it matters
 
-It would extend `design@core@an-entity-belongs-to-its-anchor`, under which every reference names an
+It would extend `design@model@an-entity-belongs-to-its-anchor`, under which every reference names an
 anchor of its own project. The owner doubts there is a real need: a design decision of a project
 that relies on the checker states that it relies on the checker working as intended, and needs no
 pointer into the checker's design, per `skill@knowledge-architect-decision-recording@head-shape`. thaum meets the question first:

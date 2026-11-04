@@ -13,16 +13,9 @@ so that the string literals of the tool's own source are read as data, per
 directory and package name are compiled in too, so a binary built from another checkout of the
 tool is refused, per `design@core@a-foreign-build-is-refused`.
 
-**`git` 2.36 or newer is a hard dependency, and every invocation lives in the `git` crate,
-`path@git@src/git.rs`, which the core names `crate::git`.** The floor is `cat-file --batch -z`,
-which `commits` reads a commit's tree with. The walk is `git ls-files` from the project root, the
-ignore question a path reference asks is one `git check-ignore` batch per run, and a listing's
-last-change column is one `git log`. A check may spawn nothing, so each of those is taken by the
-caller and handed in. A tree with no `git`, or a project outside a worktree, is exit 2 with the
-reason; an empty walk is never an answer. The decisions are `design@core@git-supplies-the-walk`,
-`design@git@git-floor-for-commit-trees`, `design@git@failed-git-is-an-error` and
-`design@core@checker-asks-git-through-the-crate`: read them whole before changing how the core
-asks git.
+**`git` 2.36 or newer is a hard dependency, and every invocation is the `git` crate's**, which the
+core names `crate::git`. The walk and what it needs of git are `path@model@CLAUDE.md`. A check may spawn
+nothing, so what it needs is taken by the caller and handed in.
 `check --staged`, `index --staged`, the comparison of `check --fix` and `commits` read a snapshot
 instead, from git objects, through
 `git::snapshot_entries` and the same `cat-file` batch: HEAD's tree overlaid with the index's
@@ -96,10 +89,7 @@ contents are shared with every other test over it. `History` then configures `us
 four phases, per `design@core@phases-gate-the-report`, and every check of the last phase
 consumes the entity table and produces nothing another check reads; that is what lets a
 finding be classified by where it is produced. A new check whose findings another check would
-read goes before its consumers, in `check::foundation`, and stops the run when it finds
-anything. A new finding about what the model could not read — a home, a file, a declaration —
-goes in `check::tree` or in resolution, never in a module of the last phase, or nothing gates
-it.
+read goes before its consumers, in `model`'s `foundation`, per `path@model@CLAUDE.md`.
 
 **An item is public only through the facade**, per `design@core@api-facade`: a re-export in
 `path@core@src/lib.rs`, or one of the role modules `cli`, `extension`, `document` and `testing`.

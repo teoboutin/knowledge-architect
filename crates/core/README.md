@@ -31,7 +31,7 @@ Neither failure is silent: no binary and no worktree are both exit 2 naming the 
 empty walk. `commits` reads a commit's tree through `cat-file --batch -z`, which is where the
 version floor comes from. `check --staged` reads the tree git's index would commit the same way:
 HEAD's tree with the staged changes, a file added with `git add -N` left out, as `git commit`
-leaves it out. The decisions are `design@core@git-supplies-the-walk`,
+leaves it out. The decisions are `design@model@git-supplies-the-walk`,
 `design@git@failed-git-is-an-error`, `design@git@git-floor-for-commit-trees` and
 `design@core@staged-tree-source`.
 Git is asked about the repository the project's directory lies in, whatever `GIT_DIR`,
@@ -137,7 +137,7 @@ that encloses it, per
 The directory of an anchor other than the root has no spelling under its own name, so a reference
 names it from the anchor above it, as `path@<parent-anchor>@<dir>/`, per
 `design@core@every-path-names-its-anchor`. An illustration of a form writes its id as a placeholder
-in angle brackets, as `path@*@<path>`, per `design@core@a-reference-is-live-in-every-prose`: a span
+in angle brackets, as `path@*@<path>`, per `design@model@a-reference-is-live-in-every-prose`: a span
 with an empty id is malformed.
 `registers` judges the shape of what each anchor carries: a file
 register's README, index, groups and entry shapes, and a directory home's links. A check the tree
@@ -241,7 +241,7 @@ crates/core/docs/open-issues/index.md    already current
 ```
 
 **A file-register index is a fixed shape, and its bytes are a contract**, per
-`design@core@a-file-register-index-is-rows`:
+`design@model@a-file-register-index-is-rows`:
 
 ```markdown
 **Generated — do not edit.** `<command> index`
@@ -562,12 +562,12 @@ level = 3
 A **heading register** keeps its entries as slugged headings, in `<dir>.md` or in `<dir>/` behind
 a `README.md` that links every subdocument. It declares `level`, from 2 to 6: every heading at that
 level in its home is an entry and carries a slug, per
-`design@core@an-entry-is-a-heading-at-the-register-level`, and a slug at any other level defines
-nothing, per `design@core@a-slug-elsewhere-defines-nothing`. The built-in levels are 3 for
+`design@model@an-entry-is-a-heading-at-the-register-level`, and a slug at any other level defines
+nothing, per `design@model@a-slug-elsewhere-defines-nothing`. The built-in levels are 3 for
 `design` and `rejected`, and 2 for `goal` and `tripwire`. A heading is a line that opens with `#` marks, at most
 three spaces in, followed by a space or a tab and text. A setext heading, a heading after a list or
 block-quote marker on its line, and a heading with no text are reported in any markdown document,
-per `design@core@headings-open-with-hash-marks`.
+per `design@model@headings-open-with-hash-marks`.
 
 A **file register** takes no `level`. It keeps one file per entry under `<dir>/`, beside a
 hand-written `README.md`, a generated `index.md` and an optional `register.toml` declaring the
@@ -585,15 +585,15 @@ every file and defines no slug. A `register` or a `path` reference to an entry's
 its README is a finding naming the entry's reference. An entry's name is refused when it is a
 kind's, a Component's, a location's or a reserved word, or when a milestone, a spec or an earlier
 entry holds it: the milestones first, then the specs, then the declared registers by name, each
-register's entries by path. The argument is `design@core@declarable-directory-register`.
+register's entries by path. The argument is `design@model@declarable-directory-register`.
 
 **`dir = "."` puts a register's home at its carrier's own directory**, for an `opt-in` register
 only: the location carrying it carries no other register, since every other home would sit inside
-that one, per `design@core@home-at-the-carrier-path`.
+that one, per `design@model@home-at-the-carrier-path`.
 
 **`components = [...]` attaches an `opt-in` register to the Components it names**, the root's name
 included, each keeping its home at `<component>/docs/<dir>/`, per
-`design@core@a-component-carries-what-a-project-attaches`. The game design above could sit at
+`design@model@a-component-carries-what-a-project-attaches`. The game design above could sit at
 `<root>/docs/game-design/` with no location: `dir = "game-design"` and
 `components = ["<root>"]`, the root being named by `[project] name`, in place of the location and
 `dir = "."`, each subject then cited `subject@<root>@<subject>`. A name that is no Component is a finding, and so is a home at the
@@ -603,7 +603,7 @@ the Component carries.
 `[registers.issue]` accepts `kinds` and nothing else; the design, goal, tripwire and rejected
 registers accept nothing, `level`, `carries` and `components` included, and a table for a plan register or an
 item register is refused whole. The
-arguments are `design@core@registers-are-declared` and
+arguments are `design@model@registers-are-declared` and
 `design@core@a-file-register-is-a-directory-of-entries`.
 
 ## Plan documents
@@ -669,16 +669,16 @@ its `README.md` names the entry's own reference. A register named `register` is 
 **A plan's name reads as nothing else.** A milestone's name or a spec's id that is the name of a
 component, of a location or of `plans`, `elsewhere` or `*`, and one name used under both homes,
 are findings. So is a milestone name outside the id grammar, `[a-z0-9]+(-[a-z0-9]+)+`, per
-`design@core@two-segment-ids`. An entry of
+`design@model@two-segment-ids`. An entry of
 a declared directory register gives way to every plan of the same name.
 
 A tree that breaks this layout stops the run at phase 2, except a home's missing `README.md` or
 `index.md`, which is a finding of the last phase as in every file register. A misplaced or
 duplicated item stops it at phase 3, and a missing section is a finding of the last phase. The arguments are
-`design@core@plan-register`, `design@core@plans-split-dirs`, `design@core@plan-document-kinds`,
-`design@core@a-placed-name-reads-as-nothing-else`, `design@core@spec-file-is-an-anchor`,
-`design@core@plan-document-sections-by-kind`, `design@core@plan-items-by-section` and
-`design@core@plan-item-scope`.
+`design@model@plan-register`, `design@model@plans-split-dirs`, `design@model@plan-document-kinds`,
+`design@model@a-placed-name-reads-as-nothing-else`, `design@model@spec-file-is-an-anchor`,
+`design@core@plan-document-sections-by-kind`, `design@model@plan-items-by-section` and
+`design@model@plan-item-scope`.
 
 ## Commit messages
 

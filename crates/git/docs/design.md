@@ -22,8 +22,8 @@ is no part of any project, so every invocation runs with it pointed at the null 
 there would otherwise take an untracked live document out of every check on one clone and not on
 another. What still decides the walk beside the tree's own ignore files is git's per-clone exclude
 file, which git offers no way to pin, and that is what
-`tripwire@core@walked-count-differs-between-machines` is left guarding, until the check of
-`issue@core@the-walk-does-not-report-what-the-per-clone-exclude-file-removes` reports the files it
+`tripwire@model@walked-count-differs-between-machines` is left guarding, until the check of
+`issue@model@the-walk-does-not-report-what-the-per-clone-exclude-file-removes` reports the files it
 alone removes from the walk.
 
 ### Git answers about the repository the project's directory lies in, whatever the caller's environment names `##repository-variables-dropped`
@@ -33,7 +33,7 @@ repository's files, `GIT_DIR`, `GIT_WORK_TREE`, `GIT_COMMON_DIR`, `GIT_OBJECT_DI
 `GIT_ALTERNATE_OBJECT_DIRECTORIES`, the members of `git rev-parse --local-env-vars` that select a
 repository, its work tree or its object store. It keeps the list's other members, the
 configuration among them, and `GIT_INDEX_FILE`, per `design@git@index-file-variable-kept`. So git
-finds the repository from the project's directory, as `design@core@git-supplies-the-walk` reads it,
+finds the repository from the project's directory, as `design@model@git-supplies-the-walk` reads it,
 and a run judges the project's own tree, which `goal@core@documents-stay-current` needs of a
 verdict: with `GIT_DIR` naming another repository, the walk would be that repository's index.
 
@@ -86,7 +86,7 @@ list and stage the project it writes through an index no commit of that project 
 byte. A name holding a byte no UTF-8 decoding accepts is legal here, and decoding it lossily
 produces a path nothing on disk answers to — so the file leaves every check, and where nothing
 reports the failed read the run stays green. That is the failure
-`design@core@git-supplies-the-walk` exists against.
+`design@model@git-supplies-the-walk` exists against.
 
 ### Reading a commit's tree needs git 2.36 `##git-floor-for-commit-trees`
 
