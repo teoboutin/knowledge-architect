@@ -3491,10 +3491,7 @@ fn check_fix_removes_an_unshipped_file_and_writes_the_generated_files_in_that_ru
         "{out}"
     );
     assert!(out.contains("the deletion is not staged"), "{out}");
-    assert!(
-        out.contains("(generated)") || out.contains("index.md"),
-        "{out}"
-    );
+    assert!(out.contains("(regenerated)"), "{out}");
     assert!(!out.contains("phase 2:"), "{out}");
     assert!(!sandbox.path(stray).exists());
     let index = std::fs::read_to_string(sandbox.path("docs/open-issues/index.md"))

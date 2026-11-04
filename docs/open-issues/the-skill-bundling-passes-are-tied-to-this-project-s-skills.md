@@ -89,5 +89,6 @@ these are leads for this work's own design session:
 - The owner's lead, at the slice that moved the installed-file check to the last phase, for a later session to discuss:
   the model, and perhaps the checks, of the content and the structure of an agent skill may belong in a small crate of
   their own, which both `model` and `bundle` depend on. The three tests of `path@model@src/shipped_set.rs` and the family
-  `agents` of `path@check@src/check/agents.rs` stay where they are until then.
+  `agents` of `path@check@src/check/agents.rs` stay where they are until then. The owner's argument for that discussion: the
+  comparison of the installed files bears on a consumer at a version bump alone, and is nearly never unmet in practice, so it has no need to run early.
 - On the owner's word in that discussion, the goal of the Component is written when it is created.
