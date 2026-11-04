@@ -17,7 +17,7 @@ declaration, as `design@check@arguments-parse-through-clap` argues for the check
 A subcommand is one module owning everything it is, plus one variant in `path@xtask@src/main.rs`'s
 command enum. Code is shared only when every subcommand needs it. What that admits today: the gates
 library's output helper `complain`, which `design@gates@one-spawn-helper` keeps in its process
-module; its `project_root`; and the core's `MANIFEST_NAME`. Adding a workflow adds its module and
+module; its `project_root`; and `check`'s `MANIFEST_NAME`. Adding a workflow adds its module and
 its variant and edits no other module of this tool. This is what keeps later workflows independent
 of each other and of `gates`.
 

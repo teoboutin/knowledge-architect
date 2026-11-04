@@ -1,7 +1,7 @@
 ---
 kind: design
 ---
-# Core heads bundle decisions that lose to different rivals, and each has many citing sites
+# `check` heads bundle decisions that lose to different rivals, and each has many citing sites
 
 ## Summary
 

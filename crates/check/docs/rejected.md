@@ -1,6 +1,6 @@
-# Rejected designs — core
+# Rejected designs — check
 
-The designs the Component core did not keep, each with the reason it was not kept. Each is cited by the
+The designs the Component `check` did not keep, each with the reason it was not kept. Each is cited by the
 design heads of `register@check@design` whose argument covers it. An entry stays `live` while its
 reason holds, and is marked `void` when it no longer does.
 
@@ -184,16 +184,16 @@ written against — a wrong label — cannot occur once an unknown kind is refus
 
 ### A model generic over the extension's observation type, `Model<E>` with the extension's observations in each document's list `##model-generic-over-extension`
 
-`live`. It scans each document once, and the extension's observations are typed and sit beside the
-core's. It loses because the type parameter reaches every type and every check signature that
-touches a document, to carry data the core never reads: at the split, 18 of the 28 Rust files of the
-core's library and binary named `Model`, `Document`, `Observation` or `Located` (`git grep -lwE`).
+`live`. It scans each document once, and the extension's observations are typed and sit beside
+`check`'s. It loses because the type parameter reaches every type and every check signature that
+touches a document, to carry data `check` never reads: at the split, 18 of the 28 Rust files of the
+`check`'s library and binary named `Model`, `Document`, `Observation` or `Located` (`git grep -lwE`).
 Two extensions would also need a hand-written composition of their two types.
 
 ### A type-erased slot per document, a map from extension name to a boxed value that each extension downcasts `##type-erased-document-slot`
 
 `live`. It keeps one model and needs no type parameter. It loses because the extension keeps the
-same data outside the core with its type checked at compile time, so the slot adds a downcast that
+same data outside `check` with its type checked at compile time, so the slot adds a downcast that
 can fail at run time and gains nothing.
 
 ### A namespace for an extension's tables, `[extensions.<name>]` `##extension-table-namespace`
@@ -243,7 +243,7 @@ names something of this project", its one finding was an issue number.
 `live`. It was kept because a retired form must stay visible or the migration is unfinishable, and
 it was read in every prose region, Rust comments included. It loses because the migration is
 finished, the tree holds no such span, and the number is thaum's own register's: kept, the lint
-would have had to move into thaum's extension when the core was split from the rules half. The
+would have had to move into thaum's extension when `check` was split from the rules half. The
 commit history holds the form in 65 of the 500 messages before that split, counted with the lint's
 own pattern; the slug reference, which stays a finding wherever its id is still an entry, is in 64
 of them, so exposure in history does not separate the two.
@@ -277,14 +277,14 @@ no version number, because major and minor both bump 0.MINOR.
 added two inputs and broke all five literals in thaum's rules extension; each later input would do
 the same.
 
-### The items only the core's own tests use kept public under `#[doc(hidden)]` `##doc-hidden-test-items`
+### The items only `check`'s own tests use kept public under `#[doc(hidden)]` `##doc-hidden-test-items`
 
 `live`. It publishes a second contract that nothing states, beside the one the facade states.
 
-### The items only the core's own tests use gated behind a `testing` feature `##testing-feature-for-test-items`
+### The items only `check`'s own tests use gated behind a `testing` feature `##testing-feature-for-test-items`
 
 `live`. A unit-test module inside the crate reaches them with no feature and no second surface, and
-the crate declares no feature, so this one would exist for the core's own tests alone.
+the crate declares no feature, so this one would exist for `check`'s own tests alone.
 
 ### A default body that does nothing on every hook added to the extension traits `##no-op-hook-defaults`
 

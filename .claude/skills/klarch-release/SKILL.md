@@ -139,7 +139,7 @@ On a branch of its own, `release-<version>`, under the Git rules of the root `CL
 
 ## When the publish fails `##failed-publish`
 
-The `publish` job uploads the crates one by one: git, agent-skills, gates, mutate, then the core, and skips a
+The `publish` job uploads the crates one by one: git, agent-skills, gates, mutate, then `check`, and skips a
 crate whose version crates.io already holds. A crate it uploaded stays published.
 
 - **The `verify` job failed, the owner declined, or nothing was uploaded**: delete the tag, with

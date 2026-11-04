@@ -75,7 +75,7 @@ impl Prepared for Prepared1 {
                 "nothing: this extension reports it to show it ran",
             ));
         }
-        // Each line of a summary starts with a newline, as the core's lines do.
+        // Each line of a summary starts with a newline, as `check`'s lines do.
         report.summary = format!("\nfirst-heading: {} file(s) present", inputs.present.len());
         report
     }
@@ -135,7 +135,7 @@ fn an_extension_written_against_the_public_api_runs_over_a_mock_project() {
     assert_eq!(
         report.findings.len(),
         1,
-        "dirhome holds no core finding, so the extension's is the only one: {found:#?}"
+        "dirhome holds no finding of `check`, so the extension's is the only one: {found:#?}"
     );
     assert_eq!(report.findings[0].file, PathBuf::from("README.md"));
     assert_eq!(report.findings[0].line, Some(line));
@@ -144,7 +144,7 @@ fn an_extension_written_against_the_public_api_runs_over_a_mock_project() {
     checks.push("first-heading");
     assert_eq!(
         report.checks, checks,
-        "the core's checks, then the extension's"
+        "`check`'s checks, then the extension's"
     );
     assert!(
         report
@@ -435,8 +435,8 @@ fn check_fix_refuses_a_destination_whose_directory_is_missing() {
     let _ = std::fs::remove_dir_all(&root);
 }
 
-/// The claim: a binary that flattens the core's commands and describes nothing of itself shows no
-/// description, rather than the doc comment the core writes for a binary's author.
+/// The claim: a binary that flattens `check`'s commands and describes nothing of itself shows no
+/// description, rather than the doc comment `check` writes for a binary's author.
 #[test]
 fn a_binary_that_describes_nothing_shows_no_description() {
     use clap::{CommandFactory, Parser};
@@ -457,7 +457,7 @@ fn a_binary_that_describes_nothing_shows_no_description() {
 /// from the library it links rather than from a manifest of its repository.
 #[test]
 fn a_copied_mock_pinned_to_the_exported_version_is_accepted() {
-    // This test crate is the core's own, so its package version is the library's. The refusal
+    // This test crate is `check`'s own, so its package version is the library's. The refusal
     // reads the constant as well, so without this line a wrong constant would pass.
     assert_eq!(
         knowledge_architect::CHECKER_VERSION,

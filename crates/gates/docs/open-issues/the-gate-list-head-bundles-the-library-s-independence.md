@@ -53,8 +53,8 @@ decision it was extracted with, and was never argued on its own.
 
 A session that wants the gates crate to depend on the checker, for its manifest name or its
 types, cannot find the argument it would have to defeat: the head names two decisions and argues
-one, against `design@agent-skills@one-decision-per-head`. A reference to the independence, as the
-core's head writes, cannot name the decision it depends on.
+one, against `design@agent-skills@one-decision-per-head`. A reference to the independence, as
+`check`'s head writes, cannot name the decision it depends on.
 
 ### What would close it
 

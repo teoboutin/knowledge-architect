@@ -1,7 +1,7 @@
-//! The core run against whole projects, not against strings.
+//! `check` run against whole projects, not against strings.
 //!
 //! A mock project under `path@check@tests/projects/` is a complete project: it carries its
-//! own `knowledge-architect.toml` and its own documents, and it declares no table the core does not own.
+//! own `knowledge-architect.toml` and its own documents, and it declares no table `check` does not own.
 //! That is what makes these tests worth more than the in-memory ones — a fixture written as a
 //! string cannot exercise the walk, the exclusions, or a layout different from this repository's.
 //!
@@ -54,7 +54,7 @@ fn git_answers(
     (ignored, tracked)
 }
 
-/// A project that carries what it declares reports nothing, over every core check.
+/// A project that carries what it declares reports nothing, over every built-in check.
 #[test]
 fn the_conformant_mocks_report_nothing_over_every_core_check() {
     use crate::check::{foundation, run, Inputs};
@@ -118,7 +118,7 @@ mod planted {
         .collect()
     }
 
-    /// The findings of the core's last phase, with the committed files as stated.
+    /// The findings of `check`'s last phase, with the committed files as stated.
     fn findings_with(
         committed: impl Fn(&Manifest, &Model) -> HashMap<PathBuf, String>,
     ) -> Vec<String> {
@@ -152,7 +152,7 @@ mod planted {
         findings_with(current_indexes)
     }
 
-    /// Every planted defect this project carries, by the core check that reports it: the check,
+    /// Every planted defect this project carries, by the check that reports it: the check,
     /// how many findings it produces, and a fragment of one. `every_check_has_a_row` reads
     /// `CHECKS` and demands a row for each, so a check with no planted defect fails there.
     ///

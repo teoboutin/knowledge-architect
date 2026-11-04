@@ -439,7 +439,7 @@ pub(crate) struct Project {
 
 /// What `[project] checker-version` says, per `design@check@installed-binary-version-check`.
 ///
-/// A version is the core library's version the project runs. The two sentinels are claims
+/// A version is the `check` library's version the project runs. The two sentinels are claims
 /// about the tree that the running binary's build confirms or refuses: a mock project inside a
 /// library directory, and the tree the checker is built from. Which build confirms which claim
 /// is `cli::refuse_another_version`'s; a manifest only parsed is never confirmed.
@@ -610,7 +610,7 @@ pub struct Manifest {
     /// extension's complaints about its own tables join them when it is configured.
     complaints: Vec<Finding>,
     /// The paths each extension declares, by the label a finding names them with, asserted to
-    /// exist in phase 2 with the core's own declared paths.
+    /// exist in phase 2 with `check`'s own declared paths.
     extension_paths: Vec<(String, Vec<PathBuf>)>,
     /// The files each extension generates, which the walk leaves out and the `generated` check
     /// reads as committed.
@@ -741,12 +741,12 @@ impl Manifest {
         self.serves_claude() && owned_path(rel)
     }
 
-    /// A top-level table the core does not own, as written, for the extension that claims it.
+    /// A top-level table `check` does not own, as written, for the extension that claims it.
     pub fn table(&self, name: &str) -> Option<&toml::Value> {
         self.declared.tables.get(name)
     }
 
-    /// The names of every top-level table the core does not own.
+    /// The names of every top-level table `check` does not own.
     pub(crate) fn extension_tables(&self) -> impl Iterator<Item = &str> {
         self.declared.tables.keys().map(String::as_str)
     }

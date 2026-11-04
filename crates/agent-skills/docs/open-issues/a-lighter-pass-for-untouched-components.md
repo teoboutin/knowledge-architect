@@ -34,7 +34,7 @@ The leads, from the design discussion that decided the whole-record search:
 Measured at the decision, at the default bound: 9 agents over this repository at ed9dd60, with
 `klarch worklist --out`; over thaum at its commit edd2cb5d, 8 agents for the clusters within the
 bound and 3 above it sent alone, with the scripts the message of the commit
-"[review] Repairs of the transcript review of one search of the whole record, with the scripts of its measurements" holds, since the core binary refuses thaum's manifest, which holds the tables of
+"[review] Repairs of the transcript review of one search of the whole record, with the scripts of its measurements" holds, since the `check` binary refuses thaum's manifest, which holds the tables of
 thaum's own extension.
 
 Re-entry point: the design discussion of

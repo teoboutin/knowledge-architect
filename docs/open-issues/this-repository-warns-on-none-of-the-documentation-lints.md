@@ -16,7 +16,7 @@ any of the three, so it does not follow an ask it ships.
 
 Measured on the owner's workstation, at slice 2 of the milestone that shipped the development
 skill, with `RUSTFLAGS="-W missing_docs" cargo clippy -p <crate> --lib -- -W
-clippy::missing_errors_doc -W clippy::missing_panics_doc`, counting distinct warnings: the core 70,
+clippy::missing_errors_doc -W clippy::missing_panics_doc`, counting distinct warnings: `check` 70,
 the gates library 2, the mutation library 12, agent-skills 0. Re-take it with that command per
 published crate.
 

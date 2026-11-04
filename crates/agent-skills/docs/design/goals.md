@@ -14,7 +14,7 @@ expected to be unmet when it is written, per `design@agent-skills@goal-drafted-t
 
 ### A goal entry states an outcome and what would show it met, in a body with no bound on its length `##goal-entry-shape`
 
-A goal is a heading stating an outcome as a sentence, with its slug, at the level the core gives the
+A goal is a heading stating an outcome as a sentence, with its slug, at the level `check` gives the
 goal register, per `design@model@an-entry-is-a-heading-at-the-register-level`, and a body saying what
 it means and what would show it is met, with the cases of `design@agent-skills@goal-carries-reading-examples`.
 What it may state is the goal standard's, per `design@agent-skills@goal-standard-rules`; its first
@@ -63,7 +63,7 @@ presumption, per `goal@knowledge-architect@the-owner-decides`.
 
 The goal standard is `path@agent-skills@fragments/goal-standard.md`. It reads a goal in three
 layers and as a direction, and holds eight numbered rules, each argued in a head, rule 7 in place
-and in the core's head:
+and in `check`'s head:
 
 - rule 1, `design@agent-skills@goal-outcome-survives-empty-skeleton`;
 - rule 2, `design@agent-skills@goal-one-meaning-any-breadth`;
@@ -77,7 +77,7 @@ and in the core's head:
 - a goal expected to be unmet, `design@agent-skills@goal-drafted-to-move-the-tree`.
 
 Each rule's case, read in the goal histories of rootpoint, thaum and this repository, is a `%%`
-comment beside it, except rule 7, of which no case was observed; its comment names the core's head
+comment beside it, except rule 7, of which no case was observed; its comment names `check`'s head
 that argues its citation rule. The findings from
 other fields the rules lean on are `path@agent-skills@docs/grounding/goal-standard.md`.
 

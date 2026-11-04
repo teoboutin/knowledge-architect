@@ -23,8 +23,8 @@ _component_ means here. A project adds to that set, per
 `design@model@a-component-carries-what-a-project-attaches`, and removes nothing from it but the agent
 document, below: a project free to declare its own set would be conformant with whatever it
 declared, which is the same as being checked against nothing, against
-`goal@check@document-rules-are-checked`: a tree that passes the checker conforms to the rules the
-core compiles in, and no project holds back any of them beyond what a declaration of its manifest
+`goal@check@document-rules-are-checked`: a tree that passes the checker conforms to the rules
+`check` compiles in, and no project holds back any of them beyond what a declaration of its manifest
 switches off. The one declaration that changes the set is the agent harness, and it removes only the
 agent document. The flaw this leaves, that a developer's contracts lose their required home in a
 target project that uses the checker alone and declares no harness, is `issue@check@a-home-for-developer-contracts-outside-agent-configuration`.

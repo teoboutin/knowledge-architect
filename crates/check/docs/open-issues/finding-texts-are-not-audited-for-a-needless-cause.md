@@ -29,7 +29,7 @@ against it.
 
 ### What would close it
 
-Every finding the core raises read against `design@check@finding-names-the-repair`: each that names
+Every finding `check` raises read against `design@check@finding-names-the-repair`: each that names
 a cause while one repair fits every cause is reworded to name the repair alone, and each that
 names a cause the repair depends on is left as it is. The audit's commit lists the findings read
 and the outcome for each.

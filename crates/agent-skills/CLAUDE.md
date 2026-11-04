@@ -1,6 +1,6 @@
 # Agent skills
 
-This crate carries text, not behaviour; the core reads it to install and to check.
+This crate carries text, not behaviour; `check` reads it to install and to check.
 `path@agent-skills@content/` holds the shipped files in the install layout, and
 `path@agent-skills@build.rs` generates the list that `path@agent-skills@src/lib.rs` exposes, each
 entry the install path and the text, per `design@agent-skills@content-mirrors-the-install-layout`.

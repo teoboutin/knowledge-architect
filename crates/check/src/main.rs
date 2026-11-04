@@ -1,7 +1,7 @@
-//! The core's own binary: the core's commands, with no extension registered, per
+//! `check`'s own binary: `check`'s commands, with no extension registered, per
 //! `design@check@the-core-cli-is-a-library-module`.
 //!
-//! A project whose manifest declares only what the core reads runs this. A project with a
+//! A project whose manifest declares only what `check` reads runs this. A project with a
 //! subject of its own builds a binary that registers the extension for it.
 
 use std::path::Path;
@@ -25,7 +25,7 @@ fn main() -> ExitCode {
     // Parsed before the project is located, so `--help` answers from anywhere. clap exits 2 on
     // a parse failure, which is already the could-not-run code.
     let cli = Cli::parse();
-    // The paths compiled in: the core's own Component, the git crate's and the model crate's, whose
+    // The paths compiled in: `check`'s own Component, the git crate's and the model crate's, whose
     // fixtures are read as data, per `design@check@checker-source-literals-are-data`.
     let dir = knowledge_architect::component_dir();
     let git_dir = knowledge_architect_git::component_dir();
@@ -88,7 +88,7 @@ fn main() -> ExitCode {
 mod tests {
     use super::*;
 
-    // clap's own consistency check over the whole derive, the core's commands flattened in:
+    // clap's own consistency check over the whole derive, `check`'s commands flattened in:
     // two arguments claiming one name, a conflict naming an argument that does not exist. A
     // malformed declaration is otherwise found at the first invocation that reaches it, per
     // `design@check@arguments-parse-through-clap`.

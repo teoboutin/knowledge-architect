@@ -553,7 +553,7 @@ refined in this repository and in thaum. The gates a project owes are its own li
 
 `primer@checker-model` tells a session to run `check --staged` after staging and before each
 commit, and to repair a failing one before the commit, beside the gates command, which judges the
-branch before a merge. The command is the core's, `design@check@staged-tree-source`. The reason: the
+branch before a merge. The command is `check`'s, `design@check@staged-tree-source`. The reason: the
 staged tree is the one the commit records, and a file left unstaged, or a change staged in part,
 passes a check of the working tree and fails the commit's own, which the gates meet only before the
 merge. The primer states it because every adopting project's root `CLAUDE.md` would state it alike,
@@ -571,7 +571,7 @@ session asked for.
 ### The skills name the staged forms of the checker's commands for a commit of part of the working tree `##staged-forms-for-a-partial-commit`
 
 The issue-tracking and planning skills name `index --staged` and `check --staged` for a commit of
-part of the working tree. Both commands are the core's, `design@check@staged-tree-source` and
+part of the working tree. Both commands are `check`'s, `design@check@staged-tree-source` and
 `design@check@index-staged-write`. The staged tree is the one the commit records, and a change
 staged in part passes a check of the working tree and fails the commit's own.
 `design@agent-skills@behaviour-additions-need-real-use` asks of an addition a behaviour seen in real use, or
@@ -588,7 +588,7 @@ The maintenance crate of a Rust project depends on the checker, the gates librar
 library, all pinned exactly, at the version `[project] checker-version` declares, per
 `design@check@installed-binary-version-check`, and serves two cargo aliases: `cargo x` for its own
 commands, the gates and the hand mutation among them, and `cargo klarch` for the checker's commands,
-which it carries under a command of its own through the core's library, per
+which it carries under a command of its own through `check`'s library, per
 `design@check@the-core-cli-is-a-library-module`. The gates run through the published library, per
 `design@gates@gates-crate`, and the checker they run is the one this crate pins; the hand mutation
 runs through its own, per `design@knowledge-architect@mutation-command-host`. One crate does what a

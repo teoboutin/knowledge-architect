@@ -427,7 +427,7 @@ fn string_at(chars: &[char], at: usize) -> Result<(String, usize), String> {
 
 /// The grammar of an entry's id in the checker's entity table, `[a-z0-9]+(-[a-z0-9]+)+`, two
 /// segments or more, written out: this crate depends on no regex engine, and the checker's own
-/// pattern is in the core, which depends on this crate.
+/// pattern is in `check`, which depends on this crate.
 fn is_id(id: &str) -> bool {
     id.contains('-')
         && id.split('-').all(|w| {

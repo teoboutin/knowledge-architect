@@ -1,16 +1,16 @@
 ---
 kind: deferred
 ---
-# The citation regime could be offered by the core over any pinned text
+# The citation regime could be offered by `check` over any pinned text
 
 ## Summary
 
 thaum verifies every quote of a Comprehensive Rule against a pinned copy of the rules, and that
-machinery is placed in thaum's own extension, not in the core, by
+machinery is placed in thaum's own extension, not in `check`, by
 `design@check@an-extension-plugs-in-through-phased-hooks`. Its mechanism is not specific to the rules:
 a marker, an identifier form, a number grammar, a pinned text parsed into numbered entries, and
 the scope and distance a quote must sit within. A project that cites a specification, a standard
-or a law verbatim could use it. No project using the core needs it yet.
+or a law verbatim could use it. No project using `check` needs it yet.
 
 ## Details
 
@@ -26,7 +26,7 @@ The mechanism has two parts that separate cleanly:
   release watch reading Wizards' page, the archive of past releases and its manifest, and the
   changelog check.
 
-Offering the generic part from the core would mean a corpus trait the extension implements, with
+Offering the generic part from `check` would mean a corpus trait the extension implements, with
 the marker, the identifier prefix and the number grammar declared rather than compiled in.
 
 ### Why it matters
@@ -40,7 +40,7 @@ already lets an extension carry the whole regime, which is where thaum's design 
 
 ### Trigger
 
-A project using the core needs to verify verbatim quotes of a pinned external text. The session
+A project using `check` needs to verify verbatim quotes of a pinned external text. The session
 that designs that project's checks is already deciding how such quotes are verified, so the
-question of taking the mechanism from the core rather than writing it again is part of its own
+question of taking the mechanism from `check` rather than writing it again is part of its own
 work.

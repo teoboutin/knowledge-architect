@@ -19,7 +19,7 @@ The owner's intent is on record in a goal, drafted under `skill@knowledge-archit
 and the owner's choice at a fork in its weak form, per `design@agent-skills@fork-choice-in-weak-form`;
 an approval of the agent's proposal is neither.
 Two parts of the workflow are installed texts, or an installed text and the checker it must agree
-with, as the planning skill's sections agree with what the core checks; a decision of this
+with, as the planning skill's sections agree with what `check` checks; a decision of this
 repository alone is not one, since the installed text names none of this repository's conventions.
 Installed texts alone would leave a skill free to disagree with what the checker enforces, which an
 adopting project meets as a check that fails on a document the skill told it to write. A reason that passes no test goes in a

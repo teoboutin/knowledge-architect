@@ -1,6 +1,6 @@
 ---
 name: klarch-development
-description: MUST use, together with `skill@knowledge-architect-development`, which it adds to, before starting or iterating on any change to this repository's Rust source — the crates under crates/ and the maintenance tool under tools/. Covers what this repository adds to the installed procedure - the Component documents its grounding reads, the gate and the tests that must never run it, the branch placement of a change to the core, the build tie in a worktree, the cargo-configuration trap, and a shipped tool improved here. Not for the installed text under crates/agent-skills/content/, the CI workflow, or the agent configuration.
+description: MUST use, together with `skill@knowledge-architect-development`, which it adds to, before starting or iterating on any change to this repository's Rust source — the crates under crates/ and the maintenance tool under tools/. Covers what this repository adds to the installed procedure - the Component documents its grounding reads, the gate and the tests that must never run it, the branch placement of a change to `check`, the build tie in a worktree, the cargo-configuration trap, and a shipped tool improved here. Not for the installed text under crates/agent-skills/content/, the CI workflow, or the agent configuration.
 ---
 
 # Development in this repository
@@ -32,7 +32,7 @@ new defect is checked with the three listings `instructions@verify-before-relyin
 each commit, and the repair of a failing one are `instructions@verify-mechanically` and
 `primer@checker-model`, read whole.
 
-**A change to the core under which a tree that passed before can fail**, such as a stricter check
+**A change to `check` under which a tree that passed before can fail**, such as a stricter check
 of a commit's tree, a change of the manifest format or a change of what a generated file holds,
 **is placed on the branch as `primer@branch-commits` says**, read whole.
 

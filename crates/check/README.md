@@ -1,10 +1,10 @@
-# The core checker
+# The checker
 
 How a project's knowledge is held: its documents, the references between them and the registers
-they carry. This Component is the generic core. A subject that belongs to one project is an
+they carry. This Component is the generic part. A subject that belongs to one project is an
 extension of it, per `design@check@an-extension-plugs-in-through-phased-hooks`.
 
-**The core's binary, and a binary per set of extensions.** The core's own binary, `klarch` in the
+**`check`'s binary, and a binary per set of extensions.** `check`'s own binary, `klarch` in the
 package `knowledge-architect`, runs every command below with no extension registered. A binary
 that registers extensions runs the same commands unchanged, and its extensions' own commands beside them, per
 `design@check@the-core-cli-is-a-library-module`. Every such binary hands `init` to `cli::init`
@@ -115,8 +115,8 @@ harness, an installed agent file missing, differing or unshipped, a deletion of 
 a root CLAUDE.md that does not import a shipped primer. Phase 3 builds the entity table: a slug or an entry id where none may sit, or
 defined twice. Each of these says the model is incomplete, and a finding computed from the model
 afterwards would be unreliable in both directions, so the run prints that phase's findings, says
-which phases were not judged, and exits 1. Phase 4 is every check, over the complete model: the
-core's `generated`, `registers` and `references`, each a module under
+which phases were not judged, and exits 1. Phase 4 is every check, over the complete model:
+`check`'s `generated`, `registers` and `references`, each a module under
 `path@check@src/check/`, then each registered extension's, per
 `design@check@an-extension-plugs-in-through-phased-hooks`. `references` judges
 every `` `<kind>@<anchor>@<id>` `` reference against the entity table — a register kind against the

@@ -791,7 +791,7 @@ mod plans_tests {
         assert_eq!(found, Vec::<String>::new());
     }
 
-    // A copy of the core's helpers of the same name: a helper of a test is shared by no public item,
+    // A copy of `check`'s helpers of the same name: a helper of a test is shared by no public item,
     // per `design@model@model-facade`, until the shared test Component holds them.
 
     /// A manifest declaring `components`, against a root nothing reads.

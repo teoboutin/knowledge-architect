@@ -1,11 +1,11 @@
 ---
 kind: defect
 ---
-# The core's tests read the machine's git configuration, so a machine setting can fail a correct tree
+# `check`'s tests read the machine's git configuration, so a machine setting can fail a correct tree
 
 ## Summary
 
-Several of the core's test helpers run git with the machine's own configuration. A global
+Several of `check`'s test helpers run git with the machine's own configuration. A global
 `commit.gpgsign` that cannot sign, or a global `core.hooksPath` whose `pre-commit` hook fails,
 fails dozens of tests on a correct tree, and a per-user ignore file decides which fixture files two
 helpers stage. Only `Sandbox::git_command` in `path@check@tests/binary.rs` is isolated, and only for
@@ -47,7 +47,7 @@ holds the setting is not established.
 
 ### Why it matters
 
-A contributor or a CI runner with commit signing or a hooks directory set globally sees the core's
+A contributor or a CI runner with commit signing or a hooks directory set globally sees `check`'s
 suite fail on a correct tree, and a per-user ignore rule can change what a fixture stages, so a test
 can pass or fail by the machine it runs on. The gate `cargo x gates` then reports a failure that is
 no defect of the change under test: on such a machine, its exit code cannot be trusted. It strains
@@ -55,10 +55,10 @@ no recorded decision.
 
 ### What would close it
 
-Every helper of the core's tests that runs git goes through one function that isolates the
+Every helper of `check`'s tests that runs git goes through one function that isolates the
 configuration a test does not mean to read: the identity as `Sandbox::git_command` does, plus at
 least `commit.gpgsign=false`, `core.hooksPath=/dev/null` and `core.excludesFile=/dev/null`, or a
 `GIT_CONFIG_GLOBAL` pointing at an empty file with `GIT_CONFIG_NOSYSTEM=1`. The two probes above
-then pass, run as a test or by hand, and the core's `path@check@CLAUDE.md` states the contract for
+then pass, run as a test or by hand, and `check`'s `path@check@CLAUDE.md` states the contract for
 every helper. The unit tests of `path@git@src/git.rs`, which build repositories of their own, are
 held to the same function or to one of the git crate's, and `path@git@CLAUDE.md` states it.

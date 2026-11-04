@@ -30,7 +30,7 @@ The design this decision did not keep: `rejected@check@claude-md-in-every-compon
 is `klarch`, the binary's name. The checker prints it in its messages, in the header of every
 generated index, and in the agent files it installs, which are templates holding the placeholder
 `{{command}}`. No fixed name serves every project: a project with an extension runs its own binary,
-as thaum runs its rules extension through a cargo alias, and the core's binary refuses a manifest
+as thaum runs its rules extension through a cargo alias, and `check`'s binary refuses a manifest
 holding a table only an extension claims. An extension project therefore declares a command that
 runs its own binary, preferably a cargo alias such as `cargo klarch`, and does not install its
 binary under the plain name. A command that cannot be printed on one line in a code span, empty or
