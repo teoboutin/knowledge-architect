@@ -812,7 +812,7 @@ one site, each reference that resolves rendered as a link to its target, and whi
 knowledge-architect builds publishes that site with the project, such as a step of its release that
 publishes it.
 
-- Requires, for instance: a reference to a decision, in a design head's text, renders as a link
+- Requires, for instance: a reference to a decision, in a recorded decision's text, renders as a link
   to that decision.
 - Admits, for instance: a site built by any rendering tool.
 - Rules out, for instance: a resolved reference rendered as plain text.

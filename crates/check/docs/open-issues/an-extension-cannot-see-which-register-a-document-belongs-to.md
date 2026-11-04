@@ -61,12 +61,16 @@ records the instance.
 ### Why it matters
 
 It strains `design@check@api-facade`, whose membership leaves an extension nothing to ask these
-questions with. `goal@check@projects-add-their-own-checks` is met "while an extension needs no change to any crate of knowledge-architect and uses only their public APIs, documented with their contract and their examples".
+questions with. `goal@check@projects-add-their-own-checks` is met "while an extension needs no change to any crate of knowledge-architect, builds against published versions of those crates, and uses only their public APIs, documented with their contract and their examples".
 An extension that has to guess membership from paths
 quietly breaks where the manifest says something else, and with it
 `goal@check@relocation-needs-only-goal-changes` for any project that runs one.
 
 ### What would close it
+
+The owner's later view, once the model became a public crate, unargued as yet and hedged: the view may no longer be necessary, unless the
+cost of recommending that an extension depend on `knowledge-architect-model` is too high. A design discussion weighs it, the cost of a view and of a
+narrower documented API against accepting use of more public API, which `goal@check@projects-add-their-own-checks` leaves free.
 
 The direction the owner chose: a narrow read-only view in the `extension` module, borrowing the
 entity table and the anchors, with an owner of a path, the entry at a site, the entries of a
