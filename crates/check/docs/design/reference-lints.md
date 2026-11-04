@@ -8,7 +8,7 @@ A backticked `<word>#<id>` or a bare `#<id>` names the form it was when its id i
 register defines, a harness kind's names and slugs excluded, since that form never cited one and
 a link to a heading in another tool's notation spells its slug so, and a qualified one also when its word is an anchor or a kind. The id is asked
 whatever the word, because a form copied out of the history may carry the name an anchor had
-before a rename, such as the core's former name `knowledge`. It has no `@` and no two path
+before a rename, such as `check`'s former name `knowledge`. It has no `@` and no two path
 segments, so without this clause a slug reference the migration missed would be silent, which is
 the founding failure class. The clause does not expire with the migration: the commit history is
 read by every session that runs `git log`, it holds the form, and a reference copied out of it

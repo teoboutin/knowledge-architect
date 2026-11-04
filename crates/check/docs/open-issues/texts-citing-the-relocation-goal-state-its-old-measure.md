@@ -21,7 +21,7 @@ lists, among them `path@check@docs/design/paths-and-links.md`, `path@model@docs/
 `issue@model@a-reference-to-an-anchor-s-own-directory-breaks-when-the-anchor-moves`, whose summary
 quotes the old measure. A plan document's quotation keeps the old slug, which is no defect.
 
-Two core heads state a strain or an exception measured against the old wording, which may no longer
+Two heads of `check` state a strain or an exception measured against the old wording, which may no longer
 hold under the new one, since the goal now admits the change of goals a change of purpose calls
 for:
 

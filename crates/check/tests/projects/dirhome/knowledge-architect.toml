@@ -1,4 +1,4 @@
-# WHAT THIS MOCK EXERCISES, for the core binary: conformance. Every core check runs over it
+# WHAT THIS MOCK EXERCISES, for the `check` binary: conformance. Every built-in check runs over it
 # and finds nothing, which is the assertion `planted` cannot make. It carries the directory
 # shape of a heading home — `docs/design/` and `docs/goals/`, each headed by a README linking
 # its subdocument — the only ISSUE instance in any core mock that declares a group, and every
@@ -6,7 +6,7 @@
 # checks do not report over a tree that is right.
 
 [project]
-# A mock project inside the core's directory, which the binary built here confirms.
+# A mock project inside `check`'s directory, which the binary built here confirms.
 checker-version = "fixture"
 name = "dirhome"
 components = []

@@ -1,4 +1,4 @@
-//! The core's own binary, run as a caller runs it, with no extension registered, per
+//! `check`'s own binary, run as a caller runs it, with no extension registered, per
 //! `design@check@the-core-cli-is-a-library-module`.
 //!
 //! Each test runs against a mock project under `path@check@tests/projects/`, which this
@@ -198,7 +198,7 @@ impl Drop for Sandbox {
 /// Copy a mock project, with its manifest pinned to this binary's version.
 ///
 /// A mock says `checker-version = "fixture"`, which the binary confirms only where the mock lies
-/// inside the core's directory, per `design@check@checked-sentinel-values`; a copy elsewhere is a project
+/// inside `check`'s directory, per `design@check@checked-sentinel-values`; a copy elsewhere is a project
 /// like any other, so it carries the version.
 fn copy_dir(from: &Path, to: &Path) {
     std::fs::create_dir_all(to).expect("the sandbox directory");
@@ -251,7 +251,7 @@ fn pinned(text: &str) -> String {
     joined
 }
 
-/// The smallest conformant mock, which declares no table the core does not own.
+/// The smallest conformant mock, which declares no table `check` does not own.
 fn mock() -> PathBuf {
     Path::new(env!("CARGO_MANIFEST_DIR")).join("tests/projects/core")
 }
@@ -288,8 +288,8 @@ fn the_core_binary_passes_over_a_project_that_declares_only_what_the_core_reads(
     assert!(out.ends_with("PASSED: no findings\n"), "{out}");
 }
 
-/// The core binary compiles in the directory of each Component whose library it links and whose
-/// source is the checker's, the core's and the git crate's, so their fixtures are read as data,
+/// The `check` binary compiles in the directory of each Component whose library it links and whose
+/// source is the checker's, `check`'s and the git crate's, so their fixtures are read as data,
 /// per `design@check@checker-source-literals-are-data`. Over this checkout the summary names both
 /// directories and counts their walked Rust files, whatever the run finds.
 #[test]
@@ -316,17 +316,17 @@ fn the_core_binary_names_the_checker_s_directories_and_counts_the_files_under_th
             .filter(|l| l.starts_with(dir) && l.ends_with(".rs") && !l.contains("/tests/projects/"))
             .count()
     };
-    let (core, git, model) = (
+    let (check, git, model) = (
         count("crates/check/"),
         count("crates/git/"),
         count("crates/model/"),
     );
-    assert!(core > 0 && git > 0 && model > 0);
+    assert!(check > 0 && git > 0 && model > 0);
     assert_eq!(
         line,
         format!(
             "checker source: crates/check, crates/git, crates/model, {} file(s) with string literals read as data",
-            core + git + model
+            check + git + model
         )
     );
 }
@@ -335,7 +335,7 @@ fn the_core_binary_names_the_checker_s_directories_and_counts_the_files_under_th
 fn the_core_binary_refuses_a_table_no_extension_of_it_claims() {
     // A copy, so the table is added to nothing another test reads. The walk is git's listing,
     // so the copy is its own repository.
-    let dir = std::env::temp_dir().join(format!("knowledge-core-claims-{}", std::process::id()));
+    let dir = std::env::temp_dir().join(format!("knowledge-check-claims-{}", std::process::id()));
     let _ = std::fs::remove_dir_all(&dir);
     copy_dir(&mock(), &dir);
     let manifest = dir.join("knowledge-architect.toml");
@@ -1439,12 +1439,12 @@ fn a_symlink_with_a_refused_name_is_one_finding() {
     assert!(about[0].contains("symlink"), "{out}");
 }
 
-/// The claim: a tree holding the core's own crate at another path than the binary was built
+/// The claim: a tree holding `check`'s own crate at another path than the binary was built
 /// from is a second checkout of the tool, and no command runs over it: the binary would judge it
 /// with the other checkout's code.
 ///
-/// The copy stands for the second checkout: a crate declaring the core's package name at the
-/// path relative to the tree the core has in this repository. The reverse arrangement, two
+/// The copy stands for the second checkout: a crate declaring `check`'s package name at the
+/// path relative to the tree `check` has in this repository. The reverse arrangement, two
 /// checkouts building into one target directory, is what produces this state in practice.
 #[test]
 fn a_tree_holding_the_tool_at_another_path_than_the_binarys_is_refused() {
@@ -3533,7 +3533,7 @@ fn a_manifest_without_the_key_refuses_every_command() {
     }
 }
 
-/// The claim: a mock project in place, inside the core's directory, passes with `"fixture"`.
+/// The claim: a mock project in place, inside `check`'s directory, passes with `"fixture"`.
 #[test]
 fn a_mock_in_place_passes_with_fixture() {
     let (out, err, code) = run("dirhome", &["check"]);

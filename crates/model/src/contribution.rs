@@ -11,10 +11,10 @@ pub struct Contribution {
     /// The top-level manifest tables they read.
     pub tables: Vec<&'static str>,
     /// Declarations they refused, each a finding of phase 1. A refused declaration is absent from
-    /// their configuration, as the core's are.
+    /// their configuration, as `check`'s are.
     pub complaints: Vec<Finding>,
     /// The paths they declare, by the label a finding names them with. Phase 2 asserts that each
-    /// exists, with the core's own declared paths.
+    /// exists, with `check`'s own declared paths.
     pub paths: Vec<(String, Vec<PathBuf>)>,
     /// The files they generate. The walk leaves them out, and they are read as committed.
     pub generated: Vec<PathBuf>,

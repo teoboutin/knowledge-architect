@@ -6,7 +6,7 @@ project's `knowledge-architect.toml`, which is both the manifest and the marker 
 directory a project root. So one binary checks any project and a mock project under
 `path@check@tests/projects/` with no special case anywhere. A path that should not be checked
 says so there, in one place, with a reason beside it. What is compiled in is the directory of each
-Component a binary's libraries belong to — `knowledge_architect::component_dir` for the core,
+Component a binary's libraries belong to — `knowledge_architect::component_dir` for `check`,
 which is its crate's `CARGO_MANIFEST_DIR`, and the same function in each extension's library —
 so that the string literals of the tool's own source are read as data, per
 `design@check@checker-source-literals-are-data`. Each crate's own
@@ -14,12 +14,12 @@ directory and package name are compiled in too, so a binary built from another c
 tool is refused, per `design@check@a-foreign-build-is-refused`.
 
 **`git` 2.36 or newer is a hard dependency, and every invocation is the `git` crate's,
-`path@git@src/git.rs`, which the core names `crate::git`.** The floor is `cat-file --batch -z`, which
+`path@git@src/git.rs`, which `check` names `crate::git`.** The floor is `cat-file --batch -z`, which
 `commits` reads a commit's tree with, and a listing's last-change column is one `git log`. A check may
 spawn nothing, so each of those is taken by the caller and handed in. The walk and the ignore batch are
 `path@model@CLAUDE.md`. The decisions are `design@git@git-floor-for-commit-trees`,
 `design@git@failed-git-is-an-error` and `design@knowledge-architect@checker-asks-git-through-the-crate`:
-read them whole before changing how the core asks git. `check --staged`, `index --staged`, the
+read them whole before changing how `check` asks git. `check --staged`, `index --staged`, the
 comparison of `check --fix` and `commits` read a snapshot rather than the working tree, from git
 objects, through `git::snapshot_entries` and the same `cat-file` batch: HEAD's tree overlaid with the
 index's changes, or one commit's tree, per `design@check@staged-tree-source`.
@@ -47,19 +47,19 @@ mock file is walked because this repository's listing holds it. The listing is
 tracked or not; what removes one is an ignore rule, and what a deletion needs is staging, or the
 path stays in the listing with no bytes behind it.
 
-**Five mock projects for the core binary, and each is for one thing.** They declare no table the
-core does not own. The head comment of each `knowledge-architect.toml` says what its project
+**Five mock projects for the `check` binary, and each is for one thing.** They declare no table
+`check` does not own. The head comment of each `knowledge-architect.toml` says what its project
 exercises, and that comment is where a session decides which one to touch. In short: `planted` is detection
-in the last phase, one defect per core check, and it is clean through the phases before it so a
+in the last phase, one defect per built-in check, and it is clean through the phases before it so a
 run reaches them; `unsound` is the phase gate, one defect per assertion of phase 2 that a
 committed file can hold and, behind them, the definition-site defects of phase 3, so a run over
 it stops at phase 2. The phase-2 states no committed fixture can hold — a refused name, a symlink,
 a file deleted or unreadable on disk, a nested repository — are built by the tests of
 `path@check@tests/binary.rs` in a copy; `dirhome` is
-conformance, every core check running and finding nothing; `minimal` is the walk, the
+conformance, every built-in check running and finding nothing; `minimal` is the walk, the
 exclusions, a location and a declared register; `core` is the smallest conformant project, and
-the tests of the core binary's refusal of a table it does not own. **Plant a phase-4 defect in
-`planted`, a phase-2 or phase-3 one in `unsound`, and nowhere else.** The core binary run from
+the tests of the `check` binary's refusal of a table it does not own. **Plant a phase-4 defect in
+`planted`, a phase-2 or phase-3 one in `unsound`, and nowhere else.** The `check` binary run from
 `dirhome`, `minimal` or `core` reports no finding; anything else it reports there is a defect in
 the tool or in the fixture.
 

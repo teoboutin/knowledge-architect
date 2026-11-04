@@ -1,4 +1,4 @@
-//! What an extension's tests need to run the core over a project, as the binary does.
+//! What an extension's tests need to run `check` over a project, as the binary does.
 //!
 //! A test configures its extensions with [`crate::extension::configure`] and gathers the inputs
 //! with [`crate::cli::Gathered`]. It calls [`foundation`] for phases 1 to 3. Once that returns

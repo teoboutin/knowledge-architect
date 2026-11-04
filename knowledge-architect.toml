@@ -56,7 +56,7 @@ skip-files = [
 
 # Paths skipped by location, each one another project rather than a part of this one.
 #
-# The core's mock projects are complete projects of their own: their documents are fixtures, and a
+# `check`'s mock projects are complete projects of their own: their documents are fixtures, and a
 # checker that read them would report a fixture's planted defect as a defect of this repository.
 exclude = [
     "crates/check/tests/projects",

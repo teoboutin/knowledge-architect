@@ -1,6 +1,6 @@
-# Tripwires — the core checker
+# Tripwires — the checker
 
-Evidence that would reopen a decision about the core checker itself. **A tripwire is not something
+Evidence that would reopen a decision about the checker itself. **A tripwire is not something
 to do**: it is a hypothesis about a future failure plus the response, and it leaves this file by an
 exit of `skill@knowledge-architect-issue-tracking@movement-instruction`. What is outstanding about the tool is `register@check@issue` beside it.
 
@@ -49,7 +49,7 @@ listing, for an extension command that lists its own entries, which `model` publ
 fired it once, recorded as `issue@check@an-extension-cannot-see-which-register-a-document-belongs-to`.
 **Response:** open a `todo` for the instance. Its fix gives the consumer what it needs under the
 role module its use belongs to, as a 0.MINOR change: the item itself where its shape is fit to
-publish, or a narrow read-only view of it where publishing it would expose the core's internals,
+publish, or a narrow read-only view of it where publishing it would expose `check`'s internals,
 the direction the owner chose for the entity table. Add it to the facade's entry if it changes the
 rule rather than the list.
 **Re-entry:** thaum's migration onto the published crate, and each extension written after it.

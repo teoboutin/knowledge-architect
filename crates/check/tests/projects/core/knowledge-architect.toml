@@ -1,10 +1,10 @@
-# The smallest conformant project for the core binary, with no extension: it declares no table
-# the core does not own, and it carries every document the root component owes. The core binary
+# The smallest conformant project for the `check` binary, with no extension: it declares no table
+# `check` does not own, and it carries every document the root component owes. The `check` binary
 # passes over it; a copy that adds a `[rules]` table is refused, because no extension of that
 # binary claims it.
 
 [project]
-# A mock project inside the core's directory, which the binary built here confirms.
+# A mock project inside `check`'s directory, which the binary built here confirms.
 checker-version = "fixture"
 name = "core-mock"
 components = []

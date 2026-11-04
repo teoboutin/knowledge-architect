@@ -48,7 +48,7 @@ has no mechanical guard, nor has the preamble's order of entries, against
 
 ### What would close it
 
-A design discussion with the owner deciding where the check lives: a check of the core, which any
+A design discussion with the owner deciding where the check lives: a check of `check`, which any
 project could use with a changelog shape it declares, or a gate of this repository in its
 maintenance tool, and what the check does with a section released before the shape existed. Then
 the check, with a test for each assertion above that fails on a planted

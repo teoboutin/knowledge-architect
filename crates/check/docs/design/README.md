@@ -1,7 +1,7 @@
-# The core checker: design
+# The checker: design
 
 Recorded intent for this tool: how it is built internally, and why. Present tense, each decision
-carrying a slug anchor, cited from elsewhere with `core` as its component. The designs this
+carrying a slug anchor, cited from elsewhere with `check` as its component. The designs this
 Component did not keep are `register@check@rejected`, each cited by the heads whose argument covers
 it, and `skill@knowledge-architect-decision-recording@head-shape` owns the shape.
 

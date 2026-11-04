@@ -14,7 +14,7 @@
 //! parses. A placeholder naming
 //! no file, and a file no placeholder names, fail the build. The placeholder is filled here rather
 //! than at install, where the project's command is filled, because a snippet does not vary by
-//! project. The snippets are also listed whole, by file name, as `SNIPPETS`, for the core to write.
+//! project. The snippets are also listed whole, by file name, as `SNIPPETS`, for `check` to write.
 //!
 //! Before those, four passes, in this order. A line whose first two characters are `%%` is a
 //! comment for this repository's maintainers: it is removed whole, so it may cite design heads and

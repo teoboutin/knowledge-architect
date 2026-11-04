@@ -1121,7 +1121,7 @@ mod tests {
     #[test]
     fn a_bare_r_and_digits_is_not_a_retired_form_in_any_prose() {
         // The interpretation register's old entry number is thaum's own, and its migration is
-        // finished; the core reads it as nothing, in markdown, in a code span and in a comment.
+        // finished; `check` reads it as nothing, in markdown, in a code span and in a comment.
         assert_eq!(retired("R15 holds, and `R15` here"), Vec::new());
         let comment = scan_rs("/// per R15\nfn f() {}\n");
         assert!(

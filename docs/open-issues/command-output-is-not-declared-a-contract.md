@@ -30,23 +30,23 @@ Instances seen:
   minor, as an addition that changes nothing existing. The refusal of a foreign build, in
   `path@check@src/build_origin.rs`, gained a line naming how to prevent it, and was left without
   an entry, as a patch.
-- A consumer's extension tests asserted text the core prints, and the consumer's owner ruled
+- A consumer's extension tests asserted text `check` prints, and the consumer's owner ruled
   mid-review that they assert none: W5 of 2026-10-07-thaum-mock-reduction-workflow. The checker
   crate's section "Testing an extension" said nothing of printed output; it now sends a test to the
   public fields `Report::checks`, `Report::not_run` and `Report::summaries`, from which the
   `checked:`, not-run and summary lines are printed. It says nothing yet of which printed text is a
   contract.
 - Under that ruling, one property of the consumer's binary had no observation left: which
-  checker-source directories it passes to the core, printed only as the `checker source:` line.
+  checker-source directories it passes to `check`, printed only as the `checker source:` line.
   `cli::run` returns an exit code and no `Report`: C1 of the same file. The workaround on the
   consumer's side: the binary computes the list in a function of its own, and a test calls that
-  function. It tests what the binary passes, not what the core does with it.
+  function. It tests what the binary passes, not what `check` does with it.
 
 `klarch transcript` declares its text and its `--json` output no contract, as `anchors` and
 `worklist` declare theirs, per `design@check@transcript-query-verbs`: the policy this entry asks for
 decides whether its JSON becomes one.
 
-The README of the core, `path@check@README.md`, states two output contracts: for `check`, the order
+The README of `check`, `path@check@README.md`, states two output contracts: for `check`, the order
 of the summary, the findings and the verdict line; and for a generated file-register index, written
 by `index` and `check --fix`, its bytes, per `design@model@a-file-register-index-is-rows`. Nothing
 states whether the words of a printed summary are one.

@@ -27,7 +27,7 @@ pub struct Library {
     pub package: &'static str,
 }
 
-/// This library, as the core's own build saw it.
+/// This library, as `check`'s own build saw it.
 pub fn this_library() -> Library {
     Library {
         crate_dir: PathBuf::from(env!("CARGO_MANIFEST_DIR")),

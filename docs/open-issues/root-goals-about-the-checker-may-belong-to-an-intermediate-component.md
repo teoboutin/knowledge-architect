@@ -5,7 +5,7 @@ kind: question
 
 ## Summary
 
-The owner states no purpose below the root for the Components split from the core, so
+The owner states no purpose below the root for the Components split from `check`, so
 `design@knowledge-architect@no-intermediate-component` stands. The owner raised, as something that can
 wait, moving a few of the root's goals about the model, the tools and the checker to an intermediate
 level, if the root's goals grow too many with goals on these.

@@ -1,10 +1,10 @@
-//! How a project's own subject plugs into the core, per
+//! How a project's own subject plugs into `check`, per
 //! `design@check@an-extension-plugs-in-through-phased-hooks`.
 //!
 //! An extension is a set of checks over a subject one project has, such as thaum's rule quotes
 //! verified against a pinned corpus. A binary registers its extensions at compile time and
-//! hands them to [`crate::cli::run`]; the core calls each one at fixed points of a run. The
-//! core itself knows no extension.
+//! hands them to [`crate::cli::run`]; `check` calls each one at fixed points of a run.
+//! `check` itself knows no extension.
 //!
 //! **Two levels.** An [`Extension`] is configured once per manifest, and prepares one
 //! [`Prepared`] per tree it judges, because `commits` judges several trees in one run and a
@@ -176,8 +176,8 @@ pub struct ExtensionReport {
     /// The names of the checks that got no input and did not run, printed as not run rather
     /// than counted, because a count nobody took reads as nothing found.
     pub not_run: Vec<&'static str>,
-    /// The extension's block of the summary, printed after the core's count lines. Each line
-    /// starts with a newline, as the core's lines do.
+    /// The extension's block of the summary, printed after `check`'s count lines. Each line
+    /// starts with a newline, as `check`'s lines do.
     pub summary: String,
 }
 
@@ -189,10 +189,10 @@ pub struct ExtensionReport {
 #[non_exhaustive]
 pub struct Resolution {
     /// Declarations it refused, each a finding of phase 1. A refused declaration is absent
-    /// from its configuration, as the core's are.
+    /// from its configuration, as `check`'s are.
     pub complaints: Vec<Finding>,
     /// The paths it declares, by the label a finding names them with. Phase 2 asserts that
-    /// each exists, with the core's own declared paths.
+    /// each exists, with `check`'s own declared paths.
     pub paths: Vec<(String, Vec<PathBuf>)>,
     /// The files it generates. The walk leaves them out, and the `generated` check reads them
     /// as committed.
@@ -232,14 +232,14 @@ pub trait Extension {
     /// [`configure`]; a table it claims that the manifest does not hold is already reported.
     fn resolve(&mut self, manifest: &Manifest) -> Resolution;
 
-    /// The names of its checks, as the `checked:` line prints them after the core's.
+    /// The names of its checks, as the `checked:` line prints them after `check`'s.
     fn checks(&self) -> &'static [&'static str];
 
-    /// Its observation rows for `model`, merged into the core's. Runs without the foundation,
+    /// Its observation rows for `model`, merged into `check`'s. Runs without the foundation,
     /// as `model` does.
     fn dump(&self, model: &Model) -> Vec<crate::model::table::DumpRow>;
 
-    /// Read what its checks need for one tree. Runs only once the core's first three phases
+    /// Read what its checks need for one tree. Runs only once `check`'s first three phases
     /// passed over that tree, so a run that stops earlier resolves and fetches nothing. `Err`
     /// is could-not-run.
     fn prepare(

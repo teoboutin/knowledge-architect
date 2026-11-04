@@ -57,7 +57,7 @@ pub struct Report {
     pub phase: Phase,
     pub findings: Vec<Finding>,
     pub structure: Structure,
-    /// Every check the last phase performed or was asked to: the core's, then each
+    /// Every check the last phase performed or was asked to: `check`'s, then each
     /// extension's, in the order the `checked:` line prints them.
     pub checks: Vec<&'static str>,
     /// The checks the tree gave no input to, by name. Each is printed as not run rather
@@ -163,14 +163,14 @@ impl<'a> Inputs<'a> {
     }
 }
 
-/// The core's checks of the last phase, by the name each one's count line carries.
+/// `check`'s checks of the last phase, by the name each one's count line carries.
 ///
 /// One per module under `check/` that runs in the last phase. Every one runs on every run that
 /// reaches the last phase. An extension adds its own, per
 /// `design@check@an-extension-plugs-in-through-phased-hooks`.
 pub const CHECKS: [&str; 3] = ["generated", "registers", "references"];
 
-/// Run the core's checks of the last phase, over a model `foundation` found complete, with
+/// Run `check`'s checks of the last phase, over a model `foundation` found complete, with
 /// the files each extension generates compared by the `generated` check.
 pub(crate) fn run(
     model: &Model,
@@ -210,7 +210,7 @@ pub(crate) fn run(
     }
 }
 
-/// The last phase over the core and every prepared extension: the core's checks, then each
+/// The last phase over `check` and every prepared extension: `check`'s checks, then each
 /// extension's, merged into one report.
 pub fn run_with(
     model: &Model,

@@ -45,7 +45,7 @@
 //! | [`extension`] | what an extension gives phase 1 |
 
 // A `pub` item no consumer can reach is refused, so an item is public only through the re-exports
-// below, as the core's facade is, per `design@check@api-facade`.
+// below, as `check`'s facade is, per `design@check@api-facade`.
 #![warn(unreachable_pub)]
 
 // Read so that cargo rebuilds this crate when the checkout building it changes, per
@@ -74,7 +74,7 @@ mod walk;
 // read `crate::git::...`.
 use knowledge_architect_git as git;
 
-// The core run against whole mock projects, over what this crate holds, until the shared test
+// `check` run against whole mock projects, over what this crate holds, until the shared test
 // Component takes them.
 #[cfg(test)]
 mod mock_projects;

@@ -15,8 +15,8 @@
 //! extension. The library is otherwise for a project with a subject of its own, such as quotes that must
 //! match a pinned corpus. Such a project writes an **extension**: a set of checks, the manifest
 //! tables they read, and the files they generate. It compiles the extension into a binary of its
-//! own, which runs every command of `klarch` unchanged and the extension's checks beside the
-//! core's. There is no loading at run time.
+//! own, which runs every command of `klarch` unchanged and the extension's checks beside
+//! `check`'s. There is no loading at run time.
 //!
 //! The public items are grouped by what a consumer is doing:
 //!
@@ -24,7 +24,7 @@
 //! | --- | --- |
 //! | the crate root | the nouns every consumer meets: [`Manifest`], [`Model`], [`Document`], [`Finding`], [`MANIFEST_NAME`], [`CHECKER_VERSION`], [`component_dir`] |
 //! | [`cli`] | the `main` of a binary: the commands, running one, finding the project, refusing a build from another checkout, gathering a run's inputs |
-//! | [`extension`] | writing an extension: the two traits, what the core hands them, and what they return |
+//! | [`extension`] | writing an extension: the two traits, what `check` hands them, and what they return |
 //! | [`document`] | reading a document's parse: prose regions, scopes, code spans, observations |
 //! | [`testing`] | testing an extension over a mock project, as the binary would run it |
 //!
@@ -117,7 +117,7 @@
 //!
 //! An extension implements [`extension::Extension`]. Three of its methods describe it:
 //! `tables` names the top-level manifest tables it reads, `checks` names its checks, and `dump`
-//! returns its rows for the `model` command. The core calls the others at fixed points of a
+//! returns its rows for the `model` command. `check` calls the others at fixed points of a
 //! run:
 //!
 //! 1. [`extension::configure`] calls `resolve` once per manifest, before the walk. The
@@ -130,7 +130,7 @@
 //!    `check --staged`, `index --staged` and the comparison of `check --fix`.
 //!    It returns an [`extension::Prepared`].
 //! 3. `Prepared::check` runs its checks in the last phase. It reads the model and the
-//!    [`extension::Inputs`] the core gathered, and returns an [`extension::ExtensionReport`].
+//!    [`extension::Inputs`] `check` gathered, and returns an [`extension::ExtensionReport`].
 //!    `check_message` judges a commit message, and `generated` returns the files the
 //!    extension generates.
 //!
@@ -142,13 +142,13 @@
 //!
 //! # Reading a document
 //!
-//! The core's model holds nothing for an extension. An extension reads each [`Document`] of
+//! `check`'s model holds nothing for an extension. An extension reads each [`Document`] of
 //! [`Model::documents`] and scans its parse again for its own subject:
 //!
 //! - [`Document::parsed`] is a [`document::Parsed`]: the prose regions as
 //!   [`document::Prose`], the code spans inside each, the scopes (a markdown section or a Rust
 //!   item), the fenced lines and the Rust names.
-//! - [`Document::observations`] are what the core's scanner recorded, each a
+//! - [`Document::observations`] are what `check`'s scanner recorded, each a
 //!   [`document::Located`] [`document::Observation`]: headings, slug definitions, reference
 //!   candidates, unanchored paths, spans wrapped across a line break, retired forms, bare names,
 //!   references written without backticks, plain words that are defined ids, and links.
@@ -157,7 +157,7 @@
 //!
 //! # Testing an extension
 //!
-//! A test runs the core over a mock project as the binary does, with the public items alone:
+//! A test runs `check` over a mock project as the binary does, with the public items alone:
 //!
 //! ```no_run
 //! # use knowledge_architect::extension::Extension;
@@ -185,8 +185,8 @@
 //! an ignore rule must not cover them. The project's own manifest excludes the mock's directory
 //! with a `[walk] exclude` row, or the mock's planted defects are reported as the project's own.
 //!
-//! **A mock plants only the defects whose findings the extension emits.** A defect the core
-//! reports pins the core's behaviour in the extension's suite, and a release of the core that
+//! **A mock plants only the defects whose findings the extension emits.** A defect `check`
+//! reports pins `check`'s behaviour in the extension's suite, and a release of `check` that
 //! narrows or widens that check fails the suite with nothing to repair in the extension.
 //!
 //! **A test pins the set of findings it expects, not their count.** A count that moves says that

@@ -1,7 +1,7 @@
-//! The core run against whole projects, not against strings.
+//! `check` run against whole projects, not against strings.
 //!
 //! A mock project under `path@check@tests/projects/` is a complete project: it carries its
-//! own `knowledge-architect.toml` and its own documents, and it declares no table the core does not own.
+//! own `knowledge-architect.toml` and its own documents, and it declares no table `check` does not own.
 //! That is what makes these tests worth more than the in-memory ones — a fixture written as a
 //! string cannot exercise the walk, the exclusions, or a layout different from this repository's.
 //!
@@ -266,7 +266,7 @@ fn a_fenced_illustration_is_neither_a_definition_nor_a_reference_in_a_real_file(
     assert_eq!(retired, Vec::<String>::new());
 }
 
-/// Every committed file-register index is what the generator writes, in every core mock.
+/// Every committed file-register index is what the generator writes, in every mock of `check`.
 #[test]
 fn every_committed_index_is_what_the_generator_writes() {
     for name in ["minimal", "dirhome", "core"] {
@@ -285,7 +285,7 @@ fn every_committed_index_is_what_the_generator_writes() {
     }
 }
 
-/// The core's rows carry the line of the file they sit on.
+/// `check`'s rows carry the line of the file they sit on.
 ///
 /// The whole value is asserted, and the trailing newline is load-bearing: a `contains` over a
 /// field that is not terminated asserts a prefix, and passes against a value with more after it.

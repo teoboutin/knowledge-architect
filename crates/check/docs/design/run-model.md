@@ -42,8 +42,8 @@ Five things are compiled in, and none of them describes a project:
 
 ### The model is built once, and every check is a pure function over it `##model-then-checks`
 
-`model` builds the model and gathers from the working tree what a phase and the resolver read, and the
-core gathers what the last phase alone reads and runs the checks, per `design@knowledge-architect@model-crate`.
+`model` builds the model and gathers from the working tree what a phase and the resolver read, and
+`check` gathers what the last phase alone reads and runs the checks, per `design@knowledge-architect@model-crate`.
 A check never reads a file, spawns a process, or knows how the walk works. Anything a check cannot
 fetch for itself is resolved by the caller and handed in: the generated files as committed, the
 per-instance `register.toml` files, one listing of what exists and which of those paths are
@@ -86,14 +86,14 @@ finding computed from that model afterwards is then unreliable in both direction
 false. A list that mixes the two advertises a completeness it does not have. So a run is four
 phases, each of the first three building one input of the next. The first three are `model`'s, as
 `foundation`, since a tool over the record needs to know the model can be trusted and needs no check;
-the last is the core's:
+the last is `check`'s:
 
 | phase | produced by | what it reports |
 | ----- | ----------- | --------------- |
 | 1 | `Manifest::parse`, and each extension's resolution of its tables | a declaration the tool refused, which is then absent from the configuration |
-| 2 | `tree` of `path@model@src/tree.rs`, over the core's declared paths, the paths each extension declares and every document's parse, and the installed-file check, over the installed agent configuration | a file the walk could not read or refused, a tracked-and-ignored file, an anchor or a register home that is not there, a declared path that does not exist, a home a walk row keeps out, an installed agent file missing, differing or unshipped, a root CLAUDE.md that does not import a shipped primer, a heading markdown reads and the checker does not, per `design@model@headings-open-with-hash-marks` |
+| 2 | `tree` of `path@model@src/tree.rs`, over `check`'s declared paths, the paths each extension declares and every document's parse, and the installed-file check, over the installed agent configuration | a file the walk could not read or refused, a tracked-and-ignored file, an anchor or a register home that is not there, a declared path that does not exist, a home a walk row keeps out, an installed agent file missing, differing or unshipped, a root CLAUDE.md that does not import a shipped primer, a heading markdown reads and the checker does not, per `design@model@headings-open-with-hash-marks` |
 | 3 | `Entities::build` | a slug or an entry id where none may sit, or defined twice; a level-two heading of a section home with no slug; a skill's or an agent's name a reference cannot spell, or that its frontmatter contradicts |
-| 4 | every check, the core's and each extension's | everything computed over a complete model |
+| 4 | every check, `check`'s and each extension's | everything computed over a complete model |
 
 A finding is classified by **the place it is produced**, never by a label at its site, so a
 finding added to a building step is gated because of where it is raised, and nothing in the
@@ -160,7 +160,7 @@ carried out safely is the project's rule for that operation, not the finding's t
 | 1    | the command ran, and reports a negative answer about its subject       |
 | 2    | the command could not run: bad arguments, no project, unreadable input |
 
-This binds the core's commands in every binary that offers them, per
+This binds `check`'s commands in every binary that offers them, per
 `design@check@the-core-cli-is-a-library-module`. A command that answers several candidates in one
 run, as `id` does, answers one it cannot read as a candidate with 1, a negative answer about it,
 since the run still answers the others. `path@check@README.md` lists which
@@ -181,7 +181,7 @@ The rules over documents are compiled in and the manifest declares nothing about
 conformance of a document means the same thing in every tree this tool checks. There is no flag, no
 list and no severity: a rule either holds over a document or the run fails. The constraint derives
 from `goal@check@document-rules-are-checked`: a tree that passes the checker conforms to every rule
-the core compiles in, and no project holds back any of them beyond the paths its manifest leaves out of the walk, which the checker does not read, and the agent configuration's documents an empty list of harnesses removes, which the third paragraph below says are documents a Component carries, not rules over the documents it has.
+`check` compiles in, and no project holds back any of them beyond the paths its manifest leaves out of the walk, which the checker does not read, and the agent configuration's documents an empty list of harnesses removes, which the third paragraph below says are documents a Component carries, not rules over the documents it has.
 
 **A declared register adds obligations and removes none**, which is what keeps
 `design@model@registers-are-declared` inside this head rather than an exception to it. Declaring one
@@ -194,7 +194,7 @@ that declares no agent harness, per `design@check@agents-table`, owes no CLAUDE.
 agent file: these are documents a component carries, not rules over the documents it has. Every
 document the project carries is checked exactly as under the default.
 
-**An exemption, where an extension offers one, names FILES rather than rules.** The core offers
+**An exemption, where an extension offers one, names FILES rather than rules.** `check` offers
 none. A file named is one that is leaving the tree, so the exemption expires with its subject; a
 rule held back would have applied to every file and expired with nothing. That asymmetry is the
 whole of it — exempting a document that is about to be deleted costs the guarantee nothing, and

@@ -24,7 +24,7 @@ file on the way out, so the installed names are the namespace of
 `design@check@owned-namespace-check`. A file the layout does not map fails the build.
 
 The list is generated because a list written by hand drifts from the directory it lists, and the
-drift ships: a skill missing from the list is never installed, and nothing reports it. The core's
+drift ships: a skill missing from the list is never installed, and nothing reports it. `check`'s
 test `every_shipped_file_is_installed_in_the_owned_namespace` holds the build script to the
 namespace, since an install path outside it would write a file the project owns.
 
@@ -102,7 +102,7 @@ per `design@check@rust-scaffold` and `design@check@init-writes-no-ci-workflow`, 
 text the skill shows. Each is checked by a test of the workspace: the main is compiled by an example
 of the maintenance crate, the three TOML files by a test that builds a project `init --rust` wrote
 and runs its checker, and the CI workflow's gates command by a test that parses it with the gates
-library's flags. A block copied into a template of the core would be one more text that drifts from
+library's flags. A block copied into a template of `check` would be one more text that drifts from
 the skill, and a block in the skill alone is checked by nothing, so a change of the gates library or
 of the checker's command line could leave it wrong while every gate passes.
 

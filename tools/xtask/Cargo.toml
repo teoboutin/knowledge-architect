@@ -9,7 +9,7 @@ publish = false
 
 [dependencies]
 clap = { version = "4", features = ["derive"] }
-# The manifest's file name, so the root finder spells it in one place, the core's constant; and
+# The manifest's file name, so the root finder spells it in one place, `check`'s constant; and
 # the library the setup skill's main, compiled by examples/setup_snippet.rs, is written against.
 knowledge-architect = { path = "../../crates/check" }
 # The gates' runner, which this repository publishes for other projects and uses itself.

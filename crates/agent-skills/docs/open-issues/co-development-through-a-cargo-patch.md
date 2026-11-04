@@ -16,7 +16,7 @@ naming that branch. It builds its improvement as a tool of its own meanwhile, pe
 
 A patched build of the checker carries the version of the branch it was built from. Every binary
 refuses a project whose pin it does not satisfy, per `design@agent-skills@exact-pin`, and accepts a
-binary only when its version equals the core library's, per
+binary only when its version equals the `check` library's, per
 `design@check@installed-binary-version-check`: so a patched build runs only where the project's
 `checker-version` names the branch's version, which no release of it may hold yet. Neither escape
 serves: a pin with a pre-release suffix is refused by the manifest's parse, and the sentinel

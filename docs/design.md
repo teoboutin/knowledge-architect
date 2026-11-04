@@ -19,7 +19,7 @@ per `design@model@components-carry-the-same-documents`, so a directory named `kn
 would collide with the root: a run over a scratch project
 laid out that way stopped in phase 1, reporting that the name "names 2 anchors". So a published
 crate may sit in a directory named by what it does rather than by its package, crates/check for the
-package knowledge-architect, and a future split of the core follows the same rule, as crates/check
+package knowledge-architect, and a future split of `check` follows the same rule, as crates/check
 and crates/cli. The cost: a reference says `core` where cargo says `-p knowledge-architect`.
 
 The design this decision did not keep:
@@ -42,7 +42,7 @@ The design this decision did not keep: `rejected@knowledge-architect@single-publ
 
 ### The checker's library code asks git only through the `git` crate `##checker-asks-git-through-the-crate`
 
-The library code of the core and of `model` starts no git process of its own: every question either
+The library code of `check` and of `model` starts no git process of its own: every question either
 asks git is a function of the `git` crate, called by the code that gathers what a run reads or prints a
 listing, never by a check, per `design@check@model-then-checks`. So the set of things the checker
 asks git is the crate's, auditable in one read per `design@git@git-is-asked-through-one-module`,
@@ -54,14 +54,14 @@ its fixture.
 ### What a run reads of a project is a crate of its own, which the checks depend on `##model-crate`
 
 `knowledge-architect-model`, in crates/model, holds the manifest, the walk, the parse, the entity table,
-phases 1 to 3 and the resolver, and the core depends on it by path and by exact version, per
+phases 1 to 3 and the resolver, and `check` depends on it by path and by exact version, per
 `design@knowledge-architect@version-lockstep`. A tool over the record needs the model and at most
 phases 1 to 3, never the last phase: the writers run them and no check, and `show` runs no phase and
 reads the resolver. Phases 1 to 3 say whether the model can be trusted, not whether the content
 conforms, the installed-file check apart while it stays in phase 2. Every check can be argued to bear on the
 answers a tool reads, and the line between them is how far: a slug defined twice makes the entity table
 wrong, so it is the model's, where a reference to something missing or a bare id has little effect on
-them, so it is a check. The boundary is crossed by some changes and not by all: of the commits that changed the core's
+them, so it is a check. The boundary is crossed by some changes and not by all: of the commits that changed `check`'s
 source, some touched the model's files alone and some the checks alone, as the command in the
 milestone document that the commit "[review] Repairs of the review of the plan documents of the
 Component split and of the rules that cut it" writes takes again. It serves
@@ -72,7 +72,7 @@ is `rejected@knowledge-architect@model-inside-the-checker`.
 ### Git is wrapped by a crate of its own, which the checker depends on, rather than by a module of the checker `##git-crate`
 
 Every git invocation of the checker's library is a function of `knowledge-architect-git`, in
-crates/git, which the core and `model` depend on by path and by exact version, per
+crates/git, which `check` and `model` depend on by path and by exact version, per
 `design@knowledge-architect@version-lockstep`. The crate's interface changes for reasons of its
 own: a git question or a git version that another tool needs and the checker does not. It takes
 decisions of its own, `register@git@design`. And a tool that rewrites a branch's history depends
@@ -110,7 +110,7 @@ whose generic part ships as a published crate. The hand mutation judges nothing 
 by itself: it runs a step of the development procedure over a mutation a session writes, so it is
 no quality tool in the sense of `goal@knowledge-architect@serves-one-kind-of-project`, and no ask;
 the setup skill offers it within the maintenance crate's shape. It costs one more crate in the
-publish order, after the gates library and before the core, per `design@knowledge-architect@partial-publish-rerun`.
+publish order, after the gates library and before `check`, per `design@knowledge-architect@partial-publish-rerun`.
 
 ### Each published crate ships a whitelist of files `##package-include-whitelist`
 
@@ -184,7 +184,7 @@ The design this decision did not keep:
 ### Every crate carries one version, and so does the installed text `##version-lockstep`
 
 `[workspace.package] version` is the version of every crate. The skills a checker installs are the
-skills of that exact version, and the core pins the agent-skills crate at it exactly. A project
+skills of that exact version, and `check` pins the agent-skills crate at it exactly. A project
 therefore never runs a checker whose installed skills describe another version's commands, since a
 binary of another version than its manifest pins refuses to run, per
 `design@check@installed-binary-version-check`, which
@@ -223,8 +223,8 @@ a looser check is a patch.
   version, so there is little to no reason to classify it higher." Told that a looser check would
   then get no changelog entry, the owner ruled: "go ahead with the default, patch with a Migration
   entry". A check that reports less fails no tree that passed. The one consumer it can fail is a
-  test that pins findings of the core's own checks, which the section "Testing an extension" of
-  the core's crate documentation advises against. Every project pins the checker exactly, per
+  test that pins findings of `check`'s own checks, which the section "Testing an extension" of
+  `check`'s crate documentation advises against. Every project pins the checker exactly, per
   `design@agent-skills@exact-pin`, so that consumer meets the change only at an explicit pin move,
   and the Migration entry of `design@knowledge-architect@changelog-entries` names the change for
   it.
@@ -266,7 +266,7 @@ tests, and sits under the subsection of that test:
   home says it holds for every project the consumer's tests build, mock projects included: a
   consumer whose extension tests the checker over its own fixture projects otherwise meets the
   change as failing tests. A check made looser is an entry, a patch, naming the check that
-  reports less: a consumer whose tests pin findings of the core's own checks must change them.
+  reports less: a consumer whose tests pin findings of `check`'s own checks must change them.
   An entry for a change of the rules a project's recorded content must meet cites the section that brings that content to them, an audit axis's section of the audit skill or the goal-setting skill's review of the whole goal set, as a reference, so the move of the pin runs it, per `design@agent-skills@audit-triggers`.
 - **New features**: something a consumer can start using, in one line; the documentation carries
   the detail.
@@ -407,7 +407,7 @@ release skill stops a release that would need it.
 ### A publish that stopped part-way is completed by re-running the job, which skips a version crates.io already holds `##partial-publish-rerun`
 
 The publish job publishes the crates one at a time, each before the crates that depend on it, the
-`git` crate and agent-skills before the `model` crate, and that before the core, and skips a crate when crates.io's API already
+`git` crate and agent-skills before the `model` crate, and that before `check`, and skips a crate when crates.io's API already
 returns the version. A re-run of the failed job runs on the same commit and tag, so it publishes
 only what is missing, and a release that stopped part-way completes with no change to the code
 and no new tag. The nearest rival, one `cargo publish --workspace`, cannot be re-run that way: its `--help` under the pinned toolchain

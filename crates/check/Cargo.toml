@@ -21,7 +21,7 @@ name = "klarch"
 path = "src/main.rs"
 
 [dependencies]
-# The core's commands are a library module, so a binary that registers an extension flattens
+# `check`'s commands are a library module, so a binary that registers an extension flattens
 # them into its own, per `design@check@the-core-cli-is-a-library-module`.
 clap = { version = "4", features = ["derive"] }
 regex = "1.13.1"

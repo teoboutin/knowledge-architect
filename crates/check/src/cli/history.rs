@@ -379,7 +379,7 @@ fn read_tree(
 enum Depth {
     /// The entity table and the path facts. Nothing is judged.
     References,
-    /// Everything: every check of the core, and each extension prepared for the snapshot with the
+    /// Everything: every check of `check`, and each extension prepared for the snapshot with the
     /// caller's purpose.
     Judged,
     /// Phases 1 to 3, the gate a writer passes before it writes, and the snapshot kept for the

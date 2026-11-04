@@ -1,4 +1,4 @@
-//! The core's commands, as a library module, per `design@check@the-core-cli-is-a-library-module`.
+//! `check`'s commands, as a library module, per `design@check@the-core-cli-is-a-library-module`.
 //!
 //! A binary parses its arguments, flattening [`Command`] into its own command enum, and hands
 //! the parsed command to [`run`] with the directories of its own source. This module owns two
@@ -44,7 +44,7 @@ pub use transcript::{
 // `design@check@a-foreign-build-is-refused`.
 pub use crate::build_origin::{refuse_a_foreign_build, this_library, Library};
 
-/// The core's commands. A binary flattens this enum into its own.
+/// `check`'s commands. A binary flattens this enum into its own.
 ///
 /// Non-exhaustive: a binary hands a parsed command to [`run`] without matching it, so a new
 /// command is not a breaking change for any binary.
@@ -231,13 +231,13 @@ pub struct TripwiresArgs {
     pub terms: Vec<String>,
 }
 
-/// Run one of the core's commands over `manifest`.
+/// Run one of `check`'s commands over `manifest`.
 ///
 /// `checker` is every directory of the running binary's own source, compiled into it, per
 /// `design@check@checker-source-literals-are-data`. The exit code is
 /// `design@check@exit-code-ladder`: `Err` is could-not-run, and the caller prints it and exits 2.
 /// `extensions` is every extension the binary registers, per
-/// `design@check@an-extension-plugs-in-through-phased-hooks`; the core's own binary passes
+/// `design@check@an-extension-plugs-in-through-phased-hooks`; `check`'s own binary passes
 /// none.
 pub fn run(
     command: Command,
@@ -386,7 +386,7 @@ pub fn refuse_another_version(manifest: &Manifest, checker_dirs: &[&Path]) -> Re
 /// git track this path" as parameters, so a test can place them.
 fn refuse_another_version_built_at(
     manifest: &Manifest,
-    core: &Path,
+    own: &Path,
     version: &str,
     checker_dirs: &[&Path],
     tracked: &dyn Fn(&Path) -> bool,
@@ -428,12 +428,12 @@ fn refuse_another_version_built_at(
                  pins\n       {fix}"
             ))
         }
-        Pin::Fixture if is_a_library_fixture(root, core, checker_dirs) => Ok(()),
+        Pin::Fixture if is_a_library_fixture(root, own, checker_dirs) => Ok(()),
         Pin::Fixture => Err(format!(
             "\"fixture\" is only valid for a mock project inside a library this binary links\n       \
              {repair}"
         )),
-        Pin::OwnBuild if is_its_own_build(root, core, tracked) => Ok(()),
+        Pin::OwnBuild if is_its_own_build(root, own, tracked) => Ok(()),
         Pin::OwnBuild => Err(format!(
             "\"self\" is only valid where the checker is built from this tree\n       {repair}"
         )),
@@ -454,29 +454,29 @@ fn canonical(path: &Path) -> std::path::PathBuf {
     path.canonicalize().unwrap_or_else(|_| path.to_path_buf())
 }
 
-/// Whether the project lies strictly inside the core directory or one of `checker_dirs`: a mock
+/// Whether the project lies strictly inside `check`'s directory or one of `checker_dirs`: a mock
 /// project of a library the running binary links.
 ///
 /// Strictly: a library's own directory is no mock of it. Where an extension's crate is the
 /// project's root, the binary names the root among its directories, and an equal path would let
 /// the project's real manifest say `"fixture"`.
-fn is_a_library_fixture(root: &Path, core: &Path, checker_dirs: &[&Path]) -> bool {
+fn is_a_library_fixture(root: &Path, own: &Path, checker_dirs: &[&Path]) -> bool {
     let root = canonical(root);
-    std::iter::once(core)
+    std::iter::once(own)
         .chain(checker_dirs.iter().copied())
         .map(canonical)
         .any(|dir| root != dir && root.starts_with(&dir))
 }
 
-/// Whether the core directory lies inside, or is, the project, and the project's git tracks its
+/// Whether `check`'s directory lies inside, or is, the project, and the project's git tracks its
 /// `Cargo.toml`: a tree the checker is built from.
 ///
 /// The tracking is what tells a checkout of the checker from a tree that a registry sits in, such
 /// as a project whose `CARGO_HOME` is one of its own directories, where a registry build's
 /// directory also lies inside the root.
-fn is_its_own_build(root: &Path, core: &Path, tracked: &dyn Fn(&Path) -> bool) -> bool {
-    let (root, core) = (canonical(root), canonical(core));
-    match core.strip_prefix(&root) {
+fn is_its_own_build(root: &Path, own: &Path, tracked: &dyn Fn(&Path) -> bool) -> bool {
+    let (root, own) = (canonical(root), canonical(own));
+    match own.strip_prefix(&root) {
         Ok(rel) => tracked(&rel.join("Cargo.toml")),
         Err(_) => false,
     }
@@ -585,7 +585,7 @@ fn list_anchors(manifest: &Manifest, checker: &[&Path]) -> Result<ExitCode, Stri
     })
 }
 
-/// Every check, over one walk: the core's, then each extension's.
+/// Every check, over one walk: `check`'s, then each extension's.
 ///
 /// An extension prepares its tree here rather than inside a check: preparing may read the
 /// archive or reach the network, and a check may do neither.
@@ -1627,7 +1627,7 @@ fn counts(report: &Report, tree: Option<&str>) -> String {
         "\nreferences: {} entities defined, {} reference(s), {} link(s)",
         s.entities, s.references, s.links
     );
-    // Each extension's block, after the core's lines, per
+    // Each extension's block, after `check`'s lines, per
     // `design@check@an-extension-plugs-in-through-phased-hooks`.
     for summary in &report.summaries {
         out.push_str(summary);
@@ -1698,56 +1698,56 @@ mod tests {
         false
     }
 
-    /// The claim: `"fixture"` holds where the project lies strictly inside the core directory or
-    /// a checker directory, and `"self"` where the core directory lies inside, or is, the project
-    /// and the project tracks its `Cargo.toml`; a core directory outside the project, standing
+    /// The claim: `"fixture"` holds where the project lies strictly inside `check`'s directory or
+    /// a checker directory, and `"self"` where `check`'s directory lies inside, or is, the project
+    /// and the project tracks its `Cargo.toml`; a library directory outside the project, standing
     /// for the registry, confirms neither, nor does a registry inside the project that git does
     /// not track.
     #[test]
-    fn the_sentinels_hold_by_where_the_core_and_the_project_lie() {
+    fn the_sentinels_hold_by_where_the_library_and_the_project_lie() {
         let scratch = Scratch::new("predicates");
         let tree = scratch.dir("tree");
-        let core_inside = scratch.dir("tree/crates/check");
+        let own_inside = scratch.dir("tree/crates/check");
         let mock = scratch.dir("tree/crates/check/tests/projects/m");
         let registry = scratch.dir("registry/knowledge-architect-0.2.0");
         let extension = scratch.dir("ext/crates/rules");
         let ext_mock = scratch.dir("ext/crates/rules/tests/projects/m");
 
-        assert!(is_a_library_fixture(&mock, &core_inside, &[]));
+        assert!(is_a_library_fixture(&mock, &own_inside, &[]));
         assert!(is_a_library_fixture(
             &ext_mock,
             &registry,
             &[extension.as_path()]
         ));
         assert!(
-            !is_a_library_fixture(&core_inside, &core_inside, &[]),
+            !is_a_library_fixture(&own_inside, &own_inside, &[]),
             "a library is no mock of itself"
         );
         assert!(
             !is_a_library_fixture(&extension, &registry, &[extension.as_path()]),
             "an extension crate at the root"
         );
-        assert!(!is_a_library_fixture(&tree, &core_inside, &[]));
+        assert!(!is_a_library_fixture(&tree, &own_inside, &[]));
         assert!(!is_a_library_fixture(&tree, &registry, &[]));
         assert!(!is_a_library_fixture(&ext_mock, &registry, &[]));
 
-        assert!(is_its_own_build(&tree, &core_inside, &always));
+        assert!(is_its_own_build(&tree, &own_inside, &always));
         assert!(
-            is_its_own_build(&core_inside, &core_inside, &always),
+            is_its_own_build(&own_inside, &own_inside, &always),
             "equal is inside"
         );
         assert!(
-            !is_its_own_build(&tree, &core_inside, &never),
-            "an untracked core is a registry's"
+            !is_its_own_build(&tree, &own_inside, &never),
+            "an untracked library is a registry's"
         );
         assert!(!is_its_own_build(&tree, &registry, &always));
-        assert!(!is_its_own_build(&mock, &core_inside, &always));
+        assert!(!is_its_own_build(&mock, &own_inside, &always));
         let asked = std::cell::RefCell::new(Vec::new());
         let recording = |rel: &Path| {
             asked.borrow_mut().push(rel.to_path_buf());
             true
         };
-        assert!(is_its_own_build(&tree, &core_inside, &recording));
+        assert!(is_its_own_build(&tree, &own_inside, &recording));
         assert_eq!(
             *asked.borrow(),
             vec![PathBuf::from("crates/check/Cargo.toml")]
@@ -1755,15 +1755,15 @@ mod tests {
     }
 
     /// The claim: a project reached through a symlink is read where the symlink resolves, so a
-    /// mock reached through a link into the core directory is a fixture.
+    /// mock reached through a link into `check`'s directory is a fixture.
     #[test]
     fn the_sentinels_read_paths_as_they_resolve() {
         let scratch = Scratch::new("symlink");
-        let core = scratch.dir("tree/crates/check");
+        let own = scratch.dir("tree/crates/check");
         let mock = scratch.dir("tree/crates/check/tests/projects/m");
         let link = scratch.0.join("link-to-mock");
         std::os::unix::fs::symlink(&mock, &link).expect("a symlink");
-        assert!(is_a_library_fixture(&link, &core, &[]));
+        assert!(is_a_library_fixture(&link, &own, &[]));
     }
 
     /// The claim: a pin equal to the binary's version passes; a version older or newer than the
@@ -1774,11 +1774,11 @@ mod tests {
     fn the_refusal_follows_the_mapping_table() {
         let scratch = Scratch::new("refusal");
         let tree = scratch.dir("tree");
-        let core_inside = scratch.dir("tree/crates/check");
+        let own_inside = scratch.dir("tree/crates/check");
         let mock = scratch.dir("tree/crates/check/tests/projects/m");
         let registry = scratch.dir("registry/knowledge-architect-0.2.0");
-        let refuse = |root: &Path, value: &str, core: &Path| {
-            refuse_another_version_built_at(&pinned_at(root, value), core, "0.2.0", &[], &always)
+        let refuse = |root: &Path, value: &str, own: &Path| {
+            refuse_another_version_built_at(&pinned_at(root, value), own, "0.2.0", &[], &always)
         };
         let err = |r: Result<(), String>| r.expect_err("a refusal");
 
@@ -1803,15 +1803,15 @@ mod tests {
             err(refuse(&tree, "0.10.0", &registry)).contains("older than"),
             "compared as integers"
         );
-        assert_eq!(refuse(&mock, "fixture", &core_inside), Ok(()));
+        assert_eq!(refuse(&mock, "fixture", &own_inside), Ok(()));
         assert!(err(refuse(&tree, "fixture", &registry)).starts_with(
             "\"fixture\" is only valid for a mock project inside a library this binary links"
         ));
-        assert_eq!(refuse(&tree, "self", &core_inside), Ok(()));
+        assert_eq!(refuse(&tree, "self", &own_inside), Ok(()));
         assert!(err(refuse(&tree, "self", &registry))
             .starts_with("\"self\" is only valid where the checker is built from this tree"));
         assert!(
-            err(refuse(&mock, "self", &core_inside)).starts_with("\"self\""),
+            err(refuse(&mock, "self", &own_inside)).starts_with("\"self\""),
             "a mock is no own build"
         );
 
@@ -1821,7 +1821,7 @@ mod tests {
         let malformed = Manifest::parse(&tree, bad).expect("a declaration");
         assert!(err(refuse_another_version_built_at(
             &malformed,
-            &core_inside,
+            &own_inside,
             "0.2.0",
             &[],
             &always
@@ -1832,7 +1832,7 @@ mod tests {
         let absent = Manifest::parse(&tree, text).expect("a declaration");
         assert!(err(refuse_another_version_built_at(
             &absent,
-            &core_inside,
+            &own_inside,
             "0.2.0",
             &[],
             &always
@@ -1905,11 +1905,11 @@ mod tests {
     }
 
     #[test]
-    fn each_extension_block_follows_the_core_lines_in_order() {
+    fn each_extension_block_follows_the_lines_of_check_in_order() {
         let mut r = numbered();
         r.summaries = vec!["\nfirst: 1".to_string(), "\nsecond: 2".to_string()];
         let out = counts(&r, None);
-        let references = out.find("references:").expect("the core line");
+        let references = out.find("references:").expect("`check` line");
         let first = out.find("first: 1").expect("the first block");
         let second = out.find("second: 2").expect("the second block");
         assert!(references < first && first < second, "{out}");

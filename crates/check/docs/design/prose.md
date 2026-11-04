@@ -15,18 +15,18 @@ be interpolated makes the tests harder to read than the code they test. Comments
 because the test modules point at decisions and paths for real, and those pointers stay checked.
 
 **The directories are compiled in, never declared.** A binary's source spans several
-Components: the core's, the `git` crate's, the `model` crate's, and the Component of each extension
+Components: `check`'s, the `git` crate's, the `model` crate's, and the Component of each extension
 the binary registers. Each library exports
 the directory of the Component it belongs to, evaluated at build time, and the binary hands the
-list of its libraries' directories to the walk. The core is one crate whose directory is its
-Component, so the core library exports its own `CARGO_MANIFEST_DIR`, and the core's binary and
+list of its libraries' directories to the walk. `check` is one crate whose directory is its
+Component, so the `check` library exports its own `CARGO_MANIFEST_DIR`, and `check`'s binary and
 tests sit inside it; the `git` crate and the `model` crate, each a Component of its own, export their
 own directory the same way. An extension whose library crate sits below its Component's directory exports
 that Component's directory instead, or the binary and tests beside the library would sit outside
 it: a binary sees only the libraries it depends on. A binary run
 through a cargo alias over `cargo run` is built from the checkout on every invocation, so each
 compiled path is the tree being checked, unless another checkout shares the target directory and
-the build is not tied to its checkout, which `design@check@a-foreign-build-is-refused` refuses. Once the core is consumed as a published crate, its
+the build is not tied to its checkout, which `design@check@a-foreign-build-is-refused` refuses. Once `check` is consumed as a published crate, its
 directory is outside the tree and exempts nothing, which is correct: its source is then not part
 of the tree. The root and the compiled path are canonicalised before
 the prefix test, so a symlinked checkout does not defeat it; a symlink inside the tree is not
@@ -92,7 +92,7 @@ it reads are each crate's own directory and package name, beside the Component d
 **Every binary tests both halves over its own Components.** Over a checkout holding the tool,
 the summary's checker-source line names each Component whose library the binary links and
 counts the walked Rust files under them. And a tree holding one of the binary's crates at
-another relative path is refused. The core's binary does this in
+another relative path is refused. `check`'s binary does this in
 `path@check@tests/binary.rs`; an extension binary does it in its own suite, because only it
 links its extension's library.
 
@@ -101,17 +101,17 @@ The design this decision did not keep: `rejected@check@run-time-checker-director
 ### The manifest pins the checker's version, every binary that dispatches a command of the checker refuses to run over a project it does not satisfy, and a binary that dispatches none makes no call `##installed-binary-version-check`
 
 Every manifest declares `[project] checker-version`: the exact version of the checker the project
-runs, which is the version of the core library whatever binary links it, or one of the two values
+runs, which is the version of the `check` library whatever binary links it, or one of the two values
 of `design@check@checked-sentinel-values`. `Manifest::parse` reads it; an absent key, or a string
 of none of the three forms, is a complaint opening with the key's name, and a value that is not a
 string fails the parse. Each binary that dispatches a command of the checker calls
 `cli::refuse_another_version` in its `main`, right after the build-origin refusal of
 `design@check@a-foreign-build-is-refused`, before it dispatches any command but `init`, an
-extension's own included: a version is accepted when it equals the core library's, and any refusal, the key's own
+extension's own included: a version is accepted when it equals the `check` library's, and any refusal, the key's own
 complaint included, is exit 2, per `design@check@exit-code-ladder`, naming the two versions and
 which side is older. `init`, which every binary hands to `cli::init` before it locates a project,
 calls no version refusal: no manifest exists to read a pin from, and the one it writes pins the
-core library's version, per `design@check@init-command`. `cli::run` does not refuse, so a command
+`check` library's version, per `design@check@init-command`. `cli::run` does not refuse, so a command
 driven in-process needs a key but no confirmed one. A binary that links the library and dispatches no command of the checker, such as a
 maintenance crate that uses it only to find the project's root through `MANIFEST_NAME`, does not
 call it: nothing it runs reads the documents by the checker's rules, and where it runs the checker,
@@ -142,11 +142,11 @@ its message does not name the pin.
 Two values of `[project] checker-version` are not versions, for a project's own tests and for a
 tree the checker is built from:
 
-- `"fixture"` is accepted when the project lies strictly inside the core's compiled directory or
+- `"fixture"` is accepted when the project lies strictly inside `check`'s compiled directory or
   one of the directories the binary passes as its own source: a mock project of a library the
   binary links. Strictly, because an extension whose crate is the project's root passes the root
   among its directories, and a library is no mock of itself.
-- `"self"` is accepted when the core's compiled directory lies inside, or is, the project, and the
+- `"self"` is accepted when `check`'s compiled directory lies inside, or is, the project, and the
   project's git tracks that directory's `Cargo.toml`: a tree the checker is built from. The
   tracking tells it from a project whose `CARGO_HOME` is one of its own directories, where a
   registry build's directory also lies inside the root.

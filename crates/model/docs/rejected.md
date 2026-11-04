@@ -284,5 +284,5 @@ would change an interface others consume.
 ### The check-ignore batch of the working tree gathered with the checks `##ignore-batch-in-the-checks`
 
 `live`. A consumer of the resolver with no check would read each target the ignore rules cover as
-absent. It would change an interface others consume. A run over a tree git holds does ask in the core,
+absent. It would change an interface others consume. A run over a tree git holds does ask in `check`,
 since no gathering of the working tree reads that tree.

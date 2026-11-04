@@ -23,7 +23,7 @@ start, and only a reviewer reading by hand found them.
   `skill@knowledge-architect-planning@working-a-slice`; and "loop step" numbers across the design skill, citing the steps of `skill@knowledge-architect-design@discussion-loop`; and the goal standard's rules cited by number, "rule 3" and "rules 4 and 6", in `agent@knowledge-architect-goal-reviewer@the-modes` and `agent@knowledge-architect-goal-reviewer@what-to-report`.
 - The case, this repository's agent-configuration-entities milestone: three citations in words
   went stale or were wrong from the start; a fidelity reviewer reading by hand found them.
-- The core's rejected design on register entries at level three,
+- `check`'s rejected design on register entries at level three,
   `rejected@model@slug-at-any-heading-or-cell`, concerns defining entries, not citing sections.
 
 The suspected mechanism, in one sentence: the citable unit is the level-two section, and the

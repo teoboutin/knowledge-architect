@@ -17,7 +17,7 @@ narrow read-only view as the direction, and scheduled no work for it yet.
 What `Prepared::check` receives is `Model`, `Manifest` and `Inputs`, each through the facade of
 `design@check@api-facade`. That facade offers no anchor, no register and no `Entities`; `model` publishes
 them for the tools over the record, so an extension that adds that crate to its own dependencies can
-name them as they are, though `Inputs::tree` is the core's own, so it gathers again through
+name them as they are, though `Inputs::tree` is `check`'s own, so it gathers again through
 `foundation::Gathered` to hand the resolver what it reads. So an extension through the public API of this library cannot ask which Component
 or location owns a document, whether a document is an entry of a register or a design home, which
 entries exist, or what a reference resolves to.
@@ -44,7 +44,7 @@ Three smaller gaps came out of the same trial:
 
 - a `Finding` carries no field naming the check that wrote it, so the extension prefixed its
   check's name into the text. A consuming project met it again: its tests sorted planted findings
-  into the core's and the extension's by their wording, C3 of
+  into `check`'s and the extension's by their wording, C3 of
   2026-10-07-thaum-mock-reduction-workflow. For that split, `Prepared::check` already returns an
   `ExtensionReport` holding the extension's findings alone; it does not name which of the
   extension's own checks wrote each;
@@ -62,7 +62,7 @@ records the instance.
 
 It strains `design@check@api-facade`, whose membership leaves an extension nothing to ask these
 questions with. `goal@check@projects-add-their-own-checks` is met "while an extension needs no
-change to the core and uses only its public API, documented with its contract and its examples".
+change to `check` and uses only its public API, documented with its contract and its examples".
 An extension that has to guess membership from paths
 quietly breaks where the manifest says something else, and with it
 `goal@check@relocation-needs-only-goal-changes` for any project that runs one.

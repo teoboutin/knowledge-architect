@@ -410,7 +410,7 @@ impl Model {
     }
 
     /// The same, with each extension's rows merged in: per document and line, an extension's
-    /// rows before the core's, as one scanner emitting both would order them.
+    /// rows before `check`'s, as one scanner emitting both would order them.
     pub fn canonical_with(&self, extra: &[DumpRow]) -> String {
         // (document, line, source, order) sorts every row; the source puts an extension's
         // row first on a shared line, and the order keeps each source's own sequence.

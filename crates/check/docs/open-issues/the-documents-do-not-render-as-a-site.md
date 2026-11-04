@@ -5,7 +5,7 @@ kind: todo
 
 ## Summary
 
-The core's goal is that knowledge-architect's own Markdown documents that the checker reads render
+`check`'s goal is that knowledge-architect's own Markdown documents that the checker reads render
 as one hosted site, each reference that resolves rendered as a link to its target, built by mdbook.
 Nothing builds it yet.
 

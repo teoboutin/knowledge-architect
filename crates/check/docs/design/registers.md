@@ -42,7 +42,7 @@ rival, counting it like a declared register's entry, would list a design not kep
 
 A tripwire's `**Watches until:**` line, which `design@agent-skills@tripwire-horizon` gives every
 entry, is written and read by the sessions and the reviewers that the installed workflow sends, and
-no check of the core reads it. Whether a horizon has passed is an event over the history the
+no check of `check` reads it. Whether a horizon has passed is an event over the history the
 checker does not judge, and a presence check would read a field of a heading entry, the syntax
 `rejected@check@validity-marker-checked` refused for the `rejected` register. The owner chose to
 keep the line out of the checker for now, judging a check not yet needed. The tripwire axis of the
