@@ -17,6 +17,10 @@ A preprocessing pass that rewrites each reference into a link to its entry, and 
 hosted with the project. The owner's lead is mdbook, a design lead the goal does not name; nothing about the
 shape is decided.
 
+Two cases of the goal for that work to decide, which the goal's words leave open: a resolving `path` reference to a source file
+must render as a link, where the site holds Markdown documents, so the site holds source files or links out of itself; and the
+documents the checker reads take in plan documents, skills and open issues, so working documents would be published.
+
 ### Why it matters
 
 It is the work that fulfils `goal@knowledge-architect@documents-render-as-a-linked-site`. Until it exists, a

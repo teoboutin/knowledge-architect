@@ -506,7 +506,7 @@ Binding, from `goal@knowledge-architect@documents-render-as-a-linked-site`, whic
 from the model alone is the owner's argument, #arg-26. Met by #model-crate, which separates the
 resolver from the lints, and #render-crate.
 
-### An extension needs no change to any crate of knowledge-architect and uses only their public, documented APIs `##extension-api-stays-public`
+### An extension needs no change to any crate of knowledge-architect, builds against published versions of them, and uses only their public, documented APIs `##extension-api-stays-public`
 
 Binding, from `goal@check@projects-add-their-own-checks`. Met by #cli-crate, which keeps the package
 name and re-exports the extension API, #model-crate's phase-1 contribution, and #testing-crate.
