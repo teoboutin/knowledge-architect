@@ -162,7 +162,7 @@ impl<'a> Inputs<'a> {
     }
 }
 
-/// `check`'s checks of the last phase, by the name each one's count line carries.
+/// `check`'s checks of the last phase, by the name the `checked:` line prints.
 ///
 /// One per module under `check/` that runs in the last phase. Every one runs on every run that
 /// reaches the last phase. An extension adds its own, per
@@ -207,7 +207,12 @@ pub(crate) fn run(
         findings,
         structure,
         checks: CHECKS.to_vec(),
-        not_run: Vec::new(),
+        // A project that serves no harness gives the family nothing to read.
+        not_run: if manifest.serves_claude() {
+            Vec::new()
+        } else {
+            vec!["agents"]
+        },
         summaries: Vec::new(),
     }
 }

@@ -73,7 +73,7 @@ section in an upgrade and repairs its citations passes `commits` on every commit
 - **Not the binary's shipped set.** `commits` judges every commit of a range with the tip's binary,
   per `design@check@installed-binary-version-check`, so definitions from the shipped set would fail
   every earlier commit citing a section the tip renamed. That is why
-  `design@check@owned-namespace-check` already compares no installed copy under `commits`.
+  `design@check@only-check-compares-installed-files` compares no installed copy under `commits`.
 - **An installed copy raises no finding**, per `design@model@section-homes-carry-slugs`.
 - **This repository's shipped text defines nothing in its walk**: content/ writes each section slug
   as a build placeholder, per `design@agent-skills@content-mirrors-the-install-layout`, so the

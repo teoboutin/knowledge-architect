@@ -1,4 +1,4 @@
-# Core design: Entities, ids and headings
+# Check design: Entities, ids and headings
 
 ## Entities, ids and headings
 

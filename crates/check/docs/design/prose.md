@@ -1,4 +1,4 @@
-# Core design: What is prose
+# Check design: What is prose
 
 ## What is prose
 

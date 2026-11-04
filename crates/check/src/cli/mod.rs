@@ -278,7 +278,8 @@ pub fn run(
     }
 }
 
-/// Write the shipped agent files into the project, per `design@check@owned-namespace-check`.
+/// Write the shipped agent files into the project, per `design@check@installed-files-committed` and
+/// `design@check@owned-namespace-check`.
 ///
 /// Exit 0 when the installed set is the shipped one afterwards, 2 when the filesystem refused a
 /// write. It edits nothing outside the installer's namespace: a missing primer import line is

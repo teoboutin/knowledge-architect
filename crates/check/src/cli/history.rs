@@ -93,7 +93,7 @@ impl Assembly {
             // A commit's installed files are not compared: the running binary ships its own
             // version's text, and an older commit's installed set would fail against it with no
             // repair a commit in history can take. `check` on the working tree enforces them,
-            // per `design@check@owned-namespace-check`, and so does `check --staged`, whose
+            // per `design@check@only-check-compares-installed-files`, and so does `check --staged`, whose
             // snapshot is the next commit, judged as a clean checkout of it would be.
             installed: if self.compare_installed {
                 &self.survey.installed
@@ -462,7 +462,7 @@ fn commit_tree(
         .cloned()
         .collect();
     // An installed file leaves the walk as a generated one does, per
-    // `design@check@owned-namespace-check`. A commit's installed files are not compared, but
+    // `design@check@installed-files-outside-the-walk`. A commit's installed files are not compared, but
     // `read_tree` reads their blobs with every other unskipped file, and the survey keeps their
     // text.
     let installed: Vec<PathBuf> = files

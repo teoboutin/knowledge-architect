@@ -1,6 +1,6 @@
 **Generated — do not edit.** `cargo klarch index`
 
-37 entries
+38 entries
 
 | kind | title |
 | --- | --- |
@@ -41,3 +41,4 @@
 | todo | [The documents do not yet render as one linked site](the-documents-do-not-render-as-a-site.md) |
 | todo | [The graded entries carry a shared entry's grade once per agent](the-graded-entries-repeat-a-shared-entry-s-grade-per-agent.md) |
 | todo | [The checker does not read the structure of a project's own skills](tooling-for-project-skills.md) |
+| todo | [Two refusals of a foreign build and of the `"self"` pin have no test that fails when they are removed](two-refusals-of-the-build-and-the-pin-have-no-discriminating-test.md) |

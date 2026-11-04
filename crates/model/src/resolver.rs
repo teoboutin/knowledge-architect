@@ -47,6 +47,20 @@ pub enum Target {
     Planned(PathBuf),
 }
 
+/// The repair of a reference to a skill or an agent no file defines. A name of the installer's
+/// namespace has a second cause, an installed file that is missing, whose repair is the install, so
+/// the text names each case, per `design@check@finding-names-the-repair`.
+fn missing_owner_repair(kind: impl std::fmt::Display, name: &str) -> String {
+    if name.starts_with(crate::manifest::OWNED_PREFIX) {
+        format!(
+            "run `install-agent-skills` if the installed {kind} is missing; otherwise name an \
+             existing {kind}, or repair the reference"
+        )
+    } else {
+        format!("name an existing {kind}, or repair the reference")
+    }
+}
+
 /// Why a reference resolves to nothing.
 ///
 /// Each variant holds what its two texts need beyond the span, so the words are the same wherever
@@ -254,26 +268,40 @@ impl Cause {
             ),
             NoOwner { kind, owner } => (
                 format!("`{span}` is referenced and no {kind} is named `{owner}`"),
-                format!("name an existing {kind}, or repair the reference"),
+                missing_owner_repair(kind, owner),
             ),
             NoOwnerSection { kind, owner, id } => (
                 format!(
                     "`{span}` is referenced and the {kind} `{owner}` defines no section `{id}`"
                 ),
-                format!(
-                    "end a level-2 heading of the {kind} `{owner}` with that slug, or repair the \
-                     reference"
-                ),
+                if owner.starts_with(crate::manifest::OWNED_PREFIX) {
+                    format!(
+                        "run `install-agent-skills` if the installed {kind} is stale; otherwise \
+                         repair the reference"
+                    )
+                } else {
+                    format!(
+                        "end a level-2 heading of the {kind} `{owner}` with that slug, or repair \
+                         the reference"
+                    )
+                },
             ),
             NoNamed { kind, id } => (
                 format!("`{span}` is referenced and no {kind} is named `{id}`"),
-                format!("name an existing {kind}, or repair the reference"),
+                missing_owner_repair(kind, id),
             ),
             NoSection { document, id } => (
                 format!("`{span}` is referenced and {document} defines no section `{id}`"),
-                format!(
-                    "end a level-2 heading of {document} with that slug, or repair the reference"
-                ),
+                if *document == "the primer" {
+                    "run `install-agent-skills` if the installed primer is stale; otherwise repair \
+                     the reference"
+                        .to_string()
+                } else {
+                    format!(
+                        "end a level-2 heading of {document} with that slug, or repair the \
+                         reference"
+                    )
+                },
             ),
             NoRegister { id, homed } => (
                 format!("`{span}` names `{id}`, which is no register of this project"),

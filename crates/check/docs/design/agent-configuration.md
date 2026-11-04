@@ -1,4 +1,4 @@
-# Core design: The agent configuration
+# Check design: The agent configuration
 
 ## The agent configuration
 
@@ -44,13 +44,16 @@ instructions that name the command it actually runs.
 project's command, and the project commits them, so a session started from a fresh clone, a web
 session or a review in a new worktree has them without building anything, which serves
 `goal@knowledge-architect@agents-get-a-complete-workflow`. The rival, installing them on demand, gives
-such a session nothing until something has run the install. The installed files are outside the walk by
-construction, as the generated indexes are: their prose is the shipped text's, judged where that text is
-written, and its illustration paths would otherwise be reported in every installing project.
+such a session nothing until something has run the install.
+### The installed agent files are outside the walk, and read for definitions only `##installed-files-outside-the-walk`
 
-**The installed copies are also read, for definitions only**, per
-`design@model@installed-entities-from-the-tree`: the model holds them parsed, no check walks them
-for references, and they raise no finding of the section rule.
+They leave the walk by construction, as the generated indexes do: their prose is the shipped text's, judged
+where that text is written, and its illustration paths would otherwise be reported in every installing
+project. The rival, walking them as any other document, reports those paths in a project that can repair
+none of them.
+
+The model holds them parsed for definitions, per `design@model@installed-entities-from-the-tree`: no check
+walks them for references, and they raise no finding of the section rule or of a slug defined twice.
 
 ### The installed agent files are checked byte for byte, in a namespace whose ownership is decided by a name `##owned-namespace-check`
 
@@ -59,20 +62,26 @@ is the prefix `knowledge-architect-` among the skill directories, the agent file
 files of `.claude/`, and the directory .claude/knowledge-architect/. A project's own skill takes a name of
 its own, so ownership is decided by a name, with no record and no history: a renamed skill shows as the old
 file to remove and the new one missing; one install repairs both, and the removal awaits staging like any
-deletion, which the check names until it is staged. The rival, a record of installed files with a digest,
-is `rejected@check@install-record-file`.
+deletion, which the check names until it is staged. The rival, a record of installed files, is
+`rejected@check@install-record-file`.
 
 A symbolic link on an owned path is refused by the install before it touches anything, because following
 one would write or delete in another directory. Under `claude`, the family `agents` of the last phase
 reports each shipped file missing or whose bytes differ from its rendered template, and each file of the
 namespace the version does not ship. No check reads these findings, and a model built over a stale copy or a
-missing one is complete, per `design@check@phases-gate-the-report`. Only `check` compares: `commits` does
-not, because the running binary ships its own version's text, and an older commit's installed set would fail
-against it with no repair a commit already in history can take. The comparison is of bytes: the binary holds
-the text, so a digest would add a dependency and nothing else.
+missing one is complete, per `design@check@phases-gate-the-report`. The comparison is of bytes, line endings normalised: the binary
+holds the text, so a digest would add a dependency and nothing else. Only `check` compares, per
+`design@check@only-check-compares-installed-files`.
 
 The install edits nothing outside the namespace. A change a project needs to an installed skill belongs in a
 skill of its own, routed from the project's CLAUDE.md.
+
+### Only `check` compares the installed files, and `commits` does not `##only-check-compares-installed-files`
+
+The running binary ships its own version's text, and an older commit's installed set would fail against it
+with no repair a commit already in history can take. `check --staged` compares, since its snapshot is the
+next commit. A commit's tree is judged against the installed set it holds, per
+`design@model@installed-entities-from-the-tree`.
 
 ### The root CLAUDE.md delivers the primer by an import line, which the project writes `##primer-import-line`
 

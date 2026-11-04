@@ -1,4 +1,4 @@
-# Core design: Plan documents
+# Check design: Plan documents
 
 ## Plan documents
 

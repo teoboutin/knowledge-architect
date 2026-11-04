@@ -1,4 +1,4 @@
-# Core design: Paths, homes and links
+# Check design: Paths, homes and links
 
 ## Paths, homes and links
 

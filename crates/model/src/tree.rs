@@ -23,20 +23,25 @@ use crate::phases::TreeInputs;
 pub(crate) fn check(model: &Model, manifest: &Manifest, inputs: &TreeInputs) -> Vec<Finding> {
     let mut out = Vec::new();
 
-    // A root CLAUDE.md a walk row keeps out cannot be read, so the model lacks what it defines and
-    // no check can read its import of the primer; no row may waive that, only declaring no harness
-    // does. A missing one is the required-documents finding below. This stands until
+    // A root CLAUDE.md a walk row or an extension's generated list keeps out cannot be read, so the
+    // model lacks what it defines and no check can read its import of the primer; neither may waive
+    // that, only declaring no harness does. A missing one is the required-documents finding below.
+    // This stands until
     // `issue@model@the-walk-may-exclude-a-file-the-model-requires` replaces it.
     let root_document = std::path::Path::new(crate::manifest::AGENT_DOCUMENT);
     if manifest.serves_claude()
         && inputs.present.contains(root_document)
-        && crate::walk::kept_out(root_document, manifest.walk())
+        && (crate::walk::kept_out(root_document, manifest.walk())
+            || manifest
+                .extension_generated()
+                .iter()
+                .any(|g| g == root_document))
     {
         out.push(Finding::in_file(
             root_document,
-            "the root CLAUDE.md is outside the walk, so its import of the installed primer \
-             cannot be checked",
-            "remove the row of [walk] that keeps it out",
+            "the root CLAUDE.md is outside the walk, so the model lacks what it defines and its \
+             import of the installed primer cannot be read",
+            "remove the row of [walk] or the extension's generated file that keeps it out",
         ));
     }
 

@@ -278,11 +278,11 @@ fn git(dir: &Path, args: &[&str]) {
 }
 
 #[test]
-fn the_core_binary_passes_over_a_project_that_declares_only_what_the_core_reads() {
+fn the_binary_passes_over_a_project_that_declares_only_what_it_reads() {
     let (code, out) = check(&mock());
     assert_eq!(code, 0, "{out}");
     assert!(
-        out.contains("checked: agents, generated, registers, references\n"),
+        out.contains("checked: generated, registers, references\n"),
         "{out}"
     );
     assert!(out.ends_with("PASSED: no findings\n"), "{out}");
@@ -293,7 +293,7 @@ fn the_core_binary_passes_over_a_project_that_declares_only_what_the_core_reads(
 /// per `design@check@checker-source-literals-are-data`. Over this checkout the summary names both
 /// directories and counts their walked Rust files, whatever the run finds.
 #[test]
-fn the_core_binary_names_the_checker_s_directories_and_counts_the_files_under_them() {
+fn the_binary_names_the_checker_s_directories_and_counts_the_files_under_them() {
     let checkout = Path::new(env!("CARGO_MANIFEST_DIR"))
         .ancestors()
         .nth(2)
@@ -332,7 +332,7 @@ fn the_core_binary_names_the_checker_s_directories_and_counts_the_files_under_th
 }
 
 #[test]
-fn the_core_binary_refuses_a_table_no_extension_of_it_claims() {
+fn the_binary_refuses_a_table_no_extension_of_it_claims() {
     // A copy, so the table is added to nothing another test reads. The walk is git's listing,
     // so the copy is its own repository.
     let dir = std::env::temp_dir().join(format!("knowledge-check-claims-{}", std::process::id()));
@@ -3293,12 +3293,17 @@ fn a_differing_installed_file_is_listed_beside_a_reference_finding() {
     );
     assert!(out.contains("no-such-entry"), "{out}");
     assert!(out.contains("FAILED: 2 findings above"), "{out}");
+    assert!(
+        out.find("this installed file differs") < out.find("no-such-entry"),
+        "the install finding is listed first: {out}"
+    );
 }
 
 /// The claim: a shipped file deleted with the deletion staged is a finding of the last phase, and a
 /// reference to the skill it defined is reported beside it as unresolved, since the model is built
-/// over the tree as it is. Mutation checked: `foundation` of the checks stopping on the family's
-/// findings lists the install finding alone, in phase 2.
+/// over the tree as it is, and names the install as its repair. Mutations checked: `foundation` of
+/// the checks stopping on the family's findings lists the install finding alone, in phase 2; the
+/// repair text with no case for the namespace fails the last assertion.
 #[test]
 fn a_missing_shipped_file_is_listed_beside_the_references_to_what_it_defined() {
     let sandbox = harnessed("installed-missing");
@@ -3326,6 +3331,33 @@ fn a_missing_shipped_file_is_listed_beside_the_references_to_what_it_defined() {
             .any(|l| l.starts_with("docs/note.md") && l.contains(name)),
         "{out}"
     );
+    assert!(
+        out.contains("run `install-agent-skills` if the installed skill is missing"),
+        "{out}"
+    );
+}
+
+/// The claim: `commits` reports a commit's tree whose row keeps the root CLAUDE.md out under the
+/// `claude` harness, as `check` does, in phase 2. Mutation checked: removing the finding from
+/// `tree::check` passes the range.
+#[test]
+fn commits_reports_a_tree_whose_row_keeps_the_root_claude_md_out() {
+    let history = History::new("commit-row-claude");
+    tiny_project(&history, false);
+    let base = history.commit("The project is created\n");
+    let manifest = std::fs::read_to_string(history.dir.join("knowledge-architect.toml"))
+        .expect("the manifest");
+    history.write(
+        "knowledge-architect.toml",
+        &manifest
+            .replace("harness = []", "harness = [\"claude\"]")
+            .replace("skip-files = []", "skip-files = [\"CLAUDE.md\"]"),
+    );
+    history.write("CLAUDE.md", "# A project\n");
+    history.commit("A row keeps the root document out\n");
+    let (stdout, _, code) = history.run(&["commits", &format!("{base}..HEAD")]);
+    assert_eq!(code, 1, "{stdout}");
+    assert!(stdout.contains("its tree stops at phase 2"), "{stdout}");
 }
 
 /// The claim: `index` writes over a stale install, since the family is no part of the gate of phases

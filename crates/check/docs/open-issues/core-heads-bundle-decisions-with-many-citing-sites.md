@@ -6,8 +6,7 @@ kind: design
 ## Summary
 
 Four heads, three of `register@check@design` and one of `register@model@design`, each hold two or more decisions whose nearest rivals
-differ, against `design@agent-skills@one-decision-per-head`. The first run of the design-record
-axis on this repository found three, and a branch's review two more; each was left unsplit because
+differ, against `design@agent-skills@one-decision-per-head`. The first run of the design-record axis on this repository found them, and a branch's review two more, and one more has since been split with every citing site re-pointed; each listed one was left unsplit because
 a split must first read every site that cites the head, 7 to 33 sites per head, to re-point each
 one to the part it cites.
 
@@ -50,8 +49,7 @@ the first run of the design-record axis counted 20, 23, 26 and 31 for the four h
   decision.
 The second pass of that run reworded a sentence of `design@check@a-commit-message-is-a-document`
 into the present tense and left its bundle, so that head is a change's touched head left short of
-`design@agent-skills@existing-heads-on-touch`. A fourth head the run found bundled has since been
-split, with every site that cited it re-pointed.
+`design@agent-skills@existing-heads-on-touch`. A head the run found bundled has since been split, with every site that cited it re-pointed.
 
 Two more, found by the decision-record reviewer of the review before the merge of the branch
 `pre-release-fixes`, which touched both and left both bundled; counts taken on that branch:

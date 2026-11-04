@@ -56,7 +56,7 @@ fn git_answers(
 
 /// A project that carries what it declares reports nothing, over every built-in check.
 #[test]
-fn the_conformant_mocks_report_nothing_over_every_core_check() {
+fn the_conformant_mocks_report_nothing_over_every_built_in_check() {
     use crate::check::{foundation, run, Inputs};
     use std::collections::HashMap;
     for name in ["minimal", "dirhome", "core"] {
@@ -190,8 +190,8 @@ mod planted {
         // by running them together: the whole run is the sum of the rows.
         for name in CHECKS {
             // Every mock but `unsound` declares no harness, so `agents` finds nothing here: its
-            // defects are built by its unit tests and by the binary tests in a copy, since a mock
-            // that served the harness would change with every version of the shipped set.
+            // defects are built by its unit tests and by the binary tests in a copy, since a binary
+            // run over a mock that served the harness would list every file of the shipped set.
             if name == "agents" {
                 continue;
             }

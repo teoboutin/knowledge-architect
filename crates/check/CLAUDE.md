@@ -59,7 +59,7 @@ a file deleted or unreadable on disk, a nested repository — are built by the t
 conformance, every built-in check running and finding nothing; `minimal` is the walk, the
 exclusions, a location and a declared register; `core` is the smallest conformant project, and
 the tests of the `check` binary's refusal of a table it does not own. **Plant a phase-4 defect in
-`planted`, a phase-2 or phase-3 one in `unsound`, and nowhere else.** The `check` binary run from
+`planted`, the family `agents` apart, a phase-2 or phase-3 one in `unsound`, and nowhere else.** The `check` binary run from
 `dirhome`, `minimal` or `core` reports no finding; anything else it reports there is a defect in
 the tool or in the fixture.
 

@@ -500,9 +500,7 @@ answer it is asked for; listing every kind and anchor answers it whatever the ow
 
 ### The findings on the installed agent files kept before the last phase `##installed-files-before-the-last-phase`
 
-`live`. It would change what a command does over a stale install: every writer refused, a run reporting no
-reference beside the install finding, and `model`, which held the phase, depending on the shipped text. No
-check reads these findings, and the model is complete without them, whichever crate held the check or
-whichever of the files was missing: over a missing one the model is built of the tree as it is, and a
-reference to what it defined is reported as unresolved. It is kept because a doubt remains on a session that
-meets both findings and repairs the references rather than running the install.
+`live`. It would change what a command does over a stale install: every writer refused, and a run reporting no
+reference beside the install finding. No check reads these findings, and the model is complete without them,
+whichever crate held the check and whichever of the files was missing: over a missing one the model is built
+of the tree as it is, and a reference to what it defined is reported as unresolved.

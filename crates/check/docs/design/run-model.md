@@ -1,4 +1,4 @@
-# Core design: The model, the phases and the findings
+# Check design: The model, the phases and the findings
 
 ## The model, the phases and the findings
 
@@ -104,6 +104,14 @@ a clean run names every check it performed. The whole report stops: the per-docu
 hiding only what an unread file could have defined, is three times the machinery for facts
 that mostly have no per-file scope, and `register@check@tripwire` guards that choice.
 
+**The installed agent files are the last phase's.** A required document stays in phase 2 since the anchors
+read it; an installed copy defines entities and nothing the rest of the model needs to be complete.
+`Model::build` builds over a stale copy, which still defines its entities, and over a missing one, whose
+references are then reported as unresolved, beside the finding that names the install. An installed copy
+raises no finding of phase 3, per `design@model@installed-entities-from-the-tree`, and a session reads the
+installed files from the disk rather than through a tool over the model, so no tool needs to refuse a stale
+install.
+
 **An extension prepares its tree when the last phase is reached**, so a run that stops earlier
 resolves no release and fetches nothing, whatever it would have judged. **A writer refuses over an incomplete model**: `index`,
 `new-component` and a writing command of an extension, such as thaum's `rules bump`, run the first
@@ -123,11 +131,6 @@ judged against an incomplete entity table is judged against nothing. The scan fo
 range by SHA needs no entity table, so it still reads that message, per
 `design@check@branch-shas-are-refused`.
 
-**Nothing selects a subset of the checks.** The checks cross the phases — what `registers`
-asserts sits in phases 2 and 4, what `references` asserts in 3 and 4 — so a selection could be
-honoured only with a second bookkeeping saying which part of a check a stop withheld. The
-selection, and what it bought, is `rejected@check@only-flag-check-subset`.
-
 **One producer chain, and a rule for a second.** The manifest feeds the walk, the walk the
 model, the model the table, and every check consumes the table. A future check whose findings
 another check reads would be a second chain, and nothing prevents one: such a check is a phase,
@@ -135,6 +138,14 @@ not a check of the last one, and it goes before its consumers. A tripwire names 
 
 The designs this decision did not keep: `rejected@check@per-document-phase-gate` and
 `rejected@check@installed-files-before-the-last-phase`.
+
+
+### Nothing selects a subset of the checks `##no-check-selected`
+
+The checks cross the phases — what `registers`
+asserts sits in phases 2 and 4, what `references` asserts in 3 and 4 — so a selection could be
+honoured only with a second bookkeeping saying which part of a check a stop withheld. The
+selection, and what it bought, is `rejected@check@only-flag-check-subset`.
 
 ### A finding names a cause only where the repair depends on which cause holds `##finding-names-the-repair`
 

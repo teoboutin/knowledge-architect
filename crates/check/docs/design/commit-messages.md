@@ -1,4 +1,4 @@
-# Core design: Commit messages
+# Check design: Commit messages
 
 ## Commit messages
 

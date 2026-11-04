@@ -661,7 +661,7 @@ An illustration of the shapes, not authority; the audit and the implementing ses
 final names.
 
 ```text
-crates/core/src/fix.rs                                  new module, pub(crate)
+crates/check/src/fix.rs                                  new module, pub(crate)
   struct Respelling { file, line, old, new }            one rewrite: the span's text without its
                                                         backticks, before and after
   fn respellings(model, manifest, entities, inputs)     -> Vec<Respelling>, computed after the first
@@ -671,11 +671,11 @@ crates/core/src/fix.rs                                  new module, pub(crate)
                                                         disk equal its baseline, and returns the
                                                         files written and the files skipped
 
-crates/core/src/scan.rs
+crates/model/src/scan.rs
   Located::origin                                       new: whether a span of Rust source was read
                                                         from a comment or a string literal
 
-crates/core/src/check/references.rs
+crates/check/src/check/references.rs
   fn candidates(span, rel, anchors, inputs)             new: the candidates of a raw path, as Names
                                                         defines them, each spelled as a reference
   fn harness_citation(target, entities)                 new: the skill or agent whose site, or
