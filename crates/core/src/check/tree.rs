@@ -18,9 +18,9 @@ use crate::manifest::{
 };
 use crate::model::Model;
 
-use super::Inputs;
+use super::TreeInputs;
 
-pub(crate) fn check(model: &Model, manifest: &Manifest, inputs: &Inputs) -> Vec<Finding> {
+pub(crate) fn check(model: &Model, manifest: &Manifest, inputs: &TreeInputs) -> Vec<Finding> {
     let mut out = Vec::new();
 
     // A parse that could not be trusted must be LOUD. Silently it removes every citation in
@@ -172,7 +172,7 @@ fn directory_home(
     anchor: &Anchor,
     register: &Register,
     home: &Home,
-    inputs: &Inputs,
+    inputs: &TreeInputs,
 ) {
     if !inputs.directories.contains(&home.dir) {
         out.push(Finding::in_file(
@@ -200,7 +200,12 @@ fn directory_home(
 ///
 /// Each is phase 2: the anchors and the entries of the plans layout are read off the tree, so a
 /// later phase over a tree that breaks one would judge plan documents no anchor owns.
-fn plans_layout(out: &mut Vec<Finding>, manifest: &Manifest, anchors: &Anchors, inputs: &Inputs) {
+fn plans_layout(
+    out: &mut Vec<Finding>,
+    manifest: &Manifest,
+    anchors: &Anchors,
+    inputs: &TreeInputs,
+) {
     let Some(plans) = anchors
         .all()
         .iter()
@@ -305,7 +310,7 @@ fn directory_layout(
     register: &Register,
     home: &Home,
     entries: &[entity::PlacedEntry],
-    inputs: &Inputs,
+    inputs: &TreeInputs,
 ) {
     if !inputs.directories.contains(&home.dir) {
         return;
@@ -450,7 +455,7 @@ fn heading_home(
     anchor: &Anchor,
     register: &Register,
     home: &Home,
-    inputs: &Inputs,
+    inputs: &TreeInputs,
 ) {
     // The survey records each path's kind, so both impostor shapes land in the no-home arm by
     // fact rather than by inference: a directory wearing the file home's name is not the file
@@ -509,7 +514,7 @@ fn file_home(
     anchor: &Anchor,
     register: &Register,
     home: &Home,
-    inputs: &Inputs,
+    inputs: &TreeInputs,
 ) {
     // The single-file shape a heading register accepts is not a shape here, and a project
     // migrating from one is exactly where the mistake is made, so it is named. A register at its
@@ -580,7 +585,7 @@ fn outside_the_walk(
 }
 
 /// What the manifest declares about anchors, judged before anything is looked for on disk.
-fn declarations(out: &mut Vec<Finding>, manifest: &Manifest, inputs: &Inputs) {
+fn declarations(out: &mut Vec<Finding>, manifest: &Manifest, inputs: &TreeInputs) {
     for (name, decl) in manifest.locations() {
         if inputs.present.contains(&decl.path) && !inputs.directories.contains(&decl.path) {
             // Presence alone is satisfied by a file, and every home under it then reads as

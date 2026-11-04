@@ -48,7 +48,7 @@ fn git_answers(
     model: &Model,
 ) -> (std::collections::HashSet<String>, Vec<PathBuf>) {
     let anchors = crate::entity::Anchors::of(manifest, model.listing());
-    let queries = crate::check::references::ignore_queries(model, &anchors);
+    let queries = crate::check::resolve::ignore_queries(model, &anchors);
     let ignored = crate::git::ignored(manifest.root(), &queries).expect("git answers the batch");
     let tracked =
         crate::git::tracked_and_ignored(manifest.root()).expect("git answers the listing");
@@ -795,8 +795,12 @@ mod unsound {
         );
         let stopped = foundation(&model, &manifest, &inputs).expect_err("the run stops");
         assert_eq!(stopped.phase, Phase::Tree);
-        let mut tree_and_agents = tree::check(&model, &manifest, &inputs);
-        tree_and_agents.extend(crate::check::agents::check(&model, &manifest, &inputs));
+        let mut tree_and_agents = tree::check(&model, &manifest, &inputs.tree());
+        tree_and_agents.extend(crate::check::agents::check(
+            &model,
+            &manifest,
+            &inputs.tree(),
+        ));
         let found: Vec<String> = tree_and_agents
             .iter()
             .map(|f| format!("{}  {}  → {}", f.location(), f.what, f.action))

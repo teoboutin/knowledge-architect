@@ -57,7 +57,7 @@ impl Gathered {
         // Whether the ignore rules cover a path target is git's answer, taken in ONE batch over
         // every spelling a reference in this run could ask about: a process per reference
         // would be a process per pointer in the tree.
-        let queries = crate::check::references::ignore_queries(model, &anchors);
+        let queries = crate::check::resolve::ignore_queries(model, &anchors);
         let ignored = crate::git::ignored(manifest.root(), &queries).map_err(|e| e.to_string())?;
         let tracked_and_ignored =
             crate::git::tracked_and_ignored(manifest.root()).map_err(|e| e.to_string())?;

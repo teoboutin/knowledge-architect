@@ -8,6 +8,7 @@ pub(crate) mod agents;
 pub(crate) mod generated;
 pub(crate) mod references;
 pub(crate) mod registers;
+pub(crate) mod resolve;
 pub(crate) mod tree;
 
 use std::collections::{HashMap, HashSet};
@@ -106,6 +107,15 @@ pub struct Stop {
 /// needed here and a caller resolves them only once this returns `Ok`: a run that stops
 /// earlier fetches nothing.
 pub fn foundation(model: &Model, manifest: &Manifest, inputs: &Inputs) -> Result<(), Stop> {
+    foundation_over(model, manifest, &inputs.tree())
+}
+
+/// The same, over what phases 1 to 3 read.
+pub(crate) fn foundation_over(
+    model: &Model,
+    manifest: &Manifest,
+    inputs: &TreeInputs,
+) -> Result<(), Stop> {
     let complaints = manifest.complaints();
     if !complaints.is_empty() {
         return Err(Stop {
@@ -227,6 +237,36 @@ pub struct Inputs<'a> {
     pub installed: &'a [(PathBuf, crate::survey::Outside)],
     /// What the installed set must be: every shipped file at its install path, rendered with
     /// the project's command. Empty when the project serves no agent harness.
+    pub shipped: &'a [(PathBuf, String)],
+}
+
+impl<'a> Inputs<'a> {
+    /// What phases 1 to 3 and the resolver read: every input but the two files phase 4 alone reads.
+    pub(crate) fn tree(&self) -> TreeInputs<'a> {
+        TreeInputs {
+            present: self.present,
+            directories: self.directories,
+            outside: self.outside,
+            ignored: self.ignored,
+            tracked_and_ignored: self.tracked_and_ignored,
+            refused: self.refused,
+            links: self.links,
+            installed: self.installed,
+            shipped: self.shipped,
+        }
+    }
+}
+
+/// What phases 1 to 3 and the resolver read, each field as [`Inputs`] states it.
+pub(crate) struct TreeInputs<'a> {
+    pub present: &'a HashSet<PathBuf>,
+    pub directories: &'a HashSet<PathBuf>,
+    pub outside: &'a [(PathBuf, crate::survey::Outside)],
+    pub ignored: &'a HashSet<String>,
+    pub tracked_and_ignored: &'a [PathBuf],
+    pub refused: &'a [PathBuf],
+    pub links: &'a [crate::git::Entry],
+    pub installed: &'a [(PathBuf, crate::survey::Outside)],
     pub shipped: &'a [(PathBuf, String)],
 }
 

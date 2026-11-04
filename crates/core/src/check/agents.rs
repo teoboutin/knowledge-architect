@@ -19,9 +19,9 @@ use crate::manifest::{Manifest, Pin};
 use crate::model::Model;
 use crate::survey::Outside;
 
-use super::Inputs;
+use super::TreeInputs;
 
-pub(crate) fn check(model: &Model, manifest: &Manifest, inputs: &Inputs) -> Vec<Finding> {
+pub(crate) fn check(model: &Model, manifest: &Manifest, inputs: &TreeInputs) -> Vec<Finding> {
     let mut out = Vec::new();
     if !manifest.serves_claude() {
         return out;
@@ -108,7 +108,7 @@ pub(crate) fn check(model: &Model, manifest: &Manifest, inputs: &Inputs) -> Vec<
 #[cfg(test)]
 mod tests {
     use super::*;
-    use std::collections::{HashMap, HashSet};
+    use std::collections::HashSet;
 
     fn manifest(extra: &str) -> Manifest {
         let text = format!(
@@ -135,10 +135,7 @@ mod tests {
             .map(|(p, t)| (PathBuf::from(p), t.to_string()))
             .collect();
         let empty_set = HashSet::new();
-        let empty_map = HashMap::new();
-        let inputs = Inputs {
-            committed: &empty_map,
-            configs: &empty_map,
+        let inputs = TreeInputs {
             present: &empty_set,
             directories: &empty_set,
             outside: &[],
@@ -314,12 +311,9 @@ mod tests {
         let m = manifest("");
         let model = Model::from_documents(Vec::new());
         let present: HashSet<PathBuf> = [PathBuf::from("CLAUDE.md")].into_iter().collect();
-        let empty_map = HashMap::new();
         let shipped = vec![(PathBuf::from(PRIMER), "primer".to_string())];
         let installed = vec![(PathBuf::from(PRIMER), Outside::Text("primer".into()))];
-        let inputs = Inputs {
-            committed: &empty_map,
-            configs: &empty_map,
+        let inputs = TreeInputs {
             present: &present,
             directories: &HashSet::new(),
             outside: &[],
@@ -333,7 +327,7 @@ mod tests {
         let found = check(&model, &m, &inputs);
         assert_eq!(found.len(), 1, "{found:?}");
         assert!(found[0].what.contains("outside the walk"), "{found:?}");
-        let absent = Inputs {
+        let absent = TreeInputs {
             present: &HashSet::new(),
             ..inputs
         };

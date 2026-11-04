@@ -549,7 +549,7 @@ fn commit_tree(
     // path reference asserted where the commit's own rules would have exempted it — a finding
     // rather than a silence, which fails the range; a branch that changes its ignore rules
     // orders its commits for it, per `design@core@a-commit-message-is-a-document`.
-    let queries = check::references::ignore_queries(&model, &anchors);
+    let queries = check::resolve::ignore_queries(&model, &anchors);
     let ignored = crate::git::ignored(root, &queries)
         .map_err(|e| Unloadable(format!("its ignore rules could not be asked: {e}")))?;
     let staged = source == Source::Index;
