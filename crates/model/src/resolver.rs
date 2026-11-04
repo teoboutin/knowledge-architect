@@ -50,7 +50,8 @@ pub enum Target {
 /// Why a reference resolves to nothing.
 ///
 /// Each variant holds what its two texts need beyond the span, so the words are the same wherever
-/// a consumer prints them, per `design@core@finding-names-the-repair`.
+/// a consumer prints them, per `design@core@finding-names-the-repair`. A variant is named for the arm
+/// that refuses, and a `String` field such as `listed` or `carriers` holds text ready to print.
 #[derive(Debug, Clone, PartialEq, Eq)]
 pub enum Cause {
     TableUnknownAnchor {

@@ -16,6 +16,6 @@ no decision; each decision is one level-three head below it.
 - [What is prose](prose.md): which bytes of each kind of file are prose
 - [Registers and their homes](registers.md): how a register is declared and how an entry is read
 - [Plan documents](plan-documents.md): the plans directory, its specs and milestones, and their items
-- [The agent configuration as entities](agent-configuration.md): the harnesses a project serves, and what the entity table reads of them
+- [The agent configuration as entities](agent-configuration.md): what the entity table reads of the agent files
 - [Reference spans](reference-lints.md): which spans are references
 - [Generated files](generated-files-and-fixes.md): the generated indexes and the list of files that are generated

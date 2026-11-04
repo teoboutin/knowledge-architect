@@ -18,6 +18,7 @@ Each mutation below survived `cargo test -p knowledge-architect-model -p knowled
 - `path`, the escape arm: `suffix` always false, so the sentence on dropping a line number goes.
 - `register`, `carriers`: `!a.is_plan()` dropped from its filter.
 - `table`: an undefined item taking the home repair rather than the section repair.
+- `anchored_target`: the entry test taking the path with its suffix on, so a suffix on an entry's path stops naming the entry.
 - `ignore_queries`: the generic form asking about the first anchor alone, and the link arm's `refused` test dropped.
 - `link` of `path@core@src/check/references.rs`: the finding showing the link without its fragment.
 - `judge_part`: a harness finding's line shifted, `planned` no longer skipped in a goals home, and the document's own directory left out of the search that decides whether to offer `planned`.
