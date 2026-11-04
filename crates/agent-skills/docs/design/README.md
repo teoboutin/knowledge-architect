@@ -7,8 +7,8 @@ named, and how they divide the work. Present tense, each decision carrying a slu
 
 **What belongs here:** a decision about the installed text that does not survive deleting this
 component, and the rules of the published workflow, which this repository follows as an adopting
-project does. How the checker installs and verifies the text, including the prefix that names the
-installed files, is `design@check@owned-namespace-check`.
+project does. How the checker installs and verifies the text, including the prefix that names the installed files, is `design@check@owned-namespace-check` and
+`design@check@installed-files-compared-by-bytes`.
 
 The heads are grouped by subject, one subdocument per subject, listed below. A subject heading
 carries no decision; each decision is one level-three head below it.

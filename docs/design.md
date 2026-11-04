@@ -45,7 +45,8 @@ The design this decision did not keep: `rejected@knowledge-architect@single-publ
 They read private items of the table, its harness kinds among them, so they stay beside it. A dev-dependency
 builds into no consumer, and cargo strips a path-only one at packaging, per
 `path@agent-skills@docs/grounding/crate-boundaries.md`, so `model` depends on nothing of `agent-skills` for a
-consumer, and `agent-skills` can take no dependency on `model`. The rival, publishing that vocabulary so the
+consumer, and no consumer runs these tests. The cost is that `cargo test` on the packaged crate no longer
+compiles. The rival, publishing that vocabulary so the
 tests could leave, falls to `design@model@model-facade`, under which nothing becomes public for a test.
 
 ### The checker's library code asks git only through the `git` crate `##checker-asks-git-through-the-crate`

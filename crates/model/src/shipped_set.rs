@@ -2,7 +2,8 @@
 //!
 //! These tests read the table's own vocabulary, such as its harness kinds, which is private, so they stay beside it and
 //! reach the shipped text by a dev-dependency, which builds into no consumer of this crate. No
-//! installing project judges them: a reference in an installed copy is read by nothing.
+//! installing project judges them: a reference in an installed copy is read by nothing. The decision
+//! is `design@knowledge-architect@shipped-set-tests-in-the-model`.
 
 use std::path::{Path, PathBuf};
 
