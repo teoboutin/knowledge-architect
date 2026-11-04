@@ -123,8 +123,8 @@ no check (the plan's review, premortem C2).
 
 **The words of a `Cause` sit in `model`.** `show` prints a refusal's two texts, and #consumers-out
 moves `show` to `query`, which #a1-no-check-below-the-tools keeps off the checks, so the texts cannot
-sit in the lints. `Cause::finding` writes both, and the lints call it at their site; the site
-renderer reads the `Cause` and needs no finding.
+sit in the lints. The lints write a finding from them at their site; the site renderer reads the
+`Cause` and needs no finding.
 
 **`model` gathers what the resolver reads.** `Inputs` stays the one public struct an extension
 reads, in the core. `model::foundation::TreeInputs` holds what phases 1 to 3 and the resolver read:
@@ -174,7 +174,7 @@ stays the core's.
 **Each failure arm of the resolver's functions, and its cause of `Outcome`.** The six functions
 "Names" lists, with `assert_target`, which `path`'s named arm and the lint `link` call, and `planned`,
 which calls `planned_target`, so one kind has one rule. Read at this slice's audit from `path@core@src/check/references.rs`, where each arm pushes one finding today. Every cause
-names what the arm's two texts need beyond the span, and `Cause::finding` writes the same two texts.
+names what the arm's two texts need beyond the span, and `Cause::texts` writes the same two texts.
 
 | function | the arm | `Cause` |
 | --- | --- | --- |
@@ -253,7 +253,7 @@ since `cfg(test)` is set only for the crate under test:
   the trait, phase 1 calls an extension's code, so a test of it needs an extension, and `model` names
   a trait that `query` and `render` have no implementation of. It is an interface others consume, so
   the harvest judges it by the tests for a losing alternative.
-- **The words of a cause in the lints**, lost to `Cause::finding`: `show` could not then print a
+- **The words of a cause in the lints**, lost to `Cause::texts`: `show` could not then print a
   refusal from `query` with no check.
 - **The check-ignore batch left in the core's gathering**, lost to `model`'s: a consumer of the
   resolver with no check would read every ignored target as absent.

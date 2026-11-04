@@ -42,6 +42,12 @@ use crate::model::Model;
 use super::Inputs;
 use crate::model::resolve::{self, assert_target, in_plans_directory, is_navigation, refused};
 
+/// The finding at a site for a reference the resolver refuses, in the two texts of its cause.
+fn reported(cause: &resolve::Cause, rel: &Path, line: u32, span: &str) -> Finding {
+    let (what, action) = cause.texts(span);
+    Finding::at(rel, line, what, action)
+}
+
 /// What the check looked at: the entities the table holds, the reference occurrences it
 /// judged (every kind, the escape and generic forms included), and the relative markdown links
 /// it resolved.
@@ -185,7 +191,7 @@ pub(crate) fn judge_part(
                             entities,
                             &inputs.tree(),
                         ) {
-                            out.push(cause.finding(&doc.rel, l.line, span));
+                            out.push(reported(&cause, &doc.rel, l.line, span));
                         }
                     }
                     Candidate::Harness { kind, owner, id } => {
@@ -196,7 +202,7 @@ pub(crate) fn judge_part(
                             ));
                         }
                         if let Err(cause) = resolve::harness(&kind, owner, id, entities) {
-                            out.push(cause.finding(&doc.rel, l.line, span));
+                            out.push(reported(&cause, &doc.rel, l.line, span));
                         }
                     }
                     Candidate::Malformed { why, repair } => out.push(Finding::at(
@@ -720,13 +726,25 @@ fn link(
     let dir = doc.rel.parent().unwrap_or(Path::new(""));
     let resolved = dir.join(file_part.trim_end_matches('/'));
     if let Err(cause) = assert_target(&resolved, file_part.ends_with('/'), &inputs.tree()) {
-        out.push(cause.finding(&doc.rel, line, target));
+        out.push(reported(&cause, &doc.rel, line, target));
     }
 }
 
 #[cfg(test)]
 mod tests {
     use super::*;
+
+    /// The claim: a finding carries the two texts of the cause, each in its own place.
+    #[test]
+    fn a_reported_cause_writes_its_two_texts_in_a_finding() {
+        let cause = resolve::Cause::Missing {
+            target: std::path::PathBuf::from("a/b.rs"),
+        };
+        let (what, action) = cause.texts("path@x@b.rs");
+        assert_eq!(what, "`path@x@b.rs` does not exist, at `a/b.rs`");
+        let finding = reported(&cause, Path::new("r.md"), 3, "path@x@b.rs");
+        assert_eq!((finding.what, finding.action), (what, action));
+    }
     use crate::model::Model;
     use std::collections::{HashMap, HashSet};
     use std::path::PathBuf;

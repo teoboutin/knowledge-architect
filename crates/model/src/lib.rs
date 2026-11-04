@@ -130,8 +130,8 @@ pub mod table {
 /// [`reference`](resolve::reference) resolves a candidate of an anchored kind by the function of its
 /// kind, and [`harness`](resolve::harness) one of a harness kind. Each returns an
 /// [`Outcome`](resolve::Outcome): a [`Target`](resolve::Target), or a [`Cause`](resolve::Cause), whose
-/// [`texts`](resolve::Cause::texts) a consumer prints and whose [`finding`](resolve::Cause::finding) a
-/// consumer that reports writes at its site. `rel` names the document that writes the reference.
+/// [`texts`](resolve::Cause::texts) a consumer prints or writes into a finding of its own. `rel` names
+/// the document that writes the reference.
 pub mod resolve {
     pub use crate::resolver::{
         assert_target, harness, has_scheme, ignore_queries, in_plans_directory, is_navigation,
