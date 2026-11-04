@@ -275,3 +275,13 @@ item's scope, while numbering the items `arg-1`, `arg-2` costs no capability.
 
 `live`. Phase 1 would call an extension's code, so a test of it would need an extension, and a tool
 with no extension would name a trait it implements nowhere. It would change an interface others consume.
+
+### The words of a cause in the lints of the checks `##cause-words-in-the-lints`
+
+`live`. A tool that prints a refusal would then have to link the checks or write the words again. It
+would change an interface others consume.
+
+### The check-ignore batch gathered with the checks `##ignore-batch-in-the-checks`
+
+`live`. A consumer of the resolver with no check would read each target the ignore rules cover as
+absent. It would change an interface others consume.

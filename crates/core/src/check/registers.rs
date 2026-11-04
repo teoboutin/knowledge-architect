@@ -196,7 +196,7 @@ fn file_home(
 
     let groups = config(out, register, home, inputs);
     // What sits under an anchor nested inside this home is that anchor's, as the heading
-    // shape reads it: the nesting is refused by `declared::collides`, and reading the nested
+    // shape reads it: the nesting is refused by the manifest, and reading the nested
     // anchor's files as entries of this register would report the refusal's consequences
     // against the wrong register and the wrong anchor, nine times over. The one exception is a
     // spec file, which its own anchor owns and which stays an entry, per `Anchors::owns_entry`.
@@ -1402,12 +1402,17 @@ mod tests {
             .any(|c| c.contains("[locations.notes] carries `criterion`, a plan register")));
     }
 
-    /// The claim: a missing part of the plans layout stops the run at phase 2, so nothing later
-    /// adds a finding about it.
+    /// The claim: over a missing part of the plans layout, the shapes add nothing to what the phases
+    /// report.
     #[test]
     fn a_missing_part_of_the_plans_layout_adds_nothing_after_its_phase() {
         let manifest = declaring("");
-        for gone in ["docs/plans", "docs/plans/README.md", "docs/plans/specs"] {
+        for gone in [
+            "docs/plans",
+            "docs/plans/README.md",
+            "docs/plans/specs",
+            "docs/plans/milestones",
+        ] {
             let mut present = all_of("");
             present.retain(|p| p != gone && !p.starts_with(&format!("{gone}/")));
             let found = findings(&manifest, &present);
@@ -1641,7 +1646,7 @@ mod tests {
     }
 
     #[test]
-    fn a_misplaced_definition_is_reported_in_the_union_the_helper_reads() {
+    fn a_misplaced_definition_is_reported_by_the_phase_the_helper_reads() {
         // The entity table's finding, phase 3, which the helper here reads beside this check's.
         let manifest = declaring("");
         let model = Model::from_documents(vec![(

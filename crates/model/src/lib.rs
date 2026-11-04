@@ -1,10 +1,16 @@
 //! What knowledge-architect reads of a project: its manifest, the walk git supplies, the parse of
 //! each document, the entity table over them, and what a reference resolves to.
 //!
-//! It holds everything a tool over a project's record needs and no check of its content. A
-//! tool builds a [`Model`], asks [`foundation::complete_working_tree`] whether it can be trusted,
-//! and reads it. The checks are the package `knowledge-architect`, which depends on this one; a
-//! project that runs the checker names that package alone.
+//! It holds what a tool over a project's documents needs. A tool builds a [`Model`], asks
+//! [`foundation::complete_working_tree`] whether it can be trusted, and reads it. The checks of a
+//! document's content are the package `knowledge-architect`, which depends on this one; a project
+//! that runs the checker names that package alone. The one check here, while it stays in phase 2,
+//! compares a project's installed agent files with the text this version ships.
+//!
+//! The gate judges what the manifest declares against what the tool hands it. A manifest table
+//! belongs to an extension, so a tool over a project with one calls [`extension::contribute`] before
+//! [`Model::build`], or the table is reported, and the files the extension generates are walked.
+//! The version a manifest pins is the binary's to refuse, not this library's.
 //!
 //! ```no_run
 //! use knowledge_architect_model::{foundation, table, Manifest, Model};
@@ -81,9 +87,8 @@ pub use model::{Document, Model};
 pub mod declared {
     pub use crate::manifest::{
         normalise_list, normalise_one, owned_path, LocationDecl, Pin, Register, Registers, Scope,
-        Shape, Walk, AGENT_DOCUMENT, CARRIER_DIR, GOAL_REGISTER, ISSUE_REGISTER, MILESTONES_HOME,
-        MILESTONE_REGISTER, OWNED_PREFIX, REJECTED_REGISTER, SPECS_HOME, SPEC_REGISTER,
-        TRIPWIRE_REGISTER,
+        Shape, Walk, AGENT_DOCUMENT, GOAL_REGISTER, ISSUE_REGISTER, MILESTONE_REGISTER,
+        OWNED_PREFIX, REJECTED_REGISTER, SPEC_REGISTER, TRIPWIRE_REGISTER,
     };
 }
 
@@ -113,20 +118,24 @@ pub mod listing {
 /// The entity table, the anchors, and the records over them.
 pub mod table {
     pub use crate::entity::{
-        candidate, entry_id, is_anchor_name, is_entity_id, is_entry_id, Anchor, Anchors, Candidate,
-        Constructed, Entities, EntryOf, Home, Kind, Resolution, Site, ESCAPE_ANCHOR, EVERY_ANCHOR,
-        PLANS_ANCHOR, REGISTER_KIND,
+        candidate, is_anchor_name, is_entity_id, is_entry_id, Anchor, Anchors, Candidate,
+        Constructed, Entities, EntryOf, Home, Kind, Resolution, Site, EVERY_ANCHOR, REGISTER_KIND,
     };
     pub use crate::model::DumpRow;
     pub use crate::records::{cited_within, edges, records, EntryKey, Inbound, Record};
 }
 
-/// What a reference names, or why it names nothing.
+/// What a reference names, or why it names nothing, with no finding attached.
+///
+/// [`reference`](resolve::reference) resolves a candidate of an anchored kind by the function of its
+/// kind, and [`harness`](resolve::harness) one of a harness kind. Each returns an
+/// [`Outcome`](resolve::Outcome): a [`Target`](resolve::Target), or a [`Cause`](resolve::Cause), whose
+/// [`texts`](resolve::Cause::texts) a consumer prints and whose [`finding`](resolve::Cause::finding) a
+/// consumer that reports writes at its site. `rel` names the document that writes the reference.
 pub mod resolve {
     pub use crate::resolver::{
         assert_target, harness, has_scheme, ignore_queries, in_plans_directory, is_navigation,
-        path, plan_document, planned, planned_target, reference, refused, register, table, Cause,
-        Outcome, Target,
+        path, planned, planned_target, reference, refused, register, table, Cause, Outcome, Target,
     };
 }
 
@@ -137,9 +146,7 @@ pub mod generated {
 
 /// The agent files this version ships, rendered for a project.
 pub mod installed {
-    pub use crate::shipped::{
-        imports_primer, lf, render, shipped, shipped_from, IMPORT_LINE, PLACEHOLDER, PRIMER,
-    };
+    pub use crate::shipped::{imports_primer, lf, render, shipped, IMPORT_LINE, PRIMER};
 }
 
 /// Phases 1 to 3: whether the model can be trusted.
@@ -172,6 +179,26 @@ pub const PACKAGE: &str = env!("CARGO_PKG_NAME");
 
 #[cfg(test)]
 mod facade_tests {
+    /// The statements of this file, each with its comments taken off.
+    fn statements(source: &str) -> Vec<String> {
+        let code: Vec<&str> = source
+            .lines()
+            .map(|line| line.split("//").next().unwrap_or(""))
+            .collect();
+        code.join(" ")
+            .split(';')
+            .map(|s| s.split_whitespace().collect::<Vec<_>>().join(" "))
+            .collect()
+    }
+
+    /// Whether a statement publishes a module of the tree, or a glob.
+    fn publishes_the_tree(statement: &str) -> bool {
+        let last = statement.rsplit(['{', '}']).next().unwrap_or("").trim();
+        let module = last.starts_with("pub mod ");
+        let glob = statement.contains("pub use ") && statement.contains('*');
+        module || glob
+    }
+
     /// The claim: this file names every public module with its body, so the public surface is read
     /// here and is not computed from the module tree, per
     /// `rejected@core@module-tree-as-public-api`. `unreachable_pub` is silent on both forms it
@@ -182,10 +209,35 @@ mod facade_tests {
         let code = &source[..source
             .find("#[cfg(test)]\nmod facade_tests")
             .expect("this module")];
-        for line in code.lines().map(str::trim) {
-            let published_module = line.starts_with("pub mod ") && line.ends_with(';');
-            let glob = line.starts_with("pub use ") && line.contains("::*");
-            assert!(!published_module && !glob, "{line}");
+        for statement in statements(code) {
+            assert!(!publishes_the_tree(&statement), "{statement}");
+        }
+    }
+
+    /// The claim: each spelling of the two forms is refused, a comment after it and a list holding
+    /// a glob included, and a role module with its body is not.
+    #[test]
+    fn every_spelling_of_a_published_module_or_a_glob_is_refused() {
+        for source in [
+            "pub mod scan;",
+            "pub mod scan; // a comment",
+            "pub use crate::scan::*;",
+            "pub use crate::scan::{Located, *};",
+            "pub use crate::scan::{\n    Located,\n    *,\n};",
+        ] {
+            assert!(
+                statements(source).iter().any(|s| publishes_the_tree(s)),
+                "{source}"
+            );
+        }
+        for source in [
+            "mod scan;",
+            "pub mod table { pub use crate::entity::{Kind}; }",
+        ] {
+            assert!(
+                !statements(source).iter().any(|s| publishes_the_tree(s)),
+                "{source}"
+            );
         }
     }
 }

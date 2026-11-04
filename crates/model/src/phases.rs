@@ -15,14 +15,25 @@ use crate::survey::Survey;
 
 /// What phases 1 to 3 and the resolver read, read from the tree being judged.
 pub struct TreeInputs<'a> {
+    /// Every path that exists in the tree, files and directories, project-relative.
     pub present: &'a HashSet<PathBuf>,
+    /// The subset of `present` that is directories.
     pub directories: &'a HashSet<PathBuf>,
+    /// Files the walk does not cover, with what reading each gave.
     pub outside: &'a [(PathBuf, crate::survey::Outside)],
+    /// The spellings the ignore rules cover, keyed by `git::ignore_query`, over
+    /// [`ignore_queries`](crate::resolver::ignore_queries). A target left out reads as not ignored,
+    /// so the resolver reports it as missing.
     pub ignored: &'a HashSet<String>,
+    /// The files git both tracks and ignores.
     pub tracked_and_ignored: &'a [PathBuf],
+    /// The files the walk refuses by name.
     pub refused: &'a [PathBuf],
+    /// The listing's symlink and gitlink entries no walk row keeps.
     pub links: &'a [crate::git::Entry],
+    /// The files of the installer's namespace, with what reading each gave.
     pub installed: &'a [(PathBuf, crate::survey::Outside)],
+    /// Every shipped file at its install path, rendered. Empty when the project serves no harness.
     pub shipped: &'a [(PathBuf, String)],
 }
 
@@ -172,8 +183,9 @@ impl Gathered {
 /// The gate of a tool that writes files over the model, or that answers from it: such a tool runs
 /// no check, and its answer over an incomplete model could not be trusted.
 ///
-/// `Err` is could-not-run, naming the phase that stopped it and the command that reports what it
-/// found.
+/// `Err` is could-not-run: git or the filesystem refused a read, or the foundation stopped, which the
+/// text says by the phase and the command that reports what it found. Over a project that serves the
+/// `claude` harness, it compares the installed agent files with what this version of the crate ships.
 pub fn complete_working_tree(manifest: &Manifest, model: &Model) -> Result<Gathered, String> {
     let gathered = Gathered::over(manifest, model)?;
     match foundation(model, manifest, &gathered.inputs()) {

@@ -1189,49 +1189,6 @@ mod tests {
             .any(|f| f.contains("`m-one` defines no spec `none-such`")));
     }
 
-    /// The claim: the repair a refused plan citation names is the form that resolves for each position: a slice for
-    /// a slice spec, the milestone for its README, its index or anything deeper, a spec for a
-    /// spec, and nothing for a navigation file. Mutations checked: the README and index filter,
-    /// and the one-segment test, each removed from `plan_document`.
-    #[test]
-    fn the_p1_repair_names_the_form_for_each_position() {
-        let m = manifest();
-        let anchors = Anchors::of(&m, &[] as &[PathBuf]);
-        for (target, form) in [
-            (
-                "docs/plans/milestones/m-one/a-slice.md",
-                Some("spec@m-one@a-slice"),
-            ),
-            (
-                "docs/plans/milestones/m-one/README.md",
-                Some("milestone@plans@m-one"),
-            ),
-            (
-                "docs/plans/milestones/m-one/index.md",
-                Some("milestone@plans@m-one"),
-            ),
-            (
-                "docs/plans/milestones/m-one/sub/x.md",
-                Some("milestone@plans@m-one"),
-            ),
-            (
-                "docs/plans/milestones/m-one/a.md/x.md",
-                Some("milestone@plans@m-one"),
-            ),
-            ("docs/plans/milestones/m-one", Some("milestone@plans@m-one")),
-            ("docs/plans/specs/a-spec.md", Some("spec@plans@a-spec")),
-            ("docs/plans/specs/README.md", None),
-            ("docs/plans/milestones/README.md", None),
-            ("docs/plans/README.md", None),
-        ] {
-            assert_eq!(
-                resolve::plan_document(&anchors, Path::new(target)).as_deref(),
-                form,
-                "{target}"
-            );
-        }
-    }
-
     /// The claim: a milestone's name in the kind position is no retired form, so an email
     /// address or a git remote stays silent when a milestone of that name exists. Mutation
     /// checked: `Anchors::is_anchor_word` counting milestone anchors.

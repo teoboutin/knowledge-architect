@@ -297,6 +297,89 @@ mod tests {
         }
     }
 
+    /// An extension that refuses one declaration and declares one path.
+    struct Resolving {
+        complains: bool,
+    }
+
+    impl Extension for Resolving {
+        fn tables(&self) -> &'static [&'static str] {
+            &[]
+        }
+        fn resolve(&mut self, _: &Manifest) -> Resolution {
+            let mut resolution = Resolution::default();
+            if self.complains {
+                resolution.complaints.push(crate::model::Finding::in_file(
+                    crate::model::MANIFEST_NAME,
+                    "theirs",
+                    "repair",
+                ));
+            } else {
+                resolution
+                    .paths
+                    .push(("a label".to_string(), vec!["no/such".into()]));
+            }
+            resolution
+        }
+        fn checks(&self) -> &'static [&'static str] {
+            &[]
+        }
+        fn dump(&self, _: &Model) -> Vec<crate::model::table::DumpRow> {
+            Vec::new()
+        }
+        fn prepare(
+            &mut self,
+            _: &Manifest,
+            _: &Model,
+            _: Tree<'_>,
+            _: Purpose,
+        ) -> Result<Box<dyn Prepared>, String> {
+            Err("not prepared in this test".to_string())
+        }
+    }
+
+    /// The claim: what `resolve` returns reaches the phases: a refusal stops phase 1, and a
+    /// declared path is asserted in phase 2.
+    #[test]
+    fn what_an_extension_resolves_reaches_the_phases() {
+        use crate::check::{foundation, Inputs};
+        use crate::model::foundation::Phase;
+        use std::collections::{HashMap, HashSet};
+        let stop = |complains: bool| {
+            let mut manifest = manifest_with("");
+            let mut extensions: Vec<Box<dyn Extension>> = vec![Box::new(Resolving { complains })];
+            configure(&mut manifest, &mut extensions);
+            let inputs = Inputs {
+                committed: &HashMap::new(),
+                configs: &HashMap::new(),
+                present: &HashSet::new(),
+                directories: &HashSet::new(),
+                outside: &[],
+                ignored: &HashSet::new(),
+                tracked_and_ignored: &[],
+                refused: &[],
+                links: &[],
+                installed: &[],
+                shipped: &[],
+            };
+            foundation(&Model::from_documents(Vec::new()), &manifest, &inputs)
+                .expect_err("the run stops")
+        };
+        let refused = stop(true);
+        assert_eq!(refused.phase, Phase::Resolution);
+        assert_eq!(refused.findings[0].what, "theirs");
+        let declared = stop(false);
+        assert_eq!(declared.phase, Phase::Tree);
+        assert!(
+            declared
+                .findings
+                .iter()
+                .any(|f| f.what.contains("`no/such`")),
+            "{:#?}",
+            declared.findings
+        );
+    }
+
     fn manifest_with(tables: &str) -> Manifest {
         let text = format!(
             "[project]\nchecker-version = \"fixture\"\nname = \"p\"\ncomponents = []\n\n[walk]\nskip-dirs = []\n\

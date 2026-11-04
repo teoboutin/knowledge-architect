@@ -250,8 +250,8 @@ pub mod document;
 pub mod extension;
 pub mod testing;
 
-// The core run against whole mock projects. A unit-test module rather than an integration
-// test, because its assertions read the walk, the survey and the entity table, which are not
+// The checks run against whole mock projects. A unit-test module rather than an integration
+// test, because its assertions read the checks' own `run` and `Inputs` literal, which are not
 // public.
 #[cfg(test)]
 mod mock_projects;

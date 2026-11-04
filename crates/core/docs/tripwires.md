@@ -38,23 +38,6 @@ selection under another name.
 arguments of `check`, `index` or a writing command of an extension.
 **Watches until:** the next three release tags.
 
-## Guarding `design@core@phases-gate-the-report`: a second producer chain `##a-second-producer-chain`
-
-The classification of a finding by the phase that produces it rests on one chain: the manifest
-feeds the walk, the walk the model, the model the entity table, and every check consumes the table
-and produces nothing another check reads.
-
-**Fires when:** a check of the last phase, the core's under `path@core@src/check/` or an
-extension's, reads another check's findings, or stores its output for another check of the last
-phase to consume.
-**Response:** open a `design` issue proposing the new phase and its place in the order; the
-producing check is a phase, not a check of the last one, and it goes before its consumers in
-`foundation` of `path@model@src/phases.rs`.
-**Re-entry:** the standing-state review on every dispatched review; any new module under the
-check directory; and any new check of an extension.
-**Watches until:** the next ten commits on the main branch that change a file under
-`path@core@src/check/`.
-
 ## Guarding `design@core@api-facade`: a consumer needs an item that is private behind the facade `##private-item-needed`
 
 The decision rests on the premise that the role modules publish every item a consumer of the

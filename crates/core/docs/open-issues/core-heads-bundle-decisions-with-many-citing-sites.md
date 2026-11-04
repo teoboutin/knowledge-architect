@@ -5,7 +5,7 @@ kind: design
 
 ## Summary
 
-Four heads of `register@core@design` each hold, and a fifth that
+Four heads, three of `register@core@design` and one of `register@model@design`, each hold, and a fifth that
 `spec@component-split@check-renamed` schedules held, two or more decisions whose nearest rivals
 differ, against `design@agent-skills@one-decision-per-head`. The first run of the design-record
 axis on this repository found three, and a branch's review two more; each was left unsplit because

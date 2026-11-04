@@ -4,8 +4,8 @@
 
 ### A domain's checks plug in as an extension compiled into the binary, and the core binary registers none `##an-extension-plugs-in-through-phased-hooks`
 
-The core checks what every project carries: the walk, the parse, the entity table, references,
-registers, generated indexes and commit messages. A subject that belongs to one project, such as
+The checker, the core over `model`, checks what every project carries: the walk, the parse, the
+entity table, references, registers, generated indexes and commit messages. A subject that belongs to one project, such as
 thaum's verification of rule quotes against a pinned corpus, is an **extension**: a set of checks, the
 manifest tables they read, and the files they generate. Each of its checks is listed and counted
 like a check of the core. This is what `goal@knowledge-architect@every-target-project-can-adopt-it`
@@ -20,7 +20,7 @@ belongs to, per `design@core@phases-gate-the-report`:
 
 | call | when | what the extension does |
 | ---- | ---- | -------------------- |
-| resolve | phase 1, before the walk | reads the tables it claims, and returns its complaints, the paths it declares and the files it generates; the core hands them to `model` as data, per `design@model@contribution-is-data`, which reports the complaints in phase 1, asserts in phase 2 that each declared path exists, and leaves the generated files out of the walk and reads them as committed |
+| resolve | phase 1, before the walk | reads the tables it claims, and returns its complaints, the paths it declares and the files it generates; the core hands them to `model` as data, per `design@model@contribution-is-data`, which reports the complaints in phase 1, asserts in phase 2 that each declared path exists, and leaves the generated files out of the walk; the core reads them as committed |
 | prepare | once phases 1 to 3 passed | reads what its checks need for one tree, and may fail the run as could-not-run |
 | check | phase 4 | its checks, with the count lines and the not-run names its summary prints |
 | judge a message | `commits` | the rules a commit message is judged by, against that commit's prepared tree |
@@ -86,9 +86,9 @@ of the run comparable with the walk and the parse reopens caching the scan insid
 **An extension cannot add a kind to the entity table.** A reference kind is the core's, so an extension's
 subject cannot be cited as `<kind>@<anchor>@<id>`. Nothing needs that today.
 
-### An extension claims the manifest tables it reads, and the core refuses a table nobody claims `##an-extension-claims-its-manifest-tables`
+### An extension claims the manifest tables it reads, and `model` refuses a table nobody claims `##an-extension-claims-its-manifest-tables`
 
-The core parses the tables it owns. Every other top-level table goes to the registered extension
+`model` parses the tables the core owns. Every other top-level table goes to the registered extension
 that claims it. A table that no registered extension claims is a phase-1 finding, and so is a table a
 registered extension claims that the manifest does not hold.
 
@@ -119,7 +119,7 @@ into every binary that registers an extension, and the copies would drift. The h
 extension's own commands need from a run, such as assembling a complete working tree, are public
 in the same module for the same reason.
 
-### What a run fetches before any check is gathered once, by `Gathered`, and no caller outside the crate assembles `Inputs` `##inputs-are-gathered`
+### What a run fetches before any check is gathered once, and no caller outside the crate assembles `Inputs` `##inputs-are-gathered`
 
 Two gatherings, one in each crate, since a tool that needs the model and no check reads what phases 1
 to 3 and the resolver read. `Gathered` of `model` reads one survey, the two git batches and the shipped
@@ -131,7 +131,7 @@ over an incomplete model), and an extension's tests all build on it. `check --st
 `index --staged` read a snapshot instead, and build their `Inputs` from it, per
 `design@core@staged-tree-source`. So no caller outside the crate assembles
 `Inputs`, which `design@core@ne-minimal` makes impossible for a literal. A new input is then a
-change inside the core alone. The core's own mock-project tests still assemble `Inputs` by hand:
+change inside the gathering that reads it. The core's own mock-project tests still assemble `Inputs` by hand:
 some of them hand a check an input that differs from the tree's, such as no committed file.
 
 The design this decision did not keep: `rejected@core@inputs-struct-literal`.
@@ -161,10 +161,7 @@ re-export:
 - **The public surface is read in one file**, lib.rs, and the role modules beside it. It is
   not computed from the implementation's module tree, so moving an item between files changes no
   public path, and is no library break under `design@knowledge-architect@versioning-policy`.
-- **What `model` publishes is `model`'s facade, per `design@model@model-facade`**, and this facade names
-  of it what an extension meets: `Manifest`, `Model`, `Document`, `Finding` and the parse. A method a
-  caller in this crate needs of `Model` or `Manifest` is public on these re-exports too, since a
-  re-export carries a type's methods.
+- **What `model` publishes is `model`'s facade, per `design@model@model-facade`.**
 - **A public signature keeps its types public.** `Inputs` is in `Prepared::check`'s signature and
   its fields expose `Entry` and `Outside`, so those are public although no consumer names them.
 - **A `pub` item no consumer can reach is refused.** lib.rs carries `#![warn(unreachable_pub)]`,

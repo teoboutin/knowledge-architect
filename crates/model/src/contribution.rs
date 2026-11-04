@@ -1,7 +1,4 @@
-//! What an extension gives phase 1, as data, per `design@core@an-extension-claims-its-manifest-tables`.
-//!
-//! Phase 1 is then a pure function a test drives with a value, and a tool that runs it with no
-//! extension names no trait.
+//! What an extension gives phase 1, as data, per `design@model@contribution-is-data`.
 
 use std::path::PathBuf;
 
@@ -23,7 +20,9 @@ pub struct Contribution {
     pub generated: Vec<PathBuf>,
 }
 
-/// Record a contribution in the manifest.
+/// Record a contribution in the manifest. Call it once, before `Model::build`, which leaves the
+/// generated files out of the walk: a second call adds again, and a tool that never calls it has every
+/// extension table of the manifest reported.
 ///
 /// **A table no extension claims, and a claimed table the manifest does not hold, are phase-1
 /// findings**, per `design@core@an-extension-claims-its-manifest-tables`. The first is a
@@ -94,6 +93,11 @@ mod tests {
                 generated: vec![PathBuf::from("gen.md")],
             },
         );
+        assert_eq!(
+            m.extension_paths(),
+            [("a label".to_string(), vec![PathBuf::from("a/path")])]
+        );
+        assert_eq!(m.extension_generated(), [PathBuf::from("gen.md")]);
         let whats: Vec<&str> = m.complaints().iter().map(|f| f.what.as_str()).collect();
         assert_eq!(
             whats,

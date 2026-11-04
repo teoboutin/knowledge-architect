@@ -1,12 +1,13 @@
 **Generated — do not edit.** `cargo klarch index`
 
-36 entries
+37 entries
 
 | kind | title |
 | --- | --- |
 | defect | [A forked subagent's transcript opens with a line of type `fork-context-ref`, which `klarch transcript` counts as unrecognised](a-forked-subagent-s-first-line-is-an-unrecognised-type.md) |
 | defect | [A finding on a slug written in a retired or a misplaced form names a repair blind to what the slug resolves to](a-slug-finding-names-a-repair-blind-to-what-the-slug-resolves-to.md) |
 | defect | [In a project that builds the checker from its own tree, `check --staged` compares the staged installed files with unstaged shipped text](a-staged-check-compares-installed-files-with-unstaged-shipped-text.md) |
+| defect | [An ignored target cited by a commit message alone is reported as missing](an-ignored-target-cited-by-a-message-alone-is-reported-missing.md) |
 | defect | [Some findings of the reference check in a goals home still name a reference form refused there](some-findings-in-a-goals-home-name-a-form-refused-there.md) |
 | defect | [The head on `index` credits the missing-directory refusal with a claim that the refusal does not hold](the-missing-directory-refusal-does-not-hold-the-no-loss-claim.md) |
 | defect | [The core's tests read the machine's git configuration, so a machine setting can fail a correct tree](the-tests-read-the-machine-s-git-configuration.md) |

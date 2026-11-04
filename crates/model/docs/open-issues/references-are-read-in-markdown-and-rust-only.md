@@ -43,5 +43,4 @@ case of this entry.
 
 The walk reads the comments of at least one further language, chosen by the manifest, with a test
 over a mock project in that language in which a dangling reference in a comment is reported. Or
-the owner rules that the checker stays limited to Rust source, and the limit is recorded in the
-core's design home.
+the owner rules that the checker stays limited to Rust source, and the limit is recorded in `register@model@design`.

@@ -134,7 +134,7 @@ pub struct Inputs<'a> {
     pub ignored: &'a HashSet<String>,
     /// The files git both tracks and ignores, each of which is a finding.
     pub tracked_and_ignored: &'a [PathBuf],
-    /// The files the walk refuses by name, per `listing::refused`, each of which is a finding.
+    /// The files the walk refuses by name, by the name, as the walk refuses it, each of which is a finding.
     pub refused: &'a [PathBuf],
     /// The listing's symlink and gitlink entries no walk row keeps, each of which is a finding.
     pub links: &'a [crate::git::Entry],

@@ -9,31 +9,44 @@ file, and every other module is private. So the surface is read in one file, and
 files changes no public path, which `rejected@core@module-tree-as-public-api` refuses to give up.
 `unreachable_pub` refuses a `pub` item no role module names, and a unit test refuses a `pub mod <name>;`
 and a glob, on which the lint is silent. Nothing is public for a test: a test that needs a private item
-is a unit test of this crate. An inherent method of a public type is not read here: a method is public
-for a caller's code, and the review reads it.
+is a unit test of this crate.
 
 ### The resolver says what a reference names or why it names nothing, with no finding attached `##resolver-outcome`
 
-Each function of `model::resolve` returns a `Target`, or a `Cause` holding what its texts need. A site
-renderer needs the resolution and no finding, and the lints of the core need a finding at a site, so
-`Cause::finding` writes one and a consumer that reports nothing never calls it. The words of a cause
-are the resolver's, per `design@core@finding-names-the-repair`: `show` prints them, and it sits below
-the checks, so they cannot sit in the lints. A dispatch takes a candidate to the function of its kind,
-so no consumer repeats it. The resolver reads `TreeInputs`, and `model`'s gathering takes the check-ignore
-batch, since a consumer with no check would otherwise read a target the rules cover as absent,
-against `design@model@ignored-targets-are-not-asserted`.
+The function of each kind, in `model::resolve`, returns a `Target`, or a `Cause` holding what its
+texts need. A site renderer needs the resolution and no finding, per
+`goal@core@documents-render-as-a-linked-site`, and the lints of the core need a finding at a site, so
+`Cause::finding` writes one and a consumer that reports nothing never calls it. `reference` takes a
+candidate of an anchored kind to the function of its kind, and `harness` takes one of a harness kind.
+
+### The words of a cause are the resolver's, so a tool that links no check prints them `##cause-words-in-the-resolver`
+
+A cause's two texts, what is wrong and what repairs it, per `design@core@finding-names-the-repair`, are
+`Cause::texts`. A tool that prints a refusal, as `show` does, needs them, and it may not link the
+checks, per `design@model@no-check-below-the-model`. The nearest rival is
+`rejected@model@cause-words-in-the-lints`.
+
+### What phases 1 to 3 and the resolver read is one struct, gathered here, the ignore batch included `##tree-inputs-gathered-here`
+
+`TreeInputs` holds what they read, and `Gathered` reads it from the working tree: one survey, the two
+git batches and the shipped text. The resolver reads the ignore answers, so a tool that links no check
+needs the batch here, or it reads a target the rules cover as absent, against
+`design@model@ignored-targets-are-not-asserted`. The nearest rival is
+`rejected@model@ignore-batch-in-the-checks`.
 
 ### An extension's phase-1 contribution reaches the model as data `##contribution-is-data`
 
-`model::extension::Contribution` holds the tables an extension claims, its complaints, its declared
-paths and its generated files, and `contribute` records them. `check` computes the value from each
-extension's `tables` and `resolve`, per `design@core@an-extension-plugs-in-through-phased-hooks`. Phase 1
-is then a pure function a test drives with a value, and `query` and `render` run it with no extension
-to name. The nearest rival is `rejected@model@contribution-as-a-trait`.
+`model::extension::Contribution` holds the tables a binary's extensions claim, their complaints, their
+declared paths and their generated files, and `contribute` records them. The core computes the value
+from each extension's `tables` and `resolve`, per
+`design@core@an-extension-plugs-in-through-phased-hooks`. Phase 1 is then a pure function a test drives
+with a value, and a tool with no extension has no trait to name. The nearest rival is
+`rejected@model@contribution-as-a-trait`.
 
 ### This crate depends on no code that judges a document's content `##no-check-below-the-model`
 
-A tool over the record needs the model and no check, per `design@knowledge-architect@model-crate`, so
-such a dependency would put every check into the build of each of those tools. `agent-skills` is the one
-exception while the installed-file check stays in phase 2. `cargo tree -e normal -p knowledge-architect-model`
-lists no such crate; a dev-dependency builds into no consumer.
+A tool over the documents needs the model and no check, per `design@knowledge-architect@model-crate`, so
+such a dependency would put every check into the build of each of those tools. `cargo tree -e normal -p
+knowledge-architect-model` lists no such crate; a dev-dependency builds into no consumer. The check that
+stays in phase 2, the installed-file check, is this crate's own code, which is why it depends on
+`agent-skills`, a crate of text.
