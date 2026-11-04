@@ -25,8 +25,7 @@ These words hold in these senses for the goals of this home and of every Compone
   made them. Nothing else is part of it, its goals included;
 - **a recorded item**: a goal, or an entry of a kind that keeps a home of its own, one the workflow gives or
   one a project declares, such as a decision, a design not kept, something outstanding, or a piece of
-  evidence that would flip a decision. A reason recorded beside code or in a commit message is none, and neither is a plan document, or a
-  record a session keeps until its outcomes are carried out.
+  evidence that would flip a decision. A reason recorded beside code or in a commit message is none, and neither is a plan document, or a file a session keeps until its outcomes are carried out.
 
 ## Agents work productively and autonomously without drifting from the design recorded in their project `##agents-work-without-drift`
 
@@ -252,8 +251,7 @@ each of the project's own kinds of entry a home in the repository.
 In a project that adopts the workflow, its reviews and its audits keep the documentation consistent
 with the code and with itself: they judge whether the code departs from what the documents state, and
 whether two documents agree in what they mean. The checker and the commands that list the recorded items, as knowledge-architect ships them, support them,
-and judge no meaning, whatever a project's own extension may do. A mechanical rule, such as that a flag a
-document names is one the binary declares, judges none:
+and judge no meaning, whatever a project's own extension may do:
 
 - the check guarantees that, in the texts the checker reads, nothing cited is missing;
 - the check guarantees that, in the texts the checker reads, every rule the checker holds, its own
@@ -261,13 +259,15 @@ document names is one the binary declares, judges none:
   declaration;
 - those commands list and display the entries a review must read.
 
+A mechanical rule, such as that a flag a document names is one the binary declares, judges none.
+
 It is met while:
 
 - the installed text owes, before every merge into the main branch, a review that reads the
   documents the branch touches, and those that describe the code it touches, against the code and
   against each other;
-- the installed text offers an audit that reads the whole project on one aspect, and asks in its
-  retrospective how the reviews and the audits fared;
+- the installed text offers an audit that reads the whole project on one aspect;
+- the installed text asks in its retrospective how the reviews and the audits fared;
 - the check reports every reference that resolves to nothing in the texts the checker reads, and
   every breach of such a rule;
 - those commands list and display the entries a review must read.

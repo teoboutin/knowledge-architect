@@ -44,7 +44,7 @@ holding each of those four shows the answer naming it.
 Through the library, each recorded item, one of a kind a project declares included, takes a name, and a
 reference written in any text the checker reads says what it names, with one reading, or why it names nothing. This is what lets an item be cited where it bears, with one home.
 
-It is met while the library reads a name for each such item, and its public interface answers for each reference what it names or the cause of its failure.
+It is met while the library reads a name for each such item, and its public interface answers for each reference what it names, with one reading, or the cause of its failure.
 
 It refines `goal@knowledge-architect@records-reach-their-reader`.
 
