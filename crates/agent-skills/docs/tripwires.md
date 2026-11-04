@@ -433,19 +433,3 @@ instances.
 the standing-state review.
 **Watches until:** three commits on the main branch that add analyses of received retrospective
 workflow files, counted from the commit that writes this line.
-
-## Guarding `design@agent-skills@goal-carries-reading-examples`: a goal's "for instance" case is read as what the goal requires `##for-instance-case-taken-as-the-measure`
-
-The decision rests on the premise that a case written into a goal shows a reading and binds nothing,
-so agents work to the goal's sentences and not to its cases. A case taken as the measure narrows the
-goal to what was foreseen, and passes every procedure, since the case is the owner's approved text.
-
-**Fires when:** an issue entry or a design head on the main branch states that a goal is unmet, or
-that a design is required, from a "for instance" case of the goal alone, no sentence of the goal
-stating it.
-**Response:** reopen `design@agent-skills@goal-carries-reading-examples` on whether a goal carries
-its cases, with the instance.
-**Re-entry:** the standing-state review, and the review of the whole goal set.
-**Watches until:** three commits on the main branch that change a goals home of this repository,
-counted from the first commit on the main branch whose goals homes hold a "for instance" case.
-
