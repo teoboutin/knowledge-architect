@@ -81,7 +81,7 @@ trees are listed in one finding.
 
 **A bare id is a pointer written with no kind.** Silent, it dangles unseen when the entry is renamed
 or deleted. The reference costs the kind and its anchor, and `show` then lists the text among what
-cites the entry, per `goal@check@records-reach-their-reader`. The nearest rival, no finding and a
+cites the entry, per `goal@knowledge-architect@records-reach-their-reader`. The nearest rival, no finding and a
 listing of such spans, leaves every such pointer silent: `rejected@check@bare-id-listing-only`.
 
 **The match is exact against the table.** A crate's name, an id of another project and an id whose

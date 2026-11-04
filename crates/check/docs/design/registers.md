@@ -13,7 +13,7 @@ whole with every text that cites it, and a plan item, a review finding, a commit
 can name one design.
 
 It serves `goal@knowledge-architect@design-is-recorded-with-its-arguments`, which asks for the
-alternatives that lost and why, and `goal@check@records-reach-their-reader`, which asks that a
+alternatives that lost and why, and `goal@knowledge-architect@records-reach-their-reader`, which asks that a
 recorded entry reach whoever needs it through checked references: an entry with no slug can be
 cited by nothing, and `show` prints an entry whole only when it is one. The home stays apart from
 the design home, on the owner's argument: an agent reading a decision file partly, by grep, could

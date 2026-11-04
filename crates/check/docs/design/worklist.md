@@ -13,7 +13,7 @@ Agent-facing text is no part of it either: a decision stated by one text of it e
 entry test 2 of `primer@design-heads`, its reader is the session that edits that text and reads it
 whole, and the installed text cites no entry, so in an adopting project it would add nodes with no
 edges. The command relies on the checker working as intended: the edges are the references the
-checker resolves. It serves `goal@check@records-reach-their-reader`, a listing computed from the tree.
+checker resolves. It serves `goal@knowledge-architect@records-reach-their-reader`, a listing computed from the tree.
 
 ### Every entry of a unit register is in one unit, cut by the headings or the groups of its home, and a cluster is rooted at a unit, never at a goal `##cluster-rooted-at-a-subject`
 
@@ -82,7 +82,7 @@ a report with no closing section on what was met outside the task. The grades an
 are `design@agent-skills@search-relevance-grade`'s. When every report passes, it assembles the graded
 entries, per `design@check@graded-entries-assembled`.
 
-It serves `goal@check@records-reach-their-reader` and `goal@check@document-rules-are-checked`:
+It serves `goal@knowledge-architect@records-reach-their-reader` and `goal@check@document-rules-are-checked`:
 an instruction to grade every entry once is kept by a command, not by a reader. The nearest rival,
 each searcher deriving its group from the listings and writing its report by hand, listed one entry
 under two lists in the discussion that produced the `rejected` register, and only the searcher's own
@@ -108,7 +108,7 @@ no assembly, per `design@check@exit-code-ladder`. `--verify` still reads no mode
 reads what the searchers graded, whatever the tree has become since.
 
 It serves `goal@knowledge-architect@mechanical-tasks-are-the-tool-s` and
-`goal@check@records-reach-their-reader`. The nearest rival, the session running `show` once per
+`goal@knowledge-architect@records-reach-their-reader`. The nearest rival, the session running `show` once per
 graded entry, is a script each session writes again: the grounding of the discussion that made this
 decision did so over 202 entries, 576 KB of `show` output, as the message of the commit "[harvest]
 The graded entries' assembly, `klarch id`, the narrower grounding and the retrospective's new

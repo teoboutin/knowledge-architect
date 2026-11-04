@@ -2,9 +2,7 @@
 
 @.claude/knowledge-architect/PRIMER.md
 
-A documentation checker and an agent workflow, shipped as Rust crates. The checker verifies that a
-project's documents stay consistent with its code and with each other, through declared registers
-and checked references. The workflow is a set of agent skills that the checker embeds and writes
+A documentation checker and an agent workflow, shipped as Rust crates. The checker verifies that a project's documents meet the rules it holds and those the project declares, through declared registers and checked references. The workflow is a set of agent skills that the checker embeds and writes
 into a project on request.
 The main goals are declared `register@knowledge-architect@goal` and Components refine or add to them.
 

@@ -1,6 +1,6 @@
 # knowledge-architect
 
-knowledge-architect keeps the design record of a project's documentation consistent with its code.
+knowledge-architect keeps the design record of a project's documentation checked and within reach of the work it bears on.
 It is built for projects developed mostly by AI agents, and has two parts that work together:
 
 - **A checker**, `klarch`. A project declares in a manifest what it records and where: its

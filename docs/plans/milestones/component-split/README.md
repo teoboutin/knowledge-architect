@@ -199,7 +199,7 @@ Outside this work, each with what owns it:
 - `goal@knowledge-architect@projects-are-split-into-components`,
   `goal@knowledge-architect@mechanical-tasks-are-the-tool-s`,
   `goal@knowledge-architect@documents-render-as-a-linked-site`, `goal@check@projects-add-their-own-checks`,
-  `goal@check@relocation-needs-only-goal-changes`, `goal@check@records-reach-their-reader`,
+  `goal@check@relocation-needs-only-goal-changes`, `goal@knowledge-architect@records-reach-their-reader`,
   `goal@check@document-rules-are-checked`, `goal@check@documents-stay-current`,
   `goal@check@checks-a-commit-from-its-hook`: the criteria below;
 - `design@knowledge-architect@version-lockstep`: every crate keeps one version;
@@ -344,15 +344,13 @@ outcome:
 
 - `goal@knowledge-architect@adoption-is-easy`: each new crate's README and library documentation
   state what an adopter of it does, an obligation of the slice that creates it;
-- `goal@knowledge-architect@documentation-stays-consistent`, `goal@knowledge-architect@structure-and-workflow-work-together`:
-  every guarantee of the check and both listings stay computed by `klarch`, which `cli` keeps; each
+- `goal@knowledge-architect@documentation-stays-consistent`, `goal@knowledge-architect@records-reach-their-reader`: every guarantee of the check and both listings stay computed by `klarch`, which `cli` keeps; each
   slice's claims that verdicts and outputs are unchanged hold them;
 - `goal@gates@gates-from-a-list`, `design@gates@gates-crate`: `gates` keeps its own flags and its
   library, and `cli` flattens no command of it;
 - `goal@xtask@repeated-tasks-are-automated`, `issue@xtask@the-reword-the-fold-and-the-merge-predicate-have-no-command`:
   the rewriting ships in a published crate, by its own work, after this milestone;
-- `goal@knowledge-architect@projects-are-split-into-components`,
-  `issue@check@the-core-s-purpose-leaves-the-rendered-site-outside-it`: each new Component's goals
+- `goal@knowledge-architect@projects-are-split-into-components`: each new Component's goals
   home states its purpose, in the goals each slice drafts for the owner;
 - `design@agent-skills@content-mirrors-the-install-layout`, `design@agent-skills@one-placeholder-reader-per-kind`,
   `design@agent-skills@saved-workflow-name-is-its-file-stem`, `design@agent-skills@shipped-text-line-comments`,

@@ -15,14 +15,18 @@ the workflow are designed to work together.
 
 These words hold in these senses for the goals of this home and of every Component:
 
-- **the checker**: a command knowledge-architect provides that checks a project's documents against
-  its code and against each other, and reports where they disagree;
+- **the checker**: a command knowledge-architect provides that checks a project's documents against the rules it holds for every project and those a project declares
+  to it, its reference grammar among them, and reports each breach;
 - **the workflow**, or **the installed text**: the instructions knowledge-architect installs in a
   target project for its agents, one set for each activity it covers;
 - **the record** of a project is made of: its decisions with their arguments, the designs it did
   not keep and why, what is outstanding, the evidence that would flip a recorded decision, and the
   reasons recorded beside its code, its agent-facing text and in the messages of the commits that
-  made them. Nothing else is part of it, its goals included.
+  made them. Nothing else is part of it, its goals included;
+- **a recorded item**: a goal, or an entry of a kind that keeps a home of its own, one the workflow gives or
+  one a project declares, such as a decision, a design not kept, something outstanding, or a piece of
+  evidence that would flip a decision. A reason recorded beside code or in a commit message is none, and
+  neither is a document that leaves the tree once its work lands.
 
 ## Agents work productively and autonomously without drifting from the design recorded in their project `##agents-work-without-drift`
 
@@ -51,15 +55,16 @@ included. A goal that refines it takes no rank from it. It never ranks over:
   a design decision adds, or that a quality tool taken in brings, ranks as the decision that states
   it.
 
-It is met while the workflow and the checker are built so that, in a target project, a departure
+It is met while the workflow is built, and learns from its retrospectives, so that, in a target project, a departure
 from that recorded design, or a design not kept brought back without that procedure, is caught
-before it merges. The parts of that project's goals and of its record that bear on the work are
-read against the work by the checker or by a step the installed text owes an agent or a reviewer. A
+before it merges. The parts of that project's goals and of its record that bear on the work are read against the
+work by a step the installed text owes an agent or a reviewer, which the checker supports as
+`goal@knowledge-architect@documentation-stays-consistent` says. A
 departure, or a design not kept brought back, that reaches a project's main branch shows the goal
 unmet in practice.
 
 - Requires, for instance: a change that contradicts a recorded decision is caught before it merges,
-  by the checker or by a review.
+  by a review the installed text owes.
 - Admits, for instance: a change that reverses a recorded decision through the workflow's procedure
   for reversing one.
 - Rules out, for instance: a goal of a Component that the list above does not cover, ranked above
@@ -205,18 +210,12 @@ The workflow writes into the structure, and the structure gives the workflow wha
 - one such home each, in the part of the project it belongs to, for what is outstanding and for the
   evidence that would flip a recorded decision.
 
-The checker computes two lists the workflow requires a session to read:
-
-- what a reversed decision touches;
-- which outstanding items and which evidence that would flip a decision a change must read again.
-
 Neither the structure nor the workflow is designed without the other.
 
 It is met while each kind of entry the installed text requires a session to write has a home the
-installed text gives it, each such home whose entries any document of the project cites is declared
-to the checker, and those two lists are computed by the checker.
+installed text gives it, and each such home whose entries any document of the project cites is declared to the checker.
 
-- Requires, for instance: the checker lists what a change to a recorded decision touches.
+- Requires, for instance: a home of decisions that a document cites is declared to the checker.
 - Admits, for instance: a project that keeps a kind of entry of its own beside those the workflow
   writes.
 - Rules out, for instance: a kind of entry the installed text has a session write with no home the
@@ -251,23 +250,26 @@ each of the project's own kinds of entry a home in the repository.
 ## The documentation stays consistent with the code and with itself `##documentation-stays-consistent`
 
 In a project that adopts the workflow, its reviews and its audits keep the documentation consistent
-with the code and with itself. The checker supports them:
+with the code and with itself: they judge whether the code departs from what the documents state, and
+whether two documents agree in what they mean. The checker and the commands that list the recorded items, as knowledge-architect ships them, support them,
+and judge no meaning, whatever a project's own extension may do:
 
-- its check guarantees that, in the texts the checker reads, nothing cited is missing;
-- its check guarantees that, in the texts the checker reads, every rule the checker holds, its own
+- the check guarantees that, in the texts the checker reads, nothing cited is missing;
+- the check guarantees that, in the texts the checker reads, every rule the checker holds, its own
   and those the project declares to it, is met, save those the project switches off by a
   declaration;
-- its commands list and display the entries a review must read.
+- those commands list and display the entries a review must read.
 
 It is met while:
 
 - the installed text owes, before every merge into the main branch, a review that reads the
   documents the branch touches, and those that describe the code it touches, against the code and
   against each other;
-- the installed text offers an audit that reads the whole project on one aspect;
+- the installed text offers an audit that reads the whole project on one aspect, and asks in its
+  retrospective how the reviews and the audits fared;
 - the check reports every reference that resolves to nothing in the texts the checker reads, and
   every breach of such a rule;
-- the checker's commands list and display the entries a review must read.
+- those commands list and display the entries a review must read.
 
 Development driven by agents changes code faster than review alone can follow, so the reviews need
 these tools to keep up.
@@ -769,6 +771,33 @@ included, so that a target project set up by following it designs none of them i
   workflow's setup gives.
 - Rules out, for instance: a target project set up by following the workflow's setup that has to
   design its own runner of the gates.
+
+## A recorded item reaches the work it bears on, through checked references `##records-reach-their-reader`
+
+A recorded item keeps one home and is cited at each place where it bears on other work and a project may
+write a checked reference, so a session working there meets it, and a session changing it can list what to
+read again.
+knowledge-architect shares this out:
+
+- a way to give each recorded item a name, and to reference it from any text the checker reads, each reference saying what it names, with one reading;
+- the checker, which reports a reference that is ambiguous, that resolves to nothing or that breaks the
+  grammar, so that renaming or removing an item gives the list of what to repair;
+- ways to consult the recorded items, computed from the tree, such as, for any item, every text the checker
+  reads that references it, and everything the project records as outstanding and every piece of evidence
+  that would flip a recorded decision;
+- the installed text, which requires a session to read those two listings before a change that reverses a
+  decision, and owes before a merge a review that judges whether each item is cited where it bears, and
+  whether the work departs from the goals, the decisions and the reasons recorded beside the code that bear on it.
+
+It is met while knowledge-architect provides each of these, the listings are never kept by hand, and the installed text requires that reading, owes those two questions of the review before a merge and
+asks in its retrospective how that review fared.
+
+- Requires, for instance: the listing for a decision names a code comment that cites it.
+- Requires, for instance: a reference with two readings is reported.
+- Admits, for instance: a listing filtered to one kind of text, beside the whole one.
+- Rules out, for instance: a list of what is outstanding kept by hand.
+- Rules out, for instance: a review that takes a passing check as showing that the work follows the
+  record.
 
 ## The documents render as one linked site `##documents-render-as-a-linked-site`
 

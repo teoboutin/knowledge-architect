@@ -50,9 +50,8 @@ it. Analysed at the intake of 2026-10-24.
 
 ### Why it matters
 
-`goal@knowledge-architect@structure-and-workflow-work-together` states that "The checker computes
-two lists the workflow asks a session to read": what a reversed decision touches, and which issues
-and tripwires a change must read again. For a change that touches several decisions, the tool
+`goal@knowledge-architect@records-reach-their-reader` asks that the installed text require a session to read two listings: for
+any item, every text that references it, and everything outstanding and every piece of evidence that would flip a decision. For a change that touches several decisions, the tool
 computes the second list one entry at a time and by file and line, and the agent turns that into
 entries. That costs one call per entry and a hand mapping, and a mapping done by hand can drop an
 entry. The scripts that mapping took are a task of the kind

@@ -1,6 +1,6 @@
 **Generated — do not edit.** `cargo klarch index`
 
-15 entries
+16 entries
 
 | kind | title |
 | --- | --- |
@@ -10,6 +10,7 @@
 | question | [CI does not run on a draft pull request, and no record says why](ci-does-not-run-on-a-draft-and-no-record-says-why.md) |
 | question | [Does the quick-fixes spec still hold now that the lints on ids are built?](path-quickfixes-read-against-the-lints-on-ids.md) |
 | question | [Do the root's goals about the model, the tools and the checker belong in an intermediate Component?](root-goals-about-the-checker-may-belong-to-an-intermediate-component.md) |
+| question | [May the checker depend on every crate that does not depend on it, `query` and `render` among them?](the-checker-may-depend-on-every-crate-below-it.md) |
 | todo | [CHANGELOG.md's shape is checked by a reviewer only, and no model of it exists](a-mechanical-changelog-check.md) |
 | todo | [No published crate offers the history tasks the workflow asks of a session](no-published-command-rewrites-a-branch-s-history.md) |
 | todo | [The documents do not yet render as one linked site](the-documents-do-not-render-as-a-site.md) |

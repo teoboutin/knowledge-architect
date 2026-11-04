@@ -102,7 +102,7 @@ head of absence, per `design@agent-skills@losing-shape-test`, and the checker re
 no design entry cites, per `design@check@orphan-rejected-entry`.
 
 It serves `goal@knowledge-architect@design-is-recorded-with-its-arguments` and
-`goal@check@records-reach-their-reader`: the owner observed that rejected alternatives are missed in
+`goal@knowledge-architect@records-reach-their-reader`: the owner observed that rejected alternatives are missed in
 design sessions and come back at the review of a plan document or after the work, and a design
 session reads heads. The hand-written direction sits in the head, the text that session reads, and
 the link back is `show`'s to compute, since an entry never lists what references it, per

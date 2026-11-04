@@ -1,7 +1,7 @@
 # Goals — model
 
-Every goal here serves one purpose: a tool of knowledge-architect reads what a project's documents
-hold through one library, which judges none of what they say.
+Every goal here serves one purpose: a tool of knowledge-architect reads what a project's documents hold and
+what they name through one library, which judges none of what they say.
 
 ## Every tool of knowledge-architect that reads what a project's documents hold can read it through one library that judges none of what they say `##a-tool-reads-the-documents-with-no-check`
 
@@ -38,3 +38,17 @@ holding each of those four shows the answer naming it.
 - Admits, for instance: a tool that shows one entry without asking.
 - Rules out, for instance: the answer naming a section an entry owes, or a reference to something
   missing, each of which leaves the other answers right.
+
+## Each recorded item can be given a name, and referenced from any text the checker reads `##recorded-items-can-be-referenced`
+
+Through the library, each recorded item, one of a kind a project declares included, takes a name, and a
+reference written in any text the checker reads says what it names, with one reading, or why it names nothing. This is what lets an item be cited where it bears, with one home.
+
+It is met while the library reads a name for each such item, and its public interface answers for each reference what it names or the cause of its failure.
+
+It refines `goal@knowledge-architect@records-reach-their-reader`.
+
+- Requires, for instance: a decision, a design not kept, an outstanding item and a goal can each be
+  referenced from a code comment.
+- Admits, for instance: any name a session chooses, within the grammar.
+- Rules out, for instance: a reference with two readings, read as the first of them.

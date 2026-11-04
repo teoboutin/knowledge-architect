@@ -92,8 +92,7 @@ rewrite of `design@check@fix-before-the-checks` too: whichever lands second read
 
 Read at the audit against the Components that exist at this slice:
 
-- `goal@check@records-reach-their-reader` stays in `check`: its subject, the listings, goes to
-  `query`, which #consumers-out creates and whose goals that slice drafts;
+- `goal@knowledge-architect@records-reach-their-reader` moved to the root on the owner's ruling, each Component refining its share; #consumers-out drafts the refinement of `query`;
 - `goal@knowledge-architect@documents-render-as-a-linked-site`: no Component holds it until `render` exists, and
   the purpose of `check` does not cover it, so the root's goals home holds it, on the owner's ruling, until it moves to
   `render` or stays there refined, when that work comes;

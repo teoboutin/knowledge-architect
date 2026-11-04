@@ -28,7 +28,7 @@ beside your agents", so it is no agent, and no README or index is owed there.
 
 Under `harness = []` none of the four kinds exists, a span headed by one is silent, and installed
 copies a project kept are its own documents, whose slugs are misplaced definitions. Serves
-`goal@check@records-reach-their-reader`: a citation of a skill, an agent or a section is checked,
+`goal@knowledge-architect@records-reach-their-reader`: a citation of a skill, an agent or a section is checked,
 and `show` lists every one.
 
 ### Under the `claude` harness, the root CLAUDE.md is modelled and no scoped CLAUDE.md is `##root-instructions-alone-modelled`
