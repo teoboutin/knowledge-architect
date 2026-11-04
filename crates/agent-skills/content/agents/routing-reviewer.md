@@ -37,7 +37,7 @@ locations, register instances and file entries. Report those counts as well as t
 defined count that grows while the reference count does not is an anchor nobody cites, and the
 reverse is a family of pointers about to dangle.
 
-%% The table below restates `design@model@an-unresolved-reference-is-reported`, `design@model@at-span-candidate-rule`, `design@core@retired-slug-reference-reported`, `design@core@every-path-names-its-anchor`, `design@model@trailing-slash-claims-directory`, `design@model@a-slug-elsewhere-defines-nothing`, `design@model@an-entry-is-a-heading-at-the-register-level`, `design@model@an-entity-belongs-to-its-anchor`, `design@core@links-are-navigation-rows`, `design@core@orphan-rejected-entry`, `design@core@backticked-bare-id`, `design@core@plain-word-lint`, `design@core@reference-shape-outside-span` and `design@model@two-segment-ids`.
+%% The table below restates `design@model@an-unresolved-reference-is-reported`, `design@model@at-span-candidate-rule`, `design@check@retired-slug-reference-reported`, `design@check@every-path-names-its-anchor`, `design@model@trailing-slash-claims-directory`, `design@model@a-slug-elsewhere-defines-nothing`, `design@model@an-entry-is-a-heading-at-the-register-level`, `design@model@an-entity-belongs-to-its-anchor`, `design@check@links-are-navigation-rows`, `design@check@orphan-rejected-entry`, `design@check@backticked-bare-id`, `design@check@plain-word-lint`, `design@check@reference-shape-outside-span` and `design@model@two-segment-ids`.
 | failure | what it actually means |
 | --- | --- |
 | `is referenced and` … `defines no` | a pointer into nothing: the anchor carries the register and no entry there has that id. Define it where the decision is made, or point at the entry that exists. |
@@ -54,7 +54,7 @@ reverse is a family of pointers about to dangle.
 | `is a reference written without backticks`; `is written in backticks without its kind`; `is written as a plain word` | a pointer to a live entry written outside its reference form, which no check resolves: when the entry moves or leaves, it goes stale unseen. A plain word meant as an ordinary term shows a slug wrongly chosen: a design entry is renamed to state its decision, and anything else so that its slug is not an ordinary word. |
 | `is an id of one segment` | a slug of one word. Every id has two segments or more, so that no ordinary word is a defined id. |
 
-%% The paragraph below restates `design@model@at-span-candidate-rule`, `design@core@retired-slug-reference-reported`, `design@core@every-path-names-its-anchor` and `design@model@ignored-targets-are-not-asserted`.
+%% The paragraph below restates `design@model@at-span-candidate-rule`, `design@check@retired-slug-reference-reported`, `design@check@every-path-names-its-anchor` and `design@model@ignored-targets-are-not-asserted`.
 **What the checks cannot see.** Some backticked spans are silent: a bare filename named in
 prose, a heading or a section title quoted from another document, a misspelt kind. A path-shaped
 span whose first

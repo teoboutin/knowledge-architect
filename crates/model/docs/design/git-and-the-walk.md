@@ -33,7 +33,7 @@ names depends on where the manifest sits rather than on the tree.
 rules, so no ignore line, however written, can take a live document out of every check. What
 leaves the walk does so by the manifest: a declared row, or an exclusion derived from a
 declaration, as the generated indexes and the installed agent files are, per
-`design@core@owned-namespace-check`. That is what a
+`design@check@owned-namespace-check`. That is what a
 hand-rolled matcher cannot promise, and it is the property the whole walk is
 chosen for; the matcher and the three things it could not do are
 `rejected@model@hand-rolled-gitignore-matcher`.
@@ -44,11 +44,11 @@ the strength of a working-tree state.
 
 **The summary block prints the walked-file count**, so two machines disagreeing about the walk is
 visible in the output rather than inferred from a finding list. The tripwire is in
-`register@core@tripwire`.
+`register@check@tripwire`.
 
 **This is the working tree's walk, the one plain `check` reads.** `check --staged` and `commits`
-read a snapshot instead, from git objects alone, per `design@core@staged-tree-source` and
-`design@core@a-commit-message-is-a-document`.
+read a snapshot instead, from git objects alone, per `design@check@staged-tree-source` and
+`design@check@a-commit-message-is-a-document`.
 
 ### A symlink and a gitlink are read as no document, and each is a phase-2 finding naming it `##links-are-no-documents`
 
@@ -60,7 +60,7 @@ a platform without symlinks holds that text as a plain file, so two readers of o
 judge two documents; a gitlink names a commit of another repository the listing never descends
 into, so everything under it would be conformant by vacuum. A `skip-files` row keeps a symlink
 and an `exclude` row a submodule, as declared silences. What a submodule is to the project that
-holds it is an open question, `issue@core@a-submodule-is-a-project-of-its-own`.
+holds it is an open question, `issue@check@a-submodule-is-a-project-of-its-own`.
 
 ### A name holding a line break, or one Windows cannot create, is refused with a finding naming the file and the reason `##unportable-names-refused`
 
@@ -86,5 +86,5 @@ The two states contradict each other and the contradiction is otherwise silent: 
 file, and `git check-ignore` skips what the index holds so a reference to it is asserted too — the
 reverse of what the ignore rule says. It is reported in phase 2, by `tree`, with the other findings
 that judge what the tree holds against what the project declares. The run stops there, as for
-every phase-2 finding, per `design@core@phases-gate-the-report`: the model holds a file the
+every phase-2 finding, per `design@check@phases-gate-the-report`: the model holds a file the
 project says is out of it, so a finding computed from that model is unreliable.

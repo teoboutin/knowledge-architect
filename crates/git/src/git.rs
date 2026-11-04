@@ -578,7 +578,7 @@ impl SnapshotEntry {
 /// the working directory.
 ///
 /// **The index's snapshot is HEAD's tree with the index's changes against it**, the tree a
-/// commit would record, per `design@core@staged-tree-source`. It is not `ls-files -s`, which
+/// commit would record, per `design@check@staged-tree-source`. It is not `ls-files -s`, which
 /// lists an intent-to-add entry, `git add -N`, at stage 0 with the empty blob, the same line as
 /// a staged empty file, while `git commit` records no such entry. `diff --cached` leaves an
 /// intent-to-add entry out, and compares against the empty tree where HEAD does not exist yet.
@@ -1335,7 +1335,7 @@ mod tests {
         std::fs::write(path, text).expect("a file");
     }
 
-    /// The claim of `design@core@staged-tree-source`: the index's snapshot is the tree `git write-tree`
+    /// The claim of `design@check@staged-tree-source`: the index's snapshot is the tree `git write-tree`
     /// records, and its bytes are the staged ones, not the working tree's.
     ///
     /// The project sits in a subdirectory of its repository beside a sibling whose change is

@@ -7,7 +7,7 @@ reason holds, and is marked `void` when it no longer does.
 ### Capturing a child's two streams through one regular file instead of two pipes `##streams-through-one-file`
 
 `live`. Its one reason was a child that refuses a pipe on stdout, which the checker's `check` did
-for a while, per the entry on that refusal, `rejected@core@check-refusing-a-pipe`; no child
+for a while, per the entry on that refusal, `rejected@check@check-refusing-a-pipe`; no child
 refuses one now. Its one gain is that both streams keep the order the child wrote them in. It was
 built, with the file in the system temporary directory, opened in append mode for both streams and
 read back by polling, and an adversarial review reproduced three losses the pipes do not have:

@@ -90,7 +90,7 @@ tripwire of the same class,
 mostly in the sessions of projects that use the workflow; its re-entry is the standing-state review
 of this repository, which holds only the tree. `klarch transcript search`, with `--all-projects`
 and `--subagents`, reads every session on a machine, consumers' included, which that work can use,
-per `design@core@transcript-query-verbs`.
+per `design@check@transcript-query-verbs`.
 
 ### What would close it
 

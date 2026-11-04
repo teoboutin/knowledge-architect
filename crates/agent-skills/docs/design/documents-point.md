@@ -67,7 +67,7 @@ rewrite of the sentence.
 One exception is text in the checker's syntax that no checked form expresses, written without
 backticks beside a reference to the issue entry that records the missing form. The check reads it:
 a reference-shaped token outside backticks is reported, and is silent where its paragraph holds a
-backticked reference to an issue entry, per `design@core@reference-shape-outside-span`. Prose that mentions a
+backticked reference to an issue entry, per `design@check@reference-shape-outside-span`. Prose that mentions a
 directory without asking the reader to follow it is not a repair and is outside this head.
 
 The checker cannot express every reference a project needs. The first exception covers text in the checker's
@@ -79,7 +79,7 @@ tree or outside it, such as another project's commit, an address on the web or a
 words, is outside the exception. Whether it needs a reference is decided by
 `design@agent-skills@a-reference-claims-a-revisit`. A project that meets a gap of the checker itself opens that
 entry in its own register, since a reference resolves only inside its own project, per
-`issue@core@cross-project-references`. A need that a checked form already serves is not a gap.
+`issue@check@cross-project-references`. A need that a checked form already serves is not a gap.
 
 The entry owes its `Why it matters` and its `What would close it`, so the escape is available and
 never free. `cargo klarch show` on the entry lists every site, and closing it, once a checked form
@@ -103,13 +103,13 @@ A commit named by its subject, as `design@knowledge-architect@no-branch-sha-is-c
 branch, is outside the exception. It names history as git names it. A reference resolves against the
 entities of a tree, per `design@model@one-entity-table`, and a commit is none of them; the one
 citation of a commit the checker judges is a branch commit's SHA, which
-`design@core@branch-shas-are-refused` refuses.
+`design@check@branch-shas-are-refused` refuses.
 
 The second exception is a deleted skill's or agent's reference in a released section of
 CHANGELOG.md: the section's content never changes, per
 `design@knowledge-architect@changelog-section-fixed-at-release`, and nothing exists that a
 reference could cite.
-Its repair is the bare name, which `design@core@backticked-bare-id` leaves silent. It evades
+Its repair is the bare name, which `design@check@backticked-bare-id` leaves silent. It evades
 nothing, since no checked form remains that it could have used. The rival, rewriting the sentence
 as `design@agent-skills@a-past-sentence-is-rewritten` asks elsewhere, would change a released
 section's content.
@@ -118,7 +118,7 @@ The third exception is an entry that the tree of a record of a deliberation does
 a commit message, its first parent's, removed or renamed by the work the record carries, or still to
 be created by it, named there by its bare slug in backticks. A skill or an agent the work removes
 or is still to create is in the same case, on the owner's word, named by its bare name in
-backticks, which `design@core@backticked-bare-id` leaves silent while the tree does not hold
+backticks, which `design@check@backticked-bare-id` leaves silent while the tree does not hold
 it. A record of a deliberation is where the deliberation is kept: a plan document
 or a commit message, per `skill@knowledge-architect-decision-recording@three-homes`, and a committed
 file that leaves once its outcomes are carried out, per `primer@design-heads`. The exception
@@ -127,7 +127,7 @@ checker has nothing left to check, and what this head refuses is avoiding the ch
 entry, which leaves dangling references and makes grounding less efficient. A renamed entry's old
 slug is in the same case, since nothing resolves it once the rename lands. It evades nothing, as the changelog exception does not: no entry remains,
 or none exists yet, that a checked form could cite, and a bare slug no entry defines is silent, per
-`design@core@backticked-bare-id`. The owner chose the form among three, the bare slug
+`design@check@backticked-bare-id`. The owner chose the form among three, the bare slug
 in backticks, the bare slug in plain text and the full reference with its backticks removed, and the
 scope:
 records of a deliberation only, since every other document states current reality, where a
@@ -147,7 +147,7 @@ to the live entry, the shape a quotation of the owner naming a renamed entry alr
 checked way to the entry it names.
 
 The fourth exception is a quotation, which none of the lints on ids reads, per
-`design@core@quotation-read-by-no-id-lint`, where its definition and its argument are. A quotation
+`design@check@quotation-read-by-no-id-lint`, where its definition and its argument are. A quotation
 of the writer's own words, made to clear a finding, is the evasion this head refuses.
 
 The set of exceptions is closed: each lets a finding clear without a checked form,
@@ -156,7 +156,7 @@ so another one weakens the check, and is argued as a change of this decision.
 The argument: an unchecked form that clears a finding clears it for good, so a habit of writing one
 empties the check while every run still passes, against
 `goal@knowledge-architect@documentation-stays-consistent`. Two narrower stances of the checker
-make the same argument: `design@core@the-regime-has-no-opt-out`, where no declaration exempts a
+make the same argument: `design@check@the-regime-has-no-opt-out`, where no declaration exempts a
 document from a rule, and `design@model@reserved-anchors`, where the escape anchor is refused on a
 path this tree holds, since it would otherwise silence the finding on a real path.
 

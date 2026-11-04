@@ -3,7 +3,7 @@
 # This file is the manifest the checker reads, and its presence is what makes a directory a
 # project root: the checker walks up from the working directory looking for this name and refuses
 # to run without it. Nothing about this repository is compiled into the checker, per
-# `design@core@nothing-of-a-project-is-compiled-in`.
+# `design@check@nothing-of-a-project-is-compiled-in`.
 #
 # The walk parses `.md` and `.rs` and nothing else, so no reference in this file is checked. A
 # comment here names a decision in the reference grammar, `<kind>@<anchor>@<id>`, and writes a
@@ -19,10 +19,10 @@ name = "knowledge-architect"
 # value "self", which a binary built from inside this tree confirms and any other refuses.
 checker-version = "self"
 # The command this repository runs the checker by: the cargo alias that builds it from the
-# checkout. It is printed in messages and generated headers, per `design@core@declared-command`.
+# checkout. It is printed in messages and generated headers, per `design@check@declared-command`.
 command = "cargo klarch"
 components = [
-    "crates/core",
+    "crates/check",
     "crates/agent-skills",
     "crates/gates",
     "crates/mutate",
@@ -47,7 +47,7 @@ skip-dirs = []
 # CHANGELOG.md, which is checked, and a test in tools/xtask fails while one differs.
 skip-files = [
     "crates/agent-skills/CHANGELOG.md",
-    "crates/core/CHANGELOG.md",
+    "crates/check/CHANGELOG.md",
     "crates/gates/CHANGELOG.md",
     "crates/git/CHANGELOG.md",
     "crates/model/CHANGELOG.md",
@@ -59,11 +59,11 @@ skip-files = [
 # The core's mock projects are complete projects of their own: their documents are fixtures, and a
 # checker that read them would report a fixture's planted defect as a defect of this repository.
 exclude = [
-    "crates/core/tests/projects",
+    "crates/check/tests/projects",
 ]
 
 # GitHub's rebase merge gives a branch's commits new SHAs, so a message or a document of the
 # branch that cites one of them by SHA would name nothing once it merges, per
-# `design@core@branch-shas-are-refused`.
+# `design@check@branch-shas-are-refused`.
 [commits]
 refuse-branch-shas = true

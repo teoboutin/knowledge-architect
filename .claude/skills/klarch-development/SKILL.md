@@ -65,5 +65,5 @@ source, and a finding about it stays here, per
 ## Comments in the checker's source `##checker-source-comments`
 
 In the checker's own source, every string literal is data, bound or not, per
-`design@core@checker-source-literals-are-data`, so a reference written in one is checked by nobody;
+`design@check@checker-source-literals-are-data`, so a reference written in one is checked by nobody;
 a comment is prose, and its reference is checked.

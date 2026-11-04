@@ -2,7 +2,7 @@
 //!
 //! Nothing about any particular repository is compiled into this tool. Every list a check
 //! reads comes from here, so the same binary checks this repository and a mock project under
-//! `path@core@tests/projects/` with no special case anywhere, and a path that should not be checked has
+//! `path@check@tests/projects/` with no special case anywhere, and a path that should not be checked has
 //! to say so in one file with a reason beside it.
 //!
 //! The file's presence is also what makes a directory a project root. That is one mechanism
@@ -40,18 +40,18 @@ pub const MANIFEST_NAME: &str = "knowledge-architect.toml";
 pub(crate) const COMPONENT_DOCUMENTS: [&str; 2] = ["README.md", "CLAUDE.md"];
 
 /// The document of `COMPONENT_DOCUMENTS` that holds agent instructions, required only while the
-/// project declares the `claude` harness, per `design@core@agents-table`.
+/// project declares the `claude` harness, per `design@check@agents-table`.
 pub const AGENT_DOCUMENT: &str = "CLAUDE.md";
 
 /// The command a project runs the checker by when its manifest declares none: the name of the
-/// binary this crate installs, per `design@core@declared-command`.
+/// binary this crate installs, per `design@check@declared-command`.
 pub(crate) const DEFAULT_COMMAND: &str = "klarch";
 
-/// The agent harnesses a manifest may declare, per `design@core@agents-table`.
+/// The agent harnesses a manifest may declare, per `design@check@agents-table`.
 pub(crate) const HARNESSES: [&str; 1] = ["claude"];
 
 /// The prefix that owns a namespace in a project's agent configuration, per
-/// `design@core@owned-namespace-check`. Every skill directory, agent file and saved workflow file
+/// `design@check@owned-namespace-check`. Every skill directory, agent file and saved workflow file
 /// whose name starts with it, and every file under .claude/knowledge-architect/, belongs to the
 /// installer.
 pub const OWNED_PREFIX: &str = "knowledge-architect-";
@@ -68,7 +68,7 @@ pub const GOAL_REGISTER: &str = "goal";
 pub const TRIPWIRE_REGISTER: &str = "tripwire";
 
 /// The built-in heading register of designs a project did not keep, each cited by the design
-/// entries whose argument covers it, per `design@core@rejected-register`.
+/// entries whose argument covers it, per `design@check@rejected-register`.
 pub const REJECTED_REGISTER: &str = "rejected";
 
 /// The built-in register of plan documents: a spec file, or a slice spec inside a milestone.
@@ -437,7 +437,7 @@ pub(crate) struct Project {
     pub checker_version: Option<String>,
 }
 
-/// What `[project] checker-version` says, per `design@core@installed-binary-version-check`.
+/// What `[project] checker-version` says, per `design@check@installed-binary-version-check`.
 ///
 /// A version is the core library's version the project runs. The two sentinels are claims
 /// about the tree that the running binary's build confirms or refuses: a mock project inside a
@@ -480,7 +480,7 @@ pub(crate) struct AgentsDecl {
 #[serde(deny_unknown_fields, rename_all = "kebab-case")]
 pub(crate) struct CommitsDecl {
     /// Refuse a message or a document that cites a commit of the judged range by its SHA,
-    /// per `design@core@branch-shas-are-refused`. Off when absent.
+    /// per `design@check@branch-shas-are-refused`. Off when absent.
     #[serde(default)]
     pub refuse_branch_shas: bool,
 }
@@ -572,7 +572,7 @@ impl Walk {
 /// What the manifest declares, as written.
 ///
 /// **Every other top-level table is kept, as written, for an extension to claim**, per
-/// `design@core@an-extension-claims-its-manifest-tables`. That is why this struct refuses no
+/// `design@check@an-extension-claims-its-manifest-tables`. That is why this struct refuses no
 /// unknown field: `serde(flatten)` cannot be combined with that refusal, and phase 1 refuses a
 /// table no registered extension claims instead, so a misspelt table is still reported.
 #[derive(Debug, Clone, Deserialize)]
@@ -698,7 +698,7 @@ impl Manifest {
             .find(|f| f.what.starts_with("[project] checker-version"))
     }
 
-    /// The command this project runs the checker by, per `design@core@declared-command`.
+    /// The command this project runs the checker by, per `design@check@declared-command`.
     pub fn command(&self) -> &str {
         self.declared
             .project
@@ -708,7 +708,7 @@ impl Manifest {
     }
 
     /// Whether `commits` refuses a citation of a commit of its range by SHA: off unless the
-    /// `[commits]` table turns it on, per `design@core@branch-shas-are-refused`.
+    /// `[commits]` table turns it on, per `design@check@branch-shas-are-refused`.
     pub fn refuses_branch_shas(&self) -> bool {
         self.declared
             .commits
@@ -717,7 +717,7 @@ impl Manifest {
     }
 
     /// Whether the project serves the `claude` harness: the default when no `[agents]` table
-    /// is declared, per `design@core@agents-table`.
+    /// is declared, per `design@check@agents-table`.
     pub fn serves_claude(&self) -> bool {
         match &self.declared.agents {
             None => true,
@@ -736,7 +736,7 @@ impl Manifest {
     }
 
     /// Whether a project-relative path belongs to the installer's namespace, per
-    /// `design@core@owned-namespace-check`. Nothing does when the project serves no harness.
+    /// `design@check@owned-namespace-check`. Nothing does when the project serves no harness.
     pub fn owned(&self, rel: &Path) -> bool {
         self.serves_claude() && owned_path(rel)
     }
@@ -1151,7 +1151,7 @@ impl Candidate {
 /// No two anchors give one path two meanings, and every anchor is one a reference can name.
 ///
 /// An anchor is a directory, and its register homes sit under it. The deepest anchor owns
-/// every document under its path, per `design@core@every-path-names-its-anchor`, so an
+/// every document under its path, per `design@check@every-path-names-its-anchor`, so an
 /// anchor inside another's directory is the ordinary case — thaum's two locations
 /// both sit inside the root component. What that rule cannot absorb is refused here, per
 /// `design@model@anchor-collisions-refused`, and **the refused anchor is not an
@@ -1785,7 +1785,7 @@ fn resolve_checker(declared: &Declared, complaints: &mut Vec<Finding>) -> Option
     }
 }
 
-/// Refuse a harness this tool does not know, and keep the rest, per `design@core@agents-table`.
+/// Refuse a harness this tool does not know, and keep the rest, per `design@check@agents-table`.
 /// A refused value leaves the list, so nothing acts on it.
 fn resolve_agents(declared: &mut Declared, complaints: &mut Vec<Finding>) {
     let Some(agents) = declared.agents.as_mut() else {
@@ -1993,7 +1993,7 @@ pub(crate) mod tests {
 
     /// The claim: `[project] checker-version` reads a version and the two sentinels, and refuses
     /// an absent key and a string of none of the three forms as a complaint whose text opens with
-    /// the key, per `design@core@installed-binary-version-check`.
+    /// the key, per `design@check@installed-binary-version-check`.
     #[test]
     fn the_checker_version_reads_three_forms_and_refuses_the_rest() {
         let read = |line: &str| with_pin(line).expect("a declaration");
@@ -2658,7 +2658,7 @@ pub(crate) mod tests {
     #[test]
     fn the_walk_up_finds_the_root_from_below_it() {
         let root = this_project();
-        let deep = root.join("crates/core/src");
+        let deep = root.join("crates/check/src");
         assert_eq!(Manifest::find(&deep).expect("a manifest").root(), root);
     }
 

@@ -1,7 +1,7 @@
 //! Phases 1 to 3: whether the model is complete, so that what is computed over it can be trusted.
 //!
 //! Each of the three builds one input of the next, and the first that produces anything ends the
-//! run, per `design@core@phases-gate-the-report`. They say whether the model can be trusted, not
+//! run, per `design@check@phases-gate-the-report`. They say whether the model can be trusted, not
 //! whether the content conforms. A tool that needs the model and no check asks
 //! [`complete_working_tree`].
 
@@ -129,7 +129,7 @@ pub fn foundation(model: &Model, manifest: &Manifest, inputs: &TreeInputs) -> Re
 /// every caller, per `design@model@tree-inputs-gathered-here`.
 ///
 /// A phase and the resolver are pure over the model, so the files and the git answers they read
-/// are fetched here by the caller, per `design@core@model-then-checks`.
+/// are fetched here by the caller, per `design@check@model-then-checks`.
 pub struct Gathered {
     survey: Survey,
     ignored: HashSet<String>,

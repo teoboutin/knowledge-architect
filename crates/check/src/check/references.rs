@@ -1,0 +1,3298 @@
+//! Every reference is judged against what the resolver says of it, and every relative markdown link
+//! is a navigation row that resolves beside its file.
+//!
+//! The resolver is `model::resolve`, which says what a reference names or why it names nothing.
+//! This module turns each cause into a finding at its site, and adds the lints over what the
+//! reference form leaves out.
+//!
+//! **Nothing that points into this project passes unregistered.** A span with no `@` that is
+//! shaped like a path, and whose first segment names a file or a directory of this tree, is
+//! reported as unanchored, per `design@check@every-path-names-its-anchor`. The slug reference
+//! the grammar retired, `` `<word>#<word>` ``, is reported as what it was when its id is an entry
+//! of this project or its word is an anchor or a kind, so a pointer the migration missed or
+//! copied out of the commit history is a finding rather than silence.
+//! The candidate rule is `design@model@at-span-candidate-rule`, and the retired-form lint
+//! `design@check@retired-slug-reference-reported`. A span that names nothing here is another
+//! tool's notation, and is silent.
+//!
+//! **A defined id is written as its reference, or it is a finding.** Three lints read what the
+//! reference form leaves out: a reference-shaped token outside backticks, per
+//! `design@check@reference-shape-outside-span`, and an id the entity table defines written in
+//! backticks alone, per `design@check@backticked-bare-id`, or as a plain word, per
+//! `design@check@plain-word-lint`. Each matches
+//! this project's ids only, so another project's id, or one whose entry has left, is silent.
+//!
+//! **A `rejected` entry that no design entry cites is reported**, per
+//! `design@check@orphan-rejected-entry`: the one finding of this family raised over the entities
+//! rather than over a span, and over a tree only, since a commit message holds no design entry.
+//!
+//! **The definition-site findings are not this family's.** Misplaced, malformed and duplicate
+//! definitions are found while the table is built, and `model`'s `foundation` reports them: where a
+//! definition may sit is a question about a register's shape.
+
+use crate::model::declared::{GOAL_REGISTER, REJECTED_REGISTER};
+use std::path::Path;
+
+use crate::model::document::{Observation, RetiredForm};
+use crate::model::table::{self, Anchors, Candidate, Entities, Kind};
+use crate::model::Finding;
+use crate::model::Manifest;
+use crate::model::Model;
+
+use super::Inputs;
+use crate::model::resolve::{self, assert_target, in_plans_directory, is_navigation, refused};
+
+/// The finding at a site for a reference the resolver refuses, in the two texts of its cause.
+fn reported(cause: &resolve::Cause, rel: &Path, line: u32, span: &str) -> Finding {
+    let (what, action) = cause.texts(span);
+    Finding::at(rel, line, what, action)
+}
+
+/// What the check looked at: the entities the table holds, the reference occurrences it
+/// judged (every kind, the escape and generic forms included), and the relative markdown links
+/// it resolved.
+#[derive(Debug, Default, Clone, Copy, PartialEq, Eq)]
+pub(crate) struct Counts {
+    pub entities: usize,
+    pub references: usize,
+    pub links: usize,
+}
+
+pub(crate) fn check(model: &Model, manifest: &Manifest, inputs: &Inputs) -> (Vec<Finding>, Counts) {
+    check_under(model, inputs, &Anchors::of(manifest, inputs.present))
+}
+
+/// The same, over a stated anchor list.
+///
+/// What `check` derives from the manifest, a test states directly: every component carries
+/// every register, so the anchor-lacks-register arm is reachable only through an anchor with a
+/// declared register subset, the shape a location takes.
+pub(crate) fn check_under(
+    model: &Model,
+    inputs: &Inputs,
+    anchors: &Anchors,
+) -> (Vec<Finding>, Counts) {
+    let entities = Entities::build(model, anchors);
+    let (mut out, counts) = judge(model.documents(), &entities, anchors, inputs);
+    out.extend(orphans(model, &entities, anchors));
+    (out, counts)
+}
+
+/// Every `rejected` entry that no design entry cites, one finding at its definition site.
+///
+/// Raised here, over a tree, and not in [`judge_part`], which `commits` also runs over each
+/// commit message: a message holds no design entry, so the question is only the tree's. A
+/// citation counts only inside a design entry's section, per `table::cited_within`, so a
+/// reference from a goal, an issue, a tripwire or another `rejected` entry leaves the entry
+/// reported, per `design@check@orphan-rejected-entry`.
+fn orphans(model: &Model, entities: &Entities, anchors: &Anchors) -> Vec<Finding> {
+    let rejected = Kind::new(REJECTED_REGISTER);
+    let cited = table::cited_within(model, anchors, entities, &Kind::new("design"), &rejected);
+    let mut out = Vec::new();
+    for (anchor, id, sites) in entities.of_kind(&rejected) {
+        if cited.contains(&(anchor.to_string(), id.to_string())) {
+            continue;
+        }
+        let Some(site) = sites.first() else { continue };
+        out.push(Finding::at(
+            &site.file,
+            site.line,
+            format!("the `rejected` entry `{id}` of `{anchor}` is cited by no design entry"),
+            "cite it from the design head whose argument covers it, or from a head of absence \
+             that records the decision not to build it; where what it lost to is an instruction \
+             no head states, delete it and name the design and its reason beside that \
+             instruction",
+        ));
+    }
+    out
+}
+
+/// The same, over a stated document list and a stated entity table.
+///
+/// **The two are separated because a commit message is judged against a table it is no part
+/// of.** A message is a document under the regime, per
+/// `design@check@a-commit-message-is-a-document`, and the entities it names are defined by the
+/// tree it commits — so the table is built from that tree's model and the documents judged
+/// against it are these. `check_under` is the case where the two coincide.
+pub(crate) fn judge(
+    docs: &[crate::model::Document],
+    entities: &Entities,
+    anchors: &Anchors,
+    inputs: &Inputs,
+) -> (Vec<Finding>, Counts) {
+    judge_part(docs, entities, anchors, inputs, Part::All)
+}
+
+/// Which findings a judgement writes.
+///
+/// A commit message is judged against two trees, and the two families combine differently
+/// there, per `design@check@a-commit-message-is-a-document`: a reference finding survives where
+/// both trees refuse it, a lint finding where either tree holds what its span names.
+/// `cli::history` asks for each family apart.
+#[derive(Debug, Clone, Copy, PartialEq, Eq)]
+pub(crate) enum Part {
+    All,
+    /// The references, the links and the wrapped spans.
+    References,
+    /// The unanchored path and the retired slug reference. The three lints on a defined id
+    /// written outside its reference form are not this part's: a judgement against two trees
+    /// runs them once over both, through [`judge_ids`].
+    Lints,
+}
+
+/// The same, writing only the findings of one part.
+pub(crate) fn judge_part(
+    docs: &[crate::model::Document],
+    entities: &Entities,
+    anchors: &Anchors,
+    inputs: &Inputs,
+    part: Part,
+) -> (Vec<Finding>, Counts) {
+    let references = matches!(part, Part::All | Part::References);
+    let lints = part != Part::References;
+    let id_lints = part == Part::All;
+    let tables = if id_lints {
+        vec![IdTable::new(entities, anchors)]
+    } else {
+        Vec::new()
+    };
+    let mut out: Vec<Finding> = Vec::new();
+    let mut counts = Counts {
+        entities: entities.len(),
+        ..Counts::default()
+    };
+    for doc in docs {
+        let nav = is_navigation(&doc.rel);
+        let goals_of = goals_home_owner(&doc.rel, anchors);
+        for l in &doc.observations {
+            match &l.what {
+                Observation::Span(span) if references => match table::candidate(span, anchors) {
+                    Candidate::Reference { kind, anchor, id } => {
+                        counts.references += 1;
+                        if let Some(owner) = goals_of {
+                            out.extend(goals_home_citation(
+                                &doc.rel,
+                                l.line,
+                                span,
+                                owner,
+                                Some((&kind, anchor)),
+                                anchors,
+                            ));
+                        }
+                        if goals_of.is_some() && (kind.is_path() || kind.is_planned()) {
+                            // Refused by the citation check above, whatever it names: its own
+                            // repairs would send the writer to another form refused here.
+                        } else if let Err(cause) = resolve::reference(
+                            &kind,
+                            anchor,
+                            id,
+                            &doc.rel,
+                            anchors,
+                            entities,
+                            &inputs.tree(),
+                        ) {
+                            out.push(reported(&cause, &doc.rel, l.line, span));
+                        }
+                    }
+                    Candidate::Harness { kind, owner, id } => {
+                        counts.references += 1;
+                        if let Some(home_owner) = goals_of {
+                            out.extend(goals_home_citation(
+                                &doc.rel, l.line, span, home_owner, None, anchors,
+                            ));
+                        }
+                        if let Err(cause) = resolve::harness(&kind, owner, id, entities) {
+                            out.push(reported(&cause, &doc.rel, l.line, span));
+                        }
+                    }
+                    Candidate::Malformed { why, repair } => out.push(Finding::at(
+                        &doc.rel,
+                        l.line,
+                        format!("`{span}` is malformed: {why}"),
+                        repair,
+                    )),
+                    Candidate::AnchorInKindPosition { head } => out.push(Finding::at(
+                        &doc.rel,
+                        l.line,
+                        format!("`{span}` opens with `{head}`, an anchor, where the kind goes"),
+                        match goals_of {
+                            Some(_) => GOALS_HOME_REPAIR.to_string(),
+                            None => format!(
+                                "prefix the kind, one of {}: a path is written `path@{head}@<path>`",
+                                anchors.kinds_listed()
+                            ),
+                        },
+                    )),
+                    Candidate::NotOne => {}
+                },
+                Observation::UnanchoredPath(span) if lints => {
+                    if !names_this_tree(span, &doc.rel, anchors, inputs) {
+                        continue;
+                    }
+                    // A line suffix or a fragment is part of the span but no part of a path
+                    // reference, whose id is the file: the repair says to drop it.
+                    let located = span.contains([':', '#']);
+                    // In a plan document a path that does not exist yet is usually one the
+                    // plan's work will create, so the repair names the form for it there.
+                    // A path that exists is cited as one, so the planned form is offered only
+                    // when nothing at the span's file exists, read as `names_this_tree` reads it.
+                    let file = span
+                        .split_once([':', '#'])
+                        .map_or(span.as_str(), |(f, _)| f);
+                    let exists = anchors
+                        .all()
+                        .iter()
+                        .map(|a| a.path.join(file))
+                        .chain(doc.rel.parent().map(|d| d.join(file)))
+                        .any(|t| inputs.present.contains(&t));
+                    let planned = if !exists && in_plans_directory(&doc.rel, anchors) {
+                        ", or `planned@<anchor>@<path>` for a path the plan's work will create"
+                    } else {
+                        ""
+                    };
+                    if goals_of.is_some() {
+                        out.push(Finding::at(
+                            &doc.rel,
+                            l.line,
+                            format!("`{span}` is shaped like a path and names no anchor"),
+                            GOALS_HOME_REPAIR,
+                        ));
+                        continue;
+                    }
+                    out.push(Finding::at(
+                        &doc.rel,
+                        l.line,
+                        format!("`{span}` is shaped like a path and names no anchor"),
+                        format!(
+                            "write `path@<anchor>@<path>`, `register@<anchor>@<register>` for a \
+                             register's home, `path@elsewhere@<path>` for a path this tree does \
+                             not hold, or `path@*@<path>` for every component's own copy{planned}{}",
+                            if located {
+                                ". A reference names a file: drop the line number or the \
+                                 fragment, and name the function or the heading in prose"
+                            } else {
+                                ""
+                            }
+                        ),
+                    ))
+                }
+                Observation::BareName(_)
+                | Observation::PlainWord(_)
+                | Observation::UnquotedReference { .. }
+                    if id_lints =>
+                {
+                    out.extend(id_lint(&doc.rel, l.line, &l.what, &tables));
+                }
+                Observation::WrappedSpan(span) if references => out.push(Finding::at(
+                    &doc.rel,
+                    l.line,
+                    format!(
+                        "`{span}` crosses a line break, so no check reads it as the pointer it is"
+                    ),
+                    "keep the span on one line: a line break inside backticks is read as two \
+                     halves, and a renderer shows it as a space",
+                )),
+                Observation::Retired(RetiredForm::SlugRef(span))
+                    if lints && names_this_project(span, anchors, entities) =>
+                {
+                    out.push(Finding::at(
+                        &doc.rel,
+                        l.line,
+                        format!("`{span}` is the retired slug reference form"),
+                        if goals_of.is_some() {
+                            GOALS_HOME_REPAIR
+                        } else {
+                            "write `design@<component>@<slug>`; the form with a `#` is no longer \
+                             read as a reference"
+                        },
+                    ))
+                }
+                // Markdown documents only: in Rust prose a markdown link is rustdoc's
+                // mechanism, resolved by rustdoc against the crate namespace, and this
+                // check reading those as index rows would report every intra-doc link.
+                Observation::Link(target) if references && doc.is_markdown() => {
+                    link(&mut out, &mut counts, doc, l.line, target, nav, inputs);
+                }
+                _ => {}
+            }
+        }
+    }
+    (out, counts)
+}
+
+/// The anchor whose goals home holds `rel`, or `None` where `rel` is in no goals home: the
+/// home's single file, or any file under its directory shape, the `README.md` head included.
+fn goals_home_owner<'a>(rel: &Path, anchors: &'a Anchors) -> Option<&'a table::Anchor> {
+    let owner = anchors.owning(rel);
+    let home = anchors.home(owner, &Kind::new(GOAL_REGISTER))?;
+    (rel == home.file || rel.starts_with(&home.dir)).then_some(owner)
+}
+
+/// The finding on a reference written in a goals home that is not a goal or a register's home of
+/// the home's own Component or of a Component enclosing it, per
+/// `design@check@goals-home-cites-upward-only`.
+///
+/// `target` is the reference's kind and the anchor it names, and `None` for a harness reference,
+/// which names no anchor and is refused whatever it names. An anchor is accepted where it is the
+/// home's own, or a Component whose directory holds the home's anchor, the root's empty path
+/// included; `*`, `elsewhere` and a name nothing declares name no such Component. A reference that
+/// resolves to nothing is reported apart, as its repair, so this judges the anchor as written,
+/// except a `path` or a `planned` reference, which `judge_part` does not resolve in a goals home
+/// and which gets this finding alone.
+fn goals_home_citation(
+    rel: &Path,
+    line: u32,
+    span: &str,
+    owner: &table::Anchor,
+    target: Option<(&Kind, &str)>,
+    anchors: &Anchors,
+) -> Option<Finding> {
+    if let Some((kind, anchor)) = target {
+        if admitted_in_goals_home(owner, kind.name(), anchor, anchors) {
+            return None;
+        }
+    }
+    Some(Finding::at(
+        rel,
+        line,
+        format!(
+            "`{span}` is cited in the goals home of `{}`, which cites only a goal or a register's \
+             home of its own anchor or of a Component that encloses it",
+            owner.name
+        ),
+        GOALS_HOME_REPAIR,
+    ))
+}
+
+/// The repair a finding names in a goals home, the citation check's and an id lint's alike, so
+/// that no finding there sends a writer to a reference the citation check refuses.
+const GOALS_HOME_REPAIR: &str = "cite a goal of the home's own anchor or of a Component enclosing \
+     it, or rewrite the sentence so it names no entry, a goal's rewording going through its \
+     project's goal-setting; a goal holds whatever it needs in its own words. Never keep the span \
+     with its backticks removed";
+
+/// Whether a reference of `kind` naming `anchor` may stand in the goals home `owner` keeps: a goal
+/// or a register's home of `owner` itself, or of a Component whose directory holds `owner`, the
+/// root's empty path included.
+fn admitted_in_goals_home(
+    owner: &table::Anchor,
+    kind: &str,
+    anchor: &str,
+    anchors: &Anchors,
+) -> bool {
+    (kind == GOAL_REGISTER || kind == table::REGISTER_KIND)
+        && anchors.by_name(anchor).is_some_and(|a| {
+            a.name == owner.name || (a.is_component && owner.path.starts_with(&a.path))
+        })
+}
+
+/// How an id was written outside its reference form.
+#[derive(Clone, Copy)]
+enum IdForm {
+    /// In backticks, alone.
+    Bare,
+    /// As a plain word.
+    Plain,
+}
+
+/// One tree's entity table and anchors, with its ids indexed, as the lints on ids read them.
+pub(crate) struct IdTable<'a> {
+    entities: &'a Entities,
+    anchors: &'a Anchors,
+    ids: std::collections::HashMap<&'a str, Vec<(&'a Kind, &'a str)>>,
+}
+
+impl<'a> IdTable<'a> {
+    pub(crate) fn new(entities: &'a Entities, anchors: &'a Anchors) -> Self {
+        Self {
+            entities,
+            anchors,
+            ids: entities.by_id(),
+        }
+    }
+}
+
+/// The lints on ids over documents judged against several trees at once: a commit message
+/// against its commit's tree and its first parent's, per
+/// `design@check@a-commit-message-is-a-document`. An id the two trees define under different
+/// kinds or anchors gets one finding listing every candidate, as in one tree.
+pub(crate) fn judge_ids(docs: &[crate::model::Document], tables: &[IdTable]) -> Vec<Finding> {
+    let mut out = Vec::new();
+    for doc in docs {
+        for l in &doc.observations {
+            out.extend(id_lint(&doc.rel, l.line, &l.what, tables));
+        }
+    }
+    out
+}
+
+/// The finding of a lint on ids on one observation, or `None`.
+///
+/// The three lints are exact against the tables, so a name that no longer exists, or that
+/// another project defines, is silent: each reports a pointer written without its reference form,
+/// and a word that names nothing here is no pointer. An id several entries define lists every one
+/// and chooses none, so the checker supplies no meaning the writer did not write.
+fn id_lint(rel: &Path, line: u32, what: &Observation, tables: &[IdTable]) -> Option<Finding> {
+    // In a goals home only the forms the citation check admits there are offered, and where none
+    // is, the finding names the citation check's repair, per
+    // `design@check@goals-home-cites-upward-only`.
+    // A commit message, the one document judged against two tables, is in no goals home, so the
+    // first table's anchors decide for every document that can be.
+    let goals_home = tables
+        .first()
+        .and_then(|t| goals_home_owner(rel, t.anchors).map(|o| (o, t.anchors)));
+    let in_goals_home = |id: &str, how: IdForm| {
+        let pairs = defined_pairs(id, tables, rel);
+        let Some((owner, anchors)) = goals_home else {
+            return id_finding(rel, line, id, &render_forms(id, pairs), how);
+        };
+        let defined = !pairs.is_empty();
+        let admitted: Vec<(String, String)> = pairs
+            .into_iter()
+            .filter(|(kind, anchor)| admitted_in_goals_home(owner, kind, anchor, anchors))
+            .collect();
+        if admitted.is_empty() && defined {
+            return Some(Finding::at(
+                rel,
+                line,
+                format!("`{id}` names an entry this goals home cannot cite"),
+                GOALS_HOME_REPAIR,
+            ));
+        }
+        id_finding(rel, line, id, &render_forms(id, admitted), how)
+    };
+    match what {
+        Observation::BareName(id) => in_goals_home(id, IdForm::Bare),
+        Observation::PlainWord(id) => in_goals_home(id, IdForm::Plain),
+        // Beside a backticked reference to an issue entry, a token is the pointer no checked form
+        // expresses, which `design@agent-skills@plain-text-is-no-repair` lets a writer put in
+        // plain text beside the issue that records the gap.
+        Observation::UnquotedReference {
+            token,
+            beside_issue: false,
+        } if tables.iter().any(|t| written_reference(token, t.anchors)) => {
+            // In a goals home, backticks only turn a form the citation check refuses into its
+            // finding, so the lint names that check's repair instead.
+            let refused =
+                goals_home.is_some_and(|(owner, anchors)| match table::candidate(token, anchors) {
+                    Candidate::Reference { kind, anchor, .. } => {
+                        !admitted_in_goals_home(owner, kind.name(), anchor, anchors)
+                    }
+                    _ => true,
+                });
+            let repair = if refused {
+                GOALS_HOME_REPAIR.to_string()
+            } else {
+                format!(
+                    "write it in backticks, as `{token}`, so the check reads it; where it names \
+                     nothing of this project, rewrite the sentence"
+                )
+            };
+            Some(Finding::at(
+                rel,
+                line,
+                format!("`{token}` is a reference written without backticks"),
+                repair,
+            ))
+        }
+        _ => None,
+    }
+}
+
+/// Each form `id` is written as, rendered `<kind>@<anchor>@<id>`, or `<kind>@<id>` for a harness
+/// kind, sorted and with no repeat.
+fn render_forms(id: &str, pairs: Vec<(String, String)>) -> Vec<String> {
+    let mut forms: Vec<String> = pairs
+        .into_iter()
+        .map(|(kind, anchor)| {
+            if anchor.is_empty() {
+                format!("{kind}@{id}")
+            } else {
+                format!("{kind}@{anchor}@{id}")
+            }
+        })
+        .collect();
+    forms.sort();
+    forms.dedup();
+    forms
+}
+
+/// The kind and the anchor of each entity that defines `id` and that a reference from `rel` would
+/// resolve to.
+/// The reference of every entity the tables define with this id that `rel` may cite: an item of
+/// a plan only from inside that plan, as its reference resolves, per
+/// `design@model@plan-item-scope`.
+fn defined_pairs(id: &str, tables: &[IdTable], rel: &Path) -> Vec<(String, String)> {
+    tables
+        .iter()
+        .flat_map(|t| {
+            t.ids
+                .get(id)
+                .into_iter()
+                .flatten()
+                .filter(move |(kind, anchor)| {
+                    kind.is_harness()
+                        || t.entities
+                            .resolve_from(t.anchors, kind, anchor, id, Some(rel))
+                            == table::Resolution::Resolved
+                })
+        })
+        .map(|(kind, anchor)| (kind.name().to_string(), anchor.to_string()))
+        .collect()
+}
+
+/// The finding on an id written outside its reference form, or `None` where no entity this
+/// document may cite has that id.
+fn id_finding(rel: &Path, line: u32, id: &str, forms: &[String], how: IdForm) -> Option<Finding> {
+    // A design head's slug states its decision, so a word meant as an ordinary term shows it
+    // names a subject; any other entry's slug has no reason to be a word a sentence uses, on the
+    // owner's word, per `design@check@plain-word-lint`.
+    let designs = forms.iter().filter(|f| f.starts_with("design@")).count();
+    let (written, word) = match how {
+        IdForm::Bare => ("in backticks without its kind", ""),
+        IdForm::Plain if designs == forms.len() => (
+            "as a plain word",
+            "; where the word is meant as an ordinary term, the entry's slug names a subject: \
+             rename the entry to state its decision",
+        ),
+        IdForm::Plain if designs == 0 => (
+            "as a plain word",
+            "; where the word is meant as an ordinary term, rename what it names so that its slug \
+             is not an ordinary word",
+        ),
+        IdForm::Plain => (
+            "as a plain word",
+            "; where the word is meant as an ordinary term, rename what it names: a design entry \
+             to state its decision, anything else so that its slug is not an ordinary word",
+        ),
+    };
+    let listed = |forms: &[String]| {
+        forms
+            .iter()
+            .map(|f| format!("`{f}`"))
+            .collect::<Vec<_>>()
+            .join(", ")
+    };
+    match forms {
+        [] => None,
+        [form] => Some(Finding::at(
+            rel,
+            line,
+            format!("`{id}` is written {written}, and names `{form}`"),
+            format!("write `{form}`{word}"),
+        )),
+        _ => Some(Finding::at(
+            rel,
+            line,
+            format!(
+                "`{id}` is written {written}, and {} entries define it",
+                forms.len()
+            ),
+            format!("write the reference meant, one of {}{word}", listed(forms)),
+        )),
+    }
+}
+
+/// Whether a token outside backticks is a reference: a kind, and the segments that kind takes,
+/// each in its grammar, so an address whose head is a kind, as `<kind>@example.test`, is none.
+fn written_reference(token: &str, anchors: &Anchors) -> bool {
+    let anchor_ok = |a: &str| a == "*" || table::is_anchor_name(a);
+    match table::candidate(token, anchors) {
+        Candidate::Reference { kind, anchor, id } => {
+            anchor_ok(anchor)
+                && (kind.takes_a_path()
+                    || if kind.is_register() {
+                        table::is_entity_id(id)
+                    } else {
+                        table::is_entry_id(id)
+                    })
+        }
+        Candidate::Harness { owner, id, .. } => {
+            (owner.is_empty() || table::is_entry_id(owner)) && table::is_entry_id(id)
+        }
+        _ => false,
+    }
+}
+
+/// Whether an unanchored path-shaped span names a file or a directory of this tree.
+///
+/// Only its first segment is asked: a pointer whose first segment is here and whose rest is
+/// not is a dangling pointer, which the anchored form would report, so it is a finding.
+///
+/// **The places it is read from are the root, every anchor that is a directory, and the
+/// document's own directory**: a path written in a component's README is often relative to that
+/// component, and one written beside a file relative to it. A spec is an anchor and a file, so
+/// it is no place. A `.` segment is passed over and a `..` climbs from the place; one that climbs
+/// past the root names nothing from there. A leading slash is read from the root alone. The
+/// suffix, a line number or a fragment, is no part of the path.
+///
+/// **The listing alone answers, and the ignore rules are not asked.** A pointer into an ignored
+/// directory is silent: asking git would cost one spelling per span and place, would make every
+/// root name a pointer under a whitelist `.gitignore`, and fails outright on a spelling through
+/// a symlink.
+fn names_this_tree(span: &str, rel: &Path, anchors: &Anchors, inputs: &Inputs) -> bool {
+    let path = span.split([':', '#']).next().unwrap_or(span);
+    let segments: Vec<&str> = path.split('/').filter(|s| !s.is_empty()).collect();
+    let mut bases: Vec<&Path> = vec![Path::new("")];
+    if !path.starts_with('/') {
+        bases.extend(
+            anchors
+                .all()
+                .iter()
+                .map(|a| a.path.as_path())
+                .filter(|p| inputs.directories.contains(*p)),
+        );
+        bases.push(rel.parent().unwrap_or(Path::new("")));
+    }
+    bases.into_iter().any(|base| {
+        let mut at = base.to_path_buf();
+        for segment in &segments {
+            match *segment {
+                "." => {}
+                ".." => {
+                    if !at.pop() {
+                        return false;
+                    }
+                }
+                name => {
+                    at.push(name);
+                    return inputs.present.contains(&at);
+                }
+            }
+        }
+        false
+    })
+}
+
+/// Whether a retired slug reference names something of this project: its id an entry some
+/// register defines, or its word an anchor or a kind.
+///
+/// The id is asked whatever the word, because a form copied out of the history may carry the
+/// name an anchor had before it was renamed. The form was this grammar's alone, so a span that
+/// names nothing here is another tool's notation: an issue number, a preprocessor directive, a
+/// crate's item.
+fn names_this_project(span: &str, anchors: &Anchors, entities: &Entities) -> bool {
+    match span.split_once('#') {
+        Some((word, id)) => {
+            entities.defines_id(id)
+                || (!word.is_empty()
+                    && (anchors.kind(word).is_some() || anchors.is_anchor_word(word)))
+        }
+        None => false,
+    }
+}
+
+#[allow(clippy::too_many_arguments)]
+fn link(
+    out: &mut Vec<Finding>,
+    counts: &mut Counts,
+    doc: &crate::model::Document,
+    line: u32,
+    target: &str,
+    nav: bool,
+    inputs: &Inputs,
+) {
+    // A bare fragment stays on the page; on a file target a fragment rides along and is
+    // dropped before resolution. A scheme leaves the project and is not this check's to
+    // resolve; an absolute path is NOT passed over — it reaches `refused` below, under the
+    // same leading-slash arm an anchored path meets.
+    if target.starts_with('#') {
+        return;
+    }
+    let file_part = target.split('#').next().unwrap_or(target);
+    if resolve::has_scheme(file_part) {
+        return;
+    }
+    counts.links += 1;
+    if !nav {
+        out.push(Finding::at(
+            &doc.rel,
+            line,
+            format!("`{target}` is linked from a file that is not a navigation home"),
+            "a relative link is an index row and lives in a README.md or an index.md; in \
+             prose, point with a backticked `path@<anchor>@<path>` reference",
+        ));
+        return;
+    }
+    if let Some(why) = refused(file_part) {
+        out.push(Finding::at(
+            &doc.rel,
+            line,
+            format!("the link `{target}` is refused: {why}"),
+            "link with a plain path relative to this file",
+        ));
+        return;
+    }
+    let dir = doc.rel.parent().unwrap_or(Path::new(""));
+    let resolved = dir.join(file_part.trim_end_matches('/'));
+    if let Err(cause) = assert_target(&resolved, file_part.ends_with('/'), &inputs.tree()) {
+        out.push(reported(&cause, &doc.rel, line, target));
+    }
+}
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    /// The claim: a finding carries the two texts of the cause, each in its own place.
+    #[test]
+    fn a_reported_cause_writes_its_two_texts_in_a_finding() {
+        let cause = resolve::Cause::Missing {
+            target: std::path::PathBuf::from("a/b.rs"),
+        };
+        let (what, action) = cause.texts("path@x@b.rs");
+        assert_eq!(what, "`path@x@b.rs` does not exist, at `a/b.rs`");
+        let finding = reported(&cause, Path::new("r.md"), 3, "path@x@b.rs");
+        assert_eq!((finding.what, finding.action), (what, action));
+    }
+    use crate::model::Model;
+    use std::collections::{HashMap, HashSet};
+    use std::path::PathBuf;
+
+    // Every fixture spells its reference inline: the checker reads no string literal of its
+    // own source, per `design@check@checker-source-literals-are-data`.
+
+    /// A manifest declaring one component beside the root, against a root nothing reads.
+    fn manifest() -> Manifest {
+        let text = "[project]\nchecker-version = \"fixture\"\nname = \"a-project\"\ncomponents = [\"parts/a-part\"]\n\n\
+             [walk]\nskip-dirs = []\nskip-files = []\n\n\
+             ";
+        Manifest::parse(std::path::Path::new("/nowhere"), text).expect("a declaration")
+    }
+
+    /// The findings and counts over documents, against a listing.
+    fn checked_docs(
+        manifest: &Manifest,
+        docs: Vec<(&str, &str)>,
+        present: &[String],
+    ) -> (Vec<String>, Counts) {
+        checked_under(
+            docs,
+            present,
+            &Anchors::of(manifest, &[] as &[std::path::PathBuf]),
+        )
+    }
+
+    /// The same, over a stated anchor list.
+    fn checked_under(
+        docs: Vec<(&str, &str)>,
+        present: &[String],
+        anchors: &Anchors,
+    ) -> (Vec<String>, Counts) {
+        checked_ignoring_under(docs, present, &[], anchors)
+    }
+
+    /// The same, with a stated batch of ignore answers.
+    ///
+    /// A spelling here is what `git::ignore_query` produces and what one `git check-ignore`
+    /// batch would have returned; no test spawns git, which is the same reason a check may not.
+    fn checked_ignoring_under(
+        docs: Vec<(&str, &str)>,
+        present: &[String],
+        ignored: &[&str],
+        anchors: &Anchors,
+    ) -> (Vec<String>, Counts) {
+        let model = Model::from_documents(
+            docs.into_iter()
+                .map(|(p, t)| (PathBuf::from(p), t.to_string()))
+                .collect(),
+        );
+        let committed = HashMap::new();
+        let present: HashSet<PathBuf> = present.iter().map(PathBuf::from).collect();
+        let directories = crate::check::testing::implied_directories(&present);
+        let outside = Vec::new();
+        let inputs = Inputs {
+            committed: &committed,
+            configs: &HashMap::new(),
+            present: &present,
+            directories: &directories,
+            outside: &outside,
+            ignored: &ignored.iter().map(|s| (*s).to_string()).collect(),
+            tracked_and_ignored: &[],
+            refused: &[],
+            links: &[],
+            installed: &[],
+            shipped: &[],
+        };
+        let (found, counts) = check_under(&model, &inputs, anchors);
+        (found.iter().map(|f| f.to_string()).collect(), counts)
+    }
+
+    /// The findings and counts over one document, placed under `notes/`.
+    fn checked(manifest: &Manifest, text: &str, present: &[String]) -> (Vec<String>, Counts) {
+        checked_in(manifest, "notes/prose.md", text, present)
+    }
+
+    /// The same, with a stated batch of ignore answers.
+    fn checked_ignoring(
+        manifest: &Manifest,
+        text: &str,
+        present: &[String],
+        ignored: &[&str],
+    ) -> (Vec<String>, Counts) {
+        checked_ignoring_under(
+            vec![("notes/prose.md", text)],
+            present,
+            ignored,
+            &Anchors::of(manifest, &[] as &[std::path::PathBuf]),
+        )
+    }
+
+    /// The same, with the document at a chosen path — what the navigation rule reads.
+    fn checked_in(
+        manifest: &Manifest,
+        at: &str,
+        text: &str,
+        present: &[String],
+    ) -> (Vec<String>, Counts) {
+        checked_docs(manifest, vec![(at, text)], present)
+    }
+
+    /// The mock component's tree: the document, and the directory chain above it.
+    fn tree() -> Vec<String> {
+        vec![
+            "parts/a-part/notes/real/a.md".to_string(),
+            "parts/a-part/notes/real".to_string(),
+            "parts/a-part/notes".to_string(),
+            "parts/a-part".to_string(),
+            "parts".to_string(),
+        ]
+    }
+
+    /// A design-home line defining the slug `a-decision`.
+    fn head() -> &'static str {
+        "### The decision `##a-decision`\n"
+    }
+
+    // --- rejected entries -------------------------------------------------------------
+
+    /// A rejected home defining `not-kept`, the entry the tests below cite or leave uncited.
+    fn not_kept() -> (&'static str, &'static str) {
+        (
+            "docs/rejected.md",
+            "# Rejected\n\n### A design not kept `##not-kept`\n\n`live`. The reason.\n",
+        )
+    }
+
+    /// The claim, per `design@check@rejected-register`: a `rejected` reference resolves to an
+    /// entry of the `rejected` home, a dangling one is reported like any table reference, and an
+    /// entry a design entry cites is no orphan. Mutation checked: `REJECTED_REGISTER` left out of
+    /// `Registers::built_in`, which leaves the kind unknown and the span silent, so the dangling
+    /// citation is not reported.
+    #[test]
+    fn a_rejected_reference_resolves_and_a_cited_entry_is_no_orphan() {
+        let (found, counts) = checked_docs(
+            &manifest(),
+            vec![
+                not_kept(),
+                (
+                    "docs/design.md",
+                    "### The decision `##a-decision`\n\nIt did not keep `rejected@a-project@not-kept`, \
+                     nor `rejected@a-project@nowhere`.\n",
+                ),
+            ],
+            &[],
+        );
+        assert_eq!(found.len(), 1, "{found:#?}");
+        assert!(
+            found[0].contains("`rejected@a-project@nowhere` is referenced"),
+            "{found:#?}"
+        );
+        assert_eq!(counts.entities, 2);
+    }
+
+    /// The claim: the plain-word finding's repair for a word meant as an ordinary term asks a
+    /// design head to be renamed to state its decision, anything else to be renamed so its slug
+    /// is not an ordinary word, and gives both where the forms mix kinds, per
+    /// `design@check@plain-word-lint`. Mutations: the decision branch given whatever the kind
+    /// fails the issue entry's case; `all` read as `any` fails the mixed case.
+    #[test]
+    fn the_plain_word_repair_is_given_by_the_kind_of_the_entry() {
+        let (found, _) = checked_docs(
+            &manifest(),
+            vec![
+                (
+                    "docs/design.md",
+                    "# Design\n\n### The decision `##a-decision`\n\nIt holds.\n\n\
+                     ### Another decision `##a-mixed-slug`\n\nIt holds.\n",
+                ),
+                ("docs/open-issues/an-issue.md", "# An issue\n\nIt holds.\n"),
+                ("docs/open-issues/a-mixed-slug.md", "# Mixed\n\nIt holds.\n"),
+                (
+                    "docs/notes.md",
+                    "# Notes\n\nThe a-decision word.\n\nThe an-issue word.\n\nThe a-mixed-slug word.\n",
+                ),
+            ],
+            &[],
+        );
+        let plain = |id: &str| {
+            found
+                .iter()
+                .find(|f| f.contains(&format!("`{id}` is written as a plain word")))
+                .unwrap_or_else(|| panic!("{found:#?}"))
+                .clone()
+        };
+        let design = plain("a-decision");
+        assert!(
+            design.contains("rename the entry to state its decision"),
+            "{design}"
+        );
+        let issue = plain("an-issue");
+        assert!(
+            issue.contains("rename what it names so that its slug is not an ordinary word"),
+            "{issue}"
+        );
+        assert!(!issue.contains("state its decision"), "{issue}");
+        let mixed = plain("a-mixed-slug");
+        assert!(
+            mixed.contains("a design entry to state its decision, anything else so that its slug"),
+            "both branches where the forms mix kinds: {mixed}"
+        );
+    }
+
+    /// The claim, per `design@check@orphan-rejected-entry`:
+    /// an entry no design entry cites is reported at its definition site, whatever else cites
+    /// it: a goal, an issue, another `rejected` entry, or the design home's own introduction,
+    /// which is no entry. Mutation checked: `cited_within` reading every span of the design
+    /// home's document rather than the entry's section, which lets the introduction's citation
+    /// pass the entry.
+    #[test]
+    fn an_entry_no_design_entry_cites_is_reported_whatever_else_cites_it() {
+        let (found, _) = checked_docs(
+            &manifest(),
+            vec![
+                (
+                    "docs/rejected.md",
+                    "# Rejected\n\n### Not kept `##not-kept`\n\n`live`. It cites `rejected@a-project@other-kept`.\n\n\
+                     ### Other `##other-kept`\n\n`live`. The reason.\n",
+                ),
+                (
+                    "docs/design.md",
+                    "# Design\n\nThis home did not keep `rejected@a-project@not-kept`.\n\n\
+                     ### The decision `##a-decision`\n\nIt cites nothing rejected.\n",
+                ),
+                (
+                    "docs/goals.md",
+                    "## A goal `##a-goal`\n\nIt cites `rejected@a-project@not-kept`.\n",
+                ),
+                (
+                    "docs/open-issues/an-issue.md",
+                    "# An issue\n\nIt cites `rejected@a-project@other-kept`.\n",
+                ),
+            ],
+            &[],
+        );
+        let orphans: Vec<&String> = found
+            .iter()
+            .filter(|f| f.contains("is cited by no design entry"))
+            .collect();
+        assert_eq!(orphans.len(), 2, "{found:#?}");
+        assert!(orphans[0].starts_with("docs/rejected.md:3"), "{found:#?}");
+        assert!(
+            orphans[0].contains("the `rejected` entry `not-kept` of `a-project`"),
+            "{found:#?}"
+        );
+        assert!(orphans[1].starts_with("docs/rejected.md:7"), "{found:#?}");
+        assert!(orphans[0].contains("head of absence"), "{found:#?}");
+        assert!(
+            orphans[0].contains("name the design and its reason beside that instruction"),
+            "the third route of the repair: {found:#?}"
+        );
+    }
+
+    /// The claim, per `design@check@orphan-rejected-entry`: a citation counts only inside the design
+    /// entry's own section, its heading line included, and only of the `rejected` kind. Mutations
+    /// checked: the section's upper bound dropped, which counts the text under a later level-two
+    /// heading; the kind test dropped, which counts a goal reference sharing the id; the heading
+    /// line excluded from the range.
+    #[test]
+    fn a_citation_counts_inside_its_entry_s_section_and_of_its_own_kind_only() {
+        let orphans = |design: &str| {
+            let (found, _) = checked_docs(
+                &manifest(),
+                vec![
+                    not_kept(),
+                    ("docs/goals.md", "## A goal `##not-kept`\n"),
+                    ("docs/design.md", design),
+                ],
+                &[],
+            );
+            found
+                .iter()
+                .filter(|f| f.contains("is cited by no design entry"))
+                .count()
+        };
+        // A citation in a design home's text after the entry's section: no citation.
+        assert_eq!(
+            orphans(
+                "### D `##a-design`\n\nBody.\n\n## Next subject\n\nCites `rejected@a-project@not-kept`.\n"
+            ),
+            1
+        );
+        // A reference of another kind with the same id: no citation.
+        assert_eq!(
+            orphans("### D `##a-design`\n\nServes `goal@a-project@not-kept`.\n"),
+            1
+        );
+        // A citation in the entry's own heading line: a citation.
+        assert_eq!(
+            orphans("### Not `rejected@a-project@not-kept` `##a-design`\n\nBody.\n"),
+            0
+        );
+    }
+
+    /// The claim, per `design@check@orphan-rejected-entry`: a citation from a design entry of a
+    /// directory-shaped design home, in a subdocument and in another anchor, counts. Mutation
+    /// checked: `cited_within` keeping only citations whose anchor is the citing entry's own,
+    /// which reports the entry the other anchor's head cites.
+    #[test]
+    fn a_citation_from_a_subdocument_or_another_anchor_counts() {
+        let (found, _) = checked_docs(
+            &manifest(),
+            vec![
+                not_kept(),
+                ("docs/design/README.md", "# Design\n\n- [One](one.md)\n"),
+                (
+                    "docs/design/one.md",
+                    "### The decision `##a-decision`\n\nIt did not keep `rejected@a-project@not-kept`.\n",
+                ),
+                (
+                    "parts/a-part/docs/rejected.md",
+                    "### Elsewhere `##kept-elsewhere`\n\n`live`. The reason.\n",
+                ),
+            ],
+            &[],
+        );
+        assert!(found.iter().all(|f| !f.contains("not-kept")), "{found:#?}");
+        let orphans = found
+            .iter()
+            .filter(|f| f.contains("is cited by no design entry"))
+            .count();
+        assert_eq!(orphans, 1, "{found:#?}");
+        let (found, _) = checked_docs(
+            &manifest(),
+            vec![
+                (
+                    "parts/a-part/docs/rejected.md",
+                    "### Elsewhere `##kept-elsewhere`\n\n`live`. The reason.\n",
+                ),
+                (
+                    "docs/design.md",
+                    "### The decision `##a-decision`\n\nThe part did not keep `rejected@a-part@kept-elsewhere`.\n",
+                ),
+            ],
+            &[],
+        );
+        assert_eq!(found, Vec::<String>::new(), "{found:#?}");
+    }
+
+    // --- table kinds -----------------------------------------------------------------
+
+    #[test]
+    fn a_reference_resolves_against_the_anchor_and_register_it_names() {
+        // Both directions across the boundary, and a definition is owned by where its
+        // document sits rather than by anything the line says.
+        let (found, counts) = checked_docs(
+            &manifest(),
+            vec![
+                (
+                    "docs/design.md",
+                    "### The decision `##a-decision`\n\nIt rests on `design@a-part@a-decision`.\n",
+                ),
+                (
+                    "parts/a-part/docs/design.md",
+                    "### The decision `##a-decision`\n\nIt rests on `design@a-project@a-decision`.\n",
+                ),
+            ],
+            &[],
+        );
+        assert_eq!(found, Vec::<String>::new(), "{found:#?}");
+        assert_eq!((counts.entities, counts.references), (2, 2));
+    }
+
+    #[test]
+    fn each_kind_resolves_in_its_own_register_and_not_in_another() {
+        // The same word in the goals and tripwires homes, and a reference of each kind. A
+        // design reference to the word is dangling: the register is part of the key.
+        let (found, _) = checked_docs(
+            &manifest(),
+            vec![
+                ("docs/goals.md", "## What it is for `##shared-word`\n"),
+                ("docs/tripwires.md", "## Guarding it `##shared-word`\n"),
+                (
+                    "notes/a.md",
+                    "`goal@a-project@shared-word` and `tripwire@a-project@shared-word` resolve;\n\
+                     `design@a-project@shared-word` does not.\n",
+                ),
+            ],
+            &[],
+        );
+        assert_eq!(found.len(), 1, "{found:#?}");
+        assert!(
+            found[0].starts_with("notes/a.md:2")
+                && found[0].contains("defines no design `shared-word`"),
+            "{found:#?}"
+        );
+    }
+
+    #[test]
+    fn each_way_a_reference_resolves_to_nothing_is_reported_as_the_repair_it_needs() {
+        // Unknown anchor, undefined id, and the two malformed counts; the anchor-lacks-
+        // register arm is constructed in `entity`, no component lacking one.
+        let (found, _) = checked_docs(
+            &manifest(),
+            vec![
+                ("docs/design.md", head()),
+                (
+                    "docs/open-issues.md",
+                    "Naming an anchor nothing declares: `design@nowhere@a-decision`.\n\
+                     Naming one that does not define it: `design@a-part@a-decision`.\n\
+                     Two segments: `design@a-project`.\n\
+                     Four segments: `design@a-project@a@decision`.\n",
+                ),
+            ],
+            &[],
+        );
+        assert_eq!(found.len(), 4, "{found:#?}");
+        let at = |line: u32, needle: &str| {
+            let prefix = format!("docs/open-issues.md:{line}  ");
+            assert!(
+                found
+                    .iter()
+                    .any(|f| f.starts_with(&prefix) && f.contains(needle)),
+                "expected {needle:?} at line {line}: {found:#?}"
+            );
+        };
+        at(1, "no anchor of this project");
+        at(2, "defines no design `a-decision`");
+        at(3, "is malformed: two segments");
+        at(4, "is malformed: four or more segments");
+        // The unknown-anchor repair lists the anchors, which is what makes it a repair.
+        assert!(
+            found.iter().any(|f| f.contains("a-project, a-part")),
+            "{found:#?}"
+        );
+    }
+
+    /// The claim: a spec of `specs/`, a milestone and a slice spec each resolve by their kind,
+    /// each in its own anchor, and an absent id in each is the ordinary dangling finding.
+    /// Mutation checked: `file_definitions` filing a milestone's slice specs under `plans`.
+    #[test]
+    fn the_plan_kinds_resolve_each_in_its_own_anchor() {
+        let m = manifest();
+        let docs = vec![
+            ("docs/plans/specs/a-spec.md", "# A spec\n"),
+            ("docs/plans/milestones/m-one/README.md", "# A milestone\n"),
+            ("docs/plans/milestones/m-one/a-slice.md", "# A slice\n"),
+            (
+                "notes/prose.md",
+                "`spec@plans@a-spec`, `milestone@plans@m-one` and `spec@m-one@a-slice` resolve;\n\
+                 `spec@plans@none-such`, `milestone@plans@none-such` and `spec@m-one@none-such` do not.\n",
+            ),
+        ];
+        let present: Vec<PathBuf> = docs.iter().map(|(p, _)| PathBuf::from(p)).collect();
+        let anchors = Anchors::of(&m, &present);
+        let present: Vec<String> = docs.iter().map(|(p, _)| p.to_string()).collect();
+        let (found, counts) = checked_under(docs, &present, &anchors);
+        assert_eq!(counts.references, 6, "{found:#?}");
+        assert_eq!(found.len(), 3, "{found:#?}");
+        assert!(found
+            .iter()
+            .any(|f| f.contains("`plans` defines no spec `none-such`")));
+        assert!(found
+            .iter()
+            .any(|f| f.contains("`plans` defines no milestone `none-such`")));
+        assert!(found
+            .iter()
+            .any(|f| f.contains("`m-one` defines no spec `none-such`")));
+    }
+
+    /// The claim: a milestone's name in the kind position is no retired form, so an email
+    /// address or a git remote stays silent when a milestone of that name exists. Mutation
+    /// checked: `Anchors::is_anchor_word` counting milestone anchors.
+    #[test]
+    fn a_milestone_name_in_the_kind_position_is_silent() {
+        let m = manifest();
+        let tree: Vec<PathBuf> = ["docs/plans/milestones/a-host/README.md"]
+            .iter()
+            .map(PathBuf::from)
+            .collect();
+        let anchors = Anchors::of(&m, &tree);
+        assert!(anchors.by_name("a-host").is_some());
+        let text = "The remote is `a-host@example.test:org/repo.git`.\n";
+        let (found, counts) = checked_under(vec![("notes/prose.md", text)], &[], &anchors);
+        assert!(found.is_empty(), "{found:#?}");
+        assert_eq!(counts.references, 0);
+    }
+
+    /// The claims of the reference arms that reach a plan document another way: the generic
+    /// form names no copy the plans anchors hold, so a spec is no copy of any component; and a
+    /// milestone whose README the walk does not read defines nothing, so a reference to it
+    /// dangles. Mutations checked: the filter on the tool's anchors removed from the `*` arm of
+    /// `path`; the walked-README test removed from `Entities::directory_definitions`.
+    #[test]
+    fn a_plan_document_reached_through_the_generic_form_or_out_of_the_walk_resolves_nothing() {
+        let m = manifest();
+        let tree: Vec<PathBuf> = [
+            "docs/plans/specs/a-spec.md",
+            "docs/plans/milestones/m-one/README.md",
+            "docs/plans/milestones/m-one/a-slice.md",
+        ]
+        .iter()
+        .map(PathBuf::from)
+        .collect();
+        let anchors = Anchors::of(&m, &tree);
+        let present: Vec<String> = tree.iter().map(|p| p.display().to_string()).collect();
+        // The milestone's README is in the tree and not in the walk.
+        let docs = vec![
+            ("docs/plans/specs/a-spec.md", "# A spec\n"),
+            ("docs/plans/milestones/m-one/a-slice.md", "# A slice\n"),
+            (
+                "notes/prose.md",
+                "`path@*@specs/a-spec.md`, `path@*@a-slice.md` and `milestone@plans@m-one`.\n",
+            ),
+        ];
+        let (found, _) = checked_under(docs, &present, &anchors);
+        assert_eq!(found.len(), 3, "{found:#?}");
+        assert_eq!(
+            found
+                .iter()
+                .filter(|f| f.contains("resolves in no component"))
+                .count(),
+            2,
+            "{found:#?}"
+        );
+        assert!(found
+            .iter()
+            .any(|f| f.contains("`plans` defines no milestone `m-one`")));
+    }
+
+    /// The claim: an item of a plan resolves from inside its plan and is refused from outside
+    /// it, with the whole-document repair, and the scope is judged before the id, so an
+    /// undefined item cited from outside gets the same repair; and a spec anchor carries no
+    /// `path` kind. Mutations checked: the scope judged after the id lookup; a spec anchor
+    /// carrying `path`.
+    #[test]
+    fn an_item_resolves_from_inside_its_plan_and_is_refused_from_outside() {
+        let m = manifest();
+        let docs = vec![
+            (
+                "docs/plans/specs/a-spec.md",
+                "# A spec\n\n## Threads\n\n### A thread `##thread-one`\n\nIt cites `thread@a-spec@thread-one` and \
+                 `thread@a-spec@no-such`.\n",
+            ),
+            (
+                "notes/prose.md",
+                "`thread@a-spec@thread-one`, `thread@a-spec@none-such`, `spec@plans@a-spec` and `path@a-spec@x.md`.\n",
+            ),
+        ];
+        let tree: Vec<PathBuf> = docs.iter().map(|(p, _)| PathBuf::from(p)).collect();
+        let anchors = Anchors::of(&m, &tree);
+        let present: Vec<String> = docs.iter().map(|(p, _)| p.to_string()).collect();
+        let (found, _) = checked_under(docs, &present, &anchors);
+        let outside: Vec<&String> = found
+            .iter()
+            .filter(|f| f.contains("cites an item of the plan `a-spec` from outside it"))
+            .collect();
+        assert_eq!(outside.len(), 2, "{found:#?}");
+        assert!(
+            outside[0].contains("name the item beside it in plain text as #thread-one"),
+            "the label the planning skill gives an item outside its plan: {found:#?}"
+        );
+        assert!(found.iter().any(|f| f
+            .contains("`path@a-spec@x.md` names the spec `a-spec`, which carries no path kind")));
+        // An undefined item cited from inside its plan is the ordinary dangling finding.
+        assert!(found
+            .iter()
+            .any(|f| f.contains("`a-spec` defines no thread `no-such`")));
+        assert_eq!(found.len(), 4, "{found:#?}");
+    }
+
+    /// The claim: an item's id written outside its reference form is reported inside its own
+    /// plan, with the item's reference, and is silent outside it, where no document may cite the
+    /// item, per `design@model@plan-item-scope`. Mutation checked: dropping the resolution test of
+    /// `defined_pairs` reports the plain word in notes/prose.md.
+    #[test]
+    fn an_item_id_written_plain_is_reported_inside_its_plan_alone() {
+        let m = manifest();
+        let docs = vec![
+            (
+                "docs/plans/specs/a-spec.md",
+                "# A spec\n\n## Threads\n\n### A thread `##thread-one`\n\nThe thread-one rule, \
+                 and `thread-one`.\n",
+            ),
+            ("notes/prose.md", "The thread-one rule, and `thread-one`.\n"),
+        ];
+        let tree: Vec<PathBuf> = docs.iter().map(|(p, _)| PathBuf::from(p)).collect();
+        let anchors = Anchors::of(&m, &tree);
+        let present: Vec<String> = docs.iter().map(|(p, _)| p.to_string()).collect();
+        let (found, _) = checked_under(docs, &present, &anchors);
+        assert_eq!(found.len(), 2, "{found:#?}");
+        assert!(found
+            .iter()
+            .all(|f| f.starts_with("docs/plans/specs/a-spec.md:7")
+                && f.contains("names `thread@a-spec@thread-one`")));
+    }
+
+    /// The claim: a reference-shaped token outside backticks is reported where its kind and its
+    /// segments make a reference, and is silent beside a backticked reference to an issue entry
+    /// in its paragraph, per `design@agent-skills@plain-text-is-no-repair`; a token of the wrong
+    /// arity, one whose id is no id, as an address is not, one whose id has one segment, and a
+    /// placeholder are silent.
+    /// Mutations checked: ignoring `beside_issue` reports line 3; dropping the id grammar from
+    /// `written_reference` reports an address, under a harness kind and under a register kind.
+    #[test]
+    fn a_reference_written_without_backticks_is_reported_except_beside_an_issue() {
+        let m = manifest();
+        let docs = vec![
+            (
+                "parts/a-part/docs/design.md",
+                "# Design\n\n### A decision `##a-decision`\n",
+            ),
+            ("parts/a-part/docs/open-issues/a-gap.md", "# A gap\n"),
+            (
+                "notes/prose.md",
+                "See design@a-part@a-decision here.\n\nSee design@a-part@a-decision, beside \
+                 `issue@a-part@a-gap`.\n\nNot design@a-part, skill@example.test, design@a-part@Not.an-id, \
+                 design@a-part@one, skill@v2, nor design@<anchor>@<id>.\n",
+            ),
+        ];
+        let present: Vec<String> = docs.iter().map(|(p, _)| p.to_string()).collect();
+        let (found, _) = checked_docs(&m, docs, &present);
+        let tokens: Vec<&String> = found
+            .iter()
+            .filter(|f| f.contains("written without backticks"))
+            .collect();
+        assert_eq!(tokens.len(), 1, "{found:#?}");
+        assert!(tokens[0].starts_with("notes/prose.md:1"), "{found:#?}");
+        assert!(
+            tokens[0].contains("write it in backticks, as `design@a-part@a-decision`"),
+            "{found:#?}"
+        );
+    }
+
+    /// The claim: an item a slice spec defines, cited from outside its milestone, gets the slice
+    /// spec as the whole-document form; one the README defines gets the milestone. Mutation
+    /// checked: the milestone form for every item of a milestone.
+    #[test]
+    fn an_item_cited_from_outside_names_the_document_that_defines_it() {
+        let m = manifest();
+        let docs = [
+            (
+                "docs/plans/milestones/m-one/README.md",
+                "# A milestone\n\n## Threads\n\n### In the README `##in-readme`\n",
+            ),
+            (
+                "docs/plans/milestones/m-one/a-slice.md",
+                "# A slice\n\n## Threads\n\n### In the slice `##in-slice`\n",
+            ),
+            (
+                "notes/prose.md",
+                "`thread@m-one@in-readme` and `thread@m-one@in-slice`.\n",
+            ),
+        ];
+        let tree: Vec<PathBuf> = docs.iter().map(|(p, _)| PathBuf::from(p)).collect();
+        let anchors = Anchors::of(&m, &tree);
+        let model = Model::from_documents(
+            docs.iter()
+                .map(|(p, t)| (PathBuf::from(p), t.to_string()))
+                .collect(),
+        );
+        let entities = Entities::build(&model, &anchors);
+        let notes = Path::new("notes/prose.md");
+        let form = |id: &str| match entities.resolve_from(
+            &anchors,
+            &Kind::new("thread"),
+            "m-one",
+            id,
+            Some(notes),
+        ) {
+            table::Resolution::OutsidePlan { form } => form,
+            other => panic!("{other:?}"),
+        };
+        assert_eq!(form("in-readme"), "milestone@plans@m-one");
+        assert_eq!(form("in-slice"), "spec@m-one@a-slice");
+        // And the Undefined repair of an item names its section, not a home.
+        let (found, _) = checked_under(
+            vec![(
+                "docs/plans/milestones/m-one/README.md",
+                "# A milestone\n\nIt cites `thread@m-one@no-such`.\n",
+            )],
+            &[],
+            &anchors,
+        );
+        assert!(
+            found
+                .iter()
+                .any(|f| f.contains("defines no thread `no-such`")),
+            "{found:#?}"
+        );
+    }
+
+    /// The claim: a plan document is judged by where it sits, not by whether it exists, so a
+    /// citation of a deleted milestone or of a deleted slice gets the kind form too. Mutation
+    /// checked: `plan_document` asking the owning anchor, which a deleted milestone no longer is.
+    #[test]
+    fn a_deleted_plan_document_cited_by_its_path_gets_the_kind_form() {
+        let m = manifest();
+        let present: Vec<PathBuf> = ["docs/plans", "docs/plans/milestones"]
+            .iter()
+            .map(PathBuf::from)
+            .collect();
+        let anchors = Anchors::of(&m, &present);
+        let text = "`path@plans@milestones/gone-one/` and `path@plans@milestones/gone-one/a-slice.md` and \
+                    `path@plans@specs/gone-one.md` are gone.\n";
+        let present: Vec<String> = present.iter().map(|p| p.display().to_string()).collect();
+        let (found, _) = checked_under(vec![("notes/prose.md", text)], &present, &anchors);
+        assert_eq!(found.len(), 3, "{found:#?}");
+        assert!(found
+            .iter()
+            .all(|f| f.contains("cites a plan document by its path")));
+    }
+
+    #[test]
+    fn a_markdown_link_in_a_rust_doc_comment_is_rustdocs_and_not_a_navigation_row() {
+        // Resolved by rustdoc against the crate namespace; reading it as an index row would
+        // report every intra-doc link. Mutation checked: with the `is_markdown` guard made
+        // always true, the dangling target below is reported.
+        let (found, counts) = checked_in(
+            &manifest(),
+            "src/lib.rs",
+            "/// see [the type](notes/gone.md)\nfn f() {}\n",
+            &[],
+        );
+        assert_eq!(found, Vec::<String>::new(), "{found:#?}");
+        assert_eq!(counts.links, 0);
+    }
+
+    #[test]
+    fn a_reserved_anchor_serves_the_path_kind_alone() {
+        // `*` and `elsewhere` are anchors for a path. Under a table kind they name nothing,
+        // and the finding says which anchors do.
+        let (found, _) = checked_docs(
+            &manifest(),
+            vec![
+                ("docs/design.md", head()),
+                (
+                    "notes/a.md",
+                    "`design@*@a-decision` and `design@elsewhere@a-decision`\n",
+                ),
+            ],
+            &[],
+        );
+        assert_eq!(found.len(), 2, "{found:#?}");
+        assert!(
+            found
+                .iter()
+                .all(|f| f.contains("no anchor of this project") && f.contains("path kind alone")),
+            "{found:#?}"
+        );
+    }
+
+    #[test]
+    fn the_old_forms_are_reported_as_an_anchor_in_kind_position_naming_the_kinds() {
+        // The migration's commonest leftover: `<anchor>@<path>`. Mutation checked: with the
+        // `AnchorInKindPosition` arm pushing nothing, all three are silent.
+        let (found, _) = checked(
+            &manifest(),
+            "`a-project@docs/design.md`, `*@docs/design.md` and `elsewhere@foreign/x`\n",
+            &[],
+        );
+        assert_eq!(found.len(), 3, "{found:#?}");
+        for f in &found {
+            assert!(f.contains("where the kind goes"), "{f}");
+            assert!(
+                f.contains(&Anchors::of(&manifest(), &[] as &[std::path::PathBuf]).kinds_listed()),
+                "the repair names the kinds: {f}"
+            );
+        }
+    }
+
+    #[test]
+    fn a_span_whose_head_is_neither_kind_nor_anchor_is_silent() {
+        // An email, a remote, a typo in the kind: not candidates. The typo is the accepted
+        // gap, guarded by a tripwire.
+        let (found, counts) = checked(
+            &manifest(),
+            "`user@example.test`, `git@host:x/y.git`, `desing@a-project@x`, `@Test`\n",
+            &[],
+        );
+        assert_eq!(found, Vec::<String>::new(), "{found:#?}");
+        assert_eq!(counts.references, 0);
+        // An empty head in front of a path shape is not silent: it had a check before the
+        // grammar and keeps one.
+        let (found, _) = checked(&manifest(), "the retired escape `@docs/a.md`\n", &[]);
+        assert_eq!(found.len(), 1, "{found:#?}");
+        assert!(
+            found[0].contains("is malformed: the kind segment is empty"),
+            "{found:#?}"
+        );
+    }
+
+    #[test]
+    fn the_retired_slug_form_is_a_finding_naming_what_it_was() {
+        // Each shape names something of this project: an anchor, a kind, or an entry the
+        // table defines.
+        let (found, counts) = checked_docs(
+            &manifest(),
+            vec![
+                ("docs/design.md", head()),
+                (
+                    "notes/prose.md",
+                    "`a-project#a-decision`, `design#a-decision`, `#a-decision` and R15\n",
+                ),
+            ],
+            &[],
+        );
+        assert_eq!(found.len(), 3, "a bare R and digits is not one: {found:#?}");
+        assert_eq!(
+            found
+                .iter()
+                .filter(|f| f.contains("retired slug reference form"))
+                .count(),
+            3,
+            "{found:#?}"
+        );
+        assert_eq!(counts.references, 0, "a retired form is not a reference");
+    }
+
+    #[test]
+    fn a_retired_form_whose_id_is_an_entry_is_a_finding_whatever_its_word() {
+        // A form copied out of the history may carry an anchor's former name; its entry is
+        // still here, so the copy is still a pointer the migration missed.
+        let (found, _) = checked_docs(
+            &manifest(),
+            vec![
+                ("docs/design.md", head()),
+                ("notes/prose.md", "`knowledge#a-decision`\n"),
+            ],
+            &[],
+        );
+        assert_eq!(found.len(), 1, "{found:#?}");
+        assert!(
+            found[0].contains("retired slug reference form"),
+            "{found:#?}"
+        );
+    }
+
+    #[test]
+    fn a_retired_shape_that_names_nothing_of_this_project_is_silent() {
+        // A head that is no anchor and no kind, and a bare id no register defines: an issue
+        // number, a preprocessor directive, another tool's notation. None was ever this
+        // grammar's, so none is a reference a migration missed.
+        let (found, _) = checked_docs(
+            &manifest(),
+            vec![
+                ("docs/design.md", head()),
+                (
+                    "notes/prose.md",
+                    "`serde#derive`, `rust#123`, `#include`, `#123` and `#a-decisions`\n",
+                ),
+            ],
+            &[],
+        );
+        assert_eq!(found, Vec::<String>::new(), "{found:#?}");
+    }
+
+    #[test]
+    fn a_fenced_reference_is_live_and_a_placeholder_is_silent() {
+        // One stance for every kind: the sketch names what it names, and the illustration
+        // writes angle brackets.
+        let text = "```\n`design@a-project@nothing` and `design@<component>@<slug>`\n```\n";
+        let (found, counts) = checked(&manifest(), text, &[]);
+        assert_eq!(found.len(), 1, "{found:#?}");
+        assert!(
+            found[0].contains("defines no design `nothing`"),
+            "{found:#?}"
+        );
+        assert_eq!(counts.references, 1);
+    }
+
+    #[test]
+    fn the_definition_findings_belong_to_the_entity_table_and_not_to_this_check() {
+        // Where a definition may sit is the entity table's finding, phase 3, which stops the
+        // run before this check runs. This check still resolves against the table the
+        // same build produced, so the entity count is unaffected by the move.
+        let (found, counts) = checked_docs(
+            &manifest(),
+            vec![
+                (
+                    "docs/design.md",
+                    "### One `##defined-twice`\n\n### Two `##defined-twice`\n\n#### Deep `##deep`\n",
+                ),
+                ("notes/a.md", "### Stray `##stray`\n"),
+            ],
+            &[],
+        );
+        assert_eq!(found, Vec::<String>::new(), "{found:#?}");
+        assert_eq!(counts.entities, 1, "one entity, defined twice");
+    }
+
+    #[test]
+    fn the_counts_are_entities_reference_occurrences_and_links() {
+        // Occurrences for references, because every one is judged; distinct entities for
+        // the table, because that is what it holds.
+        let (found, counts) = checked_docs(
+            &manifest(),
+            vec![
+                ("docs/design.md", head()),
+                (
+                    "docs/open-issues.md",
+                    "`design@a-project@a-decision` and again `design@a-project@a-decision`.\n",
+                ),
+                (
+                    "README.md",
+                    "`design@a-project@a-decision` a third time, and [a row](CLAUDE.md).\n",
+                ),
+            ],
+            &["CLAUDE.md".to_string()],
+        );
+        assert!(found.is_empty(), "{found:#?}");
+        assert_eq!(
+            (counts.entities, counts.references, counts.links),
+            (1, 3, 1)
+        );
+    }
+
+    // --- the path kind ---------------------------------------------------------------
+
+    #[test]
+    fn a_path_resolves_beside_its_anchor_and_a_dangling_one_is_reported() {
+        let m = manifest();
+        let (found, counts) = checked(&m, "See `path@a-part@notes/real/a.md`.\n", &tree());
+        assert_eq!(found, Vec::<String>::new(), "{found:#?}");
+        assert_eq!(counts.references, 1);
+        let (found, _) = checked(&m, "See `path@a-part@notes/gone.md`.\n", &tree());
+        assert_eq!(found.len(), 1, "{found:#?}");
+        assert!(found[0].contains("does not exist"), "{found:#?}");
+    }
+
+    #[test]
+    fn the_root_anchors_by_the_projects_name() {
+        let m = manifest();
+        let present = vec!["notes/root.md".to_string(), "notes".to_string()];
+        let (found, _) = checked(&m, "See `path@a-project@notes/root.md`.\n", &present);
+        assert_eq!(found, Vec::<String>::new(), "{found:#?}");
+    }
+
+    #[test]
+    fn an_unknown_path_anchor_is_reported_naming_the_anchors() {
+        let m = manifest();
+        let (found, _) = checked(&m, "See `path@nonesuch@notes/real/a.md`.\n", &tree());
+        assert_eq!(found.len(), 1, "{found:#?}");
+        assert!(
+            found[0].contains("no anchor") && found[0].contains("a-project, a-part"),
+            "{found:#?}"
+        );
+    }
+
+    #[test]
+    fn a_path_may_hold_an_at_sign() {
+        // The id is everything after the second `@`, so a path with one resolves.
+        let m = manifest();
+        let present = vec!["notes/a@b.md".to_string(), "notes".to_string()];
+        let (found, counts) = checked(&m, "See `path@a-project@notes/a@b.md`.\n", &present);
+        assert_eq!(found, Vec::<String>::new(), "{found:#?}");
+        assert_eq!(counts.references, 1);
+    }
+
+    #[test]
+    fn a_trailing_slash_claims_a_directory_and_its_absence_claims_a_file() {
+        // Both directions of the kind claim, plus the two matching shapes staying silent.
+        let m = manifest();
+        let (found, _) = checked(&m, "See `path@a-part@notes/real/`.\n", &tree());
+        assert_eq!(found, Vec::<String>::new(), "{found:#?}");
+        let (found, _) = checked(&m, "See `path@a-part@notes/real`.\n", &tree());
+        assert_eq!(found.len(), 1, "{found:#?}");
+        assert!(
+            found[0].contains("claims a file and names a directory"),
+            "{found:#?}"
+        );
+        let (found, _) = checked(&m, "See `path@a-part@notes/real/a.md/`.\n", &tree());
+        assert_eq!(found.len(), 1, "{found:#?}");
+        assert!(
+            found[0].contains("claims a directory and names a file"),
+            "{found:#?}"
+        );
+    }
+
+    #[test]
+    fn an_upward_a_current_and_an_absolute_path_are_refused() {
+        let m = manifest();
+        for path in [
+            "../notes/real/a.md",
+            "./notes/real/a.md",
+            "/notes/real/a.md",
+        ] {
+            let (found, _) = checked(&m, &format!("See `path@a-part@{path}`.\n"), &tree());
+            assert_eq!(found.len(), 1, "{path}: {found:#?}");
+            assert!(found[0].contains("is refused"), "{path}: {found:#?}");
+        }
+    }
+
+    #[test]
+    fn a_root_reference_reaching_inside_a_component_is_reported() {
+        // What makes a component move cost one manifest line: the reference must anchor at
+        // the component, so no document names the component's location.
+        let m = manifest();
+        let (found, _) = checked(
+            &m,
+            "See `path@a-project@parts/a-part/notes/real/a.md`.\n",
+            &tree(),
+        );
+        assert_eq!(found.len(), 1, "{found:#?}");
+        assert!(
+            found[0].contains("reaches inside the anchor") && found[0].contains("a-part"),
+            "{found:#?}"
+        );
+    }
+
+    #[test]
+    fn a_components_own_directory_is_named_from_an_ancestor() {
+        let m = manifest();
+        let (found, _) = checked(&m, "See `path@a-project@parts/a-part/`.\n", &tree());
+        assert_eq!(found, Vec::<String>::new(), "{found:#?}");
+    }
+
+    #[test]
+    fn the_escape_anchor_is_exempt_unless_its_target_resolves_here() {
+        let m = manifest();
+        let (found, counts) = checked(
+            &m,
+            "See `path@elsewhere@foreign-project/src/thing.java`.\n",
+            &tree(),
+        );
+        assert_eq!(found, Vec::<String>::new(), "{found:#?}");
+        assert_eq!(
+            counts.references, 1,
+            "an escape is still a counted reference"
+        );
+        let (found, _) = checked(&m, "See `path@elsewhere@notes/real/a.md`.\n", &tree());
+        assert_eq!(found.len(), 1, "{found:#?}");
+        assert!(found[0].contains("resolves in this tree"), "{found:#?}");
+        // The writer may have meant another project's file of the same spelling; the repair
+        // names the checked form for it.
+        assert!(
+            found[0].contains("as `path@elsewhere@<project>/<path>`"),
+            "{found:#?}"
+        );
+    }
+
+    /// The claim, per `design@model@reserved-anchors`: the escape's target is read from every place
+    /// the unanchored lint reads a path from, the document's own directory included, so a file
+    /// named relative to its document is no silence under the escape; and the finding names the
+    /// form at the deepest anchor that holds the target, per
+    /// `design@check@every-path-names-its-anchor`, never the root a path written from it reaches
+    /// first.
+    #[test]
+    fn an_escape_resolving_here_names_the_form_at_the_deepest_anchor() {
+        let m = manifest();
+        let (found, _) = checked_docs(
+            &m,
+            vec![(
+                "parts/a-part/notes/doc.md",
+                "See `path@elsewhere@real/a.md`.\n",
+            )],
+            &tree(),
+        );
+        assert_eq!(found.len(), 1, "relative to its document: {found:#?}");
+        assert!(found[0].contains("resolves in this tree"), "{found:#?}");
+        assert!(
+            found[0].contains("`path@a-part@notes/real/a.md`"),
+            "{found:#?}"
+        );
+        let (found, _) = checked(
+            &m,
+            "See `path@elsewhere@parts/a-part/notes/real/a.md`.\n",
+            &tree(),
+        );
+        assert_eq!(found.len(), 1, "{found:#?}");
+        assert!(
+            found[0].contains("`path@a-part@notes/real/a.md`"),
+            "{found:#?}"
+        );
+        assert!(
+            !found[0].contains("a-project"),
+            "the root named: {found:#?}"
+        );
+        // A directory is named with its trailing slash, and an anchor's own directory from the
+        // anchor above it.
+        let (found, _) = checked(
+            &m,
+            "See `path@elsewhere@parts/a-part/notes/real`.\n",
+            &tree(),
+        );
+        assert!(found[0].contains("`path@a-part@notes/real/`"), "{found:#?}");
+        let (found, _) = checked(&m, "See `path@elsewhere@parts/a-part/`.\n", &tree());
+        assert!(
+            found[0].contains("`path@a-project@parts/a-part/`"),
+            "{found:#?}"
+        );
+    }
+
+    #[test]
+    fn an_empty_id_names_the_placeholder_and_the_ancestor_spelling() {
+        // Two needs end in an empty id under a path kind: naming a form in prose, and naming
+        // an anchor's own directory. Each has a checked form, and the repair spells both.
+        let repair = |text: &str| {
+            let (found, _) = checked(&manifest(), text, &[]);
+            assert_eq!(found.len(), 1, "{text}: {found:#?}");
+            found[0].clone()
+        };
+        let path = repair("the form `path@a-project@` alone\n");
+        assert!(path.contains("the id segment is empty"), "{path}");
+        assert!(path.contains("as `path@*@<path>`"), "{path}");
+        assert!(path.contains("as `path@<parent-anchor>@<dir>/`"), "{path}");
+        // A kind that takes no path has no directory to name: its repair names the entry form.
+        let entry = repair("`design@a-part@`\n");
+        assert!(entry.contains("as `<kind>@<anchor>@<id>`"), "{entry}");
+        assert!(!entry.contains("parent-anchor"), "{entry}");
+        // Every other malformed reason keeps the generic repair, and none takes the empty id's.
+        for span in [
+            "`path@a-project`",
+            "`@notes/p.md`",
+            "`design@@x`",
+            "`design@a-project@x@y`",
+        ] {
+            let other = repair(&format!("{span}\n"));
+            assert!(other.contains("and for a path"), "{other}");
+            assert!(!other.contains("placeholder"), "{other}");
+        }
+    }
+
+    #[test]
+    fn the_generic_anchor_accepts_the_required_set_and_what_a_component_carries() {
+        let m = manifest();
+        // A required document name passes with no component carrying it in the listing. A
+        // register's home is not among them: the `register` kind names it.
+        let required = "See `path@*@README.md`, \
+                     `path@*@docs/open-issues/README.md`, `path@*@docs/open-issues/index.md`.\n";
+        let (found, _) = checked(&m, required, &tree());
+        assert_eq!(found, Vec::<String>::new(), "{found:#?}");
+        // The document the `rejected` register replaced is no required document: a reference to
+        // it is judged like any path, and no component of this tree carries it.
+        let (found, _) = checked(&m, "See `path@*@docs/rejected-alternatives.md`.\n", &tree());
+        assert_eq!(found.len(), 1, "{found:#?}");
+        assert!(found[0].contains("resolves in no component"), "{found:#?}");
+        // A path one component carries passes; one nobody carries is reported.
+        let (found, _) = checked(&m, "See `path@*@notes/real/a.md`.\n", &tree());
+        assert_eq!(found, Vec::<String>::new(), "{found:#?}");
+        let (found, _) = checked(&m, "See `path@*@notes/nowhere.md`.\n", &tree());
+        assert_eq!(found.len(), 1, "{found:#?}");
+        assert!(found[0].contains("resolves in no component"), "{found:#?}");
+    }
+
+    #[test]
+    fn a_path_only_a_location_carries_resolves_in_no_component() {
+        // The generic form claims every component's own copy, per
+        // `design@model@reserved-anchors`, so a copy a declared location alone holds does not
+        // satisfy it. Mutation checked: with the filter back to `constructed.is_none()`, the
+        // location's copy satisfies the reference and nothing is reported.
+        let text = "[project]\nchecker-version = \"fixture\"\nname = \"a-project\"\ncomponents = [\"parts/a-part\"]\n\n\
+             [locations.notes]\npath = \"notes\"\nregisters = [\"issue\"]\n\n\
+             [walk]\nskip-dirs = []\nskip-files = []\n";
+        let m = Manifest::parse(std::path::Path::new("/nowhere"), text).expect("a declaration");
+        let mut present = tree();
+        present.extend(["notes/held.md".to_string(), "notes".to_string()]);
+        let (found, _) = checked(&m, "See `path@*@held.md`.\n", &present);
+        assert_eq!(found.len(), 1, "{found:#?}");
+        assert!(found[0].contains("resolves in no component"), "{found:#?}");
+        // The same path in a component passes, so the refusal is about the location alone.
+        present.push("parts/a-part/held.md".to_string());
+        let (found, _) = checked(&m, "See `path@*@held.md`.\n", &present);
+        assert_eq!(found, Vec::<String>::new(), "{found:#?}");
+    }
+
+    #[test]
+    fn a_generic_path_a_component_carries_under_the_other_kind_gets_the_kind_claim_repair() {
+        // The path exists; only the slash claim is wrong. "Repair the path" would send the
+        // reader to a file that is there. Mutation checked: with the kind test folded back
+        // into the presence test, both report "resolves in no component".
+        let m = manifest();
+        let (found, _) = checked(&m, "See `path@*@notes/real/a.md/`.\n", &tree());
+        assert_eq!(found.len(), 1, "{found:#?}");
+        assert!(
+            found[0].contains("claims a directory and names a file"),
+            "{found:#?}"
+        );
+        let (found, _) = checked(&m, "See `path@*@notes/real`.\n", &tree());
+        assert_eq!(found.len(), 1, "{found:#?}");
+        assert!(
+            found[0].contains("claims a file and names a directory"),
+            "{found:#?}"
+        );
+    }
+
+    #[test]
+    fn a_lone_slash_is_refused_rather_than_resolving_to_the_anchors_own_directory() {
+        // Trimmed, `/` is nothing, and nothing joined to the anchor's path is the anchor's
+        // own directory, which has no spelling under its own name.
+        let m = manifest();
+        for span in ["path@a-part@/", "path@*@/"] {
+            let (found, _) = checked(&m, &format!("See `{span}`.\n"), &tree());
+            assert_eq!(found.len(), 1, "{span}: {found:#?}");
+            assert!(found[0].contains("is refused"), "{span}: {found:#?}");
+        }
+    }
+
+    #[test]
+    fn the_generic_anchor_cannot_reach_inside_a_component_from_above() {
+        let m = manifest();
+        let (found, _) = checked(&m, "See `path@*@parts/a-part/notes/real/a.md`.\n", &tree());
+        assert_eq!(found.len(), 1, "{found:#?}");
+        assert!(found[0].contains("resolves in no component"), "{found:#?}");
+    }
+
+    #[test]
+    fn a_required_name_still_carries_the_kind_claim() {
+        let m = manifest();
+        let (found, _) = checked(&m, "See `path@*@README.md/`.\n", &tree());
+        assert_eq!(found.len(), 1, "{found:#?}");
+        assert!(found[0].contains("wrong kind"), "{found:#?}");
+        let (found, _) = checked(&m, "See `path@*@docs/open-issues/index.md/`.\n", &tree());
+        assert_eq!(found.len(), 1, "{found:#?}");
+        assert!(found[0].contains("wrong kind"), "{found:#?}");
+    }
+
+    #[test]
+    fn an_ignored_copy_is_not_a_generic_hit() {
+        // The generic form asks every anchor, so an ignored copy under one of them would
+        // otherwise satisfy the reference and hide that no component really carries it.
+        let m = manifest();
+        let mut present = tree();
+        present.push("scratch".to_string());
+        present.push("scratch/x.md".to_string());
+        let (found, _) = checked_ignoring(
+            &m,
+            "See `path@*@scratch/x.md`.\n",
+            &present,
+            &["scratch/x.md", "parts/a-part/scratch/x.md"],
+        );
+        assert_eq!(found.len(), 1, "{found:#?}");
+        assert!(found[0].contains("resolves in no component"), "{found:#?}");
+    }
+
+    #[test]
+    fn an_ignored_target_is_exempt_from_existence_and_kind() {
+        // The directory claim is asked with its trailing slash and the file claim without,
+        // because that is the spelling git decides a `dir/` pattern on.
+        let m = manifest();
+        let text = "See `path@a-project@generated/out.bin` and `path@a-project@generated/`.\n";
+        let (found, _) = checked_ignoring(&m, text, &tree(), &["generated/out.bin", "generated/"]);
+        assert_eq!(found, Vec::<String>::new(), "{found:#?}");
+        let (found, _) = checked(&m, text, &tree());
+        assert_eq!(found.len(), 2, "{found:#?}");
+        // The file spelling does not answer the directory claim, and neither answers the
+        // other: a batch keyed on the bare path would exempt both from one answer.
+        let (found, _) = checked_ignoring(&m, text, &tree(), &["generated/out.bin"]);
+        assert_eq!(found.len(), 1, "{found:#?}");
+        assert!(found[0].contains("generated/"), "{found:#?}");
+    }
+
+    #[test]
+    fn an_ignored_target_is_exempt_in_every_arm_the_collector_gathers() {
+        // The collector and the check are two lists of the same targets, and a spelling the
+        // collector misses is a target the check reads as not ignored. This binds them: the
+        // batch is exactly what the collector gathered, and it must silence the three
+        // anchored arms while the generic arm still refuses an ignored copy as a hit.
+        //
+        // It discriminates in both directions. Drop the anchored or the link arm from the
+        // collector and those targets become "does not exist"; drop the generic arm and its
+        // finding disappears, because the ignored copy then counts as a hit.
+        let m = manifest();
+        let text = "Anchored `path@a-project@gone/out.bin`, its directory \
+                    `path@a-project@gone/`, under a component `path@a-part@gone/out.bin`, and \
+                    generically `path@*@scratch/x.md`.\n";
+        // A relative markdown link is the third arm that reaches the same assertion. It is
+        // legal in a navigation home alone, so the document that carries it is one.
+        let link = "See [the output](gone/out.bin) and [its directory](gone/).\n";
+        let mut present = tree();
+        present.push("scratch".to_string());
+        present.push("scratch/x.md".to_string());
+        let anchors = Anchors::of(&m, &[] as &[std::path::PathBuf]);
+        let docs = vec![("notes/prose.md", text), ("notes/README.md", link)];
+        let model = Model::from_documents(
+            docs.iter()
+                .map(|(p, t)| (PathBuf::from(*p), (*t).to_string()))
+                .collect(),
+        );
+        let queries = crate::model::resolve::ignore_queries(&model, &anchors);
+        let borrowed: Vec<&str> = queries.iter().map(String::as_str).collect();
+        let (found, counts) = checked_ignoring_under(docs, &present, &borrowed, &anchors);
+        assert_eq!(counts.references, 4);
+        assert_eq!(counts.links, 2);
+        assert_eq!(found.len(), 1, "{found:#?}");
+        assert!(found[0].contains("resolves in no component"), "{found:#?}");
+    }
+
+    #[test]
+    fn an_unanchored_path_shape_is_a_finding_naming_the_grammar() {
+        let m = manifest();
+        let (found, _) = checked(&m, "See `notes/real/a.md`.\n", &tree());
+        assert_eq!(found.len(), 1, "{found:#?}");
+        assert!(
+            found[0].contains("names no anchor") && found[0].contains("path@<anchor>@<path>"),
+            "{found:#?}"
+        );
+    }
+
+    #[test]
+    fn an_unanchored_path_shape_s_repair_offers_no_unchecked_form() {
+        // The claim, per `design@agent-skills@plain-text-is-no-repair`: the repair names
+        // checked forms only, so no reading of it clears the finding by unbackticking the path.
+        // The whole repair line is pinned, so an unchecked form offered in any words fails,
+        // on the plain span and on both located ones.
+        let forms = "write `path@<anchor>@<path>`, `register@<anchor>@<register>` for a \
+                     register's home, `path@elsewhere@<path>` for a path this tree does not hold, \
+                     or `path@*@<path>` for every component's own copy";
+        let located = ". A reference names a file: drop the line number or the fragment, and \
+                       name the function or the heading in prose";
+        let m = manifest();
+        for (span, suffix) in [
+            ("notes/real/a.md", ""),
+            ("notes/real/a.md:12", located),
+            ("notes/real/a.md#a-head", located),
+        ] {
+            let (found, _) = checked(&m, &format!("See `{span}`.\n"), &tree());
+            assert_eq!(found.len(), 1, "{span}: {found:#?}");
+            let action = found[0].split_once("\n    → ").map(|(_, a)| a);
+            assert_eq!(action, Some(format!("{forms}{suffix}").as_str()), "{span}");
+        }
+    }
+
+    // --- the planned kind, per `design@model@planned-path-form` ----------------------------
+
+    /// A spec file of the plans directory, where a planned path is legal.
+    const IN_PLANS: &str = "docs/plans/specs/a-spec.md";
+
+    #[test]
+    fn a_planned_path_whose_target_is_absent_is_silent() {
+        let m = manifest();
+        let (found, counts) = checked_in(
+            &m,
+            IN_PLANS,
+            "It writes `planned@a-part@notes/new.md` and `planned@a-part@notes/fresh/`.\n",
+            &tree(),
+        );
+        assert_eq!(counts.references, 2);
+        assert_eq!(found, Vec::<String>::new(), "{found:#?}");
+    }
+
+    #[test]
+    fn a_planned_path_whose_target_exists_names_the_path_form_and_nothing_else() {
+        // The premortem's cause: a file created by unrelated work. The repair asks for the
+        // conversion alone; whether the plan still holds is the creating session's to say.
+        let m = manifest();
+        let (found, _) = checked_in(
+            &m,
+            IN_PLANS,
+            "It writes `planned@a-part@notes/real/a.md`.\n",
+            &tree(),
+        );
+        assert_eq!(found.len(), 1, "{found:#?}");
+        assert!(found[0].contains("now exists"), "{found:#?}");
+        let action = found[0].split_once("\n    → ").map(|(_, a)| a);
+        assert_eq!(
+            action,
+            Some(
+                "write `path@a-part@notes/real/a.md`; the planned form names a path that does \
+                 not exist yet"
+            )
+        );
+    }
+
+    #[test]
+    fn a_planned_path_outside_the_plans_directory_is_refused() {
+        let m = manifest();
+        let (found, _) = checked(&m, "It writes `planned@a-part@notes/new.md`.\n", &tree());
+        assert_eq!(found.len(), 1, "{found:#?}");
+        let action = found[0].split_once("\n    → ").map(|(_, a)| a);
+        assert_eq!(
+            action,
+            Some(
+                "a planned path is cited from a plan document only; name the plan that creates it"
+            )
+        );
+    }
+
+    #[test]
+    fn a_planned_path_takes_a_named_anchor_under_the_rules_of_a_path() {
+        let m = manifest();
+        let text = "Escape `planned@elsewhere@x.md`, generic `planned@*@x.md`, unknown \
+                    `planned@nowhere@x.md`, upward `planned@a-part@../x.md`, and reaching inside \
+                    `planned@a-project@parts/a-part/x.md`.\n";
+        let (found, _) = checked_in(&m, IN_PLANS, text, &tree());
+        assert_eq!(found.len(), 5, "{found:#?}");
+        for (i, expected) in [
+            "the anchor `elsewhere`",
+            "the anchor `*`",
+            "which is no anchor of this project",
+            "is refused: an upward segment",
+            "reaches inside the anchor `a-part`",
+        ]
+        .iter()
+        .enumerate()
+        {
+            assert!(found[i].contains(expected), "{expected}: {found:#?}");
+        }
+        // The repairs of the three anchor findings name only what a planned path accepts.
+        let action = |f: &String| f.split_once("\n    → ").map(|(_, a)| a.to_string());
+        let reserved = "anchor at the anchor that will hold the target; a planned path sits at \
+                        one anchor, never `*` or `elsewhere`";
+        assert_eq!(action(&found[0]).as_deref(), Some(reserved));
+        assert_eq!(action(&found[1]).as_deref(), Some(reserved));
+        assert_eq!(
+            action(&found[2]).as_deref(),
+            Some("anchor at the one of a-project, a-part, plans that will hold the target")
+        );
+    }
+
+    #[test]
+    fn an_existing_planned_target_s_repair_carries_the_target_s_kind() {
+        // Applying the repair must raise no slash finding: a directory gets the slash whatever
+        // the planned reference claimed, and a file loses it.
+        let m = manifest();
+        let text =
+            "Directory `planned@a-part@notes/real`, file `planned@a-part@notes/real/a.md/`.\n";
+        let (found, _) = checked_in(&m, IN_PLANS, text, &tree());
+        assert_eq!(found.len(), 2, "{found:#?}");
+        assert!(
+            found[0].contains("write `path@a-part@notes/real/`;"),
+            "{found:#?}"
+        );
+        assert!(
+            found[1].contains("write `path@a-part@notes/real/a.md`;"),
+            "{found:#?}"
+        );
+    }
+
+    #[test]
+    fn a_planned_id_may_hold_an_at_sign_and_the_kind_is_listed() {
+        let m = manifest();
+        let (found, counts) = checked_in(
+            &m,
+            IN_PLANS,
+            "It writes `planned@a-part@notes/a@b.md`.\n",
+            &tree(),
+        );
+        assert_eq!(counts.references, 1);
+        assert_eq!(found, Vec::<String>::new(), "{found:#?}");
+        // Under the default harness the four harness kinds follow `planned`.
+        assert!(Anchors::of(&m, &[] as &[std::path::PathBuf])
+            .kinds_listed()
+            .contains("path, planned"));
+    }
+
+    #[test]
+    fn a_planned_path_s_unknown_anchor_repair_lists_no_plan_anchor() {
+        let m = manifest();
+        let spec = PathBuf::from(IN_PLANS);
+        let anchors = Anchors::of(&m, [&spec]);
+        assert!(anchors.by_name("a-spec").is_some_and(|a| a.is_plan()));
+        let (found, _) = checked_ignoring_under(
+            vec![(IN_PLANS, "It writes `planned@nowhere@x.md`.\n")],
+            &tree(),
+            &[],
+            &anchors,
+        );
+        assert_eq!(found.len(), 1, "{found:#?}");
+        let action = found[0].split_once("\n    → ").map(|(_, a)| a);
+        assert_eq!(
+            action,
+            Some("anchor at the one of a-project, a-part, plans that will hold the target")
+        );
+    }
+
+    #[test]
+    fn a_path_s_unknown_anchor_repair_lists_no_plan_anchor() {
+        let m = manifest();
+        let spec = PathBuf::from(IN_PLANS);
+        let anchors = Anchors::of(&m, [&spec]);
+        let (found, _) = checked_ignoring_under(
+            vec![("notes/prose.md", "See `path@nowhere@x.md`.\n")],
+            &tree(),
+            &[],
+            &anchors,
+        );
+        assert_eq!(found.len(), 1, "{found:#?}");
+        let action = found[0].split_once("\n    → ").map(|(_, a)| a);
+        assert_eq!(
+            action,
+            Some(
+                "anchor at one of a-project, a-part, plans, at `elsewhere` for a path this tree \
+                 does not hold, or at `*` for every component's own copy"
+            )
+        );
+    }
+
+    #[test]
+    fn a_planned_path_into_an_existing_file_is_refused() {
+        let m = manifest();
+        let text = "Line `planned@a-part@notes/real/a.md:12`, fragment \
+                    `planned@a-part@notes/real/a.md#a-head`.\n";
+        let (found, _) = checked_in(&m, IN_PLANS, text, &tree());
+        assert_eq!(found.len(), 2, "{found:#?}");
+        for f in &found {
+            assert!(
+                f.contains("points into `notes/real/a.md`, which exists"),
+                "{f}"
+            );
+        }
+    }
+
+    #[test]
+    fn an_existing_path_in_a_plan_document_is_not_offered_the_planned_form() {
+        let m = manifest();
+        let (found, _) = checked_in(&m, IN_PLANS, "It edits `notes/real/a.md:3`.\n", &tree());
+        assert_eq!(found.len(), 1, "{found:#?}");
+        assert!(!found[0].contains("planned@"), "{found:#?}");
+    }
+
+    #[test]
+    fn an_unanchored_path_in_a_plan_document_is_offered_the_planned_form() {
+        let m = manifest();
+        let (found, _) = checked_in(&m, IN_PLANS, "It writes `notes/real/b.md`.\n", &tree());
+        assert_eq!(found.len(), 1, "{found:#?}");
+        let action = found[0].split_once("\n    → ").map(|(_, a)| a);
+        assert_eq!(
+            action,
+            Some(
+                "write `path@<anchor>@<path>`, `register@<anchor>@<register>` for a register's \
+                 home, `path@elsewhere@<path>` for a path this tree does not hold, or \
+                 `path@*@<path>` for every component's own copy, or \
+                 `planned@<anchor>@<path>` for a path the plan's work will create"
+            )
+        );
+    }
+
+    #[test]
+    fn an_ignored_planned_target_is_exempt_through_the_collector() {
+        // The batch is exactly what the collector gathered: drop the planned kind from it and
+        // the ignored target that exists reads as "now exists".
+        let m = manifest();
+        let text = "It writes `planned@a-part@notes/real/a.md`.\n";
+        let anchors = Anchors::of(&m, &[] as &[std::path::PathBuf]);
+        let model = Model::from_documents(vec![(PathBuf::from(IN_PLANS), text.to_string())]);
+        let queries = crate::model::resolve::ignore_queries(&model, &anchors);
+        let borrowed: Vec<&str> = queries.iter().map(String::as_str).collect();
+        let (found, _) =
+            checked_ignoring_under(vec![(IN_PLANS, text)], &tree(), &borrowed, &anchors);
+        assert_eq!(found, Vec::<String>::new(), "{found:#?}");
+    }
+
+    #[test]
+    fn a_path_shape_whose_first_segment_names_nothing_here_is_silent() {
+        // A media type, a unit, a git ref, a notation: none names a file or a directory of
+        // this tree from any place it could be read from, so none is a pointer here.
+        let m = manifest();
+        let text = "See `application/json`, `km/h`, `origin/main`, `a/b`, `**/*.rs` and \
+                    `/usr/bin/env`.\n";
+        let (found, _) = checked(&m, text, &tree());
+        assert_eq!(found, Vec::<String>::new(), "{found:#?}");
+    }
+
+    #[test]
+    fn a_path_shape_is_read_from_the_root_from_every_anchor_and_beside_its_file() {
+        // One span per place a first segment may sit: the root, a component's directory, the
+        // document's own directory, and above it through an upward segment. A suffix is no
+        // part of the path.
+        let m = manifest();
+        let mut present = tree();
+        for p in ["src", "src/main.rs", "notes", "notes/sub", "notes/sub/x.md"] {
+            present.push(p.to_string());
+        }
+        for span in [
+            "src/main.rs",
+            "notes/real/a.md",
+            "sub/x.md",
+            "../parts/a-part",
+            "./sub/x.md",
+            "src/main.rs:12",
+            "/src/main.rs",
+        ] {
+            let (found, _) = checked(&m, &format!("See `{span}`.\n"), &present);
+            assert_eq!(found.len(), 1, "{span}: {found:#?}");
+            assert!(found[0].contains("names no anchor"), "{span}: {found:#?}");
+        }
+        // An upward segment past the root names nothing, from the deepest place either, and
+        // an absolute path is read from the root alone.
+        for span in ["../../../src/main.rs", "/sub/x.md"] {
+            let (found, _) = checked(&m, &format!("See `{span}`.\n"), &present);
+            assert_eq!(found, Vec::<String>::new(), "{span}: {found:#?}");
+        }
+    }
+
+    #[test]
+    fn an_ignored_first_segment_is_silent_and_asks_git_nothing() {
+        // An ignored directory is in no listing. Asking the ignore rules would cost a spelling
+        // per span and place, and fails outright on a spelling through a symlink, so the lint
+        // answers from the listing alone.
+        let m = manifest();
+        let anchors = Anchors::of(&m, &[] as &[std::path::PathBuf]);
+        let text = "It writes `build/out.bin`.\n";
+        let model = Model::from_documents(vec![(PathBuf::from("notes/prose.md"), text.into())]);
+        assert_eq!(
+            crate::model::resolve::ignore_queries(&model, &anchors),
+            Vec::<String>::new()
+        );
+        let (found, _) = checked_ignoring_under(
+            vec![("notes/prose.md", text)],
+            &tree(),
+            &["build/", "build"],
+            &anchors,
+        );
+        assert_eq!(found, Vec::<String>::new(), "{found:#?}");
+    }
+
+    #[test]
+    fn a_spec_anchor_is_no_place_a_path_is_read_from() {
+        // A spec is an anchor and a file. Read as a directory, `..` from it would land in the
+        // specs directory, and a span would be a finding only while some spec is open.
+        let m = manifest();
+        let mut present = tree();
+        for p in [
+            "docs",
+            "docs/plans",
+            "docs/plans/specs",
+            "docs/plans/specs/a-spec.md",
+            "docs/plans/specs/README.md",
+        ] {
+            present.push(p.to_string());
+        }
+        let set: HashSet<PathBuf> = present.iter().map(PathBuf::from).collect();
+        let anchors = Anchors::of(&m, &set);
+        assert!(
+            anchors
+                .all()
+                .iter()
+                .any(|a| a.path == Path::new("docs/plans/specs/a-spec.md")),
+            "the spec is an anchor: {}",
+            anchors.listed()
+        );
+        let (found, _) = checked_under(
+            vec![("README.md", "The outer repository is in `../README.md`.\n")],
+            &present,
+            &anchors,
+        );
+        assert_eq!(found, Vec::<String>::new(), "{found:#?}");
+    }
+
+    #[test]
+    fn a_located_path_is_told_to_drop_its_suffix() {
+        let m = manifest();
+        for span in ["notes/real/a.md:12", "notes/real/a.md#a-heading"] {
+            let (found, _) = checked(&m, &format!("See `{span}`.\n"), &tree());
+            assert_eq!(found.len(), 1, "{found:#?}");
+            assert!(
+                found[0].contains("names no anchor") && found[0].contains("drop the"),
+                "{found:#?}"
+            );
+        }
+    }
+
+    #[test]
+    fn a_pointer_span_across_a_line_break_is_a_finding_naming_it_joined() {
+        // Whether it would resolve is not asked: the span is reported for its shape, and
+        // the repair puts it on one line, where this check reads it.
+        let m = manifest();
+        let text = "The walk in `path@a-part@notes/\nreal/a.md` reads it.\n";
+        let (found, counts) = checked(&m, text, &tree());
+        assert_eq!(found.len(), 1, "{found:#?}");
+        assert!(
+            found[0].contains("`path@a-part@notes/real/a.md`")
+                && found[0].contains("crosses a line break")
+                && found[0].contains("one line"),
+            "{found:#?}"
+        );
+        assert_eq!(
+            counts.references, 0,
+            "a wrapped span is no reference until it is fixed"
+        );
+    }
+
+    // --- links -----------------------------------------------------------------------
+
+    #[test]
+    fn an_absolute_link_target_is_refused_rather_than_passed_over() {
+        let m = manifest();
+        let present = vec![
+            "parts/a-part/notes/real/a.md".to_string(),
+            "parts/a-part".to_string(),
+        ];
+        let at = "parts/a-part/notes/README.md";
+        let (found, _) = checked_in(&m, at, "[x](/no/such/place.md)\n", &present);
+        assert_eq!(found.len(), 1, "{found:#?}");
+        assert!(found[0].contains("is refused"), "{found:#?}");
+    }
+
+    #[test]
+    fn a_relative_link_is_legal_in_a_navigation_file_and_reported_elsewhere() {
+        let m = manifest();
+        let text = "[a](real/a.md)\n";
+        let present = vec![
+            "parts/a-part/notes/real/a.md".to_string(),
+            "parts/a-part/notes/real".to_string(),
+            "parts/a-part/notes".to_string(),
+            "parts/a-part".to_string(),
+        ];
+        let at = "parts/a-part/notes/README.md";
+        let (found, counts) = checked_in(&m, at, text, &present);
+        assert_eq!(found, Vec::<String>::new(), "{found:#?}");
+        assert_eq!(counts.links, 1);
+        let index = "parts/a-part/notes/index.md";
+        let (found, _) = checked_in(&m, index, text, &present);
+        assert_eq!(found, Vec::<String>::new(), "{found:#?}");
+        let prose = "parts/a-part/notes/prose.md";
+        let (found, _) = checked_in(&m, prose, text, &present);
+        assert_eq!(found.len(), 1, "{found:#?}");
+        assert!(found[0].contains("not a navigation home"), "{found:#?}");
+    }
+
+    #[test]
+    fn a_navigation_link_resolves_beside_its_file_and_a_dangling_one_is_reported() {
+        let m = manifest();
+        let present = vec![
+            "parts/a-part/notes/real/a.md".to_string(),
+            "parts/a-part/notes/real".to_string(),
+            "parts/a-part/notes".to_string(),
+            "parts/a-part".to_string(),
+        ];
+        let at = "parts/a-part/notes/README.md";
+        let (found, _) = checked_in(&m, at, "[gone](real/gone.md)\n", &present);
+        assert_eq!(found.len(), 1, "{found:#?}");
+        assert!(found[0].contains("does not exist"), "{found:#?}");
+        let ok = "[a](real/a.md#top) [site](https://a.test/x) [up](#head)\n";
+        let (found, counts) = checked_in(&m, at, ok, &present);
+        assert_eq!(found, Vec::<String>::new(), "{found:#?}");
+        assert_eq!(counts.links, 1, "only the relative link is this check's");
+    }
+
+    #[test]
+    fn an_angle_bracketed_a_titled_and_a_defined_target_resolve_like_a_plain_one() {
+        // An angle-bracketed target was read with its brackets and reported as dangling
+        // when the file existed; a titled one and a definition were read by nothing.
+        let m = manifest();
+        let present = vec![
+            "parts/a-part/notes/real/a.md".to_string(),
+            "parts/a-part/notes/real".to_string(),
+            "parts/a-part/notes".to_string(),
+            "parts/a-part".to_string(),
+        ];
+        let at = "parts/a-part/notes/README.md";
+        let ok = "[a](<real/a.md>) [b](real/a.md \"T\") [c][d]\n\n[d]: real/a.md\n";
+        let (found, counts) = checked_in(&m, at, ok, &present);
+        assert_eq!(found, Vec::<String>::new(), "{found:#?}");
+        assert_eq!(counts.links, 3);
+        let gone = "[a](<real/gone.md>) [b](real/gone.md \"T\") [c][d]\n\n[d]: real/gone.md\n";
+        let (found, _) = checked_in(&m, at, gone, &present);
+        assert_eq!(found.len(), 3, "{found:#?}");
+        assert!(
+            found.iter().all(|f| f.contains("does not exist")),
+            "{found:#?}"
+        );
+    }
+
+    #[test]
+    fn a_navigation_link_with_an_upward_segment_is_refused() {
+        let m = manifest();
+        let present = vec![
+            "parts/a-part/notes/real/a.md".to_string(),
+            "parts/a-part".to_string(),
+        ];
+        let at = "parts/a-part/notes/real/README.md";
+        let (found, _) = checked_in(&m, at, "[a](../real/a.md)\n", &present);
+        assert_eq!(found.len(), 1, "{found:#?}");
+        assert!(found[0].contains("is refused"), "{found:#?}");
+    }
+
+    /// The harness kinds' references, against walked documents and installed copies.
+    fn harness_checked(
+        walked: Vec<(&str, &str)>,
+        installed: Vec<(&str, &str)>,
+    ) -> (Vec<String>, Counts) {
+        let mut model = Model::from_documents(
+            walked
+                .into_iter()
+                .map(|(p, t)| (PathBuf::from(p), t.to_string()))
+                .collect(),
+        );
+        model.set_installed(
+            installed
+                .into_iter()
+                .map(|(p, t)| (PathBuf::from(p), t.to_string()))
+                .collect(),
+        );
+        let committed = HashMap::new();
+        let present = HashSet::new();
+        let directories = HashSet::new();
+        let inputs = Inputs {
+            committed: &committed,
+            configs: &HashMap::new(),
+            present: &present,
+            directories: &directories,
+            outside: &[],
+            ignored: &HashSet::new(),
+            tracked_and_ignored: &[],
+            refused: &[],
+            links: &[],
+            installed: &[],
+            shipped: &[],
+        };
+        let (found, counts) = check_under(
+            &model,
+            &inputs,
+            &Anchors::of(&manifest(), &[] as &[std::path::PathBuf]),
+        );
+        (found.iter().map(|f| f.to_string()).collect(), counts)
+    }
+
+    /// The claim: a harness kind's reference resolves to a skill, an agent or a section that
+    /// exists, and to nothing with the finding its repair needs: the missing skill named as the
+    /// skill, a section only under the skill that defines it. Mutation checked: resolving a
+    /// section by its slug across every skill passes a section of one skill cited through another.
+    #[test]
+    fn a_harness_reference_resolves_to_what_its_owner_defines() {
+        let a = "# A\n\n## A part `##a-part`\n";
+        let b = "# B\n\n## B part `##b-part`\n";
+        let citing = "See `skill@a-skill`, `skill@a-skill@a-part`, `skill@b-skill@b-part`, `primer@goals-bind`.\n\
+                      Not `skill@b-skill@a-part`, `skill@c-skill@a-part`, `skill@c-skill`, `primer@nothing`.\n";
+        let (found, counts) = harness_checked(
+            vec![
+                (".claude/skills/a-skill/SKILL.md", a),
+                (".claude/skills/b-skill/SKILL.md", b),
+                ("notes/prose.md", citing),
+            ],
+            vec![(
+                ".claude/knowledge-architect/PRIMER.md",
+                "# P\n\n## Goals bind `##goals-bind`\n",
+            )],
+        );
+        assert_eq!(counts.references, 8);
+        assert_eq!(found.len(), 4, "{found:#?}");
+        assert!(
+            found[0].contains("the skill `b-skill` defines no section `a-part`"),
+            "{found:#?}"
+        );
+        assert!(
+            found[1].contains("no skill is named `c-skill`"),
+            "{found:#?}"
+        );
+        assert!(
+            found[2].contains("no skill is named `c-skill`"),
+            "{found:#?}"
+        );
+        assert!(
+            found[3].contains("the primer defines no section `nothing`"),
+            "{found:#?}"
+        );
+    }
+
+    /// The claim: an installed copy defines entities and is walked for no reference, so a
+    /// dangling reference in one is reported by nothing. Mutation checked: judging the installed
+    /// copies with the walked documents reports the planted reference.
+    #[test]
+    fn an_installed_copy_is_read_for_definitions_and_not_for_references() {
+        let copy = "# R\n\n## The axes `##review-axes`\n\nSee `design@a-project@nothing`.\n";
+        let (found, _) = harness_checked(
+            vec![(
+                "notes/prose.md",
+                "See `skill@knowledge-architect-review@review-axes`.\n",
+            )],
+            vec![(".claude/skills/knowledge-architect-review/SKILL.md", copy)],
+        );
+        assert_eq!(found, Vec::<String>::new(), "{found:#?}");
+    }
+
+    /// The claim: a backticked span that is exactly an id the table defines is reported with its
+    /// reference as the repair, in a fenced block and in a Rust comment too: the name of a skill
+    /// or an agent, installed or the project's own, a skill's section slug and a register entry's
+    /// slug. A span naming nothing here is silent: a crate's name carrying the installer's prefix,
+    /// a removed agent's name. Where a skill and an agent share a name, the finding lists both and
+    /// chooses neither. Mutations checked: matching any span with the installer's prefix reports
+    /// the crate's name and the removed agent's; keeping the first candidate alone names the skill
+    /// for `twin-name-name`.
+    #[test]
+    fn a_bare_name_of_a_skill_or_an_agent_is_reported() {
+        let (found, _) = harness_checked(
+            vec![
+                (
+                    ".claude/skills/a-skill/SKILL.md",
+                    "# A\n\n## A part `##a-part`\n",
+                ),
+                (
+                    ".claude/agents/an-agent.md",
+                    "---\nname: an-agent\n---\n# An agent\n",
+                ),
+                (".claude/skills/twin-name/SKILL.md", "# Twin\n"),
+                (".claude/agents/twin-name.md", "---\nname: twin-name\n---\n# Twin\n"),
+                (
+                    "parts/a-part/docs/design.md",
+                    "# D\n\n### A decision `##a-decision`\n",
+                ),
+                (
+                    "notes/prose.md",
+                    "Run `knowledge-architect-review`, then `a-skill` and `an-agent`.\n\
+                     Then `knowledge-architect-gates`, `knowledge-architect-gone-reviewer`, `a-part`, \
+                     `a-decision`.\n\
+                     ```\n`twin-name`\n```\n",
+                ),
+                ("src/lib.rs", "//! Run `a-skill`.\n"),
+            ],
+            vec![(".claude/skills/knowledge-architect-review/SKILL.md", "# R\n")],
+        );
+        let mut found = found;
+        found.sort();
+        assert_eq!(
+            found,
+            vec![
+                "notes/prose.md:1  `a-skill` is written in backticks without its kind, and names \
+                 `skill@a-skill`\n    → write `skill@a-skill`",
+                "notes/prose.md:1  `an-agent` is written in backticks without its kind, and names \
+                 `agent@an-agent`\n    → write `agent@an-agent`",
+                "notes/prose.md:1  `knowledge-architect-review` is written in backticks without its \
+                 kind, and names `skill@knowledge-architect-review`\n    \
+                 → write `skill@knowledge-architect-review`",
+                "notes/prose.md:2  `a-decision` is written in backticks without its kind, and names \
+                 `design@a-part@a-decision`\n    → write `design@a-part@a-decision`",
+                "notes/prose.md:2  `a-part` is written in backticks without its kind, and names \
+                 `skill@a-skill@a-part`\n    → write `skill@a-skill@a-part`",
+                "notes/prose.md:4  `twin-name` is written in backticks without its kind, and 2 \
+                 entries define it\n    → write the reference meant, one of `agent@twin-name`, \
+                 `skill@twin-name`",
+                "src/lib.rs:1  `a-skill` is written in backticks without its kind, and names \
+                 `skill@a-skill`\n    → write `skill@a-skill`",
+            ],
+            "{found:#?}"
+        );
+    }
+
+    /// The claim: a `#<id>` whose id is only a harness entity's, a section slug or a skill's
+    /// name, is another tool's notation, not the retired slug reference. Mutation checked:
+    /// counting harness kinds in `Entities::defines_id` reports both spans.
+    #[test]
+    fn a_hash_naming_a_section_slug_is_no_retired_reference() {
+        let (found, _) = harness_checked(
+            vec![
+                (
+                    ".claude/skills/a/SKILL.md",
+                    "# A\n\n## How to report `##how-to-report`\n",
+                ),
+                (
+                    "notes/prose.md",
+                    "The anchor `#how-to-report` and `notes.md#a`.\n",
+                ),
+            ],
+            vec![],
+        );
+        assert_eq!(found, Vec::<String>::new(), "{found:#?}");
+    }
+
+    // --- the register kind ------------------------------------------------------------
+
+    /// The manifest of the register tests: the root, one component, a location carrying
+    /// `issue`, and the plans anchor with one milestone.
+    fn register_project() -> (Manifest, Anchors) {
+        let text = "[project]\nchecker-version = \"fixture\"\nname = \"a-project\"\ncomponents = [\"parts/a-part\"]\n\n\
+             [locations.notes]\npath = \"notes\"\nregisters = [\"issue\"]\n\n\
+             [walk]\nskip-dirs = []\nskip-files = []\n";
+        let m = Manifest::parse(std::path::Path::new("/nowhere"), text).expect("a declaration");
+        let anchors = Anchors::of(
+            &m,
+            &[
+                PathBuf::from("docs/plans/milestones/m-one/README.md"),
+                PathBuf::from("docs/plans/specs/a-spec.md"),
+            ],
+        );
+        (m, anchors)
+    }
+
+    /// The findings over one document at `prose/p.md`, in the register project.
+    fn register_checked(text: &str) -> Vec<String> {
+        let (_, anchors) = register_project();
+        checked_under(vec![("prose/p.md", text)], &[], &anchors).0
+    }
+
+    /// The claim: a `register` reference resolves for every anchor that carries the register with a
+    /// home of its own, the root, a component, a location, `plans` and `*`, whether or not the home
+    /// exists in either shape. Mutation checked, and caught: the `is_register` branch of `judge_part`
+    /// disabled, so the kind reaches `table`.
+    #[test]
+    fn a_register_reference_resolves_at_every_anchor_that_carries_the_register() {
+        let found = register_checked(
+            "`register@a-project@design`, `register@a-part@goal`, `register@notes@issue`, \
+             `register@plans@spec`, `register@plans@milestone`, `register@*@tripwire`, \
+             `register@*@issue`.\n",
+        );
+        assert_eq!(found, Vec::<String>::new(), "{found:#?}");
+    }
+
+    /// The claim: each way a `register` reference resolves to nothing is reported with the form
+    /// that resolves. Mutations checked, each alone and each caught: the `Section` refusal of
+    /// `register` disabled; the `scope` test under `*` disabled; the plan-anchor arm disabled.
+    #[test]
+    fn a_register_reference_that_resolves_to_nothing_names_the_form_that_does() {
+        let one = |span: &str| {
+            let found = register_checked(&format!("See `{span}`.\n"));
+            assert_eq!(found.len(), 1, "{span}: {found:#?}");
+            found.into_iter().next().unwrap()
+        };
+        let f = one("register@a-part@nothing");
+        assert!(f.contains("no register of this project"), "{f}");
+        assert!(f.contains("design") && !f.contains("thread"), "{f}");
+        let f = one("register@a-part@spec");
+        assert!(f.contains("carries no spec register"), "{f}");
+        assert!(f.contains("plans"), "{f}");
+        let f = one("register@nowhere@design");
+        assert!(f.contains("no anchor of this project"), "{f}");
+        let f = one("register@*@spec");
+        assert!(f.contains("not every component carries"), "{f}");
+        let f = one("register@elsewhere@design");
+        assert!(f.contains("serves the path kind alone"), "{f}");
+        let f = one("register@a-part@thread");
+        assert!(f.contains("a plan's own documents"), "{f}");
+        let f = one("register@m-one@spec");
+        assert!(f.contains("`milestone@plans@m-one`"), "{f}");
+        let f = one("register@a-spec@design");
+        assert!(f.contains("`spec@plans@a-spec`"), "{f}");
+        // The anchors a repair offers are the ones that resolve: no plan anchor, and `*` only
+        // for a register every component carries.
+        let f = one("register@nowhere@spec");
+        assert!(f.ends_with("anchor at one of plans"), "{f}");
+        let f = one("register@elsewhere@spec");
+        assert!(f.ends_with("anchor at one of plans"), "{f}");
+        let f = one("register@nowhere@design");
+        assert!(f.contains("or at `*`"), "{f}");
+        // An empty id names a register's name as the repair.
+        let f = one("register@a-part@");
+        assert!(f.contains("the register's name"), "{f}");
+    }
+
+    /// The claim: a register's name stays out of the entity table's ids, so a register name
+    /// backticked with a hash sign before it is no retired-form finding, while the kind word with a
+    /// hash sign is one, as any kind word is. A regression guard: the kind resolves outside the table
+    /// by construction, so no mutation of this change reaches `defines_id`.
+    #[test]
+    fn a_register_name_is_no_entity_id_and_the_kind_word_reads_as_a_kind() {
+        let found = register_checked("See `#design` and `#issue`.\n");
+        assert_eq!(found, Vec::<String>::new(), "{found:#?}");
+        let found = register_checked("See `register#design`.\n");
+        assert_eq!(found.len(), 1, "{found:#?}");
+        assert!(found[0].contains("retired slug reference"), "{found:#?}");
+    }
+
+    // --- the finding on a home target -----------------------------------------------------
+
+    /// The claim: a `path` reference to a register's home is a finding whose repair is the
+    /// `register` form at the anchor that keeps the home, for each home target: a heading
+    /// register's file, directory and README, a file register's directory, the plans anchor's two
+    /// registers, from the anchor written or from an anchor above it, existing or not, with any
+    /// trailing slash. Mutations checked, each alone and each caught: the `readme` comparison removed
+    /// from `home_target`; the finding naming the anchor as written instead of the one that keeps
+    /// the home.
+    #[test]
+    fn a_path_to_a_register_home_names_the_register_form() {
+        let cases = [
+            ("path@a-part@docs/design.md", "register@a-part@design"),
+            ("path@a-part@docs/design/", "register@a-part@design"),
+            ("path@a-part@docs/design", "register@a-part@design"),
+            ("path@a-part@docs/goals/README.md", "register@a-part@goal"),
+            ("path@a-part@docs/open-issues/", "register@a-part@issue"),
+            (
+                "path@a-project@docs/tripwires.md/",
+                "register@a-project@tripwire",
+            ),
+            ("path@notes@open-issues/", "register@notes@issue"),
+            ("path@plans@specs/", "register@plans@spec"),
+            ("path@plans@milestones/", "register@plans@milestone"),
+            (
+                "path@a-project@parts/a-part/docs/design.md",
+                "register@a-part@design",
+            ),
+        ];
+        for (span, form) in cases {
+            let found = register_checked(&format!("See `{span}`.\n"));
+            assert_eq!(found.len(), 1, "{span}: {found:#?}");
+            assert!(found[0].contains("by its path"), "{span}: {found:#?}");
+            assert!(
+                found[0].contains(&format!("`{form}`")),
+                "{span}: {found:#?}"
+            );
+            assert!(!found[0].contains("line number"), "{span}: {found:#?}");
+        }
+    }
+
+    /// The claim: under `*`, a component register's home is the same finding, before the
+    /// required set or any kind claim is judged. Mutation checked, and caught: the
+    /// `generic_home_target` test removed from the `*` arm.
+    #[test]
+    fn a_generic_path_to_a_register_home_names_the_generic_register_form() {
+        for (span, form) in [
+            ("path@*@docs/design.md", "register@*@design"),
+            ("path@*@docs/design/", "register@*@design"),
+            ("path@*@docs/design.md/", "register@*@design"),
+            ("path@*@docs/tripwires/README.md", "register@*@tripwire"),
+            ("path@*@docs/open-issues/", "register@*@issue"),
+        ] {
+            let found = register_checked(&format!("See `{span}`.\n"));
+            assert_eq!(found.len(), 1, "{span}: {found:#?}");
+            assert!(
+                found[0].contains(&format!("`{form}`")),
+                "{span}: {found:#?}"
+            );
+            assert!(
+                found[0].contains("every component's home"),
+                "{span}: {found:#?}"
+            );
+        }
+    }
+
+    /// The claim, per `design@model@path-to-a-home-is-reported`: the README of a heading register's
+    /// directory is its home's head, and the README and index of a file or directory register's
+    /// directory are files inside the home, which stay `path` references; so are a subdocument
+    /// and an entry. Mutation checked, and caught: the `readme` comparison of `home_target` applied to
+    /// every shape.
+    #[test]
+    fn a_readme_is_a_home_target_by_its_register_shape() {
+        let present: Vec<String> = [
+            "parts/a-part/docs/open-issues/README.md",
+            "parts/a-part/docs/open-issues/index.md",
+            "parts/a-part/docs/open-issues/an-entry.md",
+            "parts/a-part/docs/design/part.md",
+            "parts/a-part/docs/open-issues",
+            "parts/a-part/docs/design",
+            "parts/a-part/docs",
+            "parts/a-part",
+            "parts",
+            "docs/plans/specs/README.md",
+            "docs/plans/specs",
+            "docs/plans",
+            "docs",
+        ]
+        .iter()
+        .map(|p| p.to_string())
+        .collect();
+        let (_, anchors) = register_project();
+        let inside = "`path@a-part@docs/open-issues/README.md`, `path@a-part@docs/open-issues/index.md`, \
+                      `path@a-part@docs/open-issues/an-entry.md`, `path@a-part@docs/design/part.md`, \
+                      `path@plans@specs/README.md`, `path@*@docs/open-issues/README.md`.\n";
+        let (found, _) = checked_under(vec![("prose/p.md", inside)], &present, &anchors);
+        assert_eq!(found, Vec::<String>::new(), "{found:#?}");
+        let head = "`path@a-part@docs/design/README.md`.\n";
+        let (found, _) = checked_under(vec![("prose/p.md", head)], &present, &anchors);
+        assert_eq!(found.len(), 1, "{found:#?}");
+        assert!(found[0].contains("`register@a-part@design`"), "{found:#?}");
+    }
+
+    /// The claim: a home target written with a line number or a fragment gets the same finding,
+    /// whose repair also says to drop the suffix; a suffix on another path keeps its own finding.
+    /// Mutation checked, and caught: `without_suffix` returning the path unchanged.
+    #[test]
+    fn a_suffixed_home_target_is_named_and_told_to_drop_the_suffix() {
+        for span in [
+            "path@a-part@docs/design.md:12",
+            "path@a-part@docs/design.md#a-heading",
+            "path@a-part@docs/design.md#1-intro",
+            "path@a-part@docs/design.md:3#a",
+            "path@*@docs/goals.md:3-9",
+        ] {
+            let found = register_checked(&format!("See `{span}`.\n"));
+            assert_eq!(found.len(), 1, "{span}: {found:#?}");
+            assert!(found[0].contains("register@"), "{span}: {found:#?}");
+            assert!(
+                found[0].contains("drop the line number"),
+                "{span}: {found:#?}"
+            );
+        }
+        let found = register_checked("See `path@a-part@notes/a.md:12`.\n");
+        assert_eq!(found.len(), 1, "{found:#?}");
+        assert!(!found[0].contains("register@"), "{found:#?}");
+        // An open range or an empty suffix is no suffix: the path keeps it, and names no home.
+        for span in [
+            "path@a-part@docs/design.md:3-",
+            "path@a-part@docs/design.md#",
+        ] {
+            let found = register_checked(&format!("See `{span}`.\n"));
+            assert_eq!(found.len(), 1, "{span}: {found:#?}");
+            assert!(!found[0].contains("register@"), "{span}: {found:#?}");
+        }
+    }
+
+    /// The claim: a repair that converts a reference to an existing home names the `register`
+    /// form, so following it raises no second finding: a planned path that now exists, one that
+    /// points into an existing home, and the escape on a home this tree holds.
+    #[test]
+    fn a_repair_that_lands_on_a_home_names_the_register_form() {
+        let (_, anchors) = register_project();
+        let present: Vec<String> = ["parts/a-part/docs/goals.md", "docs/design.md"]
+            .iter()
+            .map(|p| p.to_string())
+            .collect();
+        for (at, text, form) in [
+            (
+                "docs/plans/specs/t.md",
+                "Creates `planned@a-part@docs/goals.md`.\n",
+                "`register@a-part@goal`",
+            ),
+            (
+                "docs/plans/specs/t.md",
+                "Edits `planned@a-part@docs/goals.md:4`.\n",
+                "`register@a-part@goal`",
+            ),
+            (
+                "prose/p.md",
+                "See `path@elsewhere@docs/design.md`.\n",
+                "`register@a-project@design`",
+            ),
+        ] {
+            let (found, _) = checked_under(vec![(at, text)], &present, &anchors);
+            assert_eq!(found.len(), 1, "{text}: {found:#?}");
+            assert!(found[0].contains(form), "{text}: {found:#?}");
+        }
+    }
+
+    /// The claim: the kind word is listed among the kinds a repair names.
+    #[test]
+    fn the_register_kind_is_listed_among_the_kinds() {
+        let (_, anchors) = register_project();
+        let listed = anchors.kinds_listed();
+        assert!(listed.split(", ").any(|k| k == "register"), "{listed}");
+    }
+
+    /// The claim: a `planned` path is not judged as a home target, and a plan document cited by
+    /// its path keeps the plan-document finding, which runs first. Mutation checked, and caught: the
+    /// `!planned` condition made always true.
+    #[test]
+    fn a_planned_path_and_a_plan_document_keep_their_own_findings() {
+        let (_, anchors) = register_project();
+        let (found, _) = checked_under(
+            vec![(
+                "docs/plans/specs/a-spec.md",
+                "Creates `planned@a-part@docs/goals.md`.\n",
+            )],
+            &[],
+            &anchors,
+        );
+        assert!(found.iter().all(|f| !f.contains("register@")), "{found:#?}");
+        let found = register_checked("See `path@plans@milestones/m-one/`.\n");
+        assert_eq!(found.len(), 1, "{found:#?}");
+        assert!(found[0].contains("`milestone@plans@m-one`"), "{found:#?}");
+    }
+
+    // --- citations in a goals home, per `design@check@goals-home-cites-upward-only` ----------
+
+    /// A manifest with a Component nested in another and a sibling beside them.
+    fn nested_manifest() -> Manifest {
+        let text = "[project]\nchecker-version = \"fixture\"\nname = \"a-project\"\n\
+             components = [\"parts/a-part\", \"parts/a-part/inner\", \"parts/b-part\"]\n\n\
+             [walk]\nskip-dirs = []\nskip-files = []\n\n";
+        Manifest::parse(std::path::Path::new("/nowhere"), text).expect("a declaration")
+    }
+
+    /// The goals and the design head every reference below names, so each resolves, and the
+    /// only findings left are the goals-home citation findings under test.
+    fn defined() -> Vec<(&'static str, String)> {
+        vec![
+            (
+                "docs/goals.md",
+                "# Goals\n\n## The root goal `##root-goal`\n\nIt.\n".to_string(),
+            ),
+            (
+                "parts/a-part/docs/goals.md",
+                "# Goals\n\n## The part goal `##part-goal`\n\nIt.\n".to_string(),
+            ),
+            (
+                "parts/b-part/docs/goals.md",
+                "# Goals\n\n## The sibling goal `##sibling-goal`\n\nIt.\n".to_string(),
+            ),
+            ("docs/design.md", format!("# Design\n\n{}\nIt.\n", head())),
+        ]
+    }
+
+    /// The goals-home citation findings over `docs` added to [`defined`], a document given at a
+    /// path [`defined`] uses replacing it.
+    fn goals_home_findings(docs: Vec<(&str, &str)>) -> Vec<String> {
+        let mut all: Vec<(&str, String)> = defined()
+            .into_iter()
+            .filter(|(p, _)| docs.iter().all(|(q, _)| q != p))
+            .collect();
+        all.extend(docs.into_iter().map(|(p, t)| (p, t.to_string())));
+        let borrowed: Vec<(&str, &str)> = all.iter().map(|(p, t)| (*p, t.as_str())).collect();
+        let (found, _) = checked_docs(&nested_manifest(), borrowed, &[]);
+        found
+            .into_iter()
+            .filter(|f| f.contains("is cited in the goals home"))
+            .collect()
+    }
+
+    /// C1 of the spec: a goal or a register's home of the home's own Component or of one
+    /// enclosing it, the root included, passes in a goals home. Mutation checked: the root's
+    /// empty path read as enclosing nothing, `a.is_component && owner.path.starts_with(&a.path)`
+    /// replaced by `a.is_component && !a.path.as_os_str().is_empty() && owner.path.starts_with(&a.path)`,
+    /// caught.
+    #[test]
+    fn a_goals_home_cites_a_goal_or_a_register_of_its_own_or_an_enclosing_component() {
+        let found = goals_home_findings(vec![(
+            "parts/a-part/inner/docs/goals.md",
+            "# Goals\n\n## The inner goal `##inner-goal`\n\nIt refines `goal@a-project@root-goal` \
+             and `goal@a-part@part-goal`, beside `goal@inner@inner-goal`, and its decisions are \
+             in `register@inner@design` under `register@a-project@goal`.\n",
+        )]);
+        assert!(found.is_empty(), "{found:#?}");
+    }
+
+    /// C2 of the spec: a goal or a register's home of a nested or a sibling Component, and every
+    /// other kind, is refused in a goals home. Mutation checked: the kind test of
+    /// `admitted_in_goals_home` dropped, `(kind == GOAL_REGISTER || kind == table::REGISTER_KIND)`
+    /// replaced by `true`, caught on the design and path spans.
+    #[test]
+    fn a_goals_home_refuses_a_lower_or_sibling_component_and_every_other_kind() {
+        let found = goals_home_findings(vec![
+            (
+                "docs/goals.md",
+                "# Goals\n\n## The root goal `##root-goal`\n\nIt leans on `goal@a-part@part-goal`, \
+                 `register@a-part@design` and `design@a-project@a-decision`, beside \
+                 `path@a-project@docs/design.md`.\n",
+            ),
+            (
+                "parts/a-part/docs/goals.md",
+                "# Goals\n\n## The part goal `##part-goal`\n\nIt leans on \
+                 `goal@b-part@sibling-goal`.\n",
+            ),
+        ]);
+        for span in [
+            "`goal@a-part@part-goal`",
+            "`register@a-part@design`",
+            "`design@a-project@a-decision`",
+            "`path@a-project@docs/design.md`",
+            "`goal@b-part@sibling-goal`",
+        ] {
+            assert!(
+                found.iter().any(|f| f.contains(span)),
+                "{span} not refused: {found:#?}"
+            );
+        }
+        assert_eq!(found.len(), 5, "{found:#?}");
+    }
+
+    /// C3 of the spec: the same references outside a goals home raise no such finding.
+    /// Mutation checked: `goals_home_owner` answering the owning anchor for every file, its
+    /// last line replaced by `Some(owner)`, caught.
+    #[test]
+    fn a_reference_outside_a_goals_home_is_not_judged_by_its_direction() {
+        let found = goals_home_findings(vec![(
+            "docs/design.md",
+            "# Design\n\n### The decision `##a-decision`\n\nIt serves `goal@a-part@part-goal` \
+             and `goal@b-part@sibling-goal`.\n",
+        )]);
+        assert!(found.is_empty(), "{found:#?}");
+    }
+
+    /// C4 of the spec: the finding names the span and the repair, and its repair never says to
+    /// write the span without its backticks. Mutation checked: the last clause of
+    /// `GOALS_HOME_REPAIR`, "Never keep the span with its backticks removed", cut to "Keep the
+    /// span", caught.
+    #[test]
+    fn the_goals_home_finding_names_the_repair_and_never_the_bare_span() {
+        let found = goals_home_findings(vec![(
+            "docs/goals.md",
+            "# Goals\n\n## The root goal `##root-goal`\n\nIt leans on \
+             `design@a-project@a-decision`.\n",
+        )]);
+        assert_eq!(found.len(), 1, "{found:#?}");
+        let f = &found[0];
+        assert!(f.contains("`design@a-project@a-decision`"), "{f}");
+        assert!(
+            f.contains("rewrite the sentence so it names no entry"),
+            "{f}"
+        );
+        assert!(
+            f.contains("Never keep the span with its backticks removed"),
+            "{f}"
+        );
+    }
+
+    /// C5 of the spec: a goals home in the directory shape is judged like a file home, its
+    /// `README.md` head included. Mutation checked: the directory arm dropped from
+    /// `goals_home_owner`, `rel == home.file || rel.starts_with(&home.dir)` replaced by
+    /// `rel == home.file`, caught.
+    #[test]
+    fn a_goals_home_in_the_directory_shape_is_judged_with_its_head() {
+        let found = goals_home_findings(vec![
+            ("docs/goals.md", ""),
+            (
+                "docs/goals/README.md",
+                "# Goals\n\nThe lifecycle is `design@a-project@a-decision`.\n",
+            ),
+            (
+                "docs/goals/one.md",
+                "# One\n\n## The root goal `##root-goal`\n\nIt leans on `goal@a-part@part-goal`.\n",
+            ),
+        ]);
+        assert!(
+            found.iter().any(|f| f.contains("docs/goals/README.md")),
+            "{found:#?}"
+        );
+        assert!(
+            found.iter().any(|f| f.contains("docs/goals/one.md")),
+            "{found:#?}"
+        );
+    }
+
+    /// C7 of the spec: an id lint's finding in a goals home names the citation check's repair,
+    /// and never the reference form that check refuses there. Mutation checked: the goals-home
+    /// arm of `id_lint`, `if admitted.is_empty() && defined {` replaced by `if false {`, caught,
+    /// the bare id then raising no finding at all.
+    #[test]
+    fn an_id_lint_in_a_goals_home_names_the_goals_home_repair() {
+        let mut all: Vec<(&str, String)> = defined()
+            .into_iter()
+            .filter(|(p, _)| *p != "docs/goals.md")
+            .collect();
+        all.push((
+            "docs/goals.md",
+            "# Goals\n\n## The root goal `##root-goal`\n\nIt leans on `a-decision`.\n".to_string(),
+        ));
+        let borrowed: Vec<(&str, &str)> = all.iter().map(|(p, t)| (*p, t.as_str())).collect();
+        let (found, _) = checked_docs(&nested_manifest(), borrowed, &[]);
+        let lint: Vec<&String> = found
+            .iter()
+            .filter(|f| f.contains("`a-decision`"))
+            .collect();
+        assert_eq!(lint.len(), 1, "{found:#?}");
+        assert!(lint[0].contains("cannot cite"), "{lint:#?}");
+        assert!(
+            lint[0].contains("rewrite the sentence so it names no entry"),
+            "{lint:#?}"
+        );
+        assert!(!lint[0].contains("write `design@"), "{lint:#?}");
+    }
+
+    /// C2 of the spec, its harness half: a skill, an agent or a section of the primer cited in a
+    /// goals home is refused. Mutation checked: the harness arm of `judge_part` made to skip,
+    /// `if let Some(home_owner) = goals_of {` replaced by
+    /// `if let Some(home_owner) = goals_of.filter(|_| false) {`, caught.
+    #[test]
+    fn a_goals_home_refuses_a_harness_reference() {
+        let found = goals_home_findings(vec![(
+            "docs/goals.md",
+            "# Goals\n\n## The root goal `##root-goal`\n\nIt leans on `skill@a-skill`.\n",
+        )]);
+        assert_eq!(found.len(), 1, "{found:#?}");
+        assert!(found[0].contains("`skill@a-skill`"), "{found:#?}");
+    }
+
+    /// A manifest with a location carrying `goal`, and a second location nested in it carrying
+    /// it too: the anchors a goals home may belong to beside a Component.
+    fn located_goals_manifest() -> Manifest {
+        let text =
+            "[project]\nchecker-version = \"fixture\"\nname = \"a-project\"\ncomponents = []\n\n\
+             [walk]\nskip-dirs = []\nskip-files = []\n\n\
+             [locations.notes]\npath = \"notes\"\nregisters = [\"goal\"]\n\n\
+             [locations.sub]\npath = \"notes/sub\"\nregisters = [\"goal\"]\n";
+        Manifest::parse(std::path::Path::new("/nowhere"), text).expect("a declaration")
+    }
+
+    /// A location's goals home cites its own goals and the root's, and refuses an enclosing
+    /// location's, since a location is no Component. Mutations checked, both caught: the own-name
+    /// arm of `admitted_in_goals_home` dropped, `a.name == owner.name || (a.is_component &&` replaced
+    /// by `(a.is_component &&`; and its Component test dropped, `(a.is_component &&
+    /// owner.path.starts_with(&a.path))` replaced by `(owner.path.starts_with(&a.path))`.
+    #[test]
+    fn a_location_s_goals_home_cites_its_own_goals_and_no_enclosing_location_s() {
+        let docs = vec![
+            ("docs/goals.md", "# Goals\n\n## The root goal `##root-goal`\n\nIt.\n"),
+            ("notes/goals.md", "# Goals\n\n## The notes goal `##notes-goal`\n\nIt.\n"),
+            (
+                "notes/sub/goals.md",
+                "# Goals\n\n## The sub goal `##sub-goal`\n\nIt refines `goal@a-project@root-goal`, \
+                 beside `goal@sub@sub-goal` and `goal@notes@notes-goal`.\n",
+            ),
+        ];
+        let (found, _) = checked_docs(&located_goals_manifest(), docs, &[]);
+        let found: Vec<&String> = found
+            .iter()
+            .filter(|f| f.contains("is cited in the goals home"))
+            .collect();
+        assert_eq!(found.len(), 1, "{found:#?}");
+        assert!(found[0].contains("`goal@notes@notes-goal`"), "{found:#?}");
+    }
+
+    /// An id two entries define, one a goal the goals home may cite and one an entry it may not,
+    /// is offered in the admitted form alone. Mutation checked: `id_lint` offering every form,
+    /// `id_finding(rel, line, id, &render_forms(id, admitted), how)` replaced by
+    /// `id_finding(rel, line, id, &render_forms(id, defined_pairs(id, tables, rel)), how)`, caught.
+    #[test]
+    fn an_id_both_admitted_and_refused_is_offered_in_its_admitted_form() {
+        let mut all: Vec<(&str, String)> = defined()
+            .into_iter()
+            .filter(|(p, _)| *p != "docs/goals.md" && *p != "docs/design.md")
+            .collect();
+        all.push((
+            "docs/design.md",
+            "# Design\n\n### The shared decision `##shared-id`\n\nIt.\n".to_string(),
+        ));
+        all.push((
+            "docs/goals.md",
+            "# Goals\n\n## The root goal `##shared-id`\n\nIt.\n\n## Another `##other-goal`\n\n\
+             It leans on `shared-id`.\n"
+                .to_string(),
+        ));
+        let borrowed: Vec<(&str, &str)> = all.iter().map(|(p, t)| (*p, t.as_str())).collect();
+        let (found, _) = checked_docs(&nested_manifest(), borrowed, &[]);
+        let lint: Vec<&String> = found.iter().filter(|f| f.contains("`shared-id`")).collect();
+        assert_eq!(lint.len(), 1, "{found:#?}");
+        assert!(lint[0].contains("`goal@a-project@shared-id`"), "{lint:#?}");
+        assert!(!lint[0].contains("design@a-project@shared-id"), "{lint:#?}");
+    }
+
+    /// In a goals home, every lint that would name a reference form names the citation check's
+    /// repair instead: an unanchored path, a retired slug form, a reference written without
+    /// backticks and an anchor in the kind position; and a `path` reference gets the citation
+    /// finding alone. Mutations checked, each caught: the goals-home arm of each lint made
+    /// false, the unanchored path's `if goals_of.is_some() {`, the unquoted reference's
+    /// `let repair = if refused {`, the retired form's `if goals_of.is_some() {`, the anchor in
+    /// the kind position's `Some(_) => GOALS_HOME_REPAIR.to_string(),` given the old repair, and
+    /// the skip of a `path` reference's resolution, `if goals_of.is_some() && (kind.is_path() ||
+    /// kind.is_planned()) {`.
+    #[test]
+    fn no_lint_in_a_goals_home_names_a_form_the_citation_check_refuses() {
+        let found = {
+            let mut all: Vec<(&str, String)> = defined()
+                .into_iter()
+                .filter(|(p, _)| *p != "docs/goals.md")
+                .collect();
+            all.push((
+                "docs/goals.md",
+                "# Goals\n\n## The root goal `##root-goal`\n\nA path: `docs/design.md`.\n\n\
+                 A retired form: `a-project#a-decision`.\n\n\
+                 Unquoted: design@a-project@a-decision in prose.\n\n\
+                 Anchor first: `a-project@docs/design.md`.\n\n\
+                 A path reference: `path@a-project@docs/goals.md`.\n"
+                    .to_string(),
+            ));
+            let borrowed: Vec<(&str, &str)> = all.iter().map(|(p, t)| (*p, t.as_str())).collect();
+            let present = vec![
+                "docs".to_string(),
+                "docs/design.md".to_string(),
+                "docs/goals.md".to_string(),
+            ];
+            checked_docs(&nested_manifest(), borrowed, &present).0
+        };
+        let in_home: Vec<&String> = found
+            .iter()
+            .filter(|f| f.starts_with("docs/goals.md"))
+            .collect();
+        assert_eq!(in_home.len(), 5, "{in_home:#?}");
+        for f in &in_home {
+            assert!(
+                f.contains("rewrite the sentence so it names no entry"),
+                "{f}"
+            );
+            assert!(!f.contains("write `path@"), "{f}");
+            assert!(!f.contains("write `design@"), "{f}");
+            assert!(!f.contains("write `register@"), "{f}");
+            assert!(!f.contains("prefix the kind"), "{f}");
+            assert!(!f.contains("write it in backticks"), "{f}");
+        }
+    }
+}

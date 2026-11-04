@@ -39,7 +39,7 @@ report the rule acted on as if absent, in three projects.
   klarch commits`, which the primer asks for after each commit, prints one line naming what it did
   not judge, a count, a search, a quotation or an attribution in a message, with a pointer to
   `primer@verify-before-relying`. The file places the line after the verdict;
-  `path@core@README.md` keeps the verdict as the last line a person reads, so such a line goes
+  `path@check@README.md` keeps the verdict as the last line a person reads, so such a line goes
   above it.
 
 The suspected mechanism, in one sentence: an instruction read once at the start of a long session
@@ -58,9 +58,9 @@ point of delivery is repaired by moving where the instruction is delivered.
 ### What would close it
 
 The discussion picks a delivery at the commit, or rules that none is worth its cost: a line printed
-by `check --staged` on its verdict, which changes `design@core@phases-gate-the-report`'s summary; a
+by `check --staged` on its verdict, which changes `design@check@phases-gate-the-report`'s summary; a
 sentence of the primer beside the staged check, read at the start as now; a line printed by
 `commits` above its verdict, after the commit, where an amend still repairs the message, which
-changes `design@core@a-commit-message-is-a-document`'s summary; a project's commit hook,
+changes `design@check@a-commit-message-is-a-document`'s summary; a project's commit hook,
 which the installed text cannot rely on. Then the retrospectives of a release show whether the
 count falls.

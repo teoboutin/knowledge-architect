@@ -70,7 +70,7 @@ unreachable or has effects a consumer cannot observe, which a unit test inside t
 either, probably a sign of a defect in the design or of dead code. The owner scoped it to the
 integrated test, and to no mock environment in particular, since not every project uses mocks or
 serves other projects. Its nearest rival, every test through the public API, is
-`rejected@core@unit-tests-moved-under-tests`: as its measurement shows, a unit test often runs over
+`rejected@check@unit-tests-moved-under-tests`: as its measurement shows, a unit test often runs over
 private functions, which such a move makes public or whose tests it drops, so the guideline leaves a
 unit test where it is.
 

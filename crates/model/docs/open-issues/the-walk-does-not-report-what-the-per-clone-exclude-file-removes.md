@@ -37,7 +37,7 @@ the walk is.
 The check runs at every `check`, in every project.
 
 Related: another cause of a walk that differs between machines,
-`issue@core@the-tests-read-the-machine-s-git-configuration`; and the variables of the environment
+`issue@check@the-tests-read-the-machine-s-git-configuration`; and the variables of the environment
 that point git at another repository, which every invocation removes, per
 `design@git@repository-variables-dropped`.
 
@@ -48,7 +48,7 @@ that point git at another repository, which every invocation removes, per
 property of the commit rather than of the machine. The per-clone exclude file is the one ignore
 source left that is not the commit's: a document it removes is out of every check on that clone, and
 the summary block's `walk: n file(s)` line differs from CI's count for the same commit with no
-finding. This threatens `goal@core@documents-stay-current`, met while the checker's verdict fails on
+finding. This threatens `goal@check@documents-stay-current`, met while the checker's verdict fails on
 a tree where any of its three conditions fails: a pass on one clone can judge fewer documents than
 the same commit holds.
 

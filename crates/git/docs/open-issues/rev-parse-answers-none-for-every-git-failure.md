@@ -21,14 +21,14 @@ git missing from the path, a repository git refuses, any fatal error. Its type,
 
 Callers outside the tests, found with `git grep -n 'rev_parse(' crates/`:
 
-- `commits` in `path@core@src/cli/history.rs` asks `rev_parse(root, "<sha>^")` for each commit of
+- `commits` in `path@check@src/cli/history.rs` asks `rev_parse(root, "<sha>^")` for each commit of
   the range, and a `None` means a root commit: no parent model is built, and the commit's message
   references resolve against its own tree alone;
 - `snapshot_entries` in `path@git@src/git.rs` asks `rev_parse(root, "HEAD")` for the index's
   snapshot, and a `None` means no commit yet: it skips the listing of HEAD's tree, while
   `git diff --cached` still compares the index with HEAD, so the snapshot holds only the paths
   the index changes;
-- `Snapshot::object_id` in `path@core@src/extension.rs` returns it to an extension as "no object
+- `Snapshot::object_id` in `path@check@src/extension.rs` returns it to an extension as "no object
   id".
 
 Not established: a reproduction. Each caller runs after other invocations on the same repository
@@ -43,7 +43,7 @@ the staged file alone.
 
 `design@git@failed-git-is-an-error` holds that every invocation a verdict depends on fails as an
 error carrying git's reason, never as an empty answer, against
-`goal@core@document-rules-are-checked`. A first parent lost to a failed invocation changes what
+`goal@check@document-rules-are-checked`. A first parent lost to a failed invocation changes what
 `commits` judges a message against, and a HEAD lost to one makes `check --staged` judge a tree
 missing every file the index does not change; each run reports a verdict where it should exit 2.
 

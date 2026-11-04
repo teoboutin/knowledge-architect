@@ -72,7 +72,7 @@ and in the core's head:
 - rule 6, `design@agent-skills@goal-met-in-tree-or-in-use`;
 - rule 7: a refinement neither widens nor contradicts the goal it refines, which follows from the
   rule of no contradiction, and a goals home cites only goals and registers of its own or an
-  enclosing Component, per `design@core@goals-home-cites-upward-only`;
+  enclosing Component, per `design@check@goals-home-cites-upward-only`;
 - rule 8, `design@agent-skills@goal-exclusion-names-its-design`;
 - a goal expected to be unmet, `design@agent-skills@goal-drafted-to-move-the-tree`.
 

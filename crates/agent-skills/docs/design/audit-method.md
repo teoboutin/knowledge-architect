@@ -199,7 +199,7 @@ of a scope".
 
 `goal@knowledge-architect@serves-one-kind-of-project` asks every target project's agents to run
 under `claude`, and a second provider waits for a change of that ask, per
-`issue@core@configuration-for-several-agent-providers`; the defeat of the rival below, a skill
+`issue@check@configuration-for-several-agent-providers`; the defeat of the rival below, a skill
 written for the Workflow tool alone, was argued before that ask, on its failing in every other
 harness, and is to be argued again, per `issue@agent-skills@heads-argued-from-another-harness`.
 `goal@agent-skills@installed-text-works-in-every-target-project` names a project's paths,

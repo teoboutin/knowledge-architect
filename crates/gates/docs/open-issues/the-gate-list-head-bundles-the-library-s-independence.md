@@ -28,7 +28,7 @@ cannot be written without its reason.
 
 Statement 2 is true of the code: `path@gates@Cargo.toml` declares clap as its only dependency, and
 `project_root` in `path@gates@src/process.rs` takes the marker's name as a parameter. Another
-Component relies on it: `design@core@installed-binary-version-check`, in `register@core@design`,
+Component relies on it: `design@check@installed-binary-version-check`, in `register@check@design`,
 says a gate "starts a binary that makes the call, since the gates library depends on nothing of
 the checker", citing the gate-list head.
 
@@ -60,6 +60,6 @@ core's head writes, cannot name the decision it depends on.
 
 The owner states the reason for the independence. Then the head is split: the independence takes a
 head of its own with that reason, the gate-list head keeps the list, and the reference in
-`design@core@installed-binary-version-check` is re-pointed to the new head. Or the owner rules that
+`design@check@installed-binary-version-check` is re-pointed to the new head. Or the owner rules that
 the independence is no decision worth a head, and the sentence leaves the gate-list head for a
 comment at `project_root`.

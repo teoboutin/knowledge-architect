@@ -225,10 +225,10 @@ The design this decision did not keep:
 
 The transcript reviewer extracts each session with `klarch transcript show --from --full`, and the
 subagent that assembles a plan document extracts as the reviewer's section says; the command labels
-every line by its fields, per `design@core@transcript-labels-in-code`, so the installed texts state
+every line by its fields, per `design@check@transcript-labels-in-code`, so the installed texts state
 what the labels mean and no rule for which lines to keep or whose they are. A rule held in the
 reviewer's text, with the command as a helper, is applied by a script each session writes again,
-and stands in two homes beside the command's, against `design@core@one-question-one-command`; a
+and stands in two homes beside the command's, against `design@check@one-question-one-command`; a
 fragment the build copies would still leave each session to write the script. It serves
 `goal@knowledge-architect@agents-get-a-complete-workflow`.
 
@@ -239,10 +239,10 @@ of the message where its work begins, and find it with `klarch transcript list`:
 the sessions that worked on a branch, `--containing` the session holding those words in a message
 the owner typed. No installed text finds a transcript by a session identifier. After `/clear`, the
 process keeps the earlier identifier in its paths while the harness writes a new file, as
-`design@core@transcript-session-split` measures, so a session that derives its transcript from the
+`design@check@transcript-session-split` measures, so a session that derives its transcript from the
 identifier it sees reads the session before the clear. The same reason holds at the three texts,
 which is why it has this home. The listing is computed from the transcripts, per
-`design@core@transcript-query-verbs`.
+`design@check@transcript-query-verbs`.
 
 ### A misstated ruling is critical only when it reverses the ruling, or relaxes it in what is built or a load-bearing decision `##misstated-ruling-rated-by-what-it-changes`
 

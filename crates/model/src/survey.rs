@@ -46,7 +46,7 @@ pub struct Survey {
     pub links: Vec<Entry>,
     /// The files of the installer's namespace, each with what reading it gave. They are outside
     /// the walk, and their bytes are judged by `shipped` alone, per
-    /// `design@core@owned-namespace-check`.
+    /// `design@check@owned-namespace-check`.
     pub installed: Vec<(PathBuf, Outside)>,
 }
 
@@ -116,7 +116,7 @@ pub fn survey(manifest: &Manifest, model: &Model) -> std::io::Result<Survey> {
 /// The same, over a stated listing and a stated way of reading a file.
 ///
 /// **A commit's tree is surveyed the same way a checkout is.** `commits` builds a model per
-/// commit out of git objects, per `design@core@a-commit-message-is-a-document`, so what exists
+/// commit out of git objects, per `design@check@a-commit-message-is-a-document`, so what exists
 /// and what sits outside the walk are answered from that tree's listing and its blobs rather
 /// than from the filesystem. `survey` is the case where the listing is the model's own and the
 /// bytes are on disk.

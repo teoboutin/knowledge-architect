@@ -9,13 +9,13 @@ harness delivers to a session as an instruction from the project's agent configu
 installed or the project's own. `agent@knowledge-architect-workflow-auditor@the-corpus` defines it,
 and the axis's section and the saved workflow point there. The definition names no provider's
 directory, so it holds for a second harness, per
-`issue@core@configuration-for-several-agent-providers`. The registers are records, not
+`issue@check@configuration-for-several-agent-providers`. The registers are records, not
 instructions: an auditor reads the issues listing so that a finding already recorded is marked with
 its reference rather than reported again. An auditor may run read-only commands to check what the
 corpus claims about the checker or the harness.
 
 The corpus is the owner's: the root `CLAUDE.md` and the content of the agent configuration
-directory. So is the exclusion of the scoped `CLAUDE.md` files next to the code, which the owner judged more like developer documentation than instructions to follow. `issue@core@a-home-for-developer-contracts-outside-agent-configuration`
+directory. So is the exclusion of the scoped `CLAUDE.md` files next to the code, which the owner judged more like developer documentation than instructions to follow. `issue@check@a-home-for-developer-contracts-outside-agent-configuration`
 points the same way. The cost is that no audit reads a scoped `CLAUDE.md`: the need test of
 `design@agent-skills@statement-names-an-act` reaches one through its writer and the review axis on agent-facing
 text only. Every auditor

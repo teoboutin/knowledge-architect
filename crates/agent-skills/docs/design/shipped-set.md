@@ -21,7 +21,7 @@ the build asserts a saved workflow's name, per
 its delivery substitutions and inlining its snippets, and generates `FILES`, each entry the install
 path and the text. It adds the installer's prefix to each skill directory, agent file and workflow
 file on the way out, so the installed names are the namespace of
-`design@core@owned-namespace-check`. A file the layout does not map fails the build.
+`design@check@owned-namespace-check`. A file the layout does not map fails the build.
 
 The list is generated because a list written by hand drifts from the directory it lists, and the
 drift ships: a skill missing from the list is never installed, and nothing reports it. The core's
@@ -98,7 +98,7 @@ Each block `skill@knowledge-architect-setup@rust-project` shows is a file of
 `path@agent-skills@snippets/`, inlined by the build, and exposed whole as `SNIPPETS`: the
 workspace's Cargo.toml, the maintenance crate's Cargo.toml, the cargo aliases with the `[env]` tie,
 the crate's main and the CI workflow. `klarch init --rust` writes all of them but the CI workflow,
-per `design@core@rust-scaffold` and `design@core@init-writes-no-ci-workflow`, so a project gets the
+per `design@check@rust-scaffold` and `design@check@init-writes-no-ci-workflow`, so a project gets the
 text the skill shows. Each is checked by a test of the workspace: the main is compiled by an example
 of the maintenance crate, the three TOML files by a test that builds a project `init --rust` wrote
 and runs its checker, and the CI workflow's gates command by a test that parses it with the gates
@@ -113,7 +113,7 @@ the name its `meta` declares, never by its file's name, as a probe of Claude Cod
 the message of the commit "The agentic-workflow axis's script ships as a saved workflow in the
 installer's namespace" records. So the build fails unless that name equals the installed file's
 stem, or the prefix the build adds to the file would namespace nothing, per
-`design@core@owned-namespace-check`.
+`design@check@owned-namespace-check`.
 
 ### The shipped text carries comments for this repository, `%%` lines the build removes `##shipped-text-line-comments`
 
@@ -169,7 +169,7 @@ projects holding the installed skills". The same argument holds of the plans dir
 homes, since the checker fixes that directory's path, and of a home named by its register, since the
 checker refuses a home named by its path. A path that varies by project, and an illustration, are
 placeholders in angle brackets. The command a project runs is written as the placeholder that the
-install fills with the project's declared command, per `design@core@declared-command`.
+install fills with the project's declared command, per `design@check@declared-command`.
 
 **The shipped set may cite its own skills, agents and primer, and their sections**, as
 `skill@<name>@<slug>` or `primer@<slug>`: every project serving `claude` holds them, installed, and

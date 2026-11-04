@@ -6,26 +6,26 @@
 
 `path@model@src/lib.rs` names every public item, in the root or in a role module whose body is in that
 file, and every other module is private. So the surface is read in one file, and moving an item between
-files changes no public path, which `rejected@core@module-tree-as-public-api` refuses to give up.
+files changes no public path, which `rejected@check@module-tree-as-public-api` refuses to give up.
 `unreachable_pub` refuses a `pub` item no role module names, and a unit test refuses a `pub mod <name>;`
 and a glob, on which the lint is silent. A method of a named type is public through its type, and the
 facade does not list it. The entity table and the anchors are public here, since the tools over the
 documents and the checks each need them across a crate boundary, on the session's choice over a second set
 of types no less nameable, which the owner approved; the narrow view an extension is to get is the core's,
-per `issue@core@an-extension-cannot-see-which-register-a-document-belongs-to`. Nothing is public for a test: a test that needs a private item is a unit test
+per `issue@check@an-extension-cannot-see-which-register-a-document-belongs-to`. Nothing is public for a test: a test that needs a private item is a unit test
 of this crate.
 
 ### The resolver says what a reference names or why it names nothing, with no finding attached `##resolver-outcome`
 
 The function of each kind, in `model::resolve`, returns a `Target`, or a `Cause` holding what its
 texts need. A site renderer needs the resolution and no finding, per
-`goal@core@documents-render-as-a-linked-site`, and the lints of the core need a finding at a site, so they write
+`goal@check@documents-render-as-a-linked-site`, and the lints of the core need a finding at a site, so they write
 one from `Cause::texts`, and this crate writes none, per `goal@model@a-tool-reads-the-documents-with-no-check`. `reference` takes a
 candidate of an anchored kind to the function of its kind, and `harness` takes one of a harness kind.
 
 ### The words of a cause are the resolver's, so a tool that links no check prints them `##cause-words-in-the-resolver`
 
-A cause's two texts, what is wrong and what repairs it, per `design@core@finding-names-the-repair`, are
+A cause's two texts, what is wrong and what repairs it, per `design@check@finding-names-the-repair`, are
 `Cause::texts`. `show` prints them, and a tool over the documents needs them and no check, per
 `design@knowledge-architect@model-crate`. The nearest rival is
 `rejected@model@cause-words-in-the-lints`.
@@ -35,7 +35,7 @@ A cause's two texts, what is wrong and what repairs it, per `design@core@finding
 `Gathered` reads it from the working tree: one survey, the two git batches and the shipped text. The
 resolver reads the ignore answers, so a tool that links no check needs the batch here, or it reads a
 target the rules cover as absent, against `design@model@ignored-targets-are-not-asserted`. A run over a
-tree git holds gathers its own in the core, per `design@core@staged-tree-source`, since no working tree
+tree git holds gathers its own in the core, per `design@check@staged-tree-source`, since no working tree
 holds what it reads. The nearest rival is `rejected@model@ignore-batch-in-the-checks`.
 
 ### An extension's phase-1 contribution reaches the model as data `##contribution-is-data`
@@ -43,7 +43,7 @@ holds what it reads. The nearest rival is `rejected@model@ignore-batch-in-the-ch
 `model::extension::Contribution` holds the tables a binary's extensions claim, their complaints, their
 declared paths and their generated files, and `contribute` records them. The core computes the value
 from each extension's `tables` and `resolve`, per
-`design@core@an-extension-plugs-in-through-phased-hooks`. Phase 1 is then a pure function a test drives
+`design@check@an-extension-plugs-in-through-phased-hooks`. Phase 1 is then a pure function a test drives
 with a value, and a tool with no extension has no trait to name. The nearest rival is
 `rejected@model@contribution-as-a-trait`.
 

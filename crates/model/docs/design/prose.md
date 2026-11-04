@@ -7,7 +7,7 @@
 A markdown document is prose entire. A Rust file is prose only where its grammar says so — its
 comments, and the string literals that are not bound to a name. Nothing is decided by a line's
 prefix. The one file set whose literals are never prose is the checker's own source, per
-`design@core@checker-source-literals-are-data`.
+`design@check@checker-source-literals-are-data`.
 
 **A doc comment's content is markdown**, so the markdown analysis runs over a document and over
 every Rust comment alike, and a heading, a fence or a blockquote means the same in both.
@@ -27,7 +27,7 @@ of them. A macro body is not an argument list, so a binding still applies inside
 every literal as prose is a recorded rejected design**,
 `rejected@model@every-literal-read-as-prose`, with the bound literals outside the checker that carry
 a rule-shaped number by accident. The binding rule does not serve the checker's own
-fixtures, which `design@core@checker-source-literals-are-data` answers.
+fixtures, which `design@check@checker-source-literals-are-data` answers.
 
 The design this decision did not keep: `rejected@model@hand-rolled-indentation-scanner`.
 

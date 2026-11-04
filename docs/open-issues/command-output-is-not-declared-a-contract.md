@@ -28,7 +28,7 @@ Instances seen:
 - Two lines added to a command's output in the 0.3.0 release, classed two ways. `check` gained a
   note naming each file that holds a finding and that git does not track; it is classed `cli`,
   minor, as an addition that changes nothing existing. The refusal of a foreign build, in
-  `path@core@src/build_origin.rs`, gained a line naming how to prevent it, and was left without
+  `path@check@src/build_origin.rs`, gained a line naming how to prevent it, and was left without
   an entry, as a patch.
 - A consumer's extension tests asserted text the core prints, and the consumer's owner ruled
   mid-review that they assert none: W5 of 2026-10-07-thaum-mock-reduction-workflow. The checker
@@ -43,10 +43,10 @@ Instances seen:
   function. It tests what the binary passes, not what the core does with it.
 
 `klarch transcript` declares its text and its `--json` output no contract, as `anchors` and
-`worklist` declare theirs, per `design@core@transcript-query-verbs`: the policy this entry asks for
+`worklist` declare theirs, per `design@check@transcript-query-verbs`: the policy this entry asks for
 decides whether its JSON becomes one.
 
-The README of the core, `path@core@README.md`, states two output contracts: for `check`, the order
+The README of the core, `path@check@README.md`, states two output contracts: for `check`, the order
 of the summary, the findings and the verdict line; and for a generated file-register index, written
 by `index` and `check --fix`, its bytes, per `design@model@a-file-register-index-is-rows`. Nothing
 states whether the words of a printed summary are one.

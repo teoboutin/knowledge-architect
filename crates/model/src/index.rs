@@ -317,7 +317,7 @@ mod tests {
     use std::path::PathBuf;
 
     // Every fixture is inline: the checker reads no string literal of its own source, per
-    // `design@core@checker-source-literals-are-data`.
+    // `design@check@checker-source-literals-are-data`.
 
     /// A file register named `note`, with one metadata key or with none.
     fn register(with_metadata: bool) -> Register {

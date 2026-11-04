@@ -3,8 +3,8 @@
 //! Under the `claude` harness, each shipped file must be present at its install path with the
 //! bytes of its template rendered for the project; no file of the installer's namespace may be
 //! one this version does not ship; and the root CLAUDE.md must import the primer when the primer
-//! is shipped. The decisions are `design@core@owned-namespace-check` and
-//! `design@core@agents-table`. The repair of a missing, differing or unshipped file is the
+//! is shipped. The decisions are `design@check@owned-namespace-check` and
+//! `design@check@agents-table`. The repair of a missing, differing or unshipped file is the
 //! install; a deletion awaiting staging and a missing import line each name their own.
 //!
 //! **Phase 2, not the last phase.** A missing or stale installed file is a fact about what the

@@ -39,7 +39,7 @@ This repository adds:
   `design@knowledge-architect@version-lockstep`; its place in the publish order, in
   `path@knowledge-architect@.github/workflows/release.yml` and in
   `design@knowledge-architect@partial-publish-rerun`; its directory and package name in the lists of
-  `design@core@a-foreign-build-is-refused` and `design@core@checker-source-literals-are-data`; and
+  `design@check@a-foreign-build-is-refused` and `design@check@checker-source-literals-are-data`; and
   a README and library documentation that state what an adopter of it does, per
   `goal@knowledge-architect@adoption-is-easy`, and the four conditions of a target project, the asks
   and the limit of the guarantee, per `goal@knowledge-architect@serves-one-kind-of-project`; a row of
@@ -49,18 +49,18 @@ This repository adds:
 - **each new Component's goals**, and the moves and rewordings of the core's goals a slice makes,
   are drafted by the session under `skill@knowledge-architect-goal-setting` and put to the owner;
   the slice is built on the drafts, and its branch merges once the owner has ruled on them, per
-  `primer@question-authority`. #check-renamed sends each goal of `register@core@goal` to the
+  `primer@question-authority`. #check-renamed sends each goal of `register@check@goal` to the
   Component that holds its subject, and drafts the rewording of each that names "the core", such as
-  `goal@core@checks-a-commit-from-its-hook`, whose measure names "the core's tests", and
-  `goal@core@projects-add-their-own-checks`, which names "no change to the core";
+  `goal@check@checks-a-commit-from-its-hook`, whose measure names "the core's tests", and
+  `goal@check@projects-add-their-own-checks`, which names "no change to the core";
 - each slice moves the design heads, `rejected` entries, issues and tripwires whose subject its new
   Component holds, per `skill@knowledge-architect-component-creation@creation-procedure` point 4,
   and re-points every reference `cargo klarch check` then reports;
 - **a citation the checker does not read**, in a file that is neither Markdown nor Rust, is found
   by a search before each head a slice rewrites, `git grep -n '<slug>' -- ':!*.md' ':!*.rs'`. Five
-  lines in four files stand at the branch that adds this document: `path@core@Cargo.toml` cites
-  `design@core@the-core-cli-is-a-library-module`; `path@knowledge-architect@knowledge-architect.toml`
-  cites `design@core@nothing-of-a-project-is-compiled-in` and
+  lines in four files stand at the branch that adds this document: `path@check@Cargo.toml` cites
+  `design@check@the-core-cli-is-a-library-module`; `path@knowledge-architect@knowledge-architect.toml`
+  cites `design@check@nothing-of-a-project-is-compiled-in` and
   `design@knowledge-architect@no-component-directory-named-after-the-project`;
   `path@knowledge-architect@Cargo.toml` cites the latter; and
   `path@knowledge-architect@.github/workflows/release.yml` cites
@@ -101,9 +101,9 @@ This repository adds:
 - **the port**: the Python tool the owner wrote, `git-history-tools`, ported to Rust as the
   `rewrite` Component; its leads are in
   `issue@knowledge-architect@no-published-command-rewrites-a-branch-s-history`.
-- **the core**: the Component `core`, crates/core, package `knowledge-architect`, today's checker
-  library and binary. The slice #check-renamed renames it `check`. Before that slice, `check` in
-  this document's tables names the core.
+- **the core**: the Component `check` under its name before #check-renamed, crates/core, package
+  `knowledge-architect`, the checker library and binary. In this document's tables, read at the
+  branch that added it, `check` names it before that slice.
 - **the writers**: the commands that write files over a model the foundation must pass first:
   `index`, `index --staged`, `check --fix`, `new-component` and `init`.
 - **A1**: the acceptance criterion #a1-no-check-below-the-tools.
@@ -112,14 +112,14 @@ This repository adds:
   the entity table's definition findings (phase 3). `complete_working_tree` beside it refuses over a
   model the foundation stops; `index`, `id`, `new-component` and `worklist` call it, `check --fix` calls
   the foundation itself, and `index --staged` reaches it through `commit_tree` of
-  `path@core@src/cli/history.rs`.
+  `path@check@src/cli/history.rs`.
 - **the installed-file check**: `check` in `path@model@src/shipped.rs`, which compares the installed agent
   files with the shipped text, byte for byte.
 - **the resolver and the lints**: the resolver is `path@model@src/resolver.rs`, the functions that resolve a
   reference against the entity table and say why one fails; the lints are
-  `path@core@src/check/references.rs`, which turn a cause into a finding at its site.
+  `path@check@src/check/references.rs`, which turn a cause into a finding at its site.
 - **the mock tests**: the 36 `#[test]` functions that run over the mock projects of
-  `path@core@tests/projects/`: those over the checks in `path@core@src/mock_projects.rs`, and those over the
+  `path@check@tests/projects/`: those over the checks in `path@check@src/mock_projects.rs`, and those over the
   model in `path@model@src/mock_projects.rs`.
 - **an integrated test**: a test that drives the project through its public API, as a consumer
   would, as the code-shape fragment, `path@agent-skills@fragments/default-code-shape.md`, defines it,
@@ -128,7 +128,7 @@ This repository adds:
   command, the domain crates expose a typed API with no clap in it. P2: each domain crate derives
   clap's types for its own commands, and `cli` flattens them.
 - **the phase-1 contribution**: what an extension gives phase 1 today, in
-  `path@core@src/extension.rs`: the tables it claims, through `Extension::tables`; its complaints,
+  `path@check@src/extension.rs`: the tables it claims, through `Extension::tables`; its complaints,
   the paths it declares and the files it generates, through `Extension::resolve`, which returns
   them as a `Resolution`; `extension::configure` turns the tables into complaints and merges the
   rest into the manifest.
@@ -138,16 +138,16 @@ This repository adds:
 What exists today, read at the branch that adds this document:
 
 - **One crate holds the checker.** crates/core holds the library and the binary `klarch`, per
-  `design@core@single-crate`; its `src/` holds 473 `#[test]` functions, 36 of them the mock tests,
+  `design@check@single-crate`; its `src/` holds 473 `#[test]` functions, 36 of them the mock tests,
   counted with `grep -rc '#\[test\]' crates/core/src | awk -F: '{s+=$2} END {print s}'` and
   `grep -c '#\[test\]' crates/core/src/mock_projects.rs`, so 437 are unit tests that use no mock
   project. Of its modules, `graph.rs` is imported by `cli/worklist.rs` alone, and `git.rs` and
   `transcript.rs` import nothing of the crate outside their tests.
-- **The commands are one enum**, `cli::Command` in `path@core@src/cli/mod.rs`, which a binary that
-  registers extensions flattens, per `design@core@the-core-cli-is-a-library-module`.
+- **The commands are one enum**, `cli::Command` in `path@check@src/cli/mod.rs`, which a binary that
+  registers extensions flattens, per `design@check@the-core-cli-is-a-library-module`.
 - **Every git invocation of the core's library code is in `path@elsewhere@crates/core/src/git.rs`**, per
   `design@git@git-is-asked-through-one-module`; a unit test of `path@elsewhere@crates/core/src/source/rs.rs` and
-  the tests of `path@core@tests/init.rs` run git themselves, and so do `gates`, in
+  the tests of `path@check@tests/init.rs` run git themselves, and so do `gates`, in
   `path@gates@src/gates.rs`, and `mutate`, in `path@mutate@src/harness.rs` and `path@mutate@src/run.rs`.
 - **`id`, `worklist` and the writers run the foundation**, through `complete_working_tree` or
   `check::foundation` itself; `show` builds the model and runs no phase, and calls two functions of
@@ -183,7 +183,7 @@ Outside this work, each with what owns it:
 
 - `bundle`, `render` and `rewrite`, placed here and created by their own work:
   `issue@knowledge-architect@the-skill-bundling-passes-are-tied-to-this-project-s-skills`,
-  `issue@core@the-documents-do-not-render-as-a-site` and
+  `issue@check@the-documents-do-not-render-as-a-site` and
   `issue@knowledge-architect@no-published-command-rewrites-a-branch-s-history`, each with the leads
   of this discussion, in the roadmap's order;
 - `gates` and `mutate`, unchanged: moving them onto the `git` crate is possible and not required
@@ -199,31 +199,31 @@ Outside this work, each with what owns it:
 
 - `goal@knowledge-architect@projects-are-split-into-components`,
   `goal@knowledge-architect@mechanical-tasks-are-the-tool-s`,
-  `goal@core@documents-render-as-a-linked-site`, `goal@core@projects-add-their-own-checks`,
-  `goal@core@relocation-needs-only-goal-changes`, `goal@core@records-reach-their-reader`,
-  `goal@core@document-rules-are-checked`, `goal@core@documents-stay-current`,
-  `goal@core@checks-a-commit-from-its-hook`: the criteria below;
+  `goal@check@documents-render-as-a-linked-site`, `goal@check@projects-add-their-own-checks`,
+  `goal@check@relocation-needs-only-goal-changes`, `goal@check@records-reach-their-reader`,
+  `goal@check@document-rules-are-checked`, `goal@check@documents-stay-current`,
+  `goal@check@checks-a-commit-from-its-hook`: the criteria below;
 - `design@knowledge-architect@version-lockstep`: every crate keeps one version;
 - `design@knowledge-architect@no-component-directory-named-after-the-project`, which already names
   "crates/core and crates/cli" for a future split, and its rival
   `rejected@knowledge-architect@crate-directory-named-after-project`;
-- `design@core@model-then-checks`, `design@core@phases-gate-the-report` (its rule that a finding is
+- `design@check@model-then-checks`, `design@check@phases-gate-the-report` (its rule that a finding is
   classed by the phase that produces it), `design@model@one-entity-table`,
-  `design@model@one-list-of-generated-files`, `design@core@anchors-listing-command`,
-  `design@core@id-lookup-command`, `design@core@worklist-writes-and-verifies-the-reports`: each holds
+  `design@model@one-list-of-generated-files`, `design@check@anchors-listing-command`,
+  `design@check@id-lookup-command`, `design@check@worklist-writes-and-verifies-the-reports`: each holds
   across the new boundaries;
 - the git heads that move whole to `git`: `design@git@per-user-ignore-file-pinned`,
   `design@git@repository-variables-dropped`, `design@git@index-file-variable-kept`,
   `design@git@a-path-is-bytes`, `design@git@git-floor-for-commit-trees`; and
   `design@git@failed-git-is-an-error`, moved with its exit-code clause stated as the crate's error
-  contract beside a citation of `design@core@exit-code-ladder`, as #git-out wrote it;
+  contract beside a citation of `design@check@exit-code-ladder`, as #git-out wrote it;
 - `design@gates@the-library-owns-the-flags` and `rejected@gates@gates-command-of-the-checker`: `cli`
   flattens no command of `gates`, and `gates` keeps its flags;
-- `design@core@exit-code-ladder`, `design@core@binary-name`, `design@core@one-question-one-command`,
-  `design@core@ne-minimal`;
-- `rejected@core@module-tree-as-public-api`, `rejected@core@doc-hidden-test-items`,
-  `rejected@core@testing-feature-for-test-items`, `rejected@core@inputs-struct-literal`,
-  `rejected@core@unit-tests-moved-under-tests`: none comes back; each new crate has a facade.
+- `design@check@exit-code-ladder`, `design@check@binary-name`, `design@check@one-question-one-command`,
+  `design@check@ne-minimal`;
+- `rejected@check@module-tree-as-public-api`, `rejected@check@doc-hidden-test-items`,
+  `rejected@check@testing-feature-for-test-items`, `rejected@check@inputs-struct-literal`,
+  `rejected@check@unit-tests-moved-under-tests`: none comes back; each new crate has a facade.
 
 **Decisions the work reverses or rewrites**, each with the slice that does it. Every text that
 `cargo klarch show` lists as citing it is re-pointed or rewritten by that slice, and the slice
@@ -231,37 +231,37 @@ Outside this work, each with what owns it:
 
 | head | done by | citing files today |
 | --- | --- | --- |
-| `design@core@single-crate` | #cli-on-top, reversed, its successor in the root's design home and the head leaving the core's in the same change | `path@core@docs/design/transcripts.md` |
+| `design@check@single-crate` | #cli-on-top, reversed, its successor in the root's design home and the head leaving the core's in the same change | `path@check@docs/design/transcripts.md` |
 | `design@knowledge-architect@installed-text-crate` | #git-out, rewritten in a form each later slice keeps true, under this slug, since the head's earlier slug said two crates | none |
-| `design@core@the-core-cli-is-a-library-module` | #cli-on-top, moved to `cli` under a new slug, since it no longer names the core | `path@agent-skills@docs/design/project-configuration.md`, `path@core@docs/design/extensions-and-api.md`, `path@core@docs/design/run-model.md`, `path@core@docs/design/transcripts.md`, `path@core@README.md`, `path@core@src/cli/create.rs`, `path@core@src/cli/mod.rs`, `path@core@src/main.rs`, `path@core@tests/binary.rs` |
-| `design@core@arguments-parse-through-clap` | #cli-on-top | `path@core@docs/design/creating.md`, `path@core@docs/design/generated-files-and-fixes.md`, `path@core@docs/design/run-model.md`, `path@core@docs/open-issues/manifest-table-exposes-the-toml-crate.md`, `path@core@src/cli/mod.rs`, `path@core@src/main.rs`, `register@xtask@design` |
-| `design@core@transcript-command-in-core` | #consumers-out, its successor under a new slug in `transcript`, the part saying that the reader is a crate of its own that `cli` depends on in the root's design home | none |
-| `design@core@api-facade` | #integrated-tests; each slice writes its crate's facade | `path@core@CLAUDE.md`, `path@core@docs/design/transcripts.md`, `path@core@docs/open-issues/an-extension-cannot-see-which-register-a-document-belongs-to.md`, `path@core@docs/open-issues/manifest-table-exposes-the-toml-crate.md`, `register@core@tripwire`, `path@core@src/lib.rs` |
-| `design@core@phases-gate-the-report` | #model-out (the foundation), #check-renamed (the phase table) | `path@agent-skills@docs/open-issues/audit-axes-beyond-the-design-record.md`, `path@agent-skills@docs/open-issues/the-claim-check-of-a-commit-message-is-read-at-the-start-and-needed-at-each-commit.md`, `path@core@CLAUDE.md`, `path@core@docs/design/agent-configuration.md`, `path@core@docs/design/creating.md`, `path@core@docs/design/entities-and-headings.md`, `path@core@docs/design/extensions-and-api.md`, `path@core@docs/design/generated-files-and-fixes.md`, `path@core@docs/design/git-and-the-walk.md`, `path@core@docs/design/registers.md`, `path@core@docs/design/run-model.md`, `path@core@docs/design/worklist.md`, `register@core@tripwire`, `path@core@README.md`, `path@core@src/cli/create.rs`, `path@core@src/cli/mod.rs`, `path@core@src/cli/worklist.rs`, `spec@plans@path-quickfixes` |
-| `design@core@owned-namespace-check` | #check-renamed, split as its issue says | `path@knowledge-architect@CLAUDE.md`, `path@agent-skills@docs/design/project-configuration.md`, `register@agent-skills@design`, `path@agent-skills@docs/design/retrospective.md`, `path@agent-skills@docs/design/shipped-set.md`, `path@agent-skills@docs/open-issues/patching-an-installed-skill.md`, `path@core@docs/design/agent-configuration.md`, `path@core@docs/design/creating.md`, `path@core@docs/design/generated-files-and-fixes.md`, `path@core@docs/design/git-and-the-walk.md`, `path@core@docs/design/run-model.md`, `path@core@docs/open-issues/a-project-workflow-can-declare-an-installed-workflow-s-name.md`, `path@core@docs/open-issues/core-heads-bundle-decisions-with-many-citing-sites.md`, `register@core@rejected`, `path@core@README.md`, `path@core@src/agents.rs`, `path@elsewhere@crates/core/src/check/agents.rs`, `path@core@src/check/mod.rs`, `path@core@src/cli/history.rs`, `path@core@src/cli/mod.rs`, `path@elsewhere@crates/core/src/manifest.rs`, `path@core@src/mock_projects.rs`, `path@elsewhere@crates/core/src/survey.rs`, `path@elsewhere@crates/core/src/walk.rs`, `path@core@tests/binary.rs`, `register@knowledge-architect@design`, `path@knowledge-architect@docs/open-issues/the-skill-bundling-passes-are-tied-to-this-project-s-skills.md`, `spec@plans@path-quickfixes` |
-| `design@core@fix-before-the-checks` | #check-renamed | `path@core@docs/design/run-model.md`, `path@core@README.md`, `path@core@src/cli/mod.rs`, `path@core@tests/binary.rs`, `spec@plans@path-quickfixes` |
-| `design@core@model-then-checks` | #model-out | `path@core@docs/design/extensions-and-api.md`, `path@core@src/check/references.rs`, `path@core@src/cli/gathered.rs`, `path@core@src/extension.rs`, `spec@plans@path-quickfixes` |
-| `design@git@git-is-asked-through-one-module` | #git-out | `path@core@CLAUDE.md`, `path@core@docs/design/creating.md` |
-| `design@core@inputs-are-gathered` | #model-out, for the two gatherings; #integrated-tests, for its sentence on the mock tests | `register@core@rejected` |
-| `design@core@checker-source-literals-are-data` | each slice that adds a crate; #cli-on-top for the list the binary hands over | `path@agent-config@skills/klarch-development/SKILL.md`, `path@core@CLAUDE.md`, `path@core@docs/design/prose.md`, `path@core@docs/design/run-model.md`, `register@core@rejected`, `register@core@tripwire`, `path@core@README.md`, `path@core@src/check/references.rs`, `path@core@src/check/registers.rs`, `path@core@src/cli/history.rs`, `path@core@src/cli/mod.rs`, `path@elsewhere@crates/core/src/entity.rs`, `path@core@src/graph.rs`, `path@elsewhere@crates/core/src/index.rs`, `path@core@src/lib.rs`, `path@core@src/main.rs`, `path@elsewhere@crates/core/src/model.rs`, `path@elsewhere@crates/core/src/records.rs`, `path@elsewhere@crates/core/src/scan.rs`, `path@elsewhere@crates/core/src/source/mod.rs`, `path@elsewhere@crates/core/src/source/rs.rs`, `path@core@tests/binary.rs` |
-| `design@core@a-foreign-build-is-refused` | each slice that adds a crate; #cli-on-top | `path@agent-skills@src/lib.rs`, `path@core@CLAUDE.md`, `path@core@docs/design/extensions-and-api.md`, `path@core@docs/design/prose.md`, `path@core@docs/design/run-model.md`, `path@core@src/build_origin.rs`, `path@core@src/cli/mod.rs`, `path@core@src/main.rs`, `register@knowledge-architect@design` |
-| `design@core@installed-binary-version-check` | #cli-on-top | `path@agent-skills@docs/design/project-configuration.md`, `path@agent-skills@docs/open-issues/co-development-through-a-cargo-patch.md`, `path@core@docs/design/agent-configuration.md`, `path@core@docs/design/commit-messages.md`, `path@core@docs/design/git-and-the-walk.md`, `path@core@docs/design/transcripts.md`, `path@core@src/cli/mod.rs`, `path@core@src/lib.rs`, `path@core@src/main.rs`, `path@elsewhere@crates/core/src/manifest.rs`, `path@core@tests/binary.rs`, `path@gates@docs/open-issues/the-gate-list-head-bundles-the-library-s-independence.md`, `register@knowledge-architect@design` |
+| `design@check@the-core-cli-is-a-library-module` | #cli-on-top, moved to `cli` under a new slug, since it no longer names the core | `path@agent-skills@docs/design/project-configuration.md`, `path@check@docs/design/extensions-and-api.md`, `path@check@docs/design/run-model.md`, `path@check@docs/design/transcripts.md`, `path@check@README.md`, `path@check@src/cli/create.rs`, `path@check@src/cli/mod.rs`, `path@check@src/main.rs`, `path@check@tests/binary.rs` |
+| `design@check@arguments-parse-through-clap` | #cli-on-top | `path@check@docs/design/creating.md`, `path@check@docs/design/generated-files-and-fixes.md`, `path@check@docs/design/run-model.md`, `path@check@docs/open-issues/manifest-table-exposes-the-toml-crate.md`, `path@check@src/cli/mod.rs`, `path@check@src/main.rs`, `register@xtask@design` |
+| `design@check@transcript-command-in-core` | #consumers-out, its successor under a new slug in `transcript`, the part saying that the reader is a crate of its own that `cli` depends on in the root's design home | none |
+| `design@check@api-facade` | #integrated-tests; each slice writes its crate's facade | `path@check@CLAUDE.md`, `path@check@docs/design/transcripts.md`, `path@check@docs/open-issues/an-extension-cannot-see-which-register-a-document-belongs-to.md`, `path@check@docs/open-issues/manifest-table-exposes-the-toml-crate.md`, `register@check@tripwire`, `path@check@src/lib.rs` |
+| `design@check@phases-gate-the-report` | #model-out (the foundation), #check-renamed (the phase table) | `path@agent-skills@docs/open-issues/audit-axes-beyond-the-design-record.md`, `path@agent-skills@docs/open-issues/the-claim-check-of-a-commit-message-is-read-at-the-start-and-needed-at-each-commit.md`, `path@check@CLAUDE.md`, `path@check@docs/design/agent-configuration.md`, `path@check@docs/design/creating.md`, `path@check@docs/design/entities-and-headings.md`, `path@check@docs/design/extensions-and-api.md`, `path@check@docs/design/generated-files-and-fixes.md`, `path@check@docs/design/git-and-the-walk.md`, `path@check@docs/design/registers.md`, `path@check@docs/design/run-model.md`, `path@check@docs/design/worklist.md`, `register@check@tripwire`, `path@check@README.md`, `path@check@src/cli/create.rs`, `path@check@src/cli/mod.rs`, `path@check@src/cli/worklist.rs`, `spec@plans@path-quickfixes` |
+| `design@check@owned-namespace-check` | #check-renamed, split as its issue says | `path@knowledge-architect@CLAUDE.md`, `path@agent-skills@docs/design/project-configuration.md`, `register@agent-skills@design`, `path@agent-skills@docs/design/retrospective.md`, `path@agent-skills@docs/design/shipped-set.md`, `path@agent-skills@docs/open-issues/patching-an-installed-skill.md`, `path@check@docs/design/agent-configuration.md`, `path@check@docs/design/creating.md`, `path@check@docs/design/generated-files-and-fixes.md`, `path@check@docs/design/git-and-the-walk.md`, `path@check@docs/design/run-model.md`, `path@check@docs/open-issues/a-project-workflow-can-declare-an-installed-workflow-s-name.md`, `path@check@docs/open-issues/core-heads-bundle-decisions-with-many-citing-sites.md`, `register@check@rejected`, `path@check@README.md`, `path@check@src/agents.rs`, `path@elsewhere@crates/core/src/check/agents.rs`, `path@check@src/check/mod.rs`, `path@check@src/cli/history.rs`, `path@check@src/cli/mod.rs`, `path@elsewhere@crates/core/src/manifest.rs`, `path@check@src/mock_projects.rs`, `path@elsewhere@crates/core/src/survey.rs`, `path@elsewhere@crates/core/src/walk.rs`, `path@check@tests/binary.rs`, `register@knowledge-architect@design`, `path@knowledge-architect@docs/open-issues/the-skill-bundling-passes-are-tied-to-this-project-s-skills.md`, `spec@plans@path-quickfixes` |
+| `design@check@fix-before-the-checks` | #check-renamed | `path@check@docs/design/run-model.md`, `path@check@README.md`, `path@check@src/cli/mod.rs`, `path@check@tests/binary.rs`, `spec@plans@path-quickfixes` |
+| `design@check@model-then-checks` | #model-out | `path@check@docs/design/extensions-and-api.md`, `path@check@src/check/references.rs`, `path@check@src/cli/gathered.rs`, `path@check@src/extension.rs`, `spec@plans@path-quickfixes` |
+| `design@git@git-is-asked-through-one-module` | #git-out | `path@check@CLAUDE.md`, `path@check@docs/design/creating.md` |
+| `design@check@inputs-are-gathered` | #model-out, for the two gatherings; #integrated-tests, for its sentence on the mock tests | `register@check@rejected` |
+| `design@check@checker-source-literals-are-data` | each slice that adds a crate; #cli-on-top for the list the binary hands over | `path@agent-config@skills/klarch-development/SKILL.md`, `path@check@CLAUDE.md`, `path@check@docs/design/prose.md`, `path@check@docs/design/run-model.md`, `register@check@rejected`, `register@check@tripwire`, `path@check@README.md`, `path@check@src/check/references.rs`, `path@check@src/check/registers.rs`, `path@check@src/cli/history.rs`, `path@check@src/cli/mod.rs`, `path@elsewhere@crates/core/src/entity.rs`, `path@check@src/graph.rs`, `path@elsewhere@crates/core/src/index.rs`, `path@check@src/lib.rs`, `path@check@src/main.rs`, `path@elsewhere@crates/core/src/model.rs`, `path@elsewhere@crates/core/src/records.rs`, `path@elsewhere@crates/core/src/scan.rs`, `path@elsewhere@crates/core/src/source/mod.rs`, `path@elsewhere@crates/core/src/source/rs.rs`, `path@check@tests/binary.rs` |
+| `design@check@a-foreign-build-is-refused` | each slice that adds a crate; #cli-on-top | `path@agent-skills@src/lib.rs`, `path@check@CLAUDE.md`, `path@check@docs/design/extensions-and-api.md`, `path@check@docs/design/prose.md`, `path@check@docs/design/run-model.md`, `path@check@src/build_origin.rs`, `path@check@src/cli/mod.rs`, `path@check@src/main.rs`, `register@knowledge-architect@design` |
+| `design@check@installed-binary-version-check` | #cli-on-top | `path@agent-skills@docs/design/project-configuration.md`, `path@agent-skills@docs/open-issues/co-development-through-a-cargo-patch.md`, `path@check@docs/design/agent-configuration.md`, `path@check@docs/design/commit-messages.md`, `path@check@docs/design/git-and-the-walk.md`, `path@check@docs/design/transcripts.md`, `path@check@src/cli/mod.rs`, `path@check@src/lib.rs`, `path@check@src/main.rs`, `path@elsewhere@crates/core/src/manifest.rs`, `path@check@tests/binary.rs`, `path@gates@docs/open-issues/the-gate-list-head-bundles-the-library-s-independence.md`, `register@knowledge-architect@design` |
 | `design@knowledge-architect@partial-publish-rerun` | each slice that adds a published crate, for the publish order, with the release workflow's list found by the search above | `path@agent-config@skills/klarch-release/SKILL.md`, `register@knowledge-architect@design` |
 | `design@knowledge-architect@mutation-command-host` | each slice that adds a published crate, for its sentence on the publish order | `path@agent-skills@docs/design/project-configuration.md`, `register@mutate@design`, `register@xtask@design` |
-| `design@core@nothing-of-a-project-is-compiled-in` | #cli-on-top | `path@agent-skills@docs/open-issues/pointers-written-bare-to-clear-a-finding-reach-no-check.md`, `path@core@CLAUDE.md`, `path@model@docs/design/anchors.md`, `path@core@docs/design/creating.md`, `path@core@docs/design/plan-documents.md`, `path@core@docs/design/prose.md`, `path@core@README.md`, `path@core@src/cli/create.rs` |
+| `design@check@nothing-of-a-project-is-compiled-in` | #cli-on-top | `path@agent-skills@docs/open-issues/pointers-written-bare-to-clear-a-finding-reach-no-check.md`, `path@check@CLAUDE.md`, `path@model@docs/design/anchors.md`, `path@check@docs/design/creating.md`, `path@check@docs/design/plan-documents.md`, `path@check@docs/design/prose.md`, `path@check@README.md`, `path@check@src/cli/create.rs` |
 | `design@gates@the-library-owns-the-flags` | #cli-on-top, for its clause "as it is of the core's", which turns false once `check` holds no clap type | none |
 | `design@knowledge-architect@no-component-directory-named-after-the-project` | #check-renamed and #cli-on-top, for its instance, crates/core for the package `knowledge-architect`, and its cost sentence | `path@agent-skills@content/skills/component-creation/SKILL.md` |
-| `design@mutate@report-not-gate` | #cli-on-top, for its clause that `design@core@exit-code-ladder` "binds the core's commands alone" | none |
-| `design@core@exit-code-ladder` | #cli-on-top, which moves it to `cli`: it binds every command `cli` offers | as `cargo klarch show` lists it at that slice |
-| `design@core@an-extension-plugs-in-through-phased-hooks` | #model-out | `path@core@docs/design/generated-files-and-fixes.md`, `path@core@docs/design/plan-documents.md`, `path@core@docs/design/run-model.md`, `path@core@docs/open-issues/citation-regime-over-any-pinned-text.md`, `path@core@README.md`, `path@core@src/check/mod.rs`, `path@elsewhere@crates/core/src/check/tree.rs`, `path@core@src/cli/mod.rs`, `path@core@src/extension.rs`, `spec@plans@path-quickfixes` |
+| `design@mutate@report-not-gate` | #cli-on-top, for its clause that `design@check@exit-code-ladder` "binds the core's commands alone" | none |
+| `design@check@exit-code-ladder` | #cli-on-top, which moves it to `cli`: it binds every command `cli` offers | as `cargo klarch show` lists it at that slice |
+| `design@check@an-extension-plugs-in-through-phased-hooks` | #model-out | `path@check@docs/design/generated-files-and-fixes.md`, `path@check@docs/design/plan-documents.md`, `path@check@docs/design/run-model.md`, `path@check@docs/open-issues/citation-regime-over-any-pinned-text.md`, `path@check@README.md`, `path@check@src/check/mod.rs`, `path@elsewhere@crates/core/src/check/tree.rs`, `path@check@src/cli/mod.rs`, `path@check@src/extension.rs`, `spec@plans@path-quickfixes` |
 
 The head on the installed text's crate turned false at #git-out, which adds a crate: "A user names
 only `knowledge-architect`, and cargo fetches the other. The two are published together". #git-out
 rewrote it, as `design@knowledge-architect@installed-text-crate`, in a form the later slices keep
 true: the installed text lives in its own crate, which the crate holding the installed-file check depends on by path and by exact version, a user names
 only `knowledge-architect`, cargo fetches every other crate, and all are published together at one
-version. The bundling work rewrites it again. `design@core@transcript-command-in-core` is rewritten
-at #consumers-out: its argument from `design@core@single-crate` falls with that head. Each row's
+version. The bundling work rewrites it again. `design@check@transcript-command-in-core` is rewritten
+at #consumers-out: its argument from `design@check@single-crate` falls with that head. Each row's
 slice writes the rewrite into its harvest.
 
 **The discussion's record search** graded 193 entries `bears` and 110 `may-bear`, for this milestone
@@ -276,51 +276,51 @@ the tree does not hold. Those that bear on the split, with their outcome:
   `design@knowledge-architect@no-future-breaking-cost-argument`: each slice writes its changelog
   entries; the library break is allowed under 0.x; each new crate's first publish is D1's subject;
 - `design@agent-skills@xtask-pins-checker`, `design@agent-skills@pinned-binary-runs-inside-the-project`,
-  `design@core@declared-command`: `cli` keeps the package name `knowledge-architect`, so the setup
+  `design@check@declared-command`: `cli` keeps the package name `knowledge-architect`, so the setup
   snippets' dependency line is unchanged;
 - `design@model@at-span-candidate-rule`: an anchor `git` makes a finding of a backticked span whose
   head is the word git, such as a git remote written in backticks; on `origin/main` the one such
-  span is a string literal of the checker's own source, in `path@core@src/check/references.rs`,
+  span is a string literal of the checker's own source, in `path@check@src/check/references.rs`,
   which is data, and these documents write the remote in plain text; the name `git` stays;
 - `design@model@kind-names-refused-as-anchors`, `design@model@anchor-names-unique`,
   `design@model@components-carry-the-same-documents`, `design@agent-skills@goals-required`: every new
   name is free, and each Component carries its documents and a goal;
-- `design@model@an-entity-belongs-to-its-anchor`, `design@core@every-path-names-its-anchor`,
+- `design@model@an-entity-belongs-to-its-anchor`, `design@check@every-path-names-its-anchor`,
   `design@agent-skills@a-reference-claims-a-revisit`: every moved entry's references are re-pointed,
   and heads that depend across the new Components cite each other;
-- `issue@core@core-heads-bundle-decisions-with-many-citing-sites`: a move of a head is no touch of it,
+- `issue@check@core-heads-bundle-decisions-with-many-citing-sites`: a move of a head is no touch of it,
   per `design@agent-skills@existing-heads-on-touch`; #check-renamed rewrites
-  `design@core@owned-namespace-check` and splits it in two as the issue says, and the issue's other
+  `design@check@owned-namespace-check` and splits it in two as the issue says, and the issue's other
   heads are split by the slice that rewrites one, if any does;
 - the issue `installed-file-findings-belong-in-phase-four`: closed by the commit that adds this document, since #check-renamed schedules its work, which that slice's spec carries;
-- `issue@core@manifest-table-exposes-the-toml-crate`, `issue@core@an-extension-cannot-see-which-register-a-document-belongs-to`,
-  `tripwire@core@private-item-needed`: the facades of `model` and `check` meet them; nothing is
+- `issue@check@manifest-table-exposes-the-toml-crate`, `issue@check@an-extension-cannot-see-which-register-a-document-belongs-to`,
+  `tripwire@check@private-item-needed`: the facades of `model` and `check` meet them; nothing is
   decided here on them, and the tripwire is unchanged: an item an integrated test of this
   repository cannot reach is opened as a `todo`, by the guideline of
   `design@agent-skills@integrated-test-through-public-api`;
 - the issues whose code moves, re-anchored by the slice that moves their files:
   `issue@model@a-reference-with-a-line-or-fragment-suffix-names-a-wrong-repair`,
-  `issue@core@a-slug-finding-names-a-repair-blind-to-what-the-slug-resolves-to`,
-  `issue@core@finding-texts-are-not-audited-for-a-needless-cause`,
+  `issue@check@a-slug-finding-names-a-repair-blind-to-what-the-slug-resolves-to`,
+  `issue@check@finding-texts-are-not-audited-for-a-needless-cause`,
   `issue@model@a-span-whose-head-shortens-a-kind-passes-the-check-silent`,
   `issue@model@a-span-with-an-empty-head-is-malformed-against-its-head`,
   `issue@model@a-heading-line-markdown-renders-as-no-heading-defines-an-entry`,
   `issue@git@index-staged-clears-an-entrys-flags`,
-  `issue@core@the-missing-directory-refusal-does-not-hold-the-no-loss-claim`,
-  `issue@core@show-lists-no-subdocument-of-a-directory-home`,
-  `issue@core@no-command-lists-the-standing-entries-citing-a-set-of-entries`,
-  `issue@core@a-forked-subagent-s-first-line-is-an-unrecognised-type`,
+  `issue@check@the-missing-directory-refusal-does-not-hold-the-no-loss-claim`,
+  `issue@check@show-lists-no-subdocument-of-a-directory-home`,
+  `issue@check@no-command-lists-the-standing-entries-citing-a-set-of-entries`,
+  `issue@check@a-forked-subagent-s-first-line-is-an-unrecognised-type`,
   `issue@model@check-under-a-sparse-checkout-reports-every-file-outside-the-cone`,
   `issue@model@the-walk-does-not-report-what-the-per-clone-exclude-file-removes`,
-  `issue@core@the-tests-read-the-machine-s-git-configuration`,
-  `issue@core@the-graded-entries-repeat-a-shared-entry-s-grade-per-agent`,
-  `issue@core@a-component-states-at-least-one-goal`,
+  `issue@check@the-tests-read-the-machine-s-git-configuration`,
+  `issue@check@the-graded-entries-repeat-a-shared-entry-s-grade-per-agent`,
+  `issue@check@a-component-states-at-least-one-goal`,
   `issue@model@a-kind-name-refusal-quotes-a-future-migration-reason`,
   `issue@model@the-walk-may-exclude-a-file-the-model-requires`,
   `issue@model@a-reference-to-an-anchor-s-own-directory-breaks-when-the-anchor-moves`; an issue whose
-  sites stay on both sides, `issue@core@a-slug-finding-names-a-repair-blind-to-what-the-slug-resolves-to`
-  and `issue@core@finding-texts-are-not-audited-for-a-needless-cause`, stays in the core with its
-  references re-pointed, and `issue@core@a-staged-check-compares-installed-files-with-unstaged-shipped-text`
+  sites stay on both sides, `issue@check@a-slug-finding-names-a-repair-blind-to-what-the-slug-resolves-to`
+  and `issue@check@finding-texts-are-not-audited-for-a-needless-cause`, stays in the core with its
+  references re-pointed, and `issue@check@a-staged-check-compares-installed-files-with-unstaged-shipped-text`
   stays too, its subject returning to the core at #check-renamed;
 - `issue@knowledge-architect@command-output-is-not-declared-a-contract`: P1's typed API offers data
   by a library function, which its open policy names; the policy stays open;
@@ -331,9 +331,9 @@ the tree does not hold. Those that bear on the split, with their outcome:
   these issues count; none is closed or decided here;
 - `the-reversal-rule-fixes-the-component-when-the-successor-decides-another-s-interface`, an issue of agent-skills, closed by the design discussion that revised the rules on
   Components: a reversal's successor goes to the Component that the rule on the owning Component
-  gives it, so the successor of `design@core@single-crate`, a decision about which Components exist
+  gives it, so the successor of `design@check@single-crate`, a decision about which Components exist
   and how they depend on each other, is written in the root's design home at #cli-on-top, and
-  `design@core@single-crate` leaves the core's design home in the same change;
+  `design@check@single-crate` leaves the core's design home in the same change;
 - `design@mutate@report-not-gate`: its clause naming "the core's commands" is rewritten at
   #cli-on-top, per the table above;
 - `design@xtask@one-module-per-subcommand`, `design@xtask@view-included-not-exported`,
@@ -353,7 +353,7 @@ outcome:
 - `goal@xtask@repeated-tasks-are-automated`, `issue@xtask@the-reword-the-fold-and-the-merge-predicate-have-no-command`:
   the rewriting ships in a published crate, by its own work, after this milestone;
 - `goal@knowledge-architect@projects-are-split-into-components`,
-  `issue@core@the-core-s-purpose-leaves-the-rendered-site-outside-it`: each new Component's goals
+  `issue@check@the-core-s-purpose-leaves-the-rendered-site-outside-it`: each new Component's goals
   home states its purpose, in the goals each slice drafts for the owner;
 - `design@agent-skills@content-mirrors-the-install-layout`, `design@agent-skills@one-placeholder-reader-per-kind`,
   `design@agent-skills@saved-workflow-name-is-its-file-stem`, `design@agent-skills@shipped-text-line-comments`,
@@ -374,25 +374,25 @@ outcome:
 - `design@agent-skills@documentation-presence-is-linted`: the new crates are under the same ask
   `issue@knowledge-architect@this-repository-warns-on-none-of-the-documentation-lints` records this
   repository not following; nothing is decided here;
-- `design@core@orphan-rejected-entry`, `design@core@heading-register-two-shapes`: their text names
-  files of `path@core@src/check/` that #model-out cuts; that slice re-points each sentence that
+- `design@check@orphan-rejected-entry`, `design@check@heading-register-two-shapes`: their text names
+  files of `path@check@src/check/` that #model-out cuts; that slice re-points each sentence that
   names a moved file;
-- `design@core@index-staged-write`, `design@core@check-fix-flag`: `index`, `index --staged` and
+- `design@check@index-staged-write`, `design@check@check-fix-flag`: `index`, `index --staged` and
   `--fix` stay in `check`; the list of generated files they share lives in `model`, per
   `design@model@one-list-of-generated-files`;
 - `design@model@git-supplies-the-walk`, `design@model@links-are-no-documents`: the walk's meaning stays
   with the walk, in `model` from #model-out, and the listing it reads moves to `git`;
   `tripwire@model@walked-count-differs-between-machines` stays with the walk;
-- `design@core@staged-tree-source`: the assembly of the staged tree stays with `commits` in `check`,
+- `design@check@staged-tree-source`: the assembly of the staged tree stays with `commits` in `check`,
   and its git invocations move to `git`;
-- `design@core@an-extension-reads-a-snapshot`, `design@core@an-extension-builds-its-own-model`:
+- `design@check@an-extension-reads-a-snapshot`, `design@check@an-extension-builds-its-own-model`:
   `extension::Snapshot` stays in the core, over the `Source` and `SnapshotEntry` of `git`, and the
   parse moves to `model`; the extension reads both through the facades;
-- `design@core@init-command`, `design@core@init-runs-git-init`, `design@core@component-command`,
-  `design@core@init-has-no-extension-hook`: `create`'s heads, moved at #consumers-out;
+- `design@check@init-command`, `design@check@init-runs-git-init`, `design@check@component-command`,
+  `design@check@init-has-no-extension-hook`: `create`'s heads, moved at #consumers-out;
 - `design@model@rust-parser-keeps-every-comment`: moves with the parsing to `model`; its sentence
   naming the core's Cargo.toml is re-pointed there;
-- `rejected@core@sentinels-accepted-everywhere`: its doubt is the subject of #integrated-tests, where
+- `rejected@check@sentinels-accepted-everywhere`: its doubt is the subject of #integrated-tests, where
   the fixtures move out of the core's compiled directory; that slice's audit reads it.
 
 The entries the search graded `may-bear` that no sentence above or in the spec of the revision of
@@ -416,7 +416,7 @@ the rules names, each with its outcome:
 - `issue@gates@the-gate-list-head-bundles-the-library-s-independence`: not read; the searcher's reason, "item 2's 'usable alone by others argues for a split' meets the unargued gates independence (the assumed reason: a published library carries no project's assumptions), and a new git crate could be a dependency of gates; (cut)"
 - `issue@agent-skills@the-claim-check-of-a-commit-message-is-read-at-the-start-and-needed-at-each-commit`: not read; the searcher's reason, "a candidate fix changes the seed's summary printed by check --staged, and commits moves to check; the split proposes no change to what a run prints, so no bearing is"
 - `a-second-producer-chain`: not read; the searcher's reason, "its Fires clause and horizon name path@core@src/check/, which the move to a check crate relocates; the split adds no check reading another's findings, so it does not"
-- `tripwire@core@phases-gate-the-report-two`: not read; the searcher's reason, "its re-entry is 'any change to the arguments of check, index', which the cli flattening and the clap-placement question touch; no flag letting a writer write over an incomplete model is proposed, so it does not"
+- `tripwire@check@phases-gate-the-report-two`: not read; the searcher's reason, "its re-entry is 'any change to the arguments of check, index', which the cli flattening and the clap-placement question touch; no flag letting a writer write over an incomplete model is proposed, so it does not"
 - `design@knowledge-architect@changelog-reviewed-at-the-release`: not read; the searcher's reason, "tripwire@agent-skills@record-search-misses records that a previous discussion on the same development and component skills rested on this head unseen; no element of this work touches the release review of entries, so no (cut)"
 - `issue@model@a-kind-name-refusal-quotes-a-future-migration-reason`: not read; the searcher's reason, "Part 1 names new Components (git, bundle, model, check, query, render, transcript, rewrite, create, cli, testing); the head this issue questions refuses every kind's name as an anchor. None of the drafted names is a (cut)"
 - `issue@knowledge-architect@a-mechanical-changelog-check`: not read; the searcher's reason, "its 'surface from a closed list' may grow with new crates; the work proposes no changelog check, so no bearing is"
@@ -424,10 +424,10 @@ the rules names, each with its outcome:
 - `design@agent-skills@content-is-in-the-walk`: not read; the searcher's reason, "cites the seed design@agent-skills@shipped-text-line-comments; the bundle split moves the passes but content/ stays in agent-skills, so 'putting content/ back in the walk' is unchanged unless a project reusing bundle (cut)"
 - `rejected@agent-skills@published-checker-reads-percent-lines`: not read; the searcher's reason, "the bundle crate makes the %% pass reusable by other projects, and the split of model/check reshapes the walk; a session could then propose that the checker read the %% lines of a reusing project's sources, which this (cut)"
 - `issue@agent-skills@a-comment-line-may-copy-the-argument-of-the-head-it-cites`: not read; the searcher's reason, "cites the seed design@agent-skills@shipped-text-line-comments; the revisions of subjects 2 and 3 will write %% lines beside the new guidelines, which could copy a head's argument, but no element of the work decides what (cut)"
-- `design@core@retired-slug-reference-reported`: not read; the searcher's reason, "part 1's new anchor names (git, cli, model...): the head reports a backticked <word>#<id> 'also when its word is an anchor'; a span like git#<id> would become a finding, but none is shown to"
-- `design@core@reference-shape-outside-span`: not read; the searcher's reason, "part 1 splits the checker into model, check, query... crates; the head reads 'an unbound string literal outside the checker's own source', and which crates count as the checker's own source after the split (model.rs (cut)"
+- `design@check@retired-slug-reference-reported`: not read; the searcher's reason, "part 1's new anchor names (git, cli, model...): the head reports a backticked <word>#<id> 'also when its word is an anchor'; a span like git#<id> would become a finding, but none is shown to"
+- `design@check@reference-shape-outside-span`: not read; the searcher's reason, "part 1 splits the checker into model, check, query... crates; the head reads 'an unbound string literal outside the checker's own source', and which crates count as the checker's own source after the split (model.rs (cut)"
 - `design@model@section-homes-carry-slugs`: not read; the searcher's reason, "part 1 (bundle crate, testing Component, tests through the public API) moves tests; the head says 'The shipped set is held to the rule ... by a test of the core over the shipped text'; part 2 may rename sections of the (cut)"
-- `issue@core@no-checked-form-cites-a-point-inside-a-section`: not read; the searcher's reason, "part 2 rewrites the split signals list of the component-creation skill and the design skill's when-to-split section; the issue says citations of a numbered point stay in words and 'renumbering a list ... silently (cut)"
+- `issue@check@no-checked-form-cites-a-point-inside-a-section`: not read; the searcher's reason, "part 2 rewrites the split signals list of the component-creation skill and the design skill's when-to-split section; the issue says citations of a numbered point stay in words and 'renumbering a list ... silently (cut)"
 - `issue@knowledge-architect@path-quickfixes-read-against-the-lints-on-ids`: not read; the searcher's reason, "the quick-fixes spec changes the repairs in src/check/references.rs and adds check --fix respellings, both of which part 1 places (lints and --fix in check, resolution in model); the question is about the spec against (cut)"
 - `design@agent-skills@a-past-sentence-is-rewritten`: not read; the searcher's reason, "part 1 renames core to check and relocates heads, renaming every @core@ reference; the head rewrites a sentence about the past whose reference dangles; whether any such sentence is met is not"
 - `design@agent-skills@plain-text-is-no-repair`: not read; the searcher's reason, "part 1's rename and relocations dangle many references; the head forbids clearing them as plain text; no conflict established beyond the repair's"
@@ -436,15 +436,15 @@ the rules names, each with its outcome:
 - `issue@knowledge-architect@the-workflow-has-no-skill-for-branch-work-or-releasing`: not read; the searcher's reason, "the rewrite subcommands are the commands that a future branch-work skill would name ('rebasing, rewording a commit's message, folding a repair'). The work writes no such skill, so no bearing is"
 - `design@model@planned-path-form`: not read; the searcher's reason, "a plan document for the split would name crates/<new>/ before they exist; the entry says a planned path follows 'the named anchor, the deepest anchor' rules, and the anchor a new Component's path names does not exist (cut)"
 - `design@model@ignored-targets-are-not-asserted`: not read; the searcher's reason, "cites seed design@model@git-supplies-the-walk; resolution 'asks git check-ignore', a call that would go through the git crate from the model crate's reference resolution; the split moves the call, no rule of the entry (cut)"
-- `design@core@links-are-navigation-rows`: not read; the searcher's reason, "the render crate turns references into links in a rendered site; the entry says a relative link 'is legal there and reported everywhere else' and names check::registers for the inverse assertion; rendered output is (cut)"
+- `design@check@links-are-navigation-rows`: not read; the searcher's reason, "the render crate turns references into links in a rendered site; the entry says a relative link 'is legal there and reported everywhere else' and names check::registers for the inverse assertion; rendered output is (cut)"
 - `issue@model@a-reference-to-an-anchor-s-own-directory-breaks-when-the-anchor-moves`: not read; the searcher's reason, "renaming crates/core and adding crates/<new>/ Components meets the entry's 'Such a reference names the old location after a move'; its grep finds no path@knowledge-architect@crates/<x>/ reference today, so it bears only (cut)"
 - `tripwire@model@planned-path-outside-plans`: not read; the searcher's reason, "the split creates crates/<new>/ directories; the clause fires on a path@elsewhere@<path> outside plans, in a sentence saying the file was to be created, that now resolves; no such reference to a new crate is known in (cut)"
-- `design@core@agents-table`: not read; the searcher's reason, "the testing crate takes the mock projects; the entry says 'The empty list serves ... the checker's mock projects'; moving them keeps the use, no conflict"
-- `rejected@core@install-record-file`: not read; the searcher's reason, "a reusable bundle that generalises the install for other projects must decide how ownership is known; the entry's rival 'a committed file of its own format to know which installed files are its own' is a plausible (cut)"
-- `issue@core@a-home-for-developer-contracts-outside-agent-configuration`: not read; the searcher's reason, "each new Component of part 1 owes a scoped CLAUDE.md, which is the home for developer contracts that this issue intends to move away from agent configuration; the split splits core's scoped CLAUDE.md, but no element (cut)"
-- `issue@core@a-project-workflow-can-declare-an-installed-workflow-s-name`: not read; the searcher's reason, "check_workflow_name in render.rs, which the issue names, moves to bundle; the issue's fix is a check reading project workflows' declared names, which the move does not"
+- `design@check@agents-table`: not read; the searcher's reason, "the testing crate takes the mock projects; the entry says 'The empty list serves ... the checker's mock projects'; moving them keeps the use, no conflict"
+- `rejected@check@install-record-file`: not read; the searcher's reason, "a reusable bundle that generalises the install for other projects must decide how ownership is known; the entry's rival 'a committed file of its own format to know which installed files are its own' is a plausible (cut)"
+- `issue@check@a-home-for-developer-contracts-outside-agent-configuration`: not read; the searcher's reason, "each new Component of part 1 owes a scoped CLAUDE.md, which is the home for developer contracts that this issue intends to move away from agent configuration; the split splits core's scoped CLAUDE.md, but no element (cut)"
+- `issue@check@a-project-workflow-can-declare-an-installed-workflow-s-name`: not read; the searcher's reason, "check_workflow_name in render.rs, which the issue names, moves to bundle; the issue's fix is a check reading project workflows' declared names, which the move does not"
 - `design@agent-skills@unrecognised-entries-reach-upstream`: not read; the searcher's reason, "The transcript crate takes the transcript reader and its command. The head's route starts at the command's header line asking for unrecognised lines to be reported. Nothing in the work changes that header, so no bearing (cut)"
-- `issue@core@no-command-counts-a-tripwire-s-horizon`: not read; the searcher's reason, "The query crate is to hold the read-only commands, 'later keyword search and audit worklists', and git the history readers. The counting command this issue asks for would read the history through git and could land in (cut)"
+- `issue@check@no-command-counts-a-tripwire-s-horizon`: not read; the searcher's reason, "The query crate is to hold the read-only commands, 'later keyword search and audit worklists', and git the history readers. The counting command this issue asks for would read the history through git and could land in (cut)"
 - `design@agent-skills@root-cause-repair`: not read; the searcher's reason, "parts 2 and 3 add guidelines to the component-creation, design and development skills; the head says 'A repair adds an instruction only where none of these closes the cause, and says why' and names the admission (cut)"
 - `design@agent-skills@repairs-read-against-the-record`: not read; the searcher's reason, "the head states for 'every actor that writes or judges agent-facing text' that an edit is read against the goals, heads and rejected entries it touches before the owner rules; parts 2 and 3 edit installed skills, but (cut)"
 - `design@model@an-entry-is-a-heading-at-the-register-level`: not read; the searcher's reason, "the head says 'Which homes an anchor must carry is check::tree's question, not the table's'; the model crate takes phase 2 (tree) and the table, which renames check::tree, but the split of duties between tree and table (cut)"
@@ -453,22 +453,22 @@ the rules names, each with its outcome:
 - `design@agent-skills@fork-choice-in-weak-form`: not read; the searcher's reason, "The cli shape reverses the seed single-crate decision and others; where a seed head records a fork's choice, it reopens only on an argument its record does not hold. Which seed heads are fork choices is not established (cut)"
 - `design@agent-skills@owner-rules-at-a-fork`: not read; the searcher's reason, "The work's open threads (argument parsing in domain crates vs the cli crate; phase-2 check in model or checker) close on the owner's word only if they are forks; whether either has one shape standing is not yet"
 - `design@agent-skills@one-record-searcher`: not read; the searcher's reason, "The query shape moves worklist and graph.rs into a new crate and plans 'audit worklists' there; the head names klarch worklist --out/--verify as its interface. A move keeps the command; no change to its behaviour is (cut)"
-- `design@core@generated-files-are-pure`: not read; the searcher's reason, "The split moves the generated check out of core into a check crate and the index into model; the head names path@core@src/check/generated.rs as the site that verifies by regenerating, so its pointer would move; no (cut)"
-- `design@core@fix-refusal-mixed-state`: not read; the searcher's reason, "The refusal computes the staged side through git snapshots (to the git crate) and phases 1 to 3 (to model), and 'any other failure to compute the staged side refuses ... such as an extension that cannot prepare over a (cut)"
-- `design@core@safe-fix-definition`: not read; the searcher's reason, "bundle takes the install-time rendering; the head requires a fix's bytes be determined by the tree and the pinned version; with every crate kept at one version this seems to hold, so no conflict is"
-- `design@core@record-is-every-register-entry`: not read; the searcher's reason, "worklist moves to query and reference resolution is separated from the reference lints in model; the head says 'the edges are the references the checker resolves', so worklist must take edges from model's resolution; no (cut)"
-- `design@core@graded-entries-assembled`: not read; the searcher's reason, "The snapshot is 'computed by show's own code'; the draft keeps show and worklist together in query, so this seems to hold; no conflict"
+- `design@check@generated-files-are-pure`: not read; the searcher's reason, "The split moves the generated check out of core into a check crate and the index into model; the head names path@core@src/check/generated.rs as the site that verifies by regenerating, so its pointer would move; no (cut)"
+- `design@check@fix-refusal-mixed-state`: not read; the searcher's reason, "The refusal computes the staged side through git snapshots (to the git crate) and phases 1 to 3 (to model), and 'any other failure to compute the staged side refuses ... such as an extension that cannot prepare over a (cut)"
+- `design@check@safe-fix-definition`: not read; the searcher's reason, "bundle takes the install-time rendering; the head requires a fix's bytes be determined by the tree and the pinned version; with every crate kept at one version this seems to hold, so no conflict is"
+- `design@check@record-is-every-register-entry`: not read; the searcher's reason, "worklist moves to query and reference resolution is separated from the reference lints in model; the head says 'the edges are the references the checker resolves', so worklist must take edges from model's resolution; no (cut)"
+- `design@check@graded-entries-assembled`: not read; the searcher's reason, "The snapshot is 'computed by show's own code'; the draft keeps show and worklist together in query, so this seems to hold; no conflict"
 - `design@model@tracked-and-ignored-is-a-finding`: not read; the searcher's reason, "cites the seed phases-gate-the-report; the model crate takes phases 1 to 3, check::tree included, and 'the run stops there, as for every phase-2 finding' must still gate check's phase 4; no conflict"
 - `rejected@git@every-git-variable-dropped`: not read; the searcher's reason, "the git crate's Invocation builder and its later history-rewriting write side could reach for a clean environment; the entry lost on GIT_INDEX_FILE under a hook; no proposal of it is"
 - `design@model@a-placed-name-reads-as-nothing-else`: not read; the searcher's reason, "new Component names such as check or testing would make a later milestone or spec of that name a phase-2 finding; no current placed name is known to"
-- `design@core@init-asks-no-confirmation`: not read; the searcher's reason, "cites the seed design@core@arguments-parse-through-clap ('The checker's binaries run blind'); the open question of the cli crate, whether argument parsing lives in each domain crate or in cli, could reach that ground, (cut)"
-- `design@core@component-manifest-edit`: not read; the searcher's reason, "new-component 'parses the edited text with Manifest::parse'; the draft moves the manifest into model and the command into create, which needs Manifest::parse exposed across crates; no conflict with the head's rule (cut)"
-- `design@core@rust-scaffold`: not read; the searcher's reason, "init --rust 'writes the snippets of design@agent-skills@rust-templates-one-home'; moving it to create, beside a new bundle crate that takes the rendering out of agent-skills, may change which crate it reads the snippets (cut)"
-- `rejected@core@exempt-directory-manifest-row`: not read; the searcher's reason, "it holds that 'The compiled path can name only the checker's own source'; with the checker spread over many crates and a testing crate, a declared row could be proposed again as simpler, but the draft proposes"
-- `rejected@core@fixture-marker-macro`: not read; the searcher's reason, "it is 'the recorded fallback should a literal outside the tool ever need rule-shaped bytes as data'; mock-based tests moved into a published testing Component used by extension writers might carry fixtures outside the (cut)"
-- `rejected@core@literals-as-data-in-every-crate`: not read; the searcher's reason, "'Literals as data in every cfg(test) module of every crate'; the draft's many crates and its moving of tests could lead to extending the exemption beyond the tool's directories, but the draft keeps the checker's crates (cut)"
-- `rejected@core@run-time-checker-directory-discovery`: not read; the searcher's reason, "it rejects finding the checker's directories at run time; a split into about ten crates multiplies the compiled-in directories, which may lead someone to propose discovery again; the draft does"
-- `design@core@a-commit-message-is-a-document`: not read; the searcher's reason, "commits and the per-commit model move between the drafted model and check crates, and the head says 'The tip checker is the binary built from the working tree'; the split relocates its head and its code (cut)"
+- `design@check@init-asks-no-confirmation`: not read; the searcher's reason, "cites the seed design@core@arguments-parse-through-clap ('The checker's binaries run blind'); the open question of the cli crate, whether argument parsing lives in each domain crate or in cli, could reach that ground, (cut)"
+- `design@check@component-manifest-edit`: not read; the searcher's reason, "new-component 'parses the edited text with Manifest::parse'; the draft moves the manifest into model and the command into create, which needs Manifest::parse exposed across crates; no conflict with the head's rule (cut)"
+- `design@check@rust-scaffold`: not read; the searcher's reason, "init --rust 'writes the snippets of design@agent-skills@rust-templates-one-home'; moving it to create, beside a new bundle crate that takes the rendering out of agent-skills, may change which crate it reads the snippets (cut)"
+- `rejected@check@exempt-directory-manifest-row`: not read; the searcher's reason, "it holds that 'The compiled path can name only the checker's own source'; with the checker spread over many crates and a testing crate, a declared row could be proposed again as simpler, but the draft proposes"
+- `rejected@check@fixture-marker-macro`: not read; the searcher's reason, "it is 'the recorded fallback should a literal outside the tool ever need rule-shaped bytes as data'; mock-based tests moved into a published testing Component used by extension writers might carry fixtures outside the (cut)"
+- `rejected@check@literals-as-data-in-every-crate`: not read; the searcher's reason, "'Literals as data in every cfg(test) module of every crate'; the draft's many crates and its moving of tests could lead to extending the exemption beyond the tool's directories, but the draft keeps the checker's crates (cut)"
+- `rejected@check@run-time-checker-directory-discovery`: not read; the searcher's reason, "it rejects finding the checker's directories at run time; a split into about ten crates multiplies the compiled-in directories, which may lead someone to propose discovery again; the draft does"
+- `design@check@a-commit-message-is-a-document`: not read; the searcher's reason, "commits and the per-commit model move between the drafted model and check crates, and the head says 'The tip checker is the binary built from the working tree'; the split relocates its head and its code (cut)"
 - `issue@agent-config@a-rebase-continue-strips-a-message-s-hash-lines`: not read; the searcher's reason, "the drafted rewrite Component (reword, reorder, fixup, squash) could replace the rebase procedure whose rebase --continue drops # lines; the draft does not say it replaces the conflict path, so no closing is"
 - `design@agent-skills@goals-change-through-goal-setting`: not read; the searcher's reason, "The skill revision's 'a Component takes decisions about approximately one main subject' could lead the discussion to reword goal@knowledge-architect@projects-are-split-into-components ('each with one purpose'); the head (cut)"
 - `design@agent-skills@goal-edit-ruled-alone`: not read; the searcher's reason, "A design discussion that proposes rewording the Components goal (one purpose vs 'approximately one main subject') must rule it as its own item, per 'A goal's wording that ... a design discussion proposes is drafted ... (cut)"
@@ -477,7 +477,7 @@ the rules names, each with its outcome:
 - `issue@gates@the-one-spawn-helper-has-no-recorded-argument`: not read; the searcher's reason, "Its re-entry is 'adds a second way to start a child in the gates library'; the git crate's Invocation builder would be one only if gates used it, which the work does not"
 - `design@mutate@record-lives-in-the-git-directory`: not read; the searcher's reason, "Cites the seed design@model@git-supplies-the-walk, which subject 1 moves into the git/model crates; mutate runs git itself (crates/mutate/src/harness.rs, git rev-parse --git-path), and would meet the head only if it took (cut)"
 - `design@model@plan-items-by-section`: not read; the searcher's reason, "the model crate takes the entity table and the extension API stays in check; the head argues 'items are the core's, per an-extension-plugs-in-through-phased-hooks'. Moving them to model might change which crate that (cut)"
-- `design@core@plan-document-sections-by-kind`: not read; the searcher's reason, "the shared testing Component holds the mock projects and the mock-based tests; the head says 'Fixtures is owed only where a Component drives its tests with authored content'. Moving those tests might change which (cut)"
+- `design@check@plan-document-sections-by-kind`: not read; the searcher's reason, "the shared testing Component holds the mock projects and the mock-based tests; the head says 'Fixtures is owed only where a Component drives its tests with authored content'. Moving those tests might change which (cut)"
 - `design@agent-skills@tripwire-recording-authority`: not read; the searcher's reason, "the discussion's premortem on the split and on the revised skills ends with causes judged and recorded 'in the tripwires home of the Component that owns the decision'; with new Components (model, check, query...), which (cut)"
 - `design@agent-skills@tripwire-admission-test`: not read; the searcher's reason, "a premortem cause on the revised component-creation guidelines (sessions splitting wrongly) watches agent behaviour, which condition 2 ('its evidence lands where tripwires are read') may exclude; the work names no (cut)"
 - `design@agent-skills@tripwire-horizon`: not read; the searcher's reason, "moving git.rs, build.rs, render.rs and the model files into new crates makes commits that change named paths; 'A relocation ... is no occasion' governs whether those moves count toward horizons of standing tripwires (cut)"
@@ -505,20 +505,20 @@ that they need no check is the owner's argument, #arg-29 and #arg-30. Met by #mo
 
 ### The documents can render as one linked site from the model alone `##render-from-the-model`
 
-Binding, from `goal@core@documents-render-as-a-linked-site`, which asks the site; that it renders
+Binding, from `goal@check@documents-render-as-a-linked-site`, which asks the site; that it renders
 from the model alone is the owner's argument, #arg-26. Met by #model-crate, which separates the
 resolver from the lints, and #render-crate.
 
 ### An extension needs no change to the checker and uses only its public, documented API `##extension-api-stays-public`
 
-Binding, from `goal@core@projects-add-their-own-checks`. Met by #cli-crate, which keeps the package
+Binding, from `goal@check@projects-add-their-own-checks`. Met by #cli-crate, which keeps the package
 name and re-exports the extension API, #model-crate's phase-1 contribution, and #testing-crate.
 
 ### No rejected design of the facade comes back `##no-rejected-facade`
 
-Binding as a presumption, from `rejected@core@module-tree-as-public-api`,
-`rejected@core@doc-hidden-test-items`, `rejected@core@testing-feature-for-test-items` and
-`rejected@core@inputs-struct-literal`. Met by each new crate's facade, and by #testing-crate's
+Binding as a presumption, from `rejected@check@module-tree-as-public-api`,
+`rejected@check@doc-hidden-test-items`, `rejected@check@testing-feature-for-test-items` and
+`rejected@check@inputs-struct-literal`. Met by each new crate's facade, and by #testing-crate's
 integrated tests through the public API.
 
 ### The test fixtures never reach a package `##fixtures-unshipped`
@@ -579,7 +579,7 @@ moved it to `check` while writing these documents, on its own decision: the comm
 extension's dump hook, so it needs the extensions, and in `query` it would make `query` depend on
 `check`, which #a1-no-check-below-the-tools refuses. The owner's leads for the later commands, R2,
 the keyword search and the audit's work lists, are recorded in
-`issue@core@no-command-searches-the-entries-or-lists-an-audit-s-work`. Arguments: #arg-9, #arg-10,
+`issue@check@no-command-searches-the-entries-or-lists-an-audit-s-work`. Arguments: #arg-9, #arg-10,
 #arg-29, #arg-30, #arg-31, #arg-48, #arg-64, #arg-112. Shape: `spec@component-split@consumers-out`.
 Harvest: the `query` Component's design home. Absorbs #worklist-crate. The owner's lead for the goals of
 `query`, at the goals of #model-out, which #consumers-out drafts from: "there is no mechanical task that
@@ -594,7 +594,7 @@ documents. tools that are not querying the documents go in a crate for the subje
 Proposed by the session, R1 (#arg-11, #arg-12), from the owner's plan, R1 (#arg-3). Final state:
 approved. The owner, R3: "And I agree render is out of it. It has a different purposes, and takes
 decisions about a different subject". Arguments: #arg-3, #arg-11, #arg-12, #arg-49, #arg-65. Shape:
-"Decided design" below. Harvest: the leads of `issue@core@the-documents-do-not-render-as-a-site`.
+"Decided design" below. Harvest: the leads of `issue@check@the-documents-do-not-render-as-a-site`.
 
 ### `transcript` is a Component of its own, the reader of the agent harness's transcripts, depending on `git` `##transcript-crate`
 
@@ -624,7 +624,7 @@ implements the interface, potentially pulling rendering logic from another crate
 (such as a project with a gui). Though the difficulty here mostly came from our own recorded
 decision, which is quite old, made for reasons that no longer apply identically, and can be
 reversed." Arguments: #arg-15, #arg-20, #arg-21, #arg-32, #arg-33, #arg-96, #arg-98. Shape:
-`spec@component-split@cli-on-top`. Harvest: the successor of `design@core@single-crate` in the
+`spec@component-split@cli-on-top`. Harvest: the successor of `design@check@single-crate` in the
 root's design home, in the change that reverses it, per point 1 of
 `skill@knowledge-architect-decision-recording@owning-component` and the reversal rule as the design
 discussion on the rules for Components revised them; the `cli` Component's design home for its own
@@ -649,7 +649,7 @@ multiple crates that need them, or crates reaching into mock projects of others.
 reopened on that finding and closed by the owner's choice at D2, between the two shapes that
 remove the cycle. Shape:
 `spec@component-split@integrated-tests`. Harvest: the `testing` Component's design home;
-`design@core@api-facade`, rewritten.
+`design@check@api-facade`, rewritten.
 
 ### No intermediate Component groups the new Components `##no-intermediate-component`
 
@@ -680,8 +680,8 @@ Proposed by the session, R4 (#arg-69, #arg-70), as shape B; replaced by B′ aft
 4". Reopened at the plan's second review on a finding against part of its premise, #arg-69, and
 closed again by the owner's answer at D3, which leaves only a root CLAUDE.md outside the walk in
 phase 2. Arguments: #arg-50, #arg-68 to #arg-70, #arg-81, #arg-82, #arg-103, #arg-115. Shape:
-`spec@component-split@check-renamed`. Harvest: `design@core@phases-gate-the-report`,
-`design@core@owned-namespace-check` and `design@core@fix-before-the-checks` rewritten; the issue
+`spec@component-split@check-renamed`. Harvest: `design@check@phases-gate-the-report`,
+`design@check@owned-namespace-check` and `design@check@fix-before-the-checks` rewritten; the issue
 `installed-file-findings-belong-in-phase-four` was closed by the commit that added this
 document.
 
@@ -697,7 +697,7 @@ component-creation skill alone today, in two comment lines that keep its two par
 binary crate and the parsing in the crate nearest the binaries, without a head; the slice whose
 `cli` head states them is their second text, and writes the two heads of
 `register@agent-skills@design`, which `cli`'s head on its own parsing cites, with
-`design@core@arguments-parse-through-clap` rewritten.
+`design@check@arguments-parse-through-clap` rewritten.
 
 ### An intermediate Component exists where several Components share design the rest of the project does not; the component-creation skill's sentence on layering by count goes `##intermediate-by-shared-design`
 
@@ -893,7 +893,7 @@ R1, the session. Threads: [gates/mutate onto git].
 
 R1, the session. Threads: #cli-crate (reversal).
 
-"`design@core@single-crate` argued that a separate binary crate "would save its users no dependency". That premise fails once the command set spans crates."
+"`design@check@single-crate` argued that a separate binary crate "would save its users no dependency". That premise fails once the command set spans crates."
 
 ### The core's package is renamed `##arg-21`
 
@@ -1059,7 +1059,7 @@ R2, the session. Threads: #installed-text-check-home.
 
 R2, the session. Threads: #core-renamed-check.
 
-"Renaming `core` to `check` moves every head and reference that names the anchor `core`. Per `relocation-is-one-manifest-edit` that should cost one manifest edit, but the old slugs in commit messages stay as they are." The goal it names is now `goal@core@relocation-needs-only-goal-changes`, reworded.
+"Renaming `core` to `check` moves every head and reference that names the anchor `core`. Per `relocation-is-one-manifest-edit` that should cost one manifest edit, but the old slugs in commit messages stay as they are." The goal it names is now `goal@check@relocation-needs-only-goal-changes`, reworded.
 
 ### Its "two concrete changes" test, applied to one subcommand at a time, passes every time `##arg-53`
 
@@ -1071,7 +1071,7 @@ R2, the session. Threads: #commands-sharing-a-purpose, #command-parsing-home.
 
 R2, the session. Threads: #test-component-public-api, #testing-crate.
 
-"`mock_projects.rs` is a `#[cfg(test)]` module that tests internals" / "`path@core@tests/binary.rs` (7,026 lines) already tests only through the binary, so after the split it goes naturally to `cli`'s tests." / "So the shared test Component works here if one rule holds: no crate's unit tests use a mock project."
+"`mock_projects.rs` is a `#[cfg(test)]` module that tests internals" / "`path@check@tests/binary.rs` (7,026 lines) already tests only through the binary, so after the split it goes naturally to `cli`'s tests." / "So the shared test Component works here if one rule holds: no crate's unit tests use a mock project."
 
 ### The mock-based tests of model and check cannot sit in a crate those two dev-depend on `##arg-56`
 
@@ -1149,13 +1149,13 @@ R4, the session. Threads: #command-parsing-home.
 
 R4, the session. Threads: #command-parsing-home.
 
-"Decisions about the whole interface get one home. `design@core@exit-code-ladder`, flags shared across commands (`--staged`, `--out`), and output conventions apply to every command. Under P2 they are restated in each domain crate."
+"Decisions about the whole interface get one home. `design@check@exit-code-ladder`, flags shared across commands (`--staged`, `--out`), and output conventions apply to every command. Under P2 they are restated in each domain crate."
 
 ### Clap leaves the domain crates' interface `##arg-75`
 
 R4, the session. Threads: #command-parsing-home.
 
-"clap leaves the domain crates' interface. `design@core@arguments-parse-through-clap` says "clap is part of the core's public interface". Under P1 only `cli` has that cost."
+"clap leaves the domain crates' interface. `design@check@arguments-parse-through-clap` says "clap is part of the core's public interface". Under P1 only `cli` has that cost."
 
 ### Under P1, the domain crate states it as a type, for example 'enum CheckMode { Working, Staged, Fix }', so (cut) `##arg-76`
 
@@ -1197,7 +1197,7 @@ finding 2: "#testing-crate moves the 36 mock-based tests. That doesn't bring bac
 
 R4, the session. Threads: #testing-crate, #test-through-public-api.
 
-"5 of the 36 build `Inputs` by hand." / "Through the public API, each needs a mock project whose tree really has that state. Making `Inputs` constructible would bring back `rejected@core@inputs-struct-literal`. Default: rewrite the 5 over mock projects."
+"5 of the 36 build `Inputs` by hand." / "Through the public API, each needs a mock project whose tree really has that state. Making `Inputs` constructible would bring back `rejected@check@inputs-struct-literal`. Default: rewrite the 5 over mock projects."
 
 Made precise at the plan's reviews: 5 struct literals of `Inputs`, two of them in the shared helpers `findings_with`, which 17 tests reach, and `phase_two`, which 1 test reaches; two of the five inject a state, an empty map of committed files.
 
@@ -1211,7 +1211,7 @@ finding 3: "`design@knowledge-architect@package-include-whitelist` says "the tes
 
 R4, the session. Threads: #testing-crate.
 
-"Constraint: `design@core@checked-sentinel-values` accepts `"fixture"` only inside a directory the binary names as its own source, so `testing`'s directory must be on that list."
+"Constraint: `design@check@checked-sentinel-values` accepts `"fixture"` only inside a directory the binary names as its own source, so `testing`'s directory must be on that list."
 
 ### 'bundle' needs a goal first `##arg-89`
 
@@ -1265,7 +1265,7 @@ R4, the session. Threads: #git-crate (Decided).
 
 R4, the session. Threads: #cli-crate (Decided).
 
-"The successor of `design@core@single-crate` is recorded in the root design home. The component-creation skill puts layout decisions there. That also sidesteps the case `the-reversal-rule-fixes-the-component-when-the-successor-decides-another-s-interface` asks about."
+"The successor of `design@check@single-crate` is recorded in the root design home. The component-creation skill puts layout decisions there. That also sidesteps the case `the-reversal-rule-fixes-the-component-when-the-successor-decides-another-s-interface` asks about."
 
 Withdrawn at the plan's review: the successor went to the incumbent's Component by the installed rule as it stood; the rule as the design discussion on the rules for Components revised it gives the root again; see #cli-crate.
 
@@ -1309,13 +1309,13 @@ R5, the owner. Threads: #core-renamed-check.
 
 R5, the session. Threads: #test-through-public-api.
 
-"Your clarification of #test-through-public-api settles the conflict with `rejected@core@unit-tests-moved-under-tests`. The rule applies to integrated tests over mock projects, not to unit tests." (the restated guideline is `design@agent-skills@integrated-test-through-public-api`)
+"Your clarification of #test-through-public-api settles the conflict with `rejected@check@unit-tests-moved-under-tests`. The rule applies to integrated tests over mock projects, not to unit tests." (the restated guideline is `design@agent-skills@integrated-test-through-public-api`)
 
 ### This doesn't touch the 437 unit tests `##arg-108`
 
 R5, the session. Threads: #test-through-public-api, #testing-crate.
 
-"This doesn't touch the 437 unit tests. The 5 mock tests that build `Inputs` by hand each go one of two ways: the state they inject becomes a real mock tree, such as one with no committed file, or the claim becomes a unit test over an in-memory model, which `design@core@model-then-checks` already provides for."
+"This doesn't touch the 437 unit tests. The 5 mock tests that build `Inputs` by hand each go one of two ways: the state they inject becomes a real mock tree, such as one with no committed file, or the claim becomes a unit test over an in-memory model, which `design@check@model-then-checks` already provides for."
 
 Made precise at the plan's review: see the note of #arg-84.
 
@@ -1323,7 +1323,7 @@ Made precise at the plan's review: see the note of #arg-84.
 
 R5, the session. Threads: #test-through-public-api.
 
-"When an integrated test is blocked by a missing observation, `tripwire@core@private-item-needed` fires, and its response already routes the fix."
+"When an integrated test is blocked by a missing observation, `tripwire@check@private-item-needed` fires, and its response already routes the fix."
 
 ### You didn't address the last three findings directly `##arg-110`
 
@@ -1335,7 +1335,7 @@ R5, the session. Threads: #model-crate, #testing-crate, #test-component-public-a
 
 R5, the session. Threads: #model-crate (premortem C1).
 
-"`check`, `query` and `render` need so many `model` internals that `model`'s public API becomes its module tree, which brings back `rejected@core@module-tree-as-public-api`" / caught by "`model`'s lib.rs is a facade of role modules under `unreachable_pub`"
+"`check`, `query` and `render` need so many `model` internals that `model`'s public API becomes its module tree, which brings back `rejected@check@module-tree-as-public-api`" / caught by "`model`'s lib.rs is a facade of role modules under `unreachable_pub`"
 
 ### A 'query' command needs phase-4 output, so 'query' depends on 'check' `##arg-112`
 
@@ -1365,7 +1365,7 @@ R5, the session. Threads: #installed-text-check-home (C5).
 
 R5, the session. Threads: #testing-crate (C8).
 
-"an extension writer needs a helper that lives in `testing`'s unshipped `tests/`" / "`tripwire@core@private-item-needed` already covers a consumer needing an item it can't reach"
+"an extension writer needs a helper that lives in `testing`'s unshipped `tests/`" / "`tripwire@check@private-item-needed` already covers a consumer needing an item it can't reach"
 
 ## New names, in one place
 
@@ -1432,31 +1432,31 @@ docs/ are split by subject, each slice moving what its new Component holds.
 | today | goes to | slice |
 | --- | --- | --- |
 | `path@elsewhere@crates/core/src/git.rs` | `git` | #git-out |
-| `path@elsewhere@crates/core/src/manifest.rs`, `path@elsewhere@crates/core/src/walk.rs`, `path@elsewhere@crates/core/src/survey.rs`, `path@elsewhere@crates/core/src/scan.rs`, `path@elsewhere@crates/core/src/source/`, `path@core@src/document.rs`, `path@elsewhere@crates/core/src/entity.rs`, `path@elsewhere@crates/core/src/records.rs`, `path@elsewhere@crates/core/src/model.rs`, `path@elsewhere@crates/core/src/index.rs`, `path@elsewhere@crates/core/src/finding.rs` | `model` | #model-out |
+| `path@elsewhere@crates/core/src/manifest.rs`, `path@elsewhere@crates/core/src/walk.rs`, `path@elsewhere@crates/core/src/survey.rs`, `path@elsewhere@crates/core/src/scan.rs`, `path@elsewhere@crates/core/src/source/`, `path@check@src/document.rs`, `path@elsewhere@crates/core/src/entity.rs`, `path@elsewhere@crates/core/src/records.rs`, `path@elsewhere@crates/core/src/model.rs`, `path@elsewhere@crates/core/src/index.rs`, `path@elsewhere@crates/core/src/finding.rs` | `model` | #model-out |
 | `path@elsewhere@crates/core/src/check/tree.rs` | `model`: phase 2 | #model-out |
-| `path@core@src/check/mod.rs` | `model`: `foundation`, with the installed-file check still in phase 2 until #check-renamed; `check`: phase 4, `Report`, `run_with` | #model-out |
-| `path@core@src/check/references.rs` | `model`: the resolver; `check`: the lints | #model-out |
-| `path@core@src/agents.rs` | `model`: the shipped text as phase 2 reads it, with the tests over it; `check`: the install and its repairs | #model-out |
-| `path@core@src/extension.rs` | `model`: the phase-1 contribution; `check`: the rest of `Extension` and `Prepared` | #model-out |
+| `path@check@src/check/mod.rs` | `model`: `foundation`, with the installed-file check still in phase 2 until #check-renamed; `check`: phase 4, `Report`, `run_with` | #model-out |
+| `path@check@src/check/references.rs` | `model`: the resolver; `check`: the lints | #model-out |
+| `path@check@src/agents.rs` | `model`: the shipped text as phase 2 reads it, with the tests over it; `check`: the install and its repairs | #model-out |
+| `path@check@src/extension.rs` | `model`: the phase-1 contribution; `check`: the rest of `Extension` and `Prepared` | #model-out |
 | `path@elsewhere@crates/core/src/check/agents.rs` | `model` from #model-out, in the foundation; `check` from #check-renamed, a family of phase 4 | #model-out, #check-renamed |
-| `path@core@src/check/generated.rs`, `path@core@src/check/registers.rs` | `check` | #check-renamed |
-| `path@core@src/cli/history.rs` | `check` | #check-renamed |
-| `path@core@src/cli/gathered.rs` | `model`: what phases 1 to 3 and the resolver read; `check`: the committed generated files and the `register.toml` files, which phase 4 alone reads | #model-out |
-| `path@core@src/cli/mod.rs` | `cli`: the command enum, parsing, dispatch, `locate`; `model`: `complete_working_tree`, the gate of phases 1 to 3 that `worklist` and the writers call, so `query` reaches it with no check; `check`: `fix_then_check`; each domain crate: its commands' logic, behind a typed API | #cli-on-top, `complete_working_tree` at #model-out |
-| `path@core@src/cli/output.rs` | `cli`, or the crate whose data it prints, per the pure and output layers of `skill@knowledge-architect-component-creation@component-shapes`, decided at the audit | #cli-on-top |
-| `path@core@src/build_origin.rs` | `check`: the refusal of a foreign build, given the list of crates a binary links, which `cli` calls for every command and `create` calls for `init`'s PATH | #cli-on-top |
-| `path@core@src/main.rs` | `cli` | #cli-on-top |
-| `path@core@src/cli/worklist.rs`, `path@core@src/graph.rs` | `cli`: the clap declarations of `worklist`; `query`: the rest | #cli-on-top for the declarations, #consumers-out for the rest |
-| `path@core@src/cli/transcript.rs`, `path@core@src/transcript.rs` | `cli`: the clap declarations of `transcript`; `transcript`: the rest | #cli-on-top for the declarations, #consumers-out for the rest |
-| `path@core@src/cli/create.rs` | `create` | #consumers-out |
-| `path@core@src/lib.rs` | each crate's own facade | each slice |
-| `path@core@src/mock_projects.rs` | `testing` | #integrated-tests |
-| `path@core@src/testing.rs` | `testing`'s library, the harness, per D2; until then `check`'s role module, which `cli` re-exports | #integrated-tests; #cli-on-top for the interim re-export |
-| `path@core@tests/binary.rs` | `cli` | #cli-on-top |
-| `path@core@tests/init.rs` | `create` | #consumers-out |
-| `path@core@tests/extension_api.rs`, `path@core@tests/projects/` | `testing` | #integrated-tests |
-| `path@core@tests/transcripts/` | `transcript` | #consumers-out |
-| `path@core@tests/worklist-entries-before-the-snapshot.txt` | `query` | #consumers-out |
+| `path@check@src/check/generated.rs`, `path@check@src/check/registers.rs` | `check` | #check-renamed |
+| `path@check@src/cli/history.rs` | `check` | #check-renamed |
+| `path@check@src/cli/gathered.rs` | `model`: what phases 1 to 3 and the resolver read; `check`: the committed generated files and the `register.toml` files, which phase 4 alone reads | #model-out |
+| `path@check@src/cli/mod.rs` | `cli`: the command enum, parsing, dispatch, `locate`; `model`: `complete_working_tree`, the gate of phases 1 to 3 that `worklist` and the writers call, so `query` reaches it with no check; `check`: `fix_then_check`; each domain crate: its commands' logic, behind a typed API | #cli-on-top, `complete_working_tree` at #model-out |
+| `path@check@src/cli/output.rs` | `cli`, or the crate whose data it prints, per the pure and output layers of `skill@knowledge-architect-component-creation@component-shapes`, decided at the audit | #cli-on-top |
+| `path@check@src/build_origin.rs` | `check`: the refusal of a foreign build, given the list of crates a binary links, which `cli` calls for every command and `create` calls for `init`'s PATH | #cli-on-top |
+| `path@check@src/main.rs` | `cli` | #cli-on-top |
+| `path@check@src/cli/worklist.rs`, `path@check@src/graph.rs` | `cli`: the clap declarations of `worklist`; `query`: the rest | #cli-on-top for the declarations, #consumers-out for the rest |
+| `path@check@src/cli/transcript.rs`, `path@check@src/transcript.rs` | `cli`: the clap declarations of `transcript`; `transcript`: the rest | #cli-on-top for the declarations, #consumers-out for the rest |
+| `path@check@src/cli/create.rs` | `create` | #consumers-out |
+| `path@check@src/lib.rs` | each crate's own facade | each slice |
+| `path@check@src/mock_projects.rs` | `testing` | #integrated-tests |
+| `path@check@src/testing.rs` | `testing`'s library, the harness, per D2; until then `check`'s role module, which `cli` re-exports | #integrated-tests; #cli-on-top for the interim re-export |
+| `path@check@tests/binary.rs` | `cli` | #cli-on-top |
+| `path@check@tests/init.rs` | `create` | #consumers-out |
+| `path@check@tests/extension_api.rs`, `path@check@tests/projects/` | `testing` | #integrated-tests |
+| `path@check@tests/transcripts/` | `transcript` | #consumers-out |
+| `path@check@tests/worklist-entries-before-the-snapshot.txt` | `query` | #consumers-out |
 
 **Every command, and the crate that holds its logic.** `cli` parses all of them, per
 #command-parsing-home.
@@ -1475,7 +1475,7 @@ docs/ are split by subject, each slice moving what its new Component holds.
   touched either side touched the model alone, 20 the checks alone, so the boundary is crossed by 44,
   not by every change (#arg-45), and the goals predict more consumers of the model that need no
   check (#arg-30).
-- **The library and the binary in one crate**, `design@core@single-crate`, lost to #cli-crate: its
+- **The library and the binary in one crate**, `design@check@single-crate`, lost to #cli-crate: its
   premise, that a separate binary crate saves its users no dependency, fails once the command set
   spans crates, and a commands module in the checker would form a cycle with `query` and `create`
   (#arg-15, #arg-20).
@@ -1512,12 +1512,12 @@ Assume the split shipped and failed:
 
 | cause | thread it stresses | verdict |
 | --- | --- | --- |
-| C1: `check`, `query` and `render` need so many `model` internals that `model`'s public API becomes its module tree, `rejected@core@module-tree-as-public-api` back | #model-crate | a claim of #model-out: `model`'s lib.rs is a facade of role modules under `unreachable_pub` |
+| C1: `check`, `query` and `render` need so many `model` internals that `model`'s public API becomes its module tree, `rejected@check@module-tree-as-public-api` back | #model-crate | a claim of #model-out: `model`'s lib.rs is a facade of role modules under `unreachable_pub` |
 | C2: a `query` command needs phase-4 output, so `query` depends on `check` | #query-crate, #model-crate | an acceptance criterion, #a1-no-check-below-the-tools; the session found one such case while writing these documents, the `model` command, which the mapping table keeps in `check`, and a second at the plan's review, `complete_working_tree`, which the mapping table gives to `model` |
 | C3: a rule stated in a domain type and in the clap declaration drift apart, so an invalid combination passes clap and is refused later, or with another exit code | #command-parsing-home | a claim of #cli-on-top: `cli` maps every refusal by a domain's options to exit 2 before any work, one test per refusal |
 | C4: `rewrite`'s write side needs an environment the git heads say every invocation drops or keeps, such as a temporary `GIT_INDEX_FILE` | #git-crate | named as a cause; the port meets it as a request of its own design, so no tripwire |
 | C5: in phase 4, a stale install shows reference findings beside the install finding, and a session repairs the references instead of running the install | #installed-text-check-home | named as a cause, judged at the harvest of #check-renamed; `--fix` repairs the installed files first |
-| C8: an extension writer needs a helper that lives in `testing`'s tests, which no package ships | #testing-crate | named as a cause; `tripwire@core@private-item-needed` already watches a consumer needing an item it cannot reach |
+| C8: an extension writer needs a helper that lives in `testing`'s tests, which no package ships | #testing-crate | named as a cause; `tripwire@check@private-item-needed` already watches a consumer needing an item it cannot reach |
 
 C6 and C7 of the discussion stressed the threads of the spec of the revision of the rules, whose
 harvest dropped both as tripwires.
@@ -1595,7 +1595,7 @@ fire by a scratch dependency of `query` on `check`, which the command lists. The
   holds of the code: `Model::build` builds over a missing file, and the references to its entities
   are reported as unresolved in the last phase, beside the install finding, which is premortem C5's
   case; a writer over that model writes over the tree as it is, so
-  `tripwire@core@phases-gate-the-report-two`'s premise holds. The owner gave a rule, that the walk
+  `tripwire@check@phases-gate-the-report-two`'s premise holds. The owner gave a rule, that the walk
   refuses to exclude a file the model requires, and left to the session whether to build it in the
   split; the session left it to that issue, since it is a stricter check that owes a Migration
   entry, and the split's slices relocate behaviour.
@@ -1606,7 +1606,7 @@ fire by a scratch dependency of `query` on `check`, which the command lists. The
 - **D4, on #model-crate, ruled**: `model`'s facade publishes the entity table and the
   anchors, `Entities` and `Anchors` among them, and the records over them, under `model::table`, and
   the core's facade adds none of them: `extension` offers what it offers today, so the direction the
-  owner chose in `issue@core@an-extension-cannot-see-which-register-a-document-belongs-to`, a narrow
+  owner chose in `issue@check@an-extension-cannot-see-which-register-a-document-belongs-to`, a narrow
   read-only view in `extension` rather than these types public as they are, stands for the extension
   API. Its consequences, each read at the design audit of #model-out:
   - an extension that adds `knowledge-architect-model` to its own dependencies can name them, so the
@@ -1623,7 +1623,7 @@ fire by a scratch dependency of `query` on `check`, which the command lists. The
     consequence.
 
   The session's default is this shape, with a `library` entry of the changelog stating the widening,
-  and the issue and `tripwire@core@private-item-needed` reworded to say what the crate now publishes.
+  and the issue and `tripwire@check@private-item-needed` reworded to say what the crate now publishes.
   The two sentences of the owner's direction relax for a consumer who adds the dependency, so this is
   a scope change the owner rules. The owner, at the merge of #model-out: "Q1 agreed. This makes much
   more sense with the model as its own crate."

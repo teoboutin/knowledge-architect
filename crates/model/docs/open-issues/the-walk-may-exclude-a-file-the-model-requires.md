@@ -35,7 +35,7 @@ every other finding of `shipped` to the last phase; this work replaces that case
 
 A file a row keeps out is read by no check, and a model built without it lacks what that file
 defines, which every finding computed from it then misses, against
-`goal@core@document-rules-are-checked`. One case reported and the rest silent is a rule nobody can
+`goal@check@document-rules-are-checked`. One case reported and the rest silent is a rule nobody can
 state from the tree.
 
 ### What would close it

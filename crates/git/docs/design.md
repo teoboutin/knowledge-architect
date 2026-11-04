@@ -34,7 +34,7 @@ repository's files, `GIT_DIR`, `GIT_WORK_TREE`, `GIT_COMMON_DIR`, `GIT_OBJECT_DI
 repository, its work tree or its object store. It keeps the list's other members, the
 configuration among them, and `GIT_INDEX_FILE`, per `design@git@index-file-variable-kept`. So git
 finds the repository from the project's directory, as `design@model@git-supplies-the-walk` reads it,
-and a run judges the project's own tree, which `goal@core@documents-stay-current` needs of a
+and a run judges the project's own tree, which `goal@check@documents-stay-current` needs of a
 verdict: with `GIT_DIR` naming another repository, the walk would be that repository's index.
 
 Refusing to run with one of them set leaves the pre-commit hook of a linked worktree unable to
@@ -51,13 +51,13 @@ keeps checkable a project whose repository git finds only through these variable
 at or above its directory, which is outside a worktree to the checker here, an error per
 `design@git@failed-git-is-an-error`, and it lets a stray `GIT_DIR` in a shell outside every
 repository point the walk at another repository. The project
-`goal@core@checks-a-commit-from-its-hook` covers is one with a `.git` at or above its directory.
+`goal@check@checks-a-commit-from-its-hook` covers is one with a `.git` at or above its directory.
 
 ### `GIT_INDEX_FILE` is the index every command reads, so a pre-commit hook judges the tree its commit records `##index-file-variable-kept`
 
 Every git invocation keeps `GIT_INDEX_FILE`: it is the index `git commit` records, so
 `check --staged`, which judges the tree the next commit records per
-`design@core@staged-tree-source`, reads the index it names, and every other command uses the same
+`design@check@staged-tree-source`, reads the index it names, and every other command uses the same
 index, so a `check` run where the variable is set lists what `git ls-files` lists there. A
 pre-commit hook gets it, measured with git 2.53.0 by a hook printing `env | grep '^GIT_'`:
 `.git/index`, relative, for a commit of what is staged; the absolute path of `.git/index.lock` for
@@ -76,7 +76,7 @@ of `design@git@git-floor-for-commit-trees`, was not measured.
 
 Dropping the variable with the others, `rejected@git@every-git-variable-dropped`, lost to that
 measurement. Refusing to run with it set leaves a pre-commit hook unable to run the checker at all,
-since git gives the hook the variable every time, against `goal@core@checks-a-commit-from-its-hook`.
+since git gives the hook the variable every time, against `goal@check@checks-a-commit-from-its-hook`.
 `init` alone refuses it: `init` belongs to no commit, and with the variable set git would
 list and stage the project it writes through an index no commit of that project records.
 
@@ -100,10 +100,10 @@ with git's own reason.
 
 **No `git`, or no worktree, is an error carrying the reason.** Never an empty walk: a project
 reported as holding no document is a run that checked nothing and said so as a clean verdict,
-against `goal@core@document-rules-are-checked`: a tree that passes the checker conforms, in the
+against `goal@check@document-rules-are-checked`: a tree that passes the checker conforms, in the
 texts the checker reads, to every rule it holds. **Every invocation a verdict depends on fails that
 way**: the listing, the tracked-and-ignored listing and the `check-ignore` batch, each carrying
 git's own stderr, whatever the reason. The checker's commands give that error the code 2, a
-command that could not run, per `design@core@exit-code-ladder`. The one invocation that degrades
+command that could not run, per `design@check@exit-code-ladder`. The one invocation that degrades
 instead is `last_changed`, which fills a listing's convenience column and moves no verdict: where
 git answers nothing the column shows `-`.

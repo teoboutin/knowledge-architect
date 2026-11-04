@@ -139,7 +139,7 @@ impl Model {
     ///
     /// `checker_sources` are the directories of the checker's own source, one per Component
     /// the running binary is built from. A file under one is parsed with its string literals as
-    /// data, per `design@core@checker-source-literals-are-data`; every other file reads
+    /// data, per `design@check@checker-source-literals-are-data`; every other file reads
     /// them as prose. The binary passes the compile-time locations its libraries export, and a
     /// library caller checking a tree the checker is no part of passes none. The root and the
     /// compiled paths are canonicalised before the prefix test, so a symlinked checkout does
@@ -289,7 +289,7 @@ impl Model {
     /// as data.
     ///
     /// Zero in a checkout that holds the tool is the loud failure of
-    /// `design@core@checker-source-literals-are-data`: the compiled path and the walked tree
+    /// `design@check@checker-source-literals-are-data`: the compiled path and the walked tree
     /// disagree, and the tool's fixtures are being read as citations.
     pub fn checker_files(&self) -> usize {
         self.docs
@@ -311,7 +311,7 @@ impl Model {
     /// `build` takes an absolute directory and canonicalises it against the checkout; there is
     /// no checkout here, so the caller states the directory the way every document in the list
     /// is stated. A Rust file under it reads its string literals as data, per
-    /// `design@core@checker-source-literals-are-data`. `commits` needs this because a per-commit
+    /// `design@check@checker-source-literals-are-data`. `commits` needs this because a per-commit
     /// model is assembled from git objects and would otherwise read the tool's own fixtures as
     /// live citations at every commit in the range.
     pub fn from_documents_under(docs: Vec<(PathBuf, String)>, checker: &[&Path]) -> Self {
@@ -497,7 +497,7 @@ mod tests {
     use super::*;
 
     // Every fixture is written as the bytes it means: the checker reads no string literal of
-    // its own source, per `design@core@checker-source-literals-are-data`.
+    // its own source, per `design@check@checker-source-literals-are-data`.
 
     #[test]
     fn a_model_can_be_assembled_without_a_checkout() {

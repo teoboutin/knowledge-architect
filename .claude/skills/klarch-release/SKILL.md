@@ -29,7 +29,7 @@ On a branch of its own, `release-<version>`, under the Git rules of the root `CL
    - `[workspace.package] version` in the root Cargo.toml;
    - the exact pins `knowledge-architect-agent-skills = { …, version = "=<version>" }`,
      `knowledge-architect-git = { …, version = "=<version>" }` and
-     `knowledge-architect-model = { …, version = "=<version>" }` in crates/core/Cargo.toml, and the
+     `knowledge-architect-model = { …, version = "=<version>" }` in crates/check/Cargo.toml, and the
      first two in crates/model/Cargo.toml;
    - Cargo.lock, which any cargo command rewrites for every workspace package;
    - the status line: the opening sentence of `## Status` in the root README.md. Change the
@@ -49,7 +49,7 @@ On a branch of its own, `release-<version>`, under the Git rules of the root `CL
 3. **Commit**, with `cargo klarch check --staged` before and
    `cargo klarch commits origin/main..HEAD` after: the whole branch, per
    `instructions@verify-mechanically`, `design@agent-skills@staged-check-before-each-commit`, and
-   `issue@core@branch-sha-citations-are-judged-within-the-range-only`.
+   `issue@check@branch-sha-citations-are-judged-within-the-range-only`.
    Cargo refuses to package an uncommitted tree, so the commit comes before the next steps. Then
    push the branch and open a draft pull request, per `instructions@git-workflow`, point 1.
 4. **The shipped text cites no entry.** List every backticked span with an `@` in the installed
@@ -101,7 +101,7 @@ On a branch of its own, `release-<version>`, under the Git rules of the root `CL
 8. **The dry run.** `cargo publish --workspace --dry-run` passes, skips xtask, and orders
    the git crate and agent-skills before the model crate, which depends on both, and the model
    crate before the core. Its warning "ignoring test `<name>`"
-   for each file `<name>.rs` of `path@core@tests/` and of `path@mutate@tests/` is expected: the
+   for each file `<name>.rs` of `path@check@tests/` and of `path@mutate@tests/` is expected: the
    whitelist keeps the tests out.
 9. **The gates and the review.** `cargo x gates --require-rebased`, then the push, and the review
    under `skill@knowledge-architect-review`. Its axes include

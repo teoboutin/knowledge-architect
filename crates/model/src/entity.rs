@@ -984,7 +984,7 @@ pub enum Candidate<'a> {
 /// **Which spans are candidates.** The head — the text before the first `@` — is a known kind,
 /// a declared anchor or a reserved anchor; anything else is not a reference and is silent, so
 /// an email address or a git remote in backticks reports nothing. A typo inside the kind is
-/// silent for the same reason, which `register@core@tripwire` guards.
+/// silent for the same reason, which `register@check@tripwire` guards.
 ///
 /// **Segmentation.** Every kind but `path` and `planned` takes exactly three segments; those two
 /// take an anchor and then everything after the second `@` as its id, so a path may hold an `@`.
@@ -2052,7 +2052,7 @@ mod tests {
     use std::path::PathBuf;
 
     // Every fixture is inline: the checker reads no string literal of its own source, per
-    // `design@core@checker-source-literals-are-data`.
+    // `design@check@checker-source-literals-are-data`.
 
     /// A project whose root component is `a-project` with one component under `parts/`.
     fn anchors() -> Anchors {
@@ -2274,7 +2274,7 @@ mod tests {
         assert_eq!(e.len(), 4);
         assert!(e.definition_findings().is_empty(), "{:#?}", e.findings);
         // A level-three heading of the rejected home is an entry, so one with no slug is
-        // reported, per `design@core@rejected-register`.
+        // reported, per `design@check@rejected-register`.
         let unslugged = table(vec![("docs/rejected.md", "### A design not kept\n")]);
         assert_eq!(
             unslugged.definition_findings().len(),

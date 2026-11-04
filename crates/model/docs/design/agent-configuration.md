@@ -5,7 +5,7 @@
 ### Under the `claude` harness, skills, agents, the primer and the root CLAUDE.md are entities of kinds that are no register `##harness-kinds`
 
 The four harness kinds, `skill`, `agent`, `primer` and `instructions`, exist under the `claude`
-harness alone, per `design@core@agents-table`. They are kinds, not registers: a register is what
+harness alone, per `design@check@agents-table`. They are kinds, not registers: a register is what
 an anchor carries, and no anchor carries them and no project declares them, since the harness fixes
 where each lives. So they sit beside `path`, `planned` and `register`, the kinds already no
 register. The
@@ -28,14 +28,14 @@ beside your agents", so it is no agent, and no README or index is owed there.
 
 Under `harness = []` none of the four kinds exists, a span headed by one is silent, and installed
 copies a project kept are its own documents, whose slugs are misplaced definitions. Serves
-`goal@core@records-reach-their-reader`: a citation of a skill, an agent or a section is checked,
+`goal@check@records-reach-their-reader`: a citation of a skill, an agent or a section is checked,
 and `show` lists every one.
 
 ### Under the `claude` harness, the root CLAUDE.md is modelled and no scoped CLAUDE.md is `##root-instructions-alone-modelled`
 
 The root CLAUDE.md alone is modelled, as the owner chose: "I'd model only root CLAUDE.md
 sections." A scoped CLAUDE.md is not modelled: what such a file holds is the subject of
-`issue@core@a-home-for-developer-contracts-outside-agent-configuration`.
+`issue@check@a-home-for-developer-contracts-outside-agent-configuration`.
 
 ### Under the `claude` harness, a skill is named by its directory and an agent by its file, and a frontmatter `name`, where one is set, equals that name `##harness-entity-names`
 
@@ -71,9 +71,9 @@ alike. A commit is therefore judged against the installed set it holds, so a bra
 section in an upgrade and repairs its citations passes `commits` on every commit.
 
 - **Not the binary's shipped set.** `commits` judges every commit of a range with the tip's binary,
-  per `design@core@installed-binary-version-check`, so definitions from the shipped set would fail
+  per `design@check@installed-binary-version-check`, so definitions from the shipped set would fail
   every earlier commit citing a section the tip renamed. That is why
-  `design@core@owned-namespace-check` already compares no installed copy under `commits`.
+  `design@check@owned-namespace-check` already compares no installed copy under `commits`.
 - **An installed copy raises no finding**, per `design@model@section-homes-carry-slugs`.
 - **This repository's shipped text defines nothing in its walk**: content/ writes each section slug
   as a build placeholder, per `design@agent-skills@content-mirrors-the-install-layout`, so the

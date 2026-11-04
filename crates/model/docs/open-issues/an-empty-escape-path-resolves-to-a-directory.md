@@ -17,7 +17,7 @@ Reproduced on the main branch before the crate split.
 
 ### Why it matters
 
-It stands against `design@core@finding-names-the-repair`: following the repair writes a pointer nobody meant.
+It stands against `design@check@finding-names-the-repair`: following the repair writes a pointer nobody meant.
 
 ### What would close it
 

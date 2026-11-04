@@ -8,7 +8,7 @@ kind: design
 `design@agent-skills@plain-text-is-no-repair` refuses plain text as the repair of a finding. Its
 tripwire fired at its second instance, so the decision is reopened, with a mechanical check for
 plain-text pointers among the candidates. Three instances are known. The finding on a
-reference-shaped token outside backticks, `design@core@reference-shape-outside-span`, reports the
+reference-shaped token outside backticks, `design@check@reference-shape-outside-span`, reports the
 first, references in the checker's syntax with their backticks removed, and neither of the other
 two: a bare path, and the bare name of a skill still to be created, which no table defines.
 
@@ -61,7 +61,7 @@ placeholder, which the checker reads as no reference, and this repository's own 
 `issue@agent-skills@a-pending-ruled-file-is-reached-by-no-installed-search` writes the installing
 project's paths bare at five sites. A
 candidate for the discussion: a reserved anchor for every installing project's root, which changes
-`design@model@reserved-anchors` and `design@core@nothing-of-a-project-is-compiled-in`. Reported by the
+`design@model@reserved-anchors` and `design@check@nothing-of-a-project-is-compiled-in`. Reported by the
 retrospective of the intake of 2026-10-19, analysed at the intake of 2026-10-24.
 
 ### Why it matters

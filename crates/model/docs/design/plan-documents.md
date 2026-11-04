@@ -22,7 +22,7 @@ A component gets its register homes at paths the tool fixes, and a built-in regi
 `dir` key, so a declared plans directory would be the only declared path in that family. The tool
 fixing it costs a project whose plans sit elsewhere one move, and a skill written against the fixed
 path works in every project, per `goal@agent-skills@installed-text-works-in-every-target-project`. A fixed path is the tool's convention, not a project compiled in, per
-`design@core@nothing-of-a-project-is-compiled-in`.
+`design@check@nothing-of-a-project-is-compiled-in`.
 
 ### A project has one plans directory, in its root component `##plans-at-root`
 
@@ -51,7 +51,7 @@ anchor carrying `spec` for its slice specs, `spec@<milestone>@<slice>`, so a sli
 be unique inside its milestone, and two milestones may each have a slice called `the-harvest`. The
 `milestone` register's entries are directories because each is an anchor, per
 `design@model@milestone-entries-are-directories`. A `path` citation of a plan document is
-refused, per `design@core@every-path-names-its-anchor`: with two names for one document,
+refused, per `design@check@every-path-names-its-anchor`: with two names for one document,
 `show` would miss the citations written the other way. A whole plan document may be cited from
 anywhere; when it leaves, each citation dangles, and that is the revisit it asks for.
 
@@ -66,7 +66,7 @@ Every level-three heading of those four sections owes a slug; any other level-th
 plan document is section text, and a slug anywhere else in it defines nothing. Items need a model
 of their own because a heading register has one home file per anchor and one level, where a plan
 has one home and four kinds; an extension runs after the entity table is built, so items are the
-table's own, per `design@core@an-extension-plugs-in-through-phased-hooks`.
+table's own, per `design@check@an-extension-plugs-in-through-phased-hooks`.
 
 ### An item is cited from inside its own plan only `##plan-item-scope`
 
@@ -76,7 +76,7 @@ the document to cite whole: the spec, the milestone, or the slice spec that defi
 the item named beside it as `#<id>`, the label `skill@knowledge-architect-planning@spec-contents`
 gives an item outside its plan. A
 whole plan may be cited from anywhere but a goals home, per
-`design@core@goals-home-cites-upward-only`, so a dependency between plans is carried by the document,
+`design@check@goals-home-cites-upward-only`, so a dependency between plans is carried by the document,
 and retiring a plan asks no other plan to be redesigned item by item. The premise is that a
 whole-document citation carries every dependency between plans that matters while few plans are
 open at once.
@@ -114,7 +114,7 @@ carried by the anchor `plans`: each milestone is a directory of milestones/ hold
 `README.md`, the milestone document, and its entry carries `spec`, for its slice specs, and the
 four item registers, per `design@model@plan-document-kinds`. What a plan adds on top of the shape is
 the tool's and keyed on the register: its documents owe the sections of their kind, per
-`design@core@plan-document-sections-by-kind`, its README defines items, its items are cited from
+`design@check@plan-document-sections-by-kind`, its README defines items, its items are cited from
 inside the plan only, per `design@model@plan-item-scope`, and it carries no `path` kind. The shape
 exists for it because the owner asked to cite a milestone as `milestone@plans@<id>`, and a
 milestone is a directory: a File entry is one file and could hold no slice specs. Citing the

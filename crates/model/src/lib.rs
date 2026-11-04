@@ -29,7 +29,7 @@
 //!
 //! The public items are grouped by what a consumer is doing, and each is named below, so this
 //! file is the public surface and moving an item between files changes no public path, per
-//! `rejected@core@module-tree-as-public-api`.
+//! `rejected@check@module-tree-as-public-api`.
 //!
 //! | module | for |
 //! | --- | --- |
@@ -45,7 +45,7 @@
 //! | [`extension`] | what an extension gives phase 1 |
 
 // A `pub` item no consumer can reach is refused, so an item is public only through the re-exports
-// below, as the core's facade is, per `design@core@api-facade`.
+// below, as the core's facade is, per `design@check@api-facade`.
 #![warn(unreachable_pub)]
 
 // Read so that cargo rebuilds this crate when the checkout building it changes, per
@@ -92,7 +92,7 @@ pub mod declared {
     };
 }
 
-/// The parse of a document, per `design@core@an-extension-builds-its-own-model`.
+/// The parse of a document, per `design@check@an-extension-builds-its-own-model`.
 pub mod document {
     pub use crate::scan::{Located, Observation, RetiredForm, SlugSite};
     pub use crate::source::{Frontmatter, Literals, Parsed, Prose, Scope, ScopeKind};
@@ -164,7 +164,7 @@ pub mod extension {
 ///
 /// A binary that links this library hands it to the walk beside the directories of its other
 /// libraries, so the string literals of this crate's source are read as data, per
-/// `design@core@checker-source-literals-are-data`. Once the library is consumed as a published
+/// `design@check@checker-source-literals-are-data`. Once the library is consumed as a published
 /// crate, the directory is outside the tree being checked and exempts nothing.
 pub fn component_dir() -> std::path::PathBuf {
     std::path::PathBuf::from(CRATE_DIR)
@@ -201,7 +201,7 @@ mod facade_tests {
 
     /// The claim: this file names every public module with its body, so the public surface is read
     /// here and is not computed from the module tree, per
-    /// `rejected@core@module-tree-as-public-api`. `unreachable_pub` is silent on both forms it
+    /// `rejected@check@module-tree-as-public-api`. `unreachable_pub` is silent on both forms it
     /// refuses, since each makes the items behind it reachable.
     #[test]
     fn the_facade_publishes_no_module_of_the_tree_and_no_glob() {

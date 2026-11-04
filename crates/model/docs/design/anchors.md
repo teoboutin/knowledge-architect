@@ -5,11 +5,11 @@
 ### Every component carries the same documents and the home of every component register `##components-carry-the-same-documents`
 
 The components are the manifest's `[project]` list, per
-`design@core@nothing-of-a-project-is-compiled-in`: the project root, named by `project.name`, and
+`design@check@nothing-of-a-project-is-compiled-in`: the project root, named by `project.name`, and
 every other project-relative directory, named by the basename of its path. Nothing is discovered by filename, so a document in a
 directory that is not a component is not that kind of document: nothing counts it and nothing
 reports it. A component carries `README.md`, `CLAUDE.md` while the project serves the `claude`
-agent harness (per `design@core@agents-table`), and the home of every `component`-scoped register
+agent harness (per `design@check@agents-table`), and the home of every `component`-scoped register
 — `design`, `goal`, `tripwire`, `rejected` and `issue`, and any the manifest declares at that
 scope. No document of the compiled list lies under `docs/`, where those homes are. The root also
 holds the plans directory, which is not a component's document but the anchor `plans`, per
@@ -17,17 +17,17 @@ holds the plans directory, which is not a component's document but the anchor `p
 `path@model@src/tree.rs`.
 
 **Which components exist is declared, and what every component carries at least is compiled in.**
-That is not an exception to `design@core@nothing-of-a-project-is-compiled-in`: the document list and
+That is not an exception to `design@check@nothing-of-a-project-is-compiled-in`: the document list and
 the five built-in component registers in `manifest.rs` belong to no project, they are what the word
 _component_ means here. A project adds to that set, per
 `design@model@a-component-carries-what-a-project-attaches`, and removes nothing from it but the agent
 document, below: a project free to declare its own set would be conformant with whatever it
 declared, which is the same as being checked against nothing, against
-`goal@core@document-rules-are-checked`: a tree that passes the checker conforms to the rules the
+`goal@check@document-rules-are-checked`: a tree that passes the checker conforms to the rules the
 core compiles in, and no project holds back any of them beyond what a declaration of its manifest
 switches off. The one declaration that changes the set is the agent harness, and it removes only the
 agent document. The flaw this leaves, that a developer's contracts lose their required home in a
-target project that uses the checker alone and declares no harness, is `issue@core@a-home-for-developer-contracts-outside-agent-configuration`.
+target project that uses the checker alone and declares no harness, is `issue@check@a-home-for-developer-contracts-outside-agent-configuration`.
 
 **A directory that carries outstanding state without being a component is a location**, per
 `design@model@anchors-are-components-and-locations`.
@@ -35,7 +35,7 @@ target project that uses the checker alone and declares no harness, is `issue@co
 ### An anchor is a component or a location, and a location carries the registers it declares or the tool gives it `##anchors-are-components-and-locations`
 
 Both carry registers. Every anchor is a named directory and a path anchor under
-`design@core@every-path-names-its-anchor`, except the plan anchors the tool constructs, below: a
+`design@check@every-path-names-its-anchor`, except the plan anchors the tool constructs, below: a
 spec anchor is a file, and no plan anchor carries the `path` kind. What separates them is what they owe. A **component**
 owes the compiled documents, every `component`-scoped register and every `opt-in` register the
 project attaches to it, with its homes under `<component>/docs/`. A **location** owes the homes of the registers its `[locations.<name>]`
@@ -45,7 +45,7 @@ documentation, where a component's is source code.
 
 **A location exists so that a directory outside every component can be cited.** Naming the
 directory gives every entry in it a reference and makes relocating it one manifest edit, which
-`goal@core@relocation-needs-only-goal-changes` asks and `design@core@every-path-names-its-anchor`
+`goal@check@relocation-needs-only-goal-changes` asks and `design@check@every-path-names-its-anchor`
 buys everywhere else. What a location is instead of
 is `rejected@model@additional-trackers-file-list`.
 
@@ -122,7 +122,7 @@ migrations."
 ### No two anchors the manifest resolves share a name `##anchor-names-unique`
 
 A reference names its anchor by one word, so two anchors of one name would make every reference to
-either name both, and `goal@core@documents-stay-current` asks that each resolve. The resolution of
+either name both, and `goal@check@documents-stay-current` asks that each resolve. The resolution of
 the manifest, `resolve_anchors` in `path@model@src/manifest.rs`, refuses the later, in the order of
 `design@model@anchor-collisions-refused`, of two candidates that share a name, whatever their
 kinds: the project, a Component or a location. A declared anchor named `plans` is refused before
@@ -153,7 +153,7 @@ workflow, without which the checker has little use. Which registers can be attac
 session's argued limit within that intent: a register the project declares, since a built-in
 component register is carried by every Component already and a plan register belongs to the plans
 layout, per `design@model@plan-register`. A register attached adds obligations and removes none, per
-`design@core@the-regime-has-no-opt-out`. Against a location carrying the register at its own path,
+`design@check@the-regime-has-no-opt-out`. Against a location carrying the register at its own path,
 per `design@model@home-at-the-carrier-path`, attaching costs one key, invents no anchor name, and
 cites what the register holds under the Component's name. The rival, a Component's register list
 fixed by the word _component_, is `rejected@model@component-register-list-fixed`.

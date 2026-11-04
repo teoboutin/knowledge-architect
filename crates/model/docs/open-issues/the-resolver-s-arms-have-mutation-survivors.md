@@ -20,7 +20,7 @@ Each mutation below survived `cargo test -p knowledge-architect-model -p knowled
 - `table`: an undefined item taking the home repair rather than the section repair.
 - `anchored_target`: the entry test taking the path with its suffix on, so a suffix on an entry's path stops naming the entry.
 - `ignore_queries`: the generic form asking about the first anchor alone, and the link arm's `refused` test dropped.
-- `link` of `path@core@src/check/references.rs`: the finding showing the link without its fragment.
+- `link` of `path@check@src/check/references.rs`: the finding showing the link without its fragment.
 - `judge_part`: a harness finding's line shifted, `planned` no longer skipped in a goals home, and the document's own directory left out of the search that decides whether to offer `planned`.
 - `show`: the two texts of a cause swapped.
 - The words of about two dozen causes in `Cause::texts`.
@@ -29,7 +29,7 @@ A differential of the binaries built before and after the split, over a generate
 
 ### Why it matters
 
-`design@core@finding-names-the-repair` and `design@model@an-unresolved-reference-is-reported` state what these arms do, and a change to one fails no test. Whether the checker's own tests should pin a cause's wording is part of this: a rewording is no change to what a check reports.
+`design@check@finding-names-the-repair` and `design@model@an-unresolved-reference-is-reported` state what these arms do, and a change to one fails no test. Whether the checker's own tests should pin a cause's wording is part of this: a rewording is no change to what a check reports.
 
 ### What would close it
 

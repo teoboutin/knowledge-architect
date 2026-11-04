@@ -62,7 +62,7 @@ A finding is cited by its id and its file's stem, in the form
    goals the findings name, or none. A proposed fix on a subject the files did not raise sends the
    search again, with the fix as the work, before its outcome is decided or put to the owner.
 %% The searcher is `design@agent-skills@one-record-searcher`, its clusters
-%% `design@core@cluster-rooted-at-a-subject`, and the reading of a `may-bear` entry at an intake
+%% `design@check@cluster-rooted-at-a-subject`, and the reading of a `may-bear` entry at an intake
 %% `design@agent-skills@search-relevance-grade`.
 
    Read whole, in `bears.md` and `may-bear.md`, which the search's check writes, every issue and

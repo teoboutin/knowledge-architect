@@ -12,42 +12,42 @@ The fourth slice of `milestone@plans@component-split`. It leaves when it lands.
   unsatisfied pin. It re-exports the extension API under the path an extension uses today, and,
   until #integrated-tests moves the harness into its own crate, the harness too, per D2 of the
   milestone document.
-- The refusal of a foreign build, `path@core@src/build_origin.rs`, in `check`'s public API, taking
+- The refusal of a foreign build, `path@check@src/build_origin.rs`, in `check`'s public API, taking
   the list of crates the binary links; `cli` calls it before every command, and `create` will call
   it for `init`'s PATH.
 - Each command's logic behind a typed API of the crate that holds it, with no clap type in it; a
   combination of arguments the domain refuses is a type that cannot be built, and `cli`'s
   declaration refuses it while parsing, per #command-parsing-home.
-- `path@core@tests/binary.rs` moved to `cli`, the one package where `CARGO_BIN_EXE_klarch` is set,
-  and `path@core@tests/extension_api.rs` moved to `cli` too, since it drives `cli`'s entry; both run
+- `path@check@tests/binary.rs` moved to `cli`, the one package where `CARGO_BIN_EXE_klarch` is set,
+  and `path@check@tests/extension_api.rs` moved to `cli` too, since it drives `cli`'s entry; both run
   over the mock projects of the core's directory, which `cli`'s binary links, so `"fixture"` stays
   accepted for them. `check` dev-depends on nothing above it.
-- The successor of `design@core@single-crate`, in the root's design home, in this slice's change: a
+- The successor of `design@check@single-crate`, in the root's design home, in this slice's change: a
   decision about which Components exist and how they depend on each other, per point 1 of
   `skill@knowledge-architect-decision-recording@owning-component`, where the reversal rule sends a
-  successor; `design@core@single-crate` leaves the design home of `check` in the same change.
+  successor; `design@check@single-crate` leaves the design home of `check` in the same change.
 
 ## Claims
 
 - **An extension written against the published `knowledge-architect` compiles with no change to its
-  imports.** Test: `path@core@tests/extension_api.rs`, moved to `cli`'s tests, compiles with no
+  imports.** Test: `path@check@tests/extension_api.rs`, moved to `cli`'s tests, compiles with no
   change but its file's place; shown to discriminate by removing one re-export, which fails it.
 - **Every refusal by a domain's options is exit 2 before any work**: premortem C3. Test: one binary
   test per refused combination asserts exit 2 and an untouched tree; a recorded mutation that drops
   one `conflicts_with` fails one.
 - **`check`'s public API holds no clap type.** Test: `cargo tree -e normal -p knowledge-architect-check`
   lists no `clap`; shown to fail before the declarations move, when it lists it.
-- **The binary's declaration is tested**, per `design@core@arguments-parse-through-clap`: the
+- **The binary's declaration is tested**, per `design@check@arguments-parse-through-clap`: the
   `debug_assert` test and the refusal of an unknown argument, moved to `cli`; shown to fail by a
   recorded malformed declaration, which `debug_assert` refuses.
 
 ## Audit subjects
 
-`design@core@single-crate`, reversed; `design@core@the-core-cli-is-a-library-module`,
-`design@core@arguments-parse-through-clap`, `design@core@fix-with-staged`,
-`design@core@exit-code-ladder`, `design@core@binary-name`, `design@core@a-foreign-build-is-refused`,
-`design@core@installed-binary-version-check`, `design@core@checker-source-literals-are-data`,
-`design@core@nothing-of-a-project-is-compiled-in`, `design@core@declared-command`;
+`design@check@single-crate`, reversed; `design@check@the-core-cli-is-a-library-module`,
+`design@check@arguments-parse-through-clap`, `design@check@fix-with-staged`,
+`design@check@exit-code-ladder`, `design@check@binary-name`, `design@check@a-foreign-build-is-refused`,
+`design@check@installed-binary-version-check`, `design@check@checker-source-literals-are-data`,
+`design@check@nothing-of-a-project-is-compiled-in`, `design@check@declared-command`;
 `design@gates@the-library-owns-the-flags`, whose rule stays and whose clause "as it is of the
 core's" is rewritten; `design@mutate@report-not-gate`, whose clause on the core's commands is
 rewritten; `design@knowledge-architect@no-component-directory-named-after-the-project`;
@@ -78,7 +78,7 @@ gives the same output guards it.
 ## Decided design
 
 **The top-level crate.** The commands module must sit above every crate that contributes a command,
-or `query` and `create` would form a cycle with it (#arg-15). `design@core@single-crate` argued that
+or `query` and `create` would form a cycle with it (#arg-15). `design@check@single-crate` argued that
 a separate binary crate saves its users no dependency; that premise fails once the commands span
 crates (#arg-20). The owner: the binary as a top-level crate that "pulls the logic from the others
 and implements the interface" (#arg-32), and the old decision can be reversed (#arg-33). `cli` keeps
@@ -89,7 +89,7 @@ the package name, so an extension's imports and the setup snippets' dependency l
 and an extension's own binary, depend on `cli`, so each command keeps one spelling (#arg-72); a
 frontend that is no command line gets a typed API (#arg-73); the decisions about the whole interface
 get one home (#arg-74); clap leaves the domain crates' interface (#arg-75). A rule that encodes the
-domain's meaning, such as `design@core@fix-with-staged`, is a type of the domain, and the declaration
+domain's meaning, such as `design@check@fix-with-staged`, is a type of the domain, and the declaration
 spells it (#arg-76). `gates` and `mutate` keep P2: the binary that offers them is each project's own
 maintenance binary, which no shared crate sits above (#arg-71). P2 for klarch's commands is a losing
 alternative of the milestone document.
@@ -107,6 +107,6 @@ alternative of the milestone document.
 
 | what | where |
 | --- | --- |
-| #cli-crate | the successor of `design@core@single-crate` in the root's design home, and the reversed decision judged for the `rejected` home by `skill@knowledge-architect-decision-recording@reversal-check`; `cli`'s design home: `design@core@the-core-cli-is-a-library-module` under a new slug, `design@core@exit-code-ladder`, `design@core@a-foreign-build-is-refused`'s list, `design@core@installed-binary-version-check`, `design@core@checker-source-literals-are-data`'s list of directories, `design@core@nothing-of-a-project-is-compiled-in`'s list, moved or rewritten for `cli`; `design@gates@the-library-owns-the-flags`, `design@mutate@report-not-gate` and `design@knowledge-architect@no-component-directory-named-after-the-project`, each clause rewritten |
-| #command-parsing-home | `cli`'s head on its parsing, and the two heads of `register@agent-skills@design` on the top-level binary crate and on the crate nearest the binaries that parses a command, which the component-creation skill states alone today in two comment lines, `cli`'s head citing them, and `design@core@arguments-parse-through-clap` rewritten; P2 judged as a losing alternative |
+| #cli-crate | the successor of `design@check@single-crate` in the root's design home, and the reversed decision judged for the `rejected` home by `skill@knowledge-architect-decision-recording@reversal-check`; `cli`'s design home: `design@check@the-core-cli-is-a-library-module` under a new slug, `design@check@exit-code-ladder`, `design@check@a-foreign-build-is-refused`'s list, `design@check@installed-binary-version-check`, `design@check@checker-source-literals-are-data`'s list of directories, `design@check@nothing-of-a-project-is-compiled-in`'s list, moved or rewritten for `cli`; `design@gates@the-library-owns-the-flags`, `design@mutate@report-not-gate` and `design@knowledge-architect@no-component-directory-named-after-the-project`, each clause rewritten |
+| #command-parsing-home | `cli`'s head on its parsing, and the two heads of `register@agent-skills@design` on the top-level binary crate and on the crate nearest the binaries that parses a command, which the component-creation skill states alone today in two comment lines, `cli`'s head citing them, and `design@check@arguments-parse-through-clap` rewritten; P2 judged as a losing alternative |
 | premortem C3 | its claim above |

@@ -18,7 +18,7 @@ plans directory, and reopens the scope with this alternative as the candidate.
 against thaum's own file. It loses on three counts, each measured against the tree rather than
 argued: a tracked live document left the walk AND the inverse assertion when one root ignore line
 matched its bare name at any depth, reproduced with a one-line `.gitignore` over a copy of
-`path@core@tests/projects/minimal/` and recorded as a defect before the reversal; a nested
+`path@check@tests/projects/minimal/` and recorded as a defect before the reversal; a nested
 `.gitignore` was not honoured at all, so a project needing one had to declare the path in the
 manifest; and every pattern the matcher could not honour — a negation, `**`, `?`, a character class
 — had to be refused by name, because dropping an ignore rule makes the walk read more than it should
@@ -146,14 +146,14 @@ change would go stale on each one and fail the gate. It is answered by a command
 ### A last-change date in a file register's index `##index-last-change-date`
 
 `live`. It would let a reader take in what an instance holds without opening a file, which is the
-whole point of a listing. The date loses outright to `design@core@generated-files-are-pure`: the
+whole point of a listing. The date loses outright to `design@check@generated-files-are-pure`: the
 last change is git's, not the walked tree's, so a generator reading it would rewrite the file on a
 rebase and report a file stale that nobody had touched. It is answered by a command instead,
 `issues` for the dates.
 
 ### Refusing to load a manifest whose register declaration is wrong `##refusing-a-wrong-declaration`
 
-`live`. A declaration the tool cannot act on is a could-not-run by `design@core@exit-code-ladder`,
+`live`. A declaration the tool cannot act on is a could-not-run by `design@check@exit-code-ladder`,
 and exiting 2 is what a manifest the grammar cannot parse does, a key of `[project]` it does not
 know included. It loses for the case where the tool CAN act: a bad `dir` on a built-in has a
 compiled default to fall back on, so refusing the whole run would report nothing at all about the

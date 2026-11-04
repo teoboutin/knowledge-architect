@@ -38,7 +38,7 @@ pub type Frontmatter = Result<Vec<(String, String)>, String>;
 /// How a Rust file's string literals are read.
 ///
 /// Decided by the caller from where the file sits. The checker's own source is the one place
-/// whose every literal is a fixture, per `design@core@checker-source-literals-are-data`;
+/// whose every literal is a fixture, per `design@check@checker-source-literals-are-data`;
 /// everywhere else the grammar decides per literal, and `rs::BINDINGS` says how.
 #[derive(Clone, Copy, Debug, Default, PartialEq, Eq)]
 pub enum Literals {

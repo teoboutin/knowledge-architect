@@ -9,7 +9,7 @@
 //! from a prefix, and three recorded defects came out of the guesses.
 //!
 //! **Rule numbers are not observed here.** An extension that reads them scans the same prose
-//! itself, per `design@core@an-extension-builds-its-own-model`. References are recorded
+//! itself, per `design@check@an-extension-builds-its-own-model`. References are recorded
 //! inside backticks, since the grammar puts them there, and a fence leaves them live.
 //!
 //! **The scanner tokenizes references and does not resolve them.** A backticked span holding
@@ -798,7 +798,7 @@ mod tests {
     use super::*;
 
     // Every fixture below is written as the bytes it means. The checker reads no string
-    // literal of its own source, per `design@core@checker-source-literals-are-data`, so a rule
+    // literal of its own source, per `design@check@checker-source-literals-are-data`, so a rule
     // number, a marker, a slug or a path in one is data and not a claim.
 
     fn scan_md(text: &str) -> Vec<Observation> {
@@ -1542,7 +1542,7 @@ mod tests {
         );
     }
 
-    /// The claim, per `design@core@plain-word-lint`: a quotation silences its
+    /// The claim, per `design@check@plain-word-lint`: a quotation silences its
     /// own text and nothing past its paragraph. An id after an unclosed `"` in one paragraph is
     /// silent there and recorded in the next; an id inside a closed quotation is silent while the
     /// same id beside it on the line is recorded. Mutations checked: not ending the quotation at

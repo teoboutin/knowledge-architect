@@ -1,0 +1,40 @@
+[package]
+name = "knowledge-architect"
+readme = "CRATES-IO.md"
+description = "Keeps the design record of a project's documentation consistent with its code: the walk, the entity table, references, registers and generated indexes."
+version.workspace = true
+edition.workspace = true
+license.workspace = true
+repository.workspace = true
+keywords.workspace = true
+# What the published package ships, as a whitelist: a new directory is shipped only once it is
+# listed here, so the test fixtures and the design documents never reach the package.
+include = ["/src/**", "/Cargo.toml", "/README.md", "/LICENSE-MIT", "/LICENSE-APACHE", "/CHANGELOG.md"]
+
+# The library is imported as `knowledge_architect`; the binary is `klarch`, short to type, as the
+# default command a project runs.
+[lib]
+path = "src/lib.rs"
+
+[[bin]]
+name = "klarch"
+path = "src/main.rs"
+
+[dependencies]
+# The core's commands are a library module, so a binary that registers an extension flattens
+# them into its own, per `design@check@the-core-cli-is-a-library-module`.
+clap = { version = "4", features = ["derive"] }
+regex = "1.13.1"
+serde = { version = "1", features = ["derive"] }
+# Reads the session transcripts Claude Code writes as JSON lines, for `transcript`.
+serde_json = "1"
+toml = "1.1.4"
+# Edits a hand-written manifest keeping its comments and layout, which `toml` drops when it
+# writes a value back: `new-component` appends to `[project] components` with it.
+toml_edit = "0.25"
+knowledge-architect-agent-skills = { path = "../agent-skills", version = "=0.9.0" }
+# Every git invocation, per `design@knowledge-architect@checker-asks-git-through-the-crate`; pinned exactly, as
+# every crate of the workspace carries one version, per `design@knowledge-architect@version-lockstep`.
+knowledge-architect-git = { path = "../git", version = "=0.9.0" }
+# What phases 1 to 3 read and what they build; pinned exactly, for the same reason.
+knowledge-architect-model = { path = "../model", version = "=0.9.0" }

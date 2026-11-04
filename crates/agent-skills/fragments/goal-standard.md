@@ -81,7 +81,7 @@ it.
    such as a review's finding, a retrospective's finding or what the owner observes in sessions, is
    not the measure: it shows the goal unmet in practice where what is built fails it, and leads to a
    change of what is built.
-%% The citation rule is `design@core@goals-home-cites-upward-only`, which the checker enforces.
+%% The citation rule is `design@check@goals-home-cites-upward-only`, which the checker enforces.
 7. **A refinement neither widens nor contradicts the goal it refines, and a goal cites only goals
    and registers of its own Component, or, in a location's goals home, of that location, or of a
    Component enclosing it.** This holds for the home's head too, and the checker reports any other

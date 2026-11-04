@@ -1,0 +1,29 @@
+# WHAT THIS MOCK EXERCISES, for the core binary: detection. Its documents are wrong on purpose,
+# one planted defect per core check of the last phase, and a test asserts the findings
+# themselves rather than merely that something failed. Every core check owes a row in
+# `PLANTED` in `path@check@src/mock_projects.rs`, so a new defect goes here and its count
+# goes there.
+
+[project]
+# A mock project inside the core's directory, which the binary built here confirms.
+checker-version = "fixture"
+name = "planted"
+# One component below the root, carrying every document and every register home.
+components = ["parts/widget"]
+
+# A location carrying its issue directory; the one whose directory is not there is planted
+# in the `unsound` project.
+[locations.agent-config]
+path = "agent-config"
+registers = ["issue"]
+
+[walk]
+# Not a git repository, so there is no `.git` to skip and none is declared.
+skip-dirs = []
+skip-files = []
+exclude = []
+
+# This mock installs nothing. The shipped set changes with every version of the skills, and a
+# fixture that held its installed copy would change with them.
+[agents]
+harness = []

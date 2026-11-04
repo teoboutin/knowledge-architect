@@ -34,7 +34,7 @@ shipped text no longer meets the case.
 
 Not established: whether the empty-head case was a decision taken with the retired `@` escape and
 never written into the head, or code that outlived the escape. `git log -S'the kind segment is
-empty' -- crates/core/src/entity.rs` names only the change that restructured the imported checker
+empty' -- crates/check/src/entity.rs` names only the change that restructured the imported checker
 into this workspace, so the case came from the project the checker was imported from.
 
 ### Why it matters

@@ -12,7 +12,7 @@ assertions, because a foreign layout may spell anything. One assertion runs agai
 target that DOES resolve here, read from every place the unanchored finding reads a path from, the
 root, an anchor's directory or the document's own, is a finding — without it, the escape is the
 cheap way to silence the unanchored finding on a real path. The finding names the form at the
-deepest anchor that holds the target, per `design@core@every-path-names-its-anchor`.
+deepest anchor that holds the target, per `design@check@every-path-names-its-anchor`.
 
 **A file of another project is written with that project's name as its first segment**, as
 `path@elsewhere@<project>/<path>`, and the refusal's repair names that form. A foreign file often
@@ -51,7 +51,7 @@ The designs this decision did not keep: `rejected@model@at-prefix-escape` and
 resolves it against the anchors, which the table's module holds, and asks nothing of the tree,
 since a missing home is the tree check's finding; `show` reads the tree's listing to print the
 home it holds. No register's name becomes an entity id, so a register's name in backticks with a
-hash sign before it stays silent under `design@core@retired-slug-reference-reported`.
+hash sign before it stays silent under `design@check@retired-slug-reference-reported`.
 
 - **The anchor** is a component, a declared location or the anchor `plans`, where it carries the
   register; `*` names every component's own home of a component-scoped register, per
@@ -61,13 +61,13 @@ hash sign before it stays silent under `design@core@retired-slug-reference-repor
   `design@model@plan-document-kinds` and `design@model@declarable-directory-register`.
 - **The id** is a register's name, built in or declared. An item register is no id of the form:
   its home is a plan's own documents, cited by the plan document's kind.
-- **Each refusal names the form that resolves**, per `design@core@finding-names-the-repair`.
+- **Each refusal names the form that resolves**, per `design@check@finding-names-the-repair`.
 - **`show`** prints the home the tree holds, the file or the directory, with the register's shape,
   then every site that cites it, a citation of a component's home through `*` included.
 
-**The kind exists because a home has two shapes**, per `design@core@heading-register-two-shapes`.
+**The kind exists because a home has two shapes**, per `design@check@heading-register-two-shapes`.
 A `path` names one of them, so a home that outgrows one file dangles every `path` to it, against
-`goal@core@relocation-needs-only-goal-changes`, and a text that must hold in every project names both
+`goal@check@relocation-needs-only-goal-changes`, and a text that must hold in every project names both
 shapes, per `goal@agent-skills@installed-text-works-in-every-target-project`. This reference names the register and lets the manifest and the tree say which shape it is.
 The nearest rival is a `path` that resolves to either shape; it loses on
 `design@model@trailing-slash-claims-directory`, since a path claims its target's kind, and a path
@@ -78,7 +78,7 @@ rival word, `home`, matched the documents' phrase "design home" better and cost 
 an anchor name. A kind's name is refused for every anchor, per
 `design@model@kind-names-refused-as-anchors`, and for a declared register, per
 `design@model@registers-are-declared`. The cost the form keeps: a reader outside the tool does not
-see the file a reference names, which `issue@core@the-documents-do-not-render-as-a-site` would turn
+see the file a reference names, which `issue@check@the-documents-do-not-render-as-a-site` would turn
 into a link.
 
 The designs this decision did not keep: `rejected@model@home-kind-word` and
@@ -87,7 +87,7 @@ The designs this decision did not keep: `rejected@model@home-kind-word` and
 ### A `path` reference whose target is a register's home is a finding, whose repair names the `register` form `##path-to-a-home-is-reported`
 
 A home target is a heading register's file, its directory, or that directory's `README.md`, which
-is the home's head per `design@core@heading-register-two-shapes`; a file register's directory; a
+is the home's head per `design@check@heading-register-two-shapes`; a file register's directory; a
 Directory register's directory. A file register's `README.md` and generated `index.md`, a
 subdocument and an entry are files inside a home, and stay `path` targets. **An entry's directory
 and its `README.md` are no home target**: they are the entry, and a `path` to either is a finding
@@ -106,7 +106,7 @@ whose repair names the entry's reference, `<register>@<parent>@<id>`, per
 
 **Both forms legal** loses to this finding: a writer keeps writing the `path`, and a home that
 changes shape then dangles every one of them, which `design@model@register-home-reference` exists to
-prevent, against `goal@core@relocation-needs-only-goal-changes`. The finding repairs nothing by itself:
+prevent, against `goal@check@relocation-needs-only-goal-changes`. The finding repairs nothing by itself:
 no fix of `check --fix` respells it.
 
 The design this decision did not keep: `rejected@model@path-to-home-beside-register-form`.

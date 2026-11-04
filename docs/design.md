@@ -7,7 +7,7 @@ cited as `design@knowledge-architect@<slug>`. The designs the project did not ke
 these decisions serve are `register@knowledge-architect@goal`.
 
 **What belongs here:** a decision that survives deleting any one component. How the checker works is
-`register@core@design`; how the gates run is `register@gates@design`, and this repository's own
+`register@check@design`; how the gates run is `register@gates@design`, and this repository's own
 gates `register@xtask@design`; how the agent skills are shaped is `register@agent-skills@design`.
 
 ## 1. Layout and packaging
@@ -18,8 +18,8 @@ A Component is named by the basename of its directory, and the project root by t
 per `design@model@components-carry-the-same-documents`, so a directory named `knowledge-architect`
 would collide with the root: a run over a scratch project
 laid out that way stopped in phase 1, reporting that the name "names 2 anchors". So a published
-crate may sit in a directory named by what it does rather than by its package, crates/core for the
-package knowledge-architect, and a future split of the core follows the same rule, as crates/core
+crate may sit in a directory named by what it does rather than by its package, crates/check for the
+package knowledge-architect, and a future split of the core follows the same rule, as crates/check
 and crates/cli. The cost: a reference says `core` where cargo says `-p knowledge-architect`.
 
 The design this decision did not keep:
@@ -44,11 +44,11 @@ The design this decision did not keep: `rejected@knowledge-architect@single-publ
 
 The library code of the core and of `model` starts no git process of its own: every question either
 asks git is a function of the `git` crate, called by the code that gathers what a run reads or prints a
-listing, never by a check, per `design@core@model-then-checks`. So the set of things the checker
+listing, never by a check, per `design@check@model-then-checks`. So the set of things the checker
 asks git is the crate's, auditable in one read per `design@git@git-is-asked-through-one-module`,
 and the environment the crate sets, `design@git@repository-variables-dropped` and
 `design@git@index-file-variable-kept`, reaches every question the checker's verdict depends on,
-which `goal@core@documents-stay-current` needs. A test of the checker may run git itself to build
+which `goal@check@documents-stay-current` needs. A test of the checker may run git itself to build
 its fixture.
 
 ### What a run reads of a project is a crate of its own, which the checks depend on `##model-crate`
@@ -66,7 +66,7 @@ source, some touched the model's files alone and some the checks alone, as the c
 milestone document that the commit "[review] Repairs of the review of the plan documents of the
 Component split and of the rules that cut it" writes takes again. It serves
 `goal@model@a-tool-reads-the-documents-with-no-check`, `goal@model@a-tool-knows-the-read-is-right` and
-`goal@core@documents-render-as-a-linked-site`. The nearest rival
+`goal@check@documents-render-as-a-linked-site`. The nearest rival
 is `rejected@knowledge-architect@model-inside-the-checker`.
 
 ### Git is wrapped by a crate of its own, which the checker depends on, rather than by a module of the checker `##git-crate`
@@ -173,7 +173,7 @@ marketplace. One artifact has one version, so the installed workflow is always t
 project's pinned checker describes, per `design@knowledge-architect@version-lockstep`, and every
 project holds the version it pinned, whatever another project on the same machine uses. Whether
 the installed files match is checked like any other part of the tree, per
-`design@core@owned-namespace-check`, rather than warned about. A project installs one thing, with
+`design@check@owned-namespace-check`, rather than warned about. A project installs one thing, with
 one command, which serves `goal@knowledge-architect@every-target-project-can-adopt-it`.
 
 The design this decision did not keep:
@@ -187,7 +187,7 @@ The design this decision did not keep:
 skills of that exact version, and the core pins the agent-skills crate at it exactly. A project
 therefore never runs a checker whose installed skills describe another version's commands, since a
 binary of another version than its manifest pins refuses to run, per
-`design@core@installed-binary-version-check`, which
+`design@check@installed-binary-version-check`, which
 is what lets a project pin one version and move when it chooses, per
 `goal@knowledge-architect@every-target-project-can-adopt-it`. The gates library and the mutation library are in
 the same lockstep: the setup skill that recommends them is the same version's, so a project pins
@@ -234,7 +234,7 @@ a looser check is a patch.
   compile, which is worse than a new finding, so it is major. Under 0.x a library break and a
   stricter check therefore get the same version number, 0.MINOR, by the point above. The rule
   still keeps a library break out of a patch. Which changes to the library are
-  breaking is narrowed by `design@core@ne-minimal`. The gates library's API is a surface of the
+  breaking is narrowed by `design@check@ne-minimal`. The gates library's API is a surface of the
   same kind: a break there makes a project's maintenance binary fail to compile.
 - **The manifest test.** Under a minor release every manifest that was valid stays valid. Renaming
   a key is major, unless the old spelling stays accepted with a deprecation finding.
@@ -296,12 +296,12 @@ view; older sections allow structural changes, on the owner's word. So does writ
 bare name once the skill or the agent is deleted, since the reference then names nothing and the
 section's content cannot change. Why the bare name is no evasion is
 `design@agent-skills@plain-text-is-no-repair`, and the lint that reports a bare name
-`design@core@backticked-bare-id`.
+`design@check@backticked-bare-id`.
 
 **So is a defined id written alone or as a word, or a reference written without its backticks.**
 Writing it as its reference is the same structural change, so the lints on ids,
-`design@core@backticked-bare-id`, `design@core@plain-word-lint` and
-`design@core@reference-shape-outside-span`, read a released section as any other, past or future.
+`design@check@backticked-bare-id`, `design@check@plain-word-lint` and
+`design@check@reference-shape-outside-span`, read a released section as any other, past or future.
 Each finding they give in a released section is ruled by the owner case by case, on the owner's
 word.
 
@@ -431,7 +431,7 @@ a re-run cannot change.
   fold applies here is that this repository keeps rewriting its checker, so a repair that changes
   what it judges is no rare case.
 - **Every commit of a branch passes the check under the branch tip's checker**, as
-  `design@core@a-commit-message-is-a-document` decides. So work whose intermediate trees cannot
+  `design@check@a-commit-message-is-a-document` decides. So work whose intermediate trees cannot
   pass lands as one commit, squashed before review.
 - main accepts no direct push. A GitHub ruleset on main, with no bypass, the owner included,
   requires a pull request, the status check of CI on a branch up to date with main, and a linear
@@ -492,7 +492,7 @@ author, a new committer and new SHAs. A new probe re-takes it: merge such a pull
 compare `gh api repos/<owner>/<probe>/pulls/1/commits` with `gh api repos/<owner>/<probe>/commits`.
 So neither a commit message nor a document cites the SHA of a commit of its own branch: it names
 that commit by its subject. `commits` refuses such a citation, per
-`design@core@branch-shas-are-refused`, which this repository's manifest turns on.
+`design@check@branch-shas-are-refused`, which this repository's manifest turns on.
 
 ### A record carried by a commit message rides on a commit that changes a file `##a-record-rides-on-a-commit-that-changes-a-file`
 
@@ -547,7 +547,7 @@ checkout's build, from two review checkouts and one probe, and thaum's own issue
 whether that reviewer set the directory is not established. The tie is the prevention, and it holds
 whatever target directory the session sets. The separate directory stays an instruction of the
 review skill, for the rebuilds it saves and for the build lock two checkouts would otherwise wait
-on. `design@core@a-foreign-build-is-refused` stays the detector. The cost is a rebuild at each
+on. `design@check@a-foreign-build-is-refused` stays the detector. The cost is a rebuild at each
 switch between checkouts that share a target directory. A single checkout pays nothing.
 
 The design this decision did not keep:

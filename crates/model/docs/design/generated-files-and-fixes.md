@@ -8,7 +8,7 @@ The generated `index.md` of a file-register instance, in order:
 
 | line | content |
 | --- | --- |
-| 1 | `**Generated — do not edit.** \`<command> index\``, with the project's declared command, per `design@core@declared-command` |
+| 1 | `**Generated — do not edit.** \`<command> index\``, with the project's declared command, per `design@check@declared-command` |
 | 2 | blank |
 | 3 | `<n> entries`, over every entry of the instance, grouped or not, and `1 entry` where the instance holds one |
 | then | the ungrouped entries' table, under no heading |
@@ -30,7 +30,7 @@ listing cannot drift by a character without being named.
 **Rows only: no summary and no date.** A row changes on create, delete, retitle, regroup and a
 metadata change, and on nothing else, so an index is regenerated rarely. A summary column would
 restale it on every wording edit, and a date would break
-`design@core@generated-files-are-pure` outright. Both are `rejected@model@index-summary-column` and
+`design@check@generated-files-are-pure` outright. Both are `rejected@model@index-summary-column` and
 `rejected@model@index-last-change-date`.
 
 **A Directory register's index has the same bytes with one column before the title, `id`**: one
@@ -55,7 +55,7 @@ about what is in it. Each is derived from the file-register instances, one per i
 directory is there. **An extension's generated files are read the same way**: the extension
 names their paths before the walk and renders their bytes when prepared, and the writer and the
 gate both take them from those two calls, per
-`design@core@an-extension-plugs-in-through-phased-hooks`.
+`design@check@an-extension-plugs-in-through-phased-hooks`.
 
 **An instance with no directory contributes no index**: generating into it would create a register home as a side effect of a listing, and the
 missing home is what `tree` reports.
