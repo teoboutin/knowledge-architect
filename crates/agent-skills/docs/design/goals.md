@@ -15,7 +15,7 @@ expected to be unmet when it is written, per `design@agent-skills@goal-drafted-t
 ### A goal entry states an outcome and what would show it met, in a body with no bound on its length `##goal-entry-shape`
 
 A goal is a heading stating an outcome as a sentence, with its slug, at the level the core gives the
-goal register, per `design@core@an-entry-is-a-heading-at-the-register-level`, and a body saying what
+goal register, per `design@model@an-entry-is-a-heading-at-the-register-level`, and a body saying what
 it means and what would show it is met, with the cases of `design@agent-skills@goal-carries-reading-examples`.
 What it may state is the goal standard's, per `design@agent-skills@goal-standard-rules`; its first
 rule carries the outcome test, per `design@agent-skills@goal-outcome-survives-empty-skeleton`. The

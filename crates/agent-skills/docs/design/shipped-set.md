@@ -12,7 +12,7 @@ which the build inlines there, a line `{{fragment:<file>}}` stands for a file of
 `design@agent-skills@shipped-text-line-comments`, a delivery placeholder is a literal the build
 fills, and a placeholder `{{slug:<id>}}` ending a level-two heading is rendered into that heading's
 section slug, so content/ defines no section in this repository's walk and the installed copy does,
-per `design@core@installed-entities-from-the-tree`. A slug placeholder anywhere else fails the
+per `design@model@installed-entities-from-the-tree`. A slug placeholder anywhere else fails the
 build. A skill is `skills/<skill>/` with its files, an agent is `agents/<agent>.md`, a saved
 workflow of Claude Code's Workflow tool is `workflows/<workflow>.js`, and the primer is `PRIMER.md`;
 the build asserts a saved workflow's name, per
@@ -159,10 +159,10 @@ workflow's own upstream repository, where a retrospective's findings on the work
 only against the tree it stands in, and no tree but this one holds this repository's entries. A path
 or a home that every conforming project holds may be written as a reference: `path@*@README.md`
 names each Component's own copy of a required document, per
-`design@core@components-carry-the-same-documents`; `register@*@goal` names each Component's own
-goals home, in whichever shape it has, per `design@core@register-home-reference`; and
+`design@model@components-carry-the-same-documents`; `register@*@goal` names each Component's own
+goals home, in whichever shape it has, per `design@model@register-home-reference`; and
 `path@plans@README.md` and `register@plans@spec` name a file and a home of the one plans directory,
-whose path the checker fixes, per `design@core@plans-dir-fixed`. Each is true in every installing
+whose path the checker fixes, per `design@model@plans-dir-fixed`. Each is true in every installing
 project, and it shows the syntax the checker enforces there. Writing a per-Component path in that
 syntax is the owner's proposal: "it promotes the same kind of syntax as what the checker enforces in
 projects holding the installed skills". The same argument holds of the plans directory's paths and
@@ -173,7 +173,7 @@ install fills with the project's declared command, per `design@core@declared-com
 
 **The shipped set may cite its own skills, agents and primer, and their sections**, as
 `skill@<name>@<slug>` or `primer@<slug>`: every project serving `claude` holds them, installed, and
-they are defined from its installed copies, per `design@core@installed-entities-from-the-tree`. A
+they are defined from its installed copies, per `design@model@installed-entities-from-the-tree`. A
 test of the core holds every such reference to resolve within the shipped set. It never cites
 `instructions@<slug>`, whose slugs are each project's own.
 

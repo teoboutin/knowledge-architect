@@ -18,7 +18,7 @@ The changelog's Migration entry sends a consuming project to
 `skill@knowledge-architect-project-audit@design-record-axis`. This repository's heads that cite the
 owner's intent as their ground include `design@agent-skills@no-untested-snippet-is-authority`,
 whose ranking was confirmed under the removed entry test, and a head of
-`path@core@docs/design/anchors.md` whose ground reads "the owner's intent"; a search for "the owner's intent" and "on the
+`path@model@docs/design/anchors.md` whose ground reads "the owner's intent"; a search for "the owner's intent" and "on the
 owner's word" over the design homes lists the rest.
 
 ### Why it matters

@@ -219,7 +219,7 @@ impl Inbound {
 
     /// Every site that references the entity, in document and line order. A path's planned
     /// citations are among them: a conversion edits them once the file exists, so `show` on the
-    /// path lists them, per `design@core@planned-path-form`.
+    /// path lists them, per `design@model@planned-path-form`.
     pub fn of(&self, kind: &Kind, anchor: &str, id: &str) -> Vec<Site> {
         let id = if kind.takes_a_path() {
             id.trim_end_matches('/')
@@ -404,7 +404,7 @@ fn heading_at(doc: &Document, line: u32) -> Option<String> {
 
 /// A heading's text without the slug that ends it.
 ///
-/// The statement comes first and the slug last, per `design@core@statement-precedes-the-slug`, so
+/// The statement comes first and the slug last, per `design@model@statement-precedes-the-slug`, so
 /// the title is everything before the last backticked span opening with `##`.
 fn strip_slug(text: &str) -> String {
     let trimmed = text.trim_end();

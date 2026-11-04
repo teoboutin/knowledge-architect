@@ -60,7 +60,7 @@ split, with every site that cited it re-pointed.
 Two more, found by the decision-record reviewer of the review before the merge of the branch
 `pre-release-fixes`, which touched both and left both bundled; counts taken on that branch:
 
-- `design@core@reserved-anchors`, 10 citing sites. Its title is joined by "and" over the escape
+- `design@model@reserved-anchors`, 10 citing sites. Its title is joined by "and" over the escape
   anchor and the generic anchor `*`, whose arguments share no premise, and its body holds a third
   statement with a rival of its own: a file of another project written with that project's name
   as its first segment, against a repair that names the local anchor alone.

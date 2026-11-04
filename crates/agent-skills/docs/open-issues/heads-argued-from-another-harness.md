@@ -26,10 +26,10 @@ The instances, found by the review before the merge of the branch that narrowed 
   its reasons;
 - `rejected@agent-skills@head-rules-in-decision-recording`, kept because "another agent provider
   may not load the primer"; `rejected@core@session-start-hook-primer`, kept because "another
-  context or harness might not follow it"; `rejected@core@agent-configuration-anchor`, whose second
+  context or harness might not follow it"; `rejected@model@agent-configuration-anchor`, whose second
   reason is a skill served to two harnesses;
-- the `instructions` bullet of the reference-lints head on the harness kinds, in
-  `path@core@docs/design/reference-lints.md`, which names a second harness.
+- the `instructions` bullet of `design@model@harness-kinds-cited-without-anchor`, which names a
+  second harness.
 
 Mechanism, in one sentence: these were argued while no goal named one harness, and the batch that
 made `claude` an ask re-pointed their references without arguing them again.

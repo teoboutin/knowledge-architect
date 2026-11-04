@@ -14,8 +14,8 @@ start, and only a reviewer reading by hand found them.
 
 ### What
 
-- `design@core@section-homes-carry-slugs` gives every level-two heading of a skill, an agent, the
-  primer and the root `CLAUDE.md` a slug, and `design@core@harness-kinds-cited-without-anchor`
+- `design@model@section-homes-carry-slugs` gives every level-two heading of a skill, an agent, the
+  primer and the root `CLAUDE.md` a slug, and `design@model@harness-kinds-cited-without-anchor`
   cites them, as `skill@<name>@<slug>`. A level-three heading carries no slug, and a numbered point
   of a list carries none.
 - Citations in words in the installed text, for example: "conditions 1, 3 and 4" of the tripwire
@@ -24,20 +24,20 @@ start, and only a reviewer reading by hand found them.
 - The case, this repository's agent-configuration-entities milestone: three citations in words
   went stale or were wrong from the start; a fidelity reviewer reading by hand found them.
 - The core's rejected design on register entries at level three,
-  `rejected@core@slug-at-any-heading-or-cell`, concerns defining entries, not citing sections.
+  `rejected@model@slug-at-any-heading-or-cell`, concerns defining entries, not citing sections.
 
 The suspected mechanism, in one sentence: the citable unit is the level-two section, and the
 installed text argues and cross-refers at the level of a point inside one.
 
-Re-entry point: the next change to `design@core@harness-kinds-cited-without-anchor` or to
-`design@core@section-homes-carry-slugs`, or earlier on the owner's word.
+Re-entry point: the next change to `design@model@harness-kinds-cited-without-anchor` or to
+`design@model@section-homes-carry-slugs`, or earlier on the owner's word.
 
 ### Why it matters
 
 A citation of a numbered point is a pointer `cargo klarch show` does not list and `check` does not
 judge, so renumbering a list or moving a test silently falsifies every citation of it, against
 `goal@knowledge-architect@design-is-recorded-with-its-arguments`. A new form changes
-`design@core@harness-kinds-cited-without-anchor` or `design@core@section-homes-carry-slugs`.
+`design@model@harness-kinds-cited-without-anchor` or `design@model@section-homes-carry-slugs`.
 
 ### What would close it
 

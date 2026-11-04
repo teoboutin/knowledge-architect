@@ -1,15 +1,11 @@
 **Generated — do not edit.** `cargo klarch index`
 
-46 entries
+36 entries
 
 | kind | title |
 | --- | --- |
 | defect | [A forked subagent's transcript opens with a line of type `fork-context-ref`, which `klarch transcript` counts as unrecognised](a-forked-subagent-s-first-line-is-an-unrecognised-type.md) |
-| defect | [A heading-shaped line that markdown reads as no heading still defines an entry](a-heading-line-markdown-renders-as-no-heading-defines-an-entry.md) |
-| defect | [A reference whose id carries a line suffix or a fragment is told to define its entry or repair its pointer, not to drop the suffix](a-reference-with-a-line-or-fragment-suffix-names-a-wrong-repair.md) |
 | defect | [A finding on a slug written in a retired or a misplaced form names a repair blind to what the slug resolves to](a-slug-finding-names-a-repair-blind-to-what-the-slug-resolves-to.md) |
-| defect | [A backticked span whose head shortens a kind's name, as `arg@<plan>@<id>` for `argument`, passes the check silent](a-span-whose-head-shortens-a-kind-passes-the-check-silent.md) |
-| defect | [A backticked span with an empty head and a slash is reported as malformed, which the candidate rule says is silent](a-span-with-an-empty-head-is-malformed-against-its-head.md) |
 | defect | [In a project that builds the checker from its own tree, `check --staged` compares the staged installed files with unstaged shipped text](a-staged-check-compares-installed-files-with-unstaged-shipped-text.md) |
 | defect | [Some findings of the reference check in a goals home still name a reference form refused there](some-findings-in-a-goals-home-name-a-form-refused-there.md) |
 | defect | [The head on `index` credits the missing-directory refusal with a claim that the refusal does not hold](the-missing-directory-refusal-does-not-hold-the-no-loss-claim.md) |
@@ -26,10 +22,7 @@
 | design | [No checked form cites a level-three subsection or a numbered point inside a section of a skill, an agent or the primer](no-checked-form-cites-a-point-inside-a-section.md) |
 | design | [A command the owner ran with the `!` prefix is unlabelled in a transcript](owner-shell-commands-are-unlabelled.md) |
 | observation | [A lint written twice on one line of a message is reported once or twice, by which tree holds it](a-message-lint-is-deduplicated-in-one-tree-only.md) |
-| observation | [Plain `check` under a sparse checkout reports every file outside the cone as an unstaged deletion](check-under-a-sparse-checkout-reports-every-file-outside-the-cone.md) |
-| question | [The refusal of a kind's name as an anchor quotes a reason the root forbids](a-kind-name-refusal-quotes-a-future-migration-reason.md) |
 | question | [A project's own saved workflow can declare the name of an installed one, and nothing reports it](a-project-workflow-can-declare-an-installed-workflow-s-name.md) |
-| question | [A reference to an anchor's own directory breaks when the anchor moves, which the relocation goal says no move does](a-reference-to-an-anchor-s-own-directory-breaks-when-the-anchor-moves.md) |
 | question | [An empty list of agent harnesses serves a project that uses the checker alone, which no longer follows an ask](an-empty-harness-list-serves-a-state-that-follows-no-ask.md) |
 | question | [An extension reads its manifest table as a `toml::Value`, so the core's toml version is part of the public API](manifest-table-exposes-the-toml-crate.md) |
 | todo | [A register home that `new-component` writes says "No entry yet." after its first entry lands, and nothing reports it](a-new-register-home-still-says-no-entry-yet-after-its-first-entry.md) |
@@ -41,12 +34,9 @@
 | todo | [No command lists the item and label numbers in use in a plan, its deleted documents included](no-command-lists-the-numbers-in-use-in-a-plan-across-its-history.md) |
 | todo | [No command lists the texts that cite any of a set of entries, nor names the entry that holds each citation](no-command-lists-the-standing-entries-citing-a-set-of-entries.md) |
 | todo | [No command searches the record's entries by keywords, and no command lists the mechanical work of an audit's method](no-command-searches-the-entries-or-lists-an-audit-s-work.md) |
-| todo | [References are read in Markdown and Rust files only](references-are-read-in-markdown-and-rust-only.md) |
 | todo | [`show` on a register home in the directory shape prints its path and not its subdocuments](show-lists-no-subdocument-of-a-directory-home.md) |
 | todo | [Texts that cite the relocation goal still state its old measure, one manifest edit](texts-citing-the-relocation-goal-state-its-old-measure.md) |
 | todo | [The core's goals home states a purpose that leaves its goal on a rendered site outside it](the-core-s-purpose-leaves-the-rendered-site-outside-it.md) |
 | todo | [The documents do not yet render as one linked site](the-documents-do-not-render-as-a-site.md) |
 | todo | [The graded entries carry a shared entry's grade once per agent](the-graded-entries-repeat-a-shared-entry-s-grade-per-agent.md) |
-| todo | [The walk does not report the untracked files git's per-clone exclude file removes from it](the-walk-does-not-report-what-the-per-clone-exclude-file-removes.md) |
-| todo | [A row of `\[walk\]` may keep out a file the model requires, and only one such case is reported](the-walk-may-exclude-a-file-the-model-requires.md) |
 | todo | [The checker does not read the structure of a project's own skills](tooling-for-project-skills.md) |

@@ -222,7 +222,7 @@ sections is an item, and a slug anywhere else in a plan document defines nothing
 
 %% Arguments are never harvested as entries, so a content slug would cost a name for each of dozens
 %% of statements, for nothing; the numbers are assigned at assembly, and the discussion mints none.
-%% A milestone's README and its slice specs share one namespace, per `design@core@plan-items-by-section`.
+%% A milestone's README and its slice specs share one namespace, per `design@model@plan-items-by-section`.
 - An id is in the grammar `[a-z0-9]+(-[a-z0-9]+)+`. A thread keeps the slug the discussion minted.
   An argument is numbered `arg-1`, `arg-2`, …, in order of appearance and never reused, in one sequence
   across a milestone's README and its slice specs, which share one namespace.

@@ -153,8 +153,8 @@ the project's policy on publishing; it never sets it.
 %% `design@knowledge-architect@no-component-directory-named-after-the-project`, whose rival, a
 %% directory named after its package, is `rejected@knowledge-architect@crate-directory-named-after-project`;
 %% the prefix is the owner's recommendation, for short anchors in references; the refusals are
-%% `design@core@anchor-names-unique`, `design@core@kind-names-refused-as-anchors` and
-%% `design@core@reserved-anchors`, and the basename sentence is stated before any finding can show,
+%% `design@model@anchor-names-unique`, `design@model@kind-names-refused-as-anchors` and
+%% `design@model@reserved-anchors`, and the basename sentence is stated before any finding can show,
 %% on the owner's word to forbid it and document it.
 Name a Component before its directory is created:
 

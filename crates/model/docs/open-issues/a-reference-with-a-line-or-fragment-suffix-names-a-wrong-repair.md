@@ -18,7 +18,7 @@ says the target does not resolve while the file exists.
 Established by reading the code at the commit "The project audit counts convergence on old text,
 checks each repair against the record, and commits each pass's report file", and by a run of the
 binary built from that commit, made by the L7 draft of the sixth pass of the agentic-workflow
-audit. All four sites are in `path@core@src/check/references.rs`:
+audit. All four sites were in one file, and each now writes its repair at `path@model@src/resolver.rs` or `path@core@src/check/references.rs`:
 
 - the `Observation::UnanchoredPath` arm appends ". A reference names a file: drop the line number
   or the fragment, and name the function or the heading in prose" when the span holds a `:` or a
@@ -66,7 +66,7 @@ sixth pass, F121.
 
 ### Why it matters
 
-`design@core@an-unresolved-reference-is-reported` gives each way a reference resolves to nothing
+`design@model@an-unresolved-reference-is-reported` gives each way a reference resolves to nothing
 the repair it needs, and `design@core@finding-names-the-repair` names each cause with its repair
 where the repair depends on the cause: an undefined id and an id carrying a suffix need different
 repairs. A session that writes evidence with a location, as an analysis under
@@ -85,7 +85,7 @@ function or the heading in prose. The exact suffix shapes follow the boundary th
 of its three repairs, `path`) over a mock project where the entry or the file exists and only the
 suffix fails.
 
-The fix adds a case beside the five ways `design@core@an-unresolved-reference-is-reported` counts,
+The fix adds a case beside the five ways `design@model@an-unresolved-reference-is-reported` counts,
 a member its argument covers, so the same change records it in that head's body.
 `spec@plans@path-quickfixes` changes the repairs of the same findings in the same file and decides
 that a span with a line suffix or a fragment is not respelled; whichever lands second reads the

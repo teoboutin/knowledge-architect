@@ -20,7 +20,7 @@ Reproduced by the adversarial review of the change that ships the audit's script
 workflow: in a worktree of this repository, a tracked `path@elsewhere@.claude/workflows/mine.js` declaring that
 name, then `cargo klarch check`, which exited 0 with `PASSED: no findings`. For an agent, the
 counterpart is held: a frontmatter `name` equals the file's name, per
-`design@core@harness-entity-names`. The build already holds an installed workflow's declared name
+`design@model@harness-entity-names`. The build already holds an installed workflow's declared name
 equal to its file's stem, `check_workflow_name` in `path@agent-skills@src/render.rs`; nothing holds
 a project's own workflow away from the installer's names.
 

@@ -12,7 +12,7 @@ reference form, `<kind>@<anchor>@<id>`, and two mechanisms of the
 checker give a reference its value. `cargo klarch show <ref>` prints every reference to an entry,
 so what depends on an entry is computed from the tree and never written by hand. An entry that is
 deleted or renamed dangles every reference to it, and `cargo klarch check` reports each one, per
-`design@core@an-unresolved-reference-is-reported`, so the repair list a change produces is the
+`design@model@an-unresolved-reference-is-reported`, so the repair list a change produces is the
 list of texts that depended on what changed. A reference is
 therefore a claim of dependence: this text is to be revisited when that entry is reversed, closed,
 fired, abandoned or renamed.
@@ -37,7 +37,7 @@ hand-written one is stale at the next reference written elsewhere.
 
 **A reference in prose is checked wherever it stands**, a Rust comment and a fenced block
 included; a string literal bound to a name yields none, per
-`design@core@a-reference-is-live-in-every-prose`. So a comment in code naming an issue is
+`design@model@a-reference-is-live-in-every-prose`. So a comment in code naming an issue is
 as live as a sentence in a document, and closing the issue reaches the code. This serves
 `goal@knowledge-architect@design-is-recorded-with-its-arguments`.
 
@@ -62,7 +62,7 @@ the checker does not read, and the workflow never directs a pointer into it to c
 no finding's repair, and no installed or project instruction, offers an unchecked form as the way
 to clear a finding. A repair names a checked form: the right anchor, `path@elsewhere@<path>` for a path this
 tree does not hold, `planned@<anchor>@<path>` in a plan document for a path its work will create,
-per `design@core@planned-path-form`, an angle-bracket placeholder for an illustration, or a
+per `design@model@planned-path-form`, an angle-bracket placeholder for an illustration, or a
 rewrite of the sentence.
 One exception is text in the checker's syntax that no checked form expresses, written without
 backticks beside a reference to the issue entry that records the missing form. The check reads it:
@@ -86,7 +86,7 @@ never free. `cargo klarch show` on the entry lists every site, and closing it, o
 ships and the sites are converted, dangles each one, so the conversion list is computed. Plain text
 justified in a commit message alone lost: nothing finds the site again, and nothing revisits it
 when the form ships. A generic checked opt-out marker lost too: one marker fits every finding, so
-it becomes the cheap silence `design@core@reserved-anchors` refuses, while a gap concrete enough to
+it becomes the cheap silence `design@model@reserved-anchors` refuses, while a gap concrete enough to
 name is closed by shipping its own form.
 
 The scope is the checker's syntax, the owner's proposal: the rule was meant for plain text that
@@ -101,7 +101,7 @@ whether a phrase names something cannot be decided span by span.
 
 A commit named by its subject, as `design@knowledge-architect@no-branch-sha-is-cited` directs for a commit of the
 branch, is outside the exception. It names history as git names it. A reference resolves against the
-entities of a tree, per `design@core@one-entity-table`, and a commit is none of them; the one
+entities of a tree, per `design@model@one-entity-table`, and a commit is none of them; the one
 citation of a commit the checker judges is a branch commit's SHA, which
 `design@core@branch-shas-are-refused` refuses.
 
@@ -136,7 +136,7 @@ The full reference with its backticks removed is the evasion this head refuses. 
 plain text, the owner's first proposal, gave way to the owner's choice of the backticked slug. A
 description in words, the form the audit report's issue proposed, the owner judged confusing to
 every reader. A
-checked form for an entry still to be created, as `design@core@planned-path-form` is for a path,
+checked form for an entry still to be created, as `design@model@planned-path-form` is for a path,
 lost too: a plan document and a committed file leave with or before the branch that creates the
 entry, so such a check would fire on a file about to be deleted; a commit message is judged against
 its own commit's tree, where the check would assert only that the entry is absent, which nothing
@@ -157,11 +157,11 @@ The argument: an unchecked form that clears a finding clears it for good, so a h
 empties the check while every run still passes, against
 `goal@knowledge-architect@documentation-stays-consistent`. Two narrower stances of the checker
 make the same argument: `design@core@the-regime-has-no-opt-out`, where no declaration exempts a
-document from a rule, and `design@core@reserved-anchors`, where the escape anchor is refused on a
+document from a rule, and `design@model@reserved-anchors`, where the escape anchor is refused on a
 path this tree holds, since it would otherwise silence the finding on a real path.
 
 A label beside a checked pointer is not such a form. A plan item named outside its plan as #<id>
 stands beside a citation of the whole plan, because an item reference is refused there, per
-`design@core@plan-item-scope`.
+`design@model@plan-item-scope`.
 
 The design this decision did not keep: `rejected@agent-skills@checked-commit-form-by-subject`.

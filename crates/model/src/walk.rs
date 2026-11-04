@@ -17,7 +17,7 @@ use crate::manifest::Walk;
 ///
 /// `listing` is git's live listing, project-relative: every tracked file, plus every untracked
 /// file the ignore rules do not cover. A tracked file is in it whatever the ignore rules say,
-/// per `design@core@git-supplies-the-walk`, so no ignore line can remove a live document from the
+/// per `design@model@git-supplies-the-walk`, so no ignore line can remove a live document from the
 /// walk. What this function removes on top of that is the manifest's `skip-dirs`, `skip-files`
 /// and `exclude`, the suffixes the tool cannot parse, and the paths in `generated`.
 ///
@@ -58,7 +58,7 @@ pub(crate) fn refused(rel: &Path) -> bool {
 /// `<>:"|?*\`, a control character below the space, a trailing space or period, or a Windows
 /// device name — `CON`, `PRN`, `AUX`, `NUL`, `COM0` to `COM9` and `LPT0` to `LPT9`, with the
 /// superscript digits `¹²³` as well — in any case and whatever follows its first period. A line
-/// break is named first. The grounds are `design@core@unportable-names-refused`. The file is
+/// break is named first. The grounds are `design@model@unportable-names-refused`. The file is
 /// not read, and the caller reports it once by name; `skip-files` or an ignore rule is how a
 /// project keeps one deliberately. A name that is not UTF-8 is judged on the bytes it has.
 pub(crate) fn refusal(rel: &Path) -> Option<String> {
@@ -123,7 +123,7 @@ pub fn skipped(rel: &Path, walk: &Walk) -> bool {
 /// project; which of them this tool knows how to parse is a fact about this tool, and only
 /// the second decides what may be walked. A project free to declare its own set would be
 /// conformant with whatever it declared — `suffixes = []` passes every citation check — which
-/// is the same argument `design@core@components-carry-the-same-documents` makes about the document set.
+/// is the same argument `design@model@components-carry-the-same-documents` makes about the document set.
 ///
 /// A file outside the walk is not lost to every check by narrowing it: the survey hands each one,
 /// with its text, to the checks as `Inputs::outside`, so an extension can assert the inverse —

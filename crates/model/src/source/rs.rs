@@ -482,7 +482,7 @@ fn runs(comments: Vec<CommentLine>) -> Vec<Prose> {
                 text: c.text,
                 lines: vec![c.first],
                 // A source file is not a decision's home, so a slug written in one defines
-                // nothing. `design@core@an-entity-belongs-to-its-anchor` puts that home in a component's
+                // nothing. `design@model@an-entity-belongs-to-its-anchor` puts that home in a component's
                 // design document.
                 structural: false,
                 code: Vec::new(),

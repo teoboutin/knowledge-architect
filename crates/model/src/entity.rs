@@ -3,14 +3,14 @@
 //! An entity has a **kind**, an **anchor**, an **id** and a **definition site**. The table is
 //! built once from the model, and a reference `` `<kind>@<anchor>@<id>` `` is resolved against
 //! it. Before this table five checks held five notions of a name; the argument is
-//! `design@core@one-entity-table`.
+//! `design@model@one-entity-table`.
 //!
 //! **A kind is a register's name, `path`, `planned`, `register`, or, under the `claude` harness,
 //! one of the four harness kinds.** Eleven registers are compiled in and a project declares the rest, so the
 //! kind set is data rather than an enum — `path@model@src/manifest.rs` owns what a register is,
 //! and this module owns what naming one means. A harness kind, `skill`, `agent`, `primer` or
 //! `instructions`, is no register: no anchor carries it, and a reference to one names no anchor,
-//! since the harness fixes where each lives, per `design@core@harness-kinds`.
+//! since the harness fixes where each lives, per `design@model@harness-kinds`.
 //!
 //! **An anchor is a named directory, or a spec file, that carries registers.** A component carries every
 //! component-scoped register with its homes under `docs/`; a location carries the subset it
@@ -44,11 +44,11 @@ use crate::scan::{Observation, SlugSite};
 pub(crate) const PATH_KIND: &str = "path";
 
 /// The kind of a path a plan's work will create: anchored like `path`, and asserted absent, per
-/// `design@core@planned-path-form`.
+/// `design@model@planned-path-form`.
 pub(crate) const PLANNED_KIND: &str = "planned";
 
 /// The kind naming a register's home, `register@<anchor>@<register>`: resolved against the
-/// anchors, never as an entry of the table, per `design@core@register-home-reference`, so no
+/// anchors, never as an entry of the table, per `design@model@register-home-reference`, so no
 /// register's name becomes an entity id.
 pub const REGISTER_KIND: &str = "register";
 
@@ -160,7 +160,7 @@ pub(crate) fn is_reserved_anchor(word: &str) -> bool {
 /// No anchor may wear one. The head of a reference is asked for a kind before an anchor, so an
 /// anchor named like a kind would be shadowed there, so every such name is refused for anything
 /// that can be an anchor, a Component, a location or a plan, per
-/// `design@core@kind-names-refused-as-anchors`.
+/// `design@model@kind-names-refused-as-anchors`.
 pub(crate) fn is_kind_name(word: &str, registers: &Registers) -> bool {
     word == PATH_KIND
         || word == PLANNED_KIND
@@ -442,7 +442,7 @@ impl Anchors {
     /// **`paths` is the tree's listing**, files and directories or files alone: the entry and
     /// spec anchors are read off it, so every caller that builds the anchors of a tree hands in
     /// that tree's own paths, a commit's included. An entry whose name `placed_entries`
-    /// refuses is no anchor, and `check::tree` reports it.
+    /// refuses is no anchor, and `tree` reports it.
     pub fn of<'a>(manifest: &Manifest, paths: impl IntoIterator<Item = &'a PathBuf>) -> Self {
         let registers = manifest.registers().clone();
         let mut list: Vec<Anchor> = manifest
@@ -459,8 +459,8 @@ impl Anchors {
             list.push(Anchor::plans());
         }
         // Every entry of every Directory register, a milestone first, in the order that decides
-        // which of two entries of one name is the anchor; a refused one is `check::tree`'s
-        // finding, per `design@core@a-placed-name-reads-as-nothing-else`.
+        // which of two entries of one name is the anchor; a refused one is `tree`'s
+        // finding, per `design@model@a-placed-name-reads-as-nothing-else`.
         let placed = placed_entries(manifest, &paths);
         for entry in placed.iter().filter(|e| e.refusal.is_none()) {
             if let Some(register) = registers.by_name(&entry.register) {
@@ -654,7 +654,7 @@ impl Anchors {
     /// The compiled-in document set, and a file register's README and generated index, which are
     /// files inside a home rather than the home. A register's home itself is no `path` target at
     /// all: [`Anchors::generic_home_target`] answers for it first, and the reference names it by
-    /// the `register` kind, per `design@core@reserved-anchors`.
+    /// the `register` kind, per `design@model@reserved-anchors`.
     pub(crate) fn required_kind(&self, path: &str) -> Option<bool> {
         if COMPONENT_DOCUMENTS.contains(&path) {
             return Some(false);
@@ -726,7 +726,7 @@ pub(crate) struct PlacedEntry {
 
 /// Every entry of every Directory register the tree places, in the order that decides which of
 /// two of one name is the anchor: the milestones first, then the declared Directory registers by
-/// name, each register's entries by path, per `design@core@a-placed-name-reads-as-nothing-else`.
+/// name, each register's entries by path, per `design@model@a-placed-name-reads-as-nothing-else`.
 ///
 /// A name is refused by [`entry_refusal`], or because an earlier entry or a spec already holds
 /// it: one name gives one anchor, and an entry and a spec are both anchors the tree places.
@@ -814,7 +814,7 @@ pub(crate) fn placed_entries(manifest: &Manifest, paths: &[&PathBuf]) -> Vec<Pla
 /// Each directory directly under the milestones home that holds a `README.md`, by basename:
 /// the milestone anchors a tree places, before [`milestone_refusal`] judges their names.
 ///
-/// A directory with no `README.md` is no milestone, and `check::tree` reports it. So is one
+/// A directory with no `README.md` is no milestone, and `tree` reports it. So is one
 /// whose `README.md` is a directory: a listing of files and directories holds that path too,
 /// and a listing of files alone does not, so it is read off what sits under it. Every caller
 /// then builds the same anchors, whichever listing it holds.
@@ -898,7 +898,7 @@ pub(crate) fn spec_files<'a>(
 ///
 /// A milestone is cited `spec@<id>@<slice>` and `milestone@plans@<id>`, so its name is an entry
 /// id, of two segments or more, and it is no other anchor's name and no reserved word, or a reference would read as the
-/// other anchor, per `design@core@a-placed-name-reads-as-nothing-else`. Judged against the anchors the manifest
+/// other anchor, per `design@model@a-placed-name-reads-as-nothing-else`. Judged against the anchors the manifest
 /// accepted.
 pub(crate) fn milestone_refusal(name: &str, manifest: &Manifest) -> Option<String> {
     entry_refusal(name, manifest)
@@ -909,7 +909,7 @@ pub(crate) fn milestone_refusal(name: &str, manifest: &Manifest) -> Option<Strin
 ///
 /// An entry is cited `<register>@<parent>@<id>`, and its name stands in the anchor position of
 /// every reference to what it carries, so it is an entry id, of two segments or more, and no other
-/// anchor's name and no reserved word, per `design@core@a-placed-name-reads-as-nothing-else`. A
+/// anchor's name and no reserved word, per `design@model@a-placed-name-reads-as-nothing-else`. A
 /// name another entry already holds is [`placed_entries`]' question.
 pub(crate) fn entry_refusal(name: &str, manifest: &Manifest) -> Option<String> {
     // The grammar comes first, and it refuses every one-word name, `index` among them, which
@@ -1502,7 +1502,7 @@ impl Entities {
     /// project's to repair, and a commit holding an earlier version's set is judged by a later
     /// checker under `commits`: a finding in it would ask for an edit of an installed file. The
     /// shipped set is held to the section rule where it is written, by a test of the core over
-    /// the shipped text, per `design@core@section-homes-carry-slugs`.
+    /// the shipped text, per `design@model@section-homes-carry-slugs`.
     fn harness_definitions(&mut self, model: &Model) {
         for doc in model.documents() {
             let Some(home) = SectionHome::of(&doc.rel, &doc.text) else {
@@ -1545,7 +1545,7 @@ impl Entities {
                     return;
                 }
                 // The harness loads no skill of a name it reserves, per
-                // `design@core@unusable-harness-name-is-a-finding`: the check would otherwise pass
+                // `design@model@unusable-harness-name-is-a-finding`: the check would otherwise pass
                 // a skill no session can use. The name is in the id grammar of two segments
                 // here, which refuses `synced` in every capitalization, so only the prefix
                 // remains to refuse.
@@ -1752,7 +1752,7 @@ impl Entities {
     /// One entity per entry anchor directly under a Directory home, defined at its README.
     ///
     /// The entries are anchors, so they are read off the anchor list rather than off the
-    /// documents: a directory the tree holds that is no anchor is `check::tree`'s finding. An
+    /// documents: a directory the tree holds that is no anchor is `tree`'s finding. An
     /// entry whose README the walk does not read defines nothing, as a File entry the walk
     /// leaves out defines nothing, so every reference to it dangles rather than passing over a
     /// document no check judged.
@@ -2906,7 +2906,7 @@ mod tests {
         }
     }
 
-    // The harness kinds, per `design@core@harness-kinds`.
+    // The harness kinds, per `design@model@harness-kinds`.
 
     /// A model of walked documents and installed copies, and its table under the anchors of a
     /// project serving the `claude` harness, which the fixture manifest does by default.
@@ -3163,7 +3163,7 @@ mod tests {
     }
 
     /// The claim: every kind name is refused as a plan's name, per
-    /// `design@core@a-placed-name-reads-as-nothing-else`. A built-in kind's name is one segment,
+    /// `design@model@a-placed-name-reads-as-nothing-else`. A built-in kind's name is one segment,
     /// so the id grammar refuses it first; a declared register's name of two segments reaches the
     /// kind test. Mutation checked: deleting the kind test passes `work-item`.
     #[test]
@@ -3243,7 +3243,7 @@ mod tests {
     }
 
     /// The claim: under `harness = []` a section home is an ordinary document, so a slug in the
-    /// root CLAUDE.md or a skill is a misplaced definition, per `design@core@harness-kinds`; the
+    /// root CLAUDE.md or a skill is a misplaced definition, per `design@model@harness-kinds`; the
     /// harness kinds are listed as kinds only
     /// under the harness. Mutation checked: skipping section homes whatever the harness passes
     /// both; the harness kinds left out of the listing.
@@ -3331,7 +3331,7 @@ mod tests {
     }
 
     /// The claim: a skill the harness does not load, `synced` or a name beginning
-    /// `anthropic-skills`, is a finding, per `design@core@unusable-harness-name-is-a-finding`.
+    /// `anthropic-skills`, is a finding, per `design@model@unusable-harness-name-is-a-finding`.
     /// Mutation checked: testing only `synced` passes the second.
     #[test]
     fn a_skill_name_the_harness_reserves_is_a_finding() {

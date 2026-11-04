@@ -15,7 +15,7 @@ directory of subdocuments that the command does not list.
 
 Instance: C3 of the retrospective of the session that moved two design homes to the directory
 shape, 2026-10-25: `cargo klarch show register@core@design` printed the directory path and the
-references only. `design@core@register-home-reference` states that output as decided.
+references only. `design@model@register-home-reference` states that output as decided.
 
 ### Why it matters
 
@@ -26,5 +26,5 @@ directory whose index the session must find itself, against
 ### What would close it
 
 `show` on a home in the directory shape lists each subdocument with its title, with a test, and
-`design@core@register-home-reference` states the output, through
+`design@model@register-home-reference` states the output, through
 `skill@knowledge-architect-design` since it adds to that head.

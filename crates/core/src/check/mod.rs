@@ -33,7 +33,7 @@ pub struct Structure {
     pub links: usize,
     /// How many files the walk read. Not a family's count: it describes the walk every family
     /// read, so it is set whatever was asked for. It is printed because git is the walk, per
-    /// `design@core@git-supplies-the-walk`, and two machines answering differently has to be
+    /// `design@model@git-supplies-the-walk`, and two machines answering differently has to be
     /// visible in the output rather than inferred from a finding list.
     pub walked: usize,
     /// The checker's own directory as the model was told it, and how many walked Rust files
@@ -130,7 +130,7 @@ pub struct Inputs<'a> {
     /// One `git check-ignore` batch by the caller, keyed by `git::ignore_query`'s spelling, so
     /// a check answers the question with a lookup and spawns nothing. Asking the RULES rather
     /// than what is on disk is what makes the verdict identical on a fresh clone and a built
-    /// tree, per `design@core@ignored-targets-are-not-asserted`.
+    /// tree, per `design@model@ignored-targets-are-not-asserted`.
     pub ignored: &'a HashSet<String>,
     /// The files git both tracks and ignores, each of which is a finding.
     pub tracked_and_ignored: &'a [PathBuf],

@@ -100,7 +100,7 @@ Decided in order; the first match wins.
   installer's, and the install deletes it, so a project whose name gives that prefix takes another.
   The directory name and the frontmatter `name` are equal. The same prefix names the project's
   other files in the directories the install writes into.
-%% The two rules below restate `design@core@section-homes-carry-slugs` and `design@core@harness-entity-names`.
+%% The two rules below restate `design@model@section-homes-carry-slugs` and `design@model@harness-entity-names`.
 - **End every level-two heading of a skill, a subagent definition and the root `CLAUDE.md` with a
   slug**: two hashes and the id in backticks, the id naming the section's subject. It is what a
   reference such as `skill@<name>@<slug>` cites, and the check reports a heading without one. A

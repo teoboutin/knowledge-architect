@@ -144,7 +144,7 @@ The rivals lost:
   Component tied to the filesystem tree.
 - **Grouping by a count of Components beside one another.** A count gives the group no design to
   hold, while the group still owes every document and register home a Component carries, per
-  `design@core@components-carry-the-same-documents`. A directory the manifest does not declare
+  `design@model@components-carry-the-same-documents`. A directory the manifest does not declare
   groups Components with no document, and moving a Component into it is one manifest edit, per
   `goal@core@relocation-needs-only-goal-changes`.
 - **An intermediate Component that is a crate whose nested Components are its modules.** Its crate

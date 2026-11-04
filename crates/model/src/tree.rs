@@ -5,7 +5,7 @@
 //! refused, an anchor or a register home that is not there, a home a walk row keeps out,
 //! a declared path nothing answers to. A finding computed from the model afterwards — a
 //! reference to a slug the unread file defined, an entry the missing home would have held —
-//! is then unreliable in both directions, so `check::foundation` reports this phase and
+//! is then unreliable in both directions, so `foundation` reports this phase and
 //! judges nothing later. What this phase leaves standing, `check::registers` reads for shape.
 
 use std::path::{Path, PathBuf};
@@ -38,7 +38,7 @@ pub(crate) fn check(model: &Model, manifest: &Manifest, inputs: &TreeInputs) -> 
         // A heading markdown shows and the scanner does not read opens a section no check
         // sees: a slug on it defines nothing, and in a plan document the items under it are
         // read under the section before it. So the model is incomplete, which is this phase's,
-        // per `design@core@headings-open-with-hash-marks`.
+        // per `design@model@headings-open-with-hash-marks`.
         for line in crate::scan::unread_headings(&doc.parsed) {
             out.push(Finding::at(
                 &doc.rel,
@@ -194,7 +194,7 @@ fn directory_home(
 /// - **milestones/ holds its README.md, its index.md and one directory per milestone**, by
 ///   `directory_layout`, which judges every Directory home alike.
 /// - **A plan's name is no other anchor's and no reserved word**, per
-///   `design@core@a-placed-name-reads-as-nothing-else`: a milestone
+///   `design@model@a-placed-name-reads-as-nothing-else`: a milestone
 ///   directory's name and a spec's id, compared with the components, the locations and each
 ///   other. A milestone the comparison refuses is no anchor, per `entity::milestone_refusal`.
 ///
@@ -262,7 +262,7 @@ fn plans_layout(
     let entries = entity::placed_entries(manifest, &inputs.present.iter().collect::<Vec<_>>());
     directory_layout(out, milestone, &milestones, &entries, inputs);
 
-    // The same rule over the specs, per `design@core@a-placed-name-reads-as-nothing-else`: a spec's id is a name
+    // The same rule over the specs, per `design@model@a-placed-name-reads-as-nothing-else`: a spec's id is a name
     // the next step of the plans layout makes an anchor, so it may be
     // no kind's, component's, location's or reserved word, and no milestone's.
     let mut ids: Vec<(String, &PathBuf)> = inputs
@@ -297,10 +297,10 @@ fn plans_layout(
     }
 }
 
-/// What one Directory home holds, per `design@core@declarable-directory-register`: its
+/// What one Directory home holds, per `design@model@declarable-directory-register`: its
 /// README.md, its index.md and one directory per entry, each holding a README.md, and no entry
 /// holding a register.toml or a subdirectory; an entry's name is no other anchor's, per
-/// `design@core@a-placed-name-reads-as-nothing-else`, and an entry it refuses is no anchor.
+/// `design@model@a-placed-name-reads-as-nothing-else`, and an entry it refuses is no anchor.
 ///
 /// Phase 2, because the entries are anchors read off the tree: a later phase over a tree that
 /// breaks one would judge documents no anchor owns. The `milestone` register keeps the wording
@@ -648,7 +648,7 @@ fn declarations(out: &mut Vec<Finding>, manifest: &Manifest, inputs: &TreeInputs
     // the tracked listing is unaffected by the ignore rules; and every path reference to it is
     // asserted, because `git check-ignore` skips what the index holds. So the ignore rule says
     // the file is out of the project and every check reads it in, and untracking it would flip
-    // both answers at once. `design@core@tracked-and-ignored-is-a-finding` is the head.
+    // both answers at once. `design@model@tracked-and-ignored-is-a-finding` is the head.
     for path in inputs.tracked_and_ignored {
         out.push(Finding::in_file(
             path,
@@ -987,7 +987,7 @@ mod plans_tests {
     }
 
     /// The claim: a spec named after a kind is reported by its name, as a milestone is, per
-    /// `design@core@a-placed-name-reads-as-nothing-else`. Mutation checked:
+    /// `design@model@a-placed-name-reads-as-nothing-else`. Mutation checked:
     /// the kind test removed from the spec-name check reports nothing.
     #[test]
     fn a_spec_named_after_a_kind_is_reported_by_its_name() {

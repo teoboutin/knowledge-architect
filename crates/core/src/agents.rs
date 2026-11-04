@@ -98,7 +98,7 @@ impl Repairs {
 }
 
 /// The repairs of the installed set, judged from git's listing of the namespace and compared
-/// after normalising line endings, exactly as `check::agents` judges it, per
+/// after normalising line endings, exactly as the installed-file check judges it, per
 /// `design@core@fix-scope`.
 ///
 /// **A file git does not list is never deleted.** The install walks the filesystem, so it would

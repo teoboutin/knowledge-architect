@@ -260,7 +260,7 @@ beside the heads it cites, so the audit's reading of the design entries is no in
 an agent behaves, the kind `design@agent-skills@behaviour-additions-need-real-use` admits only on a
 miss seen in real use. The misses of a search are in its judgement, not in when it runs: two pieces
 of work on one day met, only at their review before the merge, five standing entries the search
-before the work had not returned, `issue@core@a-span-with-an-empty-head-is-malformed-against-its-head`,
+before the work had not returned, `issue@model@a-span-with-an-empty-head-is-malformed-against-its-head`,
 the issue on a premortem criterion listed among a plan document's defaults, closed when the owner's
 rulings on criteria left the workflow,
 `issue@core@a-plain-hash-item-name-is-read-by-nothing`, the tripwire on a ruling lost at assembly that

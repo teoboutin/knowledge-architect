@@ -32,7 +32,7 @@ use crate::{Finding, Manifest, Model};
 
 /// The rel path a message is parsed under.
 ///
-/// The suffix is what selects the markdown grammar, per `design@core@grammars-not-prefixes`, so
+/// The suffix is what selects the markdown grammar, per `design@model@grammars-not-prefixes`, so
 /// a message needs one; the findings are relabelled with the commit or the file before they
 /// are printed, and no reader ever sees this name.
 fn message_rel() -> PathBuf {

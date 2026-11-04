@@ -37,7 +37,7 @@ The forms and checks as they stand:
   design head included, the plan is cited whole, and an item is named in plain text with a hash
   sign". `design@agent-skills@plain-text-is-no-repair` admits it.
 - Inside its plan, an item is cited by its checked form, `<kind>@<plan>@<id>`, per
-  `design@core@plan-item-scope`, which refuses that form from outside the plan.
+  `design@model@plan-item-scope`, which refuses that form from outside the plan.
 - A backticked `#<id>` naming a defined entry, plan items included, is reported as the retired form,
   per `design@core@retired-slug-reference-reported`. A plain one is not read: the lints on ids read
   no word with a hash sign before it, per `design@core@plain-word-lint`.
@@ -51,8 +51,8 @@ its plan is the one form the checker never reads, so its correctness rests on re
 
 Two rivals already lost, and a design must answer both:
 
-- "Citing an item of another plan", `rejected@core@cross-plan-item-citation`, not kept by
-  `design@core@plan-item-scope`: item citations across
+- "Citing an item of another plan", `rejected@model@cross-plan-item-citation`, not kept by
+  `design@model@plan-item-scope`: item citations across
   plans "would force a design revisit of every citing plan, item by item, at the moment a plan is
   retired".
 - "The retired slug reference reported whatever it names",
@@ -64,7 +64,7 @@ Two rivals already lost, and a design must answer both:
 Re-entry point: the next change to `design@core@retired-slug-reference-reported`, or the owner's
 word.
 
-The earlier re-entry point, a change to `design@core@plan-item-scope`, was met by the change that gave the finding on an item cited from outside its
+The earlier re-entry point, a change to `design@model@plan-item-scope`, was met by the change that gave the finding on an item cited from outside its
 plan a repair naming the label, "and name the item beside it in plain text as #<id>", after a thaum
 session met that finding three times on one branch and named the item in words the third time, as
 its retrospective reports, analysed at the intake of 2026-10-24. The repair now advises the one form
@@ -74,7 +74,7 @@ the checker never reads; the discussion this entry asks for weighs that.
 
 A wrong or stale item name in a commit message or a design head is a pointer nobody revisits,
 against `goal@knowledge-architect@design-is-recorded-with-its-arguments`, and
-`tripwire@core@candidate-rule-silence` watches the same family of silence for backticked spans. A
+`tripwire@model@candidate-rule-silence` watches the same family of silence for backticked spans. A
 finding on a plain `#<id>` changes `design@core@retired-slug-reference-reported`.
 
 ### What would close it

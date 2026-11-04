@@ -48,7 +48,7 @@ decides whether its JSON becomes one.
 
 The README of the core, `path@core@README.md`, states two output contracts: for `check`, the order
 of the summary, the findings and the verdict line; and for a generated file-register index, written
-by `index` and `check --fix`, its bytes, per `design@core@a-file-register-index-is-rows`. Nothing
+by `index` and `check --fix`, its bytes, per `design@model@a-file-register-index-is-rows`. Nothing
 states whether the words of a printed summary are one.
 
 Suspected mechanism: the policy names commands as a surface, and a command has several parts (its

@@ -8,7 +8,7 @@ kind: defect
 A plan document cited 30 of its own arguments as `arg@<plan>@arg-<n>`, a span whose head, `arg`,
 is the kind `argument` cut short. `cargo klarch check` passed with no finding: the head is neither a
 kind nor an anchor, so the candidate rule reads the span as no reference. A reviewer found it by
-reading. `tripwire@core@candidate-rule-silence` fired on it, and this entry is the response its
+reading. `tripwire@model@candidate-rule-silence` fired on it, and this entry is the response its
 firing names for a decision not reopened in the same change.
 
 ## Details
@@ -26,7 +26,7 @@ firing names for a decision not reopened in the same change.
   nothing runs `show` on every span.
 - `cargo klarch model` records each such span as a `span` observation, so the scanner saw them; the
   silence is the resolver's.
-- The decision that makes it silent: `design@core@at-span-candidate-rule`, "A typo inside the kind,
+- The decision that makes it silent: `design@model@at-span-candidate-rule`, "A typo inside the kind,
   `desing@<anchor>@<id>`, is silent under this rule, because widening it to "any span with two `@`"
   would report every email address with a plus tag."
 
@@ -47,11 +47,11 @@ a kind, answers it.
 A pointer that the check reads as nothing is dropped from `cargo klarch show`'s list and dangles
 unseen when its target moves, against `goal@knowledge-architect@documentation-stays-consistent`.
 The plan's harvest reads its argument pointers to find each head's standing argument, so a silent
-pointer loses an argument at the harvest. It strains `design@core@at-span-candidate-rule`.
+pointer loses an argument at the harvest. It strains `design@model@at-span-candidate-rule`.
 
 ### What would close it
 
 The candidate rule widened to report a span whose head is a proper prefix of a known kind's name,
 or within a small edit distance of one, with the kind as its repair, under a false-positive census
 over this tree and thaum's, and a test planting `arg@<plan>@arg-1` in the mock `planted`; or the
-owner's ruling that the silence stays, recorded in `design@core@at-span-candidate-rule`.
+owner's ruling that the silence stays, recorded in `design@model@at-span-candidate-rule`.

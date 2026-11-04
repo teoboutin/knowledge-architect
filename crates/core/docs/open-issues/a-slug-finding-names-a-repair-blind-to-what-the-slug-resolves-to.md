@@ -61,7 +61,7 @@ The session rewrote them by a script.
 
 ### Why it matters
 
-`design@core@an-unresolved-reference-is-reported` gives each finding the repair it needs, and
+`design@model@an-unresolved-reference-is-reported` gives each finding the repair it needs, and
 `design@core@finding-names-the-repair` names each cause with its repair where the repair depends on
 the cause. An agent that follows either message writes a reference of the wrong kind, which the
 next check reports as unresolved, or deletes a pointer it meant to write, so the repair costs a

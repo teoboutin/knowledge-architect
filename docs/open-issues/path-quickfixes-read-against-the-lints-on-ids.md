@@ -17,7 +17,7 @@ left. Does the quick-fixes spec still hold, accounting for what landed?
 The leaving spec built three lints on a defined id written outside its reference form and the
 grammar of two segments, and harvested them into `design@core@backticked-bare-id`,
 `design@core@plain-word-lint`, `design@core@reference-shape-outside-span`,
-`design@core@two-segment-ids` and the split of the candidate rule, `design@core@at-span-candidate-rule`.
+`design@model@two-segment-ids` and the split of the candidate rule, `design@model@at-span-candidate-rule`.
 The quick-fixes spec's rows on `design@core@backticked-bare-id` quote a sentence about a project
 skill named by an ordinary word, which the rewritten head no longer holds, and two of its passages
 quote the head as "A bare name is a pointer written with no kind", which now reads "A bare id";

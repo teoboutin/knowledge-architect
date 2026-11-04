@@ -145,7 +145,7 @@ static RETIRED_SLUG_REF: LazyLock<Regex> = LazyLock::new(|| {
 });
 /// The first slug in a heading of ANY level, or a slug at the head of a plain line. The id is
 /// `[a-z0-9]+(-[a-z0-9]+)*`, one segment or more, so that a slug of one segment is reported where
-/// it is defined, per `design@core@two-segment-ids`, rather than read as no slug.
+/// it is defined, per `design@model@two-segment-ids`, rather than read as no slug.
 ///
 /// The heading form takes the slug anywhere in the heading, so the statement may precede it:
 /// a heading reads as an outline entry, which a slug alone does not. Requiring text AFTER the
@@ -449,7 +449,7 @@ pub(crate) fn unread_headings(parsed: &Parsed) -> Vec<u32> {
 /// A paragraph is a run of lines between blank lines, a heading being one of its own, and it ends
 /// too where a fence opens or closes, at a list item, at a table row and at a commented-out line.
 /// In a Rust comment the same holds, since a doc comment's content is markdown, per
-/// `design@core@grammars-not-prefixes`, so a blank comment line ends a paragraph too.
+/// `design@model@grammars-not-prefixes`, so a blank comment line ends a paragraph too.
 #[derive(Default)]
 struct Paragraph {
     /// A quotation a line left open, by the mark that closes it.
@@ -588,7 +588,7 @@ pub(crate) fn scan(parsed: &Parsed) -> Vec<Located> {
                 // markdown reads it: `HEADING` takes at most three spaces, and a slug site
                 // taking more would define an entry on a line markdown shows as paragraph
                 // text. So on such a line every slug is a mention, per
-                // `design@core@headings-open-with-hash-marks`.
+                // `design@model@headings-open-with-hash-marks`.
                 let indent = &line[..line.len() - trimmed.len()];
                 let at_head = indent.len() <= 3 && indent.bytes().all(|b| b == b' ');
                 // The one span the heading or line-head form takes, by its range in the
@@ -780,7 +780,7 @@ fn outside_backticks(
                 .push(locate(line[m.start()..end].to_string()));
         }
     }
-    // A defined id has two segments, per `design@core@two-segment-ids`, so a line with no hyphen
+    // A defined id has two segments, per `design@model@two-segment-ids`, so a line with no hyphen
     // holds none as a word.
     if name_line || !line.contains('-') {
         return quotes;
@@ -834,7 +834,7 @@ mod tests {
     }
 
     /// The claim: a slug on a line indented four spaces or more, or by a tab, defines nothing,
-    /// since markdown reads no heading there, per `design@core@headings-open-with-hash-marks`.
+    /// since markdown reads no heading there, per `design@model@headings-open-with-hash-marks`.
     /// The first line is a lazy continuation of the paragraph above it.
     #[test]
     fn a_slug_on_a_line_indented_past_three_spaces_is_a_mention() {

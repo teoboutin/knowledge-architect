@@ -139,8 +139,8 @@ impl Invocation {
             // takes an untracked live document out of every check on one clone and not on
             // another. What still decides the walk is the tree's own ignore files and git's
             // per-clone exclude file, which git offers no way to pin, and that is what
-            // `tripwire@core@walked-count-differs-between-machines` guards until
-            // `issue@core@the-walk-does-not-report-what-the-per-clone-exclude-file-removes` adds
+            // `tripwire@model@walked-count-differs-between-machines` guards until
+            // `issue@model@the-walk-does-not-report-what-the-per-clone-exclude-file-removes` adds
             // the check that reports what it removes. The decision is
             // `design@git@per-user-ignore-file-pinned`.
             .args(["-c", "core.excludesFile=/dev/null"])
@@ -249,7 +249,7 @@ fn nul_separated(bytes: &[u8]) -> Vec<&[u8]> {
 /// sequence that is not UTF-8 is legal on this platform and git reports it as it is under `-z`; decoding it lossily would
 /// substitute a replacement character and produce a path nothing on disk answers to. The file
 /// would then read as unreadable — or, where nothing reports that, leave every check while the
-/// run stayed green, which is the failure `design@core@git-supplies-the-walk` exists against.
+/// run stayed green, which is the failure `design@model@git-supplies-the-walk` exists against.
 fn nul_paths(bytes: &[u8]) -> Vec<PathBuf> {
     nul_separated(bytes).into_iter().map(as_path).collect()
 }

@@ -16,9 +16,9 @@ standard's revision, the branch that reworded the goal.
 ### What
 
 The texts that cite the goal, which `cargo klarch show goal@core@relocation-needs-only-goal-changes`
-lists, among them `path@core@docs/design/paths-and-links.md`, `path@core@docs/design/anchors.md`,
+lists, among them `path@core@docs/design/paths-and-links.md`, `path@model@docs/design/anchors.md`,
 `path@core@docs/design/registers.md` and
-`issue@core@a-reference-to-an-anchor-s-own-directory-breaks-when-the-anchor-moves`, whose summary
+`issue@model@a-reference-to-an-anchor-s-own-directory-breaks-when-the-anchor-moves`, whose summary
 quotes the old measure. A plan document's quotation keeps the old slug, which is no defect.
 
 Two core heads state a strain or an exception measured against the old wording, which may no longer

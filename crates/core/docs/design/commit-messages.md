@@ -6,7 +6,7 @@
 
 A commit message is parsed as one markdown document — its subject line, its blank line and its
 body — and every rule of the regime runs over it: every reference is judged against the entity
-table of `design@core@one-entity-table`, and each registered extension judges the message
+table of `design@model@one-entity-table`, and each registered extension judges the message
 against the tree it prepared for that commit.
 
 **A message is history, and it cannot be edited.** `main`'s history is never rewritten, so a

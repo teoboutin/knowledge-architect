@@ -52,7 +52,7 @@ decision exists. A decision that no work implements, such as a policy, and that 
 any spec, counts as built intent, since nothing waits to be built, and is recorded when it is made. The rival, a design home holding intent built or not, needs a
 marker on every entry to tell the two apart, and checking the code against an unbuilt entry reports
 a defect in code nobody has written. Unbuilt intent has a checked home because plan documents are a
-structure the checker reads, per `design@core@plan-register`. This serves
+structure the checker reads, per `design@model@plan-register`. This serves
 `goal@knowledge-architect@documentation-stays-consistent`.
 
 ### A head prevails over diverging code until the divergence closes, never by following the code `##head-prevails-over-diverging-code`
@@ -101,7 +101,7 @@ discard; and `skill@knowledge-architect-design@incumbent-evaluation`'s rule on a
 design is evaluated. A comment is part of the code, so the head prevails over it. The order serves
 `goal@knowledge-architect@agents-work-without-drift`. In a project whose comments the checker does
 not read, a reference in a comment is not checked, which weakens this record there:
-`issue@core@references-are-read-in-markdown-and-rust-only`.
+`issue@model@references-are-read-in-markdown-and-rust-only`.
 
 ### A design head carries the standing argument, and history carries the deliberation `##standing-argument-in-head`
 

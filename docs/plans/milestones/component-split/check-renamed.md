@@ -18,7 +18,7 @@ As D3 of the milestone document rules it.
   file whose bytes differ from the shipped text, a file of the installer's namespace this version
   does not ship, a deletion of one awaiting staging, and a root CLAUDE.md that does not import the
   shipped primer. Kept in phase 2, in `model`'s foundation, from the manifest's harness alone: a root
-  CLAUDE.md the walk keeps out, until `issue@core@the-walk-may-exclude-a-file-the-model-requires`
+  CLAUDE.md the walk keeps out, until `issue@model@the-walk-may-exclude-a-file-the-model-requires`
   replaces it. `model` depends on nothing of `agent-skills`.
 - `index` and `index --staged` no longer refused by a stale install.
 - `design@knowledge-architect@no-component-directory-named-after-the-project` rewritten for its
@@ -62,9 +62,9 @@ project.
 
 `design@core@phases-gate-the-report`, `design@core@owned-namespace-check`,
 `design@core@fix-before-the-checks`, `design@core@staged-check-semantics`,
-`design@core@installed-entities-from-the-tree`; `tripwire@core@phases-gate-the-report-two`, whose
+`design@model@installed-entities-from-the-tree`; `tripwire@core@phases-gate-the-report-two`, whose
 premise, no writer over a model that could not read the tree, the move keeps, per D3;
-`issue@core@the-walk-may-exclude-a-file-the-model-requires`;
+`issue@model@the-walk-may-exclude-a-file-the-model-requires`;
 the closed issue `installed-file-findings-belong-in-phase-four`, read in history: the commit that
 deleted it is
 `git log --diff-filter=D --format=%h -- crates/core/docs/open-issues/installed-file-findings-belong-in-phase-four.md`,
@@ -99,7 +99,7 @@ phase only when another check reads it, or when it reports what the model could 
 reads the installed-file findings. An installed file that differs, or one the version does not
 ship, is outside the walk, and `check::agents` reads its bytes from the survey, not from the model,
 which holds the installed copies for definitions only, per
-`design@core@installed-entities-from-the-tree` (the closed issue
+`design@model@installed-entities-from-the-tree` (the closed issue
 `installed-file-findings-belong-in-phase-four`, #arg-81); a stale installed skill still defines its
 entities, so the model built over it is complete (#arg-69). The owner had judged the move correct
 and not worth doing at the time; the split moves the code anyway (#arg-81, #arg-82), and the owner

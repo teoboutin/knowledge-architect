@@ -4,11 +4,11 @@
 //! `design`, `goal`, `tripwire` — is looked up in the table `entity::Entities` builds from the
 //! walk; a `path` reference is resolved against the survey under the same anchors, and a
 //! `register` reference against the anchors that carry the register, per
-//! `design@core@register-home-reference`. A table reference that resolves to nothing has one of
+//! `design@model@register-home-reference`. A table reference that resolves to nothing has one of
 //! five causes: the kind position holds an anchor, the anchor is unknown, the anchor does not carry
 //! that register, an item of a plan is cited from outside it, or the id is not defined there; the
 //! kinds resolved outside the table have refusals of their own. The argument is
-//! `design@core@an-unresolved-reference-is-reported`.
+//! `design@model@an-unresolved-reference-is-reported`.
 //!
 //! **A function here returns an [`Outcome`], and [`Cause::finding`] is how a consumer that reports
 //! writes it.** The words of a cause live with the cause, since the lints and `show` print the same
@@ -32,7 +32,7 @@ pub enum Target {
     /// An entry the entity table holds, of a table kind or a harness kind.
     Entity,
     /// A register's home under the anchor named, or every Component's under `*`, whatever shape
-    /// the home has. Whether it exists is `check::tree`'s question.
+    /// the home has. Whether it exists is `tree`'s question.
     Home,
     /// A path under a named anchor, or a relative link's target. The ignore rules may cover it, so
     /// the listing need not hold it.
@@ -625,9 +625,9 @@ pub fn harness(kind: &Kind, owner: &str, id: &str, entities: &Entities) -> Outco
 }
 
 /// A `register` reference: the home an anchor keeps a register in, resolved against the anchors,
-/// whatever shape the home has, per `design@core@register-home-reference`.
+/// whatever shape the home has, per `design@model@register-home-reference`.
 ///
-/// Whether the home exists is not asked here: a missing home is `check::tree`'s finding, and the
+/// Whether the home exists is not asked here: a missing home is `tree`'s finding, and the
 /// reference names what the manifest declares. Every refusal names the form that resolves, so a
 /// repair lists the anchors that carry the register, not every anchor as `table` does: an anchor
 /// that does not carry it is one more refusal for a writer who follows the repair.
@@ -715,7 +715,7 @@ pub fn register(anchor: &str, id: &str, anchors: &Anchors) -> Outcome {
                 },
             }),
             // An entry keeps what it carries at its own directory, which the entry's own
-            // reference names, per `design@core@register-home-reference`.
+            // reference names, per `design@model@register-home-reference`.
             Some(a) if a.is_entry() => Err(Cause::RegisterAtEntry {
                 name: name.to_string(),
                 form: a.entry_form().unwrap_or_default(),
@@ -917,11 +917,11 @@ pub fn path(rel: &Path, anchor: &str, path: &str, anchors: &Anchors, tree: &Tree
             // state, and a verdict may not depend on the checking machine's. Presence and
             // kind are asked apart, so a path some component carries under the other kind
             // gets the kind-claim repair rather than "repair the path".
-            // Components only, per `design@core@reserved-anchors`: the generic form claims
+            // Components only, per `design@model@reserved-anchors`: the generic form claims
             // every component's own copy, so a copy a declared location alone holds makes the
             // claim false for every component. The anchors the tool constructs are no
             // components either: they hold plan documents, which are cited by their kind, per
-            // `design@core@plan-document-kinds`.
+            // `design@model@plan-document-kinds`.
             let carried: Vec<PathBuf> = anchors
                 .all()
                 .iter()
@@ -1004,14 +1004,14 @@ fn anchored_target(
         return Err(Cause::Refused { why });
     }
     let target = a.path.join(trimmed);
-    // Per `design@core@plan-document-kinds`, before the deepest-anchor rule: a plan document cited by its path is
+    // Per `design@model@plan-document-kinds`, before the deepest-anchor rule: a plan document cited by its path is
     // refused from every anchor, and the repair names the one form that resolves.
     if let Some(form) = plan_document(anchors, &target) {
         return Err(Cause::PlanDocumentByPath { form });
     }
     // An entry's directory, and its README, which is both the entry's document and the head of
     // what it carries, are named by the entry's own reference, per
-    // `design@core@path-to-a-home-is-reported`; a file beside the README is a path target. A
+    // `design@model@path-to-a-home-is-reported`; a file beside the README is a path target. A
     // `planned` path to an entry that now exists takes the same repair, which is the one form
     // that resolves.
     let (bare, _) = without_suffix(trimmed);
@@ -1046,7 +1046,7 @@ fn anchored_target(
     Ok(target)
 }
 
-/// A `planned` reference: a path a plan's work will create, per `design@core@planned-path-form`.
+/// A `planned` reference: a path a plan's work will create, per `design@model@planned-path-form`.
 ///
 /// It is legal in the plans directory alone, takes a named anchor under the rules of a `path`
 /// reference, and asserts that its target does not exist. Once the target exists the cause
@@ -1098,7 +1098,7 @@ pub fn planned(
 }
 
 /// The form a planned path converts to once its target exists: the `register` form where the
-/// target is a register's home, per `design@core@path-to-a-home-is-reported`, else the `path`
+/// target is a register's home, per `design@model@path-to-a-home-is-reported`, else the `path`
 /// form at the planned anchor.
 fn converted(anchors: &Anchors, anchor: &str, target: &Path, path: &str) -> String {
     match anchors.home_target(Path::new(
@@ -1144,7 +1144,7 @@ fn entry_at(anchors: &Anchors, target: &Path) -> Option<String> {
 /// The kind form of a plan document at `target`, or `None` when no plan document is there.
 ///
 /// A plan document is a spec file of `specs/`, a milestone directory, or a file inside a
-/// milestone directory, per `design@core@plan-document-kinds`. The README and the index of the plans
+/// milestone directory, per `design@model@plan-document-kinds`. The README and the index of the plans
 /// directory and of its two homes are not plan documents, and are cited by path. Judged by
 /// where the target sits, not by whether it exists: a path to a deleted slice spec gets the same
 /// repair as one to a present one.

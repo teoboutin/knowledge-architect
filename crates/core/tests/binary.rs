@@ -1232,7 +1232,7 @@ fn show_prints_the_entry_and_what_points_at_it() {
     }
 }
 
-/// The claim, per `design@core@register-home-reference`: `show` on a `register` reference prints
+/// The claim, per `design@model@register-home-reference`: `show` on a `register` reference prints
 /// the home the tree holds, a file for a heading home in one file and a directory for one split
 /// into a directory, with the register's shape, then every site that cites it; one the check
 /// refuses resolves to nothing with the check's finding. Mutation checked, and caught: the
@@ -1272,7 +1272,7 @@ fn show_of_a_register_reference_prints_the_home_the_tree_holds() {
     assert!(refused.contains("carries no spec register"), "{refused}");
 }
 
-/// The claim, per `design@core@planned-path-form`: `show` on a planned reference resolves whether
+/// The claim, per `design@model@planned-path-form`: `show` on a planned reference resolves whether
 /// or not the target exists, says which, and lists the plans that cite it, which are the sites a
 /// conversion edits.
 #[test]
@@ -1658,7 +1658,7 @@ fn a_reference_to_an_ignored_target_is_exempt_and_the_rules_decide_it() {
 ///
 /// An unstaged deletion leaves a path in git's listing with no bytes behind it. Dropping it
 /// would take a live document out of every check on the strength of a working-tree state, which
-/// is the shape `design@core@a-failed-parse-is-loud` refuses. The finding names the deletion
+/// is the shape `design@model@a-failed-parse-is-loud` refuses. The finding names the deletion
 /// rather than reporting an encoding failure, because the two need different repairs.
 #[test]
 fn a_tracked_file_the_working_tree_does_not_hold_is_reported() {
@@ -2916,7 +2916,7 @@ fn a_closed_stdout_ends_the_run_quietly_with_exit_2() {
 /// in phase 2, and is not walked as a document; `install-agent-skills` removes it and leaves a
 /// project's own skill, and the check then passes. Per `design@core@owned-namespace-check`.
 /// Mutations: dropping the namespace from the walk's exclusions walks the stray file as a
-/// document; dropping the unshipped branch of `check::agents` lets the first run pass.
+/// document; dropping the unshipped branch of the installed-file check lets the first run pass.
 #[test]
 fn a_stray_file_in_the_installers_namespace_stops_the_check_and_the_install_removes_it() {
     let sandbox = Sandbox::seeded(
@@ -3618,7 +3618,7 @@ fn tiny_project_serving_claude(history: &History) {
     assert_eq!(code, 0, "{out}{err}");
 }
 
-/// The claim, per `design@core@installed-entities-from-the-tree`: commit 1 cites a
+/// The claim, per `design@model@installed-entities-from-the-tree`: commit 1 cites a
 /// section of an installed skill; commit 2 renames the section in the installed copy and repairs
 /// the citation. `commits` judges each commit against its own installed copies, so both pass.
 /// Mutation checked: `commit_tree` not handing the commit's installed blobs to the model makes
@@ -3671,7 +3671,7 @@ fn show_prints_a_skill_and_one_of_its_sections() {
     assert!(out.contains("README.md:"), "{out}");
 }
 
-/// The claim, per `design@core@section-homes-carry-slugs`: a project skill
+/// The claim, per `design@model@section-homes-carry-slugs`: a project skill
 /// with a level-two heading that carries no slug fails the check, and the finding names the
 /// repair. Mutation checked: the finding's action replaced by an empty one fails the assertion.
 #[test]
@@ -4150,7 +4150,7 @@ fn a_root_missing_a_required_document_is_told_only_to_create_it() {
     assert!(!repair.contains("stop listing"), "{repair}");
 }
 
-/// The claim, per `design@core@reserved-anchors`: an escape whose target is a plan document is told
+/// The claim, per `design@model@reserved-anchors`: an escape whose target is a plan document is told
 /// the plan document's own form, never a `path` the next run refuses; and a path opening with `..`
 /// is read from its document first, so the form names the file its writer meant.
 #[test]
@@ -4465,7 +4465,7 @@ fn index_staged_refuses_with_the_index_unchanged() {
     assert_eq!(index_lines(&sandbox), before, "the index is as it was");
 
     // A gitlink staged in the index stops the staged tree in phase 2, per
-    // `design@core@links-are-no-documents`.
+    // `design@model@links-are-no-documents`.
     let head = Command::new("git")
         .args(["rev-parse", "HEAD"])
         .current_dir(sandbox.path(""))
@@ -4680,8 +4680,8 @@ fn fix_refuses_nothing_where_it_would_write_nothing() {
 }
 
 /// The manifest of a project that declares a Directory register at a location's own path, each
-/// entry carrying one heading register, per `design@core@declarable-directory-register` and
-/// `design@core@home-at-the-carrier-path`: the layout a game project keeps its game design in, one
+/// entry carrying one heading register, per `design@model@declarable-directory-register` and
+/// `design@model@home-at-the-carrier-path`: the layout a game project keeps its game design in, one
 /// subject per directory.
 const GAME_MANIFEST: &str = "[project]\nchecker-version = \"fixture\"\nname = \"core-mock\"\n\
     components = []\n\n\
@@ -4805,7 +4805,7 @@ fn a_declared_directory_home_holds_its_entries_and_nothing_else() {
 }
 
 /// The claim: an entry's name is refused when it reads as another anchor, and of two entries of
-/// one name the anchor is decided by the order `design@core@a-placed-name-reads-as-nothing-else`
+/// one name the anchor is decided by the order `design@model@a-placed-name-reads-as-nothing-else`
 /// states, a milestone first, then the Directory registers by name, whatever the order of the
 /// declarations: AC3 of the discussion that made the shape declarable.
 #[test]
@@ -4947,7 +4947,7 @@ fn commits_reads_the_entry_anchors_of_each_commit_s_own_tree() {
 /// The claim: an `opt-in` register the project attaches to a Component is carried by that
 /// Component at its `docs/<dir>/`, so the same game design sits under the root's docs/ with no
 /// location, its subjects cited as entries of the root, and a Component that names it and lacks
-/// its home is reported, per `design@core@a-component-carries-what-a-project-attaches`.
+/// its home is reported, per `design@model@a-component-carries-what-a-project-attaches`.
 #[test]
 fn a_component_carries_the_register_a_project_attaches_to_it() {
     let manifest = GAME_MANIFEST
@@ -5025,7 +5025,7 @@ fn a_component_carries_the_register_a_project_attaches_to_it() {
 /// The claim: a register at its carrier's own path has no single-file shape, so a file beside the
 /// location named like it is an ordinary document of the anchor that holds it, never a second
 /// home, for a heading register and for a file register alike, per
-/// `design@core@home-at-the-carrier-path`.
+/// `design@model@home-at-the-carrier-path`.
 #[test]
 fn a_register_at_its_carrier_s_path_claims_no_file_beside_it() {
     let manifest = "[project]\nchecker-version = \"fixture\"\nname = \"core-mock\"\n\
@@ -5105,7 +5105,7 @@ fn two_homes_manifest() -> String {
     )
 }
 
-/// The claim: the order of `design@core@a-placed-name-reads-as-nothing-else` decides every
+/// The claim: the order of `design@model@a-placed-name-reads-as-nothing-else` decides every
 /// clash: a spec before any declared entry, even where a refused entry of another register holds
 /// the name first; among one register's entries, the first by path, whichever home holds it; and
 /// an entry named `index` is refused, since it is no id of two segments and would read as its own

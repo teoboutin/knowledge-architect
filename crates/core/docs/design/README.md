@@ -17,7 +17,6 @@ carries no decision; each decision is one level-three head below it.
 - [The model, the phases and the findings](run-model.md): how a run is built from the manifest and a model, how its findings are classified and its exit code read
 - [Extensions and the library API](extensions-and-api.md): how an extension plugs into the checker, and the crate's public surface and command line
 - [Git and the walk](git-and-the-walk.md): how git supplies the tree a run reads, the staged tree included
-- [Anchors and Components](anchors.md): what an anchor is, what a Component carries, and how anchors stay apart
 - [Registers and their homes](registers.md): which registers exist, how each shape of home holds its entries, and the built-in registers' own rules
 - [Plan documents](plan-documents.md): the plans directory, its specs and milestones, and their items
 - [Generated files and fixes](generated-files-and-fixes.md): the generated indexes, the commands that write them or list the anchors, and what `check --fix` repairs
