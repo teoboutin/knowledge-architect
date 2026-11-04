@@ -153,7 +153,7 @@ crates/model/src/phases.rs     foundation, Phase, Stop, TreeInputs, Gathered, co
 crates/model/src/tree.rs       today's check::tree, phase 2
 crates/model/src/shipped.rs    today's check::agents, with the part of agents.rs that it and the gathering read
 crates/model/src/resolver.rs   Outcome, Target, Cause, and the resolver's functions
-crates/model/src/extension.rs  Contribution
+crates/model/src/contribution.rs  Contribution, contribute
 the root                       Manifest, MANIFEST_NAME, Model, Document, Finding, escaped, CRATE_DIR, PACKAGE, component_dir
 model::document                a document's parse, as the core's role module re-exports it
 model::declared                what a manifest declares: Scope, Shape, Pin, Walk, the register names and the document names
@@ -161,7 +161,7 @@ model::table                   the entity table and the anchors: Anchors, Anchor
 model::listing                 the listing: Survey, survey, Outside, the walk's filters
 model::generated               the generated files: generated_paths, file_register_indexes, label, rel_from
 model::installed               the shipped text as phase 2 reads it: render, lf, shipped, imports_primer, PRIMER, IMPORT_LINE
-model::foundation, model::resolve, model::extension   the role modules over phases.rs, resolver.rs and extension.rs
+model::foundation, model::resolve, model::extension   the role modules over phases.rs, resolver.rs and contribution.rs
 Inputs::tree                   crates/core/src/check/mod.rs
 ```
 
