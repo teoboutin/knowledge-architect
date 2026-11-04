@@ -15,8 +15,7 @@ excluding a file the model requires.
 
 ### What
 
-- The one case reported today, in phase 2: "the root CLAUDE.md is outside the walk, so its import
-  of the installed primer cannot be checked", raised in `check` of `tree` when the root CLAUDE.md is
+- The one case reported today, in phase 2: "the root CLAUDE.md is outside the walk, so the model lacks what it defines and its import of the installed primer cannot be read", raised in `check` of `tree` when the root CLAUDE.md is
   present and the walk does not read it.
 - The rule the owner gave: a row of `[walk]` that keeps out a file the model requires is refused.
   Under the `claude` harness the root CLAUDE.md is one such file. Which other files the model

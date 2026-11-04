@@ -91,7 +91,7 @@ the last is `check`'s:
 | phase | produced by | what it reports |
 | ----- | ----------- | --------------- |
 | 1 | `Manifest::parse`, and each extension's resolution of its tables | a declaration the tool refused, which is then absent from the configuration |
-| 2 | `tree` of `path@model@src/tree.rs`, over `check`'s declared paths, the paths each extension declares and every document's parse | a file the walk could not read or refused, a tracked-and-ignored file, an anchor or a register home that is not there, a declared path that does not exist, a home a walk row keeps out, a root CLAUDE.md a walk row keeps out, a heading markdown reads and the checker does not, per `design@model@headings-open-with-hash-marks` |
+| 2 | `tree` of `path@model@src/tree.rs`, over `check`'s declared paths, the paths each extension declares and every document's parse | a file the walk could not read or refused, a tracked-and-ignored file, an anchor or a register home that is not there, a declared path that does not exist, a home a walk row keeps out, a root CLAUDE.md a walk row or an extension's generated list keeps out, a heading markdown reads and the checker does not, per `design@model@headings-open-with-hash-marks` |
 | 3 | `Entities::build` | a slug or an entry id where none may sit, or defined twice; a level-two heading of a section home with no slug; a skill's or an agent's name a reference cannot spell, or that its frontmatter contradicts |
 | 4 | every check, `check`'s and each extension's | everything computed over a complete model, an installed agent file missing, differing or unshipped and a root CLAUDE.md that does not import a shipped primer included: no check reads those, the installed bytes come from the survey, and the model is right about the tree over a stale copy and over a missing one |
 
@@ -104,14 +104,9 @@ a clean run names every check it performed. The whole report stops: the per-docu
 hiding only what an unread file could have defined, is three times the machinery for facts
 that mostly have no per-file scope, and `register@check@tripwire` guards that choice.
 
-**The installed agent files are the last phase's.** A required document stays in phase 2 since the anchors
-read it; an installed copy defines entities and nothing the rest of the model needs to be complete.
+**The installed agent files are the last phase's.** A required document is walked, so one missing leaves the project's own text unread; an installed copy is outside the walk and defines entities alone.
 `Model::build` builds over a stale copy, which still defines its entities, and over a missing one, whose
-references are then reported as unresolved, beside the finding that names the install. An installed copy
-raises no finding of phase 3, per `design@model@installed-entities-from-the-tree`, and a session reads the
-installed files from the disk rather than through a tool over the model, so no tool needs to refuse a stale
-install. `id` answers over the tree as it is, so its `free` for a section of a missing copy holds until the
-install writes the copy, which `check` reports meanwhile.
+references are then reported as unresolved, beside the finding that names the install. An installed copy raises no finding of phase 3, per `design@model@installed-entities-from-the-tree`. What a writer writes is read off the walked documents, so no writer needs to refuse a stale install. `id` answers over the tree as it is, so its `free` for a section of a missing copy holds until the install writes the copy, which `check` reports meanwhile: an id belongs to its anchor, so one minted then collides only inside that copy. The rival, `id` consulting the shipped set, gives a tool over the model a dependency on the shipped text.
 
 **An extension prepares its tree when the last phase is reached**, so a run that stops earlier
 resolves no release and fetches nothing, whatever it would have judged. **A writer refuses over an incomplete model**: `index`,
@@ -139,7 +134,6 @@ not a check of the last one, and it goes before its consumers. A tripwire names 
 
 The designs this decision did not keep: `rejected@check@per-document-phase-gate` and
 `rejected@check@installed-files-before-the-last-phase`.
-
 
 ### Nothing selects a subset of the checks `##no-check-selected`
 

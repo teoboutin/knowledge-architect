@@ -2914,7 +2914,8 @@ fn a_closed_stdout_ends_the_run_quietly_with_exit_2() {
 
 /// The claim: a file in the installer's namespace that this version does not ship fails the check
 /// in the last phase, and is not walked as a document; `install-agent-skills` removes it and leaves a
-/// project's own skill, and the check then passes. Per `design@check@owned-namespace-check`.
+/// project's own skill, and the check then passes. Per `design@check@owned-namespace-check` and
+/// `design@check@installed-files-compared-by-bytes`.
 /// Mutations: dropping the namespace from the walk's exclusions walks the stray file as a
 /// document; dropping the unshipped branch of the installed-file check lets the first run pass.
 #[test]
@@ -2967,7 +2968,7 @@ fn a_stray_file_in_the_installers_namespace_fails_the_check_and_the_install_remo
 /// The claim: `commits` does not compare a commit's installed files, so a commit holding a file of
 /// the installer's namespace that the running version does not ship is judged on its message and
 /// its documents alone, while `check` on the working tree still reports it. Per
-/// `design@check@owned-namespace-check`. Mutation: giving the per-commit inputs the installed set
+/// `design@check@only-check-compares-installed-files`. Mutation: giving the per-commit inputs the installed set
 /// fails the range.
 #[test]
 fn commits_does_not_compare_installed_files_and_check_does() {

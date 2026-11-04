@@ -17,8 +17,7 @@ an empty subsection is omitted.
   `index`, `index --staged`, `id`, `worklist`, `new-component`, `check --fix`'s generated files and
   an extension's `prepare` no longer wait for them. A consumer's test that pins a stop in phase 2 on
   such a file changes.
-- `checks`, minor: `commits` reports a commit's tree whose `[walk]` rows keep the root CLAUDE.md out
-  under the `claude` harness, as `check` reports it, in phase 2. A branch holding such a commit
+- `checks`, minor: `commits` reports a commit's tree whose `[walk]` rows, or an extension's generated list, keep the root CLAUDE.md out under the `claude` harness, as `check` reports it, in phase 2. A branch holding such a commit
   repairs it: no row may keep that file out.
 - `library`, major: `knowledge_architect::testing::CHECKS` holds four names, so its array type changes,
   and `testing::foundation` no longer stops on the installed files. A consumer's test over the

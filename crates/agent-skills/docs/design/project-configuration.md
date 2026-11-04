@@ -471,7 +471,7 @@ The design this decision did not keep: `rejected@agent-skills@root-routing-table
 
 An installed skill is complete on its own. A project adds its conventions through its own skills,
 agents and root `CLAUDE.md`, under its own names. An installed file is compared byte for byte with
-the pinned version and overwritten by the install, per `design@check@owned-namespace-check`, so an
+the pinned version and overwritten by the install, per `design@check@installed-files-compared-by-bytes`, so an
 edit to it fails the check and is lost at the next install; a project skill with the same base
 name as an installed one would load beside it, not replace it. Where a project skill would have to
 contradict an installed one, the installed text is wrong for that project, and the owner reports

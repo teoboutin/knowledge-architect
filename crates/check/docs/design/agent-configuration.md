@@ -45,7 +45,8 @@ project's command, and the project commits them, so a session started from a fre
 session or a review in a new worktree has them without building anything, which serves
 `goal@knowledge-architect@agents-get-a-complete-workflow`. The rival, installing them on demand, gives
 such a session nothing until something has run the install.
-### The installed agent files are outside the walk, and read for definitions only `##installed-files-outside-the-walk`
+
+### The installed agent files are outside the walk `##installed-files-outside-the-walk`
 
 They leave the walk by construction, as the generated indexes do: their prose is the shipped text's, judged
 where that text is written, and its illustration paths would otherwise be reported in every installing
@@ -55,7 +56,7 @@ none of them.
 The model holds them parsed for definitions, per `design@model@installed-entities-from-the-tree`: no check
 walks them for references, and they raise no finding of the section rule or of a slug defined twice.
 
-### The installed agent files are checked byte for byte, in a namespace whose ownership is decided by a name `##owned-namespace-check`
+### Ownership of an installed file is decided by a name, in a namespace the installer owns `##owned-namespace-check`
 
 The install deletes every file of the installer's namespace that the version does not ship. The namespace
 is the prefix `knowledge-architect-` among the skill directories, the agent files and the saved workflow
@@ -66,21 +67,22 @@ deletion, which the check names until it is staged. The rival, a record of insta
 `rejected@check@install-record-file`.
 
 A symbolic link on an owned path is refused by the install before it touches anything, because following
-one would write or delete in another directory. Under `claude`, the family `agents` of the last phase
-reports each shipped file missing or whose bytes differ from its rendered template, and each file of the
-namespace the version does not ship. No check reads these findings, and a model built over a stale copy or a
-missing one is complete, per `design@check@phases-gate-the-report`. The comparison is of bytes, line endings normalised: the binary
-holds the text, so a digest would add a dependency and nothing else. Only `check` compares, per
-`design@check@only-check-compares-installed-files`.
+one would write or delete in another directory. The install edits nothing outside the namespace. A change a
+project needs to an installed skill belongs in a skill of its own, routed from the project's CLAUDE.md.
 
-The install edits nothing outside the namespace. A change a project needs to an installed skill belongs in a
-skill of its own, routed from the project's CLAUDE.md.
+### The installed agent files are compared with the shipped text byte for byte `##installed-files-compared-by-bytes`
+
+Under `claude`, the family `agents` of the last phase reports each shipped file missing or whose bytes differ
+from its rendered template, line endings normalised, and each file of the namespace the version does not ship.
+No check reads these findings, and a model built over a stale copy or a missing one is complete, per
+`design@check@phases-gate-the-report`. The binary holds the text, so the rival, a digest, would add a dependency
+and nothing else. Only `check` compares, per `design@check@only-check-compares-installed-files`.
 
 ### Only `check` compares the installed files, and `commits` does not `##only-check-compares-installed-files`
 
 The running binary ships its own version's text, and an older commit's installed set would fail against it
 with no repair a commit already in history can take. `check --staged` compares, since its snapshot is the
-next commit. A commit's tree is judged against the installed set it holds, per
+next commit, per `design@check@staged-check-semantics`. A commit's tree is judged against the installed set it holds, per
 `design@model@installed-entities-from-the-tree`.
 
 ### The root CLAUDE.md delivers the primer by an import line, which the project writes `##primer-import-line`
