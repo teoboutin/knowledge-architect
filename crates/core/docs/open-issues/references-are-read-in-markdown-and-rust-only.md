@@ -15,7 +15,7 @@ code-comment checks.
 
 ### What
 
-`LIVE_SUFFIXES` in `path@core@src/walk.rs` lists the suffixes the walk reads, `md` and `rs`. The
+`LIVE_SUFFIXES` in `path@model@src/walk.rs` lists the suffixes the walk reads, `md` and `rs`. The
 Rust grammar is what tells the reader which byte ranges of a source file are prose. Each further
 language a target project holds files in, such as the JavaScript of the saved workflows or of a web
 target, its HTML, or a shader language, would need a way to find its comments, and a way for the

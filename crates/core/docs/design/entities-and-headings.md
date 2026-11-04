@@ -19,7 +19,7 @@ the table's resolver applies to every kind, and `planned` with it, per
 anchors, under the same candidate rule and segmentation, per
 `design@core@register-home-reference`. The
 table lives in
-`path@core@src/entity.rs`, is built once per run from the model, and is what
+`path@model@src/entity.rs`, is built once per run from the model, and is what
 `check::references` resolves against.
 
 **An anchor is a named directory carrying registers**, per

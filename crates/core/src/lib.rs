@@ -232,23 +232,17 @@ const _: Option<&str> = option_env!("KNOWLEDGE_ARCHITECT_CHECKOUT");
 mod agents;
 mod build_origin;
 mod check;
-mod entity;
-mod finding;
 mod graph;
-mod index;
-mod manifest;
-mod model;
-mod records;
-mod scan;
-mod source;
-mod survey;
 mod transcript;
-mod walk;
 
 // Every git invocation is the `git` crate's, per
 // `design@core@checker-asks-git-through-the-crate`. Named `git` here, so the modules that ask it
 // read `crate::git::...` as when it was a module of this crate.
 use knowledge_architect_git as git;
+
+// What phases 1 to 3 read and what they build are the `model` crate's, which every module here
+// names `crate::model`.
+use knowledge_architect_model as model;
 
 // The role modules: one per kind of consumer.
 pub mod cli;
@@ -262,9 +256,7 @@ pub mod testing;
 #[cfg(test)]
 mod mock_projects;
 
-pub use finding::Finding;
-pub use manifest::{Manifest, MANIFEST_NAME};
-pub use model::{Document, Model};
+pub use model::{Document, Finding, Manifest, Model, MANIFEST_NAME};
 
 /// The version of this library, which is the checker's version whatever binary links it.
 ///

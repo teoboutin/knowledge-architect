@@ -10,18 +10,18 @@
 //! its anchor. The groups are then packed into agents under a bound in words.
 //!
 //! Everything here is a pure function of the model and the entity table, so a test states its
-//! project as text, as the tests of `path@core@src/records.rs` do.
+//! project as text, as the tests of `path@model@src/records.rs` do.
 
 use std::collections::{BTreeMap, BTreeSet};
 use std::path::Path;
 
-use crate::entity::{Anchors, Entities, Kind};
-use crate::manifest::{
+use crate::model::declared::{
     Registers, Shape, GOAL_REGISTER, ISSUE_REGISTER, REJECTED_REGISTER, TRIPWIRE_REGISTER,
 };
+use crate::model::document::Observation;
+use crate::model::table::{self, EntryKey, Record};
+use crate::model::table::{Anchors, Entities, Kind};
 use crate::model::{Document, Model};
-use crate::records::{self, EntryKey, Record};
-use crate::scan::Observation;
 
 /// What an entry is in a search: a member of a unit, or one of the four kinds a cluster gathers
 /// around its unit.
@@ -121,7 +121,7 @@ pub(crate) fn graph(model: &Model, anchors: &Anchors, entities: &Entities) -> Gr
     let kinds = record_kinds(anchors.registers());
     let mut entries: Vec<Entry> = Vec::new();
     for kind in &kinds {
-        for record in records::records(model, anchors, entities, kind) {
+        for record in table::records(model, anchors, entities, kind) {
             let words = record.body.split_whitespace().count();
             entries.push(Entry {
                 key: (kind.clone(), record.anchor.clone(), record.id.clone()),
@@ -136,7 +136,7 @@ pub(crate) fn graph(model: &Model, anchors: &Anchors, entities: &Entities) -> Gr
         .enumerate()
         .map(|(i, e)| (e.key.clone(), i))
         .collect();
-    let edges: Vec<(usize, usize)> = records::edges(model, anchors, entities, &kinds)
+    let edges: Vec<(usize, usize)> = table::edges(model, anchors, entities, &kinds)
         .into_iter()
         .filter_map(|(from, to)| Some((*index.get(&from)?, *index.get(&to)?)))
         .collect();
@@ -402,7 +402,7 @@ pub(crate) fn pack(loads: &[(usize, (String, String, String))], bound: usize) ->
 #[cfg(test)]
 mod tests {
     use super::*;
-    use crate::manifest::Manifest;
+    use crate::model::Manifest;
     use std::path::PathBuf;
 
     // Every fixture is inline: the checker reads no string literal of its own source, per
@@ -520,7 +520,7 @@ mod tests {
 
     /// The claim: `edges` reads a reference inside the citing entry's section only, so prose
     /// under a subject before its first head yields no edge, and an entry's own slug is no edge.
-    /// Mutation checked: the section range in `records::edges` widened to the whole document,
+    /// Mutation checked: the section range in `table::edges` widened to the whole document,
     /// which gives `first-head` an edge to `other-head` from the subject's prose.
     #[test]
     fn an_edge_is_read_inside_the_citing_entry_only() {
@@ -534,7 +534,7 @@ mod tests {
         let anchors = Anchors::of(&manifest, model.listing());
         let entities = Entities::build(&model, &anchors);
         let kinds = record_kinds(anchors.registers());
-        let edges = records::edges(&model, &anchors, &entities, &kinds);
+        let edges = table::edges(&model, &anchors, &entities, &kinds);
         let pair = |a: &str, b: &str| {
             let k = |r: &str| {
                 let mut parts = r.split('@');

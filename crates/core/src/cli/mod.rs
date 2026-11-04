@@ -20,9 +20,9 @@ use output::{out, outln};
 use clap::{Args, Subcommand};
 
 use crate::check::{Phase, Report};
-use crate::entity::{Anchors, Candidate, Entities, Kind};
 use crate::extension::{Extension, Prepared, Purpose, Tree};
-use crate::manifest::{ISSUE_REGISTER, TRIPWIRE_REGISTER};
+use crate::model::declared::{ISSUE_REGISTER, TRIPWIRE_REGISTER};
+use crate::model::table::{Anchors, Candidate, Entities, Kind};
 use crate::Manifest;
 
 mod history;
@@ -295,7 +295,7 @@ fn install_agent_skills(manifest: &Manifest) -> Result<ExitCode, String> {
         outln!("the project declares no agent harness: nothing was installed");
         return Ok(ExitCode::SUCCESS);
     }
-    let shipped = crate::agents::shipped(manifest);
+    let shipped = crate::model::installed::shipped(manifest);
     let done = crate::agents::install(manifest.root(), &shipped)?;
     for rel in &done.written {
         outln!("wrote    {}", rel.display());
@@ -306,14 +306,15 @@ fn install_agent_skills(manifest: &Manifest) -> Result<ExitCode, String> {
     if done.written.is_empty() && done.deleted.is_empty() {
         outln!("the installed set is already the shipped one");
     }
-    let primer = std::path::Path::new(crate::agents::PRIMER);
+    let primer = std::path::Path::new(crate::model::installed::PRIMER);
     if shipped.iter().any(|(p, _)| p == primer) {
-        let claude = std::fs::read_to_string(manifest.root().join(crate::manifest::AGENT_DOCUMENT))
-            .unwrap_or_default();
-        if !crate::agents::imports_primer(&claude) {
+        let claude =
+            std::fs::read_to_string(manifest.root().join(crate::model::declared::AGENT_DOCUMENT))
+                .unwrap_or_default();
+        if !crate::model::installed::imports_primer(&claude) {
             outln!(
                 "the root CLAUDE.md does not import the primer: add a line holding exactly `{}`",
-                crate::agents::IMPORT_LINE
+                crate::model::installed::IMPORT_LINE
             );
         }
     }
@@ -332,17 +333,8 @@ pub fn complete_working_tree(
     manifest: &Manifest,
     model: &crate::Model,
 ) -> Result<Gathered, String> {
-    let gathered = Gathered::over(manifest, model)?;
-    let inputs = gathered.inputs();
-    match crate::check::foundation(model, manifest, &inputs) {
-        Ok(()) => Ok(gathered),
-        Err(stop) => Err(format!(
-            "the model is incomplete: {}. `{} check` reports them. Nothing was \
-             written.",
-            stop.phase.stop_line(stop.findings.len()),
-            manifest.command()
-        )),
-    }
+    let tree = crate::model::foundation::complete_working_tree(manifest, model)?;
+    Ok(Gathered::beside(tree, manifest, model))
 }
 
 /// The project is whatever declares itself one at or above the working directory.
@@ -399,7 +391,7 @@ fn refuse_another_version_built_at(
     checker_dirs: &[&Path],
     tracked: &dyn Fn(&Path) -> bool,
 ) -> Result<(), String> {
-    use crate::manifest::Pin;
+    use crate::model::declared::Pin;
     let repair = "set [project] checker-version to the version of the checker the project runs";
     let Some(pin) = manifest.pin() else {
         let complaint = manifest
@@ -504,7 +496,7 @@ fn model(
 ) -> Result<ExitCode, String> {
     let model = crate::Model::build(manifest, checker)
         .map_err(|e| format!("cannot read the project: {e}"))?;
-    let extra: Vec<crate::model::DumpRow> =
+    let extra: Vec<crate::model::table::DumpRow> =
         extensions.iter().flat_map(|e| e.dump(&model)).collect();
     let dump = model.canonical_with(&extra);
     // The count goes to stderr so that redirecting stdout gives a file that is only
@@ -529,8 +521,8 @@ fn model(
 /// home is missing, a negative answer about the project, per `design@core@exit-code-ladder`;
 /// `check` names the repair.
 fn list_anchors(manifest: &Manifest, checker: &[&Path]) -> Result<ExitCode, String> {
-    use crate::entity::Constructed;
-    use crate::manifest::Shape;
+    use crate::model::declared::Shape;
+    use crate::model::table::Constructed;
     let model = crate::Model::build(manifest, checker).map_err(|e| e.to_string())?;
     let anchors = Anchors::of(manifest, model.listing());
     // The listing names files, so a directory is held where a listed file sits under it, as
@@ -778,9 +770,9 @@ pub(super) fn fix_then_check(
             let differing: Vec<String> = differing_paths(&generated, &staged)
                 .into_iter()
                 .filter(|path| {
-                    written_here.iter().any(|(rel, _)| {
-                        crate::finding::escaped(&rel.display().to_string()) == *path
-                    })
+                    written_here
+                        .iter()
+                        .any(|(rel, _)| crate::model::escaped(&rel.display().to_string()) == *path)
                 })
                 .collect();
             if !differing.is_empty() {
@@ -867,7 +859,7 @@ fn untracked_note(
     }
     let names: Vec<String> = files
         .iter()
-        .map(|file| crate::finding::escaped(&file.display().to_string()))
+        .map(|file| crate::model::escaped(&file.display().to_string()))
         .collect();
     let (count, verb) = match names.len() {
         1 => ("1 file".to_string(), "is"),
@@ -981,7 +973,7 @@ fn generated_list(
                 .map(|g| (g.rel, g.text)),
         );
     }
-    generated.extend(crate::index::file_register_indexes(
+    generated.extend(crate::model::generated::file_register_indexes(
         model,
         manifest,
         inputs.present,
@@ -1003,7 +995,7 @@ fn differing_paths(
     paths
         .into_iter()
         .filter(|rel| working.get(*rel) != staged.get(*rel))
-        .map(|rel| crate::finding::escaped(&rel.display().to_string()))
+        .map(|rel| crate::model::escaped(&rel.display().to_string()))
         .collect()
 }
 
@@ -1062,7 +1054,7 @@ fn show(manifest: &Manifest, args: &ShowArgs, checker: &[&Path]) -> Result<ExitC
     let model = crate::Model::build(manifest, checker).map_err(|e| e.to_string())?;
     let anchors = Anchors::of(manifest, model.listing());
     let reference = args.reference.trim_matches('`');
-    let (kind, anchor, id) = match crate::entity::candidate(reference, &anchors) {
+    let (kind, anchor, id) = match crate::model::table::candidate(reference, &anchors) {
         Candidate::Reference { kind, anchor, id } => (kind, anchor, id),
         // The owner stands where the anchor does: the table keys a harness kind's entity so.
         Candidate::Harness { kind, owner, id } => (kind, owner, id),
@@ -1123,7 +1115,7 @@ fn show(manifest: &Manifest, args: &ShowArgs, checker: &[&Path]) -> Result<ExitC
         let rel = a.path.join(id.trim_end_matches('/'));
         let present = || -> Result<bool, String> {
             Ok(model.documents().iter().any(|d| d.rel == rel)
-                || crate::survey::survey(manifest, &model)
+                || crate::model::listing::survey(manifest, &model)
                     .map_err(|e| e.to_string())?
                     .present
                     .contains(&rel))
@@ -1134,7 +1126,7 @@ fn show(manifest: &Manifest, args: &ShowArgs, checker: &[&Path]) -> Result<ExitC
             // `design@core@planned-path-form`. A reference the check refuses resolves to nothing
             // here either. The listing holds no ignored file, so an absent target and an
             // ignored one read the same.
-            if let Err(cause) = crate::check::resolve::planned_target(anchor, id, &anchors) {
+            if let Err(cause) = crate::model::resolve::planned_target(anchor, id, &anchors) {
                 let (what, action) = cause.texts(reference);
                 outln!("{reference} resolves to nothing: {what}");
                 outln!("  → {action}");
@@ -1154,7 +1146,8 @@ fn show(manifest: &Manifest, args: &ShowArgs, checker: &[&Path]) -> Result<ExitC
             outln!("{}", doc.text.trim_end());
             found = true;
         } else {
-            let survey = crate::survey::survey(manifest, &model).map_err(|e| e.to_string())?;
+            let survey =
+                crate::model::listing::survey(manifest, &model).map_err(|e| e.to_string())?;
             if survey.present.contains(&rel) {
                 outln!("{reference}  {}", rel.display());
                 outln!();
@@ -1167,7 +1160,7 @@ fn show(manifest: &Manifest, args: &ShowArgs, checker: &[&Path]) -> Result<ExitC
         // holds, in whichever shape, with the register's shape, or a word that the tree holds
         // neither. `*` names every component's own home. A reference the check refuses resolves
         // to nothing here either, with the check's own finding.
-        if let Err(cause) = crate::check::resolve::register(anchor, id, &anchors) {
+        if let Err(cause) = crate::model::resolve::register(anchor, id, &anchors) {
             let (what, action) = cause.texts(reference);
             outln!("{reference} resolves to nothing: {what}");
             outln!("  → {action}");
@@ -1178,11 +1171,11 @@ fn show(manifest: &Manifest, args: &ShowArgs, checker: &[&Path]) -> Result<ExitC
             .by_name(id)
             .expect("the check resolved the register");
         let listed = |p: &Path| model.listing().iter().any(|l| l == p || l.starts_with(p));
-        let homes: Vec<&crate::entity::Anchor> = anchors
+        let homes: Vec<&crate::model::table::Anchor> = anchors
             .all()
             .iter()
             .filter(|a| {
-                if anchor == crate::entity::EVERY_ANCHOR {
+                if anchor == crate::model::table::EVERY_ANCHOR {
                     a.is_component
                 } else {
                     a.name == anchor
@@ -1194,7 +1187,8 @@ fn show(manifest: &Manifest, args: &ShowArgs, checker: &[&Path]) -> Result<ExitC
         for a in homes {
             let home = a.home_of(register);
             let file = home.file.clone();
-            let held = if register.shape == crate::manifest::Shape::Heading && listed(&file) {
+            let held = if register.shape == crate::model::declared::Shape::Heading && listed(&file)
+            {
                 file.display().to_string()
             } else if listed(&home.dir) {
                 format!("{}/", home.dir.display())
@@ -1205,7 +1199,7 @@ fn show(manifest: &Manifest, args: &ShowArgs, checker: &[&Path]) -> Result<ExitC
         }
         found = true;
     } else if let Some(record) =
-        crate::records::records(&model, &anchors, &Entities::build(&model, &anchors), &kind)
+        crate::model::table::records(&model, &anchors, &Entities::build(&model, &anchors), &kind)
             .into_iter()
             .find(|r| r.anchor == anchor && r.id == id)
     {
@@ -1217,7 +1211,7 @@ fn show(manifest: &Manifest, args: &ShowArgs, checker: &[&Path]) -> Result<ExitC
         return Ok(ExitCode::FAILURE);
     }
 
-    let index = crate::records::Inbound::build(&model, &anchors);
+    let index = crate::model::table::Inbound::build(&model, &anchors);
     outln!();
     outln!(
         "{}",
@@ -1257,7 +1251,7 @@ fn id(manifest: &Manifest, args: &IdArgs, checker: &[&Path]) -> Result<ExitCode,
     let mut all_free = true;
     for candidate in &args.ids {
         let pad = " ".repeat(width - candidate.len());
-        if !crate::entity::is_entry_id(candidate) {
+        if !crate::model::table::is_entry_id(candidate) {
             all_free = false;
             outln!("{candidate}{pad}  not an id: an id matches [a-z0-9]+(-[a-z0-9]+)+");
             continue;
@@ -1302,13 +1296,13 @@ fn id(manifest: &Manifest, args: &IdArgs, checker: &[&Path]) -> Result<ExitCode,
 /// `show` prints it, a blank line and [`inbound_text`]; `worklist --out` writes the same three
 /// into its snapshot, so the snapshot holds what `show` prints rather than a second rendering of
 /// it, per `design@core@one-question-one-command`.
-pub(super) fn record_text(reference: &str, record: &crate::records::Record) -> String {
+pub(super) fn record_text(reference: &str, record: &crate::model::table::Record) -> String {
     format!("{reference}  {}\n\n{}", record.site, record.body.trim_end())
 }
 
 /// What points at an entity, as `show` prints it: `referenced by nothing`, or `referenced at:`
 /// with one indented site per line.
-pub(super) fn inbound_text(sites: &[crate::entity::Site]) -> String {
+pub(super) fn inbound_text(sites: &[crate::model::table::Site]) -> String {
     if sites.is_empty() {
         return "referenced by nothing".to_string();
     }
@@ -1324,15 +1318,15 @@ pub(super) fn inbound_text(sites: &[crate::entity::Site]) -> String {
 /// A component's home of a register is cited through `*` too, and a change of that home's shape
 /// concerns every such citation, so the list holds them with the named ones.
 pub(super) fn cited_at(
-    index: &crate::records::Inbound,
+    index: &crate::model::table::Inbound,
     anchors: &Anchors,
-    kind: &crate::entity::Kind,
+    kind: &crate::model::table::Kind,
     anchor: &str,
     id: &str,
-) -> Vec<crate::entity::Site> {
+) -> Vec<crate::model::table::Site> {
     let mut sites = index.of(kind, anchor, id);
     if kind.is_register() && anchors.by_name(anchor).is_some_and(|a| a.is_component) {
-        sites.extend(index.of(kind, crate::entity::EVERY_ANCHOR, id));
+        sites.extend(index.of(kind, crate::model::table::EVERY_ANCHOR, id));
         sites.sort_by(|a, b| (&a.file, a.line).cmp(&(&b.file, b.line)));
     }
     sites
@@ -1379,7 +1373,7 @@ fn issues(manifest: &Manifest, args: &IssuesArgs, checker: &[&Path]) -> Result<E
     let kind = Kind::new(ISSUE_REGISTER);
     let (anchor, needle) = split_terms(&args.terms, &anchors);
     let mut rows =
-        crate::records::records(&model, &anchors, &Entities::build(&model, &anchors), &kind);
+        crate::model::table::records(&model, &anchors, &Entities::build(&model, &anchors), &kind);
     rows.retain(|r| {
         anchor.is_none_or(|a| r.anchor == a)
             && args
@@ -1446,7 +1440,7 @@ fn tripwires(
         .as_ref()
         .map(|g| g.trim_matches('`').to_string());
     let mut rows =
-        crate::records::records(&model, &anchors, &Entities::build(&model, &anchors), &kind);
+        crate::model::table::records(&model, &anchors, &Entities::build(&model, &anchors), &kind);
     rows.retain(|r| {
         anchor.is_none_or(|a| r.anchor == a)
             && guarding

@@ -6,15 +6,7 @@
 //!
 //! [`Document`]: crate::Document
 
-pub use crate::scan::{Located, Observation, RetiredForm, SlugSite};
-pub use crate::source::{Frontmatter, Literals, Parsed, Prose, Scope, ScopeKind};
-
-/// The markdown grammar.
-pub mod md {
-    pub use crate::source::md::parse;
-}
-
-/// The Rust grammar.
-pub mod rs {
-    pub use crate::source::rs::parse;
-}
+pub use crate::model::document::{
+    md, rs, Frontmatter, Literals, Located, Observation, Parsed, Prose, RetiredForm, Scope,
+    ScopeKind, SlugSite,
+};

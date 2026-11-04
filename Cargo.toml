@@ -1,5 +1,5 @@
-# The workspace: the checker's crate, the crate that asks git what it reads, the crate that carries
-# the agent skills it installs, the gates library, the mutation library, and the maintenance tool.
+# The workspace: the checker's crate, the crate that asks git what it reads, the crate that reads a
+# project into its model, the crate that carries the agent skills it installs, the gates library, the mutation library, and the maintenance tool.
 # No Component's directory is named after the project, per
 # `design@knowledge-architect@no-component-directory-named-after-the-project`.
 
@@ -8,6 +8,7 @@ resolver = "2"
 members = [
     "crates/core",
     "crates/git",
+    "crates/model",
     "crates/agent-skills",
     "crates/gates",
     "crates/mutate",

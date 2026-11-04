@@ -1,0 +1,28 @@
+[package]
+name = "knowledge-architect-model"
+readme = "CRATES-IO.md"
+description = "What knowledge-architect reads of a project: its manifest, the walk git supplies, the parse of each document, the entity table, and what a reference resolves to."
+version.workspace = true
+edition.workspace = true
+license.workspace = true
+repository.workspace = true
+keywords.workspace = true
+# What the published package ships, as a whitelist: a new directory is shipped only once it is
+# listed here.
+include = ["/src/**", "/Cargo.toml", "/README.md", "/LICENSE-MIT", "/LICENSE-APACHE", "/CHANGELOG.md"]
+
+[dependencies]
+# The two parsers. A Rust doc comment's content is markdown, so the markdown parser runs over
+# both file kinds and the Rust grammar's job is to say which byte ranges are prose at all.
+pulldown-cmark = { version = "0.13", default-features = false }
+regex = "1.13.1"
+tree-sitter = "0.25"
+tree-sitter-rust = "0.24"
+serde = { version = "1", features = ["derive"] }
+toml = "1.1.4"
+# The shipped text the installed-file check compares, until that check moves to the last phase in
+# `check`; pinned exactly, as every crate of the workspace carries one version, per
+# `design@knowledge-architect@version-lockstep`.
+knowledge-architect-agent-skills = { path = "../agent-skills", version = "=0.9.0" }
+# Every git invocation, per `design@core@checker-asks-git-through-the-crate`.
+knowledge-architect-git = { path = "../git", version = "=0.9.0" }

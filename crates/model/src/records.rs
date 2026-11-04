@@ -2,7 +2,7 @@
 //!
 //! `show`, `issues` and `tripwires` all ask the same three questions of an entity: where it is
 //! defined, what it says, and what points at it. This module answers them over the entity table
-//! `path@core@src/entity.rs` builds, so a listing reads the same definition sites
+//! `path@model@src/entity.rs` builds, so a listing reads the same definition sites
 //! every check resolves against and no command holds a second notion of what an entry is.
 //!
 //! **A file register's entry is its file; a heading register's entry is its section.** That is
@@ -24,7 +24,7 @@ use crate::scan::Observation;
 
 /// One recorded entry, as a row and as a body.
 #[derive(Clone, Debug, PartialEq, Eq)]
-pub(crate) struct Record {
+pub struct Record {
     pub anchor: String,
     pub id: String,
     /// The entry's title: a file entry's level-one heading, a heading entry's heading text
@@ -43,7 +43,7 @@ pub(crate) struct Record {
     /// refused, which are the same thing to a listing and each a `registers` finding.
     pub metadata: Option<String>,
     /// Every reference to a guarded kind the entry's body carries, as written, in the order
-    /// they appear. [`guarded`] says which kinds those are.
+    /// they appear. `guarded` says which kinds those are.
     pub guards: Vec<String>,
 }
 
@@ -67,12 +67,7 @@ pub(crate) fn guarded(registers: &Registers, kind: &str) -> bool {
 /// An entity whose definition site is in no walked document is skipped: the table holds it
 /// because something defined it, and a row with no body would say the register holds an entry
 /// nobody can read.
-pub(crate) fn records(
-    model: &Model,
-    anchors: &Anchors,
-    entities: &Entities,
-    kind: &Kind,
-) -> Vec<Record> {
+pub fn records(model: &Model, anchors: &Anchors, entities: &Entities, kind: &Kind) -> Vec<Record> {
     let by_path: BTreeMap<&Path, &Document> = model
         .documents()
         .iter()
@@ -162,7 +157,7 @@ fn heading_record(
 
 impl Record {
     /// The row a listing prints for a tripwire: the references it carries, joined.
-    pub(crate) fn guarding(&self) -> String {
+    pub fn guarding(&self) -> String {
         if self.guards.is_empty() {
             "-".to_string()
         } else {
@@ -171,7 +166,7 @@ impl Record {
     }
 
     /// Whether the entry's id or title holds `needle`, case-insensitively.
-    pub(crate) fn matches(&self, needle: &str) -> bool {
+    pub fn matches(&self, needle: &str) -> bool {
         let needle = needle.to_lowercase();
         self.id.to_lowercase().contains(&needle) || self.title.to_lowercase().contains(&needle)
     }
@@ -188,10 +183,10 @@ impl Record {
 /// table keys where an anchor goes, and its id. A path's id is keyed without its trailing slash:
 /// `x` and `x/` name one target, and the slash is a kind claim the check judges. A planned
 /// citation is keyed under `planned`, and [`Inbound::of`] adds it to the path it will name.
-pub(crate) struct Inbound(BTreeMap<(Kind, String, String), Vec<Site>>);
+pub struct Inbound(BTreeMap<(Kind, String, String), Vec<Site>>);
 
 impl Inbound {
-    pub(crate) fn build(model: &Model, anchors: &Anchors) -> Inbound {
+    pub fn build(model: &Model, anchors: &Anchors) -> Inbound {
         let mut by_entity: BTreeMap<(Kind, String, String), Vec<Site>> = BTreeMap::new();
         for doc in model.documents() {
             for l in &doc.observations {
@@ -225,7 +220,7 @@ impl Inbound {
     /// Every site that references the entity, in document and line order. A path's planned
     /// citations are among them: a conversion edits them once the file exists, so `show` on the
     /// path lists them, per `design@core@planned-path-form`.
-    pub(crate) fn of(&self, kind: &Kind, anchor: &str, id: &str) -> Vec<Site> {
+    pub fn of(&self, kind: &Kind, anchor: &str, id: &str) -> Vec<Site> {
         let id = if kind.takes_a_path() {
             id.trim_end_matches('/')
         } else {
@@ -253,7 +248,7 @@ impl Inbound {
 /// check of `design@core@orphan-rejected-entry`, and not in the citing register's
 /// home outside any entry, nor in any other document. The anchor is the one the span writes,
 /// which is the entry's own, since an entity belongs to its anchor.
-pub(crate) fn cited_within(
+pub fn cited_within(
     model: &Model,
     anchors: &Anchors,
     entities: &Entities,
@@ -291,7 +286,7 @@ pub(crate) fn cited_within(
 }
 
 /// One entry, by the three segments of its reference: its kind, its anchor and its id.
-pub(crate) type EntryKey = (Kind, String, String);
+pub type EntryKey = (Kind, String, String);
 
 /// Every edge among the entries of `kinds`: an entry, and an entry of `kinds` it cites.
 ///
@@ -299,7 +294,7 @@ pub(crate) type EntryKey = (Kind, String, String);
 /// heading entry's section, a file entry's file, a Directory entry's README. Prose of a home
 /// outside every entry yields no edge, and neither does an entry's reference to itself. An entry
 /// defined twice is read at its first site, which is the one [`records`] prints.
-pub(crate) fn edges(
+pub fn edges(
     model: &Model,
     anchors: &Anchors,
     entities: &Entities,

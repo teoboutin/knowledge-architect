@@ -7,7 +7,7 @@ kind: todo
 
 The manifest's `[walk]` rows, `skip-dirs`, `skip-files` and `exclude`, may name any path. A row
 that keeps out a file the model requires is reported in one case only: under the `claude` harness,
-a root CLAUDE.md outside the walk, by `check::agents` in `path@core@src/check/agents.rs`, with the
+a root CLAUDE.md outside the walk, by `check::agents` in `path@model@src/shipped.rs`, with the
 repair "remove the row of [walk] that keeps it out". The owner's direction: the walk does not allow
 excluding a file the model requires.
 

@@ -1,12 +1,11 @@
 //! What a run fetches before any check runs, gathered once for every caller.
 
-use std::collections::{HashMap, HashSet};
+use std::collections::HashMap;
 use std::path::PathBuf;
 
 use crate::check::Inputs;
-use crate::entity::Anchors;
-use crate::survey::Survey;
-use crate::{Manifest, Model};
+use crate::model::table::Anchors;
+use crate::model::{foundation, Manifest, Model};
 
 /// Everything a check needs that it may not fetch for itself, read from the working tree.
 ///
@@ -18,27 +17,33 @@ use crate::{Manifest, Model};
 pub struct Gathered {
     committed: HashMap<PathBuf, String>,
     configs: HashMap<PathBuf, String>,
-    survey: Survey,
-    ignored: HashSet<String>,
-    tracked_and_ignored: Vec<PathBuf>,
-    shipped: Vec<(PathBuf, String)>,
+    tree: foundation::Gathered,
 }
 
 impl Gathered {
     /// Read the working tree under the manifest's root: the committed generated files, every
-    /// `register.toml`, one survey, the two git batches, and the agent files this version
-    /// ships.
+    /// `register.toml`, and what `model` gathers for phases 1 to 3 and the resolver.
     ///
     /// `Err` is could-not-run: git or the filesystem refused a read the run cannot do without.
     /// A generated file or a `register.toml` that is absent is not an error: the checks that
     /// read them report the absence.
     pub fn over(manifest: &Manifest, model: &Model) -> Result<Gathered, String> {
+        let tree = foundation::Gathered::over(manifest, model)?;
+        Ok(Gathered::beside(tree, manifest, model))
+    }
+
+    /// What phase 4 alone reads, beside what `model` gathered. These reads cannot fail.
+    pub(super) fn beside(
+        tree: foundation::Gathered,
+        manifest: &Manifest,
+        model: &Model,
+    ) -> Gathered {
         // The generated files are outside the walk — an extension's by a declared row, every
         // file-register index by construction — because a generated file is not a source of
         // citations. The set includes the extensions' files once `extension::configure` has
         // run over the manifest.
         let mut committed = HashMap::new();
-        for rel in crate::index::generated_paths(manifest, model.listing()) {
+        for rel in crate::model::generated::generated_paths(manifest, model.listing()) {
             if let Ok(text) = std::fs::read_to_string(manifest.root().join(&rel)) {
                 committed.insert(rel, text);
             }
@@ -52,40 +57,28 @@ impl Gathered {
                 configs.insert(home.config.clone(), text);
             }
         }
-        // One listing answers every question a check has about what is there.
-        let survey = crate::survey::survey(manifest, model).map_err(|e| e.to_string())?;
-        // Whether the ignore rules cover a path target is git's answer, taken in ONE batch over
-        // every spelling a reference in this run could ask about: a process per reference
-        // would be a process per pointer in the tree.
-        let queries = crate::check::resolve::ignore_queries(model, &anchors);
-        let ignored = crate::git::ignored(manifest.root(), &queries).map_err(|e| e.to_string())?;
-        let tracked_and_ignored =
-            crate::git::tracked_and_ignored(manifest.root()).map_err(|e| e.to_string())?;
-        let shipped = crate::agents::shipped(manifest);
-        Ok(Gathered {
+        Gathered {
             committed,
             configs,
-            survey,
-            ignored,
-            tracked_and_ignored,
-            shipped,
-        })
+            tree,
+        }
     }
 
     /// The inputs of one run, borrowed from what was gathered.
     pub fn inputs(&self) -> Inputs<'_> {
+        let tree = self.tree.inputs();
         Inputs {
             committed: &self.committed,
             configs: &self.configs,
-            present: &self.survey.present,
-            directories: &self.survey.directories,
-            outside: &self.survey.outside,
-            ignored: &self.ignored,
-            tracked_and_ignored: &self.tracked_and_ignored,
-            refused: &self.survey.refused,
-            links: &self.survey.links,
-            installed: &self.survey.installed,
-            shipped: &self.shipped,
+            present: tree.present,
+            directories: tree.directories,
+            outside: tree.outside,
+            ignored: tree.ignored,
+            tracked_and_ignored: tree.tracked_and_ignored,
+            refused: tree.refused,
+            links: tree.links,
+            installed: tree.installed,
+            shipped: tree.shipped,
         }
     }
 }

@@ -117,7 +117,7 @@ fn named_checker_sources(
 /// the same `checker source:` line as `check`. A directory outside the project, such as the
 /// registry copy of a published binary's source, holds no file of the project's tree, so it
 /// matches nothing and is still named.
-pub(crate) fn snapshot_checker_dirs(
+pub fn snapshot_checker_dirs(
     root: &Path,
     checker: &[&Path],
 ) -> std::io::Result<(Vec<PathBuf>, Vec<PathBuf>)> {
@@ -266,12 +266,12 @@ impl Model {
     ///
     /// What the survey answers "does this path exist" out of. Empty for a model assembled in
     /// memory, which has no tree behind it.
-    pub(crate) fn listing(&self) -> &[PathBuf] {
+    pub fn listing(&self) -> &[PathBuf] {
         &self.listing
     }
 
     /// The files of the listing git does not track, project-relative.
-    pub(crate) fn untracked(&self) -> &HashSet<PathBuf> {
+    pub fn untracked(&self) -> &HashSet<PathBuf> {
         &self.untracked
     }
 
@@ -314,7 +314,7 @@ impl Model {
     /// `design@core@checker-source-literals-are-data`. `commits` needs this because a per-commit
     /// model is assembled from git objects and would otherwise read the tool's own fixtures as
     /// live citations at every commit in the range.
-    pub(crate) fn from_documents_under(docs: Vec<(PathBuf, String)>, checker: &[&Path]) -> Self {
+    pub fn from_documents_under(docs: Vec<(PathBuf, String)>, checker: &[&Path]) -> Self {
         let docs = docs
             .into_iter()
             .map(|(rel, text)| {
@@ -351,7 +351,7 @@ impl Model {
     /// `build` reads them off the disk; `commits` hands in a commit's own blobs, so each commit's
     /// entities are its own installed set's. A copy is markdown, so it is parsed with no literal
     /// mode, and nothing walks it.
-    pub(crate) fn set_installed(&mut self, copies: Vec<(PathBuf, String)>) {
+    pub fn set_installed(&mut self, copies: Vec<(PathBuf, String)>) {
         self.installed = copies
             .into_iter()
             .map(|(rel, text)| {
@@ -370,7 +370,7 @@ impl Model {
 
     /// The installed copies, parsed: read by the entity table for definitions, by no check for
     /// references.
-    pub(crate) fn installed(&self) -> &[Document] {
+    pub fn installed(&self) -> &[Document] {
         &self.installed
     }
 
@@ -379,7 +379,7 @@ impl Model {
     /// The way `build` keeps an unreadable file: in the model, so that `check::tree` reports
     /// it and the run stops there, rather than absent, which is the silence the walk exists
     /// against. `commits` uses it for a tree entry whose blob is not text.
-    pub(crate) fn push_unreadable(&mut self, rel: PathBuf, trouble: String) {
+    pub fn push_unreadable(&mut self, rel: PathBuf, trouble: String) {
         self.docs.push(Document {
             rel,
             text: String::new(),

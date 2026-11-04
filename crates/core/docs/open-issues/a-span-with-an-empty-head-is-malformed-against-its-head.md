@@ -15,7 +15,7 @@ written without its backticks, since written with them it is the finding this en
 
 ### What
 
-In `path@core@src/entity.rs`, the function `candidate` returns
+In `path@model@src/entity.rs`, the function `candidate` returns
 `Candidate::Malformed { why: "the kind segment is empty" }` when `head.is_empty() &&
 rest.contains('/')`. Its comment gives the reason: "An empty head in front of a path shape is the
 retired `@` escape, or a kind that was never typed; either way a pointer that would otherwise leave

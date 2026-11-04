@@ -13,13 +13,14 @@ use std::process::ExitCode;
 
 use super::output::outln;
 use super::{InitArgs, Library, NewComponentArgs, Vcs};
-use crate::agents::IMPORT_LINE;
-use crate::entity::{Anchor, Anchors, Constructed};
 use crate::extension::Extension;
-use crate::manifest::{
-    Shape, AGENT_DOCUMENT, ISSUE_REGISTER, MANIFEST_NAME, MILESTONE_REGISTER, OWNED_PREFIX,
-    REJECTED_REGISTER, SPEC_REGISTER, TRIPWIRE_REGISTER,
+use crate::model::declared::{
+    Shape, AGENT_DOCUMENT, ISSUE_REGISTER, MILESTONE_REGISTER, OWNED_PREFIX, REJECTED_REGISTER,
+    SPEC_REGISTER, TRIPWIRE_REGISTER,
 };
+use crate::model::installed::IMPORT_LINE;
+use crate::model::table::{Anchor, Anchors, Constructed};
+use crate::model::MANIFEST_NAME;
 use crate::Manifest;
 
 /// Create a knowledge-architect project at `args.path`, as `klarch init` does.
@@ -163,7 +164,7 @@ pub fn init(
     let mut destinations: Vec<PathBuf> = documents.iter().map(|d| d.rel.clone()).collect();
     destinations.push(PathBuf::from(MANIFEST_NAME));
     destinations.push(PathBuf::from(".gitignore"));
-    for (rel, _) in crate::agents::shipped(&parsed) {
+    for (rel, _) in crate::model::installed::shipped(&parsed) {
         refuse_unwritable(&root, &root.join(&rel))?;
         destinations.push(rel);
     }
@@ -246,7 +247,7 @@ fn finish(
         // runs, per `design@git@failed-git-is-an-error`. The install reads no listing, so the
         // agent files are written here all the same: a session started in the project finds them.
         if manifest.serves_claude() {
-            let shipped = crate::agents::shipped(manifest);
+            let shipped = crate::model::installed::shipped(manifest);
             let mut done = crate::agents::Installed::default();
             let outcome = crate::agents::install_into(manifest.root(), &shipped, &mut done);
             for rel in &done.written {
@@ -787,7 +788,7 @@ fn component_path(root: &Path, path: &Path) -> Result<String, String> {
         ));
     }
     // The namespace is judged over files, so the README the Component would hold is asked.
-    if crate::manifest::owned_path(&Path::new(&rel).join("README.md")) {
+    if crate::model::declared::owned_path(&Path::new(&rel).join("README.md")) {
         return Err(format!(
             "`{rel}` lies in the installer's namespace, whose files every install deletes"
         ));

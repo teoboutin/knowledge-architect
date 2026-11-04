@@ -19,11 +19,11 @@ use std::path::{Path, PathBuf};
 use std::process::ExitCode;
 
 use crate::check::{self, Inputs};
-use crate::entity::{Anchors, Entities};
 use crate::extension::{Extension, Prepared, Purpose, Snapshot, Tree};
 use crate::git::Source;
-use crate::manifest::MANIFEST_NAME;
-use crate::survey::Survey;
+use crate::model::listing::Survey;
+use crate::model::table::{Anchors, Entities};
+use crate::model::MANIFEST_NAME;
 use crate::{Finding, Manifest, Model};
 
 // ---------------------------------------------------------------------------------------
@@ -244,7 +244,7 @@ struct FromTree {
     /// The wanted blobs whose bytes are not UTF-8, as the survey reads them: binary, or text
     /// decoded lossily, as `check` reads the same file on disk. Read by the survey alone; a
     /// walked path here is still a document with no text.
-    not_text: std::collections::BTreeMap<PathBuf, crate::survey::Outside>,
+    not_text: std::collections::BTreeMap<PathBuf, crate::model::listing::Outside>,
 }
 
 /// Read one snapshot, a commit's tree or the one git's index would commit: its manifest,
@@ -270,7 +270,7 @@ fn read_tree(
         if !unmerged.is_empty() {
             let names: Vec<String> = unmerged
                 .iter()
-                .map(|p| crate::finding::escaped(&p.display().to_string()))
+                .map(|p| crate::model::escaped(&p.display().to_string()))
                 .collect();
             return Err(Unloadable(format!(
                 "the index holds unmerged paths: {}",
@@ -321,7 +321,7 @@ fn read_tree(
     let walk = manifest.walk();
     let mut wanted: Vec<PathBuf> = files
         .iter()
-        .filter(|rel| !crate::walk::skipped(rel, walk) && !walk.skip_files.contains(rel))
+        .filter(|rel| !crate::model::listing::skipped(rel, walk) && !walk.skip_files.contains(rel))
         .cloned()
         .collect();
     for rel in generated_extra {
@@ -354,7 +354,10 @@ fn read_tree(
                 blobs.insert(rel, text);
             }
             Err(e) => {
-                not_text.insert(rel, crate::survey::Outside::from_bytes(e.as_bytes()));
+                not_text.insert(
+                    rel,
+                    crate::model::listing::Outside::from_bytes(e.as_bytes()),
+                );
             }
         }
     }
@@ -412,8 +415,8 @@ fn commit_tree(
         // it. The early return in `read_tree` changes no verdict and is what saves reading the
         // blobs.
         let model = Model::from_documents(Vec::new());
-        let survey = crate::survey::from_listing(&manifest, &model, &[], &[], |_| {
-            crate::survey::Outside::Missing
+        let survey = crate::model::listing::from_listing(&manifest, &model, &[], &[], |_| {
+            crate::model::listing::Outside::Missing
         });
         let trouble = if depth != Depth::References {
             manifest.complaints().to_vec()
@@ -450,7 +453,7 @@ fn commit_tree(
     // and the ignore questions asked of this tree follow the homes of the tree it commits rather
     // than the working tree's.
     let anchors = Anchors::of(&manifest, &read.listing);
-    let generated = crate::index::generated_paths(&manifest, &read.listing);
+    let generated = crate::model::generated::generated_paths(&manifest, &read.listing);
     // The walk reads through no symlink and no gitlink, so the files alone are walked.
     let files: Vec<PathBuf> = read
         .listing
@@ -469,7 +472,8 @@ fn commit_tree(
         .collect();
     let mut excluded = generated.clone();
     excluded.extend(installed.iter().cloned());
-    let walked = crate::walk::live_files(Path::new(""), manifest.walk(), &files, &excluded);
+    let walked =
+        crate::model::listing::live_files(Path::new(""), manifest.walk(), &files, &excluded);
     let mut blobs = read.blobs;
     // The generated indexes and the per-instance options sit outside the walk and are read by
     // the caller, exactly as `check` reads them off the filesystem.
@@ -529,27 +533,26 @@ fn commit_tree(
             configs.insert(home.config.clone(), text.clone());
         }
     }
-    let survey = crate::survey::from_listing(
-        &manifest,
-        &model,
-        &read.listing,
-        &read.links,
-        |rel| match blobs.get(rel) {
-            // The same binary test `check` applies on disk: a NUL is valid UTF-8, so a blob
-            // that decoded may still be binary.
-            Some(text) => crate::survey::Outside::from_bytes(text.as_bytes()),
-            None => read.not_text.get(rel).cloned().unwrap_or_else(|| {
-                crate::survey::Outside::Unreadable("the tree holds no blob for it".to_string())
-            }),
-        },
-    );
+    let survey =
+        crate::model::listing::from_listing(&manifest, &model, &read.listing, &read.links, |rel| {
+            match blobs.get(rel) {
+                // The same binary test `check` applies on disk: a NUL is valid UTF-8, so a blob
+                // that decoded may still be binary.
+                Some(text) => crate::model::listing::Outside::from_bytes(text.as_bytes()),
+                None => read.not_text.get(rel).cloned().unwrap_or_else(|| {
+                    crate::model::listing::Outside::Unreadable(
+                        "the tree holds no blob for it".to_string(),
+                    )
+                }),
+            }
+        });
     // **The ignore rules are the working tree's.** `git check-ignore` reads the `.gitignore`
     // files that are on disk and has no form that asks a historical tree, so a commit whose
     // ignore rules differ from today's is judged against today's. What that can cost is a
     // path reference asserted where the commit's own rules would have exempted it — a finding
     // rather than a silence, which fails the range; a branch that changes its ignore rules
     // orders its commits for it, per `design@core@a-commit-message-is-a-document`.
-    let queries = check::resolve::ignore_queries(&model, &anchors);
+    let queries = crate::model::resolve::ignore_queries(&model, &anchors);
     let ignored = crate::git::ignored(root, &queries)
         .map_err(|e| Unloadable(format!("its ignore rules could not be asked: {e}")))?;
     let staged = source == Source::Index;
@@ -565,7 +568,7 @@ fn commit_tree(
         Vec::new()
     };
     let shipped = if staged {
-        crate::agents::shipped(&manifest)
+        crate::model::installed::shipped(&manifest)
     } else {
         Vec::new()
     };
@@ -644,7 +647,7 @@ pub(super) fn check_staged(
     extensions: &mut [Box<dyn Extension>],
 ) -> Result<ExitCode, String> {
     let root = manifest.root();
-    let (inside, named) = crate::model::snapshot_checker_dirs(root, checker)
+    let (inside, named) = crate::model::listing::snapshot_checker_dirs(root, checker)
         .map_err(|e| format!("cannot read the project root: {e}"))?;
     let inside: Vec<&Path> = inside.iter().map(PathBuf::as_path).collect();
     let assembly = commit_tree(
@@ -690,7 +693,7 @@ pub(super) fn index_staged(
     extensions: &mut [Box<dyn Extension>],
 ) -> Result<ExitCode, String> {
     let root = manifest.root();
-    let (inside, _) = crate::model::snapshot_checker_dirs(root, checker)
+    let (inside, _) = crate::model::listing::snapshot_checker_dirs(root, checker)
         .map_err(|e| format!("cannot read the project root: {e}"))?;
     let inside: Vec<&Path> = inside.iter().map(PathBuf::as_path).collect();
     let assembly = commit_tree(
@@ -804,7 +807,7 @@ pub(super) fn staged_generated(
     }) {
         return Ok(None);
     }
-    let (inside, _) = crate::model::snapshot_checker_dirs(root, checker)
+    let (inside, _) = crate::model::listing::snapshot_checker_dirs(root, checker)
         .map_err(|e| format!("cannot read the project root: {e}"))?;
     let inside: Vec<&Path> = inside.iter().map(PathBuf::as_path).collect();
     let assembly = commit_tree(

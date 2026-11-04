@@ -18,7 +18,7 @@ use crate::manifest::{
 };
 use crate::model::Model;
 
-use super::TreeInputs;
+use crate::phases::TreeInputs;
 
 pub(crate) fn check(model: &Model, manifest: &Manifest, inputs: &TreeInputs) -> Vec<Finding> {
     let mut out = Vec::new();
@@ -732,5 +732,427 @@ fn declarations(out: &mut Vec<Finding>, manifest: &Manifest, inputs: &TreeInputs
              reference, and Windows creates no file under a name it forbids. Name it in [walk] \
              skip-files or in an ignore rule to keep it as it is",
         ));
+    }
+}
+
+#[cfg(test)]
+mod plans_tests {
+    use super::*;
+    use std::collections::HashSet;
+    use std::path::PathBuf;
+
+    /// Every path a component owes, under `dir`, with the file-shaped heading homes.
+    fn all_of(dir: &str) -> Vec<String> {
+        let at = |name: &str| {
+            if dir.is_empty() {
+                name.to_string()
+            } else {
+                format!("{dir}/{name}")
+            }
+        };
+        let mut out: Vec<String> = declaring("")
+            .required_documents()
+            .iter()
+            .map(|n| at(n))
+            .collect();
+        out.push(at("docs"));
+        for name in ["design.md", "goals.md", "tripwires.md", "rejected.md"] {
+            out.push(at(&format!("docs/{name}")));
+        }
+        out.push(at("docs/open-issues"));
+        out.push(at("docs/open-issues/README.md"));
+        out.push(at("docs/open-issues/index.md"));
+        if dir.is_empty() {
+            out.extend(
+                crate::phases::testing::PLANS_TREE
+                    .iter()
+                    .map(|p| p.to_string()),
+            );
+        }
+        // The corpus the declaration below names, which is a declared path like any other.
+        for name in ["r", "r/t", "r/v", "r/p", "r/m"] {
+            out.push(name.to_string());
+        }
+        out
+    }
+
+    /// A manifest declaring `components`, against a root nothing reads.
+    fn declaring(components: &str) -> Manifest {
+        declaring_full(components, "", "[]", "[]", "[]", "[]")
+    }
+
+    /// The same, with every path list the manifest can declare spelled out.
+    fn declaring_full(
+        components: &str,
+        extra: &str,
+        skip_dirs: &str,
+        skip_files: &str,
+        exclude: &str,
+        ext_files: &str,
+    ) -> Manifest {
+        let text = format!(
+            "[project]\nchecker-version = \"fixture\"\nname = \"a-project\"\ncomponents = [{components}]\n\n\
+             {extra}\n\
+             [walk]\nskip-dirs = {skip_dirs}\nskip-files = {skip_files}\n\
+             exclude = {exclude}\n\n\
+             [ext]\nfiles = {ext_files}\n"
+        );
+        Manifest::parse(Path::new("/nowhere"), &text).expect("a declaration")
+    }
+
+    /// The claim: the plans anchor's name is reserved, and the two plan registers are the
+    /// tool's to place, so a declaration of either, or a location naming one, is a phase-1
+    /// complaint. Mutation checked: `plans` left out of `table::is_reserved_anchor`.
+    #[test]
+    fn the_plans_name_and_the_plan_registers_are_refused_in_a_declaration() {
+        let manifest = declaring_full(
+            "",
+            "[locations.plans]\npath = \"x\"\nregisters = []\n\n\
+             [locations.notes]\npath = \"notes\"\nregisters = [\"spec\", \"issue\"]\n\n\
+             [registers.spec]\nscope = \"opt-in\"\n\n\
+             [registers.milestone]\n\n",
+            "[]",
+            "[]",
+            "[]",
+            "[]",
+        );
+        let complaints: Vec<String> = manifest
+            .complaints()
+            .iter()
+            .map(|f| f.what.clone())
+            .collect();
+        let one = |needle: &str| {
+            let hits = complaints.iter().filter(|c| c.contains(needle)).count();
+            assert_eq!(hits, 1, "{needle:?} in {complaints:#?}");
+        };
+        one("gives the anchor the reserved name `plans`");
+        one("[locations.notes] carries `spec`, a plan register");
+        one("[registers.spec] declares a plan register");
+        one("[registers.milestone] declares a plan register");
+        assert_eq!(complaints.len(), 4, "{complaints:#?}");
+        // The refused row is no anchor, and the tool's own `plans` stands.
+        assert!(!manifest.locations().contains_key("plans"));
+        assert!(manifest.plans());
+        assert_eq!(manifest.locations()["notes"].registers, vec!["issue"]);
+        // The repair for a register nothing declares offers the ones a location may name.
+        let manifest = declaring_full(
+            "",
+            "[locations.notes]\npath = \"notes\"\nregisters = [\"nonesuch\"]\n\n",
+            "[]",
+            "[]",
+            "[]",
+            "[]",
+        );
+        let action = &manifest.complaints()[0].action;
+        assert!(
+            action.contains("issue") && !action.contains("spec"),
+            "{action}"
+        );
+    }
+
+    /// The claim: a declared anchor at the plans directory is the one refused, and the tool's
+    /// `plans` stands, so the repair names the declaration a project can change. Mutation
+    /// checked: `plans` pushed after the declared locations.
+    #[test]
+    fn a_declared_anchor_at_the_plans_directory_is_refused_and_plans_stands() {
+        for row in [
+            "[locations.papers]\npath = \"docs/plans\"\nregisters = []\n\n",
+            "[locations.papers]\npath = \"docs/plans/specs/inner\"\nregisters = []\n\n",
+        ] {
+            let manifest = declaring_full("", row, "[]", "[]", "[]", "[]");
+            assert!(manifest.plans(), "{row}");
+            assert!(!manifest.locations().contains_key("papers"), "{row}");
+            assert_eq!(
+                manifest.complaints().len(),
+                1,
+                "{row}: {:#?}",
+                manifest.complaints()
+            );
+        }
+        let manifest = declaring("\"docs/plans\"");
+        assert!(manifest.plans());
+        assert_eq!(
+            manifest.components().all().len(),
+            1,
+            "{:#?}",
+            manifest.complaints()
+        );
+    }
+
+    /// The claims of the layout's odd shapes, each one finding in phase 2: a plans README that
+    /// is a directory, a milestone whose README is a directory (no anchor, so no milestone), the
+    /// retired single file of specs/ and of a milestone (named once, by the File rule), and a
+    /// milestone named like a location. Mutations checked, each failing this test: the
+    /// directory test dropped from the plans README check; `|| *path == specs.file` deleted;
+    /// `|| beside` deleted; the location arm of `milestone_refusal` deleted.
+    #[test]
+    fn each_odd_shape_of_the_plans_layout_is_one_phase_two_finding() {
+        let manifest = declaring_full(
+            "",
+            "[locations.side-notes]\npath = \"notes\"\nregisters = [\"issue\"]\n\n",
+            "[]",
+            "[]",
+            "[]",
+            "[]",
+        );
+        let base = || {
+            let mut present = all_of("");
+            for p in ["notes", "notes/open-issues", "notes/open-issues/README.md"] {
+                present.push(p.to_string());
+            }
+            present.push("notes/open-issues/index.md".to_string());
+            present
+        };
+        assert!(tree_findings(&manifest, &base()).is_empty());
+        for (added, removed, at, what) in [
+            (
+                vec!["docs/plans/README.md/inner.md"],
+                vec!["docs/plans/README.md"],
+                "docs/plans/README.md",
+                "the plans directory has no README.md",
+            ),
+            (
+                vec!["docs/plans/milestones/m-one/README.md/inner.md"],
+                vec![],
+                "docs/plans/milestones/m-one",
+                "holds no README.md, so it is no milestone",
+            ),
+            (
+                vec!["docs/plans/specs.md"],
+                vec![],
+                "docs/plans/specs.md",
+                "retired file shape of the spec register",
+            ),
+            (
+                vec![
+                    "docs/plans/milestones/m-one/README.md",
+                    "docs/plans/milestones/m-one.md",
+                ],
+                vec![],
+                "docs/plans/milestones/m-one.md",
+                "retired file shape of the spec register",
+            ),
+            (
+                vec!["docs/plans/milestones/side-notes/README.md"],
+                vec![],
+                "docs/plans/milestones/side-notes",
+                "is the name of a location",
+            ),
+            (
+                vec!["docs/plans/milestones/plans/README.md"],
+                vec![],
+                "docs/plans/milestones/plans",
+                "is not two or more lower-case words",
+            ),
+            (
+                vec!["docs/plans/milestones/index/README.md"],
+                vec![],
+                "docs/plans/milestones/index",
+                "is not two or more lower-case words",
+            ),
+            (
+                vec![
+                    "docs/plans/milestones/m-one/README.md",
+                    "docs/plans/milestones/m-one/sub/a-slice.md",
+                ],
+                vec![],
+                "docs/plans/milestones/m-one/sub",
+                "one file per slice",
+            ),
+        ] {
+            let mut present = base();
+            present.retain(|p| !removed.contains(&p.as_str()));
+            // A listing holds every directory above a file, as the survey's does.
+            for path in &added {
+                for ancestor in std::path::Path::new(path).ancestors() {
+                    let a = ancestor.display().to_string();
+                    if !a.is_empty() && !present.contains(&a) {
+                        present.push(a);
+                    }
+                }
+            }
+            let found = tree_findings(&manifest, &present);
+            assert_eq!(found.len(), 1, "{added:?}: {found:#?}");
+            assert!(
+                found[0].starts_with(at) && found[0].contains(what),
+                "{added:?}: {found:#?}"
+            );
+        }
+        // A milestone whose README is a directory is no anchor, so nothing defines it.
+        let present: Vec<PathBuf> = ["docs/plans/milestones/m-one/README.md/inner.md"]
+            .iter()
+            .map(PathBuf::from)
+            .collect();
+        assert!(Anchors::of(&manifest, &present).by_name("m-one").is_none());
+    }
+
+    /// The claim: a spec named after a kind is reported by its name, as a milestone is, per
+    /// `design@core@a-placed-name-reads-as-nothing-else`. Mutation checked:
+    /// the kind test removed from the spec-name check reports nothing.
+    #[test]
+    fn a_spec_named_after_a_kind_is_reported_by_its_name() {
+        let manifest = declaring("");
+        for name in ["skill", "design"] {
+            let mut present = all_of("");
+            present.push(format!("docs/plans/specs/{name}.md"));
+            let found = tree_findings(&manifest, &present);
+            assert!(
+                found
+                    .iter()
+                    .any(|f| f.contains(&format!("the spec `{name}`'s name is the name of a kind"))),
+                "{name}: {found:#?}"
+            );
+        }
+    }
+
+    /// The claim: a walk row that takes a milestone out of the walk is one finding, against its
+    /// `spec` register, and none against the item registers, whose home is the same documents.
+    /// Mutation checked: the guard of `outside_the_walk` on the Section shape removed.
+    #[test]
+    fn a_milestone_outside_the_walk_is_one_finding() {
+        let manifest = declaring_full(
+            "",
+            "",
+            "[\"docs/plans/milestones/m-one\"]",
+            "[]",
+            "[]",
+            "[]",
+        );
+        let mut present = all_of("");
+        for p in [
+            "docs/plans/milestones/m-one",
+            "docs/plans/milestones/m-one/README.md",
+        ] {
+            present.push(p.to_string());
+        }
+        let found: Vec<String> = tree_findings(&manifest, &present)
+            .into_iter()
+            .filter(|f| f.contains("out of the walk"))
+            .collect();
+        assert_eq!(found.len(), 1, "{found:#?}");
+        assert!(
+            found[0].contains("the spec register of `m-one`"),
+            "{found:#?}"
+        );
+    }
+
+    /// The claim: a component register whose home at the root would be the plans directory is
+    /// refused at the declaration, and the tool's `plans` stands.
+    #[test]
+    fn a_component_register_at_the_plans_directory_is_refused() {
+        let manifest = declaring_full(
+            "",
+            "[registers.proposal]\nscope = \"component\"\nshape = \"file\"\ndir = \"plans\"\n\n",
+            "[]",
+            "[]",
+            "[]",
+            "[]",
+        );
+        let complaints: Vec<&str> = manifest
+            .complaints()
+            .iter()
+            .map(|f| f.what.as_str())
+            .collect();
+        assert_eq!(complaints.len(), 1, "{complaints:#?}");
+        assert!(
+            complaints[0].contains("[registers.proposal]")
+                || complaints[0].contains("proposal register")
+        );
+        assert!(manifest.plans());
+        assert!(manifest.registers().by_name("proposal").is_none());
+    }
+
+    /// The findings of phase 2 alone, over a listing.
+    fn tree_findings(manifest: &Manifest, present: &[String]) -> Vec<String> {
+        let present: HashSet<PathBuf> = present.iter().map(PathBuf::from).collect();
+        let directories = crate::phases::testing::implied_directories(&present);
+        let inputs = TreeInputs {
+            present: &present,
+            directories: &directories,
+            outside: &[],
+            ignored: &HashSet::new(),
+            tracked_and_ignored: &[],
+            refused: &[],
+            links: &[],
+            installed: &[],
+            shipped: &[],
+        };
+        check(&Model::from_documents(Vec::new()), manifest, &inputs)
+            .iter()
+            .map(|f| format!("{}  {}  → {}", f.location(), f.what, f.action))
+            .collect()
+    }
+
+    /// The claim: a missing plans directory, plans README or plans home is one phase-2
+    /// finding each, at the path it belongs at, and a missing plans directory is one finding
+    /// rather than one per part. Mutation checked: the README requirement skipped.
+    #[test]
+    fn each_missing_part_of_the_plans_layout_is_one_phase_two_finding() {
+        let manifest = declaring("");
+        for (gone, at, what) in [
+            (
+                "docs/plans",
+                "docs/plans",
+                "the plans directory `docs/plans` does not exist",
+            ),
+            (
+                "docs/plans/README.md",
+                "docs/plans/README.md",
+                "the plans directory has no README.md",
+            ),
+            (
+                "docs/plans/specs",
+                "docs/plans/specs",
+                "the anchor `plans` carries no spec directory",
+            ),
+            (
+                "docs/plans/milestones",
+                "docs/plans/milestones",
+                "the anchor `plans` carries no milestone directory",
+            ),
+        ] {
+            let mut present = all_of("");
+            present.retain(|p| p != gone && !p.starts_with(&format!("{gone}/")));
+            let found = tree_findings(&manifest, &present);
+            assert_eq!(found.len(), 1, "{gone}: {found:#?}");
+            assert!(
+                found[0].starts_with(at) && found[0].contains(what),
+                "{gone}: {found:#?}"
+            );
+        }
+    }
+
+    #[test]
+    fn a_refused_name_is_one_finding_naming_the_file_on_one_line() {
+        let manifest = declaring("");
+        let present: HashSet<PathBuf> = all_of("").iter().map(PathBuf::from).collect();
+        let directories = crate::phases::testing::implied_directories(&present);
+        let refused = vec![
+            PathBuf::from("docs/a\nb.md"),
+            PathBuf::from("docs/c\rd.md"),
+            PathBuf::from("docs/e:f.md"),
+        ];
+        let inputs = TreeInputs {
+            present: &present,
+            directories: &directories,
+            outside: &[],
+            ignored: &HashSet::new(),
+            tracked_and_ignored: &[],
+            refused: &refused,
+            links: &[],
+            installed: &[],
+            shipped: &[],
+        };
+        let found = check(&Model::from_documents(Vec::new()), &manifest, &inputs);
+        assert_eq!(found.len(), 3, "{found:#?}");
+        for (finding, (head, why)) in found.iter().zip([
+            ("docs/a\\nb.md  ", "holds a line break"),
+            ("docs/c\\rd.md  ", "holds a line break"),
+            ("docs/e:f.md  ", "holds `:`, which Windows forbids"),
+        ]) {
+            assert!(finding.what.contains(why), "{found:#?}");
+            assert_eq!(finding.to_string().lines().count(), 2, "{finding}");
+            assert!(finding.to_string().starts_with(head), "{finding}");
+        }
     }
 }
