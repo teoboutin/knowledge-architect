@@ -747,7 +747,7 @@ impl Manifest {
     }
 
     /// The names of every top-level table the core does not own.
-    pub fn extension_tables(&self) -> impl Iterator<Item = &str> {
+    pub(crate) fn extension_tables(&self) -> impl Iterator<Item = &str> {
         self.declared.tables.keys().map(String::as_str)
     }
 
@@ -763,7 +763,7 @@ impl Manifest {
 
     /// Record what configuring the extensions produced: complaints, declared paths, generated
     /// files. Only `extension::configure` calls this.
-    pub fn record_extensions(
+    pub(crate) fn record_extensions(
         &mut self,
         complaints: Vec<Finding>,
         paths: Vec<(String, Vec<PathBuf>)>,

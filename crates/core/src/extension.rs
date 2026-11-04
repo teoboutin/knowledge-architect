@@ -21,12 +21,13 @@ use std::path::{Path, PathBuf};
 pub use crate::check::Inputs;
 pub use crate::git::{Entry, EntryKind};
 pub use crate::model::declared::{normalise_list, normalise_one};
+use crate::model::extension::Contribution;
 pub use crate::model::generated::{label, rel_from};
 pub use crate::model::listing::Outside;
 pub use crate::model::table::DumpRow;
 use crate::model::Finding;
+use crate::model::Manifest;
 use crate::model::{Document, Model};
-use crate::model::{Manifest, MANIFEST_NAME};
 
 /// What a tree is prepared for.
 #[derive(Clone, Copy, Debug, PartialEq, Eq)]
@@ -206,45 +207,20 @@ pub struct Resolution {
 /// first is a declaration nothing reads, which a session would take for a regime in force; the
 /// second would let a manifest switch an extension off by leaving its table out.
 pub fn configure(manifest: &mut Manifest, extensions: &mut [Box<dyn Extension>]) {
-    let mut complaints = Vec::new();
-    let claimed: Vec<&str> = extensions
-        .iter()
-        .flat_map(|e| e.tables().iter().copied())
-        .collect();
-    for table in manifest.extension_tables() {
-        if !claimed.contains(&table) {
-            let what = if manifest.table(table).is_some_and(toml::Value::is_table) {
-                format!("[{table}] is a table no extension of this binary reads")
-            } else {
-                format!("`{table}` is a top-level key no extension of this binary reads")
-            };
-            complaints.push(Finding::in_file(
-                MANIFEST_NAME,
-                what,
-                "delete it, or run the binary that registers the extension it belongs to; a \
-                 declaration nothing reads looks like a check in force",
-            ));
-        }
-    }
-    let present: Vec<String> = manifest.extension_tables().map(str::to_string).collect();
-    for table in &claimed {
-        if !present.iter().any(|p| p == table) {
-            complaints.push(Finding::in_file(
-                MANIFEST_NAME,
-                format!("[{table}] is missing, and an extension this binary registers reads it"),
-                "declare it; a manifest cannot switch an extension off by leaving its table out",
-            ));
-        }
-    }
-    let mut paths = Vec::new();
-    let mut generated = Vec::new();
+    let mut contribution = Contribution {
+        tables: extensions
+            .iter()
+            .flat_map(|e| e.tables().iter().copied())
+            .collect(),
+        ..Contribution::default()
+    };
     for extension in extensions.iter_mut() {
         let resolution = extension.resolve(manifest);
-        complaints.extend(resolution.complaints);
-        paths.extend(resolution.paths);
-        generated.extend(resolution.generated);
+        contribution.complaints.extend(resolution.complaints);
+        contribution.paths.extend(resolution.paths);
+        contribution.generated.extend(resolution.generated);
     }
-    manifest.record_extensions(complaints, paths, generated);
+    crate::model::extension::contribute(manifest, contribution);
 }
 
 /// An extension, configured once per manifest.

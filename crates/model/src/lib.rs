@@ -36,6 +36,7 @@
 //! | [`generated`] | the files the checker generates and the paths they sit at |
 //! | [`installed`] | the agent files this version ships, rendered for a project |
 //! | [`foundation`] | phases 1 to 3: whether the model can be trusted |
+//! | [`extension`] | what an extension gives phase 1 |
 
 // A `pub` item no consumer can reach is refused, so an item is public only through the re-exports
 // below, as the core's facade is, per `design@core@api-facade`.
@@ -46,6 +47,7 @@
 // cargo configuration, such as one from crates.io, sees it unset, and nothing changes.
 const _: Option<&str> = option_env!("KNOWLEDGE_ARCHITECT_CHECKOUT");
 
+mod contribution;
 mod entity;
 mod finding;
 mod index;
@@ -143,6 +145,11 @@ pub mod installed {
 /// Phases 1 to 3: whether the model can be trusted.
 pub mod foundation {
     pub use crate::phases::{complete_working_tree, foundation, Gathered, Phase, Stop, TreeInputs};
+}
+
+/// What an extension gives phase 1.
+pub mod extension {
+    pub use crate::contribution::{contribute, Contribution};
 }
 
 /// The directory of the Component this library belongs to: its own crate directory, evaluated at
