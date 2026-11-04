@@ -7,7 +7,7 @@
 `[agents] harness` lists the agent harnesses the project serves. The tool knows one, `claude`, and
 it is the default when the table is absent, because the tool is built for projects developed
 mostly by agents. Under `claude`, every component carries a CLAUDE.md, and the agent files this
-version ships must be installed, per `design@check@owned-namespace-check`. An empty list declares
+version ships must be installed, per `design@check@installed-files-compared-by-bytes`. An empty list declares
 no agent configuration: no CLAUDE.md is required, and nothing is installed or checked. A value the
 tool does not know is refused in phase 1, and leaves the list.
 
@@ -66,9 +66,8 @@ file to remove and the new one missing; one install repairs both, and the remova
 deletion, which the check names until it is staged. The rival, a record of installed files, is
 `rejected@check@install-record-file`.
 
-A symbolic link on an owned path is refused by the install before it touches anything, because following
-one would write or delete in another directory. The install edits nothing outside the namespace. A change a
-project needs to an installed skill belongs in a skill of its own, routed from the project's CLAUDE.md.
+The install edits nothing outside the namespace. A change a project needs to an installed skill belongs in a
+skill of its own, per `design@agent-skills@overlay-by-separate-skills`.
 
 ### The installed agent files are compared with the shipped text byte for byte `##installed-files-compared-by-bytes`
 

@@ -3027,7 +3027,7 @@ fn no_harness_owes_no_claude_md_and_installs_nothing() {
 /// The claim: the binary hands the check and the install the files this version ships. Before
 /// the install, the check reports each one missing; the install writes each, rendered with the
 /// project's command, here the default; then the check passes. Per
-/// `design@check@owned-namespace-check`. Rendering with a declared command is a unit test of
+/// `design@check@installed-files-compared-by-bytes`. Rendering with a declared command is a unit test of
 /// `agents`. Mutations: handing `Gathered` an empty set instead of
 /// `agents::shipped` lets the first check pass; handing the install an empty set writes nothing.
 #[test]

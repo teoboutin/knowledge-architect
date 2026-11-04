@@ -7,8 +7,7 @@ kind: defect
 
 A symbolic link at an owned path the version does not ship, or a file it cannot rewrite, stops the install
 after it has rewritten other files. It exits 2 and prints no `wrote` line, though exit 2 promises an untouched
-tree elsewhere, and `design@check@owned-namespace-check` says a link on an owned path is refused before anything
-is touched.
+tree elsewhere, and the doc comment of `install` says a link on an owned path is refused before anything is touched.
 
 ## Details
 

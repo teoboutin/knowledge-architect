@@ -18,8 +18,7 @@ owner holds this last part as a lead only, and names a gate that runs `render` a
 Today `check` depends on `git`, `model` and `agent-skills`. `milestone@plans@component-split` plans `query` and `render` beside it, each
 over `model`, and plans `create` and `cli` above it. `design@model@no-check-below-the-model` and acceptance criterion
 #a1-no-check-below-the-tools of that milestone forbid the opposite direction alone, a tool below the checks depending on them, so the
-owner's view contradicts neither. No recorded decision states which of these crates `check` may depend on. The crate that this would
-exclude besides `cli` is `create`, which the milestone has depend on `check`.
+owner's view contradicts neither. No recorded decision states which of these crates `check` may depend on. The crates this would exclude besides `cli` are `create` and `testing`, which the milestone has depend on `check`.
 
 ### Why it matters
 
