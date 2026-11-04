@@ -180,9 +180,7 @@ installed files' bytes do not depend on the model, so they are repaired before t
 generated file is never written over an incomplete model, per `design@check@phases-gate-the-report`.
 An upgrade that removes a shipped file leaves one thing to do: the deletion is unstaged, the last phase
 reports it after the generated files are written, and staging it touches git, which no fix does. The rival,
-`--fix` treating the deletions its own install just made as done, adds a special case to the family. The cost
-of one `git add` and one more run is small by the owner's weighing: the owner judged deleting or renaming a
-skill rare, and several invocations to handle it not much of a problem. A failed
+`--fix` treating the deletions its own install just made as done, adds a special case to the family. The owner chose one `git add` and one more run over that rival, which no goal ranks, judging deleting or renaming a skill rare. A failed
 write exits 2 with nothing written, and 1 after any write, since 2 promises an untouched tree. The check stays the only verifier: `--fix` only writes
 before it verifies, so the rejected design of an `index` that prints a diff and a `--write`
 that applies it, a second command answering whether a file is current in its own format,

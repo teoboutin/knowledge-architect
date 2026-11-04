@@ -40,9 +40,13 @@ one included. All of them are published together, at one version, per
 
 The design this decision did not keep: `rejected@knowledge-architect@single-published-package`.
 
-The tests of `model` that hold the shipped text to the entity table read it by a path-only dev-dependency of
-that crate, which builds into no consumer and which cargo strips at packaging, since they read private items
-of the table, which the facade of `design@model@model-facade` keeps private.
+### The tests that hold the shipped text to the entity table reach it from `model` by a path-only dev-dependency `##shipped-set-tests-in-the-model`
+
+They read private items of the table, its harness kinds among them, so they stay beside it. A dev-dependency
+builds into no consumer, and cargo strips a path-only one at packaging, per
+`path@agent-skills@docs/grounding/crate-boundaries.md`, so `model` depends on nothing of `agent-skills` for a
+consumer, and `agent-skills` can take no dependency on `model`. The rival, publishing that vocabulary so the
+tests could leave, falls to `design@model@model-facade`, under which nothing becomes public for a test.
 
 ### The checker's library code asks git only through the `git` crate `##checker-asks-git-through-the-crate`
 
@@ -176,8 +180,7 @@ a command of the checker writes them into a project, rendered for it. There is n
 marketplace. One artifact has one version, so the installed workflow is always the one the
 project's pinned checker describes, per `design@knowledge-architect@version-lockstep`, and every
 project holds the version it pinned, whatever another project on the same machine uses. Whether
-the installed files match is checked like any other part of the tree, per
-`design@check@owned-namespace-check`, rather than warned about. A project installs one thing, with
+the installed files match is checked like any other part of the tree, per `design@check@installed-files-compared-by-bytes`, rather than warned about. A project installs one thing, with
 one command, which serves `goal@knowledge-architect@every-target-project-can-adopt-it`.
 
 The design this decision did not keep:

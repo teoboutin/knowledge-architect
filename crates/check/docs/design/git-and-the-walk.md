@@ -36,7 +36,7 @@ The design this decision did not keep: `rejected@check@ls-files-staged-tree`.
 ### `check --staged` applies `check`'s rules, as on a clean checkout of the staged tree `##staged-check-semantics`
 
 The staged installed files are compared with the running binary's shipped set, per
-`design@check@owned-namespace-check`, and the files git both tracks and ignores are reported. The rival, `commits`'s rules over the
+`design@check@installed-files-compared-by-bytes`, and the files git both tracks and ignores are reported. The rival, `commits`'s rules over the
 staged tree, lost because CI runs `check` on a checkout: a staged run that skips the installed
 files passes a tree CI fails. Two reads stay the working tree's: the ignore rules a path reference
 asks, as for `commits`, and the version pin, compared before any command per

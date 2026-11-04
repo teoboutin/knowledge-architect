@@ -140,7 +140,7 @@ pub struct Inputs<'a> {
     /// The listing's symlink and gitlink entries no walk row keeps, each of which is a finding.
     pub links: &'a [crate::git::Entry],
     /// The files of the installer's namespace, with what reading each gave, per
-    /// `design@check@owned-namespace-check`.
+    /// `design@check@installed-files-compared-by-bytes`.
     pub installed: &'a [(PathBuf, crate::model::listing::Outside)],
     /// What the installed set must be: every shipped file at its install path, rendered with
     /// the project's command. Empty when the project serves no agent harness.

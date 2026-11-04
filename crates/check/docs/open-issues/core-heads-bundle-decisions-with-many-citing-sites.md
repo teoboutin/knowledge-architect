@@ -5,7 +5,7 @@ kind: design
 
 ## Summary
 
-Four heads, three of `register@check@design` and one of `register@model@design`, each hold two or more decisions whose nearest rivals
+Five heads, four of `register@check@design` and one of `register@model@design`, each hold two or more decisions whose nearest rivals
 differ, against `design@agent-skills@one-decision-per-head`. The first run of the design-record axis on this repository found them, and a branch's review two more, and one more has since been split with every citing site re-pointed; each listed one was left unsplit because
 a split must first read every site that cites the head, 7 to 33 sites per head, to re-point each
 one to the part it cites.
@@ -47,6 +47,11 @@ the first run of the design-record axis counted 20, 23, 26 and 31 for the four h
 
   `issue@check@a-message-lint-is-deduplicated-in-one-tree-only` cites the head for the fourth
   decision.
+`design@check@phases-gate-the-report`, found by the review of the branch that renamed the Component, holds beside its
+phases "A writer refuses over an incomplete model", against writing over the model anyway, and "An extension prepares
+its tree when the last phase is reached", against preparing before the gate, and `cargo klarch show` lists 27
+sites citing it outside the plan documents. That branch split out the selection of checks, and left these.
+
 The second pass of that run reworded a sentence of `design@check@a-commit-message-is-a-document`
 into the present tense and left its bundle, so that head is a change's touched head left short of
 `design@agent-skills@existing-heads-on-touch`. A head the run found bundled has since been split, with every site that cited it re-pointed.
@@ -84,7 +89,7 @@ against `goal@knowledge-architect@design-is-recorded-with-its-arguments`.
 
 ### What would close it
 
-Each of the four splits applied: one head per decision, its text moved unchanged except the minimum
+Each of the splits applied: one head per decision, its text moved unchanged except the minimum
 to read alone, and every site `cargo klarch show` lists for the head read and re-pointed to the head
 of the part it cites, the sites outside `path@check@docs/` included. A head whose split the owner
 rules out instead closes its part of this entry with that ruling, recorded in the closing commit.
