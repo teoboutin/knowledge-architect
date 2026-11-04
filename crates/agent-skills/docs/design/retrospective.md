@@ -6,7 +6,7 @@
 
 The header of `klarch transcript` ends, where it names any line or value it does not recognise, with
 the line asking for each to be reported as a finding on the checker in the retrospective, per
-`design@core@transcript-format-tolerated-and-reported`. The transcript reviewer lists each such line
+`design@check@transcript-format-tolerated-and-reported`. The transcript reviewer lists each such line
 under "Met outside the task", so the session receives it, and the retrospective's item on the
 checker, `skill@knowledge-architect-retrospective@what-it-examines`, carries it to the workflow's
 file. A reader of the format the harness documents as internal learns of a change only from the
@@ -45,7 +45,7 @@ is the test of the workflow, per
 `goal@knowledge-architect@the-workflow-improves-through-real-use`, and each question watches a
 decision or a goal whose failure would be seen in real sessions before any check could see it:
 `design@agent-skills@overlay-by-separate-skills`, the primer's delivery by an import line in
-`design@core@owned-namespace-check`, `design@agent-skills@no-routing-table`,
+`design@check@owned-namespace-check`, `design@agent-skills@no-routing-table`,
 `design@agent-skills@plain-text-is-no-repair`,
 `goal@knowledge-architect@mechanical-tasks-are-the-tool-s`, and, for the question whether a rule or
 guideline about code or tests, or about splitting the project into Components, proved too hard or

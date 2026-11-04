@@ -23,25 +23,25 @@ The fifth slice of `milestone@plans@component-split`. It leaves when it lands.
   passes unchanged; shown to discriminate by a recorded mutation of one moved command's output,
   which a binary test fails on.
 - **`worklist`, `id` and the writers still refuse over an incomplete model.** Test: the existing
-  tests of `design@core@worklist-writes-and-verifies-the-reports` and
-  `design@core@id-lookup-command` pass; shown to fail by a recorded mutation that skips the gate in
+  tests of `design@check@worklist-writes-and-verifies-the-reports` and
+  `design@check@id-lookup-command` pass; shown to fail by a recorded mutation that skips the gate in
   `worklist`.
-- **`init`'s tests pass in `create`.** Test: `path@core@tests/init.rs`, moved; shown to discriminate
+- **`init`'s tests pass in `create`.** Test: `path@check@tests/init.rs`, moved; shown to discriminate
   by a recorded mutation of `init`'s refusal of a directory holding files, which a test fails on.
 
 ## Audit subjects
 
-`design@core@transcript-command-in-core`, rewritten; the heads of
-`path@core@docs/design/worklist.md`, `path@core@docs/design/transcripts.md` and
-`path@core@docs/design/creating.md`; `design@core@anchors-listing-command`,
-`design@core@one-question-one-command`; `design@core@transcript-directory-resolution`;
+`design@check@transcript-command-in-core`, rewritten; the heads of
+`path@check@docs/design/worklist.md`, `path@check@docs/design/transcripts.md` and
+`path@check@docs/design/creating.md`; `design@check@anchors-listing-command`,
+`design@check@one-question-one-command`; `design@check@transcript-directory-resolution`;
 `design@agent-skills@rust-templates-one-home`, whose test, `path@xtask@tests/scaffold.rs`, stays in
 xtask and calls `init` through `cli`'s re-export of `cli::init` and `InitArgs`;
-`issue@core@a-forked-subagent-s-first-line-is-an-unrecognised-type`,
-`issue@core@the-graded-entries-repeat-a-shared-entry-s-grade-per-agent`,
-`issue@core@show-lists-no-subdocument-of-a-directory-home`,
-`issue@core@no-command-lists-the-standing-entries-citing-a-set-of-entries`,
-`issue@core@no-command-searches-the-entries-or-lists-an-audit-s-work`, each re-anchored. Each
+`issue@check@a-forked-subagent-s-first-line-is-an-unrecognised-type`,
+`issue@check@the-graded-entries-repeat-a-shared-entry-s-grade-per-agent`,
+`issue@check@show-lists-no-subdocument-of-a-directory-home`,
+`issue@check@no-command-lists-the-standing-entries-citing-a-set-of-entries`,
+`issue@check@no-command-searches-the-entries-or-lists-an-audit-s-work`, each re-anchored. Each
 reference naming the anchor `core` here names the entry as this document is written;
 #check-renamed re-points them.
 
@@ -64,8 +64,8 @@ documents, from the table the owner approved.
 
 **`transcript`.** It imports nothing of the checker but the project's root and `git`'s
 `main_worktree_path`, and changes when the harness's transcript format does (#arg-9, corrected at
-the plan's review, #arg-10). `design@core@transcript-command-in-core` rejected a second crate on the
-ground of `design@core@single-crate`, which #cli-on-top reversed.
+the plan's review, #arg-10). `design@check@transcript-command-in-core` rejected a second crate on the
+ground of `design@check@single-crate`, which #cli-on-top reversed.
 
 **`create`.** It has its own purpose, tests and 13 heads, counted with
 `grep -c '^### ' crates/core/docs/design/creating.md`; the cut costs the public API of `check` and
@@ -83,5 +83,5 @@ ground of `design@core@single-crate`, which #cli-on-top reversed.
 | what | where |
 | --- | --- |
 | #query-crate | `query`'s design home: the worklist heads and those of the commands it holds |
-| #transcript-crate | `transcript`'s design home: the transcript heads, and the successor of `design@core@transcript-command-in-core` under a new slug, its part saying that the reader is a crate of its own that `cli` depends on in the root's design home, per the milestone document's harvest |
+| #transcript-crate | `transcript`'s design home: the transcript heads, and the successor of `design@check@transcript-command-in-core` under a new slug, its part saying that the reader is a crate of its own that `cli` depends on in the root's design home, per the milestone document's harvest |
 | #create-crate | `create`'s design home: the heads of creating |

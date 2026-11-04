@@ -13,7 +13,7 @@ The repository is a virtual workspace with Components:
 | Component | directory | what it is |
 | --- | --- | --- |
 | `knowledge-architect` | the root | the project itself |
-| `core` | crates/core | package `knowledge-architect`: the checker library and the binary `klarch` |
+| `core` | crates/check | package `knowledge-architect`: the checker library and the binary `klarch` |
 | `git` | crates/git | package `knowledge-architect-git`: the library that wraps git for the tools of knowledge-architect, the checker among them |
 | `model` | crates/model | package `knowledge-architect-model`: the library of what knowledge-architect reads of a project: the manifest, the walk, the parse, the entity table, phases 1 to 3 and the resolver |
 | `agent-skills` | crates/agent-skills | package `knowledge-architect-agent-skills`: the text the checker installs into a project |
@@ -42,7 +42,7 @@ State the consequences of a request explicitly. Never assume the user has consid
 ## Mechanical validation of documents `##mechanical-validation`
 
 The manifest's pin, `checker-version`, is `"self"`, which the checker accepts only in the tree it
-is built from, per `design@core@checked-sentinel-values`, so no version is pinned here.
+is built from, per `design@check@checked-sentinel-values`, so no version is pinned here.
 
 ## Where knowledge goes `##where-knowledge-goes`
 
@@ -135,8 +135,8 @@ register entry owes `cargo klarch check`. Any change to the Rust source owes fmt
 test suite. Every commit owes `commits`: its message and its tree. **Its range, after each commit, is the
 whole branch, `cargo klarch commits origin/main..HEAD`.** The range is the whole branch because this repository refuses citations of its branch's own
 commits by SHA, and `commits` sees a citation only of a commit in the range it judges, per
-`design@core@branch-shas-are-refused`; the checker-side fix is
-`issue@core@branch-sha-citations-are-judged-within-the-range-only`. A commit whose message fails
+`design@check@branch-shas-are-refused`; the checker-side fix is
+`issue@check@branch-sha-citations-are-judged-within-the-range-only`. A commit whose message fails
 `commits` is repaired by a reword, per `## Git` point 2. A branch about to merge owes all of them: one
 `cargo x gates --require-rebased`.
 
@@ -163,7 +163,7 @@ installed copy.
 **This repository's own skills and agents take the prefix `klarch-`, the binary's name**, not the
 project's name that `design@agent-skills@project-name-prefix` gives: a name beginning with
 `knowledge-architect-` is the installer's namespace, so the checker reports such a skill as
-unshipped, per `design@core@owned-namespace-check`, and the install deletes it.
+unshipped, per `design@check@owned-namespace-check`, and the install deletes it.
 
 **The findings of both files of `skill@knowledge-architect-retrospective`, and those of the
 agentic-workflow axis of `skill@knowledge-architect-project-audit` on the installed text, are handled
@@ -174,7 +174,7 @@ file, per that head. Each repair of
 an audit's finding on the installed text, its proposal and its check included, is written as
 `path@agent-skills@CLAUDE.md`, "Editing an installed skill or agent", says, read whole, per that
 head. The
-audit's checker-rules auditors, L7, also read the checker's design home, `register@core@design`,
+audit's checker-rules auditors, L7, also read the checker's design home, `register@check@design`,
 beside its README: the installed lens names the README alone, since an adopting project holds no
 design home of the checker, and here the checker's rules are decided in that home.
 
@@ -305,7 +305,7 @@ git checkout main && git pull --ff-only
   a record carried by a message alone rides on a commit that changes a file. So **neither a commit message nor a document cites the
   SHA of a commit of its own branch**: name that commit by its subject. A SHA already on main may
   be cited. `cargo klarch commits` refuses such a citation, per
-  `design@core@branch-shas-are-refused`. Its homes are
+  `design@check@branch-shas-are-refused`. Its homes are
   `design@knowledge-architect@no-branch-sha-is-cited` and
   `design@knowledge-architect@a-record-rides-on-a-commit-that-changes-a-file`.
 - A local branch that `--delete-branch` left, as one another worktree has checked out, is deleted

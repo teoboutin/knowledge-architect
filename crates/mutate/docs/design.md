@@ -64,7 +64,7 @@ target was written). The table's home is the crate-level documentation of `path@
 
 A survivor is information the session records in its commit, and a run whose mutation survives has
 done its work; a nonzero code for it would read as the tool failing. The line between 2 and the
-rest keeps the reason of `design@core@exit-code-ladder`, which binds the core's commands alone: a
+rest keeps the reason of `design@check@exit-code-ladder`, which binds the core's commands alone: a
 caller told "never ran" from "ran". 1 means something else than the ladder's negative answer,
 because no answer about a subject is the tool's to give.
 

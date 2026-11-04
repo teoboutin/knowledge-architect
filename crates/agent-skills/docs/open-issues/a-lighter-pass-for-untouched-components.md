@@ -38,7 +38,7 @@ bound and 3 above it sent alone, with the scripts the message of the commit
 thaum's own extension.
 
 Re-entry point: the design discussion of
-`issue@core@the-graded-entries-repeat-a-shared-entry-s-grade-per-agent`, or any other change to how
+`issue@check@the-graded-entries-repeat-a-shared-entry-s-grade-per-agent`, or any other change to how
 the record search clusters, packs or assembles the record, whose work weighs the search's cost; the
 first piece of work in the owner's planned project of about 30 Components; or the owner's word.
 
@@ -49,7 +49,7 @@ the session's largest read. The intake of seventeen retrospective files of 2026-
 at main `v0.8.0-224-g7e3784aa`, ran the search over 12 agents; its `bears.md` held 200 entries in
 83,788 words and its `may-bear.md` 164 entries in 57,415 words, by `wc -w`, more than that session
 could read whole beside its own work.
-`issue@core@the-graded-entries-repeat-a-shared-entry-s-grade-per-agent` holds the part of the cost
+`issue@check@the-graded-entries-repeat-a-shared-entry-s-grade-per-agent` holds the part of the cost
 that repeated grade lines make.
 
 ### Why it matters

@@ -7,7 +7,7 @@
 A file the walk cannot read, a source the grammar cannot parse, and a source nested deeper than the
 walk goes all produce a finding naming the file. Silence would remove every citation in it from the
 walk while the run reported success, which is indistinguishable from a clean file, against
-`goal@core@document-rules-are-checked`: a tree that passes the checker conforms, in the texts the
+`goal@check@document-rules-are-checked`: a tree that passes the checker conforms, in the texts the
 checker reads, to every rule it holds.
 
 **A file outside the walk is held to the same, for the question an extension asks of it.** An

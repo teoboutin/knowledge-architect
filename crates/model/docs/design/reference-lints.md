@@ -16,7 +16,7 @@ a harness kind takes the arities of `design@model@harness-kinds-cited-without-an
 
 **The silence is bounded and named.** A typo inside the kind, `desing@<anchor>@<id>`, is silent under this
 rule, because widening it to "any span with two `@`" would report every email address with a
-plus tag. `register@core@tripwire` guards the gap: a review finding a reference the scanner
+plus tag. `register@check@tripwire` guards the gap: a review finding a reference the scanner
 reported nothing for widens the rule to the shape found.
 
 **A fullwidth at sign is not an `@`.** A span written with `＠` is no candidate, and nothing
@@ -26,9 +26,9 @@ paragraph; re-take it with `git grep -n --untracked '＠' -- '*.md'`, and a span
 reference reopens the silence.
 
 **A span with no `@` is read by three lints, and by nothing else**: a path-shaped span, per
-`design@core@every-path-names-its-anchor`, the retired slug reference, per
-`design@core@retired-slug-reference-reported`, and a defined id written alone, per
-`design@core@backticked-bare-id`.
+`design@check@every-path-names-its-anchor`, the retired slug reference, per
+`design@check@retired-slug-reference-reported`, and a defined id written alone, per
+`design@check@backticked-bare-id`.
 
 ### A backticked span that opens on one line and closes on the next is a finding where its halves join into a pointer `##a-span-is-one-line`
 
@@ -64,7 +64,7 @@ section belongs to a skill or to an agent.
   directory or a file of the harness's layout, unique by name, and a project has one primer and
   one root CLAUDE.md. An anchor would carry no information, the argument
   `design@model@plans-is-a-reserved-anchor` makes for `plans`. A reference to a harness kind still serves
-  `goal@core@relocation-needs-only-goal-changes`, which binds a reference to what the manifest
+  `goal@check@relocation-needs-only-goal-changes`, which binds a reference to what the manifest
   places: nothing a harness kind names moves with a manifest edit.
 - **The rejected design "A register reference with no anchor"**,
   `rejected@model@register-reference-without-anchor`, lost on two reasons. Its first, that the tool cannot
@@ -75,7 +75,7 @@ section belongs to a skill or to an agent.
   no anchor may wear a kind's name, per `design@model@kind-names-refused-as-anchors`.
 - **`instructions` names the document's role**, not one harness's file name, so a move of the root
   instructions to another file name changes no reference, per
-  `issue@core@configuration-for-several-agent-providers`.
+  `issue@check@configuration-for-several-agent-providers`.
 
 The nearest rival, an anchor the tool constructs for the agent configuration with three segments
 everywhere, lost: every name for it stutters or names a provider, and it carries nothing. It is
@@ -110,5 +110,5 @@ reads that block, is no heading.
   agent, whatever anchor holds its file.
 
 The finding on an unslugged heading names the repair, and the setup skill states the requirement,
-so an adopting project meets it in the documentation. Serves `goal@core@records-reach-their-reader`:
+so an adopting project meets it in the documentation. Serves `goal@check@records-reach-their-reader`:
 `show` on a section lists every text that cites it.

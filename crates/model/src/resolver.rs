@@ -50,7 +50,7 @@ pub enum Target {
 /// Why a reference resolves to nothing.
 ///
 /// Each variant holds what its two texts need beyond the span, so the words are the same wherever
-/// a consumer prints them, per `design@core@finding-names-the-repair`. A variant is named for the arm
+/// a consumer prints them, per `design@check@finding-names-the-repair`. A variant is named for the arm
 /// that refuses, and a `String` field such as `listed` or `carriers` holds text ready to print.
 #[derive(Debug, Clone, PartialEq, Eq)]
 pub enum Cause {
@@ -853,7 +853,7 @@ pub fn path(rel: &Path, anchor: &str, path: &str, anchors: &Anchors, tree: &Tree
                 Some(form) => form,
                 None => {
                     // The deepest anchor that holds the target and carries the `path` kind,
-                    // per `design@core@every-path-names-its-anchor`: a plan anchor carries
+                    // per `design@check@every-path-names-its-anchor`: a plan anchor carries
                     // none, and an anchor's own directory is named from the anchor above it.
                     let mut owner = anchors.owning(&target);
                     while owner.is_plan()
@@ -1232,7 +1232,7 @@ pub fn has_scheme(target: &str) -> bool {
 ///
 /// **One batch per run, taken by the caller.** The caller batches these through one
 /// `git check-ignore` and hands the answers back in `TreeInputs::ignored`, because a check may spawn
-/// nothing, per `design@core@model-then-checks`. **Every arm that reaches
+/// nothing, per `design@check@model-then-checks`. **Every arm that reaches
 /// `assert_target` is here**, and there are three: an anchored reference resolves under the
 /// anchor it names, the generic form resolves under every anchor at once, and a relative
 /// markdown link resolves beside its own file. The escape anchor resolves under none, so it

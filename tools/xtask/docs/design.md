@@ -10,7 +10,7 @@ which runs this repository's gate list through the published gates library,
 often and gets wrong by hand.
 
 How its arguments parse is not a decision of this tool's: it parses through clap and tests its
-declaration, as `design@core@arguments-parse-through-clap` argues for the checker's binaries.
+declaration, as `design@check@arguments-parse-through-clap` argues for the checker's binaries.
 
 ### One module per subcommand, sharing only what every subcommand needs `##one-module-per-subcommand`
 

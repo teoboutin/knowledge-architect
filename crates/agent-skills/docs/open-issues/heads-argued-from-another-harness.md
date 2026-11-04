@@ -25,7 +25,7 @@ The instances, found by the review before the merge of the branch that narrowed 
 - `design@agent-skills@workflow-axis-corpus`: its definition "holds for a second harness", one of
   its reasons;
 - `rejected@agent-skills@head-rules-in-decision-recording`, kept because "another agent provider
-  may not load the primer"; `rejected@core@session-start-hook-primer`, kept because "another
+  may not load the primer"; `rejected@check@session-start-hook-primer`, kept because "another
   context or harness might not follow it"; `rejected@model@agent-configuration-anchor`, whose second
   reason is a skill served to two harnesses;
 - the `instructions` bullet of `design@model@harness-kinds-cited-without-anchor`, which names a

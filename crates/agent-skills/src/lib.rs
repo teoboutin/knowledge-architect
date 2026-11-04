@@ -19,7 +19,7 @@ pub static FILES: &[(&str, &str)] = include!(concat!(env!("OUT_DIR"), "/files.rs
 pub static SNIPPETS: &[(&str, &str)] = include!(concat!(env!("OUT_DIR"), "/snippets.rs"));
 
 /// This crate's directory, compiled in, so a binary that links it can refuse a build made from
-/// another checkout, per `design@core@a-foreign-build-is-refused`.
+/// another checkout, per `design@check@a-foreign-build-is-refused`.
 pub const CRATE_DIR: &str = env!("CARGO_MANIFEST_DIR");
 
 /// This crate's package name, for the same refusal.

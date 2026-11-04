@@ -16,7 +16,7 @@ and will rework its wording.
 On the owner's word, at the goals of `model`: the goal does not cover an action asked of an agent that no
 mechanical task performs, and that a command could make more efficient by making it mechanical, or by a
 helper that performs complex logic to give a better result. The keyword search of
-`issue@core@no-command-searches-the-entries-or-lists-an-audit-s-work` is the second case: its result does
+`issue@check@no-command-searches-the-entries-or-lists-an-audit-s-work` is the second case: its result does
 not follow with no judgement, so the goal does not reach it. The owner's lead is to change the goal, or to
 add another goal for these conditions.
 

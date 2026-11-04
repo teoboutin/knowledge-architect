@@ -53,7 +53,7 @@ pub struct Record {
 /// register a project declares, such as a reading of a specification. Every register kind but
 /// three, then. An `issue` reference in a tripwire names what its response opens, a `tripwire`
 /// reference names another guard, and a `rejected` reference names a design the project did not
-/// keep, which is no decision, per `design@core@tripwire-guards-no-rejected-entry`; none is
+/// keep, which is no decision, per `design@check@tripwire-guards-no-rejected-entry`; none is
 /// guarded. `path` is no register.
 pub(crate) fn guarded(registers: &Registers, kind: &str) -> bool {
     kind != ISSUE_REGISTER
@@ -245,7 +245,7 @@ impl Inbound {
 /// inside its own section, its heading and the body under it.
 ///
 /// A reference counts only where it is written: in a design entry's section, for the orphan
-/// check of `design@core@orphan-rejected-entry`, and not in the citing register's
+/// check of `design@check@orphan-rejected-entry`, and not in the citing register's
 /// home outside any entry, nor in any other document. The anchor is the one the span writes,
 /// which is the entry's own, since an entity belongs to its anchor.
 pub fn cited_within(
@@ -460,7 +460,7 @@ mod tests {
     use std::path::PathBuf;
 
     // Every fixture is inline: the checker reads no string literal of its own source, per
-    // `design@core@checker-source-literals-are-data`.
+    // `design@check@checker-source-literals-are-data`.
 
     /// A project whose root component is `a-project`, with one location carrying the issue
     /// register and a declared `reading` register.
@@ -572,7 +572,7 @@ mod tests {
         assert!(!first.body.contains("# Tripwires"), "{}", first.body);
         // Every guarded kind, a declared register's included: a path, an issue, a tripwire and a
         // `rejected` reference sit beside them and are not what this tripwire guards, a `rejected`
-        // entry being no decision, per `design@core@tripwire-guards-no-rejected-entry`. Mutation
+        // entry being no decision, per `design@check@tripwire-guards-no-rejected-entry`. Mutation
         // checked: the `rejected` exclusion removed from `guarded` lists the `rejected` reference.
         // The first is written twice in the section and appears once, in the order the entry names
         // them.

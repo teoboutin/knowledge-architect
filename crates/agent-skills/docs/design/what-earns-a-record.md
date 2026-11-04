@@ -99,10 +99,10 @@ argument meets that design, or in a closing sentence of its body, never between 
 one argument, where it would take the next sentence's antecedent. A `rejected` entry names no winner; `show` on it
 lists every citation of it, with the file and the line of each. A design rejected with nothing built in its place is cited by a
 head of absence, per `design@agent-skills@losing-shape-test`, and the checker reports an entry that
-no design entry cites, per `design@core@orphan-rejected-entry`.
+no design entry cites, per `design@check@orphan-rejected-entry`.
 
 It serves `goal@knowledge-architect@design-is-recorded-with-its-arguments` and
-`goal@core@records-reach-their-reader`: the owner observed that rejected alternatives are missed in
+`goal@check@records-reach-their-reader`: the owner observed that rejected alternatives are missed in
 design sessions and come back at the review of a plan document or after the work, and a design
 session reads heads. The hand-written direction sits in the head, the text that session reads, and
 the link back is `show`'s to compute, since an entry never lists what references it, per
@@ -116,7 +116,7 @@ loser wrong, and an entry that names no winner drops it. The designs this decisi
 
 The standard is the fragment `path@agent-skills@fragments/subject-split.md`: a level-two subject
 holds the heads a piece of work reads together, one part of the Component; it is split when the
-work list's notice names its cluster above the bound of `design@core@clusters-packed-under-a-word-bound`,
+work list's notice names its cluster above the bound of `design@check@clusters-packed-under-a-word-bound`,
 or when its heads answer questions about parts of the Component that change apart; a split moves
 headings and decides nothing, so it is a fix in a commit of its own, per `primer@met-outside-the-task`.
 Its hosts are `skill@knowledge-architect-decision-recording@current-design`, the writer's, and the
@@ -136,7 +136,7 @@ stays a judgement. On `goal@agent-skills@only-needed-instructions`, the owner's 
 that the goal covers a choice where either shape leaves the workflow working, and the split is what
 keeps it working. The delivery to a judge by a pointer loses to the fragment by
 `design@agent-skills@shared-text-fragment`. The design this decision did not keep:
-`rejected@core@split-enforced-by-a-check`.
+`rejected@check@split-enforced-by-a-check`.
 
 ### A design thread's slug becomes its entry's slug `##thread-slug-is-entry-id`
 
@@ -145,7 +145,7 @@ a collision with the design entries and the `rejected` entries of the Component 
 since a thread that loses may become a `rejected` entry under its own name. In discussion prose it is written
 plain, with a hash sign before it, never as a backticked span, which the checker reports as the
 retired slug form once an entry carries that slug, per
-`design@core@retired-slug-reference-reported`. When
+`design@check@retired-slug-reference-reported`. When
 the thread is approved, or closed `argued`, and its decision earns an entry, the entry's heading ends with the same
 slug, except in the case below, so the spec, the commit messages and the design home name the decision with one identifier.
 In the plan document the thread is an item, a level-three heading ending with the same slug under

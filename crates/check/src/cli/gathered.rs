@@ -1,0 +1,84 @@
+//! What a run fetches before any check runs, gathered once for every caller.
+
+use std::collections::HashMap;
+use std::path::PathBuf;
+
+use crate::check::Inputs;
+use crate::model::table::Anchors;
+use crate::model::{foundation, Manifest, Model};
+
+/// Everything a check needs that it may not fetch for itself, read from the working tree.
+///
+/// A check is a pure function over the model, so the files and the git answers it reads are
+/// fetched here by the caller, per `design@check@model-then-checks`. `check` builds its
+/// [`Inputs`] from this, a writer asks [`complete_working_tree`](super::complete_working_tree)
+/// for one, and an extension's tests build theirs the same way, so no caller assembles
+/// [`Inputs`] field by field.
+pub struct Gathered {
+    committed: HashMap<PathBuf, String>,
+    configs: HashMap<PathBuf, String>,
+    tree: foundation::Gathered,
+}
+
+impl Gathered {
+    /// Read the working tree under the manifest's root: the committed generated files, every
+    /// `register.toml`, and what `model` gathers for phases 1 to 3 and the resolver.
+    ///
+    /// `Err` is could-not-run: git or the filesystem refused a read the run cannot do without.
+    /// A generated file or a `register.toml` that is absent is not an error: the checks that
+    /// read them report the absence.
+    pub fn over(manifest: &Manifest, model: &Model) -> Result<Gathered, String> {
+        let tree = foundation::Gathered::over(manifest, model)?;
+        Ok(Gathered::beside(tree, manifest, model))
+    }
+
+    /// What phase 4 alone reads, beside what `model` gathered. These reads cannot fail.
+    pub(super) fn beside(
+        tree: foundation::Gathered,
+        manifest: &Manifest,
+        model: &Model,
+    ) -> Gathered {
+        // The generated files are outside the walk — an extension's by a declared row, every
+        // file-register index by construction — because a generated file is not a source of
+        // citations. The set includes the extensions' files once `extension::configure` has
+        // run over the manifest.
+        let mut committed = HashMap::new();
+        for rel in crate::model::generated::generated_paths(manifest, model.listing()) {
+            if let Ok(text) = std::fs::read_to_string(manifest.root().join(&rel)) {
+                committed.insert(rel, text);
+            }
+        }
+        // A register instance's options sit beside it and are not markdown, so the walk never
+        // reads them.
+        let anchors = Anchors::of(manifest, model.listing());
+        let mut configs = HashMap::new();
+        for (_, _, home) in anchors.instances() {
+            if let Ok(text) = std::fs::read_to_string(manifest.root().join(&home.config)) {
+                configs.insert(home.config.clone(), text);
+            }
+        }
+        Gathered {
+            committed,
+            configs,
+            tree,
+        }
+    }
+
+    /// The inputs of one run, borrowed from what was gathered.
+    pub fn inputs(&self) -> Inputs<'_> {
+        let tree = self.tree.inputs();
+        Inputs {
+            committed: &self.committed,
+            configs: &self.configs,
+            present: tree.present,
+            directories: tree.directories,
+            outside: tree.outside,
+            ignored: tree.ignored,
+            tracked_and_ignored: tree.tracked_and_ignored,
+            refused: tree.refused,
+            links: tree.links,
+            installed: tree.installed,
+            shipped: tree.shipped,
+        }
+    }
+}

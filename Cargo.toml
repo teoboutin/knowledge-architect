@@ -6,7 +6,7 @@
 [workspace]
 resolver = "2"
 members = [
-    "crates/core",
+    "crates/check",
     "crates/git",
     "crates/model",
     "crates/agent-skills",

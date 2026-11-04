@@ -31,11 +31,11 @@ harness gives its shells.
 
 The owner ruled that the setup sets it, over a recommendation, and that existing projects are told
 by a Migration entry. The rivals: an option of `check` and `commits` that prints the verdict alone,
-`rejected@core@verdict-only-output`, which removes the motive for a session that uses it and stops
+`rejected@check@verdict-only-output`, which removes the motive for a session that uses it and stops
 no pipe; the checker refusing a pipe,
-`rejected@core@check-refusing-a-pipe`, which a shell without the option makes powerless and the
+`rejected@check@check-refusing-a-pipe`, which a shell without the option makes powerless and the
 option makes needless; the install writing the setting, which edits a file outside the installer's
-namespace, against `design@core@owned-namespace-check`.
+namespace, against `design@check@owned-namespace-check`.
 
 ### The workflow's rows of the knowledge table ship in the primer; the project's own rows sit in its root CLAUDE.md `##knowledge-table-home`
 
@@ -471,7 +471,7 @@ The design this decision did not keep: `rejected@agent-skills@root-routing-table
 
 An installed skill is complete on its own. A project adds its conventions through its own skills,
 agents and root `CLAUDE.md`, under its own names. An installed file is compared byte for byte with
-the pinned version and overwritten by the install, per `design@core@owned-namespace-check`, so an
+the pinned version and overwritten by the install, per `design@check@owned-namespace-check`, so an
 edit to it fails the check and is lost at the next install; a project skill with the same base
 name as an installed one would load beside it, not replace it. Where a project skill would have to
 contradict an installed one, the installed text is wrong for that project, and the owner reports
@@ -521,9 +521,9 @@ listed as outstanding work, per `design@agent-skills@undesigned-work-is-an-issue
 A project depends on one exact version of the checker, so moving it is an explicit edit, and the
 installed skills move with it. **The manifest declares the
 same pin**, in `[project] checker-version`, and every binary that dispatches a command of the
-checker refuses to run over a project whose pin it does not satisfy, per `design@core@installed-binary-version-check`, so an install or a build
+checker refuses to run over a project whose pin it does not satisfy, per `design@check@installed-binary-version-check`, so an install or a build
 left behind by a move of the pin is refused at its first command rather than run. `klarch init`
-writes the key, per `design@core@init-command`, or the setup skill does by hand, and the setup
+writes the key, per `design@check@init-command`, or the setup skill does by hand, and the setup
 skill moves it with the pin.
 
 ### A project runs its pinned checker from inside the project, never from a machine-wide install `##pinned-binary-runs-inside-the-project`
@@ -535,9 +535,9 @@ with no workspace gains a workspace for that crate. A project with no Rust insta
 a directory of its own with `cargo install --locked --root`. A machine-wide install would give two
 projects on one machine one version, which is what bundling the workflow into the checker avoids,
 per `design@knowledge-architect@binary-bundles-workflow`. A project with an extension runs its own
-binary under a name of its own, per `design@core@declared-command`. The binary that runs
+binary under a name of its own, per `design@check@declared-command`. The binary that runs
 `klarch init` is the one exception: it runs before any pin exists, from whatever install its user
-keeps, and writes its own version as the pin, per `design@core@init-command`.
+keeps, and writes its own version as the pin, per `design@check@init-command`.
 
 ### The setup skill recommends one gates command, a command of the maintenance crate run by the published gates library `##gates-convention`
 
@@ -553,7 +553,7 @@ refined in this repository and in thaum. The gates a project owes are its own li
 
 `primer@checker-model` tells a session to run `check --staged` after staging and before each
 commit, and to repair a failing one before the commit, beside the gates command, which judges the
-branch before a merge. The command is the core's, `design@core@staged-tree-source`. The reason: the
+branch before a merge. The command is the core's, `design@check@staged-tree-source`. The reason: the
 staged tree is the one the commit records, and a file left unstaged, or a change staged in part,
 passes a check of the working tree and fails the commit's own, which the gates meet only before the
 merge. The primer states it because every adopting project's root `CLAUDE.md` would state it alike,
@@ -571,8 +571,8 @@ session asked for.
 ### The skills name the staged forms of the checker's commands for a commit of part of the working tree `##staged-forms-for-a-partial-commit`
 
 The issue-tracking and planning skills name `index --staged` and `check --staged` for a commit of
-part of the working tree. Both commands are the core's, `design@core@staged-tree-source` and
-`design@core@index-staged-write`. The staged tree is the one the commit records, and a change
+part of the working tree. Both commands are the core's, `design@check@staged-tree-source` and
+`design@check@index-staged-write`. The staged tree is the one the commit records, and a change
 staged in part passes a check of the working tree and fails the commit's own.
 `design@agent-skills@behaviour-additions-need-real-use` asks of an addition a behaviour seen in real use, or
 asked for by the owner with the lack named. The owner asked for the delivery, "identify shipped
@@ -586,10 +586,10 @@ that action undelivered.
 
 The maintenance crate of a Rust project depends on the checker, the gates library and the mutation
 library, all pinned exactly, at the version `[project] checker-version` declares, per
-`design@core@installed-binary-version-check`, and serves two cargo aliases: `cargo x` for its own
+`design@check@installed-binary-version-check`, and serves two cargo aliases: `cargo x` for its own
 commands, the gates and the hand mutation among them, and `cargo klarch` for the checker's commands,
 which it carries under a command of its own through the core's library, per
-`design@core@the-core-cli-is-a-library-module`. The gates run through the published library, per
+`design@check@the-core-cli-is-a-library-module`. The gates run through the published library, per
 `design@gates@gates-crate`, and the checker they run is the one this crate pins; the hand mutation
 runs through its own, per `design@knowledge-architect@mutation-command-host`. One crate does what a
 crate per tool would otherwise do, and gives the project's other repeated tasks a place, per
@@ -608,7 +608,7 @@ leave it with no maintenance crate and a gates command of its own:
 `rejected@agent-skills@rust-project-on-a-local-install`. The cost accepted, on the owner's word: a
 Rust project that is one package gains a workspace for the crate. A project with a Cargo workspace or
 package of its own writes the crate by hand from the setup skill's blocks, since `klarch init --rust`
-refuses one, per `design@core@rust-scaffold`.
+refuses one, per `design@check@rust-scaffold`.
 
 ### The setup skill proposes a short CRATES-IO.md for a crate the project publishes `##setup-default-crates-io-page`
 
@@ -628,7 +628,7 @@ The setup skill does not finish a Component without at least one goal, stated wi
 A Component with no goal gives its design nothing of its own to be judged against, and a goal that
 is a Component's responsibility left unstated is one nobody is responsible for, against
 `goal@knowledge-architect@agents-work-without-drift`. Nothing checks it mechanically yet:
-`issue@core@a-component-states-at-least-one-goal`.
+`issue@check@a-component-states-at-least-one-goal`.
 
 ### The installed skills do not mention a project whose name is the installer's namespace `##installed-text-omits-the-prefix-collision`
 

@@ -25,7 +25,7 @@ pub struct Contribution {
 /// extension table of the manifest reported.
 ///
 /// **A table no extension claims, and a claimed table the manifest does not hold, are phase-1
-/// findings**, per `design@core@an-extension-claims-its-manifest-tables`. The first is a
+/// findings**, per `design@check@an-extension-claims-its-manifest-tables`. The first is a
 /// declaration nothing reads, which a session would take for a regime in force; the second would
 /// let a manifest switch an extension off by leaving its table out. They come before the
 /// extensions' own complaints.

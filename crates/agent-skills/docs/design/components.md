@@ -146,7 +146,7 @@ The rivals lost:
   hold, while the group still owes every document and register home a Component carries, per
   `design@model@components-carry-the-same-documents`. A directory the manifest does not declare
   groups Components with no document, and moving a Component into it is one manifest edit, per
-  `goal@core@relocation-needs-only-goal-changes`.
+  `goal@check@relocation-needs-only-goal-changes`.
 - **An intermediate Component that is a crate whose nested Components are its modules.** Its crate
   root holds Rust code, a public interface, a dependency list and a version, which the goal's
   definition excludes; and every dependency of one nested Component reaches every consumer of the

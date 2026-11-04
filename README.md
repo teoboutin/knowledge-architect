@@ -24,7 +24,7 @@ The version is 0.9.0, published on crates.io. The project stays at
 ## Using the checker
 
 The checker's commands, its manifest and its exit codes are described in
-`path@core@README.md`. In short, from inside a project whose root holds a
+`path@check@README.md`. In short, from inside a project whose root holds a
 `knowledge-architect.toml`:
 
 ```sh
@@ -43,7 +43,7 @@ In this repository, the checker built from the checkout runs as `cargo klarch <s
 
 | path | what it holds |
 | --- | --- |
-| crates/core | the checker: package `knowledge-architect`, binary `klarch` |
+| crates/check | the checker: package `knowledge-architect`, binary `klarch` |
 | crates/model | the library of what knowledge-architect reads of a project, `knowledge-architect-model` |
 | crates/git | the library that wraps git for the tools of knowledge-architect, `knowledge-architect-git` |
 | crates/agent-skills | the text the checker installs into a project |

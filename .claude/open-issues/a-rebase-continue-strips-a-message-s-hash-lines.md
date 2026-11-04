@@ -33,7 +33,7 @@ to another character, would keep them.
 
 ### Why it matters
 
-A commit message is a document of the project, per `design@core@a-commit-message-is-a-document`,
+A commit message is a document of the project, per `design@check@a-commit-message-is-a-document`,
 and on the in-change path of the design skill it is the only home of the deliberation. The rule of
 `design@knowledge-architect@no-operation-loses-content` bounds a history edit by the check that no
 content was lost, and the root CLAUDE.md states that check, in `instructions@git-workflow`, as `git diff <old-head> HEAD` for a

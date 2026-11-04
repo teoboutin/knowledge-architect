@@ -1,6 +1,6 @@
 //! The core run against whole projects, not against strings.
 //!
-//! A mock project under `path@core@tests/projects/` is a complete project: it carries its
+//! A mock project under `path@check@tests/projects/` is a complete project: it carries its
 //! own `knowledge-architect.toml` and its own documents, and it declares no table the core does not own.
 //! That is what makes these tests worth more than the in-memory ones — a fixture written as a
 //! string cannot exercise the walk, the exclusions, or a layout different from this repository's.
@@ -17,7 +17,7 @@ use crate::{Manifest, Model};
 fn mock(name: &str) -> Manifest {
     // The one crate reaching another's fixtures, until the shared test Component holds them both.
     let root = PathBuf::from(env!("CARGO_MANIFEST_DIR"))
-        .join("../core/tests/projects")
+        .join("../check/tests/projects")
         .join(name)
         .canonicalize()
         .expect("the mock project exists");
@@ -400,7 +400,7 @@ mod unsound {
         )
         .starts_with("agent-config/open-issues"));
         // A file in the installer's namespace that no version ships, per
-        // `design@core@owned-namespace-check`.
+        // `design@check@owned-namespace-check`.
         assert!(one_of(&found, "does not ship it")
             .starts_with(".claude/agents/knowledge-architect-planted.md"));
         // The plans layout, each phase 2 because its anchors and entries are read off the

@@ -1,0 +1,35 @@
+---
+kind: todo
+---
+# The findings' texts are not audited against the rule that a cause is named only where the repair depends on it
+
+## Summary
+
+`design@check@finding-names-the-repair` says a finding names a cause only where the repair depends
+on which cause holds. Two texts were written to meet it, the finding on a stale generated index
+and the line `commits` prints for a generated file several commits fail on. No other finding's
+text has been read against it.
+
+## Details
+
+### What
+
+The checker constructs its findings in `path@check@src/check/`, `path@model@src/manifest.rs`,
+`path@model@src/entity.rs`, `path@model@src/tree.rs`, `path@model@src/shipped.rs`, `path@model@src/resolver.rs`, `path@check@src/cli/mod.rs` and `path@check@src/cli/history.rs`, which
+judges commits. Each finding's statement and action are string literals at the site that raises
+it. Nobody has listed, for each finding, the
+causes that can produce it and whether one repair is correct for all of them.
+
+### Why it matters
+
+A finding that names a cause its reader does not have sends that reader to look for an edit, a
+file or a decision that does not exist, as the stale index's finding did after an upgrade, against
+`goal@knowledge-architect@adoption-is-easy`. The rule holds only where someone read the finding
+against it.
+
+### What would close it
+
+Every finding the core raises read against `design@check@finding-names-the-repair`: each that names
+a cause while one repair fits every cause is reworded to name the repair alone, and each that
+names a cause the repair depends on is left as it is. The audit's commit lists the findings read
+and the outcome for each.

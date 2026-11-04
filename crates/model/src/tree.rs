@@ -551,7 +551,7 @@ fn file_home(
 /// The home exists, so the declared-path check passes; its entries exist, so the directory
 /// listing passes; but no document under it is in the model, so every entry-shape assertion
 /// judges nothing and the run is green. One `[walk] skip-dirs` row would take a whole
-/// register out of the regime, which `design@core@the-regime-has-no-opt-out` refuses.
+/// register out of the regime, which `design@check@the-regime-has-no-opt-out` refuses.
 fn outside_the_walk(
     out: &mut Vec<Finding>,
     manifest: &Manifest,
@@ -618,7 +618,7 @@ fn declarations(out: &mut Vec<Finding>, manifest: &Manifest, inputs: &TreeInputs
         ("[walk] exclude", &walk.exclude),
     ];
     // Each extension's declared paths, per
-    // `design@core@an-extension-plugs-in-through-phased-hooks`.
+    // `design@check@an-extension-plugs-in-through-phased-hooks`.
     declared.extend(
         manifest
             .extension_paths()

@@ -8,7 +8,7 @@ commit, and so does an opening that motivates a decision by describing the state
 
 Never list what cites a head: `{{command}} show design@<component>@<slug>` computes it.
 
-%% Until a reference can name an entry of another project, `issue@core@cross-project-references`.
+%% Until a reference can name an entry of another project, `issue@check@cross-project-references`.
 A decision that relies on the checker of this workflow states that it relies on the checker
 working as intended. It cannot reference the checker's own decisions: a reference resolves only
 against the project that holds it.

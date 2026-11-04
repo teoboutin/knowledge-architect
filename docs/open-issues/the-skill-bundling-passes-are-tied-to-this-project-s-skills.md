@@ -34,8 +34,8 @@ The parts that would form a reusable utility, and where each sits now:
   `path@agent-skills@build.rs`, per `design@agent-skills@content-mirrors-the-install-layout`;
 - the generated lists `FILES` and `SNIPPETS` of `path@agent-skills@src/lib.rs`;
 - the install, the repair of the installed copies and the deletion of unshipped owned files, in
-  `path@core@src/agents.rs` (`install_into`, `repairs`, `apply`, `owned_on_disk`), which the
-  owned-namespace check of `design@core@owned-namespace-check` uses.
+  `path@check@src/agents.rs` (`install_into`, `repairs`, `apply`, `owned_on_disk`), which the
+  owned-namespace check of `design@check@owned-namespace-check` uses.
 
 What ties them to this project now:
 

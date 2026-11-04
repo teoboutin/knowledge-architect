@@ -72,7 +72,7 @@ checker makes an anchor named by its basename, per `design@model@plan-document-k
 document is its `README.md`, a generated `index.md` lists the slices, and each slice's spec is a file
 beside it, cited `spec@<milestone>@<slice>`. The head is a README because the checker
 resolves a relative link only in a `README.md` or an `index.md`, per
-`design@core@links-are-navigation-rows`, so the head can link each slice's spec as a navigation row.
+`design@check@links-are-navigation-rows`, so the head can link each slice's spec as a navigation row.
 A slice's spec is a spec, so it leaves when its slice lands, per
 `design@agent-skills@plan-document-leaves-at-landing`: its decisions are then in the design homes. The
 README leaves once its last slice has landed and every default it lists is ruled, per
@@ -317,7 +317,7 @@ records the owner's intent, the owner answered: "Q1 yes".
 
 The one exception: a plan document lands before any work that changes what the project's
 per-commit gate checks. The per-commit gate judges each commit of a branch, its tree and its
-message, with the checker at the branch's tip, per `design@core@a-commit-message-is-a-document`.
+message, with the checker at the branch's tip, per `design@check@a-commit-message-is-a-document`.
 On one branch, that gate as the work's first commit changes it would judge the
 commit that added the document, whose tree predates the change, and refuse it. A change that only a
 check of the working tree sees, such as installed text that the checker compares on the working

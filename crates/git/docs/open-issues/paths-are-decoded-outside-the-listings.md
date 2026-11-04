@@ -19,7 +19,7 @@ Reproduced by the adversarial reviewer of the work that created the git Componen
 - `object_name` builds the request with `rel.display()`. For a tracked `re\xffad.md`, which
   `entries` lists byte for byte, it gives `":./re\u{fffd}ad.md"`, and `rev_parse` on it answers
   `None`, while `blob_bytes` on the same path answers its bytes. The checker's
-  `Snapshot::object_id`, in `path@core@src/extension.rs`, is built this way, so it answers "no
+  `Snapshot::object_id`, in `path@check@src/extension.rs`, is built this way, so it answers "no
   object id" for a path the snapshot holds.
 - `ignore_query` builds the query with `to_string_lossy`, so the same name is asked as
   `re\u{fffd}ad.md`.

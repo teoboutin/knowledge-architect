@@ -18,7 +18,7 @@ read them whole before changing how this crate asks git.
 **A new finding about what the model could not read — a home, a file, a declaration — goes in
 `Manifest::parse`, `tree` or `Entities::build`, never in a module of the last phase, or nothing gates
 it.** A new check whose findings another check would read goes before its consumers, in `foundation`,
-and stops the run when it finds anything, per `design@core@phases-gate-the-report`.
+and stops the run when it finds anything, per `design@check@phases-gate-the-report`.
 
-**A mock project stays under `path@core@tests/projects/`**, the one crate reaching another's fixtures,
-until the shared test Component holds them. What each mock is for is `path@core@CLAUDE.md`.
+**A mock project stays under `path@check@tests/projects/`**, the one crate reaching another's fixtures,
+until the shared test Component holds them. What each mock is for is `path@check@CLAUDE.md`.

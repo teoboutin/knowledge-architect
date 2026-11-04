@@ -49,14 +49,14 @@ to keep this key beside that attachment rather than replace it: `rejected@model@
 
 A declaration that is wrong is a finding rather than a load failure, and it is absent from the
 configuration. A manifest that will not load reports nothing at all, and nothing at all is what a
-session reads as conformance, against `goal@core@document-rules-are-checked`: a tree that passes the
+session reads as conformance, against `goal@check@document-rules-are-checked`: a tree that passes the
 checker conforms to what its manifest states. So `Manifest::parse` resolves the declaration into a
 configuration and a list of complaints, each in the shape a finding takes, and every complaint is
-the first phase of a run, per `design@core@phases-gate-the-report`. What a complaint is about is not
+the first phase of a run, per `design@check@phases-gate-the-report`. What a complaint is about is not
 in the configuration: a refused register is no register, a refused anchor is no anchor, a refused
 row is not in its list, so nothing acts on it and its consequences are never reported as defects of
 the tree. An extension's tables follow the same rule, per
-`design@core@an-extension-claims-its-manifest-tables`: its complaints are phase-1 findings, and a
+`design@check@an-extension-claims-its-manifest-tables`: its complaints are phase-1 findings, and a
 run that holds one stops before the extension reads anything.
 
 The design this decision did not keep: `rejected@model@refusing-a-wrong-declaration`.
@@ -112,7 +112,7 @@ design split by subject: one subject per directory, several files each, every en
 `<kind>@<subject>@<id>`, which `goal@knowledge-architect@every-target-project-can-adopt-it` asks the manifest
 to express without anything of the project compiled in. Adding a subject is creating a directory,
 not a manifest edit, and moving the home is one manifest edit, per
-`goal@core@relocation-needs-only-goal-changes`. A location declared per subject costs a manifest row
+`goal@check@relocation-needs-only-goal-changes`. A location declared per subject costs a manifest row
 per subject. The rival that makes each subdirectory of a location an anchor, with no Directory
 register, is `rejected@model@subdirectory-anchors-location`.
 
@@ -120,7 +120,7 @@ register, is `rejected@model@subdirectory-anchors-location`.
 
 The home of what an entry carries is the entry's own directory, beside its `README.md`, which is
 both the entry's document and the head of that home: it links every file of a carried heading
-register and defines no slug, per `design@core@heading-register-two-shapes`. The single-file shape
+register and defines no slug, per `design@check@heading-register-two-shapes`. The single-file shape
 would be `<id>.md` beside the entry directory, so a heading register at an entry would have two
 homes, which that head refuses: `<id>.md` beside an entry is a phase-2 finding. A file register an
 entry carries keeps its generated `index.md` in the entry, as a milestone's slice specs do.

@@ -25,7 +25,7 @@ reading `git ls-files -v` before and after.
 
 ### Why it matters
 
-`design@core@index-staged-write` says the command changes the staged entry of a generated file and
+`design@check@index-staged-write` says the command changes the staged entry of a generated file and
 nothing else. A lost skip-worktree bit changes what `git status` reports outside the generated
 file's bytes, in the sparse checkouts the adversarial review found `check --staged` otherwise
 correct in. A lost assume-unchanged bit only makes git compare the file again, which is no defect.

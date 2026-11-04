@@ -7,7 +7,7 @@
 //!
 //! **Which string literals are prose is decided twice.** The caller says, through `Literals`,
 //! whether the file is the checker's own source, where every literal is a fixture and none is
-//! prose, per `design@core@checker-source-literals-are-data`. Everywhere else the grammar says:
+//! prose, per `design@check@checker-source-literals-are-data`. Everywhere else the grammar says:
 //! a literal bound to a name is data, and every other literal is a message written for a
 //! human, which cites for real.
 //!

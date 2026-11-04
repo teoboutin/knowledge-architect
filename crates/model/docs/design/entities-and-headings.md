@@ -12,7 +12,7 @@ harness, a harness kind**: `skill`, `agent`, `primer` or `instructions`, which i
 data rather than a compiled enumeration. A heading register's entities are slugs defined in the
 register's home under an anchor, per `design@model@an-entry-is-a-heading-at-the-register-level`; a file register's are the
 files under its instance directory, one per entry, per
-`design@core@a-file-register-is-a-directory-of-entries`. `path` is defined by the tree itself and is
+`design@check@a-file-register-is-a-directory-of-entries`. `path` is defined by the tree itself and is
 resolved against the survey, under the same anchors and with the candidate rule and segmentation
 the table's resolver applies to every kind, and `planned` with it, per
 `design@model@planned-path-form`. `register` names a register's home and is resolved against the
@@ -49,7 +49,7 @@ level-three decisions under level-two subjects.
 
 **The homes are the design, rejected, goals and tripwires homes of the owning anchor**, and the home of
 any heading register the project declares, each in either shape of
-`design@core@heading-register-two-shapes`: the single file, or a subdocument of the directory.
+`design@check@heading-register-two-shapes`: the single file, or a subdocument of the directory.
 The directory's `README.md` is the head: it defines nothing and owes no slug, for every register
 and not only design. A plan's items are the one register family read otherwise: their home is the
 plan's own documents, a milestone's README included, and the section a heading sits under gives
@@ -85,7 +85,7 @@ and its directory keep the grammar of one segment or more: they are the kind and
 reference names, and no lint on ids reports one as an id.
 
 **The rule is the owner's proposal.** Two segments keep a defined id from being an ordinary word,
-so the lints on ids, `design@core@backticked-bare-id` and `design@core@plain-word-lint`, report a
+so the lints on ids, `design@check@backticked-bare-id` and `design@check@plain-word-lint`, report a
 pointer and not a word: in the census of the design discussion, the one-word ids of thaum, its
 issues named after a feature area and its argument items, drew most of its plain hits and its
 ordinary words in backticks. A rename of the id is a migration, which costs a consumer no capability, per
@@ -155,7 +155,7 @@ block that markdown does not render as a heading is still read as one, per
   checker reading headings as markdown does: an entry is a heading. A heading markdown shows and
   the checker does not read is a section no check sees. A slug on it defines nothing, and in a plan
   document the items under it are read under the section before it, which changes their kind.
-- **Phase 2, because the model is incomplete**, per `design@core@phases-gate-the-report`. A
+- **Phase 2, because the model is incomplete**, per `design@check@phases-gate-the-report`. A
   finding of the entity table computed while such a heading stands is unreliable in both
   directions.
 - **Reported, not read.** The scanner reads one line at a time. A setext heading's level is known
@@ -193,7 +193,7 @@ all five would send a reader to check the wrong segment of the pointer most of t
 way is reached by any anchor that does not carry the register: a location that does not declare
 it, or a component naming an opt-in register, as the `spec` register only the anchor `plans`
 carries. A kind resolved outside the table has ways of its own, each reported as the repair it
-needs: `path` and `planned` against the tree, per `design@core@every-path-names-its-anchor` and
+needs: `path` and `planned` against the tree, per `design@check@every-path-names-its-anchor` and
 `design@model@planned-path-form`, and `register` against the anchors, per
 `design@model@register-home-reference`.
 
@@ -201,5 +201,5 @@ needs: `path` and `planned` against the tree, per `design@core@every-path-names-
 require a resolvable shape and see nothing without one, which needs no finding and no migration. It
 would also mean every pointer written in an older form stops being checked with nothing saying so. A
 silent false negative passes a tree that does not conform, against
-`goal@core@document-rules-are-checked`: a tree that passes the checker conforms to the reference grammar in the texts the checker reads, save what a declaration switches off. The candidate rule that bounds this is
+`goal@check@document-rules-are-checked`: a tree that passes the checker conforms to the reference grammar in the texts the checker reads, save what a declaration switches off. The candidate rule that bounds this is
 `design@model@at-span-candidate-rule`.
