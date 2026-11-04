@@ -45,8 +45,8 @@ pub struct Survey {
     /// nothing and reported once.
     pub links: Vec<Entry>,
     /// The files of the installer's namespace, each with what reading it gave. They are outside
-    /// the walk, and their bytes are judged by `shipped` alone, per
-    /// `design@check@owned-namespace-check`.
+    /// the walk, and their bytes are judged by the checks of the last phase alone, per
+    /// `design@check@phases-gate-the-report`.
     pub installed: Vec<(PathBuf, Outside)>,
 }
 

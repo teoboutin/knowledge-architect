@@ -41,7 +41,7 @@ What ties them to this project now:
 
 - the installer's prefix, in three constants: `PREFIX` of `path@agent-skills@build.rs`,
   `OWNED_PREFIX` of `path@model@src/manifest.rs` and `PREFIX` of `path@xtask@src/skill.rs`; and the
-  paths `PRIMER` and `IMPORT_LINE` of `path@model@src/shipped.rs`; all are this project's values;
+  paths `PRIMER` and `IMPORT_LINE` of `path@check@src/agents.rs`; all are this project's values;
 - the rows of `SUBSTITUTIONS` are this project's own literals;
 - the build script and `path@xtask@src/skill.rs` include `path@agent-skills@src/render.rs` with
   `#[path]`, per `design@xtask@view-included-not-exported`, and its functions are `pub(crate)`,
@@ -82,7 +82,7 @@ these are leads for this work's own design session:
 - **agent-skills keeps the content** (content/, fragments/, snippets/, `FILES`, `SNIPPETS`) and
   depends on `bundle` as a build-dependency.
 - **The checker keeps the comparison** of the installed copies, as a check family of the last
-  phase, which the milestone's slice `spec@component-split@check-renamed` builds, and the command
+  phase, `path@check@src/check/agents.rs`, and the command
   `install-agent-skills`, which would call the install of `bundle`. The owner's lead, at the
   milestone's D3: the logic that verifies every shipped text is installed may belong to `bundle`
   rather than to the checker.

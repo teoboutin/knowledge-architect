@@ -51,7 +51,7 @@ path stays in the listing with no bytes behind it.
 `check` does not own. The head comment of each `knowledge-architect.toml` says what its project
 exercises, and that comment is where a session decides which one to touch. In short: `planted` is detection
 in the last phase, one defect per built-in check, and it is clean through the phases before it so a
-run reaches them; `unsound` is the phase gate, one defect per assertion of phase 2 that a
+run reaches them, the family `agents` apart, which needs a served harness; `unsound` is the phase gate, one defect per assertion of phase 2 that a
 committed file can hold and, behind them, the definition-site defects of phase 3, so a run over
 it stops at phase 2. The phase-2 states no committed fixture can hold — a refused name, a symlink,
 a file deleted or unreadable on disk, a nested repository — are built by the tests of
@@ -69,9 +69,8 @@ listing. A generated file of `planted` is written by hand.
 
 **Every mock but `unsound` declares `harness = []`.** The shipped set changes with every version
 of the skills, so a mock serving the `claude` harness would need the installed copy of that set,
-and would change with it. `unsound` keeps the default harness for its planted file in the
-installer's namespace: its unit tests hand the check an empty shipped set, and the binary run over
-it only has to stop at phase 2, whatever else phase 2 lists. A test about the installed set
+and would change with it. `unsound` keeps the default harness, which it never reaches the last phase
+to judge, since a run over it stops at phase 2. A test about the installed set
 declares the harness in its own copy, and imports the primer from its root CLAUDE.md, as `Sandbox::serve_claude` in `path@check@tests/binary.rs` does.
 
 **A test about commit messages builds its own project.** `commits` fails every commit whose tree

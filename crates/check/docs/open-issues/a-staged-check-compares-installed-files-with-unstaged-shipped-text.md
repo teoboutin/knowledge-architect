@@ -21,13 +21,13 @@ Reproduction, as observed in this repository with checker version 0.6.0:
 1. Edit three files of `path@agent-skills@content/` (two skills and one agent) and run
    `cargo klarch install-agent-skills`, which rewrites the three installed copies under .claude.
 2. Stage one skill's source and its installed copy only.
-3. `cargo klarch check --staged` fails in phase 2, with two findings, one per unstaged pair, each
+3. `cargo klarch check --staged` fails in the last phase, with two findings, one per unstaged pair, each
    on the installed copy: "this installed file differs from what version 0.6.0 ships for this
    project".
 4. Commit the staged pair anyway, then the other two pairs one commit each, and run
    `cargo klarch commits origin/main..HEAD`: every commit passes, the tree half included.
 
-The comparison is the first loop of `check` in `path@model@src/shipped.rs`, over
+The comparison is the first loop of `check` in `path@check@src/check/agents.rs`, over
 `inputs.shipped`. In this repository `inputs.shipped` is the list the binary was compiled with,
 from the working tree's content/, since `path@agent-skills@build.rs` reads the files at build
 time. The staged installed copies of the unstaged pairs hold the old text, while the binary ships

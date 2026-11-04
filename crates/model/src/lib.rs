@@ -4,8 +4,7 @@
 //! It holds what a tool over a project's documents needs. A tool builds a [`Model`], asks
 //! [`foundation::complete_working_tree`] whether it can be trusted, and reads it. The checks of a
 //! document's content are the package `knowledge-architect`, which depends on this one; a project
-//! that runs the checker names that package alone. The one check here, while it stays in phase 2,
-//! compares a project's installed agent files with the text this version ships.
+//! that runs the checker names that package alone.
 //!
 //! The gate judges what the manifest declares against what the tool hands it. A manifest table
 //! belongs to an extension, so a tool over a project with one calls [`extension::contribute`] before
@@ -40,7 +39,6 @@
 //! | [`table`] | the entity table, the anchors, and the records over them |
 //! | [`resolve`] | what a reference names, or why it names nothing |
 //! | [`generated`] | the files the checker generates and the paths they sit at |
-//! | [`installed`] | the agent files this version ships, rendered for a project |
 //! | [`foundation`] | phases 1 to 3: whether the model can be trusted |
 //! | [`extension`] | what an extension gives phase 1 |
 
@@ -63,7 +61,6 @@ mod phases;
 mod records;
 mod resolver;
 mod scan;
-mod shipped;
 mod source;
 mod survey;
 mod tree;
@@ -74,6 +71,8 @@ mod walk;
 // read `crate::git::...`.
 use knowledge_architect_git as git;
 
+#[cfg(test)]
+mod shipped_set;
 // `check` run against whole mock projects, over what this crate holds, until the shared test
 // Component takes them.
 #[cfg(test)]
@@ -142,11 +141,6 @@ pub mod resolve {
 /// The files the checker generates, and the paths they sit at.
 pub mod generated {
     pub use crate::index::{file_register_indexes, generated_paths, label, rel_from};
-}
-
-/// The agent files this version ships, rendered for a project.
-pub mod installed {
-    pub use crate::shipped::{imports_primer, lf, render, shipped, IMPORT_LINE, PRIMER};
 }
 
 /// Phases 1 to 3: whether the model can be trusted.

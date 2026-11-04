@@ -295,7 +295,7 @@ fn install_agent_skills(manifest: &Manifest) -> Result<ExitCode, String> {
         outln!("the project declares no agent harness: nothing was installed");
         return Ok(ExitCode::SUCCESS);
     }
-    let shipped = crate::model::installed::shipped(manifest);
+    let shipped = crate::agents::shipped(manifest);
     let done = crate::agents::install(manifest.root(), &shipped)?;
     for rel in &done.written {
         outln!("wrote    {}", rel.display());
@@ -306,15 +306,15 @@ fn install_agent_skills(manifest: &Manifest) -> Result<ExitCode, String> {
     if done.written.is_empty() && done.deleted.is_empty() {
         outln!("the installed set is already the shipped one");
     }
-    let primer = std::path::Path::new(crate::model::installed::PRIMER);
+    let primer = std::path::Path::new(crate::agents::PRIMER);
     if shipped.iter().any(|(p, _)| p == primer) {
         let claude =
             std::fs::read_to_string(manifest.root().join(crate::model::declared::AGENT_DOCUMENT))
                 .unwrap_or_default();
-        if !crate::model::installed::imports_primer(&claude) {
+        if !crate::agents::imports_primer(&claude) {
             outln!(
                 "the root CLAUDE.md does not import the primer: add a line holding exactly `{}`",
-                crate::model::installed::IMPORT_LINE
+                crate::agents::IMPORT_LINE
             );
         }
     }
@@ -697,8 +697,8 @@ pub(super) fn fix_then_check(
 
     // The writer gate, over the tree as the install left it. A stop is reported as `check`
     // reports it; what was installed is already listed above. A deletion the install made is
-    // unstaged, and the installed-file check reports it here: staging touches git, which no fix
-    // does, so an upgrade that removes a shipped file takes `git add` and a second run.
+    // unstaged, and the last phase reports it, after the generated files are written: staging
+    // touches git, which no fix does.
     let model = match crate::Model::build(manifest, checker) {
         Ok(model) => model,
         Err(e) => return failed(written, e.to_string()),

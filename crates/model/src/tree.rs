@@ -23,6 +23,23 @@ use crate::phases::TreeInputs;
 pub(crate) fn check(model: &Model, manifest: &Manifest, inputs: &TreeInputs) -> Vec<Finding> {
     let mut out = Vec::new();
 
+    // A root CLAUDE.md a walk row keeps out cannot be read, so the model lacks what it defines and
+    // no check can read its import of the primer; no row may waive that, only declaring no harness
+    // does. A missing one is the required-documents finding below. This stands until
+    // `issue@model@the-walk-may-exclude-a-file-the-model-requires` replaces it.
+    let root_document = std::path::Path::new(crate::manifest::AGENT_DOCUMENT);
+    if manifest.serves_claude()
+        && inputs.present.contains(root_document)
+        && crate::walk::kept_out(root_document, manifest.walk())
+    {
+        out.push(Finding::in_file(
+            root_document,
+            "the root CLAUDE.md is outside the walk, so its import of the installed primer \
+             cannot be checked",
+            "remove the row of [walk] that keeps it out",
+        ));
+    }
+
     // A parse that could not be trusted must be LOUD. Silently it removes every citation in
     // the file from the walk while the run reports success — indistinguishable from a clean
     // file, and the guard the premortem named for a grammar that changes under an upgrade.
@@ -1092,8 +1109,6 @@ mod plans_tests {
             tracked_and_ignored: &[],
             refused: &[],
             links: &[],
-            installed: &[],
-            shipped: &[],
         };
         check(&Model::from_documents(Vec::new()), manifest, &inputs)
             .iter()
@@ -1158,8 +1173,6 @@ mod plans_tests {
             tracked_and_ignored: &[],
             refused: &refused,
             links: &[],
-            installed: &[],
-            shipped: &[],
         };
         let found = check(&Model::from_documents(Vec::new()), &manifest, &inputs);
         assert_eq!(found.len(), 3, "{found:#?}");

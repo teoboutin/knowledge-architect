@@ -117,6 +117,12 @@ pub fn skipped(rel: &Path, walk: &Walk) -> bool {
         || walk.exclude.iter().any(|e| rel.starts_with(e))
 }
 
+/// Whether a row of `[walk]` keeps this path out: a skipped file, a skipped directory or an excluded
+/// location.
+pub(crate) fn kept_out(rel: &Path, walk: &Walk) -> bool {
+    skipped(rel, walk) || walk.skip_files.iter().any(|f| f == rel)
+}
+
 /// The file kinds this tool can parse, and therefore the whole of the walk.
 ///
 /// **Compiled in rather than declared.** Which suffixes a project holds is a fact about that
