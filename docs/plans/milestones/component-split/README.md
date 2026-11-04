@@ -20,7 +20,7 @@ has landed in the installed text and in `register@agent-skills@design`.
   defect of the plan document.
 - Every name it uses is defined under Names or New names, or exists in the tree.
 - Where the owner's word is awaited, `skill@knowledge-architect-planning@working-a-slice` says what
-  waits. Its defaults, D1, D2 and D3, are ruled.
+  waits. Its defaults D1, D2 and D3 are ruled; D4 awaits the owner.
 
 ## How the work is done
 
@@ -41,8 +41,11 @@ This repository adds:
   `design@knowledge-architect@partial-publish-rerun`; its directory and package name in the lists of
   `design@core@a-foreign-build-is-refused` and `design@core@checker-source-literals-are-data`; and
   a README and library documentation that state what an adopter of it does, per
-  `goal@knowledge-architect@adoption-is-easy`; and the Component's documents and register homes,
-  declared in the manifest with `cargo klarch new-component`;
+  `goal@knowledge-architect@adoption-is-easy`, and the four conditions of a target project, the asks
+  and the limit of the guarantee, per `goal@knowledge-architect@serves-one-kind-of-project`; a row of
+  the Component table of the root `CLAUDE.md`; its place in the lists of `skill@klarch-release`; and
+  the Component's documents and register homes, declared in the manifest with
+  `cargo klarch new-component`;
 - **each new Component's goals**, and the moves and rewordings of the core's goals a slice makes,
   are drafted by the session under `skill@knowledge-architect-goal-setting` and put to the owner;
   the slice is built on the drafts, and its branch merges once the owner has ruled on them, per
@@ -306,12 +309,18 @@ the tree does not hold. Those that bear on the split, with their outcome:
   `issue@core@show-lists-no-subdocument-of-a-directory-home`,
   `issue@core@no-command-lists-the-standing-entries-citing-a-set-of-entries`,
   `issue@core@a-forked-subagent-s-first-line-is-an-unrecognised-type`,
-  `issue@core@a-staged-check-compares-installed-files-with-unstaged-shipped-text`,
   `issue@core@check-under-a-sparse-checkout-reports-every-file-outside-the-cone`,
   `issue@core@the-walk-does-not-report-what-the-per-clone-exclude-file-removes`,
   `issue@core@the-tests-read-the-machine-s-git-configuration`,
   `issue@core@the-graded-entries-repeat-a-shared-entry-s-grade-per-agent`,
-  `issue@core@a-component-states-at-least-one-goal`;
+  `issue@core@a-component-states-at-least-one-goal`,
+  `issue@core@a-kind-name-refusal-quotes-a-future-migration-reason`,
+  `issue@core@the-walk-may-exclude-a-file-the-model-requires`,
+  `issue@core@a-reference-to-an-anchor-s-own-directory-breaks-when-the-anchor-moves`; an issue whose
+  sites stay on both sides, `issue@core@a-slug-finding-names-a-repair-blind-to-what-the-slug-resolves-to`
+  and `issue@core@finding-texts-are-not-audited-for-a-needless-cause`, stays in the core with its
+  references re-pointed, and `issue@core@a-staged-check-compares-installed-files-with-unstaged-shipped-text`
+  stays too, its subject returning to the core at #check-renamed;
 - `issue@knowledge-architect@command-output-is-not-declared-a-contract`: P1's typed API offers data
   by a library function, which its open policy names; the policy stays open;
 - `issue@knowledge-architect@this-repository-warns-on-none-of-the-documentation-lints`,
@@ -375,9 +384,9 @@ outcome:
   `tripwire@core@walked-count-differs-between-machines` stays with the walk;
 - `design@core@staged-tree-source`: the assembly of the staged tree stays with `commits` in `check`,
   and its git invocations move to `git`;
-- `design@core@an-extension-reads-a-snapshot`, `design@core@an-extension-builds-its-own-model`: the
-  snapshot type moves with `git` and the parse with `model`; the extension reads both through the
-  facades;
+- `design@core@an-extension-reads-a-snapshot`, `design@core@an-extension-builds-its-own-model`:
+  `extension::Snapshot` stays in the core, over the `Source` and `SnapshotEntry` of `git`, and the
+  parse moves to `model`; the extension reads both through the facades;
 - `design@core@init-command`, `design@core@init-runs-git-init`, `design@core@component-command`,
   `design@core@init-has-no-extension-hook`: `create`'s heads, moved at #consumers-out;
 - `design@core@rust-parser-keeps-every-comment`: moves with the parsing to `model`; its sentence
@@ -1365,7 +1374,7 @@ The types the slices add:
 
 ```text
 model::extension::Contribution   a struct, an extension's phase-1 contribution as data: the tables it claims, its complaints, its declared paths and its generated files; check computes it from each extension's Extension::tables and Extension::resolve, which keep their signatures, and hands it to model's phase 1, so no extension changes (#model-out)
-model::resolve::Outcome          what the resolver returns for a reference: its target, or the cause of its failure, which the lints turn into a finding (#model-out)
+model::resolve::Outcome          what the resolver returns for a reference: its Target, or the Cause of its failure, whose two texts the lints and show use (#model-out)
 ```
 
 Every other name a slice adds is that slice's spec's, written in it at its design audit.
@@ -1416,12 +1425,12 @@ docs/ are split by subject, each slice moving what its new Component holds.
 | `path@core@src/check/tree.rs` | `model`: phase 2 | #model-out |
 | `path@core@src/check/mod.rs` | `model`: `foundation`, with the installed-file check still in phase 2 until #check-renamed; `check`: phase 4, `Report`, `run_with` | #model-out |
 | `path@core@src/check/references.rs` | `model`: the resolver; `check`: the lints | #model-out |
-| `path@core@src/agents.rs` | `model`: the installed copies as the entity table reads them; `check`: the install and its repairs | #model-out |
+| `path@core@src/agents.rs` | `model`: the shipped text as phase 2 reads it, with the tests over it; `check`: the install and its repairs | #model-out |
 | `path@core@src/extension.rs` | `model`: the phase-1 contribution; `check`: the rest of `Extension` and `Prepared` | #model-out |
 | `path@core@src/check/agents.rs` | `model` from #model-out, in the foundation; `check` from #check-renamed, a family of phase 4 | #model-out, #check-renamed |
 | `path@core@src/check/generated.rs`, `path@core@src/check/registers.rs` | `check` | #check-renamed |
 | `path@core@src/cli/history.rs` | `check` | #check-renamed |
-| `path@core@src/cli/gathered.rs` | `model`: what phases 1 to 3 read; `check`: what phase 4 reads | #model-out |
+| `path@core@src/cli/gathered.rs` | `model`: what phases 1 to 3 and the resolver read; `check`: the committed generated files and the `register.toml` files, which phase 4 alone reads | #model-out |
 | `path@core@src/cli/mod.rs` | `cli`: the command enum, parsing, dispatch, `locate`; `model`: `complete_working_tree`, the gate of phases 1 to 3 that `worklist` and the writers call, so `query` reaches it with no check; `check`: `fix_then_check`; each domain crate: its commands' logic, behind a typed API | #cli-on-top, `complete_working_tree` at #model-out |
 | `path@core@src/cli/output.rs` | `cli`, or the crate whose data it prints, per the pure and output layers of `skill@knowledge-architect-component-creation@component-shapes`, decided at the audit | #cli-on-top |
 | `path@core@src/build_origin.rs` | `check`: the refusal of a foreign build, given the list of crates a binary links, which `cli` calls for every command and `create` calls for `init`'s PATH | #cli-on-top |
@@ -1582,6 +1591,30 @@ fire by a scratch dependency of `query` on `check`, which the command lists. The
 - **D1, on #cost-per-crate, ruled**: the fixed cost of each new crate is accepted, and each crate is
   created by the slice that builds it, `bundle`, `render` and `rewrite` by their own work. The owner,
   after the plan documents were committed: "D1 the costs are accepted".
+
+- **D4, on #model-crate, awaiting the owner**: `model`'s facade publishes the entity table and the
+  anchors, `Entities` and `Anchors` among them, and the records over them, under `model::table`, and
+  the core's facade adds none of them: `extension` offers what it offers today, so the direction the
+  owner chose in `issue@core@an-extension-cannot-see-which-register-a-document-belongs-to`, a narrow
+  read-only view in `extension` rather than these types public as they are, stands for the extension
+  API. Its consequences, each read at the design audit of #model-out:
+  - an extension that adds `knowledge-architect-model` to its own dependencies can name them, so the
+    types are public on crates.io, which that direction did not have in view: they were crate-private
+    when it was given, and `check`, `query` and `render` each need them across a crate boundary, so
+    #model-crate requires them public somewhere;
+  - each method of `Model` and `Manifest` that code staying in the core calls becomes public on
+    `knowledge_architect::Model` and `knowledge_architect::Manifest` too, since a re-export carries a
+    type's methods: `Model::listing`, `untracked`, `installed`, `links`, `from_documents_under`,
+    `set_installed` and `push_unreadable`, and `Manifest::registers`, `plans`, `locations`,
+    `components`, `pin` and `serves_claude`, among others;
+  - the alternative that keeps them private needs a second set of types over the table, in `model`,
+    for `check` and `query` alone, which an extension could name in the same way, so it removes neither
+    consequence.
+
+  The session's default is this shape, with a `library` entry of the changelog stating the widening,
+  and the issue and `tripwire@core@private-item-needed` reworded to say what the crate now publishes.
+  The two sentences of the owner's direction relax for a consumer who adds the dependency, so this is
+  a scope change the owner rules.
 
 ## Harvest
 
