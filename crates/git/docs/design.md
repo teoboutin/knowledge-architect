@@ -13,7 +13,7 @@ history: `rev-list`, `rev-parse`, a commit's file list, its blobs and its messag
 is an `Invocation`, run by `Invocation::run`, so the set of things the library asks git is
 auditable in one read, and the environment `run` sets reaches every invocation. It serves
 `goal@git@a-pure-wrapper-over-git`. That the checker's library asks git through this crate alone
-is the checker's decision, `design@core@checker-asks-git-through-the-crate`.
+is the checker's decision, `design@knowledge-architect@checker-asks-git-through-the-crate`.
 
 ### Every git invocation runs with the per-user ignore file pointed at the null device `##per-user-ignore-file-pinned`
 

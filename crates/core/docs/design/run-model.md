@@ -42,6 +42,8 @@ Five things are compiled in, and none of them describes a project:
 
 ### The model is built once, and every check is a pure function over it `##model-then-checks`
 
+`model` builds the model and gathers what a phase and the resolver read, and the core gathers what the
+last phase alone reads and runs the checks, per `design@knowledge-architect@model-crate`.
 A check never reads a file, spawns a process, or knows how the walk works. Anything a check cannot
 fetch for itself is resolved by the caller and handed in: the generated files as committed, the
 per-instance `register.toml` files, one listing of what exists and which of those paths are
@@ -82,12 +84,14 @@ the releases it names.
 Findings are not independent. Some say what the model could not read or resolve, and every
 finding computed from that model afterwards is then unreliable in both directions, missing and
 false. A list that mixes the two advertises a completeness it does not have. So a run is four
-phases, each of the first three building one input of the next:
+phases, each of the first three building one input of the next. The first three are `model`'s, as
+`foundation`, since a tool over the record needs to know the model can be trusted and needs no check;
+the last is the core's:
 
 | phase | produced by | what it reports |
 | ----- | ----------- | --------------- |
 | 1 | `Manifest::parse`, and each extension's resolution of its tables | a declaration the tool refused, which is then absent from the configuration |
-| 2 | phase 2, over the core's declared paths, the paths each extension declares and every document's parse, and the installed-file check, over the installed agent configuration | a file the walk could not read or refused, a tracked-and-ignored file, an anchor or a register home that is not there, a declared path that does not exist, a home a walk row keeps out, an installed agent file missing, differing or unshipped, a root CLAUDE.md that does not import a shipped primer, a heading markdown reads and the checker does not, per `design@model@headings-open-with-hash-marks` |
+| 2 | `tree` of `path@model@src/tree.rs`, over the core's declared paths, the paths each extension declares and every document's parse, and the installed-file check, over the installed agent configuration | a file the walk could not read or refused, a tracked-and-ignored file, an anchor or a register home that is not there, a declared path that does not exist, a home a walk row keeps out, an installed agent file missing, differing or unshipped, a root CLAUDE.md that does not import a shipped primer, a heading markdown reads and the checker does not, per `design@model@headings-open-with-hash-marks` |
 | 3 | `Entities::build` | a slug or an entry id where none may sit, or defined twice; a level-two heading of a section home with no slug; a skill's or an agent's name a reference cannot spell, or that its frontmatter contradicts |
 | 4 | every check, the core's and each extension's | everything computed over a complete model |
 

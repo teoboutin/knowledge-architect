@@ -1501,7 +1501,7 @@ impl Entities {
     /// **An installed copy defines and reports nothing.** It is the installer's file, never the
     /// project's to repair, and a commit holding an earlier version's set is judged by a later
     /// checker under `commits`: a finding in it would ask for an edit of an installed file. The
-    /// shipped set is held to the section rule where it is written, by a test of the core over
+    /// shipped set is held to the section rule where it is written, by a test of the checker over
     /// the shipped text, per `design@model@section-homes-carry-slugs`.
     fn harness_definitions(&mut self, model: &Model) {
         for doc in model.documents() {

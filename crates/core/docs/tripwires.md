@@ -61,8 +61,8 @@ The decision rests on the premise that the role modules publish every item a con
 library, a binary, an extension or the extension's tests, needs.
 
 **Fires when:** a consumer of the library, thaum's rules extension first, needs an item that is
-private behind the facade, and no public item replaces it. An example still unmet: the records
-listing, for an extension command that lists its own entries. The entity table and the anchors
+private behind the facade, and no public item replaces it. An example still unmet in this library's facade: the records
+listing, for an extension command that lists its own entries, which `model` publishes. The entity table and the anchors
 fired it once, recorded as `issue@core@an-extension-cannot-see-which-register-a-document-belongs-to`.
 **Response:** open a `todo` for the instance. Its fix gives the consumer what it needs under the
 role module its use belongs to, as a 0.MINOR change: the item itself where its shape is fit to

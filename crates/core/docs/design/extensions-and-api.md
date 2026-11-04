@@ -20,7 +20,7 @@ belongs to, per `design@core@phases-gate-the-report`:
 
 | call | when | what the extension does |
 | ---- | ---- | -------------------- |
-| resolve | phase 1, before the walk | reads the tables it claims, and returns its complaints, the paths it declares and the files it generates; the core reports the complaints in phase 1, asserts in phase 2 that each declared path exists, and leaves the generated files out of the walk and reads them as committed |
+| resolve | phase 1, before the walk | reads the tables it claims, and returns its complaints, the paths it declares and the files it generates; the core hands them to `model` as data, per `design@model@contribution-is-data`, which reports the complaints in phase 1, asserts in phase 2 that each declared path exists, and leaves the generated files out of the walk and reads them as committed |
 | prepare | once phases 1 to 3 passed | reads what its checks need for one tree, and may fail the run as could-not-run |
 | check | phase 4 | its checks, with the count lines and the not-run names its summary prints |
 | judge a message | `commits` | the rules a commit message is judged by, against that commit's prepared tree |
@@ -121,9 +121,11 @@ in the same module for the same reason.
 
 ### What a run fetches before any check is gathered once, by `Gathered`, and no caller outside the crate assembles `Inputs` `##inputs-are-gathered`
 
-`Gathered`, in the core's command module, reads the
-committed generated files, every `register.toml`, one survey, the two git batches and the shipped
-agent files, and lends them as the `Inputs` a check of the working tree reads. `check`, the
+Two gatherings, one in each crate, since a tool that needs the model and no check reads what phases 1
+to 3 and the resolver read. `Gathered` of `model` reads one survey, the two git batches and the shipped
+agent files, and lends them as `TreeInputs`. `Gathered`, in the core's command module, holds it, adds
+the committed generated files and every `register.toml`, which the last phase alone reads, and lends
+them all as the `Inputs` a check of the working tree reads. `check`, the
 commands that write files into the working tree (through `complete_working_tree`, which refuses
 over an incomplete model), and an extension's tests all build on it. `check --staged` and
 `index --staged` read a snapshot instead, and build their `Inputs` from it, per
@@ -159,6 +161,10 @@ re-export:
 - **The public surface is read in one file**, lib.rs, and the role modules beside it. It is
   not computed from the implementation's module tree, so moving an item between files changes no
   public path, and is no library break under `design@knowledge-architect@versioning-policy`.
+- **What `model` publishes is `model`'s facade, per `design@model@model-facade`**, and this facade names
+  of it what an extension meets: `Manifest`, `Model`, `Document`, `Finding` and the parse. A method a
+  caller in this crate needs of `Model` or `Manifest` is public on these re-exports too, since a
+  re-export carries a type's methods.
 - **A public signature keeps its types public.** `Inputs` is in `Prepared::check`'s signature and
   its fields expose `Entry` and `Outside`, so those are public although no consumer names them.
 - **A `pub` item no consumer can reach is refused.** lib.rs carries `#![warn(unreachable_pub)]`,
@@ -232,8 +238,8 @@ The library, imported as `knowledge_architect`, and the binary are two targets o
 library already depends on clap, because its commands are a library module per
 `design@core@the-core-cli-is-a-library-module`, so a separate binary crate would save its users no
 dependency and would add a second package name to publish and to pin. The foreign-build refusal of
-`design@core@a-foreign-build-is-refused` lists this one crate for both, beside the `git` crate and
-the crate of installed text it links.
+`design@core@a-foreign-build-is-refused` lists this one crate for both, beside the `git` crate, the
+`model` crate and the crate of installed text it links.
 
 ### The binary is named `klarch` `##binary-name`
 

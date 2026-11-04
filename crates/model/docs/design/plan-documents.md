@@ -66,7 +66,7 @@ Every level-three heading of those four sections owes a slug; any other level-th
 plan document is section text, and a slug anywhere else in it defines nothing. Items need a model
 of their own because a heading register has one home file per anchor and one level, where a plan
 has one home and four kinds; an extension runs after the entity table is built, so items are the
-core's, per `design@core@an-extension-plugs-in-through-phased-hooks`.
+table's own, per `design@core@an-extension-plugs-in-through-phased-hooks`.
 
 ### An item is cited from inside its own plan only `##plan-item-scope`
 

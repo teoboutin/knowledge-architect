@@ -65,7 +65,7 @@ On a branch of its own, `release-<version>`, under the Git rules of the root `CL
    angle brackets, as in `goal@<anchor>@<id>`, is a path or a register's home every conforming
    project holds, `path@*@<path>`, `path@plans@<path>`, `register@*@<register>` or
    `register@plans@<register>`, or cites the shipped set's own skills, agents, primer
-   and sections, as `skill@<name>@<slug>` or `primer@<slug>`, which a test of the core resolves
+   and sections, as `skill@<name>@<slug>` or `primer@<slug>`, which a test of the checker resolves
    within the set. No candidate names an entry. This is done by hand until
    `issue@agent-skills@shipped-text-citing-an-entry-is-unchecked` closes, per
    `design@agent-skills@shipped-text-cites-no-entry`.

@@ -40,10 +40,35 @@ one included. All of them are published together, at one version, per
 
 The design this decision did not keep: `rejected@knowledge-architect@single-published-package`.
 
+### The checker's library code asks git only through the `git` crate `##checker-asks-git-through-the-crate`
+
+The library code of the core and of `model` starts no git process of its own: every question either
+asks git is a function of the `git` crate, called by the code that gathers what a run reads or prints a
+listing, never by a check, per `design@core@model-then-checks`. So the set of things the checker
+asks git is the crate's, auditable in one read per `design@git@git-is-asked-through-one-module`,
+and the environment the crate sets, `design@git@repository-variables-dropped` and
+`design@git@index-file-variable-kept`, reaches every question the checker's verdict depends on,
+which `goal@core@documents-stay-current` needs. A test of the checker may run git itself to build
+its fixture.
+
+### What a run reads of a project is a crate of its own, which the checks depend on `##model-crate`
+
+`knowledge-architect-model`, in crates/model, holds the manifest, the walk, the parse, the entity table,
+phases 1 to 3 and the resolver, and the core depends on it by path and by exact version, per
+`design@knowledge-architect@version-lockstep`. A tool over the record needs the model and at most
+phases 1 to 3, never the last phase: the writers run them and no check, and `show` runs no phase and
+reads the resolver. Phases 1 to 3 say whether the model can be trusted, not whether the content
+conforms. The boundary is crossed by some changes and not by all: of the commits that changed the core's
+source, some touched the model's files alone and some the checks alone, as the command in the
+milestone document that the commit "The split of the core into Components of one purpose, and the
+revision of the rules that cut it" adds takes again. It serves
+`goal@knowledge-architect@mechanical-tasks-are-the-tool-s` and `goal@core@documents-render-as-a-linked-site`. The nearest rival
+is `rejected@knowledge-architect@model-inside-the-checker`.
+
 ### Git is wrapped by a crate of its own, which the checker depends on, rather than by a module of the checker `##git-crate`
 
 Every git invocation of the checker's library is a function of `knowledge-architect-git`, in
-crates/git, which the checker depends on by path and by exact version, per
+crates/git, which the core and `model` depend on by path and by exact version, per
 `design@knowledge-architect@version-lockstep`. The crate's interface changes for reasons of its
 own: a git question or a git version that another tool needs and the checker does not. It takes
 decisions of its own, `register@git@design`. And a tool that rewrites a branch's history depends
@@ -378,7 +403,7 @@ release skill stops a release that would need it.
 ### A publish that stopped part-way is completed by re-running the job, which skips a version crates.io already holds `##partial-publish-rerun`
 
 The publish job publishes the crates one at a time, each before the crates that depend on it, the
-`git` crate and agent-skills before the core, and skips a crate when crates.io's API already
+`git` crate and agent-skills before the `model` crate, and that before the core, and skips a crate when crates.io's API already
 returns the version. A re-run of the failed job runs on the same commit and tag, so it publishes
 only what is missing, and a release that stopped part-way completes with no change to the code
 and no new tag. The nearest rival, one `cargo publish --workspace`, cannot be re-run that way: its `--help` under the pinned toolchain

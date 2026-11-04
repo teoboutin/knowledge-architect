@@ -108,7 +108,7 @@ when a project adopts the workflow or moves its pin.
 The nearest rival, the binary printing the model and the primer pointing to the command, loses on
 delivery: the harness puts the primer in every session's context, and a command reaches a session
 only if it thinks of running it. Drift between the primer and the checker is bounded by
-`design@knowledge-architect@version-lockstep`, and by the core's test
+`design@knowledge-architect@version-lockstep`, and by the checker's test
 `the_primer_s_model_section_names_every_kind_and_reserved_word`, which fails when a reference kind,
 a built-in register or a reserved anchor word is missing from the section.
 

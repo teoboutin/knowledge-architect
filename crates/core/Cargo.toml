@@ -33,7 +33,7 @@ toml = "1.1.4"
 # writes a value back: `new-component` appends to `[project] components` with it.
 toml_edit = "0.25"
 knowledge-architect-agent-skills = { path = "../agent-skills", version = "=0.9.0" }
-# Every git invocation, per `design@core@checker-asks-git-through-the-crate`; pinned exactly, as
+# Every git invocation, per `design@knowledge-architect@checker-asks-git-through-the-crate`; pinned exactly, as
 # every crate of the workspace carries one version, per `design@knowledge-architect@version-lockstep`.
 knowledge-architect-git = { path = "../git", version = "=0.9.0" }
 # What phases 1 to 3 read and what they build; pinned exactly, for the same reason.

@@ -137,7 +137,7 @@ from `cargo init`, per `design@core@init-follows-cargo-init`, is the refusal of 
 files, chosen by the owner over following `cargo init` exactly: after `cargo init` in such a
 directory, `git status --short` lists the files that were there as untracked beside the new ones, so the cleanup of a mistaken run is
 not `git clean`, which deletes both. Whether PATH is inside a worktree is asked through
-`path@git@src/git.rs`, per `design@core@checker-asks-git-through-the-crate`.
+`path@git@src/git.rs`, per `design@knowledge-architect@checker-asks-git-through-the-crate`.
 
 The designs this decision did not keep: `rejected@core@init-git-init-anywhere-outside-a-worktree`
 and `rejected@core@init-refused-outside-a-repository-root`.
@@ -163,7 +163,7 @@ does not change, comments included, then parses the edited text with `Manifest::
 with its first complaint, such as a DIR named like the project, which names two anchors, before
 writing anything. A manifest written with `\r\n` line breaks keeps them. The manifest is
 hand-written and carries the reasons beside its rows, and the
-`toml` crate, which the core reads it with, holds no comment in a value it writes back: its `Table`
+`toml` crate, which `model` reads it with, holds no comment in a value it writes back: its `Table`
 is a map of values, as its source under the cargo registry shows. Printing the line for the user to
 add was the rival: the command could then not finish in one run.
 

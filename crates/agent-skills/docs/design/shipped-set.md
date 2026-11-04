@@ -174,7 +174,7 @@ install fills with the project's declared command, per `design@core@declared-com
 **The shipped set may cite its own skills, agents and primer, and their sections**, as
 `skill@<name>@<slug>` or `primer@<slug>`: every project serving `claude` holds them, installed, and
 they are defined from its installed copies, per `design@model@installed-entities-from-the-tree`. A
-test of the core holds every such reference to resolve within the shipped set. It never cites
+test of the checker holds every such reference to resolve within the shipped set. It never cites
 `instructions@<slug>`, whose slugs are each project's own.
 
 content/ and the snippets are in the walk, so every reference they hold is checked against this

@@ -20,11 +20,11 @@ conforming project holds, `path@*@<path>` or `path@plans@<path>`, a register's h
 conforming project holds, `register@*@<register>` or `register@plans@<register>`, a reference to the shipped
 set's own skills, agents, primer and sections, and a placeholder in angle brackets stay allowed,
 per `design@agent-skills@shipped-text-cites-no-entry`. The shipped set's own references are
-already judged, by a test of the core that requires each to resolve within the set; what stays
+already judged, by a test of the checker that requires each to resolve within the set; what stays
 unchecked is a reference to an entry of a register, and a `path` reference naming an anchor of this
 repository, a Component's or a location's, which resolves here and dangles in every installing
 project. A reference to a skill of this repository's own, `skill@<project skill>`, is a third
-candidate: not established whether the core's test refuses it. The acceptance criterion of the
+candidate: not established whether the checker's test refuses it. The acceptance criterion of the
 work that shipped the retrospective intake searched by hand for all three in that skill, at its
 landing and at the deletion of its plan document. The text as it ships
 is the installed copies under .claude: their `%%` comments are removed and their placeholders

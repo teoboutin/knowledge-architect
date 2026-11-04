@@ -236,7 +236,7 @@ mod graph;
 mod transcript;
 
 // Every git invocation is the `git` crate's, per
-// `design@core@checker-asks-git-through-the-crate`. Named `git` here, so the modules that ask it
+// `design@knowledge-architect@checker-asks-git-through-the-crate`. Named `git` here, so the modules that ask it
 // read `crate::git::...` as when it was a module of this crate.
 use knowledge_architect_git as git;
 
