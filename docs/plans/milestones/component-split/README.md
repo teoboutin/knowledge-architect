@@ -49,8 +49,7 @@ This repository adds:
 - **each new Component's goals**, and the moves and rewordings of the core's goals a slice makes,
   are drafted by the session under `skill@knowledge-architect-goal-setting` and put to the owner;
   the slice is built on the drafts, and its branch merges once the owner has ruled on them, per
-  `primer@question-authority`. #check-renamed sends each goal of `register@check@goal` to the
-  Component that holds its subject, and drafts the rewording of each that names "the core", such as
+  `primer@question-authority`. #check-renamed sends each goal of `register@check@goal` to the Component that holds its subject where that Component exists, and drafts the rewording of each that names "the core", such as
   `goal@check@checks-a-commit-from-its-hook`, whose measure names "the core's tests", and
   `goal@check@projects-add-their-own-checks`, which names "no change to the core";
 - each slice moves the design heads, `rejected` entries, issues and tripwires whose subject its new

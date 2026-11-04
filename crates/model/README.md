@@ -43,8 +43,7 @@ let entities = table::Entities::build(&model, &anchors);
   pins is the binary's to refuse, not this library's.
 - [`resolve`](https://docs.rs/knowledge-architect-model/latest/knowledge_architect_model/resolve/) says
   what a reference names, or why it names nothing, with the words of each cause and no finding attached.
-- `foundation::Gathered` reads what phases 1 to 3 and the resolver read: one survey, the two git batches and
-  the agent files this version ships.
+- `foundation::Gathered` reads what phases 1 to 3 and the resolver read: one survey and the two git batches.
 
 ## What it needs and guarantees
 

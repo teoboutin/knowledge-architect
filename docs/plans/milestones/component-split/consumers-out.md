@@ -12,7 +12,7 @@ The fifth slice of `milestone@plans@component-split`. It leaves when it lands.
   `model`, `git` and `agent-skills`: `init`, `new-component`, `init --rust`. It calls
   `check`'s `fix_then_check` and refusal of a foreign build, and `model`'s `complete_working_tree`;
   `cli` locates the project and hands it in, so `create` calls no `locate`.
-- `cli` dispatching each command to its crate; the goals of the three Components, those of `query` from the owner's lead in the thread #query-crate, drafted and put to
+- `cli` dispatching each command to its crate; the goals of the three Components, those of `query` from the owner's lead in the thread #query-crate, with `goal@check@records-reach-their-reader`, whose subject is the listings `query` takes, drafted and put to
   the owner as the milestone document says.
 
 ## Claims
@@ -68,7 +68,7 @@ the plan's review, #arg-10). `design@check@transcript-command-in-core` rejected 
 ground of `design@check@single-crate`, which #cli-on-top reversed.
 
 **`create`.** It has its own purpose, tests and 13 heads, counted with
-`grep -c '^### ' crates/core/docs/design/creating.md`; the cut costs the public API of `check` and
+`grep -c '^### ' crates/check/docs/design/creating.md`; the cut costs the public API of `check` and
 `model` the three functions it calls (#arg-14, corrected at the plan's review).
 
 ## Implementation sequence

@@ -1,4 +1,4 @@
-# Core design: Reference spans and their lints
+# Check design: Reference spans and their lints
 
 ## Reference spans and their lints
 

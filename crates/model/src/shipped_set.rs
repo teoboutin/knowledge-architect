@@ -1,6 +1,6 @@
 //! The shipped text held to what the entity table reads, per `design@model@section-homes-carry-slugs`.
 //!
-//! These tests read the table's own vocabulary, none of which is public, so they stay beside it and
+//! These tests read the table's own vocabulary, such as its harness kinds, which is private, so they stay beside it and
 //! reach the shipped text by a dev-dependency, which builds into no consumer of this crate. No
 //! installing project judges them: a reference in an installed copy is read by nothing.
 

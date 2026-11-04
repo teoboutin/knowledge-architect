@@ -40,6 +40,10 @@ one included. All of them are published together, at one version, per
 
 The design this decision did not keep: `rejected@knowledge-architect@single-published-package`.
 
+The tests of `model` that hold the shipped text to the entity table read it by a path-only dev-dependency of
+that crate, which builds into no consumer and which cargo strips at packaging, since they read private items
+of the table, which the facade of `design@model@model-facade` keeps private.
+
 ### The checker's library code asks git only through the `git` crate `##checker-asks-git-through-the-crate`
 
 The library code of `check` and of `model` starts no git process of its own: every question either

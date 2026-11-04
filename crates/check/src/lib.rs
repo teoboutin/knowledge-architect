@@ -55,7 +55,7 @@
 //! #[derive(Subcommand)]
 //! enum Commands {
 //!     #[command(flatten)]
-//!     Core(cli::Command),
+//!     Check(cli::Command),
 //!     // Each command of the extension is one more variant here.
 //! }
 //!
@@ -74,7 +74,7 @@
 //!     let packages = [env!("CARGO_PKG_NAME")];
 //!     let outcome = match parsed.command {
 //!         // `init` creates the project the other commands locate, so it goes first.
-//!         Commands::Core(cli::Command::Init(args)) => {
+//!         Commands::Check(cli::Command::Init(args)) => {
 //!             cli::init(args, &libraries, &packages, &[own], &mut extensions)
 //!         }
 //!         command => cli::locate().and_then(|manifest| {
@@ -82,7 +82,7 @@
 //!             // Before any other command, the extension's own included.
 //!             cli::refuse_another_version(&manifest, &[own])?;
 //!             match command {
-//!                 Commands::Core(command) => cli::run(command, &manifest, &[own], &mut extensions),
+//!                 Commands::Check(command) => cli::run(command, &manifest, &[own], &mut extensions),
 //!                 // Each command of the extension is one more arm here.
 //!             }
 //!         }),

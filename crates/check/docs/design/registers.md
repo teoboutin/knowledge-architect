@@ -1,4 +1,4 @@
-# Core design: Registers and their homes
+# Check design: Registers and their homes
 
 ## Registers and their homes
 

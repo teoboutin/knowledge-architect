@@ -1,4 +1,4 @@
-# Core design: Session transcripts
+# Check design: Session transcripts
 
 ## Session transcripts
 

@@ -23,7 +23,7 @@ use crate::manifest::Walk;
 ///
 /// `generated` is every path the caller takes out of the walk by construction rather than by a
 /// declared row: each generated index, derived from the register instances, and each installed
-/// agent file, derived from the agent table per `design@check@owned-namespace-check`. Neither is a
+/// agent file, derived from the agent table per `design@check@installed-files-outside-the-walk`. Neither is a
 /// source of claims this project wrote, and deriving the set from the declarations is what keeps a
 /// new instance or a new installed file from arriving inside the walk.
 pub fn live_files(

@@ -167,7 +167,8 @@ impl Gathered {
     }
 
     /// The files of the installer's namespace, with what reading each gave: outside the walk, and
-    /// read by no phase of this crate.
+    /// empty when the project serves no harness. A file git lists and the disk does not hold reads
+    /// as `Outside::Missing`. Phase 3 reads the copies through the model; no phase reads this.
     pub fn installed(&self) -> &[(PathBuf, crate::survey::Outside)] {
         &self.survey.installed
     }
@@ -317,8 +318,11 @@ mod phase_tests {
 
     /// The claim: a root CLAUDE.md a row of `[walk]` keeps out stops the run in phase 2, whichever
     /// row it is, since the model cannot read it and no row may waive its import of the primer;
-    /// only declaring no harness does, and a root CLAUDE.md no row names owes nothing here.
-    /// Mutation checked: removing the finding from `tree::check` lets the run pass phase 2.
+    /// only declaring no harness does, and a root CLAUDE.md no row names owes nothing here, nor one
+    /// the tree does not hold, which the required-documents finding reports alone. An extension's
+    /// generated list keeps it out as a row does. Mutations checked: removing the finding from
+    /// `tree::check` lets the run pass phase 2; dropping its `present` test reports the absent file
+    /// as outside the walk; dropping its generated test lets the extension's case pass.
     #[test]
     fn a_root_claude_md_a_walk_row_keeps_out_stops_the_run_at_phase_two() {
         let declaring = |agents: &str, rows: &str| {
@@ -352,6 +356,31 @@ mod phase_tests {
             says(&declaring("[agents]\nharness = []\n", skip_file)),
             Some(true)
         );
+        let mut absent = complete_tree();
+        absent.remove(&PathBuf::from("CLAUDE.md"));
+        let stop = foundation_over(
+            &declaring("", skip_file),
+            absent,
+            &Model::from_documents(Vec::new()),
+        )
+        .expect_err("the required document is missing");
+        assert!(
+            !stop
+                .findings
+                .iter()
+                .any(|f| f.what.contains("outside the walk")),
+            "{:#?}",
+            stop.findings
+        );
+        let mut generated = declaring("", none);
+        crate::contribution::contribute(
+            &mut generated,
+            crate::contribution::Contribution {
+                generated: vec![PathBuf::from("CLAUDE.md")],
+                ..Default::default()
+            },
+        );
+        assert_eq!(says(&generated), Some(true));
     }
 
     #[test]

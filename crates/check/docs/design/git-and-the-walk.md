@@ -1,4 +1,4 @@
-# Core design: Git and the walk
+# Check design: Git and the walk
 
 ## Git and the walk
 

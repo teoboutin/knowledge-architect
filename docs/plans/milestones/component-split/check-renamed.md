@@ -18,7 +18,7 @@ As D3 of the milestone document rules it.
   rewording of a goal that names "the core" drafted under `skill@knowledge-architect-goal-setting`;
   the owner rules on them before the slice merges.
 - The family `check` of `path@elsewhere@crates/model/src/shipped.rs`, the installed-file check, moved to `check`,
-  with the rendering of the shipped text and the tests over the shipped set, as a check family of
+  with the rendering of the shipped text and the tests over the installed set, as a check family of
   the last phase, beside `generated`, `registers` and `references`: a shipped file missing from the tree, an installed
   file whose bytes differ from the shipped text, a file of the installer's namespace this version
   does not ship, a deletion of one awaiting staging, and a root CLAUDE.md that does not import the
@@ -26,7 +26,7 @@ As D3 of the milestone document rules it.
   CLAUDE.md the walk keeps out, until `issue@model@the-walk-may-exclude-a-file-the-model-requires`
   replaces it. Read from the manifest's harness, it applies to a commit's tree under `commits` too,
   like every other finding of `tree`; a commit that keeps its root CLAUDE.md out is a tree `check`
-  already failed. `model` depends on nothing of `agent-skills`.
+  already failed. `model` depends on nothing of `agent-skills` for a consumer: the tests that read the entity table's private items stay in it, by a path-only dev-dependency, a narrowing of D3 put to the owner.
 - `index`, `index --staged`, `id`, `worklist` and `new-component` no longer refused by a stale
   install: each asks the foundation, which no longer holds the family.
 - `design@knowledge-architect@no-component-directory-named-after-the-project` rewritten for its
@@ -55,7 +55,7 @@ As D3 of the milestone document rules it.
   which `cargo x mutate` refuses, per `design@mutate@one-file-per-run`.
 - **`index` and `index --staged` write over a stale install.** Test: two binary tests over the
   edited copy, one per command, each exits 0 and writes the index, into the working tree or into
-  git's index; shown to fail by the first claim's mutation.
+  git's index; shown to fail by the first claim's mutation for `index --staged`, and for `index`, which asks `complete_working_tree`, by the same refusal there.
 - **`check --fix` still repairs the installed files first.** Test: the existing test of
   `design@check@fix-before-the-checks` passes; shown to fail by a recorded mutation that runs the
   repair after the gate.

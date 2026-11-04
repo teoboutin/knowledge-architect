@@ -32,8 +32,7 @@ names depends on where the manifest sits rather than on the tree.
 **No ignore rule can take a tracked file out of the walk.** `--cached` is unaffected by the ignore
 rules, so no ignore line, however written, can take a live document out of every check. What
 leaves the walk does so by the manifest: a declared row, or an exclusion derived from a
-declaration, as the generated indexes and the installed agent files are, per
-`design@check@owned-namespace-check`. That is what a
+declaration, as the generated indexes and the installed agent files are, per `design@check@installed-files-outside-the-walk`. That is what a
 hand-rolled matcher cannot promise, and it is the property the whole walk is
 chosen for; the matcher and the three things it could not do are
 `rejected@model@hand-rolled-gitignore-matcher`.

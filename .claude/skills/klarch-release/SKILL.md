@@ -29,8 +29,7 @@ On a branch of its own, `release-<version>`, under the Git rules of the root `CL
    - `[workspace.package] version` in the root Cargo.toml;
    - the exact pins `knowledge-architect-agent-skills = { …, version = "=<version>" }`,
      `knowledge-architect-git = { …, version = "=<version>" }` and
-     `knowledge-architect-model = { …, version = "=<version>" }` in crates/check/Cargo.toml, and the
-     first two in crates/model/Cargo.toml;
+     `knowledge-architect-model = { …, version = "=<version>" }` in crates/check/Cargo.toml, and the second in crates/model/Cargo.toml;
    - Cargo.lock, which any cargo command rewrites for every workspace package;
    - the status line: the opening sentence of `## Status` in the root README.md. Change the
      number, and any other part of the sentence the release makes false.
@@ -139,7 +138,7 @@ On a branch of its own, `release-<version>`, under the Git rules of the root `CL
 
 ## When the publish fails `##failed-publish`
 
-The `publish` job uploads the crates one by one: git, agent-skills, gates, mutate, then `check`, and skips a
+The `publish` job uploads the crates one by one: git, agent-skills, model, gates, mutate, then `check`, and skips a
 crate whose version crates.io already holds. A crate it uploaded stays published.
 
 - **The `verify` job failed, the owner declined, or nothing was uploaded**: delete the tag, with

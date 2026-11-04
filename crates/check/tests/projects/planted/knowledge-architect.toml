@@ -1,6 +1,6 @@
 # WHAT THIS MOCK EXERCISES, for the `check` binary: detection. Its documents are wrong on purpose,
-# one planted defect per core check of the last phase, and a test asserts the findings
-# themselves rather than merely that something failed. Every built-in check owes a row in
+# one planted defect per built-in check of the last phase, the family `agents` apart, and a test asserts the findings
+# themselves rather than merely that something failed. Every other built-in check owes a row in
 # `PLANTED` in `path@check@src/mock_projects.rs`, so a new defect goes here and its count
 # goes there.
 

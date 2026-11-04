@@ -3,8 +3,8 @@
 //! Under the `claude` harness, each shipped file must be present at its install path with the
 //! bytes of its template rendered for the project; no file of the installer's namespace may be
 //! one this version does not ship; and the root CLAUDE.md must import the primer when the primer
-//! is shipped. The decisions are `design@check@owned-namespace-check` and
-//! `design@check@agents-table`. The repair of a missing, differing or unshipped file is the
+//! is shipped. The decisions are `design@check@owned-namespace-check`,
+//! `design@check@primer-import-line` and `design@check@agents-table`. The repair of a missing, differing or unshipped file is the
 //! install; a deletion awaiting staging and a missing import line each name their own.
 //!
 //! **The last phase, since nothing else reads these findings and the model is complete without
@@ -19,10 +19,7 @@ use crate::agents::{imports_primer, lf, IMPORT_LINE, PRIMER};
 use crate::model::declared::{Pin, AGENT_DOCUMENT};
 use crate::model::listing::Outside;
 use crate::model::{Finding, Manifest, Model};
-
-/// The version of this library, which the check's words name; by
-/// `design@knowledge-architect@version-lockstep` it is the checker's.
-const CHECKER_VERSION: &str = env!("CARGO_PKG_VERSION");
+use crate::CHECKER_VERSION;
 
 pub(crate) fn check(model: &Model, manifest: &Manifest, inputs: &Inputs) -> Vec<Finding> {
     let mut out = Vec::new();
@@ -208,8 +205,7 @@ mod tests {
         assert_eq!(found.len(), 3, "{found:?}");
         for f in &found {
             assert!(
-                f.what
-                    .contains(&format!("version {}", env!("CARGO_PKG_VERSION"))),
+                f.what.contains(&format!("version {}", CHECKER_VERSION)),
                 "a version pin: {f:?}"
             );
         }
@@ -217,8 +213,7 @@ mod tests {
         assert_eq!(found.len(), 3, "{found:?}");
         for f in &found {
             assert!(
-                f.what
-                    .contains(&format!("version {}", env!("CARGO_PKG_VERSION"))),
+                f.what.contains(&format!("version {}", CHECKER_VERSION)),
                 "{f:?}"
             );
         }

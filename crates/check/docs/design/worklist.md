@@ -1,4 +1,4 @@
-# Core design: The record worklist
+# Check design: The record worklist
 
 ## The record worklist
 

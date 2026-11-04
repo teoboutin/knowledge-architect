@@ -1,3 +1,3 @@
 # core-mock
 
-A mock project for the core binary.
+A mock project for the binary.

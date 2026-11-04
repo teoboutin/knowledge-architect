@@ -1,4 +1,4 @@
-# Core design: Creating a project and a Component
+# Check design: Creating a project and a Component
 
 ## Creating a project and a Component
 

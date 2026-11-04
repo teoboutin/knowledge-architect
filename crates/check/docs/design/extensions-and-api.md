@@ -1,4 +1,4 @@
-# Core design: Extensions and the library API
+# Check design: Extensions and the library API
 
 ## Extensions and the library API
 

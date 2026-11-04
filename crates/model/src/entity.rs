@@ -1247,7 +1247,7 @@ impl Entities {
         if anchors.serves_harness() {
             out.harness_definitions(model);
         }
-        out.report_duplicates();
+        out.report_duplicates(model);
         out
     }
 
@@ -1786,15 +1786,18 @@ impl Entities {
         }
     }
 
-    fn report_duplicates(&mut self) {
+    fn report_duplicates(&mut self, model: &Model) {
         let mut found = Vec::new();
+        // An installed copy reports nothing, as `harness_definitions` says, so a stale copy that
+        // defines one slug twice leaves its repair to the family `agents` of the last phase.
+        let installed = |file: &Path| model.installed().iter().any(|d| d.rel == file);
         for ((kind, anchor, id), sites) in &self.defined {
             if sites.len() < 2 {
                 continue;
             }
             // One finding at each site, each naming the others, so the reader who opens
             // either copy is told the other exists.
-            for site in sites {
+            for site in sites.iter().filter(|s| !installed(&s.file)) {
                 let others: Vec<String> = sites
                     .iter()
                     .filter(|s| *s != site)
@@ -3210,6 +3213,19 @@ mod tests {
             "knowledge-architect-old",
             "slugged-part"
         ));
+    }
+
+    /// The claim: an installed copy that defines one slug twice reports nothing either, so a stale
+    /// copy cannot stop a run before the finding that names the install. A walked file colliding
+    /// with a copy is still told. Mutation checked: leaving out the filter of `report_duplicates`
+    /// reports the copy's two sites.
+    #[test]
+    fn a_slug_an_installed_copy_defines_twice_reports_nothing() {
+        let twice = "---\nname: knowledge-architect-old\n---\n# Old\n\n\
+                     ## One `##twice-over`\n\n## Two `##twice-over`\n";
+        let path = ".claude/skills/knowledge-architect-old/SKILL.md";
+        let e = harness_table(vec![], vec![(path, twice)]);
+        assert!(e.definition_findings().is_empty(), "{:#?}", whats(&e));
     }
 
     /// The claim: a frontmatter line that reads as a heading, inside a block holding a blank line,
