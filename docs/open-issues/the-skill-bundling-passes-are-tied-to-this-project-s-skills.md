@@ -86,4 +86,8 @@ these are leads for this work's own design session:
   `install-agent-skills`, which would call the install of `bundle`. The owner's lead, at the
   milestone's D3: the logic that verifies every shipped text is installed may belong to `bundle`
   rather than to the checker.
+- The owner's lead, at the slice that moved the installed-file check to the last phase, for a later session to discuss:
+  the model, and perhaps the checks, of the content and the structure of an agent skill may belong in a small crate of
+  their own, which both `model` and `bundle` depend on. The three tests of `path@model@src/shipped_set.rs` and the family
+  `agents` of `path@check@src/check/agents.rs` stay where they are until then.
 - On the owner's word in that discussion, the goal of the Component is written when it is created.
