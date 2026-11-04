@@ -281,7 +281,8 @@ with no extension would name a trait it implements nowhere. It would change an i
 `live`. A tool that prints a refusal would then have to link the checks or write the words again. It
 would change an interface others consume.
 
-### The check-ignore batch gathered with the checks `##ignore-batch-in-the-checks`
+### The check-ignore batch of the working tree gathered with the checks `##ignore-batch-in-the-checks`
 
 `live`. A consumer of the resolver with no check would read each target the ignore rules cover as
-absent. It would change an interface others consume.
+absent. It would change an interface others consume. A run over a tree git holds does ask in the core,
+since no gathering of the working tree reads that tree.

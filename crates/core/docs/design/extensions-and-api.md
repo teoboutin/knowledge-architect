@@ -121,9 +121,8 @@ in the same module for the same reason.
 
 ### What a run fetches before any check is gathered once, and no caller outside the crate assembles `Inputs` `##inputs-are-gathered`
 
-Two gatherings, one in each crate, since a tool that needs the model and no check reads what phases 1
-to 3 and the resolver read. `Gathered` of `model` reads one survey, the two git batches and the shipped
-agent files, and lends them as `TreeInputs`. `Gathered`, in the core's command module, holds it, adds
+Two gatherings, one in each crate: `Gathered` of `model` reads what phases 1 to 3 and the resolver read,
+per `design@model@tree-inputs-gathered-here`. `Gathered`, in the core's command module, holds it, adds
 the committed generated files and every `register.toml`, which the last phase alone reads, and lends
 them all as the `Inputs` a check of the working tree reads. `check`, the
 commands that write files into the working tree (through `complete_working_tree`, which refuses
@@ -161,7 +160,8 @@ re-export:
 - **The public surface is read in one file**, lib.rs, and the role modules beside it. It is
   not computed from the implementation's module tree, so moving an item between files changes no
   public path, and is no library break under `design@knowledge-architect@versioning-policy`.
-- **What `model` publishes is `model`'s facade, per `design@model@model-facade`.**
+- **What `model` publishes is `model`'s facade, per `design@model@model-facade`**, and this facade names
+  of it what an extension meets: `Manifest`, `Model`, `Document`, `Finding` and the parse.
 - **A public signature keeps its types public.** `Inputs` is in `Prepared::check`'s signature and
   its fields expose `Entry` and `Outside`, so those are public although no consumer names them.
 - **A `pub` item no consumer can reach is refused.** lib.rs carries `#![warn(unreachable_pub)]`,
