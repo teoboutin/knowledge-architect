@@ -11,17 +11,16 @@
 //! it. The argument is
 //! `design@model@an-unresolved-reference-is-reported`.
 //!
-//! **The function of each kind returns an [`Outcome`], and [`Cause::finding`] is how a consumer that
-//! reports writes it**, per `design@model@resolver-outcome`. The words of a cause live with the cause,
-//! since the lints and `show` print the same two texts and a renderer reads the cause and prints
-//! neither.
+//! **The function of each kind returns an [`Outcome`]**, per `design@model@resolver-outcome`. The words
+//! of a cause live with the cause, since the lints and `show` print the same two texts and a renderer
+//! reads the cause and prints neither. This crate writes no finding from one: a consumer that reports
+//! does.
 
 use std::path::{Path, PathBuf};
 
 use crate::entity::{
     self, Anchors, Candidate, Constructed, Entities, Kind, Resolution, ESCAPE_ANCHOR, PLANS_ANCHOR,
 };
-use crate::finding::Finding;
 use crate::manifest::{Scope, Shape, MANIFEST_NAME};
 use crate::model::Model;
 use crate::scan::Observation;
@@ -499,12 +498,6 @@ impl Cause {
                     .to_string(),
             ),
         }
-    }
-
-    /// The finding at a site, for the reference written `span`.
-    pub fn finding(&self, rel: &Path, line: u32, span: &str) -> Finding {
-        let (what, action) = self.texts(span);
-        Finding::at(rel, line, what, action)
     }
 }
 
@@ -1569,16 +1562,5 @@ mod tests {
             path(rel, "*", "src", &anchors, &tree),
             Ok(Target::Carried(vec![other]))
         );
-    }
-
-    #[test]
-    fn a_cause_writes_the_same_two_texts_in_a_finding() {
-        let cause = Cause::Missing {
-            target: PathBuf::from("a/b.rs"),
-        };
-        let (what, action) = cause.texts("path@x@b.rs");
-        assert_eq!(what, "`path@x@b.rs` does not exist, at `a/b.rs`");
-        let finding = cause.finding(Path::new("r.md"), 3, "path@x@b.rs");
-        assert_eq!((finding.what, finding.action), (what, action));
     }
 }

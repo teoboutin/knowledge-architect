@@ -23,4 +23,5 @@ It bears on `design@model@contribution-is-data` and `design@knowledge-architect@
 
 ### What would close it
 
-The audit of that slice answers it, with a test of `query`'s commands over a project with an extension's table.
+The audit of that slice answers it, the owner ruling whether a pin or an extension's table is what
+`goal@model@a-tool-knows-the-read-is-right` asks the library to name, with a test of `query`'s commands over a project with an extension's table.
