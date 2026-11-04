@@ -17,9 +17,10 @@ A preprocessing pass that rewrites each reference into a link to its entry, and 
 hosted with the project. The owner's lead is mdbook, a design lead the goal does not name; nothing about the
 shape is decided.
 
-Two cases of the goal for that work to decide, which the goal's words leave open: a resolving `path` reference to a source file
-must render as a link, where the site holds Markdown documents, so the site holds source files or links out of itself; and the
-documents the checker reads take in plan documents, skills and open issues, so working documents would be published.
+Two consequences of the goal for that work. A resolving `path` reference to a source file must render as a link, where the site
+holds Markdown documents, so whether the site holds source files or links out of itself is that work's to decide. And the documents the
+checker reads take in plan documents, skills and open issues, so as written those are published; that work proposes a narrower goal if it
+wants one.
 
 ### Why it matters
 

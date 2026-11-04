@@ -85,28 +85,27 @@ It refines `goal@knowledge-architect@agents-work-without-drift`.
 - Rules out, for instance: a Component moved for tidiness, with no change of purpose, after which a
   session must rewrite references one by one, by judgement, for the check to pass.
 
-## A project adds checks of its own through documented public APIs `##projects-add-their-own-checks`
+## A project adds checks of its own through public APIs `##projects-add-their-own-checks`
 
 A project whose conventions the built-in checks do not cover writes its own checks as an extension,
-against public library APIs documented with their contract and their examples, and builds it against
-published versions of the crates it depends on, which it pins. Which APIs those are is left to design. The
-checker the project runs with its extension runs them in the same commands, with the same report, as the
-built-in ones.
+against the public library APIs of knowledge-architect's crates, with no change to them, so it can build
+it against published versions of them, which it pins. The checker the project runs with its extension runs
+them in the same commands, with the same report, as the built-in ones.
 
-It is met while an extension needs no change to any crate of knowledge-architect, builds against published
-versions of those crates, and uses only their public APIs, documented with their contract and their examples,
-and while the checker run with an extension runs its checks in the same commands, with the same report, as
-the built-in ones.
+It is met while an extension needs no change to any crate of knowledge-architect and can be built against
+published versions of them, and while the checker run with an extension runs its checks in the same commands,
+with the same report, as the built-in ones.
 
-It refines `goal@knowledge-architect@agents-work-without-drift`: a project's own checks guard its
-own design intent.
+It refines `goal@knowledge-architect@agents-work-without-drift`, a project's own checks guarding its own
+design intent, and `goal@knowledge-architect@every-target-project-can-adopt-it`, a project pinning the version
+it uses.
 
 - Requires, for instance: a project's check of its own naming convention reports in the same
   report as a built-in finding.
-- Admits, for instance: an extension that only one project uses.
-- Admits, for instance: an extension that depends on several crates of knowledge-architect.
+- Admits, for instance: an extension that only one project uses, one that depends on several crates of
+  knowledge-architect, or one built against a patched copy while its project develops it.
 - Rules out, for instance: an extension that needs a change to a crate of knowledge-architect to run.
-- Rules out, for instance: an extension that builds only against an unpublished copy of a crate.
+- Rules out, for instance: an extension that can only be built against an unpublished copy of a crate.
 
 ## The checker judges a commit's tree from the git pre-commit hook `##checks-a-commit-from-its-hook`
 
