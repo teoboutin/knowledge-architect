@@ -7,7 +7,9 @@
 A goal is met or unmet, and stays in its goals home whether it is met or not yet met. The rule
 and its reason are the owner's: a goal removed when it is achieved stops being checked, and can
 stop being met without anyone noticing, so a goal leaves only when the owner abandons it, per
-`goal@knowledge-architect@the-owner-decides`. A goal drafted to move what the project builds is
+`goal@knowledge-architect@the-owner-decides`. The owner adopted it in the head of this repository's
+root goals home, which stated it until the review of the whole goal set left the rules of
+goal-setting to the skill. A goal drafted to move what the project builds is
 expected to be unmet when it is written, per `design@agent-skills@goal-drafted-to-move-the-tree`.
 
 ### A goal entry states an outcome and what would show it met, in a body with no bound on its length `##goal-entry-shape`
@@ -60,7 +62,8 @@ presumption, per `goal@knowledge-architect@the-owner-decides`.
 ### A proper goal meets the rules of the goal standard, written once as a fragment that goal-setting and the goal reviewer host `##goal-standard-rules`
 
 The goal standard is `path@agent-skills@fragments/goal-standard.md`. It reads a goal in three
-layers and as a direction, and holds eight numbered rules, each argued in a head of its own:
+layers and as a direction, and holds eight numbered rules, each argued in a head, rule 7 in place
+and in the core's head:
 
 - rule 1, `design@agent-skills@goal-outcome-survives-empty-skeleton`;
 - rule 2, `design@agent-skills@goal-one-meaning-any-breadth`;
@@ -74,7 +77,8 @@ layers and as a direction, and holds eight numbered rules, each argued in a head
 - a goal expected to be unmet, `design@agent-skills@goal-drafted-to-move-the-tree`.
 
 Each rule's case, read in the goal histories of rootpoint, thaum and this repository, is a `%%`
-comment beside it, except rule 7's first half, of which no case was observed. The findings from
+comment beside it, except rule 7, of which no case was observed; its comment names the core's head
+that argues its citation rule. The findings from
 other fields the rules lean on are `path@agent-skills@docs/grounding/goal-standard.md`.
 
 The drafter writes to it and the reviewer judges by it: goal-setting hosts it in
@@ -396,7 +400,8 @@ the owner in one message, the next round waiting for the answer. The record, one
 `docs/goal-reviews/<YYYY-MM-DD>-<subject>.md`, holds each round's counts per reviewer, rule,
 grade, route and old or new wording, outcomes and defaults, the
 owner's answers verbatim and the boundary blocks; it is committed each round, every brief names it,
-and the commit that writes the goals the owner ruled last deletes it. The rounds stop by the rule of
+and the commit that writes the goals the owner ruled last, or a later commit of the same branch,
+deletes it. The rounds stop by the rule of
 `design@agent-skills@goal-review-stops-on-old-wording`, over the `blocks` findings of every reviewer
 of the round; the round that meets the stop writes no repair, and its findings go to the owner beside
 the goals, so the goals the owner reads are the goals a round reviewed. The owner then rules on the

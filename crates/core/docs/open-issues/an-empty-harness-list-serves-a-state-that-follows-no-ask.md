@@ -45,4 +45,5 @@ strains `design@core@agents-table` and threatens
 A design discussion under `skill@knowledge-architect-design` that settles one of: the empty list
 kept for the mock projects and as a step into conformance, the head re-argued on that ground; or
 the list made non-empty in every manifest, the mocks given another way to skip the installed
-text's checks, and the head reversed. The owner put it outside the goal-standard branch.
+text's checks, and the head reversed. The session put it outside the goal-standard branch, and the
+owner approved.
