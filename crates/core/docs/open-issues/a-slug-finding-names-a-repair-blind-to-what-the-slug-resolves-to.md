@@ -24,7 +24,7 @@ The retired form:
 
 - `names_this_project` in `path@core@src/check/references.rs` reports the span when
   `Entities::defines_id` holds for its id.
-- `Entities::defines_id` in `path@core@src/entity.rs` is true for an id of any register whose kind
+- `Entities::defines_id` in `path@model@src/entity.rs` is true for an id of any register whose kind
   is not a harness kind: design, goal, tripwire, rejected, issue, spec, milestone and the plan items.
 - The finding for `Observation::Retired(RetiredForm::SlugRef(span))`, in `judge_part` in
   `path@core@src/check/references.rs`, writes the
@@ -37,7 +37,7 @@ id with a `#` in backticks; the finding's repair line names a design reference.
 
 The misplaced definition:
 
-- `item_definitions` in `path@core@src/entity.rs` reports a `##<id>` written in a plan document
+- `item_definitions` in `path@model@src/entity.rs` reports a `##<id>` written in a plan document
   outside its item sections as "written outside the item sections of the plan … and defines
   nothing", with the repair "an item of a plan is defined at the end of a level-3 heading under one
   of its sections …; move it there, or delete it".

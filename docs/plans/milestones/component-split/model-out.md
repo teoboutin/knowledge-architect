@@ -149,18 +149,19 @@ lists:
 
 ```text
 crates/model/src/lib.rs        the facade: the root, and the role modules below, each with an inline body
-crates/model/src/foundation.rs foundation, Phase, Stop, TreeInputs, Gathered, complete_working_tree
+crates/model/src/phases.rs     foundation, Phase, Stop, TreeInputs, Gathered, complete_working_tree
 crates/model/src/tree.rs       today's check::tree, phase 2
-crates/model/src/installed.rs  today's check::agents, with the part of agents.rs that it and the gathering read
-crates/model/src/resolve.rs    Outcome, Target, Cause, and the resolver's functions
+crates/model/src/shipped.rs    today's check::agents, with the part of agents.rs that it and the gathering read
+crates/model/src/resolver.rs   Outcome, Target, Cause, and the resolver's functions
 crates/model/src/extension.rs  Contribution
-the root                       Manifest, MANIFEST_NAME, Model, Document, Finding, CRATE_DIR, PACKAGE, component_dir
+the root                       Manifest, MANIFEST_NAME, Model, Document, Finding, escaped, CRATE_DIR, PACKAGE, component_dir
 model::document                a document's parse, as the core's role module re-exports it
-model::declared                what a manifest declares: Scope, Shape, Pin, the register names and the document names
+model::declared                what a manifest declares: Scope, Shape, Pin, Walk, the register names and the document names
 model::table                   the entity table and the anchors: Anchors, Anchor, Entities, Kind, Candidate, candidate, Site, and the records over them
-model::listing                 the listing: Survey, survey, Outside, the walk's filters, the generated paths
+model::listing                 the listing: Survey, survey, Outside, the walk's filters
+model::generated               the generated files: generated_paths, file_register_indexes, label, rel_from
 model::installed               the shipped text as phase 2 reads it: render, lf, shipped, imports_primer, PRIMER, IMPORT_LINE
-model::foundation, model::resolve, model::extension   as above
+model::foundation, model::resolve, model::extension   the role modules over phases.rs, resolver.rs and extension.rs
 Inputs::tree                   crates/core/src/check/mod.rs
 ```
 
@@ -261,7 +262,7 @@ since `cfg(test)` is set only for the crate under test:
 
 **The first change sets nothing stricter for an earlier tree.** Adding crates/model to the compiled
 lists exempts or compares a directory no earlier tree holds; `snapshot_checker_dirs` in
-`path@core@src/model.rs` matches nothing there. Taken again by `cargo klarch commits` over the branch.
+`path@elsewhere@crates/core/src/model.rs` matches nothing there. Taken again by `cargo klarch commits` over the branch.
 Step 2 lands as one commit, with the crate's entry in those lists, since its intermediate trees do
 not compile and a later entry would read `model`'s literals as prose.
 

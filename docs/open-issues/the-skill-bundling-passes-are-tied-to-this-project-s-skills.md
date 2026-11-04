@@ -40,7 +40,7 @@ The parts that would form a reusable utility, and where each sits now:
 What ties them to this project now:
 
 - the installer's prefix, in three constants: `PREFIX` of `path@agent-skills@build.rs`,
-  `OWNED_PREFIX` of `path@core@src/manifest.rs` and `PREFIX` of `path@xtask@src/skill.rs`; and the
+  `OWNED_PREFIX` of `path@model@src/manifest.rs` and `PREFIX` of `path@xtask@src/skill.rs`; and the
   paths `PRIMER` and `IMPORT_LINE` of `path@core@src/agents.rs`; all are this project's values;
 - the rows of `SUBSTITUTIONS` are this project's own literals;
 - the build script and `path@xtask@src/skill.rs` include `path@agent-skills@src/render.rs` with

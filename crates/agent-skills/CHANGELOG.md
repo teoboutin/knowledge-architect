@@ -50,6 +50,11 @@ an empty subsection is omitted.
 
 ### New features
 
+- `library`, minor: the package `knowledge-architect-model` holds what knowledge-architect reads of
+  a project, the manifest, the walk, the parse, the entity table, phases 1 to 3 and the resolver, for a
+  tool that needs them and no check. Every public path of `knowledge-architect` stays. `Model` and
+  `Manifest` are that crate's types, so the methods of theirs the checker calls, such as
+  `Model::listing`, are public through `knowledge-architect` too.
 - `library`, minor: the published crate `knowledge-architect-git`, every question the checker
   asks git, as a library: the walk's listing, the ignore batch, the dates of a listing's last change,
   and the trees, blobs and messages of a commit or of the index. The checker depends on it, so a

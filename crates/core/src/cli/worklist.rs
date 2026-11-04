@@ -11,8 +11,8 @@ use std::process::ExitCode;
 
 use super::output::outln;
 use super::WorklistArgs;
-use crate::entity::{Anchors, Candidate, Entities};
 use crate::graph::{self, Graph, Role};
+use crate::model::table::{Anchors, Candidate, Entities};
 use crate::Manifest;
 
 /// The file listing every agent's entries, one per line.
@@ -100,7 +100,7 @@ fn write(
     let mut seeds: BTreeSet<usize> = BTreeSet::new();
     for seed in &args.seeds {
         let reference = seed.trim_matches('`');
-        let found = match crate::entity::candidate(reference, &anchors) {
+        let found = match crate::model::table::candidate(reference, &anchors) {
             Candidate::Reference { .. } => index.get(reference),
             _ => None,
         };
@@ -299,12 +299,12 @@ fn render(graph: &Graph, agents: &[Vec<usize>], seeds: &BTreeSet<usize>) -> Vec<
 /// blank line, and the entry's show text in a fence longer than any run of backticks it holds.
 ///
 /// The text is `show`'s own, from [`super::record_text`], [`super::cited_at`] and
-/// [`super::inbound_text`], over one [`crate::records::Inbound`] built for every entry at once.
+/// [`super::inbound_text`], over one [`crate::model::table::Inbound`] built for every entry at once.
 /// `--verify` finds an entry by the reference on its `===` line, and reads its text up to the
 /// line that is the fence alone, which no line of the text can be, since the fence is longer
 /// than any run of backticks the text holds.
 fn snapshot(graph: &Graph, anchors: &Anchors, model: &crate::Model) -> String {
-    let index = crate::records::Inbound::build(model, anchors);
+    let index = crate::model::table::Inbound::build(model, anchors);
     let mut out = String::new();
     for entry in &graph.entries {
         let reference = entry.reference();

@@ -26,7 +26,7 @@ use crate::manifest::Walk;
 /// agent file, derived from the agent table per `design@core@owned-namespace-check`. Neither is a
 /// source of claims this project wrote, and deriving the set from the declarations is what keeps a
 /// new instance or a new installed file from arriving inside the walk.
-pub(crate) fn live_files(
+pub fn live_files(
     root: &Path,
     walk: &Walk,
     listing: &[PathBuf],
@@ -112,7 +112,7 @@ fn is_device_name(component: &str) -> bool {
 ///
 /// A directory row covers everything beneath it, which is what pruning at the directory used to
 /// do; git lists files and not directories, so the containment is asked here instead.
-pub(crate) fn skipped(rel: &Path, walk: &Walk) -> bool {
+pub fn skipped(rel: &Path, walk: &Walk) -> bool {
     walk.skip_dirs.iter().any(|d| rel.starts_with(d))
         || walk.exclude.iter().any(|e| rel.starts_with(e))
 }

@@ -15,6 +15,7 @@ The repository is a virtual workspace with Components:
 | `knowledge-architect` | the root | the project itself |
 | `core` | crates/core | package `knowledge-architect`: the checker library and the binary `klarch` |
 | `git` | crates/git | package `knowledge-architect-git`: the library that wraps git for the tools of knowledge-architect, the checker among them |
+| `model` | crates/model | package `knowledge-architect-model`: the library of what knowledge-architect reads of a project: the manifest, the walk, the parse, the entity table, phases 1 to 3 and the resolver |
 | `agent-skills` | crates/agent-skills | package `knowledge-architect-agent-skills`: the text the checker installs into a project |
 | `gates` | crates/gates | package `knowledge-architect-gates`: the library that runs a project's merge gates |
 | `mutate` | crates/mutate | package `knowledge-architect-mutate`: the library of the hand mutation, `cargo x mutate` |
@@ -75,7 +76,7 @@ An issue entry keeps its magnitudes, per the cold-reader standard of
 
 `primer@verify-before-relying` holds the rules. This repository adds four:
 
-- A figure in the core's documents measured in another project, thaum, names thaum as its source.
+- A figure in the documents of the core or of `model` measured in another project, thaum, names thaum as its source.
 - **Before touching the code of a Component, ground first, per
   `skill@knowledge-architect-development@ground-before-editing` and
   `skill@klarch-development@ground-in-this-repository`.**

@@ -33,7 +33,7 @@ These findings of the same check ignore `goals_of`, and still name a refused for
    "in prose, point with a backticked `path@<anchor>@<path>` reference". A `path` reference is
    refused in a goals home.
 2. **A malformed candidate.** `Candidate::Malformed` carries its repair from `candidate` and
-   `harness_candidate` in `path@core@src/entity.rs`, and `judge_part` pushes it unchanged. The
+   `harness_candidate` in `path@model@src/entity.rs`, and `judge_part` pushes it unchanged. The
    repair is `GENERIC_REPAIR`, "write `<kind>@<anchor>@<id>`, and for a path
    `path@<anchor>@<path>`", or, for an empty id under `register`, "write the register's name, as
    `register@<anchor>@design`", or, for a harness kind, the forms `skill@<name>`,
@@ -52,7 +52,7 @@ These findings of the same check ignore `goals_of`, and still name a refused for
 Two related cases:
 
 5. **A goals home declared at its carrier's path.** For a register declared with `dir = "."`,
-   `Anchor::home_of` in `path@core@src/entity.rs` gives the home's `file` and `dir` both as the
+   `Anchor::home_of` in `path@model@src/entity.rs` gives the home's `file` and `dir` both as the
    anchor's own directory. `goals_home_owner` tests
    `rel == home.file || rel.starts_with(&home.dir)`, so every document the location owns is judged as part of its goals home, its issue entries
    included. Established by reading the code; not established by a run, and no mock project

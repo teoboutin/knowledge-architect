@@ -13,13 +13,94 @@
 
 use std::path::{Path, PathBuf};
 
-use crate::agents::{imports_primer, IMPORT_LINE, PRIMER};
 use crate::finding::Finding;
 use crate::manifest::{Manifest, Pin};
 use crate::model::Model;
 use crate::survey::Outside;
 
-use super::TreeInputs;
+use crate::phases::TreeInputs;
+
+/// The version of this library, which the check's words name; by
+/// `design@knowledge-architect@version-lockstep` it is the checker's.
+const CHECKER_VERSION: &str = env!("CARGO_PKG_VERSION");
+
+/// What the shipped text writes where the project's declared command goes.
+pub const PLACEHOLDER: &str = "{{command}}";
+
+/// The install path of the primer, which the project's root CLAUDE.md imports.
+pub const PRIMER: &str = ".claude/knowledge-architect/PRIMER.md";
+
+/// The line of the root CLAUDE.md that imports the primer, alone on its line.
+pub const IMPORT_LINE: &str = "@.claude/knowledge-architect/PRIMER.md";
+
+/// A shipped template with the project's command filled in, with LF line endings.
+pub fn render(template: &str, command: &str) -> String {
+    lf(&template.replace(PLACEHOLDER, command))
+}
+
+/// The text with every CRLF line ending made LF, so a checkout that converts line endings holds
+/// the same installed text as one that does not.
+pub fn lf(text: &str) -> String {
+    text.replace("\r\n", "\n")
+}
+
+/// Every file this version installs into the project, at its install path, rendered. Empty when
+/// the project serves no agent harness.
+pub fn shipped(manifest: &Manifest) -> Vec<(PathBuf, String)> {
+    shipped_from(manifest, knowledge_architect_agent_skills::FILES)
+}
+
+/// The same, over a stated set of templates: what a test hands in.
+pub fn shipped_from(manifest: &Manifest, templates: &[(&str, &str)]) -> Vec<(PathBuf, String)> {
+    if !manifest.serves_claude() {
+        return Vec::new();
+    }
+    templates
+        .iter()
+        .map(|(path, text)| (PathBuf::from(path), render(text, manifest.command())))
+        .collect()
+}
+
+/// Whether a root CLAUDE.md holds the primer's import line, alone on a line of prose.
+///
+/// A line inside a fenced block, an indented code block or an HTML comment is not prose, and an
+/// agent harness does not evaluate an import there, so it does not count. A byte-order mark
+/// before the first line is not part of it.
+pub fn imports_primer(text: &str) -> bool {
+    let text = text.strip_prefix('\u{feff}').unwrap_or(text);
+    let mut fence: Option<&str> = None;
+    let mut comment = false;
+    for line in text.lines() {
+        let trimmed = line.trim();
+        if let Some(open) = fence {
+            if trimmed.starts_with(open) {
+                fence = None;
+            }
+            continue;
+        }
+        if comment {
+            if trimmed.contains("-->") {
+                comment = false;
+            }
+            continue;
+        }
+        if trimmed.starts_with("```") || trimmed.starts_with("~~~") {
+            fence = Some(&trimmed[..3]);
+            continue;
+        }
+        if trimmed.starts_with("<!--") {
+            comment = !trimmed.contains("-->");
+            continue;
+        }
+        if line.starts_with("    ") || line.starts_with('\t') {
+            continue;
+        }
+        if trimmed == IMPORT_LINE {
+            return true;
+        }
+    }
+    false
+}
 
 pub(crate) fn check(model: &Model, manifest: &Manifest, inputs: &TreeInputs) -> Vec<Finding> {
     let mut out = Vec::new();
@@ -31,7 +112,7 @@ pub(crate) fn check(model: &Model, manifest: &Manifest, inputs: &TreeInputs) -> 
     // the release its package version names, so the message names the build, not a version.
     let shipper = match manifest.pin() {
         Some(Pin::OwnBuild) => "this build".to_string(),
-        _ => format!("version {}", crate::CHECKER_VERSION),
+        _ => format!("version {}", CHECKER_VERSION),
     };
     let installed = |rel: &Path| inputs.installed.iter().find(|(p, _)| p == rel);
     for (rel, expected) in inputs.shipped {
@@ -44,7 +125,7 @@ pub(crate) fn check(model: &Model, manifest: &Manifest, inputs: &TreeInputs) -> 
                 ),
                 format!("{install}, and commit the file; an installed file is never ignored"),
             )),
-            Some(Outside::Text(text)) if crate::agents::lf(text) == *expected => {}
+            Some(Outside::Text(text)) if lf(text) == *expected => {}
             Some(_) => out.push(Finding::in_file(
                 rel,
                 format!(
@@ -201,7 +282,7 @@ mod tests {
             &format!(
                 "[project]\nchecker-version = \"{}\"\nname = \"p\"\ncomponents = []\n\
                  [walk]\nskip-dirs = []\nskip-files = []\nexclude = []\n",
-                crate::CHECKER_VERSION
+                CHECKER_VERSION
             ),
         )
         .expect("a declaration");
@@ -209,8 +290,7 @@ mod tests {
         assert_eq!(found.len(), 3, "{found:?}");
         for f in &found {
             assert!(
-                f.what
-                    .contains(&format!("version {}", crate::CHECKER_VERSION)),
+                f.what.contains(&format!("version {}", CHECKER_VERSION)),
                 "a version pin: {f:?}"
             );
         }
@@ -218,8 +298,7 @@ mod tests {
         assert_eq!(found.len(), 3, "{found:?}");
         for f in &found {
             assert!(
-                f.what
-                    .contains(&format!("version {}", crate::CHECKER_VERSION)),
+                f.what.contains(&format!("version {}", CHECKER_VERSION)),
                 "{f:?}"
             );
         }
@@ -332,5 +411,239 @@ mod tests {
             ..inputs
         };
         assert!(check(&model, &m, &absent).is_empty());
+    }
+}
+
+#[cfg(test)]
+mod shipped_text_tests {
+    use super::*;
+
+    /// The setup skill tells a project to write the import line this module checks for. The
+    /// agent-skills build script holds a copy of the line, which it cannot read from here, since
+    /// this crate depends on that one; this test holds the two equal.
+    #[test]
+    fn the_setup_skill_ships_the_import_line_the_check_looks_for() {
+        let (_, setup) = knowledge_architect_agent_skills::FILES
+            .iter()
+            .find(|(path, _)| *path == ".claude/skills/knowledge-architect-setup/SKILL.md")
+            .expect("the setup skill is shipped");
+        assert!(
+            setup.contains(&format!("`{IMPORT_LINE}`")),
+            "the setup skill does not show {IMPORT_LINE}"
+        );
+    }
+
+    fn manifest(extra: &str) -> Manifest {
+        let text = format!(
+            "[project]\nchecker-version = \"fixture\"\nname = \"p\"\ncomponents = []\n{extra}\n\
+             [walk]\nskip-dirs = []\nskip-files = []\nexclude = []\n"
+        );
+        Manifest::parse(Path::new("/nowhere"), &text).expect("a declaration")
+    }
+
+    /// What the shipped set, installed as `copies`, owes and fails of the section rule and of its
+    /// own references: each finding of the entity table over the copies, each reference of a
+    /// harness kind that resolves within no copy, and each `instructions` reference, which
+    /// names a section of each project's own root CLAUDE.md.
+    fn shipped_set_violations(copies: &[(PathBuf, String)]) -> Vec<String> {
+        use crate::entity::{candidate, Anchors, Candidate, Entities, INSTRUCTIONS_KIND};
+        let m = manifest("");
+        // The copies are read as walked documents, not as installed ones: an installed copy
+        // reports nothing in a project, and the shipped set is held to the section rule here.
+        let model = crate::model::Model::from_documents(copies.to_vec());
+        let anchors = Anchors::declared(&m);
+        let entities = Entities::build(&model, &anchors);
+        let mut out: Vec<String> = entities
+            .definition_findings()
+            .iter()
+            .map(|f| f.to_string())
+            .collect();
+        for doc in model.documents() {
+            for l in &doc.observations {
+                let crate::scan::Observation::Span(span) = &l.what else {
+                    continue;
+                };
+                let found = candidate(span, &anchors);
+                // A malformed span headed by a harness kind is one this judges; any other head is
+                // the walk's to judge, as the primer's import line, which ships on purpose.
+                let head = span.split('@').next().unwrap_or_default();
+                if let Candidate::Malformed { why, .. } = &found {
+                    if crate::entity::HARNESS_KINDS.contains(&head) {
+                        out.push(format!(
+                            "{}:{} writes `{span}`, malformed: {why}",
+                            doc.rel.display(),
+                            l.line
+                        ));
+                    }
+                    continue;
+                }
+                if let Candidate::Harness { kind, owner, id } = found {
+                    if kind.name() == INSTRUCTIONS_KIND {
+                        out.push(format!(
+                            "{}:{} cites `{span}`, a project's own section",
+                            doc.rel.display(),
+                            l.line
+                        ));
+                    } else if !entities.defines(&kind, owner, id) {
+                        out.push(format!(
+                            "{}:{} cites `{span}`, which resolves to nothing",
+                            doc.rel.display(),
+                            l.line
+                        ));
+                    }
+                }
+            }
+        }
+        out
+    }
+
+    /// The claim, per `design@core@section-homes-carry-slugs`: every level-two
+    /// heading of each shipped skill, agent and the primer carries a slug unique within its file,
+    /// and every reference of a harness kind in the shipped text resolves within the shipped set,
+    /// citing no project's own root CLAUDE.md. The set is judged here because no installing
+    /// project reads a reference in its installed copies.
+    #[test]
+    fn the_shipped_set_cites_only_sections_it_defines() {
+        let copies = shipped(&manifest(""));
+        assert!(!copies.is_empty());
+        assert_eq!(shipped_set_violations(&copies), Vec::<String>::new());
+    }
+
+    /// The same judgement, shown to fail: a copy of the set with a reference to a missing section
+    /// of a sibling skill, an `instructions` reference, a malformed span and an unslugged heading
+    /// planted.
+    #[test]
+    fn the_shipped_set_judgement_reports_what_is_planted() {
+        let mut copies = shipped(&manifest(""));
+        let (_, text) = copies
+            .iter_mut()
+            .find(|(p, _)| p.ends_with("knowledge-architect-review/SKILL.md"))
+            .expect("the review skill ships");
+        text.push_str(
+            "\n## Planted\n\nSee `skill@knowledge-architect-design@no-such-section`, \
+             `instructions@git-workflow` and `primer@a@b`.\n",
+        );
+        let found = shipped_set_violations(&copies);
+        assert_eq!(found.len(), 4, "{found:#?}");
+        assert!(
+            found.iter().any(|f| f.contains("`primer@a@b`, malformed")),
+            "{found:#?}"
+        );
+        assert!(
+            found.iter().any(|f| f.contains("\"Planted\"")),
+            "{found:#?}"
+        );
+        assert!(
+            found
+                .iter()
+                .any(|f| f.contains("no-such-section`, which resolves to nothing")),
+            "{found:#?}"
+        );
+        assert!(
+            found.iter().any(|f| f.contains("a project's own section")),
+            "{found:#?}"
+        );
+    }
+
+    /// The claim: the shipped primer's section `primer@checker-model` names every reference kind the
+    /// checker accepts, every built-in register, and every reserved anchor word, so a session
+    /// reading any reference meets its kind there, per
+    /// `design@agent-skills@checker-model-in-primer`. A kind or a word added to the checker fails
+    /// this test until the section names it. Mutation: dropping `planned` from the section, or
+    /// adding a kind to `HARNESS_KINDS`, fails it.
+    #[test]
+    fn the_primer_s_model_section_names_every_kind_and_reserved_word() {
+        use crate::entity::{
+            ESCAPE_ANCHOR, EVERY_ANCHOR, HARNESS_KINDS, PATH_KIND, PLANNED_KIND, PLANS_ANCHOR,
+            REGISTER_KIND,
+        };
+        let m = manifest("");
+        let primer = shipped(&m)
+            .into_iter()
+            .find(|(path, _)| path == Path::new(PRIMER))
+            .expect("the primer ships")
+            .1;
+        let start = primer
+            .find("`##checker-model`")
+            .expect("the primer has a section `checker-model`");
+        let rest = &primer[start..];
+        let section = &rest[..rest.find("\n## ").unwrap_or(rest.len())];
+        let registers = m.registers().all().iter().map(|r| r.name.as_str());
+        let kinds = [PATH_KIND, PLANNED_KIND, REGISTER_KIND]
+            .into_iter()
+            .chain(HARNESS_KINDS)
+            .chain(registers);
+        for word in kinds
+            .map(|k| format!("`{k}"))
+            .chain([EVERY_ANCHOR, ESCAPE_ANCHOR, PLANS_ANCHOR].map(|w| format!("`{w}`")))
+        {
+            assert!(
+                section.contains(&word),
+                "the section `checker-model` does not name {word}"
+            );
+        }
+    }
+
+    /// The claim: the placeholder takes the declared command, and the default command when
+    /// none is declared. Mutation: rendering with a fixed command fails the declared case.
+    #[test]
+    fn the_shipped_text_is_rendered_with_the_declared_command() {
+        let templates = [(
+            ".claude/agents/knowledge-architect-a.md",
+            "run `{{command}} check`",
+        )];
+        let declared = manifest("command = \"cargo klarch\"\n");
+        assert_eq!(
+            shipped_from(&declared, &templates)[0].1,
+            "run `cargo klarch check`"
+        );
+        assert_eq!(
+            shipped_from(&manifest(""), &templates)[0].1,
+            "run `klarch check`"
+        );
+    }
+
+    /// The claim: a project that serves no harness is shipped nothing.
+    #[test]
+    fn no_harness_ships_nothing() {
+        let templates = [(".claude/agents/knowledge-architect-a.md", "text")];
+        let none = manifest("\n[agents]\nharness = []\n");
+        assert!(shipped_from(&none, &templates).is_empty());
+    }
+
+    /// The claim: the import line counts alone on its line, with surrounding spaces ignored, and
+    /// not as part of another line.
+    #[test]
+    fn the_import_line_is_found_alone_on_its_line() {
+        assert!(imports_primer(
+            "# P\n\n  @.claude/knowledge-architect/PRIMER.md  \n"
+        ));
+        assert!(!imports_primer(
+            "see @.claude/knowledge-architect/PRIMER.md for more\n"
+        ));
+    }
+
+    /// The claim: a line inside a fence, an indented code block or an HTML comment does not
+    /// count as the import, and a byte-order mark before it does not hide it. Mutations: matching
+    /// any trimmed line, or a prefix of one, fails the first cases; not stripping the mark fails
+    /// the last.
+    #[test]
+    fn only_a_prose_line_counts_as_the_import() {
+        for text in [
+            "```\n@.claude/knowledge-architect/PRIMER.md\n```\n",
+            "~~~md\n@.claude/knowledge-architect/PRIMER.md\n~~~\n",
+            "<!--\n@.claude/knowledge-architect/PRIMER.md\n-->\n",
+            "<!-- @.claude/knowledge-architect/PRIMER.md -->\n",
+            "    @.claude/knowledge-architect/PRIMER.md\n",
+            "@.claude/knowledge-architect/PRIMER.md.bak\n",
+        ] {
+            assert!(!imports_primer(text), "{text:?}");
+        }
+        assert!(imports_primer(
+            "\u{feff}@.claude/knowledge-architect/PRIMER.md\r\n"
+        ));
+        assert!(imports_primer(
+            "```\ncode\n```\n@.claude/knowledge-architect/PRIMER.md\n"
+        ));
     }
 }

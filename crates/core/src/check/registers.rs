@@ -25,17 +25,18 @@
 //! the entity table's, phase 3; both stop the run before this check reads anything. What is
 //! asserted here is the shape of what the earlier phases found present.
 
-use crate::manifest::MANIFEST_NAME;
+use crate::model::MANIFEST_NAME;
 use std::collections::{BTreeMap, BTreeSet, HashSet};
 use std::path::{Path, PathBuf};
 
 use serde::Deserialize;
 
-use crate::entity::{Anchor, Anchors, Home};
-use crate::finding::Finding;
-use crate::manifest::{Manifest, Register, Shape};
+use crate::model::declared::{Register, Shape};
+use crate::model::document::Observation;
+use crate::model::table::{Anchor, Anchors, Home};
+use crate::model::Finding;
+use crate::model::Manifest;
 use crate::model::{Document, Model};
-use crate::scan::Observation;
 
 use super::Inputs;
 
@@ -195,7 +196,7 @@ fn file_home(
 
     let groups = config(out, register, home, inputs);
     // What sits under an anchor nested inside this home is that anchor's, as the heading
-    // shape reads it: the nesting is refused by `manifest::collides`, and reading the nested
+    // shape reads it: the nesting is refused by `declared::collides`, and reading the nested
     // anchor's files as entries of this register would report the refusal's consequences
     // against the wrong register and the wrong anchor, nine times over. The one exception is a
     // spec file, which its own anchor owns and which stays an entry, per `Anchors::owns_entry`.
@@ -576,7 +577,7 @@ fn links(model: &Model, readme: &PathBuf, dir: &Path) -> HashSet<PathBuf> {
             continue;
         }
         let file_part = target.split('#').next().unwrap_or(target);
-        if super::resolve::has_scheme(file_part) || file_part.starts_with('/') {
+        if crate::model::resolve::has_scheme(file_part) || file_part.starts_with('/') {
             continue;
         }
         resolved.insert(dir.join(file_part));
@@ -587,7 +588,7 @@ fn links(model: &Model, readme: &PathBuf, dir: &Path) -> HashSet<PathBuf> {
 #[cfg(test)]
 mod tests {
     use super::*;
-    use crate::manifest::{COMPONENT_DOCUMENTS, MANIFEST_NAME};
+    use crate::model::MANIFEST_NAME;
     use std::collections::HashMap;
     use std::path::PathBuf;
 
@@ -654,17 +655,12 @@ mod tests {
             installed: &[],
             shipped: &[],
         };
-        // The union the phases would print one at a time: the complaints, the tree, the
-        // definitions, then the shapes. A test here asserts each function's own findings;
-        // that a stop keeps the later ones off a report is `foundation`'s test.
-        let mut found: Vec<Finding> = manifest.complaints().to_vec();
-        found.extend(crate::check::tree::check(&model, manifest, &inputs.tree()));
-        let anchors = Anchors::of(manifest, inputs.present);
-        found.extend(
-            crate::entity::Entities::build(&model, &anchors)
-                .definition_findings()
-                .to_vec(),
-        );
+        // What the first phase that finds anything reports, then the shapes: a test here asserts
+        // the shapes' own findings, and `model` holds the tests of the phases before them.
+        let mut found: Vec<Finding> = match crate::check::foundation(&model, manifest, &inputs) {
+            Ok(()) => Vec::new(),
+            Err(stop) => stop.findings,
+        };
         found.extend(check(&model, manifest, &inputs).0);
         found
             .iter()
@@ -681,7 +677,11 @@ mod tests {
                 format!("{dir}/{name}")
             }
         };
-        let mut out: Vec<String> = COMPONENT_DOCUMENTS.iter().map(|n| at(n)).collect();
+        let mut out: Vec<String> = declaring("")
+            .required_documents()
+            .iter()
+            .map(|n| at(n))
+            .collect();
         out.push(at("docs"));
         for name in ["design.md", "goals.md", "tripwires.md", "rejected.md"] {
             out.push(at(&format!("docs/{name}")));
@@ -1267,192 +1267,6 @@ mod tests {
         );
     }
 
-    /// The claim: the plans anchor's name is reserved, and the two plan registers are the
-    /// tool's to place, so a declaration of either, or a location naming one, is a phase-1
-    /// complaint. Mutation checked: `plans` left out of `entity::is_reserved_anchor`.
-    #[test]
-    fn the_plans_name_and_the_plan_registers_are_refused_in_a_declaration() {
-        let manifest = declaring_full(
-            "",
-            "[locations.plans]\npath = \"x\"\nregisters = []\n\n\
-             [locations.notes]\npath = \"notes\"\nregisters = [\"spec\", \"issue\"]\n\n\
-             [registers.spec]\nscope = \"opt-in\"\n\n\
-             [registers.milestone]\n\n",
-            "[]",
-            "[]",
-            "[]",
-            "[]",
-        );
-        let complaints: Vec<String> = manifest
-            .complaints()
-            .iter()
-            .map(|f| f.what.clone())
-            .collect();
-        let one = |needle: &str| {
-            let hits = complaints.iter().filter(|c| c.contains(needle)).count();
-            assert_eq!(hits, 1, "{needle:?} in {complaints:#?}");
-        };
-        one("gives the anchor the reserved name `plans`");
-        one("[locations.notes] carries `spec`, a plan register");
-        one("[registers.spec] declares a plan register");
-        one("[registers.milestone] declares a plan register");
-        assert_eq!(complaints.len(), 4, "{complaints:#?}");
-        // The refused row is no anchor, and the tool's own `plans` stands.
-        assert!(!manifest.locations().contains_key("plans"));
-        assert!(manifest.plans());
-        assert_eq!(manifest.locations()["notes"].registers, vec!["issue"]);
-        // The repair for a register nothing declares offers the ones a location may name.
-        let manifest = declaring_full(
-            "",
-            "[locations.notes]\npath = \"notes\"\nregisters = [\"nonesuch\"]\n\n",
-            "[]",
-            "[]",
-            "[]",
-            "[]",
-        );
-        let action = &manifest.complaints()[0].action;
-        assert!(
-            action.contains("issue") && !action.contains("spec"),
-            "{action}"
-        );
-    }
-
-    /// The claim: a declared anchor at the plans directory is the one refused, and the tool's
-    /// `plans` stands, so the repair names the declaration a project can change. Mutation
-    /// checked: `plans` pushed after the declared locations.
-    #[test]
-    fn a_declared_anchor_at_the_plans_directory_is_refused_and_plans_stands() {
-        for row in [
-            "[locations.papers]\npath = \"docs/plans\"\nregisters = []\n\n",
-            "[locations.papers]\npath = \"docs/plans/specs/inner\"\nregisters = []\n\n",
-        ] {
-            let manifest = declaring_full("", row, "[]", "[]", "[]", "[]");
-            assert!(manifest.plans(), "{row}");
-            assert!(!manifest.locations().contains_key("papers"), "{row}");
-            assert_eq!(
-                manifest.complaints().len(),
-                1,
-                "{row}: {:#?}",
-                manifest.complaints()
-            );
-        }
-        let manifest = declaring("\"docs/plans\"");
-        assert!(manifest.plans());
-        assert_eq!(
-            manifest.components().all().len(),
-            1,
-            "{:#?}",
-            manifest.complaints()
-        );
-    }
-
-    /// The claims of the layout's odd shapes, each one finding in phase 2: a plans README that
-    /// is a directory, a milestone whose README is a directory (no anchor, so no milestone), the
-    /// retired single file of specs/ and of a milestone (named once, by the File rule), and a
-    /// milestone named like a location. Mutations checked, each failing this test: the
-    /// directory test dropped from the plans README check; `|| *path == specs.file` deleted;
-    /// `|| beside` deleted; the location arm of `milestone_refusal` deleted.
-    #[test]
-    fn each_odd_shape_of_the_plans_layout_is_one_phase_two_finding() {
-        let manifest = declaring_full(
-            "",
-            "[locations.side-notes]\npath = \"notes\"\nregisters = [\"issue\"]\n\n",
-            "[]",
-            "[]",
-            "[]",
-            "[]",
-        );
-        let base = || {
-            let mut present = all_of("");
-            for p in ["notes", "notes/open-issues", "notes/open-issues/README.md"] {
-                present.push(p.to_string());
-            }
-            present.push("notes/open-issues/index.md".to_string());
-            present
-        };
-        assert!(tree_findings(&manifest, &base()).is_empty());
-        for (added, removed, at, what) in [
-            (
-                vec!["docs/plans/README.md/inner.md"],
-                vec!["docs/plans/README.md"],
-                "docs/plans/README.md",
-                "the plans directory has no README.md",
-            ),
-            (
-                vec!["docs/plans/milestones/m-one/README.md/inner.md"],
-                vec![],
-                "docs/plans/milestones/m-one",
-                "holds no README.md, so it is no milestone",
-            ),
-            (
-                vec!["docs/plans/specs.md"],
-                vec![],
-                "docs/plans/specs.md",
-                "retired file shape of the spec register",
-            ),
-            (
-                vec![
-                    "docs/plans/milestones/m-one/README.md",
-                    "docs/plans/milestones/m-one.md",
-                ],
-                vec![],
-                "docs/plans/milestones/m-one.md",
-                "retired file shape of the spec register",
-            ),
-            (
-                vec!["docs/plans/milestones/side-notes/README.md"],
-                vec![],
-                "docs/plans/milestones/side-notes",
-                "is the name of a location",
-            ),
-            (
-                vec!["docs/plans/milestones/plans/README.md"],
-                vec![],
-                "docs/plans/milestones/plans",
-                "is not two or more lower-case words",
-            ),
-            (
-                vec!["docs/plans/milestones/index/README.md"],
-                vec![],
-                "docs/plans/milestones/index",
-                "is not two or more lower-case words",
-            ),
-            (
-                vec![
-                    "docs/plans/milestones/m-one/README.md",
-                    "docs/plans/milestones/m-one/sub/a-slice.md",
-                ],
-                vec![],
-                "docs/plans/milestones/m-one/sub",
-                "one file per slice",
-            ),
-        ] {
-            let mut present = base();
-            present.retain(|p| !removed.contains(&p.as_str()));
-            // A listing holds every directory above a file, as the survey's does.
-            for path in &added {
-                for ancestor in std::path::Path::new(path).ancestors() {
-                    let a = ancestor.display().to_string();
-                    if !a.is_empty() && !present.contains(&a) {
-                        present.push(a);
-                    }
-                }
-            }
-            let found = tree_findings(&manifest, &present);
-            assert_eq!(found.len(), 1, "{added:?}: {found:#?}");
-            assert!(
-                found[0].starts_with(at) && found[0].contains(what),
-                "{added:?}: {found:#?}"
-            );
-        }
-        // A milestone whose README is a directory is no anchor, so nothing defines it.
-        let present: Vec<PathBuf> = ["docs/plans/milestones/m-one/README.md/inner.md"]
-            .iter()
-            .map(PathBuf::from)
-            .collect();
-        assert!(Anchors::of(&manifest, &present).by_name("m-one").is_none());
-    }
-
     /// A plan document with the given level-two sections, each holding one line.
     fn with_sections(title: &str, sections: &[&str]) -> String {
         let mut out = format!("# {title}\n");
@@ -1462,31 +1276,23 @@ mod tests {
         out
     }
 
-    /// The claim: a spec named after a kind is reported by its name, as a milestone is, per
-    /// `design@core@a-placed-name-reads-as-nothing-else`. Mutation checked:
-    /// the kind test removed from the spec-name check reports nothing.
-    #[test]
-    fn a_spec_named_after_a_kind_is_reported_by_its_name() {
-        let manifest = declaring("");
-        for name in ["skill", "design"] {
-            let mut present = all_of("");
-            present.push(format!("docs/plans/specs/{name}.md"));
-            let found = tree_findings(&manifest, &present);
-            assert!(
-                found
-                    .iter()
-                    .any(|f| f.contains(&format!("the spec `{name}`'s name is the name of a kind"))),
-                "{name}: {found:#?}"
-            );
-        }
-    }
-
     /// The claim: a spec of specs/ and a milestone's README owe the plan sections in order, and
     /// a slice spec owes the slice sections, each missing one a finding naming the list.
     /// Mutation checked: a slice spec checked against the plan sections.
     #[test]
     fn a_plan_document_owes_the_sections_of_its_kind() {
-        use crate::manifest::{PLAN_SECTIONS, SLICE_SECTIONS};
+        let table = Anchors::of(
+            &declaring(""),
+            &[PathBuf::from("docs/plans/milestones/m-one/README.md")],
+        );
+        let spec = table.registers().by_name("spec").expect("built in");
+        let plan = spec.sections.clone();
+        let slice = table
+            .by_name("m-one")
+            .expect("the milestone's anchor")
+            .sections_of(spec);
+        let plan_sections: Vec<&str> = plan.iter().map(String::as_str).collect();
+        let slice_sections: Vec<&str> = slice.iter().map(String::as_str).collect();
         let manifest = declaring("");
         let docs = |spec_sections: &[&str], slice_sections: &[&str]| {
             vec![
@@ -1496,7 +1302,7 @@ mod tests {
                 ),
                 (
                     "docs/plans/milestones/m-one/README.md".to_string(),
-                    with_sections("A milestone", &PLAN_SECTIONS),
+                    with_sections("A milestone", &plan_sections),
                 ),
                 (
                     "docs/plans/milestones/m-one/a-slice.md".to_string(),
@@ -1525,13 +1331,13 @@ mod tests {
                 .filter(|f| !f.contains("generated"))
                 .collect::<Vec<String>>()
         };
-        assert!(run(docs(&PLAN_SECTIONS, &SLICE_SECTIONS)).is_empty());
-        let without_names: Vec<&str> = PLAN_SECTIONS
+        assert!(run(docs(&plan_sections, &slice_sections)).is_empty());
+        let without_names: Vec<&str> = plan_sections
             .iter()
             .copied()
             .filter(|s| *s != "Names")
             .collect();
-        let found = run(docs(&without_names, &SLICE_SECTIONS));
+        let found = run(docs(&without_names, &slice_sections));
         assert_eq!(found.len(), 1, "{found:#?}");
         assert!(
             found[0].starts_with("docs/plans/specs/a-spec.md")
@@ -1542,7 +1348,7 @@ mod tests {
         // keeps the title it had before the rename, or writes it in another case, owes it. The
         // literal is what a document must hold, so deleting the title from the list fails here.
         for written in ["How a step is worked", "How the Work is Done"] {
-            let renamed: Vec<&str> = PLAN_SECTIONS
+            let renamed: Vec<&str> = plan_sections
                 .iter()
                 .map(|s| {
                     if *s == "How the work is done" {
@@ -1552,7 +1358,7 @@ mod tests {
                     }
                 })
                 .collect();
-            let found = run(docs(&renamed, &SLICE_SECTIONS));
+            let found = run(docs(&renamed, &slice_sections));
             assert_eq!(found.len(), 1, "{written}: {found:#?}");
             assert!(
                 found[0].starts_with("docs/plans/specs/a-spec.md")
@@ -1561,42 +1367,11 @@ mod tests {
             );
         }
         // A slice spec holding the plan sections but none of its own owes each of its own.
-        let found = run(docs(&PLAN_SECTIONS, &PLAN_SECTIONS));
-        assert_eq!(found.len(), SLICE_SECTIONS.len(), "{found:#?}");
+        let found = run(docs(&plan_sections, &plan_sections));
+        assert_eq!(found.len(), slice_sections.len(), "{found:#?}");
         assert!(found
             .iter()
             .all(|f| f.starts_with("docs/plans/milestones/m-one/a-slice.md")));
-    }
-
-    /// The claim: a walk row that takes a milestone out of the walk is one finding, against its
-    /// `spec` register, and none against the item registers, whose home is the same documents.
-    /// Mutation checked: the guard of `outside_the_walk` on the Section shape removed.
-    #[test]
-    fn a_milestone_outside_the_walk_is_one_finding() {
-        let manifest = declaring_full(
-            "",
-            "",
-            "[\"docs/plans/milestones/m-one\"]",
-            "[]",
-            "[]",
-            "[]",
-        );
-        let mut present = all_of("");
-        for p in [
-            "docs/plans/milestones/m-one",
-            "docs/plans/milestones/m-one/README.md",
-        ] {
-            present.push(p.to_string());
-        }
-        let found: Vec<String> = tree_findings(&manifest, &present)
-            .into_iter()
-            .filter(|f| f.contains("out of the walk"))
-            .collect();
-        assert_eq!(found.len(), 1, "{found:#?}");
-        assert!(
-            found[0].contains("the spec register of `m-one`"),
-            "{found:#?}"
-        );
     }
 
     /// The claim: the item registers are the tool's, so a declaration of one, or a location
@@ -1627,34 +1402,21 @@ mod tests {
             .any(|c| c.contains("[locations.notes] carries `criterion`, a plan register")));
     }
 
-    /// The claim: a component register whose home at the root would be the plans directory is
-    /// refused at the declaration, and the tool's `plans` stands.
+    /// The claim: a missing part of the plans layout stops the run at phase 2, so nothing later
+    /// adds a finding about it.
     #[test]
-    fn a_component_register_at_the_plans_directory_is_refused() {
-        let manifest = declaring_full(
-            "",
-            "[registers.proposal]\nscope = \"component\"\nshape = \"file\"\ndir = \"plans\"\n\n",
-            "[]",
-            "[]",
-            "[]",
-            "[]",
-        );
-        let complaints: Vec<&str> = manifest
-            .complaints()
-            .iter()
-            .map(|f| f.what.as_str())
-            .collect();
-        assert_eq!(complaints.len(), 1, "{complaints:#?}");
-        assert!(
-            complaints[0].contains("[registers.proposal]")
-                || complaints[0].contains("proposal register")
-        );
-        assert!(manifest.plans());
-        assert!(manifest.registers().by_name("proposal").is_none());
+    fn a_missing_part_of_the_plans_layout_adds_nothing_after_its_phase() {
+        let manifest = declaring("");
+        for gone in ["docs/plans", "docs/plans/README.md", "docs/plans/specs"] {
+            let mut present = all_of("");
+            present.retain(|p| p != gone && !p.starts_with(&format!("{gone}/")));
+            let found = findings(&manifest, &present);
+            assert_eq!(found.len(), 1, "{gone}: {found:#?}");
+        }
     }
 
-    /// The findings of phase 2 alone, over a listing.
-    fn tree_findings(manifest: &Manifest, present: &[String]) -> Vec<String> {
+    /// Whether phases 1 to 3 pass over a listing.
+    fn phases_pass(manifest: &Manifest, present: &[String]) -> bool {
         let present: HashSet<PathBuf> = present.iter().map(PathBuf::from).collect();
         let directories = crate::check::testing::implied_directories(&present);
         let inputs = Inputs {
@@ -1670,51 +1432,7 @@ mod tests {
             installed: &[],
             shipped: &[],
         };
-        crate::check::tree::check(&Model::from_documents(Vec::new()), manifest, &inputs.tree())
-            .iter()
-            .map(|f| format!("{}  {}  → {}", f.location(), f.what, f.action))
-            .collect()
-    }
-
-    /// The claim: a missing plans directory, plans README or plans home is one phase-2
-    /// finding each, at the path it belongs at, and a missing plans directory is one finding
-    /// rather than one per part. Mutation checked: the README requirement skipped.
-    #[test]
-    fn each_missing_part_of_the_plans_layout_is_one_phase_two_finding() {
-        let manifest = declaring("");
-        for (gone, at, what) in [
-            (
-                "docs/plans",
-                "docs/plans",
-                "the plans directory `docs/plans` does not exist",
-            ),
-            (
-                "docs/plans/README.md",
-                "docs/plans/README.md",
-                "the plans directory has no README.md",
-            ),
-            (
-                "docs/plans/specs",
-                "docs/plans/specs",
-                "the anchor `plans` carries no spec directory",
-            ),
-            (
-                "docs/plans/milestones",
-                "docs/plans/milestones",
-                "the anchor `plans` carries no milestone directory",
-            ),
-        ] {
-            let mut present = all_of("");
-            present.retain(|p| p != gone && !p.starts_with(&format!("{gone}/")));
-            let found = tree_findings(&manifest, &present);
-            assert_eq!(found.len(), 1, "{gone}: {found:#?}");
-            assert!(
-                found[0].starts_with(at) && found[0].contains(what),
-                "{gone}: {found:#?}"
-            );
-            // Nothing later adds to it: the union over every phase holds that one finding.
-            assert_eq!(findings(&manifest, &present), found, "{gone}");
-        }
+        crate::check::foundation(&Model::from_documents(Vec::new()), manifest, &inputs).is_ok()
     }
 
     /// The claim: a plans home's README and index are owed as every File home's are, and
@@ -1730,7 +1448,7 @@ mod tests {
         ] {
             let mut present = all_of("");
             present.retain(|p| p != gone);
-            assert!(tree_findings(&manifest, &present).is_empty(), "{gone}");
+            assert!(phases_pass(&manifest, &present), "{gone}");
             let found = findings(&manifest, &present);
             assert_eq!(found.len(), 1, "{gone}: {found:#?}");
             assert!(
@@ -2165,47 +1883,6 @@ mod tests {
         present.push("docs/papers/inner/tripwires.md".to_string());
         let found = findings(&manifest, &present);
         assert!(found.is_empty(), "{found:#?}");
-    }
-
-    #[test]
-    fn a_refused_name_is_one_finding_naming_the_file_on_one_line() {
-        let manifest = declaring("");
-        let committed = HashMap::new();
-        let present: HashSet<PathBuf> = all_of("").iter().map(PathBuf::from).collect();
-        let directories = crate::check::testing::implied_directories(&present);
-        let refused = vec![
-            PathBuf::from("docs/a\nb.md"),
-            PathBuf::from("docs/c\rd.md"),
-            PathBuf::from("docs/e:f.md"),
-        ];
-        let inputs = Inputs {
-            committed: &committed,
-            configs: &HashMap::new(),
-            present: &present,
-            directories: &directories,
-            outside: &[],
-            ignored: &HashSet::new(),
-            tracked_and_ignored: &[],
-            refused: &refused,
-            links: &[],
-            installed: &[],
-            shipped: &[],
-        };
-        let found = crate::check::tree::check(
-            &Model::from_documents(Vec::new()),
-            &manifest,
-            &inputs.tree(),
-        );
-        assert_eq!(found.len(), 3, "{found:#?}");
-        for (finding, (head, why)) in found.iter().zip([
-            ("docs/a\\nb.md  ", "holds a line break"),
-            ("docs/c\\rd.md  ", "holds a line break"),
-            ("docs/e:f.md  ", "holds `:`, which Windows forbids"),
-        ]) {
-            assert!(finding.what.contains(why), "{found:#?}");
-            assert_eq!(finding.to_string().lines().count(), 2, "{finding}");
-            assert!(finding.to_string().starts_with(head), "{finding}");
-        }
     }
 
     #[test]

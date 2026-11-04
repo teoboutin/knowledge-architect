@@ -14,8 +14,8 @@ text has been read against it.
 
 ### What
 
-The core constructs its findings in `path@core@src/check/`, `path@core@src/manifest.rs`,
-`path@core@src/entity.rs`, `path@core@src/cli/mod.rs` and `path@core@src/cli/history.rs`, which
+The core constructs its findings in `path@core@src/check/`, `path@model@src/manifest.rs`,
+`path@model@src/entity.rs`, `path@core@src/cli/mod.rs` and `path@core@src/cli/history.rs`, which
 judges commits. Each finding's statement and action are string literals at the site that raises
 it. Nobody has listed, for each finding, the
 causes that can produce it and whether one repair is correct for all of them.

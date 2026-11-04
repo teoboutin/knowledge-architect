@@ -10,9 +10,9 @@
 use std::path::Path;
 
 use crate::extension::Generated;
-use crate::finding::Finding;
-use crate::index;
-use crate::manifest::Manifest;
+use crate::model::generated;
+use crate::model::Finding;
+use crate::model::Manifest;
 use crate::model::Model;
 
 use super::Inputs;
@@ -35,7 +35,7 @@ pub(crate) fn check(
         compare(&file.rel, &file.text, inputs, file.action, &mut findings);
     }
     for (rel, expected) in
-        index::file_register_indexes(model, manifest, inputs.present, inputs.directories)
+        generated::file_register_indexes(model, manifest, inputs.present, inputs.directories)
     {
         compare(
             &rel,
@@ -94,7 +94,7 @@ mod tests {
 
     #[test]
     fn a_run_with_no_extension_still_judges_the_file_register_indexes() {
-        use crate::manifest::Manifest;
+        use crate::model::Manifest;
         use std::collections::{HashMap, HashSet};
         use std::path::PathBuf;
 

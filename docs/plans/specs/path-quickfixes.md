@@ -62,7 +62,7 @@ Per `skill@knowledge-architect-planning@working-a-slice`, the work of a spec.
 
 ## Names
 
-- **a span**: a backticked span of one line, as the scanner of `path@core@src/scan.rs` records it.
+- **a span**: a backticked span of one line, as the scanner of `path@model@src/scan.rs` records it.
 - **a respelling**: a rewrite of one span into another span that names the same entity: the
   target the original span already resolves to under the checker's own rules, or the entity a
   recorded head declares the span to mean. The bytes outside the span do not change. Defined by
@@ -146,7 +146,7 @@ What exists today at each site the work touches:
   `register@knowledge-architect@design` and in two issue entries of agent-skills, were written
   as `skill@<name>` references by its commit "Three citations of a project skill by its file's
   path are written as the skill's reference". The entity table records each skill and each agent
-  with one site, its file and line 1, in `section_home` of `path@core@src/entity.rs`, reached from
+  with one site, its file and line 1, in `section_home` of `path@model@src/entity.rs`, reached from
   `harness_definitions` for the walked documents and the installed ones, under a harness only.
 - **A raw path's finding** is raised at line 157 of `path@core@src/check/references.rs`. Its
   repair is fixed text: "write `path@<anchor>@<path>`, `path@elsewhere@<path>` for a path outside
@@ -186,7 +186,7 @@ What exists today at each site the work touches:
 - **The shapes "The respellings" lists as not respelled**, per
   `thread@path-quickfixes@respelling-fixes`.
 - **A span read from a Rust string literal.** Outside the checker's own source, an unbound string
-  literal is read as prose, per `path@core@src/source/mod.rs` line 45; rewriting it would change a
+  literal is read as prose, per `path@model@src/source/mod.rs` line 45; rewriting it would change a
   program's bytes. Only Markdown and Rust comments are respelled.
 - **The retrospective finding on heads that state the built instance** is decided by
   `design@agent-skills@title-states-the-rule`, per `thread@path-quickfixes@head-states-the-principle`.
@@ -225,7 +225,7 @@ referencing each, on the main branch before this spec:
 | `design@core@fix-refusal-mixed-state`: its sentence "`--fix` cannot lose unstaged content, since it writes only generated and installed files" is rewritten, and, per D1, its clause "The refusal is exit 2, or 1 where agent files were installed before it" becomes "exit 2, or 1 where any file was written before it" | `path@core@README.md`, its section `check`; `design@core@index-staged-write`, `design@core@check-fix-flag` and `design@core@fix-before-the-checks`; `register@core@tripwire`, the entry `fix-refusal-routed-around`, since deleted when it fired | step 1 for the README; the harvest for the design home and the tripwires |
 | `design@core@fix-before-the-checks`, and the sentence of `design@core@phases-gate-the-report`, "having repaired before that gate only the installed files": the respellings join the order, per D1; the same sentence's "exits 1" stays, per D7. The other texts referencing `design@core@phases-gate-the-report` cite it for the gate itself, which the work keeps: `primer@checker-model`, `path@core@CLAUDE.md` line 90, `design@core@model-then-checks`, `design@core@an-extension-plugs-in-through-phased-hooks`, `design@core@tracked-and-ignored-is-a-finding`, `design@core@a-wrong-declaration-is-a-finding`, `design@core@index-staged-write`, `design@core@fix-before-the-checks`, `design@core@headings-open-with-hash-marks` and `design@core@owned-namespace-check`, four entries of `register@core@rejected`, at lines 74, 84, 90 and 96 of the document it replaced when this spec was written, the issue `installed-file-findings-belong-in-phase-four` line 20, since closed, its move of the installed-file findings now `spec@component-split@check-renamed`'s, and `tripwire@core@phases-gate-the-report-two`; `path@core@README.md`, its section `check`, restates the sentence and is updated | `path@core@README.md`, its section `check`; `design@core@model-then-checks` and `design@core@phases-gate-the-report`; the issue `installed-file-findings-belong-in-phase-four` line 27, since closed, its sentence on the order now in `spec@component-split@check-renamed`; `path@core@src/cli/mod.rs` lines 445 and 542; `path@core@tests/binary.rs` line 3746 | step 1 for the README, the source and the test; the harvest for the design home, reading `spec@component-split@check-renamed` for the closed issue's sentence |
 | `tripwire@core@fix-makes-a-choice`: it fired on the proposal this spec plans, per D4 | `design@core@safe-fix-definition` | per D4: its firing clause narrowed in this spec's branch, on the owner's word; deleted at the harvest |
-| `design@core@every-path-names-its-anchor`: gains the refusal of a `path` citation of a skill or an agent, and the question form of a raw path's repair | `primer@where-knowledge-goes`; `path@core@README.md`, its section `check`; `design@core@anchors-are-components-and-locations`, `design@core@plan-document-kinds`, `design@core@at-span-candidate-rule` and `design@core@a-commit-message-is-a-document`; six entries of `register@core@rejected`, at lines 117, 146, 180, 186, 362 and 371 of the document it replaced when this spec was written; `path@core@src/check/references.rs` line 14; `path@core@src/manifest.rs` line 971 | steps 3 and 5 for the source; step 6 for the README and the primer; the harvest for the design home and the rejected alternatives |
+| `design@core@every-path-names-its-anchor`: gains the refusal of a `path` citation of a skill or an agent, and the question form of a raw path's repair | `primer@where-knowledge-goes`; `path@core@README.md`, its section `check`; `design@core@anchors-are-components-and-locations`, `design@core@plan-document-kinds`, `design@core@at-span-candidate-rule` and `design@core@a-commit-message-is-a-document`; six entries of `register@core@rejected`, at lines 117, 146, 180, 186, 362 and 371 of the document it replaced when this spec was written; `path@core@src/check/references.rs` line 14; `path@model@src/manifest.rs` line 971 | steps 3 and 5 for the source; step 6 for the README and the primer; the harvest for the design home and the rejected alternatives |
 | `design@core@harness-kinds-cited-without-anchor`: a skill or an agent has no `path` spelling | `primer@checker-model`; `design@core@an-entity-belongs-to-its-anchor` and `design@core@at-span-candidate-rule`; three entries of `register@core@rejected`, at lines 156, 161 and 167 of the document it replaced when this spec was written | step 6 for the primer; the harvest for the design home and the rejected alternatives |
 | `design@core@backticked-bare-id`: its repair is applied by `--fix`, and its sentence "A project skill named by an ordinary word makes every backticked use of that word a finding, and the repair is to rename the skill with the project's prefix" is rewritten: `--fix` respells such a span before a session reads the finding, which T1 watches | `primer@where-knowledge-goes`; `design@agent-skills@plain-text-is-no-repair`; `path@core@README.md`, its section `check`; `design@core@at-span-candidate-rule` and `design@core@every-path-names-its-anchor`; the issue `a-bare-mention-of-a-deleted-entry-is-never-reported`, since closed; `issue@core@tooling-for-project-skills`, line 42; `design@knowledge-architect@changelog-section-fixed-at-release` | step 4 for the source; step 6 for the README and the primer; the harvest for the design home; `issue@core@tooling-for-project-skills` read again at the harvest |
 
@@ -543,7 +543,7 @@ chosen rewording, rather than just a repair ? There might have been checker avoi
 agent's corrected figure: of the 7, "2 … were in commit messages", "1 was wrong as a misbinding",
 and "**4 remain where the inference would have been truly wrong, all in this repository, and all
 in text that describes another project's layout**": the skills and agents directories of the agent
-configuration named in `path@core@src/entity.rs` and in the core design home, where the session
+configuration named in `path@model@src/entity.rs` and in the core design home, where the session
 wrote the placeholder `.claude/skills/<dir>/SKILL.md`, "a checked form for a pattern … not checker
 avoidance", and the plans directory in the agent-skills design home, "a path a project chooses".
 "thaum: 0 silent misbindings in its 42 one-candidate findings in files." Its backtick removals
@@ -715,7 +715,7 @@ added on purpose, each passing the safe-fix test.
 source file of the walk. Never a Rust string literal, never a file of the generated list, which
 the generator rewrites, and never a commit message. The scanner drops the origin of a Rust span
 today: `Located` holds a line and the observation, and the comment-or-literal flag of
-`CommentLine` in `path@core@src/source/rs.rs` is not carried. Step 1 carries it, as `Located::origin`
+`CommentLine` in `path@model@src/source/rs.rs` is not carried. Step 1 carries it, as `Located::origin`
 under New names, and a span whose origin is a literal is not respelled.
 
 **How a span is found in its line**: the scanner records a span's line and text, not its column.

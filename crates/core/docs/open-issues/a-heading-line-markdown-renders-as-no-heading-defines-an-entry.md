@@ -14,8 +14,8 @@ defining an entry.
 
 ### What
 
-`scan` in `path@core@src/scan.rs` matches `HEADING` and `SLUG_SITE` on every line that is not
-fenced and not inside an HTML comment. The markdown parse in `path@core@src/source/md.rs` marks
+`scan` in `path@model@src/scan.rs` matches `HEADING` and `SLUG_SITE` on every line that is not
+fenced and not inside an HTML comment. The markdown parse in `path@model@src/source/md.rs` marks
 code blocks and HTML comments, and blanks a frontmatter block it accepts, but nothing marks an
 HTML block, a `+++` block, or a `---` block the frontmatter reader refuses because it holds a
 blank line.

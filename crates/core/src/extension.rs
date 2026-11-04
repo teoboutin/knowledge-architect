@@ -19,14 +19,14 @@ use std::path::{Path, PathBuf};
 
 // What an extension's hooks are handed and return, defined in the modules that produce them.
 pub use crate::check::Inputs;
-use crate::finding::Finding;
 pub use crate::git::{Entry, EntryKind};
-pub use crate::index::{label, rel_from};
-pub use crate::manifest::{normalise_list, normalise_one};
-use crate::manifest::{Manifest, MANIFEST_NAME};
-pub use crate::model::DumpRow;
+pub use crate::model::declared::{normalise_list, normalise_one};
+pub use crate::model::generated::{label, rel_from};
+pub use crate::model::listing::Outside;
+pub use crate::model::table::DumpRow;
+use crate::model::Finding;
 use crate::model::{Document, Model};
-pub use crate::survey::Outside;
+use crate::model::{Manifest, MANIFEST_NAME};
 
 /// What a tree is prepared for.
 #[derive(Clone, Copy, Debug, PartialEq, Eq)]
@@ -261,7 +261,7 @@ pub trait Extension {
 
     /// Its observation rows for `model`, merged into the core's. Runs without the foundation,
     /// as `model` does.
-    fn dump(&self, model: &Model) -> Vec<crate::model::DumpRow>;
+    fn dump(&self, model: &Model) -> Vec<crate::model::table::DumpRow>;
 
     /// Read what its checks need for one tree. Runs only once the core's first three phases
     /// passed over that tree, so a run that stops earlier resolves and fetches nothing. `Err`
@@ -290,7 +290,7 @@ pub trait Prepared {
 #[cfg(test)]
 mod tests {
     use super::{configure, Extension, Prepared, Purpose, Resolution, Tree};
-    use crate::manifest::Manifest;
+    use crate::model::Manifest;
     use crate::model::Model;
     use std::path::Path;
 
@@ -307,7 +307,7 @@ mod tests {
         fn checks(&self) -> &'static [&'static str] {
             &[]
         }
-        fn dump(&self, _: &Model) -> Vec<crate::model::DumpRow> {
+        fn dump(&self, _: &Model) -> Vec<crate::model::table::DumpRow> {
             Vec::new()
         }
         fn prepare(

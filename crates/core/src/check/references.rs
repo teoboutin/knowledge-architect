@@ -30,18 +30,17 @@
 //! definitions are found while the table is built, and `check::foundation` reports them: where a
 //! definition may sit is a question about a register's shape.
 
-use crate::manifest::{GOAL_REGISTER, REJECTED_REGISTER};
+use crate::model::declared::{GOAL_REGISTER, REJECTED_REGISTER};
 use std::path::Path;
 
-use crate::entity::{self, Anchors, Candidate, Entities, Kind};
-use crate::finding::Finding;
-use crate::manifest::Manifest;
+use crate::model::document::{Observation, RetiredForm};
+use crate::model::table::{self, Anchors, Candidate, Entities, Kind};
+use crate::model::Finding;
+use crate::model::Manifest;
 use crate::model::Model;
-use crate::records;
-use crate::scan::{Observation, RetiredForm};
 
-use super::resolve::{self, assert_target, in_plans_directory, is_navigation, refused};
 use super::Inputs;
+use crate::model::resolve::{self, assert_target, in_plans_directory, is_navigation, refused};
 
 /// What the check looked at: the entities the table holds, the reference occurrences it
 /// judged (every kind, the escape and generic forms included), and the relative markdown links
@@ -77,12 +76,12 @@ pub(crate) fn check_under(
 ///
 /// Raised here, over a tree, and not in [`judge_part`], which `commits` also runs over each
 /// commit message: a message holds no design entry, so the question is only the tree's. A
-/// citation counts only inside a design entry's section, per `records::cited_within`, so a
+/// citation counts only inside a design entry's section, per `table::cited_within`, so a
 /// reference from a goal, an issue, a tripwire or another `rejected` entry leaves the entry
 /// reported, per `design@core@orphan-rejected-entry`.
 fn orphans(model: &Model, entities: &Entities, anchors: &Anchors) -> Vec<Finding> {
     let rejected = Kind::new(REJECTED_REGISTER);
-    let cited = records::cited_within(model, anchors, entities, &Kind::new("design"), &rejected);
+    let cited = table::cited_within(model, anchors, entities, &Kind::new("design"), &rejected);
     let mut out = Vec::new();
     for (anchor, id, sites) in entities.of_kind(&rejected) {
         if cited.contains(&(anchor.to_string(), id.to_string())) {
@@ -161,7 +160,7 @@ pub(crate) fn judge_part(
         let goals_of = goals_home_owner(&doc.rel, anchors);
         for l in &doc.observations {
             match &l.what {
-                Observation::Span(span) if references => match entity::candidate(span, anchors) {
+                Observation::Span(span) if references => match table::candidate(span, anchors) {
                     Candidate::Reference { kind, anchor, id } => {
                         counts.references += 1;
                         if let Some(owner) = goals_of {
@@ -317,7 +316,7 @@ pub(crate) fn judge_part(
 
 /// The anchor whose goals home holds `rel`, or `None` where `rel` is in no goals home: the
 /// home's single file, or any file under its directory shape, the `README.md` head included.
-fn goals_home_owner<'a>(rel: &Path, anchors: &'a Anchors) -> Option<&'a entity::Anchor> {
+fn goals_home_owner<'a>(rel: &Path, anchors: &'a Anchors) -> Option<&'a table::Anchor> {
     let owner = anchors.owning(rel);
     let home = anchors.home(owner, &Kind::new(GOAL_REGISTER))?;
     (rel == home.file || rel.starts_with(&home.dir)).then_some(owner)
@@ -338,7 +337,7 @@ fn goals_home_citation(
     rel: &Path,
     line: u32,
     span: &str,
-    owner: &entity::Anchor,
+    owner: &table::Anchor,
     target: Option<(&Kind, &str)>,
     anchors: &Anchors,
 ) -> Option<Finding> {
@@ -370,12 +369,12 @@ const GOALS_HOME_REPAIR: &str = "cite a goal of the home's own anchor or of a Co
 /// or a register's home of `owner` itself, or of a Component whose directory holds `owner`, the
 /// root's empty path included.
 fn admitted_in_goals_home(
-    owner: &entity::Anchor,
+    owner: &table::Anchor,
     kind: &str,
     anchor: &str,
     anchors: &Anchors,
 ) -> bool {
-    (kind == GOAL_REGISTER || kind == entity::REGISTER_KIND)
+    (kind == GOAL_REGISTER || kind == table::REGISTER_KIND)
         && anchors.by_name(anchor).is_some_and(|a| {
             a.name == owner.name || (a.is_component && owner.path.starts_with(&a.path))
         })
@@ -468,14 +467,13 @@ fn id_lint(rel: &Path, line: u32, what: &Observation, tables: &[IdTable]) -> Opt
         } if tables.iter().any(|t| written_reference(token, t.anchors)) => {
             // In a goals home, backticks only turn a form the citation check refuses into its
             // finding, so the lint names that check's repair instead.
-            let refused = goals_home.is_some_and(|(owner, anchors)| {
-                match entity::candidate(token, anchors) {
+            let refused =
+                goals_home.is_some_and(|(owner, anchors)| match table::candidate(token, anchors) {
                     Candidate::Reference { kind, anchor, .. } => {
                         !admitted_in_goals_home(owner, kind.name(), anchor, anchors)
                     }
                     _ => true,
-                }
-            });
+                });
             let repair = if refused {
                 GOALS_HOME_REPAIR.to_string()
             } else {
@@ -530,7 +528,7 @@ fn defined_pairs(id: &str, tables: &[IdTable], rel: &Path) -> Vec<(String, Strin
                     kind.is_harness()
                         || t.entities
                             .resolve_from(t.anchors, kind, anchor, id, Some(rel))
-                            == entity::Resolution::Resolved
+                            == table::Resolution::Resolved
                 })
         })
         .map(|(kind, anchor)| (kind.name().to_string(), anchor.to_string()))
@@ -592,19 +590,19 @@ fn id_finding(rel: &Path, line: u32, id: &str, forms: &[String], how: IdForm) ->
 /// Whether a token outside backticks is a reference: a kind, and the segments that kind takes,
 /// each in its grammar, so an address whose head is a kind, as `<kind>@example.test`, is none.
 fn written_reference(token: &str, anchors: &Anchors) -> bool {
-    let anchor_ok = |a: &str| a == "*" || entity::is_anchor_name(a);
-    match entity::candidate(token, anchors) {
+    let anchor_ok = |a: &str| a == "*" || table::is_anchor_name(a);
+    match table::candidate(token, anchors) {
         Candidate::Reference { kind, anchor, id } => {
             anchor_ok(anchor)
                 && (kind.takes_a_path()
                     || if kind.is_register() {
-                        entity::is_entity_id(id)
+                        table::is_entity_id(id)
                     } else {
-                        entity::is_entry_id(id)
+                        table::is_entry_id(id)
                     })
         }
         Candidate::Harness { owner, id, .. } => {
-            (owner.is_empty() || entity::is_entry_id(owner)) && entity::is_entry_id(id)
+            (owner.is_empty() || table::is_entry_id(owner)) && table::is_entry_id(id)
         }
         _ => false,
     }
@@ -750,7 +748,11 @@ mod tests {
         docs: Vec<(&str, &str)>,
         present: &[String],
     ) -> (Vec<String>, Counts) {
-        checked_under(docs, present, &Anchors::declared(manifest))
+        checked_under(
+            docs,
+            present,
+            &Anchors::of(manifest, &[] as &[std::path::PathBuf]),
+        )
     }
 
     /// The same, over a stated anchor list.
@@ -814,7 +816,7 @@ mod tests {
             vec![("notes/prose.md", text)],
             present,
             ignored,
-            &Anchors::declared(manifest),
+            &Anchors::of(manifest, &[] as &[std::path::PathBuf]),
         )
     }
 
@@ -1430,7 +1432,7 @@ mod tests {
             id,
             Some(notes),
         ) {
-            entity::Resolution::OutsidePlan { form } => form,
+            table::Resolution::OutsidePlan { form } => form,
             other => panic!("{other:?}"),
         };
         assert_eq!(form("in-readme"), "milestone@plans@m-one");
@@ -1471,36 +1473,6 @@ mod tests {
         assert!(found
             .iter()
             .all(|f| f.contains("cites a plan document by its path")));
-    }
-
-    #[test]
-    fn an_anchor_carrying_no_such_register_is_reported_with_the_anchors_that_do() {
-        // The third way of the four, over an anchor list no manifest produces today: an
-        // anchor carrying tripwires alone. Mutation checked: with the arm's push replaced
-        // by a drop, the assertion on one finding fails.
-        let m = manifest();
-        let base = Anchors::declared(&m);
-        let root = base.by_name("a-project").expect("the root").clone();
-        let bare = crate::entity::Anchor::location(
-            "bare",
-            std::path::Path::new("bare"),
-            vec!["tripwire".to_string()],
-        );
-        let anchors = Anchors::from_list(vec![root, bare], base.registers().clone());
-        let (found, _) = checked_under(
-            vec![
-                ("docs/design.md", head()),
-                ("notes/a.md", "`design@bare@a-decision`\n"),
-            ],
-            &[],
-            &anchors,
-        );
-        assert_eq!(found.len(), 1, "{found:#?}");
-        assert!(
-            found[0].contains("`bare`, which carries no design register")
-                && found[0].contains("the anchors that carry one: a-project"),
-            "{found:#?}"
-        );
     }
 
     #[test]
@@ -1555,7 +1527,7 @@ mod tests {
         for f in &found {
             assert!(f.contains("where the kind goes"), "{f}");
             assert!(
-                f.contains(&Anchors::declared(&manifest()).kinds_listed()),
+                f.contains(&Anchors::of(&manifest(), &[] as &[std::path::PathBuf]).kinds_listed()),
                 "the repair names the kinds: {f}"
             );
         }
@@ -2062,14 +2034,14 @@ mod tests {
         let mut present = tree();
         present.push("scratch".to_string());
         present.push("scratch/x.md".to_string());
-        let anchors = Anchors::declared(&m);
+        let anchors = Anchors::of(&m, &[] as &[std::path::PathBuf]);
         let docs = vec![("notes/prose.md", text), ("notes/README.md", link)];
         let model = Model::from_documents(
             docs.iter()
                 .map(|(p, t)| (PathBuf::from(*p), (*t).to_string()))
                 .collect(),
         );
-        let queries = crate::check::resolve::ignore_queries(&model, &anchors);
+        let queries = crate::model::resolve::ignore_queries(&model, &anchors);
         let borrowed: Vec<&str> = queries.iter().map(String::as_str).collect();
         let (found, counts) = checked_ignoring_under(docs, &present, &borrowed, &anchors);
         assert_eq!(counts.references, 4);
@@ -2231,7 +2203,7 @@ mod tests {
         assert_eq!(counts.references, 1);
         assert_eq!(found, Vec::<String>::new(), "{found:#?}");
         // Under the default harness the four harness kinds follow `planned`.
-        assert!(Anchors::declared(&m)
+        assert!(Anchors::of(&m, &[] as &[std::path::PathBuf])
             .kinds_listed()
             .contains("path, planned"));
     }
@@ -2324,9 +2296,9 @@ mod tests {
         // the ignored target that exists reads as "now exists".
         let m = manifest();
         let text = "It writes `planned@a-part@notes/real/a.md`.\n";
-        let anchors = Anchors::declared(&m);
+        let anchors = Anchors::of(&m, &[] as &[std::path::PathBuf]);
         let model = Model::from_documents(vec![(PathBuf::from(IN_PLANS), text.to_string())]);
-        let queries = crate::check::resolve::ignore_queries(&model, &anchors);
+        let queries = crate::model::resolve::ignore_queries(&model, &anchors);
         let borrowed: Vec<&str> = queries.iter().map(String::as_str).collect();
         let (found, _) =
             checked_ignoring_under(vec![(IN_PLANS, text)], &tree(), &borrowed, &anchors);
@@ -2381,11 +2353,11 @@ mod tests {
         // per span and place, and fails outright on a spelling through a symlink, so the lint
         // answers from the listing alone.
         let m = manifest();
-        let anchors = Anchors::declared(&m);
+        let anchors = Anchors::of(&m, &[] as &[std::path::PathBuf]);
         let text = "It writes `build/out.bin`.\n";
         let model = Model::from_documents(vec![(PathBuf::from("notes/prose.md"), text.into())]);
         assert_eq!(
-            crate::check::resolve::ignore_queries(&model, &anchors),
+            crate::model::resolve::ignore_queries(&model, &anchors),
             Vec::<String>::new()
         );
         let (found, _) = checked_ignoring_under(
@@ -2591,7 +2563,11 @@ mod tests {
             installed: &[],
             shipped: &[],
         };
-        let (found, counts) = check_under(&model, &inputs, &Anchors::declared(&manifest()));
+        let (found, counts) = check_under(
+            &model,
+            &inputs,
+            &Anchors::of(&manifest(), &[] as &[std::path::PathBuf]),
+        );
         (found.iter().map(|f| f.to_string()).collect(), counts)
     }
 
@@ -3091,7 +3067,7 @@ mod tests {
 
     /// C2 of the spec: a goal or a register's home of a nested or a sibling Component, and every
     /// other kind, is refused in a goals home. Mutation checked: the kind test of
-    /// `admitted_in_goals_home` dropped, `(kind == GOAL_REGISTER || kind == entity::REGISTER_KIND)`
+    /// `admitted_in_goals_home` dropped, `(kind == GOAL_REGISTER || kind == table::REGISTER_KIND)`
     /// replaced by `true`, caught on the design and path spans.
     #[test]
     fn a_goals_home_refuses_a_lower_or_sibling_component_and_every_other_kind() {

@@ -41,7 +41,7 @@ pub(crate) const COMPONENT_DOCUMENTS: [&str; 2] = ["README.md", "CLAUDE.md"];
 
 /// The document of `COMPONENT_DOCUMENTS` that holds agent instructions, required only while the
 /// project declares the `claude` harness, per `design@core@agents-table`.
-pub(crate) const AGENT_DOCUMENT: &str = "CLAUDE.md";
+pub const AGENT_DOCUMENT: &str = "CLAUDE.md";
 
 /// The command a project runs the checker by when its manifest declares none: the name of the
 /// binary this crate installs, per `design@core@declared-command`.
@@ -54,28 +54,28 @@ pub(crate) const HARNESSES: [&str; 1] = ["claude"];
 /// `design@core@owned-namespace-check`. Every skill directory, agent file and saved workflow file
 /// whose name starts with it, and every file under .claude/knowledge-architect/, belongs to the
 /// installer.
-pub(crate) const OWNED_PREFIX: &str = "knowledge-architect-";
+pub const OWNED_PREFIX: &str = "knowledge-architect-";
 
 /// The name of the built-in issue register, which is the one register that accepts a key.
-pub(crate) const ISSUE_REGISTER: &str = "issue";
+pub const ISSUE_REGISTER: &str = "issue";
 
 /// The built-in heading register of what the project or a Component is for, whose entries refine
 /// one another by citation.
-pub(crate) const GOAL_REGISTER: &str = "goal";
+pub const GOAL_REGISTER: &str = "goal";
 
 /// The built-in heading register of evidence that would flip a decision, by the name a
 /// reference spells in kind position.
-pub(crate) const TRIPWIRE_REGISTER: &str = "tripwire";
+pub const TRIPWIRE_REGISTER: &str = "tripwire";
 
 /// The built-in heading register of designs a project did not keep, each cited by the design
 /// entries whose argument covers it, per `design@core@rejected-register`.
-pub(crate) const REJECTED_REGISTER: &str = "rejected";
+pub const REJECTED_REGISTER: &str = "rejected";
 
 /// The built-in register of plan documents: a spec file, or a slice spec inside a milestone.
-pub(crate) const SPEC_REGISTER: &str = "spec";
+pub const SPEC_REGISTER: &str = "spec";
 
 /// The built-in register of milestones, whose entries are directories.
-pub(crate) const MILESTONE_REGISTER: &str = "milestone";
+pub const MILESTONE_REGISTER: &str = "milestone";
 
 /// Where the tool constructs the anchor `plans`, relative to the project root.
 ///
@@ -83,15 +83,15 @@ pub(crate) const MILESTONE_REGISTER: &str = "milestone";
 /// declared plans directory would be the only declared path in that family.
 pub(crate) const PLANS_DIR: &str = "docs/plans";
 
-/// The home of the `spec` register under [`PLANS_DIR`].
-pub(crate) const SPECS_HOME: &str = "specs";
+/// The home of the `spec` register under `PLANS_DIR`.
+pub const SPECS_HOME: &str = "specs";
 
-/// The home of the `milestone` register under [`PLANS_DIR`].
-pub(crate) const MILESTONES_HOME: &str = "milestones";
+/// The home of the `milestone` register under `PLANS_DIR`.
+pub const MILESTONES_HOME: &str = "milestones";
 
 /// The `dir` of a register whose home is its carrier's own directory rather than a directory
 /// under it, per `design@core@home-at-the-carrier-path`.
-pub(crate) const CARRIER_DIR: &str = ".";
+pub const CARRIER_DIR: &str = ".";
 
 /// The item register of a plan's threads.
 pub(crate) const THREAD_REGISTER: &str = "thread";
@@ -173,7 +173,7 @@ pub(crate) const DEFERRED_SUBSECTIONS: [&str; 3] = ["What", "Why it matters", "T
 
 /// Where a register keeps its entries.
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
-pub(crate) enum Shape {
+pub enum Shape {
     /// Entries are headings at the register's level carrying a slug, in `<dir>.md` or in
     /// `<dir>/` behind a README.
     Heading,
@@ -190,7 +190,7 @@ pub(crate) enum Shape {
 
 /// Which anchors carry a register.
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
-pub(crate) enum Scope {
+pub enum Scope {
     /// Every component carries it.
     Component,
     /// Only the locations that name it carry it.
@@ -199,7 +199,7 @@ pub(crate) enum Scope {
 
 /// One register: a kind together with its storage.
 #[derive(Debug, Clone, PartialEq, Eq)]
-pub(crate) struct Register {
+pub struct Register {
     /// The word a reference spells in kind position.
     pub name: String,
     pub scope: Scope,
@@ -239,7 +239,7 @@ impl Register {
 
     /// The subsections an entry of this register owes under its last section, given the
     /// value of its first metadata key. Empty for every register but `issue`.
-    pub(crate) fn owed_subsections(&self, kind: Option<&str>) -> &'static [&'static str] {
+    pub fn owed_subsections(&self, kind: Option<&str>) -> &'static [&'static str] {
         if self.name != ISSUE_REGISTER {
             return &[];
         }
@@ -252,14 +252,14 @@ impl Register {
 
 /// Every register of a project: the built-in ones, then the declared ones by name.
 #[derive(Debug, Clone)]
-pub(crate) struct Registers(Vec<Register>);
+pub struct Registers(Vec<Register>);
 
 impl Registers {
-    pub(crate) fn all(&self) -> &[Register] {
+    pub fn all(&self) -> &[Register] {
         &self.0
     }
 
-    pub(crate) fn by_name(&self, name: &str) -> Option<&Register> {
+    pub fn by_name(&self, name: &str) -> Option<&Register> {
         self.0.iter().find(|r| r.name == name)
     }
 
@@ -350,7 +350,7 @@ impl Registers {
 
     /// Whether `name` is a register only the anchors the tool constructs carry: `spec`,
     /// `milestone` and the four item registers.
-    pub(crate) fn is_plan_register(name: &str) -> bool {
+    pub fn is_plan_register(name: &str) -> bool {
         name == SPEC_REGISTER
             || name == MILESTONE_REGISTER
             || ITEM_REGISTERS.iter().any(|(n, _, _)| *n == name)
@@ -407,7 +407,7 @@ pub(crate) struct MetadataDecl {
 /// A named directory carrying a declared subset of the registers.
 #[derive(Debug, Clone, Deserialize)]
 #[serde(deny_unknown_fields, rename_all = "kebab-case")]
-pub(crate) struct LocationDecl {
+pub struct LocationDecl {
     /// Project-relative.
     pub path: PathBuf,
     /// The registers it carries, by name.
@@ -444,7 +444,7 @@ pub(crate) struct Project {
 /// library directory, and the tree the checker is built from. Which build confirms which claim
 /// is `cli::refuse_another_version`'s; a manifest only parsed is never confirmed.
 #[derive(Debug, Clone, PartialEq, Eq)]
-pub(crate) enum Pin {
+pub enum Pin {
     /// `"<MAJOR.MINOR.PATCH>"`, compared as text with the binary's version.
     Version(String),
     /// `"fixture"`.
@@ -537,7 +537,7 @@ impl Components {
 
 #[derive(Debug, Clone, Deserialize)]
 #[serde(deny_unknown_fields, rename_all = "kebab-case")]
-pub(crate) struct Walk {
+pub struct Walk {
     /// Directories skipped by their project-relative PATH.
     ///
     /// **Not by name.** A bare name matched at any depth, so a component-local `past/` or
@@ -682,17 +682,17 @@ impl Manifest {
         &self.root
     }
 
-    pub(crate) fn walk(&self) -> &Walk {
+    pub fn walk(&self) -> &Walk {
         &self.declared.walk
     }
 
     /// What `[project] checker-version` says, or `None` while its complaint stands.
-    pub(crate) fn pin(&self) -> Option<&Pin> {
+    pub fn pin(&self) -> Option<&Pin> {
         self.pin.as_ref()
     }
 
     /// Whether the complaint about `[project] checker-version` stands, and its text.
-    pub(crate) fn pin_complaint(&self) -> Option<&Finding> {
+    pub fn pin_complaint(&self) -> Option<&Finding> {
         self.complaints
             .iter()
             .find(|f| f.what.starts_with("[project] checker-version"))
@@ -709,7 +709,7 @@ impl Manifest {
 
     /// Whether `commits` refuses a citation of a commit of its range by SHA: off unless the
     /// `[commits]` table turns it on, per `design@core@branch-shas-are-refused`.
-    pub(crate) fn refuses_branch_shas(&self) -> bool {
+    pub fn refuses_branch_shas(&self) -> bool {
         self.declared
             .commits
             .as_ref()
@@ -718,16 +718,16 @@ impl Manifest {
 
     /// Whether the project serves the `claude` harness: the default when no `[agents]` table
     /// is declared, per `design@core@agents-table`.
-    pub(crate) fn serves_claude(&self) -> bool {
+    pub fn serves_claude(&self) -> bool {
         match &self.declared.agents {
             None => true,
             Some(agents) => agents.harness.iter().any(|h| h == "claude"),
         }
     }
 
-    /// The documents every component is required to carry: [`COMPONENT_DOCUMENTS`], without
+    /// The documents every component is required to carry: `COMPONENT_DOCUMENTS`, without
     /// [`AGENT_DOCUMENT`] when the project serves no harness that reads it.
-    pub(crate) fn required_documents(&self) -> Vec<&'static str> {
+    pub fn required_documents(&self) -> Vec<&'static str> {
         COMPONENT_DOCUMENTS
             .iter()
             .copied()
@@ -737,7 +737,7 @@ impl Manifest {
 
     /// Whether a project-relative path belongs to the installer's namespace, per
     /// `design@core@owned-namespace-check`. Nothing does when the project serves no harness.
-    pub(crate) fn owned(&self, rel: &Path) -> bool {
+    pub fn owned(&self, rel: &Path) -> bool {
         self.serves_claude() && owned_path(rel)
     }
 
@@ -747,7 +747,7 @@ impl Manifest {
     }
 
     /// The names of every top-level table the core does not own.
-    pub(crate) fn extension_tables(&self) -> impl Iterator<Item = &str> {
+    pub fn extension_tables(&self) -> impl Iterator<Item = &str> {
         self.declared.tables.keys().map(String::as_str)
     }
 
@@ -763,7 +763,7 @@ impl Manifest {
 
     /// Record what configuring the extensions produced: complaints, declared paths, generated
     /// files. Only `extension::configure` calls this.
-    pub(crate) fn record_extensions(
+    pub fn record_extensions(
         &mut self,
         complaints: Vec<Finding>,
         paths: Vec<(String, Vec<PathBuf>)>,
@@ -791,7 +791,7 @@ impl Manifest {
     }
 
     /// The locations this project declares, by name.
-    pub(crate) fn locations(&self) -> &BTreeMap<String, LocationDecl> {
+    pub fn locations(&self) -> &BTreeMap<String, LocationDecl> {
         &self.declared.locations
     }
 
@@ -1714,7 +1714,7 @@ impl Complaints<'_> {
 /// everything under it, a skill directory `.claude/skills/<OWNED_PREFIX>…/` and everything under
 /// it, an agent file `.claude/agents/<OWNED_PREFIX>…`, and a saved workflow file
 /// `.claude/workflows/<OWNED_PREFIX>…`.
-pub(crate) fn owned_path(rel: &Path) -> bool {
+pub fn owned_path(rel: &Path) -> bool {
     // A path is bytes: a component that is not UTF-8 belongs to no name this tool writes, so the
     // whole path is outside the namespace rather than read with that component dropped.
     let Some(parts) = rel

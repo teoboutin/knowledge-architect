@@ -19,7 +19,7 @@ firing names for a decision not reopened in the same change.
   command, "[plans] The spec of the transcript command: list, show and search over Claude Code's
   sessions", 30 lines, each of the form `arg@<plan>@arg-<n>`, where the kind is
   `argument@<plan>@arg-<n>`. The decision-record reviewer of that spec's review found them.
-- What the checker does: `candidate` in `path@core@src/entity.rs` reads the text before the first
+- What the checker does: `candidate` in `path@model@src/entity.rs` reads the text before the first
   `@`; a head that is a known kind is resolved, a declared or reserved anchor in that position is
   reported as the old form, and any other head yields `Candidate::NotOne`, "Not a reference;
   silent". `cargo klarch show` on such a span refuses it as "not a reference", naming the kinds, but

@@ -7,7 +7,7 @@
 //!
 //! **A kind is a register's name, `path`, `planned`, `register`, or, under the `claude` harness,
 //! one of the four harness kinds.** Eleven registers are compiled in and a project declares the rest, so the
-//! kind set is data rather than an enum — `path@core@src/manifest.rs` owns what a register is,
+//! kind set is data rather than an enum — `path@model@src/manifest.rs` owns what a register is,
 //! and this module owns what naming one means. A harness kind, `skill`, `agent`, `primer` or
 //! `instructions`, is no register: no anchor carries it, and a reference to one names no anchor,
 //! since the harness fixes where each lives, per `design@core@harness-kinds`.
@@ -50,7 +50,7 @@ pub(crate) const PLANNED_KIND: &str = "planned";
 /// The kind naming a register's home, `register@<anchor>@<register>`: resolved against the
 /// anchors, never as an entry of the table, per `design@core@register-home-reference`, so no
 /// register's name becomes an entity id.
-pub(crate) const REGISTER_KIND: &str = "register";
+pub const REGISTER_KIND: &str = "register";
 
 /// The kind of a skill of the harness, and of its sections.
 pub(crate) const SKILL_KIND: &str = "skill";
@@ -74,10 +74,10 @@ const PRIMER_PATH: &str = ".claude/knowledge-architect/PRIMER.md";
 /// What a reference names, in its first segment: a register's name, `path`, `planned`,
 /// `register`, or a harness kind.
 #[derive(Clone, Debug, PartialEq, Eq, PartialOrd, Ord, Hash)]
-pub(crate) struct Kind(Arc<str>);
+pub struct Kind(Arc<str>);
 
 impl Kind {
-    pub(crate) fn new(name: &str) -> Kind {
+    pub fn new(name: &str) -> Kind {
         Kind(Arc::from(name))
     }
 
@@ -86,7 +86,7 @@ impl Kind {
         Kind::new(PATH_KIND)
     }
 
-    pub(crate) fn is_path(&self) -> bool {
+    pub fn is_path(&self) -> bool {
         &*self.0 == PATH_KIND
     }
 
@@ -95,7 +95,7 @@ impl Kind {
         Kind::new(PLANNED_KIND)
     }
 
-    pub(crate) fn is_planned(&self) -> bool {
+    pub fn is_planned(&self) -> bool {
         &*self.0 == PLANNED_KIND
     }
 
@@ -104,29 +104,29 @@ impl Kind {
         Kind::new(REGISTER_KIND)
     }
 
-    pub(crate) fn is_register(&self) -> bool {
+    pub fn is_register(&self) -> bool {
         &*self.0 == REGISTER_KIND
     }
 
     /// Whether the id is a path under the anchor, rather than an entity's id: `path` and
     /// `planned`, the two kinds the tree defines rather than a register.
-    pub(crate) fn takes_a_path(&self) -> bool {
+    pub fn takes_a_path(&self) -> bool {
         self.is_path() || self.is_planned()
     }
 
     /// The word a reference spells.
-    pub(crate) fn name(&self) -> &str {
+    pub fn name(&self) -> &str {
         &self.0
     }
 
     /// Whether this is a harness kind, cited with no anchor.
-    pub(crate) fn is_harness(&self) -> bool {
+    pub fn is_harness(&self) -> bool {
         HARNESS_KINDS.contains(&&*self.0)
     }
 
     /// Whether this kind's entities have names of their own, a skill or an agent, rather than
     /// sections alone.
-    pub(crate) fn is_named(&self) -> bool {
+    pub fn is_named(&self) -> bool {
         &*self.0 == SKILL_KIND || &*self.0 == AGENT_KIND
     }
 }
@@ -140,13 +140,13 @@ impl fmt::Display for Kind {
 /// The reserved anchor word for a path deliberately not resolvable in this tree.
 ///
 /// A declared anchor may not take this name, which `manifest::resolve_anchors` asserts.
-pub(crate) const ESCAPE_ANCHOR: &str = "elsewhere";
+pub const ESCAPE_ANCHOR: &str = "elsewhere";
 
 /// The reserved anchor for every component's own copy of a path.
-pub(crate) const EVERY_ANCHOR: &str = "*";
+pub const EVERY_ANCHOR: &str = "*";
 
 /// The reserved name of the anchor the tool constructs at the plans directory.
-pub(crate) const PLANS_ANCHOR: &str = "plans";
+pub const PLANS_ANCHOR: &str = "plans";
 
 /// Whether a word is reserved by the tool, so no declared anchor and no plan may wear it: the
 /// two words of the `path` kind, and the plans anchor's name.
@@ -187,24 +187,24 @@ static ENTRY_ID: LazyLock<Regex> =
     LazyLock::new(|| Regex::new(r"^[a-z0-9]+(?:-[a-z0-9]+)+$").unwrap());
 
 /// Can a reference name an anchor called this.
-pub(crate) fn is_anchor_name(name: &str) -> bool {
+pub fn is_anchor_name(name: &str) -> bool {
     ANCHOR_NAME.is_match(name)
 }
 
 /// Can a register be given this name, or its home this directory.
-pub(crate) fn is_entity_id(id: &str) -> bool {
+pub fn is_entity_id(id: &str) -> bool {
     ENTITY_ID.is_match(id)
 }
 
 /// Can an entry be given this id: a register entry, a plan document or item, a skill, an agent or
 /// a section.
-pub(crate) fn is_entry_id(id: &str) -> bool {
+pub fn is_entry_id(id: &str) -> bool {
     ENTRY_ID.is_match(id)
 }
 
 /// Where one register's entries live, for one anchor.
 #[derive(Clone, Debug, PartialEq, Eq)]
-pub(crate) struct Home {
+pub struct Home {
     /// The single-file shape of a heading register. Not a shape a file register has.
     pub file: PathBuf,
     /// The directory shape: a heading register's subdocuments, or a file register's entries.
@@ -220,7 +220,7 @@ pub(crate) struct Home {
 
 /// A named directory carrying registers.
 #[derive(Clone, Debug, PartialEq, Eq)]
-pub(crate) struct Anchor {
+pub struct Anchor {
     /// The one word a reference names it by.
     pub name: String,
     /// Project-relative, and empty for the component at the root.
@@ -240,7 +240,7 @@ pub(crate) struct Anchor {
 /// The Directory register an entry anchor is an entry of, and the anchor that carries it: what a
 /// reference to the entry as a whole names, `<register>@<parent>@<entry>`.
 #[derive(Clone, Debug, PartialEq, Eq)]
-pub(crate) struct EntryOf {
+pub struct EntryOf {
     pub register: String,
     pub parent: String,
 }
@@ -250,7 +250,7 @@ pub(crate) struct EntryOf {
 /// Each is a location in every respect but those this names, each a decision of the plans
 /// layout: what `plans` owes, where a plan keeps its registers, and which kinds it carries.
 #[derive(Clone, Copy, Debug, PartialEq, Eq)]
-pub(crate) enum Constructed {
+pub enum Constructed {
     /// The anchor `plans` at the plans directory. It owes a `README.md` beside its two homes.
     Plans,
     /// One entry of a Directory register, a milestone among them: a directory under the
@@ -346,7 +346,7 @@ impl Anchor {
     }
 
     /// Whether this is an entry anchor held directly by the home `dir` of `register`.
-    pub(crate) fn is_entry_in(&self, register: &str, dir: &Path) -> bool {
+    pub fn is_entry_in(&self, register: &str, dir: &Path) -> bool {
         self.entry_of
             .as_ref()
             .is_some_and(|e| e.register == register)
@@ -355,7 +355,7 @@ impl Anchor {
 
     /// Whether this is a plan anchor, a milestone or a spec: it carries the item registers and
     /// no `path` kind.
-    pub(crate) fn is_plan(&self) -> bool {
+    pub fn is_plan(&self) -> bool {
         self.is_milestone() || self.constructed == Some(Constructed::Spec)
     }
 
@@ -370,7 +370,7 @@ impl Anchor {
     /// The level-two sections an entry of `register` owes at this anchor: a slice spec, a `spec`
     /// entry of a milestone, owes the slice sections, and every other entry its register's own.
     /// One register owes a list per anchor here, as `home_of` gives its home.
-    pub(crate) fn sections_of(&self, register: &Register) -> Vec<String> {
+    pub fn sections_of(&self, register: &Register) -> Vec<String> {
         if self.is_milestone() && register.name == SPEC_REGISTER {
             return SLICE_SECTIONS.iter().map(|s| s.to_string()).collect();
         }
@@ -398,7 +398,7 @@ impl Anchor {
     /// register declared at its carrier's path has its home at the anchor's own directory too. An
     /// item register's home is the plan's own documents, which no check asserts: a spec anchor's
     /// is its file, and a milestone's its directory.
-    pub(crate) fn home_of(&self, register: &Register) -> Home {
+    pub fn home_of(&self, register: &Register) -> Home {
         let (dir, file) = if self.constructed == Some(Constructed::Spec) {
             (self.path.clone(), self.path.clone())
         } else if self.is_entry() {
@@ -427,7 +427,7 @@ impl Anchor {
 
 /// Every anchor of a project, and the registers they carry.
 #[derive(Clone, Debug)]
-pub(crate) struct Anchors {
+pub struct Anchors {
     list: Vec<Anchor>,
     registers: Registers,
     /// Whether the project serves the `claude` harness, which makes the harness kinds kinds.
@@ -441,12 +441,9 @@ impl Anchors {
     ///
     /// **`paths` is the tree's listing**, files and directories or files alone: the entry and
     /// spec anchors are read off it, so every caller that builds the anchors of a tree hands in
-    /// that tree's own paths, a commit's included. An entry whose name [`placed_entries`]
+    /// that tree's own paths, a commit's included. An entry whose name `placed_entries`
     /// refuses is no anchor, and `check::tree` reports it.
-    pub(crate) fn of<'a>(
-        manifest: &Manifest,
-        paths: impl IntoIterator<Item = &'a PathBuf>,
-    ) -> Self {
+    pub fn of<'a>(manifest: &Manifest, paths: impl IntoIterator<Item = &'a PathBuf>) -> Self {
         let registers = manifest.registers().clone();
         let mut list: Vec<Anchor> = manifest
             .components()
@@ -515,11 +512,11 @@ impl Anchors {
         self.harness
     }
 
-    pub(crate) fn all(&self) -> &[Anchor] {
+    pub fn all(&self) -> &[Anchor] {
         &self.list
     }
 
-    pub(crate) fn registers(&self) -> &Registers {
+    pub fn registers(&self) -> &Registers {
         &self.registers
     }
 
@@ -529,7 +526,7 @@ impl Anchors {
     /// Under no harness the four words name no kind, so a span headed by one is silent, as any
     /// span whose head is no kind and no anchor: the project has no agent configuration for it to
     /// point into.
-    pub(crate) fn kind(&self, word: &str) -> Option<Kind> {
+    pub fn kind(&self, word: &str) -> Option<Kind> {
         if word == PATH_KIND {
             return Some(Kind::path());
         }
@@ -546,7 +543,7 @@ impl Anchors {
     }
 
     /// Every kind name, comma-separated, as a finding lists them.
-    pub(crate) fn kinds_listed(&self) -> String {
+    pub fn kinds_listed(&self) -> String {
         let mut names: Vec<&str> = self
             .registers
             .all()
@@ -570,7 +567,7 @@ impl Anchors {
     /// as both of thaum's do — and its register homes are its own, so a document under
     /// it belongs to it and not to the component above. A component inside a location would
     /// make the two ambiguous, and `manifest::collides` refuses one.
-    pub(crate) fn owning(&self, rel: &Path) -> &Anchor {
+    pub fn owning(&self, rel: &Path) -> &Anchor {
         // Depth first, and a component on a tie: two anchors at one path is a declaration
         // `manifest::collides` refuses, and until it is repaired the component keeps its own
         // documents rather than every slug in them being reported as misplaced.
@@ -582,12 +579,12 @@ impl Anchors {
     }
 
     /// The anchor a reference names, or `None` where nothing declares that name.
-    pub(crate) fn by_name(&self, name: &str) -> Option<&Anchor> {
+    pub fn by_name(&self, name: &str) -> Option<&Anchor> {
         self.list.iter().find(|a| a.name == name)
     }
 
     /// Every anchor name, comma-separated, as a finding lists them.
-    pub(crate) fn listed(&self) -> String {
+    pub fn listed(&self) -> String {
         self.list
             .iter()
             .map(|a| a.name.as_str())
@@ -603,7 +600,7 @@ impl Anchors {
     /// no such span ever named one. Its name comes from the tree, so counting it would turn an
     /// email address or a git remote in an unrelated document into a finding the moment an entry
     /// of that name is created.
-    pub(crate) fn is_anchor_word(&self, word: &str) -> bool {
+    pub fn is_anchor_word(&self, word: &str) -> bool {
         is_reserved_anchor(word)
             || self
                 .by_name(word)
@@ -616,7 +613,7 @@ impl Anchors {
     ///
     /// The one place that case is written: every filter that decides whether a file is an
     /// entry of a File register asks this, so no later filter forgets a spec.
-    pub(crate) fn owns_entry(&self, anchor: &Anchor, rel: &Path) -> bool {
+    pub fn owns_entry(&self, anchor: &Anchor, rel: &Path) -> bool {
         // A spec anchor owns its own file, by the rule that the deepest anchor owns a document, so
         // ownership needs no exception and a spec and a milestone behave alike: the plan anchor
         // owns the plan's documents, and items take one path. An anchor that owned nothing, with
@@ -628,7 +625,7 @@ impl Anchors {
     }
 
     /// The register home an anchor keeps one register in, or `None` where it carries none.
-    pub(crate) fn home(&self, anchor: &Anchor, kind: &Kind) -> Option<Home> {
+    pub fn home(&self, anchor: &Anchor, kind: &Kind) -> Option<Home> {
         if !anchor.carries(kind) {
             return None;
         }
@@ -638,7 +635,7 @@ impl Anchors {
     }
 
     /// Every register instance of the project: an anchor, the register, and its home.
-    pub(crate) fn instances(&self) -> Vec<(&Anchor, &Register, Home)> {
+    pub fn instances(&self) -> Vec<(&Anchor, &Register, Home)> {
         let mut out = Vec::new();
         for anchor in &self.list {
             for name in &anchor.registers {
@@ -939,7 +936,7 @@ pub(crate) fn entry_refusal(name: &str, manifest: &Manifest) -> Option<String> {
 
 /// Where something was written.
 #[derive(Clone, Debug, PartialEq, Eq)]
-pub(crate) struct Site {
+pub struct Site {
     pub file: PathBuf,
     pub line: u32,
 }
@@ -955,7 +952,7 @@ const GENERIC_REPAIR: &str = "write `<kind>@<anchor>@<id>`, and for a path `path
 
 /// What a backticked `@` span is, under the candidate rule.
 #[derive(Clone, Debug, PartialEq, Eq)]
-pub(crate) enum Candidate<'a> {
+pub enum Candidate<'a> {
     /// A well-formed reference: kind, anchor word as written, id as written.
     Reference {
         kind: Kind,
@@ -992,7 +989,7 @@ pub(crate) enum Candidate<'a> {
 /// **Segmentation.** Every kind but `path` and `planned` takes exactly three segments; those two
 /// take an anchor and then everything after the second `@` as its id, so a path may hold an `@`.
 /// An empty segment is malformed in either shape.
-pub(crate) fn candidate<'a>(span: &'a str, anchors: &Anchors) -> Candidate<'a> {
+pub fn candidate<'a>(span: &'a str, anchors: &Anchors) -> Candidate<'a> {
     let Some((head, rest)) = span.split_once('@') else {
         return Candidate::NotOne;
     };
@@ -1208,7 +1205,7 @@ fn frontmatter_end(text: &str) -> Option<u32> {
 
 /// Why a reference to a table kind resolves to nothing, or that it resolves.
 #[derive(Clone, Debug, PartialEq, Eq)]
-pub(crate) enum Resolution {
+pub enum Resolution {
     Resolved,
     /// Nothing declares that anchor name.
     UnknownAnchor,
@@ -1227,7 +1224,7 @@ pub(crate) enum Resolution {
 
 /// The table: every entity defined in the walk, keyed by kind, anchor and id.
 #[derive(Debug, Default)]
-pub(crate) struct Entities {
+pub struct Entities {
     defined: BTreeMap<(Kind, String, String), Vec<Site>>,
     /// Misplaced, malformed and duplicate definitions, found while building.
     findings: Vec<Finding>,
@@ -1243,7 +1240,7 @@ impl Entities {
     /// in a table cell, at the head of a plain line or mid-line defines nothing and is
     /// reported as misplaced; a heading at the declared level that carries no slug is
     /// reported too, because it reads as an entry and nothing lists it.
-    pub(crate) fn build(model: &Model, anchors: &Anchors) -> Self {
+    pub fn build(model: &Model, anchors: &Anchors) -> Self {
         let mut out = Self::default();
         out.heading_definitions(model, anchors);
         out.file_definitions(model, anchors);
@@ -1837,7 +1834,7 @@ impl Entities {
     /// The same, from a citing file: an item of a plan resolves only from inside that plan,
     /// and that is judged before the id, so an item cited from outside gets the repair that
     /// applies whether or not it exists. A citing file of `None` is inside every plan.
-    pub(crate) fn resolve_from(
+    pub fn resolve_from(
         &self,
         anchors: &Anchors,
         kind: &Kind,
@@ -1897,7 +1894,7 @@ impl Entities {
     ///
     /// In `(anchor, id)` order, which is the table's own, so a listing that sorts by something
     /// else still starts from one order rather than from a hash.
-    pub(crate) fn of_kind(&self, kind: &Kind) -> Vec<(&str, &str, &[Site])> {
+    pub fn of_kind(&self, kind: &Kind) -> Vec<(&str, &str, &[Site])> {
         self.defined
             .iter()
             .filter(|((k, _, _), _)| k == kind)
@@ -1913,7 +1910,7 @@ impl Entities {
     }
 
     /// Where the table defines this entity, if it does.
-    pub(crate) fn sites(&self, kind: &Kind, anchor: &str, id: &str) -> &[Site] {
+    pub fn sites(&self, kind: &Kind, anchor: &str, id: &str) -> &[Site] {
         self.defined
             .get(&(kind.clone(), anchor.to_string(), id.to_string()))
             .map(Vec::as_slice)
@@ -1925,7 +1922,7 @@ impl Entities {
     /// A harness kind is no register, so its names and slugs are not counted: the retired slug
     /// reference this answers for named a register's entry, and a `#<id>` naming a section, such
     /// as a link to a heading of another tool, is that tool's notation.
-    pub(crate) fn defines_id(&self, id: &str) -> bool {
+    pub fn defines_id(&self, id: &str) -> bool {
         self.defined
             .keys()
             .any(|(kind, _, defined)| defined == id && !kind.is_harness())
@@ -1934,7 +1931,7 @@ impl Entities {
     /// Every id the table defines, with each kind and anchor that defines it: the owner of a
     /// harness kind's section, and an empty anchor for a skill, an agent, the primer and the root
     /// instructions.
-    pub(crate) fn by_id(&self) -> std::collections::HashMap<&str, Vec<(&Kind, &str)>> {
+    pub fn by_id(&self) -> std::collections::HashMap<&str, Vec<(&Kind, &str)>> {
         let mut out: std::collections::HashMap<&str, Vec<(&Kind, &str)>> = Default::default();
         for (kind, anchor, id) in self.defined.keys() {
             out.entry(id.as_str())
@@ -1944,8 +1941,13 @@ impl Entities {
         out
     }
 
+    /// Whether the table holds no entity.
+    pub fn is_empty(&self) -> bool {
+        self.len() == 0
+    }
+
     /// How many distinct entities the table holds.
-    pub(crate) fn len(&self) -> usize {
+    pub fn len(&self) -> usize {
         self.defined.len()
     }
 
@@ -1976,7 +1978,7 @@ fn one_segment(rel: &Path, line: u32, id: &str) -> Option<Finding> {
 ///
 /// `None` for anything that is not an entry: a file outside the instance, a file of another
 /// suffix, and the two navigation files at the instance's own top level.
-pub(crate) fn entry_id(rel: &Path, dir: &Path) -> Option<String> {
+pub fn entry_id(rel: &Path, dir: &Path) -> Option<String> {
     let inside = rel.strip_prefix(dir).ok()?;
     if rel.extension().is_none_or(|e| e != "md") {
         return None;

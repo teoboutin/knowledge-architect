@@ -316,13 +316,17 @@ fn the_core_binary_names_the_checker_s_directories_and_counts_the_files_under_th
             .filter(|l| l.starts_with(dir) && l.ends_with(".rs") && !l.contains("/tests/projects/"))
             .count()
     };
-    let (core, git) = (count("crates/core/"), count("crates/git/"));
-    assert!(core > 0 && git > 0);
+    let (core, git, model) = (
+        count("crates/core/"),
+        count("crates/git/"),
+        count("crates/model/"),
+    );
+    assert!(core > 0 && git > 0 && model > 0);
     assert_eq!(
         line,
         format!(
-            "checker source: crates/core, crates/git, {} file(s) with string literals read as data",
-            core + git
+            "checker source: crates/core, crates/git, crates/model, {} file(s) with string literals read as data",
+            core + git + model
         )
     );
 }
@@ -1459,7 +1463,7 @@ fn a_tree_holding_the_tool_at_another_path_than_the_binarys_is_refused() {
         assert!(
             // The profile of the clean is the binary's, which is this test's.
             stderr.contains(&format!(
-                "cargo clean{} -p knowledge-architect -p knowledge-architect-git -p knowledge-architect-agent-skills`",
+                "cargo clean{} -p knowledge-architect -p knowledge-architect-git -p knowledge-architect-model -p knowledge-architect-agent-skills`",
                 if cfg!(debug_assertions) {
                     ""
                 } else {
@@ -1488,6 +1492,27 @@ fn a_tree_holding_the_git_crate_at_another_path_than_the_binarys_is_refused() {
     assert_eq!(code, 2, "{out}{stderr}");
     assert!(
         stderr.contains("its `knowledge-architect-git` was compiled at"),
+        "{stderr}"
+    );
+    assert!(out.is_empty(), "nothing ran: {out}");
+}
+
+/// The claim: the refusal covers the model crate too, so a tree holding it at another path than the
+/// binary was built from is refused.
+#[test]
+fn a_tree_holding_the_model_crate_at_another_path_than_the_binarys_is_refused() {
+    let sandbox = Sandbox::seeded(
+        "foreign-model",
+        "minimal",
+        &[(
+            "crates/model/Cargo.toml",
+            "[package]\nname = \"knowledge-architect-model\"\n",
+        )],
+    );
+    let (out, stderr, code) = sandbox.run(&["check"]);
+    assert_eq!(code, 2, "{out}{stderr}");
+    assert!(
+        stderr.contains("its `knowledge-architect-model` was compiled at"),
         "{stderr}"
     );
     assert!(out.is_empty(), "nothing ran: {out}");

@@ -245,7 +245,7 @@ fn link_target(path: &str) -> String {
 /// finding, which is where a reader is told about it.
 ///
 /// `present` is the tree's listing, which places the entry anchors, per `Anchors::of`.
-pub(crate) fn file_register_indexes(
+pub fn file_register_indexes(
     model: &Model,
     manifest: &Manifest,
     present: &HashSet<PathBuf>,
@@ -287,7 +287,7 @@ pub(crate) fn file_register_indexes(
 /// `paths` is the tree's listing, before any exclusion: it places the entry anchors, each with an
 /// index for a file register it carries, per `Anchors::of`. So the walk asks this with git's listing, before it
 /// knows which files it reads.
-pub(crate) fn generated_paths<'a>(
+pub fn generated_paths<'a>(
     manifest: &Manifest,
     paths: impl IntoIterator<Item = &'a PathBuf>,
 ) -> HashSet<PathBuf> {

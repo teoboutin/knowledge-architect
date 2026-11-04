@@ -14,7 +14,7 @@ agent harness (per `design@core@agents-table`), and the home of every `component
 scope. No document of the compiled list lies under `docs/`, where those homes are. The root also
 holds the plans directory, which is not a component's document but the anchor `plans`, per
 `design@core@plan-register`. A component that does not carry one it owes is a finding, raised by
-`path@core@src/check/tree.rs`.
+`path@model@src/tree.rs`.
 
 **Which components exist is declared, and what every component carries at least is compiled in.**
 That is not an exception to `design@core@nothing-of-a-project-is-compiled-in`: the document list and
@@ -123,7 +123,7 @@ migrations."
 
 A reference names its anchor by one word, so two anchors of one name would make every reference to
 either name both, and `goal@core@documents-stay-current` asks that each resolve. The resolution of
-the manifest, `resolve_anchors` in `path@core@src/manifest.rs`, refuses the later, in the order of
+the manifest, `resolve_anchors` in `path@model@src/manifest.rs`, refuses the later, in the order of
 `design@core@anchor-collisions-refused`, of two candidates that share a name, whatever their
 kinds: the project, a Component or a location. A declared anchor named `plans` is refused before
 this check, per `design@core@plans-is-a-reserved-anchor`. The refused anchor is no anchor, per `design@core@a-wrong-declaration-is-a-finding`, and the

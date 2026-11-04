@@ -24,11 +24,11 @@ use crate::manifest::{Scope, Shape, MANIFEST_NAME};
 use crate::model::Model;
 use crate::scan::Observation;
 
-use super::TreeInputs;
+use crate::phases::TreeInputs;
 
 /// What a reference names, once it resolves.
 #[derive(Debug, Clone, PartialEq, Eq)]
-pub(crate) enum Target {
+pub enum Target {
     /// An entry the entity table holds, of a table kind or a harness kind.
     Entity,
     /// A register's home under the anchor named, or every Component's under `*`, whatever shape
@@ -52,7 +52,7 @@ pub(crate) enum Target {
 /// Each variant holds what its two texts need beyond the span, so the words are the same wherever
 /// a consumer prints them, per `design@core@finding-names-the-repair`.
 #[derive(Debug, Clone, PartialEq, Eq)]
-pub(crate) enum Cause {
+pub enum Cause {
     TableUnknownAnchor {
         anchor: String,
         listed: String,
@@ -204,7 +204,7 @@ pub(crate) enum Cause {
 impl Cause {
     /// What is wrong with the reference written `span`, and what repairs it: the two texts of a
     /// finding.
-    pub(crate) fn texts(&self, span: &str) -> (String, String) {
+    pub fn texts(&self, span: &str) -> (String, String) {
         use Cause::*;
         match self {
             TableUnknownAnchor { anchor, listed } => (
@@ -501,17 +501,17 @@ impl Cause {
     }
 
     /// The finding at a site, for the reference written `span`.
-    pub(crate) fn finding(&self, rel: &Path, line: u32, span: &str) -> Finding {
+    pub fn finding(&self, rel: &Path, line: u32, span: &str) -> Finding {
         let (what, action) = self.texts(span);
         Finding::at(rel, line, what, action)
     }
 }
 
 /// What the resolver returns for a reference: its target, or the cause of its failure.
-pub(crate) type Outcome = Result<Target, Cause>;
+pub type Outcome = Result<Target, Cause>;
 
 /// A reference candidate of an anchored kind, resolved by the function of its kind.
-pub(crate) fn reference(
+pub fn reference(
     kind: &Kind,
     anchor: &str,
     id: &str,
@@ -534,7 +534,7 @@ pub(crate) fn reference(
 }
 
 /// A reference to a table kind, resolved through the entity table.
-pub(crate) fn table(
+pub fn table(
     kind: &Kind,
     anchor: &str,
     id: &str,
@@ -592,7 +592,7 @@ pub(crate) fn table(
 ///
 /// A section of a skill or an agent that does not exist is reported as the missing skill or
 /// agent, not as the missing section: its repair is the name, whatever the slug says.
-pub(crate) fn harness(kind: &Kind, owner: &str, id: &str, entities: &Entities) -> Outcome {
+pub fn harness(kind: &Kind, owner: &str, id: &str, entities: &Entities) -> Outcome {
     if entities.defines(kind, owner, id) {
         return Ok(Target::Entity);
     }
@@ -631,7 +631,7 @@ pub(crate) fn harness(kind: &Kind, owner: &str, id: &str, entities: &Entities) -
 /// reference names what the manifest declares. Every refusal names the form that resolves, so a
 /// repair lists the anchors that carry the register, not every anchor as `table` does: an anchor
 /// that does not carry it is one more refusal for a writer who follows the repair.
-pub(crate) fn register(anchor: &str, id: &str, anchors: &Anchors) -> Outcome {
+pub fn register(anchor: &str, id: &str, anchors: &Anchors) -> Outcome {
     let registers = anchors.registers();
     let Some(r) = registers.by_name(id) else {
         // An item register's home is a plan's own documents, so it has no home of its own to name,
@@ -769,7 +769,7 @@ fn without_suffix(path: &str) -> (&str, bool) {
 /// An upward or explicit-current segment breaks when the referencing file moves, which is
 /// the failure the anchored grammar exists to remove, and a leading slash is outside the
 /// project's namespace.
-pub(crate) fn refused(path: &str) -> Option<&'static str> {
+pub fn refused(path: &str) -> Option<&'static str> {
     if path.starts_with('/') {
         return Some("a leading slash is outside the project's namespace");
     }
@@ -821,13 +821,7 @@ fn resolved_here(path: &str, rel: &Path, anchors: &Anchors, tree: &TreeInputs) -
 }
 
 /// A `path` reference, resolved against the survey under its anchor.
-pub(crate) fn path(
-    rel: &Path,
-    anchor: &str,
-    path: &str,
-    anchors: &Anchors,
-    tree: &TreeInputs,
-) -> Outcome {
+pub fn path(rel: &Path, anchor: &str, path: &str, anchors: &Anchors, tree: &TreeInputs) -> Outcome {
     // The trailing slash is the writer's claim about the target's kind; the lookup drops it.
     let claims_dir = path.ends_with('/');
     let trimmed = path.trim_end_matches('/');
@@ -1059,7 +1053,7 @@ fn anchored_target(
 /// names the `path` form and nothing else: the session that created the file converts the
 /// reference, and whether the plan still holds is that session's report to make, not the
 /// check's.
-pub(crate) fn planned(
+pub fn planned(
     rel: &Path,
     anchor: &str,
     path: &str,
@@ -1118,11 +1112,7 @@ fn converted(anchors: &Anchors, anchor: &str, target: &Path, path: &str) -> Stri
 /// The target of a planned reference, or the cause that refuses it: the two reserved words, and
 /// every rule of a named anchor that `anchored_target` applies. `show` asks the same, so it
 /// resolves exactly the planned references the check accepts.
-pub(crate) fn planned_target(
-    anchor: &str,
-    path: &str,
-    anchors: &Anchors,
-) -> Result<PathBuf, Cause> {
+pub fn planned_target(anchor: &str, path: &str, anchors: &Anchors) -> Result<PathBuf, Cause> {
     if anchor == ESCAPE_ANCHOR || anchor == entity::EVERY_ANCHOR {
         return Err(Cause::PlannedAtReserved {
             anchor: anchor.to_string(),
@@ -1132,7 +1122,7 @@ pub(crate) fn planned_target(
 }
 
 /// Whether a document lies in the plans directory, where a planned path is legal.
-pub(crate) fn in_plans_directory(rel: &Path, anchors: &Anchors) -> bool {
+pub fn in_plans_directory(rel: &Path, anchors: &Anchors) -> bool {
     anchors
         .all()
         .iter()
@@ -1158,7 +1148,7 @@ fn entry_at(anchors: &Anchors, target: &Path) -> Option<String> {
 /// directory and of its two homes are not plan documents, and are cited by path. Judged by
 /// where the target sits, not by whether it exists: a path to a deleted slice spec gets the same
 /// repair as one to a present one.
-pub(crate) fn plan_document(anchors: &Anchors, target: &Path) -> Option<String> {
+pub fn plan_document(anchors: &Anchors, target: &Path) -> Option<String> {
     use crate::manifest::{MILESTONES_HOME, SPECS_HOME};
     let plans = anchors
         .all()
@@ -1195,11 +1185,7 @@ pub(crate) fn plan_document(anchors: &Anchors, target: &Path) -> Option<String> 
 /// as it passes on a built tree — a verdict that depends on build state is a check nobody can
 /// trust twice. The batch was taken by the caller over `ignore_queries` below, so a target
 /// this function asks about that the collector did not gather reads as not ignored.
-pub(crate) fn assert_target(
-    target: &Path,
-    claims_dir: bool,
-    tree: &TreeInputs,
-) -> Result<(), Cause> {
+pub fn assert_target(target: &Path, claims_dir: bool, tree: &TreeInputs) -> Result<(), Cause> {
     if tree
         .ignored
         .contains(&crate::git::ignore_query(target, claims_dir))
@@ -1226,7 +1212,7 @@ pub(crate) fn assert_target(
 /// A README is directions about what a directory holds and an index is a generated or
 /// hand-written listing, so both are navigation homes; everywhere else a pointer in prose is
 /// a backticked reference, and a link is reported.
-pub(crate) fn is_navigation(rel: &Path) -> bool {
+pub fn is_navigation(rel: &Path) -> bool {
     rel.file_name()
         .is_some_and(|n| n == "README.md" || n == "index.md")
 }
@@ -1235,7 +1221,7 @@ pub(crate) fn is_navigation(rel: &Path) -> bool {
 ///
 /// A filename may hold a colon in principle; a relative path in this project never does, and
 /// reading such a target as a scheme passes it over rather than reporting a false dangling.
-pub(crate) fn has_scheme(target: &str) -> bool {
+pub fn has_scheme(target: &str) -> bool {
     target
         .split('/')
         .next()
@@ -1255,7 +1241,7 @@ pub(crate) fn has_scheme(target: &str) -> bool {
 /// **A spelling this misses is a target the check reads as not ignored**, which is a finding
 /// rather than a silence: the reference is asserted to exist. `an_ignored_target_is_exempt_in_
 /// every_arm_the_collector_gathers` is what holds the two lists together.
-pub(crate) fn ignore_queries(model: &Model, anchors: &Anchors) -> Vec<String> {
+pub fn ignore_queries(model: &Model, anchors: &Anchors) -> Vec<String> {
     let mut out = Vec::new();
     for doc in model.documents() {
         let nav = is_navigation(&doc.rel);
@@ -1396,6 +1382,46 @@ mod tests {
         assert_eq!(
             path_over("*", "README.md", &[], &[], &[]),
             Ok(Target::Required)
+        );
+    }
+
+    /// The claim: an anchor that carries no such register resolves to the cause naming the anchors
+    /// that do, over an anchor list no manifest produces today: an anchor carrying tripwires alone.
+    /// Mutation checked: with the arm's push replaced by a drop, the assertion on one finding
+    /// fails.
+    #[test]
+    fn an_anchor_carrying_no_such_register_is_reported_with_the_anchors_that_do() {
+        let m = manifest();
+        let base = Anchors::of(&m, &[] as &[PathBuf]);
+        let root = base.by_name("a-project").expect("the root").clone();
+        let bare = crate::entity::Anchor::location(
+            "bare",
+            Path::new("bare"),
+            vec!["tripwire".to_string()],
+        );
+        let anchors = Anchors::from_list(vec![root, bare], base.registers().clone());
+        let model = Model::from_documents(vec![(
+            PathBuf::from("docs/design.md"),
+            "# Design\n\n### A decision `##a-decision`\n".to_string(),
+        )]);
+        let entities = Entities::build(&model, &anchors);
+        let cause = table(
+            &Kind::new("design"),
+            "bare",
+            "a-decision",
+            Path::new("notes/a.md"),
+            &anchors,
+            &entities,
+        )
+        .expect_err("the anchor carries no design register");
+        let (what, action) = cause.texts("design@bare@a-decision");
+        assert!(
+            what.contains("`bare`, which carries no design register"),
+            "{what}"
+        );
+        assert!(
+            action.contains("the anchors that carry one: a-project"),
+            "{action}"
         );
     }
 
