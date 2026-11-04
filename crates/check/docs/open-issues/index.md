@@ -1,15 +1,19 @@
 **Generated — do not edit.** `cargo klarch index`
 
-38 entries
+43 entries
 
 | kind | title |
 | --- | --- |
 | defect | [A forked subagent's transcript opens with a line of type `fork-context-ref`, which `klarch transcript` counts as unrecognised](a-forked-subagent-s-first-line-is-an-unrecognised-type.md) |
 | defect | [A finding on a slug written in a retired or a misplaced form names a repair blind to what the slug resolves to](a-slug-finding-names-a-repair-blind-to-what-the-slug-resolves-to.md) |
 | defect | [In a project that builds the checker from its own tree, `check --staged` compares the staged installed files with unstaged shipped text](a-staged-check-compares-installed-files-with-unstaged-shipped-text.md) |
+| defect | [Under `check --staged` a finding on an installed file can name a repair that does nothing](a-staged-installed-finding-can-name-a-repair-that-does-nothing.md) |
 | defect | [An ignored target cited by a commit message alone is reported as missing](an-ignored-target-cited-by-a-message-alone-is-reported-missing.md) |
+| defect | [`init` outside a worktree deletes a file of the namespace and lists nothing](init-outside-a-worktree-deletes-an-owned-file-silently.md) |
+| defect | [`install-agent-skills` can exit 2 after it has written files, and lists none of them](install-agent-skills-exits-two-after-writing.md) |
 | defect | [Some findings of the reference check in a goals home still name a reference form refused there](some-findings-in-a-goals-home-name-a-form-refused-there.md) |
 | defect | [The head on `index` credits the missing-directory refusal with a claim that the refusal does not hold](the-missing-directory-refusal-does-not-hold-the-no-loss-claim.md) |
+| defect | [The primer's import line is accepted inside some fences and comments](the-primer-import-line-is-accepted-inside-some-fences-and-comments.md) |
 | defect | [`check`'s tests read the machine's git configuration, so a machine setting can fail a correct tree](the-tests-read-the-machine-s-git-configuration.md) |
 | deferred | [Nothing checks that a component states a goal](a-component-states-at-least-one-goal.md) |
 | deferred | [Developer contracts sit in scoped CLAUDE.md files, which reach agents unreliably and are not required without a harness](a-home-for-developer-contracts-outside-agent-configuration.md) |
@@ -36,6 +40,7 @@
 | todo | [No command lists the texts that cite any of a set of entries, nor names the entry that holds each citation](no-command-lists-the-standing-entries-citing-a-set-of-entries.md) |
 | todo | [No command searches the record's entries by keywords, and no command lists the mechanical work of an audit's method](no-command-searches-the-entries-or-lists-an-audit-s-work.md) |
 | todo | [`show` on a register home in the directory shape prints its path and not its subdocuments](show-lists-no-subdocument-of-a-directory-home.md) |
+| todo | [Several behaviours around the installed files have no test that fails when they change](tests-around-the-installed-files-let-mutations-survive.md) |
 | todo | [Texts that cite the relocation goal still state its old measure, one manifest edit](texts-citing-the-relocation-goal-state-its-old-measure.md) |
 | todo | [`check`'s goals home states a purpose that leaves its goal on a rendered site outside it](the-core-s-purpose-leaves-the-rendered-site-outside-it.md) |
 | todo | [The documents do not yet render as one linked site](the-documents-do-not-render-as-a-site.md) |
