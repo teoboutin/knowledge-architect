@@ -104,9 +104,9 @@ It refines `goal@knowledge-architect@agents-get-a-complete-workflow`.
 
 ## A review judges whether what bears on the work reaches it and is followed `##reviews-judge-what-no-tool-can`
 
-The review the installed text owes before a merge asks, of the work it reads, two questions of meaning: whether each recorded item that bears on the work is
-cited where it bears, and whether the work departs from the goals, the decisions and the reasons
-recorded beside the code that bear on it. The
+The review the installed text owes before a merge asks, of the work it reads, two questions of meaning: whether each recorded item that bears on the work is cited where it bears and a checked reference may stand,
+and whether the work departs from the goals, the decisions and the reasons recorded beside its code and its
+agent-facing text that bear on it, or brings back a design the record did not keep. The
 checker and the commands that list the recorded items carry the mechanical part, and passing them answers neither.
 
 It is met while the installed text owes that review, both questions named, before every merge into the main

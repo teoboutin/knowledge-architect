@@ -45,3 +45,19 @@ G1 to G9, which the owner's answer above approves: what a recorded item is; wher
 break no "one target"; that the review before a merge owes the two questions; that a session must read the two listings; that the list of ways to consult is open;
 that "judge no meaning" binds what knowledge-architect ships; what refines what; and that the head of `check` covers what it generates.
 The goals axis in merge mode then read the written goals; what it found is put to the owner in the next round of questions.
+
+## The goals axis, then G10 to G15
+
+The goals axis in merge mode reported 9 findings, all `intent`, 0 `blocks`. Put to the owner with defaults:
+what a recorded item excludes, since the first wording excluded issue entries; the reading a session owes; the two
+listings beside the open ways to consult; the review's second question and the bound on a citation; the mechanical
+rule and the definition of a reference; and "of the tree". The owner asked what including plans would imply, and was
+shown the citing duty, the review duty, the grammar, the search and the root's definition.
+
+"G10: if plans were included in the record, what would that imply ?"
+
+"For the others, defaults."
+
+"I agree, keep plans out."
+
+"skip draft rounds. Agreed to split the sentence"

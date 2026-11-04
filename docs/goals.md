@@ -25,8 +25,8 @@ These words hold in these senses for the goals of this home and of every Compone
   made them. Nothing else is part of it, its goals included;
 - **a recorded item**: a goal, or an entry of a kind that keeps a home of its own, one the workflow gives or
   one a project declares, such as a decision, a design not kept, something outstanding, or a piece of
-  evidence that would flip a decision. A reason recorded beside code or in a commit message is none, and
-  neither is a document that leaves the tree once its work lands.
+  evidence that would flip a decision. A reason recorded beside code or in a commit message is none, and neither is a plan document, or a
+  record a session keeps until its outcomes are carried out.
 
 ## Agents work productively and autonomously without drifting from the design recorded in their project `##agents-work-without-drift`
 
@@ -252,7 +252,8 @@ each of the project's own kinds of entry a home in the repository.
 In a project that adopts the workflow, its reviews and its audits keep the documentation consistent
 with the code and with itself: they judge whether the code departs from what the documents state, and
 whether two documents agree in what they mean. The checker and the commands that list the recorded items, as knowledge-architect ships them, support them,
-and judge no meaning, whatever a project's own extension may do:
+and judge no meaning, whatever a project's own extension may do. A mechanical rule, such as that a flag a
+document names is one the binary declares, judges none:
 
 - the check guarantees that, in the texts the checker reads, nothing cited is missing;
 - the check guarantees that, in the texts the checker reads, every rule the checker holds, its own
@@ -782,12 +783,14 @@ knowledge-architect shares this out:
 - a way to give each recorded item a name, and to reference it from any text the checker reads, each reference saying what it names, with one reading;
 - the checker, which reports a reference that is ambiguous, that resolves to nothing or that breaks the
   grammar, so that renaming or removing an item gives the list of what to repair;
-- ways to consult the recorded items, computed from the tree, such as, for any item, every text the checker
-  reads that references it, and everything the project records as outstanding and every piece of evidence
-  that would flip a recorded decision;
-- the installed text, which requires a session to read those two listings before a change that reverses a
-  decision, and owes before a merge a review that judges whether each item is cited where it bears, and
-  whether the work departs from the goals, the decisions and the reasons recorded beside the code that bear on it.
+- ways to consult the recorded items, computed from the tree, among them two listings: for any item, every
+  text of the tree the checker reads that references it; and everything the project records as outstanding
+  and every piece of evidence that would flip a recorded decision;
+- the installed text, which requires a session to read what cites a decision before it reverses it, and what
+  is outstanding and the evidence that would flip a decision before a change they bear on;
+- the review the installed text owes before a merge, which judges whether each item is cited where it bears and a checked reference may stand, and
+  whether the work departs from the goals, the decisions and the reasons recorded beside its code and its
+  agent-facing text that bear on it, or brings back a design the record did not keep.
 
 It is met while knowledge-architect provides each of these, the listings are never kept by hand, and the installed text requires that reading, owes those two questions of the review before a merge and
 asks in its retrospective how that review fared.
