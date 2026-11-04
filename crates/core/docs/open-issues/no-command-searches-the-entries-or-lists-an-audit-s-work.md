@@ -27,7 +27,9 @@ is designed: which keywords, which measure of closeness, and which axis's lists,
 ### Why it matters
 
 `goal@knowledge-architect@mechanical-tasks-are-the-tool-s` gives a published crate each mechanical
-task the workflow asks of a session. A grep misses an entry whose words differ from the search's,
+task the workflow asks of a session once its owner takes it in, which the owner has not done for either
+of these, and the owner holds that the keyword search is a case that goal does not cover, per
+`issue@knowledge-architect@the-mechanical-tasks-goal-omits-what-a-helper-does-better`. A grep misses an entry whose words differ from the search's,
 and a work list built by hand can drop an entry, as `issue@core@no-command-lists-the-standing-entries-citing-a-set-of-entries`
 records for another list.
 
