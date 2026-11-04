@@ -33,8 +33,8 @@ The design this decision did not keep: `rejected@model@hand-rolled-indentation-s
 
 ### Rust source is parsed by one parser that keeps every comment and is released on its own cadence, `tree-sitter-rust` `##rust-parser-keeps-every-comment`
 
-The core reads Rust source with `tree-sitter-rust`, through the `tree-sitter` crate, both declared in
-`path@core@Cargo.toml`. Its syntax tree keeps every comment, doc comments and ordinary `//` and
+`model` reads Rust source with `tree-sitter-rust`, through the `tree-sitter` crate, both declared in
+`path@model@Cargo.toml`. Its syntax tree keeps every comment, doc comments and ordinary `//` and
 `/* */` comments alike, with their byte ranges, so one pass tells which bytes of a Rust file are
 prose, as `design@model@grammars-not-prefixes` requires, and `pulldown-cmark` reads those ranges as
 it reads a markdown file.

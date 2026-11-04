@@ -1,6 +1,7 @@
 # Open issues — the core checker
 
-What is outstanding about the core checker itself: the walk, the core's checks and its commands.
+What is outstanding about the core checker itself: the core's checks and its commands. What is
+outstanding about the walk, the parse and the resolver is `register@model@issue`.
 What is outstanding about an extension of it is in that extension's own register.
 
 **Read the entries before concluding that a checker behaviour is a new problem.** One file per

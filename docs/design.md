@@ -58,10 +58,10 @@ phases 1 to 3 and the resolver, and the core depends on it by path and by exact 
 `design@knowledge-architect@version-lockstep`. A tool over the record needs the model and at most
 phases 1 to 3, never the last phase: the writers run them and no check, and `show` runs no phase and
 reads the resolver. Phases 1 to 3 say whether the model can be trusted, not whether the content
-conforms. The boundary is crossed by some changes and not by all: of the commits that changed the core's
+conforms, the installed-file check apart while it stays in phase 2. The boundary is crossed by some changes and not by all: of the commits that changed the core's
 source, some touched the model's files alone and some the checks alone, as the command in the
-milestone document that the commit "The split of the core into Components of one purpose, and the
-revision of the rules that cut it" adds takes again. It serves
+milestone document that the commit "[review] Repairs of the review of the plan documents of the
+Component split and of the rules that cut it" writes takes again. It serves
 `goal@knowledge-architect@mechanical-tasks-are-the-tool-s` and `goal@core@documents-render-as-a-linked-site`. The nearest rival
 is `rejected@knowledge-architect@model-inside-the-checker`.
 

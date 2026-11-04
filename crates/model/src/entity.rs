@@ -140,13 +140,13 @@ impl fmt::Display for Kind {
 /// The reserved anchor word for a path deliberately not resolvable in this tree.
 ///
 /// A declared anchor may not take this name, which `manifest::resolve_anchors` asserts.
-pub const ESCAPE_ANCHOR: &str = "elsewhere";
+pub(crate) const ESCAPE_ANCHOR: &str = "elsewhere";
 
 /// The reserved anchor for every component's own copy of a path.
 pub const EVERY_ANCHOR: &str = "*";
 
 /// The reserved name of the anchor the tool constructs at the plans directory.
-pub const PLANS_ANCHOR: &str = "plans";
+pub(crate) const PLANS_ANCHOR: &str = "plans";
 
 /// Whether a word is reserved by the tool, so no declared anchor and no plan may wear it: the
 /// two words of the `path` kind, and the plans anchor's name.
@@ -1978,7 +1978,7 @@ fn one_segment(rel: &Path, line: u32, id: &str) -> Option<Finding> {
 ///
 /// `None` for anything that is not an entry: a file outside the instance, a file of another
 /// suffix, and the two navigation files at the instance's own top level.
-pub fn entry_id(rel: &Path, dir: &Path) -> Option<String> {
+pub(crate) fn entry_id(rel: &Path, dir: &Path) -> Option<String> {
     let inside = rel.strip_prefix(dir).ok()?;
     if rel.extension().is_none_or(|e| e != "md") {
         return None;

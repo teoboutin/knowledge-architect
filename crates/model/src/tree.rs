@@ -776,6 +776,24 @@ mod plans_tests {
         out
     }
 
+    /// The claim: a row the manifest refused is reported absent by nothing, since the row is gone.
+    /// Mutation checked: `normalise_list` keeping the row it complains about.
+    #[test]
+    fn a_declared_path_the_manifest_refused_is_not_reported_absent() {
+        let manifest = declaring_full("", "", "[\"/build\"]", "[]", "[\"vendor/../vendor\"]", "[]");
+        assert_eq!(
+            manifest.complaints().len(),
+            2,
+            "{:#?}",
+            manifest.complaints()
+        );
+        let found = tree_findings(&manifest, &all_of(""));
+        assert_eq!(found, Vec::<String>::new());
+    }
+
+    // A copy of the core's helpers of the same name: a helper of a test is shared by no public item,
+    // per `design@model@model-facade`, until the shared test Component holds them.
+
     /// A manifest declaring `components`, against a root nothing reads.
     fn declaring(components: &str) -> Manifest {
         declaring_full(components, "", "[]", "[]", "[]", "[]")
@@ -802,7 +820,7 @@ mod plans_tests {
 
     /// The claim: the plans anchor's name is reserved, and the two plan registers are the
     /// tool's to place, so a declaration of either, or a location naming one, is a phase-1
-    /// complaint. Mutation checked: `plans` left out of `table::is_reserved_anchor`.
+    /// complaint. Mutation checked: `plans` left out of `entity::is_reserved_anchor`.
     #[test]
     fn the_plans_name_and_the_plan_registers_are_refused_in_a_declaration() {
         let manifest = declaring_full(

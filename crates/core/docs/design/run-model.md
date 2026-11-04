@@ -42,8 +42,8 @@ Five things are compiled in, and none of them describes a project:
 
 ### The model is built once, and every check is a pure function over it `##model-then-checks`
 
-`model` builds the model and gathers what a phase and the resolver read, and the core gathers what the
-last phase alone reads and runs the checks, per `design@knowledge-architect@model-crate`.
+`model` builds the model and gathers from the working tree what a phase and the resolver read, and the
+core gathers what the last phase alone reads and runs the checks, per `design@knowledge-architect@model-crate`.
 A check never reads a file, spawns a process, or knows how the walk works. Anything a check cannot
 fetch for itself is resolved by the caller and handed in: the generated files as committed, the
 per-instance `register.toml` files, one listing of what exists and which of those paths are
@@ -57,7 +57,7 @@ reached.
 Four things follow, and the rival in which each check reads the tree for itself pays for each of them.
 
 **The single walk is a property of the design rather than of anyone's care.** One run reads each
-live document once and parses it once. The core scans each line once; an extension scans the same
+live document once and parses it once. `model` scans each line once; an extension scans the same
 parse again, as often as its checks need, per `design@core@an-extension-builds-its-own-model`. That rival, as built in thaum, performed four tree
 walks and 311 file reads over thaum's 104 documents per run, then spawned its citation checker twice more to
 do it again.

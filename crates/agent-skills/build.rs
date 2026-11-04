@@ -63,8 +63,8 @@ const SUBSTITUTIONS: &[(&str, &str)] = &[
     // span has an empty head before the first `@`, which the checker reports as a malformed
     // reference, per `issue@model@a-span-with-an-empty-head-is-malformed-against-its-head`; the setup
     // skill shows it inside a sentence, and an agent copies it exactly. The
-    // core's check looks for the same text, `IMPORT_LINE` in its agents module, and a test of the
-    // core holds the two equal, since this script cannot read the core.
+    // installed-file check looks for the same text, `IMPORT_LINE` of `model`, and a test there holds
+    // the two equal, since this script cannot read `model`.
     (
         "{{primer-import}}",
         "@.claude/knowledge-architect/PRIMER.md",

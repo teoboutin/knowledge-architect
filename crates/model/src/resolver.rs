@@ -4,15 +4,17 @@
 //! `design`, `goal`, `tripwire` — is looked up in the table `entity::Entities` builds from the
 //! walk; a `path` reference is resolved against the survey under the same anchors, and a
 //! `register` reference against the anchors that carry the register, per
-//! `design@model@register-home-reference`. A table reference that resolves to nothing has one of
-//! five causes: the kind position holds an anchor, the anchor is unknown, the anchor does not carry
-//! that register, an item of a plan is cited from outside it, or the id is not defined there; the
-//! kinds resolved outside the table have refusals of their own. The argument is
+//! `design@model@register-home-reference`. A table reference that resolves to nothing has a cause:
+//! the anchor is unknown, the anchor does not carry that register, an item of a plan is cited from
+//! outside it, or the id is not defined there; the kinds resolved outside the table have refusals of
+//! their own. A span whose kind position holds an anchor is no reference, and the caller reports
+//! it. The argument is
 //! `design@model@an-unresolved-reference-is-reported`.
 //!
-//! **A function here returns an [`Outcome`], and [`Cause::finding`] is how a consumer that reports
-//! writes it.** The words of a cause live with the cause, since the lints and `show` print the same
-//! two texts and a renderer reads the cause and prints neither.
+//! **The function of each kind returns an [`Outcome`], and [`Cause::finding`] is how a consumer that
+//! reports writes it**, per `design@model@resolver-outcome`. The words of a cause live with the cause,
+//! since the lints and `show` print the same two texts and a renderer reads the cause and prints
+//! neither.
 
 use std::path::{Path, PathBuf};
 
@@ -34,10 +36,9 @@ pub enum Target {
     /// A register's home under the anchor named, or every Component's under `*`, whatever shape
     /// the home has. Whether it exists is `tree`'s question.
     Home,
-    /// A path under a named anchor, or a relative link's target. The ignore rules may cover it, so
-    /// the listing need not hold it.
+    /// A path under a named anchor. The ignore rules may cover it, so the listing need not hold it.
     Path(PathBuf),
-    /// The copies of a path under `*`, one per Component that carries it.
+    /// The copies of a path under `*`, one per Component that carries it under the claimed kind.
     Carried(Vec<PathBuf>),
     /// A required document under `*`, which is accepted whether or not a Component carries it.
     Required,
@@ -510,7 +511,8 @@ impl Cause {
 /// What the resolver returns for a reference: its target, or the cause of its failure.
 pub type Outcome = Result<Target, Cause>;
 
-/// A reference candidate of an anchored kind, resolved by the function of its kind.
+/// A reference candidate of an anchored kind, resolved by the function of its kind. A harness kind
+/// is [`harness`]'s, and reaching this function with one reads as a table kind.
 pub fn reference(
     kind: &Kind,
     anchor: &str,
@@ -938,17 +940,21 @@ pub fn path(rel: &Path, anchor: &str, path: &str, anchors: &Anchors, tree: &Tree
                 .collect();
             if carried.is_empty() {
                 Err(Cause::InNoComponent)
-            } else if !carried
-                .iter()
-                .any(|t| claims_dir == tree.directories.contains(t))
-            {
-                Err(if tree.directories.contains(&carried[0]) {
-                    Cause::ClaimsFile
-                } else {
-                    Cause::ClaimsDirectory
-                })
             } else {
-                Ok(Target::Carried(carried))
+                let of_the_kind: Vec<PathBuf> = carried
+                    .iter()
+                    .filter(|t| claims_dir == tree.directories.contains(*t))
+                    .cloned()
+                    .collect();
+                if of_the_kind.is_empty() {
+                    Err(if tree.directories.contains(&carried[0]) {
+                        Cause::ClaimsFile
+                    } else {
+                        Cause::ClaimsDirectory
+                    })
+                } else {
+                    Ok(Target::Carried(of_the_kind))
+                }
             }
         }
         name => {
@@ -1110,8 +1116,8 @@ fn converted(anchors: &Anchors, anchor: &str, target: &Path, path: &str) -> Stri
 }
 
 /// The target of a planned reference, or the cause that refuses it: the two reserved words, and
-/// every rule of a named anchor that `anchored_target` applies. `show` asks the same, so it
-/// resolves exactly the planned references the check accepts.
+/// every rule of a named anchor that `anchored_target` applies. `show` asks the same, so a planned
+/// reference this refuses resolves to nothing in either.
 pub fn planned_target(anchor: &str, path: &str, anchors: &Anchors) -> Result<PathBuf, Cause> {
     if anchor == ESCAPE_ANCHOR || anchor == entity::EVERY_ANCHOR {
         return Err(Cause::PlannedAtReserved {
@@ -1148,7 +1154,7 @@ fn entry_at(anchors: &Anchors, target: &Path) -> Option<String> {
 /// directory and of its two homes are not plan documents, and are cited by path. Judged by
 /// where the target sits, not by whether it exists: a path to a deleted slice spec gets the same
 /// repair as one to a present one.
-pub fn plan_document(anchors: &Anchors, target: &Path) -> Option<String> {
+pub(crate) fn plan_document(anchors: &Anchors, target: &Path) -> Option<String> {
     use crate::manifest::{MILESTONES_HOME, SPECS_HOME};
     let plans = anchors
         .all()
@@ -1387,8 +1393,6 @@ mod tests {
 
     /// The claim: an anchor that carries no such register resolves to the cause naming the anchors
     /// that do, over an anchor list no manifest produces today: an anchor carrying tripwires alone.
-    /// Mutation checked: with the arm's push replaced by a drop, the assertion on one finding
-    /// fails.
     #[test]
     fn an_anchor_carrying_no_such_register_is_reported_with_the_anchors_that_do() {
         let m = manifest();
@@ -1422,6 +1426,148 @@ mod tests {
         assert!(
             action.contains("the anchors that carry one: a-project"),
             "{action}"
+        );
+    }
+
+    /// The claim: the repair a refused plan citation names is the form that resolves for each position: a slice for
+    /// a slice spec, the milestone for its README, its index or anything deeper, a spec for a
+    /// spec, and nothing for a navigation file. Mutations checked: the README and index filter,
+    /// and the one-segment test, each removed from `plan_document`.
+    #[test]
+    fn the_p1_repair_names_the_form_for_each_position() {
+        let m = manifest();
+        let anchors = Anchors::of(&m, &[] as &[PathBuf]);
+        for (target, form) in [
+            (
+                "docs/plans/milestones/m-one/a-slice.md",
+                Some("spec@m-one@a-slice"),
+            ),
+            (
+                "docs/plans/milestones/m-one/README.md",
+                Some("milestone@plans@m-one"),
+            ),
+            (
+                "docs/plans/milestones/m-one/index.md",
+                Some("milestone@plans@m-one"),
+            ),
+            (
+                "docs/plans/milestones/m-one/sub/x.md",
+                Some("milestone@plans@m-one"),
+            ),
+            (
+                "docs/plans/milestones/m-one/a.md/x.md",
+                Some("milestone@plans@m-one"),
+            ),
+            ("docs/plans/milestones/m-one", Some("milestone@plans@m-one")),
+            ("docs/plans/specs/a-spec.md", Some("spec@plans@a-spec")),
+            ("docs/plans/specs/README.md", None),
+            ("docs/plans/milestones/README.md", None),
+            ("docs/plans/README.md", None),
+        ] {
+            assert_eq!(
+                plan_document(&anchors, Path::new(target)).as_deref(),
+                form,
+                "{target}"
+            );
+        }
+    }
+
+    /// The claim: an entry of the table, a skill and a register's home are each said to be what they
+    /// are, so a consumer with no finding can tell them apart.
+    #[test]
+    fn a_kind_outside_the_path_kinds_resolves_to_what_it_names() {
+        let m = manifest();
+        let anchors = Anchors::of(&m, &[] as &[PathBuf]);
+        let model = Model::from_documents(vec![(
+            PathBuf::from("docs/design.md"),
+            "# Design\n\n### A decision `##a-decision`\n".to_string(),
+        )]);
+        let entities = Entities::build(&model, &anchors);
+        assert_eq!(
+            table(
+                &Kind::new("design"),
+                "a-project",
+                "a-decision",
+                Path::new("r.md"),
+                &anchors,
+                &entities,
+            ),
+            Ok(Target::Entity)
+        );
+        assert_eq!(register("a-project", "issue", &anchors), Ok(Target::Home));
+        assert_eq!(register("*", "issue", &anchors), Ok(Target::Home));
+    }
+
+    /// The claim: a planned path resolves to the path it will create, whether absent or covered by
+    /// the ignore rules.
+    #[test]
+    fn a_planned_path_resolves_to_the_path_it_will_create() {
+        let m = manifest();
+        let anchors = Anchors::of(&m, &[] as &[PathBuf]);
+        let target = PathBuf::from("crates/one/src/new.rs");
+        let (present, directories) = (HashSet::new(), HashSet::new());
+        for ignored in [
+            HashSet::new(),
+            HashSet::from([crate::git::ignore_query(&target, false)]),
+        ] {
+            let tree = TreeInputs {
+                present: &present,
+                directories: &directories,
+                outside: &[],
+                ignored: &ignored,
+                tracked_and_ignored: &[],
+                refused: &[],
+                links: &[],
+                installed: &[],
+                shipped: &[],
+            };
+            assert_eq!(
+                planned(
+                    Path::new("docs/plans/README.md"),
+                    "one",
+                    "src/new.rs",
+                    &anchors,
+                    &tree
+                ),
+                Ok(Target::Planned(target.clone()))
+            );
+        }
+    }
+
+    /// The claim: the generic form's target holds the copies of the claimed kind and no other.
+    #[test]
+    fn the_generic_form_holds_only_the_copies_of_the_claimed_kind() {
+        let two = "[project]\nchecker-version = \"fixture\"\nname = \"a-project\"\n\
+                   components = [\"crates/one\", \"crates/two\"]\n\n[walk]\nskip-dirs = []\n\
+                   skip-files = []\nexclude = []\n";
+        let m = Manifest::parse(Path::new("/nowhere"), two).expect("a declaration");
+        let anchors = Anchors::of(&m, &[] as &[PathBuf]);
+        let (one, other) = (
+            PathBuf::from("crates/one/src"),
+            PathBuf::from("crates/two/src"),
+        );
+        let present: HashSet<PathBuf> = [one.clone(), other.clone()].into_iter().collect();
+        let directories: HashSet<PathBuf> = [one.clone()].into_iter().collect();
+        let ignored = HashSet::new();
+        let tree = TreeInputs {
+            present: &present,
+            directories: &directories,
+            outside: &[],
+            ignored: &ignored,
+            tracked_and_ignored: &[],
+            refused: &[],
+            links: &[],
+            installed: &[],
+            shipped: &[],
+        };
+        let rel = Path::new("README.md");
+        assert_eq!(
+            path(rel, "*", "src/", &anchors, &tree),
+            Ok(Target::Carried(vec![one]))
+        );
+        assert_eq!(
+            path(rel, "*", "src", &anchors, &tree),
+            Ok(Target::Carried(vec![other]))
         );
     }
 

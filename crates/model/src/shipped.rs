@@ -25,7 +25,7 @@ use crate::phases::TreeInputs;
 const CHECKER_VERSION: &str = env!("CARGO_PKG_VERSION");
 
 /// What the shipped text writes where the project's declared command goes.
-pub const PLACEHOLDER: &str = "{{command}}";
+pub(crate) const PLACEHOLDER: &str = "{{command}}";
 
 /// The install path of the primer, which the project's root CLAUDE.md imports.
 pub const PRIMER: &str = ".claude/knowledge-architect/PRIMER.md";
@@ -51,7 +51,10 @@ pub fn shipped(manifest: &Manifest) -> Vec<(PathBuf, String)> {
 }
 
 /// The same, over a stated set of templates: what a test hands in.
-pub fn shipped_from(manifest: &Manifest, templates: &[(&str, &str)]) -> Vec<(PathBuf, String)> {
+pub(crate) fn shipped_from(
+    manifest: &Manifest,
+    templates: &[(&str, &str)],
+) -> Vec<(PathBuf, String)> {
     if !manifest.serves_claude() {
         return Vec::new();
     }
@@ -290,7 +293,8 @@ mod tests {
         assert_eq!(found.len(), 3, "{found:?}");
         for f in &found {
             assert!(
-                f.what.contains(&format!("version {}", CHECKER_VERSION)),
+                f.what
+                    .contains(&format!("version {}", env!("CARGO_PKG_VERSION"))),
                 "a version pin: {f:?}"
             );
         }
@@ -298,7 +302,8 @@ mod tests {
         assert_eq!(found.len(), 3, "{found:?}");
         for f in &found {
             assert!(
-                f.what.contains(&format!("version {}", CHECKER_VERSION)),
+                f.what
+                    .contains(&format!("version {}", env!("CARGO_PKG_VERSION"))),
                 "{f:?}"
             );
         }

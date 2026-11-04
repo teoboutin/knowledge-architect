@@ -107,19 +107,20 @@ This repository adds:
 - **the writers**: the commands that write files over a model the foundation must pass first:
   `index`, `index --staged`, `check --fix`, `new-component` and `init`.
 - **A1**: the acceptance criterion #a1-no-check-below-the-tools.
-- **the foundation**: `check::foundation` in `path@core@src/check/mod.rs`, which runs phases 1 to 3
-  of a run: the manifest's complaints, `check::tree` and `check::agents` (phase 2), and the entity
-  table's definition findings (phase 3). `cli::complete_working_tree` in `path@core@src/cli/mod.rs`
-  refuses over a model the foundation stops; `index`, `id`, `new-component` and `worklist` call it,
-  `check --fix` calls `check::foundation` itself, and `index --staged` reaches the foundation
-  through `commit_tree` of `path@core@src/cli/history.rs`.
-- **the installed-file check**: `check::agents` in `path@elsewhere@crates/core/src/check/agents.rs`, which compares the
-  installed agent files with the shipped text, byte for byte.
-- **the resolver and the lints**: in `path@core@src/check/references.rs`, the functions that resolve
-  a reference against the entity table (`table`, `harness`, `register`, `path`, `anchored_target`,
-  `planned_target`) and report what fails, one function each today.
-- **the mock tests**: the 36 `#[test]` functions of `path@core@src/mock_projects.rs`, a
-  `#[cfg(test)]` module that runs the core over the mock projects of `path@core@tests/projects/`.
+- **the foundation**: `foundation` in `path@model@src/phases.rs`, `model`'s since #model-out, which runs
+  phases 1 to 3 of a run: the manifest's complaints, `tree` and the installed-file check (phase 2), and
+  the entity table's definition findings (phase 3). `complete_working_tree` beside it refuses over a
+  model the foundation stops; `index`, `id`, `new-component` and `worklist` call it, `check --fix` calls
+  the foundation itself, and `index --staged` reaches it through `commit_tree` of
+  `path@core@src/cli/history.rs`.
+- **the installed-file check**: `check` in `path@model@src/shipped.rs`, which compares the installed agent
+  files with the shipped text, byte for byte.
+- **the resolver and the lints**: the resolver is `path@model@src/resolver.rs`, the functions that resolve a
+  reference against the entity table and say why one fails; the lints are
+  `path@core@src/check/references.rs`, which turn a cause into a finding at its site.
+- **the mock tests**: the 36 `#[test]` functions that run over the mock projects of
+  `path@core@tests/projects/`: those over the checks in `path@core@src/mock_projects.rs`, and those over the
+  model in `path@model@src/mock_projects.rs`.
 - **an integrated test**: a test that drives the project through its public API, as a consumer
   would, as the code-shape fragment, `path@agent-skills@fragments/default-code-shape.md`, defines it,
   per `design@agent-skills@integrated-test-through-public-api`.
@@ -414,7 +415,7 @@ the rules names, each with its outcome:
 - `issue@agent-skills@a-tripwire-on-agent-behaviour-fires-where-this-project-cannot-see`: not read; the searcher's reason, "the owner's shape in its Re-entry records watched behaviours 'bundled in the agent skill crate under a command'. Subject 1 splits agent-skills into bundle and content, which would change where such a command lives. The (cut)"
 - `issue@gates@the-gate-list-head-bundles-the-library-s-independence`: not read; the searcher's reason, "item 2's 'usable alone by others argues for a split' meets the unargued gates independence (the assumed reason: a published library carries no project's assumptions), and a new git crate could be a dependency of gates; (cut)"
 - `issue@agent-skills@the-claim-check-of-a-commit-message-is-read-at-the-start-and-needed-at-each-commit`: not read; the searcher's reason, "a candidate fix changes the seed's summary printed by check --staged, and commits moves to check; the split proposes no change to what a run prints, so no bearing is"
-- `tripwire@core@a-second-producer-chain`: not read; the searcher's reason, "its Fires clause and horizon name path@core@src/check/, which the move to a check crate relocates; the split adds no check reading another's findings, so it does not"
+- `a-second-producer-chain`: not read; the searcher's reason, "its Fires clause and horizon name path@core@src/check/, which the move to a check crate relocates; the split adds no check reading another's findings, so it does not"
 - `tripwire@core@phases-gate-the-report-two`: not read; the searcher's reason, "its re-entry is 'any change to the arguments of check, index', which the cli flattening and the clap-placement question touch; no flag letting a writer write over an incomplete model is proposed, so it does not"
 - `design@knowledge-architect@changelog-reviewed-at-the-release`: not read; the searcher's reason, "tripwire@agent-skills@record-search-misses records that a previous discussion on the same development and component skills rested on this head unseen; no element of this work touches the release review of entries, so no (cut)"
 - `issue@model@a-kind-name-refusal-quotes-a-future-migration-reason`: not read; the searcher's reason, "Part 1 names new Components (git, bundle, model, check, query, render, transcript, rewrite, create, cli, testing); the head this issue questions refuses every kind's name as an anchor. None of the drafted names is a (cut)"

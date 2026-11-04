@@ -84,14 +84,14 @@ pub const MILESTONE_REGISTER: &str = "milestone";
 pub(crate) const PLANS_DIR: &str = "docs/plans";
 
 /// The home of the `spec` register under `PLANS_DIR`.
-pub const SPECS_HOME: &str = "specs";
+pub(crate) const SPECS_HOME: &str = "specs";
 
 /// The home of the `milestone` register under `PLANS_DIR`.
-pub const MILESTONES_HOME: &str = "milestones";
+pub(crate) const MILESTONES_HOME: &str = "milestones";
 
 /// The `dir` of a register whose home is its carrier's own directory rather than a directory
 /// under it, per `design@model@home-at-the-carrier-path`.
-pub const CARRIER_DIR: &str = ".";
+pub(crate) const CARRIER_DIR: &str = ".";
 
 /// The item register of a plan's threads.
 pub(crate) const THREAD_REGISTER: &str = "thread";
@@ -762,7 +762,7 @@ impl Manifest {
     }
 
     /// Record what configuring the extensions produced: complaints, declared paths, generated
-    /// files. Only `extension::configure` calls this.
+    /// files. Only `contribution::contribute` calls this.
     pub(crate) fn record_extensions(
         &mut self,
         complaints: Vec<Finding>,

@@ -64,6 +64,12 @@ is a finding only where its finding message does not name its repair". This defe
 that delivery fail for the anchored forms; the owner kept the ruling, with this entry, in the
 sixth pass, F121.
 
+Further sites of the same family, each reproduced in the plans README of a mock project on the main branch before the crate split:
+
+- `PointsIntoExisting`: `planned@<anchor>@:12` tells the writer to write a `path` span with an empty id, which is malformed; a suffixed directory gets the `path` form with no slash, which claims a file; a suffixed spec gets a `path` form that cites a plan document by its path.
+- `plan_document`: a suffixed slice spec, `.../a-mile/slice-one.md:3`, is sent to the milestone document rather than the slice spec, since the suffix is still on the name when `.md` is stripped.
+- The unanchored lint in `judge_part`: `../notes/x.txt` and `/notes/x.txt` in a plan document offer the `planned` form for a file that exists, since its `exists` test joins them without following them as `names_this_tree` does.
+
 ### Why it matters
 
 `design@model@an-unresolved-reference-is-reported` gives each way a reference resolves to nothing

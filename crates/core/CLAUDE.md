@@ -13,13 +13,16 @@ so that the string literals of the tool's own source are read as data, per
 directory and package name are compiled in too, so a binary built from another checkout of the
 tool is refused, per `design@core@a-foreign-build-is-refused`.
 
-**`git` 2.36 or newer is a hard dependency, and every invocation is the `git` crate's**, which the
-core names `crate::git`. The walk and what it needs of git are `path@model@CLAUDE.md`. A check may spawn
-nothing, so what it needs is taken by the caller and handed in.
-`check --staged`, `index --staged`, the comparison of `check --fix` and `commits` read a snapshot
-instead, from git objects, through
-`git::snapshot_entries` and the same `cat-file` batch: HEAD's tree overlaid with the index's
-changes, or one commit's tree, per `design@core@staged-tree-source`.
+**`git` 2.36 or newer is a hard dependency, and every invocation is the `git` crate's,
+`path@git@src/git.rs`, which the core names `crate::git`.** The floor is `cat-file --batch -z`, which
+`commits` reads a commit's tree with, and a listing's last-change column is one `git log`. A check may
+spawn nothing, so each of those is taken by the caller and handed in. The walk and the ignore batch are
+`path@model@CLAUDE.md`. The decisions are `design@git@git-floor-for-commit-trees`,
+`design@git@failed-git-is-an-error` and `design@knowledge-architect@checker-asks-git-through-the-crate`:
+read them whole before changing how the core asks git. `check --staged`, `index --staged`, the
+comparison of `check --fix` and `commits` read a snapshot rather than the working tree, from git
+objects, through `git::snapshot_entries` and the same `cat-file` batch: HEAD's tree overlaid with the
+index's changes, or one commit's tree, per `design@core@staged-tree-source`.
 
 **A test that copies a mock project runs `git init` and `git add -A` in the copy**, or the walk
 is empty and the test proves nothing; `Sandbox` in `path@core@tests/binary.rs` does it. Two
