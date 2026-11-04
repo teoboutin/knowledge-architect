@@ -32,7 +32,7 @@ A cause's two texts, what is wrong and what repairs it, per `design@check@findin
 
 ### What a tool reads of the working tree for phases 1 to 3 and the resolver is gathered in `model`, the ignore batch included `##tree-inputs-gathered-here`
 
-`Gathered` reads it from the working tree: one survey, the two git batches and the shipped text. The
+`Gathered` reads it from the working tree: one survey and the two git batches. The
 resolver reads the ignore answers, so a tool that links no check needs the batch here, or it reads a
 target the rules cover as absent, against `design@model@ignored-targets-are-not-asserted`. A run over a
 tree git holds gathers its own in `check`, per `design@check@staged-tree-source`, since no working tree
@@ -51,6 +51,5 @@ with a value, and a tool with no extension has no trait to name. The nearest riv
 
 A tool over the documents needs the model and no check, per `design@knowledge-architect@model-crate`, so
 such a dependency would put every check into the build of each of those tools. `cargo tree -e normal -p
-knowledge-architect-model` lists no such crate; a dev-dependency builds into no consumer. The check that
-stays in phase 2, the installed-file check, is this crate's own code, which is why it depends on
-`agent-skills`, a crate of text.
+knowledge-architect-model` lists no such crate; a dev-dependency builds into no consumer. Phases 1 to 3 read no shipped text either, so
+`agent-skills` is no dependency of this crate; its tests read that text by a dev-dependency.

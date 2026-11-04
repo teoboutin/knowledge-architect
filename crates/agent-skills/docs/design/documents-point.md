@@ -140,7 +140,7 @@ checked form for an entry still to be created, as `design@model@planned-path-for
 lost too: a plan document and a committed file leave with or before the branch that creates the
 entry, so such a check would fire on a file about to be deleted; a commit message is judged against
 its own commit's tree, where the check would assert only that the entry is absent, which nothing
-reads again; and the form would need a grammar of its own in the core.
+reads again; and the form would need a grammar of its own in the checker.
 A renamed entry still exists, under its new slug, so its old slug carries beside it the reference
 to the live entry, the shape a quotation of the owner naming a renamed entry already takes, per
 `design@agent-skills@a-past-sentence-is-rewritten`: the old slug alone would leave a reader no

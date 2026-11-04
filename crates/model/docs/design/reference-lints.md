@@ -16,7 +16,7 @@ a harness kind takes the arities of `design@model@harness-kinds-cited-without-an
 
 **The silence is bounded and named.** A typo inside the kind, `desing@<anchor>@<id>`, is silent under this
 rule, because widening it to "any span with two `@`" would report every email address with a
-plus tag. `register@check@tripwire` guards the gap: a review finding a reference the scanner
+plus tag. `register@model@tripwire` guards the gap: a review finding a reference the scanner
 reported nothing for widens the rule to the shape found.
 
 **A fullwidth at sign is not an `@`.** A span written with `＠` is no candidate, and nothing

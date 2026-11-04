@@ -268,7 +268,7 @@ longer ships. When it changes any of them, in the same commit:
   `skill@knowledge-architect-agent-configuration@project-knowledge-rows`, read whole;
 - read each project skill and agent against the installed text the install changed, for an
   instruction that now contradicts it;
-- stage the files the install removed, since a deletion git still lists stops the check;
+- stage the files the install removed, since the check fails on a deletion git still lists;
 - run `cargo klarch check`.
 
 ## Reviewing a configuration change `##reviewing-a-change`

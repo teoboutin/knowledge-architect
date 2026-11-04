@@ -293,7 +293,7 @@ not run, with exit 0.
 
 ### The primer delivered by a session-start hook that prints it `##session-start-hook-primer`
 
-`live`. `design@check@owned-namespace-check` delivers the primer instead, by an import line in the
+`live`. `design@check@primer-import-line` delivers the primer instead, by an import line in the
 root CLAUDE.md. A hook needs the installer to edit the user's settings file, which belongs to the
 user, and it needs a shell. It is kept because a doubt remains: the import is verified for the main
 session and a subagent of the `claude` harness, and another context or harness might not follow it.
@@ -497,3 +497,12 @@ for the minutes between `--out` and `--verify`.
 `live`. It would have changed the command line `id` takes. The anchor that will own a design
 thread's decision is often not settled when the thread is named, so the test would need the
 answer it is asked for; listing every kind and anchor answers it whatever the owner is.
+
+### The findings on the installed agent files kept before the last phase `##installed-files-before-the-last-phase`
+
+`live`. It would change what a command does over a stale install: every writer refused, a run reporting no
+reference beside the install finding, and `model`, which held the phase, depending on the shipped text. No
+check reads these findings, and the model is complete without them, whichever crate held the check or
+whichever of the files was missing: over a missing one the model is built of the tree as it is, and a
+reference to what it defined is reported as unresolved. It is kept because a doubt remains on a session that
+meets both findings and repairs the references rather than running the install.

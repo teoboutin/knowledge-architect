@@ -8,7 +8,7 @@ The checker, `check` over `model`, checks what every project carries: the walk, 
 entity table, references, registers, generated indexes and commit messages. A subject that belongs to one project, such as
 thaum's verification of rule quotes against a pinned corpus, is an **extension**: a set of checks, the
 manifest tables they read, and the files they generate. Each of its checks is listed and counted
-like a check of the core. This is what `goal@knowledge-architect@every-target-project-can-adopt-it`
+like a check of `check`. This is what `goal@knowledge-architect@every-target-project-can-adopt-it`
 requires: `check` is published for other projects, and nothing of thaum's subject is compiled
 into it. A binary registers its extensions at
 compile time. `check`'s own binary registers none, and a project that needs an extension builds a
@@ -53,7 +53,7 @@ commit. thaum's rules extension lists its `changes` and `corpus` checks as not r
 extension that lists nothing skips them silently. An extension that wants more under `--staged`
 reads `Snapshot::revision()`.
 
-**An extension reads the tree through the core.** Over the checkout it may read the filesystem under
+**An extension reads the tree through `check`.** Over the checkout it may read the filesystem under
 the root, because a subject such as a vendored corpus is filesystem state, per
 `design@check@model-then-checks`. Over a snapshot it reads git objects only, through the same
 batch reader `check` assembles that tree with, which also names each blob so that an extension can
@@ -123,7 +123,7 @@ in the same module for the same reason.
 
 Two gatherings, one in each crate: `Gathered` of `model` reads what phases 1 to 3 and the resolver read,
 per `design@model@tree-inputs-gathered-here`. `Gathered`, in `check`'s command module, holds it, adds
-the committed generated files and every `register.toml`, which the last phase alone reads, and lends
+the committed generated files, every `register.toml` and the shipped text, which the last phase alone reads, and lends
 them all as the `Inputs` a check of the working tree reads. `check`, the
 commands that write files into the working tree (through `complete_working_tree`, which refuses
 over an incomplete model), and an extension's tests all build on it. `check --staged` and

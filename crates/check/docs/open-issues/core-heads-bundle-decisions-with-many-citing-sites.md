@@ -5,8 +5,7 @@ kind: design
 
 ## Summary
 
-Four heads, three of `register@check@design` and one of `register@model@design`, each hold, and a fifth that
-`spec@component-split@check-renamed` schedules held, two or more decisions whose nearest rivals
+Four heads, three of `register@check@design` and one of `register@model@design`, each hold two or more decisions whose nearest rivals
 differ, against `design@agent-skills@one-decision-per-head`. The first run of the design-record
 axis on this repository found three, and a branch's review two more; each was left unsplit because
 a split must first read every site that cites the head, 7 to 33 sites per head, to re-point each
@@ -49,9 +48,6 @@ the first run of the design-record axis counted 20, 23, 26 and 31 for the four h
 
   `issue@check@a-message-lint-is-deduplicated-in-one-tree-only` cites the head for the fourth
   decision.
-A third head the run found bundled, `design@check@owned-namespace-check`, is split by
-`spec@component-split@check-renamed`, which schedules it, so it is listed there and not here.
-
 The second pass of that run reworded a sentence of `design@check@a-commit-message-is-a-document`
 into the present tense and left its bundle, so that head is a change's touched head left short of
 `design@agent-skills@existing-heads-on-touch`. A fourth head the run found bundled has since been
