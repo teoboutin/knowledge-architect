@@ -1,15 +1,9 @@
-//! Every reference resolves against the entity table, and every relative markdown link is a
-//! navigation row that resolves beside its file.
+//! Every reference is judged against what the resolver says of it, and every relative markdown link
+//! is a navigation row that resolves beside its file.
 //!
-//! One grammar, `` `<kind>@<anchor>@<id>` ``, and one resolver. A reference to a table kind —
-//! `design`, `goal`, `tripwire` — is looked up in the table `entity::Entities` builds from the
-//! walk; a `path` reference is resolved against the survey under the same anchors, and a
-//! `register` reference against the anchors that carry the register, per
-//! `design@core@register-home-reference`. A table reference that resolves to nothing is reported
-//! as the repair it needs, five ways: the kind position holds an anchor, the anchor is unknown, the
-//! anchor does not carry that register, an item of a plan is cited from outside it, or the id is
-//! not defined there; the kinds resolved outside the table have refusals of their own. The
-//! argument is `design@core@an-unresolved-reference-is-reported`.
+//! The resolver is `check::resolve`, which says what a reference names or why it names nothing.
+//! This module turns each cause into a finding at its site, and adds the lints over what the
+//! reference form leaves out.
 //!
 //! **Nothing that points into this project passes unregistered.** A span with no `@` that is
 //! shaped like a path, and whose first segment names a file or a directory of this tree, is
@@ -36,18 +30,17 @@
 //! definitions are found while the table is built, and `check::foundation` reports them: where a
 //! definition may sit is a question about a register's shape.
 
-use crate::manifest::{Scope, Shape, GOAL_REGISTER, MANIFEST_NAME, REJECTED_REGISTER};
-use std::path::{Path, PathBuf};
+use crate::manifest::{GOAL_REGISTER, REJECTED_REGISTER};
+use std::path::Path;
 
-use crate::entity::{
-    self, Anchors, Candidate, Constructed, Entities, Kind, Resolution, ESCAPE_ANCHOR, PLANS_ANCHOR,
-};
+use crate::entity::{self, Anchors, Candidate, Entities, Kind};
 use crate::finding::Finding;
 use crate::manifest::Manifest;
 use crate::model::Model;
 use crate::records;
 use crate::scan::{Observation, RetiredForm};
 
+use super::resolve::{self, assert_target, in_plans_directory, is_navigation, refused};
 use super::Inputs;
 
 /// What the check looked at: the entities the table holds, the reference occurrences it
@@ -184,23 +177,16 @@ pub(crate) fn judge_part(
                         if goals_of.is_some() && (kind.is_path() || kind.is_planned()) {
                             // Refused by the citation check above, whatever it names: its own
                             // repairs would send the writer to another form refused here.
-                        } else if kind.is_path() {
-                            path(
-                                &mut out, &doc.rel, l.line, span, anchor, id, anchors, inputs,
-                            );
-                        } else if kind.is_planned() {
-                            planned(
-                                &mut out, &doc.rel, l.line, span, anchor, id, anchors, inputs,
-                            );
-                        } else if kind.is_register() {
-                            // Never through `table`: a register's home is no entity id of the
-                            // table, and `*` resolves under this kind, which `table` refuses.
-                            register(&mut out, &doc.rel, l.line, span, anchor, id, anchors);
-                        } else {
-                            table(
-                                &mut out, &doc.rel, l.line, span, &kind, anchor, id, anchors,
-                                entities,
-                            );
+                        } else if let Err(cause) = resolve::reference(
+                            &kind,
+                            anchor,
+                            id,
+                            &doc.rel,
+                            anchors,
+                            entities,
+                            &inputs.tree(),
+                        ) {
+                            out.push(cause.finding(&doc.rel, l.line, span));
                         }
                     }
                     Candidate::Harness { kind, owner, id } => {
@@ -210,7 +196,9 @@ pub(crate) fn judge_part(
                                 &doc.rel, l.line, span, home_owner, None, anchors,
                             ));
                         }
-                        harness(&mut out, &doc.rel, l.line, span, &kind, owner, id, entities);
+                        if let Err(cause) = resolve::harness(&kind, owner, id, entities) {
+                            out.push(cause.finding(&doc.rel, l.line, span));
+                        }
                     }
                     Candidate::Malformed { why, repair } => out.push(Finding::at(
                         &doc.rel,
@@ -542,7 +530,7 @@ fn defined_pairs(id: &str, tables: &[IdTable], rel: &Path) -> Vec<(String, Strin
                     kind.is_harness()
                         || t.entities
                             .resolve_from(t.anchors, kind, anchor, id, Some(rel))
-                            == Resolution::Resolved
+                            == entity::Resolution::Resolved
                 })
         })
         .map(|(kind, anchor)| (kind.name().to_string(), anchor.to_string()))
@@ -690,1020 +678,6 @@ fn names_this_project(span: &str, anchors: &Anchors, entities: &Entities) -> boo
     }
 }
 
-/// Whether relative markdown links are legal in this file.
-///
-/// A README is directions about what a directory holds and an index is a generated or
-/// hand-written listing, so both are navigation homes; everywhere else a pointer in prose is
-/// a backticked reference, and a link is reported.
-pub(crate) fn is_navigation(rel: &Path) -> bool {
-    rel.file_name()
-        .is_some_and(|n| n == "README.md" || n == "index.md")
-}
-
-/// Whether a link target opens with a URI scheme — letters then a colon, before any slash.
-///
-/// A filename may hold a colon in principle; a relative path in this project never does, and
-/// reading such a target as a scheme passes it over rather than reporting a false dangling.
-pub(crate) fn has_scheme(target: &str) -> bool {
-    target
-        .split('/')
-        .next()
-        .is_some_and(|head| head.contains(':'))
-}
-
-/// A reference to a table kind, resolved through the entity table.
-#[allow(clippy::too_many_arguments)]
-fn table(
-    out: &mut Vec<Finding>,
-    rel: &Path,
-    line: u32,
-    span: &str,
-    kind: &Kind,
-    anchor: &str,
-    id: &str,
-    anchors: &Anchors,
-    entities: &Entities,
-) {
-    match entities.resolve_from(anchors, kind, anchor, id, Some(rel)) {
-        Resolution::Resolved => {}
-        Resolution::UnknownAnchor => out.push(Finding::at(
-            rel,
-            line,
-            format!("`{span}` names `{anchor}`, which is no anchor of this project"),
-            format!(
-                "anchor at one of {}; `{ESCAPE_ANCHOR}` serves the path kind alone, and `*` the \
-                 path and register kinds",
-                anchors.listed()
-            ),
-        )),
-        Resolution::AnchorLacksRegister { carriers } => out.push(Finding::at(
-            rel,
-            line,
-            format!("`{span}` names `{anchor}`, which carries no {kind} register"),
-            format!("the anchors that carry one: {}", carriers.join(", ")),
-        )),
-        Resolution::OutsidePlan { form } => out.push(Finding::at(
-            rel,
-            line,
-            format!("`{span}` cites an item of the plan `{anchor}` from outside it"),
-            format!(
-                "cite the plan whole, as `{form}`, and name the item beside it in plain text as \
-                 #{id}; an item is cited only from inside its own plan, so retiring the plan asks \
-                 no other document to be redesigned"
-            ),
-        )),
-        Resolution::Undefined => out.push(Finding::at(
-            rel,
-            line,
-            format!("`{span}` is referenced and `{anchor}` defines no {kind} `{id}`"),
-            match anchors
-                .registers()
-                .by_name(kind.name())
-                .and_then(|r| r.section.as_deref())
-            {
-                // An item is defined under its section of the plan, which has no home of its own.
-                Some(section) => format!(
-                    "define it under the {section} section of the plan `{anchor}`, or repair the \
-                     reference"
-                ),
-                None => format!(
-                    "define it in the {} of `{anchor}`, or repair the reference",
-                    anchors
-                        .registers()
-                        .by_name(kind.name())
-                        .map(|r| if r.dir == crate::manifest::CARRIER_DIR {
-                            "home at its own directory".to_string()
-                        } else {
-                            format!("{} home", r.dir)
-                        })
-                        .unwrap_or_else(|| "register home".to_string())
-                ),
-            },
-        )),
-    }
-}
-
-/// A reference of a harness kind, against the entity table: the skill or the agent it names, and
-/// the section, or the section of the primer or of the root instructions.
-///
-/// A section of a skill or an agent that does not exist is reported as the missing skill or
-/// agent, not as the missing section: its repair is the name, whatever the slug says.
-#[allow(clippy::too_many_arguments)]
-fn harness(
-    out: &mut Vec<Finding>,
-    rel: &Path,
-    line: u32,
-    span: &str,
-    kind: &Kind,
-    owner: &str,
-    id: &str,
-    entities: &Entities,
-) {
-    if entities.defines(kind, owner, id) {
-        return;
-    }
-    let (what, action) = if !owner.is_empty() && !entities.defines(kind, "", owner) {
-        (
-            format!("`{span}` is referenced and no {kind} is named `{owner}`"),
-            format!("name an existing {kind}, or repair the reference"),
-        )
-    } else if !owner.is_empty() {
-        (
-            format!("`{span}` is referenced and the {kind} `{owner}` defines no section `{id}`"),
-            format!(
-                "end a level-2 heading of the {kind} `{owner}` with that slug, or repair the \
-                 reference"
-            ),
-        )
-    } else if kind.is_named() {
-        (
-            format!("`{span}` is referenced and no {kind} is named `{id}`"),
-            format!("name an existing {kind}, or repair the reference"),
-        )
-    } else {
-        let document = if kind.name() == entity::PRIMER_KIND {
-            "the primer"
-        } else {
-            "the root CLAUDE.md"
-        };
-        (
-            format!("`{span}` is referenced and {document} defines no section `{id}`"),
-            format!("end a level-2 heading of {document} with that slug, or repair the reference"),
-        )
-    };
-    out.push(Finding::at(rel, line, what, action));
-}
-
-/// A `register` reference: the home an anchor keeps a register in, resolved against the anchors,
-/// whatever shape the home has, per `design@core@register-home-reference`.
-///
-/// Whether the home exists is not asked here: a missing home is `check::tree`'s finding, and the
-/// reference names what the manifest declares. Every refusal names the form that resolves, so a
-/// repair lists the anchors that carry the register, not every anchor as `table` does: an anchor
-/// that does not carry it is one more refusal for a writer who follows the repair.
-pub(crate) fn register(
-    out: &mut Vec<Finding>,
-    rel: &Path,
-    line: u32,
-    span: &str,
-    anchor: &str,
-    id: &str,
-    anchors: &Anchors,
-) {
-    let registers = anchors.registers();
-    // An item register's home is a plan's own documents, so it has no home of its own to name,
-    // and neither has a plan anchor's register: both are cited by the plan document's kind.
-    let homed = || {
-        registers
-            .all()
-            .iter()
-            .filter(|r| r.shape != Shape::Section)
-            .map(|r| r.name.as_str())
-            .collect::<Vec<_>>()
-            .join(", ")
-    };
-    let Some(r) = registers.by_name(id) else {
-        out.push(Finding::at(
-            rel,
-            line,
-            format!("`{span}` names `{id}`, which is no register of this project"),
-            format!("name one of {}", homed()),
-        ));
-        return;
-    };
-    if r.shape == Shape::Section {
-        out.push(Finding::at(
-            rel,
-            line,
-            format!("`{span}` names the {id} register, whose home is a plan's own documents"),
-            format!(
-                "cite the plan document whole, as `spec@{PLANS_ANCHOR}@<id>` or \
-                 `milestone@{PLANS_ANCHOR}@<id>`"
-            ),
-        ));
-        return;
-    }
-    // `*` resolves only for a register every component carries, so a repair offers it only then.
-    let every = if r.scope == Scope::Component {
-        ", or at `*` for every component's own home"
-    } else {
-        ""
-    };
-    let carriers = || {
-        anchors
-            .all()
-            .iter()
-            .filter(|a| !a.is_entry() && !a.is_plan() && a.registers.iter().any(|n| n == id))
-            .map(|a| a.name.as_str())
-            .collect::<Vec<_>>()
-            .join(", ")
-    };
-    // A register only the entries of a Directory register carry has its homes at those entries'
-    // own directories, which each entry's reference names, so no anchor gives it this form. At an
-    // entry, the arm below names that entry's own reference.
-    if carriers().is_empty() && !anchors.by_name(anchor).is_some_and(|a| a.is_entry()) {
-        if let Some(by) = registers
-            .all()
-            .iter()
-            .find(|d| d.shape == Shape::Directory && d.carries.iter().any(|c| c == id))
-        {
-            out.push(Finding::at(
-                rel,
-                line,
-                format!(
-                    "`{span}` names the {id} register, whose homes are the entries of the {} \
-                     register",
-                    by.name
-                ),
-                format!(
-                    "cite the entry whose home it is, as `{}@<anchor>@<entry>`; one directory has \
-                     one name, so `show` finds every citation of it",
-                    by.name
-                ),
-            ));
-            return;
-        }
-    }
-    match anchor {
-        ESCAPE_ANCHOR => out.push(Finding::at(
-            rel,
-            line,
-            format!("`{span}` names `{ESCAPE_ANCHOR}`, which serves the path kind alone"),
-            format!("anchor at one of {}{every}", carriers()),
-        )),
-        entity::EVERY_ANCHOR if !r.components.is_empty() => out.push(Finding::at(
-            rel,
-            line,
-            format!(
-                "`{span}` names `*`, which names a component register's homes, and the {id} \
-                 register is attached to {}",
-                r.components.join(", ")
-            ),
-            format!("anchor at one of {}", carriers()),
-        )),
-        entity::EVERY_ANCHOR => {
-            if r.scope != Scope::Component {
-                out.push(Finding::at(
-                    rel,
-                    line,
-                    format!("`{span}` names `*`, and not every component carries a {id} register"),
-                    format!("anchor at one of {}", carriers()),
-                ));
-            }
-        }
-        name => {
-            match anchors.by_name(name) {
-                None => out.push(Finding::at(
-                    rel,
-                    line,
-                    format!("`{span}` names `{name}`, which is no anchor of this project"),
-                    format!("anchor at one of {}{every}", carriers()),
-                )),
-                Some(a) if a.is_plan() => {
-                    let form = if a.is_milestone() {
-                        format!("milestone@{PLANS_ANCHOR}@{name}")
-                    } else {
-                        format!("spec@{PLANS_ANCHOR}@{name}")
-                    };
-                    out.push(Finding::at(
-                    rel,
-                    line,
-                    format!("`{span}` names the plan `{name}`, whose documents are cited by their kind"),
-                    format!(
-                        "cite it as `{form}`; a plan document has one name, so `show` finds every \
-                         citation of it"
-                    ),
-                ));
-                }
-                // An entry keeps what it carries at its own directory, which the entry's own
-                // reference names, per `design@core@register-home-reference`.
-                Some(a) if a.is_entry() => {
-                    let form = a.entry_form().unwrap_or_default();
-                    out.push(Finding::at(
-                        rel,
-                        line,
-                        format!(
-                            "`{span}` names the entry `{name}`, whose homes are its own directory"
-                        ),
-                        format!(
-                            "cite the entry as `{form}`; one directory has one name, so `show` \
-                             finds every citation of it"
-                        ),
-                    ));
-                }
-                Some(a) if !a.registers.iter().any(|n| n == id) => out.push(Finding::at(
-                    rel,
-                    line,
-                    format!("`{span}` names `{name}`, which carries no {id} register"),
-                    format!(
-                        "the anchors that carry one: {}; the registers `{name}` carries: {}",
-                        carriers(),
-                        a.registers.join(", ")
-                    ),
-                )),
-                Some(_) => {}
-            }
-        }
-    }
-}
-
-/// A path written with a suffix, a line number `:<n>` or a fragment `#<anchor>`, split into the
-/// path and whether a suffix was there. Only the home-target test reads it: a suffix on any other
-/// `path` reference keeps the finding of the target it does not name.
-fn without_suffix(path: &str) -> (&str, bool) {
-    // A fragment is a heading anchor, which may open on a digit, as `#1-intro`; a line suffix is a
-    // number or a closed range. Each is stripped once, the fragment first and again last, so a span
-    // that carries both, in either order, loses both. An empty or open suffix is no suffix.
-    fn fragment(p: &str) -> Option<usize> {
-        let (head, frag) = p.rsplit_once('#')?;
-        let ok = !frag.is_empty()
-            && frag
-                .chars()
-                .all(|c| c.is_ascii_alphanumeric() || c == '-' || c == '_');
-        ok.then_some(head.len())
-    }
-    fn line(p: &str) -> Option<usize> {
-        let (head, num) = p.rsplit_once(':')?;
-        let digits = |t: &str| !t.is_empty() && t.bytes().all(|b| b.is_ascii_digit());
-        let ok = match num.split_once('-') {
-            Some((a, b)) => digits(a) && digits(b),
-            None => digits(num),
-        };
-        ok.then_some(head.len())
-    }
-    let mut bare = path;
-    for strip in [fragment, line, fragment] {
-        if let Some(end) = strip(bare) {
-            bare = &bare[..end];
-        }
-    }
-    (bare, bare.len() != path.len())
-}
-
-/// The finding on a `path` reference to a register's home, per `design@core@path-to-a-home-is-reported`:
-/// the home is named by the `register` kind, which survives a change of the home's shape.
-fn home_finding(
-    rel: &Path,
-    line: u32,
-    span: &str,
-    anchor: &str,
-    register: &str,
-    suffix: bool,
-) -> Finding {
-    let whose = if anchor == entity::EVERY_ANCHOR {
-        "every component's".to_string()
-    } else {
-        format!("`{anchor}`'s")
-    };
-    Finding::at(
-        rel,
-        line,
-        format!("`{span}` names {whose} home of the {register} register by its path"),
-        format!(
-            "write `register@{anchor}@{register}`, which names the home in either of its shapes, \
-             so a home that changes shape breaks no reference{}",
-            if suffix {
-                ". A reference names the home: drop the line number or the fragment, and name \
-                 the point inside it in prose"
-            } else {
-                ""
-            }
-        ),
-    )
-}
-
-/// Why a path's shape is refused before any resolution, or `None` for a plain relative path.
-///
-/// An upward or explicit-current segment breaks when the referencing file moves, which is
-/// the failure the anchored grammar exists to remove, and a leading slash is outside the
-/// project's namespace.
-fn refused(path: &str) -> Option<&'static str> {
-    if path.starts_with('/') {
-        return Some("a leading slash is outside the project's namespace");
-    }
-    if path.split('/').any(|s| s == "..") {
-        return Some("an upward segment is anchored at the wrong place by definition");
-    }
-    if path.split('/').any(|s| s == ".") {
-        return Some("an explicit-current segment adds nothing and survives no move");
-    }
-    None
-}
-
-/// Where `path`, the path of an escaped reference, its line suffix or fragment ignored, resolves in
-/// this tree: read from the root, from each anchor's directory, then from the directory of `rel`,
-/// the document that writes it, a `.` and a `..` followed as written; a path opening with `.` or
-/// `..` is read from the document first, and a leading `/` from the root alone. The first that the
-/// listing holds is the target, as a project-relative path.
-fn resolved_here(path: &str, rel: &Path, anchors: &Anchors, inputs: &Inputs) -> Option<PathBuf> {
-    let (bare, _) = without_suffix(path);
-    let segments: Vec<&str> = bare.split('/').filter(|s| !s.is_empty()).collect();
-    // A path opening with `.` or `..` is read from its document first, as a relative markdown
-    // path is, so the form names the file its writer meant, where another anchor's directory
-    // would reach another one.
-    let document = rel.parent().unwrap_or(Path::new(""));
-    let dotted = matches!(segments.first(), Some(&".") | Some(&".."));
-    let mut bases: Vec<&Path> = if dotted { vec![document] } else { Vec::new() };
-    bases.push(Path::new(""));
-    if !bare.starts_with('/') {
-        bases.extend(anchors.all().iter().map(|a| a.path.as_path()));
-        if !dotted {
-            bases.push(document);
-        }
-    }
-    bases.into_iter().find_map(|base| {
-        let mut at = base.to_path_buf();
-        for segment in &segments {
-            match *segment {
-                "." => {}
-                ".." => {
-                    if !at.pop() {
-                        return None;
-                    }
-                }
-                name => at.push(name),
-            }
-        }
-        (!at.as_os_str().is_empty() && inputs.present.contains(&at)).then_some(at)
-    })
-}
-
-/// A `path` reference, resolved against the survey under its anchor.
-#[allow(clippy::too_many_arguments)]
-fn path(
-    out: &mut Vec<Finding>,
-    rel: &Path,
-    line: u32,
-    span: &str,
-    anchor: &str,
-    path: &str,
-    anchors: &Anchors,
-    inputs: &Inputs,
-) {
-    // The trailing slash is the writer's claim about the target's kind; the lookup drops it.
-    let claims_dir = path.ends_with('/');
-    let trimmed = path.trim_end_matches('/');
-    match anchor {
-        ESCAPE_ANCHOR => {
-            // The escape is exempt from existence and kind assertions — there is nothing
-            // stable to assert — and from the shape refusals, because a foreign layout may
-            // spell anything. The one assertion is that it stays honest: a target that
-            // resolves here is a real reference wearing the escape, which would otherwise
-            // be the cheap way to silence the unanchored finding.
-            //
-            // The target is read from every place the unanchored lint reads a path from, the
-            // document's own directory included, or a file named relative to its document would
-            // be silenced here and reported bare.
-            if let Some(target) = resolved_here(trimmed, rel, anchors, inputs) {
-                // A home is named by its own kind, so the repair names that form rather than
-                // a `path` the next run would report.
-                let (_, suffix) = without_suffix(trimmed);
-                if let Some(form) = entry_at(anchors, &target) {
-                    out.push(entry_finding(rel, line, span, &form));
-                    return;
-                }
-                if let Some((keeper, r)) = anchors.home_target(&target) {
-                    out.push(home_finding(rel, line, span, &keeper.name, &r.name, suffix));
-                    return;
-                }
-                // A plan document is cited by its kind, never by a path.
-                let form = match plan_document(anchors, &target) {
-                    Some(form) => form,
-                    None => {
-                        // The deepest anchor that holds the target and carries the `path` kind,
-                        // per `design@core@every-path-names-its-anchor`: a plan anchor carries
-                        // none, and an anchor's own directory is named from the anchor above it.
-                        let mut owner = anchors.owning(&target);
-                        while owner.is_plan()
-                            || (owner.path == target && !target.as_os_str().is_empty())
-                        {
-                            owner = anchors.owning(owner.path.parent().unwrap_or(Path::new("")));
-                        }
-                        let under = target.strip_prefix(&owner.path).unwrap_or(&target);
-                        let slash = if inputs.directories.contains(&target) {
-                            "/"
-                        } else {
-                            ""
-                        };
-                        format!("path@{}@{}{slash}", owner.name, under.display())
-                    }
-                };
-                out.push(Finding::at(
-                    rel,
-                    line,
-                    format!("`{span}` resolves in this tree, as `{form}`"),
-                    format!(
-                        "the escape anchor is for a path this tree does not hold: write \
-                         `{form}`, or, for a file of another project, begin the path with that \
-                         project's name, as `path@elsewhere@<project>/<path>`"
-                    ),
-                ));
-            }
-        }
-        entity::EVERY_ANCHOR => {
-            if let Some(why) = refused(path) {
-                out.push(Finding::at(
-                    rel,
-                    line,
-                    format!("`{span}` is refused: {why}"),
-                    "the generic form takes a plain component-relative path",
-                ));
-                return;
-            }
-            // A register's home is named by its own kind, before any kind claim or presence is
-            // judged: either shape of a home names the same register, and the manifest, not the
-            // listing, says which paths are homes.
-            let (bare, suffix) = without_suffix(path);
-            if let Some(r) = anchors
-                .generic_home_target(bare.trim_end_matches('/'))
-                .filter(|r| r.scope != Scope::Component)
-            {
-                // A register attached to some Components has no `register` form under `*`: each
-                // of its homes is named under the Component that keeps it.
-                out.push(Finding::at(
-                    rel,
-                    line,
-                    format!(
-                        "`{span}` names the homes of the {} register by their path",
-                        r.name
-                    ),
-                    format!(
-                        "write `register@<component>@{}` for one of {}, which names the home in \
-                         either of its shapes",
-                        r.name,
-                        r.components.join(", ")
-                    ),
-                ));
-                return;
-            }
-            if let Some(r) = anchors.generic_home_target(bare.trim_end_matches('/')) {
-                out.push(home_finding(
-                    rel,
-                    line,
-                    span,
-                    entity::EVERY_ANCHOR,
-                    &r.name,
-                    suffix,
-                ));
-                return;
-            }
-            // The compiled-in required set is accepted whether or not any component carries
-            // the file yet. Every name in it is a file, since a register's home was answered
-            // above, so the trailing-slash claim is asserted here too.
-            if let Some(required_dir) = anchors.required_kind(trimmed) {
-                if claims_dir != required_dir {
-                    out.push(Finding::at(
-                        rel,
-                        line,
-                        format!("`{span}` claims the wrong kind for a required document"),
-                        "a required document is a file and takes no trailing slash; the slash \
-                         is the kind claim",
-                    ));
-                }
-                return;
-            }
-            // Anything else must be real somewhere, with the claimed kind. A hit is an
-            // anchor's OWN copy: a path reaching a nested anchor from above is not this
-            // anchor's, or the generic form would evade the deepest-anchor rule. A
-            // gitignored copy is not a hit either — presence of generated content is build
-            // state, and a verdict may not depend on the checking machine's. Presence and
-            // kind are asked apart, so a path some component carries under the other kind
-            // gets the kind-claim repair rather than "repair the path".
-            // Components only, per `design@core@reserved-anchors`: the generic form claims
-            // every component's own copy, so a copy a declared location alone holds makes the
-            // claim false for every component. The anchors the tool constructs are no
-            // components either: they hold plan documents, which are cited by their kind, per
-            // `design@core@plan-document-kinds`.
-            let carried: Vec<PathBuf> = anchors
-                .all()
-                .iter()
-                .filter(|a| a.is_component)
-                .map(|a| (a, a.path.join(trimmed)))
-                .filter(|(a, t)| {
-                    anchors.owning(t).path == a.path
-                        && !inputs
-                            .ignored
-                            .contains(&crate::git::ignore_query(t, claims_dir))
-                        && inputs.present.contains(t)
-                })
-                .map(|(_, t)| t)
-                .collect();
-            if carried.is_empty() {
-                out.push(Finding::at(
-                    rel,
-                    line,
-                    format!("`{span}` resolves in no component"),
-                    "the generic form names a required document, or a path at least one \
-                     component carries; repair the path, or anchor at one component",
-                ));
-            } else if !carried
-                .iter()
-                .any(|t| claims_dir == inputs.directories.contains(t))
-            {
-                let is_dir = inputs.directories.contains(&carried[0]);
-                if is_dir {
-                    out.push(Finding::at(
-                        rel,
-                        line,
-                        format!("`{span}` claims a file and names a directory"),
-                        "add the trailing slash, or repair the path; the slash is the kind claim",
-                    ));
-                } else {
-                    out.push(Finding::at(
-                        rel,
-                        line,
-                        format!("`{span}` claims a directory and names a file"),
-                        "drop the trailing slash, or repair the path; the slash is the kind claim",
-                    ));
-                }
-            }
-        }
-        name => {
-            if let Some(target) = anchored_target(out, rel, line, span, name, path, anchors, false)
-            {
-                assert_target(out, rel, line, span, &target, claims_dir, inputs);
-            }
-        }
-    }
-}
-
-/// The target of a `path` or `planned` reference at a named anchor, or `None` with the finding
-/// that refuses it: an unknown anchor, a plan anchor, a refused shape, a plan document cited by
-/// its path, or a target inside a deeper anchor. Both kinds share these rules, so a planned
-/// path converts to a `path` reference by its kind word alone.
-#[allow(clippy::too_many_arguments)]
-fn anchored_target(
-    out: &mut Vec<Finding>,
-    rel: &Path,
-    line: u32,
-    span: &str,
-    name: &str,
-    path: &str,
-    anchors: &Anchors,
-    planned: bool,
-) -> Option<PathBuf> {
-    let trimmed = path.trim_end_matches('/');
-    let Some(a) = anchors.by_name(name) else {
-        // A planned path sits at one anchor, never at a reserved word, so its repair names the
-        // declared anchors only.
-        // A plan anchor carries no path kind, so it is no candidate for either kind.
-        let names = anchors
-            .all()
-            .iter()
-            .filter(|a| !a.is_plan())
-            .map(|a| a.name.as_str())
-            .collect::<Vec<_>>()
-            .join(", ");
-        let action = if planned {
-            format!("anchor at the one of {names} that will hold the target")
-        } else {
-            format!(
-                "anchor at one of {names}, at `{ESCAPE_ANCHOR}` for a path this tree does not \
-                 hold, or at `*` for every component's own copy"
-            )
-        };
-        out.push(Finding::at(
-            rel,
-            line,
-            format!("`{span}` names `{name}`, which is no anchor of this project"),
-            action,
-        ));
-        return None;
-    };
-    if a.is_milestone() {
-        out.push(Finding::at(
-            rel,
-            line,
-            format!("`{span}` names the milestone `{name}`, which carries no path kind"),
-            format!(
-                "cite a slice spec as `spec@{name}@<slice>`, the milestone document as \
-                     `milestone@{PLANS_ANCHOR}@{name}`, and from inside it its items as \
-                     `<kind>@{name}@<id>`; a plan document has one name, so `show` finds \
-                     every citation of it"
-            ),
-        ));
-        return None;
-    }
-    if a.is_plan() {
-        out.push(Finding::at(
-            rel,
-            line,
-            format!("`{span}` names the spec `{name}`, which carries no path kind"),
-            format!(
-                "cite the spec as `spec@{PLANS_ANCHOR}@{name}`, and from inside it its \
-                     items as `<kind>@{name}@<id>`; a plan document has one name, so `show` \
-                     finds every citation of it"
-            ),
-        ));
-        return None;
-    }
-    // Judged on the path as written: a lone `/` trims to nothing and would resolve
-    // to the anchor's own directory, which has no spelling under its own name.
-    if let Some(why) = refused(path) {
-        out.push(Finding::at(
-            rel,
-            line,
-            format!("`{span}` is refused: {why}"),
-            "anchor at the anchor that holds the target, with a plain relative path",
-        ));
-        return None;
-    }
-    let target = a.path.join(trimmed);
-    // Per `design@core@plan-document-kinds`, before the deepest-anchor rule: a plan document cited by its path is
-    // refused from every anchor, and the repair names the one form that resolves.
-    if let Some(form) = plan_document(anchors, &target) {
-        out.push(Finding::at(
-            rel,
-            line,
-            format!("`{span}` cites a plan document by its path"),
-            format!(
-                "cite it as `{form}`; a plan document has one name, so `show` finds \
-                     every citation of it"
-            ),
-        ));
-        return None;
-    }
-    // An entry's directory, and its README, which is both the entry's document and the head of
-    // what it carries, are named by the entry's own reference, per
-    // `design@core@path-to-a-home-is-reported`; a file beside the README is a path target. A
-    // `planned` path to an entry that now exists takes the same repair, which is the one form
-    // that resolves.
-    let (bare, _) = without_suffix(trimmed);
-    if let Some(form) = entry_at(anchors, &a.path.join(bare.trim_end_matches('/'))) {
-        out.push(entry_finding(rel, line, span, &form));
-        return None;
-    }
-    // A register's home is named by its own kind, whichever anchor the path was written from:
-    // the finding names the anchor that keeps the home, so it replaces the deeper-anchor finding
-    // rather than following it. A `planned` path names no home: a home is a declared anchor's.
-    if !planned {
-        let (bare, suffix) = without_suffix(trimmed);
-        if let Some((keeper, r)) = anchors.home_target(&a.path.join(bare.trim_end_matches('/'))) {
-            out.push(home_finding(rel, line, span, &keeper.name, &r.name, suffix));
-            return None;
-        }
-    }
-    // The deepest anchor wins: a reference reaching inside another anchor breaks
-    // when that anchor moves, and the anchor is what a move must not break. Inside
-    // means a PROPER descendant: an anchor's own directory has no spelling under
-    // its own name, so pointing at it from an ancestor is the one legal way to name
-    // where it lives — and that reference names a location, which is exactly what
-    // a move is expected to break.
-    let owner = anchors.owning(&target);
-    if owner.path != a.path && target != owner.path {
-        out.push(Finding::at(
-            rel,
-            line,
-            format!("`{span}` reaches inside the anchor `{}`", owner.name),
-            format!(
-                "anchor at the deepest anchor holding the target, so a move edits \
-                     {MANIFEST_NAME} and no document"
-            ),
-        ));
-        return None;
-    }
-    Some(target)
-}
-
-/// A `planned` reference: a path a plan's work will create, per `design@core@planned-path-form`.
-///
-/// It is legal in the plans directory alone, takes a named anchor under the rules of a `path`
-/// reference, and asserts that its target does not exist. Once the target exists the finding
-/// names the `path` form and nothing else: the session that created the file converts the
-/// reference, and whether the plan still holds is that session's report to make, not the
-/// check's.
-#[allow(clippy::too_many_arguments)]
-fn planned(
-    out: &mut Vec<Finding>,
-    rel: &Path,
-    line: u32,
-    span: &str,
-    anchor: &str,
-    path: &str,
-    anchors: &Anchors,
-    inputs: &Inputs,
-) {
-    if !in_plans_directory(rel, anchors) {
-        out.push(Finding::at(
-            rel,
-            line,
-            format!("`{span}` is a planned path outside the plans directory"),
-            "a planned path is cited from a plan document only; name the plan that creates it",
-        ));
-        return;
-    }
-    let claims_dir = path.ends_with('/');
-    let target = match planned_target(rel, line, span, anchor, path, anchors) {
-        Ok(target) => target,
-        Err(refusal) => {
-            out.push(refusal);
-            return;
-        }
-    };
-    // A line or a fragment names no file: `x.rs:12` of an existing `x.rs` is a pointer into it,
-    // which the planned form cannot be.
-    if let Some((file, _)) = path.split_once([':', '#']) {
-        if let Some(a) = anchors.by_name(anchor) {
-            if inputs.present.contains(&a.path.join(file)) {
-                out.push(Finding::at(
-                    rel,
-                    line,
-                    format!("`{span}` points into `{file}`, which exists"),
-                    format!(
-                        "write `{}`, and name the function or the heading in prose",
-                        converted(anchors, anchor, &a.path.join(file), file)
-                    ),
-                ));
-                return;
-            }
-        }
-    }
-    if inputs
-        .ignored
-        .contains(&crate::git::ignore_query(&target, claims_dir))
-    {
-        return;
-    }
-    if inputs.present.contains(&target) {
-        // The repair carries the kind the target has, so applying it raises no slash finding.
-        let slash = if inputs.directories.contains(&target) {
-            "/"
-        } else {
-            ""
-        };
-        let trimmed = path.trim_end_matches('/');
-        out.push(Finding::at(
-            rel,
-            line,
-            format!("`{span}` now exists, at `{}`", target.display()),
-            format!(
-                "write `{}`; the planned form names a path that does not exist yet",
-                converted(anchors, anchor, &target, &format!("{trimmed}{slash}"))
-            ),
-        ));
-    }
-}
-
-/// The form a planned path converts to once its target exists: the `register` form where the
-/// target is a register's home, per `design@core@path-to-a-home-is-reported`, else the `path`
-/// form at the planned anchor.
-fn converted(anchors: &Anchors, anchor: &str, target: &Path, path: &str) -> String {
-    match anchors.home_target(Path::new(
-        target.to_str().unwrap_or("").trim_end_matches('/'),
-    )) {
-        Some((keeper, r)) => format!("register@{}@{}", keeper.name, r.name),
-        None => format!("path@{anchor}@{path}"),
-    }
-}
-
-/// The target of a planned reference, or the finding that refuses it: the two reserved words,
-/// and every rule of a named anchor that `anchored_target` applies. `show` asks the same, so it
-/// resolves exactly the planned references the check accepts.
-pub(crate) fn planned_target(
-    rel: &Path,
-    line: u32,
-    span: &str,
-    anchor: &str,
-    path: &str,
-    anchors: &Anchors,
-) -> Result<PathBuf, Finding> {
-    if anchor == ESCAPE_ANCHOR || anchor == entity::EVERY_ANCHOR {
-        return Err(Finding::at(
-            rel,
-            line,
-            format!("`{span}` gives a planned path the anchor `{anchor}`"),
-            format!(
-                "anchor at the anchor that will hold the target; a planned path sits at one \
-                 anchor, never `*` or `{ESCAPE_ANCHOR}`"
-            ),
-        ));
-    }
-    let mut out = Vec::new();
-    match anchored_target(&mut out, rel, line, span, anchor, path, anchors, true) {
-        Some(target) => Ok(target),
-        None => Err(out.remove(0)),
-    }
-}
-
-/// Whether a document lies in the plans directory, where a planned path is legal.
-fn in_plans_directory(rel: &Path, anchors: &Anchors) -> bool {
-    anchors
-        .all()
-        .iter()
-        .any(|a| a.constructed == Some(Constructed::Plans) && rel.starts_with(&a.path))
-}
-
-/// The reference naming the entry of a declared Directory register whose directory, or whose
-/// README, `target` is, or `None` where it is neither. A milestone's are `plan_document`'s.
-fn entry_at(anchors: &Anchors, target: &Path) -> Option<String> {
-    anchors
-        .all()
-        .iter()
-        .find(|e| {
-            e.is_entry() && !e.is_plan() && (target == e.path || target == e.path.join("README.md"))
-        })
-        .and_then(|e| e.entry_form())
-}
-
-/// The finding on a `path` reference, of either path kind, to an entry's directory or README.
-fn entry_finding(rel: &Path, line: u32, span: &str, form: &str) -> Finding {
-    Finding::at(
-        rel,
-        line,
-        format!("`{span}` cites an entry by its path"),
-        format!(
-            "cite it as `{form}`; one directory has one name, so `show` finds every citation of it"
-        ),
-    )
-}
-
-/// The kind form of a plan document at `target`, or `None` when no plan document is there.
-///
-/// A plan document is a spec file of `specs/`, a milestone directory, or a file inside a
-/// milestone directory, per `design@core@plan-document-kinds`. The README and the index of the plans
-/// directory and of its two homes are not plan documents, and are cited by path. Judged by
-/// where the target sits, not by whether it exists: a path to a deleted slice spec gets the same
-/// repair as one to a present one.
-fn plan_document(anchors: &Anchors, target: &Path) -> Option<String> {
-    use crate::manifest::{MILESTONES_HOME, SPECS_HOME};
-    let plans = anchors
-        .all()
-        .iter()
-        .find(|a| a.constructed == Some(Constructed::Plans))?;
-    if let Ok(inside) = target.strip_prefix(plans.path.join(MILESTONES_HOME)) {
-        let parts: Vec<String> = inside
-            .components()
-            .map(|c| c.as_os_str().to_string_lossy().into_owned())
-            .collect();
-        // The first segment names a milestone only in the id grammar: a directory of another
-        // name is no milestone, and its finding is phase 2's.
-        let m = parts.first().filter(|m| entity::is_entry_id(m))?;
-        let slice = match parts.as_slice() {
-            [_, file] => file
-                .strip_suffix(".md")
-                .filter(|s| *s != "README" && *s != "index"),
-            _ => None,
-        };
-        return Some(match slice {
-            Some(slice) => format!("spec@{m}@{slice}"),
-            None => format!("milestone@{PLANS_ANCHOR}@{m}"),
-        });
-    }
-    entity::entry_id(target, &plans.path.join(SPECS_HOME))
-        .map(|id| format!("spec@{PLANS_ANCHOR}@{id}"))
-}
-
-/// Assert one resolved target: it exists and has the claimed kind, unless the ignore rules
-/// cover it.
-///
-/// The exemption runs on the ignore RULES, as `git check-ignore` states them, rather than on
-/// what happens to exist, so a reference to a generated path passes on a fresh clone exactly
-/// as it passes on a built tree — a verdict that depends on build state is a check nobody can
-/// trust twice. The batch was taken by the caller over `ignore_queries` below, so a target
-/// this function asks about that the collector did not gather reads as not ignored.
-#[allow(clippy::too_many_arguments)]
-fn assert_target(
-    out: &mut Vec<Finding>,
-    rel: &Path,
-    line: u32,
-    shown: &str,
-    target: &PathBuf,
-    claims_dir: bool,
-    inputs: &Inputs,
-) {
-    if inputs
-        .ignored
-        .contains(&crate::git::ignore_query(target, claims_dir))
-    {
-        return;
-    }
-    if !inputs.present.contains(target) {
-        out.push(Finding::at(
-            rel,
-            line,
-            format!("`{shown}` does not exist, at `{}`", target.display()),
-            "repair the pointer, or delete it; a path that does not resolve is a guess",
-        ));
-        return;
-    }
-    let is_dir = inputs.directories.contains(target);
-    if claims_dir && !is_dir {
-        out.push(Finding::at(
-            rel,
-            line,
-            format!("`{shown}` claims a directory and names a file"),
-            "drop the trailing slash, or repair the path; the slash is the kind claim",
-        ));
-    } else if !claims_dir && is_dir {
-        out.push(Finding::at(
-            rel,
-            line,
-            format!("`{shown}` claims a file and names a directory"),
-            "add the trailing slash, or repair the path; the slash is the kind claim",
-        ));
-    }
-}
-
 #[allow(clippy::too_many_arguments)]
 fn link(
     out: &mut Vec<Finding>,
@@ -1722,7 +696,7 @@ fn link(
         return;
     }
     let file_part = target.split('#').next().unwrap_or(target);
-    if has_scheme(file_part) {
+    if resolve::has_scheme(file_part) {
         return;
     }
     counts.links += 1;
@@ -1747,91 +721,9 @@ fn link(
     }
     let dir = doc.rel.parent().unwrap_or(Path::new(""));
     let resolved = dir.join(file_part.trim_end_matches('/'));
-    assert_target(
-        out,
-        &doc.rel,
-        line,
-        target,
-        &resolved,
-        file_part.ends_with('/'),
-        inputs,
-    );
-}
-
-/// Every spelling a path reference in this model could ask the ignore rules about.
-///
-/// **One batch per run, taken by the caller.** The caller batches these through one
-/// `git check-ignore` and hands the answers back in `Inputs::ignored`, because a check may spawn
-/// nothing, per `design@core@model-then-checks`. **Every arm that reaches
-/// `assert_target` is here**, and there are three: an anchored reference resolves under the
-/// anchor it names, the generic form resolves under every anchor at once, and a relative
-/// markdown link resolves beside its own file. The escape anchor resolves under none, so it
-/// contributes nothing.
-///
-/// **A spelling this misses is a target the check reads as not ignored**, which is a finding
-/// rather than a silence: the reference is asserted to exist. `an_ignored_target_is_exempt_in_
-/// every_arm_the_collector_gathers` is what holds the two lists together.
-pub(crate) fn ignore_queries(model: &Model, anchors: &Anchors) -> Vec<String> {
-    let mut out = Vec::new();
-    for doc in model.documents() {
-        let nav = is_navigation(&doc.rel);
-        for l in &doc.observations {
-            match &l.what {
-                Observation::Span(span) => {
-                    let Candidate::Reference { kind, anchor, id } =
-                        entity::candidate(span, anchors)
-                    else {
-                        continue;
-                    };
-                    if !kind.takes_a_path() {
-                        continue;
-                    }
-                    let claims_dir = id.ends_with('/');
-                    let trimmed = id.trim_end_matches('/');
-                    match anchor {
-                        ESCAPE_ANCHOR => {}
-                        entity::EVERY_ANCHOR => {
-                            for a in anchors.all() {
-                                out.push(crate::git::ignore_query(
-                                    &a.path.join(trimmed),
-                                    claims_dir,
-                                ));
-                            }
-                        }
-                        name => {
-                            if let Some(a) = anchors.by_name(name) {
-                                out.push(crate::git::ignore_query(
-                                    &a.path.join(trimmed),
-                                    claims_dir,
-                                ));
-                            }
-                        }
-                    }
-                }
-                // The arms `link` returns on before resolving are the arms that ask git
-                // nothing, in the order it takes them.
-                Observation::Link(target) if doc.is_markdown() && nav => {
-                    if target.starts_with('#') {
-                        continue;
-                    }
-                    let file_part = target.split('#').next().unwrap_or(target);
-                    if has_scheme(file_part) || refused(file_part).is_some() {
-                        continue;
-                    }
-                    let dir = doc.rel.parent().unwrap_or(Path::new(""));
-                    let resolved = dir.join(file_part.trim_end_matches('/'));
-                    out.push(crate::git::ignore_query(
-                        &resolved,
-                        file_part.ends_with('/'),
-                    ));
-                }
-                _ => {}
-            }
-        }
+    if let Err(cause) = assert_target(&resolved, file_part.ends_with('/'), &inputs.tree()) {
+        out.push(cause.finding(&doc.rel, line, target));
     }
-    out.sort();
-    out.dedup();
-    out
 }
 
 #[cfg(test)]
@@ -2331,7 +1223,7 @@ mod tests {
             ("docs/plans/README.md", None),
         ] {
             assert_eq!(
-                plan_document(&anchors, Path::new(target)).as_deref(),
+                resolve::plan_document(&anchors, Path::new(target)).as_deref(),
                 form,
                 "{target}"
             );
@@ -2538,7 +1430,7 @@ mod tests {
             id,
             Some(notes),
         ) {
-            Resolution::OutsidePlan { form } => form,
+            entity::Resolution::OutsidePlan { form } => form,
             other => panic!("{other:?}"),
         };
         assert_eq!(form("in-readme"), "milestone@plans@m-one");
@@ -3177,7 +2069,7 @@ mod tests {
                 .map(|(p, t)| (PathBuf::from(*p), (*t).to_string()))
                 .collect(),
         );
-        let queries = super::ignore_queries(&model, &anchors);
+        let queries = crate::check::resolve::ignore_queries(&model, &anchors);
         let borrowed: Vec<&str> = queries.iter().map(String::as_str).collect();
         let (found, counts) = checked_ignoring_under(docs, &present, &borrowed, &anchors);
         assert_eq!(counts.references, 4);
@@ -3434,7 +2326,7 @@ mod tests {
         let text = "It writes `planned@a-part@notes/real/a.md`.\n";
         let anchors = Anchors::declared(&m);
         let model = Model::from_documents(vec![(PathBuf::from(IN_PLANS), text.to_string())]);
-        let queries = super::ignore_queries(&model, &anchors);
+        let queries = crate::check::resolve::ignore_queries(&model, &anchors);
         let borrowed: Vec<&str> = queries.iter().map(String::as_str).collect();
         let (found, _) =
             checked_ignoring_under(vec![(IN_PLANS, text)], &tree(), &borrowed, &anchors);
@@ -3493,7 +2385,7 @@ mod tests {
         let text = "It writes `build/out.bin`.\n";
         let model = Model::from_documents(vec![(PathBuf::from("notes/prose.md"), text.into())]);
         assert_eq!(
-            super::ignore_queries(&model, &anchors),
+            crate::check::resolve::ignore_queries(&model, &anchors),
             Vec::<String>::new()
         );
         let (found, _) = checked_ignoring_under(

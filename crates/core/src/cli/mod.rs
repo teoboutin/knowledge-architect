@@ -1134,16 +1134,10 @@ fn show(manifest: &Manifest, args: &ShowArgs, checker: &[&Path]) -> Result<ExitC
             // `design@core@planned-path-form`. A reference the check refuses resolves to nothing
             // here either. The listing holds no ignored file, so an absent target and an
             // ignored one read the same.
-            if let Err(refusal) = crate::check::references::planned_target(
-                Path::new(""),
-                0,
-                reference,
-                anchor,
-                id,
-                &anchors,
-            ) {
-                outln!("{reference} resolves to nothing: {}", refusal.what);
-                outln!("  → {}", refusal.action);
+            if let Err(cause) = crate::check::resolve::planned_target(anchor, id, &anchors) {
+                let (what, action) = cause.texts(reference);
+                outln!("{reference} resolves to nothing: {what}");
+                outln!("  → {action}");
                 return Ok(ExitCode::FAILURE);
             }
             outln!("{reference}  {}", rel.display());
@@ -1173,19 +1167,10 @@ fn show(manifest: &Manifest, args: &ShowArgs, checker: &[&Path]) -> Result<ExitC
         // holds, in whichever shape, with the register's shape, or a word that the tree holds
         // neither. `*` names every component's own home. A reference the check refuses resolves
         // to nothing here either, with the check's own finding.
-        let mut refusals = Vec::new();
-        crate::check::references::register(
-            &mut refusals,
-            Path::new(""),
-            0,
-            reference,
-            anchor,
-            id,
-            &anchors,
-        );
-        if let Some(refusal) = refusals.first() {
-            outln!("{reference} resolves to nothing: {}", refusal.what);
-            outln!("  → {}", refusal.action);
+        if let Err(cause) = crate::check::resolve::register(anchor, id, &anchors) {
+            let (what, action) = cause.texts(reference);
+            outln!("{reference} resolves to nothing: {what}");
+            outln!("  → {action}");
             return Ok(ExitCode::FAILURE);
         }
         let register = anchors

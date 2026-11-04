@@ -576,7 +576,7 @@ fn links(model: &Model, readme: &PathBuf, dir: &Path) -> HashSet<PathBuf> {
             continue;
         }
         let file_part = target.split('#').next().unwrap_or(target);
-        if super::references::has_scheme(file_part) || file_part.starts_with('/') {
+        if super::resolve::has_scheme(file_part) || file_part.starts_with('/') {
             continue;
         }
         resolved.insert(dir.join(file_part));
@@ -658,7 +658,7 @@ mod tests {
         // definitions, then the shapes. A test here asserts each function's own findings;
         // that a stop keeps the later ones off a report is `foundation`'s test.
         let mut found: Vec<Finding> = manifest.complaints().to_vec();
-        found.extend(crate::check::tree::check(&model, manifest, &inputs));
+        found.extend(crate::check::tree::check(&model, manifest, &inputs.tree()));
         let anchors = Anchors::of(manifest, inputs.present);
         found.extend(
             crate::entity::Entities::build(&model, &anchors)
@@ -1670,7 +1670,7 @@ mod tests {
             installed: &[],
             shipped: &[],
         };
-        crate::check::tree::check(&Model::from_documents(Vec::new()), manifest, &inputs)
+        crate::check::tree::check(&Model::from_documents(Vec::new()), manifest, &inputs.tree())
             .iter()
             .map(|f| format!("{}  {}  → {}", f.location(), f.what, f.action))
             .collect()
@@ -2191,8 +2191,11 @@ mod tests {
             installed: &[],
             shipped: &[],
         };
-        let found =
-            crate::check::tree::check(&Model::from_documents(Vec::new()), &manifest, &inputs);
+        let found = crate::check::tree::check(
+            &Model::from_documents(Vec::new()),
+            &manifest,
+            &inputs.tree(),
+        );
         assert_eq!(found.len(), 3, "{found:#?}");
         for (finding, (head, why)) in found.iter().zip([
             ("docs/a\\nb.md  ", "holds a line break"),
