@@ -6,8 +6,7 @@ are this Component's share of the project's goals, `register@knowledge-architect
 
 ## In a project whose gates run the checker on each commit, its references, its goals and the entries of its record, and the texts the checker generates stay correct at every commit `##documents-stay-current`
 
-A reference is a pointer by which one text names a goal, an entry of the record, a file, a
-directory or a section of a text. A generated text is one the checker writes into the project's tree
+A reference is a pointer by which one text names a recorded item, a file, a directory or a section of a text. A generated text is one the checker writes into the project's tree
 from its documents, such as a listing of the entries of one kind. In a project whose gates
 run the checker on each commit, these hold on the main branch and on every commit of a branch that
 merges:
