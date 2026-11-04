@@ -1,6 +1,6 @@
 **Generated — do not edit.** `cargo klarch index`
 
-14 entries
+15 entries
 
 | kind | title |
 | --- | --- |
@@ -12,6 +12,7 @@
 | question | [Do the root's goals about the model, the tools and the checker belong in an intermediate Component?](root-goals-about-the-checker-may-belong-to-an-intermediate-component.md) |
 | todo | [CHANGELOG.md's shape is checked by a reviewer only, and no model of it exists](a-mechanical-changelog-check.md) |
 | todo | [No published crate offers the history tasks the workflow asks of a session](no-published-command-rewrites-a-branch-s-history.md) |
+| todo | [The documents do not yet render as one linked site](the-documents-do-not-render-as-a-site.md) |
 | todo | [The goal on mechanical tasks does not cover an action a command would make more efficient or better](the-mechanical-tasks-goal-omits-what-a-helper-does-better.md) |
 | todo | [Nothing has a session report the tools and procedures it set up or changed](the-retrospective-asks-for-no-tool-a-session-set-up.md) |
 | todo | [The passes that build and bundle installable agent text are tied to this project's own skills, so no other project can reuse them](the-skill-bundling-passes-are-tied-to-this-project-s-skills.md) |

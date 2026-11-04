@@ -94,10 +94,9 @@ Read at the audit against the Components that exist at this slice:
 
 - `goal@check@records-reach-their-reader` stays in `check`: its subject, the listings, goes to
   `query`, which #consumers-out creates and whose goals that slice drafts;
-- `goal@check@documents-render-as-a-linked-site`: no Component holds it until `render` exists, and
-  the purpose of `check` does not cover it, per
-  `issue@check@the-core-s-purpose-leaves-the-rendered-site-outside-it`. Drafted to the root's goals
-  home, for the owner's ruling;
+- `goal@knowledge-architect@documents-render-as-a-linked-site`: no Component holds it until `render` exists, and
+  the purpose of `check` does not cover it, so the root's goals home holds it, on the owner's ruling, until it moves to
+  `render` or stays there refined, when that work comes;
 - the others stay in `check`, each holding its subject there.
 
 ## Fails alone on

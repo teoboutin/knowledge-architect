@@ -19,7 +19,7 @@ of this crate.
 
 The function of each kind, in `model::resolve`, returns a `Target`, or a `Cause` holding what its
 texts need. A site renderer needs the resolution and no finding, per
-`goal@check@documents-render-as-a-linked-site`, and the lints of `check` need a finding at a site, so they write
+`goal@knowledge-architect@documents-render-as-a-linked-site`, and the lints of `check` need a finding at a site, so they write
 one from `Cause::texts`, and this crate writes none, per `goal@model@a-tool-reads-the-documents-with-no-check`. `reference` takes a
 candidate of an anchored kind to the function of its kind, and `harness` takes one of a harness kind.
 

@@ -5,22 +5,21 @@ kind: todo
 
 ## Summary
 
-`check`'s goal is that knowledge-architect's own Markdown documents that the checker reads render
-as one hosted site, each reference that resolves rendered as a link to its target, built by mdbook.
-Nothing builds it yet.
+`goal@knowledge-architect@documents-render-as-a-linked-site` asks that knowledge-architect's own Markdown
+documents that the checker reads render as one hosted site, each reference that resolves rendered as a link
+to its target. Nothing builds it yet.
 
 ## Details
 
 ### What
 
-A preprocessing pass that rewrites each reference into a link to its entry, and an mdbook build of
-the result, hosted with the project once it is released. Beyond the mdbook build the goal names,
-nothing about the shape is decided.
+A preprocessing pass that rewrites each reference into a link to its entry, and a build of the result,
+hosted with the project. The owner's lead is mdbook, a design lead the goal does not name; nothing about the
+shape is decided.
 
 ### Why it matters
 
-It is the work that fulfils `goal@check@documents-render-as-a-linked-site`, and the rendered site
-is one of the places `goal@knowledge-architect@adoption-is-easy` names. Until it exists, a
+It is the work that fulfils `goal@knowledge-architect@documents-render-as-a-linked-site`. Until it exists, a
 reader follows a reference by searching for its entry, not by a link.
 
 ### What would close it
