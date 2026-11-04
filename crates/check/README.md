@@ -111,14 +111,15 @@ tree against what the manifest declares: a file the walk could not read, a name 
 anchor or a register home that is not there, a home a walk row keeps out, a declared path that
 does not exist, a file git both tracks and ignores, a symlink or a submodule, a heading markdown
 reads and the checker does not, and, under the `claude` agent
-harness, an installed agent file missing, differing or unshipped, a deletion of one not staged, or
-a root CLAUDE.md that does not import a shipped primer. Phase 3 builds the entity table: a slug or an entry id where none may sit, or
+harness, a root CLAUDE.md the walk keeps out. Phase 3 builds the entity table: a slug or an entry id where none may sit, or
 defined twice. Each of these says the model is incomplete, and a finding computed from the model
 afterwards would be unreliable in both directions, so the run prints that phase's findings, says
 which phases were not judged, and exits 1. Phase 4 is every check, over the complete model:
-`check`'s `generated`, `registers` and `references`, each a module under
+`check`'s `agents`, `generated`, `registers` and `references`, each a module under
 `path@check@src/check/`, then each registered extension's, per
-`design@check@an-extension-plugs-in-through-phased-hooks`. `references` judges
+`design@check@an-extension-plugs-in-through-phased-hooks`. `agents` judges, under the `claude`
+harness, each installed agent file missing, differing or unshipped, a deletion of one not staged,
+and a root CLAUDE.md that does not import a shipped primer. `references` judges
 every `` `<kind>@<anchor>@<id>` `` reference against the entity table — a register kind against the
 entries its home defines, the `path` kind against the tree, the `planned` kind against its absence
 from the tree, the `register` kind against the anchors that carry the register, and, under the `claude` harness, a skill, an agent, the primer and the root
@@ -182,10 +183,9 @@ or touches git or a hand-written file, and stays the reader's.
   such as an extension that cannot prepare over a snapshot, refuses the same way, naming it.
 - **`--fix` with `--staged` is refused** while parsing, exit 2: `--fix` repairs the working tree.
   For the staged tree, run `index --staged`, then `check --staged`.
-- **An upgrade that removes a shipped file takes two runs.** The install deletes the file, git
-  still lists it, and phase 2 reports the deletion as not staged, so the generated files wait. Run
-  `check --fix`, stage the deletion with `git add`, then run `check --fix` again: no fix touches
-  git.
+- **An upgrade that removes a shipped file leaves its deletion to stage.** The install deletes the
+  file, git still lists it, and the last phase reports the deletion as not staged, after the
+  generated files are written. Stage it with `git add`: no fix touches git.
 - A write that fails exits 2 when nothing was written yet, and 1 after any write, as `index` does.
 - `--fix` belongs to `check` alone. `commits` judges history and takes no `--fix`, and the gates
   run `check` without it, so continuous integration judges the tree as committed.
@@ -305,8 +305,10 @@ either: when the primer is shipped and the root CLAUDE.md does not import it, it
 line to add is one holding exactly an at sign followed by .claude/knowledge-architect/PRIMER.md.
 
 Commit what it writes. `check` compares each installed file with what the version ships, byte for
-byte, and stops in phase 2 on a missing, differing or unshipped file, so a project that moves to a
-new version runs the install with the move. The decision is `design@check@owned-namespace-check`.
+byte, and fails in its last phase on a missing, differing or unshipped file, so a project that moves
+to a new version runs the install with the move. A reference to what a missing file defined is
+reported beside it, and the install repairs both. The commands that write a generated file do not
+wait for it. The decision is `design@check@owned-namespace-check`.
 
 ```toml
 [agents]

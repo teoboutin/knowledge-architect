@@ -108,12 +108,12 @@ This repository adds:
   `index`, `index --staged`, `check --fix`, `new-component` and `init`.
 - **A1**: the acceptance criterion #a1-no-check-below-the-tools.
 - **the foundation**: `foundation` in `path@model@src/phases.rs`, `model`'s since #model-out, which runs
-  phases 1 to 3 of a run: the manifest's complaints, `tree` and the installed-file check (phase 2), and
+  phases 1 to 3 of a run: the manifest's complaints, `tree` (phase 2), and
   the entity table's definition findings (phase 3). `complete_working_tree` beside it refuses over a
   model the foundation stops; `index`, `id`, `new-component` and `worklist` call it, `check --fix` calls
   the foundation itself, and `index --staged` reaches it through `commit_tree` of
   `path@check@src/cli/history.rs`.
-- **the installed-file check**: `check` in `path@model@src/shipped.rs`, which compares the installed agent
+- **the installed-file check**: the family `agents` in `path@check@src/check/agents.rs`, which compares the installed agent
   files with the shipped text, byte for byte.
 - **the resolver and the lints**: the resolver is `path@model@src/resolver.rs`, the functions that resolve a
   reference against the entity table and say why one fails; the lints are

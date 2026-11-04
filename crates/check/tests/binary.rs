@@ -282,7 +282,7 @@ fn the_core_binary_passes_over_a_project_that_declares_only_what_the_core_reads(
     let (code, out) = check(&mock());
     assert_eq!(code, 0, "{out}");
     assert!(
-        out.contains("checked: generated, registers, references\n"),
+        out.contains("checked: agents, generated, registers, references\n"),
         "{out}"
     );
     assert!(out.ends_with("PASSED: no findings\n"), "{out}");
@@ -514,8 +514,8 @@ impl History {
         // deleted file the index still holds is walked and its register entry still counted:
         // regenerating before the deletion is staged writes the listing the tree no longer
         // has. A tree whose manifest this tool refuses to load regenerates no index, and neither
-        // does a tree that stops at phase 2, such as one missing a shipped file; tests commit
-        // both shapes on purpose, so the run's own code is not asserted.
+        // does a tree that stops at phase 2, such as one holding a symlink; tests commit both
+        // shapes on purpose, so the run's own code is not asserted.
         self.git(&["-c", "core.excludesFile=/dev/null", "add", "-A"]);
         self.run(&["index"]);
         self.git(&["-c", "core.excludesFile=/dev/null", "add", "-A"]);
@@ -2912,13 +2912,13 @@ fn a_closed_stdout_ends_the_run_quietly_with_exit_2() {
     );
 }
 
-/// The claim: a file in the installer's namespace that this version does not ship stops the check
-/// in phase 2, and is not walked as a document; `install-agent-skills` removes it and leaves a
+/// The claim: a file in the installer's namespace that this version does not ship fails the check
+/// in the last phase, and is not walked as a document; `install-agent-skills` removes it and leaves a
 /// project's own skill, and the check then passes. Per `design@check@owned-namespace-check`.
 /// Mutations: dropping the namespace from the walk's exclusions walks the stray file as a
 /// document; dropping the unshipped branch of the installed-file check lets the first run pass.
 #[test]
-fn a_stray_file_in_the_installers_namespace_stops_the_check_and_the_install_removes_it() {
+fn a_stray_file_in_the_installers_namespace_fails_the_check_and_the_install_removes_it() {
     let sandbox = Sandbox::seeded(
         "stray-installed",
         "minimal",
@@ -2935,10 +2935,11 @@ fn a_stray_file_in_the_installers_namespace_stops_the_check_and_the_install_remo
     assert_eq!(code, 1, "{out}{stderr}");
     // The stray file, and each shipped file the copy does not hold yet.
     let expected = format!(
-        "phase 2: {} finding(s)",
+        "FAILED: {} findings above",
         knowledge_architect_agent_skills::FILES.len() + 1
     );
     assert!(out.contains(&expected), "{out}");
+    assert!(!out.contains("phase 2:"), "{out}");
     assert!(
         out.contains(".claude/agents/knowledge-architect-stray.md  this file sits in the installer's namespace"),
         "{out}"
@@ -2972,8 +2973,8 @@ fn commits_does_not_compare_installed_files_and_check_does() {
     let history = History::new("commit-installed");
     tiny_project(&history, false);
     let base = history.commit("The project is created\n");
-    // The harness is declared after the base commit has generated the indexes: `index` refuses
-    // while the shipped files are missing, so the indexes are not regenerated after this.
+    // The harness is declared after the base commit: the range is judged with nothing of the
+    // shipped set installed, which `check` reports and `commits` does not.
     let manifest = std::fs::read_to_string(history.dir.join("knowledge-architect.toml"))
         .expect("the manifest");
     history.write(
@@ -3039,7 +3040,7 @@ fn the_check_and_the_install_receive_the_shipped_set() {
     let (out, stderr, code) = sandbox.run(&["check"]);
     assert_eq!(code, 1, "{out}{stderr}");
     assert!(
-        out.contains(&format!("phase 2: {} finding(s)", files.len())),
+        out.contains(&format!("FAILED: {} findings above", files.len())),
         "{out}"
     );
     for (rel, _) in files {
@@ -3218,7 +3219,7 @@ fn check_fix_with_nothing_to_fix_is_a_plain_check() {
 
 /// The claim: `check --fix` installs an installed file that differs from the shipped text, lists
 /// it, and the run passes. Mutation checked: skipping the install when it is needed leaves the
-/// phase-2 finding, and the run exits 1.
+/// finding, and the run exits 1.
 #[test]
 fn check_fix_installs_a_differing_installed_file() {
     let sandbox = Sandbox::new("fix-installed", "minimal");
@@ -3238,6 +3239,147 @@ fn check_fix_installs_a_differing_installed_file() {
         out.contains(&format!("fixed: wrote {rel} (installed)")),
         "{out}"
     );
+}
+
+/// The claim: `check --fix` repairs the installed files before the gate of phases 1 to 3, per
+/// `design@check@fix-before-the-checks`: a tree that stops at phase 2 still has them repaired, since
+/// their bytes do not depend on the model, and the run reports the stop. Mutation checked: running
+/// the repair after the gate leaves the edit in place.
+#[test]
+fn check_fix_repairs_the_installed_files_before_the_gate() {
+    let sandbox = harnessed("fix-before-the-gate");
+    let (rel, shipped) = knowledge_architect_agent_skills::FILES
+        .first()
+        .expect("this version ships a file");
+    sandbox.write(rel, "an edit\n");
+    std::fs::remove_file(sandbox.path("README.md")).expect("a required document");
+    sandbox.stage();
+    let (out, err, code) = sandbox.run(&["check", "--fix"]);
+    assert_eq!(code, 1, "{out}{err}");
+    assert!(out.contains("phase 2:"), "{out}");
+    assert!(
+        out.contains(&format!("fixed: wrote {rel} (installed)")),
+        "{out}"
+    );
+    assert_eq!(
+        std::fs::read_to_string(sandbox.path(rel)).expect("the installed file"),
+        shipped
+            .replace("{{command}}", "klarch")
+            .replace("\r\n", "\n")
+    );
+}
+
+/// A note citing what no entry defines, so a tree has a finding of the reference check.
+const UNRESOLVED_NOTE: &str = "A reference to `issue@minimal@no-such-entry`.\n";
+
+/// The claim: an installed file that differs is a finding of the last phase, listed with a
+/// reference finding of the same tree. Mutation checked: `foundation` of the checks stopping on the
+/// family's findings lists the install finding alone, in phase 2.
+#[test]
+fn a_differing_installed_file_is_listed_beside_a_reference_finding() {
+    let sandbox = harnessed("installed-differs");
+    let (rel, _) = knowledge_architect_agent_skills::FILES
+        .first()
+        .expect("this version ships a file");
+    sandbox.write(rel, "an edit\n");
+    sandbox.write("docs/note.md", UNRESOLVED_NOTE);
+    sandbox.stage();
+    let (out, err, code) = sandbox.run(&["check"]);
+    assert_eq!(code, 1, "{out}{err}");
+    assert!(!out.contains("phase 2:"), "{out}");
+    assert!(
+        out.contains(&format!("{rel}  this installed file differs")),
+        "{out}"
+    );
+    assert!(out.contains("no-such-entry"), "{out}");
+    assert!(out.contains("FAILED: 2 findings above"), "{out}");
+}
+
+/// The claim: a shipped file deleted with the deletion staged is a finding of the last phase, and a
+/// reference to the skill it defined is reported beside it as unresolved, since the model is built
+/// over the tree as it is. Mutation checked: `foundation` of the checks stopping on the family's
+/// findings lists the install finding alone, in phase 2.
+#[test]
+fn a_missing_shipped_file_is_listed_beside_the_references_to_what_it_defined() {
+    let sandbox = harnessed("installed-missing");
+    let (rel, name) = knowledge_architect_agent_skills::FILES
+        .iter()
+        .find_map(|(path, _)| {
+            let name = path
+                .strip_prefix(".claude/skills/")?
+                .strip_suffix("/SKILL.md")?;
+            Some((*path, name))
+        })
+        .expect("this version ships a skill");
+    sandbox.write("docs/note.md", &format!("See `skill@{name}`.\n"));
+    std::fs::remove_file(sandbox.path(rel)).expect("the installed skill");
+    sandbox.stage();
+    let (out, err, code) = sandbox.run(&["check"]);
+    assert_eq!(code, 1, "{out}{err}");
+    assert!(!out.contains("phase 2:"), "{out}");
+    assert!(
+        out.contains(&format!("{rel}  ")) && out.contains("no installed copy"),
+        "{out}"
+    );
+    assert!(
+        out.lines()
+            .any(|l| l.starts_with("docs/note.md") && l.contains(name)),
+        "{out}"
+    );
+}
+
+/// The claim: `index` writes over a stale install, since the family is no part of the gate of phases
+/// 1 to 3. Mutation checked: the foundation of the gate stopping on the family exits 2 and writes
+/// nothing.
+#[test]
+fn index_writes_over_a_stale_install() {
+    let sandbox = harnessed("index-stale-install");
+    let (rel, _) = knowledge_architect_agent_skills::FILES
+        .first()
+        .expect("this version ships a file");
+    sandbox.write(rel, "an edit\n");
+    let issue = std::fs::read_to_string(sandbox.path(FIX_ISSUE)).expect("the mock's issue");
+    sandbox.write(
+        FIX_ISSUE,
+        &issue.replace(
+            "# The mock has one issue so the register is not empty",
+            "# A retitled issue",
+        ),
+    );
+    sandbox.stage();
+    let (out, err, code) = sandbox.run(&["index"]);
+    assert_eq!(code, 0, "{out}{err}");
+    let index = std::fs::read_to_string(sandbox.path("docs/open-issues/index.md"))
+        .expect("the register's index");
+    assert!(index.contains("A retitled issue"), "{index}");
+}
+
+/// The claim: `index --staged` writes into git's index over a stale install staged. Mutation
+/// checked: the foundation of `commit_tree` stopping on the family exits 2 and stages nothing.
+#[test]
+fn index_staged_writes_over_a_stale_install() {
+    let sandbox = harnessed("index-staged-stale-install");
+    let (rel, _) = knowledge_architect_agent_skills::FILES
+        .first()
+        .expect("this version ships a file");
+    sandbox.write(rel, "an edit\n");
+    let issue = std::fs::read_to_string(sandbox.path(FIX_ISSUE)).expect("the mock's issue");
+    sandbox.write(
+        FIX_ISSUE,
+        &issue.replace(
+            "# The mock has one issue so the register is not empty",
+            "# A retitled issue",
+        ),
+    );
+    sandbox.stage();
+    let before = index_lines(&sandbox);
+    let (out, err, code) = sandbox.run(&["index", "--staged"]);
+    assert_eq!(code, 0, "{out}{err}");
+    let changed: Vec<String> = changed_lines(&before, &index_lines(&sandbox))
+        .into_iter()
+        .map(|l| l.split('\t').nth(1).unwrap_or_default().to_string())
+        .collect();
+    assert_eq!(changed, vec!["docs/open-issues/index.md".to_string()]);
 }
 
 /// The claim: `--fix` belongs to `check` alone; `commits` judges history and refuses it, which
@@ -3289,15 +3431,24 @@ fn check_fix_never_deletes_an_ignored_file_in_the_namespace() {
 }
 
 /// The claim: `check --fix` deletes an unshipped file git lists in the namespace and lists the
-/// removal; the deletion is unstaged, so the run stops at phase 2, and after `git add` a second
-/// run passes. This is the two-run upgrade the owner ruled. Mutation checked: dropping the
-/// removal line fails it. Not counting a removal as a write survives here: it changes the exit
-/// code only when a later write fails, which this case does not reach.
+/// removal; the deletion is unstaged, so the check reports it in the last phase, which the run
+/// reaches, so the stale generated file is written in that same run; after `git add` a second run
+/// passes. Mutations checked: dropping the removal line fails it; stopping `foundation` on the
+/// family's findings leaves the index unwritten. Not counting a removal as a write survives here:
+/// it changes the exit code only when a later write fails, which this case does not reach.
 #[test]
-fn check_fix_removes_an_unshipped_file_and_an_upgrade_takes_two_runs() {
+fn check_fix_removes_an_unshipped_file_and_writes_the_generated_files_in_that_run() {
     let sandbox = harnessed("fix-removed");
     let stray = ".claude/agents/knowledge-architect-retired.md";
     sandbox.write(stray, "a file an older version shipped\n");
+    let issue = std::fs::read_to_string(sandbox.path(FIX_ISSUE)).expect("the mock's issue");
+    sandbox.write(
+        FIX_ISSUE,
+        &issue.replace(
+            "# The mock has one issue so the register is not empty",
+            "# A retitled issue",
+        ),
+    );
     sandbox.stage();
     let (out, err, code) = sandbox.run(&["check", "--fix"]);
     assert_eq!(code, 1, "{out}{err}");
@@ -3306,7 +3457,15 @@ fn check_fix_removes_an_unshipped_file_and_an_upgrade_takes_two_runs() {
         "{out}"
     );
     assert!(out.contains("the deletion is not staged"), "{out}");
+    assert!(
+        out.contains("(generated)") || out.contains("index.md"),
+        "{out}"
+    );
+    assert!(!out.contains("phase 2:"), "{out}");
     assert!(!sandbox.path(stray).exists());
+    let index = std::fs::read_to_string(sandbox.path("docs/open-issues/index.md"))
+        .expect("the register's index");
+    assert!(index.contains("A retitled issue"), "{index}");
     sandbox.stage();
     let (out, err, code) = sandbox.run(&["check", "--fix"]);
     assert_eq!(code, 0, "{out}{err}");
@@ -4215,7 +4374,8 @@ fn check_staged_compares_the_staged_installed_files_and_names_the_checker_source
     let (staged, stderr, code) = sandbox.run(&["check", "--staged"]);
     assert_eq!(code, 1, "the staged copy is not: {staged}{stderr}");
     // The one finding is the staged primer's: every other installed file is staged as shipped.
-    assert!(staged.contains("phase 2: 1 finding(s)"), "{staged}");
+    assert!(staged.contains("FAILED: 1 finding above"), "{staged}");
+    assert!(!staged.contains("phase 2:"), "{staged}");
     assert!(
         staged.contains(&format!("{primer}  this installed file differs")),
         "{staged}"

@@ -189,6 +189,12 @@ mod planted {
         // planted defect fails here instead of being absent from both. And nothing is invented
         // by running them together: the whole run is the sum of the rows.
         for name in CHECKS {
+            // Every mock but `unsound` declares no harness, so `agents` finds nothing here: its
+            // defects are built by its unit tests and by the binary tests in a copy, since a mock
+            // that served the harness would change with every version of the shipped set.
+            if name == "agents" {
+                continue;
+            }
             assert!(
                 PLANTED.iter().any(|(n, _, _)| *n == name),
                 "{name} has no row: every check owes a planted defect"

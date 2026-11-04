@@ -89,8 +89,8 @@ pub struct Model {
     checker_sources: Vec<PathBuf>,
     /// The markdown files of the installer's namespace, parsed and scanned like a document, and
     /// walked by no check: they define the entities of the installed skills, agents and primer,
-    /// per `design@model@installed-entities-from-the-tree`, and no reference in them is read. A file the caller could not read as text is left out: `shipped` judges the
-    /// bytes, and reports it.
+    /// per `design@model@installed-entities-from-the-tree`, and no reference in them is read. A file the caller could not read as text is left out: the last phase judges
+    /// the bytes, and reports it.
     installed: Vec<Document>,
 }
 

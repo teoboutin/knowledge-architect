@@ -2,8 +2,7 @@
 
 What knowledge-architect reads of a project: its manifest, the walk git supplies, the parse of each
 document, the entity table over them, and what a reference resolves to. It runs phases 1 to 3 of the
-checker, which say whether that model can be trusted. The one check of content it holds, while it stays
-in phase 2, compares a project's installed agent files with the text this version ships.
+checker, which say whether that model can be trusted.
 
 A project that uses knowledge-architect names the package `knowledge-architect` alone, which depends
 on this one, and never names this crate. A Rust program that reads a project's documents, with no check,

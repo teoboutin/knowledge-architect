@@ -10,6 +10,19 @@ an empty subsection is omitted.
 
 ### Migration
 
+- `checks`, patch: the findings on the installed agent files, one missing, differing or unshipped, a
+  deletion of one not staged, and a root CLAUDE.md that does not import the primer, no longer stop a
+  run in phase 2: the last phase reports them, beside every other finding, in a check named `agents`
+  on the `checked:` line, and a reference to what a missing file defined is reported beside them.
+  `index`, `index --staged`, `id`, `worklist`, `new-component`, `check --fix`'s generated files and
+  an extension's `prepare` no longer wait for them. A consumer's test that pins a stop in phase 2 on
+  such a file changes.
+- `checks`, minor: `commits` reports a commit's tree whose `[walk]` rows keep the root CLAUDE.md out
+  under the `claude` harness, as `check` reports it, in phase 2. A branch holding such a commit
+  repairs it: no row may keep that file out.
+- `library`, major: `knowledge_architect::testing::CHECKS` holds four names, so its array type changes,
+  and `testing::foundation` no longer stops on the installed files. A consumer's test over the
+  installed set asserts it in the report of `run_with`.
 - `checks`, minor: a goals home, its goals and its head alike, cites only a goal or a register's home
   of its own Component or of a Component that encloses it, the root included; every other reference
   written there is a finding, a goal or a register's home of a nested or a sibling Component, a design

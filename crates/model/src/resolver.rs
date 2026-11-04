@@ -1339,8 +1339,6 @@ mod tests {
             tracked_and_ignored: &[],
             refused: &[],
             links: &[],
-            installed: &[],
-            shipped: &[],
         };
         path(Path::new("README.md"), anchor, id, &anchors, &tree)
     }
@@ -1512,8 +1510,6 @@ mod tests {
                 tracked_and_ignored: &[],
                 refused: &[],
                 links: &[],
-                installed: &[],
-                shipped: &[],
             };
             assert_eq!(
                 planned(
@@ -1551,8 +1547,6 @@ mod tests {
             tracked_and_ignored: &[],
             refused: &[],
             links: &[],
-            installed: &[],
-            shipped: &[],
         };
         let rel = Path::new("README.md");
         assert_eq!(

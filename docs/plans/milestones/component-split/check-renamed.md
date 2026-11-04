@@ -17,7 +17,7 @@ As D3 of the milestone document rules it.
 - The goals of `register@check@goal`, each sent to the Component that holds its subject, and each
   rewording of a goal that names "the core" drafted under `skill@knowledge-architect-goal-setting`;
   the owner rules on them before the slice merges.
-- The family `check` of `path@model@src/shipped.rs`, the installed-file check, moved to `check`,
+- The family `check` of `path@elsewhere@crates/model/src/shipped.rs`, the installed-file check, moved to `check`,
   with the rendering of the shipped text and the tests over the shipped set, as a check family of
   the last phase, beside `generated`, `registers` and `references`: a shipped file missing from the tree, an installed
   file whose bytes differ from the shipped text, a file of the installer's namespace this version
@@ -50,7 +50,7 @@ As D3 of the milestone document rules it.
   staged, whose documents cite that skill: the install finding and the unresolved reference are
   both listed in the last phase; shown to discriminate by the same mutation.
 - **A root CLAUDE.md the walk keeps out still stops the run in phase 2.** Test: the existing test
-  of `path@model@src/shipped.rs` on it, moved to `tree` with the finding; shown to fail by a
+  of `path@elsewhere@crates/model/src/shipped.rs` on it, moved to `tree` with the finding; shown to fail by a
   recorded mutation that removes it from `tree`, since a move to the last phase spans two files,
   which `cargo x mutate` refuses, per `design@mutate@one-file-per-run`.
 - **`index` and `index --staged` write over a stale install.** Test: two binary tests over the

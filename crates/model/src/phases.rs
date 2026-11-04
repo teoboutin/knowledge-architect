@@ -31,10 +31,6 @@ pub struct TreeInputs<'a> {
     pub refused: &'a [PathBuf],
     /// The listing's symlink and gitlink entries no walk row keeps.
     pub links: &'a [crate::git::Entry],
-    /// The files of the installer's namespace, with what reading each gave.
-    pub installed: &'a [(PathBuf, crate::survey::Outside)],
-    /// Every shipped file at its install path, rendered. Empty when the project serves no harness.
-    pub shipped: &'a [(PathBuf, String)],
 }
 
 /// Where in the pipeline a finding is produced, and therefore what it undermines.
@@ -104,8 +100,7 @@ pub fn foundation(model: &Model, manifest: &Manifest, inputs: &TreeInputs) -> Re
             findings: complaints.to_vec(),
         });
     }
-    let mut findings = crate::tree::check(model, manifest, inputs);
-    findings.extend(crate::shipped::check(model, manifest, inputs));
+    let findings = crate::tree::check(model, manifest, inputs);
     if !findings.is_empty() {
         return Err(Stop {
             phase: Phase::Tree,
@@ -134,12 +129,10 @@ pub struct Gathered {
     survey: Survey,
     ignored: HashSet<String>,
     tracked_and_ignored: Vec<PathBuf>,
-    shipped: Vec<(PathBuf, String)>,
 }
 
 impl Gathered {
-    /// Read the working tree under the manifest's root: one survey, the two git batches, and the
-    /// agent files this version ships.
+    /// Read the working tree under the manifest's root: one survey and the two git batches.
     ///
     /// `Err` is could-not-run: git or the filesystem refused a read the run cannot do without.
     pub fn over(manifest: &Manifest, model: &Model) -> Result<Gathered, String> {
@@ -153,12 +146,10 @@ impl Gathered {
         let ignored = crate::git::ignored(manifest.root(), &queries).map_err(|e| e.to_string())?;
         let tracked_and_ignored =
             crate::git::tracked_and_ignored(manifest.root()).map_err(|e| e.to_string())?;
-        let shipped = crate::shipped::shipped(manifest);
         Ok(Gathered {
             survey,
             ignored,
             tracked_and_ignored,
-            shipped,
         })
     }
 
@@ -172,9 +163,13 @@ impl Gathered {
             tracked_and_ignored: &self.tracked_and_ignored,
             refused: &self.survey.refused,
             links: &self.survey.links,
-            installed: &self.survey.installed,
-            shipped: &self.shipped,
         }
+    }
+
+    /// The files of the installer's namespace, with what reading each gave: outside the walk, and
+    /// read by no phase of this crate.
+    pub fn installed(&self) -> &[(PathBuf, crate::survey::Outside)] {
+        &self.survey.installed
     }
 }
 
@@ -184,8 +179,7 @@ impl Gathered {
 /// no check, and its answer over an incomplete model could not be trusted.
 ///
 /// `Err` is could-not-run: git or the filesystem refused a read, or the foundation stopped, which the
-/// text says by the phase and the command that reports what it found. Over a project that serves the
-/// `claude` harness, it compares the installed agent files with what this version of the crate ships.
+/// text says by the phase and the command that reports what it found.
 pub fn complete_working_tree(manifest: &Manifest, model: &Model) -> Result<Gathered, String> {
     let gathered = Gathered::over(manifest, model)?;
     match foundation(model, manifest, &gathered.inputs()) {
@@ -248,8 +242,6 @@ mod phase_tests {
             tracked_and_ignored: &[],
             refused: &[],
             links: &[],
-            installed: &[],
-            shipped: &[],
         };
         foundation(model, manifest, &inputs)
     }
@@ -321,6 +313,45 @@ mod phase_tests {
             "# Design\n\n### A decision `##decision-one`\n".to_string(),
         )]);
         assert!(foundation_over(&m, complete_tree(), &clean).is_ok());
+    }
+
+    /// The claim: a root CLAUDE.md a row of `[walk]` keeps out stops the run in phase 2, whichever
+    /// row it is, since the model cannot read it and no row may waive its import of the primer;
+    /// only declaring no harness does, and a root CLAUDE.md no row names owes nothing here.
+    /// Mutation checked: removing the finding from `tree::check` lets the run pass phase 2.
+    #[test]
+    fn a_root_claude_md_a_walk_row_keeps_out_stops_the_run_at_phase_two() {
+        let declaring = |agents: &str, rows: &str| {
+            let text = format!(
+                "[project]\nchecker-version = \"fixture\"\nname = \"p\"\ncomponents = []\n\n\
+                 {agents}\n[walk]\n{rows}\n"
+            );
+            Manifest::parse(std::path::Path::new("/nowhere"), &text).expect("a declaration")
+        };
+        let says = |manifest: &Manifest| {
+            foundation_over(
+                manifest,
+                complete_tree(),
+                &Model::from_documents(Vec::new()),
+            )
+            .err()
+            .map(|stop| {
+                assert_eq!(stop.phase, Phase::Tree, "{:#?}", stop.findings);
+                stop.findings
+                    .iter()
+                    .any(|f| f.what.contains("outside the walk"))
+            })
+        };
+        let skip_file = "skip-dirs = []\nskip-files = [\"CLAUDE.md\"]\nexclude = []";
+        let exclude = "skip-dirs = []\nskip-files = []\nexclude = [\"CLAUDE.md\"]";
+        let none = "skip-dirs = []\nskip-files = []\nexclude = []";
+        assert_eq!(says(&declaring("", skip_file)), Some(true));
+        assert_eq!(says(&declaring("", exclude)), Some(true));
+        assert_eq!(says(&declaring("", none)), None);
+        assert_ne!(
+            says(&declaring("[agents]\nharness = []\n", skip_file)),
+            Some(true)
+        );
     }
 
     #[test]

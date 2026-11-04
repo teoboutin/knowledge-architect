@@ -568,7 +568,7 @@ fn commit_tree(
         Vec::new()
     };
     let shipped = if staged {
-        crate::model::installed::shipped(&manifest)
+        crate::agents::shipped(&manifest)
     } else {
         Vec::new()
     };

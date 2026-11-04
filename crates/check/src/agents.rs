@@ -1,15 +1,96 @@
 //! The text the checker installs into a project's agent configuration, rendered for that project.
 //!
-//! The text itself is the crate `knowledge-architect-agent-skills`, and `model::installed` renders
-//! it and says what the installed set must be. This module writes it. The decisions are
+//! The text itself is the crate `knowledge-architect-agent-skills`. This module renders it, says what
+//! the installed set must be, and writes it; the check of it is `crate::check::agents`. The decisions are
 //! `design@check@agents-table`, `design@check@owned-namespace-check` and
 //! `design@check@declared-command`.
 
 use std::path::{Path, PathBuf};
 
 use crate::model::declared::owned_path;
-use crate::model::installed::lf;
 use crate::model::listing::Outside;
+use crate::model::Manifest;
+
+/// What the shipped text writes where the project's declared command goes.
+const PLACEHOLDER: &str = "{{command}}";
+
+/// The install path of the primer, which the project's root CLAUDE.md imports.
+pub(crate) const PRIMER: &str = ".claude/knowledge-architect/PRIMER.md";
+
+/// The line of the root CLAUDE.md that imports the primer, alone on its line.
+pub(crate) const IMPORT_LINE: &str = "@.claude/knowledge-architect/PRIMER.md";
+
+/// A shipped template with the project's command filled in, with LF line endings.
+pub(crate) fn render(template: &str, command: &str) -> String {
+    lf(&template.replace(PLACEHOLDER, command))
+}
+
+/// The text with every CRLF line ending made LF, so a checkout that converts line endings holds
+/// the same installed text as one that does not.
+pub(crate) fn lf(text: &str) -> String {
+    text.replace("\r\n", "\n")
+}
+
+/// Every file this version installs into the project, at its install path, rendered. Empty when
+/// the project serves no agent harness.
+pub(crate) fn shipped(manifest: &Manifest) -> Vec<(PathBuf, String)> {
+    shipped_from(manifest, knowledge_architect_agent_skills::FILES)
+}
+
+/// The same, over a stated set of templates: what a test hands in.
+pub(crate) fn shipped_from(
+    manifest: &Manifest,
+    templates: &[(&str, &str)],
+) -> Vec<(PathBuf, String)> {
+    if !manifest.serves_claude() {
+        return Vec::new();
+    }
+    templates
+        .iter()
+        .map(|(path, text)| (PathBuf::from(path), render(text, manifest.command())))
+        .collect()
+}
+
+/// Whether a root CLAUDE.md holds the primer's import line, alone on a line of prose.
+///
+/// A line inside a fenced block, an indented code block or an HTML comment is not prose, and an
+/// agent harness does not evaluate an import there, so it does not count. A byte-order mark
+/// before the first line is not part of it.
+pub(crate) fn imports_primer(text: &str) -> bool {
+    let text = text.strip_prefix('\u{feff}').unwrap_or(text);
+    let mut fence: Option<&str> = None;
+    let mut comment = false;
+    for line in text.lines() {
+        let trimmed = line.trim();
+        if let Some(open) = fence {
+            if trimmed.starts_with(open) {
+                fence = None;
+            }
+            continue;
+        }
+        if comment {
+            if trimmed.contains("-->") {
+                comment = false;
+            }
+            continue;
+        }
+        if trimmed.starts_with("```") || trimmed.starts_with("~~~") {
+            fence = Some(&trimmed[..3]);
+            continue;
+        }
+        if trimmed.starts_with("<!--") {
+            comment = !trimmed.contains("-->");
+            continue;
+        }
+        if line.starts_with("    ") || line.starts_with('\t') {
+            continue;
+        }
+        if trimmed == IMPORT_LINE {
+            return true;
+        }
+    }
+    false
+}
 
 /// What an install did, each list in path order.
 #[derive(Debug, Default)]
@@ -272,7 +353,6 @@ fn is_empty_tree(dir: &Path) -> std::io::Result<bool> {
 #[cfg(test)]
 mod tests {
     use super::*;
-    use crate::model::installed::PRIMER;
 
     /// The claim: every file this version ships is installed inside the owned namespace, so the
     /// install edits nothing a project owns. The install paths come from the build script of
@@ -458,5 +538,96 @@ mod tests {
         );
         assert!(root.join(".claude/skills/project-empty").is_dir());
         let _ = std::fs::remove_dir_all(&root);
+    }
+}
+
+#[cfg(test)]
+mod shipped_text_tests {
+    use super::*;
+
+    /// The setup skill tells a project to write the import line this module checks for. The
+    /// agent-skills build script holds a copy of the line, which it cannot read from here, since
+    /// this crate depends on that one; this test holds the two equal.
+    #[test]
+    fn the_setup_skill_ships_the_import_line_the_check_looks_for() {
+        let (_, setup) = knowledge_architect_agent_skills::FILES
+            .iter()
+            .find(|(path, _)| *path == ".claude/skills/knowledge-architect-setup/SKILL.md")
+            .expect("the setup skill is shipped");
+        assert!(
+            setup.contains(&format!("`{IMPORT_LINE}`")),
+            "the setup skill does not show {IMPORT_LINE}"
+        );
+    }
+
+    fn manifest(extra: &str) -> Manifest {
+        let text = format!(
+            "[project]\nchecker-version = \"fixture\"\nname = \"p\"\ncomponents = []\n{extra}\n\
+             [walk]\nskip-dirs = []\nskip-files = []\nexclude = []\n"
+        );
+        Manifest::parse(Path::new("/nowhere"), &text).expect("a declaration")
+    }
+
+    /// The claim: the placeholder takes the declared command, and the default command when
+    /// none is declared. Mutation: rendering with a fixed command fails the declared case.
+    #[test]
+    fn the_shipped_text_is_rendered_with_the_declared_command() {
+        let templates = [(
+            ".claude/agents/knowledge-architect-a.md",
+            "run `{{command}} check`",
+        )];
+        let declared = manifest("command = \"cargo klarch\"\n");
+        assert_eq!(
+            shipped_from(&declared, &templates)[0].1,
+            "run `cargo klarch check`"
+        );
+        assert_eq!(
+            shipped_from(&manifest(""), &templates)[0].1,
+            "run `klarch check`"
+        );
+    }
+
+    /// The claim: a project that serves no harness is shipped nothing.
+    #[test]
+    fn no_harness_ships_nothing() {
+        let templates = [(".claude/agents/knowledge-architect-a.md", "text")];
+        let none = manifest("\n[agents]\nharness = []\n");
+        assert!(shipped_from(&none, &templates).is_empty());
+    }
+
+    /// The claim: the import line counts alone on its line, with surrounding spaces ignored, and
+    /// not as part of another line.
+    #[test]
+    fn the_import_line_is_found_alone_on_its_line() {
+        assert!(imports_primer(
+            "# P\n\n  @.claude/knowledge-architect/PRIMER.md  \n"
+        ));
+        assert!(!imports_primer(
+            "see @.claude/knowledge-architect/PRIMER.md for more\n"
+        ));
+    }
+
+    /// The claim: a line inside a fence, an indented code block or an HTML comment does not
+    /// count as the import, and a byte-order mark before it does not hide it. Mutations: matching
+    /// any trimmed line, or a prefix of one, fails the first cases; not stripping the mark fails
+    /// the last.
+    #[test]
+    fn only_a_prose_line_counts_as_the_import() {
+        for text in [
+            "```\n@.claude/knowledge-architect/PRIMER.md\n```\n",
+            "~~~md\n@.claude/knowledge-architect/PRIMER.md\n~~~\n",
+            "<!--\n@.claude/knowledge-architect/PRIMER.md\n-->\n",
+            "<!-- @.claude/knowledge-architect/PRIMER.md -->\n",
+            "    @.claude/knowledge-architect/PRIMER.md\n",
+            "@.claude/knowledge-architect/PRIMER.md.bak\n",
+        ] {
+            assert!(!imports_primer(text), "{text:?}");
+        }
+        assert!(imports_primer(
+            "\u{feff}@.claude/knowledge-architect/PRIMER.md\r\n"
+        ));
+        assert!(imports_primer(
+            "```\ncode\n```\n@.claude/knowledge-architect/PRIMER.md\n"
+        ));
     }
 }

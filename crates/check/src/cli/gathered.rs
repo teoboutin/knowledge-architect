@@ -17,12 +17,14 @@ use crate::model::{foundation, Manifest, Model};
 pub struct Gathered {
     committed: HashMap<PathBuf, String>,
     configs: HashMap<PathBuf, String>,
+    shipped: Vec<(PathBuf, String)>,
     tree: foundation::Gathered,
 }
 
 impl Gathered {
     /// Read the working tree under the manifest's root: the committed generated files, every
-    /// `register.toml`, and what `model` gathers for phases 1 to 3 and the resolver.
+    /// `register.toml`, the agent files this version ships, and what `model` gathers for phases 1
+    /// to 3 and the resolver.
     ///
     /// `Err` is could-not-run: git or the filesystem refused a read the run cannot do without.
     /// A generated file or a `register.toml` that is absent is not an error: the checks that
@@ -60,6 +62,7 @@ impl Gathered {
         Gathered {
             committed,
             configs,
+            shipped: crate::agents::shipped(manifest),
             tree,
         }
     }
@@ -68,6 +71,8 @@ impl Gathered {
     pub fn inputs(&self) -> Inputs<'_> {
         let tree = self.tree.inputs();
         Inputs {
+            installed: self.tree.installed(),
+            shipped: &self.shipped,
             committed: &self.committed,
             configs: &self.configs,
             present: tree.present,
@@ -77,8 +82,6 @@ impl Gathered {
             tracked_and_ignored: tree.tracked_and_ignored,
             refused: tree.refused,
             links: tree.links,
-            installed: tree.installed,
-            shipped: tree.shipped,
         }
     }
 }

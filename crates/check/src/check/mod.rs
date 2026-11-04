@@ -4,6 +4,7 @@
 //! the single walk a property of the design rather than of anyone's care, and it is what lets
 //! a check be run against a model assembled in memory.
 
+pub(crate) mod agents;
 pub(crate) mod generated;
 pub(crate) mod references;
 pub(crate) mod registers;
@@ -147,7 +148,7 @@ pub struct Inputs<'a> {
 }
 
 impl<'a> Inputs<'a> {
-    /// What phases 1 to 3 and the resolver read: every input but the two files phase 4 alone reads.
+    /// What phases 1 to 3 and the resolver read: every input but those phase 4 alone reads.
     pub(crate) fn tree(&self) -> TreeInputs<'a> {
         TreeInputs {
             present: self.present,
@@ -157,8 +158,6 @@ impl<'a> Inputs<'a> {
             tracked_and_ignored: self.tracked_and_ignored,
             refused: self.refused,
             links: self.links,
-            installed: self.installed,
-            shipped: self.shipped,
         }
     }
 }
@@ -168,7 +167,7 @@ impl<'a> Inputs<'a> {
 /// One per module under `check/` that runs in the last phase. Every one runs on every run that
 /// reaches the last phase. An extension adds its own, per
 /// `design@check@an-extension-plugs-in-through-phased-hooks`.
-pub const CHECKS: [&str; 3] = ["generated", "registers", "references"];
+pub const CHECKS: [&str; 4] = ["agents", "generated", "registers", "references"];
 
 /// Run `check`'s checks of the last phase, over a model `foundation` found complete, with
 /// the files each extension generates compared by the `generated` check.
@@ -180,6 +179,9 @@ pub(crate) fn run(
 ) -> Report {
     let mut findings = Vec::new();
     let mut structure = Structure::default();
+    // First, since a stale install explains a reference finding below it: a missing shipped file's
+    // entities are unresolved, and the install is the repair of both.
+    findings.extend(agents::check(model, manifest, inputs));
     findings.extend(generated::check(model, manifest, inputs, extension_files));
     {
         let (found, counts) = registers::check(model, manifest, inputs);

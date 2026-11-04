@@ -330,8 +330,6 @@ mod unsound {
             tracked_and_ignored: &git.1,
             refused: &survey.refused,
             links: &survey.links,
-            installed: &survey.installed,
-            shipped: &[],
         };
         assert!(
             manifest.complaints().is_empty(),
@@ -340,9 +338,7 @@ mod unsound {
         );
         let stopped = foundation(&model, &manifest, &inputs).expect_err("the run stops");
         assert_eq!(stopped.phase, Phase::Tree);
-        let mut tree_and_agents = tree::check(&model, &manifest, &inputs);
-        tree_and_agents.extend(crate::shipped::check(&model, &manifest, &inputs));
-        let found: Vec<String> = tree_and_agents
+        let found: Vec<String> = tree::check(&model, &manifest, &inputs)
             .iter()
             .map(|f| format!("{}  {}  → {}", f.location(), f.what, f.action))
             .collect();
@@ -399,10 +395,6 @@ mod unsound {
             "the anchor `agent-config` carries no issue directory"
         )
         .starts_with("agent-config/open-issues"));
-        // A file in the installer's namespace that no version ships, per
-        // `design@check@owned-namespace-check`.
-        assert!(one_of(&found, "does not ship it")
-            .starts_with(".claude/agents/knowledge-architect-planted.md"));
         // The plans layout, each phase 2 because its anchors and entries are read off the
         // tree: one file outside both homes, per `design@model@plans-split-dirs`; a directory
         // with no README, a stray file and two options files in milestones/; and four names
@@ -444,7 +436,7 @@ mod unsound {
         // A setext heading, which markdown reads and the scanner does not, per
         // `design@model@headings-open-with-hash-marks`.
         assert!(one_of(&found, "markdown reads a heading here").starts_with("notes/structure.md:7"));
-        assert_eq!(found.len(), 17, "{found:#?}");
+        assert_eq!(found.len(), 16, "{found:#?}");
     }
 
     #[test]
@@ -537,8 +529,6 @@ mod unsound {
                 tracked_and_ignored: &git.1,
                 refused: &survey.refused,
                 links: &survey.links,
-                installed: &survey.installed,
-                shipped: &[],
             };
             let outcome = foundation(&model, &manifest, &inputs);
             assert!(outcome.is_ok(), "{name}: {:#?}", outcome.err());
