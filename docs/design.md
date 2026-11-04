@@ -58,10 +58,10 @@ phases 1 to 3 and the resolver, and the core depends on it by path and by exact 
 `design@knowledge-architect@version-lockstep`. A tool over the record needs the model and at most
 phases 1 to 3, never the last phase: the writers run them and no check, and `show` runs no phase and
 reads the resolver. Phases 1 to 3 say whether the model can be trusted, not whether the content
-conforms, the installed-file check apart while it stays in phase 2. The line between them is what a
-finding does to an answer read from the model: a slug defined twice makes the entity table wrong, so
-it is the model's, where a reference to something missing or a bare id leaves every other answer right,
-so it is a check. The boundary is crossed by some changes and not by all: of the commits that changed the core's
+conforms, the installed-file check apart while it stays in phase 2. Every check can be argued to bear on the
+answers a tool reads, and the line between them is how far: a slug defined twice makes the entity table
+wrong, so it is the model's, where a reference to something missing or a bare id has little effect on
+them, so it is a check. The boundary is crossed by some changes and not by all: of the commits that changed the core's
 source, some touched the model's files alone and some the checks alone, as the command in the
 milestone document that the commit "[review] Repairs of the review of the plan documents of the
 Component split and of the rules that cut it" writes takes again. It serves

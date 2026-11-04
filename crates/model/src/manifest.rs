@@ -1820,7 +1820,7 @@ pub(crate) mod tests {
         Path::new(env!("CARGO_MANIFEST_DIR"))
             .ancestors()
             .nth(2)
-            .expect("crates/core sits two levels below the project root")
+            .expect("this crate sits two levels below the project root")
             .to_path_buf()
     }
 

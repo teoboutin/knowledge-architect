@@ -161,8 +161,8 @@ re-export:
   not computed from the implementation's module tree, so moving an item between files changes no
   public path, and is no library break under `design@knowledge-architect@versioning-policy`.
 - **What `model` publishes is `model`'s facade, per `design@model@model-facade`**, and this facade names
-  of it what an extension meets: `Manifest`, `Model`, `Document`, `Finding` and the parse, and neither the
-  entity table nor the anchors. A method a caller in this crate needs of `Model` or `Manifest` is public
+  of it what an extension meets, in its root and its role modules, and neither the entity table nor the
+  anchors. A method a caller in this crate needs of `Model` or `Manifest` is public
   on these re-exports too, since a re-export carries a type's methods.
 - **A public signature keeps its types public.** `Inputs` is in `Prepared::check`'s signature and
   its fields expose `Entry` and `Outside`, so those are public although no consumer names them.

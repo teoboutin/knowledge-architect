@@ -1,6 +1,6 @@
 **Generated — do not edit.** `cargo klarch index`
 
-15 entries
+16 entries
 
 | kind | title |
 | --- | --- |
@@ -15,6 +15,7 @@
 | question | [The refusal of a kind's name as an anchor quotes a reason the root forbids](a-kind-name-refusal-quotes-a-future-migration-reason.md) |
 | question | [A reference to an anchor's own directory breaks when the anchor moves, which the relocation goal says no move does](a-reference-to-an-anchor-s-own-directory-breaks-when-the-anchor-moves.md) |
 | question | [A tool that holds no extension reads a project with one differently from the checker](a-tool-over-the-model-reads-a-project-with-an-extension-otherwise-than-the-checker.md) |
+| question | [Would the model's structural findings be better checked at scan time?](the-structural-findings-might-be-checked-at-scan-time.md) |
 | todo | [References are read in Markdown and Rust files only](references-are-read-in-markdown-and-rust-only.md) |
 | todo | [Arms of the resolver and of the lints beside it have mutations no test catches](the-resolver-s-arms-have-mutation-survivors.md) |
 | todo | [The walk does not report the untracked files git's per-clone exclude file removes from it](the-walk-does-not-report-what-the-per-clone-exclude-file-removes.md) |

@@ -17,7 +17,8 @@ narrow read-only view as the direction, and scheduled no work for it yet.
 What `Prepared::check` receives is `Model`, `Manifest` and `Inputs`, each through the facade of
 `design@core@api-facade`. That facade offers no anchor, no register and no `Entities`; `model` publishes
 them for the tools over the record, so an extension that adds that crate to its own dependencies can
-name them as they are. So an extension through the public API of this library cannot ask which Component
+name them as they are, though `Inputs::tree` is the core's own, so it gathers again through
+`foundation::Gathered` to hand the resolver what it reads. So an extension through the public API of this library cannot ask which Component
 or location owns a document, whether a document is an entry of a register or a design home, which
 entries exist, or what a reference resolves to.
 
