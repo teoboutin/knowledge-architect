@@ -2,7 +2,7 @@
 //!
 //! **It writes where no project exists yet**, so it runs before a binary locates a project and before the
 //! version refusal, which read a manifest it is about to write. Every binary that dispatches
-//! The binary hands it here first, per `design@check@the-core-cli-is-a-library-module`.
+//! The binary hands it here first, per `design@cli@the-commands-are-a-library-module`.
 //! Its no-loss guarantee is that every refusal comes before the first write, per
 //! `design@check@init-asks-no-confirmation`: a refused run leaves the filesystem as it found it,
 //! and exits 2. Once it has written, a failure exits 1; a stdout closed early still exits 2, as
@@ -206,7 +206,7 @@ pub fn init(
     // The writes. Once the first is made, a failure exits 1: exit 2 promises an untouched tree,
     // per `design@check@init-asks-no-confirmation`. Their lines are printed once every document
     // is written, since a stdout closed early ends the process with 2, as in every command, per
-    // `design@check@exit-code-ladder`: a run stopped between two documents would leave a project
+    // `design@cli@exit-code-ladder`: a run stopped between two documents would leave a project
     // that `init` refuses, holding a manifest, and that `check --fix` cannot complete, since it
     // writes no document. Stopped after them, it can.
     let mut log = vec![format!(

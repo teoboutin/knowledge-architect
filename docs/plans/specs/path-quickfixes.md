@@ -639,7 +639,7 @@ the respellings before the second gate and the refusal, a refusal may come after
 were written. Exit 2 promises an untouched tree, so the refusal exits 1 once any file was written,
 and the sentence of `design@check@phases-gate-the-report` that names "only the installed files" as
 written before the gate is rewritten. A stop at a gate is not a failure to run: it reports
-findings, and exits 1 whatever was written, per `design@check@exit-code-ladder`, "1 | the command
+findings, and exits 1 whatever was written, per `design@cli@exit-code-ladder`, "1 | the command
 ran, and reports a negative answer about its subject", and per the same sentence of
 `design@check@phases-gate-the-report`, "it prints the stopped report and exits 1". The first
 revision of this spec made a stop exit 2 when nothing was written, which contradicted both heads;
@@ -1094,7 +1094,7 @@ approved in a sixth message, called round 6: "Agreed, those are small details."
 
 - **D7**, on `thread@path-quickfixes@fix-run-order`, from the design-conformance and code-claims
   reviews, `argument@path-quickfixes@arg-29`. D1, as the owner approved it in round 5, made a stop at
-  either gate exit 2 when nothing was written. That contradicts `design@check@exit-code-ladder` and
+  either gate exit 2 when nothing was written. That contradicts `design@cli@exit-code-ladder` and
   the sentence of `design@check@phases-gate-the-report` that says the stop "exits 1", and the
   existing test `check_fix_writes_no_generated_file_over_an_incomplete_model` of
   `path@cli@tests/binary.rs` asserts exit 1. The default: a stop exits 1 whatever was written, as

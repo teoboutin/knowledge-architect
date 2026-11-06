@@ -487,7 +487,7 @@ fn verify(dir: &Path) -> Result<ExitCode, String> {
 /// contents, each entry with its reasons, from which the session picks the entries a proposal
 /// touches. A snapshot that cannot be read, or that lacks an entry `agents.txt` lists, writes
 /// nothing: the run could not do its whole job, so it stops with exit 2, per
-/// `design@check@exit-code-ladder`.
+/// `design@cli@exit-code-ladder`.
 fn assemble(
     dir: &Path,
     order: &[(String, String)],

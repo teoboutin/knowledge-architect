@@ -23,7 +23,7 @@ Reproduced by an adversarial reviewer over a project `init` made, committed:
 
 ### Why it matters
 
-A session reading exit 2 takes the tree as it left it, against `design@check@exit-code-ladder`, and the rewritten
+A session reading exit 2 takes the tree as it left it, against `design@cli@exit-code-ladder`, and the rewritten
 files reach its next commit unannounced, against `goal@knowledge-architect@agents-work-without-drift`.
 
 ### What would close it

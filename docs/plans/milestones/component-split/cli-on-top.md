@@ -80,13 +80,13 @@ The fourth slice of `milestone@plans@component-split`. It leaves when it lands.
 - `cli`'s register homes are filled by hand where a head moves into them, per
   `issue@check@a-new-register-home-still-says-no-entry-yet-after-its-first-entry`: the sentence
   `new-component` writes says the home holds no entry, and no check reads it.
-- The successor of `design@check@single-crate`, in the root's design home, in this slice's change: a
+- The successor of `rejected@knowledge-architect@single-crate`, in the root's design home, in this slice's change: a
   decision about which Components exist and how they depend on each other, per point 1 of
   `skill@knowledge-architect-decision-recording@owning-component`, where the reversal rule sends a
-  successor; `design@check@single-crate` leaves the design home of `check` in the same change. It states
+  successor; `rejected@knowledge-architect@single-crate` leaves the design home of `check` in the same change. It states
   that `cli` sits above every crate that contributes a command, and leaves which crates `check` may depend
   on to `issue@knowledge-architect@the-checker-may-depend-on-every-crate-below-it`. The sentence of
-  `design@check@transcript-command-in-core` that argues from `design@check@single-crate` is rewritten in the same
+  `design@check@transcript-command-in-core` that argues from `rejected@knowledge-architect@single-crate` is rewritten in the same
   change, so no citation dangles, and #consumers-out moves the rest of that head.
 
 ## Claims
@@ -111,15 +111,15 @@ The fourth slice of `milestone@plans@component-split`. It leaves when it lands.
   options, and is outside this claim.
 - **`check`'s public API holds no clap type.** Test: `cargo tree -e normal -p knowledge-architect-check`
   lists no `clap`; shown to fail before the declarations move, when it lists it.
-- **The binary's declaration is tested**, per `design@check@arguments-parse-through-clap`: the
+- **The binary's declaration is tested**, per `design@cli@arguments-parse-through-clap`: the
   `debug_assert` test and the refusal of an unknown argument, moved to `cli`; shown to fail by a
   recorded malformed declaration, which `debug_assert` refuses.
 
 ## Audit subjects
 
-`design@check@single-crate`, reversed; `design@check@the-core-cli-is-a-library-module`,
-`design@check@arguments-parse-through-clap`, `design@check@fix-with-staged`,
-`design@check@exit-code-ladder`, `design@check@binary-name`, `design@check@a-foreign-build-is-refused`,
+`rejected@knowledge-architect@single-crate`, reversed; `design@cli@the-commands-are-a-library-module`,
+`design@cli@arguments-parse-through-clap`, `design@check@fix-with-staged`,
+`design@cli@exit-code-ladder`, `design@cli@binary-name`, `design@check@a-foreign-build-is-refused`,
 `design@check@installed-binary-version-check`, `design@check@checker-source-literals-are-data`,
 `design@check@nothing-of-a-project-is-compiled-in`, `design@check@declared-command`,
 `design@check@api-facade`, `design@check@inputs-are-gathered`,
@@ -185,7 +185,7 @@ knowledge_architect_check::CRATE_DIR, PACKAGE    as git and model publish them
 
 **The top-level crate.** The commands module must sit above every crate that contributes a command,
 or `query` and `create` would form a cycle with it (`argument@component-split@arg-15`).
-`design@check@single-crate` argued that a separate binary crate saves its users no dependency; that
+`rejected@knowledge-architect@single-crate` argued that a separate binary crate saves its users no dependency; that
 premise fails once the commands span crates (`argument@component-split@arg-20`). The owner: the binary as a
 top-level crate that "pulls the logic from the others and implements the interface"
 (`argument@component-split@arg-32`), and the old decision can be reversed
@@ -228,11 +228,11 @@ subject stays, with only its false sentences rewritten. Slugs are written beside
 
 | what | where |
 | --- | --- |
-| `thread@component-split@cli-crate` | the successor of `design@check@single-crate` in the root's design home, under the slug of this thread, and the reversed decision judged for the `rejected` home by `skill@knowledge-architect-decision-recording@reversal-check`; a head of its own for `cli` keeping the package name, whose rival is a new name with changed imports |
-| moved to `cli`'s design home | `design@check@the-core-cli-is-a-library-module` under a new slug, `design@check@arguments-parse-through-clap`, `design@check@exit-code-ladder`, `design@check@binary-name` with `rejected@check@binary-named-after-package` |
+| `thread@component-split@cli-crate` | the successor of `rejected@knowledge-architect@single-crate` in the root's design home, under the slug of this thread, and the reversed decision judged for the `rejected` home by `skill@knowledge-architect-decision-recording@reversal-check`; a head of its own for `cli` keeping the package name, whose rival is a new name with changed imports |
+| moved to `cli`'s design home | `design@cli@the-commands-are-a-library-module` under a new slug, `design@cli@arguments-parse-through-clap`, `design@cli@exit-code-ladder`, `design@cli@binary-name` with `rejected@cli@binary-named-after-package` |
 | staying in `check`, each false sentence rewritten | `design@check@a-foreign-build-is-refused`, for "`check`'s binary does this in" a test file that moves; `design@check@installed-binary-version-check`, whose rule stays, read as a move of nothing; `design@check@checker-source-literals-are-data`, for the directories a binary hands the walk; `design@check@nothing-of-a-project-is-compiled-in`, whose items are stated by rule, so only its pointers change; `design@check@declared-command`, `design@check@an-extension-plugs-in-through-phased-hooks` and `design@check@an-extension-claims-its-manifest-tables`, each for "`check`'s binary"; `design@check@inputs-are-gathered`, for "`check`'s command module"; `design@check@api-facade`, for its `cli` row and the facade that now spans two crates; `design@check@transcript-command-in-core`, as Builds says |
 | clauses of other Components | `design@gates@the-library-owns-the-flags`, `design@mutate@report-not-gate`, `design@knowledge-architect@no-component-directory-named-after-the-project`, `design@agent-skills@xtask-pins-checker`, `design@xtask@one-module-per-subcommand` with `path@xtask@README.md` and the comment of `path@xtask@Cargo.toml`, each rewritten where it names `check`'s library for what is now `cli`'s |
-| `thread@component-split@command-parsing-home` | `cli`'s head on its parsing, under the slug of this thread, and the two heads of `register@agent-skills@design` on the top-level binary crate and on the crate nearest the binaries that parses a command, which the component-creation skill states alone today in two comment lines, `cli`'s head citing them; both comment lines then cut to a citation of their head, with no installed byte changed; `design@check@arguments-parse-through-clap` rewritten; `design@check@fix-with-staged` rewritten, the rule being `check`'s type that `cli` spells, and its quotation of the owner converted to an attribution that keeps its hedge, per `design@agent-skills@attribution-replaces-quotation`; P2 judged as a losing alternative |
+| `thread@component-split@command-parsing-home` | `cli`'s head on its parsing, under the slug of this thread, and the two heads of `register@agent-skills@design` on the top-level binary crate and on the crate nearest the binaries that parses a command, which the component-creation skill states alone today in two comment lines, `cli`'s head citing them; both comment lines then cut to a citation of their head, with no installed byte changed; `design@cli@arguments-parse-through-clap` rewritten; `design@check@fix-with-staged` rewritten, the rule being `check`'s type that `cli` spells, and its quotation of the owner converted to an attribution that keeps its hedge, per `design@agent-skills@attribution-replaces-quotation`; P2 judged as a losing alternative |
 | issues | `issue@knowledge-architect@the-skill-bundling-passes-are-tied-to-this-project-s-skills`, whose "the install lives in `check`, and it is not public API" turns false for the command's entry; the issues Builds names; those `cargo klarch check` reports, re-pointed |
 | D5, once ruled | its shape in `cli`'s head on its parsing |
 | premortem C3 | its claim above |

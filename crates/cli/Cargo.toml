@@ -22,7 +22,7 @@ path = "src/main.rs"
 
 [dependencies]
 # The commands are declared here, so a binary that registers an extension flattens them into its
-# own, per `design@check@the-core-cli-is-a-library-module`.
+# own, per `design@cli@the-commands-are-a-library-module`.
 clap = { version = "4", features = ["derive"] }
 # Each command's logic, and what an extension is written against. Pinned exactly, as every crate of
 # the workspace carries one version, per `design@knowledge-architect@version-lockstep`.

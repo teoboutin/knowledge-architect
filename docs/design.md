@@ -18,8 +18,8 @@ A Component is named by the basename of its directory, and the project root by t
 per `design@model@components-carry-the-same-documents`, so a directory named `knowledge-architect`
 would collide with the root: a run over a scratch project
 laid out that way stopped in phase 1, reporting that the name "names 2 anchors". So a published
-crate may sit in a directory named by what it does rather than by its package, crates/check for the
-package knowledge-architect. The cost: a reference says `check` where cargo says
+crate may sit in a directory named by what it does rather than by its package, crates/cli for the
+package knowledge-architect. The cost: a reference says `cli` where cargo says
 `-p knowledge-architect`.
 
 The design this decision did not keep:
@@ -88,6 +88,26 @@ decisions of its own, `register@git@design`. And a tool that rewrites a branch's
 on it alone. It serves `goal@git@a-pure-wrapper-over-git`. The nearest rival, the checker's git
 module made public, puts the checker's own dependencies into the build of every tool that needs
 git: `rejected@knowledge-architect@git-module-made-public`.
+
+### The binary and the parsing of its commands are a crate above every crate that contributes a command `##cli-crate`
+
+`cli` holds the binary `klarch`, the declarations and the dispatch of its commands, and pulls each command's logic from
+the crate that holds it. A commands module in a crate that contributes a command would form a cycle with every other
+such crate that depends on it, so the module sits above them all, per
+`design@agent-skills@top-level-binary-crate`. A frontend that is no command line depends on the crates below it, with no
+parser in them. It says nothing of which crates `check` may depend on, which
+`issue@knowledge-architect@the-checker-may-depend-on-every-crate-below-it` holds. `cli` flattens no command of `gates`,
+per `rejected@gates@gates-command-of-the-checker`. The rival, the library and the binary as one crate, saves no
+dependency once the commands span crates: `rejected@knowledge-architect@single-crate`.
+
+### The package that holds the binary keeps the name `knowledge-architect`, whichever crate holds the checks `##the-binary-crate-keeps-the-package-name`
+
+A project names this package alone: its dependency line, its `cargo install` and an extension's imports all spell it,
+per `goal@check@projects-add-their-own-checks`, which asks that an extension needs no change to any crate. So `cli` has
+that name and keeps every path a consumer names, re-exporting what the checks' crate holds, as
+`design@check@api-facade` lists, and the crate of the checks is `knowledge-architect-check`, which no project names.
+The rival, a new name for the top-level crate, changes every project's dependency line and every extension's imports
+to gain a name, and an installed setup snippet would change with them.
 
 ### No intermediate Component groups the checker's Components or the installed text's `##no-intermediate-component`
 

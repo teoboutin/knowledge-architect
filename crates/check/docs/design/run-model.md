@@ -159,29 +159,6 @@ fix, and it is the same repair whatever left the file out of date. How a repair 
 carried out safely is the project's rule for that operation, not the finding's text. This serves
 `goal@knowledge-architect@adoption-is-easy`: the finding is what a consumer reads first.
 
-### Every command's exit code says whether it ran before it says what it found `##exit-code-ladder`
-
-| code | meaning |
-| ---- | ---------------------------------------------------------------------- |
-| 0    | the command ran, and its subject is in order                           |
-| 1    | the command ran, and reports a negative answer about its subject       |
-| 2    | the command could not run: bad arguments, no project, unreadable input |
-
-This binds `check`'s commands in every binary that offers them, per
-`design@check@the-core-cli-is-a-library-module`. A command that answers several candidates in one
-run, as `id` does, answers one it cannot read as a candidate with 1, a negative answer about it,
-since the run still answers the others. `path@check@README.md` lists which
-outcome of each command maps to which code.
-
-**The third code is what makes the other two mean anything.** A project runs `check` and
-`commits` as gates, in CI and in a session, and reads the exit code without reading the output.
-Without code 2, a mistyped invocation or an unreadable input is indistinguishable from a tree
-that fails its check, and a gate that treats both as a failure cannot say which one to repair.
-
-clap supplies 2 for a parse failure, per `design@check@arguments-parse-through-clap`, so
-the boundary costs nothing at the parse. What the ladder costs is that a command routes its own
-unreadable-input errors to 2 rather than to the code it uses for a negative answer.
-
 ### Every rule over a document is enforced, and no declaration exempts a document from one `##the-regime-has-no-opt-out`
 
 The rules over documents are compiled in and the manifest declares nothing about them, so

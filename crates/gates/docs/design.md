@@ -41,7 +41,7 @@ the marker file's name from the caller.
 
 The flags of a gates run are the library's `GatesArgs`, which derives clap's `Args`, so a project's
 binary flattens them into its own command and every project's gates take the same flags, per
-`goal@gates@gates-from-a-list`. clap's major version is therefore part of the library's interface, as it is of `check`'s.
+`goal@gates@gates-from-a-list`. clap's major version is therefore part of the library's interface, as it is of `cli`'s.
 
 ### The distillers are a closed set the library holds `##distillers-are-a-closed-set`
 

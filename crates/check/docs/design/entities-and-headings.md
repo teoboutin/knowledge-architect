@@ -53,7 +53,7 @@ nothing under it, every entity it defines under it, as the reference `show` take
 argument is outside the grammar of `design@model@two-segment-ids`. It reads the table through
 `Entities::by_id`, unfiltered, the set the lints on ids filter per citing document. It exits 0 when
 every argument is free and 1 otherwise, a malformed argument being a negative answer about the
-candidate, per `design@check@exit-code-ladder`, since the run answers every other argument; and 2
+candidate, per `design@cli@exit-code-ladder`, since the run answers every other argument; and 2
 over an incomplete model, since a `free` there is the finding computed over an incomplete model that
 `design@check@phases-gate-the-report` refuses.
 

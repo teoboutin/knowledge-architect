@@ -1,13 +1,13 @@
 //! `check`'s commands as a command line: their clap declarations, their dispatch, and finding the
-//! project, per `design@check@the-core-cli-is-a-library-module`.
+//! project, per `design@cli@the-commands-are-a-library-module`.
 //!
 //! A binary parses its arguments, flattening [`Command`] into its own command enum, and hands the
 //! parsed command to [`run`] with the directories of its own source. The logic of each command is
 //! the typed function of [`knowledge_architect_check::commands`]; a value of an `*Args` struct holding a combination that
 //! function's type refuses is refused here, so a value clap never saw is refused as clap would.
 //!
-//! Arguments are declared, never parsed by hand, per `design@check@arguments-parse-through-clap`, and
-//! the exit codes are `design@check@exit-code-ladder`: 0 ran-and-clean, 1 ran-and-negative, 2
+//! Arguments are declared, never parsed by hand, per `design@cli@arguments-parse-through-clap`, and
+//! the exit codes are `design@cli@exit-code-ladder`: 0 ran-and-clean, 1 ran-and-negative, 2
 //! could-not-run.
 
 use std::path::Path;
@@ -233,7 +233,7 @@ pub struct TripwiresArgs {
 ///
 /// `checker` is every directory of the running binary's own source, compiled into it, per
 /// `design@check@checker-source-literals-are-data`. The exit code is
-/// `design@check@exit-code-ladder`: `Err` is could-not-run, and the caller prints it and exits 2.
+/// `design@cli@exit-code-ladder`: `Err` is could-not-run, and the caller prints it and exits 2.
 /// `extensions` is every extension the binary registers, per
 /// `design@check@an-extension-plugs-in-through-phased-hooks`; `klarch` passes none.
 pub fn run(
@@ -286,7 +286,7 @@ pub fn run(
         Command::Worklist(args) => commands::worklist(manifest, &worklist_mode(args)?, checker),
         Command::Transcript(args) => commands::transcript(manifest, &args.verb.into()),
         // A binary hands `init` to [`init`] before it locates a project, since `init` is what
-        // makes one, per `design@check@the-core-cli-is-a-library-module`; reaching here means the
+        // makes one, per `design@cli@the-commands-are-a-library-module`; reaching here means the
         // binary skipped that step, inside a project.
         Command::Init(_) => Err(format!(
             "`init` creates a project, and {} already holds one; a binary dispatches `init` to \

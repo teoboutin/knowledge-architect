@@ -71,7 +71,7 @@ documents, from the table the owner approved.
 **`transcript`.** It imports nothing of the checker but the project's root and `git`'s
 `main_worktree_path`, and changes when the harness's transcript format does (#arg-9, corrected at
 the plan's review, #arg-10). `design@check@transcript-command-in-core` rejected a second crate on the
-ground of `design@check@single-crate`, which #cli-on-top reversed.
+ground of `rejected@knowledge-architect@single-crate`, which #cli-on-top reversed.
 
 **`create`.** It has its own purpose, tests and 13 heads, counted with
 `grep -c '^### ' crates/check/docs/design/creating.md`; the cut costs the public API of `check` and

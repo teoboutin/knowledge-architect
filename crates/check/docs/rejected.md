@@ -298,13 +298,6 @@ root CLAUDE.md. A hook needs the installer to edit the user's settings file, whi
 user, and it needs a shell. It is kept because a doubt remains: the import is verified for the main
 session and a subagent of the `claude` harness, and another context or harness might not follow it.
 
-### The binary named knowledge-architect, after its package `##binary-named-after-package`
-
-`live`. The binary's name is the default of the declared command, which a project types at every
-run, and the owner wanted it short to type. Renaming the binary is a change to the command-line
-surface every installing project scripts against, so the alternative will be raised again whenever
-the name is questioned.
-
 ### An install record file listing what the installer wrote `##install-record-file`
 
 `live`. The checker would read a committed file of its own format to know which installed files are

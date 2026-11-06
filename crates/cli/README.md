@@ -7,7 +7,7 @@ knowledge-architect names this package alone. What the checks hold a project's d
 
 **`klarch`, and a binary per set of extensions.** `klarch` runs every command below with no extension
 registered. A binary that registers extensions runs the same commands unchanged, and its extensions'
-own commands beside them, per `design@check@the-core-cli-is-a-library-module`. Every such binary hands
+own commands beside them, per `design@cli@the-commands-are-a-library-module`. Every such binary hands
 `init` to `cli::init` before it locates a project, since `init` is what creates one. Over a manifest
 holding a table no extension of the binary claims, the binary reports that table in phase 1, rather
 than skip in silence what the table configures, per
@@ -70,7 +70,7 @@ cargo klarch --version                 the version of the checker that runs
 
 ## Exit codes
 
-Three, per `design@check@exit-code-ladder`, and the third is what makes the other two mean anything.
+Three, per `design@cli@exit-code-ladder`, and the third is what makes the other two mean anything.
 
 | code | meaning | where it comes from |
 | ---- | ------- | ------------------- |

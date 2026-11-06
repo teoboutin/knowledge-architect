@@ -1,9 +1,9 @@
 //! Each of `check`'s commands, as a typed function a binary or another frontend calls, with no type
-//! of an argument parser in it, per `design@check@the-core-cli-is-a-library-module`.
+//! of an argument parser in it, per `design@cli@the-commands-are-a-library-module`.
 //!
 //! This module owns what is printed and which exit code a run ends with, a thing the checks
 //! deliberately do not. A check that printed could not be run against a model built in memory, which
-//! is the property the whole shape rests on. The exit codes are `design@check@exit-code-ladder`: 0
+//! is the property the whole shape rests on. The exit codes are `design@cli@exit-code-ladder`: 0
 //! ran-and-clean, 1 ran-and-negative, 2 could-not-run, which is `Err`, and the caller prints it and
 //! exits 2.
 //!
@@ -206,7 +206,7 @@ pub fn complete_working_tree(
 /// directory lies inside, or is, the project, and the project's git tracks its `Cargo.toml`, a
 /// tree the checker is built from rather than one a registry sits in. While the key's
 /// own complaint stands, that complaint is the refusal, so no command runs without a key. Every
-/// refusal is could-not-run, exit 2, per `design@check@exit-code-ladder`.
+/// refusal is could-not-run, exit 2, per `design@cli@exit-code-ladder`.
 pub fn refuse_another_version(manifest: &Manifest, checker_dirs: &[&Path]) -> Result<(), String> {
     let root = manifest.root().to_path_buf();
     let tracked = move |rel: &Path| {
@@ -361,7 +361,7 @@ pub fn model(
 ///
 /// The output is for a reader, not a contract, per
 /// `issue@knowledge-architect@command-output-is-not-declared-a-contract`. Exit 1 when a printed
-/// home is missing, a negative answer about the project, per `design@check@exit-code-ladder`;
+/// home is missing, a negative answer about the project, per `design@cli@exit-code-ladder`;
 /// `check` names the repair.
 pub fn anchors(manifest: &Manifest, checker: &[&Path]) -> Result<ExitCode, String> {
     use crate::model::declared::Shape;
@@ -849,7 +849,7 @@ fn differing_paths(
 ///
 /// Every destination is checked before any is written. A run that wrote one index and then
 /// failed on the next exited 2 — could not run — having already changed the tree, which is
-/// the one place `design@check@exit-code-ladder`'s line blurs. A missing directory here is the
+/// the one place `design@cli@exit-code-ladder`'s line blurs. A missing directory here is the
 /// manifest declaring one the tree does not have; creating it would paper over that, and the
 /// registers check is what reports it.
 ///
@@ -889,7 +889,7 @@ fn check_destinations(
 
 /// One recorded entry, whole, and every reference to it.
 ///
-/// **The two failure codes are different questions**, per `design@check@exit-code-ladder`: an argument
+/// **The two failure codes are different questions**, per `design@cli@exit-code-ladder`: an argument
 /// that is not reference-shaped could not be run and exits 2, and a reference the grammar accepts
 /// that names nothing is a negative answer and exits 1. A reader who mistyped the grammar and a
 /// reader who named a deleted entry need different things.
@@ -1071,7 +1071,7 @@ pub fn show(manifest: &Manifest, reference: &str, checker: &[&Path]) -> Result<E
 /// where an entity an unread file defines would make the answer false. `show` needs no such gate,
 /// since what it prints exists whatever else the model misses.
 ///
-/// **The exit codes**, per `design@check@exit-code-ladder`: 0 when every argument is an id nothing
+/// **The exit codes**, per `design@cli@exit-code-ladder`: 0 when every argument is an id nothing
 /// defines; 1 otherwise, an argument outside the grammar included, since that is a negative
 /// answer about the candidate, and the run still answers every other one; 2 when the command
 /// cannot run, an incomplete model included.

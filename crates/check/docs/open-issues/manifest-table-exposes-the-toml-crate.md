@@ -15,7 +15,7 @@ coupling is intended.
 ### What
 
 Decide how an extension receives its tables. Three shapes are on the table: keep `toml::Value`
-and state the coupling, as `design@check@arguments-parse-through-clap` does for clap; re-export the
+and state the coupling, as `design@cli@arguments-parse-through-clap` does for clap; re-export the
 toml crate from the `extension` module, so an extension uses `check`'s copy; or hand the table
 over in a form `check` owns, such as a deserialized type the extension names.
 

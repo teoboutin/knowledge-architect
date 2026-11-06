@@ -57,3 +57,10 @@ module's interface would change with every release of the checker.
 
 `live`. A tool over the record would then link every check, and a renderer of the site would read the
 resolution through the lints, with a finding attached. It would change an interface others consume.
+
+### The library and the binary as one crate `##single-crate`
+
+`live`. The binary and the library as two targets of one package save a second package name to publish and to pin. It
+holds while one crate contributes every command. Once the commands span crates, the binary's crate depends on them all,
+so a commands module inside one of them forms a cycle with the others, and a binary crate that depends on them saves its
+users no dependency it would otherwise be spared. It would change an interface others consume.

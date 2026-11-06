@@ -6,11 +6,11 @@
 
 `klarch transcript` reads the transcripts the agent harness writes on disk, for the transcript
 reviewer, the assembly of a plan document and any survey of past sessions. It is a variant of
-`check`'s command enum, so every binary that flattens it offers the command, per
-`design@check@the-core-cli-is-a-library-module`, and it runs inside a project, after the version
+`cli`'s command enum, so every binary that flattens it offers the command, per
+`design@cli@the-commands-are-a-library-module`, and it runs inside a project, after the version
 refusal of `design@check@installed-binary-version-check`, whatever the project's
 `[agents] harness`: the transcripts are the harness's own, whether or not the project installs the
-workflow. The reader is internal; its argument types are public through `cli::Command`, per
+workflow. The reader is internal; its typed function is public in `commands`, and its argument types through `cli::Command`, per
 `design@check@api-facade`.
 
 It serves `goal@knowledge-architect@agents-get-a-complete-workflow`, since without it a session that
@@ -19,9 +19,7 @@ text asks of every project that adopts the workflow, with no procedure of this r
 it is the published checker's to automate, not the maintenance tool's, per
 `goal@knowledge-architect@mechanical-tasks-are-the-tool-s` and
 `goal@xtask@repeated-tasks-are-automated`. The nearest rival, a command of the maintenance tool, is
-never published, so a project that adopts the workflow, such as thaum, would have no copy; a second
-crate or binary would be a second package to publish and pin, which `design@check@single-crate`
-argues against.
+never published, so a project that adopts the workflow, such as thaum, would have no copy.
 
 ### The transcript command reads Claude Code's transcripts, and no other harness's `##transcript-reads-claude-code-alone`
 
@@ -41,7 +39,7 @@ text matches a regular expression, with `--role`, `--tool` and `--tools`. Each p
 first, per `design@check@transcript-format-tolerated-and-reported`, and `--json` prints one object
 per row or line instead. The output, text and JSON alike, is for a reader and no contract, per
 `issue@knowledge-architect@command-output-is-not-declared-a-contract`. The exit codes are
-`design@check@exit-code-ladder`'s: 1 when a verb finds nothing to print, or `show`'s argument names
+`design@cli@exit-code-ladder`'s: 1 when a verb finds nothing to print, or `show`'s argument names
 no session or more than one, or `--from` matches no line; 2 when the transcript directory, a file,
 a regular expression or a date cannot be read.
 
