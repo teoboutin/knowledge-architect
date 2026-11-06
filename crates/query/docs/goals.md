@@ -2,17 +2,16 @@
 
 Every goal here serves one purpose: an agent working in a target project consults the project more efficiently, or with a better result, than by doing it itself.
 
-The project, in these goals, is what knowledge-architect can read of it: what it declares, its documents and the recorded items they hold, what cites each, and its git history. A session is one run of an agent in a target project. A tool here is something knowledge-architect publishes for a person or an agent working in a target project to run, once knowledge-architect's owner takes its generic part in, per `goal@knowledge-architect@generic-tools-and-procedures-are-shipped`.
+The project, in these goals, is what knowledge-architect can read of it, such as what it declares, its documents and the recorded items they hold, what cites each, and its git history. A session is one run of an agent in a target project. A tool here is something knowledge-architect publishes for a person or an agent working in a target project to run, once knowledge-architect's owner takes its generic part in, per `goal@knowledge-architect@generic-tools-and-procedures-are-shipped`.
 
 ## An agent queries a project through tools that make the query more efficient, or its result better, than doing it by hand `##agents-query-the-project`
 
-An agent asked to find something in the project can use a tool of this Component, where one is taken in, so that it spends less to reach the answer or reaches a better one. A tool of this Component queries the project, or reads what an earlier query of this Component generated. A tool that does neither goes in a Component for its own subject.
+An agent asked to find something in the project can use a tool of this Component, where one is taken in, so that it spends less to reach the answer or reaches a better one. A tool of this Component queries the project, or reads what an earlier query of this Component generated.
 
 It is met while each tool of this Component queries the project or reads what such a query generated, tests show what it answers over a mock project, and the installed text's retrospective asks how these tools fared.
 
 - Requires, for instance: a search of the recorded items by keywords, once it is taken in, is a tool of this Component.
 - Admits, for instance: a tool that reads git's history; a tool that reads the judgements a grader filled in a work list this Component generated; a tool an agent runs for a result it could reach by hand at a higher cost.
-- Rules out, for instance: a tool that rewrites a branch's history in this Component.
 
 ## A session consults the recorded items conveniently, and under the constraint or the method the workflow requires of it `##the-record-is-consulted-as-the-workflow-requires`
 
