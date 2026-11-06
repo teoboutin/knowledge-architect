@@ -21,6 +21,7 @@
 | design | [Pointers written as bare plain text to clear a finding reach no check, and the rule against them is reopened](pointers-written-bare-to-clear-a-finding-reach-no-check.md) |
 | design | [The claim check of a commit message is read at the session's start and needed at each commit](the-claim-check-of-a-commit-message-is-read-at-the-start-and-needed-at-each-commit.md) |
 | design | [The first test for a losing alternative admits every rival of a head that earned its place as an interface](the-first-test-for-a-losing-alternative-admits-every-rival-of-an-interface-head.md) |
+| design | [The goal standard does not say what a goal is worth or what it is for, and its rule on what shows a goal met pulls the other way](the-goal-standard-does-not-say-what-a-goal-is-worth-or-what-it-is-for.md) |
 | design | [The reading on touch of `may-bear` entries met its reopening condition, at both plan reviews of one spec](the-reading-on-touch-of-may-bear-entries-met-its-reopening-condition.md) |
 | design | [The workflow assumes one owner, unnamed, which a project with several contributors does not have](the-workflow-assumes-one-unnamed-owner.md) |
 | question | [May a `%%` line of the installed text's source copy the argument of the head it cites?](a-comment-line-may-copy-the-argument-of-the-head-it-cites.md) |
@@ -31,7 +32,6 @@
 | question | [After a version upgrade, nothing re-reads a project's restatements of installed directives, a project skill whose activity an installed skill now covers, or the session's own copy of the new text, nor the agent types it adds](an-upgrade-re-reads-no-root-restatement.md) |
 | question | [Several goal-design heads may argue only a rule the goal standard's fragment states, and repeat its reasons](goal-design-heads-may-repeat-the-fragment-s-reasons.md) |
 | question | [The audit that ends the move of an adopting project's documents is stated where the move's sessions do not read](the-closing-audit-of-a-move-reaches-no-planning-text.md) |
-| question | [The goal standard asks for a check or a test where the owner holds that a goal often needs none](the-goal-standard-asks-a-check-where-the-owner-holds-a-goal-needs-none.md) |
 | question | [The retrospective intake's searches of the history assume a full clone](the-intake-s-history-searches-assume-a-full-clone.md) |
 | question | [Does the design skill's open-space test leave bounded work almost unreachable?](the-open-space-test-may-admit-every-problem.md) |
 | question | [The primer and its head name a guard's issue under two conditions](the-primer-and-its-head-name-a-guard-s-issue-under-two-conditions.md) |
