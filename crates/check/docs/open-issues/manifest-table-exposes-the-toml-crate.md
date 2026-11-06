@@ -7,7 +7,7 @@ kind: question
 
 `Manifest::table` returns `Option<&toml::Value>`, and the crate documentation tells an extension
 to read its tables with it. An extension then depends on the toml crate at the major version
-`check` uses, and a toml major bump in `check` is a library break. Nothing records whether that
+`model` uses, and a toml major bump in `model` is a library break. Nothing records whether that
 coupling is intended.
 
 ## Details

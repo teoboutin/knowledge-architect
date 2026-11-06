@@ -9,8 +9,8 @@ kind: todo
 and lists what knowledge-architect asks of one: git with its `.git` at or above the project, agents
 under the `claude` harness, every gate run through the gates library from one command, and one merge
 invocation of that command in every target project. The setup skill states one ask, the
-maintenance crate of every Rust target project, and no other; no published crate's README states the
-conditions or the asks; and no design head names the command and its merge invocation.
+maintenance crate of every Rust target project, and no other; only the READMEs of `model`, `check` and `cli` among the published crates state the
+conditions and the asks; and no design head names the command and its merge invocation.
 
 ## Details
 

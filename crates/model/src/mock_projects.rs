@@ -15,7 +15,7 @@ use crate::scan::{Observation, RetiredForm};
 use crate::{Manifest, Model};
 
 fn mock(name: &str) -> Manifest {
-    // The one crate reaching another's fixtures, until the shared test Component holds them both.
+    // A crate reaching another's fixtures, as `cli`'s tests do, until the shared test Component holds them both.
     let root = PathBuf::from(env!("CARGO_MANIFEST_DIR"))
         .join("../check/tests/projects")
         .join(name)
