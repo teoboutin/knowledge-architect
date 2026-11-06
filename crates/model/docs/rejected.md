@@ -153,7 +153,7 @@ rebase and report a file stale that nobody had touched. It is answered by a comm
 
 ### Refusing to load a manifest whose register declaration is wrong `##refusing-a-wrong-declaration`
 
-`live`. A declaration the tool cannot act on is a could-not-run by `design@check@exit-code-ladder`,
+`live`. A declaration the tool cannot act on is a could-not-run by `design@cli@exit-code-ladder`,
 and exiting 2 is what a manifest the grammar cannot parse does, a key of `[project]` it does not
 know included. It loses for the case where the tool CAN act: a bad `dir` on a built-in has a
 compiled default to fall back on, so refusing the whole run would report nothing at all about the

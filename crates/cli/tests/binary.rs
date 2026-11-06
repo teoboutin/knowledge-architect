@@ -1,5 +1,5 @@
-//! `check`'s own binary, run as a caller runs it, with no extension registered, per
-//! `design@check@the-core-cli-is-a-library-module`.
+//! `klarch`, run as a caller runs it, with no extension registered, per
+//! `design@cli@the-commands-are-a-library-module`.
 //!
 //! Each test runs against a mock project under `path@check@tests/projects/`, which this
 //! repository's manifest excludes from its own walk, so the binary finds that project by walking
@@ -295,7 +295,7 @@ fn the_binary_passes_over_a_project_that_declares_only_what_it_reads() {
     assert!(out.ends_with("PASSED: no findings\n"), "{out}");
 }
 
-/// The `check` binary compiles in the directory of each Component whose library it links and whose
+/// `klarch` compiles in the directory of each Component whose library it links and whose
 /// source is the checker's, `check`'s and the git crate's, so their fixtures are read as data,
 /// per `design@check@checker-source-literals-are-data`. Over this checkout the summary names both
 /// directories and counts their walked Rust files, whatever the run finds.
@@ -1106,7 +1106,7 @@ fn anchors_prints_both_shapes_of_a_heading_home() {
 }
 
 /// A home the tree does not hold is printed `missing`, and the run is a negative answer, exit
-/// 1, per `design@check@exit-code-ladder`. `unsound` plants a location whose issue directory is
+/// 1, per `design@cli@exit-code-ladder`. `unsound` plants a location whose issue directory is
 /// not there.
 #[test]
 fn anchors_marks_a_missing_home_and_exits_one() {

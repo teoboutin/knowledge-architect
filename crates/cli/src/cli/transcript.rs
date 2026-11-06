@@ -1,4 +1,4 @@
-//! The arguments of `transcript`, per `design@check@arguments-parse-through-clap`. Its logic is
+//! The arguments of `transcript`, per `design@cli@arguments-parse-through-clap`. Its logic is
 //! `knowledge_architect_check::commands::transcript`.
 
 use clap::{Args, Subcommand};

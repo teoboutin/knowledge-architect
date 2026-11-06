@@ -11,7 +11,7 @@ An adversarial review of the crate split found mutations of the resolver and the
 
 ### What
 
-Each mutation below survived `cargo test -p knowledge-architect-model -p knowledge-architect`.
+Each mutation below survived `cargo test -p knowledge-architect-model -p knowledge-architect-check`.
 
 - `without_suffix`: the second strip of a fragment dropped, so `docs/design.md#x:12` keeps a suffix.
 - `resolved_here`: `if !bare.starts_with('/')` made always true, against "a leading `/` from the root alone".

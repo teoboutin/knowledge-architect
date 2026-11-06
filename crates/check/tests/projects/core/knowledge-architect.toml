@@ -1,4 +1,4 @@
-# The smallest conformant project for the `check` binary, with no extension: it declares no table
+# The smallest conformant project for `klarch`, with no extension: it declares no table
 # `check` does not own, and it carries every document the root component owes. The `check` binary
 # passes over it; a copy that adds a `[rules]` table is refused, because no extension of that
 # binary claims it.

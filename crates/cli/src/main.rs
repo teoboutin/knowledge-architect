@@ -1,5 +1,5 @@
 //! The binary `klarch`: every command of the checker, with no extension registered, per
-//! `design@check@the-core-cli-is-a-library-module`.
+//! `design@cli@the-commands-are-a-library-module`.
 //!
 //! A project whose manifest declares only what the checker reads runs this. A project with a
 //! subject of its own builds a binary that registers the extension for it.
@@ -70,7 +70,7 @@ fn main() -> ExitCode {
         knowledge_architect_agent_skills::PACKAGE,
     ];
     // `init` makes the project the other commands locate, so it is dispatched first, per
-    // `design@check@the-core-cli-is-a-library-module`.
+    // `design@cli@the-commands-are-a-library-module`.
     let outcome = match cli.command {
         knowledge_architect::cli::Command::Init(args) => {
             knowledge_architect::cli::init(args, &libraries, &packages, &dirs, &mut [])
@@ -105,7 +105,7 @@ mod tests {
     // clap's own consistency check over the whole derive, `check`'s commands flattened in:
     // two arguments claiming one name, a conflict naming an argument that does not exist. A
     // malformed declaration is otherwise found at the first invocation that reaches it, per
-    // `design@check@arguments-parse-through-clap`.
+    // `design@cli@arguments-parse-through-clap`.
     #[test]
     fn cli_declaration_is_consistent() {
         use clap::CommandFactory;

@@ -83,13 +83,13 @@ prompt guards against a loss, and a run that refuses before any write and overwr
 hand-written file outside the installer's namespace loses nothing an install would not, which is
 the argument of `design@check@index-takes-no-dry-run`: the worst a mistaken run does is add files,
 and install the shipped set as `design@check@owned-namespace-check` lets every install do. The checker's binaries run blind, as gates, per
-`design@check@arguments-parse-through-clap`, and an agent's shell has no terminal, so a prompt
+`design@cli@arguments-parse-through-clap`, and an agent's shell has no terminal, so a prompt
 either blocks or is answered by a flag every caller passes. `cargo init` asks nothing either,
 which `design@check@init-follows-cargo-init` makes a ground:
 `cargo init </dev/null` in cargo 1.98.0 prints no question and exits 0. Once files are written a
 failure exits 1, not 2, which promises a run that touched nothing, as
 `design@check@fix-refusal-mixed-state` keeps it for `check --fix`. The one exception is a stdout
-closed early, which ends every command with 2, per `design@check@exit-code-ladder`; `check --fix`
+closed early, which ends every command with 2, per `design@cli@exit-code-ladder`; `check --fix`
 completes such a run.
 
 The design this decision did not keep: `rejected@check@init-asks-for-confirmation`.

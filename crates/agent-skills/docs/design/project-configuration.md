@@ -588,8 +588,8 @@ The maintenance crate of a Rust project depends on the checker, the gates librar
 library, all pinned exactly, at the version `[project] checker-version` declares, per
 `design@check@installed-binary-version-check`, and serves two cargo aliases: `cargo x` for its own
 commands, the gates and the hand mutation among them, and `cargo klarch` for the checker's commands,
-which it carries under a command of its own through `check`'s library, per
-`design@check@the-core-cli-is-a-library-module`. The gates run through the published library, per
+which it carries under a command of its own through the library of the package `knowledge-architect`, per
+`design@cli@the-commands-are-a-library-module`. The gates run through the published library, per
 `design@gates@gates-crate`, and the checker they run is the one this crate pins; the hand mutation
 runs through its own, per `design@knowledge-architect@mutation-command-host`. One crate does what a
 crate per tool would otherwise do, and gives the project's other repeated tasks a place, per

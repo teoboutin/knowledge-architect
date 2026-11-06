@@ -10,14 +10,14 @@ which runs this repository's gate list through the published gates library,
 often and gets wrong by hand.
 
 How its arguments parse is not a decision of this tool's: it parses through clap and tests its
-declaration, as `design@check@arguments-parse-through-clap` argues for the checker's binaries.
+declaration, as `design@cli@arguments-parse-through-clap` argues for the checker's binaries.
 
 ### One module per subcommand, sharing only what every subcommand needs `##one-module-per-subcommand`
 
 A subcommand is one module owning everything it is, plus one variant in `path@xtask@src/main.rs`'s
 command enum. Code is shared only when every subcommand needs it. What that admits today: the gates
 library's output helper `complain`, which `design@gates@one-spawn-helper` keeps in its process
-module; its `project_root`; and `check`'s `MANIFEST_NAME`. Adding a workflow adds its module and
+module; its `project_root`; and the `MANIFEST_NAME` of the package `knowledge-architect`. Adding a workflow adds its module and
 its variant and edits no other module of this tool. This is what keeps later workflows independent
 of each other and of `gates`.
 

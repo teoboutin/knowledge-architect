@@ -49,7 +49,7 @@ entry of. A milestone and a spec list no register: a plan
 anchor's registers keep their homes inside the plan itself, its sections, or a milestone's own
 directory for its slice specs. A home is judged held by the rule `check` judges it by, over the
 same listing, so the two agree on what a project carries. It exits 1 when a home is missing, a negative answer
-about the project, per `design@check@exit-code-ladder`. Its output is for a reader and is not a
+about the project, per `design@cli@exit-code-ladder`. Its output is for a reader and is not a
 contract, per `issue@knowledge-architect@command-output-is-not-declared-a-contract`.
 
 It answers a question no other command answers: `model` prints observations, and `show` one
@@ -128,13 +128,12 @@ the unstaged changes touch no input of a generated file and the fix is correct f
 which blocks the edit-then-`--fix` loop for nothing. A printed note in place of the refusal loses: a
 line in a long report is missed where an exit code is not.
 
-### `--fix` with `--staged` is refused while parsing `##fix-with-staged`
+### `--fix` with `--staged` cannot be asked: `check`'s mode holds one of them `##fix-with-staged`
 
-The refusal is clap's `conflicts_with`, per `design@check@arguments-parse-through-clap`. `--fix`
-repairs the working tree. Combining them would tie every fix to a write into git's index. The
-owner's words, given with the ruling on `index --staged`, and hedged: "This is not definitive, but
-I would not recommend to use this with --fix though. The reason  is that I'd like to provide more
-types of quick fixes later, and this might not be compatible."
+`CheckMode` holds one of the two, so the rule is the domain's type, and `cli`'s `conflicts_with` spells it while parsing,
+per `design@cli@command-parsing-home`. `--fix` repairs the working tree. Combining them would tie every fix to a write
+into git's index. The owner advised against the combination when ruling on `index --staged`, and said this was not
+definitive, since more kinds of quick fix may come that it would not suit.
 
 ### A fix is safe when its bytes are determined by the tree and the pinned version, and it writes or removes only files of the installer's namespace or of the generated list `##safe-fix-definition`
 

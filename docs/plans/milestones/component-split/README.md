@@ -56,7 +56,7 @@ This repository adds:
 - **a citation the checker does not read**, in a file that is neither Markdown nor Rust, is found
   by a search before each head a slice rewrites, `git grep -n '<slug>' -- ':!*.md' ':!*.rs'`. Five
   lines in four files stand at the branch that adds this document: `path@check@Cargo.toml` cites
-  `design@check@the-core-cli-is-a-library-module`; `path@knowledge-architect@knowledge-architect.toml`
+  `design@cli@the-commands-are-a-library-module`; `path@knowledge-architect@knowledge-architect.toml`
   cites `design@check@nothing-of-a-project-is-compiled-in` and
   `design@knowledge-architect@no-component-directory-named-after-the-project`;
   `path@knowledge-architect@Cargo.toml` cites the latter; and
@@ -135,13 +135,13 @@ This repository adds:
 What exists today, read at the branch that adds this document:
 
 - **One crate holds the checker.** crates/core holds the library and the binary `klarch`, per
-  `design@check@single-crate`; its `src/` holds 473 `#[test]` functions, 36 of them the mock tests,
+  `rejected@knowledge-architect@single-crate`; its `src/` holds 473 `#[test]` functions, 36 of them the mock tests,
   counted with `grep -rc '#\[test\]' crates/core/src | awk -F: '{s+=$2} END {print s}'` and
   `grep -c '#\[test\]' crates/core/src/mock_projects.rs`, so 437 are unit tests that use no mock
   project. Of its modules, `graph.rs` is imported by `cli/worklist.rs` alone, and `git.rs` and
   `transcript.rs` import nothing of the crate outside their tests.
 - **The commands are one enum**, `cli::Command` in `path@check@src/commands/mod.rs`, which a binary that
-  registers extensions flattens, per `design@check@the-core-cli-is-a-library-module`.
+  registers extensions flattens, per `design@cli@the-commands-are-a-library-module`.
 - **Every git invocation of the core's library code is in `path@elsewhere@crates/core/src/git.rs`**, per
   `design@git@git-is-asked-through-one-module`; a unit test of `path@elsewhere@crates/core/src/source/rs.rs` and
   the tests of `path@cli@tests/init.rs` run git themselves, and so do `gates`, in
@@ -213,10 +213,10 @@ Outside this work, each with what owns it:
   `design@git@repository-variables-dropped`, `design@git@index-file-variable-kept`,
   `design@git@a-path-is-bytes`, `design@git@git-floor-for-commit-trees`; and
   `design@git@failed-git-is-an-error`, moved with its exit-code clause stated as the crate's error
-  contract beside a citation of `design@check@exit-code-ladder`, as #git-out wrote it;
+  contract beside a citation of `design@cli@exit-code-ladder`, as #git-out wrote it;
 - `design@gates@the-library-owns-the-flags` and `rejected@gates@gates-command-of-the-checker`: `cli`
   flattens no command of `gates`, and `gates` keeps its flags;
-- `design@check@exit-code-ladder`, `design@check@binary-name`, `design@check@one-question-one-command`,
+- `design@cli@exit-code-ladder`, `design@cli@binary-name`, `design@check@one-question-one-command`,
   `design@check@ne-minimal`;
 - `rejected@check@module-tree-as-public-api`, `rejected@check@doc-hidden-test-items`,
   `rejected@check@testing-feature-for-test-items`, `rejected@check@inputs-struct-literal`,
@@ -228,11 +228,11 @@ Outside this work, each with what owns it:
 
 | head | done by | citing files today |
 | --- | --- | --- |
-| `design@check@single-crate` | #cli-on-top, reversed, its successor in the root's design home and the head leaving the core's in the same change | `path@check@docs/design/transcripts.md` |
+| `rejected@knowledge-architect@single-crate` | #cli-on-top, reversed, its successor in the root's design home and the head leaving the core's in the same change | `path@check@docs/design/transcripts.md` |
 | `design@knowledge-architect@installed-text-crate` | #git-out, rewritten in a form each later slice keeps true, under this slug, since the head's earlier slug said two crates | none |
-| `design@check@the-core-cli-is-a-library-module` | #cli-on-top, moved to `cli` under a new slug, since it no longer names the core | `path@agent-skills@docs/design/project-configuration.md`, `path@check@docs/design/extensions-and-api.md`, `path@check@docs/design/run-model.md`, `path@check@docs/design/transcripts.md`, `path@check@README.md`, `path@check@src/commands/create.rs`, `path@check@src/commands/mod.rs`, `path@cli@src/main.rs`, `path@cli@tests/binary.rs` |
-| `design@check@arguments-parse-through-clap` | #cli-on-top | `path@check@docs/design/creating.md`, `path@check@docs/design/generated-files-and-fixes.md`, `path@check@docs/design/run-model.md`, `path@check@docs/open-issues/manifest-table-exposes-the-toml-crate.md`, `path@check@src/commands/mod.rs`, `path@cli@src/main.rs`, `register@xtask@design` |
-| `design@check@transcript-command-in-core` | #cli-on-top, for the sentence that argues from `design@check@single-crate`; #consumers-out, its successor under a new slug in `transcript`, the part saying that the reader is a crate of its own that `cli` depends on in the root's design home | none |
+| `design@cli@the-commands-are-a-library-module` | #cli-on-top, moved to `cli` under a new slug, since it no longer names the core | `path@agent-skills@docs/design/project-configuration.md`, `path@check@docs/design/extensions-and-api.md`, `path@check@docs/design/run-model.md`, `path@check@docs/design/transcripts.md`, `path@check@README.md`, `path@check@src/commands/create.rs`, `path@check@src/commands/mod.rs`, `path@cli@src/main.rs`, `path@cli@tests/binary.rs` |
+| `design@cli@arguments-parse-through-clap` | #cli-on-top | `path@check@docs/design/creating.md`, `path@check@docs/design/generated-files-and-fixes.md`, `path@check@docs/design/run-model.md`, `path@check@docs/open-issues/manifest-table-exposes-the-toml-crate.md`, `path@check@src/commands/mod.rs`, `path@cli@src/main.rs`, `register@xtask@design` |
+| `design@check@transcript-command-in-core` | #cli-on-top, for the sentence that argues from `rejected@knowledge-architect@single-crate`; #consumers-out, its successor under a new slug in `transcript`, the part saying that the reader is a crate of its own that `cli` depends on in the root's design home | none |
 | `design@check@api-facade` | #cli-on-top, for its `cli` row and the facade over two crates; #integrated-tests; each slice writes its crate's facade | `path@check@CLAUDE.md`, `path@check@docs/design/transcripts.md`, `path@check@docs/open-issues/an-extension-cannot-see-which-register-a-document-belongs-to.md`, `path@check@docs/open-issues/manifest-table-exposes-the-toml-crate.md`, `register@check@tripwire`, `path@check@src/lib.rs` |
 | `design@check@phases-gate-the-report` | #model-out (the foundation), #check-renamed (the phase table) | `path@agent-skills@docs/open-issues/audit-axes-beyond-the-design-record.md`, `path@agent-skills@docs/open-issues/the-claim-check-of-a-commit-message-is-read-at-the-start-and-needed-at-each-commit.md`, `path@check@CLAUDE.md`, `path@check@docs/design/agent-configuration.md`, `path@check@docs/design/creating.md`, `path@check@docs/design/entities-and-headings.md`, `path@check@docs/design/extensions-and-api.md`, `path@check@docs/design/generated-files-and-fixes.md`, `path@check@docs/design/git-and-the-walk.md`, `path@check@docs/design/registers.md`, `path@check@docs/design/run-model.md`, `path@check@docs/design/worklist.md`, `register@check@tripwire`, `path@check@README.md`, `path@check@src/commands/create.rs`, `path@check@src/commands/mod.rs`, `path@check@src/commands/worklist.rs`, `spec@plans@path-quickfixes` |
 | `design@check@owned-namespace-check` | #check-renamed, split by the rule of one decision per head | `path@knowledge-architect@CLAUDE.md`, `path@agent-skills@docs/design/project-configuration.md`, `register@agent-skills@design`, `path@agent-skills@docs/design/retrospective.md`, `path@agent-skills@docs/design/shipped-set.md`, `path@agent-skills@docs/open-issues/patching-an-installed-skill.md`, `path@check@docs/design/agent-configuration.md`, `path@check@docs/design/creating.md`, `path@check@docs/design/generated-files-and-fixes.md`, `path@check@docs/design/git-and-the-walk.md`, `path@check@docs/design/run-model.md`, `path@check@docs/open-issues/a-project-workflow-can-declare-an-installed-workflow-s-name.md`, `path@check@docs/open-issues/core-heads-bundle-decisions-with-many-citing-sites.md`, `register@check@rejected`, `path@check@README.md`, `path@check@src/agents.rs`, `path@elsewhere@crates/core/src/check/agents.rs`, `path@check@src/check/mod.rs`, `path@check@src/commands/history.rs`, `path@check@src/commands/mod.rs`, `path@elsewhere@crates/core/src/manifest.rs`, `path@check@src/mock_projects.rs`, `path@elsewhere@crates/core/src/survey.rs`, `path@elsewhere@crates/core/src/walk.rs`, `path@cli@tests/binary.rs`, `register@knowledge-architect@design`, `path@knowledge-architect@docs/open-issues/the-skill-bundling-passes-are-tied-to-this-project-s-skills.md`, `spec@plans@path-quickfixes` |
@@ -248,8 +248,8 @@ Outside this work, each with what owns it:
 | `design@check@nothing-of-a-project-is-compiled-in` | #cli-on-top | `path@agent-skills@docs/open-issues/pointers-written-bare-to-clear-a-finding-reach-no-check.md`, `path@check@CLAUDE.md`, `path@model@docs/design/anchors.md`, `path@check@docs/design/creating.md`, `path@check@docs/design/plan-documents.md`, `path@check@docs/design/prose.md`, `path@check@README.md`, `path@check@src/commands/create.rs` |
 | `design@gates@the-library-owns-the-flags` | #cli-on-top, for its clause "as it is of `check`'s", which turns false once `check` holds no clap type | none |
 | `design@knowledge-architect@no-component-directory-named-after-the-project` | #check-renamed and #cli-on-top, for its instance, crates/core for the package `knowledge-architect`, and its cost sentence | `path@agent-skills@content/skills/component-creation/SKILL.md` |
-| `design@mutate@report-not-gate` | #cli-on-top, for its clause that `design@check@exit-code-ladder` "binds `check`'s commands alone" | none |
-| `design@check@exit-code-ladder` | #cli-on-top, which moves it to `cli`: it binds every command `cli` offers | as `cargo klarch show` lists it at that slice |
+| `design@mutate@report-not-gate` | #cli-on-top, for its clause that `design@cli@exit-code-ladder` "binds `check`'s commands alone" | none |
+| `design@cli@exit-code-ladder` | #cli-on-top, which moves it to `cli`: it binds every command `cli` offers | as `cargo klarch show` lists it at that slice |
 | `design@check@an-extension-plugs-in-through-phased-hooks` | #model-out; #cli-on-top, for "`check`'s binary" | `path@check@docs/design/generated-files-and-fixes.md`, `path@check@docs/design/plan-documents.md`, `path@check@docs/design/run-model.md`, `path@check@docs/open-issues/citation-regime-over-any-pinned-text.md`, `path@check@README.md`, `path@check@src/check/mod.rs`, `path@elsewhere@crates/core/src/check/tree.rs`, `path@check@src/commands/mod.rs`, `path@check@src/extension.rs`, `spec@plans@path-quickfixes` |
 
 The head on the installed text's crate turned false at #git-out, which adds a crate: "A user names
@@ -258,7 +258,7 @@ rewrote it, as `design@knowledge-architect@installed-text-crate`, in a form the 
 true: the installed text lives in its own crate, which the crate holding the installed-file check depends on by path and by exact version, a user names
 only `knowledge-architect`, cargo fetches every other crate, and all are published together at one
 version. The bundling work rewrites it again. `design@check@transcript-command-in-core` is rewritten
-at #consumers-out: its argument from `design@check@single-crate` falls with that head. Each row's
+at #consumers-out: its argument from `rejected@knowledge-architect@single-crate` falls with that head. Each row's
 slice writes the rewrite into its harvest.
 
 **The discussion's record search** graded 193 entries `bears` and 110 `may-bear`, for this milestone
@@ -328,9 +328,9 @@ the tree does not hold. Those that bear on the split, with their outcome:
   these issues count; none is closed or decided here;
 - `the-reversal-rule-fixes-the-component-when-the-successor-decides-another-s-interface`, an issue of agent-skills, closed by the design discussion that revised the rules on
   Components: a reversal's successor goes to the Component that the rule on the owning Component
-  gives it, so the successor of `design@check@single-crate`, a decision about which Components exist
+  gives it, so the successor of `rejected@knowledge-architect@single-crate`, a decision about which Components exist
   and how they depend on each other, is written in the root's design home at #cli-on-top, and
-  `design@check@single-crate` leaves the core's design home in the same change;
+  `rejected@knowledge-architect@single-crate` leaves the core's design home in the same change;
 - `design@mutate@report-not-gate`: its clause naming "`check`'s commands" is rewritten at
   #cli-on-top, per the table above;
 - `design@xtask@one-module-per-subcommand`, `design@xtask@view-included-not-exported`,
@@ -619,7 +619,7 @@ implements the interface, potentially pulling rendering logic from another crate
 (such as a project with a gui). Though the difficulty here mostly came from our own recorded
 decision, which is quite old, made for reasons that no longer apply identically, and can be
 reversed." Arguments: #arg-15, #arg-20, #arg-21, #arg-32, #arg-33, #arg-96, #arg-98. Shape:
-`spec@component-split@cli-on-top`. Harvest: the successor of `design@check@single-crate` in the
+`spec@component-split@cli-on-top`. Harvest: the successor of `rejected@knowledge-architect@single-crate` in the
 root's design home, in the change that reverses it, per point 1 of
 `skill@knowledge-architect-decision-recording@owning-component` and the reversal rule as the design
 discussion on the rules for Components revised them; the `cli` Component's design home for its own
@@ -691,7 +691,7 @@ component-creation skill alone today, in two comment lines that keep its two par
 binary crate and the parsing in the crate nearest the binaries, without a head; the slice whose
 `cli` head states them is their second text, and writes the two heads of
 `register@agent-skills@design`, which `cli`'s head on its own parsing cites, with
-`design@check@arguments-parse-through-clap` rewritten.
+`design@cli@arguments-parse-through-clap` rewritten.
 
 ### An intermediate Component exists where several Components share design the rest of the project does not; the component-creation skill's sentence on layering by count goes `##intermediate-by-shared-design`
 
@@ -887,7 +887,7 @@ R1, the session. Threads: [gates/mutate onto git].
 
 R1, the session. Threads: #cli-crate (reversal).
 
-"`design@check@single-crate` argued that a separate binary crate "would save its users no dependency". That premise fails once the command set spans crates."
+"`rejected@knowledge-architect@single-crate` argued that a separate binary crate "would save its users no dependency". That premise fails once the command set spans crates."
 
 ### The core's package is renamed `##arg-21`
 
@@ -1143,13 +1143,13 @@ R4, the session. Threads: #command-parsing-home.
 
 R4, the session. Threads: #command-parsing-home.
 
-"Decisions about the whole interface get one home. `design@check@exit-code-ladder`, flags shared across commands (`--staged`, `--out`), and output conventions apply to every command. Under P2 they are restated in each domain crate."
+"Decisions about the whole interface get one home. `design@cli@exit-code-ladder`, flags shared across commands (`--staged`, `--out`), and output conventions apply to every command. Under P2 they are restated in each domain crate."
 
 ### Clap leaves the domain crates' interface `##arg-75`
 
 R4, the session. Threads: #command-parsing-home.
 
-"clap leaves the domain crates' interface. `design@check@arguments-parse-through-clap` says "clap is part of the core's public interface". Under P1 only `cli` has that cost."
+"clap leaves the domain crates' interface. `design@cli@arguments-parse-through-clap` says "clap is part of the core's public interface". Under P1 only `cli` has that cost."
 
 ### Under P1, the domain crate states it as a type, for example 'enum CheckMode { Working, Staged, Fix }', so (cut) `##arg-76`
 
@@ -1259,7 +1259,7 @@ R4, the session. Threads: #git-crate (Decided).
 
 R4, the session. Threads: #cli-crate (Decided).
 
-"The successor of `design@check@single-crate` is recorded in the root design home. The component-creation skill puts layout decisions there. That also sidesteps the case `the-reversal-rule-fixes-the-component-when-the-successor-decides-another-s-interface` asks about."
+"The successor of `rejected@knowledge-architect@single-crate` is recorded in the root design home. The component-creation skill puts layout decisions there. That also sidesteps the case `the-reversal-rule-fixes-the-component-when-the-successor-decides-another-s-interface` asks about."
 
 Withdrawn at the plan's review: the successor went to the incumbent's Component by the installed rule as it stood; the rule as the design discussion on the rules for Components revised it gives the root again; see #cli-crate.
 
@@ -1472,7 +1472,7 @@ docs/ are split by subject, each slice moving what its new Component holds.
   touched either side touched the model alone, 20 the checks alone, so the boundary is crossed by 44,
   not by every change (#arg-45), and the goals predict more consumers of the model that need no
   check (#arg-30).
-- **The library and the binary in one crate**, `design@check@single-crate`, lost to #cli-crate: its
+- **The library and the binary in one crate**, `rejected@knowledge-architect@single-crate`, lost to #cli-crate: its
   premise, that a separate binary crate saves its users no dependency, fails once the command set
   spans crates, and a commands module in the checker would form a cycle with `query` and `create`
   (#arg-15, #arg-20).

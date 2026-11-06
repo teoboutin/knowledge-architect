@@ -104,7 +104,7 @@ design grounding reads every goals home whole, per `design@agent-skills@searcher
 the other readers read a goal with `show`. The entries keep the order of `agents.txt`. A run that
 fails, or stops on a file it cannot read, leaves no assembly, a previous run's included; a snapshot
 missing, cut short or lacking an entry of the list, and a write that fails, stop it with exit 2 and
-no assembly, per `design@check@exit-code-ladder`. `--verify` still reads no model, so the session
+no assembly, per `design@cli@exit-code-ladder`. `--verify` still reads no model, so the session
 reads what the searchers graded, whatever the tree has become since.
 
 It serves `goal@knowledge-architect@mechanical-tasks-are-the-tool-s` and

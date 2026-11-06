@@ -15,13 +15,12 @@ be interpolated makes the tests harder to read than the code they test. Comments
 because the test modules point at decisions and paths for real, and those pointers stay checked.
 
 **The directories are compiled in, never declared.** A binary's source spans several
-Components: `check`'s, the `git` crate's, the `model` crate's, and the Component of each extension
+Components: `cli`'s, `check`'s, the `git` crate's, the `model` crate's, and the Component of each extension
 the binary registers. Each library exports
 the directory of the Component it belongs to, evaluated at build time, and the binary hands the
-list of its libraries' directories to the walk. `check` is one crate whose directory is its
-Component, so the `check` library exports its own `CARGO_MANIFEST_DIR`, and `check`'s binary and
-tests sit inside it; the `git` crate and the `model` crate, each a Component of its own, export their
-own directory the same way. An extension whose library crate sits below its Component's directory exports
+list of its libraries' directories to the walk. Each is one crate whose directory is its
+Component, so each library exports its own `CARGO_MANIFEST_DIR`, and `klarch` and
+its tests sit inside `cli`'s. An extension whose library crate sits below its Component's directory exports
 that Component's directory instead, or the binary and tests beside the library would sit outside
 it: a binary sees only the libraries it depends on. A binary run
 through a cargo alias over `cargo run` is built from the checkout on every invocation, so each
@@ -92,7 +91,7 @@ it reads are each crate's own directory and package name, beside the Component d
 **Every binary tests both halves over its own Components.** Over a checkout holding the tool,
 the summary's checker-source line names each Component whose library the binary links and
 counts the walked Rust files under them. And a tree holding one of the binary's crates at
-another relative path is refused. `check`'s binary does this in
+another relative path is refused. `klarch` does this in
 `path@cli@tests/binary.rs`; an extension binary does it in its own suite, because only it
 links its extension's library.
 
@@ -108,7 +107,7 @@ string fails the parse. Each binary that dispatches a command of the checker cal
 `cli::refuse_another_version` in its `main`, right after the build-origin refusal of
 `design@check@a-foreign-build-is-refused`, before it dispatches any command but `init`, an
 extension's own included: a version is accepted when it equals the `check` library's, and any refusal, the key's own
-complaint included, is exit 2, per `design@check@exit-code-ladder`, naming the two versions and
+complaint included, is exit 2, per `design@cli@exit-code-ladder`, naming the two versions and
 which side is older. `init`, which every binary hands to `cli::init` before it locates a project,
 calls no version refusal: no manifest exists to read a pin from, and the one it writes pins the
 `check` library's version, per `design@check@init-command`. `cli::run` does not refuse, so a command

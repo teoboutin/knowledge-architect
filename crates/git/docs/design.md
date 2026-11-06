@@ -104,6 +104,6 @@ against `goal@check@document-rules-are-checked`: a tree that passes the checker 
 texts the checker reads, to every rule it holds. **Every invocation a verdict depends on fails that
 way**: the listing, the tracked-and-ignored listing and the `check-ignore` batch, each carrying
 git's own stderr, whatever the reason. The checker's commands give that error the code 2, a
-command that could not run, per `design@check@exit-code-ladder`. The one invocation that degrades
+command that could not run, per `design@cli@exit-code-ladder`. The one invocation that degrades
 instead is `last_changed`, which fills a listing's convenience column and moves no verdict: where
 git answers nothing the column shows `-`.

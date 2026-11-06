@@ -65,7 +65,7 @@ itself, and each gate is wrapped in `::group::` and, when it fails, one `::error
   broken build the test gate repeats clippy's compile errors — pass `--fail-fast` when that
   wait is not worth it.
 - The tool must be run from inside the checkout: it locates the project root by walking up to
-  `knowledge-architect.toml`, the name `check`'s `MANIFEST_NAME` constant spells, and runs every
+  `knowledge-architect.toml`, the name the `MANIFEST_NAME` constant of the package `knowledge-architect` spells, and runs every
   gate from there.
 - A closed stdout is safe: when the reader closes it, what is printed truncates and nothing
   changes about the run, the logs or the exit code.

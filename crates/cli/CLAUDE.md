@@ -2,7 +2,7 @@
 
 **This crate holds the binary, the clap declarations, the dispatch and what a consumer names, and no
 logic of a command**, which is the typed function of `knowledge_architect_check::commands`, per
-`design@check@the-core-cli-is-a-library-module`. A new command is a declaration here and a function there.
+`design@cli@the-commands-are-a-library-module`. A new command is a declaration here and a function there.
 A combination of arguments the domain refuses is a type of that function, and the conversion in `cli::run`
 refuses a value that holds it, since an `*Args` struct is public and a value of one can reach `run` without
 clap.

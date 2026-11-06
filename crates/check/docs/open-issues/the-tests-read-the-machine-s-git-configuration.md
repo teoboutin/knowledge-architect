@@ -18,7 +18,7 @@ the identity.
 Measured by the adversarial reviewer of the review before the merge of the branch that gave
 `Sandbox::git_command` the sandbox's identity, at that branch's tip, with the machine's real
 configuration untouched: each probe set `GIT_CONFIG_GLOBAL` to a file of its own and
-`GIT_CONFIG_NOSYSTEM=1`, then ran `cargo test -p knowledge-architect --no-fail-fast`.
+`GIT_CONFIG_NOSYSTEM=1`, then ran `cargo test -p knowledge-architect-check --no-fail-fast`.
 
 - A global configuration holding `commit.gpgsign = true` and `gpg.program = false`: 9 failures in
   the library's unit tests, 55 in `path@cli@tests/binary.rs`, 1 in `path@cli@tests/extension_api.rs`; the test

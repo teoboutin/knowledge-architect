@@ -120,20 +120,11 @@ the project's policy on publishing; it never sets it.
 - **A Component that supports extensions publishes the tools an extension's tests need**, its test
   harness, as a module of that Component or as a crate of its own, the project's choice. The
   fixtures of the shared test Component stay outside every published package.
-%% Stated here alone, so no head until a second text states it: the owner's argument that grouping
-%% the parsing, with the checks applied at parsing, is more convenient, and the logic is mostly
-%% pulled from below; the session's, that the interface's decisions then have one home, the parser's
-%% library stays out of the domain crates' interface, and a frontend that is no command line gets
-%% a typed API. The rival, the binary inside a domain crate, puts the interface's decisions in that
-%% crate's design.
+%% The argument and the rival are `design@agent-skills@top-level-binary-crate`.
 - **A top-level binary crate**: where several Components contribute commands to one binary, the
   binary and its interface sit in a crate above them, which parses the arguments, applies the
   checks that can be made while parsing, and calls the logic the Components expose as a typed API.
-%% Stated here alone, so no head until a second text states it: parsed anywhere else, a library
-%% flattened into binaries no shared crate sits above would have each binary declare its flags
-%% again.
-%% The rival, each Component parsing its own commands and the binary flattening them, restates the
-%% interface's decisions in each domain crate.
+%% The argument and the rival are `design@agent-skills@command-parsed-nearest-the-binaries`.
 - **A command's arguments are parsed in the crate nearest the binaries among those that every
   binary offering the command depends on**, so a library whose commands are flattened into each
   adopting project's own binary keeps its own parsing.
