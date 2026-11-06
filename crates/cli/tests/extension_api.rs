@@ -351,7 +351,6 @@ fn check_fix_after_a_write_never_reports_could_not_run() {
     let _ = std::fs::remove_dir_all(&root);
 }
 
-/// An extension whose generated file sits in a directory the tree does not hold.
 /// An extension that claims a table and holds no check.
 #[derive(Default)]
 struct ClaimsRules;
@@ -413,6 +412,7 @@ fn a_command_over_the_record_reads_an_extensions_table_as_the_checker_does() {
     let _ = std::fs::remove_dir_all(&root);
 }
 
+/// An extension whose generated file sits in a directory the tree does not hold.
 #[derive(Default)]
 struct ListingNowhere;
 

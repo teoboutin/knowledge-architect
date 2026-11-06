@@ -114,9 +114,14 @@ pub(crate) fn install(root: &Path, shipped: &[(PathBuf, String)]) -> Result<Inst
     Ok(out)
 }
 
-/// The same, recording into `out` as it goes, so a caller still knows what was written or
-/// deleted when a later write fails part-way. `check --fix` prints that record either way, and
-/// its exit code depends on whether anything was written.
+/// Write `shipped` under `root` and delete every file of the installer's namespace it does not hold,
+/// recording into `out` as it goes, so a caller still knows what was written or deleted when a
+/// later write fails part-way. `init` prints that record outside a worktree, either way.
+///
+/// `Err` is a filesystem error, naming the path, or a symbolic link on an owned path, which this
+/// refuses rather than writes or deletes through: following one would reach another directory, possibly
+/// another project's. A link met after the first write leaves the earlier writes in place, per
+/// `issue@check@install-agent-skills-exits-two-after-writing`.
 pub fn install_into(
     root: &Path,
     shipped: &[(PathBuf, String)],

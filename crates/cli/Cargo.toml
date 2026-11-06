@@ -24,7 +24,7 @@ path = "src/main.rs"
 # The commands are declared here, so a binary that registers an extension flattens them into its
 # own, per `design@cli@the-commands-are-a-library-module`.
 clap = { version = "4", features = ["derive"] }
-# Each command's logic, and what an extension is written against. Pinned exactly, as every crate of
+# The checks, the logic of the commands that run them, and what an extension is written against. Pinned exactly, as every crate of
 # the workspace carries one version, per `design@knowledge-architect@version-lockstep`.
 knowledge-architect-check = { path = "../check", version = "=0.9.0" }
 # Each of these is a library the binary links, so its directory and its package name are listed in

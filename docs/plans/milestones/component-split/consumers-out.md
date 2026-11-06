@@ -33,8 +33,7 @@ The fifth slice of `milestone@plans@component-split`. It leaves when it lands.
   passes with no assertion on a moved command's output edited; shown to discriminate by a recorded
   mutation of one moved command's output, which a binary test fails on. Its diff is confined to: the three
   lines that read the two moved fixtures, the `checker source:` line and its count over the directories,
-  the list of packages in the refusal's `cargo clean`, and the tests this slice adds. The first two of
-  those are text of commands that do not move, and each owes a changelog entry. The one exception to the
+  the list of packages in the refusal's `cargo clean`, and the tests this slice adds. The `checker source:` line and the list of packages are text of commands that do not move, and each owes a changelog entry. The one exception to the
   claim is the line D6 adds to `init`'s output.
 - **A closed stdout ends each crate's commands with exit 2.** Test: one test per copy of the writer, over a
   command of `query` and a command of `transcript`, beside the test over `model` and the one over `init`, since
@@ -75,7 +74,7 @@ since its repair changes what an extension's binary does and this slice relocate
 
 **What every commit's tree must pass.** This slice's first change sets nothing of it: adding a directory to the
 list a binary hands over only reads its literals as data, and `snapshot_checker_dirs` of `path@model@src/model.rs`
-drops a listed directory that no file of a tree sits in, so an earlier tree of the branch is judged as before, which
+reads a literal as data only in a document under a listed directory, so an earlier tree of the branch is judged as before, which
 `cargo klarch commits origin/main..HEAD` over the built branch shows. A crate and its rows in `path@cli@src/main.rs`
 go in one commit, or that commit's own check reads its literals as prose.
 
@@ -107,7 +106,7 @@ that sentence is what this slice rewrites, since #cli-on-top removed the one tha
 `rejected@knowledge-architect@single-crate`.
 
 **`create`.** It has its own purpose, tests and 13 heads, counted with
-`grep -c '^### ' crates/check/docs/design/creating.md`; the cut costs the public API of `check` the five items
+`grep -c '^### ' crates/create/docs/design.md` as the slice left it; the cut costs the public API of `check` the five items
 "Builds" lists, D10's subject, and of `model` nothing (#arg-14, corrected at this slice's audit).
 
 **The commands' documentation.** Command-line usage and exit codes stay in `path@cli@README.md`, since `cli` parses
@@ -130,6 +129,6 @@ a project running the tools names `knowledge-architect` alone, and the condition
 | #query-crate | the root's design home: a head for the crate and what it depends on, under the thread's slug. `query`'s design home: a head that it depends on no crate of the checks; the heads of `path@elsewhere@crates/check/docs/design/worklist.md` but `design@check@no-citation-direction-rule`, which stays in `check` beside `design@check@goals-home-cites-upward-only`; `design@query@anchors-listing-command` and `design@query@id-lookup-command`; with the `rejected` entries those alone cite and the issues on its commands |
 | #transcript-crate | the root's design home: a head under the thread's slug, the part saying that the reader is a crate of its own that `cli` depends on. `transcript`'s design home: the transcript heads, and the successor of `transcript-is-a-command-of-every-binary` under a new slug, with the `rejected` entry and the issues on them |
 | #create-crate | the root's design home: a head for the crate and what it depends on, under the thread's slug. `create`'s design home: the heads of creating, with the `rejected` entries and the issues on them |
-| what each head that names the crates says | `design@knowledge-architect@git-crate`, `design@knowledge-architect@checker-asks-git-through-the-crate`, `design@knowledge-architect@model-crate` for "the writers run them and no check", which `init` and `new-component` refute, `design@knowledge-architect@api-facade`, `design@check@the-facade-publishes-what-a-consumer-needs`, `design@check@a-typed-command-prints-and-returns-its-code`, `design@check@a-foreign-build-is-refused`, `design@check@checker-source-literals-are-data`, `design@knowledge-architect@partial-publish-rerun` |
-| the issues whose text names moved code or the sites of the crates | `issue@check@a-typed-command-prints-and-exits-rather-than-returning-data`, `issue@check@a-typed-command-trusts-its-caller-to-have-configured-the-manifest`, `issue@knowledge-architect@the-target-project-and-its-asks-are-stated-to-no-adopter`, `issue@knowledge-architect@the-skill-bundling-passes-are-tied-to-this-project-s-skills`, `issue@agent-skills@the-upstream-set-omits-the-published-libraries`, `issue@cli@some-moved-behaviour-of-the-commands-survives-a-mutation`, `issue@model@the-resolver-s-arms-have-mutation-survivors`, and each sentence that cites this spec, rewritten before it leaves |
+| what each head that names the crates says | `design@knowledge-architect@git-crate`, `design@knowledge-architect@checker-asks-git-through-the-crate`, `design@knowledge-architect@model-crate` for "the writers run them and no check", which `init` and `new-component` refute, `design@knowledge-architect@api-facade`, `design@check@the-facade-publishes-what-a-consumer-needs`, `design@knowledge-architect@a-typed-command-prints-and-returns-its-code`, `design@check@a-foreign-build-is-refused`, `design@check@checker-source-literals-are-data`, `design@knowledge-architect@partial-publish-rerun` |
+| the issues whose text names moved code or the sites of the crates | `issue@knowledge-architect@a-typed-command-prints-and-exits-rather-than-returning-data`, `issue@knowledge-architect@a-typed-command-trusts-its-caller-to-have-configured-the-manifest`, `issue@knowledge-architect@the-target-project-and-its-asks-are-stated-to-no-adopter`, `issue@knowledge-architect@the-skill-bundling-passes-are-tied-to-this-project-s-skills`, `issue@agent-skills@the-upstream-set-omits-the-published-libraries`, `issue@cli@some-moved-behaviour-of-the-commands-survives-a-mutation`, `issue@model@the-resolver-s-arms-have-mutation-survivors`, and each sentence that cites this spec, rewritten before it leaves |
 | the changelog | the entry on `knowledge-architect-check` edited; a `library` entry per new crate; D6's `cli` entry |

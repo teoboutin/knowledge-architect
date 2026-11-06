@@ -1,11 +1,12 @@
 **Generated — do not edit.** `cargo klarch index`
 
-17 entries
+20 entries
 
 | kind | title |
 | --- | --- |
 | design | [Nothing states which part of a command's printed output is a contract](command-output-is-not-declared-a-contract.md) |
 | design | [The rule that a released changelog section's content never changes has no recorded argument](the-released-changelog-section-rule-has-no-argument.md) |
+| question | [A new crate's first publish by hand needs the versions it pins on crates.io first](a-crate-s-first-publish-needs-the-crates-it-pins-on-crates-io.md) |
 | question | [A measurement taken in another project that a head leans on has two homes in the knowledge table](a-measurement-from-another-project-has-two-homes.md) |
 | question | [CI does not run on a draft pull request, and no record says why](ci-does-not-run-on-a-draft-and-no-record-says-why.md) |
 | question | [Does the quick-fixes spec still hold now that the lints on ids are built?](path-quickfixes-read-against-the-lints-on-ids.md) |
@@ -13,6 +14,8 @@
 | question | [Do the root's goals about the model, the tools and the checker belong in an intermediate Component?](root-goals-about-the-checker-may-belong-to-an-intermediate-component.md) |
 | question | [May the checker depend on every crate that does not depend on it, `query` and `render` among them?](the-checker-may-depend-on-every-crate-below-it.md) |
 | todo | [CHANGELOG.md's shape is checked by a reviewer only, and no model of it exists](a-mechanical-changelog-check.md) |
+| todo | [A typed command prints and can end the process, rather than returning its data](a-typed-command-prints-and-exits-rather-than-returning-data.md) |
+| todo | [A typed command trusts its caller to have configured the manifest, and answers wrongly when it has not](a-typed-command-trusts-its-caller-to-have-configured-the-manifest.md) |
 | todo | [No published crate offers the history tasks the workflow asks of a session](no-published-command-rewrites-a-branch-s-history.md) |
 | todo | [The documents do not yet render as one linked site](the-documents-do-not-render-as-a-site.md) |
 | todo | [The goal on mechanical tasks does not cover an action a command would make more efficient or better](the-mechanical-tasks-goal-omits-what-a-helper-does-better.md) |

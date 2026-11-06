@@ -41,9 +41,10 @@ arguments of `check`, `index` or a writing command of an extension.
 ## Guarding `design@check@the-facade-publishes-what-a-consumer-needs`: a consumer needs an item that is private behind the facade `##private-item-needed`
 
 The decision rests on the premise that the role modules publish every item a consumer of the
-library, a binary, an extension or the extension's tests, needs.
+library outside this workspace, a binary, an extension or the extension's tests, needs. A crate of this workspace is met at
+the design of the work that writes it, so it fires nothing here.
 
-**Fires when:** a consumer of the library, thaum's rules extension first, needs an item that is
+**Fires when:** a consumer of the library outside this workspace, thaum's rules extension first, needs an item that is
 private behind the facade, and no public item replaces it. An example still unmet in this library's facade: the records
 listing, for an extension command that lists its own entries, which `model` publishes. The entity table and the anchors
 fired it once, recorded as `issue@check@an-extension-cannot-see-which-register-a-document-belongs-to`.

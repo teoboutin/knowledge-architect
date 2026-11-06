@@ -30,14 +30,6 @@ The designs this decision did not keep: `rejected@check@paragraphs-with-show-pri
 `rejected@check@kind-named-rejected-alternative`, `rejected@check@home-keeping-the-old-file-name` and
 `rejected@check@validity-marker-checked`.
 
-### A tripwire guards no `rejected` entry `##tripwire-guards-no-rejected-entry`
-
-The `guarding` column of `cargo klarch tripwires`, and its `--guarding` filter, read every
-reference of a tripwire to an entry of a register but `issue`, `tripwire` and `rejected`. A
-tripwire guards a decision: a `rejected` entry records a design not kept, which is no decision, so
-a tripwire that names one names the candidate its response would reopen, not what it guards. The
-rival, counting it like a declared register's entry, would list a design not kept as guarded.
-
 ### The checker does not check a tripwire's horizon line, for now `##tripwire-horizon-unchecked`
 
 A tripwire's `**Watches until:**` line, which `design@agent-skills@tripwire-horizon` gives every

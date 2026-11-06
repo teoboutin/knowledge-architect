@@ -20,7 +20,7 @@ The other typed commands gave the same output over a relative root as over an ab
 ### Why it matters
 
 A refusal that names a false reason sends the reader to the wrong repair. It writes nothing, so nothing is lost. It bears on
-`design@check@a-typed-command-prints-and-returns-its-code`, which offers these functions to a frontend.
+`design@knowledge-architect@a-typed-command-prints-and-returns-its-code`, which offers these functions to a frontend.
 
 ### What would close it
 

@@ -1,9 +1,10 @@
 **Generated — do not edit.** `cargo klarch index`
 
-7 entries
+8 entries
 
 | kind | title |
 | --- | --- |
+| defect | [`show` answers otherwise than the check on some references, and `issues` calls a new file's date unknown](show-answers-otherwise-than-the-check-on-some-references.md) |
 | todo | [A record searcher fills its report by a script or a whole rewrite of its own](a-searcher-fills-its-report-by-a-script-of-its-own.md) |
 | todo | [No command counts a tripwire's horizon](no-command-counts-a-tripwire-s-horizon.md) |
 | todo | [No command lists the item and label numbers in use in a plan, its deleted documents included](no-command-lists-the-numbers-in-use-in-a-plan-across-its-history.md) |

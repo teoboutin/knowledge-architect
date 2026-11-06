@@ -24,5 +24,6 @@ prints exists whatever else the model misses.
 
 ### What would close it
 
-A design discussion under `skill@knowledge-architect-design`, at the audit of the slice that moves the commands
-over the model, `spec@component-split@consumers-out`, whether to run these findings as part of the build.
+A design discussion under `skill@knowledge-architect-design`, whether to run these findings as part of the build, at the
+first design of a tool over the model that reads its findings, or on the owner's asking. Running them in the build gates
+`show`, `issues` and `tripwires`, which `design@check@phases-gate-the-report` has answer ungated.

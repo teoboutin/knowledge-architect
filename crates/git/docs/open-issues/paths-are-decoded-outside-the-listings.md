@@ -1,7 +1,7 @@
 ---
 kind: defect
 ---
-# Three public functions of the git library decode a path, so a path that is not plain UTF-8 or ASCII loses its answer
+# Public functions of the git library decode a path, so a path that is not plain UTF-8 or ASCII loses its answer
 
 ## Summary
 

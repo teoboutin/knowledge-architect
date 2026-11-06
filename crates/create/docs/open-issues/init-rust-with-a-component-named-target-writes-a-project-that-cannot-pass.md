@@ -29,5 +29,4 @@ coming before the first write.
 
 ### What would close it
 
-`init` refuses a `--component` the rules it is about to write would ignore, before any write, with a test. It is one of the
-refusals `spec@component-split@consumers-out` moves to `create`.
+`init` refuses a `--component` the rules it is about to write would ignore, before any write, with a test.

@@ -23,6 +23,8 @@ Each already exits 2 before any write, so what changes is where the rule sits, a
 the crate of the tool holds, which keeps `cli` free of the tool's rules. `show`, `worklist --seed`, `tripwires --guarding` and `id` stay as
 they are: their value names something in the project, or is what the command is asked about.
 
+`--since` checks the shape alone: `2026-13-45` gets a verdict, exit 1, where the exit table of `path@cli@README.md` puts a date that does not parse in row 2.
+
 ### Why it matters
 
 An agent adding a new value of the same kind reads these as the pattern, and places the check in the tool.

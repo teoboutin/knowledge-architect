@@ -14,9 +14,9 @@ refactoring the commands so that they return data is recorded here, to be done l
 
 ### What
 
-Measured with `grep -cE 'out(ln)?!\(' crates/{check/src/commands,query/src,transcript/src,create/src}/*.rs`, which the
-commit moving these crates' commands took. Each of `check`, `query` and `transcript` holds a writer, and `create` a macro over
-`check`'s. Three things stand in the way of returning data:
+Measured with `grep -cE 'out(ln)?!\(' crates/{check/src/commands,query/src,transcript/src,create/src}/*.rs`: 98 lines
+print through `out!` or `outln!`, 30 in `check`, 42 in `query`, 19 in `transcript` and 7 in `create`. Each of `check`, `query` and
+`transcript` holds a writer, and `create` a macro over `check`'s. Three things stand in the way of returning data:
 
 - some of those lines sit inside a write loop, as `index_working` and `fix_then_check` print each file as they write it;
 - each function chooses between exit 1 and exit 2 itself, as `fix_then_check` does from how many files it wrote;
@@ -28,7 +28,7 @@ Ruled out at the design audit of the slice that moved the binary to the top: mov
 
 ### Why it matters
 
-`design@check@a-typed-command-prints-and-returns-its-code` states the choice this entry would reverse, and
+`design@knowledge-architect@a-typed-command-prints-and-returns-its-code` states the choice this entry would reverse, and
 `design@agent-skills@top-level-binary-crate` argues that a frontend that is no command line gets a typed API. Until this is
 done that holds in part: the frontend names no clap type, and gets no value it can lay out itself. A test of a command's
 outcome also reads printed text, or runs the binary, where it could read a value. The session's choice to keep the

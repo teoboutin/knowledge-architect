@@ -6505,6 +6505,8 @@ fn id_answers_free_defined_and_malformed_ids_and_refuses_an_incomplete_model() {
     assert_eq!(code, 2, "{stdout}{stderr}");
     assert!(!stdout.contains("free"), "{stdout}");
     assert!(stderr.contains("the model is incomplete"), "{stderr}");
+    assert!(stderr.contains("No id is answered over it"), "{stderr}");
+    assert!(!stderr.contains("Nothing was written"), "{stderr}");
 }
 
 /// `id` prints a harness kind's entity in the form `show` takes, with no anchor for a skill and
@@ -7232,6 +7234,34 @@ fn transcript_a_linked_worktree_reads_the_sessions_of_its_main_checkout() {
         "a session of the main checkout:\n{stdout}"
     );
     assert!(!stdout.contains("99999999 "), "another project:\n{stdout}");
+}
+
+/// The claim: from a subdirectory, the sessions are those of the project, not of the working directory:
+/// `cli::run` hands `transcript` the project's root, per `design@transcript@transcript-directory-resolution`.
+/// Mutation checked: `Path::new(".")` handed in for `manifest.root()`.
+#[test]
+fn transcript_from_a_subdirectory_reads_the_sessions_of_the_project() {
+    let sandbox = Sandbox::new("transcript-subdirectory", "core");
+    let sub = sandbox.path("sub");
+    std::fs::create_dir(&sub).expect("a subdirectory");
+    let root = sandbox.dir.canonicalize().expect("the sandbox exists");
+    let config = std::env::temp_dir().join(format!("klarch-transcript-sub-{}", std::process::id()));
+    let _ = std::fs::remove_dir_all(&config);
+    copy_rendered(
+        &transcript_dir().join("tests/transcripts/places"),
+        &config,
+        &root.display().to_string(),
+    );
+    let (stdout, stderr, code) = run_with_env(
+        &sub,
+        &["transcript", "list"],
+        &[("CLAUDE_CONFIG_DIR", &config)],
+    );
+    assert_eq!(code, 0, "{stdout}{stderr}");
+    assert!(
+        stdout.contains("88888888 "),
+        "the project's session:\n{stdout}"
+    );
 }
 
 /// The kinds of line harness versions 2.1.310 to 2.1.316 added, each classed: an interrupt placed by

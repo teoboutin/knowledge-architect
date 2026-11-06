@@ -11,7 +11,7 @@ main worktree's path. It depends on nothing of `model` or of the checks.
 text, per `design@transcript@transcript-labels-in-code`.
 
 **`path@transcript@src/output.rs` is a copy of the writer**: every write to stdout goes through it, and a closed stdout ends the command
-with exit 2, per `design@cli@exit-code-ladder`. A test holds that of this copy.
+with exit 2, per `design@cli@exit-code-ladder`. 
 
 The fixtures under `path@transcript@tests/transcripts/` are read by the tests of the binary, in `path@cli@tests/binary.rs`, since
 `CARGO_BIN_EXE_klarch` is set there alone.

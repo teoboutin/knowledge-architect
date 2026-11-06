@@ -109,7 +109,7 @@ anchor, id, title, last change — sorted by kind then id. **`tripwires [anchor]
 [text …]`** prints one row per tripwire entry — anchor, id, title, and every reference the
 entry carries to what it guards — sorted by anchor then id. What a tripwire guards is an entry of
 any register but `issue`, `tripwire` and `rejected`: a decision, a goal, or an entry of a register
-the manifest declares, per `design@check@tripwire-guards-no-rejected-entry`. For both, the
+the manifest declares, per `design@query@tripwire-guards-no-rejected-entry`. For both, the
 text keeps the rows whose id or title contains it, case-insensitively, and **no row is exit 1**.
 
 **The first positional argument is an anchor when something declares that name**, and text

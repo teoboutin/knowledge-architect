@@ -11,7 +11,7 @@
 //! its level. A Directory register's entry, a milestone, is its README's file.
 //!
 //! Nothing here reads the filesystem or spawns a process. The last-change column a listing
-//! prints comes from `git::last_changed`, which the binary calls beside these; every function
+//! prints comes from `git::last_changed`, which `issues` of `query` calls beside these; every function
 //! here is a pure function of the model, so a test states its project as text.
 
 use std::collections::{BTreeMap, BTreeSet};
@@ -53,7 +53,7 @@ pub struct Record {
 /// register a project declares, such as a reading of a specification. Every register kind but
 /// three, then. An `issue` reference in a tripwire names what its response opens, a `tripwire`
 /// reference names another guard, and a `rejected` reference names a design the project did not
-/// keep, which is no decision, per `design@check@tripwire-guards-no-rejected-entry`; none is
+/// keep, which is no decision, per `design@query@tripwire-guards-no-rejected-entry`; none is
 /// guarded. `path` is no register.
 pub(crate) fn guarded(registers: &Registers, kind: &str) -> bool {
     kind != ISSUE_REGISTER
@@ -572,7 +572,7 @@ mod tests {
         assert!(!first.body.contains("# Tripwires"), "{}", first.body);
         // Every guarded kind, a declared register's included: a path, an issue, a tripwire and a
         // `rejected` reference sit beside them and are not what this tripwire guards, a `rejected`
-        // entry being no decision, per `design@check@tripwire-guards-no-rejected-entry`. Mutation
+        // entry being no decision, per `design@query@tripwire-guards-no-rejected-entry`. Mutation
         // checked: the `rejected` exclusion removed from `guarded` lists the `rejected` reference.
         // The first is written twice in the section and appears once, in the order the entry names
         // them.
