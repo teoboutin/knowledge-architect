@@ -20,7 +20,7 @@ has landed in the installed text and in `register@agent-skills@design`.
   defect of the plan document.
 - Every name it uses is defined under Names or New names, or exists in the tree.
 - Where the owner's word is awaited, `skill@knowledge-architect-planning@working-a-slice` says what
-  waits. Its defaults, D1, D2, D3, D4 and D5, are ruled.
+  waits. Its defaults, D1, D2, D3, D4 and D5, are ruled; D6 to D10 await the owner.
 
 ## How the work is done
 
@@ -231,7 +231,7 @@ Outside this work, each with what owns it:
 | `design@knowledge-architect@installed-text-crate` | #git-out, rewritten in a form each later slice keeps true, under this slug, since the head's earlier slug said two crates | none |
 | `design@cli@the-commands-are-a-library-module` | #cli-on-top, moved to `cli` under a new slug, since it no longer names the core | `path@agent-skills@docs/design/project-configuration.md`, `path@check@docs/design/extensions-and-api.md`, `path@check@docs/design/run-model.md`, `path@check@docs/design/transcripts.md`, `path@check@README.md`, `path@check@src/commands/create.rs`, `path@check@src/commands/mod.rs`, `path@cli@src/main.rs`, `path@cli@tests/binary.rs` |
 | `design@cli@arguments-parse-through-clap` | #cli-on-top | `path@check@docs/design/creating.md`, `path@check@docs/design/generated-files-and-fixes.md`, `path@check@docs/design/run-model.md`, `path@check@docs/open-issues/manifest-table-exposes-the-toml-crate.md`, `path@check@src/commands/mod.rs`, `path@cli@src/main.rs`, `register@xtask@design` |
-| `design@check@transcript-is-a-command-of-every-binary` | #cli-on-top, for the sentence that argues from `rejected@knowledge-architect@single-crate`; #consumers-out, its successor under a new slug in `transcript`, the part saying that the reader is a crate of its own that `cli` depends on in the root's design home | none |
+| `design@check@transcript-is-a-command-of-every-binary` | #cli-on-top, for the sentence that argued from `rejected@knowledge-architect@single-crate`; #consumers-out, its successor under a new slug in `transcript`, the part saying that the reader is a crate of its own that `cli` depends on in the root's design home | none |
 | `design@knowledge-architect@api-facade`, and `design@check@the-facade-publishes-what-a-consumer-needs` split from it | #cli-on-top, for the facade over two crates; #integrated-tests; each slice writes its crate's facade | `path@check@CLAUDE.md`, `path@check@docs/design/transcripts.md`, `path@check@docs/open-issues/an-extension-cannot-see-which-register-a-document-belongs-to.md`, `path@check@docs/open-issues/manifest-table-exposes-the-toml-crate.md`, `register@check@tripwire`, `path@check@src/lib.rs` |
 | `design@check@phases-gate-the-report` | #model-out (the foundation), #check-renamed (the phase table) | `path@agent-skills@docs/open-issues/audit-axes-beyond-the-design-record.md`, `path@agent-skills@docs/open-issues/the-claim-check-of-a-commit-message-is-read-at-the-start-and-needed-at-each-commit.md`, `path@check@CLAUDE.md`, `path@check@docs/design/agent-configuration.md`, `path@check@docs/design/creating.md`, `path@check@docs/design/entities-and-headings.md`, `path@check@docs/design/extensions-and-api.md`, `path@check@docs/design/generated-files-and-fixes.md`, `path@check@docs/design/git-and-the-walk.md`, `path@check@docs/design/registers.md`, `path@check@docs/design/run-model.md`, `path@check@docs/design/worklist.md`, `register@check@tripwire`, `path@check@README.md`, `path@check@src/commands/create.rs`, `path@check@src/commands/mod.rs`, `path@check@src/commands/worklist.rs`, `spec@plans@path-quickfixes` |
 | `design@check@owned-namespace-check` | #check-renamed, split by the rule of one decision per head | `path@knowledge-architect@CLAUDE.md`, `path@agent-skills@docs/design/project-configuration.md`, `register@agent-skills@design`, `path@agent-skills@docs/design/retrospective.md`, `path@agent-skills@docs/design/shipped-set.md`, `path@agent-skills@docs/open-issues/patching-an-installed-skill.md`, `path@check@docs/design/agent-configuration.md`, `path@check@docs/design/creating.md`, `path@check@docs/design/generated-files-and-fixes.md`, `path@check@docs/design/git-and-the-walk.md`, `path@check@docs/design/run-model.md`, `path@check@docs/open-issues/a-project-workflow-can-declare-an-installed-workflow-s-name.md`, `path@check@docs/open-issues/core-heads-bundle-decisions-with-many-citing-sites.md`, `register@check@rejected`, `path@check@README.md`, `path@check@src/agents.rs`, `path@elsewhere@crates/core/src/check/agents.rs`, `path@check@src/check/mod.rs`, `path@check@src/commands/history.rs`, `path@check@src/commands/mod.rs`, `path@elsewhere@crates/core/src/manifest.rs`, `path@check@src/mock_projects.rs`, `path@elsewhere@crates/core/src/survey.rs`, `path@elsewhere@crates/core/src/walk.rs`, `path@cli@tests/binary.rs`, `register@knowledge-architect@design`, `path@knowledge-architect@docs/open-issues/the-skill-bundling-passes-are-tied-to-this-project-s-skills.md`, `spec@plans@path-quickfixes` |
@@ -257,8 +257,7 @@ rewrote it, as `design@knowledge-architect@installed-text-crate`, in a form the 
 true: the installed text lives in its own crate, which the crate holding the installed-file check depends on by path and by exact version, a user names
 only `knowledge-architect`, cargo fetches every other crate, and all are published together at one
 version. The bundling work rewrites it again. `design@check@transcript-is-a-command-of-every-binary` is rewritten
-at #consumers-out: its argument from `rejected@knowledge-architect@single-crate` falls with that head. Each row's
-slice writes the rewrite into its harvest.
+at #consumers-out, for its sentence that the reader is internal. Each row's slice writes the rewrite into its harvest.
 
 **The discussion's record search** graded 193 entries `bears` and 110 `may-bear`, for this milestone
 and the spec of the revision of the rules together, counted in the files its check assembled, which
@@ -354,7 +353,7 @@ outcome:
   `design@xtask@source-view-in-the-tool`, `issue@agent-skills@a-saved-workflow-s-comments-ship-to-every-project`:
   the bundling work's; this milestone leaves the build passes in `agent-skills`;
 - `design@agent-skills@rust-templates-one-home`: `init --rust` moves to `create` at #consumers-out,
-  and its test, which builds a project from the snippets, moves with it; the snippets stay in
+  and its test, which builds a project from the snippets, stays in xtask and calls `cli::init`; the snippets stay in
   `agent-skills`;
 - `design@knowledge-architect@binary-bundles-workflow`: the binary in `cli` still carries the
   installed text, through `check`'s dependency on `agent-skills`;
@@ -850,7 +849,7 @@ R1, the session. Threads: #create-crate.
 
 "passes the criteria (own purpose, own tests, 13 heads). It is the weakest cut by the signals: it needs `fix_then_check`, `locate`, `complete_working_tree` and the foreign-build refusal to become public API of `core`."
 
-Corrected at the plan's review: `cli/create.rs` calls `fix_then_check`, `complete_working_tree` and `refuse_a_foreign_build`; it names `locate` only in its doc comments.
+Corrected at the plan's review: `cli/create.rs` calls `fix_then_check`, `complete_working_tree` and `refuse_a_foreign_build`; it names `locate` only in its doc comments. Corrected again at the design audit of #consumers-out: it calls five further private items of `check`, D10's subject.
 
 ### The commands module has to sit above every crate that contributes a subcommand `##arg-15`
 
@@ -1612,6 +1611,46 @@ fire by a scratch dependency of `query` on `check`, which the command lists. The
   time. No goal ranks the two. The owner, at the merge of #cli-on-top: "D5 agreed, and refactoring commands so theh
   return data should be recorded in issues." Recorded in
   `issue@check@a-typed-command-prints-and-exits-rather-than-returning-data`.
+
+- **D6, on #create-crate**: what `init` does with a file of the installer's namespace it removes, the occasion
+  `issue@check@init-outside-a-worktree-deletes-an-owned-file-silently` gives this audit. Three shapes. The default:
+  `finish` lists each deletion, `fixed: removed <path> (installed)`, as `check --fix` does, which keeps
+  `design@check@init-asks-no-confirmation` and `design@check@init-runs-git-init` as they stand, since the first already
+  admits that `init` installs "as `design@check@owned-namespace-check` lets every install do", and that head makes
+  the deletion legitimate as an act a session can read. The file is still lost where no git holds a copy. The second
+  refuses such a file before the first write, which loses nothing, and refuses an existing project that holds one. The third
+  refuses outside every worktree whatever the directory holds, `rejected@check@init-refused-outside-a-repository-root`,
+  which refuses `--vcs none` whole and turns the table of the second head around. No goal ranks them. The issue's reach is
+  wider than its title: `--vcs git` over a directory holding files removes the same file with `fixed: removed` and no copy.
+- **D7, on #query-crate**: whether phases 2 and 3 run inside `Model::build`, which
+  `issue@model@the-structural-findings-might-be-checked-at-scan-time` asks at this audit. The default: no change at this
+  slice, and the issue stays open with its occasion rewritten, since the owner stated the belief without asking for a
+  change at this slice, and running them in the build would gate `show`, `issues` and `tripwires`, which answer over a tree
+  the checks stop on, against `design@check@phases-gate-the-report` and this slice's claim of the same output.
+- **D8, on #query-crate**: what a tool that links no check does over a project with an extension, which
+  `issue@model@a-tool-over-the-model-reads-a-project-with-an-extension-otherwise-than-the-checker` asks at this audit. The
+  default: `query`'s functions take a manifest as `check`'s do, its documentation states that the caller configures it, and
+  `cli::run` keeps configuring it, so `klarch` and an extension's binary change nothing, which a test over an extension's table
+  holds. The library names neither a pin nor an extension's table as what `goal@model@a-tool-knows-the-read-is-right` asks,
+  since that goal's list does not name them; so a tool linking `query` with no `cli` reads such a project as the issue
+  says, and the issue closes on this ruling. The rival: a type only `extension::configure` returns, in `model`, which each
+  command takes, the lead of `issue@check@a-typed-command-trusts-its-caller-to-have-configured-the-manifest`.
+- **D9, on #query-crate and #transcript-crate**: the printing's home, which D5 left to this audit. The only existing
+  crate below `query` and `transcript` is `git`, which `goal@git@a-pure-wrapper-over-git` refuses, and `model` is not below
+  `transcript`. So two shapes survive. The default: a copy of the writer in `query` and one in `transcript`, each with a test
+  and a citation of `design@cli@exit-code-ladder`, and `create` a macro over `check`'s public `output::write`. Its cost is
+  one reason at three sites. The rival: a crate of its own, of about 40 lines, which holds one home at the cost of
+  #cost-per-crate, for a name no thread proposed and D1 does not reach. The component-creation skill's default puts printing in
+  the Component that defines the data, and a return of data, per
+  `issue@check@a-typed-command-prints-and-exits-rather-than-returning-data`, removes the copies; that ranks the first
+  by a default, not a rule, so no goal ranks them.
+- **D10, on #create-crate**: a correction of the premise the owner approved. The table the owner agreed in R6 and #arg-14 gave
+  the cut's cost as three functions. The audit measured more: `shipped`, `install_into`, `Installed` and `IMPORT_LINE`, in
+  `check`'s private module `agents`, and what `new_component` asks of `staged_generated`; `fix_then_check` has a
+  public form already. `create` is a fifth kind of consumer of `check`'s facade, so
+  `tripwire@check@private-item-needed` fires by its letter, a consumer needing an item private behind the facade, and its
+  response is taken in this change, the item published and the rule on the facade's consumers rewritten. The default keeps
+  the cut, since `create` still has its own purpose and tests. The rival is to keep `init` and `new-component` in `check`.
 
 - **D1, on #cost-per-crate, ruled**: the fixed cost of each new crate is accepted, and each crate is
   created by the slice that builds it, `bundle`, `render` and `rewrite` by their own work. The owner,
