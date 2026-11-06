@@ -12,7 +12,8 @@
 //! `design@check@checker-source-literals-are-data`.
 //!
 //! **Each function takes a manifest its extensions have configured**, with
-//! [`crate::extension::configure`], as a binary's dispatch does before it calls one: a file they
+//! [`crate::extension::configure`], as a binary's dispatch does before it calls one, which nothing
+//! enforces yet, per `issue@check@a-typed-command-trusts-its-caller-to-have-configured-the-manifest`: a file they
 //! generate is outside every walk, and a table they refuse is phase 1 of `check`.
 
 use std::path::Path;

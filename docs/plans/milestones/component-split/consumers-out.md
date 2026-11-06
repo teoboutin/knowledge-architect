@@ -32,6 +32,7 @@ The fifth slice of `milestone@plans@component-split`. It leaves when it lands.
 
 ## Audit subjects
 
+`issue@check@init-outside-a-worktree-deletes-an-owned-file-silently`, which reopens two heads of `init` at this audit;
 `design@check@transcript-is-a-command-of-every-binary`, rewritten; the heads of
 `path@check@docs/design/worklist.md`, `path@check@docs/design/transcripts.md` and
 `path@check@docs/design/creating.md`; `design@check@anchors-listing-command`,

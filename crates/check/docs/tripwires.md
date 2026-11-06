@@ -67,22 +67,3 @@ its present argument.
 **Re-entry:** the standing-state review before every merge, and any change that adds a fix.
 **Watches until:** the commit on the main branch that deletes `spec@plans@path-quickfixes` at its
 landing, which deletes this entry.
-
-## Guarding `design@check@init-runs-git-init` and `design@check@init-asks-no-confirmation`: a mistaken run's cleanup `##init-cleanup-beyond-the-listed-files`
-
-The decisions rest on the premise that the worst a mistaken run does is add files, which the
-cleanup removes by deleting the files the run's output lists, under the refusal of a directory
-holding files outside every worktree that the owner chose over following `cargo init` exactly.
-
-**Fires when:** an issue or a retrospective finding reports an `init` run in an unintended
-directory that needed a cleanup beyond deleting the files its output listed, or that lost a file.
-
-**Response:** reopen `design@check@init-runs-git-init` and `design@check@init-asks-no-confirmation`
-with the stronger guard, `rejected@check@init-refused-outside-a-repository-root` in its form that
-refuses outside every worktree whatever the directory holds.
-
-**Re-entry:** the standing-state review, and each intake of a retrospective file.
-
-**Watches until:** the third release tag after the commit that writes this line, the first of them
-the release that ships `init`.
-

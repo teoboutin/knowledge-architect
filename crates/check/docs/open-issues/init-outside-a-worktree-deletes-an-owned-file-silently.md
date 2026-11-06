@@ -25,3 +25,9 @@ is unrecoverable, against `goal@knowledge-architect@agents-work-without-drift`.
 
 `finish` lists each deletion, or `init` judges such a file as a destination it refuses before its first write, with
 a test for the listing or the refusal.
+
+This entry also reopens `design@check@init-runs-git-init` and `design@check@init-asks-no-confirmation`, whose premise was that
+the worst a mistaken run does is add files, which the cleanup removes by deleting the files its output lists. It closes once
+that discussion has run, with the stronger guard among its candidates: `rejected@check@init-refused-outside-a-repository-root`,
+in its form that refuses outside every worktree whatever the directory holds. The audit of
+`spec@component-split@consumers-out`, which moves `init` to `create`, is its occasion.

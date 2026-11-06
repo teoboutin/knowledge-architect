@@ -397,8 +397,8 @@ a mistaken run, deletes them too. The owner chose a refusal there over following
 
 `live`. A project in a subdirectory of a repository passes the check, so a refusal there refuses a
 legal layout, and a new or empty directory outside every repository loses nothing to `git init`.
-There is still some doubt that the kept rule spares every mistaken run a messy cleanup: the
-tripwire `tripwire@check@init-cleanup-beyond-the-listed-files` watches it.
+The kept rule does not spare every mistaken run a messy cleanup, and
+`issue@check@init-outside-a-worktree-deletes-an-owned-file-silently` reopens the question, with this design among its candidates.
 
 ### A hook through which an extension contributes its manifest tables to `init` `##init-extension-hook`
 
