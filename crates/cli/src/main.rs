@@ -121,6 +121,19 @@ mod tests {
         assert!(Cli::try_parse_from(["klarch", "no-such-command"]).is_err());
     }
 
+    /// The claim: `worklist`'s combinations are refused while parsing, not only by `cli::run`'s
+    /// conversion: both directories, neither, and a bound or a seed beside `--verify`.
+    #[test]
+    fn worklist_combinations_are_refused_while_parsing() {
+        let parse = |args: &[&str]| Cli::try_parse_from([&["klarch", "worklist"], args].concat());
+        assert!(parse(&["--out", "d"]).is_ok());
+        assert!(parse(&["--verify", "d"]).is_ok());
+        assert!(parse(&[]).is_err());
+        assert!(parse(&["--out", "d", "--verify", "d"]).is_err());
+        assert!(parse(&["--verify", "d", "--bound", "5"]).is_err());
+        assert!(parse(&["--verify", "d", "--seed", "s"]).is_err());
+    }
+
     /// The claim: `--fix` and `--staged` are refused together while parsing, since `--fix`
     /// repairs the working tree and `--staged` judges the index.
     #[test]

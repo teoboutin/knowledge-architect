@@ -6,7 +6,7 @@ description: MUST use when the owner asks to publish a version of knowledge-arch
 # Release
 
 Scope: publishing one version of the published crates, `knowledge-architect-git`,
-`knowledge-architect-agent-skills`, `knowledge-architect-model`, `knowledge-architect-gates`, `knowledge-architect-mutate` and
+`knowledge-architect-agent-skills`, `knowledge-architect-model`, `knowledge-architect-check`, `knowledge-architect-gates`, `knowledge-architect-mutate` and
 `knowledge-architect`, from main. xtask is never published. The versioning policy is
 `design@knowledge-architect@versioning-policy`, and every published crate shares one version, per
 `design@knowledge-architect@version-lockstep`.
@@ -29,7 +29,7 @@ On a branch of its own, `release-<version>`, under the Git rules of the root `CL
    - `[workspace.package] version` in the root Cargo.toml;
    - the exact pins `knowledge-architect-agent-skills = { …, version = "=<version>" }`,
      `knowledge-architect-git = { …, version = "=<version>" }` and
-     `knowledge-architect-model = { …, version = "=<version>" }` in crates/check/Cargo.toml, and the second in crates/model/Cargo.toml;
+     `knowledge-architect-model = { …, version = "=<version>" }` in crates/check/Cargo.toml and in crates/cli/Cargo.toml, with `knowledge-architect-check = { …, version = "=<version>" }` in crates/cli/Cargo.toml, and the second in crates/model/Cargo.toml;
    - Cargo.lock, which any cargo command rewrites for every workspace package;
    - the status line: the opening sentence of `## Status` in the root README.md. Change the
      number, and any other part of the sentence the release makes false.

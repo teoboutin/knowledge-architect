@@ -11,7 +11,8 @@ The repository is a virtual workspace with Components:
 | Component | directory | what it is |
 | --- | --- | --- |
 | `knowledge-architect` | the root | the project itself |
-| `check` | crates/check | package `knowledge-architect`: the checker library and the binary `klarch` |
+| `cli` | crates/cli | package `knowledge-architect`: the binary `klarch`, the parsing of its commands, and the library a binary that registers an extension is written against |
+| `check` | crates/check | package `knowledge-architect-check`: the checker library, each command's logic behind a typed API |
 | `git` | crates/git | package `knowledge-architect-git`: the library that wraps git for the tools of knowledge-architect, the checker among them |
 | `model` | crates/model | package `knowledge-architect-model`: the library of what knowledge-architect reads of a project: the manifest, the walk, the parse, the entity table, phases 1 to 3 and the resolver |
 | `agent-skills` | crates/agent-skills | package `knowledge-architect-agent-skills`: the text the checker installs into a project |
