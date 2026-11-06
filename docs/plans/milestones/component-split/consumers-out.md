@@ -42,7 +42,7 @@ The fifth slice of `milestone@plans@component-split`. It leaves when it lands.
   `design@check@a-foreign-build-is-refused`. Test: a test over the three new packages; shown to fail by a
   recorded mutation that drops `query` from the list `klarch` hands over.
 - **`query`'s commands read a project with an extension's table as `check` does, through `cli::run`.** Test: an
-  integrated test over a mock project that declares a table an extension claims, which `issue@model@a-tool-over-the-model-reads-a-project-with-an-extension-otherwise-than-the-checker`
+  integrated test over a mock project that declares a table an extension claims, which `a-tool-over-the-model-reads-a-project-with-an-extension-otherwise-than-the-checker`
   asks; shown to fail by a recorded mutation that removes `extension::configure` from `cli::run`. This is D8's.
 - **`worklist`, `id` and the writers still refuse over an incomplete model.** Test: the existing
   tests of `design@query@worklist-writes-and-verifies-the-reports` and
@@ -68,7 +68,7 @@ xtask and calls `init` through `cli`'s function `cli::init` and its `InitArgs`;
 `issue@query@no-command-lists-the-standing-entries-citing-a-set-of-entries`,
 `issue@query@no-command-searches-the-entries-or-lists-an-audit-s-work`, each re-anchored;
 `issue@model@the-structural-findings-might-be-checked-at-scan-time`, D7's;
-`issue@model@a-tool-over-the-model-reads-a-project-with-an-extension-otherwise-than-the-checker`, D8's;
+`a-tool-over-the-model-reads-a-project-with-an-extension-otherwise-than-the-checker`, D8's;
 `issue@create@init-and-new-component-run-an-extension-on-a-manifest-it-did-not-configure`, which moves open,
 since its repair changes what an extension's binary does and this slice relocates.
 

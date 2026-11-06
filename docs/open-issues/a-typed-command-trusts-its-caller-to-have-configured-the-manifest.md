@@ -30,8 +30,7 @@ over a manifest the binary refuses. `cli::run` configures for every command, so 
 A lead, not a decision: a type only `extension::configure` can return, which each typed command takes in place of `&Manifest`.
 Not established: what that does to `Manifest` as the facades publish it.
 
-`issue@model@a-tool-over-the-model-reads-a-project-with-an-extension-otherwise-than-the-checker` holds the same question for a tool
-over the model, and `issue@create@init-and-new-component-run-an-extension-on-a-manifest-it-did-not-configure` a case in `create`.
+`design@query@a-function-takes-a-configured-manifest` answers the same question for a tool that links no check, and `issue@create@init-and-new-component-run-an-extension-on-a-manifest-it-did-not-configure` a case in `create`.
 
 ### Why it matters
 

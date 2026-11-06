@@ -1,31 +1,27 @@
 ---
-kind: question
+kind: todo
 ---
-# `init` removes a file of the installer's namespace that no git holds a copy of, and only says so
+# `init` and `new-component` remove a file the project wrote and list it, where the goal has them refuse
 
 ## Summary
 
 `init` in a directory that holds an agent file of the installer's namespace, under the name knowledge-architect-mine.md, removes it and
-lists it as `fixed: removed`. Outside a worktree, or where git does not track it, no git holds a copy, so the line is all that is
-left of it. The question is whether that is enough, on the owner's ruling.
+lists it as `fixed: removed`. On the owner's word that is a breach of `goal@create@a-project-adopts-by-one-command`, built as it stands only so as not to widen a slice that moved this code: the run is to refuse before it writes.
 
 ## Details
 
 ### What
 
-Measured with `klarch init <dir> --name p --vcs none` and `--vcs git`, each exit 0, each listing the line. Listing it is what `finish` of
-`path@create@src/command.rs` does outside a worktree, where it used to read `done.written` alone, and what `check --fix` does inside one. An
-adversarial reviewer found the silent form.
+Measured with `klarch init <dir> --name p --vcs none` and `--vcs git`, each exit 0, each listing the line, with no copy in git. `finish` of `path@create@src/command.rs` lists it outside a worktree, and `check --fix` inside one, the path `new-component` also ends on, so `goal@create@a-project-gains-a-component-by-one-command` is met no better.
+
+The goal's reading: a name the installed text of this version holds is installed text, rewritten even where edited by hand; any other file the install would remove counts as the project's, one an older version installed included. Refused so, a project moving between versions by `init` meets a refusal for a leftover, which the refusal names.
+
+`init --vcs none` also writes no index, since the walk needs git, so it does not reach the state that goal states.
 
 ### Why it matters
 
-`design@create@init-keeps-existing-files` has `init` keep what it finds, and `design@check@owned-namespace-check`
-makes the deletion legitimate as an act of the install a session can read. A loss with no copy in git is unrecoverable,
-against `goal@knowledge-architect@agents-work-without-drift`, and bears on `design@create@init-runs-git-init` and
-`design@create@init-asks-no-confirmation`.
+`design@create@init-asks-no-confirmation` argues from "overwrites no hand-written file outside the installer's namespace", and `design@create@init-keeps-existing-files` says "the install writes and deletes there". Each conflicts with the goal until this work rewrites it, with `design@check@owned-namespace-check` read for what an install does outside these two commands.
 
 ### What would close it
 
-The owner's ruling among: the listing as it stands; `init` judging such a file as a destination it refuses before its first write,
-with a test; or `rejected@create@init-refused-outside-a-repository-root`, in its form that refuses outside every worktree whatever
-the directory holds.
+`init` and `new-component` refuse such a file before their first write, with a test of each, the listing leaves `finish`, and the two heads are rewritten under `skill@knowledge-architect-decision-recording`.

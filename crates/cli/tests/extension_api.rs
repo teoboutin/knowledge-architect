@@ -385,7 +385,7 @@ impl Extension for ClaimsRules {
 
 /// The claim: a command of `query`, which links no extension, reads a project with an extension's table
 /// as the binary that registers the extension reads it, since `cli::run` configures the manifest before
-/// it dispatches, per `issue@model@a-tool-over-the-model-reads-a-project-with-an-extension-otherwise-than-the-checker`.
+/// it dispatches, per `design@query@a-function-takes-a-configured-manifest`.
 /// `id` is the command that gates on phase 1: with the extension it answers, and with none it refuses the table.
 /// Mutation checked: `configure` removed from `cli::run` refuses the table with the extension too.
 #[test]
