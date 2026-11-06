@@ -1,3 +1,6 @@
+//! `query` and `transcript` each hold a copy of this writer, per
+//! `design@knowledge-architect@a-copy-of-the-writer-per-crate`.
+//!
 //! Every write to stdout goes through `out!` and `outln!`, so a reader that closes the pipe
 //! early ends the run quietly instead of with a panic.
 //!

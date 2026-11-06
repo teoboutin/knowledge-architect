@@ -41,4 +41,4 @@ refusal, gives a pass on a tree the same checker fails.
 ### What would close it
 
 A typed command cannot be given a manifest nothing configured, by its type or by a refusal, with a test over `[bogus-table]`, and
-the module's doc stops stating it as a precondition. It may be done with the two issues above.
+the module's doc stops stating it as a precondition. It may be done with the issue above.

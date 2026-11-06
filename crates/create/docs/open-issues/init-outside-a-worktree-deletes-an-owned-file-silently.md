@@ -14,7 +14,7 @@ lists it as `fixed: removed`. On the owner's word that is a breach of `goal@crea
 
 Measured with `klarch init <dir> --name p --vcs none` and `--vcs git`, each exit 0, each listing the line, with no copy in git. `finish` of `path@create@src/command.rs` lists it outside a worktree, and `check --fix` inside one, the path `new-component` also ends on, so `goal@create@a-project-gains-a-component-by-one-command` is met no better.
 
-The goal's reading: a name the installed text of this version holds is installed text, rewritten even where edited by hand; any other file the install would remove counts as the project's, one an older version installed included. Refused so, a project moving between versions by `init` meets a refusal for a leftover, which the refusal names.
+The goal's reading: a name the installed text of this version holds is installed text, rewritten even where edited by hand; any other file the install would remove counts as the project's, one an older version installed included. Refused so, a project with no manifest that holds such a leftover meets a refusal, which names it.
 
 `init --vcs none` also writes no index, since the walk needs git, so it does not reach the state that goal states.
 

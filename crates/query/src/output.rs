@@ -1,9 +1,7 @@
 //! Every write to stdout goes through `outln!`, so a reader that closes the pipe early ends the run
 //! quietly instead of with a panic, per `design@cli@exit-code-ladder`.
 //!
-//! A copy of the writer of `check`, since `query` may depend on no crate of the checks, and no crate below this one is a
-//! home for printing; `issue@knowledge-architect@a-typed-command-prints-and-exits-rather-than-returning-data` removes
-//! the copies with the last command that returns data.
+//! A copy of the writer of `check`, per `design@knowledge-architect@a-copy-of-the-writer-per-crate`.
 //!
 //! Rust ignores `SIGPIPE` before `main`, so a write to a closed pipe returns
 //! `ErrorKind::BrokenPipe`, and the standard `print!` macros turn that into a panic. A closed stdout
