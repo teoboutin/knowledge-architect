@@ -5,8 +5,10 @@ The fourth slice of `milestone@plans@component-split`. It leaves when it lands.
 ## Builds
 
 - The Component `cli`, crates/cli, taking the package name `knowledge-architect` from `check`,
-  which becomes `knowledge-architect-check`; its goals drafted and put to the owner as the
-  milestone document says. `cli` holds the binary `klarch`, the command enum and the clap
+  which becomes `knowledge-architect-check`; its goal drafted and put to the owner as the
+  milestone document says, one goal, on refused invocations. That each command keeps one spelling in
+  every binary stays `design@cli@the-commands-are-a-library-module`, a means to
+  `goal@agent-skills@installed-text-works-in-every-target-project`, and no goal of its own. `cli` holds the binary `klarch`, the command enum and the clap
   declarations of every klarch command, those of `worklist` and `transcript` included, the
   dispatch, the location of the project, and the calls of the refusals of a foreign build and of an
   unsatisfied pin.
@@ -41,7 +43,8 @@ The fourth slice of `milestone@plans@component-split`. It leaves when it lands.
   returns `Err`, exit 2, before any work. Each typed command takes a manifest already configured, and
   its doc comment says so, since `cli::run` does that today for every command.
 - **The typed API prints and returns `Result<ExitCode, String>`, as the commands do today**: D5 of the
-  milestone document. `path@check@src/commands/output.rs`, `print_report`, `counts`, `verdict` and `print_rows`
+  milestone document, ruled, the refactoring recorded in
+  `issue@check@a-typed-command-prints-and-exits-rather-than-returning-data`. `path@check@src/commands/output.rs`, `print_report`, `counts`, `verdict` and `print_rows`
   stay in `check`, in `commands`, and `cli` prints nothing but a refusal of its own.
 - `path@check@src/commands/`, the commands' logic with their declarations out, is `check`'s role module. `extension`, `document`,
   `testing` and `commands` are `check`'s facade, under `#![warn(unreachable_pub)]`. The extension
@@ -134,8 +137,7 @@ line stays and whose words "through `check`'s library" turn false, and the setup
 The issue `the-reversal-rule-fixes-the-component-when-the-successor-decides-another-s-interface`,
 closed by the revision of the rules on Components, gave this slice its successor's Component.
 `goal@check@checks-a-commit-from-its-hook` is met by a test that moves to `cli`: the goal stays in
-`check`, where "the checker" names the tool across both crates, and any rewording is drafted with `cli`'s
-goals, per `design@agent-skills@goal-edit-ruled-alone`.
+`check` as it stands, since "the checker" is the root's term for a command and names no crate.
 
 **No change of this slice sets what every commit's tree must pass**, as the milestone document's "How
 the work is done" asks each audit to state. The tip's list of the tool's own directories only grows by
@@ -207,7 +209,7 @@ for klarch's commands is a losing alternative of the milestone document.
 **The typed API at this slice.** It takes the domain's types and prints, as D5 of the milestone document
 states, on the default the component-creation skill gives, "both sit by default in the Component that
 returns or defines the data", and on the step's "the mechanism alone". What
-`argument@component-split@arg-73` asks of it holds in part until the owner rules: a frontend names no clap
+`argument@component-split@arg-73` asks of it holds in part until that issue closes: a frontend names no clap
 type, and it still receives stdout and a process that exits on a closed pipe.
 
 ## Implementation sequence
@@ -234,5 +236,5 @@ subject stays, with only its false sentences rewritten. Slugs are written beside
 | clauses of other Components | `design@gates@the-library-owns-the-flags`, `design@mutate@report-not-gate`, `design@knowledge-architect@no-component-directory-named-after-the-project`, `design@agent-skills@xtask-pins-checker`, `design@xtask@one-module-per-subcommand` with `path@xtask@README.md` and the comment of `path@xtask@Cargo.toml`, each rewritten where it names `check`'s library for what is now `cli`'s |
 | `thread@component-split@command-parsing-home` | `cli`'s head on its parsing, under the slug of this thread, and the two heads of `register@agent-skills@design` on the top-level binary crate and on the crate nearest the binaries that parses a command, which the component-creation skill states alone today in two comment lines, `cli`'s head citing them; both comment lines then cut to a citation of their head, with no installed byte changed; `design@cli@arguments-parse-through-clap` rewritten; `design@check@fix-with-staged` rewritten, the rule being `check`'s type that `cli` spells, and its quotation of the owner converted to an attribution that keeps its hedge, per `design@agent-skills@attribution-replaces-quotation`; P2 judged as a losing alternative |
 | issues | `issue@knowledge-architect@the-skill-bundling-passes-are-tied-to-this-project-s-skills`, whose "the install lives in `check`, and it is not public API" turns false for the command's entry; the issues Builds names; those `cargo klarch check` reports, re-pointed |
-| D5, once ruled | its shape in `cli`'s head on its parsing |
+| D5 | its shape in `cli`'s head on its parsing, in the weak form |
 | premortem C3 | its claim above |
