@@ -76,10 +76,9 @@ This repository adds:
   first change does, and orders its commits so;
 - **the revised rules for splitting a project into Components have landed before any slice**, as
   the roadmap ordered: the slices cite the code-shape fragment and
-  `design@agent-skills@integrated-test-through-public-api`, and `spec@component-split@cli-on-top`
-  writes the two heads of `register@agent-skills@design` that the component-creation skill's
-  comment lines owe once a second text states the top-level binary crate and where a command is
-  parsed.
+  `design@agent-skills@integrated-test-through-public-api`, and #cli-on-top wrote the two heads of
+  `register@agent-skills@design` that the component-creation skill's comment lines owed once a second
+  text stated the top-level binary crate and where a command is parsed.
 
 ## Names
 
@@ -618,8 +617,7 @@ level" crate, such as the cli crate you proposed, which pulls the logic from the
 implements the interface, potentially pulling rendering logic from another crate if that applies
 (such as a project with a gui). Though the difficulty here mostly came from our own recorded
 decision, which is quite old, made for reasons that no longer apply identically, and can be
-reversed." Arguments: #arg-15, #arg-20, #arg-21, #arg-32, #arg-33, #arg-96, #arg-98. Shape:
-`spec@component-split@cli-on-top`. Harvest: the successor of `rejected@knowledge-architect@single-crate` in the
+reversed." Arguments: #arg-15, #arg-20, #arg-21, #arg-32, #arg-33, #arg-96, #arg-98. Shape: landed at #cli-on-top. Harvest: the successor of `rejected@knowledge-architect@single-crate` in the
 root's design home, in the change that reverses it, per point 1 of
 `skill@knowledge-architect-decision-recording@owning-component` and the reversal rule as the design
 discussion on the rules for Components revised them; the `cli` Component's design home for its own
@@ -687,7 +685,7 @@ session, R4 (#arg-71 to #arg-78). Final state: approved. The owner, R5: "command
 think your synthesis is right." Its title said "the lowest crate", the word of #arg-78, which read
 literally points away from the binaries its own examples name; put to the owner as Q3 of the design audit of
 #git-out, the owner ruled it a wording defect: "Q3 agreed it is a wording defect." Arguments: #arg-35, #arg-53, #arg-61, #arg-71 to #arg-78, #arg-100,
-#arg-113. Shape: `spec@component-split@cli-on-top`. Harvest: the rule is stated by the installed
+#arg-113. Shape: landed at #cli-on-top. Harvest: the rule is stated by the installed
 component-creation skill alone today, in two comment lines that keep its two parts, the top-level
 binary crate and the parsing in the crate nearest the binaries, without a head; the slice whose
 `cli` head states them is their second text, and writes the two heads of
@@ -1541,8 +1539,8 @@ fire by a scratch dependency of `query` on `check`, which the command lists. The
    its spec deleted with it.
 3. The core is renamed `check`, and the installed-file check moves to phase 4, #check-renamed: landed,
    its spec deleted with it.
-4. [The binary, the parsing and the interface become the top-level `cli` crate](cli-on-top.md),
-   `spec@component-split@cli-on-top`.
+4. The binary, the parsing and the interface become the top-level `cli` crate, #cli-on-top: landed,
+   its spec deleted with it.
 5. [The commands over the model, the transcript reader and the project creator leave the checker](consumers-out.md),
    `spec@component-split@consumers-out`.
 6. [The shared test Component holds the fixtures and the integrated tests](integrated-tests.md),
