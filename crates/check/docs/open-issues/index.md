@@ -1,6 +1,6 @@
 **Generated — do not edit.** `cargo klarch index`
 
-41 entries
+42 entries
 
 | kind | title |
 | --- | --- |
@@ -32,6 +32,7 @@
 | question | [An extension reads its manifest table as a `toml::Value`, so `check`'s toml version is part of the public API](manifest-table-exposes-the-toml-crate.md) |
 | todo | [A register home that `new-component` writes says "No entry yet." after its first entry lands, and nothing reports it](a-new-register-home-still-says-no-entry-yet-after-its-first-entry.md) |
 | todo | [A record searcher fills its report by a script or a whole rewrite of its own](a-searcher-fills-its-report-by-a-script-of-its-own.md) |
+| todo | [A typed command of `check` prints and can end the process, rather than returning its data](a-typed-command-prints-and-exits-rather-than-returning-data.md) |
 | todo | [An extension cannot see which register, anchor or entry a document belongs to](an-extension-cannot-see-which-register-a-document-belongs-to.md) |
 | todo | [`commits` sees a citation of a branch commit by SHA only when the cited commit is in the range it judges](branch-sha-citations-are-judged-within-the-range-only.md) |
 | todo | [The findings' texts are not audited against the rule that a cause is named only where the repair depends on it](finding-texts-are-not-audited-for-a-needless-cause.md) |

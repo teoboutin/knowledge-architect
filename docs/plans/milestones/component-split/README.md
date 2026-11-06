@@ -20,7 +20,7 @@ has landed in the installed text and in `register@agent-skills@design`.
   defect of the plan document.
 - Every name it uses is defined under Names or New names, or exists in the tree.
 - Where the owner's word is awaited, `skill@knowledge-architect-planning@working-a-slice` says what
-  waits. Its defaults D1, D2, D3 and D4 are ruled, and D5 awaits the owner.
+  waits. Its defaults, D1, D2, D3, D4 and D5, are ruled.
 
 ## How the work is done
 
@@ -656,7 +656,8 @@ and checker, into an intermediate level. If root goals become too bloated by goa
 this can wait for now."; and argued again at the design audit of #git-out under the definition of an
 intermediate Component by the design it holds, and argued again under the rules on Components as
 revised after that audit, where an intermediate Component groups Components that serve a purpose of
-their own: no purpose is stated for a group of these Components. Arguments:
+their own: no purpose is stated for a group of these Components. Asked again at the goals of #cli-on-top, the
+owner: "I think this is still a no." Arguments:
 #arg-17. Shape: "Decided design" below. Harvest: a head of absence in the root design home, "no
 intermediate Component groups the checker's Components or the installed text's", written at
 #git-out.
@@ -1596,7 +1597,7 @@ fire by a scratch dependency of `query` on `check`, which the command lists. The
   refuses to exclude a file the model requires, and left to the session whether to build it in the
   split; the session left it to that issue, since it is a stricter check that owes a Migration
   entry, and the split's slices relocate behaviour.
-- **D5, on #command-parsing-home, awaiting the owner**: what the typed API of a command gives its
+- **D5, on #command-parsing-home, ruled**: what the typed API of a command gives its
   caller. The audit of #cli-on-top found the documents silent: `path@check@src/commands/output.rs` was "decided at
   the audit", and #arg-73 argued for "a usable API" for "a frontend that isn't a CLI". Today every command
   prints as it works, 97 lines of `out!` and `outln!` over five files, counted with
@@ -1610,7 +1611,9 @@ fire by a scratch dependency of `query` on `check`, which the command lists. The
   `check --fix` lists at risk, inside a slice whose first step is "the mechanism alone"; the component-creation
   skill's default puts printing in the Component that defines the data, which ranks against it but
   states a default, not a rule. The default forecloses nothing: a command can return data later, one at a
-  time. No goal ranks the two.
+  time. No goal ranks the two. The owner, at the merge of #cli-on-top: "D5 agreed, and refactoring commands so theh
+  return data should be recorded in issues." Recorded in
+  `issue@check@a-typed-command-prints-and-exits-rather-than-returning-data`.
 
 - **D1, on #cost-per-crate, ruled**: the fixed cost of each new crate is accepted, and each crate is
   created by the slice that builds it, `bundle`, `render` and `rewrite` by their own work. The owner,

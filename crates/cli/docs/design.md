@@ -18,7 +18,10 @@ extension binary do; `cli::run` refuses it inside a project, naming `cli::init`,
 why instead of acting.
 
 A binary crate cannot be depended on, so a command set held in `klarch`'s binary would be copied into every binary that
-registers an extension, and the copies would drift. The helpers an extension's own commands need from a run, such as
+registers an extension, and the copies would drift. The installed text names a command with its arguments, substituting
+only `{{command}}`, per `design@check@declared-command`, so an argument spelled otherwise in a project's binary would
+make an installed instruction false there, or need a substitution per argument, against
+`goal@agent-skills@installed-text-works-in-every-target-project`. The helpers an extension's own commands need from a run, such as
 assembling a complete working tree, are public in the same module for the same reason.
 
 ### A command of klarch is parsed in this crate, and its logic takes a domain's types `##command-parsing-home`
@@ -30,7 +33,14 @@ type in it, so clap's major version stays out of those crates' interfaces and th
 `design@cli@exit-code-ladder` among them, have one home. A combination of arguments the domain refuses is a type of the
 domain that cannot hold it, as `design@check@fix-with-staged` is, and this crate's declaration refuses it while parsing.
 `cli::run` refuses a value of an `*Args` struct that holds one, since those structs are public and a value of one can
-reach it without clap, with exit 2 before any work, so the rule cannot drift between the type and the declaration. The
+reach it without clap, with exit 2 before any work, so the rule cannot drift between the type and the declaration.
+
+A typed function still prints and returns its exit code. The session chose that over a function that returns data for
+this crate to print, which no goal ranks; the owner approved it, and asked that the refactoring be recorded, which
+`issue@check@a-typed-command-prints-and-exits-rather-than-returning-data` holds. The choice relocates behaviour, and a
+command can return data later, one at a time.
+
+The
 nearest rival is `rejected@cli@each-crate-parses-its-commands`. `gates` and `mutate` keep that shape, since
 the binary that offers them is each project's own maintenance binary, which no shared crate sits above.
 

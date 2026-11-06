@@ -7342,3 +7342,55 @@ fn worklist_verify_with_a_seed_is_refused() {
         &["worklist", "--verify", "made", "--seed", "design@a-b@c-d"],
     );
 }
+
+/// A command line of the shipped declaration, so the walk below names no command.
+#[derive(clap::Parser)]
+struct Declared {
+    #[command(subcommand)]
+    command: knowledge_architect::cli::Command,
+}
+
+/// Every leaf command of `command`, as the arguments that reach it.
+fn leaves(command: &clap::Command, path: Vec<String>, out: &mut Vec<Vec<String>>) {
+    let subcommands: Vec<&clap::Command> = command
+        .get_subcommands()
+        .filter(|c| c.get_name() != "help")
+        .collect();
+    if subcommands.is_empty() {
+        out.push(path);
+        return;
+    }
+    for sub in subcommands {
+        let mut next = path.clone();
+        next.push(sub.get_name().to_string());
+        leaves(sub, next, out);
+    }
+}
+
+/// The claim, over every command the declaration holds, a future one included: an argument the command does not declare is exit 2, and the
+/// project is left as it was.
+#[test]
+fn every_command_refuses_an_argument_it_does_not_declare() {
+    use clap::CommandFactory;
+    let mut commands = Vec::new();
+    leaves(&Declared::command(), Vec::new(), &mut commands);
+    assert!(commands.len() > 1, "the walk found {commands:?}");
+    for command in commands {
+        let mut args: Vec<&str> = command.iter().map(String::as_str).collect();
+        args.push("--no-such-argument");
+        refused_with_an_untouched_tree("refused-unknown", &args);
+    }
+}
+
+#[test]
+fn a_command_missing_a_required_argument_is_refused() {
+    refused_with_an_untouched_tree("refused-missing", &["show"]);
+}
+
+#[test]
+fn a_value_the_argument_cannot_read_is_refused() {
+    refused_with_an_untouched_tree(
+        "refused-unreadable",
+        &["worklist", "--out", "made", "--bound", "many"],
+    );
+}
