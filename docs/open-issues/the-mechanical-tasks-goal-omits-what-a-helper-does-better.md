@@ -20,9 +20,8 @@ helper that performs complex logic to give a better result. The keyword search o
 not follow with no judgement, so the goal does not reach it. The owner's lead is to change the goal, or to
 add another goal for these conditions.
 
-The same lead gave the goals of the `query` Component:
-to make agents more efficient by commands that query the scanned documents, a tool that does not query
-them going in a crate for its own subject.
+The same lead gave `goal@query@agents-query-the-project`, which the owner then widened to any query over the project and what a
+query generated, and left with no rule on where a tool of another subject goes.
 
 ### Why it matters
 

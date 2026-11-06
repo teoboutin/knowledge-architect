@@ -13,6 +13,8 @@ for no longer matches the path the listing gave.
 
 ### What
 
+`main_worktree_path` decodes too, with `String::from_utf8_lossy` over `--show-toplevel` and `--git-common-dir`, so `transcript`'s filter gets no main-tree root, or a wrong one, for a repository under such a path.
+
 Reproduced by the adversarial reviewer of the work that created the git Component, with git
 2.53.0, through a probe crate depending on the public API alone:
 
