@@ -44,7 +44,7 @@ pub(crate) const COMPONENT_DOCUMENTS: [&str; 2] = ["README.md", "CLAUDE.md"];
 pub const AGENT_DOCUMENT: &str = "CLAUDE.md";
 
 /// The command a project runs the checker by when its manifest declares none: the name of the
-/// binary this crate installs, per `design@check@declared-command`.
+/// binary the package `knowledge-architect` installs, per `design@check@declared-command`.
 pub(crate) const DEFAULT_COMMAND: &str = "klarch";
 
 /// The agent harnesses a manifest may declare, per `design@check@agents-table`.

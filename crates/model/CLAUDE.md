@@ -20,5 +20,5 @@ read them whole before changing how this crate asks git.
 it.** A new check whose findings another check would read goes before its consumers, in `foundation`,
 and stops the run when it finds anything, per `design@check@phases-gate-the-report`.
 
-**A mock project stays under `path@check@tests/projects/`**, the one crate reaching another's fixtures,
+**A mock project stays under `path@check@tests/projects/`**, a crate reaching another's fixtures, as `cli`'s tests do,
 until the shared test Component holds them. What each mock is for is `path@check@CLAUDE.md`.
