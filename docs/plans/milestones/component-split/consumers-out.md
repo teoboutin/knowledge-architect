@@ -26,7 +26,8 @@ The fifth slice of `milestone@plans@component-split`. It leaves when it lands.
   tests of `design@check@worklist-writes-and-verifies-the-reports` and
   `design@check@id-lookup-command` pass; shown to fail by a recorded mutation that skips the gate in
   `worklist`.
-- **`init`'s tests pass in `create`.** Test: `path@check@tests/init.rs`, moved; shown to discriminate
+- **`init`'s tests pass over `create`'s code.** Test: the file #cli-on-top moved to `cli`, since `create`
+  has no binary and `CARGO_BIN_EXE_klarch` is set in `cli` alone, unchanged; shown to discriminate
   by a recorded mutation of `init`'s refusal of a directory holding files, which a test fails on.
 
 ## Audit subjects
@@ -36,7 +37,7 @@ The fifth slice of `milestone@plans@component-split`. It leaves when it lands.
 `path@check@docs/design/creating.md`; `design@check@anchors-listing-command`,
 `design@check@one-question-one-command`; `design@check@transcript-directory-resolution`;
 `design@agent-skills@rust-templates-one-home`, whose test, `path@xtask@tests/scaffold.rs`, stays in
-xtask and calls `init` through `cli`'s re-export of `cli::init` and `InitArgs`;
+xtask and calls `init` through `cli`'s function `cli::init` and its `InitArgs`;
 `issue@check@a-forked-subagent-s-first-line-is-an-unrecognised-type`,
 `issue@check@the-graded-entries-repeat-a-shared-entry-s-grade-per-agent`,
 `issue@check@show-lists-no-subdocument-of-a-directory-home`,
@@ -44,6 +45,11 @@ xtask and calls `init` through `cli`'s re-export of `cli::init` and `InitArgs`;
 `issue@check@no-command-searches-the-entries-or-lists-an-audit-s-work`, each re-anchored. Each
 reference naming the anchor `core` here names the entry as this document is written;
 #check-renamed re-points them.
+
+**The printing's home, which #cli-on-top's audit found and left here:** `query`, `transcript` and `create`
+print through `output`, which stays in `check` at #cli-on-top, per D5 of the milestone document, and `query`
+and `transcript` may not depend on `check`. This slice's audit places it: one copy per crate, or a home in a
+crate below them.
 
 ## Fails alone on
 

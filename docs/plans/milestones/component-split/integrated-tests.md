@@ -60,7 +60,7 @@ states injected by hand, in the vocabulary of the existing ones.
 and `design@check@checker-source-literals-are-data`, with every `rejected` entry they cite.
 
 **A load-bearing point this audit opens a design session on, before any code:** where the tests of
-`cli`, the binary's and `path@check@tests/extension_api.rs`'s, find their fixtures once the mock
+`cli`, the binary's, `init`'s and `path@check@tests/extension_api.rs`'s, find their fixtures once the mock
 projects move to `testing`. Its constraints, each from the record:
 
 - the binary's tests stay in `cli`, the one package where `CARGO_BIN_EXE_klarch` is set;

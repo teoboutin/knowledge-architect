@@ -20,7 +20,7 @@ has landed in the installed text and in `register@agent-skills@design`.
   defect of the plan document.
 - Every name it uses is defined under Names or New names, or exists in the tree.
 - Where the owner's word is awaited, `skill@knowledge-architect-planning@working-a-slice` says what
-  waits. Its defaults, D1, D2, D3 and D4, are ruled.
+  waits. Its defaults D1, D2, D3 and D4 are ruled, and D5 awaits the owner.
 
 ## How the work is done
 
@@ -49,9 +49,7 @@ This repository adds:
 - **each new Component's goals**, and the moves and rewordings of the core's goals a slice makes,
   are drafted by the session under `skill@knowledge-architect-goal-setting` and put to the owner;
   the slice is built on the drafts, and its branch merges once the owner has ruled on them, per
-  `primer@question-authority`. #check-renamed sends each goal of `register@check@goal` to the Component that holds its subject where that Component exists, and drafts the rewording of each that names "the core", such as
-  `goal@check@checks-a-commit-from-its-hook`, whose measure names "the core's tests", and
-  `goal@check@projects-add-their-own-checks`, which named the core;
+  `primer@question-authority`;
 - each slice moves the design heads, `rejected` entries, issues and tripwires whose subject its new
   Component holds, per `skill@knowledge-architect-component-creation@creation-procedure` point 4,
   and re-points every reference `cargo klarch check` then reports;
@@ -68,9 +66,9 @@ This repository adds:
   four of its modules import `knowledge_architect::MANIFEST_NAME`, and its test
   `path@xtask@tests/scaffold.rs` calls `cli::init` with `InitArgs`; the setup snippet the test
   compiles, `path@agent-skills@snippets/xtask-main.rs`, imports `knowledge_architect::MANIFEST_NAME`
-  too. Each slice that moves or renames one of them updates xtask in the same change, and `cli`
-  re-exports `MANIFEST_NAME` and `init` under the paths they have today, so the snippet a project
-  copies is unchanged;
+  too. Each slice that moves or renames one of them updates xtask in the same change, and `cli` keeps
+  `MANIFEST_NAME`, `init` and every other path the snippet names, `init` as a function of its own since
+  it takes a clap type, so the snippet a project copies is unchanged;
 - **a change that sets what every commit's tree must pass goes in the slice's first commit**, per
   `primer@branch-commits`: this repository builds its checker from the tree, so a slice that adds
   a crate to the compiled lists of the checker's own directories, or renames the core, can make an
@@ -234,25 +232,25 @@ Outside this work, each with what owns it:
 | `design@knowledge-architect@installed-text-crate` | #git-out, rewritten in a form each later slice keeps true, under this slug, since the head's earlier slug said two crates | none |
 | `design@check@the-core-cli-is-a-library-module` | #cli-on-top, moved to `cli` under a new slug, since it no longer names the core | `path@agent-skills@docs/design/project-configuration.md`, `path@check@docs/design/extensions-and-api.md`, `path@check@docs/design/run-model.md`, `path@check@docs/design/transcripts.md`, `path@check@README.md`, `path@check@src/cli/create.rs`, `path@check@src/cli/mod.rs`, `path@check@src/main.rs`, `path@check@tests/binary.rs` |
 | `design@check@arguments-parse-through-clap` | #cli-on-top | `path@check@docs/design/creating.md`, `path@check@docs/design/generated-files-and-fixes.md`, `path@check@docs/design/run-model.md`, `path@check@docs/open-issues/manifest-table-exposes-the-toml-crate.md`, `path@check@src/cli/mod.rs`, `path@check@src/main.rs`, `register@xtask@design` |
-| `design@check@transcript-command-in-core` | #consumers-out, its successor under a new slug in `transcript`, the part saying that the reader is a crate of its own that `cli` depends on in the root's design home | none |
-| `design@check@api-facade` | #integrated-tests; each slice writes its crate's facade | `path@check@CLAUDE.md`, `path@check@docs/design/transcripts.md`, `path@check@docs/open-issues/an-extension-cannot-see-which-register-a-document-belongs-to.md`, `path@check@docs/open-issues/manifest-table-exposes-the-toml-crate.md`, `register@check@tripwire`, `path@check@src/lib.rs` |
+| `design@check@transcript-command-in-core` | #cli-on-top, for the sentence that argues from `design@check@single-crate`; #consumers-out, its successor under a new slug in `transcript`, the part saying that the reader is a crate of its own that `cli` depends on in the root's design home | none |
+| `design@check@api-facade` | #cli-on-top, for its `cli` row and the facade over two crates; #integrated-tests; each slice writes its crate's facade | `path@check@CLAUDE.md`, `path@check@docs/design/transcripts.md`, `path@check@docs/open-issues/an-extension-cannot-see-which-register-a-document-belongs-to.md`, `path@check@docs/open-issues/manifest-table-exposes-the-toml-crate.md`, `register@check@tripwire`, `path@check@src/lib.rs` |
 | `design@check@phases-gate-the-report` | #model-out (the foundation), #check-renamed (the phase table) | `path@agent-skills@docs/open-issues/audit-axes-beyond-the-design-record.md`, `path@agent-skills@docs/open-issues/the-claim-check-of-a-commit-message-is-read-at-the-start-and-needed-at-each-commit.md`, `path@check@CLAUDE.md`, `path@check@docs/design/agent-configuration.md`, `path@check@docs/design/creating.md`, `path@check@docs/design/entities-and-headings.md`, `path@check@docs/design/extensions-and-api.md`, `path@check@docs/design/generated-files-and-fixes.md`, `path@check@docs/design/git-and-the-walk.md`, `path@check@docs/design/registers.md`, `path@check@docs/design/run-model.md`, `path@check@docs/design/worklist.md`, `register@check@tripwire`, `path@check@README.md`, `path@check@src/cli/create.rs`, `path@check@src/cli/mod.rs`, `path@check@src/cli/worklist.rs`, `spec@plans@path-quickfixes` |
 | `design@check@owned-namespace-check` | #check-renamed, split by the rule of one decision per head | `path@knowledge-architect@CLAUDE.md`, `path@agent-skills@docs/design/project-configuration.md`, `register@agent-skills@design`, `path@agent-skills@docs/design/retrospective.md`, `path@agent-skills@docs/design/shipped-set.md`, `path@agent-skills@docs/open-issues/patching-an-installed-skill.md`, `path@check@docs/design/agent-configuration.md`, `path@check@docs/design/creating.md`, `path@check@docs/design/generated-files-and-fixes.md`, `path@check@docs/design/git-and-the-walk.md`, `path@check@docs/design/run-model.md`, `path@check@docs/open-issues/a-project-workflow-can-declare-an-installed-workflow-s-name.md`, `path@check@docs/open-issues/core-heads-bundle-decisions-with-many-citing-sites.md`, `register@check@rejected`, `path@check@README.md`, `path@check@src/agents.rs`, `path@elsewhere@crates/core/src/check/agents.rs`, `path@check@src/check/mod.rs`, `path@check@src/cli/history.rs`, `path@check@src/cli/mod.rs`, `path@elsewhere@crates/core/src/manifest.rs`, `path@check@src/mock_projects.rs`, `path@elsewhere@crates/core/src/survey.rs`, `path@elsewhere@crates/core/src/walk.rs`, `path@check@tests/binary.rs`, `register@knowledge-architect@design`, `path@knowledge-architect@docs/open-issues/the-skill-bundling-passes-are-tied-to-this-project-s-skills.md`, `spec@plans@path-quickfixes` |
 | `design@check@fix-before-the-checks` | #check-renamed | `path@check@docs/design/run-model.md`, `path@check@README.md`, `path@check@src/cli/mod.rs`, `path@check@tests/binary.rs`, `spec@plans@path-quickfixes` |
 | `design@check@model-then-checks` | #model-out | `path@check@docs/design/extensions-and-api.md`, `path@check@src/check/references.rs`, `path@check@src/cli/gathered.rs`, `path@check@src/extension.rs`, `spec@plans@path-quickfixes` |
 | `design@git@git-is-asked-through-one-module` | #git-out | `path@check@CLAUDE.md`, `path@check@docs/design/creating.md` |
-| `design@check@inputs-are-gathered` | #model-out, for the two gatherings; #integrated-tests, for its sentence on the mock tests | `register@check@rejected` |
+| `design@check@inputs-are-gathered` | #model-out, for the two gatherings; #cli-on-top, for the module that holds `Gathered`; #integrated-tests, for its sentence on the mock tests | `register@check@rejected` |
 | `design@check@checker-source-literals-are-data` | each slice that adds a crate; #cli-on-top for the list the binary hands over | `path@agent-config@skills/klarch-development/SKILL.md`, `path@check@CLAUDE.md`, `path@check@docs/design/prose.md`, `path@check@docs/design/run-model.md`, `register@check@rejected`, `register@check@tripwire`, `path@check@README.md`, `path@check@src/check/references.rs`, `path@check@src/check/registers.rs`, `path@check@src/cli/history.rs`, `path@check@src/cli/mod.rs`, `path@elsewhere@crates/core/src/entity.rs`, `path@check@src/graph.rs`, `path@elsewhere@crates/core/src/index.rs`, `path@check@src/lib.rs`, `path@check@src/main.rs`, `path@elsewhere@crates/core/src/model.rs`, `path@elsewhere@crates/core/src/records.rs`, `path@elsewhere@crates/core/src/scan.rs`, `path@elsewhere@crates/core/src/source/mod.rs`, `path@elsewhere@crates/core/src/source/rs.rs`, `path@check@tests/binary.rs` |
 | `design@check@a-foreign-build-is-refused` | each slice that adds a crate; #cli-on-top | `path@agent-skills@src/lib.rs`, `path@check@CLAUDE.md`, `path@check@docs/design/extensions-and-api.md`, `path@check@docs/design/prose.md`, `path@check@docs/design/run-model.md`, `path@check@src/build_origin.rs`, `path@check@src/cli/mod.rs`, `path@check@src/main.rs`, `register@knowledge-architect@design` |
 | `design@check@installed-binary-version-check` | #cli-on-top | `path@agent-skills@docs/design/project-configuration.md`, `path@agent-skills@docs/open-issues/co-development-through-a-cargo-patch.md`, `path@check@docs/design/agent-configuration.md`, `path@check@docs/design/commit-messages.md`, `path@check@docs/design/git-and-the-walk.md`, `path@check@docs/design/transcripts.md`, `path@check@src/cli/mod.rs`, `path@check@src/lib.rs`, `path@check@src/main.rs`, `path@elsewhere@crates/core/src/manifest.rs`, `path@check@tests/binary.rs`, `path@gates@docs/open-issues/the-gate-list-head-bundles-the-library-s-independence.md`, `register@knowledge-architect@design` |
 | `design@knowledge-architect@partial-publish-rerun` | each slice that adds a published crate, for the publish order, with the release workflow's list found by the search above | `path@agent-config@skills/klarch-release/SKILL.md`, `register@knowledge-architect@design` |
 | `design@knowledge-architect@mutation-command-host` | each slice that adds a published crate, for its sentence on the publish order | `path@agent-skills@docs/design/project-configuration.md`, `register@mutate@design`, `register@xtask@design` |
 | `design@check@nothing-of-a-project-is-compiled-in` | #cli-on-top | `path@agent-skills@docs/open-issues/pointers-written-bare-to-clear-a-finding-reach-no-check.md`, `path@check@CLAUDE.md`, `path@model@docs/design/anchors.md`, `path@check@docs/design/creating.md`, `path@check@docs/design/plan-documents.md`, `path@check@docs/design/prose.md`, `path@check@README.md`, `path@check@src/cli/create.rs` |
-| `design@gates@the-library-owns-the-flags` | #cli-on-top, for its clause "as it is of the core's", which turns false once `check` holds no clap type | none |
+| `design@gates@the-library-owns-the-flags` | #cli-on-top, for its clause "as it is of `check`'s", which turns false once `check` holds no clap type | none |
 | `design@knowledge-architect@no-component-directory-named-after-the-project` | #check-renamed and #cli-on-top, for its instance, crates/core for the package `knowledge-architect`, and its cost sentence | `path@agent-skills@content/skills/component-creation/SKILL.md` |
-| `design@mutate@report-not-gate` | #cli-on-top, for its clause that `design@check@exit-code-ladder` "binds the core's commands alone" | none |
+| `design@mutate@report-not-gate` | #cli-on-top, for its clause that `design@check@exit-code-ladder` "binds `check`'s commands alone" | none |
 | `design@check@exit-code-ladder` | #cli-on-top, which moves it to `cli`: it binds every command `cli` offers | as `cargo klarch show` lists it at that slice |
-| `design@check@an-extension-plugs-in-through-phased-hooks` | #model-out | `path@check@docs/design/generated-files-and-fixes.md`, `path@check@docs/design/plan-documents.md`, `path@check@docs/design/run-model.md`, `path@check@docs/open-issues/citation-regime-over-any-pinned-text.md`, `path@check@README.md`, `path@check@src/check/mod.rs`, `path@elsewhere@crates/core/src/check/tree.rs`, `path@check@src/cli/mod.rs`, `path@check@src/extension.rs`, `spec@plans@path-quickfixes` |
+| `design@check@an-extension-plugs-in-through-phased-hooks` | #model-out; #cli-on-top, for "`check`'s binary" | `path@check@docs/design/generated-files-and-fixes.md`, `path@check@docs/design/plan-documents.md`, `path@check@docs/design/run-model.md`, `path@check@docs/open-issues/citation-regime-over-any-pinned-text.md`, `path@check@README.md`, `path@check@src/check/mod.rs`, `path@elsewhere@crates/core/src/check/tree.rs`, `path@check@src/cli/mod.rs`, `path@check@src/extension.rs`, `spec@plans@path-quickfixes` |
 
 The head on the installed text's crate turned false at #git-out, which adds a crate: "A user names
 only `knowledge-architect`, and cargo fetches the other. The two are published together". #git-out
@@ -333,7 +331,7 @@ the tree does not hold. Those that bear on the split, with their outcome:
   gives it, so the successor of `design@check@single-crate`, a decision about which Components exist
   and how they depend on each other, is written in the root's design home at #cli-on-top, and
   `design@check@single-crate` leaves the core's design home in the same change;
-- `design@mutate@report-not-gate`: its clause naming "the core's commands" is rewritten at
+- `design@mutate@report-not-gate`: its clause naming "`check`'s commands" is rewritten at
   #cli-on-top, per the table above;
 - `design@xtask@one-module-per-subcommand`, `design@xtask@view-included-not-exported`,
   `rejected@xtask@source-view-exported-from-the-library`, `rejected@xtask@source-view-in-the-checker`:
@@ -1420,8 +1418,9 @@ Component's purpose its goals home's; no head lists them.
 
 **Every file of crates/core today, and where it goes.** In this table, `check` names the core until #check-renamed renames it. The slice named moves it; a file split
 between two crates is cut at that slice's audit along the line the table gives. The crate's
-Cargo.toml, its CRATES-IO.md, its CHANGELOG.md copy and its license copies stay with `check` and
-are written anew for each new crate, as "How the work is done" lists; its README is split, each
+Cargo.toml, its CHANGELOG.md copy and its license copies stay with `check` and
+are written anew for each new crate; its CRATES-IO.md goes to `cli` at #cli-on-top, which keeps the
+published name, and `check` gets a page of its own, as "How the work is done" lists; its README is split, each
 crate's README taking the commands and the contract it holds; its CLAUDE.md and its record under
 docs/ are split by subject, each slice moving what its new Component holds.
 
@@ -1438,19 +1437,21 @@ docs/ are split by subject, each slice moving what its new Component holds.
 | `path@check@src/check/generated.rs`, `path@check@src/check/registers.rs` | `check` | #check-renamed |
 | `path@check@src/cli/history.rs` | `check` | #check-renamed |
 | `path@check@src/cli/gathered.rs` | `model`: what phases 1 to 3 and the resolver read; `check`: the committed generated files and the `register.toml` files, which phase 4 alone reads | #model-out |
-| `path@check@src/cli/mod.rs` | `cli`: the command enum, parsing, dispatch, `locate`; `model`: `complete_working_tree`, the gate of phases 1 to 3 that `worklist` and the writers call, so `query` reaches it with no check; `check`: `fix_then_check`; each domain crate: its commands' logic, behind a typed API | #cli-on-top, `complete_working_tree` at #model-out |
-| `path@check@src/cli/output.rs` | `cli`, or the crate whose data it prints, per the pure and output layers of `skill@knowledge-architect-component-creation@component-shapes`, decided at the audit | #cli-on-top |
+| `path@check@src/cli/mod.rs` | `cli`: the command enum, parsing, dispatch, `locate`; `model`: `complete_working_tree`, the gate of phases 1 to 3 that `worklist` and the writers call, so `query` reaches it with no check; `check`: `fix_then_check`, `refuse_another_version` with its helpers, and the wrapper `complete_working_tree` that returns `Gathered`; each domain crate: its commands' logic, behind a typed API | #cli-on-top, `complete_working_tree` at #model-out |
+| `path@check@src/cli/output.rs` | `check`, per the pure and output layers of `skill@knowledge-architect-component-creation@component-shapes`, and D5; `cli` cannot hold it while the logic below it prints | stays at #cli-on-top; #consumers-out places it for the crates it creates |
 | `path@check@src/build_origin.rs` | `check`: the refusal of a foreign build, given the list of crates a binary links, which `cli` calls for every command and `create` calls for `init`'s PATH | #cli-on-top |
 | `path@check@src/main.rs` | `cli` | #cli-on-top |
-| `path@check@src/cli/worklist.rs`, `path@check@src/graph.rs` | `cli`: the clap declarations of `worklist`; `query`: the rest | #cli-on-top for the declarations, #consumers-out for the rest |
+| `path@check@src/cli/worklist.rs`, `path@check@src/graph.rs` | `query`; the declarations of `worklist` are `WorklistArgs` in `path@check@src/cli/mod.rs`, which goes to `cli` | #consumers-out |
 | `path@check@src/cli/transcript.rs`, `path@check@src/transcript.rs` | `cli`: the clap declarations of `transcript`; `transcript`: the rest | #cli-on-top for the declarations, #consumers-out for the rest |
 | `path@check@src/cli/create.rs` | `create` | #consumers-out |
 | `path@check@src/lib.rs` | each crate's own facade | each slice |
 | `path@check@src/mock_projects.rs` | `testing` | #integrated-tests |
 | `path@check@src/testing.rs` | `testing`'s library, the harness, per D2; until then `check`'s role module, which `cli` re-exports | #integrated-tests; #cli-on-top for the interim re-export |
 | `path@check@tests/binary.rs` | `cli` | #cli-on-top |
-| `path@check@tests/init.rs` | `create` | #consumers-out |
-| `path@check@tests/extension_api.rs`, `path@check@tests/projects/` | `testing` | #integrated-tests |
+| `path@check@tests/init.rs` | `cli`, where `CARGO_BIN_EXE_klarch` is set | #cli-on-top |
+| `path@check@tests/public_paths.rs` | `cli`, whose library holds the paths it lists | #cli-on-top |
+| `path@check@tests/extension_api.rs` | `cli`, whose entry it drives; then `testing` | #cli-on-top; #integrated-tests |
+| `path@check@tests/projects/` | `testing` | #integrated-tests |
 | `path@check@tests/transcripts/` | `transcript` | #consumers-out |
 | `path@check@tests/worklist-entries-before-the-snapshot.txt` | `query` | #consumers-out |
 
@@ -1595,6 +1596,22 @@ fire by a scratch dependency of `query` on `check`, which the command lists. The
   refuses to exclude a file the model requires, and left to the session whether to build it in the
   split; the session left it to that issue, since it is a stricter check that owes a Migration
   entry, and the split's slices relocate behaviour.
+- **D5, on #command-parsing-home, awaiting the owner**: what the typed API of a command gives its
+  caller. The audit of #cli-on-top found the documents silent: `path@check@src/cli/output.rs` was "decided at
+  the audit", and #arg-73 argued for "a usable API" for "a frontend that isn't a CLI". Today every command
+  prints as it works, 97 lines of `out!` and `outln!` over five files, counted with
+  `grep -cE 'out(ln)?!\(' crates/check/src/cli/*.rs`, some of them inside a write loop, decides 1 against
+  2 itself, and a closed stdout ends the process with `process::exit(2)`. The session's default, built
+  until the owner rules: the typed API takes the domain's types, and still prints and returns
+  `Result<ExitCode, String>`, and the printing stays in `check`. It relocates behaviour, as the split's
+  slices do, and leaves a frontend that names no clap type but receives stdout and a process exit, so
+  #arg-73 holds in part. The rival: each typed command returns data, and `cli` prints it and maps it to an
+  exit code. It meets #arg-73 and #arg-74 whole, and costs a rewrite of those sites, with the order of what
+  `check --fix` lists at risk, inside a slice whose first step is "the mechanism alone"; the component-creation
+  skill's default puts printing in the Component that defines the data, which ranks against it but
+  states a default, not a rule. The default forecloses nothing: a command can return data later, one at a
+  time. No goal ranks the two.
+
 - **D1, on #cost-per-crate, ruled**: the fixed cost of each new crate is accepted, and each crate is
   created by the slice that builds it, `bundle`, `render` and `rewrite` by their own work. The owner,
   after the plan documents were committed: "D1 the costs are accepted".
