@@ -17,8 +17,8 @@ repository's root `CLAUDE.md`, section `## Git`, describes, with `git filter-bra
 
 ### What
 
-A command of a published crate, or a library function that the project's maintenance binary calls,
-for each of the three tasks. `issue@xtask@the-reword-the-fold-and-the-merge-predicate-have-no-command`
+A command of a published crate for each of the three tasks, per `goal@cli@one-program-for-its-tools`,
+which closes the choice of a library function alone. `issue@xtask@the-reword-the-fold-and-the-merge-predicate-have-no-command`
 records the same tasks as missing commands of this repository's own tool.
 
 ### Why it matters
@@ -57,3 +57,8 @@ leads for this work's own design session:
   The port's other commands are a generic part whose taking in is the owner's word, at the port,
   per `goal@knowledge-architect@the-owner-decides`.
 - Every command it ships is bound by `design@knowledge-architect@no-operation-loses-content`.
+- **Whether it belongs in `klarch` at all is for this design session to read.** The owner leans to putting it there, since that makes
+  shipping easier, and doubts it, since it is somewhat off the subject of a binary focused on documentation.
+  `goal@cli@one-program-for-its-tools` places it there, so a different answer changes that goal, on the owner's word. The owner would not
+  want it to run a project's gates, and holds that such a feature would be a tool of its own; running a command its caller names on the
+  invocation is admitted. That needs a place in the design, since `goal@git@a-pure-wrapper-over-git` models no such spawn.

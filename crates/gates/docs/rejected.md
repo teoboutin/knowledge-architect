@@ -25,7 +25,7 @@ answer.
 ### A `gates` command of the checker's binary, with the gate list declared in the manifest `##gates-command-of-the-checker`
 
 `live`. It would have changed the manifest's format and the checker's command line, and needed no
-code in a project. It would make the document checker run cargo, the linter and the tests.
+code in a project. It would make `klarch` run cargo, the linter and the tests.
 
 ### A published gates binary configured by a file `##gates-binary-configured-by-file`
 
