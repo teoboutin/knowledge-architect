@@ -4,7 +4,7 @@ How transcript is built, and why.
 
 ## The transcripts
 
-### `transcript` reads the sessions of the project it runs in, whatever the project's harness, so every binary offers it `##transcript-command-reads-any-project`
+### One command, `transcript`, reads the agent harness's session transcripts over a project, whichever harness the project declares, so every binary offers it `##transcript-command-reads-any-project`
 
 `klarch transcript` reads the transcripts the agent harness writes on disk, for the transcript
 reviewer, the assembly of a plan document and any survey of past sessions. It is a variant of

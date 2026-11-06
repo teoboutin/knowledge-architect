@@ -6,14 +6,14 @@
 //! is the property the whole shape rests on. The exit codes are `design@cli@exit-code-ladder`: 0
 //! ran-and-clean, 1 ran-and-negative, 2 could-not-run. `Err` is could-not-run, which the caller prints
 //! before it exits 2, and `index` and `check --fix` also return exit 2 themselves, having printed why.
-//! **Each function prints as it works**, per `design@check@a-typed-command-prints-and-returns-its-code`,
+//! **Each function prints as it works**, per `design@knowledge-architect@a-typed-command-prints-and-returns-its-code`,
 //! so a closed stdout ends the process with exit 2 rather than returning, as `output::write` says.
 //! `checker` is every directory of the running binary's own source, per
 //! `design@check@checker-source-literals-are-data`.
 //!
 //! **Each function takes a manifest its extensions have configured**, with
 //! [`crate::extension::configure`], as a binary's dispatch does before it calls one, which nothing
-//! enforces yet, per `issue@check@a-typed-command-trusts-its-caller-to-have-configured-the-manifest`: a file they
+//! enforces yet, per `issue@knowledge-architect@a-typed-command-trusts-its-caller-to-have-configured-the-manifest`: a file they
 //! generate is outside every walk, and a table they refuse is phase 1 of `check`.
 
 use std::path::Path;
@@ -32,8 +32,8 @@ pub use history::commits;
 mod gathered;
 pub use gathered::Gathered;
 
-// The install and its one line in a root CLAUDE.md, which `init` writes as `create`'s last step and
-// a command of this crate writes as its whole.
+// What `create` takes of the install: `init` refuses a destination in `shipped`, writes `IMPORT_LINE`
+// into a root CLAUDE.md it creates, and outside a worktree installs with `install_into`.
 pub use crate::agents::{install_into, shipped, Installed, IMPORT_LINE};
 
 // A binary's `main` refuses a build made from another checkout before any command, per
@@ -187,7 +187,7 @@ pub fn complete_working_tree(
 /// **Each binary that dispatches a command of the checker calls it in its `main`**, right after
 /// [`refuse_a_foreign_build`] and before it dispatches any command but `init`, its own included,
 /// with the directories of its own source: the same list it hands each command as `checker`. `init`
-/// goes to [`init`] before a project is located, since no manifest exists to read a pin from,
+/// goes to `init` of `knowledge-architect-create` before a project is located, since no manifest exists to read a pin from,
 /// and the manifest it writes pins this library's version. No command calls it, so a test driving a command
 /// in-process over a mock project needs no confirmed pin; the parse still requires the key.
 ///

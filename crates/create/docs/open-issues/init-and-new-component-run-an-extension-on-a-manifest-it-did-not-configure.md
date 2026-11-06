@@ -5,7 +5,7 @@ kind: defect
 
 ## Summary
 
-`init` and `new_component` of `path@create@src/command.rs` parse the manifest they wrote or edited, and run `fix_then_check` over it,
+`init` and `new_component` of `path@create@src/command.rs` parse the manifest they wrote or edited, and run `check --fix` over it,
 without calling `extension::configure`. An extension's `prepare` then runs with no `resolve` before it, and a file it
 generates is walked. It predates the slice that moved the binary to the top, whose adversarial review found it.
 
@@ -39,6 +39,5 @@ is created this way.
 
 ### What would close it
 
-`init` and `new-component` configure the manifest they re-parse, before the walk that `fix_then_check` runs, with a test over
-an extension that generates a file, in both commands. `spec@component-split@consumers-out` moves this code to `create`, so
-that slice's audit reads this entry.
+`init` and `new-component` configure the manifest they re-parse, before the walk `check --fix` runs, with a test over
+an extension that generates a file, in both commands.

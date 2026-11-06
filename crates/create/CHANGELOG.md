@@ -67,6 +67,8 @@ an empty subsection is omitted.
 
 - `cli`, patch: `init` outside every git worktree names each file of the installer's namespace it removes, as
   `fixed: removed <path> (installed)`, since no git holds a copy of it.
+- `cli`, patch: the `checker source:` line of `check` and the `cargo clean` of the refusal of a foreign build name `query`,
+  `transcript` and `create`.
 - `library`, minor: the package `knowledge-architect-check` holds the checks and the logic of the commands that run them
   or install the workflow as typed functions, with no clap in them, in its module `commands`. A project keeps naming
   `knowledge-architect`, whose every public path stays, and which still holds the binary `klarch`.

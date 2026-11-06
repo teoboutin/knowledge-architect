@@ -26,6 +26,15 @@ Reproduced by an adversarial reviewer over a project `init` made, committed:
 A session reading exit 2 takes the tree as it left it, against `design@cli@exit-code-ladder`, and the rewritten
 files reach its next commit unannounced, against `goal@knowledge-architect@agents-work-without-drift`.
 
+`init` outside a worktree meets the same case, through `install_into`: with a symbolic link on an unshipped owned path, it
+prints each file it wrote, then the error, exit 1, since `refuse_unwritable` covers shipped destinations only.
+
+`init` outside a worktree meets the same case, through `install_into`: with a symbolic link on an unshipped owned path, it
+prints each file it wrote, then the error, exit 1, since `refuse_unwritable` covers shipped destinations only.
+
+`init` outside a worktree meets the same case, through `install_into`: with a symbolic link on an unshipped owned path, it
+prints each file it wrote, then the error, exit 1, since `refuse_unwritable` covers shipped destinations only.
+
 ### What would close it
 
 A link at any owned path refused before the first write, and the command listing what it wrote before a failure

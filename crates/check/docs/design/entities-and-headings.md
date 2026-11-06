@@ -48,6 +48,8 @@ findings, which strains `goal@check@relocation-needs-only-goal-changes`.
 
 ### No rule on the direction of a citation is checked outside a goals home `##no-citation-direction-rule`
 
+A search's clusters are built per `design@query@record-is-every-register-entry`. 
+
 Membership of a cluster reads an edge either way, so a rule that citations run from goals down to
 issues would buy acyclicity alone, which serves a transitive membership that merges the clusters.
 A goals home is the one place a direction is checked, for a reason of its own, the stability of a

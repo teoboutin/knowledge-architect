@@ -1610,7 +1610,7 @@ fire by a scratch dependency of `query` on `check`, which the command lists. The
   states a default, not a rule. The default forecloses nothing: a command can return data later, one at a
   time. No goal ranks the two. The owner, at the merge of #cli-on-top: "D5 agreed, and refactoring commands so theh
   return data should be recorded in issues." Recorded in
-  `issue@check@a-typed-command-prints-and-exits-rather-than-returning-data`.
+  `issue@knowledge-architect@a-typed-command-prints-and-exits-rather-than-returning-data`.
 
 - **D6, on #create-crate**: what `init` does with a file of the installer's namespace it removes, the occasion
   `issue@create@init-outside-a-worktree-deletes-an-owned-file-silently` gives this audit. Three shapes. The default:
@@ -1634,7 +1634,7 @@ fire by a scratch dependency of `query` on `check`, which the command lists. The
   holds. The library names neither a pin nor an extension's table as what `goal@model@a-tool-knows-the-read-is-right` asks,
   since that goal's list does not name them; so a tool linking `query` with no `cli` reads such a project as the issue
   says, and the issue closes on this ruling. The rival: a type only `extension::configure` returns, in `model`, which each
-  command takes, the lead of `issue@check@a-typed-command-trusts-its-caller-to-have-configured-the-manifest`.
+  command takes, the lead of `issue@knowledge-architect@a-typed-command-trusts-its-caller-to-have-configured-the-manifest`.
 - **D9, on #query-crate and #transcript-crate**: the printing's home, which D5 left to this audit. The only existing
   crate below `query` and `transcript` is `git`, which `goal@git@a-pure-wrapper-over-git` refuses, and `model` is not below
   `transcript`. So two shapes survive. The default: a copy of the writer in `query` and one in `transcript`, each with a test
@@ -1642,14 +1642,14 @@ fire by a scratch dependency of `query` on `check`, which the command lists. The
   one reason at three sites. The rival: a crate of its own, of about 40 lines, which holds one home at the cost of
   #cost-per-crate, for a name no thread proposed and D1 does not reach. The component-creation skill's default puts printing in
   the Component that defines the data, and a return of data, per
-  `issue@check@a-typed-command-prints-and-exits-rather-than-returning-data`, removes the copies; that ranks the first
+  `issue@knowledge-architect@a-typed-command-prints-and-exits-rather-than-returning-data`, removes the copies; that ranks the first
   by a default, not a rule, so no goal ranks them.
 - **D10, on #create-crate**: a correction of the premise the owner approved. The table the owner agreed in R6 and #arg-14 gave
   the cut's cost as three functions. The audit measured more: `shipped`, `install_into`, `Installed` and `IMPORT_LINE`, in
   `check`'s private module `agents`, and what `new_component` asks of `staged_generated`; `fix_then_check` has a
-  public form already. `create` is a fifth kind of consumer of `check`'s facade, so
-  `tripwire@check@private-item-needed` fires by its letter, a consumer needing an item private behind the facade, and its
-  response is taken in this change, the item published and the rule on the facade's consumers rewritten. The default keeps
+  public form already. `create` is a fifth kind of consumer of `check`'s facade, which that head's rule now names. A crate of this
+  workspace is met at the design of the work that writes it, so `tripwire@check@private-item-needed`, written for a consumer
+  outside the workspace, is scoped to say so and does not fire. The default keeps
   the cut, since `create` still has its own purpose and tests. The rival is to keep `init` and `new-component` in `check`.
 
 - **D1, on #cost-per-crate, ruled**: the fixed cost of each new crate is accepted, and each crate is

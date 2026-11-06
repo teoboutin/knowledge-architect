@@ -5,7 +5,7 @@ The library that wraps git for the tools of knowledge-architect. What it is for 
 `register@git@design`.
 
 **A new question to git is one more method chain on `Invocation` in `path@git@src/git.rs`**,
-never a `Command::new("git")` anywhere else in this crate or in the checker's library code. `run`
+never a `Command::new("git")` anywhere else in this crate or in the library code of a tool of knowledge-architect that names it. `run`
 is where the environment of every invocation is set, the per-user ignore file pinned and the
 repository variables dropped; a child spawned past it reads another environment, per
 `design@git@git-is-asked-through-one-module` and, for the checker,

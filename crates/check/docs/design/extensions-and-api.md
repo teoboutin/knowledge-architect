@@ -102,16 +102,6 @@ skipping the regime in silence.
 **A table keeps the extension's own name at the top level.** A namespace for extension tables is
 `rejected@check@extension-table-namespace`.
 
-### A typed command prints as it works and returns its exit code, rather than data for its caller to print `##a-typed-command-prints-and-returns-its-code`
-
-Each command's function, in `commands` and in the crates `query`, `transcript` and `create`, takes the domain's types, prints, and returns `Result<ExitCode, String>`. The session chose
-this over a function that returns data for `cli` to print and map to a code, which no goal ranks; the owner approved it.
-Printing stays where the data is defined. The rival meets a frontend that is no command line whole, and costs a rewrite of
-the printing sites, some inside a write loop, with the order of what `check --fix` lists at risk. The cost of the choice:
-such a frontend names no clap type, and receives stdout, and a process that ends on a closed stdout. A command can return
-data later, one at a time, which `issue@check@a-typed-command-prints-and-exits-rather-than-returning-data` records on the
-owner's word.
-
 ### `check`'s role modules publish what a consumer of the library needs, and nothing for `check`'s own tests `##the-facade-publishes-what-a-consumer-needs`
 
 The library has five kinds of consumer: a binary that registers an extension, the extension, the
@@ -129,7 +119,7 @@ the refusal in its own suite. Its facade is shaped as `design@knowledge-architec
 
 | module | what it serves |
 | --- | --- |
-| `commands` | a frontend, the command line among them: each command's logic behind a typed function, refusing a foreign build or another version, gathering a run's inputs |
+| `commands` | a frontend, the command line among them: the logic of the commands of this crate behind a typed function, what `create` takes of the install, refusing a foreign build or another version, gathering a run's inputs |
 | `extension` | writing an extension: its two traits, what `check` hands them, what they return |
 | `document` | reading a document's parse, per `design@check@an-extension-builds-its-own-model` |
 | `testing` | running `check` over a mock project as the binary does |

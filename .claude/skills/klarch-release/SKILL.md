@@ -29,7 +29,7 @@ On a branch of its own, `release-<version>`, under the Git rules of the root `CL
    - `[workspace.package] version` in the root Cargo.toml;
    - the exact pins `knowledge-architect-agent-skills = { …, version = "=<version>" }`,
      `knowledge-architect-git = { …, version = "=<version>" }` and
-     `knowledge-architect-model = { …, version = "=<version>" }` in crates/check/Cargo.toml, crates/query/Cargo.toml, crates/transcript/Cargo.toml, crates/create/Cargo.toml and crates/cli/Cargo.toml, each as it depends on them, the pins of `query`, `transcript`, `create` in crates/cli/Cargo.toml, with `knowledge-architect-check = { …, version = "=<version>" }` in crates/cli/Cargo.toml, and the second in crates/model/Cargo.toml;
+     `knowledge-architect-model = { …, version = "=<version>" }` in crates/check/Cargo.toml, crates/query/Cargo.toml, crates/transcript/Cargo.toml, crates/create/Cargo.toml and crates/cli/Cargo.toml, each as it depends on them, the pins of `query`, `transcript`, `create` in crates/cli/Cargo.toml, with `knowledge-architect-check = { …, version = "=<version>" }` in crates/cli/Cargo.toml and crates/create/Cargo.toml, and the second in crates/model/Cargo.toml;
    - Cargo.lock, which any cargo command rewrites for every workspace package;
    - the status line: the opening sentence of `## Status` in the root README.md. Change the
      number, and any other part of the sentence the release makes false.
@@ -138,7 +138,7 @@ On a branch of its own, `release-<version>`, under the Git rules of the root `CL
 
 ## When the publish fails `##failed-publish`
 
-The `publish` job uploads the crates one by one: git, agent-skills, model, `check`, gates, mutate, then `cli`, the package `knowledge-architect`, and skips a
+The `publish` job uploads the crates one by one: git, agent-skills, model, `check`, `query`, `transcript`, `create`, gates, mutate, then `cli`, the package `knowledge-architect`, and skips a
 crate whose version crates.io already holds. A crate it uploaded stays published.
 
 - **The `verify` job failed, the owner declined, or nothing was uploaded**: delete the tag, with

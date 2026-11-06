@@ -2,11 +2,15 @@
 //! `new-component` of `klarch`, behind typed functions with no argument parser in them.
 //!
 //! [`init`] writes a project's manifest, the installed agent files and every document and home the
-//! check requires, and ends as `check --fix` ends. It runs where no project exists yet, so a caller
+//! check requires, and ends as `check --fix` ends inside a git worktree; outside one it installs the
+//! agent files, says what comes next and exits 0. It runs where no project exists yet, so a caller
 //! calls it before it locates one. [`new_component`] adds a Component to a located project. Every
 //! refusal of either comes before its first write, and is `Err`, which the caller prints before it
-//! exits 2; once it has written, a failure is exit 1. Each function prints as it works, so a closed
-//! stdout ends the process with exit 2.
+//! exits 2; once it has written, a failure is exit 1. Each function prints as it works, per
+//! `design@knowledge-architect@a-typed-command-prints-and-returns-its-code`, so a closed stdout ends the
+//! process with exit 2. [`new_component`] takes a manifest as its caller's extensions have configured
+//! it, which nothing enforces, per
+//! `issue@knowledge-architect@a-typed-command-trusts-its-caller-to-have-configured-the-manifest`.
 //!
 //! **A project does not name this package**: it pins `knowledge-architect`, whose binary offers these
 //! commands, and whose documentation names the library entry an extension's binary calls.

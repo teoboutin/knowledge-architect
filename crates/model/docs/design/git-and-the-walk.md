@@ -43,7 +43,7 @@ the strength of a working-tree state.
 
 **The summary block prints the walked-file count**, so two machines disagreeing about the walk is
 visible in the output rather than inferred from a finding list. The tripwire is in
-`register@check@tripwire`.
+`register@model@tripwire`.
 
 **This is the working tree's walk, the one plain `check` reads.** `check --staged` and `commits`
 read a snapshot instead, from git objects alone, per `design@check@staged-tree-source` and

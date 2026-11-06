@@ -47,6 +47,10 @@ In this repository, the checker built from the checkout runs as `cargo klarch <s
 | crates/check | the checker: package `knowledge-architect-check` |
 | crates/model | the library of what knowledge-architect reads of a project, `knowledge-architect-model` |
 | crates/git | the library that wraps git for the tools of knowledge-architect, `knowledge-architect-git` |
+| crates/query | the library of the commands that read the record and run no check, `knowledge-architect-query` |
+| crates/transcript | the library that reads an agent harness's session transcripts, `knowledge-architect-transcript` |
+| crates/create | the library that creates a project and adds a Component to one, `knowledge-architect-create` |
+
 | crates/agent-skills | the text the checker installs into a project |
 | crates/gates | the library that runs a project's merge gates, `cargo x gates` here |
 | crates/mutate | the library of the hand mutation, which applies one mutation, runs a command against it and restores the file, `cargo x mutate` here |

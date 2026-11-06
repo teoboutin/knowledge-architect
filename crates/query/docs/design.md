@@ -2,15 +2,68 @@
 
 How query is built, and why.
 
-## What the commands answer, and the record search
+## What the commands answer
 
 ### This crate depends on no crate of the checks `##query-depends-on-no-check`
 
-A tool over the record needs the model and at most phases 1 to 3, per `design@knowledge-architect@model-crate`, so nothing here runs
-or names a check, and `cargo tree -e normal -p knowledge-architect-query` lists no `knowledge-architect-check`. So a program that
+A tool over the record needs the model and at most phases 1 to 3, per `design@knowledge-architect@model-crate` and
+`goal@model@a-tool-reads-the-documents-with-no-check`, so nothing here runs or names a check, and
+`cargo tree -e normal -p knowledge-architect-query` lists no `knowledge-architect-check`. So a program that
 consults a record pays for none of the checks, and each of them can change with no change here. A dependency added here passes
-every gate, so a reader of this head is what catches it. A command that needs a check's output is `check`'s, as
-`model` is, since it calls each extension's dump hook.
+every gate, so a reader of this head is what catches it. A command that needs a check's output goes to `check`, as
+`design@knowledge-architect@query-crate` says of `model`.
+
+### `anchors` lists every anchor of a project, computed as a run computes them, with the home of each register it carries but a plan's `##anchors-listing-command`
+
+`klarch anchors` prints every anchor, the constructed ones included, built by `Anchors::of` over the
+manifest and the tree's listing as every check builds them: its name, its kind and its path, and,
+under every anchor but a plan's, each register it carries with the home the tree holds,
+the file, the directory, both, or `missing`. An entry's kind is the Directory register it is an
+entry of. A milestone and a spec list no register: a plan
+anchor's registers keep their homes inside the plan itself, its sections, or a milestone's own
+directory for its slice specs. A home is judged held by the rule phase 2 of a run judges it by, over the
+same listing, so the two agree on what a project carries. It exits 1 when a home is missing, a negative answer
+about the project, per `design@cli@exit-code-ladder`. Its output is for a reader and is not a
+contract, per `issue@knowledge-architect@command-output-is-not-declared-a-contract`.
+
+It answers a question no other command answers: `model` prints observations, and `show` one
+register's homes. The rival, each project's root `CLAUDE.md` listing its anchors by hand, goes stale
+when the manifest changes, and no check reports the stale list; the command is computed from what
+it describes. The primer names it, so every installing project's sessions learn its anchors from
+it. It runs no phase, as `show`, `issues` and `tripwires` run none.
+
+### `id` answers whether an id is free with every entity the table defines under it, of every kind and every anchor, and leaves to its reader which collision matters `##id-lookup-command`
+
+`klarch id <id>...` prints, for each argument in order, `free` where the entity table defines
+nothing under it, every entity it defines under it, as the reference `show` takes, or that the
+argument is outside the grammar of `design@model@two-segment-ids`. It reads the table through
+`Entities::by_id`, unfiltered, the set the lints on ids filter per citing document. It exits 0 when
+every argument is free and 1 otherwise, a malformed argument being a negative answer about the
+candidate, per `design@cli@exit-code-ladder`, since the run answers every other argument; and 2
+over an incomplete model, since a `free` there is the finding computed over an incomplete model that
+`design@check@phases-gate-the-report` refuses.
+
+It answers a question no other command answers, per `design@check@one-question-one-command`: `show`
+takes a whole reference, and the lints compute the set only to report a span. A design thread's slug
+is checked against the design and `rejected` entries of the Component that will own its decision,
+per `design@agent-skills@thread-slug-is-entry-id`, and without `id` a session checks it by a loop
+over two `show` calls per candidate, the case `goal@knowledge-architect@mechanical-tasks-are-the-tool-s`
+gives the checker. An anchor's name, a Component's, a location's or a plan's, is no entity, so `id`
+lists none: a plan named like an anchor is refused by `check`, per
+`design@model@anchors-are-components-and-locations`. The rule on which collision refuses an id stays with the reader, since another
+reader, such as a label or a new entry of another register, has another rule. The nearest rival, a
+test of one named anchor's design and `rejected` entries, needs the owning anchor before the thread
+can name it: `rejected@query@slug-test-of-one-anchor`.
+
+### A tripwire guards no `rejected` entry `##tripwire-guards-no-rejected-entry`
+
+The `guarding` column of `cargo klarch tripwires`, and its `--guarding` filter, read every
+reference of a tripwire to an entry of a register but `issue`, `tripwire` and `rejected`. A
+tripwire guards a decision: a `rejected` entry records a design not kept, which is no decision, so
+a tripwire that names one names the candidate its response would reopen, not what it guards. The
+rival, counting it like a declared register's entry, would list a design not kept as guarded.
+
+## The record search
 
 ### The record `klarch worklist` reads is every entry of every register but the plan registers, and its edges are the references written inside an entry `##record-is-every-register-entry`
 
@@ -149,45 +202,3 @@ subject, which the grouping exists to keep whole. The designs this decision did 
 `rejected@agent-skills@one-agent-reads-every-standing-entry`,
 `rejected@agent-skills@design-listing-cut-in-groups-of-sixty` and
 `rejected@agent-skills@subject-groups-bounded-at-sixty`.
-
-### `id` answers whether an id is free with every entity the table defines under it, of every kind and every anchor, and leaves to its reader which collision matters `##id-lookup-command`
-
-`klarch id <id>...` prints, for each argument in order, `free` where the entity table defines
-nothing under it, every entity it defines under it, as the reference `show` takes, or that the
-argument is outside the grammar of `design@model@two-segment-ids`. It reads the table through
-`Entities::by_id`, unfiltered, the set the lints on ids filter per citing document. It exits 0 when
-every argument is free and 1 otherwise, a malformed argument being a negative answer about the
-candidate, per `design@cli@exit-code-ladder`, since the run answers every other argument; and 2
-over an incomplete model, since a `free` there is the finding computed over an incomplete model that
-`design@check@phases-gate-the-report` refuses.
-
-It answers a question no other command answers, per `design@check@one-question-one-command`: `show`
-takes a whole reference, and the lints compute the set only to report a span. A design thread's slug
-is checked against the design and `rejected` entries of the Component that will own its decision,
-per `design@agent-skills@thread-slug-is-entry-id`, and without `id` a session checks it by a loop
-over two `show` calls per candidate, the case `goal@knowledge-architect@mechanical-tasks-are-the-tool-s`
-gives the checker. An anchor's name, a Component's, a location's or a plan's, is no entity, so `id`
-lists none: a plan named like an anchor is refused by `check`, per
-`design@model@anchors-are-components-and-locations`. The rule on which collision refuses an id stays with the reader, since another
-reader, such as a label or a new entry of another register, has another rule. The nearest rival, a
-test of one named anchor's design and `rejected` entries, needs the owning anchor before the thread
-can name it: `rejected@query@slug-test-of-one-anchor`.
-
-### `anchors` lists every anchor of a project, computed as a run computes them, with the home of each register it carries but a plan's `##anchors-listing-command`
-
-`klarch anchors` prints every anchor, the constructed ones included, built by `Anchors::of` over the
-manifest and the tree's listing as every check builds them: its name, its kind and its path, and,
-under every anchor but a plan's, each register it carries with the home the tree holds,
-the file, the directory, both, or `missing`. An entry's kind is the Directory register it is an
-entry of. A milestone and a spec list no register: a plan
-anchor's registers keep their homes inside the plan itself, its sections, or a milestone's own
-directory for its slice specs. A home is judged held by the rule phase 2 of a run judges it by, over the
-same listing, so the two agree on what a project carries. It exits 1 when a home is missing, a negative answer
-about the project, per `design@cli@exit-code-ladder`. Its output is for a reader and is not a
-contract, per `issue@knowledge-architect@command-output-is-not-declared-a-contract`.
-
-It answers a question no other command answers: `model` prints observations, and `show` one
-register's homes. The rival, each project's root `CLAUDE.md` listing its anchors by hand, goes stale
-when the manifest changes, and no check reports the stale list; the command is computed from what
-it describes. The primer names it, so every installing project's sessions learn its anchors from
-it.

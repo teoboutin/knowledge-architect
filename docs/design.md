@@ -49,7 +49,7 @@ consumer, and no consumer runs these tests. The cost is that `cargo test` on the
 compiles. The rival, publishing that vocabulary so the
 tests could leave, falls to `design@model@model-facade`, under which nothing becomes public for a test.
 
-### The checker's library code asks git only through the `git` crate `##checker-asks-git-through-the-crate`
+### The library code of the checker's tools asks git only through the `git` crate `##checker-asks-git-through-the-crate`
 
 The library code of `check`, of `model`, of `query`, of `transcript` and of `create` starts no git process of its own: every
 question one asks git is a function of the `git` crate, called by the code that gathers what a run reads or prints a
@@ -57,7 +57,8 @@ listing, never by a check, per `design@check@model-then-checks`. So the set of t
 ask git is the crate's, auditable in one read per `design@git@git-is-asked-through-one-module`,
 and the environment the crate sets, `design@git@repository-variables-dropped` and
 `design@git@index-file-variable-kept`, reaches every question the checker's verdict depends on,
-which `goal@check@documents-stay-current` needs. A test of the checker may run git itself to build
+which `goal@check@documents-stay-current` needs. `transcript`'s one question moves no verdict: it holds to the same crate since
+no tool needs a wrapper of git of its own, per `goal@git@a-pure-wrapper-over-git`. A test of the checker may run git itself to build
 its fixture.
 
 ### What a run reads of a project is a crate of its own, which the checks depend on `##model-crate`
@@ -66,7 +67,7 @@ its fixture.
 phases 1 to 3 and the resolver, and `check` depends on it by path and by exact version, per
 `design@knowledge-architect@version-lockstep`. A tool over the record needs the model and at most
 phases 1 to 3, never the last phase: `id` and `worklist` run them and no check, and `show` runs no phase and
-reads the resolver. A writer's gate is these phases, and `init` and `new-component`, which end as `check --fix` does, are why
+reads the resolver. A writer's gate is these phases, and `init` and `new-component`, which end as `check --fix` does inside a worktree, are why
 `create` depends on `check`. Phases 1 to 3 say whether the model can be trusted, not whether the content
 conforms. Every check can be argued to bear on the
 answers a tool reads, and the line between them is how far: a slug defined twice makes the entity table
@@ -90,12 +91,13 @@ on it alone. It serves `goal@git@a-pure-wrapper-over-git`. The nearest rival, th
 module made public, puts the checker's own dependencies into the build of every tool that needs
 git: `rejected@knowledge-architect@git-module-made-public`.
 
-### The commands that read the record are a crate of their own, which the checks do not sit below `##query-crate`
+### The commands that read the record and run no check are a crate of their own `##query-crate`
 
 `knowledge-architect-query`, in crates/query, holds the logic of `show`, `issues`, `tripwires`, `anchors`, `id` and `worklist`,
 and depends on `model`, and on `git` for the last column of `issues`, by path and by exact version, per
 `design@knowledge-architect@version-lockstep`. They need the model and at most phases 1 to 3, per
-`design@knowledge-architect@model-crate`, and they share one design, the record, the graph and the exchange with agents. `cli`
+`design@knowledge-architect@model-crate`, and they share one design, the record, the graph and the exchange with agents, for
+`goal@knowledge-architect@records-reach-their-reader`. `cli`
 depends on it. `model`, the command, stays in `check`, since it calls each extension's dump hook. The rule that this crate
 depends on nothing of the checks is its own, `design@query@query-depends-on-no-check`. The nearest rival, these commands left in
 `check`, puts every check into the build of a tool over the record.
@@ -110,8 +112,8 @@ The nearest rival, a module of `check`, ties a change of that format to the chec
 ### Creating a project is a crate of its own, above the checks `##create-crate`
 
 `knowledge-architect-create`, in crates/create, holds `init`, `new-component` and `init --rust`, and depends on `check`, since
-each run ends as `check --fix` ends, on `model`, `git`, and `agent-skills` for the snippets it writes, by path and by exact
-version. `cli` depends on it. It has a purpose and a design of its own. The cost is what `check` publishes for it, under
+each run inside a worktree ends as `check --fix` ends, on `model`, `git`, and `agent-skills` for the snippets it writes, by path and by exact
+version. `cli` depends on it. It has a purpose and a design of its own, per `goal@knowledge-architect@projects-are-split-into-components`. The cost is what `check` publishes for it, under
 `design@check@the-facade-publishes-what-a-consumer-needs`. The nearest rival keeps it in `check`, whose interface then changes for
 what a new project holds.
 
@@ -136,7 +138,17 @@ The rival, a new name for the top-level crate, changes every project's dependenc
 to gain a name, and an installed setup snippet would change with them; a migration is its whole cost, per
 `design@knowledge-architect@capability-cost-before-migration`, and the name buys a consumer no capability.
 
-### The crates an extension is written against are facades of role modules, and every other module is private `##api-facade`
+### A typed command prints as it works and returns its exit code, rather than data for its caller to print `##a-typed-command-prints-and-returns-its-code`
+
+Each command's function, in `commands` and in the crates `query`, `transcript` and `create`, takes the domain's types, prints, and returns `Result<ExitCode, String>`. The session chose
+this over a function that returns data for `cli` to print and map to a code, which no goal ranks; the owner approved it.
+Printing stays where the data is defined. The rival meets a frontend that is no command line whole, and costs a rewrite of
+the printing sites, some inside a write loop, with the order of what `check --fix` lists at risk. The cost of the choice:
+such a frontend names no clap type, and receives stdout, and a process that ends on a closed stdout. A command can return
+data later, one at a time, which `issue@knowledge-architect@a-typed-command-prints-and-exits-rather-than-returning-data` records on the
+owner's word.
+
+### The crates of the checker's tools are facades, those an extension is written against with role modules, and every other module is private `##api-facade`
 
 `check` and `cli` hold what an extension is written against. Each crate root re-exports the nouns every consumer meets, and
 role modules hold the rest, one per kind of use. Every other module is private. `model` has a facade of its own, per

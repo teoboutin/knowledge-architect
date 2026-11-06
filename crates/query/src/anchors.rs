@@ -7,7 +7,7 @@ use crate::model::table::Anchors;
 use crate::output::outln;
 use crate::Manifest;
 
-/// Every anchor of the project, as `check` builds them, with its kind, its path, and for a
+/// Every anchor of the project, as a run builds them, with its kind, its path, and for a
 /// declared anchor or `plans` the home of each register it carries, as the tree holds it, per
 /// `design@query@anchors-listing-command`.
 ///

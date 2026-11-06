@@ -5,8 +5,8 @@ kind: todo
 
 ## Summary
 
-Each command's function in `path@check@src/commands/mod.rs`, in `query` and in `create` takes a manifest its extensions have configured, as the module's doc
-says, and nothing enforces that. Given a manifest nothing configured, it can pass where `klarch` fails. The owner holds that this
+Each command's function in `path@check@src/commands/mod.rs`, in `query`, and `new_component` of `create` takes a manifest its extensions have configured,
+as each crate's documentation says, and nothing enforces that. Given a manifest nothing configured, it can pass where `klarch` fails. The owner holds that this
 precondition should ultimately be enforced rather than stated.
 
 ## Details
@@ -31,11 +31,11 @@ A lead, not a decision: a type only `extension::configure` can return, which eac
 Not established: what that does to `Manifest` as the facades publish it.
 
 `issue@model@a-tool-over-the-model-reads-a-project-with-an-extension-otherwise-than-the-checker` holds the same question for a tool
-over the model, and `issue@create@init-and-new-component-run-an-extension-on-a-manifest-it-did-not-configure` a case inside this crate.
+over the model, and `issue@create@init-and-new-component-run-an-extension-on-a-manifest-it-did-not-configure` a case in `create`.
 
 ### Why it matters
 
-`design@check@a-typed-command-prints-and-returns-its-code` offers these functions to a frontend that is no command line, and
+`design@knowledge-architect@a-typed-command-prints-and-returns-its-code` offers these functions to a frontend that is no command line, and
 `goal@check@document-rules-are-checked` holds that a tree the checker passes conforms. A precondition a caller can miss, with no
 refusal, gives a pass on a tree the same checker fails.
 

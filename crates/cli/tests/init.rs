@@ -330,6 +330,60 @@ fn outside_a_worktree_a_removed_namespace_file_is_listed() {
         out.contains("fixed: removed .claude/agents/knowledge-architect-mine.md (installed)"),
         "{out}"
     );
+    assert!(
+        out.contains("fixed: wrote .claude/knowledge-architect/PRIMER.md (installed)"),
+        "{out}"
+    );
+}
+
+/// The claim: outside every worktree, an install that fails after a write is exit 1, since exit 2 promises
+/// an untouched tree, per `design@create@init-asks-no-confirmation`. Mutation checked: exit 0 from that arm.
+#[test]
+fn outside_a_worktree_an_install_refused_after_a_write_exits_one() {
+    let scratch = Scratch::new("no-vcs-link");
+    scratch.write("target.md", "elsewhere\n");
+    std::fs::create_dir_all(scratch.path(".claude/agents")).unwrap();
+    std::os::unix::fs::symlink(
+        scratch.path("target.md"),
+        scratch.path(".claude/agents/knowledge-architect-mine.md"),
+    )
+    .unwrap();
+    let (out, err, code) = klarch(&scratch.dir, &["init", ".", "--name", "p", "--vcs", "none"]);
+    assert_eq!(code, 1, "{out}{err}");
+    assert!(err.contains("symbolic link"), "{err}");
+    assert_eq!(
+        std::fs::read_to_string(scratch.path("target.md")).unwrap(),
+        "elsewhere\n"
+    );
+}
+
+/// The claim: over a clean index, `new-component` says nothing of staged changes, as the predicate that
+/// answers it asks the index first. Mutation checked: its first conjunct made true over a clean index.
+#[test]
+fn new_component_over_a_clean_index_says_nothing_of_staged_changes() {
+    let scratch = Scratch::new("clean-component");
+    assert_eq!(klarch(&scratch.dir, &["init", "p"]).2, 0);
+    let p = scratch.path("p");
+    git(&p, &["add", "-A"]);
+    git(
+        &p,
+        &[
+            "-c",
+            "user.name=fixture",
+            "-c",
+            "user.email=fixture@example.invalid",
+            "-c",
+            "commit.gpgsign=false",
+            "commit",
+            "-qm",
+            "p",
+        ],
+    );
+    let (out, err, _) = klarch(&p, &["new-component", "c"]);
+    assert!(
+        !format!("{out}{err}").contains("staged changes"),
+        "{out}{err}"
+    );
 }
 
 /// The claim: `init` over a repository whose index holds staged changes, and no manifest,
