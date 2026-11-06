@@ -1,8 +1,8 @@
-# The command line of the checker
+# The command line of knowledge-architect
 
-The binary `klarch` and its library, the package `knowledge-architect`: every command of the checker,
-parsed here, and the API a binary that registers an extension is written against. A project that uses
-the checker names this package alone of the checker's packages. What the checks hold a project's documents to is
+The binary `klarch` and its library, the package `knowledge-architect`: the tools of knowledge-architect as one
+program, those whose result needs the project's build or tests apart, parsed here, and the API a binary that registers an extension is written against. A project that runs them
+names this package alone of those that make up the program. What the checks hold a project's documents to is
 `path@check@README.md`, which also states what the tool needs of git, 2.36 or newer, and how `check` and `commits`
 behave; the commands' logic is that crate's.
 

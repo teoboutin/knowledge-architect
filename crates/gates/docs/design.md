@@ -16,9 +16,9 @@ xtask run through a cargo alias, which every Rust target project has, per
 flags it parsed. The runner is, almost line for line, the gates code thaum holds at its commit e98e296, as a comparison of
 `git -C <thaum checkout> show e98e296:tools/xtask/src/gates.rs` with this crate shows, and it serves
 `goal@knowledge-architect@setup-brings-quality-tools` and `goal@gates@gates-from-a-list`: a project
-adopting the workflow gets gates refined over two projects instead of writing its own. A `gates` command of the
-checker's own binary lost: it would make the document checker run cargo, the linter and the
-tests. A published binary configured by a file lost because it leaves the project no place for its
+adopting the workflow gets gates refined over two projects instead of writing its own. A `gates` command of
+`klarch` lost: it would make that binary run cargo, the linter and the tests, which
+`goal@cli@one-program-for-its-tools` keeps out of it. A published binary configured by a file lost because it leaves the project no place for its
 other repeated tasks, and adds a configuration format a list in Rust does not need.
 
 The designs this decision did not keep: `rejected@gates@gates-command-of-the-checker`,

@@ -92,7 +92,7 @@ git: `rejected@knowledge-architect@git-module-made-public`.
 ### The binary and the parsing of its commands are a crate above every crate that contributes a command `##cli-crate`
 
 `cli` holds the binary `klarch`, the declarations and the dispatch of its commands, and pulls each command's logic from
-the crate that holds it. A commands module in a crate that contributes a command would form a cycle with every other
+the crate that holds it, per `goal@cli@one-program-for-its-tools` and `goal@cli@one-home-for-the-command-line`. A commands module in a crate that contributes a command would form a cycle with every other
 such crate that depends on it, so the module sits above them all, per
 `design@agent-skills@top-level-binary-crate`. A frontend that is no command line depends on the crates below it, with no
 parser in them. It says nothing of which crates `check` may depend on, which
@@ -148,8 +148,8 @@ The maintenance crate holds the project's repeated tasks beside its gates, per
 `design@agent-skills@xtask-pins-checker`, and every Rust target project has one. The gates library
 runs a project's merge gates, per `design@gates@gates-crate`, and a mutation is no gate: hosted
 there, every user of the gates would build the mutation code, `rejected@knowledge-architect@gates-library-hosts-the-mutation`.
-The checker's binary is no host either, since it would make the document checker run cargo and the
-tests, `rejected@gates@gates-command-of-the-checker`. A crate of its own was the owner's proposal,
+`klarch` is no host either: the tool's result does not exist without running the project's tests, which
+`goal@cli@one-program-for-its-tools` keeps out of it, as `rejected@gates@gates-command-of-the-checker` argues of the gates. A crate of its own was the owner's proposal,
 argued on these two facts. It serves `goal@knowledge-architect@generic-tools-and-procedures-are-shipped`,
 whose generic part ships as a published crate. The hand mutation judges nothing about the project
 by itself: it runs a step of the development procedure over a mutation a session writes, so it is

@@ -1,7 +1,7 @@
 [package]
 name = "knowledge-architect"
 readme = "CRATES-IO.md"
-description = "The klarch binary and its library: every command of knowledge-architect's checker, and the API a binary that registers an extension is written against."
+description = "The klarch binary and its library: the tools of knowledge-architect as one program, and the API a binary that registers an extension is written against."
 version.workspace = true
 edition.workspace = true
 license.workspace = true

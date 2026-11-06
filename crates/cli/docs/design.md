@@ -29,7 +29,7 @@ assembling a complete working tree, are public in the same module for the same r
 This crate is the nearest the binaries among those every binary offering these commands depends on, per
 `design@agent-skills@command-parsed-nearest-the-binaries`, as `klarch` and an extension's own binary both depend on it,
 per `design@agent-skills@top-level-binary-crate`, so each command keeps one spelling. Each command's logic is a typed function of the crate that holds it, with no clap
-type in it, so clap's major version stays out of those crates' interfaces and the decisions about the whole interface,
+type in it, or is assembled here from those functions, per `goal@cli@one-home-for-the-command-line`, so clap's major version stays out of those crates' interfaces and the decisions about the whole interface,
 `design@cli@exit-code-ladder` among them, have one home. A combination of arguments the domain refuses is a type of the
 domain that cannot hold it, as `design@check@fix-with-staged` is, and this crate's declaration refuses it while parsing.
 `cli::run` refuses a value of an `*Args` struct that holds one, since those structs are public and a value of one can

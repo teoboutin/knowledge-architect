@@ -5,8 +5,8 @@ The fourth slice of `milestone@plans@component-split`. It leaves when it lands.
 ## Builds
 
 - The Component `cli`, crates/cli, taking the package name `knowledge-architect` from `check`,
-  which becomes `knowledge-architect-check`; its goal drafted and put to the owner as the
-  milestone document says, one goal, on refused invocations. That each command keeps one spelling in
+  which becomes `knowledge-architect-check`; its goals drafted and put to the owner as the
+  milestone document says. That each command keeps one spelling in
   every binary stays `design@cli@the-commands-are-a-library-module`, a means to
   `goal@agent-skills@installed-text-works-in-every-target-project`, and no goal of its own. `cli` holds the binary `klarch`, the command enum and the clap
   declarations of every klarch command, those of `worklist` and `transcript` included, the
