@@ -6,7 +6,7 @@
 
 `agent@knowledge-architect-record-searcher` takes the work, the seeds, the decisions and goals the
 dispatching skill names, and one agent directory that `klarch worklist --out` wrote, per
-`design@check@worklist-writes-and-verifies-the-reports`. It reads its entries whole, leaning to
+`design@query@worklist-writes-and-verifies-the-reports`. It reads its entries whole, leaning to
 recall, and edits its report in place, or returns it as text where the harness refuses the edit. Its
 description carries the dispatch, since a dispatcher reads an agent's description and never its
 body: the work list written with the seeds, one agent per directory in parallel, the check of every
@@ -14,7 +14,7 @@ report, a report that fails it sent back, then the reading of the graded entries
 `design@agent-skills@search-relevance-grade` gives.
 
 One agent grades every kind of entry, since a cluster holds a head beside the `rejected` entries it
-cites and the issues and tripwires that cite it, per `design@check@cluster-rooted-at-a-subject`: an
+cites and the issues and tripwires that cite it, per `design@query@cluster-rooted-at-a-subject`: an
 agent per kind would read half of every cluster. The search runs in subagents so that the main
 session spends its context on the entries the work bears on, per
 `goal@knowledge-architect@agents-get-a-complete-workflow`. The reading holds at a retrospective
@@ -38,12 +38,12 @@ reference, which `issue@agent-skills@pointers-written-bare-to-clear-a-finding-re
 it is not. A lighter pass for the Components a piece of work does not touch waits for a project
 whose whole record costs more agents than one grounding should, per
 `issue@agent-skills@a-lighter-pass-for-untouched-components`. Its cost is the packing of
-`design@check@clusters-packed-under-a-word-bound`, re-taken with `klarch worklist --out` over the
+`design@query@clusters-packed-under-a-word-bound`, re-taken with `klarch worklist --out` over the
 tree.
 
 ### The searcher grades the goals its clusters reach, beside the session's own reading of every goals home `##searcher-grades-goals`
 
-A goal reaches a cluster as context, per `design@check@goals-join-a-cluster-as-context`, and one that
+A goal reaches a cluster as context, per `design@query@goals-join-a-cluster-as-context`, and one that
 no cluster reaches is in its anchor's residual group, so the searcher grades every goal, as it
 grades a design entry; the session still reads every goals home itself, at the design skill's
 grounding and at the intake's. The decision is the owner's: the owner saw design sessions miss a
@@ -64,7 +64,7 @@ an entry of a declared register; `may bring back` for a `rejected` entry; `touch
 `worsens`, `depends on` and `trigger met` for an issue; `fires` for a tripwire. An entry that is a
 seed, or cites one, is never `unrelated`; where it meets no element of the change, it is
 `may-bear`, its reason naming the seed. Every entry of the agent appears once in its report, and
-`klarch worklist --verify` checks it, per `design@check@worklist-writes-and-verifies-the-reports`.
+`klarch worklist --verify` checks it, per `design@query@worklist-writes-and-verifies-the-reports`.
 The design skill routes each grade to an act: what the session reads is
 `design@agent-skills@may-bear-read-on-touch`; it sends a `may change` entry to the reversal check
 and a `may change` goal to the goal-setting skill, since a goal changes only there, and proposes a
@@ -87,7 +87,7 @@ this decision did not keep: `rejected@agent-skills@may-bear-on-a-doubt-naming-no
 ### The session reads whole the entries graded `bears`, and of those graded `may-bear` the ones its proposals touch, and lists the others for a reviewer `##may-bear-read-on-touch`
 
 At the design grounding, once its search has run, the session reads `bears.md` whole, and from
-`may-bear.md` the entries a proposal touches, chosen by their reasons, per `design@check@graded-entries-assembled`; it lists the
+`may-bear.md` the entries a proposal touches, chosen by their reasons, per `design@query@graded-entries-assembled`; it lists the
 others as not read, each with the searcher's reason, where the design-conformance review reads
 them, per `design@agent-skills@unread-entries-reach-the-conformance-review`. A goal is in the
 assembly by its grades alone, since the grounding reads every goals home whole, per
@@ -181,7 +181,7 @@ the drafted shapes rest on or may change, and the design audit of a slice or a s
 cite; neither seeds a goal. An entry that is or cites a seed is
 never graded `unrelated`, per `design@agent-skills@search-relevance-grade`, so a seed that many
 entries cite forces each of them to a `may-bear` grade at least. A goal is such a seed: it reaches
-every cluster that cites it as context already, per `design@check@goals-join-a-cluster-as-context`,
+every cluster that cites it as context already, per `design@query@goals-join-a-cluster-as-context`,
 and the session reads every goals home whole. In the search that grounded the discussion that made
 this decision, 29 of the 137 entries graded `may-bear` alone carried the mark of one goal seed, as
 the message of the commit "[harvest] The graded entries' assembly, `klarch id`, the narrower grounding and the retrospective's
@@ -255,7 +255,7 @@ occasions are the owner's: the search runs at least at a design discussion's gro
 audits of a plan's steps, the main moments design is discussed, and should miss nothing.
 
 At the design audit the search reads every kind of entry, as at every other occasion: its unit is
-the cluster of `design@check@cluster-rooted-at-a-subject`, under which a standing entry is judged
+the cluster of `design@query@cluster-rooted-at-a-subject`, under which a standing entry is judged
 beside the heads it cites, so the audit's reading of the design entries is no instruction about how
 an agent behaves, the kind `design@agent-skills@behaviour-additions-need-real-use` admits only on a
 miss seen in real use. The misses of a search are in its judgement, not in when it runs: two pieces

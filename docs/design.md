@@ -51,10 +51,10 @@ tests could leave, falls to `design@model@model-facade`, under which nothing bec
 
 ### The checker's library code asks git only through the `git` crate `##checker-asks-git-through-the-crate`
 
-The library code of `check` and of `model` starts no git process of its own: every question either
-asks git is a function of the `git` crate, called by the code that gathers what a run reads or prints a
-listing, never by a check, per `design@check@model-then-checks`. So the set of things the checker
-asks git is the crate's, auditable in one read per `design@git@git-is-asked-through-one-module`,
+The library code of `check`, of `model`, of `query`, of `transcript` and of `create` starts no git process of its own: every
+question one asks git is a function of the `git` crate, called by the code that gathers what a run reads or prints a
+listing, never by a check, per `design@check@model-then-checks`. So the set of things the checker's tools
+ask git is the crate's, auditable in one read per `design@git@git-is-asked-through-one-module`,
 and the environment the crate sets, `design@git@repository-variables-dropped` and
 `design@git@index-file-variable-kept`, reaches every question the checker's verdict depends on,
 which `goal@check@documents-stay-current` needs. A test of the checker may run git itself to build
@@ -65,8 +65,9 @@ its fixture.
 `knowledge-architect-model`, in crates/model, holds the manifest, the walk, the parse, the entity table,
 phases 1 to 3 and the resolver, and `check` depends on it by path and by exact version, per
 `design@knowledge-architect@version-lockstep`. A tool over the record needs the model and at most
-phases 1 to 3, never the last phase: the writers run them and no check, and `show` runs no phase and
-reads the resolver. Phases 1 to 3 say whether the model can be trusted, not whether the content
+phases 1 to 3, never the last phase: `id` and `worklist` run them and no check, and `show` runs no phase and
+reads the resolver. A writer's gate is these phases, and `init` and `new-component`, which end as `check --fix` does, are why
+`create` depends on `check`. Phases 1 to 3 say whether the model can be trusted, not whether the content
 conforms. Every check can be argued to bear on the
 answers a tool reads, and the line between them is how far: a slug defined twice makes the entity table
 wrong, so it is the model's, where a reference to something missing or a bare id has little effect on
@@ -81,13 +82,38 @@ is `rejected@knowledge-architect@model-inside-the-checker`.
 ### Git is wrapped by a crate of its own, which the checker depends on, rather than by a module of the checker `##git-crate`
 
 Every git invocation of the checker's library is a function of `knowledge-architect-git`, in
-crates/git, which `check` and `model` depend on by path and by exact version, per
+crates/git, which `check`, `model`, `query`, `transcript` and `create` depend on by path and by exact version, per
 `design@knowledge-architect@version-lockstep`. The crate's interface changes for reasons of its
 own: a git question or a git version that another tool needs and the checker does not. It takes
 decisions of its own, `register@git@design`. And a tool that rewrites a branch's history depends
 on it alone. It serves `goal@git@a-pure-wrapper-over-git`. The nearest rival, the checker's git
 module made public, puts the checker's own dependencies into the build of every tool that needs
 git: `rejected@knowledge-architect@git-module-made-public`.
+
+### The commands that read the record are a crate of their own, which the checks do not sit below `##query-crate`
+
+`knowledge-architect-query`, in crates/query, holds the logic of `show`, `issues`, `tripwires`, `anchors`, `id` and `worklist`,
+and depends on `model`, and on `git` for the last column of `issues`, by path and by exact version, per
+`design@knowledge-architect@version-lockstep`. They need the model and at most phases 1 to 3, per
+`design@knowledge-architect@model-crate`, and they share one design, the record, the graph and the exchange with agents. `cli`
+depends on it. `model`, the command, stays in `check`, since it calls each extension's dump hook. The rule that this crate
+depends on nothing of the checks is its own, `design@query@query-depends-on-no-check`. The nearest rival, these commands left in
+`check`, puts every check into the build of a tool over the record.
+
+### The reader of the harness's transcripts is a crate of its own, which `cli` depends on `##transcript-crate`
+
+`knowledge-architect-transcript`, in crates/transcript, depends on `git` alone, by path and by exact version, for the main
+worktree's path, and takes the project's root from its caller. It changes when the harness's format does, a reason the checks do
+not share, and imports nothing of them. `cli` depends on it, and offers the command, per `goal@cli@one-program-for-its-tools`.
+The nearest rival, a module of `check`, ties a change of that format to the checker's crate for no shared design.
+
+### Creating a project is a crate of its own, above the checks `##create-crate`
+
+`knowledge-architect-create`, in crates/create, holds `init`, `new-component` and `init --rust`, and depends on `check`, since
+each run ends as `check --fix` ends, on `model`, `git`, and `agent-skills` for the snippets it writes, by path and by exact
+version. `cli` depends on it. It has a purpose and a design of its own. The cost is what `check` publishes for it, under
+`design@check@the-facade-publishes-what-a-consumer-needs`. The nearest rival keeps it in `check`, whose interface then changes for
+what a new project holds.
 
 ### The binary and the parsing of its commands are a crate above every crate that contributes a command `##cli-crate`
 
@@ -114,7 +140,8 @@ to gain a name, and an installed setup snippet would change with them; a migrati
 
 `check` and `cli` hold what an extension is written against. Each crate root re-exports the nouns every consumer meets, and
 role modules hold the rest, one per kind of use. Every other module is private. `model` has a facade of its own, per
-`design@model@model-facade`.
+`design@model@model-facade`. `query`, `transcript` and `create` hold what no extension is written against, each crate root
+re-exporting its typed functions, with no role module, and every module private by the same rule.
 
 - **The public surface is read in one file**, the crate's lib.rs, and the role modules beside it. It is not computed from
   the implementation's module tree, so moving an item between files changes no public path, and is no library break under
@@ -451,7 +478,8 @@ release skill stops a release that would need it.
 ### A publish that stopped part-way is completed by re-running the job, which skips a version crates.io already holds `##partial-publish-rerun`
 
 The publish job publishes the crates one at a time, each before the crates that depend on it, the
-`git` crate before the `model` crate, that and agent-skills before `check`, and every crate before `cli`, and skips a crate when crates.io's API already
+`git` crate before the `model` crate, that and agent-skills before `check`, `model` before `query`, `git` before `transcript`,
+`check` before `create`, and every crate before `cli`, and skips a crate when crates.io's API already
 returns the version. A re-run of the failed job runs on the same commit and tag, so it publishes
 only what is missing, and a release that stopped part-way completes with no change to the code
 and no new tag. The nearest rival, one `cargo publish --workspace`, cannot be re-run that way: its `--help` under the pinned toolchain

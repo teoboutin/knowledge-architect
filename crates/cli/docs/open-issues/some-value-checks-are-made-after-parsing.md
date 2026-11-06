@@ -13,9 +13,9 @@ is not asked about, is made while parsing. Three are made by the tool today, so 
 ### What
 
 - `--since` of `transcript list` and `transcript search`: a `String` in `path@cli@src/cli/transcript.rs`, refused by `check_date` in
-  `path@check@src/commands/transcript.rs`, with "--since takes a date as YYYY-MM-DD".
+  `path@transcript@src/command.rs`, with "--since takes a date as YYYY-MM-DD".
 - The pattern of `transcript search`: a `String`, parsed by `regex::Regex::new` in the same file.
-- `--name` of `init`: `name.starts_with(OWNED_PREFIX)` in `path@check@src/commands/create.rs`. The tool keeps this rule for a name it takes
+- `--name` of `init`: `name.starts_with(OWNED_PREFIX)` in `path@create@src/command.rs`. The tool keeps this rule for a name it takes
   from PATH, so `--name` gains a second call of it. That this check moves is the session's default, which the owner agreed.
 
 Each already exits 2 before any write, so what changes is where the rule sits, and that each then falls under

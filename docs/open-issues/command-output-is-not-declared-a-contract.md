@@ -43,7 +43,7 @@ Instances seen:
   function. It tests what the binary passes, not what `check` does with it.
 
 `klarch transcript` declares its text and its `--json` output no contract, as `anchors` and
-`worklist` declare theirs, per `design@check@transcript-query-verbs`: the policy this entry asks for
+`worklist` declare theirs, per `design@transcript@transcript-query-verbs`: the policy this entry asks for
 decides whether its JSON becomes one.
 
 Two READMEs state an output contract: `path@check@README.md`, for `check`, the order

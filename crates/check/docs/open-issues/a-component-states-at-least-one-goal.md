@@ -21,7 +21,7 @@ its design can be judged against, per `design@agent-skills@goals-required`. Ever
 this repository states one, and 8 of the 12 components of thaum, the checker's first user, state
 none (counted on thaum's main at e98e296). A project adopting the check may have to write goals first,
 or need a way to adopt it gradually. A tree `klarch init` or `klarch new-component` writes holds
-an empty goals home, per `design@check@init-command`, so the check would fail it until the goals are
+an empty goals home, per `design@create@init-command`, so the check would fail it until the goals are
 stated with the owner: the setup skill's goal-setting step would then be part of reaching a passing
 check.
 

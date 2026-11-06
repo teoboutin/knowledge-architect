@@ -4,7 +4,7 @@ The binary `klarch` and its library, the package `knowledge-architect`: the tool
 program, those whose result needs the project's build or tests apart, parsed here, and the API a binary that registers an extension is written against. A project that runs them
 names this package alone of those that make up the program. What the checks hold a project's documents to is
 `path@check@README.md`, which also states what the tool needs of git, 2.36 or newer, and how `check` and `commits`
-behave; the commands' logic is that crate's.
+behave. A command's logic is the crate that holds it: `check`, `query`, `transcript` or `create`.
 
 **`klarch`, and a binary per set of extensions.** `klarch` runs every command below with no extension
 registered. A binary that registers extensions runs the same commands unchanged, and its extensions'
@@ -238,7 +238,7 @@ project still owes, each with its repair.
 **`init` creates a project, before any agent session**, so the session starts with the workflow
 installed. It runs from a binary its user installed, such as
 `cargo install --locked knowledge-architect`; the project then runs the version that binary pinned,
-as the setup skill says. Like `cargo init`, per `design@check@init-follows-cargo-init`, it takes a PATH, `.` by default, created when missing,
+as the setup skill says. Like `cargo init`, per `design@create@init-follows-cargo-init`, it takes a PATH, `.` by default, created when missing,
 names the project after its basename unless `--name` is given, and asks nothing:
 
 ```sh
@@ -248,17 +248,17 @@ klarch init my-project --rust       # also the maintenance crate, its workspace 
 ```
 
 - **It overwrites no hand-written file outside the installer's namespace**, per
-  `design@check@init-keeps-existing-files`. An
+  `design@create@init-keeps-existing-files`. An
   existing README.md, CLAUDE.md or register home is kept and listed as `kept`; the check then
   reports what it lacks, such as the primer's import. The agent files are the install's, and it
   writes them inside a worktree as `check --fix` repairs them, and outside one as
   `install-agent-skills` does. Every refusal comes before its first write, exit 2,
-  each listed in the table of exit codes above, per `design@check@init-asks-no-confirmation`. Each
+  each listed in the table of exit codes above, per `design@create@init-asks-no-confirmation`. Each
   file is created only if nothing is there, so one that appears during the run is kept too. A manifest above PATH does not refuse
   it: a project nested in another is legal, and the run notes that the outer project walks it
   unless its `[walk] exclude` names it. A run stopped after its first write, such as by a stdout
   closed early, which exits 2 as every command does, is completed by `check --fix`.
-- **Git, as `cargo init` does, with one guard**, per `design@check@init-runs-git-init`. Inside a
+- **Git, as `cargo init` does, with one guard**, per `design@create@init-runs-git-init`. Inside a
   git worktree no repository is created unless `--vcs git` asks for one, which the outer
   project's check then reports as a nested repository until an ignore rule or `[walk] skip-dirs`
   names it; outside every worktree a new or empty directory gets one. A directory there that already holds
@@ -276,12 +276,12 @@ klarch init my-project --rust       # also the maintenance crate, its workspace 
 - **`--rust`** writes the blocks the setup skill shows: a virtual workspace, the maintenance crate
   `xtask/`, pinned to this version, and the cargo aliases, declares `cargo klarch` as the command,
   and makes `.gitignore` ignore `/target`, appending to an existing one unless git already ignores
-  it there. It writes no CI workflow, per `design@check@init-writes-no-ci-workflow`. Its refusals
-  and their reasons are `design@check@rust-scaffold`.
+  it there. It writes no CI workflow, per `design@create@init-writes-no-ci-workflow`. Its refusals
+  and their reasons are `design@create@rust-scaffold`.
 
 **`new-component <DIR>` adds a Component to an existing project**: it appends DIR to
 `[project] components`, keeping every other byte of the manifest, comments included, per
-`design@check@component-manifest-edit`, then writes
+`design@create@component-manifest-edit`, then writes
 the Component's documents and register homes, and ends as `init` does. A manifest written with
 `\r\n` line breaks keeps them. It runs behind the gate of
 the first three phases, so over a tree they find incomplete it refuses, writing nothing. A
@@ -313,7 +313,7 @@ Every entry of every register but the plan registers is grouped into **clusters*
 at a unit of `design` or of a declared register, cut by the headings or the groups of its home, as
 a design home is cut at its level-two subjects, and holds the `rejected` entries its entries cite,
 the issues and tripwires that cite them, and the goals they cite with every goal those refine. The
-rule for each shape of register is the design head `design@check@cluster-rooted-at-a-subject`. An entry no
+rule for each shape of register is the design head `design@query@cluster-rooted-at-a-subject`. An entry no
 cluster holds is in its anchor's **residual group**. The groups are packed into the fewest agents,
 the load spread evenly, under a bound in words.
 

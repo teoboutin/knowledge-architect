@@ -1,6 +1,6 @@
 //! The checker of knowledge-architect, as a library: every check over a project's documents, and the
-//! logic of each command of the binary `klarch`, behind typed functions with no argument parser in
-//! them.
+//! logic of the commands of the binary `klarch` that run them or install the workflow, behind typed
+//! functions with no argument parser in them.
 //!
 //! The checker reads a project's documents once, through git's listing, into one model. Every
 //! check is then a pure function over that model: it touches no file and spawns no process.
@@ -16,7 +16,7 @@
 //! | module | for |
 //! | --- | --- |
 //! | the crate root | the nouns every consumer meets: [`Manifest`], [`Model`], [`Document`], [`Finding`], [`MANIFEST_NAME`], [`CHECKER_VERSION`], [`component_dir`], [`CRATE_DIR`], [`PACKAGE`] |
-//! | [`commands`] | each command's logic as a typed function, gathering a run's inputs, refusing a build from another checkout or another version |
+//! | [`commands`] | the logic of `check`, `index`, `model`, `commits` and `install-agent-skills` as typed functions, gathering a run's inputs, refusing a build from another checkout or another version, and what `init` calls of the install |
 //! | [`extension`] | writing an extension: the two traits, what `check` hands them, and what they return |
 //! | [`document`] | reading a document's parse: prose regions, scopes, code spans, observations |
 //! | [`testing`] | testing an extension over a mock project, as the binary would run it |
@@ -35,8 +35,6 @@ const _: Option<&str> = option_env!("KNOWLEDGE_ARCHITECT_CHECKOUT");
 mod agents;
 mod build_origin;
 mod check;
-mod graph;
-mod transcript;
 
 // Every git invocation is the `git` crate's, per
 // `design@knowledge-architect@checker-asks-git-through-the-crate`. Named `git` here, so the modules that ask it

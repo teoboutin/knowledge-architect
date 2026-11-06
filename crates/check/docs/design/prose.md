@@ -15,8 +15,8 @@ be interpolated makes the tests harder to read than the code they test. Comments
 because the test modules point at decisions and paths for real, and those pointers stay checked.
 
 **The directories are compiled in, never declared.** A binary's source spans several
-Components: `cli`'s, `check`'s, the `git` crate's, the `model` crate's, and the Component of each extension
-the binary registers. Each library exports
+Components: `cli`'s, `check`'s, the `git` crate's, the `model` crate's, the crates of its commands, `create`, `query` and
+`transcript`, and the Component of each extension the binary registers. Each library exports
 the directory of the Component it belongs to, evaluated at build time, and the binary hands the
 list of its libraries' directories to the walk. Each is one crate whose directory is its
 Component, so each library exports its own `CARGO_MANIFEST_DIR`, and `klarch` and
@@ -111,7 +111,7 @@ extension's own included: a version is accepted when it equals the `check` libra
 complaint included, is exit 2, per `design@cli@exit-code-ladder`, naming the two versions and
 which side is older. `init`, which every binary hands to `cli::init` before it locates a project,
 calls no version refusal: no manifest exists to read a pin from, and the one it writes pins the
-`check` library's version, per `design@check@init-command`. `cli::run` does not refuse, so a command
+`check` library's version, per `design@create@init-command`. `cli::run` does not refuse, so a command
 driven in-process needs a key but no confirmed one. A binary that links the library and dispatches no command of the checker, such as a
 maintenance crate that uses it only to find the project's root through `MANIFEST_NAME`, does not
 call it: nothing it runs reads the documents by the checker's rules, and where it runs the checker,

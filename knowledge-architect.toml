@@ -30,6 +30,9 @@ components = [
     "crates/git",
     "crates/model",
     "crates/cli",
+    "crates/transcript",
+    "crates/query",
+    "crates/create",
 ]
 
 # This repository's own agent configuration carries an issue register, for defects of the
@@ -50,10 +53,13 @@ skip-files = [
     "crates/agent-skills/CHANGELOG.md",
     "crates/check/CHANGELOG.md",
     "crates/cli/CHANGELOG.md",
+    "crates/create/CHANGELOG.md",
     "crates/gates/CHANGELOG.md",
     "crates/git/CHANGELOG.md",
     "crates/model/CHANGELOG.md",
     "crates/mutate/CHANGELOG.md",
+    "crates/query/CHANGELOG.md",
+    "crates/transcript/CHANGELOG.md",
 ]
 
 # Paths skipped by location, each one another project rather than a part of this one.

@@ -15,7 +15,7 @@ tool is refused, per `design@check@a-foreign-build-is-refused`.
 
 **`git` 2.36 or newer is a hard dependency, and every invocation is the `git` crate's,
 `path@git@src/git.rs`, which `check` names `crate::git`.** The floor is `cat-file --batch -z`, which
-`commits` reads a commit's tree with, and a listing's last-change column is one `git log`. A check may
+`commits` reads a commit's tree with. A check may
 spawn nothing, so each of those is taken by the caller and handed in. The walk and the ignore batch are
 `path@model@CLAUDE.md`. The decisions are `design@git@git-floor-for-commit-trees`,
 `design@git@failed-git-is-an-error` and `design@knowledge-architect@checker-asks-git-through-the-crate`:

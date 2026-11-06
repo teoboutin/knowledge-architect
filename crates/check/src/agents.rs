@@ -18,7 +18,7 @@ const PLACEHOLDER: &str = "{{command}}";
 pub(crate) const PRIMER: &str = ".claude/knowledge-architect/PRIMER.md";
 
 /// The line of the root CLAUDE.md that imports the primer, alone on its line.
-pub(crate) const IMPORT_LINE: &str = "@.claude/knowledge-architect/PRIMER.md";
+pub const IMPORT_LINE: &str = "@.claude/knowledge-architect/PRIMER.md";
 
 /// A shipped template with the project's command filled in, with LF line endings.
 pub(crate) fn render(template: &str, command: &str) -> String {
@@ -33,7 +33,7 @@ pub(crate) fn lf(text: &str) -> String {
 
 /// Every file this version installs into the project, at its install path, rendered. Empty when
 /// the project serves no agent harness.
-pub(crate) fn shipped(manifest: &Manifest) -> Vec<(PathBuf, String)> {
+pub fn shipped(manifest: &Manifest) -> Vec<(PathBuf, String)> {
     shipped_from(manifest, knowledge_architect_agent_skills::FILES)
 }
 
@@ -94,7 +94,7 @@ pub(crate) fn imports_primer(text: &str) -> bool {
 
 /// What an install did, each list in path order.
 #[derive(Debug, Default)]
-pub(crate) struct Installed {
+pub struct Installed {
     /// The shipped files whose bytes the install wrote, because they were missing or differed.
     pub written: Vec<PathBuf>,
     /// The files of the owned namespace that the shipped set does not hold, removed.
@@ -117,7 +117,7 @@ pub(crate) fn install(root: &Path, shipped: &[(PathBuf, String)]) -> Result<Inst
 /// The same, recording into `out` as it goes, so a caller still knows what was written or
 /// deleted when a later write fails part-way. `check --fix` prints that record either way, and
 /// its exit code depends on whether anything was written.
-pub(crate) fn install_into(
+pub fn install_into(
     root: &Path,
     shipped: &[(PathBuf, String)],
     out: &mut Installed,

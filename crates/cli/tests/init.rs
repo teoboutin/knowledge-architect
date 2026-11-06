@@ -1,5 +1,5 @@
 //! `klarch init` and `klarch new-component`, run as a caller runs them, in scratch directories
-//! outside this repository, per `design@check@init-command` and `design@check@component-command`.
+//! outside this repository, per `design@create@init-command` and `design@create@component-command`.
 
 use std::path::{Path, PathBuf};
 use std::process::Command;
@@ -178,7 +178,7 @@ fn a_refused_name_writes_nothing() {
     assert_eq!(code, 0, "{out}{err}");
 }
 
-/// The claim: each row of the table of `design@check@init-runs-git-init`, outside a worktree and
+/// The claim: each row of the table of `design@create@init-runs-git-init`, outside a worktree and
 /// inside one.
 #[test]
 fn the_git_rule_holds_in_every_case() {
@@ -223,7 +223,7 @@ fn the_git_rule_holds_in_every_case() {
 }
 
 /// `init` then `check` passes, at the root: a document the check comes to require that `init` does
-/// not write fails it, per `design@check@init-command`.
+/// not write fails it, per `design@create@init-command`.
 #[test]
 fn init_then_check_passes_at_the_root() {
     let scratch = Scratch::new("ac3-root");
@@ -309,6 +309,27 @@ fn outside_a_worktree_the_run_stops_before_the_indexes() {
         .path("p/.claude/knowledge-architect/PRIMER.md")
         .is_file());
     assert!(!scratch.path("p/docs/open-issues/index.md").exists());
+}
+
+/// The claim: outside every worktree, a file of the installer's namespace the install removes is
+/// named in the output, since no git holds a copy of it, per
+/// `issue@create@init-outside-a-worktree-deletes-an-owned-file-silently`.
+#[test]
+fn outside_a_worktree_a_removed_namespace_file_is_listed() {
+    let scratch = Scratch::new("no-vcs-removed");
+    scratch.write(".claude/agents/knowledge-architect-mine.md", "mine\n");
+    let (out, err, code) = klarch(&scratch.dir, &["init", ".", "--name", "p", "--vcs", "none"]);
+    assert_eq!(code, 0, "{out}{err}");
+    assert!(
+        !scratch
+            .path(".claude/agents/knowledge-architect-mine.md")
+            .exists(),
+        "the install removes an unshipped file of its namespace"
+    );
+    assert!(
+        out.contains("fixed: removed .claude/agents/knowledge-architect-mine.md (installed)"),
+        "{out}"
+    );
 }
 
 /// The claim: `init` over a repository whose index holds staged changes, and no manifest,
@@ -402,7 +423,7 @@ fn new_component_over_staged_changes_says_why_it_stops_and_how_to_finish() {
 }
 
 /// A manifest's comments survive `new-component` byte for byte, in their order, per
-/// `design@check@component-manifest-edit`.
+/// `design@create@component-manifest-edit`.
 #[test]
 fn new_component_keeps_every_comment_of_the_manifest() {
     let scratch = Scratch::new("ac1");

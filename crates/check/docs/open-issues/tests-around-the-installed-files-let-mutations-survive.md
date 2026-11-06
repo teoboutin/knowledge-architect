@@ -20,7 +20,7 @@ Each run with `cargo x mutate run` and a build probe, verdict `SURVIVED`:
 - `read_tree` of `path@check@src/commands/history.rs`: the read of every installed file under `Source::Index` narrowed to
   markdown.
 - `install_agent_skills` of `path@check@src/commands/mod.rs`: the import check made `if false`.
-- `finish` of `path@check@src/commands/create.rs`: its `fixed: wrote` line removed.
+- `finish` of `path@create@src/command.rs`: its `fixed: wrote` line removed.
 - `from_listing` of `path@model@src/survey.rs`: a link at an owned path left out of `installed`.
 
 ### Why it matters

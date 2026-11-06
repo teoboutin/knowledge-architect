@@ -176,8 +176,11 @@ dependencies = [
  "clap",
  "knowledge-architect-agent-skills",
  "knowledge-architect-check",
+ "knowledge-architect-create",
  "knowledge-architect-git",
  "knowledge-architect-model",
+ "knowledge-architect-query",
+ "knowledge-architect-transcript",
  "toml",
 ]
 
@@ -192,9 +195,18 @@ dependencies = [
  "knowledge-architect-agent-skills",
  "knowledge-architect-git",
  "knowledge-architect-model",
- "regex",
  "serde",
- "serde_json",
+ "toml",
+]
+
+[[package]]
+name = "knowledge-architect-create"
+version = "0.9.0"
+dependencies = [
+ "knowledge-architect-agent-skills",
+ "knowledge-architect-check",
+ "knowledge-architect-git",
+ "knowledge-architect-model",
  "toml",
  "toml_edit",
 ]
@@ -229,6 +241,23 @@ name = "knowledge-architect-mutate"
 version = "0.9.0"
 dependencies = [
  "clap",
+]
+
+[[package]]
+name = "knowledge-architect-query"
+version = "0.9.0"
+dependencies = [
+ "knowledge-architect-git",
+ "knowledge-architect-model",
+]
+
+[[package]]
+name = "knowledge-architect-transcript"
+version = "0.9.0"
+dependencies = [
+ "knowledge-architect-git",
+ "regex",
+ "serde_json",
 ]
 
 [[package]]

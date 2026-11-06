@@ -1,6 +1,8 @@
 //! The command line of knowledge-architect's checker, as a library: the binary `klarch` is built on
-//! it, and so is a binary that adds a project's own checks to it. The checks and each command's logic
-//! are the package `knowledge-architect-check`, which this one re-exports what a consumer needs of.
+//! it, and so is a binary that adds a project's own checks to it. The checks are the package
+//! `knowledge-architect-check`, which this one re-exports what a consumer needs of, and a command's
+//! logic is the crate that holds it: that one, `knowledge-architect-query`,
+//! `knowledge-architect-transcript` or `knowledge-architect-create`.
 //!
 //! The checker reads a project's documents once, through git's listing, into one model. Every
 //! check is then a pure function over that model: it touches no file and spawns no process.

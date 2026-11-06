@@ -116,7 +116,7 @@ loser wrong, and an entry that names no winner drops it. The designs this decisi
 
 The standard is the fragment `path@agent-skills@fragments/subject-split.md`: a level-two subject
 holds the heads a piece of work reads together, one part of the Component; it is split when the
-work list's notice names its cluster above the bound of `design@check@clusters-packed-under-a-word-bound`,
+work list's notice names its cluster above the bound of `design@query@clusters-packed-under-a-word-bound`,
 or when its heads answer questions about parts of the Component that change apart; a split moves
 headings and decides nothing, so it is a fix in a commit of its own, per `primer@met-outside-the-task`.
 Its hosts are `skill@knowledge-architect-decision-recording@current-design`, the writer's, and the

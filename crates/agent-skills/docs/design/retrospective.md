@@ -6,7 +6,7 @@
 
 The header of `klarch transcript` ends, where it names any line or value it does not recognise, with
 the line asking for each to be reported as a finding on the checker in the retrospective, per
-`design@check@transcript-format-tolerated-and-reported`. The transcript reviewer lists each such line
+`design@transcript@transcript-format-tolerated-and-reported`. The transcript reviewer lists each such line
 under "Met outside the task", so the session receives it, and the retrospective's item on the
 checker, `skill@knowledge-architect-retrospective@what-it-examines`, carries it to the workflow's
 file. A reader of the format the harness documents as internal learns of a change only from the

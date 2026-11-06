@@ -35,7 +35,7 @@ Five things are compiled in, and none of them describes a project:
   configuration**, per `design@check@agents-table` and `design@check@owned-namespace-check`: what
   this tool writes, not what a project holds; and what a harness writes that the tool reads, the
   layout of Claude Code's transcripts and the values its reader knows, per
-  `design@check@transcript-format-tolerated-and-reported`, which describe the harness, not a
+  `design@transcript@transcript-format-tolerated-and-reported`, which describe the harness, not a
   project. The files `init --rust` writes are of the same kind:
   the setup skill's snippets, per `design@agent-skills@rust-templates-one-home`, with the version
   and the checkout variable derived from the project's name filled in.
@@ -117,7 +117,7 @@ nothing, refuses the same way, since its `free` is a finding computed over the t
 an unread file defines the id; `show`, `issues` and `tripwires` answer ungated, since what they
 print exists whatever else the model misses. `init` writes where
 no model exists yet: its guarantee is that it judges every destination before its first write, per
-`design@check@init-asks-no-confirmation`, and it writes the indexes, as `check --fix` does, only
+`design@create@init-asks-no-confirmation`, and it writes the indexes, as `check --fix` does, only
 once the three phases find nothing over what it wrote. `check --fix` writes
 no generated file over such a model either; it prints the stopped report and exits 1, having
 repaired before that gate only the installed files, whose bytes do not depend on the model, per

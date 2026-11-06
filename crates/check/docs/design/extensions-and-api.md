@@ -104,7 +104,7 @@ skipping the regime in silence.
 
 ### A typed command prints as it works and returns its exit code, rather than data for its caller to print `##a-typed-command-prints-and-returns-its-code`
 
-Each command's function in `commands` takes the domain's types, prints, and returns `Result<ExitCode, String>`. The session chose
+Each command's function, in `commands` and in the crates `query`, `transcript` and `create`, takes the domain's types, prints, and returns `Result<ExitCode, String>`. The session chose
 this over a function that returns data for `cli` to print and map to a code, which no goal ranks; the owner approved it.
 Printing stays where the data is defined. The rival meets a frontend that is no command line whole, and costs a rewrite of
 the printing sites, some inside a write loop, with the order of what `check --fix` lists at risk. The cost of the choice:
@@ -114,8 +114,10 @@ owner's word.
 
 ### `check`'s role modules publish what a consumer of the library needs, and nothing for `check`'s own tests `##the-facade-publishes-what-a-consumer-needs`
 
-The library has four kinds of consumer: a binary that registers an extension, the extension, the
-extension's tests, and a frontend that is no command line, which alone names `commands`, through this package. **Testing an extension over a mock project is part of what the library
+The library has five kinds of consumer: a binary that registers an extension, the extension, the
+extension's tests, a frontend that is no command line, and `create`, the crate above it whose runs end as `check --fix` ends. The
+last two alone name `commands`, through this package; `create` also takes the install from it, since `init` installs the shipped set,
+and `staged_changes_stop_the_fix`, a narrow answer, rather than the staged list that answers it. **Testing an extension over a mock project is part of what the library
 publishes**, because a project that adopts the tool with a subject of its own, per
 `goal@knowledge-architect@every-target-project-can-adopt-it`, has to test that subject as `check` tests
 its own. `design@check@a-foreign-build-is-refused` already requires every extension binary to test

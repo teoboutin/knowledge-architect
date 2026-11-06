@@ -1,11 +1,11 @@
 ---
 kind: todo
 ---
-# A typed command of `check` prints and can end the process, rather than returning its data
+# A typed command prints and can end the process, rather than returning its data
 
 ## Summary
 
-Each command's function in `path@check@src/commands/mod.rs` takes the domain's types and names no clap type, and still
+Each command's function, in `path@check@src/commands/mod.rs` and in `query`, `transcript` and `create`, takes the domain's types and names no clap type, and still
 prints as it works, returns `Result<ExitCode, String>`, and ends the process with exit 2 on a closed stdout. A
 frontend that is no command line can call it, and receives stdout text and a process exit. On the owner's word,
 refactoring the commands so that they return data is recorded here, to be done later.
@@ -14,13 +14,13 @@ refactoring the commands so that they return data is recorded here, to be done l
 
 ### What
 
-Measured on the tree that opens this entry, with `grep -cE 'out(ln)?!\(' crates/check/src/commands/*.rs`: 97
-lines print through `out!` or `outln!`, 52 in `mod.rs`, 19 in `transcript.rs`, 12 in `history.rs`, 8 in `worklist.rs`
-and 6 in `create.rs`. Three things stand in the way of returning data:
+Measured with `grep -cE 'out(ln)?!\(' crates/{check/src/commands,query/src,transcript/src,create/src}/*.rs`, which the
+commit moving these crates' commands took. Each of `check`, `query` and `transcript` holds a writer, and `create` a macro over
+`check`'s. Three things stand in the way of returning data:
 
 - some of those lines sit inside a write loop, as `index_working` and `fix_then_check` print each file as they write it;
 - each function chooses between exit 1 and exit 2 itself, as `fix_then_check` does from how many files it wrote;
-- `write` of `path@check@src/commands/output.rs` calls `std::process::exit(2)` on a closed stdout, per
+- `write` of `path@check@src/commands/output.rs`, and each copy of it, calls `std::process::exit(2)` on a closed stdout, per
   `design@cli@exit-code-ladder`.
 
 Ruled out at the design audit of the slice that moved the binary to the top: moving `output` to `cli` alone, since
@@ -42,5 +42,4 @@ a command that returns data offers one by a library function.
 
 Each typed command returns a value holding what it found and what it wrote, `cli` prints it and maps it to an exit
 code, and `write`'s exit lies in `cli`. The binary's suite holds the output and the codes unchanged, the order of what
-`check --fix` lists among them. It can be done one command at a time. `spec@component-split@consumers-out` moves
-`query`'s, `transcript`'s and `create`'s commands first, so what remains of this entry after it names their crates too.
+`check --fix` lists among them. It can be done one command at a time, and the copies of `write` leave with the last.

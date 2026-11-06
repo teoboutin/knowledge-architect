@@ -352,6 +352,67 @@ fn check_fix_after_a_write_never_reports_could_not_run() {
 }
 
 /// An extension whose generated file sits in a directory the tree does not hold.
+/// An extension that claims a table and holds no check.
+#[derive(Default)]
+struct ClaimsRules;
+
+impl Extension for ClaimsRules {
+    fn tables(&self) -> &'static [&'static str] {
+        &["rules"]
+    }
+
+    fn resolve(&mut self, _: &Manifest) -> Resolution {
+        Resolution::default()
+    }
+
+    fn checks(&self) -> &'static [&'static str] {
+        &[]
+    }
+
+    fn dump(&self, _: &Model) -> Vec<DumpRow> {
+        Vec::new()
+    }
+
+    fn prepare(
+        &mut self,
+        _: &Manifest,
+        _: &Model,
+        _: Tree<'_>,
+        _: Purpose,
+    ) -> Result<Box<dyn Prepared>, String> {
+        Ok(Box::new(NowherePrepared))
+    }
+}
+
+/// The claim: a command of `query`, which links no extension, reads a project with an extension's table
+/// as the binary that registers the extension reads it, since `cli::run` configures the manifest before
+/// it dispatches, per `issue@model@a-tool-over-the-model-reads-a-project-with-an-extension-otherwise-than-the-checker`.
+/// `id` is the command that gates on phase 1: with the extension it answers, and with none it refuses the table.
+/// Mutation checked: `configure` removed from `cli::run` refuses the table with the extension too.
+#[test]
+fn a_command_over_the_record_reads_an_extensions_table_as_the_checker_does() {
+    let root = std::env::temp_dir().join(format!("ka-query-table-{}", std::process::id()));
+    let _ = std::fs::remove_dir_all(&root);
+    copy_tree(&check_dir().join("tests/projects/dirhome"), &root);
+    let path = root.join("knowledge-architect.toml");
+    let text = std::fs::read_to_string(&path).expect("the copy's manifest");
+    std::fs::write(&path, format!("{text}\n[rules]\nkept = true\n")).expect("the table is added");
+    git(&root, &["init", "-q"]);
+    git(&root, &["add", "-A"]);
+    let manifest = Manifest::load(&root).expect("the copy's manifest");
+    let id = || {
+        cli::Command::Id(cli::IdArgs {
+            ids: vec!["a-free-id".to_string()],
+        })
+    };
+    let mut extensions: Vec<Box<dyn Extension>> = vec![Box::new(ClaimsRules)];
+    let with = cli::run(id(), &manifest, &[], &mut extensions);
+    assert!(with.is_ok(), "{with:?}");
+    let without = cli::run(id(), &manifest, &[], &mut []);
+    assert!(without.is_err(), "no extension claims the table");
+    let _ = std::fs::remove_dir_all(&root);
+}
+
 #[derive(Default)]
 struct ListingNowhere;
 

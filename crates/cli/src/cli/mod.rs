@@ -5,7 +5,7 @@
 //! parsed command to [`run`] with the directories of its own source. A check does not find the project
 //! itself: it would have to do it from its own location, and then could not be run against a model
 //! built in memory. The logic of each command is
-//! the typed function of [`knowledge_architect_check::commands`]; a value of an `*Args` struct holding a combination that
+//! the typed function of the crate that holds it, such as [`knowledge_architect_check::commands`]; a value of an `*Args` struct holding a combination that
 //! function's type refuses is refused here, before any work, so a value clap never saw is refused.
 //!
 //! Arguments are declared, never parsed by hand, per `design@cli@arguments-parse-through-clap`, and
@@ -17,9 +17,9 @@ use std::process::ExitCode;
 
 use clap::{Args, Subcommand};
 
-use crate::check::commands::{
-    self, CheckMode, IndexMode, InitOptions, IssuesFilter, TripwiresFilter, WorklistMode,
-};
+use knowledge_architect_query::{self as query, IssuesFilter, TripwiresFilter, WorklistMode};
+
+use crate::check::commands::{self, CheckMode, IndexMode};
 use crate::extension::Extension;
 use crate::Manifest;
 
@@ -262,9 +262,9 @@ pub fn run(
     let manifest = &configured;
     match command {
         Command::Check(args) => commands::check(manifest, check_mode(&args)?, checker, extensions),
-        Command::Show(args) => commands::show(manifest, &args.reference, checker),
-        Command::Id(args) => commands::id(manifest, &args.ids, checker),
-        Command::Issues(args) => commands::issues(
+        Command::Show(args) => query::show(manifest, &args.reference, checker),
+        Command::Id(args) => query::id(manifest, &args.ids, checker),
+        Command::Issues(args) => query::issues(
             manifest,
             &IssuesFilter {
                 kind: args.kind,
@@ -273,7 +273,7 @@ pub fn run(
             },
             checker,
         ),
-        Command::Tripwires(args) => commands::tripwires(
+        Command::Tripwires(args) => query::tripwires(
             manifest,
             &TripwiresFilter {
                 guarding: args.guarding,
@@ -290,14 +290,16 @@ pub fn run(
             commands::index(manifest, mode, checker, extensions)
         }
         Command::Model => commands::model(manifest, checker, extensions),
-        Command::Anchors => commands::anchors(manifest, checker),
+        Command::Anchors => query::anchors(manifest, checker),
         Command::Commits(args) => commands::commits(manifest, &args.range, checker, extensions),
         Command::InstallAgentSkills => commands::install_agent_skills(manifest),
         Command::NewComponent(args) => {
-            commands::new_component(manifest, &args.dir, checker, extensions)
+            knowledge_architect_create::new_component(manifest, &args.dir, checker, extensions)
         }
-        Command::Worklist(args) => commands::worklist(manifest, &worklist_mode(&args)?, checker),
-        Command::Transcript(args) => commands::transcript(manifest, &args.verb.into()),
+        Command::Worklist(args) => query::worklist(manifest, &worklist_mode(&args)?, checker),
+        Command::Transcript(args) => {
+            knowledge_architect_transcript::transcript(manifest.root(), &args.verb.into())
+        }
         // A binary hands `init` to [`init`] before it locates a project, since `init` is what
         // makes one, per `design@cli@the-commands-are-a-library-module`; reaching here means the
         // binary skipped that step, inside a project.
@@ -349,18 +351,18 @@ pub fn init(
     checker: &[&Path],
     extensions: &mut [Box<dyn Extension>],
 ) -> Result<ExitCode, String> {
-    let options = InitOptions {
+    let options = knowledge_architect_create::InitOptions {
         path: args.path,
         name: args.name,
         components: args.components,
         rust: args.rust,
         command: args.command,
         vcs: args.vcs.map(|vcs| match vcs {
-            Vcs::Git => commands::Vcs::Git,
-            Vcs::None => commands::Vcs::None,
+            Vcs::Git => knowledge_architect_create::Vcs::Git,
+            Vcs::None => knowledge_architect_create::Vcs::None,
         }),
     };
-    commands::init(options, libraries, packages, checker, extensions)
+    knowledge_architect_create::init(options, libraries, packages, checker, extensions)
 }
 
 /// The project is whatever declares itself one at or above the working directory.

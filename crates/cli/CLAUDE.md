@@ -1,7 +1,7 @@
 # The command line
 
 **This crate holds the binary, the clap declarations, the dispatch and what a consumer names**, and a
-command's logic is mostly the typed function of its tool's crate, such as `knowledge_architect_check::commands`,
+command's logic is mostly the typed function of its tool's crate, such as `knowledge_architect_query`,
 per `goal@cli@one-home-for-the-command-line`. A new command is a declaration here and a function there, and a check of a plain
 value goes in the declaration.
 A combination of arguments the domain refuses is a type of that function, and `cli::run`

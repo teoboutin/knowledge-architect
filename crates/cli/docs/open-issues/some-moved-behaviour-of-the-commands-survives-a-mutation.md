@@ -6,7 +6,7 @@ kind: todo
 ## Summary
 
 The adversarial review before the merge of the slice that moved the binary to the top found mutations of moved or thin code that
-no test catches, each over `cargo test -p knowledge-architect -p knowledge-architect-check`. None is a wrong result today, each
+no test catches, each over `cargo test -p knowledge-architect -p knowledge-architect-check -p knowledge-architect-query -p knowledge-architect-transcript -p knowledge-architect-create`. None is a wrong result today, each
 read or run by hand. They are recorded together, since each is one small test.
 
 ## Details
@@ -20,12 +20,11 @@ In `path@cli@src/cli/mod.rs`: `DEFAULT_WORKLIST_BOUND` changed to `26000`, again
 `InitArgs` made private, since no test outside the crate builds one; `#[non_exhaustive]` removed from `Command`; the message
 of `locate` emptied.
 
-In `path@check@src/commands/mod.rs`: `install_agent_skills`'s test of `manifest.complaints()` made `if false`; `show`'s
-`trim_matches` of a backtick removed; `canonical` removed from `is_a_library_fixture` and from `is_its_own_build`, since no
+In `path@query@src/show.rs`: `show`'s `trim_matches` of a backtick removed. In `path@check@src/commands/mod.rs`: `install_agent_skills`'s test of `manifest.complaints()` made `if false`; `canonical` removed from `is_a_library_fixture` and from `is_its_own_build`, since no
 test reaches them through a symlink for the library's directory. In `path@check@src/build_origin.rs`: the full-length trailing
 run left out of `foreign_copy`.
 
-The `--role` list: removing a role from `ROLES` of `path@check@src/commands/transcript.rs` is caught by no test relating it to
+The `--role` list: removing a role from `ROLES` of `path@transcript@src/command.rs` is caught by no test relating it to
 `label.role()`.
 
 ### Why it matters

@@ -1,7 +1,8 @@
 # knowledge-architect-check
 
 The checks of [knowledge-architect](https://crates.io/crates/knowledge-architect): every check over a
-project's documents, and the logic of each command of the binary `klarch`, behind typed functions.
+project's documents, and the logic of the commands of the binary `klarch` that run them or install the workflow, behind
+typed functions.
 
 A project does not name this package. It pins `knowledge-architect`, whose binary and library are built on this
 one, and whose page says how to install and run them.
