@@ -56,7 +56,7 @@ consumes the entity table and produces nothing another check reads; that is what
 finding be classified by where it is produced. A new check whose findings another check would
 read goes before its consumers, in `model`'s `foundation`, per `path@model@CLAUDE.md`.
 
-**An item is public only through the facade**, per `design@knowledge-architect@api-facade`: a re-export in
+**An item is public only through the facade**, per `design@knowledge-architect@api-facade` and `design@check@the-facade-publishes-what-a-consumer-needs`: a re-export in
 `path@check@src/lib.rs`, or one of the role modules `commands`, `extension`, `document` and `testing`.
 Every other module is private. lib.rs's `#![warn(unreachable_pub)]` refuses a `pub` item no
 consumer can reach. So a new item a consumer needs is re-exported where its use belongs, and an

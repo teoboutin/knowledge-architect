@@ -102,18 +102,19 @@ dependency once the commands span crates: `rejected@knowledge-architect@single-c
 
 ### The package that holds the binary keeps the name `knowledge-architect`, whichever crate holds the checks `##the-binary-crate-keeps-the-package-name`
 
-A project names this package alone of the checker's: its dependency line, its `cargo install` and an extension's imports
+A project that runs the checker or writes an extension names this package alone of the checker's: its dependency line, its `cargo install` and an extension's imports
 all spell it. So `cli` has that name and keeps every path a consumer names, re-exporting what the checks' crate holds, as
 `design@check@the-facade-publishes-what-a-consumer-needs` lists, and the crate of the checks is `knowledge-architect-check`,
-which no project's build names.
+which such a project's build does not name.
 The rival, a new name for the top-level crate, changes every project's dependency line and every extension's imports
 to gain a name, and an installed setup snippet would change with them; a migration is its whole cost, per
 `design@knowledge-architect@capability-cost-before-migration`, and the name buys a consumer no capability.
 
-### A crate whose items a consumer names is a facade of role modules, and every other module is private `##api-facade`
+### The crates an extension is written against are facades of role modules, and every other module is private `##api-facade`
 
-Each crate root re-exports the nouns every consumer meets, and role modules hold the rest, one per kind of use. Every other
-module is private.
+`check` and `cli` hold what an extension is written against. Each crate root re-exports the nouns every consumer meets, and
+role modules hold the rest, one per kind of use. Every other module is private. `model` has a facade of its own, per
+`design@model@model-facade`.
 
 - **The public surface is read in one file**, the crate's lib.rs, and the role modules beside it. It is not computed from
   the implementation's module tree, so moving an item between files changes no public path, and is no library break under
