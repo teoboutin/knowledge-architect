@@ -3,11 +3,10 @@
 **This crate holds the binary, the clap declarations, the dispatch and what a consumer names, and no
 logic of a command**, which is the typed function of `knowledge_architect_check::commands`, per
 `design@cli@the-commands-are-a-library-module`. A new command is a declaration here and a function there.
-A combination of arguments the domain refuses is a type of that function, and the conversion in `cli::run`
-refuses a value that holds it, since an `*Args` struct is public and a value of one can reach `run` without
-clap.
+A combination of arguments the domain refuses is a type of that function, and `cli::run`
+refuses a value that holds it, per `design@cli@command-parsing-home`.
 
-**An item is public only through the facade**, per `design@check@api-facade`: `path@cli@src/lib.rs` and the
+**An item is public only through the facade**, per `design@knowledge-architect@api-facade`: `path@cli@src/lib.rs` and the
 module `cli`. `path@cli@tests/extension_api.rs` uses the public paths alone, and
 `path@cli@tests/public_paths.rs` holds the whole list, so an item a consumer names that the facade leaves out
 fails to compile there. A new public item is added to that list.

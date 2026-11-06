@@ -121,6 +121,13 @@ mod tests {
         assert!(Cli::try_parse_from(["klarch", "no-such-command"]).is_err());
     }
 
+    /// The claim: a required argument is required while parsing, on the command that declares it.
+    #[test]
+    fn id_requires_an_id_while_parsing() {
+        assert!(Cli::try_parse_from(["klarch", "id"]).is_err());
+        assert!(Cli::try_parse_from(["klarch", "id", "an-id"]).is_ok());
+    }
+
     /// The claim: `worklist`'s combinations are refused while parsing, not only by `cli::run`'s
     /// conversion: both directories, neither, and a bound or a seed beside `--verify`.
     #[test]

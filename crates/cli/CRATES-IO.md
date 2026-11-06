@@ -28,8 +28,10 @@ The installed setup skill then leads the setup of the project.
 
 ## Documentation
 
-- The commands, the manifest and the exit codes: the
+- The commands, the smallest manifest and the exit codes: the
   [repository README of this crate](https://github.com/teoboutin/knowledge-architect/blob/main/crates/cli/README.md).
+- What a manifest declares and the rules it is checked by: the
+  [README of the checks](https://github.com/teoboutin/knowledge-architect/blob/main/crates/check/README.md).
 - The library API, for a binary that registers extensions:
   [docs.rs](https://docs.rs/knowledge-architect).
 - The project, its goals and its design: [the repository](https://github.com/teoboutin/knowledge-architect).

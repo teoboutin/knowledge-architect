@@ -19,4 +19,4 @@ project with no documents. `rev_parse` breaks it today, per
 **Every item public here is the library's interface**: `path@git@src/lib.rs` re-exports it, and
 `#![warn(unreachable_pub)]` makes any other a warning the clippy gate refuses. An item is made
 public because a tool that calls this library needs it, never for a test of this crate, as
-`check`'s facade is shaped, per `design@check@api-facade`.
+`check`'s facade is shaped, per `design@knowledge-architect@api-facade`.

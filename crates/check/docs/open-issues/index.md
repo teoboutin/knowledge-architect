@@ -1,6 +1,6 @@
 **Generated — do not edit.** `cargo klarch index`
 
-42 entries
+45 entries
 
 | kind | title |
 | --- | --- |
@@ -9,12 +9,14 @@
 | defect | [In a project that builds the checker from its own tree, `check --staged` compares the staged installed files with unstaged shipped text](a-staged-check-compares-installed-files-with-unstaged-shipped-text.md) |
 | defect | [Under `check --staged` a finding on an installed file can name a repair that does nothing](a-staged-installed-finding-can-name-a-repair-that-does-nothing.md) |
 | defect | [An ignored target cited by a commit message alone is reported as missing](an-ignored-target-cited-by-a-message-alone-is-reported-missing.md) |
+| defect | [`init` and `new-component` run an extension over a manifest no `resolve` configured](init-and-new-component-run-an-extension-on-a-manifest-it-did-not-configure.md) |
 | defect | [`init` outside a worktree deletes a file of the namespace and lists nothing](init-outside-a-worktree-deletes-an-owned-file-silently.md) |
+| defect | [`init --rust --component target` writes a project that cannot pass, and blames the Component's existence](init-rust-with-a-component-named-target-writes-a-project-that-cannot-pass.md) |
 | defect | [`install-agent-skills` can exit 2 after it has written files, and lists none of them](install-agent-skills-exits-two-after-writing.md) |
 | defect | [Some findings of the reference check in a goals home still name a reference form refused there](some-findings-in-a-goals-home-name-a-form-refused-there.md) |
 | defect | [The head on `index` credits the missing-directory refusal with a claim that the refusal does not hold](the-missing-directory-refusal-does-not-hold-the-no-loss-claim.md) |
 | defect | [The primer's import line is accepted inside some fences and comments](the-primer-import-line-is-accepted-inside-some-fences-and-comments.md) |
-| defect | [`check`'s tests read the machine's git configuration, so a machine setting can fail a correct tree](the-tests-read-the-machine-s-git-configuration.md) |
+| defect | [The tests of `check` and `cli` read the machine's git configuration, so a machine setting can fail a correct tree](the-tests-read-the-machine-s-git-configuration.md) |
 | deferred | [Nothing checks that a component states a goal](a-component-states-at-least-one-goal.md) |
 | deferred | [Developer contracts sit in scoped CLAUDE.md files, which reach agents unreliably and are not required without a harness](a-home-for-developer-contracts-outside-agent-configuration.md) |
 | deferred | [A submodule is a project of its own, or nothing, and the tool has no model for either](a-submodule-is-a-project-of-its-own.md) |
@@ -30,6 +32,7 @@
 | question | [A project's own saved workflow can declare the name of an installed one, and nothing reports it](a-project-workflow-can-declare-an-installed-workflow-s-name.md) |
 | question | [An empty list of agent harnesses serves a project that uses the checker alone, which no longer follows an ask](an-empty-harness-list-serves-a-state-that-follows-no-ask.md) |
 | question | [An extension reads its manifest table as a `toml::Value`, so `check`'s toml version is part of the public API](manifest-table-exposes-the-toml-crate.md) |
+| question | [Does the `"self"` pin hold where a project commits a copy of the checker's crate and builds from it](the-self-pin-is-accepted-over-a-tracked-copy-of-the-checker.md) |
 | todo | [A register home that `new-component` writes says "No entry yet." after its first entry lands, and nothing reports it](a-new-register-home-still-says-no-entry-yet-after-its-first-entry.md) |
 | todo | [A record searcher fills its report by a script or a whole rewrite of its own](a-searcher-fills-its-report-by-a-script-of-its-own.md) |
 | todo | [A typed command of `check` prints and can end the process, rather than returning its data](a-typed-command-prints-and-exits-rather-than-returning-data.md) |
@@ -44,5 +47,5 @@
 | todo | [Several behaviours around the installed files have no test that fails when they change](tests-around-the-installed-files-let-mutations-survive.md) |
 | todo | [Texts that cite the relocation goal still state its old measure, one manifest edit](texts-citing-the-relocation-goal-state-its-old-measure.md) |
 | todo | [The graded entries carry a shared entry's grade once per agent](the-graded-entries-repeat-a-shared-entry-s-grade-per-agent.md) |
+| todo | [The refusal of the `"self"` pin has no test that fails when its question to git is removed](the-self-pin-refusal-has-no-discriminating-test.md) |
 | todo | [The checker does not read the structure of a project's own skills](tooling-for-project-skills.md) |
-| todo | [Two refusals of a foreign build and of the `"self"` pin have no test that fails when they are removed](two-refusals-of-the-build-and-the-pin-have-no-discriminating-test.md) |

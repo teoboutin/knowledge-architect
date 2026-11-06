@@ -457,7 +457,8 @@ fn a_binary_that_describes_nothing_shows_no_description() {
 /// from the library it links rather than from a manifest of its repository.
 #[test]
 fn a_copied_mock_pinned_to_the_exported_version_is_accepted() {
-    // This test crate is the library's own, so its package version is the library's. The refusal
+    // This package and the library's carry one version, per
+    // `design@knowledge-architect@version-lockstep`, so its package version is the library's. The refusal
     // reads the constant as well, so without this line a wrong constant would pass.
     assert_eq!(
         knowledge_architect::CHECKER_VERSION,

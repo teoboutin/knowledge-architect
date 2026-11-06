@@ -128,12 +128,12 @@ the unstaged changes touch no input of a generated file and the fix is correct f
 which blocks the edit-then-`--fix` loop for nothing. A printed note in place of the refusal loses: a
 line in a long report is missed where an exit code is not.
 
-### `--fix` with `--staged` cannot be asked: `check`'s mode holds one of them `##fix-with-staged`
+### `check`'s mode holds one of `--fix` and `--staged`, so the command has no value that asks both `##fix-with-staged`
 
 `CheckMode` holds one of the two, so the rule is the domain's type, and `cli`'s `conflicts_with` spells it while parsing,
 per `design@cli@command-parsing-home`. `--fix` repairs the working tree. Combining them would tie every fix to a write
-into git's index. The owner advised against the combination when ruling on `index --staged`, and said this was not
-definitive, since more kinds of quick fix may come that it would not suit.
+into git's index. The owner advised against the combination when ruling on `index --staged`, since more kinds of quick fix
+may come that it might not suit, and said this was not definitive.
 
 ### A fix is safe when its bytes are determined by the tree and the pinned version, and it writes or removes only files of the installer's namespace or of the generated list `##safe-fix-definition`
 

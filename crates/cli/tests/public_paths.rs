@@ -1,4 +1,4 @@
-//! Every public path of the library a consumer names, per `design@check@api-facade`.
+//! Every public path of the library a consumer names, per `design@knowledge-architect@api-facade`.
 //!
 //! A path that leaves the facade fails this file's build. `path@cli@tests/extension_api.rs` drives
 //! what an extension uses, and this holds the whole list, the items it never touches included.
@@ -7,7 +7,10 @@
 
 use knowledge_architect::cli::{
     complete_working_tree, init, locate, output::write, refuse_a_foreign_build,
-    refuse_another_version, run, this_library, Command, Gathered, Library,
+    refuse_another_version, run, this_library, CheckArgs, Command, CommitsArgs, Gathered, IdArgs,
+    IndexArgs, InitArgs, IssuesArgs, Library, NewComponentArgs, ShowArgs, TranscriptArgs,
+    TranscriptListArgs, TranscriptSearchArgs, TranscriptShowArgs, TranscriptVerb, TripwiresArgs,
+    Vcs, WorklistArgs,
 };
 use knowledge_architect::document::{
     md, rs, Frontmatter, Literals, Located, Observation, Parsed, Prose, RetiredForm, Scope,

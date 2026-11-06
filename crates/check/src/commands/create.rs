@@ -2,7 +2,7 @@
 //!
 //! **It writes where no project exists yet**, so it runs before a binary locates a project and before the
 //! version refusal, which read a manifest it is about to write. Every binary that dispatches
-//! The binary hands it here first, per `design@cli@the-commands-are-a-library-module`.
+//! it hands it here first, per `design@cli@the-commands-are-a-library-module`.
 //! Its no-loss guarantee is that every refusal comes before the first write, per
 //! `design@check@init-asks-no-confirmation`: a refused run leaves the filesystem as it found it,
 //! and exits 2. Once it has written, a failure exits 1; a stdout closed early still exits 2, as

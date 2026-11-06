@@ -32,7 +32,7 @@ Instances seen:
   an entry, as a patch.
 - A consumer's extension tests asserted text `check` prints, and the consumer's owner ruled
   mid-review that they assert none: W5 of 2026-10-07-thaum-mock-reduction-workflow. The checker
-  crate's section "Testing an extension" said nothing of printed output; it now sends a test to the
+  crate's section "Testing an extension", in `path@cli@src/lib.rs`, said nothing of printed output; it now sends a test to the
   public fields `Report::checks`, `Report::not_run` and `Report::summaries`, from which the
   `checked:`, not-run and summary lines are printed. It says nothing yet of which printed text is a
   contract.
@@ -46,8 +46,8 @@ Instances seen:
 `worklist` declare theirs, per `design@check@transcript-query-verbs`: the policy this entry asks for
 decides whether its JSON becomes one.
 
-The README of `check`, `path@check@README.md`, states two output contracts: for `check`, the order
-of the summary, the findings and the verdict line; and for a generated file-register index, written
+Two READMEs state an output contract: `path@check@README.md`, for `check`, the order
+of the summary, the findings and the verdict line; and `path@cli@README.md`, for a generated file-register index, written
 by `index` and `check --fix`, its bytes, per `design@model@a-file-register-index-is-rows`. Nothing
 states whether the words of a printed summary are one.
 

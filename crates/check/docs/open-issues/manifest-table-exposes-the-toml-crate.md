@@ -21,7 +21,7 @@ over in a form `check` owns, such as a deserialized type the extension names.
 
 ### Why it matters
 
-`design@check@api-facade` makes the public surface the facade, but this signature exposes a type
+`design@knowledge-architect@api-facade` makes the public surface the facade, but this signature exposes a type
 of a dependency the facade does not re-export. Under `design@knowledge-architect@versioning-policy`
 a toml major bump in `check` would then be a library break that no change of `check`'s own code
 announces. thaum's rules extension calls `table("rules")` and converts the value with

@@ -65,8 +65,8 @@
 //!     // The directory of the binary's own crate: its string literals are read as data.
 //!     let own = Path::new(env!("CARGO_MANIFEST_DIR"));
 //!     let mut extensions: Vec<Box<dyn Extension>> = Vec::new(); // Box::new(TheExtension), …
-//!     // Every library the binary links, the binary's own crate included, and one entry per
-//!     // crate of the extension's library.
+//!     // This library, the binary's own crate, and one entry per crate of the extension's library:
+//!     // the crates a checkout of the project would hold a copy of.
 //!     let libraries = [
 //!         cli::this_library(),
 //!         cli::Library { crate_dir: own.to_path_buf(), package: env!("CARGO_PKG_NAME") },
@@ -96,8 +96,9 @@
 //! ```
 //!
 //! [`cli::run`] returns `Err` when the command could not run, and the binary exits 2 with it.
-//! Otherwise it returns the command's verdict: exit 0 when the command ran and found nothing,
-//! exit 1 when it ran and found something to report.
+//! Otherwise it returns the command's code: exit 0 when the command ran and found nothing, exit 1
+//! when it ran and found something to report, and exit 2 where a command that writes printed the
+//! reason itself, as `index` and `check --fix` do of a write that failed with nothing yet written.
 //!
 //! [`cli::refuse_a_foreign_build`] refuses a binary built from another checkout of the project,
 //! because that binary would judge this tree with the other checkout's code. A binary tests the
@@ -220,7 +221,7 @@
 // `design@check@installed-binary-version-check` and `design@check@checked-sentinel-values`.
 
 // A `pub` item no consumer can reach is refused, so an item is public only through the re-exports
-// below and the role modules, per `design@check@api-facade`.
+// below and the role modules, per `design@knowledge-architect@api-facade`.
 #![warn(unreachable_pub)]
 
 // Read so that cargo rebuilds this crate when the checkout building it changes, per

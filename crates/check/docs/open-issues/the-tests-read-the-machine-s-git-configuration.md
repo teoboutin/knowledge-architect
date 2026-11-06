@@ -1,11 +1,11 @@
 ---
 kind: defect
 ---
-# `check`'s tests read the machine's git configuration, so a machine setting can fail a correct tree
+# The tests of `check` and `cli` read the machine's git configuration, so a machine setting can fail a correct tree
 
 ## Summary
 
-Several of `check`'s test helpers run git with the machine's own configuration. A global
+Several test helpers of `check` and `cli` run git with the machine's own configuration. A global
 `commit.gpgsign` that cannot sign, or a global `core.hooksPath` whose `pre-commit` hook fails,
 fails dozens of tests on a correct tree, and a per-user ignore file decides which fixture files two
 helpers stage. Only `Sandbox::git_command` in `path@cli@tests/binary.rs` is isolated, and only for
@@ -18,7 +18,8 @@ the identity.
 Measured by the adversarial reviewer of the review before the merge of the branch that gave
 `Sandbox::git_command` the sandbox's identity, at that branch's tip, with the machine's real
 configuration untouched: each probe set `GIT_CONFIG_GLOBAL` to a file of its own and
-`GIT_CONFIG_NOSYSTEM=1`, then ran `cargo test -p knowledge-architect-check --no-fail-fast`.
+`GIT_CONFIG_NOSYSTEM=1`, then ran `cargo test --no-fail-fast` over the package that then held all these tests, which today is
+`-p knowledge-architect-check -p knowledge-architect`.
 
 - A global configuration holding `commit.gpgsign = true` and `gpg.program = false`: 9 failures in
   the library's unit tests, 55 in `path@cli@tests/binary.rs`, 1 in `path@cli@tests/extension_api.rs`; the test
@@ -55,10 +56,10 @@ no recorded decision.
 
 ### What would close it
 
-Every helper of `check`'s tests that runs git goes through one function that isolates the
+Every helper of the tests of `check` and `cli` that runs git goes through one function that isolates the
 configuration a test does not mean to read: the identity as `Sandbox::git_command` does, plus at
 least `commit.gpgsign=false`, `core.hooksPath=/dev/null` and `core.excludesFile=/dev/null`, or a
 `GIT_CONFIG_GLOBAL` pointing at an empty file with `GIT_CONFIG_NOSYSTEM=1`. The two probes above
-then pass, run as a test or by hand, and `check`'s `path@check@CLAUDE.md` states the contract for
+then pass, run as a test or by hand, and `path@cli@CLAUDE.md` states the contract for
 every helper. The unit tests of `path@git@src/git.rs`, which build repositories of their own, are
 held to the same function or to one of the git crate's, and `path@git@CLAUDE.md` states it.

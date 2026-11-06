@@ -19,7 +19,7 @@ conditions and the asks; and no design head names the command and its merge invo
 - The installed text states one ask, the maintenance crate of every Rust target project, per
   `design@agent-skills@maintenance-crate-ask`, in the setup skill, and none of the others; the goal
   requires it to state each one.
-- The setup skill and the README of each published crate state neither the four conditions nor the
+- The setup skill and the READMEs of the published crates other than `model`, `check` and `cli` state neither the four conditions nor the
   other asks, nor that nothing is guaranteed outside the conditions or where an ask is not followed.
 - The goal makes the name of the one command and its invocation for a merge a design decision of
   knowledge-architect. No head records it. The invocations differ today: this repository merges on

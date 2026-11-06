@@ -98,15 +98,14 @@ expose as a typed API. The owner argued that grouping the parsing, with the chec
 convenient, and that the logic is mostly pulled from below. The interface's decisions then have one home, the parser's
 library stays out of the domain crates' interface, and a frontend that is no command line gets a typed API. The rival,
 the binary inside a domain crate, puts the interface's decisions in that crate's design, and forms a cycle with every
-crate that contributes a command and depends on it. It is stated by the component-creation skill and, for this
-repository, by `design@knowledge-architect@cli-crate`.
+crate that contributes a command and depends on it. It is stated by the component-creation skill.
 
 ### A command's arguments are parsed in the crate nearest the binaries among those every binary offering it depends on `##command-parsed-nearest-the-binaries`
 
 So a library flattened into binaries no shared crate sits above keeps its own parsing: parsed anywhere else, each binary
 would declare its flags again, and the copies would drift. The rival, each Component parsing its own commands wherever a
 shared crate sits above them and the binary flattening them, restates the interface's decisions in each domain crate. It
-is stated by the component-creation skill and, for this repository, by `design@cli@command-parsing-home`.
+is stated by the component-creation skill.
 
 ### An intermediate Component groups Components that serve a purpose of their own, and holds the decisions on how the code of several of them is written `##intermediate-component-occasion`
 

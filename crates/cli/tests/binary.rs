@@ -296,9 +296,9 @@ fn the_binary_passes_over_a_project_that_declares_only_what_it_reads() {
 }
 
 /// `klarch` compiles in the directory of each Component whose library it links and whose
-/// source is the checker's, `check`'s and the git crate's, so their fixtures are read as data,
-/// per `design@check@checker-source-literals-are-data`. Over this checkout the summary names both
-/// directories and counts their walked Rust files, whatever the run finds.
+/// source is the checker's, so their fixtures are read as data,
+/// per `design@check@checker-source-literals-are-data`. Over this checkout the summary names each
+/// directory and counts their walked Rust files, whatever the run finds.
 #[test]
 fn the_binary_names_the_checker_s_directories_and_counts_the_files_under_them() {
     let checkout = Path::new(env!("CARGO_MANIFEST_DIR"))
@@ -7292,10 +7292,8 @@ fn a_copy_of_the_checker_s_library_is_refused() {
     );
 }
 
-/// The claim of a refused combination: exit 2, before any work, in a tree left as it was and with
-/// no directory an argument names created. Each combination is a test of its own.
-fn refused_with_an_untouched_tree(tag: &str, args: &[&str]) {
-    let sandbox = Sandbox::new(tag, "minimal");
+/// The claim of a refused invocation: exit 2, and the project left as it was.
+fn refused_with_an_untouched_tree(sandbox: &Sandbox, args: &[&str]) {
     let status = || {
         let out = sandbox
             .git_command(&["status", "--porcelain", "--ignored"])
@@ -7307,45 +7305,63 @@ fn refused_with_an_untouched_tree(tag: &str, args: &[&str]) {
     let (out, stderr, code) = sandbox.run(args);
     assert_eq!(code, 2, "{args:?}: {out}{stderr}");
     assert_eq!(status(), before, "{args:?} touched the tree");
-    // git lists no empty directory, so the status alone would miss one an argument names.
-    assert!(
-        !sandbox.path("made").exists(),
-        "{args:?} created a directory"
-    );
+}
+
+/// A sandbox, a work list `worklist --out` wrote outside it, which `--verify` would otherwise
+/// answer about with exit 1, and a directory outside it that holds nothing, which `--out` would
+/// otherwise write. So the refusal is the only thing that can make these runs exit 2.
+fn with_a_work_list(tag: &str) -> (Sandbox, String, PathBuf) {
+    let sandbox = Sandbox::new(tag, "dirhome");
+    let outside = std::env::temp_dir().join(format!("{tag}-{}", std::process::id()));
+    let _ = std::fs::remove_dir_all(&outside);
+    std::fs::create_dir_all(&outside).expect("a directory outside the project");
+    let written = outside.join("written");
+    let (out, stderr, code) = sandbox.run(&["worklist", "--out", written.to_str().unwrap()]);
+    assert_eq!(code, 0, "{out}{stderr}");
+    let fresh = outside.join("fresh");
+    (sandbox, written.to_str().unwrap().to_string(), fresh)
 }
 
 #[test]
 fn check_fix_with_staged_is_refused_in_a_tree_it_leaves_as_it_was() {
-    refused_with_an_untouched_tree("refused-fix-staged", &["check", "--fix", "--staged"]);
+    let sandbox = Sandbox::new("refused-fix-staged", "minimal");
+    refused_with_an_untouched_tree(&sandbox, &["check", "--fix", "--staged"]);
 }
 
 #[test]
 fn worklist_out_with_verify_is_refused() {
-    refused_with_an_untouched_tree(
-        "refused-out-verify",
-        &["worklist", "--out", "made", "--verify", "made"],
-    );
+    let (sandbox, written, fresh) = with_a_work_list("refused-out-verify");
+    let args = [
+        "worklist",
+        "--out",
+        fresh.to_str().unwrap(),
+        "--verify",
+        &written,
+    ];
+    refused_with_an_untouched_tree(&sandbox, &args);
+    assert!(!fresh.exists(), "the refused run wrote the work list");
 }
 
 #[test]
 fn worklist_with_neither_out_nor_verify_is_refused() {
-    refused_with_an_untouched_tree("refused-worklist-neither", &["worklist"]);
+    let sandbox = Sandbox::new("refused-worklist-neither", "minimal");
+    refused_with_an_untouched_tree(&sandbox, &["worklist"]);
 }
 
 #[test]
 fn worklist_verify_with_a_bound_is_refused() {
+    let (sandbox, written, _) = with_a_work_list("refused-verify-bound");
     refused_with_an_untouched_tree(
-        "refused-verify-bound",
-        &["worklist", "--verify", "made", "--bound", "5"],
+        &sandbox,
+        &["worklist", "--verify", &written, "--bound", "5"],
     );
 }
 
 #[test]
 fn worklist_verify_with_a_seed_is_refused() {
-    refused_with_an_untouched_tree(
-        "refused-verify-seed",
-        &["worklist", "--verify", "made", "--seed", "design@a-b@c-d"],
-    );
+    let (sandbox, written, _) = with_a_work_list("refused-verify-seed");
+    let args = ["worklist", "--verify", &written, "--seed", "design@a-b@c-d"];
+    refused_with_an_untouched_tree(&sandbox, &args);
 }
 
 /// A command line of the shipped declaration, so the walk below names no command.
@@ -7381,22 +7397,59 @@ fn every_command_refuses_an_argument_it_does_not_declare() {
     let mut commands = Vec::new();
     leaves(&Declared::command(), Vec::new(), &mut commands);
     assert!(commands.len() > 1, "the walk found {commands:?}");
+    let sandbox = Sandbox::new("refused-unknown", "minimal");
     for command in commands {
         let mut args: Vec<&str> = command.iter().map(String::as_str).collect();
         args.push("--no-such-argument");
-        refused_with_an_untouched_tree("refused-unknown", &args);
+        refused_with_an_untouched_tree(&sandbox, &args);
     }
 }
 
 #[test]
 fn a_command_missing_a_required_argument_is_refused() {
-    refused_with_an_untouched_tree("refused-missing", &["show"]);
+    let sandbox = Sandbox::new("refused-missing", "minimal");
+    refused_with_an_untouched_tree(&sandbox, &["show"]);
 }
 
+/// The directory holds nothing and lies outside the project, so `--out` would write it were the
+/// bound accepted.
 #[test]
 fn a_value_the_argument_cannot_read_is_refused() {
-    refused_with_an_untouched_tree(
-        "refused-unreadable",
-        &["worklist", "--out", "made", "--bound", "many"],
+    let (sandbox, _, fresh) = with_a_work_list("refused-unreadable");
+    let args = [
+        "worklist",
+        "--out",
+        fresh.to_str().unwrap(),
+        "--bound",
+        "many",
+    ];
+    refused_with_an_untouched_tree(&sandbox, &args);
+    assert!(!fresh.exists(), "the refused run wrote the work list");
+}
+
+/// The claim: `tripwires` takes the text it filters on.
+#[test]
+fn tripwires_filter_on_their_terms() {
+    let sandbox = Sandbox::new("tripwires-terms", "dirhome");
+    let (out, stderr, code) = sandbox.run(&["tripwires", "no-row-holds-this-text"]);
+    assert_eq!(code, 1, "{out}{stderr}");
+}
+
+/// The claim: `klarch` lists the crate of installed text among those it links.
+#[test]
+fn a_copy_of_the_installed_text_s_crate_is_refused() {
+    let sandbox = Sandbox::seeded(
+        "foreign-skills",
+        "minimal",
+        &[(
+            "crates/agent-skills/Cargo.toml",
+            "[package]\nname = \"knowledge-architect-agent-skills\"\n",
+        )],
+    );
+    let (out, stderr, code) = sandbox.run(&["issues"]);
+    assert_eq!(code, 2, "{out}{stderr}");
+    assert!(
+        stderr.contains("its `knowledge-architect-agent-skills` was compiled"),
+        "{stderr}"
     );
 }

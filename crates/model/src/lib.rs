@@ -3,8 +3,8 @@
 //!
 //! It holds what a tool over a project's documents needs. A tool builds a [`Model`], asks
 //! [`foundation::complete_working_tree`] whether it can be trusted, and reads it. The checks of a
-//! document's content are the package `knowledge-architect`, which depends on this one; a project
-//! that only runs the checker names that package alone.
+//! document's content are the package `knowledge-architect-check`, which depends on this one; a
+//! project that only runs the checker names the package `knowledge-architect` alone.
 //!
 //! The gate judges what the manifest declares against what the tool hands it. A manifest table
 //! belongs to an extension, so a tool over a project with one calls [`extension::contribute`] before
@@ -43,7 +43,7 @@
 //! | [`extension`] | what an extension gives phase 1 |
 
 // A `pub` item no consumer can reach is refused, so an item is public only through the re-exports
-// below, as `check`'s facade is, per `design@check@api-facade`.
+// below, as `check`'s facade is, per `design@knowledge-architect@api-facade`.
 #![warn(unreachable_pub)]
 
 // Read so that cargo rebuilds this crate when the checkout building it changes, per

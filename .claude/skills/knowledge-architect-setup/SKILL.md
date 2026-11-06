@@ -562,7 +562,7 @@ crate-level documentation too.
 **A project with an extension** depends on the crate that holds its extension instead of the
 checker alone, and its `klarch` command registers the extension, as that crate's documentation
 shows. Its gates' `Checker` names the same package and prefix. Before writing the extension's tests,
-read the section "Testing an extension" of the checker's crate documentation: it says which findings
+read the section "Testing an extension" of the crate documentation of `knowledge-architect`: it says which findings
 a mock plants, and what a test pins.
 
 **Continuous integration** runs the same command on every pull request that is ready, with a

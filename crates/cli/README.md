@@ -2,8 +2,9 @@
 
 The binary `klarch` and its library, the package `knowledge-architect`: every command of the checker,
 parsed here, and the API a binary that registers an extension is written against. A project that uses
-knowledge-architect names this package alone. What the checks hold a project's documents to is
-`path@check@README.md`; the commands' logic is that crate's.
+the checker names this package alone of the checker's packages. What the checks hold a project's documents to is
+`path@check@README.md`, which also states what the tool needs of git, 2.36 or newer, and how `check` and `commits`
+behave; the commands' logic is that crate's.
 
 **`klarch`, and a binary per set of extensions.** `klarch` runs every command below with no extension
 registered. A binary that registers extensions runs the same commands unchanged, and its extensions'
@@ -405,5 +406,5 @@ reader and is no contract, text and JSON alike.
 ## What to respect
 
 **An item is public only through the facade**: `path@cli@src/lib.rs`, the module `cli` and the re-exports of
-the checker's library, per `design@check@api-facade`. Read `register@cli@design` before changing how the
+the checker's library, per `design@knowledge-architect@api-facade`. Read `register@cli@design` before changing how the
 command line works.
