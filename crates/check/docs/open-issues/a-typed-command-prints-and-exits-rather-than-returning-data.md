@@ -5,7 +5,7 @@ kind: todo
 
 ## Summary
 
-Each function of `path@check@src/commands/mod.rs` takes the domain's types and names no clap type, and still
+Each command's function in `path@check@src/commands/mod.rs` takes the domain's types and names no clap type, and still
 prints as it works, returns `Result<ExitCode, String>`, and ends the process with exit 2 on a closed stdout. A
 frontend that is no command line can call it, and receives stdout text and a process exit. On the owner's word,
 refactoring the commands so that they return data is recorded here, to be done later.
@@ -28,8 +28,9 @@ Ruled out at the design audit of the slice that moved the binary to the top: mov
 
 ### Why it matters
 
-`design@cli@command-parsing-home` argues that a frontend that is no command line gets a typed API. Until this is done
-that holds in part: the frontend names no clap type, and gets no value it can lay out itself. A test of a command's
+`design@check@a-typed-command-prints-and-returns-its-code` states the choice this entry would reverse, and
+`design@agent-skills@top-level-binary-crate` argues that a frontend that is no command line gets a typed API. Until this is
+done that holds in part: the frontend names no clap type, and gets no value it can lay out itself. A test of a command's
 outcome also reads printed text, or runs the binary, where it could read a value. The session's choice to keep the
 printing, which the owner approved, weighed a rewrite of these sites against a slice whose first step was the
 mechanism alone, and no goal ranks the two.

@@ -2,7 +2,7 @@
 
 ## Session transcripts
 
-### The agent harness's session transcripts are read by a command of `check`, `transcript`, so every binary offers it `##transcript-command-in-core`
+### The agent harness's session transcripts are read by one command, `transcript`, so every binary offers it `##transcript-is-a-command-of-every-binary`
 
 `klarch transcript` reads the transcripts the agent harness writes on disk, for the transcript
 reviewer, the assembly of a plan document and any survey of past sessions. It is a variant of
@@ -11,7 +11,7 @@ reviewer, the assembly of a plan document and any survey of past sessions. It is
 refusal of `design@check@installed-binary-version-check`, whatever the project's
 `[agents] harness`: the transcripts are the harness's own, whether or not the project installs the
 workflow. The reader is internal; its typed function is public in `commands`, and its argument types through `cli::Command`, per
-`design@knowledge-architect@api-facade`.
+`design@check@the-facade-publishes-what-a-consumer-needs`.
 
 It serves `goal@knowledge-architect@agents-get-a-complete-workflow`, since without it a session that
 consults a transcript writes its own script. The task it takes from sessions is one the installed

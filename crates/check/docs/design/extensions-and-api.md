@@ -104,13 +104,51 @@ skipping the regime in silence.
 
 ### A typed command prints as it works and returns its exit code, rather than data for its caller to print `##a-typed-command-prints-and-returns-its-code`
 
-Each function of `commands` takes the domain's types, prints, and returns `Result<ExitCode, String>`. The session chose
+Each command's function in `commands` takes the domain's types, prints, and returns `Result<ExitCode, String>`. The session chose
 this over a function that returns data for `cli` to print and map to a code, which no goal ranks; the owner approved it.
 Printing stays where the data is defined. The rival meets a frontend that is no command line whole, and costs a rewrite of
 the printing sites, some inside a write loop, with the order of what `check --fix` lists at risk. The cost of the choice:
 such a frontend names no clap type, and receives stdout, and a process that ends on a closed stdout. A command can return
 data later, one at a time, which `issue@check@a-typed-command-prints-and-exits-rather-than-returning-data` records on the
 owner's word.
+
+### `check`'s role modules publish what a consumer of the library needs, and nothing for `check`'s own tests `##the-facade-publishes-what-a-consumer-needs`
+
+The library has three kinds of consumer: a binary that registers an extension, the extension, and
+the extension's tests. **Testing an extension over a mock project is part of what the library
+publishes**, because a project that adopts the tool with a subject of its own, per
+`goal@knowledge-architect@every-target-project-can-adopt-it`, has to test that subject as `check` tests
+its own. `design@check@a-foreign-build-is-refused` already requires every extension binary to test
+the refusal in its own suite. Its facade is shaped as `design@knowledge-architect@api-facade` says.
+
+`cli` keeps each consumer's path by re-exporting `extension`, `document` and `testing` from its own facade, per
+`design@knowledge-architect@the-binary-crate-keeps-the-package-name`, beside its module `cli`, the role a binary's `main` meets.
+`commands` and `extension` are both a role module and the code of that role; `document` and `testing` only re-export:
+
+| module | what it serves |
+| --- | --- |
+| `commands` | a frontend, the command line among them: each command's logic behind a typed function, refusing a foreign build or another version, gathering a run's inputs |
+| `extension` | writing an extension: its two traits, what `check` hands them, what they return |
+| `document` | reading a document's parse, per `design@check@an-extension-builds-its-own-model` |
+| `testing` | running `check` over a mock project as the binary does |
+
+- **What `model` publishes is `model`'s facade, per `design@model@model-facade`**, and this facade names
+  of it what an extension meets, in its root and its role modules, and neither the entity table nor the
+  anchors. A method a caller in this crate needs of `Model` or `Manifest` is public
+  on these re-exports too, since a re-export carries a type's methods.
+- `Inputs` is in `Prepared::check`'s signature and its fields expose `Entry` and `Outside`, so those are public although no
+  consumer names them.
+- **A value only `check` produces is read, not built.** `Report` and `Snapshot` have public read-only
+  methods and no public constructor; `Outside`'s is `model`'s, whose variants a reader matches. A value a consumer starts from, such
+  as a `Manifest`, a `Model` or a `Finding`, keeps its public constructors.
+- **Nothing becomes public for `check`'s own tests.** A test that needs a private item is a
+  unit-test module inside the crate, as `path@check@src/mock_projects.rs` is.
+- `Manifest::command` is public although thaum's extension does not call it: an extension's
+  finding that names a repair command owes the project's declared command, per
+  `design@check@declared-command`.
+
+The designs this decision did not keep: `rejected@check@doc-hidden-test-items` and
+`rejected@check@testing-feature-for-test-items`.
 
 ### What a run fetches before any check is gathered once, and no caller outside the crate assembles `Inputs` `##inputs-are-gathered`
 

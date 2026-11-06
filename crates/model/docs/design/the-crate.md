@@ -6,7 +6,7 @@
 
 `path@model@src/lib.rs` names every public item, in the root or in a role module whose body is in that
 file, and every other module is private. So the surface is read in one file, and moving an item between
-files changes no public path, which `rejected@check@module-tree-as-public-api` refuses to give up.
+files changes no public path, which `rejected@knowledge-architect@module-tree-as-public-api` refuses to give up.
 `unreachable_pub` refuses a `pub` item no role module names, and a unit test refuses a `pub mod <name>;`
 and a glob, on which the lint is silent. A method of a named type is public through its type, and the
 facade does not list it. The entity table and the anchors are public here, since the tools over the

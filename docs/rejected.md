@@ -64,3 +64,11 @@ resolution through the lints, with a finding attached. It would change an interf
 holds while one crate contributes every command. Once the commands span crates, the binary's crate depends on them all,
 so a commands module inside one of them forms a cycle with the others, and a binary crate that depends on them saves its
 users no dependency it would otherwise be spared. It would change an interface others consume.
+
+### The implementation's module tree as the public API, with only its visibility narrowed `##module-tree-as-public-api`
+
+`live`. A consumer would learn the internal layout: thaum's rules extension at thaum's e98e296 named
+13 of the 16 modules public at 465ff35: the distinct names `git grep -o "documentation::[a-z_]*"`
+prints over its tools/rules-corpus, the function `component_dir` aside. Moving an item between files
+would be a library break, and the public surface would be computed from the whole module tree rather
+than read in one file.
