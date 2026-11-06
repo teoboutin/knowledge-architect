@@ -573,7 +573,7 @@ extension's dump hook, so it needs the extensions, and in `query` it would make 
 `check`, which #a1-no-check-below-the-tools refuses. The owner's leads for the later commands, R2,
 the keyword search and the audit's work lists, are recorded in
 `issue@query@no-command-searches-the-entries-or-lists-an-audit-s-work`. Arguments: #arg-9, #arg-10,
-#arg-29, #arg-30, #arg-31, #arg-48, #arg-64, #arg-112. Shape: `spec@component-split@consumers-out`.
+#arg-29, #arg-30, #arg-31, #arg-48, #arg-64, #arg-112. Shape: landed at #consumers-out.
 Harvest: the `query` Component's design home. Absorbs #worklist-crate. The owner's lead for the goals of
 `query`, at the goals of #model-out, which #consumers-out drafts from: "there is no mechanical task that
 agents perform, but an action asked of an agent could be made more efficient by making it mechanical, or
@@ -592,7 +592,7 @@ decisions about a different subject". Arguments: #arg-3, #arg-11, #arg-12, #arg-
 ### `transcript` is a Component of its own, the reader of the agent harness's transcripts, depending on `git` `##transcript-crate`
 
 Proposed by the session, R1 (#arg-9, #arg-10). Final state: approved, by the owner's word against
-the table, R3 and R6. Arguments: #arg-9, #arg-10. Shape: `spec@component-split@consumers-out`.
+the table, R3 and R6. Arguments: #arg-9, #arg-10. Shape: landed at #consumers-out.
 Harvest: the `transcript` Component's design home.
 
 ### `rewrite` is placed as a Component of its own, depending on `git` alone, created by the port `##rewrite-crate`
@@ -605,8 +605,7 @@ Proposed by the owner, R1 (#arg-1, #arg-2); placed by the session, R1 (#arg-13),
 ### `create` is a Component of its own: `init`, `new-component` and `init --rust` `##create-crate`
 
 Proposed by the session, R1 (#arg-14), as the cut weakest by the signals. Final state: approved, by
-the owner's word against the table, R3 and R6. Arguments: #arg-14. Shape:
-`spec@component-split@consumers-out`. Harvest: the `create` Component's design home.
+the owner's word against the table, R3 and R6. Arguments: #arg-14. Shape: landed at #consumers-out. Harvest: the `create` Component's design home.
 
 ### `cli` is the top-level crate: the package `knowledge-architect`, the binary `klarch`, the parsing of every klarch command, and the re-export of the extension API; the library and the binary are no longer one crate `##cli-crate`
 
@@ -1540,8 +1539,8 @@ fire by a scratch dependency of `query` on `check`, which the command lists. The
    its spec deleted with it.
 4. The binary, the parsing and the interface become the top-level `cli` crate, #cli-on-top: landed,
    its spec deleted with it.
-5. [The commands over the model, the transcript reader and the project creator leave the checker](consumers-out.md),
-   `spec@component-split@consumers-out`.
+5. The commands over the model, the transcript reader and the project creator leave the checker, #consumers-out: landed,
+   its spec deleted with it.
 6. [The shared test Component holds the fixtures and the integrated tests](integrated-tests.md),
    `spec@component-split@integrated-tests`.
 
