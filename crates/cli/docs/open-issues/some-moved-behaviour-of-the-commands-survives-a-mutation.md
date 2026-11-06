@@ -6,7 +6,7 @@ kind: todo
 ## Summary
 
 The adversarial review before the merge of the slice that moved the binary to the top found mutations of moved or thin code that
-no test catches, each over `cargo test -p knowledge-architect -p knowledge-architect-check -p knowledge-architect-query -p knowledge-architect-transcript -p knowledge-architect-create`. None is a wrong result today, each
+no test catches, each over `cargo test -p knowledge-architect -p knowledge-architect-check`, as the code stood before the commands moved. None is a wrong result today, each
 read or run by hand. They are recorded together, since each is one small test.
 
 ## Details
