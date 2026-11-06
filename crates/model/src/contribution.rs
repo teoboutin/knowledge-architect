@@ -21,8 +21,8 @@ pub struct Contribution {
 }
 
 /// Record a contribution in the manifest. Call it once, before `Model::build`, which leaves the
-/// generated files out of the walk: a second call adds again, and a tool that never calls it has every
-/// extension table of the manifest reported.
+/// generated files out of the walk: a second call adds again, and a tool that never calls it has no
+/// extension table reported, and walks the files an extension generates.
 ///
 /// **A table no extension claims, and a claimed table the manifest does not hold, are phase-1
 /// findings**, per `design@check@an-extension-claims-its-manifest-tables`. The first is a

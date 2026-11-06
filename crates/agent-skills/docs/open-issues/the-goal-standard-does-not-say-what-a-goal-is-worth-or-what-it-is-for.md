@@ -6,7 +6,7 @@ kind: design
 ## Summary
 
 The owner holds that a goal covers what shapes the project's future and what argument alone might not defend, and that a
-goal is often worth most where no mechanical test can show it met. `skill@knowledge-architect-goal-setting@goal-or-not`
+goal is probably worth most where no mechanical test can show it met. `skill@knowledge-architect-goal-setting@goal-or-not`
 states no such purpose, and its rule 6 asks for a check or a test wherever an outcome depends on nothing the project does
 not control. This entry holds the owner's words for a design discussion on the goal standard. They are quoted, on the
 owner's request, where an entry otherwise attributes.
@@ -29,7 +29,7 @@ And, at the same goals, on whether an outcome should be a goal or a design head:
 The instance: the draft measure of `goal@cli@a-refused-invocation-does-no-work` asked for a test that finds every command, for one
 of its four kinds of refused invocation. The goal reviewer graded the partial coverage `blocks`, applying the standard as it
 reads, so this is no lapse of the reviewer. The session proposed extending the walk to two more kinds, and the owner refused.
-A second candidate goal, that a command keeps one spelling in every binary, went to a design head for the same reason.
+A second candidate goal, that a command keeps one spelling in every binary, went to a design head: the owner left its status open, and the session decided by the standard, since the outcome is a means to another goal.
 
 The suspected mechanism, in one sentence: the standard says how a goal is shaped and shown met, and nothing of why one is
 worth writing, so a drafter and a reviewer who follow it push each goal toward a test of every breach.

@@ -64,7 +64,8 @@ pub use model::{Document, Finding, Manifest, Model, MANIFEST_NAME};
 /// The version of this library, which is the checker's version whatever binary links it.
 ///
 /// It is the value `[project] checker-version` must hold for [`commands::refuse_another_version`] to
-/// accept a project. In an extension's crate, `CARGO_PKG_VERSION` is the extension's version, not this
+/// accept a project. A test that copies a mock project out of its library's directory, where `"fixture"`
+/// is refused, writes this value into the copy's manifest. In an extension's crate, `CARGO_PKG_VERSION` is the extension's version, not this
 /// one.
 pub const CHECKER_VERSION: &str = env!("CARGO_PKG_VERSION");
 

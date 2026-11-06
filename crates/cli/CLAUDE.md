@@ -12,7 +12,7 @@ module `cli`. `path@cli@tests/extension_api.rs` uses the public paths alone, and
 fails to compile there. A new public item is added to that list.
 
 **`CARGO_BIN_EXE_klarch` is set in this package alone**, so a test that runs the binary lives here, over the
-fixtures of `check`'s directory, through `check_dir` of each test file.
+fixtures of `check`'s directory, through `check_dir` in a test file that reads them.
 
 **A test that copies a mock project runs `git init` and `git add -A` in the copy**, or the walk
 is empty and the test proves nothing; `Sandbox` in `path@cli@tests/binary.rs` does it. Two
