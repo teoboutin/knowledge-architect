@@ -124,7 +124,7 @@ fn split_lines(s: &str) -> (Vec<&str>, bool) {
 /// `--replace` form substitutes one span, and a caller supplying its own patch does not come
 /// here.
 ///
-/// The hunk carries [`CONTEXT`] lines either side. A plain `git apply -R` matches all of them, so
+/// The hunk carries `CONTEXT` lines either side. A plain `git apply -R` matches all of them, so
 /// an edit anywhere inside the hunk makes it refuse; `git apply -R -C1` narrows the match to one
 /// line either side and recovers an edit two or more lines from the mutation. Neither reverses an
 /// edit adjacent to the mutated line or on it, as `design@mutate@restore-by-comparison` records.
