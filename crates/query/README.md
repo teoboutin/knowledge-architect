@@ -27,7 +27,7 @@ of that command. Nothing is guaranteed outside these conditions, or where an ask
 
 Build a manifest with `Manifest::find` of `knowledge-architect-model`, and call a function: `show`, `issues`, `tripwires`,
 `anchors`, `id` or `worklist`. Each prints as it works and returns its exit code. It takes the manifest as a caller's
-extensions have configured it, as `cli::run` does before it calls one, so a project with an extension's table is read as the
+extensions have configured it, as `cli::run` does before it calls one, per `design@query@a-function-takes-a-configured-manifest`, so a project with an extension's table is read as the
 binary that registers the extension reads it only where the caller has called `extension::configure`, an item of
 `knowledge-architect-check`, which this crate does not depend on. A program that links no check reads such a project with the
 extension's generated files in its walk, and `id` and `worklist --out` refuse its table.

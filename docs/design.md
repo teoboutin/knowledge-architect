@@ -148,13 +148,14 @@ such a frontend names no clap type, and receives stdout, and a process that ends
 data later, one at a time, which `issue@knowledge-architect@a-typed-command-prints-and-exits-rather-than-returning-data` records on the
 owner's word.
 
-### One copy of the writer to stdout sits in each of `query` and `transcript`, rather than in a crate of its own `##a-copy-of-the-writer-per-crate`
+### A crate of commands that may not depend on the checks holds a copy of the writer to stdout, rather than a crate of its own holding it `##a-copy-of-the-writer-per-crate`
 
 A typed command prints, per `design@knowledge-architect@a-typed-command-prints-and-returns-its-code`, so each crate of commands needs what
-ends a run with exit 2 on a closed stdout, per `design@cli@exit-code-ladder`. `query` and `transcript` may depend on nothing of the checks, and the one crate
+ends a run with exit 2 on a closed stdout, per `design@cli@exit-code-ladder`. `query` and `transcript` may depend on nothing of the checks, per `design@query@query-depends-on-no-check` and `design@knowledge-architect@transcript-crate`, and the one crate
 below both is `git`, which `goal@git@a-pure-wrapper-over-git` keeps to git alone. So `check`, `query` and `transcript` each hold the writer, and `create`, which
 depends on `check`, a macro over `check`'s. The session chose this over a crate of its own for that one function, which no goal ranks; the owner approved it. The
-cost is one reason at three sites, which a test per copy holds. The copies leave with the last command that returns data, per
+rival holds one home at the fixed cost of a published crate, for a name no plan proposed; the component-creation skill's default, printing in the
+Component that defines the data, leans against it by a default, not a rule. The cost of the choice is one reason at three sites, which a test per copy holds. The copies leave with the last command that returns data, per
 `issue@knowledge-architect@a-typed-command-prints-and-exits-rather-than-returning-data`.
 
 ### The crates of the checker's tools are facades, those an extension is written against with role modules, and every other module is private `##api-facade`

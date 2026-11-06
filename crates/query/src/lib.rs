@@ -12,7 +12,7 @@
 //! **Each function takes a manifest as its caller's extensions have configured it**, as
 //! `knowledge_architect::cli::run` does with `extension::configure` of `knowledge-architect-check` before
 //! it calls one: a file an extension generates is outside every walk, and `id` and `worklist` refuse a
-//! table no extension claims. Nothing here enforces that, per
+//! table no extension claims, per `design@query@a-function-takes-a-configured-manifest`. Nothing here enforces that, per
 //! `issue@knowledge-architect@a-typed-command-trusts-its-caller-to-have-configured-the-manifest`, and a
 //! program that links this crate and no check reads a project with an extension as the example below does.
 //! None of these functions refuses a project pinned to another version: a binary does that before it

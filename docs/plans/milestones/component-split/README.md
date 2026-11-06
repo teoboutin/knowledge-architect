@@ -290,7 +290,7 @@ the tree does not hold. Those that bear on the split, with their outcome:
 - the issue `installed-file-findings-belong-in-phase-four`: closed by the commit that adds this document, since #check-renamed schedules its work, which that slice's spec carries;
 - `issue@check@manifest-table-exposes-the-toml-crate`, `issue@check@an-extension-cannot-see-which-register-a-document-belongs-to`,
   `tripwire@check@private-item-needed`: the facades of `model` and `check` meet them; nothing is
-  decided here on them, and the tripwire is unchanged: an item an integrated test of this
+  decided here on them, and the tripwire is scoped to a consumer outside this workspace, as D10 says: an item an integrated test of this
   repository cannot reach is opened as a `todo`, by the guideline of
   `design@agent-skills@integrated-test-through-public-api`;
 - the issues whose code moves, re-anchored by the slice that moves their files:
