@@ -1634,8 +1634,8 @@ fire by a scratch dependency of `query` on `check`, which the command lists. The
   `a-tool-over-the-model-reads-a-project-with-an-extension-otherwise-than-the-checker` asks at this audit. The
   default: `query`'s functions take a manifest as `check`'s do, its documentation states that the caller configures it, and
   `cli::run` keeps configuring it, so `klarch` and an extension's binary change nothing, which a test over an extension's table
-  holds. The library names neither a pin nor an extension's table as what `goal@model@a-tool-knows-the-read-is-right` asks,
-  since that goal's list does not name them; so a tool linking `query` with no `cli` reads such a project as the issue
+  holds. The library names neither a pin nor an extension's table as what `goal@model@a-tool-knows-the-read-is-right` asks, on the owner's
+  reading of its reach, put to the owner since that goal's list begins "such as": "G21 agreed"; so a tool linking `query` with no `cli` reads such a project as the issue
   says, and the issue closes on this ruling. The rival: a type only `extension::configure` returns, in `model`, which each
   command takes, the lead of `issue@knowledge-architect@a-typed-command-trusts-its-caller-to-have-configured-the-manifest`.
 - **D9, on #query-crate and #transcript-crate, ruled**: the printing's home, which D5 left to this audit. The only existing
