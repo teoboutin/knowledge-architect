@@ -12,7 +12,7 @@ line naming it. No git holds a copy. Inside a worktree the same file gets `fixed
 
 ### What
 
-`finish` of `path@check@src/cli/create.rs` prints `done.written` and never reads `done.deleted`. Reproduced by an
+`finish` of `path@check@src/commands/create.rs` prints `done.written` and never reads `done.deleted`. Reproduced by an
 adversarial reviewer with `klarch init <dir> --vcs none`, exit 0.
 
 ### Why it matters

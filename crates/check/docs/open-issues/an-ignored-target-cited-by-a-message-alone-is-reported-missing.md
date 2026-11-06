@@ -11,7 +11,7 @@ kind: defect
 
 ### What
 
-In `path@check@src/cli/history.rs`, `ignore_queries` runs over the tree's model, not over the message. With `build/` ignored, a message citing a `path` span to `build/out.txt` gets `does not exist, at build/out.txt`, exit 1. Once a document of the commit's tree cites the same span, the same message passes. Reproduced on the main branch before the crate split.
+In `path@check@src/commands/history.rs`, `ignore_queries` runs over the tree's model, not over the message. With `build/` ignored, a message citing a `path` span to `build/out.txt` gets `does not exist, at build/out.txt`, exit 1. Once a document of the commit's tree cites the same span, the same message passes. Reproduced on the main branch before the crate split.
 
 ### Why it matters
 

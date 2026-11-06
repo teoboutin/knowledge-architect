@@ -41,9 +41,9 @@ The fourth slice of `milestone@plans@component-split`. It leaves when it lands.
   returns `Err`, exit 2, before any work. Each typed command takes a manifest already configured, and
   its doc comment says so, since `cli::run` does that today for every command.
 - **The typed API prints and returns `Result<ExitCode, String>`, as the commands do today**: D5 of the
-  milestone document. `path@check@src/cli/output.rs`, `print_report`, `counts`, `verdict` and `print_rows`
+  milestone document. `path@check@src/commands/output.rs`, `print_report`, `counts`, `verdict` and `print_rows`
   stay in `check`, in `commands`, and `cli` prints nothing but a refusal of its own.
-- `path@check@src/cli/` becomes `planned@check@src/commands/`, `check`'s role module. `extension`, `document`,
+- `path@check@src/commands/`, the commands' logic with their declarations out, is `check`'s role module. `extension`, `document`,
   `testing` and `commands` are `check`'s facade, under `#![warn(unreachable_pub)]`. The extension
   writer's crate documentation and its doctests, and the restatement comment under them, move to
   `cli`'s lib.rs, and `check`'s lib.rs gets its own documentation.
@@ -52,7 +52,7 @@ The fourth slice of `milestone@plans@component-split`. It leaves when it lands.
   `CARGO_BIN_EXE_klarch` is set; `path@check@tests/extension_api.rs` and `path@check@tests/public_paths.rs`,
   since they drive `cli`'s library and its whole list of public paths. So do `cli_declaration_is_consistent`,
   `an_unknown_argument_is_refused` and `fix_and_staged_are_refused_together` of `path@check@src/main.rs`,
-  and `run_refuses_init` of `path@check@src/cli/create.rs`, which calls `run`. Each file reads `check`'s
+  and `run_refuses_init` of `path@check@src/commands/create.rs`, which calls `run`. Each file reads `check`'s
   fixtures through `check`'s directory: the mock projects, the transcripts and the worklist's reference
   copy, which `cli`'s binary links, so `"fixture"` stays accepted for them. `check` dev-depends on
   nothing above it.

@@ -848,7 +848,7 @@ fn the_verdict_counts_the_findings_it_printed() {
 /// The claim: `issues` prints one row per issue entry with the five columns in order, and each
 /// filter keeps only what it names.
 ///
-/// Recorded mutation, `cargo mutate run` over `path@check@src/cli/mod.rs`: turning the `--kind`
+/// Recorded mutation, `cargo mutate run` over `path@check@src/commands/mod.rs`: turning the `--kind`
 /// filter's `is_none_or` into `is_some_and` empties every unfiltered listing, and turning the
 /// row's `metadata` cell into a constant makes every kind read alike. Both are caught here.
 #[test]

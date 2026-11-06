@@ -1,8 +1,8 @@
 //! The command that creates a project, `init`.
 //!
-//! **It writes where no project exists yet**, so it runs before [`super::locate`] and before the
+//! **It writes where no project exists yet**, so it runs before a binary locates a project and before the
 //! version refusal, which read a manifest it is about to write. Every binary that dispatches
-//! [`super::Command`] hands it here first, per `design@check@the-core-cli-is-a-library-module`.
+//! The binary hands it here first, per `design@check@the-core-cli-is-a-library-module`.
 //! Its no-loss guarantee is that every refusal comes before the first write, per
 //! `design@check@init-asks-no-confirmation`: a refused run leaves the filesystem as it found it,
 //! and exits 2. Once it has written, a failure exits 1; a stdout closed early still exits 2, as
@@ -12,7 +12,7 @@ use std::path::{Component, Path, PathBuf};
 use std::process::ExitCode;
 
 use super::output::outln;
-use super::{InitArgs, Library, NewComponentArgs, Vcs};
+use super::Library;
 use crate::agents::IMPORT_LINE;
 use crate::extension::Extension;
 use crate::model::declared::{
@@ -23,13 +23,40 @@ use crate::model::table::{Anchor, Anchors, Constructed};
 use crate::model::MANIFEST_NAME;
 use crate::Manifest;
 
+/// What `init` creates.
+#[derive(Clone, Debug)]
+pub struct InitOptions {
+    /// The project's directory, created when it does not exist.
+    pub path: PathBuf,
+    /// The project's name. `None` is the basename of `path`.
+    pub name: Option<String>,
+    /// The Components to add, as `new-component` adds one, each relative to `path`.
+    pub components: Vec<PathBuf>,
+    /// Also write the maintenance crate of a Rust project.
+    pub rust: bool,
+    /// The project's command. `None` is `klarch`, or `cargo klarch` under `rust`.
+    pub command: Option<String>,
+    /// Whether to run `git init`. `None` runs it outside every git worktree, and refuses a directory
+    /// there that already holds files.
+    pub vcs: Option<Vcs>,
+}
+
+/// Whether `init` runs `git init`.
+#[derive(Clone, Copy, Debug, PartialEq, Eq)]
+pub enum Vcs {
+    /// Run `git init` at the path, inside a worktree or outside, unless it already holds `.git`.
+    Git,
+    /// Never run `git init`.
+    None,
+}
+
 /// Create a knowledge-architect project at `args.path`, as `klarch init` does.
 ///
-/// A binary calls this before [`super::locate`], with the same `libraries` and `packages` it
-/// hands [`super::refuse_a_foreign_build`] and the same `checker` and `extensions` it hands
-/// [`super::run`]. `Err` is a refusal: nothing was written, and the binary exits 2 with it.
+/// A binary calls this before it locates a project, with the same `libraries` and `packages` it
+/// hands [`super::refuse_a_foreign_build`] and the same `checker` and `extensions` it hands the
+/// other commands. `Err` is a refusal: nothing was written, and the binary exits 2 with it.
 pub fn init(
-    args: InitArgs,
+    args: InitOptions,
     libraries: &[Library],
     packages: &[&str],
     checker: &[&Path],
@@ -632,9 +659,9 @@ fn ignore_target(
 /// before its first write and is `Err`, exit 2. It edits the manifest with `toml_edit`, which
 /// keeps every byte it does not change, comments included, per
 /// `design@check@component-manifest-edit`.
-pub(super) fn new_component(
+pub fn new_component(
     manifest: &Manifest,
-    args: &NewComponentArgs,
+    dir: &Path,
     checker: &[&Path],
     extensions: &mut [Box<dyn Extension>],
 ) -> Result<ExitCode, String> {
@@ -643,7 +670,7 @@ pub(super) fn new_component(
     let cwd =
         std::env::current_dir().map_err(|e| format!("cannot read the working directory: {e}"))?;
     let root = manifest.root();
-    let rel = component_path(root, &lexical(&cwd.join(&args.dir)))?;
+    let rel = component_path(root, &lexical(&cwd.join(dir)))?;
 
     let path = root.join(MANIFEST_NAME);
     let text = std::fs::read_to_string(&path).map_err(|e| format!("{}: {e}", path.display()))?;
@@ -947,28 +974,6 @@ fn lexical(path: &Path) -> PathBuf {
 #[cfg(test)]
 mod tests {
     use super::*;
-
-    /// The claim: a binary that hands `init` to [`super::super::run`] inside a project gets a
-    /// refusal naming `cli::init`, not a run of anything.
-    #[test]
-    fn run_refuses_init() {
-        let manifest = Manifest::parse(
-            Path::new("/nowhere"),
-            &manifest_text("probe", None, &[]).replace(crate::CHECKER_VERSION, "fixture"),
-        )
-        .expect("the written manifest parses");
-        let args = InitArgs {
-            path: PathBuf::from("."),
-            name: None,
-            command: None,
-            vcs: None,
-            components: Vec::new(),
-            rust: false,
-        };
-        let outcome = super::super::run(super::super::Command::Init(args), &manifest, &[], &mut []);
-        let err = outcome.expect_err("refused");
-        assert!(err.contains("cli::init"), "{err}");
-    }
 
     /// The claim: `.` and `..` fold away without the filesystem.
     #[test]

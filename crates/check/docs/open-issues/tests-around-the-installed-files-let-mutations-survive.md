@@ -17,10 +17,10 @@ Each run with `cargo x mutate run` and a build probe, verdict `SURVIVED`:
 - `repairs` of `path@check@src/agents.rs`: `Outside::Binary` dropped from the unshipped match, so `--fix` keeps a
   binary stray; `if !current` made `if true`, so an ignored current copy is rewritten on every run;
   `Some(Outside::Directory) => {}` made a write; a `Missing` copy no longer restored.
-- `read_tree` of `path@check@src/cli/history.rs`: the read of every installed file under `Source::Index` narrowed to
+- `read_tree` of `path@check@src/commands/history.rs`: the read of every installed file under `Source::Index` narrowed to
   markdown.
-- `install_agent_skills` of `path@check@src/cli/mod.rs`: the import check made `if false`.
-- `finish` of `path@check@src/cli/create.rs`: its `fixed: wrote` line removed.
+- `install_agent_skills` of `path@check@src/commands/mod.rs`: the import check made `if false`.
+- `finish` of `path@check@src/commands/create.rs`: its `fixed: wrote` line removed.
 - `from_listing` of `path@model@src/survey.rs`: a link at an owned path left out of `installed`.
 
 ### Why it matters

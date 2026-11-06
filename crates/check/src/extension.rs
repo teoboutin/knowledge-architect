@@ -3,7 +3,7 @@
 //!
 //! An extension is a set of checks over a subject one project has, such as thaum's rule quotes
 //! verified against a pinned corpus. A binary registers its extensions at compile time and
-//! hands them to [`crate::cli::run`]; `check` calls each one at fixed points of a run.
+//! hands them to the commands of [`crate::commands`]; `check` calls each one at fixed points of a run.
 //! `check` itself knows no extension.
 //!
 //! **Two levels.** An [`Extension`] is configured once per manifest, and prepares one

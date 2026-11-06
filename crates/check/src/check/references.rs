@@ -128,7 +128,7 @@ pub(crate) fn judge(
 /// A commit message is judged against two trees, and the two families combine differently
 /// there, per `design@check@a-commit-message-is-a-document`: a reference finding survives where
 /// both trees refuse it, a lint finding where either tree holds what its span names.
-/// `cli::history` asks for each family apart.
+/// `commands::history` asks for each family apart.
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
 pub(crate) enum Part {
     All,

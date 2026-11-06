@@ -32,7 +32,7 @@ the first run of the design-record axis counted 20, 23, 26 and 31 for the four h
     a target from any ancestor anchor. Its argument, that relocating an anchor edits one manifest
     line, is not the grammar's.
 - `design@check@a-commit-message-is-a-document`, 28 citing sites, 8 of them in
-  `path@check@src/cli/history.rs`. Its title states the first of five decisions:
+  `path@check@src/commands/history.rs`. Its title states the first of five decisions:
   - a message is judged against its own commit's tree, against the working tree;
   - "One command judges messages, after the commit exists", against the rejected alternatives "A
     `commit-msg` hook judging each message before the commit exists" and "A `commit` subcommand

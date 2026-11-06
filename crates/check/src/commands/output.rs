@@ -28,12 +28,12 @@ pub fn write(args: std::fmt::Arguments<'_>) {
 }
 
 macro_rules! out {
-    ($($arg:tt)*) => { $crate::cli::output::write(format_args!($($arg)*)) };
+    ($($arg:tt)*) => { $crate::commands::output::write(format_args!($($arg)*)) };
 }
 
 macro_rules! outln {
-    () => { $crate::cli::output::write(format_args!("\n")) };
-    ($($arg:tt)*) => { $crate::cli::output::write(format_args!("{}\n", format_args!($($arg)*))) };
+    () => { $crate::commands::output::write(format_args!("\n")) };
+    ($($arg:tt)*) => { $crate::commands::output::write(format_args!("{}\n", format_args!($($arg)*))) };
 }
 
 pub(crate) use {out, outln};

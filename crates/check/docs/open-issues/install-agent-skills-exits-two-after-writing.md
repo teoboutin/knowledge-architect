@@ -19,7 +19,7 @@ Reproduced by an adversarial reviewer over a project `init` made, committed:
   the link, and the edited skill rewritten. `install` checks the links of shipped paths before writing, and
   finds a link at an unshipped path only through `owned_on_disk`, after the writes.
 - A stale primer and agent, and `chmod 000` on a stale skill: exit 2, the others rewritten. `install(...)?` in
-  `install_agent_skills` of `path@check@src/cli/mod.rs` drops the list of what was written.
+  `install_agent_skills` of `path@check@src/commands/mod.rs` drops the list of what was written.
 
 ### Why it matters
 

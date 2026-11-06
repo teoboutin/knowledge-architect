@@ -10,7 +10,7 @@ use std::path::{Component, Path, PathBuf};
 use std::process::ExitCode;
 
 use super::output::outln;
-use super::WorklistArgs;
+use super::WorklistMode;
 use crate::graph::{self, Graph, Role};
 use crate::model::table::{Anchors, Candidate, Entities};
 use crate::Manifest;
@@ -36,16 +36,14 @@ const GRADED_ABOVE: &str = "graded above";
 const SEED_MARK: &str = "seed";
 const CITES_SEED_MARK: &str = "cites-seed";
 
-pub(super) fn worklist(
+pub fn worklist(
     manifest: &Manifest,
-    args: &WorklistArgs,
+    mode: &WorklistMode,
     checker: &[&Path],
 ) -> Result<ExitCode, String> {
-    match (&args.out, &args.verify) {
-        (Some(dir), None) => write(manifest, dir, args, checker),
-        (None, Some(dir)) => verify(dir),
-        // clap refuses both and neither, per the arguments' declaration.
-        _ => Err("give exactly one of --out and --verify".to_string()),
+    match mode {
+        WorklistMode::Write { dir, bound, seeds } => write(manifest, dir, *bound, seeds, checker),
+        WorklistMode::Verify { dir } => verify(dir),
     }
 }
 
@@ -57,7 +55,8 @@ pub(super) fn worklist(
 fn write(
     manifest: &Manifest,
     dir: &Path,
-    args: &WorklistArgs,
+    bound: usize,
+    named: &[String],
     checker: &[&Path],
 ) -> Result<ExitCode, String> {
     let model = crate::Model::build(manifest, checker).map_err(|e| e.to_string())?;
@@ -98,7 +97,7 @@ fn write(
         .map(|(i, e)| (e.reference(), i))
         .collect();
     let mut seeds: BTreeSet<usize> = BTreeSet::new();
-    for seed in &args.seeds {
+    for seed in named {
         let reference = seed.trim_matches('`');
         let found = match crate::model::table::candidate(reference, &anchors) {
             Candidate::Reference { .. } => index.get(reference),
@@ -123,7 +122,7 @@ fn write(
         .iter()
         .map(|g| (graph.load(g), g.key.clone()))
         .collect();
-    let packing = graph::pack(&loads, args.bound);
+    let packing = graph::pack(&loads, bound);
     let mut files = render(&graph, &packing.agents, &seeds);
     files.push((
         PathBuf::from(SHOWN_FILE),
@@ -162,14 +161,14 @@ fn write(
                 "notice: the residual entries of {} hold {load} words, above the {}-word bound: \
                  give its issues group subdirectories, or have them cite the heads they concern",
                 group.key.0,
-                args.bound
+                bound
             );
         } else {
             outln!(
                 "notice: the cluster \"{}\" holds {load} words, above the {}-word bound: split its \
                  subject into subjects read apart",
                 group.name,
-                args.bound
+                bound
             );
         }
     }

@@ -5,7 +5,7 @@ kind: todo
 
 ## Summary
 
-`home_text` in `path@check@src/cli/create.rs` writes "No entry yet." into each register home of a
+`home_text` in `path@check@src/commands/create.rs` writes "No entry yet." into each register home of a
 new Component. The sentence stays when the first entry lands, and no check reads it.
 
 ## Details

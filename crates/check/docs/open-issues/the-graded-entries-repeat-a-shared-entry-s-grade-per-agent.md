@@ -14,7 +14,7 @@ reads whole grows with the number of agents.
 
 ### What
 
-`assemble` in `path@check@src/cli/worklist.rs` writes the lines, per
+`assemble` in `path@check@src/commands/worklist.rs` writes the lines, per
 `design@check@graded-entries-assembled`.
 
 Instances:

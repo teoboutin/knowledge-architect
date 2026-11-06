@@ -21,7 +21,7 @@ git missing from the path, a repository git refuses, any fatal error. Its type,
 
 Callers outside the tests, found with `git grep -n 'rev_parse(' crates/`:
 
-- `commits` in `path@check@src/cli/history.rs` asks `rev_parse(root, "<sha>^")` for each commit of
+- `commits` in `path@check@src/commands/history.rs` asks `rev_parse(root, "<sha>^")` for each commit of
   the range, and a `None` means a root commit: no parent model is built, and the commit's message
   references resolve against its own tree alone;
 - `snapshot_entries` in `path@git@src/git.rs` asks `rev_parse(root, "HEAD")` for the index's
