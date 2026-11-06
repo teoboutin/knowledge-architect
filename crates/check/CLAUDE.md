@@ -25,7 +25,7 @@ objects, through `git::snapshot_entries` and the same `cat-file` batch: HEAD's t
 index's changes, or one commit's tree, per `design@check@staged-tree-source`.
 
 **A test that copies a mock project runs `git init` and `git add -A` in the copy**, or the walk
-is empty and the test proves nothing; `Sandbox` in `path@check@tests/binary.rs` does it. Two
+is empty and the test proves nothing; `Sandbox` in `path@cli@tests/binary.rs` does it. Two
 consequences a test about ignore behaviour has to choose between, because the ignore rules act on
 untracked files alone:
 
@@ -55,7 +55,7 @@ run reaches them, the family `agents` apart, which needs a served harness; `unso
 committed file can hold and, behind them, the definition-site defects of phase 3, so a run over
 it stops at phase 2. The phase-2 states no committed fixture can hold — a refused name, a symlink,
 a file deleted or unreadable on disk, a nested repository — are built by the tests of
-`path@check@tests/binary.rs` in a copy; `dirhome` is
+`path@cli@tests/binary.rs` in a copy; `dirhome` is
 conformance, every built-in check running and finding nothing; `minimal` is the walk, the
 exclusions, a location and a declared register; `core` is the smallest conformant project, and
 the tests of the `check` binary's refusal of a table it does not own. **Plant a phase-4 defect in
@@ -71,13 +71,13 @@ listing. A generated file of `planted` is written by hand.
 of the skills, so a mock serving the `claude` harness would need the installed copy of that set,
 and would change with it. `unsound` keeps the default harness, which it never reaches the last phase
 to judge, since a run over it stops at phase 2. A test about the installed set
-declares the harness in its own copy, and imports the primer from its root CLAUDE.md, as `Sandbox::serve_claude` in `path@check@tests/binary.rs` does.
+declares the harness in its own copy, and imports the primer from its root CLAUDE.md, as `Sandbox::serve_claude` in `path@cli@tests/binary.rs` does.
 
 **A test about commit messages builds its own project.** `commits` fails every commit whose tree
 carries a finding, the last one included, so each commit a test makes has a tree with none,
 except the one it plants. `dirhome` is the one mock over which every family runs
 and finds nothing, so a copy of it could serve as a base; `History` in
-`path@check@tests/binary.rs` writes a project out
+`path@cli@tests/binary.rs` writes a project out
 anyway, because each test states the exact findings the commits it makes carry and a mock's
 contents are shared with every other test over it. `History` then configures `user.name` and
 `user.email` in that project's own configuration, and commits. Two orders it has to keep:
@@ -99,7 +99,7 @@ Every other module is private. lib.rs's `#![warn(unreachable_pub)]` refuses a `p
 consumer can reach. So a new item a consumer needs is re-exported where its use belongs, and an
 internal item is `pub(crate)`. A type in a public signature is public too, or the compiler reports
 it. A test that needs a private item is a unit test inside the crate, never a reason to publish it.
-`path@check@tests/extension_api.rs` uses the public paths alone, so an item it uses that the facade
+`path@cli@tests/extension_api.rs` uses the public paths alone, so an item it uses that the facade
 leaves out fails to compile there.
 
 Read `register@check@design` before changing how it works.

@@ -931,7 +931,7 @@ fn init_refuses_a_foreign_build_over_path() {
     let scratch = Scratch::new("foreign");
     git(&scratch.dir, &["init", "-q"]);
     scratch.write(
-        "copy/crates/check/Cargo.toml",
+        "copy/crates/cli/Cargo.toml",
         "[package]\nname = \"knowledge-architect\"\n",
     );
     let (out, err, code) = klarch(&scratch.dir, &["init", "copy", "--name", "copy"]);

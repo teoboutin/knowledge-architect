@@ -48,10 +48,10 @@ The fourth slice of `milestone@plans@component-split`. It leaves when it lands.
   writer's crate documentation and its doctests, and the restatement comment under them, move to
   `cli`'s lib.rs, and `check`'s lib.rs gets its own documentation.
 - The tests that need the binary or name `knowledge_architect` move to `cli`:
-  `path@check@tests/binary.rs` and `path@check@tests/init.rs`, since `cli` is the one package where
-  `CARGO_BIN_EXE_klarch` is set; `path@check@tests/extension_api.rs` and `path@check@tests/public_paths.rs`,
+  `path@cli@tests/binary.rs` and `path@cli@tests/init.rs`, since `cli` is the one package where
+  `CARGO_BIN_EXE_klarch` is set; `path@cli@tests/extension_api.rs` and `path@cli@tests/public_paths.rs`,
   since they drive `cli`'s library and its whole list of public paths. So do `cli_declaration_is_consistent`,
-  `an_unknown_argument_is_refused` and `fix_and_staged_are_refused_together` of `path@check@src/main.rs`,
+  `an_unknown_argument_is_refused` and `fix_and_staged_are_refused_together` of `path@cli@src/main.rs`,
   and `run_refuses_init` of `path@check@src/commands/create.rs`, which calls `run`. Each file reads `check`'s
   fixtures through `check`'s directory: the mock projects, the transcripts and the worklist's reference
   copy, which `cli`'s binary links, so `"fixture"` stays accepted for them. `check` dev-depends on
@@ -92,7 +92,7 @@ The fourth slice of `milestone@plans@component-split`. It leaves when it lands.
 ## Claims
 
 - **An extension written against the published `knowledge-architect` compiles with no change to its
-  imports.** Test: `path@check@tests/extension_api.rs` and `path@check@tests/public_paths.rs`, moved to
+  imports.** Test: `path@cli@tests/extension_api.rs` and `path@cli@tests/public_paths.rs`, moved to
   `cli`'s tests, with no line changed but the paths of their fixtures and the comment on whose test crate
   they are, and `cli::output::write` added to the whole list; shown to discriminate by removing one
   re-export, which fails their build. The mutation names `--build "cargo build -p knowledge-architect"`,

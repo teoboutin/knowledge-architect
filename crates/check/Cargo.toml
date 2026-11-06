@@ -1,7 +1,7 @@
 [package]
-name = "knowledge-architect"
+name = "knowledge-architect-check"
 readme = "CRATES-IO.md"
-description = "Checks a project's documents against the rules of its design record: the walk, the entity table, references, registers and generated indexes."
+description = "Checks a project's documents against the rules of its design record: references, registers and generated indexes, and each command's logic behind a typed API."
 version.workspace = true
 edition.workspace = true
 license.workspace = true
@@ -9,21 +9,9 @@ repository.workspace = true
 keywords.workspace = true
 # What the published package ships, as a whitelist: a new directory is shipped only once it is
 # listed here, so the test fixtures and the design documents never reach the package.
-include = ["/src/**", "/Cargo.toml", "/README.md", "/LICENSE-MIT", "/LICENSE-APACHE", "/CHANGELOG.md"]
-
-# The library is imported as `knowledge_architect`; the binary is `klarch`, short to type, as the
-# default command a project runs.
-[lib]
-path = "src/lib.rs"
-
-[[bin]]
-name = "klarch"
-path = "src/main.rs"
+include = ["/src/**", "/Cargo.toml", "/README.md", "/CRATES-IO.md", "/LICENSE-MIT", "/LICENSE-APACHE", "/CHANGELOG.md"]
 
 [dependencies]
-# `check`'s commands are a library module, so a binary that registers an extension flattens
-# them into its own, per `design@check@the-core-cli-is-a-library-module`.
-clap = { version = "4", features = ["derive"] }
 regex = "1.13.1"
 serde = { version = "1", features = ["derive"] }
 # Reads the session transcripts Claude Code writes as JSON lines, for `transcript`.

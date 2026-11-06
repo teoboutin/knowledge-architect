@@ -84,7 +84,7 @@ fn a_project_written_by_init_rust_builds_and_checks() {
         "\n[patch.crates-io]\nknowledge-architect = {{ path = {:?} }}\n\
          knowledge-architect-gates = {{ path = {:?} }}\n\
          knowledge-architect-mutate = {{ path = {:?} }}\n",
-        workspace.join("crates/check"),
+        workspace.join("crates/cli"),
         workspace.join("crates/gates"),
         workspace.join("crates/mutate"),
     ));

@@ -15,7 +15,7 @@ As D2 of the milestone document rules it:
 - `cli`'s interim re-export of the harness, and `check`'s role module `testing`, removed; a
   Migration entry of the changelog names the new import of an extension's tests.
 - The 36 mock tests of `path@check@src/mock_projects.rs`, and the integrated tests of
-  `path@check@tests/extension_api.rs`, rewritten to drive the crates through their public API, as
+  `path@cli@tests/extension_api.rs`, rewritten to drive the crates through their public API, as
   an extension's test does. A test whose claim no consumer could observe becomes a unit test over a
   model built in memory, per `design@check@model-then-checks`. `mock_projects.rs` holds 5 struct
   literals of `Inputs`, two of them in the shared helpers `findings_with`, which 17 tests reach,
@@ -43,7 +43,7 @@ As D2 of the milestone document rules it:
   `knowledge-architect-testing` included, lists no file under a directory named tests/projects;
   shown to fail by a recorded `include` row naming one.
 - **An extension's tests reach the harness through `knowledge-architect-testing` alone.** Test:
-  the integrated tests of `path@check@tests/extension_api.rs`, moved, import the harness from that
+  the integrated tests of `path@cli@tests/extension_api.rs`, moved, import the harness from that
   crate, and `cli` exposes no `testing` path; shown to fail by a recorded re-export left in `cli`,
   which `cargo tree -p knowledge-architect` then shows as a dependency on `knowledge-architect-testing`.
 - **Every claim the 36 mock tests made is still tested.** Test: the slice's commit lists each old
@@ -60,7 +60,7 @@ states injected by hand, in the vocabulary of the existing ones.
 and `design@check@checker-source-literals-are-data`, with every `rejected` entry they cite.
 
 **A load-bearing point this audit opens a design session on, before any code:** where the tests of
-`cli`, the binary's, `init`'s and `path@check@tests/extension_api.rs`'s, find their fixtures once the mock
+`cli`, the binary's, `init`'s and `path@cli@tests/extension_api.rs`'s, find their fixtures once the mock
 projects move to `testing`. Its constraints, each from the record:
 
 - the binary's tests stay in `cli`, the one package where `CARGO_BIN_EXE_klarch` is set;

@@ -6,7 +6,7 @@
 //! extension prepared. An integration test is compiled as a separate crate, so a public item
 //! this file needs that the facade leaves private is a compile error here.
 
-use std::path::PathBuf;
+use std::path::{Path, PathBuf};
 
 use knowledge_architect::document::Observation;
 use knowledge_architect::extension::{
@@ -14,6 +14,15 @@ use knowledge_architect::extension::{
 };
 use knowledge_architect::testing::{foundation, run_with, CHECKS};
 use knowledge_architect::{cli, Document, Finding, Manifest, Model};
+
+/// The fixtures of `check`'s directory, which this crate's binary links, so `"fixture"` is accepted
+/// for a mock project under it. Resolved, so no path a test prints holds `..`.
+fn check_dir() -> PathBuf {
+    Path::new(env!("CARGO_MANIFEST_DIR"))
+        .join("../check")
+        .canonicalize()
+        .expect("the checker's crate")
+}
 
 /// One check: the first level-1 heading of the root README is reported, at its line.
 #[derive(Default)]
@@ -91,7 +100,7 @@ impl Prepared for Prepared1 {
 
 #[test]
 fn an_extension_written_against_the_public_api_runs_over_a_mock_project() {
-    let root = PathBuf::from(env!("CARGO_MANIFEST_DIR")).join("tests/projects/dirhome");
+    let root = check_dir().join("tests/projects/dirhome");
     let mut manifest = Manifest::load(&root).expect("the mock project's manifest");
     let mut extensions: Vec<Box<dyn Extension>> = vec![Box::new(FirstHeading)];
     configure(&mut manifest, &mut extensions);
@@ -282,10 +291,7 @@ fn git(dir: &std::path::Path, args: &[&str]) {
 fn check_fix_writes_an_extensions_generated_file_and_the_run_passes() {
     let root = std::env::temp_dir().join(format!("ka-fix-extension-{}", std::process::id()));
     let _ = std::fs::remove_dir_all(&root);
-    copy_tree(
-        &PathBuf::from(env!("CARGO_MANIFEST_DIR")).join("tests/projects/dirhome"),
-        &root,
-    );
+    copy_tree(&check_dir().join("tests/projects/dirhome"), &root);
     git(&root, &["init", "-q"]);
     git(&root, &["add", "-A"]);
     let manifest = Manifest::load(&root).expect("the copy's manifest");
@@ -323,10 +329,7 @@ fn check_fix_writes_an_extensions_generated_file_and_the_run_passes() {
 fn check_fix_after_a_write_never_reports_could_not_run() {
     let root = std::env::temp_dir().join(format!("ka-fix-unpreparable-{}", std::process::id()));
     let _ = std::fs::remove_dir_all(&root);
-    copy_tree(
-        &PathBuf::from(env!("CARGO_MANIFEST_DIR")).join("tests/projects/dirhome"),
-        &root,
-    );
+    copy_tree(&check_dir().join("tests/projects/dirhome"), &root);
     git(&root, &["init", "-q"]);
     git(&root, &["add", "-A"]);
     let manifest = Manifest::load(&root).expect("the copy's manifest");
@@ -413,10 +416,7 @@ impl Prepared for NowherePrepared {
 fn check_fix_refuses_a_destination_whose_directory_is_missing() {
     let root = std::env::temp_dir().join(format!("ka-fix-nowhere-{}", std::process::id()));
     let _ = std::fs::remove_dir_all(&root);
-    copy_tree(
-        &PathBuf::from(env!("CARGO_MANIFEST_DIR")).join("tests/projects/dirhome"),
-        &root,
-    );
+    copy_tree(&check_dir().join("tests/projects/dirhome"), &root);
     git(&root, &["init", "-q"]);
     git(&root, &["add", "-A"]);
     let manifest = Manifest::load(&root).expect("the copy's manifest");
@@ -457,13 +457,13 @@ fn a_binary_that_describes_nothing_shows_no_description() {
 /// from the library it links rather than from a manifest of its repository.
 #[test]
 fn a_copied_mock_pinned_to_the_exported_version_is_accepted() {
-    // This test crate is `check`'s own, so its package version is the library's. The refusal
+    // This test crate is the library's own, so its package version is the library's. The refusal
     // reads the constant as well, so without this line a wrong constant would pass.
     assert_eq!(
         knowledge_architect::CHECKER_VERSION,
         env!("CARGO_PKG_VERSION")
     );
-    let mock = PathBuf::from(env!("CARGO_MANIFEST_DIR")).join("tests/projects/core");
+    let mock = check_dir().join("tests/projects/core");
     let text = std::fs::read_to_string(mock.join(knowledge_architect::MANIFEST_NAME))
         .expect("the mock's manifest");
     let root = std::env::temp_dir().join(format!("knowledge-api-version-{}", std::process::id()));
@@ -527,10 +527,7 @@ impl Extension for ListingCheckoutOnly {
 fn check_fix_refuses_when_the_staged_side_cannot_be_computed() {
     let root = std::env::temp_dir().join(format!("ka-fix-no-snapshot-{}", std::process::id()));
     let _ = std::fs::remove_dir_all(&root);
-    copy_tree(
-        &PathBuf::from(env!("CARGO_MANIFEST_DIR")).join("tests/projects/dirhome"),
-        &root,
-    );
+    copy_tree(&check_dir().join("tests/projects/dirhome"), &root);
     git(&root, &["init", "-q"]);
     git(&root, &["add", "-A"]);
     git(
@@ -573,10 +570,7 @@ fn check_fix_refuses_when_the_staged_side_cannot_be_computed() {
 fn index_staged_refuses_a_destination_whose_directory_is_not_staged() {
     let root = std::env::temp_dir().join(format!("ka-index-staged-nowhere-{}", std::process::id()));
     let _ = std::fs::remove_dir_all(&root);
-    copy_tree(
-        &PathBuf::from(env!("CARGO_MANIFEST_DIR")).join("tests/projects/dirhome"),
-        &root,
-    );
+    copy_tree(&check_dir().join("tests/projects/dirhome"), &root);
     git(&root, &["init", "-q"]);
     git(&root, &["add", "-A"]);
     let manifest = Manifest::load(&root).expect("the copy's manifest");

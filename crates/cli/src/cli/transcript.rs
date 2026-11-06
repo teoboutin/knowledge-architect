@@ -1,9 +1,9 @@
 //! The arguments of `transcript`, per `design@check@arguments-parse-through-clap`. Its logic is
-//! [`crate::commands::transcript`].
+//! `knowledge_architect_check::commands::transcript`.
 
 use clap::{Args, Subcommand};
 
-use crate::commands::{ListOptions, SearchOptions, ShowOptions};
+use crate::check::commands::{ListOptions, SearchOptions, ShowOptions};
 
 /// The arguments of `transcript`.
 #[derive(Args)]
@@ -118,7 +118,7 @@ pub struct TranscriptSearchArgs {
     pub json: bool,
 }
 
-impl From<TranscriptVerb> for crate::commands::TranscriptVerb {
+impl From<TranscriptVerb> for crate::check::commands::TranscriptVerb {
     fn from(verb: TranscriptVerb) -> Self {
         match verb {
             TranscriptVerb::List(a) => Self::List(ListOptions {

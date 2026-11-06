@@ -49,7 +49,7 @@ Three smaller gaps came out of the same trial:
   `ExtensionReport` holding the extension's findings alone; it does not name which of the
   extension's own checks wrote each;
 - the rustdoc holds no complete `impl Extension`; the only one is in
-  `path@check@tests/extension_api.rs`, which a reader of the published crate does not see.
+  `path@cli@tests/extension_api.rs`, which a reader of the published crate does not see.
 
 Thaum's extension, the consumer the tripwire names first, was not examined: whether it meets the
 same need, and how it works around it, is `not established`.
