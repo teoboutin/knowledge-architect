@@ -15,7 +15,7 @@ narrow read-only view as the direction, and scheduled no work for it yet.
 ### What
 
 What `Prepared::check` receives is `Model`, `Manifest` and `Inputs`, each through the facade of
-`design@knowledge-architect@api-facade`. That facade offers no anchor, no register and no `Entities`; `model` publishes
+`design@check@the-facade-publishes-what-a-consumer-needs`. That facade offers no anchor, no register and no `Entities`; `model` publishes
 them for the tools over the record, so an extension that adds that crate to its own dependencies can
 name them as they are, though `Inputs::tree` is `check`'s own, so it gathers again through
 `foundation::Gathered` to hand the resolver what it reads. So an extension through the public API of this library cannot ask which Component
@@ -60,7 +60,7 @@ records the instance.
 
 ### Why it matters
 
-It strains `design@knowledge-architect@api-facade`, whose membership leaves an extension nothing to ask these
+It strains `design@check@the-facade-publishes-what-a-consumer-needs`, whose membership leaves an extension nothing to ask these
 questions with. `goal@check@projects-add-their-own-checks` is met "while an extension needs no change to any crate of knowledge-architect and can be built against published versions of them".
 An extension that has to guess membership from paths
 quietly breaks where the manifest says something else, and with it

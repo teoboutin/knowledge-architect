@@ -28,7 +28,7 @@
 //!
 //! The public items are grouped by what a consumer is doing, and each is named below, so this
 //! file is the public surface and moving an item between files changes no public path, per
-//! `rejected@check@module-tree-as-public-api`.
+//! `rejected@knowledge-architect@module-tree-as-public-api`.
 //!
 //! | module | for |
 //! | --- | --- |
@@ -195,7 +195,7 @@ mod facade_tests {
 
     /// The claim: this file names every public module with its body, so the public surface is read
     /// here and is not computed from the module tree, per
-    /// `rejected@check@module-tree-as-public-api`. `unreachable_pub` is silent on both forms it
+    /// `rejected@knowledge-architect@module-tree-as-public-api`. `unreachable_pub` is silent on both forms it
     /// refuses, since each makes the items behind it reachable.
     #[test]
     fn the_facade_publishes_no_module_of_the_tree_and_no_glob() {

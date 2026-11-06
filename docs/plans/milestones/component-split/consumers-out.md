@@ -32,7 +32,7 @@ The fifth slice of `milestone@plans@component-split`. It leaves when it lands.
 
 ## Audit subjects
 
-`design@check@transcript-command-in-core`, rewritten; the heads of
+`design@check@transcript-is-a-command-of-every-binary`, rewritten; the heads of
 `path@check@docs/design/worklist.md`, `path@check@docs/design/transcripts.md` and
 `path@check@docs/design/creating.md`; `design@check@anchors-listing-command`,
 `design@check@one-question-one-command`; `design@check@transcript-directory-resolution`;
@@ -70,7 +70,7 @@ documents, from the table the owner approved.
 
 **`transcript`.** It imports nothing of the checker but the project's root and `git`'s
 `main_worktree_path`, and changes when the harness's transcript format does (#arg-9, corrected at
-the plan's review, #arg-10). `design@check@transcript-command-in-core` rejected a second crate on the
+the plan's review, #arg-10). `design@check@transcript-is-a-command-of-every-binary` rejected a second crate on the
 ground of `rejected@knowledge-architect@single-crate`, which #cli-on-top reversed.
 
 **`create`.** It has its own purpose, tests and 13 heads, counted with
@@ -89,5 +89,5 @@ ground of `rejected@knowledge-architect@single-crate`, which #cli-on-top reverse
 | what | where |
 | --- | --- |
 | #query-crate | `query`'s design home: the worklist heads and those of the commands it holds |
-| #transcript-crate | `transcript`'s design home: the transcript heads, and the successor of `design@check@transcript-command-in-core` under a new slug, its part saying that the reader is a crate of its own that `cli` depends on in the root's design home, per the milestone document's harvest |
+| #transcript-crate | `transcript`'s design home: the transcript heads, and the successor of `design@check@transcript-is-a-command-of-every-binary` under a new slug, its part saying that the reader is a crate of its own that `cli` depends on in the root's design home, per the milestone document's harvest |
 | #create-crate | `create`'s design home: the heads of creating |

@@ -62,7 +62,7 @@ The fourth slice of `milestone@plans@component-split`. It leaves when it lands.
 - `path@check@README.md` is split. `cli`'s takes installing, the usage of each command and the exit
   codes, with the outcome each command maps to each code. `check`'s keeps the rules a project's
   documents are checked by, so `skill@knowledge-architect-project-audit`'s lens, which reads the README
-  that ships in the checker's package, still finds them, and no installed text changes. Both packages
+  that ships in the checker's package, still finds them, the lens naming that package. Both packages
   state the four conditions of a target project, the asks and the limit of the guarantee.
   `path@check@CRATES-IO.md` moves to `cli`, and `check` gets a short page of its own, which installs no
   binary.
@@ -89,7 +89,7 @@ The fourth slice of `milestone@plans@component-split`. It leaves when it lands.
   successor; `rejected@knowledge-architect@single-crate` leaves the design home of `check` in the same change. It states
   that `cli` sits above every crate that contributes a command, and leaves which crates `check` may depend
   on to `issue@knowledge-architect@the-checker-may-depend-on-every-crate-below-it`. The sentence of
-  `design@check@transcript-command-in-core` that argues from `rejected@knowledge-architect@single-crate` is rewritten in the same
+  `design@check@transcript-is-a-command-of-every-binary` that argues from `rejected@knowledge-architect@single-crate` is rewritten in the same
   change, so no citation dangles, and #consumers-out moves the rest of that head.
 
 ## Claims
@@ -127,7 +127,7 @@ The fourth slice of `milestone@plans@component-split`. It leaves when it lands.
 `design@check@nothing-of-a-project-is-compiled-in`, `design@check@declared-command`,
 `design@knowledge-architect@api-facade`, `design@check@inputs-are-gathered`,
 `design@check@an-extension-plugs-in-through-phased-hooks`,
-`design@check@an-extension-claims-its-manifest-tables`, `design@check@transcript-command-in-core`;
+`design@check@an-extension-claims-its-manifest-tables`, `design@check@transcript-is-a-command-of-every-binary`;
 `design@gates@the-library-owns-the-flags`, whose rule stays and whose clause "as it is of `check`'s" is
 rewritten; `design@mutate@report-not-gate`, whose clause on `check`'s commands is rewritten;
 `design@knowledge-architect@no-component-directory-named-after-the-project`;
@@ -142,7 +142,7 @@ closed by the revision of the rules on Components, gave this slice its successor
 **No change of this slice sets what every commit's tree must pass**, as the milestone document's "How
 the work is done" asks each audit to state. The tip's list of the tool's own directories only grows by
 crates/cli, which no earlier tree holds, and crates/check stays on it. `commits` compares no installed file
-on a commit's tree, per `design@check@only-check-compares-installed-files`, and no shipped byte changes.
+on a commit's tree, per `design@check@only-check-compares-installed-files`, so a shipped byte that changes fails none.
 `cargo klarch commits` on the branch confirms it. Steps 2 and 3 land as one commit, since the binary's
 tests compile nowhere between them.
 
@@ -232,9 +232,9 @@ subject stays, with only its false sentences rewritten. Slugs are written beside
 | --- | --- |
 | `thread@component-split@cli-crate` | the successor of `rejected@knowledge-architect@single-crate` in the root's design home, under the slug of this thread, and the reversed decision judged for the `rejected` home by `skill@knowledge-architect-decision-recording@reversal-check`; a head of its own for `cli` keeping the package name, whose rival is a new name with changed imports |
 | moved to `cli`'s design home | `design@cli@the-commands-are-a-library-module` under a new slug, `design@cli@arguments-parse-through-clap`, `design@cli@exit-code-ladder`, `design@cli@binary-name` with `rejected@cli@binary-named-after-package` |
-| staying in `check`, each false sentence rewritten | `design@check@a-foreign-build-is-refused`, for "`check`'s binary does this in" a test file that moves; `design@check@installed-binary-version-check`, whose rule stays, read as a move of nothing; `design@check@checker-source-literals-are-data`, for the directories a binary hands the walk; `design@check@nothing-of-a-project-is-compiled-in`, whose items are stated by rule, so only its pointers change; `design@check@declared-command`, `design@check@an-extension-plugs-in-through-phased-hooks` and `design@check@an-extension-claims-its-manifest-tables`, each for "`check`'s binary"; `design@check@inputs-are-gathered`, for "`check`'s command module"; `design@knowledge-architect@api-facade`, for its `cli` row and the facade that now spans two crates; `design@check@transcript-command-in-core`, as Builds says |
+| staying in `check`, each false sentence rewritten | `design@check@a-foreign-build-is-refused`, for "`check`'s binary does this in" a test file that moves; `design@check@installed-binary-version-check`, whose rule stays, read as a move of nothing; `design@check@checker-source-literals-are-data`, for the directories a binary hands the walk; `design@check@nothing-of-a-project-is-compiled-in`, whose items are stated by rule, so only its pointers change; `design@check@declared-command`, `design@check@an-extension-plugs-in-through-phased-hooks` and `design@check@an-extension-claims-its-manifest-tables`, each for "`check`'s binary"; `design@check@inputs-are-gathered`, for "`check`'s command module"; `design@check@the-facade-publishes-what-a-consumer-needs`, for its `cli` row, split from `design@knowledge-architect@api-facade`, which moves to the root since it holds of two crates; `design@check@transcript-is-a-command-of-every-binary`, as Builds says |
 | clauses of other Components | `design@gates@the-library-owns-the-flags`, `design@mutate@report-not-gate`, `design@knowledge-architect@no-component-directory-named-after-the-project`, `design@agent-skills@xtask-pins-checker`, `design@xtask@one-module-per-subcommand` with `path@xtask@README.md` and the comment of `path@xtask@Cargo.toml`, each rewritten where it names `check`'s library for what is now `cli`'s |
 | `thread@component-split@command-parsing-home` | `cli`'s head on its parsing, under the slug of this thread, and the two heads of `register@agent-skills@design` on the top-level binary crate and on the crate nearest the binaries that parses a command, which the component-creation skill states alone today in two comment lines, `cli`'s head citing them; both comment lines then cut to a citation of their head, with no installed byte changed; `design@cli@arguments-parse-through-clap` rewritten; `design@check@fix-with-staged` rewritten, the rule being `check`'s type that `cli` spells, and its quotation of the owner converted to an attribution that keeps its hedge, per `design@agent-skills@attribution-replaces-quotation`; P2 judged as a losing alternative |
 | issues | `issue@knowledge-architect@the-skill-bundling-passes-are-tied-to-this-project-s-skills`, whose "the install lives in `check`, and it is not public API" turns false for the command's entry; the issues Builds names; those `cargo klarch check` reports, re-pointed |
-| D5 | its shape in `cli`'s head on its parsing, in the weak form |
+| D5 | `design@check@a-typed-command-prints-and-returns-its-code`, in the weak form |
 | premortem C3 | its claim above |

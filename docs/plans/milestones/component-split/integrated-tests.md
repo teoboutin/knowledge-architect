@@ -22,7 +22,7 @@ As D2 of the milestone document rules it:
   through `findings` and `one` too, and `phase_two`, which 1 test reaches, counted by matching each
   `#[test]` body for `findings_with(`, `findings()`, `one("` and `phase_two()`; two literals inject a state, an empty map of committed files: each of those becomes
   a mock project whose tree holds no committed generated file, or a unit test.
-- `design@knowledge-architect@api-facade` rewritten: its sentence "A test that needs a private item is a unit-test
+- `design@check@the-facade-publishes-what-a-consumer-needs` rewritten: its sentence "A test that needs a private item is a unit-test
   module inside the crate" gives way to the guideline of the code-shape fragment; its bullet
   "Nothing becomes public for the core's own tests" stays: an item becomes public because a
   consumer needs it, which an integrated test can show. Its restatement in the crate's CLAUDE.md is
@@ -56,7 +56,7 @@ states injected by hand, in the vocabulary of the existing ones.
 
 ## Audit subjects
 
-`design@knowledge-architect@api-facade`, `design@check@inputs-are-gathered`; `design@check@checked-sentinel-values`
+`design@check@the-facade-publishes-what-a-consumer-needs`, `design@check@inputs-are-gathered`; `design@check@checked-sentinel-values`
 and `design@check@checker-source-literals-are-data`, with every `rejected` entry they cite.
 
 **A load-bearing point this audit opens a design session on, before any code:** where the tests of
@@ -116,7 +116,7 @@ kept as a unit-test module, is a losing alternative of the milestone document.
 
 1. Create `testing` with the harness and no test: the mechanism alone.
 2. Move the fixtures and rewrite the mock tests, the two that inject a state last.
-3. Rewrite `design@knowledge-architect@api-facade` and `design@check@inputs-are-gathered`.
+3. Rewrite `design@check@the-facade-publishes-what-a-consumer-needs` and `design@check@inputs-are-gathered`.
 4. The report on #a1-no-check-below-the-tools, the judgement of C4 and C8; the harvest; the
    deletion of this spec, and of the milestone document.
 
@@ -124,5 +124,5 @@ kept as a unit-test module, is a losing alternative of the milestone document.
 
 | what | where |
 | --- | --- |
-| #testing-crate | `testing`'s design home; `design@knowledge-architect@api-facade` and `design@check@inputs-are-gathered` rewritten |
+| #testing-crate | `testing`'s design home; `design@check@the-facade-publishes-what-a-consumer-needs` and `design@check@inputs-are-gathered` rewritten |
 | the harness kept in `check` and re-exported by `cli`, D2's losing shape | judged by `skill@knowledge-architect-decision-recording@losing-alternatives`; it changed the import path extension writers use, an interface others consume |

@@ -218,7 +218,7 @@ Outside this work, each with what owns it:
   flattens no command of `gates`, and `gates` keeps its flags;
 - `design@cli@exit-code-ladder`, `design@cli@binary-name`, `design@check@one-question-one-command`,
   `design@check@ne-minimal`;
-- `rejected@check@module-tree-as-public-api`, `rejected@check@doc-hidden-test-items`,
+- `rejected@knowledge-architect@module-tree-as-public-api`, `rejected@check@doc-hidden-test-items`,
   `rejected@check@testing-feature-for-test-items`, `rejected@check@inputs-struct-literal`,
   `rejected@check@unit-tests-moved-under-tests`: none comes back; each new crate has a facade.
 
@@ -232,8 +232,8 @@ Outside this work, each with what owns it:
 | `design@knowledge-architect@installed-text-crate` | #git-out, rewritten in a form each later slice keeps true, under this slug, since the head's earlier slug said two crates | none |
 | `design@cli@the-commands-are-a-library-module` | #cli-on-top, moved to `cli` under a new slug, since it no longer names the core | `path@agent-skills@docs/design/project-configuration.md`, `path@check@docs/design/extensions-and-api.md`, `path@check@docs/design/run-model.md`, `path@check@docs/design/transcripts.md`, `path@check@README.md`, `path@check@src/commands/create.rs`, `path@check@src/commands/mod.rs`, `path@cli@src/main.rs`, `path@cli@tests/binary.rs` |
 | `design@cli@arguments-parse-through-clap` | #cli-on-top | `path@check@docs/design/creating.md`, `path@check@docs/design/generated-files-and-fixes.md`, `path@check@docs/design/run-model.md`, `path@check@docs/open-issues/manifest-table-exposes-the-toml-crate.md`, `path@check@src/commands/mod.rs`, `path@cli@src/main.rs`, `register@xtask@design` |
-| `design@check@transcript-command-in-core` | #cli-on-top, for the sentence that argues from `rejected@knowledge-architect@single-crate`; #consumers-out, its successor under a new slug in `transcript`, the part saying that the reader is a crate of its own that `cli` depends on in the root's design home | none |
-| `design@knowledge-architect@api-facade` | #cli-on-top, for its `cli` row and the facade over two crates; #integrated-tests; each slice writes its crate's facade | `path@check@CLAUDE.md`, `path@check@docs/design/transcripts.md`, `path@check@docs/open-issues/an-extension-cannot-see-which-register-a-document-belongs-to.md`, `path@check@docs/open-issues/manifest-table-exposes-the-toml-crate.md`, `register@check@tripwire`, `path@check@src/lib.rs` |
+| `design@check@transcript-is-a-command-of-every-binary` | #cli-on-top, for the sentence that argues from `rejected@knowledge-architect@single-crate`; #consumers-out, its successor under a new slug in `transcript`, the part saying that the reader is a crate of its own that `cli` depends on in the root's design home | none |
+| `design@knowledge-architect@api-facade`, and `design@check@the-facade-publishes-what-a-consumer-needs` which it split from | #cli-on-top, for the facade over two crates; #integrated-tests; each slice writes its crate's facade | `path@check@CLAUDE.md`, `path@check@docs/design/transcripts.md`, `path@check@docs/open-issues/an-extension-cannot-see-which-register-a-document-belongs-to.md`, `path@check@docs/open-issues/manifest-table-exposes-the-toml-crate.md`, `register@check@tripwire`, `path@check@src/lib.rs` |
 | `design@check@phases-gate-the-report` | #model-out (the foundation), #check-renamed (the phase table) | `path@agent-skills@docs/open-issues/audit-axes-beyond-the-design-record.md`, `path@agent-skills@docs/open-issues/the-claim-check-of-a-commit-message-is-read-at-the-start-and-needed-at-each-commit.md`, `path@check@CLAUDE.md`, `path@check@docs/design/agent-configuration.md`, `path@check@docs/design/creating.md`, `path@check@docs/design/entities-and-headings.md`, `path@check@docs/design/extensions-and-api.md`, `path@check@docs/design/generated-files-and-fixes.md`, `path@check@docs/design/git-and-the-walk.md`, `path@check@docs/design/registers.md`, `path@check@docs/design/run-model.md`, `path@check@docs/design/worklist.md`, `register@check@tripwire`, `path@check@README.md`, `path@check@src/commands/create.rs`, `path@check@src/commands/mod.rs`, `path@check@src/commands/worklist.rs`, `spec@plans@path-quickfixes` |
 | `design@check@owned-namespace-check` | #check-renamed, split by the rule of one decision per head | `path@knowledge-architect@CLAUDE.md`, `path@agent-skills@docs/design/project-configuration.md`, `register@agent-skills@design`, `path@agent-skills@docs/design/retrospective.md`, `path@agent-skills@docs/design/shipped-set.md`, `path@agent-skills@docs/open-issues/patching-an-installed-skill.md`, `path@check@docs/design/agent-configuration.md`, `path@check@docs/design/creating.md`, `path@check@docs/design/generated-files-and-fixes.md`, `path@check@docs/design/git-and-the-walk.md`, `path@check@docs/design/run-model.md`, `path@check@docs/open-issues/a-project-workflow-can-declare-an-installed-workflow-s-name.md`, `path@check@docs/open-issues/core-heads-bundle-decisions-with-many-citing-sites.md`, `register@check@rejected`, `path@check@README.md`, `path@check@src/agents.rs`, `path@elsewhere@crates/core/src/check/agents.rs`, `path@check@src/check/mod.rs`, `path@check@src/commands/history.rs`, `path@check@src/commands/mod.rs`, `path@elsewhere@crates/core/src/manifest.rs`, `path@check@src/mock_projects.rs`, `path@elsewhere@crates/core/src/survey.rs`, `path@elsewhere@crates/core/src/walk.rs`, `path@cli@tests/binary.rs`, `register@knowledge-architect@design`, `path@knowledge-architect@docs/open-issues/the-skill-bundling-passes-are-tied-to-this-project-s-skills.md`, `spec@plans@path-quickfixes` |
 | `design@check@fix-before-the-checks` | #check-renamed | `path@check@docs/design/run-model.md`, `path@check@README.md`, `path@check@src/commands/mod.rs`, `path@cli@tests/binary.rs`, `spec@plans@path-quickfixes` |
@@ -257,7 +257,7 @@ only `knowledge-architect`, and cargo fetches the other. The two are published t
 rewrote it, as `design@knowledge-architect@installed-text-crate`, in a form the later slices keep
 true: the installed text lives in its own crate, which the crate holding the installed-file check depends on by path and by exact version, a user names
 only `knowledge-architect`, cargo fetches every other crate, and all are published together at one
-version. The bundling work rewrites it again. `design@check@transcript-command-in-core` is rewritten
+version. The bundling work rewrites it again. `design@check@transcript-is-a-command-of-every-binary` is rewritten
 at #consumers-out: its argument from `rejected@knowledge-architect@single-crate` falls with that head. Each row's
 slice writes the rewrite into its harvest.
 
@@ -511,7 +511,7 @@ name and re-exports the extension API, #model-crate's phase-1 contribution, and 
 
 ### No rejected design of the facade comes back `##no-rejected-facade`
 
-Binding as a presumption, from `rejected@check@module-tree-as-public-api`,
+Binding as a presumption, from `rejected@knowledge-architect@module-tree-as-public-api`,
 `rejected@check@doc-hidden-test-items`, `rejected@check@testing-feature-for-test-items` and
 `rejected@check@inputs-struct-literal`. Met by each new crate's facade, and by #testing-crate's
 integrated tests through the public API.
@@ -644,7 +644,7 @@ multiple crates that need them, or crates reaching into mock projects of others.
 reopened on that finding and closed by the owner's choice at D2, between the two shapes that
 remove the cycle. Shape:
 `spec@component-split@integrated-tests`. Harvest: the `testing` Component's design home;
-`design@knowledge-architect@api-facade`, rewritten.
+`design@check@the-facade-publishes-what-a-consumer-needs`, rewritten.
 
 ### No intermediate Component groups the new Components `##no-intermediate-component`
 
@@ -1330,7 +1330,7 @@ R5, the session. Threads: #model-crate, #testing-crate, #test-component-public-a
 
 R5, the session. Threads: #model-crate (premortem C1).
 
-"`check`, `query` and `render` need so many `model` internals that `model`'s public API becomes its module tree, which brings back `rejected@check@module-tree-as-public-api`" / caught by "`model`'s lib.rs is a facade of role modules under `unreachable_pub`"
+"`check`, `query` and `render` need so many `model` internals that `model`'s public API becomes its module tree, which brings back `rejected@knowledge-architect@module-tree-as-public-api`" / caught by "`model`'s lib.rs is a facade of role modules under `unreachable_pub`"
 
 ### A 'query' command needs phase-4 output, so 'query' depends on 'check' `##arg-112`
 
@@ -1510,7 +1510,7 @@ Assume the split shipped and failed:
 
 | cause | thread it stresses | verdict |
 | --- | --- | --- |
-| C1: `check`, `query` and `render` need so many `model` internals that `model`'s public API becomes its module tree, `rejected@check@module-tree-as-public-api` back | #model-crate | a claim of #model-out: `model`'s lib.rs is a facade of role modules under `unreachable_pub` |
+| C1: `check`, `query` and `render` need so many `model` internals that `model`'s public API becomes its module tree, `rejected@knowledge-architect@module-tree-as-public-api` back | #model-crate | a claim of #model-out: `model`'s lib.rs is a facade of role modules under `unreachable_pub` |
 | C2: a `query` command needs phase-4 output, so `query` depends on `check` | #query-crate, #model-crate | an acceptance criterion, #a1-no-check-below-the-tools; the session found one such case while writing these documents, the `model` command, which the mapping table keeps in `check`, and a second at the plan's review, `complete_working_tree`, which the mapping table gives to `model` |
 | C3: a rule stated in a domain type and in the clap declaration drift apart, so an invalid combination passes clap and is refused later, or with another exit code | #command-parsing-home | a claim of #cli-on-top: `cli` maps every refusal by a domain's options to exit 2 before any work, one test per refusal |
 | C4: `rewrite`'s write side needs an environment the git heads say every invocation drops or keeps, such as a temporary `GIT_INDEX_FILE` | #git-crate | named as a cause; the port meets it as a request of its own design, so no tripwire |

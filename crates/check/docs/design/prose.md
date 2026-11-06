@@ -78,7 +78,7 @@ crate to another relative path is not seen, and runs, unless the build is tied t
 holding an unrelated crate of the same name at the same relative path, one component long or
 more, is taken for a copy, and refused; a binary run through an alias that builds it from the
 checkout never meets one. A crate at a checkout's root is not tried, since the empty run would refuse every project whose
-root package shares a name with a linked crate, so a second checkout of a project whose extension crate is its root runs. The third comes from where the check lives: it is part of the binary it judges, so a binary
+root package shares a name with a linked crate, so a second checkout of a project whose extension crate is its root runs. The fourth comes from where the check lives: it is part of the binary it judges, so a binary
 built from a checkout older than the refusal, or from one that changed it, runs unrefused.
 
 **The refusal, not a correction of the paths.** Finding the directories at run time would exempt

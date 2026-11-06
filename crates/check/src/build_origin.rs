@@ -37,9 +37,10 @@ pub struct Library {
 /// Both sides are canonicalised before they are compared, so a tree reached through a symlink
 /// is not its own copy.
 ///
-/// Two limits follow from reading only names and places. A checkout that moved the crate to
+/// Three limits follow from reading only names and places. A checkout that moved the crate to
 /// another relative path is not seen. A tree holding an unrelated crate of the same name at the
-/// same relative path is taken for a copy.
+/// same relative path is taken for a copy. A copy at the tree's root is not tried, as the comment
+/// below says.
 pub(crate) fn foreign_copy(root: &Path, libraries: &[Library]) -> Option<(Library, PathBuf)> {
     let canonical = |p: &Path| p.canonicalize().unwrap_or_else(|_| p.to_path_buf());
     let root = canonical(root);
