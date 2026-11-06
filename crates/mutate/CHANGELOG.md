@@ -10,6 +10,9 @@ an empty subsection is omitted.
 
 ### Migration
 
+- `library`, major: `cli::run` refuses a value of `cli::CheckArgs` that sets both `fix` and `staged`, and a
+  value of `cli::WorklistArgs` that sets a bound or a seed beside `verify`, as the command line does. Before, a
+  value built by hand with both of the first ran as `fix`. A binary that builds no such value changes nothing.
 - `checks`, patch: the findings on the installed agent files, one missing, differing or unshipped, a
   deletion of one not staged, and a root CLAUDE.md that does not import the primer, no longer stop a
   run in phase 2: the last phase reports them, beside every other finding, in a check named `agents`
@@ -62,6 +65,9 @@ an empty subsection is omitted.
 
 ### New features
 
+- `library`, minor: the package `knowledge-architect-check` holds the checks and each command's logic as a typed
+  function, with no clap in it, in its module `commands`. A project keeps naming `knowledge-architect`, whose every
+  public path stays, and which still holds the binary `klarch`.
 - `library`, minor: the package `knowledge-architect-model` holds what knowledge-architect reads of
   a project, the manifest, the walk, the parse, the entity table, phases 1 to 3 and the resolver, for a
   tool that needs them and no check. Every public path of `knowledge-architect` stays. `Model` and

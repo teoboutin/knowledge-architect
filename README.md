@@ -24,7 +24,7 @@ The version is 0.9.0, published on crates.io. The project stays at
 ## Using the checker
 
 The checker's commands, its manifest and its exit codes are described in
-`path@check@README.md`. In short, from inside a project whose root holds a
+`path@cli@README.md`. In short, from inside a project whose root holds a
 `knowledge-architect.toml`:
 
 ```sh

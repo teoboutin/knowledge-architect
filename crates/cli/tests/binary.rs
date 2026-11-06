@@ -7271,3 +7271,74 @@ fn transcript_the_gap_request_names_what_it_covers() {
     assert!(stdout.contains("# no line carries a field in"), "{stdout}");
     assert!(!stdout.contains("gap"), "{stdout}");
 }
+
+/// The claim: `klarch` lists the checker's library among those it links, so a copy of it at another
+/// path than the binary's is refused, and the refusal names its package.
+#[test]
+fn a_copy_of_the_checker_s_library_is_refused() {
+    let sandbox = Sandbox::seeded(
+        "foreign-check",
+        "minimal",
+        &[(
+            "crates/check/Cargo.toml",
+            "[package]\nname = \"knowledge-architect-check\"\n",
+        )],
+    );
+    let (out, stderr, code) = sandbox.run(&["issues"]);
+    assert_eq!(code, 2, "{out}{stderr}");
+    assert!(
+        stderr.contains("its `knowledge-architect-check` was compiled"),
+        "{stderr}"
+    );
+}
+
+/// The claim of a refused combination: exit 2, before any work, in a tree left as it was and with
+/// no directory an argument names created. Each combination is a test of its own.
+fn refused_with_an_untouched_tree(tag: &str, args: &[&str]) {
+    let sandbox = Sandbox::new(tag, "minimal");
+    let status = || {
+        let out = sandbox
+            .git_command(&["status", "--porcelain", "--ignored"])
+            .output()
+            .expect("git status");
+        String::from_utf8_lossy(&out.stdout).into_owned()
+    };
+    let before = status();
+    let (out, stderr, code) = sandbox.run(args);
+    assert_eq!(code, 2, "{args:?}: {out}{stderr}");
+    assert_eq!(status(), before, "{args:?} touched the tree");
+}
+
+#[test]
+fn check_fix_with_staged_is_refused_in_a_tree_it_leaves_as_it_was() {
+    refused_with_an_untouched_tree("refused-fix-staged", &["check", "--fix", "--staged"]);
+}
+
+#[test]
+fn worklist_out_with_verify_is_refused() {
+    refused_with_an_untouched_tree(
+        "refused-out-verify",
+        &["worklist", "--out", "made", "--verify", "made"],
+    );
+}
+
+#[test]
+fn worklist_with_neither_out_nor_verify_is_refused() {
+    refused_with_an_untouched_tree("refused-worklist-neither", &["worklist"]);
+}
+
+#[test]
+fn worklist_verify_with_a_bound_is_refused() {
+    refused_with_an_untouched_tree(
+        "refused-verify-bound",
+        &["worklist", "--verify", "made", "--bound", "5"],
+    );
+}
+
+#[test]
+fn worklist_verify_with_a_seed_is_refused() {
+    refused_with_an_untouched_tree(
+        "refused-verify-seed",
+        &["worklist", "--verify", "made", "--seed", "design@a-b@c-d"],
+    );
+}
