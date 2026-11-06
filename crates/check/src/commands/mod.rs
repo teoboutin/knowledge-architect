@@ -493,7 +493,8 @@ fn check_working(
 ///
 /// Each file written or removed is listed before the report, so a session sees what to commit.
 /// A failed write exits 2 when nothing was written yet and 1 after any write, as `index` does:
-/// 2 promises a caller that the tree is as they left it.
+/// here 2 promises a caller that the tree is as they left it. `worklist --out` and
+/// `install-agent-skills` make no such promise, per `path@cli@README.md`.
 pub(super) fn fix_then_check(
     manifest: &Manifest,
     checker: &[&Path],
@@ -774,7 +775,7 @@ fn index_working(
         }
         if let Err(e) = std::fs::write(&path, &text) {
             eprintln!("error: {}: {e}", path.display());
-            // Once anything has been written the run is no longer a could-not-run, and 2
+            // Once anything has been written the run is no longer a could-not-run, and here 2
             // promises a caller that the tree is as they left it. The checks above catch the
             // reachable causes; a permission or device failure between them and here is what
             // this arm is for.

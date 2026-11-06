@@ -7307,6 +7307,11 @@ fn refused_with_an_untouched_tree(tag: &str, args: &[&str]) {
     let (out, stderr, code) = sandbox.run(args);
     assert_eq!(code, 2, "{args:?}: {out}{stderr}");
     assert_eq!(status(), before, "{args:?} touched the tree");
+    // git lists no empty directory, so the status alone would miss one an argument names.
+    assert!(
+        !sandbox.path("made").exists(),
+        "{args:?} created a directory"
+    );
 }
 
 #[test]
@@ -7367,7 +7372,8 @@ fn leaves(command: &clap::Command, path: Vec<String>, out: &mut Vec<Vec<String>>
     }
 }
 
-/// The claim, over every command the declaration holds, a future one included: an argument the command does not declare is exit 2, and the
+/// The claim of `goal@cli@a-refused-invocation-does-no-work`, over every command the declaration
+/// holds, a future one included: an argument the command does not declare is exit 2, and the
 /// project is left as it was.
 #[test]
 fn every_command_refuses_an_argument_it_does_not_declare() {
