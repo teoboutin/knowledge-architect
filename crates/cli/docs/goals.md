@@ -12,7 +12,7 @@ It is met while each other tool is a command of that program, and no command of 
 
 - Requires, for instance: a new tool that searches the record is a command of that program; so is one that reads the agent harness's session transcripts.
 - Admits, for instance: a tool also offered as a library function; a library with no command of its own that the program links; a project's own command, in a program of its own; a task only this repository's own tooling performs, which is published to nobody; a command rewriting history that runs a command its caller names at each commit.
-- Rules out, for instance: a second program a project must install to consult its record; a command of that program that picks and runs the project's tests.
+- Rules out, for instance: a second program a project must install to consult its record; a command of that program that picks and runs the project's tests; a command that runs the project's tests because a setting names them, with no name on the invocation.
 
 ## That program's command line is declared in one place, apart from what its tools do `##one-home-for-the-command-line`
 
@@ -20,7 +20,7 @@ It is met while each other tool is a command of that program, and no command of 
 
 It is met while no crate that program links, `cli` apart, declares a command's arguments, and a check of any other value that needs only the value is made while parsing, which a look at the declarations shows.
 
-- Requires, for instance: a new command's arguments are declared in `cli`; a date an argument takes is checked while parsing.
+- Requires, for instance: a new command's arguments are declared in `cli`; a date an argument takes is checked while parsing; so is a regular expression an argument takes, and the form of the name of a project a command creates.
 - Admits, for instance: a tool outside that program keeping its own parsing; a rule the tool's own type holds, which the declaration spells; a command in `cli` that composes two crates' functions; a crate that program links using a parser privately.
 - Rules out, for instance: a crate that program links deriving its own commands' arguments for `cli` to flatten.
 
