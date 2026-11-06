@@ -20,7 +20,7 @@ has landed in the installed text and in `register@agent-skills@design`.
   defect of the plan document.
 - Every name it uses is defined under Names or New names, or exists in the tree.
 - Where the owner's word is awaited, `skill@knowledge-architect-planning@working-a-slice` says what
-  waits. Its defaults, D1, D2, D3, D4 and D5, are ruled; D6 to D10 await the owner.
+  waits. Its defaults, D1 to D10, are ruled.
 
 ## How the work is done
 
@@ -1612,7 +1612,7 @@ fire by a scratch dependency of `query` on `check`, which the command lists. The
   return data should be recorded in issues." Recorded in
   `issue@knowledge-architect@a-typed-command-prints-and-exits-rather-than-returning-data`.
 
-- **D6, on #create-crate**: what `init` does with a file of the installer's namespace it removes, the occasion
+- **D6, on #create-crate, ruled**: what `init` does with a file of the installer's namespace it removes, the occasion
   `issue@create@init-outside-a-worktree-deletes-an-owned-file-silently` gives this audit. Three shapes. The default:
   `finish` lists each deletion, `fixed: removed <path> (installed)`, as `check --fix` does, which keeps
   `design@create@init-asks-no-confirmation` and `design@create@init-runs-git-init` as they stand, since the first already
@@ -1621,21 +1621,24 @@ fire by a scratch dependency of `query` on `check`, which the command lists. The
   refuses such a file before the first write, which loses nothing, and refuses an existing project that holds one. The third
   refuses outside every worktree whatever the directory holds, `rejected@create@init-refused-outside-a-repository-root`,
   which refuses `--vcs none` whole and turns the table of the second head around. No goal ranks them. The issue's reach is
-  wider than its title: `--vcs git` over a directory holding files removes the same file with `fixed: removed` and no copy.
-- **D7, on #query-crate**: whether phases 2 and 3 run inside `Model::build`, which
+  wider than its title: `--vcs git` over a directory holding files removes the same file with `fixed: removed` and no copy. The owner:
+  "D6 to d10 accepted.", then, at the goals of `create`: "I accepted D6 to avoid widening the scope of change, but I think it would be better
+  to refuse to write here." So this branch keeps the listing, the goal #a-project-adopts-by-one-command states the refusal, and
+  `issue@create@init-outside-a-worktree-deletes-an-owned-file-silently` holds the work.
+- **D7, on #query-crate, ruled**: whether phases 2 and 3 run inside `Model::build`, which
   `issue@model@the-structural-findings-might-be-checked-at-scan-time` asks at this audit. The default: no change at this
   slice, and the issue stays open with its occasion rewritten, since the owner stated the belief without asking for a
   change at this slice, and running them in the build would gate `show`, `issues` and `tripwires`, which answer over a tree
   the checks stop on, against `design@check@phases-gate-the-report` and this slice's claim of the same output.
-- **D8, on #query-crate**: what a tool that links no check does over a project with an extension, which
-  `issue@model@a-tool-over-the-model-reads-a-project-with-an-extension-otherwise-than-the-checker` asks at this audit. The
+- **D8, on #query-crate, ruled**: what a tool that links no check does over a project with an extension, which
+  `a-tool-over-the-model-reads-a-project-with-an-extension-otherwise-than-the-checker` asks at this audit. The
   default: `query`'s functions take a manifest as `check`'s do, its documentation states that the caller configures it, and
   `cli::run` keeps configuring it, so `klarch` and an extension's binary change nothing, which a test over an extension's table
   holds. The library names neither a pin nor an extension's table as what `goal@model@a-tool-knows-the-read-is-right` asks,
   since that goal's list does not name them; so a tool linking `query` with no `cli` reads such a project as the issue
   says, and the issue closes on this ruling. The rival: a type only `extension::configure` returns, in `model`, which each
   command takes, the lead of `issue@knowledge-architect@a-typed-command-trusts-its-caller-to-have-configured-the-manifest`.
-- **D9, on #query-crate and #transcript-crate**: the printing's home, which D5 left to this audit. The only existing
+- **D9, on #query-crate and #transcript-crate, ruled**: the printing's home, which D5 left to this audit. The only existing
   crate below `query` and `transcript` is `git`, which `goal@git@a-pure-wrapper-over-git` refuses, and `model` is not below
   `transcript`. So two shapes survive. The default: a copy of the writer in `query` and one in `transcript`, each with a test
   and a citation of `design@cli@exit-code-ladder`, and `create` a macro over `check`'s public `output::write`. Its cost is
@@ -1644,13 +1647,14 @@ fire by a scratch dependency of `query` on `check`, which the command lists. The
   the Component that defines the data, and a return of data, per
   `issue@knowledge-architect@a-typed-command-prints-and-exits-rather-than-returning-data`, removes the copies; that ranks the first
   by a default, not a rule, so no goal ranks them.
-- **D10, on #create-crate**: a correction of the premise the owner approved. The table the owner agreed in R6 and #arg-14 gave
+- **D10, on #create-crate, ruled**: a correction of the premise the owner approved. The table the owner agreed in R6 and #arg-14 gave
   the cut's cost as three functions. The audit measured more: `shipped`, `install_into`, `Installed` and `IMPORT_LINE`, in
   `check`'s private module `agents`, and what `new_component` asks of `staged_generated`; `fix_then_check` has a
   public form already. `create` is a fifth kind of consumer of `check`'s facade, which that head's rule now names. A crate of this
   workspace is met at the design of the work that writes it, so `tripwire@check@private-item-needed`, written for a consumer
   outside the workspace, is scoped to say so and does not fire. The default keeps
-  the cut, since `create` still has its own purpose and tests. The rival is to keep `init` and `new-component` in `check`.
+  the cut, since `create` still has its own purpose and tests. The rival is to keep `init` and `new-component` in `check`. The owner: "D6 to d10
+  accepted."
 
 - **D1, on #cost-per-crate, ruled**: the fixed cost of each new crate is accepted, and each crate is
   created by the slice that builds it, `bundle`, `render` and `rewrite` by their own work. The owner,

@@ -13,6 +13,10 @@ consults a record pays for none of the checks, and each of them can change with 
 every gate, so a reader of this head is what catches it. A command that needs a check's output goes to `check`, as
 `design@knowledge-architect@query-crate` says of `model`.
 
+### Each function takes a manifest its caller configures, and a program that links no check reads a project with an extension as it stands `##a-function-takes-a-configured-manifest`
+
+`cli::run` configures the manifest with each extension before it dispatches, so `klarch` and an extension's binary read a project alike. A program that links this crate and no check holds no extension: it walks what the extension generates, and `id` and `worklist --out` refuse the extension's table. No pin is refused here either, since a binary refuses it before dispatching. `goal@model@a-tool-knows-the-read-is-right` names neither a pin nor an extension's table among what the library must name. The session chose this over a type only `extension::configure` returns, placed in `model`, which each function would take, and which no goal ranks; the owner approved it. `issue@knowledge-architect@a-typed-command-trusts-its-caller-to-have-configured-the-manifest` holds the owner's view that the precondition is ultimately to be enforced.
+
 ### `anchors` lists every anchor of a project, computed as a run computes them, with the home of each register it carries but a plan's `##anchors-listing-command`
 
 `klarch anchors` prints every anchor, the constructed ones included, built by `Anchors::of` over the

@@ -97,7 +97,7 @@ git: `rejected@knowledge-architect@git-module-made-public`.
 and depends on `model`, and on `git` for the last column of `issues`, by path and by exact version, per
 `design@knowledge-architect@version-lockstep`. They need the model and at most phases 1 to 3, per
 `design@knowledge-architect@model-crate`, and they share one design, the record, the graph and the exchange with agents, for
-`goal@knowledge-architect@records-reach-their-reader`. `cli`
+`goal@query@agents-query-the-project` and `goal@query@the-record-is-consulted-as-the-workflow-requires`. `cli`
 depends on it. `model`, the command, stays in `check`, since it calls each extension's dump hook. The rule that this crate
 depends on nothing of the checks is its own, `design@query@query-depends-on-no-check`. The nearest rival, these commands left in
 `check`, puts every check into the build of a tool over the record.
@@ -106,14 +106,14 @@ depends on nothing of the checks is its own, `design@query@query-depends-on-no-c
 
 `knowledge-architect-transcript`, in crates/transcript, depends on `git` alone, by path and by exact version, for the main
 worktree's path, and takes the project's root from its caller. It changes when the harness's format does, a reason the checks do
-not share, and imports nothing of them. `cli` depends on it, and offers the command, per `goal@cli@one-program-for-its-tools`.
+not share, and imports nothing of them. `cli` depends on it, and offers the command, per `goal@cli@one-program-for-its-tools`. It serves `goal@transcript@a-session-reads-past-sessions`.
 The nearest rival, a module of `check`, ties a change of that format to the checker's crate for no shared design.
 
 ### Creating a project is a crate of its own, above the checks `##create-crate`
 
 `knowledge-architect-create`, in crates/create, holds `init`, `new-component` and `init --rust`, and depends on `check`, since
 each run inside a worktree ends as `check --fix` ends, on `model`, `git`, and `agent-skills` for the snippets it writes, by path and by exact
-version. `cli` depends on it. It has a purpose and a design of its own, per `goal@knowledge-architect@projects-are-split-into-components`. The cost is what `check` publishes for it, under
+version. `cli` depends on it. It has a purpose and a design of its own, per `goal@knowledge-architect@projects-are-split-into-components`, and serves `goal@create@a-project-adopts-by-one-command` and `goal@create@a-project-gains-a-component-by-one-command`. The cost is what `check` publishes for it, under
 `design@check@the-facade-publishes-what-a-consumer-needs`. The nearest rival keeps it in `check`, whose interface then changes for
 what a new project holds.
 
@@ -147,6 +147,15 @@ the printing sites, some inside a write loop, with the order of what `check --fi
 such a frontend names no clap type, and receives stdout, and a process that ends on a closed stdout. A command can return
 data later, one at a time, which `issue@knowledge-architect@a-typed-command-prints-and-exits-rather-than-returning-data` records on the
 owner's word.
+
+### One copy of the writer to stdout sits in each of `query` and `transcript`, rather than in a crate of its own `##a-copy-of-the-writer-per-crate`
+
+A typed command prints, per `design@knowledge-architect@a-typed-command-prints-and-returns-its-code`, so each crate of commands needs what
+ends a run with exit 2 on a closed stdout, per `design@cli@exit-code-ladder`. `query` and `transcript` may depend on nothing of the checks, and the one crate
+below both is `git`, which `goal@git@a-pure-wrapper-over-git` keeps to git alone. So `check`, `query` and `transcript` each hold the writer, and `create`, which
+depends on `check`, a macro over `check`'s. The session chose this over a crate of its own for that one function, which no goal ranks; the owner approved it. The
+cost is one reason at three sites, which a test per copy holds. The copies leave with the last command that returns data, per
+`issue@knowledge-architect@a-typed-command-prints-and-exits-rather-than-returning-data`.
 
 ### The crates of the checker's tools are facades, those an extension is written against with role modules, and every other module is private `##api-facade`
 
