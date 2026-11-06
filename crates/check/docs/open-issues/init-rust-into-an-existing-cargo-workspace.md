@@ -13,7 +13,7 @@ by hand, from the setup skill's blocks.
 
 ### What
 
-`init` in `path@check@src/cli/create.rs` refuses before any write when `--rust` meets a
+`init` in `path@check@src/commands/create.rs` refuses before any write when `--rust` meets a
 `Cargo.toml` at PATH or in an ancestor of it, and when any file `--rust` writes already exists.
 Adding the crate to an existing workspace means editing its `members` and its cargo
 configuration, files the project owns, which no command edits today.

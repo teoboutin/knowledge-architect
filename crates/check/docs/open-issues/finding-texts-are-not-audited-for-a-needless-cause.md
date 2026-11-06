@@ -15,7 +15,7 @@ text has been read against it.
 ### What
 
 The checker constructs its findings in `path@check@src/check/`, `path@model@src/manifest.rs`,
-`path@model@src/entity.rs`, `path@model@src/tree.rs`, `path@model@src/resolver.rs`, `path@check@src/cli/mod.rs` and `path@check@src/cli/history.rs`, which
+`path@model@src/entity.rs`, `path@model@src/tree.rs`, `path@model@src/resolver.rs`, `path@check@src/commands/mod.rs` and `path@check@src/commands/history.rs`, which
 judges commits. Each finding's statement and action are string literals at the site that raises
 it. Nobody has listed, for each finding, the
 causes that can produce it and whether one repair is correct for all of them.

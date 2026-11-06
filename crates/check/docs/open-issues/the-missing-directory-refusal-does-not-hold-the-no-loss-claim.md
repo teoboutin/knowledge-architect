@@ -28,7 +28,7 @@ check and the paragraph above stops being true."
 
 The check agent of that pass raised it: "Without that check, `fs::write` into a missing directory
 fails partway through, and nothing is destroyed." The code confirms it. `check_destinations` in
-`path@check@src/cli/mod.rs` refuses a missing directory before any write. Its doc comment gives the
+`path@check@src/commands/mod.rs` refuses a missing directory before any write. Its doc comment gives the
 reason: "A run that wrote one index and then failed on the next exited 2 — could not run — having
 already changed the tree". Nothing creates the directory, so without the refusal `fs::write` fails,
 and nothing is destroyed. The refusal holds the all-or-nothing write, not the no-loss claim.
@@ -41,6 +41,6 @@ other refusal guards the same loss.
 
 ### What would close it
 
-Read the writer in `path@check@src/cli/mod.rs`. Then either reword the head so that each refusal is
+Read the writer in `path@check@src/commands/mod.rs`. Then either reword the head so that each refusal is
 credited with the claim it holds, the missing-directory refusal holding the all-or-nothing write,
 or record that the claim holds as written, with the reason.

@@ -101,7 +101,7 @@ impl Report {
 /// read the archive; reading a generated file reaches outside the walk, which excludes those
 /// files by name.
 ///
-/// Non-exhaustive: a caller outside this crate gets one from [`crate::cli::Gathered`], so a new
+/// Non-exhaustive: a caller outside this crate gets one from [`crate::commands::Gathered`], so a new
 /// input is not a breaking change for it.
 // Non-exhaustive per `design@check@ne-minimal`.
 #[non_exhaustive]

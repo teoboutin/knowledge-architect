@@ -12,7 +12,7 @@ once per line when only the parent tree raises it. Nothing decides which of the 
 
 ### What
 
-`judge_message` in `path@check@src/cli/history.rs` judges a message's path lints, the unanchored
+`judge_message` in `path@check@src/commands/history.rs` judges a message's path lints, the unanchored
 path and the retired slug reference, against the commit's tree and against its first parent's, and
 unites the two lists. The lints on ids are judged once over both trees, through `judge_ids` in
 `path@check@src/check/references.rs`, and are outside this entry. The union drops a parent's lint

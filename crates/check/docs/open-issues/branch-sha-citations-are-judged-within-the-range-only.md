@@ -16,7 +16,7 @@ range it is given.
 
 ### What
 
-`commits` in `path@check@src/cli/history.rs` judges a citation against the SHAs of the commits of the
+`commits` in `path@check@src/commands/history.rs` judges a citation against the SHAs of the commits of the
 range it was asked for. A session that follows the usual after-commit check, `HEAD~1..HEAD`, passes
 a message citing the SHA of the branch's previous commit. Reported by thaum's retrospective of
 2026-10-04, on knowledge-architect 0.2.0, and not re-observed here: two review-record commits copied

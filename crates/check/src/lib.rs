@@ -246,6 +246,7 @@ use knowledge_architect_model as model;
 
 // The role modules: one per kind of consumer.
 pub mod cli;
+pub mod commands;
 pub mod document;
 pub mod extension;
 pub mod testing;

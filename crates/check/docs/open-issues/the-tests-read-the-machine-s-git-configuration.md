@@ -33,7 +33,7 @@ configuration untouched: each probe set `GIT_CONFIG_GLOBAL` to a file of its own
   `path@check@tests/binary.rs` do not: one through the free function `git`, one through `History::git`. Found
   by reading by the self-consistency reviewer of the same review; no test was shown failing.
 - Not established: which other settings a test reads, and how the library's unit-test repositories
-  in `path@git@src/git.rs` and `path@check@src/cli/history.rs` are configured. The failure counts
+  in `path@git@src/git.rs` and `path@check@src/commands/history.rs` are configured. The failure counts
   above were not re-run by the session that opened this entry.
 
 A failure in real use, the first: the test file of `init`, `path@check@tests/init.rs`, runs git and

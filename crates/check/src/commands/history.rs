@@ -879,7 +879,7 @@ impl Outcome {
 /// **No commit of the range is judged apart**, the last one included: a tree that fails is a
 /// finding naming the commit, whichever commit it is, per
 /// `design@check@a-commit-message-is-a-document`.
-pub(super) fn commits(
+pub fn commits(
     manifest: &Manifest,
     range: &str,
     checker: &[&Path],
