@@ -28,20 +28,16 @@ assembling a complete working tree, are public in the same module for the same r
 
 This crate is the nearest the binaries among those every binary offering these commands depends on, per
 `design@agent-skills@command-parsed-nearest-the-binaries`, as `klarch` and an extension's own binary both depend on it,
-so each command keeps one spelling. Each command's logic is a typed function of the crate that holds it, with no clap
+per `design@agent-skills@top-level-binary-crate`, so each command keeps one spelling. Each command's logic is a typed function of the crate that holds it, with no clap
 type in it, so clap's major version stays out of those crates' interfaces and the decisions about the whole interface,
 `design@cli@exit-code-ladder` among them, have one home. A combination of arguments the domain refuses is a type of the
 domain that cannot hold it, as `design@check@fix-with-staged` is, and this crate's declaration refuses it while parsing.
 `cli::run` refuses a value of an `*Args` struct that holds one, since those structs are public and a value of one can
-reach it without clap, with exit 2 before any work, so the rule cannot drift between the type and the declaration.
-
-A typed function still prints and returns its exit code. The session chose that over a function that returns data for
-this crate to print, which no goal ranks; the owner approved it, and asked that the refactoring be recorded, which
-`issue@check@a-typed-command-prints-and-exits-rather-than-returning-data` holds. The choice relocates behaviour, and a
-command can return data later, one at a time.
+reach it without clap, with exit 2 before any work, as `goal@cli@a-refused-invocation-does-no-work` asks of an invocation, and a test holds
+the declaration and the conversion each, so a drift between them fails one.
 
 The
-nearest rival is `rejected@cli@each-crate-parses-its-commands`. `gates` and `mutate` keep that shape, since
+nearest rival is `rejected@cli@each-crate-parses-its-commands`. The cost accepted: each new command touches two crates. `gates` and `mutate` keep that shape, since
 the binary that offers them is each project's own maintenance binary, which no shared crate sits above.
 
 ### Every command's arguments are declared through clap, and every binary tests its declaration `##arguments-parse-through-clap`
@@ -51,7 +47,7 @@ flattens it into its own derive, per `design@cli@the-commands-are-a-library-modu
 public interface, and a binary built on it parses through clap too.
 
 These binaries run blind, as gates, so an unknown flag or an invalid combination has to be a
-refusal rather than a no-op. A hand-written parser refuses only the combinations its author
+refusal rather than a no-op, per `goal@cli@a-refused-invocation-does-no-work`. A hand-written parser refuses only the combinations its author
 thought of. With clap, an unknown argument is refused by default, and exclusivity is a
 declaration (`conflicts_with`, `requires`, `ArgGroup`) that a test checks as a whole.
 
@@ -73,7 +69,8 @@ run, as `id` does, answers one it cannot read as a candidate with 1, a negative 
 since the run still answers the others. `path@cli@README.md` lists which
 outcome of each command maps to which code.
 
-**The third code is what makes the other two mean anything.** A project runs `check` and
+**The third code is what makes the other two mean anything**, as `goal@cli@a-refused-invocation-does-no-work` asks of a
+refused invocation. A project runs `check` and
 `commits` as gates, in CI and in a session, and reads the exit code without reading the output.
 Without code 2, a mistyped invocation or an unreadable input is indistinguishable from a tree
 that fails its check, and a gate that treats both as a failure cannot say which one to repair.

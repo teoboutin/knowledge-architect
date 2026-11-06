@@ -56,12 +56,12 @@ consumes the entity table and produces nothing another check reads; that is what
 finding be classified by where it is produced. A new check whose findings another check would
 read goes before its consumers, in `model`'s `foundation`, per `path@model@CLAUDE.md`.
 
-**An item is public only through the facade**, per `design@check@api-facade`: a re-export in
+**An item is public only through the facade**, per `design@knowledge-architect@api-facade`: a re-export in
 `path@check@src/lib.rs`, or one of the role modules `commands`, `extension`, `document` and `testing`.
 Every other module is private. lib.rs's `#![warn(unreachable_pub)]` refuses a `pub` item no
 consumer can reach. So a new item a consumer needs is re-exported where its use belongs, and an
 internal item is `pub(crate)`. A type in a public signature is public too, or the compiler reports
 it. A test that needs a private item is a unit test inside the crate, never a reason to publish it.
-**`check` dev-depends on nothing above it, and holds no clap type**, per the claims of the Component split: a declaration of an argument is `path@cli@CLAUDE.md`'s.
+**`check` dev-depends on nothing above it**, per `skill@knowledge-architect-component-creation@component-shapes`, **and holds no clap type**, per `design@cli@command-parsing-home`: a declaration of an argument is `path@cli@CLAUDE.md`'s.
 
 Read `register@check@design` before changing how it works.

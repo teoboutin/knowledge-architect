@@ -36,6 +36,11 @@ const GRADED_ABOVE: &str = "graded above";
 const SEED_MARK: &str = "seed";
 const CITES_SEED_MARK: &str = "cites-seed";
 
+/// Write the work list of a search of the whole record, or check the reports its agents filled, per
+/// `design@check@worklist-writes-and-verifies-the-reports`. `Err` is a refusal or a failure: under
+/// `WorklistMode::Write`, an incomplete model, a directory inside the project or not empty, or a seed
+/// naming no entry, nothing written, and a write that failed, the files before it left in place.
+/// Exit 1 is a finding on a report.
 pub fn worklist(
     manifest: &Manifest,
     mode: &WorklistMode,

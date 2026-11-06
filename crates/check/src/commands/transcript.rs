@@ -13,6 +13,20 @@ use super::output::outln;
 use crate::transcript::{project_files, transcript_dir, Corpus, Entry, Inventory, Label, Session};
 use crate::Manifest;
 
+/// The roles a kept line can carry, which `SearchOptions::roles` takes.
+pub const ROLES: [&str; 10] = [
+    "owner",
+    "owner-answer",
+    "owner-queued",
+    "owner-command",
+    "owner-interrupt",
+    "agent",
+    "dispatch",
+    "injected",
+    "tool",
+    "unlabelled",
+];
+
 /// A verb of `transcript`.
 #[derive(Clone, Debug)]
 pub enum TranscriptVerb {
@@ -63,7 +77,8 @@ pub struct ShowOptions {
 pub struct SearchOptions {
     /// A regular expression, in the syntax of the `regex` crate.
     pub pattern: String,
-    /// Keep lines of these roles.
+    /// Keep lines of these roles, each one of [`ROLES`]; another is refused, since it would keep
+    /// nothing and read as an answer about the project.
     pub roles: Vec<String>,
     /// Keep the calls of this tool and their results.
     pub tool: Option<String>,
@@ -89,7 +104,8 @@ const HEAD_LINES: usize = 5;
 const LIST_EXCERPT: usize = 80;
 const SEARCH_EXCERPT: usize = 200;
 
-/// Run one verb of `transcript`.
+/// Run one verb of `transcript`: exit 1 when it finds no session or no line, `Err` with no transcript
+/// directory, over a file it cannot read, or on a role, a regular expression or a date it refuses.
 pub fn transcript(manifest: &Manifest, verb: &TranscriptVerb) -> Result<ExitCode, String> {
     let dir = transcript_dir()?;
     match verb {
@@ -301,6 +317,12 @@ fn show(manifest: &Manifest, dir: &Path, args: &ShowOptions) -> Result<ExitCode,
 }
 
 fn search(manifest: &Manifest, dir: &Path, args: &SearchOptions) -> Result<ExitCode, String> {
+    if let Some(role) = args.roles.iter().find(|r| !ROLES.contains(&r.as_str())) {
+        return Err(format!(
+            "no line carries the role {role}: one of {}",
+            ROLES.join(", ")
+        ));
+    }
     check_date(&args.since)?;
     let pattern = regex::Regex::new(&args.pattern)
         .map_err(|e| format!("the regular expression does not parse: {e}"))?;
@@ -570,6 +592,23 @@ fn cut(text: &str, max: usize) -> String {
 
 #[cfg(test)]
 mod tests {
+    /// The claim: a role no line can carry is refused, not read as no line matching.
+    #[test]
+    fn search_refuses_a_role_no_line_carries() {
+        let text =
+            "[project]\nname = \"probe\"\nchecker-version = \"fixture\"\ncomponents = []\n\n\
+                    [walk]\nskip-dirs = []\nskip-files = []\n\n[agents]\nharness = []\n";
+        let manifest =
+            crate::Manifest::parse(std::path::Path::new("/nowhere"), text).expect("parses");
+        let options = super::SearchOptions {
+            roles: vec!["owmer".to_string()],
+            ..Default::default()
+        };
+        let err = super::search(&manifest, std::path::Path::new("/nowhere"), &options)
+            .expect_err("refused");
+        assert!(err.contains("owmer"), "{err}");
+    }
+
     use super::*;
 
     #[test]

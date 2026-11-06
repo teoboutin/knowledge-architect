@@ -1,11 +1,15 @@
 //! Each of `check`'s commands, as a typed function a binary or another frontend calls, with no type
 //! of an argument parser in it, per `design@cli@the-commands-are-a-library-module`.
 //!
-//! This module owns what is printed and which exit code a run ends with, a thing the checks
-//! deliberately do not. A check that printed could not be run against a model built in memory, which
+//! This module owns what is printed, and which exit code a run ends with, which the checks
+//! deliberately do not: a check returns its findings, touches no file and spawns no process, which
 //! is the property the whole shape rests on. The exit codes are `design@cli@exit-code-ladder`: 0
-//! ran-and-clean, 1 ran-and-negative, 2 could-not-run, which is `Err`, and the caller prints it and
-//! exits 2.
+//! ran-and-clean, 1 ran-and-negative, 2 could-not-run. `Err` is could-not-run, which the caller prints
+//! before it exits 2, and `index` and `check --fix` also return exit 2 themselves, having printed why.
+//! **Each function prints as it works**, per `design@check@a-typed-command-prints-and-returns-its-code`,
+//! so a closed stdout ends the process with exit 2 rather than returning, as `output::write` says.
+//! `checker` is every directory of the running binary's own source, per
+//! `design@check@checker-source-literals-are-data`.
 //!
 //! **Each function takes a manifest its extensions have configured**, with
 //! [`crate::extension::configure`], as a binary's dispatch does before it calls one: a file they
@@ -36,7 +40,7 @@ mod worklist;
 pub use worklist::worklist;
 
 mod transcript;
-pub use transcript::{transcript, ListOptions, SearchOptions, ShowOptions, TranscriptVerb};
+pub use transcript::{transcript, ListOptions, SearchOptions, ShowOptions, TranscriptVerb, ROLES};
 
 // A binary's `main` refuses a build made from another checkout before any command, per
 // `design@check@a-foreign-build-is-refused`.
@@ -103,7 +107,9 @@ pub enum WorklistMode {
     },
 }
 
-/// Every check, over one walk: exit 0 when it finds nothing, 1 when it reports a finding.
+/// Every check, over one walk: exit 0 when it finds nothing, 1 when it reports a finding, `Err` when it
+/// could not run. `CheckMode::Fix` writes first, and after a write a failure is exit 1, not 2, as
+/// `fix_then_check` says.
 pub fn check(
     manifest: &Manifest,
     mode: CheckMode,
@@ -117,7 +123,20 @@ pub fn check(
     }
 }
 
-/// Regenerate every generated index.
+/// Regenerate every generated index, printing each.
+///
+/// **It writes only where the bytes differ**, per `design@check@index-takes-no-dry-run`: what a
+/// generated file holds is a function of the walked tree, so rewriting an already current one
+/// moves nothing but its mtime, and running this to look must cost nothing. It takes no dry-run
+/// flag for the same reason: nothing here can lose content, so there is nothing for a dry run
+/// to protect. `IndexMode::Staged` writes into git's index instead.
+///
+/// **Whether a generated file is current is not this command's question.**
+/// The `generated` check of `cargo klarch check` is the gate, and it names the first line at which
+/// the committed file and the regenerated one disagree.
+///
+/// `Err` is a refusal over an incomplete model or a destination, nothing written. A write that fails
+/// is exit 2 with nothing yet written, and exit 1 after another was rewritten.
 pub fn index(
     manifest: &Manifest,
     mode: IndexMode,
@@ -133,8 +152,9 @@ pub fn index(
 /// Write the shipped agent files into the project, per `design@check@installed-files-committed` and
 /// `design@check@owned-namespace-check`.
 ///
-/// Exit 0 when the installed set is the shipped one afterwards, 2 when the filesystem refused a
-/// write. It edits nothing outside the installer's namespace: a missing primer import line is
+/// Exit 0 when the installed set is the shipped one afterwards, or the project declares no harness and
+/// nothing is installed. `Err` over a manifest holding refused declarations, nothing installed, and
+/// when the filesystem refused a write, the earlier writes left in place. It edits nothing outside the installer's namespace: a missing primer import line is
 /// said, not written, because the root CLAUDE.md belongs to the project.
 pub fn install_agent_skills(manifest: &Manifest) -> Result<ExitCode, String> {
     if !manifest.complaints().is_empty() {
@@ -195,9 +215,9 @@ pub fn complete_working_tree(
 ///
 /// **Each binary that dispatches a command of the checker calls it in its `main`**, right after
 /// [`refuse_a_foreign_build`] and before it dispatches any command but `init`, its own included,
-/// with the directories of its own source: the same list it hands [`run`] as `checker`. `init`
+/// with the directories of its own source: the same list it hands each command as `checker`. `init`
 /// goes to [`init`] before a project is located, since no manifest exists to read a pin from,
-/// and the manifest it writes pins this library's version. [`run`] does not call it, so a test driving a command
+/// and the manifest it writes pins this library's version. No command calls it, so a test driving a command
 /// in-process over a mock project needs no confirmed pin; the parse still requires the key.
 ///
 /// A version is accepted when it equals the version of this library, the checker every binary
@@ -325,7 +345,7 @@ fn is_its_own_build(root: &Path, own: &Path, tracked: &dyn Fn(&Path) -> bool) ->
     }
 }
 
-/// Every observation the walk and the scanner produced, one per line.
+/// Every observation the walk and the scanner produced, one per line. `Err` is a project it cannot read.
 ///
 /// This is what the model was compared against the implementation it replaces with, and it is
 /// the way to see what a check is actually being handed. Filtering it on a rule number is also
@@ -652,7 +672,7 @@ pub(super) fn fix_then_check(
         outln!();
     }
     // The final check can still fail to run: a file it reads, or an extension's preparation. With
-    // files already written, that is no could-not-run, which promises an untouched tree.
+    // files already written, that is no could-not-run, which here promises an untouched tree.
     match check_working(manifest, checker, extensions) {
         Err(e) => failed(written, e),
         outcome => outcome,
@@ -717,17 +737,6 @@ fn untracked_note(
     ))
 }
 
-/// Regenerate every generated index in place.
-///
-/// **It writes only where the bytes differ**, per `design@check@index-takes-no-dry-run`: what a
-/// generated file holds is a function of the walked tree, so rewriting an already current one
-/// moves nothing but its mtime, and running this to look must cost nothing. It takes no dry-run
-/// flag for the same reason — nothing here can lose content, so there is nothing for a dry run
-/// to protect. `--staged` is `history::index_staged`, which writes into git's index instead.
-///
-/// **Whether a generated file is current is not this command's question.**
-/// The `generated` check of `cargo klarch check` is the gate, and it names the first line at which
-/// the committed file and the regenerated one disagree.
 /// The generated files `index` would write for the working tree, or `None` where its model stops
 /// before the last phase or a file cannot be generated, where `index` would refuse.
 pub(super) fn working_generated(
@@ -848,9 +857,8 @@ fn differing_paths(
 /// The error names the path and says nothing of what was written: the caller knows that, and
 /// `check --fix` may already have installed files when it calls this.
 ///
-/// Every destination is checked before any is written. A run that wrote one index and then
-/// failed on the next exited 2 — could not run — having already changed the tree, which is
-/// the one place `design@cli@exit-code-ladder`'s line blurs. A missing directory here is the
+/// Every destination is checked before any is written, so a run that wrote one index cannot then
+/// fail on the next and exit 2 having changed the tree, per `design@cli@exit-code-ladder`. A missing directory here is the
 /// manifest declaring one the tree does not have; creating it would paper over that, and the
 /// registers check is what reports it.
 ///
@@ -1081,6 +1089,9 @@ pub fn show(manifest: &Manifest, reference: &str, checker: &[&Path]) -> Result<E
 /// reader's rule, such as a design thread's slug, which collides only with a design or a
 /// `rejected` entry of the Component that will own it.
 pub fn id(manifest: &Manifest, ids: &[String], checker: &[&Path]) -> Result<ExitCode, String> {
+    if ids.is_empty() {
+        return Err("no id to look up".to_string());
+    }
     let model = crate::Model::build(manifest, checker).map_err(|e| e.to_string())?;
     complete_working_tree(manifest, &model).map_err(|e| {
         e.replace(
@@ -1210,7 +1221,7 @@ fn section_text(text: &str, line: u32) -> String {
     out.join("\n").trim_end().to_string()
 }
 
-/// Every issue entry, one row each.
+/// Every issue entry, one row each: exit 1 when no row is left, `Err` when the project cannot be read.
 pub fn issues(
     manifest: &Manifest,
     args: &IssuesFilter,
@@ -1273,7 +1284,8 @@ pub fn issues(
     })
 }
 
-/// Every tripwire entry, one row each.
+/// Every tripwire entry, one row each: exit 1 when no row is left, `Err` when the project cannot be
+/// read.
 pub fn tripwires(
     manifest: &Manifest,
     args: &TripwiresFilter,
@@ -1487,6 +1499,16 @@ fn counts(report: &Report, tree: Option<&str>) -> String {
 #[cfg(test)]
 mod tests {
     use super::{is_a_library_fixture, is_its_own_build, refuse_another_version_built_at};
+
+    /// The claim: `id` with no id is refused, where a loop over nothing would read as every id free.
+    #[test]
+    fn id_refuses_no_id() {
+        let text =
+            "[project]\nname = \"probe\"\nchecker-version = \"fixture\"\ncomponents = []\n\n\
+                    [walk]\nskip-dirs = []\nskip-files = []\n\n[agents]\nharness = []\n";
+        let manifest = Manifest::parse(Path::new("/nowhere"), text).expect("the manifest parses");
+        assert!(super::id(&manifest, &[], &[]).is_err());
+    }
 
     /// The claim: a path one list holds and the other does not differs, as two lists' different
     /// bytes for one path do, and each path is named once, sorted.

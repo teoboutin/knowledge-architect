@@ -22,7 +22,7 @@
 //! | [`testing`] | testing an extension over a mock project, as the binary would run it |
 
 // A `pub` item no consumer can reach is refused, so an item is public only through the
-// re-exports below and the role modules, per `design@check@api-facade`.
+// re-exports below and the role modules, per `design@knowledge-architect@api-facade`.
 #![warn(unreachable_pub)]
 
 // Read so that cargo rebuilds this crate when the checkout building it changes, per

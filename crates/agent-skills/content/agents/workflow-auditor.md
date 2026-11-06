@@ -118,7 +118,7 @@ your brief's.
 - **L6 local against installed.** The project's own text against the installed text: a
   contradiction; a duplicate is judged as L5 judges a restatement.
 - **L7 checker rules.** Read, beside the corpus, the checker's user documentation: its README for
-  the version the project uses, which ships in the checker's package, and the help of
+  the version the project uses, which ships in the package `knowledge-architect-check`, and the help of
   `{{command}}` and of each of its commands. Report a rule the corpus states wrongly, as a
   factual error. Report a rule on what an agent writes that no installed text states only when
   its finding message does not name its repair, tag `W`: a message that names it supplies the

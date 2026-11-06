@@ -168,7 +168,7 @@ What exists today at each site the work touches:
   with the repair "prefix the kind".
 - **The documentation of `--fix`**: `path@check@README.md`, its command listing and the paragraphs
   on `check --fix` in its section `check`; the doc comment of `CheckArgs::fix`,
-  `path@check@src/commands/mod.rs` lines 70 and 71, which is the `--help` text; the shipped setup skill,
+  `path@cli@src/cli/mod.rs`, in `CheckArgs`, which is the `--help` text; the shipped setup skill,
   `path@agent-skills@content/skills/setup/SKILL.md` line 213, "it writes the installed files and
   the generated `index.md` files the check would report, then checks"; the shipped issue-tracking
   skill, `path@agent-skills@content/skills/issue-tracking/SKILL.md` lines 153 and 167; the shipped

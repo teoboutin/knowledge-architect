@@ -81,18 +81,7 @@ pub struct TranscriptSearchArgs {
     #[arg(
         long = "role",
         value_name = "ROLE",
-        value_parser = [
-            "owner",
-            "owner-answer",
-            "owner-queued",
-            "owner-command",
-            "owner-interrupt",
-            "agent",
-            "dispatch",
-            "injected",
-            "tool",
-            "unlabelled"
-        ]
+        value_parser = clap::builder::PossibleValuesParser::new(crate::check::commands::ROLES)
     )]
     pub roles: Vec<String>,
     /// Keep the calls of this tool and their results.
@@ -149,5 +138,56 @@ impl From<TranscriptVerb> for crate::check::commands::TranscriptVerb {
                 json: a.json,
             }),
         }
+    }
+}
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+    use crate::check::commands::TranscriptVerb as Typed;
+
+    /// The claim: each field of `transcript show` reaches the typed function.
+    #[test]
+    fn show_converts_every_field() {
+        let args = TranscriptShowArgs {
+            session: "s".to_string(),
+            from: Some("f".to_string()),
+            subagents: true,
+            tools: true,
+            full: true,
+            all_projects: true,
+            json: true,
+        };
+        let Typed::Show(o) = TranscriptVerb::Show(args).into() else {
+            panic!("another verb")
+        };
+        assert_eq!((o.session.as_str(), o.from.as_deref()), ("s", Some("f")));
+        assert!(o.subagents && o.tools && o.full && o.all_projects && o.json);
+    }
+
+    /// The claim: each field of `transcript search` reaches the typed function.
+    #[test]
+    fn search_converts_every_field() {
+        let args = TranscriptSearchArgs {
+            pattern: "p".to_string(),
+            roles: vec!["owner".to_string()],
+            tool: Some("t".to_string()),
+            tools: true,
+            branch: Some("b".to_string()),
+            since: Some("d".to_string()),
+            all_projects: true,
+            subagents: true,
+            json: true,
+        };
+        let Typed::Search(o) = TranscriptVerb::Search(args).into() else {
+            panic!("another verb")
+        };
+        assert_eq!(o.pattern, "p");
+        assert_eq!(o.roles, ["owner"]);
+        assert_eq!(
+            (o.tool.as_deref(), o.branch.as_deref(), o.since.as_deref()),
+            (Some("t"), Some("b"), Some("d"))
+        );
+        assert!(o.tools && o.all_projects && o.subagents && o.json);
     }
 }

@@ -102,6 +102,16 @@ skipping the regime in silence.
 **A table keeps the extension's own name at the top level.** A namespace for extension tables is
 `rejected@check@extension-table-namespace`.
 
+### A typed command prints as it works and returns its exit code, rather than data for its caller to print `##a-typed-command-prints-and-returns-its-code`
+
+Each function of `commands` takes the domain's types, prints, and returns `Result<ExitCode, String>`. The session chose
+this over a function that returns data for `cli` to print and map to a code, which no goal ranks; the owner approved it.
+Printing stays where the data is defined. The rival meets a frontend that is no command line whole, and costs a rewrite of
+the printing sites, some inside a write loop, with the order of what `check --fix` lists at risk. The cost of the choice:
+such a frontend names no clap type, and receives stdout, and a process that ends on a closed stdout. A command can return
+data later, one at a time, which `issue@check@a-typed-command-prints-and-exits-rather-than-returning-data` records on the
+owner's word.
+
 ### What a run fetches before any check is gathered once, and no caller outside the crate assembles `Inputs` `##inputs-are-gathered`
 
 Two gatherings, one in each of `model` and `check`: `Gathered` of `model` reads what phases 1 to 3 and the resolver read,
@@ -117,51 +127,6 @@ change inside the gathering that reads it. `check`'s own mock-project tests stil
 some of them hand a check an input that differs from the tree's, such as no committed file.
 
 The design this decision did not keep: `rejected@check@inputs-struct-literal`.
-
-### The public API of each crate of the checker is a facade of role modules, one per kind of use, and every other module is private `##api-facade`
-
-The library has three kinds of consumer: a binary that registers an extension, the extension, and
-the extension's tests. **Testing an extension over a mock project is part of what the library
-publishes**, because a project that adopts the tool with a subject of its own, per
-`goal@knowledge-architect@every-target-project-can-adopt-it`, has to test that subject as `check` tests
-its own. `design@check@a-foreign-build-is-refused` already requires every extension binary to test
-the refusal in its own suite.
-
-Two crates hold the surface. `check` holds the role modules below, and `cli` keeps each consumer's path by
-re-exporting them from its own facade, per `design@knowledge-architect@the-binary-crate-keeps-the-package-name`, beside
-its module `cli`, the role a binary's `main` meets. Every other module is private. Each crate root re-exports the
-nouns every consumer meets. `commands` and `extension` are both a role module and the code of that role; `document`
-and `testing` only re-export:
-
-| module | what it serves |
-| --- | --- |
-| `commands` | a frontend, the command line among them: each command's logic behind a typed function, refusing a foreign build or another version, gathering a run's inputs |
-| `extension` | writing an extension: its two traits, what `check` hands them, what they return |
-| `document` | reading a document's parse, per `design@check@an-extension-builds-its-own-model` |
-| `testing` | running `check` over a mock project as the binary does |
-
-- **The public surface is read in one file**, each crate's lib.rs, and the role modules beside it. It is
-  not computed from the implementation's module tree, so moving an item between files changes no
-  public path, and is no library break under `design@knowledge-architect@versioning-policy`.
-- **What `model` publishes is `model`'s facade, per `design@model@model-facade`**, and this facade names
-  of it what an extension meets, in its root and its role modules, and neither the entity table nor the
-  anchors. A method a caller in this crate needs of `Model` or `Manifest` is public
-  on these re-exports too, since a re-export carries a type's methods.
-- **A public signature keeps its types public.** `Inputs` is in `Prepared::check`'s signature and
-  its fields expose `Entry` and `Outside`, so those are public although no consumer names them.
-- **A `pub` item no consumer can reach is refused.** Each lib.rs carries `#![warn(unreachable_pub)]`,
-  and the clippy gate runs with `-D warnings`, so an item is public only through the facade.
-- **A value only `check` produces is read, not built.** `Report` and `Snapshot` have public read-only
-  methods and no public constructor; `Outside`'s is `model`'s, whose variants a reader matches. A value a consumer starts from, such
-  as a `Manifest`, a `Model` or a `Finding`, keeps its public constructors.
-- **Nothing becomes public for `check`'s own tests.** A test that needs a private item is a
-  unit-test module inside the crate, as `path@check@src/mock_projects.rs` is.
-- `Manifest::command` is public although thaum's extension does not call it: an extension's
-  finding that names a repair command owes the project's declared command, per
-  `design@check@declared-command`.
-
-The designs this decision did not keep: `rejected@check@module-tree-as-public-api`,
-`rejected@check@doc-hidden-test-items` and `rejected@check@testing-feature-for-test-items`.
 
 ### A public type is non-exhaustive only where no consumer can usefully match or build it `##ne-minimal`
 

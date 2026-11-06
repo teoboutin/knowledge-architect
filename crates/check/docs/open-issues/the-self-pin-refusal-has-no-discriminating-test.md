@@ -1,12 +1,12 @@
 ---
 kind: todo
 ---
-# Two refusals of a foreign build and of the `"self"` pin have no test that fails when they are removed
+# The refusal of the `"self"` pin has no test that fails when its question to git is removed
 
 ## Summary
 
-Two guards of the checker's binary survive the removal of their logic, each found by an adversarial reviewer
-with `cargo x mutate run` over the suite of the workspace. Both predate the slice that found them.
+A guard of the checker's binary survives the removal of its logic, found by an adversarial reviewer
+with `cargo x mutate run` over the suite of the workspace. It predates the slice that found it.
 
 ## Details
 
@@ -16,9 +16,6 @@ with `cargo x mutate run` over the suite of the workspace. Both predate the slic
   tracks the compiled directory's `Cargo.toml`, `.is_ok_and(|out| !out.is_empty())`, mutated to `.is_ok()`,
   survives. The unit test of `design@check@checked-sentinel-values` hands in a `tracked` closure of its own, so
   the real closure is exercised on the tracked side only.
-- `main` of `path@cli@src/main.rs`: the entry of `knowledge_architect_agent_skills` in the libraries the
-  foreign-build refusal compares can be removed and the suite passes. `path@cli@tests/binary.rs` holds a test
-  for each of the three other libraries.
 
 ### Why it matters
 

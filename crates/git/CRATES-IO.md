@@ -6,7 +6,7 @@ trees, blobs and messages of a commit or of the tree git's index would commit. E
 question a verdict depends on, such as a listing, is an error carrying git's reason, never an
 empty answer.
 
-The checker, the package `knowledge-architect`, depends on it; a project names that package alone.
+The checker depends on it; a project names the package `knowledge-architect` alone.
 
 ## Documentation
 

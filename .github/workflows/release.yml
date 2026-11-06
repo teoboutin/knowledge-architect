@@ -61,7 +61,7 @@ jobs:
 
       - name: publish
         # One crate at a time, each before the crates that depend on it, the git crate and
-        # agent-skills before `check`, each skipped when crates.io already holds the version, per
+        # agent-skills before `check`, and every crate before `cli`, each skipped when crates.io already holds the version, per
         # `design@knowledge-architect@partial-publish-rerun`.
         env:
           CARGO_REGISTRY_TOKEN: ${{ steps.auth.outputs.token }}

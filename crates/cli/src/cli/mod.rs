@@ -4,7 +4,7 @@
 //! A binary parses its arguments, flattening [`Command`] into its own command enum, and hands the
 //! parsed command to [`run`] with the directories of its own source. The logic of each command is
 //! the typed function of [`knowledge_architect_check::commands`]; a value of an `*Args` struct holding a combination that
-//! function's type refuses is refused here, so a value clap never saw is refused as clap would.
+//! function's type refuses is refused here, before any work, so a value clap never saw is refused.
 //!
 //! Arguments are declared, never parsed by hand, per `design@cli@arguments-parse-through-clap`, and
 //! the exit codes are `design@cli@exit-code-ladder`: 0 ran-and-clean, 1 ran-and-negative, 2
@@ -31,7 +31,8 @@ pub use crate::check::commands::{
     Library,
 };
 
-/// This library, as its own build saw it.
+/// This library, as its own build saw it: the package `knowledge-architect`. The checks' crate, which
+/// it re-exports, is an entry of its own in a list that names it.
 pub fn this_library() -> Library {
     Library {
         crate_dir: std::path::PathBuf::from(env!("CARGO_MANIFEST_DIR")),
@@ -235,13 +236,23 @@ pub struct TripwiresArgs {
 /// `design@check@checker-source-literals-are-data`. The exit code is
 /// `design@cli@exit-code-ladder`: `Err` is could-not-run, and the caller prints it and exits 2.
 /// `extensions` is every extension the binary registers, per
-/// `design@check@an-extension-plugs-in-through-phased-hooks`; `klarch` passes none.
+/// `design@check@an-extension-plugs-in-through-phased-hooks`; `klarch` passes none. A value holding a
+/// combination the command refuses, and `Command::Init`, which goes to [`init`], are `Err`. The command
+/// prints, so a closed stdout ends the process with exit 2, and `index` and `check --fix` can return
+/// exit 2 themselves, having printed why.
 pub fn run(
     command: Command,
     manifest: &Manifest,
     checker: &[&Path],
     extensions: &mut [Box<dyn Extension>],
 ) -> Result<ExitCode, String> {
+    // Refused before an extension's `resolve` runs, so a value that holds a refused combination
+    // does no work, per `design@cli@command-parsing-home`.
+    match &command {
+        Command::Check(args) => drop(check_mode(args)?),
+        Command::Worklist(args) => drop(worklist_mode(args)?),
+        _ => {}
+    }
     // Every command reads the manifest as its extensions resolved it: the files they generate
     // are outside every walk, and a table they refuse is phase 1 of `check`.
     let mut configured = manifest.clone();
@@ -283,7 +294,7 @@ pub fn run(
         Command::NewComponent(args) => {
             commands::new_component(manifest, &args.dir, checker, extensions)
         }
-        Command::Worklist(args) => commands::worklist(manifest, &worklist_mode(args)?, checker),
+        Command::Worklist(args) => commands::worklist(manifest, &worklist_mode(&args)?, checker),
         Command::Transcript(args) => commands::transcript(manifest, &args.verb.into()),
         // A binary hands `init` to [`init`] before it locates a project, since `init` is what
         // makes one, per `design@cli@the-commands-are-a-library-module`; reaching here means the
@@ -308,15 +319,15 @@ fn check_mode(args: &CheckArgs) -> Result<CheckMode, String> {
 }
 
 /// The mode of `worklist`, or the refusal of a value clap would have refused while parsing.
-fn worklist_mode(args: WorklistArgs) -> Result<WorklistMode, String> {
-    match (args.out, args.verify) {
+fn worklist_mode(args: &WorklistArgs) -> Result<WorklistMode, String> {
+    match (&args.out, &args.verify) {
         (Some(dir), None) => Ok(WorklistMode::Write {
-            dir,
+            dir: dir.clone(),
             bound: args.bound,
-            seeds: args.seeds,
+            seeds: args.seeds.clone(),
         }),
         (None, Some(dir)) if args.seeds.is_empty() && args.bound == DEFAULT_WORKLIST_BOUND => {
-            Ok(WorklistMode::Verify { dir })
+            Ok(WorklistMode::Verify { dir: dir.clone() })
         }
         (None, Some(_)) => Err("`--verify` takes neither `--bound` nor `--seed`".to_string()),
         _ => Err("give exactly one of `--out` and `--verify`".to_string()),
@@ -395,52 +406,98 @@ mod tests {
         assert!(err.contains("cli::init"), "{err}");
     }
 
-    /// The claim: a `CheckArgs` built by hand that asks both modes is refused, where clap's
-    /// `conflicts_with` never saw it.
-    #[test]
-    fn a_check_value_asking_both_modes_is_refused() {
-        let args = CheckArgs {
-            fix: true,
-            staged: true,
-        };
-        assert!(check_mode(&args).is_err());
-        let run_args = CheckArgs {
-            fix: true,
-            staged: true,
-        };
-        assert!(run(Command::Check(run_args), &a_project(), &[], &mut []).is_err());
+    /// An extension that fails the test if any of its hooks runs, so a run that passes shows the
+    /// refusal came before them.
+    struct NoHookRuns;
+
+    impl Extension for NoHookRuns {
+        fn tables(&self) -> &'static [&'static str] {
+            panic!("a refused value reached an extension")
+        }
+        fn resolve(&mut self, _: &Manifest) -> crate::extension::Resolution {
+            panic!("a refused value reached an extension")
+        }
+        fn checks(&self) -> &'static [&'static str] {
+            panic!("a refused value reached an extension")
+        }
+        fn dump(&self, _: &crate::Model) -> Vec<crate::extension::DumpRow> {
+            panic!("a refused value reached an extension")
+        }
+        fn prepare(
+            &mut self,
+            _: &Manifest,
+            _: &crate::Model,
+            _: crate::extension::Tree<'_>,
+            _: crate::extension::Purpose,
+        ) -> Result<Box<dyn crate::extension::Prepared>, String> {
+            panic!("a refused value reached an extension")
+        }
     }
 
-    /// The claim: each `WorklistArgs` built by hand that the mode's type cannot hold is refused:
-    /// both directories, neither, and a bound or a seed beside `--verify`.
+    /// `run` refuses `command`, and no hook of an extension ran.
+    fn refused_by_run(command: Command) {
+        let mut extensions: Vec<Box<dyn Extension>> = vec![Box::new(NoHookRuns)];
+        assert!(run(command, &a_project(), &[], &mut extensions).is_err());
+    }
+
+    fn a_dir() -> Option<std::path::PathBuf> {
+        Some(std::path::PathBuf::from("d"))
+    }
+
+    /// The claim: `run` refuses a `CheckArgs` that asks both modes, before an extension runs.
     #[test]
-    fn a_worklist_value_the_mode_cannot_hold_is_refused() {
-        let dir = || Some(std::path::PathBuf::from("d"));
-        let both = WorklistArgs {
-            out: dir(),
-            verify: dir(),
+    fn run_refuses_a_check_value_asking_both_modes() {
+        refused_by_run(Command::Check(CheckArgs {
+            fix: true,
+            staged: true,
+        }));
+    }
+
+    /// The claim: `run` refuses a `WorklistArgs` naming both directories.
+    #[test]
+    fn run_refuses_a_worklist_value_with_both_directories() {
+        refused_by_run(Command::Worklist(WorklistArgs {
+            out: a_dir(),
+            verify: a_dir(),
             ..worklist_args()
-        };
-        let bound = WorklistArgs {
-            verify: dir(),
+        }));
+    }
+
+    /// The claim: `run` refuses a `WorklistArgs` naming neither directory.
+    #[test]
+    fn run_refuses_a_worklist_value_with_neither_directory() {
+        refused_by_run(Command::Worklist(worklist_args()));
+    }
+
+    /// The claim: `run` refuses a bound beside `--verify`.
+    #[test]
+    fn run_refuses_a_worklist_value_with_a_bound_beside_verify() {
+        refused_by_run(Command::Worklist(WorklistArgs {
+            verify: a_dir(),
             bound: 1,
             ..worklist_args()
-        };
-        let seed = WorklistArgs {
-            verify: dir(),
+        }));
+    }
+
+    /// The claim: `run` refuses a seed beside `--verify`.
+    #[test]
+    fn run_refuses_a_worklist_value_with_a_seed_beside_verify() {
+        refused_by_run(Command::Worklist(WorklistArgs {
+            verify: a_dir(),
             seeds: vec!["a".to_string()],
             ..worklist_args()
-        };
-        assert!(worklist_mode(both).is_err());
-        assert!(worklist_mode(worklist_args()).is_err());
-        assert!(worklist_mode(bound).is_err());
-        assert!(worklist_mode(seed).is_err());
+        }));
+    }
+
+    /// The claim: the mode holds `--verify` alone as a check of the reports.
+    #[test]
+    fn verify_alone_is_the_check_of_the_reports() {
         let verify = WorklistArgs {
-            verify: dir(),
+            verify: a_dir(),
             ..worklist_args()
         };
         assert!(matches!(
-            worklist_mode(verify),
+            worklist_mode(&verify),
             Ok(WorklistMode::Verify { .. })
         ));
     }

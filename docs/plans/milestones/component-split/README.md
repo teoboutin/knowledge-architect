@@ -55,7 +55,7 @@ This repository adds:
   and re-points every reference `cargo klarch check` then reports;
 - **a citation the checker does not read**, in a file that is neither Markdown nor Rust, is found
   by a search before each head a slice rewrites, `git grep -n '<slug>' -- ':!*.md' ':!*.rs'`. Five
-  lines in four files stand at the branch that adds this document: `path@check@Cargo.toml` cites
+  lines in four files stand at the branch that adds this document: `path@cli@Cargo.toml` cites
   `design@cli@the-commands-are-a-library-module`; `path@knowledge-architect@knowledge-architect.toml`
   cites `design@check@nothing-of-a-project-is-compiled-in` and
   `design@knowledge-architect@no-component-directory-named-after-the-project`;
@@ -140,7 +140,7 @@ What exists today, read at the branch that adds this document:
   `grep -c '#\[test\]' crates/core/src/mock_projects.rs`, so 437 are unit tests that use no mock
   project. Of its modules, `graph.rs` is imported by `cli/worklist.rs` alone, and `git.rs` and
   `transcript.rs` import nothing of the crate outside their tests.
-- **The commands are one enum**, `cli::Command` in `path@check@src/commands/mod.rs`, which a binary that
+- **The commands are one enum**, `cli::Command` in `path@cli@src/cli/mod.rs`, which a binary that
   registers extensions flattens, per `design@cli@the-commands-are-a-library-module`.
 - **Every git invocation of the core's library code is in `path@elsewhere@crates/core/src/git.rs`**, per
   `design@git@git-is-asked-through-one-module`; a unit test of `path@elsewhere@crates/core/src/source/rs.rs` and
@@ -233,7 +233,7 @@ Outside this work, each with what owns it:
 | `design@cli@the-commands-are-a-library-module` | #cli-on-top, moved to `cli` under a new slug, since it no longer names the core | `path@agent-skills@docs/design/project-configuration.md`, `path@check@docs/design/extensions-and-api.md`, `path@check@docs/design/run-model.md`, `path@check@docs/design/transcripts.md`, `path@check@README.md`, `path@check@src/commands/create.rs`, `path@check@src/commands/mod.rs`, `path@cli@src/main.rs`, `path@cli@tests/binary.rs` |
 | `design@cli@arguments-parse-through-clap` | #cli-on-top | `path@check@docs/design/creating.md`, `path@check@docs/design/generated-files-and-fixes.md`, `path@check@docs/design/run-model.md`, `path@check@docs/open-issues/manifest-table-exposes-the-toml-crate.md`, `path@check@src/commands/mod.rs`, `path@cli@src/main.rs`, `register@xtask@design` |
 | `design@check@transcript-command-in-core` | #cli-on-top, for the sentence that argues from `rejected@knowledge-architect@single-crate`; #consumers-out, its successor under a new slug in `transcript`, the part saying that the reader is a crate of its own that `cli` depends on in the root's design home | none |
-| `design@check@api-facade` | #cli-on-top, for its `cli` row and the facade over two crates; #integrated-tests; each slice writes its crate's facade | `path@check@CLAUDE.md`, `path@check@docs/design/transcripts.md`, `path@check@docs/open-issues/an-extension-cannot-see-which-register-a-document-belongs-to.md`, `path@check@docs/open-issues/manifest-table-exposes-the-toml-crate.md`, `register@check@tripwire`, `path@check@src/lib.rs` |
+| `design@knowledge-architect@api-facade` | #cli-on-top, for its `cli` row and the facade over two crates; #integrated-tests; each slice writes its crate's facade | `path@check@CLAUDE.md`, `path@check@docs/design/transcripts.md`, `path@check@docs/open-issues/an-extension-cannot-see-which-register-a-document-belongs-to.md`, `path@check@docs/open-issues/manifest-table-exposes-the-toml-crate.md`, `register@check@tripwire`, `path@check@src/lib.rs` |
 | `design@check@phases-gate-the-report` | #model-out (the foundation), #check-renamed (the phase table) | `path@agent-skills@docs/open-issues/audit-axes-beyond-the-design-record.md`, `path@agent-skills@docs/open-issues/the-claim-check-of-a-commit-message-is-read-at-the-start-and-needed-at-each-commit.md`, `path@check@CLAUDE.md`, `path@check@docs/design/agent-configuration.md`, `path@check@docs/design/creating.md`, `path@check@docs/design/entities-and-headings.md`, `path@check@docs/design/extensions-and-api.md`, `path@check@docs/design/generated-files-and-fixes.md`, `path@check@docs/design/git-and-the-walk.md`, `path@check@docs/design/registers.md`, `path@check@docs/design/run-model.md`, `path@check@docs/design/worklist.md`, `register@check@tripwire`, `path@check@README.md`, `path@check@src/commands/create.rs`, `path@check@src/commands/mod.rs`, `path@check@src/commands/worklist.rs`, `spec@plans@path-quickfixes` |
 | `design@check@owned-namespace-check` | #check-renamed, split by the rule of one decision per head | `path@knowledge-architect@CLAUDE.md`, `path@agent-skills@docs/design/project-configuration.md`, `register@agent-skills@design`, `path@agent-skills@docs/design/retrospective.md`, `path@agent-skills@docs/design/shipped-set.md`, `path@agent-skills@docs/open-issues/patching-an-installed-skill.md`, `path@check@docs/design/agent-configuration.md`, `path@check@docs/design/creating.md`, `path@check@docs/design/generated-files-and-fixes.md`, `path@check@docs/design/git-and-the-walk.md`, `path@check@docs/design/run-model.md`, `path@check@docs/open-issues/a-project-workflow-can-declare-an-installed-workflow-s-name.md`, `path@check@docs/open-issues/core-heads-bundle-decisions-with-many-citing-sites.md`, `register@check@rejected`, `path@check@README.md`, `path@check@src/agents.rs`, `path@elsewhere@crates/core/src/check/agents.rs`, `path@check@src/check/mod.rs`, `path@check@src/commands/history.rs`, `path@check@src/commands/mod.rs`, `path@elsewhere@crates/core/src/manifest.rs`, `path@check@src/mock_projects.rs`, `path@elsewhere@crates/core/src/survey.rs`, `path@elsewhere@crates/core/src/walk.rs`, `path@cli@tests/binary.rs`, `register@knowledge-architect@design`, `path@knowledge-architect@docs/open-issues/the-skill-bundling-passes-are-tied-to-this-project-s-skills.md`, `spec@plans@path-quickfixes` |
 | `design@check@fix-before-the-checks` | #check-renamed | `path@check@docs/design/run-model.md`, `path@check@README.md`, `path@check@src/commands/mod.rs`, `path@cli@tests/binary.rs`, `spec@plans@path-quickfixes` |
@@ -644,7 +644,7 @@ multiple crates that need them, or crates reaching into mock projects of others.
 reopened on that finding and closed by the owner's choice at D2, between the two shapes that
 remove the cycle. Shape:
 `spec@component-split@integrated-tests`. Harvest: the `testing` Component's design home;
-`design@check@api-facade`, rewritten.
+`design@knowledge-architect@api-facade`, rewritten.
 
 ### No intermediate Component groups the new Components `##no-intermediate-component`
 
@@ -888,7 +888,7 @@ R1, the session. Threads: [gates/mutate onto git].
 
 R1, the session. Threads: #cli-crate (reversal).
 
-"`rejected@knowledge-architect@single-crate` argued that a separate binary crate "would save its users no dependency". That premise fails once the command set spans crates."
+"the head `single-crate`, now `rejected@knowledge-architect@single-crate`, argued that a separate binary crate "would save its users no dependency". That premise fails once the command set spans crates."
 
 ### The core's package is renamed `##arg-21`
 
@@ -1442,7 +1442,7 @@ docs/ are split by subject, each slice moving what its new Component holds.
 | `path@check@src/commands/output.rs` | `check`, per the pure and output layers of `skill@knowledge-architect-component-creation@component-shapes`, and D5; `cli` cannot hold it while the logic below it prints | stays at #cli-on-top; #consumers-out places it for the crates it creates |
 | `path@check@src/build_origin.rs` | `check`: the refusal of a foreign build, given the list of crates a binary links, which `cli` calls for every command and `create` calls for `init`'s PATH | #cli-on-top |
 | `path@cli@src/main.rs` | `cli` | #cli-on-top |
-| `path@check@src/commands/worklist.rs`, `path@check@src/graph.rs` | `query`; the declarations of `worklist` are `WorklistArgs` in `path@check@src/commands/mod.rs`, which goes to `cli` | #consumers-out |
+| `path@check@src/commands/worklist.rs`, `path@check@src/graph.rs` | `query`; the declarations of `worklist` are `WorklistArgs`, in `cli` since #cli-on-top | #consumers-out |
 | `path@check@src/commands/transcript.rs`, `path@check@src/transcript.rs` | `cli`: the clap declarations of `transcript`; `transcript`: the rest | #cli-on-top for the declarations, #consumers-out for the rest |
 | `path@check@src/commands/create.rs` | `create` | #consumers-out |
 | `path@check@src/lib.rs` | each crate's own facade | each slice |

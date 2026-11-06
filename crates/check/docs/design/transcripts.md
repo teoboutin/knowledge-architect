@@ -11,7 +11,7 @@ reviewer, the assembly of a plan document and any survey of past sessions. It is
 refusal of `design@check@installed-binary-version-check`, whatever the project's
 `[agents] harness`: the transcripts are the harness's own, whether or not the project installs the
 workflow. The reader is internal; its typed function is public in `commands`, and its argument types through `cli::Command`, per
-`design@check@api-facade`.
+`design@knowledge-architect@api-facade`.
 
 It serves `goal@knowledge-architect@agents-get-a-complete-workflow`, since without it a session that
 consults a transcript writes its own script. The task it takes from sessions is one the installed

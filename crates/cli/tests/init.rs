@@ -936,6 +936,8 @@ fn init_refuses_a_foreign_build_over_path() {
     );
     let (out, err, code) = klarch(&scratch.dir, &["init", "copy", "--name", "copy"]);
     assert_eq!(code, 2, "{out}{err}");
+    // The refusal names what to clean, every package the binary links.
+    assert!(err.contains("-p knowledge-architect-check"), "{err}");
     assert!(!scratch.path("copy/knowledge-architect.toml").exists());
 }
 

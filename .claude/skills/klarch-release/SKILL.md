@@ -99,8 +99,8 @@ On a branch of its own, `release-<version>`, under the Git rules of the root `CL
    the lists; the release does not wait for it.
 8. **The dry run.** `cargo publish --workspace --dry-run` passes, skips xtask, and orders
    the git crate before the model crate, which depends on it, and that and agent-skills before
-   `check`. Its warning "ignoring test `<name>`"
-   for each file `<name>.rs` of `path@check@tests/` and of `path@mutate@tests/` is expected: the
+   `check`, and every crate before `cli`. Its warning "ignoring test `<name>`"
+   for each file `<name>.rs` of `path@cli@tests/` and of `path@mutate@tests/` is expected: the
    whitelist keeps the tests out.
 9. **The gates and the review.** `cargo x gates --require-rebased`, then the push, and the review
    under `skill@knowledge-architect-review`. Its axes include
@@ -138,7 +138,7 @@ On a branch of its own, `release-<version>`, under the Git rules of the root `CL
 
 ## When the publish fails `##failed-publish`
 
-The `publish` job uploads the crates one by one: git, agent-skills, model, gates, mutate, then `check`, and skips a
+The `publish` job uploads the crates one by one: git, agent-skills, model, `check`, gates, mutate, then `cli`, the package `knowledge-architect`, and skips a
 crate whose version crates.io already holds. A crate it uploaded stays published.
 
 - **The `verify` job failed, the owner declined, or nothing was uploaded**: delete the tag, with

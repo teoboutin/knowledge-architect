@@ -38,7 +38,7 @@ selection under another name.
 arguments of `check`, `index` or a writing command of an extension.
 **Watches until:** the next three release tags.
 
-## Guarding `design@check@api-facade`: a consumer needs an item that is private behind the facade `##private-item-needed`
+## Guarding `design@knowledge-architect@api-facade`: a consumer needs an item that is private behind the facade `##private-item-needed`
 
 The decision rests on the premise that the role modules publish every item a consumer of the
 library, a binary, an extension or the extension's tests, needs.
