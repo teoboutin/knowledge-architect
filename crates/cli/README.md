@@ -54,7 +54,7 @@ cargo klarch anchors                   every anchor, its kind, its path and each
 cargo klarch commits <range>           judge every commit in the range, message and tree, against its own tree
 cargo klarch install-agent-skills      write the agent files this version ships, remove the ones it does not
 klarch init [PATH] [--name n] [--component DIR]… [--rust] [--vcs git|none] [--command c]
-                                       create a project, overwriting no file that exists
+                                       create a project, overwriting no hand-written file
 cargo klarch new-component <DIR>       add a Component: its manifest line, its documents and homes
 cargo klarch worklist --out <dir> [--seed <ref>]…
                                        the work list of a search of the whole record, one directory per agent

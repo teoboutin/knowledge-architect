@@ -18,6 +18,8 @@ decision says which exit-code contract binds the gates.
 `ExitCode::FAILURE`. In thaum, xtask's design said it followed thaum's exit-code ladder, under which
 a command that could not run exits 2; that pointer did not survive the extraction, because the
 ladder of this repository, `design@cli@exit-code-ladder`, binds only the checker's commands.
+The setup snippet, `path@agent-skills@snippets/xtask-main.rs`, exits differently for one refusal: for "xtask: not inside the
+project", its `Gates` arm returns `ExitCode::FAILURE` and its `Mutate` arm `ExitCode::from(2)`.
 Whether the gates should follow it is not established: CI reads only "zero or not", and no caller
 here distinguishes 1 from 2 today.
 

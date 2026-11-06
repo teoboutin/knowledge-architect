@@ -878,9 +878,7 @@ impl Outcome {
 ///
 /// **No commit of the range is judged apart**, the last one included: a tree that fails is a
 /// finding naming the commit, whichever commit it is, per
-/// `design@check@a-commit-message-is-a-document`.
-/// Judge every commit of `range`, its message and its tree, per
-/// `design@check@a-commit-message-is-a-document`: exit 1 on a finding, `Err` on a range that does not
+/// `design@check@a-commit-message-is-a-document`. Exit 1 on a finding, `Err` on a range that does not
 /// resolve.
 pub fn commits(
     manifest: &Manifest,

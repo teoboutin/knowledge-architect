@@ -1,6 +1,6 @@
 **Generated — do not edit.** `cargo klarch index`
 
-46 entries
+47 entries
 
 | kind | title |
 | --- | --- |
@@ -13,6 +13,7 @@
 | defect | [`init` outside a worktree deletes a file of the namespace and lists nothing](init-outside-a-worktree-deletes-an-owned-file-silently.md) |
 | defect | [`init --rust --component target` writes a project that cannot pass, and blames the Component's existence](init-rust-with-a-component-named-target-writes-a-project-that-cannot-pass.md) |
 | defect | [`install-agent-skills` can exit 2 after it has written files, and lists none of them](install-agent-skills-exits-two-after-writing.md) |
+| defect | [`new_component` over a manifest loaded from a relative root refuses with a false reason](new-component-names-a-false-reason-under-a-relative-root.md) |
 | defect | [Some findings of the reference check in a goals home still name a reference form refused there](some-findings-in-a-goals-home-name-a-form-refused-there.md) |
 | defect | [The head on `index` credits the missing-directory refusal with a claim that the refusal does not hold](the-missing-directory-refusal-does-not-hold-the-no-loss-claim.md) |
 | defect | [The primer's import line is accepted inside some fences and comments](the-primer-import-line-is-accepted-inside-some-fences-and-comments.md) |

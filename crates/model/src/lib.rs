@@ -8,7 +8,7 @@
 //!
 //! The gate judges what the manifest declares against what the tool hands it. A manifest table
 //! belongs to an extension, so a tool over a project with one calls [`extension::contribute`] before
-//! [`Model::build`], or the table is reported, and the files the extension generates are walked.
+//! [`Model::build`], or a table no extension claims goes unreported, and the files the extension generates are walked.
 //! The version a manifest pins is the binary's to refuse, not this library's.
 //!
 //! ```no_run

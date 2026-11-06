@@ -2,7 +2,9 @@
 //! project, per `design@cli@the-commands-are-a-library-module`.
 //!
 //! A binary parses its arguments, flattening [`Command`] into its own command enum, and hands the
-//! parsed command to [`run`] with the directories of its own source. The logic of each command is
+//! parsed command to [`run`] with the directories of its own source. A check does not find the project
+//! itself: it would have to do it from its own location, and then could not be run against a model
+//! built in memory. The logic of each command is
 //! the typed function of [`knowledge_architect_check::commands`]; a value of an `*Args` struct holding a combination that
 //! function's type refuses is refused here, before any work, so a value clap never saw is refused.
 //!
@@ -338,7 +340,8 @@ fn worklist_mode(args: &WorklistArgs) -> Result<WorklistMode, String> {
 ///
 /// A binary calls this before [`locate`], with the same `libraries` and `packages` it hands
 /// [`refuse_a_foreign_build`] and the same `checker` and `extensions` it hands [`run`]. `Err` is a
-/// refusal: nothing was written, and the binary exits 2 with it.
+/// refusal: nothing was written, and the binary exits 2 with it. After the first write, a failure is
+/// exit 1 with the files in place, and a closed stdout still ends the process with exit 2.
 pub fn init(
     args: InitArgs,
     libraries: &[Library],
@@ -363,7 +366,8 @@ pub fn init(
 /// The project is whatever declares itself one at or above the working directory.
 ///
 /// Nothing about any particular repository is compiled in, so pointing the tool at a mock
-/// project under `path@check@tests/projects/` needs no flag and no special case.
+/// project under `path@check@tests/projects/` needs no flag and no special case. `Err` is a working
+/// directory it cannot read, or no manifest at or above it.
 pub fn locate() -> Result<Manifest, String> {
     let cwd =
         std::env::current_dir().map_err(|e| format!("cannot read the working directory: {e}"))?;
