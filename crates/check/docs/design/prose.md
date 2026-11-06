@@ -93,7 +93,7 @@ it reads are each crate's own directory and package name, beside the Component d
 the summary's checker-source line names each Component whose library the binary links and
 counts the walked Rust files under them. And a tree holding one of the binary's crates at
 another relative path is refused. `check`'s binary does this in
-`path@check@tests/binary.rs`; an extension binary does it in its own suite, because only it
+`path@cli@tests/binary.rs`; an extension binary does it in its own suite, because only it
 links its extension's library.
 
 The design this decision did not keep: `rejected@check@run-time-checker-directory-discovery`.

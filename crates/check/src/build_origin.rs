@@ -27,14 +27,6 @@ pub struct Library {
     pub package: &'static str,
 }
 
-/// This library, as `check`'s own build saw it.
-pub fn this_library() -> Library {
-    Library {
-        crate_dir: PathBuf::from(env!("CARGO_MANIFEST_DIR")),
-        package: env!("CARGO_PKG_NAME"),
-    }
-}
-
 /// The first library the tree holds a second copy of, with the copy's directory.
 ///
 /// Every trailing run of the compiled directory's components, one component long or more, is tried

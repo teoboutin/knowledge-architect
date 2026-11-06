@@ -40,7 +40,7 @@ pub use transcript::{transcript, ListOptions, SearchOptions, ShowOptions, Transc
 
 // A binary's `main` refuses a build made from another checkout before any command, per
 // `design@check@a-foreign-build-is-refused`.
-pub use crate::build_origin::{refuse_a_foreign_build, this_library, Library};
+pub use crate::build_origin::{refuse_a_foreign_build, Library};
 
 /// What `check` judges, and whether it writes first. One value, so that fixing the working tree and
 /// judging the staged tree cannot be asked together, per `design@check@fix-with-staged`.

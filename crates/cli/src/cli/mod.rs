@@ -3,7 +3,7 @@
 //!
 //! A binary parses its arguments, flattening [`Command`] into its own command enum, and hands the
 //! parsed command to [`run`] with the directories of its own source. The logic of each command is
-//! the typed function of [`crate::commands`]; a value of an `*Args` struct holding a combination that
+//! the typed function of [`knowledge_architect_check::commands`]; a value of an `*Args` struct holding a combination that
 //! function's type refuses is refused here, so a value clap never saw is refused as clap would.
 //!
 //! Arguments are declared, never parsed by hand, per `design@check@arguments-parse-through-clap`, and
@@ -15,7 +15,7 @@ use std::process::ExitCode;
 
 use clap::{Args, Subcommand};
 
-use crate::commands::{
+use crate::check::commands::{
     self, CheckMode, IndexMode, InitOptions, IssuesFilter, TripwiresFilter, WorklistMode,
 };
 use crate::extension::Extension;
@@ -26,10 +26,18 @@ pub use transcript::{
     TranscriptArgs, TranscriptListArgs, TranscriptSearchArgs, TranscriptShowArgs, TranscriptVerb,
 };
 
-pub use crate::commands::{
-    complete_working_tree, output, refuse_a_foreign_build, refuse_another_version, this_library,
-    Gathered, Library,
+pub use crate::check::commands::{
+    complete_working_tree, output, refuse_a_foreign_build, refuse_another_version, Gathered,
+    Library,
 };
+
+/// This library, as its own build saw it.
+pub fn this_library() -> Library {
+    Library {
+        crate_dir: std::path::PathBuf::from(env!("CARGO_MANIFEST_DIR")),
+        package: env!("CARGO_PKG_NAME"),
+    }
+}
 
 /// The default of `worklist --bound`, which `--verify` takes no other value of.
 const DEFAULT_WORKLIST_BOUND: usize = 25000;

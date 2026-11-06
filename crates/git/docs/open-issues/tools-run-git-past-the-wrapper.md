@@ -24,7 +24,7 @@ The code outside the crate that starts git itself, found with
 - library code: `path@mutate@src/run.rs` (`git init` and `git apply` in a scratch directory) and
   `path@mutate@src/harness.rs` (`rev-parse --git-path`);
 - tests: `path@mutate@tests/harness.rs`, `path@mutate@tests/modes.rs`,
-  `path@check@tests/extension_api.rs`, `path@check@tests/init.rs`, `path@check@tests/binary.rs`, the
+  `path@cli@tests/extension_api.rs`, `path@cli@tests/init.rs`, `path@cli@tests/binary.rs`, the
   unit test of `path@model@src/source/rs.rs`, `path@xtask@tests/gates_bin.rs` and
   `path@xtask@tests/mutate_bin.rs`.
 

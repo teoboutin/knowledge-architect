@@ -52,4 +52,4 @@ and no verdict changes.
 
 A ruling on whether a repeated span on one line is one finding or one per occurrence, the union and
 the per-tree judgement made to agree with it, and a case in `a_lint_both_trees_raise_is_reported_once`
-in `path@check@tests/binary.rs` pinning the chosen count for a span only the parent tree holds.
+in `path@cli@tests/binary.rs` pinning the chosen count for a span only the parent tree holds.

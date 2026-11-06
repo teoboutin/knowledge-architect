@@ -8,10 +8,17 @@
 use std::path::{Path, PathBuf};
 use std::process::Command;
 
+/// The fixtures of `check`'s directory, which this crate's binary links, so `"fixture"` is accepted
+/// for a mock project under it. Resolved, so no path a test prints holds `..`.
+fn check_dir() -> PathBuf {
+    Path::new(env!("CARGO_MANIFEST_DIR"))
+        .join("../check")
+        .canonicalize()
+        .expect("the checker's crate")
+}
+
 fn project(name: &str) -> PathBuf {
-    PathBuf::from(env!("CARGO_MANIFEST_DIR"))
-        .join("tests/projects")
-        .join(name)
+    check_dir().join("tests/projects").join(name)
 }
 
 /// Stdout, stderr and the exit code of one run in a directory.
@@ -253,7 +260,7 @@ fn pinned(text: &str) -> String {
 
 /// The smallest conformant mock, which declares no table `check` does not own.
 fn mock() -> PathBuf {
-    Path::new(env!("CARGO_MANIFEST_DIR")).join("tests/projects/core")
+    check_dir().join("tests/projects/core")
 }
 
 fn check(dir: &Path) -> (i32, String) {
@@ -297,7 +304,7 @@ fn the_binary_names_the_checker_s_directories_and_counts_the_files_under_them() 
     let checkout = Path::new(env!("CARGO_MANIFEST_DIR"))
         .ancestors()
         .nth(2)
-        .expect("crates/check sits two levels below the root");
+        .expect("crates/cli sits two levels below the root");
     let (code, out) = check(checkout);
     assert_ne!(code, 2, "the check ran: {out}");
     let line = out
@@ -316,17 +323,18 @@ fn the_binary_names_the_checker_s_directories_and_counts_the_files_under_them() 
             .filter(|l| l.starts_with(dir) && l.ends_with(".rs") && !l.contains("/tests/projects/"))
             .count()
     };
-    let (check, git, model) = (
+    let (cli, check, git, model) = (
+        count("crates/cli/"),
         count("crates/check/"),
         count("crates/git/"),
         count("crates/model/"),
     );
-    assert!(check > 0 && git > 0 && model > 0);
+    assert!(cli > 0 && check > 0 && git > 0 && model > 0);
     assert_eq!(
         line,
         format!(
-            "checker source: crates/check, crates/git, crates/model, {} file(s) with string literals read as data",
-            check + git + model
+            "checker source: crates/cli, crates/check, crates/git, crates/model, {} file(s) with string literals read as data",
+            cli + check + git + model
         )
     );
 }
@@ -1452,7 +1460,7 @@ fn a_tree_holding_the_tool_at_another_path_than_the_binarys_is_refused() {
         "foreign-build",
         "minimal",
         &[(
-            "crates/check/Cargo.toml",
+            "crates/cli/Cargo.toml",
             "[package]\nname = \"knowledge-architect\"\n",
         )],
     );
@@ -1463,7 +1471,7 @@ fn a_tree_holding_the_tool_at_another_path_than_the_binarys_is_refused() {
         assert!(
             // The profile of the clean is the binary's, which is this test's.
             stderr.contains(&format!(
-                "cargo clean{} -p knowledge-architect -p knowledge-architect-git -p knowledge-architect-model -p knowledge-architect-agent-skills`",
+                "cargo clean{} -p knowledge-architect -p knowledge-architect-check -p knowledge-architect-git -p knowledge-architect-model -p knowledge-architect-agent-skills`",
                 if cfg!(debug_assertions) {
                     ""
                 } else {
@@ -3778,7 +3786,7 @@ fn a_foreign_build_is_refused_before_its_pin_is_read() {
         "foreign-before-pin",
         "minimal",
         &[(
-            "crates/check/Cargo.toml",
+            "crates/cli/Cargo.toml",
             "[package]\nname = \"knowledge-architect\"\n",
         )],
     );
@@ -6490,8 +6498,7 @@ fn worklist_entries_files_are_those_before_the_snapshot() {
         "60",
     ]);
     assert_eq!(code, 0, "{stdout}{stderr}");
-    let reference = std::path::Path::new(env!("CARGO_MANIFEST_DIR"))
-        .join("tests/worklist-entries-before-the-snapshot.txt");
+    let reference = check_dir().join("tests/worklist-entries-before-the-snapshot.txt");
     let expected = std::fs::read_to_string(&reference).expect("the reference copy");
     assert_eq!(worklist_entries_files(&out), expected);
 }
@@ -6510,9 +6517,7 @@ fn transcript_case(case: &str, tag: &str) -> PathBuf {
     let root = project("core").canonicalize().expect("the mock exists");
     let dir = std::env::temp_dir().join(format!("klarch-transcript-{tag}-{}", std::process::id()));
     let _ = std::fs::remove_dir_all(&dir);
-    let from = PathBuf::from(env!("CARGO_MANIFEST_DIR"))
-        .join("tests/transcripts")
-        .join(case);
+    let from = check_dir().join("tests/transcripts").join(case);
     copy_rendered(&from, &dir, &root.display().to_string());
     dir
 }
@@ -7133,7 +7138,7 @@ fn transcript_a_linked_worktree_reads_the_sessions_of_its_main_checkout() {
         std::env::temp_dir().join(format!("klarch-transcript-worktree-{}", std::process::id()));
     let _ = std::fs::remove_dir_all(&config);
     copy_rendered(
-        &PathBuf::from(env!("CARGO_MANIFEST_DIR")).join("tests/transcripts/places"),
+        &check_dir().join("tests/transcripts/places"),
         &config,
         &root.display().to_string(),
     );

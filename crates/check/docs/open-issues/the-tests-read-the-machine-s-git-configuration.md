@@ -8,7 +8,7 @@ kind: defect
 Several of `check`'s test helpers run git with the machine's own configuration. A global
 `commit.gpgsign` that cannot sign, or a global `core.hooksPath` whose `pre-commit` hook fails,
 fails dozens of tests on a correct tree, and a per-user ignore file decides which fixture files two
-helpers stage. Only `Sandbox::git_command` in `path@check@tests/binary.rs` is isolated, and only for
+helpers stage. Only `Sandbox::git_command` in `path@cli@tests/binary.rs` is isolated, and only for
 the identity.
 
 ## Details
@@ -21,22 +21,22 @@ configuration untouched: each probe set `GIT_CONFIG_GLOBAL` to a file of its own
 `GIT_CONFIG_NOSYSTEM=1`, then ran `cargo test -p knowledge-architect --no-fail-fast`.
 
 - A global configuration holding `commit.gpgsign = true` and `gpg.program = false`: 9 failures in
-  the library's unit tests, 55 in `path@check@tests/binary.rs`, 1 in `path@check@tests/extension_api.rs`; the test
+  the library's unit tests, 55 in `path@cli@tests/binary.rs`, 1 in `path@cli@tests/extension_api.rs`; the test
   `a_sandbox_commit_carries_the_sandbox_identity` fails with "gpg failed to sign the data".
 - A global `core.hooksPath` pointing at a `pre-commit` hook that exits 1: the same counts, 9, 55
   and 1.
 - Adding `-c commit.gpgsign=false -c core.hooksPath=/dev/null` to `Sandbox::git` alone
-  brought `path@check@tests/binary.rs` down to 43 failures under either probe; the other 43 run git through
+  brought `path@cli@tests/binary.rs` down to 43 failures under either probe; the other 43 run git through
   `History::git` and other direct `Command::new("git")` calls.
 - The per-user ignore file: `Sandbox::stage` pins `core.excludesFile=/dev/null`, and so do
-  `History::commit` and the helper of `path@check@tests/extension_api.rs`. Two `git add -A` calls of
-  `path@check@tests/binary.rs` do not: one through the free function `git`, one through `History::git`. Found
+  `History::commit` and the helper of `path@cli@tests/extension_api.rs`. Two `git add -A` calls of
+  `path@cli@tests/binary.rs` do not: one through the free function `git`, one through `History::git`. Found
   by reading by the self-consistency reviewer of the same review; no test was shown failing.
 - Not established: which other settings a test reads, and how the library's unit-test repositories
   in `path@git@src/git.rs` and `path@check@src/commands/history.rs` are configured. The failure counts
   above were not re-run by the session that opened this entry.
 
-A failure in real use, the first: the test file of `init`, `path@check@tests/init.rs`, runs git and
+A failure in real use, the first: the test file of `init`, `path@cli@tests/init.rs`, runs git and
 the binary through helpers of its own, with no isolation. One case, which relies on git refusing a
 repository as another user's, passed on the workstation and failed in CI; it reproduced locally
 under a global configuration holding `safe.directory = *`. The commit "The test of a repository git

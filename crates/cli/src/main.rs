@@ -1,7 +1,7 @@
-//! `check`'s own binary: `check`'s commands, with no extension registered, per
+//! The binary `klarch`: every command of the checker, with no extension registered, per
 //! `design@check@the-core-cli-is-a-library-module`.
 //!
-//! A project whose manifest declares only what `check` reads runs this. A project with a
+//! A project whose manifest declares only what the checker reads runs this. A project with a
 //! subject of its own builds a binary that registers the extension for it.
 
 use std::path::Path;
@@ -25,32 +25,46 @@ fn main() -> ExitCode {
     // Parsed before the project is located, so `--help` answers from anywhere. clap exits 2 on
     // a parse failure, which is already the could-not-run code.
     let cli = Cli::parse();
-    // The paths compiled in: `check`'s own Component, the git crate's and the model crate's, whose
-    // fixtures are read as data, per `design@check@checker-source-literals-are-data`.
+    // The paths compiled in: this crate's own Component, the checker's, the git crate's and the model
+    // crate's, whose fixtures are read as data, per `design@check@checker-source-literals-are-data`.
     let dir = knowledge_architect::component_dir();
+    let check_dir = knowledge_architect_check::component_dir();
     let git_dir = knowledge_architect_git::component_dir();
     let model_dir = knowledge_architect_model::component_dir();
-    let dirs: Vec<&Path> = vec![dir.as_path(), git_dir.as_path(), model_dir.as_path()];
-    // The library and the binary are one crate, so its one entry covers both. The git crate, the
-    // model crate and the crate of installed text are linked too, so a stale copy of any is refused
-    // as well.
+    let dirs: Vec<&Path> = vec![
+        dir.as_path(),
+        check_dir.as_path(),
+        git_dir.as_path(),
+        model_dir.as_path(),
+    ];
+    // Every library this binary links, so a stale copy of any is refused. The first covers the
+    // binary too, since the two are one package.
+    let library = |crate_dir: &str, package| knowledge_architect::cli::Library {
+        crate_dir: std::path::PathBuf::from(crate_dir),
+        package,
+    };
     let libraries = [
         knowledge_architect::cli::this_library(),
-        knowledge_architect::cli::Library {
-            crate_dir: std::path::PathBuf::from(knowledge_architect_git::CRATE_DIR),
-            package: knowledge_architect_git::PACKAGE,
-        },
-        knowledge_architect::cli::Library {
-            crate_dir: std::path::PathBuf::from(knowledge_architect_model::CRATE_DIR),
-            package: knowledge_architect_model::PACKAGE,
-        },
-        knowledge_architect::cli::Library {
-            crate_dir: std::path::PathBuf::from(knowledge_architect_agent_skills::CRATE_DIR),
-            package: knowledge_architect_agent_skills::PACKAGE,
-        },
+        library(
+            knowledge_architect_check::CRATE_DIR,
+            knowledge_architect_check::PACKAGE,
+        ),
+        library(
+            knowledge_architect_git::CRATE_DIR,
+            knowledge_architect_git::PACKAGE,
+        ),
+        library(
+            knowledge_architect_model::CRATE_DIR,
+            knowledge_architect_model::PACKAGE,
+        ),
+        library(
+            knowledge_architect_agent_skills::CRATE_DIR,
+            knowledge_architect_agent_skills::PACKAGE,
+        ),
     ];
     let packages = [
         env!("CARGO_PKG_NAME"),
+        knowledge_architect_check::PACKAGE,
         knowledge_architect_git::PACKAGE,
         knowledge_architect_model::PACKAGE,
         knowledge_architect_agent_skills::PACKAGE,

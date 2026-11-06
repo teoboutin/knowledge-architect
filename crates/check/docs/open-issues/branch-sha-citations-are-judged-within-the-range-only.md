@@ -41,7 +41,7 @@ That costs judging every commit of the branch after each commit.
 ### What would close it
 
 `commits` refuses a citation of any commit of `<main>..HEAD` when the option is on, whatever range
-it judges, with a test in `path@check@tests/binary.rs` that commits a message citing an earlier
+it judges, with a test in `path@cli@tests/binary.rs` that commits a message citing an earlier
 branch commit and runs `commits HEAD~1..HEAD`. Then the instructions return to `HEAD~1..HEAD`
 after a commit. Or a design session rules that the instruction alone is enough, and this entry
 closes with that ruling.
