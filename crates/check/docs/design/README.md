@@ -20,12 +20,9 @@ carries no decision; each decision is one level-three head below it.
 - [Registers and their homes](registers.md): which registers exist, how each shape of home holds its entries, and the built-in registers' own rules
 - [Plan documents](plan-documents.md): the sections a plan document owes
 - [Generated files and fixes](generated-files-and-fixes.md): the generated indexes, the commands that write them or list the anchors, and what `check --fix` repairs
-- [The record worklist](worklist.md): how `klarch worklist` cuts the record into clusters and packs them into agents
-- [Entities, ids and headings](entities-and-headings.md): which goals a goals home may cite, and the `id` command
+- [Entities, ids and headings](entities-and-headings.md): which goals a goals home may cite, and what a check says of a citation's direction
 - [Reference spans and their lints](reference-lints.md): the lints on reference shapes and on an id written outside its reference
 - [Paths, homes and links](paths-and-links.md): the anchor a path names, and markdown links
 - [What is prose](prose.md): the checker's own directories, and how its version is pinned
 - [Commit messages](commit-messages.md): a commit message judged as a document, against its commit's tree
 - [The agent configuration](agent-configuration.md): the agent files, the declared command, and the installed set
-- [Creating a project and a Component](creating.md): `init` and `new-component`
-- [Session transcripts](transcripts.md): the `transcript` command, and which transcripts it reads

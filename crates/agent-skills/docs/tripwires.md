@@ -287,7 +287,7 @@ review of the work, or by an outcome of an intake. Or once, on the main branch, 
 no review having reported it.
 **Response:** open a `design` issue naming the review and the work, and reopen
 `design@agent-skills@one-record-searcher`, asking whether the miss came from the size of the
-agent's load, `design@check@clusters-packed-under-a-word-bound`, from its reading, from the named
+agent's load, `design@query@clusters-packed-under-a-word-bound`, from its reading, from the named
 doubt `design@agent-skills@search-relevance-grade` asks of a `may-bear` grade, or from a thread or a
 fix on a subject the search's work did not cover, per
 `design@agent-skills@record-searched-before-the-work`.

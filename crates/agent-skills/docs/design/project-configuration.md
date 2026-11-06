@@ -523,7 +523,7 @@ installed skills move with it. **The manifest declares the
 same pin**, in `[project] checker-version`, and every binary that dispatches a command of the
 checker refuses to run over a project whose pin it does not satisfy, per `design@check@installed-binary-version-check`, so an install or a build
 left behind by a move of the pin is refused at its first command rather than run. `klarch init`
-writes the key, per `design@check@init-command`, or the setup skill does by hand, and the setup
+writes the key, per `design@create@init-command`, or the setup skill does by hand, and the setup
 skill moves it with the pin.
 
 ### A project runs its pinned checker from inside the project, never from a machine-wide install `##pinned-binary-runs-inside-the-project`
@@ -537,7 +537,7 @@ projects on one machine one version, which is what bundling the workflow into th
 per `design@knowledge-architect@binary-bundles-workflow`. A project with an extension runs its own
 binary under a name of its own, per `design@check@declared-command`. The binary that runs
 `klarch init` is the one exception: it runs before any pin exists, from whatever install its user
-keeps, and writes its own version as the pin, per `design@check@init-command`.
+keeps, and writes its own version as the pin, per `design@create@init-command`.
 
 ### The setup skill recommends one gates command, a command of the maintenance crate run by the published gates library `##gates-convention`
 
@@ -608,7 +608,7 @@ leave it with no maintenance crate and a gates command of its own:
 `rejected@agent-skills@rust-project-on-a-local-install`. The cost accepted, on the owner's word: a
 Rust project that is one package gains a workspace for the crate. A project with a Cargo workspace or
 package of its own writes the crate by hand from the setup skill's blocks, since `klarch init --rust`
-refuses one, per `design@check@rust-scaffold`.
+refuses one, per `design@create@rust-scaffold`.
 
 ### The setup skill proposes a short CRATES-IO.md for a crate the project publishes `##setup-default-crates-io-page`
 

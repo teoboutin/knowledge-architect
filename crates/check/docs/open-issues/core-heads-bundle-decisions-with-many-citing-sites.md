@@ -63,7 +63,7 @@ Two more, found by the decision-record reviewer of the review before the merge o
   anchor and the generic anchor `*`, whose arguments share no premise, and its body holds a third
   statement with a rival of its own: a file of another project written with that project's name
   as its first segment, against a repair that names the local anchor alone.
-- `design@check@init-runs-git-init`, 7 citing sites. Its title states where `init` creates a
+- `design@create@init-runs-git-init`, 7 citing sites. Its title states where `init` creates a
   repository; its body also holds the restriction of `--vcs` to `git` and `none`, against cargo's
   five values, and the rule that git is asked about PATH before the first write, each with a rival
   of its own.

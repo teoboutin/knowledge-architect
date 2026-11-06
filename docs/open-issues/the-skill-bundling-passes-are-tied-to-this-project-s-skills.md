@@ -47,7 +47,7 @@ What ties them to this project now:
   `#[path]`, per `design@xtask@view-included-not-exported`, and its functions are `pub(crate)`,
   so the passes are no library a crate outside this repository can call, and a move of the file
   breaks both includes;
-- the install lives in `check`, and only the command's entry, `commands::install_agent_skills`, is public API.
+- the install lives in `check`, and its public API is the command's entry, `commands::install_agent_skills`, and what `create` calls of it, `shipped`, `install_into`, `Installed` and `IMPORT_LINE`.
 
 The owner has not designed the split. What it must decide includes: whether a consuming project
 calls the passes from its own `build.rs`, and how the prefix, the layout and the substitutions

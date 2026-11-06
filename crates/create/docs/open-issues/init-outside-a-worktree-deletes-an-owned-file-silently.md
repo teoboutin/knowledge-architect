@@ -1,0 +1,33 @@
+---
+kind: defect
+---
+# `init` outside a worktree deletes a file of the namespace and lists nothing
+
+## Summary
+
+`init --vcs none` in a directory that holds an agent file of the installer's namespace, under the name knowledge-architect-mine.md, removes it and prints no
+line naming it. No git holds a copy. Inside a worktree the same file gets `fixed: removed`.
+
+## Details
+
+### What
+
+`finish` of `path@create@src/command.rs` prints `done.written` and never reads `done.deleted`. Reproduced by an
+adversarial reviewer with `klarch init <dir> --vcs none`, exit 0.
+
+### Why it matters
+
+`design@create@init-keeps-existing-files` has `init` keep what it finds, and `design@check@owned-namespace-check`
+makes the deletion legitimate only as an act of the install a session can read. A silent loss with no copy in git
+is unrecoverable, against `goal@knowledge-architect@agents-work-without-drift`.
+
+### What would close it
+
+`finish` lists each deletion, or `init` judges such a file as a destination it refuses before its first write, with
+a test for the listing or the refusal.
+
+This entry also reopens `design@create@init-runs-git-init` and `design@create@init-asks-no-confirmation`, whose premise was that
+the worst a mistaken run does is add files, which the cleanup removes by deleting the files its output lists. It closes once
+that discussion has run, with the stronger guard among its candidates: `rejected@create@init-refused-outside-a-repository-root`,
+in its form that refuses outside every worktree whatever the directory holds. The audit of
+`spec@component-split@consumers-out`, which moves `init` to `create`, is its occasion.

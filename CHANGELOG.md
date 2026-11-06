@@ -65,9 +65,16 @@ an empty subsection is omitted.
 
 ### New features
 
-- `library`, minor: the package `knowledge-architect-check` holds the checks and each command's logic as a typed
-  function, with no clap in it, in its module `commands`. A project keeps naming `knowledge-architect`, whose every
-  public path stays, and which still holds the binary `klarch`.
+- `cli`, patch: `init` outside every git worktree names each file of the installer's namespace it removes, as
+  `fixed: removed <path> (installed)`, since no git holds a copy of it.
+- `library`, minor: the package `knowledge-architect-check` holds the checks and the logic of the commands that run them
+  or install the workflow as typed functions, with no clap in them, in its module `commands`. A project keeps naming
+  `knowledge-architect`, whose every public path stays, and which still holds the binary `klarch`.
+- `library`, minor: the package `knowledge-architect-query` holds the logic of `show`, `issues`, `tripwires`, `anchors`, `id` and
+  `worklist` as typed functions, and depends on nothing of the checks, for a program that consults a record.
+- `library`, minor: the package `knowledge-architect-transcript` holds the reader of Claude Code's session transcripts and the
+  logic of `transcript`, as a typed function that takes the project's root.
+- `library`, minor: the package `knowledge-architect-create` holds the logic of `init` and `new-component` as typed functions.
 - `library`, minor: the package `knowledge-architect-model` holds what knowledge-architect reads of
   a project, the manifest, the walk, the parse, the entity table, phases 1 to 3 and the resolver, for a
   tool that needs them and no check. Every public path of `knowledge-architect` stays. `Model` and

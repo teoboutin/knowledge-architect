@@ -25,17 +25,22 @@ fn main() -> ExitCode {
     // Parsed before the project is located, so `--help` answers from anywhere. clap exits 2 on
     // a parse failure, which is already the could-not-run code.
     let cli = Cli::parse();
-    // The paths compiled in: this crate's own Component, the checker's, the git crate's and the model
-    // crate's, whose fixtures are read as data, per `design@check@checker-source-literals-are-data`.
+    // The paths compiled in: this crate's own Component, the checker's, and each crate's below it, whose fixtures are read as data, per `design@check@checker-source-literals-are-data`.
     let dir = knowledge_architect::component_dir();
     let check_dir = knowledge_architect_check::component_dir();
     let git_dir = knowledge_architect_git::component_dir();
     let model_dir = knowledge_architect_model::component_dir();
+    let create_dir = knowledge_architect_create::component_dir();
+    let query_dir = knowledge_architect_query::component_dir();
+    let transcript_dir = knowledge_architect_transcript::component_dir();
     let dirs: Vec<&Path> = vec![
         dir.as_path(),
         check_dir.as_path(),
         git_dir.as_path(),
         model_dir.as_path(),
+        create_dir.as_path(),
+        query_dir.as_path(),
+        transcript_dir.as_path(),
     ];
     // Every library this binary links, so a stale copy of any is refused. The first covers the
     // binary too, since the two are one package.
@@ -58,6 +63,18 @@ fn main() -> ExitCode {
             knowledge_architect_model::PACKAGE,
         ),
         library(
+            knowledge_architect_create::CRATE_DIR,
+            knowledge_architect_create::PACKAGE,
+        ),
+        library(
+            knowledge_architect_query::CRATE_DIR,
+            knowledge_architect_query::PACKAGE,
+        ),
+        library(
+            knowledge_architect_transcript::CRATE_DIR,
+            knowledge_architect_transcript::PACKAGE,
+        ),
+        library(
             knowledge_architect_agent_skills::CRATE_DIR,
             knowledge_architect_agent_skills::PACKAGE,
         ),
@@ -67,6 +84,9 @@ fn main() -> ExitCode {
         knowledge_architect_check::PACKAGE,
         knowledge_architect_git::PACKAGE,
         knowledge_architect_model::PACKAGE,
+        knowledge_architect_create::PACKAGE,
+        knowledge_architect_query::PACKAGE,
+        knowledge_architect_transcript::PACKAGE,
         knowledge_architect_agent_skills::PACKAGE,
     ];
     // `init` makes the project the other commands locate, so it is dispatched first, per

@@ -1,6 +1,6 @@
 # The checker
 
-How a project's knowledge is held: its documents, the references between them and the registers
+How a project's knowledge is checked: its documents, the references between them and the registers
 they carry. This Component is the generic part. A subject that belongs to one project is an
 extension of it, per `design@check@an-extension-plugs-in-through-phased-hooks`.
 

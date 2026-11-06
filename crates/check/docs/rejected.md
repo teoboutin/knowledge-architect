@@ -381,58 +381,12 @@ nothing. It loses on the census of the design discussion, kept in its spec,
 read inside their plan, the bare ids it found were pointers, one here and about 11 in thaum, which a
 listing leaves silent until a reviewer reads them, against 3 in thaum that were not.
 
-### A confirmation prompt before `init` writes `##init-asks-for-confirmation`
-
-`live`. It guards against no loss: `init` refuses before its first write and overwrites no
-hand-written file outside the installer's namespace, which every install rewrites. It blocks an agent, whose shell has no terminal, or is answered by a `--yes`
-every caller passes. `cargo init` asks nothing, measured with cargo 1.98.0.
-
-### `init` running `git init` in any directory outside a worktree, as `cargo init` does `##init-git-init-anywhere-outside-a-worktree`
-
-`live`. In a directory that already holds files, the files there become untracked beside the
-project's, as `git status --short` after `cargo init` shows, so `git clean`, the obvious cleanup of
-a mistaken run, deletes them too. The owner chose a refusal there over following `cargo init`.
-
-### `init` refused wherever PATH is outside a git repository, or not its root `##init-refused-outside-a-repository-root`
-
-`live`. A project in a subdirectory of a repository passes the check, so a refusal there refuses a
-legal layout, and a new or empty directory outside every repository loses nothing to `git init`.
-The kept rule does not spare every mistaken run a messy cleanup, and
-`issue@check@init-outside-a-worktree-deletes-an-owned-file-silently` reopens the question, with this design among its candidates.
-
-### A hook through which an extension contributes its manifest tables to `init` `##init-extension-hook`
-
-`live`. It would add a hook to the extension interface for a case the check already reports with
-its repair, and a project with an extension would not need to run `init`, on the owner's word.
-
 ### An option of `check` and `commits` that prints the verdict alone `##verdict-only-output`
 
 `live`. It was proposed so that a session that wants only the verdict line has no reason to pipe
 the checker's output and chain on the pipe. It removes that motive for a session that uses it, and
 stops no pipe: a session that pipes anyway still chains on the filter's status in a shell without
 `pipefail`. The shell option stops the chain for every command a session runs.
-
-### Clusters rooted at a goal, holding the heads that serve it `##goal-rooted-clusters`
-
-`live`. Rooted at the heads citing a goal directly, at a goal no other goal refines, or at any goal
-of its chain, they reached at most 342 of this repository's 677 entries at ed9dd60 and 208 of the
-801 of thaum at its commit edd2cb5d,
-since most heads cite another head rather than a goal; followed through the citations between heads
-they merged into one cluster of 466 to 480 entries. The scripts the message of the commit
-"[review] Repairs of the transcript review of one search of the whole record, with the scripts of its measurements" holds took the counts. It is kept here because a doubt remains: a goal is the owner's own
-grouping, and a project whose heads all cite their goals would reach every entry.
-
-### Goals bringing into a cluster the issues and tripwires that cite them `##goals-pull-their-citers`
-
-`live`. A goal of the root is cited by heads of many subjects, so each of its citers joined every
-such cluster: the reads rose from 839 to 1323 for 663 entries over this repository at ed9dd60, counted with the
-scripts the message of the commit "[review] Repairs of the transcript review of one search of the whole record, with the scripts of its measurements" holds.
-
-### The record search's agents filled to the bound by first-fit packing `##packing-to-the-bound`
-
-`live`. First-fit-decreasing alone fills each agent to the bound, a median of 24,737 words at a
-bound of 25,000 over this repository at ed9dd60, so one agent carries the full bound while another
-carries a remnant.
 
 ### A rule that citations run one way, from goals down to issues, checked by the checker `##citation-direction-checked`
 
@@ -446,42 +400,6 @@ counted with the scripts the message of the commit "[review] Repairs of the tran
 `live`. The bound rests on the loads agents read with no strain reported, not on a measurement of
 recall, so a gate on it would fail a tree on a number with no basis; the notice of `klarch worklist`
 and a split as a fix of its own carry the incentive instead.
-
-### A bound on the number of entries one search agent reads `##bound-in-entries`
-
-`live`. An entry's mean size ranged from 0.5 KB, a `rejected` entry, to 2.9 KB, an issue, over this
-repository at ed9dd60, so a count of entries bounds an agent's load poorly; the bound of 60 standing
-entries rested on their mean size in thaum, 1.6 KB, and on no measurement of recall.
-
-### One residual group for the whole project `##one-residual-group`
-
-`live`. The entries no cluster holds are of shapes the reference rule admits, issues about code with
-no head among them, so the group grows with the project: 14 entries here at ed9dd60, 55 in thaum at
-its commit edd2cb5d, counted with the scripts the message of the commit "[review] Repairs of the transcript review of one search of the whole record, with the scripts of its measurements" holds.
-
-### A transcript reader that refuses a line type or a value it does not know `##strict-transcript-reader`
-
-`live`. Over every transcript of the machine the reader was designed on, Claude Code 2.1.306 to
-2.1.310, each version added a line type, an attachment type or a key with the feature it shipped,
-and a parser that refused the unknown would have failed on each; a third-party parser,
-claude-code-log, printed a warning on every line of the new types, its issue 116 reporting that
-"Claude Code 2.1.x emits a few new top-level JSONL types" it did not recognise. The window's types are re-taken with the command of
-`design@check@transcript-format-tolerated-and-reported`. The harness documents the
-format as internal and liable to change between versions.
-
-### An assembly of the graded entries that reads the model again when `worklist --verify` runs `##gather-reads-the-model`
-
-`live`. It would have changed the command line, by `--verify` reading a model or by a third mode of
-`worklist`. Reading a model in `--verify` lets a tree that gained a finding of the first three
-phases since `--out` block a check of reports that no longer depend on the tree; a third mode adds a
-command step to every grounding. Its one gain, an inbound list current to the minute, is lost only
-for the minutes between `--out` and `--verify`.
-
-### A slug test of the design and `rejected` entries of one named anchor `##slug-test-of-one-anchor`
-
-`live`. It would have changed the command line `id` takes. The anchor that will own a design
-thread's decision is often not settled when the thread is named, so the test would need the
-answer it is asked for; listing every kind and anchor answers it whatever the owner is.
 
 ### The findings on the installed agent files kept before the last phase `##installed-files-before-the-last-phase`
 

@@ -7,7 +7,7 @@ kind: question
 
 `design@agent-skills@installed-fix-goes-upstream` closes the set of what a project sends upstream to
 the installed text and the checker. A target project also takes the gates library, and from the
-mutation crate's first release that crate too, through its maintenance crate, and the git library
+mutation crate's first release that crate too, through its maintenance crate, the crates of the commands, `query`, `transcript` and `create`, and the git library
 through the checker, which depends on it, without owning them. Whether a finding whose fix lies in
 one of those libraries takes the same route is not stated.
 

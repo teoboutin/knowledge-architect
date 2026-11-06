@@ -1,9 +1,9 @@
 //! The arguments of `transcript`, per `design@cli@arguments-parse-through-clap`. Its logic is
-//! `knowledge_architect_check::commands::transcript`.
+//! `knowledge_architect_transcript::transcript`.
 
 use clap::{Args, Subcommand};
 
-use crate::check::commands::{ListOptions, SearchOptions, ShowOptions};
+use knowledge_architect_transcript::{ListOptions, SearchOptions, ShowOptions};
 
 /// The arguments of `transcript`.
 #[derive(Args)]
@@ -81,7 +81,7 @@ pub struct TranscriptSearchArgs {
     #[arg(
         long = "role",
         value_name = "ROLE",
-        value_parser = clap::builder::PossibleValuesParser::new(crate::check::commands::ROLES)
+        value_parser = clap::builder::PossibleValuesParser::new(knowledge_architect_transcript::ROLES)
     )]
     pub roles: Vec<String>,
     /// Keep the calls of this tool and their results.
@@ -107,7 +107,7 @@ pub struct TranscriptSearchArgs {
     pub json: bool,
 }
 
-impl From<TranscriptVerb> for crate::check::commands::TranscriptVerb {
+impl From<TranscriptVerb> for knowledge_architect_transcript::TranscriptVerb {
     fn from(verb: TranscriptVerb) -> Self {
         match verb {
             TranscriptVerb::List(a) => Self::List(ListOptions {
@@ -144,7 +144,7 @@ impl From<TranscriptVerb> for crate::check::commands::TranscriptVerb {
 #[cfg(test)]
 mod tests {
     use super::*;
-    use crate::check::commands::TranscriptVerb as Typed;
+    use knowledge_architect_transcript::TranscriptVerb as Typed;
 
     /// The claim: each field of `transcript show` reaches the typed function.
     #[test]

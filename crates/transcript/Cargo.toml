@@ -1,0 +1,21 @@
+[package]
+name = "knowledge-architect-transcript"
+readme = "CRATES-IO.md"
+description = "Reads the session transcripts an agent harness writes: the sessions of a project listed, one shown or searched, each line labelled by its fields."
+version.workspace = true
+edition.workspace = true
+license.workspace = true
+repository.workspace = true
+keywords.workspace = true
+# What the published package ships, as a whitelist: a new directory is shipped only once it is
+# listed here, so the test fixtures and the design documents never reach the package.
+include = ["/src/**", "/Cargo.toml", "/README.md", "/CRATES-IO.md", "/LICENSE-MIT", "/LICENSE-APACHE", "/CHANGELOG.md"]
+
+[dependencies]
+regex = "1.13.1"
+# The transcripts are JSON lines.
+serde_json = "1"
+# `main_worktree_path`, per `design@knowledge-architect@checker-asks-git-through-the-crate`; pinned
+# exactly, as every crate of the workspace carries one version, per
+# `design@knowledge-architect@version-lockstep`.
+knowledge-architect-git = { path = "../git", version = "=0.9.0" }

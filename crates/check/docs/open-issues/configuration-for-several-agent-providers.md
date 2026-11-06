@@ -21,7 +21,7 @@ harness's session transcripts. The mechanism exists; what each value requires is
 ### Why it matters
 
 It extends `design@check@agents-table`, whose list holds one value, and a second harness's
-transcripts strain `design@check@transcript-reads-claude-code-alone`.
+transcripts strain `design@transcript@transcript-reads-claude-code-alone`.
 `goal@knowledge-architect@serves-one-kind-of-project` asks every target project to run its agents
 under `claude`, and excludes a mode of the checker for another harness, so no target project needs
 this work while that ask stands. The entry keeps what a second harness would need.

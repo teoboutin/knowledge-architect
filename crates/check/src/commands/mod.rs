@@ -24,24 +24,17 @@ use output::{out, outln};
 
 use crate::check::{Phase, Report};
 use crate::extension::{Extension, Prepared, Purpose, Tree};
-use crate::model::declared::{ISSUE_REGISTER, TRIPWIRE_REGISTER};
-use crate::model::table::{Anchors, Candidate, Entities, Kind};
 use crate::Manifest;
 
 mod history;
 pub use history::commits;
 
-mod create;
-pub use create::{init, new_component, InitOptions, Vcs};
-
 mod gathered;
 pub use gathered::Gathered;
 
-mod worklist;
-pub use worklist::worklist;
-
-mod transcript;
-pub use transcript::{transcript, ListOptions, SearchOptions, ShowOptions, TranscriptVerb, ROLES};
+// The install and its one line in a root CLAUDE.md, which `init` writes as `create`'s last step and
+// a command of this crate writes as its whole.
+pub use crate::agents::{install_into, shipped, Installed, IMPORT_LINE};
 
 // A binary's `main` refuses a build made from another checkout before any command, per
 // `design@check@a-foreign-build-is-refused`.
@@ -68,46 +61,6 @@ pub enum IndexMode {
     Staged,
 }
 
-/// What `issues` lists.
-#[derive(Clone, Debug, Default)]
-pub struct IssuesFilter {
-    /// Only the entries of this kind.
-    pub kind: Option<String>,
-    /// Only the entries in this group subdirectory.
-    pub group: Option<String>,
-    /// An anchor to list, then text every row's id or title must contain.
-    pub terms: Vec<String>,
-}
-
-/// What `tripwires` lists.
-#[derive(Clone, Debug, Default)]
-pub struct TripwiresFilter {
-    /// Only the entries guarding this entry.
-    pub guarding: Option<String>,
-    /// An anchor to list, then text every row's id or title must contain.
-    pub terms: Vec<String>,
-}
-
-/// What `worklist` does. One value, so that writing a work list and checking the reports cannot be
-/// asked together, and neither can a bound or a seed be given to the check.
-#[derive(Clone, Debug)]
-pub enum WorklistMode {
-    /// Write the work list into `dir`, a new or empty directory outside the project.
-    Write {
-        /// Where the work list goes.
-        dir: std::path::PathBuf,
-        /// The words one agent is given at most; a cluster above it goes to an agent alone.
-        bound: usize,
-        /// The references the work names.
-        seeds: Vec<String>,
-    },
-    /// Check the reports the agents filled in `dir`, a directory `Write` wrote.
-    Verify {
-        /// The directory the work list was written into.
-        dir: std::path::PathBuf,
-    },
-}
-
 /// Every check, over one walk: exit 0 when it finds nothing, 1 when it reports a finding, `Err` when it
 /// could not run. `CheckMode::Fix` writes first, and after a write a failure is exit 1, not 2, as
 /// `fix_then_check` says.
@@ -122,6 +75,23 @@ pub fn check(
         CheckMode::Staged => history::check_staged(manifest, checker, extensions),
         CheckMode::Fix => fix_then_check(manifest, checker, extensions),
     }
+}
+
+/// Whether `check --fix` would stop before the generated files over the staged changes this tree
+/// holds, since a partial commit of what it writes would differ from them, per
+/// `design@check@fix-refusal-mixed-state`. A caller about to run the fix says why before it does, as
+/// `new-component` does. No answer from git, and a staged side that cannot be computed, are `false`:
+/// the fix then reports them itself.
+pub fn staged_changes_stop_the_fix(
+    root: &Path,
+    checker: &[&Path],
+    extensions: &mut [Box<dyn Extension>],
+) -> bool {
+    crate::git::index_differs_from_head(root).unwrap_or(false)
+        && matches!(
+            history::staged_generated(root, checker, extensions),
+            Ok(Some(_))
+        )
 }
 
 /// Regenerate every generated index, printing each.
@@ -376,79 +346,6 @@ pub fn model(
     Ok(ExitCode::SUCCESS)
 }
 
-/// Every anchor of the project, as `check` builds them, with its kind, its path, and for a
-/// declared anchor or `plans` the home of each register it carries, as the tree holds it, per
-/// `design@check@anchors-listing-command`.
-///
-/// The output is for a reader, not a contract, per
-/// `issue@knowledge-architect@command-output-is-not-declared-a-contract`. Exit 1 when a printed
-/// home is missing, a negative answer about the project, per `design@cli@exit-code-ladder`;
-/// `check` names the repair.
-pub fn anchors(manifest: &Manifest, checker: &[&Path]) -> Result<ExitCode, String> {
-    use crate::model::declared::Shape;
-    use crate::model::table::Constructed;
-    let model = crate::Model::build(manifest, checker).map_err(|e| e.to_string())?;
-    let anchors = Anchors::of(manifest, model.listing());
-    // The listing names files, so a directory is held where a listed file sits under it, as
-    // `show` reads a register's home.
-    let listed = |p: &Path| model.listing().iter().any(|l| l == p);
-    let holds_dir = |p: &Path| model.listing().iter().any(|l| l.starts_with(p) && l != p);
-    let mut missing = false;
-    for anchor in anchors.all() {
-        // An entry is named by the Directory register it is an entry of: `milestone`, or the
-        // register a project declares.
-        let kind = match (&anchor.constructed, &anchor.entry_of) {
-            (Some(Constructed::Plans), _) => "plans",
-            (Some(Constructed::Entry), Some(of)) => of.register.as_str(),
-            (Some(Constructed::Entry), None) => "entry",
-            (Some(Constructed::Spec), _) => "spec",
-            (None, _) if anchor.is_component => "component",
-            (None, _) => "location",
-        };
-        let path = if anchor.path.as_os_str().is_empty() {
-            ".".to_string()
-        } else {
-            anchor.path.display().to_string()
-        };
-        outln!("{}  {kind}  {path}", anchor.name);
-        // A plan's items have their homes in the plan's own documents: nothing to locate. Any
-        // other entry lists what it carries, each home at the entry's own directory.
-        if anchor.is_plan() {
-            continue;
-        }
-        for name in &anchor.registers {
-            let Some(register) = anchors.registers().by_name(name) else {
-                continue;
-            };
-            let home = anchor.home_of(register);
-            let mut held = Vec::new();
-            if register.shape == Shape::Heading && listed(&home.file) {
-                held.push(home.file.display().to_string());
-            }
-            // A home is held where `check` finds it, `heading_home` of phase 2 and its kin: a
-            // register's directory, of any shape, is its home with or without its README, whose
-            // absence `check` reports apart.
-            let dir_held = match register.shape {
-                Shape::Heading | Shape::File | Shape::Directory => holds_dir(&home.dir),
-                Shape::Section => continue,
-            };
-            if dir_held {
-                held.push(format!("{}/", home.dir.display()));
-            }
-            if held.is_empty() {
-                missing = true;
-                held.push("missing".to_string());
-            }
-            outln!("  {}  {}", register.name, held.join("  "));
-        }
-    }
-    Ok(if missing {
-        ExitCode::FAILURE
-    } else {
-        ExitCode::SUCCESS
-    })
-}
-
 /// Every check, over the working tree: `check`'s, then each extension's.
 ///
 /// An extension prepares its tree here rather than inside a check: preparing may read the
@@ -516,7 +413,7 @@ fn check_working(
 /// A failed write exits 2 when nothing was written yet and 1 after any write, as `index` does:
 /// here 2 promises a caller that the tree is as they left it. `worklist --out` and
 /// `install-agent-skills` make no such promise, per `path@cli@README.md`.
-pub(super) fn fix_then_check(
+fn fix_then_check(
     manifest: &Manifest,
     checker: &[&Path],
     extensions: &mut [Box<dyn Extension>],
@@ -897,496 +794,6 @@ fn check_destinations(
     Ok(())
 }
 
-/// One recorded entry, whole, and every reference to it.
-///
-/// **The two failure codes are different questions**, per `design@cli@exit-code-ladder`: an argument
-/// that is not reference-shaped could not be run and exits 2, and a reference the grammar accepts
-/// that names nothing is a negative answer and exits 1. A reader who mistyped the grammar and a
-/// reader who named a deleted entry need different things.
-pub fn show(manifest: &Manifest, reference: &str, checker: &[&Path]) -> Result<ExitCode, String> {
-    let model = crate::Model::build(manifest, checker).map_err(|e| e.to_string())?;
-    let anchors = Anchors::of(manifest, model.listing());
-    let reference = reference.trim_matches('`');
-    let (kind, anchor, id) = match crate::model::table::candidate(reference, &anchors) {
-        Candidate::Reference { kind, anchor, id } => (kind, anchor, id),
-        // The owner stands where the anchor does: the table keys a harness kind's entity so.
-        Candidate::Harness { kind, owner, id } => (kind, owner, id),
-        Candidate::Malformed { why, .. } => {
-            return Err(format!("{reference} is malformed: {why}"));
-        }
-        Candidate::AnchorInKindPosition { head } => {
-            return Err(format!(
-                "{reference} opens with {head}, an anchor, where the kind goes: write \
-                 <kind>@<anchor>@<id>, one of {}",
-                anchors.kinds_listed()
-            ));
-        }
-        Candidate::NotOne => {
-            return Err(format!(
-                "{reference} is not a reference: write <kind>@<anchor>@<id>, the kind one of {}",
-                anchors.kinds_listed()
-            ));
-        }
-    };
-
-    // The body first, then what points at it. A reader asking for an entry wants the entry; the
-    // inbound list is what tells them what closing it would break.
-    let mut found = false;
-    if kind.is_harness() {
-        // A skill or an agent prints whole, a section from its heading to the next heading of
-        // its level or above, out of the walked document or the installed copy that defines it.
-        let entities = Entities::build(&model, &anchors);
-        if let Some(site) = entities.sites(&kind, anchor, id).first() {
-            let doc = model
-                .documents()
-                .iter()
-                .chain(model.installed())
-                .find(|d| d.rel == site.file);
-            if let Some(doc) = doc {
-                let body = if kind.is_named() && anchor.is_empty() {
-                    doc.text.trim_end().to_string()
-                } else {
-                    section_text(&doc.text, site.line)
-                };
-                outln!("{reference}  {site}");
-                outln!();
-                outln!("{body}");
-                found = true;
-            }
-        }
-    } else if kind.takes_a_path() {
-        // A path's entity is the tree's, so it is shown from the walked document where there is
-        // one and from the survey where there is not: a directory and an unwalked file both
-        // exist and are both worth resolving, and neither has a body to print.
-        let Some(a) = anchors.by_name(anchor) else {
-            outln!(
-                "no anchor is named {anchor}; the anchors are {}",
-                anchors.listed()
-            );
-            return Ok(ExitCode::FAILURE);
-        };
-        let rel = a.path.join(id.trim_end_matches('/'));
-        let present = || -> Result<bool, String> {
-            Ok(model.documents().iter().any(|d| d.rel == rel)
-                || crate::model::listing::survey(manifest, &model)
-                    .map_err(|e| e.to_string())?
-                    .present
-                    .contains(&rel))
-        };
-        if kind.is_planned() {
-            // A planned path is valid while it is absent, so it resolves either way, and what is
-            // worth printing is the plans that cite it: the sites a conversion will edit, per
-            // `design@model@planned-path-form`. A reference the check refuses resolves to nothing
-            // here either. The listing holds no ignored file, so an absent target and an
-            // ignored one read the same.
-            if let Err(cause) = crate::model::resolve::planned_target(anchor, id, &anchors) {
-                let (what, action) = cause.texts(reference);
-                outln!("{reference} resolves to nothing: {what}");
-                outln!("  → {action}");
-                return Ok(ExitCode::FAILURE);
-            }
-            outln!("{reference}  {}", rel.display());
-            outln!();
-            if present()? {
-                outln!("(the target now exists; each citation converts to the path form)");
-            } else {
-                outln!("(planned; the tree's listing does not hold the target)");
-            }
-            found = true;
-        } else if let Some(doc) = model.documents().iter().find(|d| d.rel == rel) {
-            outln!("{reference}  {}", doc.rel.display());
-            outln!();
-            outln!("{}", doc.text.trim_end());
-            found = true;
-        } else {
-            let survey =
-                crate::model::listing::survey(manifest, &model).map_err(|e| e.to_string())?;
-            if survey.present.contains(&rel) {
-                outln!("{reference}  {}", rel.display());
-                outln!();
-                outln!("(outside the walk; nothing to print)");
-                found = true;
-            }
-        }
-    } else if kind.is_register() {
-        // A register's home is the anchors' and the listing's, not the table's: the path the tree
-        // holds, in whichever shape, with the register's shape, or a word that the tree holds
-        // neither. `*` names every component's own home. A reference the check refuses resolves
-        // to nothing here either, with the check's own finding.
-        if let Err(cause) = crate::model::resolve::register(anchor, id, &anchors) {
-            let (what, action) = cause.texts(reference);
-            outln!("{reference} resolves to nothing: {what}");
-            outln!("  → {action}");
-            return Ok(ExitCode::FAILURE);
-        }
-        let register = anchors
-            .registers()
-            .by_name(id)
-            .expect("the check resolved the register");
-        let listed = |p: &Path| model.listing().iter().any(|l| l == p || l.starts_with(p));
-        let homes: Vec<&crate::model::table::Anchor> = anchors
-            .all()
-            .iter()
-            .filter(|a| {
-                if anchor == crate::model::table::EVERY_ANCHOR {
-                    a.is_component
-                } else {
-                    a.name == anchor
-                }
-            })
-            .collect();
-        outln!("{reference}  the {id} register, shape {:?}", register.shape);
-        outln!();
-        for a in homes {
-            let home = a.home_of(register);
-            let file = home.file.clone();
-            let held = if register.shape == crate::model::declared::Shape::Heading && listed(&file)
-            {
-                file.display().to_string()
-            } else if listed(&home.dir) {
-                format!("{}/", home.dir.display())
-            } else {
-                "(the tree holds neither shape)".to_string()
-            };
-            outln!("{}: {held}", a.name);
-        }
-        found = true;
-    } else if let Some(record) =
-        crate::model::table::records(&model, &anchors, &Entities::build(&model, &anchors), &kind)
-            .into_iter()
-            .find(|r| r.anchor == anchor && r.id == id)
-    {
-        outln!("{}", record_text(reference, &record));
-        found = true;
-    }
-    if !found {
-        outln!("{reference} resolves to nothing");
-        return Ok(ExitCode::FAILURE);
-    }
-
-    let index = crate::model::table::Inbound::build(&model, &anchors);
-    outln!();
-    outln!(
-        "{}",
-        inbound_text(&cited_at(&index, &anchors, &kind, anchor, id))
-    );
-    Ok(ExitCode::SUCCESS)
-}
-
-/// Whether each id is free: every entity the table defines under it, as the reference `show`
-/// takes, or `free`, or that it is no id.
-///
-/// **A `free` is an answer over the whole table**, so it is given only over a complete model: the
-/// run asks the first three phases as a writer does, per `design@check@phases-gate-the-report`,
-/// where an entity an unread file defines would make the answer false. `show` needs no such gate,
-/// since what it prints exists whatever else the model misses.
-///
-/// **The exit codes**, per `design@cli@exit-code-ladder`: 0 when every argument is an id nothing
-/// defines; 1 otherwise, an argument outside the grammar included, since that is a negative
-/// answer about the candidate, and the run still answers every other one; 2 when the command
-/// cannot run, an incomplete model included.
-///
-/// Every kind and every anchor is listed, unfiltered: which collision refuses an id is the
-/// reader's rule, such as a design thread's slug, which collides only with a design or a
-/// `rejected` entry of the Component that will own it.
-pub fn id(manifest: &Manifest, ids: &[String], checker: &[&Path]) -> Result<ExitCode, String> {
-    if ids.is_empty() {
-        return Err("no id to look up".to_string());
-    }
-    let model = crate::Model::build(manifest, checker).map_err(|e| e.to_string())?;
-    complete_working_tree(manifest, &model).map_err(|e| {
-        e.replace(
-            "Nothing was written.",
-            "No id is answered over it, since one it defines would read as free.",
-        )
-    })?;
-    let anchors = Anchors::of(manifest, model.listing());
-    let entities = Entities::build(&model, &anchors);
-    let by_id = entities.by_id();
-    let width = ids.iter().map(|i| i.len()).max().unwrap_or(0);
-    let mut all_free = true;
-    for candidate in ids {
-        let pad = " ".repeat(width - candidate.len());
-        if !crate::model::table::is_entry_id(candidate) {
-            all_free = false;
-            outln!("{candidate}{pad}  not an id: an id matches [a-z0-9]+(-[a-z0-9]+)+");
-            continue;
-        }
-        let mut forms: Vec<String> = by_id
-            .get(candidate.as_str())
-            .into_iter()
-            .flatten()
-            .map(|(kind, anchor)| {
-                if anchor.is_empty() {
-                    format!("{}@{candidate}", kind.name())
-                } else {
-                    format!("{}@{anchor}@{candidate}", kind.name())
-                }
-            })
-            .collect();
-        forms.sort();
-        forms.dedup();
-        if forms.is_empty() {
-            outln!("{candidate}{pad}  free");
-            continue;
-        }
-        all_free = false;
-        let indent = " ".repeat(width + 2);
-        for (n, form) in forms.iter().enumerate() {
-            if n == 0 {
-                outln!("{candidate}{pad}  {form}");
-            } else {
-                outln!("{indent}{form}");
-            }
-        }
-    }
-    Ok(if all_free {
-        ExitCode::SUCCESS
-    } else {
-        ExitCode::FAILURE
-    })
-}
-
-/// A register entry as `show` prints it: its reference and its site, a blank line, its body.
-///
-/// `show` prints it, a blank line and [`inbound_text`]; `worklist --out` writes the same three
-/// into its snapshot, so the snapshot holds what `show` prints rather than a second rendering of
-/// it, per `design@check@one-question-one-command`.
-pub(super) fn record_text(reference: &str, record: &crate::model::table::Record) -> String {
-    format!("{reference}  {}\n\n{}", record.site, record.body.trim_end())
-}
-
-/// What points at an entity, as `show` prints it: `referenced by nothing`, or `referenced at:`
-/// with one indented site per line.
-pub(super) fn inbound_text(sites: &[crate::model::table::Site]) -> String {
-    if sites.is_empty() {
-        return "referenced by nothing".to_string();
-    }
-    let mut out = "referenced at:".to_string();
-    for site in sites {
-        out.push_str(&format!("\n  {site}"));
-    }
-    out
-}
-
-/// Every site that cites an entity, as `show` lists them.
-///
-/// A component's home of a register is cited through `*` too, and a change of that home's shape
-/// concerns every such citation, so the list holds them with the named ones.
-pub(super) fn cited_at(
-    index: &crate::model::table::Inbound,
-    anchors: &Anchors,
-    kind: &crate::model::table::Kind,
-    anchor: &str,
-    id: &str,
-) -> Vec<crate::model::table::Site> {
-    let mut sites = index.of(kind, anchor, id);
-    if kind.is_register() && anchors.by_name(anchor).is_some_and(|a| a.is_component) {
-        sites.extend(index.of(kind, crate::model::table::EVERY_ANCHOR, id));
-        sites.sort_by(|a, b| (&a.file, a.line).cmp(&(&b.file, b.line)));
-    }
-    sites
-}
-
-/// The section of `text` whose level-two heading is at `line`, up to the next heading of level
-/// two or one outside a fenced block.
-fn section_text(text: &str, line: u32) -> String {
-    let mut out = Vec::new();
-    // The fence that is open, as its character and run length: a fence closes only on a run of
-    // its own character at least as long followed by nothing, so a shorter run is its content.
-    let mut fence: Option<(char, usize)> = None;
-    for (n, l) in text
-        .lines()
-        .enumerate()
-        .skip(line.saturating_sub(1) as usize)
-    {
-        let trimmed = l.trim_start();
-        for c in ['`', '~'] {
-            let run = trimmed.chars().take_while(|&x| x == c).count();
-            match fence {
-                None if run >= 3 => fence = Some((c, run)),
-                Some((open, len))
-                    if open == c && run >= len && trimmed[run..].trim().is_empty() =>
-                {
-                    fence = None
-                }
-                _ => {}
-            }
-        }
-        let heading = fence.is_none() && (l.starts_with("## ") || l.starts_with("# "));
-        if heading && n + 1 != line as usize {
-            break;
-        }
-        out.push(l);
-    }
-    out.join("\n").trim_end().to_string()
-}
-
-/// Every issue entry, one row each: exit 1 when no row is left, `Err` when the project cannot be read.
-pub fn issues(
-    manifest: &Manifest,
-    args: &IssuesFilter,
-    checker: &[&Path],
-) -> Result<ExitCode, String> {
-    let model = crate::Model::build(manifest, checker).map_err(|e| e.to_string())?;
-    let anchors = Anchors::of(manifest, model.listing());
-    let kind = Kind::new(ISSUE_REGISTER);
-    let (anchor, needle) = split_terms(&args.terms, &anchors);
-    let mut rows =
-        crate::model::table::records(&model, &anchors, &Entities::build(&model, &anchors), &kind);
-    rows.retain(|r| {
-        anchor.is_none_or(|a| r.anchor == a)
-            && args
-                .kind
-                .as_ref()
-                .is_none_or(|k| r.metadata.as_deref() == Some(k.as_str()))
-            && args
-                .group
-                .as_ref()
-                .is_none_or(|g| r.group.as_deref() == Some(g.as_str()))
-            && needle.as_ref().is_none_or(|t| r.matches(t))
-    });
-    // Kind then id, so entries of one kind read together whatever anchor they sit under.
-    rows.sort_by(|a, b| (&a.metadata, &a.id).cmp(&(&b.metadata, &b.id)));
-
-    // One `git log` for every instance directory at once. A per-row invocation is a process per
-    // entry, and this column is not worth one.
-    let dirs: Vec<std::path::PathBuf> = anchors
-        .instances()
-        .into_iter()
-        .filter(|(_, register, _)| register.name == ISSUE_REGISTER)
-        .map(|(_, _, home)| home.dir)
-        .collect();
-    let changed = crate::git::last_changed(manifest.root(), &dirs);
-
-    let table: Vec<[String; 5]> = rows
-        .iter()
-        .map(|r| {
-            [
-                r.metadata.clone().unwrap_or_else(|| "-".to_string()),
-                r.anchor.clone(),
-                r.id.clone(),
-                r.title.clone(),
-                // No commit is `uncommitted`; git answering nothing at all is `-`, and the two
-                // are different facts: the first is a new file, the second is no history to ask.
-                match changed.get(&r.site.file) {
-                    Some(date) => date.clone(),
-                    None if changed.is_empty() => "-".to_string(),
-                    None => "uncommitted".to_string(),
-                },
-            ]
-        })
-        .collect();
-    print_rows(&["kind", "anchor", "id", "title", "last change"], &table);
-    Ok(if table.is_empty() {
-        ExitCode::FAILURE
-    } else {
-        ExitCode::SUCCESS
-    })
-}
-
-/// Every tripwire entry, one row each: exit 1 when no row is left, `Err` when the project cannot be
-/// read.
-pub fn tripwires(
-    manifest: &Manifest,
-    args: &TripwiresFilter,
-    checker: &[&Path],
-) -> Result<ExitCode, String> {
-    let model = crate::Model::build(manifest, checker).map_err(|e| e.to_string())?;
-    let anchors = Anchors::of(manifest, model.listing());
-    let kind = Kind::new(TRIPWIRE_REGISTER);
-    let (anchor, needle) = split_terms(&args.terms, &anchors);
-    let guarding = args
-        .guarding
-        .as_ref()
-        .map(|g| g.trim_matches('`').to_string());
-    let mut rows =
-        crate::model::table::records(&model, &anchors, &Entities::build(&model, &anchors), &kind);
-    rows.retain(|r| {
-        anchor.is_none_or(|a| r.anchor == a)
-            && guarding
-                .as_ref()
-                .is_none_or(|g| r.guards.iter().any(|c| c == g))
-            && needle.as_ref().is_none_or(|t| r.matches(t))
-    });
-    rows.sort_by(|a, b| (&a.anchor, &a.id).cmp(&(&b.anchor, &b.id)));
-
-    let table: Vec<[String; 4]> = rows
-        .iter()
-        .map(|r| {
-            [
-                r.anchor.clone(),
-                r.id.clone(),
-                r.title.clone(),
-                r.guarding(),
-            ]
-        })
-        .collect();
-    print_rows(&["anchor", "id", "title", "guarding"], &table);
-    Ok(if table.is_empty() {
-        ExitCode::FAILURE
-    } else {
-        ExitCode::SUCCESS
-    })
-}
-
-/// The positional arguments of a listing: an anchor, then the text to filter on.
-///
-/// **The first term is the anchor only when something declares that name**, which is what lets
-/// one positional list mean both. A search word that happens to be an anchor name is the one
-/// ambiguity, and it is resolved towards the anchor because that is the documented first
-/// position; a search for that word alone is written with the anchor before it.
-fn split_terms<'a>(terms: &'a [String], anchors: &Anchors) -> (Option<&'a str>, Option<String>) {
-    let mut rest = terms;
-    let mut anchor = None;
-    if let Some(first) = terms.first() {
-        if anchors.by_name(first).is_some() {
-            anchor = Some(first.as_str());
-            rest = &terms[1..];
-        }
-    }
-    let needle = (!rest.is_empty()).then(|| rest.join(" "));
-    (anchor, needle)
-}
-
-/// A table with its header, each column as wide as its widest cell.
-///
-/// The header prints over an empty table too: a listing with no row has to say what it looked
-/// for, or a filter that matched nothing reads as a project with nothing in it.
-fn print_rows<const N: usize>(header: &[&str; N], rows: &[[String; N]]) {
-    let mut width = [0usize; N];
-    for (i, name) in header.iter().enumerate() {
-        width[i] = name.chars().count();
-    }
-    for row in rows {
-        for (i, cell) in row.iter().enumerate() {
-            width[i] = width[i].max(cell.chars().count());
-        }
-    }
-    let line = |cells: &[String; N]| {
-        cells
-            .iter()
-            .enumerate()
-            .map(|(i, c)| {
-                if i + 1 == N {
-                    c.clone()
-                } else {
-                    format!("{c:<w$}", w = width[i])
-                }
-            })
-            .collect::<Vec<_>>()
-            .join("  ")
-    };
-    let head: [String; N] = std::array::from_fn(|i| header[i].to_string());
-    outln!("{}", line(&head));
-    for row in rows {
-        outln!("{}", line(row));
-    }
-    if rows.is_empty() {
-        outln!("(no entry)");
-    }
-}
-
 /// The last line, and the only one that states the outcome.
 ///
 /// **It is derived from the finding list rather than tracked beside it**, so it cannot
@@ -1500,16 +907,6 @@ fn counts(report: &Report, tree: Option<&str>) -> String {
 #[cfg(test)]
 mod tests {
     use super::{is_a_library_fixture, is_its_own_build, refuse_another_version_built_at};
-
-    /// The claim: `id` with no id is refused, where a loop over nothing would read as every id free.
-    #[test]
-    fn id_refuses_no_id() {
-        let text =
-            "[project]\nname = \"probe\"\nchecker-version = \"fixture\"\ncomponents = []\n\n\
-                    [walk]\nskip-dirs = []\nskip-files = []\n\n[agents]\nharness = []\n";
-        let manifest = Manifest::parse(Path::new("/nowhere"), text).expect("the manifest parses");
-        assert!(super::id(&manifest, &[], &[]).is_err());
-    }
 
     /// The claim: a path one list holds and the other does not differs, as two lists' different
     /// bytes for one path do, and each path is named once, sorted.
@@ -1852,16 +1249,5 @@ mod tests {
             !out.contains("checked:") && !out.contains("registers:"),
             "{out}"
         );
-    }
-
-    /// The claim: a section runs to the next heading of level two or one outside a fence, and a
-    /// shorter run inside a longer fence does not close it. Mutation checked: a fence toggled on
-    /// any run stops at the fenced heading; a level-one heading ignored runs past it.
-    #[test]
-    fn a_section_runs_to_the_next_heading_outside_a_fence() {
-        let text = "# T\n\n## A `##a-section`\n\n````\n```sh\n## In the fence\n````\n\nend of A\n\n# Next\n\nafter\n";
-        let section = super::section_text(text, 3);
-        assert!(section.contains("end of A"), "{section}");
-        assert!(!section.contains("after"), "{section}");
     }
 }

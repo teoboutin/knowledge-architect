@@ -17,6 +17,14 @@ fn check_dir() -> PathBuf {
         .expect("the checker's crate")
 }
 
+/// The directory of the crate that holds the transcripts' fixtures.
+fn transcript_dir() -> PathBuf {
+    Path::new(env!("CARGO_MANIFEST_DIR"))
+        .join("../transcript")
+        .canonicalize()
+        .expect("the transcript crate")
+}
+
 fn project(name: &str) -> PathBuf {
     check_dir().join("tests/projects").join(name)
 }
@@ -323,18 +331,23 @@ fn the_binary_names_the_checker_s_directories_and_counts_the_files_under_them() 
             .filter(|l| l.starts_with(dir) && l.ends_with(".rs") && !l.contains("/tests/projects/"))
             .count()
     };
-    let (cli, check, git, model) = (
-        count("crates/cli/"),
-        count("crates/check/"),
-        count("crates/git/"),
-        count("crates/model/"),
-    );
-    assert!(cli > 0 && check > 0 && git > 0 && model > 0);
+    let dirs = [
+        "crates/cli",
+        "crates/check",
+        "crates/git",
+        "crates/model",
+        "crates/create",
+        "crates/query",
+        "crates/transcript",
+    ];
+    let counts = dirs.map(|dir| count(&format!("{dir}/")));
+    assert!(counts.iter().all(|n| *n > 0), "{counts:?}");
     assert_eq!(
         line,
         format!(
-            "checker source: crates/cli, crates/check, crates/git, crates/model, {} file(s) with string literals read as data",
-            cli + check + git + model
+            "checker source: {}, {} file(s) with string literals read as data",
+            dirs.join(", "),
+            counts.iter().sum::<usize>()
         )
     );
 }
@@ -1471,7 +1484,7 @@ fn a_tree_holding_the_tool_at_another_path_than_the_binarys_is_refused() {
         assert!(
             // The profile of the clean is the binary's, which is this test's.
             stderr.contains(&format!(
-                "cargo clean{} -p knowledge-architect -p knowledge-architect-check -p knowledge-architect-git -p knowledge-architect-model -p knowledge-architect-agent-skills`",
+                "cargo clean{} -p knowledge-architect -p knowledge-architect-check -p knowledge-architect-git -p knowledge-architect-model -p knowledge-architect-create -p knowledge-architect-query -p knowledge-architect-transcript -p knowledge-architect-agent-skills`",
                 if cfg!(debug_assertions) {
                     ""
                 } else {
@@ -1503,6 +1516,29 @@ fn a_tree_holding_the_git_crate_at_another_path_than_the_binarys_is_refused() {
         "{stderr}"
     );
     assert!(out.is_empty(), "nothing ran: {out}");
+}
+
+/// The claim: the refusal covers each crate that holds a command's logic, so a tree holding one at
+/// another path than the binary was built from is refused.
+#[test]
+fn a_tree_holding_a_command_s_crate_at_another_path_than_the_binarys_is_refused() {
+    for name in ["create", "query", "transcript"] {
+        let package = format!("knowledge-architect-{name}");
+        let manifest = format!("[package]\nname = \"{package}\"\n");
+        let path = format!("crates/{name}/Cargo.toml");
+        let sandbox = Sandbox::seeded(
+            &format!("foreign-{name}"),
+            "minimal",
+            &[(path.as_str(), manifest.as_str())],
+        );
+        let (out, stderr, code) = sandbox.run(&["check"]);
+        assert_eq!(code, 2, "{name}: {out}{stderr}");
+        assert!(
+            stderr.contains(&format!("its `{package}` was compiled at")),
+            "{stderr}"
+        );
+        assert!(out.is_empty(), "nothing ran: {out}");
+    }
 }
 
 /// The claim: the refusal covers the model crate too, so a tree holding it at another path than the
@@ -2917,6 +2953,48 @@ fn a_closed_stdout_ends_the_run_quietly_with_exit_2() {
     assert!(
         !stderr.contains("panicked") && !stderr.contains("Broken pipe"),
         "the closed pipe must not be reported: {stderr}"
+    );
+}
+
+/// The claim: a command of `query`, which holds a copy of the writer, ends the same way, per
+/// `design@cli@exit-code-ladder`. Mutation checked: exit 0 in that copy.
+#[test]
+fn a_closed_stdout_ends_a_command_over_the_record_with_exit_2() {
+    let (reader, writer) = std::io::pipe().expect("a pipe");
+    drop(reader);
+    let out = Command::new(env!("CARGO_BIN_EXE_klarch"))
+        .args(["anchors"])
+        .current_dir(project("planted"))
+        .stdout(writer)
+        .output()
+        .expect("the binary runs");
+    let stderr = String::from_utf8_lossy(&out.stderr);
+    assert_eq!(out.status.code(), Some(2), "stderr: {stderr}");
+    assert!(
+        stderr.is_empty(),
+        "the closed pipe is not reported: {stderr}"
+    );
+}
+
+/// The claim: `transcript`, whose crate holds a copy of the writer, ends the same way, per
+/// `design@cli@exit-code-ladder`. Mutation checked: exit 0 in that copy.
+#[test]
+fn a_closed_stdout_ends_transcript_with_exit_2() {
+    let config = transcript_case("kinds", "closed-stdout");
+    let (reader, writer) = std::io::pipe().expect("a pipe");
+    drop(reader);
+    let out = Command::new(env!("CARGO_BIN_EXE_klarch"))
+        .args(["transcript", "list", "--all-projects"])
+        .current_dir(project("core"))
+        .env("CLAUDE_CONFIG_DIR", &config)
+        .stdout(writer)
+        .output()
+        .expect("the binary runs");
+    let stderr = String::from_utf8_lossy(&out.stderr);
+    assert_eq!(out.status.code(), Some(2), "stderr: {stderr}");
+    assert!(
+        stderr.is_empty(),
+        "the closed pipe is not reported: {stderr}"
     );
 }
 
@@ -5448,7 +5526,7 @@ fn every_path_to_an_entry_s_directory_names_the_entry() {
     );
 }
 
-// ---- `worklist`, per `design@check@worklist-writes-and-verifies-the-reports` ----
+// ---- `worklist`, per `design@query@worklist-writes-and-verifies-the-reports` ----
 
 /// The manifest of the worklist project: the root `core-mock`, a Component `widget` whose design
 /// home is a directory, and a location `notes` carrying a declared file register with groups.
@@ -5567,7 +5645,7 @@ fn worklist_clusters(out: &Path) -> std::collections::BTreeMap<String, Vec<Strin
 /// AC2: the agents' lists together hold every entry of the record, in both shapes of a design
 /// home, under no subject, in a declared file register's groups; a chain of goals is reached
 /// upward from the head that cites its first; and an issue citing only a goal is in its anchor's
-/// residual group. Mutation checked: `upward` in `path@check@src/graph.rs` returning its start
+/// residual group. Mutation checked: `upward` in `path@query@src/graph.rs` returning its start
 /// alone, which leaves the middle and top goals in the residual.
 #[test]
 fn worklist_lists_every_entry_of_the_record_once_per_cluster() {
@@ -6481,7 +6559,7 @@ fn worklist_entries_files(out: &Path) -> String {
 
 /// AC3 of the spec of the graded entries' assembly: the files the searchers read are what the
 /// binary wrote before the snapshot existed, byte for byte, so the snapshot adds nothing to an
-/// agent's load. The reference copy, `path@check@tests/worklist-entries-before-the-snapshot.txt`, was
+/// agent's load. The reference copy, `path@query@tests/worklist-entries-before-the-snapshot.txt`, was
 /// written by the binary before that change, over this project with this seed and bound. It is a
 /// `.txt` so this repository's check reads none of the mock project's references in it.
 #[test]
@@ -6498,14 +6576,15 @@ fn worklist_entries_files_are_those_before_the_snapshot() {
         "60",
     ]);
     assert_eq!(code, 0, "{stdout}{stderr}");
-    let reference = check_dir().join("tests/worklist-entries-before-the-snapshot.txt");
+    let reference = Path::new(env!("CARGO_MANIFEST_DIR"))
+        .join("../query/tests/worklist-entries-before-the-snapshot.txt");
     let expected = std::fs::read_to_string(&reference).expect("the reference copy");
     assert_eq!(worklist_entries_files(&out), expected);
 }
 
 // ---- `transcript` ------------------------------------------------------------------------------
 //
-// The fixtures under `path@check@tests/transcripts/` are Claude Code transcript directories, one per
+// The fixtures under `path@transcript@tests/transcripts/` are Claude Code transcript directories, one per
 // case, whose `cwd` fields hold `{{root}}`. Each test writes its case into a directory of its own,
 // with `{{root}}` replaced by the mock `core`'s root, and runs the binary there with
 // `CLAUDE_CONFIG_DIR` pointed at it, so no test reads the machine's own transcripts. The mock gains
@@ -6517,7 +6596,7 @@ fn transcript_case(case: &str, tag: &str) -> PathBuf {
     let root = project("core").canonicalize().expect("the mock exists");
     let dir = std::env::temp_dir().join(format!("klarch-transcript-{tag}-{}", std::process::id()));
     let _ = std::fs::remove_dir_all(&dir);
-    let from = check_dir().join("tests/transcripts").join(case);
+    let from = transcript_dir().join("tests/transcripts").join(case);
     copy_rendered(&from, &dir, &root.display().to_string());
     dir
 }
@@ -6587,7 +6666,7 @@ fn transcript_sessions_are_cut_at_a_new_id_and_a_root_that_is_no_compaction() {
 }
 
 /// A cleared session is listed apart, found by its first owner message, and its `/clear` is the
-/// owner's command, per `design@check@transcript-session-split`.
+/// owner's command, per `design@transcript@transcript-session-split`.
 #[test]
 fn transcript_a_cleared_session_is_listed_apart_and_found_by_its_first_owner_message() {
     let (stdout, _, code) = transcript("cleared", "cleared-list", &["list"]);
@@ -7138,7 +7217,7 @@ fn transcript_a_linked_worktree_reads_the_sessions_of_its_main_checkout() {
         std::env::temp_dir().join(format!("klarch-transcript-worktree-{}", std::process::id()));
     let _ = std::fs::remove_dir_all(&config);
     copy_rendered(
-        &check_dir().join("tests/transcripts/places"),
+        &transcript_dir().join("tests/transcripts/places"),
         &config,
         &root.display().to_string(),
     );

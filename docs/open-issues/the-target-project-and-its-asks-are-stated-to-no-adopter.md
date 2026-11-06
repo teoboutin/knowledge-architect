@@ -9,7 +9,7 @@ kind: todo
 and lists what knowledge-architect asks of one: git with its `.git` at or above the project, agents
 under the `claude` harness, every gate run through the gates library from one command, and one merge
 invocation of that command in every target project. The setup skill states one ask, the
-maintenance crate of every Rust target project, and no other; only the READMEs of `model`, `check` and `cli` among the published crates state the
+maintenance crate of every Rust target project, and no other; only the READMEs of `model`, `check`, `cli`, `query`, `transcript` and `create` among the published crates state the
 conditions and the asks; and no design head names the command and its merge invocation.
 
 ## Details
@@ -19,7 +19,7 @@ conditions and the asks; and no design head names the command and its merge invo
 - The installed text states one ask, the maintenance crate of every Rust target project, per
   `design@agent-skills@maintenance-crate-ask`, in the setup skill, and none of the others; the goal
   requires it to state each one.
-- The setup skill and the READMEs of the published crates other than `model`, `check` and `cli` state neither the four conditions nor the
+- The setup skill and the READMEs of the published crates other than `model`, `check`, `cli`, `query`, `transcript` and `create` state neither the four conditions nor the
   other asks, nor that nothing is guaranteed outside the conditions or where an ask is not followed.
 - The goal makes the name of the one command and its invocation for a merge a design decision of
   knowledge-architect. No head records it. The invocations differ today: this repository merges on
@@ -32,7 +32,7 @@ conditions and the asks; and no design head names the command and its merge invo
     their rewording, though its comment says they follow those goals;
   - the setup skill's case of a project with no Rust, which installs the checker locally, serves no
     target project, since a target project's shipped code is Rust;
-  - `init --vcs none`, per `design@check@init-runs-git-init`, writes a project that is no git
+  - `init --vcs none`, per `design@create@init-runs-git-init`, writes a project that is no git
     repository, a state the git ask rules out unless it helps the project into conformance;
   - `primer@question-authority` sends the owner no new ask, which
     `goal@knowledge-architect@the-owner-decides` now sends whatever the argument settles.

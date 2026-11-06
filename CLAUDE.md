@@ -12,9 +12,12 @@ The repository is a virtual workspace with Components:
 | --- | --- | --- |
 | `knowledge-architect` | the root | the project itself |
 | `cli` | crates/cli | package `knowledge-architect`: the binary `klarch`, the parsing of its commands, and the library a binary that registers an extension is written against |
-| `check` | crates/check | package `knowledge-architect-check`: the checker library, each command's logic behind a typed API |
+| `check` | crates/check | package `knowledge-architect-check`: the checker library, and the logic of the commands that run it or install the workflow behind a typed API |
 | `git` | crates/git | package `knowledge-architect-git`: the library that wraps git for the tools of knowledge-architect, the checker among them |
 | `model` | crates/model | package `knowledge-architect-model`: the library of what knowledge-architect reads of a project: the manifest, the walk, the parse, the entity table, phases 1 to 3 and the resolver |
+| `query` | crates/query | package `knowledge-architect-query`: the library of the commands that read the record and run no check, behind a typed API |
+| `transcript` | crates/transcript | package `knowledge-architect-transcript`: the library that reads an agent harness's session transcripts, behind a typed API |
+| `create` | crates/create | package `knowledge-architect-create`: the library that creates a project and adds a Component to one, behind a typed API |
 | `agent-skills` | crates/agent-skills | package `knowledge-architect-agent-skills`: the text the checker installs into a project |
 | `gates` | crates/gates | package `knowledge-architect-gates`: the library that runs a project's merge gates |
 | `mutate` | crates/mutate | package `knowledge-architect-mutate`: the library of the hand mutation, `cargo x mutate` |
@@ -75,7 +78,7 @@ An issue entry keeps its magnitudes, per the cold-reader standard of
 
 `primer@verify-before-relying` holds the rules. This repository adds four:
 
-- A figure in the documents of `check` or of `model` measured in another project, thaum, names thaum as its source.
+- A figure in the documents of `check`, of `model` or of `query` measured in another project, thaum, names thaum as its source.
 - **Before touching the code of a Component, ground first, per
   `skill@knowledge-architect-development@ground-before-editing` and
   `skill@klarch-development@ground-in-this-repository`.**

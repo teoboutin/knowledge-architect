@@ -4,13 +4,13 @@ The fifth slice of `milestone@plans@component-split`. It leaves when it lands.
 
 ## Builds
 
-- The Component `query`, `planned@knowledge-architect@crates/query/`, package `knowledge-architect-query`,
+- The Component `query`, `path@knowledge-architect@crates/query/`, package `knowledge-architect-query`,
   depending on `model`, and on `git` for `last_changed`, the last column of `issues`: the logic of `show`,
   `issues`, `tripwires`, `anchors`, `id` and `worklist`, with `graph.rs`.
-- The Component `transcript`, `planned@knowledge-architect@crates/transcript/`, package
+- The Component `transcript`, `path@knowledge-architect@crates/transcript/`, package
   `knowledge-architect-transcript`, depending on `git` for `main_worktree_path`, taking the project's root
   from its caller, since `manifest.root()` is all its verbs read of a manifest.
-- The Component `create`, `planned@knowledge-architect@crates/create/`, package `knowledge-architect-create`,
+- The Component `create`, `path@knowledge-architect@crates/create/`, package `knowledge-architect-create`,
   depending on `check`, `model`, `git` and `agent-skills`: `init`, `new-component`, `init --rust`. `cli`
   locates the project and hands it in, so `create` calls no `locate`. It calls `model`'s
   `foundation::complete_working_tree`, and of `check`:
@@ -46,8 +46,8 @@ The fifth slice of `milestone@plans@component-split`. It leaves when it lands.
   integrated test over a mock project that declares a table an extension claims, which `issue@model@a-tool-over-the-model-reads-a-project-with-an-extension-otherwise-than-the-checker`
   asks; shown to fail by a recorded mutation that removes `extension::configure` from `cli::run`. This is D8's.
 - **`worklist`, `id` and the writers still refuse over an incomplete model.** Test: the existing
-  tests of `design@check@worklist-writes-and-verifies-the-reports` and
-  `design@check@id-lookup-command` pass; shown to fail by a recorded mutation that skips the gate in
+  tests of `design@query@worklist-writes-and-verifies-the-reports` and
+  `design@query@id-lookup-command` pass; shown to fail by a recorded mutation that skips the gate in
   `worklist`.
 - **`init`'s tests pass over `create`'s code.** Test: the file #cli-on-top moved to `cli`, since `create`
   has no binary and `CARGO_BIN_EXE_klarch` is set in `cli` alone, unchanged but for the test of D6;
@@ -56,21 +56,21 @@ The fifth slice of `milestone@plans@component-split`. It leaves when it lands.
 
 ## Audit subjects
 
-`issue@check@init-outside-a-worktree-deletes-an-owned-file-silently`, which reopens two heads of `init` at this audit;
-`design@check@transcript-is-a-command-of-every-binary`, rewritten; the heads of
-`path@check@docs/design/worklist.md`, `path@check@docs/design/transcripts.md` and
-`path@check@docs/design/creating.md`; `design@check@anchors-listing-command`,
-`design@check@one-question-one-command`; `design@check@transcript-directory-resolution`;
+`issue@create@init-outside-a-worktree-deletes-an-owned-file-silently`, which reopens two heads of `init` at this audit;
+`transcript-is-a-command-of-every-binary`, rewritten as `design@transcript@transcript-command-reads-any-project`; the heads of
+`path@elsewhere@crates/check/docs/design/worklist.md`, `path@elsewhere@crates/check/docs/design/transcripts.md` and
+`path@elsewhere@crates/check/docs/design/creating.md`; `design@query@anchors-listing-command`,
+`design@check@one-question-one-command`; `design@transcript@transcript-directory-resolution`;
 `design@agent-skills@rust-templates-one-home`, whose test, `path@xtask@tests/scaffold.rs`, stays in
 xtask and calls `init` through `cli`'s function `cli::init` and its `InitArgs`;
-`issue@check@a-forked-subagent-s-first-line-is-an-unrecognised-type`,
-`issue@check@the-graded-entries-repeat-a-shared-entry-s-grade-per-agent`,
-`issue@check@show-lists-no-subdocument-of-a-directory-home`,
-`issue@check@no-command-lists-the-standing-entries-citing-a-set-of-entries`,
-`issue@check@no-command-searches-the-entries-or-lists-an-audit-s-work`, each re-anchored;
+`issue@transcript@a-forked-subagent-s-first-line-is-an-unrecognised-type`,
+`issue@query@the-graded-entries-repeat-a-shared-entry-s-grade-per-agent`,
+`issue@query@show-lists-no-subdocument-of-a-directory-home`,
+`issue@query@no-command-lists-the-standing-entries-citing-a-set-of-entries`,
+`issue@query@no-command-searches-the-entries-or-lists-an-audit-s-work`, each re-anchored;
 `issue@model@the-structural-findings-might-be-checked-at-scan-time`, D7's;
 `issue@model@a-tool-over-the-model-reads-a-project-with-an-extension-otherwise-than-the-checker`, D8's;
-`issue@check@init-and-new-component-run-an-extension-on-a-manifest-it-did-not-configure`, which moves open,
+`issue@create@init-and-new-component-run-an-extension-on-a-manifest-it-did-not-configure`, which moves open,
 since its repair changes what an extension's binary does and this slice relocates.
 
 **What every commit's tree must pass.** This slice's first change sets nothing of it: adding a directory to the
@@ -102,7 +102,7 @@ documents, from the table the owner approved.
 
 **`transcript`.** It imports nothing of the checker but the project's root and `git`'s
 `main_worktree_path`, and changes when the harness's transcript format does (#arg-9, corrected at
-the plan's review, #arg-10). `design@check@transcript-is-a-command-of-every-binary` says "The reader is internal";
+the plan's review, #arg-10). `transcript-is-a-command-of-every-binary`, now `design@transcript@transcript-command-reads-any-project`, said "The reader is internal";
 that sentence is what this slice rewrites, since #cli-on-top removed the one that argued from
 `rejected@knowledge-architect@single-crate`.
 
@@ -127,8 +127,8 @@ a project running the tools names `knowledge-architect` alone, and the condition
 
 | what | where |
 | --- | --- |
-| #query-crate | the root's design home: a head for the crate and what it depends on, under the thread's slug. `query`'s design home: a head that it depends on no crate of the checks; the heads of `path@check@docs/design/worklist.md` but `design@check@no-citation-direction-rule`, which stays in `check` beside `design@check@goals-home-cites-upward-only`; `design@check@anchors-listing-command` and `design@check@id-lookup-command`; with the `rejected` entries those alone cite and the issues on its commands |
-| #transcript-crate | the root's design home: a head under the thread's slug, the part saying that the reader is a crate of its own that `cli` depends on. `transcript`'s design home: the transcript heads, and the successor of `design@check@transcript-is-a-command-of-every-binary` under a new slug, with the `rejected` entry and the issues on them |
+| #query-crate | the root's design home: a head for the crate and what it depends on, under the thread's slug. `query`'s design home: a head that it depends on no crate of the checks; the heads of `path@elsewhere@crates/check/docs/design/worklist.md` but `design@check@no-citation-direction-rule`, which stays in `check` beside `design@check@goals-home-cites-upward-only`; `design@query@anchors-listing-command` and `design@query@id-lookup-command`; with the `rejected` entries those alone cite and the issues on its commands |
+| #transcript-crate | the root's design home: a head under the thread's slug, the part saying that the reader is a crate of its own that `cli` depends on. `transcript`'s design home: the transcript heads, and the successor of `transcript-is-a-command-of-every-binary` under a new slug, with the `rejected` entry and the issues on them |
 | #create-crate | the root's design home: a head for the crate and what it depends on, under the thread's slug. `create`'s design home: the heads of creating, with the `rejected` entries and the issues on them |
 | what each head that names the crates says | `design@knowledge-architect@git-crate`, `design@knowledge-architect@checker-asks-git-through-the-crate`, `design@knowledge-architect@model-crate` for "the writers run them and no check", which `init` and `new-component` refute, `design@knowledge-architect@api-facade`, `design@check@the-facade-publishes-what-a-consumer-needs`, `design@check@a-typed-command-prints-and-returns-its-code`, `design@check@a-foreign-build-is-refused`, `design@check@checker-source-literals-are-data`, `design@knowledge-architect@partial-publish-rerun` |
 | the issues whose text names moved code or the sites of the crates | `issue@check@a-typed-command-prints-and-exits-rather-than-returning-data`, `issue@check@a-typed-command-trusts-its-caller-to-have-configured-the-manifest`, `issue@knowledge-architect@the-target-project-and-its-asks-are-stated-to-no-adopter`, `issue@knowledge-architect@the-skill-bundling-passes-are-tied-to-this-project-s-skills`, `issue@agent-skills@the-upstream-set-omits-the-published-libraries`, `issue@cli@some-moved-behaviour-of-the-commands-survives-a-mutation`, `issue@model@the-resolver-s-arms-have-mutation-survivors`, and each sentence that cites this spec, rewritten before it leaves |

@@ -39,25 +39,6 @@ say which of the two was right.
 
 The design this decision did not keep: `rejected@check@index-diff-with-write-flag`.
 
-### `anchors` lists every anchor of a project, computed as `check` computes them, with the home of each register it carries but a plan's `##anchors-listing-command`
-
-`klarch anchors` prints every anchor, the constructed ones included, built by `Anchors::of` over the
-manifest and the tree's listing as every check builds them: its name, its kind and its path, and,
-under every anchor but a plan's, each register it carries with the home the tree holds,
-the file, the directory, both, or `missing`. An entry's kind is the Directory register it is an
-entry of. A milestone and a spec list no register: a plan
-anchor's registers keep their homes inside the plan itself, its sections, or a milestone's own
-directory for its slice specs. A home is judged held by the rule `check` judges it by, over the
-same listing, so the two agree on what a project carries. It exits 1 when a home is missing, a negative answer
-about the project, per `design@cli@exit-code-ladder`. Its output is for a reader and is not a
-contract, per `issue@knowledge-architect@command-output-is-not-declared-a-contract`.
-
-It answers a question no other command answers: `model` prints observations, and `show` one
-register's homes. The rival, each project's root `CLAUDE.md` listing its anchors by hand, goes stale
-when the manifest changes, and no check reports the stale list; the command is computed from what
-it describes. The primer names it, so every installing project's sessions learn its anchors from
-it.
-
 ### `index --staged` writes the staged tree's generated files into git's index, and no working-tree file `##index-staged-write`
 
 `cargo klarch index --staged` generates each file from the tree git's index would commit, per

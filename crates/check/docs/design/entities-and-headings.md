@@ -46,25 +46,11 @@ exception to `design@check@no-citation-direction-rule`, and to the relocation th
 Components enclose a goals home turns its citations of the former enclosing Component into
 findings, which strains `goal@check@relocation-needs-only-goal-changes`.
 
-### `id` answers whether an id is free with every entity the table defines under it, of every kind and every anchor, and leaves to its reader which collision matters `##id-lookup-command`
+### No rule on the direction of a citation is checked outside a goals home `##no-citation-direction-rule`
 
-`klarch id <id>...` prints, for each argument in order, `free` where the entity table defines
-nothing under it, every entity it defines under it, as the reference `show` takes, or that the
-argument is outside the grammar of `design@model@two-segment-ids`. It reads the table through
-`Entities::by_id`, unfiltered, the set the lints on ids filter per citing document. It exits 0 when
-every argument is free and 1 otherwise, a malformed argument being a negative answer about the
-candidate, per `design@cli@exit-code-ladder`, since the run answers every other argument; and 2
-over an incomplete model, since a `free` there is the finding computed over an incomplete model that
-`design@check@phases-gate-the-report` refuses.
+Membership of a cluster reads an edge either way, so a rule that citations run from goals down to
+issues would buy acyclicity alone, which serves a transitive membership that merges the clusters.
+A goals home is the one place a direction is checked, for a reason of its own, the stability of a
+goal, per `design@check@goals-home-cites-upward-only`.
+The design this decision did not keep: `rejected@check@citation-direction-checked`.
 
-It answers a question no other command answers, per `design@check@one-question-one-command`: `show`
-takes a whole reference, and the lints compute the set only to report a span. A design thread's slug
-is checked against the design and `rejected` entries of the Component that will own its decision,
-per `design@agent-skills@thread-slug-is-entry-id`, and without `id` a session checks it by a loop
-over two `show` calls per candidate, the case `goal@knowledge-architect@mechanical-tasks-are-the-tool-s`
-gives the checker. An anchor's name, a Component's, a location's or a plan's, is no entity, so `id`
-lists none: a plan named like an anchor is refused by `check`, per
-`design@model@anchors-are-components-and-locations`. The rule on which collision refuses an id stays with the reader, since another
-reader, such as a label or a new entry of another register, has another rule. The nearest rival, a
-test of one named anchor's design and `rejected` entries, needs the owning anchor before the thread
-can name it: `rejected@check@slug-test-of-one-anchor`.
