@@ -23,7 +23,7 @@ Reproduced by the adversarial reviewer of the work that created the git Componen
   entry keyed `d` holding the tree object's raw bytes; whether `blobs` drops it as text that is not
   UTF-8 was not checked.
 
-The checker hands these functions paths from its own listings, and the range `commits` is given, which is the caller's: `klarch commits -- --stdin` and `klarch commits '^HEAD'` each exit 0 with `commits: no commit is in range` and `PASSED: no findings`, so a gate given such a value passes on commits it never judged. The other functions meet none of these cases. Not established: whether any is a defect rather than an
+The checker hands these functions paths from its own listings, and two values the caller gives. The range `commits` is given: `klarch commits -- --stdin` and `klarch commits '^HEAD'` each exit 0 with `commits: no commit is in range` and `PASSED: no findings`, so a gate given such a value passes on commits it never judged. `init`'s PATH reaches `ignores`: `klarch init --name p -- --stdin` exits 2 on git's `unknown option`, a refusal. Not established: whether any is a defect rather than an
 input no caller should make; the functions state no contract on such input.
 
 ### Why it matters

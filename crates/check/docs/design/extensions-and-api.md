@@ -114,8 +114,8 @@ owner's word.
 
 ### `check`'s role modules publish what a consumer of the library needs, and nothing for `check`'s own tests `##the-facade-publishes-what-a-consumer-needs`
 
-The library has three kinds of consumer: a binary that registers an extension, the extension, and
-the extension's tests. **Testing an extension over a mock project is part of what the library
+The library has four kinds of consumer: a binary that registers an extension, the extension, the
+extension's tests, and a frontend that is no command line, which alone names `commands`, through this package. **Testing an extension over a mock project is part of what the library
 publishes**, because a project that adopts the tool with a subject of its own, per
 `goal@knowledge-architect@every-target-project-can-adopt-it`, has to test that subject as `check` tests
 its own. `design@check@a-foreign-build-is-refused` already requires every extension binary to test

@@ -4,7 +4,7 @@ How a project's knowledge is held: its documents, the references between them an
 they carry. This Component is the generic part. A subject that belongs to one project is an
 extension of it, per `design@check@an-extension-plugs-in-through-phased-hooks`.
 
-The package is `knowledge-architect-check`, and a project does not name it: it pins
+The package is `knowledge-architect-check`, and a project that runs the checker or writes an extension does not name it: it pins
 `knowledge-architect`, whose binary `klarch` and library are built on this one. Installing, the usage of each command but `check` and `commits`,
 and the exit codes are `path@cli@README.md`. This file holds the rules a project's documents are
 checked by. Its commands are written `cargo klarch <command>`, the command this repository declares.
