@@ -146,9 +146,9 @@ defines its own words, and its goals may use the root's. The head restates no ru
    **Mark each goal with its source**: "the owner's statement", or "proposed from <the document or
    the code it was read from>". The source mark is not written to the goals home. A batch of three
    goals or fewer is drafted in the message. A batch of more is written in the goals homes of the
-   working tree, uncommitted, and its source marks go in a record kept as
+   working tree, and its source marks go in a record kept as
    `skill@knowledge-architect-goal-setting@whole-set-review` keeps one, in
-   `docs/goal-reviews/<YYYY-MM-DD>-<subject>.md`.
+   `docs/goal-reviews/<YYYY-MM-DD>-<subject>.md`, each round's drafts committed with it.
 4. **Dispatch `agent@knowledge-architect-goal-reviewer` in its draft mode**, fresh, never a fork:
    its brief is the whole batch of new and reworded goals, every relevant statement of the owner,
    verbatim, whether or not the draft drew on it, and the project. Repair each `settled` finding,
@@ -157,14 +157,16 @@ defines its own words, and its goals may use the root's. The head restates no ru
    on the repaired batch, so that the version shown is a version reviewed. Keep the version each
    round read, in the conversation for a batch of three goals or fewer and in the record for a
    larger one, and from the second round sort each finding by the words it quotes against it: on
-   old wording, the words the previous round read and no repair changed since, or on new wording.
-   **Stop when a round, from the second on, reports no `blocks` finding on old wording, whatever
-   its route, or when the owner says so.** From the third round on, where a round's `blocks`
-   findings on old wording are no fewer than the previous round's, put the stop to the owner instead
-   of running another round. The findings of the round that stops go to the owner beside the goals,
-   unrepaired. Where the owner stops the rounds after a round's repairs, the owner's stop prevails:
-   tell the owner that those repairs are unreviewed, and the goals axis of the review before the
-   merge, `agent@knowledge-architect-goal-reviewer` in its merge mode, reads them.
+   old wording, the words the previous round read and no repair or rewording of the owner changed
+   since, or on new wording. **Stop when a round, from the second on, reports no `blocks` finding
+   on old wording, whatever its route, or when the owner says so.** From the third round on, where
+   a round's `blocks` findings on old wording are no fewer than the previous round's, and from the
+   second round on, where every `blocks` finding on old wording is a `contradiction`, put the stop
+   to the owner instead of running another round. The findings of the round that stops go to the
+   owner beside the goals, unrepaired. Where the owner stops the rounds after a round's repairs,
+   the owner's stop prevails: tell the owner that those repairs are unreviewed, and the goals axis
+   of the review before the merge, `agent@knowledge-architect-goal-reviewer` in its merge mode,
+   reads them.
 5. **Show the owner the draft, each goal with its boundary block**, in the message, or, for a batch
    of more than three goals, in the tree and the record: what the goal asks of future work, the
    part the project does not hold yet; for each layer the goal has, requires, admits and rules out,
@@ -183,10 +185,11 @@ defines its own words, and its goals may use the root's. The head restates no ru
    goal by its slug and its cases, approved or dropped; for more, on the batch as the tree holds it, the owner
    naming each goal dropped or reworded. A goal with no ruling is neither written nor dropped: ask
    again for it by its slug. A
-   goal the owner rewords is reviewed again, with the whole batch, and shown again in its new
-   wording before it is written.
+   goal the owner rewords is reviewed again, with the whole batch, in the next round of the same
+   review, and shown again in its new wording before it is written.
 7. Write the approved goals, exactly as approved, and the home's head, and nothing else; for a batch
-   drafted in the tree, commit the goals as the tree holds them.
+   drafted in the tree, whose drafts are committed, the commit that writes the goals as the owner
+   ruled them records the ruling.
 
 **A goal's wording proposed in another activity**, a plan's default, a review's repair, an audit's
 item or a goal a design discussion sets, is drafted here as its own item, with its boundary block,
@@ -231,8 +234,8 @@ passes the check.
    project's root: for each round, the findings counted per reviewer, rule, grade, route tag and old
    or new wording, each finding's
    outcome, each default with its ground, each question put to the owner with the owner's answer
-   verbatim, and each goal's boundary block; and the list of questions still open. Commit it at each
-   round, apart from the drafts, which stay uncommitted until the owner rules on them.
+   verbatim, and each goal's boundary block, from the round's reviewers; and the list of questions
+   still open. Commit it at each round, with the round's drafts.
 5. **Run the next round** from step 2, over the goals and the record as step 3 left them.
 6. **Stop** by the rule of step 4 of
    `skill@knowledge-architect-goal-setting@drawing-out-intent`, over the `blocks` findings of every
@@ -241,7 +244,8 @@ passes the check.
 
 **Every goal is then put to the owner with its boundary block**, a goal with no other finding
 included, for a ruling: kept as it stands, or as the rounds reworded it, as
-`skill@knowledge-architect-goal-setting@drawing-out-intent` says in its steps 6 and 7, the blocks in
-the record and the goals in the tree, since only the owner judges rule 3. The commit that writes the
-goals the owner ruled last, or a later commit of the same branch, deletes the record and names it by
-its path.
+`skill@knowledge-architect-goal-setting@drawing-out-intent` says in its steps 6 and 7, the blocks of
+the round that met the stop, in the record, and the goals in the tree, since only the owner judges
+rule 3. The record is committed with the owner's last answers before the goals the owner ruled last
+are written; the commit that writes them, or a later commit of the same branch, deletes the record
+and names it by its path.

@@ -7,6 +7,6 @@ their grounds, and the owner's answers verbatim. The procedure is
 `skill@knowledge-architect-goal-setting@drawing-out-intent` and, for the whole set,
 `skill@knowledge-architect-goal-setting@whole-set-review`.
 
-A file leaves the directory with the commit that writes the goals the owner ruled last, as the
-procedure says. So on the main branch this directory holds only the records of batches not yet
+A file is committed with the owner's last answers, then leaves the directory with the commit that
+writes the goals the owner ruled last, or a later one, as the procedure says. So on the main branch this directory holds only the records of batches not yet
 ruled, and `git log -- docs/goal-reviews/` lists every file there has been.
