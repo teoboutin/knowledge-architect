@@ -42,6 +42,11 @@ session that reduced the grounding's reading, 2026-10-25. With installed-text so
 installed, a commit of the Rust changes alone failed `check --staged` on seven installed files; the
 session folded the code and the text repairs into one commit.
 
+Another: C1 of the workflow file of the retrospective of the session that closed about twenty open
+issues before a release, 2026-11-01. Twice, a commit of part of the edited shipped-text sources failed
+`check --staged` and `index --staged` on the installed copies of sources left unstaged, while
+`commits` passed the commits; the session folded unrelated text changes into one commit.
+
 ### Why it matters
 
 `design@check@staged-check-semantics` states that `check --staged` applies `check`'s rules "as on a

@@ -217,7 +217,7 @@ Analysed with P2 of 2026-11-01-knowledge-architect-narrowed-goals, in
     order of the 179 raw-path findings the spec's census counted over many sessions; the hold and the
     order of work are the owner's, per `goal@knowledge-architect@the-owner-decides`.
   - messages: open an issue in `check`, kind `design`, id
-    `no-command-applies-the-repair-a-message-finding-names`.
+    `issue@check@no-command-applies-the-repair-a-message-finding-names`.
     - What: the reference repairs `commits` names on a message (111, 35 and 4; 21; 41 and 49) are
       applied by the session's scripts, then an amend, in four files.
     - Why it matters: the repairs that are respellings follow from the finding, per
@@ -231,7 +231,7 @@ Analysed with P2 of 2026-11-01-knowledge-architect-narrowed-goals, in
 - **Default**: as above.
 - **Outcome**: decided by the session: no change on the text; the instances added to
   `issue@knowledge-architect@path-quickfixes-read-against-the-lints-on-ids`; open
-  `no-command-applies-the-repair-a-message-finding-names` in `check`, kind `design`; no change for
+  `issue@check@no-command-applies-the-repair-a-message-finding-names` in `check`, kind `design`; no change for
   the deleted plan document's citations. Ground: the documents' respelling is the spec's, on hold on
   the owner's word; the message's is outside every record; a plain-word fix and a deleted plan's
   rewrite each make a choice, which `design@check@safe-fix-definition` refuses.
@@ -261,7 +261,7 @@ Analysed with P2 of 2026-11-01-knowledge-architect-narrowed-goals, in
   one command serving both files' needs is the shape to discuss.
 - **g.** Its route: an issue.
 - **h.** The proposal: open an issue in `query`, kind `todo`, id
-  `no-command-lists-the-entries-two-commits-differ-by`, which also takes C3 of the tripwire audit's
+  `issue@query@no-command-lists-the-entries-two-commits-differ-by`, which also takes C3 of the tripwire audit's
   file.
   - What: the counts and slug lists an audit pass's commit message owes are taken by grep and diff
     between two commits, in two retrospective files of one other project.
@@ -272,7 +272,7 @@ Analysed with P2 of 2026-11-01-knowledge-architect-narrowed-goals, in
     that prints per register the entries created, removed and retitled between two commits, with a
     test over a mock project of two commits.
 - **Default**: open the issue.
-- **Outcome**: decided by the session: open `no-command-lists-the-entries-two-commits-differ-by` in
+- **Outcome**: decided by the session: open `issue@query@no-command-lists-the-entries-two-commits-differ-by` in
   `query`, kind `todo`. Ground: no record holds the need; it contradicts no head.
 
 ## `tripwire@check@checker-source-literals-are-data-whole-source-scope`: its re-entry is met, its firing is not

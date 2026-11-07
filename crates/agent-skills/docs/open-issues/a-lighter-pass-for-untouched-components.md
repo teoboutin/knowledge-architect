@@ -52,6 +52,28 @@ could read whole beside its own work.
 `issue@query@the-graded-entries-repeat-a-shared-entry-s-grade-per-agent` holds the part of the cost
 that repeated grade lines make.
 
+The intake of forty retrospective files, 2026-11-07, analysed at main's commit "[plans] The
+milestone that split the Components leaves, with the spec of its last slice: their work and their
+harvest have landed", measured the cost at every occasion of the search from 2026-10-31 on, by
+the files' reports and by `wc -w` where words are given:
+
+- its own search: `bears.md` 333 entries in 133,010 words, `may-bear.md` 249 entries in 78,434;
+- two design groundings: 136 entries graded `bears`, 61,473 words; and, for one small in-change
+  decision, twelve searchers and 179 entries graded `bears`, about 72,000 words;
+- the design audits of seven slices: 172 `bears` (about 68,000 words) and 148 `may-bear` (about
+  60,000); 888 KB and 810 KB for two slices of one milestone; 292 entries; 347 entries, about 1 MB;
+  13,589 lines, 131,549 words; 425 entries, about 1.1 MB; 166 and 199 entries, 1.07 MB, about
+  146,000 words;
+- the agents: the work lists of two slice audits held 21 and 22 searchers, above the 20 the harness
+  started at once, by the files' report, the rest sent as slots freed.
+
+The whole reading these sizes owe is
+`issue@agent-skills@the-search-s-graded-entries-exceed-what-one-session-reads-whole`; its
+discussion, where it changes how the search packs or assembles the record, is a re-entry point of
+this entry. The analysis is W1 of 2026-10-31-knowledge-architect-intake-seventeen-files-klarch-workflow,
+in the commit "[intake] The analyses of forty received retrospective files, three outcomes for the
+owner".
+
 ### Why it matters
 
 A grounding whose search costs more agents than sessions will pay for gets skipped, against

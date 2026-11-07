@@ -150,7 +150,7 @@ Analysed with C4 of 2026-11-01-thaum-tripwire-audit-klarch-workflow, in `path@kn
   that no field places; the subagent case differs, as a row places it, wrongly.
 - **g.** Its route: an issue, a design question.
 - **h.** The proposal: open an issue in `transcript`, kind `design`, id
-  `an-interrupt-with-no-interrupt-id-is-unlabelled-or-read-as-dispatch`.
+  `issue@transcript@an-interrupt-with-no-interrupt-id-is-unlabelled-or-read-as-dispatch`.
   - What: since harness 2.1.316, interrupts with no `interruptedMessageId` appear: 2 top-level lines,
     unlabelled, and 26 lines in subagent files since 2026-11-01, labelled `dispatch`; the counts and
     sessions above.
@@ -160,7 +160,7 @@ Analysed with C4 of 2026-11-01-thaum-tripwire-audit-klarch-workflow, in `path@kn
     held for both, that admits a text test for such a line or names the shapes in the transcript
     reviewer's text, with the head's measurement taken again.
 - **Default**: open the issue, citing the owner-shell issue.
-- **Outcome**: decided by the session: open `an-interrupt-with-no-interrupt-id-is-unlabelled-or-read-as-dispatch`
+- **Outcome**: decided by the session: open `issue@transcript@an-interrupt-with-no-interrupt-id-is-unlabelled-or-read-as-dispatch`
   in `transcript`, kind `design`. Ground: the measurement above is new, the head's rule decides
   against the proposal's text test until a discussion, and the owner-shell issue's re-entry does not
   cover it.

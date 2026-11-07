@@ -190,7 +190,7 @@ Members: C2 of 2026-10-31-knowledge-architect-transcript-issues-klarch-workflow 
 - **g.** Route: C2, an issue; W5 and W6, nothing on the text, an instance added to the mutation
   issue; P3, recorded; P4, nothing.
 - **h.** Proposal: open a `todo` issue at the root anchor, `knowledge-architect`, with the proposed id
-  `the-review-s-worktrees-and-scratch-directories-are-made-by-hand`: the steps, the instance of C2,
+  `issue@knowledge-architect@the-review-s-worktrees-and-scratch-directories-are-made-by-hand`: the steps, the instance of C2,
   the per-reviewer build cost of W5 and W6 as what a command could report, and as its closing
   condition a command that makes and removes them, or the owner's word that the task is not taken
   in. Add W6's instance to `issue@mutate@an-environment-failure-reads-as-caught`. No edit of the
@@ -198,7 +198,7 @@ Members: C2 of 2026-10-31-knowledge-architect-transcript-issues-klarch-workflow 
 - **Default**: open the issue; the mutation issue gains the integrated-tests instance; no change on
   the text for W5, W6, P3 and P4.
 - **Outcome**: decided by the session: open an issue (`knowledge-architect`, `todo`,
-  `the-review-s-worktrees-and-scratch-directories-are-made-by-hand`); the mutation issue gains an
+  `issue@knowledge-architect@the-review-s-worktrees-and-scratch-directories-are-made-by-hand`); the mutation issue gains an
   instance; no change for the rest. Ground: no entry records C2's task; the disk cost is derivable
   from `skill@knowledge-architect-review@review-invariants` and its two causes are recorded
   (`issue@testing@a-test-run-leaves-directories-in-the-temporary-directory`) or repaired (the owner's
@@ -237,7 +237,7 @@ Members: C2 of 2026-10-31-knowledge-architect-transcript-issues-klarch-workflow 
   fixtures, removes the class. Against the verb: its only users are the maintainers of the reader.
 - **g.** Its route: an issue, since the verb is new code with its tests.
 - **h.** The proposal: open an issue in `transcript`, kind `todo`, id
-  `no-verb-takes-the-inventory-of-the-transcripts-line-kinds`.
+  `issue@transcript@no-verb-takes-the-inventory-of-the-transcripts-line-kinds`.
   - What: the classing of a new value, which `design@transcript@transcript-format-tolerated-and-reported`
     asks for, is measured by hand-written `find`/`jq` pipelines held in two heads; one of them read 42
     of 963 files for weeks.
@@ -247,7 +247,7 @@ Members: C2 of 2026-10-31-knowledge-architect-transcript-issues-klarch-workflow 
     with its count, versions and keys, and the heads' pipelines replaced by it; or a ruling that the
     pipelines stay, deleting the entry with that reason.
 - **Default**: open the issue.
-- **Outcome**: decided by the session: open `no-verb-takes-the-inventory-of-the-transcripts-line-kinds`
+- **Outcome**: decided by the session: open `issue@transcript@no-verb-takes-the-inventory-of-the-transcripts-line-kinds`
   in `transcript`, kind `todo`. Ground: no record holds the need, its Why it matters and What would
   close it can be written, per `primer@met-outside-the-task` row 3; the format head's measurement
   rule makes the measurement owed at each new value.

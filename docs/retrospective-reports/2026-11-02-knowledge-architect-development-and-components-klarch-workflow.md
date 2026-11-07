@@ -51,10 +51,10 @@ Analysed with W1 of 2026-10-31-knowledge-architect-intake-seventeen-files-klarch
   `rejected` entries too (C4 took both), is part of the rule.
 - **g.** Its route. `skill@knowledge-architect-design`, then the planning text and the option.
 - **h.** The proposal. Open a design issue in `agent-skills`, proposed id
-  `a-slice-s-design-audit-is-seeded-with-every-decision-of-its-milestone`, kind `design`, with the
+  `issue@agent-skills@a-slice-s-design-audit-is-seeded-with-every-decision-of-its-milestone`, kind `design`, with the
   counts above, the two heads, the mechanism shared with `rejected@agent-skills@goal-seeds`, and
   `--seeds-from` as its mechanical half; it names cluster A's issue as a neighbour.
-- **Default**: open an issue: `agent-skills`, kind `design`, `a-slice-s-design-audit-is-seeded-with-every-decision-of-its-milestone`.
+- **Default**: open an issue: `agent-skills`, kind `design`, `issue@agent-skills@a-slice-s-design-audit-is-seeded-with-every-decision-of-its-milestone`.
 - **Outcome**: decided by the session: open an issue, as the default says. Ground: the fix rewrites
   the statements of `design@agent-skills@seeds-name-decisions` and
   `design@agent-skills@record-searched-before-the-work`, a decision for
@@ -233,7 +233,7 @@ Analysed with C2 of 2026-11-02-knowledge-architect-component-rules-revision-klar
   search.
 - **g.** Its route: an issue, with a re-entry on recurrence.
 - **h.** The proposal: open an issue in `transcript`, kind `todo`, id
-  `show-starts-only-at-a-line-the-owner-typed`.
+  `issue@transcript@show-starts-only-at-a-line-the-owner-typed`.
   - What: in a session that carries several branches, a branch's work can begin at the agent's
     line after a merge, and `show --from` reaches only a line the owner typed, so the reviewer reads
     from an earlier line.
@@ -243,7 +243,7 @@ Analysed with C2 of 2026-11-02-knowledge-architect-component-rules-revision-klar
     brief's sentence in the review skill naming it; or a ruling that the last owner's message
     suffices. Re-entry: a second instance.
 - **Default**: open the issue.
-- **Outcome**: decided by the session: open `show-starts-only-at-a-line-the-owner-typed` in
+- **Outcome**: decided by the session: open `issue@transcript@show-starts-only-at-a-line-the-owner-typed` in
   `transcript`, kind `todo`. Ground: no record holds it, and its fields can be written, per
   `primer@met-outside-the-task` row 3.
 

@@ -171,7 +171,7 @@ Analysed with W1 of 2026-10-31-knowledge-architect-transcript-issues-klarch-work
   discussion.
 - **g.** Its route: an issue.
 - **h.** The proposal: open an issue in `transcript`, kind `todo`, id
-  `a-result-the-harness-cut-is-printed-as-whole`.
+  `issue@transcript@a-result-the-harness-cut-is-printed-as-whole`.
   - What: a workflow's or a subagent's result that the harness cut reaches `show --full` cut,
     with the harness's pointer to its output file in the line, and nothing in the header says so.
   - Why it matters: the transcript reviewer reads a cut report as whole, and misses an outcome,
@@ -179,7 +179,7 @@ Analysed with W1 of 2026-10-31-knowledge-architect-transcript-issues-klarch-work
   - What would close it: the header counting each cut text with its pointer, or `show` printing the
     output file where it exists, with a test over a fixture holding a cut line.
 - **Default**: open the issue.
-- **Outcome**: decided by the session: open `a-result-the-harness-cut-is-printed-as-whole` in
+- **Outcome**: decided by the session: open `issue@transcript@a-result-the-harness-cut-is-printed-as-whole` in
   `transcript`, kind `todo`. Ground: the measurement above; no record holds it.
 
 ## C3: scripts for tasks with no judgement

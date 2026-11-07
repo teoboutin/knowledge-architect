@@ -49,7 +49,7 @@ Analysed with W1 of 2026-10-31-knowledge-architect-transcript-issues-klarch-work
   branch, which is the discussion's.
 - **g.** Its route: an issue.
 - **h.** The proposal: open an issue in `transcript`, kind `defect`, id
-  `list-branch-misses-a-session-that-worked-in-a-worktree`.
+  `issue@transcript@list-branch-misses-a-session-that-worked-in-a-worktree`.
   - What: a session that worked on a branch from a linked worktree carries, in most of its lines,
     the main checkout's branch, so `list --branch` misses it; the counts above.
   - Why it matters: the review skill finds the sessions of a branch with `--branch`, so the
@@ -58,7 +58,7 @@ Analysed with W1 of 2026-10-31-knowledge-architect-transcript-issues-klarch-work
     widens what `--branch` matches or has the review skill name `--containing` for that case,
     rewriting `design@transcript@transcript-query-verbs`, with a test over a fixture.
 - **Default**: open the issue.
-- **Outcome**: decided by the session: open `list-branch-misses-a-session-that-worked-in-a-worktree`
+- **Outcome**: decided by the session: open `issue@transcript@list-branch-misses-a-session-that-worked-in-a-worktree`
   in `transcript`, kind `defect`. Ground: the measurement above contradicts the head's premise; no
   record holds it.
 

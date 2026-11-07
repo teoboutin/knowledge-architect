@@ -30,6 +30,28 @@ with defaults unruled, was answered before, by a rewording of the planning skill
 owner's ruling decides when a head is written, not what it stands on; the owner has not ruled on
 that reading.
 
+Two further instances, in this repository, each a lapse of the condition, which is delivered at
+both acts: `primer@installed-skills` loads `skill@knowledge-architect-decision-recording` before
+writing into a design home, and the harvest of `skill@knowledge-architect-planning@working-a-slice`
+loads it too.
+
+- The pre-release fixes, 2026-11-01, on the in-change path: an in-change decision held a part put
+  to the owner as a default; the session wrote it into the head in the implementing commit; the
+  decision-record re-review found it, and it was removed and written back after the ruling: a head
+  written, removed and written back in one session.
+- The slice that built the `model` crate, 2026-11-04, a slice with no discussion: the content of
+  one default, D4, was written into a head before the ruling, and the decision-record reviewer
+  caught it.
+
+The retrospective of the first proposed a pointer from the in-change path of
+`skill@knowledge-architect-design@decision-authority` to
+`skill@knowledge-architect-decision-recording@when-recording-happens`, +0 instructions. It was not
+taken: the second instance is not on the in-change path, and the condition the pointer would
+deliver again is the one the owner wants changed. These instances are evidence of the condition's
+cost for the discussion. The analysis is W3 of
+2026-11-01-knowledge-architect-pre-release-fixes-klarch-workflow, in the commit "[intake] The
+analyses of forty received retrospective files, three outcomes for the owner".
+
 Re-entry point: a design discussion under `skill@knowledge-architect-design`, on the owner's word.
 
 ### Why it matters

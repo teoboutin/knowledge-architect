@@ -145,14 +145,14 @@ and of 2026-11-01-knowledge-architect-release-0-9-0.
 - **g.** Route: `skill@knowledge-architect-design`, since the fix reverses or widens a head; an
   issue, since the work needs its own discussion.
 - **h.** Proposal: open a `design` issue at `agent-skills`, proposed id
-  `a-repair-of-the-last-transcript-review-can-make-another-axis-owed`, naming
+  `issue@agent-skills@a-repair-of-the-last-transcript-review-can-make-another-axis-owed`, naming
   `design@agent-skills@only-a-head-changing-repair-is-reviewed-again` as the decision it strains, the
   four instances, the shapes above and the head each would change, and as its re-entry the next
   review whose last transcript review's repair makes an axis owed, or the owner's word. No edit of
   the text now. The release-0-9-0 item: no change, a lapse.
 - **Default**: open the design issue; no change for the lapse.
 - **Outcome**: decided by the session: open an issue (`agent-skills`, `design`,
-  `a-repair-of-the-last-transcript-review-can-make-another-axis-owed`); no change for the
+  `issue@agent-skills@a-repair-of-the-last-transcript-review-can-make-another-axis-owed`); no change for the
   release-0-9-0 lapse. Ground: each proposed fix contradicts
   `design@agent-skills@only-a-head-changing-repair-is-reviewed-again`,
   `design@agent-skills@goal-edit-ruled-alone` or `design@agent-skills@transcript-reviewer-agent`,

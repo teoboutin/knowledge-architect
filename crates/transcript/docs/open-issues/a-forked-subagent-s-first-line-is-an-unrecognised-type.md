@@ -33,6 +33,11 @@ Expected: a known type, read or skipped as the head on the transcript's labels d
 `match` on the line's `type` in `path@transcript@src/reader.rs` knows `user`, `assistant`,
 `attachment`, `system` and the types it lists, and notes any other through `note_unknown`.
 
+Recurrence: nine retrospective files of this repository's sessions, 2026-11-02 to 2026-11-07,
+report the header line `unrecognised type "fork-context-ref"`, each with the count its run found,
+as the header asks. At the intake of 2026-11-07, `klarch transcript list --all-projects` read 2037
+files and printed `# unrecognised type "fork-context-ref": 8`.
+
 ### Why it matters
 
 Every run over a session that forked a subagent prints the gap and asks for a report, so the header

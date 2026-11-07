@@ -1,6 +1,6 @@
 **Generated — do not edit.** `cargo klarch index`
 
-21 entries
+24 entries
 
 | kind | title |
 | --- | --- |
@@ -16,11 +16,14 @@
 | todo | [CHANGELOG.md's shape is checked by a reviewer only, and no model of it exists](a-mechanical-changelog-check.md) |
 | todo | [A typed command prints and can end the process, rather than returning its data](a-typed-command-prints-and-exits-rather-than-returning-data.md) |
 | todo | [A typed command trusts its caller to have configured the manifest, and answers wrongly when it has not](a-typed-command-trusts-its-caller-to-have-configured-the-manifest.md) |
+| todo | [No command renames an entry or a Component, or moves entries between Components](no-command-renames-or-moves-an-entry-or-a-component.md) |
 | todo | [No gate builds the crates' documentation, so a broken link in it reaches no run](no-gate-builds-the-documentation.md) |
 | todo | [No published crate offers the history tasks the workflow asks of a session](no-published-command-rewrites-a-branch-s-history.md) |
 | todo | [The documents do not yet render as one linked site](the-documents-do-not-render-as-a-site.md) |
 | todo | [The goal on mechanical tasks does not cover an action a command would make more efficient or better](the-mechanical-tasks-goal-omits-what-a-helper-does-better.md) |
+| todo | [The order in which the release publishes the crates is spelled by hand in the release workflow and in a head](the-publish-order-is-spelled-by-hand.md) |
 | todo | [Nothing has a session report the tools and procedures it set up or changed](the-retrospective-asks-for-no-tool-a-session-set-up.md) |
+| todo | [The worktrees and scratch directories of a review's subagents are made and removed by hand](the-review-s-worktrees-and-scratch-directories-are-made-by-hand.md) |
 | todo | [The passes that build and bundle installable agent text are tied to this project's own skills, so no other project can reuse them](the-skill-bundling-passes-are-tied-to-this-project-s-skills.md) |
 | todo | [The four conditions of a target project and what knowledge-architect asks of one are stated to no adopter](the-target-project-and-its-asks-are-stated-to-no-adopter.md) |
 | todo | [The installed set has no skill for work on a branch under a linear history, or for releasing](the-workflow-has-no-skill-for-branch-work-or-releasing.md) |

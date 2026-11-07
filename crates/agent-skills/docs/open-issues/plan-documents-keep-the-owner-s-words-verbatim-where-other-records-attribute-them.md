@@ -45,6 +45,49 @@ one sentence at the harvest step, which the file places in the decision-recordin
 session turns a thread into a head, and whose numbered step is in the planning skill, that a thread's verbatim words become an
 attribution in the head and in the harvest's commit message, pointing to `primer@design-heads`.
 
+Further instances, in the retrospective files of the intake of forty files: thirteen of its 23
+workflow files report slips against the attribution rules of `primer@design-heads`,
+`primer@owner-word-premise` or `primer@question-authority`, at least 24 slips, each caught before
+the merge, most by the transcript reviewer and the others by the decision-record, goals and
+design-conformance reviewers; nine files are this repository's and four thaum's. By kind, as the
+session that carried the analysis classed the analysis's table:
+
+- an approval or an answer recorded as a ruling: 10, in eight files (two goal batches recorded as
+  approved where the owner's answers did not name the option; an approval of a default said to
+  answer how a root goal is read; a goal clause recorded as approved outside the table the owner
+  approved; two unanswered questions recorded as the owner's word; a sentence arguing for a goal
+  read as a ruling on its wording; and, in thaum, goals approved on a message that held no goal
+  text, a default recorded as approved by an answer that did not name it, and an approval of a
+  default recorded as the owner's choice at a fork);
+- an act or an argument of the session attributed to the owner: 6, in four files (an act; a
+  fragment's second host; the owner's arguments, twice; a deferral attributed to an answer on a
+  goal's measure; a tripwire's firing);
+- a hedge widened: 1, in thaum, at three sites, a head and two commit messages;
+- a quotation: 5, in three files, the owner quoted in two commit messages, and three
+  quotations altered, one misquoted phrase and two changed by a `sed` rename;
+- a premise not shown: 2 (a goal's sentence attributed as a ruling shown only in part; a goal's
+  cases never shown).
+
+Four of them are also counted in
+`issue@agent-skills@the-claim-check-of-a-commit-message-is-read-at-the-start-and-needed-at-each-commit`.
+Only the quotation kind bears on this entry's hypothesis; the others are slips on the attribution
+side that the hypothesis does not explain. By `design@agent-skills@misstated-ruling-rated-by-what-it-changes`,
+the major ones, a decision attributed that the owner did not make, are in six files, all caught
+before the merge; only one slip changed what was built. The analysis is the section "The
+attribution slips of thirteen files" of 2026-11-01-knowledge-architect-narrowed-goals-klarch-workflow,
+in the commit "[intake] The analyses of forty received retrospective files, three outcomes for the
+owner".
+
+An instance of another kind, from the slice that put `cli` on top, 2026-11-06: the owner asked for
+an issue entry holding the owner's words verbatim on what a goal is for, as input to a later design
+discussion, and the session followed the owner and said in the commit that it departs from the
+rule. The entry is
+`issue@agent-skills@the-goal-standard-does-not-say-what-a-goal-is-worth-or-what-it-is-for`, which
+quotes the owner on the owner's request and says the verbatim words leave with it. It is a request
+of the owner for the verbatim regime in an issue entry that records a view for a discussion, not a
+decision: a case where the owner wants verbatim words outside a plan document. Its analysis is W3
+of 2026-11-06-knowledge-architect-cli-on-top-klarch-workflow, in the same commit.
+
 ### Why it matters
 
 An attribution that loses a hedge records a firmer ruling than the owner gave, against

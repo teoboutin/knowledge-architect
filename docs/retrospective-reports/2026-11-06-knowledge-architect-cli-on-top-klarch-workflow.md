@@ -50,14 +50,14 @@
 - **g.** An issue only: a design question with an open solution space, under
   `skill@knowledge-architect-design`.
 - **h.** Open an issue in `agent-skills`, kind `design`, id
-  `goal-setting-has-no-step-to-discover-an-intent-the-owner-does-not-hold-yet`, holding the
+  `issue@agent-skills@goal-setting-has-no-step-to-discover-an-intent-the-owner-does-not-hold-yet`, holding the
   cli-on-top case with the owner's report attributed, the four kinds of consequence that moved the
   owner, the consumers-out case (drafts from the design heads, 42 of 61 findings `intent`), the two
   lapses on step 1, the cost to weigh (a discussion per Component whose goals are drafted), and the
   neighbour issue cited. P3: no change, its text has left.
 - **Default**: open an issue.
 - **Outcome**: decided by the session: open an issue (`agent-skills`, `design`,
-  `goal-setting-has-no-step-to-discover-an-intent-the-owner-does-not-hold-yet`). Ground: the owner
+  `issue@agent-skills@goal-setting-has-no-step-to-discover-an-intent-the-owner-does-not-hold-yet`). Ground: the owner
   named the missing capability and left its shape to a design discussion; the lapses on step 1 take
   no text, per `skill@knowledge-architect-retrospective-intake@admission-rules`; P3's milestone has
   left.
