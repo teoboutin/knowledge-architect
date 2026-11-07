@@ -22,9 +22,11 @@ permissions:
 
 # A later push to one pull request cancels the run on the earlier head. A cancelled run
 # reports `cancelled`, not `success`, so the merge predicate, which asks for a successful run on
-# the current head, never counts it.
+# the current head, never counts it. The key holds the draft flag: a push to a draft, followed at
+# once by `gh pr ready`, starts two runs on one head, and GitHub may start the push's run last;
+# in a group without the flag, that run, which skips, would cancel the ready run.
 concurrency:
-  group: ci-${{ github.event.pull_request.number }}
+  group: ci-${{ github.event.pull_request.number }}-${{ github.event.pull_request.draft }}
   cancel-in-progress: true
 
 jobs:
