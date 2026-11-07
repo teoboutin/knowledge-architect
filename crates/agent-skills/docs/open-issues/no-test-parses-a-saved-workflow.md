@@ -20,7 +20,9 @@ to call apart from the harness.
 
 The contract, in `path@agent-skills@CLAUDE.md`: "The harness runs the file's body as an async
 function, so a top-level `return` is legal there and `node --check` refuses it on the bare file:
-check it parses by wrapping the body in `async function body() {…}`, with `export` removed."
+check it parses by wrapping the body in `async function body() {…}`, with `export` removed, on the
+installed copy under `path@agent-config@workflows/`, since a `%%` line of the source is no
+JavaScript."
 
 The saved workflows are the three files under `path@agent-skills@content/workflows/`. What the
 build checks of them: their `meta` name, by `check_workflow_name` in `path@agent-skills@src/render.rs`.
@@ -54,18 +56,18 @@ The commit "[agent-skills] The audit workflows find earlier passes by path, comp
 fall back to a text report, and the pin move offers its audits" adds the computation of the numbers
 each report copies "as given". The comment at each site says why the script computes them: "The
 counts the report copies: the script holds each exactly, so no agent takes one by reading". The
-sites, by name, under `path@agent-skills@content/workflows/`:
+sites, by name:
 
-- `design-record-audit.js`: `judgedCount`, the sum of the judges' verdicts in the judgement of an
-  application; `ofRecord`, the drafts of record, which counts in each group only the entries of
-  that group's own list, so a calibration-sample entry drafted by every group counts once;
-  `perComponent` and `countLines`, which split the entries by kind on
-  `e.ref.startsWith('design@')` and `e.ref.startsWith('rejected@')`, and per Component on
+- `path@agent-skills@content/workflows/design-record-audit.js`: `judgedCount`, the sum of the
+  judges' verdicts in the judgement of an application; `ofRecord`, the drafts of record, which
+  counts in each group only the entries of that group's own list, so a calibration-sample entry
+  drafted by every group counts once; `perComponent` and `countLines`, which split the entries by
+  kind on `e.ref.startsWith('design@')` and `e.ref.startsWith('rejected@')`, and per Component on
   `e.ref.split('@')[1]`;
-- `tripwire-audit.js`: `judgedCount`; `ofRecord`, per outcome, with the same own-entries filter;
-  `perAnchor` and `countLines`;
-- `agentic-workflow-audit.js`: `countLines`, whose verifier line branches on
-  `args.from && args.from !== 'verify'`.
+- `path@agent-skills@content/workflows/tripwire-audit.js`: `judgedCount`; `ofRecord`, per outcome,
+  with the same own-entries filter; `perAnchor` and `countLines`;
+- `path@agent-skills@content/workflows/agentic-workflow-audit.js`: `countLines`, whose verifier line
+  branches on `args.from && args.from !== 'verify'`.
 
 Each is computed inline in the script's top-level body, which also makes the harness's `agent`,
 `phase` and `log` calls, so no test can call the count logic without the harness. The only check
