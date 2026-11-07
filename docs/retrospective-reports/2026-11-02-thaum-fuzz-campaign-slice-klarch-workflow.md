@@ -58,7 +58,7 @@ Analysed with W5 of 2026-11-02-knowledge-architect-development-and-components-kl
   session would have lacked without it, a fact only the owner holds.
 - **Default**: handle now.
 - **Outcome**: for the owner (a fact only the owner holds: what the sessions lacked without the
-  rule): pending.
+  rule): handle now, the sentence added to `skill@knowledge-architect-decision-recording@head-shape`. The owner: "Add it, this will probably help"
 
 ## W4: the boundary between an argument of the owner and an intent to draft as a goal
 

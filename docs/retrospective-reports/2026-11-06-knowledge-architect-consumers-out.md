@@ -92,7 +92,8 @@ Analysed with P1 of 2026-11-01-knowledge-architect-release-0-9-0, in
   source, in any document of this repository", with the issue's quotation updated in the same
   commit. Nothing of it is built before the owner's word.
 - **Default**: the sentence widened to any document of this repository, once the owner rules.
-- **Outcome**: for the owner (a contradiction: a ruling of the owner whose premise proved false): pending
+- **Outcome**: for the owner (a contradiction: a ruling of the owner whose premise proved false):
+  handle now, the sentence widened to any document of this repository. The owner: "Q3 agreed"
 
 ## P5: a push of a stale ref
 

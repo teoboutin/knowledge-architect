@@ -55,7 +55,7 @@
 - **Default**: no change to the installed text; the expectation-set issue gains the instance; P6's
   sentence on the owner's word.
 - **Outcome**: for the owner (a fork, and a fact only the owner holds: whether the owner works away
-  from the machine as a rule): pending.
+  from the machine as a rule): no change, in the installed text, in the expectation-set issue and in `CLAUDE.local.md`. The owner: "No need to do anything. If that happens, I simply ask. It is a rare situation anyway. No record in local Claude.md either"
 
 ## W3: the stop rule cannot stop on a contradiction
 
