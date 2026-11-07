@@ -141,8 +141,8 @@ dependency, and the crate one first publish.
 
 ### This repository's mock projects and the tests over them sit in one crate, not in the crates they test `##mock-projects-in-one-crate`
 
-`testing`'s `tests/` holds the mock projects and the tests over them, and no unit test loads a mock project. The owner's argument: integrated tests out of
-the unit tests and out of the crates test the public API, and one home keeps crates from duplicating fixtures or reaching into another's. No package ships them, per
+`testing`'s `tests/` holds the mock projects and the tests over them, and no unit test loads a mock project. The owner's argument, stated with a hedge, is that integrated tests moved out of
+the unit tests, and sometimes out of the crates, test the public API, per `design@agent-skills@integrated-test-through-public-api`, and that one crate might keep others from duplicating fixtures or reaching into another's, the shape of `design@agent-skills@shared-test-component`. No package ships them, per
 `design@knowledge-architect@package-include-whitelist`. The nearest rival, the mock tests kept as a unit-test module of each crate, reads internals a consumer cannot, and needs either a copy of each mock or a path into another crate.
 
 ### The package that holds the binary keeps the name `knowledge-architect`, whichever crate holds the checks `##the-binary-crate-keeps-the-package-name`
