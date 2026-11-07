@@ -385,7 +385,7 @@ whole pass to surface.
 ### A confirmed finding of two readings left to judgement where no text rules either act out `##two-readings-left-to-judgement`
 
 `live`. It lost to `goal@knowledge-architect@agents-get-a-complete-workflow`: "Each installed
-instruction says what it asks plainly enough to follow without guessing what it means". An
+instruction says what it requires plainly enough to follow without guessing what it means". An
 instruction a reading confirms is read two ways is covered by an instruction, so the goal leaves it
 to no judgement. Its own rivals, such a finding dropped at admission and the session leaving it
 alone, fall with it. It is kept here because a doubt remains on the cost: every repair is new text,
