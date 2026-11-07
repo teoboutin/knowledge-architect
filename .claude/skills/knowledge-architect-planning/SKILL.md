@@ -231,9 +231,11 @@ sections is an item, and a slug anywhere else in a plan document defines nothing
 in the plans directory only. `cargo klarch check` reports it once the target exists, and the commit
 that creates the file converts it to `path@<anchor>@<path>` in the same change.
 
-**Assembly from the transcript.** A plan document records the whole discussion: every thread with
-its proposer, its final state, the arguments on each side, the owner's rulings verbatim with their
-round, and its relations. An answer of the owner on a reading or a fact is recorded with its source,
+**Assembly from the transcript.** The plan documents of one discussion record the whole of it:
+each thread in the document that carries it, with its proposer, its final state, the arguments on
+each side, every argument it uses included, the owner's rulings verbatim with their round, and its
+relations. An argument that threads in two documents use is in both, since an item is cited only
+from inside its own plan. An answer of the owner on a reading or a fact is recorded with its source,
 as `primer@labelled-items` says. It is assembled from the transcript, not from memory. Dispatch a
 subagent that extracts every session the discussion spans, a resumed session included, as
 `agent@knowledge-architect-transcript-reviewer@extract-transcripts` says, read whole, and from the

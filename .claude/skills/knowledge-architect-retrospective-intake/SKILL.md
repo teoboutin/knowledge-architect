@@ -97,10 +97,11 @@ The order is a suggestion; the content is not.
   proposes.
 - **b. Whether it still applies.** Read the blamed text at the main commit the version line names,
   `git show <commit>:<path>`, then on the main branch as it stands, which holds the reported
-  session's branch once it merged, and quote it with its `file:line`. A version line whose commit
-  the repository does not hold is read at the commit its `git describe` count gives on the main
-  branch, and a file whose version line names no commit is matched by `git log -S '<phrase>'` on
-  the instruction it quotes. The report is a claim about the text at its
+  session's branch once it merged, and quote it, with its place written as a `path` reference, per
+  `primer@where-knowledge-goes`, and its line in words. A version line whose commit the repository
+  does not hold is read at the commit its `git describe` count gives on the main branch, and a file
+  whose version line names no commit is matched by `git log -S '<phrase>'` on the instruction it
+  quotes. The report is a claim about the text at its
   version, so it is checked like any claim about the code. A finding may be already repaired: name
   the commit, found with `git log -S '<phrase>'` or `git log --grep`. A report's own "repaired in
   the session" is a claim like any other, and is often wrong: find when the credited wording
