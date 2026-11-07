@@ -1,0 +1,2 @@
+{"type": "fork-context-ref", "agentId": "0000000f", "parentSessionId": "abcdef01-0000-0000-0000-000000000015", "parentLastUuid": "k10", "contextLength": 12}
+{"type": "assistant", "uuid": "f-0000000f", "parentUuid": null, "sessionId": "abcdef01-0000-0000-0000-000000000015", "cwd": "{{root}}", "gitBranch": "main", "version": "2.1.316", "isSidechain": true, "agentId": "0000000f", "timestamp": "2026-04-01T10:02:00.000Z", "message": {"role": "assistant", "content": [{"type": "text", "text": "the fork 0000000f reports"}]}}

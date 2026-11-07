@@ -25,6 +25,8 @@ an empty subsection is omitted.
 - `library`, major: the module `knowledge_architect::testing` leaves. An extension's tests add the package
   `knowledge-architect-testing` to their dev-dependencies, at the exact version of `knowledge-architect`, and import
   `foundation`, `run_with`, `Phase`, `Report`, `Stop`, `Structure` and `CHECKS` from `knowledge_architect_testing`.
+- `library`, major: `ROLES` of `knowledge-architect-transcript` holds eleven names, `owner-shell` added, so its array type
+  changes. A program that names the type `[&str; 10]` changes it.
 - `library`, major: `CHECKS` holds four names, so its array type changes, and `foundation` no longer stops on the
   installed files. A consumer's test over the installed set asserts it in the report of `run_with`.
 - `checks`, minor: a goals home, its goals and its head alike, cites only a goal or a register's home
@@ -71,6 +73,11 @@ an empty subsection is omitted.
   `fixed: removed <path> (installed)`, since no git holds a copy of it.
 - `cli`, patch: the `checker source:` line of `check` and the `cargo clean` of the refusal of a foreign build name `query`,
   `transcript` and `create`.
+- `cli`, minor: `transcript` labels a shell command the owner ran with the `!` prefix `owner-shell`, a role `--role`
+  takes, and its output `injected shell-output`; it labels an interrupt that carries no `interruptedMessageId`
+  `owner-interrupt` by its whole text, shows the first line of a forked subagent's file as `injected fork-context`,
+  naming the parent's line up to which the fork inherits its context, and labels every line of a file with no field
+  `unlabelled`, where it labelled them by a leading tag.
 - `library`, minor: the package `knowledge-architect-check` holds the checks and the logic of the commands that run them
   or install the workflow as typed functions, with no clap in them, in its module `commands`. A project keeps naming
   `knowledge-architect`, whose every public path stays, and which still holds the binary `klarch`.

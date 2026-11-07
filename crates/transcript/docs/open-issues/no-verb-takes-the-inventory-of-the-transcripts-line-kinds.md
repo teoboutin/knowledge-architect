@@ -15,8 +15,8 @@ measurement, and one of them read 42 of 963 files without anyone noticing.
 ### What
 
 `design@transcript@transcript-format-tolerated-and-reported` lists the line types with a command
-over the transcripts; `design@transcript@transcript-labels-in-code` holds three
-`find … -exec jq` commands as its measurement. `transcript --help` lists the verbs `list`, `show`
+over the transcripts; `design@transcript@transcript-labels-in-code` holds one
+`find … | xargs jq` command as its measurement. `transcript --help` lists the verbs `list`, `show`
 and `search`, none of which counts line kinds or keys.
 
 The instance: the session that closed seven transcript issues, 2026-10-31. Three of the issues
@@ -28,8 +28,8 @@ against an issue's recorded diagnosis. A reviewer found that the format head's o
 format head reads the subagent files too" repaired that command with a second `find` branch.
 
 Ruled out: the pipelines kept and corrected, as that change did. The depth defect stood unnoticed
-from the head's writing until a reviewer found it, and the labels head still holds three such
-pipelines; a verb tested over fixtures removes the class. Against the verb: its only users are the
+from the head's writing until a reviewer found it, and the labels head still holds one such
+pipeline; a verb tested over fixtures removes the class. Against the verb: its only users are the
 maintainers of the reader. `design@transcript@transcript-query-verbs` states that the lists a
 session reads "for a survey of past sessions" are verbs of `transcript`, which admits it.
 

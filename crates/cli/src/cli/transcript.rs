@@ -77,7 +77,7 @@ pub struct TranscriptSearchArgs {
     #[arg(value_name = "REGEX")]
     pub pattern: String,
     /// Keep lines of this role, repeatable: owner, owner-answer, owner-queued, owner-command,
-    /// owner-interrupt, agent, dispatch, injected, tool, unlabelled.
+    /// owner-interrupt, owner-shell, agent, dispatch, injected, tool, unlabelled.
     #[arg(
         long = "role",
         value_name = "ROLE",

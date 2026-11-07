@@ -72,7 +72,7 @@ session per file, agrees with every file measured; the rule is kept because the 
 internal, per `design@transcript@transcript-format-tolerated-and-reported`, and a file holding two
 sessions would read as one with nothing reporting it.
 
-### Every kept line of a transcript is labelled by its fields, never by a substring of its text `##transcript-labels-in-code`
+### Every kept line of a transcript is labelled by its fields, and a line no field places by a whole text the harness writes, never by a substring of its text `##transcript-labels-in-code`
 
 Each kept line takes the label of the first row of the mapping it meets, over `type`, `isMeta`,
 `isCompactSummary`, `origin.kind`, `interruptedMessageId`, `toolUseResult`, `attachment.type`,
@@ -80,30 +80,42 @@ Each kept line takes the label of the first row of the mapping it meets, over `t
 owner's words are the lines labelled `owner`, `owner-queued`, `owner-answer` (an answer to a
 question tool) and `owner-command` (a command such as `/clear`, read from its `local_command`
 line's `commandRun`); `owner-interrupt` is the owner's interrupt of a turn, an act of the owner and
-no words, placed by its `interruptedMessageId`; `injected` carries the kind of what the harness or
-another agent delivered, a model's refusal of a turn included; `agent` is the session's text; `dispatch` is a field-less
-`user` line of a subagent file that carries no `interruptedMessageId`, the text its dispatcher or
-its workflow wrote, but for the one case below; `tool` is a tool call
-or its result; a line no row places is `unlabelled`, printed and counted. A top-level file none of
-whose `user` lines carries a field, such as one of a session run with `claude -p`, is labelled by a
-leading harness tag instead, and the header says so.
+no words; `injected` carries the kind of what the harness or another agent delivered, a model's
+refusal of a turn and a fork's inherited context included; `agent` is the session's text; `dispatch` is a
+field-less `user` line of a subagent file that no row above it places, the text its dispatcher or
+its workflow wrote; `tool` is a tool call or its result; a line no row places is `unlabelled`,
+printed and counted, a file none of whose lines carries a field included.
+
+A field-less `user` line, one that carries none of `isMeta`, `isCompactSummary` and `origin`, whose
+whole text equals one of the interrupt texts the harness writes is `owner-interrupt` where
+`interruptedMessageId` is absent, a row before the `dispatch` row. A forked subagent's file opens with a
+`fork-context-ref` line, outside the chain, which is shown as `injected fork-context` with the line of
+the parent's file, found by its `parentLastUuid`, up to which the fork inherits its context.
 
 The rule is learned from a failure: a filter on text substrings once dropped one of the owner's
 messages from a review, and an owner's message that opens with a pasted tag reads as injected text
-to any tag test. The one text the rows read is the prefix that names a skill's body, inside a line
-its fields already mark injected: it chooses a kind, never a side. The command holds the rule, per
-`design@agent-skills@transcript-extraction-is-the-checker-s`, with a test over a fixture of each row. The fields
-are the harness's, measured over every transcript of the machine the reader was designed on, as
-`design@transcript@transcript-session-split` says; a field-less `user` line of a subagent file was the
-dispatcher's brief or a workflow's task in every subagent file measured, but one owner's interrupt,
-re-taken with
-`find ~/.claude/projects -path '*subagents*' -name 'agent-*.jsonl' -exec jq -r 'select(.type=="user" and .isMeta==null and .origin==null and .isCompactSummary==null and ((.message.content|type)=="string" or ([.message.content[] | select(.type=="tool_result")] | length) == 0)) | .message.content | if type=="string" then .[:40] else ([.[] | .text? // empty] | join(" "))[:40] end' {} + | sort | uniq -c`. That interrupt carries no
-`interruptedMessageId` and reads as `dispatch`: no field tells it apart, and the rule refuses a text
-test. Every other interrupt measured carries that field, and no other `user` line does, over
-Claude Code 2.1.306 to 2.1.316 on 2026-10-31: the lines that carry it are re-taken with
-`find ~/.claude/projects -name '*.jsonl' -exec jq -r 'select(.type=="user" and .interruptedMessageId != null) | .message.content | if type=="string" then .[:45] else ([.[] | .text? // empty] | join(" "))[:45] end' {} + | sort | uniq -c`,
-and the interrupts that do not with
-`find ~/.claude/projects -name '*.jsonl' -exec jq -r 'select(.type=="user" and .interruptedMessageId == null) | .message.content | if type=="string" then . else ([.[] | .text? // empty] | join(" ")) end | select(startswith("[Request interrupted"))' {} + | sort | uniq -c`.
+to any tag test. So the text row reads no line its fields place: an owner's typed message carries
+`origin.kind` `human`, and keeps its label whatever its text, as
+`goal@transcript@a-session-reads-past-sessions` requires; and the row reads a whole text the
+harness writes, never a substring. The lines it reads are those no field places, which would
+otherwise be unlabelled or read as `dispatch`, so it moves no line out of an owner's label. The
+one text the field rows read is the prefix that names a skill's body, inside a line its fields already mark
+injected: it chooses a kind, never a side. The command holds the rule, per
+`design@agent-skills@transcript-extraction-is-the-checker-s`, with a test over a fixture of each
+row.
+
+The text row exists because no field places those lines,
+`rejected@transcript@fields-alone-place-every-line`. Measured over every transcript of the owner's
+machine, Claude Code 2.1.306 to 2.1.316, on 2026-11-07: an interrupt with no
+`interruptedMessageId`, at top level or in a subagent file, and a subagent file's dispatcher lines
+carry the same key beyond those of every chain line, `promptId`, and every other interrupt carries
+the id. The key sets of the `user` lines no field
+places are re-taken with
+`{ find ~/.claude/projects -mindepth 2 -maxdepth 2 -name '*.jsonl'; find ~/.claude/projects -path '*/subagents/*' -name 'agent-*.jsonl'; } | xargs -d '\n' jq -c 'select(.type=="user" and .isMeta==null and .origin==null and .isCompactSummary==null) | select((.message.content|type)=="string" or ([.message.content[]? | select(.type=="tool_result")] | length) == 0) | (.message.content | if type=="string" then . else ([.[]? | select(.type=="text") | .text] | join(" ")) end) as $t | {sub:(input_filename|test("subagents")), keys:([keys[]|select(. as $k | ["parentUuid","isSidechain","type","uuid","timestamp","userType","entrypoint","cwd","sessionId","version","gitBranch","message","slug","agentId","requestId"]|index($k)|not)]|join(",")), t:($t|.[:22])}' | sort | uniq -c`.
+A file with no field is a session run with `claude -p`, or a log older than the fields: its prompt
+carries `turnOrigin` `sdk` where a typed message carries `human`, and no field names who called
+`claude -p`, a person or a script, so its lines are unlabelled and reported rather than given to the
+owner by a text test, which the goal rules out.
 
 ### The transcript reader tolerates every line it does not know, and every run reports each one `##transcript-format-tolerated-and-reported`
 
@@ -111,8 +123,7 @@ The reader knows, and marks as used or ignored on purpose, the top-level types, 
 subtypes, the `attachment.type` values, the content item types and the `origin.kind` values the
 harness writes, as measured. A value outside them is counted, never a failure:
 every verb's header names each with its count and its first file and line, with the count of
-`unlabelled` lines, each line that is no JSON, and the files the tag fallback labelled, and ends,
-where any of the first three is non-zero, with the line asking for it to be reported as a finding
+`unlabelled` lines and each line that is no JSON, and ends, where any of them is non-zero, with the line asking for it to be reported as a finding
 on the checker in the retrospective. It serves `goal@knowledge-architect@the-workflow-improves-through-real-use`
 by that route, per `design@agent-skills@unrecognised-entries-reach-upstream`.
 
