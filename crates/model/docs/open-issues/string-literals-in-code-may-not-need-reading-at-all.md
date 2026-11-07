@@ -8,8 +8,9 @@ kind: design
 The scan reads each unbound string literal of a Rust file as prose, and the checker's own source is
 exempt by a list of directories compiled into the binary. The owner doubts that anyone would cite
 an entry from a literal, and wants to discuss whether a literal in code should be linted or scanned
-at all. This repository's tree holds no such citation outside the exempt directories, while the
-record's case for reading them rests on a measurement of thaum.
+at all. This repository's tree holds no such citation outside the exempt directories, and the
+record's case for reading them rests on a measurement of thaum, whose citations, on the owner's report,
+name an external specification's rules rather than entries of a record.
 
 ## Details
 
@@ -44,6 +45,8 @@ in their comments unchecked.
   cite a rule behind a marker. Both figures were measured in thaum, and neither was taken again for
   this entry.
 
+**What those citations are, on the owner's report.** They cite the rules of the external specification thaum follows, which thaum implements through an extension, and a test that exercises a rule names it in a string literal. There the owner finds reading the literal sensible. For the references knowledge-architect itself allows, to entries of a project's record, the owner finds that it makes little sense. So the measurements above support a citation of an extension's own subject, and support nothing yet about a reference to the record. Whether the scan's reading can tell the two apart, or an extension's citation could be read by that extension alone, is for the discussion.
+
 **What this repository holds.** Searching the Rust files of `gates`, `mutate`, `agent-skills` and
 `xtask`, the published and maintenance code outside the exempt directories, for a backticked span of
 a built-in kind on a line that is not a comment line finds none:
@@ -63,9 +66,9 @@ still stand is `not established`.
 - a finding on a fixture wherever an extension's or a tool's test expects rule-shaped text outside
   those lists.
 
-**Suspected mechanism:** the rule was measured against one project whose assertion messages used a
-citation marker, and it has since become a cost for every project, this one included, that writes no
-such message.
+**Suspected mechanism:** the rule was measured on an extension's citations of an external
+specification, and has come to bind every reference the checker reads, at a cost to each project, this
+one included, that writes no such literal.
 
 ### Why it matters
 
