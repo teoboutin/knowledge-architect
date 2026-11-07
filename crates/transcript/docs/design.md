@@ -72,44 +72,50 @@ session per file, agrees with every file measured; the rule is kept because the 
 internal, per `design@transcript@transcript-format-tolerated-and-reported`, and a file holding two
 sessions would read as one with nothing reporting it.
 
-### Every kept line of a transcript is labelled by its fields, and a line no field places by a whole text the harness writes, never by a substring of its text `##transcript-labels-in-code`
+### Every kept line of a transcript is labelled by its fields, and a line no field places by a whole text or a leading tag the harness writes, never by a substring of its text `##transcript-labels-in-code`
 
 Each kept line takes the label of the first row of the mapping it meets, over `type`, `isMeta`,
 `isCompactSummary`, `origin.kind`, `interruptedMessageId`, `toolUseResult`, `attachment.type`,
 `attachment.origin.kind`, the `system` subtypes, and whether the line sits in a subagent file. The
 owner's words are the lines labelled `owner`, `owner-queued`, `owner-answer` (an answer to a
 question tool) and `owner-command` (a command such as `/clear`, read from its `local_command`
-line's `commandRun`); `owner-interrupt` is the owner's interrupt of a turn, an act of the owner and
-no words; `injected` carries the kind of what the harness or another agent delivered, a model's
-refusal of a turn and a fork's inherited context included; `agent` is the session's text; `dispatch` is a
+line's `commandRun`); `owner-interrupt` is the owner's interrupt of a turn and `owner-shell` a
+command the owner ran with the `!` prefix, acts of the owner and no words; `injected` carries the
+kind of what the harness or another agent delivered, a model's refusal of a turn, a shell command's
+output and a fork's inherited context included; `agent` is the session's text; `dispatch` is a
 field-less `user` line of a subagent file that no row above it places, the text its dispatcher or
 its workflow wrote; `tool` is a tool call or its result; a line no row places is `unlabelled`,
 printed and counted, a file none of whose lines carries a field included.
 
-A field-less `user` line, one that carries none of `isMeta`, `isCompactSummary` and `origin`, whose
-whole text equals one of the interrupt texts the harness writes is `owner-interrupt` where
-`interruptedMessageId` is absent, a row before the `dispatch` row. A forked subagent's file opens with a
+A field-less `user` line, one that carries none of `isMeta`, `isCompactSummary` and `origin`, is
+read by its text in three rows, each before the `dispatch` row: its whole text equal to one of the
+interrupt texts the harness writes is `owner-interrupt`, where `interruptedMessageId` is absent; and,
+in a top-level file, a text that opens with the harness's `<bash-input>` tag is `owner-shell`, and one
+that opens with `<bash-stdout>` is `injected shell-output`. A forked subagent's file opens with a
 `fork-context-ref` line, outside the chain, which is shown as `injected fork-context` with the line of
 the parent's file, found by its `parentLastUuid`, up to which the fork inherits its context.
 
 The rule is learned from a failure: a filter on text substrings once dropped one of the owner's
 messages from a review, and an owner's message that opens with a pasted tag reads as injected text
-to any tag test. So the text row reads no line its fields place: an owner's typed message carries
+to any tag test. So no text row reads a line its fields place: an owner's typed message carries
 `origin.kind` `human`, and keeps its label whatever its text, as
-`goal@transcript@a-session-reads-past-sessions` requires; and the row reads a whole text the
-harness writes, never a substring. The lines it reads are those no field places, which would
-otherwise be unlabelled or read as `dispatch`, so it moves no line out of an owner's label. The
-one text the field rows read is the prefix that names a skill's body, inside a line its fields already mark
+`goal@transcript@a-session-reads-past-sessions` requires; and a row reads a whole text or a leading
+tag the harness writes, never a substring. The lines they read are those no field places, which
+would otherwise be unlabelled or read as `dispatch`, so a text row moves no line out of an owner's
+label, and in a subagent file a shell tag places nothing, since no owner types there. The goal's
+ruled-out case, labelling a line the owner typed by a phrase in its text, reaches a test that reads
+what a line means in the discussion, and not a tag the harness writes around the owner's command,
+on the owner's reading of the goal. The one text the field rows read is the prefix that names a skill's body, inside a line its fields already mark
 injected: it chooses a kind, never a side. The command holds the rule, per
 `design@agent-skills@transcript-extraction-is-the-checker-s`, with a test over a fixture of each
 row.
 
-The text row exists because no field places those lines,
+The text rows exist because no field places those lines,
 `rejected@transcript@fields-alone-place-every-line`. Measured over every transcript of the owner's
 machine, Claude Code 2.1.306 to 2.1.316, on 2026-11-07: an interrupt with no
-`interruptedMessageId`, at top level or in a subagent file, and a subagent file's dispatcher lines
-carry the same key beyond those of every chain line, `promptId`, and every other interrupt carries
-the id. The key sets of the `user` lines no field
+`interruptedMessageId`, at top level or in a subagent file, a `<bash-input>` line, and a subagent
+file's dispatcher lines carry the same key beyond those of every chain line, `promptId`, and every
+other interrupt carries the id. The key sets of the `user` lines no field
 places are re-taken with
 `{ find ~/.claude/projects -mindepth 2 -maxdepth 2 -name '*.jsonl'; find ~/.claude/projects -path '*/subagents/*' -name 'agent-*.jsonl'; } | xargs -d '\n' jq -c 'select(.type=="user" and .isMeta==null and .origin==null and .isCompactSummary==null) | select((.message.content|type)=="string" or ([.message.content[]? | select(.type=="tool_result")] | length) == 0) | (.message.content | if type=="string" then . else ([.[]? | select(.type=="text") | .text] | join(" ")) end) as $t | {sub:(input_filename|test("subagents")), keys:([keys[]|select(. as $k | ["parentUuid","isSidechain","type","uuid","timestamp","userType","entrypoint","cwd","sessionId","version","gitBranch","message","slug","agentId","requestId"]|index($k)|not)]|join(",")), t:($t|.[:22])}' | sort | uniq -c`.
 A file with no field is a session run with `claude -p`, or a log older than the fields: its prompt
