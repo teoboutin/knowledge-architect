@@ -56,8 +56,8 @@ As D2 of the milestone document and the threads below rule it:
   `path@testing@tests/extension_api.rs` imports the harness from that crate, `path@cli@tests/public_paths.rs` names no `testing` path, and
   `cargo tree -e normal -p knowledge-architect` lists no `knowledge-architect-testing`. A mutation of the dependency
   and the re-export together spans two files, which `design@mutate@one-file-per-run` refuses, so the test of the dependency is shown by a recorded row in crates/cli/Cargo.toml alone.
-- **Every claim the moved tests made is still tested.** Test: a commit of the slice lists each of the 36 mock tests with
-  the test that now carries its claim, and each test of the binary that changed its claim; a claim with no successor
+- **Every claim the moved tests made is still tested.** Test: a commit of the slice states which of the moved tests keep their names and assertions, and names each
+  one that changed its name or what it asserts, with its successor; a claim with no successor
   refutes it.
 - **The real binary runs under the invocations the gates use.** Test: `cargo --locked x gates --locked --fail-fast` and `cargo test --release -p knowledge-architect-testing --test binary` pass; a binary that does not build fails a test, shown by a recorded mutant.
 - **A test of logic the slice rewrites keeps its power.** Test: a recorded mutation of the logic behind each family the rewrite touched: the generated files' state, phase 2 through `foundation`, phase 3, and the pin over `cli`'s directory.

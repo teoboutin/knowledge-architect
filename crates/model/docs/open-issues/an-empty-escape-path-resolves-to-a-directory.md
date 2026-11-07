@@ -11,7 +11,7 @@ kind: defect
 
 ### What
 
-A span at the escape anchor whose path is a bare line suffix, a bare fragment, `/`, `//`, `.` or a directory and `..` is reported as resolving in this tree. For example, the bare suffix `:12` over the `core` mock gets a finding naming that mock's plans directory as the form to write. In `resolved_here` of `path@model@src/resolver.rs`, empty segments leave the candidate equal to the base.
+A span at the escape anchor whose path is a bare line suffix, a bare fragment, `/`, `//`, `.` or a directory and `..` is reported as resolving in this tree. For example, the bare suffix `:12` over the `core` mock of `path@testing@tests/projects/` gets a finding naming that mock's plans directory as the form to write. In `resolved_here` of `path@model@src/resolver.rs`, empty segments leave the candidate equal to the base.
 
 Reproduced on the main branch before the crate split.
 
