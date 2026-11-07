@@ -5,9 +5,9 @@ How `testing` is built, and why. That it exists, and how it depends on the other
 
 ## Its tests
 
-### A test of the binary over a mock project sits here `##binary-tests-in-testing`
+### A test of the program's crates that needs the shared means of running over a project sits here `##binary-tests-in-testing`
 
-A test over a mock project sits in this Component, per `design@knowledge-architect@mock-projects-in-one-crate`, the tests of `klarch` that need one included. `path@cli@tests/init.rs` uses none, and stays in `cli`.
+A test of the crates `klarch` links that needs what such tests share, the build of `klarch` or the copy of a project into a repository of its own, sits in this Component, per `design@knowledge-architect@mock-projects-in-one-crate`, whatever its project's storage: the tests of `klarch` over a mock project, and `path@testing@tests/scaffold.rs`, which builds what `klarch init --rust` writes. `path@cli@tests/init.rs` runs the binary through cargo's own `CARGO_BIN_EXE_klarch` over scratch projects it writes, needs none of that, and stays in `cli`. The tests of `gates` and `mutate` stay with them: those crates need nothing of `klarch`.
 The nearest rival, `cli` dev-depending on this crate for the fixtures, with its tests left there and this crate's dev-dependency on `cli` removed, keeps those tests out of this home and needs no build started by a test; the owner
 chose this shape over it, which no goal ranks, at the cost of `design@testing@nested-cargo-builds-the-binary`. `klarch` links nothing of this crate, so it refuses a mock in place, per `design@check@checked-sentinel-values`: a test of the binary runs in a copy that carries the version, and `path@cli@tests/fixture_pin.rs` holds the acceptance of `"fixture"` over `cli`'s own directory.
 

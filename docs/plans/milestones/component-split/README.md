@@ -64,7 +64,7 @@ This repository adds:
   `design@knowledge-architect@partial-publish-rerun`;
 - **the maintenance tool follows each move**: `path@xtask@Cargo.toml` depends on the core by path,
   four of its modules import `knowledge_architect::MANIFEST_NAME`, and its test
-  `path@xtask@tests/scaffold.rs` calls `cli::init` with `InitArgs`; the setup snippet the test
+  `path@testing@tests/scaffold.rs` calls `cli::init` with `InitArgs`; the setup snippet the test
   compiles, `path@agent-skills@snippets/xtask-main.rs`, imports `knowledge_architect::MANIFEST_NAME`
   too. Each slice that moves or renames one of them updates xtask in the same change, and `cli` keeps
   `MANIFEST_NAME`, `init` and every other path the snippet names, `init` as a function of its own since
