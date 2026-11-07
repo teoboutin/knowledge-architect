@@ -6812,7 +6812,8 @@ fn transcript_each_line_takes_the_label_of_its_fields_and_the_unknown_is_reporte
     has("injected meta 2026-01-03 10:00]\na meta notice");
     has("injected peer 2026-01-03 10:00]\na peer report");
     has("injected task-notification");
-    has("unlabelled 2026-01-03 10:00]\n[Request interrupted by user]");
+    // An interrupt's text placed only whole: a line that holds more stays unplaced.
+    has("unlabelled 2026-01-03 10:00]\n[Request interrupted by user] and words after it");
     has("owner-queued 2026-01-03 10:00]\ntyped while busy");
     has("injected peer 2026-01-03 10:00]\na queued report");
     has("# unlabelled lines: 1");
@@ -6844,7 +6845,7 @@ fn transcript_each_line_takes_the_label_of_its_fields_and_the_unknown_is_reporte
 }
 
 /// A project's sessions are its by the `cwd` of their first line, a worktree under the root
-/// included; a log with no field is labelled by its text, and says so.
+/// included; a log with no field is placed by no text, so its lines are unlabelled and reported.
 #[test]
 fn transcript_a_project_s_sessions_are_found_by_their_cwd() {
     let (stdout, _, code) = transcript("places", "places-list", &["list"]);
@@ -6861,15 +6862,16 @@ fn transcript_a_project_s_sessions_are_found_by_their_cwd() {
 
     let (stdout, _, code) = transcript("places", "places-show", &["show", "88888888"]);
     assert_eq!(code, 0, "{stdout}");
-    assert!(stdout.contains("# no line carries a field in"), "{stdout}");
     assert!(
-        stdout.contains("owner 2026-01-04 12:00]\nan owner's words"),
+        stdout.contains("unlabelled 2026-01-04 12:00]\nan owner's words"),
         "{stdout}"
     );
     assert!(
-        stdout.contains("injected tag 2026-01-04 12:00]\n<task-notification>"),
+        stdout.contains("unlabelled 2026-01-04 12:00]\n<task-notification>"),
         "{stdout}"
     );
+    assert!(stdout.contains("# unlabelled lines: 2"), "{stdout}");
+    assert!(!stdout.contains("no line carries a field"), "{stdout}");
 }
 
 /// The exit codes: a negative answer is 1, an input that cannot be used is 2.
@@ -6995,8 +6997,8 @@ fn transcript_the_remaining_rows_of_the_mapping_hold() {
         "a blank line is no line, and `[1, 2]` is no JSON object:\n{stdout}"
     );
 
-    // A file whose one field is `isCompactSummary` takes no fallback; a line with no parent key
-    // opens a session.
+    // A line no field places in a file whose one field is `isCompactSummary` is unlabelled; a line
+    // with no parent key opens a session.
     let (stdout, _, _) = transcript("extras", "extras-nofallback", &["show", "23456789"]);
     assert!(
         stdout.contains("unlabelled 2026-02-02 10:00]\nplain words"),
@@ -7366,9 +7368,19 @@ fn transcript_the_kinds_of_later_harness_versions_are_classed() {
     assert!(!stdout.contains("# unlabelled"), "{stdout}");
     assert!(!stdout.contains("gap"), "{stdout}");
 
-    // An interrupt is the owner's act, not a line the owner typed: the count holds two messages.
+    // An interrupt with no id, from harness 2.1.316, is placed by its whole text, on a line no
+    // field places.
+    has("[L16 owner-interrupt 2026-04-01 10:00]\n[Request interrupted by user for tool use]");
+    // A command the owner ran with `!`, and its output; a typed message that opens with the tag
+    // stays the owner's message, since its field places it first.
+    has("[L17 owner-shell 2026-04-01 10:00]\n<bash-input>git status</bash-input>");
+    has("[L18 injected shell-output 2026-04-01 10:00]\n<bash-stdout>nothing to commit");
+    has("[L19 owner 2026-04-01 10:00]\n<bash-input>pasted by the owner");
+
+    // An interrupt and a shell command are the owner's acts, not lines the owner typed: the count
+    // holds four messages.
     let (stdout, _, _) = transcript("kinds", "kinds-list", &["list"]);
-    assert!(stdout.contains("owner 3 "), "{stdout}");
+    assert!(stdout.contains("owner 4 "), "{stdout}");
     let (stdout, _, code) = transcript(
         "kinds",
         "kinds-role",
@@ -7386,6 +7398,29 @@ fn transcript_the_kinds_of_later_harness_versions_are_classed() {
     );
     // A null id is no id: the line stays the dispatcher's.
     assert!(stdout.contains("[0000000k L3 dispatch"), "{stdout}");
+    // An interrupt with no id is placed by its whole text before the dispatcher's row; a shell tag
+    // in a subagent file places nothing.
+    assert!(stdout.contains("[0000000k L4 owner-interrupt"), "{stdout}");
+    assert!(stdout.contains("[0000000k L5 dispatch"), "{stdout}");
+    // A fork's first line names the parent's line up to which it inherits its context, and is no
+    // unrecognised type.
+    assert!(
+        stdout.contains(
+            "[0000000f L1 injected fork-context 2026-04-01 10:02]\na fork: it inherits its \
+             parent's context up to L12, 12 messages"
+        ),
+        "{stdout}"
+    );
+    assert!(
+        stdout.contains(
+            "[0000000g L1 injected fork-context 2026-04-01 10:03]\na fork: it inherits its \
+             parent's context up to the line \"no-such-uuid\", which the parent's file does not \
+             hold, 12 messages"
+        ),
+        "{stdout}"
+    );
+    assert!(!stdout.contains("# unrecognised"), "{stdout}");
+    assert!(!stdout.contains("# unlabelled"), "{stdout}");
 
     // A `local_command` line with no `commandRun` is an echo only where a line that carries one
     // names it as its parent: two in a row are both reported.
@@ -7447,8 +7482,8 @@ fn transcript_the_owner_s_words_match_across_a_non_breaking_space() {
     assert_eq!(code, 1);
 }
 
-/// The request to report a gap names what it covers, so a file labelled by its text, which is no
-/// gap, reads as outside it; and a run with nothing but that fallback asks for no report.
+/// The request to report a gap names what it covers, and a log with no field, whose lines no row
+/// places, asks for it.
 #[test]
 fn transcript_the_gap_request_names_what_it_covers() {
     let (stdout, _, _) = transcript("labels", "gap-words", &["show", "eeeeeeee"]);
@@ -7458,9 +7493,8 @@ fn transcript_the_gap_request_names_what_it_covers() {
         ),
         "{stdout}"
     );
-    let (stdout, _, _) = transcript("places", "gap-fallback", &["show", "88888888"]);
-    assert!(stdout.contains("# no line carries a field in"), "{stdout}");
-    assert!(!stdout.contains("gap"), "{stdout}");
+    let (stdout, _, _) = transcript("places", "gap-nofield", &["show", "88888888"]);
+    assert!(stdout.contains("is a gap of this command"), "{stdout}");
 }
 
 /// The claim: `klarch` lists the checker's library among those it links, so a copy of it at another

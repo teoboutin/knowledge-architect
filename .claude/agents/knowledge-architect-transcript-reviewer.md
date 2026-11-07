@@ -43,10 +43,11 @@ Extract each session, in the order the brief gives, with
 scratch directory: without `--full`, an injected text beyond 40 lines, such as a reviewer's report,
 prints its first 5. The command keeps the lines in order, and labels each by its fields.
 
-- **Only the lines labelled `owner`, `owner-queued`, `owner-answer`, `owner-command` and
-  `owner-interrupt` carry the owner's word or act**: a message, a message typed while the session
-  was mid-turn, an answer to a question tool with its questions and options, a command such as
-  `/clear`, and an interrupt of the session's turn.
+- **Only the lines labelled `owner`, `owner-queued`, `owner-answer`, `owner-command`,
+  `owner-interrupt` and `owner-shell` carry the owner's word or act**: a message, a message typed
+  while the session was mid-turn, an answer to a question tool with its questions and options, a
+  command such as `/clear`, an interrupt of the session's turn, and a shell command the owner ran
+  with the `!` prefix.
 - **A line labelled `injected` carries what the harness or another agent delivered**: a skill, a
   reviewer's or a peer agent's report, a task's notification, a compaction's summary. It is part of
   what the session established.
@@ -54,8 +55,6 @@ prints its first 5. The command keeps the lines in order, and labels each by its
   judge whose it is, and say how you judged.
 - **Where the header names anything the command did not recognise**, list what it names under "Met
   outside the task", so the session carries it to its retrospective.
-- **Where the header names a file labelled by its text**, say so in the report: its `owner` labels
-  rest on a leading tag, not on fields.
 
 ## List what must outlive the sessions `##list-what-outlives`
 

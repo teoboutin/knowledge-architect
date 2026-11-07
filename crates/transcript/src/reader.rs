@@ -92,6 +92,25 @@ const KNOWN_ATTACHMENT_TYPES: &[&str] = &[
     "task_reminder",
 ];
 
+/// The type of the line that opens a forked subagent's file, outside the chain: it names the line
+/// of the parent's file up to which the fork inherits its context, and is shown as the fork's first
+/// entry.
+const FORK_CONTEXT_TYPE: &str = "fork-context-ref";
+
+/// The texts the harness writes for the owner's interrupt of a turn. Since harness 2.1.316 some
+/// interrupts carry no `interruptedMessageId`, and no other field tells them apart, so the whole
+/// text places them, on a line no field places, per `design@transcript@transcript-labels-in-code`.
+const INTERRUPT_TEXTS: &[&str] = &[
+    "[Request interrupted by user]",
+    "[Request interrupted by user for tool use]",
+];
+
+/// The tags that open the two lines a command the owner runs with the `!` prefix writes: the
+/// command, then its output. Read on a top-level line no field places, per
+/// `design@transcript@transcript-labels-in-code`.
+const SHELL_INPUT_TAG: &str = "<bash-input>";
+const SHELL_OUTPUT_TAG: &str = "<bash-stdout>";
+
 /// The `origin.kind` values: `human` is the owner, the others are injected.
 const KNOWN_ORIGIN_KINDS: &[&str] = &["human", "peer", "task-notification", "coordinator"];
 
@@ -291,8 +310,12 @@ pub(crate) enum Label {
     OwnerAnswer,
     OwnerQueued,
     OwnerCommand,
-    /// The owner interrupted the session's turn: a `user` line with `interruptedMessageId`.
+    /// The owner interrupted the session's turn: a `user` line with `interruptedMessageId`, or one
+    /// no field places whose whole text is one of [`INTERRUPT_TEXTS`].
     OwnerInterrupt,
+    /// A command the owner ran with the `!` prefix: a top-level line no field places that opens
+    /// with [`SHELL_INPUT_TAG`]. Its output is `Injected("shell-output")`.
+    OwnerShell,
     Agent,
     Dispatch,
     /// Injected text, with its kind: a known `origin.kind`, `unknown`, `skill`, `meta`,
@@ -312,6 +335,7 @@ impl Label {
             Label::OwnerQueued => "owner-queued".to_string(),
             Label::OwnerCommand => "owner-command".to_string(),
             Label::OwnerInterrupt => "owner-interrupt".to_string(),
+            Label::OwnerShell => "owner-shell".to_string(),
             Label::Agent => "agent".to_string(),
             Label::Dispatch => "dispatch".to_string(),
             Label::Injected(kind) => format!("injected {kind}"),
@@ -329,6 +353,7 @@ impl Label {
             Label::OwnerQueued => "owner-queued",
             Label::OwnerCommand => "owner-command",
             Label::OwnerInterrupt => "owner-interrupt",
+            Label::OwnerShell => "owner-shell",
             Label::Agent => "agent",
             Label::Dispatch => "dispatch",
             Label::Injected(_) => "injected",
@@ -346,6 +371,7 @@ impl Label {
                 | Label::OwnerQueued
                 | Label::OwnerCommand
                 | Label::OwnerInterrupt
+                | Label::OwnerShell
                 | Label::Agent
                 | Label::Dispatch
                 | Label::Unlabelled
@@ -380,8 +406,6 @@ pub(crate) struct Inventory {
     pub(crate) unlabelled: usize,
     pub(crate) malformed: Vec<String>,
     pub(crate) repeated_uuids: usize,
-    /// The files the fallback labelled at least one line in.
-    pub(crate) fallback: BTreeSet<String>,
 }
 
 impl Inventory {
@@ -507,6 +531,11 @@ impl Inventory {
                         self.note_unknown("system local_command shape", "no commandRun", at);
                     }
                 }
+                FORK_CONTEXT_TYPE => {
+                    if str_field(value, "parentLastUuid").is_none() {
+                        self.note_unknown("fork-context-ref shape", "no parentLastUuid", at);
+                    }
+                }
                 other if KNOWN_METADATA_TYPES.contains(&other) => {}
                 other => self.note_unknown("type", other, at),
             }
@@ -623,8 +652,6 @@ impl Corpus {
             runs.last_mut().expect("a run is open").1.push(i);
             previous = Some(session_id);
         }
-        let fallback = file_needs_fallback(file);
-        let name = self.name(&file.path);
         for (ordinal, (session_id, lines)) in runs.into_iter().enumerate() {
             let n = self.ids.entry(session_id.clone()).or_insert(0);
             *n += 1;
@@ -636,8 +663,6 @@ impl Corpus {
             };
             let mut ctx = Labelling {
                 file,
-                name: &name,
-                fallback,
                 in_subagent: false,
                 inventory: &mut self.inventory,
             };
@@ -720,16 +745,15 @@ impl Corpus {
                     .and_then(|v| str_field(v, "sessionId"))
                     .unwrap_or("")
                     .to_string();
-                // The fallback is a top-level file's: a subagent file's lines with no field are
-                // its dispatcher's, which the `dispatch` row places.
                 let mut ctx = Labelling {
                     file: &file,
-                    name: &name,
-                    fallback: false,
                     in_subagent: true,
                     inventory: &mut self.inventory,
                 };
-                let entries = ctx.label(&chain);
+                let mut entries = ctx.label(&chain);
+                if let Some(entry) = fork_context(&file, &self.files[index]) {
+                    entries.insert(0, entry);
+                }
                 agents.push((
                     session_id,
                     Subagent {
@@ -840,40 +864,48 @@ fn collect_agent_files(dir: &Path, out: &mut Vec<PathBuf>) -> Result<(), String>
     Ok(())
 }
 
-/// Whether no `user` line of the file carries `isMeta`, `isCompactSummary` or `origin`: a log
-/// written before those fields, or a session run with `claude -p`, whose lines the labels cannot
-/// place by their fields.
-fn file_needs_fallback(file: &File) -> bool {
-    !file.lines.iter().any(|raw| match raw {
-        Raw::Json(value) => {
-            str_field(value, "type") == Some("user")
-                && (value.get("isMeta").is_some()
-                    || value.get("isCompactSummary").is_some()
-                    || value.get("origin").is_some())
-        }
-        Raw::Malformed | Raw::Blank => false,
-    })
-}
-
-/// Whether a text opens with a harness tag: `<`, a name of lowercase letters, digits, `-` and `_`,
-/// then `>` or a space, leading whitespace aside.
-fn opens_with_tag(text: &str) -> bool {
-    let rest = match text.trim_start().strip_prefix('<') {
-        Some(rest) => rest,
-        None => return false,
+/// The entry of a forked subagent's `fork-context-ref` line, which names the line of the parent's
+/// file up to which the fork inherits its context: the fork saw that context, and read nothing of
+/// it in its own file. `None` for a file that holds no such line.
+///
+/// The line names the parent's line by its `uuid`, looked up in the top-level file; a nested fork,
+/// whose parent line sits in another subagent's file, is printed with the `uuid` and says so.
+fn fork_context(agent: &File, parent: &File) -> Option<Entry> {
+    let index = (0..agent.lines.len())
+        .find(|&i| agent.json(i).and_then(|v| str_field(v, "type")) == Some(FORK_CONTEXT_TYPE))?;
+    let value = agent.json(index).expect("the line is JSON");
+    let uuid = str_field(value, "parentLastUuid").unwrap_or("");
+    let found = (0..parent.lines.len()).find(|&i| {
+        !uuid.is_empty() && parent.json(i).and_then(|v| str_field(v, "uuid")) == Some(uuid)
+    });
+    let up_to = match found {
+        Some(i) => format!("L{}", i + 1),
+        None => format!("the line {uuid:?}, which the parent's file does not hold"),
     };
-    let name_len = rest
-        .chars()
-        .take_while(|c| c.is_ascii_lowercase() || c.is_ascii_digit() || *c == '-' || *c == '_')
-        .count();
-    name_len > 0 && matches!(rest[name_len..].chars().next(), Some('>') | Some(' '))
+    let length = match value.get("contextLength").and_then(Value::as_u64) {
+        Some(n) => format!(", {n} messages"),
+        None => String::new(),
+    };
+    // The line carries no timestamp: the fork's first chain line gives it.
+    let timestamp = agent
+        .chain()
+        .first()
+        .and_then(|&i| agent.json(i))
+        .and_then(|v| str_field(v, "timestamp"))
+        .unwrap_or("")
+        .to_string();
+    Some(Entry {
+        line: index + 1,
+        label: Label::Injected("fork-context".to_string()),
+        timestamp,
+        text: format!("a fork: it inherits its parent's context up to {up_to}{length}"),
+        tool_use_id: None,
+    })
 }
 
 /// The labelling of one file's chain lines.
 struct Labelling<'a> {
     file: &'a File,
-    name: &'a str,
-    fallback: bool,
     in_subagent: bool,
     inventory: &'a mut Inventory,
 }
@@ -968,7 +1000,7 @@ impl Labelling<'_> {
                         None if attachment.get("isMeta").and_then(Value::as_bool) == Some(true) => {
                             Label::Injected("meta".to_string())
                         }
-                        None => self.unlabelled(&prompt),
+                        None => self.unlabelled(),
                     };
                     entries.push(entry(label, prompt, None));
                 }
@@ -1095,8 +1127,18 @@ impl Labelling<'_> {
             .get("interruptedMessageId")
             .and_then(Value::as_str)
             .is_some();
-        let label = if fieldless && interrupt {
+        // The rows that read a text read only a line no field places, so a line its fields give
+        // to a side keeps it: a whole text the harness writes, or a tag it writes first, never a
+        // substring, per `design@transcript@transcript-labels-in-code`. A shell line is the owner's
+        // in a top-level file alone, where the owner types; in a subagent file a field-less line
+        // that opens with the tag stays its dispatcher's.
+        let shell = fieldless && !self.in_subagent;
+        let label = if fieldless && (interrupt || INTERRUPT_TEXTS.contains(&text.as_str())) {
             Label::OwnerInterrupt
+        } else if shell && text.starts_with(SHELL_INPUT_TAG) {
+            Label::OwnerShell
+        } else if shell && text.starts_with(SHELL_OUTPUT_TAG) {
+            Label::Injected("shell-output".to_string())
         } else if self.in_subagent && fieldless {
             // In a subagent file, a `user` line that carries none of the three fields is its
             // dispatcher's or its workflow's text, as `design@transcript@transcript-labels-in-code`
@@ -1125,26 +1167,16 @@ impl Labelling<'_> {
                     Label::Injected(kind.to_string())
                 }
                 Some(_) => Label::Injected("unknown".to_string()),
-                None => self.unlabelled(&text),
+                None => self.unlabelled(),
             }
         };
         entries.push(entry(label, text, None));
     }
 
-    /// A line no row places: `unlabelled` and counted, or, in a file with no field, labelled by
-    /// its text.
-    fn unlabelled(&mut self, text: &str) -> Label {
-        if self.fallback {
-            self.inventory.fallback.insert(self.name.to_string());
-            if opens_with_tag(text) {
-                Label::Injected("tag".to_string())
-            } else {
-                Label::Owner
-            }
-        } else {
-            self.inventory.unlabelled += 1;
-            Label::Unlabelled
-        }
+    /// A line no row places: `unlabelled` and counted.
+    fn unlabelled(&mut self) -> Label {
+        self.inventory.unlabelled += 1;
+        Label::Unlabelled
     }
 }
 
@@ -1203,21 +1235,4 @@ fn render_answers(result: &Value) -> String {
         out.push(format!("annotations: {annotations}"));
     }
     out.join("\n")
-}
-
-#[cfg(test)]
-mod tests {
-    use super::*;
-
-    #[test]
-    fn a_tag_opens_with_a_lowercase_name_then_a_bracket_or_a_space() {
-        assert!(opens_with_tag("<system-reminder>x"));
-        assert!(opens_with_tag("\n\n<pasted_content id=\"1\">"));
-        assert!(opens_with_tag("<task-notification>"));
-        assert!(!opens_with_tag("< not a tag"));
-        assert!(!opens_with_tag("<A>"));
-        assert!(!opens_with_tag("plain text <b>"));
-        assert!(!opens_with_tag("<>"));
-        assert!(!opens_with_tag("<abc!x"));
-    }
 }

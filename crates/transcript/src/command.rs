@@ -13,12 +13,13 @@ use crate::output::outln;
 use crate::reader::{project_files, transcript_dir, Corpus, Entry, Inventory, Label, Session};
 
 /// The roles a kept line can carry, which `SearchOptions::roles` takes.
-pub const ROLES: [&str; 10] = [
+pub const ROLES: [&str; 11] = [
     "owner",
     "owner-answer",
     "owner-queued",
     "owner-command",
     "owner-interrupt",
+    "owner-shell",
     "agent",
     "dispatch",
     "injected",
@@ -468,14 +469,8 @@ fn header(inventory: &Inventory, json: bool) {
             ),
         ));
     }
-    for file in &inventory.fallback {
-        lines.push((
-            json!({"header": "fallback", "file": file}),
-            format!("# no line carries a field in {file}: its lines are labelled by their text"),
-        ));
-    }
     if inventory.has_gap() {
-        // The fallback lines above are no gap, so the request names what it covers.
+        // The repeated uuids above are no gap, so the request names what it covers.
         let gap =
             "each unrecognised value, unlabelled line and line that is no JSON above is a gap \
                    of this command: report it as a finding on the checker in the retrospective";

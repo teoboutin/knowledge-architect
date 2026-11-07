@@ -46,9 +46,8 @@ allows a re-entry point on `design` only, a `deferred` entry carrying its trigge
 reviewer reads every re-entry clause of every entry.
 
 A second real instance, in this repository on 2026-10-31, in the branch that closed the open issues
-on `klarch transcript`: the `design` entry it narrowed and renamed, now
-`issue@transcript@owner-shell-commands-are-unlabelled`, named as its re-entry point "the next change to
-the labels" of the transcript reader. The branch was that change, left the entry's question open,
+on `klarch transcript`: the `design` entry it narrowed and renamed, on the owner's `!` commands,
+named as its re-entry point "the next change to the labels" of the transcript reader. The branch was that change, left the entry's question open,
 and wrote the same occasion back into the renamed entry. No design discussion ran, so no searcher
 read it. The standing-state reviewer caught it because the change rewrote the entry, which its
 reading of every entry a change opens or closes reaches; it applied the trigger test to the

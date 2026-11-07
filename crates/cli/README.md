@@ -383,13 +383,16 @@ under it, as a worktree under the root is; `--all-projects` reads every project'
   starts, with `--role` keeping one role, `--tool <name>` one tool's calls and their results,
   `--tools` every tool line, and `--subagents` the subagents' lines too.
 
-**Every line is labelled by its fields, never by its text.** The owner's words are the lines
+**Every line is labelled by its fields, never by a substring of its text.** The owner's words are the lines
 labelled `owner`, `owner-queued` (typed while the session was busy), `owner-answer` (an answer to a
-question tool) and `owner-command` (a command such as `/clear`), and `owner-interrupt` is the
-owner's interrupt of a turn; `injected` lines are what the harness or another agent delivered, with
-their kind; `agent` is the session's own text, `dispatch`
-the text a subagent received, `tool` a tool call or its result. A transcript with no field at all,
-such as one of a session run with `claude -p`, is labelled by its text, and the header says so.
+question tool) and `owner-command` (a command such as `/clear`); `owner-interrupt` is the owner's
+interrupt of a turn and `owner-shell` a shell command the owner ran with the `!` prefix; `injected`
+lines are what the harness or another agent delivered, with their kind, the command's output and a
+fork's inherited context included; `agent` is the session's own text, `dispatch` the text a subagent
+received, `tool` a tool call or its result. A line no field places is labelled by its text only
+where the harness writes that text whole, as an interrupt's, or writes a tag first, as a shell
+command's; any other is `unlabelled`, every line of a transcript with no field at all, such as one
+of a session run with `claude -p`, included.
 
 **The format is the harness's own, which it documents as internal and liable to change between
 versions.** The command never fails on what it does not know: its header names, before the rows,
