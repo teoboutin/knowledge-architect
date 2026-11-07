@@ -39,6 +39,14 @@ something met outside the task, 2026-10-29. The session added to a head a route 
 lose the finding the head's argument says the other outcomes lose, and recorded it directly; the
 decision-record reviewer found it, and the deliberation was carried into a later commit.
 
+Two more, in the files of the intake of forty retrospective files of 2026-10-31 to 2026-11-07, both
+of this repository: W3 of 2026-11-02-knowledge-architect-development-and-components-klarch-workflow,
+a slice's design audit that applied a change in place as a gap, into a head the change did not
+answer, with no rival weighed, which the decision-record reviewer found; and P1 of
+2026-11-02-knowledge-architect-component-rules-revision, a spec's harvest row followed into an
+installed sentence wider than the decided design, with a further clause outside the owner's premise,
+which the spec-conformity and decision-record reviewers found. Each was repaired before its merge.
+
 ### Why it matters
 
 A member beyond the argument enters a head with no deliberation, against
