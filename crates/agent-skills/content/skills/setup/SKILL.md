@@ -395,9 +395,9 @@ To move to another version:
    the audit's range holds the audit's work alone. The pin move's branch opens one `todo` issue per
    axis or review listed, in the root Component, which the commit of that audit or review closes, so the owed audit or review is held by
    a register until it runs. The session that merges the pin move puts each owed audit or review
-   to the owner in the message that reports the merge, its default to run it next; where the owner
-   defers it, its `todo` issue holds it. Such a Migration entry changes the rules the project's
-   existing record must meet, and the audit brings that record to them.
+   to the owner in the message that reports the merge, its default to run it next. Such a Migration
+   entry changes the rules the project's existing record must meet, and the audit brings that record
+   to them.
 
 ## In a Rust project {{slug:rust-project}}
 

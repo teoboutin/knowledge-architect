@@ -194,10 +194,10 @@ are consecutive in that listing.
 
   In a shallow clone, where `git rev-parse --is-shallow-repository` prints `true`, a count over the
   history starts from the clone's boundary commit and comes out too low, with no error. A count of
-  release tags sees only the tags the repository holds; `git ls-remote --tags origin`, which writes
-  nothing, lists the remote's. Report each horizon you could not count for either reason, and the
-  command that makes it countable in the dispatcher's checkout, `git fetch --unshallow` or
-  `git fetch --tags`. Run no fetch yourself: it writes refs that every worktree of the repository
+  release tags sees only the tags the repository holds; `git ls-remote --tags <remote>`, `<remote>`
+  the remote the main branch is fetched from, writes nothing and lists the remote's. Report each
+  horizon you could not count for either reason, and the command that makes it countable in the
+  dispatcher's checkout, `git fetch --unshallow` or `git fetch --tags`. Run no fetch yourself: it writes refs that every worktree of the repository
   shares, the remote-tracking branch of the main branch among them.
 
 - **Then judge it against the standard**, condition by condition, then the slip, then the shape of

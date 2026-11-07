@@ -148,9 +148,9 @@ an empty subsection is omitted.
   whether the cases that list rules out are meant.
 - `agent-skills`, patch: the standing-state reviewer and the tripwire auditor run no `git fetch`:
   where a horizon names release tags that the repository does not hold, they list the remote's with
-  `git ls-remote --tags origin` and report the horizon as not counted, naming `git fetch --tags` for
-  the dispatcher to run in its own checkout, as they already did for a shallow clone with
-  `git fetch --unshallow`.
+  `git ls-remote --tags <remote>`, `<remote>` the remote the main branch is fetched from, and report
+  the horizon as not counted, naming `git fetch --tags` for the dispatcher to run in its own
+  checkout, as they already did for a shallow clone with `git fetch --unshallow`.
 - `agent-skills`, patch: the primer's table of what the owner brings tells an intent to draft as a
   goal from an argument by two checks: the statement gives an outcome the project is to reach, not
   a reason for one shape over its rival, and no goal or recorded decision already serves it against
@@ -168,13 +168,13 @@ an empty subsection is omitted.
   the commits of this audit's passes.
 - `agent-skills`, patch: where the harness refuses an audit's report step the write of its report
   file, the step returns the report as text instead, and the run's result carries it as `reportText`, with
-  `report` null, for the session to write to the file. The run's result names the count of groups
+  `report` null; the session writes it to a file of the run's scratch directory before verifying it. The run's result names the count of groups
   whose verifier returned `groupsVerified`, and in the agentic-workflow axis `auditorsVerified`,
   where it said `verified`.
 - `agent-skills`, patch: goal-setting commits the drafts of a batch of more than three goals with
   the batch's record in docs/goal-reviews/ at each round, instead of leaving them uncommitted until
   the owner rules, so each round's goal reviewers read them at a commit; the commit that writes the
-  goals as the owner ruled them records the ruling.
+  owner's last answers into the record records the ruling.
 - `agent-skills`, patch: goal-setting commits the record in docs/goal-reviews/ with the owner's last
   answers before the goals the owner ruled last are written; the commit that writes them, or a later
   one, deletes it.

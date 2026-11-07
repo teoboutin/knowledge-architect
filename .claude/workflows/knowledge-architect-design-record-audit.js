@@ -50,6 +50,7 @@ const FROM_DISK = 'Your copies of your definition, of the root CLAUDE.md and of 
 const ENTRY = {
   type: 'object',
   properties: { ref: { type: 'string' }, name: { type: 'string' }, file: { type: 'string' }, line: { type: 'number' } },
+  required: ['ref'],
 }
 const ENTRIES = {
   type: 'object',

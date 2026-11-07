@@ -423,9 +423,10 @@ message and tree through `{{command}} commits`. A reference anywhere else is fou
 **A finding is repaired in a form the checker judges, never by moving the pointer into plain
 text**: the right anchor, `path@elsewhere@<path>` for a path the tree does not hold, such as, in a
 commit message, a path later work will create, a placeholder,
-or a rewritten sentence. A plan item named outside its plan document as a hash sign and its id, as
-#<id>, beside a citation of the whole document, is a label, not a pointer moved into plain text,
-since an item reference is legal only inside its own plan document.
+or a rewritten sentence. A plan item or a slice named outside its plan document as a hash sign and
+its id, as #<id>, beside a citation of the whole document, is a name, not a pointer moved into plain
+text, since it names a part of the plan document its citation names, and an item reference is
+legal only inside its own plan document.
 A record of a deliberation (a plan document, a committed file that leaves
 once its outcomes are carried out, or a commit message) names by its bare slug in backticks an
 entry that the work it records removes, renames or is still to create, and by its bare name in

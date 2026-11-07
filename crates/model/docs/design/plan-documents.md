@@ -73,7 +73,7 @@ table's own, per `design@check@an-extension-plugs-in-through-phased-hooks`.
 An item citation, `<kind>@<plan>@<id>`, resolves only from a file inside the plan: the spec file, or a file of the milestone's directory. From anywhere
 else, a commit message included, it is refused before its id is looked up, and the repair names
 the document to cite whole: the spec, the milestone, or the slice spec that defines the item, with
-the item named beside it as `#<id>`, the label `skill@knowledge-architect-planning@spec-contents`
+the item named beside it as `#<id>`, the name `skill@knowledge-architect-planning@spec-contents`
 gives an item outside its plan. A
 whole plan may be cited from anywhere but a goals home, per
 `design@check@goals-home-cites-upward-only`, so a dependency between plans is carried by the document,

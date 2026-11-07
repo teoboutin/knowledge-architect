@@ -142,3 +142,25 @@ which condition 1 of `design@agent-skills@tripwire-admission-test` excludes: tha
 on such repairs, 10 of its 17 firings found anyway. An exit for a tripwire whose evidence names an
 artifact the project's instructions prevent is not kept: the surveys found it used 0 times in 250
 entries, and a failure a test or a check reaches is excluded by condition 1.
+
+### An agent that cannot count a horizon over the history it holds reports the horizon uncounted, with the command that makes it countable, and fetches nothing `##uncounted-horizon-reported-not-fetched`
+
+Where the history is shallow, or a release tag is missing locally, the standing-state reviewer and
+the tripwire auditor report each horizon they could not count, with the command that makes it
+countable in the dispatcher's checkout, `git fetch --unshallow` or `git fetch --tags`, and run no
+fetch themselves. The text is the fragment `path@agent-skills@fragments/shallow-history.md`,
+delivered in both agents. It serves `goal@agent-skills@installed-text-works-in-every-target-project`,
+since a target project's session can run in a shallow clone.
+
+The argument turns on git's behaviour. In a clone of depth 3, `git log -S` on a `Watches until`
+line names the clone's boundary commit, so the count starts there and comes out too low, with no
+error; `git clone --depth 3 file://<repository>` and `git log -S` on any such line re-take it. The
+rival, the agent fetching what the count needs, writes to the dispatcher's repository: per
+`git fetch --help` (git 2.53.0), `--tags` fetches tags "in addition to whatever else would
+otherwise be fetched", so it also moves the remote-tracking branches, and per `git worktree --help`
+every ref under refs/ but refs/bisect, refs/worktree and refs/rewritten is shared between worktrees,
+so a fetch run in the agent's worktree moves the remote-tracking branch of the main branch that the
+dispatcher's ranges are computed from, and the tripwire auditor runs only commands that read the
+project. A fetch also needs a reachable remote, which an agent's environment may not give.
+`git ls-remote` lists the remote's tags and writes nothing, but does not supply the tagged commits a
+count needs in the local history, so it shows that a tag is missing and the dispatcher fetches it.

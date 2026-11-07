@@ -224,7 +224,7 @@ sections is an item, and a slug anywhere else in a plan document defines nothing
 - An item is cited `<kind>@<anchor>@<id>`, where the anchor is a spec's id, or the milestone's name for
   an item of the milestone document or of any of its slice specs, and only from inside its own plan document, a milestone's documents counting as one: the spec file, or the milestone's directory. From anywhere
   else, a commit message and a design head included, the plan document is cited whole, and an item
-  or a slice is named beside it as #<id>, a label, per `primer@where-knowledge-goes`.
+  or a slice is named beside it as #<id>, a name, per `primer@where-knowledge-goes`.
 
 **A path the plan document's work will create** is cited `planned@<anchor>@<path>`, under the rules of a
 `path` reference: the anchor that will hold it, a trailing `/` for a directory. The form is legal
@@ -234,9 +234,9 @@ that creates the file converts it to `path@<anchor>@<path>` in the same change.
 **Assembly from the transcript.** The plan documents of one discussion record the whole of it:
 each thread in the document that carries it, with its proposer, its final state, the arguments on
 each side, every argument it uses included, the owner's rulings verbatim with their round, and its
-relations. An argument that threads in two documents use is in both, since an item is cited only
-from inside its own plan. An answer of the owner on a reading or a fact is recorded with its source,
-as `primer@labelled-items` says. It is assembled from the transcript, not from memory. Dispatch a
+relations. An argument that threads in two plan documents use, a milestone's documents counting as
+one, is in both, since an item is cited only from inside its own plan. An answer of the owner on a
+reading or a fact is recorded with its source, as `primer@labelled-items` says. It is assembled from the transcript, not from memory. Dispatch a
 subagent that extracts every session the discussion spans, a resumed session included, as
 `agent@knowledge-architect-transcript-reviewer@extract-transcripts` says, read whole, and from the
 extraction takes the delta tables, the owner's messages verbatim and the arguments; the design
@@ -332,7 +332,7 @@ owner sets as the owner's.
 
 - **At each landing**, the messages of the commits that land it report on every criterion judged
   there, one line each, naming it as #<id> beside a citation of the whole plan document, per
-  `skill@knowledge-architect-planning@plans-layout`: the decision guarded, fired or not, and the evidence.
+  `skill@knowledge-architect-planning@spec-contents`: the decision guarded, fired or not, and the evidence.
 - **A criterion that fires** leaves the document at once, as a reopened decision: its firing opens
   a design discussion with the owner on the decision it guards, under
   `skill@knowledge-architect-design`. There, the measurement says whether the decision failed, the

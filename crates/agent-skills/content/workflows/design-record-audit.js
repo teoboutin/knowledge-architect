@@ -50,6 +50,7 @@ const FROM_DISK = 'Your copies of your definition, of the root CLAUDE.md and of 
 const ENTRY = {
   type: 'object',
   properties: { ref: { type: 'string' }, name: { type: 'string' }, file: { type: 'string' }, line: { type: 'number' } },
+  required: ['ref'],
 }
 const ENTRIES = {
   type: 'object',
@@ -104,6 +105,8 @@ const VERDICTS = {
 }
 const PATH = { type: 'object', properties: { path: { type: 'string' } }, required: ['path'] }
 const REPORT = { type: 'object', properties: { path: { type: 'string' }, text: { type: 'string' } }, required: ['path'] }
+%% The fallback below has its home in the head of the audit method on a report step whose write
+%% the harness refuses, named in words since this file cites no reference.
 const REFUSED = 'Where the harness refuses your write of it, return the report whole in text, and ' +
   'path empty.'
 const DONE = {
@@ -438,6 +441,8 @@ log('verify: ' + verdicts.length + ' of ' + groups.length + ' groups verified; '
   sum('known') + ' known, ' + sum('kept') + ' kept, ' + sum('createdHeads') + ' creating heads; ' +
   sum('checks') + ' checks')
 
+%% The reason below has its home in the root's goal that a mechanical task the workflow requires
+%% is done by knowledge-architect's tooling, named in words since this file cites no reference.
 // The counts the report copies: the script holds each exactly, so no agent takes one by reading.
 const all = groups.reduce((t, g) => t.concat(g.entries), [])
 const perComponent = {}

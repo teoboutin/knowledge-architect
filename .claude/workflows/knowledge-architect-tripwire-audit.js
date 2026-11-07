@@ -54,6 +54,7 @@ const ENTRY = {
     ref: { type: 'string' }, file: { type: 'string' }, line: { type: 'number' },
     removed: { type: 'boolean' },
   },
+  required: ['ref'],
 }
 const ENTRIES = {
   type: 'object',

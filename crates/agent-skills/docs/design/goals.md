@@ -451,8 +451,11 @@ A batch of three goals or fewer is drafted in the message and ruled by slug. A l
 written in the goals homes of the working tree, its source marks, its boundary blocks and the
 reviewer's findings in a record of `path@knowledge-architect@docs/goal-reviews/`, each round's
 drafts committed on the branch with the record, and the owner rules on the batch as the tree holds
-it, naming each goal dropped or reworded; the commit that writes the goals as the owner ruled them
-records the ruling. The owner argued that a larger batch is read more readily in the tree, and
+it, naming each goal dropped or reworded; the commit that writes the owner's last answers into the
+record records the ruling, before the goals the owner ruled last are written. That commit always
+changes a file, where the commit that writes the goals changes none when the owner rules the batch
+as drafted, and a record carried by a message rides on a commit that changes a file, per
+`design@knowledge-architect@a-record-rides-on-a-commit-that-changes-a-file`. The owner argued that a larger batch is read more readily in the tree, and
 found ruling by slug inconvenient for the 31 goals of this repository's review; the session
 generalised it, ruling on each goal by slug costing the owner more than it checks for any larger
 batch; the owner's word on the batch is

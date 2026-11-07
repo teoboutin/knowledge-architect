@@ -148,7 +148,7 @@ defines its own words, and its goals may use the root's. The head restates no ru
    goals or fewer is drafted in the message. A batch of more is written in the goals homes of the
    working tree, and its source marks go in a record kept as
    `skill@knowledge-architect-goal-setting@whole-set-review` keeps one, in
-   `docs/goal-reviews/<YYYY-MM-DD>-<subject>.md`, each round's drafts committed with it.
+   `docs/goal-reviews/<YYYY-MM-DD>-<subject>.md`.
 4. **Dispatch `agent@knowledge-architect-goal-reviewer` in its draft mode**, fresh, never a fork:
    its brief is the whole batch of new and reworded goals, every relevant statement of the owner,
    verbatim, whether or not the draft drew on it, and the project. Repair each `settled` finding,
@@ -188,8 +188,9 @@ defines its own words, and its goals may use the root's. The head restates no ru
    goal the owner rewords is reviewed again, with the whole batch, in the next round of the same
    review, and shown again in its new wording before it is written.
 7. Write the approved goals, exactly as approved, and the home's head, and nothing else; for a batch
-   drafted in the tree, whose drafts are committed, the commit that writes the goals as the owner
-   ruled them records the ruling.
+   drafted in the tree, whose drafts are committed, the commit that writes the owner's last answers
+   into the record records the ruling, since it always changes a file, in the order the closing
+   paragraph of `skill@knowledge-architect-goal-setting@whole-set-review` gives.
 
 **A goal's wording proposed in another activity**, a plan's default, a review's repair, an audit's
 item or a goal a design discussion sets, is drafted here as its own item, with its boundary block,
