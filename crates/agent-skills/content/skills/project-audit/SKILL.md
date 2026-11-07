@@ -114,7 +114,8 @@ script. The run's worktrees are removed once the pass's findings have their outc
 
 %% The report file takes the shape of the analysis of a received file: committed with its rulings,
 %% deleted once acted on, so history keeps both. Commit messages alone keep the outcomes and lose
-%% the evidence.
+%% the evidence. The counts a run states, which the report and the message copy, are computed by the
+%% axis's saved workflow, per `design@agent-skills@run-counts-computed-by-the-workflow`.
 **Each pass's report file holds its evidence and the owner's rulings, and the pass's commit
 message holds its counts.** The file is `docs/audit-reports/<YYYY-MM-DD>-<axis>-pass-<n>.md` at
 the project's root, the axis named by its section's slug. The session writes it after its reading
