@@ -165,6 +165,28 @@ it, and the cut text carries "truncated <n> chars", which
 harness that delivered every result whole would reopen the rival. The record searcher returns its
 report as text on the same refusal, per `design@agent-skills@one-record-searcher`.
 
+### Every count an audit run holds is computed by its saved workflow, never taken by an agent's reading `##run-counts-computed-by-the-workflow`
+
+Each of the three saved workflows computes, from the preflight's entries and the steps' returns,
+every count its run holds that its report states, and the report step's brief carries those counts
+and tells its agent to copy them as given. The counts built are the entries listed, per kind and per
+Component or per anchor; the drafts of record, counting each group's own entries alone, so an entry
+of the shared sample counts once; the verifiers' sums and the groups or auditors whose verifier
+returned; the causes, the proposals and the checks; and, in the judgement of an application, the
+entries listed, the verdicts returned and the failing. The agent counts only what the run does not
+hold: the agentic-workflow audit's drafts and its findings after dedup, and what a run restarted
+from its files no longer holds, which its brief names.
+
+It serves `goal@knowledge-architect@mechanical-tasks-are-the-tool-s`: a count the run holds follows,
+with no judgement, from the run's own entries and returns, so the saved workflow that every
+installing project runs takes it the same way each time, and no session or agent takes it again. In
+a design-record audit of thaum, the report agent took the counts of heads, of rejected entries and
+of Components by reading, and they were false, the total right; the session copied them into the
+report file and a commit message, and a reviewer caught them. The nearest rival, the session
+counting again under `primer@verify-before-relying`, keeps a task with no judgement done by reading,
+the way the false counts were taken, where the script already holds each count exactly. The same
+reason is stated at the count block of each of the three workflows, which names this head in words.
+
 ### The session applies the repairs the owner approves, and no saved workflow does `##apply-stays-with-the-session`
 
 A run of an axis's saved workflow ends at its report. The session applies the edits the owner

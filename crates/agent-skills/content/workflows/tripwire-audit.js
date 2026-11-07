@@ -447,8 +447,8 @@ log('verify: ' + verdicts.length + ' of ' + groups.length + ' groups verified; '
   sum('known') + ' known, ' + sum('keptList') + ' on the kept list, ' + sum('deletions') +
   ' deleting their entry')
 
-%% The reason below has its home in the root's goal that a mechanical task the workflow requires
-%% is done by knowledge-architect's tooling, named in words since this file cites no reference.
+%% The reason below has its home in the head of the audit method on every count a run holds being
+%% computed by its saved workflow, named in words since this file cites no reference.
 // The counts the report copies: the script holds each exactly, so no agent takes one by reading.
 const all = groups.reduce((t, g) => t.concat(g.entries), [])
 const perAnchor = {}
