@@ -1297,7 +1297,7 @@ mod tests {
         assert_eq!(outside.len(), 2, "{found:#?}");
         assert!(
             outside[0].contains("name the item beside it in plain text as #thread-one"),
-            "the label the planning skill gives an item outside its plan: {found:#?}"
+            "the name the planning skill gives an item outside its plan: {found:#?}"
         );
         assert!(found.iter().any(|f| f
             .contains("`path@a-spec@x.md` names the spec `a-spec`, which carries no path kind")));
