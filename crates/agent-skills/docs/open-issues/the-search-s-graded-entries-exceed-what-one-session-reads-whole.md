@@ -47,15 +47,16 @@ file reports them, by `wc -w` where words are given:
 - the intake of seventeen files: 200 entries graded `bears`, 83,788 words, and 164 `may-bear`,
   57,415 words; four checking subagents ran the checks on text, and the session read what its
   proposals rested on;
-- the intake of forty files: 333 entries in 133,010 words and 249 in 78,434, over its `bears.md`
-  and `may-bear.md`. It departed from `design@agent-skills@may-bear-read-on-touch`, and its record
-  did not say so: nine checking subagents read the entries, each those its verdicts rested on, and
-  the session read whole only what each outcome rested on. The analysis
-  2026-10-31-knowledge-architect-intake-seventeen-files lists 185 `may-bear` entries as not read
-  whole, 42 issues among them, which the head says the session reads whole. At the review before
-  the merge, the design-conformance axis ran `cargo klarch show` on all 185 and read whole the 42
-  issues' summaries and the entries whose subject the work touches: the work contradicts, widens or
-  brings back none of them, so none reopens the head by its own clause;
+- the intake of forty files: 333 entries in 133,010 words and 249 in 78,434, over its `bears.md` and
+  `may-bear.md`. It departed from `design@agent-skills@may-bear-read-on-touch`, and its record did
+  not say so: nine checking subagents read the entries, each those its verdicts rested on, and the
+  session read whole only what each outcome rested on. The analysis
+  2026-10-31-knowledge-architect-intake-seventeen-files, in the commit "[intake] The analyses of
+  forty received retrospective files, three outcomes for the owner", lists 185 `may-bear` entries as
+  not read whole, 42 issues among them, which the head says the session reads whole. At the review
+  before the merge, the design-conformance axis ran `cargo klarch show` on all 185 and read whole
+  the 42 issues' summaries and the entries whose subject the work touches: the work contradicts,
+  widens or brings back none of them, so none reopens the head by its own clause;
 - the design grounding of the development milestone: 136 entries, 61,473 words, read whole in
   five reads;
 - the design grounding of one in-change decision before the 0.9.0 release: twelve searchers, 179

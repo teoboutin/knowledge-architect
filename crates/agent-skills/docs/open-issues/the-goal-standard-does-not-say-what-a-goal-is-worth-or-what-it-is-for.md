@@ -8,8 +8,8 @@ kind: design
 The owner holds that a goal covers what shapes the project's future and what argument alone might not defend, and that a
 goal is probably worth most where no mechanical test can show it met. `skill@knowledge-architect-goal-setting@goal-or-not`
 states no such purpose, and its rule 6 asks for a check or a test wherever an outcome depends on nothing the project does
-not control. The owner also holds that goals should focus on the outcomes and functions of what the project
-delivers, not on its shape, and judges that the current standard produces goals somewhat too
+not control. The owner also holds that goals should, overall, focus more on the outcomes and functions of what
+the project delivers than on its shape, and judges that the current standard produces goals somewhat too
 focused on shape. This entry holds the owner's words for a design discussion on the goal standard. They are quoted, on the
 owner's request, where an entry otherwise attributes.
 

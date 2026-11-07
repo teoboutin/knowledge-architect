@@ -5,11 +5,11 @@ kind: defect
 
 ## Summary
 
-`list --branch <branch>` finds the sessions of which at least one line carries that branch in its
-`gitBranch` field. A session that worked on a branch from a linked worktree can carry it in none of
-its lines, each naming the branch the main checkout had or another one, and `--branch` then does
-not list it. The review skill finds a branch's
-sessions with `--branch`, so the transcript review can miss the session that did the work.
+`list --branch <branch>` finds the sessions of which at least one chain line carries that branch in
+its `gitBranch` field. A session that worked on a branch from a linked worktree can carry it in none
+of its chain lines, each naming the branch the main checkout had or another one, and `--branch` then
+does not list it. The review skill finds a branch's sessions with `--branch`, so the transcript
+review can miss the session that did the work.
 
 ## Details
 
@@ -18,9 +18,9 @@ sessions with `--branch`, so the transcript review can miss the session that did
 `design@transcript@transcript-query-verbs`: "`list --branch` computes the sessions that worked on a
 branch from the `gitBranch` field every chain line carries". The reader collects that field in
 `path@transcript@src/reader.rs`, in `Corpus::cut`, which cuts a top-level file into sessions and
-keeps each distinct `gitBranch` value of a session's lines as its branches. The filter,
+keeps each distinct `gitBranch` value of a session's chain lines as its branches. The filter,
 `session_kept` in `path@transcript@src/command.rs`, keeps a session when any of those branches
-equals the one asked for, so a session is missed only when none of its lines carries it.
+equals the one asked for, so a session is missed only when none of its chain lines carries it.
 
 The instance, reported by a retrospective of a session of thaum, a project that installs the
 workflow, 2026-11-03: the whole branch was worked on from a worktree; the session's `gitBranch`
@@ -42,13 +42,13 @@ lines whose `cwd` lies in a linked worktree:
 - in this repository, 22 lines in one worktree carry the branch the main checkout held;
 - in a worktree of an agent in thaum, 47 lines carry `main` and 23 the worktree's branch.
 
-The thaum session of the second count carries the worktree's branch in 23 lines, so `--branch`
-lists it: it is no instance of the defect. What it shows is that one session's lines can carry
-several branches, the worktree's among them in some and not in others, so whether the worktree's
-branch appears in at least one line depends on which lines the harness writes with it. The field
-names the branch of the session's start, not always the branch worked on. `assumption`:
-that reading of the harness is an inference from these counts, not from its documentation; which
-harness events write the worktree's branch is not established.
+The thaum session of the second count carries the worktree's branch in 23 lines, so `--branch` lists
+it: it is no instance of the defect. What it shows is that one session's lines can carry several
+branches, the worktree's among them in some and not in others, so whether the worktree's branch
+appears in at least one chain line depends on which lines the harness writes with it. The field
+names the branch of the session's start, not always the branch worked on. `assumption`: that reading
+of the harness is an inference from these counts, not from its documentation; which harness events
+write the worktree's branch is not established.
 
 Ruled out: a change to the field's reading since the release of 0.9.0, as
 `git log -S gitBranch v0.9.0..HEAD` returned nothing at the intake.
