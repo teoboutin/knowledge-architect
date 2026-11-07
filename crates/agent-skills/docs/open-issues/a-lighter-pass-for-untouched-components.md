@@ -46,7 +46,8 @@ An intake of a retrospective file that reports the search's cost is no re-entry 
 intake's own work does not include this discussion. The cost measured so far: W4 of the
 retrospective of the intake deciding by authority, 2026-10-31: its `bears.md` of 80 entries, about 35,000 words, was
 the session's largest read. The intake of seventeen retrospective files of 2026-10-25 to 2026-10-31,
-at main `v0.8.0-224-g7e3784aa`, ran the search over 12 agents; its `bears.md` held 200 entries in
+at main's commit "[plans] The spec of the retrospective intake deciding by authority leaves: its
+work has landed", ran the search over 12 agents; its `bears.md` held 200 entries in
 83,788 words and its `may-bear.md` 164 entries in 57,415 words, by `wc -w`, more than that session
 could read whole beside its own work.
 `issue@query@the-graded-entries-repeat-a-shared-entry-s-grade-per-agent` holds the part of the cost
