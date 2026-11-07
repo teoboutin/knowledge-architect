@@ -286,8 +286,8 @@ await agent(lines([
     'and its firing evidence. Return its path.',
 ]), { schema: PATH, phase: 'cross-check', label: 'cross-check' })
 
-%% The reason below has its home in the root's goal that a mechanical task the workflow requires
-%% is done by knowledge-architect's tooling, named in words since this file cites no reference.
+%% The reason below has its home in the head of the audit method on every count a run holds being
+%% computed by its saved workflow, named in words since this file cites no reference.
 // The counts the report copies: the script holds each exactly, so no agent takes one by reading.
 const ok = verdicts.filter(Boolean)
 const sum = (k) => ok.reduce((t, v) => t + v[k], 0)
