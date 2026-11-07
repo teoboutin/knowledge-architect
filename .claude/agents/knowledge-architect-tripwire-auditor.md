@@ -111,8 +111,8 @@ good, unless the owner would see the failure anyway, by using the project or by 
 its agents: then a wrong drop costs little, and a cause in doubt may be dropped. That weighs a
 doubt only; it never drops a cause the four conditions admit.
 
-The entry is a level-two heading in the tripwires home of the Component that owns the decision, its
-slug last:
+The entry is a level-two heading in the tripwires home of the Component that owns the decision,
+naming the decision and the premise it watches, its slug last:
 
 ```markdown
 ## Guarding `design@<anchor>@<id>`: <the premise watched> `##<slug>`
@@ -292,8 +292,8 @@ count of entries whose rule admits both.
 ## Verify another auditor's drafts `##verify-drafts`
 
 A verify brief names one group's drafts, your directory, the calibration file, and the kept list,
-the issues listing, the tripwires listing and the history of the audit's earlier passes, its commit
-messages and the report files it added. Read the rules as for drafting. Of a sample entry, the
+the issues listing, the tripwires listing, the commit messages of the audit's earlier passes and
+the report file of every earlier pass of the axis, of any audit. Read the rules as for drafting. Of a sample entry, the
 draft of record is that of the group whose listed entries hold it; judge only those.
 
 - Try to refute every draft: check every quotation against your worktree, and a quotation or an

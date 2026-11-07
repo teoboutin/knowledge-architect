@@ -186,8 +186,8 @@ count of entries whose rule admits both.
 ## Verify another auditor's drafts {{slug:verify-drafts}}
 
 A verify brief names one group's drafts, your directory, the calibration file, and the kept list,
-the issues listing, the tripwires listing and the history of the audit's earlier passes, its commit
-messages and the report files it added. Read the rules as for drafting. Of a sample entry, the
+the issues listing, the tripwires listing, the commit messages of the audit's earlier passes and
+the report file of every earlier pass of the axis, of any audit. Read the rules as for drafting. Of a sample entry, the
 draft of record is that of the group whose listed entries hold it; judge only those.
 
 - Try to refute every draft: check every quotation against your worktree, and a quotation or an

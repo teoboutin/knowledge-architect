@@ -183,8 +183,8 @@ If you could not read a file of the corpus whole, say so under the list of files
 ## Verify another auditor's drafts {{slug:verify-drafts}}
 
 A verify brief names an auditor's drafts, your directory, and the kept list, the issues listing, the
-tripwires listing and the history of the audit's earlier passes, its commit messages and the report
-files it added. Read the corpus as for drafting. Try to refute each
+tripwires listing, the commit messages of the audit's earlier passes and the report file of every
+earlier pass of the axis, of any audit. Read the corpus as for drafting. Try to refute each
 draft, against its class and its lens as this definition gives them:
 
 - check every quotation against your worktree;

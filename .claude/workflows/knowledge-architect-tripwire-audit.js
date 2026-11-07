@@ -10,7 +10,7 @@ export const meta = {
 //   commit      the commit audited
 //   scratch     the run's scratch directory; each step and each agent writes under it
 //   worktrees   the directory under which the run creates the worktrees
-//   history     a git range whose commit messages and added report files record the earlier passes
+//   history     a git range whose commit messages record this audit's earlier passes
 //   previous    optional: for a re-check, the commit the previous pass audited
 //   kept        optional: the path of the kept list, for a re-check
 //   sample      optional: the calibration sample, an array of entries, each { ref } for a
@@ -121,6 +121,9 @@ const VERDICTS = {
   required: ['path', 'verified', 'refuted', 'plausible', 'bearsOnRuling', 'fires', 'known', 'keptList', 'deletions'],
 }
 const PATH = { type: 'object', properties: { path: { type: 'string' } }, required: ['path'] }
+const REPORT = { type: 'object', properties: { path: { type: 'string' }, text: { type: 'string' } }, required: ['path'] }
+const REFUSED = 'Where the harness refuses your write of it, return the report whole in text, and ' +
+  'path empty.'
 const DONE = {
   type: 'object',
   properties: { done: { type: 'boolean' }, notes: { type: 'string' } },
@@ -250,6 +253,7 @@ if (args.from === 'application') {
   // failing entry and returns every verdict, so a report read from the files alone would take each
   // conforming entry for one nobody judged.
   const verdicts = judged.filter((x) => x && x.r).map((x) => ({ group: x.g.label, judged: x.r.judged }))
+  const judgedCount = verdicts.reduce((t, v) => t + v.judged.length, 0)
   phase('report')
   const jreport = await agent(lines([
     'You write the report of the judgement of an application of one pass of the tripwire axis, ' +
@@ -258,13 +262,20 @@ if (args.from === 'application') {
     'Every verdict the judges returned, per group: ' + JSON.stringify(verdicts),
     'Read every file under ' + dir + ' that the judges wrote.',
     'Write ' + at(dir, 'report.md') + ': per failing entry, the rule, the failure mode of an edit ' +
-      'or the ruling it fails, the words quoted, and the repair the judge proposes; then the counts ' +
-      'of entries judged and failing, each entry missing from a return, which nobody judged' +
+      'or the ruling it fails, the words quoted, and the repair the judge proposes; then these ' +
+      'counts, copied as given: ' + pre.listed + ' entries listed, ' + judgedCount + ' verdicts ' +
+      'returned, ' + failing + ' failing; each entry missing from a return, which nobody judged' +
       (jgaps.length ? ': ' + jgaps.join('; ') : '') + ', and every step that returned nothing' +
       (jfailures.length ? ', among them: ' + jfailures.join('; ') : '') + '.',
-    'Return its path.',
-  ]), { schema: PATH, phase: 'report', label: 'report' })
-  return { report: jreport ? jreport.path : null, groups: jgroups.map((g) => g.label), failing, gaps: jgaps }
+    'Return its path. ' + REFUSED,
+  ]), { schema: REPORT, phase: 'report', label: 'report' })
+  return {
+    report: jreport && jreport.path ? jreport.path : null,
+    reportText: jreport && jreport.text ? jreport.text : null,
+    groups: jgroups.map((g) => g.label),
+    failing,
+    gaps: jgaps,
+  }
 }
 
 let groups = []
@@ -290,9 +301,9 @@ if (!args.from) {
     '- run cargo klarch issues and save its output to ' + at(preflightDir, 'issues.txt') + ';',
     '- save the messages of the commits of the range ' + args.history + ', with git log ' +
       '--format="=== %h %s%n%n%b", to ' + at(preflightDir, 'history.txt') + ';',
-    '- save the report files of earlier passes that the range added, with git log -p ' +
-      '--diff-filter=A --format="=== %h %s" ' + args.history + ' -- docs/audit-reports/, to ' +
-      at(preflightDir, 'reports.txt') + '.',
+    '- save the report file of every earlier pass of this axis, of any audit, found by its path, ' +
+      'with git log -p --diff-filter=A --format="=== %h %s" ' + args.commit + ' -- ' +
+      '"docs/audit-reports/*-tripwire-axis-pass-*.md", to ' + at(preflightDir, 'reports.txt') + '.',
     'Edit nothing else. Return the anchors as components with their entries, the sample' +
       (args.sample ? ' as an empty array' : '') + ', and listed as the count of rows of the ' +
       'tripwires listing, the header row excluded.',
@@ -339,6 +350,7 @@ const sampleLines = sample.map((e) => '- ' + show(e) + ' (draft of record: group
 // Drafts, all groups in parallel; the calibration waits for every one.
 const gaps = []
 const proposed = {}
+let ofRecord = null
 if (!args.from) {
   phase('drafts')
   const draftBrief = (g) => lines([
@@ -371,6 +383,12 @@ if (!args.from) {
   }
   if (gaps.length) log('entries missing from a return: ' + gaps.join('; '))
   log('drafts: ' + OUTCOMES.map((o) => o + ' ' + (proposed[o] || 0)).join(', ') + ', the sample counted once per group')
+  ofRecord = {}
+  for (const x of drafted) {
+    if (!x || !x.r) continue
+    const own = new Set(x.g.entries.map(id))
+    for (const j of x.r.judged) if (own.has(j.entry)) ofRecord[j.outcome] = (ofRecord[j.outcome] || 0) + 1
+  }
 }
 
 // Calibration: one auditor compares the sample's outcomes across the groups.
@@ -407,8 +425,9 @@ const verifyBrief = (g) => lines([
   args.kept ? 'Kept list: ' + at(args.scratch, g.label, 'kept.md') : '',
   'Issues listing: ' + at(preflightDir, 'issues.txt'),
   'Tripwires listing: ' + at(preflightDir, 'tripwires.txt'),
-  'History of the audit earlier passes: ' + at(preflightDir, 'history.txt') + ', and their ' +
-    'report files, with the owner\'s rulings: ' + at(preflightDir, 'reports.txt'),
+  'The commit messages of the audit\'s earlier passes: ' + at(preflightDir, 'history.txt') +
+    '; the report file of every earlier pass of this axis, of any audit, with the owner\'s ' +
+    'rulings: ' + at(preflightDir, 'reports.txt'),
   args.previous ? 'For this re-check, the commit the previous pass audited: ' + args.previous : '',
   FROM_DISK,
 ])
@@ -424,6 +443,25 @@ log('verify: ' + verdicts.length + ' of ' + groups.length + ' groups verified; '
   sum('bearsOnRuling') + ' bearing on a ruling, ' + sum('fires') + ' firing, ' +
   sum('known') + ' known, ' + sum('keptList') + ' on the kept list, ' + sum('deletions') +
   ' deleting their entry')
+
+// The counts the report copies: the script holds each exactly, so no agent takes one by reading.
+const all = groups.reduce((t, g) => t.concat(g.entries), [])
+const perAnchor = {}
+for (const e of all) {
+  const a = e.ref.split('@')[1]
+  perAnchor[a] = (perAnchor[a] || 0) + 1
+}
+const countLines = [
+  'entries: ' + all.length + '; per anchor: ' + Object.keys(perAnchor).map((a) => a + ' ' + perAnchor[a]).join(', '),
+  ofRecord
+    ? 'drafts of record per outcome: ' + OUTCOMES.map((o) => o + ' ' + (ofRecord[o] || 0)).join(', ')
+    : 'drafts of record per outcome: not held, since this run restarted from its files; count them ' +
+      'from the drafts',
+  'verifiers: ' + verdicts.length + ' of ' + groups.length + ' groups returned; ' + sum('verified') +
+    ' verified, ' + sum('refuted') + ' refuted, ' + sum('plausible') + ' plausible, ' +
+    sum('bearsOnRuling') + ' bearing on a ruling, ' + sum('fires') + ' firing, ' + sum('known') +
+    ' known, ' + sum('keptList') + ' on the kept list, ' + sum('deletions') + ' deleting their entry',
+]
 
 // Cross-check.
 phase('cross-check')
@@ -471,11 +509,12 @@ const report = await agent(lines([
   'The sample, each entry with the group whose draft is of record:',
   sampleLines.join('\n'),
   gaps.length ? 'Entries missing from a return: ' + gaps.join('; ') + '.' : '',
+  'The run\'s counts, which the script computed:',
+  countLines.map((l) => '- ' + l).join('\n'),
   'Write ' + at(args.scratch, 'report', 'report.md') + ' in six parts:',
   '1. the header: the commit audited, ' + args.commit + '; the agents of each step; each group ' +
-    'with its first and last entry; the count of entries, of drafts per outcome, and of those ' +
-    'verified, refuted, plausible, bearing on a ruling, firing, known and on the kept list; for a ' +
-    're-check, the counts the section record-of-an-audit of the skill ' +
+    'with its first and last entry; the run\'s counts above, copied as given; for a re-check, the ' +
+    'counts the section record-of-an-audit of the skill ' +
     'knowledge-architect-project-audit asks of a pass, the owner-list one as the cross-check ' +
     'proposes it; each entry missing from a return; each refuted draft with its reason;',
   '2. the calibration: per sample entry, each group\'s outcome, the proposed reading and the ' +
@@ -497,12 +536,13 @@ const report = await agent(lines([
     'the notes the drafts give of a head false of the code or failing a rule on heads, the "Met ' +
     'outside the task" notes of the returns, and every step that failed or returned nothing' +
     (failures.length ? ', among them: ' + failures.join('; ') : '') + '.',
-  'Return its path.',
-]), { schema: PATH, phase: 'report', label: 'report' })
+  'Return its path. ' + REFUSED,
+]), { schema: REPORT, phase: 'report', label: 'report' })
 
 return {
-  report: report ? report.path : null,
+  report: report && report.path ? report.path : null,
+  reportText: report && report.text ? report.text : null,
   groups: groups.map((g) => g.label),
-  verified: verdicts.length,
+  groupsVerified: verdicts.length,
   gaps,
 }
