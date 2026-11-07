@@ -397,7 +397,7 @@ of a transcript with no field at all, such as one of a session run with `claude 
 **The format is the harness's own, which it documents as internal and liable to change between
 versions.** The command never fails on what it does not know: its header names, before the rows,
 every line type and every value it does not recognise, with its count and its first file and line,
-every line it could not label, and every line that is no JSON. Each is a gap of this command, to
+the count of lines it could not label, and every line that is no JSON. Each is a gap of this command, to
 report as a finding on the checker in the retrospective.
 
 **The harness deletes transcripts after 30 days by default**: the setting `cleanupPeriodDays` of
