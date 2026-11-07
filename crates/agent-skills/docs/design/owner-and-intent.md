@@ -152,7 +152,11 @@ role in the decision, an outcome to reach or a reason for one shape over its riv
 goal or a recorded decision already serves it against each rival it is cited to defeat. Both
 follow from the decision and the record, per `design@agent-skills@questions-go-to-their-authority`.
 The rival, putting each doubtful reading to the owner, costs one question per reading that the
-record answers.
+record answers. The intent row drafts no goal for an outcome a recorded decision already serves
+against every rival it is cited to defeat, against the rival that such an outcome is then left with
+no goal, on the owner's argument: goals bind strongly, so the owner wants to avoid having too many,
+above all for what can rest on argument, since what a goal states is never questioned and so never
+improves, where a reversal can improve a head.
 
 The rule of a head on the arguments discussed, not on the ground that the owner ruled, is the
 owner's proposal: the owner judged this provenance to matter a lot for agents that weigh any change

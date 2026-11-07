@@ -175,7 +175,8 @@ and rewording the title to state both does not make them one. A member of a set 
 admits is no decision, so a member missing from a title is no finding. Each statement of a head is
 given its nearest rival before the head is written or judged one decision: a writer or a reviewer
 who tests the head against one rival at a time finds the decisions a head bundles over several
-passes, not in one, as the retrospectives of two sessions of thaum reported, each splitting one head over several decision-record passes.
+passes, not in one, as the retrospectives of two sessions of thaum reported, each splitting one head
+over several decision-record passes.
 
 The owner raised the question, doubting that the decision-recording skill gave any criterion for
 splitting a design head. A rule that only asks a head carrying several decisions
