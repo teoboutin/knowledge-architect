@@ -50,7 +50,7 @@ In this repository, the checker built from the checkout runs as `cargo klarch <s
 | crates/query | the library of the commands that read the record and run no check, `knowledge-architect-query` |
 | crates/transcript | the library that reads an agent harness's session transcripts, `knowledge-architect-transcript` |
 | crates/create | the library that creates a project and adds a Component to one, `knowledge-architect-create` |
-
+| crates/testing | what an extension's tests need, and this repository's mock projects with the tests over them, `knowledge-architect-testing` |
 | crates/agent-skills | the text the checker installs into a project |
 | crates/gates | the library that runs a project's merge gates, `cargo x gates` here |
 | crates/mutate | the library of the hand mutation, which applies one mutation, runs a command against it and restores the file, `cargo x mutate` here |
