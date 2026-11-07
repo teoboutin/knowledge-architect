@@ -57,7 +57,7 @@
 | todo | [No check reports a lens of the agentic-workflow axis whose second agent found nothing the first did not](no-check-reports-a-duplicated-workflow-lens-whose-other-agents-found-nothing.md) |
 | todo | [No lint on `unsafe` code ships with the setup, which the decision against a security axis assumes](no-lint-on-unsafe-code-ships-with-the-setup.md) |
 | todo | [No reviewer writes its own report file, so the dispatcher saves each report by hand](no-reviewer-writes-its-own-report-file.md) |
-| todo | [No test parses a shipped saved workflow, so its parse check depends on a JavaScript runtime the machine may lack](no-test-parses-a-saved-workflow.md) |
+| todo | [No test runs a shipped saved workflow: its parse check depends on a JavaScript runtime the machine may lack, and the counts it computes are untested](no-test-parses-a-saved-workflow.md) |
 | todo | [A project cannot change one instruction of an installed skill](patching-an-installed-skill.md) |
 | todo | [Nothing checks mechanically that the shipped text cites no entry of this repository](shipped-text-citing-an-entry-is-unchecked.md) |
 | todo | [The agent-configuration skill names no place for an instruction local to one machine and never committed](the-agent-configuration-skill-names-no-place-for-a-local-uncommitted-instruction.md) |

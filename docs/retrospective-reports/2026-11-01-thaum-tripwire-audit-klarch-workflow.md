@@ -376,8 +376,8 @@ Analysed with C2 of 2026-11-01-thaum-design-record-audit-klarch-workflow, in `pa
   the head's text: `skill@knowledge-architect-setup@moving-the-pin` runs the axis "in a branch of
   its own once the pin move has merged", so a run in a later session is what the decision asks.
 - **g.** Route: none for the tripwire. W2's own outcome is G7's: a sentence offering the owed audit
-  at the move's merge would add a member to `design@agent-skills@audit-triggers`, routed by the
-  head's ground per `primer@design-heads`.
+  at the move's merge reverses nothing, `design@agent-skills@audit-triggers` keeping the branch
+  after the merge, as W2's own section says.
 - **h.** No change to the tripwire: it has not fired, and its horizon does not pass with this
   intake's commit (2 of 3 analysis commits since 2ad7d3d9, with it).
 - **Outcome**: decided by the session: no change, the tripwire has not fired. Ground: the received

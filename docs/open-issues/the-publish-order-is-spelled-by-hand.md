@@ -16,13 +16,14 @@ someone notices.
 
 The three sites:
 
-- `path@knowledge-architect@.github/workflows/release.yml`, the publish step: a shell `for` loop
-  over `knowledge-architect-git knowledge-architect-agent-skills knowledge-architect-model
-  knowledge-architect-check knowledge-architect-testing knowledge-architect-query
-  knowledge-architect-transcript knowledge-architect-create knowledge-architect-gates
-  knowledge-architect-mutate knowledge-architect`;
-- the same file, the step that skips a version crates.io already holds: the same loop, the same
-  eleven names;
+- `path@knowledge-architect@.github/workflows/release.yml`, the `publish` job's step `publish`: a
+  shell `for` loop over `knowledge-architect-git knowledge-architect-agent-skills
+  knowledge-architect-model knowledge-architect-check knowledge-architect-testing
+  knowledge-architect-query knowledge-architect-transcript knowledge-architect-create
+  knowledge-architect-gates knowledge-architect-mutate knowledge-architect`, which publishes each
+  crate and, inside the same loop, skips a version crates.io already holds;
+- the same file, the `verify` job's step "the tag is the version of every published crate": a
+  second `for` loop over the same eleven names, in the same order;
 - `design@knowledge-architect@partial-publish-rerun`, whose body spells which crate goes before
   which.
 
