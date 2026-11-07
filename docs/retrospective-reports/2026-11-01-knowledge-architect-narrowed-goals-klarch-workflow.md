@@ -294,8 +294,12 @@ Analysed with P2 of 2026-11-01-knowledge-architect-narrowed-goals, in
   rule is `design@agent-skills@misstated-ruling-rated-by-what-it-changes`: an attributed decision
   the owner did not make is major, a slip on a detail is minor, and "a minor ruling is no finding
   of the retrospective once caught before the merge". `design@agent-skills@attribution-replaces-quotation`
-  holds the regime. The tripwires `tripwire@agent-skills@ruling-lost-in-change` and
-  `tripwire@agent-skills@owner-fact-recorded-unattributed` are G9's to judge.
+  holds the regime. Neither `tripwire@agent-skills@ruling-lost-in-change` nor
+  `tripwire@agent-skills@owner-fact-recorded-unattributed` fired. The first fires on a critical
+  ruling found missing or misstated in an in-change commit message after the branch's transcript
+  review, and the second on a head on the main branch that states unattributed a premise the owner
+  reported. Every slip in the table was caught by a reviewer of the branch's review before its
+  merge, and no file reports a slip that reached a main branch.
 - **d.** Lapses of clear instructions. The major ones by the rating head, a decision attributed
   that the owner did not make, are in narrowed-goals, check-renamed, model crate, and the thaum
   design-record, count-ceilings and fuzz files; each was caught before the merge. Only the cli-on-top

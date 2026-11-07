@@ -54,7 +54,7 @@ Ruled out, at the intake of 2026-11-07:
 
 ### Why it matters
 
-The table is read before the filling and needed at each line, so a searcher grading 80 entries
+The table is read before the filling and needed at each line, so a searcher grading its entries
 applies it from memory, and each refused line costs another dispatch. Naming the admitted
 relations on each line follows from the entry's role with no judgement, a task
 `goal@knowledge-architect@mechanical-tasks-are-the-tool-s` gives the published checker.
