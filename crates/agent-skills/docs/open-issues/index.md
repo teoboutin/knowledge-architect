@@ -1,6 +1,6 @@
 **Generated — do not edit.** `cargo klarch index`
 
-62 entries
+63 entries
 
 | kind | title |
 | --- | --- |
@@ -19,6 +19,7 @@
 | design | [A repair of the last transcript review can meet another axis's condition, and the review skill reads two ways on whether that axis is owed](a-repair-of-the-last-transcript-review-can-make-another-axis-owed.md) |
 | design | [A slice's design audit is seeded with every decision of its milestone, and each forces the entries citing it to `may-bear`](a-slice-s-design-audit-is-seeded-with-every-decision-of-its-milestone.md) |
 | design | [A tripwire on agent behaviour under the workflow fires in sessions this project does not see](a-tripwire-on-agent-behaviour-fires-where-this-project-cannot-see.md) |
+| design | [An intake's analysis can leave before the owner's ruling in it is committed](an-intake-analysis-can-leave-before-the-owner-s-ruling-is-committed.md) |
 | design | [An item met outside the task and kept for the retrospective's workflow file is lost when no retrospective follows](an-item-kept-for-the-retrospective-is-lost-when-no-retrospective-follows.md) |
 | design | [Goal-setting has no step to discover an intent the owner does not hold yet](goal-setting-has-no-step-to-discover-an-intent-the-owner-does-not-hold-yet.md) |
 | design | [Decisions argued from a second agent harness, which the scope goal now asks against](heads-argued-from-another-harness.md) |
