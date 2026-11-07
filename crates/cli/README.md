@@ -62,7 +62,7 @@ cargo klarch worklist --verify <dir>   check the reports the agents filled, and 
 cargo klarch transcript list [--branch b] [--containing t] [--since d] [--all-projects]
                                        the sessions of Claude Code's transcripts that ran in the project
 cargo klarch transcript show <session> [--from t] [--subagents] [--tools] [--full] [--all-projects]
-                                       one session's lines, each labelled by its fields
+                                       one session's lines, each labelled by what the harness recorded
 cargo klarch transcript search <regex> [--role r]… [--tool n] [--tools] [--branch b] [--since d]
                          [--subagents] [--all-projects]
                                        every line whose text matches
@@ -383,16 +383,16 @@ under it, as a worktree under the root is; `--all-projects` reads every project'
   starts, with `--role` keeping one role, `--tool <name>` one tool's calls and their results,
   `--tools` every tool line, and `--subagents` the subagents' lines too.
 
-**Every line is labelled by its fields, never by a substring of its text.** The owner's words are the lines
+**Every line is labelled by what the harness recorded of it, never by a substring of its text.** The owner's words are the lines
 labelled `owner`, `owner-queued` (typed while the session was busy), `owner-answer` (an answer to a
 question tool) and `owner-command` (a command such as `/clear`); `owner-interrupt` is the owner's
 interrupt of a turn and `owner-shell` a shell command the owner ran with the `!` prefix; `injected`
 lines are what the harness or another agent delivered, with their kind, the command's output and a
 fork's inherited context included; `agent` is the session's own text, `dispatch` the text a subagent
-received, `tool` a tool call or its result. A line no field places is labelled by its text only
-where the harness writes that text whole, as an interrupt's, or writes a tag first, as a shell
-command's; any other is `unlabelled`, every line of a transcript with no field at all, such as one
-of a session run with `claude -p`, included.
+received, `tool` a tool call or its result. A message line no field places is labelled by its text
+only where the harness writes that text whole, as an interrupt's, or writes a tag first, as a shell
+command's; any other is `dispatch` in a subagent file and `unlabelled` elsewhere, the message lines
+of a transcript with no field at all, such as one of a session run with `claude -p`, included.
 
 **The format is the harness's own, which it documents as internal and liable to change between
 versions.** The command never fails on what it does not know: its header names, before the rows,

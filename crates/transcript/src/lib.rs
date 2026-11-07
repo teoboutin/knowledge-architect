@@ -6,8 +6,8 @@
 //! `design@knowledge-architect@a-typed-command-prints-and-returns-its-code`, so a closed stdout ends the
 //! process with exit 2. It reads under `CLAUDE_CONFIG_DIR`, or under `.claude` of `HOME` where that is unset.
 //! Its caller gives it the project's root; from a linked worktree, it also reads the sessions of the
-//! same path in the main checkout. Every line is labelled by its fields, never by a substring of its
-//! text, and every line or value the reader does not know is counted and reported, never a failure.
+//! same path in the main checkout. Every line is labelled by what the harness recorded of it, never by
+//! a substring of its text, and every line or value the reader does not know is counted and reported, never a failure.
 //!
 //! **A project does not name this package**: it pins `knowledge-architect`, whose binary offers the
 //! command. A Rust program that reads transcripts depends on it directly.
