@@ -469,7 +469,9 @@ into the record records the ruling, before the goals the owner ruled last are wr
 `design@agent-skills@whole-set-rounds`. That commit always changes a file, where the commit that
 writes the goals can change none when the owner rules the batch as drafted, and a record carried by
 a message rides on a commit that changes a file, per
-`design@knowledge-architect@a-record-rides-on-a-commit-that-changes-a-file`.
+`design@knowledge-architect@a-record-rides-on-a-commit-that-changes-a-file`. Which commit records
+the ruling follows from the committed drafts: its rival, the goals' commit, loses only because the
+drafts are already committed, so the two statements are one decision.
 
 The drafts are committed each round because the goal reviewer runs the checker's commands, and a
 subagent that does gets a worktree detached at a commit, never the live tree, per
