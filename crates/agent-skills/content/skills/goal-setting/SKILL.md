@@ -158,8 +158,8 @@ defines its own words, and its goals may use the root's. The head restates no ru
    again for it by its slug. A
    goal the owner rewords is reviewed again, with the whole batch, in the next round of the same
    review, and shown again in its new wording before it is written.
-%% Per `design@agent-skills@goal-batch-ruled-in-the-tree`: the goals' commit changes no file where
-%% the owner rules the batch as drafted.
+%% Per `design@agent-skills@goal-batch-drafts-committed-each-round`: the goals' commit changes no
+%% file where the owner rules the batch as drafted.
 7. Write the approved goals, exactly as approved, and the home's head, and nothing else; for a batch
    drafted in the tree, whose drafts are committed, the commit that writes the owner's last answers
    into the record records the ruling, since it always changes a file, in the order the closing

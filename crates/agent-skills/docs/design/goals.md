@@ -449,20 +449,26 @@ serves `goal@knowledge-architect@the-owner-decides` and
 
 A batch of three goals or fewer is drafted in the message and ruled by slug. A larger batch is
 written in the goals homes of the working tree, its source marks, its boundary blocks and the
-reviewer's findings in a record of `path@knowledge-architect@docs/goal-reviews/`, each round's
-drafts committed on the branch with the record, and the owner rules on the batch as the tree holds
-it, naming each goal dropped or reworded; the commit that writes the owner's last answers into the
-record records the ruling, before the goals the owner ruled last are written. That commit always
-changes a file, where the commit that writes the goals changes none when the owner rules the batch
-as drafted, and a record carried by a message rides on a commit that changes a file, per
-`design@knowledge-architect@a-record-rides-on-a-commit-that-changes-a-file`. The owner argued that a larger batch is read more readily in the tree, and
-found ruling by slug inconvenient for the 31 goals of this repository's review; the session
-generalised it, ruling on each goal by slug costing the owner more than it checks for any larger
-batch; the owner's word on the batch is
-still an explicit word, so no goal is accepted by silence. The threshold is the session's reading of
-the owner's bound of two or three goals, at its upper end. The rival, a tree draft still ruled slug
-by slug, keeps the cost the
-owner named and adds nothing that a goal named on the ruling does not give.
+reviewer's findings in a record of `path@knowledge-architect@docs/goal-reviews/`, and the owner
+rules on the batch as the tree holds it, naming each goal dropped or reworded. The owner argued that
+a larger batch is read more readily in the tree, and found ruling by slug inconvenient for the 31
+goals of this repository's review; the session generalised it, ruling on each goal by slug costing
+the owner more than it checks for any larger batch; the owner's word on the batch is still an
+explicit word, so no goal is accepted by silence. The threshold is the session's reading of the
+owner's bound of two or three goals, at its upper end. The rival, a tree draft still ruled slug by
+slug, keeps the cost the owner named and adds nothing that a goal named on the ruling does not give.
+It serves `goal@knowledge-architect@owner-attention-on-what-is-theirs`, and is stated in
+`skill@knowledge-architect-goal-setting@drawing-out-intent`,
+`skill@knowledge-architect-goal-setting@whole-set-review` and the primer's knowledge table.
+
+### The drafts of a goal batch ruled in the tree are committed each round, so the commit of the owner's last answers records the ruling `##goal-batch-drafts-committed-each-round`
+
+A batch ruled in the tree, per `design@agent-skills@goal-batch-ruled-in-the-tree`, has each round's
+drafts committed on the branch with the record, and the commit that writes the owner's last answers
+into the record records the ruling, before the goals the owner ruled last are written. That commit
+always changes a file, where the commit that writes the goals changes none when the owner rules the
+batch as drafted, and a record carried by a message rides on a commit that changes a file, per
+`design@knowledge-architect@a-record-rides-on-a-commit-that-changes-a-file`.
 
 The drafts are committed each round because the goal reviewer runs the checker's commands, and a
 subagent that does gets a worktree detached at a commit, never the live tree, per
@@ -477,7 +483,6 @@ record rather than in the goals homes lose the checker's rules on a goals home o
 a goal: the goals axis of the review before the merge reports each goal edit of the range whose
 ruling no commit message records, per `design@agent-skills@goals-axis-in-the-review-before-a-merge`,
 so no unruled draft reaches the main branch unreported. It serves
-`goal@knowledge-architect@owner-attention-on-what-is-theirs` and
 `goal@agent-skills@no-contradiction-in-workflow`, and is stated in
-`skill@knowledge-architect-goal-setting@drawing-out-intent`,
-`skill@knowledge-architect-goal-setting@whole-set-review` and the primer's knowledge table.
+`skill@knowledge-architect-goal-setting@drawing-out-intent` and
+`skill@knowledge-architect-goal-setting@whole-set-review`.

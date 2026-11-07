@@ -126,7 +126,8 @@
   round's drafts are committed with the record". Whole-set step 4: "Commit it at each round, with
   the round's drafts." Step 7: "for a batch drafted in the tree, the commit that writes the ruled
   goals records the ruling". `design@agent-skills@goal-batch-ruled-in-the-tree` rewritten in place,
-  its premortem naming an unruled draft reaching the main branch, which the goals axis reports.
+  its premortem naming an unruled draft reaching the main branch, which the goals axis reports; its
+  committed-drafts part is now `design@agent-skills@goal-batch-drafts-committed-each-round`.
   Instructions: 0 added, 3 reworded. A `Next release` Workflow entry. C2 of consumers-out needs no
   checker form once this lands. P1's project side stays as the owner ruled.
 - **Default**: handle now.
