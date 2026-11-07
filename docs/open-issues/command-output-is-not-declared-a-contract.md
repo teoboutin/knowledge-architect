@@ -31,8 +31,8 @@ Instances seen:
   `path@check@src/build_origin.rs`, gained a line naming how to prevent it, and was left without
   an entry, as a patch.
 - A consumer's extension tests asserted text `check` prints, and the consumer's owner ruled
-  mid-review that they assert none: W5 of 2026-10-07-thaum-mock-reduction-workflow. The checker
-  crate's section "Testing an extension", in `path@cli@src/lib.rs`, said nothing of printed output; it now sends a test to the
+  mid-review that they assert none: W5 of 2026-10-07-thaum-mock-reduction-workflow. The
+  section "Testing an extension", now in `path@testing@src/lib.rs`, said nothing of printed output; it now sends a test to the
   public fields `Report::checks`, `Report::not_run` and `Report::summaries`, from which the
   `checked:`, not-run and summary lines are printed. It says nothing yet of which printed text is a
   contract.

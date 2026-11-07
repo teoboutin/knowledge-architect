@@ -136,8 +136,8 @@ kept as a unit-test module, is a losing alternative of the milestone document.
 
 | what | where |
 | --- | --- |
-| #testing-crate | that `testing` exists and how it depends on the other crates: the root's design home, `design@knowledge-architect@testing-crate`; `design@check@the-facade-publishes-what-a-consumer-needs`, `design@model@model-facade` and `design@check@inputs-are-gathered` rewritten |
-| #binary-tests-in-testing, #test-files-outside-the-walk | `testing`'s design home, under those slugs; `design@check@checker-source-literals-are-data` and `design@knowledge-architect@the-binary-crate-keeps-the-package-name` rewritten |
+| #testing-crate | that `testing` exists and how it depends on the other crates: the root's design home, `design@knowledge-architect@testing-crate`, and `design@knowledge-architect@mock-projects-in-one-crate`, a decision of its own, whose rival, the mock tests kept as a unit-test module, earns no entry, since an argument any reader reconstructs refutes it; `design@check@the-facade-publishes-what-a-consumer-needs`, `design@model@model-facade` and `design@check@inputs-are-gathered` rewritten |
+| #binary-tests-in-testing, #test-files-outside-the-walk | `testing`'s design home, under those slugs, with the build of the binary in `design@testing@nested-cargo-builds-the-binary`, a decision of its own; `design@check@checker-source-literals-are-data` and `design@knowledge-architect@the-binary-crate-keeps-the-package-name` rewritten |
 | the harness kept in `check` and re-exported by `cli`, D2's losing shape | judged by `skill@knowledge-architect-decision-recording@losing-alternatives`; it changed the import path extension writers use, an interface others consume |
 | S1 | judged by the same tests; named in `design@testing@binary-tests-in-testing` as its nearest rival |
 | L1, L3 | the deliberation only: they lost while `issue@model@string-literals-in-code-may-not-need-reading-at-all` keeps the question open |

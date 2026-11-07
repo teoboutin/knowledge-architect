@@ -19,7 +19,7 @@ Measured by the adversarial reviewer of the review before the merge of the branc
 `Sandbox::git_command` the sandbox's identity, at that branch's tip, with the machine's real
 configuration untouched: each probe set `GIT_CONFIG_GLOBAL` to a file of its own and
 `GIT_CONFIG_NOSYSTEM=1`, then ran `cargo test --no-fail-fast` over the package that then held all these tests, which today is
-`-p knowledge-architect-check -p knowledge-architect`.
+`-p knowledge-architect-check -p knowledge-architect -p knowledge-architect-testing`.
 
 - A global configuration holding `commit.gpgsign = true` and `gpg.program = false`: 9 failures in
   the library's unit tests, 55 in `path@testing@tests/binary.rs`, 1 in `path@testing@tests/extension_api.rs`; the test
@@ -45,6 +45,13 @@ refuses as another user's keeps the machine's git configuration out" isolated th
 with `GIT_CONFIG_NOSYSTEM=1` and an empty `GIT_CONFIG_GLOBAL`, and its comment cites this entry;
 the file's other helpers still read the machine's configuration. That the CI runner's configuration
 holds the setting is not established.
+
+Probed by an adversarial reviewer over `path@testing@tests/binary.rs`, `path@testing@tests/checks_over_mocks.rs`, `path@testing@tests/model_over_mocks.rs` and `path@cli@tests/fixture_pin.rs`, each with `GIT_CONFIG_GLOBAL` set and `GIT_CONFIG_NOSYSTEM=1`:
+
+- `init.templateDir` whose `info/exclude` holds `*`: 142 failures in the first and 16 in the second. Pinning `core.excludesFile` does not cover it.
+- `core.excludesFile` with `*.md` and `*.toml`: 7 failures, through `Sandbox::git`.
+- `init.defaultObjectFormat = sha256`: 1 failure, `a_gitlink_is_a_phase_two_finding_and_an_exclude_row_declares_the_silence`, whose `--cacheinfo` holds a 40-hex object id.
+- `GIT_INDEX_FILE=.git/index` over `path@testing@tests/binary.rs`, as a commit hook sets it: 3 failures, which were not inspected. The helpers `git` and `Sandbox::git_command` remove that variable, and a run of the binary keeps it, as `design@git@index-file-variable-kept` asks.
 
 ### Why it matters
 

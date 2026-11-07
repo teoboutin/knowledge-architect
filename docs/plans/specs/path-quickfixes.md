@@ -157,7 +157,7 @@ What exists today at each site the work touches:
   match parts of it: `an_unanchored_path_shape_is_a_finding_naming_the_grammar` and
   `a_located_path_is_told_to_drop_its_suffix`, `path@check@src/check/references.rs` lines 2058 and
   2408. Others match only the statement, which the work keeps: `path@testing@tests/checks_over_mocks.rs`
-  line 706, and `path@testing@tests/binary.rs` lines 1720, 1805, 1855, 1879 and 1886. Two sites read a
+  and `path@testing@tests/binary.rs`. Two sites read a
   raw path today: `names_this_tree`, line 267, which asks only whether the first segment exists and
   so decides whether the finding is raised; and the `exists` computation of the raw-path arm,
   lines 168 to 176, which joins the span unnormalized to every anchor and decides whether the

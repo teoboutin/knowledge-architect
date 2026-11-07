@@ -105,8 +105,7 @@ skipping the regime in silence.
 ### `check`'s role modules publish what a consumer of the library needs, and nothing for `check`'s own tests `##the-facade-publishes-what-a-consumer-needs`
 
 The library has five kinds of consumer: a binary that registers an extension, the extension, the
-extension's tests, a frontend that is no command line, and `create`, the crate above it whose runs end as `check --fix` ends. The
-last two alone name `commands`, through this package; `create` also takes the install from it, since `init` installs the shipped set,
+extension's tests, a frontend that is no command line, and `create`, the crate above it whose runs end as `check --fix` ends. Of these, the last two name `commands`, through this package, beside the tests of `testing`, which publishes `run`; `create` also takes the install from it, since `init` installs the shipped set,
 and `staged_changes_stop_the_fix`, a narrow answer, rather than the staged list that answers it. **Driving a run over a mock project is part of what the library
 publishes**, because a project that adopts the tool with a subject of its own, per
 `goal@knowledge-architect@every-target-project-can-adopt-it`, has to test that subject as `check` tests

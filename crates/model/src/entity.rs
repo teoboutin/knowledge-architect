@@ -1954,7 +1954,9 @@ impl Entities {
         self.defined.len()
     }
 
-    /// The misplaced, malformed and duplicate definitions found while building the table.
+    /// The misplaced, malformed and duplicate definitions found while building the table, phase 3's
+    /// findings, per `goal@model@a-tool-knows-the-read-is-right`: a tool that builds the table reads here
+    /// whether it can rely on it, whatever phase 2 found of the same tree.
     pub fn definition_findings(&self) -> &[Finding] {
         &self.findings
     }

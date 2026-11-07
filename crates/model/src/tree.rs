@@ -814,7 +814,7 @@ mod plans_tests {
     }
 
     // A copy of `check`'s helpers of the same name: a helper of a test is shared by no public item,
-    // per `design@model@model-facade`, until the shared test Component holds them.
+    // per `design@model@model-facade`.
 
     /// A manifest declaring `components`, against a root nothing reads.
     fn declaring(components: &str) -> Manifest {

@@ -27,8 +27,12 @@ fn source(name: &str) -> PathBuf {
 }
 
 fn git(dir: &Path, args: &[&str]) {
+    // The variables that would point it elsewhere are removed: a suite run from a commit hook inherits them.
     let out = Command::new("git")
         .args(args)
+        .env_remove("GIT_DIR")
+        .env_remove("GIT_INDEX_FILE")
+        .env_remove("GIT_WORK_TREE")
         .current_dir(dir)
         .output()
         .expect("git runs");
@@ -52,13 +56,12 @@ fn copy_tree(from: &Path, to: &Path) {
     }
 }
 
-/// A copy of a mock under a name of its own in the target directory, whose generated files `state`
-/// writes before git lists them.
+/// A copy of a mock in the target directory, under this process's id so two runs do not meet, whose
+/// generated files `state` writes before git lists them.
 fn copy(tag: &str, name: &str, state: impl FnOnce(&Path)) -> Manifest {
     let dir = Path::new(env!("CARGO_TARGET_TMPDIR"))
-        .join("checks-over-mocks")
+        .join(format!("checks-over-mocks-{}", std::process::id()))
         .join(tag);
-    let _ = std::fs::remove_dir_all(&dir);
     copy_tree(&source(name), &dir);
     git(&dir, &["init", "-q"]);
     git(&dir, &["-c", "core.excludesFile=/dev/null", "add", "-A"]);
@@ -195,7 +198,7 @@ mod planted {
         // six homes.
         ("registers", 11, "issue register"),
         // Six register indexes: three issue homes, the two plans homes and the one milestone.
-        // The run is handed an empty committed set, so each is reported missing.
+        // This copy holds none of them, so each is reported missing.
         ("generated", 6, "the generated file is missing"),
     ];
 
@@ -284,6 +287,23 @@ mod planted {
             .collect();
         assert_eq!(hits.len(), 1, "{edited:#?}");
         assert!(hits[0].starts_with(CURRENT[0]), "{hits:#?}");
+    }
+
+    /// An edit that keeps the file's length is out of date too: the comparison reads the bytes.
+    #[test]
+    fn an_index_edited_to_the_same_length_is_out_of_date() {
+        let path = PathBuf::from(CURRENT[0]);
+        let edited = edited("same-length", |c| {
+            let text = c[&path].replacen("index", "indeX", 1);
+            assert_ne!(text, c[&path], "the edit changes a byte");
+            c.insert(path.clone(), text);
+        });
+        assert!(
+            edited
+                .iter()
+                .any(|f| f.starts_with(CURRENT[0]) && f.contains("out of date")),
+            "{edited:#?}"
+        );
     }
 
     #[test]

@@ -12,7 +12,7 @@ module `cli`. `path@testing@tests/extension_api.rs` uses the public paths alone,
 `path@cli@tests/public_paths.rs` holds the whole list, so an item a consumer names that the facade leaves out
 fails to compile there. A new public item is added to that list.
 
-**`CARGO_BIN_EXE_klarch` is set in this package alone, and a test of the binary lives in `testing`**, which builds it, per `design@testing@binary-tests-in-testing`. `path@cli@tests/init.rs` stays here since it uses no mock project, and
+**`CARGO_BIN_EXE_klarch` is set in this package alone, and a test of the binary over a mock project lives in `testing`**, which builds it, per `design@testing@binary-tests-in-testing`. `path@cli@tests/init.rs` stays here since it uses no mock project, and
 `path@cli@tests/fixture_pin.rs` since its claim is about this crate's own directory.
 
 Read `register@cli@design` before changing how it works.

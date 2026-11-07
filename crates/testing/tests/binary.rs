@@ -7,19 +7,20 @@
 
 use std::path::{Path, PathBuf};
 use std::process::Command;
-use std::sync::OnceLock;
+use std::sync::{Arc, OnceLock};
 
 /// The real binary, built from this checkout once per run of this test file.
 ///
 /// `CARGO_BIN_EXE_klarch` is set in `klarch`'s own package alone, and a dev-dependency on it does not
-/// build its binary, so this test asks the cargo that runs it. The build lands beside this test's
-/// executable, in the same target directory and profile. A binary that does not build fails each test
-/// that asks for it: a mutation run owes a `--build` probe that builds `klarch`, or a mutant that does
-/// not compile reads as caught.
+/// build its binary, so this test asks the cargo that runs it, per
+/// `design@testing@nested-cargo-builds-the-binary`. The path is the one cargo reports for the build, so a
+/// `CARGO_BUILD_TARGET` or any other setting that moves the output cannot leave a test judging an older
+/// binary. A binary that does not build fails each test that asks for it: a mutation run owes a
+/// `--build` probe that builds `klarch`, or a mutant that does not compile reads as caught.
 fn klarch() -> &'static Path {
     static BUILT: OnceLock<PathBuf> = OnceLock::new();
     BUILT.get_or_init(|| {
-        // <target>/<profile>/deps/<this test>.
+        // <target>/<profile>/deps/<this test>, or <target>/<triple>/<profile>/deps/<this test>.
         let exe = std::env::current_exe().expect("this test's path");
         let profile_dir = exe
             .parent()
@@ -29,7 +30,6 @@ fn klarch() -> &'static Path {
             .file_name()
             .and_then(|n| n.to_str())
             .expect("a profile directory");
-        let target = profile_dir.parent().expect("a target directory");
         let cargo = std::env::var_os("CARGO").expect("cargo sets CARGO for a test it runs");
         let mut build = Command::new(cargo);
         build
@@ -41,8 +41,7 @@ fn klarch() -> &'static Path {
                 "--bin",
                 "klarch",
             ])
-            .arg("--target-dir")
-            .arg(target)
+            .arg("--message-format=json-render-diagnostics")
             .current_dir(env!("CARGO_MANIFEST_DIR"));
         match profile {
             "debug" => {}
@@ -59,8 +58,19 @@ fn klarch() -> &'static Path {
             "klarch does not build: {}",
             String::from_utf8_lossy(&out.stderr)
         );
-        profile_dir.join("klarch")
+        let stdout = String::from_utf8_lossy(&out.stdout);
+        built_executable(&stdout).expect("cargo reports the binary it built")
     })
+}
+
+/// The path of `klarch` in cargo's JSON messages: the artifact line whose target is named `klarch`.
+fn built_executable(messages: &str) -> Option<PathBuf> {
+    const KEY: &str = "\"executable\":\"";
+    let line = messages
+        .lines()
+        .rfind(|l| l.contains("\"name\":\"klarch\"") && l.contains(KEY))?;
+    let rest = &line[line.find(KEY)? + KEY.len()..];
+    Some(PathBuf::from(&rest[..rest.find('"')?]))
 }
 
 /// The directory that holds the transcripts' fixtures: this crate's.
@@ -78,26 +88,30 @@ fn source(name: &str) -> PathBuf {
 /// A copy of a mock project pinned to this binary's version, a git repository of its own, shared by
 /// the tests that only read it, so each mock is copied once per run.
 ///
-/// It sits in the target directory under a fixed name, so a run replaces the last run's copy and
-/// leaves nothing outside the target directory.
+/// It sits in the target directory under this process's id, so two runs over one target directory do
+/// not meet, and nothing is left outside the target directory. A copy that fails fails the tests over
+/// that mock alone.
 fn project(name: &str) -> PathBuf {
-    static COPIES: OnceLock<std::sync::Mutex<std::collections::HashMap<String, PathBuf>>> =
-        OnceLock::new();
-    let copies = COPIES.get_or_init(Default::default);
-    let mut copies = copies.lock().expect("no test panicked while copying");
-    copies
+    static COPIES: OnceLock<
+        std::sync::Mutex<std::collections::HashMap<String, Arc<OnceLock<PathBuf>>>>,
+    > = OnceLock::new();
+    let slot = COPIES
+        .get_or_init(Default::default)
+        .lock()
+        .unwrap_or_else(|e| e.into_inner())
         .entry(name.to_string())
-        .or_insert_with(|| {
-            let dir = Path::new(env!("CARGO_TARGET_TMPDIR"))
-                .join("mock-copies")
-                .join(name);
-            let _ = std::fs::remove_dir_all(&dir);
-            copy_dir(&source(name), &dir);
-            git(&dir, &["init", "-q"]);
-            git(&dir, &["-c", "core.excludesFile=/dev/null", "add", "-A"]);
-            dir
-        })
-        .clone()
+        .or_default()
+        .clone();
+    slot.get_or_init(|| {
+        let dir = Path::new(env!("CARGO_TARGET_TMPDIR"))
+            .join(format!("mock-copies-{}", std::process::id()))
+            .join(name);
+        copy_dir(&source(name), &dir);
+        git(&dir, &["init", "-q"]);
+        git(&dir, &["-c", "core.excludesFile=/dev/null", "add", "-A"]);
+        dir
+    })
+    .clone()
 }
 
 /// Stdout, stderr and the exit code of one run in a directory.
@@ -141,10 +155,9 @@ fn run_with_env(dir: &Path, args: &[&str], env: &[(&str, &Path)]) -> (String, St
 
 /// A throwaway copy of a mock project, for the tests whose command writes.
 ///
-/// Every other test here runs against `path@check@tests/projects/` in place, which works only while a run
-/// leaves the tree alone. `index` writes, so it gets a copy: writing into the fixture would
-/// leave the repository dirty, and the next run would then be comparing against the previous
-/// run's output rather than against the fixture.
+/// A test that only reads shares the copy `project` gives, which works only while a run leaves the
+/// tree alone. `index` writes, so it gets a copy of its own: writing into a shared one would leave the
+/// next run comparing against the previous run's output rather than against the fixture.
 ///
 /// **The copy is a git repository of its own.** The walk is `git ls-files` from the project
 /// root, so a copy outside any worktree walks nothing and every test over it passes for the
@@ -219,6 +232,9 @@ impl Sandbox {
             .env_remove("GIT_AUTHOR_EMAIL")
             .env_remove("GIT_COMMITTER_NAME")
             .env_remove("GIT_COMMITTER_EMAIL")
+            .env_remove("GIT_DIR")
+            .env_remove("GIT_INDEX_FILE")
+            .env_remove("GIT_WORK_TREE")
             .current_dir(&self.dir);
         command
     }
@@ -354,9 +370,14 @@ fn check(dir: &Path) -> (i32, String) {
     )
 }
 
+/// One git command in `dir`, with the variables that would point it elsewhere removed: a suite run
+/// from a commit hook inherits them, and would otherwise write into the outer repository.
 fn git(dir: &Path, args: &[&str]) {
     let status = Command::new("git")
         .args(args)
+        .env_remove("GIT_DIR")
+        .env_remove("GIT_INDEX_FILE")
+        .env_remove("GIT_WORK_TREE")
         .current_dir(dir)
         .status()
         .expect("git runs");
@@ -383,7 +404,7 @@ fn the_binary_names_the_checker_s_directories_and_counts_the_files_under_them() 
     let checkout = Path::new(env!("CARGO_MANIFEST_DIR"))
         .ancestors()
         .nth(2)
-        .expect("crates/cli sits two levels below the root");
+        .expect("crates/testing sits two levels below the root");
     let (code, out) = check(checkout);
     assert_ne!(code, 2, "the check ran: {out}");
     let line = out
@@ -515,7 +536,7 @@ const DANGLING: &str = "# Another mock document\n\nIt points at `design@minimal@
 
 /// A throwaway repository holding a project the checks find nothing wrong with.
 ///
-/// **The mock projects under `path@check@tests/projects/` are not used here.** A commit whose
+/// **The mock projects under `path@testing@tests/projects/` are not used here.** A commit whose
 /// tree fails fails the range, and `dirhome` is the mock over which every family
 /// runs and finds nothing — so a copy of it could serve as a base. The project below is written out anyway, because each test
 /// below states the exact findings its commits carry, and a mock's contents are shared with
@@ -1217,8 +1238,8 @@ fn anchors_marks_a_missing_home_and_exits_one() {
 /// The claim: `--group` keeps the rows whose entry sits in the group it names, and drops the
 /// ungrouped ones.
 ///
-/// The only grouped ISSUE instance in any mock is `dirhome`'s, and it is read in place rather
-/// than copied: the command writes nothing. Both directions are asserted, because a filter that
+/// The only grouped ISSUE instance in any mock is `dirhome`'s, and it is read in the shared
+/// copy: the command writes nothing. Both directions are asserted, because a filter that
 /// dropped every row would satisfy a test that only checked the grouped entry was gone.
 #[test]
 fn issues_group_filter_keeps_the_entries_of_the_group_it_names() {
@@ -6647,7 +6668,7 @@ fn worklist_entries_files_are_those_before_the_snapshot() {
 
 // ---- `transcript` ------------------------------------------------------------------------------
 //
-// The fixtures under `path@transcript@tests/transcripts/` are Claude Code transcript directories, one per
+// The fixtures under `path@testing@tests/transcripts/` are Claude Code transcript directories, one per
 // case, whose `cwd` fields hold `{{root}}`. Each test writes its case into a directory of its own,
 // with `{{root}}` replaced by the mock `core`'s root, and runs the binary there with
 // `CLAUDE_CONFIG_DIR` pointed at it, so no test reads the machine's own transcripts. The mock gains

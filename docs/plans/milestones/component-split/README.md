@@ -1062,7 +1062,7 @@ R2, the session. Threads: #commands-sharing-a-purpose, #command-parsing-home.
 
 R2, the session. Threads: #test-component-public-api, #testing-crate.
 
-"`mock_projects.rs` is a `#[cfg(test)]` module that tests internals" / "`path@testing@tests/binary.rs` (7,026 lines) already tests only through the binary, so after the split it goes naturally to `cli`'s tests." / "So the shared test Component works here if one rule holds: no crate's unit tests use a mock project."
+"`mock_projects.rs` is a `#[cfg(test)]` module that tests internals" / "`path@elsewhere@crates/core/tests/binary.rs` (7,026 lines) already tests only through the binary, so after the split it goes naturally to `cli`'s tests." / "So the shared test Component works here if one rule holds: no crate's unit tests use a mock project."
 
 ### The mock-based tests of model and check cannot sit in a crate those two dev-depend on `##arg-56`
 
@@ -1443,8 +1443,8 @@ docs/ are split by subject, each slice moving what its new Component holds.
 | `path@elsewhere@crates/check/src/commands/create.rs` | `create` | #consumers-out |
 | `path@check@src/lib.rs` | each crate's own facade | each slice |
 | `path@testing@tests/checks_over_mocks.rs` | `testing` | #integrated-tests |
-| `path@check@src/run.rs` | `testing`'s library, the harness, per D2; until then `check`'s role module, which `cli` re-exports | #integrated-tests; #cli-on-top for the interim re-export |
-| `path@testing@tests/binary.rs` | `cli` | #cli-on-top |
+| `path@elsewhere@crates/core/src/testing.rs` | `testing`'s library re-exports the harness, per D2, from `check`'s role module, `path@check@src/run.rs` | #integrated-tests; #cli-on-top for the interim re-export |
+| `path@elsewhere@crates/core/tests/binary.rs` | `cli`, then `testing`, per #binary-tests-in-testing | #cli-on-top, #integrated-tests |
 | `path@cli@tests/init.rs` | `cli`, where `CARGO_BIN_EXE_klarch` is set | #cli-on-top |
 | `path@cli@tests/public_paths.rs` | `cli`, whose library holds the paths it lists | #cli-on-top |
 | `path@testing@tests/extension_api.rs` | `cli`, whose entry it drives; then `testing` | #cli-on-top; #integrated-tests |
