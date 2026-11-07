@@ -8,8 +8,8 @@ As D2 of the milestone document and the threads below rule it:
 
 - The Component `testing`, crates/testing, package `knowledge-architect-testing`, published. Its
   library holds the harness an extension's tests need: `foundation`, `run_with`, `Phase`, `Report`,
-  `Stop`, `Structure`, `CHECKS`. It depends on `check` and `model` for the harness, and, as
-  dev-dependencies by path alone, on `cli` and `agent-skills` for its tests; no crate depends on it. Its
+  `Stop`, `Structure`, `CHECKS`. It depends on `check` for the harness, and, as
+  dev-dependencies by path alone, on `cli`, `model` and `agent-skills` for its tests; no crate depends on it. Its
   `tests/` holds this repository's mock projects, the transcripts' fixtures and the tests over them,
   which its `include` does not ship.
 - `cli`'s interim re-export of the harness removed. `check`'s role module `testing` becomes the role module
