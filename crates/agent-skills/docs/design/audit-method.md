@@ -173,11 +173,16 @@ and tells its agent to copy them as given. The counts built are the entries list
 Component or per anchor; the drafts of record, counting each group's own entries alone, so an entry
 of the shared sample counts once; the verifiers' sums and the groups or auditors whose verifier
 returned; the causes, the proposals and the checks; and, in the judgement of an application, the
-entries listed, the verdicts returned and the failing. The agent counts only what the run does not
-hold: the agentic-workflow audit's drafts and its findings after dedup, and what a run restarted
-from its files no longer holds, which its brief names.
+entries listed, the verdicts returned and the failing. The agent counts what the run does not hold,
+which its brief names: the agentic-workflow audit's drafts, its findings after dedup and the
+instructions each proposal adds and removes; for a re-check, the counts the record of an audit asks
+of a pass, the owner-list one as the cross-check proposes it; and what a run restarted from its files
+no longer holds.
 
-It serves `goal@knowledge-architect@mechanical-tasks-are-the-tool-s`: a count the run holds follows,
+It serves `goal@knowledge-architect@mechanical-tasks-are-the-tool-s` without the command or the
+library function the goal names for a task: a count the run holds is no task the workflow asks of a
+session, and computing it in the script removes the agent's reading, where a command would leave the
+session one more step. A count the run holds follows,
 with no judgement, from the run's own entries and returns, so the saved workflow that every
 installing project runs takes it the same way each time, and no session or agent takes it again. In
 a design-record audit of thaum, the report agent took the counts of heads, of rejected entries and
