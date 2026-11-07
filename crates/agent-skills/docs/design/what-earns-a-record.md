@@ -39,7 +39,8 @@ where the checker's reach ends: a reason that several sites must respect needs a
 cite, and a comment cannot be cited, while a policy no code and no text states, or an absence, has
 none; for agent-facing text, each text that states the instruction is one site, a design head
 that restates it included, other than the decision's own, which would otherwise earn itself, so a
-reason stated by one text lives beside its instruction. A head that
+reason stated by one text lives beside its instruction, and a text that a plan document will write
+is no site until it is written, since the design homes hold built intent. A head that
 restates an instruction is read and acted on as the skill is, so the reason must reach it too; an
 audit that counted the skill alone moved a head to a `%%` line while a second head still stated its
 rule, and the head was restored. The rival reading, a policy with no code of its own as the

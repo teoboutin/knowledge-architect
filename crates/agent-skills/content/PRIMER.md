@@ -419,10 +419,14 @@ literal that a `let`, a `const` or a `static` does not bind to a name, a functio
 being never bound and a macro's body bound like the rest of the value; it reads each commit's
 message and tree through `{{command}} commits`. A reference anywhere else is found by grep.
 
+%% The exceptions and the plan item's label: `design@agent-skills@plain-text-is-no-repair`.
 **A finding is repaired in a form the checker judges, never by moving the pointer into plain
 text**: the right anchor, `path@elsewhere@<path>` for a path the tree does not hold, such as, in a
 commit message, a path later work will create, a placeholder,
-or a rewritten sentence. A record of a deliberation (a plan document, a committed file that leaves
+or a rewritten sentence. A plan item named outside its plan document as a hash sign and its id, as
+#<id>, beside a citation of the whole document, is a label, not a pointer moved into plain text,
+since an item reference is legal only inside its own plan document.
+A record of a deliberation (a plan document, a committed file that leaves
 once its outcomes are carried out, or a commit message) names by its bare slug in backticks an
 entry that the work it records removes, renames or is still to create, and by its bare name in
 backticks a skill or an agent that it removes or is still to create. Either takes that form only

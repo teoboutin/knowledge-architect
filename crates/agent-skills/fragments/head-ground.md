@@ -17,7 +17,7 @@ rivals in its body or in the `rejected` entries it cites. What the owner brings 
 | what the owner brings | where it lands |
 | --- | --- |
 | a fact only the owner holds, a doubt included | a premise, attributed as the owner's report and open to challenge |
-| an intent an agent cannot derive, which states an outcome | a goal, drafted under `skill@knowledge-architect-goal-setting`, which the head cites |
+| an intent that states an outcome the project is to reach, not a reason for one shape over its rival, and that no goal and no recorded decision already serves against every rival it is cited to defeat | a goal, drafted under `skill@knowledge-architect-goal-setting`, which the head cites |
 | an argument, one that weighs a cost included | argued, and recorded on its merits |
 | an approval of the session's default, threshold or weighing, whatever its words ("approved", "agreed", "all defaults approved", "accepted the cost") | no ground: the session's decision, kept in the deliberation; at a fork, the session's choice, in the weak form below, "the session chose X over Y, which no goal ranks; the owner approved it" |
 | a reading of a source | the source |

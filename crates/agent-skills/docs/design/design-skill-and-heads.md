@@ -172,7 +172,10 @@ without the rule, unless one loses to a nearest rival of its own. Two statements
 premise, are two decisions, and each takes a head of its own when it passes an entry test, and a
 comment at its code when it passes none. A title joined by "and" over two decisions shows a bundle,
 and rewording the title to state both does not make them one. A member of a set the title's rule
-admits is no decision, so a member missing from a title is no finding.
+admits is no decision, so a member missing from a title is no finding. Each statement of a head is
+given its nearest rival before the head is written or judged one decision: a writer or a reviewer
+who tests the head against one rival at a time finds one bundle per pass, as the retrospectives of
+two sessions of thaum reported, each splitting one head over several decision-record passes.
 
 The owner raised the question: "I'm not certain there is anything in the decision record skill that
 gives a split criteria for design heads." A rule that only asks a head carrying several decisions

@@ -134,8 +134,10 @@ owner brings lands by its kind, as the head-ground fragment's table states:
 
 - a fact only the owner holds, a doubt included, is a premise, attributed as the owner's report and
   open to challenge;
-- an intent that states an outcome is a goal, drafted under `skill@knowledge-architect-goal-setting`,
-  which the head cites;
+- an intent that states an outcome the project is to reach, not a reason for one shape over its
+  rival, and that no goal and no recorded decision already serves against every rival it is cited
+  to defeat, is a goal, drafted under `skill@knowledge-architect-goal-setting`, which the head
+  cites;
 - an argument, one that weighs a cost included, is argued and recorded on its merits;
 - an approval of the session's default, threshold or weighing is no ground;
 - a reading of a source is the source;
@@ -144,6 +146,13 @@ owner brings lands by its kind, as the head-ground fragment's table states:
 
 A preference about a mechanism is no case of its own: it is an argument, or a choice at a fork. A
 head whose ground cites the owner's words is read by the same table.
+
+An intent and an argument are told apart by two things a session can establish: the statement's
+role in the decision, an outcome to reach or a reason for one shape over its rival, and whether a
+goal or a recorded decision already serves it against each rival it is cited to defeat. Both
+follow from the decision and the record, per `design@agent-skills@questions-go-to-their-authority`.
+The rival, putting each doubtful reading to the owner, costs one question per reading that the
+record answers.
 
 The rule of a head on the arguments discussed, not on the ground that the owner ruled, is the
 owner's proposal: the owner judged this provenance to matter a lot for agents that weigh any change
