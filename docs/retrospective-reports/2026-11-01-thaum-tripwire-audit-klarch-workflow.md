@@ -63,7 +63,7 @@
   the rest in the harness's task directory, which a report always returned as text would meet on
   every large pass. A second rival, the report step dispatched as an installed agent type, rests on
   a mechanism not established, since the cross-check, of the default type, was not refused. One fix
-  for the cluster: the six report steps of the three workflows.
+  for the cluster: the five report steps of the three workflows.
 - **g.** Its route. An edit of the installed text at its source, `path@agent-skills@content/workflows/`,
   as `path@agent-skills@CLAUDE.md` says, with its parse check. A run that observes the refusal is a
   run of the harness's mechanics, which `design@agent-skills@synthetic-evidence-not-built` admits; it
@@ -74,7 +74,7 @@
   session already writes the pass's report file from the run's report
   (`skill@knowledge-architect-project-audit@record-of-an-audit`). Any comment added for maintainers
   meets `issue@agent-skills@a-saved-workflow-s-comments-ship-to-every-project`.
-- **Default**: handle now, in the six report steps of the three saved workflows.
+- **Default**: handle now, in the five report steps of the three saved workflows.
 - **Outcome**: decided by the session: handle now. Ground: the refusal is measured in real use, here
   and in the received file; the installed text's answer to the same refusal is the record searcher's
   fallback; the shape keeps `design@agent-skills@one-run-pass` and
