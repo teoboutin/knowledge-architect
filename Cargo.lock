@@ -259,6 +259,7 @@ dependencies = [
  "knowledge-architect",
  "knowledge-architect-agent-skills",
  "knowledge-architect-check",
+ "knowledge-architect-gates",
  "knowledge-architect-model",
  "toml",
 ]

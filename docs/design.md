@@ -136,12 +136,12 @@ to their dev-dependencies, and `path@testing@tests/dependency_rules.rs` holds th
 Its unshipped tests dev-depend on `cli`, `model` and `agent-skills`, by path alone, which publishing drops, per
 `path@agent-skills@docs/grounding/crate-boundaries.md`, so the graph holds no cycle, dev-dependencies included, as `design@agent-skills@shared-test-component` asks. So where a test of
 the binary sits, `design@testing@binary-tests-in-testing`, is what this direction rests on.
-The owner chose this over `rejected@knowledge-architect@harness-kept-in-check`, which no goal ranks: it costs each extension's tests one more
-dependency, and the crate one first publish.
+`goal@testing@an-extension-is-tested-over-a-project` asks that an extension's tests take it as a package of their own, which rules out
+`rejected@knowledge-architect@harness-kept-in-check`; it costs each extension's tests one more dependency, and the crate one first publish.
 
 ### This repository's mock projects and the tests over them sit in one crate, not in the crates they test `##mock-projects-in-one-crate`
 
-`testing`'s `tests/` holds the mock projects and the tests of `klarch`'s crates that need the shared means of running over a project, and no crate's test loads a project kept in another crate. A crate's own test may keep a small project of its own. The owner's argument, stated with a hedge, is that integrated tests moved out of
+For `goal@testing@program-tests-over-whole-projects-have-one-home`, `testing`'s `tests/` holds the mock projects and the tests of `klarch`'s crates that need the shared means of running over a project, and no crate's test loads a project kept in another crate. A crate's own test may keep a small project of its own. The owner's argument, stated with a hedge, is that integrated tests moved out of
 the unit tests, and sometimes out of the crates, test the public API, per `design@agent-skills@integrated-test-through-public-api`, and that one crate might keep others from duplicating fixtures or reaching into another's, the shape of `design@agent-skills@shared-test-component`. No package ships them, per
 `design@knowledge-architect@package-include-whitelist`. The nearest rival, the mock tests kept as a unit-test module of each crate, reads internals a consumer cannot, and needs either a copy of each mock or a path into another crate.
 
