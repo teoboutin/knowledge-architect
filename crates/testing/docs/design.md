@@ -15,8 +15,7 @@ own target directory and profile. A run in process does not replace it: a comman
 ends the process, per `design@knowledge-architect@a-typed-command-prints-and-returns-its-code`, and `Cli::parse` sits in the binary's `main`.
 The nearest rival, `cli` dev-depending on this crate for the fixtures, with its tests left there and this crate's dev-dependency on `cli` removed, keeps a test of the binary out of this home; the owner
 chose this shape over it, which no goal ranks. The cost is a cargo started by a test, so a binary that does not build fails a test rather than the build.
-A project's tests over a mock of `klarch` in place are refused its pin, since `klarch` links nothing of this crate, so a test here runs in a copy that carries the version, per
-`design@check@checked-sentinel-values`, and `path@cli@tests/fixture_pin.rs` holds the acceptance over `cli`'s own directory.
+`klarch` links nothing of this crate, so it refuses a mock in place, per `design@check@checked-sentinel-values`: a test of the binary runs in a copy that carries the version, and `path@cli@tests/fixture_pin.rs` holds the acceptance of `"fixture"` over `cli`'s own directory.
 
 ### This crate's test files are outside this repository's walk `##test-files-outside-the-walk`
 
