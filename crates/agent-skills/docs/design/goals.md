@@ -465,9 +465,10 @@ It serves `goal@knowledge-architect@owner-attention-on-what-is-theirs`, and is s
 
 A batch ruled in the tree, per `design@agent-skills@goal-batch-ruled-in-the-tree`, has each round's
 drafts committed on the branch with the record, and the commit that writes the owner's last answers
-into the record records the ruling, before the goals the owner ruled last are written. That commit
-always changes a file, where the commit that writes the goals changes none when the owner rules the
-batch as drafted, and a record carried by a message rides on a commit that changes a file, per
+into the record records the ruling, before the goals the owner ruled last are written, per
+`design@agent-skills@whole-set-rounds`. That commit always changes a file, where the commit that
+writes the goals can change none when the owner rules the batch as drafted, and a record carried by
+a message rides on a commit that changes a file, per
 `design@knowledge-architect@a-record-rides-on-a-commit-that-changes-a-file`.
 
 The drafts are committed each round because the goal reviewer runs the checker's commands, and a
