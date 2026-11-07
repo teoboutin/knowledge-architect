@@ -298,8 +298,11 @@ Analysed with P2 of 2026-11-01-knowledge-architect-narrowed-goals, in
   `tripwire@agent-skills@owner-fact-recorded-unattributed` fired. The first fires on a critical
   ruling found missing or misstated in an in-change commit message after the branch's transcript
   review, and the second on a head on the main branch that states unattributed a premise the owner
-  reported. Every slip in the table was caught by a reviewer of the branch's review before its
-  merge, and no file reports a slip that reached a main branch.
+  reported. No file reports a critical ruling missing or misstated in a commit message carrying an
+  in-change deliberation, found after the branch's transcript review: the one finding after a
+  transcript review, W2 of 2026-11-06-knowledge-architect-cli-on-top-klarch-workflow, is in a
+  commit recording goal rulings, which carries no in-change deliberation. No file reports a slip
+  that reached a main branch.
 - **d.** Lapses of clear instructions. The major ones by the rating head, a decision attributed
   that the owner did not make, are in narrowed-goals, check-renamed, model crate, and the thaum
   design-record, count-ceilings and fuzz files; each was caught before the merge. Only the cli-on-top

@@ -67,6 +67,12 @@
   decision, report rather than fetch, covers a missing tag, per
   `design@agent-skills@extension-follows-the-ground`; the input is a provable gap no text supplies;
   `git fetch --help` shows that the write moves the remote-tracking branches every range names.
+  As carried out, the review before the merge, in the commit "[review] Repairs of the review before
+  the merge: two heads for decisions with no home, the goal ruling on a commit that changes a file,
+  and the installed text made consistent", replaced that ground with a head of its own,
+  `design@agent-skills@uncounted-horizon-reported-not-fetched`, since no head held the decision, and
+  the proposal's `git ls-remote --tags origin` with `git ls-remote --tags <remote>`, `<remote>` the
+  remote the main branch is fetched from.
 
 ## W2 and W3, with P1 of 2026-11-04-knowledge-architect-goal-standard-revision and C2 of 2026-11-06-knowledge-architect-consumers-out-klarch-workflow: a batch drafted uncommitted in the tree
 

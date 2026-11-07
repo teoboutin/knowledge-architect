@@ -78,7 +78,13 @@
 - **Outcome**: decided by the session: handle now. Ground: the refusal is measured in real use, here
   and in the received file; the installed text's answer to the same refusal is the record searcher's
   fallback; the shape keeps `design@agent-skills@one-run-pass` and
-  `design@agent-skills@apply-stays-with-the-session`.
+  `design@agent-skills@apply-stays-with-the-session`. As carried out, the review before the merge,
+  in the commit "[review] Repairs of the review before the merge: two heads for decisions with no
+  home, the goal ruling on a commit that changes a file, and the installed text made consistent",
+  added one instruction in `skill@knowledge-architect-project-audit@audit-method`, since no text told
+  the session what to do with `reportText`: where the run's result holds `report` null and the
+  report in `reportText`, the session first writes that text to a file of the run's scratch
+  directory.
 
 ## W2: no moment is named at which the owed audit is offered after a pin move
 
@@ -131,7 +137,10 @@
 - **Default**: handle now, step 5 gains the sentence.
 - **Outcome**: decided by the session: handle now. Ground: step 5 names no actor or moment (line
   392); the owner's words in the received file name what the session lacked; no head ranks against
-  an offer, `design@agent-skills@audit-triggers` keeping the branch after the merge.
+  an offer, `design@agent-skills@audit-triggers` keeping the branch after the merge. As carried out,
+  the review before the merge, in the same commit, removed the proposal's clause that the `todo`
+  issue holds it where the owner defers, since the sentence before it in step 5 already says the
+  owed audit or review is held by a register until it runs.
 
 ## W3: the template's heading premise, which the judges read two ways
 
