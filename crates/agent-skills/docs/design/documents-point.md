@@ -160,7 +160,7 @@ make the same argument: `design@check@the-regime-has-no-opt-out`, where no decla
 document from a rule, and `design@model@reserved-anchors`, where the escape anchor is refused on a
 path this tree holds, since it would otherwise silence the finding on a real path.
 
-A label beside a checked pointer is not such a form. A plan item named outside its plan as #<id>
+A name beside a checked pointer is not such a form. A plan item named outside its plan as #<id>
 stands beside a citation of the whole plan, because an item reference is refused there, per
 `design@model@plan-item-scope`.
 

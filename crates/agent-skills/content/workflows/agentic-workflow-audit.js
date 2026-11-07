@@ -286,6 +286,8 @@ await agent(lines([
     'and its firing evidence. Return its path.',
 ]), { schema: PATH, phase: 'cross-check', label: 'cross-check' })
 
+%% The reason below has its home in the root's goal that a mechanical task the workflow requires
+%% is done by knowledge-architect's tooling, named in words since this file cites no reference.
 // The counts the report copies: the script holds each exactly, so no agent takes one by reading.
 const ok = verdicts.filter(Boolean)
 const sum = (k) => ok.reduce((t, v) => t + v[k], 0)
@@ -303,6 +305,8 @@ const countLines = [
 ]
 
 // Report.
+%% The report's fallback to text has its home in the head of the audit method on a report step
+%% whose write the harness refuses, named in words since this file cites no reference.
 phase('report')
 const report = await agent(lines([
   'You write the report of one pass of the agentic-workflow axis of a project audit, for the ' +

@@ -115,7 +115,7 @@ defines its own words, and its goals may use the root's. The head restates no ru
    goals or fewer is drafted in the message. A batch of more is written in the goals homes of the
    working tree, and its source marks go in a record kept as
    `skill@knowledge-architect-goal-setting@whole-set-review` keeps one, in
-   `docs/goal-reviews/<YYYY-MM-DD>-<subject>.md`, each round's drafts committed with it.
+   `docs/goal-reviews/<YYYY-MM-DD>-<subject>.md`.
 %% Per `design@agent-skills@goal-reviewer-agent`. The whole batch is read at once, and again on any
 %% rewording, since one goal's wording can change its relation to a sibling. The stop is
 %% `design@agent-skills@goal-review-stops-on-old-wording`.
@@ -158,9 +158,12 @@ defines its own words, and its goals may use the root's. The head restates no ru
    again for it by its slug. A
    goal the owner rewords is reviewed again, with the whole batch, in the next round of the same
    review, and shown again in its new wording before it is written.
+%% Per `design@agent-skills@goal-batch-ruled-in-the-tree`: the goals' commit changes no file where
+%% the owner rules the batch as drafted.
 7. Write the approved goals, exactly as approved, and the home's head, and nothing else; for a batch
-   drafted in the tree, whose drafts are committed, the commit that writes the goals as the owner
-   ruled them records the ruling.
+   drafted in the tree, whose drafts are committed, the commit that writes the owner's last answers
+   into the record records the ruling, since it always changes a file, in the order the closing
+   paragraph of `skill@knowledge-architect-goal-setting@whole-set-review` gives.
 
 %% Per `design@agent-skills@goal-edit-ruled-alone`.
 **A goal's wording proposed in another activity**, a plan's default, a review's repair, an audit's

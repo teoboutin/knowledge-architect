@@ -174,11 +174,11 @@ comment at its code when it passes none. A title joined by "and" over two decisi
 and rewording the title to state both does not make them one. A member of a set the title's rule
 admits is no decision, so a member missing from a title is no finding. Each statement of a head is
 given its nearest rival before the head is written or judged one decision: a writer or a reviewer
-who tests the head against one rival at a time finds one bundle per pass, as the retrospectives of
-two sessions of thaum reported, each splitting one head over several decision-record passes.
+who tests the head against one rival at a time finds the decisions a head bundles over several
+passes, not in one, as the retrospectives of two sessions of thaum reported, each splitting one head over several decision-record passes.
 
-The owner raised the question: "I'm not certain there is anything in the decision record skill that
-gives a split criteria for design heads." A rule that only asks a head carrying several decisions
+The owner raised the question, doubting that the decision-recording skill gave any criterion for
+splitting a design head. A rule that only asks a head carrying several decisions
 to pass "the test for each one, or is split", and rewords a title to state an addition beyond it,
 gives no test: an audit of the design heads at commit bc22d4d, re-taken by a fresh read-only audit
 of the heads at that commit against this rule, finds about one head in five holding two or more
@@ -187,9 +187,9 @@ part of its body triggered, none a criterion.
 The nearest rival, the test
 "would reversing one part leave the other standing?", splits a rule from its exception, which always
 passes it. The cost is
-more heads, not more decisions: the owner's words, "We are not adding content and arguments, only
-slugs and independent heads", and the entry tests still judge each part, so the decisions recorded
-stay few, per `design@agent-skills@a-head-is-owed-by-an-entry-test`.
+more heads, not more decisions: a split adds no content and no argument, only a slug and a head of
+its own for a part already written, and the entry tests still judge each part, so the decisions
+recorded stay few, per `design@agent-skills@a-head-is-owed-by-an-entry-test`.
 
 The design this decision did not keep: `rejected@agent-skills@head-split-by-independent-reversal`.
 

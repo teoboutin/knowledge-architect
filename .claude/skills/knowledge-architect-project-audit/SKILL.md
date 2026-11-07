@@ -57,7 +57,9 @@ An axis's section adjusts each point where its corpus needs.
 
 Each axis runs each pass as **one run of its saved workflow**, named in its section, with the
 `args` its section lists, and one more run on the application where its section says so. The run dispatches every agent of the pass, verifies their drafts and
-delivers a report; the session reads nothing between its steps. The session then verifies the
+delivers a report; the session reads nothing between its steps. Where the run's result holds
+`report` null and the report in `reportText`, since the harness refused the report step's write, the
+session first writes that text to a file of the run's scratch directory. The session then verifies the
 report as the axis's section says, and nothing an agent proposes is applied before a reading
 confirms it. Before a run, the session writes the kept list, for a re-check, and names the
 history. A harness may list saved workflows only when a session starts, so a session that ran the
