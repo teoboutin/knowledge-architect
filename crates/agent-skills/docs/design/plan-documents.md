@@ -365,22 +365,26 @@ left, and each landing commit says where its results live; releases are in the c
 file would be a third document about the same work, with a lifetime of its own, against the one home
 for what is outstanding of `goal@knowledge-architect@structure-and-workflow-work-together`.
 
-### A plan document records the whole discussion `##plan-records-the-exchange`
+### The plan documents of a discussion record the whole of it, each thread with every argument it uses `##plan-records-the-exchange`
 
-A plan document assembled from a discussion records every thread with its proposer and round, its
-final state, the arguments on each side, the owner's rulings verbatim with their round, and its
-relations. The record is the owner's proposal: "I'd like to have the initial spec aim to be contain
-a precise record of the design work and exchange that happened, with all threads written, their
-final states, and the arguments, with the possibility of cross referencing all these items, bounded
-to the spec document or the milestone directory." It applies to a spec, and to a milestone document
-with its slice specs, which share the record by the rule of
-`design@agent-skills@milestone-split-by-lifetime`; the owner extended it to milestones: "Milestones are
-created through the design skill too after all." `design@agent-skills@standing-argument-in-head`
-names the plan document as the home of the deliberation while it exists, and
-`goal@knowledge-architect@design-is-recorded-with-its-arguments` is served only where the rulings are
-recorded as the owner made them. On the in-change path, the commit message carries the same record, for the same
-reason, per `design@agent-skills@in-change-path`. The rival, a plan document recording each thread's
-final state and resolution, leaves the rulings and the arguments to memory. The cost is a longer plan
+A plan document assembled from a discussion records every thread it carries with its proposer and
+round, its final state, the arguments on each side, the owner's rulings verbatim with their round,
+and its relations. Where one discussion converges on two plan documents, such as a spec and a
+milestone, each thread is in the document that carries it, with every argument that thread uses,
+so an argument two threads in two documents use is in both: an item is cited only from inside its
+own plan, per `design@model@plan-item-scope`, so a document holding the argument once would leave
+the other's threads pointing at no argument. The record is the owner's proposal, made for the
+initial spec: a precise record of the design work and the exchange, every thread written with its
+final state and its arguments, each item open to cross-reference, bounded to the spec document or
+the milestone directory. It applies to a spec, and to a milestone document with its slice specs,
+which share the record by the rule of `design@agent-skills@milestone-split-by-lifetime`; the owner
+extended it to milestones, since they too are created through the design skill.
+`design@agent-skills@standing-argument-in-head` names the plan document as the home of the
+deliberation while it exists, and `goal@knowledge-architect@design-is-recorded-with-its-arguments`
+is served only where the rulings are recorded as the owner made them. On the in-change path, the
+commit message carries the same record, for the same reason, per
+`design@agent-skills@in-change-path`. The rival, a plan document recording each thread's final
+state and resolution, leaves the rulings and the arguments to memory. The cost is a longer plan
 document to write and to read.
 
 ### An argument is an item, without a state `##arguments-as-items`

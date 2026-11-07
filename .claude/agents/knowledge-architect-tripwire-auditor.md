@@ -193,9 +193,12 @@ are consecutive in that listing.
   implies, and list both. An entry with no horizon line has none to pass.
 
   In a shallow clone, where `git rev-parse --is-shallow-repository` prints `true`, a count over the
-  history starts from the clone's boundary commit and comes out too low, with no error: report each
-  horizon you could not count for that reason, and that `git fetch --unshallow` in the dispatcher's
-  checkout makes it countable.
+  history starts from the clone's boundary commit and comes out too low, with no error. A count of
+  release tags sees only the tags the repository holds; `git ls-remote --tags origin`, which writes
+  nothing, lists the remote's. Report each horizon you could not count for either reason, and the
+  command that makes it countable in the dispatcher's checkout, `git fetch --unshallow` or
+  `git fetch --tags`. Run no fetch yourself: it writes refs that every worktree of the repository
+  shares, the remote-tracking branch of the main branch among them.
 
 - **Then judge it against the standard**, condition by condition, then the slip, then the shape of
   the entry and its four lines. For each condition it fails, quote the words of the condition and

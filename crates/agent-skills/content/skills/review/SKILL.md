@@ -162,8 +162,10 @@ dispatcher saves each report in a file outside the project, such as a scratch di
 arrives, and builds the record from those files: a compaction of the conversation keeps neither
 the reports nor their items.
 
-**A repair that adds, removes or reverses a design head is reviewed by the decision-record axis**,
-and by any other axis whose condition it meets, whichever axis's finding it answers. A repair made before the last
+%% The trigger is a heading whose slug appears or disappears, so a split, which writes a new heading,
+%% is reviewed again: `design@agent-skills@only-a-head-changing-repair-is-reviewed-again`.
+**A repair that adds, removes or reverses a design head, a split of a head included, is reviewed by
+the decision-record axis**, and by any other axis whose condition it meets, whichever axis's finding it answers. A repair made before the last
 transcript review is reviewed before it, and that transcript review then runs as `skill@knowledge-architect-review@review-axes` says; a repair of the last transcript review
 is reviewed after it, and the review ends with the repairs of that decision-record review. Any other repair, a rewording
 or an argument, a mention or a reference added inside an existing head included, and a title

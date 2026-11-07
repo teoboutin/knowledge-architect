@@ -144,6 +144,11 @@ an empty subsection is omitted.
 - `agent-skills`, patch: the goal reviewer tags `intent`, instead of `minor`, a finding that a goal
   judged only in use is measured by a list of the properties of its outcome, so the owner is asked
   whether the cases that list rules out are meant.
+- `agent-skills`, patch: the standing-state reviewer and the tripwire auditor run no `git fetch`:
+  where a horizon names release tags that the repository does not hold, they list the remote's with
+  `git ls-remote --tags origin` and report the horizon as not counted, naming `git fetch --tags` for
+  the dispatcher to run in its own checkout, as they already did for a shallow clone with
+  `git fetch --unshallow`.
 
 ## 0.9.0
 
