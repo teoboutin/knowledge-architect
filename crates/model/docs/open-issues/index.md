@@ -1,6 +1,6 @@
 **Generated — do not edit.** `cargo klarch index`
 
-15 entries
+16 entries
 
 | kind | title |
 | --- | --- |
@@ -11,6 +11,7 @@
 | defect | [A backticked span with an empty head and a slash is reported as malformed, which the candidate rule says is silent](a-span-with-an-empty-head-is-malformed-against-its-head.md) |
 | defect | [An escape path that spells nothing is reported as resolving to an unrelated directory](an-empty-escape-path-resolves-to-a-directory.md) |
 | defect | [An ignored directory cited with no trailing slash gets a verdict that depends on what is on disk](an-ignored-path-with-no-slash-passes-by-build-state.md) |
+| design | [Reading string literals in code as prose may cost more than it finds](string-literals-in-code-may-not-need-reading-at-all.md) |
 | observation | [Plain `check` under a sparse checkout reports every file outside the cone as an unstaged deletion](check-under-a-sparse-checkout-reports-every-file-outside-the-cone.md) |
 | question | [The refusal of a kind's name as an anchor quotes a reason the root forbids](a-kind-name-refusal-quotes-a-future-migration-reason.md) |
 | question | [A reference to an anchor's own directory breaks when the anchor moves, which the relocation goal says no move does](a-reference-to-an-anchor-s-own-directory-breaks-when-the-anchor-moves.md) |
