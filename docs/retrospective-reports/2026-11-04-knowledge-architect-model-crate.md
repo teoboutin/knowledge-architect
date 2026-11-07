@@ -32,7 +32,7 @@
   were of that kind. Both are for the discussion.
 - **g.** Its route: an issue.
 - **h.** The proposal: open an issue in `model`, kind `design`, id
-  `a-rust-item-named-in-prose-has-no-checked-form`.
+  `issue@model@a-rust-item-named-in-prose-has-no-checked-form`.
   - What: a module or a function named in prose is plain text to the checker, so a move leaves it
     stale with a passing check; the instance of the model's split.
   - Why it matters: against `goal@knowledge-architect@records-reach-their-reader`; and the primer
@@ -40,7 +40,7 @@
   - What would close it: a discussion that gives a kind resolved against the Rust parse, or rules
     that none is worth its cost, then the sites converted or left beside this entry.
 - **Default**: open the issue.
-- **Outcome**: decided by the session: open `a-rust-item-named-in-prose-has-no-checked-form` in
+- **Outcome**: decided by the session: open `issue@model@a-rust-item-named-in-prose-has-no-checked-form` in
   `model`, kind `design`. Ground: no record holds it, and the primer's rule on a pointer with no
   checked form needs an issue to cite.
 

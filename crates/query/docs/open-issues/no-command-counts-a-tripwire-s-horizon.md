@@ -23,7 +23,10 @@ Instances:
   commits that wrote the lines were absent; the reviewer cloned again, and the full count found a
   horizon passing at the merge, ten commits changing the primer's source. In a clone of depth 3,
   `git log -S` on a `Watches until` line names the clone's boundary commit, so a count there comes
-  out too low, with no error.
+  out too low, with no error;
+- C1 of the workflow file of the retrospective of the release of 0.9.0, 2026-11-01: the
+  standing-state reviewer counted the horizons of 37 tripwires by hand, and one had passed. One
+  horizon's wording admitted two counts, and the reviewer counted it both ways.
 
 The shapes, per `skill@knowledge-architect-issue-tracking@tripwire-entry`: commits on the main
 branch that change a named path or the guarded head's text, release tags, audit reports of an axis,

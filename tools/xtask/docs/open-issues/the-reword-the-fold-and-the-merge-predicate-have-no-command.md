@@ -30,7 +30,9 @@ earlier commit, and the merge predicate. A session runs each by hand, step by st
 - **The merge predicate**, point 5: fetch `origin/main`, check that it is an ancestor of HEAD, read
   `isDraft` and `headRefOid` with `gh pr view`, check with `gh run list` that a run on the head
   succeeded, then `gh pr merge --rebase --delete-branch` and `git pull --ff-only`. Its result
-  depends on GitHub's state as well as the tree.
+  depends on GitHub's state as well as the tree. Right after `gh pr ready`, the head carries a run
+  skipped while it was a draft and a run in progress, so the predicate owes a wait: until no run on
+  the head is in progress, then the `success` test. The procedure names no wait.
 
 `path@xtask@src/` holds the commands `gates`, `changelog`, `skill` and `mutate`, and none of these.
 
@@ -40,6 +42,23 @@ goal standard, whose reviewers reported it in every layout round.
 A further instance: P2 of the retrospective of the session of the intake deciding by authority,
 2026-10-31: four rewords of branch messages in one session, each with a new script and the two
 checks.
+
+Further instances, from the retrospective files received at the intake of 2026-11-07:
+
+- the reword by hand, in ten sessions of this repository, 2026-10-31 to 2026-11-07: the intake of
+  seventeen files, the narrowing of the goals, the development-and-components milestone, the
+  revision of the rules on Components, the revision of the goal standard, the slice that created
+  the `model` Component, the slice that renamed a Component, the slice that put the `cli`
+  Component on top, the slice that moved the commands out of the checker, and the slice that holds
+  the fixtures and the integrated tests. The development-and-components milestone ran the
+  procedure five times in two slices, each with a new script. In the narrowing of the goals, two
+  rewords ran by `git filter-branch --msg-filter` and a Python script, and the session's count of
+  changed commits read `git range-diff` with the wrong pattern: it gave 0 where one commit had
+  changed, the failure a command removes;
+- the wait on CI, in three sessions: the closing of seven transcript issues, 2026-10-31, whose first
+  wait loop stopped on the skipped run; the narrowing of the goals, 2026-11-01, which wrote a polling
+  loop twice, the first stopping while a run was in progress; and the session that closed about
+  twenty issues before a release, 2026-11-01.
 
 ### Why it matters
 

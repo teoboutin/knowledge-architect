@@ -1,6 +1,6 @@
 **Generated — do not edit.** `cargo klarch index`
 
-16 entries
+18 entries
 
 | kind | title |
 | --- | --- |
@@ -11,6 +11,8 @@
 | defect | [A backticked span with an empty head and a slash is reported as malformed, which the candidate rule says is silent](a-span-with-an-empty-head-is-malformed-against-its-head.md) |
 | defect | [An escape path that spells nothing is reported as resolving to an unrelated directory](an-empty-escape-path-resolves-to-a-directory.md) |
 | defect | [An ignored directory cited with no trailing slash gets a verdict that depends on what is on disk](an-ignored-path-with-no-slash-passes-by-build-state.md) |
+| design | [A Rust item named in prose has no checked form](a-rust-item-named-in-prose-has-no-checked-form.md) |
+| design | [A slug in the definition form inside a quotation is reported as a misplaced definition](a-slug-in-a-quotation-is-reported-as-a-misplaced-definition.md) |
 | design | [Reading string literals in code as prose may cost more than it finds](string-literals-in-code-may-not-need-reading-at-all.md) |
 | observation | [Plain `check` under a sparse checkout reports every file outside the cone as an unstaged deletion](check-under-a-sparse-checkout-reports-every-file-outside-the-cone.md) |
 | question | [The refusal of a kind's name as an anchor quotes a reason the root forbids](a-kind-name-refusal-quotes-a-future-migration-reason.md) |

@@ -140,7 +140,7 @@
   is the owner's ask. Then the planning and intake texts, and `skill@klarch-development` for the packs
   in `query`.
 - **h.** The proposal. Open one design issue in `agent-skills`, proposed id
-  `the-search-s-graded-entries-exceed-what-one-session-reads-whole`, kind `design`: the head and its
+  `issue@agent-skills@the-search-s-graded-entries-exceed-what-one-session-reads-whole`, kind `design`: the head and its
   ground, the 11 instances with their sizes, the practice and its three failures, the four rivals
   above, and the intake's subagent pattern as a fact. Its discussion is a re-entry point of
   `issue@agent-skills@a-lighter-pass-for-untouched-components`, since packs change how the search
@@ -149,7 +149,7 @@
   also gains this batch's measurements in "The cost measured so far": the sizes above, and the agent
   counts above the harness's 20 reported in cluster L. No text changes in this intake. When the
   discussion runs is the owner's, as the order of known work.
-- **Default**: open an issue: `agent-skills`, kind `design`, `the-search-s-graded-entries-exceed-what-one-session-reads-whole`; `issue@agent-skills@a-lighter-pass-for-untouched-components` gains the measurements.
+- **Default**: open an issue: `agent-skills`, kind `design`, `issue@agent-skills@the-search-s-graded-entries-exceed-what-one-session-reads-whole`; `issue@agent-skills@a-lighter-pass-for-untouched-components` gains the measurements.
 - **Outcome**: decided by the session: open an issue, as the default says. Ground: every proposed text
   contradicts a statement of `design@agent-skills@may-bear-read-on-touch` or of
   `design@agent-skills@search-reads-the-whole-record`, so it is a decision for
@@ -269,12 +269,12 @@
 - **g.** Its route. `skill@knowledge-architect-design` for the record's shape and the command's
   output, then `skill@klarch-development` in `query`.
 - **h.** The proposal. Open one design issue in `agent-skills`, proposed id
-  `the-lines-owed-per-graded-entry-are-written-by-a-script-at-every-occasion`, kind `design`: the
+  `issue@agent-skills@the-lines-owed-per-graded-entry-are-written-by-a-script-at-every-occasion`, kind `design`: the
   four texts, the `%%` reason, the 12 sessions and the four finding cycles, the three rivals above,
   and the command as the mechanical half, which the owner takes in under
   `goal@knowledge-architect@mechanical-tasks-are-the-tool-s`. C4: no change, since one `grep` gives
   the list. The 300-character cut: no change, not reproduced.
-- **Default**: open an issue: `agent-skills`, kind `design`, `the-lines-owed-per-graded-entry-are-written-by-a-script-at-every-occasion`; no change for C4 and for the cut.
+- **Default**: open an issue: `agent-skills`, kind `design`, `issue@agent-skills@the-lines-owed-per-graded-entry-are-written-by-a-script-at-every-occasion`; no change for C4 and for the cut.
 - **Outcome**: decided by the session: open an issue, as the default says. Ground: every text rival
   is a decision, as item e shows, and the command's output depends on it; the command is a task the
   owner takes in; C4's list follows from one command; the cut is absent from the source at the
@@ -355,13 +355,13 @@
 - **g.** Its route. `skill@klarch-development` in `query` for the skeleton; an issue only, since the
   work needs a branch.
 - **h.** The proposal. Open a `todo` issue in `query`, proposed id
-  `the-report-skeleton-names-no-relation-its-entry-s-role-admits`, with the three searches' counts.
+  `issue@query@the-report-skeleton-names-no-relation-its-entry-s-role-admits`, with the three searches' counts.
   The fill issue gains the instances of 11-01 development-milestone-plan, 11-04 model crate, 11-06
   cli-on-top, 11-02 thaum fuzz-campaign-slice (the omitted entry graded by a script) and 11-02 thaum
   log-target-slice. No change for W1 of log-target and for the cap. Nearest rival to the new issue:
   adding the relations to the fill issue; it loses because the two close apart, the fill issue on a
   form that needs no script, the hint whatever the form.
-- **Default**: open an issue: `query`, kind `todo`, `the-report-skeleton-names-no-relation-its-entry-s-role-admits`; `issue@query@a-searcher-fills-its-report-by-a-script-of-its-own` gains the five instances; no change for W1 of 11-02 thaum log-target-slice and for the cap.
+- **Default**: open an issue: `query`, kind `todo`, `issue@query@the-report-skeleton-names-no-relation-its-entry-s-role-admits`; `issue@query@a-searcher-fills-its-report-by-a-script-of-its-own` gains the five instances; no change for W1 of 11-02 thaum log-target-slice and for the cap.
 - **Outcome**: decided by the session: as the default says. Ground: the refusals recur at one point of
   delivery, whose fix is a change to `query` that needs a branch; the dispatcher's repair would
   contradict `design@agent-skills@one-record-searcher`; a relation for a `rejected` entry the work
@@ -435,10 +435,10 @@
   it proceeds on.
 - **g.** Its route: a decision, `skill@knowledge-architect-design`.
 - **h.** The proposal: open a `design` issue in agent-skills, proposed id
-  `a-decided-intake-section-repeats-its-outcome-as-its-default`, citing the two heads, rather than
+  `issue@agent-skills@a-decided-intake-section-repeats-its-outcome-as-its-default`, citing the two heads, rather than
   reverse them in this intake's branch: this intake writes its analyses in the current shape, and a
   shape changed while they are written would leave the branch's analyses in two shapes.
-- **Default**: open an issue: agent-skills, `design`, `a-decided-intake-section-repeats-its-outcome-as-its-default`.
+- **Default**: open an issue: agent-skills, `design`, `issue@agent-skills@a-decided-intake-section-repeats-its-outcome-as-its-default`.
 - **Outcome**: decided by the session: open an issue. Ground: the fix reverses statements of
   `design@agent-skills@intake-outcome-authority` and `design@agent-skills@committed-intake-analysis`,
   which goes through `skill@knowledge-architect-design`; the work needs a branch whose analyses are

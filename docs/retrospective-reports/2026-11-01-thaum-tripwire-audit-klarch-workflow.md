@@ -292,15 +292,15 @@ Analysed with C2 of 2026-11-01-thaum-design-record-audit-klarch-workflow, in `pa
   listing reads the working tree.
 - **c.** Whether it is already recorded: no; the same need as C1 of
   2026-11-01-thaum-design-record-audit-klarch-workflow, for which this analysis proposes
-  `no-command-lists-the-entries-two-commits-differ-by` in `query`.
+  `issue@query@no-command-lists-the-entries-two-commits-differ-by` in `query`.
 - **d.** Its kind: missing, a task carried by script.
 - **e.** Its scope: `goal@knowledge-architect@mechanical-tasks-are-the-tool-s`; owner `query`. The
   word count is no listing of entries, and stays the session's `wc -w`, which the audit skill names.
 - **h.** The proposal: the issue proposed for C1 of the design-record audit's file takes this need;
   its What lists both files.
-- **Default**: no separate issue; the instance goes into `no-command-lists-the-entries-two-commits-differ-by`.
+- **Default**: no separate issue; the instance goes into `issue@query@no-command-lists-the-entries-two-commits-differ-by`.
 - **Outcome**: decided by the session: no change of its own; the instance is carried by
-  `no-command-lists-the-entries-two-commits-differ-by`. Ground: one command serves both needs, per
+  `issue@query@no-command-lists-the-entries-two-commits-differ-by`. Ground: one command serves both needs, per
   that section's item f.
 
 ## W5, C1: a horizon counted from a file's deletion has no checked form

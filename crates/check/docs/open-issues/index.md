@@ -1,6 +1,6 @@
 **Generated — do not edit.** `cargo klarch index`
 
-30 entries
+31 entries
 
 | kind | title |
 | --- | --- |
@@ -22,6 +22,7 @@
 | design | [A plan item named as a plain `#<id>`, inside its plan or outside it, is read by no check](a-plain-hash-item-name-is-read-by-nothing.md) |
 | design | [`check` heads bundle decisions that lose to different rivals, and each has many citing sites](core-heads-bundle-decisions-with-many-citing-sites.md) |
 | design | [No checked form cites a level-three subsection or a numbered point inside a section of a skill, an agent or the primer](no-checked-form-cites-a-point-inside-a-section.md) |
+| design | [No command applies the repair a finding on a commit message names](no-command-applies-the-repair-a-message-finding-names.md) |
 | observation | [A lint written twice on one line of a message is reported once or twice, by which tree holds it](a-message-lint-is-deduplicated-in-one-tree-only.md) |
 | question | [A project's own saved workflow can declare the name of an installed one, and nothing reports it](a-project-workflow-can-declare-an-installed-workflow-s-name.md) |
 | question | [An empty list of agent harnesses serves a project that uses the checker alone, which no longer follows an ask](an-empty-harness-list-serves-a-state-that-follows-no-ask.md) |

@@ -40,11 +40,11 @@
 - **g.** Its route: a change to the Rust source, `skill@klarch-development`, with a new
   dev-dependency, which needs a branch of its own.
 - **h.** The proposal: open an issue in `agent-skills`, kind `todo`, proposed id
-  `no-test-parses-a-saved-workflow`: the sentence, the two sessions, `gjs` as the means used at
+  `issue@agent-skills@no-test-parses-a-saved-workflow`: the sentence, the two sessions, `gjs` as the means used at
   `df8ff61a`, the constraint of the comments issue, and as closing condition a test that fails on a
   planted syntax error in an installed saved workflow, with the CLAUDE.md sentence replaced by a
   pointer to it.
-- **Default**: open an issue, `agent-skills`, kind `todo`, `no-test-parses-a-saved-workflow`.
+- **Default**: open an issue, `agent-skills`, kind `todo`, `issue@agent-skills@no-test-parses-a-saved-workflow`.
 - **Outcome**: decided by the session: open an issue. Ground: the defect holds at HEAD; a test is
   run by the gates on every machine, which no manual step is; adding a dependency is work for a
   branch of its own.

@@ -172,7 +172,7 @@ Analysed with C2 of 2026-10-31-knowledge-architect-intake-seventeen-files-klarch
 - **g.** Its route: an issue, since the work is a new command, and taking it in is the owner's.
 - **h.** The proposal: open one issue for the three tasks, at the root, since the Component that
   owns the command is undecided: anchor `knowledge-architect`, kind `todo`, id
-  `no-command-renames-or-moves-an-entry-or-a-component`.
+  `issue@knowledge-architect@no-command-renames-or-moves-an-entry-or-a-component`.
   - What: renaming an entry's slug, renaming a Component and moving entries between Components are
     done by the session's own scripts, over the check's list of dangling references, in six
     retrospective files of 2026-11-01 to 2026-11-06.
@@ -185,7 +185,7 @@ Analysed with C2 of 2026-10-31-knowledge-architect-intake-seventeen-files-klarch
     and lists each quotation, bare slug, bare path and commit message it leaves to the session,
     with a test over a mock project.
 - **Default**: open the issue; the owner is told that taking the tasks in is the owner's act.
-- **Outcome**: decided by the session: open `no-command-renames-or-moves-an-entry-or-a-component` at
+- **Outcome**: decided by the session: open `issue@knowledge-architect@no-command-renames-or-moves-an-entry-or-a-component` at
   `knowledge-architect`, kind `todo`. Ground: no record holds the need, and the goal names the
   taking-in as the owner's, so the issue holds the need until the owner rules; it contradicts no
   head and brings back no `rejected` entry.

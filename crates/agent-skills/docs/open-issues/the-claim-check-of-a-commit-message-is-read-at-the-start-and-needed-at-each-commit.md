@@ -9,7 +9,8 @@ kind: design
 checked before the commit. The primer is read at the session's start; the act happens at each
 commit, and only the development skill's commit step restates it, for a commit of Rust code: a
 commit made outside that skill meets no text that restates it. Eleven of the twelve workflow files of one intake
-report the rule acted on as if absent, in three projects.
+report the rule acted on as if absent, in three projects, and twenty-one of the 23 of a later one,
+nine of this repository's ten begun after the restatement among them.
 
 ## Details
 
@@ -41,12 +42,49 @@ report the rule acted on as if absent, in three projects.
   `primer@verify-before-relying`. The file places the line after the verdict;
   `path@check@README.md` keeps the verdict as the last line a person reads, so such a line goes
   above it.
+- Further instances, in the intake of forty retrospective files of 2026-10-31 to 2026-11-07:
+  twenty-one of its 23 workflow files report the lapse, 15 of this repository's 17 and all 6 of
+  thaum's, at least 54 instances, each caught before the merge. By where the false claim was
+  written: commit messages in most files; answers to the owner, 4 instances in 4 files; heads, in
+  3 files; issue entries, plan documents, a spec, code comments and a report file in the others.
+  Four of the instances are attributions of the owner, counted again in
+  `issue@agent-skills@plan-documents-keep-the-owner-s-words-verbatim-where-other-records-attribute-them`.
+  The two files with none are those of the 0.9.0 release and of the slice that put `cli` on top.
+  The session of the intake of seventeen files made four of them: a count over the history in a
+  shallow clone said to find nothing, written into two agents, an issue and an analysis; the
+  analyses' commit saying the unread entries were stated as each analysis's head says, where one
+  head said so; and two messages counting as 0 instructions an edit that added one. The analysis
+  is the section "The standing answers, with the claim-check lapses of twenty-one files" of
+  2026-10-31-knowledge-architect-intake-seventeen-files-klarch-workflow, in the commit "[intake]
+  The analyses of forty received retrospective files, three outcomes for the owner".
+- The count after the restatement in the development skill's commit step: of this repository's
+  ten files whose session began after that restatement shipped, nine report the lapse; the one
+  without is that of the slice that put `cli` on top. At least one lapse was in a message about
+  Rust work, where the restatement is delivered: the slice that built the `model` crate, whose
+  message said each public item was found by the compiler's errors. Whether that session loaded
+  the development skill at the commit is an assumption: its file does not say. The six thaum files
+  used 0.9.0, which ships no development skill.
 
 The suspected mechanism, in one sentence: an instruction read once at the start of a long session
 is not recalled at the moment it binds, which recurs at every commit.
 
 Re-entry point: a design discussion under `skill@knowledge-architect-design`, raised when work next
 changes what a session reads or runs at a commit, or earlier on the owner's word.
+
+That re-entry point was met once: slice 2 of the milestone on the development skill and the
+Components discussed it in its thread on the commit's claim check, chose the restatement in the
+development skill's commit step, in the commit "[agent-skills] The installed development skill,
+its review agents, and the local skill cut to an overlay", and kept this entry open for the other
+candidates below. No later change to the installed text's source or its fragments touches what a
+session reads at a commit: `git log -G` over them, from the commit "[review] Repairs of the review
+before the merge of slice 2, and D3 ruled" to the commit "[intake] The owner's rulings on the three
+pending outcomes, and the thaum rule widened to every document", for "before each commit", "after
+each commit" and "--staged", returns no commit. The next such change meets the
+re-entry point again.
+
+The same mechanism, for the rule against a commit or a push chained after a failing check, is
+`issue@agent-skills@a-command-chained-after-a-failing-check-recurs`, whose re-entry point is this
+discussion, since a delivery at the commit, a hook among them, may serve both.
 
 ### Why it matters
 

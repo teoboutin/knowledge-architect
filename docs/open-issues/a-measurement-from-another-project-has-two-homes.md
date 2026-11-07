@@ -36,6 +36,12 @@ A further instance: P2 of the retrospective of the session that built `klarch wo
 issue, which disagreed, 8 or 9 agents against 11; the issue attributed the figure to `worklist`,
 which cannot run on thaum, whose manifest holds an extension's tables and pins 0.8.0.
 
+Another: P3 of the retrospective of the development-and-components milestone, 2026-11-02. A reading
+of an external documentation, the Cargo Book, behind two heads was first written in the heads and in
+a skill's `%%` lines, four places; the routing review moved it to
+`path@agent-skills@docs/grounding/crate-boundaries.md`. Such a reading is the kind of finding the
+closing below proposes to scope the root's grounding row to.
+
 ### Why it matters
 
 `primer@where-knowledge-goes` gives every durable statement one home. A writer who meets two rows

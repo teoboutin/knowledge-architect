@@ -40,6 +40,11 @@ tripwire entries, and its set of references comes from the range. The retrospect
 `--changed` option of `show` taking a range. The design of this entry's command decides whether
 one command serves both lists.
 
+A further instance of the first list: C1 of the retrospective of the session that planned the
+Component split, 2026-11-02. `skill@knowledge-architect-planning` asks, for each decision the work
+reverses or rewrites, every text that `show` lists as referencing it; the session ran `show` on 19
+heads in a shell loop and grouped the files by hand.
+
 The second work list asks for the citing entry: a pin move of thaum to 0.8.0, whose migration cites
 each `rejected` entry from the heads whose argument covers it. To find which head cites an entry,
 the session and three reviewers wrote scripts mapping each line `show` prints to the level-three

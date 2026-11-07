@@ -45,7 +45,7 @@
   misplaced slug, since a slug quoted from the owner defines nothing either way.
 - **g.** Its route: an issue, since the change is the checker's and changes a head.
 - **h.** The proposal: open an issue in `model`, kind `design`, id
-  `a-slug-in-a-quotation-is-reported-as-a-misplaced-definition`.
+  `issue@model@a-slug-in-a-quotation-is-reported-as-a-misplaced-definition`.
   - What: a slug in the definition form inside a quotation, as the owner writes one when naming a
     goal, is reported as a misplaced definition, whose repairs alter the quoted words; reproduced
     over a mock project.
@@ -59,7 +59,7 @@
   P1's own repair is then that issue, cited beside the next such quotation, as the primer's rule
   asks. The record P1 names left with its batch, so no site remains to repair.
 - **Default**: open the issue.
-- **Outcome**: decided by the session: open `a-slug-in-a-quotation-is-reported-as-a-misplaced-definition`
+- **Outcome**: decided by the session: open `issue@model@a-slug-in-a-quotation-is-reported-as-a-misplaced-definition`
   in `model`, kind `design`. Ground: reproduced at HEAD; no record holds it; the fix changes a
   head's statement, so it waits for a discussion, per `primer@design-heads`.
 

@@ -39,6 +39,20 @@ Read in their reports: at least twelve rewrote `report.md` whole from a heredoc,
 its report that this was a further instance of this entry; the others filled it by the edit tool.
 The check `worklist --verify` passed on the second run, after two agents repaired a line each.
 
+Further instances, from retrospective files received at the intake of 2026-11-07:
+
+- the session that planned the development milestone, 2026-11-01: the searchers filled their
+  reports by scripts of their own;
+- the slice that created the `model` Component, 2026-11-04: most searchers wrote a script;
+- the slice that put the `cli` Component on top, 2026-11-06: several of the 22 searchers said they
+  wrote a fill script;
+- a search in thaum, a project that installs the workflow, 2026-11-02: most of 14 searchers filled
+  their report by a heredoc script from a list of grades they had decided first, and one script
+  graded `unrelated` an entry its list had left out, which `--verify` then refused;
+- another search in thaum, 2026-11-02: two searchers whose edit of their `report.md` the harness
+  refused returned the report as text, and the session extracted the fenced report by a script
+  before `--verify`.
+
 The harness's edit tool replaces one exact string per call, so filling a report of 90 lines by it
 costs 90 calls. Not established: whether another harness offers a cheaper edit.
 

@@ -37,6 +37,12 @@ appended after a `manifest` entry in the Migration subsection. Every gate passed
 of the branch found it, before the release. Findings P2 and C2 of the retrospective of
 2026-10-04.
 
+Another, for the third assertion: P4 of the retrospective of the release of 0.9.0, 2026-11-01. Step 2
+of `skill@klarch-release`, "The version chosen at step 1 follows the highest bump class among its
+entries", was carried out by a grep over the `Next release` section, and three reviewers took the
+count again. That retrospective proposed `cargo x changelog` printing the highest class of the
+section and the version it implies, a shape for the discussion below to weigh.
+
 ### Why it matters
 
 A shape defect, a misspelt surface, a class outside the list or an entry out of order, is found

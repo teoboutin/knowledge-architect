@@ -72,14 +72,14 @@
 - **g.** Its route: an issue only; the choice of delivery is a design discussion under
   `skill@knowledge-architect-design`.
 - **h.** The proposal: open an issue in `agent-skills`, kind `design`, proposed id
-  `a-command-chained-after-a-failing-check-recurs`: the seven instances, the mechanism (the rule is
+  `issue@agent-skills@a-command-chained-after-a-failing-check-recurs`: the seven instances, the mechanism (the rule is
   read at the start and needed at each commit, inside a compound command), the candidates (the hook,
   with the per-clone count and the staged-check defect against it; the root's sentence moved; none),
   and as re-entry point the discussion of
   `issue@agent-skills@the-claim-check-of-a-commit-message-is-read-at-the-start-and-needed-at-each-commit`,
   which it cites. The nearest rival, adding these instances to that issue, mixes two instructions
   in one entry whose title names one.
-- **Default**: open an issue, `agent-skills`, kind `design`, `a-command-chained-after-a-failing-check-recurs`.
+- **Default**: open an issue, `agent-skills`, kind `design`, `issue@agent-skills@a-command-chained-after-a-failing-check-recurs`.
 - **Outcome**: decided by the session: open an issue. Ground: a lapse recurring at one point of
   delivery is repaired by moving its delivery, per
   `skill@knowledge-architect-agent-configuration@admission-standard`; which delivery is a design

@@ -7,7 +7,8 @@ kind: design
 
 `design@agent-skills@plain-text-is-no-repair` refuses plain text as the repair of a finding. Its
 tripwire fired at its second instance, so the decision is reopened, with a mechanical check for
-plain-text pointers among the candidates. Three instances are known. The finding on a
+plain-text pointers among the candidates. Seven instances are known, and the re-entry point has
+been met four times with no discussion. Of the first three, the finding on a
 reference-shaped token outside backticks, `design@check@reference-shape-outside-span`, reports the
 first, references in the checker's syntax with their backticks removed, and neither of the other
 two: a bare path, and the bare name of a skill still to be created, which no table defines.
@@ -63,6 +64,36 @@ project's paths bare at five sites. A
 candidate for the discussion: a reserved anchor for every installing project's root, which changes
 `design@model@reserved-anchors` and `design@check@nothing-of-a-project-is-compiled-in`. Reported by the
 retrospective of the intake of 2026-10-19, analysed at the intake of 2026-10-24.
+
+Three further instances, each meeting the re-entry point again, in the retrospective files of the
+intake of forty files; the other twenty files answer no, two of them saying they ran no search for
+one:
+
+- the narrowed goals, 2026-11-01: the owner's message quoted two goal slugs, each backticked with
+  two hash signs before it; copied into a record, the checker reported each as a slug mid-line
+  that defines nothing, and the session removed the backticks and said so beside them, with no
+  issue entry. A slug span with its backticks removed is not reference-shaped, so
+  `design@check@reference-shape-outside-span` does not report it. The case sits in a quotation,
+  which `design@check@quotation-read-by-no-id-lint` exempts from the lints on ids, but the finding
+  it met was the misplaced-slug finding, which that head does not name, and changing the owner's
+  words to clear it kept no quotation verbatim. This instance matches the mechanism above word for
+  word;
+- thaum's tripwire audit, 2026-11-01: about 60 horizons naming a file whose deletion an occasion
+  counts from were written with bare paths in the application commit, beside no issue entry; the
+  routing reviewer caught it, and after the review 17 plain paths stand beside an issue entry that
+  project opened, which the exception of `design@agent-skills@plain-text-is-no-repair` admits. A
+  bare path is read by no check;
+- the slice that moved the consumers out, 2026-11-06: a goal drafted and not committed was named
+  as a hash sign and its slug, in plain text, beside no issue entry, after both checked forms
+  failed one of the two trees a commit message is judged against. A plain hash name is read by
+  nothing, per `issue@check@a-plain-hash-item-name-is-read-by-nothing`.
+
+The re-entry point has been met since the fourth instance and again by each of these three, and no
+discussion has followed: a re-entry point met at each intake orders nothing by itself, and the
+order of known work is the owner's. The analyses are the sections "The pointers written bare of
+three files" and the one on this entry's re-entry point of
+2026-11-01-knowledge-architect-narrowed-goals-klarch-workflow, in the commit "[intake] The analyses
+of forty received retrospective files, three outcomes for the owner".
 
 ### Why it matters
 

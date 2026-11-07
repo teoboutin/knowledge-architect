@@ -68,12 +68,12 @@
     `path@knowledge-architect@.github/workflows/release.yml`. Instructions: +0, −0; five enumerations
     replaced.
   - Open an issue in `knowledge-architect`, kind `todo`, proposed id
-    `the-publish-order-is-spelled-by-hand`: the two lists of the release workflow and the order in
+    `issue@knowledge-architect@the-publish-order-is-spelled-by-hand`: the two lists of the release workflow and the order in
     the head's body, with as closing condition one source of the order that the workflow runs and
     the head points to.
 - **Default**: handle now (the skill's five enumerations replaced by derivations), and open an issue
   for the release workflow's lists, `knowledge-architect`, kind `todo`,
-  `the-publish-order-is-spelled-by-hand`.
+  `issue@knowledge-architect@the-publish-order-is-spelled-by-hand`.
 - **Outcome**: decided by the session: handle now and open an issue. Ground: the cause is a
   restatement whose home is derivable (the grep of step 1; the published set of
   `path@xtask@src/changelog.rs`); a pointer or a derivation removes the drift at 0 instructions,

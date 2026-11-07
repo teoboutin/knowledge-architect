@@ -30,6 +30,35 @@ candidate where several entries define one, choosing none. The leaving spec left
 `check --fix` respelling of the findings of all three lints on ids, which it does not hold. Its argument items were renumbered
 `arg-<n>` in that work, with their references.
 
+Instances of the respellings the lints on ids now ask, applied by script, from the retrospective
+files received at the intake of 2026-11-07:
+
+- a pass of the tripwire axis in thaum, a project that installs the workflow, 2026-11-01: about 180
+  references in one audit report file written without backticks or without their kind, each
+  finding naming its repair, applied by a script run three times;
+- the revision of the goal standard in this repository, 2026-11-04: the same repairs over the
+  review's records, applied by a script.
+
+So in one session the lints on ids give a number of one-candidate repairs of the order of the 179
+raw-path findings the spec's census counted over many sessions. Two arguments of
+`spec@plans@path-quickfixes` rest on that census, taken before the lints on ids landed: #arg-7, that
+the finding kinds a respelling would serve are rare, and #arg-26, the owner's judgement that the
+work is much for the share of findings it serves.
+
+Three classes of finding differ, and only the first is a respelling:
+
+- a reference written without backticks, and a backticked bare id with one candidate: the span
+  already names its target, the respelling #arg-3 of the spec defines;
+- a plain word naming an entry: `design@check@plain-word-lint` names two repairs, the reference or
+  a rename where the word is meant as an ordinary term, so a fix would choose, which
+  `design@check@safe-fix-definition` refuses;
+- a reference to an item of a plan document deleted in the same change: the session chooses between
+  the bare name and a harvested head, and the fix would also need the staged tree, which `--fix`
+  refuses.
+
+The same repairs on a commit message are outside the spec, which says no `--fix` reaches a commit
+message; `issue@check@no-command-applies-the-repair-a-message-finding-names` records them.
+
 ### Why it matters
 
 A plan document written against heads that have since changed is implemented against text that no

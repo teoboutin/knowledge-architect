@@ -21,6 +21,21 @@ A command of a published crate for each of the three tasks, per `goal@cli@one-pr
 which closes the choice of a library function alone. `issue@xtask@the-reword-the-fold-and-the-merge-predicate-have-no-command`
 records the same tasks as missing commands of this repository's own tool.
 
+Instances in a project that installs the workflow, from the retrospective files received at the
+intake of 2026-11-07: three sessions of thaum, 2026-11-01 and 2026-11-02, a pass of the
+design-record axis and two milestone slices, edited a branch's history with no recipe. The harness
+refuses `git rebase -i`, an interactive command, and the installed text names no recipe: the review
+skill asks a repair "by a history edit of the branch after that". One session replayed the branch by
+cherry-pick, and its first attempt amended the wrong commit. A command meets that refusal: it drives
+the rebase with no editor, as this repository's fold does with `GIT_SEQUENCE_EDITOR=true`.
+
+A further task, not taken in: moving a commit to the branch's front, as a session of this
+repository did once, 2026-11-01, when a stricter check landed mid-branch; its scripted sequence
+editor stopped twice on a generated index and left a later commit's index stale, so the task
+includes regenerating the generated files at each replayed commit. `primer@branch-commits` offers
+the squash to one commit as the existing move. Whether a command does it is the owner's word, per
+`goal@knowledge-architect@mechanical-tasks-are-the-tool-s`, as for the port's other commands below.
+
 ### Why it matters
 
 Each session builds the procedure again, and a script whose pattern misses a wrapped line leaves a

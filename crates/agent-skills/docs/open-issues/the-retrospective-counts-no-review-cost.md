@@ -62,6 +62,20 @@ Two retrospectives of this repository carried the counts, unasked, analysed at t
   transcript review alone and last, three follow-up reviews of repairs made after it, and a CI
   failure fixed after the pull request was marked ready.
 
+Two more sessions reported the cost of the decision-record re-review of a repair, analysed at the
+intake of forty files, in W5 of 2026-11-02-knowledge-architect-development-and-components-klarch-workflow,
+in the commit "[intake] The analyses of forty received retrospective files, three outcomes for the
+owner":
+
+- the development milestone, third and fourth slices: in the third, the first repair commit
+  widened a head's rule, the session ran the transcript review next, and found the missed
+  decision-record review only on re-reading the skill; that review, out of order, found three firm
+  defects. In the fourth slice it ran in order and found five;
+- a slice in thaum, 2026-11-02: a split of a head was read as adding heads, by
+  `design@agent-skills@only-a-head-changing-repair-is-reviewed-again`, whose trigger is a heading
+  whose slug appears, and sent to the decision-record axis twice more: three passes of that axis
+  before the transcript review.
+
 ### Why it matters
 
 Without the counts, no session sees the review rounds, the arguments derived again and the reversals
