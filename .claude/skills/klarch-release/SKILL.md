@@ -5,9 +5,10 @@ description: MUST use when the owner asks to publish a version of knowledge-arch
 
 # Release
 
-Scope: publishing one version of the published crates, `knowledge-architect-git`,
-`knowledge-architect-agent-skills`, `knowledge-architect-model`, `knowledge-architect-check`, `knowledge-architect-testing`, `knowledge-architect-query`, `knowledge-architect-transcript`, `knowledge-architect-create`, `knowledge-architect-gates`, `knowledge-architect-mutate` and
-`knowledge-architect`, from main. xtask is never published. The versioning policy is
+Scope: publishing one version of the published crates, from main: every crate under crates/, whose
+package names
+`cargo metadata --no-deps --format-version 1 | jq -r '.packages[] | select(.publish != []) | .name'`
+prints. xtask, under tools/, is never published. The versioning policy is
 `design@knowledge-architect@versioning-policy`, and every published crate shares one version, per
 `design@knowledge-architect@version-lockstep`.
 
@@ -27,9 +28,8 @@ On a branch of its own, `release-<version>`, under the Git rules of the root `CL
 
 1. **The version.** Choose it under the versioning policy, and set it at every site:
    - `[workspace.package] version` in the root Cargo.toml;
-   - the exact pins `knowledge-architect-agent-skills = { …, version = "=<version>" }`,
-     `knowledge-architect-git = { …, version = "=<version>" }` and
-     `knowledge-architect-model = { …, version = "=<version>" }` in crates/check/Cargo.toml, crates/query/Cargo.toml, crates/transcript/Cargo.toml, crates/create/Cargo.toml and crates/cli/Cargo.toml, each as it depends on them, the pins of `query`, `transcript`, `create` in crates/cli/Cargo.toml, with `knowledge-architect-check = { …, version = "=<version>" }` in crates/cli/Cargo.toml, crates/create/Cargo.toml and crates/testing/Cargo.toml, and the second in crates/model/Cargo.toml;
+   - the exact pins `version = "=<version>"` between the workspace crates, in the Cargo.toml of
+     each crate under crates/ that depends on another, which the grep below finds;
    - Cargo.lock, which any cargo command rewrites for every workspace package;
    - the status line: the opening sentence of `## Status` in the root README.md. Change the
      number, and any other part of the sentence the release makes false.
@@ -98,9 +98,8 @@ On a branch of its own, `release-<version>`, under the Git rules of the root `CL
    list with these, and report to the owner every file the step does not name. The owner may read
    the lists; the release does not wait for it.
 8. **The dry run.** `cargo publish --workspace --dry-run` passes, skips xtask, and orders
-   the git crate before the model crate, which depends on it, and that and agent-skills before
-   `check`, and every crate before `cli`. Its warning "ignoring test `<name>`"
-   for each file `<name>.rs` of `path@cli@tests/`, of `path@testing@tests/` and of `path@mutate@tests/` is expected: the
+   each crate before the crates that depend on it. Its warning "ignoring test `<name>`" for each
+   file `<name>.rs` that `git ls-files ':(glob)crates/*/tests/*.rs'` lists is expected: the
    whitelist keeps the tests out.
 9. **The gates and the review.** `cargo x gates --require-rebased`, then the push, and the review
    under `skill@knowledge-architect-review`. Its axes include
@@ -138,8 +137,9 @@ On a branch of its own, `release-<version>`, under the Git rules of the root `CL
 
 ## When the publish fails `##failed-publish`
 
-The `publish` job uploads the crates one by one: git, agent-skills, model, `check`, `testing`, `query`, `transcript`, `create`, gates, mutate, then `cli`, the package `knowledge-architect`, and skips a
-crate whose version crates.io already holds. A crate it uploaded stays published.
+The `publish` job uploads the crates one by one, in the order of its list in
+`path@knowledge-architect@.github/workflows/release.yml`, and skips a crate whose version crates.io
+already holds. A crate it uploaded stays published.
 
 - **The `verify` job failed, the owner declined, or nothing was uploaded**: delete the tag, with
   `git push origin :refs/tags/v<version>` and `git tag -d v<version>`, repair on a branch, run

@@ -216,10 +216,11 @@ adversarial reviewer runs mutations in, per
 
 - The hazard is **content loss**, in two forms: an operation that removes uncommitted content from
   the working tree, and a history edit that drops a commit no other reference holds.
-- **While uncommitted changes exist in the tree, run no operation that touches history or restores
-  files.** Examples (non-exhaustive): `reset --hard`, `checkout -- <path>`, `restore`, `clean`,
-  `stash`, `commit --amend`, `rebase`. The one exception is `git rebase --continue` on a rebase
-  whose conflicts the tree now resolves, as point 3 does.
+- **While uncommitted changes exist in the tree, run no operation that touches history, restores
+  files, or removes a file that holds uncommitted content.** Examples (non-exhaustive):
+  `reset --hard`, `checkout -- <path>`, `restore`, `clean`, `stash`, `commit --amend`, `rebase`,
+  `rm -f`. The one exception is `git rebase --continue` on a rebase whose conflicts the tree now
+  resolves, as point 3 does.
 - **Before applying a mutation that will need reverting, stage the file**, so the revert does not
   depend on a restore: the revert undoes the edit, and `git diff -- <path>` showing no difference
   with the staged copy confirms it.
