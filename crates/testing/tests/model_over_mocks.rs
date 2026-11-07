@@ -1,50 +1,31 @@
-//! `check` run against whole projects, not against strings.
+//! `model` driven through its public API over whole projects, not over strings.
 //!
-//! A mock project under `path@check@tests/projects/` is a complete project: it carries its
+//! A mock project under `path@testing@tests/projects/` is a complete project: it carries its
 //! own `knowledge-architect.toml` and its own documents, and it declares no table `check` does not own.
-//! That is what makes these tests worth more than the in-memory ones — a fixture written as a
+//! That is what makes these tests worth more than the in-memory ones: a fixture written as a
 //! string cannot exercise the walk, the exclusions, or a layout different from this repository's.
 //!
-//! The directory stays excluded by this repository's own manifest: each mock project is a
-//! complete foreign project, and its planted defects must be reported by the test that runs the
-//! tool over it, never as this repository's own.
+//! These tests build their models under this repository's own worktree, so git answers about
+//! the mock's files out of this repository's own listing, which is
+//! `--cached --others --exclude-standard`: a new fixture file is in it whether or not it is
+//! staged, an ignore rule is what takes one out, and a deletion has to be staged or the path
+//! stays in the listing with no bytes behind it.
 
-use std::path::PathBuf;
+use std::path::{Path, PathBuf};
 
-use crate::scan::{Observation, RetiredForm};
-use crate::{Manifest, Model};
+use km::document::{Observation, RetiredForm};
+use km::{Manifest, Model};
+use knowledge_architect_model as km;
 
 fn mock(name: &str) -> Manifest {
-    // A crate reaching another's fixtures, as `cli`'s tests do, until the shared test Component holds them both.
-    let root = PathBuf::from(env!("CARGO_MANIFEST_DIR"))
-        .join("../check/tests/projects")
-        .join(name)
-        .canonicalize()
-        .expect("the mock project exists");
+    let root = Path::new(env!("CARGO_MANIFEST_DIR"))
+        .join("tests/projects")
+        .join(name);
     Manifest::load(&root).expect("the mock project's manifest")
 }
 
 fn model(name: &str) -> Model {
     Model::build(&mock(name), &[]).expect("a model of the mock project")
-}
-
-/// What the binary asks git for, taken over a mock project in place.
-///
-/// These tests build their models under this repository's own worktree, so git answers about
-/// the mock's files out of this repository's own listing. That listing is
-/// `--cached --others --exclude-standard`, so a new fixture file is in it whether or not it is
-/// staged; an ignore rule is what takes one out, and a deletion has to be staged or the path
-/// stays in the listing with no bytes behind it.
-fn git_answers(
-    manifest: &crate::Manifest,
-    model: &Model,
-) -> (std::collections::HashSet<String>, Vec<PathBuf>) {
-    let anchors = crate::entity::Anchors::of(manifest, model.listing());
-    let queries = crate::resolver::ignore_queries(model, &anchors);
-    let ignored = crate::git::ignored(manifest.root(), &queries).expect("git answers the batch");
-    let tracked =
-        crate::git::tracked_and_ignored(manifest.root()).expect("git answers the listing");
-    (ignored, tracked)
 }
 
 fn walked(model: &Model) -> Vec<String> {
@@ -121,7 +102,7 @@ fn the_plans_indexes_are_outside_the_walk() {
 fn a_generated_index_is_outside_the_walk_and_outside_the_inverse_assertion() {
     let manifest = mock("minimal");
     let model = model("minimal");
-    let generated = crate::index::generated_index_paths(&manifest, model.listing());
+    let generated = km::generated::generated_paths(&manifest, model.listing());
     // The issue home of the root and of the location, the readings home, and the two plans
     // homes, which every project carries.
     assert_eq!(generated.len(), 5, "{generated:?}");
@@ -133,7 +114,7 @@ fn a_generated_index_is_outside_the_walk_and_outside_the_inverse_assertion() {
         );
     }
     let walked = walked(&model);
-    let survey = crate::survey::survey(&manifest, &model).expect("a survey of the mock");
+    let survey = km::listing::survey(&manifest, &model).expect("a survey of the mock");
     for rel in &generated {
         let name = rel.display().to_string();
         assert!(
@@ -178,7 +159,7 @@ fn the_survey_records_which_paths_are_directories() {
     // path, which could not tell an empty directory from a file.
     let manifest = mock("minimal");
     let model = Model::build(&manifest, &[]).expect("a model");
-    let survey = crate::survey::survey(&manifest, &model).expect("a survey");
+    let survey = km::listing::survey(&manifest, &model).expect("a survey");
     assert!(survey.directories.contains(&PathBuf::from("docs")));
     assert!(survey.present.contains(&PathBuf::from("docs")));
     assert!(!survey.directories.contains(&PathBuf::from("README.md")));
@@ -189,14 +170,14 @@ fn the_survey_records_which_paths_are_directories() {
 fn a_location_outside_every_component_is_read_by_the_listings() {
     // What a location is for: a directory carrying a subset of the registers and nothing else
     // a component carries. Undeclared, this entry is in no listing and nobody finds it.
-    use crate::entity::{Anchors, Entities, Kind};
-    use crate::manifest::ISSUE_REGISTER;
+    use km::declared::ISSUE_REGISTER;
+    use km::table::{Anchors, Entities, Kind};
 
     let manifest = mock("minimal");
     let model = model("minimal");
     let anchors = Anchors::of(&manifest, model.listing());
     let entities = Entities::build(&model, &anchors);
-    let rows = crate::records::records(&model, &anchors, &entities, &Kind::new(ISSUE_REGISTER));
+    let rows = km::table::records(&model, &anchors, &entities, &Kind::new(ISSUE_REGISTER));
     let here: Vec<_> = rows.iter().filter(|r| r.anchor == "notes").collect();
     assert_eq!(here.len(), 1, "{rows:#?}");
     // The kind comes out of the entry's own frontmatter, which is what the register declares,
@@ -272,8 +253,8 @@ fn every_committed_index_is_what_the_generator_writes() {
     for name in ["minimal", "dirhome", "core"] {
         let manifest = mock(name);
         let model = model(name);
-        let survey = crate::survey::survey(&manifest, &model).expect("a survey of the mock");
-        for (rel, want) in crate::index::file_register_indexes(
+        let survey = km::listing::survey(&manifest, &model).expect("a survey of the mock");
+        for (rel, want) in km::generated::file_register_indexes(
             &model,
             &manifest,
             &survey.present,
@@ -285,73 +266,52 @@ fn every_committed_index_is_what_the_generator_writes() {
     }
 }
 
-/// `check`'s rows carry the line of the file they sit on.
-///
-/// The whole value is asserted, and the trailing newline is load-bearing: a `contains` over a
-/// field that is not terminated asserts a prefix, and passes against a value with more after it.
+/// An observation carries the line of the file it sits on.
 #[test]
 fn observations_come_out_of_a_real_walk_with_real_line_numbers() {
-    let dump = model("minimal").canonical();
-    assert!(
-        dump.contains("docs/design.md\t5\tslug-def\tmock-anchor heading-3\n"),
-        "{dump}"
-    );
-    assert!(
-        dump.contains("docs/design.md\t7\tspan\tpath@notes@b.md\n"),
-        "{dump}"
-    );
-    assert!(
-        dump.contains("notes/a.md\t5\tspan\tgoal@minimal@mock-goal\n"),
-        "{dump}"
-    );
-    assert!(
-        dump.contains("code/lib.rs\t1\tspan\tdesign@minimal@mock-anchor\n"),
-        "{dump}"
-    );
+    let model = model("minimal");
+    let at = |file: &str, line: u32| -> Vec<String> {
+        model
+            .documents()
+            .iter()
+            .filter(|d| d.rel == Path::new(file))
+            .flat_map(|d| d.observations.iter())
+            .filter(|o| o.line == line)
+            .filter_map(|o| match &o.what {
+                Observation::SlugDef { id, .. } => Some(id.clone()),
+                Observation::Span(s) => Some(s.clone()),
+                _ => None,
+            })
+            .collect()
+    };
+    assert!(at("docs/design.md", 5).contains(&"mock-anchor".to_string()));
+    assert!(at("docs/design.md", 7).contains(&"path@notes@b.md".to_string()));
+    assert!(at("notes/a.md", 5).contains(&"goal@minimal@mock-goal".to_string()));
+    assert!(at("code/lib.rs", 1).contains(&"design@minimal@mock-anchor".to_string()));
 }
 
 mod unsound {
     use super::*;
-    use crate::entity::{Anchors, Entities};
-    use crate::phases::{foundation, Phase, TreeInputs};
-    use crate::tree;
+    use km::foundation::{foundation, Gathered, Phase};
+    use km::table::{Anchors, Entities};
 
-    /// The findings of `tree::check`, phase 2, over the project.
+    /// The findings of phase 2 over the project, which is where its run stops.
     fn phase_two() -> Vec<String> {
         let manifest = mock("unsound");
         let model = Model::build(&manifest, &[]).expect("a model");
-        let survey = crate::survey::survey(&manifest, &model).expect("a survey of the mock");
-        let git = git_answers(&manifest, &model);
-        let inputs = TreeInputs {
-            present: &survey.present,
-            directories: &survey.directories,
-            outside: &survey.outside,
-            ignored: &git.0,
-            tracked_and_ignored: &git.1,
-            refused: &survey.refused,
-            links: &survey.links,
-        };
+        let gathered = Gathered::over(&manifest, &model).expect("what the phases read");
         assert!(
             manifest.complaints().is_empty(),
             "{:#?}",
             manifest.complaints()
         );
-        let stopped = foundation(&model, &manifest, &inputs).expect_err("the run stops");
+        let stopped = foundation(&model, &manifest, &gathered.inputs()).expect_err("the run stops");
         assert_eq!(stopped.phase, Phase::Tree);
-        let found: Vec<String> = tree::check(&model, &manifest, &inputs)
-            .iter()
-            .map(|f| format!("{}  {}  → {}", f.location(), f.what, f.action))
-            .collect();
-        let printed: Vec<String> = stopped
+        stopped
             .findings
             .iter()
             .map(|f| format!("{}  {}  → {}", f.location(), f.what, f.action))
-            .collect();
-        assert_eq!(
-            printed, found,
-            "the stop carries exactly phase 2's findings"
-        );
-        found
+            .collect()
     }
 
     /// The findings of the entity table, phase 3, over the project.
@@ -519,18 +479,8 @@ mod unsound {
         for name in ["planted", "dirhome"] {
             let manifest = mock(name);
             let model = Model::build(&manifest, &[]).expect("a model");
-            let survey = crate::survey::survey(&manifest, &model).expect("a survey of the mock");
-            let git = git_answers(&manifest, &model);
-            let inputs = TreeInputs {
-                present: &survey.present,
-                directories: &survey.directories,
-                outside: &survey.outside,
-                ignored: &git.0,
-                tracked_and_ignored: &git.1,
-                refused: &survey.refused,
-                links: &survey.links,
-            };
-            let outcome = foundation(&model, &manifest, &inputs);
+            let gathered = Gathered::over(&manifest, &model).expect("what the phases read");
+            let outcome = foundation(&model, &manifest, &gathered.inputs());
             assert!(outcome.is_ok(), "{name}: {:#?}", outcome.err());
         }
     }

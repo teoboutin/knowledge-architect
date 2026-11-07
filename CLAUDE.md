@@ -19,6 +19,7 @@ The repository is a virtual workspace with Components:
 | `transcript` | crates/transcript | package `knowledge-architect-transcript`: the library that reads an agent harness's session transcripts, behind a typed API |
 | `create` | crates/create | package `knowledge-architect-create`: the library that creates a project and adds a Component to one, behind a typed API |
 | `agent-skills` | crates/agent-skills | package `knowledge-architect-agent-skills`: the text the checker installs into a project |
+| `testing` | crates/testing | package `knowledge-architect-testing`: what an extension's tests need to run the checks over a mock project, and this repository's mock projects with the tests over them |
 | `gates` | crates/gates | package `knowledge-architect-gates`: the library that runs a project's merge gates |
 | `mutate` | crates/mutate | package `knowledge-architect-mutate`: the library of the hand mutation, `cargo x mutate` |
 | `xtask` | tools/xtask | the maintenance tool, `cargo x gates`, `cargo x changelog`, `cargo x skill` and `cargo x mutate`; never published |

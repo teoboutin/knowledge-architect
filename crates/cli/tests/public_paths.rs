@@ -1,6 +1,6 @@
 //! Every public path of the library a consumer names, per `design@knowledge-architect@api-facade`.
 //!
-//! A path that leaves the facade fails this file's build. `path@cli@tests/extension_api.rs` drives
+//! A path that leaves the facade fails this file's build. `path@testing@tests/extension_api.rs` drives
 //! what an extension uses, and this holds the whole list, the items it never touches included.
 
 #![allow(unused_imports)]
@@ -21,7 +21,6 @@ use knowledge_architect::extension::{
     Extension, ExtensionReport, Generated, Inputs, Outside, Prepared, Purpose, Resolution,
     Revision, Snapshot, Tree,
 };
-use knowledge_architect::testing::{foundation, run_with, Phase, Report, Stop, Structure, CHECKS};
 use knowledge_architect::{
     component_dir, Document, Finding, Manifest, Model, CHECKER_VERSION, MANIFEST_NAME,
 };
@@ -33,11 +32,8 @@ fn a_type_the_model_crate_holds_is_one_type_across_the_crates() {
     fn manifest(m: Manifest) -> knowledge_architect_model::Manifest {
         m
     }
-    fn stop(s: Stop) -> knowledge_architect_model::foundation::Stop {
-        s
-    }
     fn outside(o: Outside) -> knowledge_architect_model::listing::Outside {
         o
     }
-    let _ = (manifest, stop, outside);
+    let _ = (manifest, outside);
 }

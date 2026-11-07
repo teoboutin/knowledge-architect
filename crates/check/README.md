@@ -397,7 +397,7 @@ git's ignore rules, which `git check-ignore` answers for the files on disk only.
 **Nothing about a project is compiled into the tool.** Every list a check reads comes from the
 project's `knowledge-architect.toml`, which is both the manifest and the marker that makes a
 directory a project root. So one binary checks any project and every mock project under
-`path@check@tests/projects/` with no special case. A path that should not be checked says so
+`path@testing@tests/projects/` with no special case. A path that should not be checked says so
 there, in one place, with a reason beside it. What is compiled in describes the tool, not a tree:
 the directory of each Component a binary's libraries belong to, so that the string literals of
 the tool's own source are read as data. The decision is

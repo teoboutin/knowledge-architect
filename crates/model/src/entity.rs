@@ -1955,7 +1955,7 @@ impl Entities {
     }
 
     /// The misplaced, malformed and duplicate definitions found while building the table.
-    pub(crate) fn definition_findings(&self) -> &[Finding] {
+    pub fn definition_findings(&self) -> &[Finding] {
         &self.findings
     }
 }

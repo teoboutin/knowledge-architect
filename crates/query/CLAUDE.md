@@ -15,4 +15,4 @@ check's output, or an extension's hook, is no command of this crate: the command
 **`path@query@src/output.rs` is a copy of the writer**, per `design@knowledge-architect@a-copy-of-the-writer-per-crate`: every write to stdout goes through it, and a closed stdout ends the command
 with exit 2, per `design@cli@exit-code-ladder`. 
 
-The tests of the commands' output are the binary's, in `path@cli@tests/binary.rs`.
+The tests of the commands' output are the binary's, in `path@testing@tests/binary.rs`.

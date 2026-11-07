@@ -49,13 +49,7 @@ use knowledge_architect_model as model;
 pub mod commands;
 pub mod document;
 pub mod extension;
-pub mod testing;
-
-// The checks run against whole mock projects. A unit-test module rather than an integration
-// test, because its assertions read the checks' own `run` and `Inputs` literal, which are not
-// public.
-#[cfg(test)]
-mod mock_projects;
+pub mod run;
 
 pub use model::{Document, Finding, Manifest, Model, MANIFEST_NAME};
 

@@ -65,9 +65,9 @@ Two related cases:
 The test `no_lint_in_a_goals_home_names_a_form_the_citation_check_refuses` covers the five
 findings listed first, and no other. Its name claims all of them.
 
-Reproduction, in a copy of the mock project `path@check@tests/projects/dirhome/` with `git init`
+Reproduction, in a copy of the mock project `path@testing@tests/projects/dirhome/` with `git init`
 and `git add -A` run in it: add to a subdocument of its goals home, under
-`path@check@tests/projects/dirhome/docs/goals/`, a line holding three things, then run the checker
+`path@testing@tests/projects/dirhome/docs/goals/`, a line holding three things, then run the checker
 built from this repository over the copy:
 
 - a markdown link to `README.md`;

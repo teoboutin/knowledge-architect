@@ -26,9 +26,9 @@ directory untracked and run with `cargo klarch check`:
 
 | files copied | findings |
 | --- | --- |
-| `path@check@src/mock_projects.rs` and `path@cli@tests/extension_api.rs`, reaching phase 4 | 17 |
-| `path@model@src/mock_projects.rs` | 7 in phase 3, which leaves phase 4 unjudged |
-| `path@cli@tests/binary.rs` | 26 in phase 3, which leaves phase 4 unjudged |
+| `path@testing@tests/checks_over_mocks.rs` and `path@testing@tests/extension_api.rs`, reaching phase 4 | 17 |
+| `path@testing@tests/model_over_mocks.rs` | 7 in phase 3, which leaves phase 4 unjudged |
+| `path@testing@tests/binary.rs` | 26 in phase 3, which leaves phase 4 unjudged |
 
 Each is a fixture the test expects, such as a span naming a mock project's anchor, and none is a
 citation of this project's record. The mock projects themselves are not involved: `[walk] exclude`

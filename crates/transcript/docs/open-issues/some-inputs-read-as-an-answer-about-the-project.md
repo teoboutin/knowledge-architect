@@ -22,4 +22,4 @@ kind: defect
 
 ### What would close it
 
-Each case refuses or reports, with a test per case in `path@cli@tests/binary.rs`.
+Each case refuses or reports, with a test per case in `path@testing@tests/binary.rs`.

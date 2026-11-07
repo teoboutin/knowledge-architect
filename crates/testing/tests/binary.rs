@@ -1,37 +1,108 @@
 //! `klarch`, run as a caller runs it, with no extension registered, per
 //! `design@cli@the-commands-are-a-library-module`.
 //!
-//! Each test runs against a mock project under `path@check@tests/projects/`, which this
-//! repository's manifest excludes from its own walk, so the binary finds that project by walking
-//! up from the working directory exactly as it would find any other.
+//! The commands' mock projects sit under `path@testing@tests/projects/`, and a test runs in a copy of
+//! one, since `"fixture"` is refused here: `klarch` links nothing of this crate, per
+//! `design@check@checked-sentinel-values`.
 
 use std::path::{Path, PathBuf};
 use std::process::Command;
+use std::sync::OnceLock;
 
-/// The fixtures of `check`'s directory, which this crate's binary links, so `"fixture"` is accepted
-/// for a mock project under it. Resolved, so no path a test prints holds `..`.
-fn check_dir() -> PathBuf {
-    Path::new(env!("CARGO_MANIFEST_DIR"))
-        .join("../check")
-        .canonicalize()
-        .expect("the checker's crate")
+/// The real binary, built from this checkout once per run of this test file.
+///
+/// `CARGO_BIN_EXE_klarch` is set in `klarch`'s own package alone, and a dev-dependency on it does not
+/// build its binary, so this test asks the cargo that runs it. The build lands beside this test's
+/// executable, in the same target directory and profile. A binary that does not build fails each test
+/// that asks for it: a mutation run owes a `--build` probe that builds `klarch`, or a mutant that does
+/// not compile reads as caught.
+fn klarch() -> &'static Path {
+    static BUILT: OnceLock<PathBuf> = OnceLock::new();
+    BUILT.get_or_init(|| {
+        // <target>/<profile>/deps/<this test>.
+        let exe = std::env::current_exe().expect("this test's path");
+        let profile_dir = exe
+            .parent()
+            .and_then(Path::parent)
+            .expect("a test sits under <profile>/deps");
+        let profile = profile_dir
+            .file_name()
+            .and_then(|n| n.to_str())
+            .expect("a profile directory");
+        let target = profile_dir.parent().expect("a target directory");
+        let cargo = std::env::var_os("CARGO").expect("cargo sets CARGO for a test it runs");
+        let mut build = Command::new(cargo);
+        build
+            .args([
+                "build",
+                "-q",
+                "-p",
+                "knowledge-architect",
+                "--bin",
+                "klarch",
+            ])
+            .arg("--target-dir")
+            .arg(target)
+            .current_dir(env!("CARGO_MANIFEST_DIR"));
+        match profile {
+            "debug" => {}
+            "release" => {
+                build.arg("--release");
+            }
+            other => {
+                build.args(["--profile", other]);
+            }
+        }
+        let out = build.output().expect("cargo runs");
+        assert!(
+            out.status.success(),
+            "klarch does not build: {}",
+            String::from_utf8_lossy(&out.stderr)
+        );
+        profile_dir.join("klarch")
+    })
 }
 
-/// The directory of the crate that holds the transcripts' fixtures.
+/// The directory that holds the transcripts' fixtures: this crate's.
 fn transcript_dir() -> PathBuf {
-    Path::new(env!("CARGO_MANIFEST_DIR"))
-        .join("../transcript")
-        .canonicalize()
-        .expect("the transcript crate")
+    PathBuf::from(env!("CARGO_MANIFEST_DIR"))
 }
 
+/// One mock project as it sits in this crate, the source of every copy.
+fn source(name: &str) -> PathBuf {
+    Path::new(env!("CARGO_MANIFEST_DIR"))
+        .join("tests/projects")
+        .join(name)
+}
+
+/// A copy of a mock project pinned to this binary's version, a git repository of its own, shared by
+/// the tests that only read it, so each mock is copied once per run.
+///
+/// It sits in the target directory under a fixed name, so a run replaces the last run's copy and
+/// leaves nothing outside the target directory.
 fn project(name: &str) -> PathBuf {
-    check_dir().join("tests/projects").join(name)
+    static COPIES: OnceLock<std::sync::Mutex<std::collections::HashMap<String, PathBuf>>> =
+        OnceLock::new();
+    let copies = COPIES.get_or_init(Default::default);
+    let mut copies = copies.lock().expect("no test panicked while copying");
+    copies
+        .entry(name.to_string())
+        .or_insert_with(|| {
+            let dir = Path::new(env!("CARGO_TARGET_TMPDIR"))
+                .join("mock-copies")
+                .join(name);
+            let _ = std::fs::remove_dir_all(&dir);
+            copy_dir(&source(name), &dir);
+            git(&dir, &["init", "-q"]);
+            git(&dir, &["-c", "core.excludesFile=/dev/null", "add", "-A"]);
+            dir
+        })
+        .clone()
 }
 
 /// Stdout, stderr and the exit code of one run in a directory.
 fn run_in(dir: &Path, args: &[&str]) -> (String, String, i32) {
-    let out = Command::new(env!("CARGO_BIN_EXE_klarch"))
+    let out = Command::new(klarch())
         .args(args)
         .current_dir(dir)
         .output()
@@ -55,7 +126,7 @@ fn run_with_path(dir: &Path, args: &[&str], path: &Path) -> (String, String, i32
 
 /// The same, with environment variables replaced.
 fn run_with_env(dir: &Path, args: &[&str], env: &[(&str, &Path)]) -> (String, String, i32) {
-    let mut command = Command::new(env!("CARGO_BIN_EXE_klarch"));
+    let mut command = Command::new(klarch());
     command.args(args).current_dir(dir);
     for (name, value) in env {
         command.env(name, value);
@@ -92,7 +163,7 @@ impl Sandbox {
     fn seeded(tag: &str, from: &str, files: &[(&str, &str)]) -> Self {
         let dir = std::env::temp_dir().join(format!("knowledge-{tag}-{}", std::process::id()));
         let _ = std::fs::remove_dir_all(&dir);
-        copy_dir(&project(from), &dir);
+        copy_dir(&source(from), &dir);
         let sandbox = Sandbox { dir };
         for (rel, text) in files {
             sandbox.write(rel, text);
@@ -108,7 +179,7 @@ impl Sandbox {
     fn without_git(tag: &str, from: &str) -> Self {
         let dir = std::env::temp_dir().join(format!("knowledge-{tag}-{}", std::process::id()));
         let _ = std::fs::remove_dir_all(&dir);
-        copy_dir(&project(from), &dir);
+        copy_dir(&source(from), &dir);
         Sandbox { dir }
     }
 
@@ -212,9 +283,9 @@ impl Drop for Sandbox {
 
 /// Copy a mock project, with its manifest pinned to this binary's version.
 ///
-/// A mock says `checker-version = "fixture"`, which the binary confirms only where the mock lies
-/// inside `check`'s directory, per `design@check@checked-sentinel-values`; a copy elsewhere is a project
-/// like any other, so it carries the version.
+/// A mock says `checker-version = "fixture"`, which the binary confirms only inside a library it
+/// links, per `design@check@checked-sentinel-values`, and this crate is none, so a copy carries the
+/// version.
 fn copy_dir(from: &Path, to: &Path) {
     std::fs::create_dir_all(to).expect("the sandbox directory");
     for entry in std::fs::read_dir(from).expect("a readable fixture") {
@@ -268,11 +339,11 @@ fn pinned(text: &str) -> String {
 
 /// The smallest conformant mock, which declares no table `check` does not own.
 fn mock() -> PathBuf {
-    check_dir().join("tests/projects/core")
+    project("core")
 }
 
 fn check(dir: &Path) -> (i32, String) {
-    let out = Command::new(env!("CARGO_BIN_EXE_klarch"))
+    let out = Command::new(klarch())
         .arg("check")
         .current_dir(dir)
         .output()
@@ -2108,7 +2179,7 @@ fn a_message_naming_the_entry_its_commit_deletes_resolves_against_the_parent() {
 /// library writes for a binary's author about the command enum.
 #[test]
 fn help_opens_with_the_binarys_description() {
-    let out = Command::new(env!("CARGO_BIN_EXE_klarch"))
+    let out = Command::new(klarch())
         .arg("--help")
         .output()
         .expect("the binary runs");
@@ -2942,7 +3013,7 @@ fn a_range_that_does_not_resolve_could_not_run() {
 fn a_closed_stdout_ends_the_run_quietly_with_exit_2() {
     let (reader, writer) = std::io::pipe().expect("a pipe");
     drop(reader);
-    let out = Command::new(env!("CARGO_BIN_EXE_klarch"))
+    let out = Command::new(klarch())
         .args(["model"])
         .current_dir(project("planted"))
         .stdout(writer)
@@ -2962,7 +3033,7 @@ fn a_closed_stdout_ends_the_run_quietly_with_exit_2() {
 fn a_closed_stdout_ends_a_command_over_the_record_with_exit_2() {
     let (reader, writer) = std::io::pipe().expect("a pipe");
     drop(reader);
-    let out = Command::new(env!("CARGO_BIN_EXE_klarch"))
+    let out = Command::new(klarch())
         .args(["anchors"])
         .current_dir(project("planted"))
         .stdout(writer)
@@ -2983,7 +3054,7 @@ fn a_closed_stdout_ends_transcript_with_exit_2() {
     let config = transcript_case("kinds", "closed-stdout");
     let (reader, writer) = std::io::pipe().expect("a pipe");
     drop(reader);
-    let out = Command::new(env!("CARGO_BIN_EXE_klarch"))
+    let out = Command::new(klarch())
         .args(["transcript", "list", "--all-projects"])
         .current_dir(project("core"))
         .env("CLAUDE_CONFIG_DIR", &config)
@@ -3809,13 +3880,6 @@ fn a_manifest_without_the_key_refuses_every_command() {
     }
 }
 
-/// The claim: a mock project in place, inside `check`'s directory, passes with `"fixture"`.
-#[test]
-fn a_mock_in_place_passes_with_fixture() {
-    let (out, err, code) = run("dirhome", &["check"]);
-    assert_eq!(code, 0, "{out}{err}");
-}
-
 /// The claim: the install over a project pinning another version refuses, and writes nothing.
 #[test]
 fn the_install_refuses_another_version_and_writes_nothing() {
@@ -4177,10 +4241,7 @@ fn check_staged_as_a_pre_commit_hook_judges_the_index_the_commit_records() {
     let hook = hooks.join("pre-commit");
     std::fs::write(
         &hook,
-        format!(
-            "#!/bin/sh\nexec '{}' check --staged\n",
-            env!("CARGO_BIN_EXE_klarch")
-        ),
+        format!("#!/bin/sh\nexec '{}' check --staged\n", klarch().display()),
     )
     .expect("the hook");
     use std::os::unix::fs::PermissionsExt;

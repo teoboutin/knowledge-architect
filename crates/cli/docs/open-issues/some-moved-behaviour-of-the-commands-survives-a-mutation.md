@@ -14,7 +14,7 @@ read or run by hand. They are recorded together, since each is one small test.
 ### What
 
 In `main` of `path@cli@src/main.rs`: `cli::init` given `&[]` for `checker`. `refuse_another_version` given `&[]` for its
-directories, so that `"fixture"` is held only for a mock under `check`, since every mock of the suite lies there.
+directories, so that `"fixture"` is held by `path@cli@tests/fixture_pin.rs` alone, over `cli`'s directory, since every mock of the suite lies outside the directories `klarch` names.
 
 In `path@cli@src/cli/mod.rs`: `DEFAULT_WORKLIST_BOUND` changed to `26000`, against the README's 25,000 words; `pub rust` of
 `InitArgs` made private, since no test outside the crate builds one; `#[non_exhaustive]` removed from `Command`; the message

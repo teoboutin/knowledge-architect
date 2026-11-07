@@ -12,7 +12,7 @@
 | defect | [Some findings of the reference check in a goals home still name a reference form refused there](some-findings-in-a-goals-home-name-a-form-refused-there.md) |
 | defect | [The head on `index` credits the missing-directory refusal with a claim that the refusal does not hold](the-missing-directory-refusal-does-not-hold-the-no-loss-claim.md) |
 | defect | [The primer's import line is accepted inside some fences and comments](the-primer-import-line-is-accepted-inside-some-fences-and-comments.md) |
-| defect | [The tests of `check` and `cli` read the machine's git configuration, so a machine setting can fail a correct tree](the-tests-read-the-machine-s-git-configuration.md) |
+| defect | [The tests of `check`, `cli` and `testing` read the machine's git configuration, so a machine setting can fail a correct tree](the-tests-read-the-machine-s-git-configuration.md) |
 | deferred | [Nothing checks that a component states a goal](a-component-states-at-least-one-goal.md) |
 | deferred | [Developer contracts sit in scoped CLAUDE.md files, which reach agents unreliably and are not required without a harness](a-home-for-developer-contracts-outside-agent-configuration.md) |
 | deferred | [A submodule is a project of its own, or nothing, and the tool has no model for either](a-submodule-is-a-project-of-its-own.md) |

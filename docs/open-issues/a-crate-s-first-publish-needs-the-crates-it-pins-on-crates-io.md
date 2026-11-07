@@ -11,7 +11,7 @@ kind: question
 
 ### What
 
-Assumption, not run: `cargo publish` refuses a dependency version the registry does not hold. No first publish of a crate with a pinned dependency has happened; `model`, `check`, `query`, `transcript` and `create` are the first. The order that seems to work is the one `design@knowledge-architect@partial-publish-rerun` allows: the job stops at the new crate, the owner publishes it by hand, and the job is re-run.
+Assumption, not run: `cargo publish` refuses a dependency version the registry does not hold. No first publish of a crate with a pinned dependency has happened; `model`, `check`, `testing`, `query`, `transcript` and `create` are the first. The order that seems to work is the one `design@knowledge-architect@partial-publish-rerun` allows: the job stops at the new crate, the owner publishes it by hand, and the job is re-run.
 
 ### Why it matters
 

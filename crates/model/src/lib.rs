@@ -73,11 +73,6 @@ use knowledge_architect_git as git;
 
 #[cfg(test)]
 mod shipped_set;
-// `check` run against whole mock projects, over what this crate holds, until the shared test
-// Component takes them.
-#[cfg(test)]
-mod mock_projects;
-
 pub use finding::{escaped, Finding};
 pub use manifest::{Manifest, MANIFEST_NAME};
 pub use model::{Document, Model};

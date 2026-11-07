@@ -18,7 +18,7 @@ plans directory, and reopens the scope with this alternative as the candidate.
 against thaum's own file. It loses on three counts, each measured against the tree rather than
 argued: a tracked live document left the walk AND the inverse assertion when one root ignore line
 matched its bare name at any depth, reproduced with a one-line `.gitignore` over a copy of
-`path@check@tests/projects/minimal/` and recorded as a defect before the reversal; a nested
+`path@testing@tests/projects/minimal/` and recorded as a defect before the reversal; a nested
 `.gitignore` was not honoured at all, so a project needing one had to declare the path in the
 manifest; and every pattern the matcher could not honour — a negation, `**`, `?`, a character class
 — had to be refused by name, because dropping an ignore rule makes the walk read more than it should

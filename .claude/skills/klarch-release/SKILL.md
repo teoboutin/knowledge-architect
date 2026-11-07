@@ -6,7 +6,7 @@ description: MUST use when the owner asks to publish a version of knowledge-arch
 # Release
 
 Scope: publishing one version of the published crates, `knowledge-architect-git`,
-`knowledge-architect-agent-skills`, `knowledge-architect-model`, `knowledge-architect-check`, `knowledge-architect-query`, `knowledge-architect-transcript`, `knowledge-architect-create`, `knowledge-architect-gates`, `knowledge-architect-mutate` and
+`knowledge-architect-agent-skills`, `knowledge-architect-model`, `knowledge-architect-check`, `knowledge-architect-testing`, `knowledge-architect-query`, `knowledge-architect-transcript`, `knowledge-architect-create`, `knowledge-architect-gates`, `knowledge-architect-mutate` and
 `knowledge-architect`, from main. xtask is never published. The versioning policy is
 `design@knowledge-architect@versioning-policy`, and every published crate shares one version, per
 `design@knowledge-architect@version-lockstep`.
@@ -29,7 +29,7 @@ On a branch of its own, `release-<version>`, under the Git rules of the root `CL
    - `[workspace.package] version` in the root Cargo.toml;
    - the exact pins `knowledge-architect-agent-skills = { …, version = "=<version>" }`,
      `knowledge-architect-git = { …, version = "=<version>" }` and
-     `knowledge-architect-model = { …, version = "=<version>" }` in crates/check/Cargo.toml, crates/query/Cargo.toml, crates/transcript/Cargo.toml, crates/create/Cargo.toml and crates/cli/Cargo.toml, each as it depends on them, the pins of `query`, `transcript`, `create` in crates/cli/Cargo.toml, with `knowledge-architect-check = { …, version = "=<version>" }` in crates/cli/Cargo.toml and crates/create/Cargo.toml, and the second in crates/model/Cargo.toml;
+     `knowledge-architect-model = { …, version = "=<version>" }` in crates/check/Cargo.toml, crates/testing/Cargo.toml, crates/query/Cargo.toml, crates/transcript/Cargo.toml, crates/create/Cargo.toml and crates/cli/Cargo.toml, each as it depends on them, the pins of `query`, `transcript`, `create` in crates/cli/Cargo.toml, with `knowledge-architect-check = { …, version = "=<version>" }` in crates/cli/Cargo.toml and crates/create/Cargo.toml, and the second in crates/model/Cargo.toml;
    - Cargo.lock, which any cargo command rewrites for every workspace package;
    - the status line: the opening sentence of `## Status` in the root README.md. Change the
      number, and any other part of the sentence the release makes false.
@@ -100,7 +100,7 @@ On a branch of its own, `release-<version>`, under the Git rules of the root `CL
 8. **The dry run.** `cargo publish --workspace --dry-run` passes, skips xtask, and orders
    the git crate before the model crate, which depends on it, and that and agent-skills before
    `check`, and every crate before `cli`. Its warning "ignoring test `<name>`"
-   for each file `<name>.rs` of `path@cli@tests/` and of `path@mutate@tests/` is expected: the
+   for each file `<name>.rs` of `path@cli@tests/`, of `path@testing@tests/` and of `path@mutate@tests/` is expected: the
    whitelist keeps the tests out.
 9. **The gates and the review.** `cargo x gates --require-rebased`, then the push, and the review
    under `skill@knowledge-architect-review`. Its axes include
