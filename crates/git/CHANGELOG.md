@@ -149,6 +149,15 @@ an empty subsection is omitted.
   `git ls-remote --tags origin` and report the horizon as not counted, naming `git fetch --tags` for
   the dispatcher to run in its own checkout, as they already did for a shallow clone with
   `git fetch --unshallow`.
+- `agent-skills`, patch: the primer's table of what the owner brings tells an intent to draft as a
+  goal from an argument by two checks: the statement gives an outcome the project is to reach, not
+  a reason for one shape over its rival, and no goal or recorded decision already serves it against
+  every rival it is cited to defeat. A session therefore drafts a goal for a ruling that a head
+  cites against a rival no other record defeats, and keeps the owner's reason for a shape as an
+  argument in the head.
+- `agent-skills`, patch: before a design head is written, or judged to hold one decision, each of
+  its statements is given its nearest rival, so a writer or a reviewer finds every decision a head
+  bundles in one reading.
 
 ## 0.9.0
 

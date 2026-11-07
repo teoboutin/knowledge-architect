@@ -228,8 +228,8 @@ sections is an item, and a slug anywhere else in a plan document defines nothing
   across a milestone's README and its slice specs, which share one namespace.
 - An item is cited `<kind>@<anchor>@<id>`, where the anchor is a spec's id, or the milestone's name for
   an item of the milestone document or of any of its slice specs, and only from inside its own plan document, a milestone's documents counting as one: the spec file, or the milestone's directory. From anywhere
-  else, a commit message and a design head included, the plan document is cited whole, and an item is named
-  in plain text with a hash sign, as #<id>. A slice is named the same way.
+  else, a commit message and a design head included, the plan document is cited whole, and an item
+  or a slice is named beside it as #<id>, a label, per `primer@where-knowledge-goes`.
 
 **A path the plan document's work will create** is cited `planned@<anchor>@<path>`, under the rules of a
 `path` reference: the anchor that will hold it, a trailing `/` for a directory. The form is legal
@@ -345,8 +345,8 @@ fork: the session lists its value under the defaults awaiting the owner, and
 owner sets as the owner's.
 
 - **At each landing**, the messages of the commits that land it report on every criterion judged
-  there, one line each, naming it as #<id> beside a citation of the whole plan document, since a commit
-  message cites a plan document only whole: the decision guarded, fired or not, and the evidence.
+  there, one line each, naming it as #<id> beside a citation of the whole plan document, per
+  `skill@knowledge-architect-planning@plans-layout`: the decision guarded, fired or not, and the evidence.
 - **A criterion that fires** leaves the document at once, as a reopened decision: its firing opens
   a design discussion with the owner on the decision it guards, under
   `skill@knowledge-architect-design`. There, the measurement says whether the decision failed, the

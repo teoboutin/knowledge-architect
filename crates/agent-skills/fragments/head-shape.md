@@ -54,8 +54,11 @@ stale at the next member, and every later member then reads as a change of the d
 closed on purpose keeps its list in the title, with the sentence that argues the closure in the
 body. A title states no more than its argument argues.
 
+%% The criterion and its rival: `design@agent-skills@one-decision-per-head`.
 **A head holds one decision.** Two statements are one decision when they answer one question and
-lose to the same nearest rival. A rule's exception, its parameter and its delivery belong to its
+lose to the same nearest rival. Before a head is written, or judged to hold one decision, each of
+its statements is given its nearest rival, so that one reading finds every decision the head
+bundles, not one per review. A rule's exception, its parameter and its delivery belong to its
 head, since none means anything without the rule, unless one loses to a nearest rival of its own. Two statements that lose to different nearest
 rivals, or whose arguments share no premise, are two decisions. Each takes a head of its own when
 it passes an entry test, and a comment at its code when it passes none. A title joined by "and"

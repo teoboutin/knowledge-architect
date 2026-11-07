@@ -229,7 +229,8 @@ records dozens per unit of work stops being readable and stops being ranked.
    no text of the project states. For a decision about agent-facing text, a skill, an agent or a
    `CLAUDE.md`, each text that states the instruction is one site, a design head of the project
    that restates it included, other than the decision's own: a decision stated by one text
-   has one site, and its reason lives in that text, beside the instruction; or
+   has one site, and its reason lives in that text, beside the instruction. A text that a plan
+   document will write is no site until it is written; or
 3. **its argument turns on the behaviour of something outside the project**: an external
    specification the project implements (a standard, a protocol, a rule set), or an external tool's
    behaviour, read in its documentation or measured.
@@ -297,7 +298,7 @@ rivals in its body or in the `rejected` entries it cites. What the owner brings 
 | what the owner brings | where it lands |
 | --- | --- |
 | a fact only the owner holds, a doubt included | a premise, attributed as the owner's report and open to challenge |
-| an intent an agent cannot derive, which states an outcome | a goal, drafted under `skill@knowledge-architect-goal-setting`, which the head cites |
+| an intent that states an outcome the project is to reach, not a reason for one shape over its rival, and that no goal and no recorded decision already serves against every rival it is cited to defeat | a goal, drafted under `skill@knowledge-architect-goal-setting`, which the head cites |
 | an argument, one that weighs a cost included | argued, and recorded on its merits |
 | an approval of the session's default, threshold or weighing, whatever its words ("approved", "agreed", "all defaults approved", "accepted the cost") | no ground: the session's decision, kept in the deliberation; at a fork, the session's choice, in the weak form below, "the session chose X over Y, which no goal ranks; the owner approved it" |
 | a reading of a source | the source |
