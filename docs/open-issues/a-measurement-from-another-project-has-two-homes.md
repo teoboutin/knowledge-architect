@@ -20,8 +20,8 @@ that cites a measurement taken in thaum fits both rows. Which home is meant?
 - `primer@where-knowledge-goes`: "**A measurement is routed by what it serves**: the head of the
   decision it supports, the issue entry it characterises, the tripwire whose threshold it is, or
   else the commit message that took it."
-- `instructions@verify-before-relying`: "A figure in the documents of `check`, of `model` or of `query` measured in another
-  project, thaum, names thaum as its source."
+- `instructions@verify-before-relying`: "A figure measured in another project, thaum, names thaum as its
+  source, in any document of this repository."
 - `design@agent-skills@application-judged-by-diff` states counts measured in a pass of the
   design-record axis in thaum. The one grounding directory, `path@agent-skills@docs/grounding/`,
   holds Cargo's rules and the layout of thaum's testing crate, and none of thaum's measurements;

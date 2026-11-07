@@ -79,7 +79,7 @@ An issue entry keeps its magnitudes, per the cold-reader standard of
 
 `primer@verify-before-relying` holds the rules. This repository adds four:
 
-- A figure in the documents of `check`, of `model` or of `query` measured in another project, thaum, names thaum as its source.
+- A figure measured in another project, thaum, names thaum as its source, in any document of this repository.
 - **Before touching the code of a Component, ground first, per
   `skill@knowledge-architect-development@ground-before-editing` and
   `skill@klarch-development@ground-in-this-repository`.**
