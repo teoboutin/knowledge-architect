@@ -311,8 +311,10 @@ that what a draft describes exists. It marks known a draft whose finding an issu
 kept a draft on the kept list. It marks a finding that a ruling's premise has proved false as
 bearing on that ruling, and leaves it to the session. Its verdict per draft is verified, refuted or
 plausible, with a reason, and a refuted draft is kept with its reason, for the session's sample. It
-reads the kept list, the issues listing and the record of the audit's earlier passes, their commit
-messages and their report files, so it can make the refutations that rest on the audit's history.
+reads the kept list, the issues listing, the commit messages of the audit's earlier passes and the
+report file of every earlier pass of its axis, of any audit, so it can make the refutations that
+rest on the rulings already taken. The report files are found by their path, which names the axis,
+since one git range cannot hold two audits of the axis without every commit between them.
 
 In the agentic-workflow axis, each auditor's drafts go to its verifier as soon as the auditor
 returns, and the verifier splits a finding of the interaction of the installed text and the

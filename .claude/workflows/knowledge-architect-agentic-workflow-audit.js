@@ -11,7 +11,7 @@ export const meta = {
 //   commit      the commit audited
 //   scratch     the run's scratch directory; each step and each agent writes under it
 //   worktrees   the directory under which the run creates the worktrees
-//   history     a git range whose commit messages and added report files record the earlier passes
+//   history     a git range whose commit messages record this audit's earlier passes
 //   previous    optional: for a re-check, the commit the previous pass audited
 //   kept        optional: the path of the kept list, for a re-check
 //   counts      optional: { L1 … L9, clusters, repairsPerCause }, each missing key taking its default
@@ -40,6 +40,7 @@ const counts = args.counts || {}
 const at = (...parts) => parts.join('/')
 const lines = (xs) => xs.filter(Boolean).join('\n')
 const PATH = { type: 'object', properties: { path: { type: 'string' } }, required: ['path'] }
+const REPORT = { type: 'object', properties: { path: { type: 'string' }, text: { type: 'string' } }, required: ['path'] }
 const IDS = {
   type: 'object',
   properties: { path: { type: 'string' }, ids: { type: 'array', items: { type: 'string' } } },
@@ -113,9 +114,9 @@ if (!args.from) {
       'cargo klarch tripwires to ' + at(preflightDir, 'tripwires.txt') + ';',
     '- save the messages of the commits of the range ' + args.history + ', with git log ' +
       '--format="=== %h %s%n%n%b", to ' + at(preflightDir, 'history.txt') + ';',
-    '- save the report files of earlier passes that the range added, with git log -p ' +
-      '--diff-filter=A --format="=== %h %s" ' + args.history + ' -- docs/audit-reports/, to ' +
-      at(preflightDir, 'reports.txt') + '.',
+    '- save the report file of every earlier pass of this axis, of any audit, found by its path, ' +
+      'with git log -p --diff-filter=A --format="=== %h %s" ' + args.commit + ' -- ' +
+      '"docs/audit-reports/*-agentic-workflow-axis-pass-*.md", to ' + at(preflightDir, 'reports.txt') + '.',
     'Edit nothing else. Return done true only if every command succeeded.',
   ]), { schema: DONE, phase: 'preflight', label: 'preflight' })
   if (!pre || !pre.done) throw new Error('preflight failed: ' + (pre ? pre.notes : 'no return'))
@@ -141,8 +142,9 @@ const verifyBrief = (a) => lines([
   args.kept ? 'Kept list: ' + at(args.scratch, a.label, 'kept.md') : '',
   'Issues listing: ' + at(preflightDir, 'issues.txt'),
   'Tripwires listing: ' + at(preflightDir, 'tripwires.txt'),
-  'History of the audit earlier passes: ' + at(preflightDir, 'history.txt') + ', and their ' +
-    'report files, with the owner\'s rulings: ' + at(preflightDir, 'reports.txt'),
+  'The commit messages of the audit\'s earlier passes: ' + at(preflightDir, 'history.txt') +
+    '; the report file of every earlier pass of this axis, of any audit, with the owner\'s ' +
+    'rulings: ' + at(preflightDir, 'reports.txt'),
   FROM_DISK,
 ])
 const auditorOpts = (a, step) => ({ agentType: 'knowledge-architect-workflow-auditor', phase: step, label: step + ' ' + a.label })
@@ -284,6 +286,22 @@ await agent(lines([
     'and its firing evidence. Return its path.',
 ]), { schema: PATH, phase: 'cross-check', label: 'cross-check' })
 
+// The counts the report copies: the script holds each exactly, so no agent takes one by reading.
+const ok = verdicts.filter(Boolean)
+const sum = (k) => ok.reduce((t, v) => t + v[k], 0)
+const countLines = [
+  'auditors: ' + auditors.length,
+  args.from && args.from !== 'verify'
+    ? 'verifiers: not held, since this run restarted after the verify step; count them from the ' +
+      'verdicts files'
+    : 'verifiers: ' + ok.length + ' of ' + auditors.length + ' auditors\' drafts verified; ' +
+      sum('verified') + ' verified, ' + sum('refuted') + ' refuted, ' + sum('plausible') +
+      ' plausible, ' + sum('bearsOnRuling') + ' bearing on a ruling, ' + sum('bearsOnTripwire') +
+      ' bearing on a tripwire, ' + sum('known') + ' known, ' + sum('kept') + ' kept',
+  'causes: ' + causeIds.length + '; repair proposals: ' + proposals.length + '; checks: ' +
+    proposals.filter((p) => p.check).length,
+]
+
 // Report.
 phase('report')
 const report = await agent(lines([
@@ -292,15 +310,17 @@ const report = await agent(lines([
   'Read: every return.md and verdicts.md under ' + args.scratch + ', the confirmed-findings file ' +
     confirmed + ', the causes file ' + causesFile + ', every proposal and check under ' +
     at(args.scratch, 'repairs') + ', and the cross-check ' + cross + '.',
+  'The run\'s counts, which the script computed:',
+  countLines.map((l) => '- ' + l).join('\n'),
   'Write ' + at(args.scratch, 'report', 'report.md') + ' in six parts:',
-  '1. the header: the commit audited, ' + args.commit + '; the agents of each step; the counts of ' +
-    'drafts, verified, plausible, bearing on a ruling, bearing on a tripwire, known, kept, after ' +
-    'dedup and refuted; for a re-check, the counts the section record-of-an-audit of the skill ' +
+  '1. the header: the commit audited, ' + args.commit + '; the agents of each step; the run\'s ' +
+    'counts above, copied as given, and the counts of drafts and of findings after dedup, which ' +
+    'the script does not hold; for a re-check, the counts the section record-of-an-audit of the skill ' +
     'knowledge-architect-project-audit asks of a pass, the owner-list one as the cross-check ' +
     'proposes it; each ' +
     'refuted draft with its reason; each auditor return that says a corpus file was not read whole;',
-  '2. the figures: the run counts of findings and causes, and the instructions each proposal adds ' +
-    'and removes;',
+  '2. the figures: the count of causes above, the count of findings after dedup, and the ' +
+    'instructions each proposal adds and removes;',
   '3. one section per cause: its kind and its one-sentence mechanism; its findings, each with its ' +
     'quoted evidence, the verifier verdict and note, and its tag; the repair as edits before and ' +
     'after, per file; the instructions it adds and removes, quoted; the nearest rival; its check, ' +
@@ -312,13 +332,15 @@ const report = await agent(lines([
   '6. what the run did not decide: the merge choices, the plausible verdicts, the "Outside the ' +
     'axis" and "Met outside the task" notes of the returns, and every step that failed or returned ' +
     'nothing' + (unwalked.length ? ', and the L2 groups left unwalked: ' + unwalked.join('; ') : '') + '.',
-  'Return its path.',
-]), { schema: PATH, phase: 'report', label: 'report' })
+  'Return its path. Where the harness refuses your write of it, return the report whole in text, ' +
+    'and path empty.',
+]), { schema: REPORT, phase: 'report', label: 'report' })
 
 return {
-  report: report ? report.path : null,
+  report: report && report.path ? report.path : null,
+  reportText: report && report.text ? report.text : null,
   auditors: auditors.length,
-  verified: verdicts.filter(Boolean).length,
+  auditorsVerified: verdicts.filter(Boolean).length,
   causes: causeIds.length,
   proposals: proposals.length,
   checks: proposals.filter((p) => p.check).length,

@@ -115,8 +115,10 @@ message holds its counts.** The file is `docs/audit-reports/<YYYY-MM-DD>-<axis>-
 the project's root, the axis named by its section's slug. The session writes it after its reading
 of the pass: the run's report as the session's verification left it. The owner list closes it, as
 point 2 says. A span the checker would refuse is quoted in words, since the file is checked like
-any other, and an entry the pass removes, renames or creates is named as
-`primer@where-knowledge-goes` says. The file and every commit
+any other. An entry the pass removes, renames or creates is named as `primer@where-knowledge-goes`
+says, in the form the tree of each commit that holds the file takes: by its reference while the
+tree holds the entry, by its bare slug once it does not. So the commit that removes, renames or
+creates the entry also rewrites the file's citation of it. The file and every commit
 message of the audit name a commit of the audit's branch by its subject, never by its SHA, since a
 SHA of the branch may name nothing once the branch reaches the main branch: a history edit of the
 branch, such as the fold `primer@branch-commits` asks for, or a rebase or a squash at the merge,
@@ -168,7 +170,7 @@ and proposes each finding's outcome; the report gathers all of it. Its `args`:
 | `commit` | the commit audited |
 | `scratch` | the run's scratch directory, under which every step and agent writes |
 | `worktrees` | the directory under which the run creates the worktrees, outside the project or under a path its ignore rules cover |
-| `history` | a git range whose commit messages, and the report files it added, record the audit's earlier passes, for the verifiers |
+| `history` | a git range whose commit messages record this audit's earlier passes, for the verifiers; the preflight finds the report file of every earlier pass of the axis, of any audit, by its path |
 | `previous` | for a re-check, the commit the previous pass audited, against which each finding is classified as on old or new text |
 | `kept` | for a re-check, the path of the file of entries and rules the owner ruled to keep |
 | `sample` | optional: the calibration sample, each entry a head's or a `rejected` entry's reference; the preflight chooses one when it is left out, and a re-check may keep the entries whose readings differed |
@@ -239,7 +241,7 @@ and their checks together; the report gathers all of it. Its `args`:
 | `commit` | the commit audited |
 | `scratch` | the run's scratch directory, under which every step and agent writes |
 | `worktrees` | the directory under which the run creates the worktrees, outside the project or under a path its ignore rules cover |
-| `history` | a git range whose commit messages, and the report files it added, record the audit's earlier passes, for the verifiers |
+| `history` | a git range whose commit messages record this audit's earlier passes, for the verifiers; the preflight finds the report file of every earlier pass of the axis, of any audit, by its path |
 | `previous` | for a re-check, the commit the previous pass audited, against which each finding is classified as on old or new text |
 | `kept` | for a re-check, the path of the file of entries, texts and rules the owner ruled to keep |
 | `counts` | optional: the auditors per lens, keyed L1 to L9, `clusters` and `repairsPerCause`; a key left out takes its default, written in the script |
@@ -348,7 +350,7 @@ all of it. No step judges a created head, since the axis creates none. Its `args
 | `commit` | the commit audited |
 | `scratch` | the run's scratch directory, under which every step and agent writes |
 | `worktrees` | the directory under which the run creates the worktrees, outside the project or under a path its ignore rules cover |
-| `history` | a git range whose commit messages, and the report files it added, record the audit's earlier passes, for the verifiers |
+| `history` | a git range whose commit messages record this audit's earlier passes, for the verifiers; the preflight finds the report file of every earlier pass of the axis, of any audit, by its path |
 | `previous` | for a re-check, the commit the previous pass audited, against which each finding is classified as on old or new text |
 | `kept` | for a re-check, the path of the file of entries and rules the owner ruled to keep |
 | `sample` | optional: the calibration sample, each entry a tripwire's reference; the preflight chooses one when it is left out, and a re-check may keep the entries whose readings differed |

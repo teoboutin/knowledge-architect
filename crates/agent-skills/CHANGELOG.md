@@ -158,6 +158,17 @@ an empty subsection is omitted.
 - `agent-skills`, patch: before a design head is written, or judged to hold one decision, each of
   its statements is given its nearest rival, so a writer or a reviewer finds every decision a head
   bundles in one reading.
+- `agent-skills`, patch: the session that merges a pin move puts each audit or review the move owes
+  to the owner in the message that reports the merge, its default to run it next; the `todo` issue
+  holds it where the owner defers.
+- `agent-skills`, patch: an audit pass's verifiers read the report file of every earlier pass of
+  their axis, of any audit, which the axis's saved workflow finds by its path; `history` names only
+  the commits of this audit's passes.
+- `agent-skills`, patch: where the harness refuses an audit's report step the write of its report
+  file, the step returns the report as text instead, and the run's result carries it as `reportText`, with
+  `report` null, for the session to write to the file. The run's result names the count of groups
+  whose verifier returned `groupsVerified`, and in the agentic-workflow axis `auditorsVerified`,
+  where it said `verified`.
 
 ## 0.9.0
 

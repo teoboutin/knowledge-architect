@@ -11,7 +11,7 @@ export const meta = {
 //   commit      the commit audited
 //   scratch     the run's scratch directory; each step and each agent writes under it
 //   worktrees   the directory under which the run creates the worktrees
-//   history     a git range whose commit messages and added report files record the earlier passes
+//   history     a git range whose commit messages record this audit's earlier passes
 //   previous    optional: for a re-check, the commit the previous pass audited
 //   kept        optional: the path of the kept list, for a re-check
 //   sample      optional: the calibration sample, an array of entries, each { ref } for a design
@@ -103,6 +103,9 @@ const VERDICTS = {
   required: ['path', 'verified', 'refuted', 'plausible', 'bearsOnRuling', 'bearsOnTripwire', 'known', 'kept', 'createdHeads'],
 }
 const PATH = { type: 'object', properties: { path: { type: 'string' } }, required: ['path'] }
+const REPORT = { type: 'object', properties: { path: { type: 'string' }, text: { type: 'string' } }, required: ['path'] }
+const REFUSED = 'Where the harness refuses your write of it, return the report whole in text, and ' +
+  'path empty.'
 const DONE = {
   type: 'object',
   properties: { done: { type: 'boolean' }, notes: { type: 'string' } },
@@ -148,6 +151,7 @@ const cut = (components) => {
   }
   return out
 }
+const total = (components) => components.reduce((t, c) => t + c.entries.length, 0)
 
 // The judgement of an application: every entry whose text the session's application of a pass
 // changed, judged after the owner's ruling, as a run of its own; it ends at its report.
@@ -226,6 +230,7 @@ if (args.from === 'application') {
   // failing entry and returns every verdict, so a report read from the files alone would take each
   // conforming entry for one nobody judged.
   const verdicts = judged.filter((x) => x && x.r).map((x) => ({ group: x.g.label, judged: x.r.judged }))
+  const judgedCount = verdicts.reduce((t, v) => t + v.judged.length, 0)
   phase('report')
   const jreport = await agent(lines([
     'You write the report of the judgement of an application of one pass of the design-record ' +
@@ -235,12 +240,19 @@ if (args.from === 'application') {
     'Read every file under ' + dir + ' that the judges wrote.',
     'Write ' + at(dir, 'report.md') + ': per failing entry, the rule or the failure mode of an edit ' +
       'it fails, the words quoted, the tripwire or issue it leaves false, and the repair the judge ' +
-      'proposes; then the counts of entries judged and failing, each entry missing from a return, ' +
+      'proposes; then these counts, copied as given: ' + total(pre.components) + ' entries listed, ' +
+      judgedCount + ' verdicts returned, ' + failing + ' failing; each entry missing from a return, ' +
       'which nobody judged' + (jgaps.length ? ': ' + jgaps.join('; ') : '') + ', and every step that ' +
       'returned nothing' + (jfailures.length ? ', among them: ' + jfailures.join('; ') : '') + '.',
-    'Return its path.',
-  ]), { schema: PATH, phase: 'report', label: 'report' })
-  return { report: jreport ? jreport.path : null, groups: jgroups.map((g) => g.label), failing, gaps: jgaps }
+    'Return its path. ' + REFUSED,
+  ]), { schema: REPORT, phase: 'report', label: 'report' })
+  return {
+    report: jreport && jreport.path ? jreport.path : null,
+    reportText: jreport && jreport.text ? jreport.text : null,
+    groups: jgroups.map((g) => g.label),
+    failing,
+    gaps: jgaps,
+  }
 }
 
 let groups = []
@@ -265,9 +277,9 @@ if (!args.from) {
       'cargo klarch tripwires to ' + at(preflightDir, 'tripwires.txt') + ';',
     '- save the messages of the commits of the range ' + args.history + ', with git log ' +
       '--format="=== %h %s%n%n%b", to ' + at(preflightDir, 'history.txt') + ';',
-    '- save the report files of earlier passes that the range added, with git log -p ' +
-      '--diff-filter=A --format="=== %h %s" ' + args.history + ' -- docs/audit-reports/, to ' +
-      at(preflightDir, 'reports.txt') + '.',
+    '- save the report file of every earlier pass of this axis, of any audit, found by its path, ' +
+      'with git log -p --diff-filter=A --format="=== %h %s" ' + args.commit + ' -- ' +
+      '"docs/audit-reports/*-design-record-axis-pass-*.md", to ' + at(preflightDir, 'reports.txt') + '.',
     'Edit nothing else. Return the Components with their entries, and the sample' +
       (args.sample ? ' as an empty array' : '') + '.',
   ]), { schema: ENTRIES, phase: 'preflight', label: 'preflight' })
@@ -312,6 +324,7 @@ const sampleLines = sample.map((e) => '- ' + show(e) + ' (draft of record: group
 const gaps = []
 // Every step that fails or returns nothing, for the report's part 6.
 const failures = []
+let ofRecord = null
 if (!args.from) {
   phase('drafts')
   const draftBrief = (g) => lines([
@@ -341,6 +354,12 @@ if (!args.from) {
     for (const e of x.g.entries) if (!got.has(id(e))) gaps.push(x.g.label + ': ' + show(e))
   }
   if (gaps.length) log('entries missing from a return: ' + gaps.join('; '))
+  ofRecord = { conforms: 0, fails: 0 }
+  for (const x of drafted) {
+    if (!x || !x.r) continue
+    const own = new Set(x.g.entries.map(id))
+    for (const j of x.r.judged) if (own.has(j.entry)) ofRecord[j.verdict]++
+  }
 }
 
 // Calibration: one auditor compares the sample's verdicts across the groups.
@@ -377,8 +396,9 @@ const verifyBrief = (g) => lines([
   args.kept ? 'Kept list: ' + at(args.scratch, g.label, 'kept.md') : '',
   'Issues listing: ' + at(preflightDir, 'issues.txt'),
   'Tripwires listing: ' + at(preflightDir, 'tripwires.txt'),
-  'History of the audit earlier passes: ' + at(preflightDir, 'history.txt') + ', and their ' +
-    'report files, with the owner\'s rulings: ' + at(preflightDir, 'reports.txt'),
+  'The commit messages of the audit\'s earlier passes: ' + at(preflightDir, 'history.txt') +
+    '; the report file of every earlier pass of this axis, of any audit, with the owner\'s ' +
+    'rulings: ' + at(preflightDir, 'reports.txt'),
   args.previous ? 'For this re-check, the commit the previous pass audited: ' + args.previous : '',
   FROM_DISK,
 ])
@@ -417,6 +437,27 @@ log('verify: ' + verdicts.length + ' of ' + groups.length + ' groups verified; '
   sum('bearsOnRuling') + ' bearing on a ruling, ' + sum('bearsOnTripwire') + ' bearing on a tripwire, ' +
   sum('known') + ' known, ' + sum('kept') + ' kept, ' + sum('createdHeads') + ' creating heads; ' +
   sum('checks') + ' checks')
+
+// The counts the report copies: the script holds each exactly, so no agent takes one by reading.
+const all = groups.reduce((t, g) => t.concat(g.entries), [])
+const perComponent = {}
+for (const e of all) {
+  const c = e.ref.split('@')[1]
+  perComponent[c] = (perComponent[c] || 0) + 1
+}
+const countLines = [
+  'entries: ' + all.length + ', of which ' + all.filter((e) => e.ref.startsWith('design@')).length +
+    ' design heads and ' + all.filter((e) => e.ref.startsWith('rejected@')).length + ' rejected ' +
+    'entries; per Component: ' + Object.keys(perComponent).map((c) => c + ' ' + perComponent[c]).join(', '),
+  ofRecord
+    ? 'drafts of record: ' + ofRecord.conforms + ' conforming, ' + ofRecord.fails + ' failing'
+    : 'drafts of record: not held, since this run restarted from its files; count them from the drafts',
+  'verifiers: ' + verdicts.length + ' of ' + groups.length + ' groups returned; ' + sum('verified') +
+    ' verified, ' + sum('refuted') + ' refuted, ' + sum('plausible') + ' plausible, ' +
+    sum('bearsOnRuling') + ' bearing on a ruling, ' + sum('bearsOnTripwire') + ' bearing on a ' +
+    'tripwire, ' + sum('known') + ' known, ' + sum('kept') + ' kept, ' + sum('createdHeads') +
+    ' creating heads; ' + sum('checks') + ' checks',
+]
 
 // Cross-check.
 phase('cross-check')
@@ -459,13 +500,13 @@ const report = await agent(lines([
   'The sample, each entry with the group whose draft is of record:',
   sampleLines.join('\n'),
   gaps.length ? 'Entries missing from a return: ' + gaps.join('; ') + '.' : '',
+  'The run\'s counts, which the script computed:',
+  countLines.map((l) => '- ' + l).join('\n'),
   'Write ' + at(args.scratch, 'report', 'report.md') + ' in six parts:',
   '1. the header: the commit audited, ' + args.commit + '; the agents of each step; each group ' +
-    'with its first and last entry; the counts of entries, of drafts conforming and failing, ' +
-    'verified, refuted, plausible, bearing on a ruling, bearing on a tripwire, known and kept; for ' +
-    'a re-check, the counts the section record-of-an-audit of the skill ' +
-    'knowledge-architect-project-audit asks of a pass, the owner-list one as the cross-check ' +
-    'proposes it; each entry missing from a return; each refuted draft with its reason;',
+    'with its first and last entry; the run\'s counts above, copied as given; for a re-check, the ' +
+    'counts the section record-of-an-audit of the skill knowledge-architect-project-audit asks of ' +
+    'a pass, the owner-list one as the cross-check proposes it; each entry missing from a return; each refuted draft with its reason;',
   '2. the calibration: per sample entry, each group\'s verdict, the proposed reading and the ' +
     'sentence of the rule it rests on, quoted, or the two readings the rule admits; and the drafts ' +
     'the verifiers judged again under a proposed reading;',
@@ -478,13 +519,14 @@ const report = await agent(lines([
   '6. what the run did not decide: the plausible verdicts, the notes the drafts give of a head ' +
     'false of the code, the "Met outside the task" notes of the returns, and every step that ' +
     'failed or returned nothing' + (failures.length ? ', among them: ' + failures.join('; ') : '') + '.',
-  'Return its path.',
-]), { schema: PATH, phase: 'report', label: 'report' })
+  'Return its path. ' + REFUSED,
+]), { schema: REPORT, phase: 'report', label: 'report' })
 
 return {
-  report: report ? report.path : null,
+  report: report && report.path ? report.path : null,
+  reportText: report && report.text ? report.text : null,
   groups: groups.map((g) => g.label),
-  verified: verdicts.length,
+  groupsVerified: verdicts.length,
   checks: sum('checks'),
   gaps,
 }

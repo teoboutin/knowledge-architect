@@ -42,8 +42,8 @@ good, unless the owner would see the failure anyway, by using the project or by 
 its agents: then a wrong drop costs little, and a cause in doubt may be dropped. That weighs a
 doubt only; it never drops a cause the four conditions admit.
 
-The entry is a level-two heading in the tripwires home of the Component that owns the decision, its
-slug last:
+The entry is a level-two heading in the tripwires home of the Component that owns the decision,
+naming the decision and the premise it watches, its slug last:
 
 ```markdown
 ## Guarding `design@<anchor>@<id>`: <the premise watched> `##<slug>`
