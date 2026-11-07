@@ -139,8 +139,9 @@ failing test. Build it rather than trading intuitions.
 **A checkable claim is checked before it is written down**, against the tree at the moment the
 sentence is written:
 
-- a number comes from a measurement you can point to, with the machine named; a figure whose
-  instrument the same change altered is taken again;
+- a number comes from a measurement you can point to, with the machine named, and the project it
+  was taken in where that is another project; a figure whose instrument the same change altered is
+  taken again;
 - a count is re-counted: files, lines, entries, references, occurrences;
 - "a search returns nothing" and "the only hit in the tree" are run, against the revision the
   sentence describes, so that they match across a line break and across emphasis marks, since

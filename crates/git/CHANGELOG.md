@@ -178,6 +178,8 @@ an empty subsection is omitted.
 - `agent-skills`, patch: goal-setting commits the record in docs/goal-reviews/ with the owner's last
   answers before the goals the owner ruled last are written; the commit that writes them, or a later
   one, deletes it.
+- `agent-skills`, patch: the primer asks that a number measured in another project name that
+  project, beside the machine it was taken on.
 
 ## 0.9.0
 
