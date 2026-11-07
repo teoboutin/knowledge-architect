@@ -35,6 +35,12 @@ outcome also reads printed text, or runs the binary, where it could read a value
 printing, which the owner approved, weighed a rewrite of these sites against a slice whose first step was the
 mechanism alone, and no goal ranks the two.
 
+The owner wants findings returned and not only printed, and rests that on the development guidelines rather than on a
+goal of its own. The default shape of `design@agent-skills@default-code-shape` supports it: "the logic pure, the side effects in a
+thin layer that decides nothing a test of the logic should cover", where a command that prints inside its write loop, chooses its
+exit code and ends the process holds side effects in its logic. A guideline is a default, so it ranks the shapes as a default
+does and no goal ranks them.
+
 `issue@knowledge-architect@command-output-is-not-declared-a-contract` holds the question of which output is a contract;
 a command that returns data offers one by a library function.
 

@@ -39,7 +39,7 @@ and the text writes its placeholder; a row no text uses fails the build.
 `{{snippet:<file>}}`, and the build script inlines; `klarch init --rust` writes all of them but
 `ci.yml` from the crate's `SNIPPETS`, per `design@agent-skills@rust-templates-one-home`. Edit the
 file, not the skill. The example `path@xtask@examples/setup_snippet.rs` compiles the main, and
-`path@xtask@tests/scaffold.rs` builds a project written from the other three and parses the CI
+`path@testing@tests/scaffold.rs` builds a project written from the other three and parses the CI
 workflow's gates command. rustfmt does not reach an included file, so
 `rustfmt --edition 2021 --check` the main by hand after an edit. The checker reads the main as
 Rust source: its comments are prose, a reference in them that resolves here passes the check and

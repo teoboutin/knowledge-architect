@@ -23,5 +23,7 @@ knowledge-architect-check = { path = "../check", version = "=0.9.0" }
 knowledge-architect = { path = "../cli" }
 knowledge-architect-agent-skills = { path = "../agent-skills" }
 knowledge-architect-model = { path = "../model" }
+# The gates command of the CI workflow a scaffold holds, which `tests/scaffold.rs` parses.
+knowledge-architect-gates = { path = "../gates" }
 clap = { version = "4", features = ["derive"] }
 toml = "1.1.4"

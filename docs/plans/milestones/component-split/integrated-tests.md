@@ -42,8 +42,8 @@ As D2 of the milestone document and the threads below rule it:
 
 ## Claims
 
-- **No unit test of any crate loads a mock project.** Test: `git grep -n 'tests/projects' crates/*/src`
-  read whole: each hit is a comment, a scratch path of a test or the walk's own literal. Shown to fail by a recorded unit
+- **No crate's test loads a project kept in another crate.** Test: `git grep -n 'tests/projects' crates/*/src crates/*/tests tools`
+  read whole: each hit is a comment, a scratch path of a test, the walk's own literal, or a path of `testing`'s own tests. Shown to fail by a recorded unit
   test that joins the path.
 - **Every integrated test reaches the crates through their public API.** Test: the tests sit in
   another crate than the code, so the compiler refuses a private item; an item an integrated test
