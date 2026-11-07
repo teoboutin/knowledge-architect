@@ -1,14 +1,14 @@
 ---
 kind: defect
 ---
-# The tests of `check` and `cli` read the machine's git configuration, so a machine setting can fail a correct tree
+# The tests of `check`, `cli` and `testing` read the machine's git configuration, so a machine setting can fail a correct tree
 
 ## Summary
 
-Several test helpers of `check` and `cli` run git with the machine's own configuration. A global
+Several test helpers of `check`, `cli` and `testing` run git with the machine's own configuration. A global
 `commit.gpgsign` that cannot sign, or a global `core.hooksPath` whose `pre-commit` hook fails,
 fails dozens of tests on a correct tree, and a per-user ignore file decides which fixture files two
-helpers stage. Only `Sandbox::git_command` in `path@cli@tests/binary.rs` is isolated, and only for
+helpers stage. Only `Sandbox::git_command` in `path@testing@tests/binary.rs` is isolated, and only for
 the identity.
 
 ## Details
@@ -22,16 +22,16 @@ configuration untouched: each probe set `GIT_CONFIG_GLOBAL` to a file of its own
 `-p knowledge-architect-check -p knowledge-architect`.
 
 - A global configuration holding `commit.gpgsign = true` and `gpg.program = false`: 9 failures in
-  the library's unit tests, 55 in `path@cli@tests/binary.rs`, 1 in `path@cli@tests/extension_api.rs`; the test
+  the library's unit tests, 55 in `path@testing@tests/binary.rs`, 1 in `path@testing@tests/extension_api.rs`; the test
   `a_sandbox_commit_carries_the_sandbox_identity` fails with "gpg failed to sign the data".
 - A global `core.hooksPath` pointing at a `pre-commit` hook that exits 1: the same counts, 9, 55
   and 1.
 - Adding `-c commit.gpgsign=false -c core.hooksPath=/dev/null` to `Sandbox::git` alone
-  brought `path@cli@tests/binary.rs` down to 43 failures under either probe; the other 43 run git through
+  brought `path@testing@tests/binary.rs` down to 43 failures under either probe; the other 43 run git through
   `History::git` and other direct `Command::new("git")` calls.
 - The per-user ignore file: `Sandbox::stage` pins `core.excludesFile=/dev/null`, and so do
-  `History::commit` and the helper of `path@cli@tests/extension_api.rs`. Two `git add -A` calls of
-  `path@cli@tests/binary.rs` do not: one through the free function `git`, one through `History::git`. Found
+  `History::commit` and the helper of `path@testing@tests/extension_api.rs`. Two `git add -A` calls of
+  `path@testing@tests/binary.rs` do not: one through the free function `git`, one through `History::git`. Found
   by reading by the self-consistency reviewer of the same review; no test was shown failing.
 - Not established: which other settings a test reads, and how the library's unit-test repositories
   in `path@git@src/git.rs` and `path@check@src/commands/history.rs` are configured. The failure counts
@@ -56,10 +56,10 @@ no recorded decision.
 
 ### What would close it
 
-Every helper of the tests of `check` and `cli` that runs git goes through one function that isolates the
+Every helper of the tests of `check`, `cli` and `testing` that runs git goes through one function that isolates the
 configuration a test does not mean to read: the identity as `Sandbox::git_command` does, plus at
 least `commit.gpgsign=false`, `core.hooksPath=/dev/null` and `core.excludesFile=/dev/null`, or a
 `GIT_CONFIG_GLOBAL` pointing at an empty file with `GIT_CONFIG_NOSYSTEM=1`. The two probes above
-then pass, run as a test or by hand, and `path@cli@CLAUDE.md` states the contract for
+then pass, run as a test or by hand, and `path@testing@CLAUDE.md` states the contract for
 every helper. The unit tests of `path@git@src/git.rs`, which build repositories of their own, are
 held to the same function or to one of the git crate's, and `path@git@CLAUDE.md` states it.

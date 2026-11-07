@@ -72,3 +72,7 @@ users no dependency it would otherwise be spared. It would change an interface o
 prints over its tools/rules-corpus, the function `component_dir` aside. Moving an item between files
 would be a library break, and the public surface would be computed from the whole module tree rather
 than read in one file.
+
+### The harness kept a role module of `check`, re-exported by `cli` at `knowledge_architect::testing`, with the shared test crate unpublished `##harness-kept-in-check`
+
+`live`. It spares an extension's tests one change of import and one more dependency, and each new version one more first publish. It is the import path extension writers use. The owner chose the published crate, for a harness and fixtures with one home, and an extension's tests pulling it separately.

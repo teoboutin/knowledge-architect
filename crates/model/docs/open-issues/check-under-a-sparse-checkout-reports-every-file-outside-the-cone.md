@@ -38,5 +38,5 @@ way. Whether the head meant to cover a skip-worktree entry is not established.
 
 A ruling on what plain `check` judges under a sparse checkout: the files on disk, the index's
 blobs for the skip-worktree entries, or a refusal naming the sparse checkout. Then the head
-`design@model@git-supplies-the-walk` states it, and a test in `path@cli@tests/binary.rs` builds a
+`design@model@git-supplies-the-walk` states it, and a test in `path@testing@tests/binary.rs` builds a
 sparse checkout and asserts the chosen verdict.

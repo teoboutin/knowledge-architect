@@ -1,96 +1,92 @@
-//! `check` run against whole projects, not against strings.
+//! `check` driven through its public API over whole projects, not over strings.
 //!
-//! A mock project under `path@check@tests/projects/` is a complete project: it carries its
+//! A mock project under `path@testing@tests/projects/` is a complete project: it carries its
 //! own `knowledge-architect.toml` and its own documents, and it declares no table `check` does not own.
-//! That is what makes these tests worth more than the in-memory ones — a fixture written as a
+//! That is what makes these tests worth more than the in-memory ones: a fixture written as a
 //! string cannot exercise the walk, the exclusions, or a layout different from this repository's.
 //!
-//! The directory stays excluded by this repository's own manifest: each mock project is a
-//! complete foreign project, and its planted defects must be reported by the test that runs the
-//! tool over it, never as this repository's own.
+//! **A test states what the tree holds, in a copy.** A run reads its committed generated files
+//! from the tree, and no caller assembles what it reads, per `design@check@inputs-are-gathered`, so a
+//! test about a generated file that is absent, current or edited makes that state in a copy of
+//! the mock, a git repository of its own, and runs over it.
 
-use std::path::PathBuf;
+use std::collections::HashMap;
+use std::path::{Path, PathBuf};
+use std::process::Command;
+use std::sync::OnceLock;
 
-use crate::{Manifest, Model};
+use knowledge_architect_check::commands::Gathered;
+use knowledge_architect_check::{Finding, Manifest, Model};
+use knowledge_architect_model as km;
+use knowledge_architect_testing::{foundation, run_with, CHECKS};
 
-fn mock(name: &str) -> Manifest {
-    let root = PathBuf::from(env!("CARGO_MANIFEST_DIR"))
+fn source(name: &str) -> PathBuf {
+    Path::new(env!("CARGO_MANIFEST_DIR"))
         .join("tests/projects")
-        .join(name);
-    Manifest::load(&root).expect("the mock project's manifest")
+        .join(name)
 }
 
-fn model(name: &str) -> Model {
-    Model::build(&mock(name), &[]).expect("a model of the mock project")
+fn git(dir: &Path, args: &[&str]) {
+    let out = Command::new("git")
+        .args(args)
+        .current_dir(dir)
+        .output()
+        .expect("git runs");
+    assert!(
+        out.status.success(),
+        "git {args:?}: {}",
+        String::from_utf8_lossy(&out.stderr)
+    );
 }
 
-/// Every `register.toml` beside an instance, as the binary reads them for a check.
-fn configs(manifest: &Manifest, model: &Model) -> std::collections::HashMap<PathBuf, String> {
-    let mut out = std::collections::HashMap::new();
-    for (_, _, home) in crate::model::table::Anchors::of(manifest, model.listing()).instances() {
-        if let Ok(text) = std::fs::read_to_string(manifest.root().join(&home.config)) {
-            out.insert(home.config.clone(), text);
+fn copy_tree(from: &Path, to: &Path) {
+    std::fs::create_dir_all(to).expect("the copy's directory");
+    for entry in std::fs::read_dir(from).expect("a readable mock") {
+        let entry = entry.expect("a directory entry");
+        let target = to.join(entry.file_name());
+        if entry.file_type().expect("a file type").is_dir() {
+            copy_tree(&entry.path(), &target);
+        } else {
+            std::fs::copy(entry.path(), &target).expect("a copied file");
         }
     }
-    out
 }
 
-/// What the binary asks git for, taken over a mock project in place.
-///
-/// These tests build their models under this repository's own worktree, so git answers about
-/// the mock's files out of this repository's own listing. That listing is
-/// `--cached --others --exclude-standard`, so a new fixture file is in it whether or not it is
-/// staged; an ignore rule is what takes one out, and a deletion has to be staged or the path
-/// stays in the listing with no bytes behind it.
-fn git_answers(
-    manifest: &crate::Manifest,
-    model: &Model,
-) -> (std::collections::HashSet<String>, Vec<PathBuf>) {
-    let anchors = crate::model::table::Anchors::of(manifest, model.listing());
-    let queries = crate::model::resolve::ignore_queries(model, &anchors);
-    let ignored = crate::git::ignored(manifest.root(), &queries).expect("git answers the batch");
-    let tracked =
-        crate::git::tracked_and_ignored(manifest.root()).expect("git answers the listing");
-    (ignored, tracked)
+/// A copy of a mock under a name of its own in the target directory, whose generated files `state`
+/// writes before git lists them.
+fn copy(tag: &str, name: &str, state: impl FnOnce(&Path)) -> Manifest {
+    let dir = Path::new(env!("CARGO_TARGET_TMPDIR"))
+        .join("checks-over-mocks")
+        .join(tag);
+    let _ = std::fs::remove_dir_all(&dir);
+    copy_tree(&source(name), &dir);
+    git(&dir, &["init", "-q"]);
+    git(&dir, &["-c", "core.excludesFile=/dev/null", "add", "-A"]);
+    state(&dir);
+    git(&dir, &["-c", "core.excludesFile=/dev/null", "add", "-A"]);
+    Manifest::load(&dir).expect("the copy's manifest")
+}
+
+fn findings(manifest: &Manifest) -> Vec<Finding> {
+    let model = Model::build(manifest, &[]).expect("a model");
+    let gathered = Gathered::over(manifest, &model).expect("what a run reads");
+    run_with(&model, manifest, &gathered.inputs(), &[]).findings
 }
 
 /// A project that carries what it declares reports nothing, over every built-in check.
 #[test]
 fn the_conformant_mocks_report_nothing_over_every_built_in_check() {
-    use crate::check::{foundation, run, Inputs};
-    use std::collections::HashMap;
     for name in ["minimal", "dirhome", "core"] {
-        let manifest = mock(name);
-        let model = model(name);
-        let survey =
-            crate::model::listing::survey(&manifest, &model).expect("a survey of the mock");
-        // The committed generated files, read from the tree rather than regenerated, so a
-        // committed index that has gone stale fails here.
-        let mut committed = HashMap::new();
-        for rel in crate::model::generated::generated_paths(&manifest, model.listing()) {
-            if let Ok(text) = std::fs::read_to_string(manifest.root().join(&rel)) {
-                committed.insert(rel, text);
-            }
-        }
-        let git = git_answers(&manifest, &model);
-        let inputs = Inputs {
-            committed: &committed,
-            configs: &configs(&manifest, &model),
-            present: &survey.present,
-            directories: &survey.directories,
-            outside: &survey.outside,
-            ignored: &git.0,
-            tracked_and_ignored: &git.1,
-            refused: &survey.refused,
-            links: &survey.links,
-            installed: &survey.installed,
-            shipped: &[],
-        };
+        // In place, so a committed index that has gone stale fails here.
+        let manifest = Manifest::load(&source(name)).expect("the mock's manifest");
+        let model = Model::build(&manifest, &[]).expect("a model");
+        let gathered = Gathered::over(&manifest, &model).expect("what a run reads");
+        let inputs = gathered.inputs();
         assert!(
             foundation(&model, &manifest, &inputs).is_ok(),
             "{name}: phases 1 to 3"
         );
-        let found: Vec<String> = run(&model, &manifest, &inputs, &[])
+        let found: Vec<String> = run_with(&model, &manifest, &inputs, &[])
             .findings
             .iter()
             .map(|f| f.to_string())
@@ -101,55 +97,73 @@ fn the_conformant_mocks_report_nothing_over_every_built_in_check() {
 
 mod planted {
     use super::*;
-    use crate::check::{run, Inputs, CHECKS};
-    use std::collections::HashMap;
-    use std::path::PathBuf;
 
     /// The file-register indexes this project would have if they were current.
-    fn current_indexes(manifest: &Manifest, model: &Model) -> HashMap<PathBuf, String> {
-        let survey = crate::model::listing::survey(manifest, model).expect("a survey of the mock");
-        crate::model::generated::file_register_indexes(
-            model,
-            manifest,
-            &survey.present,
-            &survey.directories,
-        )
-        .into_iter()
-        .collect()
+    fn current_indexes(manifest: &Manifest) -> HashMap<PathBuf, String> {
+        let model = Model::build(manifest, &[]).expect("a model");
+        let survey = km::listing::survey(manifest, &model).expect("a survey of the mock");
+        km::generated::file_register_indexes(&model, manifest, &survey.present, &survey.directories)
+            .into_iter()
+            .collect()
     }
 
-    /// The findings of `check`'s last phase, with the committed files as stated.
-    fn findings_with(
-        committed: impl Fn(&Manifest, &Model) -> HashMap<PathBuf, String>,
-    ) -> Vec<String> {
-        let manifest = mock("planted");
-        let model = Model::build(&manifest, &[]).expect("a model");
-        let committed = committed(&manifest, &model);
-        let survey =
-            crate::model::listing::survey(&manifest, &model).expect("a survey of the mock");
-        let git = git_answers(&manifest, &model);
-        let inputs = Inputs {
-            committed: &committed,
-            configs: &configs(&manifest, &model),
-            present: &survey.present,
-            directories: &survey.directories,
-            outside: &survey.outside,
-            ignored: &git.0,
-            tracked_and_ignored: &git.1,
-            refused: &survey.refused,
-            links: &survey.links,
-            installed: &survey.installed,
-            shipped: &[],
-        };
-        run(&model, &manifest, &inputs, &[])
-            .findings
+    /// The findings of `check`'s last phase over a copy of the project.
+    fn as_lines(manifest: &Manifest) -> Vec<String> {
+        super::findings(manifest)
             .iter()
             .map(|f| format!("{}  {}", f.location(), f.what))
             .collect()
     }
 
+    /// Writes each file of a generated set into a copy.
+    fn write_all(dir: &Path, files: &HashMap<PathBuf, String>) {
+        for (rel, text) in files {
+            let path = dir.join(rel);
+            std::fs::create_dir_all(path.parent().expect("a parent")).expect("a parent directory");
+            std::fs::write(path, text).expect("a generated file");
+        }
+    }
+
+    /// A copy with every generated file current but `ABSENT`, whose absence is the registers check's
+    /// planted defect, shared by the tests that only read it.
+    fn current() -> &'static Manifest {
+        static COPY: OnceLock<Manifest> = OnceLock::new();
+        COPY.get_or_init(|| {
+            copy("current", "planted", |dir| {
+                let mut want = current_indexes(&Manifest::load(dir).expect("the manifest"));
+                want.remove(Path::new(ABSENT));
+                write_all(dir, &want);
+            })
+        })
+    }
+
+    /// A copy with every generated file current but for what `edit` does to the set.
+    fn edited(tag: &str, edit: impl FnOnce(&mut HashMap<PathBuf, String>)) -> Vec<String> {
+        as_lines(&copy(tag, "planted", |dir| {
+            let mut want = current_indexes(&Manifest::load(dir).expect("the manifest"));
+            edit(&mut want);
+            write_all(dir, &want);
+        }))
+    }
+
+    /// A copy whose tree holds no generated file.
+    fn none() -> Vec<String> {
+        static LINES: OnceLock<Vec<String>> = OnceLock::new();
+        LINES
+            .get_or_init(|| {
+                as_lines(&copy("none", "planted", |dir| {
+                    let manifest = Manifest::load(dir).expect("the manifest");
+                    for rel in current_indexes(&manifest).keys() {
+                        let _ = std::fs::remove_file(dir.join(rel));
+                    }
+                }))
+            })
+            .clone()
+    }
+
     fn findings() -> Vec<String> {
-        findings_with(current_indexes)
+        static LINES: OnceLock<Vec<String>> = OnceLock::new();
+        LINES.get_or_init(|| as_lines(current())).clone()
     }
 
     /// Every planted defect this project carries, by the check that reports it: the check,
@@ -172,12 +186,14 @@ mod planted {
         // a `rejected` entry no design entry cites, which the orphan check reports. Then, in
         // notes/ids.md, a defined id written outside its reference form, once per lint. And, in
         // docs/goals.md, a design head cited from a goals home, which resolves and is refused
-        // there, per `design@check@goals-home-cites-upward-only`.
-        ("references", 28, "is referenced"),
-        // One defect per shape assertion over what is there: a missing index, an undeclared
-        // kind, a missing owed subsection, an undeclared group, a file of another suffix, and
-        // frontmatter that does not parse.
-        ("registers", 6, "issue register"),
+        // there, per `design@check@goals-home-cites-upward-only`. And, in this copy that holds no
+        // generated file, the three READMEs' links to an index that is not there.
+        ("references", 31, "is referenced"),
+        // One defect per shape assertion over what is there: an undeclared kind, a missing owed
+        // subsection, an undeclared group, a file of another suffix, and frontmatter that does not
+        // parse; and, in this copy that holds no generated file, a missing index for each of the
+        // six homes.
+        ("registers", 11, "issue register"),
         // Six register indexes: three issue homes, the two plans homes and the one milestone.
         // The run is handed an empty committed set, so each is reported missing.
         ("generated", 6, "the generated file is missing"),
@@ -200,7 +216,7 @@ mod planted {
                 "{name} has no row: every check owes a planted defect"
             );
         }
-        let whole = findings_with(|_, _| HashMap::new());
+        let whole = none();
         let planted: usize = PLANTED.iter().map(|(_, n, _)| n).sum();
         assert_eq!(whole.len(), planted, "{whole:#?}");
         for (name, n, fragment) in PLANTED {
@@ -234,9 +250,8 @@ mod planted {
     /// fails here.
     #[test]
     fn every_committed_index_meant_to_be_current_is_what_the_generator_writes() {
-        let manifest = mock("planted");
-        let model = Model::build(&manifest, &[]).expect("a model");
-        let want = current_indexes(&manifest, &model);
+        let manifest = Manifest::load(&source("planted")).expect("the mock's manifest");
+        let want = current_indexes(&manifest);
         let mut listed: Vec<PathBuf> = CURRENT.iter().map(PathBuf::from).collect();
         listed.push(PathBuf::from(ABSENT));
         listed.push(PathBuf::from(STALE));
@@ -259,11 +274,9 @@ mod planted {
     #[test]
     fn an_index_that_differs_by_a_trailing_line_break_is_out_of_date() {
         let path = PathBuf::from(CURRENT[0]);
-        let edited = findings_with(|m, model| {
-            let mut c = current_indexes(m, model);
+        let edited = edited("trailing-break", |c| {
             let text = format!("{}\n", c[&path]);
             c.insert(path.clone(), text);
-            c
         });
         let hits: Vec<&String> = edited
             .iter()
@@ -275,7 +288,7 @@ mod planted {
 
     #[test]
     fn a_generated_file_that_is_absent_is_reported_as_missing() {
-        let gone = findings_with(|_, _| HashMap::new());
+        let gone = none();
         assert_eq!(
             gone.iter().filter(|f| f.contains("is missing")).count(),
             6,
@@ -288,29 +301,9 @@ mod planted {
     /// pointer from the root at a file of `plans` that is no plan document reaches inside it.
     #[test]
     fn a_plan_document_cited_by_its_path_is_refused_with_the_form_that_resolves() {
-        let manifest = mock("planted");
-        let model = Model::build(&manifest, &[]).expect("a model");
-        let committed = current_indexes(&manifest, &model);
-        let survey =
-            crate::model::listing::survey(&manifest, &model).expect("a survey of the mock");
-        let git = git_answers(&manifest, &model);
-        let inputs = Inputs {
-            committed: &committed,
-            configs: &configs(&manifest, &model),
-            present: &survey.present,
-            directories: &survey.directories,
-            outside: &survey.outside,
-            ignored: &git.0,
-            tracked_and_ignored: &git.1,
-            refused: &survey.refused,
-            links: &survey.links,
-            installed: &survey.installed,
-            shipped: &[],
-        };
-        let here: Vec<(u32, String, String)> = run(&model, &manifest, &inputs, &[])
-            .findings
+        let here: Vec<(u32, String, String)> = super::findings(current())
             .into_iter()
-            .filter(|f| f.file == std::path::Path::new("notes/plans.md"))
+            .filter(|f| f.file == Path::new("notes/plans.md"))
             .map(|f| (f.line.unwrap_or(0), f.what, f.action))
             .collect();
         let at = |line: u32| -> (String, String) {
@@ -359,11 +352,9 @@ mod planted {
     #[test]
     fn a_hand_edited_file_register_index_is_reported_at_the_line_that_was_edited() {
         let path = PathBuf::from("parts/widget/docs/open-issues/index.md");
-        let edited = findings_with(|m, model| {
-            let mut c = current_indexes(m, model);
+        let edited = edited("hand-edited", |c| {
             let text = c[&path].replace("| todo |", "| defect |");
             c.insert(path.clone(), text);
-            c
         });
         let hits: Vec<&String> = edited
             .iter()

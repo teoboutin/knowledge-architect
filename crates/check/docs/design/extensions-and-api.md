@@ -107,22 +107,23 @@ skipping the regime in silence.
 The library has five kinds of consumer: a binary that registers an extension, the extension, the
 extension's tests, a frontend that is no command line, and `create`, the crate above it whose runs end as `check --fix` ends. The
 last two alone name `commands`, through this package; `create` also takes the install from it, since `init` installs the shipped set,
-and `staged_changes_stop_the_fix`, a narrow answer, rather than the staged list that answers it. **Testing an extension over a mock project is part of what the library
+and `staged_changes_stop_the_fix`, a narrow answer, rather than the staged list that answers it. **Driving a run over a mock project is part of what the library
 publishes**, because a project that adopts the tool with a subject of its own, per
 `goal@knowledge-architect@every-target-project-can-adopt-it`, has to test that subject as `check` tests
 its own. `design@check@a-foreign-build-is-refused` already requires every extension binary to test
 the refusal in its own suite. Its facade is shaped as `design@knowledge-architect@api-facade` says.
 
-`cli` keeps each consumer's path by re-exporting `extension`, `document` and `testing` from its own facade, per
-`design@knowledge-architect@the-binary-crate-keeps-the-package-name`, beside its module `cli`, the role a binary's `main` meets.
-`commands` and `extension` are both a role module and the code of that role; `document` and `testing` only re-export:
+`cli` keeps each consumer's path by re-exporting `extension` and `document` from its own facade, per
+`design@knowledge-architect@the-binary-crate-keeps-the-package-name`, beside its module `cli`, the role a binary's `main` meets, and
+`testing` publishes `run` to an extension's tests, per `design@knowledge-architect@testing-crate`.
+`commands` and `extension` are both a role module and the code of that role; `document` and `run` only re-export:
 
 | module | what it serves |
 | --- | --- |
 | `commands` | a frontend, the command line among them: the logic of the commands of this crate behind a typed function, what `create` takes of the install, refusing a foreign build or another version, gathering a run's inputs |
 | `extension` | writing an extension: its two traits, what `check` hands them, what they return |
 | `document` | reading a document's parse, per `design@check@an-extension-builds-its-own-model` |
-| `testing` | running `check` over a mock project as the binary does |
+| `run` | driving a run's phases and reading what the last one reports, as the binary does |
 
 - **What `model` publishes is `model`'s facade, per `design@model@model-facade`**, and this facade names
   of it what an extension meets, in its root and its role modules, and neither the entity table nor the
@@ -133,8 +134,9 @@ the refusal in its own suite. Its facade is shaped as `design@knowledge-architec
 - **A value only `check` produces is read, not built.** `Report` and `Snapshot` have public read-only
   methods and no public constructor; `Outside`'s is `model`'s, whose variants a reader matches. A value a consumer starts from, such
   as a `Manifest`, a `Model` or a `Finding`, keeps its public constructors.
-- **Nothing becomes public for `check`'s own tests.** A test that needs a private item is a
-  unit-test module inside the crate, as `path@check@src/mock_projects.rs` is.
+- **Nothing becomes public for `check`'s own tests.** An item becomes public because a consumer needs it, which
+  an integrated test can show, per `design@agent-skills@integrated-test-through-public-api`: where what the test needs
+  has an effect a consumer could see, the facade is what is fixed, and where it has none, the claim is a unit test's.
 - `Manifest::command` is public although thaum's extension does not call it: an extension's
   finding that names a repair command owes the project's declared command, per
   `design@check@declared-command`.
@@ -153,8 +155,7 @@ over an incomplete model), and an extension's tests all build on it. `check --st
 `index --staged` read a snapshot instead, and build their `Inputs` from it, per
 `design@check@staged-tree-source`. So no caller outside the crate assembles
 `Inputs`, which `design@check@ne-minimal` makes impossible for a literal. A new input is then a
-change inside the gathering that reads it. `check`'s own mock-project tests still assemble `Inputs` by hand:
-some of them hand a check an input that differs from the tree's, such as no committed file.
+change inside the gathering that reads it. A test that wants an input to differ from the tree's makes that state in a copy of a mock project.
 
 The design this decision did not keep: `rejected@check@inputs-struct-literal`.
 

@@ -128,10 +128,20 @@ parser in them. It says nothing of which crates `check` may depend on, which
 per `rejected@gates@gates-command-of-the-checker`. The rival, the library and the binary as one crate, saves no
 dependency once the commands span crates: `rejected@knowledge-architect@single-crate`.
 
+### The harness and the mock projects are a crate of their own, on which no crate depends `##testing-crate`
+
+`knowledge-architect-testing`, in crates/testing, publishes what an extension's tests need, and depends on `check` and `model` for it, by path and by exact version. An
+extension's tests add it to their dev-dependencies. Its unshipped `tests/` holds this repository's mock projects and the tests over
+them, so it dev-depends on `cli` and on `agent-skills`, by path alone, which publishing drops, per
+`path@agent-skills@docs/grounding/crate-boundaries.md`. So no crate depends on it, and the graph holds no cycle, dev-dependencies
+included, as `design@agent-skills@shared-test-component` asks.
+The owner chose this over `rejected@knowledge-architect@harness-kept-in-check`, which no goal ranks: it costs each extension's tests one more
+dependency and one more first publish.
+
 ### The package that holds the binary keeps the name `knowledge-architect`, whichever crate holds the checks `##the-binary-crate-keeps-the-package-name`
 
-A project that runs the checker or writes an extension names this package alone of the checker's: its dependency line, its `cargo install` and an extension's imports
-all spell it. So `cli` has that name and keeps every path a consumer names, re-exporting what the checks' crate holds, as
+A project that runs the checker or writes an extension names this package alone of the checker's for what it builds: its dependency line, its `cargo install` and an extension's imports
+all spell it, and an extension's tests add `knowledge-architect-testing`, per `design@knowledge-architect@testing-crate`. So `cli` has that name and keeps every path such a build names, re-exporting what the checks' crate holds, as
 `design@check@the-facade-publishes-what-a-consumer-needs` lists, and the crate of the checks is `knowledge-architect-check`,
 which such a project's build does not name.
 The rival, a new name for the top-level crate, changes every project's dependency line and every extension's imports
@@ -317,7 +327,7 @@ a looser check is a patch.
   then get no changelog entry, the owner ruled: "go ahead with the default, patch with a Migration
   entry". A check that reports less fails no tree that passed. The one consumer it can fail is a
   test that pins findings of `check`'s own checks, which the section "Testing an extension" of
-  `cli`'s crate documentation advises against. Every project pins the checker exactly, per
+  `testing`'s crate documentation advises against. Every project pins the checker exactly, per
   `design@agent-skills@exact-pin`, so that consumer meets the change only at an explicit pin move,
   and the Migration entry of `design@knowledge-architect@changelog-entries` names the change for
   it.

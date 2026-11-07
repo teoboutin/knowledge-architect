@@ -6,7 +6,8 @@
 # checks do not report over a tree that is right.
 
 [project]
-# A mock project inside `check`'s directory, which the binary built here confirms.
+# A mock project of this repository. A test in process needs no confirmed pin, and a test of the
+# binary runs in a copy that carries the version.
 checker-version = "fixture"
 name = "dirhome"
 components = []

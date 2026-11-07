@@ -33,6 +33,7 @@ components = [
     "crates/transcript",
     "crates/query",
     "crates/create",
+    "crates/testing",
 ]
 
 # This repository's own agent configuration carries an issue register, for defects of the
@@ -59,15 +60,19 @@ skip-files = [
     "crates/model/CHANGELOG.md",
     "crates/mutate/CHANGELOG.md",
     "crates/query/CHANGELOG.md",
+    "crates/testing/CHANGELOG.md",
     "crates/transcript/CHANGELOG.md",
 ]
 
 # Paths skipped by location, each one another project rather than a part of this one.
 #
-# `check`'s mock projects are complete projects of their own: their documents are fixtures, and a
-# checker that read them would report a fixture's planted defect as a defect of this repository.
+# `testing`'s tests hold this repository's mock projects, complete projects of their own: their
+# documents are fixtures, and a checker that read them would report a fixture's planted defect as a
+# defect of this repository. Its test files sit there too: `klarch` links nothing of `testing`, so
+# their literals, rule-shaped on purpose, would be read as prose, and the row also leaves their
+# comments unchecked, per `issue@model@string-literals-in-code-may-not-need-reading-at-all`.
 exclude = [
-    "crates/check/tests/projects",
+    "crates/testing/tests",
 ]
 
 # GitHub's rebase merge gives a branch's commits new SHAs, so a message or a document of the

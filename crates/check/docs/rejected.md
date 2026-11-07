@@ -106,7 +106,7 @@ same question in its own format would leave nothing to say which of the two was 
 `live`. It frees every fixture and needs a convention at each one, which the rule of `design@check@checker-source-literals-are-data`, by the directory a file sits in, does not. It is the recorded fallback should a literal outside the tool
 ever need rule-shaped bytes as data where no binding can hold it.
 
-### Moving the tool's unit tests under `path@check@tests/` and excluding the directory `##unit-tests-moved-under-tests`
+### Moving the tool's unit tests under a `tests/` directory and excluding the directory `##unit-tests-moved-under-tests`
 
 `live`. Integration tests reach only public items. Measured: 31 files carry a test module, 349
 tests, most over private functions, so the move makes those public or drops the tests.

@@ -1,11 +1,12 @@
 # WHAT THIS MOCK EXERCISES, for `klarch`: detection. Its documents are wrong on purpose,
 # one planted defect per built-in check of the last phase, the family `agents` apart, and a test asserts the findings
 # themselves rather than merely that something failed. Every other built-in check owes a row in
-# `PLANTED` in `path@check@src/mock_projects.rs`, so a new defect goes here and its count
+# `PLANTED` in `path@testing@tests/checks_over_mocks.rs`, so a new defect goes here and its count
 # goes there.
 
 [project]
-# A mock project inside `check`'s directory, which the binary built here confirms.
+# A mock project of this repository. A test in process needs no confirmed pin, and a test of the
+# binary runs in a copy that carries the version.
 checker-version = "fixture"
 name = "planted"
 # One component below the root, carrying every document and every register home.

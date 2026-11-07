@@ -13,5 +13,5 @@ text, per `design@transcript@transcript-labels-in-code`.
 **`path@transcript@src/output.rs` is a copy of the writer**, per `design@knowledge-architect@a-copy-of-the-writer-per-crate`: every write to stdout goes through it, and a closed stdout ends the command
 with exit 2, per `design@cli@exit-code-ladder`. 
 
-The fixtures under `path@transcript@tests/transcripts/` are read by the tests of the binary, in `path@cli@tests/binary.rs`, since
-`CARGO_BIN_EXE_klarch` is set there alone.
+The fixtures under `path@testing@tests/transcripts/` are read by the tests of the binary, in `path@testing@tests/binary.rs`, per
+`design@testing@binary-tests-in-testing`.

@@ -22,9 +22,11 @@ an empty subsection is omitted.
   such a file changes.
 - `checks`, minor: `commits` reports a commit's tree whose `[walk]` rows, or an extension's generated list, keep the root CLAUDE.md out under the `claude` harness, as `check` reports it, in phase 2. A branch holding such a commit
   repairs it: no row may keep that file out.
-- `library`, major: `knowledge_architect::testing::CHECKS` holds four names, so its array type changes,
-  and `testing::foundation` no longer stops on the installed files. A consumer's test over the
-  installed set asserts it in the report of `run_with`.
+- `library`, major: the module `knowledge_architect::testing` leaves. An extension's tests add the package
+  `knowledge-architect-testing` to their dev-dependencies, at the exact version of `knowledge-architect`, and import
+  `foundation`, `run_with`, `Phase`, `Report`, `Stop`, `Structure` and `CHECKS` from `knowledge_architect_testing`.
+- `library`, major: `CHECKS` holds four names, so its array type changes, and `foundation` no longer stops on the
+  installed files. A consumer's test over the installed set asserts it in the report of `run_with`.
 - `checks`, minor: a goals home, its goals and its head alike, cites only a goal or a register's home
   of its own Component or of a Component that encloses it, the root included; every other reference
   written there is a finding, a goal or a register's home of a nested or a sibling Component, a design
@@ -76,6 +78,8 @@ an empty subsection is omitted.
   `worklist` as typed functions, and depends on nothing of the checks, for a program that consults a record.
 - `library`, minor: the package `knowledge-architect-transcript` holds the reader of Claude Code's session transcripts and the
   logic of `transcript`, as a typed function that takes the project's root.
+- `library`, minor: the package `knowledge-architect-testing` holds what an extension's tests need to run the checks over a
+  mock project, and `Entities::definition_findings` of `knowledge-architect-model` reads phase 3's findings.
 - `library`, minor: the package `knowledge-architect-create` holds the logic of `init` and `new-component` as typed functions.
 - `library`, minor: the package `knowledge-architect-model` holds what knowledge-architect reads of
   a project, the manifest, the walk, the parse, the entity table, phases 1 to 3 and the resolver, for a

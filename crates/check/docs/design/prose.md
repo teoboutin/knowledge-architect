@@ -8,7 +8,7 @@ Under the tool's own directories a string literal is never prose. Its comments a
 every other file's, and everywhere else in a tree a string literal is prose unless it is bound
 to a name, per `design@model@grammars-not-prefixes`.
 
-**The tool's unit tests are the one place in a tree whose fixtures are rule-shaped on purpose.**
+**The tool's tests are the one place in a tree whose fixtures are rule-shaped on purpose.**
 A number, a marker, a slug, a path or a version pin is written so that a test can watch a check
 react to it. Read as prose each one is a live claim, and hiding each behind a named constant to
 be interpolated makes the tests harder to read than the code they test. Comments stay prose
@@ -19,8 +19,7 @@ Components: `cli`'s, `check`'s, the `git` crate's, the `model` crate's, the crat
 `transcript`, and the Component of each extension the binary registers. Each library exports
 the directory of the Component it belongs to, evaluated at build time, and the binary hands the
 list of its libraries' directories to the walk. Each is one crate whose directory is its
-Component, so each library exports its own `CARGO_MANIFEST_DIR`, and `klarch` and
-its tests sit inside `cli`'s. An extension whose library crate sits below its Component's directory exports
+Component, so each library exports its own `CARGO_MANIFEST_DIR`, and `klarch` sits inside `cli`'s. An extension whose library crate sits below its Component's directory exports
 that Component's directory instead, or the binary and tests beside the library would sit outside
 it: a binary sees only the libraries it depends on. A binary run
 through a cargo alias over `cargo run` is built from the checkout on every invocation, so each
@@ -32,13 +31,15 @@ the prefix test, so a symlinked checkout does not defeat it; a symlink inside th
 followed. A manifest row is not an option, because a row can be pointed at any directory, which
 is the shape `design@check@the-regime-has-no-opt-out` exists to refuse: only the checker's own source
 can ever be exempt, and it is exempt by construction. The row's entry is
-`rejected@check@exempt-directory-manifest-row`.
+`rejected@check@exempt-directory-manifest-row`. `klarch` links nothing of `testing`, so the test files there are outside
+this list; a row of this repository's manifest takes them out of the walk whole, comments included, per
+`design@testing@test-files-outside-the-walk`, which exempts no literal of a file the walk reads.
 
 **The failure that remains is loud.** The summary block names each of the checker's directories, relative to the root when it sits under it and
 absolute otherwise, even when the compiled directory no longer exists, and prints the count of
 Rust files it covered, so the state is visible in every run. A directory exempts files only when
-it sits inside the tree being checked: a tree that sits inside it instead, such as a mock project under
-`path@check@tests/projects/`, is a foreign project and every literal in it is prose.
+it sits inside the tree being checked: a tree that sits inside it instead, such as a project an extension's
+crate keeps as a mock, is a foreign project and every literal in it is prose.
 
 **Whole source rather than test modules only.** The non-test source holds no literal that cites
 a rule, a finding message interpolates the number it names, and a narrower rule would cost an
@@ -93,7 +94,7 @@ it reads are each crate's own directory and package name, beside the Component d
 the summary's checker-source line names each Component whose library the binary links and
 counts the walked Rust files under them. And a tree holding one of the binary's crates at
 another relative path is refused. `klarch` does this in
-`path@cli@tests/binary.rs`; an extension binary does it in its own suite, because only it
+`path@testing@tests/binary.rs`; an extension binary does it in its own suite, because only it
 links its extension's library.
 
 The design this decision did not keep: `rejected@check@run-time-checker-directory-discovery`.

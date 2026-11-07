@@ -29,7 +29,6 @@
 //! | [`cli`] | the `main` of a binary: the commands, running one, finding the project, refusing a build from another checkout, gathering a run's inputs |
 //! | [`extension`] | writing an extension: the two traits, what `check` hands them, and what they return |
 //! | [`document`] | reading a document's parse: prose regions, scopes, code spans, observations |
-//! | [`testing`] | testing an extension over a mock project, as the binary would run it |
 //!
 //! # A binary that registers an extension
 //!
@@ -161,48 +160,8 @@
 //!
 //! # Testing an extension
 //!
-//! A test runs `check` over a mock project as the binary does, with the public items alone:
-//!
-//! ```no_run
-//! # use knowledge_architect::extension::Extension;
-//! # fn the_extension() -> Box<dyn Extension> { unimplemented!() }
-//! use knowledge_architect::extension::{configure, Purpose, Tree};
-//! use knowledge_architect::testing::{foundation, run_with};
-//! use knowledge_architect::{cli, Manifest, Model};
-//!
-//! let mut manifest = Manifest::load("tests/projects/a-mock".as_ref()).unwrap();
-//! let mut extensions = vec![the_extension()];
-//! configure(&mut manifest, &mut extensions);
-//! let model = Model::build(&manifest, &[]).unwrap();
-//! let gathered = cli::Gathered::over(&manifest, &model).unwrap();
-//! let inputs = gathered.inputs();
-//! foundation(&model, &manifest, &inputs).expect("phases 1 to 3 find nothing");
-//! let prepared = extensions[0]
-//!     .prepare(&manifest, &model, Tree::Checkout(manifest.root()), Purpose::Check)
-//!     .unwrap();
-//! let report = run_with(&model, &manifest, &inputs, &[(extensions[0].checks(), prepared.as_ref())]);
-//! assert!(report.findings.is_empty());
-//! ```
-//!
-//! A mock project is a directory inside the repository with its own `knowledge-architect.toml`.
-//! git's listing is what the walk reads, so a mock's files are walked as soon as they exist, and
-//! an ignore rule must not cover them. The project's own manifest excludes the mock's directory
-//! with a `[walk] exclude` row, or the mock's planted defects are reported as the project's own.
-//!
-//! **A mock plants only the defects whose findings the extension emits.** A defect `check`
-//! reports pins `check`'s behaviour in the extension's suite, and a release of `check` that
-//! narrows or widens that check fails the suite with nothing to repair in the extension.
-//!
-//! **A test pins the set of findings it expects, not their count.** A count that moves says that
-//! something changed and not what. Compare the set of `(file, line)` pairs of
-//! `report.findings` with an expected set written in the test, or in a reference file the test
-//! reads: a failure then names each finding gained or lost. The wording of a finding is left out
-//! of the set, since a rewording is no change to what the check reports.
-//!
-//! A test reads `report.checks`, `report.not_run` and `report.summaries` rather than the printed
-//! lines they produce. `report.checks` lists every check the last phase performed or was asked
-//! to, `report.not_run` those the tree gave no input to, so a check ran when it is in the first and
-//! not in the second, and `report.summaries` holds each extension's block of the summary.
+//! An extension's tests add the package `knowledge-architect-testing` to their dev-dependencies, whose
+//! crate documentation says how a test runs `check` over a mock project as the binary does.
 //!
 //! # Compatibility
 //!
@@ -237,7 +196,7 @@ use knowledge_architect_check as check;
 pub mod cli;
 
 // What an extension is written against, under the paths it has always had.
-pub use check::{document, extension, testing};
+pub use check::{document, extension};
 pub use check::{Document, Finding, Manifest, Model, CHECKER_VERSION, MANIFEST_NAME};
 
 /// The directory of the Component this library belongs to: its own crate directory, evaluated at
