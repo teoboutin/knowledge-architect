@@ -146,23 +146,21 @@ plan document of that work holds the measurement, and
 The designs this decision did not keep: `rejected@agent-skills@three-runs-per-pass` and
 `rejected@agent-skills@session-rereads-every-draft`.
 
-### A report step whose write the harness refuses returns the report as text, and the session writes it to a file `##refused-report-returned-as-text`
+### A report step of an audit workflow returns its report as text only where the harness refuses its write `##refused-report-returned-as-text`
 
-Each report step of the three saved workflows, the pass's and the judgement of an application's,
-writes its report to a file of the run's scratch directory and returns its path. Where the harness
-refuses that write, the step returns the report whole in its `text` field, with its path empty, and
-the run's result carries it as `reportText`, with `report` null; the session writes that text to a
-file of the run's scratch directory before it verifies the report, as
-`skill@knowledge-architect-project-audit@audit-method` says. It serves
+The five report steps of the three saved workflows, the pass's report in each and the report of the
+judgement of an application in the design-record and tripwire workflows, write their report to a
+file of the run's scratch directory and return its path. Where the harness refuses that write, the
+step returns the report whole in its `text` field, with its path empty, and the run's result carries
+it as `reportText`, with `report` null. It serves
 `goal@agent-skills@installed-text-works-in-any-environment`, since whether a dispatched agent may
 write is the harness configuration's.
 
 The argument turns on the harness's behaviour. In a tripwire audit of thaum, the harness refused the
 report agent the write of its report file, and the report survived only in that agent's transcript.
-The nearest
-rival, the report always returned as text, gives up the file in the runs where the write succeeds,
-and a run's result returned as text can reach the session cut: the harness shortens a long result to
-a part of it, and the cut text carries "truncated <n> chars", which
+The nearest rival, the report always returned as text, loses to a cut result: a run's result
+returned as text can reach the session cut, since the harness shortens a long result to a part of
+it, and the cut text carries "truncated <n> chars", which
 `grep -rhoE 'truncated [0-9]+ chars' ~/.claude/projects` finds in the sessions' transcripts. A
 harness that delivered every result whole would reopen the rival. The record searcher returns its
 report as text on the same refusal, per `design@agent-skills@one-record-searcher`.

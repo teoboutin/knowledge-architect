@@ -55,6 +55,9 @@ An audit runs in a branch of its own, unless the owner gives it to another work'
 
 An axis's section adjusts each point where its corpus needs.
 
+%% The run's fallback to `reportText` is `design@agent-skills@refused-report-returned-as-text`. The
+%% session writes that text to a file so that it verifies the report, and writes the pass's report
+%% file from it, as in a run whose write succeeded; this text alone states that write.
 Each axis runs each pass as **one run of its saved workflow**, named in its section, with the
 `args` its section lists, and one more run on the application where its section says so. The run dispatches every agent of the pass, verifies their drafts and
 delivers a report; the session reads nothing between its steps. Where the run's result holds
