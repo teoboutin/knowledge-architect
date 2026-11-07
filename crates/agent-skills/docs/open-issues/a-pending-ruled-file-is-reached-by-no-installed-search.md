@@ -12,7 +12,7 @@ project file. While such a file stays, it holds ruled outcomes no commit has car
 installed places a session reads for what is already known name the issue and tripwire listings
 only. A design could then be discussed, or a slice audited, past a ruled outcome of a pending file.
 A third such home is docs/goal-reviews/, for the record of a goal-setting batch of more than three
-goals, whose rulings the owner gives on goals the working tree holds uncommitted. This is a prediction: no real session has shown it. The moment is narrow for an audit report, which
+goals, whose rulings the owner gives on goals drafted on the branch. This is a prediction: no real session has shown it. The moment is narrow for an audit report, which
 normally leaves on the audit's own branch, and is the normal case for an analysis, which stays on
 the main branch across branches until its last outcome is carried out.
 

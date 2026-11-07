@@ -295,14 +295,16 @@ was wrong and missed when the owner read the drafts.
 
 A goal review in rounds, in draft mode and over the whole goal set alike, stops when a round from the
 second on reports no `blocks` finding on old wording, the words the previous round read and no repair
-changed since, whatever the finding's route, or when the owner says so. From the third round on,
-where a round's `blocks` findings on old wording are no fewer than the previous round's, the session
-puts the stop to the owner instead of running another round. The findings of the round that stops go
-to the owner beside the goals, unrepaired. Where the owner stops the rounds after a round's repairs,
-the owner's stop prevails: the session tells the owner that those repairs are unreviewed, and the
-goals axis of the review before the merge, `agent@knowledge-architect-goal-reviewer` in its merge
-mode, reads them. The version each round read is kept in the conversation for a batch of three goals
-or fewer and in the record for a larger one. It serves
+or rewording of the owner changed since, whatever the finding's route, or when the owner says so.
+From the third round on, where a round's `blocks` findings on old wording are no fewer than the
+previous round's, and from the second round on, where every `blocks` finding on old wording is a
+`contradiction`, the session puts the stop to the owner instead of running another round. The
+findings of the round that stops go to the owner beside the goals, unrepaired. Where the owner stops
+the rounds after a round's repairs, the owner's stop prevails: the session tells the owner that those
+repairs are unreviewed, and the goals axis of the review before the merge,
+`agent@knowledge-architect-goal-reviewer` in its merge mode, reads them. The version each round
+read is kept in the conversation for a batch of three goals or fewer and in the record for a larger
+one. It serves
 `goal@agent-skills@goals-state-the-owner-s-intent`, whose review stops after a few rounds, and
 `goal@knowledge-architect@owner-attention-on-what-is-theirs`.
 
@@ -310,7 +312,11 @@ or fewer and in the record for a larger one. It serves
   finds defects at least as readily, per `design@agent-skills@convergence-count-scope`. In this
   repository's review of the whole goal set after the standard's revision, 25 of round 3's 28
   `blocks` and `asks` findings were on wording round 2's repairs wrote; a stop that waits for new
-  wording to be clean does not stop.
+  wording to be clean does not stop. A rewording of the owner writes new wording as a repair does,
+  and the rounds after it go on with the same count. The rival, a count started again at each
+  rewording of the owner, cannot stop before its second round, so it costs a round per rewording,
+  and nothing argues that a reviewer finds defects in words the owner wrote less readily than in
+  words a repair wrote.
 - **It counts `blocks` findings alone**, the grade that changes what an agent builds, per
   `design@agent-skills@goal-finding-grades`; an `asks` finding goes to the owner beside the goals.
   The owner leaned to a stop that probably asks `blocks` findings to reach zero, and said that use
@@ -329,7 +335,12 @@ or fewer and in the record for a larger one. It serves
   owner. While no repair changes its wording, as when the owner's answer keeps the wording, it
   stays on old wording and keeps the count from falling, so the stop goes to the owner, who holds
   its answer. A stop that counted the `settled` findings alone would end a review with a blocking
-  question of the owner's still open.
+  question of the owner's still open. Where every `blocks` finding on old wording is a
+  `contradiction`, the stop goes to the owner from the second round: the session resolves no
+  contradiction alone, so no repair of the batch clears one, and a further round reports it again
+  at the cost of its reviewers, for a comparison the standing contradiction already decides. A
+  contradiction left out of the count, the rival, would let the rounds stop with it unanswered, as
+  a stop on the `settled` findings alone would.
 - **The stop goes to the owner when the count does not fall**, which gives the owner's intent that a
   review of goals stops after a few rounds a mechanism with no fixed count of rounds, which nothing
   measured would set. The comparison applies from the third round, since the first round sorts no
@@ -399,13 +410,15 @@ in the goals homes of the working tree, and puts every question of intent and ev
 the owner in one message, the next round waiting for the answer. The record, one file
 `docs/goal-reviews/<YYYY-MM-DD>-<subject>.md`, holds each round's counts per reviewer, rule,
 grade, route and old or new wording, outcomes and defaults, the
-owner's answers verbatim and the boundary blocks; it is committed each round, every brief names it,
-and the commit that writes the goals the owner ruled last, or a later commit of the same branch,
-deletes it. The rounds stop by the rule of
+owner's answers verbatim and each round's boundary blocks, from that round's reviewers; it is
+committed each round with the round's drafts, and every brief names it. It is committed with the
+owner's last answers before the goals the owner ruled last are written, and the commit that writes
+them, or a later commit of the same branch, deletes it. The rounds stop by the rule of
 `design@agent-skills@goal-review-stops-on-old-wording`, over the `blocks` findings of every reviewer
 of the round; the round that meets the stop writes no repair, and its findings go to the owner beside
-the goals, so the goals the owner reads are the goals a round reviewed. The owner then rules on the
-goals as the tree holds them, per `design@agent-skills@goal-batch-ruled-in-the-tree`. The primer's knowledge table carries the
+the goals, so the goals the owner reads are the goals a round reviewed, and the boundary blocks of
+that round alone describe them. The owner then rules on the goals as the tree holds them, with those
+blocks, per `design@agent-skills@goal-batch-ruled-in-the-tree`. The primer's knowledge table carries the
 record's row for every project.
 
 The owner proposed the procedure's six steps from what this repository's own review of its 31
@@ -418,7 +431,13 @@ defaults against the owner's approved words, which only a later round caught. Th
 once the briefs named the questions already open. The whole-set reviewer, run beside the set
 reviewers, alone found two conflicts between goals of different homes. The record is committed
 because the owner's words stay verbatim only in a deliberation record, and a session's scratch
-space, the nearest rival, is lost to the next session. It is not the ledger
+space, the nearest rival, is lost to the next session. For the same reason the owner's last answers
+are committed in the record before a commit deletes it: a commit message attributes a decision to
+the owner and does not quote the owner, per `primer@design-heads`, so a record deleted by the commit
+that records the owner's last ruling holds the last answers in no tree. The record of a pass of a project audit keeps
+the same order, per `skill@knowledge-architect-project-audit@record-of-an-audit`; the rival, the
+last answers written by the commit of the ruled goals and the record deleted by a later one, costs
+the same two commits and gives two records of the owner's rulings two orders. It is not the ledger
 `rejected@agent-skills@ledger-written-during-discussion` rejects: a stale ledger of a discussion is
 corroborated by the conversation alone, while each round's reviewers read this record against the
 tree and report an open question it misstates, and the owner answers it each round. The set
@@ -429,18 +448,33 @@ serves `goal@knowledge-architect@the-owner-decides` and
 ### A goal-setting batch of more than three goals is drafted and ruled in the tree, three or fewer in the conversation `##goal-batch-ruled-in-the-tree`
 
 A batch of three goals or fewer is drafted in the message and ruled by slug. A larger batch is
-written in the goals homes of the working tree, uncommitted, its source marks, its boundary blocks
-and the reviewer's findings in a record of `path@knowledge-architect@docs/goal-reviews/`, and the
-owner rules
-on the batch as the tree holds it, naming each goal dropped or reworded; the goals are committed as
-the tree holds them. The owner argued that a larger batch is read more readily in the tree, and
+written in the goals homes of the working tree, its source marks, its boundary blocks and the
+reviewer's findings in a record of `path@knowledge-architect@docs/goal-reviews/`, each round's
+drafts committed on the branch with the record, and the owner rules on the batch as the tree holds
+it, naming each goal dropped or reworded; the commit that writes the goals as the owner ruled them
+records the ruling. The owner argued that a larger batch is read more readily in the tree, and
 found ruling by slug inconvenient for the 31 goals of this repository's review; the session
 generalised it, ruling on each goal by slug costing the owner more than it checks for any larger
 batch; the owner's word on the batch is
 still an explicit word, so no goal is accepted by silence. The threshold is the session's reading of
 the owner's bound of two or three goals, at its upper end. The rival, a tree draft still ruled slug
 by slug, keeps the cost the
-owner named and adds nothing that a goal named on the ruling does not give. It serves
-`goal@knowledge-architect@owner-attention-on-what-is-theirs`, and is stated in
+owner named and adds nothing that a goal named on the ruling does not give.
+
+The drafts are committed each round because the goal reviewer runs the checker's commands, and a
+subagent that does gets a worktree detached at a commit, never the live tree, per
+`skill@knowledge-architect-review@review-invariants`: only a commit gives a round's reviewers the
+drafts. A commit also keeps the tree clean between rounds, so no git operation of the review runs
+beside uncommitted drafts, and it lets the record's commit cite a drafted goal by a reference that
+resolves there. The nearest rival, the drafts left uncommitted and read in the live tree by a
+draft-mode reviewer, which writes nothing, keeps the tree dirty for the whole review, and leaves the
+record no form of a drafted goal that both its commit and the tree accept. The drafts written in the
+record rather than in the goals homes lose the checker's rules on a goals home over them, per
+`design@check@goals-home-cites-upward-only`. A committed draft the owner has not ruled on is not yet
+a goal: the goals axis of the review before the merge reports each goal edit of the range whose
+ruling no commit message records, per `design@agent-skills@goals-axis-in-the-review-before-a-merge`,
+so no unruled draft reaches the main branch unreported. It serves
+`goal@knowledge-architect@owner-attention-on-what-is-theirs` and
+`goal@agent-skills@no-contradiction-in-workflow`, and is stated in
 `skill@knowledge-architect-goal-setting@drawing-out-intent`,
 `skill@knowledge-architect-goal-setting@whole-set-review` and the primer's knowledge table.

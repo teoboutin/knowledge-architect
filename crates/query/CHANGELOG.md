@@ -102,7 +102,9 @@ an empty subsection is omitted.
   route, and puts a goal's reach to the owner instead of proposing a narrower wording; goal-setting's
   reviews in rounds, a draft batch and the whole goal set alike, stop when a round leaves no `blocks`
   finding on wording the previous round read, or put the stop to the owner when that count does not
-  fall; the whole-set review no longer stops at a fifth of its first round's count.
+  fall, or from the second round where every such finding is a contradiction; a goal the owner
+  rewords is read in the next round of the same review, whose count goes on; the whole-set review no
+  longer stops at a fifth of its first round's count.
 - `agent-skills`, patch: a development skill, `skill@knowledge-architect-development`: claims with
   tests shown to discriminate by `cargo x mutate`, a default shape of code, in which an integrated
   test drives the project through its public API, the gate, the commit's claim check, the review
@@ -169,6 +171,13 @@ an empty subsection is omitted.
   `report` null, for the session to write to the file. The run's result names the count of groups
   whose verifier returned `groupsVerified`, and in the agentic-workflow axis `auditorsVerified`,
   where it said `verified`.
+- `agent-skills`, patch: goal-setting commits the drafts of a batch of more than three goals with
+  the batch's record in docs/goal-reviews/ at each round, instead of leaving them uncommitted until
+  the owner rules, so each round's goal reviewers read them at a commit; the commit that writes the
+  goals as the owner ruled them records the ruling.
+- `agent-skills`, patch: goal-setting commits the record in docs/goal-reviews/ with the owner's last
+  answers before the goals the owner ruled last are written; the commit that writes them, or a later
+  one, deletes it.
 
 ## 0.9.0
 
