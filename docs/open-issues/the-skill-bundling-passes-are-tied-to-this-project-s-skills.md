@@ -71,9 +71,8 @@ substitutions, and this project's skills built with that crate.
 
 ### Leads from the design of the Component split
 
-The design discussion that planned `milestone@plans@component-split` placed this work in the split.
-On the owner's word, it planned the placement alone, and nothing of how the work is built, so
-these are leads for this work's own design session:
+On the owner's word, the split of the Components placed this work, and planned nothing of how it is
+built, so these are leads for this work's own design session:
 
 - **A Component of its own, `bundle`**, a published crate in crates/bundle, created by this work,
   after the milestone has landed. It holds the build passes of `path@agent-skills@build.rs` and

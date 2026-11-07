@@ -27,8 +27,8 @@ excluding a file the model requires.
   the walk; whether the refusal can be decided in phase 1, from the manifest and the harness alone,
   or needs the listing, is not established.
 
-`milestone@plans@component-split` kept this case in phase 2, in `model`'s foundation, and moved
-every other finding on the installed files to the last phase; this work replaces it.
+This case stays in phase 2, in `model`'s foundation, while every other finding on the installed files is
+in the last phase; this work replaces it.
 
 ### Why it matters
 

@@ -8,7 +8,7 @@ kind: todo
 Two commands over the scanned record, which need the model and no check, are known to be missing.
 A session that searches the entries greps the project, and a session that runs an audit's method
 builds by hand the work lists its mechanical steps need. The owner named both as leads for the
-commands that read the model, in the design discussion of `milestone@plans@component-split`.
+commands that read the model.
 
 ## Details
 
