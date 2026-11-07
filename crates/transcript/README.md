@@ -1,7 +1,7 @@
 # knowledge-architect-transcript
 
 The reader of the session transcripts Claude Code writes on disk: a project's sessions listed, one shown, or searched, each
-line labelled by its fields, and every line or value it does not know counted and reported, never a failure.
+line labelled by what the harness recorded of it, and every line or value it does not know counted and reported, never a failure.
 
 A project that uses knowledge-architect names the package `knowledge-architect` alone, whose binary `klarch` offers the
 command `transcript`, and never names this crate; its usage is `path@cli@README.md`. A Rust program that reads transcripts

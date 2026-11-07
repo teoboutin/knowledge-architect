@@ -85,15 +85,18 @@ kind of what the harness or another agent delivered, a model's refusal of a turn
 output and a fork's inherited context included; `agent` is the session's text; `dispatch` is a
 field-less `user` line of a subagent file that no row above it places, the text its dispatcher or
 its workflow wrote; `tool` is a tool call or its result; a line no row places is `unlabelled`,
-printed and counted, a file none of whose lines carries a field included.
+printed and counted, in a file none of whose `user` lines carries a field as in any other.
 
 A field-less `user` line, one that carries none of `isMeta`, `isCompactSummary` and `origin`, is
 read by its text in three rows, each before the `dispatch` row: its whole text equal to one of the
 interrupt texts the harness writes is `owner-interrupt`, where `interruptedMessageId` is absent; and,
 in a top-level file, a text that opens with the harness's `<bash-input>` tag is `owner-shell`, and one
-that opens with `<bash-stdout>` is `injected shell-output`. A forked subagent's file opens with a
+that opens with `<bash-stdout>`, on the child of such a line, is `injected shell-output`, so a
+message that opens with a pasted tag, and that no field places, stays unlabelled. A forked subagent's file opens with a
 `fork-context-ref` line, outside the chain, which is shown as `injected fork-context` with the line of
-the parent's file, found by its `parentLastUuid`, up to which the fork inherits its context.
+the parent's file, found by its `parentLastUuid`, up to which the fork inherits its context; the
+copy of the parent's dispatching call and of its result that the fork's file holds next is not
+shown, since the parent's file shows the call, and shown again it would read as one the fork made.
 
 The rule is learned from a failure: a filter on text substrings once dropped one of the owner's
 messages from a review, and an owner's message that opens with a pasted tag reads as injected text
@@ -120,8 +123,8 @@ places are re-taken with
 `{ find ~/.claude/projects -mindepth 2 -maxdepth 2 -name '*.jsonl'; find ~/.claude/projects -path '*/subagents/*' -name 'agent-*.jsonl'; } | xargs -d '\n' jq -c 'select(.type=="user" and .isMeta==null and .origin==null and .isCompactSummary==null) | select((.message.content|type)=="string" or ([.message.content[]? | select(.type=="tool_result")] | length) == 0) | (.message.content | if type=="string" then . else ([.[]? | select(.type=="text") | .text] | join(" ")) end) as $t | {sub:(input_filename|test("subagents")), keys:([keys[]|select(. as $k | ["parentUuid","isSidechain","type","uuid","timestamp","userType","entrypoint","cwd","sessionId","version","gitBranch","message","slug","agentId","requestId"]|index($k)|not)]|join(",")), t:($t|.[:22])}' | sort | uniq -c`.
 A file with no field is a session run with `claude -p`, or a log older than the fields: its prompt
 carries `turnOrigin` `sdk` where a typed message carries `human`, and no field names who called
-`claude -p`, a person or a script, so its lines are unlabelled and reported rather than given to the
-owner by a text test, which the goal rules out.
+`claude -p`, a person or a script, so its prompt is unlabelled and reported rather than given to the
+owner by a test on what it says, which the goal rules out.
 
 ### The transcript reader tolerates every line it does not know, and every run reports each one `##transcript-format-tolerated-and-reported`
 

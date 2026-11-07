@@ -41,7 +41,8 @@ identifier in its paths.
 Extract each session, in the order the brief gives, with
 `cargo klarch transcript show <session> --from "<opening words>" --full`, written to a file of your
 scratch directory: without `--full`, an injected text beyond 40 lines, such as a reviewer's report,
-prints its first 5. The command keeps the lines in order, and labels each by its fields.
+prints its first 5. The command keeps the lines in order, and labels each by what the harness
+recorded of it: its fields, or, on a line no field places, a text or a tag the harness writes.
 
 - **Only the lines labelled `owner`, `owner-queued`, `owner-answer`, `owner-command`,
   `owner-interrupt` and `owner-shell` carry the owner's word or act**: a message, a message typed
@@ -51,7 +52,7 @@ prints its first 5. The command keeps the lines in order, and labels each by its
 - **A line labelled `injected` carries what the harness or another agent delivered**: a skill, a
   reviewer's or a peer agent's report, a task's notification, a compaction's summary. It is part of
   what the session established.
-- **A line labelled `unlabelled` is one the command could not place by its fields**: read it,
+- **A line labelled `unlabelled` is one the command could not place**: read it,
   judge whose it is, and say how you judged.
 - **Where the header names anything the command did not recognise**, list what it names under "Met
   outside the task", so the session carries it to its retrospective.

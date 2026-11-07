@@ -6814,9 +6814,11 @@ fn transcript_each_line_takes_the_label_of_its_fields_and_the_unknown_is_reporte
     has("injected task-notification");
     // An interrupt's text placed only whole: a line that holds more stays unplaced.
     has("unlabelled 2026-01-03 10:00]\n[Request interrupted by user] and words after it");
+    // A shell output's tag places a line only as the child of a shell command's line.
+    has("unlabelled 2026-01-03 10:00]\n<bash-stdout>pasted with no command before it");
     has("owner-queued 2026-01-03 10:00]\ntyped while busy");
     has("injected peer 2026-01-03 10:00]\na queued report");
-    has("# unlabelled lines: 1");
+    has("# unlabelled lines: 2");
     has("# lines skipped for a repeated uuid: 1");
     has("# not JSON: -proj/eeeeeeee-0000-0000-0000-000000000005.jsonl:");
     has("is a gap of this command");
@@ -7376,6 +7378,18 @@ fn transcript_the_kinds_of_later_harness_versions_are_classed() {
     has("[L17 owner-shell 2026-04-01 10:00]\n<bash-input>git status</bash-input>");
     has("[L18 injected shell-output 2026-04-01 10:00]\n<bash-stdout>nothing to commit");
     has("[L19 owner 2026-04-01 10:00]\n<bash-input>pasted by the owner");
+    // A shell command is the owner's act, so it is never cut, however long.
+    has("shell line 45</bash-input>");
+
+    // `--role` takes the shell command's role.
+    let (stdout, _, code) = transcript(
+        "kinds",
+        "kinds-shell",
+        &["search", "--role", "owner-shell", "."],
+    );
+    assert_eq!(code, 0, "{stdout}");
+    assert!(stdout.contains("abcdef01 L17 owner-shell"), "{stdout}");
+    assert!(!stdout.contains("shell-output"), "{stdout}");
 
     // An interrupt and a shell command are the owner's acts, not lines the owner typed: the count
     // holds four messages.
@@ -7404,21 +7418,40 @@ fn transcript_the_kinds_of_later_harness_versions_are_classed() {
     assert!(stdout.contains("[0000000k L5 dispatch"), "{stdout}");
     // A fork's first line names the parent's line up to which it inherits its context, and is no
     // unrecognised type.
+    // It is the fork's first entry, timed by the fork's first chain line, and the fork's copy of the
+    // parent's call that dispatched it, with that call's result, is not shown again.
+    let fork = stdout
+        .split("# subagent abcdef01/0000000f")
+        .nth(1)
+        .and_then(|rest| rest.split_once('\n'))
+        .map(|(_, body)| body)
+        .expect("the fork's section");
     assert!(
-        stdout.contains(
+        fork.starts_with(
             "[0000000f L1 injected fork-context 2026-04-01 10:02]\na fork: it inherits its \
-             parent's context up to L12, 12 messages"
+             parent's context up to L12 (contextLength 12)\n"
         ),
+        "{stdout}"
+    );
+    let (calls, _, _) = transcript(
+        "kinds",
+        "kinds-fork-calls",
+        &["search", "--subagents", "--tool", "Agent", "."],
+    );
+    assert!(!calls.contains("0000000f"), "{calls}");
+    assert!(
+        stdout.contains("[0000000f L3 dispatch 2026-04-01 10:02]\nthe brief of fork f"),
         "{stdout}"
     );
     assert!(
         stdout.contains(
             "[0000000g L1 injected fork-context 2026-04-01 10:03]\na fork: it inherits its \
              parent's context up to the line \"no-such-uuid\", which the parent's file does not \
-             hold, 12 messages"
+             hold (contextLength 12)"
         ),
         "{stdout}"
     );
+    assert!(!stdout.contains("# lines skipped"), "{stdout}");
     assert!(!stdout.contains("# unrecognised"), "{stdout}");
     assert!(!stdout.contains("# unlabelled"), "{stdout}");
 

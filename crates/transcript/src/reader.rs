@@ -1,10 +1,10 @@
 //! The reader of Claude Code's session transcripts: the files a project's sessions wrote, cut into
-//! sessions, each kept line labelled by its fields, and the inventory of what was not recognised.
+//! sessions, each kept line labelled by what the harness recorded of it, and the inventory of what was not recognised.
 //!
 //! What the reader does not know it counts, never fails on and never drops in silence, per
 //! `design@transcript@transcript-format-tolerated-and-reported`: it knows the sets of values under the
-//! "known" constants below, each used or ignored on purpose. Lines are labelled by their fields,
-//! never by a substring of their text, per `design@transcript@transcript-labels-in-code`, and a file is
+//! "known" constants below, each used or ignored on purpose. Lines are labelled by what the
+//! harness recorded of them, never by a substring of their text, per `design@transcript@transcript-labels-in-code`, and a file is
 //! cut into sessions per `design@transcript@transcript-session-split`.
 
 use std::collections::{BTreeMap, BTreeSet, HashMap, HashSet};
@@ -97,16 +97,16 @@ const KNOWN_ATTACHMENT_TYPES: &[&str] = &[
 /// entry.
 const FORK_CONTEXT_TYPE: &str = "fork-context-ref";
 
-/// The texts the harness writes for the owner's interrupt of a turn. Since harness 2.1.316 some
-/// interrupts carry no `interruptedMessageId`, and no other field tells them apart, so the whole
-/// text places them, on a line no field places, per `design@transcript@transcript-labels-in-code`.
+/// The texts the harness writes for the owner's interrupt of a turn. Some interrupts carry no
+/// `interruptedMessageId`, and no other field tells them apart, so the whole text places them, on a line no field places, per `design@transcript@transcript-labels-in-code`.
 const INTERRUPT_TEXTS: &[&str] = &[
     "[Request interrupted by user]",
     "[Request interrupted by user for tool use]",
 ];
 
 /// The tags that open the two lines a command the owner runs with the `!` prefix writes: the
-/// command, then its output. Read on a top-level line no field places, per
+/// command, then its output, whose parent is the command's line. Read on a top-level line no field
+/// places, per
 /// `design@transcript@transcript-labels-in-code`.
 const SHELL_INPUT_TAG: &str = "<bash-input>";
 const SHELL_OUTPUT_TAG: &str = "<bash-stdout>";
@@ -310,8 +310,9 @@ pub(crate) enum Label {
     OwnerAnswer,
     OwnerQueued,
     OwnerCommand,
-    /// The owner interrupted the session's turn: a `user` line with `interruptedMessageId`, or one
-    /// no field places whose whole text is one of [`INTERRUPT_TEXTS`].
+    /// The owner interrupted the session's turn: a `user` line that carries none of `isMeta`,
+    /// `isCompactSummary` and `origin`, with a string `interruptedMessageId` or a whole text that is
+    /// one of [`INTERRUPT_TEXTS`].
     OwnerInterrupt,
     /// A command the owner ran with the `!` prefix: a top-level line no field places that opens
     /// with [`SHELL_INPUT_TAG`]. Its output is `Injected("shell-output")`.
@@ -319,7 +320,7 @@ pub(crate) enum Label {
     Agent,
     Dispatch,
     /// Injected text, with its kind: a known `origin.kind`, `unknown`, `skill`, `meta`,
-    /// `compact-summary`, `compact-boundary` or `model-refusal`.
+    /// `compact-summary`, `compact-boundary`, `model-refusal`, `shell-output` or `fork-context`.
     Injected(String),
     /// A tool call or its result, with the tool's name where it is known.
     Tool(String),
@@ -441,9 +442,10 @@ impl Inventory {
 
     /// Count one file's lines against the known sets. Every line is counted, chain or not, so a
     /// value outside a set is reported whatever session it sits in.
-    fn survey(&mut self, file: &File, name: &str) {
+    fn survey(&mut self, file: &File, name: &str, in_subagent: bool) {
         self.files += 1;
         let echoes = command_echoes(file);
+        let mut forks_seen = 0;
         for (i, raw) in file.lines.iter().enumerate() {
             let at = format!("{name}:{}", i + 1);
             let value = match raw {
@@ -532,9 +534,30 @@ impl Inventory {
                     }
                 }
                 FORK_CONTEXT_TYPE => {
-                    if str_field(value, "parentLastUuid").is_none() {
+                    // Only a subagent file's first such line is shown, by `fork_context`; one
+                    // elsewhere would be read by nothing, so it is reported, and so is a shape the
+                    // entry cannot print.
+                    if !in_subagent {
+                        self.note_unknown("fork-context-ref place", "outside a subagent file", at);
+                    } else if forks_seen > 0 {
+                        self.note_unknown(
+                            "fork-context-ref place",
+                            "not the first in its file",
+                            at,
+                        );
+                    } else if parent_last_uuid(value).is_none() {
                         self.note_unknown("fork-context-ref shape", "no parentLastUuid", at);
+                    } else if value
+                        .get("contextLength")
+                        .is_some_and(|n| n.as_u64().is_none())
+                    {
+                        self.note_unknown(
+                            "fork-context-ref shape",
+                            "contextLength not a count",
+                            at,
+                        );
                     }
+                    forks_seen += 1;
                 }
                 other if KNOWN_METADATA_TYPES.contains(&other) => {}
                 other => self.note_unknown("type", other, at),
@@ -610,7 +633,7 @@ impl Corpus {
         for path in paths {
             let file = File::read(path)?;
             let name = corpus.name(path);
-            corpus.inventory.survey(&file, &name);
+            corpus.inventory.survey(&file, &name, false);
             let index = corpus.files.len();
             corpus.files.push(file);
             corpus.cut(index);
@@ -665,6 +688,7 @@ impl Corpus {
                 file,
                 in_subagent: false,
                 inventory: &mut self.inventory,
+                shell_inputs: HashSet::new(),
             };
             let entries = ctx.label(&lines);
             let mut branches: Vec<String> = Vec::new();
@@ -723,7 +747,7 @@ impl Corpus {
             for agent_path in paths {
                 let file = File::read(&agent_path)?;
                 let name = self.name(&agent_path);
-                self.inventory.survey(&file, &name);
+                self.inventory.survey(&file, &name, true);
                 let meta = std::fs::read(agent_path.with_extension("meta.json"))
                     .ok()
                     .and_then(|bytes| serde_json::from_slice::<Value>(&bytes).ok());
@@ -749,9 +773,19 @@ impl Corpus {
                     file: &file,
                     in_subagent: true,
                     inventory: &mut self.inventory,
+                    shell_inputs: HashSet::new(),
                 };
                 let mut entries = ctx.label(&chain);
                 if let Some(entry) = fork_context(&file, &self.files[index]) {
+                    // A fork's file opens with a copy of the parent's call that dispatched it and
+                    // of that call's result, which the parent's file shows: shown again here, they
+                    // would read as a call the fork made.
+                    if let Some(id) = meta_str("toolUseId") {
+                        entries.retain(|e| {
+                            !(matches!(e.label, Label::Tool(_))
+                                && e.tool_use_id.as_deref() == Some(id.as_str()))
+                        });
+                    }
                     entries.insert(0, entry);
                 }
                 agents.push((
@@ -868,22 +902,26 @@ fn collect_agent_files(dir: &Path, out: &mut Vec<PathBuf>) -> Result<(), String>
 /// file up to which the fork inherits its context: the fork saw that context, and read nothing of
 /// it in its own file. `None` for a file that holds no such line.
 ///
-/// The line names the parent's line by its `uuid`, looked up in the top-level file; a nested fork,
-/// whose parent line sits in another subagent's file, is printed with the `uuid` and says so.
+/// The line names the parent's line by its `uuid`, looked up in the top-level file; a `uuid` that file
+/// does not hold, such as a nested fork's whose parent line sits in another subagent's file, is
+/// printed as it is, with the words that the parent's file, the top-level one, does not hold it.
 fn fork_context(agent: &File, parent: &File) -> Option<Entry> {
     let index = (0..agent.lines.len())
         .find(|&i| agent.json(i).and_then(|v| str_field(v, "type")) == Some(FORK_CONTEXT_TYPE))?;
     let value = agent.json(index).expect("the line is JSON");
-    let uuid = str_field(value, "parentLastUuid").unwrap_or("");
-    let found = (0..parent.lines.len()).find(|&i| {
-        !uuid.is_empty() && parent.json(i).and_then(|v| str_field(v, "uuid")) == Some(uuid)
-    });
-    let up_to = match found {
-        Some(i) => format!("L{}", i + 1),
-        None => format!("the line {uuid:?}, which the parent's file does not hold"),
+    // A line with no `parentLastUuid` is reported by the survey, and printed as naming no line.
+    let up_to = match parent_last_uuid(value) {
+        None => "a line it does not name".to_string(),
+        Some(uuid) => match (0..parent.lines.len())
+            .find(|&i| parent.json(i).and_then(|v| str_field(v, "uuid")) == Some(uuid))
+        {
+            Some(i) => format!("L{}", i + 1),
+            None => format!("the line {uuid:?}, which the parent's file does not hold"),
+        },
     };
+    // What the field counts is not established, so it is printed under its own name.
     let length = match value.get("contextLength").and_then(Value::as_u64) {
-        Some(n) => format!(", {n} messages"),
+        Some(n) => format!(" (contextLength {n})"),
         None => String::new(),
     };
     // The line carries no timestamp: the fork's first chain line gives it.
@@ -903,11 +941,19 @@ fn fork_context(agent: &File, parent: &File) -> Option<Entry> {
     })
 }
 
+/// The `parentLastUuid` of a `fork-context-ref` line, where it names one: an empty string names none.
+fn parent_last_uuid(value: &Value) -> Option<&str> {
+    str_field(value, "parentLastUuid").filter(|u| !u.is_empty())
+}
+
 /// The labelling of one file's chain lines.
 struct Labelling<'a> {
     file: &'a File,
     in_subagent: bool,
     inventory: &'a mut Inventory,
+    /// The `uuid`s of the lines labelled `owner-shell` so far: a `<bash-stdout>` line is a shell
+    /// command's output only as the child of one, so a pasted tag elsewhere places nothing.
+    shell_inputs: HashSet<String>,
 }
 
 impl Labelling<'_> {
@@ -916,8 +962,9 @@ impl Labelling<'_> {
     fn label(&mut self, lines: &[usize]) -> Vec<Entry> {
         // The parents of the `local_command` lines, by `uuid` over the run: the command's own
         // `user` line is printed as the `owner-command` line that follows it. Only a `user` line
-        // no field places is consumed, so a parent that is a message, the owner's or the agent's,
-        // is never dropped.
+        // that neither a field nor a text row places is consumed, so a parent that is a message,
+        // the owner's or the agent's, or an act a row places, such as an interrupt, is never
+        // dropped.
         let consumed: HashSet<&str> = lines
             .iter()
             .filter_map(|&i| self.file.json(i))
@@ -941,6 +988,8 @@ impl Labelling<'_> {
                     && value.get("isMeta").is_none()
                     && value.get("isCompactSummary").is_none()
                     && value.get("origin").is_none()
+                    && !carries_interrupt_id(value)
+                    && self.text_row(value, &message_text(value)).is_none()
                 {
                     continue;
                 }
@@ -1103,42 +1152,27 @@ impl Labelling<'_> {
                 return;
             }
         }
-        let text = match content {
-            Some(Value::Array(items)) => items
-                .iter()
-                .filter(|item| str_field(item, "type") == Some("text"))
-                .filter_map(|item| str_field(item, "text"))
-                .collect::<Vec<_>>()
-                .join("\n"),
-            other => text_of(other),
-        };
+        let text = message_text(value);
         let is_meta = value.get("isMeta").and_then(Value::as_bool) == Some(true);
         let origin = origin_kind(value.get("origin"));
         let compact = value.get("isCompactSummary").and_then(Value::as_bool) == Some(true);
-        // The fields are tested by presence, as the consumption above and the fallback test them.
+        // The fields are tested by presence, as the consumption above tests them.
         let fieldless = value.get("isMeta").is_none()
             && value.get("isCompactSummary").is_none()
             && value.get("origin").is_none();
-        // An interrupt is placed by its `interruptedMessageId`, as
-        // `design@transcript@transcript-labels-in-code` measures, and this row comes first so that one in a
-        // subagent file is the owner's, not read as the dispatcher's text by the row after it.
-        // A null value is no id: the harness writes null for a field it leaves empty.
-        let interrupt = value
-            .get("interruptedMessageId")
-            .and_then(Value::as_str)
-            .is_some();
-        // The rows that read a text read only a line no field places, so a line its fields give
-        // to a side keeps it: a whole text the harness writes, or a tag it writes first, never a
-        // substring, per `design@transcript@transcript-labels-in-code`. A shell line is the owner's
-        // in a top-level file alone, where the owner types; in a subagent file a field-less line
-        // that opens with the tag stays its dispatcher's.
-        let shell = fieldless && !self.in_subagent;
-        let label = if fieldless && (interrupt || INTERRUPT_TEXTS.contains(&text.as_str())) {
+        // An interrupt is placed by its `interruptedMessageId`, or, on a line no field places, by its
+        // whole text, as `design@transcript@transcript-labels-in-code` measures, and this row comes
+        // first so that one in a subagent file is the owner's, not read as the dispatcher's text by
+        // the row after it.
+        let text_row = if fieldless {
+            self.text_row(value, &text)
+        } else {
+            None
+        };
+        let label = if fieldless && carries_interrupt_id(value) {
             Label::OwnerInterrupt
-        } else if shell && text.starts_with(SHELL_INPUT_TAG) {
-            Label::OwnerShell
-        } else if shell && text.starts_with(SHELL_OUTPUT_TAG) {
-            Label::Injected("shell-output".to_string())
+        } else if let Some(label) = text_row {
+            label
         } else if self.in_subagent && fieldless {
             // In a subagent file, a `user` line that carries none of the three fields is its
             // dispatcher's or its workflow's text, as `design@transcript@transcript-labels-in-code`
@@ -1170,13 +1204,66 @@ impl Labelling<'_> {
                 None => self.unlabelled(),
             }
         };
+        if label == Label::OwnerShell {
+            if let Some(uuid) = str_field(value, "uuid") {
+                self.shell_inputs.insert(uuid.to_string());
+            }
+        }
         entries.push(entry(label, text, None));
+    }
+
+    /// The label a text row gives a `user` line that no field places, or `None`: its whole text one
+    /// of [`INTERRUPT_TEXTS`]; in a top-level file, a text that opens with [`SHELL_INPUT_TAG`], or
+    /// with [`SHELL_OUTPUT_TAG`] on the child of a line labelled `owner-shell`.
+    ///
+    /// The rows read only a line no field places, so a line its fields give to a side keeps it: a
+    /// whole text the harness writes, or a tag it writes first, never a substring, per
+    /// `design@transcript@transcript-labels-in-code`. A shell line is the owner's in a top-level file
+    /// alone, where the owner types; in a subagent file a field-less line that opens with the tag
+    /// stays its dispatcher's.
+    fn text_row(&self, value: &Value, text: &str) -> Option<Label> {
+        if INTERRUPT_TEXTS.contains(&text) {
+            Some(Label::OwnerInterrupt)
+        } else if self.in_subagent {
+            None
+        } else if text.starts_with(SHELL_INPUT_TAG) {
+            Some(Label::OwnerShell)
+        } else if text.starts_with(SHELL_OUTPUT_TAG)
+            && str_field(value, "parentUuid").is_some_and(|p| self.shell_inputs.contains(p))
+        {
+            Some(Label::Injected("shell-output".to_string()))
+        } else {
+            None
+        }
     }
 
     /// A line no row places: `unlabelled` and counted.
     fn unlabelled(&mut self) -> Label {
         self.inventory.unlabelled += 1;
         Label::Unlabelled
+    }
+}
+
+/// Whether a line carries a string `interruptedMessageId`: a null value is no id, since the harness
+/// writes null for a field it leaves empty.
+fn carries_interrupt_id(value: &Value) -> bool {
+    value
+        .get("interruptedMessageId")
+        .and_then(Value::as_str)
+        .is_some()
+}
+
+/// The text of a `user` line's message: its content string, or its `text` items joined by line
+/// breaks.
+fn message_text(value: &Value) -> String {
+    match value.get("message").and_then(|m| m.get("content")) {
+        Some(Value::Array(items)) => items
+            .iter()
+            .filter(|item| str_field(item, "type") == Some("text"))
+            .filter_map(|item| str_field(item, "text"))
+            .collect::<Vec<_>>()
+            .join("\n"),
+        other => text_of(other),
     }
 }
 
@@ -1235,4 +1322,217 @@ fn render_answers(result: &Value) -> String {
         out.push(format!("annotations: {annotations}"));
     }
     out.join("\n")
+}
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    /// A file read from these lines, as `File::read` parses them.
+    fn file(lines: &[&str]) -> File {
+        File {
+            path: PathBuf::from("t.jsonl"),
+            lines: lines
+                .iter()
+                .map(|l| Raw::Json(serde_json::from_str(l).expect("a fixture line is JSON")))
+                .collect(),
+        }
+    }
+
+    /// The labels of every line of `lines`, in a top-level file or a subagent file.
+    fn labels(lines: &[&str], in_subagent: bool) -> Vec<String> {
+        let file = file(lines);
+        let mut inventory = Inventory::default();
+        let mut ctx = Labelling {
+            file: &file,
+            in_subagent,
+            inventory: &mut inventory,
+            shell_inputs: HashSet::new(),
+        };
+        let all: Vec<usize> = (0..file.lines.len()).collect();
+        ctx.label(&all).iter().map(|e| e.label.display()).collect()
+    }
+
+    const INTERRUPT: &str = r#"{"type":"user","uuid":"a","message":{"content":[{"type":"text","text":"[Request interrupted by user]"}]}}"#;
+    const INTERRUPT_MORE: &str = r#"{"type":"user","uuid":"b","message":{"content":"[Request interrupted by user] and more"}}"#;
+    const SHELL_IN: &str =
+        r#"{"type":"user","uuid":"c","message":{"content":"<bash-input>ls</bash-input>"}}"#;
+    const SHELL_OUT: &str = r#"{"type":"user","uuid":"d","parentUuid":"c","message":{"content":"<bash-stdout>x</bash-stdout>"}}"#;
+    const PASTED_OUT: &str = r#"{"type":"user","uuid":"e","parentUuid":"a","message":{"content":"<bash-stdout>pasted</bash-stdout>"}}"#;
+    const TYPED_TAG: &str = r#"{"type":"user","uuid":"f","origin":{"kind":"human"},"message":{"content":"<bash-input>typed</bash-input>"}}"#;
+
+    #[test]
+    fn an_interrupt_with_no_id_is_placed_by_its_whole_text_only() {
+        assert_eq!(
+            labels(&[INTERRUPT, INTERRUPT_MORE], false),
+            ["owner-interrupt", "unlabelled"]
+        );
+        assert_eq!(
+            labels(&[INTERRUPT, INTERRUPT_MORE], true),
+            ["owner-interrupt", "dispatch"]
+        );
+    }
+
+    #[test]
+    fn a_shell_tag_places_a_top_level_line_no_field_places_and_its_output_by_its_parent() {
+        assert_eq!(
+            labels(
+                &[SHELL_IN, SHELL_OUT, INTERRUPT, PASTED_OUT, TYPED_TAG],
+                false
+            ),
+            [
+                "owner-shell",
+                "injected shell-output",
+                "owner-interrupt",
+                "unlabelled",
+                "owner"
+            ]
+        );
+        assert_eq!(
+            labels(&[SHELL_IN, SHELL_OUT], true),
+            ["dispatch", "dispatch"]
+        );
+    }
+
+    #[test]
+    fn a_text_row_reads_neither_a_line_its_fields_place_nor_a_text_with_space_around_it() {
+        let typed = r#"{"type":"user","uuid":"g","origin":{"kind":"human"},"message":{"content":"[Request interrupted by user]"}}"#;
+        let meta = r#"{"type":"user","uuid":"h","isMeta":true,"message":{"content":"[Request interrupted by user]"}}"#;
+        let compact = r#"{"type":"user","uuid":"i","isCompactSummary":true,"message":{"content":"[Request interrupted by user]"}}"#;
+        let spaced = r#"{"type":"user","uuid":"j","message":{"content":" [Request interrupted by user]\n"}}"#;
+        let indented =
+            r#"{"type":"user","uuid":"k","message":{"content":" <bash-input>ls</bash-input>"}}"#;
+        assert_eq!(
+            labels(&[typed, meta, compact, spaced, indented], false),
+            [
+                "owner",
+                "injected meta",
+                "injected compact-summary",
+                "unlabelled",
+                "unlabelled"
+            ]
+        );
+        assert_eq!(labels(&[compact], true), ["injected compact-summary"]);
+    }
+
+    #[test]
+    fn a_command_s_parent_is_consumed_only_where_no_row_places_it() {
+        let command = |uuid: &str, parent: &str| {
+            format!(
+                r#"{{"type":"system","subtype":"local_command","uuid":"{uuid}","parentUuid":"{parent}","commandRun":{{"command":"clear","args":""}}}}"#
+            )
+        };
+        let echo = r#"{"type":"user","uuid":"z","message":{"content":"<command-name>/clear</command-name>"}}"#;
+        let (c1, c2, c3, c4) = (
+            command("x1", "a"),
+            command("x2", "c"),
+            command("x3", "d"),
+            command("x4", "z"),
+        );
+        let with_id = r#"{"type":"user","uuid":"y","interruptedMessageId":"m","message":{"content":"a stop"}}"#;
+        let c5 = command("x5", "y");
+        assert_eq!(
+            labels(
+                &[with_id, &c5, INTERRUPT, &c1, SHELL_IN, &c2, SHELL_OUT, &c3, echo, &c4],
+                false
+            ),
+            [
+                "owner-interrupt",
+                "owner-command",
+                "owner-interrupt",
+                "owner-command",
+                "owner-shell",
+                "owner-command",
+                "injected shell-output",
+                "owner-command",
+                "owner-command"
+            ]
+        );
+    }
+
+    const PARENT: &str =
+        r#"{"type":"user","uuid":"p1","origin":{"kind":"human"},"message":{"content":"hi"}}"#;
+    const CHAIN: &str = r#"{"type":"assistant","uuid":"f1","timestamp":"2026-01-01T00:00:00Z","message":{"content":[]}}"#;
+
+    fn fork_text(head: &str) -> Option<String> {
+        let parent = file(&[PARENT, PARENT.replace("p1", "p2").as_str()]);
+        let later = CHAIN.replace("2026-01-01", "2026-01-02");
+        fork_context(&file(&[head, CHAIN, later.as_str()]), &parent).map(|e| {
+            assert_eq!((e.line, e.timestamp.as_str()), (1, "2026-01-01T00:00:00Z"));
+            e.text
+        })
+    }
+
+    #[test]
+    fn a_fork_line_names_the_parent_line_it_inherits_up_to() {
+        let found = r#"{"type":"fork-context-ref","parentLastUuid":"p2","contextLength":3}"#;
+        assert_eq!(
+            fork_text(found).as_deref(),
+            Some("a fork: it inherits its parent's context up to L2 (contextLength 3)")
+        );
+        let missing = r#"{"type":"fork-context-ref","parentLastUuid":"zz"}"#;
+        assert_eq!(
+            fork_text(missing).as_deref(),
+            Some("a fork: it inherits its parent's context up to the line \"zz\", which the parent's file does not hold")
+        );
+        let empty = r#"{"type":"fork-context-ref","parentLastUuid":"","contextLength":3}"#;
+        assert_eq!(
+            fork_text(empty),
+            fork_text(r#"{"type":"fork-context-ref","contextLength":3}"#)
+        );
+        let unnamed = r#"{"type":"fork-context-ref","contextLength":3}"#;
+        assert_eq!(
+            fork_text(unnamed).as_deref(),
+            Some("a fork: it inherits its parent's context up to a line it does not name (contextLength 3)")
+        );
+        assert!(fork_context(&file(&[CHAIN]), &file(&[PARENT])).is_none());
+    }
+
+    #[test]
+    fn the_survey_reports_a_fork_line_with_no_parent_line_or_outside_a_subagent_file() {
+        let line = r#"{"type":"fork-context-ref","contextLength":3}"#;
+        let mut sub = Inventory::default();
+        sub.survey(&file(&[line]), "s", true);
+        let mut top = Inventory::default();
+        top.survey(&file(&[line]), "t", false);
+        let keys = |i: &Inventory| i.unknown.keys().cloned().collect::<Vec<_>>();
+        let good = r#"{"type":"fork-context-ref","parentLastUuid":"p","contextLength":3}"#;
+        let empty = r#"{"type":"fork-context-ref","parentLastUuid":"","contextLength":3}"#;
+        let odd = r#"{"type":"fork-context-ref","parentLastUuid":"p","contextLength":"3"}"#;
+        let mut more = Inventory::default();
+        more.survey(&file(&[good, good]), "a", true);
+        more.survey(&file(&[empty]), "b", true);
+        more.survey(&file(&[odd]), "c", true);
+        assert_eq!(
+            keys(&more),
+            [
+                (
+                    "fork-context-ref place".to_string(),
+                    "not the first in its file".to_string()
+                ),
+                (
+                    "fork-context-ref shape".to_string(),
+                    "contextLength not a count".to_string()
+                ),
+                (
+                    "fork-context-ref shape".to_string(),
+                    "no parentLastUuid".to_string()
+                ),
+            ]
+        );
+        assert_eq!(
+            keys(&sub),
+            [(
+                "fork-context-ref shape".to_string(),
+                "no parentLastUuid".to_string()
+            )]
+        );
+        assert_eq!(
+            keys(&top),
+            [(
+                "fork-context-ref place".to_string(),
+                "outside a subagent file".to_string()
+            )]
+        );
+    }
 }

@@ -225,7 +225,7 @@ The design this decision did not keep:
 
 The transcript reviewer extracts each session with `klarch transcript show --from --full`, and the
 subagent that assembles a plan document extracts as the reviewer's section says; the command labels
-every line by its fields, per `design@transcript@transcript-labels-in-code`, so the installed texts state
+every line by what the harness recorded of it, per `design@transcript@transcript-labels-in-code`, so the installed texts state
 what the labels mean and no rule for which lines to keep or whose they are. A rule held in the
 reviewer's text, with the command as a helper, is applied by a script each session writes again,
 and stands in two homes beside the command's, against `design@check@one-question-one-command`; a
