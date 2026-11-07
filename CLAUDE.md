@@ -77,9 +77,8 @@ An issue entry keeps its magnitudes, per the cold-reader standard of
 
 ## Verify before relying on anything `##verify-before-relying`
 
-`primer@verify-before-relying` holds the rules. This repository adds four:
+`primer@verify-before-relying` holds the rules. This repository adds three:
 
-- A figure measured in another project, thaum, names thaum as its source, in any document of this repository.
 - **Before touching the code of a Component, ground first, per
   `skill@knowledge-architect-development@ground-before-editing` and
   `skill@klarch-development@ground-in-this-repository`.**

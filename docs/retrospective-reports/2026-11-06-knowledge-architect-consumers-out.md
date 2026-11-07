@@ -94,6 +94,12 @@ Analysed with P1 of 2026-11-01-knowledge-architect-release-0-9-0, in
 - **Default**: the sentence widened to any document of this repository, once the owner rules.
 - **Outcome**: for the owner (a contradiction: a ruling of the owner whose premise proved false):
   handle now, the sentence widened to any document of this repository. The owner: "Q3 agreed"
+  Then, at the review before the merge, the owner asked whether the line needs to name thaum, and
+  whether the installed text already covers it. The session first read the primer as covering it,
+  which the owner refuted: no installed rule names the project a figure was taken in. The owner:
+  "Delete it. But the primer does not hold the exact instruction of naming which project it came
+  from. I think it would be better if it did." Carried out: the root line is deleted, and the
+  primer's rule on a number asks for the project it was taken in where that is another project.
 
 ## P5: a push of a stale ref
 
