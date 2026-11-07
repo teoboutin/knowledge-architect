@@ -16,16 +16,16 @@ owner holds this last part as a lead only, and says a gate that runs `render` mi
 ### What
 
 Today `check` depends on `git`, `model` and `agent-skills`. `query` sits beside it, per `design@knowledge-architect@query-crate`, `create` and `cli` above it, and
-`milestone@plans@component-split` plans `render` beside it, over `model`. `design@model@no-check-below-the-model` and acceptance criterion
-#a1-no-check-below-the-tools of that milestone forbid the opposite direction alone, a tool below the checks depending on them, so the
-owner's view contradicts neither. No recorded decision states which of these crates `check` may depend on. The crates this would exclude besides `cli` are `create` and `testing`, which the milestone has depend on `check`.
+`issue@knowledge-architect@the-documents-do-not-render-as-a-site` places `render` beside it, over `model`. `design@model@no-check-below-the-model` and the test
+`no_crate_below_the_tools_depends_on_the_checks` of `path@testing@tests/dependency_rules.rs` forbid the opposite direction alone, a tool below the checks depending on them, so the
+owner's view contradicts neither. No recorded decision states which of these crates `check` may depend on. The crates this would exclude besides `cli` are `create` and `testing`, which depend on `check`.
 
 ### Why it matters
 
 A lint that needs what `query` computes has no recorded answer on where it may get it, and a session could copy the computation into `check`
 or read the absence of a dependency as a rule. The direction serves `goal@check@document-rules-are-checked`. It costs each consumer of
 the checker the build of whatever it pulls in, mdbook's dependency tree if `render` holds it, which
-`spec@component-split@integrated-tests` and the extension API's consumers meet.
+`testing` and the extension API's consumers meet.
 
 ### What would close it
 

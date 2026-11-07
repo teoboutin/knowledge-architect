@@ -34,8 +34,7 @@ branch-work skill names them.
 
 ### Leads from the design of the Component split
 
-The design discussion that planned `milestone@plans@component-split` placed this work. These are
-leads for this work's own design session:
+These are leads for this work's own design session:
 
 - **A Component of its own, `rewrite`**, a published crate in crates/rewrite, created by this work,
   after the milestone has landed. It depends on the milestone's `git` Component alone: the

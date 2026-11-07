@@ -5,7 +5,6 @@ document; the procedure that edits it is `skill@knowledge-architect-planning@spe
 
 ## In order
 
-1. `milestone@plans@component-split`
-2. `issue@knowledge-architect@no-published-command-rewrites-a-branch-s-history`
-3. `issue@knowledge-architect@the-skill-bundling-passes-are-tied-to-this-project-s-skills`
-4. `issue@knowledge-architect@the-documents-do-not-render-as-a-site`
+1. `issue@knowledge-architect@no-published-command-rewrites-a-branch-s-history`
+2. `issue@knowledge-architect@the-skill-bundling-passes-are-tied-to-this-project-s-skills`
+3. `issue@knowledge-architect@the-documents-do-not-render-as-a-site`
