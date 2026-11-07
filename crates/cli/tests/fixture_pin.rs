@@ -20,8 +20,9 @@ impl Drop for Scratch {
 /// The claim: `"fixture"` is accepted for a project inside a library `klarch` links.
 #[test]
 fn a_project_inside_a_linked_library_passes_the_pin_with_fixture() {
+    // Under a directory git ignores, so a killed run leaves nothing a check of this tree reads.
     let dir = Path::new(env!("CARGO_MANIFEST_DIR"))
-        .join("tests")
+        .join("target")
         .join(format!("fixture-pin-{}", std::process::id()));
     let scratch = Scratch(dir);
     std::fs::create_dir_all(&scratch.0).expect("a scratch project");
@@ -32,6 +33,9 @@ fn a_project_inside_a_linked_library_passes_the_pin_with_fixture() {
     .expect("a manifest");
     let init = Command::new("git")
         .args(["init", "-q"])
+        .env_remove("GIT_DIR")
+        .env_remove("GIT_INDEX_FILE")
+        .env_remove("GIT_WORK_TREE")
         .current_dir(&scratch.0)
         .status()
         .expect("git runs");
@@ -43,5 +47,6 @@ fn a_project_inside_a_linked_library_passes_the_pin_with_fixture() {
         .expect("the binary runs");
     let err = String::from_utf8_lossy(&out.stderr);
     assert!(!err.contains("checker-version"), "{err}");
-    assert_ne!(out.status.code(), Some(2), "{err}");
+    // `issues` ran: 0 with a row, 1 with none. A refusal is 2, and a panic is neither.
+    assert!(matches!(out.status.code(), Some(0 | 1)), "{err}");
 }

@@ -367,8 +367,8 @@ pub fn init(
 
 /// The project is whatever declares itself one at or above the working directory.
 ///
-/// Nothing about any particular repository is compiled in, so pointing the tool at a mock
-/// project under `path@testing@tests/projects/` needs no flag and no special case. `Err` is a working
+/// Nothing about any particular repository is compiled in, so pointing the tool at a copy of a mock
+/// project needs no flag and no special case. `Err` is a working
 /// directory it cannot read, or no manifest at or above it.
 pub fn locate() -> Result<Manifest, String> {
     let cwd =

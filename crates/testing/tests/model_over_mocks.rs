@@ -130,6 +130,22 @@ fn a_generated_index_is_outside_the_walk_and_outside_the_inverse_assertion() {
     }
 }
 
+/// The index of a milestone stays outside the inverse assertion too: its path needs git's listing,
+/// which places the milestone, and `minimal` holds none.
+#[test]
+fn a_milestone_s_index_is_outside_the_inverse_assertion() {
+    let manifest = mock("dirhome");
+    let model = model("dirhome");
+    let survey = km::listing::survey(&manifest, &model).expect("a survey of the mock");
+    let index = PathBuf::from("docs/plans/milestones/a-milestone/index.md");
+    assert!(survey.present.contains(&index), "{}", index.display());
+    assert!(
+        !survey.outside.iter().any(|(p, _)| p == &index),
+        "{:?}",
+        survey.outside
+    );
+}
+
 #[test]
 fn each_of_the_three_exclusion_kinds_removes_its_file() {
     let names = walked(&model("minimal"));
@@ -247,7 +263,7 @@ fn a_fenced_illustration_is_neither_a_definition_nor_a_reference_in_a_real_file(
     assert_eq!(retired, Vec::<String>::new());
 }
 
-/// Every committed file-register index is what the generator writes, in every mock of `check`.
+/// Every committed file-register index is what the generator writes, in the mocks that are meant to be current.
 #[test]
 fn every_committed_index_is_what_the_generator_writes() {
     for name in ["minimal", "dirhome", "core"] {
@@ -266,28 +282,40 @@ fn every_committed_index_is_what_the_generator_writes() {
     }
 }
 
-/// An observation carries the line of the file it sits on.
+/// An observation carries the line of the file it sits on, its kind and what it names.
 #[test]
 fn observations_come_out_of_a_real_walk_with_real_line_numbers() {
     let model = model("minimal");
-    let at = |file: &str, line: u32| -> Vec<String> {
+    let at = |file: &str, line: u32| -> Vec<&Observation> {
         model
             .documents()
             .iter()
             .filter(|d| d.rel == Path::new(file))
             .flat_map(|d| d.observations.iter())
             .filter(|o| o.line == line)
-            .filter_map(|o| match &o.what {
-                Observation::SlugDef { id, .. } => Some(id.clone()),
-                Observation::Span(s) => Some(s.clone()),
-                _ => None,
-            })
+            .map(|o| &o.what)
             .collect()
     };
-    assert!(at("docs/design.md", 5).contains(&"mock-anchor".to_string()));
-    assert!(at("docs/design.md", 7).contains(&"path@notes@b.md".to_string()));
-    assert!(at("notes/a.md", 5).contains(&"goal@minimal@mock-goal".to_string()));
-    assert!(at("code/lib.rs", 1).contains(&"design@minimal@mock-anchor".to_string()));
+    let span = |file: &str, line: u32, want: &str| {
+        assert!(
+            at(file, line)
+                .iter()
+                .any(|o| matches!(o, Observation::Span(s) if s == want)),
+            "{file}:{line}: {:?}",
+            at(file, line)
+        );
+    };
+    assert!(
+        at("docs/design.md", 5).iter().any(|o| matches!(
+            o,
+            Observation::SlugDef { id, site: km::document::SlugSite::Heading(3), .. } if id == "mock-anchor"
+        )),
+        "{:?}",
+        at("docs/design.md", 5)
+    );
+    span("docs/design.md", 7, "path@notes@b.md");
+    span("notes/a.md", 5, "goal@minimal@mock-goal");
+    span("code/lib.rs", 1, "design@minimal@mock-anchor");
 }
 
 mod unsound {
@@ -312,6 +340,35 @@ mod unsound {
             .iter()
             .map(|f| format!("{}  {}  → {}", f.location(), f.what, f.action))
             .collect()
+    }
+
+    /// The stop keeps the order a run prints: the structural findings of each file as phase 2 reaches them.
+    #[test]
+    fn the_stop_keeps_phase_two_s_order() {
+        let found = phase_two();
+        let first_files: Vec<&str> = found
+            .iter()
+            .map(|f| f.split(&[':', ' '][..]).next().unwrap_or(""))
+            .collect();
+        let want: Vec<&str> = vec![
+            "notes/latin1.md",
+            "notes/structure.md",
+            "knowledge-architect.toml",
+            "docs/open-issues.md",
+            "parts/the-widget/docs/tripwires.md",
+            "agent-config/open-issues",
+            "docs/plans/stray.md",
+            "docs/plans/milestones/Not_An_Id",
+            "docs/plans/milestones/held-twice/register.toml",
+            "docs/plans/milestones/no-readme",
+            "docs/plans/milestones/register.toml",
+            "docs/plans/milestones/stray.md",
+            "docs/plans/milestones/the-widget",
+            "docs/plans/milestones/the-widget.md",
+            "docs/plans/specs/agent-config.md",
+            "docs/plans/specs/held-twice.md",
+        ];
+        assert_eq!(first_files, want, "{found:#?}");
     }
 
     /// The findings of the entity table, phase 3, over the project.

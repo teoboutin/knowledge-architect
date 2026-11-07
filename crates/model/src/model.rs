@@ -146,7 +146,7 @@ impl Model {
     /// not defeat it; a symlink inside the tree is not followed. A compiled path that resolves
     /// to nothing exempts nothing and is still named, so the summary can say so. **A directory
     /// exempts files only when it sits inside the tree being checked.** A tree that sits inside it
-    /// instead, such as a mock project under the checker's own tests, is a foreign project
+    /// instead, such as a project an extension's crate keeps as a mock, is a foreign project
     /// whose every literal is prose. Only a Rust file is marked `Data`: markdown has no
     /// literals, and `checker_files` counts what the mode changed.
     pub fn build(manifest: &Manifest, checker_sources: &[&Path]) -> std::io::Result<Self> {

@@ -11,7 +11,8 @@
 //!
 //! **A project does not name this package**: it pins `knowledge-architect`, whose binary and library
 //! are built on it, and whose documentation shows how to write an extension. The items here reach
-//! that library's consumers through its re-exports.
+//! that library's consumers through its re-exports, and [`run`] reaches an extension's tests through
+//! `knowledge-architect-testing`.
 //!
 //! | module | for |
 //! | --- | --- |
@@ -19,7 +20,7 @@
 //! | [`commands`] | the logic of `check`, `index`, `model`, `commits` and `install-agent-skills` as typed functions, gathering a run's inputs, refusing a build from another checkout or another version, and what `init` calls of the install |
 //! | [`extension`] | writing an extension: the two traits, what `check` hands them, and what they return |
 //! | [`document`] | reading a document's parse: prose regions, scopes, code spans, observations |
-//! | [`testing`] | testing an extension over a mock project, as the binary would run it |
+//! | [`run`] | driving a run's phases and reading what the last one reports, as the binary does |
 
 // A `pub` item no consumer can reach is refused, so an item is public only through the
 // re-exports below and the role modules, per `design@knowledge-architect@api-facade`.

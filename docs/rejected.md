@@ -75,4 +75,4 @@ than read in one file.
 
 ### The harness kept a role module of `check`, re-exported by `cli` at `knowledge_architect::testing`, with the shared test crate unpublished `##harness-kept-in-check`
 
-`live`. It spares an extension's tests one change of import and one more dependency, and each new version one more first publish. It is the import path extension writers use. The owner chose the published crate, for a harness and fixtures with one home, and an extension's tests pulling it separately.
+`live`. It spares an extension's tests one change of import and one more dependency, and the project one first publish. It is the import path extension writers use. The owner chose the published crate, believing it more natural that an extension's tests pull it separately.

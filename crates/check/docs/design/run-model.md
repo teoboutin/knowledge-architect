@@ -6,8 +6,7 @@
 
 Every list a check reads comes from the project's `knowledge-architect.toml`: the components, the
 locations, the registers, the walk's exclusions. The manifest is also the marker that makes a
-directory a project root. So one binary checks any project, and every mock project under
-`path@testing@tests/projects/`, with no special case in the code. A path that must not be
+directory a project root. So one binary checks any project, a copy of a mock project included, with no special case in the code. A path that must not be
 checked is declared there, in one place, with its reason beside it.
 
 The constraint derives from `goal@knowledge-architect@every-target-project-can-adopt-it`. A list

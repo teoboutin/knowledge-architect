@@ -44,7 +44,7 @@ wrong finding and cannot lose a reference or a path it held.
 
 ### A reference is live wherever it is prose, fenced blocks included, for every kind `##a-reference-is-live-in-every-prose`
 
-A sketch names what it names on purpose, and an illustration writes a placeholder in angle
+In every file the walk reads: a sketch names what it names on purpose, and an illustration writes a placeholder in angle
 brackets, which the tokenizer does not record. Reading a fenced slug reference as an illustration is
 `rejected@model@fenced-reference-as-illustration`. A string literal bound to a name in Rust yields no
 reference, per `design@model@grammars-not-prefixes`. Checking the literal parts of a placeholder

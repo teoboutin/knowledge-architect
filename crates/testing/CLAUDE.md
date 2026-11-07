@@ -5,10 +5,10 @@ is for is `register@testing@goal`; what it does for a user is `path@testing@READ
 this way is `register@testing@design`.
 
 **Nothing of the repository depends on this crate**, and it dev-depends on `cli` by path alone, per
-`design@knowledge-architect@testing-crate`, which `path@testing@tests/dependency_rules.rs` holds.
+`design@knowledge-architect@testing-crate`, which `path@testing@tests/dependency_rules.rs` holds for each crate of the workspace.
 
 **A test of the binary asks for it with `klarch()`**, in `path@testing@tests/binary.rs`, which builds it, per
-`design@testing@binary-tests-in-testing`. A mutation of the binary's code owes a `--build` probe that
+`design@testing@nested-cargo-builds-the-binary`. A mutation of the binary's code owes a `--build` probe that
 builds it, such as `cargo build -p knowledge-architect --bin klarch`, or a mutant that does not compile
 reads as caught.
 
@@ -32,13 +32,13 @@ a file deleted or unreadable on disk, a nested repository — are built by the t
 conformance, every built-in check running and finding nothing; `minimal` is the walk, the
 exclusions, a location and a declared register; `core` is the smallest conformant project, and
 the tests of `klarch`'s refusal of a table it does not own. **Plant a phase-4 defect in
-`planted`, the family `agents` apart, a phase-2 or phase-3 one in `unsound`, and nowhere else.** `klarch` run from
-`dirhome`, `minimal` or `core` reports no finding; anything else it reports there is a defect in
-the tool or in the fixture.
+`planted`, the family `agents` apart, a phase-2 or phase-3 one in `unsound`, and nowhere else.** `klarch` over a pinned copy
+of `dirhome`, `minimal` or `core` reports no finding; anything else it reports there is a defect in
+the tool or in the fixture. In place it refuses the pin, per `design@testing@binary-tests-in-testing`.
 
-**Neither `cargo klarch index` nor `cargo klarch check --fix` is run inside `planted`.** Its stale
-and missing generated files are planted defects, and both commands rewrite them to the current
-listing. A generated file of `planted` is written by hand.
+**A generated file of `planted` is written by hand.** Its stale and missing generated files are planted
+defects, which `index` and `check --fix` over a copy would rewrite to the current listing, and which
+`klarch` refuses to touch in place.
 
 **Every mock but `unsound` declares `harness = []`.** The shipped set changes with every version
 of the skills, so a mock serving the `claude` harness would need the installed copy of that set,

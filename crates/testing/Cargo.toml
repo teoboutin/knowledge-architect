@@ -12,10 +12,9 @@ keywords.workspace = true
 include = ["/src/**", "/Cargo.toml", "/README.md", "/CRATES-IO.md", "/LICENSE-MIT", "/LICENSE-APACHE", "/CHANGELOG.md"]
 
 [dependencies]
-# What the harness re-exports. Pinned exactly, as every crate of the workspace carries one version,
+# What the harness re-exports, which holds what it takes of `model`. Pinned exactly, as every crate of the workspace carries one version,
 # per `design@knowledge-architect@version-lockstep`.
 knowledge-architect-check = { path = "../check", version = "=0.9.0" }
-knowledge-architect-model = { path = "../model", version = "=0.9.0" }
 
 [dev-dependencies]
 # What the integrated tests drive. By path alone, so `cargo publish` drops it and this crate's
@@ -23,5 +22,6 @@ knowledge-architect-model = { path = "../model", version = "=0.9.0" }
 # per `design@agent-skills@shared-test-component`.
 knowledge-architect = { path = "../cli" }
 knowledge-architect-agent-skills = { path = "../agent-skills" }
+knowledge-architect-model = { path = "../model" }
 clap = { version = "4", features = ["derive"] }
 toml = "1.1.4"

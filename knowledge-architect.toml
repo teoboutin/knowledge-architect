@@ -64,7 +64,7 @@ skip-files = [
     "crates/transcript/CHANGELOG.md",
 ]
 
-# Paths skipped by location, each one another project rather than a part of this one.
+# Paths skipped by location.
 #
 # `testing`'s tests hold this repository's mock projects, complete projects of their own: their
 # documents are fixtures, and a checker that read them would report a fixture's planted defect as a

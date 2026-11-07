@@ -1,6 +1,7 @@
 //! Rules of the dependency graph a build would not report, read from cargo: a dependency added against
 //! one of them passes every other gate.
 
+use std::path::Path;
 use std::process::Command;
 
 /// The packages a normal dependency of `package` reaches, as `cargo tree` prints them. A dev-dependency
@@ -30,12 +31,31 @@ fn no_crate_below_the_tools_depends_on_the_checks() {
     }
 }
 
-/// The claim: `cli` and the checks hold nothing of this crate, so a binary that links them builds none
-/// of it, per `design@knowledge-architect@testing-crate`.
+/// The claim of `design@knowledge-architect@testing-crate`: no crate of the workspace names this one, a
+/// dev-dependency included, so the graph holds no cycle and a build pulls in nothing of it.
 #[test]
-fn no_crate_depends_on_this_one() {
-    for package in ["knowledge-architect", "knowledge-architect-check"] {
-        let tree = normal_tree(package);
-        assert!(!tree.contains("knowledge-architect-testing"), "{tree}");
+fn no_crate_of_the_workspace_depends_on_this_one() {
+    let root = Path::new(env!("CARGO_MANIFEST_DIR")).join("../..");
+    let text = std::fs::read_to_string(root.join("Cargo.toml")).expect("the workspace's manifest");
+    let workspace: toml::Table = text.parse().expect("TOML");
+    let members = workspace["workspace"]["members"]
+        .as_array()
+        .expect("members");
+    assert!(members.len() > 5, "{members:?}");
+    for member in members {
+        let member = member.as_str().expect("a path");
+        if member == "crates/testing" {
+            continue;
+        }
+        let text =
+            std::fs::read_to_string(root.join(member).join("Cargo.toml")).expect("a manifest");
+        let manifest: toml::Table = text.parse().expect("TOML");
+        for table in ["dependencies", "dev-dependencies", "build-dependencies"] {
+            let names = manifest.get(table).and_then(|t| t.as_table());
+            assert!(
+                !names.is_some_and(|t| t.contains_key("knowledge-architect-testing")),
+                "{member} names this crate in {table}"
+            );
+        }
     }
 }

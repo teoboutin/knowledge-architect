@@ -1,7 +1,8 @@
 //! What an extension's tests need to run the checker over a mock project, as the binary runs it.
 //!
 //! A project that writes an extension adds this crate to its dev-dependencies, beside its dependency
-//! on `knowledge-architect`. A project with no extension never names it, and no crate of
+//! on `knowledge-architect` and at the same exact version: another version brings a second `check`,
+//! whose types are not those of `knowledge-architect`. A project with no extension never names it, and no crate of
 //! knowledge-architect depends on it.
 //!
 //! # Testing an extension

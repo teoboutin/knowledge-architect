@@ -12,7 +12,7 @@ to a name, per `design@model@grammars-not-prefixes`.
 A number, a marker, a slug, a path or a version pin is written so that a test can watch a check
 react to it. Read as prose each one is a live claim, and hiding each behind a named constant to
 be interpolated makes the tests harder to read than the code they test. Comments stay prose
-because the test modules point at decisions and paths for real, and those pointers stay checked.
+because the test modules point at decisions and paths for real, and those pointers stay checked wherever the walk reads them; `design@testing@test-files-outside-the-walk` states what it leaves out.
 
 **The directories are compiled in, never declared.** A binary's source spans several
 Components: `cli`'s, `check`'s, the `git` crate's, the `model` crate's, the crates of its commands, `create`, `query` and

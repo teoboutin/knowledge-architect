@@ -1,7 +1,7 @@
 ---
 kind: todo
 ---
-# A run of the tests of `cli` and `testing` leaves directories in the temporary directory
+# A run of the tests of `testing` leaves directories in the temporary directory
 
 ## Summary
 
@@ -16,6 +16,8 @@ directories, 1.8M in all, 78 named `klarch-*` and 12 `knowledge-*`. `Sandbox` of
 when dropped, so these come from other helpers, among them those named `klarch-transcript-*` and `knowledge-worklist-*-out`. Not
 re-measured by the session that opened this entry. The tests this entry's slice added write under the temporary directory too, in
 `with_a_work_list`.
+
+Measured again by two reviewers, with `TMPDIR` set to a directory of their own: one `cargo test -p knowledge-architect-testing` leaves 96 top-level entries, 884 inodes, named `klarch-transcript-*`, `knowledge-*` and `refused-*`. On the machine this was measured on, `/tmp` is a tmpfs of 1,048,576 inodes, and held 68,118 `klarch-transcript-*` and 9,350 `knowledge-worklist-*` entries; at 1,048,465 inodes in use, builds failed with `No space left on device`, and a mutation run read such a failure as `caught`.
 
 ### Why it matters
 

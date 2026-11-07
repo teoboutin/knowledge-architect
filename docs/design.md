@@ -128,15 +128,22 @@ parser in them. It says nothing of which crates `check` may depend on, which
 per `rejected@gates@gates-command-of-the-checker`. The rival, the library and the binary as one crate, saves no
 dependency once the commands span crates: `rejected@knowledge-architect@single-crate`.
 
-### The harness and the mock projects are a crate of their own, on which no crate depends `##testing-crate`
+### The harness an extension's tests need is a published crate of its own, on which no crate depends `##testing-crate`
 
-`knowledge-architect-testing`, in crates/testing, publishes what an extension's tests need, and depends on `check` and `model` for it, by path and by exact version. An
-extension's tests add it to their dev-dependencies. Its unshipped `tests/` holds this repository's mock projects and the tests over
-them, so it dev-depends on `cli` and on `agent-skills`, by path alone, which publishing drops, per
-`path@agent-skills@docs/grounding/crate-boundaries.md`. So no crate depends on it, and the graph holds no cycle, dev-dependencies
-included, as `design@agent-skills@shared-test-component` asks.
+`knowledge-architect-testing`, in crates/testing, publishes what an extension's tests need, since a project tests its extension as `check` tests
+its own checks, per `goal@check@projects-add-their-own-checks`. It depends on `check`, by path and by exact version. An extension's tests add it
+to their dev-dependencies, and `path@testing@tests/dependency_rules.rs` holds that no crate of the workspace names it.
+Its unshipped tests dev-depend on `cli`, `model` and `agent-skills`, by path alone, which publishing drops, per
+`path@agent-skills@docs/grounding/crate-boundaries.md`, so the graph holds no cycle, dev-dependencies included, as `design@agent-skills@shared-test-component` asks. So where a test of
+the binary sits, `design@testing@binary-tests-in-testing`, is what this direction rests on.
 The owner chose this over `rejected@knowledge-architect@harness-kept-in-check`, which no goal ranks: it costs each extension's tests one more
-dependency and one more first publish.
+dependency, and the crate one first publish.
+
+### This repository's mock projects and the tests over them sit in one crate, not in the crates they test `##mock-projects-in-one-crate`
+
+`testing`'s `tests/` holds the mock projects and the tests over them, and no unit test loads a mock project. The owner's argument: integrated tests out of
+the unit tests and out of the crates test the public API, and one home keeps crates from duplicating fixtures or reaching into another's. No package ships them, per
+`design@knowledge-architect@package-include-whitelist`. The nearest rival, the mock tests kept as a unit-test module of each crate, reads internals a consumer cannot, and needs either a copy of each mock or a path into another crate.
 
 ### The package that holds the binary keeps the name `knowledge-architect`, whichever crate holds the checks `##the-binary-crate-keeps-the-package-name`
 
@@ -173,7 +180,7 @@ Component that defines the data, leans against it by a default, not a rule. The 
 `check` and `cli` hold what an extension is written against. Each crate root re-exports the nouns every consumer meets, and
 role modules hold the rest, one per kind of use. Every other module is private. `model` has a facade of its own, per
 `design@model@model-facade`. `query`, `transcript` and `create` hold what no extension is written against, each crate root
-re-exporting its typed functions, with no role module, and every module private by the same rule.
+re-exporting its typed functions, with no role module, and every module private by the same rule. `testing` holds what an extension's tests are written against, its crate root re-exporting `check`'s module `run`.
 
 - **The public surface is read in one file**, the crate's lib.rs, and the role modules beside it. It is not computed from
   the implementation's module tree, so moving an item between files changes no public path, and is no library break under
@@ -511,7 +518,7 @@ release skill stops a release that would need it.
 
 The publish job publishes the crates one at a time, each before the crates that depend on it, the
 `git` crate before the `model` crate, that and agent-skills before `check`, `model` before `query`, `git` before `transcript`,
-`check` before `create`, and every crate before `cli`, and skips a crate when crates.io's API already
+`check` before `create` and `testing`, and every crate before `cli`, and skips a crate when crates.io's API already
 returns the version. A re-run of the failed job runs on the same commit and tag, so it publishes
 only what is missing, and a release that stopped part-way completes with no change to the code
 and no new tag. The nearest rival, one `cargo publish --workspace`, cannot be re-run that way: its `--help` under the pinned toolchain

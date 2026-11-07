@@ -12,7 +12,7 @@ and a glob, on which the lint is silent. A method of a named type is public thro
 facade does not list it. The entity table and the anchors are public here, since the tools over the
 documents and the checks each need them across a crate boundary, on the session's choice over a second set
 of types no less nameable, which the owner approved; the narrow view an extension is to get is `check`'s,
-per `issue@check@an-extension-cannot-see-which-register-a-document-belongs-to`. Nothing is public for this crate's own tests alone: an item becomes public because a consumer needs it, which an integrated test can show, and a claim no consumer could observe is a unit test's, per
+per `issue@check@an-extension-cannot-see-which-register-a-document-belongs-to`. Nothing is public for this crate's own tests: an item becomes public because a consumer needs it, which an integrated test can show, and a claim no consumer could observe is a unit test's, per
 `design@agent-skills@integrated-test-through-public-api`.
 
 ### The resolver says what a reference names or why it names nothing, with no finding attached `##resolver-outcome`

@@ -35,7 +35,7 @@ reference is owed, or the change reaches nobody. What follows from the test, by 
 **An entry never lists what references it.** The inbound list is `show`'s to compute, and a
 hand-written one is stale at the next reference written elsewhere.
 
-**A reference in prose is checked wherever it stands**, a Rust comment and a fenced block
+**A reference in prose is checked wherever it stands in a file the walk reads**, a Rust comment and a fenced block
 included; a string literal bound to a name yields none, per
 `design@model@a-reference-is-live-in-every-prose`. So a comment in code naming an issue is
 as live as a sentence in a document, and closing the issue reaches the code. This serves

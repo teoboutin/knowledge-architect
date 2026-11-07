@@ -22,7 +22,7 @@ open.
 The head's sentence "The empty list serves a target project that uses the checker alone, which that
 goal admits" contradicts the goal as the owner ruled it. The empty list has two users: a project
 that uses the checker alone, and the checker's mock projects, every one of which but `unsound`
-declares `harness = []`, per `path@check@CLAUDE.md`. Its other references are listed by
+declares `harness = []`, per `path@testing@CLAUDE.md`. Its other references are listed by
 `cargo klarch show design@check@agents-table`.
 
 Two other texts argue from the same premise, a target project that uses the checker alone and
