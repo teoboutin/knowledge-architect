@@ -153,7 +153,7 @@ A count or a list in a title goes stale at the next member, and every later memb
 change of the decision, with its reversal, its slug rename and its tripwire rename, against
 `goal@knowledge-architect@agents-get-a-complete-workflow`, under which a decision reversed by
 accident that the workflow would have spared shows the goal unmet. The nearest rival, the instance
-in the title, has that cost: an audit of this repository's design heads at commit bc22d4d, reading
+in the title, has that cost: an audit of this repository's design heads at commit eee5176f, reading
 every head and its history, finds the instance stated as the rule in 27 of its 189 heads, and its
 history holds rewrites of such heads that a member the argument already admitted forced. The figure
 is re-taken by a fresh read-only audit of the heads at that commit against this rule. A review
@@ -181,7 +181,7 @@ over several decision-record passes.
 The owner raised the question, doubting that the decision-recording skill gave any criterion for
 splitting a design head. A rule that only asks a head carrying several decisions
 to pass "the test for each one, or is split", and rewords a title to state an addition beyond it,
-gives no test: an audit of the design heads at commit bc22d4d, re-taken by a fresh read-only audit
+gives no test: an audit of the design heads at commit eee5176f, re-taken by a fresh read-only audit
 of the heads at that commit against this rule, finds about one head in five holding two or more
 decisions, and every split in this repository's history up to that commit is one a title false of
 part of its body triggered, none a criterion.
