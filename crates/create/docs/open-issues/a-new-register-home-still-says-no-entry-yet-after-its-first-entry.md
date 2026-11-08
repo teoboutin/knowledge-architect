@@ -18,6 +18,14 @@ yet." over four entries, until the review before its merge found it. The sentenc
 every register `home_text` knows: goal, design, rejected, tripwire, issue, spec, milestone and any
 other.
 
+The sentence is not `create`'s alone. The setup skill tells every adopting project "An empty
+register home says it holds no entry yet." (`skill@knowledge-architect-setup`, its source in
+`path@agent-skills@content/skills/setup/SKILL.md`), and
+`design@check@nothing-of-a-project-is-compiled-in` describes the starting text as "a title and a
+line on what it holds, or that it holds no entry yet". Dropping the sentence from `home_text`
+therefore changes that instruction of the installed text and that head, a decision for
+`skill@knowledge-architect-design`, not a fix of `create` alone.
+
 ### Why it matters
 
 A home's README is the directions a reader gets for that directory, per `primer@where-knowledge-goes`,
