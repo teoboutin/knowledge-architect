@@ -1285,8 +1285,10 @@ pub fn ignore_queries(model: &Model, anchors: &Anchors) -> Vec<String> {
                         continue;
                     }
                     // A shape `refused` refuses is a finding of its own, which asks git nothing: a
-                    // leading slash or an upward segment names a path outside the repository, and
-                    // `git check-ignore` fails the whole batch over it.
+                    // leading slash, or an upward segment above the root, names a path outside the
+                    // repository, and `git check-ignore` fails the whole batch over it. An upward
+                    // segment that stays inside, and a `.` segment, are refused all the same, so
+                    // their answer would never be read.
                     if refused(id).is_some() {
                         continue;
                     }
