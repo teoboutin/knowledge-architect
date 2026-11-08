@@ -1233,11 +1233,6 @@ mod tests {
         assert!(read_batch(b"aaaa blob 2\nhi\n", b"", &[]).is_empty());
     }
 
-    /// The claim: a tracked filename holding a newline does not shift every later answer.
-    ///
-    /// Under a newline-terminated batch input such a name is two requests, git answers both,
-    /// and each answer after it is paired with the wrong path. The map still comes back full,
-    /// so nothing downstream reports it: the model is simply built out of the wrong bytes.
     #[test]
     fn a_listing_line_is_classified_by_its_mode_in_both_formats() {
         // `ls-files -s`: mode, object, stage, tab, path. `ls-tree -r`: mode, type, object,
@@ -1263,6 +1258,11 @@ mod tests {
         assert!(mode_and_path(b"no tab here").is_none());
     }
 
+    /// The claim: a tracked filename holding a newline does not shift every later answer.
+    ///
+    /// Under a newline-terminated batch input such a name is two requests, git answers both,
+    /// and each answer after it is paired with the wrong path. The map still comes back full,
+    /// so nothing downstream reports it: the model is simply built out of the wrong bytes.
     #[test]
     fn a_newline_in_a_tracked_name_does_not_shift_the_answers_after_it() {
         let repo =
