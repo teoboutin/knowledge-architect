@@ -645,6 +645,26 @@ fn rust_keeps_the_gitignore_and_refuses_an_existing_cargo_toml() {
     assert_eq!(listing(&scratch.path("c")), before);
 }
 
+/// The claim: `init --rust` refuses a Component at or under `target`, which the `/target` rule it
+/// writes would ignore, exit 2, writing nothing; a Component whose name only begins with `target`
+/// is accepted. Mutation checked: deleting the refusal makes the run write the project and exit 1,
+/// the check reporting the Component missing.
+#[test]
+fn rust_refuses_a_component_its_ignore_rule_would_ignore() {
+    let scratch = Scratch::new("rust-target");
+    for dir in ["target", "target/sub"] {
+        let (out, err, code) = klarch(&scratch.dir, &["init", "p", "--rust", "--component", dir]);
+        assert_eq!(code, 2, "{out}{err}");
+        assert!(err.contains("lies under `target`"), "{err}");
+        assert!(!scratch.path("p").exists(), "nothing is written for {dir}");
+    }
+    let (out, err, code) = klarch(
+        &scratch.dir,
+        &["init", "p", "--rust", "--component", "targets"],
+    );
+    assert_eq!(code, 0, "{out}{err}");
+}
+
 /// Stdout, stderr and the exit code of one run in `dir` with environment variables set.
 fn klarch_env(dir: &Path, args: &[&str], env: &[(&str, &str)]) -> (String, String, i32) {
     let mut command = Command::new(env!("CARGO_BIN_EXE_klarch"));

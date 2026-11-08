@@ -148,6 +148,19 @@ pub fn init(
                 cargo.display()
             ));
         }
+        // `--rust` makes `.gitignore` ignore `/target`, a rule no repository holds before the
+        // run, so the refusal of an ignored Component below cannot see it: a Component at or
+        // under `target` would be outside the walk, and the check would report it missing.
+        if let Some(ignored) = components
+            .iter()
+            .find(|rel| rel.split('/').next() == Some("target"))
+        {
+            return Err(format!(
+                "the Component `{ignored}` lies under `target`, which `--rust` makes `.gitignore` \
+                 ignore, so the check would read none of its files: choose another directory. \
+                 Nothing was written."
+            ));
+        }
         components.push(XTASK_DIR.to_string());
         command.get_or_insert_with(|| "cargo klarch".to_string());
     }
@@ -243,7 +256,7 @@ pub fn init(
         );
     }
     match written.and_then(|()| Manifest::load(&root)) {
-        Ok(manifest) => finish(&manifest, checker, extensions),
+        Ok(manifest) => finish(manifest, checker, extensions),
         Err(e) => {
             eprintln!("error: {e}");
             Ok(ExitCode::FAILURE)
@@ -257,10 +270,15 @@ pub fn init(
 /// Outside every worktree the walk cannot run, per `design@git@failed-git-is-an-error`, so
 /// nothing more is done: the run said what it wrote, and says what comes next.
 fn finish(
-    manifest: &Manifest,
+    mut manifest: Manifest,
     checker: &[&Path],
     extensions: &mut [Box<dyn Extension>],
 ) -> Result<ExitCode, String> {
+    // The manifest was parsed from the text this run wrote, so no extension has resolved it yet:
+    // each `resolve` runs before the walk, as the doc of `Extension::resolve` promises, so a file an
+    // extension generates is outside the walk and a table it refuses is the check's phase 1.
+    crate::check::extension::configure(&mut manifest, extensions);
+    let manifest = &manifest;
     let inside = match crate::git::inside_work_tree(manifest.root()) {
         Ok(inside) => inside,
         Err(e) => {
@@ -675,7 +693,9 @@ pub fn new_component(
     let cwd =
         std::env::current_dir().map_err(|e| format!("cannot read the working directory: {e}"))?;
     let root = manifest.root();
-    let rel = component_path(root, &lexical(&cwd.join(dir)))?;
+    // DIR is relative to the working directory, so it is compared with the root resolved against
+    // it: a manifest loaded from a relative root would otherwise put every DIR outside it.
+    let rel = component_path(&lexical(&cwd.join(root)), &lexical(&cwd.join(dir)))?;
 
     let path = root.join(MANIFEST_NAME);
     let text = std::fs::read_to_string(&path).map_err(|e| format!("{}: {e}", path.display()))?;
@@ -720,7 +740,7 @@ pub fn new_component(
             parsed.command()
         );
     }
-    finish(&parsed, checker, extensions)
+    finish(parsed, checker, extensions)
 }
 
 /// `text`, a manifest, with `rel` appended to `[project] components` and nothing else changed.

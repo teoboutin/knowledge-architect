@@ -654,3 +654,98 @@ fn index_staged_refuses_a_destination_whose_directory_is_not_staged() {
     assert!(staged.stdout.is_empty(), "nothing is staged");
     let _ = std::fs::remove_dir_all(&root);
 }
+
+/// `init`'s arguments for a project at `path`, with no flag.
+fn init_args(path: &Path) -> cli::InitArgs {
+    cli::InitArgs {
+        path: path.to_path_buf(),
+        name: None,
+        components: Vec::new(),
+        rust: false,
+        command: None,
+        vcs: None,
+    }
+}
+
+/// The claims: `init` and `new-component`, run by a binary that registers an extension, configure
+/// the manifest they wrote before the walk of the check they end with, so an extension's generated
+/// file is outside that walk and current, and a check run afterwards agrees with theirs. Mutation
+/// checked: removing the call of `configure` from `finish` makes `init` exit 1, reporting
+/// `listing.md` missing; skipping it only once the Component `svc` exists makes `new-component`
+/// exit 1 with the same finding.
+#[test]
+fn init_and_new_component_configure_the_manifest_they_wrote() {
+    let scratch = std::env::temp_dir().join(format!("ka-init-extension-{}", std::process::id()));
+    let _ = std::fs::remove_dir_all(&scratch);
+    std::fs::create_dir_all(&scratch).expect("a scratch directory");
+    let root = scratch.join("p");
+    let mut extensions: Vec<Box<dyn Extension>> = vec![Box::new(Listing)];
+    let code = cli::init(init_args(&root), &[], &[], &[], &mut extensions).expect("init runs");
+    assert_eq!(code, std::process::ExitCode::SUCCESS);
+    assert!(root.join("listing.md").is_file());
+
+    let manifest = Manifest::load(&root).expect("the new project's manifest");
+    let mut extensions: Vec<Box<dyn Extension>> = vec![Box::new(Listing)];
+    let dir = root.join("svc");
+    let code = cli::run(
+        cli::Command::NewComponent(cli::NewComponentArgs { dir }),
+        &manifest,
+        &[],
+        &mut extensions,
+    )
+    .expect("new-component runs");
+    assert_eq!(code, std::process::ExitCode::SUCCESS);
+
+    let manifest = Manifest::load(&root).expect("the manifest with the new Component");
+    let code = cli::run(
+        cli::Command::Check(cli::CheckArgs {
+            fix: false,
+            staged: false,
+        }),
+        &manifest,
+        &[],
+        &mut extensions,
+    )
+    .expect("the check runs");
+    assert_eq!(code, std::process::ExitCode::SUCCESS);
+    let _ = std::fs::remove_dir_all(&scratch);
+}
+
+/// The claim: `new-component` over a manifest loaded from a relative root adds the Component, as
+/// over the same root given absolute. Mutation checked: comparing DIR with the root as loaded,
+/// unresolved, refuses it as outside the project.
+#[test]
+fn new_component_accepts_a_relative_root() {
+    let scratch = std::env::temp_dir().join(format!("ka-relative-root-{}", std::process::id()));
+    let _ = std::fs::remove_dir_all(&scratch);
+    std::fs::create_dir_all(&scratch).expect("a scratch directory");
+    let root = scratch.join("p");
+    let code = cli::init(init_args(&root), &[], &[], &[], &mut []).expect("init runs");
+    assert_eq!(code, std::process::ExitCode::SUCCESS);
+
+    // The same root, relative to the working directory the test runs in.
+    let cwd = std::env::current_dir().expect("the working directory");
+    let up: PathBuf = cwd
+        .components()
+        .skip(1)
+        .map(|_| std::path::Component::ParentDir)
+        .collect();
+    let relative = up.join(
+        root.strip_prefix("/")
+            .expect("an absolute temporary directory"),
+    );
+    assert!(relative.is_relative() && relative.join("knowledge-architect.toml").is_file());
+    let manifest = Manifest::load(&relative).expect("the manifest, from a relative root");
+    let code = cli::run(
+        cli::Command::NewComponent(cli::NewComponentArgs {
+            dir: relative.join("svc"),
+        }),
+        &manifest,
+        &[],
+        &mut [],
+    )
+    .expect("new-component runs");
+    assert_eq!(code, std::process::ExitCode::SUCCESS);
+    assert!(root.join("svc/README.md").is_file());
+    let _ = std::fs::remove_dir_all(&scratch);
+}
