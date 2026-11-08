@@ -5,6 +5,10 @@ document; the procedure that edits it is `skill@knowledge-architect-planning@spe
 
 ## In order
 
-1. `issue@knowledge-architect@no-published-command-rewrites-a-branch-s-history`
-2. `issue@knowledge-architect@the-skill-bundling-passes-are-tied-to-this-project-s-skills`
-3. `issue@knowledge-architect@the-documents-do-not-render-as-a-site`
+1. `issue@check@the-primer-import-line-is-accepted-inside-some-fences-and-comments`
+2. `issue@check@tests-around-the-installed-files-let-mutations-survive`
+3. `issue@cli@some-value-checks-are-made-after-parsing`
+4. `issue@create@init-accepts-a-destination-git-ignores`
+5. `issue@knowledge-architect@no-published-command-rewrites-a-branch-s-history`
+6. `issue@knowledge-architect@the-skill-bundling-passes-are-tied-to-this-project-s-skills`
+7. `issue@knowledge-architect@the-documents-do-not-render-as-a-site`
