@@ -887,10 +887,11 @@ pub fn blob_bytes(
         return Ok(BTreeMap::new());
     }
     let mut stdin = Vec::new();
+    // The one spelling, shared with the object lookup, so a path is named to git in one
+    // way and a change to it cannot reach one caller and miss the other.
+    let prefix = object_name(source, Path::new(""));
     for rel in paths {
-        // The one spelling, shared with the object lookup, so a path is named to git in one
-        // way and a change to it cannot reach one caller and miss the other.
-        stdin.extend_from_slice(object_name(source, Path::new("")).as_bytes());
+        stdin.extend_from_slice(prefix.as_bytes());
         stdin.extend_from_slice(path_bytes(rel));
         stdin.push(0);
     }
@@ -904,7 +905,7 @@ pub fn blob_bytes(
         .args(["cat-file", "--batch", "-z"])
         .stdin(stdin)
         .output()?;
-    Ok(read_batch(&raw, paths))
+    Ok(read_batch(&raw, prefix.as_bytes(), paths))
 }
 
 /// `cat-file --batch`'s answers, paired with the requests they answer in order.
@@ -916,12 +917,24 @@ pub fn blob_bytes(
 ///
 /// `--batch` answers each request as `<oid> <type> <size>` for a hit and `<request> missing`
 /// for a miss, and a hit's body is followed by one newline. The size is read rather than a
-/// separator scanned for, because a blob may hold any byte, newlines included.
-fn read_batch(raw: &[u8], paths: &[PathBuf]) -> BTreeMap<PathBuf, Vec<u8>> {
+/// separator scanned for, because a blob may hold any byte, newlines included. Each request is
+/// `prefix` and then a path's bytes, as [`blob_bytes`] writes it.
+fn read_batch(raw: &[u8], prefix: &[u8], paths: &[PathBuf]) -> BTreeMap<PathBuf, Vec<u8>> {
     let mut out = BTreeMap::new();
     let mut at = 0usize;
-    let mut wanted = paths.iter();
+    let mut wanted = paths.iter().peekable();
     while at < raw.len() {
+        // A miss echoes the request, which may hold a newline, so it is matched whole against
+        // the request sent rather than cut at the first newline: cut there, the rest of the
+        // name would be read as the next answer's header, and every later answer shifted.
+        if let Some(rel) = wanted.peek() {
+            let miss = [prefix, path_bytes(rel), b" missing\n"].concat();
+            if raw[at..].starts_with(&miss) {
+                at += miss.len();
+                wanted.next();
+                continue;
+            }
+        }
         let end = match raw[at..].iter().position(|b| *b == b'\n') {
             Some(i) => at + i,
             None => break,
@@ -1164,11 +1177,11 @@ mod tests {
         let first = "# A\n\nTwo lines.\n";
         let third = "# C\n";
         let raw = format!(
-            "aaaa blob {}\n{first}\nbbbb missing\ncccc blob {}\n{third}\n",
+            "aaaa blob {}\n{first}\nb.md missing\ncccc blob {}\n{third}\n",
             first.len(),
             third.len()
         );
-        let found = read_batch(raw.as_bytes(), &paths);
+        let found = read_batch(raw.as_bytes(), b"", &paths);
         assert_eq!(
             found.get(Path::new("a.md")).map(Vec::as_slice),
             Some(first.as_bytes())
@@ -1180,10 +1193,40 @@ mod tests {
         );
     }
 
+    /// The claim: a missing request whose name holds a newline shifts no answer after it.
+    ///
+    /// git echoes a missing request whole, its newline included, so a header cut at the first
+    /// newline reads the rest of the name as the next answer's header, and each held path after
+    /// it gets the bytes of the one before. Mutation checked: removing the match of a miss
+    /// against its request answers `y.md` with `x.md`'s bytes and loses `x.md`.
+    #[test]
+    fn a_missing_name_holding_a_newline_shifts_no_answer_after_it() {
+        let paths = vec![
+            PathBuf::from("a\nb.md"),
+            PathBuf::from("x.md"),
+            PathBuf::from("y.md"),
+        ];
+        let raw = "HEAD:./a\nb.md missing\nxxxx blob 2\nXX\nyyyy blob 2\nYY\n";
+        let found = read_batch(raw.as_bytes(), b"HEAD:./", &paths);
+        assert_eq!(
+            found.get(Path::new("a\nb.md")),
+            None,
+            "a miss carries no body"
+        );
+        assert_eq!(
+            found.get(Path::new("x.md")).map(Vec::as_slice),
+            Some(&b"XX"[..])
+        );
+        assert_eq!(
+            found.get(Path::new("y.md")).map(Vec::as_slice),
+            Some(&b"YY"[..])
+        );
+    }
+
     #[test]
     fn a_batch_with_nothing_in_it_answers_nothing() {
-        assert!(read_batch(b"", &[PathBuf::from("a.md")]).is_empty());
-        assert!(read_batch(b"aaaa blob 2\nhi\n", &[]).is_empty());
+        assert!(read_batch(b"", b"", &[PathBuf::from("a.md")]).is_empty());
+        assert!(read_batch(b"aaaa blob 2\nhi\n", b"", &[]).is_empty());
     }
 
     /// The claim: a tracked filename holding a newline does not shift every later answer.
