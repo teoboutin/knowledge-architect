@@ -217,7 +217,7 @@ the installed text, an interface that a project's own text cites once it moves i
 
 ### A directive restated wherever it has to be delivered `##directive-restated-everywhere`
 
-`live`. An inventory of the installed text at commit bc22d4d found about ten texts restating parts
+`live`. An inventory of the installed text at commit eee5176f found about ten texts restating parts
 of the decision-recording skill, with nine inconsistencies between them and it; it is re-taken by a
 fresh read-only subagent listing each statement of a rule on heads outside its home at that commit.
 It is kept here by test 3: its refutation is that inventory, a measurement that cost work.
@@ -231,7 +231,7 @@ better.
 ### A head citing every ruling of the owner as its ground `##head-cites-every-owner-ruling`
 
 `live`. An audit of the heads added or rewritten in the week entry test 4 was added, up to commit
-bc22d4d, found about two in five of their citations of the owner to be an approval of the agent's
+eee5176f, found about two in five of their citations of the owner to be an approval of the agent's
 position, often a batch word, which made an approved default read as the owner's intent, and the
 citation, deleted, took no argument with it. The figure is re-taken by a fresh read-only audit of
 those heads at that commit, against the commits and plan documents that wrote each citation.
@@ -245,7 +245,7 @@ of a new member, with this alternative among the candidates.
 
 ### A head's title stating the instance built, the members or the mechanism that exist `##title-states-built-instance`
 
-`live`. An audit of this repository's design heads at commit bc22d4d found the instance stated as
+`live`. An audit of this repository's design heads at commit eee5176f found the instance stated as
 the rule in 27 of its 189 heads, and its history holds rewrites of such heads, with their slugs and
 tripwires renamed, that a member the argument already admitted forced; the count is re-taken by a
 fresh read-only audit of the heads at that commit.

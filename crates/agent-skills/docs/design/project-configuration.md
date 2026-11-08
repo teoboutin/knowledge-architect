@@ -360,7 +360,7 @@ cost, and they are read whole where they are needed. The owner's proposal put th
 location; the split by act below keeps one home per rule instead, one file the build copies into
 each host, so no copy is written by hand. This serves `goal@agent-skills@no-contradiction-in-workflow`.
 The rival, restating the rules wherever they are delivered, gives partial copies that drift: an
-inventory of the installed text at commit bc22d4d, re-taken by a fresh read-only subagent listing
+inventory of the installed text at commit eee5176f, re-taken by a fresh read-only subagent listing
 each statement of a rule on heads outside its home at that commit, finds about ten texts restating
 parts of the decision-recording skill, with nine inconsistencies between them and it.
 
