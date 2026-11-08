@@ -927,6 +927,8 @@ fn read_batch(raw: &[u8], prefix: &[u8], paths: &[PathBuf]) -> BTreeMap<PathBuf,
         // A miss echoes the request, which may hold a newline, so it is matched whole against
         // the request sent rather than cut at the first newline: cut there, the rest of the
         // name would be read as the next answer's header, and every later answer shifted.
+        // `-Z`, which ends every answer with a NUL as well, would remove the hazard, but it
+        // needs git 2.42, above the floor `design@git@git-floor-for-commit-trees` sets.
         if let Some(rel) = wanted.peek() {
             let miss = [prefix, path_bytes(rel), b" missing\n"].concat();
             if raw[at..].starts_with(&miss) {
@@ -948,7 +950,9 @@ fn read_batch(raw: &[u8], prefix: &[u8], paths: &[PathBuf]) -> BTreeMap<PathBuf,
             .and_then(|n| n.parse::<usize>().ok())
             .filter(|_| !header.ends_with(" missing"))
         else {
-            // A miss carries no body, so nothing is consumed past its header.
+            // A header that states no size carries no body, so nothing is consumed past it. Every
+            // miss git answers under `-z` is taken by the match above; this keeps a header of
+            // another shape from consuming the bytes of the next answer.
             continue;
         };
         let body_end = (at + size).min(raw.len());
@@ -1291,6 +1295,22 @@ mod tests {
             Some("# Plain\n"),
             "the answer after the odd name is still its own"
         );
+
+        // A missing name holding a newline, asked before the two held ones, which git answers by
+        // echoing the request whole: each held name still gets its own bytes, read through the
+        // prefix `blob_bytes` sends.
+        let missing = PathBuf::from("mm\nnn.md");
+        for source in [Source::Commit(&sha), Source::Index] {
+            let read = blobs(
+                &repo,
+                source,
+                &[missing.clone(), odd.clone(), plain.clone()],
+            )
+            .expect("the held blobs");
+            assert_eq!(read.get(&missing), None, "a miss contributes no entry");
+            assert_eq!(read.get(&odd).map(String::as_str), Some("# Odd\n"));
+            assert_eq!(read.get(&plain).map(String::as_str), Some("# Plain\n"));
+        }
         let _ = std::fs::remove_dir_all(&repo);
     }
 

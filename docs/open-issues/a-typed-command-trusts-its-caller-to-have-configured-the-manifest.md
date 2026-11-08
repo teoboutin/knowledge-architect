@@ -31,7 +31,7 @@ A lead, not a decision: a type only `extension::configure` can return, which eac
 Not established: what that does to `Manifest` as the facades publish it.
 
 `design@query@a-function-takes-a-configured-manifest` answers the same question for a tool that links no check. In `create`, `init` and
-`new_component` configure the manifest they parse from the text they wrote, and still take the caller's as configured.
+`new_component` configure the manifest they parse from the text they wrote, and `new_component` still takes the caller's as configured.
 
 ### Why it matters
 

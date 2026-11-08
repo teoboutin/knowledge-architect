@@ -655,7 +655,7 @@ fn rust_refuses_a_component_its_ignore_rule_would_ignore() {
     for dir in ["target", "target/sub"] {
         let (out, err, code) = klarch(&scratch.dir, &["init", "p", "--rust", "--component", dir]);
         assert_eq!(code, 2, "{out}{err}");
-        assert!(err.contains("lies under `target`"), "{err}");
+        assert!(err.contains("lies at or under `target`"), "{err}");
         assert!(!scratch.path("p").exists(), "nothing is written for {dir}");
     }
     let (out, err, code) = klarch(

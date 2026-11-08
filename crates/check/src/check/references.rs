@@ -2344,6 +2344,24 @@ mod tests {
         assert_eq!(found, Vec::<String>::new(), "{found:#?}");
     }
 
+    /// The claim: a path reference whose path `refused` refuses asks the ignore rules nothing, at
+    /// a named anchor and at `*`, while one it accepts is asked. git fails the whole batch over a
+    /// path outside the repository, and the resolver reports the shape without an ignore answer.
+    /// Mutation checked: removing the test of `refused` from the span arm of `ignore_queries`
+    /// puts the three refused spellings in the batch.
+    #[test]
+    fn a_refused_path_shape_asks_the_ignore_rules_nothing() {
+        let m = manifest();
+        let anchors = Anchors::of(&m, &[] as &[std::path::PathBuf]);
+        let text = "See `path@a-project@/etc/passwd`, `path@*@../x.md`, `path@a-project@a/./b.md` \
+                    and `path@a-project@kept.md`.\n";
+        let model = Model::from_documents(vec![(PathBuf::from("notes/prose.md"), text.into())]);
+        assert_eq!(
+            crate::model::resolve::ignore_queries(&model, &anchors),
+            vec!["kept.md".to_string()]
+        );
+    }
+
     #[test]
     fn a_spec_anchor_is_no_place_a_path_is_read_from() {
         // A spec is an anchor and a file. Read as a directory, `..` from it would land in the

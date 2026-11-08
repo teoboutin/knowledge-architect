@@ -13,7 +13,7 @@ new Component. The sentence stays when the first entry lands, and no check reads
 ### What
 
 Seen in the work that created the git Component: the git Component's issue home,
-crates/git/docs/open-issues/README.md, still said "One file per outstanding item of git. No entry
+`path@git@docs/open-issues/README.md`, still said "One file per outstanding item of git. No entry
 yet." over four entries, until the review before its merge found it. The sentence is written for
 every register `home_text` knows: goal, design, rejected, tripwire, issue, spec, milestone and any
 other.
@@ -36,3 +36,5 @@ and a false sentence there is met by every session that opens it, against
 
 `home_text` writes no sentence that turns false at the first entry, or the check reports a home
 that says "No entry yet." over an entry; a test of `new-component` or of the check showing it.
+Either closure is decided under `skill@knowledge-architect-design` first, as the paragraph above
+says.

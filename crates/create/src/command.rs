@@ -31,7 +31,9 @@ pub struct InitOptions {
     pub name: Option<String>,
     /// The Components to add, as `new-component` adds one, each relative to `path`.
     pub components: Vec<PathBuf>,
-    /// Also write the maintenance crate of a Rust project.
+    /// Also write the maintenance crate of a Rust project, and make `.gitignore` ignore `/target`.
+    /// A Component at or under `target`, which that rule would keep out of the walk, is then
+    /// refused.
     pub rust: bool,
     /// The project's command. `None` is `klarch`, or `cargo klarch` under `rust`.
     pub command: Option<String>,
@@ -148,15 +150,13 @@ pub fn init(
                 cargo.display()
             ));
         }
-        // `--rust` makes `.gitignore` ignore `/target`, a rule no repository holds before the
-        // run, so the refusal of an ignored Component below cannot see it: a Component at or
-        // under `target` would be outside the walk, and the check would report it missing.
-        if let Some(ignored) = components
-            .iter()
-            .find(|rel| rel.split('/').next() == Some("target"))
-        {
+        // `--rust` writes the rule `/target` into `.gitignore` where nothing ignores `target`
+        // yet, after the refusal of an ignored Component below has asked git, and that refusal
+        // is skipped where `init` creates the repository: neither sees the rule, so a Component
+        // at or under `target` would be outside the walk, and the check would report it missing.
+        if let Some(ignored) = components.iter().find(|rel| under_target(rel)) {
             return Err(format!(
-                "the Component `{ignored}` lies under `target`, which `--rust` makes `.gitignore` \
+                "the Component `{ignored}` lies at or under `target`, which `--rust` makes `.gitignore` \
                  ignore, so the check would read none of its files: choose another directory. \
                  Nothing was written."
             ));
@@ -677,6 +677,8 @@ fn ignore_target(
 
 /// Add a Component to the project `manifest` describes, as `klarch new-component` does.
 ///
+/// `dir` is read relative to the working directory, and so is a relative `manifest.root()`.
+///
 /// It runs inside a located project and behind the writer gate, so over a model phases 1 to 3
 /// find incomplete it refuses, per `design@check@phases-gate-the-report`. Every refusal comes
 /// before its first write and is `Err`, exit 2. It edits the manifest with `toml_edit`, which
@@ -820,6 +822,12 @@ fn append(components: &mut toml_edit::Array, rel: &str) {
     } else {
         closing.to_string()
     });
+}
+
+/// Whether `rel`, a project-relative path with `/` separators, lies at or under `target`, which
+/// the rule `/target` that `init --rust` writes ignores.
+fn under_target(rel: &str) -> bool {
+    rel.split('/').next() == Some("target")
 }
 
 /// `path` relative to `root`, with `/` separators, as a manifest lists a Component; `Err` where it
@@ -994,6 +1002,16 @@ fn lexical(path: &Path) -> PathBuf {
 #[cfg(test)]
 mod tests {
     use super::*;
+
+    /// The claim: a path is under `target` by its first segment alone. Mutation checked:
+    /// `rel.starts_with("target")` accepts `targets`, and `rel == "target"` misses `target/sub`.
+    #[test]
+    fn under_target_is_the_first_segment() {
+        assert!(under_target("target"));
+        assert!(under_target("target/sub"));
+        assert!(!under_target("targets"));
+        assert!(!under_target("sub/target"));
+    }
 
     /// The claim: `.` and `..` fold away without the filesystem.
     #[test]

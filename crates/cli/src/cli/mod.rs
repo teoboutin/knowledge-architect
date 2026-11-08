@@ -151,7 +151,8 @@ pub struct InitArgs {
     pub components: Vec<std::path::PathBuf>,
     /// Also write the maintenance crate of a Rust project, `xtask`, with its virtual workspace,
     /// its cargo aliases and `/target` in `.gitignore`, as the setup skill shows them. Refused
-    /// where a `Cargo.toml` lies at or above PATH, or a file it writes already exists.
+    /// where a `Cargo.toml` lies at or above PATH, a file it writes already exists, or a Component
+    /// lies at or under `target`.
     #[arg(long)]
     pub rust: bool,
     /// The project's command, written as `[project] command`; the default is `klarch`, or
