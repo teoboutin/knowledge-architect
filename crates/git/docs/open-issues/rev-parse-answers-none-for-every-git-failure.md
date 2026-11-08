@@ -39,6 +39,11 @@ the git Component; the effect on the index's snapshot was read from
 work's review, in a repository with two files committed and a third staged, where the diff lists
 the staged file alone.
 
+The closure reaches the extension API: `Snapshot::object_id` in `path@check@src/extension.rs`, which
+an extension calls, returns `Option<String>` from `rev_parse`, so routing the error there means
+`io::Result<Option<String>>` or another shape, a breaking change of the library API that owes a
+CHANGELOG.md entry. Which shape `object_id` takes is not decided.
+
 ### Why it matters
 
 `design@git@failed-git-is-an-error` holds that every invocation a verdict depends on fails as an
