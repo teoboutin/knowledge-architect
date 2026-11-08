@@ -7711,3 +7711,36 @@ fn a_copy_of_the_installed_text_s_crate_is_refused() {
         "{stderr}"
     );
 }
+
+/// The claim: a path reference whose path holds a shape the resolver refuses, a leading slash or
+/// an upward segment, at a named anchor or at `*`, is one finding at its line, and the rest of the
+/// run goes on: git is asked nothing about such a path, since `git check-ignore` fails the whole
+/// batch over a path outside the repository. Mutation checked: removing the test of `refused` from
+/// the span arm of `ignore_queries` makes the run exit 2 with git's `outside repository`.
+#[test]
+fn a_refused_path_shape_is_one_finding_and_the_run_goes_on() {
+    let sandbox = Sandbox::seeded(
+        "refused-span",
+        "core",
+        &[(
+            "README.md",
+            "# core-mock\n\nA mock project for the binary.\n\n\
+             See `path@core-mock@/etc/passwd`, `path@core-mock@../outside.md` and `path@*@/x.md`.\n",
+        )],
+    );
+    let (out, err, code) = sandbox.run(&["check"]);
+    assert_eq!(code, 1, "{out}{err}");
+    assert!(!err.contains("check-ignore"), "{err}");
+    assert_eq!(
+        out.matches("a leading slash is outside the project's namespace")
+            .count(),
+        2,
+        "{out}"
+    );
+    assert_eq!(
+        out.matches("an upward segment is anchored at the wrong place by definition")
+            .count(),
+        1,
+        "{out}"
+    );
+}
