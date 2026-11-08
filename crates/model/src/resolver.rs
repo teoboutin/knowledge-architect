@@ -1284,6 +1284,12 @@ pub fn ignore_queries(model: &Model, anchors: &Anchors) -> Vec<String> {
                     if !kind.takes_a_path() {
                         continue;
                     }
+                    // A shape `refused` refuses is a finding of its own, which asks git nothing: a
+                    // leading slash or an upward segment names a path outside the repository, and
+                    // `git check-ignore` fails the whole batch over it.
+                    if refused(id).is_some() {
+                        continue;
+                    }
                     let claims_dir = id.ends_with('/');
                     let trimmed = id.trim_end_matches('/');
                     match anchor {
