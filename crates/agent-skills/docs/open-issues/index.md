@@ -1,6 +1,6 @@
 **Generated — do not edit.** `cargo klarch index`
 
-63 entries
+64 entries
 
 | kind | title |
 | --- | --- |
@@ -27,6 +27,7 @@
 | design | [The claim check of a commit message is read at the session's start and needed at each commit](the-claim-check-of-a-commit-message-is-read-at-the-start-and-needed-at-each-commit.md) |
 | design | [The first test for a losing alternative admits every rival of a head that earned its place as an interface](the-first-test-for-a-losing-alternative-admits-every-rival-of-an-interface-head.md) |
 | design | [The goal standard does not say what a goal is worth or what it is for, and its rule on what shows a goal met pulls the other way](the-goal-standard-does-not-say-what-a-goal-is-worth-or-what-it-is-for.md) |
+| design | [A retrospective intake handles many unrelated findings at once, so its grounding may still load one session beyond one reading](the-intake-s-search-lands-a-batch-s-whole-neighbourhood-on-one-session.md) |
 | design | [The lines owed per graded entry are written by a script at every occasion, and their reasons fail the checker](the-lines-owed-per-graded-entry-are-written-by-a-script-at-every-occasion.md) |
 | design | [The reading on touch of `may-bear` entries met its reopening condition, at both plan reviews of one spec](the-reading-on-touch-of-may-bear-entries-met-its-reopening-condition.md) |
 | design | [The record search's graded entries exceed what one session can read whole, at the design audit and the intake](the-search-s-graded-entries-exceed-what-one-session-reads-whole.md) |
