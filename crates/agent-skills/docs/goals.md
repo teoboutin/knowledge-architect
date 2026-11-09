@@ -191,8 +191,14 @@ It does not try to cover every case. A case the judgement of the session followi
 enough gets no instruction, since each instruction added for a specific case is read by every
 session that loads the text, and can conflict with the instructions already there.
 
-Nor does it impose structure the work does not need: a fixed sequence, count or mapping between a
-unit of the work and a unit of its record that another instruction needs to vary.
+Nor does an instruction impose structure the work does not need: a fixed sequence, a fixed count, or
+a fixed mapping between a unit of the work and a unit of what the work produces, such as a commit or
+a section of a document, that the work can be carried out as intended without, and that another
+instruction needs to vary. The clause bears on what an agent decides by its judgement in carrying
+out its work, such as the shapes it proposes in the design of a solution, where a fixed structure
+narrows what is proposed. It does not bear on a command an agent runs, nor on a structure that a
+command or the checker carries out, or refuses before the work is committed, or, for a commit, at
+the check the workflow runs right after it.
 
 An instruction or a structure whose act the text of a goal of knowledge-architect states, in its
 body or its measure, every Component's goals whose measure is the installed text included, is
@@ -200,19 +206,28 @@ needed, and judgement does not take its place. A category or an example that a g
 "a kind of reviewer" among the tools a target project sets up, makes no instruction needed.
 
 It is met while each installed instruction names an act the workflow needs, and the installed text
-imposes no fixed sequence, count or mapping between a unit of the work and a unit of its record that
-another instruction needs to vary. A review that finds an instruction for a case judgement handles,
-or a structure another instruction needs to vary, other than one whose act a goal's text states,
-shows the goal unmet in practice; it is answered by removing that instruction or that structure
-rather than by adding a rule.
+imposes on what an agent decides by its judgement in carrying out its work no fixed sequence, fixed
+count, or fixed mapping between a unit of the work and a unit of what the work produces, such as a
+commit or a section of a document, that the work can be carried out as intended without and that
+another instruction needs to vary, other than one that a command or the checker carries out, or
+refuses before the work is committed, or, for a commit, at the check the workflow runs right after
+it. A review that finds an instruction for a case judgement handles, or such a structure, other than
+one whose act a goal's text states, shows the goal unmet in practice; it is answered by removing
+that instruction or that structure rather than by adding a rule. The retrospective asks whether an
+installed instruction its session met covered a case the session's judgement handles well enough, or
+imposed such a structure.
 
 It refines `goal@knowledge-architect@agents-get-a-complete-workflow`.
 
 - Requires, for instance: an instruction whose act a goal's text states stays, even where sessions
   often do that act unprompted.
 - Admits, for instance: an instruction for a case the session's judgement handles poorly.
-- Rules out, for instance: a fixed count of reviewers per review that another instruction needs to
+- Admits, for instance: a fixed shape of a record search's report, which a command checks and
+  refuses when it is not met.
+- Admits, for instance: a fixed step of the design procedure that no other instruction needs to
   vary.
+- Rules out, for instance: a fixed count of reviewers per review that a review can be carried out as
+  intended without, and that another instruction needs to vary.
 
 ## A goal written under the installed text states the owner's intent as the owner holds it `##goals-state-the-owner-s-intent`
 
