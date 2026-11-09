@@ -17,10 +17,12 @@ it; a sentence there binds the implementer only where one of those three section
 It is assembled from one session's transcript, the session whose discussion begins with the owner's
 message "I want to discuss the design record search procedure and the design audit step." A label
 `L<n>` in an argument names line `n` of that session's extraction by
-`cargo klarch transcript show <session> --from "I want to discuss the design record search procedure and the design audit step."`.
+`cargo klarch transcript show <session> --from "I want to discuss the design record search procedure and the design audit step."`,
+the session found by `cargo klarch transcript list --containing` with the same words.
 The owner's rounds 2 to 10 hold a side task, the drafting of
 `goal@agent-skills@session-orchestrates-the-work`, committed on this spec's branch before it; "F2",
-"F3" and the other `F<n>` labels in the arguments name findings of that goal's reviews.
+"F3" and the other `F<n>` labels in the arguments name findings of that goal's reviews, which no file
+keeps: what the owner ruled on each is in the owner's quoted answer.
 
 ## How the work is done
 
@@ -40,13 +42,14 @@ The owner's rounds 2 to 10 hold a side task, the drafting of
 - **a cluster**: a unit of a unit register, a design subject or a group of a declared register, with
   what `design@query@cluster-rooted-at-a-subject` joins to it; that head's own word for a design
   subject is "unit".
-- **a context entry**: an entry of another search unit that an entry of an agent cites, a head or a
-  `rejected` entry, given to that agent whole and read only.
+- **a context entry**: a head or a `rejected` entry that an entry an agent grades cites, and that the
+  agent does not grade itself, given to that agent whole and read only.
+- **a title line**: a goal's heading statement without its slug.
 - **a cluster agent, a goal agent**: an agent directory `--out` writes, holding the entries of
   clusters, or the goals of search units.
 - **a subject of the work**: a part of the work the dispatching session names, by an id in the grammar
   of an entry id: a thread at the design grounding, a cluster of findings at a retrospective intake,
-  `slice` or `spec` at a design audit.
+  `slice-audit` or `spec-audit` at a design audit, `whole-work` where the brief names none.
 - **a verdict**: one line of a searcher's report on one entry, shaped as "Decided design" says.
 - **a verdict file**: `verdicts-<subject>.md`, what `--verify` writes for one subject of the work.
 - **the gaps file, the fit lines**: `gaps.md` and `fit-lines.md`, what `--verify` writes at a design
@@ -103,7 +106,6 @@ Rested on, not argued again: `goal@agent-skills@session-orchestrates-the-work`,
 `goal@knowledge-architect@agents-work-without-drift`,
 `goal@knowledge-architect@mechanical-tasks-are-the-tool-s`,
 `goal@query@the-record-is-consulted-as-the-workflow-requires`,
-`design@agent-skills@no-thread-closes-before-the-search`,
 `design@query@record-is-every-register-entry`, `design@agent-skills@synthetic-evidence-not-built`,
 `design@agent-skills@ledger-from-transcript`.
 
@@ -121,10 +123,13 @@ Reversed or rewritten, each at step 5 (the harvest) unless named:
   `design@agent-skills@unread-entries-reach-the-conformance-review`,
   `design@agent-skills@seeds-name-decisions`, `design@agent-skills@search-waits-until-the-scope-settles`,
   `design@agent-skills@record-searched-before-the-work`, `design@agent-skills@search-reads-the-whole-record`,
-  `design@agent-skills@design-hands-off-to-planning`.
+  `design@agent-skills@design-hands-off-to-planning`, `design@agent-skills@subject-split-standard` (with
+  `path@agent-skills@fragments/subject-split.md`), and the sentence of
+  `design@agent-skills@no-thread-closes-before-the-search` on the cost of a reading after the owner's
+  rulings.
 - the root: `design@knowledge-architect@query-crate`, for a second use of `git` in `query`.
-- brought back with a new argument: `rejected@agent-skills@one-search-agent-per-anchor`, which leaves
-  its home.
+- reopened with a new argument, not built: `rejected@agent-skills@one-search-agent-per-anchor`, which
+  stays, its reason rewritten to what still holds.
 - a reason defeated: `rejected@agent-skills@conformance-reader-at-the-checkpoint`, its reason
   rewritten with the two heads that cite its cost.
 - reworded: `tripwire@agent-skills@owner-proposal-built-ungrounded` (its "entries it left unread")
@@ -151,6 +156,8 @@ citations, outside this spec. Each is read at the harvest, except the installed 
 - `design@agent-skills@search-reads-the-whole-record`: `path@agent-skills@docs/open-issues/a-lighter-pass-for-untouched-components.md` (1), `path@agent-skills@docs/open-issues/the-search-s-graded-entries-exceed-what-one-session-reads-whole.md` (1).
 - `design@agent-skills@design-hands-off-to-planning`: `path@agent-skills@docs/design/plan-documents.md` (1), `path@check@docs/design/plan-documents.md` (1).
 - `design@knowledge-architect@query-crate`: `register@query@design` (1), `path@knowledge-architect@docs/open-issues/the-checker-may-depend-on-every-crate-below-it.md` (1).
+- `design@agent-skills@subject-split-standard`: `path@agent-skills@content/skills/component-creation/SKILL.md` (1), `path@agent-skills@docs/design/audit-record-axes.md` (1).
+- `design@agent-skills@no-thread-closes-before-the-search`: `path@agent-skills@content/skills/design/SKILL.md` (2), `path@agent-skills@docs/design/owner-and-intent.md` (1), `path@agent-skills@docs/design/record-search.md` (2).
 
 Closed by the work: `issue@agent-skills@the-search-s-graded-entries-exceed-what-one-session-reads-whole`,
 `issue@agent-skills@a-slice-s-design-audit-is-seeded-with-every-decision-of-its-milestone`,
@@ -159,6 +166,9 @@ Closed by the work: `issue@agent-skills@the-search-s-graded-entries-exceed-what-
 `issue@agent-skills@the-reading-on-touch-of-may-bear-entries-met-its-reopening-condition`,
 `issue@query@the-graded-entries-repeat-a-shared-entry-s-grade-per-agent`,
 `issue@query@the-report-skeleton-names-no-relation-its-entry-s-role-admits`.
+
+Opened by the work: `issue@agent-skills@the-intake-s-search-lands-a-batch-s-whole-neighbourhood-on-one-session`,
+which holds the parked intake thread.
 
 The discussion ran two searches in the verdict shape, before it was built: the first with a work
 statement as its work, whose findings `argument@record-search-verdicts@arg-38` answers; the second
@@ -177,11 +187,11 @@ session, and were not checked line by line.
 - `design@agent-skills@losing-alternatives-filter`: constrains, respect. Respected by the decided design; no requirement beyond it.
 - `design@agent-skills@losing-shape-test`: constrains, respect. Respected by the decided design; no requirement beyond it.
 - `design@agent-skills@rejected-citation-direction`: constrains, respect. Respected by the decided design; no requirement beyond it.
-- `design@agent-skills@subject-split-standard`: constrains, respect. Respected by the decided design; no requirement beyond it.
+- `design@agent-skills@subject-split-standard`: constrains, respect. Rewritten at the harvest with `path@agent-skills@fragments/subject-split.md`, which step 4 edits: a cluster holds the standing entries of its own search unit, and a split notice weighs a cluster's own entries.
 - `design@agent-skills@thread-slug-is-entry-id`: constrains, respect. Respected by the decided design; no requirement beyond it.
 - `rejected@agent-skills@design-listing-cut-in-groups-of-sixty`: constrains, respect. Respected by the decided design; no requirement beyond it.
 - `rejected@agent-skills@one-agent-reads-every-standing-entry`: constrains, respect. Respected by the decided design; no requirement beyond it.
-- `rejected@agent-skills@one-search-agent-per-anchor`: brings-back, new-argument-needed. Brought back with a new argument, per `thread@record-search-verdicts@component-packing`: the split above the bound answers its reason; it leaves the rejected home at the harvest.
+- `rejected@agent-skills@one-search-agent-per-anchor`: brings-back, new-argument-needed. Reopened with a new argument, per `thread@record-search-verdicts@component-packing`, and not built: small search units share agents. The entry stays, its reason rewritten at the harvest to what still holds: one agent per small anchor spends more on starting agents than on reading.
 - `rejected@agent-skills@subject-groups-bounded-at-sixty`: constrains, respect. Respected by the decided design; no requirement beyond it.
 - `design@agent-skills@audit-method`: constrains, none. Respected by the decided design; no requirement beyond it.
 - `design@agent-skills@refused-report-returned-as-text`: constrains, respect. Respected by the decided design; no requirement beyond it.
@@ -201,11 +211,11 @@ session, and were not checked line by line.
 - `design@agent-skills@tripwire-recording-authority`: constrains, respect. Respected by the decided design; no requirement beyond it.
 - `design@agent-skills@standing-state-review-before-every-merge`: constrains, none. Respected by the decided design; no requirement beyond it.
 - `design@agent-skills@plan-read-against-the-record`: conflicts, respect. Answered: the design-conformance review still reads the plan against the goals, design and rejected homes, and reads the verdict file beside them.
-- `design@agent-skills@unread-entries-reach-the-conformance-review`: conflicts, check-reversal. Rewritten at the harvest: the reviewer reads the verdict file beside the homes, and at the merge of an in-change or bounded branch the axis is owed wherever the grounding's verdict file holds any verdict but `unrelated`.
+- `design@agent-skills@unread-entries-reach-the-conformance-review`: conflicts, check-reversal. Rewritten at the harvest: the reviewer reads the verdict files beside the homes, and at the merge of an in-change or bounded branch the axis is owed wherever the commit message's generated lines hold a verdict other than `constrains` and `unrelated`.
 - `design@agent-skills@a-scratch-directory-per-subagent`: constrains, respect. Respected by the decided design; no requirement beyond it.
 - `issue@agent-skills@a-repair-of-the-last-transcript-review-can-make-another-axis-owed`: touches, none. Stays open; the condition of the conformance axis it names changes at step 4, from a list of unread entries to generated verdict lines.
 - `issue@agent-skills@an-issue-s-re-entry-point-is-read-by-no-review`: touches, none. Stays open; `trigger-met` now covers a design issue's re-entry point at the search's occasions, which answers its instance at those occasions only.
-- `design@agent-skills@bounded-path-in-design`: constrains, respect. Respected by the decided design; no requirement beyond it.
+- `design@agent-skills@bounded-path-in-design`: constrains, respect. Respected: the draft's form follows the path the session expects; the classification after the search still decides the path, per the decided design.
 - `design@agent-skills@frontier-tier-only`: constrains, none. Respected by the decided design; no requirement beyond it.
 - `design@agent-skills@extension-follows-the-ground`: constrains, respect. Respected by the decided design; no requirement beyond it.
 - `issue@agent-skills@a-lighter-pass-for-untouched-components`: trigger-met, rule-before-work. Re-entry point met. The discussion keeps the whole-record search, on the owner's agreement, and leaves the issue open on the owner's planned project of about 30 Components; the harvest rewrites its re-entry point, which names an issue this work closes.
@@ -226,7 +236,7 @@ session, and were not checked line by line.
 - `design@agent-skills@search-relevance-grade`: conflicts, check-reversal. Listed as reversed or rewritten; judged at the harvest.
 - `design@agent-skills@may-bear-read-on-touch`: conflicts, check-reversal. Listed as reversed or rewritten; judged at the harvest.
 - `design@agent-skills@search-waits-until-the-scope-settles`: conflicts, check-reversal. Listed as reversed or rewritten; judged at the harvest.
-- `design@agent-skills@no-thread-closes-before-the-search`: constrains, respect. Respected by the decided design; no requirement beyond it.
+- `design@agent-skills@no-thread-closes-before-the-search`: constrains, respect. Rested on; its sentence on the cost of a reading after the owner's rulings is rewritten at the harvest with the reason of `rejected@agent-skills@conformance-reader-at-the-checkpoint`.
 - `design@agent-skills@seeds-name-decisions`: conflicts, check-reversal. Listed as reversed or rewritten; judged at the harvest.
 - `design@agent-skills@record-searched-before-the-work`: conflicts, check-reversal. Listed as reversed or rewritten; judged at the harvest.
 - `rejected@agent-skills@conformance-reader-at-the-checkpoint`: conflicts, check-reversal. Its reason, rulings already given, is defeated by `design@agent-skills@no-thread-closes-before-the-search`; the harvest rewrites its reason and the two heads citing its cost.
@@ -249,7 +259,7 @@ session, and were not checked line by line.
 - `design@agent-skills@goals-change-through-goal-setting`: constrains, respect. Answered: a `conflicts` verdict on a goal routes to the goal-setting skill, never to `check-reversal`.
 - `design@agent-skills@no-instruction-for-a-goal-read-two-ways`: conflicts, respect. Answered: `owner-question` carries no rule of its own for a goal read two ways; it takes what `primer@question-authority` reserves to the owner.
 - `design@agent-skills@goal-edit-ruled-alone`: constrains, respect. Respected by the decided design; no requirement beyond it.
-- `rejected@agent-skills@ledger-written-during-discussion`: constrains, respect. Respected by the decided design; no requirement beyond it.
+- `rejected@agent-skills@ledger-written-during-discussion`: constrains, respect. Respected: the draft is written once, when the shapes settle, read at once by the search it is written for, extended only for a later thread's own search, and never the source of the plan, per the decided design.
 - `design@agent-skills@instruction-record-is-minimal`: constrains, respect. Respected by the decided design; no requirement beyond it.
 - `design@agent-skills@behaviour-additions-need-real-use`: constrains, respect. Respected by the decided design; no requirement beyond it.
 - `design@agent-skills@synthetic-evidence-not-built`: constrains, respect. Respected by the decided design; no requirement beyond it.
@@ -465,8 +475,9 @@ context entries in full text (`argument@record-search-verdicts@arg-50`,
 units into the room of large ones, which no goal ranks, at a cost of one agent over this repository
 (`argument@record-search-verdicts@arg-34`). State: `approved`, round 20. Section: "Decided design".
 Harvest: `design@query@clusters-packed-under-a-word-bound`, `design@query@residual-grouped-by-anchor`,
-`design@query@cluster-rooted-at-a-subject`, `design@agent-skills@search-reads-the-whole-record`; the
-removal of `rejected@agent-skills@one-search-agent-per-anchor`.
+`design@query@cluster-rooted-at-a-subject`, `design@agent-skills@search-reads-the-whole-record`,
+`design@agent-skills@subject-split-standard`; the reason of
+`rejected@agent-skills@one-search-agent-per-anchor`.
 
 ### The searcher returns a verdict per entry, its quotation checked by the command `##verdict-report`
 
@@ -538,7 +549,9 @@ default to keep the whole-record search and leave the issue open: "Agreed on the
 Raised by the owner, round 1 (`argument@record-search-verdicts@arg-3`) and round 2
 (`argument@record-search-verdicts@arg-18`); parked by the session in round 2
 (`argument@record-search-verdicts@arg-24`). State: `parked`. Cause: the next intake the owner runs
-still loads its session beyond one reading. Re-entry point: the retrospective of that intake.
+still loads its session beyond one reading. Re-entry point: the retrospective of that intake. Its
+durable home is `issue@agent-skills@the-intake-s-search-lands-a-batch-s-whole-neighbourhood-on-one-session`,
+which this work opens.
 
 ### Where the judgement of a dispatch is stated `##dispatch-judgement-home`
 
@@ -697,7 +710,7 @@ Round 2, the owner, at L172.
 Round 2, the owner, at L172.
 
 - Threads: `thread@record-search-verdicts@slice-audit-checks-fit`
-- "the audit is much less needed when the spec was recently designed. It is important when work has landed between the design and the satrt of the work."
+- "the audit is much less needed when the spec was recently designed. It is important when work has landed between the design and the satrt of the work. I think it shoudl keep being done before every slice, but the important point is that it should not put a lot of weight on the main session"
 - "it should not put a lot of weight on the main session, especially when the findings are low and easy to fix, or even require basicall no action. The goal is to verify that the spec fits in the curent design and code (and fix if it does not), not to redo the work the design session did."
 
 ### Draft the goal in this session `##arg-20`
@@ -819,6 +832,7 @@ Round 12, the owner, at L613.
 Round 12, the session, at L621.
 
 - Threads: `thread@record-search-verdicts@component-packing`, `thread@record-search-verdicts@bound-raise`
+- Source: a script over the entries of the first, 25-agent work list, packing whole Components at 40,000 words, run in the session and not kept.
 - "Two Components that each exceed half the bound can never share an agent anyway, since together they exceed the bound. So at exactly half, your rule adds a single constraint: no small Component joins a large one."
 - Measurement over today's tree at 40,000 words: "agent-skills | 115,191"; "check | 37,185"; "model | 26,742"; "knowledge-architect (root) | 19,838"; "the 10 others | 463 to 7,571 each, 31,511 in all"; "**Your rule: 7 agents.**" against "Small Components packed into the free room of large ones: 6 agents."
 - "Nothing ranks the two shapes beyond that, so this is a fork, and the record will say you chose it over the rival at a cost of one agent per search here."
@@ -879,7 +893,7 @@ Round 14, the owner, at L848.
 - Threads: `thread@record-search-verdicts@occasion-shaped-output`, `thread@record-search-verdicts@goal-context-once`
 - "the refusal you mentionned is about what "the work does not need". If we judge the work needs it, that is allowed."
 - "this clause was intended to apply mostly to the design procedure, were creativity is important, and structure could hurt it. But the semi-mechanical part of a record search should not be affected."
-- "If the structure can be enforced by a mechanical check, that clause should not apply, because deviation will be corrected instantly."
+- "The last reason for this clause is that imposing rigid structure everywhere would create lots of instructions from which deviation would happen often. If the structure can be enforced by a mechanical check, that clause should not apply, because deviation will be corrected instantly."
 - "It should not apply to a mechanical procedure. It applies to agentic instructions."
 
 ### Each location its own unit `##arg-41`
@@ -1044,40 +1058,49 @@ verdict and action words      as "Mapping tables" lists them
 Every Component and every location the manifest declares is a search unit. An entry belongs to the
 search unit that holds it; a location the tool constructs, a plan or the entry anchor of a directory
 register, belongs to the search unit that holds its home. Clusters are built inside a search unit, by
-the rule of `design@query@cluster-rooted-at-a-subject`, from its own entries. An entry of another
-search unit that a cluster's entry cites, a head or a `rejected` entry, is a context entry of the
-agent holding that cluster: given whole, read only, not graded there. The goals an agent's entries
-cite reach it as their title lines, with the title lines of every goal of the root, of each
-Component enclosing a search unit it holds, and of those search units. A residual group no longer
-exists: an entry no cluster holds is packed with its search unit.
+the rule of `design@query@cluster-rooted-at-a-subject` over every kind of unit `unit_key` gives, from
+the unit's own entries: a standing entry of the search unit joins the cluster of each head of that
+unit it cites. An entry a cluster's entry cites that the agent holding the cluster does not grade, a
+head or a `rejected` entry, of another search unit or of another agent of a split one, is a context
+entry of that agent: given whole, read only, not graded there, and named by no verdict line. The goals
+reach a cluster agent as their title lines, the heading's statement without its slug: every goal of the
+root, of each Component enclosing a search unit the agent holds, and of those search units. An entry no
+cluster holds is packed with its search unit, as the unit's remainder; no residual group per anchor
+exists. The session still reads every goals home at the design grounding, so both readings of
+`design@agent-skills@searcher-grades-goals` stay.
 
 The argument: an issue that cites a head is judged beside that head, which
-`design@query@cluster-rooted-at-a-subject` requires, and the owner narrowed the defect to that case
-(`argument@record-search-verdicts@arg-26`). Nearest rival: context entries by title only, which judges
-a citing issue without its head's text; it cost 3 agents fewer over this repository
-(`argument@record-search-verdicts@arg-51`).
+`design@query@cluster-rooted-at-a-subject` requires, and the owner narrowed the defect of today's
+packing to that case (`argument@record-search-verdicts@arg-26`). Nearest rival: context entries by title
+only, which judges a citing issue without its head's text; it cost 3 agents fewer over this repository
+(`argument@record-search-verdicts@arg-51`). A report names every entry its agent was given to judge,
+which is how the owner read "names every entry it was given" in
+`goal@agent-skills@session-orchestrates-the-work`.
 
 ### An agent's load, and the packing alone above half the bound
 
-An agent's load is the words of its graded entries, plus the words of its context entries and of its
-title lines, each counted once per agent, plus the words of the work. A search unit's load is the load
-of one agent holding all of it. A search unit whose load exceeds half the bound gets agents of its
-own: one where its load fits the bound, else its clusters spread over as many agents as the bound
-needs, first-fit decreasing then spread, as `pack` spreads today. Search units whose load is at most
-half the bound are packed together whole, by the same rule. A standing entry of a split search unit
-that cites heads in clusters of two agents is graded in the agent holding the cluster it cites most,
-the first such cluster in `agents.txt` order on a tie, so every entry is graded in exactly one agent.
-A cluster whose load exceeds the bound alone goes to an agent alone, with a notice, as today. Goals are
-packed into goal agents by the same rules, by search unit, each goal agent reading its goals whole
-with the prose of each goals home above its first goal.
+The bound left for entries is the bound minus the words of the work. A group's load, the input of
+`pack`, is the words of its graded entries, of its context entries and of its title lines; a context
+entry or a title line two groups of one agent share is counted in each, so an agent's true load is at
+most the sum. A search unit's load is the load of one group holding all of it. A search unit whose
+load exceeds half the bound left gets agents of its own: one where its load fits, else its clusters and
+its remainder spread over as many agents as the bound needs, first-fit decreasing then spread, as `pack`
+spreads today. Search units whose load is at most half the bound left are packed together whole, by the
+same rule. Before packing, a standing entry of a split search unit that cites heads of several of its
+clusters is assigned to the cluster it cites most, the first such cluster in the unit's order on a tie,
+so every entry is graded in exactly one agent. A cluster whose own entries exceed the bound alone goes
+to an agent alone, with the notice of today, which weighs the cluster's own entries only. Goals are
+packed into goal agents by the same rules, by search unit, each goal agent reading its goals whole with
+the prose of each goals home above its first goal.
 
-The argument for the half bound: two search units each above half the bound can never share an
-agent, so at half the rule only keeps a small unit out of a large one's agent; the owner chose it, on
-the owner's judgement that a large Component's entries probably interact, which no measurement
-backs (`argument@record-search-verdicts@arg-33`, `argument@record-search-verdicts@arg-34`). Nearest
-rival: small units packed into the room of large ones, one agent fewer over this repository. Brought
-back: `rejected@agent-skills@one-search-agent-per-anchor`, whose reason, "an anchor bounds nothing",
-the split above the bound answers.
+The argument for the half bound: two search units each above half the bound can never share an agent,
+so at half the rule only keeps a small unit out of a large one's agent; the owner chose it, on the
+owner's judgement that a large Component's entries probably interact, which no measurement backs
+(`argument@record-search-verdicts@arg-33`, `argument@record-search-verdicts@arg-34`). Nearest rival:
+small units packed into the room of large ones, one agent fewer over this repository. Reopened, not
+built: `rejected@agent-skills@one-search-agent-per-anchor`, whose reason, "an anchor bounds nothing",
+the split above the bound answers; small units still share agents, since one agent each would spend
+more on starting agents than on reading (`argument@record-search-verdicts@arg-32`).
 
 ### The bound is 40,000 words
 
@@ -1087,46 +1110,58 @@ keeps a searcher under that point. Both searches of the discussion, real use on 
 measured every searcher's peak under 250,000 tokens at this bound
 (`argument@record-search-verdicts@arg-36`, `argument@record-search-verdicts@arg-51`). Nearest rivals:
 30,000, the owner's first figure, which keeps more agents for the same record; 50,000, the session's,
-which the measured fit puts near 240,000 tokens, with the verdict output added; the owner chose to raise
-by steps. A later raise rests on the peaks of real searches, which the retrospective's question on
-cost, per `goal@agent-skills@session-orchestrates-the-work`, reaches.
+which the measured fit puts near 240,000 tokens with the verdict output added; the owner chose to raise
+by steps. A later raise rests on the peaks of real searches, which the retrospective's question on cost,
+per `goal@agent-skills@session-orchestrates-the-work`, reaches.
 
 ### The work and the subjects of the work
 
-`worklist --out` takes `--work <path>` for each file of the work (the draft, a spec, a received file)
-and `--subject <id>` for each subject of the work. It writes `work.txt`, listing both, and every agent's
-`report.md` skeleton names the subjects. The words of the work files count in every agent's load.
-Without `--subject`, the one subject is `work`. `--verify` refuses an `against` value that `work.txt`
-does not list.
+`worklist --out` takes `--work <path>` for each file of the work (the draft, a spec and its milestone
+document, the received files of an intake, a proposed fix) and `--subject <id>` for each subject of the
+work, an id in the grammar of an entry id, which `cli` checks by its form while parsing. Without
+`--subject`, the one subject is `whole-work`; at a design audit, `slice-audit` or `spec-audit`. `--out`
+writes `work.txt`, listing the work's paths, the subjects, and at an audit the spec's path and the
+`--since` commit's subject; each agent's `report.md` skeleton names the subjects. `--verify` refuses an
+`against` value that `work.txt` does not list, and reads from `work.txt` whether the run is an audit:
+it is one where `work.txt` holds a spec's path. The intake's second search, for a proposed fix on a
+subject its files did not raise, passes the fix as its `--work`.
 
 ### The verdict line
 
 Each line of a report is, in this order, with ` | ` between the fields:
 
 ```text
-- <reference> | verdict: <verdict> | against: <subject ids, comma-separated, or -> | action: <action> | owner-question: <text, or empty> | quote: <text, or empty> | reason: <text>
+- <reference> | verdict: <verdict> | against: <subject ids, comma-separated, or -> | action: <action> | owner-question: <text, or empty> | quote: <text> | reason: <text>
 ```
 
-- `quote` runs to the last ` | reason: ` of the line, and `reason` to its end; `--verify` refuses a
-  line whose fields are missing, out of this order, or whose `quote` holds ` | reason: `.
+- `quote` runs to the last ` | reason: ` of the line, and `reason` to its end. `--verify` refuses a
+  line whose fields are missing or out of this order, an `owner-question` holding ` | quote: `, and a
+  `quote` holding ` | reason: `.
+- The skeleton line of each entry gives, after `verdict:`, the verdicts its register admits, which the
+  searcher replaces by one; the seed marks stay on the line as today.
 - The verdicts a register admits, and the actions a verdict admits, are the tables of "Mapping
-  tables". `--verify` refuses a verdict or an action outside them, and the skeleton line of each entry
-  names the verdicts its register admits.
-- The quotation: at least eight whitespace-separated words, copied verbatim, markdown marks included,
-  from the entry's own text, `record_text` in `snapshot`, never from its inbound list; `--verify`
-  compares after collapsing every run of whitespace to one space, and refuses a quotation it does not
-  find. An `unrelated` line has `against: -`, `action: none`, no question and no quotation.
+  tables". `--verify` refuses a verdict or an action outside them.
+- The quotation is owed on every line, `unrelated` included: at least eight whitespace-separated
+  words, copied verbatim, markdown marks included, from the entry's own body, never from its
+  `<reference>  <site>` first line nor from its inbound list. `--verify` compares after collapsing every
+  run of whitespace to one space, and refuses a quotation it does not find. For an `unrelated` entry,
+  the quotation is the sentence that shows the entry's subject, which the reason contrasts with the
+  work; so every conclusion carries evidence checkable without reading the entry whole, as the owner
+  read `goal@agent-skills@session-orchestrates-the-work`.
 - Every line has a reason, one line: what in the work meets what in the entry, or, for `unrelated`,
-  why nothing does.
+  why nothing does. `respect` is given where the quoted sentence limits a shape of the work, `none`
+  where nothing in the work is limited by it.
 - An entry that is a seed, or cites one, is never `unrelated`: where nothing in the work meets it, it is
-  `constrains`, action `none`, its reason naming the seed. A seed is a decision, never a goal:
-  `--seed goal@…` is refused.
-- The searcher reads whole a goal or an entry before a verdict rests on it, running `show` for an
-  entry it holds by title. It resolves every doubt the work and the record answer, and its verdict
-  states its conclusion, not a condition. What `primer@question-authority` reserves to the owner goes in
+  `constrains`, action `none`, `against: -`, its reason naming the seed. `worklist` keeps taking a goal
+  as a seed, which the intake's seeds need, per `design@agent-skills@seeds-name-decisions`; the design
+  grounding and the design audit pass no goal as a seed, per `rejected@agent-skills@goal-seeds`.
+- The searcher reads whole a goal or an entry before a verdict rests on it, running `show` for one it
+  holds by title. It resolves every doubt the work and the record answer, and its verdict states its
+  conclusion, not a condition. What `primer@question-authority` reserves to the owner goes in
   `owner-question`: the readings, and what each changes in the work.
-- The report closes with `## Met outside the task` and `## Decided`, the searcher's decisions the owner
-  could have made, which the main session carries into its own sections.
+- The report closes with `## Decided`, the searcher's decisions the owner could have made, then
+  `## Met outside the task`, in the order `primer@decided-section` gives; `--verify` refuses a report
+  missing either. The main session carries both into its own sections.
 
 The argument: the size of the reading the grades owed
 (`issue@agent-skills@the-search-s-graded-entries-exceed-what-one-session-reads-whole`), and the goal's
@@ -1137,67 +1172,83 @@ of eight words is a default awaiting the owner, D2.
 
 ### What `--verify` writes
 
-When every report passes, `--verify` writes, from `shown.md`:
+`--out` writes `shown.md` with each entry's own text and its inbound list as two separate fenced
+blocks, so `--verify`, which reads no model, compares a quotation with the first alone. When every
+report passes, `--verify` writes:
 
 - one verdict file per subject, `verdicts-<subject>.md`: every verdict but `unrelated` whose `against`
-  names the subject, with its entry's text, fenced as `shown.md` fences it;
-- `generated-lines.md`: one line per entry given a verdict other than `unrelated`, its reference, its
-  verdict and its action, in checked forms, with no quotation and no reason, for the commit message the
-  occasion owes; every reference resolves against the commit's tree or its first parent's.
+  names the subject, with its entry's text;
+- outside an audit, `generated-lines.md`: one line per entry given a verdict other than `unrelated`,
+  its reference, its verdict and its action, with no quotation and no reason, in forms
+  `cargo klarch commits` judges, for the commit message the occasion owes;
+- at an audit, `gaps.md` and `fit-lines.md`, as "The design audit checks fit" says, in place of
+  `generated-lines.md`.
 
-It reads no model, as today. The main session divides the work among agents over the verdict files at
-its own judgement, per `goal@agent-skills@session-orchestrates-the-work`, and acts on the verdicts,
-checked as its own claims are, with no re-reading by rule. The argument for files per subject: a
-session that dispatches one agent per subject hands each its own file, and a single file would make
-each agent read every subject's verdicts. Nearest rival: one file with a filter option, withdrawn, its
-ground a misreading of `goal@agent-skills@only-needed-instructions`
+It removes each of these files left by a previous run before judging, as it removes `bears.md` today.
+The shapes of `work.txt`, the files' lines and the changed-since mark are the implementer's, since these
+files are read by `--verify`, the searcher and the session only, per
+`design@query@worklist-writes-and-verifies-the-reports`; the implementer records them in the code's
+comments. The main session divides the work among agents over the verdict files at its own judgement,
+per `goal@agent-skills@session-orchestrates-the-work`, and acts on the verdicts, checked as its own
+claims are, with no re-reading by rule. The argument for files per subject: a session that dispatches
+one agent per subject hands each its own file. Nearest rival: one file with a filter option, withdrawn,
+its ground a misreading of `goal@agent-skills@only-needed-instructions`
 (`argument@record-search-verdicts@arg-42`).
 
 ### The design audit checks fit
 
 At the design audit of a slice or a spec, the work is the slice's spec and the milestone document, or
-the spec, passed by `--work`, with the subject `slice` or `spec`. `--seeds-from <spec>` takes as seeds
-the design entries and the declared-register entries that the spec's section "What is already decided"
-cites; for a slice, its own spec, not the milestone document. `--since <commit>` marks, in `agents.txt`
-and on each entry's `===` line in `entries.md`, the entries whose file changed between that commit and
-the work tree, through `paths_changed_since` in `git`: a mark, not a filter, and no mark on code. The
-audit passes the commit that last changed its spec. `--out` records the spec's reference and the commit's
-subject in `work.txt`.
+the spec, passed by `--work`, with the subject `slice-audit` or `spec-audit`. `--seeds-from <spec>`
+takes the path of the spec, and adds as seeds the design entries and the declared-register entries its
+section "What is already decided" cites; for a slice, its own spec, not the milestone document. It
+combines with `--seed`, and is refused where the path is no plan document. `--since <commit>` marks,
+in `agents.txt` and on each entry's `===` line in `entries.md`, the entries whose file changed between
+that commit and the work tree, an untracked or renamed file included, through `paths_changed_since` in
+`git`, which fails with git's reason where git fails, per `design@git@failed-git-is-an-error`: a mark,
+not a filter, and no mark on code. The audit passes the commit that last changed its spec.
 
-`--verify` writes, at an audit, `gaps.md`, every verdict other than `constrains` and `unrelated`, and
-`fit-lines.md`, the generated line of each entry, the spec cited whole, the commit named by its
-subject. A `constrains` verdict is a fit; every other verdict but `unrelated` is a gap, which the main
-session sorts into the planning skill's four sorts of a gap, as it does today. The main session reads the
-gaps file. The argument: the owner's aim that the audit verify fit and weigh little on the main session
-(`argument@record-search-verdicts@arg-19`), and the lines an audit's message owed by hand, 365 lines and
-45 checker findings for one slice (`argument@record-search-verdicts@arg-23`). Nearest rival: the
-audit's whole reading of both files today, lost on that measurement.
+At an audit, `--verify` writes `gaps.md`, every verdict other than `constrains` and `unrelated` with its
+entry's text, and `fit-lines.md`, the line of each entry given a verdict other than `unrelated`, the
+spec cited whole and the commit named by its subject. A `constrains` verdict is a fit; every other
+verdict but `unrelated` is a gap, which the main session sorts into the planning skill's four sorts of
+a gap, as it does today. The main session reads the gaps file. The argument: the owner's aim that the
+audit verify fit before every slice and weigh little on the main session
+(`argument@record-search-verdicts@arg-19`), and the lines an audit's message owed by hand, which
+`issue@agent-skills@the-lines-owed-per-graded-entry-are-written-by-a-script-at-every-occasion` counts.
+Nearest rival: the audit's whole reading of both files today, lost on that count.
 
 ### The search reads the draft
 
 At the design grounding, the search runs once the shapes settle and before any thread closes, with the
-draft as its work, passed by `--work`, and the threads as its subjects. On the full path, the planning
-skill starts there: it writes the draft, in the session's scratch space, with the sections of a spec
-that carry the design (what the work is, what is already decided, the threads as they stand, the decided
-design as proposed, the losing alternatives), under less strict constraints than a plan document,
-since the checker reads no scratch file. On the in-change path, the design skill writes the draft of the
-commit message, as it holds that deliberation today. The findings revise the draft; the premortem and
-the convergence follow; on the full path the plan document is then assembled from the transcript, per
+draft as its work, passed by `--work`, and the threads as its subjects. The draft's form follows the
+path the session expects; the classification after the search still decides the path, as
+`design@agent-skills@bounded-path-in-design` says. On the full path, the planning skill starts there:
+it writes the draft, in the session's scratch space, with the sections of a spec that carry the design
+(what the work is, what is already decided, the threads as they stand, the decided design as proposed,
+the losing alternatives), under less strict constraints than a plan document, since the checker reads
+no scratch file. On the in-change path, the design skill writes the draft of the commit message, as it
+holds that deliberation today. The findings revise the draft; the premortem and the convergence follow;
+on the full path the plan document is then assembled from the transcript, per
 `design@agent-skills@ledger-from-transcript`, never from the draft. A thread that opens after the search
-on a subject its work did not cover gets a search of its own, with the draft extended by that thread
-as the work. On the in-change path and for bounded work, the commit message carries the generated
-lines, and the design-conformance axis is owed at the merge of a branch whose commit message carries
-generated lines with any verdict but `constrains` and `unrelated`.
+on a subject its work did not cover gets a search of its own, with the draft extended by that thread as
+the work. The draft is no ledger in the sense of `rejected@agent-skills@ledger-written-during-discussion`:
+it is written once, read at once by the search it is written for, extended only for a later thread's
+own search, and never read as the discussion's state or used to assemble the plan.
 
-The argument: the draft is written anyway; a work statement written apart from it is a second copy of
-the design, which `primer@where-knowledge-goes` refuses, and the first search's work statement
-compressed the design (`argument@record-search-verdicts@arg-49`), evidence admitted as real use on
-the owner's word; the transcript would cost about 12 agents instead of 8 over this repository
-(`argument@record-search-verdicts@arg-47`). The reason of
-`rejected@agent-skills@conformance-reader-at-the-checkpoint`, rulings already given, is defeated by
-`design@agent-skills@no-thread-closes-before-the-search`. The design-conformance review reads the plan
+On the in-change path and for bounded work, the commit message carries the generated lines, and the
+design-conformance axis is owed at the merge of a branch whose commit message carries generated lines
+with a verdict other than `constrains` and `unrelated`. The design-conformance review reads the plan
 against the goals, design and rejected homes, as `design@agent-skills@plan-read-against-the-record`
 says, and reads the verdict files beside them.
+
+The argument: the draft is written anyway; a work statement written apart from it is a second copy of
+the design, which `primer@where-knowledge-goes` refuses, and the first search's work statement compressed
+the design (`argument@record-search-verdicts@arg-49`), evidence admitted as real use on the owner's
+word; the transcript would cost more agents, an estimate of about 12 instead of 8 over this repository
+from the token fit (`argument@record-search-verdicts@arg-47`). The reason of
+`rejected@agent-skills@conformance-reader-at-the-checkpoint`, rulings already given, is defeated by
+`design@agent-skills@no-thread-closes-before-the-search`, which holds every closure until the search
+has run.
 
 ## Mapping tables
 
@@ -1211,7 +1262,9 @@ The verdicts each register admits:
 | `issue` | `closes`, `touches`, `worsens`, `depends-on`, `trigger-met`, `constrains`, `unrelated` |
 | `tripwire` | `fires`, `constrains`, `unrelated` |
 
-`constrains` on an issue or a tripwire is the verdict of a seed's citer that nothing in the work meets.
+`trigger-met` is the verdict of an issue whose deferred trigger, or whose re-entry point if it is of kind
+`design`, the work meets. `constrains` on an issue or a tripwire is admitted without a further check:
+it is the verdict of a seed's citer that nothing in the work meets.
 
 The actions each verdict admits, and the procedure each action sends to:
 
@@ -1234,7 +1287,9 @@ The actions each verdict admits, and the procedure each action sends to:
 | `goal-setting` | `skill@knowledge-architect-goal-setting` |
 | `new-argument-needed` | the Reopening rule of `skill@knowledge-architect-design@threads-and-states` |
 | `close-with-the-work` | the work's commit closes the issue, per `skill@knowledge-architect-issue-tracking` |
-| `rule-before-work` | ruled before the work is designed further or built: a firing by `skill@knowledge-architect-issue-tracking@movement-instruction`, a dependency or a trigger by the design skill |
+| `rule-before-work` | ruled before the work is designed further or built: a firing by `skill@knowledge-architect-issue-tracking@movement-instruction`; a dependency, a trigger or a re-entry point in the discussion, by `skill@knowledge-architect-design@discussion-loop` |
+
+`against: -` is admitted on `unrelated`, and on `constrains` with action `none`.
 
 Today's grades and relations, into verdicts:
 
@@ -1246,7 +1301,7 @@ Today's grades and relations, into verdicts:
 | `bears`, `touches`, `closes`, `worsens`, `fires` | the verdict of the same word |
 | `bears`, `depends on`, `trigger met` | `depends-on`, `trigger-met` |
 | `may-bear` | resolved by the searcher, or a verdict above with an `owner-question` |
-| `unrelated` | `unrelated`, with a reason |
+| `unrelated` | `unrelated`, with a quotation and a reason |
 
 ## Losing alternatives
 
@@ -1264,14 +1319,18 @@ Today's grades and relations, into verdicts:
 - The conditional `if:` field with a `resolve-reading` action: withdrawn by its proposer for parity of
   context (`argument@record-search-verdicts@arg-47`).
 - The transcript as the search's work: superseded by
-  `thread@record-search-verdicts@search-reads-the-draft`, on its measured cost
+  `thread@record-search-verdicts@search-reads-the-draft`, on its cost
   (`argument@record-search-verdicts@arg-47`).
 - A work statement written for the search: lost to the draft, a second copy of the design.
 - `--since` marking code: lost to `design@query@record-is-every-register-entry`.
-- Gap classes of the search's own (`applied-in-place`, `scope-change`, `choice`, `firing`): withdrawn at
-  this spec's first review, since the planning skill already sorts a gap into four sorts.
-- A quotation carried into the generated lines: withdrawn at this spec's first review, since a commit
-  message reads a quotation's references as live and the quotation's own marks can end it early.
+- Gap classes of the search's own: withdrawn at this spec's first review, since the planning skill
+  already sorts a gap into four sorts.
+- A quotation carried into the generated lines: withdrawn at the first review, since a commit message
+  reads a quotation's references as live and the quotation's own marks can end it early.
+- `--seed goal@…` refused by the command: withdrawn at the second review, since the intake's seeds name
+  goals.
+- An `unrelated` line with a reason and no quotation: lost to the owner's reading of
+  `goal@agent-skills@session-orchestrates-the-work`, evidence checkable without reading the entry whole.
 
 ## Readings
 
@@ -1281,7 +1340,7 @@ None: the work reads no external specification.
 
 | cause | thread it stresses | verdict |
 | --- | --- | --- |
-| a searcher gives `unrelated` to an entry that bears, and no reader reads `unrelated` entries | `thread@record-search-verdicts@verdict-report` | survives as a named clause: every `unrelated` line carries a reason; `tripwire@agent-skills@record-search-misses` watches the misses |
+| a searcher gives `unrelated` to an entry that bears, and no reader reads `unrelated` entries | `thread@record-search-verdicts@verdict-report` | survives as a named clause: every `unrelated` line carries a quotation and a reason; `tripwire@agent-skills@record-search-misses` watches the misses |
 | a quotation is verbatim but not the sentence that decides, so the check passes a wrong verdict | `thread@record-search-verdicts@verdict-report` | named as a cause for the harvest to judge as a tripwire |
 | a cluster searcher misjudges a head's constraint from goal titles alone | `thread@record-search-verdicts@goal-context-once` | converted into a named clause: the searcher reads a goal whole before a verdict rests on it |
 | a split above the bound separates two subjects that interact | `thread@record-search-verdicts@component-packing` | named as a cause for the harvest to judge |
@@ -1295,46 +1354,65 @@ would have been a run built to accept the work; the owner ruled it dropped.
 
 ## Implementation sequence
 
-1. **`query`, `cli`: search units and the load.** Builds search units, clusters inside them, context
-   entries, goal titles and goal agents, the load counting context, titles and the work, the half-bound
-   rule, the assignment of a split unit's citing entry, `--work`, `--subject`, `work.txt`, and
-   `DEFAULT_WORKLIST_BOUND` at 40000, with a test of the default bound. `worklist_mode` refuses the new
-   options with `--verify`, at both its calls in `run`. Claims, each tested over a mock project in
-   `path@testing@tests/binary.rs`, beside `worklist_project`, and shown to fail by `cargo x mutate` on
-   the site it names: every entry is graded in exactly one agent (`graph`); no agent's load exceeds the
-   bound unless it holds one cluster alone (`pack`); a search unit above half the bound shares no agent
-   (`pack`); a constructed location is packed with its home's search unit (`graph`); an issue citing a
-   head of another search unit holds that head as a context entry (`graph`); the default bound is 40000
-   (`DEFAULT_WORKLIST_BOUND`). Fails alone on: the agent count and the loads.
+1. **`query`, `cli`: search units and the load.** Builds, in `graph` and `pack`: search units, clusters
+   inside them, context entries, goal titles and goal agents, the remainder of a unit, the assignment of
+   a split unit's citing entry, the load and the half-bound rule; in `cli`: `--work`, `--subject` checked
+   by its form, `work.txt`, `DEFAULT_WORKLIST_BOUND` at 40000. `worklist_mode` refuses the new options
+   with `--verify`, at both its calls in `run`, beside the clap `conflicts_with` on each; the tests that
+   build `WorklistArgs` field by field (`path@cli@src/cli/mod.rs`) gain the new fields. The doc comments
+   that state today's packing change with it: the module doc and the `Group` doc in
+   `path@query@src/graph.rs`, and the `Command::Worklist` and `--verify` docs of `cli`; so do the tests
+   asserting residual groups (`every_entry_is_in_a_cluster_or_its_anchor_s_residual` in `graph.rs`, and
+   two in `path@testing@tests/binary.rs`). Claims, each tested over a mock project in
+   `path@testing@tests/binary.rs` beside `worklist_project`, which gains a directory register, a search
+   unit above half the bound, a cross-cluster citing entry and a cross-unit citing issue, and each shown
+   to fail by `cargo x mutate` on the site it names: every entry is graded in exactly one agent
+   (`graph`); no agent's summed load exceeds the bound left unless it holds one cluster alone (`pack`);
+   a search unit above half the bound shares no agent (`pack`); a constructed location is packed with
+   its home's search unit (`graph`); an issue citing a head another agent holds has it as a context
+   entry (`graph`); a cluster agent holds the title lines of the root's and its units' goals, and a goal
+   agent every goal of its units (`graph`); the words of `--work` reduce the bound left (`pack`); the
+   default bound is 40000 (`DEFAULT_WORKLIST_BOUND`). Fails alone on: the agent count and the loads.
 2. **`query`: the verdict report.** Builds the verdict line, the tables of "Mapping tables" in
-   `relations`, its parsing in `parse_fields`, the quotation check against the entry's own text, the
-   refusals, the skeleton naming each register's verdicts, `verdicts-<subject>.md` and
-   `generated-lines.md` in `assemble`, and the comment of `assemble`, which still says a goal is the
-   entry many agents grade. Claims, each tested over mock reports and shown to fail by `cargo x mutate`
-   on the site it names: `--verify` refuses a quotation absent from the entry's own text and one taken
-   from its inbound list (`judge`); a verdict outside its register's set and an action outside its
-   verdict's (`judge`); a missing reason, a field out of order, and an `against` that `work.txt` does
-   not list (`parse_fields`); a seed or a seed's citer graded `unrelated`, and `--seed goal@…`
-   (`judge`, `worklist`). Fails alone on: what `--verify` refuses and writes.
-3. **`query`, `cli`, `git`: the audit's options.** Builds `paths_changed_since` in `git`, `--since` and
-   `--seeds-from` in `worklist`, `gaps.md` and `fit-lines.md`. Claims, tested over mock projects with
-   histories built through `Sandbox::git_command`: `--since` marks exactly the entries of the files
-   changed since the commit; `--seeds-from` takes only the design and declared-register entries of the
-   spec's "What is already decided"; `gaps.md` holds every verdict but `constrains` and `unrelated`.
-   Fails alone on: the marks, the seeds and the gaps.
-4. **`agent-skills`: the installed text.** Rewrites, in `path@agent-skills@content/`: the searcher agent;
-   the design skill's loop step 1, its in-change path and its bounded work, which name the `may-bear`
-   entries not read; the planning skill's "When this skill starts", the row "What is already decided" of
-   `skill@knowledge-architect-planning@spec-contents`, its design audit, and the bullet on the
-   conformance reviewer of `skill@knowledge-architect-planning@plan-reviews`; the
-   retrospective intake's grounding and its analysis section; the review skill's axes table on the
-   conformance axis's condition; the primer's moment for loading the planning skill; and the `%%` lines
-   citing a rewritten head. Also `path@cli@README.md`, whose `worklist` section names residual groups,
-   the grades, `bears.md` and the 25,000 bound. Then `klarch install-agent-skills`. Claims: no installed
-   text names `bears.md`, `may-bear.md` or a `may-bear` grade, by `grep` over `.claude` and the source;
-   each loop-step citation the edits renumber is checked by hand
-   (`issue@check@no-checked-form-cites-a-point-inside-a-section`); the installed copies equal the
-   source, by `cargo klarch check`. Fails alone on: the installed copies.
+   `relations`, its parsing in `parse_fields`, the parsing of `agents.txt` in `verify` for the new
+   mark, the two fenced blocks of `shown.md` in `snapshot`, the quotation check, the refusals, the
+   skeleton in `render`, the verdict files and `generated-lines.md` in `assemble`, and their removal
+   before a run. The comments of `assemble`, of `relations`, of the `BEARS_FILE` and `MAY_BEAR_FILE`
+   constants and the skeleton text of `render` change with it, and the seed refusal message of `write`
+   no longer invites a goal at the occasions that pass none. Claims, each tested over mock reports and
+   shown to fail by `cargo x mutate` on the site it names: `--verify` refuses a quotation absent from the
+   entry's own body, one taken from its first line or its inbound list, and a line with no quotation
+   (`judge`); a verdict outside its register's set and an action outside its verdict's (`judge`); a
+   missing reason, a field out of order, an `against` that `work.txt` does not list, and a report
+   missing `## Decided` (`parse_fields`, `verify`); a seed or a seed's citer graded `unrelated`
+   (`judge`); `verdicts-<subject>.md` holds exactly the verdicts naming that subject, and
+   `generated-lines.md` exactly the entries given a verdict other than `unrelated` (`assemble`); a
+   failed run leaves none of the outputs of a previous run (`verify`). Fails alone on: what `--verify`
+   refuses and writes.
+3. **`git`, `query`, `cli`: the audit's options.** Builds `paths_changed_since` in `git`, exported in
+   the `pub use` list of `path@git@src/lib.rs`, `--since` and `--seeds-from` in `worklist`, the audit
+   mode of `--verify`, `gaps.md` and `fit-lines.md`. Claims, tested over mock projects with histories
+   built through `Sandbox::git_command`, and shown to fail by `cargo x mutate` on the site each names:
+   `--since` marks exactly the entries of the files changed since the commit, an untracked one included
+   (`paths_changed_since`, `write`); a failing git call stops the run with git's reason
+   (`paths_changed_since`); `--seeds-from` takes only the design and declared-register entries of the
+   spec's "What is already decided" (`write`); `gaps.md` holds every verdict but `constrains` and
+   `unrelated`, and `fit-lines.md` cites the spec whole (`assemble`). Fails alone on: the marks, the
+   seeds and the audit's outputs.
+4. **`agent-skills` and the user-facing text.** Rewrites, in `path@agent-skills@content/`: the searcher
+   agent; the design-conformance reviewer agent, which reads the `may-bear` entries not read; the
+   design skill's loop step 1, its in-change path and its bounded work; the planning skill's "When this
+   skill starts", the row "What is already decided" of `skill@knowledge-architect-planning@spec-contents`,
+   its design audit, and the bullet on the conformance reviewer of
+   `skill@knowledge-architect-planning@plan-reviews`; the retrospective intake's grounding and its
+   analysis section; the review skill's sentence on what the conformance reviewer reads and its axes
+   table on that axis's condition; the primer's moment for loading the planning skill; the `%%` lines
+   citing a rewritten head; and `path@agent-skills@fragments/subject-split.md`. Also, in
+   `path@cli@README.md`, the `worklist` section, the usage block and the exit-code rows that name the
+   assembly. Then `klarch install-agent-skills`. Claims: no installed text names `bears.md`,
+   `may-bear.md` or a `may-bear` grade, by `grep` over `.claude` and the source; each loop-step citation
+   the edits renumber is checked by hand (`issue@check@no-checked-form-cites-a-point-inside-a-section`);
+   the installed copies equal the source, by `cargo klarch check`. Fails alone on: the installed copies.
 5. **The harvest**, as the section "Harvest" says.
 
 ## Order rationale
@@ -1343,48 +1421,56 @@ would have been a run built to accept the work; the owner ruled it dropped.
 - 2 before 3: the audit's outputs are written from the verdicts.
 - 3 before 4: the text names what the command writes.
 - 4 before 5: the harvest records what landed.
+- Steps 1 and 3 each touch more than one Component: the options of `worklist` are one interface, which
+  `cli` declares and `query` carries out, and `git` gains only the one function step 3 calls, so neither
+  step can fail on its `cli` or `git` part alone.
 
 ## Defaults awaiting the owner
 
 ### D1, one spec on one branch, not a milestone
 
-Bears on the whole work. Between steps 2 and 4 the installed text would name files the command no longer
-writes, so the work lands on one branch; the rival, a milestone of a `query` slice and a text slice,
-would need `--verify` to keep writing `bears.md` and `may-bear.md` until the second slice. **Ruled**: the
-owner chose one spec.
+Ruled by the owner: one spec. Between steps 2 and 4 the installed text would name files the command no
+longer writes, so the work lands on one branch; the rival, a milestone of a `query` slice and a text
+slice, would need `--verify` to keep writing `bears.md` and `may-bear.md` until the second slice.
 
 ### D2, a quotation of at least eight words
 
 Bears on `thread@record-search-verdicts@verdict-report`. The bound has no measurement: shorter
-quotations match more than one sentence of an entry, and longer ones cost output; eight is the
-session's default.
+quotations match more than one sentence of an entry, and longer ones cost output; eight is the session's
+default.
 
 ## Harvest
 
 - **Heads**: each listed as reversed or rewritten in "What is already decided", rewritten in place under
   `skill@knowledge-architect-decision-recording`, each measurement as its claim, its command and its
   direction, with no magnitude, as the root `CLAUDE.md` asks; every text the citing list names read and
-  repaired where the rewrite leaves it false.
-- **`rejected` entries**: `rejected@agent-skills@one-search-agent-per-anchor` leaves; the losing
-  alternatives above judged by the recording tests, those refuted by a measurement as candidates (small
-  units in large ones' room; context entries by title; the transcript as the work); each new entry cited
-  from a head.
+  repaired where the rewrite leaves it false, `path@testing@tests/binary.rs` included.
+- **`rejected` entries**: `rejected@agent-skills@one-search-agent-per-anchor` stays, its reason rewritten
+  to what still holds; the losing alternatives above judged by the recording tests, those refuted by a
+  measurement as candidates (small units in large ones' room; context entries by title; the transcript
+  as the work); each new entry cited from a head.
 - **Tripwires**: the two listed as reworded; the premortem's causes judged by the standard.
 - **Issues**: the seven listed as closed, deleted; the re-entry point of
   `issue@agent-skills@a-lighter-pass-for-untouched-components`, the sentence on residual groups of
   `issue@agent-skills@audit-axes-beyond-the-design-record`, the first bullet of
   `issue@agent-skills@the-installed-text-has-the-main-session-carry-work-it-could-dispatch`, and the
   sentences on `worklist` of `issue@query@no-command-lists-the-standing-entries-citing-a-set-of-entries`
-  and `issue@query@no-command-lists-the-entries-two-commits-differ-by`, rewritten.
+  and `issue@query@no-command-lists-the-entries-two-commits-differ-by`, rewritten;
+  `issue@agent-skills@the-intake-s-search-lands-a-batch-s-whole-neighbourhood-on-one-session`, which
+  holds the parked intake thread, its citation of this spec rewritten at the spec's deletion.
+- **The goal**: the rewording of `goal@agent-skills@only-needed-instructions`, ruled by the owner, written
+  on this branch before it merges, with the texts that restate its clause:
+  `path@agent-skills@fragments/admission-repair-shape.md`, and the heads of
+  `path@agent-skills@docs/design/audit-workflow-axis.md` that argue from it.
 - **CHANGELOG.md**, by `design@knowledge-architect@changelog-entries`: Workflow (the verdict report, the
   draft searched, the audit's fit), New features (`--since`, `--seeds-from`, `--work`, `--subject`), and
-  the library change of `WorklistMode` and `WorklistArgs`, whose class
+  the library change of `WorklistMode` and `WorklistArgs`, public types with public fields, whose class
   `design@knowledge-architect@versioning-policy` gives.
 
 ## Later consequences
 
 - The dispatch judgement, in
   `issue@agent-skills@the-installed-text-has-the-main-session-carry-work-it-could-dispatch`.
-- The intake's partitioned procedure, parked as `thread@record-search-verdicts@intake-partitioned-procedure`.
-- The next raise of the bound, on the peaks of real searches after the landing.
+- The intake's partitioned procedure, in
+  `issue@agent-skills@the-intake-s-search-lands-a-batch-s-whole-neighbourhood-on-one-session`.
 
