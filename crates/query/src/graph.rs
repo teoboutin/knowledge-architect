@@ -14,8 +14,8 @@
 //! with the file's prose above its first goal, and read by goal agents.
 //!
 //! A cluster agent is given, beside the entries it grades, two things it reads and does not grade:
-//! the **context entries**, every head or `rejected` entry an entry it grades cites and it does not
-//! grade itself, whole; and the **title lines** of the goals of the root, of each Component
+//! the **context entries**, every head, entry of a declared register or `rejected` entry an entry
+//! it grades cites and it does not grade itself, whole; and the **title lines** of the goals of the root, of each Component
 //! enclosing a search unit it holds, and of those search units.
 //!
 //! The groups are then packed into agents under a bound in words, by search unit, as [`plan`]
@@ -112,10 +112,13 @@ pub(crate) enum GroupKind {
 /// A cluster, the remainder of a search unit, or a file of its goals.
 #[derive(Clone, Debug, PartialEq, Eq)]
 pub(crate) struct Group {
-    /// What a reader is told the group is: `<anchor> :: <heading>`, `<anchor> :: <path>` for a
-    /// unit with no heading or a goals file, or `<search unit> :: (remainder)`.
+    /// What a reader is told the group is: for a cluster, `<anchor> :: <heading>`, or
+    /// `<anchor> :: <path>` for a unit with no heading, the anchor being its unit's; for a goals
+    /// file, `<search unit> :: <path>`; for a remainder, `<search unit> :: (remainder)`.
     pub name: String,
-    /// The order of two groups of one load: anchor, path, heading, each compared as bytes.
+    /// The order of two groups of one load, each part compared as bytes: for a cluster, its unit's
+    /// anchor, path and heading; for a goals file, its search unit and its path; for a remainder,
+    /// its search unit and `(remainder)`.
     pub key: (String, String, String),
     /// The search unit the group belongs to.
     pub unit: String,
@@ -151,8 +154,8 @@ impl Graph {
             .collect()
     }
 
-    /// The context entries of an agent given `groups`: every head or `rejected` entry an entry
-    /// they grade cites, that none of them grades, by reference.
+    /// The context entries of an agent given `groups`: every head, entry of a declared register or
+    /// `rejected` entry an entry they grade cites, that none of them grades, by reference.
     pub(crate) fn context(&self, groups: &[usize]) -> Vec<usize> {
         let graded = self.graded(groups);
         let mut out: BTreeSet<usize> = BTreeSet::new();
@@ -636,9 +639,11 @@ pub(crate) fn plan(graph: &mut Graph, bound: usize) -> Plan {
 /// A unit's own entries are in one cluster already; an issue or a tripwire that cites heads of
 /// several clusters, and a `rejected` entry that heads of several clusters cite, are in each of
 /// them. Each stays in the cluster it is most tied to, the first in the search unit's order on a
-/// tie: a standing entry in the cluster holding most of the heads it cites; a `rejected` entry in the cluster holding most of the heads that cite
-/// it, the same rule read from the other end of the citation. A `rejected` entry left out of a
-/// cluster that cites it reaches that cluster's agent as a context entry. A search unit packed
+/// tie: a standing entry in the cluster holding most of the heads it cites; a `rejected` entry in
+/// the cluster holding most of the heads that cite it, the same rule read from the other end of the
+/// citation. A `rejected` entry left out of a cluster that cites it reaches that cluster's agent as
+/// a context entry where the two clusters are packed into different agents; packed together, the
+/// agent grades it in the cluster that kept it. A search unit packed
 /// whole needs none of this: its clusters share one agent, which grades an entry they share once.
 pub(crate) fn assign(graph: &mut Graph, groups: &[usize]) {
     let clusters: Vec<usize> = groups
@@ -784,7 +789,10 @@ mod tests {
     }
 
     fn graph_of(docs: &[(&str, &str)]) -> Graph {
-        let manifest = manifest();
+        graph_with(&manifest(), docs)
+    }
+
+    fn graph_with(manifest: &Manifest, docs: &[(&str, &str)]) -> Graph {
         let model = Model::from_documents(
             docs.iter()
                 .map(|(p, t)| (PathBuf::from(p), t.to_string()))
@@ -793,9 +801,18 @@ mod tests {
         // A model built from text has no listing, so the anchors read the documents' paths, which
         // is where a Directory register's entries are placed.
         let paths: Vec<PathBuf> = docs.iter().map(|(p, _)| PathBuf::from(p)).collect();
-        let anchors = Anchors::of(&manifest, &paths);
+        let anchors = Anchors::of(manifest, &paths);
         let entities = Entities::build(&model, &anchors);
         graph(&model, &anchors, &entities)
+    }
+
+    /// The index of the group named `name`.
+    fn at(graph: &Graph, name: &str) -> usize {
+        graph
+            .groups
+            .iter()
+            .position(|grp| grp.name == name)
+            .unwrap_or_else(|| panic!("no group {name}"))
     }
 
     fn names(graph: &Graph, group: &Group) -> Vec<String> {
@@ -1138,18 +1155,23 @@ mod tests {
     /// The claim: in a split search unit, an issue that cites heads of several clusters stays in
     /// the one holding most of them, and a `rejected` entry that heads of several clusters cite
     /// stays in the one holding most of its citers, the first on a tie, so each is in one cluster.
-    /// Mutations checked: `ties` made to return 0 for every cluster, which keeps the first holder
-    /// whatever the counts; and the reversal before `max_by_key` removed, which keeps the last
-    /// holder on a tie.
+    /// Mutations checked: `ties` made to return 0 for every cluster, `.max_by_key(|&c| ties(c))`
+    /// made `.max_by_key(|&c| ties(c) * 0)`, which keeps the first holder whatever the counts; the
+    /// count of a `rejected` entry's citers alone made 0, `Role::Rejected => heads[c]` made
+    /// `Role::Rejected => 0 * heads[c]`, which keeps the second shape in One; and the `.rev()`
+    /// before `max_by_key` removed, which keeps the last holder on a tie.
     #[test]
     fn a_split_unit_s_shared_entry_stays_in_the_cluster_it_is_most_tied_to() {
         let design = "# Design\n\n## One\n\n### Head a `##head-a`\n\nIt covers \
-            `rejected@a-project@lost-shape` and `rejected@a-project@tied-shape`.\n\n\
+            `rejected@a-project@lost-shape`, `rejected@a-project@tied-shape` and \
+            `rejected@a-project@second-shape`.\n\n\
             ### Head b `##head-b`\n\nIt covers `rejected@a-project@lost-shape`.\n\n\
             ## Two\n\n### Head c `##head-c`\n\nIt covers `rejected@a-project@lost-shape` and \
-            `rejected@a-project@tied-shape`.\n\n### Head d `##head-d`\n\nx\n";
+            `rejected@a-project@tied-shape` and `rejected@a-project@second-shape`.\n\n\
+            ### Head d `##head-d`\n\nIt covers `rejected@a-project@second-shape`.\n";
         let rejected = "# Rejected\n\n### A lost shape `##lost-shape`\n\n`live`. x\n\n\
-            ### A tied shape `##tied-shape`\n\n`live`. x\n";
+            ### A tied shape `##tied-shape`\n\n`live`. x\n\n\
+            ### A second shape `##second-shape`\n\n`live`. x\n";
         let issue = "---\nkind: todo\n---\n# Two\n\n## Summary\n\nIt strains \
             `design@a-project@head-a`, `design@a-project@head-c`, `design@a-project@head-d`.\n";
         let mut docs = project();
@@ -1179,8 +1201,9 @@ mod tests {
             .expect("Two");
         assign(&mut g, &root);
         // The lost shape is cited by two heads of One and one of Two, so One keeps it; the tied
-        // shape by one head of each, so the first, One, keeps it; the issue cites one head of One
-        // and two of Two, so Two keeps it.
+        // shape by one head of each, so the first, One, keeps it; the second shape by one head of
+        // One and two of Two, and the issue cites one head of One and two of Two, so Two keeps
+        // both.
         assert_eq!(
             names(&g, &g.groups[one]),
             [
@@ -1195,6 +1218,7 @@ mod tests {
             [
                 "design@a-project@head-c",
                 "design@a-project@head-d",
+                "rejected@a-project@second-shape",
                 "issue@a-project@on-two",
             ]
         );
@@ -1239,6 +1263,168 @@ mod tests {
             names(&g, group(&g, "a-project :: docs/design.md")),
             ["design@a-project@early"]
         );
+    }
+
+    /// The claim: an agent's load counts an entry, a context entry and a title line its groups
+    /// share once, and a goals file's prose. Mutations checked: in `title_lines`,
+    /// `if seen.insert(goal) {` made `if seen.insert(goal) || true {`, which counts the root's title
+    /// lines twice for an agent holding two search units; and in `load`, the prose term made
+    /// `0 * self.groups[g].prose.split_whitespace().count()`; each caught.
+    #[test]
+    fn an_agent_s_load_counts_what_its_groups_share_once_and_a_goals_file_s_prose() {
+        let g = graph_of(&project());
+        let first = at(&g, "a-project :: First subject");
+        let widget = at(&g, "widget :: (remainder)");
+        let refs = |list: Vec<usize>| -> Vec<String> {
+            list.iter().map(|&i| g.entries[i].reference()).collect()
+        };
+        assert_eq!(
+            refs(g.title_lines(&[first, widget])),
+            [
+                "goal@a-project@fine-goal",
+                "goal@a-project@middle-goal",
+                "goal@a-project@top-goal",
+                "goal@a-project@unserved-goal",
+                "goal@widget@widget-goal",
+            ]
+        );
+        // Apart, both groups count the root's title lines, and `widget`'s count the lost shape as
+        // a context entry, which `First subject` grades.
+        let root_titles: usize = g.titles["a-project"]
+            .iter()
+            .map(|&i| g.entries[i].title_words())
+            .sum();
+        let shape = g
+            .entries
+            .iter()
+            .find(|e| e.reference() == "rejected@a-project@lost-shape")
+            .expect("the lost shape")
+            .words;
+        assert_eq!(
+            g.load(&[first, widget]),
+            g.load(&[first]) + g.load(&[widget]) - root_titles - shape
+        );
+        let goals = at(&g, "widget :: widget/docs/goals.md");
+        let goal_words: usize = g.groups[goals]
+            .entries
+            .iter()
+            .map(|&i| g.entries[i].words)
+            .sum();
+        // "# Widget goals\n\nThe widget's prose." holds 6 words.
+        assert_eq!(g.load(&[goals]), goal_words + 6);
+    }
+
+    /// The claim: a location enclosing a search unit gives it no title lines: only the root and
+    /// the Components enclosing it do. Mutation checked: `c.is_component &&` removed from the
+    /// filter of `title_units`, which gives the location `inner` the goal of the location `outer`
+    /// that encloses it; caught.
+    #[test]
+    fn a_location_enclosing_a_search_unit_gives_it_no_title_lines() {
+        let text = "[project]\nchecker-version = \"fixture\"\nname = \"a-project\"\n\
+             components = []\n\n\
+             [locations.outer]\npath = \"outer\"\nregisters = [\"goal\"]\n\n\
+             [locations.inner]\npath = \"outer/inner\"\nregisters = [\"rule\"]\n\n\
+             [registers.rule]\nscope = \"opt-in\"\nshape = \"heading\"\ndir = \"rules\"\nlevel = 2\n\n\
+             [agents]\nharness = []\n\n\
+             [walk]\nskip-dirs = []\nskip-files = []\n\n";
+        let manifest = Manifest::parse(Path::new("/nowhere"), text).expect("a declaration");
+        let g = graph_with(
+            &manifest,
+            &[
+                ("docs/goals.md", ROOT_GOALS),
+                (
+                    "outer/goals.md",
+                    "# Outer goals\n\n## An outer goal `##outer-goal`\n\nx\n",
+                ),
+                (
+                    "outer/inner/rules.md",
+                    "# Rules\n\n## An inner rule `##inner-rule`\n\nx\n",
+                ),
+            ],
+        );
+        let refs = |unit: &str| -> Vec<String> {
+            g.titles[unit]
+                .iter()
+                .map(|&i| g.entries[i].reference())
+                .collect()
+        };
+        assert!(
+            refs("outer").contains(&"goal@outer@outer-goal".to_string()),
+            "{:?}",
+            refs("outer")
+        );
+        assert_eq!(
+            refs("inner"),
+            [
+                "goal@a-project@fine-goal",
+                "goal@a-project@middle-goal",
+                "goal@a-project@top-goal",
+                "goal@a-project@unserved-goal",
+            ]
+        );
+    }
+
+    /// The groups of `plan`'s agent, by search unit, each once.
+    fn units_of(g: &Graph, agent: &Agent) -> BTreeSet<String> {
+        agent
+            .groups
+            .iter()
+            .map(|&i| g.groups[i].unit.clone())
+            .collect()
+    }
+
+    /// The claim: `plan` numbers the cluster agents before the goal agents, and packs a search
+    /// unit whose load is exactly half the bound with the others, since only one that exceeds half
+    /// gets agents of its own. Mutations checked: in `plan`, `for goals in [false, true] {` made
+    /// `for goals in [true, false] {`, which numbers the goal agents first; and `load * 2 > bound`
+    /// made `load * 2 >= bound`, which gives the root an agent of its own; each caught.
+    #[test]
+    fn plan_numbers_cluster_agents_first_and_keeps_a_unit_at_half_the_bound_shared() {
+        // A long issue of the root, so the root's load is above the others' together.
+        let long = format!(
+            "---\nkind: todo\n---\n# Long\n\n## Summary\n\n{}\n",
+            "word ".repeat(200)
+        );
+        let mut docs = project();
+        docs.push(("docs/open-issues/a-long-one.md", &long));
+        let base = graph_of(&docs);
+        let family = |unit: &str| -> Vec<usize> {
+            (0..base.groups.len())
+                .filter(|&i| base.groups[i].unit == unit && base.groups[i].kind != GroupKind::Goals)
+                .collect()
+        };
+        let root = base.load(&family("a-project"));
+        let others = base.load(&family("widget")) + base.load(&family("notes"));
+        let bound = root * 2;
+        assert!(root + others <= bound, "the units do not fit one agent");
+        let mut g = base.clone();
+        let plan = plan(&mut g, bound);
+        let goal_agent = |a: &Agent| {
+            a.groups
+                .iter()
+                .all(|&i| g.groups[i].kind == GroupKind::Goals)
+        };
+        let first_goal = plan
+            .agents
+            .iter()
+            .position(goal_agent)
+            .expect("a goal agent");
+        assert!(first_goal > 0, "a goal agent comes first");
+        assert!(plan.agents[first_goal..].iter().all(goal_agent));
+        assert!(plan.agents[..first_goal].iter().all(|a| a
+            .groups
+            .iter()
+            .all(|&i| g.groups[i].kind != GroupKind::Goals)));
+        let holder = plan.agents[..first_goal]
+            .iter()
+            .find(|a| units_of(&g, a).contains("a-project"))
+            .expect("the root's agent");
+        assert!(
+            units_of(&g, holder).len() > 1,
+            "the root at half the bound is packed alone: {:?}",
+            holder.items
+        );
+        assert!(plan.above.is_empty());
     }
 
     fn key(name: &str) -> (String, String, String) {
