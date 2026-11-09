@@ -23,6 +23,11 @@ const REPORT_FILE: &str = "report.md";
 /// The show text of every entry of the record, for `--verify` to assemble from; no agent is
 /// given it, so an agent's load is its entries file alone.
 const SHOWN_FILE: &str = "shown.md";
+/// The work of the search and its subjects, for the searchers and `--verify`: a line
+/// `work <path>` per file of the work, its absolute path, then a line `subject <id>` per subject.
+const WORK_FILE: &str = "work.txt";
+/// The one subject of a work for which no subject is named.
+const WHOLE_WORK: &str = "whole-work";
 /// The assembly a passing `--verify` writes: every entry whose highest grade is `bears`.
 const BEARS_FILE: &str = "bears.md";
 /// The assembly a passing `--verify` writes: every entry whose highest grade is `may-bear`.
@@ -43,10 +48,16 @@ pub enum WorklistMode {
     Write {
         /// Where the work list goes.
         dir: std::path::PathBuf,
-        /// The words one agent is given at most; a cluster above it goes to an agent alone.
+        /// The words one agent is given at most, the work's words included; a group above what
+        /// the work leaves goes to an agent alone.
         bound: usize,
         /// The references the work names.
         seeds: Vec<String>,
+        /// The files of the work, which every agent reads beside its entries.
+        work: Vec<PathBuf>,
+        /// The subjects of the work, each an id in the grammar of an entry id; none names the one
+        /// subject `whole-work`.
+        subjects: Vec<String>,
     },
     /// Check the reports the agents filled in `dir`, a directory `Write` wrote.
     Verify {
@@ -57,8 +68,8 @@ pub enum WorklistMode {
 
 /// Write the work list of a search of the whole record, or check the reports its agents filled, per
 /// `design@query@worklist-writes-and-verifies-the-reports`. `Err` is a refusal or a failure: under
-/// `WorklistMode::Write`, an incomplete model, a directory inside the project or not empty, or a seed
-/// naming no entry, nothing written, and a write that failed, the files before it left in place.
+/// `WorklistMode::Write`, an incomplete model, a directory inside the project or not empty, a seed
+/// naming no entry, or a file of the work it cannot read, nothing written, and a write that failed, the files before it left in place.
 /// Exit 1 is a finding on a report.
 pub fn worklist(
     manifest: &Manifest,
@@ -66,7 +77,13 @@ pub fn worklist(
     checker: &[&Path],
 ) -> Result<ExitCode, String> {
     match mode {
-        WorklistMode::Write { dir, bound, seeds } => write(manifest, dir, *bound, seeds, checker),
+        WorklistMode::Write {
+            dir,
+            bound,
+            seeds,
+            work,
+            subjects,
+        } => write(manifest, dir, *bound, seeds, work, subjects, checker),
         WorklistMode::Verify { dir } => verify(dir),
     }
 }
@@ -75,12 +92,14 @@ pub fn worklist(
 ///
 /// Every refusal comes before the first write, so a refused run leaves `dir` as it found it: an
 /// incomplete model, per `design@check@phases-gate-the-report`, a `dir` the walk would read or that
-/// holds anything, and a seed that names no entry of the record.
+/// holds anything, a seed that names no entry of the record, and a file of the work it cannot read.
 fn write(
     manifest: &Manifest,
     dir: &Path,
     bound: usize,
     named: &[String],
+    work: &[PathBuf],
+    subjects: &[String],
     checker: &[&Path],
 ) -> Result<ExitCode, String> {
     let model = crate::Model::build(manifest, checker).map_err(|e| e.to_string())?;
@@ -113,7 +132,7 @@ fn write(
 
     let anchors = Anchors::of(manifest, model.listing());
     let entities = Entities::build(&model, &anchors);
-    let graph = graph::graph(&model, &anchors, &entities);
+    let mut graph = graph::graph(&model, &anchors, &entities);
     let index: BTreeMap<String, usize> = graph
         .entries
         .iter()
@@ -141,17 +160,30 @@ fn write(
         }
     }
 
-    let loads: Vec<(usize, (String, String, String))> = graph
-        .groups
-        .iter()
-        .map(|g| (graph.load(g), g.key.clone()))
-        .collect();
-    let packing = graph::pack(&loads, bound);
-    let mut files = render(&graph, &packing.agents, &seeds);
+    // Every agent reads the work beside its entries, so its words come out of every agent's
+    // bound. A work longer than the bound leaves none, and every group then goes to an agent alone.
+    let mut work_paths: Vec<PathBuf> = Vec::new();
+    let mut work_words = 0;
+    for path in work {
+        let text = std::fs::read_to_string(path).map_err(|e| {
+            format!(
+                "the file of the work {}: {e}. Nothing was written.",
+                path.display()
+            )
+        })?;
+        work_words += text.split_whitespace().count();
+        work_paths.push(absolute(path)?);
+    }
+    let bound_left = bound.saturating_sub(work_words);
+
+    let plan = graph::plan(&mut graph, bound_left);
+    let agent_groups: Vec<Vec<usize>> = plan.agents.iter().map(|a| a.groups.clone()).collect();
+    let mut files = render(&graph, &agent_groups, &seeds);
     files.push((
         PathBuf::from(SHOWN_FILE),
         snapshot(&graph, &anchors, &model),
     ));
+    files.push((PathBuf::from(WORK_FILE), work_text(&work_paths, subjects)));
 
     std::fs::create_dir_all(&dir)
         .map_err(|e| format!("{}: {e}. Nothing was written.", dir.display()))?;
@@ -163,42 +195,55 @@ fn write(
         std::fs::write(&path, text).map_err(|e| format!("{}: {e}", path.display()))?;
     }
 
-    for (n, groups) in packing.agents.iter().enumerate() {
-        let given: BTreeSet<usize> = groups
-            .iter()
-            .flat_map(|&g| graph.groups[g].entries.iter().copied())
-            .collect();
-        let words: usize = given.iter().map(|&i| graph.entries[i].words).sum();
-        // Each cluster carries its own load, the number a split of its subject is judged by
-        // against the bound; the agent's load counts an entry two of its clusters share once.
-        let names: Vec<String> = groups
-            .iter()
-            .map(|&g| format!("{} ({} words)", graph.groups[g].name, loads[g].0))
-            .collect();
-        outln!("agent-{}  {words} words  {}", n + 1, names.join("; "));
+    if work_words > 0 {
+        outln!("the work holds {work_words} words, which leaves {bound_left} of the {bound}-word bound");
     }
-    for &g in &packing.above {
+    for (n, agent) in plan.agents.iter().enumerate() {
+        // Each item carries the load it was packed by, a search unit packed whole or one group of
+        // a split one, and their sum is the agent's summed load, which the packing keeps under the
+        // bound; the agent's own load counts an entry or a title line two of its groups share once.
+        let names: Vec<String> = agent
+            .items
+            .iter()
+            .map(|(name, load)| format!("{name} ({load} words)"))
+            .collect();
+        outln!(
+            "agent-{}  {} words  {}",
+            n + 1,
+            graph.load(&agent.groups),
+            names.join("; ")
+        );
+    }
+    // A group alone above the bound is named where its own entries exceed it, which a split of its
+    // subject, or of its standing entries, reduces; one above it by its context entries and title
+    // lines alone has nothing of its own to split.
+    for &g in &plan.above {
         let group = &graph.groups[g];
-        let load = loads[g].0;
-        if group.residual {
-            outln!(
-                "notice: the residual entries of {} hold {load} words, above the {}-word bound: \
-                 give its issues group subdirectories, or have them cite the heads they concern",
-                group.key.0,
-                bound
-            );
-        } else {
-            outln!(
-                "notice: the cluster \"{}\" holds {load} words, above the {}-word bound: split its \
-                 subject into subjects read apart",
+        let own = graph.own_words(g);
+        if own <= bound_left {
+            continue;
+        }
+        match group.kind {
+            graph::GroupKind::Cluster => outln!(
+                "notice: the cluster \"{}\" holds {own} words, above the {bound_left}-word bound: \
+                 split its subject into subjects read apart",
                 group.name,
-                bound
-            );
+            ),
+            graph::GroupKind::Remainder => outln!(
+                "notice: the remainder of {} holds {own} words, above the {bound_left}-word bound: \
+                 give its issues group subdirectories, or have them cite the heads they concern",
+                group.unit,
+            ),
+            graph::GroupKind::Goals => outln!(
+                "notice: the goals of \"{}\" hold {own} words, above the {bound_left}-word bound: \
+                 split the goals home into subdocuments",
+                group.name,
+            ),
         }
     }
     outln!(
         "{} agents in {}; run `{} worklist --verify {}` on their reports",
-        packing.agents.len(),
+        plan.agents.len(),
         dir.display(),
         manifest.command(),
         dir.display()
@@ -246,7 +291,50 @@ fn absolute(dir: &Path) -> Result<PathBuf, String> {
     Ok(real)
 }
 
+/// `work.txt`: a line `work <path>` per file of the work, then a line `subject <id>` per subject,
+/// each once, in the order given, `whole-work` where none is given. The shape is this function's,
+/// read by `--verify`, the searcher and the session alone, per
+/// `issue@knowledge-architect@command-output-is-not-declared-a-contract`.
+fn work_text(work: &[PathBuf], subjects: &[String]) -> String {
+    let mut out = String::new();
+    for path in work {
+        out.push_str(&format!("work {}\n", path.display()));
+    }
+    let mut seen: BTreeSet<&str> = BTreeSet::new();
+    let named: Vec<&str> = subjects
+        .iter()
+        .map(String::as_str)
+        .filter(|s| seen.insert(s))
+        .collect();
+    for subject in if named.is_empty() {
+        vec![WHOLE_WORK]
+    } else {
+        named
+    } {
+        out.push_str(&format!("subject {subject}\n"));
+    }
+    out
+}
+
+/// One entry whole, as `entries.md` gives it: a line `=== <reference>  <site>`, then its body in
+/// a fence longer than any run of backticks it holds, so neither a line of it nor a heading of it
+/// reads as the start of another entry or group.
+fn entry_block(entry: &graph::Entry) -> String {
+    let body = entry.record.body.trim_end();
+    let fence = "`".repeat(longest_backtick_run(body).max(2) + 1);
+    format!(
+        "\n=== {}  {}\n\n{fence}markdown\n{body}\n{fence}\n",
+        entry.reference(),
+        entry.record.site
+    )
+}
+
 /// Every file of the work list, by path under its directory.
+///
+/// Each agent's `entries.md` holds, group by group, the entries it grades; a goals file's group
+/// opens with the file's prose above its first goal. A cluster agent's file then holds its context
+/// entries whole, under `## Context entries`, and its title lines, under `## Goal titles`, each the
+/// goal's reference and its title: both are read only, and its report names neither.
 fn render(graph: &Graph, agents: &[Vec<usize>], seeds: &BTreeSet<usize>) -> Vec<(PathBuf, String)> {
     let mut list = String::new();
     let mut files = Vec::new();
@@ -261,8 +349,19 @@ fn render(graph: &Graph, agents: &[Vec<usize>], seeds: &BTreeSet<usize>) -> Vec<
         let mut given: BTreeSet<usize> = BTreeSet::new();
         for &g in groups {
             let group = &graph.groups[g];
-            entries.push_str(&format!("\n## Cluster: {}\n", group.name));
-            report.push_str(&format!("\n## Cluster: {}\n\n", group.name));
+            let heading = match group.kind {
+                graph::GroupKind::Goals => "Goals",
+                _ => "Cluster",
+            };
+            entries.push_str(&format!("\n## {heading}: {}\n", group.name));
+            report.push_str(&format!("\n## {heading}: {}\n\n", group.name));
+            let prose = group.prose.trim();
+            if !prose.is_empty() {
+                let fence = "`".repeat(longest_backtick_run(prose).max(2) + 1);
+                entries.push_str(&format!(
+                    "\nThe goals file above its first goal:\n\n{fence}markdown\n{prose}\n{fence}\n"
+                ));
+            }
             for &i in &group.entries {
                 let entry = &graph.entries[i];
                 let reference = entry.reference();
@@ -290,14 +389,7 @@ fn render(graph: &Graph, agents: &[Vec<usize>], seeds: &BTreeSet<usize>) -> Vec<
                     "{agent} {} {reference}{mark}\n",
                     entry.role.word()
                 ));
-                // The body sits in a fence longer than any run of backticks it holds, so neither a
-                // line of it nor a heading of it reads as the start of another entry or cluster.
-                let body = entry.record.body.trim_end();
-                let fence = "`".repeat(longest_backtick_run(body).max(2) + 1);
-                entries.push_str(&format!(
-                    "\n=== {reference}  {}\n\n{fence}markdown\n{body}\n{fence}\n",
-                    entry.record.site
-                ));
+                entries.push_str(&entry_block(entry));
                 let seed_field = if seeds.contains(&i) {
                     " | is a seed".to_string()
                 } else if cited.is_empty() {
@@ -308,6 +400,27 @@ fn render(graph: &Graph, agents: &[Vec<usize>], seeds: &BTreeSet<usize>) -> Vec<
                 report.push_str(&format!(
                     "- {reference}{seed_field} | grade: | relation: | reason:\n"
                 ));
+            }
+        }
+        let context = graph.context(groups);
+        if !context.is_empty() {
+            entries.push_str(
+                "\n## Context entries\n\nCited by an entry above, graded by another agent: read only, \
+                 and named in no line of the report.\n",
+            );
+            for &i in &context {
+                entries.push_str(&entry_block(&graph.entries[i]));
+            }
+        }
+        let titles = graph.title_lines(groups);
+        if !titles.is_empty() {
+            entries.push_str(
+                "\n## Goal titles\n\nGraded by a goal agent: read only, and named in no line of the \
+                 report.\n\n",
+            );
+            for &i in &titles {
+                let goal = &graph.entries[i];
+                entries.push_str(&format!("- {}  {}\n", goal.reference(), goal.record.title));
             }
         }
         report.push_str(&format!("\n{MET_OUTSIDE}\n\n"));
