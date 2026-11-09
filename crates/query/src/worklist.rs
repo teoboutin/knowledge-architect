@@ -23,8 +23,8 @@ const REPORT_FILE: &str = "report.md";
 /// The show text of every entry of the record, for `--verify` to assemble from; no agent is
 /// given it, so an agent's load is its entries file alone.
 const SHOWN_FILE: &str = "shown.md";
-/// The work of the search and its subjects, for the searchers and `--verify`: a line
-/// `work <path>` per file of the work, its absolute path, then a line `subject <id>` per subject.
+/// The work of the search and its subjects, for the searchers and the session that dispatches
+/// them, as [`work_text`] writes it.
 const WORK_FILE: &str = "work.txt";
 /// The one subject of a work for which no subject is named.
 const WHOLE_WORK: &str = "whole-work";
@@ -41,7 +41,8 @@ const SEED_MARK: &str = "seed";
 const CITES_SEED_MARK: &str = "cites-seed";
 
 /// What `worklist` does. One value, so that writing a work list and checking the reports cannot be
-/// asked together, and neither can a bound or a seed be given to the check.
+/// asked together, and neither can a bound, a seed, a file of the work or a subject be given to the
+/// check.
 #[derive(Clone, Debug)]
 pub enum WorklistMode {
     /// Write the work list into `dir`, a new or empty directory outside the project.
@@ -49,14 +50,19 @@ pub enum WorklistMode {
         /// Where the work list goes.
         dir: std::path::PathBuf,
         /// The words one agent is given at most, the work's words included; a group above what
-        /// the work leaves goes to an agent alone.
+        /// the work leaves goes to an agent alone. A work longer than the bound leaves 0, and every
+        /// group then goes to an agent alone.
         bound: usize,
         /// The references the work names.
         seeds: Vec<String>,
-        /// The files of the work, which every agent reads beside its entries.
+        /// The files of the work, which `work.txt` lists for the agents to read beside their
+        /// entries; no agent's directory holds them. A relative path is read from the working
+        /// directory. Each file is counted and listed once, by its real path, however many times
+        /// and in whatever spellings it is given. One that cannot be read refuses the run.
         work: Vec<PathBuf>,
-        /// The subjects of the work, each an id in the grammar of an entry id; none names the one
-        /// subject `whole-work`.
+        /// The subjects of the work, which `work.txt` lists, each once, in the order given; none
+        /// gives the one subject `whole-work`. Nothing here checks their form: the caller does,
+        /// as `cli::run` refuses a subject that is no id in the grammar of an entry id.
         subjects: Vec<String>,
     },
     /// Check the reports the agents filled in `dir`, a directory `Write` wrote.
@@ -69,8 +75,11 @@ pub enum WorklistMode {
 /// Write the work list of a search of the whole record, or check the reports its agents filled, per
 /// `design@query@worklist-writes-and-verifies-the-reports`. `Err` is a refusal or a failure: under
 /// `WorklistMode::Write`, an incomplete model, a directory inside the project or not empty, a seed
-/// naming no entry, or a file of the work it cannot read, nothing written, and a write that failed, the files before it left in place.
-/// Exit 1 is a finding on a report.
+/// naming no entry, or a file of the work it cannot read, nothing written, and a write that
+/// failed, the files before it left in place. Exit 1 is a finding on a report.
+///
+/// It checks neither the form of a subject nor that a file of the work holds anything: a subject
+/// is listed as given, each once, and an empty file of the work counts no word.
 pub fn worklist(
     manifest: &Manifest,
     mode: &WorklistMode,
@@ -162,6 +171,8 @@ fn write(
 
     // Every agent reads the work beside its entries, so its words come out of every agent's
     // bound. A work longer than the bound leaves none, and every group then goes to an agent alone.
+    // A file given twice, or by a relative and an absolute spelling, is one file of the work: it is
+    // counted and listed once, by the real path `absolute` gives an existing file.
     let mut work_paths: Vec<PathBuf> = Vec::new();
     let mut work_words = 0;
     for path in work {
@@ -171,8 +182,12 @@ fn write(
                 path.display()
             )
         })?;
+        let real = absolute(path)?;
+        if work_paths.contains(&real) {
+            continue;
+        }
         work_words += text.split_whitespace().count();
-        work_paths.push(absolute(path)?);
+        work_paths.push(real);
     }
     let bound_left = bound.saturating_sub(work_words);
 
@@ -195,7 +210,7 @@ fn write(
         std::fs::write(&path, text).map_err(|e| format!("{}: {e}", path.display()))?;
     }
 
-    if work_words > 0 {
+    if !work_paths.is_empty() {
         outln!("the work holds {work_words} words, which leaves {bound_left} of the {bound}-word bound");
     }
     for (n, agent) in plan.agents.iter().enumerate() {
@@ -214,31 +229,9 @@ fn write(
             names.join("; ")
         );
     }
-    // A group alone above the bound is named where its own entries exceed it, which a split of its
-    // subject, or of its standing entries, reduces; one above it by its context entries and title
-    // lines alone has nothing of its own to split.
     for &g in &plan.above {
-        let group = &graph.groups[g];
-        let own = graph.own_words(g);
-        if own <= bound_left {
-            continue;
-        }
-        match group.kind {
-            graph::GroupKind::Cluster => outln!(
-                "notice: the cluster \"{}\" holds {own} words, above the {bound_left}-word bound: \
-                 split its subject into subjects read apart",
-                group.name,
-            ),
-            graph::GroupKind::Remainder => outln!(
-                "notice: the remainder of {} holds {own} words, above the {bound_left}-word bound: \
-                 give its issues group subdirectories, or have them cite the heads they concern",
-                group.unit,
-            ),
-            graph::GroupKind::Goals => outln!(
-                "notice: the goals of \"{}\" hold {own} words, above the {bound_left}-word bound: \
-                 split the goals home into subdocuments",
-                group.name,
-            ),
+        if let Some(line) = notice(&graph.groups[g], graph.own_words(g), bound_left) {
+            outln!("{line}");
         }
     }
     outln!(
@@ -249,6 +242,35 @@ fn write(
         dir.display()
     );
     Ok(ExitCode::SUCCESS)
+}
+
+/// The notice for a group alone on its agent above the bound, whose own entries hold `own` words,
+/// or `None`.
+///
+/// A group is named where its own entries exceed the bound, which a split of its subject, of its
+/// standing entries or of its goals home reduces; one above it by its context entries and title
+/// lines alone has nothing of its own to split, and is named by nothing but its agent's load.
+fn notice(group: &graph::Group, own: usize, bound: usize) -> Option<String> {
+    if own <= bound {
+        return None;
+    }
+    Some(match group.kind {
+        graph::GroupKind::Cluster => format!(
+            "notice: the cluster \"{}\" holds {own} words, above the {bound}-word bound: split its \
+             subject into subjects read apart",
+            group.name,
+        ),
+        graph::GroupKind::Remainder => format!(
+            "notice: the remainder of {} holds {own} words, above the {bound}-word bound: give its \
+             issues group subdirectories, or have them cite the heads they concern",
+            group.unit,
+        ),
+        graph::GroupKind::Goals => format!(
+            "notice: the goals of \"{}\" hold {own} words, above the {bound}-word bound: split the \
+             goals home into subdocuments",
+            group.name,
+        ),
+    })
 }
 
 /// The directory as an absolute path, its `.` and `..` segments resolved without touching the
@@ -291,9 +313,9 @@ fn absolute(dir: &Path) -> Result<PathBuf, String> {
     Ok(real)
 }
 
-/// `work.txt`: a line `work <path>` per file of the work, then a line `subject <id>` per subject,
-/// each once, in the order given, `whole-work` where none is given. The shape is this function's,
-/// read by `--verify`, the searcher and the session alone, per
+/// `work.txt`: a line `work <path>` per file of the work, as `write` lists them, then a line
+/// `subject <id>` per subject, each once, in the order given, `whole-work` where none is given.
+/// The shape is this function's, read by the searcher and the session alone, per
 /// `issue@knowledge-architect@command-output-is-not-declared-a-contract`.
 fn work_text(work: &[PathBuf], subjects: &[String]) -> String {
     let mut out = String::new();
@@ -887,4 +909,56 @@ fn judge(at: &str, reference: &str, entry: &Listed, fields: &Fields) -> Vec<Stri
         ));
     }
     out
+}
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    fn group(kind: graph::GroupKind) -> graph::Group {
+        graph::Group {
+            name: "a-unit :: A subject".to_string(),
+            key: (String::new(), String::new(), String::new()),
+            unit: "a-unit".to_string(),
+            kind,
+            entries: Vec::new(),
+            prose: String::new(),
+        }
+    }
+
+    /// The claim: a group is named only where its own words exceed the bound, each kind by its own
+    /// notice. Mutation checked: `if own <= bound {` made `if false {`, which names a group at the
+    /// bound; caught.
+    #[test]
+    fn a_notice_names_a_group_whose_own_words_exceed_the_bound() {
+        assert_eq!(notice(&group(graph::GroupKind::Cluster), 10, 10), None);
+        assert_eq!(
+            notice(&group(graph::GroupKind::Cluster), 11, 10).as_deref(),
+            Some(
+                "notice: the cluster \"a-unit :: A subject\" holds 11 words, above the 10-word \
+                 bound: split its subject into subjects read apart"
+            )
+        );
+        assert!(notice(&group(graph::GroupKind::Remainder), 11, 10)
+            .is_some_and(|n| n.starts_with("notice: the remainder of a-unit holds 11 words")));
+        assert!(notice(&group(graph::GroupKind::Goals), 11, 10).is_some_and(
+            |n| n.starts_with("notice: the goals of \"a-unit :: A subject\" hold 11 words")
+        ));
+    }
+
+    /// The claim: `work.txt` lists each file of the work, then each subject once, in the order
+    /// given, and `whole-work` where no subject is given. Mutations checked: the filter
+    /// `.filter(|s| seen.insert(s))` made `.filter(|_| true)`, which lists a subject twice; and
+    /// `for subject in if named.is_empty() {` made `for subject in if false {`, which lists no
+    /// subject; each caught.
+    #[test]
+    fn the_work_file_lists_the_work_then_each_subject_once() {
+        let work = [PathBuf::from("/a/draft.md")];
+        let subjects = ["second-thread", "first-thread", "second-thread"].map(String::from);
+        assert_eq!(
+            work_text(&work, &subjects),
+            "work /a/draft.md\nsubject second-thread\nsubject first-thread\n"
+        );
+        assert_eq!(work_text(&[], &[]), "subject whole-work\n");
+    }
 }

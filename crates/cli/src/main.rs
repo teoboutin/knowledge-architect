@@ -152,7 +152,7 @@ mod tests {
     /// conversion: both directories, neither, and a bound, a seed, a file of the work or a subject
     /// beside `--verify`; and a subject is refused while parsing where it is no id. Mutations
     /// checked: `conflicts_with` removed from `work` and from `subjects`, and `subject_id` made to
-    /// accept every value; each caught.
+    /// accept every value that is not empty; each caught.
     #[test]
     fn worklist_combinations_are_refused_while_parsing() {
         let parse = |args: &[&str]| Cli::try_parse_from([&["klarch", "worklist"], args].concat());

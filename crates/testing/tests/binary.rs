@@ -5916,9 +5916,10 @@ fn worklist_lines(stdout: &str) -> Vec<AgentLine> {
 
 /// The claim: every entry is graded in exactly one agent, a split search unit's entry that cites
 /// heads of two of its clusters included. At a bound of 120 the root's search unit is split, and
-/// `on-both-subjects` cites a head of each of its subjects. Mutation checked: the body of
-/// `assign` in `path@query@src/graph.rs` emptied, which leaves the issue in both clusters, so two
-/// agents list it; caught.
+/// `on-both-subjects` cites a head of each of its subjects. Mutation checked: in `assign` of
+/// `path@query@src/graph.rs`, `holders.into_iter().filter(|(_, h)| h.len() > 1)` made
+/// `holders.into_iter().filter(|(_, h)| h.len() > 1 && false)`, which leaves the issue in both
+/// clusters, so two agents list it; caught.
 #[test]
 fn worklist_grades_every_entry_in_exactly_one_agent() {
     let (_sandbox, out, stdout) = worklist_out("worklist-one-agent", &["--bound", "120"]);
@@ -6123,8 +6124,13 @@ fn worklist_gives_cluster_agents_title_lines_and_goal_agents_the_goals() {
 /// The claim: the words of the work come out of the bound, so a bound of 400 with a work of 300
 /// words packs as a bound of 100 does; `work.txt` lists the work's file and the subjects, and the
 /// one subject `whole-work` where none is named; a file of the work that cannot be read is refused
-/// with nothing written. Mutation checked: in `write` of `path@query@src/worklist.rs`, the bound
-/// left made the bound, which packs as 400; caught.
+/// with nothing written; and the line of the bound the work leaves is printed. Mutations checked:
+/// in `write` of `path@query@src/worklist.rs`, `let bound_left = bound.saturating_sub(work_words);`
+/// made `let bound_left = bound + 0 * work_words;`, which packs as 400; the read of a file of the
+/// work made to yield an empty text on an error, `std::fs::read_to_string(path)` followed by
+/// `.or_else(|_| Ok::<String, std::io::Error>(String::new()))`, which writes a work list over a
+/// file that does not exist; and `if !work_paths.is_empty() {` made `if false {`, which prints no
+/// line of the bound; each caught.
 #[test]
 fn worklist_takes_the_work_s_words_out_of_the_bound() {
     let (sandbox, out) = worklist_project("worklist-work");
@@ -6160,6 +6166,19 @@ fn worklist_takes_the_work_s_words_out_of_the_bound() {
     let at_400 = lines(&out.join("at-400"), &["--bound", "400"]);
     assert_ne!(at_100, at_400, "the two bounds pack alike");
     assert_eq!(with_work, at_100);
+    let (stdout, _, _) = sandbox.run(&[
+        "worklist",
+        "--out",
+        &out.join("line").to_string_lossy(),
+        "--bound",
+        "400",
+        "--work",
+        &work_text,
+    ]);
+    assert!(
+        stdout.contains("the work holds 300 words, which leaves 100 of the 400-word bound"),
+        "{stdout}"
+    );
     let listed = std::fs::read_to_string(out.join("with").join("work.txt")).expect("work.txt");
     let real = work.canonicalize().expect("the work's path");
     assert_eq!(
@@ -6237,7 +6256,9 @@ fn worklist_sends_a_cluster_above_the_bound_alone_with_a_notice() {
 
 /// The claim: each agent's line names every item it was packed as with that item's load, a search
 /// unit packed whole as `unit <name>` and a group of a split one by its name; a group alone on its
-/// agent carries the agent's load.
+/// agent carries the agent's load. Mutation checked: in `plan` of `path@query@src/graph.rs`,
+/// `.map(|&u| (format!("unit {}", small[u].0), small[u].2))` made
+/// `.map(|&u| (small[u].0.clone(), small[u].2))`, which drops the word `unit`; caught.
 #[test]
 fn worklist_prints_each_item_with_its_load() {
     let (_sandbox, _out, stdout) = worklist_out("worklist-loads", &["--bound", "60"]);
@@ -7036,7 +7057,9 @@ fn worklist_entries_files(out: &Path) -> String {
 }
 
 /// The claim, a regression guard: the files the searchers read hold no part of the snapshot, the
-/// inbound lists `show` prints, so the snapshot adds nothing to an agent's load.
+/// inbound lists `show` prints, so the snapshot adds nothing to an agent's load. Mutation checked:
+/// in `entry_block` of `path@query@src/worklist.rs`, the line `referenced by nothing` appended
+/// after each entry's closing fence; caught.
 #[test]
 fn worklist_entries_files_hold_no_inbound_list() {
     let (_sandbox, out, _) = worklist_out(
@@ -7051,6 +7074,83 @@ fn worklist_entries_files_hold_no_inbound_list() {
     );
     let shown = std::fs::read_to_string(out.join("shown.md")).expect("shown.md");
     assert!(shown.contains("referenced at:"), "{shown}");
+}
+
+/// The claim: a file of the work given twice, by a relative and by an absolute path, is counted
+/// and listed once. Mutation checked: in `write` of `path@query@src/worklist.rs`,
+/// `if work_paths.contains(&real) {` made `if false {`, which counts 600 words and lists two
+/// lines; caught.
+#[test]
+fn worklist_counts_and_lists_a_file_of_the_work_once() {
+    let (sandbox, out) = worklist_project("worklist-work-once");
+    let work = out.with_extension("work.md");
+    std::fs::write(&work, "word ".repeat(300)).expect("the work");
+    let absolute = work.to_string_lossy().into_owned();
+    // The sandbox and the work sit in one temporary directory, the sandbox's root the working
+    // directory of the run.
+    let relative = format!("../{}", work.file_name().expect("a name").to_string_lossy());
+    let out_text = out.to_string_lossy().into_owned();
+    let (stdout, stderr, code) = sandbox.run(&[
+        "worklist", "--out", &out_text, "--bound", "400", "--work", &absolute, "--work", &relative,
+    ]);
+    assert_eq!(code, 0, "{stdout}{stderr}");
+    assert!(
+        stdout.contains("the work holds 300 words, which leaves 100 of the 400-word bound"),
+        "{stdout}"
+    );
+    let listed = std::fs::read_to_string(out.join("work.txt")).expect("work.txt");
+    let real = work.canonicalize().expect("the work's path");
+    assert_eq!(
+        listed,
+        format!("work {}\nsubject whole-work\n", real.display())
+    );
+    let _ = std::fs::remove_file(&work);
+}
+
+/// The claim: a group alone above the bound is named by a notice only where its own entries
+/// exceed the bound, a cluster, a remainder and a goals file each by its own notice. At 120 the
+/// root's first subject is above the bound by its context entry and title lines alone, and gets
+/// no notice; at 20 the root's remainder and its goals file hold more words of their own than the
+/// bound. Mutation checked: in `notice` of `path@query@src/worklist.rs`, `if own <= bound {` made
+/// `if false {`, which names the first subject at 120; caught.
+#[test]
+fn worklist_names_a_group_above_the_bound_only_by_its_own_entries() {
+    let (_sandbox, _out, stdout) = worklist_out("worklist-notices-120", &["--bound", "120"]);
+    let first = worklist_lines(&stdout)
+        .into_iter()
+        .find(|(_, _, items)| items.iter().any(|(n, _)| n == "core-mock :: First subject"))
+        .unwrap_or_else(|| panic!("no agent of the first subject: {stdout}"));
+    assert!(
+        first.1 > 120,
+        "the first subject is within the bound: {stdout}"
+    );
+    assert!(!stdout.contains("First subject\" holds"), "{stdout}");
+    let (_sandbox, _out, stdout) = worklist_out("worklist-notices-20", &["--bound", "20"]);
+    assert!(
+        stdout.contains("notice: the remainder of core-mock holds ")
+            && stdout.contains("notice: the goals of \"core-mock :: docs/goals.md\" hold "),
+        "{stdout}"
+    );
+}
+
+/// The claim: a goal agent's entries file gives each goals file's prose above its first goal,
+/// before the goals. Mutation checked: in `render` of `path@query@src/worklist.rs`,
+/// `if !prose.is_empty() {` made `if false {`, which leaves the prose out; caught.
+#[test]
+fn worklist_gives_a_goal_agent_the_goals_file_s_prose() {
+    let (_sandbox, out, _) = worklist_out("worklist-goals-prose", &[]);
+    let (entries, _) = worklist_entries_of(&out, "goal@widget@widget-goal");
+    let section = worklist_section(&entries, "## Goals: widget :: widget/docs/goals.md");
+    let prose = section
+        .find("The goals file above its first goal:")
+        .unwrap_or_else(|| panic!("no prose: {entries}"));
+    let heading = section
+        .find("# Goals — widget")
+        .expect("the file's heading");
+    let goal = section
+        .find("=== goal@widget@widget-goal  ")
+        .expect("the goal");
+    assert!(prose < heading && heading < goal, "{section}");
 }
 
 // ---- `transcript` ------------------------------------------------------------------------------

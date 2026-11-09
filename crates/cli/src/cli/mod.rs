@@ -106,8 +106,9 @@ pub struct IdArgs {
 #[derive(Args)]
 pub struct WorklistArgs {
     /// Write the work list into DIR, a new or empty directory outside the project: `agents.txt`,
-    /// `work.txt`, and per agent a directory holding its entries whole, with its context entries
-    /// and its goal title lines, and the report it fills.
+    /// `work.txt`, `shown.md`, the snapshot no agent is given, and per agent a directory holding
+    /// its entries whole, with its context entries and its goal title lines, and the report it
+    /// fills.
     #[arg(
         long,
         value_name = "DIR",
@@ -115,8 +116,8 @@ pub struct WorklistArgs {
         required_unless_present = "verify"
     )]
     pub out: Option<std::path::PathBuf>,
-    /// Check the reports the agents filled in DIR, a directory `--out` wrote: every entry
-    /// graded once, by the one agent given it to grade, in the grades and relations its role takes.
+    /// Check the reports the agents filled in DIR, a directory `--out` wrote: every entry an agent
+    /// was given graded once in its report, in the grades and relations its role takes.
     #[arg(long, value_name = "DIR")]
     pub verify: Option<std::path::PathBuf>,
     /// The words one agent is given at most, the work's words included; a group above what the
@@ -132,7 +133,9 @@ pub struct WorklistArgs {
     /// it, names it, and such an entry is never graded `unrelated`.
     #[arg(long = "seed", value_name = "REF", conflicts_with = "verify")]
     pub seeds: Vec<String>,
-    /// A file of the work, repeatable: every agent reads it, and its words come out of the bound.
+    /// A file of the work, repeatable: `work.txt` lists it for the agents to read, and its words
+    /// come out of the bound. A relative path is read from the working directory; a file given
+    /// twice, in any spelling, counts once.
     #[arg(long = "work", value_name = "PATH", conflicts_with = "verify")]
     pub work: Vec<std::path::PathBuf>,
     /// A subject of the work, repeatable, an id in the grammar `[a-z0-9]+(-[a-z0-9]+)+`; with
@@ -266,7 +269,8 @@ pub struct TripwiresArgs {
 /// `design@cli@exit-code-ladder`: `Err` is could-not-run, and the caller prints it and exits 2.
 /// `extensions` is every extension the binary registers, per
 /// `design@check@an-extension-plugs-in-through-phased-hooks`; `klarch` passes none. A value holding a
-/// combination the command refuses, and `Command::Init`, which goes to [`init`], are `Err`. The command
+/// combination the command refuses, a `worklist` subject that is no id in the grammar of an entry
+/// id, which clap refuses while parsing, and `Command::Init`, which goes to [`init`], are `Err`. The command
 /// prints, so a closed stdout ends the process with exit 2, and `index` and `check --fix` can return
 /// exit 2 themselves, having printed why.
 pub fn run(
