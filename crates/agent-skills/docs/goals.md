@@ -241,3 +241,74 @@ It refines `goal@knowledge-architect@the-owner-decides`.
 - Admits, for instance: a goal wider than each of the owner's statements it is drawn from, whose
   reach the owner was shown before ruling.
 - Rules out, for instance: a goal reworded by a review to name the module that currently meets it.
+
+## The main session of a piece of work does itself what needs it, and hands the rest to agents it dispatches `##session-orchestrates-the-work`
+
+The main session is the session that the person supervising the work exchanges with. It does
+itself what needs it:
+
+- the design, the goals, and their discussion with that person;
+- the decisions on the design, but those a dispatched agent meets in its own part of the work, and
+  the questions put to that person;
+- the writing of the plan documents that record what was designed;
+- the dispatch of the rest of the work, and acting on what comes back.
+
+The rest of a piece of work is carried by agents the main session dispatches: the investigation,
+the grounding in the record and in the code, the experiments and the measurements, the writing of
+the record, the development, the updates of a plan document while its work is carried out, and the
+review. The main session may also dispatch the check that another agent's conclusions hold.
+
+The main session dispatches an agent for one coherent part of the work, and that agent carries the
+whole of it: an agent that writes a change also writes its commits, and may make several in a row
+toward the same change. What makes a coherent part, how much of the work one agent carries, and
+whether a part is worth a dispatch, are left to the main session's judgement, by the size of the
+work, the size of the record it reads and the scope of the action. A coherent part too small to
+spare the main session's context, such as the reword of one commit message to repair a claim, is
+done by the main session itself; several such repairs taken together can make one part worth a
+dispatch.
+
+Each such agent checks its conclusions before it reports them, as the main session checks its own
+claims, no more and no less, and reports them with the evidence each one rests on, in a form that
+names what it considered and can be checked without doing the work again. A stricter check is a
+check against another standard than the one the main session applies to its own claims, or a chain
+of checks, each checking the check before it. A review judges the work, not the check before it: it
+is no stricter check, it is a part of the work like any other, and how often the work is reviewed is a
+way of dividing it, left to the main session's judgement where the installed text sets no rule,
+such as a review before a merge. The check of a dispatched agent's conclusions does not make the
+total cost of the work significantly higher.
+
+It is met while the installed text keeps with the main session each part listed above as its own,
+has it dispatch the rest at its judgement, and states for each dispatched part the report its agent
+returns and how the agent checks its conclusions; and while the retrospective asks whether the main
+session spent its context on work an agent could have carried, whether it acted on a conclusion not
+checked as its own claims are, or on one that proved wrong, and whether the check of dispatched
+conclusions raised the total cost significantly. A conclusion acted on after its check passed,
+which then proves wrong, shows the goal unmet in practice where the form of the report did not let
+what went wrong be found.
+
+It refines `goal@knowledge-architect@agents-get-a-complete-workflow`.
+
+- Requires, for instance: an agent that reads the project's record against the work returns, for
+  each entry it judges, its conclusion with evidence that can be checked without reading the entry
+  whole, and names every entry it was given.
+- Requires, for instance: where the main session judges a change worth a dispatch, its code is
+  written by a dispatched agent and judged by a dispatched review, and the main session acts on the
+  review's findings.
+- Admits, for instance: the main session reading one known file, or rewording one commit message,
+  itself.
+- Admits, for instance: a dispatched developer making several commits in a row toward one change,
+  each with its own message.
+- Admits, for instance: a dispatched developer deciding a choice its change meets and reporting it,
+  as the installed text says which choices return to the main session.
+- Admits, for instance: a review dispatched after each step of a dispatched developer's change.
+- Admits, for instance: an instruction that has a dispatched agent check another agent's
+  conclusions against their evidence before the main session acts on them; a chain of checks begins
+  only with a check of that check.
+- Rules out, for instance: an instruction that has the main session read whole every entry a
+  search returns, where it acts on few of them.
+- Rules out, for instance: the main session acting on an agent's conclusion that was not checked as
+  its own claims are.
+- Rules out, for instance: an instruction that holds a dispatched agent's report to a stricter check
+  than the main session's own claims.
+- Rules out, for instance: the main session taking over a part of a dispatched agent's coherent part
+  of the work, such as its commit, because that part alone is small.
