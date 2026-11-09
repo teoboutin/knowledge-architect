@@ -27,6 +27,12 @@ arguments and the owner's word, and on no count of the census, so the question d
 shape. Not established: how the head's "a run is admitted only when its verdict reproduces" applies
 to such a census.
 
+The owner ruled a narrower case, which the head now records: a record search that grounds a real
+design discussion, its searchers briefed in a proposed report form, is real use, since the run is
+done for the work. A census differs in its purpose: it is run to refine a planned instruction from
+what its agents report, and the owner has not ruled whether that purpose makes it a run built to
+produce evidence.
+
 ### Why it matters
 
 `goal@knowledge-architect@the-workflow-improves-through-real-use` defines real use as a session

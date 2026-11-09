@@ -85,7 +85,10 @@ one does would take the repeated runs this rule refuses.
   its instructions.
 - **Always admitted as evidence:** a finding from a retrospective, and a misbehaviour observed in
   real use. A finding that comes from a synthetic run anyway is used only for the part a reading
-  confirms.
+  confirms. Real use includes work done for a real piece of work in the shape of an instruction not
+  yet installed, such as a record search that grounds a real design discussion with its searchers
+  briefed in a proposed report form: the run is done for the work, not built to produce evidence,
+  on the owner's word.
 
 The rule derives from `goal@knowledge-architect@the-workflow-improves-through-real-use`, which
 states it for the whole workflow. The owner's argument: synthetic evidence is too unreliable, since
