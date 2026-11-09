@@ -5611,16 +5611,22 @@ fn every_path_to_an_entry_s_directory_names_the_entry() {
 // ---- `worklist`, per `design@query@worklist-writes-and-verifies-the-reports` ----
 
 /// The manifest of the worklist project: the root `core-mock`, a Component `widget` whose design
-/// home is a directory, and a location `notes` carrying a declared file register with groups.
+/// home is a directory, and a location `notes` carrying a declared file register with groups and a
+/// declared Directory register, `topic`, whose entry anchors the tool constructs, each carrying a
+/// declared heading register `rule`.
 const WORKLIST_MANIFEST: &str = "[project]\nchecker-version = \"fixture\"\nname = \"core-mock\"\n\
     components = [\"widget\"]\n\n\
-    [locations.notes]\npath = \"notes\"\nregisters = [\"reading\"]\n\n\
+    [locations.notes]\npath = \"notes\"\nregisters = [\"reading\", \"topic\"]\n\n\
     [registers.reading]\nscope = \"opt-in\"\nshape = \"file\"\ndir = \"readings\"\n\
     sections = [\"Reading\"]\n\n\
+    [registers.topic]\nscope = \"opt-in\"\nshape = \"directory\"\ndir = \"topics\"\n\
+    carries = [\"rule\"]\n\n\
+    [registers.rule]\nscope = \"opt-in\"\nshape = \"heading\"\ndir = \"rules\"\nlevel = 2\n\n\
     [walk]\nskip-dirs = []\nskip-files = []\n\n[agents]\nharness = []\n";
 
 /// The root's design home, one file: a head before any subject, then two subjects. The second
-/// subject's head is long, so that a small bound puts its cluster above it.
+/// subject's head is long, so that a small bound puts its cluster above it, and the root's search
+/// unit above half of a bound the others fit under.
 const WORKLIST_DESIGN: &str = "# Design — core-mock\n\n\
     ### One decision `##one-decision`\n\nA decision under no subject. The design it did not keep is \
     `rejected@core-mock@other-way`.\n\n\
@@ -5650,9 +5656,15 @@ fn worklist_issue(cites: &str) -> String {
 }
 
 /// The worklist project, and a directory outside it for the work list, which does not exist yet.
+///
+/// Beside the entries above: an issue of the root citing heads of both its subjects, one of
+/// `widget` citing a head of the root, a goal of `widget`, and a topic of `notes`, `alpha-topic`,
+/// whose rule is an entry of an anchor the tool constructs.
 fn worklist_project(tag: &str) -> (Sandbox, PathBuf) {
     let on_goal = worklist_issue("`goal@core-mock@top-goal`");
     let on_head = worklist_issue("`design@core-mock@first-head`");
+    let on_both = worklist_issue("`design@core-mock@first-head` and `design@core-mock@long-head`");
+    let on_the_root = worklist_issue("`design@core-mock@first-head`");
     let sandbox = Sandbox::seeded(
         tag,
         "core",
@@ -5663,8 +5675,14 @@ fn worklist_project(tag: &str) -> (Sandbox, PathBuf) {
             ("docs/tripwires.md", WORKLIST_TRIPWIRES),
             ("docs/open-issues/on-the-goal.md", &on_goal),
             ("docs/open-issues/on-the-head.md", &on_head),
+            ("docs/open-issues/on-both-subjects.md", &on_both),
             ("widget/README.md", "# widget\n\nA Component.\n"),
-            ("widget/docs/goals.md", "# Goals — widget\n"),
+            (
+                "widget/docs/goals.md",
+                "# Goals — widget\n\n## A widget goal `##widget-goal`\n\n\
+                 It refines `goal@core-mock@top-goal`.\n",
+            ),
+            ("widget/docs/open-issues/on-the-root.md", &on_the_root),
             ("widget/docs/rejected.md", "# Rejected — widget\n"),
             ("widget/docs/tripwires.md", "# Tripwires — widget\n"),
             (
@@ -5689,14 +5707,28 @@ fn worklist_project(tag: &str) -> (Sandbox, PathBuf) {
                 "notes/readings/loops/loop-reading.md",
                 "# Loop\n\n## Reading\n\nx\n",
             ),
+            ("notes/topics/README.md", "# Topics\n"),
+            (
+                "notes/topics/alpha-topic/README.md",
+                "# Alpha\n\n- [Rules](rules.md)\n",
+            ),
+            (
+                "notes/topics/alpha-topic/rules.md",
+                "# Rules — alpha\n\n## An alpha rule `##alpha-rule`\n\nx\n",
+            ),
         ],
     );
+    // The generated indexes of the issue homes and of the topics, written as the tree holds them.
+    let (stdout, stderr, code) = sandbox.run(&["index"]);
+    assert_eq!(code, 0, "{stdout}{stderr}");
+    sandbox.stage();
     let out = std::env::temp_dir().join(format!("knowledge-{tag}-out-{}", std::process::id()));
     let _ = std::fs::remove_dir_all(&out);
     (sandbox, out)
 }
 
-/// Every report of a work list, as cluster name → the references listed under it.
+/// Every report of a work list, as group name → the references listed under it, a cluster or a
+/// remainder under `## Cluster: `, a goals file under `## Goals: `.
 fn worklist_clusters(out: &Path) -> std::collections::BTreeMap<String, Vec<String>> {
     let mut clusters = std::collections::BTreeMap::new();
     let mut agents: Vec<_> = std::fs::read_dir(out)
@@ -5709,7 +5741,10 @@ fn worklist_clusters(out: &Path) -> std::collections::BTreeMap<String, Vec<Strin
         let report = std::fs::read_to_string(agent.path().join("report.md")).expect("a report");
         let mut current: Option<String> = None;
         for line in report.lines() {
-            if let Some(name) = line.strip_prefix("## Cluster: ") {
+            if let Some(name) = line
+                .strip_prefix("## Cluster: ")
+                .or_else(|| line.strip_prefix("## Goals: "))
+            {
                 current = Some(name.to_string());
                 clusters.entry(name.to_string()).or_insert_with(Vec::new);
             } else if let (Some(name), Some(rest)) = (&current, line.strip_prefix("- ")) {
@@ -5724,13 +5759,14 @@ fn worklist_clusters(out: &Path) -> std::collections::BTreeMap<String, Vec<Strin
     clusters
 }
 
-/// AC2: the agents' lists together hold every entry of the record, in both shapes of a design
-/// home, under no subject, in a declared file register's groups; a chain of goals is reached
-/// upward from the head that cites its first; and an issue citing only a goal is in its anchor's
-/// residual group. Mutation checked: `upward` in `path@query@src/graph.rs` returning its start
-/// alone, which leaves the middle and top goals in the residual.
+/// The agents' lists together hold every entry of the record, in both shapes of a design home,
+/// under no subject, in a declared file register's groups; a cluster holds no goal; the goals of a
+/// search unit are graded in the group of their goals file; and an issue citing only a goal is in
+/// its search unit's remainder. Mutation checked: in `graph` of `path@query@src/graph.rs`, the
+/// test `!held.contains(&i)` of the remainder made `false`, which leaves the issue on the goal in
+/// no group; caught.
 #[test]
-fn worklist_lists_every_entry_of_the_record_once_per_cluster() {
+fn worklist_lists_every_entry_of_the_record_in_its_search_unit_s_groups() {
     let (sandbox, out) = worklist_project("worklist-every-entry");
     let out_text = out.to_string_lossy().into_owned();
     let (stdout, stderr, code) = sandbox.run(&["worklist", "--out", &out_text]);
@@ -5741,34 +5777,15 @@ fn worklist_lists_every_entry_of_the_record_once_per_cluster() {
             .lines()
             .map(|l| l.split(' ').nth(2).expect("a reference").to_string())
             .collect();
-    let every: std::collections::BTreeSet<String> = [
-        "design@core-mock@one-decision",
-        "design@core-mock@first-head",
-        "design@core-mock@long-head",
-        "design@widget@gears-turn",
-        "design@widget@springs-coil",
-        "goal@core-mock@fine-goal",
-        "goal@core-mock@middle-goal",
-        "goal@core-mock@top-goal",
-        "rejected@core-mock@other-way",
-        "tripwire@core-mock@first-premise",
-        "issue@core-mock@on-the-goal",
-        "issue@core-mock@on-the-head",
-        "reading@notes@top-reading",
-        "reading@notes@loop-reading",
-    ]
-    .iter()
-    .map(|s| s.to_string())
-    .collect();
+    let every: std::collections::BTreeSet<String> =
+        WORKLIST_ENTRIES.iter().map(|s| s.to_string()).collect();
     assert_eq!(listed, every);
     let clusters = worklist_clusters(&out);
     assert_eq!(
         clusters["core-mock :: First subject"],
         [
             "design@core-mock@first-head",
-            "goal@core-mock@fine-goal",
-            "goal@core-mock@middle-goal",
-            "goal@core-mock@top-goal",
+            "issue@core-mock@on-both-subjects",
             "issue@core-mock@on-the-head",
             "tripwire@core-mock@first-premise",
         ]
@@ -5789,8 +5806,412 @@ fn worklist_lists_every_entry_of_the_record_once_per_cluster() {
         ["reading@notes@loop-reading"]
     );
     assert_eq!(
-        clusters["core-mock :: (residual)"],
+        clusters["core-mock :: (remainder)"],
         ["issue@core-mock@on-the-goal"]
+    );
+    assert_eq!(
+        clusters["core-mock :: docs/goals.md"],
+        [
+            "goal@core-mock@fine-goal",
+            "goal@core-mock@middle-goal",
+            "goal@core-mock@top-goal",
+        ]
+    );
+}
+
+/// Every entry of the worklist project's record.
+const WORKLIST_ENTRIES: &[&str] = &[
+    "design@core-mock@one-decision",
+    "design@core-mock@first-head",
+    "design@core-mock@long-head",
+    "design@widget@gears-turn",
+    "design@widget@springs-coil",
+    "goal@core-mock@fine-goal",
+    "goal@core-mock@middle-goal",
+    "goal@core-mock@top-goal",
+    "goal@widget@widget-goal",
+    "rejected@core-mock@other-way",
+    "tripwire@core-mock@first-premise",
+    "issue@core-mock@on-the-goal",
+    "issue@core-mock@on-the-head",
+    "issue@core-mock@on-both-subjects",
+    "issue@widget@on-the-root",
+    "reading@notes@top-reading",
+    "reading@notes@loop-reading",
+    "topic@notes@alpha-topic",
+    "rule@alpha-topic@alpha-rule",
+];
+
+/// A work list written by `--out` with `args`, its stdout, and its directory; `tag` names it.
+fn worklist_out(tag: &str, args: &[&str]) -> (Sandbox, PathBuf, String) {
+    let (sandbox, out) = worklist_project(tag);
+    let out_text = out.to_string_lossy().into_owned();
+    let mut all = vec!["worklist", "--out", out_text.as_str()];
+    all.extend_from_slice(args);
+    let (stdout, stderr, code) = sandbox.run(&all);
+    assert_eq!(code, 0, "{stdout}{stderr}");
+    (sandbox, out, stdout)
+}
+
+/// `agents.txt` of a work list, as each agent with the references it grades.
+fn worklist_agents(out: &Path) -> std::collections::BTreeMap<String, Vec<String>> {
+    let mut agents: std::collections::BTreeMap<String, Vec<String>> = Default::default();
+    for line in std::fs::read_to_string(out.join("agents.txt"))
+        .expect("agents.txt")
+        .lines()
+    {
+        let mut parts = line.split(' ');
+        let agent = parts.next().expect("an agent").to_string();
+        let reference = parts.nth(1).expect("a reference").to_string();
+        agents.entry(agent).or_default().push(reference);
+    }
+    agents
+}
+
+/// The search unit of a reference of the worklist project: its anchor's, `alpha-topic` being an
+/// entry anchor of `notes`.
+fn worklist_unit(reference: &str) -> &str {
+    match reference.split('@').nth(1).expect("an anchor") {
+        "alpha-topic" => "notes",
+        anchor => anchor,
+    }
+}
+
+/// One agent line of a work list's stdout: its agent, its own load, and its items with the load
+/// each was packed by.
+type AgentLine = (String, usize, Vec<(String, usize)>);
+
+/// Each agent line of a work list's stdout.
+fn worklist_lines(stdout: &str) -> Vec<AgentLine> {
+    stdout
+        .lines()
+        .filter(|l| l.starts_with("agent-"))
+        .map(|line| {
+            let mut parts = line.splitn(3, "  ");
+            let agent = parts.next().expect("an agent").to_string();
+            let load = parts
+                .next()
+                .and_then(|w| w.strip_suffix(" words"))
+                .and_then(|w| w.parse().ok())
+                .unwrap_or_else(|| panic!("an agent's load: {line}"));
+            let items = parts
+                .next()
+                .expect("the items")
+                .split("; ")
+                .map(|item| {
+                    let (name, words) = item
+                        .rsplit_once(" (")
+                        .unwrap_or_else(|| panic!("an item with no load: {line}"));
+                    let words = words
+                        .strip_suffix(" words)")
+                        .and_then(|w| w.parse().ok())
+                        .unwrap_or_else(|| panic!("an item with no load: {line}"));
+                    (name.to_string(), words)
+                })
+                .collect();
+            (agent, load, items)
+        })
+        .collect()
+}
+
+/// The claim: every entry is graded in exactly one agent, a split search unit's entry that cites
+/// heads of two of its clusters included. At a bound of 120 the root's search unit is split, and
+/// `on-both-subjects` cites a head of each of its subjects. Mutation checked: the body of
+/// `assign` in `path@query@src/graph.rs` emptied, which leaves the issue in both clusters, so two
+/// agents list it; caught.
+#[test]
+fn worklist_grades_every_entry_in_exactly_one_agent() {
+    let (_sandbox, out, stdout) = worklist_out("worklist-one-agent", &["--bound", "120"]);
+    assert!(
+        stdout.contains("core-mock :: First subject (")
+            && stdout.contains("core-mock :: Second subject ("),
+        "the root's search unit is not split: {stdout}"
+    );
+    let mut count: std::collections::BTreeMap<String, usize> = Default::default();
+    for references in worklist_agents(&out).values() {
+        for reference in references {
+            *count.entry(reference.clone()).or_default() += 1;
+        }
+    }
+    for reference in WORKLIST_ENTRIES {
+        assert_eq!(count.get(*reference), Some(&1), "{reference}: {count:?}");
+    }
+    assert_eq!(count.len(), WORKLIST_ENTRIES.len(), "{count:?}");
+}
+
+/// The claim: no agent's summed load, the sum of the loads of the items it was packed as, exceeds
+/// the bound left unless it holds one item alone; and an agent's own load, which counts an entry or
+/// a title line two of its groups share once, is at most that sum. Mutation checked: in `pack` of
+/// `path@query@src/graph.rs`, the first-fit test `load + loads[g].0 <= bound` made `true`, which
+/// puts the root's split groups together at 120; caught.
+#[test]
+fn worklist_keeps_every_agent_s_summed_load_under_the_bound() {
+    for bound in [60, 120, 300, 400] {
+        let bound_text = bound.to_string();
+        let (_sandbox, _out, stdout) = worklist_out(
+            &format!("worklist-summed-{bound}"),
+            &["--bound", &bound_text],
+        );
+        for (agent, load, items) in worklist_lines(&stdout) {
+            let summed: usize = items.iter().map(|(_, w)| w).sum();
+            assert!(load <= summed, "{agent} at {bound}: {stdout}");
+            if items.len() > 1 {
+                assert!(summed <= bound, "{agent} at {bound}: {stdout}");
+            }
+        }
+    }
+}
+
+/// The claim: a search unit whose load exceeds half the bound left shares no agent. At a bound of
+/// 400 the root's search unit, of a load above 200 and under 400, fits one agent with `widget` and
+/// `notes`. Mutation checked: in `plan` of `path@query@src/graph.rs`, `load * 2 > bound` made
+/// `load > bound`, which packs the root with the small units; caught.
+#[test]
+fn worklist_gives_a_search_unit_above_half_the_bound_agents_of_its_own() {
+    let (_sandbox, out, stdout) = worklist_out("worklist-half", &["--bound", "400"]);
+    let root = worklist_lines(&stdout)
+        .into_iter()
+        .find(|(_, _, items)| items.iter().any(|(n, _)| n == "unit core-mock"))
+        .unwrap_or_else(|| panic!("no agent holds the root's search unit: {stdout}"));
+    assert!(
+        root.2[0].1 * 2 > 400 && root.2[0].1 <= 400,
+        "the root's load is not between half the bound and the bound: {stdout}"
+    );
+    let mut shared = 0;
+    for (agent, references) in worklist_agents(&out) {
+        let units: std::collections::BTreeSet<&str> = references
+            .iter()
+            .filter(|r| !r.starts_with("goal@"))
+            .map(|r| worklist_unit(r))
+            .collect();
+        if units.contains("core-mock") {
+            assert_eq!(units.len(), 1, "{agent} shares the root's agent: {units:?}");
+        }
+        shared += usize::from(units.len() > 1);
+    }
+    assert!(shared > 0, "no agent holds two search units: {stdout}");
+}
+
+/// The claim: an entry of an anchor the tool constructs, the rule of the topic `alpha-topic`, is
+/// packed with the search unit that holds its home, `notes`, and no search unit of its own is
+/// packed. Mutation checked: `search_unit` in `path@query@src/graph.rs` returning the anchor's own
+/// name, which packs `unit alpha-topic` beside `unit notes`; caught.
+#[test]
+fn worklist_packs_a_constructed_anchor_s_entry_with_its_home_s_search_unit() {
+    let (_sandbox, out, stdout) = worklist_out("worklist-constructed", &["--bound", "60"]);
+    assert!(!stdout.contains("unit alpha-topic"), "{stdout}");
+    let agents = worklist_agents(&out);
+    let (agent, references) = agents
+        .iter()
+        .find(|(_, r)| r.iter().any(|r| r == "rule@alpha-topic@alpha-rule"))
+        .expect("the agent of the rule");
+    assert!(
+        references.iter().any(|r| r == "reading@notes@top-reading"),
+        "{agent}: {references:?}"
+    );
+    let line = stdout
+        .lines()
+        .find(|l| l.starts_with(&format!("{agent}  ")))
+        .expect("its line");
+    assert!(line.contains("unit notes ("), "{line}");
+}
+
+/// The entries file of the agent that grades `reference`, and that agent's references.
+fn worklist_entries_of(out: &Path, reference: &str) -> (String, Vec<String>) {
+    let (agent, references) = worklist_agents(out)
+        .into_iter()
+        .find(|(_, r)| r.iter().any(|r| r == reference))
+        .unwrap_or_else(|| panic!("no agent grades {reference}"));
+    let entries = std::fs::read_to_string(out.join(&agent).join("entries.md")).expect("entries");
+    (entries, references)
+}
+
+/// The text of `entries.md` from the line `heading` to the next level-two heading.
+fn worklist_section<'a>(entries: &'a str, heading: &str) -> &'a str {
+    let Some(start) = entries.find(&format!("\n{heading}\n")) else {
+        return "";
+    };
+    let rest = &entries[start + 1..];
+    let end = rest[1..].find("\n## ").map_or(rest.len(), |i| i + 1);
+    &rest[..end]
+}
+
+/// The claim: an issue citing a head another agent grades is given that head whole as a context
+/// entry, which its agent's report and its list do not name. At a bound of 120 `widget`'s issue on
+/// the root's first head is graded apart from the root's split search unit. Mutation checked: in
+/// `context` of `path@query@src/graph.rs`, the filter made to keep nothing, which leaves the agent
+/// no context entry; caught.
+#[test]
+fn worklist_gives_a_head_another_agent_grades_as_a_context_entry() {
+    let (_sandbox, out, _) = worklist_out("worklist-context", &["--bound", "120"]);
+    let (entries, references) = worklist_entries_of(&out, "issue@widget@on-the-root");
+    assert!(
+        !references
+            .iter()
+            .any(|r| r == "design@core-mock@first-head"),
+        "the head is graded beside the issue: {references:?}"
+    );
+    let context = worklist_section(&entries, "## Context entries");
+    assert!(
+        context.contains("=== design@core-mock@first-head  docs/design.md:")
+            && context.contains("It serves `goal@core-mock@fine-goal`."),
+        "{entries}"
+    );
+    // The split root's own context: the first subject's issue cites the long head, graded apart.
+    let (entries, _) = worklist_entries_of(&out, "issue@core-mock@on-both-subjects");
+    assert!(
+        worklist_section(&entries, "## Context entries")
+            .contains("=== design@core-mock@long-head  "),
+        "{entries}"
+    );
+}
+
+/// The claim: a cluster agent holds the title lines of the root's goals and of its search units'
+/// goals, a Component's own goal only where it holds that Component; a goal agent grades every goal
+/// of its search units, and no entry of another register. Mutation checked: `title_units` of
+/// `path@query@src/graph.rs` leaving out the unit itself, which drops `widget`'s goal from the
+/// title lines of `widget`'s agent; caught.
+#[test]
+fn worklist_gives_cluster_agents_title_lines_and_goal_agents_the_goals() {
+    let (_sandbox, out, _) = worklist_out("worklist-titles", &["--bound", "120"]);
+    let root_titles = [
+        "- goal@core-mock@fine-goal  A fine goal",
+        "- goal@core-mock@middle-goal  A middle goal",
+        "- goal@core-mock@top-goal  A top goal",
+    ];
+    let (widget, _) = worklist_entries_of(&out, "design@widget@gears-turn");
+    let titles = worklist_section(&widget, "## Goal titles");
+    for line in root_titles {
+        assert!(titles.contains(line), "{line}: {widget}");
+    }
+    assert!(
+        titles.contains("- goal@widget@widget-goal  A widget goal"),
+        "{widget}"
+    );
+    let (root, references) = worklist_entries_of(&out, "design@core-mock@long-head");
+    assert!(
+        references.iter().all(|r| worklist_unit(r) == "core-mock"),
+        "{references:?}"
+    );
+    let titles = worklist_section(&root, "## Goal titles");
+    for line in root_titles {
+        assert!(titles.contains(line), "{line}: {root}");
+    }
+    assert!(!titles.contains("goal@widget@"), "{root}");
+    let mut goals: Vec<String> = Vec::new();
+    for (agent, references) in worklist_agents(&out) {
+        if references.iter().any(|r| r.starts_with("goal@")) {
+            assert!(
+                references.iter().all(|r| r.starts_with("goal@")),
+                "{agent} grades goals and other entries: {references:?}"
+            );
+            goals.extend(references);
+        }
+    }
+    goals.sort();
+    assert_eq!(
+        goals,
+        [
+            "goal@core-mock@fine-goal",
+            "goal@core-mock@middle-goal",
+            "goal@core-mock@top-goal",
+            "goal@widget@widget-goal",
+        ]
+    );
+}
+
+/// The claim: the words of the work come out of the bound, so a bound of 400 with a work of 300
+/// words packs as a bound of 100 does; `work.txt` lists the work's file and the subjects, and the
+/// one subject `whole-work` where none is named; a file of the work that cannot be read is refused
+/// with nothing written. Mutation checked: in `write` of `path@query@src/worklist.rs`, the bound
+/// left made the bound, which packs as 400; caught.
+#[test]
+fn worklist_takes_the_work_s_words_out_of_the_bound() {
+    let (sandbox, out) = worklist_project("worklist-work");
+    let work = out.with_extension("work.md");
+    std::fs::write(&work, "word ".repeat(300)).expect("the work");
+    let work_text = work.to_string_lossy().into_owned();
+    let lines = |dir: &Path, args: &[&str]| -> Vec<String> {
+        let dir_text = dir.to_string_lossy().into_owned();
+        let mut all = vec!["worklist", "--out", dir_text.as_str()];
+        all.extend_from_slice(args);
+        let (stdout, stderr, code) = sandbox.run(&all);
+        assert_eq!(code, 0, "{stdout}{stderr}");
+        stdout
+            .lines()
+            .filter(|l| l.starts_with("agent-") || l.starts_with("notice:"))
+            .map(String::from)
+            .collect()
+    };
+    let with_work = lines(
+        &out.join("with"),
+        &[
+            "--bound",
+            "400",
+            "--work",
+            &work_text,
+            "--subject",
+            "first-thread",
+            "--subject",
+            "second-thread",
+        ],
+    );
+    let at_100 = lines(&out.join("at-100"), &["--bound", "100"]);
+    let at_400 = lines(&out.join("at-400"), &["--bound", "400"]);
+    assert_ne!(at_100, at_400, "the two bounds pack alike");
+    assert_eq!(with_work, at_100);
+    let listed = std::fs::read_to_string(out.join("with").join("work.txt")).expect("work.txt");
+    let real = work.canonicalize().expect("the work's path");
+    assert_eq!(
+        listed,
+        format!(
+            "work {}\nsubject first-thread\nsubject second-thread\n",
+            real.display()
+        )
+    );
+    let listed = std::fs::read_to_string(out.join("at-100").join("work.txt")).expect("work.txt");
+    assert_eq!(listed, "subject whole-work\n");
+
+    let missing = out.with_extension("no-such-work.md");
+    let missing_text = missing.to_string_lossy().into_owned();
+    let refused = out.join("refused");
+    let refused_text = refused.to_string_lossy().into_owned();
+    let (stdout, stderr, code) =
+        sandbox.run(&["worklist", "--out", &refused_text, "--work", &missing_text]);
+    assert_eq!(code, 2, "{stdout}{stderr}");
+    assert!(stderr.contains("Nothing was written"), "{stderr}");
+    assert!(!refused.exists());
+    // A subject that is no id is refused while parsing.
+    let (stdout, stderr, code) =
+        sandbox.run(&["worklist", "--out", &refused_text, "--subject", "Not An Id"]);
+    assert_eq!(code, 2, "{stdout}{stderr}");
+    assert!(!refused.exists());
+    let _ = std::fs::remove_file(&work);
+}
+
+/// The claim: the default bound is 40,000 words: a cluster whose own entries hold more is named by
+/// the notice of a 40000-word bound. Mutation checked: `DEFAULT_WORKLIST_BOUND` in
+/// `path@cli@src/cli/mod.rs` made 40001, and made 26000; each caught.
+#[test]
+fn worklist_s_default_bound_is_40000_words() {
+    let (sandbox, out) = worklist_project("worklist-default-bound");
+    sandbox.write(
+        "docs/design.md",
+        &format!(
+            "{WORKLIST_DESIGN}\n## Third subject\n\n### A huge head `##huge-head`\n\n{}\n",
+            "word ".repeat(40_000)
+        ),
+    );
+    sandbox.stage();
+    let out_text = out.to_string_lossy().into_owned();
+    let (stdout, stderr, code) = sandbox.run(&["worklist", "--out", &out_text]);
+    assert_eq!(code, 0, "{stdout}{stderr}");
+    assert!(
+        stdout.contains(
+            "notice: the cluster \"core-mock :: Third subject\" holds 40005 words, above the \
+             40000-word bound"
+        ),
+        "{stdout}"
     );
 }
 
@@ -5814,55 +6235,28 @@ fn worklist_sends_a_cluster_above_the_bound_alone_with_a_notice() {
     assert!(!line.contains(';'), "it shares its agent: {line}");
 }
 
-/// The claim: each agent's line names every cluster it holds with that cluster's own load, the
-/// one number a split of a subject is judged by; a cluster alone on its agent carries the agent's
-/// load.
+/// The claim: each agent's line names every item it was packed as with that item's load, a search
+/// unit packed whole as `unit <name>` and a group of a split one by its name; a group alone on its
+/// agent carries the agent's load.
 #[test]
-fn worklist_prints_each_cluster_with_its_load() {
-    let (sandbox, out) = worklist_project("worklist-loads");
-    let out_text = out.to_string_lossy().into_owned();
-    let (stdout, stderr, code) = sandbox.run(&["worklist", "--out", &out_text, "--bound", "60"]);
-    assert_eq!(code, 0, "{stdout}{stderr}");
-    let line = stdout
-        .lines()
-        .find(|l| l.contains("Second subject") && l.starts_with("agent-"))
-        .expect("the agent of the long cluster");
-    let words = line
-        .split("  ")
-        .nth(1)
-        .and_then(|w| w.strip_suffix(" words"))
-        .expect("the agent's load");
+fn worklist_prints_each_item_with_its_load() {
+    let (_sandbox, _out, stdout) = worklist_out("worklist-loads", &["--bound", "60"]);
+    let lines = worklist_lines(&stdout);
+    let (_, load, items) = lines
+        .iter()
+        .find(|(_, _, items)| {
+            items
+                .iter()
+                .any(|(n, _)| n == "core-mock :: Second subject")
+        })
+        .unwrap_or_else(|| panic!("no agent of the long cluster: {stdout}"));
+    assert_eq!(items, &[("core-mock :: Second subject".to_string(), *load)]);
     assert!(
-        line.ends_with(&format!("core-mock :: Second subject ({words} words)")),
-        "{line}"
+        lines
+            .iter()
+            .any(|(_, _, items)| items.iter().any(|(n, _)| n == "unit notes")),
+        "{stdout}"
     );
-    // On an agent of several clusters, each cluster's own load is below the agent's, and the
-    // loads together reach it, since an entry two clusters share is counted in each.
-    let mut several = 0;
-    for line in stdout.lines().filter(|l| l.starts_with("agent-")) {
-        let agent: usize = line
-            .split("  ")
-            .nth(1)
-            .and_then(|w| w.strip_suffix(" words"))
-            .and_then(|w| w.parse().ok())
-            .expect("the agent's load");
-        let clusters = line.splitn(3, "  ").nth(2).expect("the clusters");
-        let loads: Vec<usize> = clusters
-            .split("; ")
-            .map(|c| {
-                c.rsplit_once(" (")
-                    .and_then(|(_, l)| l.strip_suffix(" words)"))
-                    .and_then(|l| l.parse().ok())
-                    .unwrap_or_else(|| panic!("a cluster with no load: {line}"))
-            })
-            .collect();
-        if loads.len() > 1 {
-            several += 1;
-            assert!(loads.iter().all(|l| *l < agent), "{line}");
-            assert!(loads.iter().sum::<usize>() >= agent, "{line}");
-        }
-    }
-    assert!(several > 0, "no agent holds several clusters: {stdout}");
 }
 
 /// AC4: `worklist --out` over a tree that stops before the last phase exits 2 and writes
@@ -6641,29 +7035,22 @@ fn worklist_entries_files(out: &Path) -> String {
     all
 }
 
-/// AC3 of the spec of the graded entries' assembly: the files the searchers read are what the
-/// binary wrote before the snapshot existed, byte for byte, so the snapshot adds nothing to an
-/// agent's load. The reference copy, `path@query@tests/worklist-entries-before-the-snapshot.txt`, was
-/// written by the binary before that change, over this project with this seed and bound. It is a
-/// `.txt` so this repository's check reads none of the mock project's references in it.
+/// The claim, a regression guard: the files the searchers read hold no part of the snapshot, the
+/// inbound lists `show` prints, so the snapshot adds nothing to an agent's load.
 #[test]
-fn worklist_entries_files_are_those_before_the_snapshot() {
-    let (sandbox, out) = worklist_project("worklist-entries-unchanged");
-    let out_text = out.to_string_lossy().into_owned();
-    let (stdout, stderr, code) = sandbox.run(&[
-        "worklist",
-        "--out",
-        &out_text,
-        "--seed",
-        "design@core-mock@first-head",
-        "--bound",
-        "60",
-    ]);
-    assert_eq!(code, 0, "{stdout}{stderr}");
-    let reference = Path::new(env!("CARGO_MANIFEST_DIR"))
-        .join("../query/tests/worklist-entries-before-the-snapshot.txt");
-    let expected = std::fs::read_to_string(&reference).expect("the reference copy");
-    assert_eq!(worklist_entries_files(&out), expected);
+fn worklist_entries_files_hold_no_inbound_list() {
+    let (_sandbox, out, _) = worklist_out(
+        "worklist-entries-no-inbound",
+        &["--seed", "design@core-mock@first-head", "--bound", "60"],
+    );
+    let entries = worklist_entries_files(&out);
+    assert!(entries.contains("==== agent-1/entries.md"), "{entries}");
+    assert!(
+        !entries.contains("referenced at:") && !entries.contains("referenced by nothing"),
+        "{entries}"
+    );
+    let shown = std::fs::read_to_string(out.join("shown.md")).expect("shown.md");
+    assert!(shown.contains("referenced at:"), "{shown}");
 }
 
 // ---- `transcript` ------------------------------------------------------------------------------

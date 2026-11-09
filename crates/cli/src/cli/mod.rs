@@ -43,7 +43,7 @@ pub fn this_library() -> Library {
 }
 
 /// The default of `worklist --bound`, which `--verify` takes no other value of.
-const DEFAULT_WORKLIST_BOUND: usize = 25000;
+const DEFAULT_WORKLIST_BOUND: usize = 40000;
 
 /// `check`'s commands. A binary flattens this enum into its own.
 ///
@@ -87,8 +87,9 @@ pub enum Command {
     /// Add a Component to the project: its line in the manifest, its documents and its register
     /// homes. It overwrites no hand-written file outside the installer's namespace.
     NewComponent(NewComponentArgs),
-    /// The work list of a search of the whole record: every entry grouped into clusters, packed
-    /// into agents, with one report skeleton per agent; or the check of the filled reports.
+    /// The work list of a search of the whole record: every entry grouped into clusters inside its
+    /// search unit, a Component or a declared location, packed into agents by search unit, with one
+    /// report skeleton per agent; or the check of the filled reports.
     Worklist(WorklistArgs),
     /// The sessions of Claude Code's transcripts that ran in this project: listed, one shown, or
     /// searched, each line labelled by its fields, and every line not recognised reported.
@@ -105,7 +106,8 @@ pub struct IdArgs {
 #[derive(Args)]
 pub struct WorklistArgs {
     /// Write the work list into DIR, a new or empty directory outside the project: `agents.txt`,
-    /// and per agent a directory holding its entries whole and the report it fills.
+    /// `work.txt`, and per agent a directory holding its entries whole, with its context entries
+    /// and its goal title lines, and the report it fills.
     #[arg(
         long,
         value_name = "DIR",
@@ -114,10 +116,11 @@ pub struct WorklistArgs {
     )]
     pub out: Option<std::path::PathBuf>,
     /// Check the reports the agents filled in DIR, a directory `--out` wrote: every entry
-    /// graded once, in the grades and relations its role takes.
+    /// graded once, by the one agent given it to grade, in the grades and relations its role takes.
     #[arg(long, value_name = "DIR")]
     pub verify: Option<std::path::PathBuf>,
-    /// The words one agent is given at most; a cluster above it goes to an agent alone.
+    /// The words one agent is given at most, the work's words included; a group above what the
+    /// work leaves goes to an agent alone.
     #[arg(
         long,
         value_name = "WORDS",
@@ -129,6 +132,29 @@ pub struct WorklistArgs {
     /// it, names it, and such an entry is never graded `unrelated`.
     #[arg(long = "seed", value_name = "REF", conflicts_with = "verify")]
     pub seeds: Vec<String>,
+    /// A file of the work, repeatable: every agent reads it, and its words come out of the bound.
+    #[arg(long = "work", value_name = "PATH", conflicts_with = "verify")]
+    pub work: Vec<std::path::PathBuf>,
+    /// A subject of the work, repeatable, an id in the grammar `[a-z0-9]+(-[a-z0-9]+)+`; with
+    /// none, the one subject is `whole-work`.
+    #[arg(
+        long = "subject",
+        value_name = "ID",
+        conflicts_with = "verify",
+        value_parser = subject_id
+    )]
+    pub subjects: Vec<String>,
+}
+
+/// A subject of the work, checked by its form while parsing.
+fn subject_id(value: &str) -> Result<String, String> {
+    if knowledge_architect_model::table::is_entry_id(value) {
+        Ok(value.to_string())
+    } else {
+        Err(format!(
+            "`{value}` is no id: a subject matches [a-z0-9]+(-[a-z0-9]+)+"
+        ))
+    }
 }
 
 #[derive(Args)]
@@ -325,16 +351,28 @@ fn check_mode(args: &CheckArgs) -> Result<CheckMode, String> {
 
 /// The mode of `worklist`, or the refusal of a value clap would have refused while parsing.
 fn worklist_mode(args: &WorklistArgs) -> Result<WorklistMode, String> {
+    for subject in &args.subjects {
+        subject_id(subject)?;
+    }
     match (&args.out, &args.verify) {
         (Some(dir), None) => Ok(WorklistMode::Write {
             dir: dir.clone(),
             bound: args.bound,
             seeds: args.seeds.clone(),
+            work: args.work.clone(),
+            subjects: args.subjects.clone(),
         }),
-        (None, Some(dir)) if args.seeds.is_empty() && args.bound == DEFAULT_WORKLIST_BOUND => {
+        (None, Some(dir))
+            if args.seeds.is_empty()
+                && args.bound == DEFAULT_WORKLIST_BOUND
+                && args.work.is_empty()
+                && args.subjects.is_empty() =>
+        {
             Ok(WorklistMode::Verify { dir: dir.clone() })
         }
-        (None, Some(_)) => Err("`--verify` takes neither `--bound` nor `--seed`".to_string()),
+        (None, Some(_)) => Err(
+            "`--verify` takes none of `--bound`, `--seed`, `--work` and `--subject`".to_string(),
+        ),
         _ => Err("give exactly one of `--out` and `--verify`".to_string()),
     }
 }
@@ -387,6 +425,8 @@ mod tests {
             verify: None,
             bound: DEFAULT_WORKLIST_BOUND,
             seeds: Vec::new(),
+            work: Vec::new(),
+            subjects: Vec::new(),
         }
     }
 
@@ -492,6 +532,39 @@ mod tests {
         refused_by_run(Command::Worklist(WorklistArgs {
             verify: a_dir(),
             seeds: vec!["a".to_string()],
+            ..worklist_args()
+        }));
+    }
+
+    /// The claim: `run` refuses a file of the work beside `--verify`. Mutation checked: the test of
+    /// `work` removed from the guard of `worklist_mode`'s `--verify` arm.
+    #[test]
+    fn run_refuses_a_worklist_value_with_a_work_beside_verify() {
+        refused_by_run(Command::Worklist(WorklistArgs {
+            verify: a_dir(),
+            work: vec![std::path::PathBuf::from("w.md")],
+            ..worklist_args()
+        }));
+    }
+
+    /// The claim: `run` refuses a subject beside `--verify`. Mutation checked: the test of
+    /// `subjects` removed from the guard of `worklist_mode`'s `--verify` arm.
+    #[test]
+    fn run_refuses_a_worklist_value_with_a_subject_beside_verify() {
+        refused_by_run(Command::Worklist(WorklistArgs {
+            verify: a_dir(),
+            subjects: vec!["a-subject".to_string()],
+            ..worklist_args()
+        }));
+    }
+
+    /// The claim: `run` refuses a subject that is no id, which clap refuses while parsing.
+    /// Mutation checked: the loop over the subjects removed from `worklist_mode`.
+    #[test]
+    fn run_refuses_a_worklist_value_with_a_subject_that_is_no_id() {
+        refused_by_run(Command::Worklist(WorklistArgs {
+            out: a_dir(),
+            subjects: vec!["Not An Id".to_string()],
             ..worklist_args()
         }));
     }
