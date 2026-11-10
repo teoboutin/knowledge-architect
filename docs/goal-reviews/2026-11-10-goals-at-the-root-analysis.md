@@ -14,6 +14,80 @@ sent to a head that says less, a draft that dropped a bound of its goal, a sente
 destination. The questions are numbered Q1 to Q96 across the file; a question the correction added
 carries a letter after the label of the nearest question of its goal, such as Q3a.
 
+## The owner's rulings
+
+Where a ruling below differs from a section of a theme, the ruling holds, and the section is read
+with it.
+
+### The themes, and the fate of each goal
+
+The session put two items to the owner in one message: the five themes, which are also the files
+of the root's goals home, and the fate of each of the 54 goals as the theme summaries below give
+it, to be ruled by exception. The owner:
+
+> I agree on Q-A, and on most of Q-B. the only point to reopen is about only-needed-instructions.
+> The point of that goal is that the retrospective and the agent text audit can return findings
+> about lots of edge cases, or lapses. Covering every edge cases is impossible, and judgement of
+> agents is supposed to handle cases that are not covered by the workflow. without it, agent
+> working autonomously tended to add isntructions to cover every edge case so that no ambiguity
+> would be left in any instruction, but in practice this cannot be achieved because there is no
+> limit in the situations an agent using the installed workflow may face. Maybe it is more a
+> design head than a goal. Or a bit of both. The point is that the installed workflow should not
+> grow without bound.
+> Actually, maybe agents-get-a-complete-workflow might be better if split differently. as you say,
+> the fusion makes it cover more things. It might be a deeper problem in the root goal itself. Any
+> other split comes to you ?
+
+"Q-A" is the themes and "Q-B" the fates; both labels were numbered in that message alone. So the
+themes are ruled as proposed, and every fate is ruled as proposed but those the next two rulings
+change. The wording of each kept goal is not ruled: it goes through the goal reviewer and the
+rounds of the whole-set review.
+
+### The workflow goal is split in three
+
+The session proposed, in place of the merge of `goal@agent-skills@only-needed-instructions` into
+`goal@knowledge-architect@agents-get-a-complete-workflow`:
+
+1. `goal@agent-skills@only-needed-instructions` stands alone, as a scope: the installed workflow
+   states what an agent needs to carry out its activities, and leaves every other case to the
+   agent's judgement. It is a goal of its own because it bounds the installed text whichever goal
+   an added instruction would serve, the complete workflow, no drift, better code or the owner's
+   goals, so it means something without any one purpose, which is the test of rule 5. It is a goal
+   and not a head because the growth it excludes comes by additions that each win on a local
+   argument, and a head is a presumption that a better local argument reverses.
+2. `goal@knowledge-architect@agents-get-a-complete-workflow` keeps what agents get, a workflow
+   for each generic activity the owner has taken in, which an agent carries out with the workflow
+   and what its project adds, there to raise the quality and the efficiency of the agents' work.
+   It takes in the list of activities of `goal@agent-skills@one-skill-per-activity` and the one
+   clause of `goal@agent-skills@installed-text-works-in-any-environment`, and no property of the
+   text.
+3. The properties of the text are design heads: that no two installed instructions contradict and
+   each is plain enough to follow, so `goal@agent-skills@no-contradiction-in-workflow` is a head, as
+   the first sorting had it; the clause on structure the work does not need, which falls from a
+   goal's weight to a presumption; and how "needs" is tested.
+
+The session told the owner three costs: one goal more; the clause on structure becoming a
+presumption; and that no goal protects an instruction by naming its act once measures leave, the
+need test alone doing so. The owner:
+
+> 1. I think this is right.
+> 2. agreed
+
+"1" is the split, and "2" that the two drafts the session showed give the shape only, their
+wording going through the goal reviewer.
+
+### The other merges are read again for a better split
+
+The owner then asked, and the session agreed, that each other merge the analysis proposes be read
+with the same question: whether the merged statement bounds or serves more than the purpose it
+joins, follows from it by an argument, or is a qualifier of it. The owner:
+
+> Maybe we should apply the same question on splitting to the other proposals of the review: they
+> proposed to merge, but the merged goals, having grown in scope, might admit a better splitting
+> under a new shape, whether as multiple goals or as goals + design.
+
+The result of that reading is added below once the owner has ruled it.
+
 ## Theme: The record and its documents
 
 Questions Q1 to Q17.
