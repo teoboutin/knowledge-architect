@@ -5,11 +5,12 @@ kind: todo
 
 ## Summary
 
-`goal@xtask@repeated-tasks-are-automated` asks a command of the tool for each task with no
-judgement, of several steps, that this repository's own instructions ask, or whose procedure they
-fix, at a recurring moment. Three procedures of the root `CLAUDE.md`, section `## Git`, meet all of
-these and have none: the reword of a commit that is not the newest, the fold of a repair into an
-earlier commit, and the merge predicate. A session runs each by hand, step by step.
+Three procedures of the root `CLAUDE.md`, section `## Git`, need no judgement, take several steps
+and come at a recurring moment, and none has a command: the reword of a commit that is not the
+newest, the fold of a repair into an earlier commit, and the merge predicate. A session runs each
+by hand, step by step. Each is a task this repository's own instructions require, or whose
+procedure they fix, so its command is this tool's, per
+`design@xtask@a-local-task-is-the-maintenance-tool-s`.
 
 ## Details
 
@@ -64,12 +65,12 @@ Further instances, from the retrospective files received at the intake of 2026-1
 
 Each procedure is run by hand at each reword, each repair folded and each merge, and a step missed
 loses a check: a reword whose pattern misses leaves the diff empty all the same, which only the
-`range-diff` check shows. The goal is unmet on all three while they have no command.
+`range-diff` check shows.
 
 ### What would close it
 
 A command of the tool for the merge predicate, and for the reword and the fold until a published
 crate ships them, per `issue@knowledge-architect@no-published-command-rewrites-a-branch-s-history`,
-when the tool's command calls the published one and keeps only this repository's part; each in the
-order of known work of `goal@knowledge-architect@the-owner-decides`. A command that runs the reword's or the
-fold's checks without running the history edit itself also meets the goal for the checks.
+when the tool's command calls the published one and keeps only this repository's part. A command
+that runs the reword's or the fold's checks without running the history edit itself also closes
+this entry for the checks.

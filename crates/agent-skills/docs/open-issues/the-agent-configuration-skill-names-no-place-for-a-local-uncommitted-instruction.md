@@ -40,8 +40,9 @@ An adopting project's owner who needs an instruction for one machine, such as a 
 harness's prompt, a local path or a tool that only that machine has, finds no row of the skill to
 place it, and the primer's last row then sends the session to ask the owner each time, or the
 session commits it into the root `CLAUDE.md`, where it reaches every other machine.
-`goal@agent-skills@installed-text-works-in-any-environment` asks the installed text to work in any
-configuration of the harness, a machine's local configuration included.
+Maintaining the agent configuration is an activity
+`goal@knowledge-architect@agents-get-a-complete-workflow` lists, which an agent carries out with
+the workflow and what its project adds: for this case of it, the skill gives no place.
 
 ### What would close it
 

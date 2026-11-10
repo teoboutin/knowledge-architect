@@ -146,6 +146,30 @@ The rival that keeps every agent from writing files lost: the searcher's own tas
 report, and searchers told to write nothing wrote files all the same, so the instruction could not
 be obeyed together with the task.
 
+### A review or an audit judges a text by the criteria that bind its writer at the time of the review, and by no other `##reviews-judge-by-the-writer-s-criteria`
+
+A review or an audit the installed text owes or offers judges a text by the criteria that bind its
+writer at the time of the review. Today those are the installed text; the project's root
+`CLAUDE.md`, its skills, and the scoped `CLAUDE.md` beside what is edited; the goals and the record;
+the external specifications that any of these make binding; and the plans the work answers, with
+the owner's statements and rulings it carries out, as far as each binds the writer. A text written
+outside any skill is judged by the same criteria. Every review and every audit takes its criteria
+from the writer's, so the criteria of the reviews and of the audits agree with each other; for
+agent-facing text they are one standard, per `design@agent-skills@admission-rules-home`.
+
+`goal@knowledge-architect@agents-get-a-complete-workflow` has an agent carry each activity out with
+the workflow and what its project adds, needing no instruction from outside them, so a criterion a
+reviewer brings from outside them is one the writer could not have met. A writer bound by one
+criterion and a reviewer that applies another are also two instructions that meet on one text with
+no move that obeys both, which `design@agent-skills@no-two-installed-instructions-contradict`
+excludes. The nearest rival is a reviewer with a standard of its own, stricter than the writer's or
+the reviewer's preference, such as a style no criterion states. A finding it raises has no repair
+that the writer's instructions give, so the next round raises it again. One was observed: a check
+of scope that reported a clause added within the owner's ruling made a stricter acceptance
+criterion a major finding, per `design@agent-skills@transcript-reviewer-agent`. Divergent verdicts
+that a review standard and an audit standard give over one text are a defect provable by reading,
+per `design@agent-skills@behaviour-additions-need-real-use`.
+
 ### Every review whose diff adds to or changes agent-facing text owes an axis that judges each statement against the standard on that text `##review-judges-additions`
 
 A row of `skill@knowledge-architect-review@review-axes` holds the axis on agent-facing text,
@@ -208,8 +232,8 @@ owner has not ruled out knowingly is a finding, since a goal binds outright and 
 wording stricter than the ruling is no refinement there; the transcript reviewer, the planning
 skill's plan reviews and the retrospective each state it, and the case is new against
 `rejected@agent-skills@transcript-reviewer-reports-every-clause` on that fact. The reading holds in
-all of them, since `goal@agent-skills@reviews-judge-by-the-writer-s-criteria` asks that the criteria
-of the reviews and of the audits agree.
+all of them, since each judges by the criteria that bind the writer, so that the criteria of the
+reviews and of the audits agree, per `design@agent-skills@reviews-judge-by-the-writer-s-criteria`.
 
 It is an agent, not a line in a skill, because its standard is fixed. Its extraction is the
 checker's, per `design@agent-skills@transcript-extraction-is-the-checker-s`. It serves
@@ -297,7 +321,8 @@ general-purpose reviewer briefed with the standard judges unevenly, per
 change's claims, reads the departures from it the project states, and only then compares the code,
 at development checkpoints where the change touches how the project implements it. A reviewer that
 reads the code first reads the specification through it. It judges the code against the
-specification as the project follows it, per `goal@agent-skills@reviews-judge-by-the-writer-s-criteria`.
+specification as the project follows it, per
+`design@agent-skills@reviews-judge-by-the-writer-s-criteria`.
 A project with no specification never dispatches it, so it costs such a project nothing. It is the
 generic form of thaum's rules-first axis. A general-purpose reviewer briefed with the procedure would
 judge unevenly, per `rejected@agent-skills@one-generic-auditor-agent`, so it is an installed agent.

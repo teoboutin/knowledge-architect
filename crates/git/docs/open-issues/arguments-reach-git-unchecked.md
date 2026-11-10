@@ -28,8 +28,8 @@ input no caller should make; the functions state no contract on such input.
 
 ### Why it matters
 
-`goal@git@a-pure-wrapper-over-git` admits callers other than the checker, which a malformed or
-hostile path or revision reaches; an answer that reads as a valid one, as the two `Ok` answers do,
+The library has callers other than the checker, per `design@knowledge-architect@git-crate`, which
+a malformed or hostile path or revision reaches; an answer that reads as a valid one, as the two `Ok` answers do,
 gives such a caller no sign of it.
 
 ### What would close it

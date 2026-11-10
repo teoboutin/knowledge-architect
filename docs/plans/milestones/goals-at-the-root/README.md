@@ -70,7 +70,7 @@ This repository adds:
   goal-setting skill; the review of this document corrected it.
 - 24 goals hold a line that begins "It refines", 21 of them Component goals, counted by
   `grep -c '^It refines'`. One more states its refinement inside a paragraph,
-  `goal@model@a-tool-reads-the-documents-with-no-check`, found by `grep -n 'refines'`; the
+  `a-tool-reads-the-documents-with-no-check`, found by `grep -n 'refines'`; the
   discussion did not sort it.
 - The standard has eight rules. Rule 1 lets a Component's goal name its own Component. Rule 2 asks
   one reading. Rule 6 asks a measure built in the tree. Rule 7 states how a goal refines another.
@@ -99,7 +99,7 @@ This repository adds:
 - The wording of each goal: it is ruled under `skill@knowledge-architect-goal-setting`, in slice
   1's whole-set review, not by this document.
 - A wider goal on modular units in place of
-  `goal@knowledge-architect@projects-are-split-into-components`: the owner raised it, and it is a
+  `goal@knowledge-architect@projects-are-split-into-modular-units`: the owner raised it, and it is a
   goal to draft in that review.
 - A review axis or an audit axis that judges whether goals are pursued and met: parked, in
   `issue@agent-skills@audit-axes-beyond-the-design-record` and
@@ -352,7 +352,7 @@ Triggers met, ruled before the work:
 - `issue@check@core-heads-bundle-decisions-with-many-citing-sites`: slice 2 edits
   `design@check@every-path-names-its-anchor` beyond a re-pointing, so that head is split in slice 2.
 - `issue@gates@the-gate-list-head-bundles-the-library-s-independence`: slice 1's analysis of
-  `goal@gates@gates-from-a-list` edits the gate-list head. The analysis puts the question the issue
+  `gates-from-a-list` edits the gate-list head. The analysis puts the question the issue
   holds to the owner: the reason the gates library depends on nothing of the checker.
 
 **The generated lines of the first search.**
@@ -624,57 +624,57 @@ Triggers met, ruled before the work:
 - `goal@knowledge-architect@agents-work-without-drift`: conflicts, goal-setting.
 - `goal@knowledge-architect@design-is-recorded-with-its-arguments`: conflicts, goal-setting.
 - `goal@knowledge-architect@agents-get-a-complete-workflow`: conflicts, goal-setting.
-- `goal@knowledge-architect@mechanical-tasks-are-the-tool-s`: conflicts, goal-setting.
-- `goal@knowledge-architect@structure-and-workflow-work-together`: conflicts, goal-setting.
-- `goal@knowledge-architect@records-live-beside-the-code`: conflicts, goal-setting.
+- `goal@knowledge-architect@tasks-a-tool-does-better-are-the-tool-s`: conflicts, goal-setting.
+- `structure-and-workflow-work-together`: conflicts, goal-setting.
+- `records-live-beside-the-code`: conflicts, goal-setting.
 - `goal@knowledge-architect@documentation-stays-consistent`: conflicts, goal-setting.
 - `goal@knowledge-architect@the-owner-decides`: conflicts, goal-setting.
 - `goal@knowledge-architect@the-owner-s-word-is-verified`: conflicts, goal-setting.
 - `goal@knowledge-architect@design-with-agents-as-counterparts`: conflicts, goal-setting.
-- `goal@knowledge-architect@owner-attention-on-what-is-theirs`: conflicts, goal-setting.
+- `owner-attention-on-what-is-theirs`: conflicts, goal-setting.
 - `goal@knowledge-architect@serves-one-kind-of-project`: conflicts, goal-setting.
 - `goal@knowledge-architect@every-target-project-can-adopt-it`: conflicts, goal-setting.
 - `goal@knowledge-architect@generic-tools-and-procedures-are-shipped`: conflicts, goal-setting.
 - `goal@knowledge-architect@the-workflow-leads-to-better-code`: conflicts, goal-setting.
-- `goal@knowledge-architect@projects-are-split-into-components`: conflicts, goal-setting.
+- `goal@knowledge-architect@projects-are-split-into-modular-units`: conflicts, goal-setting.
 - `goal@knowledge-architect@adoption-is-easy`: conflicts, goal-setting.
 - `goal@knowledge-architect@the-workflow-improves-through-real-use`: conflicts, goal-setting.
-- `goal@knowledge-architect@setup-brings-quality-tools`: conflicts, goal-setting.
+- `setup-brings-quality-tools`: conflicts, goal-setting.
 - `goal@knowledge-architect@records-reach-their-reader`: conflicts, goal-setting.
 - `goal@knowledge-architect@documents-render-as-a-linked-site`: conflicts, goal-setting.
-- `goal@agent-skills@one-skill-per-activity`: conflicts, goal-setting.
-- `goal@agent-skills@no-contradiction-in-workflow`: conflicts, goal-setting.
-- `goal@agent-skills@reviews-judge-by-the-writer-s-criteria`: conflicts, goal-setting.
-- `goal@agent-skills@reviews-judge-what-no-tool-can`: conflicts, goal-setting.
-- `goal@agent-skills@installed-text-works-in-every-target-project`: conflicts, goal-setting.
-- `goal@agent-skills@installed-text-works-in-any-environment`: conflicts, goal-setting.
-- `goal@agent-skills@only-needed-instructions`: conflicts, goal-setting.
-- `goal@agent-skills@goals-state-the-owner-s-intent`: conflicts, goal-setting.
-- `goal@agent-skills@session-orchestrates-the-work`: conflicts, goal-setting.
-- `goal@check@documents-stay-current`: conflicts, goal-setting.
-- `goal@check@document-rules-are-checked`: conflicts, goal-setting.
-- `goal@check@relocation-needs-only-goal-changes`: conflicts, goal-setting.
-- `goal@check@projects-add-their-own-checks`: conflicts, goal-setting.
-- `goal@check@checks-a-commit-from-its-hook`: conflicts, goal-setting.
-- `goal@cli@one-program-for-its-tools`: conflicts, goal-setting.
-- `goal@cli@one-home-for-the-command-line`: conflicts, goal-setting.
-- `goal@cli@a-refused-invocation-does-no-work`: conflicts, goal-setting.
-- `goal@testing@an-extension-is-tested-over-a-project`: conflicts, goal-setting.
-- `goal@testing@program-tests-over-whole-projects-have-one-home`: conflicts, goal-setting.
-- `goal@testing@a-consumer-test-uses-what-a-consumer-can`: conflicts, goal-setting.
-- `goal@create@a-project-adopts-by-one-command`: conflicts, goal-setting.
-- `goal@create@a-project-gains-a-component-by-one-command`: conflicts, goal-setting.
-- `goal@model@a-tool-reads-the-documents-with-no-check`: conflicts, goal-setting.
-- `goal@model@a-tool-knows-the-read-is-right`: conflicts, goal-setting.
-- `goal@model@recorded-items-can-be-referenced`: conflicts, goal-setting.
-- `goal@xtask@one-command-runs-every-gate`: conflicts, goal-setting.
-- `goal@xtask@repeated-tasks-are-automated`: conflicts, goal-setting.
-- `goal@query@agents-query-the-project`: conflicts, goal-setting.
-- `goal@query@the-record-is-consulted-as-the-workflow-requires`: conflicts, goal-setting.
-- `goal@mutate@a-named-mutation-is-checked-safely`: conflicts, goal-setting.
-- `goal@gates@gates-from-a-list`: conflicts, goal-setting.
-- `goal@git@a-pure-wrapper-over-git`: conflicts, goal-setting.
-- `goal@transcript@a-session-reads-past-sessions`: conflicts, goal-setting.
+- `design@agent-skills@one-skill-per-activity`: conflicts, goal-setting.
+- `no-contradiction-in-workflow`: conflicts, goal-setting.
+- `design@agent-skills@reviews-judge-by-the-writer-s-criteria`: conflicts, goal-setting.
+- `reviews-judge-what-no-tool-can`: conflicts, goal-setting.
+- `installed-text-works-in-every-target-project`: conflicts, goal-setting.
+- `installed-text-works-in-any-environment`: conflicts, goal-setting.
+- `goal@knowledge-architect@only-needed-instructions`: conflicts, goal-setting.
+- `goals-state-the-owner-s-intent`: conflicts, goal-setting.
+- `goal@knowledge-architect@session-orchestrates-the-work`: conflicts, goal-setting.
+- `documents-stay-current`: conflicts, goal-setting.
+- `document-rules-are-checked`: conflicts, goal-setting.
+- `relocation-needs-only-goal-changes`: conflicts, goal-setting.
+- `goal@knowledge-architect@projects-add-their-own-checks`: conflicts, goal-setting.
+- `checks-a-commit-from-its-hook`: conflicts, goal-setting.
+- `one-program-for-its-tools`: conflicts, goal-setting.
+- `one-home-for-the-command-line`: conflicts, goal-setting.
+- `a-refused-invocation-does-no-work`: conflicts, goal-setting.
+- `an-extension-is-tested-over-a-project`: conflicts, goal-setting.
+- `program-tests-over-whole-projects-have-one-home`: conflicts, goal-setting.
+- `a-consumer-test-uses-what-a-consumer-can`: conflicts, goal-setting.
+- `a-project-adopts-by-one-command`: conflicts, goal-setting.
+- `a-project-gains-a-component-by-one-command`: conflicts, goal-setting.
+- `a-tool-reads-the-documents-with-no-check`: conflicts, goal-setting.
+- `a-tool-knows-the-read-is-right`: conflicts, goal-setting.
+- `recorded-items-can-be-referenced`: conflicts, goal-setting.
+- `one-command-runs-every-gate`: conflicts, goal-setting.
+- `repeated-tasks-are-automated`: conflicts, goal-setting.
+- `agents-query-the-project`: conflicts, goal-setting.
+- `the-record-is-consulted-as-the-workflow-requires`: conflicts, goal-setting.
+- `a-named-mutation-is-checked-safely`: conflicts, goal-setting.
+- `gates-from-a-list`: conflicts, goal-setting.
+- `a-pure-wrapper-over-git`: conflicts, goal-setting.
+- `a-session-reads-past-sessions`: conflicts, goal-setting.
 
 **The generated lines of the second search.**
 
@@ -785,23 +785,23 @@ Triggers met, ruled before the work:
 - `goal@knowledge-architect@agents-work-without-drift`: constrains, respect.
 - `goal@knowledge-architect@design-is-recorded-with-its-arguments`: constrains, respect.
 - `goal@knowledge-architect@agents-get-a-complete-workflow`: constrains, respect.
-- `goal@knowledge-architect@structure-and-workflow-work-together`: constrains, respect.
+- `structure-and-workflow-work-together`: constrains, respect.
 - `goal@knowledge-architect@documentation-stays-consistent`: constrains, respect.
 - `goal@knowledge-architect@the-owner-decides`: constrains, respect.
 - `goal@knowledge-architect@design-with-agents-as-counterparts`: constrains, respect.
-- `goal@knowledge-architect@owner-attention-on-what-is-theirs`: constrains, respect.
-- `goal@knowledge-architect@projects-are-split-into-components`: constrains, respect.
+- `owner-attention-on-what-is-theirs`: constrains, respect.
+- `goal@knowledge-architect@projects-are-split-into-modular-units`: constrains, respect.
 - `goal@knowledge-architect@the-workflow-improves-through-real-use`: constrains, respect.
 - `goal@knowledge-architect@records-reach-their-reader`: constrains, respect.
-- `goal@agent-skills@one-skill-per-activity`: constrains, respect.
-- `goal@agent-skills@no-contradiction-in-workflow`: constrains, respect.
-- `goal@agent-skills@reviews-judge-by-the-writer-s-criteria`: constrains, respect.
-- `goal@agent-skills@reviews-judge-what-no-tool-can`: constrains, respect.
-- `goal@agent-skills@installed-text-works-in-every-target-project`: constrains, respect.
-- `goal@agent-skills@only-needed-instructions`: constrains, respect.
-- `goal@agent-skills@goals-state-the-owner-s-intent`: constrains, respect.
-- `goal@check@relocation-needs-only-goal-changes`: constrains, respect.
-- `goal@query@the-record-is-consulted-as-the-workflow-requires`: constrains, respect.
+- `design@agent-skills@one-skill-per-activity`: constrains, respect.
+- `no-contradiction-in-workflow`: constrains, respect.
+- `design@agent-skills@reviews-judge-by-the-writer-s-criteria`: constrains, respect.
+- `reviews-judge-what-no-tool-can`: constrains, respect.
+- `installed-text-works-in-every-target-project`: constrains, respect.
+- `goal@knowledge-architect@only-needed-instructions`: constrains, respect.
+- `goals-state-the-owner-s-intent`: constrains, respect.
+- `relocation-needs-only-goal-changes`: constrains, respect.
+- `the-record-is-consulted-as-the-workflow-requires`: constrains, respect.
 
 ## Criteria
 
@@ -1170,7 +1170,7 @@ Round 1, by the session. Bears on `thread@goals-at-the-root@goals-home-at-the-ro
 
 Round 1, by the session. Bears on `thread@goals-at-the-root@goals-home-at-the-root-only`.
 
-> 2. **The split is already argued as design, beside the goals that restate it.** `register@knowledge-architect@design` holds `design@knowledge-architect@git-crate`, `model-crate`, `query-crate`, `transcript-crate`, `create-crate`, `cli-crate`, `testing-crate` and `mutation-command-host`, one head per crate. `goal@git@a-pure-wrapper-over-git` and the head `design@knowledge-architect@git-crate` state the same thing twice, once as a presumption and once as the owner's intent.
+> 2. **The split is already argued as design, beside the goals that restate it.** `register@knowledge-architect@design` holds `design@knowledge-architect@git-crate`, `model-crate`, `query-crate`, `transcript-crate`, `create-crate`, `cli-crate`, `testing-crate` and `mutation-command-host`, one head per crate. `a-pure-wrapper-over-git` and the head `design@knowledge-architect@git-crate` state the same thing twice, once as a presumption and once as the owner's intent.
 
 ### Component creation requires the goal session you describe. Step 3 of the creation procedure: "Write its (cut) `##arg-11`
 
@@ -1236,11 +1236,11 @@ Round 1, by the session. Bears on `thread@goals-at-the-root@goals-home-at-the-ro
 
 **Note**: Stated as a cost, with a measurement. Not answered by the owner.
 
-### `goal@knowledge-architect@projects-are-split-into-components` says a split "keeps each Component's goals and (cut) `##arg-19`
+### `goal@knowledge-architect@projects-are-split-into-modular-units` says a split "keeps each Component's goals and (cut) `##arg-19`
 
 Round 1, by the session. Bears on `thread@goals-at-the-root@goals-home-at-the-root-only`.
 
->   - `goal@knowledge-architect@projects-are-split-into-components` says a split "keeps each Component's goals and design small", so that goal needs rewording, which is yours.
+>   - `goal@knowledge-architect@projects-are-split-into-modular-units` says a split "keeps each Component's goals and design small", so that goal needs rewording, which is yours.
 
 **Note**: Stated as a cost.
 
@@ -1394,7 +1394,7 @@ Round 2, by the session. Bears on `thread@goals-at-the-root@goals-home-at-the-ro
 
 Round 2, by the session. Bears on `thread@goals-at-the-root@no-goal-refines-another`.
 
-> 25 of the 54 goals carry a line "It refines …" (`grep -c '^It refines'` per goals home): 22 of the 33 Component goals, all 9 of `agent-skills` and all 5 of `check`, and 3 root goals that refine another root goal (`mechanical-tasks-are-the-tool-s`, `goal@knowledge-architect@the-workflow-leads-to-better-code`, `goal@knowledge-architect@projects-are-split-into-components`).
+> 25 of the 54 goals carry a line "It refines …" (`grep -c '^It refines'` per goals home): 22 of the 33 Component goals, all 9 of `agent-skills` and all 5 of `check`, and 3 root goals that refine another root goal (`mechanical-tasks-are-the-tool-s`, `goal@knowledge-architect@the-workflow-leads-to-better-code`, `goal@knowledge-architect@projects-are-split-into-modular-units`).
 
 **Note**: Measurement. Later: round 3, corrected: "A correction first: I wrote that 25 goals carry "It refines". The count is 24, 21 of them in Components; I mis-added the per-home figures."
 
@@ -1556,29 +1556,29 @@ Round 3, by the session. Bears on `thread@goals-at-the-root@standard-and-rewrite
 
 **Note**: Later: round 4, the owner doubts the standard merging apart from the rewrite (`argument@goals-at-the-root@arg-62`), and the cut becomes two slices (`argument@goals-at-the-root@arg-65`, `argument@goals-at-the-root@arg-66`). Round 12, "one theme per batch" is withdrawn for the edits (`argument@goals-at-the-root@arg-116`).
 
-### `goal@knowledge-architect@projects-are-split-into-components`: It could be a mean to `goal@knowledge-architect@the-workflow-leads-to-better-code` I think (and (cut) `##arg-57`
+### `goal@knowledge-architect@projects-are-split-into-modular-units`: It could be a mean to `goal@knowledge-architect@the-workflow-leads-to-better-code` I think (and (cut) `##arg-57`
 
 Round 4, by the owner. Bears on `thread@goals-at-the-root@no-goal-refines-another`.
 
-> `goal@knowledge-architect@projects-are-split-into-components`: It could be a mean to `goal@knowledge-architect@the-workflow-leads-to-better-code` I think (and maybe others), because a modular project often leads to a clearer API, and design docs that are easier to act on and to follow. But I lean to keeping it as a goal. It is partially orthogonal to better code, and it bears on more than just code.
+> `goal@knowledge-architect@projects-are-split-into-modular-units`: It could be a mean to `goal@knowledge-architect@the-workflow-leads-to-better-code` I think (and maybe others), because a modular project often leads to a clearer API, and design docs that are easier to act on and to follow. But I lean to keeping it as a goal. It is partially orthogonal to better code, and it bears on more than just code.
 >
 > Maybe it could be under a more general shape though, "Projects are split into modular units", which would bind at more layers than just components: splitting code of one component, as well as splitting files of design docs by subject in one components, are places where splitting matters too and makes exploring the project and working in it easier overall. It also makes it easier for a human to review changes done by agents, which is one point that also matters to me.
 
 **Note**: Ruling on the first unsure row, with a wider wording offered as a "maybe".
 
-### `goal@agent-skills@installed-text-works-in-any-environment`: this one is probably a mean to complete-workflow goal. If the (cut) `##arg-58`
+### `installed-text-works-in-any-environment`: this one is probably a mean to complete-workflow goal. If the (cut) `##arg-58`
 
 Round 4, by the owner. Bears on `thread@goals-at-the-root@no-goal-refines-another`.
 
-> `goal@agent-skills@installed-text-works-in-any-environment`: this one is probably a mean to complete-workflow goal. If the workflow needs instructions from an outside environment to work, it is not complete. I think that was the main idea behind this goal.
+> `installed-text-works-in-any-environment`: this one is probably a mean to complete-workflow goal. If the workflow needs instructions from an outside environment to work, it is not complete. I think that was the main idea behind this goal.
 
 **Note**: Ruling on the second unsure row, hedged "probably".
 
-### `goal@check@document-rules-are-checked`: as you say, this one should probably just merge with the root goal `##arg-59`
+### `document-rules-are-checked`: as you say, this one should probably just merge with the root goal `##arg-59`
 
 Round 4, by the owner. Bears on `thread@goals-at-the-root@no-goal-refines-another`.
 
-> `goal@check@document-rules-are-checked`: as you say, this one should probably just merge with the root goal.
+> `document-rules-are-checked`: as you say, this one should probably just merge with the root goal.
 
 **Note**: Ruling on the third unsure row, hedged "probably".
 
@@ -1602,11 +1602,11 @@ Round 4, by the owner. Bears on `thread@goals-at-the-root@standard-and-rewrite-o
 
 > I agree on the milestone shape, though I am unsure whether the reworked standard, skill and reviewer can be merged independently of the goal rewording itself. Maybe they should happen on the same branch.
 
-### `goal@knowledge-architect@projects-are-split-into-components` stays a goal. Your wider form, "projects are split into modular units", is (cut) `##arg-63`
+### `goal@knowledge-architect@projects-are-split-into-modular-units` stays a goal. Your wider form, "projects are split into modular units", is (cut) `##arg-63`
 
 Round 4, by the session. Bears on `thread@goals-at-the-root@no-goal-refines-another`.
 
-> - **`goal@knowledge-architect@projects-are-split-into-components`** stays a goal. Your wider form, "projects are split into modular units", is a new goal wording, so it is drafted under goal-setting during the rewrite, not decided here. One consequence to weigh then: stated at every layer (the code of one Component, the files of a design home), it becomes the ground for many more heads than today, and it competes with `only-needed-instructions`-style economy wherever a split adds files to read. That may call for a ranking.
+> - **`goal@knowledge-architect@projects-are-split-into-modular-units`** stays a goal. Your wider form, "projects are split into modular units", is a new goal wording, so it is drafted under goal-setting during the rewrite, not decided here. One consequence to weigh then: stated at every layer (the code of one Component, the files of a design home), it becomes the ground for many more heads than today, and it competes with `only-needed-instructions`-style economy wherever a split adds files to read. That may call for a ranking.
 
 **Note**: Deferred to the rewrite. The owner did not answer it.
 
@@ -1648,7 +1648,7 @@ Round 5, by the session. Bears on `thread@goals-at-the-root@goal-cases-stay-in-t
 
 Round 5, by the session. Bears on `thread@goals-at-the-root@a-removed-goal-is-harvested-sentence-by-sentence`, `thread@goals-at-the-root@goals-home-at-the-root-only`.
 
-> A finding from this one: `design@knowledge-architect@git-crate` says "It serves `goal@git@a-pure-wrapper-over-git`". With that goal gone, the head stands on its own fact, that the rival "puts the checker's own dependencies into the build of every tool that needs git". So a head that cited a placement goal does not always need another goal; some stand on a fact alone.
+> A finding from this one: `design@knowledge-architect@git-crate` says "It serves `a-pure-wrapper-over-git`". With that goal gone, the head stands on its own fact, that the rival "puts the checker's own dependencies into the build of every tool that needs git". So a head that cited a placement goal does not always need another goal; some stand on a fact alone.
 
 **Note**: Rewrite 3, `git`'s goal turned into its head. Its carried sentence ends "*(Carried from a goal; not argued against a rival.)*", the marking that finding 1 of round 7 withdraws.
 
@@ -1790,7 +1790,7 @@ Round 7, by the session. Bears on `thread@goals-at-the-root@goals-home-at-the-ro
 
 Round 7, by the session. Bears on `thread@goals-at-the-root@no-goal-refines-another`.
 
-> 2. **An exception that rests on a goal.** `design@agent-skills@installed-skill-takes-precedence` is exempt from `behaviour-additions-need-real-use` because `goal@agent-skills@installed-text-works-in-any-environment` is a goal. You said it is "probably a mean" to the complete-workflow goal. As a head it binds only as a presumption. My default: the exception cites the root goal directly and stands.
+> 2. **An exception that rests on a goal.** `design@agent-skills@installed-skill-takes-precedence` is exempt from `behaviour-additions-need-real-use` because `installed-text-works-in-any-environment` is a goal. You said it is "probably a mean" to the complete-workflow goal. As a head it binds only as a presumption. My default: the exception cites the root goal directly and stands.
 
 **Note**: Question 2. The owner agreed in round 8.
 
@@ -1846,11 +1846,11 @@ Round 7, by the session. Bears on `thread@goals-at-the-root@goals-home-at-the-ro
 
 **Note**: Count.
 
-### Five questions belong to the rewrite, not here: whether `goal@agent-skills@goals-state-the-owner-s-intent`, (cut) `##arg-94`
+### Five questions belong to the rewrite, not here: whether `goals-state-the-owner-s-intent`, (cut) `##arg-94`
 
 Round 7, by the session. Bears on no thread by name.
 
-> - **Five questions belong to the rewrite, not here**: whether `goal@agent-skills@goals-state-the-owner-s-intent`, `relocation-needs-only-goal-changes` and `a-refused-invocation-does-no-work` stay goals, the wording of `only-needed-instructions` once measures leave, and the reason the gates library depends on nothing of the checker.
+> - **Five questions belong to the rewrite, not here**: whether `goals-state-the-owner-s-intent`, `relocation-needs-only-goal-changes` and `a-refused-invocation-does-no-work` stay goals, the wording of `only-needed-instructions` once measures leave, and the reason the gates library depends on nothing of the checker.
 
 **Note**: Deferred to the rewrite.
 
@@ -1932,7 +1932,7 @@ Round 8, by the session. Bears on `thread@goals-at-the-root@no-installed-rule-on
 
 Round 8, by the session. Bears on `thread@goals-at-the-root@no-installed-rule-on-when-an-intermediate-component-exists`.
 
-> - **No instance exists.** This repository has none (`no-intermediate-component`), and I know of none in a consumer. `design@agent-skills@behaviour-additions-need-real-use` asks evidence from real use for an installed guideline, and `goal@knowledge-architect@projects-are-split-into-components` says "what makes a split good is learned from use, so this goal fixes no rule".
+> - **No instance exists.** This repository has none (`no-intermediate-component`), and I know of none in a consumer. `design@agent-skills@behaviour-additions-need-real-use` asks evidence from real use for an installed guideline, and `goal@knowledge-architect@projects-are-split-into-modular-units` says "what makes a split good is learned from use, so this goal fixes no rule".
 
 **Note**: Second weakness of the lead; the fact the session rests the fallback on.
 
@@ -2087,7 +2087,7 @@ Round 12, by the session. Bears on `thread@goals-at-the-root@no-installed-rule-o
 ```
 purpose, scope, ranking      the three kinds of goal; in `path@agent-skills@fragments/goal-standard.md`
 theme file                   one file of the root's goals home, a directory behind a README;
-                             in `planned@knowledge-architect@docs/goals/`
+                             in `register@knowledge-architect@goal`
 the analysis                 the record of slice 1's sorting of each goal and of each sentence;
                              one file in `path@knowledge-architect@docs/goal-reviews/`
 ```
@@ -2175,7 +2175,7 @@ goals before any design.
 
 This reverses `goal-met-in-tree-or-in-use`, which refused a measure "kept apart
 from the goal and revised by agents". The fact its record did not hold: the measure is where a
-mechanism enters a goal, as the measure of `goal@agent-skills@session-orchestrates-the-work` names
+mechanism enters a goal, as the measure of `goal@knowledge-architect@session-orchestrates-the-work` names
 the retrospective's questions.
 
 ### A goal carries an example only for its direction
@@ -2264,33 +2264,33 @@ overturn any row, and the owner rules each goal.
 
 | goal | outcome |
 | --- | --- |
-| `goal@knowledge-architect@mechanical-tasks-are-the-tool-s` | stands alone: purpose |
+| `goal@knowledge-architect@tasks-a-tool-does-better-are-the-tool-s` | stands alone: purpose |
 | `goal@knowledge-architect@the-workflow-leads-to-better-code` | stands alone: purpose |
-| `goal@knowledge-architect@projects-are-split-into-components` | stays a goal: the owner leans to keeping it; a wider wording is drafted in the review |
-| `goal@agent-skills@only-needed-instructions` | stands alone: ranking |
-| `goal@agent-skills@session-orchestrates-the-work` | stands alone: the owner finds it "pretty much orthogonal" to the goal it names; whether it is a purpose or a means is open |
-| `goal@agent-skills@installed-text-works-in-any-environment` | head: the owner finds it "probably a mean" to the complete-workflow goal |
-| `goal@agent-skills@one-skill-per-activity` | head |
-| `goal@agent-skills@no-contradiction-in-workflow` | head |
-| `goal@agent-skills@reviews-judge-by-the-writer-s-criteria` | head |
-| `goal@agent-skills@reviews-judge-what-no-tool-can` | head |
-| `goal@agent-skills@installed-text-works-in-every-target-project` | head |
-| `goal@agent-skills@goals-state-the-owner-s-intent` | head by its title; whether it stays a goal is open |
-| `goal@check@relocation-needs-only-goal-changes` | stands alone by its title: purpose; whether it stays a goal is open |
-| `goal@check@projects-add-their-own-checks` | stands alone: purpose |
-| `goal@check@document-rules-are-checked` | merged into `goal@knowledge-architect@documentation-stays-consistent`: the owner finds it "should probably just merge" |
-| `goal@check@documents-stay-current` | head |
-| `goal@check@checks-a-commit-from-its-hook` | head |
-| `goal@model@recorded-items-can-be-referenced` | stands alone: purpose |
-| `goal@create@a-project-adopts-by-one-command` | head |
-| `goal@gates@gates-from-a-list` | head |
-| `goal@mutate@a-named-mutation-is-checked-safely` | head |
-| `goal@query@the-record-is-consulted-as-the-workflow-requires` | head |
-| `goal@testing@an-extension-is-tested-over-a-project` | head |
-| `goal@transcript@a-session-reads-past-sessions` | head |
+| `goal@knowledge-architect@projects-are-split-into-modular-units` | stays a goal: the owner leans to keeping it; a wider wording is drafted in the review |
+| `goal@knowledge-architect@only-needed-instructions` | stands alone: ranking |
+| `goal@knowledge-architect@session-orchestrates-the-work` | stands alone: the owner finds it "pretty much orthogonal" to the goal it names; whether it is a purpose or a means is open |
+| `installed-text-works-in-any-environment` | head: the owner finds it "probably a mean" to the complete-workflow goal |
+| `design@agent-skills@one-skill-per-activity` | head |
+| `no-contradiction-in-workflow` | head |
+| `design@agent-skills@reviews-judge-by-the-writer-s-criteria` | head |
+| `reviews-judge-what-no-tool-can` | head |
+| `installed-text-works-in-every-target-project` | head |
+| `goals-state-the-owner-s-intent` | head by its title; whether it stays a goal is open |
+| `relocation-needs-only-goal-changes` | stands alone by its title: purpose; whether it stays a goal is open |
+| `goal@knowledge-architect@projects-add-their-own-checks` | stands alone: purpose |
+| `document-rules-are-checked` | merged into `goal@knowledge-architect@documentation-stays-consistent`: the owner finds it "should probably just merge" |
+| `documents-stay-current` | head |
+| `checks-a-commit-from-its-hook` | head |
+| `recorded-items-can-be-referenced` | stands alone: purpose |
+| `a-project-adopts-by-one-command` | head |
+| `gates-from-a-list` | head |
+| `a-named-mutation-is-checked-safely` | head |
+| `the-record-is-consulted-as-the-workflow-requires` | head |
+| `an-extension-is-tested-over-a-project` | head |
+| `a-session-reads-past-sessions` | head |
 
-`goal@model@a-tool-reads-the-documents-with-no-check` states inside a paragraph that it refines
-`goal@knowledge-architect@mechanical-tasks-are-the-tool-s`; the discussion did not sort it. It and
+`a-tool-reads-the-documents-with-no-check` states inside a paragraph that it refines
+`goal@knowledge-architect@tasks-a-tool-does-better-are-the-tool-s`; the discussion did not sort it. It and
 the 29 goals that refine none have no row: the analysis judges each by the three kinds.
 
 **The destination of a sentence of a goal removed, merged or shortened.**
@@ -2341,7 +2341,7 @@ None: the work reads no external specification.
 | thin goals stop steering: merged work moves against a goal and no procedure reports it | `thread@goals-at-the-root@a-goal-states-a-direction-and-leaves-the-rest-to-design`, `thread@goals-at-the-root@what-shows-a-goal-met-is-design` | named as a cause for the harvest of slice 1 to judge as a tripwire; it is the cause of the parked thread |
 | the root's goals home ends larger than the 13 homes are today | `thread@goals-at-the-root@a-goal-is-a-purpose-the-project-exists-for`, `thread@goals-at-the-root@goals-home-at-the-root-only` | becomes `acceptance@goals-at-the-root@the-goals-home-is-not-larger` |
 | the rewrite is too heavy for one branch | `thread@goals-at-the-root@standard-and-rewrite-on-one-branch` | named as a cause for the harvest of slice 1 to judge; expected to fail condition 1, the work being stopped by it. The owner keeps one branch, having no plan to start other work on main meanwhile, and several sessions may carry it |
-| with measures gone, a review removes an installed instruction that a measure protected, `goal@agent-skills@only-needed-instructions` keeping an instruction where a goal's body or measure states its act | `thread@goals-at-the-root@what-shows-a-goal-met-is-design` | converted into a clause of slice 1: no installed instruction is removed on the need test before the whole-set review has ruled that goal |
+| with measures gone, a review removes an installed instruction that a measure protected, `goal@knowledge-architect@only-needed-instructions` keeping an instruction where a goal's body or measure states its act | `thread@goals-at-the-root@what-shows-a-goal-met-is-design` | converted into a clause of slice 1: no installed instruction is removed on the need test before the whole-set review has ruled that goal |
 | two heads read one goal in opposite directions | `thread@goals-at-the-root@a-goal-s-reading-is-a-head-s-premise` | named as a cause for the harvest of slice 1 to judge: on D3 the comparison that answered it is parked, in the issue slice 1 opens |
 | the detail leaves the goals and returns in heads with thin arguments | `thread@goals-at-the-root@a-removed-goal-is-harvested-sentence-by-sentence` | named as a cause for the harvest of slice 1 to judge; expected to fail condition 1 of the tripwire standard, the decision-record axis judging each head's argument |
 | an agent reverses a Component's purpose on argument and the owner learns it late | `thread@goals-at-the-root@goals-home-at-the-root-only` | named as a cause for the harvest of slice 1 to judge; expected to fail condition 1, the turn's "Decided" section and the transcript axis reporting it |
@@ -2407,7 +2407,7 @@ what removes them, leaving each Component's goals home empty, which the checker 
   subjects, for the whole-set review.
 - **D4**, ruled: "agreed on D1 D2 D4". From the design-conformance review. Slice 1 installs the new standard before
   the one pass, so between its first step and the one pass the branch holds installed text that
-  `goal@agent-skills@goals-state-the-owner-s-intent` contradicts, that goal stating that what shows
+  `goals-state-the-owner-s-intent` contradicts, that goal stating that what shows
   a goal met is in what the project builds. The first search asked that this goal be ruled with the
   standard, before the others. Default: the order stands, the state never reaching the main
   branch, and the whole-set review rules that goal with the others. It bears on

@@ -28,8 +28,8 @@ applies the whole fragment.
 
 A block applied whole behind a pointer costs every session that applies it the lookup, and is
 applied from memory where the session skips it, which
-`design@agent-skills@context-cost-of-agent-text` counts as the cost a fragment removes, against
-`goal@agent-skills@no-contradiction-in-workflow` where the memory is wrong.
+`design@agent-skills@context-cost-of-agent-text` counts as the cost a fragment removes: where the
+memory is wrong, the session applies another rule than the one the standard states.
 
 ### What would close it
 

@@ -54,7 +54,7 @@ fixes:
    `design@agent-skills@whole-set-rounds` orders a record and the goals it rules.
 3. **The one pass.** Its first commit edits every goal as the analysis was ruled: the kept goals
    rewritten under the new standard in the root's goals home,
-   `planned@knowledge-architect@docs/goals/`, a README and one file per theme; each Component's
+   `register@knowledge-architect@goal`, a README and one file per theme; each Component's
    goals home left with no entry; every reference to a goal that moved or left re-pointed, in every
    text `cargo klarch show` lists; and each head the analysis argued, written. That commit passes
    the checker, as every commit does, per `primer@branch-commits`. The whole-set review then runs
@@ -134,17 +134,17 @@ the standard's test.
   `tripwire@agent-skills@open-fork-classed-as-settled` and
   `tripwire@agent-skills@a-shortcut-decision-earns-a-head`.
 - Questions the discussion left to the analysis, each put to the owner with the analysis: whether
-  `goal@agent-skills@goals-state-the-owner-s-intent`,
-  `goal@check@relocation-needs-only-goal-changes` and
-  `goal@cli@a-refused-invocation-does-no-work` stay goals; the wording of
-  `goal@agent-skills@only-needed-instructions` once measures leave; the reason the gates library
-  depends on nothing of the checker; whether `goal@agent-skills@session-orchestrates-the-work` is
+  `goals-state-the-owner-s-intent`,
+  `relocation-needs-only-goal-changes` and
+  `a-refused-invocation-does-no-work` stay goals; the wording of
+  `goal@knowledge-architect@only-needed-instructions` once measures leave; the reason the gates library
+  depends on nothing of the checker; whether `goal@knowledge-architect@session-orchestrates-the-work` is
   a purpose or a means to two other outcomes; and the clause "through a goal" of
   `goal@knowledge-architect@the-owner-decides`, read as a goal of the three kinds.
 - The root's `CLAUDE.md` says that Components refine or add to the main goals, which the one pass
   makes false: its first commit rewrites that sentence.
 - A question the audit's search adds, put to the owner with the analysis: if
-  `goal@check@relocation-needs-only-goal-changes` becomes a head, whether the owner's ruling that it
+  `relocation-needs-only-goal-changes` becomes a head, whether the owner's ruling that it
   admits no exception for a reference naming an anchor's own directory, which
   `issue@model@a-reference-to-an-anchor-s-own-directory-breaks-when-the-anchor-moves` records, is
   kept as a statement of that head.
@@ -180,7 +180,7 @@ the standard's test.
     not find there;
   - the words "rules out what the owner has not ruled out knowingly" of the planning skill read
     close to the name of the cases block that leaves.
-- The measure of `goal@agent-skills@session-orchestrates-the-work` names questions of the
+- The measure of `goal@knowledge-architect@session-orchestrates-the-work` names questions of the
   retrospective that the retrospective skill does not hold: a search of its source for "spent its
   context" finds nothing. That sentence is no shape a text already holds, so it does not go
   nowhere by the first row of the second mapping table.
@@ -199,7 +199,7 @@ the standard's test.
 - The milestone document cites goals of Components, in its first mapping table and elsewhere. The
   first commit of the one pass re-points each citation of a goal that moved, and names by its bare
   slug a goal that left, per `primer@where-knowledge-goes`.
-- `goal@agent-skills@only-needed-instructions` keeps an instruction where a goal's body or measure
+- `goal@knowledge-architect@only-needed-instructions` keeps an instruction where a goal's body or measure
   states its act. Until the whole-set review has ruled that goal, no installed instruction is
   removed on the need test.
 - A plan document's sentence that a session drafts goals is no leave to skip step 1 of

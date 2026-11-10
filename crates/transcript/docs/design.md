@@ -19,8 +19,9 @@ It serves `goal@knowledge-architect@agents-get-a-complete-workflow`, since witho
 consults a transcript writes its own script. The task it takes from sessions is one the installed
 text asks of every project that adopts the workflow, with no procedure of this repository's own, so
 it is a published crate's to automate, not the maintenance tool's, per
-`goal@knowledge-architect@mechanical-tasks-are-the-tool-s` and
-`goal@xtask@repeated-tasks-are-automated`. The nearest rival, a command of the maintenance tool, is
+`design@xtask@a-local-task-is-the-maintenance-tool-s`:
+`goal@knowledge-architect@tasks-a-tool-does-better-are-the-tool-s` has knowledge-architect provide
+the tool, so that each session of a target project gets the same result. The nearest rival, a command of the maintenance tool, is
 never published, so a project that adopts the workflow, such as thaum, would have no copy.
 
 ### The transcript command reads Claude Code's transcripts, and no other harness's `##transcript-reads-claude-code-alone`
@@ -101,14 +102,13 @@ shown, since the parent's file shows the call, and shown again it would read as 
 The rule is learned from a failure: a filter on text substrings once dropped one of the owner's
 messages from a review, and an owner's message that opens with a pasted tag reads as injected text
 to any tag test. So no text row reads a line its fields place: an owner's typed message carries
-`origin.kind` `human`, and keeps its label whatever its text, as
-`goal@transcript@a-session-reads-past-sessions` requires; and a row reads a whole text or a leading
-tag the harness writes, never a substring. The lines they read are those no field places, which
+`origin.kind` `human`, and keeps its label whatever its text; and a row reads a whole text or a
+leading tag the harness writes, never a substring. The lines they read are those no field places, which
 would otherwise be unlabelled or read as `dispatch`, so a text row moves no line out of an owner's
-label, and in a subagent file a shell tag places nothing, since no owner types there. The goal's
-ruled-out case, labelling a line the owner typed by a phrase in its text, reaches a test that reads
-what a line means in the discussion, and not a tag the harness writes around the owner's command,
-on the owner's reading of the goal. The one text the field rows read is the prefix that names a skill's body, inside a line its fields already mark
+label, and in a subagent file a shell tag places nothing, since no owner types there. What is
+excluded, labelling a line the owner typed by a phrase in its text, reaches a test that reads what
+a line means in the discussion, and not a tag the harness writes around the owner's command, on the
+owner's word. The one text the field rows read is the prefix that names a skill's body, inside a line its fields already mark
 injected: it chooses a kind, never a side. The command holds the rule, per
 `design@agent-skills@transcript-extraction-is-the-checker-s`, with a test over a fixture of each
 row.
@@ -124,7 +124,7 @@ places are re-taken with
 A file with no field is a session run with `claude -p`, or a log older than the fields: its prompt
 carries `turnOrigin` `sdk` where a typed message carries `human`, and no field names who called
 `claude -p`, a person or a script, so its prompt is unlabelled and reported rather than given to the
-owner by a test on what it says, which the goal rules out.
+owner by a test on what it says, which this head excludes.
 
 ### The transcript reader tolerates every line it does not know, and every run reports each one `##transcript-format-tolerated-and-reported`
 

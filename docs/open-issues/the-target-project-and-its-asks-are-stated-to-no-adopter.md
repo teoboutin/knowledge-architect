@@ -5,10 +5,12 @@ kind: todo
 
 ## Summary
 
-`goal@knowledge-architect@serves-one-kind-of-project` defines a target project by four conditions
-and lists what knowledge-architect asks of one: git with its `.git` at or above the project, agents
-under the `claude` harness, every gate run through the gates library from one command, and one merge
-invocation of that command in every target project. The setup skill states one ask, the
+`goal@knowledge-architect@serves-one-kind-of-project` defines a target project by four conditions,
+says that knowledge-architect asks more of one, and names two asks: the project is a git
+repository, and its agents run under the `claude` harness. Two further asks are stated by no goal
+and argued by no head, which `issue@knowledge-architect@no-head-argues-what-becomes-an-ask` holds:
+every gate run through the gates library from one command, and one merge invocation of that command
+in every target project. The setup skill states one ask, the
 maintenance crate of every Rust target project, and no other; only the READMEs of `model`, `check`, `cli`, `query`, `transcript`, `create` and `testing` among the published crates state the
 conditions and the asks; and no design head names the command and its merge invocation.
 
@@ -17,31 +19,29 @@ conditions and the asks; and no design head names the command and its merge invo
 ### What
 
 - The installed text states one ask, the maintenance crate of every Rust target project, per
-  `design@agent-skills@maintenance-crate-ask`, in the setup skill, and none of the others; the goal
-  requires it to state each one.
+  `design@agent-skills@maintenance-crate-ask`, in the setup skill, and none of the others.
 - The setup skill and the READMEs of the published crates other than `model`, `check`, `cli`, `query`, `transcript`, `create` and `testing` state neither the four conditions nor the
   other asks, nor that nothing is guaranteed outside the conditions or where an ask is not followed.
-- The goal makes the name of the one command and its invocation for a merge a design decision of
-  knowledge-architect. No head records it. The invocations differ today: this repository merges on
+- The name of the one command and its invocation for a merge are design decisions of
+  knowledge-architect. No head records the invocation for a merge. The invocations differ today: this repository merges on
   `cargo x gates --require-rebased`, thaum on `cargo --locked x gates --merge-ready`, rootpoint on
   bare `cargo x gates`.
 
 - Texts still offer what the asks rule out, or route a new ask otherwise:
-  - the setup skill's template goals for the maintenance tool keep the wording this repository's own
-    `goal@xtask@one-command-runs-every-gate` and `goal@xtask@repeated-tasks-are-automated` had before
-    their rewording, though its comment says they follow those goals;
   - the setup skill's case of a project with no Rust, which installs the checker locally, serves no
     target project, since a target project's shipped code is Rust;
   - `init --vcs none`, per `design@create@init-runs-git-init`, writes a project that is no git
-    repository, a state the git ask rules out unless it helps the project into conformance;
+    repository, a state that does not follow the git ask and whose working the goal does not guarantee;
   - `primer@question-authority` sends the owner no new ask, which
     `goal@knowledge-architect@the-owner-decides` now sends whatever the argument settles.
 
 ### Why it matters
 
-The goal is unmet while these are stated nowhere: an adopter cannot tell whether a project is served,
-and the installed text, which `goal@agent-skills@installed-text-works-in-every-target-project` lets
-rely on the asks only as the installed text states them, relies on none.
+`goal@knowledge-architect@serves-one-kind-of-project` guarantees knowledge-architect's working only
+as far as a project follows what it asks, and `goal@knowledge-architect@adoption-is-easy` has an
+adopter find what to do in the documentation. While the conditions and the asks are stated nowhere
+an adopter reads, an adopter cannot tell whether a project is served, nor which ask an installed
+instruction relies on when it fails in a project that does not follow it.
 
 ### What would close it
 

@@ -36,8 +36,9 @@ session reads "for a survey of past sessions" are verbs of `transcript`, which a
 ### Why it matters
 
 A pipeline in a head is code no test runs, and a wrong one misclasses a value that the header then
-stops reporting, against `goal@transcript@a-session-reads-past-sessions`. The format head makes the
-measurement owed at each new value.
+stops reporting, against `design@transcript@transcript-format-tolerated-and-reported`, which has
+every run report each value the reader does not know. The format head makes the measurement owed
+at each new value.
 
 ### What would close it
 

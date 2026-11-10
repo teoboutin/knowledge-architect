@@ -38,6 +38,26 @@ properties, which no goal ranks; the owner approved it. "One reason to change" i
 responsibility that a test can apply: the reading "does one thing" leads to code where everything is
 a function, which the fragmentation clause names as a departure too.
 
+### No installed instruction teaches how to write Rust idiomatically `##the-workflow-teaches-no-rust-idiom`
+
+The installed text teaches no idiom of Rust, such as its error types or its lifetimes, though idiom
+does not depend on what a project builds. What it says about code is stated from a higher vantage:
+the default shape of code, per `design@agent-skills@default-code-shape`, what a test owes, per
+`design@agent-skills@test-economy`, and the criteria of a Component, per
+`design@agent-skills@component-skill-delivery`. A mechanical gate on idiom, such as a set of lints,
+may ship once knowledge-architect's owner takes it in; the clippy gate of the recommended list is
+one, per `design@gates@a-project-holds-its-gate-list`.
+
+`goal@knowledge-architect@only-needed-instructions` gives no instruction to a case that an agent's
+judgement handles well enough, whichever goal the instruction would serve. The nearest rival is
+guidance on idiom in the development skill, which
+`goal@knowledge-architect@the-workflow-leads-to-better-code` could be read to call for. The owner
+argued that LLM agents know how to write Rust code, at least those performant enough to follow this
+workflow, and that guidelines from a higher vantage are a more valuable use of the instruction
+budget. The workflow targets frontier-tier models, per
+`design@agent-skills@frontier-tier-only`, so idiom is a case their judgement handles, and an
+instruction on it is read by every session that loads the development skill.
+
 ### Each test a change adds names its claim, and a test of logic carries a recorded mutation `##test-economy`
 
 A test that maps to no claim is cost with no information: the owner reported that agents add tests
@@ -93,8 +113,8 @@ a change to a declared path records its figures is
 
 A project may run `cargo mutants --in-diff` over a branch's changed code before the adversarial
 review, and gives its survivors to the adversarial reviewers as leads. It costs one build and one
-test run per mutant, so it is optional. cargo-mutants is no quality tool the setup brings, per
-`goal@knowledge-architect@setup-brings-quality-tools`, and no ask, per
+test run per mutant, so it is optional. cargo-mutants is no gate of the list the setup recommends, per
+`design@gates@a-project-holds-its-gate-list`, and no ask, per
 `goal@knowledge-architect@serves-one-kind-of-project`: the session chose so, which no goal ranks, and
 the owner approved it. cargo-mutants' book states the two caveats the skill carries: a diff that touches
 only test code yields no mutant ("Testing code changed in a diff"), and rust flags set in a cargo
@@ -117,6 +137,6 @@ The setup asks a crate a target project publishes to warn on `missing_docs`,
 warnings, turns into failures. A lint answers whether an item is documented with no reading, and
 what its documentation says is the code-claims axis's, per `design@agent-skills@code-claims-scope`;
 a documentation axis of its own would duplicate that method. The lints are an ask of every target
-project, which adding goes to the owner's word, per `goal@knowledge-architect@serves-one-kind-of-project`,
-and the owner gave it; they are a quality tool the setup brings, per
-`goal@knowledge-architect@setup-brings-quality-tools`.
+project, which adding goes to the owner's word, per `goal@knowledge-architect@the-owner-decides`,
+and the owner gave it; the setup delivers them so that every target project gets them, per
+`goal@knowledge-architect@generic-tools-and-procedures-are-shipped`.

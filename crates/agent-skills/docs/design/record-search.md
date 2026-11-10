@@ -24,7 +24,7 @@ agent per kind would read half of every cluster. The design this decision did no
 `rejected@agent-skills@searches-split-by-kind`. The search runs in subagents so that the main
 session keeps its context for what needs it, the design, the decisions and the questions to the
 owner, and hands the reading to the agents it dispatches, per
-`goal@agent-skills@session-orchestrates-the-work`.
+`goal@knowledge-architect@session-orchestrates-the-work`.
 
 ### The record search is an agent apart from the standing-state reviewer `##search-apart-from-the-standing-state-review`
 
@@ -86,7 +86,7 @@ report closes with `## Decided` and `## Met outside the task`.
 `design@query@worklist-writes-and-verifies-the-reports`; the session acts on each verdict by its
 action, per `design@agent-skills@session-acts-on-the-verdicts`.
 
-It serves `goal@agent-skills@session-orchestrates-the-work`, under which the session acts on a
+It serves `goal@knowledge-architect@session-orchestrates-the-work`, under which the session acts on a
 dispatched conclusion checked as it checks its own claims: the searcher checks its conclusions so,
 and the command checks the quotation, the sets and the coverage, so that a verdict carries its
 evidence and the session need not read the entry to act on it, per the goal's text: each agent
@@ -117,7 +117,7 @@ verdict enters none:
 - at an intake, `generated-lines.md`, which the session reads; a line `against: -` names no cluster
   and no finding, so no analysis carries it.
 
-It serves `goal@agent-skills@session-orchestrates-the-work`, under which a dispatched agent reports
+It serves `goal@knowledge-architect@session-orchestrates-the-work`, under which a dispatched agent reports
 its conclusions "in a form that names what it considered and can be checked without doing the work
 again". A seed is an entry the session named as one the work rests on or may change, per
 `design@agent-skills@seeds-name-decisions`, so an `unrelated` verdict on it would contradict the
@@ -137,7 +137,7 @@ The searcher reads whole a goal or an entry before a verdict rests on it, resolv
 work and the record answer, and states its conclusion; what `primer@question-authority` reserves to
 the owner goes in the line's `owner-question`, with the readings and what each changes in the work.
 
-It serves `goal@agent-skills@session-orchestrates-the-work`, under which the session acts on a
+It serves `goal@knowledge-architect@session-orchestrates-the-work`, under which the session acts on a
 dispatched conclusion. A doubt that names nothing gives the session nothing to act by,
 `rejected@agent-skills@may-bear-on-a-doubt-naming-nothing`. A conditional verdict, a field naming the
 reading it rests on, loses to parity, as its proposer agreed: the owner argued that an agent given a
@@ -151,7 +151,7 @@ Every line, `unrelated` included, quotes the entry's own text verbatim, at least
 entry, the sentence that shows its subject, which the reason contrasts with the work.
 `klarch worklist --verify` checks the quotation, per `design@query@worklist-writes-and-verifies-the-reports`.
 
-It serves `goal@agent-skills@session-orchestrates-the-work`, whose text asks a dispatched agent to
+It serves `goal@knowledge-architect@session-orchestrates-the-work`, whose text asks a dispatched agent to
 report its conclusions "with the evidence each one rests on, in a form that names what it considered
 and can be checked without doing the work again": an `unrelated` verdict is such a conclusion, and
 its quotation is the evidence a command checks. The nearest rival, an `unrelated` line with a reason
@@ -179,7 +179,7 @@ Where the occasion's record goes:
 - at an intake, the analysis that holds a cluster of findings carries the generated line of each
   entry given a verdict against it.
 
-It serves `goal@agent-skills@session-orchestrates-the-work`: the main session keeps the design and
+It serves `goal@knowledge-architect@session-orchestrates-the-work`: the main session keeps the design and
 the decisions and hands the reading to agents, and checks a dispatched conclusion as it checks its
 own claims, no more and no less. A verdict carries its quotation, which the command checks, so the evidence an act rests on
 is in the line; the session reads an entry whole where it must reason over the entry itself, since
@@ -215,7 +215,8 @@ seventeen shapes drafted by then, and a search at the first challenge would have
 search for each new subject. The owner argued, as a practice that may become the usual one, that a
 search after the first rounds allows a freer discussion of the design, which the record then
 confronts. The cost, proposals that reach the owner before the search, strains
-`goal@knowledge-architect@owner-attention-on-what-is-theirs`; each round's statement of its
+`goal@knowledge-architect@design-with-agents-as-counterparts`, under which the owner meets each
+proposal with its grounding established; each round's statement of its
 grounding, and the bound on closures, keep it to proposals no ruling rests on yet.
 
 The rivals: the search at the first challenge,
@@ -387,7 +388,7 @@ but `unrelated` is a gap, which the session reads in `gaps.md` and sorts into th
 sorts, applying in place the gaps the spec's decisions already answer; `fit-lines.md` is the audit's
 record, in its commit message.
 
-It serves `goal@agent-skills@session-orchestrates-the-work`: the audit runs before every slice, point
+It serves `goal@knowledge-architect@session-orchestrates-the-work`: the audit runs before every slice, point
 2 of `skill@knowledge-architect-planning@working-a-slice`, so its cost recurs at each slice, and the
 main session spends its context on the gaps, the part of the audit that may need a decision, while
 the reading of the record is the searchers'. A fit needs no act, since a `constrains` verdict asks

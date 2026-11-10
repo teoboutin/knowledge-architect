@@ -149,8 +149,9 @@ Where the history is shallow, or a release tag is missing locally, the standing-
 the tripwire auditor report each horizon they could not count, with the command that makes it
 countable in the dispatcher's checkout, `git fetch --unshallow` or `git fetch --tags`, and run no
 fetch themselves. The text is the fragment `path@agent-skills@fragments/shallow-history.md`,
-delivered in both agents. It serves `goal@agent-skills@installed-text-works-in-every-target-project`,
-since a target project's session can run in a shallow clone.
+delivered in both agents. An installed instruction gives its result with what an installing project
+holds, per `design@agent-skills@installed-text-works-with-what-an-installing-project-holds`,
+and a target project's session can run in a shallow clone.
 
 The argument turns on git's behaviour. In a clone of depth 3, `git log -S` on a `Watches until`
 line names the clone's boundary commit, so the count starts there and comes out too low, with no

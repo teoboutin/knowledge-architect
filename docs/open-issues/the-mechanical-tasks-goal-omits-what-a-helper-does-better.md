@@ -5,7 +5,7 @@ kind: todo
 
 ## Summary
 
-`goal@knowledge-architect@mechanical-tasks-are-the-tool-s` covers a task whose result follows with no
+`goal@knowledge-architect@tasks-a-tool-does-better-are-the-tool-s` covers a task whose result follows with no
 judgement. The owner holds that it leaves out a case that should also be ground for taking a command in,
 and will rework its wording.
 
@@ -20,7 +20,7 @@ helper that performs complex logic to give a better result. The keyword search o
 not follow with no judgement, so the goal does not reach it. The owner's lead is to change the goal, or to
 add another goal for these conditions.
 
-The same lead gave `goal@query@agents-query-the-project`, which the owner then widened to any query over the project and what a
+The same lead gave `goal@knowledge-architect@tasks-a-tool-does-better-are-the-tool-s`, which the owner then widened to any query over the project and what a
 query generated, and left with no rule on where a tool of another subject goes.
 
 ### Why it matters

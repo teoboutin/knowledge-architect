@@ -47,11 +47,11 @@ decision or a goal whose failure would be seen in real sessions before any check
 `design@agent-skills@overlay-by-separate-skills`, the primer's delivery by an import line in
 `design@check@primer-import-line`, `design@agent-skills@no-routing-table`,
 `design@agent-skills@plain-text-is-no-repair`,
-`goal@knowledge-architect@mechanical-tasks-are-the-tool-s`, and, for the question whether a rule or
+`goal@knowledge-architect@tasks-a-tool-does-better-are-the-tool-s`, and, for the question whether a rule or
 guideline about code or tests, or about splitting the project into Components, proved too hard or
 too strict or was followed against the work's interest,
 `goal@knowledge-architect@the-workflow-leads-to-better-code` and
-`goal@knowledge-architect@projects-are-split-into-components`, whose learning from use it is; a lint
+`goal@knowledge-architect@projects-are-split-into-modular-units`, whose learning from use it is; a lint
 the setup ships counts as such a rule: the session chose that over leaving lints out of the
 question, which no goal ranks, and the owner approved it. The question
 on a mechanical task is asked of every session, since every session follows the workflow's procedures, where the question that lost in
@@ -91,7 +91,8 @@ defeated it.
 `skill@knowledge-architect-retrospective-intake` analyses a project's own retrospective files
 finding by finding, writes the analysis, and decides each finding's outcome as
 `design@agent-skills@intake-outcome-authority` says. The retrospective writes the files; the intake takes them later, on the owner's
-word. `goal@agent-skills@one-skill-per-activity` names the intake among the workflow's activities.
+word. `goal@knowledge-architect@agents-get-a-complete-workflow` names the intake among the
+workflow's activities.
 
 The two produce different artifacts, two files outside the project and an analysis inside it,
 which makes them two activities by the dispatch rule of
@@ -221,7 +222,7 @@ holds the analysis merges once no `Outcome` line is pending, per
 the work and makes a default no default. The issues its outcomes open are opened and the findings
 handled now are handled, in the commits their routes need; the commit that carries out its last outcome, or a later commit of the same branch,
 deletes it. The skill fixes no order of those commits, per
-`goal@agent-skills@only-needed-instructions`.
+`goal@knowledge-architect@only-needed-instructions`.
 
 It takes the shape of the audit's report file, `design@agent-skills@committed-audit-report`, whose
 argument holds here: the commit messages alone keep the outcomes and lose the evidence each ruling
@@ -239,7 +240,9 @@ handled files apart from pending ones: a marked file left among pending ones can
 an intake, since only the owner's directory tells a session which files are handed to it. A deleted
 file loses the other side of an interaction finding, which a later intake reads. The installed text
 names no directory, since the retrospective writes its files where the owner directs, and a fixed
-one would be a convention of one setup, against `goal@agent-skills@installed-text-works-in-every-target-project`;
+one would be a convention of one setup, where
+`goal@knowledge-architect@every-target-project-can-adopt-it` has the workflow hold nothing
+particular to one target project;
 where the owner keeps them is a fact the owner's own instructions hold. A directory of received files can hold files an earlier intake
 analysed, which only the history of docs/retrospective-reports/ at the project's root tells apart, a
 path no checked form names, per

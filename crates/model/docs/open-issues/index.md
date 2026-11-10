@@ -16,7 +16,7 @@
 | design | [Reading string literals in code as prose may cost more than it finds](string-literals-in-code-may-not-need-reading-at-all.md) |
 | observation | [Plain `check` under a sparse checkout reports every file outside the cone as an unstaged deletion](check-under-a-sparse-checkout-reports-every-file-outside-the-cone.md) |
 | question | [The refusal of a kind's name as an anchor quotes a reason the root forbids](a-kind-name-refusal-quotes-a-future-migration-reason.md) |
-| question | [A reference to an anchor's own directory breaks when the anchor moves, which the relocation goal says no move does](a-reference-to-an-anchor-s-own-directory-breaks-when-the-anchor-moves.md) |
+| question | [A reference to an anchor's own directory breaks when the anchor moves, where every other reference survives the move](a-reference-to-an-anchor-s-own-directory-breaks-when-the-anchor-moves.md) |
 | question | [Would the model's structural findings be better checked at scan time?](the-structural-findings-might-be-checked-at-scan-time.md) |
 | todo | [References are read in Markdown and Rust files only](references-are-read-in-markdown-and-rust-only.md) |
 | todo | [Arms of the resolver and of the lints beside it have mutations no test catches](the-resolver-s-arms-have-mutation-survivors.md) |

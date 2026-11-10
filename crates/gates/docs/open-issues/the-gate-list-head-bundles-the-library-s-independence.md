@@ -19,8 +19,9 @@ cannot be written without its reason.
 `register@gates@design`, holds two statements that answer different questions:
 
 1. "The library runs the gates it is given and decides none of them", with `rust_project` as the
-   recommended list. Its nearest rival is a library with a fixed list. Its argument is
-   `goal@gates@gates-from-a-list`.
+   recommended list. Its nearest rival is a library with a fixed list. Its argument is that of
+   `design@gates@gates-crate`: the gate logic is the library's, and a project writes none beyond
+   its list.
 2. "The library depends on nothing of the checker: the root finder takes the marker file's name
    from the caller." Its nearest rival is a gates crate that depends on the package
    knowledge-architect, for example to take its `MANIFEST_NAME` constant. The head states no

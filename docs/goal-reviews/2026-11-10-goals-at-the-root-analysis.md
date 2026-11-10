@@ -45,10 +45,10 @@ rounds of the whole-set review.
 
 ### The workflow goal is split in three
 
-The session proposed, in place of the merge of `goal@agent-skills@only-needed-instructions` into
+The session proposed, in place of the merge of `goal@knowledge-architect@only-needed-instructions` into
 `goal@knowledge-architect@agents-get-a-complete-workflow`:
 
-1. `goal@agent-skills@only-needed-instructions` stands alone, as a scope: the installed workflow
+1. `goal@knowledge-architect@only-needed-instructions` stands alone, as a scope: the installed workflow
    states what an agent needs to carry out its activities, and leaves every other case to the
    agent's judgement. It is a goal of its own because it bounds the installed text whichever goal
    an added instruction would serve, the complete workflow, no drift, better code or the owner's
@@ -58,11 +58,11 @@ The session proposed, in place of the merge of `goal@agent-skills@only-needed-in
 2. `goal@knowledge-architect@agents-get-a-complete-workflow` keeps what agents get, a workflow
    for each generic activity the owner has taken in, which an agent carries out with the workflow
    and what its project adds, there to raise the quality and the efficiency of the agents' work.
-   It takes in the list of activities of `goal@agent-skills@one-skill-per-activity` and the one
-   clause of `goal@agent-skills@installed-text-works-in-any-environment`, and no property of the
+   It takes in the list of activities of `design@agent-skills@one-skill-per-activity` and the one
+   clause of `installed-text-works-in-any-environment`, and no property of the
    text.
 3. The properties of the text are design heads: that no two installed instructions contradict and
-   each is plain enough to follow, so `goal@agent-skills@no-contradiction-in-workflow` is a head, as
+   each is plain enough to follow, so `no-contradiction-in-workflow` is a head, as
    the first sorting had it; the clause on structure the work does not need, which falls from a
    goal's weight to a presumption; and how "needs" is tested.
 
@@ -90,15 +90,15 @@ The reading was made by one agent and contested by a second. Its result, as put 
 
 | merge the analysis proposed | after the reading |
 | --- | --- |
-| `goal@knowledge-architect@owner-attention-on-what-is-theirs` into `goal@knowledge-architect@the-owner-decides` | does not stand, and is no goal of its own as drafted: its sentences are held by `goal@knowledge-architect@agents-work-without-drift`, `goal@knowledge-architect@design-with-agents-as-counterparts` and `goal@knowledge-architect@the-owner-decides`; no goal holds a bound on the owner's reading time |
-| `goal@knowledge-architect@records-live-beside-the-code` into `goal@knowledge-architect@design-is-recorded-with-its-arguments` | a new design head of the root's design home, argued from three goals |
-| `goal@agent-skills@installed-text-works-in-every-target-project` into `goal@knowledge-architect@every-target-project-can-adopt-it` | design: `design@agent-skills@shipped-text-cites-no-entry` holds part, the rest a new head or the Component's scoped instructions |
-| `goal@create@a-project-adopts-by-one-command` into `goal@knowledge-architect@adoption-is-easy` | split: "by one command" is `design@create@init-command`; "loses nothing the project wrote" was put to the owner as a scope of its own |
-| `goal@knowledge-architect@structure-and-workflow-work-together` into `goal@knowledge-architect@records-reach-their-reader` | nothing enters the receiving goal; one home per kind of record is a head argued from it |
-| `goal@check@documents-stay-current` and `goal@check@document-rules-are-checked` into `goal@knowledge-architect@documentation-stays-consistent` | stands, but the sentence that a project declares to the checker what it records, which `design@check@nothing-of-a-project-is-compiled-in` argues |
-| `goal@model@recorded-items-can-be-referenced` into `goal@knowledge-architect@records-reach-their-reader` | stands as a merge; whether the owner's example of a documentation model and checker is a goal of its own was put to the owner |
-| `goal@query@agents-query-the-project` into `goal@knowledge-architect@mechanical-tasks-are-the-tool-s` | stands |
-| `goal@knowledge-architect@setup-brings-quality-tools` into `goal@knowledge-architect@generic-tools-and-procedures-are-shipped` | design: four existing heads hold it |
+| `owner-attention-on-what-is-theirs` into `goal@knowledge-architect@the-owner-decides` | does not stand, and is no goal of its own as drafted: its sentences are held by `goal@knowledge-architect@agents-work-without-drift`, `goal@knowledge-architect@design-with-agents-as-counterparts` and `goal@knowledge-architect@the-owner-decides`; no goal holds a bound on the owner's reading time |
+| `records-live-beside-the-code` into `goal@knowledge-architect@design-is-recorded-with-its-arguments` | a new design head of the root's design home, argued from three goals |
+| `installed-text-works-in-every-target-project` into `goal@knowledge-architect@every-target-project-can-adopt-it` | design: `design@agent-skills@shipped-text-cites-no-entry` holds part, the rest a new head or the Component's scoped instructions |
+| `a-project-adopts-by-one-command` into `goal@knowledge-architect@adoption-is-easy` | split: "by one command" is `design@create@init-command`; "loses nothing the project wrote" was put to the owner as a scope of its own |
+| `structure-and-workflow-work-together` into `goal@knowledge-architect@records-reach-their-reader` | nothing enters the receiving goal; one home per kind of record is a head argued from it |
+| `documents-stay-current` and `document-rules-are-checked` into `goal@knowledge-architect@documentation-stays-consistent` | stands, but the sentence that a project declares to the checker what it records, which `design@check@nothing-of-a-project-is-compiled-in` argues |
+| `recorded-items-can-be-referenced` into `goal@knowledge-architect@records-reach-their-reader` | stands as a merge; whether the owner's example of a documentation model and checker is a goal of its own was put to the owner |
+| `agents-query-the-project` into `goal@knowledge-architect@tasks-a-tool-does-better-are-the-tool-s` | stands |
+| `setup-brings-quality-tools` into `goal@knowledge-architect@generic-tools-and-procedures-are-shipped` | design: four existing heads hold it |
 
 The session put three questions: whether the owner holds a bound on the owner's reading time,
 with a default of no; whether "what knowledge-architect writes into a project loses nothing the
@@ -145,27 +145,27 @@ title and origin, its wording not ruled:
 
 | file | goal | from |
 | --- | --- | --- |
-| the documentation model | a project's documentation has a defined structure, and a model of it that tools read | new, the owner's example; it takes the declaring of kinds of entries, the naming and citing of a recorded item, and the reading that judges nothing of `goal@model@a-tool-reads-the-documents-with-no-check` |
+| the documentation model | a project's documentation has a defined structure, and a model of it that tools read | new, the owner's example; it takes the declaring of kinds of entries, the naming and citing of a recorded item, and the reading that judges nothing of `a-tool-reads-the-documents-with-no-check` |
 | the documentation model | the documentation records the design, with the intent and the arguments behind it | `goal@knowledge-architect@design-is-recorded-with-its-arguments` |
 | the documentation model | a recorded item reaches the work it bears on | `goal@knowledge-architect@records-reach-their-reader` |
 | what is built on the model | the documentation stays consistent with the code and with itself | `goal@knowledge-architect@documentation-stays-consistent` |
-| what is built on the model | a project adds checks of its own | `goal@check@projects-add-their-own-checks` |
+| what is built on the model | a project adds checks of its own | `goal@knowledge-architect@projects-add-their-own-checks` |
 | what is built on the model | the documents render as one linked site | `goal@knowledge-architect@documents-render-as-a-linked-site` |
-| what is built on the model | a task a tool does at a lower cost, or better, is the tool's | `goal@knowledge-architect@mechanical-tasks-are-the-tool-s`, widened |
+| what is built on the model | a task a tool does at a lower cost, or better, is the tool's | `goal@knowledge-architect@tasks-a-tool-does-better-are-the-tool-s`, widened |
 | the workflow | agents get a workflow for each generic activity taken in | `goal@knowledge-architect@agents-get-a-complete-workflow`, thinner |
-| the workflow | the workflow states what an agent needs and leaves the rest to judgement | `goal@agent-skills@only-needed-instructions`, a scope |
+| the workflow | the workflow states what an agent needs and leaves the rest to judgement | `goal@knowledge-architect@only-needed-instructions`, a scope |
 | the workflow | the workflow leads agents to write better code | `goal@knowledge-architect@the-workflow-leads-to-better-code` |
-| the workflow | the workflow leads a project to be split into modular units | `goal@knowledge-architect@projects-are-split-into-components`, a wider wording |
+| the workflow | the workflow leads a project to be split into modular units | `goal@knowledge-architect@projects-are-split-into-modular-units`, a wider wording |
 | the workflow | the workflow improves through real use | `goal@knowledge-architect@the-workflow-improves-through-real-use`, thinner |
-| the workflow | the main session orchestrates the work | `goal@agent-skills@session-orchestrates-the-work` |
+| the workflow | the main session orchestrates the work | `goal@knowledge-architect@session-orchestrates-the-work` |
 | the two together | agents work autonomously without drifting from the recorded design | `goal@knowledge-architect@agents-work-without-drift`, with its ranking |
 | the two together | the generic part of a tool or a procedure is shipped once taken in | `goal@knowledge-architect@generic-tools-and-procedures-are-shipped` |
 | the owner and the agents | three goals | `goal@knowledge-architect@the-owner-decides`, `goal@knowledge-architect@the-owner-s-word-is-verified`, `goal@knowledge-architect@design-with-agents-as-counterparts` |
 | whom the project serves, and adoption | three goals | `goal@knowledge-architect@serves-one-kind-of-project`, `goal@knowledge-architect@every-target-project-can-adopt-it`, `goal@knowledge-architect@adoption-is-easy` |
 
 Two fates ruled earlier change with it: the statement of
-`goal@model@a-tool-reads-the-documents-with-no-check` is part of the first goal, and the sentence of
-`goal@knowledge-architect@structure-and-workflow-work-together` is the sentence of the home's head
+`a-tool-reads-the-documents-with-no-check` is part of the first goal, and the sentence of
+`structure-and-workflow-work-together` is the sentence of the home's head
 that joins the two parts. The six files replace the five themes. The owner:
 
 > 2. agreed on those 6 files and 21 goals in the list.
@@ -191,7 +191,7 @@ goals' rewrite.
 ### The eight questions left open after the triage
 
 The session told the owner that the owner's earlier ruling on
-`goal@check@relocation-needs-only-goal-changes`, that it admits no exception for a reference naming
+`relocation-needs-only-goal-changes`, that it admits no exception for a reference naming
 an anchor's own directory, loses its object once that goal is a head, with a default that the head
 keeps it as the owner's. It then put eight questions, each with a default:
 
@@ -378,7 +378,7 @@ above the second": Q1. The milestone document's first mapping table has no row f
 **Kind**: purpose. Removed, the registers of decisions, of designs not kept, of what is outstanding
 and of the evidence that would flip a decision would have no reason left to exist.
 
-**Fate proposed**: kept (reworded). `goal@knowledge-architect@records-live-beside-the-code` merges
+**Fate proposed**: kept (reworded). `records-live-beside-the-code` merges
 into it, as its qualifier (see that goal). The first mapping table has no row for it.
 
 **Words of the owner that bear on it**: round 2, `arg-31`, the owner's two examples: "with the
@@ -414,7 +414,7 @@ between an entry and a comment, which is why rows 1 and 2 send it to a head.
 > decision blind. The record lives in the project's repository, beside the code, in files and
 > commit messages an agent reads and edits like any other, never in an external tracker.
 
-The last sentence is what `goal@knowledge-architect@records-live-beside-the-code` brings: Q4.
+The last sentence is what `records-live-beside-the-code` brings: Q4.
 
 **Questions for the owner**:
 
@@ -429,7 +429,7 @@ The last sentence is what `goal@knowledge-architect@records-live-beside-the-code
 
 ---
 
-### `goal@knowledge-architect@structure-and-workflow-work-together`: The documentation structure and the workflow work together
+### `structure-and-workflow-work-together`: The documentation structure and the workflow work together
 
 **Kind**: no goal. It states how two parts of knowledge-architect relate, "Neither the structure
 nor the workflow is designed without the other". Removed, nothing the project provides loses its
@@ -479,7 +479,7 @@ home for what is outstanding, against" this goal. The one pass re-points the fiv
 
 ---
 
-### `goal@knowledge-architect@records-live-beside-the-code`: The project's record lives in its repository, beside the code
+### `records-live-beside-the-code`: The project's record lives in its repository, beside the code
 
 **Kind**: scope, and under rule 5 a qualifier, not a goal of its own. It names the design it
 excludes: "entries in an external tracker it would need a separate tool to reach". It means nothing
@@ -523,13 +523,13 @@ entry in an external tracker beside the registers, against" this goal); the one 
 with code, in a project developed by LLM agents". Removed, the checker has no reason left to exist,
 and neither have the reviews and the audits that read documents against code.
 
-**Fate proposed**: kept (reworded). `goal@check@document-rules-are-checked` and
-`goal@check@documents-stay-current` merge into it. One sentence must survive the merge, because
+**Fate proposed**: kept (reworded). `document-rules-are-checked` and
+`documents-stay-current` merge into it. One sentence must survive the merge, because
 four heads rest on it by quoting it: "a tree that passes the checker conforms". They are
 `design@check@the-regime-has-no-opt-out`, `design@model@an-unresolved-reference-is-reported`,
 `design@model@a-wrong-declaration-is-a-finding` and `design@model@a-failed-parse-is-loud` (each
 verified). The first mapping table has no row for this goal; its row for
-`goal@check@document-rules-are-checked` names it as the goal merged into.
+`document-rules-are-checked` names it as the goal merged into.
 
 **Words of the owner that bear on it**: round 2, `arg-31`, example B. None on the line between what
 the tools check and what the reviews judge: Q6.
@@ -537,10 +537,10 @@ the tools check and what the reviews judge: Q6.
 | # | sentence | what it states | destination |
 | --- | --- | --- | --- |
 | 1 | "In a project that adopts the workflow, its reviews and its audits keep the documentation consistent with the code and with itself: they judge whether the code departs from what the documents state, and whether two documents agree in what they mean." | the outcome, and who judges meaning | stays in the goal |
-| 2 | "The checker and the commands that list the recorded items, as knowledge-architect ships them, support them, and judge no meaning, whatever a project's own extension may do:" | the tools support the reviews and judge no meaning | stays in the goal, with its bound: the draft says "as knowledge-architect ships them" and "whatever a project's own checks may do", so "judge no meaning" does not reach the checks a project adds under `goal@check@projects-add-their-own-checks`. No head argues "judge no meaning": `grep -rn -i 'no meaning'` over the design homes of the root, `check`, `model` and `agent-skills` finds nothing. Q6 |
+| 2 | "The checker and the commands that list the recorded items, as knowledge-architect ships them, support them, and judge no meaning, whatever a project's own extension may do:" | the tools support the reviews and judge no meaning | stays in the goal, with its bound: the draft says "as knowledge-architect ships them" and "whatever a project's own checks may do", so "judge no meaning" does not reach the checks a project adds under `goal@knowledge-architect@projects-add-their-own-checks`. No head argues "judge no meaning": `grep -rn -i 'no meaning'` over the design homes of the root, `check`, `model` and `agent-skills` finds nothing. Q6 |
 | 3 | "the check guarantees that, in the texts the checker reads, nothing cited is missing;" | what the check guarantees | stays in the goal, with "in the texts the checker reads" |
 | 4 | "the check guarantees that, in the texts the checker reads, every rule the checker holds, its own and those the project declares to it, is met, save those the project switches off by a declaration;" | what the check guarantees | stays in the goal, with "in the texts the checker reads" and "save those the project switches off by a declaration"; it is the sentence the four heads above rest on. The exception is read against by `design@check@the-regime-has-no-opt-out`: Q11a |
-| 5 | "those commands list and display the entries a review must read." | what the listing commands do | in two parts. That the commands exist: existing head: `design@knowledge-architect@query-crate` (verified: it names `show`, `issues`, `tripwires` and the others, "the commands that read the record and run no check"; its decision is that their logic is a crate of its own, against the rival "these commands left in `check`"). What they give a review: that head does not argue it; it takes it from `goal@query@agents-query-the-project` and `goal@query@the-record-is-consulted-as-the-workflow-requires`, which another theme rules. If both leave, this part is a design issue: Q6a |
+| 5 | "those commands list and display the entries a review must read." | what the listing commands do | in two parts. That the commands exist: existing head: `design@knowledge-architect@query-crate` (verified: it names `show`, `issues`, `tripwires` and the others, "the commands that read the record and run no check"; its decision is that their logic is a crate of its own, against the rival "these commands left in `check`"). What they give a review: that head does not argue it; it takes it from `agents-query-the-project` and `the-record-is-consulted-as-the-workflow-requires`, which another theme rules. If both leave, this part is a design issue: Q6a |
 | 6 | "A mechanical rule, such as that a flag a document names is one the binary declares, judges none." | an example of what "meaning" excludes | stays in the goal, as its one example: without it, "judge no meaning" reads as a bar on every rule over content. Q6 |
 | 7 | "It is met while:" "the installed text owes, before every merge into the main branch, a review that reads the documents the branch touches, and those that describe the code it touches, against the code and against each other;" | the measure | in two parts. The statements about code that the branch's diff writes, read against the tree before its merge: existing head: `design@agent-skills@code-claims-scope` (verified: the code-claims reviewer reads "every statement about code a branch's diff writes ... against the tree"; `design@agent-skills@plan-read-against-the-record`, verified, says it "also reads a branch's diff before its merge"). The rest: design issue. No head argues, for a review before a merge, the documents outside the diff "that describe the code it touches", nor the reading of documents "against each other". `design@agent-skills@audit-is-an-activity` (verified) covers "a drift between two heads no branch touches", but it is an audit, not a review before a merge. Q7a |
 | 8 | "the installed text offers an audit that reads the whole project on one aspect;" | the measure | existing head: `design@agent-skills@audit-is-an-activity` (verified; it cites this goal) |
@@ -598,10 +598,10 @@ the tools check and what the reviews judge: Q6.
 entries and citing them". Removed, the reference grammar, the inbound listing of `show` and the
 listings of what is outstanding would have no reason left to exist.
 
-**Fate proposed**: kept (reworded). It takes in `goal@model@recorded-items-can-be-referenced`,
+**Fate proposed**: kept (reworded). It takes in `recorded-items-can-be-referenced`,
 which states its first list item in nearly the same words, and the one-home sentence of
-`goal@knowledge-architect@structure-and-workflow-work-together`. The first mapping table has no row
-for this goal. `goal@query@the-record-is-consulted-as-the-workflow-requires`, of another theme,
+`structure-and-workflow-work-together`. The first mapping table has no row
+for this goal. `the-record-is-consulted-as-the-workflow-requires`, of another theme,
 says it refines this goal; that theme's analysis rules it.
 
 **Words of the owner that bear on it**: round 2, `arg-31`, example A. None on the two review
@@ -690,7 +690,7 @@ repository's own, not of a target project's: Q10.
 
 ---
 
-### `goal@check@documents-stay-current`: In a project whose gates run the checker on each commit, its references, its goals and the entries of its record, and the texts the checker generates stay correct at every commit
+### `documents-stay-current`: In a project whose gates run the checker on each commit, its references, its goals and the entries of its record, and the texts the checker generates stay correct at every commit
 
 **Kind**: no goal. Reworded as an outcome of the project as a whole, it says that references
 resolve and entries have their shape, which `goal@knowledge-architect@documentation-stays-consistent`
@@ -741,7 +741,7 @@ refined goal. This might not always be the case though."
 
 ---
 
-### `goal@check@document-rules-are-checked`: The rules a project's documents must meet, those the checker holds for every project and those the project declares, are enforced by the checker
+### `document-rules-are-checked`: The rules a project's documents must meet, those the checker holds for every project and those the project declares, are enforced by the checker
 
 **Kind**: no goal of its own. It is the mechanical half of
 `goal@knowledge-architect@documentation-stays-consistent`, whose fourth sentence states it. What
@@ -752,7 +752,7 @@ its reason.
 the row of the first mapping table. Its first sentence also carries the declaring half of the
 owner's example A, which the draft of that goal keeps: Q8.
 
-**Words of the owner that bear on it**: round 4, `arg-59`: "`goal@check@document-rules-are-checked`:
+**Words of the owner that bear on it**: round 4, `arg-59`: "`document-rules-are-checked`:
 as you say, this one should probably just merge with the root goal." The hedge "probably" is the
 owner's.
 
@@ -784,7 +784,7 @@ owner's.
 
 ---
 
-### `goal@check@relocation-needs-only-goal-changes`: A relocation of part of a project's documents needs no manual work beyond the change of goals its change of purpose calls for, and a few mechanical edits
+### `relocation-needs-only-goal-changes`: A relocation of part of a project's documents needs no manual work beyond the change of goals its change of purpose calls for, and a few mechanical edits
 
 **Kind**: no goal. It bounds the cost of one operation, "a few mechanical edits", which is a
 question of how much. It names parts that exist by a design choice: a Component, and the place
@@ -811,7 +811,7 @@ directory." It does not quote the owner.
 | --- | --- | --- | --- |
 | 1 | "A project relocates part of its documents when it moves a Component, or another directory that holds its entries, moves the place where a kind of entry lives, or turns that place from one file into a directory." | a definition of a relocation | design issue. No head defines a relocation as these moves together. `design@check@every-path-names-its-anchor` (verified) speaks of "relocating an anchor", and `design@model@register-home-reference` (verified) of "a home that outgrows one file"; I found no head on moving "the place where a kind of entry lives". Q12 |
 | 2 | "A project relocates only on a change of purpose of the part it moves, which the goals carry and which justifies the move, or where the relocation, with mechanical edits alone, breaks no check." | a rule of when a project relocates | design issue. It is an instruction for a session, found in no installed skill: `grep -rn -i relocat crates/agent-skills/content` finds the word in three files, each in another sense. Its first occasion is false once a Component states no goal. I cannot argue it against a rival |
-| 3 | "Either way, changing the goals that the change of purpose calls for is the only manual work it needs, beside a few mechanical edits, such as a new name replaced wherever the old one is cited." | the bound on the cost | in two parts, without "changing the goals": no goal is tied to a Component any longer. The mechanism: existing head: `design@check@every-path-names-its-anchor` (verified: "relocating an anchor edits its one line of the project's `knowledge-architect.toml` and no document"), with `design@model@register-home-reference` for a home that changes shape (verified: "a home that outgrows one file dangles every `path` to it, against" this goal). The premise, that a relocation must cost no more: design issue. Both heads take it from this goal ("which `goal@check@relocation-needs-only-goal-changes` asks") and argue it against no rival. Q12 |
+| 3 | "Either way, changing the goals that the change of purpose calls for is the only manual work it needs, beside a few mechanical edits, such as a new name replaced wherever the old one is cited." | the bound on the cost | in two parts, without "changing the goals": no goal is tied to a Component any longer. The mechanism: existing head: `design@check@every-path-names-its-anchor` (verified: "relocating an anchor edits its one line of the project's `knowledge-architect.toml` and no document"), with `design@model@register-home-reference` for a home that changes shape (verified: "a home that outgrows one file dangles every `path` to it, against" this goal). The premise, that a relocation must cost no more: design issue. Both heads take it from this goal ("which `relocation-needs-only-goal-changes` asks") and argue it against no rival. Q12 |
 | 4 | "An existing project that brings its documents into conformance when it adopts the workflow makes no relocation under this goal." | a bound of the definition | design issue, with row 1: no head holds it, and I cannot argue it against a rival. Q12 |
 | 5 | "It is met while:" "each such relocation, once the goals carry its change of purpose, passes the check after no other edit than that change of the goals and a few mechanical edits;" | the measure | as row 3: the two existing heads for the mechanism; the premise a design issue |
 | 6 | "the installed text has a session relocate part of a project's documents only on those two occasions." | the measure | design issue, as row 2 |
@@ -877,7 +877,7 @@ nothing.
 
 ---
 
-### `goal@check@projects-add-their-own-checks`: A project adds checks of its own through public APIs
+### `goal@knowledge-architect@projects-add-their-own-checks`: A project adds checks of its own through public APIs
 
 **Kind**: purpose. Reworded as an outcome of the project as a whole: a target project whose
 conventions the built-in checks do not cover adds its own checks, which run with the built-in ones.
@@ -921,7 +921,7 @@ table, round 4: "I agree on your list for the refinements." The rewrite must ask
 
 ---
 
-### `goal@check@checks-a-commit-from-its-hook`: The checker judges a commit's tree from the git pre-commit hook
+### `checks-a-commit-from-its-hook`: The checker judges a commit's tree from the git pre-commit hook
 
 **Kind**: no goal. It names one means, git's pre-commit hook, and a fixed block of cases, the forms
 of `git commit` it covers. Its measure is a list of tests. It answers a question of when for
@@ -969,7 +969,7 @@ re-points them as Q16a is ruled.
 
 ---
 
-### `goal@model@a-tool-reads-the-documents-with-no-check`: Every tool of knowledge-architect that reads what a project's documents hold can read it through one library that judges none of what they say
+### `a-tool-reads-the-documents-with-no-check`: Every tool of knowledge-architect that reads what a project's documents hold can read it through one library that judges none of what they say
 
 **Kind**: no goal. Its subject is "any code of knowledge-architect", and "one library": it states
 the purpose of the Component `model`, a part that exists by a design choice. Reworded as an outcome
@@ -985,14 +985,14 @@ the model and at most phases 1 to 3, never the last phase").
 this goal, and the one pass rewrites that sentence: Q17.
 
 **Words of the owner that bear on it**: none on this goal. Round 2, #arg-26, and its hedge of round
-3, #arg-46, as quoted under `goal@check@documents-stay-current`.
+3, #arg-46, as quoted under `documents-stay-current`.
 
 | # | sentence | what it states | destination |
 | --- | --- | --- | --- |
 | 1 | "A tool here is any code of knowledge-architect that reads what a project declares and what its documents hold, such as a command that shows or searches entries, a work list over them, a renderer of the documents, or a checker of their content." | a definition | existing head: `design@knowledge-architect@model-crate` (verified: it names `id`, `worklist`, `show`, a writer's gate) |
 | 2 | "Through the library such a tool reads what the project declares, what its documents hold, the entries they define, and what each reference names or why it names nothing." | what the library gives | existing head: `design@knowledge-architect@model-crate` (verified: "holds the manifest, the walk, the parse, the entity table, phases 1 to 3 and the resolver") |
 | 3 | "To judge what a document says is to report that it breaks a rule on its content, such as a section an entry owes." | a definition of the line | existing head: `design@knowledge-architect@model-crate` (verified: "Phases 1 to 3 say whether the model can be trusted, not whether the content conforms", and where the line runs) |
-| 4 | "It refines `goal@knowledge-architect@mechanical-tasks-are-the-tool-s`, and reaches past it to tools no session task asks for." | a refinement, and a claim of wider reach | nowhere: held by `path@agent-config@skills/knowledge-architect-goal-setting/SKILL.md`, rule 8. "reaches past it" has no reason beside it and no head; shown to the owner: Q17 |
+| 4 | "It refines `goal@knowledge-architect@tasks-a-tool-does-better-are-the-tool-s`, and reaches past it to tools no session task asks for." | a refinement, and a claim of wider reach | nowhere: held by `path@agent-config@skills/knowledge-architect-goal-setting/SKILL.md`, rule 8. "reaches past it" has no reason beside it and no head; shown to the owner: Q17 |
 | 5 | "It is met while the library's public interface gives each of those readings with no such report attached and holds no function that makes one, and its dependencies hold no part of knowledge-architect that makes one." | the measure | in two parts. "with no such report attached and holds no function that makes one": existing head: `design@model@resolver-outcome` (verified: the resolver answers "with no finding attached", and "this crate writes none"). "its dependencies hold no part ... that makes one": existing head: `design@model@no-check-below-the-model` (verified: "This crate depends on no code that judges a document's content", with the command that shows it) |
 | 6 | "Requires, for instance: a tool asks what a reference names, and gets the target or the cause of its failure." | a case | existing head: `design@model@resolver-outcome` (verified: "returns a `Target`, or a `Cause`") |
 | 7 | "Admits, for instance: a tool that scans a document's parse again for a subject of its own, or that reads a file past the library." | a case | nowhere: repeats the statement: it forbids neither, and no head holds the case. `design@check@an-extension-builds-its-own-model` (verified) is on another subject: a project's extension that scans the parse of `check` through the public API of `check`. It says nothing of a tool of knowledge-architect over the library, nor of reading a file past it |
@@ -1009,7 +1009,7 @@ this goal, and the one pass rewrites that sentence: Q17.
 
 ---
 
-### `goal@model@a-tool-knows-the-read-is-right`: A tool can tell whether what the library read of a project is right
+### `a-tool-knows-the-read-is-right`: A tool can tell whether what the library read of a project is right
 
 **Kind**: no goal. Its subject is "the library" and "a tool" of knowledge-architect, a part that
 exists by a design choice. It is the reason `design@check@phases-gate-the-report` already argues
@@ -1040,7 +1040,7 @@ mapping table has no row for it. It is cited by `design@knowledge-architect@mode
 
 ---
 
-### `goal@model@recorded-items-can-be-referenced`: Each recorded item can be given a name, and referenced from any text the checker reads
+### `recorded-items-can-be-referenced`: Each recorded item can be given a name, and referenced from any text the checker reads
 
 **Kind**: no goal of its own. Its statement is the first list item of
 `goal@knowledge-architect@records-reach-their-reader`, in nearly the same words: "a way to give each
@@ -1079,19 +1079,19 @@ agree on your list for the refinements."
 | --- | --- | --- |
 | `goal@knowledge-architect@agents-work-without-drift` | purpose, with a ranking inside | kept (reworded); the ranking a goal of its own or the head's sentence, Q1 |
 | `goal@knowledge-architect@design-is-recorded-with-its-arguments` | purpose | kept (reworded) |
-| `goal@knowledge-architect@structure-and-workflow-work-together` | no goal | merged into `goal@knowledge-architect@records-reach-their-reader`; the rest stays in the home's head, which the owner rules like a goal, Q5a |
-| `goal@knowledge-architect@records-live-beside-the-code` | scope, a qualifier | merged into `goal@knowledge-architect@design-is-recorded-with-its-arguments` |
+| `structure-and-workflow-work-together` | no goal | merged into `goal@knowledge-architect@records-reach-their-reader`; the rest stays in the home's head, which the owner rules like a goal, Q5a |
+| `records-live-beside-the-code` | scope, a qualifier | merged into `goal@knowledge-architect@design-is-recorded-with-its-arguments` |
 | `goal@knowledge-architect@documentation-stays-consistent` | purpose | kept (reworded) |
 | `goal@knowledge-architect@records-reach-their-reader` | purpose | kept (reworded) |
 | `goal@knowledge-architect@documents-render-as-a-linked-site` | purpose | kept (reworded) |
-| `goal@check@documents-stay-current` | no goal | merged into `goal@knowledge-architect@documentation-stays-consistent`; the rest in existing heads |
-| `goal@check@document-rules-are-checked` | no goal of its own | merged into `goal@knowledge-architect@documentation-stays-consistent`; one exception differs from a head, Q11a |
-| `goal@check@relocation-needs-only-goal-changes` | no goal | turned into a design head, existing: `design@check@every-path-names-its-anchor` and `design@model@register-home-reference`; no new head; its premise, its definition and its exemption a design issue, Q12 |
-| `goal@check@projects-add-their-own-checks` | purpose | kept (reworded), at the root |
-| `goal@check@checks-a-commit-from-its-hook` | no goal | turned into a design head, existing: `design@git@index-file-variable-kept`, which must gain the capability as a new member, Q16a |
-| `goal@model@a-tool-reads-the-documents-with-no-check` | no goal | turned into a design head, existing: `design@knowledge-architect@model-crate` |
-| `goal@model@a-tool-knows-the-read-is-right` | no goal | turned into a design head, existing: `design@check@phases-gate-the-report` |
-| `goal@model@recorded-items-can-be-referenced` | no goal of its own | merged into `goal@knowledge-architect@records-reach-their-reader` |
+| `documents-stay-current` | no goal | merged into `goal@knowledge-architect@documentation-stays-consistent`; the rest in existing heads |
+| `document-rules-are-checked` | no goal of its own | merged into `goal@knowledge-architect@documentation-stays-consistent`; one exception differs from a head, Q11a |
+| `relocation-needs-only-goal-changes` | no goal | turned into a design head, existing: `design@check@every-path-names-its-anchor` and `design@model@register-home-reference`; no new head; its premise, its definition and its exemption a design issue, Q12 |
+| `goal@knowledge-architect@projects-add-their-own-checks` | purpose | kept (reworded), at the root |
+| `checks-a-commit-from-its-hook` | no goal | turned into a design head, existing: `design@git@index-file-variable-kept`, which must gain the capability as a new member, Q16a |
+| `a-tool-reads-the-documents-with-no-check` | no goal | turned into a design head, existing: `design@knowledge-architect@model-crate` |
+| `a-tool-knows-the-read-is-right` | no goal | turned into a design head, existing: `design@check@phases-gate-the-report` |
+| `recorded-items-can-be-referenced` | no goal of its own | merged into `goal@knowledge-architect@records-reach-their-reader` |
 
 15 goals in, 6 goals out if every proposal is ruled as proposed: 5 kept at the root, 1 moved to the
 root, and the ranking of Q1 a seventh if it becomes a goal of its own. No new head. These groups of
@@ -1112,18 +1112,18 @@ that review, and on the reading before a change that no installed text holds go 
 entry `issue@agent-skills@the-review-does-not-ask-whether-items-are-cited-where-they-bear`,
 and one to `issue@knowledge-architect@the-documents-do-not-render-as-a-site`.
 
-Rows of the first mapping table: confirmed for `goal@check@document-rules-are-checked`,
-`goal@check@projects-add-their-own-checks` and `goal@check@checks-a-commit-from-its-hook`; confirmed
-with no new head owed for `goal@check@documents-stay-current`; overturned for
-`goal@check@relocation-needs-only-goal-changes` and `goal@model@recorded-items-can-be-referenced`.
+Rows of the first mapping table: confirmed for `document-rules-are-checked`,
+`goal@knowledge-architect@projects-add-their-own-checks` and `checks-a-commit-from-its-hook`; confirmed
+with no new head owed for `documents-stay-current`; overturned for
+`relocation-needs-only-goal-changes` and `recorded-items-can-be-referenced`.
 
 ### Texts above the first goal
 
 | home | what the text says | what becomes of it |
 | --- | --- | --- |
-| `register@knowledge-architect@goal`, first paragraph | what knowledge-architect is for; its two main purposes and that the first ranks above the second; "The documentation structure and the workflow are designed to work together." | it stays, as the head of the root's goals home, which the owner rules like a goal. It keeps the sentence on structure and workflow, which holds what `goal@knowledge-architect@structure-and-workflow-work-together` leaves. Its ranking sentence is the subject of Q1 |
+| `register@knowledge-architect@goal`, first paragraph | what knowledge-architect is for; its two main purposes and that the first ranks above the second; "The documentation structure and the workflow are designed to work together." | it stays, as the head of the root's goals home, which the owner rules like a goal. It keeps the sentence on structure and workflow, which holds what `structure-and-workflow-work-together` leaves. Its ranking sentence is the subject of Q1 |
 | `register@knowledge-architect@goal`, "These words hold in these senses for the goals of this home and of every Component:" | the lead-in to four definitions | "and of every Component" leaves: no Component states a goal |
-| `register@knowledge-architect@goal`, the four definitions: the checker, the workflow or the installed text, the record, a recorded item | the words the goals share | they stay. Each defines what the project provides or records, which rule 2 admits. The definition of "the record" holds the list that `goal@knowledge-architect@records-live-beside-the-code` repeated. A definition of "a reference" may join them, since `goal@check@documents-stay-current` defined it and the kept goals use the word |
+| `register@knowledge-architect@goal`, the four definitions: the checker, the workflow or the installed text, the record, a recorded item | the words the goals share | they stay. Each defines what the project provides or records, which rule 2 admits. The definition of "the record" holds the list that `records-live-beside-the-code` repeated. A definition of "a reference" may join them, since `documents-stay-current` defined it and the kept goals use the word |
 | `register@check@goal`, "Every goal here serves one purpose: the checker reports each breach of the rules it holds for a project's documents, and keeps what it generates current, so that keeping them correct is cheap. These goals are this Component's share of the project's goals, `register@knowledge-architect@goal`." | the purpose of the Component `check` | it leaves the goals home. It is the statement of the head that argues the existence of `check`, which slice 1 writes in the root's design home, per the milestone document's "Decided design". That head is not this analysis's to argue |
 | `register@model@goal`, "Every goal here serves one purpose: a tool of knowledge-architect reads what a project's documents hold and what they name through one library, which judges none of what they say." | the purpose of the Component `model` | it leaves the goals home. `design@knowledge-architect@model-crate` already states it (verified) |
 
@@ -1132,11 +1132,11 @@ with no new head owed for `goal@check@documents-stay-current`; overturned for
 - An Admits case that the reworded statement still admits, and that no head holds, is sent
   `nowhere: repeats the statement`. Ground: the goal-setting skill, "What it admits, it neither
   asks for nor forbids", so the case binds nothing and nothing is lost. The owner sees each such
-  row: `goal@knowledge-architect@records-live-beside-the-code` row 8,
+  row: `records-live-beside-the-code` row 8,
   `goal@knowledge-architect@records-reach-their-reader` row 15,
-  `goal@check@projects-add-their-own-checks` row 7, `goal@check@checks-a-commit-from-its-hook` row 8,
-  `goal@model@a-tool-reads-the-documents-with-no-check` row 7,
-  `goal@model@recorded-items-can-be-referenced` row 6.
+  `goal@knowledge-architect@projects-add-their-own-checks` row 7, `checks-a-commit-from-its-hook` row 8,
+  `a-tool-reads-the-documents-with-no-check` row 7,
+  `recorded-items-can-be-referenced` row 6.
 - A line "It refines" is sent nowhere, held by rule 8 of the goal-setting skill. Ground: the
   milestone document, "No goal holds a line 'It refines'".
 - A sentence that a recorded issue of kind `todo` already holds as undecided work is sent
@@ -1170,7 +1170,7 @@ with no new head owed for `goal@check@documents-stay-current`; overturned for
   Component or of one enclosing it", which the new standard makes false. I did not check that the
   milestone document's table lists it for slice 2.
 - `issue@agent-skills@the-review-does-not-ask-whether-items-are-cited-where-they-bear` opens on
-  `goal@agent-skills@reviews-judge-what-no-tool-can`, a goal of another theme that the first
+  `reviews-judge-what-no-tool-can`, a goal of another theme that the first
   mapping table sorts as "head". The entry is re-read with that goal's ruling.
 - The retrospective skill's source holds no question on how the reviews and the audits fared,
   though two root goals name one in their measures: recorded as Q7 and in the rows that send it to
@@ -1208,10 +1208,10 @@ goal; `grep -n '^### ' crates/agent-skills/docs/design/*.md docs/design.md` for 
 `path@agent-skills@content/skills/`, the 16 agents and the primer are what it provides.
 
 **Fate proposed**: kept (reworded), in the root's goals home. The first mapping table has no row
-for it (it refines none). It takes in: the statement of `goal@agent-skills@no-contradiction-in-workflow`,
-the list of `goal@agent-skills@one-skill-per-activity`, one clause of
-`goal@agent-skills@installed-text-works-in-any-environment`, and the scope of
-`goal@agent-skills@only-needed-instructions` (see each). It loses its measure, its cases, the
+for it (it refines none). It takes in: the statement of `no-contradiction-in-workflow`,
+the list of `design@agent-skills@one-skill-per-activity`, one clause of
+`installed-text-works-in-any-environment`, and the scope of
+`goal@knowledge-architect@only-needed-instructions` (see each). It loses its measure, its cases, the
 steps after each colon of its list, and its paragraph on continuous integration, which becomes a
 head.
 
@@ -1232,7 +1232,7 @@ head.
 | 1 | "A generic activity is one ... that part is its generic part." | the definition of a generic part | stays in the goal. `goal@knowledge-architect@generic-tools-and-procedures-are-shipped`, of another theme, uses it by reference; see Q18 |
 | 2 | "The workflow covers the generic part ... per `goal@knowledge-architect@generic-tools-and-procedures-are-shipped`." | the statement | stays in the goal, in its own words, without the "per" |
 | 3 | "An activity that only some target projects carry out, such as releasing, is covered for those that carry it out or are meant to." | the reach over a partial activity | stays in the goal, as one clause; see Q19 |
-| 4 | "The activities include these, a list that grows with the workflow:" and the 12 names of the list | the members of the set the goal covers | stays in the goal, as names only. The entry shape admits "a list where it names the members of a set, such as the activities a goal covers". Merged with the list of `goal@agent-skills@one-skill-per-activity` |
+| 4 | "The activities include these, a list that grows with the workflow:" and the 12 names of the list | the members of the set the goal covers | stays in the goal, as names only. The entry shape admits "a list where it names the members of a set, such as the activities a goal covers". Merged with the list of `design@agent-skills@one-skill-per-activity` |
 | 5a | "developing: where to ground before an edit ... and when to review" (the part after the colon, but its last words) | the steps of developing | existing head: `design@agent-skills@development-skill`, which lists "the reading of the record of the code changed, claims with tests shown to discriminate", "the review axes for code and their cadence" |
 | 5b | "and how it is repaired" (the last words of the same part) | the step of repair | nowhere: held by `path@agent-skills@content/skills/development/SKILL.md`: "A repair the review asks for lands as" the review skill's section on what a review leaves says. `design@agent-skills@development-skill` does not state it |
 | 6 | "working on a branch under a linear history: rebasing it ... once every condition `goal@knowledge-architect@serves-one-kind-of-project` sets for a merge holds" (after the colon) | the steps of branch work, not built | design issue: the existing entry `path@knowledge-architect@docs/open-issues/the-workflow-has-no-skill-for-branch-work-or-releasing.md`, of kind `todo`, under "What": "Branch work: rebasing, rewording a commit's message, folding a repair, with no content lost, and merging once the conditions ... hold". No installed skill holds them |
@@ -1240,28 +1240,28 @@ head.
 | 8 | "reviewing: the procedure by which a review is dispatched" (after the colon) | the step of reviewing | nowhere: held by `path@agent-skills@content/skills/review/SKILL.md` |
 | 9 | "Each part of an item of the list above, after its colon, names a step that the skill of the item's activity holds." | a rule that makes the steps binding | nowhere: held by `path@agent-skills@content/skills/development/SKILL.md` and `.../review/SKILL.md` for the steps built, and by the issue of row 6 for those not built. With the colons gone it has no object |
 | 10 | "No installed instruction teaches how to write Rust idiomatically, such as its error types or its lifetimes, whatever the test of a generic part finds;" | a scope: the design it excludes is named | stays in the goal: a qualifier of the purpose it bounds, per rule 5 |
-| 11 | "a mechanical gate on it, such as a set of lints, may ship once taken in." | what the exclusion admits | nowhere: held by `register@knowledge-architect@goal`, `goal@knowledge-architect@setup-brings-quality-tools`: "the gates of Rust: formatting, the linter and the tests". That goal is of another theme |
+| 11 | "a mechanical gate on it, such as a set of lints, may ship once taken in." | what the exclusion admits | nowhere: held by `register@knowledge-architect@goal`, `setup-brings-quality-tools`: "the gates of Rust: formatting, the linter and the tests". That goal is of another theme |
 | 12 | "The default shape of the code ... and the default criteria ... are covered." | that two other goals are not excluded by row 10 | existing head: `design@agent-skills@default-code-shape`, and `design@agent-skills@component-skill-delivery` for the criteria |
 | 13 | "What is particular to one project stays in that project, beside the installed text:" | the complement of "generic part" | nowhere: repeats the statement (rows 1 and 2) |
 | 14 | "the code of the project's domain;" | a member of row 13 | nowhere: repeats the statement |
 | 15 | "the project's versioning and publishing policy;" | a member of row 13, whose activity is not built | design issue: the entry of row 6: "the versioning and publishing policy staying with each project". `design@agent-skills@split-cost-by-publication` applies it at one site ("weighs the project's policy without setting it") |
-| 16 | "whether the project runs continuous integration and pull requests, and how." | a member of row 13 | new head: `installed-text-requires-no-ci-and-no-pull-request` |
-| 17 | "The installed text requires neither, and no installed instruction outside an offered shape assumes either." | an exclusion over the installed text | new head: `installed-text-requires-no-ci-and-no-pull-request` |
-| 18 | "An offered shape is a part of the installed text, or a file the workflow's setup writes, that a project takes or leaves as a whole;" | the definition of an offered shape | new head: `installed-text-requires-no-ci-and-no-pull-request`. Three goals of other themes use the term; see Q20 |
-| 19 | "one for either may ship, per `goal@knowledge-architect@generic-tools-and-procedures-are-shipped`." | what the exclusion admits | new head: `installed-text-requires-no-ci-and-no-pull-request` |
-| 20 | "In a private project with one contributor, continuous integration on pull requests spends limited minutes, and a pull request brings little value." | a cost the owner weighed | owner's ruling, into the new head `installed-text-requires-no-ci-and-no-pull-request` |
+| 16 | "whether the project runs continuous integration and pull requests, and how." | a member of row 13 | new head: `design@agent-skills@installed-text-requires-no-ci-and-no-pull-request` |
+| 17 | "The installed text requires neither, and no installed instruction outside an offered shape assumes either." | an exclusion over the installed text | new head: `design@agent-skills@installed-text-requires-no-ci-and-no-pull-request` |
+| 18 | "An offered shape is a part of the installed text, or a file the workflow's setup writes, that a project takes or leaves as a whole;" | the definition of an offered shape | new head: `design@agent-skills@installed-text-requires-no-ci-and-no-pull-request`. Three goals of other themes use the term; see Q20 |
+| 19 | "one for either may ship, per `goal@knowledge-architect@generic-tools-and-procedures-are-shipped`." | what the exclusion admits | new head: `design@agent-skills@installed-text-requires-no-ci-and-no-pull-request` |
+| 20 | "In a private project with one contributor, continuous integration on pull requests spends limited minutes, and a pull request brings little value." | a cost the owner weighed | owner's ruling, into the new head `design@agent-skills@installed-text-requires-no-ci-and-no-pull-request` |
 | 21 | "Each installed instruction says what it requires plainly enough to follow without guessing what it means." | a property of the workflow agents get | stays in the goal, in these words. `rejected@agent-skills@two-readings-left-to-judgement` quotes it as what that design lost to, so it is a ground, not a restatement; see Q22a |
-| 22 | "No two instructions are ones a session cannot both obey." | the same | stays in the goal; it is the statement of `goal@agent-skills@no-contradiction-in-workflow`, merged here |
-| 23 | "What no instruction covers is left to the agent's judgement on purpose." | the reach of the instructions | nowhere: held by `path@agent-skills@content/PRIMER.md`, section "Room to judge": "Where the installed text is silent, judge. It leaves that room on purpose". The scope it belongs to is drafted below from `goal@agent-skills@only-needed-instructions` |
-| 24 | "It is met while the installed text holds:" "a skill for each activity ... each step the list above names for that activity;" | measure | new head: `goal@agent-skills@one-skill-per-activity` (see that goal) |
+| 22 | "No two instructions are ones a session cannot both obey." | the same | stays in the goal; it is the statement of `no-contradiction-in-workflow`, merged here |
+| 23 | "What no instruction covers is left to the agent's judgement on purpose." | the reach of the instructions | nowhere: held by `path@agent-skills@content/PRIMER.md`, section "Room to judge": "Where the installed text is silent, judge. It leaves that room on purpose". The scope it belongs to is drafted below from `goal@knowledge-architect@only-needed-instructions` |
+| 24 | "It is met while the installed text holds:" "a skill for each activity ... each step the list above names for that activity;" | measure | new head: `design@agent-skills@one-skill-per-activity` (see that goal) |
 | 25 | "each instruction with one reading;" | measure | nowhere: repeats the statement (row 21) |
 | 26 | "no two instructions a session cannot both obey;" | measure | nowhere: repeats the statement (row 22) |
-| 27 | "no instruction outside an offered shape that requires or assumes continuous integration or a pull request." | measure | new head: `installed-text-requires-no-ci-and-no-pull-request` |
+| 27 | "no instruction outside an offered shape that requires or assumes continuous integration or a pull request." | measure | new head: `design@agent-skills@installed-text-requires-no-ci-and-no-pull-request` |
 | 28 | "A review round, an argument derived again, or a decision reversed by accident, that the workflow would have spared, shows the goal unmet in practice." | how use shows the goal unmet | design issue. No head argues how the project learns whether efficiency rose. `issue@agent-skills@the-retrospective-counts-no-review-cost` cites this goal twice and is the nearest entry (by its title); the one pass says there what this sentence said |
 | 29 | "Requires, for instance: the skill for developing says how to make a test discriminate." | case | existing head: `design@agent-skills@development-skill` |
 | 30 | "Admits, for instance: the skill for releasing installed in a project that never releases." | case | nowhere: held by `path@agent-skills@src/lib.rs`, `FILES`, the one list the install takes (`path@check@src/agents.rs`, `shipped_from`). I read no filter by activity there; I did not trace the install whole |
 | 31 | "Rules out, for instance: an installed instruction that teaches when a Rust function takes a lifetime parameter." | case | nowhere: repeats the statement (row 10) |
-| 32 | "Rules out, for instance: an installed instruction outside an offered shape that has the session open a pull request." | case | new head: `installed-text-requires-no-ci-and-no-pull-request` |
+| 32 | "Rules out, for instance: an installed instruction outside an offered shape that has the session open a pull request." | case | new head: `design@agent-skills@installed-text-requires-no-ci-and-no-pull-request` |
 
 **Draft of the goal under the new standard** (draft, not ruled):
 
@@ -1295,7 +1295,7 @@ head.
 > an agent's judgement handles well enough gets no instruction. It does not teach how to write
 > Rust idiomatically, whatever the test of a generic part finds.
 
-**Head proposed**: `installed-text-requires-no-ci-and-no-pull-request`, in
+**Head proposed**: `design@agent-skills@installed-text-requires-no-ci-and-no-pull-request`, in
 `register@agent-skills@design`, subject "The configuration a project holds".
 
 - Title as a decision: "The installed text requires neither continuous integration nor pull
@@ -1325,7 +1325,7 @@ head.
 - **Q20.** "Offered shape" leaves this goal with rows 16 to 20. It is used by
   `goal@knowledge-architect@serves-one-kind-of-project`,
   `goal@knowledge-architect@generic-tools-and-procedures-are-shipped` and
-  `goal@knowledge-architect@setup-brings-quality-tools`. If any of those keeps the word, its
+  `setup-brings-quality-tools`. If any of those keeps the word, its
   definition must go to the home's head instead of the new head. Which?
 - **Q21.** Row 20 becomes a head that binds as a presumption. An agent may then argue the installed
   text into assuming pull requests, and report it. Do you accept that, or is "no installed
@@ -1392,7 +1392,7 @@ better code, and it bears on more than just code." The rewrite of this goal must
 
 ---
 
-### `goal@knowledge-architect@projects-are-split-into-components`: The workflow leads a target project to be split into Components, each with one purpose
+### `goal@knowledge-architect@projects-are-split-into-modular-units`: The workflow leads a target project to be split into Components, each with one purpose
 
 **Kind**: purpose. Removed, the component-creation skill and
 `path@agent-skills@fragments/when-to-split.md` have no reason left. It passes rule 2 only if
@@ -1425,7 +1425,7 @@ the wider wording, from the owner's words.
 | 2 | "A Component's own files are those that no Component nested under its directory contains." | the definition of "own files" | design issue. The component-creation skill and `design@agent-skills@component-crate-mapping` use "own files" and define it nowhere (`grep -n -i 'own files' crates/agent-skills/content/skills/component-creation/SKILL.md`: lines 28, 56, 85, none a definition) |
 | 3 | "A target project whose Components ... each serve one purpose keeps each Component's goals and design small enough to read whole, and lets a session ground in one design and change one part of the project at a time." | the reason for the split | stays in the goal, without "goals": a Component states none now. Two heads lean on it: `design@agent-skills@dependency-decision-home` and the head of row 1 ("that each Component's design stays small enough to read whole") |
 | 4 | "The project's root, which is the whole project being split, is outside that, whatever its own files hold;" | an exception to the criteria | nowhere: held by `path@agent-skills@content/skills/component-creation/SKILL.md`: "The root, which is the whole project, and an intermediate Component are outside these criteria." |
-| 5 | "so is an intermediate Component ... but the rest of the project does not." | what an intermediate Component is | existing head: `design@agent-skills@no-installed-rule-on-when-an-intermediate-component-exists`, which states it "per" this goal: "Its own files hold no Rust code, per `goal@knowledge-architect@projects-are-split-into-components`". Two of its rivals lose on this goal's text: the declared set on the definition of row 1, and the crate whose nested Components are its modules on what "the goal's definition excludes ... The owner chose to keep the goal as it stands". The wider draft holds neither sentence; see Q27a. The component-creation skill states it without the goal: "Its own files hold no Rust code, so it is no crate" |
+| 5 | "so is an intermediate Component ... but the rest of the project does not." | what an intermediate Component is | existing head: `design@agent-skills@no-installed-rule-on-when-an-intermediate-component-exists`, which states it "per" this goal: "Its own files hold no Rust code, per `goal@knowledge-architect@projects-are-split-into-modular-units`". Two of its rivals lose on this goal's text: the declared set on the definition of row 1, and the crate whose nested Components are its modules on what "the goal's definition excludes ... The owner chose to keep the goal as it stands". The wider draft holds neither sentence; see Q27a. The component-creation skill states it without the goal: "Its own files hold no Rust code, so it is no crate" |
 | 6 | "One purpose per Component is the direction that the default criteria pursue, not a rule a Component fails alone:" | a direction, not a rule | stays in the goal |
 | 7 | "what makes a split good is learned from use, so this goal fixes no rule of splitting:" | the goal fixes no rule | stays in the goal. #arg-104 leans on it |
 | 8 | "the installed text gives default criteria for placing work in Components and for splitting them, as guidelines, and real use corrects them." | a mechanism | existing head: `design@agent-skills@component-skill-delivery` for the criteria, and `design@agent-skills@premortem-as-watch-points` for the correction by use |
@@ -1471,7 +1471,7 @@ directory, or the project's root", and rows 1, 2 and 4 stay in the goal.
   chose "to keep the goal as it stands". The wider draft holds neither the definition nor the
   sentence on an intermediate Component. Do both stay in the goal (the narrower form), or does the
   head take them as its own statements, the two defeats attributed to your choice?
-- **Q28.** A slug change, `projects-are-split-into-modular-units`, re-points 13 references outside
+- **Q28.** A slug change, `goal@knowledge-architect@projects-are-split-into-modular-units`, re-points 13 references outside
   the plan documents. Keep the old slug instead?
 
 ---
@@ -1543,7 +1543,7 @@ addition leads to a better result can then defeat the rule, which a goal does no
 
 ---
 
-### `goal@agent-skills@one-skill-per-activity`: Every activity of a target project whose generic part knowledge-architect's owner has taken in has one installed skill
+### `design@agent-skills@one-skill-per-activity`: Every activity of a target project whose generic part knowledge-architect's owner has taken in has one installed skill
 
 **Kind**: no goal. It states how the installed text is cut into units. A skill is a part whose
 existence comes from a design choice. Reworded as an outcome of the project, "agents get a
@@ -1559,27 +1559,27 @@ sorts it as a head: "I agree on your list for the refinements."
 
 | # | sentence | what it states | destination |
 | --- | --- | --- | --- |
-| 1 | "An activity is the scope over which a complete set of procedures makes sense, a sub-activity included." | the definition of an activity | nowhere: held by `path@agent-skills@content/skills/agent-configuration/SKILL.md`, line 76: "The unit is an activity: the scope over which a complete set of procedures makes sense." That line holds no "a sub-activity included": those words go to the new head `goal@agent-skills@one-skill-per-activity`, with the test of row 2 |
-| 2 | "Two tasks whose methodologies differ ... are not bundled in one skill." | the test of two activities | new head: `goal@agent-skills@one-skill-per-activity`. `design@agent-skills@goal-set-review-in-goal-setting` records it as the owner's argument: "an activity is its methodology, not the scope of what it reads" |
-| 3 | "Where the two tests disagree, the methodologies decide." | which test prevails | new head: `goal@agent-skills@one-skill-per-activity` |
-| 4 | "The installed set holds one skill for each activity ... as `goal@knowledge-architect@agents-get-a-complete-workflow` defines a generic part," | the statement | new head: `goal@agent-skills@one-skill-per-activity` |
+| 1 | "An activity is the scope over which a complete set of procedures makes sense, a sub-activity included." | the definition of an activity | nowhere: held by `path@agent-skills@content/skills/agent-configuration/SKILL.md`, line 76: "The unit is an activity: the scope over which a complete set of procedures makes sense." That line holds no "a sub-activity included": those words go to the new head `design@agent-skills@one-skill-per-activity`, with the test of row 2 |
+| 2 | "Two tasks whose methodologies differ ... are not bundled in one skill." | the test of two activities | new head: `design@agent-skills@one-skill-per-activity`. `design@agent-skills@goal-set-review-in-goal-setting` records it as the owner's argument: "an activity is its methodology, not the scope of what it reads" |
+| 3 | "Where the two tests disagree, the methodologies decide." | which test prevails | new head: `design@agent-skills@one-skill-per-activity` |
+| 4 | "The installed set holds one skill for each activity ... as `goal@knowledge-architect@agents-get-a-complete-workflow` defines a generic part," | the statement | new head: `design@agent-skills@one-skill-per-activity` |
 | 5 | "the activities listed below counting as taken in." | a fact only the owner holds: what was taken in | stays in the goal it merges into, the complete-workflow goal, whose list states it |
 | 6 | "The installed set, not each skill, holds every instruction each activity needs, those a session gives another agent included." | completeness of the set | stays in the goal it merges into: the draft's sentence "needs no instruction from outside them" |
-| 7 | "An agent carries out each activity from its skill, and reads another installed skill only at a step that points to it, a moment at which the installed text says to load that skill included." | how a skill is used | new head: `goal@agent-skills@one-skill-per-activity`. `path@agent-skills@fragments/skill-self-sufficient.md` holds the test per pointer, and `design@agent-skills@intake-skill-home` leans on this sentence: "an agent reads another skill only at a step that points to it" |
-| 8 | "The two are one intent, since a skill per activity serves only where the activity is carried out from it." | the argument that joins rows 4 and 7 | new head: `goal@agent-skills@one-skill-per-activity` |
+| 7 | "An agent carries out each activity from its skill, and reads another installed skill only at a step that points to it, a moment at which the installed text says to load that skill included." | how a skill is used | new head: `design@agent-skills@one-skill-per-activity`. `path@agent-skills@fragments/skill-self-sufficient.md` holds the test per pointer, and `design@agent-skills@intake-skill-home` leans on this sentence: "an agent reads another skill only at a step that points to it" |
+| 8 | "The two are one intent, since a skill per activity serves only where the activity is carried out from it." | the argument that joins rows 4 and 7 | new head: `design@agent-skills@one-skill-per-activity` |
 | 9 | "The activities include these, and the list grows with the workflow:" and its 14 names | the members | stays in the goal it merges into. Two names are not in the root's list today: "maintaining the agent configuration" and "the intake of a retrospective's findings". One differs: "auditing the whole project on one aspect" against "auditing a project on one aspect" |
-| 10 | "Running continuous integration or pull requests is no activity this goal counts: its generic part ships only as an offered shape, per `goal@knowledge-architect@agents-get-a-complete-workflow`." | an exclusion | new head: `installed-text-requires-no-ci-and-no-pull-request` |
+| 10 | "Running continuous integration or pull requests is no activity this goal counts: its generic part ships only as an offered shape, per `goal@knowledge-architect@agents-get-a-complete-workflow`." | an exclusion | new head: `design@agent-skills@installed-text-requires-no-ci-and-no-pull-request` |
 | 11 | "It is met while the installed set holds a skill for each such activity and no skill for two of them, holds every instruction a session gives another agent in each such activity, and each skill:" | measure | nowhere: repeats the statement (rows 4 and 6) |
 | 12 | "states every step its activity needs, leaving to judgement what judgement handles;" | measure | nowhere: held by `path@agent-skills@fragments/skill-self-sufficient.md`: "It holds every piece of knowledge its activity needs" |
 | 13 | "points to another installed skill only at a step that needs it." | measure | nowhere: held by the same fragment: "The test, per pointer" |
 | 14 | "It refines `goal@knowledge-architect@agents-get-a-complete-workflow`." | refinement | nowhere: held by `path@agent-skills@fragments/goal-standard.md`, rule 8. The new head cites that goal |
 | 15 | "Requires, for instance: a session carries out a review from the installed review skill." | case | nowhere: repeats the statement (row 7) |
 | 16 | "Admits, for instance: a skill installed for an activity a project never carries out, such as releasing in a project that never releases." | case | nowhere: held by `path@agent-skills@src/lib.rs`, `FILES`, as row 30 of the complete-workflow goal, with the same limit of what I read |
-| 17 | "Admits, for instance: an installed agent definition that several skills dispatch, kept as one file of the installed set." | case | new head: `goal@agent-skills@one-skill-per-activity`, as a member its rule admits: an agent definition is no skill. No existing head states the shape; `design@agent-skills@goals-axis-in-the-review-before-a-merge` holds one instance: "the agent is the same one goal-setting dispatches" |
+| 17 | "Admits, for instance: an installed agent definition that several skills dispatch, kept as one file of the installed set." | case | new head: `design@agent-skills@one-skill-per-activity`, as a member its rule admits: an agent definition is no skill. No existing head states the shape; `design@agent-skills@goals-axis-in-the-review-before-a-merge` holds one instance: "the agent is the same one goal-setting dispatches" |
 | 18 | "Rules out, for instance: one skill that bundles planning and reviewing." | case | nowhere: repeats the statement (row 2) |
-| 19 | "Rules out, for instance: a session that loads another installed skill on its own judgement, at a step that points to none." | case | new head: `goal@agent-skills@one-skill-per-activity`; see Q33 |
+| 19 | "Rules out, for instance: a session that loads another installed skill on its own judgement, at a step that points to none." | case | new head: `design@agent-skills@one-skill-per-activity`; see Q33 |
 
-**Head proposed**: under the slug of `goal@agent-skills@one-skill-per-activity`, in `register@agent-skills@design`, subject "The
+**Head proposed**: under the slug of `design@agent-skills@one-skill-per-activity`, in `register@agent-skills@design`, subject "The
 shipped set" (beside `design@agent-skills@naming-rule`, which cites it).
 
 - Title as a decision: "Each activity the workflow covers has one installed skill, cut by
@@ -1609,7 +1609,7 @@ shipped set" (beside `design@agent-skills@naming-rule`, which cites it).
 
 ---
 
-### `goal@agent-skills@no-contradiction-in-workflow`: No two installed instructions contradict
+### `no-contradiction-in-workflow`: No two installed instructions contradict
 
 **Kind**: no goal of its own. Its statement is a sentence of the complete-workflow goal already:
 "No two instructions are ones a session cannot both obey." It holds no intent without that goal:
@@ -1629,7 +1629,7 @@ on your list for the refinements." The table said "head", so the merge needs the
 | # | sentence | what it states | destination |
 | --- | --- | --- | --- |
 | 1 | "The installed text, every part of it, gives no two instructions a session cannot both obey." | the statement | stays in the goal it merges into (row 22 of the complete-workflow goal) |
-| 2 | "A precedence an installed text states between the two leaves the session the move the prevailing one asks, which counts as obeying both." | that a stated precedence is no contradiction | stays in the goal it merges into, as one clause of the draft. No head states the rule (`grep -n -i precedence crates/agent-skills/docs/design/*.md` finds none that does). `design@agent-skills@questions-go-to-their-authority` holds one application, the primer's rank sentence, and cites this goal for the rule: "with it no session meets two instructions it cannot both obey, as `goal@agent-skills@no-contradiction-in-workflow` asks"; see Q35a |
+| 2 | "A precedence an installed text states between the two leaves the session the move the prevailing one asks, which counts as obeying both." | that a stated precedence is no contradiction | stays in the goal it merges into, as one clause of the draft. No head states the rule (`grep -n -i precedence crates/agent-skills/docs/design/*.md` finds none that does). `design@agent-skills@questions-go-to-their-authority` holds one application, the primer's rank sentence, and cites this goal for the rule: "with it no session meets two instructions it cannot both obey, as `no-contradiction-in-workflow` asks"; see Q35a |
 | 3 | "It is met while every pair of installed instructions that meet at one moment leaves a session a move that obeys both, the move a precedence names counting as one." | measure; adds "that meet at one moment" | stays in the goal it merges into, for the words "that meet at one moment", in the draft; the rest repeats the statement (rows 1 and 2). No head and no installed text holds "at one moment": `design@agent-skills@workflow-axis-lenses` says "Two standards that no single session obeys together are no contradiction", a premise of its lens L8 on a review standard and an audit standard, which is narrower: two instructions one session holds at two moments are outside it; see Q35b |
 | 4 | "A pair found in use that leaves none shows the goal unmet in practice." | the statement, negated | nowhere: repeats the statement |
 | 5 | "It refines `goal@knowledge-architect@agents-get-a-complete-workflow`." | refinement | nowhere: held by `path@agent-skills@fragments/goal-standard.md`, rule 8. The merge keeps the relation |
@@ -1655,7 +1655,7 @@ ruled).
 
 ---
 
-### `goal@agent-skills@reviews-judge-by-the-writer-s-criteria`: A review or an audit judges a text by the criteria its writer is asked to meet
+### `design@agent-skills@reviews-judge-by-the-writer-s-criteria`: A review or an audit judges a text by the criteria its writer is asked to meet
 
 **Kind**: no goal. It states a property of two parts, the reviews and the audits, which exist by
 design choices. As an outcome of the project it is the sentence above: a writer and a reviewer
@@ -1673,8 +1673,8 @@ skills cannot produce an addition that another of them would refuse or reshape".
 
 | # | sentence | what it states | destination |
 | --- | --- | --- | --- |
-| 1 | "A review or an audit the installed text owes or offers judges a text written under a skill ... by the criteria that bind its writer at the time of the review, and by no other." | the statement | new head: `goal@agent-skills@reviews-judge-by-the-writer-s-criteria` |
-| 2 | "Those criteria are:" "the installed text;" | member | new head: `goal@agent-skills@reviews-judge-by-the-writer-s-criteria` |
+| 1 | "A review or an audit the installed text owes or offers judges a text written under a skill ... by the criteria that bind its writer at the time of the review, and by no other." | the statement | new head: `design@agent-skills@reviews-judge-by-the-writer-s-criteria` |
+| 2 | "Those criteria are:" "the installed text;" | member | new head: `design@agent-skills@reviews-judge-by-the-writer-s-criteria` |
 | 3 | "the project's root `CLAUDE.md`, its skills, and the scoped `CLAUDE.md` beside what is edited;" | member | new head, the same |
 | 4 | "the goals and the record;" | member | new head, the same |
 | 5 | "the external specifications that any of these make binding;" | member | new head, the same; `design@agent-skills@spec-first-axis` applies it: "the specification as the project follows it" |
@@ -1686,7 +1686,7 @@ skills cannot produce an addition that another of them would refuse or reshape".
 | 11 | "Admits, for instance: a review that judges, by the same criteria, a text written outside any skill." | case | new head, as a member its rule admits |
 | 12 | "Rules out, for instance: a reviewer judging a document by a style the reviewer prefers and no criterion states." | case | new head: it is the rival |
 
-**Head proposed**: under the slug of `goal@agent-skills@reviews-judge-by-the-writer-s-criteria`, in `register@agent-skills@design`,
+**Head proposed**: under the slug of `design@agent-skills@reviews-judge-by-the-writer-s-criteria`, in `register@agent-skills@design`,
 subject "Reviews".
 
 - Title as a decision: "A review or an audit judges a text by the criteria that bind its writer at
@@ -1710,7 +1710,7 @@ head as its members, not as your ruling.
 
 ---
 
-### `goal@agent-skills@reviews-judge-what-no-tool-can`: A review judges whether what bears on the work reaches it and is followed
+### `reviews-judge-what-no-tool-can`: A review judges whether what bears on the work reaches it and is followed
 
 **Kind**: no goal. It states what one part, the review before a merge, asks. Its body repeats two
 root goals of other themes: the last item of the list of
@@ -1758,7 +1758,7 @@ merge and/or plans".
 
 ---
 
-### `goal@agent-skills@installed-text-works-in-every-target-project`: An installed text works unchanged in every target project that installs it, one that holds none of knowledge-architect's goals and record included
+### `installed-text-works-in-every-target-project`: An installed text works unchanged in every target project that installs it, one that holds none of knowledge-architect's goals and record included
 
 **Kind**: no goal of its own; a qualifier of a scope. Its first clause is a sentence of
 `goal@knowledge-architect@every-target-project-can-adopt-it` in the same words ("The installed
@@ -1787,7 +1787,7 @@ on your list for the refinements." The table said "head", so the merge needs the
 | 7 | "each of its instructions can be followed, and gives the result it intends, with what that project holds: the installed text ... and its owner;" | the statement, in detail | stays in the goal it merges into, shortened |
 | 8 | "that holds where the project's own goals and record say nothing about an instruction's subject." | reach | stays in the goal it merges into, as one clause |
 | 9 | "It is met while the installed text names no such path or convention, runs the checker that way, and holds no instruction that needs any of knowledge-architect's goals and record to be followed or to give the result it intends;" | measure | nowhere: repeats the statement |
-| 10 | "while each instruction whose subject a project's own goals and record can leave unsettled says what it does in that case, unless the session's judgement handles the case well enough, as `goal@agent-skills@only-needed-instructions` puts it." | measure: a rule for the writer of an instruction | nowhere: held by `path@agent-skills@CLAUDE.md`, "Editing an installed skill or agent": "the edited instruction must be followed ... where that project's own goals and records say nothing on its subject" |
+| 10 | "while each instruction whose subject a project's own goals and record can leave unsettled says what it does in that case, unless the session's judgement handles the case well enough, as `goal@knowledge-architect@only-needed-instructions` puts it." | measure: a rule for the writer of an instruction | nowhere: held by `path@agent-skills@CLAUDE.md`, "Editing an installed skill or agent": "the edited instruction must be followed ... where that project's own goals and records say nothing on its subject" |
 | 11 | "It refines `goal@knowledge-architect@every-target-project-can-adopt-it`." | refinement | nowhere: held by `path@agent-skills@fragments/goal-standard.md`, rule 8. The merge keeps the relation |
 | 12 | "Requires, for instance: an installed skill that has a session run the checker runs it the way the project says to." | case | existing head: `design@agent-skills@shipped-text-cites-no-entry`, as row 6 |
 | 13 | "Admits, for instance: an instruction that says nothing of the case where the project's record is silent, where the session's judgement handles that case well enough." | case | nowhere: held by `path@agent-skills@content/PRIMER.md`, "Room to judge" |
@@ -1819,7 +1819,7 @@ by the analysis of its theme):
 
 ---
 
-### `goal@agent-skills@installed-text-works-in-any-environment`: An installed text works in any configuration of the `claude` harness that loads it
+### `installed-text-works-in-any-environment`: An installed text works in any configuration of the `claude` harness that loads it
 
 **Kind**: no goal. The owner calls it a means, and two heads already argue what it asks. Nothing
 would lose its reason to exist without it that the complete-workflow goal does not keep.
@@ -1836,7 +1836,7 @@ hold its content, row 5b aside. The first is re-pointed to the root goal, the de
 agreement does not cover; see "Decided".
 
 **Words of the owner that bear on it**: round 4 (#arg-58):
-"`goal@agent-skills@installed-text-works-in-any-environment`: this one is probably a mean to
+"`installed-text-works-in-any-environment`: this one is probably a mean to
 complete-workflow goal. If the workflow needs instructions from an outside environment to work, it
 is not complete. I think that was the main idea behind this goal."
 
@@ -1876,7 +1876,7 @@ from outside them" of the draft of `goal@knowledge-architect@agents-get-a-comple
 
 ---
 
-### `goal@agent-skills@only-needed-instructions`: The installed text holds only the instructions the workflow needs, and leaves to the session's judgement the cases it handles well enough
+### `goal@knowledge-architect@only-needed-instructions`: The installed text holds only the instructions the workflow needs, and leaves to the session's judgement the cases it handles well enough
 
 **Kind**: scope, not ranking. It bounds what the complete-workflow purpose covers, and names the
 designs it excludes: an instruction for a case judgement handles well enough, and a fixed
@@ -1902,7 +1902,7 @@ answer by name. The rewrite must ask the owner.
 | 2 | "It does not try to cover every case." | the scope | stays in the goal it merges into |
 | 3 | "A case the judgement of the session following it handles well enough gets no instruction," | the design excluded | stays in the goal it merges into |
 | 4 | "since each instruction added for a specific case is read by every session that loads the text, and can conflict with the instructions already there." | the reason | existing head: `design@agent-skills@capabilities-not-structure`: "each new rule creates surface against the rules already there" |
-| 5 | "Nor does an instruction impose structure the work does not need: a fixed sequence ... and that another instruction needs to vary." | a second exclusion | existing head: `design@agent-skills@capabilities-not-structure`, second paragraph, in the same words. The head does not stand alone on it: "So the installed text imposes no structure the work does not need, per `goal@agent-skills@only-needed-instructions`, which gives this argument a goal's weight". The merged draft sentence holds no clause on structure, so the exclusion falls to a presumption; `design@agent-skills@structure-the-flow` and `design@agent-skills@workflow-axis-lenses` cite the goal for it too; see Q39a |
+| 5 | "Nor does an instruction impose structure the work does not need: a fixed sequence ... and that another instruction needs to vary." | a second exclusion | existing head: `design@agent-skills@capabilities-not-structure`, second paragraph, in the same words. The head does not stand alone on it: "So the installed text imposes no structure the work does not need, per `goal@knowledge-architect@only-needed-instructions`, which gives this argument a goal's weight". The merged draft sentence holds no clause on structure, so the exclusion falls to a presumption; `design@agent-skills@structure-the-flow` and `design@agent-skills@workflow-axis-lenses` cite the goal for it too; see Q39a |
 | 6 | "The clause bears on what an agent decides by its judgement ... where a fixed structure narrows what is proposed." | where the clause applies | design issue. No head holds the general scope. `design@agent-skills@structure-the-flow`, read whole, is about the design skill only: it holds the instance the sentence names ("the shapes it proposes in the design of a solution") and cites the goal for it; see Q39b |
 | 7 | "It does not bear on a command an agent runs ... or that a mechanical check the work must pass refuses." | where the clause does not apply | design issue. No head holds this limit. `design@agent-skills@workflow-axis-lenses` applies one instance and cites the goal for it: "whose clause on structure does not bear on one the script carries out". `design@agent-skills@capabilities-not-structure` does not hold it; see Q39b |
 | 8 | "An instruction or a structure whose act the text of a goal of knowledge-architect states, in its body or its measure ... is needed, and judgement does not take its place." | a protection of instructions from the need test | design issue. Measures leave, so most such acts leave the goals. What then protects an instruction that a measure protected is not argued. The premortem of the milestone document names this cause, and the slice's document forbids removing an instruction on the need test until this goal is ruled |
@@ -1953,7 +1953,7 @@ If the owner keeps it as a goal of its own (draft, not ruled):
 
 ---
 
-### `goal@agent-skills@goals-state-the-owner-s-intent`: A goal written under the installed text states the owner's intent as the owner holds it
+### `goals-state-the-owner-s-intent`: A goal written under the installed text states the owner's intent as the owner holds it
 
 **Kind**: no goal. It states what a goal written under the installed text is: the goal standard.
 That is design of one activity, held by eight heads of `register@agent-skills@design`. Reworded as
@@ -2004,7 +2004,7 @@ No draft: the goal is not kept.
 
 ---
 
-### `goal@agent-skills@session-orchestrates-the-work`: The main session of a piece of work does itself what needs it, and hands the rest to agents it dispatches
+### `goal@knowledge-architect@session-orchestrates-the-work`: The main session of a piece of work does itself what needs it, and hands the rest to agents it dispatches
 
 **Kind**: purpose, on the owner's word; the open question of the audit subjects stays open (Q44).
 Applying rule 1: removed, the dispatch of the record search, the form of a searcher's report and
@@ -2133,21 +2133,21 @@ Rows 14 to 17 stay in the dispatch issue, as leads to argue where the dispatch i
 | --- | --- | --- |
 | `goal@knowledge-architect@agents-get-a-complete-workflow` | purpose | kept (reworded); takes in four others |
 | `goal@knowledge-architect@the-workflow-leads-to-better-code` | purpose | kept (reworded) |
-| `goal@knowledge-architect@projects-are-split-into-components` | purpose | kept (reworded), wider wording drafted |
+| `goal@knowledge-architect@projects-are-split-into-modular-units` | purpose | kept (reworded), wider wording drafted |
 | `goal@knowledge-architect@the-workflow-improves-through-real-use` | purpose | kept (reworded), thinner |
-| `goal@agent-skills@one-skill-per-activity` | no goal | turned into a design head (new); its list merged into the complete-workflow goal |
-| `goal@agent-skills@no-contradiction-in-workflow` | no goal of its own | merged into the complete-workflow goal (overturns "head") |
-| `goal@agent-skills@reviews-judge-by-the-writer-s-criteria` | no goal | turned into a design head (new) |
-| `goal@agent-skills@reviews-judge-what-no-tool-can` | no goal | removed (overturns "head"): its two questions held by one issue alone, its second sentence by a root goal of another theme |
-| `goal@agent-skills@installed-text-works-in-every-target-project` | no goal of its own | merged into `goal@knowledge-architect@every-target-project-can-adopt-it`, of another theme (overturns "head") |
-| `goal@agent-skills@installed-text-works-in-any-environment` | no goal | merged into the complete-workflow goal for one clause; the rest in existing heads, two parts of one sentence in an issue |
-| `goal@agent-skills@only-needed-instructions` | scope | merged into the complete-workflow goal (overturns "stands alone: ranking") |
-| `goal@agent-skills@goals-state-the-owner-s-intent` | no goal | turned into design heads (eight existing) |
-| `goal@agent-skills@session-orchestrates-the-work` | purpose | kept (reworded), at the root |
+| `design@agent-skills@one-skill-per-activity` | no goal | turned into a design head (new); its list merged into the complete-workflow goal |
+| `no-contradiction-in-workflow` | no goal of its own | merged into the complete-workflow goal (overturns "head") |
+| `design@agent-skills@reviews-judge-by-the-writer-s-criteria` | no goal | turned into a design head (new) |
+| `reviews-judge-what-no-tool-can` | no goal | removed (overturns "head"): its two questions held by one issue alone, its second sentence by a root goal of another theme |
+| `installed-text-works-in-every-target-project` | no goal of its own | merged into `goal@knowledge-architect@every-target-project-can-adopt-it`, of another theme (overturns "head") |
+| `installed-text-works-in-any-environment` | no goal | merged into the complete-workflow goal for one clause; the rest in existing heads, two parts of one sentence in an issue |
+| `goal@knowledge-architect@only-needed-instructions` | scope | merged into the complete-workflow goal (overturns "stands alone: ranking") |
+| `goals-state-the-owner-s-intent` | no goal | turned into design heads (eight existing) |
+| `goal@knowledge-architect@session-orchestrates-the-work` | purpose | kept (reworded), at the root |
 
 Counts: 13 goals analysed, 13 sections. 5 goals kept at the root, the orchestration goal among
-them. 3 new heads proposed: `installed-text-requires-no-ci-and-no-pull-request`,
-`goal@agent-skills@one-skill-per-activity` and `goal@agent-skills@reviews-judge-by-the-writer-s-criteria`.
+them. 3 new heads proposed: `design@agent-skills@installed-text-requires-no-ci-and-no-pull-request`,
+`design@agent-skills@one-skill-per-activity` and `design@agent-skills@reviews-judge-by-the-writer-s-criteria`.
 One proposal is withdrawn: `dispatched-conclusions-are-checked-as-the-session-s-own`.
 
 Sentences sent to another theme's goal, which its analysis does not see:
@@ -2157,7 +2157,7 @@ Sentences sent to another theme's goal, which its analysis does not see:
 - the two questions of the review (Q36, Q36a): `goal@knowledge-architect@records-reach-their-reader`
   states them today and its theme's analysis sends them to the issue;
   `goal@knowledge-architect@documentation-stays-consistent` keeps "judge no meaning";
-- the merge of `goal@agent-skills@installed-text-works-in-every-target-project` into
+- the merge of `installed-text-works-in-every-target-project` into
   `goal@knowledge-architect@every-target-project-can-adopt-it` (Q37), and the condition its
   sentence keeps (Q37a);
 - the re-pointing of four heads to `goal@knowledge-architect@the-owner-decides` (Q42).
@@ -2191,7 +2191,7 @@ that the goals are in the root's goals home.
 - A line "It refines" takes the destination `nowhere: held by` the standard's rule 8. Ground: none
   of the seven destinations names a line the standard removes, and rule 8 is the text that holds
   the removal.
-- Row 7 of `goal@agent-skills@only-needed-instructions` is no longer sent to
+- Row 7 of `goal@knowledge-architect@only-needed-instructions` is no longer sent to
   `design@agent-skills@capabilities-not-structure` as a member: that head does not hold the
   sentence. It is a design issue, put to the owner in Q39b. Ground: an "existing head" is a head
   that already argues the shape.
@@ -2199,9 +2199,9 @@ that the goals are in the root's goals home.
   issue" and named that issue, not a new one. Ground: `primer@verify-before-relying`, "Check
   whether it is already known".
 - Three rows of the first mapping table are overturned on "head" in favour of a merge
-  (`goal@agent-skills@no-contradiction-in-workflow`, `goal@agent-skills@installed-text-works-in-every-target-project`) or a removal
-  (`goal@agent-skills@reviews-judge-what-no-tool-can`), and one on "ranking" in favour of a scope
-  (`goal@agent-skills@only-needed-instructions`). Ground: the milestone document, "The analysis may overturn any
+  (`no-contradiction-in-workflow`, `installed-text-works-in-every-target-project`) or a removal
+  (`reviews-judge-what-no-tool-can`), and one on "ranking" in favour of a scope
+  (`goal@knowledge-architect@only-needed-instructions`). Ground: the milestone document, "The analysis may overturn any
   row, and the owner rules each goal". Each is a question above.
 - `design@agent-skills@no-external-handoff` is re-pointed to the root goal with
   `design@agent-skills@installed-skill-takes-precedence`. Ground: it cites the any-environment
@@ -2227,7 +2227,7 @@ that the goals are in the root's goals home.
   that leaves. It is in the slice's list.
 - `design@agent-skills@shared-text-fragment`, `design@agent-skills@harness-shell-fails-on-a-pipe`
   and `issue@agent-skills@heads-argued-from-another-harness` cite
-  `goal@agent-skills@installed-text-works-in-any-environment` for its limit to the `claude`
+  `installed-text-works-in-any-environment` for its limit to the `claude`
   harness. After the merge that limit is held by `goal@knowledge-architect@serves-one-kind-of-project`
   alone; each is re-pointed there, if that goal keeps the ask.
 - `path@agent-config@skills/klarch-retrospective-intake/SKILL.md` holds no word "goal", though the real-use
@@ -2280,9 +2280,9 @@ report. Those sentences go to their heads, save three points that no head read h
 to a design issue (rows 13, 17, 23 and 27). Two members of its list, a change of an ask and the
 taking in of a generic part, speak of knowledge-architect's own owner. They stay in this goal: the
 theme that analyses `goal@knowledge-architect@serves-one-kind-of-project` and
-`goal@knowledge-architect@mechanical-tasks-are-the-tool-s` sends their sentences on these two
+`goal@knowledge-architect@tasks-a-tool-does-better-are-the-tool-s` sends their sentences on these two
 members to this goal, so this goal is their one holder (Q49).
-`goal@agent-skills@goals-state-the-owner-s-intent` refines this goal; that
+`goals-state-the-owner-s-intent` refines this goal; that
 goal belongs to another theme, and its fate does not change this one. The goal is cited at 66
 lines of the tree, 39 of them in design homes (`cargo klarch show`), the most of the theme.
 
@@ -2405,11 +2405,11 @@ defeats it, so their destination is a design issue, with Q50a and Q50b.
   the goal, does this sentence stay beside it, or go to a head through a design issue?
 - **Q51.** "The order of known work" is given to the owner by this goal (rows 5c and 25, the second
   a Requires case), and two other goals cite it for that
-  (`goal@knowledge-architect@mechanical-tasks-are-the-tool-s` and
+  (`goal@knowledge-architect@tasks-a-tool-does-better-are-the-tool-s` and
   `goal@knowledge-architect@serves-one-kind-of-project`). No design head found says a choice of
   order is sent to the owner (`design@agent-skills@roadmap-orders-issues` says only "in the order
   the owner wants the work done"), and the primer's knowledge table says only where the order is
-  written. The theme of `goal@knowledge-architect@mechanical-tasks-are-the-tool-s` sends its own
+  written. The theme of `goal@knowledge-architect@tasks-a-tool-does-better-are-the-tool-s` sends its own
   sentence on it to that same row of the primer, so after the one pass no goal and no head would
   state it. The analysis records it as a ruling of the owner to write into
   `design@agent-skills@roadmap-orders-issues`. Does the owner confirm that the order of known work
@@ -2561,7 +2561,7 @@ it, so their destination is a design issue.
   `design@agent-skills@default-ruled-before-merge`, whose timing that head records as the owner's.
   Does the owner approve the two members for that head, or does a design issue argue them first?
 
-### `goal@knowledge-architect@owner-attention-on-what-is-theirs`: The owner's attention is spent on what is the owner's to read or answer
+### `owner-attention-on-what-is-theirs`: The owner's attention is spent on what is the owner's to read or answer
 
 **Kind**: no goal of its own. Applied as a purpose, the test of rule 1 finds nothing that loses
 its reason to exist with it. Its list of what is the owner's (the proposals, their arguments, the
@@ -2653,7 +2653,7 @@ the owner.
 | `goal@knowledge-architect@the-owner-decides` | purpose | kept (reworded); it keeps the two members on knowledge-architect's own owner, and takes one sentence from the attention goal |
 | `goal@knowledge-architect@the-owner-s-word-is-verified` | purpose, narrowly | kept (reworded); what a goal's premises are and their first check go to an issue of kind `design` |
 | `goal@knowledge-architect@design-with-agents-as-counterparts` | purpose | kept (reworded) |
-| `goal@knowledge-architect@owner-attention-on-what-is-theirs` | no goal of its own | merged into `goal@knowledge-architect@the-owner-decides` |
+| `owner-attention-on-what-is-theirs` | no goal of its own | merged into `goal@knowledge-architect@the-owner-decides` |
 
 Four goals analysed, four sections. No new head is proposed. Four issues of kind `design` are
 proposed: on the premises of a goal (second goal, rows 3, 4a and 9); on the durable text as the
@@ -2684,10 +2684,10 @@ definitions the goals share.
 | H4 | "It has two main purposes, and the first ranks above the second." | a ranking | kept in the head; see Q57 |
 | H5 | "The first is to let agents work autonomously without drifting from the design recorded in their project, per `goal@knowledge-architect@agents-work-without-drift`." | first purpose | kept in the head, while that goal stays |
 | H6 | "The second is to hold in one toolchain the generic part of the tools and procedures that target projects set up or change and that knowledge-architect's owner takes in, per `goal@knowledge-architect@generic-tools-and-procedures-are-shipped`." | second purpose | kept in the head, while that goal stays |
-| H7 | "The documentation structure and the workflow are designed to work together." | the title of `goal@knowledge-architect@structure-and-workflow-work-together` | follows that goal, of another theme: kept if the goal stays, removed if it becomes a head |
+| H7 | "The documentation structure and the workflow are designed to work together." | the title of `structure-and-workflow-work-together` | follows that goal, of another theme: kept if the goal stays, removed if it becomes a head |
 | H8 | "These words hold in these senses for the goals of this home and of every Component:" | the reach of the definitions | reworded: "for the goals of this home". No Component holds a goal after the one pass |
 | H9 | the definition of **the checker** | a shared word | kept: a goal may define what the project provides and then name it. Used by goals of several themes |
-| H10 | the definition of **the workflow**, or **the installed text**: "the instructions knowledge-architect installs in a target project for its agents, one set for each activity it covers" | a shared word | kept, without "one set for each activity it covers": one set per activity is the statement of `goal@agent-skills@one-skill-per-activity`, which the first mapping table sorts as a head; that clause follows it |
+| H10 | the definition of **the workflow**, or **the installed text**: "the instructions knowledge-architect installs in a target project for its agents, one set for each activity it covers" | a shared word | kept, without "one set for each activity it covers": one set per activity is the statement of `design@agent-skills@one-skill-per-activity`, which the first mapping table sorts as a head; that clause follows it |
 | H11 | the definition of **the record**, to "Nothing else is part of it, its goals included" | a shared word | kept. The draft goals of this theme use it |
 | H12 | the definition of **a recorded item**, to "or a file a session keeps until its outcomes are carried out" | a shared word | kept if more than one goal still uses it after the one pass (two root goals use it today, `goal@knowledge-architect@documentation-stays-consistent` and `goal@knowledge-architect@records-reach-their-reader`, of another theme, and the goals homes of `model`, `query`, `check` and `agent-skills` use it); otherwise it moves into the one goal that uses it. Its last sentence names a plan document and "a file a session keeps", parts that exist by a design choice: see Q58 |
 
@@ -2695,7 +2695,7 @@ definitions the goals share.
   same ranking with its exceptions, of which two lines name the four goals of this theme ("the
   owner's authority, exchange and attention"; "the check of the owner's word"). Is the ranking one
   goal of its own, a sentence of the head, or a part of the drift goal? If
-  `goal@knowledge-architect@owner-attention-on-what-is-theirs` merges, "attention" in that list
+  `owner-attention-on-what-is-theirs` merges, "attention" in that list
   follows the goal it merged into.
 - **Q58.** The definition of a recorded item excludes "a plan document, or a file a session keeps
   until its outcomes are carried out". Those words do not keep their meaning in the project emptied
@@ -2748,7 +2748,7 @@ definitions the goals share.
   `goal@knowledge-architect@serves-one-kind-of-project` on a change of an ask to
   `goal@knowledge-architect@the-owner-decides`, and this section first sent it back. This section
   now keeps it; the session that joins the themes checks that the two agree, with Q49.
-- The theme of `goal@knowledge-architect@mechanical-tasks-are-the-tool-s` sends "the order of known
+- The theme of `goal@knowledge-architect@tasks-a-tool-does-better-are-the-tool-s` sends "the order of known
   work, which is knowledge-architect's owner's" to the row of the primer's knowledge table, which
   does not say the order is the owner's to choose. Kept for the session that joins the themes, with
   Q51.
@@ -2769,7 +2769,7 @@ owner".
 **Two drafts carry the theme.** They are named G-A and G-B below, and each is drafted in its goal's
 section:
 
-- G-A, from `goal@knowledge-architect@mechanical-tasks-are-the-tool-s`: knowledge-architect
+- G-A, from `goal@knowledge-architect@tasks-a-tool-does-better-are-the-tool-s`: knowledge-architect
   provides tools that do the work the workflow asks of agents, where a tool does it cheaper or
   better.
 - G-B, from `goal@knowledge-architect@generic-tools-and-procedures-are-shipped`:
@@ -2846,7 +2846,7 @@ not in the milestone document. They are named by the commit's subject where a ro
 
 ---
 
-### `goal@knowledge-architect@mechanical-tasks-are-the-tool-s`: A mechanical task the workflow requires of a session is done by a command or a library function of a published crate of knowledge-architect
+### `goal@knowledge-architect@tasks-a-tool-does-better-are-the-tool-s`: A mechanical task the workflow requires of a session is done by a command or a library function of a published crate of knowledge-architect
 
 **Kind**: purpose. Removed, the tools that take a task from a session would have no stated reason
 to exist: `klarch id`, `klarch worklist --out` and `--verify`, `klarch transcript`, and the planned
@@ -2871,9 +2871,9 @@ making it mechanical, or by a helper that performs complex logic to give a bette
 | # | sentence | what it states | destination |
 | --- | --- | --- | --- |
 | 1a | "Where the installed text requires of a session a task whose result follows, with no judgement, from the tree ... and that takes several steps or a script the session would write, ... so every session gets the same result without building it again." | the outcome: such a task is done by a tool | stays in the goal |
-| 1b | in the same sentence: "a published crate of knowledge-architect offers a command that does it, or a library function that the installed text has the project's own tooling call" | the form of the tool | design issue: the rule of one program, described under `goal@cli@one-program-for-its-tools` below, which closes "a command, not a library function alone" and whose proposed head is withdrawn |
+| 1b | in the same sentence: "a published crate of knowledge-architect offers a command that does it, or a library function that the installed text has the project's own tooling call" | the form of the tool | design issue: the rule of one program, described under `one-program-for-its-tools` below, which closes "a command, not a library function alone" and whose proposed head is withdrawn |
 | 2 | "Rewriting a branch's history holds such tasks: rebasing it ...; applying a message ...; and folding a repair into the commit it repairs, with the check that no content was lost." | three instances | nowhere: held by `issue@knowledge-architect@no-published-command-rewrites-a-branch-s-history`, docs/open-issues/no-published-command-rewrites-a-branch-s-history.md, which lists the three. Its Summary names this goal as what names them, so the one pass rewords it to state the three itself |
-| 3a | "Those three count as taken in;" | a fact the owner holds: the owner took the three in | owner's ruling, into `issue@knowledge-architect@no-published-command-rewrites-a-branch-s-history`: no head exists, and that issue is the work the ruling orders. The issue does not hold the ruling today: its only ground is this sentence, "The three tasks above are taken in already, by `goal@knowledge-architect@mechanical-tasks-are-the-tool-s`". The one pass writes the ruling into it, attributed to the owner, Q60a |
+| 3a | "Those three count as taken in;" | a fact the owner holds: the owner took the three in | owner's ruling, into `issue@knowledge-architect@no-published-command-rewrites-a-branch-s-history`: no head exists, and that issue is the work the ruling orders. The issue does not hold the ruling today: its only ground is this sentence, "The three tasks above are taken in already, by `goal@knowledge-architect@tasks-a-tool-does-better-are-the-tool-s`". The one pass writes the ruling into it, attributed to the owner, Q60a |
 | 3b | "any other such task is owed such a command or such a library function once knowledge-architect's owner takes its generic part in, per `goal@knowledge-architect@generic-tools-and-procedures-are-shipped`." | the owner gates what is taken in | stays in the goal: `goal@knowledge-architect@the-owner-decides` (other theme), whose title states "the taking in of a generic part" |
 | 4 | "Taking a part in is an act of knowledge-architect's owner of its own: a task is not taken in because the installed text requires it." | the same gate | stays in the goal: `goal@knowledge-architect@the-owner-decides` (other theme) |
 | 5 | "When such a command or function is built follows the order of known work, which is knowledge-architect's owner's, per `goal@knowledge-architect@the-owner-decides`." | a question of when | nowhere: held by `path@agent-config@knowledge-architect/PRIMER.md`, the knowledge table's row on docs/roadmap.md, "the order in which the owner wants known work done" |
@@ -2929,7 +2929,7 @@ gates library, the hand mutation, the development skill.
 `design@knowledge-architect@mutation-command-host`, `design@mutate@mutation-command` and
 `design@agent-skills@development-skill` cite it as their ground.
 
-**Fate proposed**: kept (reworded), as G-B, and `goal@knowledge-architect@setup-brings-quality-tools`
+**Fate proposed**: kept (reworded), as G-B, and `setup-brings-quality-tools`
 merges into it. The first mapping table has no row for it. Its second paragraph and its measure
 hold a policy on the copy a target project keeps of a shipped part. That policy is a decision, and
 no head and no installed text holds it.
@@ -2949,12 +2949,12 @@ must ask the owner.
 | 6c | in the same sentence: "when it installs the workflow, moves its pin, or updates its dependency on that crate" | the moments | nowhere: held by `path@agent-skills@content/skills/setup/SKILL.md`, its sections "Pin the checker, and decide how it runs" and "Moving the pin" |
 | 7 | "What is particular to one project stays in it, declared or configured beside what knowledge-architect ships." | the bound of the generic part | stays in the goal |
 | 8 | "So knowledge-architect is about more than keeping a project's documents: it holds the generic part of each such tool and procedure that its owner takes in." | the direction | stays in the goal |
-| 9 | "Where the part is a procedure that the session's judgement already carries out well enough, it ships only as the acts that judgement does not carry out." | what an instruction leaves to judgement | stays in the goal: `goal@agent-skills@only-needed-instructions` (other theme), whose title states "leaves to the session's judgement the cases it handles well enough" |
+| 9 | "Where the part is a procedure that the session's judgement already carries out well enough, it ships only as the acts that judgement does not carry out." | what an instruction leaves to judgement | stays in the goal: `goal@knowledge-architect@only-needed-instructions` (other theme), whose title states "leaves to the session's judgement the cases it handles well enough" |
 | 10 | "A project's own copy of a part stays until a released version of knowledge-architect ships the part." | a policy on a project's copy | design issue |
 | 11 | "The project considers following that version at its own move to it, and may keep its copy once it has considered it." | the same policy | design issue |
 | 12 | "A fix to a copy the project keeps is maintenance of that copy, not a copy written after the move." | the same policy | design issue |
 | 13a | "In this repository, which runs the checker it builds," | a fact of this repository | nowhere: held by `CLAUDE.md` at the root, `instructions@mechanical-validation`, for "runs the checker it builds" |
-| 13b | in the same sentence: "a part ships when it merges into the main branch," | when a part counts as shipped here | design issue: the one on a project's copy, below. No text but this goal and `goal@gates@gates-from-a-list` holds it: a search of the tracked Markdown, Rust and TOML files for "merges into the main branch" finds these two goals, and one other sentence of docs/goals.md, on when a branch merges |
+| 13b | in the same sentence: "a part ships when it merges into the main branch," | when a part counts as shipped here | design issue: the one on a project's copy, below. No text but this goal and `gates-from-a-list` holds it: a search of the tracked Markdown, Rust and TOML files for "merges into the main branch" finds these two goals, and one other sentence of docs/goals.md, on when a branch merges |
 | 13c | in the same sentence: "and this repository's own instructions then point to the part rather than state its procedure again." | a rule on this repository's instructions | nowhere: held by `path@agent-config@knowledge-architect/PRIMER.md`, `primer@where-knowledge-goes`, for a directive delivered by a pointer and never restated beyond one sentence |
 | 14 | measure, bullet 1: "the installed text has each tool and procedure that a session sets up or changes ... reported to knowledge-architect's owner, each report saying which part of it the session finds generic by the test, and whether knowledge-architect already ships it;" | how the project learns of a generic part | design issue: the existing `issue@knowledge-architect@the-retrospective-asks-for-no-tool-a-session-set-up` holds the missing work and leaves its moment to a design discussion. That issue is of kind `todo`, and its Summary rests on this measure: "is met while the installed text has each tool and procedure a session sets up or changes ... reported". The one pass rewrites it to stand without the measure, Q63a |
 | 15 | measure, bullet 2: "each part the owner has taken in is shipped in a released version of knowledge-architect;" | the statement | nowhere: repeats the statement |
@@ -2970,7 +2970,7 @@ must ask the owner.
 
 **The design issue of rows 10 to 12, 13b, 16, 17b, 18 and 20 to 22.** What a target project does with its own
 copy of a part once a released version ships that part. The goal admits keeping the copy after the
-project has considered the shipped part. `goal@gates@gates-from-a-list` says the opposite of a
+project has considered the shipped part. `gates-from-a-list` says the opposite of a
 behaviour of a gate command: "the copy goes at that move". The two differ because the gates are an
 ask of `goal@knowledge-architect@serves-one-kind-of-project` and another part is none; no text says
 so. I searched the setup skill's source and the primer's for "own copy", "its copy" and "ships the
@@ -3021,7 +3021,7 @@ out a shipped procedure is this repository's copy of it.
 
 ---
 
-### `goal@knowledge-architect@setup-brings-quality-tools`: Adopting knowledge-architect sets up quality tools that serve target projects
+### `setup-brings-quality-tools`: Adopting knowledge-architect sets up quality tools that serve target projects
 
 **Kind**: no goal of its own. It fails rule 5: its body defines itself by two other goals, "the
 quality tools, as `goal@knowledge-architect@serves-one-kind-of-project` defines them, whose generic
@@ -3070,7 +3070,7 @@ me, which stands on a clear argument". None names this goal. The rewrite must as
 
 ---
 
-### `goal@cli@one-program-for-its-tools`: Every tool of knowledge-architect is a command of one program, unless its result does not exist without running the project's build or its tests
+### `one-program-for-its-tools`: Every tool of knowledge-architect is a command of one program, unless its result does not exist without running the project's build or its tests
 
 **Kind**: no goal. A Component states no goal, and reworded for the project, "a project gets every
 tool by naming one package and pinning one version", it is no purpose: removed, every tool keeps
@@ -3109,7 +3109,7 @@ new standard the session's default returns: the rule is a decision.
 **Head withdrawn**: `one-program-for-the-tools`, first proposed for `register@knowledge-architect@design`,
 which holds `design@knowledge-architect@cli-crate` and
 `design@knowledge-architect@the-binary-crate-keeps-the-package-name`. **The design issue of rows
-1b, 4, 5 and 6**, and of rows 1b and 10 of `goal@knowledge-architect@mechanical-tasks-are-the-tool-s`,
+1b, 4, 5 and 6**, and of rows 1b and 10 of `goal@knowledge-architect@tasks-a-tool-does-better-are-the-tool-s`,
 is the rule it would have stated.
 
 - The rule: "Every tool of knowledge-architect is a command of `klarch`, unless its result does not
@@ -3151,7 +3151,7 @@ is the rule it would have stated.
 
 ---
 
-### `goal@cli@one-home-for-the-command-line`: That program's command line is declared in one place, apart from what its tools do
+### `one-home-for-the-command-line`: That program's command line is declared in one place, apart from what its tools do
 
 **Kind**: no goal. It states where code sits among Components: "`cli` holds the declaration of
 every command". Rule 1 says "a statement about one part of the project is design too". Reworded
@@ -3188,7 +3188,7 @@ invocation is the parser's and an invalid request the tool's, the owner's split"
 
 ---
 
-### `goal@cli@a-refused-invocation-does-no-work`: An invocation of a command `cli` offers that its arguments refuse on the command line writes nothing, and its exit code says the command did not run
+### `a-refused-invocation-does-no-work`: An invocation of a command `cli` offers that its arguments refuse on the command line writes nothing, and its exit code says the command did not run
 
 **Kind**: no goal. It is a property of one interface: no purpose, since nothing the project
 provides loses its reason to exist without it; no scope; no ranking. The slice's spec lists it
@@ -3209,18 +3209,18 @@ quoted in the rows that carry them.
 
 | # | sentence | what it states | destination |
 | --- | --- | --- | --- |
-| 1 | "This holds for every command `cli` offers, whichever commands those are." | the range | owner's ruling, into `a-refusal-by-arguments-writes-nothing`: by C-cli-1, "every command `cli` offers is covered, by a rule that reaches a future command, with no list" |
-| 2 | "A command a project adds beside them is the project's, and so is what a project's own program does with a refusal." | the limit of the range | owner's ruling, into `a-refusal-by-arguments-writes-nothing`: a default of the session the owner agreed, by C-cli-1 |
-| 3 | "An invocation is refused by its arguments when it gives an argument the command does not declare, omits one the command requires, gives a value the argument's declaration does not accept, or gives a combination the command does not accept." | the four kinds | owner's ruling, into `a-refusal-by-arguments-writes-nothing`: "the session's closed list of four kinds", by C-cli-1 |
-| 4 | "The refusal comes before the command writes anything, with an exit code that says the command could not run, which differs from each code that says it ran." | the decision | new head: `a-refusal-by-arguments-writes-nothing`; the code is `design@cli@exit-code-ladder`'s |
+| 1 | "This holds for every command `cli` offers, whichever commands those are." | the range | owner's ruling, into `design@cli@a-refusal-by-arguments-writes-nothing`: by C-cli-1, "every command `cli` offers is covered, by a rule that reaches a future command, with no list" |
+| 2 | "A command a project adds beside them is the project's, and so is what a project's own program does with a refusal." | the limit of the range | owner's ruling, into `design@cli@a-refusal-by-arguments-writes-nothing`: a default of the session the owner agreed, by C-cli-1 |
+| 3 | "An invocation is refused by its arguments when it gives an argument the command does not declare, omits one the command requires, gives a value the argument's declaration does not accept, or gives a combination the command does not accept." | the four kinds | owner's ruling, into `design@cli@a-refusal-by-arguments-writes-nothing`: "the session's closed list of four kinds", by C-cli-1 |
+| 4 | "The refusal comes before the command writes anything, with an exit code that says the command could not run, which differs from each code that says it ran." | the decision | new head: `design@cli@a-refusal-by-arguments-writes-nothing`; the code is `design@cli@exit-code-ladder`'s |
 | 5a | "A run that reads the code as a verdict, as a gate does, then never takes such an invocation for a check that passed," | the reason, for the code | existing head: `design@cli@arguments-parse-through-clap`: "These binaries run blind, as gates, so an unknown flag or an invalid combination has to be a refusal rather than a no-op". `design@cli@exit-code-ladder` argues code 2 against a tree "that fails its check", not against a check that passed |
-| 5b | in the same sentence: "and the caller knows this refusal wrote nothing." | the reason, for the write | new head: `a-refusal-by-arguments-writes-nothing`; no existing head says it |
+| 5b | in the same sentence: "and the caller knows this refusal wrote nothing." | the reason, for the write | new head: `design@cli@a-refusal-by-arguments-writes-nothing`; no existing head says it |
 | 6 | "It is met while each of those four kinds of refused invocation behaves so, which tests show on the commands they give it to, each seeing that exit code and nothing written." | the measure | nowhere: held by crates/testing/tests/binary.rs, `every_command_refuses_an_argument_it_does_not_declare` and `refused_with_an_untouched_tree` |
 | 7 | "Requires, for instance: a new command `cli` offers, given an argument it does not declare, exits with that code and writes nothing." | an instance | nowhere: held by crates/testing/tests/binary.rs, `every_command_refuses_an_argument_it_does_not_declare`, whose comment says "over every command the declaration holds, a future one included" |
-| 8 | "Admits, for instance: a read of the project before the refusal; a value the argument's declaration accepts and the command then refuses or answers negatively, by the state of the tree or by what the value names, whatever its code; a code of could-not-run after a write that failed, which is no refusal by arguments." | three limits | owner's ruling, into `a-refusal-by-arguments-writes-nothing`: the second and the third are defaults of the session the owner agreed, by C-cli-1 |
+| 8 | "Admits, for instance: a read of the project before the refusal; a value the argument's declaration accepts and the command then refuses or answers negatively, by the state of the tree or by what the value names, whatever its code; a code of could-not-run after a write that failed, which is no refusal by arguments." | three limits | owner's ruling, into `design@cli@a-refusal-by-arguments-writes-nothing`: the second and the third are defaults of the session the owner agreed, by C-cli-1 |
 | 9 | "Rules out, for instance: an unknown argument ignored, so that a gate passes on a check it did not run." | the rival | existing head: `design@cli@arguments-parse-through-clap` |
 
-**Head proposed**: `a-refusal-by-arguments-writes-nothing`, in `register@cli@design`.
+**Head proposed**: `design@cli@a-refusal-by-arguments-writes-nothing`, in `register@cli@design`.
 
 - Title: "An invocation of a command of `cli::Command` that its arguments refuse writes nothing".
 - Goal it cites: none. It stands on a fact, as #arg-68 found a head
@@ -3256,7 +3256,7 @@ quoted in the rows that carry them.
 
 ---
 
-### `goal@git@a-pure-wrapper-over-git`: Every tool of knowledge-architect that needs to interact with git can do so through one library that wraps git alone
+### `a-pure-wrapper-over-git`: Every tool of knowledge-architect that needs to interact with git can do so through one library that wraps git alone
 
 **Kind**: no goal. It is the owner's own example, W2, of a goal "about how the component fits
 inside the rest of the project". Removed, nothing the project provides loses its reason to exist:
@@ -3280,18 +3280,18 @@ session's criterion".
 | # | sentence | what it states | destination |
 | --- | --- | --- | --- |
 | 1 | "A tool here is any code of knowledge-architect that needs to interact with git: what a project uses, what maintains knowledge-architect itself, and the tests of either, such as a checker ..., or a test that builds a repository as its fixture." | whom the crate serves | design issue: `design@knowledge-architect@git-crate` does not hold the range. It speaks of "Every git invocation of the checker's library" and names five crates; maintenance code, tests and gates are not in it. Q71a |
-| 2 | "Through the library, such a tool both reads what a repository holds and has git write, so no tool needs a wrapper of git of its own." | the reason the crate exists | design issue: `design@knowledge-architect@git-crate` does not state it, and `design@knowledge-architect@checker-asks-git-through-the-crate` takes it from this goal, "no tool needs a wrapper of git of its own, per `goal@git@a-pure-wrapper-over-git`". Q71a |
-| 3 | "The library wraps git alone: it models operations on a repository, each stated in git's own terms, such as the paths, objects, commits, refs and index it reads or writes, however many git commands one takes, such as rewording a commit's message, or folding a fixup commit into the commit it fixes." | what an operation of the library is | new head: `an-operation-in-git-s-terms-is-the-library-s` |
-| 4 | "A step that decides for the matter a tool works on, such as which commits to fold or what a check of the result must find, is the tool's, composed from those operations, however many tools share it." | what is not one | new head: `an-operation-in-git-s-terms-is-the-library-s` |
+| 2 | "Through the library, such a tool both reads what a repository holds and has git write, so no tool needs a wrapper of git of its own." | the reason the crate exists | design issue: `design@knowledge-architect@git-crate` does not state it, and `design@knowledge-architect@checker-asks-git-through-the-crate` takes it from this goal, "no tool needs a wrapper of git of its own, per `a-pure-wrapper-over-git`". Q71a |
+| 3 | "The library wraps git alone: it models operations on a repository, each stated in git's own terms, such as the paths, objects, commits, refs and index it reads or writes, however many git commands one takes, such as rewording a commit's message, or folding a fixup commit into the commit it fixes." | what an operation of the library is | new head: `design@git@an-operation-in-git-s-terms-is-the-library-s` |
+| 4 | "A step that decides for the matter a tool works on, such as which commits to fold or what a check of the result must find, is the tool's, composed from those operations, however many tools share it." | what is not one | new head: `design@git@an-operation-in-git-s-terms-is-the-library-s` |
 | 5 | "It knows nothing of a project's documents or of the workflow, and depends on no part of knowledge-architect that does." | the dependency rule | design issue: no head states the rule; a search of crates/git/docs/design.md and of docs/design.md for "knows nothing" finds nothing. Its nearest statement is the argument of `rejected@knowledge-architect@git-module-made-public`, "A tool that needs git would depend on the whole checker to reach it", which `design@knowledge-architect@git-crate` cites. Q71a |
 | 6a | measure: "the library's public interface lets each such tool run every git invocation it needs and read what a repository holds" | the statement of row 2 | nowhere: repeats the statement; `issue@git@tools-run-git-past-the-wrapper` holds what is unmet |
-| 6b | measure: "holds each operation in git's terms that a tool composes from several invocations, has no function that reads a project's documents or decides for the matter a tool works on" | the criterion of rows 3 and 4 | new head: `an-operation-in-git-s-terms-is-the-library-s` |
+| 6b | measure: "holds each operation in git's terms that a tool composes from several invocations, has no function that reads a project's documents or decides for the matter a tool works on" | the criterion of rows 3 and 4 | new head: `design@git@an-operation-in-git-s-terms-is-the-library-s` |
 | 6c | measure: "and its dependencies hold no part of knowledge-architect that knows a project's documents or the workflow" | the rule of row 5 | nowhere: held by crates/git/Cargo.toml, which declares no dependency. No test holds it: `no_crate_below_the_tools_depends_on_the_checks` of crates/testing/tests/dependency_rules.rs reads `model` and `query` alone |
-| 7 | "Requires, for instance: the library offers folding a fixup commit into the commit it fixes as one operation." | an instance of the criterion | new head: `an-operation-in-git-s-terms-is-the-library-s` |
+| 7 | "Requires, for instance: the library offers folding a fixup commit into the commit it fixes as one operation." | an instance of the criterion | new head: `design@git@an-operation-in-git-s-terms-is-the-library-s` |
 | 8 | "Admits, for instance: a tool that runs git itself, past the library." | a question of how much | existing head: `design@knowledge-architect@checker-asks-git-through-the-crate`, which decides who must ask through the crate and says "A test of the checker may run git itself to build its fixture" |
-| 9 | "Rules out, for instance: a function of the library that chooses which commits a tool folds." | an instance of row 4 | new head: `an-operation-in-git-s-terms-is-the-library-s` |
+| 9 | "Rules out, for instance: a function of the library that chooses which commits a tool folds." | an instance of row 4 | new head: `design@git@an-operation-in-git-s-terms-is-the-library-s` |
 
-**Head proposed**: `an-operation-in-git-s-terms-is-the-library-s`, in `register@git@design`.
+**Head proposed**: `design@git@an-operation-in-git-s-terms-is-the-library-s`, in `register@git@design`.
 
 - Title: "An operation stated in git's own terms is a function of the library, however many git
   commands it takes, and a step that decides for a tool's matter is the tool's, however many tools
@@ -3309,7 +3309,7 @@ session's criterion".
 
 - Q71. `design@knowledge-architect@checker-asks-git-through-the-crate` leans on this goal for
   `transcript`: "it holds to the same crate since no tool needs a wrapper of git of its own, per
-  `goal@git@a-pure-wrapper-over-git`". Re-pointed to `design@knowledge-architect@git-crate`, the
+  `a-pure-wrapper-over-git`". Re-pointed to `design@knowledge-architect@git-crate`, the
   reason becomes a presumption. Does the owner agree?
 - Q71a. Rows 1, 2 and 5 fit no destination: `design@knowledge-architect@git-crate` is the head on
   their subject and states none of the three. My proposal is that the one pass adds the three to
@@ -3322,14 +3322,14 @@ session's criterion".
 
 ---
 
-### `goal@query@agents-query-the-project`: An agent queries a project through tools that make the query more efficient, or its result better, than doing it by hand
+### `agents-query-the-project`: An agent queries a project through tools that make the query more efficient, or its result better, than doing it by hand
 
 **Kind**: purpose, once its Component is removed from it. `issue@knowledge-architect@the-mechanical-tasks-goal-omits-what-a-helper-does-better`
 records that the owner's lead on the mechanical-tasks goal "gave" this goal. Removed with that goal
 unwidened, a command that searches the record by keywords would have no ground. It is not a goal of
 its own beside G-A: each says that a tool does what an agent would do at a higher cost.
 
-**Fate proposed**: merged into `goal@knowledge-architect@mechanical-tasks-are-the-tool-s`, G-A.
+**Fate proposed**: merged into `goal@knowledge-architect@tasks-a-tool-does-better-are-the-tool-s`, G-A.
 The first mapping table has no row for it. What it says of "this Component" is placement, which
 `design@knowledge-architect@query-crate` argues.
 
@@ -3344,7 +3344,7 @@ goes in a Component for its own subject leaves".
 | 2 | "A tool of this Component queries the project, or reads what an earlier query of this Component generated." | what the crate holds | owner's ruling, into `design@knowledge-architect@query-crate` |
 | 3a | measure: "each tool of this Component queries the project or reads what such a query generated" | row 2 | nowhere: repeats the statement |
 | 3b | measure: "tests show what it answers over a mock project" | a test | nowhere: held by crates/testing/tests/, which holds the tests of `klarch` over the mock projects, per `design@testing@binary-tests-in-testing`. I did not match a test to each command |
-| 3c | measure: "and the installed text's retrospective asks how these tools fared." | how use shows it met | design issue: no head and no text holds it. `design@agent-skills@premortem-as-watch-points` holds the question on "a script or carried by hand over several steps a mechanical task", which watches `goal@knowledge-architect@mechanical-tasks-are-the-tool-s`; it holds no question on how the query tools fared and names neither goal of `query`. The retrospective skill holds no question in these words: a search of .claude/skills/ and of crates/agent-skills/content/ for "fared" finds nothing. Q72a |
+| 3c | measure: "and the installed text's retrospective asks how these tools fared." | how use shows it met | design issue: no head and no text holds it. `design@agent-skills@premortem-as-watch-points` holds the question on "a script or carried by hand over several steps a mechanical task", which watches `goal@knowledge-architect@tasks-a-tool-does-better-are-the-tool-s`; it holds no question on how the query tools fared and names neither goal of `query`. The retrospective skill holds no question in these words: a search of .claude/skills/ and of crates/agent-skills/content/ for "fared" finds nothing. Q72a |
 | 4 | "Requires, for instance: a search of the recorded items by keywords, once it is taken in, is a tool of this Component." | a placement | nowhere: held by `issue@query@no-command-searches-the-entries-or-lists-an-audit-s-work`, which the root issue on the mechanical-tasks goal names for that search |
 | 5a | "Admits, for instance: a tool that reads git's history; a tool that reads the judgements a grader filled in a work list this Component generated;" | two members | existing head: `design@knowledge-architect@query-crate`, which names `git` "for what `worklist --since` asks of a commit", and `design@query@worklist-writes-and-verifies-the-reports` for the reports |
 | 5b | "a tool an agent runs for a result it could reach by hand at a higher cost." | the outcome of row 1 | stays in the goal: G-A |
@@ -3362,7 +3362,7 @@ goes in a Component for its own subject leaves".
 
 ---
 
-### `goal@query@the-record-is-consulted-as-the-workflow-requires`: A session consults the recorded items conveniently, and under the constraint or the method the workflow requires of it
+### `the-record-is-consulted-as-the-workflow-requires`: A session consults the recorded items conveniently, and under the constraint or the method the workflow requires of it
 
 **Kind**: no goal. Its line says it refines `goal@knowledge-architect@records-reach-their-reader`
 (other theme). Its first sentence is an instance of G-A: a tool applies what the workflow would
@@ -3394,7 +3394,7 @@ refinements."
 
 ---
 
-### `goal@mutate@a-named-mutation-is-checked-safely`: A session checks that its test catches a wrong implementation the session names, over uncommitted work, and the crate's own writes lose nothing of the mutated files
+### `a-named-mutation-is-checked-safely`: A session checks that its test catches a wrong implementation the session names, over uncommitted work, and the crate's own writes lose nothing of the mutated files
 
 **Kind**: no goal. Its line says it refines
 `goal@knowledge-architect@generic-tools-and-procedures-are-shipped`: it is the generic part of
@@ -3437,13 +3437,13 @@ apart from a catch; and no limit to one file".
 **Questions for the owner**
 
 - Q73. `design@mutate@baseline-runs-by-default` says an opt-in baseline leaves a false catch
-  "which `goal@mutate@a-named-mutation-is-checked-safely` rules out". With the goal gone, the head
+  "which `a-named-mutation-is-checked-safely` rules out". With the goal gone, the head
   stands on its own first sentence, "Over a base on which the command already fails, every mutation
   reads as caught". Does the owner agree that this needs no goal?
 
 ---
 
-### `goal@transcript@a-session-reads-past-sessions`: A session reads what the agent harness recorded of a project's past sessions through one tool, each line labelled by what it holds, and is told what the tool did not recognise
+### `a-session-reads-past-sessions`: A session reads what the agent harness recorded of a project's past sessions through one tool, each line labelled by what it holds, and is told what the tool did not recognise
 
 **Kind**: no goal. Its first sentence is an instance of G-A: where the workflow has a session
 consult past sessions, a tool does it "with no script of its own". Its other two sentences are how
@@ -3475,7 +3475,7 @@ a tag the harness writes".
 
 ---
 
-### `goal@gates@gates-from-a-list`: A target project gets its merge gates by writing no gate logic beyond its list of gates and the call that runs them, save a behaviour it keeps until it moves to a version that ships it
+### `gates-from-a-list`: A target project gets its merge gates by writing no gate logic beyond its list of gates and the call that runs them, save a behaviour it keeps until it moves to a version that ships it
 
 **Kind**: no goal. Its line says it refines two goals, "whose ask it serves" and "whose recommended
 shape of the one command it provides". It is how the gates ask is met. Removed, the gates library
@@ -3499,7 +3499,7 @@ agree on your list for the refinements."
 | 5d | "and the verdict that says whether the gates let a branch merge;" | a member | stays in the goal: `goal@knowledge-architect@serves-one-kind-of-project` (other theme), which states "that command judges whether the gates let a branch merge, with the same invocation in every target project". `design@gates@rebase-checks-behind-a-flag` holds the flag and not the verdict, and `issue@gates@the-library-has-no-merge-verdict` holds what is not built. Q76c |
 | 5e | "each other behaviour of a gate command that knowledge-architect's owner has taken in as generic, per `goal@knowledge-architect@generic-tools-and-procedures-are-shipped`." | an instance of G-B | stays in the goal: G-B |
 | 6 | "It is met while the library's tests show that it provides each of these, so that a project's own code using it holds no gate logic ..., save a behaviour ... that the project keeps until its own move ..., or, in knowledge-architect's own repository, until the merge that ships it." | the measure | nowhere: repeats the statement; its tests are held by crates/gates/src/gates.rs and crates/gates/src/process.rs, their test modules |
-| 7 | "It refines `goal@knowledge-architect@serves-one-kind-of-project`, whose ask it serves, and `goal@knowledge-architect@setup-brings-quality-tools`, whose recommended shape of the one command it provides." | its two grounds | existing head: `design@gates@gates-crate`, which cites the second; the one pass adds the ask of `goal@knowledge-architect@serves-one-kind-of-project` (other theme) beside it |
+| 7 | "It refines `goal@knowledge-architect@serves-one-kind-of-project`, whose ask it serves, and `setup-brings-quality-tools`, whose recommended shape of the one command it provides." | its two grounds | existing head: `design@gates@gates-crate`, which cites the second; the one pass adds the ask of `goal@knowledge-architect@serves-one-kind-of-project` (other theme) beside it |
 | 8 | "Requires, for instance: a target project writes no code of its own to keep a gate's complete log or to distil its failure." | row 5b | existing head: `design@gates@distill-over-full-logs` |
 | 9 | "Admits, for instance: a project that keeps in its own code a behaviour of a gate command until its own move to a released version of knowledge-architect that ships it." | the copy rule | design issue: the same |
 | 10 | "Admits, for instance: a project that writes in its own code a behaviour knowledge-architect's owner has taken in, before a released version ships it." | the copy rule | design issue: the same |
@@ -3521,11 +3521,11 @@ agree on your list for the refinements."
 
 ---
 
-### `goal@testing@an-extension-is-tested-over-a-project`: A target project tests its extension over a project of its own with a package it adds to its tests and to nothing else
+### `an-extension-is-tested-over-a-project`: A target project tests its extension over a project of its own with a package it adds to its tests and to nothing else
 
 **Kind**: no goal. Its line says it refines
 `goal@knowledge-architect@generic-tools-and-procedures-are-shipped`. Its outcome, that a project
-can test the checks it writes, is a means to `goal@check@projects-add-their-own-checks` (other
+can test the checks it writes, is a means to `goal@knowledge-architect@projects-add-their-own-checks` (other
 theme): `design@knowledge-architect@testing-crate` already derives it from that goal, "a project
 tests its extension as `check` tests its own checks". Its two other sentences state how crates
 depend on each other.
@@ -3541,13 +3541,13 @@ believing it more natural that an extension's tests pull it separately."
 
 | # | sentence | what it states | destination |
 | --- | --- | --- | --- |
-| 1 | "A target project that writes an extension runs the checks over a project of its own in its tests, the extension included, as its own program would run them, and reads each finding." | the outcome | existing head: `design@knowledge-architect@testing-crate`. As an outcome it belongs with `goal@check@projects-add-their-own-checks` (other theme) |
+| 1 | "A target project that writes an extension runs the checks over a project of its own in its tests, the extension included, as its own program would run them, and reads each finding." | the outcome | existing head: `design@knowledge-architect@testing-crate`. As an outcome it belongs with `goal@knowledge-architect@projects-add-their-own-checks` (other theme) |
 | 2 | "It does so with a package of this Component, which it adds to its tests and to nothing else." | a package of its own | owner's ruling, into `design@knowledge-architect@testing-crate`: the owner's choice at a fork, in the weak form, where the head today says the goal "rules out" the rival |
 | 3 | "No crate of knowledge-architect depends on this Component, a dev-dependency included." | the direction of the dependencies | owner's ruling, into `design@knowledge-architect@testing-crate`, which also argues it: "so the graph holds no cycle, dev-dependencies included, as `design@agent-skills@shared-test-component` asks" |
 | 4a | measure: "the published library of this Component runs the checks over a project with an extension included" | row 1 | nowhere: repeats the statement |
 | 4b | measure: "a test of this Component does that through published interfaces alone and gets the findings a program including the same extension gets" | a test | nowhere: held by crates/testing/tests/extension_api.rs, which `path@cli@CLAUDE.md` says "uses the public paths alone". I did not read the file |
 | 4c | measure: "and no crate of knowledge-architect names this Component among its dependencies of any kind." | a test | nowhere: held by crates/testing/tests/dependency_rules.rs, `no_crate_of_the_workspace_depends_on_this_one` |
-| 5 | "It refines `goal@knowledge-architect@generic-tools-and-procedures-are-shipped`." | its ground | existing head: `design@knowledge-architect@testing-crate`, whose ground is `goal@check@projects-add-their-own-checks`; no reference to the goal this line names is carried |
+| 5 | "It refines `goal@knowledge-architect@generic-tools-and-procedures-are-shipped`." | its ground | existing head: `design@knowledge-architect@testing-crate`, whose ground is `goal@knowledge-architect@projects-add-their-own-checks`; no reference to the goal this line names is carried |
 | 6 | "Requires, for instance: an extension's test reads each finding the checks made over its project." | row 1 | nowhere: repeats the statement |
 | 7 | "Admits, for instance: a helper of the library that spares an extension's tests a step they could write themselves; an extension's test that writes the steps itself; an extension's test that also uses another published package of knowledge-architect." | three limits | design issue: no head holds any of the three. `design@knowledge-architect@api-facade` says only what the crate root re-exports, "`testing` holds what an extension's tests are written against, its crate root re-exporting `check`'s module `run`", and a search of crates/testing/README.md and of crates/testing/src/lib.rs for "helper", "spares" and "another published" finds nothing. Q76a |
 | 8a | "Rules out, for instance: a target project having to depend on this Component to run the checks, outside its tests;" | row 2 | existing head: `design@knowledge-architect@testing-crate`: "An extension's tests add it to their dev-dependencies" |
@@ -3555,7 +3555,7 @@ believing it more natural that an extension's tests pull it separately."
 
 **Questions for the owner**
 
-- Q76. Row 1 belongs with `goal@check@projects-add-their-own-checks`. Does the owner want that
+- Q76. Row 1 belongs with `goal@knowledge-architect@projects-add-their-own-checks`. Does the owner want that
   goal, if kept, to say that a project can test the checks it adds?
 - Q76a. Row 7: the three cases the goal admits fit no destination, since no head and no text holds
   them: a helper that spares a step, a test that writes the steps itself, and a test that also uses
@@ -3564,7 +3564,7 @@ believing it more natural that an extension's tests pull it separately."
 
 ---
 
-### `goal@testing@program-tests-over-whole-projects-have-one-home`: A test of the crates of knowledge-architect's program that needs the shared means of running over a project sits in this Component, with the projects it runs over
+### `program-tests-over-whole-projects-have-one-home`: A test of the crates of knowledge-architect's program that needs the shared means of running over a project sits in this Component, with the projects it runs over
 
 **Kind**: no goal. It states where tests sit among Components. Removed, nothing the project
 provides loses its reason to exist. Nothing of it is left once the design is removed.
@@ -3593,7 +3593,7 @@ not where its project is stored", and "the line covers the crates `klarch` links
 
 ---
 
-### `goal@testing@a-consumer-test-uses-what-a-consumer-can`: A test of this Component of an effect a consumer could see uses only what a consumer can, and what it needs and cannot observe there is published
+### `a-consumer-test-uses-what-a-consumer-can`: A test of this Component of an effect a consumer could see uses only what a consumer can, and what it needs and cannot observe there is published
 
 **Kind**: no goal. It is a rule on how the tests of one Component are written. The installed text
 states the same rule for every target project, and
@@ -3635,7 +3635,7 @@ becomes of a claim no consumer could see is a design question, outside the goals
 
 ---
 
-### `goal@xtask@one-command-runs-every-gate`: Every gate the project owes before a merge runs from one command
+### `one-command-runs-every-gate`: Every gate the project owes before a merge runs from one command
 
 **Kind**: no goal. It is the owner's own example, W3: "its existence is mandated by the installed
 set", and "it is more like design to me, which stands on a clear argument". Removed, nothing loses
@@ -3662,14 +3662,14 @@ mapping table has no row for it. Outside the milestone document, one issue cites
 
 **Questions for the owner**
 
-- Q76c. Row 4, and row 5d of `goal@gates@gates-from-a-list`, send the verdict that says whether
+- Q76c. Row 4, and row 5d of `gates-from-a-list`, send the verdict that says whether
   the gates let a branch merge to `goal@knowledge-architect@serves-one-kind-of-project` (other
   theme): no head states it, and the library does not hold it yet. Does the owner agree that this
   goal holds it? The owner's words, W3, name the fate of the rest of this goal.
 
 ---
 
-### `goal@xtask@repeated-tasks-are-automated`: The local part of a mechanical task this repository's own instructions require repeatedly is a command of the tool
+### `repeated-tasks-are-automated`: The local part of a mechanical task this repository's own instructions require repeatedly is a command of the tool
 
 **Kind**: no goal. W3 again. Its head says the tool "serves this repository, not another target
 project", so nothing of it is an outcome of what the project provides. What it decides is where a
@@ -3685,16 +3685,16 @@ One reason at two sites earns a head by test 2 of `primer@design-heads`.
 | # | sentence | what it states | destination |
 | --- | --- | --- | --- |
 | 1a | "A task becomes a command of the tool, so it runs the same way each time, when it meets all of these:" with "needs no judgement, and takes several steps;" and "comes at a recurring moment, such as each commit, each reword or each merge." | when a task is automated | nowhere: held by tools/xtask/docs/design.md, its opening text: "A workflow belongs here when it is a repository operation a session runs often and gets wrong by hand" |
-| 1b | "is local to this repository: one its own instructions require, or the procedure they fix for one the installed text requires;" | the line | new head: `a-local-task-is-the-maintenance-tool-s` |
-| 2 | "A task of the set that `goal@knowledge-architect@mechanical-tasks-are-the-tool-s` names, with no procedure of this repository's own, is a published crate of knowledge-architect's." | the other side of the line | new head: `a-local-task-is-the-maintenance-tool-s` |
-| 3 | "The part of a task's procedure that knowledge-architect's owner has taken in as generic is not local once it is shipped, per `goal@knowledge-architect@generic-tools-and-procedures-are-shipped`; until then the local command stays, and the rest of the task is the tool's where it meets these conditions." | how the line moves | new head: `a-local-task-is-the-maintenance-tool-s` |
+| 1b | "is local to this repository: one its own instructions require, or the procedure they fix for one the installed text requires;" | the line | new head: `design@xtask@a-local-task-is-the-maintenance-tool-s` |
+| 2 | "A task of the set that `goal@knowledge-architect@tasks-a-tool-does-better-are-the-tool-s` names, with no procedure of this repository's own, is a published crate of knowledge-architect's." | the other side of the line | new head: `design@xtask@a-local-task-is-the-maintenance-tool-s` |
+| 3 | "The part of a task's procedure that knowledge-architect's owner has taken in as generic is not local once it is shipped, per `goal@knowledge-architect@generic-tools-and-procedures-are-shipped`; until then the local command stays, and the rest of the task is the tool's where it meets these conditions." | how the line moves | new head: `design@xtask@a-local-task-is-the-maintenance-tool-s` |
 | 4 | "It is met while each such task that this repository's own instructions require, or whose procedure they fix, has a command of the tool." | the measure | nowhere: repeats the statement |
 | 5 | "Such a task left to be done by hand shows the goal unmet in practice." | what is unmet | nowhere: held by `issue@xtask@the-reword-the-fold-and-the-merge-predicate-have-no-command` |
 | 6 | "Requires, for instance: the check, at each reword, that the reword lost no content is a command of the tool." | an instance | nowhere: held by `issue@xtask@the-reword-the-fold-and-the-merge-predicate-have-no-command`, which lists the reword |
-| 7 | "Admits, for instance: a command of the tool for a task done once." | a question of how much | new head: `a-local-task-is-the-maintenance-tool-s`, which states that the recurrence is no bound |
+| 7 | "Admits, for instance: a command of the tool for a task done once." | a question of how much | new head: `design@xtask@a-local-task-is-the-maintenance-tool-s`, which states that the recurrence is no bound |
 | 8 | "Rules out, for instance: the checks of the merge predicate, which each merge repeats, left to a session to type one by one." | an instance | nowhere: held by `issue@xtask@the-reword-the-fold-and-the-merge-predicate-have-no-command`, which lists the merge predicate |
 
-**Head proposed**: `a-local-task-is-the-maintenance-tool-s`, in `register@xtask@design`.
+**Head proposed**: `design@xtask@a-local-task-is-the-maintenance-tool-s`, in `register@xtask@design`.
 
 - Title: "A task this repository's own instructions require, or whose procedure they fix, is a
   command of this tool, and a task the installed text asks of every project is a published
@@ -3725,31 +3725,31 @@ One reason at two sites earns a head by test 2 of `primer@design-heads`.
 
 | goal | kind | fate proposed |
 | --- | --- | --- |
-| `goal@knowledge-architect@mechanical-tasks-are-the-tool-s` | purpose | kept (reworded), widened: G-A |
+| `goal@knowledge-architect@tasks-a-tool-does-better-are-the-tool-s` | purpose | kept (reworded), widened: G-A |
 | `goal@knowledge-architect@generic-tools-and-procedures-are-shipped` | purpose | kept (reworded): G-B; one design issue |
-| `goal@knowledge-architect@setup-brings-quality-tools` | no goal of its own | merged into G-B |
-| `goal@cli@one-program-for-its-tools` | no goal | head, not arguable yet: a design issue on the rule of one program, Q67a; the head `one-program-for-the-tools` is withdrawn; `design@knowledge-architect@the-binary-crate-keeps-the-package-name` holds part |
-| `goal@cli@one-home-for-the-command-line` | no goal | head, existing: `design@cli@command-parsing-home` |
-| `goal@cli@a-refused-invocation-does-no-work` | no goal | head, new: `a-refusal-by-arguments-writes-nothing` |
-| `goal@git@a-pure-wrapper-over-git` | no goal | head, existing: `design@knowledge-architect@git-crate`, which states less than the goal: a design issue, Q71a; and new: `an-operation-in-git-s-terms-is-the-library-s` |
-| `goal@query@agents-query-the-project` | purpose | merged into G-A |
-| `goal@query@the-record-is-consulted-as-the-workflow-requires` | no goal | head, existing: `design@query@worklist-writes-and-verifies-the-reports` |
-| `goal@mutate@a-named-mutation-is-checked-safely` | no goal | head, existing: the heads of `register@mutate@design` |
-| `goal@transcript@a-session-reads-past-sessions` | no goal | head, existing: the heads of `register@transcript@design` |
-| `goal@gates@gates-from-a-list` | no goal | head, existing: the heads of `register@gates@design`; the design issue of G-B |
-| `goal@testing@an-extension-is-tested-over-a-project` | no goal | head, existing: `design@knowledge-architect@testing-crate` |
-| `goal@testing@program-tests-over-whole-projects-have-one-home` | no goal | head, existing: `design@testing@binary-tests-in-testing` |
-| `goal@testing@a-consumer-test-uses-what-a-consumer-can` | no goal | head, existing: `design@agent-skills@integrated-test-through-public-api`, as a guideline; its strength here is a design issue, Q76b |
-| `goal@xtask@one-command-runs-every-gate` | no goal | head, existing: `design@xtask@gates-list-primary-home` |
-| `goal@xtask@repeated-tasks-are-automated` | no goal | head, new: `a-local-task-is-the-maintenance-tool-s` |
+| `setup-brings-quality-tools` | no goal of its own | merged into G-B |
+| `one-program-for-its-tools` | no goal | head, not arguable yet: a design issue on the rule of one program, Q67a; the head `one-program-for-the-tools` is withdrawn; `design@knowledge-architect@the-binary-crate-keeps-the-package-name` holds part |
+| `one-home-for-the-command-line` | no goal | head, existing: `design@cli@command-parsing-home` |
+| `a-refused-invocation-does-no-work` | no goal | head, new: `design@cli@a-refusal-by-arguments-writes-nothing` |
+| `a-pure-wrapper-over-git` | no goal | head, existing: `design@knowledge-architect@git-crate`, which states less than the goal: a design issue, Q71a; and new: `design@git@an-operation-in-git-s-terms-is-the-library-s` |
+| `agents-query-the-project` | purpose | merged into G-A |
+| `the-record-is-consulted-as-the-workflow-requires` | no goal | head, existing: `design@query@worklist-writes-and-verifies-the-reports` |
+| `a-named-mutation-is-checked-safely` | no goal | head, existing: the heads of `register@mutate@design` |
+| `a-session-reads-past-sessions` | no goal | head, existing: the heads of `register@transcript@design` |
+| `gates-from-a-list` | no goal | head, existing: the heads of `register@gates@design`; the design issue of G-B |
+| `an-extension-is-tested-over-a-project` | no goal | head, existing: `design@knowledge-architect@testing-crate` |
+| `program-tests-over-whole-projects-have-one-home` | no goal | head, existing: `design@testing@binary-tests-in-testing` |
+| `a-consumer-test-uses-what-a-consumer-can` | no goal | head, existing: `design@agent-skills@integrated-test-through-public-api`, as a guideline; its strength here is a design issue, Q76b |
+| `one-command-runs-every-gate` | no goal | head, existing: `design@xtask@gates-list-primary-home` |
+| `repeated-tasks-are-automated` | no goal | head, new: `design@xtask@a-local-task-is-the-maintenance-tool-s` |
 
 17 goals. 2 kept, 2 merged into them, 13 no goal: 12 turned into heads, and 1,
-`goal@cli@one-program-for-its-tools`, sent to a design issue until a head on its rule can be
+`one-program-for-its-tools`, sent to a design issue until a head on its rule can be
 argued. 3 new heads proposed, each argued
 above, and 1 withdrawn. 1 new issue of kind `design`, on a project's copy of a shipped part. Six
 questions carry a sentence that fits no destination and is given "design issue" until the owner
 answers: Q64a, Q67a, Q71a, Q72a, Q76a and Q76b. The six rows of the
-first mapping table that fall in this theme are all confirmed: `goal@knowledge-architect@mechanical-tasks-are-the-tool-s`
+first mapping table that fall in this theme are all confirmed: `goal@knowledge-architect@tasks-a-tool-does-better-are-the-tool-s`
 stands alone, and the goals of `gates`, `mutate`, `query` (its second), `testing` (its first) and
 `transcript` are heads.
 
@@ -3764,7 +3764,7 @@ stands alone, and the goals of `gates`, `mutate`, `query` (its second), `testing
 | crates/mutate/docs/goals.md | "The hand mutation ... lets a session check that a test catches a wrong implementation the session names." | leaves: held by the opening text of crates/mutate/docs/design.md |
 | crates/transcript/docs/goals.md | the purpose sentence, "a session reads what the agent harness recorded of a project's past sessions, and knows what it could not read"; then the definitions of "a session", "a tool" and "the agent harness" | leaves: the statements of `design@transcript@transcript-command-reads-any-project` and `design@transcript@transcript-format-tolerated-and-reported` |
 | crates/gates/docs/goals.md | "The package `knowledge-architect-gates` ... runs a target project's merge gates, so that the project writes as little gate logic of its own as the goal below allows." | leaves: held by the opening text of crates/gates/docs/design.md |
-| crates/testing/docs/goals.md | the purpose sentence; then the definitions of "an extension", "a consumer", "a finding" and "the crates of knowledge-architect's program" | leaves. The definition of "an extension" is needed by `goal@check@projects-add-their-own-checks` (other theme) if that goal is kept |
+| crates/testing/docs/goals.md | the purpose sentence; then the definitions of "an extension", "a consumer", "a finding" and "the crates of knowledge-architect's program" | leaves. The definition of "an extension" is needed by `goal@knowledge-architect@projects-add-their-own-checks` (other theme) if that goal is kept |
 | tools/xtask/docs/goals.md | "xtask is the maintenance tool of this repository: it runs, as commands, the mechanical tasks that this repository's own instructions require. It serves this repository, not another target project." | leaves: held by the opening text of tools/xtask/docs/design.md and by the Component table of `CLAUDE.md` at the root |
 
 ### Decided
@@ -3796,20 +3796,20 @@ stands alone, and the goals of `gates`, `mutate`, `query` (its second), `testing
   the owner, and no eighth destination: a statement an existing head on its subject does not hold
   (Q71a, Q76b), a measure's clause no text holds (Q72a), forms and limits no text holds (Q64a,
   Q76a).
-- `a-refusal-by-arguments-writes-nothing` is proposed with no goal cited. Ground:
+- `design@cli@a-refusal-by-arguments-writes-nothing` is proposed with no goal cited. Ground:
   #arg-68, "some stand on a fact alone".
 
 ### Met outside the task
 
-- A citation of `goal@cli@a-refused-invocation-does-no-work` in crates/testing/tests/binary.rs is
+- A citation of `a-refused-invocation-does-no-work` in crates/testing/tests/binary.rs is
   outside the walk, so the checker will not report it when the goal leaves: reported as Q70 for the
   one pass.
 - The measures of both goals of `query` name a question of the retrospective, "how these tools
   fared", that no installed text holds. It is the same case as the spec's last audit subject, on
   the orchestration goal. It is put to the owner as Q72a.
-- The measure of `goal@cli@one-program-for-its-tools` names "a test of the program's commands"
+- The measure of `one-program-for-its-tools` names "a test of the program's commands"
   that my searches did not find. Not established: the test may exist under other words.
-- The measure of `goal@git@a-pure-wrapper-over-git` on the crate's dependencies is held by no
+- The measure of `a-pure-wrapper-over-git` on the crate's dependencies is held by no
   test: the dependency test of crates/testing/tests/dependency_rules.rs reads `model` and `query`
   alone. Today crates/git/Cargo.toml declares no dependency.
 - The generic-tools goal and the gates goal state opposite rules on a project's copy after its move
@@ -3822,7 +3822,7 @@ stands alone, and the goals of `gates`, `mutate`, `query` (its second), `testing
   `design@mutate@record-survives-the-run` and `design@mutate@restore-by-comparison` say that a goal
   of this theme "asks" or "rules out" something. The spec's list of heads to rewrite names the
   first two and none of the four of `mutate`.
-- Row 4b of `goal@testing@program-tests-over-whole-projects-have-one-home` names a review that
+- Row 4b of `program-tests-over-whole-projects-have-one-home` names a review that
   judges a test's placement against a goal. No review axis is given that duty by any text I read.
   It joins the parked thread's leads.
 - The issues that a "nowhere: held by" row names state their need by citing the goal that leaves:
@@ -3903,7 +3903,7 @@ on the guarantee. The rewrite must ask the owner on each (questions below).
 | 13 | "The set of what it asks is open." | the set of asks grows | design issue, with row 12 |
 | 14a | "An ask that binds every target project is added by a design decision of knowledge-architect, or by taking in a quality tool, which then becomes an ask so that every target project adopts it;" | how an ask enters | design issue, with row 12. `design@agent-skills@documentation-presence-is-linted` cites this goal for it |
 | 14b | "either way, adding it, and tightening or removing it, goes to knowledge-architect's owner, whatever the argument settles, per `goal@knowledge-architect@the-owner-decides`." | an authority of the owner | nowhere: held by `goal@knowledge-architect@the-owner-decides`, `register@knowledge-architect@goal` lines 300 to 302, which states it in its own list. It belongs with that goal, of another theme: if that goal drops the item, this sentence is lost |
-| 15a | "A quality tool, in every goal of knowledge-architect, is a tool that judges the project's quality mechanically, such as a gate or a check;" | a definition several goals share | stays in the goal (of `goal@knowledge-architect@setup-brings-quality-tools`, another theme, which names it by a pointer to this goal today), or in the home's head if two kept goals use it |
+| 15a | "A quality tool, in every goal of knowledge-architect, is a tool that judges the project's quality mechanically, such as a gate or a check;" | a definition several goals share | stays in the goal (of `setup-brings-quality-tools`, another theme, which names it by a pointer to this goal today), or in the home's head if two kept goals use it |
 | 15b | "a tool that serves efficiency, such as a command that rewrites history, becomes no ask; a procedure of the installed workflow is none," | what becomes no ask | design issue, with row 12. `design@knowledge-architect@mutation-command-host` and `design@agent-skills@diff-mutation-sweep` apply it and cite this goal for it; neither argues it |
 | 15c | "and a shape of continuous integration or of pull requests becomes no ask, but ships only as an offered shape." | continuous integration and pull requests are never asked | nowhere: held by `goal@knowledge-architect@agents-get-a-complete-workflow`, `register@knowledge-architect@goal` lines 142 to 148, another theme. If that goal drops it, it is a design issue with row 12 |
 | 16 | "The installed text states each ask, those listed here included." | where an ask is stated | design issue, with row 12. Unbuilt today: `issue@knowledge-architect@the-target-project-and-its-asks-are-stated-to-no-adopter` |
@@ -4082,7 +4082,7 @@ Q80), and none if the sentence stays in the goal:
 - Q83. Rows 14b, 15a, 15c, 22f, 29c and 31 lean on goals of other themes
   (`goal@knowledge-architect@the-owner-decides`,
   `goal@knowledge-architect@agents-get-a-complete-workflow`,
-  `goal@knowledge-architect@setup-brings-quality-tools`,
+  `setup-brings-quality-tools`,
   `goal@knowledge-architect@generic-tools-and-procedures-are-shipped`,
   `goal@knowledge-architect@the-workflow-improves-through-real-use`). Each row is lost if the
   analysis of that theme drops the sentence it names. The rows must be read with those analyses.
@@ -4111,9 +4111,9 @@ must ask the owner.
 | 1 | "Nothing particular to one target project is compiled into the published crates, the tree they are built from aside." | the purpose, in the words of its mechanism ("compiled", "published crates") | stays in the goal, reworded as an outcome. The mechanism and the exception are `design@check@nothing-of-a-project-is-compiled-in`, which lists "Five things are compiled in, and none of them describes a project", and `design@check@checked-sentinel-values` |
 | 2 | "For every other statement of the goals, this repository is a target project that adopts, installs and follows the workflow and uses the checker." | this repository is one of the projects served | stays in the goal (of `goal@knowledge-architect@serves-one-kind-of-project`, this theme), as one clause, if the owner wants it stated (Q86). No text holds it as a statement: the root `CLAUDE.md` says only "This repository installs its own skills" |
 | 3 | "A project declares to the checker the structure particular to it." | how a project's particulars reach the tool | existing head: `design@check@nothing-of-a-project-is-compiled-in` ("Every list a check reads comes from the project's `knowledge-architect.toml`"), with `design@model@registers-are-declared` (title read) |
-| 4a | "The installed text names no path or convention particular to one target project," | the purpose, applied to the installed text | stays in the goal: the reworded statement covers the installed text. `goal@agent-skills@installed-text-works-in-every-target-project`, another theme, repeats it word for word (its lines 135 to 137) |
+| 4a | "The installed text names no path or convention particular to one target project," | the purpose, applied to the installed text | stays in the goal: the reworded statement covers the installed text. `installed-text-works-in-every-target-project`, another theme, repeats it word for word (its lines 135 to 137) |
 | 4b | "and may rely on what knowledge-architect asks of every target project, as the installed text states it, per `goal@knowledge-architect@serves-one-kind-of-project`." | the installed text may rely on the asks | design issue, with rows 12 to 18 of the goal above: the head first proposed for the asks is withdrawn (Q78a) |
-| 5a | "Every entry is cited in one ... grammar, the same in every project," | one grammar in every project | stays in the goal, as an outcome: "cited in one form, the same in every project". The clause of row 5c rests on it, so it does not leave alone. The form itself is `design@model@an-entity-belongs-to-its-anchor`, which fixes it, and cites `rejected@model@configurable-reference-separator`, which refuses a grammar a project configures. The sentence touches `goal@model@recorded-items-can-be-referenced` and `goal@knowledge-architect@records-reach-their-reader`, of another theme (Q87, Q87a) |
+| 5a | "Every entry is cited in one ... grammar, the same in every project," | one grammar in every project | stays in the goal, as an outcome: "cited in one form, the same in every project". The clause of row 5c rests on it, so it does not leave alone. The form itself is `design@model@an-entity-belongs-to-its-anchor`, which fixes it, and cites `rejected@model@configurable-reference-separator`, which refuses a grammar a project configures. The sentence touches `recorded-items-can-be-referenced` and `goal@knowledge-architect@records-reach-their-reader`, of another theme (Q87, Q87a) |
 | 5b | "readable" | a quality of the grammar | stays in the goal. Neither `design@model@an-entity-belongs-to-its-anchor` nor `rejected@model@configurable-reference-separator` argues it (Q87a) |
 | 5c | "so what an agent learns in one project applies in the next." | what the sameness is for | stays in the goal, with its premise, row 5a |
 | 6 | "A project pins the version it uses, and moves to a new one when it chooses." | each project moves on its own | stays in the goal, as "moves to a new version when it chooses". The pin is `design@agent-skills@exact-pin` and `design@check@installed-binary-version-check`; that head and `design@knowledge-architect@version-lockstep` cite the goal for this sentence |
@@ -4168,7 +4168,7 @@ command that creates a project (`design@create@init-command`: "its creation is w
 an agent starts").
 
 **Fate proposed**: kept (reworded), and it receives the outcome of
-`goal@create@a-project-adopts-by-one-command`. The list of where the documentation sits, the
+`a-project-adopts-by-one-command`. The list of where the documentation sits, the
 measure and the cases leave. The sentence "An adopter who had to read the source or ask
 knowledge-architect's owner" is written as a measure, but it is the sharpest statement of the
 outcome, and I keep it as one. The first mapping table has no row: it refines none.
@@ -4192,7 +4192,7 @@ owner.
 | 11 | "Rules out, for instance: a step of adoption stated only in the source of a crate." | a case of row 8 | nowhere: repeats the statement (row 8) |
 
 **Draft of the goal under the new standard** (draft, not ruled; proposed from the current text of
-this goal and of `goal@create@a-project-adopts-by-one-command`):
+this goal and of `a-project-adopts-by-one-command`):
 
 > **Adopting knowledge-architect is easy, with documentation that is clear and reaches its reader** (draft slug: adoption-is-easy)
 >
@@ -4213,7 +4213,7 @@ this goal and of `goal@create@a-project-adopts-by-one-command`):
 - Q91. Is this goal one intent with `goal@knowledge-architect@every-target-project-can-adopt-it`?
   I keep them apart: one says who can adopt and what ranks first, the other how hard adopting is.
 
-### `goal@create@a-project-adopts-by-one-command`: A project, new or existing, adopts knowledge-architect by one command, which leaves every file the checker requires ready to be completed and loses nothing the project wrote
+### `a-project-adopts-by-one-command`: A project, new or existing, adopts knowledge-architect by one command, which leaves every file the checker requires ready to be completed and loses nothing the project wrote
 
 **Kind**: no goal of its own. A Component states no goal. Reworded as an outcome of the project
 as a whole, "adopting takes one command and loses nothing the project wrote", it qualifies the
@@ -4269,7 +4269,7 @@ owner's word that is a breach of" this goal. The rewrite must ask the owner.
 `goal@knowledge-architect@adoption-is-easy` above. Draft, not ruled.
 
 **Re-pointing this fate owes**: `design@knowledge-architect@create-crate` ("serves
-`goal@create@a-project-adopts-by-one-command` and ..."), `rejected@create@init-refused-outside-a-repository-root`
+`a-project-adopts-by-one-command` and ..."), `rejected@create@init-refused-outside-a-repository-root`
 and the issue of `create` cite this goal. Each is re-pointed to
 `goal@knowledge-architect@adoption-is-easy`. The first and the issue lean on the goal's words and
 are rewritten, not only re-pointed.
@@ -4291,12 +4291,12 @@ are rewritten, not only re-pointed.
   the install, and `design@check@owned-namespace-check`, by which "the install deletes every file
   of the installer's namespace that the version does not ship". The draft says "adopting" only.
 
-### `goal@create@a-project-gains-a-component-by-one-command`: A project gains a Component by one command, which leaves the files the checker requires of it ready to be completed and loses nothing the project wrote
+### `a-project-gains-a-component-by-one-command`: A project gains a Component by one command, which leaves the files the checker requires of it ready to be completed and loses nothing the project wrote
 
 **Kind**: no goal. It names a Component, a part that exists by a design choice, and a command.
 Reworded as an outcome of the project as a whole, "a target project adds a part by one command",
-it is a means to `goal@knowledge-architect@projects-are-split-into-components` and to
-`goal@knowledge-architect@mechanical-tasks-are-the-tool-s`, both of another theme. Removed, nothing
+it is a means to `goal@knowledge-architect@projects-are-split-into-modular-units` and to
+`goal@knowledge-architect@tasks-a-tool-does-better-are-the-tool-s`, both of another theme. Removed, nothing
 loses its reason to exist: `design@create@component-command` and
 `design@create@component-manifest-edit` hold the shape, the second with its rival ("Printing the
 line for the user to add was the rival: the command could then not finish in one run").
@@ -4349,8 +4349,8 @@ cite this goal; each names it by its bare slug once it leaves, or is rewritten.
 | `goal@knowledge-architect@serves-one-kind-of-project` | scope | kept (reworded); the asks to a design issue, no head proposed, pending Q78a and Q80 |
 | `goal@knowledge-architect@every-target-project-can-adopt-it` | purpose, with a ranking | kept (reworded) |
 | `goal@knowledge-architect@adoption-is-easy` | purpose | kept (reworded); receives two sentences, three statements, of the goal below |
-| `goal@create@a-project-adopts-by-one-command` | no goal of its own; a qualifier of a purpose | merged into `goal@knowledge-architect@adoption-is-easy`; the mapping table's row "head" overturned in part |
-| `goal@create@a-project-gains-a-component-by-one-command` | no goal | removed; every sentence to an existing head, three of them as rulings a head gains (rows 3, 4b, 8), but one clause of the measure (row 6b) |
+| `a-project-adopts-by-one-command` | no goal of its own; a qualifier of a purpose | merged into `goal@knowledge-architect@adoption-is-easy`; the mapping table's row "head" overturned in part |
+| `a-project-gains-a-component-by-one-command` | no goal | removed; every sentence to an existing head, three of them as rulings a head gains (rows 3, 4b, 8), but one clause of the measure (row 6b) |
 
 Counts: 5 goals, 5 sections. 0 new head proposed; 1 withdrawn. 18 rows sent to a design issue that
 no head answers: 16 of the first goal (rows 12, 13, 14a, 15b, 16, 17, 18, 19a, 19b, 21, 22a, 24,
@@ -4364,7 +4364,7 @@ goal and row 6b of the fifth. 1 row sent to an issue that exists (row 35 of the 
 - "knowledge-architect is the common toolchain of one kind of project, the target project that
   `goal@knowledge-architect@serves-one-kind-of-project` defines." It states what the project is
   for as a whole, which the new standard keeps in the home's head and the owner rules like a goal.
-  It stays, in the README of `path@elsewhere@docs/goals/`. The rest of that paragraph
+  It stays, in the README of `register@knowledge-architect@goal`. The rest of that paragraph
   belongs to other themes.
 - "These words hold in these senses for the goals of this home and of every Component". The words
   "and of every Component" leave: no Component states a goal. "Target project" is defined by the
@@ -4406,9 +4406,9 @@ goal and row 6b of the fifth. 1 row sent to an issue that exists (row 35 of the 
   readable form, the same in every project", since the clause it keeps rests on it (Q87a).
 - The sentence "An adopter who had to read the source or ask knowledge-architect's owner", written
   as a measure, is kept as an outcome of `goal@knowledge-architect@adoption-is-easy`.
-- The row "head" of the first mapping table for `goal@create@a-project-adopts-by-one-command` is
+- The row "head" of the first mapping table for `a-project-adopts-by-one-command` is
   overturned in part, on the issue of `create` that records the goal prevailing over two heads.
-- `goal@create@a-project-gains-a-component-by-one-command` is sorted as no goal, with no new head,
+- `a-project-gains-a-component-by-one-command` is sorted as no goal, with no new head,
   since `design@create@component-command` and `design@create@component-manifest-edit` hold every
   sentence but the owner's ruling on loss, and one clause of its measure that no test holds (row 6b).
 - A row whose sentence repeats a body sentence of the same goal is written "nowhere: repeats the
@@ -4422,7 +4422,7 @@ goal and row 6b of the fifth. 1 row sent to an issue that exists (row 35 of the 
 - `design@check@agents-table` says the goal "admits" a target project that uses the checker alone;
   the goal says such a project "does not follow this ask". The head's word is loose. Dropped here:
   the head is rewritten when the asks move.
-- `design@check@the-regime-has-no-opt-out` cites `goal@check@document-rules-are-checked`, of
+- `design@check@the-regime-has-no-opt-out` cites `document-rules-are-checked`, of
   another theme, for a constraint close to row 9 of the second goal. Left to that theme.
 - `design@create@component-command` cites no goal and names no rival. Named in its goal's section;
   slice 2 rewrites the head.
@@ -4446,80 +4446,80 @@ Neither is ruled. The one pass reads the theme sections with the rulings and wit
 
 File read: `/home/teo/dev/knowledge-architect/.claude/worktrees/s1-holders/docs/goal-reviews/2026-11-10-goals-at-the-root-analysis.md`, whole (lines 1 to 4363). No file edited or written.
 
-Short names used below: "workflow goal" = `goal@knowledge-architect@agents-get-a-complete-workflow`; "scope goal" = `goal@knowledge-architect@serves-one-kind-of-project`; "G-A" = `goal@knowledge-architect@mechanical-tasks-are-the-tool-s`; "G-B" = `goal@knowledge-architect@generic-tools-and-procedures-are-shipped`; "first goal" = the new goal "a project's documentation has a defined structure, and a model of it that tools read". Every head named as a destination resolved under `cargo klarch show <reference>`, and the words quoted from it were read in that output.
+Short names used below: "workflow goal" = `goal@knowledge-architect@agents-get-a-complete-workflow`; "scope goal" = `goal@knowledge-architect@serves-one-kind-of-project`; "G-A" = `goal@knowledge-architect@tasks-a-tool-does-better-are-the-tool-s`; "G-B" = `goal@knowledge-architect@generic-tools-and-procedures-are-shipped`; "first goal" = the new goal "a project's documentation has a defined structure, and a model of it that tools read". Every head named as a destination resolved under `cargo klarch show <reference>`, and the words quoted from it were read in that output.
 
 #### Rows with no holder under the rulings
 
 | old goal | row | sentence's first words | lost holder | destination proposed | reason |
 | --- | --- | --- | --- | --- | --- |
-| `goal@knowledge-architect@records-live-beside-the-code` | 1, 3 | "In a project that adopts the workflow, its whole record lives in its repository"; "They are files an agent reads and edits" | merge into `goal@knowledge-architect@design-is-recorded-with-its-arguments`, which the rulings drop | new head of the root's design home, as the rulings say. Rival: entries in an external tracker. Fact: `design@agent-skills@shipped-text-cites-no-entry` says "a reference to an entry resolves only against the tree it stands in", so a tracker entry cannot be cited by a checked reference. The draft of `goal@knowledge-architect@design-is-recorded-with-its-arguments` loses its last sentence, "The record lives in the project's repository ... never in an external tracker" | the rulings' table: "a new design head of the root's design home, argued from three goals" |
-| `goal@knowledge-architect@records-live-beside-the-code` | 8, 9 | "Admits, for instance: a pull request's discussion"; "Rules out, for instance: a decision ... only in an external tracker" | "repeats the statement" of a sentence that is no longer in a goal | nowhere: they repeat the statement of that new head | they follow rows 1 and 3 |
-| `goal@knowledge-architect@structure-and-workflow-work-together` | 2, 3 | "one place, the home the installed text gives"; "one such home each" | `goal@knowledge-architect@records-reach-their-reader`; the rulings say "nothing enters the receiving goal" | existing head `design@agent-skills@knowledge-table-home`: "The knowledge table maps each kind of statement to its one home". No new head is needed | the reach draft keeps "has one home" for an item, from its own row 1; one home per kind is this head's |
-| `goal@check@document-rules-are-checked` | 1 | "A project declares to the checker what it records" | the merged draft of `goal@knowledge-architect@documentation-stays-consistent`; the rulings take the sentence out of that merge | the first goal, for the declaring of kinds; the mechanism is existing head `design@check@nothing-of-a-project-is-compiled-in`: "Every list a check reads comes from the project's `knowledge-architect.toml`: the components, the locations, the registers". The consistency draft loses "A project declares to the checker ... beside the rules of its own documents." | the rulings' table and the list's first row |
-| `goal@model@recorded-items-can-be-referenced` | 1 | "Through the library, each recorded item ... takes a name" | `goal@knowledge-architect@records-reach-their-reader`; the list gives "the naming and citing of a recorded item" to the first goal | the first goal. The reach draft keeps "is cited ... at each place where it bears", and gives up "has ... a name" and "in a reference that says what it names, with one reading" | the list's first row |
+| `records-live-beside-the-code` | 1, 3 | "In a project that adopts the workflow, its whole record lives in its repository"; "They are files an agent reads and edits" | merge into `goal@knowledge-architect@design-is-recorded-with-its-arguments`, which the rulings drop | new head of the root's design home, as the rulings say. Rival: entries in an external tracker. Fact: `design@agent-skills@shipped-text-cites-no-entry` says "a reference to an entry resolves only against the tree it stands in", so a tracker entry cannot be cited by a checked reference. The draft of `goal@knowledge-architect@design-is-recorded-with-its-arguments` loses its last sentence, "The record lives in the project's repository ... never in an external tracker" | the rulings' table: "a new design head of the root's design home, argued from three goals" |
+| `records-live-beside-the-code` | 8, 9 | "Admits, for instance: a pull request's discussion"; "Rules out, for instance: a decision ... only in an external tracker" | "repeats the statement" of a sentence that is no longer in a goal | nowhere: they repeat the statement of that new head | they follow rows 1 and 3 |
+| `structure-and-workflow-work-together` | 2, 3 | "one place, the home the installed text gives"; "one such home each" | `goal@knowledge-architect@records-reach-their-reader`; the rulings say "nothing enters the receiving goal" | existing head `design@agent-skills@knowledge-table-home`: "The knowledge table maps each kind of statement to its one home". No new head is needed | the reach draft keeps "has one home" for an item, from its own row 1; one home per kind is this head's |
+| `document-rules-are-checked` | 1 | "A project declares to the checker what it records" | the merged draft of `goal@knowledge-architect@documentation-stays-consistent`; the rulings take the sentence out of that merge | the first goal, for the declaring of kinds; the mechanism is existing head `design@check@nothing-of-a-project-is-compiled-in`: "Every list a check reads comes from the project's `knowledge-architect.toml`: the components, the locations, the registers". The consistency draft loses "A project declares to the checker ... beside the rules of its own documents." | the rulings' table and the list's first row |
+| `recorded-items-can-be-referenced` | 1 | "Through the library, each recorded item ... takes a name" | `goal@knowledge-architect@records-reach-their-reader`; the list gives "the naming and citing of a recorded item" to the first goal | the first goal. The reach draft keeps "is cited ... at each place where it bears", and gives up "has ... a name" and "in a reference that says what it names, with one reading" | the list's first row |
 | `goal@knowledge-architect@records-reach-their-reader` | 3 | "a way to give each recorded item a name, and to reference it" | its own goal, kept, but the list moves the sentence | the first goal | as above |
-| workflow goal | 21, 22 | "Each installed instruction says what it requires plainly enough"; "No two instructions are ones a session cannot both obey" | the workflow goal, which keeps "no property of the text" | the head the rulings name, under the slug of `goal@agent-skills@no-contradiction-in-workflow`, in `register@agent-skills@design`. Rival for row 21: `rejected@agent-skills@two-readings-left-to-judgement`, which exists. The draft loses "An agent can follow it as written: ... counting as obeying both." | ruling 3 of the split in three |
+| workflow goal | 21, 22 | "Each installed instruction says what it requires plainly enough"; "No two instructions are ones a session cannot both obey" | the workflow goal, which keeps "no property of the text" | the head the rulings name, under the slug of `no-contradiction-in-workflow`, in `register@agent-skills@design`. Rival for row 21: `rejected@agent-skills@two-readings-left-to-judgement`, which exists. The draft loses "An agent can follow it as written: ... counting as obeying both." | ruling 3 of the split in three |
 | workflow goal | 25, 26 | "each instruction with one reading"; "no two instructions a session cannot both obey" | they repeat rows 21 and 22 | nowhere: they repeat the statement of that head | they follow rows 21 and 22 |
-| `goal@agent-skills@no-contradiction-in-workflow` | 1, 2, 3 | "The installed text, every part of it, gives no two instructions"; "A precedence an installed text states"; "that meet at one moment" | merge into the workflow goal, dropped | the same head; the clauses on a stated precedence and on "at one moment" become its statements. Q35, Q35a and Q35b are answered by the ruling | ruling 3 |
-| `goal@agent-skills@no-contradiction-in-workflow` | 4, 5, 6, 7, 8 | "A pair found in use"; "It refines"; the three cases | "repeats the statement" of the merged sentence; "the merge keeps the relation" | nowhere: they repeat the statement of that head; the head cites the workflow goal | they follow rows 1 to 3 |
-| workflow goal | 11 | "a mechanical gate on it, such as a set of lints, may ship once taken in" | `goal@knowledge-architect@setup-brings-quality-tools`, which the rulings make design | nowhere: it repeats the kept statement of G-B, whose draft says "such as a gate ... knowledge-architect ships that part once its owner takes it in". The instance is in `design@gates@a-project-holds-its-gate-list`, whose recommended list names "clippy" | the holder is no goal any longer |
+| `no-contradiction-in-workflow` | 1, 2, 3 | "The installed text, every part of it, gives no two instructions"; "A precedence an installed text states"; "that meet at one moment" | merge into the workflow goal, dropped | the same head; the clauses on a stated precedence and on "at one moment" become its statements. Q35, Q35a and Q35b are answered by the ruling | ruling 3 |
+| `no-contradiction-in-workflow` | 4, 5, 6, 7, 8 | "A pair found in use"; "It refines"; the three cases | "repeats the statement" of the merged sentence; "the merge keeps the relation" | nowhere: they repeat the statement of that head; the head cites the workflow goal | they follow rows 1 to 3 |
+| workflow goal | 11 | "a mechanical gate on it, such as a set of lints, may ship once taken in" | `setup-brings-quality-tools`, which the rulings make design | nowhere: it repeats the kept statement of G-B, whose draft says "such as a gate ... knowledge-architect ships that part once its owner takes it in". The instance is in `design@gates@a-project-holds-its-gate-list`, whose recommended list names "clippy" | the holder is no goal any longer |
 | workflow goal | 10, 31 | "No installed instruction teaches how to write Rust idiomatically" | holder kept, but the shape the rulings give (point 2) names no such bound | the workflow goal, as a bound on what it covers: its shape gains "It does not teach how to write Rust idiomatically". Owner's question 1 | point 2 says "no property of the text" and is silent on this exclusion; Q22 is not ruled |
-| `goal@agent-skills@only-needed-instructions` | 5, 11, 18, 19 | "Nor does an instruction impose structure the work does not need" | the goal's own draft as a goal of its own, whose last clause is "and no instruction fixes a structure the work does not need" | existing head `design@agent-skills@capabilities-not-structure`: "So the installed text imposes no structure the work does not need". Its words "which gives this argument a goal's weight" are rewritten. The clause leaves the draft | ruling 3: the clause "falls from a goal's weight to a presumption" |
-| `goal@agent-skills@only-needed-instructions` | 14 | "It refines `agents-get-a-complete-workflow`" | "the merge keeps the relation"; there is no merge | nowhere: rule 8 alone; no relation is kept | the goal stands alone |
-| `goal@agent-skills@installed-text-works-in-every-target-project` | 1, 4, 7, 8 | "A target project other than knowledge-architect"; "The installed text works unchanged"; "each of its instructions can be followed"; "that holds where the project's own goals and record say nothing" | merge into `goal@knowledge-architect@every-target-project-can-adopt-it`, which the rulings make design | new head in `register@agent-skills@design`: an installed instruction is followed, and gives its result, with what an installing project holds. Rival: an instruction that needs this repository's record. Fact: "no tree but this one holds this repository's entries" (`design@agent-skills@shipped-text-cites-no-entry`). That head already holds the part "it names no Component and no convention of this repository". `path@agent-skills@CLAUDE.md`, lines 75 to 79, holds rows 7 and 8 as an instruction, "per" the goal that leaves | the rulings' table: "the rest a new head or the Component's scoped instructions" |
-| `goal@agent-skills@installed-text-works-in-every-target-project` | 3, 9, 11 | "Where it holds many"; the measure; "It refines" | "repeats the statement"; "the merge keeps the relation" | nowhere: they repeat the statement of that new head | they follow row 4 |
-| `goal@knowledge-architect@owner-attention-on-what-is-theirs` | 1, 6a | "The agent carries the investigation, the measurements and the tracking" | merge into `goal@knowledge-architect@the-owner-decides`, which "does not stand" | nowhere: it repeats the drift draft, "lets AI agents carry a target project's work with less supervision". The merged draft of `goal@knowledge-architect@the-owner-decides` loses its last sentence, "The agents carry the investigation ... to read or answer." | the rulings' table names the three goals that hold its sentences |
-| `goal@knowledge-architect@owner-attention-on-what-is-theirs` | 4, 5 | "the questions only the owner answers"; "the reports of what agents decided" | "the goal it merges into" | nowhere: they repeat the draft of `goal@knowledge-architect@the-owner-decides`, "The owner decides the rest" and "reaches the owner" | same holder, no merge |
-| `goal@knowledge-architect@owner-attention-on-what-is-theirs` | 6b, 7 | "and puts a proposal before the owner with its grounding and its consequences already established"; "the agent takes the measurements a proposal rests on" | "the goal it merges into" | `goal@knowledge-architect@design-with-agents-as-counterparts`. Its draft changes "grounded in the project's record and in measurements" back to the goal's own words, "grounded in the record and backed by the measurements the agent takes" | the draft dropped who takes the measurements, so row 7 is not carried today |
-| `goal@knowledge-architect@owner-attention-on-what-is-theirs` | 8 | "Admits, for instance: the owner reads the whole transcript" | "repeats the statement" of a goal that is gone | nowhere: no goal bounds what the owner reads, as the owner ruled | an Admits case binds nothing |
+| `goal@knowledge-architect@only-needed-instructions` | 5, 11, 18, 19 | "Nor does an instruction impose structure the work does not need" | the goal's own draft as a goal of its own, whose last clause is "and no instruction fixes a structure the work does not need" | existing head `design@agent-skills@capabilities-not-structure`: "So the installed text imposes no structure the work does not need". Its words "which gives this argument a goal's weight" are rewritten. The clause leaves the draft | ruling 3: the clause "falls from a goal's weight to a presumption" |
+| `goal@knowledge-architect@only-needed-instructions` | 14 | "It refines `agents-get-a-complete-workflow`" | "the merge keeps the relation"; there is no merge | nowhere: rule 8 alone; no relation is kept | the goal stands alone |
+| `installed-text-works-in-every-target-project` | 1, 4, 7, 8 | "A target project other than knowledge-architect"; "The installed text works unchanged"; "each of its instructions can be followed"; "that holds where the project's own goals and record say nothing" | merge into `goal@knowledge-architect@every-target-project-can-adopt-it`, which the rulings make design | new head in `register@agent-skills@design`: an installed instruction is followed, and gives its result, with what an installing project holds. Rival: an instruction that needs this repository's record. Fact: "no tree but this one holds this repository's entries" (`design@agent-skills@shipped-text-cites-no-entry`). That head already holds the part "it names no Component and no convention of this repository". `path@agent-skills@CLAUDE.md`, lines 75 to 79, holds rows 7 and 8 as an instruction, "per" the goal that leaves | the rulings' table: "the rest a new head or the Component's scoped instructions" |
+| `installed-text-works-in-every-target-project` | 3, 9, 11 | "Where it holds many"; the measure; "It refines" | "repeats the statement"; "the merge keeps the relation" | nowhere: they repeat the statement of that new head | they follow row 4 |
+| `owner-attention-on-what-is-theirs` | 1, 6a | "The agent carries the investigation, the measurements and the tracking" | merge into `goal@knowledge-architect@the-owner-decides`, which "does not stand" | nowhere: it repeats the drift draft, "lets AI agents carry a target project's work with less supervision". The merged draft of `goal@knowledge-architect@the-owner-decides` loses its last sentence, "The agents carry the investigation ... to read or answer." | the rulings' table names the three goals that hold its sentences |
+| `owner-attention-on-what-is-theirs` | 4, 5 | "the questions only the owner answers"; "the reports of what agents decided" | "the goal it merges into" | nowhere: they repeat the draft of `goal@knowledge-architect@the-owner-decides`, "The owner decides the rest" and "reaches the owner" | same holder, no merge |
+| `owner-attention-on-what-is-theirs` | 6b, 7 | "and puts a proposal before the owner with its grounding and its consequences already established"; "the agent takes the measurements a proposal rests on" | "the goal it merges into" | `goal@knowledge-architect@design-with-agents-as-counterparts`. Its draft changes "grounded in the project's record and in measurements" back to the goal's own words, "grounded in the record and backed by the measurements the agent takes" | the draft dropped who takes the measurements, so row 7 is not carried today |
+| `owner-attention-on-what-is-theirs` | 8 | "Admits, for instance: the owner reads the whole transcript" | "repeats the statement" of a goal that is gone | nowhere: no goal bounds what the owner reads, as the owner ruled | an Admits case binds nothing |
 | `goal@knowledge-architect@agents-work-without-drift` | 4, 7, 8 | "Where two goals compete, it ranks first"; "the owner's authority, exchange and attention" | "the ranking goal of Q1"; the list keeps the ranking inside the drift goal, and the attention goal is gone | the drift goal: its draft gains the two sentences of the ranking draft, without "the owner's attention". Owner's question 9 | the drift draft holds no ranking sentence today; Q2 says an item falls with its goal |
-| `goal@knowledge-architect@setup-brings-quality-tools` | 1a, 7 | "A target project that adopts knowledge-architect is led to set up the quality tools"; "designs none of them itself" | merge into G-B, which the rulings make design | existing head `design@gates@gates-crate`: "a project adopting the workflow gets gates refined over two projects instead of writing its own", with `rejected@gates@each-project-writes-its-runner`. G-B's draft loses "A target project that adopts knowledge-architect gets the tools that judge its quality among them, and has to design none of them itself." | the rulings' table: "design: four existing heads hold it" |
-| `goal@knowledge-architect@setup-brings-quality-tools` | 1b | "each is an ask" | the scope goal, whose own row 14a sends the sentence to a design issue | issue of kind design: the one of rows 12 to 18 of the scope goal | the holder's own analysis drops it |
-| `goal@knowledge-architect@setup-brings-quality-tools` | 5, 6 | "Continuous integration is none of the three"; "The workflow's setup may offer a shape for it" | the workflow goal, whose rows 16 to 19 send the sentence to a new head | the new head the analysis proposes, `installed-text-requires-no-ci-and-no-pull-request`. Its rival is the installed text as `issue@agent-skills@installed-text-assumes-pull-requests-and-ci` lists it, which resolves | the holder's own analysis drops it |
+| `setup-brings-quality-tools` | 1a, 7 | "A target project that adopts knowledge-architect is led to set up the quality tools"; "designs none of them itself" | merge into G-B, which the rulings make design | existing head `design@gates@gates-crate`: "a project adopting the workflow gets gates refined over two projects instead of writing its own", with `rejected@gates@each-project-writes-its-runner`. G-B's draft loses "A target project that adopts knowledge-architect gets the tools that judge its quality among them, and has to design none of them itself." | the rulings' table: "design: four existing heads hold it" |
+| `setup-brings-quality-tools` | 1b | "each is an ask" | the scope goal, whose own row 14a sends the sentence to a design issue | issue of kind design: the one of rows 12 to 18 of the scope goal | the holder's own analysis drops it |
+| `setup-brings-quality-tools` | 5, 6 | "Continuous integration is none of the three"; "The workflow's setup may offer a shape for it" | the workflow goal, whose rows 16 to 19 send the sentence to a new head | the new head the analysis proposes, `design@agent-skills@installed-text-requires-no-ci-and-no-pull-request`. Its rival is the installed text as `issue@agent-skills@installed-text-assumes-pull-requests-and-ci` lists it, which resolves | the holder's own analysis drops it |
 | scope goal | 15c | "and a shape of continuous integration or of pull requests becomes no ask" | the workflow goal, same case | the same new head | same |
-| scope goal | 15a | "A quality tool, in every goal of knowledge-architect, is a tool that judges" | `goal@knowledge-architect@setup-brings-quality-tools`, or the home's head "if two kept goals use it" | issue of kind design, with rows 14a and 15b. No kept draft uses the term once G-B's sentence leaves. `grep -rn -i 'quality tool' docs/design.md crates/*/docs/design*` finds three users: `register@knowledge-architect@design` and `path@agent-skills@docs/design/development.md`, line 96 and `:121` | the definition serves only the rule on which tool becomes an ask |
+| scope goal | 15a | "A quality tool, in every goal of knowledge-architect, is a tool that judges" | `setup-brings-quality-tools`, or the home's head "if two kept goals use it" | issue of kind design, with rows 14a and 15b. No kept draft uses the term once G-B's sentence leaves. `grep -rn -i 'quality tool' docs/design.md crates/*/docs/design*` finds three users: `register@knowledge-architect@design` and `path@agent-skills@docs/design/development.md`, line 96 and `:121` | the definition serves only the rule on which tool becomes an ask |
 | scope goal | 29c | "for the choice of knowledge-architect's owner whether to take in a generic part" | G-B, "lines 574 to 576" | the scope goal: the last sentence of its draft gains "and for the choice of knowledge-architect's owner whether to take in a generic part" | two rows name each other, see the next row |
 | G-B | 5 | "The rule of `serves-one-kind-of-project` against limits argued from what a current target project needs does not bind that choice" | the scope goal, "whose body states it" | the same clause of the scope goal's draft | scope goal row 29c and G-B row 5 each name the other's goal; neither draft holds the sentence |
 | scope goal | 31 | "A project that follows the workflow is one that has installed it" | `goal@knowledge-architect@the-workflow-improves-through-real-use`, lines 712 and 713 | issue of kind design, with row 12, the row's own fallback | that goal's draft says "inside a real target project" and drops "that has installed it, whether or not the project follows every ask yet" |
-| `goal@gates@gates-from-a-list`; `goal@xtask@one-command-runs-every-gate` | 5d; 4 | "and the verdict that says whether the gates let a branch merge"; "Run with the rebase check, its exit code is the one verdict" | the scope goal, whose row 21 sends the sentence to a design issue | the same design issue; `issue@gates@the-library-has-no-merge-verdict` and `issue@knowledge-architect@the-target-project-and-its-asks-are-stated-to-no-adopter` exist and hold the work. Q76c is answered: no goal holds it | the holder's own analysis drops it |
+| `gates-from-a-list`; `one-command-runs-every-gate` | 5d; 4 | "and the verdict that says whether the gates let a branch merge"; "Run with the rebase check, its exit code is the one verdict" | the scope goal, whose row 21 sends the sentence to a design issue | the same design issue; `issue@gates@the-library-has-no-merge-verdict` and `issue@knowledge-architect@the-target-project-and-its-asks-are-stated-to-no-adopter` exist and hold the work. Q76c is answered: no goal holds it | the holder's own analysis drops it |
 | `goal@knowledge-architect@every-target-project-can-adopt-it` | 2 | "For every other statement of the goals, this repository is a target project" | the scope goal, "if the owner wants it stated" | the scope goal: its draft gains one clause, "knowledge-architect's own repository is a target project". Owner's question 3 | the scope draft does not hold it, and the owner's third answer rests on it |
-| `goal@create@a-project-adopts-by-one-command` | 0, 1, 2a | the title; "A person or an agent adopting knowledge-architect runs one command"; "Every file the checker requires then stands" | merge into `goal@knowledge-architect@adoption-is-easy`, which the rulings split to design | existing head `design@create@init-command`: "writes the manifest ... then every document the root Component, each Component it lists and the plans directory owe". The draft of `goal@knowledge-architect@adoption-is-easy` loses "One command leaves the project with every file knowledge-architect requires of it, ready to be completed." | the rulings' table: "by one command" is that head |
-| `goal@create@a-project-adopts-by-one-command` | 4, 18 | "A file the project wrote is neither overwritten nor removed" | `goal@knowledge-architect@adoption-is-easy`; the owner ruled it "a small, orthogonal design decision" | for an overwrite: existing head `design@create@init-keeps-existing-files`, "kept byte for byte and listed as `kept`". For a removal: the owner's ruling into that head, which says today "the install writes and deletes there"; `issue@create@init-outside-a-worktree-deletes-an-owned-file-silently` holds the work. The draft of `goal@knowledge-architect@adoption-is-easy` loses "Adopting loses nothing the project wrote." Owner's question 8 | the sentence no longer prevails over the two heads as a goal did |
-| `goal@create@a-project-gains-a-component-by-one-command` | 3, 10 | "A file the project wrote is neither overwritten nor removed" | `goal@knowledge-architect@adoption-is-easy` "if the owner makes that statement general" | the row's other branch: the owner's ruling into `design@create@component-command` | Q94 is answered: no goal holds it |
+| `a-project-adopts-by-one-command` | 0, 1, 2a | the title; "A person or an agent adopting knowledge-architect runs one command"; "Every file the checker requires then stands" | merge into `goal@knowledge-architect@adoption-is-easy`, which the rulings split to design | existing head `design@create@init-command`: "writes the manifest ... then every document the root Component, each Component it lists and the plans directory owe". The draft of `goal@knowledge-architect@adoption-is-easy` loses "One command leaves the project with every file knowledge-architect requires of it, ready to be completed." | the rulings' table: "by one command" is that head |
+| `a-project-adopts-by-one-command` | 4, 18 | "A file the project wrote is neither overwritten nor removed" | `goal@knowledge-architect@adoption-is-easy`; the owner ruled it "a small, orthogonal design decision" | for an overwrite: existing head `design@create@init-keeps-existing-files`, "kept byte for byte and listed as `kept`". For a removal: the owner's ruling into that head, which says today "the install writes and deletes there"; `issue@create@init-outside-a-worktree-deletes-an-owned-file-silently` holds the work. The draft of `goal@knowledge-architect@adoption-is-easy` loses "Adopting loses nothing the project wrote." Owner's question 8 | the sentence no longer prevails over the two heads as a goal did |
+| `a-project-gains-a-component-by-one-command` | 3, 10 | "A file the project wrote is neither overwritten nor removed" | `goal@knowledge-architect@adoption-is-easy` "if the owner makes that statement general" | the row's other branch: the owner's ruling into `design@create@component-command` | Q94 is answered: no goal holds it |
 | G-A | 3b | "any other such task is owed such a command ... once knowledge-architect's owner takes its generic part in" | `goal@knowledge-architect@the-owner-decides`, which holds the authority and not the condition on what G-A owes | G-A: its draft gains "once its owner has taken the task in" after "knowledge-architect provides a tool that does it". Owner's question 5 | without it G-A owes a tool for every such task; Q60 is not ruled |
-| `goal@check@checks-a-commit-from-its-hook` | 4 | "A target project is covered here when a `.git` is at or above its directory" | a head that rests on the scope goal's ask, whose draft "holds no word ... on git" | waits on Q80; owner's question 2 | the same holds for row 2 of `goal@agent-skills@installed-text-works-in-any-environment`, on the `claude` harness |
-| `goal@knowledge-architect@projects-are-split-into-components` | 1, 5 | "A Component is a part of a project that the project declares"; "so is an intermediate Component" | a head that states them "per" this goal; the list keeps the wider wording, which holds neither | `design@agent-skills@no-installed-rule-on-when-an-intermediate-component-exists` takes both as its own statements. Owner's question 10 | Q27a is not ruled |
+| `checks-a-commit-from-its-hook` | 4 | "A target project is covered here when a `.git` is at or above its directory" | a head that rests on the scope goal's ask, whose draft "holds no word ... on git" | waits on Q80; owner's question 2 | the same holds for row 2 of `installed-text-works-in-any-environment`, on the `claude` harness |
+| `goal@knowledge-architect@projects-are-split-into-modular-units` | 1, 5 | "A Component is a part of a project that the project declares"; "so is an intermediate Component" | a head that states them "per" this goal; the list keeps the wider wording, which holds neither | `design@agent-skills@no-installed-rule-on-when-an-intermediate-component-exists` takes both as its own statements. Owner's question 10 | Q27a is not ruled |
 
 Rows whose holder changed and whose sentence is carried, so nothing is lost:
 
-- `goal@agent-skills@only-needed-instructions` rows 1, 2, 3 and 16: now held by that goal itself, in the shape of the rulings, "leaves every other case to the agent's judgement".
+- `goal@knowledge-architect@only-needed-instructions` rows 1, 2, 3 and 16: now held by that goal itself, in the shape of the rulings, "leaves every other case to the agent's judgement".
 - Workflow goal row 23 and G-B row 9: carried by the same shape.
-- `goal@agent-skills@one-skill-per-activity` rows 5, 6, 9 and `goal@agent-skills@installed-text-works-in-any-environment` row 1: carried by the shape of the workflow goal, its list and "which an agent carries out with the workflow and what its project adds".
-- `goal@knowledge-architect@structure-and-workflow-work-together` rows 1 and 4: held by the home's head, as ruled.
+- `design@agent-skills@one-skill-per-activity` rows 5, 6, 9 and `installed-text-works-in-any-environment` row 1: carried by the shape of the workflow goal, its list and "which an agent carries out with the workflow and what its project adds".
+- `structure-and-workflow-work-together` rows 1 and 4: held by the home's head, as ruled.
 - `goal@knowledge-architect@agents-work-without-drift` row 10, last part: the sentence it quotes from `goal@knowledge-architect@the-workflow-improves-through-real-use` went to a design issue (row 5 of that goal). That draft's "What real use shows unclear, missing or wrong in the workflow reaches knowledge-architect and changes the workflow" still carries "learns from".
 - Scope goal row 9: two of the three goals it names are kept.
 - Scope goal rows 14b and 22f; G-A row 4; G-B row 4: the draft of `goal@knowledge-architect@the-owner-decides` carries them.
-- `goal@check@document-rules-are-checked` row 1, second part: the draft of `goal@knowledge-architect@every-target-project-can-adopt-it` carries "cited in one readable form, the same in every project".
-- `goal@agent-skills@reviews-judge-what-no-tool-can` rows 2, 6, 7 and `goal@knowledge-architect@records-reach-their-reader` row 17: the consistency draft carries "judge no meaning".
+- `document-rules-are-checked` row 1, second part: the draft of `goal@knowledge-architect@every-target-project-can-adopt-it` carries "cited in one readable form, the same in every project".
+- `reviews-judge-what-no-tool-can` rows 2, 6, 7 and `goal@knowledge-architect@records-reach-their-reader` row 17: the consistency draft carries "judge no meaning".
 
 #### Rows for the new first goal
 
 | old goal | row | sentence's first words | what the first goal takes |
 | --- | --- | --- | --- |
-| `goal@model@a-tool-reads-the-documents-with-no-check` | 2 | "Through the library such a tool reads what the project declares" | what the model gives: what is declared, what the documents hold, the entries, what each reference names |
+| `a-tool-reads-the-documents-with-no-check` | 2 | "Through the library such a tool reads what the project declares" | what the model gives: what is declared, what the documents hold, the entries, what each reference names |
 | same | 3, 5 | "To judge what a document says is to report"; "gives each of those readings with no such report attached" | the reading that judges nothing |
 | same | 1, 4 | "A tool here is any code of knowledge-architect that reads"; "reaches past it to tools no session task asks for" | who "tools" are; Q17 |
 | same | 6, 7, 8 | the three cases | cases of the same statement; they repeat it |
-| `goal@model@recorded-items-can-be-referenced` | 1, 3 | "each recorded item ... takes a name"; "the library reads a name for each such item" | naming and citing; "or why it names nothing" stays with `design@model@resolver-outcome` |
+| `recorded-items-can-be-referenced` | 1, 3 | "each recorded item ... takes a name"; "the library reads a name for each such item" | naming and citing; "or why it names nothing" stays with `design@model@resolver-outcome` |
 | same | 5, 6, 7 | "can each be referenced from a code comment"; "any name a session chooses"; "a reference with two readings" | cases of naming and citing |
 | `goal@knowledge-architect@records-reach-their-reader` | 3 | "a way to give each recorded item a name, and to reference it from any text the checker reads" | naming and citing |
-| `goal@check@document-rules-are-checked` | 1 | "A project declares to the checker what it records, where each kind of entry lives" | the declaring of kinds of entries |
-| `goal@check@documents-stay-current` | 1 | "A reference is a pointer by which one text names a recorded item" | the definition of a reference, or the home's head |
-| `goal@knowledge-architect@structure-and-workflow-work-together` | 6, 8 | "each such home whose entries any document of the project cites is declared"; "a project that keeps a kind of entry of its own" | a declared structure, with a project's own kinds |
+| `document-rules-are-checked` | 1 | "A project declares to the checker what it records, where each kind of entry lives" | the declaring of kinds of entries |
+| `documents-stay-current` | 1 | "A reference is a pointer by which one text names a recorded item" | the definition of a reference, or the home's head |
+| `structure-and-workflow-work-together` | 6, 8 | "each such home whose entries any document of the project cites is declared"; "a project that keeps a kind of entry of its own" | a declared structure, with a project's own kinds |
 | same | 3 | "one such home each, in the part of the project it belongs to" | the defined structure; weaker, since "part" is design |
-| `goal@knowledge-architect@records-live-beside-the-code` | 2 | "The record lives in the homes the installed text gives each kind of it" | the defined structure; weaker, since the rest of that goal is a head |
+| `records-live-beside-the-code` | 2 | "The record lives in the homes the installed text gives each kind of it" | the defined structure; weaker, since the rest of that goal is a head |
 | `goal@knowledge-architect@every-target-project-can-adopt-it` | 3 | "A project declares to the checker the structure particular to it" | the declaring; the mechanism stays in `design@check@nothing-of-a-project-is-compiled-in` |
-| `goal@model@a-tool-knows-the-read-is-right` | 3 | "The library answers whether what it read is right" | only if the owner holds it as part of the model; owner's question 7 |
+| `a-tool-knows-the-read-is-right` | 3 | "The library answers whether what it read is right" | only if the owner holds it as part of the model; owner's question 7 |
 | texts above the first goal, `register@model@goal` | (no number) | "a tool of knowledge-architect reads what a project's documents hold and what they name through one library" | the first goal's statement, without "one library" |
 
 #### Count
@@ -4550,8 +4550,8 @@ Of the 275, the first table lists 80 rows as lost or not carried. The other rows
 
 #### Met outside the task
 
-- The head proposed under the slug of `goal@agent-skills@reviews-judge-by-the-writer-s-criteria` cites the workflow goal for "no two instructions are ones a session cannot both obey". That sentence now belongs to a head, so the proposed head derives from a decision and not from a goal. For the dispatcher to route.
-- `design@gates@gates-crate` says it "serves `goal@knowledge-architect@setup-brings-quality-tools`", and `path@agent-skills@docs/design/development.md`, line 121 cites that goal too. The analysis re-points both to G-B for a sentence G-B's draft now loses; G-B's general statement, "so that every target project gets it", is what remains to cite. For the one pass.
+- The head proposed under the slug of `design@agent-skills@reviews-judge-by-the-writer-s-criteria` cites the workflow goal for "no two instructions are ones a session cannot both obey". That sentence now belongs to a head, so the proposed head derives from a decision and not from a goal. For the dispatcher to route.
+- `design@gates@gates-crate` says it "serves `setup-brings-quality-tools`", and `path@agent-skills@docs/design/development.md`, line 121 cites that goal too. The analysis re-points both to G-B for a sentence G-B's draft now loses; G-B's general statement, "so that every target project gets it", is what remains to cite. For the one pass.
 - `design@agent-skills@capabilities-not-structure` says the only-needed goal "gives this argument a goal's weight", which ruling 3 makes false. For the one pass.
 
 ### Triage of the questions of "Theme: The owner and the agents" (Q48 to Q58) under the owner's rulings
@@ -4647,7 +4647,7 @@ None. No question of this theme is open for the owner before drafting.
 
 - The analysis says, under the second goal, "Words of the owner that bear on it: None. The rewrite of this goal must ask the owner." This is no labelled question. The fate "kept" is ruled, and the current text was approved by the owner in batch 1, so a draft can be written from it; the dispatcher decides whether step 1 of `skill@knowledge-architect-goal-setting@drawing-out-intent` is owed for it.
 - Q50 states that a conflict between texts and a head is one "which `primer@goals-bind` does not rank". `primer@question-authority` ranks it: "Where an installed instruction sends to the owner a question this section gives the session, this section prevails". The analysis's sentence is false as written.
-- `issue@agent-skills@texts-send-the-owner-more-than-the-closed-list` and `design@agent-skills@goal-draft-shows-reach` cite `goal@knowledge-architect@owner-attention-on-what-is-theirs`, which the rulings remove; `design@agent-skills@roadmap-orders-issues` cites `goal@knowledge-architect@structure-and-workflow-work-together`, which becomes a sentence of the home's head. Each is re-pointed in the one pass.
+- `issue@agent-skills@texts-send-the-owner-more-than-the-closed-list` and `design@agent-skills@goal-draft-shows-reach` cite `owner-attention-on-what-is-theirs`, which the rulings remove; `design@agent-skills@roadmap-orders-issues` cites `structure-and-workflow-work-together`, which becomes a sentence of the home's head. Each is re-pointed in the one pass.
 - The ruling on a decision that turns on a reading of a goal adds a case sent to the owner, "where no argument ranks two readings that move in different directions". The draft of `goal@knowledge-architect@the-owner-decides` lists "a choice between shapes" and "a contradiction"; the drafter checks that one of the two covers that case.
 
 ### Triage of the questions of the theme "The record and its documents" under the owner's rulings
@@ -4661,15 +4661,15 @@ Each reference cited was resolved with `cargo klarch show`. "The standard" is `s
 | label | class | one line |
 | --- | --- | --- |
 | Q1 | ANSWERED | The ranking is neither a goal of its own nor the head's sentence. The list row reads "`goal@knowledge-architect@agents-work-without-drift`, with its ranking", and the owner's paragraph becomes the head "in place of its paragraph on two main purposes"; the owner: "agreed on those 6 files and 21 goals in the list". The draft `drift-ranks-first` is dropped. Whether a ranking inside a purpose passes rule 5 is the reviewer's. |
-| Q2 | ANSWERED | The ranking stays with the goal (the Q1 row). The "attention" item falls: "no goal bounds the owner's reading time", and `goal@knowledge-architect@owner-attention-on-what-is-theirs` "does not stand, and is no goal of its own as drafted". The three other goals named are in the list. The two scope items sent nowhere are held by `design@agent-skills@requires-admits-rules-out`: "one that rules out what another only admits does not, and the exclusion holds". |
+| Q2 | ANSWERED | The ranking stays with the goal (the Q1 row). The "attention" item falls: "no goal bounds the owner's reading time", and `owner-attention-on-what-is-theirs` "does not stand, and is no goal of its own as drafted". The three other goals named are in the list. The two scope items sent nowhere are held by `design@agent-skills@requires-admits-rules-out`: "one that rules out what another only admits does not, and the exclusion holds". |
 | Q2a | SETTLED BY THE RECORD | `primer@goals-bind`: "A decision binds as a presumption" and "the goal prevails". An ask that a decision states ranks as that decision with no sentence of a goal. |
 | Q3 | SETTLED BY THE RECORD | `design@agent-skills@goal-one-meaning-any-breadth`: "A question it leaves open of when, how much or by what means is no defect: a design head closes it", and "a head an agent can reverse on argument settles it". The threshold's head exists: `design@agent-skills@a-head-is-owed-by-an-entry-test`. |
 | Q3a | WORDING | The reach of the two-tier draft is shown in the reviewer's rounds, per `design@agent-skills@reach-finding-asks-not-narrows`. Keeping the threshold's words in the goal is excluded by the Q3 row. |
-| Q4 | ANSWERED | Neither shape. The reading's table says of `goal@knowledge-architect@records-live-beside-the-code`: "a new design head of the root's design home, argued from three goals", and the list gives the receiving goal its own origin alone. The last sentence of the draft of `goal@knowledge-architect@design-is-recorded-with-its-arguments` leaves the draft. The owner answered the reading's three questions and did not except this row. |
-| Q5 | ANSWERED | "the sentence of `goal@knowledge-architect@structure-and-workflow-work-together` is the sentence of the home's head that joins the two parts". The owner: "both of these aspects of the project are supposed to work together". |
+| Q4 | ANSWERED | Neither shape. The reading's table says of `records-live-beside-the-code`: "a new design head of the root's design home, argued from three goals", and the list gives the receiving goal its own origin alone. The last sentence of the draft of `goal@knowledge-architect@design-is-recorded-with-its-arguments` leaves the draft. The owner answered the reading's three questions and did not except this row. |
+| Q5 | ANSWERED | "the sentence of `structure-and-workflow-work-together` is the sentence of the home's head that joins the two parts". The owner: "both of these aspects of the project are supposed to work together". |
 | Q5a | ANSWERED | Same words as Q5: the head of the goals home keeps the sentence, so shape (b) is out. |
 | Q6 | WORDING | "judge no meaning" is in the goal as it stands today (`register@knowledge-architect@goal`), and the draft keeps it. Whether it is an outcome or a mechanism is the test of rule 2, which the goal reviewer applies. A removal would go to the owner in the rounds. |
-| Q6a | FALLS | Its premise was that both goals of `query` leave with no text saying what the commands are for. The reading's table: "`goal@query@agents-query-the-project` into `goal@knowledge-architect@mechanical-tasks-are-the-tool-s` \| stands", and the list keeps "a task a tool does at a lower cost, or better, is the tool's". The other goal is held by `design@query@worklist-writes-and-verifies-the-reports`, which already serves `goal@knowledge-architect@records-reach-their-reader` (crates/query/docs/design.md, line 242). |
+| Q6a | FALLS | Its premise was that both goals of `query` leave with no text saying what the commands are for. The reading's table: "`agents-query-the-project` into `goal@knowledge-architect@tasks-a-tool-does-better-are-the-tool-s` \| stands", and the list keeps "a task a tool does at a lower cost, or better, is the tool's". The other goal is held by `design@query@worklist-writes-and-verifies-the-reports`, which already serves `goal@knowledge-architect@records-reach-their-reader` (crates/query/docs/design.md, line 242). |
 | Q7 | SETTLED BY THE RECORD | `design@agent-skills@what-shows-a-goal-met-is-design`: "how the project learns from its use whether it is met" is "a design decision, in a head that cites the goal". The session decides: an issue of kind `design`, per the row "what is outstanding" of `primer@where-knowledge-goes`. |
 | Q7a | SETTLED BY THE RECORD | Same head: "what the project builds to pursue it" is design. The two unbuilt parts of the review go to an issue of kind `design`. |
 | Q8 | ANSWERED | "Q3: yes, I think it is", and the first row of the list: the new goal "takes the declaring of kinds of entries, the naming and citing of a recorded item". The sentence "A project declares to the checker what it records…" moves from the draft of `goal@knowledge-architect@documentation-stays-consistent` to the first goal. |
@@ -4683,7 +4683,7 @@ Each reference cited was resolved with `cargo klarch show`. "The standard" is `s
 | Q15 | OPEN FOR THE OWNER | Whether a published library API is part of the purpose of "a project adds checks of its own". Restated below. |
 | Q16 | SETTLED BY THE RECORD | `primer@where-knowledge-goes`, the row "how a user can use a Component, and what to respect \| its `README.md`". The session decides whether the covered forms go there. `path@check@README.md` already says "`check --staged` runs as a pre-commit hook and judges the tree the commit records, `git commit -a` included". |
 | Q16a | ANSWERED | Shape (b). The fate ruled as proposed is "turned into a design head, existing: `design@git@index-file-variable-kept`, which must gain the capability as a new member", and the list of 21 holds no goal on the hook. The member is argued under the design skill, and an issue of kind `design` holds it until then. |
-| Q17 | ANSWERED | "the statement of `goal@model@a-tool-reads-the-documents-with-no-check` is part of the first goal", titled "a project's documentation has a defined structure, and a model of it that tools read". On the library: "design under the scope goal". Whether "tools" reaches programs other than knowledge-architect's own is a reach the reviewer shows in the rounds. |
+| Q17 | ANSWERED | "the statement of `a-tool-reads-the-documents-with-no-check` is part of the first goal", titled "a project's documentation has a defined structure, and a model of it that tools read". On the library: "design under the scope goal". Whether "tools" reaches programs other than knowledge-architect's own is a reach the reviewer shows in the rounds. |
 
 ##### The OPEN questions, by file of the list
 
@@ -4699,7 +4699,7 @@ The goal as written says that knowledge-architect's own documents render as one 
 
 Neither ruling states it in words, and the two readings move the work in different directions, which your ruling on goal readings sends to you.
 
-**Q15**, goal "a project adds checks of its own" (`goal@check@projects-add-their-own-checks`).
+**Q15**, goal "a project adds checks of its own" (`goal@knowledge-architect@projects-add-their-own-checks`).
 
 Today the goal's title says a project adds its checks "through public APIs", written as an extension against the published libraries. Is a published library API part of what you intend, or is the purpose only that a project's own checks run and report with the checker's, with no change to knowledge-architect, by whatever means?
 
@@ -4731,7 +4731,7 @@ No question is open in the four other files.
 
 ##### Met outside the task
 
-- `design@knowledge-architect@query-crate` still cites `goal@query@agents-query-the-project` and `goal@query@the-record-is-consulted-as-the-workflow-requires`. The analysis already assigns the re-pointing to the one pass, so nothing new is opened.
+- `design@knowledge-architect@query-crate` still cites `agents-query-the-project` and `the-record-is-consulted-as-the-workflow-requires`. The analysis already assigns the re-pointing to the one pass, so nothing new is opened.
 - The installed primer in this worktree words `primer@goals-bind` as "The project states them in the goals home of its root", which differs from the primer loaded in my context. I used the worktree's text.
 
 ### Triage of the questions of "Theme: The workflow for agents" under the owner's rulings
@@ -4754,14 +4754,14 @@ Short names for the rulings quoted below:
 | --- | --- | --- |
 | Q18 | SETTLED BY THE RECORD | `skill@knowledge-architect-goal-setting@goal-entry-shape`: the head of the root's goals home "also holds the definitions its goals share ... A definition that is the outcome of one goal is stated in that goal instead." Two kept goals in two files use "generic part", so it goes to the home's head. |
 | Q19 | WORDING | Coverage is bounded by "taken in" under either reading, which is the owner's act. The clause on an activity only some projects carry out is something the goal admits, and rule 4 of the standard says "What it admits needs no ruling". The boundary block shows it. |
-| Q20 | SETTLED BY THE RECORD | Same rule as Q18. `register@knowledge-architect@goal` uses "offered shape" in two kept goals, `goal@knowledge-architect@serves-one-kind-of-project` (line 454) and `goal@knowledge-architect@generic-tools-and-procedures-are-shipped` (line 578). If either draft keeps the word, the definition goes to the home's head; otherwise to the new head. `goal@knowledge-architect@setup-brings-quality-tools` is no longer a goal (merge table: "design: four existing heads hold it"). |
+| Q20 | SETTLED BY THE RECORD | Same rule as Q18. `register@knowledge-architect@goal` uses "offered shape" in two kept goals, `goal@knowledge-architect@serves-one-kind-of-project` (line 454) and `goal@knowledge-architect@generic-tools-and-procedures-are-shipped` (line 578). If either draft keeps the word, the definition goes to the home's head; otherwise to the new head. `setup-brings-quality-tools` is no longer a goal (merge table: "design: four existing heads hold it"). |
 | Q21 | ANSWERED | Split ruling, point 2: the goal takes in the list of activities and one clause, "and no property of the text". The List ruling holds no goal on continuous integration or pull requests. `goal@knowledge-architect@serves-one-kind-of-project` keeps "a shape of continuous integration or of pull requests becomes no ask" (lines 453 to 454), so the new head cites a goal that binds outright. |
 | Q22 | WORDING | The exclusion of Rust idiom is goal text the owner already ruled, and the draft keeps it. Row 11's holder is now design, not a goal. The reviewer and the boundary block judge the words. |
 | Q22a | FALLS | Split ruling, point 3: "The properties of the text are design heads: that no two installed instructions contradict and each is plain enough to follow". The sentence leaves the goal, so there is no goal sentence to keep or restate. `rejected@agent-skills@two-readings-left-to-judgement` is re-read when the head is written, through the design skill. |
 | Q23 | WORDING | The List ruling keeps the goal ("the workflow leads agents to write better code"). The draft is the existing ruled statement, thinned. The owner rules it with its boundary block at step 6 of `skill@knowledge-architect-goal-setting@drawing-out-intent`. |
 | Q24 | SETTLED BY THE RECORD | `skill@knowledge-architect-goal-setting@goal-or-not`, rule 1: "A statement about one part of the project is design too, since the part exists by a design choice". "The default shape is a guideline" is about a designed part, so it is the head's to argue. The stated default, an issue until `design@agent-skills@default-code-shape` argues it, is the session's decision. |
 | Q25 | ANSWERED | The list row reads "the workflow leads a project to be split into modular units ... a wider wording", and the List ruling agrees to it. |
-| Q26 | SETTLED BY THE RECORD | Rule 1: a ranking is between two purposes, and `goal@agent-skills@only-needed-instructions` is ruled a scope on the installed workflow (Split ruling, point 1), not a purpose on a target project's files. Rule 3: a question of "when, how much or by what means" is closed by a design head, "and no wording of the goal does". The whole-set reviewer reports a contradiction if one exists. |
+| Q26 | SETTLED BY THE RECORD | Rule 1: a ranking is between two purposes, and `goal@knowledge-architect@only-needed-instructions` is ruled a scope on the installed workflow (Split ruling, point 1), not a purpose on a target project's files. Rule 3: a question of "when, how much or by what means" is closed by a design head, "and no wording of the goal does". The whole-set reviewer reports a contradiction if one exists. |
 | Q27 | SETTLED BY THE RECORD | Rule 3 of the standard: "A goal that admits many shapes in one direction reads one way: breadth is no defect." The form of a unit at each layer is design. `rejected@agent-skills@module-directory-component` and `design@agent-skills@component-crate-mapping` stand on their arguments and reopen only through the design skill. |
 | Q27a | SETTLED BY THE RECORD | The List ruling takes the wider wording, and rule 2 says a goal "names no part whose existence comes from a design choice, a Component included". So the head takes the definition and the sentence as its own statements. The head already attributes both defeats to the owner ("the owner keeps each Component tied to the filesystem tree"; "The owner chose to keep the goal as it stands"). The head is misnamed in the analysis: see "Met outside the task". |
 | Q28 | WORDING | The slug is part of the goal's heading, ruled with the goal. `skill@knowledge-architect-decision-recording` says a rename rewrites "every reference in the same change", which is mechanical. No draft waits. |
@@ -4770,8 +4770,8 @@ Short names for the rulings quoted below:
 | Q31 | SETTLED BY THE RECORD | `primer@design-heads`: an approval of the session's wording is "no ground: the session's decision". "Fails a goal" as a class provable by reading is a new member of `design@agent-skills@behaviour-additions-need-real-use`. It goes to the design skill, and an issue holds it until then, which is the stated default. |
 | Q32 | SETTLED BY THE RECORD | `primer@design-heads`: an argument of the owner is "argued, and recorded on its merits", and a head "is reversed by a better argument". The Fates ruling sends the admission rule to its head as a presumption, which the D3 words can then defeat. A rewording of that head's statement goes through the design skill. |
 | Q33 | SETTLED BY THE RECORD | `primer@design-heads`, the same row as Q31: row 19 is a case the drafter wrote and the owner approved as goal text, so it is not attributed to the owner. The new head argues it or drops it. |
-| Q34 | SETTLED BY THE RECORD | `goal@agent-skills@one-skill-per-activity`, a goal the owner ruled, says "the activities listed below counting as taken in" (line 16) and lists "maintaining the agent configuration" (line 35) and "the intake of a retrospective's findings" (line 37). |
-| Q35 | ANSWERED | Split ruling, point 3: "so `goal@agent-skills@no-contradiction-in-workflow` is a head, as the first sorting had it". It is not merged. |
+| Q34 | SETTLED BY THE RECORD | `design@agent-skills@one-skill-per-activity`, a goal the owner ruled, says "the activities listed below counting as taken in" (line 16) and lists "maintaining the agent configuration" (line 35) and "the intake of a retrospective's findings" (line 37). |
+| Q35 | ANSWERED | Split ruling, point 3: "so `no-contradiction-in-workflow` is a head, as the first sorting had it". It is not merged. |
 | Q35a | FALLS | By the same point, the sentence on contradiction is no goal sentence. The clause on a stated precedence becomes a statement of the new head. |
 | Q35b | FALLS | The same: "that meet at one moment" is the new head's to state and argue. |
 | Q36 | ANSWERED | Fates ruling, on the summary row: "removed (overturns "head"): its two questions held by one issue alone, its second sentence by a root goal of another theme". |
@@ -4779,10 +4779,10 @@ Short names for the rulings quoted below:
 | Q37 | ANSWERED | Merge table: "design: `design@agent-skills@shipped-text-cites-no-entry` holds part, the rest a new head or the Component's scoped instructions". The List ruling's row for `goal@knowledge-architect@every-target-project-can-adopt-it` takes nothing in. |
 | Q37a | FALLS | By the same row, no sentence joins the root goal. The condition "as far as the project follows what knowledge-architect asks" goes with the statement to the head. |
 | Q37b | SETTLED BY THE RECORD | `design@agent-skills@statement-names-an-act` routes on `primer@question-authority`: "a fact only the owner holds". The clause "which a project that installs the workflow seldom records ..." fails the test of `primer@design-heads`, "if this premise turned false, would the decision have to be argued again?". The session drops the clause or parks it. |
-| Q38 | ANSWERED | Split ruling, point 2: the goal "takes in ... the one clause of `goal@agent-skills@installed-text-works-in-any-environment`". The ground of `design@agent-skills@installed-skill-takes-precedence` stays a sentence of a goal the owner rules. |
+| Q38 | ANSWERED | Split ruling, point 2: the goal "takes in ... the one clause of `installed-text-works-in-any-environment`". The ground of `design@agent-skills@installed-skill-takes-precedence` stays a sentence of a goal the owner rules. |
 | Q38a | ANSWERED | The same point: "and no property of the text". Precedence over an outside instruction and the deferral exception are not goal text. The default stands: an issue until the head argues them. |
 | Q38c | SETTLED BY THE RECORD | `goal@knowledge-architect@serves-one-kind-of-project` asks that "its agents run under the `claude` harness" (line 460), and a harness mechanism is no instruction. The reading is an admission, which rule 4 says needs no ruling. It is reported under "Decided" as a goal reading, per the last ruling. |
-| Q39 | ANSWERED | Split ruling, point 1: "`goal@agent-skills@only-needed-instructions` stands alone, as a scope". |
+| Q39 | ANSWERED | Split ruling, point 1: "`goal@knowledge-architect@only-needed-instructions` stands alone, as a scope". |
 | Q39a | ANSWERED | Split ruling, point 3: "the clause on structure the work does not need, which falls from a goal's weight to a presumption". The owner was told this cost before answering. |
 | Q39b | ANSWERED | Split ruling, point 3: the properties of the text "are design heads", including "how "needs" is tested". The conditional half ("If you keep the clause in the goal") falls with Q39a. The default stands: an issue until `design@agent-skills@capabilities-not-structure` argues the three. |
 | Q40 | ANSWERED | Among the costs told to the owner: "no goal protects an instruction by naming its act once measures leave, the need test alone doing so". The owner answered "1. I think this is right." |
@@ -4819,7 +4819,7 @@ Three classifications are the least firm. The dispatcher may want to tell the ow
 
 #### How the claims were checked
 
-- `cargo klarch show` resolved these: `primer@design-heads`, `primer@room-to-judge`, `skill@knowledge-architect-goal-setting@goal-entry-shape`, `skill@knowledge-architect-goal-setting@goal-or-not`, `goal@agent-skills@one-skill-per-activity`, `goal@knowledge-architect@serves-one-kind-of-project`, `design@agent-skills@shared-code-decisions-go-to-the-lowest-enclosing-component`, `design@agent-skills@no-installed-rule-on-when-an-intermediate-component-exists`, and the dispatch issue.
+- `cargo klarch show` resolved these: `primer@design-heads`, `primer@room-to-judge`, `skill@knowledge-architect-goal-setting@goal-entry-shape`, `skill@knowledge-architect-goal-setting@goal-or-not`, `design@agent-skills@one-skill-per-activity`, `goal@knowledge-architect@serves-one-kind-of-project`, `design@agent-skills@shared-code-decisions-go-to-the-lowest-enclosing-component`, `design@agent-skills@no-installed-rule-on-when-an-intermediate-component-exists`, and the dispatch issue.
 - The other heads cited were found by a grep of their slug in `register@agent-skills@design` and `register@agent-skills@rejected`, and read there. I did not run `show` on them.
 - The goal standard was read whole in `path@agent-skills@fragments/goal-standard.md`, and the entry shape in `path@agent-skills@content/skills/goal-setting/SKILL.md`.
 - I did not open the milestone document. The owner's round 1 to round 9 words are quoted as the analysis quotes them.
@@ -4832,7 +4832,7 @@ Nothing beyond the classifications above. I edited no file.
 
 - **Q27a and rows 1 and 5 of the Components goal name the wrong head.** The three points are in `design@agent-skills@shared-code-decisions-go-to-the-lowest-enclosing-component` (`path@agent-skills@docs/design/components.md`, lines 108 to 152): "Its own files hold no Rust code", and the two rivals. The head the analysis names, `design@agent-skills@no-installed-rule-on-when-an-intermediate-component-exists` (line 154), holds none of them and does not cite the goal. The "Met outside the task" item of the theme at line 2173 has the same error. Outcome: for the dispatcher to route; it is a pointer to correct in the analysis file.
 - **The numbering skips Q38b**: the labels go Q38, Q38a, Q38c. Dropped: a label is never reused, and nothing refers to Q38b.
-- **`design@agent-skills@goal-review-stops-on-old-wording` cites `goal@knowledge-architect@owner-attention-on-what-is-theirs`**, which the merge table says stands as no goal. The reference will dangle at the rewrite. It belongs to another theme's re-pointing; for the dispatcher to route.
+- **`design@agent-skills@goal-review-stops-on-old-wording` cites `owner-attention-on-what-is-theirs`**, which the merge table says stands as no goal. The reference will dangle at the rewrite. It belongs to another theme's re-pointing; for the dispatcher to route.
 
 ### Triage of the theme "Whom the project serves, and adoption" (Q78 to Q96a) under the owner's rulings
 
@@ -4857,7 +4857,7 @@ Read in `/home/teo/dev/knowledge-architect/.claude/worktrees/s1-holders`, at hea
 | Q86 | ANSWERED | The owner holds the statement and rules from it: "Since we are ourselves a target project, in rust is required." The rulings section builds on it ("that the model is a Rust library follows from the scope goal"), so it is not dropped; it is a clause of the scope goal's draft, as row 2 already proposes, and its words are the reviewer's. |
 | Q87 | WORDING | The list's first goal "takes the declaring of kinds of entries, the naming and citing of a recorded item"; whether "what an agent learns in one project applies in the next" is said in this goal or that one is placement between two kept goals, which rule 5 permits ("Two goals may share an aspect"). |
 | Q87a | SETTLED BY THE RECORD | One form in every project is argued by `rejected@model@configurable-reference-separator`: "It loses because every instruction and every skill would be parameterised on it". "Readable" is a quality with no named design, which rule 1 gives to "a quality argument a design head makes against its own rival". The draft's clause stands on "holds nothing particular to one target project" and needs neither word ruled. |
-| Q88 | WORDING | Same as Q84. The draft changes first: its last two sentences leave (Q89, Q92), so the goal receives nothing from `goal@create@a-project-adopts-by-one-command`. |
+| Q88 | WORDING | Same as Q84. The draft changes first: its last two sentences leave (Q89, Q92), so the goal receives nothing from `a-project-adopts-by-one-command`. |
 | Q89 | SETTLED BY THE RECORD | `design@create@init-command` argues the command as a means to the goal: "its creation is where a person or an agent starts, per `goal@knowledge-architect@adoption-is-easy`: without the command, every file `klarch init` lists as `wrote` but the installed ones and the manifest is written by hand before the first check passes." The reading put to the owner says the same: "split: \"by one command\" is `design@create@init-command`". The same head holds "every document the root Component, each Component it lists and the plans directory owe". |
 | Q90 | FALLS | The draft sentence "Adopting loses nothing the project wrote" leaves under the ruling quoted at Q92. |
 | Q91 | ANSWERED | Two goals: the agreed list names both `goal@knowledge-architect@every-target-project-can-adopt-it` and `goal@knowledge-architect@adoption-is-easy` among the "three goals" of the file. |
@@ -4874,8 +4874,8 @@ Read in `/home/teo/dev/knowledge-architect/.claude/worktrees/s1-holders`, at hea
 | row | holder named | what the tree shows | result |
 | --- | --- | --- | --- |
 | 14b, 22f | `goal@knowledge-architect@the-owner-decides` | its draft keeps "each addition, tightening or removal of an ask that binds every target project", pending that theme's Q49 | held, as long as Q49 keeps it there; the draft uses the word "ask", so a kept goal must define it (bears on Q78a) |
-| 15a | `goal@knowledge-architect@setup-brings-quality-tools` | that goal is no goal after the reading ("design: four existing heads hold it"); the draft of the generic-tools goal says "the tools that judge its quality" in its own words | the definition of "quality tool" is needed by no kept goal as drafted; it goes with row 12 to the design issue |
-| 15c | `goal@knowledge-architect@agents-get-a-complete-workflow` | that theme sends its sentences on continuous integration and pull requests to a new head, `installed-text-requires-no-ci-and-no-pull-request` | held by that proposed head, not by the goal |
+| 15a | `setup-brings-quality-tools` | that goal is no goal after the reading ("design: four existing heads hold it"); the draft of the generic-tools goal says "the tools that judge its quality" in its own words | the definition of "quality tool" is needed by no kept goal as drafted; it goes with row 12 to the design issue |
+| 15c | `goal@knowledge-architect@agents-get-a-complete-workflow` | that theme sends its sentences on continuous integration and pull requests to a new head, `design@agent-skills@installed-text-requires-no-ci-and-no-pull-request` | held by that proposed head, not by the goal |
 | 29c | `goal@knowledge-architect@generic-tools-and-procedures-are-shipped` | circular: that theme's row 5 sends the same sentence back ("stays in the goal: `goal@knowledge-architect@serves-one-kind-of-project`"), and its draft does not hold it | lost unless kept: the scope goal's draft keeps the fourth case, "whether to take in a generic part" |
 | 31 | `goal@knowledge-architect@the-workflow-improves-through-real-use` | its draft says "inside a real target project" and drops "whether or not the project follows every ask yet" | follows row 25, so it is decided by Q78a |
 | (Tools row 1b) | this goal's row 14a, "taking in a quality tool, which then becomes an ask" | this theme sends row 14a to the design issue | held by the design issue only; consistent, provided the issue is rewritten to carry it |
@@ -4933,7 +4933,7 @@ Read in the worktree `/home/teo/dev/knowledge-architect/.claude/worktrees/s1-hol
 
 | label | class | one line |
 | --- | --- | --- |
-| Q59 | ANSWERED | R-list row: "a task a tool does at a lower cost, or better, is the tool's \| `goal@knowledge-architect@mechanical-tasks-are-the-tool-s`, widened". One goal, no second goal. |
+| Q59 | ANSWERED | R-list row: "a task a tool does at a lower cost, or better, is the tool's \| `goal@knowledge-architect@tasks-a-tool-does-better-are-the-tool-s`, widened". One goal, no second goal. |
 | Q59a | WORDING | Whether "several steps or a script" stays is a threshold of the kept goal. Rule 3 of the standard leaves "how much" to a head. The draft that drops it shows the wider reach to the owner at the draft's ruling, per rule 4. |
 | Q60 | SETTLED BY THE RECORD | Commit `af5cd491` (on main) attributes to the owner: the goal "owes a command for a mechanical task once knowledge-architect's owner takes its generic part in ... the owner chose this over a goal that owes every mechanical task a command". By rule 5, "a qualifier or a domain belongs to the goal it qualifies". So the G-A draft keeps the gate; the draft in the analysis drops it and reads as owing every such tool. |
 | Q60a | SETTLED BY THE RECORD | The same commit `af5cd491`: "the three history tasks it names counting as taken in". The one pass writes that attribution into `issue@knowledge-architect@no-published-command-rewrites-a-branch-s-history`; no new confirmation is needed. |
@@ -4944,7 +4944,7 @@ Read in the worktree `/home/teo/dev/knowledge-architect/.claude/worktrees/s1-hol
 | Q63a | SETTLED BY THE RECORD | `design@agent-skills@what-shows-a-goal-met-is-design`: "how the project learns from its use whether it is met" is "a design decision, in a head that cites the goal". The issue stays, reworded to stand on G-B: the owner cannot take in a part no one reports. It already records "The owner's design consideration placed the question in the retrospective". |
 | Q64 | ANSWERED, with one defect | R-list keeps the three goals named. Rows 4 and 9 hold. Row 5 does not: see "Holders that fail" below. |
 | Q64a | SETTLED BY THE RECORD | Rule 3: a question "by what means" is closed by a design head, "and no wording of the goal does". Each part's head states its form, as `design@knowledge-architect@mutation-command-host` does: "whose generic part ships as a published crate". The list of three forms leaves; it joins the sentences sent nowhere that the owner rules. |
-| Q65 | ANSWERED | Rulings, merge table: "`goal@knowledge-architect@setup-brings-quality-tools` into `goal@knowledge-architect@generic-tools-and-procedures-are-shipped` \| design: four existing heads hold it". It is not among the 21. |
+| Q65 | ANSWERED | Rulings, merge table: "`setup-brings-quality-tools` into `goal@knowledge-architect@generic-tools-and-procedures-are-shipped` \| design: four existing heads hold it". It is not among the 21. |
 | Q66 | SETTLED BY THE RECORD | `primer@design-heads`: "a choice the argument leaves open, made by the owner ... the weak form: 'the owner chose X over Y, which no goal ranks'". Commit `12a961a8` records the owner's pick and the doubt on the criterion. The head is written in the weak form; a reason from the owner would strengthen it and blocks nothing. |
 | Q67 | ANSWERED | R-fates: fate "no goal" ruled as proposed. R-list does not hold it. |
 | Q67a | ANSWERED | R-list: 21 goals, and "a project gets every tool by naming one package and pinning one version" is none of them. The rule then takes the fate R-fates ruled, "a design issue on the rule of one program". See the premise note below. |
@@ -4953,12 +4953,12 @@ Read in the worktree `/home/teo/dev/knowledge-architect/.claude/worktrees/s1-hol
 | Q70 | FALLS | It holds no question: "This is told, not asked." The citation exists, `path@testing@tests/binary.rs` line 8592; the one pass re-points it by hand. |
 | Q71 | ANSWERED | R-fates: the goal of `git` becomes a head, so the reason `design@knowledge-architect@checker-asks-git-through-the-crate` leans on is a presumption. |
 | Q71a | SETTLED BY THE RECORD | `primer@design-heads`: "A change that relocates or rewords recorded decisions ... and adds or removes none, is not a decision". Rows 1, 2 and 5 move into `design@knowledge-architect@git-crate`, which already says "a git question or a git version that another tool needs". No conflict with the test of the checker that runs git itself: the goal says a tool "can do so" and admits "a tool that runs git itself, past the library". The ruled fallback is the design issue. |
-| Q72 | ANSWERED | Rulings, merge table: "`goal@query@agents-query-the-project` into `goal@knowledge-architect@mechanical-tasks-are-the-tool-s` \| stands". |
+| Q72 | ANSWERED | Rulings, merge table: "`agents-query-the-project` into `goal@knowledge-architect@tasks-a-tool-does-better-are-the-tool-s` \| stands". |
 | Q72a | SETTLED BY THE RECORD | `design@agent-skills@what-shows-a-goal-met-is-design`, as Q63a, and `design@agent-skills@behaviour-additions-need-real-use`: an instruction is added "only on evidence from real use". The clause leaves with the measure. `design@agent-skills@premortem-as-watch-points` already holds a question that watches the mechanical-tasks goal. |
 | Q73 | SETTLED BY THE RECORD | `primer@design-heads`, "What a head stands on": the standing argument holds "the fact that defeated its nearest rival". The head's first sentence is that fact: "Over a base on which the command already fails, every mutation reads as caught". No goal is needed. |
 | Q74 | SETTLED BY THE RECORD | `issue@gates@the-gate-list-head-bundles-the-library-s-independence` holds the question, its re-entry point and its two closings. No goal's draft and no goal's sentence waits. The issue stays open in the one pass. |
 | Q75 | OPEN FOR THE OWNER | Same question as Q78, Q78a and Q82a of the theme "Whom the project serves". Restated below. |
-| Q76 | SETTLED BY THE RECORD | Rule 2: "The argument that a design follows from a goal goes in that design's head, which cites it." `design@knowledge-architect@testing-crate` derives it: "a project tests its extension as `check` tests its own checks, per `goal@check@projects-add-their-own-checks`". The goal need not say it. |
+| Q76 | SETTLED BY THE RECORD | Rule 2: "The argument that a design follows from a goal goes in that design's head, which cites it." `design@knowledge-architect@testing-crate` derives it: "a project tests its extension as `check` tests its own checks, per `goal@knowledge-architect@projects-add-their-own-checks`". The goal need not say it. |
 | Q76a | SETTLED BY THE RECORD | The standard's three layers: "What it admits, it neither asks for nor forbids", and `design@agent-skills@a-goal-carries-an-example-only-for-its-direction`. The three admitted cases forbid nothing, so a head that is silent on them still admits them. They leave; they join the sentences sent nowhere that the owner rules. |
 | Q76b | ANSWERED | R-fates rules the theme summary's row: "head, existing: `design@agent-skills@integrated-test-through-public-api`, as a guideline; its strength here is a design issue". |
 | Q76c | OPEN FOR THE OWNER | Its premise fails: the theme of the goal named sends the same sentence to a design issue (its row 21, Q82). Restated below with Q75. |
@@ -5007,10 +5007,10 @@ This is asked once, with Q78, Q78a, Q82 and Q82a of the theme "Whom the project 
 Rows of this theme that name a goal of another theme as their holder, checked against that theme's own rows:
 
 - **Row 5 of G-B, under Q64, is held by neither draft.** This theme sends "The rule of `goal@knowledge-architect@serves-one-kind-of-project` against limits argued from what a current target project needs does not bind that choice" to the scope goal. That theme's row 29c sends the matching clause "nowhere: held by `goal@knowledge-architect@generic-tools-and-procedures-are-shipped`", and its draft keeps three of the four cases, saying "The fourth, the taking in of a generic part, is held by" G-B. G-B's draft does not hold it. Repair in drafting, no ruling needed: one of the two drafts keeps the clause. My default is the scope goal's last sentence, where the other three cases are.
-- **Row 1b of `goal@knowledge-architect@setup-brings-quality-tools`** ("each is an ask") is sent to the scope goal. That theme's row 14a sends "taking in a quality tool, which then becomes an ask" to a design issue. Its holder depends on the open question above.
-- **Rows 5 and 6 of the same goal** (continuous integration is none of the three) are sent to `goal@knowledge-architect@agents-get-a-complete-workflow`. The workflow theme sends that goal's sentence "The installed text requires neither" to a new head, `installed-text-requires-no-ci-and-no-pull-request` (its row 17), and the rulings make that goal take "no property of the text". The holder is that head, once written, not the goal.
-- **Row 4 of `goal@xtask@one-command-runs-every-gate` and row 5d of `goal@gates@gates-from-a-list`**: the open question above.
-- Rows 3b and 4 of G-A and row 4 of G-B hold: `goal@knowledge-architect@the-owner-decides` states "whether knowledge-architect takes in a generic part, and when", and its theme keeps the item (its row 11, Q49). Row 9 of G-B holds: the rulings keep `goal@agent-skills@only-needed-instructions` as a scope that "leaves every other case to the agent's judgement".
+- **Row 1b of `setup-brings-quality-tools`** ("each is an ask") is sent to the scope goal. That theme's row 14a sends "taking in a quality tool, which then becomes an ask" to a design issue. Its holder depends on the open question above.
+- **Rows 5 and 6 of the same goal** (continuous integration is none of the three) are sent to `goal@knowledge-architect@agents-get-a-complete-workflow`. The workflow theme sends that goal's sentence "The installed text requires neither" to a new head, `design@agent-skills@installed-text-requires-no-ci-and-no-pull-request` (its row 17), and the rulings make that goal take "no property of the text". The holder is that head, once written, not the goal.
+- **Row 4 of `one-command-runs-every-gate` and row 5d of `gates-from-a-list`**: the open question above.
+- Rows 3b and 4 of G-A and row 4 of G-B hold: `goal@knowledge-architect@the-owner-decides` states "whether knowledge-architect takes in a generic part, and when", and its theme keeps the item (its row 11, Q49). Row 9 of G-B holds: the rulings keep `goal@knowledge-architect@only-needed-instructions` as a scope that "leaves every other case to the agent's judgement".
 
 #### Premise note for the session
 

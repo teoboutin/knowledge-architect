@@ -37,7 +37,8 @@ restored source before its baseline.
 
 A baseline that runs on the wrong build answers for code that is not the tree's: it can refuse a run
 over a sound tree, or pass one whose command would fail on the tree, and every verdict then rests
-on it, against `goal@mutate@a-named-mutation-is-checked-safely`.
+on it, against `design@mutate@baseline-runs-by-default`, which takes the baseline as the command's
+result over the unmutated tree.
 
 ### What would close it
 

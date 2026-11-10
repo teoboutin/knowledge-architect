@@ -7,7 +7,7 @@ kind: todo
 
 `goal@knowledge-architect@agents-get-a-complete-workflow` lists developing, working on a branch under
 a linear history, and releasing among the activities the workflow covers, and
-`goal@agent-skills@one-skill-per-activity` asks one installed skill each. The installed set holds
+`design@agent-skills@one-skill-per-activity` gives each activity one installed skill. The installed set holds
 one of the three, `skill@knowledge-architect-development`. Branch work and releasing are not
 scheduled. This repository
 keeps its own procedures for them locally: `skill@klarch-release`, and the section `## Git` of its
@@ -24,7 +24,7 @@ root `CLAUDE.md`.
 
 ### Why it matters
 
-Both goals are unmet while the skills are missing, and
+The goal is unmet, and the head is not followed, while the skills are missing, and
 `goal@knowledge-architect@generic-tools-and-procedures-are-shipped` is unmet while this repository's
 own skills hold procedures it would ship once the owner takes them in.
 

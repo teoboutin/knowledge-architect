@@ -60,7 +60,8 @@ is a different question: the session is found under the project, and the branch 
 The head's premise, that the field names the branch a session worked on, can fail for work in a
 worktree, as in the thaum instance. The review skill, `path@agent-skills@content/skills/review/SKILL.md`, has the
 dispatcher find the sessions of a branch with `--branch`, so the transcript review can miss the
-session that did the work, against `goal@transcript@a-session-reads-past-sessions`.
+session that did the work, where `design@transcript@transcript-query-verbs` has `list --branch`
+compute the sessions that worked on a branch for that review.
 
 ### What would close it
 

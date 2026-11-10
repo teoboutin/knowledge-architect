@@ -54,7 +54,7 @@ file proposed. The same respellings in documents are the work of
 ### Why it matters
 
 The respellings follow from the finding with no judgement, a task
-`goal@knowledge-architect@mechanical-tasks-are-the-tool-s` gives the published checker, and each loop
+`goal@knowledge-architect@tasks-a-tool-does-better-are-the-tool-s` gives the published checker, and each loop
 of script, amend and run repeats per message. A repair mode for a message rewrites the sentence of
 `design@check@check-fix-flag` that "`commits` judges history and takes no `--fix`".
 

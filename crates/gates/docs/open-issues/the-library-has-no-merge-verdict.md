@@ -5,9 +5,10 @@ kind: todo
 
 ## Summary
 
-`goal@gates@gates-from-a-list` lists among what comes with the library the verdict that says whether
-the gates let a branch merge, and `goal@knowledge-architect@serves-one-kind-of-project` asks that one
-command give it with the same invocation in every target project. The library holds a rebase gate,
+The library gives no verdict that says whether the gates let a branch merge, from one command with
+the same invocation in every target project. No design head names that command and its merge
+invocation yet, per
+`issue@knowledge-architect@the-target-project-and-its-asks-are-stated-to-no-adopter`. The library holds a rebase gate,
 run behind `--require-rebased`, and a `--locked` flag (`GatesArgs` and `rust_project` in
 `path@gates@src/gates.rs`), and this repository's xtask runs that list unchanged. It holds no
 clean-tree gate, and no single flag that runs every gate a merge owes. thaum keeps its own runner,

@@ -1,6 +1,6 @@
 # transcript
 
-The reader of Claude Code's session transcripts. What it is for is `register@transcript@goal`; what it does for a user is
+The reader of Claude Code's session transcripts. What it is for is `design@knowledge-architect@transcript-crate`; what it does for a user is
 `path@transcript@README.md`; why it is shaped this way is `register@transcript@design`.
 
 **This crate knows nothing of a project but its root**, which its caller hands in, and asks git through `git` alone, for the

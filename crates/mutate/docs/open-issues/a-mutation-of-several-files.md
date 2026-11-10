@@ -5,11 +5,10 @@ kind: todo
 
 ## Summary
 
-`goal@mutate@a-named-mutation-is-checked-safely` is met only while the crate's tests show, among
-the rest, "a mutation of several files applied and restored", such as a wrong implementation that
-spans a trait's declaration and its implementation in two modules. The crate applies a mutation to
-the one file `--file` names, and refuses a `--patch` that names any other file, per
-`design@mutate@one-file-per-run`, so the goal is unmet.
+A wrong implementation can span several files, such as a trait's declaration and its implementation
+in two modules. The crate applies a mutation to the one file `--file` names, and refuses a `--patch`
+that names any other file, per `design@mutate@one-file-per-run`, which states that limit as the
+current state of the tool and not as its scope.
 
 ## Details
 
@@ -21,13 +20,13 @@ only by mutating one of them, which may not build, or not at all.
 
 ### Why it matters
 
-The goal is the owner's, ruled at slice 1 of the milestone that shipped the crate: the owner chose
-not to limit the goal to one file. Until this is built, a claim whose wrong implementation spans
+The owner chose not to limit the crate to one file, at slice 1 of the milestone that shipped it.
+Until this is built, a claim whose wrong implementation spans
 files has no mutation check by the tool, and a session falls back to a hand procedure, which
 `design@mutate@one-command-owns-the-interval` argues against.
 
 ### What would close it
 
 A run that takes several files, or a `--patch` naming several, records the pre-image and the
-mutant of each before touching any, restores each by comparison, and is tested as the goal's measure
-asks; `design@mutate@one-file-per-run` is then rewritten.
+mutant of each before touching any, restores each by comparison, and is tested by a mutation of
+several files applied and restored; `design@mutate@one-file-per-run` is then rewritten.

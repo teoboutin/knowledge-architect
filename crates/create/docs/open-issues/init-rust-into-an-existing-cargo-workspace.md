@@ -20,8 +20,9 @@ configuration, files the project owns, which no command edits today.
 
 ### Why it matters
 
-A Rust project adopting the workflow is the case `goal@knowledge-architect@adoption-is-easy` and
-`goal@knowledge-architect@setup-brings-quality-tools` name, and an existing project is the one the
+A project adopting the workflow, new or existing, is the case `goal@knowledge-architect@adoption-is-easy`
+names, and the gates `--rust` writes are a generic part that
+`goal@knowledge-architect@generic-tools-and-procedures-are-shipped` has every target project get. An existing project is the one the
 owner gave as `init`'s example, per `design@create@init-keeps-existing-files`. The refusal is the
 shape `design@create@rust-scaffold` decides.
 

@@ -17,7 +17,7 @@ A span naming an ignored directory with no slash is reported missing on a fresh 
 
 ### Why it matters
 
-It stands against `design@model@ignored-targets-are-not-asserted`, whose argument is that the verdict is the same on a fresh clone and on a built tree, and `goal@check@documents-stay-current`.
+It stands against `design@model@ignored-targets-are-not-asserted`, whose argument is that the verdict is the same on a fresh clone and on a built tree, and `goal@knowledge-architect@documentation-stays-consistent`.
 
 ### What would close it
 

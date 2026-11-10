@@ -12,9 +12,10 @@ tracked-and-ignored listing, the one `check-ignore` batch, the last-change dates
 and the work tree differ by, and every read of history: `rev-list`, `rev-parse`, the commit a
 revision names, a commit's file list, its blobs and its message. Every one of them
 is an `Invocation`, run by `Invocation::run`, so the set of things the library asks git is
-auditable in one read, and the environment `run` sets reaches every invocation. It serves
-`goal@git@a-pure-wrapper-over-git`. That the checker's library asks git through this crate alone
-is the checker's decision, `design@knowledge-architect@checker-asks-git-through-the-crate`.
+auditable in one read, and the environment `run` sets reaches every invocation. Why git is wrapped
+by a crate of its own is `design@knowledge-architect@git-crate`. That the checker's library asks git
+through this crate alone is the checker's decision,
+`design@knowledge-architect@checker-asks-git-through-the-crate`.
 
 ### Every git invocation runs with the per-user ignore file pointed at the null device `##per-user-ignore-file-pinned`
 
@@ -35,7 +36,7 @@ repository's files, `GIT_DIR`, `GIT_WORK_TREE`, `GIT_COMMON_DIR`, `GIT_OBJECT_DI
 repository, its work tree or its object store. It keeps the list's other members, the
 configuration among them, and `GIT_INDEX_FILE`, per `design@git@index-file-variable-kept`. So git
 finds the repository from the project's directory, as `design@model@git-supplies-the-walk` reads it,
-and a run judges the project's own tree, which `goal@check@documents-stay-current` needs of a
+and a run judges the project's own tree, which `goal@knowledge-architect@documentation-stays-consistent` needs of a
 verdict: with `GIT_DIR` naming another repository, the walk would be that repository's index.
 
 Refusing to run with one of them set leaves the pre-commit hook of a linked worktree unable to
@@ -44,15 +45,16 @@ with git 2.53.0 by a pre-commit hook printing `env | grep '^GIT_'`, which the se
 project's directory finds again. Honouring a repository
 variable while refusing one whose git directory differs from the one the project's directory finds
 gives this head's result wherever it runs, and refuses the runs where this head reads the project's
-own repository. The session chose this head over honouring the variables where the search from
-the project's directory finds no repository, which the ask of
-`goal@knowledge-architect@serves-one-kind-of-project` that a target project's `.git` sit at or above
-its directory ranks. That rival
-keeps checkable a project whose repository git finds only through these variables, with no `.git`
-at or above its directory, which is outside a worktree to the checker here, an error per
-`design@git@failed-git-is-an-error`, and it lets a stray `GIT_DIR` in a shell outside every
-repository point the walk at another repository. The project
-`goal@check@checks-a-commit-from-its-hook` covers is one with a `.git` at or above its directory.
+own repository.
+
+Honouring the variables where the search from the project's directory finds no repository loses on
+two grounds. It lets a stray `GIT_DIR` in a shell outside every repository point the walk at
+another repository. And the one project it keeps checkable is a project whose repository git finds
+only through these variables, with no `.git` at or above its directory.
+`goal@knowledge-architect@serves-one-kind-of-project` asks that a target project be a git
+repository, which this head reads as a `.git` at or above the project's directory, where git's own
+search finds it. Such a project is outside a worktree to the checker here, an error per
+`design@git@failed-git-is-an-error`, and so is a pre-commit hook's run in it.
 
 ### `GIT_INDEX_FILE` is the index every command reads, so a pre-commit hook judges the tree its commit records `##index-file-variable-kept`
 
@@ -77,7 +79,10 @@ of `design@git@git-floor-for-commit-trees`, was not measured.
 
 Dropping the variable with the others, `rejected@git@every-git-variable-dropped`, lost to that
 measurement. Refusing to run with it set leaves a pre-commit hook unable to run the checker at all,
-since git gives the hook the variable every time, against `goal@check@checks-a-commit-from-its-hook`.
+since git gives the hook the variable every time, and that hook is where git runs a command on the
+tree `design@check@staged-tree-source` has `check --staged` judge, before the commit exists. That a
+project can run the checker from that hook is argued by no head, which
+`issue@check@no-head-argues-that-the-checker-runs-from-a-pre-commit-hook` holds.
 `init` alone refuses it: `init` belongs to no commit, and with the variable set git would
 list and stage the project it writes through an index no commit of that project records.
 
@@ -101,10 +106,30 @@ with git's own reason.
 
 **No `git`, or no worktree, is an error carrying the reason.** Never an empty walk: a project
 reported as holding no document is a run that checked nothing and said so as a clean verdict,
-against `goal@check@document-rules-are-checked`: a tree that passes the checker conforms, in the
+against `goal@knowledge-architect@documentation-stays-consistent`: a tree that passes the checker conforms, in the
 texts the checker reads, to every rule it holds. **Every invocation a verdict depends on fails that
 way**: the listing, the tracked-and-ignored listing and the `check-ignore` batch, each carrying
 git's own stderr, whatever the reason. The checker's commands give that error the code 2, a
 command that could not run, per `design@cli@exit-code-ladder`. The two invocations that degrade
 instead are `last_changed`, which fills a listing's convenience column and moves no verdict: where
 git answers nothing the column shows `-`; and `main_worktree_path`, which adds a root to what `transcript` lists.
+
+## What the library offers
+
+### An operation stated in git's own terms is a function of the library, however many git commands it takes, and a step that decides for a tool's matter is the tool's, however many tools share it `##an-operation-in-git-s-terms-is-the-library-s`
+
+The library models operations on a repository, each stated in git's own terms: the paths, objects,
+commits, refs and index it reads or writes. Such an operation is one function of the library
+however many git commands it takes, as `snapshot_entries` reads the tree git's index would commit
+through two invocations; rewording a commit's message, or folding a fixup commit into the commit it
+fixes, would be one too. A step that decides for the matter a tool works on, such as which
+commits to fold or what a check of the result must find, is the tool's, composed from those
+operations, however many tools share it: the library holds no function that chooses which commits
+a tool folds, and none that reads a project's documents.
+
+The crate's interface changes for reasons of its own, a git question that another tool needs and the
+checker does not among them, per `design@knowledge-architect@git-crate`; so what admits a function
+is what it says of a repository, never which tool calls it. The nearest rival, an operation that
+enters the library once a second tool needs it, loses to this: under a count of tools the same
+operation changes its home when a tool is added, with no change to the operation, so the design and
+the code move after the fact.

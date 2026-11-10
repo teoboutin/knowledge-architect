@@ -33,8 +33,9 @@ Reproduced by the adversarial reviewer of the work that created the git Componen
 ### Why it matters
 
 A path the listing gives is answered for under another name, with no error:
-`design@git@a-path-is-bytes` holds of the listings only, and `goal@git@a-pure-wrapper-over-git`
-asks the library to let a tool read what a repository holds.
+`design@git@a-path-is-bytes` holds of the listings only, and every question the checker's tools ask
+git goes through these functions, per
+`design@knowledge-architect@checker-asks-git-through-the-crate`.
 
 ### What would close it
 

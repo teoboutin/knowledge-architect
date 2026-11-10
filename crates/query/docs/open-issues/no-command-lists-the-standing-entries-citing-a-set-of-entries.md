@@ -60,7 +60,7 @@ any item, every text that references it, and everything outstanding and every pi
 computes the second list one entry at a time and by file and line, and the agent turns that into
 entries. That costs one call per entry and a hand mapping, and a mapping done by hand can drop an
 entry. The scripts that mapping took are a task of the kind
-`goal@knowledge-architect@mechanical-tasks-are-the-tool-s` gives the published checker.
+`goal@knowledge-architect@tasks-a-tool-does-better-are-the-tool-s` gives the published checker.
 
 ### What would close it
 
