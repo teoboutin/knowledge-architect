@@ -116,11 +116,15 @@ pub struct WorklistArgs {
         required_unless_present = "verify"
     )]
     pub out: Option<std::path::PathBuf>,
-    /// Check the reports the agents filled in DIR, a directory `--out` wrote: every entry an agent
-    /// was given has one verdict line in its report, in the verdicts its register admits and the
-    /// actions its verdict admits, against subjects `work.txt` lists, with a quotation of its own
-    /// text and a reason. When every report passes, it writes a verdict file per subject and the
-    /// lines a commit message owes.
+    /// Check the reports the agents filled in DIR, a directory `--out` wrote. It first removes
+    /// every `verdicts-*.md` and the `generated-lines.md` of DIR. Every entry an agent was given
+    /// has one verdict line in its report, in the verdicts its register admits and the actions its
+    /// verdict admits; `against` names subjects `work.txt` lists, or is `-` on `unrelated` and on
+    /// `constrains` with the action `none`; the quotation is a run of at least eight whole words of
+    /// the entry's own text, below its first line, or all of a shorter one; a reason is given; and
+    /// a seed or an entry citing one is never `unrelated`. Each report closes with `## Decided`
+    /// and `## Met outside the task`. When every report passes, it writes `verdicts-<subject>.md`
+    /// per subject and `generated-lines.md`, the lines a commit message owes.
     #[arg(long, value_name = "DIR")]
     pub verify: Option<std::path::PathBuf>,
     /// The words one agent is given at most, the work's words included; a group above what the

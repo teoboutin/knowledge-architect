@@ -6444,7 +6444,8 @@ fn report_line(text: &str, reference: &str) -> String {
 /// list, and 1 for a report missing `## Decided` or `## Met outside the task`; and 2 on a line it
 /// cannot parse, its fields out of order among them. The skeleton closes each report with both
 /// sections, in that order, and lists on each line the verdicts its register admits. Mutations
-/// checked, in `path@query@src/worklist.rs`: in `verify`, `for section in [DECIDED, MET_OUTSIDE] {`
+/// checked, in `path@query@src/worklist.rs`: in `judge_report`,
+/// `for section in [DECIDED, MET_OUTSIDE] {`
 /// made `for section in [MET_OUTSIDE] {`, which passes a report missing `## Decided`; the line
 /// `let Some(parsed) = parse_fields(fields) else {` made
 /// `let Some(parsed) = parse_fields(fields) else { continue; }; let Some(()) = Some(()) else {`,
@@ -6544,15 +6545,18 @@ fn worklist_verify_names_each_gap_of_a_report() {
 /// subjects: a quotation running from the entry's first line into its body, or from its body into
 /// its inbound list, one absent from its body, or none; a verdict outside its register's set; an
 /// action outside its verdict's; an `against` that `work.txt` does not list; and a missing
-/// reason, each refused, and a line that meets every rule passed. Then the refusal of a list it cannot read. Mutations checked, in
+/// reason, each refused, and a line that meets every rule passed. Then the refusals of a
+/// `work.txt` listing a subject twice and of a list it cannot read. Mutations checked, in
 /// `path@query@src/worklist.rs`: `own_body` made to return the whole own text, `own` for
 /// `own.split_once('\n').map(|(_, body)| body).unwrap_or("")`, which finds the quotation of the
-/// first line; in `read_snapshot`, the own text read with the inbound list after it,
+/// first line; in `parse_snapshot`, the own text read with the inbound list after it,
 /// `Shown { own, inbound }` made `Shown { own: format!("{own}\n\n{inbound}"), inbound }`, which
-/// finds the quotation of the inbound list; in `judge`, `} else if !body.contains(&quote) {` made
+/// finds the quotation of the inbound list; in `judge`,
+/// `} else if !body.windows(words).any(|run| run == quote.as_slice()) {` made
 /// `} else if false {`; `.filter(|s| !subjects.contains(s))` made `.filter(|_| false)`; and
-/// `if fields.reason.is_empty() {` made `if false {`; and in `render`, the subjects of the
-/// skeleton's header, `named.join(", ")`, made `String::new()`; each caught.
+/// `if fields.reason.is_empty() {` made `if false {`; in `render`, the subjects of the
+/// skeleton's header, `named.join(", ")`, made `String::new()`; and in `parse_work`,
+/// `Some(s) if subjects.iter().any(|t| t == s) => {` made `Some(s) if false => {`; each caught.
 #[test]
 fn worklist_verify_judges_every_case_of_a_verdict_line() {
     let (sandbox, out) = worklist_project("worklist-cases");
@@ -6667,6 +6671,18 @@ fn worklist_verify_judges_every_case_of_a_verdict_line() {
         }
     }
     std::fs::write(&path, &text).expect("the report restored");
+    // A `work.txt` listing a subject twice, which would write that subject's file twice.
+    let work = out.join("work.txt");
+    let listed_work = std::fs::read_to_string(&work).expect("work.txt");
+    std::fs::write(&work, format!("{listed_work}subject one-thread\n"))
+        .expect("a repeated subject");
+    let (stdout, stderr, code) = sandbox.run(&["worklist", "--verify", &out_text]);
+    assert_eq!(code, 2, "{stdout}{stderr}");
+    assert!(
+        stderr.contains("work.txt:3: the subject one-thread is listed twice"),
+        "{stderr}"
+    );
+    std::fs::write(&work, &listed_work).expect("work.txt restored");
     let list = out.join("agents.txt");
     let listed = std::fs::read_to_string(&list).expect("agents.txt");
     std::fs::write(&list, format!("{listed}a line of one word\n")).expect("a broken list");
@@ -6788,7 +6804,7 @@ fn worklist_fences_each_body_and_judges_a_graded_above_line() {
 /// The snapshot holds, for every entry of the record, the text `show` prints for it, its own text
 /// and its inbound list as two fenced blocks, over the same tree. Mutation checked: in `snapshot`
 /// of `path@query@src/worklist.rs`, the inbound list written as the own text,
-/// `fenced(&inbound)` made `fenced(&own)`; caught.
+/// `fenced("text", &inbound)` made `fenced("text", &own)`; caught.
 #[test]
 fn worklist_snapshot_holds_the_show_text_of_every_entry() {
     let (sandbox, out) = worklist_project("worklist-snapshot");
@@ -6836,165 +6852,6 @@ fn worklist_snapshot_holds_the_show_text_of_every_entry() {
     );
 }
 
-/// A work list directory written whole, as `--out` would write it: `agents.txt`, `work.txt` with
-/// `subjects`, each agent's report closed by its two sections, and the snapshot, each entry as its
-/// reference, its own text and its inbound list. `--verify` reads no model, so no `--out` run is
-/// needed to make one.
-fn write_work_list(
-    out: &Path,
-    agents: &str,
-    subjects: &[&str],
-    reports: &[(&str, &str)],
-    snapshot: &[(&str, &str, &str)],
-) {
-    std::fs::create_dir_all(out).expect("the work list");
-    std::fs::write(out.join("agents.txt"), agents).expect("agents.txt");
-    let work: String = subjects.iter().map(|s| format!("subject {s}\n")).collect();
-    std::fs::write(out.join("work.txt"), work).expect("work.txt");
-    for (agent, lines) in reports {
-        std::fs::create_dir_all(out.join(agent)).expect("an agent directory");
-        std::fs::write(
-            out.join(agent).join("report.md"),
-            format!(
-                "# The report of {agent}\n\n{lines}\n## Decided\n\n- a decision\n\n\
-                 ## Met outside the task\n"
-            ),
-        )
-        .expect("a report");
-    }
-    let mut shown = String::new();
-    for (reference, own, inbound) in snapshot {
-        shown.push_str(&format!(
-            "=== {reference}\n\n````text\n{own}\n````\n\n````text\n{inbound}\n````\n\n"
-        ));
-    }
-    std::fs::write(out.join("shown.md"), shown).expect("shown.md");
-}
-
-/// A verdict line of the hand-written work lists below, its quotation the eight words every
-/// entry's body there holds.
-fn verdict_line(reference: &str, verdict: &str, against: &str, action: &str) -> String {
-    format!(
-        "- {reference} | verdict: {verdict} | against: {against} | action: {action} | \
-         owner-question: | quote: one two three four five six seven eight | reason: a reason\n"
-    )
-}
-
-/// An entry's own text in the hand-written work lists: its first line, then a body holding the
-/// eight words every verdict line there quotes, and `extra`.
-fn own_text(reference: &str, extra: &str) -> String {
-    format!("{reference}  docs/x.md:1\n\none two three four five six seven eight\n\n{extra}")
-}
-
-/// The verdict file of each subject holds exactly the verdicts but `unrelated` whose `against`
-/// names it, each with its verdict line, its entry's own text and its inbound list, and the
-/// changed-since mark `agents.txt` gives; a subject no verdict names gets its file with its heading
-/// alone, and a subject a verdict names twice holds it once; `generated-lines.md` holds exactly
-/// the entries given a verdict other than `unrelated`, `-` included, one line each, in the order
-/// of `agents.txt`, where `agent-2` comes before `agent-10`; an entry's heading reads as no
-/// section of a verdict file, being fenced. Mutations
-/// checked, in `assemble` of `path@query@src/worklist.rs`: `if verdict.verdict == "unrelated" {`
-/// made `if false {`, which puts the unrelated entry in a verdict file and a generated line;
-/// `files.iter_mut().find(|(s, _, _)| s == subject)` made `files.iter_mut().find(|_| true)`,
-/// which puts every verdict in the first subject's file; `for (agent, reference) in order {` made
-/// `for (agent, reference) in given.keys() {`, which sorts `agent-10` first; the changed-since
-/// mark's `if changed {` made `if false {`; and `if named.contains(&subject.as_str()) {` made
-/// `if false {`, which writes twice a verdict naming its subject twice; each caught.
-#[test]
-fn worklist_verify_writes_each_subject_s_verdicts_and_the_generated_lines() {
-    let (sandbox, out) = worklist_project("worklist-verdict-files");
-    let out_text = out.to_string_lossy().into_owned();
-    let h1 = "design@core-mock@one-decision";
-    let h2 = "design@core-mock@first-head";
-    let h3 = "design@core-mock@long-head";
-    let tw = "tripwire@core-mock@first-premise";
-    let i1 = "issue@core-mock@on-the-head";
-    write_work_list(
-        &out,
-        &format!(
-            "agent-2 unit {h1}\nagent-2 unit {h2}\nagent-2 tripwire {tw}\nagent-10 unit {h3}\n\
-             agent-10 issue {i1} changed-since\n"
-        ),
-        &["a-thread", "b-thread", "c-thread"],
-        &[
-            (
-                "agent-2",
-                &format!(
-                    "{}{}{}",
-                    verdict_line(h1, "constrains", "a-thread", "respect"),
-                    verdict_line(h2, "conflicts", "a-thread, b-thread", "check-reversal"),
-                    verdict_line(tw, "constrains", "-", "none"),
-                ),
-            ),
-            (
-                "agent-10",
-                &format!(
-                    "{}{}",
-                    verdict_line(h3, "unrelated", "a-thread", "none"),
-                    verdict_line(i1, "closes", "b-thread, b-thread", "close-with-the-work"),
-                ),
-            ),
-        ],
-        &[
-            (
-                h1,
-                &own_text(h1, "## A HEADING OF THE BODY"),
-                "referenced by nothing",
-            ),
-            (
-                h2,
-                &own_text(h2, "THE SECOND"),
-                "referenced at:\n  docs/y.md:3",
-            ),
-            (h3, &own_text(h3, "THE THIRD"), "referenced by nothing"),
-            (tw, &own_text(tw, "THE TRIPWIRE"), "referenced by nothing"),
-            (i1, &own_text(i1, "THE ISSUE"), "referenced by nothing"),
-        ],
-    );
-    let (stdout, stderr, code) = sandbox.run(&["worklist", "--verify", &out_text]);
-    assert_eq!(code, 0, "{stdout}{stderr}");
-    let read = |name: &str| std::fs::read_to_string(out.join(name)).expect(name);
-    let headed = |text: &str| -> Vec<String> {
-        text.lines()
-            .filter_map(|l| l.strip_prefix("=== "))
-            .map(String::from)
-            .collect()
-    };
-    let a = read("verdicts-a-thread.md");
-    assert_eq!(headed(&a), [h1, h2], "{a}");
-    let b = read("verdicts-b-thread.md");
-    assert_eq!(
-        headed(&b),
-        [h2.to_string(), format!("{i1}  changed-since")],
-        "{b}"
-    );
-    let c = read("verdicts-c-thread.md");
-    assert_eq!(c, "# The verdicts against `c-thread`\n");
-    assert!(
-        b.contains(
-            "agent-2: verdict: conflicts | against: a-thread, b-thread | action: check-reversal | \
-             owner-question: | quote: one two three four five six seven eight | reason: a reason"
-        ) && b.contains("THE SECOND")
-            && b.contains("referenced at:\n  docs/y.md:3"),
-        "{b}"
-    );
-    assert_eq!(
-        read("generated-lines.md"),
-        format!(
-            "- `{h1}`: constrains, respect.\n- `{h2}`: conflicts, check-reversal.\n\
-             - `{tw}`: constrains, none.\n- `{i1}`: closes, close-with-the-work.\n"
-        )
-    );
-    let mut fenced = false;
-    for line in a.lines() {
-        if line.starts_with("```") {
-            fenced = !fenced;
-        } else if line == "## A HEADING OF THE BODY" {
-            assert!(fenced, "the body's heading is outside every fence:\n{a}");
-        }
-    }
-}
-
 /// A failing run, and a run stopped on a line it cannot parse, leave none of the outputs of a
 /// previous run: no verdict file, a subject's that this run's `work.txt` no longer lists included,
 /// and no generated lines. Mutations checked, in `path@query@src/worklist.rs`: the call
@@ -7005,15 +6862,12 @@ fn worklist_verify_writes_each_subject_s_verdicts_and_the_generated_lines() {
 fn worklist_verify_leaves_no_output_of_a_previous_run_when_it_fails() {
     let (sandbox, out) = worklist_project("worklist-verify-removes");
     let out_text = out.to_string_lossy().into_owned();
+    let (stdout, stderr, code) = sandbox.run(&["worklist", "--out", &out_text]);
+    assert_eq!(code, 0, "{stdout}{stderr}");
+    fill_unrelated(&out);
     let head = "design@core-mock@first-head";
-    let passing = verdict_line(head, "constrains", "a-thread", "respect");
-    write_work_list(
-        &out,
-        &format!("agent-1 unit {head}\n"),
-        &["a-thread"],
-        &[("agent-1", &passing)],
-        &[(head, &own_text(head, ""), "referenced by nothing")],
-    );
+    let (report, passing) = report_with(&out, head);
+    let line = report_line(&passing, head);
     let outputs = || {
         let mut names: Vec<String> = std::fs::read_dir(&out)
             .expect("the work list")
@@ -7024,50 +6878,32 @@ fn worklist_verify_leaves_no_output_of_a_previous_run_when_it_fails() {
         names.sort();
         names
     };
-    let (stdout, stderr, code) = sandbox.run(&["worklist", "--verify", &out_text]);
-    assert_eq!(code, 0, "{stdout}{stderr}");
-    assert_eq!(outputs(), ["generated-lines.md", "verdicts-a-thread.md"]);
-    std::fs::write(
-        out.join("verdicts-old-thread.md"),
-        "# a subject of an earlier work\n",
-    )
-    .expect("an earlier subject's file");
-    let report = out.join("agent-1").join("report.md");
-    for (text, want) in [
-        (
-            "# The report of agent-1\n\n## Decided\n\n## Met outside the task\n".to_string(),
-            1,
-        ),
-        (
-            format!("- {head} | nonsense\n\n## Decided\n\n## Met outside the task\n"),
-            2,
-        ),
+    for (failing, want) in [
+        (passing.replace(&format!("{line}\n"), ""), 1),
+        (passing.replace(&line, &format!("- {head} | nonsense")), 2),
     ] {
-        std::fs::write(&report, &text).expect("a failing report");
+        std::fs::write(&report, &passing).expect("a passing report");
+        let (stdout, stderr, code) = sandbox.run(&["worklist", "--verify", &out_text]);
+        assert_eq!(code, 0, "{stdout}{stderr}");
+        assert_eq!(outputs(), ["generated-lines.md", "verdicts-whole-work.md"]);
+        std::fs::write(out.join("verdicts-old-thread.md"), "# an earlier subject\n")
+            .expect("an earlier subject's file");
+        std::fs::write(&report, &failing).expect("a failing report");
         let (stdout, stderr, code) = sandbox.run(&["worklist", "--verify", &out_text]);
         assert_eq!(code, want, "{stdout}{stderr}");
         assert!(outputs().is_empty(), "{:?}", outputs());
-        // The next case starts from a passing run's outputs again.
-        std::fs::write(
-            &report,
-            format!("{passing}\n## Decided\n\n## Met outside the task\n"),
-        )
-        .expect("a passing report");
-        let (stdout, stderr, code) = sandbox.run(&["worklist", "--verify", &out_text]);
-        assert_eq!(code, 0, "{stdout}{stderr}");
-        std::fs::write(out.join("verdicts-old-thread.md"), "# an earlier subject\n")
-            .expect("an earlier subject's file");
     }
 }
 
 /// The outputs are the snapshot's text, not the tree's: an entry edited after `--out` is written
-/// as `--out` saw it, since `--verify` reads no model. A snapshot that lacks an entry
-/// `agents.txt` lists, as one an older `--out` wrote, stops the run before any report is judged,
-/// with exit 2, no `PASSED` line and no output; one cut short, or one whose entry lacks its second
-/// block, as an older `--out` wrote it, is refused the same way. Mutations checked, in `verify`
-/// of `path@query@src/worklist.rs`: `if !missing.is_empty() {` made `if false {`, which reaches
-/// the lookup of the missing entry; and in `read_snapshot`, `for _ in 0..2 {` made
-/// `for _ in 0..1 {`, which reads a snapshot of one block per entry; each caught.
+/// as `--out` saw it, since `--verify` reads no model; and a passing run prints the count of each
+/// subject's verdicts and of the generated lines. A snapshot that lacks an entry `agents.txt`
+/// lists, as one an older `--out` wrote, stops the run before any report is judged, with exit 2,
+/// no `PASSED` line, and none of the outputs of the passing run before it; one cut short, or one
+/// whose entry lacks its second block, as an older `--out` wrote it, is refused the same way.
+/// Mutations checked, in `verify` of `path@query@src/worklist.rs`: `if !missing.is_empty() {` made
+/// `if false {`, which reaches the lookup of the missing entry; and the printed counts,
+/// `for (subject, count) in &out.counts {` made to print 0 for each; each caught.
 #[test]
 fn worklist_verify_writes_from_the_snapshot_and_refuses_one_that_lacks_an_entry() {
     let (sandbox, out) = worklist_project("worklist-snapshot-gap");
@@ -7096,6 +6932,16 @@ fn worklist_verify_writes_from_the_snapshot_and_refuses_one_that_lacks_an_entry(
     sandbox.stage();
     let (stdout, stderr, code) = sandbox.run(&["worklist", "--verify", &out_text]);
     assert_eq!(code, 0, "{stdout}{stderr}");
+    assert!(
+        stdout.contains(&format!(
+            "1 verdicts against whole-work in {}",
+            out.join("verdicts-whole-work.md").display()
+        )) && stdout.contains(&format!(
+            "1 lines in {}",
+            out.join("generated-lines.md").display()
+        )),
+        "{stdout}"
+    );
     let verdicts = std::fs::read_to_string(out.join("verdicts-whole-work.md")).expect("verdicts");
     assert!(
         verdicts.contains("It serves `goal@core-mock@fine-goal`"),
@@ -7105,8 +6951,6 @@ fn worklist_verify_writes_from_the_snapshot_and_refuses_one_that_lacks_an_entry(
         !verdicts.contains("EDITED AFTER THE WORK LIST"),
         "{verdicts}"
     );
-    let no_output =
-        || !out.join("verdicts-whole-work.md").exists() && !out.join("generated-lines.md").exists();
 
     let shown = std::fs::read_to_string(out.join("shown.md")).expect("shown.md");
     let start = shown
@@ -7116,39 +6960,37 @@ fn worklist_verify_writes_from_the_snapshot_and_refuses_one_that_lacks_an_entry(
         .find("\n=== ")
         .map(|i| start + 4 + i + 1)
         .unwrap_or(shown.len());
-    std::fs::write(
-        out.join("shown.md"),
-        format!("{}{}", &shown[..start], &shown[end..]),
-    )
-    .expect("a snapshot lacking the head");
-    let (stdout, stderr, code) = sandbox.run(&["worklist", "--verify", &out_text]);
-    assert_eq!(code, 2, "{stdout}{stderr}");
-    assert!(!stdout.contains("PASSED"), "{stdout}");
-    assert!(
-        stderr.contains(head) && stderr.contains("--out"),
-        "{stderr}"
-    );
-    assert!(no_output());
-    // A snapshot cut short, its last fence never closed, is refused the same way.
-    let cut = shown.trim_end().rfind('\n').expect("a last line");
-    std::fs::write(out.join("shown.md"), &shown[..cut]).expect("a snapshot cut short");
-    let (stdout, stderr, code) = sandbox.run(&["worklist", "--verify", &out_text]);
-    assert_eq!(code, 2, "{stdout}{stderr}");
-    assert!(stderr.contains("cut short"), "{stderr}");
-    // A snapshot of one block per entry, as an older `--out` wrote it.
-    std::fs::write(out.join("shown.md"), &shown).expect("the snapshot restored");
+    let lacking = format!("{}{}", &shown[..start], &shown[end..]);
+    // Cut short: its last fence never closed.
+    let cut = shown[..shown.trim_end().rfind('\n').expect("a last line")].to_string();
+    // One block per entry, as an older `--out` wrote it.
     let one_block: String = worklist_snapshot(&out)
         .iter()
         .map(|(r, own, inbound)| format!("=== {r}\n\n````text\n{own}\n\n{inbound}\n````\n\n"))
         .collect();
-    std::fs::write(out.join("shown.md"), one_block).expect("a snapshot of one block");
-    let (stdout, stderr, code) = sandbox.run(&["worklist", "--verify", &out_text]);
-    assert_eq!(code, 2, "{stdout}{stderr}");
-    assert!(
-        stderr.contains("does not open its two fenced blocks"),
-        "{stderr}"
-    );
-    assert!(no_output());
+    for (snapshot, expected) in [
+        (lacking, format!("lacks {head}")),
+        (cut, "cut short".to_string()),
+        (one_block, "does not open its two fenced blocks".to_string()),
+    ] {
+        // Each refusal follows a passing run, whose outputs it must not leave.
+        std::fs::write(out.join("shown.md"), &shown).expect("the snapshot restored");
+        let (stdout, stderr, code) = sandbox.run(&["worklist", "--verify", &out_text]);
+        assert_eq!(code, 0, "{stdout}{stderr}");
+        std::fs::write(out.join("shown.md"), &snapshot).expect("a refused snapshot");
+        let (stdout, stderr, code) = sandbox.run(&["worklist", "--verify", &out_text]);
+        assert_eq!(code, 2, "{expected}: {stdout}{stderr}");
+        assert!(!stdout.contains("PASSED"), "{stdout}");
+        assert!(
+            stderr.contains(&expected) && stderr.contains("--out"),
+            "{expected}: {stderr}"
+        );
+        assert!(
+            !out.join("verdicts-whole-work.md").exists()
+                && !out.join("generated-lines.md").exists(),
+            "{expected}"
+        );
+    }
 }
 
 /// AC4 of the spec of the graded entries' assembly: `id` answers a free id with exit 0, lists
