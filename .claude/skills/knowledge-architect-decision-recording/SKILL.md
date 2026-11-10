@@ -365,8 +365,8 @@ README, conventionally one bullet per subdocument.
 
 A level-two subject of a design home holds the heads a piece of work reads together: one part of the
 Component, such as a command, a register or an activity. The record search reads each subject's
-heads together, with the `rejected` entries they cite and the issues and tripwires of the same
-Component or declared location that cite them, as one cluster that one agent reads whole. A subject
+heads together, with the `rejected` entries they cite and the issues and tripwires that cite them,
+each of the same Component or declared location, as one cluster that one agent reads whole. A subject
 is split into subjects read apart when:
 
 - `cargo klarch worklist --out <dir>` names its cluster in a notice, as its own entries exceed the

@@ -79,10 +79,10 @@ text leaves that room on purpose, per `primer@room-to-judge`.
    files did not raise sends the search again, with the fix as its `--work`, before its outcome is
    decided or put to the owner.
 
-   Read the verdict files the search's check writes, one per subject, or hand them to the agents of
-   `skill@knowledge-architect-retrospective-intake@intake-subagents`, at your judgement, and act on
-   each verdict, checked as you check your own claims; read with `cargo klarch show <ref>` every
-   other entry a proposal rests on or would change. The search finds what a grep per finding
+   Act on the verdict files the search's check writes, one per subject, as that description says,
+   the agents you hand them to being those of
+   `skill@knowledge-architect-retrospective-intake@intake-subagents`; read with
+   `cargo klarch show <ref>` every other entry a proposal rests on or would change. The search finds what a grep per finding
    does not: a finding already recorded, a deferred issue whose trigger the file meets, a tripwire
    whose firing evidence the file carries, a design issue whose re-entry it meets, and a head or a
    goal a proposed fix would contradict or strain.

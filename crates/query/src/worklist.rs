@@ -1453,7 +1453,9 @@ impl Verdict {
 /// end, and the quotation from the last ` | quote:` before it, so both may hold ` | `, as a
 /// quoted table row does. A line holding ` | quote:` twice after its owner-question's name, or
 /// ` | reason:` twice after its quotation's, is `None`, wherever the second stands, in the
-/// owner-question, the quotation or the reason: where either field ends could not be told.
+/// owner-question, the quotation or the reason: where either field ends could not be told. So is a
+/// reason holding ` | quote:`, which the searcher's instructions say no field holds: read as a
+/// field mark, it would put the quotation after the reason.
 fn parse_fields(fields: &str) -> Option<Verdict> {
     let mut rest = fields;
     if rest.starts_with("cites seed: ") || rest.starts_with("is a seed") {
@@ -1465,7 +1467,10 @@ fn parse_fields(fields: &str) -> Option<Verdict> {
     let rest = rest.strip_prefix("owner-question:")?;
     let (rest, reason) = rest.rsplit_once(" | reason:")?;
     let (owner_question, quote) = rest.rsplit_once(" | quote:")?;
-    if owner_question.contains(" | quote:") || quote.contains(" | reason:") {
+    if owner_question.contains(" | quote:")
+        || quote.contains(" | reason:")
+        || reason.contains(" | quote:")
+    {
         return None;
     }
     let against = match against.trim() {
@@ -1926,11 +1931,12 @@ mod tests {
 
     /// The claim: a verdict line parses its six fields in their order, after an optional seed
     /// field, with a quotation and a reason that hold ` | `, and `-` as no subject; a line with a
-    /// field missing or out of order, or ` | quote:` or ` | reason:` twice, does not parse.
-    /// Mutations checked: in `parse_fields`, the test
-    /// `if owner_question.contains(" | quote:") || quote.contains(" | reason:") {` made
-    /// `if false {`; `rest.rsplit_once(" | reason:")?` made `rest.split_once(" | reason:")?`;
-    /// `"-" => None,` made `"-!" => None,`; each caught.
+    /// field missing or out of order, ` | quote:` or ` | reason:` twice, or a reason holding
+    /// ` | quote:`, does not parse. Mutations checked: in `parse_fields`, the test of the
+    /// owner-question and the quotation, `owner_question.contains(" | quote:")
+    /// || quote.contains(" | reason:")`, made `false`; `rest.rsplit_once(" | reason:")?` made `rest.split_once(" | reason:")?`;
+    /// `"-" => None,` made `"-!" => None,`; the clause `|| reason.contains(" | quote:")` removed;
+    /// each caught.
     #[test]
     fn a_verdict_line_parses_its_fields_in_order_and_refuses_an_ambiguous_one() {
         let full = "is a seed | verdict: constrains | against: one-thread, two-thread | action: \
@@ -1963,6 +1969,9 @@ mod tests {
              quote: c | reason: r",
             "verdict: unrelated | against: - | action: none | owner-question: | quote: a | \
              reason: b | reason: r",
+            // A reason holding the quotation's mark.
+            "verdict: unrelated | against: - | action: none | owner-question: | quote: a | \
+             reason: r | quote: b",
         ] {
             assert_eq!(parse_fields(refused), None, "{refused}");
         }

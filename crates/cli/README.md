@@ -57,7 +57,7 @@ klarch init [PATH] [--name n] [--component DIR]… [--rust] [--vcs git|none] [--
                                        create a project, overwriting no hand-written file
 cargo klarch new-component <DIR>       add a Component: its manifest line, its documents and homes
 cargo klarch worklist --out <dir> [--work <path>]… [--subject <id>]… [--seed <ref>]…
-                         [--since <commit>] [--seeds-from <spec>]
+                         [--since <commit>] [--seeds-from <spec>] [--bound <words>]
                                        the work list of a search of the whole record, one directory per agent
 cargo klarch worklist --verify <dir>   check the reports, and write the verdicts per subject and the commit lines
 cargo klarch transcript list [--branch b] [--containing t] [--since d] [--all-projects]
@@ -78,7 +78,7 @@ Three, per `design@cli@exit-code-ladder`, and the third is what makes the other 
 | ---- | ------- | ------------------- |
 | `0` | the command ran and its subject is in order | `--version`, from any directory; `check` with no findings; `show` on a reference that resolves; `id` with every argument an id nothing defines; `issues` and `tripwires` with at least one row; `index` having written every destination, or found each already current; `index --staged` having staged every generated file whose staged bytes differed, or found each already current; every `model` run; `worklist --out` having written the work list, notices included; `worklist --verify` on complete reports; `transcript` having printed at least one row or line; `anchors` with every home it prints present; `commits` with no finding, an empty range included; `install-agent-skills` having written and removed what it had to, or found nothing to do; `init` and `new-component` having written, with the final check passing, and `init` under `--vcs none` outside a worktree, where no check runs |
 | `1` | the command ran and reports a negative answer | `check` with findings, `--fix` included; `check --fix` when a write failed, a destination was refused, a partial commit's mismatch was refused, or the final check could not run, after another file was already written; `show` on a reference that resolves to nothing; `id` with an argument some entity defines, or one that is no id; `issues` or `tripwires` with no row; `anchors` with a home missing; `index` when a write failed after another destination was already rewritten; `commits` with a finding against a judged message or a failing tree; `worklist --verify` with a finding on a report; `transcript list` or `search` finding no session or no line, `transcript show` on a session it cannot name, with a `--from` text no line the owner typed holds, or printing no line; `init` and `new-component` having written, when the final check finds anything, cannot run, or a write failed |
-| `2` | the command could not run, `anchors` included | an unknown or invalid argument, `--fix` with `--staged` among them, a `show` argument that is not reference-shaped, a binary built from another checkout of the tool, which names the `cargo clean` that rebuilds it, a binary of another version than `[project] checker-version` pins, or a pin it does not confirm, or a manifest with no pin, `index` or `check --fix` refusing a destination — a symlink, or a directory that is not there — having written nothing, `check --fix` refusing a partial commit's mismatch having installed nothing, `check --staged` or `index --staged` over an index that holds an unmerged path or a staged tree that cannot be read, `index --staged` refused by its gate, a destination or git's index lock, having staged nothing, `commits` on a range that does not resolve, no project above the working directory, no `git` on the path or a project outside a worktree, `install-agent-skills` over a manifest holding a refused declaration, over a symbolic link on an owned path, or when a write or a removal failed, naming the path, a stdout closed before the output was written — as `\| head` does — which ends the run silently, an input that cannot be read, an input an extension prepares that it cannot resolve, `init` refusing, having written nothing: anything at the manifest's path, a refused name, a DIR `--component` names in a `.git` directory or in the installer's namespace, a destination that is not a regular file or lies under one, two destinations that overlap, an `index.md` already at a generated path, a non-empty directory outside every git repository with no `--vcs`, a PATH or a Component git ignores, a PATH in a `.git` directory or under a file, `GIT_INDEX_FILE` set, a git that cannot answer, a `Cargo.toml` at or above PATH, a file `--rust` writes already there, or, under `--rust`, a Component at or under `target`, a `.gitignore` it cannot read; `new-component` refusing, having written nothing: an incomplete model, a DIR outside the project, in a `.git` directory or in the installer's namespace, or one the manifest refuses, a destination it cannot write; `init` dispatched inside a project by a binary that skips `cli::init`; `worklist --out` refusing, having written nothing: an incomplete model, a directory inside the project or not empty, a seed that names no entry, a `--since` revision git cannot resolve to one commit, with git's reason, a `--seeds-from` path that is no plan document, a path of a file of the work or of the plan document holding a line break; or a write that failed, naming the path, the files written before it left in place; `worklist --verify` over a file it cannot read or parse, a snapshot that is missing, cut short or lacks an entry among them, writing no verdict file and no generated line; `id` over an incomplete model; `transcript` with no transcript directory, over a file it cannot read, or with a regular expression or a `--since` date that does not parse |
+| `2` | the command could not run, `anchors` included | an unknown or invalid argument, `--fix` with `--staged` among them, a `show` argument that is not reference-shaped, a binary built from another checkout of the tool, which names the `cargo clean` that rebuilds it, a binary of another version than `[project] checker-version` pins, or a pin it does not confirm, or a manifest with no pin, `index` or `check --fix` refusing a destination — a symlink, or a directory that is not there — having written nothing, `check --fix` refusing a partial commit's mismatch having installed nothing, `check --staged` or `index --staged` over an index that holds an unmerged path or a staged tree that cannot be read, `index --staged` refused by its gate, a destination or git's index lock, having staged nothing, `commits` on a range that does not resolve, no project above the working directory, no `git` on the path or a project outside a worktree, `install-agent-skills` over a manifest holding a refused declaration, over a symbolic link on an owned path, or when a write or a removal failed, naming the path, a stdout closed before the output was written — as `\| head` does — which ends the run silently, an input that cannot be read, an input an extension prepares that it cannot resolve, `init` refusing, having written nothing: anything at the manifest's path, a refused name, a DIR `--component` names in a `.git` directory or in the installer's namespace, a destination that is not a regular file or lies under one, two destinations that overlap, an `index.md` already at a generated path, a non-empty directory outside every git repository with no `--vcs`, a PATH or a Component git ignores, a PATH in a `.git` directory or under a file, `GIT_INDEX_FILE` set, a git that cannot answer, a `Cargo.toml` at or above PATH, a file `--rust` writes already there, or, under `--rust`, a Component at or under `target`, a `.gitignore` it cannot read; `new-component` refusing, having written nothing: an incomplete model, a DIR outside the project, in a `.git` directory or in the installer's namespace, or one the manifest refuses, a destination it cannot write; `init` dispatched inside a project by a binary that skips `cli::init`; `worklist --out` refusing, having written nothing: an incomplete model, a directory inside the project or not empty, a seed that names no entry, a file of the work it cannot read, a `--since` revision git cannot resolve to one commit or a failure of git asked what changed since it or for its message, with git's reason, a `--seeds-from` path that is no plan document, a path of a file of the work or of the plan document holding a line break; or a write that failed, naming the path, the files written before it left in place; `worklist --verify` over a file of the work list it cannot read or parse, `agents.txt`, `work.txt`, the snapshot, a report or one of its lines, a snapshot cut short or lacking an entry among them, or when a removal or a write failed, writing no verdict file and no generated line; `id` over an incomplete model; `transcript` with no transcript directory, over a file it cannot read, or with a regular expression or a `--since` date that does not parse |
 
 **A caller scripting against a run reads the exit code; a person reads the last line.** Arguments
 are refused before the project is located, so `--help` answers from anywhere and a mistyped
@@ -317,13 +317,14 @@ every register but the plan registers belongs to the search unit that holds it, 
 the tool constructs, the search unit that holds its home. Inside a search unit, the entries are
 grouped into **clusters**: each is rooted at a unit of `design` or of a declared register, cut by
 the headings or the groups of its home, as a design home is cut at its level-two subjects, and
-holds the `rejected` entries its entries cite and the issues and tripwires of the search unit that
-cite them. The rule for each shape of register is the design head
+holds the `rejected` entries its entries cite and the issues and tripwires that cite them, each of
+the same search unit. The rule for each shape of register is the design head
 `design@query@cluster-rooted-at-a-subject`. The entries no cluster holds, goals apart, are the
 search unit's **remainder**; its goals are grouped by goals file.
 
 An agent that grades a cluster's entries is also given, read only, its **context entries**, each
-head or `rejected` entry an entry it grades cites and another agent grades, and the **title lines**
+head, `rejected` entry or entry of a declared register that an entry it grades cites and another
+agent grades, and the **title lines**
 of the goals of the root, of each Component enclosing its search units and of those search units.
 Goal agents grade the goals, each goals file after its text above its first goal. A search unit
 whose load, its entries, context entries and title lines in words, exceeds half the bound left gets
@@ -366,11 +367,13 @@ It prints one line per agent with its load and the items it was packed as, each 
 load; the bound the work leaves, wherever a work is given; the number of seeds `--seeds-from`
 took, and of entries changed since the `--since` commit; and a **notice** for each group of a
 split search unit whose own entries exceed the bound, which goes to an agent alone: a subject named
-so is split into subjects read apart. It refuses, writing nothing, a tree that stops before the last
-phase of `check`, a directory inside the project or not empty, a seed that names no entry, a file of
-the work it cannot read, a `--since` revision git cannot resolve to one commit, with git's reason, a
-`--seeds-from` path that is no plan document, and a path of the work or of the plan document holding
-a line break.
+so is split into subjects read apart. It refuses, writing nothing, with exit 2: a tree that stops
+before the last phase of `check`, a directory inside the project or not empty, a seed that names no
+entry, a file of the work it cannot read, a `--since` revision git cannot resolve to one commit or a
+failure of git asked what changed since it or for its message, with git's reason, a `--seeds-from`
+path that is no plan document, and a path of a file of the work or of the plan document holding a
+line break. A write that fails stops it with exit 2, naming the path, the files written before it
+left in place.
 
 **`worklist --verify <dir>`** first removes every `verdicts-*.md`, `generated-lines.md`, `gaps.md`
 and `fit-lines.md` of `<dir>`, then reads `work.txt`, `agents.txt`, the snapshot and every report.
@@ -380,9 +383,11 @@ Each line of a report is
 - <reference> | verdict: <verdict> | against: <subjects or -> | action: <action> | owner-question: <text> | quote: <text> | reason: <text>
 ```
 
-and it reports each entry given a verdict nowhere or twice, a reference no agent was given, a
+with ` | is a seed` or ` | cites seed: <references>` after the reference where the entry is or cites
+a seed; a line `- <reference> | graded above` names an entry the agent grades under an earlier
+cluster. It reports each entry given a verdict nowhere or twice, a reference no agent was given, a
 verdict outside those the entry's register admits, an action outside those its verdict admits, an
-`against` naming a subject `work.txt` does not list, or `-` other than on `unrelated` and on
+empty `against`, one naming a subject `work.txt` does not list, or `-` other than on `unrelated` and on
 `constrains` with the action `none`, a quotation that is not a run of at least eight whole words of
 the entry's own text below its first line, or all of a shorter one, a missing reason, an entry that
 is or cites a seed given `unrelated`, and a report missing `## Decided` or `## Met outside the
@@ -399,9 +404,13 @@ When every report passes, it writes from the snapshot:
   entry's text, and `fit-lines.md`, the same lines as `generated-lines.md` under the plan document's
   citation and, where `--since` was given, the subject of its commit.
 
-A run that fails or stops leaves none of these files. A line it cannot parse, a `work.txt` it
-cannot read, and a snapshot that is missing, cut short or lacks an entry the list gives stop it with
-exit 2.
+A run that fails or stops leaves none of these files. These stop it with exit 2, before any report
+is judged where they are in `agents.txt`, `work.txt` or the snapshot: a file of the work list it
+cannot read or parse, `agents.txt`; `work.txt`, with a line other than `work`, `subject`, `spec` and
+`since` lines, a subject that is no id or one listed twice, a `spec` line that is not a citation then
+a path, or a `spec` or `since` line given twice; the snapshot, cut short, an entry lacking one of its
+two blocks, or lacking an entry `agents.txt` lists; a report, or a report line it cannot parse; and a
+removal or a write that failed.
 
 ## `id`
 
