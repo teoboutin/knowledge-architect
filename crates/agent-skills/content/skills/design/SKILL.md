@@ -483,8 +483,8 @@ choices whose option space genuinely is closed and consequence-free.
    the owner's proposal if one was made and your own, and challenge
    each on its failures, its costs and its benefits, with measurements,
    in the slots step 4 gives every proposal.
-%% When the search runs and what it reads: `design@agent-skills@search-reads-the-draft`,
-%% `design@agent-skills@record-searched-before-the-work`.
+%% When the search runs and what it reads: `design@agent-skills@search-runs-once-the-shapes-settle`,
+%% `design@agent-skills@search-reads-the-draft`, `design@agent-skills@record-searched-before-the-work`.
    **Once the shapes settle, and before any thread closes, a search of
    the whole record runs, with the draft as its work.** The draft is
    the draft of the document that will carry the deliberation, in the
@@ -528,7 +528,10 @@ choices whose option space genuinely is closed and consequence-free.
    - `goal-setting`: `skill@knowledge-architect-goal-setting`, for the goal;
    - `new-argument-needed`: the design is proposed again only with a new
      argument, by the Reopening rule;
-   - `close-with-the-work`: the work's commit closes the issue, per
+   - `close-with-the-work`: on the full path, the commit that adds the
+     plan document closes the issue, per
+     `skill@knowledge-architect-planning@spec-or-milestone`; otherwise
+     the work's commit closes it, per
      `skill@knowledge-architect-issue-tracking`;
    - `rule-before-work`: ruled before the work is designed further or
      built: a firing by

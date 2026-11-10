@@ -34,8 +34,7 @@ you list is one you ran.
   read each whole. Each `subject` line names a subject of the work, a part of it that the session
   names, such as a thread of a discussion or a cluster of findings, or `whole-work` where it names
   none. At a design audit, a `spec` line names the plan document. Where the session passed a
-  commit, a `since` line names it by its subject: the entries marked `changed-since` changed after
-  it.
+  commit, a `since` line names it by its subject.
 - **Your agent directory**: `agent-<n>` beside `work.txt`. It holds `entries.md`, every entry you
   are given, and `report.md`, the skeleton you fill.
 

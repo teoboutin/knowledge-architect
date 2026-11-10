@@ -95,8 +95,8 @@ an empty subsection is omitted.
   whose file changed since the commit, and `--seeds-from <plan>`, which takes as seeds the design and
   declared-register entries a plan document's section "What is already decided" cites; it writes
   `work.txt`. It packs by search unit, each Component and declared location, a search unit above half
-  the bound getting agents of its own, gives an agent the heads and `rejected` entries its entries cite
-  and another agent grades, read only, and the goals as title lines, the goals graded by goal agents,
+  the bound getting agents of its own, gives an agent the heads, the entries of declared registers
+  and the `rejected` entries its entries cite and another agent grades, read only, and the goals as title lines, the goals graded by goal agents,
   under a default bound of 40,000 words, where it was 25,000.
 - `library`, minor: the package `knowledge-architect-check` holds the checks and the logic of the commands that run them
   or install the workflow as typed functions, with no clap in them, in its module `commands`. A project keeps naming
@@ -181,18 +181,21 @@ an empty subsection is omitted.
   deliberation or of bounded work carries the lines of `generated-lines.md`.
 - `agent-skills`, patch: the design audit of a slice or a spec runs the search with `--seeds-from`
   its spec, a slice's own and not the milestone document, `--since` the commit that last changed it,
-  and the subject `slice-audit` or `spec-audit`; it reads `gaps.md` and carries `fit-lines.md` in
-  its commit message.
+  and the subject `slice-audit` or `spec-audit`; it reads `gaps.md`, where a gap on an entry marked
+  `changed-since` is one the spec's design could not have read in its current text, and carries
+  `fit-lines.md` in its commit message.
 - `agent-skills`, patch: the retrospective intake clusters its findings before its search, and each
-  cluster or lone finding is a subject of the search; the analysis holding a cluster carries the
-  generated line of each entry given a verdict against it.
+  cluster or lone finding is a subject of the search; it acts on each verdict by the act the intake
+  states for its action, and the analysis holding a cluster carries the generated line of each entry
+  given a verdict against it.
 - `agent-skills`, patch: the design-conformance reviewer reads the verdict files of the search beside
   the record and reports a verdict left unanswered; its axis is owed at the merge of a branch whose
   commit message carries a generated line with a verdict other than `constrains` and `unrelated`.
 - `agent-skills`, patch: the agent-facing-text standard counts as a structure the work did not need
   only one imposed on what an agent decides by its judgement, that the work can be carried out as
   intended without and that another instruction needs to vary, so a structure a command or the
-  checker carries out is no such cause for a reviewer, an auditor or an intake.
+  checker carries out, which no agent decides, is no such cause for a reviewer, an auditor or an
+  intake.
 - `agent-skills`, patch: the retrospective asks whether a rule about code or tests, or about
   splitting the project into Components, proved too hard or too strict, or was followed against the
   work's interest.

@@ -6,7 +6,9 @@ tools: Read, Grep, Glob, Bash, Edit
 
 # Record search
 
-%% The verdict, its quotation and its closing sections: `design@agent-skills@verdict-report`;
+%% The verdict and its closing sections: `design@agent-skills@verdict-report`; its quotation:
+%% `design@agent-skills@every-verdict-quotes-its-entry`; a conclusion, never a condition:
+%% `design@agent-skills@verdict-states-a-conclusion`;
 %% the command's checks: `design@query@worklist-writes-and-verifies-the-reports`.
 You read whole the entries of the project's record that one agent was given, and give each entry
 you grade a verdict against a piece of work. The record is every goal, design entry, `rejected`
@@ -36,8 +38,7 @@ you list is one you ran.
   read each whole. Each `subject` line names a subject of the work, a part of it that the session
   names, such as a thread of a discussion or a cluster of findings, or `whole-work` where it names
   none. At a design audit, a `spec` line names the plan document. Where the session passed a
-  commit, a `since` line names it by its subject: the entries marked `changed-since` changed after
-  it.
+  commit, a `since` line names it by its subject.
 - **Your agent directory**: `agent-<n>` beside `work.txt`. It holds `entries.md`, every entry you
   are given, and `report.md`, the skeleton you fill.
 

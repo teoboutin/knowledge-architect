@@ -451,10 +451,11 @@ design the gap defeats or on the ruling the documents reserve to the owner.
    `git log -1 --format=%H -- <spec>`; for a spec, `--work` and `--seeds-from` the spec,
    `--subject spec-audit` and `--since` the commit that last changed it. `--seeds-from` takes as
    seeds the design entries and the declared-register entries the spec's section "What is already
-   decided" cites, and `--since` marks `changed-since` each entry whose file changed after that
-   commit. The search's check writes, beside the verdict file of its subject, `gaps.md`, each verdict other than `constrains` and
+   decided" cites. The search's check writes, beside the verdict file of its subject, `gaps.md`, each verdict other than `constrains` and
    `unrelated`, with its entry's text: read it, and sort each verdict into the sorts below as a gap;
-   a `constrains` verdict is a fit. The audit's record is `fit-lines.md`, whole, the line of each
+   a `constrains` verdict is a fit. A gap whose entry `gaps.md` marks `changed-since` is on an entry
+   the spec's design could not have read in its current text, since its file changed after the
+   spec did. The audit's record is `fit-lines.md`, whole, the line of each
    entry given a verdict other than `unrelated`: in the message of the audit's commit, or, where the
    audit applies nothing in place, in the message of the slice's first commit. A firing found at the audit is
    ruled before the code is written, where one found only by the review of the harvest reopens the

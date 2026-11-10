@@ -72,10 +72,23 @@ A finding is cited by its id and its file's stem, in the form
 %% `design@query@cluster-rooted-at-a-subject`, and its verdicts at an intake
 %% `design@agent-skills@verdict-report`.
 
-   Act on the verdict files the search's check writes, one per subject, as that description says,
+   Read the verdict files the search's check writes, one per subject, as that description says,
    the agents you hand them to being those of
-   `skill@knowledge-architect-retrospective-intake@intake-subagents`; read with
-   `{{command}} show <ref>` every other entry a proposal rests on or would change. The search finds what a grep per finding
+   `skill@knowledge-architect-retrospective-intake@intake-subagents`, and act on each verdict by
+   its action:
+
+   - `respect`: the proposed fix keeps within the quoted sentence;
+   - `check-reversal`: a fix that would change the entry goes through
+     `skill@knowledge-architect-decision-recording@reversal-check` before it is proposed;
+   - `goal-setting`: a change of the goal goes through `skill@knowledge-architect-goal-setting`;
+   - `new-argument-needed`: the design is proposed again only with a new argument, as item c says;
+   - `close-with-the-work`: the commit that carries out the outcome closes the issue, per
+     `skill@knowledge-architect-issue-tracking`;
+   - `rule-before-work`: a firing, a trigger or a re-entry point the file meets takes a section of
+     its own in the analysis, as `skill@knowledge-architect-retrospective-intake@analysis-and-ruling`
+     says, and an outcome that depends on an issue waits for its answer.
+
+   Read with `{{command}} show <ref>` every other entry a proposal rests on or would change. The search finds what a grep per finding
    does not: a finding already recorded, a deferred issue whose trigger the file meets, a tripwire
    whose firing evidence the file carries, a design issue whose re-entry it meets, and a head or a
    goal a proposed fix would contradict or strain.
@@ -197,8 +210,8 @@ Write the analysis in docs/retrospective-reports/ at the project's root, as `<st
 `<stem>` is the received file's stem.
 
 - A head: the received file's name, the version it used, the main commit analysed against, and,
-  for each standing entry the search gave a verdict other than `unrelated` against a cluster or a
-  finding this analysis holds, its line from `generated-lines.md`.
+  for each entry the search gave a verdict other than `unrelated` against a cluster or a finding
+  this analysis holds, its line from `generated-lines.md`.
 - **One section per finding or cluster**, headed by its ids and a short title, with a bullet per
   item of `skill@knowledge-architect-retrospective-intake@what-to-establish`, in prose. No table:
   the content of each item is too long to read in a cell. A finding that item b shows repaired, or

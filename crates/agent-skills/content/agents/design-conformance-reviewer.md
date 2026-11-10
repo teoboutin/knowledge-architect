@@ -48,6 +48,8 @@ Run `{{command}} show <kind>@<anchor>@<id>` on every goal and every design entry
 to read the entry and every text that references it.
 
 %% The verdicts read beside the record, and the axis owed at a merge: `design@agent-skills@verdicts-reach-the-conformance-review`.
+%% The verdict files are read only where the brief names their directory: a search's directory is
+%% in a scratch space, which may be gone by the review, most often by the review before a merge.
 Then read the verdicts of the record search that grounded the document: the verdict files,
 `verdicts-<subject>.md`, in the directory the brief names, where it names one, each verdict with
 its entry's text; and, at the review before a merge, `{{command}} show` on each entry a generated
@@ -79,8 +81,9 @@ Report each of these:
   `skill@knowledge-architect-design@threads-and-states`.
 - **An acceptance criterion whose observable the record rules out**: one that a goal or a head
   forbids building or running.
-- **A verdict left unanswered.** A verdict of the search, other than `constrains` with the action
-  `none`, that the work does not answer: a quoted sentence it was to respect that a shape breaks, a
+- **A verdict left unanswered.** A verdict of the search that you read, other than `constrains`
+  with the action `none`, that the work does not answer: a quoted sentence it was to respect that a
+  shape breaks, a
   head reversed or a goal changed without the procedure its action names, a rejected design
   proposed again without a new argument, or a firing, a trigger or a dependency it builds on that
   nothing rules; and, in a plan document, a verdict that its "What is already decided" gives no

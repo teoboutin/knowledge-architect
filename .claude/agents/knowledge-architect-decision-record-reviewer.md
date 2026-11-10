@@ -268,7 +268,7 @@ each of the same Component or declared location, as one cluster that one agent r
 is split into subjects read apart when:
 
 - `cargo klarch worklist --out <dir>` names its cluster in a notice, as its own entries exceed the
-  bound of the words one agent is given; or
+  bound the work leaves of the words one agent is given; or
 - its heads answer questions about parts of the Component that change apart.
 
 A split moves headings and decides nothing, so it is a fix in a commit of its own, as
