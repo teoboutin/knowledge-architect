@@ -30,8 +30,9 @@ fixes:
      head.
    - `path@agent-skills@fragments/head-ground.md` and the decision-recording skill: a head states,
      beside its reference to a goal, the constraint it derives. The comparison of the readings of
-     one goal, in `path@agent-skills@content/agents/decision-record-reviewer.md`, is built only if
-     D3 of the milestone document is ruled so; on its default, the slice opens the issue D3 names.
+     one goal by the decision-record axis is not built, on D3 of the milestone document: the slice
+     opens an issue of kind `design` in `register@agent-skills@issue` that holds it, with the cause
+     of the premortem it answered and the session's two doubts.
    - Each other installed text that a row of the milestone document's table makes false.
    - The installed copies under `path@agent-config@skills/` and its siblings, written by
      `cargo klarch install-agent-skills`.
@@ -122,6 +123,9 @@ the standard's test.
   depends on nothing of the checker; whether `goal@agent-skills@session-orchestrates-the-work` is
   a purpose or a means to two other outcomes; and the clause "through a goal" of
   `goal@knowledge-architect@the-owner-decides`, read as a goal of the three kinds.
+- `goal@knowledge-architect@the-workflow-improves-through-real-use`: the owner finds that its
+  scope "might be a bit too large", and that "if taken literaly, it would forbid pretty much any
+  change to the project". The whole-set review reads it with that statement.
 - A scope goal under the new shape: the discussion tested two purposes and no scope;
   `goal@knowledge-architect@serves-one-kind-of-project` is the longest goal. Its rewording is the
   trigger of `issue@check@configuration-for-several-agent-providers` if it changes what the goal
@@ -203,7 +207,7 @@ the sorting.
 | --- | --- | --- |
 | the threads on the standard: the three kinds, one direction, no measure, the example, no refinement | `register@agent-skills@design`, its subdocument on goals: a head rewritten in place where the milestone document's table says rewritten; where it says reversed, a new head under the thread's slug, the incumbent judged for `register@agent-skills@rejected` | at this slice's landing |
 | goals at the root only, as an instruction of the installed text | `register@agent-skills@design`, a new head under the thread's slug, with `design@agent-skills@goals-required` reversed | at this slice's landing |
-| a goal's reading as a head's premise | `design@agent-skills@standing-argument-in-head`, rewritten; the comparison, where D3 keeps it, a new head of the section on reviews | at this slice's landing |
+| a goal's reading as a head's premise | `design@agent-skills@standing-argument-in-head`, rewritten; the comparison in the issue D3 opens, and no head | at this slice's landing |
 | the installed text's silence on an intermediate Component | `design@agent-skills@intermediate-component-occasion`, rewritten and its slug renamed with every reference to it; `design@knowledge-architect@no-intermediate-component`, removed | at this slice's landing |
 | each head the analysis argued, and the heads that argue the existence of `check`, `gates` and `xtask` | the design home `skill@knowledge-architect-decision-recording@owning-component` gives each: the root's for which Components exist | at this slice's landing |
 | every cause of the premortem but the one on a consumer's pin, and the losing alternatives | as the milestone document's harvest says | at this slice's landing |
