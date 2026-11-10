@@ -146,7 +146,8 @@ pub struct WorklistArgs {
     pub seeds: Vec<String>,
     /// A file of the work, repeatable: `work.txt` lists it for the agents to read, and its words
     /// come out of the bound. A relative path is read from the working directory; a file given
-    /// twice, in any spelling, counts once.
+    /// twice, in any spelling, counts once. A file that cannot be read, or whose path holds a line
+    /// break, is refused, nothing written.
     #[arg(long = "work", value_name = "PATH", conflicts_with = "verify")]
     pub work: Vec<std::path::PathBuf>,
     /// A subject of the work, repeatable, an id in the grammar `[a-z0-9]+(-[a-z0-9]+)+`; with
@@ -168,7 +169,8 @@ pub struct WorklistArgs {
     /// The path of a plan document, a spec, a slice's spec or a milestone document, for its
     /// design audit: the design entries and declared-register entries its section "What is
     /// already decided" cites become seeds, beside any `--seed`, and `--verify` writes the
-    /// audit's outputs. A path that is no plan document is refused, nothing written.
+    /// audit's outputs. A path that is no plan document, or that holds a line break, is refused,
+    /// nothing written.
     #[arg(long = "seeds-from", value_name = "SPEC", conflicts_with = "verify")]
     pub seeds_from: Option<std::path::PathBuf>,
 }

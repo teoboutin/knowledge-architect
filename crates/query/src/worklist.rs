@@ -67,8 +67,8 @@ const CHANGED_MARK: &str = "changed-since";
 const QUOTE_WORDS: usize = 8;
 
 /// What `worklist` does. One value, so that writing a work list and checking the reports cannot be
-/// asked together, and neither can a bound, a seed, a file of the work or a subject be given to the
-/// check.
+/// asked together, and neither can a bound, a seed, a file of the work, a subject, a `since` or a
+/// `seeds_from` be given to the check.
 #[derive(Clone, Debug)]
 pub enum WorklistMode {
     /// Write the work list into `dir`, a new or empty directory outside the project.
@@ -137,7 +137,9 @@ pub enum WorklistMode {
 ///   or `since` line given twice; `shown.md`, cut short, an entry lacking one of its two blocks,
 ///   or lacking an entry `agents.txt` lists; a report, or a report line it cannot parse; and a removal or a
 ///   write that failed. Nothing is judged where one of the first three stops it, and no verdict
-///   file and no generated line is left in any case.
+///   file and no generated line is left, unless a removal fails: removing the outputs of a
+///   previous run stops at the first that cannot be removed, and after a failed write a file of
+///   this run that cannot be removed is left with no report.
 ///
 /// Exit 1 is a finding on a report. Under `Write`, it checks neither the form of a subject nor
 /// that a file of the work holds anything: a subject is listed as given, each once, and an empty
@@ -307,12 +309,10 @@ fn write(manifest: &Manifest, asked: &Asked, checker: &[&Path]) -> Result<ExitCo
         since_subject = Some(subject_of(&message));
     }
 
-    // Every agent reads the work beside its entries, so its words come out of every agent's
-    // bound. A work longer than the bound leaves none, and every group then goes to an agent alone.
-    // A file given twice, or by a relative and an absolute spelling, is one file of the work: it is
-    // counted and listed once, by the real path `absolute` gives an existing file.
-    let mut work_paths: Vec<PathBuf> = Vec::new();
-    let mut work_words = 0;
+    // Each file of the work is read and refused in the order given, a file given twice included,
+    // and known by the real path `absolute` gives an existing file; what the work weighs, and the
+    // bound it leaves, is `work_load`'s.
+    let mut work_files: Vec<(PathBuf, String)> = Vec::new();
     for path in work {
         let text = std::fs::read_to_string(path).map_err(|e| {
             format!(
@@ -322,13 +322,9 @@ fn write(manifest: &Manifest, asked: &Asked, checker: &[&Path]) -> Result<ExitCo
         })?;
         let real = absolute(path)?;
         refuse_a_line_break("the file of the work", &real)?;
-        if work_paths.contains(&real) {
-            continue;
-        }
-        work_words += text.split_whitespace().count();
-        work_paths.push(real);
+        work_files.push((real, text));
     }
-    let bound_left = bound.saturating_sub(work_words);
+    let (work_paths, work_words, bound_left) = work_load(&work_files, bound);
 
     let plan = graph::plan(&mut graph, bound_left);
     let agent_groups: Vec<Vec<usize>> = plan.agents.iter().map(|a| a.groups.clone()).collect();
@@ -438,6 +434,27 @@ fn notice(group: &graph::Group, own: usize, bound: usize) -> Option<String> {
             group.name,
         ),
     })
+}
+
+/// What the work weighs, given each of its files by its real path and its text, in the order
+/// given: the real paths, each once, in the order first given; the words of the files so kept; and
+/// the words of `bound` they leave.
+///
+/// Every agent reads the work beside its entries, so its words come out of every agent's bound. A
+/// work longer than the bound leaves none, and every group then goes to an agent alone. A file
+/// given twice, or by a relative and an absolute spelling, is one file of the work, since both
+/// give one real path: it is counted and listed once.
+fn work_load(files: &[(PathBuf, String)], bound: usize) -> (Vec<PathBuf>, usize, usize) {
+    let mut paths: Vec<PathBuf> = Vec::new();
+    let mut words = 0;
+    for (real, text) in files {
+        if paths.contains(real) {
+            continue;
+        }
+        words += text.split_whitespace().count();
+        paths.push(real.clone());
+    }
+    (paths, words, bound.saturating_sub(words))
 }
 
 /// The directory as an absolute path, its `.` and `..` segments resolved without touching the
@@ -888,7 +905,7 @@ fn actions(role: Role, verdict: &str) -> &'static [&'static str] {
 /// `work.txt` lists, and each entry's text is what `--out` wrote into the snapshot, so the check
 /// and the outputs hold whatever the tree has become since. Every output of a previous run is
 /// removed before anything is judged, so a run that fails, or stops on a file it cannot read,
-/// leaves none a session could take for this one's.
+/// leaves none a session could take for this one's, unless a removal fails, as `worklist` says.
 fn verify(dir: &Path) -> Result<ExitCode, String> {
     remove_outputs(dir)?;
     let list_path = dir.join(AGENTS_FILE);
@@ -1225,12 +1242,11 @@ struct Outputs {
 /// `generated-lines.md` holds one line per entry given a verdict other than `unrelated`, in the
 /// same order, `` - `<reference>`: <verdict>, <action>. ``. Its reference
 /// is backticked so that `cargo klarch commits` judges it in the message it is pasted into; it
-/// carries no quotation and no reason, since a quotation's references would read as live there and
-/// its marks could end the span early.
+/// carries no quotation and no reason, per `design@query@occasion-shaped-output`.
 ///
 /// At a design audit, where `work` names a plan document, `gaps.md` and `fit-lines.md` take the
 /// place of `generated-lines.md`. `gaps.md` holds every verdict but `constrains` and `unrelated`,
-/// whatever its `against`, as a verdict file gives it, `-` included, since a gap is the audit's
+/// whatever subjects its `against` names, as a verdict file gives it, since a gap is the audit's
 /// whatever the subject: each is sorted by the planning skill's four sorts. `fit-lines.md` holds the
 /// generated lines under one line citing the plan document whole and naming the `--since` commit
 /// by its subject, where `work` gives one, so the audit's message carries them as written.
@@ -1631,6 +1647,29 @@ mod tests {
         assert!(notice(&group(graph::GroupKind::Goals), 11, 10).is_some_and(
             |n| n.starts_with("notice: the goals of \"a-unit :: A subject\" hold 11 words")
         ));
+    }
+
+    /// The claim: a file of the work given twice is listed and counted once, the files listed in
+    /// the order first given, its words those of every file kept; and the bound left is the bound
+    /// less those words, none where the work holds more. Mutations checked, in `work_load`:
+    /// `if paths.contains(real) {` made `if false {`, which lists `a.md` twice and counts 8 words;
+    /// `paths.push(real.clone());` made `paths.insert(0, real.clone());`, which lists `b.md` first;
+    /// `words += text.split_whitespace().count();` made
+    /// `words = text.split_whitespace().count();`, which counts 2 words; and
+    /// `(paths, words, bound.saturating_sub(words))` made `(paths, words, bound + 0 * words)`,
+    /// which leaves the whole bound; each caught.
+    #[test]
+    fn the_work_counts_each_file_once_and_comes_out_of_the_bound() {
+        let a = PathBuf::from("/w/a.md");
+        let b = PathBuf::from("/w/b.md");
+        let files = [
+            (a.clone(), "one two three".to_string()),
+            (b.clone(), "four five".to_string()),
+            (a.clone(), "one two three".to_string()),
+        ];
+        assert_eq!(work_load(&files, 10), (vec![a.clone(), b.clone()], 5, 5));
+        assert_eq!(work_load(&files, 4), (vec![a, b], 5, 0));
+        assert_eq!(work_load(&[], 10), (Vec::new(), 0, 10));
     }
 
     /// The claim: `work.txt` lists each file of the work, then each subject once, in the order

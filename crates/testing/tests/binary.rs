@@ -6124,10 +6124,10 @@ fn worklist_gives_cluster_agents_title_lines_and_goal_agents_the_goals() {
 /// The claim: the words of the work come out of the bound, so a bound of 400 with a work of 300
 /// words packs as a bound of 100 does; `work.txt` lists the work's file and the subjects, and the
 /// one subject `whole-work` where none is named; a file of the work that cannot be read is refused
-/// with nothing written; and the line of the bound the work leaves is printed. Mutations checked:
-/// in `write` of `path@query@src/worklist.rs`, `let bound_left = bound.saturating_sub(work_words);`
-/// made `let bound_left = bound + 0 * work_words;`, which packs as 400; the read of a file of the
-/// work made to yield an empty text on an error, `std::fs::read_to_string(path)` followed by
+/// with nothing written; and the line of the bound the work leaves is printed. Mutations checked,
+/// in `path@query@src/worklist.rs`: in `work_load`, `(paths, words, bound.saturating_sub(words))`
+/// made `(paths, words, bound + 0 * words)`, which packs as 400; in `write`, the read of a file of
+/// the work made to yield an empty text on an error, `std::fs::read_to_string(path)` followed by
 /// `.or_else(|_| Ok::<String, std::io::Error>(String::new()))`, which writes a work list over a
 /// file that does not exist; and `if !work_paths.is_empty() {` made `if false {`, which prints no
 /// line of the bound; each caught.
@@ -6556,7 +6556,8 @@ fn worklist_verify_names_each_gap_of_a_report() {
 /// `} else if false {`; `.filter(|s| !subjects.contains(s))` made `.filter(|_| false)`; and
 /// `if fields.reason.is_empty() {` made `if false {`; in `render`, the subjects of the
 /// skeleton's header, `named.join(", ")`, made `String::new()`; and in `parse_work`,
-/// `Some(s) if subjects.iter().any(|t| t == s) => {` made `Some(s) if false => {`; each caught.
+/// `Some(s) if work.subjects.iter().any(|t| t == s) => {` made `Some(s) if false => {`; each
+/// caught.
 #[test]
 fn worklist_verify_judges_every_case_of_a_verdict_line() {
     let (sandbox, out) = worklist_project("worklist-cases");
@@ -6857,7 +6858,8 @@ fn worklist_snapshot_holds_the_show_text_of_every_entry() {
 /// and no generated lines. Mutations checked, in `path@query@src/worklist.rs`: the call
 /// `remove_outputs(dir)?;` deleted from `verify`; in `remove_outputs`,
 /// `(name.starts_with(VERDICTS_PREFIX) && name.ends_with(VERDICTS_SUFFIX))` made `false`; and
-/// `name == GENERATED_LINES_FILE` made `false`; each caught.
+/// `[GENERATED_LINES_FILE, GAPS_FILE, FIT_LINES_FILE]` made `[GAPS_FILE, FIT_LINES_FILE]`; each
+/// caught.
 #[test]
 fn worklist_verify_leaves_no_output_of_a_previous_run_when_it_fails() {
     let (sandbox, out) = worklist_project("worklist-verify-removes");
@@ -7115,9 +7117,9 @@ fn worklist_entries_files_hold_no_inbound_list() {
 }
 
 /// The claim: a file of the work given twice, by a relative and by an absolute path, is counted
-/// and listed once. Mutation checked: in `write` of `path@query@src/worklist.rs`,
-/// `if work_paths.contains(&real) {` made `if false {`, which counts 600 words and lists two
-/// lines; caught.
+/// and listed once. Mutation checked: in `work_load` of `path@query@src/worklist.rs`,
+/// `if paths.contains(real) {` made `if false {`, which counts 600 words and lists two lines;
+/// caught.
 #[test]
 fn worklist_counts_and_lists_a_file_of_the_work_once() {
     let (sandbox, out) = worklist_project("worklist-work-once");
