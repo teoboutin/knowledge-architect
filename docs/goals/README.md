@@ -30,8 +30,8 @@ These words hold in these senses for the goals of this home:
   message is none;
 - **a reference**: a pointer by which one text names a recorded item, a file, a directory or a
   section of a text;
-- **a tool**: a mechanical program, a command or a library function, that a person or an agent
-  working in a target project runs;
+- **a tool**: a program, a command or a library function that runs without an agent's judgement,
+  and that a person or an agent working in a target project runs;
 - **a session**: one run of an AI agent on a project's work;
 - **the generic part** of an activity, a tool or a procedure: the part that does not depend on what
   the project builds;
