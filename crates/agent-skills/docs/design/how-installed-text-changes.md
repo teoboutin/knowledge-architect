@@ -95,8 +95,9 @@ one does would take the repeated runs this rule refuses.
   briefed in a proposed report form: the run is done for the work, not built to produce evidence,
   which this head's argument refuses.
 
-The rule derives from `goal@knowledge-architect@the-workflow-improves-through-real-use`, which
-states it for the whole workflow. The owner's argument: synthetic evidence is too unreliable, since
+The rule derives from `goal@knowledge-architect@the-workflow-improves-through-real-use`, under
+which real use is the test of how an agent behaves under the workflow: a run built to observe an
+agent is no real use. The owner's argument: synthetic evidence is too unreliable, since
 reading it soundly would need at least a statistical analysis, which costs too much, and a proper
 mock task needs a design and a test of its own, so it cannot be created on demand. One run of an agent is a sample of one. The
 evidence the rule gives up is supplied otherwise: retrospectives of real work reach this repository,

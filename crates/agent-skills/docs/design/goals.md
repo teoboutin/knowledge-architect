@@ -101,8 +101,8 @@ judge of a goal apply it. The nearest rival, the standard written in goal-settin
 reviewer briefed to read it, puts the reviewer's standard behind a read the brief must ask for,
 which `rejected@agent-skills@one-generic-auditor-agent` records as uneven.
 
-The goals bind outright and are the only statements assumed to come from the owner, per
-`goal@knowledge-architect@the-owner-decides`, and agents work toward them over a long time, per
+The goals bind outright and are the only statements assumed to come from the owner, who sets and
+changes them, per `goal@knowledge-architect@the-owner-decides`, and agents work toward them over a long time, per
 `goal@knowledge-architect@agents-work-without-drift`. The outcome the standard's rules pursue is a
 goal that states what the owner intends, at the breadth the owner gave it, and that keeps its
 meaning while the work moves toward it. So a goal
