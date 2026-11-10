@@ -2348,6 +2348,26 @@ None: the work reads no external specification.
 | a consumer does not move its pin, the review of its whole goal set costing too much | slice 2 | named as a cause for the harvest of slice 2 to judge; expected to be dropped on a doubt, the owner running the consumers |
 | a session reading a goal alone finds a head in conflict with it and asks the owner again | `thread@goals-at-the-root@a-goal-s-reading-is-a-head-s-premise` | named as a cause for the harvest of slice 1 to judge; expected to fail condition 1, since it reaches the owner each time |
 
+**The causes as slice 1's harvest judged them**, by the tripwire standard of
+`skill@knowledge-architect-decision-recording@ruled-tripwires`:
+
+- thin goals stop steering: no tripwire. It is the cause of the parked thread, whose question the
+  owner deferred, so it is the reopening evidence of the two issues that hold that thread;
+- the goals home ends larger: the acceptance criterion below, reported there;
+- the rewrite too heavy for one branch: dropped, on condition 1, the work being stopped by it;
+- an installed instruction that a measure protected is removed: kept, as
+  `tripwire@agent-skills@a-measure-protected-instruction-is-removed-as-unneeded`, on a doubt and
+  with a short horizon. The clause it had been converted into expired when the owner ruled
+  `goal@knowledge-architect@only-needed-instructions`;
+- two heads read one goal in opposite directions: no tripwire. Its comparison is parked in
+  `issue@agent-skills@no-review-compares-the-readings-heads-take-of-one-goal`, whose re-entry it is;
+- the detail returns in heads with thin arguments: dropped, on condition 1, the decision-record
+  axis judging each head's argument;
+- an agent reverses a Component's purpose and the owner learns it late: dropped, on condition 1,
+  the turn's "Decided" section and the transcript axis reporting it;
+- a session reading a goal alone finds a head in conflict with it and asks the owner again:
+  dropped, on condition 1, since it reaches the owner each time.
+
 ## Acceptance criteria
 
 ### The root's goals home after the rewrite holds no more words than the 13 goals homes held before it `##the-goals-home-is-not-larger`
@@ -2361,6 +2381,11 @@ It is a ceiling on the whole home, never a bound on one goal:
 `design@agent-skills@goal-entry-shape` argues against a bound on a goal's length, and that
 argument stands. It is a weak observable: 54 measures and 183 case lines leave the goals, so the
 home shrinks unless the kept goals grow by as much. No tighter bound has a basis in a measurement.
+
+**Report at slice 1.** It does not fire. After the last round of the whole-set review and the
+owner's ruling of the batch, `wc -w` over the seven files of the root's goals home gives 3,316
+words, against the bound of 19,045. The root's home holds 21 goals where the 13 homes held 54. The
+thread it guards stands.
 
 ## Implementation sequence
 
@@ -2428,6 +2453,12 @@ form the shipped text writes for the root's goals home, which slice 2's spec sta
 | this document | nothing of its own: it leaves in the commit that deletes slice 2's spec, or the commit that records the last ruling of D1 to D4 | after slice 2 |
 
 ## Later consequences
+
+- Slice 1 has landed what slice 2 starts from: the root's goals home is a directory of six files
+  behind a README; each of the 12 other Components keeps a goals home that holds one sentence and
+  no entry; 5 lines of the installed text's source still write the form that names every
+  Component's goals home; and the citation rule of rule 8 of the standard, with its twin in the
+  primer, still speaks of a location's goals home.
 
 - The consumers of the checker run the whole-set review when their pin crosses the version that
   ships slice 2: its Migration entry names that review.

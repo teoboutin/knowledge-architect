@@ -436,3 +436,23 @@ instances.
 the standing-state review.
 **Watches until:** three commits on the main branch that add analyses of received retrospective
 workflow files, counted from the commit that writes this line.
+
+## Guarding `design@agent-skills@what-shows-a-goal-met-is-design`: no installed instruction that a goal's measure used to name is removed as unneeded and then found missing `##a-measure-protected-instruction-is-removed-as-unneeded`
+
+A goal states no measure, so no goal names the act of an installed instruction any longer, and the
+need test alone keeps a needed instruction in the installed text. An audit or a review that
+removes such an instruction as unneeded passes every procedure: the removal is a repair, and the
+gap shows only in a later session.
+
+**Fires when:** an analysis of a retrospective workflow file received under
+`path@knowledge-architect@docs/retrospective-reports/`, or an audit report of the agentic-workflow
+axis, reports a session that lacked an instruction which an earlier audit or review had removed on
+the need test, and whose act a measure of a goal stated in the goals homes as
+`git show cb8d5a22:docs/goals.md` and `git show cb8d5a22:crates/agent-skills/docs/goals.md` hold them.
+**Response:** reopen `design@agent-skills@what-shows-a-goal-met-is-design` on what protects a needed
+instruction once no goal names its act, with the instance.
+**Re-entry:** the intake of a retrospective workflow file, `skill@klarch-retrospective-intake`, and
+the standing-state review.
+**Watches until:** two audit reports of the agentic-workflow axis added under
+`path@knowledge-architect@docs/audit-reports/` on the main branch, counted from the commit that
+writes this line.
