@@ -128,7 +128,7 @@ Reversed or rewritten, each at step 5 (the harvest) unless named:
   `design@agent-skills@no-thread-closes-before-the-search` on the cost of a reading after the owner's
   rulings.
 - the root: `design@knowledge-architect@query-crate`, for a second use of `git` in `query`.
-- reopened with a new argument, not built: `rejected@agent-skills@one-search-agent-per-anchor`, which
+- reopened with a new argument, not built: `rejected@query@one-search-agent-per-anchor`, which
   stays, its reason rewritten to what still holds.
 - a reason defeated: `rejected@agent-skills@conformance-reader-at-the-checkpoint`, its reason
   rewritten with the two heads that cite its cost.
@@ -191,7 +191,7 @@ session, and were not checked line by line.
 - `design@agent-skills@thread-slug-is-entry-id`: constrains, respect. Respected by the decided design; no requirement beyond it.
 - `rejected@agent-skills@design-listing-cut-in-groups-of-sixty`: constrains, respect. Respected by the decided design; no requirement beyond it.
 - `rejected@agent-skills@one-agent-reads-every-standing-entry`: constrains, respect. Respected by the decided design; no requirement beyond it.
-- `rejected@agent-skills@one-search-agent-per-anchor`: brings-back, new-argument-needed. Reopened with a new argument, per `thread@record-search-verdicts@component-packing`, and not built: small search units share agents. The entry stays, its reason rewritten at the harvest to what still holds: one agent per small anchor spends more on starting agents than on reading.
+- `rejected@query@one-search-agent-per-anchor`: brings-back, new-argument-needed. Reopened with a new argument, per `thread@record-search-verdicts@component-packing`, and not built: small search units share agents. The entry stays, its reason rewritten at the harvest to what still holds: one agent per small anchor spends more on starting agents than on reading.
 - `rejected@agent-skills@subject-groups-bounded-at-sixty`: constrains, respect. Respected by the decided design; no requirement beyond it.
 - `design@agent-skills@audit-method`: constrains, none. Respected by the decided design; no requirement beyond it.
 - `design@agent-skills@refused-report-returned-as-text`: constrains, respect. Respected by the decided design; no requirement beyond it.
@@ -477,7 +477,7 @@ units into the room of large ones, which no goal ranks, at a cost of one agent o
 Harvest: `design@query@clusters-packed-under-a-word-bound`, `residual-grouped-by-anchor` (`design@query@residual-grouped-by-search-unit`),
 `design@query@cluster-rooted-at-a-subject`, `design@agent-skills@search-reads-the-whole-record`,
 `design@agent-skills@subject-split-standard`; the reason of
-`rejected@agent-skills@one-search-agent-per-anchor`.
+`rejected@query@one-search-agent-per-anchor`.
 
 ### The searcher returns a verdict per entry, its quotation checked by the command `##verdict-report`
 
@@ -815,7 +815,7 @@ Round 11, the session, at L611.
 
 - Threads: `thread@record-search-verdicts@component-packing`
 - "**Yes.** `design@query@cluster-rooted-at-a-subject` puts an issue in the cluster of every head it cites. So the case you called hard is covered today, but only by the cited head, not by the rest of its Component's design."
-- "This answers the reason behind `rejected@agent-skills@one-search-agent-per-anchor`, "an anchor bounds nothing", because the split above the bound restores the bound."
+- "This answers the reason behind `rejected@query@one-search-agent-per-anchor`, "an anchor bounds nothing", because the split above the bound restores the bound."
 - Measurement (session's script over today's tree, bound 30,000): "9 agents"; "`agent-skills` in 4 agents, `check` in 2"; "read-only context heads per agent from 7 to 76"; "the largest agent at 56,000 words, context included."
 - "With a fixed start of about 36,000 tokens per agent, eight agents for Components of 464 to 4,800 words each would spend more on starting than on reading."
 
@@ -1098,7 +1098,7 @@ so at half the rule only keeps a small unit out of a large one's agent; the owne
 owner's judgement that a large Component's entries probably interact, which no measurement backs
 (`argument@record-search-verdicts@arg-33`, `argument@record-search-verdicts@arg-34`). Nearest rival:
 small units packed into the room of large ones, one agent fewer over this repository. Reopened, not
-built: `rejected@agent-skills@one-search-agent-per-anchor`, whose reason, "an anchor bounds nothing",
+built: `rejected@query@one-search-agent-per-anchor`, whose reason, "an anchor bounds nothing",
 the split above the bound answers; small units still share agents, since one agent each would spend
 more on starting agents than on reading (`argument@record-search-verdicts@arg-32`).
 
@@ -1445,7 +1445,7 @@ default.
   `skill@knowledge-architect-decision-recording`, each measurement as its claim, its command and its
   direction, with no magnitude, as the root `CLAUDE.md` asks; every text the citing list names read and
   repaired where the rewrite leaves it false, `path@testing@tests/binary.rs` included.
-- **`rejected` entries**: `rejected@agent-skills@one-search-agent-per-anchor` stays, its reason rewritten
+- **`rejected` entries**: `rejected@query@one-search-agent-per-anchor` stays, its reason rewritten
   to what still holds; the losing alternatives above judged by the recording tests, those refuted by a
   measurement as candidates (small units in large ones' room; context entries by title; the transcript
   as the work); each new entry cited from a head.

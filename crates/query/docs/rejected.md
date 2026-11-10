@@ -54,7 +54,7 @@ answer it is asked for; listing every kind and anchor answers it whatever the ow
 
 `live`. A goal of the root is cited by heads of most subjects, so it was read in nearly every agent:
 in the work list of 25 agents over this repository at main's commit 350d4d59, every agent held all
-25 root goals, and goal entries made 181,458 of the 497,444 words the agents read. The counts are
+21 root goals, and goal entries made 181,458 of the 497,444 words the agents read. The counts are
 re-taken by running that commit's `klarch worklist --out` over its tree and summing, per agent, the
 words of the goal entries in its `entries.md`.
 
@@ -63,8 +63,10 @@ words of the goal entries in its `entries.md`.
 `live`. A cluster's issues then sit in an agent that holds none of their Component's design: in the
 work list of 25 agents over this repository at main's commit 350d4d59, 100 of the 341 placements of
 an issue or a tripwire, 99 issues and 1 tripwire, sat in an agent holding no design entry of their own
-Component. The owner judged an issue graded without its Component's design a major defect. The count
-is re-taken from that run's `agents.txt`, by the anchor of each entry against the anchors of the
+Component. The owner judged an issue graded without its Component's design a major defect, then
+narrowed it: most issues are fine to judge without the design, and the defect is an issue that cites
+a head the agent does not see. The count, of every issue and tripwire whether or not it
+cites a head, is re-taken from that run's `agents.txt`, by the anchor of each entry against the anchors of the
 design entries of its agent.
 
 ### Search units below half the bound packed into the room the agents of larger ones leave `##small-units-in-large-units-room`
@@ -73,3 +75,13 @@ design entries of its agent.
 to the owner's choice at a fork that no goal ranks. It is kept because a doubt remains: the owner's
 judgement that a large Component's entries interact, so that an agent's attention is better kept on
 them alone, has no measurement behind it.
+
+### One search agent per anchor `##one-search-agent-per-anchor`
+
+`live`. A small anchor costs an agent more to start than to read: by the token usage of 40
+searchers' transcripts of 2026-11-07, an agent's fixed start was about 36,000 tokens, while ten of
+this repository's search units held from 463 to 7,571 words of entries each at main's commit 350d4d59.
+Its first reason, that an anchor bounds nothing, as in thaum at its commit ef21314, where one
+Component held 51.9% of the bytes of the standing entries, is answered by
+`design@query@packed-by-search-unit`, which splits a search unit above the bound and packs the small
+ones together.

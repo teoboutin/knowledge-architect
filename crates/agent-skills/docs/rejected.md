@@ -142,16 +142,6 @@ them, and cannot judge so many entries reliably. It is kept here because a doubt
 measurement shows that agents given a bounded load judge better, and one agent sees every entry
 beside every other, where a group sees only its own.
 
-### One search agent per anchor `##one-search-agent-per-anchor`
-
-`live`. A small anchor costs an agent more to start than to read: by the token usage of 40
-searchers' transcripts of 2026-11-07, an agent's fixed start was about 36,000 tokens, while ten of
-this repository's search units held from 463 to 7,571 words of entries each at main's commit 350d4d59.
-Its first reason, that an anchor bounds nothing, as in thaum at its commit ef21314, where one
-Component held 51.9% of the bytes of the standing entries, is answered by
-`design@query@packed-by-search-unit`, which splits a search unit above the bound and packs the small
-ones together.
-
 ### A separate installed skill for bounded problems `##separate-bounded-problem-skill`
 
 `live`. Whether work is bounded is known only after the design skill's grounding, so a separate
@@ -484,7 +474,8 @@ so it needs a syntax of its own that the head-only direction does not.
 `live`. It would read the proposals as they stand at convergence, with an existing agent, against
 the homes of the Components the question touches. The design skill's search reads the draft the
 shapes have settled into, the whole record, with a verdict per entry the command checks, before any
-thread closes, per `design@agent-skills@search-reads-the-draft`, and the design-conformance reviewer
+thread closes, per `design@agent-skills@search-runs-once-the-shapes-settle` and
+`design@agent-skills@search-reads-the-draft`, and the design-conformance reviewer
 reads the plan document once it is written, per `design@agent-skills@plan-read-against-the-record`,
 so a reader at the checkpoint would read the same shapes against the same record a third time. A
 doubt remains that a search at grounding misses what bears on a thread opened later, which
@@ -765,21 +756,42 @@ of forty retrospective files of 2026-11-07, `bears.md` held 333 entries in 133,0
 `may-bear.md` 249 in 78,434, by `wc -w`, and every design audit of a slice of this repository from
 2026-11-02 to 2026-11-07 graded more than one session's context holds, six of the seven splitting the
 files among fresh readers, as the analyses of the commit "[intake] The analyses of forty received
-retrospective files, three outcomes for the owner" record. A reading on touch of the doubtful
-entries alone read few that changed anything: the search that grounded the discussion that decided
-it graded 202 entries `bears` or `may-bear`, 576 KB of `show` output read in 12 reads, of which about
-30 changed a proposal, 6 of them `may-bear`, as the message of the commit "[harvest] The graded
-entries' assembly, `klarch id`, the narrower grounding and the retrospective's new question
-recorded" states; an intake of nine files returned 169 distinct entries, of which its session read
-whole about 35, those its proposals rested on.
+retrospective files, three outcomes for the owner" record. A whole reading of every graded entry
+changed few proposals for what it read: the search that grounded the discussion of the reading on
+touch, over this repository, graded 202 entries `bears` or `may-bear`, 576 KB of `show` output read
+in 12 reads, of which about 30 changed a proposal, 6 of them `may-bear`; the reading on touch, a
+`may-bear` entry read whole only where a proposal touches it, would have read about 10 of the 137
+entries graded `may-bear` alone, those 6 included, by the session's own judgement, as the message of
+the commit "[harvest] The graded entries' assembly, `klarch id`, the narrower grounding and the
+retrospective's new question recorded" states. The reading on touch still owed every `bears` entry
+whole, which the intake of forty files above shows past one session. At an intake, a batch's search
+returns the union of its files' neighbourhoods: one intake of nine files returned 169 distinct
+entries, about 400 KB of `show` output, and its session read whole about 35, those its proposals
+rested on; a later intake of 24 files did the same. The entries the reading left unread did bear:
+at the two plan reviews of the goal standard's spec, the design-conformance reviewer found three,
+then six, entries the grounding's reading on touch had left unread that the work bore on; and at the
+audit of the slice that moved `git` out, which judged entries from their grade lines, the
+design-conformance review at the merge read 266 of them whole and found five items among them. The
+issues that recorded both left with the harvest of this design's successor;
+`git log --diff-filter=D --name-only -- crates/agent-skills/docs/open-issues/` lists them.
+
+### A slice's design audit seeded with every decision its milestone document lists `##slice-audit-seeded-by-the-milestone`
+
+`live`. An entry citing a seed is never set aside, so every entry citing a decision another slice
+built took a line it did not need: a slice of thaum, on 2026-11-02, graded about 110 of its 125
+`may-bear` entries so for citing a seed with no element of the work meeting them, as the analyses of
+the commit "[intake] The analyses of forty received retrospective files, three outcomes for the
+owner" record; and the last slice of this repository's development milestone, on the same day, took
+51 seeds, one searcher grading 11 entries `may-bear` only because each was a seed or cited one, as
+the issue on that seeding recorded until the harvest of its successor closed it.
 
 ### A work statement written for the record search, apart from the document that carries the deliberation `##work-statement-written-for-the-search`
 
 `live`. It is a second copy of the design, which `primer@where-knowledge-goes` refuses, and it
 compresses the design it copies: in the first search of the discussion that made the draft the
 search's work, its work statement said one goal searcher where the discussion meant a count the
-bound decides, and three verdicts turned on that wording, as that discussion's spec recorded; `git
-log --diff-filter=D --name-only -- docs/plans/` finds it. The owner counted that search as real use.
+bound decides, and three verdicts turned on that wording, as that discussion's spec records; once the
+spec has left, `git log --diff-filter=D --name-only -- docs/plans/` finds it. That search was real use, per `design@agent-skills@synthetic-evidence-not-built`.
 
 ### The extracted transcript of the design discussion as the record search's work `##search-work-carries-the-deliberation`
 
@@ -788,5 +800,5 @@ discussion that weighed it, extracted with `klarch transcript show`, held about 
 owner's and the session's lines, which beside 40,000 words of entries predicted a searcher's peak
 above the 250,000 tokens of `design@query@worklist-bound-is-40000-words`, by the token fit of that
 discussion's own searchers, or more agents at a lower bound; and a raw transcript holds positions
-the discussion later dropped, which a searcher would have to tell apart. The owner judged the cost a
-bit too high, and was not convinced it is worth it.
+the discussion later dropped, which a searcher would have to tell apart. The owner judged the cost
+somewhat too high, and doubted that it is worth it.
