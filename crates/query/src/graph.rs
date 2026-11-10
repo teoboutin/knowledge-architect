@@ -15,7 +15,8 @@
 //!
 //! A cluster agent is given, beside the entries it grades, two things it reads and does not grade:
 //! the **context entries**, every head, entry of a declared register or `rejected` entry an entry
-//! it grades cites and it does not grade itself, whole; and the **title lines** of the goals of the root, of each Component
+//! it grades cites and it does not grade itself, whole, per
+//! `design@query@context-entries-given-whole`; and the **title lines** of the goals of the root, of each Component
 //! enclosing a search unit it holds, and of those search units.
 //!
 //! The groups are then packed into agents under a bound in words, by search unit, as [`plan`]
@@ -403,7 +404,8 @@ pub(crate) fn graph(model: &Model, anchors: &Anchors, entities: &Entities) -> Gr
 /// The search unit of the anchor `name`: the anchor itself where the manifest declares it; for an
 /// entry anchor of a Directory register, the search unit of the anchor that carries the register;
 /// for another anchor the tool constructs, `plans` or a spec, the deepest declared anchor whose path
-/// holds it, a Component on a tie, as `Anchors::owning` decides a document's anchor.
+/// holds it, a Component on a tie, as `Anchors::owning` decides a document's anchor, per
+/// `design@query@constructed-anchor-in-its-home-s-unit`.
 fn search_unit(anchors: &Anchors, name: &str) -> String {
     let mut current = anchors.by_name(name);
     while let Some(anchor) = current {
@@ -634,7 +636,8 @@ pub(crate) fn plan(graph: &mut Graph, bound: usize) -> Plan {
 }
 
 /// Leaves each entry of a split search unit in one of its clusters, before they are packed apart,
-/// so that every entry is graded in exactly one agent.
+/// so that every entry is graded in exactly one agent, per
+/// `design@query@shared-entry-in-its-most-tied-cluster`.
 ///
 /// A unit's own entries are in one cluster already; an issue or a tripwire that cites heads of
 /// several clusters, and a `rejected` entry that heads of several clusters cite, are in each of

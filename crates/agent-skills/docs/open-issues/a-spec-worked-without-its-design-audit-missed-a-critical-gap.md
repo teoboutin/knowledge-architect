@@ -19,8 +19,8 @@ The spec decided that the assembly of the record search gives a goal by its grad
 session reads every goals home whole". The tree the spec was written against refuted that for one
 of the assembly's readers: the design audit of `skill@knowledge-architect-planning@working-a-slice`,
 point 1, reads the Component's `CLAUDE.md`, its design home and its `rejected` home, and no goals
-home; and `design@agent-skills@searcher-grades-goals` names only the design grounding and the intake
-as readings of every goals home. So, as built, the design audit would act on a goal graded `bears`
+home; and the head on the searcher's goals, `design@agent-skills@searcher-grades-goals`, named in
+that tree only the design grounding and the intake as readings of every goals home. So, as built, the design audit would act on a goal graded `bears`
 whose text it never read. The self-consistency axis of the review before the merge found it; the
 spec's own reviews, eight axes, did not. The repair, in the branch's review repairs: the design
 audit and the intake read with `show` each goal the assembly gives by its grades alone.

@@ -82,34 +82,51 @@ whole, and the installed text cites no entry, so in an adopting project it would
 edges. The command relies on the checker working as intended: the edges are the references the
 checker resolves. It serves `goal@knowledge-architect@records-reach-their-reader`, a listing computed from the tree.
 
-### Every Component and every declared location is a search unit, packed into an agent whole unless its load exceeds the bound, and an entry of an anchor the tool constructs belongs to the search unit of its home `##packed-by-search-unit`
+### Every Component and every declared location is a search unit, packed into an agent whole unless its load exceeds the bound `##packed-by-search-unit`
 
 The search units are the Components and the locations the manifest declares. An entry belongs to the
-search unit of its anchor; an anchor the tool constructs, the entry anchor of a Directory register or
-`plans`, belongs to the search unit that holds its home, so it is never a unit of its own. A search
-unit's clusters, per `design@query@cluster-rooted-at-a-subject`, and its remainder, per
+search unit of its anchor, an anchor the tool constructs included, per
+`design@query@constructed-anchor-in-its-home-s-unit`. A search unit's clusters, per `design@query@cluster-rooted-at-a-subject`, and its remainder, per
 `design@query@residual-grouped-by-search-unit`, are built from its own entries alone. A search unit
 whose load fits the bound goes to one agent whole; one above it is split into its clusters and its
-remainder, packed per `design@query@clusters-packed-under-a-word-bound`. Before a split search unit
-is packed, every entry its clusters share stays in one of them, the one it is most tied to, the first
-in the unit's order on a tie: an issue or a tripwire in the cluster holding most of the heads it
-cites, a `rejected` entry in the cluster holding most of the heads that cite it, the same rule read
-from the other end of the citation. So every entry is graded in exactly one agent, and a cluster that
-lost a shared entry gets it as a context entry where the two clusters go to different agents.
+remainder, packed per `design@query@clusters-packed-under-a-word-bound`, an entry its clusters share
+kept in one of them, per `design@query@shared-entry-in-its-most-tied-cluster`.
 
 It serves `goal@knowledge-architect@agents-work-without-drift` and
 `goal@agent-skills@installed-text-works-in-every-target-project`: an issue is judged beside the design
 of its own Component, and a project of one Component or with a large location, as thaum's `rules`, is
 packed by what its manifest declares. The owner judged an agent that grades an issue of a Component
 whose design it saw none of a major defect, and narrowed it to an issue that cites a head, which the
-rule of `design@query@cluster-rooted-at-a-subject` covers inside a search unit and its context
-entries across them. The nearest rival, clusters packed under the bound whatever their Component:
-`rejected@query@clusters-packed-across-search-units`. A constructed anchor as a search unit of its
-own would pack every entry directory of a Directory register as an item of its own, apart from the
-register's home and its Component's design. Small search units share agents rather than taking one
-each, which answers `rejected@agent-skills@one-search-agent-per-anchor`: the split above the bound
+rule of `design@query@cluster-rooted-at-a-subject` covers inside a search unit and
+`design@query@context-entries-given-whole` across them. The nearest rival, clusters packed under the
+bound whatever their Component: `rejected@query@clusters-packed-across-search-units`. Small search units share agents rather than taking one
+each, which answers `rejected@query@one-search-agent-per-anchor`: the split above the bound
 bounds what an anchor does not. Where a search unit stands above or below half the bound is
 `design@query@search-unit-above-half-the-bound-alone`.
+
+### An entry of an anchor the tool constructs belongs to the search unit that holds its home `##constructed-anchor-in-its-home-s-unit`
+
+An anchor the tool constructs, the entry anchor of a Directory register or `plans`, belongs to the
+search unit that holds its home, so it is never a search unit of its own. Its nearest rival, a
+constructed anchor as a search unit of its own, would pack every entry directory of a Directory
+register as an item of its own, apart from the register's home and its Component's design, against
+`goal@knowledge-architect@agents-work-without-drift`, under which an entry is judged beside the
+design of its own Component.
+
+### An entry that the clusters of a split search unit share is graded in the cluster it is most tied to `##shared-entry-in-its-most-tied-cluster`
+
+Before a split search unit is packed, every entry its clusters share stays in one of them, the one it
+is most tied to, the first in the unit's order on a tie: an issue or a tripwire in the cluster holding
+most of the heads it cites, a `rejected` entry in the cluster holding most of the heads that cite it,
+the same rule read from the other end of the citation. So every entry is graded in exactly one agent.
+A cluster that lost a shared `rejected` entry gets it as a context entry
+where the two clusters go to different agents, since its heads cite it, per
+`design@query@context-entries-given-whole`; a cluster that lost an issue or a tripwire does not,
+since that entry cites the cluster's heads and no head the agent grades cites it. The nearest rival, a
+shared entry graded in every cluster that holds it, repeats its verdict in every agent: in the intake
+of seventeen files of 2026-10-25 to 2026-10-31, 200 entries took 365 grade lines, 6 entries 11 lines
+each, as the issue on those repeated lines recorded until the harvest of this decision closed it, and
+the session reads each repeated line.
 
 ### A search unit whose load exceeds half the bound gets agents of its own, and the others are packed together whole `##search-unit-above-half-the-bound-alone`
 
@@ -121,9 +138,9 @@ Goals follow the same rule in the goal agents, per `design@query@goal-context-on
 
 Two search units each above half the bound can never share an agent, since together they exceed it,
 so at half the rule only keeps a small search unit out of a large one's agent. The owner chose it, on
-the owner's judgement that a large Component is likely more critical to the project, so that
-splitting attention over it is not optimal, and that its entries probably interact, a judgement the
-owner called a bit arbitrary, with no measurement to back it. The owner chose the rule over small
+the owner's judgement that a large Component is likely more critical to the project, so that an
+agent's attention is better not divided over it, and that its entries probably interact, a judgement
+the owner held to be somewhat arbitrary, with no measurement behind it. The owner chose the rule over small
 search units packed into the room large ones leave, which no goal ranks, at a cost of more agents
 than the rival packs: the loads `klarch worklist --out` prints for each item re-take it, packed both
 ways. The rival is `rejected@query@small-units-in-large-units-room`.
@@ -138,18 +155,14 @@ entries under its title; a heading register at level 2 by file; a file register 
 subdirectories, per `design@check@groups-are-subdirectories`, and the top of its home; a Directory
 register by the anchor that carries it. A cluster is a unit with the `rejected` entries of its search
 unit that its entries cite, and the issues and tripwires of its search unit that cite them; it holds
-no goal, per `design@query@goal-context-once`. Every head, entry of a declared register or `rejected`
-entry that an entry an agent grades cites, and that the agent does not grade, is that agent's context
-entry: given whole, read only, and given no verdict there.
+no goal, per `design@query@goal-context-once`.
 
 It serves `goal@agent-skills@installed-text-works-in-every-target-project`, since every unit comes from what the
 manifest declares and the tree holds. A subject groups what the work reads together: the owner
 chose that grouping for design entries, since a subject's kept and rejected entries have to be read
 together, and a standing entry joins the cluster of the heads it cites, since it is judged beside
-them. A context entry carries that across search units and across the agents of a split one: an
-issue that cites a head another agent grades is judged beside the head's text. Its nearest rival, a
-context entry given by its title alone, packs fewer agents and judges such an issue without the
-head's text, which the rule exists to give it. The nearest rival of the rooting, a cluster rooted at a goal, reached 342 of the 677 entries of this repository
+them, and `design@query@context-entries-given-whole` carries that across search units and across the
+agents of a split one. The nearest rival of the rooting, a cluster rooted at a goal, reached 342 of the 677 entries of this repository
 at ed9dd60 and 208 of the 801 of thaum at its commit edd2cb5d, since 213 heads here cite no goal, and
 the reference rule of `design@agent-skills@a-reference-claims-a-revisit` has a head name a goal only
 where it derives a constraint from it; rooted at a subject, the clusters reached 663 and 706.
@@ -157,6 +170,17 @@ Followed transitively through design to design citations, a goal-rooted cluster 
 the 677 entries, since 159 heads cite one another in one cycle. The counts were taken by scripts over
 `klarch model`, which the message of the commit "[review] Repairs of the transcript review of one search of the whole record, with the scripts of its measurements" holds. The design this decision did not keep:
 `rejected@query@goal-rooted-clusters`.
+
+### An entry that an entry an agent grades cites, and that another agent grades, is given to that agent whole, read only `##context-entries-given-whole`
+
+Every head, entry of a declared register or `rejected` entry that an entry an agent grades cites,
+and that the agent does not grade, is that agent's context entry: given whole, read only, and given
+no verdict there. It carries the grouping of `design@query@cluster-rooted-at-a-subject` across search
+units and across the agents of a split one: an issue that cites a head another agent grades is
+judged beside the head's text, which serves `goal@knowledge-architect@agents-work-without-drift`. Its
+nearest rival, a context entry given by its title alone, packs fewer agents and judges such an issue
+without the head's text, which the rule exists to give it. A context entry counts in its agent's load,
+per `design@query@clusters-packed-under-a-word-bound`.
 
 ### Goals reach a cluster agent as their title lines, and goal agents grade every goal whole, once `##goal-context-once`
 
@@ -186,7 +210,8 @@ Directory register a group of its own, read apart from its home, against
 `design@query@packed-by-search-unit`. A single remainder for the project grows with every entry no
 head reaches: issues about code with no head, issues citing only goals, and tripwires guarding a
 single-site instruction, each a shape the reference rule admits, which made 14 entries here at
-ed9dd60 and 55 in thaum at edd2cb5d. The design this decision did not keep:
+ed9dd60 and 55 in thaum at edd2cb5d, counted while the remainder still held the goals no head
+serves. The design this decision did not keep:
 `rejected@query@one-residual-group`.
 
 ### `worklist --out` writes the agents' entries, the report skeletons and the work into a directory outside the project, and `worklist --verify` judges the filled reports against the list it wrote `##worklist-writes-and-verifies-the-reports`
@@ -198,13 +223,14 @@ grades whole, then its context entries and its goal title lines, and `report.md`
 to give a verdict, naming the verdicts its register admits; and `shown.md`, the snapshot of
 `design@query@occasion-shaped-output`. It takes `--work <path>` for each file of the work, whose
 words leave the bound, `--subject <id>` for each subject of the work, `whole-work` where none is
-given, `--seed <ref>`, `--bound`, and the options of `design@query@since-marks-and-seeds-come-from-the-plan`.
+given, `--seed <ref>`, `--bound`, `--since`, per `design@query@since-marks-changed-entries`, and `--seeds-from`, per
+`design@query@seeds-from-the-plan-s-decided-section`.
 It is a writer, so it refuses over an incomplete model, per `design@check@phases-gate-the-report`,
 and it refuses a directory inside the project, whose files the walk would read, a directory that
 holds anything, a seed that names no entry, a file of the work it cannot read, and a path whose line
 break would split a line of `work.txt`, writing nothing. `klarch worklist --verify <dir>` reads no
 model: it judges each report against `agents.txt`, `work.txt` and the snapshot, and reports an entry
-given a verdict nowhere or twice, a reference no agent was given, a verdict outside its register's
+given a verdict nowhere or twice, a reference the report's own agent was not given, a verdict outside its register's
 set, an action outside its verdict's, an `against` naming no subject of `work.txt`, a quotation it
 does not find as a run of whole words of the entry's own text, or shorter than the length the code
 asks, a missing reason, an entry that is or cites a seed given `unrelated`, and a report missing its
@@ -214,32 +240,43 @@ closing sections; a line it cannot parse stops it. The verdicts and their action
 
 It serves `goal@knowledge-architect@records-reach-their-reader` and `goal@knowledge-architect@mechanical-tasks-are-the-tool-s`:
 an instruction to give every entry one verdict, with a quotation of its text, is kept by a command,
-not by a reader. The nearest rival, each searcher deriving its group from the listings and writing
+not by a reader. Each skeleton line names the verdicts its register admits, since a searcher reads
+the table once and applies it from memory: over three searches whose skeleton named none, 13 of 45
+searchers wrote a relation their entry's role did not admit, as the issue on that skeleton recorded
+until the harvest of this decision closed it. The nearest rival, each searcher deriving its group from the listings and writing
 its report by hand, listed one entry under two lists in the discussion that produced the `rejected`
 register, and only the searcher's own correction, appended to its report, showed it. The command's
 output is read by its own `--verify`, the searcher and the session, and is no contract with another
 reader, per `issue@knowledge-architect@command-output-is-not-declared-a-contract`.
 
-### `worklist --since` marks the entries whose file changed since a commit and filters none, and `--seeds-from` seeds from a plan document's decided section, its decisions only `##since-marks-and-seeds-come-from-the-plan`
+### `worklist --since` marks the entries whose file changed since a commit, and filters none `##since-marks-changed-entries`
 
 `--since <commit>` resolves the revision to one commit and marks `changed-since`, in `agents.txt` and
 on each entry's line in the entries files, every entry whose file differs between that commit and
 the work tree, an untracked or renamed file included, through `git`'s `paths_changed_since`; it marks
-no code, and every entry is still graded. `--seeds-from <plan>` takes a spec, a slice's spec or a
-milestone document, and adds as seeds the design entries and the declared-register entries its
-section "What is already decided" cites, no goal and no `rejected` entry; it combines with `--seed`,
-is refused where the path is no plan document, and writes the plan document into `work.txt`, which
-makes the run an audit for `--verify`. A failure of git stops the run with git's reason, per
+no code, and every entry is still graded. A failure of git stops the run with git's reason, per
 `design@git@failed-git-is-an-error`.
 
-It serves `goal@knowledge-architect@mechanical-tasks-are-the-tool-s`: the design audit's seeds and
-what changed since its spec are read from the tree by a command, per
-`design@agent-skills@seeds-name-decisions`. A mark, not a filter: a search of what changed alone
+It serves `goal@knowledge-architect@mechanical-tasks-are-the-tool-s`: what changed since the design
+audit's spec is read from the tree by a command. A mark, not a filter: a search of what changed alone
 would miss the entries recorded before the work, `rejected@agent-skills@delta-search-at-convergence`,
 and `--since` draws attention where the record moved under a spec written earlier. Code is not
 marked, since the record is the registers' entries, per `design@query@record-is-every-register-entry`.
-The decided section of a slice's own spec, not the milestone document, names the decisions the slice
-rests on.
+
+### `worklist --seeds-from` seeds from a plan document's section "What is already decided", its decisions only `##seeds-from-the-plan-s-decided-section`
+
+`--seeds-from <plan>` takes a spec, a slice's spec or a milestone document, and adds as seeds the
+design entries and the declared-register entries its section "What is already decided" cites, no
+goal and no `rejected` entry; it combines with `--seed`, is refused where the path is no plan
+document, and writes the plan document into `work.txt`, which makes the run an audit for `--verify`.
+
+It serves `goal@knowledge-architect@mechanical-tasks-are-the-tool-s`: the design audit's seeds are
+read from the tree by a command, per `design@agent-skills@seeds-name-decisions`, which decides that a
+seed is a decision and never a goal. The nearest rival, the session listing the seeds by hand from
+the plan document, is a script each audit writes again: the slice of the integrated tests, on
+2026-11-07, extracted its 54 seeds by `grep` from the decided sections of its milestone document and
+its spec, as the issue on that
+seeding recorded until the harvest of this decision closed it.
 
 ### A passing `worklist --verify` writes, from a snapshot `--out` takes of every entry's show text, one verdict file per subject of the work and the per-entry lines a commit message owes `##occasion-shaped-output`
 
@@ -260,8 +297,10 @@ with the entry's own text alone. When every report passes, `--verify` writes, fr
   whole, the commit named by its subject, and the line of each entry given a verdict other than
   `unrelated`, in place of `generated-lines.md`.
 
-A run that fails, or stops on a file it cannot read, leaves none of these files, a previous run's
-included, and a write that fails removes those written before it, per `design@cli@exit-code-ladder`.
+A run removes these files of a previous run before it judges anything, and a write that fails
+removes those written before it, so a run that fails, or stops on a file it cannot read, leaves none
+of them, per `design@cli@exit-code-ladder`, but where a removal itself fails: the removal stops at the
+first file it cannot remove, and a failed removal of a file this run wrote is not reported.
 `--verify` reads no model, so the session reads what the searchers judged, whatever the tree has
 become since.
 
@@ -269,7 +308,10 @@ It serves `goal@knowledge-architect@mechanical-tasks-are-the-tool-s`,
 `goal@knowledge-architect@records-reach-their-reader` and
 `goal@agent-skills@session-orchestrates-the-work`: a session that hands one subject of the work to an
 agent hands it that subject's file, and the lines a commit message owes per entry are written by the
-command in forms `cargo klarch commits` judges. A generated line carries no quotation, since a commit
+command in forms `cargo klarch commits` judges. Written by each session, they cost a script per
+occasion: twelve sessions wrote them so, nine of this repository and three of thaum, and four met a
+cycle of findings on the reasons they copied, of 13, 41 and 49, 11, and 45 findings, as the issue
+on those lines recorded until the harvest of this decision closed it. A generated line carries no quotation, since a commit
 message reads a quoted reference as live and a quotation's own marks can end its span early. The
 nearest rival, the session running `show` once per entry it acts on, is a script each session writes
 again: the grounding of the discussion that first assembled the entries did so over 202 entries, 576
@@ -304,7 +346,9 @@ estimate, words translate a bit better to an agent's tokens; an entry's mean siz
 KB, a `rejected` entry, to 2.9 KB, an issue, over this repository at ed9dd60, so a count of entries
 bounds a load poorly, while words and bytes differed by about 15% across kinds. First-fit-decreasing
 uses at most 11/9 of the optimal number of agents plus 6/9, by the bound György Dósa proved tight in
-2007. The spreading keeps an agent from carrying the full bound while another carries a remnant:
+2007; with the clusters and remainders as its items, it used the lower bound over this repository at
+ed9dd60, 9 agents, and over thaum at edd2cb5d the lower bound for the groups within the bound, 8
+agents, beside 3 groups above it sent alone. The spreading keeps an agent from carrying the full bound while another carries a remnant:
 first-fit alone filled this repository's agents to a median of 24,737 words of a 25,000 bound at
 ed9dd60, as the scripts the message of the commit "[review] Repairs of the transcript review of one search of the whole record, with the scripts of its measurements" holds took it. Re-take the packing with `klarch worklist --out` and `--bound` over this repository, which prints each agent's load; a run whose
 agents sit at the bound reopens the spreading. Splitting a cluster to meet a bound would cut a
@@ -316,14 +360,17 @@ subject, which the grouping exists to keep whole. The designs this decision did 
 
 ### The default bound is 40,000 words, so that a searcher's context stays below where the cost of its rounds ramps up `##worklist-bound-is-40000-words`
 
-`DEFAULT_WORKLIST_BOUND` is 40000, and `--bound` sets another. The owner reported that a searcher's
-token usage ramps up more noticeably around 250,000 tokens of context, past which agents stay
-reliable, so the measure to weigh is cost, an agent's fixed start against the growing cost of each
+`DEFAULT_WORKLIST_BOUND`, in `path@cli@src/cli/mod.rs`, is 40000, and `--bound` sets another. The
+owner reported that the tokens a searcher spends per round grow more steeply from about 250,000
+tokens of context, while agents stay reliable past it, so the measure to weigh is cost, an agent's fixed start against the growing cost of each
 round; the bound keeps a searcher's peak below that point. The owner chose 40,000 over the
 session's 50,000 and over the owner's own first figure, 30,000, to raise the bound by steps while the
 searchers are asked for fuller verdicts; no goal ranks the three. Both searches of the discussion
-that chose it, real use on the owner's word, per `design@agent-skills@synthetic-evidence-not-built`,
-peaked under 250,000 tokens in every searcher at this bound. Re-take it from the searchers'
-transcripts of a search, the input, cache and output tokens of each one's last turn; a search whose
-searchers peak above 250,000 tokens reopens the bound, and one whose peaks stay well under it is the
-ground of a next raise.
+that chose it, real use per `design@agent-skills@synthetic-evidence-not-built`,
+peaked under 250,000 tokens in every searcher at this bound. Re-take it, on the machine that ran the
+search, over each searcher's transcript file, `subagents/agent-<id>.jsonl` under the session's
+directory of the harness's transcripts, the input, cache and output tokens of its last turn:
+`jq -s '[.[] | select(.message.usage) | .message.usage | .input_tokens + (.cache_creation_input_tokens//0) + (.cache_read_input_tokens//0) + .output_tokens] | last' <file>`.
+A search whose searchers peak above 250,000 tokens reopens the bound, and one whose peaks stay well
+under it is the ground of a next raise. No measurement of recall stands behind any value of the
+bound; real sessions measure it, per `goal@knowledge-architect@the-workflow-improves-through-real-use`.

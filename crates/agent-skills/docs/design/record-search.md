@@ -15,6 +15,9 @@ seeds, one agent per directory in parallel, the check of every report, a report 
 back, then the acts on the verdict files that `design@agent-skills@session-acts-on-the-verdicts`
 gives.
 
+A report that fails the check goes back to its agent and is never repaired by the dispatcher, since
+choosing a verdict or an action routes an act, which is the grading this agent holds.
+
 One agent grades every kind of entry, since a cluster holds a head beside the `rejected` entries it
 cites and the issues and tripwires that cite it, per `design@query@cluster-rooted-at-a-subject`: an
 agent per kind would read half of every cluster. The design this decision did not keep:
@@ -59,7 +62,7 @@ sessions had. The cost is the goal agents' reading, each goal once, and a title 
 each cluster agent it binds; `klarch worklist --out` re-takes it, printing each agent's load, and
 title lines that make a large part of a cluster agent's load reopen the cost.
 
-### The searcher gives each entry one verdict its register admits, an action its verdict admits, a quotation of the entry's text and a reason, and states a conclusion, never a condition `##verdict-report`
+### The searcher gives each entry one verdict its register admits and an action its verdict admits, each verdict routing an act `##verdict-report`
 
 The verdicts a register admits:
 
@@ -76,34 +79,50 @@ any other entry; `new-argument-needed` for `brings-back`; `close-with-the-work` 
 `rule-before-work` for `depends-on`, `trigger-met` and `fires`; `none` for `unrelated`.
 `trigger-met` is an issue whose deferred trigger, or whose re-entry point if it is of kind `design`,
 the work meets. `against` names the subjects of the work the verdict is against, or `-` on
-`unrelated`, and on `constrains` with the action `none`. Every line, `unrelated` included, quotes the
-entry's own text verbatim, at least the number of words `QUOTE_WORDS` sets in
-`path@query@src/worklist.rs` or the whole of a shorter text: for an `unrelated` entry, the sentence
-that shows its subject, which the reason contrasts with the work. The reason is one line. An entry
-that is or cites a seed is never `unrelated`: where nothing in the work meets it, it is `constrains`,
-action `none`, `against: -`. The searcher reads whole a goal or an entry before a verdict rests on
-it, resolves every doubt the work and the record answer, and states its conclusion; what
-`primer@question-authority` reserves to the owner goes in the line's `owner-question`, with the
-readings and what each changes in the work. The report closes with `## Decided` and
-`## Met outside the task`. `klarch worklist --verify` checks what a command can, per
+`unrelated`, and on `constrains` with the action `none`. Each line carries a quotation, per
+`design@agent-skills@every-verdict-quotes-its-entry`, and a reason of one line. An entry that is or
+cites a seed is never `unrelated`: where nothing in the work meets it, it is `constrains`, action
+`none`, `against: -`. The report closes with `## Decided` and `## Met outside the task`.
+`klarch worklist --verify` checks what a command can, per
 `design@query@worklist-writes-and-verifies-the-reports`; the session acts on each verdict by its
 action, per `design@agent-skills@session-acts-on-the-verdicts`.
 
 It serves `goal@agent-skills@session-orchestrates-the-work`, under which the session acts on a
 dispatched conclusion checked as it checks its own claims: the searcher checks its conclusions so,
 and the command checks the quotation, the sets and the coverage, so that a verdict carries its
-evidence and the session need not read the entry to act on it. A verdict states a conclusion, since
-a doubt that names nothing gives the session nothing to act by,
-`rejected@agent-skills@may-bear-on-a-doubt-naming-nothing`. The nearest rival, grades of how
-closely an entry bears whose entries the session reads whole, is
-`rejected@agent-skills@relevance-grades-read-by-the-session`. A conditional verdict, a field naming
-the reading it rests on, loses to parity, as its proposer agreed: the owner argued that an agent
-given a reading on par with the main session's reaches conclusions similar to its own with no
-condition, the main session's one advantage being that it can ask the owner, which `owner-question`
-carries. The quotation on an `unrelated` line follows the reading of the goal the owner approved,
-that every conclusion carries evidence checkable without reading the entry whole; a reason alone is a paraphrase no command
-checks. What a search still misses, its checks holding nothing of its judgement, is what
-`tripwire@agent-skills@record-search-misses` watches.
+evidence and the session need not read the entry to act on it. A verdict exists only where it routes
+an act, the action it admits: standing-entry searchers graded a doubt anyway, unasked, in 12 of the
+41 entries they returned, each wording it differently, and a numeric scale would route no act. Every
+entry an agent is given takes a line, `unrelated` included, so that the coverage check tells an entry
+left without a verdict, as the owner asked when every entry read was first to be listed. The nearest
+rival, grades of how closely an entry bears whose entries the session reads whole, is
+`rejected@agent-skills@relevance-grades-read-by-the-session`. What a search still misses, its checks
+holding nothing of its judgement, is what `tripwire@agent-skills@record-search-misses` watches.
+
+### A verdict states the searcher's conclusion, never a condition, and what only the owner answers goes in its `owner-question` `##verdict-states-a-conclusion`
+
+The searcher reads whole a goal or an entry before a verdict rests on it, resolves every doubt the
+work and the record answer, and states its conclusion; what `primer@question-authority` reserves to
+the owner goes in the line's `owner-question`, with the readings and what each changes in the work.
+
+It serves `goal@agent-skills@session-orchestrates-the-work`, under which the session acts on a
+dispatched conclusion. A doubt that names nothing gives the session nothing to act by,
+`rejected@agent-skills@may-bear-on-a-doubt-naming-nothing`. A conditional verdict, a field naming the
+reading it rests on, loses to parity, as its proposer agreed: the owner argued that an agent given a
+reading on par with the main session's reaches conclusions similar to its own with no condition, the
+main session's one advantage being that it can ask the owner, which `owner-question` carries.
+
+### Every verdict line quotes the entry's own text, an `unrelated` line included `##every-verdict-quotes-its-entry`
+
+Every line, `unrelated` included, quotes the entry's own text verbatim, at least the number of words
+`QUOTE_WORDS` sets in `path@query@src/worklist.rs` or the whole of a shorter text: for an `unrelated`
+entry, the sentence that shows its subject, which the reason contrasts with the work.
+`klarch worklist --verify` checks the quotation, per `design@query@worklist-writes-and-verifies-the-reports`.
+
+It serves `goal@agent-skills@session-orchestrates-the-work`, in the reading of it the owner approved,
+that every conclusion carries evidence checkable without reading the entry whole. The nearest rival,
+an `unrelated` line with a reason alone, is a paraphrase no command checks. What the quotation does
+not hold of the searcher's judgement is what `tripwire@agent-skills@record-search-misses` watches.
 
 ### The session acts on each verdict by its action, checked as it checks its own claims, and reads an entry whole only where it reasons over it `##session-acts-on-the-verdicts`
 
@@ -112,9 +131,9 @@ it dispatches, at its judgement; acts on each verdict other than `unrelated` by 
 it as it checks its own claims, per `primer@verify-before-relying`; reads whole, with `show`, an
 entry it must reason over itself, such as one a proposal would reverse; puts each `owner-question`
 to the owner as `primer@question-authority` says; and carries each report's `## Decided` and
-`## Met outside the task` into its own sections. The searcher's description is the one home of these
-acts; the design skill, the planning skill and the intake point to it. Where the occasion's record
-goes:
+`## Met outside the task` into its own sections. The searcher's description states these acts, and
+the act each action names at an occasion is stated by the skill that dispatches the search there.
+Where the occasion's record goes:
 
 - at the design grounding on the full path, the plan document's "What is already decided" gives each
   entry with a verdict other than `unrelated` its verdict, its action and its outcome: the answer the
@@ -128,9 +147,7 @@ goes:
 
 It serves `goal@agent-skills@session-orchestrates-the-work`: the main session keeps the design and
 the decisions and hands the reading to agents, and checks a dispatched conclusion as it checks its
-own claims, no more and no less. The owner's word that the goal records replaces the owner's earlier
-ask that the session read the reported issues and tripwires itself rather than rely on a subagent's
-summary. A verdict carries its quotation, which the command checks, so the evidence an act rests on
+own claims, no more and no less. A verdict carries its quotation, which the command checks, so the evidence an act rests on
 is in the line; the session reads an entry whole where it must reason over the entry itself, since
 there the line does not carry what it needs. The nearest rival, the session reading whole the
 entries graded as bearing, lost to the size of that reading:
@@ -138,7 +155,7 @@ entries graded as bearing, lost to the size of that reading:
 reader at the plan document's review and at the merge, per
 `design@agent-skills@verdicts-reach-the-conformance-review`.
 
-### The design skill's record search runs once the shapes settle and before any thread closes, with the draft of the document that will carry the deliberation as its work `##search-reads-the-draft`
+### The design skill's record search runs once the shapes settle and before any thread closes `##search-runs-once-the-shapes-settle`
 
 Loop step 1 of the installed design skill grounds a discussion: the session re-reads
 `primer@verify-before-relying` whole, reads the homes the step names and greps the record, drafts
@@ -146,42 +163,48 @@ the shapes, the owner's proposal if one was made and its own, and challenges eac
 round. The search of the whole record runs once the shapes settle, a moment the session judges with
 no count of rounds, within the bound `design@agent-skills@no-thread-closes-before-the-search` sets,
 and the grounding is complete only once it has run; each round before it states the grounding it
-rests on and that the search has not run. Its work is the draft of the document that will carry the
-deliberation, in the form of the path the session expects: on the full path the draft of the spec,
-which the planning skill writes, per `design@agent-skills@design-hands-off-to-planning`; on the
-in-change path and for bounded work the draft of the commit message, which the design skill writes.
-Each thread is a subject of the work. The classification after the search still decides the path,
-per `design@agent-skills@bounded-path-in-design`. The findings revise the draft; the premortem and
-the convergence follow. A thread that opens after the search on a subject its work did not cover gets
-a search of its own, with the draft extended by that thread as the work and the thread as its
-subject. It stays the discussion's one search of the whole record, never a pass over what changed
-since the first rounds, per `rejected@agent-skills@delta-search-at-convergence`, a premise of the
-cost argument below: a change that splits it into several searches reads that argument again. The
+rests on and that the search has not run. The classification after the search still decides the
+path, per `design@agent-skills@bounded-path-in-design`. The findings revise the draft; the premortem
+and the convergence follow. A thread that opens after the search on a subject its work did not cover
+gets a search of its own, with the draft extended by that thread as the work and the thread as its
+subject, per `design@agent-skills@record-searched-before-the-work`. It stays the discussion's one
+search of the whole record, never a pass over what changed since the first rounds, per
+`rejected@agent-skills@delta-search-at-convergence`, a premise of the cost argument below: a change
+that splits it into several searches reads that argument again.
+
+The argument: the search gets the most precise work once the shapes stop moving. In the discussion
+that designed the development skill and the component skill, the owner reported that the scope
+shifted and expanded at least twice before the search; the search then graded the record against the
+seventeen shapes drafted by then, and a search at the first challenge would have needed one more
+search for each new subject. The owner argued, as a practice that may become the usual one, that a
+search after the first rounds allows a freer discussion of the design, which the record then
+confronts. The cost, proposals that reach the owner before the search, strains
+`goal@knowledge-architect@owner-attention-on-what-is-theirs`; each round's statement of its
+grounding, and the bound on closures, keep it to proposals no ruling rests on yet.
+
+The rivals: the search at the first challenge,
+`rejected@agent-skills@search-after-the-first-challenge`, whose verdicts go stale when the scope
+widens after it; a search before the challenge and another after it,
+`rejected@agent-skills@search-before-and-after-the-challenge`; and a design-conformance reviewer
+dispatched at the checkpoint, `rejected@agent-skills@conformance-reader-at-the-checkpoint`.
+
+### The design skill's record search reads, as its work, the draft of the document that will carry the deliberation `##search-reads-the-draft`
+
+The work of the search of `design@agent-skills@search-runs-once-the-shapes-settle` is the draft of
+the document that will carry the deliberation, in the form of the path the session expects: on the
+full path the draft of the spec, which the planning skill writes, per
+`design@agent-skills@design-hands-off-to-planning`; on the in-change path and for bounded work the
+draft of the commit message, which the design skill writes. Each thread is a subject of the work. The
 draft is never read as the discussion's state, and the plan document is never assembled from it, per
 `design@agent-skills@ledger-from-transcript`.
 
 The argument: a searcher gives `brings-back` against a shape, and a question alone gives it none,
-`rejected@agent-skills@search-work-is-the-question`, so the search gets the most precise work once
-the shapes stop moving. In the discussion that designed the development skill and the component
-skill, the owner reported that the scope shifted and expanded at least twice before the search; the
-search then graded the record against the seventeen shapes drafted by then, and a search at the first challenge would have needed one more search for each new subject.
-The draft is written anyway, the plan document's or the commit message's, so a work statement
-written apart for the search is a second copy of the design, which `primer@where-knowledge-goes`
-refuses: `rejected@agent-skills@work-statement-written-for-the-search`. The discussion's transcript
-as the work costs more than the reading it adds: `rejected@agent-skills@search-work-carries-the-deliberation`.
-The owner argued, as a practice that may become the usual one, that a search after the first rounds
-allows a freer discussion of the design, which the record then confronts. The cost, proposals that
-reach the owner before the search, strains `goal@knowledge-architect@owner-attention-on-what-is-theirs`;
-each round's statement of its grounding, and the bound on closures, keep it to proposals no ruling
-rests on yet.
-
-The rivals of the moment: the search at the first challenge,
-`rejected@agent-skills@search-after-the-first-challenge`, whose verdicts go stale when the scope
-widens after it; a search before the challenge and another after it,
-`rejected@agent-skills@search-before-and-after-the-challenge`; and a design-conformance reviewer
-dispatched at the checkpoint, `rejected@agent-skills@conformance-reader-at-the-checkpoint`. A thread
-on a new subject after the search gets a search of its own, per
-`design@agent-skills@record-searched-before-the-work`.
+`rejected@agent-skills@search-work-is-the-question`. The draft is written anyway, the plan
+document's or the commit message's, so a work statement written apart for the search is a second
+copy of the design, which `primer@where-knowledge-goes` refuses:
+`rejected@agent-skills@work-statement-written-for-the-search`. The discussion's transcript as the
+work costs more than the reading it adds:
+`rejected@agent-skills@search-work-carries-the-deliberation`.
 
 ### No thread of a design discussion closes before its record search has run `##no-thread-closes-before-the-search`
 
@@ -196,7 +219,9 @@ contradiction put to the owner, a pick at a fork changes only in the weak form, 
 the shapes, and an entry that defeats nothing lets the thread close on the word given.
 
 The argument: a reading of the record that comes after the owner has ruled reads rulings already
-given, and a ruling given before the record was read rests on premises nobody checked against it.
+given, as in the discussion that first decided a search of the design entries at grounding, where the
+owner ruled 7 of 8 threads one by one before any checkpoint table was shown; and a ruling given
+before the record was read rests on premises nobody checked against it.
 In the discussion that designed the development skill and the component skill,
 threads closed before the search, six or seven by its two counts; none was defeated, but the owner
 approved one while restating premises a recorded issue already held. Holding every closure until the
@@ -211,9 +236,9 @@ threads close, which carries that cost.
 
 The design skill's grounding seeds the search with the decisions read so far that the problem and
 the drafted shapes rest on or may change. The design audit of a slice or a spec seeds it with
-`--seeds-from` its spec: the design entries and the declared-register entries the spec's section
-"What is already decided" cites, for a slice its own spec and not the milestone document, per
-`design@query@since-marks-and-seeds-come-from-the-plan`. Neither seeds a goal. An entry that is or
+`--seeds-from` its spec, `design@query@seeds-from-the-plan-s-decided-section`: the design entries
+and the declared-register entries the spec's section "What is already decided" cites, for a slice
+its own spec and not the milestone document. Neither seeds a goal. An entry that is or
 cites a seed is never `unrelated`, per `design@agent-skills@verdict-report`, so each entry citing a
 seed takes a line among the generated lines and the outcomes its occasion records. A goal is such a
 seed, cited by many entries: it is graded by a goal agent and reaches every cluster agent it binds by
@@ -221,19 +246,19 @@ its title line already, per `design@query@goal-context-once`, and the session re
 its grounding names. In the search that grounded the discussion that made this decision, 29 of the
 137 entries graded `may-bear` alone carried the mark of one goal seed, as the message of the commit
 "[harvest] The graded entries' assembly, `klarch id`, the narrower grounding and the retrospective's
-new question recorded" states; re-take it over a search's work list with
-`grep -c 'cites seed: goal@' <dir>/agent-*/report.md`. A milestone's whole list of decisions as seeds
-did the same at a slice's audit: a slice of thaum, on 2026-11-02, graded about 110 of its 125
-`may-bear` entries so for citing a seed with no element of the work meeting them, as the analyses
-of the commit "[intake] The analyses of forty received retrospective files, three outcomes for the
-owner" record. The intake's seeds, the design
+new question recorded" states; the lines a goal seed forces under the verdicts are re-taken over a
+search's work list run with one, by
+`grep -h 'cites seed:' <dir>/agent-*/report.md | grep -c 'cites seed: [^|]*goal@'`. A milestone's
+whole list of decisions as seeds did the same at a slice's audit, since the slice rests on the
+decisions its own spec names, not on those another slice built:
+`rejected@agent-skills@slice-audit-seeded-by-the-milestone`. The intake's seeds, the design
 heads and goals its received findings name, are the findings' own citations, and stay, so `worklist`
 takes a goal as a seed. The design this decision did not keep: `rejected@agent-skills@goal-seeds`.
 
 ### The record search runs where design is discussed, before the work `##record-searched-before-the-work`
 
 The installed design skill dispatches the search at its loop step 1, once the shapes settle and
-before any thread closes, as `design@agent-skills@search-reads-the-draft` and
+before any thread closes, as `design@agent-skills@search-runs-once-the-shapes-settle` and
 `design@agent-skills@no-thread-closes-before-the-search` order it, with
 the draft as the work, the threads as its subjects and seeds as `design@agent-skills@seeds-name-decisions` says, for a design question and for bounded work alike,
 per `design@agent-skills@bounded-path-in-design`, and again for a thread that opens on a subject the
@@ -244,12 +269,8 @@ the backstop. The installed planning skill dispatches it at the design audit of 
 point 2 of `skill@knowledge-architect-planning@working-a-slice`, with the slice's spec and the
 milestone document as the work, `slice-audit` as its subject, the seeds of its spec, and `--since`
 the commit that last changed the spec, and at the design audit of a spec where one runs, with the
-spec as the work and `spec-audit` as its subject. The audit's question is whether the spec still
-fits the record and the code as they stand: a `constrains` verdict is a fit, every other verdict but
-`unrelated` a gap the session sorts into the planning skill's sorts, and `fit-lines.md` is the
-audit's record, in its commit message. The owner's aim is that the audit verify fit before every
-slice and weigh little on the main session where its findings need little action, not redo the work
-the design session did. The audit lists as a gap every standing
+spec as the work and `spec-audit` as its subject, and acts on its verdicts as
+`design@agent-skills@design-audit-checks-fit` says. The audit lists as a gap every standing
 entry the slice's code bears on: a tripwire whose firing condition, or a deferred trigger, the
 planned code meets, and an issue of any kind the slice's code touches, closes, makes worse or
 depends on. A cause of the milestone document's premortem whose firing condition the planned code
@@ -318,3 +339,24 @@ the grouping of the entries and the checks a report can be given from the agents
 what judgement still misses. The designs this decision did not keep:
 `rejected@agent-skills@conformance-reader-at-the-checkpoint` and
 `rejected@agent-skills@delta-search-at-convergence`.
+
+### A design audit checks that its spec still fits the record and the code, a `constrains` verdict a fit and every other verdict but `unrelated` a gap `##design-audit-checks-fit`
+
+The design audit of a milestone slice, and of a spec where one runs, asks whether the spec still
+fits the record and the code as they stand, and fixes the spec where it does not; it does not design
+the work again. The search's check writes `gaps.md`, every verdict other than `constrains` and
+`unrelated` with its entry's text, and `fit-lines.md`, the generated lines under the spec's citation.
+A `constrains` verdict is a fit, which the audit records and does not read again; every other verdict
+but `unrelated` is a gap, which the session reads in `gaps.md` and sorts into the planning skill's
+sorts, applying in place the gaps the spec's decisions already answer; `fit-lines.md` is the audit's
+record, in its commit message.
+
+It serves `goal@agent-skills@session-orchestrates-the-work`: the audit runs before every slice, point
+2 of `skill@knowledge-architect-planning@working-a-slice`, so its cost recurs at each slice, and the
+main session spends its context on the gaps, the part of the audit that may need a decision, while
+the reading of the record is the searchers'. A fit needs no act, since a `constrains` verdict asks
+the work only to keep within the sentence it quotes, which the spec already decided. The nearest
+rival, the audit's whole reading of the verdicts and of the entries they name, re-reads at every slice
+what the spec's design session already weighed, the cost
+`rejected@agent-skills@relevance-grades-read-by-the-session` records. The lines the audit's message
+owes per entry are written by the command, per `design@query@occasion-shaped-output`.

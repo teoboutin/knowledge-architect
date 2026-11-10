@@ -291,7 +291,7 @@ an outcome of an intake. Or once, on the main branch, with no review having repo
 agent's load, `design@query@clusters-packed-under-a-word-bound` and
 `design@query@worklist-bound-is-40000-words`, from a split of a search unit that sent entries that
 interact to different agents, `design@query@packed-by-search-unit`, from its reading, from the
-quotation the verdict rests on, `design@agent-skills@verdict-report`, or from a thread or a fix on a
+quotation the verdict rests on, `design@agent-skills@every-verdict-quotes-its-entry`, or from a thread or a fix on a
 subject the search's work did not cover, per `design@agent-skills@record-searched-before-the-work`.
 **Re-entry:** the reviews of every plan document, each retrospective, and the review of the branch
 that carries out an intake's outcomes.
