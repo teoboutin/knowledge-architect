@@ -18,7 +18,7 @@ and two searches of the whole record.
   defect of the plan document.
 - Every name it uses is defined under Names or New names, or exists in the tree.
 - Where the owner's word is awaited, `skill@knowledge-architect-planning@working-a-slice` says what
-  waits. Its defaults D1 to D4 are not ruled.
+  waits. Its defaults D1 to D4 are ruled.
 
 ## How the work is done
 
@@ -2218,8 +2218,8 @@ use or on a defect provable by reading. The first has such evidence: two recorde
 reading held in a head and not found from the goal, in
 `issue@model@a-reference-to-an-anchor-s-own-directory-breaks-when-the-anchor-moves` and in the
 closed entry on the transcript goal's case. The comparison rests on a prediction, that thinner
-goals make two heads read one goal in opposite ways. Whether it is built or parked as an issue is
-D3.
+goals make two heads read one goal in opposite ways. On D3 it is not built: slice 1 opens an issue
+of kind `design` that holds it.
 
 The rival, `thread@goals-at-the-root@goal-interpretation-register`, loses on one fact: a head must
 name a decision, its rival and the fact that defeats the rival, and an interpretation recorded apart
@@ -2341,7 +2341,7 @@ None: the work reads no external specification.
 | the root's goals home ends larger than the 13 homes are today | `thread@goals-at-the-root@a-goal-is-a-purpose-the-project-exists-for`, `thread@goals-at-the-root@goals-home-at-the-root-only` | becomes `acceptance@goals-at-the-root@the-goals-home-is-not-larger` |
 | the rewrite is too heavy for one branch | `thread@goals-at-the-root@standard-and-rewrite-on-one-branch` | named as a cause for the harvest of slice 1 to judge; expected to fail condition 1, the work being stopped by it. The owner keeps one branch, having no plan to start other work on main meanwhile, and several sessions may carry it |
 | with measures gone, a review removes an installed instruction that a measure protected, `goal@agent-skills@only-needed-instructions` keeping an instruction where a goal's body or measure states its act | `thread@goals-at-the-root@what-shows-a-goal-met-is-design` | converted into a clause of slice 1: no installed instruction is removed on the need test before the whole-set review has ruled that goal |
-| two heads read one goal in opposite directions | `thread@goals-at-the-root@a-goal-s-reading-is-a-head-s-premise` | converted into the comparison by the decision-record axis, if D3 keeps it; otherwise the issue D3 opens holds it |
+| two heads read one goal in opposite directions | `thread@goals-at-the-root@a-goal-s-reading-is-a-head-s-premise` | named as a cause for the harvest of slice 1 to judge: on D3 the comparison that answered it is parked, in the issue slice 1 opens |
 | the detail leaves the goals and returns in heads with thin arguments | `thread@goals-at-the-root@a-removed-goal-is-harvested-sentence-by-sentence` | named as a cause for the harvest of slice 1 to judge; expected to fail condition 1 of the tripwire standard, the decision-record axis judging each head's argument |
 | an agent reverses a Component's purpose on argument and the owner learns it late | `thread@goals-at-the-root@goals-home-at-the-root-only` | named as a cause for the harvest of slice 1 to judge; expected to fail condition 1, the turn's "Decided" section and the transcript axis reporting it |
 | a consumer does not move its pin, the review of its whole goal set costing too much | slice 2 | named as a cause for the harvest of slice 2 to judge; expected to be dropped on a doubt, the owner running the consumers |
@@ -2378,22 +2378,33 @@ what removes them, leaving each Component's goals home empty, which the checker 
 
 ## Defaults awaiting the owner
 
-- **D1**, not ruled. The criterion `criterion@goals-at-the-root@work-is-held-to-thinner-goals` is
+- **D1**, ruled: "agreed on D1 D2 D4". The criterion `criterion@goals-at-the-root@work-is-held-to-thinner-goals` is
   weighed and unmet. Default: it is accepted as unmet, its thread parked, on the owner's words that
   the question is left open for now. It bears on
   `thread@goals-at-the-root@goal-pursuit-is-judged-by-review-and-audit`.
-- **D2**, not ruled. The clause of rule 2 that every universal in what a goal requires or rules out
+- **D2**, ruled: "agreed on D1 D2 D4". The clause of rule 2 that every universal in what a goal requires or rules out
   names the set it ranges over leaves the standard. The session proposed it in round 7, and the
   owner's answers named neither it nor the table row that holds it. It bears on
   `thread@goals-at-the-root@a-goal-states-a-direction-and-leaves-the-rest-to-design`.
-- **D3**, not ruled, from the design-conformance review. The comparison of the readings of one goal
+- **D3**, ruled, on a condition the session then judged. From the design-conformance review. The comparison of the readings of one goal
   by the decision-record axis is an instruction about how an agent behaves that rests on a
   prediction, against `goal@knowledge-architect@the-workflow-improves-through-real-use`. The owner
   approved the thread that holds it. Default: slice 1 does not build the comparison, and opens an
   issue of kind `design` that holds it with the cause it answers; the sentence a head states
   beside its reference to a goal is built. It bears on
-  `thread@goals-at-the-root@a-goal-s-reading-is-a-head-s-premise`.
-- **D4**, not ruled, from the design-conformance review. Slice 1 installs the new standard before
+  `thread@goals-at-the-root@a-goal-s-reading-is-a-head-s-premise`. The owner's words: "For D3: I
+  think that the scope of this goal might be a bit too large. If taken literaly, it would forbid
+  pretty much any change to the project. If you have an argument that the instructions you proposed
+  adding would lead to a better result (in terms of what gets implemented or recorded in a target
+  project), I think the addition should stand. If you have doubts, an issue is fine." The session
+  has doubts, so the default stands and the comparison is parked. Its doubts: both recorded cases
+  are of one head's reading against a goal, and none is of two heads reading one goal in opposite
+  ways, which is what a comparison among heads finds; and its cost is known where its benefit is
+  not, one goal being cited 38 times and `cargo klarch show` giving a file and a line for each,
+  mapped to its head by hand. The owner's remark on the scope of
+  `goal@knowledge-architect@the-workflow-improves-through-real-use` is among slice 1's audit
+  subjects, for the whole-set review.
+- **D4**, ruled: "agreed on D1 D2 D4". From the design-conformance review. Slice 1 installs the new standard before
   the one pass, so between its first step and the one pass the branch holds installed text that
   `goal@agent-skills@goals-state-the-owner-s-intent` contradicts, that goal stating that what shows
   a goal met is in what the project builds. The first search asked that this goal be ruled with the
