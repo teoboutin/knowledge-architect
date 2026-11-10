@@ -1,6 +1,6 @@
 **Generated — do not edit.** `cargo klarch index`
 
-24 entries
+23 entries
 
 | kind | title |
 | --- | --- |
@@ -11,7 +11,6 @@
 | question | [CI does not run on a draft pull request, and no record says why](ci-does-not-run-on-a-draft-and-no-record-says-why.md) |
 | question | [Does the quick-fixes spec still hold now that the lints on ids are built?](path-quickfixes-read-against-the-lints-on-ids.md) |
 | question | [Does the quick-fixes spec still hold now that the installed-file findings are in the last phase?](path-quickfixes-read-against-the-renamed-checker.md) |
-| question | [Do the root's goals about the model, the tools and the checker belong in an intermediate Component?](root-goals-about-the-checker-may-belong-to-an-intermediate-component.md) |
 | question | [May the checker depend on every crate that does not depend on it, `query` and `render` among them?](the-checker-may-depend-on-every-crate-below-it.md) |
 | todo | [CHANGELOG.md's shape is checked by a reviewer only, and no model of it exists](a-mechanical-changelog-check.md) |
 | todo | [A typed command prints and can end the process, rather than returning its data](a-typed-command-prints-and-exits-rather-than-returning-data.md) |
