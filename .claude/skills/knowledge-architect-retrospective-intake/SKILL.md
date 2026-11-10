@@ -233,8 +233,9 @@ recurrence is its evidence.
 
 **The kind of a gap weighs it.** A missing capability, a move the agent does not have, is worth
 text. A conformance rule, for a move the agent has and might not make, is worth text only where the
-default behaviour is systematically wrong. A structure imposed on the work, a fixed sequence, count
-or mapping between a unit of the work and a unit of its record, only where the work needs it; a
+default behaviour is systematically wrong. A structure imposed on what an agent decides by its
+judgement, a fixed sequence, count or mapping between a unit of the work and a unit of what the work
+produces, only where the work needs it; a
 contradiction a structure causes is answered by removing structure. For an installed skill, a
 finding about the owner's behaviour outside the skill's expectation set,
 `skill@knowledge-architect-retrospective@expectation-sets`, is no gap; a finding that two installed
@@ -247,8 +248,9 @@ finding adds a rule, and added rules interact at the next pass. A cause is one o
 
 - **two homes for one moment**: instructions about one moment or one kind of act stated in more
   than one text;
-- **a structure the work did not need**: a fixed sequence, count or mapping that another
-  instruction needs to vary;
+- **a structure the work did not need**: a fixed sequence, count or mapping, imposed on what an
+  agent decides by its judgement, that the work can be carried out as intended without and that
+  another instruction needs to vary;
 - **a restatement that drifted from its home**;
 - **a rule written for one interaction**: a narrow rule where judgement already decides.
 

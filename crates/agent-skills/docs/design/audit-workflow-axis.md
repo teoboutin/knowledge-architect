@@ -51,8 +51,10 @@ measurement, and `git log --diff-filter=D --name-only -- docs/plans/` finds it. 
 rather than a total budget is the owner's preference, stated with a hedge, so that the script
 rather than the session's judgement dispatches the agents. The table lives in the script, since the agents' entries written by
 hand were a run's largest input and the source of its slips, which the owner judged error
-prone. A fixed count would be a structure another instruction needs to vary, against
-`goal@agent-skills@only-needed-instructions`.
+prone. A fixed count stated in the installed text, for the session to apply by its judgement,
+would be a structure another instruction needs to vary, against
+`goal@agent-skills@only-needed-instructions`, whose clause on structure does not bear on one the
+script carries out.
 
 Two lenses read beside the corpus. L7 starts from the checker's user documentation, its README for
 the version the project uses and the help of each command, and reports a rule the corpus states
@@ -171,7 +173,8 @@ at a time, the narrow question a tripwire's firing needs.
 
 A cause is one of four kinds: two homes for one moment, instructions about one moment or one kind of
 act stated in more than one text; a structure the work did not need, a fixed sequence, count or
-mapping that another instruction needs to vary; a restatement that drifted from its home; and a rule
+mapping, imposed on what an agent decides by its judgement, that the work can be carried out as
+intended without and that another instruction needs to vary; a restatement that drifted from its home; and a rule
 written for one interaction, a narrow rule where judgement already decides. A finding that fits none
 is a cause of its own. Each kind has its repair: the homes merged into one and the others pointing
 to it, the structure removed, the restatement brought back to a pointer, the narrow rule deleted and
