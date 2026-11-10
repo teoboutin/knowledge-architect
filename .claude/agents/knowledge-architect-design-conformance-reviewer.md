@@ -78,8 +78,9 @@ Report each of these:
   `skill@knowledge-architect-design@threads-and-states`.
 - **An acceptance criterion whose observable the record rules out**: one that a goal or a head
   forbids building or running.
-- **A verdict left unanswered.** A verdict of the search, other than `constrains` with the action
-  `none`, that the work does not answer: a quoted sentence it was to respect that a shape breaks, a
+- **A verdict left unanswered.** A verdict of the search that you read, other than `constrains`
+  with the action `none`, that the work does not answer: a quoted sentence it was to respect that a
+  shape breaks, a
   head reversed or a goal changed without the procedure its action names, a rejected design
   proposed again without a new argument, or a firing, a trigger or a dependency it builds on that
   nothing rules; and, in a plan document, a verdict that its "What is already decided" gives no

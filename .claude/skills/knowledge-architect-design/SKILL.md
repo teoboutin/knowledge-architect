@@ -620,7 +620,10 @@ choices whose option space genuinely is closed and consequence-free.
    - `goal-setting`: `skill@knowledge-architect-goal-setting`, for the goal;
    - `new-argument-needed`: the design is proposed again only with a new
      argument, by the Reopening rule;
-   - `close-with-the-work`: the work's commit closes the issue, per
+   - `close-with-the-work`: on the full path, the commit that adds the
+     plan document closes the issue, per
+     `skill@knowledge-architect-planning@spec-or-milestone`; otherwise
+     the work's commit closes it, per
      `skill@knowledge-architect-issue-tracking`;
    - `rule-before-work`: ruled before the work is designed further or
      built: a firing by
