@@ -22,7 +22,7 @@ which `goal@knowledge-architect@the-owner-decides`,
 Work in one target project sets up or changes tools and procedures that make its development more
 efficient or the project better, such as a gate, a maintenance command, a kind of reviewer, an
 external survey, a testing method or a publishing method. knowledge-architect ships the generic part of one once
-knowledge-architect's owner takes it in, so that every target project that has a use
-for it, or is meant to, gets it. A part is taken in
+knowledge-architect's owner takes it in, so that it serves each target project
+that carries out its activity, or is meant to. A part is taken in
 by that owner's choice, and not because it is generic. What is particular to one project stays in
 that project. So knowledge-architect is about more than keeping a project's documents.
