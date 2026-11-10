@@ -327,8 +327,10 @@ outside the task" where both are owed. A design thread closed on its argument, a
 answered, a source applied over an answer of the owner, a premortem cause recorded as a tripwire or
 dropped, per `design@agent-skills@tripwire-recording-authority`, and a tripwire's wording or scope
 changed or a tripwire removed, per `design@agent-skills@tripwire-stands-on-the-standard`,
-are such decisions; an implementation choice a commit message records is not. A subagent reports its
-decisions under the same title, and the dispatching session carries them into its own.
+are such decisions; an implementation choice a commit message records is not, unless it turns on a
+reading of a goal. A subagent reports its decisions under the same title, and the dispatching
+session carries them into its own.
+
 
 It serves `goal@knowledge-architect@the-owner-decides`, under which the owner is informed of every
 decision that earns durable text or a line of the "Decided" section, and can contest any of them
@@ -338,6 +340,29 @@ loses because a decision made and reverted within one session reaches no commit,
 reads the turn. An implementation choice is left out because a list of every choice would hide the
 few the owner could have made. The directive sits in the primer since a session of any activity
 makes such decisions.
+
+
+### A decision that turns on a reading of a goal is reported with the reading it took `##a-goal-reading-is-reported`
+
+In the "Decided" section of `design@agent-skills@decisions-reported-to-the-owner`, a decision that
+turns on a reading of a goal names the reading in its line: the goal, the reading
+taken and the rival it defeats. It turns on a reading when the goal is its ground against a rival
+that another reading of the goal's words would admit, whether the decision closes one way a
+question the goal leaves open, of when, how much or by what means, or takes one of two directions;
+where the goal's words alone rule the rival out, no reading is taken. A goal states a direction and
+leaves such questions to design, per `design@agent-skills@goal-one-meaning-any-breadth`, so a
+session often decides by reading a goal, and a line that gave the goal's reference alone would show
+the owner a goal applied by its words. The owner asked for the report, to contest a reading from
+it, and counts a reading of a goal among the items the owner brings value to. The reading stated
+beside a goal reference by a design head, per `design@agent-skills@standing-argument-in-head`,
+does not serve: a decision that earns no head states it nowhere. The rival, asking the owner
+before each such decision, loses to the owner's intent that a thinner standard leaves the owner
+less to rule on: a reading closed by an argument is the session's, and where no argument ranks two
+readings that move in different directions the question is already the owner's, per
+`design@agent-skills@no-instruction-for-a-goal-read-two-ways`. It adds one instruction on how an
+agent behaves, admitted per `design@agent-skills@behaviour-additions-need-real-use` on a behaviour
+the owner asked for, what a session lacks without it being any way to tell the owner that it read
+a goal.
 
 ### Each rule on design heads has one home, a fragment hosted by every text whose act applies it, and the primer hosts those every session applies `##one-home-for-head-rules`
 

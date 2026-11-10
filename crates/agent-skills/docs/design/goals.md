@@ -202,8 +202,9 @@ argument and no rival proposed, which then binds outright; the owner named that 
 this repository's goals as they stood. Its cost, which the owner counts as what the rule is for: two
 sessions may resolve an open point differently until a head settles it, and a head an agent can
 reverse on argument settles it. The rule is the drafter's and the reviewer's: an agent that applies
-a goal and finds it open gets no instruction of its own, per
-`design@agent-skills@no-instruction-for-a-goal-read-two-ways`.
+a goal and finds it open gets no rule for resolving it, per
+`design@agent-skills@no-instruction-for-a-goal-read-two-ways`, and reports the reading it takes,
+per `design@agent-skills@a-goal-reading-is-reported`.
 
 ### A goal is read in three layers, and only one goal ruling out what another requires is a contradiction `##requires-admits-rules-out`
 
@@ -310,13 +311,18 @@ goal set. The rival, every Component stating at least one goal,
 is `rejected@agent-skills@a-goal-for-every-component`. A Component that may keep goals, but none
 stating its place in the split, fails the same test of the skeleton.
 
-### An agent that meets a goal reading two ways in use gets no instruction of its own `##no-instruction-for-a-goal-read-two-ways`
+### No installed text tells an agent how to resolve a goal that reads two ways: the routing of every question decides it `##no-instruction-for-a-goal-read-two-ways`
 
-No installed text tells an agent what to do when a goal it applies reads two ways. A conflict
-between a proposal and a goal already goes to the owner, per `primer@goals-bind`, which a case of
+No installed text gives an agent a rule of its own for resolving a goal that reads two ways. The
+routing of `primer@question-authority` already decides the case: where an argument ranks the
+readings, the session decides and reports the reading it took, per
+`design@agent-skills@a-goal-reading-is-reported`; where none does and the readings move the
+work in different directions, the question is the owner's, as a contradiction is. A conflict
+between a proposal and a goal goes to the owner, per `primer@goals-bind`, which a case of
 rootpoint's goal history showed working, and the goal reviewer reads a goal's readings before the
-owner rules. The rival, an instruction for an agent applying a goal that reads two ways, adds a rule
-for a case the routing already decides, against `goal@agent-skills@only-needed-instructions`.
+owner rules. The rival, a rule of resolution for an agent applying a goal that reads two ways, adds
+a rule for a case the routing already decides, against
+`goal@agent-skills@only-needed-instructions`.
 
 ### A goal draft shows each goal with its boundary block, its reach by layer and what it asks of future work `##goal-draft-shows-reach`
 
