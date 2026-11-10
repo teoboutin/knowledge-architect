@@ -73,8 +73,8 @@ design entries of its agent.
 
 `live`. It packs fewer agents than `design@query@search-unit-above-half-the-bound-alone`, and lost
 to the owner's choice at a fork that no goal ranks. It is kept because a doubt remains: the owner's
-judgement that a large Component's entries interact, so that an agent's attention is better kept on
-them alone, has no measurement behind it.
+judgement that a large Component's entries probably interact, so that an agent's attention is, in
+the owner's opinion, better kept on them alone, has no measurement behind it.
 
 ### One search agent per anchor `##one-search-agent-per-anchor`
 
