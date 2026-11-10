@@ -259,8 +259,9 @@ list to the published library knowledge-architect-gates.
 %% owner had ruled for this repository's own tool. A Component states no goal, per
 %% `design@agent-skills@goals-home-at-the-root-only`, so they are recommended as decisions a project
 %% records as design heads. The second one's scope, mechanical work local to the project and not a
-%% task the installed text asks of every project, is the owner's ruling: a shape with such an
-%% ambiguous reading should not be recommended.
+%% task the installed text asks of every project, is the owner's ruling, given when the shape was
+%% proposed as a goal: a goal with such an ambiguous reading should not be recommended. The session
+%% carries its reason to the shape recommended as a design head.
 A maintenance tool of that kind is a Component of its own, which serves the project rather than its
 consumers. Propose two shapes for it to the owner. A project that adopts one records it as a design
 head, argued like any decision, under `skill@knowledge-architect-decision-recording`:

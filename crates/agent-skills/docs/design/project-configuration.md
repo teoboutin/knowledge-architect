@@ -351,8 +351,8 @@ question the goal leaves open, of when, how much or by what means, or takes one 
 where the goal's words alone rule the rival out, no reading is taken. A goal states a direction and
 leaves such questions to design, per `design@agent-skills@goal-one-meaning-any-breadth`, so a
 session often decides by reading a goal, and a line that gave the goal's reference alone would show
-the owner a goal applied by its words. The owner asked for the report, to contest a reading from
-it, and counts a reading of a goal among the items the owner brings value to. The reading stated
+the owner a goal applied by its words. The owner asked for the report, from which, by the session's
+argument, a reading can be contested, and counts a reading of a goal among the items the owner brings value to. The reading stated
 beside a goal reference by a design head, per `design@agent-skills@standing-argument-in-head`,
 does not serve: a decision that earns no head states it nowhere. The rival, asking the owner
 before each such decision, loses on the owner's argument that a question on which the owner can
