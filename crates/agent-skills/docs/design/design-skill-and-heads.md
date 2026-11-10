@@ -7,7 +7,7 @@
 Whether a request is a design question or bounded work, a clear requirement whose main risk is
 over-building, is known only after the grounding of the design skill's loop step 1, its search for
 standing entries included, so the one message is sent only once that search has run, per
-`design@agent-skills@search-waits-until-the-scope-settles`. The work is bounded when it reverses no recorded decision, every
+`design@agent-skills@search-reads-the-draft`. The work is bounded when it reverses no recorded decision, every
 decision it makes fails the entry tests, per `design@agent-skills@a-head-is-owed-by-an-entry-test`,
 and no second defensible shape survives the nearest-rival test. The skill then sends one message,
 the proposal with its nearest rival, the strongest open reading set aside, the consequences and the

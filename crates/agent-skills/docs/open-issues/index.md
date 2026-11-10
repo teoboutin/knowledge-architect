@@ -1,6 +1,6 @@
 **Generated — do not edit.** `cargo klarch index`
 
-64 entries
+59 entries
 
 | kind | title |
 | --- | --- |
@@ -16,7 +16,6 @@
 | design | [A lighter pass of the record search for the Components a piece of work does not touch](a-lighter-pass-for-untouched-components.md) |
 | design | [A member recorded directly, as covered by its head's argument, lay beyond that argument](a-member-recorded-directly-lies-beyond-its-head-s-argument.md) |
 | design | [A repair of the last transcript review can meet another axis's condition, and the review skill reads two ways on whether that axis is owed](a-repair-of-the-last-transcript-review-can-make-another-axis-owed.md) |
-| design | [A slice's design audit is seeded with every decision of its milestone, and each forces the entries citing it to `may-bear`](a-slice-s-design-audit-is-seeded-with-every-decision-of-its-milestone.md) |
 | design | [A tripwire on agent behaviour under the workflow fires in sessions this project does not see](a-tripwire-on-agent-behaviour-fires-where-this-project-cannot-see.md) |
 | design | [An intake's analysis can leave before the owner's ruling in it is committed](an-intake-analysis-can-leave-before-the-owner-s-ruling-is-committed.md) |
 | design | [An item met outside the task and kept for the retrospective's workflow file is lost when no retrospective follows](an-item-kept-for-the-retrospective-is-lost-when-no-retrospective-follows.md) |
@@ -28,9 +27,6 @@
 | design | [The first test for a losing alternative admits every rival of a head that earned its place as an interface](the-first-test-for-a-losing-alternative-admits-every-rival-of-an-interface-head.md) |
 | design | [The goal standard does not say what a goal is worth or what it is for, and its rule on what shows a goal met pulls the other way](the-goal-standard-does-not-say-what-a-goal-is-worth-or-what-it-is-for.md) |
 | design | [A retrospective intake handles many unrelated findings at once, so its grounding may still load one session beyond one reading](the-intake-s-search-lands-a-batch-s-whole-neighbourhood-on-one-session.md) |
-| design | [The lines owed per graded entry are written by a script at every occasion, and their reasons fail the checker](the-lines-owed-per-graded-entry-are-written-by-a-script-at-every-occasion.md) |
-| design | [The reading on touch of `may-bear` entries met its reopening condition, at both plan reviews of one spec](the-reading-on-touch-of-may-bear-entries-met-its-reopening-condition.md) |
-| design | [The record search's graded entries exceed what one session can read whole, at the design audit and the intake](the-search-s-graded-entries-exceed-what-one-session-reads-whole.md) |
 | design | [The workflow assumes one owner, unnamed, which a project with several contributors does not have](the-workflow-assumes-one-unnamed-owner.md) |
 | question | [May a `%%` line of the installed text's source copy the argument of the head it cites?](a-comment-line-may-copy-the-argument-of-the-head-it-cites.md) |
 | question | [A head in the wrong Component goes to the owner, though the record settles the Component](a-head-in-the-wrong-component-goes-to-the-owner-though-the-record-settles-the-component.md) |
@@ -44,7 +40,6 @@
 | question | [Does the design skill's open-space test leave bounded work almost unreachable?](the-open-space-test-may-admit-every-problem.md) |
 | question | [The primer and its head name a guard's issue under two conditions](the-primer-and-its-head-name-a-guard-s-issue-under-two-conditions.md) |
 | question | [The primer's paragraph on a divergence between a head and the code reads two ways on the work that goes on meanwhile](the-primer-s-divergence-paragraph-reads-two-ways-on-work-that-goes-on.md) |
-| question | [The root goals home is now larger than the root design home, which reopens the cost of having the searcher grade every goal](the-root-goals-home-is-larger-than-its-design-home.md) |
 | question | [The set of what a finding sends upstream names the installed text and the checker, and no published library](the-upstream-set-omits-the-published-libraries.md) |
 | question | [Whether a census of a project's own text under a planned instruction is real use, or a run the workflow refuses](whether-a-census-of-real-text-under-a-planned-instruction-is-real-use.md) |
 | question | [Whether a session in Claude Code's default permission mode is asked for permission, or needs an allow rule, to run an installed saved workflow](whether-a-saved-workflow-run-needs-a-permission-rule.md) |

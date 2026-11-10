@@ -70,7 +70,7 @@ A finding is cited by its id and its file's stem, in the form
    decided or put to the owner.
 %% The searcher is `design@agent-skills@one-record-searcher`, its clusters
 %% `design@query@cluster-rooted-at-a-subject`, and its verdicts at an intake
-%% `design@agent-skills@search-relevance-grade`.
+%% `design@agent-skills@verdict-report`.
 
    Act on the verdict files the search's check writes, one per subject, as that description says,
    the agents you hand them to being those of

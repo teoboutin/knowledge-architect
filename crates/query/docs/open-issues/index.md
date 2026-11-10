@@ -1,6 +1,6 @@
 **Generated — do not edit.** `cargo klarch index`
 
-10 entries
+8 entries
 
 | kind | title |
 | --- | --- |
@@ -12,5 +12,3 @@
 | todo | [No command lists the texts that cite any of a set of entries, nor names the entry that holds each citation](no-command-lists-the-standing-entries-citing-a-set-of-entries.md) |
 | todo | [No command searches the record's entries by keywords, and no command lists the mechanical work of an audit's method](no-command-searches-the-entries-or-lists-an-audit-s-work.md) |
 | todo | [`show` on a register home in the directory shape prints its path and not its subdocuments](show-lists-no-subdocument-of-a-directory-home.md) |
-| todo | [The graded entries carry a shared entry's grade once per agent](the-graded-entries-repeat-a-shared-entry-s-grade-per-agent.md) |
-| todo | [A searcher's report skeleton names no relation its entry's role admits, and `--verify` names them only on a refusal](the-report-skeleton-names-no-relation-its-entry-s-role-admits.md) |

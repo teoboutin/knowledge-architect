@@ -67,18 +67,18 @@ What exists today at each site:
 - `graph` in `path@query@src/graph.rs` builds a cluster per unit of a unit register, with the
   `rejected` entries its entries cite, the standing entries that cite them, and the goals they cite
   and every goal those refine (`design@query@cluster-rooted-at-a-subject`,
-  `design@query@goals-join-a-cluster-as-context`), whatever anchor each member sits in; the entries
-  no cluster holds form a residual group per anchor (`design@query@residual-grouped-by-anchor`);
+  `goals-join-a-cluster-as-context` (`design@query@goal-context-once`)), whatever anchor each member sits in; the entries
+  no cluster holds form a residual group per anchor (`residual-grouped-by-anchor` (`design@query@residual-grouped-by-search-unit`));
   `pack` packs the groups first-fit decreasing and spreads them under 25,000 words, a group above
   the bound alone (`design@query@clusters-packed-under-a-word-bound`).
 - The searcher grades each entry `bears` with a relation, `may-bear`, or `unrelated`; the relations
   are `constrains`, `may change`, `may bring back`, `touches`, `closes`, `worsens`, `depends on`,
   `trigger met` and `fires`, by role (`relations`); `--verify` checks the reports against `agents.txt`
-  and assembles `bears.md` and `may-bear.md` (`design@query@graded-entries-assembled`); `shown.md`
+  and assembles `bears.md` and `may-bear.md` (`graded-entries-assembled` (`design@query@occasion-shaped-output`)); `shown.md`
   holds each entry's text followed by its inbound list (`snapshot`).
 - The design skill's loop step 1 runs the search with the problem and the drafted shapes as the work,
   "at the latest before any thread closes", reads `bears.md` whole and `may-bear.md` on touch
-  (`design@agent-skills@may-bear-read-on-touch`), and runs it again for a thread on a subject the
+  (`may-bear-read-on-touch` (`design@agent-skills@session-acts-on-the-verdicts`)), and runs it again for a thread on a subject the
   first work did not cover. The design audit of a slice seeds it with the decisions the milestone
   document lists and those the slice's spec cites, reads both files whole, and gives one line to each
   entry graded `bears` or `may-bear` in its commit message. The intake reads every issue and tripwire
@@ -111,17 +111,17 @@ Rested on, not argued again: `goal@agent-skills@session-orchestrates-the-work`,
 
 Reversed or rewritten, each at step 5 (the harvest) unless named:
 
-- `query`: `design@query@cluster-rooted-at-a-subject`, `design@query@goals-join-a-cluster-as-context`,
-  `design@query@residual-grouped-by-anchor`, `design@query@clusters-packed-under-a-word-bound`,
-  `design@query@worklist-writes-and-verifies-the-reports`, `design@query@graded-entries-assembled`.
+- `query`: `design@query@cluster-rooted-at-a-subject`, `goals-join-a-cluster-as-context` (`design@query@goal-context-once`),
+  `residual-grouped-by-anchor` (`design@query@residual-grouped-by-search-unit`), `design@query@clusters-packed-under-a-word-bound`,
+  `design@query@worklist-writes-and-verifies-the-reports`, `graded-entries-assembled` (`design@query@occasion-shaped-output`).
   The rewritten heads keep citing `rejected@query@goal-rooted-clusters`,
   `rejected@query@bound-in-entries`, `rejected@query@gather-reads-the-model`,
   `rejected@query@goals-pull-their-citers`, `rejected@query@one-residual-group` and
   `rejected@query@packing-to-the-bound`.
 - `agent-skills`: `design@agent-skills@one-record-searcher`, `design@agent-skills@searcher-grades-goals`,
-  `design@agent-skills@search-relevance-grade`, `design@agent-skills@may-bear-read-on-touch`,
-  `design@agent-skills@unread-entries-reach-the-conformance-review`,
-  `design@agent-skills@seeds-name-decisions`, `design@agent-skills@search-waits-until-the-scope-settles`,
+  `search-relevance-grade` (`design@agent-skills@verdict-report`), `may-bear-read-on-touch` (`design@agent-skills@session-acts-on-the-verdicts`),
+  `unread-entries-reach-the-conformance-review` (`design@agent-skills@verdicts-reach-the-conformance-review`),
+  `design@agent-skills@seeds-name-decisions`, `search-waits-until-the-scope-settles` (`design@agent-skills@search-reads-the-draft`),
   `design@agent-skills@record-searched-before-the-work`, `design@agent-skills@search-reads-the-whole-record`,
   `design@agent-skills@design-hands-off-to-planning`, `design@agent-skills@subject-split-standard` (with
   `path@agent-skills@fragments/subject-split.md`), and the sentence of
@@ -140,32 +140,32 @@ citations, outside this spec. Each is read at the harvest, except the installed 
 `path@agent-skills@content/` and the code comments, which step 4 and step 2 rewrite:
 
 - `design@query@cluster-rooted-at-a-subject`: `path@agent-skills@content/skills/retrospective-intake/SKILL.md` (1), `path@agent-skills@docs/design/record-search.md` (2), `register@agent-skills@rejected` (1), `path@cli@README.md` (1).
-- `design@query@goals-join-a-cluster-as-context`: `path@agent-skills@docs/design/record-search.md` (2), `register@query@design` (1).
-- `design@query@residual-grouped-by-anchor`: `register@agent-skills@rejected` (1).
+- `goals-join-a-cluster-as-context` (`design@query@goal-context-once`): `path@agent-skills@docs/design/record-search.md` (2), `register@query@design` (1).
+- `residual-grouped-by-anchor` (`design@query@residual-grouped-by-search-unit`): `register@agent-skills@rejected` (1).
 - `design@query@clusters-packed-under-a-word-bound`: `path@agent-skills@docs/design/record-search.md` (1), `path@agent-skills@docs/design/what-earns-a-record.md` (1), `register@agent-skills@rejected` (2), `register@agent-skills@tripwire` (1), `register@query@design` (1).
-- `design@query@worklist-writes-and-verifies-the-reports`: `path@agent-skills@docs/design/record-search.md` (2), `register@agent-skills@rejected` (1), `path@query@docs/open-issues/a-searcher-fills-its-report-by-a-script-of-its-own.md` (1), `path@query@docs/open-issues/no-command-lists-the-standing-entries-citing-a-set-of-entries.md` (1), `path@query@docs/open-issues/the-report-skeleton-names-no-relation-its-entry-s-role-admits.md` (1), `path@query@src/worklist.rs` (1).
-- `design@query@graded-entries-assembled`: `path@agent-skills@docs/design/record-search.md` (1), `path@agent-skills@docs/open-issues/the-lines-owed-per-graded-entry-are-written-by-a-script-at-every-occasion.md` (2), `register@query@design` (2), `path@query@docs/open-issues/the-graded-entries-repeat-a-shared-entry-s-grade-per-agent.md` (2), `path@query@src/worklist.rs` (1).
-- `design@agent-skills@one-record-searcher`: `path@agent-skills@content/skills/retrospective-intake/SKILL.md` (1), `path@agent-skills@docs/design/audit-method.md` (1), `register@agent-skills@tripwire` (2), `path@query@docs/open-issues/the-report-skeleton-names-no-relation-its-entry-s-role-admits.md` (1).
-- `design@agent-skills@searcher-grades-goals`: `path@agent-skills@content/skills/design/SKILL.md` (1), `path@agent-skills@docs/design/record-search.md` (1), `path@agent-skills@docs/open-issues/a-spec-worked-without-its-design-audit-missed-a-critical-gap.md` (1), `path@agent-skills@docs/open-issues/the-root-goals-home-is-larger-than-its-design-home.md` (2), `register@query@design` (1).
-- `design@agent-skills@search-relevance-grade`: `path@agent-skills@content/skills/retrospective-intake/SKILL.md` (1), `path@agent-skills@docs/design/record-search.md` (2), `register@agent-skills@tripwire` (1), `register@query@design` (1), `path@query@docs/open-issues/the-report-skeleton-names-no-relation-its-entry-s-role-admits.md` (1).
-- `design@agent-skills@may-bear-read-on-touch`: `path@agent-skills@docs/design/record-search.md` (1), `path@agent-skills@docs/design/reviews.md` (1), `path@agent-skills@docs/open-issues/the-installed-text-has-the-main-session-carry-work-it-could-dispatch.md` (2), `path@agent-skills@docs/open-issues/the-reading-on-touch-of-may-bear-entries-met-its-reopening-condition.md` (1), `path@agent-skills@docs/open-issues/the-search-s-graded-entries-exceed-what-one-session-reads-whole.md` (5), `register@agent-skills@rejected` (1).
-- `design@agent-skills@unread-entries-reach-the-conformance-review`: `path@agent-skills@docs/design/record-search.md` (1), `path@agent-skills@docs/open-issues/the-lines-owed-per-graded-entry-are-written-by-a-script-at-every-occasion.md` (1).
-- `design@agent-skills@seeds-name-decisions`: `path@agent-skills@content/skills/design/SKILL.md` (1), `path@agent-skills@docs/design/record-search.md` (1), `path@agent-skills@docs/open-issues/a-slice-s-design-audit-is-seeded-with-every-decision-of-its-milestone.md` (2).
-- `design@agent-skills@search-waits-until-the-scope-settles`: `path@agent-skills@content/skills/design/SKILL.md` (1), `path@agent-skills@docs/design/design-skill-and-heads.md` (1), `path@agent-skills@docs/design/record-search.md` (1), `path@agent-skills@docs/open-issues/the-reading-on-touch-of-may-bear-entries-met-its-reopening-condition.md` (1).
-- `design@agent-skills@record-searched-before-the-work`: `path@agent-skills@docs/design/project-configuration.md` (1), `path@agent-skills@docs/design/record-search.md` (1), `path@agent-skills@docs/design/reviews.md` (2), `path@agent-skills@docs/open-issues/a-pending-ruled-file-is-reached-by-no-installed-search.md` (2), `path@agent-skills@docs/open-issues/a-slice-s-design-audit-is-seeded-with-every-decision-of-its-milestone.md` (2), `register@agent-skills@tripwire` (2).
-- `design@agent-skills@search-reads-the-whole-record`: `path@agent-skills@docs/open-issues/a-lighter-pass-for-untouched-components.md` (1), `path@agent-skills@docs/open-issues/the-search-s-graded-entries-exceed-what-one-session-reads-whole.md` (1).
+- `design@query@worklist-writes-and-verifies-the-reports`: `path@agent-skills@docs/design/record-search.md` (2), `register@agent-skills@rejected` (1), `path@query@docs/open-issues/a-searcher-fills-its-report-by-a-script-of-its-own.md` (1), `path@query@docs/open-issues/no-command-lists-the-standing-entries-citing-a-set-of-entries.md` (1), `the-report-skeleton-names-no-relation-its-entry-s-role-admits` (1), `path@query@src/worklist.rs` (1).
+- `graded-entries-assembled` (`design@query@occasion-shaped-output`): `path@agent-skills@docs/design/record-search.md` (1), `the-lines-owed-per-graded-entry-are-written-by-a-script-at-every-occasion` (2), `register@query@design` (2), `the-graded-entries-repeat-a-shared-entry-s-grade-per-agent` (2), `path@query@src/worklist.rs` (1).
+- `design@agent-skills@one-record-searcher`: `path@agent-skills@content/skills/retrospective-intake/SKILL.md` (1), `path@agent-skills@docs/design/audit-method.md` (1), `register@agent-skills@tripwire` (2), `the-report-skeleton-names-no-relation-its-entry-s-role-admits` (1).
+- `design@agent-skills@searcher-grades-goals`: `path@agent-skills@content/skills/design/SKILL.md` (1), `path@agent-skills@docs/design/record-search.md` (1), `path@agent-skills@docs/open-issues/a-spec-worked-without-its-design-audit-missed-a-critical-gap.md` (1), `the-root-goals-home-is-larger-than-its-design-home` (2), `register@query@design` (1).
+- `search-relevance-grade` (`design@agent-skills@verdict-report`): `path@agent-skills@content/skills/retrospective-intake/SKILL.md` (1), `path@agent-skills@docs/design/record-search.md` (2), `register@agent-skills@tripwire` (1), `register@query@design` (1), `the-report-skeleton-names-no-relation-its-entry-s-role-admits` (1).
+- `may-bear-read-on-touch` (`design@agent-skills@session-acts-on-the-verdicts`): `path@agent-skills@docs/design/record-search.md` (1), `path@agent-skills@docs/design/reviews.md` (1), `path@agent-skills@docs/open-issues/the-installed-text-has-the-main-session-carry-work-it-could-dispatch.md` (2), `the-reading-on-touch-of-may-bear-entries-met-its-reopening-condition` (1), `the-search-s-graded-entries-exceed-what-one-session-reads-whole` (5), `register@agent-skills@rejected` (1).
+- `unread-entries-reach-the-conformance-review` (`design@agent-skills@verdicts-reach-the-conformance-review`): `path@agent-skills@docs/design/record-search.md` (1), `the-lines-owed-per-graded-entry-are-written-by-a-script-at-every-occasion` (1).
+- `design@agent-skills@seeds-name-decisions`: `path@agent-skills@content/skills/design/SKILL.md` (1), `path@agent-skills@docs/design/record-search.md` (1), `a-slice-s-design-audit-is-seeded-with-every-decision-of-its-milestone` (2).
+- `search-waits-until-the-scope-settles` (`design@agent-skills@search-reads-the-draft`): `path@agent-skills@content/skills/design/SKILL.md` (1), `path@agent-skills@docs/design/design-skill-and-heads.md` (1), `path@agent-skills@docs/design/record-search.md` (1), `the-reading-on-touch-of-may-bear-entries-met-its-reopening-condition` (1).
+- `design@agent-skills@record-searched-before-the-work`: `path@agent-skills@docs/design/project-configuration.md` (1), `path@agent-skills@docs/design/record-search.md` (1), `path@agent-skills@docs/design/reviews.md` (2), `path@agent-skills@docs/open-issues/a-pending-ruled-file-is-reached-by-no-installed-search.md` (2), `a-slice-s-design-audit-is-seeded-with-every-decision-of-its-milestone` (2), `register@agent-skills@tripwire` (2).
+- `design@agent-skills@search-reads-the-whole-record`: `path@agent-skills@docs/open-issues/a-lighter-pass-for-untouched-components.md` (1), `the-search-s-graded-entries-exceed-what-one-session-reads-whole` (1).
 - `design@agent-skills@design-hands-off-to-planning`: `path@agent-skills@docs/design/plan-documents.md` (1), `path@check@docs/design/plan-documents.md` (1).
 - `design@knowledge-architect@query-crate`: `register@query@design` (1), `path@knowledge-architect@docs/open-issues/the-checker-may-depend-on-every-crate-below-it.md` (1).
 - `design@agent-skills@subject-split-standard`: `path@agent-skills@content/skills/component-creation/SKILL.md` (1), `path@agent-skills@docs/design/audit-record-axes.md` (1).
 - `design@agent-skills@no-thread-closes-before-the-search`: `path@agent-skills@content/skills/design/SKILL.md` (2), `path@agent-skills@docs/design/owner-and-intent.md` (1), `path@agent-skills@docs/design/record-search.md` (2).
 
-Closed by the work: `issue@agent-skills@the-search-s-graded-entries-exceed-what-one-session-reads-whole`,
-`issue@agent-skills@a-slice-s-design-audit-is-seeded-with-every-decision-of-its-milestone`,
-`issue@agent-skills@the-lines-owed-per-graded-entry-are-written-by-a-script-at-every-occasion`,
-`issue@agent-skills@the-root-goals-home-is-larger-than-its-design-home`,
-`issue@agent-skills@the-reading-on-touch-of-may-bear-entries-met-its-reopening-condition`,
-`issue@query@the-graded-entries-repeat-a-shared-entry-s-grade-per-agent`,
-`issue@query@the-report-skeleton-names-no-relation-its-entry-s-role-admits`.
+Closed by the work: `the-search-s-graded-entries-exceed-what-one-session-reads-whole`,
+`a-slice-s-design-audit-is-seeded-with-every-decision-of-its-milestone`,
+`the-lines-owed-per-graded-entry-are-written-by-a-script-at-every-occasion`,
+`the-root-goals-home-is-larger-than-its-design-home`,
+`the-reading-on-touch-of-may-bear-entries-met-its-reopening-condition`,
+`the-graded-entries-repeat-a-shared-entry-s-grade-per-agent`,
+`the-report-skeleton-names-no-relation-its-entry-s-role-admits`.
 
 Opened by the work: `issue@agent-skills@the-intake-s-search-lands-a-batch-s-whole-neighbourhood-on-one-session`,
 which holds the parked intake thread.
@@ -183,7 +183,7 @@ session, and were not checked line by line.
 - `design@agent-skills@owner-word-holds-as-far-as-its-premise`: constrains, respect. Respected by the decided design; no requirement beyond it.
 - `design@agent-skills@met-outside-the-task-outcomes`: constrains, respect. Respected by the decided design; no requirement beyond it.
 - `design@agent-skills@decisions-reported-to-the-owner`: constrains, respect. Respected by the decided design; no requirement beyond it.
-- `issue@agent-skills@the-reading-on-touch-of-may-bear-entries-met-its-reopening-condition`: closes, close-with-the-work. Closed by the work.
+- `the-reading-on-touch-of-may-bear-entries-met-its-reopening-condition`: closes, close-with-the-work. Closed by the work.
 - `design@agent-skills@losing-alternatives-filter`: constrains, respect. Respected by the decided design; no requirement beyond it.
 - `design@agent-skills@losing-shape-test`: constrains, respect. Respected by the decided design; no requirement beyond it.
 - `design@agent-skills@rejected-citation-direction`: constrains, respect. Respected by the decided design; no requirement beyond it.
@@ -198,7 +198,7 @@ session, and were not checked line by line.
 - `design@agent-skills@run-counts-computed-by-the-workflow`: constrains, none. Respected by the decided design; no requirement beyond it.
 - `issue@agent-skills@audit-axes-beyond-the-design-record`: touches, none. Stays open; the harvest rewrites its sentence on residual groups, which the work removes.
 - `issue@agent-skills@pointers-written-bare-to-clear-a-finding-reach-no-check`: touches, respect. Respected: the generated lines carry no quotation, only references in checked forms.
-- `issue@agent-skills@the-lines-owed-per-graded-entry-are-written-by-a-script-at-every-occasion`: closes, close-with-the-work. Closed by the work.
+- `the-lines-owed-per-graded-entry-are-written-by-a-script-at-every-occasion`: closes, close-with-the-work. Closed by the work.
 - `issue@agent-skills@whether-a-saved-workflow-run-needs-a-permission-rule`: constrains, none. Respected by the decided design; no requirement beyond it.
 - `design@agent-skills@milestone-split-by-lifetime`: constrains, respect. Respected by the decided design; no requirement beyond it.
 - `design@agent-skills@in-change-path`: constrains, respect. Respected by the decided design; no requirement beyond it.
@@ -211,7 +211,7 @@ session, and were not checked line by line.
 - `design@agent-skills@tripwire-recording-authority`: constrains, respect. Respected by the decided design; no requirement beyond it.
 - `design@agent-skills@standing-state-review-before-every-merge`: constrains, none. Respected by the decided design; no requirement beyond it.
 - `design@agent-skills@plan-read-against-the-record`: conflicts, respect. Answered: the design-conformance review still reads the plan against the goals, design and rejected homes, and reads the verdict file beside them.
-- `design@agent-skills@unread-entries-reach-the-conformance-review`: conflicts, check-reversal. Rewritten at the harvest: the reviewer reads the verdict files beside the homes, and at the merge of an in-change or bounded branch the axis is owed wherever the commit message's generated lines hold a verdict other than `constrains` and `unrelated`.
+- `unread-entries-reach-the-conformance-review` (`design@agent-skills@verdicts-reach-the-conformance-review`): conflicts, check-reversal. Rewritten at the harvest: the reviewer reads the verdict files beside the homes, and at the merge of an in-change or bounded branch the axis is owed wherever the commit message's generated lines hold a verdict other than `constrains` and `unrelated`.
 - `design@agent-skills@a-scratch-directory-per-subagent`: constrains, respect. Respected by the decided design; no requirement beyond it.
 - `issue@agent-skills@a-repair-of-the-last-transcript-review-can-make-another-axis-owed`: touches, none. Stays open; the condition of the conformance axis it names changes at step 4, from a list of unread entries to generated verdict lines.
 - `issue@agent-skills@an-issue-s-re-entry-point-is-read-by-no-review`: touches, none. Stays open; `trigger-met` now covers a design issue's re-entry point at the search's occasions, which answers its instance at those occasions only.
@@ -233,28 +233,28 @@ session, and were not checked line by line.
 - `design@agent-skills@search-apart-from-the-standing-state-review`: constrains, respect. Respected by the decided design; no requirement beyond it.
 - `design@agent-skills@search-reads-the-whole-record`: constrains, respect. Rewritten at the harvest: every search unit is read, residual groups no longer exist.
 - `design@agent-skills@searcher-grades-goals`: conflicts, check-reversal. Listed as reversed or rewritten; judged at the harvest.
-- `design@agent-skills@search-relevance-grade`: conflicts, check-reversal. Listed as reversed or rewritten; judged at the harvest.
-- `design@agent-skills@may-bear-read-on-touch`: conflicts, check-reversal. Listed as reversed or rewritten; judged at the harvest.
-- `design@agent-skills@search-waits-until-the-scope-settles`: conflicts, check-reversal. Listed as reversed or rewritten; judged at the harvest.
+- `search-relevance-grade` (`design@agent-skills@verdict-report`): conflicts, check-reversal. Listed as reversed or rewritten; judged at the harvest.
+- `may-bear-read-on-touch` (`design@agent-skills@session-acts-on-the-verdicts`): conflicts, check-reversal. Listed as reversed or rewritten; judged at the harvest.
+- `search-waits-until-the-scope-settles` (`design@agent-skills@search-reads-the-draft`): conflicts, check-reversal. Listed as reversed or rewritten; judged at the harvest.
 - `design@agent-skills@no-thread-closes-before-the-search`: constrains, respect. Rested on; its sentence on the cost of a reading after the owner's rulings is rewritten at the harvest with the reason of `rejected@agent-skills@conformance-reader-at-the-checkpoint`.
 - `design@agent-skills@seeds-name-decisions`: conflicts, check-reversal. Listed as reversed or rewritten; judged at the harvest.
 - `design@agent-skills@record-searched-before-the-work`: conflicts, check-reversal. Listed as reversed or rewritten; judged at the harvest.
 - `rejected@agent-skills@conformance-reader-at-the-checkpoint`: conflicts, check-reversal. Its reason, rulings already given, is defeated by `design@agent-skills@no-thread-closes-before-the-search`; the harvest rewrites its reason and the two heads citing its cost.
 - `rejected@agent-skills@delta-search-at-convergence`: constrains, respect. Respected by the decided design; no requirement beyond it.
-- `rejected@agent-skills@design-grounding-reads-every-may-bear-entry-whole`: constrains, none. Respected by the decided design; no requirement beyond it.
+- `design-grounding-reads-every-may-bear-entry-whole`: constrains, none. Respected by the decided design; no requirement beyond it.
 - `rejected@agent-skills@goal-seeds`: constrains, respect. Respected by the decided design; no requirement beyond it.
-- `rejected@agent-skills@intake-reads-every-may-bear-entry-whole`: constrains, none. Respected by the decided design; no requirement beyond it.
+- `intake-reads-every-may-bear-entry-whole`: constrains, none. Respected by the decided design; no requirement beyond it.
 - `rejected@agent-skills@may-bear-on-a-doubt-naming-nothing`: constrains, respect. Respected by the decided design; no requirement beyond it.
 - `rejected@agent-skills@search-after-the-first-challenge`: constrains, respect. Respected by the decided design; no requirement beyond it.
 - `rejected@agent-skills@search-before-and-after-the-challenge`: constrains, respect. Respected by the decided design; no requirement beyond it.
 - `rejected@agent-skills@search-work-is-the-question`: constrains, respect. Respected by the decided design; no requirement beyond it.
 - `rejected@agent-skills@searches-split-by-kind`: constrains, respect. Respected by the decided design; no requirement beyond it.
 - `issue@agent-skills@a-pending-ruled-file-is-reached-by-no-installed-search`: constrains, none. Respected by the decided design; no requirement beyond it.
-- `issue@agent-skills@a-slice-s-design-audit-is-seeded-with-every-decision-of-its-milestone`: closes, close-with-the-work. Closed by the work.
+- `a-slice-s-design-audit-is-seeded-with-every-decision-of-its-milestone`: closes, close-with-the-work. Closed by the work.
 - `issue@agent-skills@a-spec-worked-without-its-design-audit-missed-a-critical-gap`: constrains, none. Respected by the decided design; no requirement beyond it.
 - `issue@agent-skills@the-installed-text-has-the-main-session-carry-work-it-could-dispatch`: touches, none. Stays open; the harvest removes its first bullet, the record-search departure this work repairs.
-- `issue@agent-skills@the-root-goals-home-is-larger-than-its-design-home`: closes, close-with-the-work. Closed by the work.
-- `issue@agent-skills@the-search-s-graded-entries-exceed-what-one-session-reads-whole`: closes, close-with-the-work. Closed by the work.
+- `the-root-goals-home-is-larger-than-its-design-home`: closes, close-with-the-work. Closed by the work.
+- `the-search-s-graded-entries-exceed-what-one-session-reads-whole`: closes, close-with-the-work. Closed by the work.
 - `tripwire@agent-skills@record-search-misses`: constrains, respect. Respected by the decided design; no requirement beyond it.
 - `design@agent-skills@goals-change-through-goal-setting`: constrains, respect. Answered: a `conflicts` verdict on a goal routes to the goal-setting skill, never to `check-reversal`.
 - `design@agent-skills@no-instruction-for-a-goal-read-two-ways`: conflicts, respect. Answered: `owner-question` carries no rule of its own for a goal read two ways; it takes what `primer@question-authority` reserves to the owner.
@@ -321,16 +321,16 @@ session, and were not checked line by line.
 - `design@model@anchor-collisions-refused`: constrains, respect. Respected by the decided design; no requirement beyond it.
 - `design@model@one-entity-table`: constrains, respect. Respected by the decided design; no requirement beyond it.
 - `design@model@an-entity-belongs-to-its-anchor`: constrains, respect. Respected by the decided design; no requirement beyond it.
-- `issue@query@the-graded-entries-repeat-a-shared-entry-s-grade-per-agent`: closes, close-with-the-work. Closed by the work.
+- `the-graded-entries-repeat-a-shared-entry-s-grade-per-agent`: closes, close-with-the-work. Closed by the work.
 - `issue@query@no-command-lists-the-standing-entries-citing-a-set-of-entries`: touches, none. Stays open; the harvest rewrites its sentence on `worklist`'s output.
-- `issue@query@the-report-skeleton-names-no-relation-its-entry-s-role-admits`: touches, none. Closed by the work: the skeleton line names the verdicts its entry's register admits, per the decided design.
+- `the-report-skeleton-names-no-relation-its-entry-s-role-admits`: touches, none. Closed by the work: the skeleton line names the verdicts its entry's register admits, per the decided design.
 - `design@query@query-depends-on-no-check`: constrains, respect. Respected by the decided design; no requirement beyond it.
 - `design@query@record-is-every-register-entry`: constrains, respect. Respected by the decided design; no requirement beyond it.
 - `design@query@cluster-rooted-at-a-subject`: conflicts, check-reversal. Answered: a standing entry that cites a head of another search unit gets that head's full text, counted in the bound, so it is judged beside the heads it cites; the head's word for a design subject keeps its sense, and the packing unit is named a search unit.
-- `design@query@goals-join-a-cluster-as-context`: conflicts, check-reversal. Listed as reversed or rewritten; judged at the harvest.
-- `design@query@residual-grouped-by-anchor`: conflicts, check-reversal. Listed as reversed or rewritten; judged at the harvest.
+- `goals-join-a-cluster-as-context` (`design@query@goal-context-once`): conflicts, check-reversal. Listed as reversed or rewritten; judged at the harvest.
+- `residual-grouped-by-anchor` (`design@query@residual-grouped-by-search-unit`): conflicts, check-reversal. Listed as reversed or rewritten; judged at the harvest.
 - `design@query@worklist-writes-and-verifies-the-reports`: conflicts, check-reversal. Listed as reversed or rewritten; judged at the harvest.
-- `design@query@graded-entries-assembled`: conflicts, check-reversal. Listed as reversed or rewritten; judged at the harvest.
+- `graded-entries-assembled` (`design@query@occasion-shaped-output`): conflicts, check-reversal. Listed as reversed or rewritten; judged at the harvest.
 - `design@query@clusters-packed-under-a-word-bound`: conflicts, check-reversal. Listed as reversed or rewritten; judged at the harvest.
 - `rejected@query@bound-in-entries`: constrains, respect. Respected by the decided design; no requirement beyond it.
 - `rejected@query@gather-reads-the-model`: constrains, respect. Respected by the decided design; no requirement beyond it.
@@ -440,7 +440,7 @@ goal size exceeds the bound". The ground of the revision is the bound, not
 `goal@agent-skills@only-needed-instructions`, which the owner showed misapplied there
 (`argument@record-search-verdicts@arg-40`, `argument@record-search-verdicts@arg-42`). State:
 `approved`, by the owner's word against the checkpoint, round 20: "agreed on the table". Section:
-"Decided design". Harvest: `design@query@goals-join-a-cluster-as-context`,
+"Decided design". Harvest: `goals-join-a-cluster-as-context` (`design@query@goal-context-once`),
 `design@agent-skills@searcher-grades-goals`.
 
 ### The bound is 40,000 words, counting everything an agent reads `##bound-raise`
@@ -474,7 +474,7 @@ context entries in full text (`argument@record-search-verdicts@arg-50`,
 `argument@record-search-verdicts@arg-51`). The owner chose the half-bound rule over packing small
 units into the room of large ones, which no goal ranks, at a cost of one agent over this repository
 (`argument@record-search-verdicts@arg-34`). State: `approved`, round 20. Section: "Decided design".
-Harvest: `design@query@clusters-packed-under-a-word-bound`, `design@query@residual-grouped-by-anchor`,
+Harvest: `design@query@clusters-packed-under-a-word-bound`, `residual-grouped-by-anchor` (`design@query@residual-grouped-by-search-unit`),
 `design@query@cluster-rooted-at-a-subject`, `design@agent-skills@search-reads-the-whole-record`,
 `design@agent-skills@subject-split-standard`; the reason of
 `rejected@agent-skills@one-search-agent-per-anchor`.
@@ -489,10 +489,10 @@ a conditional verdict consumed as unconditional (`argument@record-search-verdict
 the session withdrew the field for `owner-question` (`argument@record-search-verdicts@arg-47`). The
 owner, round 17: "verdict-report agreed." Members from the second search
 (`argument@record-search-verdicts@arg-50`) and from this spec's first review. State: `approved`,
-round 20. Section: "Decided design". Harvest: `design@agent-skills@search-relevance-grade`,
-`design@agent-skills@may-bear-read-on-touch`, `design@agent-skills@one-record-searcher`,
-`design@agent-skills@unread-entries-reach-the-conformance-review`,
-`design@query@worklist-writes-and-verifies-the-reports`, `design@query@graded-entries-assembled`.
+round 20. Section: "Decided design". Harvest: `search-relevance-grade` (`design@agent-skills@verdict-report`),
+`may-bear-read-on-touch` (`design@agent-skills@session-acts-on-the-verdicts`), `design@agent-skills@one-record-searcher`,
+`unread-entries-reach-the-conformance-review` (`design@agent-skills@verdicts-reach-the-conformance-review`),
+`design@query@worklist-writes-and-verifies-the-reports`, `graded-entries-assembled` (`design@query@occasion-shaped-output`).
 
 ### One verdict file per subject of the work, the dispatch over them left to the main session `##occasion-shaped-output`
 
@@ -505,7 +505,7 @@ owner contested in round 14 (`argument@record-search-verdicts@arg-40`); the sess
 whole and withdrew its revision (`argument@record-search-verdicts@arg-42`). State: `argued`, round 14:
 the owner's earlier word on the first shape stands, minus the sentence sending each cluster of
 findings to one subagent, which `goal@agent-skills@session-orchestrates-the-work` rules out. Section:
-"Decided design". Harvest: `design@query@graded-entries-assembled`.
+"Decided design". Harvest: `graded-entries-assembled` (`design@query@occasion-shaped-output`).
 
 ### The design audit of a slice checks that the spec still fits `##slice-audit-checks-fit`
 
@@ -524,7 +524,7 @@ be to have a plan document already written". Argued by the session
 search on it". Answered by the second search (`argument@record-search-verdicts@arg-50`): the draft is
 never the plan document. The owner, round 19, on the searches of this discussion: "For the question,
 I would count that as real use." State: `approved`, round 20. Section: "Decided design". Harvest:
-`design@agent-skills@search-waits-until-the-scope-settles`,
+`search-waits-until-the-scope-settles` (`design@agent-skills@search-reads-the-draft`),
 `design@agent-skills@record-searched-before-the-work`, `design@agent-skills@design-hands-off-to-planning`,
 and the reason of `rejected@agent-skills@conformance-reader-at-the-checkpoint`.
 
@@ -613,7 +613,7 @@ Round 1, the session, at L163.
 - Threads: `thread@record-search-verdicts@goal-context-once`, `thread@record-search-verdicts@component-packing`
 - Source: `cargo klarch worklist --out` over main at 350d4d59, a script over the agents' `entries.md`; `wc -w` on goals homes.
 - "`cargo klarch worklist --out` over main now gives **25 agents**." "total words the 25 searchers read | 497,444"; "of which goal entries | 181,458 (36%)"; "all 25 root goals are in all 25 agents"; "Components spanned per agent | 2 to 7"; "goals homes, `wc -w` | 17,886 words; the root's alone 8,544".
-- "**About a third of every searcher's load is the same goals, copied 25 times.** That comes from `design@query@goals-join-a-cluster-as-context`"
+- "**About a third of every searcher's load is the same goals, copied 25 times.** That comes from `goals-join-a-cluster-as-context` (`design@query@goal-context-once`)"
 - "about 85,000 words of issues and `rejected` entries sit in more than one cluster."
 
 ### The whole reading stands on the owner's earlier ask only `##arg-8`
@@ -1164,7 +1164,7 @@ Each line of a report is, in this order, with ` | ` between the fields:
   missing either. The main session carries both into its own sections.
 
 The argument: the size of the reading the grades owed
-(`issue@agent-skills@the-search-s-graded-entries-exceed-what-one-session-reads-whole`), and the goal's
+(`the-search-s-graded-entries-exceed-what-one-session-reads-whole`), and the goal's
 check parity: the searcher checks its conclusions as the main session checks its own claims, and the
 command checks what a command can. Nearest rival: the conditional `if:` field, withdrawn for parity of
 context (`argument@record-search-verdicts@arg-46`, `argument@record-search-verdicts@arg-47`). The bound
@@ -1214,7 +1214,7 @@ verdict but `unrelated` is a gap, which the main session sorts into the planning
 a gap, as it does today. The main session reads the gaps file. The argument: the owner's aim that the
 audit verify fit before every slice and weigh little on the main session
 (`argument@record-search-verdicts@arg-19`), and the lines an audit's message owed by hand, which
-`issue@agent-skills@the-lines-owed-per-graded-entry-are-written-by-a-script-at-every-occasion` counts.
+`the-lines-owed-per-graded-entry-are-written-by-a-script-at-every-occasion` counts.
 Nearest rival: the audit's whole reading of both files today, lost on that count.
 
 ### The search reads the draft

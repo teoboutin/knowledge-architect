@@ -16,8 +16,9 @@ intake the owner runs.
 ### What
 
 The instances, measured before the verdict shape, as
-`issue@agent-skills@the-search-s-graded-entries-exceed-what-one-session-reads-whole` records them:
-the intake of seventeen files graded 200 entries `bears` and 164 `may-bear`; the intake of forty
+`rejected@agent-skills@relevance-grades-read-by-the-session` and the analyses of the commit
+"[intake] The analyses of forty received retrospective files, three outcomes for the owner" record
+them: the intake of seventeen files graded 200 entries `bears` and 164 `may-bear`; the intake of forty
 files 333 and 249, which nine checking subagents read in parts.
 
 The owner's statement, in the design discussion of the record search: the search suits the design

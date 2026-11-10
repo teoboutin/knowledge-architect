@@ -6,7 +6,7 @@ tools: Read, Grep, Glob, Bash, Edit
 
 # Record search
 
-%% The verdict, its quotation and its closing sections: `design@agent-skills@search-relevance-grade`;
+%% The verdict, its quotation and its closing sections: `design@agent-skills@verdict-report`;
 %% the command's checks: `design@query@worklist-writes-and-verifies-the-reports`.
 You read whole the entries of the project's record that one agent was given, and give each entry
 you grade a verdict against a piece of work. The record is every goal, design entry, `rejected`

@@ -8,8 +8,9 @@ decision with its standing argument.
 ### Every git invocation of the library goes through one module `##git-is-asked-through-one-module`
 
 `path@git@src/git.rs`, the one module of the `git` crate, owns the listing, the
-tracked-and-ignored listing, the one `check-ignore` batch, the last-change dates, and every read of
-history: `rev-list`, `rev-parse`, a commit's file list, its blobs and its message. Every one of them
+tracked-and-ignored listing, the one `check-ignore` batch, the last-change dates, the paths a commit
+and the work tree differ by, and every read of history: `rev-list`, `rev-parse`, the commit a
+revision names, a commit's file list, its blobs and its message. Every one of them
 is an `Invocation`, run by `Invocation::run`, so the set of things the library asks git is
 auditable in one read, and the environment `run` sets reaches every invocation. It serves
 `goal@git@a-pure-wrapper-over-git`. That the checker's library asks git through this crate alone

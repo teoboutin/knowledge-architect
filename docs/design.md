@@ -94,7 +94,7 @@ git: `rejected@knowledge-architect@git-module-made-public`.
 ### The commands that read the record and run no check are a crate of their own `##query-crate`
 
 `knowledge-architect-query`, in crates/query, holds the logic of `show`, `issues`, `tripwires`, `anchors`, `id` and `worklist`,
-and depends on `model`, and on `git` for the last column of `issues`, by path and by exact version, per
+and depends on `model`, and on `git` for the last column of `issues` and for what `worklist --since` asks of a commit, by path and by exact version, per
 `design@knowledge-architect@version-lockstep`. They need the model and at most phases 1 to 3, per
 `design@knowledge-architect@model-crate`, and they share one design, the record, the graph and the exchange with agents, for
 `goal@query@agents-query-the-project` and `goal@query@the-record-is-consulted-as-the-workflow-requires`. `cli`
