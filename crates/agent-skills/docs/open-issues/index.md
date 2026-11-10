@@ -1,6 +1,6 @@
 **Generated — do not edit.** `cargo klarch index`
 
-59 entries
+57 entries
 
 | kind | title |
 | --- | --- |
@@ -19,13 +19,11 @@
 | design | [A tripwire on agent behaviour under the workflow fires in sessions this project does not see](a-tripwire-on-agent-behaviour-fires-where-this-project-cannot-see.md) |
 | design | [An intake's analysis can leave before the owner's ruling in it is committed](an-intake-analysis-can-leave-before-the-owner-s-ruling-is-committed.md) |
 | design | [An item met outside the task and kept for the retrospective's workflow file is lost when no retrospective follows](an-item-kept-for-the-retrospective-is-lost-when-no-retrospective-follows.md) |
-| design | [Goal-setting has no step to discover an intent the owner does not hold yet](goal-setting-has-no-step-to-discover-an-intent-the-owner-does-not-hold-yet.md) |
 | design | [Decisions argued from a second agent harness, which the scope goal now asks against](heads-argued-from-another-harness.md) |
 | design | [Plan documents keep the owner's words verbatim, where every other durable record attributes them, and sessions slip between the two](plan-documents-keep-the-owner-s-words-verbatim-where-other-records-attribute-them.md) |
 | design | [Pointers written as bare plain text to clear a finding reach no check, and the rule against them is reopened](pointers-written-bare-to-clear-a-finding-reach-no-check.md) |
 | design | [The claim check of a commit message is read at the session's start and needed at each commit](the-claim-check-of-a-commit-message-is-read-at-the-start-and-needed-at-each-commit.md) |
 | design | [The first test for a losing alternative admits every rival of a head that earned its place as an interface](the-first-test-for-a-losing-alternative-admits-every-rival-of-an-interface-head.md) |
-| design | [The goal standard does not say what a goal is worth or what it is for, and its rule on what shows a goal met pulls the other way](the-goal-standard-does-not-say-what-a-goal-is-worth-or-what-it-is-for.md) |
 | design | [A retrospective intake handles many unrelated findings at once, so its grounding may still load one session beyond one reading](the-intake-s-search-lands-a-batch-s-whole-neighbourhood-on-one-session.md) |
 | design | [The workflow assumes one owner, unnamed, which a project with several contributors does not have](the-workflow-assumes-one-unnamed-owner.md) |
 | question | [May a `%%` line of the installed text's source copy the argument of the head it cites?](a-comment-line-may-copy-the-argument-of-the-head-it-cites.md) |

@@ -627,8 +627,8 @@ owner answered: "Q5: yes".
 The setup skill does not finish a Component without at least one goal, stated with the owner.
 A Component with no goal gives its design nothing of its own to be judged against, and a goal that
 is a Component's responsibility left unstated is one nobody is responsible for, against
-`goal@knowledge-architect@agents-work-without-drift`. Nothing checks it mechanically yet:
-`issue@check@a-component-states-at-least-one-goal`.
+`goal@knowledge-architect@agents-work-without-drift`. Nothing checks it mechanically, and
+`milestone@plans@goals-at-the-root` plans the reversal of this head.
 
 ### The installed skills do not mention a project whose name is the installer's namespace `##installed-text-omits-the-prefix-collision`
 
