@@ -5,22 +5,24 @@ kind: todo
 
 ## Summary
 
-`goal@knowledge-architect@documents-render-as-a-linked-site` asks that knowledge-architect's own Markdown
-documents that the checker reads render as one hosted site, each reference that resolves rendered as a link
-to its target. Nothing builds it yet.
+`goal@knowledge-architect@documents-render-as-a-linked-site` asks that the documents of each target
+project render as one site of that project, each reference rendered as a link to what it names, and
+that a project can host that site when it releases. So the tool that builds the site is one that
+knowledge-architect provides to every target project, not a build of this repository's documents
+alone, on the owner's word. Nothing builds it yet.
 
 ## Details
 
 ### What
 
 A preprocessing pass that rewrites each reference into a link to its entry, and a build of the result,
-hosted with the project. The owner's lead is mdbook, a design lead the goal does not name; nothing about the
+which a target project runs over its own documents and can host when it releases. The owner's lead is mdbook, a design lead the goal does not name; nothing about the
 shape is decided.
 
 Two consequences of the goal for that work. A resolving `path` reference to a source file must render as a link, where the site
-holds Markdown documents, so whether the site holds source files or links out of itself is that work's to decide. And the documents the
-checker reads take in plan documents, skills and open issues, so as written those are published; that work proposes a narrower goal if it
-wants one.
+holds Markdown documents, so whether the site holds source files or links out of itself is that work's to decide. And the documents of a project
+take in its plan documents, its skills and its open issues, so as written those are rendered; a narrower set is a design decision that
+work argues against that rival, or a change of the goal that the owner rules.
 
 ### Why it matters
 
@@ -29,8 +31,8 @@ reader follows a reference by searching for its entry, not by a link.
 
 ### What would close it
 
-The pass and the build, run over this repository's own documents, producing a site in which every
-reference is a working link.
+The pass and the build, provided to every target project, and run over this repository's own
+documents as a target project's, producing a site in which every reference is a working link.
 
 ### Leads from the design of the Component split
 

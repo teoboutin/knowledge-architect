@@ -1,37 +1,19 @@
 # Gates — design
 
 The library that runs a project's merge gates: every check a branch must pass before it merges,
-run in order, with complete logs, distilled failures and one verdict from exit codes. It is
-published so that every project using knowledge-architect runs its gates the same way. The designs
+run in order, with complete logs, distilled failures and one verdict from exit codes. That it is
+a published library of its own, which a project's maintenance crate calls, is
+`design@knowledge-architect@gates-crate`. The designs
 it did not keep are `register@gates@rejected`, each cited by the heads whose argument covers it.
 
 **What belongs here:** how the gates run. Which gates a project runs is that project's own; this
 repository's are `design@xtask@gates-list-primary-home`.
 
-### The gates runner is a published library, and a project keeps a small binary of its own `##gates-crate`
-
-The runner is the package knowledge-architect-gates. A project's maintenance crate, a crate named
-xtask run through a cargo alias, which every Rust target project has, per
-`design@agent-skills@maintenance-crate-ask`, hands it the project root, its gate list and the
-flags it parsed. The runner is, almost line for line, the gates code thaum holds at its commit e98e296, as a comparison of
-`git -C <thaum checkout> show e98e296:tools/xtask/src/gates.rs` with this crate shows. It serves
-`goal@knowledge-architect@generic-tools-and-procedures-are-shipped`: the runner is the generic part
-of a project's gates, shipped so that every target project gets it, and a project
-adopting the workflow gets gates refined over two projects instead of writing its own. A `gates` command of
-`klarch` lost: it would make that binary run cargo, the linter and the tests, and a tool whose
-result does not exist without running the project's build or its tests is no command of `klarch`,
-per `design@knowledge-architect@mutation-command-host`. A published binary configured by a file lost because it leaves the project no place for its
-other repeated tasks, and adds a configuration format a list in Rust does not need.
-
-The designs this decision did not keep: `rejected@gates@gates-command-of-the-checker`,
-`rejected@gates@gates-binary-configured-by-file` and
-`rejected@gates@each-project-writes-its-runner`.
-
 ### A project holds its gate list, and the library offers a recommended one `##a-project-holds-its-gate-list`
 
 The library runs the gates it is given and decides none of them, so a project writes no gate logic
 beyond its list and the call that runs it: the rest is the library's, per
-`design@gates@gates-crate`. `rust_project` builds
+`design@knowledge-architect@gates-crate`. `rust_project` builds
 the recommended list of a Rust project that uses the checker, in cost order: the rebase check behind
 its flag, formatting, the document check, the commit messages of the branch, clippy, and the tests.
 It takes how the project runs its checker, a package and the arguments before the checker's command,

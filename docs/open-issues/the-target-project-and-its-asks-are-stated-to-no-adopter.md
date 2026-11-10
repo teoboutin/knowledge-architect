@@ -10,7 +10,11 @@ says that knowledge-architect asks more of one, and names two asks: the project 
 repository, and its agents run under the `claude` harness. Two further asks are stated by no goal
 and argued by no head, which `issue@knowledge-architect@no-head-argues-what-becomes-an-ask` holds:
 every gate run through the gates library from one command, and one merge invocation of that command
-in every target project. The setup skill states one ask, the
+in every target project. `goal@knowledge-architect@the-owner-decides` gives knowledge-architect's
+owner each addition, tightening or removal of a condition or an ask of the scope goal; the owner
+chose to read that narrowly, as the asks the scope goal itself names, so an ask a design head holds,
+these two and the maintenance crate among them, is changed on argument and reported. The setup
+skill states one ask, the
 maintenance crate of every Rust target project, and no other; only the READMEs of `model`, `check`, `cli`, `query`, `transcript`, `create` and `testing` among the published crates state the
 conditions and the asks; and no design head names the command and its merge invocation.
 
@@ -20,6 +24,9 @@ conditions and the asks; and no design head names the command and its merge invo
 
 - The installed text states one ask, the maintenance crate of every Rust target project, per
   `design@agent-skills@maintenance-crate-ask`, in the setup skill, and none of the others.
+- The setup skill proposes to a project the shape of its maintenance crate as two design heads
+  the project records, one of them that the one command gives the one verdict on a merge; it
+  states the command's invocation for a merge as no ask.
 - The setup skill and the READMEs of the published crates other than `model`, `check`, `cli`, `query`, `transcript`, `create` and `testing` state neither the four conditions nor the
   other asks, nor that nothing is guaranteed outside the conditions or where an ask is not followed.
 - The name of the one command and its invocation for a merge are design decisions of
@@ -32,8 +39,6 @@ conditions and the asks; and no design head names the command and its merge invo
     target project, since a target project's shipped code is Rust;
   - `init --vcs none`, per `design@create@init-runs-git-init`, writes a project that is no git
     repository, a state that does not follow the git ask and whose working the goal does not guarantee;
-  - `primer@question-authority` sends the owner no new ask, which
-    `goal@knowledge-architect@the-owner-decides` now sends whatever the argument settles.
 
 ### Why it matters
 

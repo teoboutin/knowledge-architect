@@ -1,6 +1,7 @@
 # create
 
-Creates a project and adds a Component to one. What it is for is `register@create@goal`; what it does for a user is
+Creates a project and adds a Component to one. What it is for is
+`design@knowledge-architect@create-crate`; what it does for a user is
 `path@create@README.md`; why it is shaped this way is `register@create@design`.
 
 **Every refusal comes before the first write**, per `design@create@init-asks-no-confirmation`: exit 2 promises an untouched tree,

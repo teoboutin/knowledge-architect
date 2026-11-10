@@ -16,8 +16,13 @@ beside the head's citation.
 
 The routing reviewer of slice 2 of the milestone that shipped the development skill reported five
 `%%` lines of that branch that copied the argument of the head each cited; the branch cut them to
-the pointer. The same pattern stands in older sources, such as the comment above the goal standard
-in the goal-setting skill's source, which argues its rival in full.
+the pointer. The same pattern stands in older sources. In the goal-setting skill's source, the
+comment on a goal's body says the body has no length bound because a session that argues from a
+goal applies it whole, and a goal pressed into few sentences reads two ways, beside its citation of
+`design@agent-skills@goal-entry-shape`, whose second paragraph holds the same argument. No comment
+stands above the goal standard in that source any longer: the standard is a fragment the skill
+names by a placeholder line, and the fragment's comment above it cites
+`design@agent-skills@goal-standard-rules` without arguing a rival.
 
 ### Why it matters
 

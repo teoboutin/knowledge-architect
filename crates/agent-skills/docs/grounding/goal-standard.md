@@ -50,8 +50,9 @@ than these findings, and a finding changed one of them only by an argument the o
 
 These support a rule that a goal keeps its meaning in a project emptied of its design and its
 code: a goal tied to a part as built changes when that part is redesigned, which is the instability
-the sources place in requirements and plans, never in goals. A goal of one Component is a "how" of
-its parent's goal, in the same sources' terms, which the standard records as a design head.
+the sources place in requirements and plans, never in goals. A statement about one part of the
+project, or one grounded on another goal, is a "how" of the goal above it, in the same sources'
+terms, which the standard records as a design head that cites that goal, by its rules 1 and 8.
 
 **Where a source goes against it.** Two sources contradict a reading in which a goal never changes:
 
@@ -88,8 +89,8 @@ purpose test of rule 1.
   is up to the depender to decide what measures are enough". On this project's terms, the extent of a
   goal is the owner's judgement, never the reviewer's.
 
-These support a rule of one reading that judges ambiguity, two readers moving in different
-directions, and never breadth. They also support a finding on the reach of a goal that asks the
+These support a rule of one direction that judges ambiguity, two readers moving in different
+directions, and never breadth, by rule 3 of the standard. They also support a finding on the reach of a goal that asks the
 owner, and does not narrow the goal by default.
 
 **What the sources add on narrowing.** KAOS lists "goal weakening" among the ordinary resolutions of
@@ -97,7 +98,7 @@ an obstacle (RE'01, read): first sketches of goals "are often too ideal". The fi
 the resolution of an identified obstacle, a condition the domain makes possible, never as a default
 repair of wording.
 
-## A goal judged in use is measured by what learns from use
+## A goal judged in use is shown met by what learns from use
 
 - **KAOS sorts goals by who can enforce them.** A. van Lamsweerde and E. Letier, "From Object
   Orientation to Goal Orientation", Monterey'02, LNCS, 2003,
@@ -125,7 +126,8 @@ repair of wording.
 These support that an outcome judged only in use is shown met by what the project builds to pursue
 it and to learn from its use, never by a list of the properties it is taken to consist of. The
 standard states no measure in a goal, by its rule 7, so a design head that says how a goal is shown
-met is what these findings bear on. They also support a test that sorts such an outcome: **does it depend on
+met is what these findings bear on. They also support a test such a head can apply to sort the
+outcome it pursues: **does it depend on
 anything the project does not control, such as its users, their data or their environment?** KAOS's
 sort by who can enforce a goal gives this wording. It states more directly than a sort by kind of
 outcome the case of a project whose effects land in its users' environment. A correctness outcome
@@ -136,7 +138,8 @@ https://rework.withgoogle.com/en/guides/set-goals-with-okrs (read): "There are s
 will stay the same quarter after quarter", while "the key results should evolve". Gilb's Planguage,
 *Competitive Engineering*, 2005 (assumed), separates an ambition from its scale and meter. Both keep
 the stable statement and its measure in two texts with two lifetimes, the measure replaced without
-changing the goal.
+changing the goal. The standard keeps the measure in a design head that cites the goal, by its
+rule 7.
 
 ## A goal is expected to be unmet
 
@@ -165,7 +168,8 @@ move what the project builds, never shaped so that the tree as it stands meets i
 - **Antigoals and accepted risk.** G. Klein, *Sources of Power*, 1998 (secondary), lists antigoals,
   outcomes to avoid, among the parts of an intent, and JP 3-0 (secondary) has the intent state "where
   the commander will accept risk". Antigoals are what a goal rules out. A cost the owner accepts in
-  pursuing a goal is a ranking between goals, rule 6, or a local cost a design head weighs. The
+  pursuing a goal is a ranking between two purposes, by rules 1 and 6, or a local cost a design head
+weighs. The
   standard needs no fourth layer for it.
 
 ## How a review of a goal set stops

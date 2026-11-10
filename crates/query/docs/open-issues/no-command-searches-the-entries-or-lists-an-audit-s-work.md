@@ -26,10 +26,10 @@ is designed: which keywords, which measure of closeness, and which axis's lists,
 
 ### Why it matters
 
-`goal@knowledge-architect@tasks-a-tool-does-better-are-the-tool-s` gives a published crate each mechanical
-task the workflow asks of a session once its owner takes it in, which the owner has not done for either
-of these, and the owner holds that the keyword search is a case that goal does not cover, per
-`issue@knowledge-architect@the-mechanical-tasks-goal-omits-what-a-helper-does-better`. A grep misses an entry whose words differ from the search's,
+`goal@knowledge-architect@tasks-a-tool-does-better-are-the-tool-s` has knowledge-architect provide a
+tool for a task that a tool does at a lower cost or better, searching what a project holds included,
+once knowledge-architect's owner has taken the task in, which the owner has not done for either of
+these. A grep misses an entry whose words differ from the search's,
 and a work list built by hand can drop an entry, as `issue@query@no-command-lists-the-standing-entries-citing-a-set-of-entries`
 records for another list.
 

@@ -59,13 +59,16 @@ check of the installed copies, are leads of the Component split, below.
 A project that wants to ship its own skills with a pinned version has to copy these passes, and the
 copy then drifts from this one. The owner is interested in reusing this capability in other
 projects. No
-decision of this project is strained by the split, and no goal of this project asks for it.
+decision of this project is strained by the split. `goal@knowledge-architect@generic-tools-and-procedures-are-shipped`
+has knowledge-architect ship the generic part of a tool once knowledge-architect's owner takes it
+in, and the owner has not taken this one in.
 
 ### What would close it
 
-The owner plans to state the goal of the reuse when the work on the split starts, under
-`skill@knowledge-architect-goal-setting`. Then a design discussion under
-`skill@knowledge-architect-design` that settles the shape of the split, then the split built: a
+A design discussion under `skill@knowledge-architect-design` that settles the shape of the split,
+and writes what the new Component is for as the statement of the head of the root's design home
+that argues its existence, per `skill@knowledge-architect-decision-recording@owning-component`;
+then the split built: a
 utility crate that another crate's `build.rs` can call with its own prefix, layout and
 substitutions, and this project's skills built with that crate.
 
@@ -90,4 +93,6 @@ built, so these are leads for this work's own design session:
   their own, which both `model` and `bundle` depend on. The three tests of `path@model@src/shipped_set.rs` and the family
   `agents` of `path@check@src/check/agents.rs` stay where they are until then. The owner's argument for that discussion: the
   comparison of the installed files bears on a consumer at a version bump alone, and is nearly never unmet in practice, so it has no need to run early.
-- On the owner's word in that discussion, the goal of the Component is written when it is created.
+- On the owner's word in that discussion, what the Component is for is written when it is created.
+  A Component states no goal: that is the statement of the head that argues its existence, written
+  in the root's design home with the Component.

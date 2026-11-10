@@ -26,6 +26,15 @@ line on what it holds, or that it holds no entry yet". Dropping the sentence fro
 therefore changes that instruction of the installed text and that head, a decision for
 `skill@knowledge-architect-design`, not a fix of `create` alone.
 
+The goals home of a Component is no case of this entry. A Component states no goal, so the twelve
+goals homes of this repository's Components hold no entry on purpose, and each says so in a
+sentence that no entry will make false: "No entry: the goals of the project are stated in the goals
+home of its root". The goal row of `home_text` still writes "No entry yet: the goals are stated with
+the owner." into a new Component's goals home, which says that a goal may come. The milestone that
+moves the goals to the root has a new Component written no goals home, a change of
+`design@create@component-command`, and that row leaves with that work. The entry stands for every
+other register.
+
 ### Why it matters
 
 A home's README is the directions a reader gets for that directory, per `primer@where-knowledge-goes`,

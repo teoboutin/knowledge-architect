@@ -8,7 +8,7 @@ project with no extension never names this crate.
 knowledge-architect serves one kind of project, a target project, which holds all of these, per
 `goal@knowledge-architect@serves-one-kind-of-project`:
 
-- the code it builds and ships is Rust, built by Cargo, apart from the glue its targets need;
+- the code it builds and ships is Rust, built by Cargo, apart from the code in another language that a platform it is built for requires;
 - AI agents drive its development: its code, its documents, its entries and its reviews;
 - its main branch has a linear history, with no merge commit;
 - its owner has decided to use knowledge-architect.

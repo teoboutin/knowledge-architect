@@ -5,11 +5,12 @@ kind: todo
 
 ## Summary
 
-Rule 6 of the goal standard, `design@agent-skills@goal-standard-rules`, measures a goal whose outcome
-depends on what the project does not control, and so is judged only in use, by what the project
-builds to pursue it and to learn from its use whether it is met. The setup skill asks a target
-project for nothing that collects feedback from its users, so such a project has, by default, no
-route by which that use reaches it.
+No rule of the goal standard measures a goal: what the project builds to pursue a goal, and to
+learn from its use whether it is met, is a design decision in a head that cites the goal, per
+`design@agent-skills@what-shows-a-goal-met-is-design`. A goal whose outcome depends on what the
+project does not control is judged only in use, and no installed text leads a target project to
+take that decision for it: the setup skill asks for nothing that collects feedback from the
+project's users, so such a project has, by default, no route by which that use reaches it.
 
 ## Details
 
@@ -29,4 +30,9 @@ by analogy only, since that goal ranges over the workflow itself.
 ### What would close it
 
 A design session on what the setup skill asks of a target project for feedback from use, the shapes
-it offers, and whether any of it is an ask, which goes to knowledge-architect's owner.
+it offers, and whether any of it is asked of every target project, which a design head then holds
+on its argument and the session reports to the owner, per
+`goal@knowledge-architect@the-owner-decides`. The discussions that take up a review axis and an
+audit axis on whether goals are met, `issue@agent-skills@the-review-does-not-ask-whether-items-are-cited-where-they-bear`
+and `issue@agent-skills@audit-axes-beyond-the-design-record`, meet the same question of evidence,
+and may close it.

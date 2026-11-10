@@ -7,10 +7,11 @@ kind: todo
 
 `skill@knowledge-architect-project-audit` audits a whole project on three axes, the design record,
 the agentic workflow and the tripwires, per `design@agent-skills@audit-is-an-activity`. The other axes the owner named
-have no section, no agent and no designed outcome: design self-consistency, and the alignment of
-the code with the design and the goals; and the session's additions, standing state as a whole and
-goal coverage. This entry keeps those axes, and the lessons of the audits run by hand before the
-skill existed that no axis has yet adopted.
+have no section, no agent and no designed outcome: design self-consistency, the alignment of the
+code with the design and the goals, and an axis on whether the goals are met and whether the project
+collects enough evidence of it; and the session's additions, standing state as a whole and the
+records a rule of the primer binds. This entry keeps those axes, and the lessons of the audits run
+by hand before the skill existed that no axis has yet adopted.
 
 ## Details
 
@@ -59,6 +60,43 @@ workflow the project installs, is the agentic-workflow axis,
 of directives, each read against its home, and the owner's lead that an audit and a review that
 share a subject are given compatible instructions for the verdicts they give.
 
+**An axis on whether the goals are met, and on the evidence of it.** The owner left open whether
+an audit axis judges, over the whole project, whether its goals are met and whether the project
+collects enough evidence of whether they are met, judged that this can never be met mechanically,
+and named it, beside a review axis, as the subject of the discussion that takes the question up
+again; the review lead is
+`issue@agent-skills@the-review-does-not-ask-whether-items-are-cited-where-they-bear`.
+
+- Its cause: the goals carry no measure and fewer details, per
+  `design@agent-skills@what-shows-a-goal-met-is-design`, so grounding in the goals and the record
+  search, which the owner reported were what held work to the goals, may hold work to them less
+  well than before.
+- The evidence that reopens it: a retrospective's or a review's finding of merged work that moved
+  against a goal with no procedure reporting it.
+- That a goal no design head serves yet is no finding: a new or reworded goal is drafted to move
+  what the project builds and is expected to be unmet, per
+  `design@agent-skills@goal-drafted-to-move-the-tree`, and stays in its home met or not yet met, per
+  `design@agent-skills@goal-lifecycle`. An axis that judged a goal unserved a defect would refuse a
+  new project that holds goals and no design yet.
+- What the project builds to learn from use whether a goal is met is a design decision, and no
+  target project builds any: `issue@agent-skills@a-target-project-collects-no-feedback-from-use`.
+  The discussion owes a new argument against
+  `rejected@agent-skills@goal-measured-by-evidence-from-use` before an axis takes evidence from use
+  as what shows a goal met.
+- Heads the axis must respect, each a premise of the discussion: the method every axis follows,
+  `design@agent-skills@audit-method`; its steps in a saved workflow,
+  `design@agent-skills@audit-axis-runs-a-workflow`; one outcome of its table per finding,
+  `design@agent-skills@audit-outcomes`; an occasion whose own work needs the reading, never a
+  period, `design@agent-skills@audit-triggers`; an installed agent per axis,
+  `design@agent-skills@audit-agent-per-axis`; the goal agents of the record search,
+  `design@agent-skills@searcher-grades-goals`; the retrospective's standing questions,
+  `design@agent-skills@premortem-as-watch-points`; the review of the whole goal set, which runs
+  inside goal-setting and not as an audit axis, `design@agent-skills@goal-set-review-in-goal-setting`;
+  the goals axis before a merge, `design@agent-skills@goals-axis-in-the-review-before-a-merge`; and
+  the goal reviewer, `design@agent-skills@goal-reviewer-agent`.
+- Its re-entry: a design discussion, on the owner's word, of a review axis against the goals with
+  the collection of evidence at a merge or a plan document, and of this audit axis.
+
 Additions of the session, for the discussion to judge:
 
 - **standing state as a whole**, its issue half, since the tripwire axis reads every tripwire,
@@ -73,15 +111,6 @@ Additions of the session, for the discussion to judge:
   `rejected` entries only; 21 of the 28 records that failed the rule were issue entries, which the
   session reached only by widening an auditor's group by hand, on its owner's word. Reported as W1
   of that session's retrospective workflow file; the count is that project's;
-- **goal coverage**: each goal against the design heads that serve it, for a goal no head serves and
-  a head that serves no goal. The installed design-conformance reviewer already reads one plan
-  document against the goals and the heads, per `design@agent-skills@plan-read-against-the-record`;
-  its reading is a lead for this audit at the scale of the whole project. A sample from the design
-  discussion of `klarch worklist`: of this repository's 346 heads, 213 cite no goal directly and 44
-  cite no entry at all; of 8 of them read, some derive from another head and cite only that head, as
-  `design@check@index-staged-write` does, which the reference rule asks, and others look like a goal
-  left unnamed, as `design@check@phases-gate-the-report` does. No command lists
-  the goals no head serves.
 
 **A second worked instance.** The design discussion that produced
 `design@agent-skills@title-states-the-rule` audited every head of this repository's five design
@@ -114,8 +143,9 @@ drafts; it stays open for every axis that has not adopted it.
 
 ### Why it matters
 
-`goal@knowledge-architect@documentation-stays-consistent` is met while the reviews keep the record
-consistent, and every review reads only what a diff touches. The design-record axis reads the
+`goal@knowledge-architect@documentation-stays-consistent` gives reviews and audits the judging of
+what the documents mean, whether the code departs from what they state and whether two documents
+agree, and every review reads only what a diff touches. The design-record axis reads the
 decision record as a whole against the rules on its entries, and the agentic-workflow axis reads
 every instruction the harness delivers as one whole; a drift between two heads that no branch
 touches, between the code and a head no branch cites, or between an issue and the tree as it
@@ -128,7 +158,8 @@ every entry of every Component in order, per `design@agent-skills@design-record-
 
 ### What would close it
 
-For each axis above, a design discussion under `skill@knowledge-architect-design` that decides
+For each axis above, a design discussion under `skill@knowledge-architect-design`, the axis on
+whether the goals are met taken up on the owner's word, that decides
 whether it is offered, its corpus and its outcomes, and, if it is, its agent and its section of
 the audit skill, per `design@agent-skills@audit-agent-per-axis`, and its saved workflow, per
 `design@agent-skills@audit-axis-runs-a-workflow`.

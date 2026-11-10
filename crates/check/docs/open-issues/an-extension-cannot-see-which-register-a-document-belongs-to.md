@@ -61,7 +61,7 @@ records the instance.
 ### Why it matters
 
 It strains `design@check@the-facade-publishes-what-a-consumer-needs`, whose membership leaves an extension nothing to ask these
-questions with. `goal@knowledge-architect@projects-add-their-own-checks` has a project add its checks "with what knowledge-architect publishes, and with no change to knowledge-architect".
+questions with. `goal@knowledge-architect@projects-add-their-own-checks` has a project add its checks "with what knowledge-architect provides, and with no change to knowledge-architect".
 An extension that has to guess membership from paths
 quietly breaks where the manifest says something else. For a project that runs one, a relocation that
 `design@check@every-path-names-its-anchor` makes one line of the manifest then also needs an edit of the extension.

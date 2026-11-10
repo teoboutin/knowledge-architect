@@ -33,6 +33,22 @@ The statements, none of which a design head argues, each with what it bound:
   is reversed, since that fragment names a search and no such listing, and the reading of what is
   outstanding before a change that is not to code.
 
+A lead the owner named bears on the second question: a review axis that reads the work against the
+project's goals at a merge or at a plan document, with the collection there of evidence of whether
+the goals are met. The owner left it open, judged that it can never be met mechanically, and named
+it, beside an audit axis on whether the goals are met, as the subject of the discussion that takes
+it up again; the audit lead is `issue@agent-skills@audit-axes-beyond-the-design-record`, which
+holds what that discussion must respect. Its cause: the goals carry no measure and fewer details,
+per `design@agent-skills@what-shows-a-goal-met-is-design`, so grounding in the goals and the record
+search may hold work to them less well than before. What a project builds to collect evidence of a
+goal met is a design decision that no target project has taken:
+`issue@agent-skills@a-target-project-collects-no-feedback-from-use`. Today the design-conformance
+reviewer reads a plan document against the goals, per
+`design@agent-skills@plan-read-against-the-record`, and at a merge only under the condition of
+`design@agent-skills@verdicts-reach-the-conformance-review`; the goals axis before a merge reads
+the goals a branch changes, not the work against them, per
+`design@agent-skills@goals-axis-in-the-review-before-a-merge`.
+
 Instances seen: none is recorded of a departure that passed a review before a merge. What is
 measured is the absence in the text: `git grep -n 'cited where' -- crates/agent-skills/content/skills/review/`
 returns nothing, and `grep -rn -i fared crates/agent-skills/content` returns nothing, so the
@@ -45,8 +61,10 @@ before any axis was argued to carry them, so the review's table of axes was neve
 them.
 
 Re-entry point: the next design discussion on the axes of
-`skill@knowledge-architect-review@review-axes`, or on a review of work against the project's goals
-and its record at a merge or at a plan document.
+`skill@knowledge-architect-review@review-axes`, or the design discussion, held on the owner's word,
+on a review of work against the project's goals and its record at a merge or at a plan document.
+The evidence that reopens the lead on the goals sooner: a retrospective's or a review's finding of
+merged work that moved against a goal with no procedure reporting it.
 
 ### Why it matters
 
@@ -63,7 +81,8 @@ citation that is missing.
 
 A design discussion under `skill@knowledge-architect-design` that argues, from a target project's
 side as `path@agent-skills@CLAUDE.md` says, whether the review before a merge asks each question
-and on which axis of its table, what a session reads before a reversal and before a change that is
+and on which axis of its table, whether a review reads the work against the goals and collects
+evidence of them at a merge or a plan document, what a session reads before a reversal and before a change that is
 not to code, and whether the retrospective asks how the review fared. Then a head for each
 decision that earns one, and the installed text edited to it, or the recorded decision that a
 question stays unasked, with its reason.

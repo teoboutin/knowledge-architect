@@ -21,39 +21,40 @@ deferred trigger against the change, as it reads every tripwire, and reports a t
 meets as a finding, whose repair is the work the issue names or the owner's ruling. Without it, a
 trigger met by work that does not go through the design skill has no reader at all.
 
-### A fresh reviewer reads every plan document against the goals, the design heads and the rejected alternatives of the Components it touches `##plan-read-against-the-record`
+### A fresh reviewer reads every plan document against the goals, and the design heads and the rejected alternatives of the Components it touches `##plan-read-against-the-record`
 
 At every moment the installed planning skill sends a plan document's reviewers, it sends the
 design-conformance reviewer beside the cold implementer, the code-claims reviewer, which also reads
 a branch's diff before its merge, per `design@agent-skills@code-claims-scope`, and the transcript
-reviewer. It reads the document against the goals homes, the design homes and the
-rejected alternatives of the project's root and of every Component the document touches. It
-reports a contradiction of a goal always, for the owner; a contradiction or a widening of a head
-that the document's "What is already decided" does not list as reversed or rewritten; a rejected
-alternative brought back without a recorded reopening; and an acceptance criterion whose observable
-the record rules out. The second rule keeps it from reporting each widening the document makes on
-purpose. It runs only commands that read.
+reviewer. It reads the document against the goals, which the root's goals home holds, and against
+the design homes and the rejected alternatives of the project's root and of every Component the
+document touches. It reports a contradiction of a goal always, for the owner; a contradiction or a
+widening of a head that the document's "What is already decided" does not list as reversed or
+rewritten; a rejected alternative brought back without a recorded reopening; and an acceptance
+criterion whose observable the record rules out. The second rule keeps it from reporting each
+widening the document makes on purpose. It runs only commands that read.
 
-The decision serves `goal@knowledge-architect@agents-work-without-drift`, which is met while "a
-departure from that recorded design, or a rejected design brought back without that procedure, is
-caught before it merges". The owner named the lack: "nothing seems to be reviewing a plan document
-against recorded goals and design." The other reviewers read the document against itself, against
-the code, or against the discussion. The design audit reads design homes, but not goals, and it is
-run by the session that implements the work, which may be the document's author, and skipped for a
-spec worked in the session that converged. Two acceptance criteria that
-`goal@knowledge-architect@the-workflow-improves-through-real-use` rules out each passed a plan
-document's three reviews in this repository. The deleted spec synthetic-evidence-and-plan-reviews
-holds both, as its instances 1 and 2, and `git log --diff-filter=D --name-only -- docs/plans/` finds
-it. The decision's nearest rival, the decision-record reviewer extended to plan documents, judges
-the record a diff writes and holds a plan's items as not decisions yet, so it would carry two
-questions with two yardsticks. The cold implementer, the other rival, asks whether the document can
-be acted on, and a document that contradicts a goal can. The reviewer depends on a record worded
-wide enough. The owner's words state where a miss then belongs: "this is always dependent on the
-project being diligent in its goals and design records. Everything in the workflow is, after all.
-Project owners still have to watch agent behavior and interrupt them if they find them acting
-differently than their intent. Whether this is a published workflow defect or an internal
-documentation defect is left to the retrospective skill to judge." Its cost is one more dispatch at
-each of those moments; what it buys is a reader of the record that neither the author nor the
+`goal@knowledge-architect@agents-work-without-drift` has what agents build stay within the design
+the project has recorded, a design not kept coming back only by a change that reopens it on
+purpose. A plan document states what its work will build, so a reading of it against the record
+before that work starts is where a departure is caught at the lowest cost. The owner named the
+lack: no review read a plan document against the recorded goals and design. The other reviewers
+read the document against itself, against the code, or against the discussion. The design audit
+reads design homes, but not goals, and it is run by the session that implements the work, which
+may be the document's author, and skipped for a spec worked in the session that converged. Two
+acceptance criteria that `design@agent-skills@synthetic-evidence-not-built` rules out each passed a
+plan document's three reviews in this repository. The deleted spec
+synthetic-evidence-and-plan-reviews holds both, as its instances 1 and 2, and
+`git log --diff-filter=D --name-only -- docs/plans/` finds it. The decision's nearest rival, the
+decision-record reviewer extended to plan documents, judges the record a diff writes and holds a
+plan's items as not decisions yet, so it would carry two questions with two yardsticks. The cold
+implementer, the other rival, asks whether the document can be acted on, and a document that
+contradicts a goal can. The reviewer depends on a record worded wide enough. The owner stated where
+a miss then belongs: every part of the workflow depends on a project keeping its goals and design
+records with diligence, an owner still watches what the agents do and interrupts them where they
+act against the owner's intent, and whether a miss is a defect of the published workflow or of the
+project's own documentation is the retrospective's to judge. Its cost is one more dispatch at each
+of those moments; what it buys is a reader of the record that neither the author nor the
 implementing session is, which the two acceptance criteria above show the other reviews lacked.
 
 ### The design-conformance reviewer reads the verdicts of the work's record search beside the record, and is owed at a merge whose commit message carries a verdict other than `constrains` and `unrelated` `##verdicts-reach-the-conformance-review`
@@ -158,8 +159,9 @@ from the writer's, so the criteria of the reviews and of the audits agree with e
 agent-facing text they are one standard, per `design@agent-skills@admission-rules-home`.
 
 `goal@knowledge-architect@agents-get-a-complete-workflow` has an agent carry each activity out with
-the workflow and what its project adds, needing no instruction from outside them, so a criterion a
-reviewer brings from outside them is one the writer could not have met. A writer bound by one
+the workflow and what its project adds, needing no instruction from outside what knowledge-architect
+provides and what its project adds, so a criterion a reviewer brings from outside them is one the
+writer could not have met. A writer bound by one
 criterion and a reviewer that applies another are also two instructions that meet on one text with
 no move that obeys both, which `design@agent-skills@no-two-installed-instructions-contradict`
 excludes. The nearest rival is a reviewer with a standard of its own, stricter than the writer's or
@@ -304,13 +306,17 @@ other defaults. The rival, no row, leaves such an edit to be read by no step bef
 against `goal@knowledge-architect@the-owner-decides`. Per `design@agent-skills@goal-reviewer-agent`,
 the agent is the same one goal-setting dispatches.
 
-### The shape of the code a branch writes is judged by an installed reviewer against the default shape `##code-shape-axis`
+### The shape of the code a branch writes is judged against the default shape by an installed reviewer, before the branch merges `##code-shape-axis`
 
 `agent@knowledge-architect-code-shape-reviewer` judges each unit of code a branch writes or edits
 against the default shape of `design@agent-skills@default-code-shape`, and each test it adds by
-`design@agent-skills@test-economy`, in the review before the merge.
-`goal@knowledge-architect@the-workflow-leads-to-better-code` asks for a review that weighs a branch
-against the shape. A general quality reviewer has no standard to judge against, and a
+`design@agent-skills@test-economy`, in the review before the merge, so every branch's code is
+weighed against the shape before it merges.
+`goal@knowledge-architect@the-workflow-leads-to-better-code` has what the workflow says about code
+and tests aim at code of better quality, and the default shape is what it says about the shape of
+code. The nearest rival, the shape applied by the session that writes the code and weighed by no
+review, applies it only as far as that session did: a departure the writer did not see, or saw and
+did not argue, merges with no finding. A general quality reviewer has no standard to judge against, and a
 general-purpose reviewer briefed with the standard judges unevenly, per
 `rejected@agent-skills@one-generic-auditor-agent`, so the axis is an installed agent, per
 `design@agent-skills@additions-review-agent`.

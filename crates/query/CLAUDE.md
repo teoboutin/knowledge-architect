@@ -1,6 +1,7 @@
 # query
 
-Tools over a project's scanned record. What it is for is `register@query@goal`; what it does for a user is
+Tools over a project's scanned record. What it is for is
+`design@knowledge-architect@query-crate`; what it does for a user is
 `path@query@README.md`; why it is shaped this way is `register@query@design`.
 
 **This crate depends on no crate of the checks**, per `design@query@query-depends-on-no-check`. A command that needs a

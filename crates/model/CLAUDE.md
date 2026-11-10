@@ -1,6 +1,7 @@
 # model
 
-What knowledge-architect reads of a project. What it is for is `register@model@goal`; what it does for
+What knowledge-architect reads of a project. What it is for is
+`design@knowledge-architect@model-crate`; what it does for
 a user is `path@model@README.md`; why it is shaped this way is `register@model@design`.
 
 **An item is public only through the facade**, `path@model@src/lib.rs`, per

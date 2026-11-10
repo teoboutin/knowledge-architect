@@ -20,7 +20,7 @@ cannot be written without its reason.
 
 1. "The library runs the gates it is given and decides none of them", with `rust_project` as the
    recommended list. Its nearest rival is a library with a fixed list. Its argument is that of
-   `design@gates@gates-crate`: the gate logic is the library's, and a project writes none beyond
+   `design@knowledge-architect@gates-crate`: the gate logic is the library's, and a project writes none beyond
    its list.
 2. "The library depends on nothing of the checker: the root finder takes the marker file's name
    from the caller." Its nearest rival is a gates crate that depends on the package
@@ -42,7 +42,8 @@ one of four points that were this repository's own. That explains why the root f
 marker's name from the caller. It states no reason why the crate as a whole depends on nothing of
 the checker (`assumption`: the reason is that a published library should not carry one project's
 assumptions, but no record says so). The owner was asked for the reason during the first run of
-the design-record audit, and gave none.
+the design-record audit, and gave none. The rewrite of the root's goals, which read the gate-list
+head again, did not answer it either: the question was not put to the owner there.
 
 **Suspected mechanism**: the sentence was written as a fact about the extracted crate, beside the
 decision it was extracted with, and was never argued on its own.
