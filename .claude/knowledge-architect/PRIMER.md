@@ -601,7 +601,8 @@ never takes their place.
   whether to keep or change an existing design; a bug trend suggests the design is the problem; a
   discussion is reverting to multiple-choice menus, minimal-solution defaults, or approval-seeking
   closers.
-- `skill@knowledge-architect-planning`: a design discussion converged on its full path; a slice of a
+- `skill@knowledge-architect-planning`: the shapes of a design discussion that expects its full path
+  settle, before its record search; a design discussion converged on its full path; a slice of a
   milestone starts or lands; the work of a spec starts or lands; before editing the roadmap.
 - `skill@knowledge-architect-development`: before starting or iterating on a change to the
   project's Rust code.

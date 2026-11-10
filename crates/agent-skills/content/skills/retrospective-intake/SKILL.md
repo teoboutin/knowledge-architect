@@ -56,31 +56,29 @@ A finding is cited by its id and its file's stem, in the form
    item b of `skill@knowledge-architect-retrospective-intake@what-to-establish` says. Note the main commit you analyse against,
    `git rev-parse --short <main branch>`. A finding against an older commit or an older version of
    the checker may already be repaired.
-3. **Search the whole record with the received files as the work.** One search covers every file
-   received together. Dispatch it as the description of `agent@knowledge-architect-record-searcher`
-   says, with the files' paths and their subjects as the work, and as the seeds the design heads and
-   goals the findings name, or none. A proposed fix on a subject the files did not raise sends the
-   search again, with the fix as the work, before its outcome is decided or put to the owner.
-%% The searcher is `design@agent-skills@one-record-searcher`, its clusters
-%% `design@query@cluster-rooted-at-a-subject`, and the reading of a `may-bear` entry at an intake
-%% `design@agent-skills@search-relevance-grade`.
-
-   Read whole, in `bears.md` and `may-bear.md`, which the search's check writes, every issue and
-   tripwire the search grades `bears` or `may-bear`, every other entry it grades `bears`, and an
-   entry graded `may-bear` where a proposal touches its subject, chosen from the table of contents of
-   `may-bear.md`; and, with `{{command}} show <ref>`, every other entry a proposal rests on or would
-   change, and each goal the two files give by its grades alone. Never act on an entry from
-   its reason line. The analysis lists each other entry graded `may-bear`, with the searcher's
-   reason, as not read: a batch of files brings more such entries than a session can read whole and
-   still judge. The search finds what a grep per finding
-   does not: a finding already recorded, a deferred issue whose trigger the file meets, a tripwire
-   whose firing evidence the file carries, a design issue whose re-entry it meets, and a head or a
-   goal a proposed fix would contradict or strain.
-4. **Cluster the findings.** One defect is often reported in several files, or as two findings of
+3. **Cluster the findings.** One defect is often reported in several files, or as two findings of
    one file. A cluster, and a standing entry that several files meet, is analysed once, in the
    analysis of the first file by stem that holds it, and cites every id in it; the analysis of each
    other file holds a section that points there. That a
-   finding recurs across sessions is evidence: say how many times.
+   finding recurs across sessions is evidence: say how many times. Give each cluster, and each
+   finding left alone, an id in the grammar of an entry id: the search's subjects.
+4. **Search the whole record with the received files as the work.** One search covers every file
+   received together. Dispatch it as the description of `agent@knowledge-architect-record-searcher`
+   says, with each received file as a `--work`, each id of point 3 as a `--subject`, and as the
+   seeds the design heads and goals the findings name, or none. A proposed fix on a subject the
+   files did not raise sends the search again, with the fix as its `--work`, before its outcome is
+   decided or put to the owner.
+%% The searcher is `design@agent-skills@one-record-searcher`, its clusters
+%% `design@query@cluster-rooted-at-a-subject`, and its verdicts at an intake
+%% `design@agent-skills@search-relevance-grade`.
+
+   Read the verdict files the search's check writes, one per subject, or hand them to the agents of
+   `skill@knowledge-architect-retrospective-intake@intake-subagents`, at your judgement, and act on
+   each verdict, checked as you check your own claims; read with `{{command}} show <ref>` every
+   other entry a proposal rests on or would change. The search finds what a grep per finding
+   does not: a finding already recorded, a deferred issue whose trigger the file meets, a tripwire
+   whose firing evidence the file carries, a design issue whose re-entry it meets, and a head or a
+   goal a proposed fix would contradict or strain.
 
 ## What to establish for each finding or cluster {{slug:what-to-establish}}
 %% The count fallback of item b is right only while the main branch's history between the tag and
@@ -198,8 +196,9 @@ behaviour.
 Write the analysis in docs/retrospective-reports/ at the project's root, as `<stem>.md`, where
 `<stem>` is the received file's stem.
 
-- A head: the received file's name, the version it used, the main commit analysed against, and the
-  standing entries the search graded `bears` or `may-bear` that bear on it.
+- A head: the received file's name, the version it used, the main commit analysed against, and,
+  for each standing entry the search gave a verdict other than `unrelated` against a cluster or a
+  finding this analysis holds, its line from `generated-lines.md`.
 - **One section per finding or cluster**, headed by its ids and a short title, with a bullet per
   item of `skill@knowledge-architect-retrospective-intake@what-to-establish`, in prose. No table:
   the content of each item is too long to read in a cell. A finding that item b shows repaired, or
