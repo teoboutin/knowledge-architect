@@ -86,7 +86,55 @@ joins, follows from it by an argument, or is a qualifier of it. The owner:
 > proposed to merge, but the merged goals, having grown in scope, might admit a better splitting
 > under a new shape, whether as multiple goals or as goals + design.
 
-The result of that reading is added below once the owner has ruled it.
+The reading was made by one agent and contested by a second. Its result, as put to the owner:
+
+| merge the analysis proposed | after the reading |
+| --- | --- |
+| `goal@knowledge-architect@owner-attention-on-what-is-theirs` into `goal@knowledge-architect@the-owner-decides` | does not stand, and is no goal of its own as drafted: its sentences are held by `goal@knowledge-architect@agents-work-without-drift`, `goal@knowledge-architect@design-with-agents-as-counterparts` and `goal@knowledge-architect@the-owner-decides`; no goal holds a bound on the owner's reading time |
+| `goal@knowledge-architect@records-live-beside-the-code` into `goal@knowledge-architect@design-is-recorded-with-its-arguments` | a new design head of the root's design home, argued from three goals |
+| `goal@agent-skills@installed-text-works-in-every-target-project` into `goal@knowledge-architect@every-target-project-can-adopt-it` | design: `design@agent-skills@shipped-text-cites-no-entry` holds part, the rest a new head or the Component's scoped instructions |
+| `goal@create@a-project-adopts-by-one-command` into `goal@knowledge-architect@adoption-is-easy` | split: "by one command" is `design@create@init-command`; "loses nothing the project wrote" was put to the owner as a scope of its own |
+| `goal@knowledge-architect@structure-and-workflow-work-together` into `goal@knowledge-architect@records-reach-their-reader` | nothing enters the receiving goal; one home per kind of record is a head argued from it |
+| `goal@check@documents-stay-current` and `goal@check@document-rules-are-checked` into `goal@knowledge-architect@documentation-stays-consistent` | stands, but the sentence that a project declares to the checker what it records, which `design@check@nothing-of-a-project-is-compiled-in` argues |
+| `goal@model@recorded-items-can-be-referenced` into `goal@knowledge-architect@records-reach-their-reader` | stands as a merge; whether the owner's example of a documentation model and checker is a goal of its own was put to the owner |
+| `goal@query@agents-query-the-project` into `goal@knowledge-architect@mechanical-tasks-are-the-tool-s` | stands |
+| `goal@knowledge-architect@setup-brings-quality-tools` into `goal@knowledge-architect@generic-tools-and-procedures-are-shipped` | design: four existing heads hold it |
+
+The session put three questions: whether the owner holds a bound on the owner's reading time,
+with a default of no; whether "what knowledge-architect writes into a project loses nothing the
+project wrote" is a goal, with a default of yes; and whether the owner's example of a
+documentation model and checker is a goal of its own, with a default of yes. The owner:
+
+> q1: I have no bound to state on the quantity of what reaches me, and I prefer not too.  As long
+> as there is value I can bring whenever an item is brought to me. For example, a question about a
+> missing fact, a cost weighting, or a goal reading. If there is nothing else I can give other
+> than approval, there is little value in bring the question to me. BTW, how do the current rules
+> on autonomous decisions handle one that turns on a goal reading ? I think this case was not
+> really existent up until now, because goals were worded to leave no ambiguosity.  We should
+> handle it so these cases get reported to me. And maybe this needs a test to decide what is meant
+> by "turns on a goal reading"
+> Under our new standard, there should now be less goals and more design, so overall less for me
+> to rule on. Maybe initially, when design gets filled to fulfill goals, and new goal readings and
+> technical solutions to meet them still need to be decided. but once that settles, I believe
+> agents will be able to work relatively autonomously.
+> Q2: this is probably not worth a goal IMO. This is more of a small, orthogonal design decision,
+> because that happening would arguably be bad ux.
+> Q3: yes, I think it is. I think the way I framed it at this time could lead to a better list of
+> goals overall.
+> The starting point is that we define a documentation structure, a model representation in Rust
+> and a scanner. This is the starting point of the other goals: some add content to the model
+> (citations, design entries, issues...) while others add features that work upon it: the checker,
+> the render...
+> Beside that, we also ship an agent workflow, which has its own goals. And both of these aspects
+> of the project are supposed to work together, the agents record knowledge in the modeled
+> documentation, while tools are built upon the model (or outside of it)  to make agents more
+> efficient at searching, updating, and verifying knowledge.
+> The existing goals were mostly describing that, maybe not in exactly the same order and splits.
+
+So: no goal bounds the owner's reading time; that a tool's writes lose nothing the project wrote
+is a design decision and no goal; and the documentation model is a goal of its own, from which
+the owner proposes to order the whole list.
+
 
 ## Theme: The record and its documents
 
