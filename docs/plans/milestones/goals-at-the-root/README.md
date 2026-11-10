@@ -331,8 +331,8 @@ Issues that stay open and that a slice edits:
   a rule of the standard by its number and rewrites it, the numbers changing.
 - `issue@create@a-new-register-home-still-says-no-entry-yet-after-its-first-entry`: read at slice
   1's one pass, which empties twelve goals homes, and at slice 2, which deletes them.
-- `issue@gates@the-gates-crate-head-may-belong-in-the-root-design-home`: answered by slice 1, which
-  moves that head to the root's design home.
+- `issue@gates@the-gates-crate-head-may-belong-in-the-root-design-home`: closed by the commit of
+  slice 1 that moves that head to the root's design home.
 - `issue@model@the-resolver-s-arms-have-mutation-survivors` and
   `issue@check@some-findings-in-a-goals-home-name-a-form-refused-there`: slice 2 edits the code
   each names, and writes its own test of the rule on what a goals home cites.

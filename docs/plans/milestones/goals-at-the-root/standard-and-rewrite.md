@@ -49,7 +49,9 @@ fixes:
    head, or removed; and, where it is not kept whole, a table of its sentences, each with a
    destination of the milestone document's second mapping table, and the argument of each head it
    proposes. It edits no goals home. **The owner rules the analysis before the one pass**: the
-   themes, the fate of each goal, and every sentence sent nowhere.
+   themes, the fate of each goal, and every sentence sent nowhere. The analysis is committed
+   with the owner's rulings in it before the first commit of the one pass, as
+   `design@agent-skills@whole-set-rounds` orders a record and the goals it rules.
 3. **The one pass.** Its first commit edits every goal as the analysis was ruled: the kept goals
    rewritten under the new standard in the root's goals home,
    `planned@knowledge-architect@docs/goals/`, a README and one file per theme; each Component's
@@ -77,6 +79,22 @@ becomes a head, the citing head's reference is re-pointed to it, which does not 
 head, per `skill@knowledge-architect-decision-recording@head-shape`. A citing head whose argument
 leans on the goal binding outright, or quotes its measure or one of its cases, is rewritten, and is
 then brought to the rules on design heads in that change.
+
+The design audit of this slice found heads of that second sort that the milestone document's table
+does not name. The one pass reads each with the goal it cites, as the analysis ruled it:
+`design@create@init-asks-no-confirmation`, `design@create@init-keeps-existing-files`,
+`design@testing@binary-tests-in-testing`, `design@agent-skills@verdict-report`,
+`design@agent-skills@a-seed-and-its-citers-are-never-unrelated`,
+`design@agent-skills@every-verdict-quotes-its-entry`, `design@agent-skills@seeds-name-decisions`,
+`design@agent-skills@default-code-shape`, `design@agent-skills@no-external-handoff`,
+`design@agent-skills@premortem-as-watch-points`, `design@agent-skills@intake-skill-home`,
+`design@agent-skills@intake-outcome-authority`, `design@agent-skills@goal-set-review-in-goal-setting`,
+`design@agent-skills@repairs-read-against-the-record`, `design@check@the-regime-has-no-opt-out`,
+`design@check@agents-table`, `design@knowledge-architect@testing-crate`,
+`design@knowledge-architect@a-copy-of-the-writer-per-crate`,
+`design@knowledge-architect@mutation-command-host` and
+`design@model@an-unresolved-reference-is-reported`. The issues that quote a goal's measure or one
+of its cases are re-read in the same commit; the audit's commit lists them.
 
 ## Claims
 
@@ -123,6 +141,11 @@ the standard's test.
   depends on nothing of the checker; whether `goal@agent-skills@session-orchestrates-the-work` is
   a purpose or a means to two other outcomes; and the clause "through a goal" of
   `goal@knowledge-architect@the-owner-decides`, read as a goal of the three kinds.
+- A question the audit's search adds, put to the owner with the analysis: if
+  `goal@check@relocation-needs-only-goal-changes` becomes a head, whether the owner's ruling that it
+  admits no exception for a reference naming an anchor's own directory, which
+  `issue@model@a-reference-to-an-anchor-s-own-directory-breaks-when-the-anchor-moves` records, is
+  kept as a statement of that head.
 - `goal@knowledge-architect@the-workflow-improves-through-real-use`: the owner finds that its
   scope "might be a bit too large", and that "if taken literaly, it would forbid pretty much any
   change to the project". The whole-set review reads it with that statement.
