@@ -39,8 +39,9 @@ const VERDICTS_SUFFIX: &str = ".md";
 /// A passing `--verify` writes the lines a commit message owes, one per entry given a verdict
 /// other than `unrelated`: its reference, its verdict and its action.
 const GENERATED_LINES_FILE: &str = "generated-lines.md";
-/// The two sections every report closes with, in this order, per `primer@decided-section`; the
-/// verdict lines stop at the first of them.
+/// The two sections every report closes with: the skeleton writes them in this order, per
+/// `primer@decided-section`, and `--verify` owes both, in either order, its verdict lines
+/// stopping at the first of them.
 const DECIDED: &str = "## Decided";
 const MET_OUTSIDE: &str = "## Met outside the task";
 /// A report line that names an entry graded under an earlier cluster of the same agent.
@@ -75,10 +76,15 @@ pub enum WorklistMode {
         work: Vec<PathBuf>,
         /// The subjects of the work, which `work.txt` lists, each once, in the order given; none
         /// gives the one subject `whole-work`. Nothing here checks their form: the caller does,
-        /// as `cli::run` refuses a subject that is no id in the grammar of an entry id.
+        /// as `cli::run` refuses a subject that is no id in the grammar of an entry id. A subject
+        /// that is no id is written into `work.txt` as given, and every `Verify` of the
+        /// directory then refuses that `work.txt`, with exit 2.
         subjects: Vec<String>,
     },
-    /// Check the reports the agents filled in `dir`, a directory `Write` wrote.
+    /// Check the reports the agents filled in `dir`, a directory `Write` wrote, against its
+    /// `agents.txt`, `work.txt` and `shown.md`. It first removes every `verdicts-*.md` and the
+    /// `generated-lines.md` of `dir`; when every report passes, it writes `verdicts-<subject>.md`
+    /// for each subject `work.txt` lists, and `generated-lines.md`.
     Verify {
         /// The directory the work list was written into.
         dir: std::path::PathBuf,
@@ -86,13 +92,21 @@ pub enum WorklistMode {
 }
 
 /// Write the work list of a search of the whole record, or check the reports its agents filled, per
-/// `design@query@worklist-writes-and-verifies-the-reports`. `Err` is a refusal or a failure: under
-/// `WorklistMode::Write`, an incomplete model, a directory inside the project or not empty, a seed
-/// naming no entry, or a file of the work it cannot read, nothing written, and a write that
-/// failed, the files before it left in place. Exit 1 is a finding on a report.
+/// `design@query@worklist-writes-and-verifies-the-reports`. `Err` is a refusal or a failure:
 ///
-/// It checks neither the form of a subject nor that a file of the work holds anything: a subject
-/// is listed as given, each once, and an empty file of the work counts no word.
+/// - under `WorklistMode::Write`, an incomplete model, a directory inside the project or not
+///   empty, a seed naming no entry, or a file of the work it cannot read, nothing written, and a
+///   write that failed, the files before it left in place;
+/// - under `WorklistMode::Verify`, a file of the work list it cannot read or parse: `agents.txt`;
+///   `work.txt`, with a line other than `work` and `subject` lines, a subject that is no id or one
+///   listed twice; `shown.md`, cut short, an entry lacking one of its two blocks, or lacking an
+///   entry `agents.txt` lists; a report, or a report line it cannot parse; and a removal or a
+///   write that failed. Nothing is judged where one of the first three stops it, and no verdict
+///   file and no generated line is left in any case.
+///
+/// Exit 1 is a finding on a report. Under `Write`, it checks neither the form of a subject nor
+/// that a file of the work holds anything: a subject is listed as given, each once, and an empty
+/// file of the work counts no word.
 pub fn worklist(
     manifest: &Manifest,
     mode: &WorklistMode,
@@ -329,8 +343,8 @@ fn absolute(dir: &Path) -> Result<PathBuf, String> {
 
 /// `work.txt`: a line `work <path>` per file of the work, as `write` lists them, then a line
 /// `subject <id>` per subject, each once, in the order given, `whole-work` where none is given.
-/// The shape is this function's, read by the searcher and the session alone, per
-/// `issue@knowledge-architect@command-output-is-not-declared-a-contract`.
+/// The shape is this function's, read by the searcher, the session and `--verify`, which takes the
+/// subjects from it, per `issue@knowledge-architect@command-output-is-not-declared-a-contract`.
 fn work_text(work: &[PathBuf], subjects: &[String]) -> String {
     let mut out = String::new();
     for path in work {
@@ -361,12 +375,11 @@ fn work_subjects(subjects: &[String]) -> Vec<&str> {
 /// a fence longer than any run of backticks it holds, so neither a line of it nor a heading of it
 /// reads as the start of another entry or group.
 fn entry_block(entry: &graph::Entry) -> String {
-    let body = entry.record.body.trim_end();
-    let fence = "`".repeat(longest_backtick_run(body).max(2) + 1);
     format!(
-        "\n=== {}  {}\n\n{fence}markdown\n{body}\n{fence}\n",
+        "\n=== {}  {}\n\n{}",
         entry.reference(),
-        entry.record.site
+        entry.record.site,
+        fenced("markdown", entry.record.body.trim_end())
     )
 }
 
@@ -416,9 +429,9 @@ fn render(
             report.push_str(&format!("\n## {heading}: {}\n\n", group.name));
             let prose = group.prose.trim();
             if !prose.is_empty() {
-                let fence = "`".repeat(longest_backtick_run(prose).max(2) + 1);
                 entries.push_str(&format!(
-                    "\nThe goals file above its first goal:\n\n{fence}markdown\n{prose}\n{fence}\n"
+                    "\nThe goals file above its first goal:\n\n{}",
+                    fenced("markdown", prose)
                 ));
             }
             for &i in &group.entries {
@@ -514,18 +527,18 @@ fn snapshot(graph: &Graph, anchors: &Anchors, model: &crate::Model) -> String {
             crate::show::inbound_text(&crate::show::cited_at(&index, anchors, kind, anchor, id));
         out.push_str(&format!(
             "=== {reference}\n\n{}\n{}\n",
-            fenced(&own),
-            fenced(&inbound)
+            fenced("text", &own),
+            fenced("text", &inbound)
         ));
     }
     out
 }
 
-/// `text` in a fence opening with `text`, longer than any run of backticks `text` holds, and a
-/// newline after the closing fence.
-fn fenced(text: &str) -> String {
+/// `text` in a fence of three backticks or more, longer than any run of backticks `text` holds,
+/// opening with `info`, and a newline after the closing fence.
+fn fenced(info: &str, text: &str) -> String {
     let fence = "`".repeat(longest_backtick_run(text).max(2) + 1);
-    format!("{fence}text\n{text}\n{fence}\n")
+    format!("{fence}{info}\n{text}\n{fence}\n")
 }
 
 /// The longest run of backticks in `text`.
@@ -539,6 +552,7 @@ fn longest_backtick_run(text: &str) -> usize {
 }
 
 /// One line of `agents.txt`.
+#[derive(Debug, PartialEq)]
 struct Listed {
     role: Role,
     seed: bool,
@@ -620,8 +634,26 @@ fn verify(dir: &Path) -> Result<ExitCode, String> {
             .or_default()
             .insert(reference.to_string(), listed);
     }
-    let subjects = read_subjects(dir)?;
-    let snapshot = read_snapshot(dir)?;
+    let work_path = dir.join(WORK_FILE);
+    let subjects = parse_work(
+        &std::fs::read_to_string(&work_path)
+            .map_err(|e| format!("{}: {e}", work_path.display()))?,
+    )
+    .map_err(|e| format!("{}{e}", work_path.display()))?;
+    let shown_path = dir.join(SHOWN_FILE);
+    let snapshot = parse_snapshot(&std::fs::read_to_string(&shown_path).map_err(|e| {
+        format!(
+            "{}: {e}: the snapshot `--out` writes cannot be read: run `--out` again into a new \
+             directory. Nothing was judged.",
+            shown_path.display()
+        )
+    })?)
+    .map_err(|e| {
+        format!(
+            "{}: {e}: run `--out` again into a new directory. Nothing was judged.",
+            shown_path.display()
+        )
+    })?;
     let mut missing: Vec<&str> = order
         .iter()
         .map(|(_, r)| r.as_str())
@@ -632,7 +664,7 @@ fn verify(dir: &Path) -> Result<ExitCode, String> {
         return Err(format!(
             "{} lacks {}, which {AGENTS_FILE} lists: run `--out` again into a new directory. \
              Nothing was judged.",
-            dir.join(SHOWN_FILE).display(),
+            shown_path.display(),
             missing.join(", ")
         ));
     }
@@ -644,84 +676,43 @@ fn verify(dir: &Path) -> Result<ExitCode, String> {
         let path = dir.join(&rel);
         let report =
             std::fs::read_to_string(&path).map_err(|e| format!("{}: {e}", path.display()))?;
-        let mut graded: BTreeMap<String, usize> = BTreeMap::new();
-        for (n, line) in report.lines().enumerate() {
-            let at = format!("{}:{}", rel.display(), n + 1);
-            // The verdict lines end at the report's closing sections, whose own lines may be
-            // list items too.
-            if matches!(line.trim_end(), DECIDED | MET_OUTSIDE) {
-                break;
-            }
-            let Some(rest) = line.strip_prefix("- ") else {
-                continue;
-            };
-            let (reference, fields) = rest.split_once(" | ").unwrap_or((rest, ""));
-            if fields == GRADED_ABOVE {
-                if !listed.contains_key(reference) {
-                    findings.push(format!("{at}  {reference} is not an entry of {agent}"));
-                }
-                continue;
-            }
-            let Some(parsed) = parse_fields(fields) else {
-                return Err(format!(
-                    "{}/{at}: not a line `- <reference> | verdict: <verdict> | against: <subjects, \
-                     or -> | action: <action> | owner-question: <text, or nothing> | quote: <text> \
-                     | reason: <text>`, its fields in this order, the owner-question holding no \
-                     ` | quote:` and the quotation no ` | reason:`",
-                    dir.display()
-                ));
-            };
-            *graded.entry(reference.to_string()).or_default() += 1;
-            let Some(entry) = listed.get(reference) else {
-                findings.push(format!("{at}  {reference} is not an entry of {agent}"));
-                continue;
-            };
-            findings.extend(judge(
-                &at,
-                reference,
-                entry,
-                &parsed,
-                &subjects,
-                own_body(&snapshot[reference].own),
-            ));
-            given.insert((agent.clone(), reference.to_string()), parsed);
-        }
-        for section in [DECIDED, MET_OUTSIDE] {
-            if !report.lines().any(|l| l.trim_end() == section) {
-                findings.push(format!(
-                    "{}  no section `{section}`: close the report with `{DECIDED}` then \
-                     `{MET_OUTSIDE}`, each empty where there is nothing",
-                    rel.display()
-                ));
-            }
-        }
-        for reference in listed.keys() {
-            match graded.get(reference) {
-                None => findings.push(format!(
-                    "{}  {reference} is given to {agent} and has no verdict",
-                    rel.display()
-                )),
-                Some(&count) if count > 1 => findings.push(format!(
-                    "{}  {reference} is given {count} verdicts",
-                    rel.display()
-                )),
-                _ => {}
-            }
+        let (found, verdicts) = judge_report(
+            &rel.display().to_string(),
+            agent,
+            &report,
+            listed,
+            &subjects,
+            &snapshot,
+        )
+        .map_err(|at| {
+            format!(
+                "{}/{at}: not a line `- <reference> | verdict: <verdict> | against: <subjects, \
+                 or -> | action: <action> | owner-question: <text, or nothing> | quote: <text> \
+                 | reason: <text>`, its fields in this order, with ` | quote:` once before the \
+                 reason and ` | reason:` once",
+                dir.display()
+            )
+        })?;
+        findings.extend(found);
+        for (reference, verdict) in verdicts {
+            given.insert((agent.clone(), reference), verdict);
         }
     }
     for finding in &findings {
         outln!("{finding}");
     }
     if findings.is_empty() {
-        let (per_subject, lines) = assemble(dir, &order, &agents, &given, &snapshot, &subjects)?;
-        for (subject, count) in per_subject {
+        let out = outputs(&order, &agents, &given, &snapshot, &subjects);
+        write_all(dir, &out.files)?;
+        for (subject, count) in &out.counts {
             outln!(
                 "{count} verdicts against {subject} in {}",
-                dir.join(verdicts_file(&subject)).display()
+                dir.join(verdicts_file(subject)).display()
             );
         }
         outln!(
-            "{lines} lines in {}",
+            "{} lines in {}",
+            out.lines,
             dir.join(GENERATED_LINES_FILE).display()
         );
         outln!("PASSED: every report gives every entry it was given one verdict");
@@ -730,6 +721,74 @@ fn verify(dir: &Path) -> Result<ExitCode, String> {
         outln!("FAILED: {} findings above", findings.len());
         Ok(ExitCode::FAILURE)
     }
+}
+
+/// Judge one agent's report, `report`, the agent named `agent` and its file `rel`, against the
+/// entries `listed` gives it: every finding, and each verdict by its entry's reference, or `Err`
+/// with the `<rel>:<line>` of the first line it cannot parse.
+///
+/// The verdict lines end at the first of the two closing sections, whatever their order, since a
+/// section's own lines may be list items; both sections are owed. A `graded above` line names an
+/// entry graded under an earlier cluster of the same agent. Each entry the agent was given owes
+/// exactly one verdict.
+fn judge_report(
+    rel: &str,
+    agent: &str,
+    report: &str,
+    listed: &BTreeMap<String, Listed>,
+    subjects: &[String],
+    snapshot: &BTreeMap<String, Shown>,
+) -> Result<(Vec<String>, BTreeMap<String, Verdict>), String> {
+    let mut findings: Vec<String> = Vec::new();
+    let mut verdicts: BTreeMap<String, Verdict> = BTreeMap::new();
+    let mut graded: BTreeMap<String, usize> = BTreeMap::new();
+    for (n, line) in report.lines().enumerate() {
+        let at = format!("{rel}:{}", n + 1);
+        if matches!(line.trim_end(), DECIDED | MET_OUTSIDE) {
+            break;
+        }
+        let Some(rest) = line.strip_prefix("- ") else {
+            continue;
+        };
+        let (reference, fields) = rest.split_once(" | ").unwrap_or((rest, ""));
+        if fields == GRADED_ABOVE {
+            if !listed.contains_key(reference) {
+                findings.push(format!("{at}  {reference} is not an entry of {agent}"));
+            }
+            continue;
+        }
+        let Some(parsed) = parse_fields(fields) else {
+            return Err(at);
+        };
+        *graded.entry(reference.to_string()).or_default() += 1;
+        let Some(entry) = listed.get(reference) else {
+            findings.push(format!("{at}  {reference} is not an entry of {agent}"));
+            continue;
+        };
+        let body = snapshot.get(reference).map_or("", |s| own_body(&s.own));
+        findings.extend(judge(&at, reference, entry, &parsed, subjects, body));
+        verdicts.insert(reference.to_string(), parsed);
+    }
+    for section in [DECIDED, MET_OUTSIDE] {
+        if !report.lines().any(|l| l.trim_end() == section) {
+            findings.push(format!(
+                "{rel}  no section `{section}`: close the report with `{DECIDED}` then \
+                 `{MET_OUTSIDE}`, each empty where there is nothing"
+            ));
+        }
+    }
+    for reference in listed.keys() {
+        match graded.get(reference) {
+            None => findings.push(format!(
+                "{rel}  {reference} is given to {agent} and has no verdict"
+            )),
+            Some(&count) if count > 1 => {
+                findings.push(format!("{rel}  {reference} is given {count} verdicts"))
+            }
+            _ => {}
+        }
+    }
+    Ok((findings, verdicts))
 }
 
 /// The marks of a line of `agents.txt` after its reference, as the entry they describe: a seed
@@ -775,25 +834,28 @@ fn remove_outputs(dir: &Path) -> Result<(), String> {
     Ok(())
 }
 
-/// The subjects `work.txt` lists, in its order.
+/// The subjects a `work.txt` of text `text` lists, in its order, or `Err` with `:<line>: ` and
+/// what is wrong there.
 ///
-/// A line is `work <path>`, which `--verify` does not read, or `subject <id>`; any other line, and
-/// a subject that is no id in the grammar of an entry id, refuse the run, since a subject names
-/// a file `--verify` writes.
-fn read_subjects(dir: &Path) -> Result<Vec<String>, String> {
-    let path = dir.join(WORK_FILE);
-    let text = std::fs::read_to_string(&path).map_err(|e| format!("{}: {e}", path.display()))?;
-    let mut subjects = Vec::new();
+/// A line is `work <path>`, which `--verify` does not read, or `subject <id>`. Any other line, a
+/// subject that is no id in the grammar of an entry id, and a subject listed twice are refused,
+/// since a subject names a file `--verify` writes: a subject listed twice would name one file
+/// twice, whose second write would hold none of the first's verdicts. `--out` writes each subject
+/// once, as an id `cli` checked, so a refused `work.txt` is one edited since.
+fn parse_work(text: &str) -> Result<Vec<String>, String> {
+    let mut subjects: Vec<String> = Vec::new();
     for (n, line) in text.lines().enumerate() {
         if line.starts_with("work ") {
             continue;
         }
         match line.strip_prefix("subject ") {
+            Some(s) if subjects.iter().any(|t| t == s) => {
+                return Err(format!(":{}: the subject {s} is listed twice", n + 1))
+            }
             Some(s) if crate::model::table::is_entry_id(s) => subjects.push(s.to_string()),
             _ => {
                 return Err(format!(
-                    "{}:{}: not a line `work <path>` or `subject <id>`",
-                    path.display(),
+                    ":{}: not a line `work <path>` or `subject <id>`",
                     n + 1
                 ))
             }
@@ -802,27 +864,31 @@ fn read_subjects(dir: &Path) -> Result<Vec<String>, String> {
     Ok(subjects)
 }
 
-/// The words of `text`, each run of whitespace made one space.
-fn collapsed(text: &str) -> String {
-    text.split_whitespace().collect::<Vec<_>>().join(" ")
-}
-
 /// An entry's own body: its own text in the snapshot without its first line, the
 /// `<reference>  <site>` line `show` prints above the body.
 fn own_body(own: &str) -> &str {
     own.split_once('\n').map(|(_, body)| body).unwrap_or("")
 }
 
-/// Write the outputs of passing reports, and return how many verdicts each subject's file holds,
-/// in the order of `work.txt`, and how many generated lines there are.
+/// What a passing `--verify` writes, before any write: each file's name and text, the count of
+/// verdicts in each subject's verdict file, in the order of `work.txt`, and the count of
+/// generated lines.
+struct Outputs {
+    files: Vec<(String, String)>,
+    counts: Vec<(String, usize)>,
+    lines: usize,
+}
+
+/// The outputs of passing reports.
 ///
 /// Each subject's verdict file, `verdicts-<subject>.md`, holds every verdict but `unrelated` whose
-/// `against` names the subject, in the order of `agents.txt`: its entry's `===` line, carrying
-/// the changed-since mark where `agents.txt` gives it, the agent's verdict line, then the entry's
-/// own text and its inbound list from the snapshot, each fenced as the snapshot fences it, so that
-/// a heading of the text reads as no section of the file. A verdict `against: -` is in no verdict
-/// file. A subject no verdict names still gets its file, which then holds its heading alone, so a
-/// session tells a subject nothing bears on from one whose file is missing.
+/// `against` names the subject, in the order of `agents.txt`, once where it names the subject
+/// twice: its entry's `===` line, carrying the changed-since mark where `agents.txt` gives it,
+/// the agent's verdict line, then the entry's own text and its inbound list from the snapshot,
+/// each fenced, so that a heading of the text reads as no section of the file. A verdict
+/// `against: -` is in no verdict file. A subject no verdict names still gets its file, which then
+/// holds its heading alone, so a session tells a subject nothing bears on from one whose file is
+/// missing.
 ///
 /// `generated-lines.md` holds one line per entry given a verdict other than `unrelated`, in the
 /// same order, `` - `<reference>`: <verdict>, <action>. ``. Its reference
@@ -830,16 +896,15 @@ fn own_body(own: &str) -> &str {
 /// carries no quotation and no reason, since a quotation's references would read as live there and
 /// its marks could end the span early.
 ///
-/// Every file or none: a write that fails removes those written before it, so a session never
-/// reads part of the outputs as the whole.
-fn assemble(
-    dir: &Path,
+/// Every reference of `order` with a verdict in `given` is in `snapshot`, as `verify` checks
+/// before judging.
+fn outputs(
     order: &[(String, String)],
     agents: &BTreeMap<String, BTreeMap<String, Listed>>,
     given: &BTreeMap<(String, String), Verdict>,
     snapshot: &BTreeMap<String, Shown>,
     subjects: &[String],
-) -> Result<(Vec<(String, usize)>, usize), String> {
+) -> Outputs {
     let mut files: Vec<(String, String, usize)> = subjects
         .iter()
         .map(|s| (s.clone(), format!("# The verdicts against `{s}`\n"), 0))
@@ -867,8 +932,8 @@ fn assemble(
                 String::new()
             },
             verdict.line(),
-            fenced(&shown.own),
-            fenced(&shown.inbound)
+            fenced("text", &shown.own),
+            fenced("text", &shown.inbound)
         );
         let mut named: Vec<&str> = Vec::new();
         for subject in verdict.against.iter().flatten() {
@@ -882,16 +947,29 @@ fn assemble(
             }
         }
     }
-    let mut writes: Vec<(String, String)> = files
+    let mut written: Vec<(String, String)> = files
         .iter()
         .map(|(s, text, _)| (verdicts_file(s), text.clone()))
         .collect();
     let generated: String = lines.iter().map(|l| format!("{l}\n")).collect();
-    writes.push((GENERATED_LINES_FILE.to_string(), generated));
-    for (n, (name, text)) in writes.iter().enumerate() {
+    written.push((GENERATED_LINES_FILE.to_string(), generated));
+    Outputs {
+        files: written,
+        counts: files.into_iter().map(|(s, _, count)| (s, count)).collect(),
+        lines: lines.len(),
+    }
+}
+
+/// Write each of `files`, by name under `dir`, or none of them: a write that fails removes every
+/// file written before it, and the one it failed on, which a write that fails part way, as on a
+/// full disk, leaves holding part of its text; so a session never reads part of the outputs as the
+/// whole. No test fails a write part way, so the removal of the failing file stands on this
+/// comment and on `std::fs::write` creating the file before it writes.
+fn write_all(dir: &Path, files: &[(String, String)]) -> Result<(), String> {
+    for (n, (name, text)) in files.iter().enumerate() {
         let path = dir.join(name);
         if let Err(e) = std::fs::write(&path, text) {
-            for (written, _) in &writes[..n] {
+            for (written, _) in &files[..=n] {
                 let _ = std::fs::remove_file(dir.join(written));
             }
             return Err(format!(
@@ -900,10 +978,7 @@ fn assemble(
             ));
         }
     }
-    Ok((
-        files.into_iter().map(|(s, _, count)| (s, count)).collect(),
-        lines.len(),
-    ))
+    Ok(())
 }
 
 /// One entry of the snapshot: its own text, which `show` prints first, and its inbound list.
@@ -912,20 +987,13 @@ struct Shown {
     inbound: String,
 }
 
-/// The snapshot `--out` wrote, as each reference with its two blocks.
+/// The snapshot of text `text`, as each reference with its two blocks, or `Err` with what is
+/// wrong in it.
 ///
-/// An entry is a line `=== <reference>`, a blank line, a fence opening with `text`, the entry's own
-/// text up to the line that is that fence alone, a blank line, and its inbound list in a fence of
-/// its own, as `snapshot` writes it.
-fn read_snapshot(dir: &Path) -> Result<BTreeMap<String, Shown>, String> {
-    let path = dir.join(SHOWN_FILE);
-    let text = std::fs::read_to_string(&path).map_err(|e| {
-        format!(
-            "{}: {e}: the snapshot `--out` writes cannot be read: run `--out` again into a new \
-             directory. Nothing was judged.",
-            path.display()
-        )
-    })?;
+/// An entry is a line `=== <reference>`, a blank line, a fence of three backticks or more
+/// opening with `text`, the entry's own text up to the line that is that fence alone, a blank
+/// line, and its inbound list in a fence of its own, as `snapshot` writes it.
+fn parse_snapshot(text: &str) -> Result<BTreeMap<String, Shown>, String> {
     let mut out = BTreeMap::new();
     let mut lines = text.lines();
     while let Some(line) = lines.next() {
@@ -939,11 +1007,7 @@ fn read_snapshot(dir: &Path) -> Result<BTreeMap<String, Shown>, String> {
                 .and_then(|l| l.strip_suffix("text"))
                 .filter(|f| f.len() >= 3 && f.chars().all(|c| c == '`'))
                 .ok_or_else(|| {
-                    format!(
-                        "{}: the entry {reference} does not open its two fenced blocks: run \
-                         `--out` again into a new directory. Nothing was judged.",
-                        path.display()
-                    )
+                    format!("the entry {reference} does not open its two fenced blocks")
                 })?;
             let mut body: Vec<&str> = Vec::new();
             let mut closed = false;
@@ -958,9 +1022,7 @@ fn read_snapshot(dir: &Path) -> Result<BTreeMap<String, Shown>, String> {
             // truncated.
             if !closed {
                 return Err(format!(
-                    "{}: the entry {reference} is cut short, its fence never closed: run `--out` \
-                     again into a new directory. Nothing was judged.",
-                    path.display()
+                    "the entry {reference} is cut short, its fence never closed"
                 ));
             }
             blocks.push(body.join("\n"));
@@ -1029,8 +1091,9 @@ impl Verdict {
 ///
 /// The first three hold no ` | `. The reason runs from the last ` | reason:` of the line to its
 /// end, and the quotation from the last ` | quote:` before it, so both may hold ` | `, as a
-/// quoted table row does. A line whose owner-question holds ` | quote:`, or whose quotation holds
-/// ` | reason:`, is `None`: where either field ends could not be told.
+/// quoted table row does. A line holding ` | quote:` twice after its owner-question's name, or
+/// ` | reason:` twice after its quotation's, is `None`, wherever the second stands, in the
+/// owner-question, the quotation or the reason: where either field ends could not be told.
 fn parse_fields(fields: &str) -> Option<Verdict> {
     let mut rest = fields;
     if rest.starts_with("cites seed: ") || rest.starts_with("is a seed") {
@@ -1070,9 +1133,10 @@ fn parse_fields(fields: &str) -> Option<Verdict> {
 ///
 /// The verdict and the action are judged by the tables of [`verdicts`] and [`actions`]; `against`
 /// names subjects of `work.txt`, or is `-` on `unrelated` and on `constrains` with the action
-/// `none`; the quotation is found in the body once each run of whitespace is one space, and holds
-/// at least eight words, or the whole body where it holds fewer, since no quotation of a shorter
-/// body could hold eight; the reason is not empty; and a seed or an entry citing one is never
+/// `none`; the quotation's whitespace-separated words are a run of the body's words, each copied
+/// verbatim, markdown marks included, so any whitespace may separate them, and they are at least
+/// eight, or all of a body's where it holds fewer, since no quotation of a shorter body could hold
+/// eight; the reason is not empty; and a seed or an entry citing one is never
 /// `unrelated`, its verdict where nothing in the work meets it being `constrains`, `none`, `-`.
 fn judge(
     at: &str,
@@ -1129,16 +1193,18 @@ fn judge(
             }
         }
     }
-    let quote = collapsed(&fields.quote);
-    let body = collapsed(body);
-    let words = quote.split_whitespace().count();
-    let owed = QUOTE_WORDS.min(body.split_whitespace().count());
+    // Whole words, so a quotation that starts or ends inside a word is not found; and owed is at
+    // most the body's length, so a run as long as a shorter body is that whole body.
+    let quote: Vec<&str> = fields.quote.split_whitespace().collect();
+    let body: Vec<&str> = body.split_whitespace().collect();
+    let words = quote.len();
+    let owed = QUOTE_WORDS.min(body.len());
     if words == 0 {
         out.push(format!(
             "{at}  {reference} has no quotation: copy at least {QUOTE_WORDS} words verbatim from \
              the entry's own text"
         ));
-    } else if !body.contains(&quote) {
+    } else if !body.windows(words).any(|run| run == quote.as_slice()) {
         out.push(format!(
             "{at}  {reference}: the quotation is not in the entry's own text: copy it verbatim \
              from the entry's body, never from its first line or from the sites that cite it"
@@ -1215,7 +1281,8 @@ mod tests {
         );
         assert_eq!(work_text(&[], &[]), "subject whole-work\n");
     }
-    fn listed(role: Role) -> Listed {
+    /// An entry of `role` that is no seed, cites none, and did not change.
+    fn plain(role: Role) -> Listed {
         Listed {
             role,
             seed: false,
@@ -1224,7 +1291,7 @@ mod tests {
         }
     }
 
-    /// A body of nine words, and a quotation of its last eight.
+    /// A body of eleven words, and a quotation of its second to ninth.
     const BODY: &str = "### A head `##a-head`\n\nIt serves the work\nof the project.";
     const QUOTE: &str = "A head `##a-head` It serves the work of";
 
@@ -1240,7 +1307,7 @@ mod tests {
         judge(
             "r:1",
             "x@a@b",
-            &listed(role),
+            &plain(role),
             fields,
             &["one-thread".to_string()],
             BODY,
@@ -1249,8 +1316,8 @@ mod tests {
 
     /// The claim: a verdict line parses its six fields in their order, after an optional seed
     /// field, with a quotation and a reason that hold ` | `, and `-` as no subject; a line with a
-    /// field missing or out of order, an owner-question holding ` | quote:` or a quotation holding
-    /// ` | reason:` does not parse. Mutations checked: in `parse_fields`, the test
+    /// field missing or out of order, or ` | quote:` or ` | reason:` twice, does not parse.
+    /// Mutations checked: in `parse_fields`, the test
     /// `if owner_question.contains(" | quote:") || quote.contains(" | reason:") {` made
     /// `if false {`; `rest.rsplit_once(" | reason:")?` made `rest.split_once(" | reason:")?`;
     /// `"-" => None,` made `"-!" => None,`; each caught.
@@ -1291,12 +1358,13 @@ mod tests {
         }
     }
 
-    /// The claim: `judge` refuses a verdict outside its register's set and an action outside its
-    /// verdict's, `conflicts` taking `goal-setting` on a goal and `check-reversal` elsewhere.
-    /// Mutations checked: in `verdicts`, `Role::Rejected => &["brings-back", ...` made to admit
-    /// `conflicts` too; in `actions`, `"conflicts" if role == Role::Goal` made
-    /// `"conflicts" if false`; and in `judge`, `if !admitted.contains(&fields.action.as_str()) {`
-    /// made `if false {`; each caught.
+    /// The claim: `judge` refuses an empty verdict, a verdict outside its register's set and an
+    /// action outside its verdict's, `conflicts` taking `goal-setting` on a goal and
+    /// `check-reversal` elsewhere. Mutations checked: in `verdicts`, `Role::Rejected => &["brings-back", ...`
+    /// made to admit `conflicts` too; in `actions`, `"conflicts" if role == Role::Goal` made
+    /// `"conflicts" if false`; in `judge`, `if !admitted.contains(&fields.action.as_str()) {` made
+    /// `if false {`, and `if verdict.is_empty() {` made `if false {`, which names the empty verdict
+    /// as no verdict of the role; each caught.
     #[test]
     fn judge_refuses_a_verdict_outside_its_register_and_an_action_outside_its_verdict() {
         let ok = |role, verdict, action| {
@@ -1327,6 +1395,11 @@ mod tests {
             refused[0].contains("`none` is no action for the verdict `closes`"),
             "{refused:?}"
         );
+        let refused = findings(Role::Unit, &line("", "one-thread", "none", QUOTE, "r"));
+        assert_eq!(
+            refused,
+            ["r:1  x@a@b has no verdict: give one of constrains, conflicts, unrelated"]
+        );
     }
 
     /// The claim: `against` names subjects of the work, or is `-` on `unrelated` and on
@@ -1350,37 +1423,45 @@ mod tests {
         assert!(at("constrains", "", "respect")[0].contains("names no subject"));
     }
 
-    /// The claim: the quotation is owed on every line, `unrelated` included, holds at least eight
-    /// words or the whole of a shorter body, and is found in the body once whitespace is
-    /// collapsed; the reason is owed on every line. Mutations checked: in `judge`,
-    /// `} else if !body.contains(&quote) {` made `} else if false {`; `if words == 0 {` made
-    /// `if false {`, with the quotation's other tests then passing an empty one; `words < owed`
-    /// made `words < 1`; `QUOTE_WORDS.min(` made `QUOTE_WORDS.max(`, which refuses the whole of a
-    /// short body; and `if fields.reason.is_empty() {` made `if false {`; each caught.
+    /// The claim: the quotation is owed on every line, `unrelated` included; its words are a run
+    /// of the body's whole words, whatever whitespace separates them, so a quotation that starts or
+    /// ends inside a word is not found; it holds at least eight words, or all of a shorter body's;
+    /// and the reason is owed on every line. Mutations checked: in `judge`,
+    /// `} else if !body.windows(words).any(|run| run == quote.as_slice()) {` made
+    /// `} else if false {`; `if words == 0 {` made `if false {`, which names the empty quotation
+    /// by the count of its words instead; `words < owed` made `words < 1`; `QUOTE_WORDS.min(` made
+    /// `QUOTE_WORDS.max(`, which refuses all of a short body; the whole-word match made the
+    /// substring match of before, `body.join(" ").contains(&quote.join(" "))`, which finds the
+    /// fragments; and `if fields.reason.is_empty() {` made `if false {`; each caught.
     #[test]
     fn judge_owes_a_quotation_of_the_body_and_a_reason_on_every_line() {
         let with =
             |quote, reason| findings(Role::Unit, &line("unrelated", "-", "none", quote, reason));
         assert!(with(QUOTE, "r").is_empty());
-        // Across the body's line break, by its collapsed whitespace.
+        // Across the body's line break, whatever whitespace the quotation puts between words.
         assert!(with("`##a-head` It serves the work of the   project.", "r").is_empty());
         assert!(with("", "r")[0].contains("has no quotation"));
-        assert!(
-            with("A head `##a-head` It serves the work of the world", "r")[0]
-                .contains("the quotation is not in the entry's own text")
-        );
+        let not_in = "the quotation is not in the entry's own text";
+        assert!(with("A head `##a-head` It serves the work of the world", "r")[0].contains(not_in));
+        // Eight words that start inside `head` and end inside `project.`.
+        assert!(with("ead `##a-head` It serves the work of the proj", "r")[0].contains(not_in));
         assert!(with("A head `##a-head` It serves the work", "r")[0]
             .contains("the quotation holds 7 words"));
         assert!(with(QUOTE, "")[0].contains("has no reason"));
-        let short = judge(
-            "r:1",
-            "x@a@b",
-            &listed(Role::Unit),
-            &line("unrelated", "-", "none", "### A head `##a-head`", "r"),
-            &["one-thread".to_string()],
-            "### A head `##a-head`\n",
-        );
-        assert!(short.is_empty(), "{short:?}");
+        let short = |quote| {
+            judge(
+                "r:1",
+                "x@a@b",
+                &plain(Role::Unit),
+                &line("unrelated", "-", "none", quote, "r"),
+                &["one-thread".to_string()],
+                "### A head `##a-head`\n",
+            )
+        };
+        assert!(short("### A head `##a-head`").is_empty());
+        // As many words as the short body, the first a fragment of its first word.
+        assert!(short("# A head `##a-head`")[0].contains(not_in));
+        assert!(short("A head `##a-head`")[0].contains("the quotation holds 3 words"));
     }
 
     /// The claim: a seed, and an entry citing one, are never `unrelated`. Mutation checked: in
@@ -1417,20 +1498,309 @@ mod tests {
     /// caught.
     #[test]
     fn a_listed_entry_takes_a_seed_mark_then_a_changed_since_mark() {
-        let marks = |m: &[&str]| listed_of(m);
-        assert_eq!(marks(&[]), Some((false, false, false)));
-        assert_eq!(marks(&["seed"]), Some((true, false, false)));
+        let marked = |seed, cites_seed, changed| {
+            Some(Listed {
+                role: Role::Unit,
+                seed,
+                cites_seed,
+                changed,
+            })
+        };
+        assert_eq!(listed(Role::Unit, &[]), marked(false, false, false));
+        assert_eq!(listed(Role::Unit, &["seed"]), marked(true, false, false));
         assert_eq!(
-            marks(&["cites-seed", "changed-since"]),
-            Some((false, true, true))
+            listed(Role::Unit, &["cites-seed", "changed-since"]),
+            marked(false, true, true)
         );
-        assert_eq!(marks(&["changed-since"]), Some((false, false, true)));
-        assert_eq!(marks(&["changed-since", "seed"]), None);
-        assert_eq!(marks(&["seed", "cites-seed"]), None);
-        assert_eq!(marks(&["other"]), None);
+        assert_eq!(
+            listed(Role::Unit, &["changed-since"]),
+            marked(false, false, true)
+        );
+        assert_eq!(listed(Role::Unit, &["changed-since", "seed"]), None);
+        assert_eq!(listed(Role::Unit, &["seed", "cites-seed"]), None);
+        assert_eq!(listed(Role::Unit, &["other"]), None);
     }
 
-    fn listed_of(marks: &[&str]) -> Option<(bool, bool, bool)> {
-        super::listed(Role::Unit, marks).map(|l| (l.seed, l.cites_seed, l.changed))
+    /// The claim: `work.txt` gives its subjects in its order, its `work` lines skipped, and refuses
+    /// any other line, a subject that is no id, and a subject listed twice. Mutations checked, in
+    /// `parse_work`: the arm `Some(s) if subjects.iter().any(|t| t == s) => {` made
+    /// `Some(s) if false => {`, which lists the subject twice; `Some(s) if
+    /// crate::model::table::is_entry_id(s) =>` made `Some(s) if true =>`; and
+    /// `if line.starts_with("work ") {` made `if line.starts_with("work") {`, which skips a line
+    /// `workers`; each caught.
+    #[test]
+    fn the_work_file_gives_each_subject_once_and_refuses_any_other_line() {
+        assert_eq!(
+            parse_work("work /a/draft.md\nsubject one-thread\nsubject two-thread\n"),
+            Ok(vec!["one-thread".to_string(), "two-thread".to_string()])
+        );
+        assert_eq!(
+            parse_work("subject one-thread\nsubject one-thread\n"),
+            Err(":2: the subject one-thread is listed twice".to_string())
+        );
+        for refused in [
+            "subject Not_an_id\n",
+            "subject one\n",
+            "workers\n",
+            "spec x.md\n",
+        ] {
+            assert_eq!(
+                parse_work(refused),
+                Err(":1: not a line `work <path>` or `subject <id>`".to_string()),
+                "{refused}"
+            );
+        }
+    }
+
+    /// The claim: the snapshot gives each entry its own text and its inbound list, read up to a
+    /// closing fence of the length that opened it, three backticks included, and refuses an entry
+    /// with one block or one cut short. Mutations checked, in `parse_snapshot`: `f.len() >= 3` made
+    /// `f.len() >= 4`, which refuses a fence of three; and `for _ in 0..2 {` made `for _ in 0..1 {`;
+    /// each caught.
+    #[test]
+    fn the_snapshot_gives_each_entry_its_two_blocks() {
+        let text = "=== x@a@b\n\n```text\nx@a@b  docs/x.md:1\n\n````\nbody\n```\n\n```text\n\
+                    referenced by nothing\n```\n\n";
+        let shown = parse_snapshot(text).expect("a snapshot");
+        assert_eq!(
+            (shown["x@a@b"].own.as_str(), shown["x@a@b"].inbound.as_str()),
+            ("x@a@b  docs/x.md:1\n\n````\nbody", "referenced by nothing")
+        );
+        let one_block = "=== x@a@b\n\n```text\nown\n```\n\n=== y@a@b\n\n```text\nown\n```\n";
+        assert!(parse_snapshot(one_block)
+            .is_err_and(|e| e.contains("x@a@b does not open its two fenced blocks")));
+        assert!(parse_snapshot("=== x@a@b\n\n```text\nown\n")
+            .is_err_and(|e| e.contains("x@a@b is cut short")));
+    }
+
+    /// A report of `lines`, closed by `closing`.
+    fn report(lines: &str, closing: &str) -> String {
+        format!("# The report of agent-1\n\nIntro.\n\n{lines}\n{closing}")
+    }
+
+    /// The snapshot of the entries `a@x@one` and `a@x@two`, each with `BODY`.
+    fn shown_ab() -> BTreeMap<String, Shown> {
+        ["a@x@one", "a@x@two"]
+            .map(|r| {
+                (
+                    r.to_string(),
+                    Shown {
+                        own: format!("{r}  docs/x.md:1\n\n{BODY}"),
+                        inbound: "referenced by nothing".to_string(),
+                    },
+                )
+            })
+            .into_iter()
+            .collect()
+    }
+
+    /// A verdict line of `reference` that passes `judge`.
+    fn passing(reference: &str) -> String {
+        format!(
+            "- {reference} | verdict: unrelated | against: - | action: none | owner-question: | \
+             quote: {QUOTE} | reason: r\n"
+        )
+    }
+
+    /// The claim: a report's verdict lines end at the first of its two closing sections, in either
+    /// order, a list item under `## Met outside the task` ahead of `## Decided` read as no verdict;
+    /// both sections are owed; each entry given owes one verdict; a `graded above` line names an
+    /// entry given; and the first line that cannot be parsed is the `Err`, by its line. Mutations
+    /// checked, in `judge_report`: `if matches!(line.trim_end(), DECIDED | MET_OUTSIDE) {` made
+    /// `if matches!(line.trim_end(), DECIDED) {`, which parses the list item and stops; and
+    /// `for section in [DECIDED, MET_OUTSIDE] {` made `for section in [MET_OUTSIDE] {`; each caught.
+    #[test]
+    fn a_report_s_verdict_lines_end_at_either_closing_section_and_owe_both() {
+        let listed: BTreeMap<String, Listed> = ["a@x@one", "a@x@two"]
+            .map(|r| (r.to_string(), plain(Role::Unit)))
+            .into_iter()
+            .collect();
+        let subjects = ["one-thread".to_string()];
+        let judged = |text: &str| {
+            judge_report(
+                "agent-1/report.md",
+                "agent-1",
+                text,
+                &listed,
+                &subjects,
+                &shown_ab(),
+            )
+        };
+        let both = format!("{}{}", passing("a@x@one"), passing("a@x@two"));
+        for closing in [
+            "## Decided\n\n- a decision\n\n## Met outside the task\n\n- a thing met\n",
+            "## Met outside the task\n\n- a thing met\n\n## Decided\n\n- a decision\n",
+        ] {
+            let (found, verdicts) = judged(&report(&both, closing)).expect("a report");
+            assert!(found.is_empty(), "{found:?}");
+            assert_eq!(verdicts.len(), 2);
+        }
+        let (found, _) = judged(&report(&both, "## Met outside the task\n")).expect("a report");
+        assert_eq!(
+            found,
+            ["agent-1/report.md  no section `## Decided`: close the report with `## Decided` then \
+              `## Met outside the task`, each empty where there is nothing"]
+        );
+        let lines = format!(
+            "{}{}- a@x@two | graded above\n- a@x@three | graded above\n",
+            passing("a@x@one"),
+            passing("a@x@one")
+        );
+        let closing = "## Decided\n\n## Met outside the task\n";
+        let (found, _) = judged(&report(&lines, closing)).expect("a report");
+        assert_eq!(
+            found,
+            [
+                "agent-1/report.md:8  a@x@three is not an entry of agent-1",
+                "agent-1/report.md  a@x@one is given 2 verdicts",
+                "agent-1/report.md  a@x@two is given to agent-1 and has no verdict",
+            ]
+        );
+        let broken = format!("{}- a@x@two | nonsense\n", passing("a@x@one"));
+        assert_eq!(
+            judged(&report(&broken, closing)).err(),
+            Some("agent-1/report.md:6".to_string())
+        );
+    }
+
+    /// The claim: each subject's verdict file holds exactly the verdicts but `unrelated` whose
+    /// `against` names it, once where it names it twice, each with its `===` line, carrying the
+    /// changed-since mark, its agent's verdict line, its entry's own text and its inbound list
+    /// fenced; a subject no verdict names gets its heading alone; `generated-lines.md` holds
+    /// exactly the entries given a verdict other than `unrelated`, `-` included, in the order of
+    /// `agents.txt`; and the counts are those of the files. Mutations checked, in `outputs`:
+    /// `if verdict.verdict == "unrelated" {` made `if false {`;
+    /// `files.iter_mut().find(|(s, _, _)| s == subject)` made `files.iter_mut().find(|_| true)`;
+    /// `for (agent, reference) in order {` made `for (agent, reference) in given.keys() {`, which
+    /// sorts `agent-10` before `agent-2`; `if changed {` made `if false {`;
+    /// `if named.contains(&subject.as_str()) {` made `if false {`; and `*count += 1;` made
+    /// `*count += 0;`; each caught.
+    #[test]
+    fn the_outputs_hold_each_subject_s_verdicts_and_the_generated_lines() {
+        let entries = [
+            ("agent-2", "d@x@one", "constrains", "a-thread", "respect"),
+            (
+                "agent-2",
+                "d@x@two",
+                "conflicts",
+                "a-thread, b-thread",
+                "check-reversal",
+            ),
+            ("agent-2", "t@x@wire", "constrains", "-", "none"),
+            ("agent-10", "d@x@three", "unrelated", "a-thread", "none"),
+            (
+                "agent-10",
+                "i@x@issue",
+                "closes",
+                "b-thread, b-thread",
+                "close-with-the-work",
+            ),
+        ];
+        let order: Vec<(String, String)> = entries
+            .iter()
+            .map(|(a, r, ..)| (a.to_string(), r.to_string()))
+            .collect();
+        let mut agents: BTreeMap<String, BTreeMap<String, Listed>> = BTreeMap::new();
+        let mut given = BTreeMap::new();
+        let mut snapshot = BTreeMap::new();
+        for (agent, reference, verdict, against, action) in entries {
+            let mut entry = plain(Role::Unit);
+            entry.changed = reference == "i@x@issue";
+            agents
+                .entry(agent.to_string())
+                .or_default()
+                .insert(reference.to_string(), entry);
+            given.insert(
+                (agent.to_string(), reference.to_string()),
+                line(verdict, against, action, QUOTE, "r"),
+            );
+            snapshot.insert(
+                reference.to_string(),
+                Shown {
+                    own: format!("{reference}  docs/x.md:1\n\n## A HEADING OF {reference}"),
+                    inbound: format!("referenced at:\n  docs/{reference}.md:3"),
+                },
+            );
+        }
+        let subjects = ["a-thread", "b-thread", "c-thread"].map(String::from);
+        let out = outputs(&order, &agents, &given, &snapshot, &subjects);
+        let file = |name: &str| {
+            out.files
+                .iter()
+                .find(|(n, _)| n == name)
+                .map(|(_, t)| t.as_str())
+                .unwrap_or_else(|| panic!("no {name}"))
+        };
+        let headed = |text: &str| -> Vec<String> {
+            text.lines()
+                .filter_map(|l| l.strip_prefix("=== "))
+                .map(String::from)
+                .collect()
+        };
+        let a = file("verdicts-a-thread.md");
+        assert_eq!(headed(a), ["d@x@one", "d@x@two"], "{a}");
+        let b = file("verdicts-b-thread.md");
+        assert_eq!(headed(b), ["d@x@two", "i@x@issue  changed-since"], "{b}");
+        assert_eq!(
+            file("verdicts-c-thread.md"),
+            "# The verdicts against `c-thread`\n"
+        );
+        assert!(
+            b.contains(&format!(
+                "agent-2: verdict: conflicts | against: a-thread, b-thread | action: \
+                 check-reversal | owner-question: | quote: {QUOTE} | reason: r\n\n```text\n\
+                 d@x@two  docs/x.md:1\n\n## A HEADING OF d@x@two\n```\n\n```text\n\
+                 referenced at:\n  docs/d@x@two.md:3\n```\n"
+            )),
+            "{b}"
+        );
+        assert_eq!(
+            file("generated-lines.md"),
+            "- `d@x@one`: constrains, respect.\n- `d@x@two`: conflicts, check-reversal.\n\
+             - `t@x@wire`: constrains, none.\n- `i@x@issue`: closes, close-with-the-work.\n"
+        );
+        assert_eq!(
+            out.counts,
+            [
+                ("a-thread".to_string(), 2),
+                ("b-thread".to_string(), 2),
+                ("c-thread".to_string(), 0)
+            ]
+        );
+        assert_eq!((out.lines, out.files.len()), (4, 4));
+    }
+
+    /// The claim: `write_all` writes every file, or, where a write fails, leaves none of those it
+    /// wrote. The write is made to fail by a name under a directory that does not exist. Mutation
+    /// checked: in `write_all`, `for (written, _) in &files[..=n] {` made
+    /// `for (written, _) in &files[..0] {`, which leaves the first file; caught.
+    #[test]
+    fn write_all_writes_every_file_or_leaves_none() {
+        let dir = std::env::temp_dir().join(format!("worklist-write-all-{}", std::process::id()));
+        let _ = std::fs::remove_dir_all(&dir);
+        std::fs::create_dir_all(&dir).expect("a directory");
+        let files = |second: &str| {
+            vec![
+                ("first.md".to_string(), "one".to_string()),
+                (second.to_string(), "two".to_string()),
+            ]
+        };
+        assert_eq!(write_all(&dir, &files("second.md")), Ok(()));
+        assert_eq!(
+            std::fs::read_to_string(dir.join("second.md"))
+                .as_deref()
+                .ok(),
+            Some("two")
+        );
+        std::fs::remove_file(dir.join("first.md")).expect("the first file removed");
+        let failed = write_all(&dir, &files("missing/second.md"));
+        assert!(
+            failed
+                .as_ref()
+                .is_err_and(|e| e.contains("missing/second.md")),
+            "{failed:?}"
+        );
+        assert!(!dir.join("first.md").exists());
+        let _ = std::fs::remove_dir_all(&dir);
     }
 }
