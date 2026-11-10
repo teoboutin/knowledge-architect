@@ -13,8 +13,8 @@ can depend on it directly to run git with the same environment; its interface is
   rules also cover.
 - **The ignore rules**: one `git check-ignore` batch for every path a caller names.
 - **The dates of a listing's last change**: one `git log` over the directories named.
-- **History**: the revisions of a range, a revision's object name, a commit's message, the main
-  worktree's path.
+- **History**: the revisions of a range, a revision's object name, a commit's message, the paths
+  a commit and the work tree differ by, untracked ones included, the main worktree's path.
 - **A snapshot**: the entries, blobs and blob bytes of one commit's tree, or of the tree git's
   index would commit, read from git objects alone.
 - **The index**: whether it differs from HEAD, its unmerged paths, and the one locked write that

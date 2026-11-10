@@ -117,14 +117,18 @@ pub struct WorklistArgs {
     )]
     pub out: Option<std::path::PathBuf>,
     /// Check the reports the agents filled in DIR, a directory `--out` wrote. It first removes
-    /// every `verdicts-*.md` and the `generated-lines.md` of DIR. Every entry an agent was given
+    /// every `verdicts-*.md`, the `generated-lines.md`, the `gaps.md` and the `fit-lines.md` of
+    /// DIR. Every entry an agent was given
     /// has one verdict line in its report, in the verdicts its register admits and the actions its
     /// verdict admits; `against` names subjects `work.txt` lists, or is `-` on `unrelated` and on
     /// `constrains` with the action `none`; the quotation is a run of at least eight whole words of
     /// the entry's own text, below its first line, or all of a shorter one; a reason is given; and
     /// a seed or an entry citing one is never `unrelated`. Each report closes with `## Decided`
     /// and `## Met outside the task`. When every report passes, it writes `verdicts-<subject>.md`
-    /// per subject and `generated-lines.md`, the lines a commit message owes.
+    /// per subject and `generated-lines.md`, the lines a commit message owes; at a design audit,
+    /// a work list `--out` wrote with `--seeds-from`, `gaps.md`, every verdict but `constrains`
+    /// and `unrelated`, and `fit-lines.md`, the lines under the plan document's citation, in place
+    /// of `generated-lines.md`.
     #[arg(long, value_name = "DIR")]
     pub verify: Option<std::path::PathBuf>,
     /// The words one agent is given at most, the work's words included; a group above what the
@@ -154,6 +158,18 @@ pub struct WorklistArgs {
         value_parser = subject_id
     )]
     pub subjects: Vec<String>,
+    /// A revision naming one commit: every entry whose file differs between it and the work tree,
+    /// an untracked file included, is marked `changed-since` in `agents.txt` and in the entries
+    /// files, a mark, not a filter. A revision git cannot resolve to one commit is refused with
+    /// git's reason, nothing written.
+    #[arg(long, value_name = "COMMIT", conflicts_with = "verify")]
+    pub since: Option<String>,
+    /// The path of a plan document, a spec, a slice's spec or a milestone document, for its
+    /// design audit: the design entries and declared-register entries its section "What is
+    /// already decided" cites become seeds, beside any `--seed`, and `--verify` writes the
+    /// audit's outputs. A path that is no plan document is refused, nothing written.
+    #[arg(long = "seeds-from", value_name = "SPEC", conflicts_with = "verify")]
+    pub seeds_from: Option<std::path::PathBuf>,
 }
 
 /// A subject of the work, checked by its form while parsing.
@@ -372,18 +388,22 @@ fn worklist_mode(args: &WorklistArgs) -> Result<WorklistMode, String> {
             seeds: args.seeds.clone(),
             work: args.work.clone(),
             subjects: args.subjects.clone(),
+            since: args.since.clone(),
+            seeds_from: args.seeds_from.clone(),
         }),
         (None, Some(dir))
             if args.seeds.is_empty()
                 && args.bound == DEFAULT_WORKLIST_BOUND
                 && args.work.is_empty()
-                && args.subjects.is_empty() =>
+                && args.subjects.is_empty()
+                && args.since.is_none()
+                && args.seeds_from.is_none() =>
         {
             Ok(WorklistMode::Verify { dir: dir.clone() })
         }
-        (None, Some(_)) => Err(
-            "`--verify` takes none of `--bound`, `--seed`, `--work` and `--subject`".to_string(),
-        ),
+        (None, Some(_)) => Err("`--verify` takes none of `--bound`, `--seed`, `--work`, \
+             `--subject`, `--since` and `--seeds-from`"
+            .to_string()),
         _ => Err("give exactly one of `--out` and `--verify`".to_string()),
     }
 }
@@ -438,6 +458,8 @@ mod tests {
             seeds: Vec::new(),
             work: Vec::new(),
             subjects: Vec::new(),
+            since: None,
+            seeds_from: None,
         }
     }
 
@@ -565,6 +587,28 @@ mod tests {
         refused_by_run(Command::Worklist(WorklistArgs {
             verify: a_dir(),
             subjects: vec!["a-subject".to_string()],
+            ..worklist_args()
+        }));
+    }
+
+    /// The claim: `run` refuses a commit of `--since` beside `--verify`. Mutation checked: the
+    /// test of `since` removed from the guard of `worklist_mode`'s `--verify` arm.
+    #[test]
+    fn run_refuses_a_worklist_value_with_a_since_beside_verify() {
+        refused_by_run(Command::Worklist(WorklistArgs {
+            verify: a_dir(),
+            since: Some("HEAD".to_string()),
+            ..worklist_args()
+        }));
+    }
+
+    /// The claim: `run` refuses a plan document of `--seeds-from` beside `--verify`. Mutation
+    /// checked: the test of `seeds_from` removed from the guard of `worklist_mode`'s `--verify` arm.
+    #[test]
+    fn run_refuses_a_worklist_value_with_a_seeds_from_beside_verify() {
+        refused_by_run(Command::Worklist(WorklistArgs {
+            verify: a_dir(),
+            seeds_from: Some(std::path::PathBuf::from("s.md")),
             ..worklist_args()
         }));
     }

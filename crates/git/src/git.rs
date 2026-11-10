@@ -493,6 +493,42 @@ pub fn rev_list(root: &Path, range: &str) -> io::Result<Vec<String>> {
         .collect())
 }
 
+/// The paths under `root` that one commit and the work tree differ by, relative to `root`, sorted,
+/// each once: every path whose content, mode or presence differs between the commit's tree and the
+/// work tree, a deleted path and a path staged and never committed included, and every untracked
+/// path git does not ignore.
+///
+/// `commit` is any revision that names one commit; a range, a revision naming no commit, or one
+/// git cannot read is an `Err` carrying git's reason, per `design@git@failed-git-is-an-error`,
+/// since a caller that marks what changed reads an empty answer as nothing changed. A rename is
+/// its two paths, the old and the new, whether git would pair them or not.
+pub fn paths_changed_since(root: &Path, commit: &str) -> io::Result<Vec<PathBuf>> {
+    // Resolved first, to one commit: `git diff` reads `A..B` as a diff between two commits and a
+    // tree as a tree, either of which would answer another question with no error.
+    // `--end-of-options`, so a revision that starts with `-` is read as one, never as an option.
+    let resolved = git(root)
+        .args(["rev-parse", "--verify", "--end-of-options"])
+        .args([format!("{commit}^{{commit}}")])
+        .output()?;
+    let sha = String::from_utf8_lossy(&resolved).trim().to_string();
+    // `--no-renames`, so a rename is its two paths whatever `diff.renames` says; `--relative`, so
+    // a project in a subdirectory of its repository gets its own paths, relative to it. Without a
+    // second revision `git diff` compares the commit with the work tree, for the paths the index
+    // holds; the untracked paths are `ls-files --others`, which the diff never lists.
+    let mut out = git(root)
+        .args(["diff", "--name-only", "-z", "--no-renames", "--relative"])
+        .args([sha.as_str(), "--"])
+        .paths()?;
+    out.extend(
+        git(root)
+            .args(["ls-files", "-z", "--others", "--exclude-standard"])
+            .paths()?,
+    );
+    out.sort();
+    out.dedup();
+    Ok(out)
+}
+
 /// Where `root` sits in the repository's main working tree, when `root` lies in a linked worktree:
 /// the same path relative to the main working tree's top, or `None` in the main working tree, in a
 /// repository whose common directory is not a `.git` directory, or where git cannot say.
