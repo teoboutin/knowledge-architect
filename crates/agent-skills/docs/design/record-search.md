@@ -81,7 +81,7 @@ any other entry; `new-argument-needed` for `brings-back`; `close-with-the-work` 
 the work meets. `against` names the subjects of the work the verdict is against, or `-` on
 `unrelated`, and on `constrains` with the action `none`. Each line carries a quotation, per
 `design@agent-skills@every-verdict-quotes-its-entry`, and a reason of one line. An entry that is or
-cites a seed is never `unrelated`, per `design@agent-skills@a-seed-s-citer-is-never-unrelated`. The
+cites a seed is never `unrelated`, per `design@agent-skills@a-seed-and-its-citers-are-never-unrelated`. The
 report closes with `## Decided` and `## Met outside the task`.
 `klarch worklist --verify` checks what a command can, per
 `design@query@worklist-writes-and-verifies-the-reports`; the session acts on each verdict by its
@@ -101,21 +101,36 @@ rival, grades of how closely an entry bears whose entries the session reads whol
 `rejected@agent-skills@relevance-grades-read-by-the-session`. What a search still misses, its checks
 holding nothing of its judgement, is what `tripwire@agent-skills@record-search-misses` watches.
 
-### An entry that is or cites a seed is never `unrelated`, so the record of its occasion holds a line for it `##a-seed-s-citer-is-never-unrelated`
+### A seed and an entry that cites one are never `unrelated`, so each takes a generated line `##a-seed-and-its-citers-are-never-unrelated`
 
-A seed is a decision the work rests on or may change, per `design@agent-skills@seeds-name-decisions`.
-An entry that is or cites one is never given `unrelated`: where nothing in the work meets it, it is
-`constrains`, action `none`, `against: -`, its reason naming the seed, and `klarch worklist --verify`
-refuses `unrelated` on it, per `design@query@worklist-writes-and-verifies-the-reports`.
+An entry that is a seed, or cites one, is never given `unrelated`: where nothing in the work meets
+it, it is `constrains`, action `none`, `against: -`, its reason naming the seed, and
+`klarch worklist --verify` refuses `unrelated` on it, per
+`design@query@worklist-writes-and-verifies-the-reports`. So its line enters the lines
+`klarch worklist --verify` writes, per `design@query@occasion-shaped-output`, while an `unrelated`
+verdict enters none:
 
-The argument: an entry that cites a seed stands on a decision the session named as moved or relied
-on by the work, so a judgement that the work meets nothing in it is a claim a later reader checks
-only if it is recorded; an `unrelated` verdict enters no verdict file and no generated line, per
-`design@query@occasion-shaped-output`, while a `constrains` verdict enters the generated lines and
-the outcomes the occasion records. The nearest rival, a seed's citer graded like any other entry,
-leaves that judgement in the searcher's report alone, which the session does not read. Its cost is a
-line per citer of every seed, which `design@agent-skills@seeds-name-decisions` keeps down by seeding
-decisions alone, never a goal.
+- at the design grounding, `generated-lines.md`, which the commit message carries on the in-change
+  path and for bounded work, and whose entries the plan document's "What is already decided" gives
+  an outcome on the full path, per `design@agent-skills@session-acts-on-the-verdicts`;
+- at the design audit, `fit-lines.md`, which the audit's commit message carries, per
+  `design@agent-skills@design-audit-checks-fit`;
+- at an intake, `generated-lines.md`, which the session reads; a line `against: -` names no cluster
+  and no finding, so no analysis carries it.
+
+It serves `goal@agent-skills@session-orchestrates-the-work`, under which a dispatched agent reports
+its conclusions "in a form that names what it considered and can be checked without doing the work
+again". A seed is an entry the session named as one the work rests on or may change, per
+`design@agent-skills@seeds-name-decisions`, so an `unrelated` verdict on it would contradict the
+session's own naming with no line to show it: as `constrains`, action `none`, the line tells the
+session that the work meets nothing in the seed, and the session keeps the seed or drops it. An
+entry that cites a seed stands on that decision, so a judgement that the work meets nothing in it is
+a claim the occasion's record shows only as such a line. The nearest rival, a seed and its citers
+graded like any other entry, leaves that judgement in the verdict lines of the searcher's report
+alone, which the session does not read, since it reads the verdict files and the generated lines.
+Its cost is a line per citer of every seed: the design grounding and the design audit seed no goal,
+which many entries cite, per `design@agent-skills@seeds-name-decisions`, while the intake seeds the
+goals and the design heads its findings name.
 
 ### A verdict states the searcher's conclusion, never a condition, and what only the owner answers goes in its `owner-question` `##verdict-states-a-conclusion`
 
@@ -261,7 +276,7 @@ the drafted shapes rest on or may change. The design audit of a slice or a spec 
 `--seeds-from` its spec, `design@query@seeds-from-the-plan-s-decided-section`: the design entries
 and the declared-register entries the spec's section "What is already decided" cites, for a slice
 its own spec and not the milestone document. Neither seeds a goal. An entry that is or
-cites a seed is never `unrelated`, per `design@agent-skills@a-seed-s-citer-is-never-unrelated`, so each entry citing a
+cites a seed is never `unrelated`, per `design@agent-skills@a-seed-and-its-citers-are-never-unrelated`, so each entry citing a
 seed takes a line among the generated lines and the outcomes its occasion records. A goal is such a
 seed, cited by many entries: it is graded by a goal agent and reaches every cluster agent it binds by
 its title line already, per `design@query@goal-context-once`, and the session reads the goals homes

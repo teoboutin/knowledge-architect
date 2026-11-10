@@ -493,7 +493,8 @@ the session withdrew the field for `owner-question` (`argument@record-search-ver
 owner, round 17: "verdict-report agreed." Members from the second search
 (`argument@record-search-verdicts@arg-50`) and from this spec's first review. State: `approved`,
 round 20. Section: "Decided design". Harvest: `search-relevance-grade` (`design@agent-skills@verdict-report`,
-`design@agent-skills@verdict-states-a-conclusion`, `design@agent-skills@every-verdict-quotes-its-entry`),
+`design@agent-skills@verdict-states-a-conclusion`, `design@agent-skills@every-verdict-quotes-its-entry`,
+`design@agent-skills@a-seed-and-its-citers-are-never-unrelated`),
 `may-bear-read-on-touch` (`design@agent-skills@session-acts-on-the-verdicts`), `design@agent-skills@one-record-searcher`,
 `unread-entries-reach-the-conformance-review` (`design@agent-skills@verdicts-reach-the-conformance-review`),
 `design@query@worklist-writes-and-verifies-the-reports`, `graded-entries-assembled` (`design@query@occasion-shaped-output`).
