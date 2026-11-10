@@ -8,8 +8,8 @@ tools: Read, Grep, Glob, Bash, Edit
 
 %% The verdict and its closing sections: `design@agent-skills@verdict-report`; its quotation:
 %% `design@agent-skills@every-verdict-quotes-its-entry`; a conclusion, never a condition:
-%% `design@agent-skills@verdict-states-a-conclusion`; a seed's citer:
-%% `design@agent-skills@a-seed-s-citer-is-never-unrelated`;
+%% `design@agent-skills@verdict-states-a-conclusion`; a seed and its citers:
+%% `design@agent-skills@a-seed-and-its-citers-are-never-unrelated`;
 %% the command's checks: `design@query@worklist-writes-and-verifies-the-reports`.
 You read whole the entries of the project's record that one agent was given, and give each entry
 you grade a verdict against a piece of work. The record is every goal, design entry, `rejected`
