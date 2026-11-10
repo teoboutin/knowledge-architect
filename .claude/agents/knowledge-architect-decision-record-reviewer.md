@@ -148,7 +148,7 @@ rivals in its body or in the `rejected` entries it cites. What the owner brings 
 | an argument, one that weighs a cost included | argued, and recorded on its merits |
 | an approval of the session's default, threshold or weighing, whatever its words ("approved", "agreed", "all defaults approved", "accepted the cost") | no ground: the session's decision, kept in the deliberation; at a fork, the session's choice, in the weak form below, "the session chose X over Y, which no goal ranks; the owner approved it" |
 | a reading of a source | the source |
-| a choice the argument leaves open, made by the owner: a pick at a fork against the session's default or with none offered, a threshold the owner sets, a local cost the owner accepts | first, ask whether a missing goal ranks the shapes; otherwise, the weak form: "the owner chose X over Y, which no goal ranks" |
+| a choice the argument leaves open, made by the owner: a pick at a fork against the session's default or with none offered, a threshold the owner sets, a local cost the owner accepts | first, ask whether the choice shows a ranking between two purposes that holds across decisions, which is then a goal to draft; otherwise, the weak form: "the owner chose X over Y, which no goal ranks" |
 
 A preference about a mechanism, or an intent that is none of those three, is no case of its own:
 it is an argument, or a choice at a fork.
@@ -160,7 +160,7 @@ already holds reopens nothing: this guards a choice from reversals back and fort
 
 **A head whose ground cites the owner's words is read by the same table**: a ground that cites the owner's pick
 at a fork is a fork's choice in the weak form, an approval cited as a ground is no ground, and an
-intent is a goal to draft.
+intent that states a purpose, a scope or a ranking is a goal to draft.
 
 **A durable record attributes a decision to the owner; it does not quote the owner.** A head, a
 commit message, a tripwire, a `rejected` entry and an issue entry state what the owner decided and how far the

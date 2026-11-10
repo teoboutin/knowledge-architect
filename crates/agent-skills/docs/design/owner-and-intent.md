@@ -154,11 +154,16 @@ owner brings lands by its kind, as the head-ground fragment's table states:
 - an argument, one that weighs a cost included, is argued and recorded on its merits;
 - an approval of the session's default, threshold or weighing is no ground;
 - a reading of a source is the source;
-- a choice the argument leaves open is first asked whether a missing goal ranks its shapes, and is
-  otherwise a fork's choice, recorded per `design@agent-skills@fork-choice-in-weak-form`.
+- a choice the argument leaves open is first asked whether it shows a ranking between two purposes
+  that holds across decisions, which is then a goal to draft, and is otherwise a fork's choice,
+  recorded per `design@agent-skills@fork-choice-in-weak-form`. The owner chose this over a pick at a
+  fork always recorded in the weak form, which no goal ranks: the first question keeps a route to a
+  ranking, and no goal is proposed to settle one fork, per
+  `design@agent-skills@a-goal-is-a-purpose-the-project-exists-for`.
 
-A preference about a mechanism is no case of its own: it is an argument, or a choice at a fork. A
-head whose ground cites the owner's words is read by the same table.
+A preference about a mechanism, or an intent that is none of the three kinds, is no case of its
+own: it is an argument, or a choice at a fork. A head whose ground cites the owner's words is read
+by the same table.
 
 An intent and an argument are told apart by two things a session can establish: the statement's
 role in the decision, an outcome to reach or a reason for one shape over its rival, and whether a
