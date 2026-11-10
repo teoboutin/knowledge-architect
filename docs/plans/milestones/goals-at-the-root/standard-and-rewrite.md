@@ -127,9 +127,34 @@ the standard's test.
   trigger of `issue@check@configuration-for-several-agent-providers` if it changes what the goal
   asks.
 - `spec@plans@path-quickfixes`, another plan document, which cites heads this milestone rewrites.
-- Two stale quotations of a goal, each fixed where its head is rewritten:
+- A stale quotation of a goal, fixed where its head is rewritten:
   `design@agent-skills@plan-read-against-the-record` quotes the drift goal's measure as "a rejected
   design brought back", where the goal reads "a design not kept brought back".
+
+- Items the searchers of the two searches met, which their generated lines do not carry:
+  - eight goals homes of Components open with a sentence "Every goal here serves one purpose", and
+    the root's defines its terms "for the goals of this home and of every Component": the one pass
+    says what becomes of each text above a home's first goal;
+  - `rejected@agent-skills@module-directory-component` and
+    `design@agent-skills@component-crate-mapping` refuse a Component that is a module directory
+    inside a crate, which the drafting of a wider goal on modular units reads first;
+  - `design@agent-skills@ruled-items-labelled` lists no label prefix for a file of
+    `path@knowledge-architect@docs/goal-reviews/`, and the analysis is such a file whose items the
+    owner rules;
+  - `issue@create@init-outside-a-worktree-deletes-an-owned-file-silently` says two heads of
+    `create` conflict with a goal; if that goal becomes a head, the conflict is between heads,
+    which `primer@goals-bind` no longer ranks;
+  - `issue@check@a-staged-check-compares-installed-files-with-unstaged-shipped-text`: the slice
+    edits several installed texts, and meets that defect if it stages them one pair at a time;
+  - `issue@agent-skills@a-comment-line-may-copy-the-argument-of-the-head-it-cites` names as an
+    instance a comment above the standard in the goal-setting skill's source, which a searcher did
+    not find there;
+  - the words "rules out what the owner has not ruled out knowingly" of the planning skill read
+    close to the name of the cases block that leaves.
+- The measure of `goal@agent-skills@session-orchestrates-the-work` names questions of the
+  retrospective that the retrospective skill does not hold: a search of its source for "spent its
+  context" finds nothing. That sentence is no shape a text already holds, so it does not go
+  nowhere by the first row of the second mapping table.
 
 ## Fails alone on
 
