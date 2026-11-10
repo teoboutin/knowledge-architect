@@ -160,8 +160,9 @@ pub struct WorklistArgs {
     pub subjects: Vec<String>,
     /// A revision naming one commit: every entry whose file differs between it and the work tree,
     /// an untracked file included, is marked `changed-since` in `agents.txt` and in the entries
-    /// files, a mark, not a filter. A revision git cannot resolve to one commit is refused with
-    /// git's reason, nothing written.
+    /// files, a mark, not a filter. A revision git cannot resolve to one commit, or a failure of
+    /// git asked what changed since it or for its message, is refused with git's reason, nothing
+    /// written. The work list names the commit by its subject.
     #[arg(long, value_name = "COMMIT", conflicts_with = "verify")]
     pub since: Option<String>,
     /// The path of a plan document, a spec, a slice's spec or a milestone document, for its

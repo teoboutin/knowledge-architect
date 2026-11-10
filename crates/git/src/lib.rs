@@ -7,7 +7,8 @@
 //! Every function that asks git runs it as a child process, with the directory it is given as its
 //! working directory; [`ignore_query`] and [`object_name`] only build an argument. Every question
 //! but [`inside_work_tree`] and [`init_repository`] needs that directory inside a git worktree,
-//! whose `.git` sits at or above it, and [`blobs`] and [`blob_bytes`] need `git` 2.36 or newer.
+//! whose `.git` sits at or above it; [`blobs`] and [`blob_bytes`] need `git` 2.36 or newer, and
+//! [`commit_of`] and [`paths_changed_since`] 2.30 or newer.
 //! Whatever the caller's environment names, every invocation runs with the per-user ignore file
 //! pointed at the null device and without the variables that would point git at another
 //! repository, and keeps `GIT_INDEX_FILE`, so a pre-commit hook reads the index its commit
@@ -42,7 +43,7 @@ const _: Option<&str> = option_env!("KNOWLEDGE_ARCHITECT_CHECKOUT");
 mod git;
 
 pub use git::{
-    blob_bytes, blobs, commit_message, entries, git, ignore_query, ignored, ignores,
+    blob_bytes, blobs, commit_message, commit_of, entries, git, ignore_query, ignored, ignores,
     index_differs_from_head, init_repository, inside_work_tree, last_changed, main_worktree_path,
     object_name, paths_changed_since, rev_list, rev_parse, snapshot_entries, stage_generated,
     tracked_and_ignored, unmerged, Entry, EntryKind, Invocation, SnapshotEntry, Source,

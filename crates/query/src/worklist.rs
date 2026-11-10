@@ -30,8 +30,8 @@ const REPORT_FILE: &str = "report.md";
 /// given it, so an agent's load is its entries file alone.
 const SHOWN_FILE: &str = "shown.md";
 /// The work of the search and its subjects, for the searchers, the session that dispatches them
-/// and `--verify`, which takes the subjects from it, and, at a design audit, the plan document and
-/// the commit `--since` names, as [`work_text`] writes it.
+/// and `--verify`, which takes the subjects from it; at a design audit, the plan document; and,
+/// wherever `--since` is given, the subject of the commit it names; as [`work_text`] writes it.
 const WORK_FILE: &str = "work.txt";
 /// The one subject of a work for which no subject is named.
 const WHOLE_WORK: &str = "whole-work";
@@ -95,15 +95,19 @@ pub enum WorklistMode {
         /// A revision naming one commit: every entry whose file differs between that commit and
         /// the work tree, an untracked file included, is marked `changed-since` in `agents.txt`
         /// and in the entries files. A mark, never a filter. A revision git cannot resolve to
-        /// one commit refuses the run with git's reason, nothing written.
+        /// one commit, and a failure of git asked what changed since it or that commit's
+        /// message, refuses the run with git's reason, nothing written. The commit is asked for
+        /// by its full object name once resolved, so a revision that is also the name of a path
+        /// is read as the revision.
         since: Option<String>,
         /// A plan document, a spec, a slice's spec or a milestone document, by its path, a
         /// relative one read from the working directory: the design entries and the entries of
         /// declared registers that its section "What is already decided" cites are added to the
         /// seeds, none where it holds no such section. It makes the run a design audit: `work.txt`
         /// names the plan document, and `Verify` writes `gaps.md` and `fit-lines.md` in place of
-        /// `generated-lines.md`. A path that is no plan document of the project refuses the run,
-        /// nothing written.
+        /// `generated-lines.md`. A path that is no plan document of the project, or a path of the
+        /// plan document or of a file of the work holding a line break, refuses the run, nothing
+        /// written.
         seeds_from: Option<PathBuf>,
     },
     /// Check the reports the agents filled in `dir`, a directory `Write` wrote, against its
@@ -123,13 +127,15 @@ pub enum WorklistMode {
 ///
 /// - under `WorklistMode::Write`, an incomplete model, a directory inside the project or not
 ///   empty, a seed naming no entry, a file of the work it cannot read, a `since` git cannot
-///   resolve to one commit or a failure of git asked what changed since it, or a `seeds_from`
-///   that is no plan document, nothing written, and a write that failed, the files before it
-///   left in place;
+///   resolve to one commit or a failure of git asked what changed since it or for its message, a
+///   `seeds_from` that is no plan document, or a file of the work or a plan document whose path
+///   holds a line break, nothing written, and a write that failed, the files before it left in
+///   place;
 /// - under `WorklistMode::Verify`, a file of the work list it cannot read or parse: `agents.txt`;
 ///   `work.txt`, with a line other than `work`, `subject`, `spec` and `since` lines, a subject that
-///   is no id or one listed twice, or a `spec` or `since` line given twice; `shown.md`, cut short, an entry lacking one of its two blocks, or lacking an
-///   entry `agents.txt` lists; a report, or a report line it cannot parse; and a removal or a
+///   is no id or one listed twice, a `spec` line that is not a citation then a path, or a `spec`
+///   or `since` line given twice; `shown.md`, cut short, an entry lacking one of its two blocks,
+///   or lacking an entry `agents.txt` lists; a report, or a report line it cannot parse; and a removal or a
 ///   write that failed. Nothing is judged where one of the first three stops it, and no verdict
 ///   file and no generated line is left in any case.
 ///
@@ -167,7 +173,8 @@ pub fn worklist(
     }
 }
 
-/// What `WorklistMode::Write` asks, borrowed.
+/// What `WorklistMode::Write` asks, borrowed: one argument of `write`, whose nine would exceed
+/// the seven clippy's `too_many_arguments` admits, which the clippy gate refuses.
 struct Asked<'a> {
     dir: &'a Path,
     bound: usize,
@@ -265,9 +272,11 @@ fn write(manifest: &Manifest, asked: &Asked, checker: &[&Path]) -> Result<ExitCo
                 .strip_prefix(&root)
                 .ok()
                 .and_then(|rel| Some((plan_citation(&entities, rel)?, rel)));
+            refuse_a_line_break("--seeds-from", &real)?;
             let Some((citation, rel)) = found else {
                 return Err(format!(
-                    "--seeds-from {}: no plan document of the project, a spec, a slice's spec or                      a milestone document, is at that path. Nothing was written.",
+                    "--seeds-from {}: no plan document of the project, a spec, a slice's spec or \
+                     a milestone document, is at that path. Nothing was written.",
                     path.display()
                 ));
             };
@@ -276,15 +285,9 @@ fn write(manifest: &Manifest, asked: &Asked, checker: &[&Path]) -> Result<ExitCo
                 .iter()
                 .find(|d| d.rel == rel)
                 .and_then(|d| decided_references(d, &anchors));
-            let mut taken = 0;
-            for reference in decided.iter().flatten() {
-                if let Some(&i) = index.get(reference.as_str()) {
-                    if graph.entries[i].role == Role::Unit && seeds.insert(i) {
-                        taken += 1;
-                    }
-                }
-            }
-            Some((citation, real, decided.is_some(), taken))
+            let taken = decided_seeds(&graph, &index, decided.as_deref().unwrap_or_default());
+            seeds.extend(&taken);
+            Some((citation, real, decided.is_some(), taken.len()))
         }
     };
 
@@ -295,18 +298,12 @@ fn write(manifest: &Manifest, asked: &Asked, checker: &[&Path]) -> Result<ExitCo
     let mut since_subject: Option<String> = None;
     if let Some(commit) = since {
         let refused = |e: std::io::Error| format!("--since {commit}: {e}. Nothing was written.");
-        let paths: BTreeSet<PathBuf> = crate::git::paths_changed_since(manifest.root(), commit)
-            .map_err(refused)?
-            .into_iter()
-            .collect();
-        changed = graph
-            .entries
-            .iter()
-            .enumerate()
-            .filter(|(_, e)| paths.contains(&e.record.site.file))
-            .map(|(i, _)| i)
-            .collect();
-        let message = crate::git::commit_message(manifest.root(), commit).map_err(refused)?;
+        // Every later question names the commit by its full object name, which git never reads
+        // as a path, where the caller's revision may also name one.
+        let sha = crate::git::commit_of(manifest.root(), commit).map_err(refused)?;
+        let paths = crate::git::paths_changed_since(manifest.root(), &sha).map_err(refused)?;
+        changed = changed_entries(&graph, &paths);
+        let message = crate::git::commit_message(manifest.root(), &sha).map_err(refused)?;
         since_subject = Some(subject_of(&message));
     }
 
@@ -324,6 +321,7 @@ fn write(manifest: &Manifest, asked: &Asked, checker: &[&Path]) -> Result<ExitCo
             )
         })?;
         let real = absolute(path)?;
+        refuse_a_line_break("the file of the work", &real)?;
         if work_paths.contains(&real) {
             continue;
         }
@@ -513,8 +511,10 @@ fn work_text(
     out
 }
 
-/// A commit's subject, as git's `%s` gives it: the message's first paragraph, its lines joined by
-/// one space.
+/// A commit's subject: the message's first paragraph, its lines joined by one space, as git's `%s`
+/// joins them, each line trimmed, where `%s` keeps a line's leading whitespace. The subject is
+/// written into one line of `work.txt` and quoted in `fit-lines.md`, where that whitespace would
+/// carry nothing a reader can see in the commit's log line.
 fn subject_of(message: &str) -> String {
     message
         .lines()
@@ -523,6 +523,52 @@ fn subject_of(message: &str) -> String {
         .take_while(|l| !l.is_empty())
         .collect::<Vec<_>>()
         .join(" ")
+}
+
+/// Refuse a path `work.txt` would write that holds a line break, named as `what`.
+///
+/// `work.txt` is one line per item, a path being the rest of its line, and is read as it is by the
+/// searchers and the session as well as by `--verify`: a line break in a path would end its line
+/// early, and an escaped form would give an agent a path that names no file unless it undoes the
+/// escape. So such a path is refused before anything is written, where an escape would be owed by
+/// every reader.
+fn refuse_a_line_break(what: &str, path: &Path) -> Result<(), String> {
+    if path.as_os_str().to_string_lossy().contains(['\n', '\r']) {
+        return Err(format!(
+            "{what} {}: its path holds a line break, which `{WORK_FILE}` cannot list, one item \
+             per line. Nothing was written.",
+            path.display()
+        ));
+    }
+    Ok(())
+}
+
+/// The entries `references` names that are seeds of a design audit: each that is an entry of the
+/// record of the role `unit`, a design entry or an entry of a declared register, by index. A
+/// reference that names no entry of the record, the checker's finding, gives none.
+fn decided_seeds(
+    graph: &Graph,
+    index: &BTreeMap<String, usize>,
+    references: &[String],
+) -> BTreeSet<usize> {
+    references
+        .iter()
+        .filter_map(|r| index.get(r.as_str()).copied())
+        .filter(|&i| graph.entries[i].role == Role::Unit)
+        .collect()
+}
+
+/// The entries whose own file is one of `paths`, by index: an entry's file alone is compared,
+/// never code, per `design@query@record-is-every-register-entry`.
+fn changed_entries(graph: &Graph, paths: &[PathBuf]) -> BTreeSet<usize> {
+    let paths: BTreeSet<&PathBuf> = paths.iter().collect();
+    graph
+        .entries
+        .iter()
+        .enumerate()
+        .filter(|(_, e)| paths.contains(&e.record.site.file))
+        .map(|(i, _)| i)
+        .collect()
 }
 
 /// The level and the text of a heading, or `None` for any other observation.
@@ -1092,9 +1138,10 @@ struct Work {
 /// What a `work.txt` of text `text` holds, as [`work_text`] writes it, or `Err` with `:<line>: `
 /// and what is wrong there.
 ///
-/// A line is `work <path>`, which `--verify` does not read, `subject <id>`, `spec <citation>
-/// <path>` or `since <subject>`. Any other line, a subject that is no id in the grammar of an
-/// entry id, a subject listed twice, and a second `spec` or `since` line are refused, since a
+/// A line is `work <path>`, which `--verify` does not read, `subject <id>`,
+/// `spec <citation> <path>` or `since <subject>`. Any other line, a subject that is no id in the
+/// grammar of an entry id, a subject listed twice, a `spec` line that is not a citation
+/// `<kind>@<anchor>@<id>` then a path, and a second `spec` or `since` line are refused, since a
 /// subject names a file `--verify` writes: a subject listed twice would name one file twice, whose
 /// second write would hold none of the first's verdicts; and of two plan documents or two commits
 /// neither could be told to be the audit's. `--out` writes each subject once, as an id `cli`
@@ -1107,7 +1154,18 @@ fn parse_work(text: &str) -> Result<Work, String> {
             continue;
         }
         if let Some(rest) = line.strip_prefix("spec ") {
-            let citation = rest.split(' ').next().unwrap_or_default();
+            // A citation, `<kind>@<anchor>@<id>`, holding no space, then a path, as `work_text`
+            // writes it; anything else is no line `--out` wrote.
+            let citation = match rest.split_once(' ') {
+                Some((c, path))
+                    if c.split('@').count() == 3
+                        && c.split('@').all(|part| !part.is_empty())
+                        && !path.is_empty() =>
+                {
+                    c
+                }
+                _ => return Err(format!(":{at}: not a line `spec <citation> <path>`")),
+            };
             if work.spec.is_some() {
                 return Err(format!(":{at}: a second `spec` line"));
             }
@@ -1589,8 +1647,10 @@ mod tests {
     /// then the `--since` commit's subject, after the subjects, and `parse_work` reads them back,
     /// the path and the subject holding spaces. Mutations checked: in `work_text`,
     /// `if let Some((citation, path)) = plan {` made `... = plan.filter(|_| false) {`, which
-    /// writes no `spec` line, and in `parse_work`,
-    /// `work.spec = Some(citation.to_string());` made `work.spec = None;`; each caught.
+    /// writes no `spec` line, and `if let Some(subject) = since {` made
+    /// `... = since.filter(|_| false) {`, which writes no `since` line; in `parse_work`,
+    /// `work.spec = Some(citation.to_string());` made `work.spec = None;`, and
+    /// `work.since = Some(subject.to_string());` made `work.since = None;`; each caught.
     #[test]
     fn the_work_file_names_the_audit_s_plan_document_and_commit() {
         let text = work_text(
@@ -1641,6 +1701,133 @@ mod tests {
         let anchors = Anchors::of(&manifest, &paths);
         let entities = Entities::build(&model, &anchors);
         (model, anchors, entities)
+    }
+
+    /// The record of `table_of`'s manifest used by the tests of the seeds, the marks and the
+    /// rendering: two heads under two subjects, the second citing the first, a goal and a rule.
+    fn small_graph() -> (Graph, BTreeMap<String, usize>) {
+        let (model, anchors, entities) = table_of(&[
+            (
+                "docs/design.md",
+                "# Design\n\n## First\n\n### One head `##h-one`\n\nOne.\n\n## Second\n\n\
+                 ### Two head `##h-two`\n\nIt cites `design@a-project@h-one`.\n",
+            ),
+            (
+                "docs/goals.md",
+                "# Goals\n\n## A goal `##a-goal`\n\nThe goal.\n",
+            ),
+            (
+                "notes/rules.md",
+                "# Rules\n\n## A rule `##a-rule`\n\nThe rule.\n",
+            ),
+        ]);
+        let graph = graph::graph(&model, &anchors, &entities);
+        let index = graph
+            .entries
+            .iter()
+            .enumerate()
+            .map(|(i, e)| (e.reference(), i))
+            .collect();
+        (graph, index)
+    }
+
+    /// The references of `set`, sorted.
+    fn references_of(graph: &Graph, set: &BTreeSet<usize>) -> Vec<String> {
+        let mut out: Vec<String> = set.iter().map(|&i| graph.entries[i].reference()).collect();
+        out.sort();
+        out
+    }
+
+    /// The claim: the seeds of a decided section are the design entries and the declared-register
+    /// entries it names, never a goal, and nothing for a reference to no entry. Mutation checked,
+    /// in `decided_seeds`: `.filter(|&i| graph.entries[i].role == Role::Unit)` made
+    /// `.filter(|_| true)`, which takes the goal; caught.
+    #[test]
+    fn a_decided_section_seeds_its_design_and_declared_entries_alone() {
+        let (graph, index) = small_graph();
+        let named = [
+            "design@a-project@h-two",
+            "goal@a-project@a-goal",
+            "rule@notes@a-rule",
+            "design@a-project@nowhere",
+        ]
+        .map(String::from);
+        assert_eq!(
+            references_of(&graph, &decided_seeds(&graph, &index, &named)),
+            ["design@a-project@h-two", "rule@notes@a-rule"]
+        );
+    }
+
+    /// The claim: the changed entries are exactly those whose own file is a changed path. Mutation
+    /// checked, in `changed_entries`: `paths.contains(&e.record.site.file)` made
+    /// `!paths.contains(&e.record.site.file)`; caught.
+    #[test]
+    fn the_changed_entries_are_those_of_the_changed_files() {
+        let (graph, _) = small_graph();
+        let changed = |paths: &[&str]| {
+            let paths: Vec<PathBuf> = paths.iter().map(PathBuf::from).collect();
+            references_of(&graph, &changed_entries(&graph, &paths))
+        };
+        assert_eq!(
+            changed(&["docs/design.md", "src/lib.rs"]),
+            ["design@a-project@h-one", "design@a-project@h-two"]
+        );
+        assert_eq!(changed(&["notes/rules.md"]), ["rule@notes@a-rule"]);
+        assert!(changed(&[]).is_empty());
+    }
+
+    /// The claim: a changed entry is marked `changed-since` after its seed mark in `agents.txt`,
+    /// on its `===` line where its agent grades it, and on its `===` line where another agent is
+    /// given it as a context entry; an entry that did not change is marked nowhere. Mutations
+    /// checked: in `render`, the push of the mark in `agents.txt` made `let _ = &mut mark;`, and
+    /// the context entries' `changed.contains(&i)` made `false`; in `entry_block`, `if changed {`
+    /// made `if false {`; each caught.
+    #[test]
+    fn a_changed_entry_is_marked_wherever_an_entries_file_gives_it() {
+        let (graph, index) = small_graph();
+        let holding = |reference: &str| {
+            graph
+                .groups
+                .iter()
+                .position(|g| g.entries.contains(&index[reference]))
+                .expect("a group")
+        };
+        let agents = vec![
+            vec![holding("design@a-project@h-one")],
+            vec![holding("design@a-project@h-two")],
+        ];
+        let seeds: BTreeSet<usize> = [index["design@a-project@h-one"]].into();
+        let changed: BTreeSet<usize> = [index["design@a-project@h-one"]].into();
+        let files = render(&graph, &agents, &seeds, &changed, &["whole-work"]);
+        let file = |name: &str| {
+            &files
+                .iter()
+                .find(|(p, _)| p == Path::new(name))
+                .expect(name)
+                .1
+        };
+        let list = file("agents.txt");
+        assert!(
+            list.contains("agent-1 unit design@a-project@h-one seed changed-since\n"),
+            "{list}"
+        );
+        assert!(
+            list.contains("agent-2 unit design@a-project@h-two cites-seed\n"),
+            "{list}"
+        );
+        let marked = |text: &str| -> Vec<String> {
+            text.lines()
+                .filter(|l| l.starts_with("=== ") && l.ends_with("  changed-since"))
+                .map(|l| l.split("  ").next().expect("a reference").to_string())
+                .collect()
+        };
+        assert_eq!(
+            marked(file("agent-1/entries.md")),
+            ["=== design@a-project@h-one"]
+        );
+        let second = file("agent-2/entries.md");
+        assert!(second.contains("## Context entries"), "{second}");
+        assert_eq!(marked(second), ["=== design@a-project@h-one"], "{second}");
     }
 
     /// The claim: a plan document is found by its file, a spec of the plans directory, a slice's
@@ -1945,8 +2132,13 @@ mod tests {
     }
 
     /// The claim: `work.txt` gives its subjects in its order, its `work` lines skipped, and refuses
-    /// any other line, a subject that is no id, and a subject listed twice. Mutations checked, in
-    /// `parse_work`: the arm `Some(s) if subjects.iter().any(|t| t == s) => {` made
+    /// any other line, a subject that is no id, a subject listed twice, a second `spec` line, a
+    /// second `since` line, and a `spec` line that is not a citation of three non-empty parts then
+    /// a path. Mutations checked, in `parse_work`: `if work.spec.is_some() {` made `if false {`;
+    /// `if work.since.is_some() {` made `if false {`; `c.split('@').count() == 3` made `true`;
+    /// `c.split('@').all(|part| !part.is_empty())` made `true`; `!path.is_empty()` made `true`;
+    /// each caught. Mutations checked earlier, in
+    /// `parse_work`: the arm `Some(s) if work.subjects.iter().any(|t| t == s) => {` made
     /// `Some(s) if false => {`, which lists the subject twice; `Some(s) if
     /// crate::model::table::is_entry_id(s) =>` made `Some(s) if true =>`; and
     /// `if line.starts_with("work ") {` made `if line.starts_with("work") {`, which skips a line
@@ -1966,6 +2158,19 @@ mod tests {
             parse_work("since one\nsince two\n").err(),
             Some(":2: a second `since` line".to_string())
         );
+        for malformed in [
+            "spec x.md\n",
+            "spec \n",
+            "spec a@b /p.md\n",
+            "spec a@@c /p.md\n",
+            "spec a@b@c \n",
+        ] {
+            assert_eq!(
+                parse_work(malformed).err(),
+                Some(":1: not a line `spec <citation> <path>`".to_string()),
+                "{malformed}"
+            );
+        }
         assert_eq!(
             parse_work("subject one-thread\nsubject one-thread\n").err(),
             Some(":2: the subject one-thread is listed twice".to_string())

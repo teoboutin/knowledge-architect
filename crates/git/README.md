@@ -13,8 +13,9 @@ can depend on it directly to run git with the same environment; its interface is
   rules also cover.
 - **The ignore rules**: one `git check-ignore` batch for every path a caller names.
 - **The dates of a listing's last change**: one `git log` over the directories named.
-- **History**: the revisions of a range, a revision's object name, a commit's message, the paths
-  a commit and the work tree differ by, untracked ones included, the main worktree's path.
+- **History**: the revisions of a range, a revision's object name, a commit's message, the commit a
+  revision names, the paths a commit and the work tree differ by, untracked ones included, the
+  main worktree's path.
 - **A snapshot**: the entries, blobs and blob bytes of one commit's tree, or of the tree git's
   index would commit, read from git objects alone.
 - **The index**: whether it differs from HEAD, its unmerged paths, and the one locked write that
@@ -23,6 +24,8 @@ can depend on it directly to run git with the same environment; its interface is
 ## What it needs and guarantees
 
 - **`git` 2.36 or newer on the path** to read blobs: they are read with `cat-file --batch -z`.
+- **`git` 2.30 or newer** to resolve a revision to one commit and list the paths changed since it:
+  `rev-parse` reads `--end-of-options` from 2.30.
 - **A project inside a git worktree**, whose `.git` sits at or above the directory it is given,
   for every question but whether a directory is inside one and the creation of a repository.
 - **Every invocation runs from the directory it is given**, with the per-user ignore file pointed at

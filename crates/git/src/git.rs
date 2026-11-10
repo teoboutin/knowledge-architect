@@ -493,28 +493,44 @@ pub fn rev_list(root: &Path, range: &str) -> io::Result<Vec<String>> {
         .collect())
 }
 
+/// The full object name of the one commit `revision` names, any revision git reads as one object,
+/// `:/<text>` and a tag included; a range, a revision naming no object, and one whose object is no
+/// commit, such as a tree, are an `Err` carrying git's reason, per
+/// `design@git@failed-git-is-an-error`. A revision that starts with `-` is read as a revision,
+/// never as an option. Needs `git` 2.30 or newer, which reads `--end-of-options` in `rev-parse`.
+pub fn commit_of(root: &Path, revision: &str) -> io::Result<String> {
+    // Resolved bare first, then peeled: a peel written after the caller's revision would join a
+    // `:/<text>` search, whose pattern runs to the end of the revision. `--verify` refuses a range
+    // and a name of nothing; the peel of the full object name refuses an object that is no commit.
+    let ask = |revision: &str| -> io::Result<String> {
+        let out = git(root)
+            .args(["rev-parse", "--verify", "--end-of-options", revision])
+            .output()?;
+        Ok(String::from_utf8_lossy(&out).trim().to_string())
+    };
+    let object = ask(revision)?;
+    ask(&format!("{object}^{{commit}}"))
+}
+
 /// The paths under `root` that one commit and the work tree differ by, relative to `root`, sorted,
 /// each once: every path whose content, mode or presence differs between the commit's tree and the
 /// work tree, a deleted path and a path staged and never committed included, and every untracked
 /// path git does not ignore.
 ///
-/// `commit` is any revision that names one commit; a range, a revision naming no commit, or one
-/// git cannot read is an `Err` carrying git's reason, per `design@git@failed-git-is-an-error`,
-/// since a caller that marks what changed reads an empty answer as nothing changed. A rename is
-/// its two paths, the old and the new, whether git would pair them or not.
+/// `commit` is any revision [`commit_of`] resolves, and its `Err` is this function's; a failure of
+/// git asked what changed is an `Err` carrying git's reason too, per
+/// `design@git@failed-git-is-an-error`, since a caller that marks what changed reads an empty
+/// answer as nothing changed. A rename is its two paths, the old and the new, whether git would
+/// pair them or not. Needs `git` 2.30 or newer, as [`commit_of`] does.
 pub fn paths_changed_since(root: &Path, commit: &str) -> io::Result<Vec<PathBuf>> {
     // Resolved first, to one commit: `git diff` reads `A..B` as a diff between two commits and a
     // tree as a tree, either of which would answer another question with no error.
-    // `--end-of-options`, so a revision that starts with `-` is read as one, never as an option.
-    let resolved = git(root)
-        .args(["rev-parse", "--verify", "--end-of-options"])
-        .args([format!("{commit}^{{commit}}")])
-        .output()?;
-    let sha = String::from_utf8_lossy(&resolved).trim().to_string();
+    let sha = commit_of(root, commit)?;
     // `--no-renames`, so a rename is its two paths whatever `diff.renames` says; `--relative`, so
     // a project in a subdirectory of its repository gets its own paths, relative to it. Without a
     // second revision `git diff` compares the commit with the work tree, for the paths the index
-    // holds; the untracked paths are `ls-files --others`, which the diff never lists.
+    // holds; the untracked paths are `ls-files --others`, which the diff never lists, without
+    // those the ignore rules cover.
     let mut out = git(root)
         .args(["diff", "--name-only", "-z", "--no-renames", "--relative"])
         .args([sha.as_str(), "--"])
@@ -1734,6 +1750,74 @@ mod tests {
             snapshot_entries(&repo, Source::Index).is_err(),
             "a `U` row is refused"
         );
+        let _ = std::fs::remove_dir_all(&repo);
+    }
+
+    /// The claim: the paths changed since a commit are the project's, relative to it, in a
+    /// project that is a subdirectory of its repository: a file a later commit changed, a rename's
+    /// two paths, a deleted path and an untracked file, and not an untracked file the ignore rules
+    /// cover, nor a change of the repository outside the project. Mutations checked, in
+    /// `paths_changed_since`: `"--relative"` removed, which names repository-relative paths and
+    /// the sibling's change; `"--no-renames"` removed, which pairs the rename into its new path
+    /// alone; and `"--exclude-standard"` removed, which lists the ignored file; each caught.
+    #[test]
+    fn the_paths_changed_since_a_commit_are_the_project_s_own() {
+        let repo = scratch_repository("since");
+        let project = repo.join("proj");
+        write(&project, "a.md", "# A\n");
+        write(&project, "b.md", "# B, renamed later\n");
+        write(&project, "gone.md", "# Gone\n");
+        write(&project, ".gitignore", "ignored.md\n");
+        write(&repo, "other/o.md", "# Other\n");
+        git(&repo).args(["add", "-A"]).output().expect("staged");
+        git(&repo)
+            .args(["commit", "-qm", "the base"])
+            .output()
+            .expect("a commit");
+        let base = commit_of(&repo, "HEAD").expect("the base");
+        write(&project, "a.md", "# A, changed by a later commit\n");
+        git(&repo)
+            .args(["commit", "-qam", "later"])
+            .output()
+            .expect("a commit");
+        git(&project)
+            .args(["mv", "b.md", "c.md"])
+            .output()
+            .expect("a rename");
+        std::fs::remove_file(project.join("gone.md")).expect("a deletion");
+        write(&project, "new.md", "# New\n");
+        write(&project, "ignored.md", "# Ignored\n");
+        write(&repo, "other/o.md", "# Other, changed\n");
+        assert_eq!(
+            paths_changed_since(&project, &base).expect("a listing"),
+            ["a.md", "b.md", "c.md", "gone.md", "new.md"].map(PathBuf::from)
+        );
+        let _ = std::fs::remove_dir_all(&repo);
+    }
+
+    /// The claim: `commit_of` gives the commit a revision names, `:/<text>` included, and refuses
+    /// with git's reason a range, a name of nothing, a tree, and a revision that starts with `-`,
+    /// which it reads as a revision rather than as an option. Mutations checked, in `commit_of`:
+    /// `"--end-of-options"` removed, which reads `-q` as the option and refuses it with no reason
+    /// but its exit status; the peel `ask(&format!("{object}^{{commit}}"))` made `Ok(object)`,
+    /// which gives a tree; and the two asks made one, `ask(&format!("{revision}^{{commit}}"))`,
+    /// whose peel joins the `:/<text>` search; each caught.
+    #[test]
+    fn a_revision_resolves_to_its_one_commit_or_is_refused_with_git_s_reason() {
+        let repo = scratch_repository("commit-of");
+        write(&repo, "a.md", "# A\n");
+        git(&repo).args(["add", "-A"]).output().expect("staged");
+        git(&repo)
+            .args(["commit", "-qm", "the first commit"])
+            .output()
+            .expect("a commit");
+        let head = commit_of(&repo, "HEAD").expect("HEAD");
+        assert_eq!(head.len(), 40, "{head}");
+        assert_eq!(commit_of(&repo, ":/the first").expect("a search"), head);
+        for refused in ["HEAD..HEAD", "nowhere-at-all", "HEAD^{tree}", "-q"] {
+            let e = commit_of(&repo, refused).expect_err(refused).to_string();
+            assert!(e.contains("Needed a single revision"), "{refused}: {e}");
+        }
         let _ = std::fs::remove_dir_all(&repo);
     }
 
