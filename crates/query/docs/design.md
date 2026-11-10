@@ -125,8 +125,9 @@ where the two clusters go to different agents, since its heads cite it, per
 since that entry cites the cluster's heads and no head the agent grades cites it. The nearest rival, a
 shared entry graded in every cluster that holds it, repeats its verdict in every agent: in the intake
 of seventeen files of 2026-10-25 to 2026-10-31, 200 entries took 365 grade lines, 6 entries 11 lines
-each, as the issue on those repeated lines recorded until the harvest of this decision closed it, and
-the session reads each repeated line.
+each, and the session reads each repeated line; 156 of those lines were the 25 goals', which
+`design@query@goal-context-once` grades once apart. The issue on those repeated lines recorded the
+counts until it was deleted; `git log --diff-filter=D --name-only -- crates/query/docs/open-issues/` lists it.
 
 ### A search unit whose load exceeds half the bound gets agents of its own, and the others are packed together whole `##search-unit-above-half-the-bound-alone`
 
@@ -207,7 +208,7 @@ unit is split, and named by a notice when its own entries exceed the bound. On t
 the standing entries were already cut into groups before, and the entries of one search unit share
 the Component or the location they apply to. A remainder per anchor would make the entry anchor of a
 Directory register a group of its own, read apart from its home, against
-`design@query@packed-by-search-unit`. A single remainder for the project grows with every entry no
+`design@query@constructed-anchor-in-its-home-s-unit`. A single remainder for the project grows with every entry no
 head reaches: issues about code with no head, issues citing only goals, and tripwires guarding a
 single-site instruction, each a shape the reference rule admits, which made 14 entries here at
 ed9dd60 and 55 in thaum at edd2cb5d, counted while the remainder still held the goals no head
@@ -243,7 +244,7 @@ an instruction to give every entry one verdict, with a quotation of its text, is
 not by a reader. Each skeleton line names the verdicts its register admits, since a searcher reads
 the table once and applies it from memory: over three searches whose skeleton named none, 13 of 45
 searchers wrote a relation their entry's role did not admit, as the issue on that skeleton recorded
-until the harvest of this decision closed it. The nearest rival, each searcher deriving its group from the listings and writing
+until it was deleted; `git log --diff-filter=D --name-only -- crates/query/docs/open-issues/` lists it. The nearest rival, each searcher deriving its group from the listings and writing
 its report by hand, listed one entry under two lists in the discussion that produced the `rejected`
 register, and only the searcher's own correction, appended to its report, showed it. The command's
 output is read by its own `--verify`, the searcher and the session, and is no contract with another
@@ -275,8 +276,8 @@ read from the tree by a command, per `design@agent-skills@seeds-name-decisions`,
 seed is a decision and never a goal. The nearest rival, the session listing the seeds by hand from
 the plan document, is a script each audit writes again: the slice of the integrated tests, on
 2026-11-07, extracted its 54 seeds by `grep` from the decided sections of its milestone document and
-its spec, as the issue on that
-seeding recorded until the harvest of this decision closed it.
+its spec, as the issue on that seeding recorded until it was deleted;
+`git log --diff-filter=D --name-only -- crates/agent-skills/docs/open-issues/` lists it.
 
 ### A passing `worklist --verify` writes, from a snapshot `--out` takes of every entry's show text, one verdict file per subject of the work and the per-entry lines a commit message owes `##occasion-shaped-output`
 
@@ -311,7 +312,8 @@ agent hands it that subject's file, and the lines a commit message owes per entr
 command in forms `cargo klarch commits` judges. Written by each session, they cost a script per
 occasion: twelve sessions wrote them so, nine of this repository and three of thaum, and four met a
 cycle of findings on the reasons they copied, of 13, 41 and 49, 11, and 45 findings, as the issue
-on those lines recorded until the harvest of this decision closed it. A generated line carries no quotation, since a commit
+on those lines recorded until it was deleted;
+`git log --diff-filter=D --name-only -- crates/agent-skills/docs/open-issues/` lists it. A generated line carries no quotation, since a commit
 message reads a quoted reference as live and a quotation's own marks can end its span early. The
 nearest rival, the session running `show` once per entry it acts on, is a script each session writes
 again: the grounding of the discussion that first assembled the entries did so over 202 entries, 576
@@ -361,8 +363,9 @@ subject, which the grouping exists to keep whole. The designs this decision did 
 ### The default bound is 40,000 words, so that a searcher's context stays below where the cost of its rounds ramps up `##worklist-bound-is-40000-words`
 
 `DEFAULT_WORKLIST_BOUND`, in `path@cli@src/cli/mod.rs`, is 40000, and `--bound` sets another. The
-owner reported that the tokens a searcher spends per round grow more steeply from about 250,000
-tokens of context, while agents stay reliable past it, so the measure to weigh is cost, an agent's fixed start against the growing cost of each
+owner reported that agents stay highly reliable to about 200,000 to 250,000 tokens of context and
+very reliable after that, and that their token usage grows more noticeably from about 250,000 tokens,
+so the measure to weigh is cost, an agent's fixed start against the growing cost of each
 round; the bound keeps a searcher's peak below that point. The owner chose 40,000 over the
 session's 50,000 and over the owner's own first figure, 30,000, to raise the bound by steps while the
 searchers are asked for fuller verdicts; no goal ranks the three. Both searches of the discussion

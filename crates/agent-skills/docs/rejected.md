@@ -783,7 +783,8 @@ built took a line it did not need: a slice of thaum, on 2026-11-02, graded about
 the commit "[intake] The analyses of forty received retrospective files, three outcomes for the
 owner" record; and the last slice of this repository's development milestone, on the same day, took
 51 seeds, one searcher grading 11 entries `may-bear` only because each was a seed or cited one, as
-the issue on that seeding recorded until the harvest of its successor closed it.
+the issue on that seeding recorded until it was deleted;
+`git log --diff-filter=D --name-only -- crates/agent-skills/docs/open-issues/` lists it.
 
 ### A work statement written for the record search, apart from the document that carries the deliberation `##work-statement-written-for-the-search`
 

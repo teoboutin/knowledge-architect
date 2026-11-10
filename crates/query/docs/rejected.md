@@ -63,9 +63,9 @@ words of the goal entries in its `entries.md`.
 `live`. A cluster's issues then sit in an agent that holds none of their Component's design: in the
 work list of 25 agents over this repository at main's commit 350d4d59, 100 of the 341 placements of
 an issue or a tripwire, 99 issues and 1 tripwire, sat in an agent holding no design entry of their own
-Component. The owner judged an issue graded without its Component's design a major defect, then
-narrowed it: most issues are fine to judge without the design, and the defect is an issue that cites
-a head the agent does not see. The count, of every issue and tripwire whether or not it
+Component. In the owner's opinion, an issue graded without its Component's design is a major defect;
+the owner then narrowed it, thinking most issues fine to judge without the design, the hard case
+being an issue that cites a design head. The count, of every issue and tripwire whether or not it
 cites a head, is re-taken from that run's `agents.txt`, by the anchor of each entry against the anchors of the
 design entries of its agent.
 
