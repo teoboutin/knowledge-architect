@@ -20,8 +20,7 @@ In `path@mutate@src/run.rs`, `run`: the block under `if baseline` calls
 `run_command(root, &build_parts(b))`, runs only after the mutant is written, before the mutant's
 command. Nothing rebuilds the unmutated tree after the source is restored.
 
-Seen once, by an adversarial reviewer of the record search's audit options on this repository's
-branch of `spec@plans@record-search-verdicts`, whose mutation command was a shell script calling
+Seen once, by an adversarial reviewer of the record search's audit options on the branch that built `design@query@since-marks-changed-entries`, whose mutation command was a shell script calling
 `target/debug/klarch` over a project in a subdirectory of its repository: the baseline of that
 script failed until the reviewer rebuilt by hand, after an earlier run had left its mutant built.
 The mechanism above is read from the code; the run itself was not repeated by the session that

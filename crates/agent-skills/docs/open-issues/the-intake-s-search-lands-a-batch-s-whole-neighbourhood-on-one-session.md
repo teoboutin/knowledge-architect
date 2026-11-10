@@ -7,7 +7,7 @@ kind: design
 
 A retrospective intake receives a batch of files, each holding findings on unrelated subjects, and
 grounds them in one search of the whole record. The owner doubts that one verdict file per cluster
-of findings, which `spec@plans@record-search-verdicts` builds, is enough, and believes the intake
+of findings, which `design@query@occasion-shaped-output` states, is enough, and believes the intake
 may need a different procedure with more steps to partition its work. The doubt waits for the next
 intake the owner runs.
 
@@ -35,8 +35,9 @@ The suspected mechanism, in one sentence: an intake's work is the union of its f
 neighbourhoods, so whatever the search's shape, everything the batch touches reaches the one session
 that holds the batch.
 
-Re-entry point: the retrospective of the first intake the owner runs after the work of
-`spec@plans@record-search-verdicts` lands, or the owner's word.
+Re-entry point: the retrospective of the first intake the owner runs after the commit "[harvest] The
+record search packed by search unit, its verdicts, the session acting on them, the draft searched and
+the audit's fit recorded" reaches the main branch, or the owner's word.
 
 ### Why it matters
 
