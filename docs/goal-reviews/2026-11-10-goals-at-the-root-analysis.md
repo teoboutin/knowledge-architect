@@ -136,6 +136,58 @@ is a design decision and no goal; and the documentation model is a goal of its o
 the owner proposes to order the whole list.
 
 
+### The list of goals, in six files, ordered from the documentation model
+
+On the owner's framing above, the session proposed that the owner's paragraph becomes the head of
+the root's goals home, in place of its paragraph on two main purposes, and that the home holds 21
+goals in six files. It asked whether "in Rust" is part of the first goal's purpose. The list, by
+title and origin, its wording not ruled:
+
+| file | goal | from |
+| --- | --- | --- |
+| the documentation model | a project's documentation has a defined structure, and a model of it that tools read | new, the owner's example; it takes the declaring of kinds of entries, the naming and citing of a recorded item, and the reading that judges nothing of `goal@model@a-tool-reads-the-documents-with-no-check` |
+| the documentation model | the documentation records the design, with the intent and the arguments behind it | `goal@knowledge-architect@design-is-recorded-with-its-arguments` |
+| the documentation model | a recorded item reaches the work it bears on | `goal@knowledge-architect@records-reach-their-reader` |
+| what is built on the model | the documentation stays consistent with the code and with itself | `goal@knowledge-architect@documentation-stays-consistent` |
+| what is built on the model | a project adds checks of its own | `goal@check@projects-add-their-own-checks` |
+| what is built on the model | the documents render as one linked site | `goal@knowledge-architect@documents-render-as-a-linked-site` |
+| what is built on the model | a task a tool does at a lower cost, or better, is the tool's | `goal@knowledge-architect@mechanical-tasks-are-the-tool-s`, widened |
+| the workflow | agents get a workflow for each generic activity taken in | `goal@knowledge-architect@agents-get-a-complete-workflow`, thinner |
+| the workflow | the workflow states what an agent needs and leaves the rest to judgement | `goal@agent-skills@only-needed-instructions`, a scope |
+| the workflow | the workflow leads agents to write better code | `goal@knowledge-architect@the-workflow-leads-to-better-code` |
+| the workflow | the workflow leads a project to be split into modular units | `goal@knowledge-architect@projects-are-split-into-components`, a wider wording |
+| the workflow | the workflow improves through real use | `goal@knowledge-architect@the-workflow-improves-through-real-use`, thinner |
+| the workflow | the main session orchestrates the work | `goal@agent-skills@session-orchestrates-the-work` |
+| the two together | agents work autonomously without drifting from the recorded design | `goal@knowledge-architect@agents-work-without-drift`, with its ranking |
+| the two together | the generic part of a tool or a procedure is shipped once taken in | `goal@knowledge-architect@generic-tools-and-procedures-are-shipped` |
+| the owner and the agents | three goals | `goal@knowledge-architect@the-owner-decides`, `goal@knowledge-architect@the-owner-s-word-is-verified`, `goal@knowledge-architect@design-with-agents-as-counterparts` |
+| whom the project serves, and adoption | three goals | `goal@knowledge-architect@serves-one-kind-of-project`, `goal@knowledge-architect@every-target-project-can-adopt-it`, `goal@knowledge-architect@adoption-is-easy` |
+
+Two fates ruled earlier change with it: the statement of
+`goal@model@a-tool-reads-the-documents-with-no-check` is part of the first goal, and the sentence of
+`goal@knowledge-architect@structure-and-workflow-work-together` is the sentence of the home's head
+that joins the two parts. The six files replace the five themes. The owner:
+
+> 2. agreed on those 6 files and 21 goals in the list.
+> 3. design under the scope goal. Since we are ourselves a target project, in rust is required.
+
+So the first goal names no language: that the model is a Rust library follows from the scope goal.
+
+### A decision that turns on a reading of a goal is reported with the reading
+
+The owner asked how a decision that turns on a reading of a goal is handled, and that such cases
+be reported. The session proposed a test and an instruction for `primer@decided-section`. The
+test: a decision turns on a reading of a goal when the goal is its ground against a rival, and the
+rival would survive under another reading that the goal's words admit. The instruction: such a
+decision is reported under "Decided" with the goal, the reading taken and the rival it defeats; it
+is still the session's, on its argument; and where no argument ranks two readings that move in
+different directions, it goes to the owner. The owner:
+
+> 1 agreed on the reporting of a goal reading
+
+It is built on this branch through the design skill's in-change path, and is no part of the
+goals' rewrite.
+
 ## Theme: The record and its documents
 
 Questions Q1 to Q17.
