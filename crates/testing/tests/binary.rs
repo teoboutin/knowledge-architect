@@ -7191,6 +7191,349 @@ fn worklist_gives_a_goal_agent_the_goals_file_s_prose() {
     assert!(prose < heading && heading < goal, "{section}");
 }
 
+/// Stage everything the worklist project's copy holds and commit it as `subject`, with the
+/// sandbox's identity.
+fn worklist_commit(sandbox: &Sandbox, subject: &str) {
+    sandbox.stage();
+    sandbox.git(&["commit", "-q", "-m", subject]);
+}
+
+/// The marks of each line of `agents.txt`, by reference: the words after the reference.
+fn worklist_marks(out: &Path) -> std::collections::BTreeMap<String, Vec<String>> {
+    std::fs::read_to_string(out.join("agents.txt"))
+        .expect("agents.txt")
+        .lines()
+        .map(|line| {
+            let mut parts = line.split(' ').skip(2);
+            let reference = parts.next().expect("a reference").to_string();
+            (reference, parts.map(String::from).collect())
+        })
+        .collect()
+}
+
+/// The references `agents.txt` marks `changed-since`.
+fn worklist_changed(out: &Path) -> Vec<String> {
+    worklist_marks(out)
+        .into_iter()
+        .filter(|(_, marks)| marks.iter().any(|m| m == "changed-since"))
+        .map(|(reference, _)| reference)
+        .collect()
+}
+
+/// The claim: `--since` marks exactly the entries whose file differs between the commit it names
+/// and the work tree: a file a later commit changed, one changed and not staged, an untracked one
+/// and the new path of a rename; no other entry. The mark is in `agents.txt`, after the seed mark,
+/// and on the entry's `===` line in its entries file, and the run names the commit by its subject.
+/// Over `HEAD`, only the changes of the work tree are marked. Mutations checked: in
+/// `paths_changed_since` of `path@git@src/git.rs`, the `ls-files --others` extension removed,
+/// which misses the untracked file; `.args([sha.as_str(), "--"])` made `.args(["HEAD", "--"])`,
+/// which misses the later commit's change; in `write` of `path@query@src/worklist.rs`,
+/// `paths.contains(&e.record.site.file)` made `!paths.contains(&e.record.site.file)`; and in
+/// `render`, the push of the changed-since mark in `agents.txt` removed; each caught.
+#[test]
+fn worklist_since_marks_exactly_the_entries_of_the_files_changed_since_the_commit() {
+    let (sandbox, out) = worklist_project("worklist-since");
+    worklist_commit(&sandbox, "The base of the audit");
+    // A later commit changes the tripwires home.
+    sandbox.write(
+        "docs/tripwires.md",
+        &format!("{WORKLIST_TRIPWIRES}\nA later line.\n"),
+    );
+    worklist_commit(&sandbox, "A later change");
+    // In the work tree: a design file changed and not staged, a rename staged, and an untracked
+    // issue, with the issue index regenerated.
+    sandbox.write(
+        "widget/docs/design/parts.md",
+        "# Parts\n\n## The gears\n\n### Gears turn `##gears-turn`\n\nThey do, now.\n\n\
+         ## The springs\n\n### Springs coil `##springs-coil`\n\nThey do.\n",
+    );
+    sandbox.git(&[
+        "mv",
+        "widget/docs/open-issues/on-the-root.md",
+        "widget/docs/open-issues/on-the-root-moved.md",
+    ]);
+    sandbox.write(
+        "docs/open-issues/an-untracked-one.md",
+        &worklist_issue("`goal@core-mock@top-goal`"),
+    );
+    let (stdout, stderr, code) = sandbox.run(&["index"]);
+    assert_eq!(code, 0, "{stdout}{stderr}");
+    let base = String::from_utf8(
+        sandbox
+            .git_command(&["rev-parse", "HEAD~1"])
+            .output()
+            .expect("git runs")
+            .stdout,
+    )
+    .expect("a sha")
+    .trim()
+    .to_string();
+    let out_text = out.to_string_lossy().into_owned();
+    let (stdout, stderr, code) = sandbox.run(&[
+        "worklist",
+        "--out",
+        &out_text,
+        "--since",
+        &base,
+        "--seed",
+        "design@widget@gears-turn",
+    ]);
+    assert_eq!(code, 0, "{stdout}{stderr}");
+    assert_eq!(
+        worklist_changed(&out),
+        [
+            "design@widget@gears-turn",
+            "design@widget@springs-coil",
+            "issue@core-mock@an-untracked-one",
+            "issue@widget@on-the-root-moved",
+            "tripwire@core-mock@first-premise",
+        ]
+    );
+    assert_eq!(
+        worklist_marks(&out)["design@widget@gears-turn"],
+        ["seed", "changed-since"]
+    );
+    assert!(
+        stdout.contains("5 entries changed since the commit \"The base of the audit\""),
+        "{stdout}"
+    );
+    let (entries, _) = worklist_entries_of(&out, "design@widget@gears-turn");
+    assert!(
+        entries
+            .lines()
+            .any(|l| l.starts_with("=== design@widget@gears-turn  ")
+                && l.ends_with("  changed-since")),
+        "{entries}"
+    );
+    assert!(
+        entries
+            .lines()
+            .filter(|l| l.starts_with("=== design@core-mock@"))
+            .all(|l| !l.ends_with("changed-since")),
+        "{entries}"
+    );
+    let head = std::env::temp_dir().join(format!(
+        "knowledge-worklist-since-head-{}",
+        std::process::id()
+    ));
+    let _ = std::fs::remove_dir_all(&head);
+    let head_text = head.to_string_lossy().into_owned();
+    let (stdout, stderr, code) = sandbox.run(&["worklist", "--out", &head_text, "--since", "HEAD"]);
+    assert_eq!(code, 0, "{stdout}{stderr}");
+    assert_eq!(
+        worklist_changed(&head),
+        [
+            "design@widget@gears-turn",
+            "design@widget@springs-coil",
+            "issue@core-mock@an-untracked-one",
+            "issue@widget@on-the-root-moved",
+        ]
+    );
+    let _ = std::fs::remove_dir_all(&head);
+    let _ = std::fs::remove_dir_all(&out);
+}
+
+/// The claim: a `--since` git cannot resolve to one commit, a name of none or a range, stops the
+/// run with exit 2, naming the git command that failed and git's own reason, and writes nothing.
+/// Mutations checked, in `paths_changed_since` of `path@git@src/git.rs`: the revision asked made
+/// `"HEAD^{commit}"` whatever the caller gives, which resolves; and the `?` after the
+/// `rev-parse` call's `.output()` made `.unwrap_or_default()`, which leaves git's reason to the
+/// `diff` that follows; each caught.
+#[test]
+fn worklist_since_a_revision_git_cannot_resolve_stops_with_git_s_reason() {
+    let (sandbox, out) = worklist_project("worklist-since-refused");
+    worklist_commit(&sandbox, "The base");
+    let out_text = out.to_string_lossy().into_owned();
+    for revision in ["nowhere-at-all", "HEAD..HEAD"] {
+        let (stdout, stderr, code) =
+            sandbox.run(&["worklist", "--out", &out_text, "--since", revision]);
+        assert_eq!(code, 2, "{stdout}{stderr}");
+        assert!(
+            stderr.contains(&format!("--since {revision}: `git rev-parse --verify --end-of-options {revision}^{{commit}}` failed")),
+            "{stderr}"
+        );
+        assert!(stderr.contains("Needed a single revision"), "{stderr}");
+        assert!(!out.exists(), "nothing written");
+    }
+}
+
+/// The text of a spec of the worklist project, whose section "What is already decided" cites a
+/// head, a rule of a declared register, a goal, an issue and a `rejected` entry, and whose other
+/// sections cite a head too.
+const WORKLIST_SPEC: &str = "# An audited spec\n\n## Status and audience\n\nIt names \
+    `design@core-mock@long-head`.\n\n## What is already decided\n\n\
+    - `design@core-mock@first-head`\n- `goal@core-mock@top-goal`\n\
+    - `issue@core-mock@on-the-head`\n- `rejected@core-mock@other-way`\n\n\
+    ### Of the notes\n\n- `rule@alpha-topic@alpha-rule`\n\n\
+    ## Criteria\n\nIt names `design@widget@springs-coil`.\n";
+
+/// The worklist project with the spec `an-audit`, its plans index regenerated and staged.
+fn worklist_audit_project(tag: &str) -> (Sandbox, PathBuf) {
+    let (sandbox, out) = worklist_project(tag);
+    sandbox.write("docs/plans/specs/an-audit.md", WORKLIST_SPEC);
+    let (stdout, stderr, code) = sandbox.run(&["index"]);
+    assert_eq!(code, 0, "{stdout}{stderr}");
+    sandbox.stage();
+    (sandbox, out)
+}
+
+/// The claim: `--seeds-from` adds as seeds exactly the design entries and the declared-register
+/// entries the section "What is already decided" of the plan document cites, its subsection
+/// included, beside a `--seed`: no goal, issue or `rejected` entry it cites there, and nothing it
+/// cites in another section; `work.txt` names the plan document by its citation and its path; and
+/// a path that is no plan document is refused with exit 2, nothing written. Mutations checked, in
+/// `write` of `path@query@src/worklist.rs`: `graph.entries[i].role == Role::Unit` made `true`,
+/// which makes the goal, the issue and the `rejected` entry seeds; `seeds.insert(i)` made
+/// `!seeds.contains(&i)`, which takes no seed; and the refusal `let Some((citation, rel)) = found
+/// else {` given the citation `spec@plans@x` for any path; each caught.
+#[test]
+fn worklist_seeds_from_takes_the_decided_section_s_design_and_declared_entries() {
+    let (sandbox, out) = worklist_audit_project("worklist-seeds-from");
+    let out_text = out.to_string_lossy().into_owned();
+    let (stdout, stderr, code) = sandbox.run(&[
+        "worklist",
+        "--out",
+        &out_text,
+        "--seeds-from",
+        "docs/plans/specs/an-audit.md",
+        "--seed",
+        "design@widget@gears-turn",
+    ]);
+    assert_eq!(code, 0, "{stdout}{stderr}");
+    let seeds: Vec<String> = worklist_marks(&out)
+        .into_iter()
+        .filter(|(_, marks)| marks.first().is_some_and(|m| m == "seed"))
+        .map(|(reference, _)| reference)
+        .collect();
+    assert_eq!(
+        seeds,
+        [
+            "design@core-mock@first-head",
+            "design@widget@gears-turn",
+            "rule@alpha-topic@alpha-rule",
+        ]
+    );
+    assert!(
+        stdout
+            .contains("spec@plans@an-audit: 2 seeds from its section \"What is already decided\""),
+        "{stdout}"
+    );
+    let work = std::fs::read_to_string(out.join("work.txt")).expect("work.txt");
+    let spec_line = work
+        .lines()
+        .find(|l| l.starts_with("spec "))
+        .unwrap_or_else(|| panic!("no spec line: {work}"));
+    assert!(
+        spec_line.starts_with("spec spec@plans@an-audit /")
+            && spec_line.ends_with("docs/plans/specs/an-audit.md"),
+        "{spec_line}"
+    );
+    let refused = std::env::temp_dir().join(format!(
+        "knowledge-worklist-seeds-refused-{}",
+        std::process::id()
+    ));
+    let _ = std::fs::remove_dir_all(&refused);
+    let refused_text = refused.to_string_lossy().into_owned();
+    for path in ["docs/design.md", "docs/plans/specs/missing.md"] {
+        let (stdout, stderr, code) =
+            sandbox.run(&["worklist", "--out", &refused_text, "--seeds-from", path]);
+        assert_eq!(code, 2, "{stdout}{stderr}");
+        assert!(
+            stderr.contains("no plan document of the project"),
+            "{stderr}"
+        );
+        assert!(!refused.exists(), "nothing written");
+    }
+    let _ = std::fs::remove_dir_all(&out);
+}
+
+/// The claim: at a design audit, `--verify` writes `gaps.md`, every verdict but `constrains` and
+/// `unrelated` with its entry's text, and `fit-lines.md`, the line of each entry given a verdict
+/// other than `unrelated` under the spec cited whole and the `--since` commit named by its
+/// subject, in place of `generated-lines.md`, and prints the count of each; and a later run that
+/// fails leaves neither. Mutations checked, in `path@query@src/worklist.rs`: in `outputs`,
+/// `match &work.spec {` made to take the arm of a run outside an audit; in `parse_work`,
+/// `work.spec = Some(citation.to_string());` made `work.spec = None;`; in `remove_outputs`,
+/// `[GENERATED_LINES_FILE, GAPS_FILE, FIT_LINES_FILE]` made `[GENERATED_LINES_FILE]`; and in
+/// `verify`, the printed count of gaps made 0; each caught.
+#[test]
+fn worklist_verify_at_an_audit_writes_the_gaps_and_the_fit_lines() {
+    let (sandbox, out) = worklist_audit_project("worklist-audit");
+    worklist_commit(&sandbox, "[plans] The spec of the audit");
+    let out_text = out.to_string_lossy().into_owned();
+    let (stdout, stderr, code) = sandbox.run(&[
+        "worklist",
+        "--out",
+        &out_text,
+        "--work",
+        "docs/plans/specs/an-audit.md",
+        "--subject",
+        "spec-audit",
+        "--seeds-from",
+        "docs/plans/specs/an-audit.md",
+        "--since",
+        "HEAD",
+    ]);
+    assert_eq!(code, 0, "{stdout}{stderr}");
+    let marks = worklist_marks(&out);
+    fill_reports(&out, |reference, quote| {
+        let (verdict, against, action) = match reference {
+            "design@core-mock@long-head" => ("conflicts", "spec-audit", "check-reversal"),
+            "issue@core-mock@on-the-goal" => ("touches", "spec-audit", "none"),
+            _ if !marks[reference].is_empty() => ("constrains", "spec-audit", "respect"),
+            _ => ("unrelated", "-", "none"),
+        };
+        format!(
+            "verdict: {verdict} | against: {against} | action: {action} | owner-question: | \
+             quote: {quote} | reason: r"
+        )
+    });
+    let (stdout, stderr, code) = sandbox.run(&["worklist", "--verify", &out_text]);
+    assert_eq!(code, 0, "{stdout}{stderr}");
+    assert!(
+        !out.join("generated-lines.md").exists(),
+        "no generated lines at an audit"
+    );
+    let gaps = std::fs::read_to_string(out.join("gaps.md")).expect("gaps.md");
+    let headed: Vec<&str> = gaps
+        .lines()
+        .filter_map(|l| l.strip_prefix("=== "))
+        .collect();
+    assert_eq!(
+        headed,
+        ["design@core-mock@long-head", "issue@core-mock@on-the-goal"],
+        "{gaps}"
+    );
+    let fit = std::fs::read_to_string(out.join("fit-lines.md")).expect("fit-lines.md");
+    assert!(
+        fit.starts_with(
+            "The fit of `spec@plans@an-audit` to the record, since the commit \
+             \"[plans] The spec of the audit\":\n\n"
+        ),
+        "{fit}"
+    );
+    assert!(
+        fit.contains("- `design@core-mock@first-head`: constrains, respect.\n"),
+        "{fit}"
+    );
+    assert!(
+        fit.contains("- `design@core-mock@long-head`: conflicts, check-reversal.\n"),
+        "{fit}"
+    );
+    assert!(stdout.contains("2 gaps in "), "{stdout}");
+    assert!(
+        stdout.contains(" lines in ") && stdout.contains("fit-lines.md"),
+        "{stdout}"
+    );
+    let (report, passing) = report_with(&out, "design@core-mock@long-head");
+    let line = report_line(&passing, "design@core-mock@long-head");
+    std::fs::write(&report, passing.replace(&format!("{line}\n"), "")).expect("a failing report");
+    let (stdout, stderr, code) = sandbox.run(&["worklist", "--verify", &out_text]);
+    assert_eq!(code, 1, "{stdout}{stderr}");
+    assert!(!out.join("gaps.md").exists() && !out.join("fit-lines.md").exists());
+    let _ = std::fs::remove_dir_all(&out);
+}
+
 // ---- `transcript` ------------------------------------------------------------------------------
 //
 // The fixtures under `path@testing@tests/transcripts/` are Claude Code transcript directories, one per

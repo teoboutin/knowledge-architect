@@ -1,8 +1,8 @@
 //! A library that wraps git for the tools of knowledge-architect: a command to run git with, and
 //! the readings the checker of a project's documents asks for today, the listing a walk reads,
 //! the ignore rules a path reference is asked against, the dates of a listing's last change, the
-//! revisions of a range, and the trees, blobs and messages of a commit or of the tree git's index
-//! would commit.
+//! revisions of a range, the paths a commit and the work tree differ by, and the trees, blobs and
+//! messages of a commit or of the tree git's index would commit.
 //!
 //! Every function that asks git runs it as a child process, with the directory it is given as its
 //! working directory; [`ignore_query`] and [`object_name`] only build an argument. Every question
@@ -44,8 +44,8 @@ mod git;
 pub use git::{
     blob_bytes, blobs, commit_message, entries, git, ignore_query, ignored, ignores,
     index_differs_from_head, init_repository, inside_work_tree, last_changed, main_worktree_path,
-    object_name, rev_list, rev_parse, snapshot_entries, stage_generated, tracked_and_ignored,
-    unmerged, Entry, EntryKind, Invocation, SnapshotEntry, Source,
+    object_name, paths_changed_since, rev_list, rev_parse, snapshot_entries, stage_generated,
+    tracked_and_ignored, unmerged, Entry, EntryKind, Invocation, SnapshotEntry, Source,
 };
 
 /// The directory of the Component this library belongs to: its own crate directory, evaluated at

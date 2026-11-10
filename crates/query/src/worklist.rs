@@ -10,7 +10,10 @@ use std::path::{Component, Path, PathBuf};
 use std::process::ExitCode;
 
 use crate::graph::{self, Graph, Role};
-use crate::model::table::{Anchors, Candidate, Entities};
+use crate::model::declared::{MILESTONE_REGISTER, SPEC_REGISTER};
+use crate::model::document::Observation;
+use crate::model::table::{Anchors, Candidate, Entities, Kind};
+use crate::model::Document;
 use crate::output::outln;
 use crate::Manifest;
 
@@ -27,7 +30,8 @@ const REPORT_FILE: &str = "report.md";
 /// given it, so an agent's load is its entries file alone.
 const SHOWN_FILE: &str = "shown.md";
 /// The work of the search and its subjects, for the searchers, the session that dispatches them
-/// and `--verify`, which takes the subjects from it, as [`work_text`] writes it.
+/// and `--verify`, which takes the subjects from it, and, at a design audit, the plan document and
+/// the commit `--since` names, as [`work_text`] writes it.
 const WORK_FILE: &str = "work.txt";
 /// The one subject of a work for which no subject is named.
 const WHOLE_WORK: &str = "whole-work";
@@ -39,6 +43,14 @@ const VERDICTS_SUFFIX: &str = ".md";
 /// A passing `--verify` writes the lines a commit message owes, one per entry given a verdict
 /// other than `unrelated`: its reference, its verdict and its action.
 const GENERATED_LINES_FILE: &str = "generated-lines.md";
+/// At a design audit, in place of the generated lines: every verdict but `constrains` and
+/// `unrelated`, with its entry's text, and the line of each entry given a verdict other than
+/// `unrelated`, under the citation of the plan document and the subject of the `--since` commit.
+const GAPS_FILE: &str = "gaps.md";
+const FIT_LINES_FILE: &str = "fit-lines.md";
+/// The section of a plan document whose design and declared-register references `--seeds-from`
+/// takes as seeds, a level-two heading.
+const DECIDED_SECTION: &str = "What is already decided";
 /// The two sections every report closes with: the skeleton writes them in this order, per
 /// `primer@decided-section`, and `--verify` owes both, in either order, its verdict lines
 /// stopping at the first of them.
@@ -80,11 +92,26 @@ pub enum WorklistMode {
         /// that is no id is written into `work.txt` as given, and every `Verify` of the
         /// directory then refuses that `work.txt`, with exit 2.
         subjects: Vec<String>,
+        /// A revision naming one commit: every entry whose file differs between that commit and
+        /// the work tree, an untracked file included, is marked `changed-since` in `agents.txt`
+        /// and in the entries files. A mark, never a filter. A revision git cannot resolve to
+        /// one commit refuses the run with git's reason, nothing written.
+        since: Option<String>,
+        /// A plan document, a spec, a slice's spec or a milestone document, by its path, a
+        /// relative one read from the working directory: the design entries and the entries of
+        /// declared registers that its section "What is already decided" cites are added to the
+        /// seeds, none where it holds no such section. It makes the run a design audit: `work.txt`
+        /// names the plan document, and `Verify` writes `gaps.md` and `fit-lines.md` in place of
+        /// `generated-lines.md`. A path that is no plan document of the project refuses the run,
+        /// nothing written.
+        seeds_from: Option<PathBuf>,
     },
     /// Check the reports the agents filled in `dir`, a directory `Write` wrote, against its
-    /// `agents.txt`, `work.txt` and `shown.md`. It first removes every `verdicts-*.md` and the
-    /// `generated-lines.md` of `dir`; when every report passes, it writes `verdicts-<subject>.md`
-    /// for each subject `work.txt` lists, and `generated-lines.md`.
+    /// `agents.txt`, `work.txt` and `shown.md`. It first removes every `verdicts-*.md`, the
+    /// `generated-lines.md`, the `gaps.md` and the `fit-lines.md` of `dir`; when every report
+    /// passes, it writes `verdicts-<subject>.md` for each subject `work.txt` lists, and
+    /// `generated-lines.md`, or, where `work.txt` names a plan document, which `Write` writes for
+    /// `seeds_from`, `gaps.md` and `fit-lines.md`.
     Verify {
         /// The directory the work list was written into.
         dir: std::path::PathBuf,
@@ -95,11 +122,13 @@ pub enum WorklistMode {
 /// `design@query@worklist-writes-and-verifies-the-reports`. `Err` is a refusal or a failure:
 ///
 /// - under `WorklistMode::Write`, an incomplete model, a directory inside the project or not
-///   empty, a seed naming no entry, or a file of the work it cannot read, nothing written, and a
-///   write that failed, the files before it left in place;
+///   empty, a seed naming no entry, a file of the work it cannot read, a `since` git cannot
+///   resolve to one commit or a failure of git asked what changed since it, or a `seeds_from`
+///   that is no plan document, nothing written, and a write that failed, the files before it
+///   left in place;
 /// - under `WorklistMode::Verify`, a file of the work list it cannot read or parse: `agents.txt`;
-///   `work.txt`, with a line other than `work` and `subject` lines, a subject that is no id or one
-///   listed twice; `shown.md`, cut short, an entry lacking one of its two blocks, or lacking an
+///   `work.txt`, with a line other than `work`, `subject`, `spec` and `since` lines, a subject that
+///   is no id or one listed twice, or a `spec` or `since` line given twice; `shown.md`, cut short, an entry lacking one of its two blocks, or lacking an
 ///   entry `agents.txt` lists; a report, or a report line it cannot parse; and a removal or a
 ///   write that failed. Nothing is judged where one of the first three stops it, and no verdict
 ///   file and no generated line is left in any case.
@@ -119,25 +148,52 @@ pub fn worklist(
             seeds,
             work,
             subjects,
-        } => write(manifest, dir, *bound, seeds, work, subjects, checker),
+            since,
+            seeds_from,
+        } => write(
+            manifest,
+            &Asked {
+                dir,
+                bound: *bound,
+                named: seeds,
+                work,
+                subjects,
+                since: since.as_deref(),
+                seeds_from: seeds_from.as_deref(),
+            },
+            checker,
+        ),
         WorklistMode::Verify { dir } => verify(dir),
     }
+}
+
+/// What `WorklistMode::Write` asks, borrowed.
+struct Asked<'a> {
+    dir: &'a Path,
+    bound: usize,
+    named: &'a [String],
+    work: &'a [PathBuf],
+    subjects: &'a [String],
+    since: Option<&'a str>,
+    seeds_from: Option<&'a Path>,
 }
 
 /// Write the work list into `dir`.
 ///
 /// Every refusal comes before the first write, so a refused run leaves `dir` as it found it: an
 /// incomplete model, per `design@check@phases-gate-the-report`, a `dir` the walk would read or that
-/// holds anything, a seed that names no entry of the record, and a file of the work it cannot read.
-fn write(
-    manifest: &Manifest,
-    dir: &Path,
-    bound: usize,
-    named: &[String],
-    work: &[PathBuf],
-    subjects: &[String],
-    checker: &[&Path],
-) -> Result<ExitCode, String> {
+/// holds anything, a seed that names no entry of the record, a file of the work it cannot read, a
+/// `since` git refuses, and a `seeds_from` that is no plan document.
+fn write(manifest: &Manifest, asked: &Asked, checker: &[&Path]) -> Result<ExitCode, String> {
+    let Asked {
+        dir,
+        bound,
+        named,
+        work,
+        subjects,
+        since,
+        seeds_from,
+    } = *asked;
     let model = crate::Model::build(manifest, checker).map_err(|e| e.to_string())?;
     crate::model::foundation::complete_working_tree(manifest, &model)?;
     let dir = absolute(dir)?;
@@ -197,6 +253,63 @@ fn write(
         }
     }
 
+    // The plan document of a design audit: its citation, its real path for `work.txt`, and the
+    // seeds its section "What is already decided" gives, a design entry or an entry of a declared
+    // register, the role `unit`; a reference there that names no entry of the record is the
+    // checker's finding, and gives no seed.
+    let audit = match seeds_from {
+        None => None,
+        Some(path) => {
+            let real = absolute(path)?;
+            let found = real
+                .strip_prefix(&root)
+                .ok()
+                .and_then(|rel| Some((plan_citation(&entities, rel)?, rel)));
+            let Some((citation, rel)) = found else {
+                return Err(format!(
+                    "--seeds-from {}: no plan document of the project, a spec, a slice's spec or                      a milestone document, is at that path. Nothing was written.",
+                    path.display()
+                ));
+            };
+            let decided = model
+                .documents()
+                .iter()
+                .find(|d| d.rel == rel)
+                .and_then(|d| decided_references(d, &anchors));
+            let mut taken = 0;
+            for reference in decided.iter().flatten() {
+                if let Some(&i) = index.get(reference.as_str()) {
+                    if graph.entries[i].role == Role::Unit && seeds.insert(i) {
+                        taken += 1;
+                    }
+                }
+            }
+            Some((citation, real, decided.is_some(), taken))
+        }
+    };
+
+    // The entries whose file changed since the commit `--since` names, and that commit's subject,
+    // which `work.txt` keeps for the fit lines. Only an entry's own file is compared, never code,
+    // per `design@query@record-is-every-register-entry`.
+    let mut changed: BTreeSet<usize> = BTreeSet::new();
+    let mut since_subject: Option<String> = None;
+    if let Some(commit) = since {
+        let refused = |e: std::io::Error| format!("--since {commit}: {e}. Nothing was written.");
+        let paths: BTreeSet<PathBuf> = crate::git::paths_changed_since(manifest.root(), commit)
+            .map_err(refused)?
+            .into_iter()
+            .collect();
+        changed = graph
+            .entries
+            .iter()
+            .enumerate()
+            .filter(|(_, e)| paths.contains(&e.record.site.file))
+            .map(|(i, _)| i)
+            .collect();
+        let message = crate::git::commit_message(manifest.root(), commit).map_err(refused)?;
+        since_subject = Some(subject_of(&message));
+    }
+
     // Every agent reads the work beside its entries, so its words come out of every agent's
     // bound. A work longer than the bound leaves none, and every group then goes to an agent alone.
     // A file given twice, or by a relative and an absolute spelling, is one file of the work: it is
@@ -221,12 +334,26 @@ fn write(
 
     let plan = graph::plan(&mut graph, bound_left);
     let agent_groups: Vec<Vec<usize>> = plan.agents.iter().map(|a| a.groups.clone()).collect();
-    let mut files = render(&graph, &agent_groups, &seeds, &work_subjects(subjects));
+    let mut files = render(
+        &graph,
+        &agent_groups,
+        &seeds,
+        &changed,
+        &work_subjects(subjects),
+    );
     files.push((
         PathBuf::from(SHOWN_FILE),
         snapshot(&graph, &anchors, &model),
     ));
-    files.push((PathBuf::from(WORK_FILE), work_text(&work_paths, subjects)));
+    files.push((
+        PathBuf::from(WORK_FILE),
+        work_text(
+            &work_paths,
+            subjects,
+            audit.as_ref().map(|(c, p, ..)| (c.as_str(), p.as_path())),
+            since_subject.as_deref(),
+        ),
+    ));
 
     std::fs::create_dir_all(&dir)
         .map_err(|e| format!("{}: {e}. Nothing was written.", dir.display()))?;
@@ -240,6 +367,20 @@ fn write(
 
     if !work_paths.is_empty() {
         outln!("the work holds {work_words} words, which leaves {bound_left} of the {bound}-word bound");
+    }
+    if let Some((citation, _, has_section, taken)) = &audit {
+        if *has_section {
+            outln!("{citation}: {taken} seeds from its section \"{DECIDED_SECTION}\"");
+        } else {
+            outln!("{citation}: no section \"{DECIDED_SECTION}\", so no seed from it");
+        }
+    }
+    if since.is_some() {
+        outln!(
+            "{} entries changed since the commit \"{}\", marked `{CHANGED_MARK}`",
+            changed.len(),
+            since_subject.as_deref().unwrap_or_default()
+        );
     }
     for (n, agent) in plan.agents.iter().enumerate() {
         // Each item carries the load it was packed by, a search unit packed whole or one group of
@@ -342,10 +483,20 @@ fn absolute(dir: &Path) -> Result<PathBuf, String> {
 }
 
 /// `work.txt`: a line `work <path>` per file of the work, as `write` lists them, then a line
-/// `subject <id>` per subject, each once, in the order given, `whole-work` where none is given.
-/// The shape is this function's, read by the searcher, the session and `--verify`, which takes the
-/// subjects from it, per `issue@knowledge-architect@command-output-is-not-declared-a-contract`.
-fn work_text(work: &[PathBuf], subjects: &[String]) -> String {
+/// `subject <id>` per subject, each once, in the order given, `whole-work` where none is given;
+/// then, at a design audit, a line `spec <citation> <path>`, the plan document's citation and its
+/// real path; then, where `--since` names a commit, a line `since <subject>`, that commit's
+/// subject. The shape is this function's, read by the searcher, the session and `--verify`, which
+/// takes the subjects from it, tells an audit by its `spec` line and names the commit of the fit
+/// lines by the `since` line, per `issue@knowledge-architect@command-output-is-not-declared-a-contract`.
+/// The citation holds no space, so the path is the rest of its line, and the subject is the rest of
+/// its own.
+fn work_text(
+    work: &[PathBuf],
+    subjects: &[String],
+    plan: Option<(&str, &Path)>,
+    since: Option<&str>,
+) -> String {
     let mut out = String::new();
     for path in work {
         out.push_str(&format!("work {}\n", path.display()));
@@ -353,7 +504,83 @@ fn work_text(work: &[PathBuf], subjects: &[String]) -> String {
     for subject in work_subjects(subjects) {
         out.push_str(&format!("subject {subject}\n"));
     }
+    if let Some((citation, path)) = plan {
+        out.push_str(&format!("spec {citation} {}\n", path.display()));
+    }
+    if let Some(subject) = since {
+        out.push_str(&format!("since {subject}\n"));
+    }
     out
+}
+
+/// A commit's subject, as git's `%s` gives it: the message's first paragraph, its lines joined by
+/// one space.
+fn subject_of(message: &str) -> String {
+    message
+        .lines()
+        .map(str::trim)
+        .skip_while(|l| l.is_empty())
+        .take_while(|l| !l.is_empty())
+        .collect::<Vec<_>>()
+        .join(" ")
+}
+
+/// The level and the text of a heading, or `None` for any other observation.
+fn heading(what: &Observation) -> Option<(u8, &str)> {
+    match what {
+        Observation::Heading { level, text } => Some((*level, text.trim())),
+        _ => None,
+    }
+}
+
+/// The citation of the plan document whose file is `rel`, project-relative: an entry of `spec`, a
+/// spec of the plans directory or a slice's spec, or of `milestone`, whose file is its
+/// `README.md`; `None` for any other path.
+fn plan_citation(entities: &Entities, rel: &Path) -> Option<String> {
+    [SPEC_REGISTER, MILESTONE_REGISTER]
+        .into_iter()
+        .find_map(|register| {
+            entities
+                .of_kind(&Kind::new(register))
+                .into_iter()
+                .find(|(_, _, sites)| sites.first().is_some_and(|s| s.file == rel))
+                .map(|(anchor, id, _)| format!("{register}@{anchor}@{id}"))
+        })
+}
+
+/// Every reference the section "What is already decided" of `doc` writes, in the order written,
+/// as `<kind>@<anchor>@<id>`, or `None` where `doc` holds no level-two heading of that title.
+///
+/// The section runs from its heading to the next heading of level two or one, so its own
+/// subsections are in it. A span that is no reference of the project's kinds is left out; whether
+/// a reference names an entry is the caller's to ask.
+fn decided_references(doc: &Document, anchors: &Anchors) -> Option<Vec<String>> {
+    let start = doc
+        .observations
+        .iter()
+        .find(|l| heading(&l.what) == Some((2, DECIDED_SECTION)))?
+        .line;
+    let end = doc
+        .observations
+        .iter()
+        .filter(|l| l.line > start)
+        .find(|l| heading(&l.what).is_some_and(|(level, _)| level <= 2))
+        .map_or(u32::MAX, |l| l.line);
+    Some(
+        doc.observations
+            .iter()
+            .filter(|l| l.line > start && l.line < end)
+            .filter_map(|l| match &l.what {
+                Observation::Span(span) => match crate::model::table::candidate(span, anchors) {
+                    Candidate::Reference { kind, anchor, id } => {
+                        Some(format!("{}@{anchor}@{id}", kind.name()))
+                    }
+                    _ => None,
+                },
+                _ => None,
+            })
+            .collect(),
+    )
 }
 
 /// The subjects of the work: each one given once, in the order given, or `whole-work` alone.
@@ -371,14 +598,20 @@ fn work_subjects(subjects: &[String]) -> Vec<&str> {
     }
 }
 
-/// One entry whole, as `entries.md` gives it: a line `=== <reference>  <site>`, then its body in
-/// a fence longer than any run of backticks it holds, so neither a line of it nor a heading of it
-/// reads as the start of another entry or group.
-fn entry_block(entry: &graph::Entry) -> String {
+/// One entry whole, as `entries.md` gives it: a line `=== <reference>  <site>`, followed by
+/// `  changed-since` where `changed`, then its body in a fence longer than any run of backticks it
+/// holds, so neither a line of it nor a heading of it reads as the start of another entry or
+/// group.
+fn entry_block(entry: &graph::Entry, changed: bool) -> String {
     format!(
-        "\n=== {}  {}\n\n{}",
+        "\n=== {}  {}{}\n\n{}",
         entry.reference(),
         entry.record.site,
+        if changed {
+            format!("  {CHANGED_MARK}")
+        } else {
+            String::new()
+        },
         fenced("markdown", entry.record.body.trim_end())
     )
 }
@@ -390,6 +623,9 @@ fn entry_block(entry: &graph::Entry) -> String {
 /// entries whole, under `## Context entries`, and its title lines, under `## Goal titles`, each the
 /// goal's reference and its title: both are read only, and its report names neither.
 ///
+/// An entry of `changed` is marked `changed-since`: in `agents.txt`, after its seed mark, and on its
+/// `===` line wherever an entries file gives it whole, as an entry graded or as a context entry.
+///
 /// Each agent's `report.md` names the subjects of the work, then gives one line per entry it
 /// grades, whose `verdict:` field lists the verdicts the entry's register admits, for the searcher
 /// to replace by one, and closes with `## Decided` and `## Met outside the task`.
@@ -397,6 +633,7 @@ fn render(
     graph: &Graph,
     agents: &[Vec<usize>],
     seeds: &BTreeSet<usize>,
+    changed: &BTreeSet<usize>,
     subjects: &[&str],
 ) -> Vec<(PathBuf, String)> {
     let mut list = String::new();
@@ -450,18 +687,21 @@ fn render(
                     .filter(|c| seeds.contains(c))
                     .map(|&c| graph.entries[c].reference())
                     .collect();
-                let mark = if seeds.contains(&i) {
+                let mut mark = if seeds.contains(&i) {
                     format!(" {SEED_MARK}")
                 } else if !cited.is_empty() {
                     format!(" {CITES_SEED_MARK}")
                 } else {
                     String::new()
                 };
+                if changed.contains(&i) {
+                    mark.push_str(&format!(" {CHANGED_MARK}"));
+                }
                 list.push_str(&format!(
                     "{agent} {} {reference}{mark}\n",
                     entry.role.word()
                 ));
-                entries.push_str(&entry_block(entry));
+                entries.push_str(&entry_block(entry, changed.contains(&i)));
                 let seed_field = if seeds.contains(&i) {
                     " | is a seed".to_string()
                 } else if cited.is_empty() {
@@ -483,7 +723,7 @@ fn render(
                  and named in no line of the report.\n",
             );
             for &i in &context {
-                entries.push_str(&entry_block(&graph.entries[i]));
+                entries.push_str(&entry_block(&graph.entries[i], changed.contains(&i)));
             }
         }
         let titles = graph.title_lines(groups);
@@ -635,7 +875,7 @@ fn verify(dir: &Path) -> Result<ExitCode, String> {
             .insert(reference.to_string(), listed);
     }
     let work_path = dir.join(WORK_FILE);
-    let subjects = parse_work(
+    let work = parse_work(
         &std::fs::read_to_string(&work_path)
             .map_err(|e| format!("{}: {e}", work_path.display()))?,
     )
@@ -681,7 +921,7 @@ fn verify(dir: &Path) -> Result<ExitCode, String> {
             agent,
             &report,
             listed,
-            &subjects,
+            &work.subjects,
             &snapshot,
         )
         .map_err(|at| {
@@ -702,7 +942,7 @@ fn verify(dir: &Path) -> Result<ExitCode, String> {
         outln!("{finding}");
     }
     if findings.is_empty() {
-        let out = outputs(&order, &agents, &given, &snapshot, &subjects);
+        let out = outputs(&order, &agents, &given, &snapshot, &work);
         write_all(dir, &out.files)?;
         for (subject, count) in &out.counts {
             outln!(
@@ -710,11 +950,14 @@ fn verify(dir: &Path) -> Result<ExitCode, String> {
                 dir.join(verdicts_file(subject)).display()
             );
         }
-        outln!(
-            "{} lines in {}",
-            out.lines,
-            dir.join(GENERATED_LINES_FILE).display()
-        );
+        let lines_file = match out.gaps {
+            Some(gaps) => {
+                outln!("{gaps} gaps in {}", dir.join(GAPS_FILE).display());
+                FIT_LINES_FILE
+            }
+            None => GENERATED_LINES_FILE,
+        };
+        outln!("{} lines in {}", out.lines, dir.join(lines_file).display());
         outln!("PASSED: every report gives every entry it was given one verdict");
         Ok(ExitCode::SUCCESS)
     } else {
@@ -817,14 +1060,14 @@ fn verdicts_file(subject: &str) -> String {
     format!("{VERDICTS_PREFIX}{subject}{VERDICTS_SUFFIX}")
 }
 
-/// Remove every output a previous `--verify` wrote into `dir`: each verdict file and the
-/// generated lines.
+/// Remove every output a previous `--verify` wrote into `dir`: each verdict file, the generated
+/// lines, the gaps file and the fit lines.
 fn remove_outputs(dir: &Path) -> Result<(), String> {
     let listing = std::fs::read_dir(dir).map_err(|e| format!("{}: {e}", dir.display()))?;
     for entry in listing {
         let entry = entry.map_err(|e| format!("{}: {e}", dir.display()))?;
         let name = entry.file_name().to_string_lossy().into_owned();
-        let output = name == GENERATED_LINES_FILE
+        let output = [GENERATED_LINES_FILE, GAPS_FILE, FIT_LINES_FILE].contains(&name.as_str())
             || (name.starts_with(VERDICTS_PREFIX) && name.ends_with(VERDICTS_SUFFIX));
         if output {
             let path = entry.path();
@@ -834,34 +1077,64 @@ fn remove_outputs(dir: &Path) -> Result<(), String> {
     Ok(())
 }
 
-/// The subjects a `work.txt` of text `text` lists, in its order, or `Err` with `:<line>: ` and
-/// what is wrong there.
+/// What `--verify` reads of `work.txt`.
+#[derive(Debug, Default, PartialEq)]
+struct Work {
+    /// The subjects, in the order listed.
+    subjects: Vec<String>,
+    /// The citation of the plan document of a design audit, from its `spec` line; `None` outside
+    /// an audit.
+    spec: Option<String>,
+    /// The subject of the commit `--since` named, from its `since` line.
+    since: Option<String>,
+}
+
+/// What a `work.txt` of text `text` holds, as [`work_text`] writes it, or `Err` with `:<line>: `
+/// and what is wrong there.
 ///
-/// A line is `work <path>`, which `--verify` does not read, or `subject <id>`. Any other line, a
-/// subject that is no id in the grammar of an entry id, and a subject listed twice are refused,
-/// since a subject names a file `--verify` writes: a subject listed twice would name one file
-/// twice, whose second write would hold none of the first's verdicts. `--out` writes each subject
-/// once, as an id `cli` checked, so a refused `work.txt` is one edited since.
-fn parse_work(text: &str) -> Result<Vec<String>, String> {
-    let mut subjects: Vec<String> = Vec::new();
+/// A line is `work <path>`, which `--verify` does not read, `subject <id>`, `spec <citation>
+/// <path>` or `since <subject>`. Any other line, a subject that is no id in the grammar of an
+/// entry id, a subject listed twice, and a second `spec` or `since` line are refused, since a
+/// subject names a file `--verify` writes: a subject listed twice would name one file twice, whose
+/// second write would hold none of the first's verdicts; and of two plan documents or two commits
+/// neither could be told to be the audit's. `--out` writes each subject once, as an id `cli`
+/// checked, and one line of each other kind at most, so a refused `work.txt` is one edited since.
+fn parse_work(text: &str) -> Result<Work, String> {
+    let mut work = Work::default();
     for (n, line) in text.lines().enumerate() {
+        let at = n + 1;
         if line.starts_with("work ") {
             continue;
         }
-        match line.strip_prefix("subject ") {
-            Some(s) if subjects.iter().any(|t| t == s) => {
-                return Err(format!(":{}: the subject {s} is listed twice", n + 1))
+        if let Some(rest) = line.strip_prefix("spec ") {
+            let citation = rest.split(' ').next().unwrap_or_default();
+            if work.spec.is_some() {
+                return Err(format!(":{at}: a second `spec` line"));
             }
-            Some(s) if crate::model::table::is_entry_id(s) => subjects.push(s.to_string()),
+            work.spec = Some(citation.to_string());
+            continue;
+        }
+        if let Some(subject) = line.strip_prefix("since ") {
+            if work.since.is_some() {
+                return Err(format!(":{at}: a second `since` line"));
+            }
+            work.since = Some(subject.to_string());
+            continue;
+        }
+        match line.strip_prefix("subject ") {
+            Some(s) if work.subjects.iter().any(|t| t == s) => {
+                return Err(format!(":{at}: the subject {s} is listed twice"))
+            }
+            Some(s) if crate::model::table::is_entry_id(s) => work.subjects.push(s.to_string()),
             _ => {
                 return Err(format!(
-                    ":{}: not a line `work <path>` or `subject <id>`",
-                    n + 1
+                    ":{at}: not a line `work <path>`, `subject <id>`, `spec <citation> <path>` \
+                     or `since <subject>`"
                 ))
             }
         }
     }
-    Ok(subjects)
+    Ok(work)
 }
 
 /// An entry's own body: its own text in the snapshot without its first line, the
@@ -871,12 +1144,13 @@ fn own_body(own: &str) -> &str {
 }
 
 /// What a passing `--verify` writes, before any write: each file's name and text, the count of
-/// verdicts in each subject's verdict file, in the order of `work.txt`, and the count of
-/// generated lines.
+/// verdicts in each subject's verdict file, in the order of `work.txt`, the count of generated
+/// lines, or of fit lines at an audit, and, at an audit, the count of gaps.
 struct Outputs {
     files: Vec<(String, String)>,
     counts: Vec<(String, usize)>,
     lines: usize,
+    gaps: Option<usize>,
 }
 
 /// The outputs of passing reports.
@@ -896,6 +1170,13 @@ struct Outputs {
 /// carries no quotation and no reason, since a quotation's references would read as live there and
 /// its marks could end the span early.
 ///
+/// At a design audit, where `work` names a plan document, `gaps.md` and `fit-lines.md` take the
+/// place of `generated-lines.md`. `gaps.md` holds every verdict but `constrains` and `unrelated`,
+/// whatever its `against`, as a verdict file gives it, `-` included, since a gap is the audit's
+/// whatever the subject: each is sorted by the planning skill's four sorts. `fit-lines.md` holds the
+/// generated lines under one line citing the plan document whole and naming the `--since` commit
+/// by its subject, where `work` gives one, so the audit's message carries them as written.
+///
 /// Every reference of `order` with a verdict in `given` is in `snapshot`, as `verify` checks
 /// before judging.
 fn outputs(
@@ -903,9 +1184,12 @@ fn outputs(
     agents: &BTreeMap<String, BTreeMap<String, Listed>>,
     given: &BTreeMap<(String, String), Verdict>,
     snapshot: &BTreeMap<String, Shown>,
-    subjects: &[String],
+    work: &Work,
 ) -> Outputs {
-    let mut files: Vec<(String, String, usize)> = subjects
+    let mut gaps = String::from("# The gaps: every verdict but `constrains` and `unrelated`\n");
+    let mut gap_count = 0;
+    let mut files: Vec<(String, String, usize)> = work
+        .subjects
         .iter()
         .map(|s| (s.clone(), format!("# The verdicts against `{s}`\n"), 0))
         .collect();
@@ -935,6 +1219,10 @@ fn outputs(
             fenced("text", &shown.own),
             fenced("text", &shown.inbound)
         );
+        if verdict.verdict != "constrains" {
+            gaps.push_str(&block);
+            gap_count += 1;
+        }
         let mut named: Vec<&str> = Vec::new();
         for subject in verdict.against.iter().flatten() {
             if named.contains(&subject.as_str()) {
@@ -952,11 +1240,25 @@ fn outputs(
         .map(|(s, text, _)| (verdicts_file(s), text.clone()))
         .collect();
     let generated: String = lines.iter().map(|l| format!("{l}\n")).collect();
-    written.push((GENERATED_LINES_FILE.to_string(), generated));
+    match &work.spec {
+        Some(citation) => {
+            let since = match &work.since {
+                Some(subject) => format!(", since the commit \"{subject}\""),
+                None => String::new(),
+            };
+            written.push((GAPS_FILE.to_string(), gaps));
+            written.push((
+                FIT_LINES_FILE.to_string(),
+                format!("The fit of `{citation}` to the record{since}:\n\n{generated}"),
+            ));
+        }
+        None => written.push((GENERATED_LINES_FILE.to_string(), generated)),
+    }
     Outputs {
         files: written,
         counts: files.into_iter().map(|(s, _, count)| (s, count)).collect(),
         lines: lines.len(),
+        gaps: work.spec.is_some().then_some(gap_count),
     }
 }
 
@@ -1235,6 +1537,7 @@ fn judge(
 #[cfg(test)]
 mod tests {
     use super::*;
+    use crate::Model;
 
     fn group(kind: graph::GroupKind) -> graph::Group {
         graph::Group {
@@ -1276,10 +1579,130 @@ mod tests {
         let work = [PathBuf::from("/a/draft.md")];
         let subjects = ["second-thread", "first-thread", "second-thread"].map(String::from);
         assert_eq!(
-            work_text(&work, &subjects),
+            work_text(&work, &subjects, None, None),
             "work /a/draft.md\nsubject second-thread\nsubject first-thread\n"
         );
-        assert_eq!(work_text(&[], &[]), "subject whole-work\n");
+        assert_eq!(work_text(&[], &[], None, None), "subject whole-work\n");
+    }
+
+    /// The claim: at a design audit, `work.txt` gives the plan document's citation and its path,
+    /// then the `--since` commit's subject, after the subjects, and `parse_work` reads them back,
+    /// the path and the subject holding spaces. Mutations checked: in `work_text`,
+    /// `if let Some((citation, path)) = plan {` made `... = plan.filter(|_| false) {`, which
+    /// writes no `spec` line, and in `parse_work`,
+    /// `work.spec = Some(citation.to_string());` made `work.spec = None;`; each caught.
+    #[test]
+    fn the_work_file_names_the_audit_s_plan_document_and_commit() {
+        let text = work_text(
+            &[PathBuf::from("/a/x.md")],
+            &["spec-audit".to_string()],
+            Some(("spec@plans@x", Path::new("/a b/docs/plans/specs/x.md"))),
+            Some("[query] A subject | with a bar"),
+        );
+        assert_eq!(
+            text,
+            "work /a/x.md\nsubject spec-audit\nspec spec@plans@x /a b/docs/plans/specs/x.md\n\
+             since [query] A subject | with a bar\n"
+        );
+        assert_eq!(
+            parse_work(&text),
+            Ok(Work {
+                subjects: vec!["spec-audit".to_string()],
+                spec: Some("spec@plans@x".to_string()),
+                since: Some("[query] A subject | with a bar".to_string()),
+            })
+        );
+    }
+
+    /// The claim: a commit's subject is its message's first paragraph, its lines joined by one
+    /// space, as git's `%s` gives it. Mutation checked: in `subject_of`,
+    /// `.take_while(|l| !l.is_empty())` made `.take(1)`; caught.
+    #[test]
+    fn a_commit_s_subject_is_its_first_paragraph() {
+        assert_eq!(subject_of("One line\n\nA body.\n"), "One line");
+        assert_eq!(subject_of("Two\nlines\n\nA body."), "Two lines");
+        assert_eq!(subject_of(""), "");
+    }
+
+    /// A model of `docs`, by path and text, with the anchors and entities of the manifest of one
+    /// Component, `a-project`, which declares a heading register `rule` in a location `notes`.
+    fn table_of(docs: &[(&str, &str)]) -> (Model, Anchors, Entities) {
+        let text = "[project]\nchecker-version = \"fixture\"\nname = \"a-project\"\ncomponents = []\n\n\
+             [locations.notes]\npath = \"notes\"\nregisters = [\"rule\"]\n\n\
+             [registers.rule]\nscope = \"opt-in\"\nshape = \"heading\"\ndir = \"rules\"\nlevel = 2\n\n\
+             [agents]\nharness = []\n\n[walk]\nskip-dirs = []\nskip-files = []\n";
+        let manifest = Manifest::parse(Path::new("/nowhere"), text).expect("a declaration");
+        let model = Model::from_documents(
+            docs.iter()
+                .map(|(p, t)| (PathBuf::from(p), t.to_string()))
+                .collect(),
+        );
+        let paths: Vec<PathBuf> = docs.iter().map(|(p, _)| PathBuf::from(p)).collect();
+        let anchors = Anchors::of(&manifest, &paths);
+        let entities = Entities::build(&model, &anchors);
+        (model, anchors, entities)
+    }
+
+    /// The claim: a plan document is found by its file, a spec of the plans directory, a slice's
+    /// spec and a milestone's `README.md`, each cited by its kind, and no other file is one.
+    /// Mutation checked: in `plan_citation`, `[SPEC_REGISTER, MILESTONE_REGISTER]` made
+    /// `[SPEC_REGISTER]`; caught.
+    #[test]
+    fn a_plan_document_is_cited_by_its_kind_from_its_file() {
+        let (_, _, entities) = table_of(&[
+            ("docs/plans/README.md", "# Plans\n"),
+            ("docs/plans/specs/README.md", "# Specs\n"),
+            ("docs/plans/specs/a-spec.md", "# A spec\n"),
+            ("docs/plans/milestones/README.md", "# Milestones\n"),
+            ("docs/plans/milestones/a-mile/README.md", "# A milestone\n"),
+            ("docs/plans/milestones/a-mile/a-slice.md", "# A slice\n"),
+            ("docs/design.md", "# Design\n"),
+        ]);
+        let cited = |rel: &str| plan_citation(&entities, Path::new(rel));
+        assert_eq!(
+            cited("docs/plans/specs/a-spec.md").as_deref(),
+            Some("spec@plans@a-spec")
+        );
+        assert_eq!(
+            cited("docs/plans/milestones/a-mile/README.md").as_deref(),
+            Some("milestone@plans@a-mile")
+        );
+        assert_eq!(
+            cited("docs/plans/milestones/a-mile/a-slice.md").as_deref(),
+            Some("spec@a-mile@a-slice")
+        );
+        assert_eq!(cited("docs/design.md"), None);
+        assert_eq!(cited("docs/plans/specs/README.md"), None);
+    }
+
+    /// The claim: the references of the section "What is already decided" are those between its
+    /// level-two heading and the next heading of level two or one, its subsections included, and
+    /// none where no such section is at level two. Mutations checked, in `decided_references`:
+    /// `level <= 2` made `level <= 3`, which stops at the subsection; `l.line < end` made
+    /// `l.line <= u32::MAX + 0 * end`, which runs past the next section; and `Some((2, DECIDED_SECTION))`
+    /// made `Some((3, DECIDED_SECTION))`; each caught.
+    #[test]
+    fn the_decided_section_runs_to_the_next_section_of_its_level() {
+        let spec = "# A spec\n\n## Names\n\n`design@a-project@before`.\n\n\
+                    ## What is already decided\n\n`design@a-project@first` and \
+                    `goal@a-project@a-goal`.\n\n### A subsection\n\n`rule@notes@a-rule`.\n\n\
+                    ## Criteria\n\n`design@a-project@after`.\n";
+        let (model, anchors, _) = table_of(&[("docs/plans/specs/a-spec.md", spec)]);
+        assert_eq!(
+            decided_references(&model.documents()[0], &anchors),
+            Some(
+                [
+                    "design@a-project@first",
+                    "goal@a-project@a-goal",
+                    "rule@notes@a-rule"
+                ]
+                .map(String::from)
+                .to_vec()
+            )
+        );
+        let deeper = "# A spec\n\n### What is already decided\n\n`design@a-project@first`.\n";
+        let (model, anchors, _) = table_of(&[("docs/plans/specs/a-spec.md", deeper)]);
+        assert_eq!(decided_references(&model.documents()[0], &anchors), None);
     }
     /// An entry of `role` that is no seed, cites none, and did not change.
     fn plain(role: Role) -> Listed {
@@ -1531,22 +1954,35 @@ mod tests {
     #[test]
     fn the_work_file_gives_each_subject_once_and_refuses_any_other_line() {
         assert_eq!(
-            parse_work("work /a/draft.md\nsubject one-thread\nsubject two-thread\n"),
+            parse_work("work /a/draft.md\nsubject one-thread\nsubject two-thread\n")
+                .map(|w| w.subjects),
             Ok(vec!["one-thread".to_string(), "two-thread".to_string()])
         );
         assert_eq!(
-            parse_work("subject one-thread\nsubject one-thread\n"),
-            Err(":2: the subject one-thread is listed twice".to_string())
+            parse_work("spec spec@plans@x /a.md\nspec spec@plans@y /b.md\n").err(),
+            Some(":2: a second `spec` line".to_string())
+        );
+        assert_eq!(
+            parse_work("since one\nsince two\n").err(),
+            Some(":2: a second `since` line".to_string())
+        );
+        assert_eq!(
+            parse_work("subject one-thread\nsubject one-thread\n").err(),
+            Some(":2: the subject one-thread is listed twice".to_string())
         );
         for refused in [
             "subject Not_an_id\n",
             "subject one\n",
             "workers\n",
-            "spec x.md\n",
+            "specs x.md\n",
         ] {
             assert_eq!(
-                parse_work(refused),
-                Err(":1: not a line `work <path>` or `subject <id>`".to_string()),
+                parse_work(refused).err(),
+                Some(
+                    ":1: not a line `work <path>`, `subject <id>`, `spec <citation> <path>` or \
+                     `since <subject>`"
+                        .to_string()
+                ),
                 "{refused}"
             );
         }
@@ -1722,8 +2158,13 @@ mod tests {
                 },
             );
         }
-        let subjects = ["a-thread", "b-thread", "c-thread"].map(String::from);
-        let out = outputs(&order, &agents, &given, &snapshot, &subjects);
+        let work = Work {
+            subjects: ["a-thread", "b-thread", "c-thread"]
+                .map(String::from)
+                .to_vec(),
+            ..Work::default()
+        };
+        let out = outputs(&order, &agents, &given, &snapshot, &work);
         let file = |name: &str| {
             out.files
                 .iter()
@@ -1767,7 +2208,105 @@ mod tests {
                 ("c-thread".to_string(), 0)
             ]
         );
-        assert_eq!((out.lines, out.files.len()), (4, 4));
+        assert_eq!((out.lines, out.files.len(), out.gaps), (4, 4, None));
+    }
+
+    /// The claim: at a design audit, `gaps.md` holds exactly the verdicts but `constrains` and
+    /// `unrelated`, whatever their `against`, `-` and a subject named twice included, each once,
+    /// in the order of `agents.txt`; `fit-lines.md` holds the generated lines under one line
+    /// citing the plan document whole and naming the commit by its subject; no
+    /// `generated-lines.md` is written; and the verdict files are as outside an audit. Mutations
+    /// checked, in `outputs`: `if verdict.verdict != "constrains" {` made `if true {`, and made
+    /// `if verdict.verdict == "conflicts" {`; `match &work.spec {` made to take the arm of a run
+    /// outside an audit; the fit lines' heading made to leave out `{since}`; and
+    /// `gap_count += 1;` made `gap_count += 0;`; each caught.
+    #[test]
+    fn an_audit_s_outputs_hold_its_gaps_and_its_fit_lines() {
+        let entries = [
+            ("agent-1", "d@x@one", "constrains", "spec-audit", "respect"),
+            (
+                "agent-1",
+                "d@x@two",
+                "conflicts",
+                "spec-audit",
+                "check-reversal",
+            ),
+            (
+                "agent-1",
+                "t@x@wire",
+                "fires",
+                "spec-audit, spec-audit",
+                "rule-before-work",
+            ),
+            ("agent-2", "d@x@three", "unrelated", "-", "none"),
+            ("agent-2", "i@x@issue", "touches", "spec-audit", "none"),
+        ];
+        let order: Vec<(String, String)> = entries
+            .iter()
+            .map(|(a, r, ..)| (a.to_string(), r.to_string()))
+            .collect();
+        let mut agents: BTreeMap<String, BTreeMap<String, Listed>> = BTreeMap::new();
+        let mut given = BTreeMap::new();
+        let mut snapshot = BTreeMap::new();
+        for (agent, reference, verdict, against, action) in entries {
+            agents
+                .entry(agent.to_string())
+                .or_default()
+                .insert(reference.to_string(), plain(Role::Unit));
+            given.insert(
+                (agent.to_string(), reference.to_string()),
+                line(verdict, against, action, QUOTE, "r"),
+            );
+            snapshot.insert(
+                reference.to_string(),
+                Shown {
+                    own: format!("{reference}  docs/x.md:1\n\nThe text of {reference}"),
+                    inbound: "referenced by nothing".to_string(),
+                },
+            );
+        }
+        let work = Work {
+            subjects: vec!["spec-audit".to_string()],
+            spec: Some("spec@plans@a-spec".to_string()),
+            since: Some("[query] The last change".to_string()),
+        };
+        let out = outputs(&order, &agents, &given, &snapshot, &work);
+        let names: Vec<&str> = out.files.iter().map(|(n, _)| n.as_str()).collect();
+        assert_eq!(
+            names,
+            ["verdicts-spec-audit.md", "gaps.md", "fit-lines.md"],
+            "no generated-lines.md at an audit"
+        );
+        let file = |name: &str| &out.files.iter().find(|(n, _)| n == name).expect(name).1;
+        let gaps: Vec<&str> = file("gaps.md")
+            .lines()
+            .filter_map(|l| l.strip_prefix("=== "))
+            .collect();
+        assert_eq!(gaps, ["d@x@two", "t@x@wire", "i@x@issue"]);
+        assert!(file("gaps.md").contains("The text of t@x@wire"));
+        assert_eq!(
+            file("fit-lines.md"),
+            "The fit of `spec@plans@a-spec` to the record, since the commit \
+             \"[query] The last change\":\n\n\
+             - `d@x@one`: constrains, respect.\n- `d@x@two`: conflicts, check-reversal.\n\
+             - `t@x@wire`: fires, rule-before-work.\n- `i@x@issue`: touches, none.\n"
+        );
+        assert_eq!((out.lines, out.gaps), (4, Some(3)));
+        let without_since = Work {
+            since: None,
+            ..work
+        };
+        let out = outputs(&order, &agents, &given, &snapshot, &without_since);
+        let fit = &out
+            .files
+            .iter()
+            .find(|(n, _)| n == "fit-lines.md")
+            .expect("fit lines")
+            .1;
+        assert!(
+            fit.starts_with("The fit of `spec@plans@a-spec` to the record:\n\n"),
+            "{fit}"
+        );
     }
 
     /// The claim: `write_all` writes every file, or, where a write fails, leaves none of those it

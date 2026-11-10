@@ -150,9 +150,10 @@ mod tests {
 
     /// The claim: `worklist`'s combinations are refused while parsing, not only by `cli::run`'s
     /// conversion: both directories, neither, and a bound, a seed, a file of the work or a subject
-    /// beside `--verify`; and a subject is refused while parsing where it is no id. Mutations
-    /// checked: `conflicts_with` removed from `work` and from `subjects`, and `subject_id` made to
-    /// accept every value that is not empty; each caught.
+    /// beside `--verify`, a commit of `--since` or a plan document of `--seeds-from` beside
+    /// `--verify`; and a subject is refused while parsing where it is no id. Mutations checked:
+    /// `conflicts_with` removed from `work`, from `subjects`, from `since` and from `seeds_from`,
+    /// and `subject_id` made to accept every value that is not empty; each caught.
     #[test]
     fn worklist_combinations_are_refused_while_parsing() {
         let parse = |args: &[&str]| Cli::try_parse_from([&["klarch", "worklist"], args].concat());
@@ -164,6 +165,9 @@ mod tests {
         assert!(parse(&["--verify", "d", "--seed", "s"]).is_err());
         assert!(parse(&["--verify", "d", "--work", "w.md"]).is_err());
         assert!(parse(&["--verify", "d", "--subject", "a-subject"]).is_err());
+        assert!(parse(&["--verify", "d", "--since", "HEAD"]).is_err());
+        assert!(parse(&["--verify", "d", "--seeds-from", "s.md"]).is_err());
+        assert!(parse(&["--out", "d", "--since", "HEAD", "--seeds-from", "s.md"]).is_ok());
         assert!(parse(&["--out", "d", "--work", "w.md", "--subject", "a-subject"]).is_ok());
         assert!(parse(&["--out", "d", "--subject", "one"]).is_err());
         assert!(parse(&["--out", "d", "--subject", "Not-an-id"]).is_err());
