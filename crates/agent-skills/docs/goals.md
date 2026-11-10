@@ -196,9 +196,9 @@ a fixed mapping between a unit of the work and a unit of what the work produces,
 a section of a document, that the work can be carried out as intended without, and that another
 instruction needs to vary. The clause bears on what an agent decides by its judgement in carrying
 out its work, such as the shapes it proposes in the design of a solution, where a fixed structure
-narrows what is proposed. It does not bear on a command an agent runs, on its output, or on a fixed
-sequence of commands to run, nor on a structure that a command or the checker carries out, or that a
-check the work must pass refuses.
+narrows what is proposed. It does not bear on a command an agent runs, on that command's output, or
+on a fixed sequence of commands to run, nor on a structure that a command or the checker carries
+out, or that a mechanical check the work must pass refuses.
 
 An instruction or a structure whose act the text of a goal of knowledge-architect states, in its
 body or its measure, every Component's goals whose measure is the installed text included, is
@@ -210,11 +210,11 @@ imposes on what an agent decides by its judgement in carrying out its work no fi
 count, or fixed mapping between a unit of the work and a unit of what the work produces, such as a
 commit or a section of a document, that the work can be carried out as intended without and that
 another instruction needs to vary, other than one that a command or the checker carries out, or that
-a check the work must pass refuses. A review that finds an instruction for a case judgement handles,
-or such a structure, other than one whose act a goal's text states, shows the goal unmet in
-practice; it is answered by removing that instruction or that structure rather than by adding a
-rule. The retrospective asks whether an installed instruction its session met covered a case the
-session's judgement handles well enough, or imposed such a structure.
+a mechanical check the work must pass refuses. A review that finds an instruction for a case
+judgement handles, or such a structure, other than one whose act a goal's text states, shows the
+goal unmet in practice; it is answered by removing that instruction or that structure rather than by
+adding a rule. The retrospective asks whether an installed instruction its session met covered a
+case the session's judgement handles well enough, or imposed such a structure.
 
 It refines `goal@knowledge-architect@agents-get-a-complete-workflow`.
 
@@ -261,7 +261,7 @@ It refines `goal@knowledge-architect@the-owner-decides`.
 The main session is the session that the person supervising the work exchanges with. It does
 itself what needs it:
 
-- the design and the goals, discussed with that person;
+- the design and the goals that it discusses with that person;
 - the decisions on the design, but those a dispatched agent meets in its own part of the work, and
   the questions put to that person;
 - the writing of the plan documents that record what was designed;
