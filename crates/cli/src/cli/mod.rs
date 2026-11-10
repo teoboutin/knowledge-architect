@@ -117,7 +117,10 @@ pub struct WorklistArgs {
     )]
     pub out: Option<std::path::PathBuf>,
     /// Check the reports the agents filled in DIR, a directory `--out` wrote: every entry an agent
-    /// was given graded once in its report, in the grades and relations its role takes.
+    /// was given has one verdict line in its report, in the verdicts its register admits and the
+    /// actions its verdict admits, against subjects `work.txt` lists, with a quotation of its own
+    /// text and a reason. When every report passes, it writes a verdict file per subject and the
+    /// lines a commit message owes.
     #[arg(long, value_name = "DIR")]
     pub verify: Option<std::path::PathBuf>,
     /// The words one agent is given at most, the work's words included; a group above what the
@@ -130,7 +133,7 @@ pub struct WorklistArgs {
     )]
     pub bound: usize,
     /// A reference the work names, repeatable: each report line of an entry that cites it, or is
-    /// it, names it, and such an entry is never graded `unrelated`.
+    /// it, names it, and such an entry is never given the verdict `unrelated`.
     #[arg(long = "seed", value_name = "REF", conflicts_with = "verify")]
     pub seeds: Vec<String>,
     /// A file of the work, repeatable: `work.txt` lists it for the agents to read, and its words
