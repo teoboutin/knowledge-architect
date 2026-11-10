@@ -148,8 +148,8 @@ evidence bring, which nobody knows in advance.
   ground of each closure: its argument, or the owner's word recorded by what it brings, as
   `skill@knowledge-architect-design@what-earns-a-head` says, the rivals that lost with
   their reasons, every premortem cause with its outcome, its acceptance criteria, and the
-  `may-bear` entries the grounding did not read, each with the searcher's
-  reason, which the review before the merge reads. The decision is
+  lines of `generated-lines.md` that the grounding's record search wrote, which the review before
+  the merge reads. The decision is
   recorded at that landing like any other, under
   `skill@knowledge-architect-decision-recording`:
   `skill@knowledge-architect-decision-recording@reversal-check` decides the Component of a decision
@@ -204,8 +204,8 @@ a part that cannot be undone waiting for the owner's word, per `primer@question-
 A reply that brings an argument, a new shape or a doubt returns the work to the loop, on the
 in-change path or the full path. The commit that implements bounded work carries the proposal and,
 if one came, the owner's answer, recorded by what it brings, as `skill@knowledge-architect-design@what-earns-a-head` says,
-and the `may-bear` entries the grounding did not read, each with the searcher's reason, which the
-review before the merge reads.
+and the lines of `generated-lines.md` that the grounding's record search wrote, which the review
+before the merge reads.
 
 Misclassifying costs in both directions: a bounded problem does not need a discussion, and an open
 one needs argument. Territory that looks technical is often not bounded (error handling can turn out
@@ -579,48 +579,64 @@ choices whose option space genuinely is closed and consequence-free.
    record by `grep` for the question's subject. Then draft the shapes,
    the owner's proposal if one was made and your own, and challenge
    each on its failures, its costs and its benefits, with measurements,
-   in the slots step 4 gives every proposal. Then a search of the whole record runs,
-   with the problem and the drafted shapes as the work: a searcher given
-   the question alone cannot tell whether a `rejected` design comes back,
-   since that grade is given against a shape. Its seeds are the
+   in the slots step 4 gives every proposal.
+   **Once the shapes settle, and before any thread closes, a search of
+   the whole record runs, with the draft as its work.** The draft is
+   the draft of the document that will carry the deliberation, in the
+   form of the path you expect: on the full path, the draft of the
+   spec, which `skill@knowledge-architect-planning`, loaded then,
+   writes as `skill@knowledge-architect-planning@when-planning-starts`
+   says; on the in-change path and for bounded work, the draft of the
+   commit message, which you write in your scratch space. The
+   classification after the search still decides the path. A searcher
+   given the question alone cannot tell whether a `rejected` design
+   comes back, since that verdict is given against a shape. When the
+   shapes settle is your judgement, with no count of rounds; the
+   grounding is complete only once the search has run, and until then
+   each round states the grounding it rests on, the homes read and the
+   grep, and that the search has not run. A goal the discussion sets
+   through `skill@knowledge-architect-goal-setting` is no part of the
+   search's work; only its consequences on the design are. It is the
+   discussion's one search of the whole record, never a pass over what
+   changed since the first rounds.
+
+   Dispatch the search as the description of
+   `agent@knowledge-architect-record-searcher` says, with the draft as
+   its `--work`, each thread's slug as a `--subject`, and as seeds the
    decisions read so far that the problem and the shapes rest on or may
-   change, never a goal: a goal reaches every cluster that cites it as
-   context, and a goal seed forces every entry citing it to a `may-bear`
-   grade at least.
-   A goal the discussion sets through `skill@knowledge-architect-goal-setting`
-   is no part of the search's work; only its consequences on the design
-   are. The search may wait until the scope settles, after the first
-   rounds, which you judge, with no count of rounds; it runs at the
-   latest before any thread closes, and the grounding is complete only
-   once it has run. Until then each round states the grounding it rests on, the homes read and the grep,
-   and that the search has not run. It is the discussion's one search of
-   the whole record, with the shapes drafted by then as its work, never
-   a pass over what changed since the first rounds. The search is
-   dispatched as the description of
-   `agent@knowledge-architect-record-searcher` says. Then read whole
-   `bears.md`, every entry the search grades `bears` with every reference
-   to it, a goal there by its grades alone since its home is read above,
-   and, from `may-bear.md`, the entries graded `may-bear` that a
-   proposal touches, chosen from its table of contents; run
-   `cargo klarch show <kind>@<anchor>@<id>` on each other entry the
-   question bears on, and read it whole: never act on an entry from the
-   reason the search gave.
-   The round after the search states which of
-   these were read and run, which entries the search graded `bears` or
-   `may-bear`, which of them the question bears on, for each goal
-   graded `bears` or `may-bear` the threads it constrains or that it
-   constrains none, for each `may-bear` entry read whether it bears, and
-   the `may-bear` entries not read, each with the searcher's reason. That list reaches the review that reads the work
-   against the record, in the record each path keeps: the plan document's
-   "What is already decided" on the full path, and the commit message on
-   the in-change path and for bounded work. An entry graded `may change` goes to
-   `skill@knowledge-architect-decision-recording@reversal-check`, and to the
-   backstop of `skill@knowledge-architect-design@what-earns-a-head`, before a proposal that would change it,
-   and a goal graded so to `skill@knowledge-architect-goal-setting`; one graded `may bring back` is
-   proposed again only with a new argument, by the Reopening rule. When a
-   thread opens, after the search, on a subject its work did not cover,
-   run the search again with the thread as the work: the search graded
-   the record against the problem and the shapes it was given. Where the record is silent, read the code and its history; where it is empty, state that the record starts with this
+   change, never a goal: a goal is graded by a goal agent and reaches
+   the cluster agents by its title, and an entry citing a seed is never
+   `unrelated`, so a goal seed puts every entry citing it in the
+   verdict files.
+   Read the verdict files it writes, or hand them to agents you
+   dispatch, at your judgement, and act on each verdict, checked as you
+   check your own claims; `cargo klarch show <kind>@<anchor>@<id>` reads
+   any other entry the question bears on. By its action:
+
+   - `respect`: the shapes keep within the quoted sentence;
+   - `check-reversal`: `skill@knowledge-architect-decision-recording@reversal-check`,
+     and the backstop of `skill@knowledge-architect-design@what-earns-a-head`,
+     before a proposal that would change the entry;
+   - `goal-setting`: `skill@knowledge-architect-goal-setting`, for the goal;
+   - `new-argument-needed`: the design is proposed again only with a new
+     argument, by the Reopening rule;
+   - `close-with-the-work`: the work's commit closes the issue, per
+     `skill@knowledge-architect-issue-tracking`;
+   - `rule-before-work`: ruled before the work is designed further or
+     built: a firing by
+     `skill@knowledge-architect-issue-tracking@movement-instruction`, and
+     a dependency, a trigger or a re-entry point in this discussion;
+   - an `owner-question`: put to the owner, as `primer@question-authority` says.
+
+   The findings revise the draft; the premortem and the convergence
+   follow. The round after the search states the outcome of each
+   verdict other than `unrelated`: the answer the discussion gives,
+   that the design respects it, or that it stays open. On the full
+   path, the plan document records them, assembled from the transcript,
+   never from the draft. When a thread opens, after the search, on a
+   subject its work did not cover, run a search of its own, with the
+   draft extended by that thread as the work and the thread as its
+   subject: the search judged the record against the draft it was given. Where the record is silent, read the code and its history; where it is empty, state that the record starts with this
    discussion. A record that
    carries a verdict but no decision — a review, an audit, an
    automated report, a prescribed change nobody ruled on — grounds
@@ -862,7 +878,7 @@ choices whose option space genuinely is closed and consequence-free.
    before the session ends, for the reason
    `skill@knowledge-architect-planning@when-planning-starts` gives, and
    owns which ones and their shape.
-   Each round's delta is the draft that assembly reads.
+   Each round's delta is what that assembly reads.
 
 The plan document is the full account of the
 discussion, assembled from its transcript: every thread with its proposer

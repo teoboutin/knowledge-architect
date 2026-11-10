@@ -56,7 +56,8 @@ cargo klarch install-agent-skills      write the agent files this version ships,
 klarch init [PATH] [--name n] [--component DIR]… [--rust] [--vcs git|none] [--command c]
                                        create a project, overwriting no hand-written file
 cargo klarch new-component <DIR>       add a Component: its manifest line, its documents and homes
-cargo klarch worklist --out <dir> [--seed <ref>]… [--since <commit>] [--seeds-from <spec>]
+cargo klarch worklist --out <dir> [--work <path>]… [--subject <id>]… [--seed <ref>]…
+                         [--since <commit>] [--seeds-from <spec>]
                                        the work list of a search of the whole record, one directory per agent
 cargo klarch worklist --verify <dir>   check the reports, and write the verdicts per subject and the commit lines
 cargo klarch transcript list [--branch b] [--containing t] [--since d] [--all-projects]
@@ -311,43 +312,96 @@ and a spec list no register. The output is for a reader, not for a script.
 ## `worklist`
 
 The work list of a search of the whole record, for the record searcher the workflow installs.
-Every entry of every register but the plan registers is grouped into **clusters**: each is rooted
-at a unit of `design` or of a declared register, cut by the headings or the groups of its home, as
-a design home is cut at its level-two subjects, and holds the `rejected` entries its entries cite,
-the issues and tripwires that cite them, and the goals they cite with every goal those refine. The
-rule for each shape of register is the design head `design@query@cluster-rooted-at-a-subject`. An entry no
-cluster holds is in its anchor's **residual group**. The groups are packed into the fewest agents,
-the load spread evenly, under a bound in words.
+Every Component and every location the manifest declares is a **search unit**, and every entry of
+every register but the plan registers belongs to the search unit that holds it, or, for an anchor
+the tool constructs, the search unit that holds its home. Inside a search unit, the entries are
+grouped into **clusters**: each is rooted at a unit of `design` or of a declared register, cut by
+the headings or the groups of its home, as a design home is cut at its level-two subjects, and
+holds the `rejected` entries its entries cite and the issues and tripwires of the search unit that
+cite them. The rule for each shape of register is the design head
+`design@query@cluster-rooted-at-a-subject`. The entries no cluster holds, goals apart, are the
+search unit's **remainder**; its goals are grouped by goals file.
 
-**`worklist --out <dir> [--bound <words>] [--seed <ref>]…`** writes into `<dir>`, a new or empty
-directory outside the project:
+An agent that grades a cluster's entries is also given, read only, its **context entries**, each
+head or `rejected` entry an entry it grades cites and another agent grades, and the **title lines**
+of the goals of the root, of each Component enclosing its search units and of those search units.
+Goal agents grade the goals, each goals file after its text above its first goal. A search unit
+whose load, its entries, context entries and title lines in words, exceeds half the bound left gets
+agents of its own, its groups spread under the bound where it does not fit one; the others are
+packed together whole, into the fewest agents, the load spread evenly.
+
+**`worklist --out <dir> [--bound <words>] [--seed <ref>]… [--work <path>]… [--subject <id>]…
+[--since <commit>] [--seeds-from <spec>]`** writes into `<dir>`, a new or empty directory outside
+the project:
 
 - `agents.txt`: one line per agent and entry, `<agent> <role> <reference>`, with `seed` or
-  `cites-seed` after an entry that is or cites a seed;
-- per agent, `agent-<n>/entries.md`, every entry it is given, whole, cluster by cluster, and
-  `agent-<n>/report.md`, the skeleton it fills, one line per entry;
-- `shown.md`, the **snapshot**: every entry of the record as `show` prints it, its inbound list
-  included, each after a line `=== <reference>` and in a fence; no agent is given it.
+  `cites-seed` after an entry that is or cites a seed, then `changed-since` after an entry whose
+  file changed since the `--since` commit;
+- `work.txt`: a line `work <absolute path>` per file of the work, a line `subject <id>` per subject, then,
+  with `--seeds-from`, a line `spec <citation> <path>`, and, with `--since`, a line
+  `since <subject>`, the commit named by its subject;
+- per agent, `agent-<n>/entries.md`, every entry it grades, whole, cluster by cluster, then its
+  context entries and its title lines, and `agent-<n>/report.md`, the skeleton it fills, one line per
+  entry it grades, listing the verdicts the entry's register admits;
+- `shown.md`, the **snapshot**: every entry of the record as `show` prints it, its own text and its
+  inbound list as two fenced blocks after a line `=== <reference>`; no agent is given it.
 
-It prints one line per agent with its load and its clusters, each with its own load, and a **notice** for each group of a
-split search unit whose own entries exceed the bound, 40,000 words by default, which goes to an
-agent alone: a subject named so is split into subjects read apart. It refuses, writing nothing, a tree that stops before
-the last phase of `check`, a directory inside the project or not empty, and a seed that names no
-entry.
+The options:
 
-**`worklist --verify <dir>`** reads `agents.txt` and every report, and reports each entry graded
-nowhere or twice, a reference no agent was given, a grade other than `bears`, `may-bear` or
-`unrelated`, a `bears` with no relation or one outside its role's set, a relation on another grade,
-a missing reason, an entry that is or cites a seed graded `unrelated`, and a report with no
-section `## Met outside the task`. It reads no model, so it judges the reports against what the
-agents were given.
+- `--bound`: the words one agent is given at most, 40,000 by default; the words of the work come
+  out of it;
+- `--seed <ref>`: an entry the work names; the report line of an entry that is or cites it names
+  it, and such an entry is never given `unrelated`;
+- `--work <path>`: a file of the work, listed in `work.txt` for the agents; a file given twice, in
+  any spelling, counts once;
+- `--subject <id>`: a subject of the work, an id in the grammar `[a-z0-9]+(-[a-z0-9]+)+`; with
+  none, the one subject is `whole-work`;
+- `--since <commit>`: a revision naming one commit; every entry whose file differs between it and
+  the work tree, an untracked file included, is marked `changed-since`, a mark, not a filter;
+- `--seeds-from <spec>`: the path of a plan document, for its design audit; the design entries and
+  declared-register entries its section "What is already decided" cites become seeds, beside any
+  `--seed`, and `--verify` writes the audit's outputs.
 
-When every report passes, it writes the **assembly** from the snapshot: `bears.md`, every entry
-whose highest grade over every report is `bears`, and `may-bear.md`, every entry whose highest grade
-is `may-bear`, after a table of contents with each entry's reasons. Above each entry, every agent's
-bearing grade line, identical lines merged; then its show text, fenced, or for a goal its grade lines and its site alone. It
-removes a previous assembly first, so a run that fails or stops leaves none. A snapshot that is
-missing or lacks an entry the list gives, as an older `--out` wrote, writes no assembly and exits 2.
+It prints one line per agent with its load and the items it was packed as, each with its own
+load; the bound the work leaves, wherever a work is given; the number of seeds `--seeds-from`
+took, and of entries changed since the `--since` commit; and a **notice** for each group of a
+split search unit whose own entries exceed the bound, which goes to an agent alone: a subject named
+so is split into subjects read apart. It refuses, writing nothing, a tree that stops before the last
+phase of `check`, a directory inside the project or not empty, a seed that names no entry, a file of
+the work it cannot read, a `--since` revision git cannot resolve to one commit, with git's reason, a
+`--seeds-from` path that is no plan document, and a path of the work or of the plan document holding
+a line break.
+
+**`worklist --verify <dir>`** first removes every `verdicts-*.md`, `generated-lines.md`, `gaps.md`
+and `fit-lines.md` of `<dir>`, then reads `work.txt`, `agents.txt`, the snapshot and every report.
+Each line of a report is
+
+```text
+- <reference> | verdict: <verdict> | against: <subjects or -> | action: <action> | owner-question: <text> | quote: <text> | reason: <text>
+```
+
+and it reports each entry given a verdict nowhere or twice, a reference no agent was given, a
+verdict outside those the entry's register admits, an action outside those its verdict admits, an
+`against` naming a subject `work.txt` does not list, or `-` other than on `unrelated` and on
+`constrains` with the action `none`, a quotation that is not a run of at least eight whole words of
+the entry's own text below its first line, or all of a shorter one, a missing reason, an entry that
+is or cites a seed given `unrelated`, and a report missing `## Decided` or `## Met outside the
+task`. It reads no model, so it judges the reports against what the agents were given.
+
+When every report passes, it writes from the snapshot:
+
+- `verdicts-<subject>.md` per subject of `work.txt`: every verdict other than `unrelated` whose
+  `against` names the subject, each entry's verdict lines above its text and its inbound list;
+- `generated-lines.md`: one line per entry given a verdict other than `unrelated`,
+  ``- `<reference>`: <verdict>, <action>.``, for a commit message;
+- at a design audit, a work list `--out` wrote with `--seeds-from`, in place of
+  `generated-lines.md`: `gaps.md`, every verdict other than `constrains` and `unrelated` with its
+  entry's text, and `fit-lines.md`, the same lines as `generated-lines.md` under the plan document's
+  citation and, where `--since` was given, the subject of its commit.
+
+A run that fails or stops leaves none of these files. A line it cannot parse, a `work.txt` it
+cannot read, and a snapshot that is missing, cut short or lacks an entry the list gives stop it with
+exit 2.
 
 ## `id`
 

@@ -1,40 +1,42 @@
 ---
 name: knowledge-architect-record-searcher
-description: Reads whole the clusters of the project's record that `cargo klarch worklist` gave one agent, grades every entry against a piece of work, and fills that agent's report, at the grounding of a design discussion and of a retrospective intake, and at the design audit of a milestone slice or of a spec. To dispatch it, run `cargo klarch worklist --out <dir>`, `<dir>` a new directory of your scratch space outside the project, with `--seed <ref>` for each seed the dispatching skill names; send one agent per directory `agent-<n>` it wrote, all in parallel, each given the work, the seeds and its agent directory, which is its scratch directory; when they return, run `cargo klarch worklist --verify <dir>`, and send again the agent of each report it fails, naming the findings. Where the harness refused an agent's edit of its report, write the report it returned as text into its `report.md` before the check. A passing check writes `bears.md` and `may-bear.md` into `<dir>`, every entry graded `bears` and every entry graded `may-bear` with its text and every reference to it, a goal by its grades alone, `may-bear.md` opening with a table of contents of the reasons: read `bears.md` whole, and `may-bear.md` as the dispatching skill says, never acting on an entry from its reason alone.
+description: Reads whole the entries of the project's record that `cargo klarch worklist` gave one agent, gives each entry it grades a verdict against a piece of work, with a quotation the command checks and a reason, and fills that agent's report, at the grounding of a design discussion and of a retrospective intake, and at the design audit of a milestone slice or of a spec. To dispatch it, run `cargo klarch worklist --out <dir>`, `<dir>` a new directory of your scratch space outside the project, with `--work <path>` for each file of the work, `--subject <id>` for each subject of the work and `--seed <ref>` for each seed, as the dispatching skill names them; send one agent per directory `agent-<n>` it wrote, all in parallel, each given its agent directory, which is its scratch directory, and the path of `<dir>/work.txt`; when they return, run `cargo klarch worklist --verify <dir>`, and send again the agent of each report it fails, naming the findings. Where the harness refused an agent's edit of its report, write the report it returned as text into its `report.md` before the check. A passing check writes into `<dir>` one verdict file per subject, `verdicts-<subject>.md`, every verdict other than `unrelated` against that subject with its entry's text and every reference to it; and `generated-lines.md`, one line per entry given a verdict other than `unrelated`, for the commit message the dispatching skill names, or, at a design audit, `gaps.md` and `fit-lines.md` in its place. Read the verdict files yourself, or hand them to agents you dispatch, at your judgement; act on each verdict as the dispatching skill says, checking it as you check your own claims; put each `owner-question` to the owner as `primer@question-authority` says; and carry each report's `## Decided` and `## Met outside the task` into your own sections.
 tools: Read, Grep, Glob, Bash, Edit
 ---
 
 # Record search
 
-You read whole the clusters of the project's record that one agent was given, and grade every entry
-against a piece of work. The record is every goal, design entry, `rejected` entry, issue, tripwire
-and entry of a register the project declares. A cluster is what a piece of work reads together: a
-subject of a design home, or a group of a declared register, with the `rejected` entries its
-entries cite, the issues and tripwires that cite them, and the goals they serve. The session that
-sent you reads whole every entry you grade `bears`, and an entry you grade `may-bear` as its skill
-says, and acts on them before the work is designed or built. An entry you miss is met only at a later review, after the work exists, where it
-costs rework instead of a ruling; a `rejected` entry you miss comes back as a proposal.
+You read whole the entries of the project's record that one agent was given, and give each entry
+you grade a verdict against a piece of work. The record is every goal, design entry, `rejected`
+entry, issue, tripwire and entry of a register the project declares. A cluster is what a piece of
+work reads together: a subject of a design home, or a group of a declared register, with the
+`rejected` entries its entries cite and the issues and tripwires of the same Component or declared
+location that cite them. The session that sent you acts on your verdicts before the work is
+designed further or built, and reads an entry you give `unrelated` only by your line. An entry you
+miss is met only at a later review, after the work exists, where it costs rework instead of a
+ruling; a `rejected` entry you miss comes back as a proposal.
 
-**You lean to recall, on a named doubt**, as the grade table below defines it: the session reads
-every `may-bear` reason to choose what to read, and a doubt that names nothing gives it nothing to
-choose by.
+**You check your conclusions as the session that sent you checks its own claims**, and each verdict
+states your conclusion, not a condition: resolve every doubt that the work and the record answer.
+What `primer@question-authority` reserves to the owner goes in the line's `owner-question`: the
+readings, and what each changes in the work.
 
 **You edit one file**: your `report.md`. You run only commands that read the project, and you may
 write other working files in your agent directory alone. You run in the session's tree, which
 nobody edits while you search.
 
-**Reproduce what you report.** Every grade you give is of an entry you read, and every command you
-list is one you ran.
+**Reproduce what you report.** Every verdict you give is of an entry you read, and every command
+you list is one you ran.
 
 ## Your brief `##your-brief`
 
-- **The work**: a question under discussion, a plan document to implement, or the files a
-  retrospective intake received. Read the plan document or the files if the brief names them.
-- **The seeds**: the decisions and goals the dispatching skill names as seeds, as references, or
-  none.
-- **Your agent directory**: `agent-<n>` under the work list's directory. It holds `entries.md`,
-  every entry you are given, whole, cluster by cluster, each introduced by a line
-  `=== <reference>  <file>:<line>`; and `report.md`, the skeleton you fill.
+- **The work**: `work.txt`, whose path the brief gives. Each `work` line names a file of the work:
+  read each whole. Each `subject` line names a subject of the work, a part of it that the session
+  names, such as a thread of a discussion or a cluster of findings, or `whole-work` where it names
+  none. At a design audit, a `spec` line names the plan document, and a `since` line the commit,
+  by its subject, after which the entries marked `changed-since` changed.
+- **Your agent directory**: `agent-<n>` beside `work.txt`. It holds `entries.md`, every entry you
+  are given, and `report.md`, the skeleton you fill.
 
 ## Read every entry `##read-every-entry`
 
@@ -42,33 +44,66 @@ Read `entries.md` whole, so that each head is read with the entries that cite it
 cites. Do not decide from a title which entries are worth reading: a title does not show a
 tripwire's firing clause, a deferred issue's trigger, or every member a head's argument covers.
 
-## Grade every entry `##grade-each-entry`
+- Each entry you grade is a line `=== <reference>  <file>:<line>`, with its marks after it, then
+  its text, fenced. The entries come cluster by cluster, or, for an agent given goals, goals file
+  by goals file, after the file's text above its first goal.
+- Under `## Context entries` are the heads and `rejected` entries that an entry you grade cites and
+  another agent grades: read them with the entries that cite them, and give them no line.
+- Under `## Goal titles` are the goals that bind your entries, by their titles: a goal agent grades
+  them. **Before a verdict rests on a goal you hold by its title, read it whole**, with
+  `cargo klarch show <reference>`.
 
-| grade | relation | the entry |
+## Give every entry a verdict `##grade-each-entry`
+
+| verdict | registers | the entry |
 | --- | --- | --- |
-| `bears` | `constrains` | a goal the work serves, or a design entry or an entry of a declared register stating a rule the work's subject falls under, which a proposal must respect |
-| `bears` | `may change` | a design entry or an entry of a declared register the work could contradict, widen or narrow, or a goal it could strain or change |
-| `bears` | `may bring back` | a `rejected` entry whose design the work could propose again |
-| `bears` | `touches`, `closes`, `worsens`, `depends on`, `trigger met` | an issue whose subject the work touches, the code, the document, the decision or the procedure it describes; which it would close or make worse; on whose answer it depends; or whose deferred trigger it would meet |
-| `bears` | `fires` | a tripwire whose firing clause the work would meet |
-| `may-bear` | none | an entry where an element this change makes might conflict with a sentence of the entry, with no relation established |
-| `unrelated` | none | an entry no element of this change could conflict with, one that only shares the work's subject, or that the work could lead someone to change later, included |
+| `constrains` | every register | a goal the work serves; a design entry or an entry of a declared register stating a rule the work's subject falls under; a `rejected` entry whose reason limits a shape of the work that does not bring it back; on an issue or a tripwire, only an entry that is or cites a seed and that nothing in the work meets |
+| `conflicts` | `goal`, `design`, a declared register | a goal the work could strain or change, or an entry the work could contradict, widen or narrow |
+| `brings-back` | `rejected` | a design the work could propose again |
+| `closes`, `touches`, `worsens`, `depends-on` | `issue` | an issue the work would close; whose subject it touches, the code, the document, the decision or the procedure the issue describes; which it would make worse; or on whose answer it depends |
+| `trigger-met` | `issue` | an issue whose deferred trigger the work meets, or, for an issue of kind `design`, whose re-entry point it meets |
+| `fires` | `tripwire` | a tripwire whose firing clause the work meets |
+| `unrelated` | every register | an entry nothing in the work meets, one that only shares the work's subject, or that the work could lead someone to change later, included |
 
-An entry that is a seed, or whose report line names a seed it cites, is graded `bears` or
-`may-bear`, never `unrelated`: it names a decision or a goal the work names. Where it meets no
-element of the change, it is `may-bear`, and its reason names the seed. Several relations of
-one entry are written comma-separated.
+The actions each verdict admits:
+
+| verdict | action |
+| --- | --- |
+| `constrains`, `touches`, `worsens` | `respect` where the quoted sentence limits a shape of the work, `none` where nothing in the work is limited by it |
+| `conflicts` | `goal-setting` on a goal, `check-reversal` on any other entry |
+| `brings-back` | `new-argument-needed` |
+| `closes` | `close-with-the-work` |
+| `depends-on`, `trigger-met`, `fires` | `rule-before-work` |
+| `unrelated` | `none` |
+
+**An entry that is a seed, or cites one, is never `unrelated`**: its report line says `is a seed` or
+`cites seed:`. Where nothing in the work meets it, it is `constrains`, action `none`, `against: -`,
+its reason naming the seed.
 
 ## Fill your report `##fill-the-report`
 
-Edit `report.md` in place. On each line, after `grade:`, `relation:` and `reason:`, write the grade,
-the relation or nothing, and one line of reason: what in the work meets what in the entry, or the
-seed it cites, or, for `may-bear`, the element of the change and the sentence of the entry the doubt names, and
-why no bearing is established. An
-`unrelated` entry needs no reason. A line that reads `graded above` names an entry you grade under
-an earlier cluster: leave it. Under the closing section, `## Met outside the task`, list each item
-you met outside the task, or leave it empty; keep the section. A subject whose size strained your
-reading is such an item, with its cluster's name, as a sign that it needs splitting.
+Edit `report.md` in place. Each line is, in this order:
+
+```text
+- <reference> | verdict: <verdict> | against: <subject ids, comma-separated, or -> | action: <action> | owner-question: <text, or empty> | quote: <text> | reason: <text>
+```
+
+- **verdict**: the skeleton lists the verdicts the entry's register admits; replace them by one.
+- **against**: the subjects of the work the verdict is against; `-` only on `unrelated`, and on
+  `constrains` with the action `none`.
+- **owner-question**: empty, or what only the owner can answer, as above.
+- **quote**: at least eight words copied verbatim, markdown marks included, from the entry's text
+  inside its fence, or the whole of a shorter one; never from its `===` line. For an `unrelated`
+  entry, the sentence that shows the entry's subject. The check compares after collapsing each run
+  of whitespace to one space, and refuses a quotation it does not find.
+- **reason**: one line: what in the work meets what in the entry, the seed it cites, or, for
+  `unrelated`, how the quoted subject differs from the work's.
+
+A field holds no ` | quote: ` or ` | reason: `. A line that reads `graded above` names an entry you
+grade under an earlier cluster: leave it. Under `## Decided`, list each decision you made that the
+owner could have made, with its ground; under `## Met outside the task`, each item you met outside
+the task; leave either empty where there is none, and keep both. A subject whose size strained your
+reading is an item met outside the task, with its cluster's name, as a sign that it needs splitting.
 
 Where the harness refuses your edit of `report.md`, return the whole report, filled, as text, so
 the session that sent you writes it.

@@ -1,6 +1,6 @@
 ---
 name: knowledge-architect-planning
-description: MUST use when a design discussion has converged and its work needs a spec or a milestone, in the same session as the convergence; whenever a slice of a milestone is about to be implemented or lands; when the work of a spec starts or lands; and before editing the roadmap. Covers the plan document vocabulary (spec, milestone, plans directory, roadmap), choosing between a spec and a milestone, the roadmap, the file layout and the fixed sections, plan items and their citations, assembly from the discussion's transcript, cutting the work into steps and slices, acceptance criteria, the design audit, the reviews of a plan document, the harvest, and the deletion that ends a plan document's life.
+description: MUST use when the shapes of a design discussion that expects its full path settle, before its record search, to write the draft the search reads, and when a design discussion has converged and its work needs a spec or a milestone, in the same session as the convergence; whenever a slice of a milestone is about to be implemented or lands; when the work of a spec starts or lands; and before editing the roadmap. Covers the draft the design grounding's search reads, the plan document vocabulary (spec, milestone, plans directory, roadmap), choosing between a spec and a milestone, the roadmap, the file layout and the fixed sections, plan items and their citations, assembly from the discussion's transcript, cutting the work into steps and slices, acceptance criteria, the design audit, the reviews of a plan document, the harvest, and the deletion that ends a plan document's life.
 ---
 
 # Planning
@@ -8,8 +8,8 @@ description: MUST use when a design discussion has converged and its work needs 
 %% This skill is one activity.
 Scope: turning the converged design of a discussion into a plan document that a later session
 implements, then carrying that document through each landing until it leaves the repository. It
-begins in the session where the discussion converged, and it re-enters at each slice's audit and at
-each landing.
+begins in the session of a discussion on its full path, once its shapes settle, with the draft its record search
+reads, and it re-enters at each slice's audit and at each landing.
 
 **Not covered here**, each named where it lives:
 
@@ -53,7 +53,18 @@ The word "plan" alone never names a document: say spec, milestone document, or p
 
 ## When this skill starts {{slug:when-planning-starts}}
 
-**In the session where the discussion converged, before that session ends.** The discussion's
+%% The draft: `design@agent-skills@design-hands-off-to-planning`; it is no ledger, per
+%% `rejected@agent-skills@ledger-written-during-discussion`.
+**On the full path of a design discussion, once its shapes settle and before its record search.**
+Write the draft the search reads, as loop step 1 of `skill@knowledge-architect-design@discussion-loop`
+asks, in your scratch space, with the sections of a spec that carry the design: what the work is,
+what is already decided, the threads as they stand, the decided design as proposed, and the losing
+alternatives. It is held to fewer constraints than a plan document, since the checker reads no
+scratch file. The findings of the search
+revise it, and a thread that opens after the search extends it for its own search. It is never read
+as the discussion's state, and never the source of the plan document.
+
+**The plan document: in the session where the discussion converged, before that session ends.** The discussion's
 ledger, every thread with its state and its argument, lives in that conversation and in the
 harness's transcript of it, which the assembly of `skill@knowledge-architect-planning@spec-contents` reads. A plan document written from memory in a
 later session is written from a summary, and a summary loses exactly the losing arguments and the
@@ -162,7 +173,7 @@ so in one line rather than being omitted, so a reader can tell an empty section 
 | How the work is done | in a milestone document: a pointer to `skill@knowledge-architect-planning@working-a-slice`, with an instruction to read it whole before each slice, and any addition the milestone's work needs. In a spec: one line naming this skill |
 | Names | every project shorthand the document uses, expanded to the file, function or command it names |
 | What the work is | what exists today at each site the work touches; what is outside the work and why, each exclusion naming the work or the decision that owns it |
-| What is already decided | the recorded decisions the design rests on and does not argue again, as references; and each recorded decision the work reverses or rewrites, with every text that `{{command}} show` lists as referencing it (a tripwire, an issue, a restatement in a `CLAUDE.md` or a skill, a README, a comment), and the step, slice or harvest that judges or updates each; and each entry the discussion's search graded `bears` or `may-bear`, with its outcome: how it bears on the work, that it bears on nothing, or, for a `may-bear` entry the grounding did not read, "not read" with the searcher's reason, which the design-conformance review reads |
+| What is already decided | the recorded decisions the design rests on and does not argue again, as references; and each recorded decision the work reverses or rewrites, with every text that `{{command}} show` lists as referencing it (a tripwire, an issue, a restatement in a `CLAUDE.md` or a skill, a README, a comment), and the step, slice or harvest that judges or updates each; and each entry the discussion's search gave a verdict other than `unrelated`, with its verdict, its action and its outcome: the answer the discussion gave, that the decided design respects it, or that it stays open |
 | Criteria | one item per criterion, ``### <criterion> `##<id>` ``: its kind, its source and its satisfaction |
 | Threads | one item per thread, ``### <resolution> `##<id>` ``: who proposed it and in which round, its final state, the arguments that moved it, the section that carries its shape, the durable home that will harvest it, and the owner's words that closed it, verbatim, with their round, or, for a thread closed `argued`, the argument that closed it |
 | Arguments | one item per argument of the discussion, ``### <argument> `##arg-<n>` ``: its round, who gave it, the threads it bears on, and its key words verbatim |
@@ -380,10 +391,11 @@ design the gap defeats or on the ruling the documents reserve to the owner.
 1. **Ground**: the Component's `CLAUDE.md`, its design home, its `rejected` home; then the
    milestone document entire, then the slice's spec. The issues and the tripwires, of every anchor,
    are read at the audit.
-%% The line per entry graded `bears` or `may-bear`: a judgement that an entry bears on nothing is the claim a later
-%% reader cannot check without it, and an entry that did bear and was dismissed is the failure the
-%% search exists to prevent. The rival, no record of such an entry, sent the transcript reviewer to
-%% report every unrecorded judgement as an item with no outcome.
+%% The fit lines, one per entry given a verdict other than `unrelated`: a judgement that an entry
+%% bears on nothing is the claim a later reader cannot check without it, and an entry that did bear
+%% and was dismissed is the failure the search exists to prevent. The rival, no record of such an
+%% entry, sent the transcript reviewer to report every unrecorded judgement as an item with no
+%% outcome. The command writes them, per `design@agent-skills@record-searched-before-the-work`.
 2. **The design audit.** Read the slice's entry and every decided shape it depends on against the
    code as it stands and against the design homes. List every gap: a shape the code refutes, a
    passage of a specification the entry did not read, a name the entry uses that the code does not
@@ -391,19 +403,18 @@ design the gap defeats or on the ruling the documents reserve to the owner.
    a tripwire whose firing condition, or a `deferred` issue whose trigger, the planned code meets, and an issue of any kind the slice's code touches, closes, makes worse or depends on. A cause of the milestone document's premortem whose firing condition the planned
    code meets bears on it too: read it in the milestone document, since no register holds it before
    the harvest. Dispatch the
-   search of the whole record as the description of `agent@knowledge-architect-record-searcher` says, with the
-   slice's spec and the milestone document as the work and, as seeds, the decisions the milestone
-   document lists under "What is already decided", those the design rests on and those it reverses
-   or rewrites, and the decisions the slice's spec
-   cites; for a spec, the spec is the work and the decisions its own "What is already decided"
-   lists give the seeds. A goal is no seed: it reaches every cluster that cites it as context, and a
-   goal seed forces every entry citing it to a `may-bear` grade at least. Read whole `bears.md` and
-   `may-bear.md`, which the search's check writes, every entry the search grades `bears` or
-   `may-bear` with every reference to it, and, with `{{command}} show`, each goal they give by its
-   grades alone, since this grounding reads no goals home; and judge each against the slice; never act on an entry from the reason the search gave. The audit's
-   record gives one line to each entry the search graded `bears` or `may-bear`, with its outcome, an entry judged to bear on nothing in the
-   slice included: in the message of the audit's commit, or, where the audit applies nothing in
-   place, in the message of the slice's first commit. A firing found at the audit is
+   search of the whole record as the description of `agent@knowledge-architect-record-searcher` says, with
+   `--work` the slice's spec and the milestone document, `--subject slice-audit`,
+   `--seeds-from` the slice's spec, and `--since` the commit that last changed the slice's spec,
+   `git log -1 --format=%H -- <spec>`; for a spec, `--work` and `--seeds-from` the spec,
+   `--subject spec-audit` and `--since` the commit that last changed it. `--seeds-from` takes as
+   seeds the design entries and the declared-register entries the spec's section "What is already
+   decided" cites, and `--since` marks `changed-since` each entry whose file changed after that
+   commit. The search's check writes `gaps.md`, each verdict other than `constrains` and
+   `unrelated`, with its entry's text: read it, and sort each verdict into the sorts below as a gap;
+   a `constrains` verdict is a fit. The audit's record is `fit-lines.md`, whole, the line of each
+   entry given a verdict other than `unrelated`: in the message of the audit's commit, or, where the
+   audit applies nothing in place, in the message of the slice's first commit. A firing found at the audit is
    ruled before the code is written, where one found only by the review of the harvest reopens the
    harvest. Sort each gap:
    - **Applied in place.** The gap has one answer the document's decisions already imply, or is a
@@ -411,7 +422,7 @@ design the gap defeats or on the ruling the documents reserve to the owner.
      milestone document or the slice's spec, wherever the shape it changes is written. Commit the
      amended documents alone, with a subject that names the slice's design audit in those words,
      and a message listing each finding: the gap, the answer and the decision it follows from, and
-     the line of each entry the search graded `bears` or `may-bear`. Where the slice's first change sets what the per-commit gate
+     the lines of `fit-lines.md`. Where the slice's first change sets what the per-commit gate
      requires, per `primer@branch-commits`, the amended documents land in that change's commit
      instead, and its message carries the audit's subject and list. Earlier audits are found with
      `git log --grep='design audit'`.
@@ -530,8 +541,9 @@ these four:
   record: the goals, the design heads and the rejected designs of every Component it touches.
   It reports a shape, an acceptance criterion, a default, a step or a harvest row that contradicts
   a goal, that contradicts or widens a head the document does not list as reversed or rewritten,
-  or that brings back a rejected design, and reads whole every entry the document lists as not read,
-  reporting one the work meets. A conflict with a goal goes to the owner.
+  or that brings back a rejected design, and reads beside them the verdict files of the discussion's
+  record search, whose directory its brief names, reporting a verdict the document leaves
+  unanswered. A conflict with a goal goes to the owner.
 - `agent@knowledge-architect-transcript-reviewer` reads the discussion's transcripts and checks that
   everything the discussion established that must outlive it is in the document or has another
   durable outcome, and that no ruling of the owner is recorded reversed, relaxed or turned from its
