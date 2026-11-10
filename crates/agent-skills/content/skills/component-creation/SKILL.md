@@ -1,6 +1,6 @@
 ---
 name: knowledge-architect-component-creation
-description: MUST use when new work may belong to no existing Component, when code being added gives a Component a second reason to change, when an adopting project's crates are mapped to Components at setup, when an audit finds a Component holding two purposes or a head sitting in a Component that does not own its subject, and when the owner states a purpose that several Components serve together — creating a Component or splitting one. Covers the default criteria of a Component, the intermediate Component, the signals against a split, how Components map to crates, the shapes a Component can take, how a Component is named, and the procedure of a creation or a split. Not for the design discussion that decides it, the declaration in the manifest, or the goals, which their own skills cover.
+description: MUST use when new work may belong to no existing Component, when code being added gives a Component a second reason to change, when an adopting project's crates are mapped to Components at setup, when an audit finds a Component holding two purposes or a head sitting in a Component that does not own its subject — creating a Component or splitting one. Covers the default criteria of a Component, the intermediate Component, the signals against a split, how Components map to crates, the shapes a Component can take, how a Component is named, and the procedure of a creation or a split. Not for the design discussion that decides it, the declaration in the manifest, or the goals, which their own skills cover.
 ---
 
 %% The activity and its four moments are `design@agent-skills@component-skill-delivery`. The criteria
@@ -14,8 +14,7 @@ out.
 
 Not covered here: **the design discussion** that decides a creation or a split,
 `skill@knowledge-architect-design`; **declaring a Component** in the manifest, its documents and its
-registers, `skill@knowledge-architect-setup`; **writing its goals**,
-`skill@knowledge-architect-goal-setting`; **recording the decision**,
+registers, `skill@knowledge-architect-setup`; **recording the decision**,
 `skill@knowledge-architect-decision-recording`.
 
 ## What a Component is by default {{slug:component-criteria}}
@@ -28,7 +27,7 @@ registers, `skill@knowledge-architect-setup`; **writing its goals**,
 These criteria are guidelines: a Component that departs from one does not fail on that alone. A
 Component that holds Rust code in its own files, by default:
 
-- **serves one purpose**, which every goal of its goals home serves;
+- **serves one purpose**, which the design head that argues its existence states;
 - **has an interface with a reason to change on its own**: one reason to change is the test for a
   Component as for a function, read the same way, as two concrete changes someone could plausibly
   ask for, each touching it independently;
@@ -51,13 +50,10 @@ each command or subcommand in a module of its own: the test of two changes is ap
 Component, not to each command, since a change of their shared design touches every one of them,
 and a change to one command alone differs from the others only in subject and application.
 
-%% The occasion of an intermediate Component is `design@agent-skills@intermediate-component-occasion`,
-%% and the home of a decision about dependencies is `design@agent-skills@dependency-decision-home`.
-**An intermediate Component** groups the Components nested under its directory that together serve
-a purpose of their own, which the rest of the project does not serve: its goals home states that
-purpose, and their goals refine it, as `skill@knowledge-architect-goal-setting` says. It is created
-with that purpose, under the owner's ruling of goals, never because the Components share a
-principle. Its own files hold no Rust code, so it is no crate: each Component nested under it that
+%% No occasion on which an intermediate Component is created is stated, per
+%% `design@agent-skills@no-installed-rule-on-when-an-intermediate-component-exists`, and the home of
+%% a decision about dependencies is `design@agent-skills@dependency-decision-home`.
+**An intermediate Component** groups the Components nested under its directory. Its own files hold no Rust code, so it is no crate: each Component nested under it that
 holds Rust code is a crate of its own. A decision that shapes how the code of several Components is
 written belongs in the design home of the lowest intermediate Component enclosing them all, or in
 the root's where none encloses them all, as `skill@knowledge-architect-decision-recording@owning-component` says; a
@@ -169,9 +165,9 @@ Name a Component before its directory is created:
    root's design home.
 2. **Create it**, named as `skill@knowledge-architect-component-creation@component-naming` says, by
    `skill@knowledge-architect-setup@components-and-locations`.
-3. **Write its purpose and its goals** under `skill@knowledge-architect-goal-setting`, the owner
-   ruling the purpose and each goal. A split's goals moved from the Component it leaves are goals of the new
-   Component, ruled the same way.
+3. **Record its purpose** as the statement of the design head that argues its existence, in the
+   root's design home, under `skill@knowledge-architect-decision-recording`. No goal is written
+   for it: the goals are the project's, as `skill@knowledge-architect-goal-setting` says.
 4. **For a split, move the record that is now the new Component's**: each design head, `rejected`
    entry, issue and tripwire whose subject it holds, the Component that owns each decided by
    `skill@knowledge-architect-decision-recording@owning-component`. A move adds and removes no

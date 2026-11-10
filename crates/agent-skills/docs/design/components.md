@@ -7,14 +7,12 @@
 `skill@knowledge-architect-component-creation` holds the default criteria of a Component, the
 signals against a split, the mapping to crates, the shapes, the naming and the procedure of a
 creation or a split. Its description names the moments a Component is created or split, and the
-primer's list of installed skills names them too. Today they are five: new work that may belong to
+primer's list of installed skills names them too. Today they are four: new work that may belong to
 no existing Component, met in a design discussion; a second reason to change found while adding
-code, met in development; an adopting project's crates mapped to Components, at setup; a
+code, met in development; an adopting project's crates mapped to Components, at setup; and a
 Component found holding two purposes at an audit, which today is the design-record axis's finding on
 the Component a head sits in, since no axis reads a Component's purposes, per
-`issue@agent-skills@audit-axes-beyond-the-design-record`; and a purpose the owner states for several
-Components together, met in goal-setting, whose skill points to the creation, since that purpose is
-the occasion of an intermediate Component, per `design@agent-skills@intermediate-component-occasion`. The fragment
+`issue@agent-skills@audit-axes-beyond-the-design-record`. The fragment
 `path@agent-skills@fragments/when-to-split.md` states the occasion and the signals, and sends the
 session to the skill; the design skill and the development skill host it, the two activities in
 which the first two moments are met, per `design@agent-skills@shared-text-fragment`. The setup skill
@@ -29,8 +27,8 @@ activity the owner has taken in, and its list of activities grows with the workf
 proposed a skill of its own with a fragment in the design skill, on the argument that not every design
 discussion needs the procedure, since creating a Component should be occasional; the session
 extended the proposal to the development skill and to the four moments. The skill decides nothing itself: the decision to create or split goes through
-`skill@knowledge-architect-design`, and the skill points to the setup and goal-setting skills for
-the declaration and the goals.
+`skill@knowledge-architect-design`, and the skill points to the setup skill for the declaration and to the
+decision-recording skill for the head that states the Component's purpose.
 
 Two rivals lost. Writing the whole procedure into the design skill would load it into every design
 discussion, most of which create no Component. Placing it in the planning skill misplaces the
@@ -107,14 +105,13 @@ would declare its flags again, and the copies would drift. The rival, each Compo
 shared crate sits above them and the binary flattening them, restates the interface's decisions in each domain crate. It
 is stated by the component-creation skill.
 
-### An intermediate Component groups Components that serve a purpose of their own, and holds the decisions on how the code of several of them is written `##intermediate-component-occasion`
+### The installed text states what an intermediate Component is and which decisions it holds, and no occasion on which one is created `##no-installed-rule-on-when-an-intermediate-component-exists`
 
-An intermediate Component groups the Components nested under its directory that together serve a
-purpose the rest of the project does not serve: its goals home states that purpose, and their goals
-refine it. It is created with that purpose, under the owner's ruling of goals, never because the
-Components share a principle. Its own files hold no Rust code, per
-`goal@knowledge-architect@projects-are-split-into-components`, so it is no crate, and each Component
-nested under it that holds Rust code is a crate, per `design@agent-skills@component-crate-mapping`.
+An intermediate Component groups the Components nested under its directory. Its own files hold no
+Rust code, per `goal@knowledge-architect@projects-are-split-into-components`, so it is no crate, and
+each Component nested under it that holds Rust code is a crate, per
+`design@agent-skills@component-crate-mapping`. The installed text states no occasion on which one is
+created: a project argues one in its own design.
 A decision that shapes how the code of several Components is written goes to the design home of the
 lowest intermediate Component enclosing them all, or to the root's where none encloses them all.
 Two decisions binding several Components are the root's whatever encloses them: a decision on their
@@ -123,20 +120,21 @@ shape, packaging or layout, as which Components exist and how they depend on eac
 by extending the owner's argument for dependency decisions, that the layout is then read in one
 place, at the cost of loading it on sessions outside the Components it binds; and a principle stated
 for every Component of a kind, a property a Component has whatever part of the project it belongs to and can gain or lose without moving, such as being published,
-since a Component anywhere in the tree can gain it. The component-creation skill states the
-occasion, point 3 of the decision-recording skill's rule on the owning Component places the
-decision, and the goal-setting skill has a nested Component's goal refine its intermediate
-Component's. How a reading reaches the intermediate's design is
+since a Component anywhere in the tree can gain it. The component-creation skill states what an
+intermediate Component is, and point 3 of the decision-recording skill's rule on the owning
+Component places the decision. How a reading reaches the intermediate's design is
 `design@agent-skills@enclosing-design-read-at-grounding`.
 
-The goals are the top of a Component, from which its design derives, the owner's argument; goals can
-be made to form a tree, where principles cannot, the session's argument, which the owner adopted; the
-directories follow that tree, so every set of Components has one
-lowest enclosing Component, and the same goals and the same decisions give the same homes, in
-whatever order they were met. Its costs: a decision in the lowest enclosing Component is loaded by
-the sessions of the other Components it encloses; and a change of purposes moves Components under or
-out of an intermediate Component, and with them the decisions whose lowest enclosing Component
-changes.
+The directories form a tree, so every set of Components has one lowest enclosing Component, and the
+same decisions give the same homes in whatever order they were met. Its cost: a decision in the
+lowest enclosing Component is loaded by the sessions of the other Components it encloses.
+
+No occasion is stated because none has an instance in use, per
+`design@agent-skills@behaviour-additions-need-real-use`. The occasion the installed text stated, a
+purpose the nested Components serve together, stated in the intermediate Component's goals home and
+refined by their goals, left when goals became the root's alone, per
+`design@agent-skills@goals-home-at-the-root-only`. The owner chose silence over a guideline that no
+use supports, to learn from the first project that creates one.
 
 The rivals lost:
 
@@ -145,24 +143,12 @@ The rivals lost:
   session, since every change to code reads the root's design home, per
   `skill@knowledge-architect-development@ground-before-editing`, against the reason of
   `goal@knowledge-architect@projects-are-split-into-components`, that each Component's design stays
-  small enough to read whole. The owner chose the intermediate Component by purpose over it, which
-  no goal ranks, to be judged when a project first needs one.
-- **An intermediate Component made where several Components share a principle**, whether the
-  principle whose set crosses an existing group goes to the root or the first principle met takes
-  the group. Principles need not form a tree, so two of them can name crossing sets that no two
-  directories hold, and the layout would depend on the order in which they were met, which the owner
-  refused.
-- **An intermediate Component made from a split**, a Component split into several becoming theirs.
-  The tree would follow the project's history rather than its purposes, the same dependence on order.
+  small enough to read whole. The owner chose to keep the intermediate Component over it, which no
+  goal ranks, to be judged when a project first needs one.
 - **An intermediate Component as a declared set of Components rather than a directory.**
   `goal@knowledge-architect@projects-are-split-into-components` defines a Component as what the
   checker's manifest declares, a directory or the project's root, and the owner keeps each
   Component tied to the filesystem tree.
-- **Grouping by a count of Components beside one another.** A count gives the group no design to
-  hold, while the group still owes every document and register home a Component carries, per
-  `design@model@components-carry-the-same-documents`. A directory the manifest does not declare
-  groups Components with no document, and moving a Component into it is one manifest edit, per
-  `goal@check@relocation-needs-only-goal-changes`.
 - **An intermediate Component that is a crate whose nested Components are its modules.** Its crate
   root holds Rust code, a public interface, a dependency list and a version, which the goal's
   definition excludes; and every dependency of one nested Component reaches every consumer of the
@@ -180,7 +166,7 @@ skill's loop step 1, the planning skill's grounding of a slice and the design-co
 name the design home of the Component touched, and some the root's, and none of them would otherwise
 name an intermediate Component's. An intermediate Component's heads bind the Components nested under
 it as the root's bind the Components they concern, per
-`design@agent-skills@intermediate-component-occasion`. The development skill, which names the
+`design@agent-skills@no-installed-rule-on-when-an-intermediate-component-exists`. The development skill, which names the
 root's beside the Component's, restates the binding in one sentence with its pointer to the primer,
 as `primer@where-knowledge-goes` admits.
 

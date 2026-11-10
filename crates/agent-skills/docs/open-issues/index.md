@@ -1,6 +1,6 @@
 **Generated — do not edit.** `cargo klarch index`
 
-56 entries
+57 entries
 
 | kind | title |
 | --- | --- |
@@ -20,6 +20,7 @@
 | design | [An intake's analysis can leave before the owner's ruling in it is committed](an-intake-analysis-can-leave-before-the-owner-s-ruling-is-committed.md) |
 | design | [An item met outside the task and kept for the retrospective's workflow file is lost when no retrospective follows](an-item-kept-for-the-retrospective-is-lost-when-no-retrospective-follows.md) |
 | design | [Decisions argued from a second agent harness, which the scope goal now asks against](heads-argued-from-another-harness.md) |
+| design | [No review compares the readings that several design heads take of one goal](no-review-compares-the-readings-heads-take-of-one-goal.md) |
 | design | [Plan documents keep the owner's words verbatim, where every other durable record attributes them, and sessions slip between the two](plan-documents-keep-the-owner-s-words-verbatim-where-other-records-attribute-them.md) |
 | design | [Pointers written as bare plain text to clear a finding reach no check, and the rule against them is reopened](pointers-written-bare-to-clear-a-finding-reach-no-check.md) |
 | design | [The claim check of a commit message is read at the session's start and needed at each commit](the-claim-check-of-a-commit-message-is-read-at-the-start-and-needed-at-each-commit.md) |

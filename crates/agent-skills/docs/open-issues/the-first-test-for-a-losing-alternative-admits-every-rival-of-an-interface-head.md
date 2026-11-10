@@ -36,6 +36,11 @@ applying the list admits what the argument would leave out.
 
 Re-entry point: the next change to the tests for a losing alternative, or the owner's word.
 
+Test 4 was reworded once since, from "every goal of the project or of its Component" to "every goal
+of the project", a Component stating no goal, per `design@agent-skills@goals-home-at-the-root-only`.
+That rewording changes what no test admits and decided nothing of this question, so the entry
+stays open on the same re-entry point.
+
 A further instance: W2 of the retrospective of the session that reduced the grounding's reading,
 2026-10-25. At its harvest, two rivals of command-line decisions passed test 1 by its letter and
 were recorded, one refuted by an argument any reader rebuilds in one round; tests 3 and 4 would have

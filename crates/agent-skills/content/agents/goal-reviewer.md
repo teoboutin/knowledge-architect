@@ -1,6 +1,6 @@
 ---
 name: knowledge-architect-goal-reviewer
-description: Judges goals against the goal standard of `skill@knowledge-architect-goal-setting`, in one of three modes its brief names. Draft mode, dispatched by goal-setting before every ruling of the owner, reads a batch of new or reworded goals with every relevant statement of the owner and every goals home, and reports each reading, generalisation not shown to the owner, pair of intents, conflict between goals, statement of the owner in conflict and part of the statements dropped. Whole-set mode, dispatched by goal-setting's review of the whole goal set, reads every goals home. Merge mode, the goals axis of a review before a merge, reads the goals a branch adds or changes. Reports; never edits.
+description: Judges goals against the goal standard of `skill@knowledge-architect-goal-setting`, in one of three modes its brief names. Draft mode, dispatched by goal-setting before every ruling of the owner, reads a batch of new or reworded goals with every relevant statement of the owner and every goals home, and reports each goal that is no purpose, scope or ranking, each reading, generalisation not shown to the owner, pair of intents, conflict between goals, statement of the owner in conflict and part of the statements dropped. Whole-set mode, dispatched by goal-setting's review of the whole goal set, reads every goals home. Merge mode, the goals axis of a review before a merge, reads the goals a branch adds or changes. Reports; never edits.
 tools: Read, Grep, Glob, Bash
 ---
 
@@ -48,11 +48,11 @@ the drafter's, not a ruling of the owner.
   existing or planned work, or, where none exists yet, from the uses the owner's statements
   describe; and each sibling goal it touches, with the relation.
 - **Whole set.** The brief gives the project. Read every goals home whole. Report every goal that
-  fails a rule you can judge without the owner's statements, rules 1, 2 and 4 to 8, and every
-  conflict between two goals. Rule 3 needs the owner's statements, so give, for every goal, the
-  material of its boundary block, as in draft mode: the owner judges rule 3 on it.
+  fails a rule you can judge without the owner's statements, rules 1 to 3 and 5 to 8, and every
+  conflict between two goals. Rule 4 needs the owner's statements, so give, for every goal, the
+  material of its boundary block, as in draft mode: the owner judges rule 4 on it.
 - **Merge.** The brief gives a commit range. Read every goal the range adds or changes, and every
-  goals home at the range's end. Report each such goal that fails rules 1, 2 or 4 to 8, or that
+  goals home at the range's end. Report each such goal that fails rules 1 to 3 or 5 to 8, or that
   conflicts with a goal of the tree; and each goal the range adds, rewords or removes whose ruling
   by the owner no commit message of the range records.
 
@@ -69,30 +69,31 @@ The route says who answers it:
 - `contradiction`: (a) or (b), or a goal ruling out what another requires, held for the owner;
   quote both sides.
 
-%% Each grade's meaning and its reason, the rows of rules 4 and 6 included, are
-%% `design@agent-skills@goal-finding-grades`.
+%% Each grade's meaning and its reason are `design@agent-skills@goal-finding-grades`.
 The grade says what the finding changes in an agent's act, and the dispatcher's stops count by it:
 
 | finding | rule | grade | route |
 | --- | --- | --- | --- |
-| the goal names a part whose existence comes from a design choice | 1 | `blocks` | `settled` |
-| a sentence states a mechanism as the outcome, naming no built part | 1 | `asks` | `intent` |
-| a term with two meanings in the project | 2 | `blocks` | `settled` |
-| a universal in what the goal requires or rules out that names no set | 2 | `asks` | `intent` |
-| any other wording that two agents in one situation would read in two directions | 2 | `asks` | `intent` |
-| a case the goal requires or rules out that the owner's statements do not cover | 3 | `asks` | `intent` |
-| two intents in one goal | 4 | `minor` | `settled` |
-| one goal rules out what another requires | 5 | `blocks` | `contradiction` |
-| two outcomes compete with no rank, or compete only under a condition | 5 | `asks` | `intent` |
-| a measure that is a plan document or anything that leaves | 6 | `blocks` | `settled` |
-| an outcome judged only in use measured by a list of the properties it is taken to consist of | 6 | `asks` | `intent` |
-| any other wording of a measure | 6 | `minor` | `settled` |
-| a refinement that contradicts the goal it refines | 7 | `blocks` | `contradiction` |
-| a refinement that widens the goal it refines | 7 | `asks` | `intent` |
-| a citation rule 7 refuses | 7 | `blocks` | `settled` |
-| an exclusion that names no design another goal would argue for | 8 | `asks` | `intent` |
+| the goal is in a goals home other than the root's | 1 | `blocks` | `settled` |
+| the goal is no purpose, scope or ranking: it states the purpose of one part of the project, how something is built, or the outcome of one decision | 1 | `blocks` | `intent` |
+| a scope that names no design a purpose would argue for | 1 | `asks` | `intent` |
+| the goal names a part whose existence comes from a design choice | 2 | `blocks` | `settled` |
+| a sentence states a mechanism as the outcome, naming no built part | 2 | `asks` | `intent` |
+| a term with two meanings in the project | 3 | `blocks` | `settled` |
+| any other wording that two agents in one situation would read in two directions | 3 | `asks` | `intent` |
+| a clause, a case included, that closes a question of when, how much or by what means | 3 | `asks` | `intent` |
+| a case the goal requires or rules out that the owner's statements do not cover | 4 | `asks` | `intent` |
+| two intents in one goal | 5 | `minor` | `settled` |
+| one goal rules out what another requires | 6 | `blocks` | `contradiction` |
+| two purposes compete with no ranking, or compete only under a condition | 6 | `asks` | `intent` |
+| a measure: a statement of what would show the goal met, or of how the project pursues it | 7 | `blocks` | `settled` |
+| a statement that the goal refines another goal, or is grounded on one | 8 | `asks` | `intent` |
+| a citation rule 8 refuses | 8 | `blocks` | `settled` |
 | a statement of the owner in conflict, or a part of the statements dropped, (a) or (b) | none | `blocks` | `contradiction` |
 
+For a finding of rule 1 routed `intent`, the case is what the project provides that would lose its
+reason to exist were the goal removed, or that nothing would. A question a goal leaves open of
+when, how much or by what means is no finding.
 A case the goal only admits is no finding, and a goal that the project does not meet yet is none.
 A finding on a goal's reach never proposes a narrower wording: it lists the cases, and the owner
 rules on them. A goal with no finding is listed as conforming. In draft and whole-set mode, end each

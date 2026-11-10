@@ -12,8 +12,8 @@ project's own rules are in its root `CLAUDE.md`, beside this primer, and add to 
 
 ## Goals bind; decisions bind as a presumption {{slug:goals-bind}}
 
-**The goals are the only statements assumed to come from the owner.** Each Component states them
-in its goals home, `register@*@goal`, one heading per goal. A recorded decision was reviewed, but its review can
+**The goals are the only statements assumed to come from the owner.** The project states them in
+the goals home of its root, one heading per goal. A recorded decision was reviewed, but its review can
 miss a detail or an implication, more often as the volume of agentic work grows. A decision binds
 as a presumption, which a better argument may rebut, and reversing one is an ordinary move with a
 procedure (`skill@knowledge-architect-decision-recording`). **When a decision conflicts with a goal,
@@ -368,8 +368,8 @@ it was written.
 
 | the statement is about | home | it leaves when |
 | --- | --- | --- |
-| what the project, or one Component, is for, and what would show it achieved | that Component's goals home, `register@*@goal` (the project's root is a Component) | the owner abandons the goal |
-| how the project or a Component is built, and why | that Component's design home, `register@*@design` | the design changes: the entry is rewritten in place |
+| what the project is for, whom or what that serves, and which of two purposes comes first | the goals home of the project's root | the owner abandons the goal, or rules that it is a decision |
+| what a Component is for, and how the project or a Component is built, and why | that Component's design home, `register@*@design` | the design changes: the entry is rewritten in place |
 | a design not kept, and why | that Component's `register@*@rejected`, each entry cited by the design heads whose argument covers it | it is reopened, chosen and built; the owner rules it fails every recording test; or no design head cites it any longer and no head of absence is written for it; a reversal moves the reversed decision into it if it meets a recording test of `skill@knowledge-architect-decision-recording` |
 | what is outstanding: a defect, an unexplained observation, an open question, missing work | one file in the owning anchor's issue directory, `register@*@issue` in a Component | the issue closes |
 | evidence that would flip a recorded decision whose work exists, or that no work implements | the owning Component's tripwires home, `register@*@tripwire` | it fires, its horizon passes, its decision is gone, another entry or a check takes it over, or a condition of the tripwire standard of `skill@knowledge-architect-decision-recording@ruled-tripwires` excludes it |
@@ -392,7 +392,7 @@ threshold it is, or else the commit message that took it.
 
 **A reference is written wherever the text would have to be revisited if the entry it names
 changed**, but in a goals home, which cites only goals and registers of its own Component, or, in a
-location's goals home, of that location, or of a Component enclosing it, per rule 7 of
+location's goals home, of that location, or of a Component enclosing it, per rule 8 of
 `skill@knowledge-architect-goal-setting@goal-or-not`,
 a goal stating in its own words what it needs: a design head names the goal it derives from, a decision of another Component it
 depends on, and the `rejected` entries its argument covers; an issue names the decision it strains and the goal it threatens, when it does
@@ -507,15 +507,15 @@ never takes their place.
 - `skill@knowledge-architect-component-creation`: new work may belong to no existing Component;
   code added gives a Component a second reason to change; an adopting project's crates are mapped to
   Components; an audit finds a Component holding two purposes, or a head in a Component that does
-  not own its subject; the owner states a purpose that several Components serve together.
+  not own its subject.
 - `skill@knowledge-architect-review`: before merging to the main branch, or when an
   activity's skill says its work is ready.
 - `skill@knowledge-architect-agent-configuration`: before editing a `CLAUDE.md`, a skill or an
   agent; after an install that changes the installed files.
 - `skill@knowledge-architect-setup`: the project adopts the workflow, or moves its pin of the
   checker to another version.
-- `skill@knowledge-architect-goal-setting`: before writing or editing any goals home; a Component
-  has no goal; the owner states or abandons a purpose; a decision conflicts with a goal; the owner
+- `skill@knowledge-architect-goal-setting`: before writing or editing any goals home; the owner
+  states or abandons a purpose; a decision conflicts with a goal; the owner
   asks to review the whole goal set, or a pin move crosses a version whose Migration entry names
   that review.
 - `skill@knowledge-architect-project-audit`: the owner asks to audit one aspect of the whole

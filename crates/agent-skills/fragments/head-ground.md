@@ -1,6 +1,7 @@
 %% The split of the rules on heads by act: `design@agent-skills@one-home-for-head-rules`.
 **The standing argument** is every premise whose failure would reopen the decision: the goal it
-derives a constraint from and a decision of another Component it depends on, as references; the
+derives a constraint from, as a reference with that constraint stated in one sentence beside it,
+and a decision of another Component it depends on, as a reference; the
 measurement it rests on, with the command that takes it again, one a reader can run on the corpus
 it names: a script that no tree holds is replaced by such a command, or kept in the message of the
 commit that took it, which the head names by its subject; the fact that defeated its nearest
@@ -17,13 +18,14 @@ rivals in its body or in the `rejected` entries it cites. What the owner brings 
 | what the owner brings | where it lands |
 | --- | --- |
 | a fact only the owner holds, a doubt included | a premise, attributed as the owner's report and open to challenge |
-| an intent that states an outcome the project is to reach, not a reason for one shape over its rival, and that no goal and no recorded decision already serves against every rival it is cited to defeat | a goal, drafted under `skill@knowledge-architect-goal-setting`, which the head cites |
+| an intent that states a purpose of the project, a scope that bounds one or a ranking between two, as `skill@knowledge-architect-goal-setting@goal-or-not` tests them, and that no goal and no recorded decision already serves against every rival it is cited to defeat | a goal, drafted under `skill@knowledge-architect-goal-setting`, which the head cites |
 | an argument, one that weighs a cost included | argued, and recorded on its merits |
 | an approval of the session's default, threshold or weighing, whatever its words ("approved", "agreed", "all defaults approved", "accepted the cost") | no ground: the session's decision, kept in the deliberation; at a fork, the session's choice, in the weak form below, "the session chose X over Y, which no goal ranks; the owner approved it" |
 | a reading of a source | the source |
 | a choice the argument leaves open, made by the owner: a pick at a fork against the session's default or with none offered, a threshold the owner sets, a local cost the owner accepts | first, ask whether a missing goal ranks the shapes; otherwise, the weak form: "the owner chose X over Y, which no goal ranks" |
 
-A preference about a mechanism is no case of its own: it is an argument, or a choice at a fork.
+A preference about a mechanism, or an intent that is none of those three, is no case of its own:
+it is an argument, or a choice at a fork.
 
 **The weak form.** A fork's choice, the owner's or the session's, names the rivals and the costs
 that were weighed, and reopens without the owner on an argument or a fact that ranks the shapes,

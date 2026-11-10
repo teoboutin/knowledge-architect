@@ -302,7 +302,7 @@ removes a false ground and relaxes nothing. A change that relaxes what the owner
 turns it from its direction, per `design@agent-skills@transcript-reviewer-agent`, the removal of an
 entry, but for a tripwire the standard or its lifecycle removes, per
 `design@agent-skills@tripwire-stands-on-the-standard`, an intent of the owner cited as a ground,
-drafted as a goal, which side of a contradiction wins where no design head, goal or source settles
+drafted as a goal where it states a purpose, a scope or a ranking, which side of a contradiction wins where no design head, goal or source settles
 it, a verdict where a rule reads two ways and no record states the reading, a head
 in the wrong Component and a conflict with a goal go to the owner, per
 `goal@knowledge-architect@the-owner-decides` and

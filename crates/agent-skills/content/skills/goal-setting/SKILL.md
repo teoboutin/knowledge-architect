@@ -1,15 +1,15 @@
 ---
 name: knowledge-architect-goal-setting
-description: MUST use when a Component has no goal, when the owner states a new purpose or abandons one, when a recorded decision conflicts with a goal, when the owner asks to review the whole goal set or a pin move crosses a version whose Migration entry names that review, and before writing or editing any goals home. Covers what a goal is and how it differs from a decision, the standard a proper goal meets, how the owner's intent is drawn out and written as a draft the goal reviewer reads before the owner rules on it, in the conversation for three goals or fewer and in the working tree for more, the review of the whole goal set, the shape of a goal entry, how a Component's goal names the project goal it refines, where each goal sits, and why a goal leaves only on the owner's word.
+description: MUST use when the owner states a new purpose or abandons one, when a recorded decision conflicts with a goal, when the owner asks to review the whole goal set or a pin move crosses a version whose Migration entry names that review, and before writing or editing any goals home. Covers what a goal is and how it differs from a decision, the standard a proper goal meets, how the owner's intent is drawn out and written as a draft the goal reviewer reads before the owner rules on it, in the conversation for three goals or fewer and in the working tree for more, the review of the whole goal set, the shape of a goal entry, where the goals sit, and why a goal leaves only on the owner's word.
 ---
 
 # Setting goals
 
-Scope: the goals homes of the project, one per Component, `register@*@goal`. Writing
-a goal, changing its wording, and removing it.
+Scope: the project's goals, which sit in the goals home of the project's root. Writing a goal,
+changing its wording, and removing it.
 
 Not covered here: **a decision about how something is built**, which is
-`skill@knowledge-architect-decision-recording`; **setting up the rest of a Component**,
+`skill@knowledge-architect-decision-recording`; **setting up a Component**,
 `skill@knowledge-architect-setup`.
 
 **The goals are the only statements assumed to come from the owner**, per `primer@goals-bind`. Every design decision binds
@@ -23,77 +23,48 @@ That is why an agent never edits a goal outside this skill.
 {{fragment:goal-standard.md}}
 
 A goal stays in its home, **met or not yet met**. One removed when it is achieved stops being
-checked, and can stop being met without anyone noticing. **A goal leaves only when the owner
-abandons it**, on the owner's word.
+checked, and can stop being met without anyone noticing. **A goal leaves only on the owner's
+word**: when the owner abandons it, or rules that it is no purpose, scope or ranking, and it is
+then recorded as the decision it is.
 
 ## The shape of a goal entry {{slug:goal-entry-shape}}
 
 %% The body has no length bound because a session that argues from a goal applies it whole, so its
-%% words cost that session nothing, while a goal pressed into few sentences packs its sets and its
-%% measure into long ones and reads two ways; the cases, per `design@agent-skills@goal-entry-shape`.
+%% words cost that session nothing, while a goal pressed into few sentences packs its sets into long
+%% ones and reads two ways, per `design@agent-skills@goal-entry-shape`. It holds no measure, per
+%% `design@agent-skills@what-shows-a-goal-met-is-design`, and no fixed block of cases, per
+%% `design@agent-skills@a-goal-carries-an-example-only-for-its-direction`.
 A level-two heading stating the goal as a sentence, its slug at the end, then the body: what the
-goal means, **what would show it is met**, and, for each layer the goal has, one or more "for
-instance" cases: what it requires, what it admits, what it rules out. A layer the goal does not have
-is omitted. The cases written are those of the boundary block the owner's ruling kept, each in words
-that keep their meaning under rule 1. A case shows a reading and binds nothing: what the goal
-requires is its sentences, not the cases. The body holds what the goal standard asks of it, at the
-length that takes: short sentences, and a list where it names the members of a set, such as the
-cases of a closed list or the activities a goal covers. Every level-two heading of a goals home is a
-goal and carries a slug: the head that says what the home holds is prose under the level-one title,
-never a level-two section.
+goal means. The body holds no measure, as rule 7 says, and no list of cases. It carries an example
+only where the statement alone would be read in the wrong direction; an example shows a reading and
+binds nothing. The body holds what the goal standard asks of it, at the length that takes: short
+sentences, and a list where it names the members of a set, such as the activities a goal covers.
+Every level-two heading of a goals home is a goal and carries a slug: the head that says what the
+home holds is prose under the level-one title, never a level-two section.
 
 ```markdown
 ## <The goal, stated as a sentence> `##<slug>`
 
 <What it means: the outcome, for whom, in the direction it states, in sentences or in a list.>
-
-It is met while <what the project builds that shows it>.
-
-- Requires, for instance: <a case>.
-- Admits, for instance: <a case>.
-- Rules out, for instance: <a case>.
 ```
 
-%% A goal sits in the Component responsible for fulfilling it because a reference reaches a goal of
-%% any Component from anywhere but a goals home, per `design@model@an-entity-belongs-to-its-anchor`
-%% and `design@check@goals-home-cites-upward-only`, so serving a goal does not require moving it. The rival, each goal in the smallest scope serving it, promotes goals
-%% into the root documents, and leaves a goal with no Component responsible for it, against
-%% `goal@knowledge-architect@agents-work-without-drift`. A published Component serves the consumers whose
-%% provision the root's goals state, so its goals refine a root goal; this is an encouragement, not a
-%% rule.
-**Where a goal goes.** A goal is written in the goals home of the Component whose responsibility it
-is to fulfil it, even when other Components' decisions serve it too: any goal can be referenced from
-anywhere but a goals home, as rule 7 says. The root's goals state what the project provides to its consumers. A published Component
-serves those consumers, so its goals are encouraged to be sub-goals: more specific than a root
-goal, perhaps not stated by it, and still to be fulfilled. A Component that serves only the
-project, such as a maintenance tool, serves every root goal at once, and its goals need not refine
-one. Every Component
-states at least one goal.
-
-%% The reference makes rewording or abandoning the root goal list every Component goal derived from
-%% it, per `design@agent-skills@a-reference-claims-a-revisit`.
-A Component's goal that refines a goal of the project's root names it, with a reference in its
-body: `goal@<root anchor>@<slug>`. Then `{{command}} show goal@<root anchor>@<slug>` lists every
-Component goal that refines it, and removing the root goal leaves each of those references dangling,
-which the check reports.
-
-%% `design@agent-skills@intermediate-component-occasion`: the goals place the intermediate
-%% Components, so they form the tree the directories follow.
-An intermediate Component, which `skill@knowledge-architect-component-creation@component-criteria`
-defines, states the purpose that the Components nested under it serve together, and a goal of each
-of them refines a goal of that intermediate Component, naming it, as a Component's goal names the
-root goal it refines. A purpose the owner states for several Components together is the occasion to
-create one, under `skill@knowledge-architect-component-creation`.
+%% `design@agent-skills@goals-home-at-the-root-only`: a goal anchored in a Component names a part
+%% whose existence comes from a design choice, so a redesign of the split would move goals only the
+%% owner may change.
+**Where the goals sit.** Every goal is written in the goals home of the project's root, whichever
+Components serve it. No other Component and no location states a goal: the goals home each
+Component carries, `register@*@goal`, holds no entry outside the root. Where the goals are many, the root's home is a directory behind a `README.md` that links
+each of its files, one file per subject, the form `primer@checker-model` gives a heading register.
 
 %% The head restates no rule of this skill, since a restatement there drifted from the skill and an
 %% agent that edits a goal loads the skill anyway. The definitions are shared there because most
 %% goals of a home use them: the session chose a paragraph of definitions in the head over a goal
 %% per definition, which no goal ranks; the owner approved it.
-The head of the goals home states the purpose every goal of its Component serves, which the owner
-rules like a goal; the root's states the project's. It also holds the definitions its goals share:
-a few general words for what several goals name, each passing rule 1, in a paragraph of their own.
-A definition that is the outcome of one goal is stated in that goal instead. A Component's head
-defines its own words, and its goals may use the root's. The head restates no rule of this skill.
+The head of the root's goals home, in a directory its `README.md`, states what the project is for
+as a whole, which the owner rules like a goal. It also holds the definitions its goals share: a few
+general words for what several goals name, each passing rule 2, in a paragraph of their own. A
+definition that is the outcome of one goal is stated in that goal instead. The head restates no
+rule of this skill.
 
 ## Drawing out the owner's intent {{slug:drawing-out-intent}}
 
@@ -103,16 +74,19 @@ defines its own words, and its goals may use the root's. The head restates no ru
 %% owner correct accepts a goal by the owner's silence, which is not the owner's word; for the same
 %% reason a goal with no ruling is not written. It is not dropped either, since a goal with no
 %% ruling may still be the owner's intent. A batch of more than three goals goes through the tree,
-%% per `design@agent-skills@goal-batch-ruled-in-the-tree`.
-1. **Ask the owner to state their intent** for the Component, and any goals they already have, in
-   their own words. Three questions help: what is it for, and for whom; what would show that it
-   fails at that; what is it explicitly not for.
+%% per `design@agent-skills@goal-batch-ruled-in-the-tree`. Step 1 gains no discussion of a draft's
+%% consequences before the draft: the two recorded cases of an intent the owner did not hold yet
+%% were goals of a new Component, which no Component states any longer. Its three questions follow
+%% the three kinds of rule 1.
+1. **Ask the owner to state their intent** for the project, and any goals they already have, in
+   their own words. Three questions help: what is it for, and for whom; what is it explicitly not
+   for; which comes first where two of these compete.
 2. **Refine the wording** of what the owner stated. **Propose further goals** from the existing
    documentation, or from the code and content when the documentation does not say enough.
 3. **Write a draft that goes into the goals home verbatim if it is approved**.
    **Mark each goal with its source**: "the owner's statement", or "proposed from <the document or
    the code it was read from>". The source mark is not written to the goals home. A batch of three
-   goals or fewer is drafted in the message. A batch of more is written in the goals homes of the
+   goals or fewer is drafted in the message. A batch of more is written in the goals home of the
    working tree, and its source marks go in a record kept as
    `skill@knowledge-architect-goal-setting@whole-set-review` keeps one, in
    `docs/goal-reviews/<YYYY-MM-DD>-<subject>.md`.
@@ -149,11 +123,10 @@ defines its own words, and its goals may use the root's. The head restates no ru
    a statement of the owner that conflicts with a goal or with another statement, a part of the
    statements the draft drops, or a goal ruling out what another requires. Resolve none alone; a goal
    resting on one is not written before the owner's answer. The block and the reviewer's report are
-   not written to the goals home, but the cases of the block the owner keeps are written in the
-   goal, as "The shape of a goal entry" says; for a batch of more than three goals the block and the
-   report are written in the record.
+   not written to the goals home; for a batch of more than three goals they are written in the
+   record.
 6. **Ask the owner to read the draft in full, and to rule on it**: for three goals or fewer, on each
-   goal by its slug and its cases, approved or dropped; for more, on the batch as the tree holds it, the owner
+   goal by its slug, approved or dropped; for more, on the batch as the tree holds it, the owner
    naming each goal dropped or reworded. A goal with no ruling is neither written nor dropped: ask
    again for it by its slug. A
    goal the owner rewords is reviewed again, with the whole batch, in the next round of the same
@@ -206,7 +179,7 @@ passes the check.
    reads whole, and asks it to report again a question the record holds as open only where the
    goal's text changed it. A set's brief carries the owner's statements and answers through the
    record.
-3. **Write the repairs in the goals homes of the working tree**: each `settled` finding's, and the
+3. **Write the repairs in the goals home of the working tree**: each `settled` finding's, and the
    session's default for each other finding, which keeps a goal's wording on a finding of its
    reach. Put to the owner, in one message for the round, each
    `intent` and `contradiction` finding with its default and the case on which the readings differ,
@@ -224,13 +197,13 @@ passes the check.
    reviewer of the round. The round that meets the stop writes no repair: its findings go to the
    owner beside the goals, so that the goals the owner reads are the goals a round reviewed.
 
-%% Rule 3 turns on what the owner ruled out knowingly, which the reviewer cannot judge without the
+%% Rule 4 turns on what the owner ruled out knowingly, which the reviewer cannot judge without the
 %% owner's statements; the excess reach of a goal approved without a reading of its reach is the
 %% defect the standard was written for, so every goal is shown with its block once.
 **Every goal is then put to the owner with its boundary block**, a goal with no other finding
 included, for a ruling: kept as it stands, or as the rounds reworded it, as
 `skill@knowledge-architect-goal-setting@drawing-out-intent` says in its steps 6 and 7, the blocks of
 the round that met the stop, in the record, and the goals in the tree, since only the owner judges
-rule 3. The record is committed with the owner's last answers before the goals the owner ruled last
+rule 4. The record is committed with the owner's last answers before the goals the owner ruled last
 are written; the commit that writes them, or a later commit of the same branch, deletes the record
 and names it by its path.

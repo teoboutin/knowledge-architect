@@ -206,8 +206,8 @@ the sorting.
 | what | where | when |
 | --- | --- | --- |
 | the threads on the standard: the three kinds, one direction, no measure, the example, no refinement | `register@agent-skills@design`, its subdocument on goals: a head rewritten in place where the milestone document's table says rewritten; where it says reversed, a new head under the thread's slug, the incumbent judged for `register@agent-skills@rejected` | at this slice's landing |
-| goals at the root only, as an instruction of the installed text | `register@agent-skills@design`, a new head under the thread's slug, with `design@agent-skills@goals-required` reversed | at this slice's landing |
+| goals at the root only, as an instruction of the installed text | `register@agent-skills@design`, a new head under the thread's slug, with `goals-required` reversed | at this slice's landing |
 | a goal's reading as a head's premise | `design@agent-skills@standing-argument-in-head`, rewritten; the comparison in the issue D3 opens, and no head | at this slice's landing |
-| the installed text's silence on an intermediate Component | `design@agent-skills@intermediate-component-occasion`, rewritten and its slug renamed with every reference to it; `design@knowledge-architect@no-intermediate-component`, removed | at this slice's landing |
+| the installed text's silence on an intermediate Component | `intermediate-component-occasion`, rewritten and its slug renamed with every reference to it; `no-intermediate-component`, removed | at this slice's landing |
 | each head the analysis argued, and the heads that argue the existence of `check`, `gates` and `xtask` | the design home `skill@knowledge-architect-decision-recording@owning-component` gives each: the root's for which Components exist | at this slice's landing |
 | every cause of the premortem but the one on a consumer's pin, and the losing alternatives | as the milestone document's harvest says | at this slice's landing |

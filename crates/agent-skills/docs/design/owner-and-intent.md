@@ -106,8 +106,9 @@ not read, a reference in a comment is not checked, which weakens this record the
 ### A design head carries the standing argument, and history carries the deliberation `##standing-argument-in-head`
 
 A design head carries the decision and its standing argument: every premise whose failure would
-reopen it, which is the goal it derives a constraint from and a decision of another Component it
-depends on, as references, the measurement it rests on, with the command that takes it again, and
+reopen it, which is the goal it derives a constraint from, as a reference with that constraint
+stated in one sentence beside it, a decision of another Component it depends on, as a reference,
+the measurement it rests on, with the command that takes it again, and
 the fact that defeated its nearest rival. The deliberation, which is what was weighed, in which
 order, what evidence was built and who ruled what, stays in the spec while the spec exists, and in
 history after that. What the owner brought lands in the head by its kind, per
@@ -121,7 +122,19 @@ before it changes code, and a head that carried its whole deliberation would mak
 the length of every discussion ever held. History serves the reader who needs it, because a spec leaves when its work lands, per
 `design@agent-skills@plan-document-leaves-at-landing`: a deleted spec is
 listed by `git log --diff-filter=D` on the plans directory, and its last state is one `git show`
-away. That agents take that route is measured, not assumed: a scan of a project's session logs for
+away.
+
+The constraint is stated beside the reference to the goal because a goal states a direction and
+leaves a question of when, how much or by what means to design, per
+`design@agent-skills@goal-one-meaning-any-breadth`, so the reading a head takes of it is a premise
+of the head, which a reversal must defeat. Two recorded cases are of a reading held in a head and
+not found from the goal: `issue@model@a-reference-to-an-anchor-s-own-directory-breaks-when-the-anchor-moves`
+and `design@transcript@transcript-labels-in-code`. The rival, a register of goal interpretations,
+records an interpretation apart from a decision, where it is argued against no rival. No review
+compares the constraints that several heads state from one goal:
+`issue@agent-skills@no-review-compares-the-readings-heads-take-of-one-goal`.
+
+That agents take the route through history is measured, not assumed: a scan of a project's session logs for
 a `git show` or `git log` command naming a deleted plan document re-takes it, and a scan that finds
 none in a project whose specs are deleted reopens this decision. The cost is accepted: a reader
 without a clone of the repository cannot reach a deliberation.
@@ -134,9 +147,9 @@ owner brings lands by its kind, as the head-ground fragment's table states:
 
 - a fact only the owner holds, a doubt included, is a premise, attributed as the owner's report and
   open to challenge;
-- an intent that states an outcome the project is to reach, not a reason for one shape over its
-  rival, and that no goal and no recorded decision already serves against every rival it is cited
-  to defeat, is a goal, drafted under `skill@knowledge-architect-goal-setting`, which the head
+- an intent that states a purpose of the project, a scope that bounds one or a ranking between
+  two, per `design@agent-skills@a-goal-is-a-purpose-the-project-exists-for`, and that no goal and no
+  recorded decision already serves against every rival it is cited to defeat, is a goal, drafted under `skill@knowledge-architect-goal-setting`, which the head
   cites;
 - an argument, one that weighs a cost included, is argued and recorded on its merits;
 - an approval of the session's default, threshold or weighing is no ground;

@@ -26,8 +26,7 @@ question is whether **a shape lost to an argument**.
 2. its reason rests on a reading of an external specification the project implements;
 3. it was refuted by **evidence that cost work to obtain**: a measurement, a prototype, a survey of
    other projects;
-4. there is still some doubt that the design kept will achieve every goal of the project or of its
-   Component.
+4. there is still some doubt that the design kept will achieve every goal of the project.
 
 Test 3 is the load-bearing one. Proposing something again costs one discussion round, and that is
 healthy. What decides an entry is whether the refutation can be derived again inside that round.

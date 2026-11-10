@@ -148,10 +148,11 @@ Component too.
 4. Does it shape how a single Component is implemented, or its own interface, a rule that it does
    not depend on another Component included? Then it belongs in that Component's design home.
 
-If it is a statement about what the project or a Component is _for_ rather than about how it is
-built, it is a goal, not a decision. Goals are a register of their own, the goals home of each
-Component, each entry a level-two heading carrying a slug. A decision that leans on one names it as
-`goal@<component>@<slug>`.
+If it is a statement about what the project is _for_ rather than about how it is built, it is a
+goal, not a decision. Goals are a register of their own, in the goals home of the project's root,
+each entry a level-two heading carrying a slug. A decision that leans on one names it as
+`goal@<root>@<slug>`. What one Component is for is a decision, the statement of the head that
+argues the Component's existence, which point 1 places.
 
 If none of these fits, **ask the owner before writing it anywhere.**
 

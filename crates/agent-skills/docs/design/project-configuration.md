@@ -239,7 +239,9 @@ owner too, and keeps with the owner only the weighing no argument settles. A mer
 cannot be undone, since a revert commit undoes it, and whether agents merge is left to each project,
 as the owner directed. A fact only the owner holds is among the kinds because a premise of a head
 can be one, per `design@agent-skills@heads-stand-on-argument`, and a ruling on intent is defined by
-these kinds: an intent is a goal to set, and a weighing the owner makes is the owner's at a fork.
+these kinds: an intent that states a purpose, a scope or a ranking is a goal to set, per
+`design@agent-skills@a-goal-is-a-purpose-the-project-exists-for`, and a weighing the owner makes is
+the owner's at a fork.
 
 The design this decision did not keep: `rejected@agent-skills@delegated-decision-state`.
 
@@ -621,14 +623,6 @@ The owner's intent, on the owner's own proposal: "Maybe I'd also make it the def
 skill: for published Rust crates, keep the README.md as a repo facing document, and use a separate
 CRATES-IO.md for what crates.io readers see." Asked whether it records the owner's intent, the
 owner answered: "Q5: yes".
-
-### Every Component states at least one goal `##goals-required`
-
-The setup skill does not finish a Component without at least one goal, stated with the owner.
-A Component with no goal gives its design nothing of its own to be judged against, and a goal that
-is a Component's responsibility left unstated is one nobody is responsible for, against
-`goal@knowledge-architect@agents-work-without-drift`. Nothing checks it mechanically, and
-`milestone@plans@goals-at-the-root` plans the reversal of this head.
 
 ### The installed skills do not mention a project whose name is the installer's namespace `##installed-text-omits-the-prefix-collision`
 
