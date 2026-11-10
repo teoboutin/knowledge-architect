@@ -7224,7 +7224,11 @@ fn worklist_changed(out: &Path) -> Vec<String> {
 /// and the work tree: a file a later commit changed, one changed and not staged, an untracked one
 /// and the new path of a rename; no other entry. The mark is in `agents.txt`, after the seed mark,
 /// and on the entry's `===` line in its entries file, and the run names the commit by its subject.
-/// Over `HEAD`, only the changes of the work tree are marked. Mutations checked: in
+/// Over `HEAD`, only the changes of the work tree are marked. A branch named `docs`, like a
+/// directory at the project's root, gives the marks and the subject of the commit it names.
+/// Mutation checked for the last: in `write` of `path@query@src/worklist.rs`,
+/// `commit_message(manifest.root(), &sha)` made `commit_message(manifest.root(), commit)`, which
+/// git refuses as ambiguous; caught. Mutations checked earlier: in
 /// `paths_changed_since` of `path@git@src/git.rs`, the `ls-files --others` extension removed,
 /// which misses the untracked file; `.args([sha.as_str(), "--"])` made `.args(["HEAD", "--"])`,
 /// which misses the later commit's change; in `write` of `path@query@src/worklist.rs`,
@@ -7330,15 +7334,26 @@ fn worklist_since_marks_exactly_the_entries_of_the_files_changed_since_the_commi
         ]
     );
     let _ = std::fs::remove_dir_all(&head);
+    // A branch named like a directory at the project's root: the revision is resolved once, and
+    // every later question names the commit by its full object name, which git never reads as a
+    // path.
+    sandbox.git(&["branch", "docs", &base]);
+    let (stdout, stderr, code) = sandbox.run(&["worklist", "--out", &head_text, "--since", "docs"]);
+    assert_eq!(code, 0, "{stdout}{stderr}");
+    assert_eq!(worklist_changed(&head), worklist_changed(&out));
+    assert!(
+        stdout.contains("5 entries changed since the commit \"The base of the audit\""),
+        "{stdout}"
+    );
+    let _ = std::fs::remove_dir_all(&head);
     let _ = std::fs::remove_dir_all(&out);
 }
 
 /// The claim: a `--since` git cannot resolve to one commit, a name of none or a range, stops the
 /// run with exit 2, naming the git command that failed and git's own reason, and writes nothing.
-/// Mutations checked, in `paths_changed_since` of `path@git@src/git.rs`: the revision asked made
-/// `"HEAD^{commit}"` whatever the caller gives, which resolves; and the `?` after the
-/// `rev-parse` call's `.output()` made `.unwrap_or_default()`, which leaves git's reason to the
-/// `diff` that follows; each caught.
+/// Mutation checked, in `commit_of` of `path@git@src/git.rs`: `let object = ask(revision)?;` made
+/// `let object = ask(revision).unwrap_or_else(|_| "HEAD".to_string());`, which resolves every
+/// revision; caught.
 #[test]
 fn worklist_since_a_revision_git_cannot_resolve_stops_with_git_s_reason() {
     let (sandbox, out) = worklist_project("worklist-since-refused");
@@ -7349,7 +7364,9 @@ fn worklist_since_a_revision_git_cannot_resolve_stops_with_git_s_reason() {
             sandbox.run(&["worklist", "--out", &out_text, "--since", revision]);
         assert_eq!(code, 2, "{stdout}{stderr}");
         assert!(
-            stderr.contains(&format!("--since {revision}: `git rev-parse --verify --end-of-options {revision}^{{commit}}` failed")),
+            stderr.contains(&format!(
+                "--since {revision}: `git rev-parse --verify --end-of-options {revision}` failed"
+            )),
             "{stderr}"
         );
         assert!(stderr.contains("Needed a single revision"), "{stderr}");
@@ -7367,10 +7384,16 @@ const WORKLIST_SPEC: &str = "# An audited spec\n\n## Status and audience\n\nIt n
     ### Of the notes\n\n- `rule@alpha-topic@alpha-rule`\n\n\
     ## Criteria\n\nIt names `design@widget@springs-coil`.\n";
 
-/// The worklist project with the spec `an-audit`, its plans index regenerated and staged.
+/// The worklist project with the specs `an-audit` and `no-section`, the second holding no section
+/// "What is already decided", its plans index regenerated and staged.
 fn worklist_audit_project(tag: &str) -> (Sandbox, PathBuf) {
     let (sandbox, out) = worklist_project(tag);
     sandbox.write("docs/plans/specs/an-audit.md", WORKLIST_SPEC);
+    sandbox.write(
+        "docs/plans/specs/no-section.md",
+        "# A spec with no decided section\n\n## Status and audience\n\nIt names \
+         `design@core-mock@first-head`.\n",
+    );
     let (stdout, stderr, code) = sandbox.run(&["index"]);
     assert_eq!(code, 0, "{stdout}{stderr}");
     sandbox.stage();
@@ -7381,11 +7404,14 @@ fn worklist_audit_project(tag: &str) -> (Sandbox, PathBuf) {
 /// entries the section "What is already decided" of the plan document cites, its subsection
 /// included, beside a `--seed`: no goal, issue or `rejected` entry it cites there, and nothing it
 /// cites in another section; `work.txt` names the plan document by its citation and its path; and
-/// a path that is no plan document is refused with exit 2, nothing written. Mutations checked, in
-/// `write` of `path@query@src/worklist.rs`: `graph.entries[i].role == Role::Unit` made `true`,
-/// which makes the goal, the issue and the `rejected` entry seeds; `seeds.insert(i)` made
-/// `!seeds.contains(&i)`, which takes no seed; and the refusal `let Some((citation, rel)) = found
-/// else {` given the citation `spec@plans@x` for any path; each caught.
+/// a path that is no plan document is refused with exit 2, nothing written. The count of seeds
+/// from the section counts one a `--seed` also names, `design@core-mock@first-head`, as a
+/// regression guard: it counted only the seeds `--seed` had not named before `decided_seeds` took
+/// the selection out of `write`, which no mutation of the present code brings back. A plan
+/// document with no such section gives no seed, and the run says so. Mutations checked, in
+/// `write` of `path@query@src/worklist.rs`: `seeds.extend(&taken);` made `let _ = &taken;`, which
+/// takes no seed; the refusal `let Some((citation, rel)) = found else {` given the citation
+/// `spec@plans@x` for any path; and `if *has_section {` made `if true {`; each caught.
 #[test]
 fn worklist_seeds_from_takes_the_decided_section_s_design_and_declared_entries() {
     let (sandbox, out) = worklist_audit_project("worklist-seeds-from");
@@ -7398,6 +7424,8 @@ fn worklist_seeds_from_takes_the_decided_section_s_design_and_declared_entries()
         "docs/plans/specs/an-audit.md",
         "--seed",
         "design@widget@gears-turn",
+        "--seed",
+        "design@core-mock@first-head",
     ]);
     assert_eq!(code, 0, "{stdout}{stderr}");
     let seeds: Vec<String> = worklist_marks(&out)
@@ -7434,6 +7462,27 @@ fn worklist_seeds_from_takes_the_decided_section_s_design_and_declared_entries()
     ));
     let _ = std::fs::remove_dir_all(&refused);
     let refused_text = refused.to_string_lossy().into_owned();
+    let (stdout, stderr, code) = sandbox.run(&[
+        "worklist",
+        "--out",
+        &refused_text,
+        "--seeds-from",
+        "docs/plans/specs/no-section.md",
+    ]);
+    assert_eq!(code, 0, "{stdout}{stderr}");
+    assert!(
+        stdout.contains(
+            "spec@plans@no-section: no section \"What is already decided\", so no seed from it"
+        ),
+        "{stdout}"
+    );
+    assert!(
+        !worklist_marks(&refused)
+            .values()
+            .any(|marks| marks.first().is_some_and(|m| m == "seed")),
+        "no seed"
+    );
+    let _ = std::fs::remove_dir_all(&refused);
     for path in ["docs/design.md", "docs/plans/specs/missing.md"] {
         let (stdout, stderr, code) =
             sandbox.run(&["worklist", "--out", &refused_text, "--seeds-from", path]);
@@ -7445,6 +7494,30 @@ fn worklist_seeds_from_takes_the_decided_section_s_design_and_declared_entries()
         assert!(!refused.exists(), "nothing written");
     }
     let _ = std::fs::remove_dir_all(&out);
+}
+
+/// The claim: `--out` refuses, with exit 2 and nothing written, a file of the work and a plan
+/// document whose path holds a line break, which `work.txt`, one item per line, cannot list. The
+/// project is a copy whose own directory's name holds one. Mutations checked, in
+/// `path@query@src/worklist.rs`: in `write`, `refuse_a_line_break("the file of the work", &real)?;`
+/// removed, and `refuse_a_line_break("--seeds-from", &real)?;` removed; in `refuse_a_line_break`,
+/// `.contains(['\n', '\r'])` made `.contains(['\r'])`; each caught.
+#[test]
+fn worklist_refuses_a_path_of_the_work_holding_a_line_break() {
+    let (sandbox, out) = worklist_audit_project("worklist-line\nbreak");
+    let out_text = out.to_string_lossy().into_owned();
+    for option in ["--work", "--seeds-from"] {
+        let (stdout, stderr, code) = sandbox.run(&[
+            "worklist",
+            "--out",
+            &out_text,
+            option,
+            "docs/plans/specs/an-audit.md",
+        ]);
+        assert_eq!(code, 2, "{option}: {stdout}{stderr}");
+        assert!(stderr.contains("its path holds a line break"), "{stderr}");
+        assert!(!out.exists(), "nothing written");
+    }
 }
 
 /// The claim: at a design audit, `--verify` writes `gaps.md`, every verdict but `constrains` and
