@@ -37,7 +37,7 @@ case or lapse found, so that no instruction leaves an ambiguity.
 ## The workflow leads agents to write better code in a target project `##the-workflow-leads-to-better-code`
 
 What the workflow says about code and tests aims at code of better quality in a target project, the
-code of its tests and of its maintenance tools included. This goal fixes no definition of quality.
+code of its tests and of its maintenance tools included.
 
 ## The workflow leads a target project to be split into modular units, each with one purpose `##projects-are-split-into-modular-units`
 

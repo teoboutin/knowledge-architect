@@ -2088,6 +2088,47 @@ reviewer graded a finding `blocks`, on old wording or on new, so the round meets
 `skill@knowledge-architect-goal-setting@drawing-out-intent` and writes no repair: its findings go to
 the owner beside the goals. Their reports follow as returned.
 
+#### The owner's answers to T1 to T13
+
+The session put the questions of the consolidation below to the owner, each with its default, and
+recommended an edit on three of them: on T1, the bound "A reference that the checker checks is
+written in one readable form"; on T3, removing "never copied"; on T10, restoring the words of the
+row, "it serves each target project that carries out its activity, or is meant to". It asked the
+owner to rule the goals as the tree holds them. The owner:
+
+> T1 go for recommended bound
+> T3 take the recommendation too
+> T4 yes it can, when the procedure is not purely mechanical but would need the flexibility and
+> judgement agents can provide. This is about generic-tools-and-procedures-are-shipped, right ?
+> This one is not only about mechanical tools. If it is about
+> tasks-a-tool-does-better-are-the-tool-s, then no, since that one is specifically about what a
+> mechanical command can do to automate the work of an agent.
+> T7: only that the goal states none. A design could try to provide one. Maybe the sentence is not
+> needed at all in the goal actually.
+> T10 recommendation, restore.
+> agreed on other defaults
+
+What the session wrote in the goals on those answers:
+
+- T1: "A reference that the checker checks is written in one readable form".
+- T2, the default: "A tool of knowledge-architect can tell whether what it read is complete and
+  right".
+- T3: "never copied" is removed.
+- T4: the question was about the tools goal, and the answer for it is no: that goal is about what
+  a mechanical command does to automate an agent's work. The head's definition says "a program",
+  where it said "something", and keeps "other than the installed text". An installed agent or a
+  saved workflow, for a procedure that needs an agent's judgement, is the generic part of a
+  procedure, which `goal@knowledge-architect@generic-tools-and-procedures-are-shipped` ships; its
+  text needs no change for it.
+- T7: the sentence "This goal fixes no definition of quality." is deleted: the goal states none,
+  and a design may provide one.
+- T10: "so that it serves each target project that carries out its activity, or is meant to."
+- T5, T6, T9, T11, T12 and T13: the text is kept, each read as its default says. T8 was answered
+  with round 1.
+
+The owner did not yet rule the goals as a batch. Four files changed on these answers, so round 3
+reads the batch again before the goals are shown for that ruling.
+
 #### The consolidation of round 2, put to the owner with the goals
 
 One agent merged the seven reports of round 2: 20 findings as reported, 13 after merging, none
