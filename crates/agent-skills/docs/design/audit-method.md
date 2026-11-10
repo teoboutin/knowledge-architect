@@ -335,7 +335,7 @@ source by its own instructions.
 
 No outcome leaves a confirmed finding to judgement.
 `goal@knowledge-architect@agents-get-a-complete-workflow` asks that "Each installed instruction says
-what it asks plainly enough to follow without guessing what it means", so an instruction that a
+what it requires plainly enough to follow without guessing what it means", so an instruction that a
 reading confirms is read two ways is repaired, even where every act it allows is acceptable. What no
 instruction covers is left to judgement on purpose, and is no finding. The rival outcome, a finding
 of two readings left to judgement where no text rules either act out, leaves such an instruction
