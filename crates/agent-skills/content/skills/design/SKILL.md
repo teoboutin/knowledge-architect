@@ -483,7 +483,7 @@ choices whose option space genuinely is closed and consequence-free.
    the owner's proposal if one was made and your own, and challenge
    each on its failures, its costs and its benefits, with measurements,
    in the slots step 4 gives every proposal.
-%% When the search runs and what it reads: `design@agent-skills@search-waits-until-the-scope-settles`,
+%% When the search runs and what it reads: `design@agent-skills@search-reads-the-draft`,
 %% `design@agent-skills@record-searched-before-the-work`.
    **Once the shapes settle, and before any thread closes, a search of
    the whole record runs, with the draft as its work.** The draft is

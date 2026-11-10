@@ -47,6 +47,7 @@ For each Component on the list, read whole:
 Run `{{command}} show <kind>@<anchor>@<id>` on every goal and every design entry the document cites,
 to read the entry and every text that references it.
 
+%% The verdicts read beside the record, and the axis owed at a merge: `design@agent-skills@verdicts-reach-the-conformance-review`.
 Then read the verdicts of the record search that grounded the document: the verdict files,
 `verdicts-<subject>.md`, in the directory the brief names, where it names one, each verdict with
 its entry's text; and, at the review before a merge, `{{command}} show` on each entry a generated

@@ -80,7 +80,7 @@ Additions of the session, for the discussion to judge:
   discussion of `klarch worklist`: of this repository's 346 heads, 213 cite no goal directly and 44
   cite no entry at all; of 8 of them read, some derive from another head and cite only that head, as
   `design@check@index-staged-write` does, which the reference rule asks, and others look like a goal
-  left unnamed, as `design@check@phases-gate-the-report` does. The work list's residual groups name
+  left unnamed, as `design@check@phases-gate-the-report` does. No command lists
   the goals no head serves.
 
 **A second worked instance.** The design discussion that produced

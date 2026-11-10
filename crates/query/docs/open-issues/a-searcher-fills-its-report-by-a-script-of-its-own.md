@@ -25,9 +25,11 @@ to grade. Read in the reports the agents returned:
   table lacked and wrote nothing, and one matched only the lines that carry a seed mark, so it left
   the other lines blank until a second run.
 
-The report's line shape is `- <reference> | grade: | relation: | reason:`, with a seed field
-between the reference and the grade where the entry is or cites a seed, per
-`design@query@worklist-writes-and-verifies-the-reports`.
+The report's line shape was then `- <reference> | grade: | relation: | reason:`, with a seed field
+between the reference and the grade where the entry is or cites a seed. It is now
+`- <reference> | verdict: | against: | action: | owner-question: | quote: | reason:`, after the
+same seed field, per `design@query@worklist-writes-and-verifies-the-reports`, and still filled line
+by line.
 
 A further instance: the search at the design audit of the spec revising the rules for splitting a
 project into Components, 19 agents. One wrote a script of its own, `grades.py`, and said so in its

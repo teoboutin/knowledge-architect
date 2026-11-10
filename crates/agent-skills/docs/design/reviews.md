@@ -56,23 +56,28 @@ documentation defect is left to the retrospective skill to judge." Its cost is o
 each of those moments; what it buys is a reader of the record that neither the author nor the
 implementing session is, which the two acceptance criteria above show the other reviews lacked.
 
-### The `may-bear` entries a design grounding leaves unread reach the design-conformance reviewer, which reads them whole `##unread-entries-reach-the-conformance-review`
+### The design-conformance reviewer reads the verdicts of the work's record search beside the record, and is owed at a merge whose commit message carries a verdict other than `constrains` and `unrelated` `##verdicts-reach-the-conformance-review`
 
-The list of `may-bear` entries the session left unread, per
-`design@agent-skills@may-bear-read-on-touch`, is kept where the work's deliberation is: in the plan
-document's "What is already decided", or in the commit message on the in-change path and for
-bounded work. The design-conformance reviewer reads whole every entry the list names, issues and
-tripwires included, and reports one the work meets. At the review before the merge of a branch whose
-commit message carries such a list, it is dispatched on that message and the branch's diff, and
-reads as declared departures the heads the diff rewrites and those the message names as reversed.
+On the full path, the design-conformance reviewer reads the verdict files of the discussion's record
+search, in the directory its brief names, beside the goals, design and rejected homes, per
+`design@agent-skills@plan-read-against-the-record`, and reports a verdict the plan document leaves
+unanswered. On the in-change path and for bounded work, the commit message carries the generated
+lines of the grounding's search; at the review before the merge of a branch whose message carries
+one with a verdict other than `constrains` and `unrelated`, the axis is dispatched on that message
+and the branch's diff, runs `show` on each entry such a line names, reports a verdict the work leaves
+unanswered, and reads as declared departures the heads the diff rewrites and those the message names
+as reversed.
 
-The reading on touch leaves those entries to a reader, and this reviewer already reads the record
-against the work, per `design@agent-skills@plan-read-against-the-record`, so on the full path the
-list adds reading and no dispatch. The rival, the list recorded and read by no reviewer, leaves an
-entry the session misjudged to surface only after the work, the rework the search before the work
-exists to prevent, per `design@agent-skills@record-searched-before-the-work`. The cost is one more
-dispatch at the review before the merge of a branch whose grounding left entries unread outside a
-plan document.
+The session acts on each verdict without reading the entry by rule, per
+`design@agent-skills@session-acts-on-the-verdicts`, and this reviewer already reads the record
+against the work, so on the full path the verdict files add reading and no dispatch. The rival, the
+verdicts recorded and read by no reviewer, leaves a verdict the session misjudged to surface only
+after the work, the rework the search before the work exists to prevent, per
+`design@agent-skills@record-searched-before-the-work`. A `constrains` verdict asks the work only to
+keep within the sentence it quotes, and an `unrelated` one asks nothing, so a branch whose lines hold
+no other verdict owes no dispatch for them. The cost is one more dispatch at the review before the
+merge of a branch whose grounding's search gave a verdict that changes the work, outside a plan
+document.
 
 ### Before every merge, the transcript reviewer runs alone and last, and not with the other axes `##transcript-review-last-before-merge`
 

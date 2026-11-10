@@ -15,7 +15,7 @@ read or run by hand. They are recorded together, since each is one small test.
 
 In `main` of `path@cli@src/main.rs`: `cli::init` given `&[]` for `checker`.
 
-In `path@cli@src/cli/mod.rs`: `DEFAULT_WORKLIST_BOUND` changed to `26000`, against the README's 25,000 words; `pub rust` of
+In `path@cli@src/cli/mod.rs`: `pub rust` of
 `InitArgs` made private, since no test outside the crate builds one; `#[non_exhaustive]` removed from `Command`; the message
 of `locate` emptied.
 

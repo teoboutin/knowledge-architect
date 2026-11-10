@@ -37,6 +37,17 @@ an empty subsection is omitted.
   `skill@knowledge-architect-goal-setting@drawing-out-intent` serving where the citations touch few
   goals, and never by removing the backticks; the review of the whole goal set the standard's entry
   names may follow as work of its own.
+- `cli`, major: `worklist --verify` judges reports whose lines give each entry a verdict, an
+  `against`, an action, an `owner-question`, a quotation of the entry's text and a reason, after the
+  seed field, with `## Decided` and `## Met outside the task` closing each report, and refuses a
+  report filled with a grade and a relation; it writes `verdicts-<subject>.md` per subject of the
+  work and `generated-lines.md`, or `gaps.md` and `fit-lines.md` at a design audit, and no longer
+  writes `bears.md` and `may-bear.md`. A project whose own skill, agent or script names those two
+  files, or the grades `bears` and `may-bear`, rewrites it to the verdict files and the verdicts, as
+  `agent@knowledge-architect-record-searcher` describes them.
+- `library`, major: `cli::WorklistArgs` gains the public fields `work`, `subjects`, `since` and
+  `seeds_from`, and `cli::run` refuses a value that sets any of them beside `verify`. A program that
+  builds the struct by a literal adds them, empty or `None` for the run it made before.
 - `agent-skills`, patch: the goal standard, which goal-setting and the goal reviewer apply, asks a
   goal to keep its meaning in the project emptied of its design and its code, so it names no part
   that exists by a design choice; reads a goal in three layers, what it requires, admits and rules
@@ -79,6 +90,14 @@ an empty subsection is omitted.
   naming the parent's line up to which the fork inherits its context, in place of the copy of the parent's dispatching
   call the fork's file holds, and labels the message lines of a file with no field `unlabelled`, where it labelled
   them by a leading tag.
+- `cli`, minor: `worklist --out` takes `--work <path>` for each file of the work, whose words leave
+  the bound, `--subject <id>` for each subject of the work, `--since <commit>`, which marks the entries
+  whose file changed since the commit, and `--seeds-from <plan>`, which takes as seeds the design and
+  declared-register entries a plan document's section "What is already decided" cites; it writes
+  `work.txt`. It packs by search unit, each Component and declared location, a search unit above half
+  the bound getting agents of its own, gives an agent the heads and `rejected` entries its entries cite
+  and another agent grades, read only, and the goals as title lines, the goals graded by goal agents,
+  under a default bound of 40,000 words, where it was 25,000.
 - `library`, minor: the package `knowledge-architect-check` holds the checks and the logic of the commands that run them
   or install the workflow as typed functions, with no clap in them, in its module `commands`. A project keeps naming
   `knowledge-architect`, whose every public path stays, and which still holds the binary `klarch`.
@@ -97,7 +116,8 @@ an empty subsection is omitted.
   the `cargo clean` of the foreign-build refusal name the crate.
 - `library`, minor: the published crate `knowledge-architect-git`, every question the checker
   asks git, as a library: the walk's listing, the ignore batch, the dates of a listing's last change,
-  and the trees, blobs and messages of a commit or of the index. The checker depends on it, so a
+  the trees, blobs and messages of a commit or of the index, the commit a revision names, and the
+  paths a commit and the work tree differ by. The checker depends on it, so a
   project that names `knowledge-architect` gets it with no change.
 - `mutate`, minor: the published crate `knowledge-architect-mutate`, the hand mutation: `run`
   applies one mutation the caller writes, runs a command against it and restores the file, over
@@ -143,11 +163,36 @@ an empty subsection is omitted.
   leaving its own home in the same change, where the successor stayed in the incumbent's Component.
   The primer states that a Component is bound by the design of the root and of every intermediate
   Component enclosing it, so a reading of its design home includes theirs.
-- `agent-skills`, patch: the design skill's search of the record may wait until a discussion's scope
-  settles, and runs before any thread closes: until then a word of the owner that would close a
-  thread leaves it presumed settled, and once the search has run the thread closes on that word,
-  an entry the search returns being routed as the primer routes a premise. The round after the
-  search names, for each goal the search graded, the threads it constrains.
+- `agent-skills`, patch: the design skill's search of the record runs once a discussion's shapes
+  settle, with the draft of the document that will carry the deliberation as its work, each thread a
+  subject, and before any thread closes: until then a word of the owner that would close a thread
+  leaves it presumed settled, and once the search has run the thread closes on that word, an entry
+  the search returns being routed as the primer routes a premise. On the full path the planning
+  skill starts there and writes the draft, the spec's sections that carry the design, in the
+  session's scratch space; on the in-change path and for bounded work the draft is the commit
+  message's. The round after the search states the outcome of each verdict other than `unrelated`.
+- `agent-skills`, patch: the record searcher gives each entry a verdict of its register, an action,
+  the subjects it is against, a quotation of the entry's text that `worklist --verify` checks, a
+  reason, and a question for the owner where only the owner can answer, and closes its report with
+  its decisions and what it met outside the task. The session acts on each verdict by its action,
+  reads the verdict files or hands them to agents it dispatches, reads an entry whole only where it
+  reasons over it, and puts each question to the owner; it no longer reads whole the entries graded
+  `bears`, nor lists those graded `may-bear` it left unread. The commit message of an in-change
+  deliberation or of bounded work carries the lines of `generated-lines.md`.
+- `agent-skills`, patch: the design audit of a slice or a spec runs the search with `--seeds-from`
+  its spec, a slice's own and not the milestone document, `--since` the commit that last changed it,
+  and the subject `slice-audit` or `spec-audit`; it reads `gaps.md` and carries `fit-lines.md` in
+  its commit message.
+- `agent-skills`, patch: the retrospective intake clusters its findings before its search, and each
+  cluster or lone finding is a subject of the search; the analysis holding a cluster carries the
+  generated line of each entry given a verdict against it.
+- `agent-skills`, patch: the design-conformance reviewer reads the verdict files of the search beside
+  the record and reports a verdict left unanswered; its axis is owed at the merge of a branch whose
+  commit message carries a generated line with a verdict other than `constrains` and `unrelated`.
+- `agent-skills`, patch: the agent-facing-text standard counts as a structure the work did not need
+  only one imposed on what an agent decides by its judgement, that the work can be carried out as
+  intended without and that another instruction needs to vary, so a structure a command or the
+  checker carries out is no such cause for a reviewer, an auditor or an intake.
 - `agent-skills`, patch: the retrospective asks whether a rule about code or tests, or about
   splitting the project into Components, proved too hard or too strict, or was followed against the
   work's interest.

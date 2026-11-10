@@ -16,7 +16,8 @@ Sessions take them by grep, sort and diff between two commits.
 
 What the commands read today: `issues`, `tripwires` and `model` read the working tree;
 `tripwires --help` offers `--guarding` alone; the only command that reads a given commit's tree is
-`commits`, which judges and lists nothing.
+`commits`, which judges and lists nothing, and `worklist --since <commit>` marks the entries whose
+file differs between a commit and the work tree, listing none created, removed or retitled.
 
 Instances, both from retrospective files of sessions of thaum, a project that installs the
 workflow, on 2026-11-01:

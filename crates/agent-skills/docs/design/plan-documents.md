@@ -162,14 +162,21 @@ discussion to one thread, against `design@agent-skills@structure-the-flow`. The 
 commit message when a discussion inside a task grows to several threads; its length is not bounded,
 since a bound on it would bound the discussion.
 
-### The planning skill writes the plan document, and the design skill writes none `##design-hands-off-to-planning`
+### On the full path the planning skill writes the draft the record search reads and the plan document, and the design skill writes no plan document `##design-hands-off-to-planning`
 
-The planning skill starts where a design discussion has converged on the full path, and writes the
-spec or the milestone. A discussion on the in-change path has no plan document,
-per `design@agent-skills@in-change-path`. The design skill ends at convergence and the premortem,
-its causes named and its acceptance criteria written, and writes no plan document of its
-own. Its decisions are
-recorded when their work lands, per `design@agent-skills@design-home-is-built-intent`. One skill owns the document's shape: two skills describing the sections of one document
+On the full path, the planning skill starts once a design discussion's shapes settle, before its
+record search: it writes the draft the search reads, in the session's scratch space, with the
+sections of a spec that carry the design, what the work is, what is already decided, the threads as
+they stand, the decided design as proposed and the losing alternatives, held to fewer constraints
+than a plan document, since the checker reads no scratch file, per
+`design@agent-skills@search-reads-the-draft`. Once the discussion converges, it writes the spec or
+the milestone, assembled from the transcript, never from the draft, per
+`design@agent-skills@ledger-from-transcript`. A discussion on the in-change path has no plan document,
+per `design@agent-skills@in-change-path`, and its draft is that of the commit message, which the
+design skill writes. The design skill ends at convergence and the premortem, its causes named and its
+acceptance criteria written, and writes no plan document of its own. Its decisions are recorded when
+their work lands, per `design@agent-skills@design-home-is-built-intent`. One skill owns the
+document's shape, its draft's sections included: two skills describing the sections of one document
 would drift apart, against `goal@knowledge-architect@agents-get-a-complete-workflow`.
 
 ### A plan document is written in the session where its discussion converged `##plan-written-in-the-converging-session`

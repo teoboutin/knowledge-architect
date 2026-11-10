@@ -37,10 +37,12 @@ bound and 3 above it sent alone, with the scripts the message of the commit
 "[review] Repairs of the transcript review of one search of the whole record, with the scripts of its measurements" holds, since `klarch` refuses thaum's manifest, which holds the tables of
 thaum's own extension.
 
-Re-entry point: the design discussion of
-`issue@query@the-graded-entries-repeat-a-shared-entry-s-grade-per-agent`, or any other change to how
-the record search clusters, packs or assembles the record, whose work weighs the search's cost; the
-first piece of work in the owner's planned project of about 30 Components; or the owner's word.
+Re-entry point: a change to how the record search clusters, packs or writes the record, whose work
+weighs the search's cost; the first piece of work in the owner's planned project of about 30
+Components; or the owner's word. The discussion that packed the search by search unit and gave each
+entry a checked verdict met this point and kept the whole-record search, the session's default, which the owner approved:
+its packing read the whole record of this repository within the bound, and a project of about 30
+Components remains unmeasured.
 
 An intake of a retrospective file that reports the search's cost is no re-entry point, since an
 intake's own work does not include this discussion. The cost measured so far: W4 of the
@@ -50,8 +52,6 @@ at main's commit "[plans] The spec of the retrospective intake deciding by autho
 work has landed", ran the search over 12 agents; its `bears.md` held 200 entries in
 83,788 words and its `may-bear.md` 164 entries in 57,415 words, by `wc -w`, more than that session
 could read whole beside its own work.
-`issue@query@the-graded-entries-repeat-a-shared-entry-s-grade-per-agent` holds the part of the cost
-that repeated grade lines make.
 
 The intake of forty retrospective files, 2026-11-07, analysed at main's commit "[plans] The
 milestone that split the Components leaves, with the spec of its last slice: their work and their
@@ -68,10 +68,10 @@ the files' reports and by `wc -w` where words are given:
 - the agents: the work lists of two slice audits held 21 and 22 searchers, above the 20 the harness
   started at once, by the files' report, the rest sent as slots freed.
 
-The whole reading these sizes owe is
-`issue@agent-skills@the-search-s-graded-entries-exceed-what-one-session-reads-whole`; its
-discussion, where it changes how the search packs or assembles the record, is a re-entry point of
-this entry. The analysis is W1 of 2026-10-31-knowledge-architect-intake-seventeen-files-klarch-workflow,
+Those sizes were the reading the grades `bears` and `may-bear` owed the session, which the verdict
+report of `design@agent-skills@verdict-report` replaces, the session acting on each verdict as
+`design@agent-skills@session-acts-on-the-verdicts` says; the cost left for this entry is the agents a
+search takes, which `klarch worklist --out` prints. The analysis is W1 of 2026-10-31-knowledge-architect-intake-seventeen-files-klarch-workflow,
 in the commit "[intake] The analyses of forty received retrospective files, three outcomes for the
 owner".
 

@@ -49,3 +49,27 @@ for the minutes between `--out` and `--verify`.
 `live`. It would have changed the command line `id` takes. The anchor that will own a design
 thread's decision is often not settled when the thread is named, so the test would need the
 answer it is asked for; listing every kind and anchor answers it whatever the owner is.
+
+### Every goal a cluster's entries cite copied into that cluster, with the goals it refines `##goals-copied-into-every-cluster`
+
+`live`. A goal of the root is cited by heads of most subjects, so it was read in nearly every agent:
+in the work list of 25 agents over this repository at main's commit 350d4d59, every agent held all
+25 root goals, and goal entries made 181,458 of the 497,444 words the agents read. The counts are
+re-taken by running that commit's `klarch worklist --out` over its tree and summing, per agent, the
+words of the goal entries in its `entries.md`.
+
+### Clusters packed under the bound whatever the Component or location they belong to `##clusters-packed-across-search-units`
+
+`live`. A cluster's issues then sit in an agent that holds none of their Component's design: in the
+work list of 25 agents over this repository at main's commit 350d4d59, 100 of the 341 placements of
+an issue or a tripwire, 99 issues and 1 tripwire, sat in an agent holding no design entry of their own
+Component. The owner judged an issue graded without its Component's design a major defect. The count
+is re-taken from that run's `agents.txt`, by the anchor of each entry against the anchors of the
+design entries of its agent.
+
+### Search units below half the bound packed into the room the agents of larger ones leave `##small-units-in-large-units-room`
+
+`live`. It packs fewer agents than `design@query@search-unit-above-half-the-bound-alone`, and lost
+to the owner's choice at a fork that no goal ranks. It is kept because a doubt remains: the owner's
+judgement that a large Component's entries interact, so that an agent's attention is better kept on
+them alone, has no measurement behind it.
