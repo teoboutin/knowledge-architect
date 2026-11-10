@@ -186,8 +186,9 @@ declares `cargo klarch` as the command unless `--command` gives one. It makes `.
 `# Added by cargo`, measured with cargo 1.98.0 over a `.gitignore` holding `mine`; or it leaves the file as it is where `target/` is already ignored. In a
 repository git decides, a negation or a leading space included; outside one, under `--vcs none`, a
 line `target`, `target/`, `/target` or `/target/` does. This is the
-shape of `design@agent-skills@xtask-pins-checker`, and it gives a new project the gates
-`goal@knowledge-architect@setup-brings-quality-tools` asks for.
+shape of `design@agent-skills@xtask-pins-checker`, and it gives a new project the gates of the list
+`design@gates@a-project-holds-its-gate-list` recommends, a gate being a tool whose generic part
+`goal@knowledge-architect@generic-tools-and-procedures-are-shipped` has every target project get.
 
 ### `init --rust` writes no CI workflow `##init-writes-no-ci-workflow`
 

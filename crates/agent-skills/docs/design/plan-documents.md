@@ -27,7 +27,7 @@ loop.
 
 Naming a spec's
 items by a unit of the history, one step to one commit, lost: it fixes the plan onto the
-history, against `goal@agent-skills@only-needed-instructions`, and a commit the work
+history, against `goal@knowledge-architect@only-needed-instructions`, and a commit the work
 needs for another reason, such as a fix met outside the task, would then contradict the plan. The
 owner ruled it out: "since it designates something 'real', it rigidifies the workflow and
 'hardcodes' that one step equals one commit. This is likely to cause conflicts with other workflow
@@ -267,7 +267,7 @@ The census of the 61 acceptance criteria of the 39 plan documents deleted from d
 completeness checks, which a review already reports, about 5 that failed the silence test, and 3
 that only a measurement of the built result in use could take: a criterion bound to pass, or one a
 review reports, misdirects the attention a criterion should hold, and an instruction that asks for
-it is one `goal@agent-skills@only-needed-instructions` removes. The corpus is listed by
+it is one `goal@knowledge-architect@only-needed-instructions` removes. The corpus is listed by
 `git log 741f655e --diff-filter=D --name-only -- docs/plans/`, each document read at its deleting
 commit's parent; the per-criterion verdicts were the agent's judgement, kept in no record, so only
 their order of magnitude is claimed. The same agent counted about ten past firings, of which one tested a decision. The
@@ -337,16 +337,16 @@ that changes what the per-commit gate checks is the one this exception meets.
 
 Work that is known but not designed is a `todo` or `deferred` issue in the owning anchor, with its
 leads in the entry. The plan document that schedules it closes the issue in the commit that adds the
-document. `goal@knowledge-architect@structure-and-workflow-work-together` asks for one home for what
-is outstanding, in the anchor it belongs to: the issue register holds the work, and the roadmap only
-orders it, per `design@agent-skills@roadmap-orders-issues`.
+document. The knowledge table gives what is outstanding one home, the issue register of the anchor
+it belongs to, per `design@agent-skills@knowledge-table-home`: the issue register holds the work,
+and the roadmap only orders it, per `design@agent-skills@roadmap-orders-issues`.
 
 ### The roadmap holds only the order of known work, and every row is a checked reference `##roadmap-orders-issues`
 
 A row of the roadmap cites an issue entry or a whole plan document, in the order the owner wants the
 work done, and an unordered section may follow. The work stays in the issue register and the plans
 directory, so what is outstanding still has its one home, per
-`goal@knowledge-architect@structure-and-workflow-work-together`; the roadmap adds only the order. A
+`design@agent-skills@knowledge-table-home`; the roadmap adds only the order. A
 row dangles when its issue closes or its plan document leaves, and the check reports it, so the
 order cannot drift from the work unnoticed. The commit that adds a plan document rewrites the row
 of the issue it closes, and the commit that deletes one removes its row. The need is observed in
@@ -369,8 +369,8 @@ leaves, need no word, per `design@agent-skills@roadmap-orders-issues`.
 
 No installed skill asks for a file recording what has landed. History lists every plan document that
 left, and each landing commit says where its results live; releases are in the changelog. A progress
-file would be a third document about the same work, with a lifetime of its own, against the one home
-for what is outstanding of `goal@knowledge-architect@structure-and-workflow-work-together`.
+file would be a third document about the same work, with a lifetime of its own, where
+`design@agent-skills@knowledge-table-home` gives each kind of statement one home.
 
 ### The plan documents of a discussion record the whole of it, each thread with every argument it uses `##plan-records-the-exchange`
 

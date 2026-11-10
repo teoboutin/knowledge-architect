@@ -33,8 +33,8 @@ cannot be derived again in one discussion round, and the rule it defeats is the 
 `live`. The owner chose to keep the discussion an exchange in which the agent does not make every
 choice, judging that the owner's rough designs most of the time, though not always, end up the
 better direction, and that the exchange drives a design's quality; the fork rule keeps that exchange
-where two shapes survive. A doubt remains that keeping forks with the owner's word strains
-`goal@knowledge-architect@owner-attention-on-what-is-theirs`, and this is the candidate if forks put to the
+where two shapes survive. A doubt remains on the cost of keeping forks with the owner's word, the
+owner's time, which no goal bounds, and this is the candidate if forks put to the
 owner prove to be what keeps the owner answering what the record could settle.
 
 ### Quoting the owner's words verbatim in a head whose ground is the owner's `##owner-words-quoted-in-head`
@@ -257,8 +257,8 @@ that trusted one reading per entry would have left both. The audit's commits, fo
 the old rules after its migration. It costs the owner one proposal per head, at the moment a session
 already edits it, where a project audit puts every item of its owner list to the owner at once: the
 first audit on this repository put 72 items to the owner over three passes. It is kept because a
-doubt remains on that cost to the owner's reading time, which
-`goal@knowledge-architect@owner-attention-on-what-is-theirs` spends, and it is the candidate if a project's owner
+doubt remains on that cost to the owner's reading time, which no goal bounds, and it is the
+candidate if a project's owner
 finds an audit's lists too long to read.
 
 ### One generic auditor agent, briefed to read the axis's section of the skill `##one-generic-auditor-agent`
@@ -376,17 +376,17 @@ whole pass to surface.
 
 ### A confirmed finding of two readings left to judgement where no text rules either act out `##two-readings-left-to-judgement`
 
-`live`. It lost to `goal@knowledge-architect@agents-get-a-complete-workflow`: "Each installed
-instruction says what it requires plainly enough to follow without guessing what it means". An
-instruction a reading confirms is read two ways is covered by an instruction, so the goal leaves it
-to no judgement. Its own rivals, such a finding dropped at admission and the session leaving it
+`live`. It lost to `design@agent-skills@no-two-installed-instructions-contradict`, under which
+each installed instruction says what it requires plainly enough to follow without guessing what it
+means. An instruction a reading confirms is read two ways is covered by an instruction, so it is
+no case left to judgement. Its own rivals, such a finding dropped at admission and the session leaving it
 alone, fall with it. It is kept here because a doubt remains on the cost: every repair is new text,
 and new text is where the next pass finds defects, as
 `design@agent-skills@capabilities-not-structure` records. Applied to pass 5 of the first
 agentic-workflow audit of this repository, the test it rested on, whether another instruction, a
 design head or a goal rules one of the two acts out, would have left 6 of the 14 two-readings
-findings the session kept to judgement. It is the candidate if the owner restates the goal, under
-`skill@knowledge-architect-goal-setting`, so that an instruction whose readings all lead to
+findings the session kept to judgement. It is the candidate if that head is reopened, under
+`skill@knowledge-architect-design`, so that an instruction whose readings all lead to
 acceptable acts meets it.
 
 ### The check of a repair against the design heads, the goals and the rejected alternatives left to the session at the application `##repair-check-left-to-session`

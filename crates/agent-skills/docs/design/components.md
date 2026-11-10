@@ -18,12 +18,13 @@ session to the skill; the design skill and the development skill host it, the tw
 which the first two moments are met, per `design@agent-skills@shared-text-fragment`. The setup skill
 points to the skill for the criteria and the naming.
 
-`goal@knowledge-architect@projects-are-split-into-components` asks that the installed text state
+`goal@knowledge-architect@projects-are-split-into-modular-units` asks that the installed text state
 default criteria and lead a session to apply them whenever it places new work, and wherever it finds
 a Component holding two purposes. The activity's methodology, a cut of a boundary followed by a
-move of the record, is apart from a design discussion's and from the setup's, so
-`goal@agent-skills@one-skill-per-activity` gives it a skill of its own: that goal counts every
-activity the owner has taken in, and its list of activities grows with the workflow. The owner
+move of the record, is apart from a design discussion's and from the setup's, so it is an activity
+of its own and takes a skill of its own, per `design@agent-skills@one-skill-per-activity`;
+`goal@knowledge-architect@agents-get-a-complete-workflow` covers each activity the owner has taken
+in, and its list of activities grows. The owner
 proposed a skill of its own with a fragment in the design skill, on the argument that not every design
 discussion needs the procedure, since creating a Component should be occasional; the session
 extended the proposal to the development skill and to the four moments. The skill decides nothing itself: the decision to create or split goes through
@@ -58,7 +59,7 @@ refuses a dependency cycle outside dev-dependencies, and neither rule argues it:
 Every Component that holds Rust code has one shape, a crate, which the owner argued leaves a session
 one shape fewer to weigh in a split and to search for in a project, against no measured gain of the
 module shape. "One reason to change" is the test for a Component as for a function, so the criteria
-of `goal@knowledge-architect@projects-are-split-into-components` and the default code shape of
+of `goal@knowledge-architect@projects-are-split-into-modular-units` and the default code shape of
 `design@agent-skills@default-code-shape` read the same way at two scales.
 
 ### The cost of the crate a split creates is weighed by whether the project publishes `##split-cost-by-publication`
@@ -80,7 +81,7 @@ new dependencies between its parts, creates a dependency cycle, or has every exp
 its boundary is probably cut in the wrong place. The expected changes count those the goals already
 predict, not only those of the history. The first two are the owner's argument that a split
 multiplying dependencies or creating a cycle is cut wrongly. The third is the session's, derived from
-the test of one reason to change of `goal@knowledge-architect@projects-are-split-into-components`: a
+the test of one reason to change of `goal@knowledge-architect@projects-are-split-into-modular-units`: a
 boundary every change crosses separates no reason to change. The rival the session weighed splits on
 the default criteria alone, which reads two reasons to change in a unit and cuts it with no regard to
 what the cut costs between the parts; no rival was offered in the discussion. The cost of the signals
@@ -108,7 +109,7 @@ is stated by the component-creation skill.
 ### An intermediate Component is a directory of Components with no code of its own, and a decision on how the code of several Components is written goes to the lowest one enclosing them `##shared-code-decisions-go-to-the-lowest-enclosing-component`
 
 An intermediate Component groups the Components nested under its directory. Its own files hold no
-Rust code, per `goal@knowledge-architect@projects-are-split-into-components`, so it is no crate, and
+Rust code, per `goal@knowledge-architect@projects-are-split-into-modular-units`, so it is no crate, and
 each Component nested under it that holds Rust code is a crate, per
 `design@agent-skills@component-crate-mapping`.
 A decision that shapes how the code of several Components is written goes to the design home of the
@@ -137,12 +138,12 @@ The rivals lost:
   home.** It holds one shape fewer, and every principle shared by a subset is loaded by every
   session, since every change to code reads the root's design home, per
   `skill@knowledge-architect-development@ground-before-editing`, against the reason of
-  `goal@knowledge-architect@projects-are-split-into-components`, that each Component's design stays
+  `goal@knowledge-architect@projects-are-split-into-modular-units`, that each Component's design stays
   small enough to read whole. The owner chose over it the intermediate Component created for a
   purpose stated in goals, which no goal ranked, to be judged when a project first needs one. That
   occasion is no longer stated, and the choice was not put to the owner again without it.
 - **An intermediate Component as a declared set of Components rather than a directory.**
-  `goal@knowledge-architect@projects-are-split-into-components` defines a Component as what the
+  `goal@knowledge-architect@projects-are-split-into-modular-units` defines a Component as what the
   checker's manifest declares, a directory or the project's root, and the owner keeps each
   Component tied to the filesystem tree.
 - **An intermediate Component that is a crate whose nested Components are its modules.** Its crate
@@ -199,7 +200,7 @@ The rivals lost:
 - **Every decision about dependencies in the root's design home.** A rule that binds one Component
   alone would be loaded by every session that reads the root's design home, per
   `skill@knowledge-architect-development@ground-before-editing`, outside the Component it binds,
-  against the reason of `goal@knowledge-architect@projects-are-split-into-components`, that each
+  against the reason of `goal@knowledge-architect@projects-are-split-into-modular-units`, that each
   Component's design stays small enough to read whole.
 - **The lowest Component enclosing every Component the decision constrains.** It keeps the root
   smaller, and moves every dependency decision among a group into the intermediate Component that

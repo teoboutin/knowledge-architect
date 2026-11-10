@@ -1,6 +1,6 @@
 **Generated — do not edit.** `cargo klarch index`
 
-58 entries
+60 entries
 
 | kind | title |
 | --- | --- |
@@ -21,12 +21,15 @@
 | design | [An intake's analysis can leave before the owner's ruling in it is committed](an-intake-analysis-can-leave-before-the-owner-s-ruling-is-committed.md) |
 | design | [An item met outside the task and kept for the retrospective's workflow file is lost when no retrospective follows](an-item-kept-for-the-retrospective-is-lost-when-no-retrospective-follows.md) |
 | design | [Decisions argued from a second agent harness, which the scope goal now asks against](heads-argued-from-another-harness.md) |
+| design | [No design head argues that an installed instruction prevails over one the configuration adds, nor that the installed text may rely on the harness's own mechanisms](no-head-argues-an-outside-instruction-s-precedence-or-the-reliance-on-the-harness.md) |
+| design | [No design head argues the expectation that a target project records little of its own about its agent-facing text](no-head-argues-that-a-target-project-records-little-about-its-agent-facing-text.md) |
 | design | [No review compares the readings that several design heads take of one goal](no-review-compares-the-readings-heads-take-of-one-goal.md) |
 | design | [Plan documents keep the owner's words verbatim, where every other durable record attributes them, and sessions slip between the two](plan-documents-keep-the-owner-s-words-verbatim-where-other-records-attribute-them.md) |
 | design | [Pointers written as bare plain text to clear a finding reach no check, and the rule against them is reopened](pointers-written-bare-to-clear-a-finding-reach-no-check.md) |
 | design | [The claim check of a commit message is read at the session's start and needed at each commit](the-claim-check-of-a-commit-message-is-read-at-the-start-and-needed-at-each-commit.md) |
 | design | [The first test for a losing alternative admits every rival of a head that earned its place as an interface](the-first-test-for-a-losing-alternative-admits-every-rival-of-an-interface-head.md) |
 | design | [A retrospective intake handles many unrelated findings at once, so its grounding may still load one session beyond one reading](the-intake-s-search-lands-a-batch-s-whole-neighbourhood-on-one-session.md) |
+| design | [The installed review names neither of two questions of meaning that a passing check leaves open](the-review-does-not-ask-whether-items-are-cited-where-they-bear.md) |
 | design | [The workflow assumes one owner, unnamed, which a project with several contributors does not have](the-workflow-assumes-one-unnamed-owner.md) |
 | question | [May a `%%` line of the installed text's source copy the argument of the head it cites?](a-comment-line-may-copy-the-argument-of-the-head-it-cites.md) |
 | question | [A head in the wrong Component goes to the owner, though the record settles the Component](a-head-in-the-wrong-component-goes-to-the-owner-though-the-record-settles-the-component.md) |
@@ -60,5 +63,4 @@
 | todo | [The installed text has the main session carry work it could dispatch, and says nothing of how a dispatch is judged](the-installed-text-has-the-main-session-carry-work-it-could-dispatch.md) |
 | todo | [The design skill's duty to bring back a material finding has no design head](the-material-finding-duty-has-no-head.md) |
 | todo | [The retrospective records no count of what a merged branch cost in review](the-retrospective-counts-no-review-cost.md) |
-| todo | [The installed review does not name the two questions the goals now ask of it](the-review-does-not-ask-whether-items-are-cited-where-they-bear.md) |
 | todo | [This repository's design heads that cite the owner's words await a pass of the design-record axis under the rule on what a head stands on](this-repository-s-heads-await-the-design-record-axis.md) |

@@ -201,5 +201,5 @@ needs: `path` and `planned` against the tree, per `design@check@every-path-names
 require a resolvable shape and see nothing without one, which needs no finding and no migration. It
 would also mean every pointer written in an older form stops being checked with nothing saying so. A
 silent false negative passes a tree that does not conform, against
-`goal@check@document-rules-are-checked`: a tree that passes the checker conforms to the reference grammar in the texts the checker reads, save what a declaration switches off. The candidate rule that bounds this is
+`goal@knowledge-architect@documentation-stays-consistent`: a tree that passes the checker conforms to the reference grammar in the texts the checker reads, save what a declaration switches off. The candidate rule that bounds this is
 `design@model@at-span-candidate-rule`.

@@ -163,7 +163,7 @@ carried out safely is the project's rule for that operation, not the finding's t
 The rules over documents are compiled in and the manifest declares nothing about them, so
 conformance of a document means the same thing in every tree this tool checks. There is no flag, no
 list and no severity: a rule either holds over a document or the run fails. The constraint derives
-from `goal@check@document-rules-are-checked`: a tree that passes the checker conforms to every rule
+from `goal@knowledge-architect@documentation-stays-consistent`: a tree that passes the checker conforms to every rule
 `check` compiles in, and no project holds back any of them beyond the paths its manifest leaves out of the walk, which the checker does not read, and the agent configuration's documents an empty list of harnesses removes, which the third paragraph below says are documents a Component carries, not rules over the documents it has.
 
 **A declared register adds obligations and removes none**, which is what keeps

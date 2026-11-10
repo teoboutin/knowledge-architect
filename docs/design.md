@@ -1,7 +1,8 @@
 # knowledge-architect — design
 
 Recorded intent for the project as a whole: how the repository is laid out, how its parts are
-versioned and released, and how work reaches main. Present tense, each decision carrying a slug,
+versioned and released, how work reaches main, and what the tools and the workflow hold to
+together. Present tense, each decision carrying a slug,
 cited as `design@knowledge-architect@<slug>`. The designs the project did not keep are
 `register@knowledge-architect@rejected`, each cited by the heads whose argument covers it. The goals
 these decisions serve are `register@knowledge-architect@goal`.
@@ -57,8 +58,9 @@ listing, never by a check, per `design@check@model-then-checks`. So the set of t
 ask git is the crate's, auditable in one read per `design@git@git-is-asked-through-one-module`,
 and the environment the crate sets, `design@git@repository-variables-dropped` and
 `design@git@index-file-variable-kept`, reaches every question the checker's verdict depends on,
-which `goal@check@documents-stay-current` needs. `transcript`'s one question moves no verdict: it holds to the same crate since
-no tool needs a wrapper of git of its own, per `goal@git@a-pure-wrapper-over-git`. A test of the checker may run git itself to build
+which `goal@knowledge-architect@documentation-stays-consistent` needs. `transcript`'s one question moves no verdict: it holds to the same crate, which
+`design@knowledge-architect@git-crate` makes the wrapper of git for these crates, so the one read covers its question too; that no tool needs a wrapper of git of its own is argued by no head, which
+`issue@git@whom-the-library-serves-and-what-it-knows-have-no-argued-head` holds. A test of the checker may run git itself to build
 its fixture.
 
 ### What a run reads of a project is a crate of its own, which the checks depend on `##model-crate`
@@ -76,8 +78,10 @@ them, so it is a check. The boundary is crossed by some changes and not by all: 
 source, some touched the model's files alone and some the checks alone, as the command in the
 milestone document that the commit "[review] Repairs of the review of the plan documents of the
 Component split and of the rules that cut it" writes takes again. It serves
-`goal@model@a-tool-reads-the-documents-with-no-check`, `goal@model@a-tool-knows-the-read-is-right` and
-`goal@knowledge-architect@documents-render-as-a-linked-site`. The nearest rival
+`goal@knowledge-architect@documentation-has-a-structure-and-a-model`, which asks for a model that
+judges none of what the documents say and lets a tool tell whether what it read is complete and
+right, and `goal@knowledge-architect@documents-render-as-a-linked-site`, whose site is built from
+what each reference names. The nearest rival
 is `rejected@knowledge-architect@model-inside-the-checker`.
 
 ### Git is wrapped by a crate of its own, which the checker depends on, rather than by a module of the checker `##git-crate`
@@ -87,7 +91,11 @@ crates/git, which `check`, `model`, `query`, `transcript` and `create` depend on
 `design@knowledge-architect@version-lockstep`. The crate's interface changes for reasons of its
 own: a git question or a git version that another tool needs and the checker does not. It takes
 decisions of its own, `register@git@design`. And a tool that rewrites a branch's history depends
-on it alone. It serves `goal@git@a-pure-wrapper-over-git`. The nearest rival, the checker's git
+on it alone. It is one unit with one purpose, the
+direction `goal@knowledge-architect@projects-are-split-into-modular-units` gives the parts of a
+project. Whom the crate serves beyond these crates, and that it knows nothing of a project's
+documents, are argued by no head, which
+`issue@git@whom-the-library-serves-and-what-it-knows-have-no-argued-head` holds. The nearest rival, the checker's git
 module made public, puts the checker's own dependencies into the build of every tool that needs
 git: `rejected@knowledge-architect@git-module-made-public`.
 
@@ -97,7 +105,8 @@ git: `rejected@knowledge-architect@git-module-made-public`.
 and depends on `model`, and on `git` for the last column of `issues` and for what `worklist --since` asks of a commit, by path and by exact version, per
 `design@knowledge-architect@version-lockstep`. They need the model and at most phases 1 to 3, per
 `design@knowledge-architect@model-crate`, and they share one design, the record, the graph and the exchange with agents, for
-`goal@query@agents-query-the-project` and `goal@query@the-record-is-consulted-as-the-workflow-requires`. `cli`
+`goal@knowledge-architect@tasks-a-tool-does-better-are-the-tool-s`, which reaches searching what a project holds, and
+`goal@knowledge-architect@records-reach-their-reader`, under which a session that changes a recorded item can list what to read again. `cli`
 depends on it. `model`, the command, stays in `check`, since it calls each extension's dump hook. The rule that this crate
 depends on nothing of the checks is its own, `design@query@query-depends-on-no-check`. The nearest rival, these commands left in
 `check`, puts every check into the build of a tool over the record.
@@ -106,21 +115,22 @@ depends on nothing of the checks is its own, `design@query@query-depends-on-no-c
 
 `knowledge-architect-transcript`, in crates/transcript, depends on `git` alone, by path and by exact version, for the main
 worktree's path, and takes the project's root from its caller. It changes when the harness's format does, a reason the checks do
-not share, and imports nothing of them. `cli` depends on it, and offers the command, per `goal@cli@one-program-for-its-tools`. It serves `goal@transcript@a-session-reads-past-sessions`.
+not share, and imports nothing of them. `cli` depends on it, and offers the command, per `design@knowledge-architect@cli-crate`. It serves `goal@knowledge-architect@tasks-a-tool-does-better-are-the-tool-s`, which reaches searching what a project's past sessions said.
 The nearest rival, a module of `check`, ties a change of that format to the checker's crate for no shared design.
 
 ### Creating a project is a crate of its own, above the checks `##create-crate`
 
 `knowledge-architect-create`, in crates/create, holds `init`, `new-component` and `init --rust`, and depends on `check`, since
 each run inside a worktree ends as `check --fix` ends, on `model`, `git`, and `agent-skills` for the snippets it writes, by path and by exact
-version. `cli` depends on it. It has a purpose and a design of its own, per `goal@knowledge-architect@projects-are-split-into-components`, and serves `goal@create@a-project-adopts-by-one-command` and `goal@create@a-project-gains-a-component-by-one-command`. The cost is what `check` publishes for it, under
+version. `cli` depends on it. It has a purpose and a design of its own, per `goal@knowledge-architect@projects-are-split-into-modular-units`, and serves `goal@knowledge-architect@adoption-is-easy`, under which adopting asks little work of a person or an agent, through `design@create@init-command` and `design@create@component-command`. The cost is what `check` publishes for it, under
 `design@check@the-facade-publishes-what-a-consumer-needs`. The nearest rival keeps it in `check`, whose interface then changes for
 what a new project holds.
 
 ### The binary and the parsing of its commands are a crate above every crate that contributes a command `##cli-crate`
 
 `cli` holds the binary `klarch`, the declarations and the dispatch of its commands, and pulls each command's logic from
-the crate that holds it, per `goal@cli@one-program-for-its-tools` and `goal@cli@one-home-for-the-command-line`. A commands module in a crate that contributes a command would form a cycle with every other
+the crate that holds it, per `design@cli@command-parsing-home`; a project names this one package for what it builds, per
+`design@knowledge-architect@the-binary-crate-keeps-the-package-name`. A commands module in a crate that contributes a command would form a cycle with every other
 such crate that depends on it, so the module sits above them all, per
 `design@agent-skills@top-level-binary-crate`. A frontend that is no command line depends on the crates below it, with no
 parser in them. It says nothing of which crates `check` may depend on, which
@@ -131,17 +141,17 @@ dependency once the commands span crates: `rejected@knowledge-architect@single-c
 ### The harness an extension's tests need is a published crate of its own, on which no crate depends `##testing-crate`
 
 `knowledge-architect-testing`, in crates/testing, publishes what an extension's tests need, since a project tests its extension as `check` tests
-its own checks, per `goal@check@projects-add-their-own-checks`. It depends on `check`, by path and by exact version. An extension's tests add it
+its own checks, per `goal@knowledge-architect@projects-add-their-own-checks`. It depends on `check`, by path and by exact version. An extension's tests add it
 to their dev-dependencies, and `path@testing@tests/dependency_rules.rs` holds that no crate of the workspace names it.
 Its unshipped tests dev-depend on `cli`, `model` and `agent-skills`, by path alone, which publishing drops, per
 `path@agent-skills@docs/grounding/crate-boundaries.md`, so the graph holds no cycle, dev-dependencies included, as `design@agent-skills@shared-test-component` asks. So where a test of
 the binary sits, `design@testing@binary-tests-in-testing`, is what this direction rests on.
-`goal@testing@an-extension-is-tested-over-a-project` asks that an extension's tests take it as a package of their own, which rules out
-`rejected@knowledge-architect@harness-kept-in-check`; it costs each extension's tests one more dependency, and the crate one first publish.
+The owner chose the published crate over `rejected@knowledge-architect@harness-kept-in-check`, which no goal ranks, believing it more natural
+that an extension's tests pull the harness as a package of its own, added to those tests and to nothing else; it costs each extension's tests one more dependency, and the crate one first publish.
 
 ### This repository's mock projects and the tests over them sit in one crate, not in the crates they test `##mock-projects-in-one-crate`
 
-For `goal@testing@program-tests-over-whole-projects-have-one-home`, `testing`'s `tests/` holds the mock projects and the tests of `klarch`'s crates that need the shared means of running over a project, the mock projects themselves among those means, and no crate's test loads a project kept in another crate. A crate's own test may keep a small project of its own. The owner's argument, stated with a hedge, is that integrated tests moved out of
+`testing`'s `tests/` holds the mock projects and the tests of `klarch`'s crates that need the shared means of running over a project, the mock projects themselves among those means, and no crate's test loads a project kept in another crate. A crate's own test may keep a small project of its own. The owner's argument, stated with a hedge, is that integrated tests moved out of
 the unit tests, and sometimes out of the crates, test the public API, per `design@agent-skills@integrated-test-through-public-api`, and that one crate might keep others from duplicating fixtures or reaching into another's, the shape of `design@agent-skills@shared-test-component`. No package ships them, per
 `design@knowledge-architect@package-include-whitelist`. The nearest rival, the mock tests kept as a unit-test module of each crate, reads internals a consumer cannot, and needs either a copy of each mock or a path into another crate.
 
@@ -169,7 +179,7 @@ owner's word.
 
 A typed command prints, per `design@knowledge-architect@a-typed-command-prints-and-returns-its-code`, so each crate of commands needs what
 ends a run with exit 2 on a closed stdout, per `design@cli@exit-code-ladder`. `query` and `transcript` may depend on nothing of the checks, per `design@query@query-depends-on-no-check` and `design@knowledge-architect@transcript-crate`, and the one crate
-below both is `git`, which `goal@git@a-pure-wrapper-over-git` keeps to git alone. So `check`, `query` and `transcript` each hold the writer, and `create`, which
+below both is `git`, which `design@git@an-operation-in-git-s-terms-is-the-library-s` keeps to operations stated in git's own terms. So `check`, `query` and `transcript` each hold the writer, and `create`, which
 depends on `check`, a macro over `check`'s. The session chose this over a crate of its own for that one function, which no goal ranks; the owner approved it. The
 rival holds one home at the fixed cost of a published crate, for a name no plan proposed; the component-creation skill's default, printing in the
 Component that defines the data, leans against it by a default, not a rule. The cost of the choice is one reason at three sites, which a test per copy holds. The copies leave with the last command that returns data, per
@@ -203,13 +213,21 @@ The maintenance crate holds the project's repeated tasks beside its gates, per
 `design@agent-skills@xtask-pins-checker`, and every Rust target project has one. The gates library
 runs a project's merge gates, per `design@gates@gates-crate`, and a mutation is no gate: hosted
 there, every user of the gates would build the mutation code, `rejected@knowledge-architect@gates-library-hosts-the-mutation`.
-`klarch` is no host either: the tool's result does not exist without running the project's tests, which
-`goal@cli@one-program-for-its-tools` keeps out of it, as `rejected@gates@gates-command-of-the-checker` argues of the gates. A crate of its own was the owner's proposal,
+`klarch` is no host either. The owner chose to keep out of `klarch` a tool that runs the project's
+build or its tests, over a command of `klarch` that runs them, which no goal ranks, and was unsure
+of the criterion. The session worded the criterion as a tool whose result does not exist without
+running them, and admitted a command that runs a command its caller names on the invocation where
+its result exists without that run; the owner approved both. The hand mutation's result does not
+exist without running the project's tests, so it stays out, as the gates do, per
+`rejected@gates@gates-command-of-the-checker`. The rule this exception belongs to, that every other
+tool is a command of `klarch`, is argued by no head, which
+`issue@cli@the-rule-of-one-program-for-the-tools-is-argued-by-no-head` holds. A crate of its own was the owner's proposal,
 argued on these two facts. It serves `goal@knowledge-architect@generic-tools-and-procedures-are-shipped`,
 whose generic part ships as a published crate. The hand mutation judges nothing about the project
 by itself: it runs a step of the development procedure over a mutation a session writes, so it is
-no quality tool in the sense of `goal@knowledge-architect@serves-one-kind-of-project`, and no ask;
-the setup skill offers it within the maintenance crate's shape. It costs one more crate in the
+not among what knowledge-architect asks of a target project, and the setup skill offers it within
+the maintenance crate's shape. Which tool taken in becomes an ask is argued by no head, which
+`issue@knowledge-architect@no-head-argues-what-becomes-an-ask` holds. It costs one more crate in the
 publish order, after the gates library and before `cli`, per `design@knowledge-architect@partial-publish-rerun`.
 
 ### Each published crate ships a whitelist of files `##package-include-whitelist`
@@ -663,8 +681,8 @@ becomes an issue on knowledge-architect's repository where the owner directs it 
 directs the findings of both files to this repository: each is handled, opened as an entry in its
 own issue registers, or closed with no change and the reason. An issue on GitHub would be an entry
 in an external tracker beside the registers, against
-`goal@knowledge-architect@records-live-beside-the-code`, and a second home for what is outstanding,
-against `goal@knowledge-architect@structure-and-workflow-work-together`.
+`design@knowledge-architect@the-record-lives-in-the-repository`, and a second home for what is outstanding,
+against `goal@knowledge-architect@records-reach-their-reader`, under which each recorded item has one home.
 
 A project audit sends its findings on the installed text upstream, in a file of the shape of the
 retrospective's workflow file, per `design@agent-skills@audit-outcomes`. Here the upstream is this
@@ -713,3 +731,69 @@ rival, the ledger of outcomes in the message of the commit that handles the firs
 on a file whose findings all end in no change: that commit changes no file, and the rebase merge
 drops a commit that changes no file, per
 `design@knowledge-architect@a-record-rides-on-a-commit-that-changes-a-file`.
+
+## 5. What the tools and the workflow hold to together
+
+### A project's record lives in its repository, as files and commit messages, never in an external tracker `##the-record-lives-in-the-repository`
+
+Every home the workflow gives a kind of recorded item, and every home a project gives a kind of its
+own, is a file or a directory of the project's repository, and a reason recorded beside code or
+agent-facing text sits in that text and in the message of its commit. An agent reads and edits the
+record as it reads and edits any other file, and each commit holds the record as it stood with the
+code of that commit. A discussion kept on a hosting service, such as a pull request's, is admitted:
+the decisions it reached are recorded in the repository.
+
+Three goals each give a constraint:
+
+- `goal@knowledge-architect@records-reach-their-reader`: a recorded item is cited where it bears,
+  by a reference the checker checks, so the item sits where such a reference can name it;
+- `goal@knowledge-architect@documentation-stays-consistent`: in a tree that passes the checker,
+  nothing cited in the texts the checker reads is missing, so what is cited is in that tree;
+- `goal@knowledge-architect@agents-work-without-drift`: what agents build stays within the design
+  the project has recorded, so the recorded design is readable in the checkout an agent works in,
+  as it stood at the commit the agent works on.
+
+The nearest rival keeps entries, such as what is outstanding, in an external tracker that an agent
+reaches through a separate tool. The checker reads the files git lists in one tree, per
+`design@model@git-supplies-the-walk`, and resolves a reference against that tree alone: an entry
+in a tracker can be the target of no checked reference, it is not versioned with the code, and no
+commit's check reads it.
+
+### A tool of knowledge-architect that writes into a project loses nothing the project wrote `##a-tool-s-writes-lose-nothing-the-project-wrote`
+
+A command of knowledge-architect that writes into a project neither overwrites nor removes content
+the project wrote. Where a write would do either, the command refuses before its first write, or
+keeps what stands and reports it. What the project wrote is every byte of its tree but three
+kinds: a file at a path this version's installed text is installed to, even where it was edited by
+hand, and a file of the generated list, both knowledge-architect's by their path, per
+`design@check@owned-namespace-check` and `design@check@safe-fix-definition`; and what the run
+itself wrote.
+
+What the rule admits today:
+
+- `init` and `new-component` keep each hand-written document that exists, and each refusal comes
+  before the first write, per `design@create@init-keeps-existing-files` and
+  `design@create@init-asks-no-confirmation`;
+- `new-component` keeps every byte of the manifest it does not change, per
+  `design@create@component-manifest-edit`;
+- `check --fix` and `index` write only files of those two kinds, per
+  `design@check@safe-fix-definition` and `design@check@index-takes-no-dry-run`;
+- the hand mutation writes a file's earlier content back only over the mutant the run wrote, per
+  `design@mutate@restore-by-comparison`.
+
+`goal@knowledge-architect@agents-work-without-drift` has agents carry a project's work with less
+supervision, so a command an agent runs writes with no person reading first what it would replace.
+`goal@knowledge-architect@adoption-is-easy` has adopting ask little work, so an existing project
+runs `init` without first saving what it holds. The owner argued, with a hedge, that such a loss
+makes a tool poor to use.
+
+The nearest rival overwrites or removes, lists what it did, and leaves the recovery to git. No
+commit holds a project's uncommitted content: `init --vcs none` runs where no repository exists,
+and the hand mutation runs over uncommitted work, so a line printed after the write recovers
+nothing.
+
+One case is not settled: a file of the installer's namespace that the version does not ship.
+`design@check@owned-namespace-check` gives it to the install, which removes it, whoever wrote it.
+The owner held, of `init`, that removing such a file where the project wrote it is a loss, which
+the run refuses before it writes. `issue@create@init-outside-a-worktree-deletes-an-owned-file-silently`
+holds the work that reconciles the two.

@@ -1,6 +1,6 @@
 **Generated — do not edit.** `cargo klarch index`
 
-30 entries
+32 entries
 
 | kind | title |
 | --- | --- |
@@ -22,6 +22,8 @@
 | design | [`check` heads bundle decisions that lose to different rivals, and each has many citing sites](core-heads-bundle-decisions-with-many-citing-sites.md) |
 | design | [No checked form cites a level-three subsection or a numbered point inside a section of a skill, an agent or the primer](no-checked-form-cites-a-point-inside-a-section.md) |
 | design | [No command applies the repair a finding on a commit message names](no-command-applies-the-repair-a-message-finding-names.md) |
+| design | [No head argues that a project can run the checker from its git pre-commit hook](no-head-argues-that-the-checker-runs-from-a-pre-commit-hook.md) |
+| design | [No head argues that a relocation of a project's documents must cost mechanical edits alone, nor defines a relocation](the-cost-of-a-relocation-is-bounded-by-no-argued-head.md) |
 | observation | [A lint written twice on one line of a message is reported once or twice, by which tree holds it](a-message-lint-is-deduplicated-in-one-tree-only.md) |
 | question | [A project's own saved workflow can declare the name of an installed one, and nothing reports it](a-project-workflow-can-declare-an-installed-workflow-s-name.md) |
 | question | [An empty list of agent harnesses serves a project that uses the checker alone, which no longer follows an ask](an-empty-harness-list-serves-a-state-that-follows-no-ask.md) |
@@ -31,6 +33,6 @@
 | todo | [`commits` sees a citation of a branch commit by SHA only when the cited commit is in the range it judges](branch-sha-citations-are-judged-within-the-range-only.md) |
 | todo | [The findings' texts are not audited against the rule that a cause is named only where the repair depends on it](finding-texts-are-not-audited-for-a-needless-cause.md) |
 | todo | [Several behaviours around the installed files have no test that fails when they change](tests-around-the-installed-files-let-mutations-survive.md) |
-| todo | [Texts that cite the relocation goal still state its old measure, one manifest edit](texts-citing-the-relocation-goal-state-its-old-measure.md) |
+| todo | [Texts that state what a relocation costs are read again once its bound is argued](texts-citing-the-relocation-goal-state-its-old-measure.md) |
 | todo | [The refusal of the `"self"` pin has no test that fails when its question to git is removed](the-self-pin-refusal-has-no-discriminating-test.md) |
 | todo | [The checker does not read the structure of a project's own skills](tooling-for-project-skills.md) |

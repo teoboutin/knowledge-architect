@@ -42,7 +42,7 @@ The review of the slice that moved the commands out of the checker found more, e
 
 Each claim is stated in a doc comment or a head, and a later change could break it with every gate green. The session chose to
 list these rather than build them at that slice, since each predates it or is thin code that holds today by hand. None bears on
-`goal@cli@a-refused-invocation-does-no-work`.
+`design@cli@a-refusal-by-arguments-writes-nothing`.
 
 ### What would close it
 

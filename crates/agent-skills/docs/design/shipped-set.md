@@ -40,10 +40,12 @@ placeholder but the install's `{{command}}`. The pass is `render_fragments` of
 and the test `each_fragment_has_its_hosts` of `path@agent-skills@src/lib.rs` holds the list.
 
 The owner proposed it, against the pointer read whole, so that a standard is written once and still
-delivered whole wherever it applies, which `goal@agent-skills@no-contradiction-in-workflow` asks: a
+delivered whole wherever it applies: a
 pointer costs the session a decision to fetch it, which the owner believed sessions likely to skip
 on the ground that they read the target earlier. The owner ruled that fragments become the main
-delivery for standards and similar large blocks read whole at several places. The fragments today
+delivery for standards and similar large blocks read whole at several places. One file copied by
+the build also leaves no two statements of a standard to contradict, per
+`design@agent-skills@no-two-installed-instructions-contradict`. The fragments today
 are the tripwire standard and its lifecycle, the rules on design heads, per
 `design@agent-skills@one-home-for-head-rules`, the admission standard, per
 `design@agent-skills@admission-rules-home`, the retrospective's file format and kinds of defect, the
@@ -67,8 +69,8 @@ repository and thaum without the rule they broke. The snippet pass cannot carry 
 so a snippet keeps its `%%` lines and its placeholders, and every snippet is written into a new
 project by `klarch init --rust`. A harness hook delivering pointed sections was defeated on its making
 the shipped workflow depend on a hook one harness runs, which an environment of another harness
-lacks; since `goal@agent-skills@installed-text-works-in-any-environment` covers configurations of
-the `claude` harness only, that defeat is to be argued again, per
+lacks; since `goal@knowledge-architect@serves-one-kind-of-project` asks every target project's
+agents to run under the `claude` harness, that defeat is to be argued again, per
 `issue@agent-skills@heads-argued-from-another-harness`. A review of a changed fragment reads it
 in every host, since a sentence true in one host's context can be false in another's, as two
 sentences of the first fragments were.
@@ -152,8 +154,9 @@ The design this decision did not keep:
 ### The shipped text cites only what every installing project holds, and so no entry of this repository `##shipped-text-cites-no-entry`
 
 The text under content/, with the snippets the build inlines, is read in every project that installs
-it, so it names no Component and no convention of this repository, per
-`goal@agent-skills@installed-text-works-in-every-target-project`. The one name it holds on purpose is the
+it, so it names no Component and no convention of this repository:
+`goal@knowledge-architect@every-target-project-can-adopt-it` has the workflow hold nothing
+particular to one target project. The one name it holds on purpose is the
 workflow's own upstream repository, where a retrospective's findings on the workflow go, per
 `design@agent-skills@retrospective-destination`. It cites no entry: a reference to an entry resolves
 only against the tree it stands in, and no tree but this one holds this repository's entries. A path
@@ -164,8 +167,8 @@ goals home, in whichever shape it has, per `design@model@register-home-reference
 `path@plans@README.md` and `register@plans@spec` name a file and a home of the one plans directory,
 whose path the checker fixes, per `design@model@plans-dir-fixed`. Each is true in every installing
 project, and it shows the syntax the checker enforces there. Writing a per-Component path in that
-syntax is the owner's proposal: "it promotes the same kind of syntax as what the checker enforces in
-projects holding the installed skills". The same argument holds of the plans directory's paths and
+syntax is the owner's proposal, on the argument that it promotes the same kind of syntax as what the
+checker enforces in projects holding the installed skills. The same argument holds of the plans directory's paths and
 homes, since the checker fixes that directory's path, and of a home named by its register, since the
 checker refuses a home named by its path. A path that varies by project, and an illustration, are
 placeholders in angle brackets. The command a project runs is written as the placeholder that the
@@ -183,24 +186,71 @@ installing project: the reviews of each change, and the release's hand check ove
 copies, judge that, until a mechanical check exists, which
 `issue@agent-skills@shipped-text-citing-an-entry-is-unchecked` tracks.
 
+### Each installed instruction can be followed, and gives the result it intends, with what the project that installs it holds `##installed-text-works-with-what-an-installing-project-holds`
+
+A target project other than this repository that installs the workflow holds none of this
+repository's goals and record: none of the reasons recorded beside its code and its agent-facing
+text, the `%%` comments of the installed text's source included, and none of its commit messages.
+Each installed instruction can be followed, and gives the result it intends, with what such a
+project holds: the installed text, the project's own instructions, goals and record, its code and
+its measurements, the sources it follows, knowledge-architect's published documentation among them,
+and its owner. That holds where the project's own goals and record say nothing on the instruction's
+subject, and as far as the project follows what knowledge-architect asks. An edit of the installed
+text is argued from the side of such a project, as `path@agent-skills@CLAUDE.md` says.
+
+`goal@knowledge-architect@every-target-project-can-adopt-it` has the workflow hold nothing
+particular to one target project, and this repository is one target project, so an instruction that
+needs this repository's record holds something particular to it. The nearest rival is an
+instruction that reads rightly only beside a reason this repository records, in a design head or in
+a `%%` comment of its source: the session that edits the source holds that reason in its context,
+and the instruction reads complete to it. An installing project holds neither: the build removes
+the `%%` lines, per `design@agent-skills@shipped-text-line-comments`, and no tree but this one holds
+this repository's entries, per `design@agent-skills@shipped-text-cites-no-entry`, which states what
+the shipped text may name and cite.
+
 ### An installed skill or agent names only the installed set's skills and agents, and the project's own `##no-external-handoff`
 
 An installed skill or agent hands off only to another skill or agent of the set its version ships,
 or to the project's own skills. It never names a plugin or a skill from outside the set. A skill
 outside the set may be absent in the project, or present at a version that contradicts the installed
-one, and either breaks `goal@agent-skills@installed-text-works-in-any-environment`, under which the
-installed text depends on no skill outside the installed set and the project, and
-`goal@agent-skills@no-contradiction-in-workflow`.
+one, and either makes the installed text depend on a skill from outside the workflow and what the
+project adds, where `goal@knowledge-architect@agents-get-a-complete-workflow` has an agent need no
+instruction from outside them.
 
 The set is written across several changes before a version is released, so a skill may name a
 member of the set by its installed name before that member lands. No release ships a name its set
 does not hold.
 
+### Each activity the workflow covers has one installed skill, cut by methodology, from which an agent carries the activity out `##one-skill-per-activity`
+
+The installed set holds one skill for each activity the workflow covers, and no skill for two of
+them. An activity is the scope over which a complete set of procedures makes sense, a sub-activity
+included. Two tasks whose methodologies differ, their steps taken as a whole, are two activities,
+even where they share part of a name or read the same texts; where the two tests disagree, the
+methodologies decide. Each skill is written so that an agent carries its activity out from it, and
+reads another installed skill only at a step that points to it, a moment at which the installed
+text says to load that skill included: a skill per activity serves only where the activity is
+carried out from it. `path@agent-skills@fragments/skill-self-sufficient.md` holds the test of each
+pointer. An installed agent is no skill, so one that several skills dispatch stays one file of the
+set.
+
+`goal@knowledge-architect@agents-get-a-complete-workflow` has an agent carry each activity out with
+the workflow and what its project adds, so an agent that meets an activity finds its instructions
+in one place it can name, without knowing where else to look. The nearest rivals cut a skill by
+another unit, by what it reads or by the artifact it writes, or put two activities in one skill. A
+skill loads whole, so a skill that holds two activities loads the procedure of one into every
+session of the other: the Component procedure written into the design skill would load into every
+design discussion, most of which create no Component, per
+`design@agent-skills@component-skill-delivery`. A skill cut by what it reads bundles two
+methodologies: the review of the whole goal set reads a whole project, as an audit does, and no
+edit lands from it, where an audit applies its repairs in its own branch, per
+`design@agent-skills@goal-set-review-in-goal-setting`.
+
 ### A skill is named by its activity, as a noun of one or two words `##naming-rule`
 
 An installed skill is named by the activity it covers, as an activity noun in common usage, in one
 or two words after the installer's prefix: planning, review, issue-tracking, decision-recording. The
-unit is the activity because `goal@agent-skills@one-skill-per-activity` gives each activity of the
+unit is the activity because `design@agent-skills@one-skill-per-activity` gives each activity of the
 workflow one skill. It is never named as an artifact the activity writes, because the text names
 both: a skill called "decision-record" would share its name with the design homes and rejected
 alternatives the design skill calls the decision record, and one called "open-issues" with the issue

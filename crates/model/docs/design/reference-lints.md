@@ -63,9 +63,9 @@ section belongs to a skill or to an agent.
 - **No anchor, because the harness fixes one namespace per kind**: a skill or an agent is a
   directory or a file of the harness's layout, unique by name, and a project has one primer and
   one root CLAUDE.md. An anchor would carry no information, the argument
-  `design@model@plans-is-a-reserved-anchor` makes for `plans`. A reference to a harness kind still serves
-  `goal@check@relocation-needs-only-goal-changes`, which binds a reference to what the manifest
-  places: nothing a harness kind names moves with a manifest edit.
+  `design@model@plans-is-a-reserved-anchor` makes for `plans`. A reference to a harness kind loses nothing of what
+  `design@check@every-path-names-its-anchor` buys, a relocation that edits one line of the manifest
+  and no document: nothing a harness kind names moves with a manifest edit.
 - **The rejected design "A register reference with no anchor"**,
   `rejected@model@register-reference-without-anchor`, lost on two reasons. Its first, that the tool cannot
   know which register is single-instance in a project, does not hold here: the tool fixes the four

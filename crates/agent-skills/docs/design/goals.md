@@ -104,9 +104,9 @@ which `rejected@agent-skills@one-generic-auditor-agent` records as uneven.
 
 The goals bind outright and are the only statements assumed to come from the owner, per
 `goal@knowledge-architect@the-owner-decides`, and agents work toward them over a long time, per
-`goal@knowledge-architect@agents-work-without-drift`. The standard serves
-`goal@agent-skills@goals-state-the-owner-s-intent`, which states the outcome its rules pursue: a goal
-at the breadth the owner gave it, that keeps its meaning while the work moves toward it. So a goal
+`goal@knowledge-architect@agents-work-without-drift`. The outcome the standard's rules pursue is a
+goal that states what the owner intends, at the breadth the owner gave it, and that keeps its
+meaning while the work moves toward it. So a goal
 must not require or rule out what the owner never did, since every later agent applies it at its widest reading, and must not change
 as the design under it changes, since only the owner changes it. In rootpoint's goal history, 9
 changes over 7 commits, which `git log --follow -p -- docs/goals.md` in rootpoint lists, the drafting
@@ -238,7 +238,8 @@ notices a misworded goal: a drafter
 that shapes a goal so the tree meets it states the project as it is, and the goal drives nothing.
 Google re:Work's guide to objectives, read in `path@agent-skills@docs/grounding/goal-standard.md`,
 counts objectives always fully met as not ambitious enough. It derives from
-`goal@agent-skills@goals-state-the-owner-s-intent`.
+`goal@knowledge-architect@the-owner-decides`: the owner states what the project is for, and a goal
+shaped so that the tree meets it states what the project is.
 
 ### A goal states no measure: what shows it met, and how the project pursues it, are design decisions in heads that cite it `##what-shows-a-goal-met-is-design`
 
@@ -322,7 +323,7 @@ between a proposal and a goal goes to the owner, per `primer@goals-bind`, which 
 rootpoint's goal history showed working, and the goal reviewer reads a goal's readings before the
 owner rules. The rival, a rule of resolution for an agent applying a goal that reads two ways, adds
 a rule for a case the routing already decides, against
-`goal@agent-skills@only-needed-instructions`.
+`goal@knowledge-architect@only-needed-instructions`.
 
 ### A goal draft shows each goal with its boundary block, its reach by layer and what it asks of future work `##goal-draft-shows-reach`
 
@@ -338,8 +339,9 @@ The block turns a goal's reach into cases the owner judges by intent, since a pr
 approve without seeing what it rules out, and the owner reported approving rootpoint's goals in a
 rush, trusting proposals that read well. Whether a case was meant is a question of intent, so the
 rival, the repaired draft shown alone with the reviewer as the only reader of reach, leaves the
-reviewer a question it cannot rule on. It serves `goal@knowledge-architect@the-owner-decides` and
-`goal@knowledge-architect@owner-attention-on-what-is-theirs`.
+reviewer a question it cannot rule on. It serves `goal@knowledge-architect@the-owner-decides`, and
+`goal@knowledge-architect@design-with-agents-as-counterparts`, under which the owner meets each
+proposal with its consequences established.
 
 ### The owner's statements go to the goal reviewer whole, not into the display of a draft `##goal-owner-statements-go-to-the-reviewer`
 
@@ -358,7 +360,8 @@ narrowing rules out. The owner argued that once a wording is approved, what it r
 owner's word for every later agent, noticed or not, and that a goal's reach is worth showing because
 it surfaces effects wider than the owner intended. The rival, a narrower wording as the default
 repair, rules out cases the owner never ruled out, which the next round reports as a new reach. It
-derives from `goal@agent-skills@goals-state-the-owner-s-intent`.
+derives from `goal@knowledge-architect@the-owner-decides`: the owner states what the project is
+for, and a wording narrowed without the owner's word states what the owner did not.
 
 ### A fresh goal reviewer reads every version of a goal draft before the owner rules, in a draft, a whole-set and a merge mode `##goal-reviewer-agent`
 
@@ -417,7 +420,7 @@ The findings of the kinds, of a measure and of a refinement are graded by who se
 No finding on what a goal binds is `minor`, since a `minor` finding does not reach the owner as a
 question of intent. A draft-mode review of goals that held a measure, recorded in
 `git show 0d2668e8^:docs/goal-reviews/2026-10-31-review-before-merge.md` flagged the reason
-requirement of `goal@agent-skills@only-needed-instructions` only as unmeasured, `minor`; the goal
+requirement of `goal@knowledge-architect@only-needed-instructions` only as unmeasured, `minor`; the goal
 was written with that requirement, and a later branch removed it on the owner's word that it was
 wrong and missed when the owner read the drafts.
 
@@ -434,9 +437,8 @@ the rounds after a round's repairs, the owner's stop prevails: the session tells
 repairs are unreviewed, and the goals axis of the review before the merge,
 `agent@knowledge-architect-goal-reviewer` in its merge mode, reads them. The version each round
 read is kept in the conversation for a batch of three goals or fewer and in the record for a larger
-one. It serves
-`goal@agent-skills@goals-state-the-owner-s-intent`, whose review stops after a few rounds, and
-`goal@knowledge-architect@owner-attention-on-what-is-theirs`.
+one. The stop bounds what a review of goals costs, the rounds its reviewers run and the questions
+the owner answers at each, a cost no goal ranks.
 
 - **It counts old wording** because each round's repairs write new wording, in which the next round
   finds defects at least as readily, per `design@agent-skills@convergence-count-scope`. In this
@@ -524,11 +526,11 @@ goal-setting's methodology, a fresh reviewer and goals ruled by the owner, since
 the owner's, so an audit's split between edits applied in its branch and items put to the owner has
 nothing to split. The owner argued that an activity is its methodology, not the scope of what it
 reads: two activities that follow different methodologies are two, and are not bundled in one skill,
-per `goal@agent-skills@one-skill-per-activity`. The review shares means with the audit, rounds of
+per `design@agent-skills@one-skill-per-activity`. The review shares means with the audit, rounds of
 fresh reviewers, a committed record and a stop on a count, per
 `design@agent-skills@whole-set-rounds`; its methodology stays goal-setting's because no edit lands
 from the review itself: the owner rules on every goal before it is written, where an audit applies
-its settled repairs in its own branch. So that goal rules out the rival, a fourth axis of the
+its settled repairs in its own branch. That argument defeats the rival, a fourth axis of the
 project audit with its saved workflow, `rejected@agent-skills@goal-set-review-as-an-audit-axis`.
 
 ### The review of the whole goal set runs in rounds the owner answers, over a record committed in docs/goal-reviews/ `##whole-set-rounds`
@@ -572,8 +574,8 @@ the same two commits and gives two records of the owner's rulings two orders. It
 corroborated by the conversation alone, while each round's reviewers read this record against the
 tree and report an open question it misstates, and the owner answers it each round. The set
 reviewers found most of the findings, and the whole-set reviewer the conflicts across homes. It
-serves `goal@knowledge-architect@the-owner-decides` and
-`goal@knowledge-architect@owner-attention-on-what-is-theirs`.
+serves `goal@knowledge-architect@the-owner-decides`: every question of intent and every
+contradiction reaches the owner, who rules on the goals.
 
 ### A goal-setting batch of more than three goals is drafted and ruled in the tree, three or fewer in the conversation `##goal-batch-ruled-in-the-tree`
 
@@ -587,7 +589,7 @@ the owner more than it checks for any larger batch; the owner's word on the batc
 explicit word, so no goal is accepted by silence. The threshold is the session's reading of the
 owner's bound of two or three goals, at its upper end. The rival, a tree draft still ruled slug by
 slug, keeps the cost the owner named and adds nothing that a goal named on the ruling does not give.
-It serves `goal@knowledge-architect@owner-attention-on-what-is-theirs`, and is stated in
+The cost it weighs is the owner's time in ruling, which no goal bounds. It is stated in
 `skill@knowledge-architect-goal-setting@drawing-out-intent`,
 `skill@knowledge-architect-goal-setting@whole-set-review` and the primer's knowledge table.
 
@@ -615,7 +617,8 @@ record rather than in the goals homes lose the checker's rules on a goals home o
 `design@check@goals-home-cites-upward-only`. A committed draft the owner has not ruled on is not yet
 a goal: the goals axis of the review before the merge reports each goal edit of the range whose
 ruling no commit message records, per `design@agent-skills@goals-axis-in-the-review-before-a-merge`,
-so no unruled draft reaches the main branch unreported. It serves
-`goal@agent-skills@no-contradiction-in-workflow`, and is stated in
+so no unruled draft reaches the main branch unreported. Committed drafts leave a session a move
+that obeys both the record committed each round and the check that every reference of a commit
+resolves, per `design@agent-skills@no-two-installed-instructions-contradict`. It is stated in
 `skill@knowledge-architect-goal-setting@drawing-out-intent` and
 `skill@knowledge-architect-goal-setting@whole-set-review`.

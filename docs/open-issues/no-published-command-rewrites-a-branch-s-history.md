@@ -5,11 +5,12 @@ kind: todo
 
 ## Summary
 
-`goal@knowledge-architect@mechanical-tasks-are-the-tool-s` names three tasks of rewriting a branch's
-history as tasks a published crate of knowledge-architect does: a conflict-free rebase onto a moved
-main branch with the check that every commit carried over, applying a message the session wrote to a
-commit that is not the newest, and folding a repair into the commit it repairs with the check that no
-content was lost. No published crate offers any of them. Sessions run them by hand, as this
+The workflow asks three tasks of rewriting a branch's history of a session: a conflict-free rebase
+onto a moved main branch with the check that every commit carried over, applying a message the
+session wrote to a commit that is not the newest, and folding a repair into the commit it repairs
+with the check that no content was lost. The owner counts the three as taken in, so
+`goal@knowledge-architect@tasks-a-tool-does-better-are-the-tool-s` owes each a tool that
+knowledge-architect provides. No published crate offers any of them. Sessions run them by hand, as this
 repository's root `CLAUDE.md`, section `## Git`, describes, with `git filter-branch`, `git rebase -i
 --autosquash` and `git range-diff`.
 
@@ -17,8 +18,9 @@ repository's root `CLAUDE.md`, section `## Git`, describes, with `git filter-bra
 
 ### What
 
-A command of a published crate for each of the three tasks, per `goal@cli@one-program-for-its-tools`,
-which closes the choice of a library function alone. `issue@xtask@the-reword-the-fold-and-the-merge-predicate-have-no-command`
+A command of a published crate for each of the three tasks. Whether a library function alone
+would do is part of the rule that every tool is a command of `klarch`, which no head argues, per
+`issue@cli@the-rule-of-one-program-for-the-tools-is-argued-by-no-head`: the session's default, which the owner approved, was a command. `issue@xtask@the-reword-the-fold-and-the-merge-predicate-have-no-command`
 records the same tasks as missing commands of this repository's own tool.
 
 Instances in a project that installs the workflow, from the retrospective files received at the
@@ -34,7 +36,7 @@ repository did once, 2026-11-01, when a stricter check landed mid-branch; its sc
 editor stopped twice on a generated index and left a later commit's index stale, so the task
 includes regenerating the generated files at each replayed commit. `primer@branch-commits` offers
 the squash to one commit as the existing move. Whether a command does it is the owner's word, per
-`goal@knowledge-architect@mechanical-tasks-are-the-tool-s`, as for the port's other commands below.
+`goal@knowledge-architect@tasks-a-tool-does-better-are-the-tool-s`, as for the port's other commands below.
 
 ### Why it matters
 
@@ -67,12 +69,15 @@ These are leads for this work's own design session:
   readers the milestone moves there. The milestone's premortem names the cause to watch: a write
   may need an environment that the git heads say every invocation drops or keeps, such as a
   temporary `GIT_INDEX_FILE`.
-- **The three tasks above are taken in already**, by `goal@knowledge-architect@mechanical-tasks-are-the-tool-s`.
+- **The three tasks above are taken in already**, on the owner's word, so
+  `goal@knowledge-architect@tasks-a-tool-does-better-are-the-tool-s` owes each a tool.
   The port's other commands are a generic part whose taking in is the owner's word, at the port,
   per `goal@knowledge-architect@the-owner-decides`.
 - Every command it ships is bound by `design@knowledge-architect@no-operation-loses-content`.
 - **Whether it belongs in `klarch` at all is for this design session to read.** The owner leans to putting it there, since that makes
   shipping easier, and doubts it, since it is somewhat off the subject of a binary focused on documentation.
-  `goal@cli@one-program-for-its-tools` places it there, so a different answer changes that goal, on the owner's word. The owner would not
+  The rule that every tool is a command of `klarch` places it there; no head argues that rule, per
+  `issue@cli@the-rule-of-one-program-for-the-tools-is-argued-by-no-head`, so this design session argues it with the placement. The owner would not
   want it to run a project's gates, and holds that such a feature would be a tool of its own; running a command its caller names on the
-  invocation is admitted. That needs a place in the design, since `goal@git@a-pure-wrapper-over-git` models no such spawn.
+  invocation is admitted, per `design@knowledge-architect@mutation-command-host`. That needs a place in the design, since an operation of the `git` library is stated in git's own
+  terms, per `design@git@an-operation-in-git-s-terms-is-the-library-s`, and a spawn of a caller's command is none.

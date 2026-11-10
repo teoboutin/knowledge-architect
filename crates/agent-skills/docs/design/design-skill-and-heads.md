@@ -51,9 +51,10 @@ to test, the argument `design@agent-skills@design-home-write-loads-recording` ma
 load. Each exception is a record the session can look at, or a change it can see decides nothing. A
 record settles what the owner asks for or proposes, not merely the result a change must produce: a
 failing test states a result, and a shape the owner proposes to reach it is still challenged. It
-serves `goal@knowledge-architect@design-with-agents-as-counterparts`, met while the installed text
-has the agent ground and challenge every proposal of the owner that decides something before it is
-built, and `goal@agent-skills@installed-text-works-in-any-environment`.
+serves `goal@knowledge-architect@design-with-agents-as-counterparts`, under which the agent
+challenges the owner's proposals, grounded in the record. The trigger reaches a session that holds
+no user-level instruction, since the primer's list of installed skills carries it, per
+`design@agent-skills@primer-limit`.
 
 The evidence is real use. The cloud sessions behind this repository's pull requests 24 and 25 held
 no user-level instruction, and their harness listed the design skill's description whole; neither
@@ -100,7 +101,7 @@ on what grounding, investigation and experiment bring, and nobody knows in advan
 it, as the owner's opinion, answering a proposed path that would bound a discussion to one decision met during a task. Too
 much structure hinders the agent's freedom to carry investigations of various shapes and to
 challenge and refine proposals, against `goal@knowledge-architect@design-with-agents-as-counterparts`,
-whose exchange is open and argued, and `goal@agent-skills@only-needed-instructions`, under which
+whose exchange is open and argued, and `goal@knowledge-architect@only-needed-instructions`, under which
 the installed text imposes no count the work does not need. The rival, a bound on threads or rounds
 to save tokens and the owner's attention, buys nothing: the owner can end a discussion at any
 point, and bounded work already gets a single proposal. A path chosen by the cost of reversal, or by where the work lands, changes where the

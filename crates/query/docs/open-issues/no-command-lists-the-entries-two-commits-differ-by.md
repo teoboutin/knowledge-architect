@@ -38,7 +38,7 @@ records the lists an audit axis builds before its agents judge, not the counts a
 ### Why it matters
 
 The counts and slug lists follow from two trees with no judgement, a task
-`goal@knowledge-architect@mechanical-tasks-are-the-tool-s` gives the published checker, and a
+`goal@knowledge-architect@tasks-a-tool-does-better-are-the-tool-s` gives the published checker, and a
 script written for one pass gave a wrong list with no error.
 
 ### What would close it

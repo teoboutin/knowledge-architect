@@ -10,9 +10,9 @@ section per axis; a repair of agent-facing text is judged by the standard of
 `design@agent-skills@admission-rules-home`. Its artifact is a repaired record across the project,
 where a review's is a verdict on one branch, so the two hold different standards: what a diff owes,
 and what the whole record owes. The nearest rival, a whole-project mode of the review skill, would
-hold both standards in one text. A skill per axis would restate the method in each, against
-`goal@agent-skills@one-skill-per-activity`, while the method is generic and each axis gives only its
-corpus, its dispatch and its outcomes, per `design@agent-skills@audit-method`. Every review reads a
+hold both standards in one text. A skill per axis would restate the method in each, where the axes follow one methodology and so
+are one activity, per `design@agent-skills@one-skill-per-activity`: the method is generic and each axis
+gives only its corpus, its dispatch and its outcomes, per `design@agent-skills@audit-method`. Every review reads a
 diff, so without an audit a drift between two heads no branch touches is read by no step of the
 workflow, against `goal@knowledge-architect@documentation-stays-consistent`. The goals are the
 exception: their review of the whole set reads the whole project on one aspect and runs inside
@@ -152,9 +152,9 @@ The five report steps of the three saved workflows, the pass's report in each an
 judgement of an application in the design-record and tripwire workflows, write their report to a
 file of the run's scratch directory and return its path. Where the harness refuses that write, the
 step returns the report whole in its `text` field, with its path empty, and the run's result carries
-it as `reportText`, with `report` null. It serves
-`goal@agent-skills@installed-text-works-in-any-environment`, since whether a dispatched agent may
-write is the harness configuration's.
+it as `reportText`, with `report` null. Whether a dispatched agent may write is the harness
+configuration's, which no installed text sets, so a pass delivers its report under a configuration
+that refuses the write.
 
 The argument turns on the harness's behaviour. In a tripwire audit of thaum, the harness refused the
 report agent the write of its report file, and the report survived only in that agent's transcript.
@@ -179,7 +179,7 @@ instructions each proposal adds and removes; for a re-check, the counts the reco
 of a pass, the owner-list one as the cross-check proposes it; and what a run restarted from its files
 no longer holds.
 
-It serves `goal@knowledge-architect@mechanical-tasks-are-the-tool-s` without the command or the
+It serves `goal@knowledge-architect@tasks-a-tool-does-better-are-the-tool-s` without the command or the
 library function the goal names for a task: a count the run holds is no task the workflow asks of a
 session, and computing it in the script removes the agent's reading, where a command would leave the
 session one more step. A count the run holds follows,
@@ -240,20 +240,21 @@ narrowed what the skill's prose said, "the homes merged into one", to "the secti
 that owns the moment". That the checker reads markdown and no JavaScript bears on references, and
 the script cites none. A file per axis stays available for reading guidance that is not a step.
 The rival of one workflow auditing every axis at once lost on the owner's
-words: "it audits all axes of the project at once and produces a single report, which is too large
-of a scope".
+argument that it audits all axes of the project at once and produces a single report, which is too
+large a scope.
 
 `goal@knowledge-architect@serves-one-kind-of-project` asks every target project's agents to run
 under `claude`, and a second provider waits for a change of that ask, per
 `issue@check@configuration-for-several-agent-providers`; the defeat of the rival below, a skill
 written for the Workflow tool alone, was argued before that ask, on its failing in every other
 harness, and is to be argued again, per `issue@agent-skills@heads-argued-from-another-harness`.
-`goal@agent-skills@installed-text-works-in-every-target-project` names a project's paths,
-conventions and command, and `goal@agent-skills@installed-text-works-in-any-environment` lets the
-installed text rely on the harness's own mechanisms while no skill or instruction the configuration
-adds takes the place of an installed one. The owner's weighing of the dependency: "After all, I use only
-Claude Code personally... I'm not really expecting anyone to start using this, outside of myself in
-more projects than thaum." The cost of shipping them: each saved workflow is listed in every session
+A saved workflow is a mechanism of that harness, which every target project's agents run under: it
+is particular to no target project, which `goal@knowledge-architect@every-target-project-can-adopt-it`
+excludes, and it is no instruction from outside the workflow and the project, which
+`goal@knowledge-architect@agents-get-a-complete-workflow` excludes. The owner weighed the dependency on the harness as acceptable, on the ground
+that the owner personally uses only Claude Code and does not really expect anyone else to start
+using the workflow, beyond the owner's own use in more projects than thaum. The cost of shipping
+them: each saved workflow is listed in every session
 of every project that installs the workflow, one that never audits included.
 
 The designs this decision did not keep: `rejected@agent-skills@manual-fallback-file-per-axis` and
@@ -333,13 +334,14 @@ each text, each side with one outcome, so a finding still takes exactly one. The
 holds no branch for the project that publishes the workflow, which edits the installed text at its
 source by its own instructions.
 
-No outcome leaves a confirmed finding to judgement.
-`goal@knowledge-architect@agents-get-a-complete-workflow` asks that "Each installed instruction says
-what it requires plainly enough to follow without guessing what it means", so an instruction that a
+No outcome leaves a confirmed finding to judgement. Each installed instruction says what it requires
+plainly enough to follow without guessing what it means, per
+`design@agent-skills@no-two-installed-instructions-contradict`, so an instruction that a
 reading confirms is read two ways is repaired, even where every act it allows is acceptable. What no
-instruction covers is left to judgement on purpose, and is no finding. The rival outcome, a finding
+instruction covers is left to judgement on purpose, per
+`goal@knowledge-architect@only-needed-instructions`, and is no finding. The rival outcome, a finding
 of two readings left to judgement where no text rules either act out, leaves such an instruction
-standing against that goal. Its cost stands: each repair writes new text, which
+standing, against that head. Its cost stands: each repair writes new text, which
 `design@agent-skills@convergence-count-scope` counts apart and
 `design@agent-skills@repair-proposals-audited` reads before the repair lands.
 

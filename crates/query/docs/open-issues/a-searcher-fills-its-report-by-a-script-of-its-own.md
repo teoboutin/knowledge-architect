@@ -15,7 +15,7 @@ mechanical task the installed workflow asks of every searcher, and no command do
 ### What
 
 The instance: the search of the whole record at the grounding of the design discussion that wrote
-`goal@knowledge-architect@mechanical-tasks-are-the-tool-s`, ten agents, each given 76 to 96 entries
+`goal@knowledge-architect@tasks-a-tool-does-better-are-the-tool-s`, ten agents, each given 76 to 96 entries
 to grade. Read in the reports the agents returned:
 
 - five agents wrote a script that reads a table of grades they wrote first, a heredoc of tab-separated
@@ -62,7 +62,7 @@ costs 90 calls. Not established: whether another harness offers a cheaper edit.
 
 Each searcher builds the same tool again, and a script that misses a line leaves it blank, which
 `worklist --verify` reports, at the cost of another dispatch. It is a task of the kind
-`goal@knowledge-architect@mechanical-tasks-are-the-tool-s` gives the published checker.
+`goal@knowledge-architect@tasks-a-tool-does-better-are-the-tool-s` gives the published checker.
 
 ### What would close it
 

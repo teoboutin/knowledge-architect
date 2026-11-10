@@ -74,9 +74,10 @@ named with the installer's prefix, and
 
 **Argue each edit from the side of a target project other than knowledge-architect that installs
 the text, following what knowledge-architect asks**, per
-`goal@agent-skills@installed-text-works-in-every-target-project`: the edited instruction must be
-followed, and give the result it intends, with none of this repository's record, its `%%` comments
-included, and where that project's own goals and records say nothing on its subject.
+`design@agent-skills@installed-text-works-with-what-an-installing-project-holds`: the edited
+instruction must be followed, and give the result it intends, with none of this repository's
+record, its `%%` comments included, and where that project's own goals and records say nothing on
+its subject.
 
 For the design skill, a finding about an intermediate table rather than the outcome is
 not worth text (`design@agent-skills@outcome-over-display`). A rewording needs no design entry

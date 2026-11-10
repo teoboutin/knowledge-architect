@@ -1,7 +1,7 @@
 # testing
 
 What an extension's tests need, and this repository's mock projects with the tests over them. What it
-is for is `register@testing@goal`; what it does for a user is `path@testing@README.md`; why it is shaped
+is for is `design@knowledge-architect@testing-crate`; what it does for a user is `path@testing@README.md`; why it is shaped
 this way is `register@testing@design`.
 
 **Nothing of the repository depends on this crate**, and it dev-depends on `cli` by path alone, per

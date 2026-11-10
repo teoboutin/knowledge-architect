@@ -53,7 +53,7 @@ rather than the session's judgement dispatches the agents. The table lives in th
 hand were a run's largest input and the source of its slips, which the owner judged error
 prone. A fixed count stated in the installed text, for the session to apply by its judgement,
 would be a structure another instruction needs to vary, against
-`goal@agent-skills@only-needed-instructions`, whose clause on structure does not bear on one the
+`goal@knowledge-architect@only-needed-instructions`, whose clause on structure does not bear on one the
 script carries out.
 
 Two lenses read beside the corpus. L7 starts from the checker's user documentation, its README for
@@ -116,7 +116,7 @@ workflow needs to function as intended. The class of an unneeded statement is in
 the owner ruled that all work that judges or edits agent-facing text follows one standard, per
 `design@agent-skills@admission-rules-home`.
 The nearest rival, every gap a finding to fill, fails
-`goal@agent-skills@only-needed-instructions`.
+`goal@knowledge-architect@only-needed-instructions`.
 
 A confirmed finding of two readings is repaired even where both acts it allows are acceptable, as
 `design@agent-skills@audit-outcomes` says. The rival that left it to judgement where no text rules
@@ -237,7 +237,7 @@ diff. That the intake's findings are bounded by real use, and the audit's are no
 argument, given as the owner's view; its extension to a review and to a session writing text is
 the session's reading of it, and the hold in every activity is
 `rejected@agent-skills@growth-held-in-every-activity`. The growth of a sum of instructions is a cost no goal
-ranks, since `goal@agent-skills@only-needed-instructions` judges each instruction. The standard
+ranks, since `goal@knowledge-architect@only-needed-instructions` judges each instruction. The standard
 holds the count and the report, and the audit's own text the hold, since a fragment names none of
 its hosts that routes differently by host, per `design@agent-skills@admission-rules-home`. Each pass of the agentic-workflow axis also gives the corpus's word count before and after in its
 commit message, for monitoring.

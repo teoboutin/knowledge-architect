@@ -53,7 +53,7 @@ head states, delete it and name the design and its reason beside that instructio
 `skill@knowledge-architect-decision-recording@losing-alternatives` admits since no head cites it. It is raised over a tree in
 `path@check@src/check/references.rs`, not over a commit message, which holds no design entry.
 
-It serves `goal@check@document-rules-are-checked`: a head cites the designs its argument
+It serves `goal@knowledge-architect@documentation-stays-consistent`: a head cites the designs its argument
 covers, per `design@agent-skills@rejected-citation-direction`, and this check is what makes every
 `rejected` entry reachable from the text a design session reads, the head, rather than only from
 `show`. Only a citation from a design entry counts, on the owner's judgement; a citation counts by

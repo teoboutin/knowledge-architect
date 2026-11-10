@@ -26,7 +26,7 @@ is designed: which keywords, which measure of closeness, and which axis's lists,
 
 ### Why it matters
 
-`goal@knowledge-architect@mechanical-tasks-are-the-tool-s` gives a published crate each mechanical
+`goal@knowledge-architect@tasks-a-tool-does-better-are-the-tool-s` gives a published crate each mechanical
 task the workflow asks of a session once its owner takes it in, which the owner has not done for either
 of these, and the owner holds that the keyword search is a case that goal does not cover, per
 `issue@knowledge-architect@the-mechanical-tasks-goal-omits-what-a-helper-does-better`. A grep misses an entry whose words differ from the search's,

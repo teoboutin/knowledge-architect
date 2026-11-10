@@ -28,8 +28,8 @@ by searching the plan's history by hand. No command lists the highest number in 
 ### Why it matters
 
 A number reused across a deleted spec makes two items of one plan share a name in its history, which
-no check sees, against `goal@knowledge-architect@mechanical-tasks-are-the-tool-s`: finding the numbers in use is a task with no judgement the installed text asks. The search by hand over `git log -p` is a task of the kind
-`goal@knowledge-architect@mechanical-tasks-are-the-tool-s` gives the published checker.
+no check sees, against `goal@knowledge-architect@tasks-a-tool-does-better-are-the-tool-s`: finding the numbers in use is a task with no judgement the installed text asks. The search by hand over `git log -p` is a task of the kind
+`goal@knowledge-architect@tasks-a-tool-does-better-are-the-tool-s` gives the published checker.
 
 ### What would close it
 

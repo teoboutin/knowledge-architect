@@ -1,7 +1,7 @@
 # git
 
 The library that wraps git for the tools of knowledge-architect. What it is for is
-`register@git@goal`; what it does for a user is `path@git@README.md`; why it is shaped this way is
+`design@knowledge-architect@git-crate`; what it does for a user is `path@git@README.md`; why it is shaped this way is
 `register@git@design`.
 
 **A new question to git is one more method chain on `Invocation` in `path@git@src/git.rs`**,

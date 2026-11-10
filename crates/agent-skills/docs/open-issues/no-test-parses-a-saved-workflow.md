@@ -89,7 +89,7 @@ goal. A check that runs only where the machine holds a runtime is skipped on the
 in a row.
 
 The counts a report states as exact are checked by nobody, against
-`goal@knowledge-architect@mechanical-tasks-are-the-tool-s`, which the commit that added them cites:
+`goal@knowledge-architect@tasks-a-tool-does-better-are-the-tool-s`, which the commit that added them cites:
 a wrong count reaches the owner's list as a fact the session copied, not one it took.
 
 ### What would close it

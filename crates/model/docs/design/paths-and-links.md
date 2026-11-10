@@ -66,15 +66,16 @@ hash sign before it stays silent under `design@check@retired-slug-reference-repo
   then every site that cites it, a citation of a component's home through `*` included.
 
 **The kind exists because a home has two shapes**, per `design@check@heading-register-two-shapes`.
-A `path` names one of them, so a home that outgrows one file dangles every `path` to it, against
-`goal@check@relocation-needs-only-goal-changes`, and a text that must hold in every project names both
-shapes, per `goal@agent-skills@installed-text-works-in-every-target-project`. This reference names the register and lets the manifest and the tree say which shape it is.
+A `path` names one of them, so a home that outgrows one file dangles every `path` to it, each then
+respelled by hand, and an installed text, which
+`design@agent-skills@installed-text-works-with-what-an-installing-project-holds` has followed with what each
+installing project holds, would name both shapes. This reference names the register and lets the manifest and the tree say which shape it is.
 The nearest rival is a `path` that resolves to either shape; it loses on
 `design@model@trailing-slash-claims-directory`, since a path claims its target's kind, and a path
 that matches either shape asserts no claim and puts a special case into path resolution.
 
-**The kind's word is the owner's choice**: "I'd rather use register. home just reads weirdly." The
-rival word, `home`, matched the documents' phrase "design home" better and cost the same refusal of
+**The kind's word is the owner's choice**: the owner chose `register` over `home`, which the owner found to
+read oddly. The rival word, `home`, matched the documents' phrase "design home" better and cost the same refusal of
 an anchor name. A kind's name is refused for every anchor, per
 `design@model@kind-names-refused-as-anchors`, and for a declared register, per
 `design@model@registers-are-declared`. The cost the form keeps: a reader outside the tool does not
@@ -106,7 +107,7 @@ whose repair names the entry's reference, `<register>@<parent>@<id>`, per
 
 **Both forms legal** loses to this finding: a writer keeps writing the `path`, and a home that
 changes shape then dangles every one of them, which `design@model@register-home-reference` exists to
-prevent, against `goal@check@relocation-needs-only-goal-changes`. The finding repairs nothing by itself:
+prevent. The finding repairs nothing by itself:
 no fix of `check --fix` respells it.
 
 The design this decision did not keep: `rejected@model@path-to-home-beside-register-form`.

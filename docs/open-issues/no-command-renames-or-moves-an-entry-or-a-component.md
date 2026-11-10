@@ -55,9 +55,9 @@ What a command may not rewrite, per the record:
 - `issue@model@a-reference-to-an-anchor-s-own-directory-breaks-when-the-anchor-moves` records one
   form that a move breaks beyond a mechanical edit.
 
-`goal@check@relocation-needs-only-goal-changes` admits a Component renamed by one search and
-replace; its measure is the check passing, and the bare paths and prose names are outside what the
-check judges, so no strain of that goal is shown.
+Under `design@check@every-path-names-its-anchor`, one fixed-string search per anchor lists every
+reference to it, so a Component is renamed by one search and replace over its references. The bare
+paths and the prose names are outside what the check judges, so no strain of that head is shown.
 
 Ruled out: a report of bare paths added to `check` alone, which finds them and rewrites nothing.
 Not established: which Component would own the command; it reads the entity table of `model` and
@@ -66,7 +66,7 @@ writes documents, as `create` and `check --fix` do.
 ### Why it matters
 
 The references follow from the entity table with no judgement, per
-`goal@knowledge-architect@mechanical-tasks-are-the-tool-s`, which owes the task a command once the
+`goal@knowledge-architect@tasks-a-tool-does-better-are-the-tool-s`, which owes the task a command once the
 owner takes its generic part in. Each session's script is written again, and two of them rewrote a
 quotation, a plan argument and a code line.
 

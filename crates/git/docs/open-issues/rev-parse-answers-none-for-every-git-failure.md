@@ -48,7 +48,7 @@ CHANGELOG.md entry. Which shape `object_id` takes is not decided.
 
 `design@git@failed-git-is-an-error` holds that every invocation a verdict depends on fails as an
 error carrying git's reason, never as an empty answer, against
-`goal@check@document-rules-are-checked`. A first parent lost to a failed invocation changes what
+`goal@knowledge-architect@documentation-stays-consistent`. A first parent lost to a failed invocation changes what
 `commits` judges a message against, and a HEAD lost to one makes `check --staged` judge a tree
 missing every file the index does not change; each run reports a verdict where it should exit 2.
 

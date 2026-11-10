@@ -138,7 +138,7 @@ split. A cluster above the bound is read whole by one agent, and thaum's state-m
 seen to read whole. The citations between heads give no split point, since most subjects are one
 connected group of heads beside a few that cite nothing of theirs, measured over this repository at
 ed9dd60 and over thaum by the scripts the message of the commit "[review] Repairs of the transcript review of one search of the whole record, with the scripts of its measurements" holds, so the second test
-stays a judgement. On `goal@agent-skills@only-needed-instructions`, the owner's reading is
+stays a judgement. On `goal@knowledge-architect@only-needed-instructions`, the owner's reading is
 that the goal covers a choice where either shape leaves the workflow working, and the split is what
 keeps it working. The delivery to a judge by a pointer loses to the fragment by
 `design@agent-skills@shared-text-fragment`. The design this decision did not keep:
@@ -163,8 +163,8 @@ so the rule has one exception: when the thread's slug misdescribes the decision 
 entry takes a slug that names the decision, and the plan document's harvest row, or the commit
 message on the in-change path, states the pair. A slug that misdescribes its decision misinforms
 every reader of every citation, and the alignment rule of `skill@knowledge-architect-decision-recording@head-shape` orders a rename
-in that case; without the exception, the two rules would give opposite orders, against
-`goal@agent-skills@no-contradiction-in-workflow`. The rival, renaming the thread during the discussion
+in that case; without the exception, the two rules would give opposite orders, a pair no session
+can both obey, per `design@agent-skills@no-two-installed-instructions-contradict`. The rival, renaming the thread during the discussion
 once it drifts, lost: every earlier delta carries the old slug, and the assembly that reads them
 from the transcript, per `design@agent-skills@ledger-from-transcript`, would read one thread as
 two.

@@ -362,7 +362,10 @@ To move to another version:
 
 %% The section is for Rust because every target project is a Rust project, per
 %% `goal@knowledge-architect@serves-one-kind-of-project`, and Rust is the language whose comments the
-%% checker reads. It serves `goal@knowledge-architect@setup-brings-quality-tools`.
+%% checker reads. The maintenance crate is `design@agent-skills@xtask-pins-checker`, and its gates
+%% command `design@agent-skills@gates-convention`: with them every target project gets the generic
+%% part of its gates, as `goal@knowledge-architect@generic-tools-and-procedures-are-shipped` asks of
+%% a part taken in.
 A Rust project gets its gates and its pinned checker from one maintenance crate, a package named
 `xtask` in a directory of its own, `<xtask-dir>/`, such as `xtask/` at the root, a member of its
 workspace that is never

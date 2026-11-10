@@ -49,7 +49,7 @@ to keep this key beside that attachment rather than replace it: `rejected@model@
 
 A declaration that is wrong is a finding rather than a load failure, and it is absent from the
 configuration. A manifest that will not load reports nothing at all, and nothing at all is what a
-session reads as conformance, against `goal@check@document-rules-are-checked`: a tree that passes the
+session reads as conformance, against `goal@knowledge-architect@documentation-stays-consistent`: a tree that passes the
 checker conforms to what its manifest states. So `Manifest::parse` resolves the declaration into a
 configuration and a list of complaints, each in the shape a finding takes, and every complaint is
 the first phase of a run, per `design@check@phases-gate-the-report`. What a complaint is about is not
@@ -111,8 +111,8 @@ entry's files is `design@model@entry-anchor-path-kind`.
 design split by subject: one subject per directory, several files each, every entry cited
 `<kind>@<subject>@<id>`, which `goal@knowledge-architect@every-target-project-can-adopt-it` asks the manifest
 to express without anything of the project compiled in. Adding a subject is creating a directory,
-not a manifest edit, and moving the home is one manifest edit, per
-`goal@check@relocation-needs-only-goal-changes`. A location declared per subject costs a manifest row
+not a manifest edit, and moving the home is one manifest edit, the property
+`design@check@every-path-names-its-anchor` buys for every anchor. A location declared per subject costs a manifest row
 per subject. The rival that makes each subdirectory of a location an anchor, with no Directory
 register, is `rejected@model@subdirectory-anchors-location`.
 

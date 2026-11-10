@@ -6,10 +6,10 @@ kind: design
 ## Summary
 
 `goal@knowledge-architect@serves-one-kind-of-project` asks every target project's agents to run
-under the `claude` harness, and excludes a mode of the checker for another harness, and
-`goal@agent-skills@installed-text-works-in-any-environment` now covers configurations of the
-`claude` harness only. Several decisions defeated a rival, or keep a rejected design, on the ground
-that another harness would lack something. That ground no longer stands on a goal.
+under the `claude` harness, excludes a mode of the checker for another harness, and guarantees
+knowledge-architect's working only as far as a project follows what it asks. Several decisions
+defeated a rival, or keep a rejected design, on the ground that another harness would lack
+something. That ground stands on no goal.
 
 ## Details
 

@@ -18,12 +18,12 @@ function survives, not whether the test written for one claim catches the wrong 
 that claim. That is why cargo-mutants, which generates its own, is no substitute,
 `rejected@mutate@cargo-mutants-instrument`, and why thaum's sweep, which enumerates the
 invariant-check sites of one directory of its engine, is not taken in,
-`rejected@mutate@sweep-shipped`. A recorded list of mutations, the sweep generalised, waits for a
-second real use.
+`rejected@mutate@sweep-shipped`. A run takes one mutation: the owner chose that over a recorded
+list of mutations, the sweep generalised, which no goal ranks, and which waits for a second real
+use.
 
-It serves `goal@mutate@a-named-mutation-is-checked-safely`, which excludes a mutation the crate
-chooses, and `goal@knowledge-architect@generic-tools-and-procedures-are-shipped`: the generic part of
-thaum's tool, which its owner took in, and `goal@knowledge-architect@mechanical-tasks-are-the-tool-s`,
+It serves `goal@knowledge-architect@generic-tools-and-procedures-are-shipped`: the generic part of
+thaum's tool, which its owner took in, and `goal@knowledge-architect@tasks-a-tool-does-better-are-the-tool-s`,
 since a mutation check performed by hand, as a scratch worktree with each step written out, leaves
 each step to a session.
 
@@ -32,9 +32,8 @@ each step to a session.
 `run` takes the one file `--file` names; a `--patch` that names any other path is refused with 2,
 before the baseline. The record, its comparison and its restore are per file, and a patch whose
 other hunks the run would drop gives a verdict about a mutant that is not the one the caller wrote.
-`goal@mutate@a-named-mutation-is-checked-safely` is met only while the crate's tests show "a
-mutation of several files applied and restored", so this is the current limit of the tool, not its
-scope: `issue@mutate@a-mutation-of-several-files`.
+This is the current limit of the tool, not its scope: the owner chose not to limit the crate to one
+file, and `issue@mutate@a-mutation-of-several-files` holds the work.
 
 ### The apply, the run and the restore are one command `##one-command-owns-the-interval`
 
@@ -72,8 +71,9 @@ because no answer about a subject is the tool's to give.
 
 A mutant that does not compile makes the command fail for a reason that is no test noticing. With
 `--build`, a probe that fails reads `unmutatable here`; without one, a failing command reads
-`caught` with the words that it cannot tell the two apart, as
-`goal@mutate@a-named-mutation-is-checked-safely` asks. The probe is the caller's, because the
+`caught` with the words that it cannot tell the two apart. On the owner's word, a verdict tells two
+causes apart from a catch, this one and a base on which the command already fails, which is
+`design@mutate@baseline-runs-by-default`. The probe is the caller's, because the
 command is: the tool cannot know which build a command implies. The probe is not run over the
 unmutated tree, so a probe that always fails reads every mutant as unbuildable, which the printed
 verdict shows the caller.
@@ -82,9 +82,7 @@ verdict shows the caller.
 
 Over a base on which the command already fails, every mutation reads as caught, so the baseline is
 the default and `--no-baseline` the caller's word that the failure is expected and understood. An
-opt-in baseline would leave the default run open to that false catch, which
-`goal@mutate@a-named-mutation-is-checked-safely` rules out unless the session skipped the
-baseline.
+opt-in baseline would leave the default run open to that false catch.
 
 ### The caller's command runs in the caller's environment `##caller-environment-kept`
 
@@ -104,7 +102,8 @@ the pre-image only on equality. When the file differs it writes nothing at all a
 mutation's patch, which reverses the hunk and leaves a concurrent edit standing. The restore can
 never remove content the run did not itself put there, which is what lets a mutation run over
 uncommitted work, per `design@knowledge-architect@no-operation-loses-content`, and what
-`goal@mutate@a-named-mutation-is-checked-safely` asks of the crate's own writes. Holding the mutation
+`design@knowledge-architect@a-tool-s-writes-lose-nothing-the-project-wrote` asks of the crate's own
+writes. Holding the mutation
 in a worktree instead is `rejected@mutate@worktree-holds-the-mutation`.
 
 The patch is the fallback, and its bound is measured: `git apply -R` matches the hunk's three
@@ -127,9 +126,9 @@ clears a record over a live mutation, and the record is the only copy of the pre
 The pre-image, the mutant and the patch are written, complete, before the target is written. A hard
 kill at any later instant leaves the original recoverable by `restore`, and a record that reports
 itself present always carries its pre-image. A write of the mutant that fails after the file was
-opened has truncated it, so the record stays unless the file still holds its pre-image. This is
-where `goal@mutate@a-named-mutation-is-checked-safely` asks the content to be kept when the crate
-cannot put it back.
+opened has truncated it, so the record stays unless the file still holds its pre-image. The record
+is where the content is kept when the crate cannot put it back, so that the crate's own writes lose
+none of it, per `design@knowledge-architect@a-tool-s-writes-lose-nothing-the-project-wrote`.
 
 ### The recovery record lives in the git directory `##record-lives-in-the-git-directory`
 

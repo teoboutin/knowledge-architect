@@ -5,10 +5,9 @@ kind: todo
 
 ## Summary
 
-`goal@knowledge-architect@agents-get-a-complete-workflow` requires that no installed instruction
-outside an offered shape require or assume continuous integration or a pull request, and
-`goal@knowledge-architect@setup-brings-quality-tools` takes CI out of the recommended tools. The
-installed text still assumes both in several places.
+`design@agent-skills@installed-text-requires-no-ci-and-no-pull-request` decides that the installed
+text requires neither continuous integration nor a pull request, and that no installed instruction
+outside an offered shape assumes either. The installed text still assumes both in several places.
 
 ## Details
 
@@ -31,7 +30,8 @@ while the goals were reviewed, not a full census (assumption).
 ### Why it matters
 
 A target project that runs no pull request and no CI, as thaum and rootpoint merge locally, reads
-instructions that do not apply to it; the goal is unmet while they stand.
+instructions that do not apply to it. While they stand, the installed text departs from
+`design@agent-skills@installed-text-requires-no-ci-and-no-pull-request`.
 
 ### What would close it
 

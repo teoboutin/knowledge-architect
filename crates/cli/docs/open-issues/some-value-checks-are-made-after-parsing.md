@@ -5,8 +5,8 @@ kind: todo
 
 ## Summary
 
-`goal@cli@one-home-for-the-command-line` asks that a check of a plain value, one that names nothing in the project and that the command
-is not asked about, is made while parsing. Three are made by the tool today, so the goal is unmet for them.
+`design@cli@command-parsing-home` has a check that needs the value alone, of a value that names nothing in the project and that the
+command is not asked about, made while parsing. Three are made by the tool today, so the code departs from the head for them.
 
 ## Details
 
@@ -19,7 +19,7 @@ is not asked about, is made while parsing. Three are made by the tool today, so 
   from PATH, so `--name` gains a second call of it. That this check moves is the session's default, which the owner agreed.
 
 Each already exits 2 before any write, so what changes is where the rule sits, and that each then falls under
-`goal@cli@a-refused-invocation-does-no-work` as a value the declaration does not accept. A value parser on the declaration can call a rule
+`design@cli@a-refusal-by-arguments-writes-nothing` as a value the declaration does not accept. A value parser on the declaration can call a rule
 the crate of the tool holds, which keeps `cli` free of the tool's rules. `show`, `worklist --seed`, `tripwires --guarding` and `id` stay as
 they are: their value names something in the project, or is what the command is asked about.
 

@@ -23,4 +23,4 @@ a mistaken run, deletes them too. The owner chose a refusal there over following
 
 `live`. A project in a subdirectory of a repository passes the check, so a refusal there refuses a
 legal layout, and a new or empty directory outside every repository loses nothing to `git init`.
-The kept rule does not spare every mistaken run a messy cleanup, which `goal@create@a-project-adopts-by-one-command` answers by a refusal of what would be lost, not of the place.
+The kept rule does not spare every mistaken run a messy cleanup, which `design@create@init-asks-no-confirmation` and `design@create@init-keeps-existing-files` answer by keeping or refusing what a run would overwrite, not by refusing the place.

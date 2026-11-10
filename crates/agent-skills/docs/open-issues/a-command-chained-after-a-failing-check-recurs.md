@@ -60,8 +60,8 @@ The candidates:
    "per-clone configuration every clone had to install and every session had to check", and, in
    this repository, a staged check that refuses a commit `commits` accepts, per
    `issue@check@a-staged-check-compares-installed-files-with-unstaged-shipped-text`. It does not
-   bring back that rejected design, which judged messages, and `goal@check@checks-a-commit-from-its-hook`
-   makes judging a commit's tree from the hook a capability of the checker;
+   bring back that rejected design, which judged messages, and `check --staged` run from a
+   pre-commit hook judges the tree the commit records, per `design@git@index-file-variable-kept`;
 2. the root's sentence moved to the commit's moment in its `## Git` section, which the slices'
    project file names: it moves text the session reads at the start, as now;
 3. no change: each instance was caught by the next command and cost one amend.

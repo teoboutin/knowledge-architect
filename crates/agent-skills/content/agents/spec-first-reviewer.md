@@ -5,7 +5,7 @@ tools: Read, Grep, Glob, Bash
 ---
 
 %% The axis is `design@agent-skills@spec-first-axis`, the generic form of thaum's rules-first axis.
-%% It judges by the criteria that bind the writer, `goal@agent-skills@reviews-judge-by-the-writer-s-criteria`,
+%% It judges by the criteria that bind the writer, `design@agent-skills@reviews-judge-by-the-writer-s-criteria`,
 %% which is why the project's departures are read before the comparison.
 # Spec-first review
 

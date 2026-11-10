@@ -34,7 +34,7 @@ in the last phase; this work replaces it.
 
 A file a row keeps out is read by no check, and a model built without it lacks what that file
 defines, which every finding computed from it then misses, against
-`goal@check@document-rules-are-checked`. One case reported and the rest silent is a rule nobody can
+`goal@knowledge-architect@documentation-stays-consistent`. One case reported and the rest silent is a rule nobody can
 state from the tree.
 
 ### What would close it

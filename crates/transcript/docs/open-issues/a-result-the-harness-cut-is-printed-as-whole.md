@@ -36,8 +36,10 @@ temporary directory and may be gone when the reviewer reads.
 
 ### Why it matters
 
-The transcript reviewer reads a cut report as whole and can miss an outcome it holds, against
-`goal@transcript@a-session-reads-past-sessions`.
+The transcript reviewer reads a cut report as whole and can miss an outcome it holds: the reader
+is silent on a text it holds less of, which
+`design@transcript@transcript-format-tolerated-and-reported` refuses for a value the reader does
+not know.
 
 ### What would close it
 

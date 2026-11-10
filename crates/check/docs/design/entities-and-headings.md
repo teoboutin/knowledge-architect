@@ -29,12 +29,12 @@ a goal tied to a nested Component is tied to a shape of the project: the nested 
 split or replaced while the purpose above it stays. A goal refines a goal of its own Component or of
 one enclosing it, so the citations of refinement point that way. A
 goals home's head is held to the same rule, on the owner's argument, given as the owner's view, that
-a design head is cited nowhere in a goals home: no argument stood for the root goals home's citation
-of the head on the lifecycle of goals, whose lifecycle rests on what the goal-setting skill says, and
+a design head is cited nowhere in a goals home: no argument stands for a goals home's citation
+of the head on the lifecycle of goals, since that lifecycle rests on what the goal-setting skill says, and
 a consumer's goals home cites none of this project's heads either.
 
 The rule is a check, not a rule the goal reviewer applies alone, since it is mechanical, per
-`goal@knowledge-architect@mechanical-tasks-are-the-tool-s`, and the same in every project, per
+`goal@knowledge-architect@tasks-a-tool-does-better-are-the-tool-s`, and the same in every project, per
 `design@check@the-regime-has-no-opt-out`. Its nearest rival, the one-way rule over every citation,
 `rejected@check@citation-direction-checked`, covered every document for an acyclicity that only the
 record search's clusters would use, and would fail every goal that refines another. This rule
@@ -43,7 +43,7 @@ entry's reason does not reach, since its reason names the clusters' acyclicity a
 exception to `design@check@no-citation-direction-rule`, and to the relocation that
 `design@check@every-path-names-its-anchor` says edits no document: a move that changes which
 Components enclose a goals home turns its citations of the former enclosing Component into
-findings, which strains `goal@check@relocation-needs-only-goal-changes`.
+findings, each repaired by hand.
 
 ### No rule on the direction of a citation is checked outside a goals home `##no-citation-direction-rule`
 

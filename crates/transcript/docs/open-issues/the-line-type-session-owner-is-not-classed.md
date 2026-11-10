@@ -31,8 +31,9 @@ to 2.1.321; that range was not taken again.
 
 `design@transcript@transcript-format-tolerated-and-reported` has the command report what it does
 not recognise, so that the gap is classed. Until it is, every extraction carries the header line,
-and a line that held something of the owner's would be read by no review, against
-`goal@transcript@a-session-reads-past-sessions`.
+and a line that held something of the owner's would be read by no review, the failure
+`design@transcript@transcript-labels-in-code` is built against: one of the owner's messages dropped
+from a review.
 
 ### What would close it
 

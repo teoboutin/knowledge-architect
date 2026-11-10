@@ -5,10 +5,10 @@ kind: todo
 
 ## Summary
 
-`goal@git@a-pure-wrapper-over-git` is met while the git library's public interface lets every tool
-of knowledge-architect run every git invocation it needs. Today the interface keeps private the
-environment of an invocation, its standard input and its exit code as an answer, and twelve files of
-the other crates' code, their tests included, start git themselves.
+The git library's public interface does not let every tool of knowledge-architect run every git
+invocation it needs: it keeps private the environment of an invocation, its standard input and its
+exit code as an answer. Twelve files of the other crates' code, their tests included, start git
+themselves.
 
 ## Details
 
@@ -31,27 +31,32 @@ The code outside the crate that starts git itself, found with
 The gates library's `rebased` gate runs `git merge-base --is-ancestor` as a gate's command line,
 through its own spawn helper, in `path@gates@src/gates.rs`.
 
-The goal asks that the library's interface hold each operation in git's terms that a tool composes
-from several invocations, so these sites' operations are owed to the library, while a tool "can"
-use it and need not move.
+`design@git@an-operation-in-git-s-terms-is-the-library-s` makes an operation in git's terms that a
+tool composes from several invocations a function of the library, so these sites' operations are
+owed to the library. No decision has these sites move onto it:
+`design@knowledge-architect@checker-asks-git-through-the-crate` binds the library code of the
+checker's tools alone, and lets a test of the checker run git itself.
 
 Two items of the library's interface may serve the checker rather than git: `component_dir` and
 `CRATE_DIR` in `path@git@src/lib.rs` exist for the checker's reading of its own source's literals
 as data and for its refusal of a build from another checkout; and `stage_generated` names its files
-by the checker's word, though it stages any contents a caller gives. The goal's library knows
-nothing of the workflow.
+by the checker's word, though it stages any contents a caller gives. That the library knows nothing
+of a project's documents or of the workflow is a rule no head states yet, per
+`issue@git@whom-the-library-serves-and-what-it-knows-have-no-argued-head`.
 
 ### Why it matters
 
-A tool that cannot reach an invocation through the library keeps a wrapper of git of its own, the
-outcome `goal@git@a-pure-wrapper-over-git` exists to spare, and the environment the library sets
-for every invocation, per `design@git@repository-variables-dropped`, reaches none of it.
+A tool that cannot reach an invocation through the library keeps a wrapper of git of its own, and
+the environment the library sets for every invocation, per
+`design@git@repository-variables-dropped`, reaches none of it. That no tool needs a wrapper of its
+own is a reason for the crate that no head argues yet, per
+`issue@git@whom-the-library-serves-and-what-it-knows-have-no-argued-head`.
 
 ### What would close it
 
 The public interface of the library carries what these sites need, each addition argued against
 the design heads of `register@git@design`; each site either moves onto it or is left with the
 reason it stays, in a comment at the site; and the two items above are renamed, moved out of
-the library's interface, or kept with the argument that they fit the goal, as their design
-decides: the owner ruled that an item shaped for its first caller, `component_dir` and `CRATE_DIR`
+the library's interface, or kept with the argument that they fit
+`design@git@an-operation-in-git-s-terms-is-the-library-s`, as their design decides: the owner ruled that an item shaped for its first caller, `component_dir` and `CRATE_DIR`
 among them, knows nothing of a project's documents.

@@ -5,7 +5,7 @@ kind: todo
 
 ## Summary
 
-`goal@agent-skills@session-orchestrates-the-work` has the main session keep the design, the goals,
+`goal@knowledge-architect@session-orchestrates-the-work` has the main session keep the design, the goals,
 the decisions on the design, the questions put to the person supervising the work, the writing of
 the plan documents and the dispatch, and hand the rest to agents it dispatches, at its judgement.
 The installed text as it stands has the main session carry the development itself, and gives no guidance on when a dispatch is worth it; the retrospective
@@ -100,7 +100,7 @@ Why the owner wants it, which bears on how each repair is argued:
 
 ### Why it matters
 
-The goal is unmet while these stand, against `goal@agent-skills@session-orchestrates-the-work` and
+The goal is unmet while these stand, against `goal@knowledge-architect@session-orchestrates-the-work` and
 the efficiency `goal@knowledge-architect@agents-get-a-complete-workflow` asks.
 
 ### What would close it

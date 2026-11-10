@@ -51,7 +51,7 @@ branch itself is not named: a merge that rewrites the branch's commits leaves it
 nothing.
 
 %% A wider "missing" turns every judgement into a request for a rule, against
-%% `goal@agent-skills@only-needed-instructions`. The scope is wider than the installed
+%% `goal@knowledge-architect@only-needed-instructions`. The scope is wider than the installed
 %% text because a project's problems may come from its own instructions and their interaction with
 %% the installed ones, per `goal@knowledge-architect@the-workflow-improves-through-real-use`.
 Then read back over the session: the instructions that were followed, where they were followed with
@@ -101,7 +101,7 @@ finding gets one id in each file, each naming the other, since the two files may
   script. Each is also a finding on the checker, in the workflow's file.
 %% The question is `design@agent-skills@premortem-as-watch-points`'s watch on
 %% `goal@knowledge-architect@the-workflow-leads-to-better-code` and
-%% `goal@knowledge-architect@projects-are-split-into-components`; a lint the setup ships counts as an
+%% `goal@knowledge-architect@projects-are-split-into-modular-units`; a lint the setup ships counts as an
 %% installed rule about code, on the owner's ruling.
 - Did an installed rule or guideline about code or tests, a lint the setup skill ships included,
   prove too hard or too strict to follow in this session's Rust work, or get followed against the

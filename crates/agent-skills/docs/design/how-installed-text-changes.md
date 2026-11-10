@@ -10,7 +10,8 @@ whose record is docs/decisions.md on its branch next. A figure is taken again fr
 
 A decision about the installed text is recorded only where it keeps the owner's intent on record, as
 `goal@knowledge-architect@design-is-recorded-with-its-arguments` asks, or keeps two parts of the
-workflow consistent, as `goal@agent-skills@no-contradiction-in-workflow` asks; or where another entry test
+workflow consistent, as `design@agent-skills@no-two-installed-instructions-contradict` asks; or where
+another entry test
 admits it, such as a reason several installed texts must respect. A rewording, and the rationale for how one instruction
 is phrased, is not recorded. Such proposals can be made without bound, unlike a technical decision,
 which costs implementation work. The commit message carries a rewording's argument.
@@ -128,10 +129,9 @@ not a script for one interaction.
 A structure an instruction imposes on the work has the same cost as a rule added for one gap: a
 fixed sequence, count or mapping between a unit of the work and a unit of what the work produces meets another
 instruction that needs that unit to vary, and the session is left with two instructions it cannot
-both obey, and less room to work on its own. So the installed text imposes no structure the work
-does not need, per `goal@agent-skills@only-needed-instructions`, which gives this
-argument a goal's weight, and a contradiction a structure causes is answered by removing structure
-rather than by adding a rule. An instance: a plan whose steps are its commits meets the primer's
+both obey, against `design@agent-skills@no-two-installed-instructions-contradict`, and less room
+to work on its own. So the installed text imposes no structure the work does not need, and a
+contradiction a structure causes is answered by removing structure rather than by adding a rule. An instance: a plan whose steps are its commits meets the primer's
 instruction that a fix met outside the task takes a commit of its own, which is why a spec's steps
 are no unit of the history, per `design@agent-skills@step-is-no-commit`.
 
@@ -142,8 +142,8 @@ behaviour and the project's shape that the skill is built on, each naming what d
 does not hold. The set is the scope test for every proposed edit of the skill: a finding that
 describes an owner's behaviour outside the set is not a gap, and no instruction is written for it.
 The set scopes the owner's behaviour only. A finding that two installed instructions leave no move
-satisfying both is always in scope, because `goal@agent-skills@no-contradiction-in-workflow` is met only
-while no two installed instructions contradict.
+satisfying both is always in scope: no session can follow such a pair as written, whatever the
+owner's behaviour, per `design@agent-skills@no-two-installed-instructions-contradict`.
 
 The sets live in the retrospective skill, which applies them, and two other installed texts read
 them by a pointer to its section: the intake, at its check of a finding's kind, and the admission
@@ -162,6 +162,34 @@ same reasoning. Only the design skill and the setup skill state a set so far:
 
 The design this decision did not keep: `rejected@agent-skills@separate-expectation-sets-file`.
 
+### No two installed instructions that meet at one moment leave a session without a move that obeys both, and each says what it requires plainly enough to follow `##no-two-installed-instructions-contradict`
+
+The installed text, every part of it, gives no two instructions a session cannot both obey. The
+rule reaches a pair that meets at one moment: two instructions that would conflict if they met, and
+never meet, are no contradiction. A precedence the installed text states between two leaves the
+session the move the prevailing one asks, which counts as obeying both; the primer's rank sentence
+is one, per `design@agent-skills@questions-go-to-their-authority`. Each installed instruction also
+says what it requires plainly enough to follow without guessing what it means: an instruction that
+a reading confirms is read two ways is repaired, even where every act it allows is acceptable. A
+case no instruction covers is outside both statements, and is left to judgement, per
+`goal@knowledge-architect@only-needed-instructions`.
+
+The two statements are one decision. Each answers whether a session can follow the installed text
+as written, and each loses to one rival: the pair, or the instruction read two ways, left standing
+for the session's judgement to settle, which for an instruction read two ways is
+`rejected@agent-skills@two-readings-left-to-judgement`.
+`goal@knowledge-architect@agents-get-a-complete-workflow` has an agent carry each activity out with
+the workflow and what its project adds, and an agent carries no activity out with an instruction it
+cannot follow as written. Judgement settles such a pair, or such an instruction, in one session
+only: the next session can settle it the other way, and a reviewer that holds the other instruction
+or the other reading reports the work, with no repair that the text gives. The rival's test,
+applied to pass 5 of the first agentic-workflow audit of this repository, leaves standing 6 of the
+14 instructions that pass confirmed as read two ways, a count that entry holds.
+
+The cost is new text: each repair writes words in which the next reading can find a defect, per
+`design@agent-skills@capabilities-not-structure`, so a contradiction that a structure causes is
+answered by removing the structure, not by a rule added between the two.
+
 ### Every statement of agent-facing text names an act an agent does differently because of it, or it is not written `##statement-names-an-act`
 
 Every statement of agent-facing text, installed or a project's own, passes the need test of
@@ -171,9 +199,8 @@ and an existing one leaves by that section's outcome table: deleted where it car
 instruction, moved to a `%%` comment of the installed source where only the source's maintainer
 reads it, and, where it is an instruction no agent performs, a decision, which
 `primer@question-authority` routes: deleted where the project's record settles that its act is no
-longer wanted, and otherwise put to the owner, since whether the act is still wanted is the intent of whoever wrote it, a fact only the owner holds, which a project that installs
-the workflow seldom records about its agent-facing text, per
-`goal@agent-skills@installed-text-works-in-every-target-project`. A reason passes when
+longer wanted, and otherwise put to the owner, since whether the act is still wanted is the intent
+of whoever wrote it, a fact only the owner holds. A reason passes when
 it states a mechanism or a failure prevented, and is written where the act needs it, not beside
 every instruction: the owner argued that most instructions are followed without their reason, and
 that a reason given everywhere no longer marks the instructions it weighs and dilutes them. A
@@ -218,8 +245,8 @@ section's heading, since no installing project edits the primer, per
 A term defined where the act that uses it is delivered reaches every reader of that act, the split
 `design@agent-skills@one-home-for-head-rules` makes for the rules on heads: the primer reaches every
 session and every subagent, so a term it uses is defined there, and a term one activity uses is met
-only by the sessions that load that activity's texts. The section serves
-`goal@agent-skills@no-contradiction-in-workflow`: an entry whose term another text defines restates
+only by the sessions that load that activity's texts. The section leaves no two definitions of a
+term to disagree, per `design@agent-skills@no-two-installed-instructions-contradict`: an entry whose term another text defines restates
 that home in one sentence and points to it, so it says nothing its home does not. A term the primer
 uses and does not define is a defect provable by reading, and so is a word used in more than one
 sense, which lets an instruction that uses it allow two acts while no other text sets its senses
@@ -262,10 +289,10 @@ owner judged defeats the mechanism. None restates more than one sentence of it, 
 
 The centralization is the owner's proposal, made so that the audit, the reviewers, an intake of
 received findings and the installed skills cannot produce an addition that another of them would
-refuse or reshape, the agreement `goal@agent-skills@reviews-judge-by-the-writer-s-criteria` asks of
-the reviews and the audits. The home in the agent-configuration skill is the owner's proposal too,
+refuse or reshape, the agreement `design@agent-skills@reviews-judge-by-the-writer-s-criteria` states
+of the reviews and the audits. The home in the agent-configuration skill is the owner's proposal too,
 and it stands on the argument below. Maintaining the configuration is the activity whose skill
-governs what enters it, per `goal@agent-skills@one-skill-per-activity` and the knowledge table's row
+governs what enters it, per `design@agent-skills@one-skill-per-activity` and the knowledge table's row
 "how to perform an activity → the owning skill"; the audit, the reviews and an intake judge that
 text and do not own its standard. Where the section lives does not decide when it is read: each
 actor's copy of a fragment is read at that actor's own moment.

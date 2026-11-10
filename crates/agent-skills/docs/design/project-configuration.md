@@ -9,11 +9,9 @@ file `settings.json` of a project's checked-in `.claude` directory, for the `cla
 project that moves its pin adds it, per the Migration entry of the version that ships it. Every
 shell the harness starts then fails a pipeline when any command of it fails, so a command chained
 after a piped verdict does not run over a failing check. The primer's rule against that chain stays,
-for `;`, for any other shell, and because a filter drops lines in any shell, per
-`goal@agent-skills@installed-text-works-in-any-environment`: the option is bash's, and the setting
-the `claude` harness's. The setup delivers the setting, as
-`goal@knowledge-architect@setup-brings-quality-tools` asks of the tools a project gets at its
-adoption.
+for `;`, for any other shell, and because a filter drops lines in any shell: the option is bash's,
+and the setting the `claude` harness's. The setup delivers the setting, so that every target
+project gets it, per `goal@knowledge-architect@generic-tools-and-procedures-are-shipped`.
 
 The rule alone did not hold: sessions chained a push or a commit on a piped verdict in five of nine
 sessions of one adopting project, three times pushing a commit that failed the gate, and five times
@@ -75,7 +73,7 @@ presumption, `design@agent-skills@goals-bind`; the routing of a question by its 
 skill that routes them reaches only the sessions that load it; the owner's word bound by its premise,
 `design@agent-skills@owner-word-holds-as-far-as-its-premise`; the labels and an answer's authority,
 `design@agent-skills@ruled-items-labelled` and `design@agent-skills@answer-keeps-its-authority`; the
-room to judge, which states `goal@agent-skills@only-needed-instructions`, since every
+room to judge, which states `goal@knowledge-architect@only-needed-instructions`, since every
 session meets a situation no instruction covers; built intent
 and a reason at the code, `design@agent-skills@design-home-is-built-intent` and
 `design@agent-skills@local-intent-binds`; the verification rules,
@@ -231,8 +229,9 @@ heads. The nearest rival, a sentence that gives an external specification alone 
 the owner's word, loses on that second instance: the mechanism runs in a project that implements
 no specification. A second rival, sending to the owner every choice that weighs a cost, sends every
 choice, since nearly every choice has a cost or can be made to have one. The rank sentence holds because an edit of a skill can bring
-back a routing to the owner, and with it no session meets two instructions it cannot both obey,
-as `goal@agent-skills@no-contradiction-in-workflow` asks. The
+back a routing to the owner, and with it no session meets two instructions it cannot both obey:
+a precedence the installed text states between two leaves the move the prevailing one asks, per
+`design@agent-skills@no-two-installed-instructions-contradict`. The
 owner thought that a list keeping only goals, contradictions and irreversible actions with the
 owner left too large a scope to agents. The fork is the fusion of that list with one that kept scope and weighing with the
 owner too, and keeps with the owner only the weighing no argument settles. A merge is no action that
@@ -385,7 +384,8 @@ The centralization is the owner's proposal: the rules on what a design head reco
 kept consistent with each other and applicable, partial restatements of them are avoided at all
 cost, and they are read whole where they are needed. The owner's proposal put them in a single
 location; the split by act below keeps one home per rule instead, one file the build copies into
-each host, so no copy is written by hand. This serves `goal@agent-skills@no-contradiction-in-workflow`.
+each host, so no copy is written by hand, and no two statements of a rule come to contradict, per
+`design@agent-skills@no-two-installed-instructions-contradict`.
 The rival, restating the rules wherever they are delivered, gives partial copies that drift: an
 inventory of the installed text at commit eee5176f, re-taken by a fresh read-only subagent listing
 each statement of a rule on heads outside its home at that commit, finds about ten texts restating
@@ -513,9 +513,10 @@ place of the installed skill and of the project's skills that add to it. A proje
 beside the installed one, per `design@agent-skills@overlay-by-separate-skills`. The instruction names
 no outside skill, per `design@agent-skills@no-external-handoff`.
 
-The ground is `goal@agent-skills@installed-text-works-in-any-environment`: no skill or instruction
-the environment adds, the harness's own included, takes the place of an installed one for an
-activity the set covers. The harness lists a plugin's skill beside the installed ones: both cloud
+The ground is `goal@knowledge-architect@agents-get-a-complete-workflow`: an agent carries each
+activity out with the workflow and what its project adds, and needs no instruction from outside
+them, so no skill the environment adds takes the place of an installed one for an activity the set
+covers. The harness lists a plugin's skill beside the installed ones: both cloud
 sessions read for `design@agent-skills@settled-means-recorded` listed a plugin's design-discussion
 skill beside `skill@knowledge-architect-design`, the two descriptions opening with one sentence.
 Which listed skill a session loads is a behaviour, and no session read showed a plugin's skill
@@ -619,8 +620,9 @@ which it carries under a command of its own through the library of the package `
 `design@cli@the-commands-are-a-library-module`. The gates run through the published library, per
 `design@gates@gates-crate`, and the checker they run is the one this crate pins; the hand mutation
 runs through its own, per `design@knowledge-architect@mutation-command-host`. One crate does what a
-crate per tool would otherwise do, and gives the project's other repeated tasks a place, per
-`goal@knowledge-architect@setup-brings-quality-tools`. The cost accepted: building the gates builds
+crate per tool would otherwise do, and gives the project's other repeated tasks a place, so that
+every target project gets its gates and its maintenance commands in one shape, per
+`goal@knowledge-architect@generic-tools-and-procedures-are-shipped`. The cost accepted: building the gates builds
 the checker, which the check gate needs anyway, and the mutation library.
 
 ### Every Rust target project has a maintenance crate whose commands run as `cargo x <command>` `##maintenance-crate-ask`
@@ -636,6 +638,27 @@ leave it with no maintenance crate and a gates command of its own:
 Rust project that is one package gains a workspace for the crate. A project with a Cargo workspace or
 package of its own writes the crate by hand from the setup skill's blocks, since `klarch init --rust`
 refuses one, per `design@create@rust-scaffold`.
+
+### The installed text requires neither continuous integration nor pull requests, and assumes either only inside an offered shape a project takes or leaves whole `##installed-text-requires-no-ci-and-no-pull-request`
+
+Whether a project runs continuous integration and pull requests, and how, is the project's own. No
+installed instruction requires either, and none outside an offered shape assumes either. An offered
+shape is a part of the installed text, or a file the workflow's setup writes, that a project takes
+or leaves as a whole; one for continuous integration or for pull requests may ship. Running either
+is no activity the workflow covers.
+
+`goal@knowledge-architect@serves-one-kind-of-project` lists the conditions a target project holds,
+a linear history of its main branch among them, and none names a pull request, continuous
+integration or a hosting service, so a project that merges locally and runs no continuous
+integration is a target project the workflow serves. The nearest rival is an installed text that
+assumes both, as the instructions that
+`issue@agent-skills@installed-text-assumes-pull-requests-and-ci` lists still do: the installed text
+does not yet conform at those sites, and that issue holds the work. Two target projects, thaum and
+rootpoint, merge locally and run neither, per that issue, so an instruction that assumes either
+does not apply in them. In a private project with one contributor, continuous integration on pull
+requests spends limited minutes, and a pull request brings little value. Making either an ask of
+every target project is the second rival: an ask is added by knowledge-architect's owner, per
+`goal@knowledge-architect@the-owner-decides`, and none is.
 
 ### The setup skill proposes a short CRATES-IO.md for a crate the project publishes `##setup-default-crates-io-page`
 

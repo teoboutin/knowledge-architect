@@ -14,11 +14,13 @@ The runner is the package knowledge-architect-gates. A project's maintenance cra
 xtask run through a cargo alias, which every Rust target project has, per
 `design@agent-skills@maintenance-crate-ask`, hands it the project root, its gate list and the
 flags it parsed. The runner is, almost line for line, the gates code thaum holds at its commit e98e296, as a comparison of
-`git -C <thaum checkout> show e98e296:tools/xtask/src/gates.rs` with this crate shows, and it serves
-`goal@knowledge-architect@setup-brings-quality-tools` and `goal@gates@gates-from-a-list`: a project
+`git -C <thaum checkout> show e98e296:tools/xtask/src/gates.rs` with this crate shows. It serves
+`goal@knowledge-architect@generic-tools-and-procedures-are-shipped`: the runner is the generic part
+of a project's gates, shipped so that every target project gets it, and a project
 adopting the workflow gets gates refined over two projects instead of writing its own. A `gates` command of
-`klarch` lost: it would make that binary run cargo, the linter and the tests, which
-`goal@cli@one-program-for-its-tools` keeps out of it. A published binary configured by a file lost because it leaves the project no place for its
+`klarch` lost: it would make that binary run cargo, the linter and the tests, and a tool whose
+result does not exist without running the project's build or its tests is no command of `klarch`,
+per `design@knowledge-architect@mutation-command-host`. A published binary configured by a file lost because it leaves the project no place for its
 other repeated tasks, and adds a configuration format a list in Rust does not need.
 
 The designs this decision did not keep: `rejected@gates@gates-command-of-the-checker`,
@@ -28,20 +30,21 @@ The designs this decision did not keep: `rejected@gates@gates-command-of-the-che
 ### A project holds its gate list, and the library offers a recommended one `##a-project-holds-its-gate-list`
 
 The library runs the gates it is given and decides none of them, so a project writes no gate logic
-beyond its list and the call that runs it, per `goal@gates@gates-from-a-list`. `rust_project` builds
+beyond its list and the call that runs it: the rest is the library's, per
+`design@gates@gates-crate`. `rust_project` builds
 the recommended list of a Rust project that uses the checker, in cost order: the rebase check behind
 its flag, formatting, the document check, the commit messages of the branch, clippy, and the tests.
 It takes how the project runs its checker, a package and the arguments before the checker's command,
 and the main branch as git names it. A project adds, removes or reorders gates in the list it
-receives, so a Rust project's list is the recommended one with its own edits, per
-`goal@gates@gates-from-a-list`. The library depends on nothing of the checker: the root finder takes
+receives, so a Rust project's list is the recommended one with its own edits. The library depends on nothing of the checker: the root finder takes
 the marker file's name from the caller.
 
 ### The library owns the gates' flags `##the-library-owns-the-flags`
 
 The flags of a gates run are the library's `GatesArgs`, which derives clap's `Args`, so a project's
-binary flattens them into its own command and every project's gates take the same flags, per
-`goal@gates@gates-from-a-list`. clap's major version is therefore part of the library's interface, as it is of `cli`'s.
+binary flattens them into its own command and every project's gates take the same flags: the flags
+are gate logic, of which a project writes none, per `design@gates@a-project-holds-its-gate-list`.
+clap's major version is therefore part of the library's interface, as it is of `cli`'s.
 
 ### The distillers are a closed set the library holds `##distillers-are-a-closed-set`
 
