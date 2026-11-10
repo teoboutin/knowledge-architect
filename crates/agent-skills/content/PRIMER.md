@@ -256,9 +256,19 @@ titled "Decided"**, before "Met outside the task" where both are owed: one line 
 with its ground, a reference or a source. A design thread closed on its argument, with the rivals
 it rules out, a default the
 record answered, a source applied over an answer of the owner, and a premortem cause recorded as a
-tripwire or dropped, and a tripwire's wording or scope changed or the tripwire removed, are such decisions; an implementation choice that a commit message records is not. A
+tripwire or dropped, and a tripwire's wording or scope changed or the tripwire removed, are such decisions; an implementation choice that a commit message records is not, unless it turns on a
+reading of a goal. A
 subagent reports its decisions at the end of its report, under the same title, and the session that
 dispatched it carries them into its own section.
+
+**A decision that turns on a reading of a goal names the reading**: its line gives the goal, the
+reading taken and the rival that reading defeats. A decision turns on a reading of a goal when the
+goal is its ground against a rival, and the rival would stand under another reading that the
+goal's words admit: a question the goal leaves open, of when, how much or by what means, closed
+one way, or one of two directions taken. Where the goal's words alone rule the rival out, no
+reading is taken. Where no argument ranks two readings that move the work in different directions,
+nothing is decided: the question goes to the owner, as a contradiction does, per
+`primer@question-authority`.
 
 ## The project's documents and how they are checked {{slug:checker-model}}
 
