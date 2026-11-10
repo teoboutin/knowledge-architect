@@ -27,7 +27,7 @@ loop.
 
 Naming a spec's
 items by a unit of the history, one step to one commit, lost: it fixes the plan onto the
-history, against `goal@knowledge-architect@only-needed-instructions`, and a commit the work
+history, a structure the work does not need, against `design@agent-skills@capabilities-not-structure`, and a commit the work
 needs for another reason, such as a fix met outside the task, would then contradict the plan. The
 owner ruled it out: "since it designates something 'real', it rigidifies the workflow and
 'hardcodes' that one step equals one commit. This is likely to cause conflicts with other workflow
@@ -152,8 +152,8 @@ before any of it is built. The move of an adopting project's existing documents 
 change, and it is planned work under the planning skill, per
 `design@agent-skills@adopting-existing-docs`. The cost is a spec, its plan reviews, its harvest and
 its deletion for every requested change that is not bounded, including one the converging session
-builds in one pull request, each review round of which the workflow could have spared counting
-against `goal@knowledge-architect@agents-get-a-complete-workflow`. Widening the existing short path,
+builds in one pull request, each review round of which the workflow could have spared lowering
+the efficiency that `goal@knowledge-architect@agents-get-a-complete-workflow` is there to raise. Widening the existing short path,
 rather than adding a path for one decision met during a task, is the owner's proposal, on the
 owner's argument, given as the owner's opinion, that a discussion that starts with one decision
 should be bounded in neither threads nor rounds, since its size depends on what grounding,
@@ -284,8 +284,8 @@ which the spec-conformity review judges; on the in-change path, the change appli
 keeps the check the owner did not want lost, and leaves `design@agent-skills@criteria-test-silent-premises`
 its criteria, whose firing reopens a decision. The rival, dropping such checks with the criteria
 that held them, loses a completeness check no review was told to look for, against
-`goal@knowledge-architect@agents-work-without-drift`, under which a departure from the recorded
-design is caught by a check or a review before it merges. Step 7 of the design
+`goal@knowledge-architect@agents-work-without-drift`, under which what agents build stays within
+the recorded design: a departure that no check and no review is told to look for merges unseen. Step 7 of the design
 skill, the planning skill's section on criteria and condition 1 of the tripwire standard route it.
 
 ### A plan document is committed before its reviews, which read that commit `##plan-reviewed-as-a-commit`

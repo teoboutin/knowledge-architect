@@ -20,7 +20,7 @@ repository's root `CLAUDE.md`, section `## Git`, describes, with `git filter-bra
 
 A command of a published crate for each of the three tasks. Whether a library function alone
 would do is part of the rule that every tool is a command of `klarch`, which no head argues, per
-`issue@cli@the-rule-of-one-program-for-the-tools-is-argued-by-no-head`: the session's default, which the owner approved, was a command. `issue@xtask@the-reword-the-fold-and-the-merge-predicate-have-no-command`
+`issue@knowledge-architect@the-rule-of-one-program-for-the-tools-is-argued-by-no-head`: the session's default, which the owner approved, was a command. `issue@xtask@the-reword-the-fold-and-the-merge-predicate-have-no-command`
 records the same tasks as missing commands of this repository's own tool.
 
 Instances in a project that installs the workflow, from the retrospective files received at the
@@ -77,7 +77,7 @@ These are leads for this work's own design session:
 - **Whether it belongs in `klarch` at all is for this design session to read.** The owner leans to putting it there, since that makes
   shipping easier, and doubts it, since it is somewhat off the subject of a binary focused on documentation.
   The rule that every tool is a command of `klarch` places it there; no head argues that rule, per
-  `issue@cli@the-rule-of-one-program-for-the-tools-is-argued-by-no-head`, so this design session argues it with the placement. The owner would not
+  `issue@knowledge-architect@the-rule-of-one-program-for-the-tools-is-argued-by-no-head`, so this design session argues it with the placement. The owner would not
   want it to run a project's gates, and holds that such a feature would be a tool of its own; running a command its caller names on the
   invocation is admitted, per `design@knowledge-architect@mutation-command-host`. That needs a place in the design, since an operation of the `git` library is stated in git's own
   terms, per `design@git@an-operation-in-git-s-terms-is-the-library-s`, and a spawn of a caller's command is none.

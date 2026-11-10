@@ -29,10 +29,18 @@ head of this repository decides which of the two strengths these tests keep.
 5. "Requires, for instance: a finding a consumer sees that no public item returns is made public,
    or its test is rewritten to reach it as a consumer does." It bound the same repair as
    statement 3.
+6. "no item is published only so that such a test can reach it", from the goal's measure, and
+   "Rules out, for instance: a hidden item, a feature or a module published only so that a test
+   here of such an effect can reach it." They bound what the published interface may hold for a
+   test.
+7. "Admits, for instance: the published interface growing because such a test showed a need; a
+   public item that only such a test uses at first, when the effect it shows is one a consumer
+   could see." It bound the limit of statement 6. The owner stated that such a public item is
+   admitted.
 
 `design@agent-skills@integrated-test-through-public-api` holds statements 2 to 4 in its own words,
-as "a property of the default shape" and "a guideline per
-`goal@knowledge-architect@the-workflow-leads-to-better-code`". The layout holds part of statement
+as "a property of the default shape" of `design@agent-skills@default-code-shape`, a guideline as
+that head argues. The layout holds part of statement
 2: cargo builds each file of `path@testing@tests/` as a crate apart from the code it tests, so the
 build refuses a private item.
 
@@ -54,4 +62,5 @@ public API.
 A discussion under `skill@knowledge-architect-design` decides whether this repository's tests of
 `testing` hold to the statement as a rule. Its nearest rival is the guideline of the installed text
 alone, which already applies here. A rule that stands on a fact takes a head of
-`register@testing@design`; otherwise the guideline stands and this entry closes with the reason.
+`register@testing@design`, and statements 6 and 7, which answer what the published interface may
+hold for a test, a head of their own beside it; otherwise the guideline stands and this entry closes with the reason.

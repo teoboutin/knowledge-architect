@@ -12,13 +12,15 @@ often and gets wrong by hand.
 How its arguments parse is not a decision of this tool's: it parses through clap and tests its
 declaration, as `design@cli@arguments-parse-through-clap` argues for the checker's binaries.
 
-### A task this repository's own instructions require, or whose procedure they fix, is a command of this tool, and a task the installed text asks of every project is a published crate's once knowledge-architect's owner has taken it in `##a-local-task-is-the-maintenance-tool-s`
+### A task this repository's own instructions require, or whose procedure they fix, is a command of this tool, until a published crate ships its generic part `##a-local-task-is-the-maintenance-tool-s`
 
 A task is local to this repository when its own instructions require it, or when they fix the
 procedure of a task the installed text requires. A local task that becomes a command is a command
 of this tool, however rarely it recurs: a command for a task done once is admitted. A task the
-installed text asks of every project, with no procedure of this repository's own, is a published
-crate's. The line moves with what is shipped: the part of a task's procedure that
+installed text asks of every project, with no procedure of this repository's own, is no local task,
+and this head places none: which program holds it is the root's to decide, and
+`issue@knowledge-architect@the-rule-of-one-program-for-the-tools-is-argued-by-no-head` holds that
+rule. The line moves with what is shipped: the part of a task's procedure that
 knowledge-architect's owner takes in as generic stops being local once a published crate ships it,
 per `goal@knowledge-architect@generic-tools-and-procedures-are-shipped`, which has that part
 shipped so that it serves each target project that carries out the task. Until then the local
@@ -28,12 +30,12 @@ command stays.
 a tool for a task that a tool does at a lower cost or better, once knowledge-architect's owner has
 taken the task in, so that each session of a target project gets the same result: a tool for a
 task of the installed text that the owner has taken in is therefore published, and this tool is
-published to nobody. Each side of the line has its rival. A local task as a command of `klarch`
+published to nobody. The rival, a local task as a command of `klarch`,
 puts in the command line of every adopting project's checker a command that serves this repository
 alone, as `design@xtask@source-view-in-the-tool` argues of the source view against
-`rejected@xtask@source-view-in-the-checker`. A task of the installed text as a command of this tool
-leaves a project that adopts the workflow, such as thaum, with no copy, as
-`design@transcript@transcript-command-reads-any-project` argues of the transcripts.
+`rejected@xtask@source-view-in-the-checker`. The line stops where a task is the installed text's: as
+a command of this tool it would leave a project that adopts the workflow, such as thaum, with no
+copy, as `design@transcript@transcript-command-reads-any-project` argues of the transcripts.
 
 ### One module per subcommand, sharing only what every subcommand needs `##one-module-per-subcommand`
 

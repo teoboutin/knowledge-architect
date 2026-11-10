@@ -5,17 +5,21 @@ kind: todo
 
 ## Summary
 
-`goal@knowledge-architect@session-orchestrates-the-work` has the main session keep the design, the goals,
-the decisions on the design, the questions put to the person supervising the work, the writing of
-the plan documents and the dispatch, and hand the rest to agents it dispatches, at its judgement.
-The installed text as it stands has the main session carry the development itself, and gives no guidance on when a dispatch is worth it; the retrospective
-asks none of the goal's questions. No plan document schedules the work.
+`goal@knowledge-architect@session-orchestrates-the-work` has the main session orchestrate agents it
+dispatches to carry the work, and act on what comes back, so that it can focus on the design and
+the decisions. It says neither when a dispatch happens nor for which work. The installed text as
+it stands has the main session carry the development itself, and gives no guidance on when a
+dispatch is worth it. An earlier form of the goal, which
+`git show cb8d5a22:crates/agent-skills/docs/goals.md` holds, listed what the main session keeps,
+what it dispatches, how a dispatched agent checks and reports its conclusions, a measure, and three
+questions for the retrospective. The owner left each of those to argued design, so this entry holds
+them as leads to argue, not as what the goal asks. No plan document schedules the work.
 
 ## Details
 
 ### What
 
-Where the installed text departs from the goal, as it stands at the commit that wrote the goal:
+Where the installed text departs from the goal's direction, or from a lead of its earlier form:
 
 - the development: `skill@knowledge-architect-development` dispatches the review axes, and has the
   session that grounds the change write its code; no text dispatches the implementation of a
@@ -26,11 +30,11 @@ Where the installed text departs from the goal, as it stands at the commit that 
   another shape from a fresh point of view;
 - the judgement of a dispatch: neither the primer nor any skill states when a part of the work is
   worth a dispatch. The owner's leads for it are under "Leads from the owner" below;
-- the report of a dispatched agent: the goal asks that each report name what it considered and be
-  checkable without doing the work again, and that the agent check its conclusions as the main
-  session checks its own claims; no installed text states this for every dispatch;
-- the retrospective: `skill@knowledge-architect-retrospective` asks none of the goal's questions,
-  whether the main session spent its context on work an agent could have carried, whether it acted
+- the report of a dispatched agent: the earlier form asked that each report name what it considered
+  and be checkable without doing the work again, and that the agent check its conclusions as the
+  main session checks its own claims; no installed text states this for every dispatch;
+- the retrospective: `skill@knowledge-architect-retrospective` asks none of the three questions the
+  earlier form's measure named, whether the main session spent its context on work an agent could have carried, whether it acted
   on a conclusion not checked as its own claims are or on one that proved wrong, and whether the
   check of dispatched conclusions raised the total cost significantly.
 
@@ -100,14 +104,14 @@ Why the owner wants it, which bears on how each repair is argued:
 
 ### Why it matters
 
-The goal is unmet while these stand, against `goal@knowledge-architect@session-orchestrates-the-work` and
-the efficiency `goal@knowledge-architect@agents-get-a-complete-workflow` asks.
+While the main session carries the development, its context goes to that work and not to the
+design and the decisions, against `goal@knowledge-architect@session-orchestrates-the-work` and the
+efficiency `goal@knowledge-architect@agents-get-a-complete-workflow` asks.
 
 ### What would close it
 
-Each departure above repaired in the installed text, through `skill@knowledge-architect-design`
-where a repair decides a design and `skill@knowledge-architect-agent-configuration` for the text:
-a dispatch of implementation in the development
-skill; the dispatch judgement stated where the design discussion puts it; the report standard of a
-dispatched agent; and the retrospective's questions. The entry closes when the goal's "It is met
-while" clause holds of the installed text.
+Each departure above argued through `skill@knowledge-architect-design`, and repaired in the
+installed text where its argument holds, under `skill@knowledge-architect-agent-configuration`: a
+dispatch of implementation in the development skill; the dispatch judgement stated where the
+design discussion puts it; the report standard of a dispatched agent; and the retrospective's
+questions. The entry closes when each is built, or refused on its argument.

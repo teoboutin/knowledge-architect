@@ -134,15 +134,17 @@ This repository adds:
   a merge only on a commit message that carries a search's line with a verdict other than
   `constrains` and `unrelated`.
 - `design@agent-skills@no-instruction-for-a-goal-read-two-ways`: no installed text tells an agent
-  what to do when a goal it applies reads two ways. The rule that a question of when, how much or
-  by what means is left to design is a rule for the drafter and the reviewer of a goal, and is
-  written as no instruction to an agent that applies one.
+  how to resolve a goal that reads two ways, since the routing of every question decides it.
+  Slice 1 rewrote this head on the owner's request, made during the slice: a decision that turns
+  on a reading of a goal is reported with the reading, per
+  `design@agent-skills@a-goal-reading-is-reported`, an instruction to an agent that applies a goal.
 - `rejected@agent-skills@owner-intent-entry-test` and
   `rejected@agent-skills@goal-measured-by-evidence-from-use`: both stay refused. The harvest of
   slice 1 narrows the reason of each to what still holds, as the table says.
 
 The two searches graded six of these as conflicting with a first form of the design, or as coming
-back; the design was corrected to respect each, and none is reversed or rewritten.
+back; the design was corrected to respect each, and none is reversed. One is rewritten, the head
+on a goal read two ways, as its row above says.
 
 **Recorded entries the work reverses or rewrites.** The two searches graded each as conflicting.
 Each row names what changes and the slice that carries it. Where each entry is referenced follows
@@ -2159,8 +2161,10 @@ Rule 2 keeps "every term has one meaning", and its test of two readings as two d
 `design@agent-skills@goal-one-meaning-any-breadth` already states. What is new: a question of when,
 how much or by what means is no finding, and the goal reviewer does not block on it. A design head
 closes such a question, on argument against a rival. This is a rule for the drafter and the
-reviewer of a goal: it adds no instruction for an agent that applies a goal and finds it open, per
-`design@agent-skills@no-instruction-for-a-goal-read-two-ways`. The clause that every universal
+reviewer of a goal. For an agent that applies a goal and finds it open, slice 1 added one
+instruction on the owner's request: the reading taken is reported, per
+`design@agent-skills@a-goal-reading-is-reported`; how the question is resolved stays the routing
+of every question, per `design@agent-skills@no-instruction-for-a-goal-read-two-ways`. The clause that every universal
 names the set it ranges over leaves, since it produces such clauses, D2.
 
 The cost, which the owner called the feature: two sessions may resolve an open point differently

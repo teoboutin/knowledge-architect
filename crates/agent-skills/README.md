@@ -222,8 +222,8 @@ reason that survives the challenge. Abandoning silently leaves the
 criteria and the losing arguments unrecorded, which is the state a
 later session is least able to recover from.
 
-**You state the project's long-term intent as goals, investing early.**
-A decision that rests on an intent no goal states has no ground the
+**You state what the project is for as goals, investing early.**
+A decision that rests on a purpose, a scope or a ranking no goal states has no ground the
 assistant can weigh, and a later session cannot tell it from an
 approval. Time spent on goals early is what lets the
 assistant decide more on its own later.

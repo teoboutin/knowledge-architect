@@ -53,4 +53,7 @@ instruction relies on when it fails in a project that does not follow it.
 The installed text states each ask; the setup skill and every published crate's README state the
 four conditions, the asks and the limit of the guarantee; a design head of knowledge-architect names
 the command and its merge invocation, reached through `skill@knowledge-architect-design`; and each
-text listed above is brought to the asks, a head among them through the same skill.
+text listed above is brought to the asks, a head among them through the same skill. The seven
+READMEs that state the conditions today hold a copy of the goal's list, longer than one sentence:
+this work states them in each README as one sentence with its pointer to the goal, as
+`primer@where-knowledge-goes` has a restatement converted when a change edits what it says.

@@ -21,19 +21,3 @@ read back by polling, and an adversarial review reproduced three losses the pipe
 
 No gate child did any of the three, so the losses are latent. They are what a reintroduction has to
 answer.
-
-### A `gates` command of the checker's binary, with the gate list declared in the manifest `##gates-command-of-the-checker`
-
-`live`. It would have changed the manifest's format and the checker's command line, and needed no
-code in a project. It would make `klarch` run cargo, the linter and the tests.
-
-### A published gates binary configured by a file `##gates-binary-configured-by-file`
-
-`live`. It would have added a configuration file format, which a gate list in Rust does not need,
-and it leaves a project no binary of its own for its other repeated tasks.
-
-### No gates code shipped: each project writes its own runner `##each-project-writes-its-runner`
-
-`live`. Each project would keep the runner's logic and its tests, `path@gates@src/`, and refine it
-alone. It is kept because a doubt remains: the library's interface may still carry assumptions of
-the two projects it came from, and a project it does not fit falls back to writing its own.

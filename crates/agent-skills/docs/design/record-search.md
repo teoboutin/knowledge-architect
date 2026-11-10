@@ -86,12 +86,12 @@ report closes with `## Decided` and `## Met outside the task`.
 `design@query@worklist-writes-and-verifies-the-reports`; the session acts on each verdict by its
 action, per `design@agent-skills@session-acts-on-the-verdicts`.
 
-It serves `goal@knowledge-architect@session-orchestrates-the-work`, under which the session acts on a
-dispatched conclusion checked as it checks its own claims: the searcher checks its conclusions so,
-and the command checks the quotation, the sets and the coverage, so that a verdict carries its
-evidence and the session need not read the entry to act on it, per the goal's text: each agent
-"reports them with the evidence each one rests on, in a form that names what it considered and can be
-checked without doing the work again". A verdict exists only where it routes an act, the action it
+It serves `goal@knowledge-architect@session-orchestrates-the-work`, under which the session acts on
+what its agents bring back. It can do so without doing the work again only on a report that names
+what the agent considered and carries the evidence each conclusion rests on: the searcher checks
+its conclusions as the session checks its own claims, and the command checks the quotation, the
+sets and the coverage, so that a verdict carries its evidence and the session need not read the
+entry to act on it. A verdict exists only where it routes an act, the action it
 admits: standing-entry searchers graded a doubt anyway, unasked, in 12 of the
 41 entries they returned, each wording it differently, and a numeric scale would route no act. Every
 entry an agent is given takes a line, `unrelated` included, so that the coverage check tells an entry
@@ -117,9 +117,9 @@ verdict enters none:
 - at an intake, `generated-lines.md`, which the session reads; a line `against: -` names no cluster
   and no finding, so no analysis carries it.
 
-It serves `goal@knowledge-architect@session-orchestrates-the-work`, under which a dispatched agent reports
-its conclusions "in a form that names what it considered and can be checked without doing the work
-again". A seed is an entry the session named as one the work rests on or may change, per
+It serves `goal@knowledge-architect@session-orchestrates-the-work`, under which the session acts on
+what a dispatched agent brings back, which it can do without doing the work again only where the
+report names what the agent considered. A seed is an entry the session named as one the work rests on or may change, per
 `design@agent-skills@seeds-name-decisions`, so an `unrelated` verdict on it would contradict the
 session's own naming with no line to show it: as `constrains`, action `none`, the line tells the
 session that the work meets nothing in the seed, and the session keeps the seed or drops it. An
@@ -151,10 +151,10 @@ Every line, `unrelated` included, quotes the entry's own text verbatim, at least
 entry, the sentence that shows its subject, which the reason contrasts with the work.
 `klarch worklist --verify` checks the quotation, per `design@query@worklist-writes-and-verifies-the-reports`.
 
-It serves `goal@knowledge-architect@session-orchestrates-the-work`, whose text asks a dispatched agent to
-report its conclusions "with the evidence each one rests on, in a form that names what it considered
-and can be checked without doing the work again": an `unrelated` verdict is such a conclusion, and
-its quotation is the evidence a command checks. The nearest rival, an `unrelated` line with a reason
+It serves `goal@knowledge-architect@session-orchestrates-the-work`, under which the session acts on what
+a dispatched agent brings back, which it can do without doing the work again only where each
+conclusion carries the evidence it rests on: an `unrelated` verdict is such a conclusion, and its
+quotation is the evidence a command checks. The nearest rival, an `unrelated` line with a reason
 alone, is a paraphrase no command checks. What the quotation does
 not hold of the searcher's judgement is what `tripwire@agent-skills@record-search-misses` watches.
 
@@ -279,8 +279,8 @@ its own spec and not the milestone document. Neither seeds a goal. An entry that
 cites a seed is never `unrelated`, per `design@agent-skills@a-seed-and-its-citers-are-never-unrelated`, so each entry citing a
 seed takes a line among the generated lines and the outcomes its occasion records. A goal is such a
 seed, cited by many entries: it is graded by a goal agent and reaches every cluster agent it binds by
-its title line already, per `design@query@goal-context-once`, and the session reads the goals homes
-its grounding names. In the search that grounded the discussion that made this decision, 29 of the
+its title line already, per `design@query@goal-context-once`, and the session reads the root's goals
+home, which its grounding names. In the search that grounded the discussion that made this decision, 29 of the
 137 entries graded `may-bear` alone carried the mark of one goal seed, as the message of the commit
 "[harvest] The graded entries' assembly, `klarch id`, the narrower grounding and the retrospective's
 new question recorded" states; the lines a goal seed forces under the verdicts are re-taken over a

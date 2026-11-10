@@ -219,7 +219,7 @@ prevails over a decision. Which further actions a project reserves to its owner 
 to state.
 
 It serves `goal@knowledge-architect@the-owner-decides`, which gives the owner what the argument
-leaves open and counts a question the record answered, put to the owner, as the goal unmet. A workflow whose only authority is the owner
+leaves open and has agents decide what the record settles, so a question the record answered is the agents' to decide. A workflow whose only authority is the owner
 sends every question to the owner, and records every answer as a ruling. In thaum, which implements a published rules text, at least three of
 the eleven questions one session put to the owner were answered by the rules, and in this
 repository the owner reported many defaults put back to the owner that, the owner believes, the
@@ -355,8 +355,8 @@ the owner a goal applied by its words. The owner asked for the report, to contes
 it, and counts a reading of a goal among the items the owner brings value to. The reading stated
 beside a goal reference by a design head, per `design@agent-skills@standing-argument-in-head`,
 does not serve: a decision that earns no head states it nowhere. The rival, asking the owner
-before each such decision, loses to the owner's intent that a thinner standard leaves the owner
-less to rule on: a reading closed by an argument is the session's, and where no argument ranks two
+before each such decision, loses on the owner's argument that a question on which the owner can
+give only an approval brings little value: a reading closed by an argument is the session's, and where no argument ranks two
 readings that move in different directions the question is already the owner's, per
 `design@agent-skills@no-instruction-for-a-goal-read-two-ways`. It adds one instruction on how an
 agent behaves, admitted per `design@agent-skills@behaviour-additions-need-real-use` on a behaviour
@@ -520,7 +520,7 @@ covers. The harness lists a plugin's skill beside the installed ones: both cloud
 sessions read for `design@agent-skills@settled-means-recorded` listed a plugin's design-discussion
 skill beside `skill@knowledge-architect-design`, the two descriptions opening with one sentence.
 Which listed skill a session loads is a behaviour, and no session read showed a plugin's skill
-loaded in place of an installed one; the owner ruled that the goal grounds the instruction where
+loaded in place of an installed one; the instruction is grounded on the goal where
 that evidence of real use falls short of what
 `design@agent-skills@behaviour-additions-need-real-use` asks, an exception that head names. The
 nearest rival, the installed skill as the one skill loaded, shuts out a project skill whose
@@ -630,8 +630,8 @@ the checker, which the check gate needs anyway, and the mutation library.
 knowledge-architect asks every target project to carry the maintenance crate of
 `design@agent-skills@xtask-pins-checker`, so that a command of the installed text, such as
 `cargo x gates` or `cargo x mutate`, names one invocation in every project; every target project is
-a Rust project built by Cargo, per `goal@knowledge-architect@serves-one-kind-of-project`. The ask is
-this head's decision, held on its argument: `goal@knowledge-architect@the-owner-decides` reserves to
+a Rust project built by Cargo, per `goal@knowledge-architect@serves-one-kind-of-project`. The ask was
+taken in on the owner's word, and is this head's decision, held on its argument: `goal@knowledge-architect@the-owner-decides` reserves to
 knowledge-architect's owner the conditions and the asks that the scope goal itself names, a git
 repository and the `claude` harness, so an ask a design head holds changes on an argument, and the
 change is reported to the owner. The setup skill states it, and offers a Rust project no local install of the checker, which would

@@ -10,7 +10,7 @@ fixes:
 
 1. **The installed text.**
    - `path@agent-skills@fragments/goal-standard.md`: the three kinds; one direction; no measure; no
-     refinement; the scope kind with rule 8's condition; no rule on a Component's goal. Each rule
+     refinement; the scope kind with its condition, in rule 1; no rule on a Component's goal. Each rule
      keeps a `%%` comment with its case and its reason. Every citation of a rule of the standard by
      its number, in any installed text, is found by a search and rewritten, the numbers changing.
    - `path@agent-skills@content/skills/goal-setting/SKILL.md`: the entry shape, a statement with no
@@ -102,7 +102,7 @@ Each claim on a corpus is tested by reading the corpus, the search being a lead.
 
 - **No goal carries a measure, a fixed block of cases or a refinement.** Test: summed over every
   goals home, `grep -c '^It is met while'`, `grep -c 'for instance:'` and `grep -c 'refines'` give
-  0, 0, and the 2 lines of the root's home that use the word in another sense. Shown to fail: on
+  0, 0, and the 1 line of the root's home that uses the word in another sense. Shown to fail: on
   the commit before the one pass the three sums are 54, 183 and 27.
 - **No Component's goals home holds an entry.** Test: `grep -c '^## '` over each Component's
   docs/goals.md prints 0. Shown to fail: the same on main sums to 33.

@@ -121,7 +121,7 @@ git answers nothing the column shows `-`; and `main_worktree_path`, which adds a
 The library models operations on a repository, each stated in git's own terms: the paths, objects,
 commits, refs and index it reads or writes. Such an operation is one function of the library
 however many git commands it takes, as `snapshot_entries` reads the tree git's index would commit
-through two invocations; rewording a commit's message, or folding a fixup commit into the commit it
+through several git commands; rewording a commit's message, or folding a fixup commit into the commit it
 fixes, would be one too. A step that decides for the matter a tool works on, such as which
 commits to fold or what a check of the result must find, is the tool's, composed from those
 operations, however many tools share it: the library holds no function that chooses which commits

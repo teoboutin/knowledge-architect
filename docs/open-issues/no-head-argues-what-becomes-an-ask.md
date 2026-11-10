@@ -21,7 +21,9 @@ argues it.
 
 The statements, verbatim from the goals that held them, each with what it bound.
 
-From the goal `setup-brings-quality-tools`, which no longer exists:
+From the goal on the quality tools that adoption sets up, which no longer exists and which
+`git show cb8d5a22:docs/goals.md` holds under its heading "Adopting knowledge-architect sets up
+quality tools that serve target projects":
 
 - "each is an ask", said of "the quality tools [...] whose generic part knowledge-architect's owner
   has taken in". It bound every target project to adopt each quality tool taken in.
@@ -51,6 +53,10 @@ From `goal@knowledge-architect@serves-one-kind-of-project`, which no longer hold
 - "that command judges whether the gates let a branch merge, with the same invocation in every
   target project." It bound one merge invocation.
   `issue@gates@the-library-has-no-merge-verdict` holds the work in the library.
+- "A project that follows the workflow is one that has installed it, whether or not it follows
+  every ask yet." It defined the term for every goal that used it. The goal keeps that a project
+  that does not yet follow an ask is still a target project, and no text defines a project that
+  follows the workflow.
 - "How an ask is met in every target project, such as the name of the command and its invocation
   for a merge, is a design decision of knowledge-architect; how one project meets the rest is its
   own." It bound where the shape of an ask is decided.

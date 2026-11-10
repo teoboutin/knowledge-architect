@@ -199,7 +199,9 @@ it is written when the owner wants known work ordered, under `skill@knowledge-ar
 Each document opens with a short introduction saying what it holds and what it does not. An empty
 register home says it holds no entry yet. **The project states its goals in the root's goals
 home**: run `skill@knowledge-architect-goal-setting` with the owner. Each Component's purpose is
-recorded as step 3 of `skill@knowledge-architect-component-creation@creation-procedure` says.
+the statement of the design head that argues its existence, in the root's design home, and no
+goal is written for it, per step 3 of
+`skill@knowledge-architect-component-creation@creation-procedure`.
 
 ## The root CLAUDE.md `##root-claude-md`
 

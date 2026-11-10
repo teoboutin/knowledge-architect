@@ -18,10 +18,9 @@ knowledge-architect serves one kind of project, a target project, which holds al
 - its main branch has a linear history, with no merge commit;
 - its owner has decided to use knowledge-architect.
 
-It asks more of a target project: that it uses both the workflow and the checker, git with its `.git`
-at or above the project, agents under the
-`claude` harness, every gate run through the gates library from one command, and one merge invocation
-of that command. Nothing is guaranteed outside these conditions, or where an ask is not followed.
+It asks more of a target project than these conditions: among what it asks, the project is a git
+repository, and its agents run under the `claude` harness. Nothing is guaranteed outside these
+conditions, or where an ask is not followed.
 
 ## What a program does with it
 

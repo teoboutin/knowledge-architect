@@ -4,7 +4,7 @@ knowledge-architect keeps the design record of a project's documentation checked
 It is built for projects developed mostly by AI agents, and has two parts that work together:
 
 - **A checker**, `klarch`. A project declares in a manifest what it records and where: its
-  components, their design decisions, their goals, their open issues and tripwires. The checker
+  goals, its components, their design decisions, their open issues and tripwires. The checker
   verifies that every reference between those records resolves, that every record has the shape
   its register declares, and that the generated listings are current. Its commands list and
   display the records a session must read before it changes something.

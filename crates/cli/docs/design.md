@@ -39,7 +39,8 @@ the declaration and the conversion each, so a drift between them fails one.
 
 **A check that needs the value alone is made by the declaration, while parsing**, as
 `design@agent-skills@top-level-binary-crate` has this crate apply the checks that can be made while parsing: a date an
-argument takes, a regular expression an argument takes, the form of the name of a project a command creates. Whether a
+argument takes, a regular expression an argument takes, the form of the name of a project a command creates. Three sites check such a value after parsing,
+`issue@cli@some-value-checks-are-made-after-parsing`. Whether a
 value is valid in the project is the tool's to answer, since finding out may take the tool's own logic; so is a value
 that names something in the project, or that the command is asked about, whatever its form. A rule the tool's own type
 holds stays in the tool's crate: the declaration spells it, as a value parser that calls the rule does.

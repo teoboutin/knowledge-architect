@@ -95,8 +95,7 @@ typed API, and what an extension is written against, per
 `create` and `testing` depend on it, and `cli` re-exports what a consumer needs of it, per
 `design@knowledge-architect@the-binary-crate-keeps-the-package-name`. It serves
 `goal@knowledge-architect@documentation-stays-consistent`, under which conformance is established
-by running the checker, so every command that judges a tree, `check`, `commits` and the end of
-`init`, runs these checks from one library; and
+by running the checker, so every command that judges a tree, `check`, `commits` and the end of `init` and of `new-component`, runs these checks from one library; and
 `goal@knowledge-architect@projects-add-their-own-checks`, under which a project's own checks run
 and report with the checker's own, so the checks are a library that a binary registering an
 extension links.
@@ -159,7 +158,7 @@ such crate that depends on it, so the module sits above them all, per
 `design@agent-skills@top-level-binary-crate`. A frontend that is no command line depends on the crates below it, with no
 parser in them. It says nothing of which crates `check` may depend on, which
 `issue@knowledge-architect@the-checker-may-depend-on-every-crate-below-it` holds. `cli` flattens no command of `gates`,
-per `rejected@gates@gates-command-of-the-checker`. The rival, the library and the binary as one crate, saves no
+per `rejected@knowledge-architect@gates-command-of-the-checker`. The rival, the library and the binary as one crate, saves no
 dependency once the commands span crates: `rejected@knowledge-architect@single-crate`.
 
 ### The harness an extension's tests need is a published crate of its own, on which no crate depends `##testing-crate`
@@ -241,9 +240,9 @@ result does not exist without running the project's build or its tests is no com
 per `design@knowledge-architect@mutation-command-host`. A published binary configured by a file lost because it leaves the project no place for its
 other repeated tasks, and adds a configuration format a list in Rust does not need.
 
-The designs this decision did not keep: `rejected@gates@gates-command-of-the-checker`,
-`rejected@gates@gates-binary-configured-by-file` and
-`rejected@gates@each-project-writes-its-runner`.
+The designs this decision did not keep: `rejected@knowledge-architect@gates-command-of-the-checker`,
+`rejected@knowledge-architect@gates-binary-configured-by-file` and
+`rejected@knowledge-architect@each-project-writes-its-runner`.
 
 ### The hand mutation is a published crate of its own, which a project's maintenance crate depends on, and no crate of the checker or the gates links `##mutation-command-host`
 
@@ -257,15 +256,16 @@ The maintenance crate holds the project's repeated tasks beside its gates, per
 `design@agent-skills@xtask-pins-checker`, and every Rust target project has one. The gates library
 runs a project's merge gates, per `design@knowledge-architect@gates-crate`, and a mutation is no gate: hosted
 there, every user of the gates would build the mutation code, `rejected@knowledge-architect@gates-library-hosts-the-mutation`.
-`klarch` is no host either. The owner chose to keep out of `klarch` a tool that runs the project's
-build or its tests, over a command of `klarch` that runs them, which no goal ranks, and was unsure
-of the criterion. The session worded the criterion as a tool whose result does not exist without
+`klarch` is no host either. The owner gave the criterion, that `klarch` holds no tool that runs the
+project's build or its tests, as a first wording, and was unsure of it. The owner's pick of the rule stated
+in a goal, over the session's default of a decision per exception, fell with that goal, which the
+owner ruled no goal: the rule is a decision, and this head holds the exception. The session worded the criterion as a tool whose result does not exist without
 running them, and admitted a command that runs a command its caller names on the invocation where
 its result exists without that run; the owner approved both. The hand mutation's result does not
 exist without running the project's tests, so it stays out, as the gates do, per
-`rejected@gates@gates-command-of-the-checker`. The rule this exception belongs to, that every other
+`rejected@knowledge-architect@gates-command-of-the-checker`. The rule this exception belongs to, that every other
 tool is a command of `klarch`, is argued by no head, which
-`issue@cli@the-rule-of-one-program-for-the-tools-is-argued-by-no-head` holds. A crate of its own was the owner's proposal,
+`issue@knowledge-architect@the-rule-of-one-program-for-the-tools-is-argued-by-no-head` holds. A crate of its own was the owner's proposal,
 argued on these two facts. It serves `goal@knowledge-architect@generic-tools-and-procedures-are-shipped`,
 whose generic part ships as a published crate. The hand mutation judges nothing about the project
 by itself: it runs a step of the development procedure over a mutation a session writes, so it is
@@ -278,8 +278,10 @@ publish order, after the gates library and before `cli`, per `design@knowledge-a
 
 tools/xtask is this repository's maintenance tool, run as `cargo x <command>`. It runs as commands
 the tasks this repository's own instructions require, or whose procedure they fix, per
-`design@xtask@a-local-task-is-the-maintenance-tool-s`: today `changelog`, `skill`, `mutate` and
-`gates`. It is the maintenance crate that knowledge-architect asks of every Rust target project, per
+`design@xtask@a-local-task-is-the-maintenance-tool-s`: today `changelog`, `skill` and `gates`, whose list and flags are
+this repository's while the published library runs them, per `design@knowledge-architect@gates-crate`.
+It also hosts `mutate`, whose logic a published crate ships, per
+`design@knowledge-architect@mutation-command-host`. It is the maintenance crate that knowledge-architect asks of every Rust target project, per
 `design@agent-skills@maintenance-crate-ask`, which this repository, a target project, carries. It
 depends on `cli`, `gates` and `mutate` by path alone, and is never published, so it carries none of
 the files a published crate ships, per `design@knowledge-architect@package-include-whitelist`. It
@@ -819,7 +821,7 @@ Three goals each give a constraint:
 
 The nearest rival keeps entries, such as what is outstanding, in an external tracker that an agent
 reaches through a separate tool. The checker reads the files git lists in one tree, per
-`design@model@git-supplies-the-walk`, and resolves a reference against that tree alone: an entry
+`design@model@git-supplies-the-walk`, and resolves a reference against a tree it reads so, and nothing outside one: an entry
 in a tracker can be the target of no checked reference, it is not versioned with the code, and no
 commit's check reads it.
 
@@ -840,8 +842,9 @@ What the rule admits today:
   `design@create@init-asks-no-confirmation`;
 - `new-component` keeps every byte of the manifest it does not change, per
   `design@create@component-manifest-edit`;
-- `check --fix` and `index` write only files of those two kinds, per
-  `design@check@safe-fix-definition` and `design@check@index-takes-no-dry-run`;
+- `check --fix`, `index` and `install-agent-skills` write only files of those two kinds, per
+  `design@check@safe-fix-definition`, `design@check@index-takes-no-dry-run` and
+  `design@check@owned-namespace-check`;
 - the hand mutation writes a file's earlier content back only over the mutant the run wrote, per
   `design@mutate@restore-by-comparison`.
 
@@ -858,7 +861,8 @@ and the hand mutation runs over uncommitted work, so a line printed after the wr
 nothing.
 
 One case is not settled: a file of the installer's namespace that the version does not ship.
-`design@check@owned-namespace-check` gives it to the install, which removes it, whoever wrote it.
+`design@check@owned-namespace-check` gives it to the install, which removes it, whoever wrote it,
+and so does `check --fix`, per `design@check@fix-scope`, on which `init` and `new-component` end.
 The owner held, of `init`, that removing such a file where the project wrote it is a loss, which
 the run refuses before it writes. `issue@create@init-outside-a-worktree-deletes-an-owned-file-silently`
 holds the work that reconciles the two.

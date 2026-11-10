@@ -48,7 +48,7 @@ What an argument for it has to answer:
   `design@agent-skills@xtask-pins-checker` pins the checker, the gates library and the mutation library by one
   declared version.
 - The exception has no argued reason. Its rival is a `gates` command of `klarch`.
-  `rejected@gates@gates-command-of-the-checker` states the consequence, "It would make `klarch` run cargo, the linter
+  `rejected@knowledge-architect@gates-command-of-the-checker` states the consequence, "It would make `klarch` run cargo, the linter
   and the tests", and no reason why that is refused.
 
 ### Why it matters

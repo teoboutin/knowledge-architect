@@ -92,10 +92,10 @@ whose load fits the bound goes to one agent whole; one above it is split into it
 remainder, packed per `design@query@clusters-packed-under-a-word-bound`, an entry its clusters share
 kept in one of them, per `design@query@shared-entry-in-its-most-tied-cluster`.
 
-It serves `goal@knowledge-architect@agents-work-without-drift` and
+It serves `goal@knowledge-architect@agents-work-without-drift`, under which what agents build stays
+within the recorded design, so an issue is judged beside the design of its own Component; and
 `goal@knowledge-architect@every-target-project-can-adopt-it`, by which what knowledge-architect provides holds
-nothing particular to one target project: an issue is judged beside the design
-of its own Component, and a project of one Component or with a large location, as thaum's `rules`, is
+nothing particular to one target project, so a project of one Component or with a large location, as thaum's `rules`, is
 packed by what its manifest declares. The owner judged an agent that grades an issue of a Component
 whose design it saw none of a major defect, and narrowed it to an issue that cites a head, which the
 rule of `design@query@cluster-rooted-at-a-subject` covers inside a search unit and
@@ -111,8 +111,8 @@ An anchor the tool constructs, the entry anchor of a Directory register or `plan
 search unit that holds its home, so it is never a search unit of its own. Its nearest rival, a
 constructed anchor as a search unit of its own, would pack every entry directory of a Directory
 register as an item of its own, apart from the register's home and its Component's design, against
-`goal@knowledge-architect@agents-work-without-drift`, under which an entry is judged beside the
-design of its own Component.
+`goal@knowledge-architect@agents-work-without-drift`: an entry judged apart from the design of its
+own Component is judged outside the recorded design that goal has the work stay within.
 
 ### An entry that the clusters of a split search unit share is graded in the cluster it is most tied to `##shared-entry-in-its-most-tied-cluster`
 
