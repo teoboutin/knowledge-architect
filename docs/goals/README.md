@@ -28,7 +28,8 @@ These words hold in these senses for the goals of this home:
   gives or one a project declares, such as a decision, a design not kept, something outstanding, or
   a piece of evidence that would flip a decision. A reason recorded beside code or in a commit
   message is none;
-- **a reference**: a pointer by which one text names a recorded item;
+- **a reference**: a pointer by which one text names a recorded item, a file, a directory or a
+  section of a text;
 - **a tool**: something a person or an agent working in a target project runs, other than the
   installed text;
 - **a session**: one run of an AI agent on a project's work;

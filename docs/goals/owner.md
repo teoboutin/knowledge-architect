@@ -11,12 +11,12 @@ rest: a choice between shapes, or between readings of a goal, that all survive t
 contradiction no source or argument resolves.
 
 Whatever the argument settles, the project's owner decides every action that cannot be undone, and
-knowledge-architect's own owner decides each addition, tightening or removal of what
-knowledge-architect asks of every target project, and whether and when it takes in the generic
+knowledge-architect's own owner decides each addition, tightening or removal of a
+condition or an ask of `goal@knowledge-architect@serves-one-kind-of-project`, and whether and when it takes in the generic
 part of a tool or a procedure.
 
-Each decision the agents make that enters the record, and each choice they make that the owner
-could have ruled, reaches the owner, who can contest it: agents decide only while the owner can
+Each decision the agents make that enters the record, and each choice they make on a question
+that is the owner's, reaches the owner, who can contest it: agents decide only while the owner can
 see what they decided.
 
 ## Agents verify the owner's word before acting on it, and build nothing on a contradiction `##the-owner-s-word-is-verified`
@@ -31,6 +31,6 @@ built on it until the owner answers.
 The owner and the agent both propose. Each challenges and refines the other's proposals on their
 failures, their costs and their benefits, grounded in the record and backed by the measurements
 the agent takes, so that the design taken is the one that, under argument, fulfils the goals best
-at acceptable costs. The exchange is open and argued. The owner meets each proposal with its
+at acceptable costs. The exchange is open and argued. The owner meets each proposal of the exchange with its
 grounding and its consequences established, and its rival where one stands, while the owner can
 still challenge it, add an argument or a fact, or change the direction of the design.

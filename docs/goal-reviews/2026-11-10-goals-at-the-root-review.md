@@ -27,8 +27,7 @@ form.
 
 ## Questions open
 
-After round 1, the 17 questions R1 to R17 of the consolidation below, each put to the owner with
-its default. The goals in the tree keep their wording on each of them until the owner answers.
+None after round 1: the owner answered R1 to R17, below. Round 2 has not run.
 
 ## Rounds
 
@@ -37,6 +36,44 @@ its default. The goals in the tree keep their wording on each of them until the 
 Seven goal reviewers, each fresh and in a worktree detached at the commit of the review's record:
 one per file in draft mode, and one over the whole set. Their reports follow as returned, the
 boundary material of each goal included.
+
+#### The owner's answers to R1 to R17
+
+The session put the 17 questions of the consolidation below to the owner in one message, each
+with its default, and told the owner of the one repair it had not applied, on the words "Real use
+is the test". The owner:
+
+> R4: this was never a ruling, but simply a fact, that a mechanical tool simply cannot judge
+> meaning.
+> R6: the changelog cannot be considered "an instruction". I agree on your default wording to fix.
+> R7 should probably move to design as you say
+> agreed on the other defaults.
+
+What the session wrote in the goals on those answers:
+
+- R1, R3, R9, R12, R14 and R17: no change. The scanner stays in the head, "and in the message of
+  its commit" stays, a project's reserved action is read as admitted, the owner changes the
+  direction of a design through a goal, a fact or an argument, a cost the owner weighs being an
+  argument, the two clauses on border cases of the scope stay, and the three statements stay
+  where the list of 21 has them.
+- R2: a reference is "a pointer by which one text names a recorded item, a file, a directory or a
+  section of a text", in the head.
+- R4: the consistency goal states it as a fact and no longer as a bound: the checker and the
+  listing tools "are mechanical, and a mechanical tool cannot judge meaning". The clause "as
+  knowledge-architect ships them ... whatever a project's own checks may do" leaves with the
+  bound. The tools goal is not changed.
+- R5: "A project can host that site when it releases."
+- R6: "needs no instruction from outside what knowledge-architect provides and what its project
+  adds".
+- R7: "learned from use" leaves both goals, as a statement of how the project learns, which is
+  design. The heads the analysis sent the fuller sentences to hold it.
+- R8: the last sentence of the real-use goal is deleted, and "Real use ... is the test" is kept.
+- R10: knowledge-architect's owner decides "each addition, tightening or removal of a condition or
+  an ask of" the scope goal.
+- R11: "each choice they make on a question that is the owner's".
+- R13: "each proposal of the exchange".
+- R15: "a state that does not follow an ask".
+- R16: "Adopting asks little work of them." is deleted.
 
 #### The consolidation of round 1, and the outcome of each finding
 
